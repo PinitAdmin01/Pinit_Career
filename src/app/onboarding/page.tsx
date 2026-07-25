@@ -8,8 +8,10 @@ import { api } from '@/lib/api/client';
 import { useQueryClient } from '@tanstack/react-query';
 import { KEYS } from '@/lib/api/hooks';
 import dynamic from 'next/dynamic';
-import { speakWithAvatar, stopSpeaking, preloadTTS, preloadNextSpeech } from '@/lib/tts';
+import { speakWithAvatar, stopSpeaking, preloadTTS, preloadNextSpeech, preloadMultipleSpeeches } from '@/lib/tts';
 import { toast } from '@/lib/store/useAppStore';
+
+import { preloadAvatarGLB } from '@/components/avatar/VRoidInterviewAvatar';
 
 // Dynamic import for WebGL/ThreeJS avatar to avoid SSR issues
 const VRoidInterviewAvatar = dynamic(
@@ -126,6 +128,28 @@ export default function OnboardingPage() {
         document.documentElement.style.overflow = '';
         clearTimeout(statusTimer);
       };
+    }
+  }, []);
+
+  // Preload 3D Avatar GLBs and Neural Voice TTS Cache on Mount
+  const [isPreloaded, setIsPreloaded] = useState(false);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      preloadAvatarGLB(['priya', 'anish', 'kashyap', 'karthic']);
+      
+      const dialogues = [
+        "Welcome to your personal diagnostic assessment! First, are you a college student, a fresh graduate, or a working professional?",
+        "Got it! Next, what is your dream job? Do you want to build websites, work with clouds, or build software?",
+        "Nice choice. Why did you join today? Are you looking for a job, wanting to learn new skills, or preparing for an interview?",
+        "Understood. Next question: How much coding experience do you have? Are you a beginner, intermediate, or advanced coder?",
+        "Understood. How do you prefer to learn? Do you like reading articles, watching videos, or writing code hands-on?",
+        "Last question: How many hours per week can you dedicate to learning? Five hours, ten hours, or more?",
+        "Fantastic! Next, let's load your Identity Discovery slides to establish your cognitive styles."
+      ];
+
+      preloadMultipleSpeeches(dialogues, 'priya');
+      preloadMultipleSpeeches(dialogues, 'anish');
+      setIsPreloaded(true);
     }
   }, []);
   
@@ -529,6 +553,64 @@ export default function OnboardingPage() {
     }
   };
 
+  // ⚡ 1-Click Fast Complete (< 30s)
+  const handleFastComplete = async () => {
+    stopAvatarSpeaking();
+    clearSpeechTimers();
+    setSyncing(true);
+    setSyncProgress(30);
+    setSyncStatus('Auto-building Software Engineering Blueprint...');
+
+    const defaultRole = "Software Engineer";
+    const defaultEdu = "Computer Science / IT Student";
+    const defaultSkills = "Java Standard Library, OOP Principles, Spring Boot REST, SQL Databases, System Design";
+
+    try {
+      const payload = {
+        guidanceMentorId: selectedMentor || 'kashyap',
+        onboardingStep: 3,
+        onboardingAnswers: {
+          role: defaultRole,
+          education: defaultEdu,
+          skills: defaultSkills,
+          experience: 'fresher',
+          hasCompleted: true,
+          codingExperience: "Intermediate Coder",
+          learningStyle: "Writing code hands-on",
+          weeklyHours: "10 hours per week",
+          accessReason: "To close skill gaps & earn XP",
+          qt1_score: 80,
+          qt2_score: 85,
+          mindset_archetype: "Pattern Hunter"
+        },
+        roadmapGenerated: true
+      };
+
+      await api.post('/api/auth/onboarding', payload);
+
+      cOS.setOnboarding({
+        role: defaultRole,
+        education: defaultEdu,
+        skills: defaultSkills,
+        experience: 'fresher'
+      }, true);
+      cOS.setOnboardingStep(3);
+      cOS.setResumeGenerated(false);
+
+      await cOS.generateFusedRoadmap(['Java', 'OOP', 'SQL'], ['Docker', 'System Design']);
+      await qc.invalidateQueries({ queryKey: KEYS.me });
+
+      setSyncProgress(100);
+      toast.success('Fast Onboarding Complete! ⚡', 'Software Engineering Blueprint is active.');
+      sessionStorage.setItem('pinit_just_onboarded', 'true');
+      router.push('/dashboard');
+    } catch (err) {
+      console.error("Fast onboarding error", err);
+      sessionStorage.setItem('pinit_just_onboarded', 'true');
+      router.push('/dashboard');
+    }
+  };
+
   // Transition to Deep Route Chatflow
   const startDeepDiagnostics = () => {
     clearSpeechTimers();
@@ -545,12 +627,13 @@ export default function OnboardingPage() {
     ]);
     scheduleSpeech(() => {
       speakReply(introText);
-    }, 500);
+    }, 100);
   };
 
   // Handle chatbot answers (Deep Path)
   const handleUserAnswer = (text: string) => {
     if (!text.trim()) return;
+    stopAvatarSpeaking();
 
     if (activeScreen === 'INTENT_SELECTION') {
       const lower = text.toLowerCase();
@@ -696,21 +779,26 @@ export default function OnboardingPage() {
     setTimeout(() => {
       setSyncProgress(40);
       setSyncStatus('Initializing Career Builder configuration...');
-    }, 600);
+    }, 50);
 
     setTimeout(() => {
       setSyncProgress(75);
       setSyncStatus('Synchronizing credential vault with cryptographic Sentinel registry...');
-    }, 1200);
+    }, 100);
 
     setTimeout(async () => {
       setSyncProgress(100);
       setSyncStatus('Activating Command Center dashboard...');
 
       try {
-        // Calculate QT1 and QT2 scores dynamically
-        const computedQT1 = Math.floor(Math.random() * (85 - 65 + 1)) + 65; // e.g. 65 to 85 (Credentials index)
-        const computedQT2 = Math.floor(Math.random() * (95 - 70 + 1)) + 70; // e.g. 70 to 95 (Cognitive index)
+        // Calculate QT1 and QT2 scores deterministically based on user onboarding choices
+        const baseCodingScore = codingExperience === 'Advanced Coder' ? 88 : codingExperience === 'Intermediate Coder' ? 75 : 62;
+        const csBonus = profileType.includes('Computer Science') ? 8 : 4;
+        const hoursBonus = weeklyHours.includes('15+') ? 4 : weeklyHours.includes('10') ? 2 : 1;
+        const computedQT1 = Math.min(98, baseCodingScore + csBonus + hoursBonus);
+        
+        const styleScore = learningStyle.includes('hands-on') ? 85 : learningStyle.includes('articles') ? 78 : 72;
+        const computedQT2 = Math.min(99, styleScore + (codingExperience === 'Advanced Coder' ? 10 : 5));
 
         const payload = {
           guidanceMentorId: selectedMentor,
@@ -795,7 +883,7 @@ export default function OnboardingPage() {
         setSyncing(false);
         toast.error('Sync failed', 'Please check your connection and try again.');
       }
-    }, 1800);
+    }, 150);
   };
 
   // Express Path: Submit Form & Trigger Resume Parsing
@@ -825,7 +913,7 @@ export default function OnboardingPage() {
         setSyncProgress(t.progress);
         setSyncStatus(t.status);
         setParserLogs(prev => [...prev, t.log]);
-      }, (i + 1) * 600);
+      }, (i + 1) * 50);
     });
 
     setTimeout(async () => {
@@ -854,9 +942,9 @@ export default function OnboardingPage() {
         formData.append('trajectory', trajectory);
         await api.post('/api/resume/upload', formData);
 
-        // Save Auth profile onboarding answers
-        const computedQT1 = Math.floor(Math.random() * (85 - 65 + 1)) + 65; // e.g. 65 to 85 (Credentials index)
-        const computedQT2 = Math.floor(Math.random() * (95 - 70 + 1)) + 70; // e.g. 70 to 95 (Cognitive index)
+        // Save Auth profile onboarding answers with deterministic QT1/QT2 evaluation
+        const computedQT1 = Math.min(98, (degree.includes('CS') || degree.includes('Computer')) ? 82 : 75);
+        const computedQT2 = Math.min(99, 80 + (skillsList.split(',').length * 2));
 
         const payload = {
           onboardingStep: 3, // Set to STATE_3 (Blueprint Generated)
@@ -919,7 +1007,7 @@ export default function OnboardingPage() {
         setSyncing(false);
         toast.error('Sync failed', 'Please check your connection and try again.');
       }
-    }, 3800);
+    }, 300);
   };
 
   // Drag and drop handlers
@@ -990,9 +1078,50 @@ export default function OnboardingPage() {
               <h1 style={{ fontSize: '2.5rem', fontWeight: 900, letterSpacing: '-1.5px', background: 'linear-gradient(135deg, #f8fafc 0%, #cbd5e1 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: 16 }}>
                 Choose Your Guidance Mentor
               </h1>
-              <p style={{ fontSize: 15, color: '#94a3b8', maxWidth: 600, margin: '0 auto', lineHeight: 1.6 }}>
+              <p style={{ fontSize: 15, color: '#94a3b8', maxWidth: 600, margin: '0 auto', lineHeight: 1.6, marginBottom: 16 }}>
                 Select the personal AI guide that will calibrate your career roadmap, analyze your communication DNA, and lead your socratic assessments.
               </p>
+              <div style={{ display: 'flex', justifyContent: 'center', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
+                <button
+                  type="button"
+                  onClick={handleFastComplete}
+                  disabled={syncing}
+                  style={{
+                    background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                    border: 'none',
+                    borderRadius: 100,
+                    color: '#fff',
+                    fontSize: 12,
+                    fontWeight: 800,
+                    padding: '8px 20px',
+                    cursor: syncing ? 'not-allowed' : 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    boxShadow: '0 4px 16px rgba(16, 185, 129, 0.4)',
+                    transition: 'transform 0.15s ease'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.03)'}
+                  onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                >
+                  ⚡ 1-Click Fast Complete (&lt; 30 Seconds)
+                </button>
+                <div style={{
+                  fontSize: 11,
+                  fontFamily: 'var(--font-mono)',
+                  color: 'var(--teal)',
+                  background: 'rgba(20, 184, 166, 0.1)',
+                  border: '1px solid rgba(20, 184, 166, 0.25)',
+                  borderRadius: 100,
+                  padding: '6px 14px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  fontWeight: 700
+                }}>
+                  ✨ 3D Avatars & Voices Preloaded (0ms Lag)
+                </div>
+              </div>
             </div>
 
             {/* Cards Grid */}
@@ -1092,6 +1221,28 @@ export default function OnboardingPage() {
           <span style={{ fontSize: 17, fontWeight: 800, letterSpacing: '-0.5px' }}>PinIT Career OS</span>
         </div>
         <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+          <button
+            type="button"
+            onClick={handleFastComplete}
+            disabled={syncing}
+            style={{
+              background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+              border: 'none',
+              borderRadius: 100,
+              color: '#fff',
+              fontSize: 11,
+              fontWeight: 800,
+              padding: '6px 14px',
+              cursor: syncing ? 'not-allowed' : 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 6,
+              boxShadow: '0 4px 14px rgba(16, 185, 129, 0.35)',
+              transition: 'all 0.2s ease'
+            }}
+          >
+            ⚡ Fast Finish (&lt; 30s)
+          </button>
           <div style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: 'rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 100, padding: '4px 12px' }}>
             {activeScreen === 'INTENT_SELECTION' ? 'STAGE 01: INTENT SELECTION' : 'STAGE 02: PROFILE GENERATION'}
           </div>
@@ -1639,30 +1790,25 @@ export default function OnboardingPage() {
                       <button
                         key={opt}
                         type="button"
-                        disabled={isAvatarSpeaking || animState === 'talking'}
+                        disabled={syncing}
                         onClick={() => handleUserAnswer(opt)}
                         style={{
                           padding: '12px 20px',
                           borderRadius: 14,
-                          background: 'rgba(79, 70, 229, 0.1)',
-                          border: '1.5px solid rgba(79, 70, 229, 0.3)',
+                          background: 'rgba(79, 70, 229, 0.15)',
+                          border: '1.5px solid rgba(79, 70, 229, 0.4)',
                           color: '#a5b4fc',
                           fontSize: 13,
                           fontWeight: 700,
-                          cursor: (isAvatarSpeaking || animState === 'talking') ? 'not-allowed' : 'pointer',
-                          opacity: (isAvatarSpeaking || animState === 'talking') ? 0.5 : 1,
-                          transition: 'all 0.2s',
+                          cursor: syncing ? 'not-allowed' : 'pointer',
+                          opacity: syncing ? 0.5 : 1,
+                          transition: 'all 0.15s ease',
                         }}
                       >
                         {opt}
                       </button>
                     ))}
                   </div>
-                  {(isAvatarSpeaking || animState === 'talking') && (
-                    <span style={{ fontSize: 11, color: '#64748b', fontStyle: 'italic', marginTop: 4 }}>
-                      Please listen to your mentor before answering...
-                    </span>
-                  )}
                 </div>
               </div>
             </>

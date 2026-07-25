@@ -114,40 +114,74 @@ export function preloadTTS() {
   // No-op: Render Cloud backend is always preloaded
 }
 
-// Cache to store pre-generated audio buffer for the next slide
-let preloadedAudioCache: { text: string; teacherId: string; buffer: Float32Array; sampleRate: number } | null = null;
+// Cache Map to store preloaded audio buffers for multiple upcoming dialogues
+interface CachedSpeech {
+  buffer: Float32Array;
+  sampleRate: number;
+  teacherId: string;
+}
+
+const preloadedAudioCacheMap = new Map<string, CachedSpeech>();
+
+export function getCleanCacheKey(text: string): string {
+  let sanitized = text
+    .replace(/^\[.*?\]:\s?/, '')
+    .replace(/^[a-zA-Z\s\.\-]+:\s?/, '');
+
+  sanitized = sanitized
+    .replace(/\*.*?\*/g, '')
+    .replace(/\[.*?\]/g, '')
+    .replace(/\(.*?\)/g, '');
+
+  return sanitized.replace(/[✦🤖👋🎯💼🔐🔬⚡✨✓⬡*`_#]/g, '').trim().toLowerCase();
+}
+
+function addToCache(cleanKey: string, val: CachedSpeech) {
+  if (preloadedAudioCacheMap.size >= 25) {
+    const firstKey = preloadedAudioCacheMap.keys().next().value;
+    if (firstKey) preloadedAudioCacheMap.delete(firstKey);
+  }
+  preloadedAudioCacheMap.set(cleanKey, val);
+}
 
 /**
- * Pre-generates the audio buffer for the next slide's dialogue silently in the background.
+ * Pre-generates the audio buffer for the specified dialogue text silently in the background and stores it in cache Map.
  */
-export async function preloadNextSpeech(text: string, teacherId: string) {
+export async function preloadNextSpeech(text: string, teacherId: string, difficulty?: 'easy' | 'normal' | 'hard') {
   if (!text) return;
   try {
-    let sanitized = text
-      .replace(/^\[.*?\]:\s?/, '')
-      .replace(/^[a-zA-Z\s\.\-]+:\s?/, '');
+    const cleanKey = getCleanCacheKey(text);
+    if (!cleanKey) return;
+    if (preloadedAudioCacheMap.has(cleanKey)) return;
 
-    sanitized = sanitized
-      .replace(/\*.*?\*/g, '')
-      .replace(/\[.*?\]/g, '')
-      .replace(/\(.*?\)/g, '');
-
-    const cleanText = sanitized.replace(/[✦🤖👋🎯💼🔐🔬⚡✨✓⬡*`_#]/g, '').trim();
-    if (!cleanText) return;
-
-    const enhancedText = enhanceTextIntonation(cleanText);
+    const enhancedText = enhanceTextIntonation(cleanKey);
     const vibe = detectVibe(enhancedText);
 
-    console.log("[TTS] Preloading next speech in background...");
-    const res = await generateTTSAudio(enhancedText, teacherId, vibe);
-    preloadedAudioCache = { text: cleanText, teacherId, buffer: res.buffer, sampleRate: res.sampleRate };
-    console.log("[TTS] Preload complete for text:", cleanText.substring(0, 35));
+    console.log(`[TTS] Preloading speech in background for key: "${cleanKey.substring(0, 35)}..."`);
+    const res = await generateTTSAudio(enhancedText, teacherId, vibe, difficulty);
+    addToCache(cleanKey, { buffer: res.buffer, sampleRate: res.sampleRate, teacherId });
+    console.log(`[TTS] Preload complete for key: "${cleanKey.substring(0, 35)}..."`);
   } catch (err: any) {
     console.warn("[TTS] Background preloading failed:", err.message);
   }
 }
 
+/**
+ * Preloads multiple dialogue options concurrently.
+ */
+export async function preloadMultipleSpeeches(texts: string[], teacherId: string, difficulty?: 'easy' | 'normal' | 'hard') {
+  if (!texts || texts.length === 0) return;
+  console.log(`[TTS] Preloading ${texts.length} speech variations in background...`);
+  texts.forEach(t => {
+    preloadNextSpeech(t, teacherId, difficulty).catch(() => {});
+  });
+}
+
+let isNeuralReady = true;
+let currentSpeechId = 0;
+
 export function stopSpeaking() {
+  currentSpeechId++;
   if (activeAudio) {
     try { activeAudio.pause(); } catch {}
     activeAudio = null;
@@ -203,13 +237,18 @@ function fallbackWebSpeech(
   teacherId: string,
   onStart: () => void,
   onEnd: () => void,
-  vibe: 'happy' | 'motivational' | 'teaching' | 'neutral' = 'neutral'
+  vibe: 'happy' | 'motivational' | 'teaching' | 'neutral' = 'neutral',
+  speechId = currentSpeechId,
+  difficulty?: 'easy' | 'normal' | 'hard'
 ) {
+  if (speechId !== currentSpeechId) return;
   if (typeof window === 'undefined' || !window.speechSynthesis) {
     console.log('[TTS] Simulating audio timing to protect system resources (no speech synth)...');
-    onStart();
+    if (speechId === currentSpeechId) onStart();
     const estimatedDuration = Math.min(6000, Math.max(1800, cleanText.length * 48));
-    setTimeout(onEnd, estimatedDuration);
+    setTimeout(() => {
+      if (speechId === currentSpeechId) onEnd();
+    }, estimatedDuration);
     return;
   }
 
@@ -221,11 +260,18 @@ function fallbackWebSpeech(
   const utterance = new SpeechSynthesisUtterance(cleanText);
 
   // Set up events
-  utterance.onstart = () => onStart();
-  utterance.onend = () => onEnd();
-  utterance.onerror = () => onEnd();
+  utterance.onstart = () => {
+    if (speechId === currentSpeechId) onStart();
+  };
+  utterance.onend = () => {
+    if (speechId === currentSpeechId) onEnd();
+  };
+  utterance.onerror = () => {
+    if (speechId === currentSpeechId) onEnd();
+  };
 
   const speak = () => {
+    if (speechId !== currentSpeechId) return;
     const voices = window.speechSynthesis.getVoices();
     const isFemale = !['anish', 'rohan', 'vikram', 'aditya', 'rajesh', 'abhijit'].includes(teacherId.toLowerCase());
     
@@ -243,10 +289,14 @@ function fallbackWebSpeech(
       utterance.voice = voice;
     }
 
-    utterance.rate = vibe === 'happy' ? 1.05 : vibe === 'motivational' ? 0.95 : 1.0;
+    // easy -> slow/smooth (0.85); hard -> fast/rough (1.25); normal -> default based on vibe
+    let targetRate = difficulty === 'easy' ? 0.85 : difficulty === 'hard' ? 1.25 : (vibe === 'happy' ? 1.05 : vibe === 'motivational' ? 0.95 : 1.0);
+    utterance.rate = targetRate;
     utterance.pitch = isFemale ? 1.1 : 0.95;
 
-    window.speechSynthesis.speak(utterance);
+    if (speechId === currentSpeechId) {
+      window.speechSynthesis.speak(utterance);
+    }
   };
 
   if (window.speechSynthesis.getVoices().length === 0) {
@@ -256,17 +306,17 @@ function fallbackWebSpeech(
   }
 }
 
-let isNeuralReady = true;
-let currentSpeechId = 0;
+export async function generateTTSAudio(text: string, teacherId: string, vibe = 'neutral', difficulty?: 'easy' | 'normal' | 'hard'): Promise<{ buffer: Float32Array; sampleRate: number }> {
+  // easy -> smooth/patient (0.95 speed); hard -> aggressive/rapid (1.3 speed); normal -> default (1.1 speed)
+  const targetSpeed = difficulty === 'easy' ? 0.95 : difficulty === 'hard' ? 1.3 : 1.1;
 
-export async function generateTTSAudio(text: string, teacherId: string, vibe = 'neutral'): Promise<{ buffer: Float32Array; sampleRate: number }> {
   const response = await fetch('https://pinit-backend-v8pd.onrender.com/api/tts', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       text,
       voice: KOKORO_VOICE_MAP[teacherId.toLowerCase()] || 'af_heart',
-      speed: 1.1
+      speed: targetSpeed
     })
   });
 
@@ -287,10 +337,11 @@ export async function speakWithAvatar(
   onStart: () => void,
   onEnd: () => void,
   isMuted = false,
-  useNeural = true
+  useNeural = true,
+  difficulty?: 'easy' | 'normal' | 'hard'
 ) {
   stopSpeaking();
-  const mySpeechId = ++currentSpeechId;
+  const mySpeechId = currentSpeechId; // stopSpeaking() already incremented currentSpeechId!
   if (isMuted || !text) return;
 
   let sanitized = text
@@ -308,41 +359,46 @@ export async function speakWithAvatar(
   const enhancedText = enhanceTextIntonation(cleanText);
   const vibe = detectVibe(enhancedText);
 
-  // Play immediately if we have a match in the preloaded background cache!
-  if (useNeural && isNeuralReady && preloadedAudioCache && preloadedAudioCache.text === cleanText && preloadedAudioCache.teacherId === teacherId) {
-    try {
-      console.log("[TTS] Playing instantly from background preload cache! 🚀");
-      const { buffer, sampleRate } = preloadedAudioCache;
-      preloadedAudioCache = null; // Clear cache once consumed
-      
-      const ctx = getAudioContext(sampleRate);
-      const audioBuf = ctx.createBuffer(1, buffer.length, sampleRate);
-      audioBuf.copyToChannel(buffer as any, 0);
+  // Play immediately if we have a match in our preloaded cache Map!
+  const cleanKey = getCleanCacheKey(text);
+  if (useNeural && isNeuralReady && preloadedAudioCacheMap.has(cleanKey)) {
+    const match = preloadedAudioCacheMap.get(cleanKey);
+    if (match && match.teacherId === teacherId) {
+      if (mySpeechId !== currentSpeechId) return;
+      try {
+        console.log(`[TTS] Playing instantly from cache Map! 🚀 Key: "${cleanKey.substring(0, 35)}..."`);
+        const { buffer, sampleRate } = match;
+        preloadedAudioCacheMap.delete(cleanKey); // Consume cache once played
+        
+        const ctx = getAudioContext(sampleRate);
+        const audioBuf = ctx.createBuffer(1, buffer.length, sampleRate);
+        audioBuf.copyToChannel(buffer as any, 0);
 
-      const source = ctx.createBufferSource();
-      activeSource = source;
-      source.buffer = audioBuf;
+        const source = ctx.createBufferSource();
+        activeSource = source;
+        source.buffer = audioBuf;
 
-      source.connect(ctx.destination);
-      source.onended = () => {
-        if (activeSource === source) activeSource = null;
-        onEnd();
-      };
-      onStart();
-      source.start(0);
-      return;
-    } catch (err: any) {
-      console.warn('[TTS] Failed to play from preload cache, falling back to network fetch:', err.message);
+        source.connect(ctx.destination);
+        source.onended = () => {
+          if (activeSource === source) activeSource = null;
+          if (mySpeechId === currentSpeechId) onEnd();
+        };
+        if (mySpeechId === currentSpeechId) onStart();
+        source.start(0);
+        return;
+      } catch (err: any) {
+        console.warn('[TTS] Failed to play from preload cache map:', err.message);
+      }
     }
   }
 
   // Local Web Worker (Kokoro / KittenTTS Nano) - Offline, browser-native execution
   if (useNeural && isNeuralReady) {
     try {
-      // Race worker generation against a 15.0s timeout to prevent hanging the UI
-      const workerPromise = generateTTSAudio(enhancedText, teacherId, vibe);
+      // Race worker generation against a 1.5s timeout to prevent hanging the UI
+      const workerPromise = generateTTSAudio(enhancedText, teacherId, vibe, difficulty);
       const timeoutPromise = new Promise<{ buffer: Float32Array; sampleRate: number }>((_, reject) =>
-        setTimeout(() => reject(new Error('Neural TTS timeout')), 15000)
+        setTimeout(() => reject(new Error('Neural TTS timeout')), 1500)
       );
 
       const { buffer, sampleRate } = await Promise.race([workerPromise, timeoutPromise]);
@@ -362,9 +418,9 @@ export async function speakWithAvatar(
       source.connect(ctx.destination);
       source.onended = () => {
         if (activeSource === source) activeSource = null;
-        onEnd();
+        if (mySpeechId === currentSpeechId) onEnd();
       };
-      onStart();
+      if (mySpeechId === currentSpeechId) onStart();
       source.start(0);
       return;
     } catch (err: any) {
@@ -375,7 +431,7 @@ export async function speakWithAvatar(
   if (mySpeechId !== currentSpeechId) return;
 
   // Fallback: Safe simulated timing
-  fallbackWebSpeech(enhancedText, teacherId, onStart, onEnd, vibe);
+  fallbackWebSpeech(enhancedText, teacherId, onStart, onEnd, vibe, mySpeechId, difficulty);
 }
 
 // Auto-initialize background worker & preload TTS engine immediately on script load

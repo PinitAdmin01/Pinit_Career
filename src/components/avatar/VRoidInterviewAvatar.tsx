@@ -97,11 +97,11 @@ class AvatarScene {
     else if (id === 'kashyap') modelName = 'mika.glb';
     else if (id === 'karthic') modelName = 'sora.glb';
     else if (id === 'maya') modelName = 'yuki.glb';
-    else if (id === 'divya') modelName = 'sora.glb';
+    else if (id === 'divya') modelName = 'yuki.glb';
     else if (id === 'vikram') modelName = 'kaito.glb';
     else if (id === 'shalini') modelName = 'rei.glb';
     else if (id === 'aditya') modelName = 'sora.glb';
-    else if (id === 'neha') modelName = 'mika.glb';
+    else if (id === 'neha') modelName = 'rei.glb';
     else if (id === 'rajesh') modelName = 'riku.glb';
     else if (id === 'sneha') modelName = 'hana.glb';
     else if (id === 'abhijit') modelName = 'kaito.glb';
@@ -566,4 +566,23 @@ export default function VRoidInterviewAvatar({ teacherId = 'priya', animState = 
       <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
     </div>
   );
+}
+
+export function preloadAvatarGLB(teacherIds: string[] = ['priya', 'anish', 'kashyap', 'karthic']) {
+  if (typeof window === 'undefined') return;
+  const modelMap: Record<string, string> = {
+    priya: 'hana.glb',
+    anish: 'riku.glb',
+    aisha: 'yuki.glb',
+    rohan: 'akira.glb',
+    kashyap: 'mika.glb',
+    karthic: 'sora.glb',
+    maya: 'yuki.glb',
+    divya: 'yuki.glb'
+  };
+  teacherIds.forEach(id => {
+    const file = modelMap[id.toLowerCase()] || 'hana.glb';
+    const url = `/avatars/${file}`;
+    fetch(url, { mode: 'cors', cache: 'force-cache' }).catch(() => {});
+  });
 }
