@@ -331,6 +331,20 @@ export async function generateTTSAudio(text: string, teacherId: string, vibe = '
   return { buffer, sampleRate: audioBuf.sampleRate };
 }
 
+const STATIC_AUDIO_MAPPING: Record<string, string> = {
+  "welcome to your personal diagnostic assessment first are you a college student a fresh graduate or a working professional": "step0.wav",
+  "got it next what is your dream job do you want to build websites work with clouds or build software": "step1.wav",
+  "nice choice why did you join today are you looking for a job wanting to learn new skills or preparing for an interview": "step2.wav",
+  "understood next question how much coding experience do you have are you a beginner intermediate or advanced coder": "step3.wav",
+  "understood how do you prefer to learn do you like reading articles watching videos or writing code hands on": "step4.wav",
+  "last question how many hours per week can you dedicate to learning five hours ten hours or more": "step5.wav",
+  "fantastic next let s load your identity discovery slides to establish your cognitive styles": "step6.wav"
+};
+
+function normalizeKeyForStatic(key: string): string {
+  return key.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+}
+
 export async function speakWithAvatar(
   text: string,
   teacherId: string,
@@ -358,9 +372,22 @@ export async function speakWithAvatar(
 
   const enhancedText = enhanceTextIntonation(cleanText);
   const vibe = detectVibe(enhancedText);
+  const cleanKey = getCleanCacheKey(text);
+  const normalizedKey = normalizeKeyForStatic(cleanKey);
+
+  // ── Tier 0: Instant Static Pre-rendered Neural Audio Files (0ms Latency) ──
+  const mappedFileName = STATIC_AUDIO_MAPPING[normalizedKey];
+  if (mappedFileName && typeof window !== 'undefined') {
+    const mentorFolder = teacherId.toLowerCase();
+    const staticUrl = `/audio/${mentorFolder}/${mappedFileName}`;
+    console.log(`[TTS] Playing instant static pre-rendered audio: ${staticUrl} 🚀`);
+    playCloudAudioUrl(staticUrl, onStart, () => {
+      if (mySpeechId === currentSpeechId) onEnd();
+    });
+    return;
+  }
 
   // Play immediately if we have a match in our preloaded cache Map!
-  const cleanKey = getCleanCacheKey(text);
   if (useNeural && isNeuralReady && preloadedAudioCacheMap.has(cleanKey)) {
     const match = preloadedAudioCacheMap.get(cleanKey);
     if (match && match.teacherId === teacherId) {
