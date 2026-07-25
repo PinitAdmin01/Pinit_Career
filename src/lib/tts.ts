@@ -395,10 +395,10 @@ export async function speakWithAvatar(
   // Local Web Worker (Kokoro / KittenTTS Nano) - Offline, browser-native execution
   if (useNeural && isNeuralReady) {
     try {
-      // Race worker generation against a 1.5s timeout to prevent hanging the UI
+      // Race worker generation against a 10.0s timeout to prevent hanging the UI
       const workerPromise = generateTTSAudio(enhancedText, teacherId, vibe, difficulty);
       const timeoutPromise = new Promise<{ buffer: Float32Array; sampleRate: number }>((_, reject) =>
-        setTimeout(() => reject(new Error('Neural TTS timeout')), 1500)
+        setTimeout(() => reject(new Error('Neural TTS timeout')), 10000)
       );
 
       const { buffer, sampleRate } = await Promise.race([workerPromise, timeoutPromise]);
@@ -424,14 +424,14 @@ export async function speakWithAvatar(
       source.start(0);
       return;
     } catch (err: any) {
-      console.warn('[TTS] Render Cloud TTS generation failed, falling back to Web Speech Synthesis:', err.message);
+      console.warn('[TTS] Render Cloud TTS generation failed:', err.message);
     }
   }
 
-  if (mySpeechId !== currentSpeechId) return;
-
-  // Fallback: Safe simulated timing
-  fallbackWebSpeech(enhancedText, teacherId, onStart, onEnd, vibe, mySpeechId, difficulty);
+  // If neural speech fails or is not ready, trigger onEnd to prevent locking UI states
+  if (mySpeechId === currentSpeechId) {
+    onEnd();
+  }
 }
 
 // Auto-initialize background worker & preload TTS engine immediately on script load

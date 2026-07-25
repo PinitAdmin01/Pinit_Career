@@ -76,48 +76,8 @@ export function useTTS() {
       source.start(0);
       return; // ✅ Success
     } catch (err) {
-      console.warn('[useTTS] Main-thread generation fallback to Web Speech:', err.message);
+      console.warn('[useTTS] Main-thread generation failed:', err.message);
     }
-
-    // ── Tier 4: Browser Web Speech API fallback ───────────────────────────
-    if (!speakingRef.current) return;
-
-    const synth = synthRef.current;
-    if (!synth) return;
-
-    const utt = new SpeechSynthesisUtterance(plain);
-    
-    // Set base rate and pitch
-    let rate = 0.92;
-    let pitch = (teacherId === 'priya' || teacherId === 'aisha' || teacherId === 'maya' || teacherId === 'divya' || teacherId === 'shalini' || teacherId === 'sneha' || teacherId === 'neha') ? 1.1 : 0.88;
-
-    if (vibe === 'happy') {
-      rate = 1.00;
-      pitch += 0.05;
-    } else if (vibe === 'motivational') {
-      rate = 0.86;
-      pitch -= 0.02;
-    }
-
-    utt.rate   = rate;
-    utt.pitch  = pitch;
-    utt.lang   = 'en-US';
-    utt.volume = 1;
-
-    const voices = synth.getVoices();
-    const isFemale = teacherId === 'priya' || teacherId === 'aisha' || teacherId === 'maya' || teacherId === 'divya' || teacherId === 'shalini' || teacherId === 'sneha' || teacherId === 'neha';
-    const preferred = voices.find(v =>
-      isFemale
-        ? /female|woman|zira|samantha|karen|tessa/i.test(v.name)
-        : /male|man|david|alex|daniel|rishi/i.test(v.name)
-    );
-    if (preferred) utt.voice = preferred;
-
-    await new Promise((resolve) => {
-      utt.onend   = resolve;
-      utt.onerror = resolve;
-      synth.speak(utt);
-    });
   }, [stop]);
 
   return { speak, stop };
