@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, Suspense } from 'react';
 import { useAuth } from '@/lib/context/AuthContext';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { toast } from '@/lib/store/useAppStore';
@@ -139,6 +139,14 @@ function ApplyButton({ opportunityId, title }: { opportunityId: string; title: s
 }
 
 export default function CareerIntelligencePage() {
+  return (
+    <Suspense fallback={<div style={{ padding: 40 }}>Loading...</div>}>
+      <CareerIntelligencePageInner />
+    </Suspense>
+  );
+}
+
+function CareerIntelligencePageInner() {
   const { user } = useAuth();
   const cOS = useCareerOS();
   const { onboardingAnswers, setJdMissingSkills, addXp } = cOS;

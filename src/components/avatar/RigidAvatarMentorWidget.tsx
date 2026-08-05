@@ -71,28 +71,8 @@ class AvatarScene {
     dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/');
     loader.setDRACOLoader(dracoLoader);
     
-    // Choose model paths based on selected teacherId
-    let paths: string[] = [];
-    const id = teacherId.toLowerCase();
-    if (id === 'priya' || id === 'sneha') {
-      paths = ['/avatar/hana.vrm', '/avatar/yuki.vrm'];
-    } else if (id === 'anish' || id === 'rajesh') {
-      paths = ['/avatar/riku.vrm', '/avatar/akira.vrm'];
-    } else if (id === 'aisha' || id === 'maya') {
-      paths = ['/avatar/yuki.vrm', '/avatar/rei.vrm'];
-    } else if (id === 'rohan') {
-      paths = ['/avatar/akira.vrm', '/avatar/riku.vrm'];
-    } else if (id === 'kashyap' || id === 'karthic' || id === 'aditya') {
-      paths = ['/avatar/sora.vrm', '/avatar/kaito.vrm'];
-    } else if (id === 'divya' || id === 'neha') {
-      paths = ['/avatar/mika.vrm', '/avatar/yuki.vrm'];
-    } else if (id === 'vikram' || id === 'abhijit') {
-      paths = ['/avatar/kaito.vrm', '/avatar/riku.vrm'];
-    } else if (id === 'shalini') {
-      paths = ['/avatar/rei.vrm', '/avatar/yuki.vrm'];
-    } else {
-      paths = ['/avatar/hana.vrm', '/avatar/yuki.vrm', '/avatar/mika.vrm'];
-    }
+    const id = teacherId.toLowerCase().trim();
+    const paths = [`/avatar/${id}.glb`, `/avatar/priya.glb`, `/avatar/hana.glb`];
 
     const loadAttempt = (idx: number): Promise<void> => {
       if (idx >= paths.length) return Promise.reject(new Error("No VRMs found"));
@@ -701,7 +681,7 @@ export default function RigidAvatarMentorWidget({
   const [messages,       setMessages]       = useState<Array<{ role: string; content: string }>>([]);
   const [loading,        setLoading]        = useState(false);
   const [speaking,       setSpeaking]       = useState(false);
-  const [localMinimized, setLocalMinimized] = useState(false);
+  const [localMinimized, setLocalMinimized] = useState(true);
   const [mlRecs,         setMlRecs]         = useState<MLRec[]>([]);
   const bottomRef = useRef<HTMLDivElement>(null);
 

@@ -1,7 +1,9 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { api } from '@/lib/api/client';
 
 type PortalRole = 'admin' | 'recruiter' | 'consultant';
+type SettingsTab = 'requirements' | 'rollout' | 'migration' | 'erp' | 'training';
 
 interface RequirementItem {
   id: string;
@@ -175,132 +177,590 @@ const REQUIREMENTS_DATA: Record<PortalRole, RequirementItem[]> = {
   ]
 };
 
-export default function AdminSettingsPage() {
+import { Suspense } from 'react';
+
+function AdminSettingsContent() {
+  const [settingsTab, setSettingsTab] = useState<SettingsTab>('requirements');
   const [activeTab, setActiveTab] = useState<PortalRole>('admin');
 
+  // --- Pilot Rollout States ---
+  const [cohorts, setCohorts] = useState([
+    { name: 'CSE Pilot Cohort A', size: 60, status: 'Active', launchDate: '2026-07-01' },
+    { name: 'ECE Pilot Cohort B', size: 45, status: 'Training', launchDate: '2026-07-15' },
+    { name: 'ME Pilot Cohort C', size: 30, status: 'Kickoff', launchDate: '2026-08-01' }
+  ]);
+  const [feedbackNote, setFeedbackNote] = useState('');
+  const [selectedCohort, setSelectedCohort] = useState('CSE Pilot Cohort A');
+  const [feedbackLogs, setFeedbackLogs] = useState<any[]>([]);
+
+  // --- Migration States ---
+  const [migrationStep, setMigrationStep] = useState(1);
+  const [targetTable, setTargetTable] = useState('students');
+  const [draggedFile, setDraggedFile] = useState<string | null>(null);
+  const [validationReport, setValidationReport] = useState<any | null>(null);
+  const [isValidating, setIsValidating] = useState(false);
+  const [isImporting, setIsImporting] = useState(false);
+  const [importResult, setImportResult] = useState<any | null>(null);
+
+  // --- ERP Integration States ---
+  const [erpConnector, setErpConnector] = useState('sap');
+  const [erpUrl, setErpUrl] = useState('https://sap.campus-os.edu/odata/v4/');
+  const [erpKey, setErpKey] = useState('••••••••••••••••');
+  const [syncLogs, setSyncLogs] = useState([
+    { id: 1, connector: 'SAP Student Lifecycle', date: '10:15 AM', status: 'Success', count: 45 },
+    { id: 2, connector: 'Canvas LMS Connector', date: 'Yesterday', status: 'Success', count: 88 }
+  ]);
+  const [isSyncing, setIsSyncing] = useState(false);
+
+  // --- Training & Change Management States ---
+  const [trainingList, setTrainingList] = useState([
+    { topic: 'TPO Placement Console Kickoff', date: '2026-07-20', time: '11:00 AM', enrolled: 12, host: 'Dean Academics' },
+    { topic: 'Faculty Mentorship Booking Training', date: '2026-07-22', time: '02:30 PM', enrolled: 24, host: 'Support Desk' }
+  ]);
+  const [newTopic, setNewTopic] = useState('');
+  const [newDate, setNewDate] = useState('');
+  const [newTime, setNewTime] = useState('');
+  const [readinessCheck, setReadinessCheck] = useState([
+    { id: 'item1', task: 'Department Head Orientation Completed', checked: true },
+    { id: 'item2', task: 'ERP Data Schema Alignment Checked', checked: true },
+    { id: 'item3', task: 'Mock Portals verified by TPO officers', checked: false },
+    { id: 'item4', task: 'Student credentials bulk dispatches issued', checked: false }
+  ]);
+
+  // Load Feedback on Mount
+  useEffect(() => {
+    const cachedFeedback = JSON.parse(localStorage.getItem('rollout_feedback_logs') || '[]');
+    setFeedbackLogs(cachedFeedback);
+  }, []);
+
+  // --- Actions ---
+  const handleAddFeedback = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!feedbackNote.trim()) return;
+    try {
+      const res = await api.post<any>('/api/settings/rollout/feedback', {
+        cohort: selectedCohort,
+        note: feedbackNote
+      });
+      if (res.ok) {
+        setFeedbackLogs(prev => [res.feedback, ...prev]);
+        setFeedbackNote('');
+      }
+    } catch {}
+  };
+
+  const handleSimulateDrag = () => {
+    setDraggedFile('students_admissions_roster_2026.csv');
+    setMigrationStep(2);
+  };
+
+  const handleValidateFile = async () => {
+    setIsValidating(true);
+    try {
+      const res = await api.post<any>('/api/settings/migration/validate', {
+        targetTable,
+        fileName: draggedFile
+      });
+      if (res.ok) {
+        setValidationReport(res);
+        setMigrationStep(3);
+      }
+    } catch {}
+    setIsValidating(false);
+  };
+
+  const handleExecuteImport = async () => {
+    setIsImporting(true);
+    try {
+      const res = await api.post<any>('/api/settings/migration/execute', {
+        targetTable
+      });
+      if (res.ok) {
+        setImportResult(res);
+        setMigrationStep(4);
+      }
+    } catch {}
+    setIsImporting(false);
+  };
+
+  const handleResetMigration = () => {
+    setMigrationStep(1);
+    setDraggedFile(null);
+    setValidationReport(null);
+    setImportResult(null);
+  };
+
+  const handleTriggerSync = async () => {
+    setIsSyncing(true);
+    try {
+      const res = await api.post<any>('/api/settings/erp/sync', {
+        connector: erpConnector === 'sap' ? 'SAP Student Lifecycle' : erpConnector === 'oracle' ? 'Oracle PeopleSoft' : erpConnector === 'banner' ? 'Ellucian Banner' : 'Canvas LMS'
+      });
+      if (res.ok) {
+        setSyncLogs(prev => [
+          { id: Date.now(), connector: res.connector, date: res.syncDate, status: 'Success', count: res.recordsMerged },
+          ...prev
+        ]);
+      }
+    } catch {}
+    setIsSyncing(false);
+  };
+
+  const handleAddTraining = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newTopic || !newDate || !newTime) return;
+    setTrainingList(prev => [
+      ...prev,
+      { topic: newTopic, date: newDate, time: newTime, enrolled: 0, host: 'System Administrator' }
+    ]);
+    setNewTopic('');
+    setNewDate('');
+    setNewTime('');
+  };
+
+  const toggleReadiness = (id: string) => {
+    setReadinessCheck(prev =>
+      prev.map(item => item.id === id ? { ...item, checked: !item.checked } : item)
+    );
+  };
+
   return (
-    <div style={{ maxWidth: 960, margin: '0 auto', paddingBottom: 60 }} className="animate-fade-in">
-      {/* Page Title */}
-      <div style={{ marginBottom: 24 }}>
-        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 800, color: 'var(--t1)', marginBottom: 6 }}>
-          ⚙️ Platform Configuration & Requirements
+    <div style={{ maxWidth: 1280, margin: '0 auto', paddingBottom: 60 }} className="animate-fade-in">
+      
+      {/* Header */}
+      <div style={{ marginBottom: 24 }} className="page-header">
+        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 900, letterSpacing: '-0.5px', marginBottom: 4 }}>
+          ⚙️ Enterprise Implementation Suite
         </h1>
-        <p style={{ fontSize: 13.5, color: 'var(--t2)', margin: 0 }}>
-          Manage global API settings and track placement portal requirements, features, and target goal integrations.
+        <p style={{ color: 'var(--t2)', fontSize: 13.5, margin: 0 }}>
+          Manage multi-campus migration wizards, pilot cohort rollouts, ERP endpoints configuration, and change logs.
         </p>
       </div>
 
+      {/* Primary Navigation Tabs */}
+      <div style={{
+        display: 'flex', gap: 6, background: 'var(--bg3)', padding: 4,
+        borderRadius: 'var(--radius)', border: '1px solid var(--border)',
+        marginBottom: 24, width: 'fit-content'
+      }}>
+        {[
+          { id: 'requirements', label: 'Requirements Guide', icon: '📋' },
+          { id: 'rollout', label: 'Pilot Rollout', icon: '🚀' },
+          { id: 'migration', label: 'Migration Wizard', icon: '⚡' },
+          { id: 'erp', label: 'ERP Integrations', icon: '🔌' },
+          { id: 'training', label: 'Change Management', icon: '🎓' }
+        ].map(t => (
+          <button key={t.id} onClick={() => setSettingsTab(t.id as SettingsTab)} style={{
+            padding: '8px 16px', border: 'none', borderRadius: 'var(--radius)', cursor: 'pointer',
+            fontSize: 13, fontWeight: 600, fontFamily: 'var(--font-display)',
+            background: settingsTab === t.id ? 'var(--bg2)' : 'transparent',
+            color: settingsTab === t.id ? 'var(--t1)' : 'var(--t3)',
+            boxShadow: settingsTab === t.id ? 'var(--shadow-sm)' : 'none',
+            transition: 'all 0.15s'
+          }}>
+            {t.icon} {t.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Grid Layout */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: 20, alignItems: 'start' }}>
         
-        {/* Left Column: Requirements Guide */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        {/* Left Area: Dynamic Content based on Tabs */}
+        <div>
           
-          {/* Tabs Menu */}
-          <div style={{ 
-            display: 'flex', 
-            background: 'var(--bg3)', 
-            padding: 4, 
-            borderRadius: 12, 
-            border: '1px solid var(--border)', 
-            gap: 4 
-          }}>
-            {(['admin', 'recruiter', 'consultant'] as const).map(role => (
-              <button
-                key={role}
-                onClick={() => setActiveTab(role)}
-                style={{
-                  flex: 1,
-                  padding: '9px 12px',
-                  borderRadius: 9,
-                  border: 'none',
-                  cursor: 'pointer',
-                  fontSize: 12,
-                  fontWeight: 700,
-                  fontFamily: 'var(--font-display)',
-                  textTransform: 'capitalize',
-                  background: activeTab === role ? 'var(--bg2)' : 'transparent',
-                  color: activeTab === role ? 'var(--t1)' : 'var(--t3)',
-                  boxShadow: activeTab === role ? 'var(--shadow-sm)' : 'none',
-                  transition: 'all 0.15s'
-                }}
-              >
-                {role === 'admin' ? '🛡️ Admin' : role === 'recruiter' ? '🔍 Recruiter' : '🗂️ Consultant'} Requirements
-              </button>
-            ))}
-          </div>
+          {/* TAB 1: REQUIREMENTS */}
+          {settingsTab === 'requirements' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              {/* Tabs Menu */}
+              <div style={{ 
+                display: 'flex', 
+                background: 'var(--bg3)', 
+                padding: 4, 
+                borderRadius: 12, 
+                border: '1px solid var(--border)', 
+                gap: 4,
+                width: 'fit-content'
+              }}>
+                {(['admin', 'recruiter', 'consultant'] as const).map(role => (
+                  <button
+                    key={role}
+                    onClick={() => setActiveTab(role)}
+                    style={{
+                      padding: '7px 16px',
+                      borderRadius: 9,
+                      border: 'none',
+                      cursor: 'pointer',
+                      fontSize: 12,
+                      fontWeight: 700,
+                      fontFamily: 'var(--font-display)',
+                      textTransform: 'capitalize',
+                      background: activeTab === role ? 'var(--bg2)' : 'transparent',
+                      color: activeTab === role ? 'var(--t1)' : 'var(--t3)',
+                      boxShadow: activeTab === role ? 'var(--shadow-sm)' : 'none',
+                      transition: 'all 0.15s'
+                    }}
+                  >
+                    {role === 'admin' ? '🛡️ Admin' : role === 'recruiter' ? '🔍 Recruiter' : '🗂️ Consultant'}
+                  </button>
+                ))}
+              </div>
 
-          {/* Requirements List */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-            {REQUIREMENTS_DATA[activeTab].map(req => (
-              <div 
-                key={req.id} 
-                style={{ 
-                  background: 'var(--card)', 
-                  border: '1px solid var(--border)', 
-                  borderRadius: 14, 
-                  padding: '16px 20px',
-                  transition: 'all 0.15s ease',
-                  position: 'relative'
-                }}
-              >
-                {/* Header */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, marginBottom: 6 }}>
-                  <div style={{ fontWeight: 700, fontSize: 14, color: 'var(--t1)' }}>{req.title}</div>
-                  <span style={{
-                    fontSize: 10,
-                    fontWeight: 700,
-                    padding: '2px 8px',
-                    borderRadius: 6,
-                    fontFamily: 'var(--font-mono)',
-                    background: req.status === 'completed' ? 'var(--green-light)' : 'var(--amber-light)',
-                    color: req.status === 'completed' ? 'var(--green)' : 'var(--amber)',
-                    border: req.status === 'completed' ? '1px solid rgba(5,150,105,0.15)' : '1px solid rgba(217,119,6,0.15)'
-                  }}>
-                    {req.status === 'completed' ? '✓ Active' : '⚡ In Progress'}
-                  </span>
-                </div>
-
-                {/* Description */}
-                <p style={{ fontSize: 12, color: 'var(--t2)', lineHeight: 1.5, margin: '0 0 10px' }}>
-                  {req.description}
-                </p>
-
-                {/* Footer Details */}
-                <div style={{ 
-                  display: 'flex', 
-                  justifyContent: 'space-between', 
-                  alignItems: 'center', 
-                  fontSize: 11, 
-                  borderTop: '1px solid var(--border)', 
-                  paddingTop: 10,
-                  marginTop: 10
-                }}>
-                  <div style={{ color: 'var(--t3)' }}>
-                    Note: <span style={{ color: 'var(--t2)' }}>{req.notes}</span>
+              {/* Requirements List */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {REQUIREMENTS_DATA[activeTab].map(req => (
+                  <div key={req.id} style={card}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, marginBottom: 6 }}>
+                      <div style={{ fontWeight: 700, fontSize: 14, color: 'var(--t1)' }}>{req.title}</div>
+                      <span style={{
+                        fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 6,
+                        fontFamily: 'var(--font-mono)',
+                        background: req.status === 'completed' ? 'var(--green-light)' : 'var(--amber-light)',
+                        color: req.status === 'completed' ? 'var(--green)' : 'var(--amber)',
+                        border: req.status === 'completed' ? '1px solid rgba(5,150,105,0.15)' : '1px solid rgba(217,119,6,0.15)'
+                      }}>
+                        {req.status === 'completed' ? '✓ Active' : '⚡ In Progress'}
+                      </span>
+                    </div>
+                    <p style={{ fontSize: 12, color: 'var(--t2)', lineHeight: 1.5, margin: '0 0 10px' }}>{req.description}</p>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 11, borderTop: '1px solid var(--border)', paddingTop: 10, marginTop: 10 }}>
+                      <div style={{ color: 'var(--t3)' }}>
+                        Note: <span style={{ color: 'var(--t2)' }}>{req.notes}</span>
+                      </div>
+                      {req.fileLink && (
+                        <a href={req.fileLink} style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                          Open {req.fileLabel} ➔
+                        </a>
+                      )}
+                    </div>
                   </div>
-                  {req.fileLink && (
-                    <a 
-                      href={req.fileLink} 
-                      style={{ 
-                        color: 'var(--accent)', 
-                        textDecoration: 'none', 
-                        fontWeight: 700,
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: 4
-                      }}
-                    >
-                      Open {req.fileLabel} ➔
-                    </a>
-                  )}
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* TAB 2: PILOT ROLLOUT */}
+          {settingsTab === 'rollout' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              {/* Cohorts status */}
+              <div style={card}>
+                <div style={cardLabel}>Active Pilot Cohorts</div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 12 }}>
+                  {cohorts.map(c => (
+                    <div key={c.name} style={{ background: 'var(--bg3)', borderRadius: 12, padding: 14, border: '1px solid var(--border)' }}>
+                      <div style={{ fontWeight: 700, fontSize: 13, marginBottom: 4 }}>{c.name}</div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: 'var(--t2)' }}>
+                        <span>Size: {c.size} students</span>
+                        <span style={{
+                          fontWeight: 700,
+                          color: c.status === 'Active' ? 'var(--green)' : c.status === 'Training' ? 'var(--blue)' : 'var(--amber)'
+                        }}>{c.status}</span>
+                      </div>
+                      <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 8 }}>Launch: {c.launchDate}</div>
+                    </div>
+                  ))}
                 </div>
               </div>
-            ))}
-          </div>
+
+              {/* Log Rollout Feedback */}
+              <div style={card}>
+                <div style={cardLabel}>Log Cohort Rollout Observation & Feedback</div>
+                <form onSubmit={handleAddFeedback} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '150px 1fr', gap: 12 }}>
+                    <select className="form-input" style={{ fontSize: 12.5 }} value={selectedCohort} onChange={e => setSelectedCohort(e.target.value)}>
+                      {cohorts.map(c => <option key={c.name} value={c.name}>{c.name}</option>)}
+                    </select>
+                    <input
+                      type="text" className="form-input" style={{ fontSize: 12.5 }}
+                      placeholder="e.g. Students successfully completed orientation. System response was stable."
+                      value={feedbackNote} onChange={e => setFeedbackNote(e.target.value)}
+                    />
+                  </div>
+                  <button type="submit" className="btn-primary" style={{ width: 'fit-content', alignSelf: 'flex-end', fontSize: 12.5 }}>
+                    📝 Post Feedback Log
+                  </button>
+                </form>
+              </div>
+
+              {/* Feedback History logs */}
+              <div style={card}>
+                <div style={cardLabel}>Pilot Observations Logs</div>
+                {feedbackLogs.length === 0 ? (
+                  <div style={{ color: 'var(--t3)', fontSize: 13 }}>No observation feedback logged yet.</div>
+                ) : (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    {feedbackLogs.map((log: any) => (
+                      <div key={log.id} style={{ padding: '10px 14px', background: 'var(--bg3)', borderRadius: 8, border: '1px solid var(--border)', fontSize: 12 }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4, fontWeight: 700 }}>
+                          <span style={{ color: 'var(--accent)' }}>{log.cohort}</span>
+                          <span style={{ fontSize: 10, color: 'var(--t3)' }}>{log.date}</span>
+                        </div>
+                        <div style={{ color: 'var(--t2)' }}>{log.note}</div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* TAB 3: MIGRATION WIZARD */}
+          {settingsTab === 'migration' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div style={card}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+                  <div style={cardLabel}>Enterprise Import & Migration Wizard</div>
+                  <div style={{ fontSize: 11, fontWeight: 700, fontFamily: 'var(--font-mono)', background: 'var(--bg3)', padding: '3px 8px', borderRadius: 4 }}>
+                    Step {migrationStep} of 4
+                  </div>
+                </div>
+
+                {/* Progress Indicators */}
+                <div style={{ display: 'flex', gap: 6, marginBottom: 20 }}>
+                  {['Scope Definition', 'File Upload', 'Validation & Check', 'Database Execution'].map((s, idx) => (
+                    <div key={s} style={{
+                      flex: 1, height: 4, borderRadius: 2,
+                      background: idx + 1 <= migrationStep ? 'var(--accent)' : 'var(--bg3)',
+                      transition: 'all 0.3s'
+                    }} />
+                  ))}
+                </div>
+
+                {/* Step contents */}
+                {migrationStep === 1 && (
+                  <div>
+                    <p style={{ fontSize: 13, color: 'var(--t2)', marginBottom: 14 }}>
+                      Select the destination registry database table target schema:
+                    </p>
+                    <div style={{ display: 'flex', gap: 12, marginBottom: 20 }}>
+                      {[
+                        { id: 'students', label: 'Student Roster', desc: 'Roll numbers, ATS scores, emails' },
+                        { id: 'faculty', label: 'Faculty Directory', desc: 'Staff codes, payroll designations' }
+                      ].map(t => (
+                        <div
+                          key={t.id} onClick={() => setTargetTable(t.id)}
+                          style={{
+                            flex: 1, padding: 16, borderRadius: 12, border: '1px solid var(--border)', cursor: 'pointer',
+                            background: targetTable === t.id ? 'var(--accent-light)' : 'var(--bg3)',
+                            borderColor: targetTable === t.id ? 'var(--accent)' : 'var(--border)',
+                            transition: 'all 0.15s'
+                          }}
+                        >
+                          <div style={{ fontWeight: 700, fontSize: 13, color: 'var(--t1)' }}>{t.label}</div>
+                          <div style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 4 }}>{t.desc}</div>
+                        </div>
+                      ))}
+                    </div>
+                    <div
+                      onClick={handleSimulateDrag}
+                      style={{
+                        border: '2px dashed var(--border)', borderRadius: 12, padding: '30px 20px',
+                        textAlign: 'center', cursor: 'pointer', background: 'var(--bg3)'
+                      }}
+                    >
+                      <span style={{ fontSize: 24, display: 'block', marginBottom: 8 }}>📄</span>
+                      <span style={{ fontSize: 12.5, fontWeight: 600, color: 'var(--accent)' }}>Click to Simulate Excel / CSV Upload</span>
+                      <p style={{ fontSize: 11, color: 'var(--t3)', margin: '4px 0 0' }}>Accepts .csv, .xls, .xlsx files up to 20MB</p>
+                    </div>
+                  </div>
+                )}
+
+                {migrationStep === 2 && (
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, background: 'var(--bg3)', borderRadius: 8, padding: 12, marginBottom: 20 }}>
+                      <span style={{ fontSize: 18 }}>✓</span>
+                      <div>
+                        <div style={{ fontSize: 12.5, fontWeight: 700 }}>{draggedFile}</div>
+                        <div style={{ fontSize: 11, color: 'var(--t3)' }}>Format: CSV File (UTF-8 format)</div>
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
+                      <button className="btn-secondary" style={{ fontSize: 12.5 }} onClick={handleResetMigration}>
+                        Cancel
+                      </button>
+                      <button className="btn-primary" style={{ fontSize: 12.5 }} onClick={handleValidateFile} disabled={isValidating}>
+                        {isValidating ? 'Validating CSV...' : 'Validate CSV Schema ➔'}
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {migrationStep === 3 && validationReport && (
+                  <div>
+                    <div style={{ background: 'var(--amber-light)', border: '1px solid rgba(217,119,6,0.2)', borderRadius: 8, padding: 12, fontSize: 12.5, marginBottom: 16 }}>
+                      ⚠️ <strong>Parsing Report:</strong> Checked {validationReport.rowsDetected} lines. Valid columns matched: <code>{validationReport.validColumns.join(', ')}</code>. Detected 2 syntax errors.
+                    </div>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 20 }}>
+                      {validationReport.issues.map((iss: any) => (
+                        <div key={iss.row} style={{ background: 'var(--bg3)', padding: '8px 12px', borderRadius: 6, fontSize: 11.5, display: 'flex', justifyContent: 'space-between' }}>
+                          <span style={{ color: 'var(--coral)', fontWeight: 700 }}>Row {iss.row}</span>
+                          <span style={{ color: 'var(--t2)' }}>{iss.message}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
+                      <button className="btn-secondary" style={{ fontSize: 12.5 }} onClick={handleResetMigration}>
+                        Cancel
+                      </button>
+                      <button className="btn-primary" style={{ fontSize: 12.5 }} onClick={handleExecuteImport} disabled={isImporting}>
+                        {isImporting ? 'Executing Sync...' : 'Execute Bulk Migration (140 records) ➔'}
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {migrationStep === 4 && importResult && (
+                  <div style={{ textAlign: 'center', padding: '20px 0' }}>
+                    <div style={{ fontSize: 40, marginBottom: 10 }}>🎉</div>
+                    <div style={{ fontSize: 16, fontWeight: 900, marginBottom: 6 }}>Migration Executed Successfully</div>
+                    <p style={{ fontSize: 13, color: 'var(--t2)', maxWidth: 460, margin: '0 auto 20px' }}>
+                      {importResult.message} Integrated <strong>{importResult.loaded}</strong> rows successfully. Failed {importResult.failed} rows.
+                    </p>
+                    <button className="btn-primary" style={{ fontSize: 12.5 }} onClick={handleResetMigration}>
+                      Start New Migration
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* TAB 4: ERP INTEGRATIONS */}
+          {settingsTab === 'erp' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div style={card}>
+                <div style={cardLabel}>Configure Campus Enterprise Resource Planning (ERP) Connections</div>
+                
+                <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
+                  {[
+                    { id: 'sap', label: 'SAP Student Lifecycle' },
+                    { id: 'oracle', label: 'Oracle PeopleSoft' },
+                    { id: 'banner', label: 'Ellucian Banner' },
+                    { id: 'canvas', label: 'Canvas LMS' }
+                  ].map(c => (
+                    <button
+                      key={c.id} onClick={() => setErpConnector(c.id)}
+                      style={{
+                        padding: '6px 12px', border: '1px solid var(--border)', borderRadius: 8, cursor: 'pointer',
+                        fontSize: 11.5, fontWeight: 700,
+                        background: erpConnector === c.id ? 'var(--accent)' : 'var(--bg3)',
+                        color: erpConnector === c.id ? '#fff' : 'var(--t2)'
+                      }}
+                    >
+                      {c.label}
+                    </button>
+                  ))}
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 20 }}>
+                  <div>
+                    <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>ERP OData / REST Endpoint API URL</label>
+                    <input type="text" className="form-input" style={{ width: '100%', fontSize: 12.5 }} value={erpUrl} onChange={e => setErpUrl(e.target.value)} />
+                  </div>
+                  <div>
+                    <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Client Sync Secret Passkey</label>
+                    <input type="password" className="form-input" style={{ width: '100%', fontSize: 12.5 }} value={erpKey} onChange={e => setErpKey(e.target.value)} />
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 10 }}>
+                  <button className="btn-secondary" style={{ fontSize: 12.5 }}>Save Configurations</button>
+                  <button className="btn-primary" style={{ fontSize: 12.5 }} onClick={handleTriggerSync} disabled={isSyncing}>
+                    {isSyncing ? 'Syncing...' : '🔌 Trigger Sync Test'}
+                  </button>
+                </div>
+              </div>
+
+              {/* Sync History Logs */}
+              <div style={card}>
+                <div style={cardLabel}>ERP Sync Execution Logs</div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                  {syncLogs.map(log => (
+                    <div key={log.id} style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', background: 'var(--bg3)', padding: '10px 14px', borderRadius: 8, border: '1px solid var(--border)', fontSize: 12 }}>
+                      <div>
+                        <span style={{ fontWeight: 700 }}>{log.connector}</span>
+                        <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 2 }}>Sync Date: {log.date}</div>
+                      </div>
+                      <div style={{ textAlign: 'right' }}>
+                        <span style={{ color: 'var(--green)', fontWeight: 700 }}>{log.status}</span>
+                        <div style={{ fontSize: 10, color: 'var(--t2)', marginTop: 2 }}>{log.count} records merged</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 5: TRAINING */}
+          {settingsTab === 'training' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              {/* Change management readiness */}
+              <div style={card}>
+                <div style={cardLabel}>Change Management Readiness Checklist</div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                  {readinessCheck.map(item => (
+                    <div
+                      key={item.id} onClick={() => toggleReadiness(item.id)}
+                      style={{
+                        display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px',
+                        background: 'var(--bg3)', borderRadius: 8, border: '1px solid var(--border)',
+                        cursor: 'pointer', fontSize: 12.5
+                      }}
+                    >
+                      <input type="checkbox" checked={item.checked} readOnly style={{ cursor: 'pointer' }} />
+                      <span style={{
+                        color: item.checked ? 'var(--t3)' : 'var(--t1)',
+                        textDecoration: item.checked ? 'line-through' : 'none'
+                      }}>
+                        {item.task}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Scheduled training classes */}
+              <div style={card}>
+                <div style={cardLabel}>Scheduled Training Webinars & Workshops</div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 20 }}>
+                  {trainingList.map(t => (
+                    <div key={t.topic} style={{ background: 'var(--bg3)', padding: '12px 16px', borderRadius: 10, border: '1px solid var(--border)', fontSize: 12.5 }}>
+                      <div style={{ fontWeight: 700, marginBottom: 4 }}>{t.topic}</div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--t2)', fontSize: 11.5 }}>
+                        <span>📅 {t.date} at {t.time}</span>
+                        <span>Enrolled: {t.enrolled} staff</span>
+                      </div>
+                      <div style={{ fontSize: 10, color: 'var(--t3)', marginTop: 6 }}>Instructor Host: {t.host}</div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Add Webinar */}
+                <form onSubmit={handleAddTraining} style={{ display: 'flex', flexDirection: 'column', gap: 12, borderTop: '1px solid var(--border)', paddingTop: 16 }}>
+                  <div style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--t3)' }}>Schedule New Training Webinar</div>
+                  <input
+                    type="text" className="form-input" style={{ fontSize: 12.5 }} placeholder="Webinar Title (e.g. Faculty HR Workspace Orientation)"
+                    value={newTopic} onChange={e => setNewTopic(e.target.value)} required
+                  />
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+                    <input type="date" className="form-input" style={{ fontSize: 12.5 }} value={newDate} onChange={e => setNewDate(e.target.value)} required />
+                    <input type="time" className="form-input" style={{ fontSize: 12.5 }} value={newTime} onChange={e => setNewTime(e.target.value)} required />
+                  </div>
+                  <button type="submit" className="btn-primary" style={{ fontSize: 12.5, width: 'fit-content', alignSelf: 'flex-end' }}>
+                    🗓️ Schedule Session
+                  </button>
+                </form>
+              </div>
+            </div>
+          )}
 
         </div>
 
-        {/* Right Column: Platform Configuration */}
+        {/* Right Area: Sidebar Configurations */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           
           {/* API Keys */}
@@ -314,7 +774,7 @@ export default function AdminSettingsPage() {
             {[
               ['ANTHROPIC_API_KEY', 'Claude Sonnet 4'],
               ['GROQ_API_KEY', 'Llama 3 Instruct'],
-              ['ELEVENLABS_API_KEY', 'ElevenLabs Speech'],
+              ['KOKORO_TTS', 'Kokoro + KittenTTS (Offline — No Key Needed)'],
               ['DATABASE_URL', 'PostgreSQL Main DB']
             ].map(([k, desc]) => (
               <div key={k} style={{ 
@@ -377,3 +837,21 @@ export default function AdminSettingsPage() {
     </div>
   );
 }
+
+export default function AdminSettingsPage() {
+  return (
+    <Suspense fallback={<div style={{ padding: 40, color: 'var(--t3)', textAlign: 'center' }}>Loading Settings...</div>}>
+      <AdminSettingsContent />
+    </Suspense>
+  );
+}
+
+const card: React.CSSProperties = {
+  background: 'var(--bg2)', border: '1px solid var(--border)',
+  borderRadius: 'var(--radius-xl)', padding: 20, boxShadow: 'var(--shadow-sm)'
+};
+const cardLabel: React.CSSProperties = {
+  fontSize: 10.5, letterSpacing: '0.8px', textTransform: 'uppercase',
+  color: 'var(--t3)', fontFamily: 'var(--font-mono)', fontWeight: 600,
+  marginBottom: 14, display: 'block'
+};

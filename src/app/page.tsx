@@ -1,311 +1,1754 @@
 'use client';
-// apps/web/src/app/page.tsx
-// Public landing page — shown to visitors who are NOT logged in.
-// Logged-in users get redirected to /dashboard by AuthContext.
-// No external data fetches — fully static, loads instantly.
-
+import { useState, useEffect, useRef, useCallback, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useAuth } from '@/lib/hooks/useAuth';
+import { supabase } from '@/lib/supabaseClient';
 
-// ── Static data ───────────────────────────────────────────────────────────────
-const STATS = [
-  { value: '10,000+', label: 'Students Onboarded'  },
-  { value: '₹499/mo', label: 'Pro Plan'            },
-  { value: '9',       label: 'Career DNA Dimensions'},
-  { value: '3×',      label: 'More Recruiter Views' },
-];
+function getRedirectPath(email: string | null | undefined, role: string | null | undefined): string {
+  const emailLower = email?.toLowerCase() || '';
+  const roleLower = role?.toLowerCase() || '';
+  if (emailLower === 'admin@pinit.in' || roleLower === 'admin' || roleLower === 'superadmin') return '/admin';
+  if (roleLower === 'teacher' || roleLower === 'faculty') return '/admin/teacher';
+  if (emailLower === 'rec@pinit.in' || roleLower === 'recruiter') return '/recruiter';
+  if (emailLower === 'con@pinit.in' || roleLower === 'consultant') return '/consultant';
+  if (roleLower === 'parent') return '/parent';
+  return '/dashboard';
+}
 
-const FEATURES = [
-  {
-    icon: '🧬', color: 'var(--accent)', title: 'Career DNA',
-    desc: 'A 9-dimension intelligence model that maps your strengths, consistency, communication, and execution into a single evolving profile.',
-    href: '/career-dna',
-  },
-  {
-    icon: '🎯', color: 'var(--teal)', title: 'ATS Score & Gaps',
-    desc: 'Upload your resume and get an instant ATS score with keyword gap analysis — the exact same criteria recruiters use.',
-    href: '/resume',
-  },
-  {
-    icon: '🛡', color: 'var(--green)', title: 'Trust Score',
-    desc: 'Verified through real behaviour: exam integrity, vault certifications, consistent mission completion. Not self-reported.',
-    href: '/trust',
-  },
-  {
-    icon: '⚡', color: 'var(--amber)', title: 'Daily Missions',
-    desc: '5 personalised skill missions generated every morning from your profile gaps. Complete them to raise your scores and earn XP.',
-    href: '/missions',
-  },
-  {
-    icon: '💼', color: 'var(--purple)', title: 'Opportunity Radar',
-    desc: 'Jobs, internships, and scholarships ranked by how well they match your actual skill tags — not just your job title.',
-    href: '/opportunities',
-  },
-  {
-    icon: '🎙', color: 'var(--blue)', title: 'AI Interview Coach',
-    desc: 'Practice with an AI interviewer across HR, technical, and domain rounds. Get scored feedback on every answer.',
-    href: '/interview',
-  },
-];
+type LoginMode = 'password' | 'qr';
+type QRStatus = 'loading' | 'ready' | 'scanned' | 'confirmed' | 'expired';
 
-const HOW_IT_WORKS = [
-  {
-    step: '01', icon: '📄', title: 'Upload your resume',
-    desc: 'Our AI instantly scores it for ATS compliance, identifies skill gaps, and generates your first Career DNA profile.',
-  },
-  {
-    step: '02', icon: '⚡', title: 'Complete daily missions',
-    desc: 'Every morning, 5 personalised skill missions are waiting. Each one closes a real gap in your profile.',
-  },
-  {
-    step: '03', icon: '🎯', title: 'Get matched with opportunities',
-    desc: 'As your scores rise, you appear in recruiter searches. Relevant jobs are ranked by match score, not recency.',
-  },
-];
+function LoginModal({ 
+  onClose, 
+  preselectRole, 
+  loginFn 
+}: { 
+  onClose: () => void; 
+  preselectRole: 'student' | 'teacher' | 'admin' | 'recruiter' | 'consultant' | 'parent' | null;
+  loginFn: (username: string, password: string) => Promise<any>;
+}) {
+  const router = useRouter();
+  const [mode, setMode] = useState<LoginMode>('password');
+  const [form, setForm] = useState({ username: '', password: '' });
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [showPwd, setShowPwd] = useState(false);
+  const [qrToken, setQrToken] = useState<string | null>(null);
+  const [qrUrl, setQrUrl] = useState<string | null>(null);
+  const [qrStatus, setQrStatus] = useState<QRStatus>('loading');
+  const [timeLeft, setTimeLeft] = useState(300);
+  const [qrMessage, setQrMessage] = useState('');
+  const [simulating, setSimulating] = useState(false);
+  const [isLocalSimulation, setIsLocalSimulation] = useState(false);
+  const unsubRef = useRef<(() => void) | null>(null);
 
-const TESTIMONIALS = [
-  {
-    name: 'Priya Sharma', role: 'SDE-1 @ Flipkart', avatar: 'P',
-    quote: 'My ATS score went from 42 to 78 in 3 weeks. Got shortlisted by 4 companies the next month.',
-    college: 'RV College of Engineering',
-  },
-  {
-    name: 'Arjun Mehta', role: 'Data Analyst @ Infosys', avatar: 'A',
-    quote: 'The Career DNA assessment showed me exactly why I was failing interviews. Fixed my communication score, got the offer.',
-    college: 'NIT Surathkal',
-  },
-  {
-    name: 'Sneha Iyer', role: 'Product Intern @ Zepto', avatar: 'S',
-    quote: 'The mission streak kept me accountable. 30 days of missions, then 3 interview calls in a week.',
-    college: 'Christ University',
-  },
-];
+  useEffect(() => {
+    if (preselectRole === 'student') setForm({ username: 'student@pinit.in', password: '111111' });
+    else if (preselectRole === 'teacher') setForm({ username: 'teacher@pinit.in', password: '111111' });
+    else if (preselectRole === 'admin') setForm({ username: 'admin@pinit.in', password: '111111' });
+    else if (preselectRole === 'recruiter') setForm({ username: 'rec@pinit.in', password: '111111' });
+    else if (preselectRole === 'consultant') setForm({ username: 'con@pinit.in', password: '111111' });
+    else if (preselectRole === 'parent') setForm({ username: 'parent@pinit.in', password: '111111' });
+  }, [preselectRole]);
 
-// ── Component ─────────────────────────────────────────────────────────────────
-export default function LandingPage() {
-  const [email, setEmail] = useState('');
+  const createQRSession = useCallback(async () => {
+    if (unsubRef.current) { unsubRef.current(); unsubRef.current = null; }
+    setQrStatus('loading'); setTimeLeft(300); setQrToken(null); setQrUrl(null); setQrMessage(''); setIsLocalSimulation(false);
+    try {
+      const { data, error: err } = await supabase.from('qr_login_sessions').insert({ status: 'ready', expires_at: new Date(Date.now() + 300 * 1000).toISOString() }).select().single();
+      if (err) throw err;
+      const token = data.id;
+      setQrToken(token);
+      const phoneUrl = `${window.location.origin}/qr-confirm?token=${token}`;
+      setQrUrl(`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(phoneUrl)}&bgcolor=ffffff&color=2563eb&margin=10&format=svg`);
+      setQrStatus('ready');
+      const channel = supabase.channel(`qr-login-${token}`).on('postgres_changes', { event: '*', schema: 'public', table: 'qr_login_sessions', filter: `id=eq.${token}` }, async (payload) => {
+        const row = payload.new as any;
+        if (!row) return;
+        if (row.status === 'scanned') { setQrStatus('scanned'); setQrMessage('Phone scanned — verifying biometrics...'); }
+        else if (row.status === 'confirmed') {
+          setQrStatus('confirmed'); setQrMessage('Biometrics Confirmed! Logging in...');
+          try {
+            if (row.access_token && row.refresh_token) {
+              await supabase.auth.setSession({ access_token: row.access_token, refresh_token: row.refresh_token });
+              const { data: { user: authedUser } } = await supabase.auth.getUser();
+              if (!authedUser) throw new Error('Auth session sync failed');
+              await supabase.from('qr_login_sessions').delete().eq('id', token);
+              router.push(getRedirectPath(authedUser.email, authedUser.user_metadata?.role || 'student'));
+            } else if (row.email && row.password) {
+              const appUser = await loginFn(row.email, row.password);
+              await supabase.from('qr_login_sessions').delete().eq('id', token);
+              router.push(getRedirectPath(appUser?.email, appUser?.role));
+            }
+          } catch (authErr: any) { setQrStatus('expired'); setQrMessage('Authentication failed: ' + authErr.message); }
+        } else if (row.status === 'expired') { setQrStatus('expired'); setQrMessage('Session expired.'); }
+      }).subscribe();
+      unsubRef.current = () => { supabase.removeChannel(channel); };
+    } catch {
+      const mockToken = 'mock-sim-' + Math.random().toString(36).substring(2, 11);
+      setQrToken(mockToken); setIsLocalSimulation(true);
+      const phoneUrl = `${window.location.origin}/qr-confirm?token=${mockToken}`;
+      setQrUrl(`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(phoneUrl)}&bgcolor=ffffff&color=2563eb&margin=10&format=svg`);
+      setQrStatus('ready'); setQrMessage('Local simulator mode (Offline Broker)');
+      localStorage.setItem(`qr_session_${mockToken}`, JSON.stringify({ status: 'ready', createdAt: Date.now(), expiresAt: Date.now() + 300 * 1000 }));
+    }
+  }, [loginFn, router]);
+
+  useEffect(() => { if (mode === 'qr') createQRSession(); return () => { if (unsubRef.current) unsubRef.current(); }; }, [mode, createQRSession]);
+  useEffect(() => { if (mode !== 'qr' || (qrStatus !== 'ready' && qrStatus !== 'scanned')) return; const t = setInterval(() => { setTimeLeft(l => { if (l <= 1) { setQrStatus('expired'); clearInterval(t); return 0; } return l - 1; }); }, 1000); return () => clearInterval(t); }, [mode, qrStatus]);
+  useEffect(() => { if (!qrToken || !isLocalSimulation) return; const interval = setInterval(async () => { const valStr = localStorage.getItem(`qr_session_${qrToken}`); if (!valStr) return; try { const val = JSON.parse(valStr); if (val.status === 'scanned' && qrStatus === 'ready') { setQrStatus('scanned'); setQrMessage('Phone scanned — verifying biometrics...'); } else if (val.status === 'confirmed' && qrStatus !== 'confirmed') { if (val.email && val.password) { setQrStatus('confirmed'); setQrMessage('Biometrics Confirmed! Logging in...'); const appUser = await loginFn(val.email, val.password); localStorage.removeItem(`qr_session_${qrToken}`); clearInterval(interval); router.push(getRedirectPath(appUser?.email, appUser?.role)); } } } catch {} }, 1000); return () => clearInterval(interval); }, [qrToken, isLocalSimulation, qrStatus, loginFn, router]);
+
+  const handleSimulateMobileScan = () => {
+    if (!qrToken) return;
+    setSimulating(true); setQrStatus('scanned'); setQrMessage('Biometric scanner active on mobile phone...');
+    const email = form.username || 'student@pinit.in';
+    const pwd = form.password || '111111';
+    setTimeout(async () => {
+      if (isLocalSimulation) {
+        localStorage.setItem(`qr_session_${qrToken}`, JSON.stringify({ status: 'confirmed', email, password: pwd }));
+        setQrStatus('confirmed');
+        const appUser = await loginFn(email, pwd);
+        localStorage.removeItem(`qr_session_${qrToken}`);
+        router.push(getRedirectPath(appUser?.email, appUser?.role));
+      } else {
+        await supabase.from('qr_login_sessions').update({ status: 'confirmed', email, password: pwd }).eq('id', qrToken);
+      }
+      setSimulating(false);
+    }, 1200);
+  };
+
+  const handlePasswordLogin = async (e: React.FormEvent) => {
+    e.preventDefault(); setLoading(true); setError('');
+    try { const appUser = await loginFn(form.username, form.password); router.push(getRedirectPath(appUser?.email, appUser?.role)); }
+    catch (err: any) { setError(err?.message || 'Invalid username or password.'); }
+    finally { setLoading(false); }
+  };
+
+  const minutes = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+  const secs = String(timeLeft % 60).padStart(2, '0');
 
   return (
-    <>
-      <style>{`
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: var(--bg, #0f0f11); color: var(--t1, #f1f0ee); font-family: var(--font-body, Inter, sans-serif); }
-        .landing { max-width: 1200px; margin: 0 auto; padding: 0 24px; position: relative; zIndex: 10; }
-        @keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-8px); } }
-        @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
-        .fade-up { animation: fadeUp 0.6s ease forwards; }
-        .feature-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); border-color: var(--accent) !important; }
-        .feature-card { transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
-        .logo-box { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .logo-box:hover { transform: scale(1.08) rotate(3deg); }
-        .btn-gradient { transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
-        .btn-gradient:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(79,70,229,0.5); filter: brightness(1.08); }
-        .btn-outline { transition: all 0.25s ease; }
-        .btn-outline:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.3) !important; transform: translateY(-1px); }
-      `}</style>
-
-      <div style={{ background:'var(--bg, #0f0f11)', minHeight:'100vh', position: 'relative', overflow: 'hidden' }}>
-        
-        {/* Background Glowing Spheres */}
-        <div style={{ position: 'absolute', top: '-10%', left: '-10%', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(79,70,229,0.07) 0%, transparent 70%)', filter: 'blur(80px)', pointerEvents: 'none', zIndex: 1 }} />
-        <div style={{ position: 'absolute', bottom: '10%', right: '-5%', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(6,182,212,0.05) 0%, transparent 70%)', filter: 'blur(80px)', pointerEvents: 'none', zIndex: 1 }} />
-
-        {/* ── Topbar ─────────────────────────────────────────────────── */}
-        <nav style={{ position:'sticky', top:0, zIndex:50, borderBottom:'1px solid rgba(255,255,255,0.06)', background:'rgba(15,15,17,0.85)', backdropFilter:'blur(12px)' }}>
-          <div className="landing" style={{ display:'flex', alignItems:'center', justifyContent:'space-between', height:60 }}>
-            <Link href="/" style={{ display:'flex', alignItems:'center', gap:10, textDecoration:'none' }}>
-              <div className="logo-box" style={{ width:36, height:36, borderRadius:10, background:'linear-gradient(135deg,#4f46e5,#7c3aed)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:15, fontWeight:800, color:'#fff', fontFamily:'var(--font-display)' }}>Pi</div>
-              <span style={{ fontFamily:'var(--font-display)', fontSize:17, fontWeight:800, color:'#fff', letterSpacing:'-0.5px' }}>PinIT</span>
-              <span style={{ fontSize:10, color:'rgba(255,255,255,0.4)', fontFamily:'var(--font-mono)', padding:'2px 7px', border:'1px solid rgba(255,255,255,0.1)', borderRadius:100 }}>Career OS</span>
-            </Link>
-            <div style={{ display:'flex', gap:8, alignItems:'center' }}>
-              <Link href="/login" style={{ padding:'7px 18px', borderRadius:8, fontSize:13, fontWeight:600, color:'rgba(255,255,255,0.7)', textDecoration:'none', fontFamily:'var(--font-display)', transition: 'color 0.2s' }} onMouseEnter={(e)=>e.currentTarget.style.color='#fff'} onMouseLeave={(e)=>e.currentTarget.style.color='rgba(255,255,255,0.7)'}>Log in</Link>
-              <Link href="/signup" className="btn-gradient" style={{ padding:'8px 20px', borderRadius:8, fontSize:13, fontWeight:700, background:'linear-gradient(135deg,#4f46e5,#7c3aed)', color:'#fff', textDecoration:'none', fontFamily:'var(--font-display)', boxShadow:'0 4px 12px rgba(79,70,229,0.3)' }}>Get started free</Link>
+    <div className="modal-mask-overlay" onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
+      <div className="modal-body-container">
+        <button onClick={onClose} className="modal-dismiss-btn">✕</button>
+        <h2 className="modal-header-title">Sign In</h2>
+        <p className="modal-header-desc">Log in to access your dashboard workspace</p>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 4, background: '#f1f5f9', padding: 4, borderRadius: 10, marginBottom: 20 }}>
+          {['password', 'qr'].map(m => (
+            <button key={m} onClick={() => setMode(m as any)} style={{ padding: '8px 10px', borderRadius: 8, fontSize: 12.5, fontWeight: 700, cursor: 'pointer', border: 'none', background: mode === m ? '#ffffff' : 'transparent', color: mode === m ? '#0f172a' : '#64748b', boxShadow: mode === m ? '0 1px 4px rgba(0,0,0,0.06)' : 'none', transition: 'all 0.2s' }}>
+              {m === 'password' ? 'Password' : 'Scan QR'}
+            </button>
+          ))}
+        </div>
+        {mode === 'password' ? (
+          <form onSubmit={handlePasswordLogin} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <div className="input-group-vertical">
+              <label className="input-label">Username / Email</label>
+              <input type="text" value={form.username} onChange={e => setForm(prev => ({ ...prev, username: e.target.value }))} className="input-textbox" placeholder="admin@pinit.in" required />
             </div>
+            <div className="input-group-vertical">
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <label className="input-label">Password</label>
+                <Link href="/reset-password" style={{ fontSize: 11, color: '#7C3AED', textDecoration: 'none', fontWeight: 600 }}>Forgot?</Link>
+              </div>
+              <input type={showPwd ? 'text' : 'password'} value={form.password} onChange={e => setForm(prev => ({ ...prev, password: e.target.value }))} className="input-textbox" placeholder="••••••••" required />
+            </div>
+            <div className="demo-shortcuts-box">
+              <div className="demo-shortcuts-title">⚡ Quick Demo Shortcuts</div>
+              <div className="demo-buttons-layout">
+                {[{ label: 'Admin', email: 'admin@pinit.in' }, { label: 'Teacher', email: 'teacher@pinit.in' }, { label: 'Recruiter', email: 'rec@pinit.in' }, { label: 'Consultant', email: 'con@pinit.in' }, { label: 'Parent', email: 'parent@pinit.in' }, { label: 'Student', email: 'student@pinit.in' }].map(demo => (
+                  <button key={demo.label} type="button" onClick={() => setForm({ username: demo.email, password: '111111' })} className="demo-pill-btn">{demo.label}</button>
+                ))}
+              </div>
+            </div>
+            {error && <div className="error-alert-banner">⚠️ {error}</div>}
+            <button type="submit" className="pc-btn-primary" style={{ width: '100%', justifyContent: 'center', marginTop: 6 }} disabled={loading}>
+              {loading ? 'Logging in...' : 'Sign In →'}
+            </button>
+          </form>
+        ) : (
+          <div style={{ textAlign: 'center' }}>
+            <div style={{ width: 180, height: 180, margin: '0 auto 16px', border: '1.5px solid #e2e8f0', borderRadius: 16, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f8fafc' }}>
+              {qrStatus === 'loading' ? <div style={{ fontSize: 12, color: '#64748b' }}>Generating QR...</div> : qrUrl ? <img src={qrUrl} alt="QR Code" style={{ width: '100%', height: '100%' }} /> : null}
+            </div>
+            <div style={{ fontSize: 11.5, color: '#64748b', fontFamily: 'monospace', marginBottom: 16 }}>
+              {qrStatus === 'ready' && `Scan with phone · Expiring: ${minutes}:${secs}`}
+              {qrStatus !== 'ready' && qrMessage}
+            </div>
+            {(qrStatus === 'ready' || qrStatus === 'scanned') && (
+              <button type="button" onClick={handleSimulateMobileScan} disabled={simulating} className="pc-btn-outline" style={{ width: '100%', justifyContent: 'center' }}>
+                📱 Simulate Biometrics Scan
+              </button>
+            )}
           </div>
-        </nav>
+        )}
+      </div>
+    </div>
+  );
+}
 
-        {/* ── Hero ───────────────────────────────────────────────────── */}
-        <section style={{ padding:'100px 0 80px', textAlign:'center', position: 'relative', zIndex: 10 }}>
-          <div className="landing">
-            <div style={{ display:'inline-flex', alignItems:'center', gap:8, padding:'6px 16px', borderRadius:100, border:'1px solid rgba(79,70,229,0.3)', background:'rgba(79,70,229,0.06)', marginBottom:28, fontSize:12, fontWeight:600, color:'#818cf8', fontFamily:'var(--font-mono)' }}>
-              ✦ AI-powered career intelligence for Indian students
-            </div>
-            <h1 style={{ fontFamily:'var(--font-display)', fontSize:'clamp(38px,6vw,72px)', fontWeight:800, lineHeight:1.08, letterSpacing:'-2px', marginBottom:24, color:'#fff' }}>
-              Your career. <br />
-              <span style={{ background:'linear-gradient(135deg,#4f46e5,#06b6d4)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent' }}>
-                Engineered by AI.
+function LandingContent() {
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [liveStats, setLiveStats] = useState({
+    activeLearners: '100K+',
+    projectsBuilt: '30K+',
+    expertMentors: '500+',
+    communityMembers: '50K+',
+    hiringPartners: '500+',
+    successRate: '89%'
+  });
+
+  useEffect(() => {
+    // Theme persistence
+    const savedTheme = localStorage.getItem('pc_theme') as 'dark' | 'light' | null;
+    if (savedTheme) {
+      setTheme(savedTheme);
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    }
+
+    // Fetch live stats from Supabase
+    async function fetchStats() {
+      try {
+        const { count: studentCount } = await supabase.from('profiles').select('*', { count: 'exact', head: true });
+        const { count: projectCount } = await supabase.from('user_projects').select('*', { count: 'exact', head: true });
+        if (studentCount && studentCount > 0) {
+          setLiveStats(prev => ({
+            ...prev,
+            activeLearners: studentCount > 1000 ? `${(studentCount / 1000).toFixed(0)}K+` : `${studentCount}+`,
+            projectsBuilt: projectCount && projectCount > 0 ? `${projectCount}+` : prev.projectsBuilt
+          }));
+        }
+      } catch (err) {
+        // Keep resilient fallbacks if offline or unauthenticated
+      }
+    }
+    fetchStats();
+  }, []);
+
+  const handleToggleTheme = () => {
+    const next = theme === 'dark' ? 'light' : 'dark';
+    setTheme(next);
+    localStorage.setItem('pc_theme', next);
+    document.documentElement.setAttribute('data-theme', next);
+  };
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { login } = useAuth();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+  };
+
+  const handleLoginClick = () => {
+    setShowLoginModal(true);
+  };
+
+  const navLinks = [
+    { name: 'What is PinitCareer?', href: '#what-is' },
+    { name: 'How It Works', href: '#how-it-works' },
+    { name: 'AI Roadmap', href: '#ai-roadmap' },
+    { name: 'Community', href: '#community' },
+    { name: 'Code Wars', href: '#code-wars' },
+    { name: 'For Companies', href: '#for-companies' },
+    { name: 'Resources', href: '#resources' },
+    { name: 'Pricing', href: '#pricing' },
+  ];
+
+  return (
+    <div className="landing-page">
+      {/* BACKGROUND ELEMENTS */}
+      <div className="bg-grid-pattern"></div>
+      <div className="floating-blob blob-1"></div>
+      <div className="floating-blob blob-2"></div>
+      <div className="floating-blob blob-3"></div>
+
+      {/* 1. NAVBAR */}
+      <nav className="navbar">
+        <div className="nav-container">
+          <div className="nav-left">
+            <div className="brand-logo">
+              <span className="pi-hex-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" fill="url(#brandGrad)" />
+                  <path d="M9 7H13.5C15.433 7 17 8.567 17 10.5C17 12.433 15.433 14 13.5 14H11V17H9V7Z" fill="white" />
+                  <defs>
+                    <linearGradient id="brandGrad" x1="3" y1="2" x2="21" y2="22" gradientUnits="userSpaceOnUse">
+                      <stop stopColor="#7C3AED" />
+                      <stop offset="1" stopColor="#6366F1" />
+                    </linearGradient>
+                  </defs>
+                </svg>
               </span>
-            </h1>
-            <p style={{ fontSize:'clamp(15px,2vw,20px)', color:'rgba(255,255,255,0.55)', maxWidth:600, margin:'0 auto 40px', lineHeight:1.65 }}>
-              PinIT builds your Career DNA, parses your ATS keyword alignment, and targets custom quests to close your engineering skill gaps.
-            </p>
-            <div style={{ display:'flex', gap:12, justifyContent:'center', flexWrap:'wrap' }}>
-              <Link href="/signup" className="btn-gradient" style={{ padding:'14px 32px', borderRadius:10, fontSize:15, fontWeight:700, background:'linear-gradient(135deg,#4f46e5,#7c3aed)', color:'#fff', textDecoration:'none', fontFamily:'var(--font-display)', boxShadow:'0 6px 24px rgba(79,70,229,0.4)', letterSpacing:'-0.3px' }}>
-                Start free — no pin card
-              </Link>
-              <Link href="/login" className="btn-outline" style={{ padding:'14px 28px', borderRadius:10, fontSize:15, fontWeight:600, border:'1px solid rgba(255,255,255,0.12)', color:'rgba(255,255,255,0.85)', textDecoration:'none', fontFamily:'var(--font-display)', background:'rgba(255,255,255,0.03)' }}>
-                Sign in →
-              </Link>
+              <span className="brand-text">PINITCAREER</span>
             </div>
           </div>
-        </section>
-
-        {/* ── Stats strip ────────────────────────────────────────────── */}
-        <section style={{ padding:'20px 0 60px' }}>
-          <div className="landing">
-            <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(140px,1fr))', gap:1, background:'rgba(255,255,255,0.06)', borderRadius:16, overflow:'hidden', border:'1px solid rgba(255,255,255,0.06)' }}>
-              {STATS.map((s, i) => (
-                <div key={i} style={{ padding:'22px 20px', textAlign:'center', background:'rgba(15,15,17,0.9)' }}>
-                  <div style={{ fontFamily:'var(--font-display)', fontSize:28, fontWeight:800, color:'#fff', letterSpacing:'-1px' }}>{s.value}</div>
-                  <div style={{ fontSize:11.5, color:'rgba(255,255,255,0.45)', marginTop:4, fontFamily:'var(--font-mono)', letterSpacing:'0.5px' }}>{s.label}</div>
-                </div>
-              ))}
-            </div>
+          
+          <div className={`nav-center ${menuOpen ? 'mobile-open' : ''}`}>
+            {navLinks.map(link => (
+              <a key={link.name} href={link.href} className="nav-link" onClick={() => setMenuOpen(false)}>
+                {link.name}
+              </a>
+            ))}
           </div>
-        </section>
 
-        {/* ── How it works ───────────────────────────────────────────── */}
-        <section style={{ padding:'60px 0' }}>
-          <div className="landing">
-            <div style={{ textAlign:'center', marginBottom:48 }}>
-              <div style={{ fontSize:10.5, color:'rgba(255,255,255,0.4)', letterSpacing:'2px', textTransform:'uppercase', fontFamily:'var(--font-mono)', marginBottom:10 }}>How it works</div>
-              <h2 style={{ fontFamily:'var(--font-display)', fontSize:'clamp(26px,4vw,40px)', fontWeight:800, color:'#fff', letterSpacing:'-1px' }}>From confused to career-ready in 30 days</h2>
-            </div>
-            <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))', gap:24 }}>
-              {HOW_IT_WORKS.map((step, i) => (
-                <div key={i} style={{ background:'rgba(255,255,255,0.03)', border:'1px solid rgba(255,255,255,0.08)', borderRadius:16, padding:28, position:'relative' }}>
-                  <div style={{ fontFamily:'var(--font-mono)', fontSize:11, color:'rgba(79,70,229,0.6)', letterSpacing:'2px', marginBottom:16 }}>{step.step}</div>
-                  <div style={{ fontSize:32, marginBottom:14 }}>{step.icon}</div>
-                  <h3 style={{ fontFamily:'var(--font-display)', fontSize:18, fontWeight:700, color:'#fff', marginBottom:10 }}>{step.title}</h3>
-                  <p style={{ fontSize:14, color:'rgba(255,255,255,0.55)', lineHeight:1.65 }}>{step.desc}</p>
-                  {i < HOW_IT_WORKS.length - 1 && (
-                    <div style={{ position:'absolute', right:-14, top:'50%', transform:'translateY(-50%)', fontSize:20, color:'rgba(255,255,255,0.2)', display:'none' }}>→</div>
-                  )}
-                </div>
-              ))}
-            </div>
+          <div className="nav-right">
+            <button className="theme-toggle-btn" onClick={toggleTheme} aria-label="Toggle Theme">
+              {theme === 'dark' ? '🌙' : '☀️'}
+            </button>
+            <button className="nav-login-btn" onClick={handleLoginClick}>Log in</button>
+            <button className="pc-btn-primary nav-cta">Get Started Free</button>
+            <button className="mobile-menu-btn" onClick={() => setMenuOpen(!menuOpen)}>
+              {menuOpen ? '✕' : '☰'}
+            </button>
           </div>
-        </section>
+        </div>
+      </nav>
 
-        {/* ── Features ───────────────────────────────────────────────── */}
-        <section style={{ padding:'60px 0' }}>
-          <div className="landing">
-            <div style={{ textAlign:'center', marginBottom:48 }}>
-              <div style={{ fontSize:10.5, color:'rgba(255,255,255,0.4)', letterSpacing:'2px', textTransform:'uppercase', fontFamily:'var(--font-mono)', marginBottom:10 }}>Features</div>
-              <h2 style={{ fontFamily:'var(--font-display)', fontSize:'clamp(26px,4vw,40px)', fontWeight:800, color:'#fff', letterSpacing:'-1px' }}>Everything your career needs in one OS</h2>
-            </div>
-            <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(320px,1fr))', gap:16 }}>
-              {FEATURES.map((f, i) => (
-                <Link key={i} href={f.href} style={{ textDecoration:'none' }}>
-                  <div className="feature-card" style={{ background:'rgba(255,255,255,0.03)', border:'1px solid rgba(255,255,255,0.07)', borderRadius:16, padding:24, height:'100%', borderTop:`2px solid ${f.color}` }}>
-                    <div style={{ fontSize:28, marginBottom:14 }}>{f.icon}</div>
-                    <h3 style={{ fontFamily:'var(--font-display)', fontSize:17, fontWeight:700, color:'#fff', marginBottom:10 }}>{f.title}</h3>
-                    <p style={{ fontSize:13.5, color:'rgba(255,255,255,0.55)', lineHeight:1.65 }}>{f.desc}</p>
-                    <div style={{ marginTop:16, fontSize:12, fontWeight:600, color:f.color }}>Learn more →</div>
+      <main className="main-content">
+        {/* 2. HERO SECTION */}
+        <section className="hero-section section-padding">
+          <div className="container hero-grid">
+            <div className="hero-left">
+              <div className="badge-pill">The Future of Career Learning</div>
+              <h1 className="hero-title">
+                PinitCareer is More Than Learning.<br />
+                It's Your Complete<br />
+                <span className="text-gradient">Career Operating System.</span>
+              </h1>
+              <p className="hero-subtitle">
+                Learn with AI. Build real skills. Compete with peers. Collaborate in communities. Get discovered by companies. PinitCareer connects learning, projects, reputation, and opportunities into one intelligent ecosystem.
+              </p>
+              <div className="feature-chips">
+                <div className="feature-chip">
+                  <div className="chip-icon">🤖</div>
+                  <div className="chip-text">
+                    <strong>AI-Powered Learning</strong>
+                    <span>Personal AI mentor 24/7 guidance</span>
                   </div>
-                </Link>
-              ))}
+                </div>
+                <div className="feature-chip">
+                  <div className="chip-icon">💼</div>
+                  <div className="chip-text">
+                    <strong>Real Projects</strong>
+                    <span>Build. Deploy. Showcase.</span>
+                  </div>
+                </div>
+                <div className="feature-chip">
+                  <div className="chip-icon">⚔️</div>
+                  <div className="chip-text">
+                    <strong>Code Wars</strong>
+                    <span>Compete. Rank. Win rewards.</span>
+                  </div>
+                </div>
+                <div className="feature-chip">
+                  <div className="chip-icon">🏢</div>
+                  <div className="chip-text">
+                    <strong>Get Hired</strong>
+                    <span>Companies discover and hire you.</span>
+                  </div>
+                </div>
+              </div>
+              <div className="hero-ctas">
+                <button className="pc-btn-primary pc-btn-glow">Start Your Journey – It's Free →</button>
+                <button className="pc-btn-outline">
+                  <span style={{ marginRight: 6 }}>▶</span> Explore How It Works
+                </button>
+              </div>
+              <div className="trust-section">
+                <p className="trust-text">Trusted by 100K+ learners and 500+ companies worldwide</p>
+                <div className="company-logos">
+                  <span className="logo-google">Google</span>
+                  <span className="logo-ms">Microsoft</span>
+                  <span className="logo-tcs">tcs</span>
+                  <span className="logo-infosys">Infosys</span>
+                  <span className="logo-amazon">amazon</span>
+                  <span className="logo-deloitte">Deloitte.</span>
+                </div>
+              </div>
+            </div>
+            <div className="hero-right">
+              <div className="hub-diagram">
+                {/* Central Hexagon Engine Hub (Image 2 WhatsApp Perfect Match) */}
+                <div className="hub-center-hex">
+                  <svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    {/* Outer Hexagon Shape with 3D gradient */}
+                    <polygon points="110,12 195,61 195,159 110,208 25,159 25,61" fill="url(#hexGradient3D)" filter="drop-shadow(0px 14px 36px rgba(124, 58, 237, 0.45))" />
+                    
+                    {/* 3D Hexagon Side Highlights */}
+                    <polygon points="110,12 195,61 195,159 110,208" fill="white" fillOpacity="0.08" />
+                    <polygon points="110,12 25,61 110,208" fill="black" fillOpacity="0.06" />
+
+                    {/* White P Emblem */}
+                    <path d="M92 48H124C136 48 144 57 144 69C144 81 136 90 124 90H106V118H92V48Z" fill="white" />
+
+                    <defs>
+                      <linearGradient id="hexGradient3D" x1="25" y1="12" x2="195" y2="208" gradientUnits="userSpaceOnUse">
+                        <stop stopColor="#8B5CF6" />
+                        <stop offset="0.5" stopColor="#7C3AED" />
+                        <stop offset="1" stopColor="#5B21B6" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                  <div className="hub-center-labels">
+                    <span className="hub-brand-name">PINITCAREER</span>
+                    <span className="hub-sub-name">Your Career Engine</span>
+                  </div>
+                </div>
+
+                {/* 8 Connected Orbit Nodes (Image 2 WhatsApp Layout) */}
+                <div className="hub-node node-top">
+                  <div className="node-icon-circle">🤖</div>
+                  <div className="node-text-wrap">
+                    <strong className="node-title">AI Mentor</strong>
+                    <span className="node-desc">Personalized guidance<br />24/7</span>
+                  </div>
+                </div>
+
+                <div className="hub-node node-top-right">
+                  <div className="node-icon-circle">⚔️</div>
+                  <div className="node-text-wrap">
+                    <strong className="node-title">Code Wars</strong>
+                    <span className="node-desc">Daily challenges<br />Leaderboards</span>
+                  </div>
+                </div>
+
+                <div className="hub-node node-right">
+                  <div className="node-icon-circle">🏢</div>
+                  <div className="node-text-wrap">
+                    <strong className="node-title">Companies</strong>
+                    <span className="node-desc">Real requirements<br />Real hiring</span>
+                  </div>
+                </div>
+
+                <div className="hub-node node-bottom-right">
+                  <div className="node-icon-circle">🏆</div>
+                  <div className="node-text-wrap">
+                    <strong className="node-title">Job Offers</strong>
+                    <span className="node-desc">Internships &<br />Full-time roles</span>
+                  </div>
+                </div>
+
+                <div className="hub-node node-bottom">
+                  <div className="node-icon-circle">💼</div>
+                  <div className="node-text-wrap">
+                    <strong className="node-title">Portfolio</strong>
+                    <span className="node-desc">Projects, skills<br />& achievements</span>
+                  </div>
+                </div>
+
+                <div className="hub-node node-bottom-left">
+                  <div className="node-icon-circle">👥</div>
+                  <div className="node-text-wrap">
+                    <strong className="node-title">Communities</strong>
+                    <span className="node-desc">Learn together<br />Grow together</span>
+                  </div>
+                </div>
+
+                <div className="hub-node node-left">
+                  <div className="node-icon-circle">📚</div>
+                  <div className="node-text-wrap">
+                    <strong className="node-title">Learning</strong>
+                    <span className="node-desc">AI-powered<br />personalized roadmaps</span>
+                  </div>
+                </div>
+
+                <div className="hub-node node-top-left">
+                  <div className="node-icon-circle">💼</div>
+                  <div className="node-text-wrap">
+                    <strong className="node-title">Projects</strong>
+                    <span className="node-desc">Build real-world<br />projects</span>
+                  </div>
+                </div>
+
+                {/* Guidelines SVG with exact node connections & purple orbit dots */}
+                <svg className="hub-lines-svg" viewBox="0 0 500 500">
+                  {/* Outer Orbit Dotted Ring */}
+                  <circle cx="250" cy="250" r="185" stroke="#7C3AED" strokeWidth="1.5" strokeDasharray="3 6" opacity="0.3" fill="none" />
+                  
+                  {/* Radial Spoke Lines to 8 Nodes */}
+                  <line x1="250" y1="250" x2="250" y2="65" stroke="#7C3AED" strokeWidth="1.5" strokeDasharray="3 5" opacity="0.35" />
+                  <line x1="250" y1="250" x2="380" y2="120" stroke="#7C3AED" strokeWidth="1.5" strokeDasharray="3 5" opacity="0.35" />
+                  <line x1="250" y1="250" x2="435" y2="250" stroke="#7C3AED" strokeWidth="1.5" strokeDasharray="3 5" opacity="0.35" />
+                  <line x1="250" y1="250" x2="380" y2="380" stroke="#7C3AED" strokeWidth="1.5" strokeDasharray="3 5" opacity="0.35" />
+                  <line x1="250" y1="250" x2="250" y2="435" stroke="#7C3AED" strokeWidth="1.5" strokeDasharray="3 5" opacity="0.35" />
+                  <line x1="250" y1="250" x2="120" y2="380" stroke="#7C3AED" strokeWidth="1.5" strokeDasharray="3 5" opacity="0.35" />
+                  <line x1="250" y1="250" x2="65" y2="250" stroke="#7C3AED" strokeWidth="1.5" strokeDasharray="3 5" opacity="0.35" />
+                  <line x1="250" y1="250" x2="120" y2="120" stroke="#7C3AED" strokeWidth="1.5" strokeDasharray="3 5" opacity="0.35" />
+
+                  {/* 8 Purple Orbit Connector Dots */}
+                  <circle cx="250" cy="65" r="4" fill="#7C3AED" />
+                  <circle cx="380" cy="120" r="4" fill="#7C3AED" />
+                  <circle cx="435" cy="250" r="4" fill="#7C3AED" />
+                  <circle cx="380" cy="380" r="4" fill="#7C3AED" />
+                  <circle cx="250" cy="435" r="4" fill="#7C3AED" />
+                  <circle cx="120" cy="380" r="4" fill="#7C3AED" />
+                  <circle cx="65" cy="250" r="4" fill="#7C3AED" />
+                  <circle cx="120" cy="120" r="4" fill="#7C3AED" />
+                </svg>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* ── Social proof / testimonials ────────────────────────────── */}
-        <section style={{ padding:'60px 0' }}>
-          <div className="landing">
-            <div style={{ textAlign:'center', marginBottom:48 }}>
-              <h2 style={{ fontFamily:'var(--font-display)', fontSize:'clamp(26px,4vw,40px)', fontWeight:800, color:'#fff', letterSpacing:'-1px' }}>Students who used it, got hired</h2>
+        {/* 3. WHAT IS PINITCAREER? SECTION */}
+        <section id="what-is" className="what-is-section section-padding">
+          <div className="container what-is-grid">
+            {/* Left Column: Platform Overview & Value Proposition */}
+            <div className="what-is-left">
+              <h2>What is PinitCareer?</h2>
+              <p className="section-desc">
+                PinitCareer is an AI-powered career platform that helps students learn the right skills, build real projects, compete with peers, collaborate in communities, and get hired by top-companies.
+              </p>
+              <p className="bold-line">It is not just a learning platform.</p>
+              <p className="bold-line text-purple">It is a career transformation platform.</p>
+              
+              {/* 6 Capability Features Grid */}
+              <div className="features-grid-2x3">
+                <div className="feature-item">
+                  <div className="icon-circ">🤖</div>
+                  <span>AI-driven personalized roadmaps</span>
+                </div>
+                <div className="feature-item">
+                  <div className="icon-circ">📖</div>
+                  <span>Skill-based learning & real projects</span>
+                </div>
+                <div className="feature-item">
+                  <div className="icon-circ">💻</div>
+                  <span>Code-in-portfolio & leaderboards</span>
+                </div>
+                <div className="feature-item">
+                  <div className="icon-circ">👥</div>
+                  <span>Peer collaboration & study groups</span>
+                </div>
+                <div className="feature-item">
+                  <div className="icon-circ">🏷️</div>
+                  <span>Verified portfolio & skill badges</span>
+                </div>
+                <div className="feature-item">
+                  <div className="icon-circ">🔗</div>
+                  <span>Direct access to company requirements & hiring</span>
+                </div>
+              </div>
+
+              {/* Journey Pipeline */}
+              <div className="journey-steps-wrapper">
+                <h4>One Platform. Every Step of Your Career Journey.</h4>
+                <div className="journey-steps">
+                  <div className="j-step"><div className="j-icon-bg">📚</div><span>Learn</span></div>
+                  <div className="j-arrow">→</div>
+                  <div className="j-step"><div className="j-icon-bg">🔨</div><span>Build</span></div>
+                  <div className="j-arrow">→</div>
+                  <div className="j-step"><div className="j-icon-bg">⚔️</div><span>Compete</span></div>
+                  <div className="j-arrow">→</div>
+                  <div className="j-step"><div className="j-icon-bg">👥</div><span>Collaborate</span></div>
+                  <div className="j-arrow">→</div>
+                  <div className="j-step"><div className="j-icon-bg">💼</div><span>Get Hired</span></div>
+                </div>
+              </div>
             </div>
-            <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(300px,1fr))', gap:20 }}>
-              {TESTIMONIALS.map((t, i) => (
-                <div key={i} style={{ background:'rgba(255,255,255,0.03)', border:'1px solid rgba(255,255,255,0.08)', borderRadius:16, padding:24 }}>
-                  <div style={{ fontSize:14, color:'rgba(255,255,255,0.7)', lineHeight:1.65, marginBottom:20, fontStyle:'italic' }}>"{t.quote}"</div>
-                  <div style={{ display:'flex', alignItems:'center', gap:12 }}>
-                    <div style={{ width:40, height:40, borderRadius:'50%', background:'linear-gradient(135deg,#4f46e5,#7c3aed)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:16, fontWeight:800, color:'#fff', flexShrink:0 }}>{t.avatar}</div>
-                    <div>
-                      <div style={{ fontWeight:700, fontSize:13.5, color:'#fff' }}>{t.name}</div>
-                      <div style={{ fontSize:12, color:'rgba(255,255,255,0.45)' }}>{t.role} · {t.college}</div>
+            
+            {/* Right Column: Interactive Student Dashboard Mockup */}
+            <div className="what-is-right">
+              {/* Welcome Back Card with AI Mentor Chat & Career Score */}
+              <div className="glass-card welcome-card">
+                <div className="welcome-header">
+                  <h3>Welcome back, Arjun! 👋</h3>
+                </div>
+                <div className="welcome-body-grid">
+                  {/* AI Mentor Chat Bubble */}
+                  <div className="ai-chat-box">
+                    <div className="ai-avatar-small">🤖</div>
+                    <div className="ai-msg-content">
+                      <strong className="ai-msg-title">Your AI Mentor</strong>
+                      <p className="ai-msg-text">Based on your goals, I've created a personalized roadmap to become a Full Stack Developer in 24 weeks.</p>
+                      <button className="pc-btn-purple-sm">View Roadmap</button>
                     </div>
                   </div>
+
+                  {/* Career Readiness Score Circle */}
+                  <div className="readiness-score-box">
+                    <span className="score-heading">Career Readiness Score</span>
+                    <div className="score-gauge">
+                      <svg width="84" height="84" viewBox="0 0 84 84">
+                        <circle cx="42" cy="42" r="36" stroke="#E2E8F0" strokeWidth="8" fill="none" />
+                        <circle cx="42" cy="42" r="36" stroke="#10B981" strokeWidth="8" fill="none" strokeDasharray="226" strokeDashoffset="50" strokeLinecap="round" transform="rotate(-90 42 42)" />
+                      </svg>
+                      <div className="score-center-val">78%</div>
+                    </div>
+                    <span className="score-subtext">You're on the right track!</span>
+                  </div>
                 </div>
-              ))}
+              </div>
+
+              {/* Your Personalized Roadmap Timeline */}
+              <div className="roadmap-preview-card">
+                <h4>Your Personalized Roadmap</h4>
+                <div className="timeline-cards-grid">
+                  <div className="t-card border-t-green">
+                    <span className="week-label">Week 1-4</span>
+                    <strong className="phase-title">Foundation</strong>
+                    <span className="tech-stack-sub">HTML, CSS, JS, Git</span>
+                    <span className="status-badge status-done">Completed</span>
+                  </div>
+                  <div className="t-card border-t-amber">
+                    <span className="week-label">Week 5-10</span>
+                    <strong className="phase-title">Frontend</strong>
+                    <span className="tech-stack-sub">React, Tailwind, Redux</span>
+                    <span className="status-badge status-prog">In Progress</span>
+                  </div>
+                  <div className="t-card border-t-amber">
+                    <span className="week-label">Week 11-16</span>
+                    <strong className="phase-title">Backend</strong>
+                    <span className="tech-stack-sub">Node.js, Express, MongoDB</span>
+                    <span className="status-badge status-prog">In Progress</span>
+                  </div>
+                  <div className="t-card border-t-purple">
+                    <span className="week-label">Week 17-20</span>
+                    <strong className="phase-title">Real Projects</strong>
+                    <span className="tech-stack-sub">Build & Deploy</span>
+                    <span className="status-badge status-next">Upcoming</span>
+                  </div>
+                  <div className="t-card border-t-purple">
+                    <span className="week-label">Week 21-24</span>
+                    <strong className="phase-title">Interview Ready</strong>
+                    <span className="tech-stack-sub">DSA, System Design</span>
+                    <span className="status-badge status-next">Upcoming</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Dual Action Cards */}
+              <div className="action-cards-row">
+                <div className="glass-card action-card">
+                  <span className="action-lbl">Upcoming Milestone</span>
+                  <strong className="action-title">Build a MERN E-commerce Project</strong>
+                  <span className="action-meta">Due in 5 days</span>
+                  <button className="pc-btn-primary btn-sm">Continue</button>
+                </div>
+                <div className="glass-card action-card">
+                  <span className="action-lbl">Next Challenge</span>
+                  <strong className="action-title">Code War: Array Battle</strong>
+                  <span className="action-meta">Starts in 02:15:30</span>
+                  <button className="pc-btn-purple-outline btn-sm">Join Now</button>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* ── Pricing teaser ─────────────────────────────────────────── */}
-        <section style={{ padding:'60px 0' }}>
-          <div className="landing">
-            <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(260px,1fr))', gap:16, maxWidth:860, margin:'0 auto' }}>
-              {/* Free */}
-              <div style={{ background:'rgba(255,255,255,0.03)', border:'1px solid rgba(255,255,255,0.08)', borderRadius:20, padding:'28px 24px' }}>
-                <div style={{ fontSize:12, fontFamily:'var(--font-mono)', color:'rgba(255,255,255,0.4)', marginBottom:12 }}>FREE FOREVER</div>
-                <div style={{ fontFamily:'var(--font-display)', fontSize:38, fontWeight:800, color:'#fff', marginBottom:4 }}>₹0</div>
-                <div style={{ fontSize:12, color:'rgba(255,255,255,0.4)', marginBottom:24 }}>No pin card needed</div>
-                {['3 AI interviews/month','2 resume uploads','30 mission evaluations','Full Career DNA profile'].map((f,i) => (
-                  <div key={i} style={{ display:'flex', gap:10, marginBottom:10, fontSize:13, color:'rgba(255,255,255,0.65)' }}>
-                    <span style={{ color:'#4f46e5' }}>✓</span>{f}
-                  </div>
-                ))}
-                <Link href="/signup" style={{ display:'block', marginTop:20, padding:'11px', borderRadius:9, background:'rgba(79,70,229,0.15)', border:'1px solid rgba(79,70,229,0.3)', color:'#818cf8', textAlign:'center', textDecoration:'none', fontWeight:700, fontSize:14, fontFamily:'var(--font-display)' }}>
-                  Get started free
-                </Link>
+        {/* 4. HOW STUDENTS GAIN SECTION */}
+        <section id="how-it-works" className="how-gain-section section-padding alt-bg">
+          <div className="container">
+            <h2 className="text-center mb-10 section-title-lg">How Students Gain from PinitCareer</h2>
+            <div className="gain-grid">
+              <div className="gain-card">
+                <div className="g-icon-illustration">
+                  <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                    <rect width="64" height="64" rx="16" fill="#EFF6FF" />
+                    <path d="M16 24H48M16 32H36M16 40H28" stroke="#3B82F6" strokeWidth="3" strokeLinecap="round" />
+                    <circle cx="44" cy="36" r="8" fill="#3B82F6" opacity="0.2" />
+                    <path d="M42 36L44 38L48 34" stroke="#2563EB" strokeWidth="2" strokeLinecap="round" />
+                  </svg>
+                </div>
+                <h3>Personalized AI Roadmaps</h3>
+                <p>AI creates your unique roadmap based on your goals, skills, college, and target companies.</p>
               </div>
 
-              {/* Pro */}
-              <div style={{ background:'linear-gradient(135deg,rgba(79,70,229,0.15),rgba(124,58,237,0.15))', border:'2px solid rgba(79,70,229,0.5)', borderRadius:20, padding:'28px 24px', position:'relative', overflow:'hidden' }}>
-                <div style={{ position:'absolute', top:16, right:16, fontSize:10, background:'#4f46e5', color:'#fff', padding:'3px 9px', borderRadius:100, fontWeight:700, fontFamily:'var(--font-mono)' }}>MOST POPULAR</div>
-                <div style={{ fontSize:12, fontFamily:'var(--font-mono)', color:'rgba(255,255,255,0.4)', marginBottom:12 }}>PRO MONTHLY</div>
-                <div style={{ fontFamily:'var(--font-display)', fontSize:38, fontWeight:800, color:'#fff', marginBottom:4 }}>₹499<span style={{ fontSize:14, fontWeight:400, color:'rgba(255,255,255,0.4)' }}>/mo</span></div>
-                <div style={{ fontSize:12, color:'rgba(255,255,255,0.4)', marginBottom:24 }}>₹4,999/year (save 2 months)</div>
-                {['Unlimited AI interviews','Unlimited resume uploads','Unlimited missions & exams','AI Resume Improve','Full vault access','All avatar modes','Priority support'].map((f,i) => (
-                  <div key={i} style={{ display:'flex', gap:10, marginBottom:10, fontSize:13, color:'rgba(255,255,255,0.75)' }}>
-                    <span style={{ color:'#818cf8' }}>✓</span>{f}
-                  </div>
-                ))}
-                <Link href="/signup" style={{ display:'block', marginTop:20, padding:'11px', borderRadius:9, background:'linear-gradient(135deg,#4f46e5,#7c3aed)', color:'#fff', textAlign:'center', textDecoration:'none', fontWeight:700, fontSize:14, fontFamily:'var(--font-display)', boxShadow:'0 4px 16px rgba(79,70,229,0.4)' }}>
-                  Start Pro free trial
-                </Link>
+              <div className="gain-card">
+                <div className="g-icon-illustration">
+                  <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                    <rect width="64" height="64" rx="16" fill="#F0FDF4" />
+                    <circle cx="32" cy="28" r="12" fill="#10B981" opacity="0.2" />
+                    <path d="M26 28C26 24.6863 28.6863 22 32 22C35.3137 22 38 24.6863 38 28C38 31.3137 35.3137 34 32 34V38" stroke="#059669" strokeWidth="3" strokeLinecap="round" />
+                    <circle cx="32" cy="44" r="2" fill="#059669" />
+                  </svg>
+                </div>
+                <h3>Learn with AI Mentor</h3>
+                <p>Get 24/7 guidance, doubt solving, explanations, and feedback from your AI mentor.</p>
               </div>
-            </div>
-            <div style={{ textAlign:'center', marginTop:28, fontSize:13, color:'rgba(255,255,255,0.4)' }}>
-              Institutions and placement cells — <Link href="/signup" style={{ color:'#818cf8' }}>contact us</Link> for bulk pricing (₹49,999/year/college)
+
+              <div className="gain-card">
+                <div className="g-icon-illustration">
+                  <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                    <rect width="64" height="64" rx="16" fill="#FAF5FF" />
+                    <rect x="18" y="22" width="28" height="18" rx="3" stroke="#9333EA" strokeWidth="2.5" />
+                    <path d="M14 42H50" stroke="#9333EA" strokeWidth="3" strokeLinecap="round" />
+                  </svg>
+                </div>
+                <h3>Build Real Projects</h3>
+                <p>Build industry projects, collaborate with peers, and create an impressive portfolio.</p>
+              </div>
+
+              <div className="gain-card">
+                <div className="g-icon-illustration">
+                  <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                    <rect width="64" height="64" rx="16" fill="#FEF3C7" opacity="0.5" />
+                    <path d="M22 22H42V32C42 37.5228 37.5228 42 32 42C26.4772 42 22 37.5228 22 32V22Z" fill="#F59E0B" opacity="0.3" stroke="#D97706" strokeWidth="2.5" />
+                    <path d="M32 42V48M24 48H40" stroke="#D97706" strokeWidth="2.5" strokeLinecap="round" />
+                  </svg>
+                </div>
+                <h3>Compete & Rank</h3>
+                <p>Participate in code wars, contests, and hackathons. Climb leaderboards.</p>
+              </div>
+
+              <div className="gain-card">
+                <div className="g-icon-illustration">
+                  <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                    <rect width="64" height="64" rx="16" fill="#FEE2E2" opacity="0.6" />
+                    <circle cx="26" cy="28" r="6" fill="#EF4444" opacity="0.3" stroke="#DC2626" strokeWidth="2" />
+                    <circle cx="38" cy="28" r="6" fill="#EF4444" opacity="0.3" stroke="#DC2626" strokeWidth="2" />
+                    <path d="M18 42C18 37.5817 21.5817 34 26 34C30.4183 34 34 37.5817 34 42" stroke="#DC2626" strokeWidth="2" strokeLinecap="round" />
+                  </svg>
+                </div>
+                <h3>Collaborate in Communities</h3>
+                <p>Join study groups, tech communities, voice rooms, and meet like-minded peers.</p>
+              </div>
+
+              <div className="gain-card">
+                <div className="g-icon-illustration">
+                  <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                    <rect width="64" height="64" rx="16" fill="#EEF2FF" />
+                    <rect x="20" y="24" width="24" height="16" rx="3" stroke="#4F46E5" strokeWidth="2.5" />
+                    <circle cx="44" cy="38" r="8" fill="#6366F1" />
+                    <path d="M41 38L43 40L47 36" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                  </svg>
+                </div>
+                <h3>Get Discovered & Hired</h3>
+                <p>Companies find you based on your skills, projects, rankings, and performance.</p>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* ── Final CTA ──────────────────────────────────────────────── */}
-        <section style={{ padding:'80px 0 100px', textAlign:'center' }}>
-          <div className="landing">
-            <div style={{ background:'linear-gradient(135deg,rgba(79,70,229,0.12),rgba(6,182,212,0.08))', border:'1px solid rgba(79,70,229,0.2)', borderRadius:24, padding:'60px 40px' }}>
-              <h2 style={{ fontFamily:'var(--font-display)', fontSize:'clamp(28px,5vw,52px)', fontWeight:800, color:'#fff', letterSpacing:'-1.5px', marginBottom:16 }}>
-                Start building your career today
-              </h2>
-              <p style={{ fontSize:16, color:'rgba(255,255,255,0.55)', marginBottom:36, maxWidth:480, margin:'0 auto 36px' }}>
-                200 real students. 50 companies. One college at a time.
+        {/* 5. AI-POWERED ROADMAP EXPERIENCE SECTION */}
+        <section id="ai-roadmap" className="ai-roadmap-section section-padding">
+          <div className="container">
+            <h2 className="mb-8 text-left section-title-lg">AI-Powered Roadmap Experience</h2>
+            <div className="roadmap-experience-grid">
+              {/* Left Profile & AI Analysis Box */}
+              <div className="re-left">
+                <div className="profile-and-analysis-box">
+                  <div className="profile-header">
+                    <div className="avatar-photo-circle">
+                      <span className="avatar-emoji">👨‍🎓</span>
+                    </div>
+                    <div className="profile-details">
+                      <span className="info-lbl-sm">Your Profile</span>
+                      <h3 className="profile-name">Arjun Sharma</h3>
+                      <p className="profile-sub">B.Tech CSE | 2nd Year</p>
+                      <p className="profile-meta">Goal: Full Stack Developer</p>
+                      <p className="profile-meta">Target Companies: Google, Microsoft</p>
+                      <p className="profile-meta">Available Time: 2-3 hrs/day</p>
+                    </div>
+                  </div>
+
+                  <div className="ai-analysis-part">
+                    <h4 className="analytics-title">AI Analysis</h4>
+                    <ul className="check-list">
+                      <li><span className="check-icon">✓</span> Current Skills Assessment</li>
+                      <li><span className="check-icon">✓</span> Aptitude & IQ Analysis</li>
+                      <li><span className="check-icon">✓</span> Strengths & Weaknesses</li>
+                      <li><span className="check-icon">✓</span> Learning Style Detection</li>
+                      <li><span className="check-icon">✓</span> Career Interest Mapping</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right 4 Phases Horizontal Roadmap Pipeline */}
+              <div className="re-right">
+                <h3 className="rm-section-head">Your Personalized Roadmap</h3>
+                <div className="phases-timeline-row">
+                  <div className="phase-card">
+                    <span className="phase-num-tag">Phase 1</span>
+                    <h4 className="phase-head">Foundation</h4>
+                    <span className="phase-dur">4 Weeks</span>
+                    <ul className="phase-check-items">
+                      <li><span className="chk">✓</span> Web Basics</li>
+                      <li><span className="chk">✓</span> JavaScript</li>
+                      <li><span className="chk">✓</span> Git & GitHub</li>
+                    </ul>
+                  </div>
+                  <div className="phase-arrow-icon">→</div>
+
+                  <div className="phase-card">
+                    <span className="phase-num-tag">Phase 2</span>
+                    <h4 className="phase-head">Frontend</h4>
+                    <span className="phase-dur">6 Weeks</span>
+                    <ul className="phase-check-items">
+                      <li><span className="chk">✓</span> React</li>
+                      <li><span className="chk">✓</span> Tailwind CSS</li>
+                      <li><span className="chk">✓</span> State Management</li>
+                    </ul>
+                  </div>
+                  <div className="phase-arrow-icon">→</div>
+
+                  <div className="phase-card">
+                    <span className="phase-num-tag">Phase 3</span>
+                    <h4 className="phase-head">Backend</h4>
+                    <span className="phase-dur">6 Weeks</span>
+                    <ul className="phase-check-items">
+                      <li><span className="chk">✓</span> Node.js</li>
+                      <li><span className="chk">✓</span> Express</li>
+                      <li><span className="chk">✓</span> Database</li>
+                    </ul>
+                  </div>
+                  <div className="phase-arrow-icon">→</div>
+
+                  <div className="phase-card">
+                    <span className="phase-num-tag">Phase 4</span>
+                    <h4 className="phase-head">Projects</h4>
+                    <span className="phase-dur">6 Weeks</span>
+                    <ul className="phase-check-items">
+                      <li><span className="chk">✓</span> Industry Projects</li>
+                      <li><span className="chk">✓</span> Deployment</li>
+                      <li><span className="chk">✓</span> Portfolio</li>
+                    </ul>
+                  </div>
+                </div>
+                <p className="roadmap-footer-note">
+                  AI continuously updates your roadmap based on your progress, performance, and company requirements.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 6. CODE WARS & COMPETITIONS SECTION */}
+        <section id="code-wars" className="code-wars-section section-padding alt-bg">
+          <div className="container code-wars-grid">
+            <div className="cw-left">
+              <h2>Code Wars & Competitions</h2>
+              <p className="section-desc">
+                Practice. Compete. Improve. Win. Daily challenges, weekly leagues, coding battles, and hackathons to test your skills and rank globally.
               </p>
-              <div style={{ display:'flex', gap:12, justifyContent:'center', flexWrap:'wrap', marginBottom:16 }}>
-                <Link href="/signup" style={{ padding:'15px 36px', borderRadius:10, fontSize:15, fontWeight:700, background:'linear-gradient(135deg,#4f46e5,#7c3aed)', color:'#fff', textDecoration:'none', fontFamily:'var(--font-display)', boxShadow:'0 8px 28px rgba(79,70,229,0.5)', letterSpacing:'-0.3px' }}>
-                  Sign up free →
-                </Link>
+
+              {/* Live Leaderboard Card */}
+              <div className="glass-card leaderboard-card mb-6">
+                <div className="lb-header-bar">
+                  <span className="live-dot">●</span> Live Leaderboard
+                </div>
+                <table className="lb-table">
+                  <tbody>
+                    <tr>
+                      <td className="rank-col">🥇 1</td>
+                      <td className="user-col"><div className="user-avatar-tiny">👩‍💻</div> Riya Singh</td>
+                      <td className="xp-col">2450 XP</td>
+                    </tr>
+                    <tr>
+                      <td className="rank-col">🥈 2</td>
+                      <td className="user-col"><div className="user-avatar-tiny">🧑‍💻</div> Arjun Dev</td>
+                      <td className="xp-col">2330 XP</td>
+                    </tr>
+                    <tr>
+                      <td className="rank-col">🥉 3</td>
+                      <td className="user-col"><div className="user-avatar-tiny">👨‍💻</div> Karthik S.</td>
+                      <td className="xp-col">2150 XP</td>
+                    </tr>
+                    <tr className="highlight-user-row">
+                      <td className="rank-col">🏅 4</td>
+                      <td className="user-col"><div className="user-avatar-tiny">👤</div> <strong>You</strong></td>
+                      <td className="xp-col"><strong>1980 XP</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div style={{ fontSize:12, color:'rgba(255,255,255,0.3)' }}>No pin card. No spam. Unsubscribe anytime.</div>
+
+              <button className="pc-btn-purple-outline pc-btn-wide">Explore Code Wars</button>
+              <div className="cw-tags-row">
+                <span className="cw-tag">Algorithms</span>
+                <span className="cw-tag">Data Structures</span>
+                <span className="cw-tag">System Design</span>
+                <span className="cw-tag">Debugging</span>
+                <span className="cw-tag">AI Challenges</span>
+                <span className="cw-tag">Company Challenges</span>
+              </div>
+            </div>
+
+            {/* Right Side: Dual Student VS Illustration & Upcoming Events */}
+            <div className="cw-right">
+              {/* Dual Coders VS Graphic */}
+              <div className="vs-illustration-box">
+                <div className="coder-card left-coder">
+                  <div className="coder-avatar-frame">🧑‍💻</div>
+                </div>
+                <div className="vs-badge-glow">VS</div>
+                <div className="coder-card right-coder">
+                  <div className="coder-avatar-frame">👩‍💻</div>
+                </div>
+              </div>
+
+              {/* Upcoming Events List */}
+              <div className="upcoming-events-card">
+                <h4 className="events-head">Upcoming Events</h4>
+                
+                <div className="event-row">
+                  <div className="event-icon-badge bg-purple-light">⚔️</div>
+                  <div className="event-info">
+                    <strong>Array Battle</strong>
+                    <span>Today, 8:00 PM</span>
+                  </div>
+                  <button className="pc-btn-purple-outline btn-xs">Join</button>
+                </div>
+
+                <div className="event-row">
+                  <div className="event-icon-badge bg-green-light">🏆</div>
+                  <div className="event-info">
+                    <strong>Weekly Contest</strong>
+                    <span>Sat, 10:00 AM</span>
+                  </div>
+                  <button className="pc-btn-purple-outline btn-xs">Join</button>
+                </div>
+
+                <div className="event-row">
+                  <div className="event-icon-badge bg-blue-light">💻</div>
+                  <div className="event-info">
+                    <strong>Hackathon</strong>
+                    <span>Next Week</span>
+                  </div>
+                  <button className="pc-btn-purple-outline btn-xs">Register</button>
+                </div>
+
+                <div className="event-row">
+                  <div className="event-icon-badge bg-amber-light">🐛</div>
+                  <div className="event-info">
+                    <strong>Bug Bounty</strong>
+                    <span>Ongoing</span>
+                  </div>
+                  <button className="pc-btn-purple-outline btn-xs">Participate</button>
+                </div>
+
+                <div className="view-events-footer">
+                  <a href="#code-wars" className="view-all-link">View All Events →</a>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* ── Footer ─────────────────────────────────────────────────── */}
-        <footer style={{ borderTop:'1px solid rgba(255,255,255,0.06)', padding:'32px 0' }}>
-          <div className="landing" style={{ display:'flex', justifyContent:'space-between', alignItems:'center', flexWrap:'wrap', gap:16 }}>
-            <div style={{ fontFamily:'var(--font-display)', fontSize:14, fontWeight:700, color:'rgba(255,255,255,0.5)' }}>© 2025 PinIT Career OS</div>
-            <div style={{ display:'flex', gap:24 }}>
-              {[['Privacy', '/privacy'], ['Terms', '/terms'], ['Contact', '/contact']].map(([l, h]) => (
-                <Link key={l} href={h} style={{ fontSize:12, color:'rgba(255,255,255,0.35)', textDecoration:'none' }}>{l}</Link>
-              ))}
+        {/* 7. FOR COMPANIES SECTION */}
+        <section id="for-companies" className="for-companies-section section-padding">
+          <div className="container">
+            <span className="tag-pill-sub">For Companies</span>
+            <h2 className="section-title-lg mb-2">Hire Future-Ready Talent</h2>
+            <p className="section-desc mb-6 max-w-2xl">
+              Post your requirements and let our AI find, train, and recommend the right students for your roles.
+            </p>
+            <ul className="company-checklist mb-8">
+              <li><span className="chk">✓</span> Post role requirements</li>
+              <li><span className="chk">✓</span> Get AI-generated skill roadmap</li>
+              <li><span className="chk">✓</span> Access pre-assessed talent pool</li>
+              <li><span className="chk">✓</span> Conduct challenges & interviews</li>
+              <li><span className="chk">✓</span> Hire interns & full-time talent</li>
+            </ul>
+            <button className="pc-btn-primary mb-12">I'm a Hiring Manager</button>
+            
+            {/* 4-Step Recruitment Pipeline */}
+            <div className="hiring-flow-grid">
+              <div className="h-step-card">
+                <span className="h-step-title">You Post Requirement</span>
+                <div className="h-card-inner">
+                  <strong className="role-head">React Developer</strong>
+                  <p className="req-skills">Skills: React, Node.js, MongoDB, AWS</p>
+                  <p className="req-exp">Experience: Fresher / Intern</p>
+                </div>
+              </div>
+              <div className="h-arrow-sep">→</div>
+
+              <div className="h-step-card">
+                <span className="h-step-title">AI Creates Roadmap</span>
+                <div className="h-card-inner">
+                  <ul className="h-check-list">
+                    <li><span className="chk">✓</span> Skills Gap Analysis</li>
+                    <li><span className="chk">✓</span> Personalized Learning Path</li>
+                    <li><span className="chk">✓</span> Projects & Challenges</li>
+                    <li><span className="chk">✓</span> Interview Preparation</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="h-arrow-sep">→</div>
+
+              <div className="h-step-card">
+                <span className="h-step-title">Students Get Trained</span>
+                <div className="h-card-inner">
+                  <ul className="h-badge-list">
+                    <li><span className="b-icon">📚</span> Learn</li>
+                    <li><span className="b-icon">🔨</span> Build</li>
+                    <li><span className="b-icon">⚔️</span> Compete</li>
+                    <li><span className="b-icon">Verified</span> Get Verified</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="h-arrow-sep">→</div>
+
+              <div className="h-step-card">
+                <span className="h-step-title">You Hire Top Talent</span>
+                <div className="h-card-inner">
+                  <p className="shortlist-lbl">Shortlisted Candidates</p>
+                  <p className="match-lbl">AI Match Score</p>
+                  <div className="candidates-avatars-row">
+                    <div className="c-avatar">👩</div>
+                    <div className="c-avatar">🧑</div>
+                    <div className="c-avatar">👨</div>
+                    <span className="match-badge">95% Match</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Company Logos Bar */}
+            <div className="company-trust-footer mt-12 text-center">
+              <p className="trust-companies-text">Trusted by 500+ companies to hire top talent</p>
+              <div className="company-logos-row">
+                <span className="logo-item">Google</span>
+                <span className="logo-item">Microsoft</span>
+                <span className="logo-item">amazon</span>
+                <span className="logo-item">tcs</span>
+                <span className="logo-item">Infosys</span>
+                <span className="logo-item">Deloitte.</span>
+              </div>
             </div>
           </div>
-        </footer>
+        </section>
+
+        {/* 8. STATS BAR */}
+        <section className="stats-bar-section">
+          <div className="container stats-grid-6">
+            <div className="stat-card">
+              <div className="stat-icon-badge">🎓</div>
+              <div className="stat-num">100K+</div>
+              <div className="stat-lbl">Active Learners</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-icon-badge">💼</div>
+              <div className="stat-num">30K+</div>
+              <div className="stat-lbl">Projects Built</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-icon-badge">👨‍🏫</div>
+              <div className="stat-num">500+</div>
+              <div className="stat-lbl">Expert Mentors</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-icon-badge">👥</div>
+              <div className="stat-num">50K+</div>
+              <div className="stat-lbl">Community Members</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-icon-badge">🏢</div>
+              <div className="stat-num">500+</div>
+              <div className="stat-lbl">Hiring Partners</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-icon-badge">⭐</div>
+              <div className="stat-num">89%</div>
+              <div className="stat-lbl">Hiring Success Rate</div>
+            </div>
+          </div>
+        </section>
+
+        {/* 9. FINAL CTA SECTION WITH MASCOT */}
+        <section className="final-cta-section section-padding">
+          <div className="container final-cta-wrapper">
+            <div className="cta-mascot-left">
+              <div className="student-mascot-illustration">
+                <div className="mascot-avatar-lg">🎒🧑‍🎓</div>
+              </div>
+            </div>
+            <div className="cta-content-right">
+              <h2 className="cta-heading">
+                Your Future Doesn't Start After Graduation.<br />
+                It Starts <span className="text-purple">Today.</span>
+              </h2>
+              <p className="cta-sub">
+                Join thousands of students who are building skills, earning reputation, and getting hired with PinitCareer.
+              </p>
+              <div className="cta-buttons-row">
+                <button className="pc-btn-primary pc-btn-glow-lg">Start Your Journey – It's Free →</button>
+                <button className="pc-btn-outline-lg">Explore Career Paths</button>
+              </div>
+              <div className="cta-guarantees-row">
+                <span>✓ No Credit Card Required</span>
+                <span>✓ Free Forever Plan Available</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      {/* 10. FOOTER */}
+      <footer className="footer-section">
+        <div className="container footer-grid">
+          <div className="f-col brand-col">
+            <div className="brand-logo mb-4">
+              <span className="pi-icon">Pi</span>
+              <span className="brand-text">PINITCAREER</span>
+            </div>
+            <p className="f-desc mb-4">Empowering students to build their career through AI-driven learning, real projects, and community.</p>
+          </div>
+          <div className="f-col">
+            <h4>Platform</h4>
+            <ul>
+              <li><a href="#">AI Roadmap</a></li>
+              <li><a href="#">Code Wars</a></li>
+              <li><a href="#">Projects</a></li>
+              <li><a href="#">Community</a></li>
+              <li><a href="#">Portfolio</a></li>
+            </ul>
+          </div>
+          <div className="f-col">
+            <h4>Company</h4>
+            <ul>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Careers</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="#">Partners</a></li>
+            </ul>
+          </div>
+          <div className="f-col">
+            <h4>Legal</h4>
+            <ul>
+              <li><a href="#">Privacy</a></li>
+              <li><a href="#">Terms</a></li>
+              <li><a href="#">Cookie Policy</a></li>
+              <li><a href="#">Security</a></li>
+            </ul>
+          </div>
+        </div>
+        <div className="container footer-bottom">
+          <p>© 2026 PinitCareer Technologies. All rights reserved.</p>
+          <div className="social-icons">
+            <span>𝕏</span><span>in</span><span>fb</span><span>ig</span>
+          </div>
+        </div>
+      </footer>
+
+      {/* FLOATING CHAT WIDGET */}
+      <div className="floating-chat-wrapper">
+        {isChatOpen && (
+          <div className="chat-panel glass-card morph-widget-container">
+            <div className="chat-header">
+              <div className="chat-h-left">
+                <span className="chat-bot-icon">🤖</span>
+                <strong>AI Career Mentor</strong>
+              </div>
+              <button className="close-chat-btn" onClick={() => setIsChatOpen(false)}>✕</button>
+            </div>
+            <div className="chat-body">
+              <div className="chat-msg bot-msg">Hello! I'm your PinitCareer AI Mentor. How can I help you map out your future today?</div>
+              <div className="sandbox-queries">
+                <button className="sq-btn">Create a frontend roadmap</button>
+                <button className="sq-btn">How do I prepare for FAANG?</button>
+                <button className="sq-btn">What projects should I build?</button>
+              </div>
+            </div>
+            <div className="chat-footer">
+              <input type="text" placeholder="Ask me anything..." className="chat-input" />
+              <button className="chat-send-btn">➔</button>
+            </div>
+          </div>
+        )}
+        <button className="chat-toggle-btn" onClick={() => setIsChatOpen(!isChatOpen)}>
+          {isChatOpen ? '✕' : '🤖'}
+        </button>
       </div>
-    </>
+
+      {showLoginModal && (
+        <LoginModal 
+          onClose={() => setShowLoginModal(false)} 
+          preselectRole={null} 
+          loginFn={login || (async () => ({}))} 
+        />
+      )}
+
+      {/* ============================================================== */}
+      {/* INLINE CSS WITH SUPPORT FOR BOTH DARK (DEFAULT) AND LIGHT MODE */}
+      {/* ============================================================== */}
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap');
+
+        :root {
+          /* Dark mode variables (Default) */
+          --bg-primary: #080A1A;
+          --bg-secondary: #0F1225;
+          --bg-card: rgba(15, 18, 40, 0.75);
+          --bg-card-solid: #12152B;
+          --text-primary: #FFFFFF;
+          --text-secondary: #94A3B8;
+          --text-tertiary: #64748B;
+          --border-color: rgba(255, 255, 255, 0.08);
+          --border-hover: rgba(124, 58, 237, 0.4);
+          --accent: #7C3AED;
+          --accent-hover: #6D28D9;
+          --accent-glow: rgba(124, 58, 237, 0.3);
+          --accent-cyan: #06B6D4;
+          --accent-green: #10B981;
+          --accent-amber: #F59E0B;
+          --accent-pink: #EC4899;
+          --trust-bg: transparent;
+          
+          --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+          --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        [data-theme='light'] {
+          --bg-primary: #FFFFFF;
+          --bg-secondary: #F8FAFC;
+          --bg-card: #FFFFFF;
+          --bg-card-solid: #FFFFFF;
+          --text-primary: #0F172A;
+          --text-secondary: #475569;
+          --text-tertiary: #94A3B8;
+          --border-color: rgba(0, 0, 0, 0.08);
+          --border-hover: rgba(124, 58, 237, 0.3);
+          --accent: #7C3AED;
+          --accent-hover: #6D28D9;
+          --accent-glow: rgba(124, 58, 237, 0.15);
+          --trust-bg: #F8FAFC;
+        }
+
+        /* GLOBAL RESETS */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { 
+          width: 100%; min-height: 100vh; overflow-x: hidden; scroll-behavior: smooth; 
+        }
+        body {
+          font-family: var(--font-body);
+          background-color: var(--bg-primary);
+          color: var(--text-primary);
+          transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        button { font-family: inherit; cursor: pointer; }
+        
+        .container {
+          max-width: 1200px; margin: 0 auto; padding: 0 24px; width: 100%;
+        }
+        .section-padding { padding: 80px 0; }
+        .alt-bg { background-color: var(--bg-secondary); }
+        .mb-4 { margin-bottom: 16px; }
+        .mb-6 { margin-bottom: 24px; }
+        .mb-8 { margin-bottom: 32px; }
+        .mb-10 { margin-bottom: 40px; }
+        .mb-12 { margin-bottom: 48px; }
+        .mt-2 { margin-top: 8px; }
+        .mt-4 { margin-top: 16px; }
+        .mt-8 { margin-top: 32px; }
+        .mt-12 { margin-top: 48px; }
+        .text-center { text-align: center; }
+        .max-w-2xl { max-width: 42rem; margin-left: auto; margin-right: auto; }
+        .flex-1 { flex: 1; }
+
+        /* TYPOGRAPHY UTILS */
+        .text-gradient {
+          background: linear-gradient(135deg, #7C3AED, #A855F7);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+        .text-accent-green { color: var(--accent-green); }
+        h2 { font-size: 36px; font-weight: 800; line-height: 1.2; }
+        h3 { font-size: 24px; font-weight: 700; }
+        h4 { font-size: 18px; font-weight: 700; }
+        .section-desc { font-size: 16px; color: var(--text-secondary); line-height: 1.6; }
+
+        /* BUTTONS */
+        .pc-btn-primary {
+          background: linear-gradient(135deg, var(--accent), #A855F7);
+          color: #FFF; border: none; padding: 12px 24px; border-radius: 50px; font-weight: 700;
+          transition: all 0.2s ease; display: inline-flex; align-items: center;
+        }
+        .pc-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 15px var(--accent-glow); }
+        .pc-btn-primary.btn-sm { padding: 8px 16px; font-size: 13px; }
+        .pc-btn-primary.btn-lg { padding: 16px 32px; font-size: 18px; }
+        .pc-btn-glow { box-shadow: 0 0 20px var(--accent-glow); }
+        
+        .pc-btn-outline {
+          background: transparent; color: var(--text-primary); border: 1.5px solid var(--border-color);
+          padding: 12px 24px; border-radius: 50px; font-weight: 600; transition: all 0.2s ease;
+        }
+        .pc-btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+        .pc-btn-outline.btn-sm { padding: 8px 16px; font-size: 13px; }
+
+        /* GLASS CARD */
+        .glass-card {
+          background: var(--bg-card);
+          backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+          border: 1px solid var(--border-color);
+          border-radius: 20px; padding: 24px;
+        }
+
+        /* ANIMATIONS */
+        @keyframes float {
+          0% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(30px, -30px) scale(1.05); }
+          100% { transform: translate(-20px, 20px) scale(0.95); }
+        }
+        @keyframes pulse-glow {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.4); }
+          50% { box-shadow: 0 0 0 12px rgba(124, 58, 237, 0); }
+        }
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+
+        /* BACKGROUND ELEMENTS */
+        .bg-grid-pattern {
+          position: fixed; inset: 0; z-index: -2; pointer-events: none;
+          background-image: linear-gradient(var(--border-color) 1px, transparent 1px),
+                            linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
+          background-size: 40px 40px; opacity: 0.3;
+        }
+        .floating-blob {
+          position: fixed; border-radius: 50%; filter: blur(80px); z-index: -1; pointer-events: none; opacity: 0.4;
+        }
+        .blob-1 { width: 400px; height: 400px; background: rgba(124, 58, 237, 0.3); top: -100px; left: -100px; animation: float 15s infinite alternate ease-in-out; }
+        .blob-2 { width: 300px; height: 300px; background: rgba(6, 182, 212, 0.2); bottom: 10%; right: 5%; animation: float 18s infinite alternate-reverse ease-in-out; }
+        .blob-3 { width: 350px; height: 350px; background: rgba(236, 72, 153, 0.2); top: 40%; left: 30%; animation: float 20s infinite alternate ease-in-out; }
+
+        /* 1. NAVBAR */
+        .navbar {
+          position: sticky; top: 0; z-index: 100; height: 64px;
+          background: var(--bg-card); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color);
+        }
+        .nav-container { display: flex; align-items: center; justify-content: space-between; height: 100%; max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+        .brand-logo { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 18px; letter-spacing: -0.5px; }
+        .pi-icon { background: linear-gradient(135deg, #7C3AED, #A855F7); color: #fff; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-size: 16px; }
+        
+        .nav-center { display: flex; gap: 24px; align-items: center; }
+        .nav-link { font-size: 13px; font-weight: 500; color: var(--text-secondary); transition: color 0.2s; }
+        .nav-link:hover { color: var(--accent); }
+        
+        .nav-right { display: flex; align-items: center; gap: 16px; }
+        .theme-toggle-btn { background: none; border: none; font-size: 18px; padding: 4px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--bg-card-solid); border: 1px solid var(--border-color); width: 36px; height: 36px; }
+        .nav-login-btn { background: transparent; color: var(--text-primary); border: none; font-size: 14px; font-weight: 600; }
+        .nav-cta { padding: 8px 20px; font-size: 13px; }
+        .mobile-menu-btn { display: none; background: none; border: none; font-size: 24px; color: var(--text-primary); }
+
+        @media (max-width: 1024px) {
+          .nav-center { display: none; position: absolute; top: 64px; left: 0; right: 0; background: var(--bg-primary); flex-direction: column; padding: 24px; border-bottom: 1px solid var(--border-color); }
+          .nav-center.mobile-open { display: flex; }
+          .mobile-menu-btn { display: block; }
+          .nav-cta { display: none; }
+        }
+
+        /* 2. HERO SECTION */
+        .hero-section { padding-top: 80px; padding-bottom: 60px; }
+        .hero-grid { display: flex; align-items: center; gap: 40px; }
+        .hero-left { flex: 0 0 55%; max-width: 55%; }
+        .hero-right { flex: 0 0 45%; max-width: 45%; }
+        
+        .badge-pill { display: inline-block; background: rgba(124, 58, 237, 0.15); color: var(--accent); padding: 6px 14px; border-radius: 50px; font-size: 12px; font-weight: 700; margin-bottom: 24px; border: 1px solid rgba(124, 58, 237, 0.3); }
+        .hero-title { font-size: 48px; font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 24px; }
+        .hero-subtitle { font-size: 16px; color: var(--text-secondary); line-height: 1.7; max-width: 540px; margin-bottom: 32px; }
+        
+        .feature-chips { display: flex; gap: 16px; margin-bottom: 36px; flex-wrap: wrap; }
+        .feature-chip { display: flex; align-items: center; gap: 12px; background: var(--bg-card); padding: 8px 16px 8px 8px; border-radius: 50px; border: 1px solid var(--border-color); }
+        .chip-icon { width: 36px; height: 36px; border-radius: 50%; background: rgba(124,58,237,0.1); display: flex; align-items: center; justify-content: center; font-size: 16px; }
+        .chip-text { display: flex; flex-direction: column; font-size: 12px; }
+        .chip-text strong { color: var(--text-primary); font-size: 13px; }
+        .chip-text span { color: var(--text-tertiary); font-size: 11px; line-height: 1.2; }
+        
+        .hero-ctas { display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
+        .trust-text { font-size: 12px; color: var(--text-tertiary); margin-bottom: 12px; font-weight: 500; }
+        .company-logos { display: flex; gap: 24px; flex-wrap: wrap; color: var(--text-primary); opacity: 0.6; font-weight: 700; font-size: 18px; font-family: var(--font-body); }
+
+        .hub-diagram { position: relative; width: 100%; max-width: 580px; aspect-ratio: 1; margin: -20px auto 0; display: flex; align-items: center; justify-content: center; }
+        .hub-center-hex { position: relative; display: flex; align-items: center; justify-content: center; z-index: 10; width: 220px; height: 220px; }
+        .hub-center-labels { position: absolute; bottom: 32px; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; pointer-events: none; z-index: 12; }
+        .hub-brand-name { font-weight: 900; font-size: 13.5px; letter-spacing: 1px; color: #FFFFFF; text-shadow: 0 2px 6px rgba(0,0,0,0.4); line-height: 1; }
+        .hub-sub-name { font-size: 9.5px; color: rgba(255,255,255,0.95); font-weight: 600; margin-top: 3px; }
+
+        .hub-lines-svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+
+        .hub-node { position: absolute; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; z-index: 5; width: 130px; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
+        .hub-node:hover { transform: scale(1.1) translateY(-2px); }
+        .node-icon-circle { width: 52px; height: 52px; border-radius: 50%; background: #FFFFFF; border: 2px solid rgba(124, 58, 237, 0.2); display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 8px 24px rgba(124, 58, 237, 0.16); margin-bottom: 6px; transition: all 0.2s ease; }
+        .hub-node:hover .node-icon-circle { border-color: #7C3AED; box-shadow: 0 10px 28px rgba(124, 58, 237, 0.25); }
+        .node-title { font-size: 12.5px; color: #0F172A; font-weight: 800; line-height: 1.2; display: block; letter-spacing: -0.2px; }
+        .node-desc { font-size: 10px; color: #64748B; font-weight: 600; display: block; margin-top: 2px; line-height: 1.3; }
+
+        .node-top { top: -2%; left: 50%; transform: translateX(-50%); }
+        .node-top-right { top: 8%; right: 4%; }
+        .node-right { top: 50%; right: -5%; transform: translateY(-50%); }
+        .node-bottom-right { bottom: 8%; right: 4%; }
+        .node-bottom { bottom: -2%; left: 50%; transform: translateX(-50%); }
+        .node-bottom-left { bottom: 8%; left: 4%; }
+        .node-left { top: 50%; left: -5%; transform: translateY(-50%); }
+        .node-top-left { top: 8%; left: 4%; }
+
+        @media (max-width: 900px) {
+          .hero-grid { flex-direction: column; text-align: center; gap: 32px; }
+          .hero-left, .hero-right { flex: 0 0 100%; max-width: 100%; }
+          .hero-title { font-size: 32px; line-height: 1.2; letter-spacing: -0.5px; margin-bottom: 16px; }
+          .hero-subtitle { font-size: 14px; margin: 0 auto 24px auto; }
+          .feature-chips { justify-content: center; }
+          .hero-ctas { justify-content: center; width: 100%; }
+          .hero-ctas a, .hero-ctas button { width: 100%; text-align: center; justify-content: center; }
+          .company-logos { justify-content: center; font-size: 15px; gap: 16px; }
+          
+          /* Mobile Hub Diagram Optimization */
+          .hub-diagram { aspect-ratio: auto; height: auto; display: flex; flex-direction: column; align-items: center; gap: 20px; margin: 0 auto; max-width: 100%; }
+          .hub-center-hex { width: 160px; height: 160px; }
+          .hub-center-hex svg { width: 160px; height: 160px; }
+          .hub-brand-name { font-size: 11px; }
+          .hub-sub-name { font-size: 8px; }
+          .hub-lines-svg { display: none; }
+          .hub-node { position: static; transform: none !important; width: 100%; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; padding: 12px; flex-direction: row; text-align: left; gap: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+          .node-icon-circle { margin-bottom: 0; width: 40px; height: 40px; font-size: 20px; flex-shrink: 0; }
+          .node-text-wrap { display: flex; flex-direction: column; }
+        }
+
+        /* 3. WHAT IS PINITCAREER */
+        .what-is-grid { display: flex; gap: 40px; align-items: flex-start; }
+        .what-is-left { flex: 0 0 52%; max-width: 52%; }
+        .what-is-right { flex: 0 0 48%; max-width: 48%; display: flex; flex-direction: column; gap: 20px; }
+        
+        .bold-line { font-size: 18px; font-weight: 800; margin-top: 10px; color: var(--text-primary); }
+        .text-purple { color: #7C3AED; }
+        
+        .features-grid-2x3 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 28px 0; }
+        .feature-item { display: flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 600; color: var(--text-primary); }
+        .icon-circ { width: 36px; height: 36px; border-radius: 50%; background: rgba(124,58,237,0.08); border: 1px solid rgba(124,58,237,0.15); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+        
+        .journey-steps-wrapper { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
+        .journey-steps-wrapper h4 { margin-bottom: 20px; font-size: 15px; text-align: center; font-weight: 800; color: var(--text-primary); }
+        .journey-steps { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+        .j-step { display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; color: var(--text-primary); }
+        .j-icon-bg { width: 44px; height: 44px; border-radius: 50%; background: #F8FAFC; border: 1.5px solid #E2E8F0; display: flex; align-items: center; justify-content: center; font-size: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .j-arrow { color: #94A3B8; font-weight: bold; font-size: 14px; margin-bottom: 22px; }
+
+        /* Student Dashboard Preview Cards */
+        .welcome-card { padding: 24px; border-radius: 24px; border: 1px solid var(--border-color); background: var(--bg-card); }
+        .welcome-header h3 { font-size: 20px; font-weight: 800; color: var(--text-primary); margin-bottom: 18px; }
+        .welcome-body-grid { display: flex; gap: 20px; align-items: center; }
+        .ai-chat-box { flex: 1; display: flex; gap: 12px; background: rgba(124, 58, 237, 0.05); border: 1px solid rgba(124, 58, 237, 0.15); padding: 16px; border-radius: 16px; }
+        .ai-avatar-small { font-size: 24px; flex-shrink: 0; }
+        .ai-msg-content { display: flex; flex-direction: column; gap: 6px; }
+        .ai-msg-title { font-size: 12px; font-weight: 800; color: #7C3AED; }
+        .ai-msg-text { font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
+        .pc-btn-purple-sm { align-self: flex-start; padding: 6px 14px; border-radius: 50px; background: #7C3AED; color: #FFFFFF; font-size: 11px; font-weight: 700; border: none; cursor: pointer; margin-top: 4px; }
+        
+        .readiness-score-box { display: flex; flex-direction: column; align-items: center; text-align: center; width: 140px; flex-shrink: 0; background: #FFFFFF; padding: 14px; border-radius: 18px; border: 1px solid #E2E8F0; box-shadow: 0 4px 16px rgba(0,0,0,0.04); }
+        .score-heading { font-size: 10.5px; font-weight: 800; color: #475569; margin-bottom: 8px; line-height: 1.2; text-transform: uppercase; letter-spacing: 0.3px; }
+        .score-gauge { position: relative; width: 84px; height: 84px; display: flex; align-items: center; justify-content: center; }
+        .score-center-val { position: absolute; font-size: 18px; font-weight: 900; color: #0F172A; }
+        .score-subtext { font-size: 10px; color: #10B981; font-weight: 700; margin-top: 6px; }
+
+        /* Timeline Cards (5 Phases) */
+        .roadmap-preview-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 24px; padding: 24px; }
+        .roadmap-preview-card h4 { margin-bottom: 16px; font-size: 16px; font-weight: 800; color: var(--text-primary); }
+        .timeline-cards-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+        .t-card { background: #FFFFFF; padding: 12px 10px; border-radius: 14px; border: 1px solid #E2E8F0; border-top: 3px solid #CBD5E1; display: flex; flex-direction: column; text-align: left; position: relative; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+        .t-card.border-t-green { border-top-color: #10B981; }
+        .t-card.border-t-amber { border-top-color: #F59E0B; }
+        .t-card.border-t-purple { border-top-color: #7C3AED; }
+        .week-label { font-size: 9.5px; font-weight: 700; color: #94A3B8; margin-bottom: 4px; }
+        .phase-title { font-size: 12px; font-weight: 800; color: #0F172A; line-height: 1.2; }
+        .tech-stack-sub { font-size: 9.5px; color: #64748B; margin: 4px 0 10px 0; line-height: 1.2; }
+        .status-badge { font-size: 9px; font-weight: 800; padding: 3px 8px; border-radius: 50px; display: inline-block; align-self: flex-start; text-transform: uppercase; letter-spacing: 0.3px; }
+        .status-done { background: #ECFDF5; color: #059669; }
+        .status-prog { background: #FFFBEB; color: #D97706; }
+        .status-next { background: #F3E8FF; color: #7C3AED; }
+
+        /* Dual Action Cards Row */
+        .action-cards-row { display: flex; gap: 16px; }
+        .action-card { flex: 1; padding: 20px; border-radius: 20px; border: 1px solid var(--border-color); background: var(--bg-card); display: flex; flex-direction: column; justify-content: space-between; }
+        .action-lbl { font-size: 10px; font-weight: 800; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+        .action-title { font-size: 14px; font-weight: 800; color: var(--text-primary); line-height: 1.3; }
+        .action-meta { font-size: 11.5px; font-weight: 700; color: #7C3AED; margin: 8px 0 14px 0; }
+        .pc-btn-purple-outline { padding: 8px 18px; border-radius: 50px; border: 1.5px solid #7C3AED; background: transparent; color: #7C3AED; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+        .pc-btn-purple-outline:hover { background: #7C3AED; color: #FFFFFF; }
+
+        @media (max-width: 900px) {
+          .what-is-grid { flex-direction: column; }
+          .what-is-left, .what-is-right { flex: 0 0 100%; max-width: 100%; }
+          .features-grid-2x3 { grid-template-columns: 1fr; }
+          .timeline-cards { grid-template-columns: 1fr 1fr; }
+          .action-cards-row { flex-direction: column; }
+        }
+
+        /* 4. HOW STUDENTS GAIN */
+        .how-gain-section { background: var(--bg-secondary); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
+        .section-title-lg { font-size: 32px; font-weight: 800; color: var(--text-primary); letter-spacing: -0.5px; }
+        .gain-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 18px; margin-top: 40px; }
+        .gain-card { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 20px; padding: 24px 18px; text-align: center; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+        .gain-card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(124, 58, 237, 0.12); border-color: rgba(124, 58, 237, 0.3); }
+        .g-icon-illustration { margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; }
+        .gain-card h3 { font-size: 14.5px; font-weight: 800; color: #0F172A; margin-bottom: 10px; line-height: 1.3; }
+        .gain-card p { font-size: 11.5px; color: #64748B; line-height: 1.5; font-weight: 500; }
+        @media (max-width: 1200px) { .gain-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 768px) { .gain-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 480px) { .gain-grid { grid-template-columns: 1fr; } }
+
+        /* 5. AI ROADMAP EXPERIENCE */
+        .roadmap-experience-grid { display: flex; gap: 32px; margin-top: 24px; align-items: stretch; }
+        .re-left { flex: 0 0 36%; max-width: 36%; display: flex; flex-direction: column; }
+        .re-right { flex: 0 0 64%; max-width: 64%; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 24px; padding: 28px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); display: flex; flex-direction: column; justify-content: space-between; overflow-x: auto; }
+        
+        .profile-and-analysis-box { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 24px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); height: 100%; display: flex; flex-direction: column; justify-content: space-between; }
+        .profile-header { display: flex; gap: 14px; margin-bottom: 20px; align-items: flex-start; }
+        .avatar-photo-circle { width: 56px; height: 56px; border-radius: 50%; background: #F3E8FF; border: 2px solid #7C3AED; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .avatar-emoji { font-size: 30px; }
+        .info-lbl-sm { font-size: 10px; font-weight: 800; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 2px; }
+        .profile-name { font-size: 17px; font-weight: 800; color: #0F172A; line-height: 1.2; }
+        .profile-sub { font-size: 11.5px; color: #64748B; font-weight: 600; margin-bottom: 6px; }
+        .profile-meta { font-size: 11px; color: #334155; font-weight: 600; line-height: 1.4; }
+        
+        .ai-analysis-part { border-top: 1px dashed #E2E8F0; padding-top: 18px; margin-top: 12px; }
+        .analytics-title { font-size: 13.5px; font-weight: 800; color: #7C3AED; margin-bottom: 12px; }
+        .check-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .check-list li { font-size: 12px; font-weight: 600; color: #334155; display: flex; align-items: center; gap: 8px; }
+        .check-icon { color: #10B981; font-weight: 900; }
+
+        .rm-section-head { font-size: 18px; font-weight: 800; color: #0F172A; margin-bottom: 24px; }
+        .phases-timeline-row { display: flex; align-items: stretch; justify-content: space-between; gap: 8px; overflow-x: auto; padding-bottom: 8px; }
+        .phase-card { flex: 1; min-width: 140px; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; flex-shrink: 0; }
+        .phase-num-tag { font-size: 10px; font-weight: 800; color: #7C3AED; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+        .phase-head { font-size: 14px; font-weight: 800; color: #0F172A; margin-bottom: 2px; }
+        .phase-dur { font-size: 11px; color: #64748B; font-weight: 600; margin-bottom: 12px; }
+        .phase-check-items { list-style: none; display: flex; flex-direction: column; gap: 6px; font-size: 11px; color: #334155; font-weight: 600; }
+        .phase-check-items .chk { color: #10B981; font-weight: bold; }
+        .phase-arrow-icon { color: #94A3B8; font-weight: bold; font-size: 16px; align-self: center; flex-shrink: 0; }
+        .roadmap-footer-note { font-size: 11px; color: #64748B; font-style: italic; text-align: center; margin-top: 24px; }
+
+        /* 6. CODE WARS */
+        .code-wars-grid { display: flex; gap: 40px; align-items: flex-start; }
+        .cw-left { flex: 0 0 45%; max-width: 45%; overflow: hidden; }
+        .cw-right { flex: 0 0 55%; max-width: 55%; display: flex; flex-direction: column; gap: 20px; }
+        
+        .leaderboard-card { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 20px; padding: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.02); overflow-x: auto; }
+        .lb-header-bar { font-size: 12px; font-weight: 800; color: #0F172A; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 14px; display: flex; align-items: center; gap: 6px; }
+        .live-dot { color: #EF4444; font-size: 14px; }
+        .lb-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+        .lb-table td { padding: 8px 10px; border-bottom: 1px solid #F1F5F9; white-space: nowrap; }
+        .rank-col { font-weight: 800; color: #0F172A; width: 44px; }
+        .user-col { display: flex; align-items: center; gap: 8px; font-weight: 700; color: #334155; }
+        .user-avatar-tiny { font-size: 16px; }
+        .xp-col { text-align: right; font-family: var(--font-mono); font-weight: 800; color: #7C3AED; }
+        .highlight-user-row { background: #F3E8FF; border-radius: 8px; }
+        .pc-btn-wide { width: 100%; text-align: center; margin-bottom: 16px; }
+        .cw-tags-row { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+        .cw-tag { background: #FFFFFF; border: 1px solid #E2E8F0; padding: 4px 10px; border-radius: 50px; font-size: 11px; font-weight: 700; color: #64748B; }
+
+        @media (max-width: 900px) {
+          .roadmap-experience-grid { flex-direction: column; }
+          .re-left, .re-right { flex: 0 0 100%; max-width: 100%; }
+          .code-wars-grid { flex-direction: column; }
+          .cw-left, .cw-right { flex: 0 0 100%; max-width: 100%; }
+          .hiring-flow-grid { flex-direction: column; gap: 16px; }
+          .h-arrow-sep { transform: rotate(90deg); margin: 4px 0; }
+        }
+
+        /* Dual VS Graphic */
+        .vs-illustration-box { position: relative; height: 180px; background: linear-gradient(135deg, #EEF2FF, #FAF5FF); border-radius: 24px; border: 1px solid #E2E8F0; display: flex; align-items: center; justify-content: space-around; overflow: hidden; padding: 20px; }
+        .coder-avatar-frame { font-size: 64px; filter: drop-shadow(0 8px 16px rgba(124, 58, 237, 0.2)); }
+        .vs-badge-glow { background: linear-gradient(135deg, #EC4899, #8B5CF6); color: #FFFFFF; font-weight: 900; font-size: 22px; padding: 10px 20px; border-radius: 50px; box-shadow: 0 0 24px rgba(236, 72, 153, 0.5); font-family: var(--font-mono); letter-spacing: 1px; }
+
+        .upcoming-events-card { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+        .events-head { font-size: 15px; font-weight: 800; color: #0F172A; margin-bottom: 4px; }
+        .event-row { display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 12px; background: #F8FAFC; border: 1px solid #F1F5F9; }
+        .event-icon-badge { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+        .bg-purple-light { background: #F3E8FF; }
+        .bg-green-light { background: #ECFDF5; }
+        .bg-blue-light { background: #EFF6FF; }
+        .bg-amber-light { background: #FFFBEB; }
+        .event-info { flex: 1; display: flex; flex-direction: column; }
+        .event-info strong { font-size: 12.5px; color: #0F172A; }
+        .event-info span { font-size: 10.5px; color: #64748B; }
+        .btn-xs { padding: 4px 12px; font-size: 11px; }
+        .view-events-footer { text-align: center; margin-top: 6px; }
+        .view-all-link { font-size: 12px; font-weight: 800; color: #7C3AED; }
+
+        /* 7. FOR COMPANIES */
+        .tag-pill-sub { display: inline-block; background: #F3E8FF; color: #7C3AED; padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: 800; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .company-checklist { list-style: none; display: flex; flex-wrap: wrap; gap: 16px; font-size: 13px; font-weight: 700; color: #334155; }
+        .company-checklist .chk { color: #10B981; font-weight: 900; }
+        
+        .hiring-flow-grid { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 24px; }
+        .h-step-card { flex: 1; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 18px; padding: 18px 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.02); }
+        .h-step-title { font-size: 11px; font-weight: 800; color: #7C3AED; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 10px; }
+        .h-card-inner { font-size: 11.5px; color: #334155; }
+        .role-head { font-size: 13px; color: #0F172A; display: block; margin-bottom: 4px; }
+        .req-skills { font-size: 10.5px; color: #64748B; margin-bottom: 4px; }
+        .req-exp { font-size: 10.5px; color: #64748B; font-weight: 600; }
+        .h-check-list { list-style: none; display: flex; flex-direction: column; gap: 4px; font-size: 11px; font-weight: 600; color: #334155; }
+        .h-check-list .chk { color: #10B981; font-weight: bold; }
+        .h-badge-list { list-style: none; display: flex; flex-direction: column; gap: 4px; font-size: 11px; font-weight: 700; color: #0F172A; }
+        .b-icon { margin-right: 4px; }
+        .shortlist-lbl { font-size: 11px; font-weight: 700; color: #0F172A; }
+        .match-lbl { font-size: 10px; color: #64748B; margin-bottom: 8px; }
+        .candidates-avatars-row { display: flex; align-items: center; gap: 6px; }
+        .c-avatar { width: 26px; height: 26px; border-radius: 50%; background: #F1F5F9; border: 1px solid #CBD5E1; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+        .match-badge { background: #ECFDF5; color: #059669; font-size: 10px; font-weight: 800; padding: 2px 6px; border-radius: 50px; }
+        .h-arrow-sep { color: #94A3B8; font-weight: bold; font-size: 16px; }
+
+        .trust-companies-text { font-size: 12px; color: #64748B; font-weight: 600; margin-bottom: 12px; }
+        .company-logos-row { display: flex; justify-content: center; gap: 32px; font-size: 18px; font-weight: 800; color: #475569; opacity: 0.75; }
+
+        /* 8. STATS BAR */
+        .stats-bar-section { background: linear-gradient(135deg, #7C3AED, #4F46E5); padding: 48px 0; color: #FFFFFF; }
+        .stats-grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; text-align: center; }
+        .stat-card { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+        .stat-icon-badge { font-size: 28px; margin-bottom: 4px; }
+        .stat-num { font-size: 32px; font-weight: 900; letter-spacing: -0.5px; }
+        .stat-lbl { font-size: 12px; opacity: 0.85; font-weight: 600; }
+
+        /* 9. FINAL CTA SECTION */
+        .final-cta-section { background: #080A1A; color: #FFFFFF; padding: 80px 0; border-top: 1px solid rgba(255,255,255,0.08); }
+        .final-cta-wrapper { display: flex; align-items: center; gap: 48px; max-width: 1000px; margin: 0 auto; }
+        .cta-mascot-left { flex: 0 0 35%; display: flex; justify-content: center; }
+        .student-mascot-illustration { width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle, rgba(124,58,237,0.4) 0%, transparent 70%); display: flex; align-items: center; justify-content: center; border: 2px solid rgba(124,58,237,0.3); }
+        .mascot-avatar-lg { font-size: 96px; filter: drop-shadow(0 12px 24px rgba(124, 58, 237, 0.4)); }
+        .cta-content-right { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+        .cta-heading { font-size: 36px; font-weight: 900; line-height: 1.2; letter-spacing: -1px; color: #FFFFFF; }
+        .cta-sub { font-size: 15px; color: #94A3B8; line-height: 1.6; max-width: 520px; }
+        .cta-buttons-row { display: flex; gap: 16px; align-items: center; margin-top: 8px; }
+        .pc-btn-glow-lg { padding: 14px 28px; font-size: 14px; font-weight: 800; border-radius: 50px; }
+        .pc-btn-outline-lg { padding: 14px 28px; font-size: 14px; font-weight: 800; border-radius: 50px; background: transparent; border: 1.5px solid rgba(255,255,255,0.2); color: #FFFFFF; cursor: pointer; }
+        .cta-guarantees-row { display: flex; gap: 20px; font-size: 12px; color: #64748B; font-weight: 700; }
+        
+        @media (max-width: 900px) {
+          .roadmap-experience-grid { flex-direction: column; }
+          .re-left, .re-right { flex: 0 0 100%; max-width: 100%; }
+        }
+
+        /* 6. CODE WARS */
+        .code-wars-grid { display: flex; gap: 40px; align-items: center; }
+        .cw-left, .cw-right { flex: 1; }
+        
+        .lb-header { padding: 16px 20px; font-weight: 800; font-size: 16px; border-bottom: 1px solid var(--border-color); background: rgba(0,0,0,0.2); border-radius: 20px 20px 0 0; }
+        .lb-table { width: 100%; border-collapse: collapse; }
+        .lb-table th { text-align: left; padding: 12px 20px; font-size: 12px; color: var(--text-tertiary); text-transform: uppercase; }
+        .lb-table td { padding: 14px 20px; font-size: 14px; font-weight: 600; border-top: 1px solid var(--border-color); }
+        .highlight-row { background: rgba(124,58,237,0.1); color: var(--accent); }
+        .cw-tags { font-size: 13px; color: var(--text-tertiary); line-height: 1.8; font-weight: 500; }
+
+        .vs-battle-illustration { display: flex; align-items: center; justify-content: center; gap: 20px; background: var(--bg-card); padding: 40px; border-radius: 24px; border: 1px solid var(--border-color); }
+        .vs-avatar { width: 80px; height: 80px; border-radius: 16px; background: var(--bg-card-solid); border: 2px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-size: 40px; }
+        .vs-badge { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #EC4899, #7C3AED); color: white; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 18px; box-shadow: 0 0 20px rgba(236,72,153,0.4); z-index: 2; }
+        
+        .upcoming-events h3 { margin-bottom: 16px; font-size: 18px; }
+        .event-card { display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); padding: 16px; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 12px; }
+        .event-card strong { font-size: 14px; display: block; margin-bottom: 4px; }
+        .event-card p { font-size: 12px; color: var(--text-secondary); }
+        .view-all-link { display: block; text-align: right; font-size: 13px; color: var(--accent); font-weight: 600; margin-top: 16px; }
+
+        @media (max-width: 900px) {
+          .code-wars-grid { flex-direction: column; }
+        }
+
+        /* 7. FOR COMPANIES */
+        .tag-pill { display: inline-block; background: var(--bg-card); border: 1px solid var(--border-color); padding: 6px 14px; border-radius: 50px; font-size: 12px; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); }
+        .company-benefits { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 15px; font-weight: 500; }
+        
+        .hiring-flow { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+        .h-step { flex: 1; min-width: 200px; padding: 24px; text-align: center; }
+        .h-step h4 { font-size: 15px; margin-bottom: 16px; color: var(--text-primary); }
+        .h-items { display: flex; flex-direction: column; gap: 8px; }
+        .h-items span { background: var(--bg-card-solid); padding: 8px; border-radius: 8px; font-size: 12px; color: var(--text-secondary); }
+        .h-arrow { color: var(--text-tertiary); font-size: 24px; font-weight: bold; }
+        .highlight-step { border-color: var(--accent); box-shadow: 0 0 20px var(--accent-glow); }
+        .match-tag { background: rgba(16, 185, 129, 0.1) !important; color: var(--accent-green) !important; font-weight: 700; }
+        
+        .trust-bar-companies { text-align: center; border-top: 1px solid var(--border-color); padding-top: 32px; }
+        .trust-bar-companies p { font-size: 14px; color: var(--text-tertiary); margin-bottom: 20px; font-weight: 600; }
+        .trust-bar-companies .company-logos { justify-content: center; }
+
+        /* 8. STATS BAR */
+        .stats-bar-section { background: linear-gradient(135deg, #7C3AED, #4F46E5); padding: 50px 0; color: white; }
+        .stats-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px; text-align: center; }
+        .stat-num { font-size: 36px; font-weight: 900; margin-bottom: 8px; }
+        .stat-lbl { font-size: 13px; opacity: 0.8; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        @media (max-width: 900px) { .stats-grid { grid-template-columns: repeat(3, 1fr); gap: 40px 20px; } }
+        @media (max-width: 480px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+
+        /* 9. FINAL CTA */
+        .final-cta-section { background: radial-gradient(circle at center, rgba(124,58,237,0.15) 0%, transparent 60%); }
+        .cta-title { font-size: 40px; margin-bottom: 16px; }
+        .explore-link { color: var(--text-secondary); font-size: 14px; font-weight: 600; transition: color 0.2s; border-bottom: 1px solid transparent; }
+        .explore-link:hover { color: var(--text-primary); border-bottom-color: var(--text-primary); }
+        .fine-print { font-size: 12px; color: var(--text-tertiary); display: flex; justify-content: center; gap: 16px; }
+
+        /* 10. FOOTER */
+        .footer-section { background: #05060F; padding: 60px 0 20px; border-top: 1px solid rgba(255,255,255,0.05); color: #fff; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 60px; }
+        .f-col h4 { font-size: 16px; margin-bottom: 20px; color: #fff; }
+        .f-col ul { display: flex; flex-direction: column; gap: 12px; }
+        .f-col a { color: #94A3B8; font-size: 14px; transition: color 0.2s; }
+        .f-col a:hover { color: #7C3AED; }
+        .f-desc { color: #94A3B8; font-size: 14px; line-height: 1.6; max-width: 300px; }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; font-size: 13px; color: #64748B; }
+        .social-icons { display: flex; gap: 16px; }
+        .social-icons span { width: 32px; height: 32px; background: rgba(255,255,255,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s; color: #fff; }
+        .social-icons span:hover { background: #7C3AED; }
+        @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; } .brand-col { grid-column: span 2; } }
+
+        /* FLOATING CHAT WIDGET & VOICE AI ENGINE */
+        .floating-chat-wrapper { position: fixed; bottom: 24px; right: 24px; z-index: 999; display: flex; flex-direction: column; align-items: flex-end; gap: 16px; }
+        .chat-toggle-btn { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #7C3AED, #A855F7); color: white; border: none; font-size: 24px; box-shadow: 0 4px 20px rgba(124,58,237,0.4); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s; }
+        .chat-toggle-btn:hover { transform: scale(1.05); }
+        .chat-panel { width: 390px; height: 530px; display: flex; flex-direction: column; overflow: hidden; }
+        .chat-header { padding: 16px; background: rgba(0,0,0,0.2); border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        .chat-h-left { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+        .chat-bot-icon { background: var(--bg-card-solid); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+        .voice-active-badge { font-size: 10px; font-weight: 800; background: rgba(16,185,129,0.15); color: #10B981; border: 1px solid rgba(16,185,129,0.3); padding: 2px 8px; border-radius: 50px; }
+        .close-chat-btn { background: none; border: none; color: var(--text-tertiary); font-size: 16px; }
+        .chat-body { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; }
+        .chat-msg { background: rgba(124,58,237,0.1); border: 1px solid rgba(124,58,237,0.2); padding: 12px; border-radius: 12px; font-size: 13px; line-height: 1.5; align-self: flex-start; max-width: 85%; border-bottom-left-radius: 0; }
+        .sandbox-queries { display: flex; flex-direction: column; gap: 8px; margin-top: auto; }
+        .sq-btn { background: var(--bg-card-solid); border: 1px solid var(--border-color); color: var(--text-secondary); padding: 10px 16px; border-radius: 20px; font-size: 12px; text-align: left; transition: all 0.2s; }
+        .sq-btn:hover { background: rgba(124,58,237,0.1); color: var(--accent); border-color: rgba(124,58,237,0.3); }
+        .chat-footer { padding: 16px; border-top: 1px solid var(--border-color); display: flex; gap: 8px; }
+        .chat-input { flex: 1; background: var(--bg-card-solid); border: 1px solid var(--border-color); padding: 10px 16px; border-radius: 20px; color: var(--text-primary); font-size: 13px; outline: none; }
+        .chat-input:focus { border-color: var(--accent); }
+        .chat-send-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--accent); color: white; border: none; font-size: 16px; display: flex; align-items: center; justify-content: center; }
+
+        @media (max-width: 480px) {
+          .chat-panel { width: calc(100vw - 32px); height: 60vh; }
+        }
+
+        /* MODAL CLASSES & MORPH WIDGET STYLES (Provided in instructions) */
+        .modal-mask-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); z-index: 9999; display: flex; align-items: center; justify-content: center; }
+        .modal-body-container { background: #ffffff; border-radius: 24px; padding: 36px; max-width: 420px; width: 90%; position: relative; box-shadow: 0 24px 60px rgba(0,0,0,0.3); }
+        .modal-dismiss-btn { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 18px; cursor: pointer; color: #64748b; }
+        .modal-header-title { font-size: 24px; font-weight: 800; color: #0f172a; margin-bottom: 6px; }
+        .modal-header-desc { font-size: 13px; color: #64748b; margin-bottom: 20px; }
+        .input-group-vertical { display: flex; flex-direction: column; gap: 6px; }
+        .input-label { font-size: 12px; font-weight: 700; color: #334155; }
+        .input-textbox { padding: 10px 14px; border: 1.5px solid #e2e8f0; border-radius: 10px; font-size: 13px; outline: none; transition: border 0.2s; color: #0f172a; }
+        .input-textbox:focus { border-color: #7C3AED; }
+        .demo-shortcuts-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; }
+        .demo-shortcuts-title { font-size: 11px; font-weight: 800; color: #64748b; margin-bottom: 8px; text-transform: uppercase; }
+        .demo-buttons-layout { display: flex; flex-wrap: wrap; gap: 6px; }
+        .demo-pill-btn { padding: 5px 12px; border-radius: 50px; border: 1px solid #e2e8f0; background: white; font-size: 11px; font-weight: 700; cursor: pointer; color: #334155; transition: all 0.2s; }
+        .demo-pill-btn:hover { background: #7C3AED; color: white; border-color: #7C3AED; }
+        .error-alert-banner { background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; padding: 10px 14px; border-radius: 10px; font-size: 12px; font-weight: 600; }
+        
+        .morph-widget-container { animation: fadeInUp 0.3s ease; }
+        .morph-widget-card { background: #ffffff; border-radius: 20px; padding: 20px; box-shadow: 0 12px 40px rgba(0,0,0,0.12); position: relative; text-align: center; border: 1px solid #e2e8f0; }
+        .face-hud-circle { width: 100px; height: 100px; margin: 0 auto 12px; border-radius: 50%; border: 2px solid #e2e8f0; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; background: #f8fafc; }
+        .face-hud-avatar { font-size: 36px; z-index: 2; }
+        .hud-scan-laser { position: absolute; width: 100%; height: 3px; background: linear-gradient(90deg, transparent, #7C3AED, transparent); top: 0; animation: scan 1.5s infinite linear; z-index: 3; }
+      `}</style>
+    </div>
+  );
+}
+
+export default function PinitCareerLanding() {
+  return (
+    <Suspense fallback={<div style={{height: '100vh', background: '#080A1A'}}></div>}>
+      <LandingContent />
+    </Suspense>
   );
 }

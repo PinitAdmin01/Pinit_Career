@@ -2,6 +2,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { speakWithAvatar, stopSpeaking } from '@/lib/tts';
 
 interface Message { role: 'user' | 'assistant'; content: string; }
 interface Props {
@@ -27,6 +28,15 @@ export default function ChatInterface({ sessionId, teacherId, mode, noteIds, car
   const [speaking, setSpeaking] = useState(false);
   const audioRef   = useRef<HTMLAudioElement>(null);
   const bottomRef  = useRef<HTMLDivElement>(null);
+
+  // Clean up speaking states
+  useEffect(() => {
+    stopSpeaking();
+    setSpeaking(false);
+    return () => {
+      stopSpeaking();
+    };
+  }, [teacherId, sessionId]);
 
   // Load existing history
   useEffect(() => {
@@ -55,6 +65,8 @@ export default function ChatInterface({ sessionId, teacherId, mode, noteIds, car
     setInput('');
     setMessages(prev => [...prev, { role:'user', content:msg }]);
     setLoading(true);
+    stopSpeaking();
+    setSpeaking(false);
 
     try {
       const res = await fetch('/api/chat', {
@@ -76,23 +88,17 @@ export default function ChatInterface({ sessionId, teacherId, mode, noteIds, car
       // TTS
       if (reply) {
         try {
-          const ttsRes = await fetch('/api/tts', {
-            method:'POST',
-            headers:{ 'Content-Type':'application/json' },
-            credentials:'include',
-            body: JSON.stringify({ text: reply.slice(0, 350), teacherId }),
-          });
-          if (ttsRes.ok) {
-            const blob = await ttsRes.blob();
-            const url  = URL.createObjectURL(blob);
-            if (audioRef.current) {
-              audioRef.current.src = url;
-              setSpeaking(true);
-              audioRef.current.play().catch(() => {});
-              audioRef.current.onended = () => { setSpeaking(false); URL.revokeObjectURL(url); };
-            }
-          }
-        } catch {}
+          speakWithAvatar(
+            reply.slice(0, 350),
+            teacherId,
+            () => setSpeaking(true),
+            () => setSpeaking(false),
+            false,
+            true // Use local neural TTS worker (Kokoro/KittenTTS)
+          );
+        } catch (err) {
+          console.warn('[ChatInterface] Failed local TTS playback:', err);
+        }
       }
     } catch {
       setMessages(prev => [...prev, { role:'assistant', content:"Sorry, I had trouble connecting. Please try again." }]);

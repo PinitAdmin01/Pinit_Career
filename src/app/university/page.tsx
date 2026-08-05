@@ -81,11 +81,19 @@ export default function UniversityPage() {
   const [gaps,    setGaps]     = useState<SkillGap[]>([]);
   const [loading, setLoading]  = useState(true);
 
+  // Hierarchical Campus selectors states
+  const [selectedUniv, setSelectedUniv] = useState('Visvesvaraya Technological University (VTU)');
+  const [selectedColl, setSelectedColl] = useState('RV College of Engineering (RVCE)');
+  const [selectedCamp, setSelectedCamp] = useState('Main Campus (Mysore Road)');
+  const [selectedDept, setSelectedDept] = useState('Computer Science & Eng (CSE)');
+  const [selectedBranch, setSelectedBranch] = useState('B.E. Computer Science');
+  const [selectedSect, setSelectedSect] = useState('Section A');
+
   useEffect(() => {
     if (!user) return;
     if (!['admin','institution'].includes(user.role)) { router.push('/dashboard'); return; }
     loadAll();
-  }, [user]); // eslint-disable-line
+  }, [user, selectedUniv, selectedColl, selectedCamp, selectedDept, selectedBranch, selectedSect]); // eslint-disable-line
 
   async function loadAll() {
     setLoading(true);
@@ -95,7 +103,8 @@ export default function UniversityPage() {
 
   async function loadDashboard() {
     try {
-      const d = await api.get<{ placementStats: PlacementStats; topStudents: TopStudent[]; deptStats: DeptStat[] }>('/api/university/dashboard');
+      const q = `?university=${encodeURIComponent(selectedUniv)}&college=${encodeURIComponent(selectedColl)}&campus=${encodeURIComponent(selectedCamp)}&department=${encodeURIComponent(selectedDept)}&branch=${encodeURIComponent(selectedBranch)}&section=${encodeURIComponent(selectedSect)}`;
+      const d = await api.get<{ placementStats: PlacementStats; topStudents: TopStudent[]; deptStats: DeptStat[] }>(`/api/university/dashboard${q}`);
       setStats(d.placementStats);
       setTop(d.topStudents || []);
       setDept(d.deptStats  || []);
@@ -134,6 +143,99 @@ export default function UniversityPage() {
       <div className="page-header" style={{ marginBottom:20 }}>
         <h1 style={{ fontFamily:"var(--font-display)", fontSize:22, fontWeight:900, letterSpacing:"-0.5px", marginBottom:4 }}>🏛 Institution Dashboard</h1>
         <p style={{ color:"var(--t2)", fontSize:13.5 }}>Placement intelligence, employability analytics, and student performance for TPOs</p>
+      </div>
+
+      {/* Multi-campus Hierarchical Selector */}
+      <div style={{
+        background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 16,
+        padding: 20, marginBottom: 24, display: 'flex', flexDirection: 'column', gap: 14
+      }}>
+        <div style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', color: 'var(--t3)', letterSpacing: 0.5 }}>
+          🗺️ Multi-Campus Hierarchy Selector
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 14 }}>
+          {/* University Selector */}
+          <div>
+            <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>University</label>
+            <select className="form-input" style={{ width: '100%', fontSize: 12 }} value={selectedUniv} onChange={e => setSelectedUniv(e.target.value)}>
+              <option value="Visvesvaraya Technological University (VTU)">VTU (State Tech)</option>
+              <option value="Bangalore University (BU)">Bangalore University (BU)</option>
+            </select>
+          </div>
+
+          {/* College Selector */}
+          <div>
+            <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>College</label>
+            <select className="form-input" style={{ width: '100%', fontSize: 12 }} value={selectedColl} onChange={e => setSelectedColl(e.target.value)}>
+              {selectedUniv.includes('VTU') ? (
+                <>
+                  <option value="RV College of Engineering (RVCE)">RV College of Engineering (RVCE)</option>
+                  <option value="BMS College of Engineering (BMSCE)">BMS College of Engineering (BMSCE)</option>
+                </>
+              ) : (
+                <option value="St. Joseph's University (SJU)">St. Joseph's University (SJU)</option>
+              )}
+            </select>
+          </div>
+
+          {/* Campus Selector */}
+          <div>
+            <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Campus</label>
+            <select className="form-input" style={{ width: '100%', fontSize: 12 }} value={selectedCamp} onChange={e => setSelectedCamp(e.target.value)}>
+              <option value="Main Campus (Mysore Road)">Main Campus (Mysore Road)</option>
+              <option value="Extension Campus (Kanakapura Road)">Extension Campus (Kanakapura Road)</option>
+              <option value="City Campus">City Campus</option>
+            </select>
+          </div>
+
+          {/* Department Selector */}
+          <div>
+            <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Department</label>
+            <select className="form-input" style={{ width: '100%', fontSize: 12 }} value={selectedDept} onChange={e => setSelectedDept(e.target.value)}>
+              <option value="Computer Science & Eng (CSE)">Computer Science & Eng (CSE)</option>
+              <option value="Electronics & Comm (ECE)">Electronics & Comm (ECE)</option>
+              <option value="Mechanical Eng (ME)">Mechanical Eng (ME)</option>
+            </select>
+          </div>
+
+          {/* Branch Selector */}
+          <div>
+            <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Branch / Course</label>
+            <select className="form-input" style={{ width: '100%', fontSize: 12 }} value={selectedBranch} onChange={e => setSelectedBranch(e.target.value)}>
+              {selectedDept.includes('CSE') ? (
+                <>
+                  <option value="B.E. Computer Science">B.E. Computer Science</option>
+                  <option value="B.E. Information Science">B.E. Information Science</option>
+                  <option value="M.Tech Data Science">M.Tech Data Science</option>
+                </>
+              ) : (
+                <option value="B.E. Engineering Core">B.E. Engineering Core</option>
+              )}
+            </select>
+          </div>
+
+          {/* Section Selector */}
+          <div>
+            <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Section</label>
+            <select className="form-input" style={{ width: '100%', fontSize: 12 }} value={selectedSect} onChange={e => setSelectedSect(e.target.value)}>
+              <option value="Section A">Section A</option>
+              <option value="Section B">Section B</option>
+              <option value="Section C">Section C</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Hierarchy Tree Visualization Panel */}
+        <div style={{
+          background: 'var(--bg3)', borderRadius: 10, padding: 12, fontSize: 12,
+          display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap'
+        }}>
+          <span style={{ fontWeight: 700, color: 'var(--accent)' }}>Selected Node Path:</span>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11 }}>
+            🏛️ {selectedUniv} ➔ 🏢 {selectedColl} ➔ 📍 {selectedCamp} ➔ 🏫 {selectedDept} ➔ 🎓 {selectedBranch} ➔ 🔢 {selectedSect}
+          </span>
+        </div>
       </div>
 
       {/* Primary KPIs */}

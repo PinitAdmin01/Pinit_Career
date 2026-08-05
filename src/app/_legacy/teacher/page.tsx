@@ -14,6 +14,7 @@ interface Student {
   ats_score: number; trust_score: number; career_dna_score: number;
   mission_streak: number; missions_completed?: number; created_at: string;
   skill_tags?: string[]; weak_areas?: string[];
+  completed_quests?: string[];
 }
 interface ExamResult {
   id: string; user_id: string; display_name?: string;
@@ -98,8 +99,13 @@ export default function TeacherPage() {
 
   async function loadStudents() {
     try {
-      const d = await api.get<{ users: Student[] }>('/api/admin/users?role=student&limit=200');
-      setStudents(d.users || []);
+      const d = await api.get<{ students: Student[] }>('/api/teacher/students');
+      // Normalize displayName mapping
+      const mapped = (d.students || []).map((s: any) => ({
+        ...s,
+        display_name: s.displayName || s.display_name
+      }));
+      setStudents(mapped);
     } catch { setStudents([]); }
   }
 
@@ -353,19 +359,33 @@ export default function TeacherPage() {
                         <td style={td}><ScoreBadge value={s.career_dna_score} color="var(--purple)" /></td>
                         <td style={td}><span style={{ color:'var(--amber)', fontWeight:700 }}>{'🔥'.repeat(Math.min(s.mission_streak || 0, 3))}{s.mission_streak || 0}d</span></td>
                         <td style={td}>
-                          <div style={{ display:'flex', gap:3, flexWrap:'wrap' }}>
-                            {(s.skill_tags || []).slice(0, 2).map(t => (
-                              <span key={t} style={{ fontSize:9, padding:'1px 5px', borderRadius:3, background:'rgba(0,201,167,0.1)', color:'var(--teal)', border:'1px solid rgba(0,201,167,0.2)' }}>{t}</span>
-                            ))}
+                          <div style={{ display:'flex', flexDirection:'column', gap: 4 }}>
+                            <div style={{ fontSize: 10, color: 'var(--t2)', fontWeight: 600 }}>
+                              🗺️ Timeline: {s.completed_quests?.length || 0} quests completed
+                            </div>
+                            <div style={{ display: 'flex', gap: 2, height: 4, width: 80, background: 'var(--bg3)', borderRadius: 2, overflow: 'hidden' }}>
+                              <div style={{ width: `${Math.min(100, ((s.completed_quests?.length || 0) / 4) * 100)}%`, background: 'var(--accent)', height: '100%' }} />
+                            </div>
                           </div>
                         </td>
                         <td style={td}>
-                          <span style={{ fontSize:10, padding:'3px 8px', borderRadius:100, fontWeight:700,
-                            background: overall >= 70 ? 'var(--green-light)' : overall >= 50 ? 'var(--amber-light)' : 'var(--coral-light)',
-                            color:      overall >= 70 ? 'var(--green)'       : overall >= 50 ? 'var(--amber)'       : 'var(--coral)',
-                          }}>
-                            {overall >= 70 ? '✅ Ready' : overall >= 50 ? '⚡ Progressing' : '⚠ Needs help'}
-                          </span>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                            <span style={{ fontSize:10, padding:'3px 8px', borderRadius:100, fontWeight:700,
+                              background: overall >= 70 ? 'var(--green-light)' : overall >= 50 ? 'var(--amber-light)' : 'var(--coral-light)',
+                              color:      overall >= 70 ? 'var(--green)'       : overall >= 50 ? 'var(--amber)'       : 'var(--coral)',
+                            }}>
+                              {overall >= 70 ? '✅ Ready' : overall >= 50 ? '⚡ Progressing' : '⚠ Needs help'}
+                            </span>
+                            <button onClick={() => {
+                              api.post('/api/admin/users/' + s.id + '/score-override', { field: 'trust_score', value: Math.min(100, (s.trust_score || 0) + 5), reason: 'Teacher quick-grade audit boost' })
+                                .then(() => {
+                                  alert('Quick-graded! Student trust increased +5.');
+                                  loadStudents();
+                                });
+                            }} className="btn-secondary" style={{ padding: '2px 8px', fontSize: 10 }}>
+                              Quick-Grade
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     );

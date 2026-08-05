@@ -1,0 +1,10 @@
+{
+  "faculty": [],
+  "leaves": [],
+  "recruitment": [],
+  "attendance": [],
+  "payroll": {
+    "status": "Idle",
+    "runDate": null
+  }
+}

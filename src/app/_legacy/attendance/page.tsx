@@ -39,8 +39,9 @@ export default function AttendancePage() {
 
   async function startScan() {
     setScanning(true);
+    let stream: MediaStream | null = null;
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
+      stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
       const video  = document.createElement('video');
       video.srcObject = stream;
       await video.play();
@@ -52,11 +53,15 @@ export default function AttendancePage() {
       canvas.getContext('2d')!.drawImage(video, 0, 0);
       const imageData = canvas.toDataURL('image/jpeg', 0.8).split(',')[1];
 
-      stream.getTracks().forEach(t => t.stop());
       await identifyMutation.mutateAsync(imageData);
     } catch (err: any) {
       toast.error('Camera Error', err.message || 'Could not access camera');
     } finally {
+      if (stream) {
+        stream.getTracks().forEach(t => {
+          try { t.stop(); } catch {}
+        });
+      }
       setScanning(false);
     }
   }

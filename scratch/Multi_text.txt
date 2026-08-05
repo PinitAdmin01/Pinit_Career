@@ -1,0 +1,457 @@
+--- PAGE 1 ---
+Multi-Branch 30-Day Career Acceleration Roadmap 
+   Module 11: Department-Specific Placement Curriculums 
+ 
+This document compiles the placement readiness and industry-readiness programs for   all 10 engineering 
+departments   in the PinIT Career OS (V2.0). 
+ 
+--- 
+ 
+   1. Computer Science and Engineering (CSE) 
+  Goal:   SDE, Full Stack, and Cloud Engineering placement readiness. 
+ 
+    1.1 Weekly Curriculum 
+-   Week 1: Assessment & Core Foundations  : Career Audit ➔ Resume Engineering (Quantified achievements) ➔ 
+LinkedIn & GitHub optimization ➔ DSA Arrays & Strings (15 pattern problems) ➔ SQL (Joins, Group By, 
+Subqueries) ➔ Assessment. 
+-   Week 2: Core Computer Science  : OS (Threads, Scheduling, Deadlocks) ➔ DBMS (Normalization, Transactions, 
+ACID) ➔ Networks (TCP/IP , HTTP , DNS, Load Balancing) ➔ OOP & Design Principles (SOLID) ➔ DSA Linked Lists & 
+Trees. 
+-   Week 3: Industry-Level Development  : Project Selection (SaaS, AI App, LMS) ➔ System Design Basics 
+(Scalability, Caching) ➔ Backend API & Auth ➔ DB Design ➔ Cloud Deployment (Docker, CI/CD). 
+-   Week 4: Placement & Growth  : Aptitude & Reasoning ➔ Behavioral (STAR framework) ➔ DSA Graphs & DP ➔ 
+Technical/Behavioral Mocks ➔ Open Source ➔ Portfolio. 
+ 
+    1.2 Target Companies & Deliverables 
+-   Target Companies  : Amazon, Flipkart, Microsoft, Swiggy, Zomato, Razorpay. 
+-   Deliverables  : Deployed fullstack app, GitHub portfolio, ATS Resume, 250+ DSA solved. 
+ 
+--- 
+ 
+   2. Information Technology (IT) 
+  Goal:   Enterprise Software Development, Database Engineering, and Cloud DevOps. 
+ 
+    2.1 Weekly Curriculum 
+-   Week 1: Web Tech & SQL  : Web Architectures ➔ HTML5/CSS3/ES6 JavaScript ➔ DOM Manipulation & APIs ➔ 
+Advanced SQL query indexing ➔ Study tracker. 
+--- PAGE 2 ---
+-   Week 2: Backend Architecture & Networks  : Node.js/Express API design ➔ Database design (NoSQL/MongoDB 
+vs PostgreSQL) ➔ Networks (HTTPS, SSL, DNS routing, firewalls). 
+-   Week 3: DevOps & Project  : Project Selection (e.g. Distributed Chat Portal, Cloud File Manager) ➔ Docker 
+containerization ➔ AWS Deployment (EC2, S3, RDS) ➔ CI/CD workflows. 
+-   Week 4: Information Security & Placement  : Web security (OWASP Top 10) ➔ DSA (Search, Sort, Hash) ➔ 
+Aptitude ➔ Mock Interviews ➔ Portfolio. 
+ 
+    2.2 Target Companies & Deliverables 
+-   Target Companies  : TCS, Infosys, Cognizant, Wipro, Accenture, AWS, Salesforce. 
+-   Deliverables  : Deployed AWS application, Security audit report, Resume, Portfolio. 
+ 
+--- 
+ 
+   3. Artificial Intelligence & Machine Learning (AI & ML) 
+  Goal:   Machine Learning Engineer, NLP Engineer, and computer vision roles. 
+ 
+    3.1 Weekly Curriculum 
+-   Week 1: Math & Python Foundations  : Linear Algebra & Calculus ➔ Probability & Statistics ➔ Python for Data 
+Science (NumPy, Pandas, Scipy) ➔ Data cleaning. 
+-   Week 2: ML Model Implementation  : Supervised Learning (Regression, Decision Trees, SVM) ➔ Unsupervised 
+Learning (K-Means, PCA) ➔ Evaluation metrics (Precision/Recall, ROC-AUC). 
+-   Week 3: Deep Learning & Projects  : Project Selection (e.g. Image Classification Model, LLM Conversational Bot) 
+➔ Neural Networks (CNN, RNN, Transformers) ➔ PyTorch/TensorFlow. 
+-   Week 4: MLOps & Placement  : Model Deployment (FastAPI, Streamlit) ➔ Dockerizing ML pipelines ➔ MLOps 
+lifecycle ➔ Aptitude ➔ AI technical mocks. 
+ 
+    3.2 Target Companies & Deliverables 
+-   Target Companies  : Microsoft, Google, NVIDIA, Fractal Analytics, Mu Sigma, Tech Startups. 
+-   Deliverables  : Deployed ML API model, Jupyter notebooks portfolio, Resume. 
+ 
+--- 
+ 
+   4. Data Science 
+  Goal:   Data Analyst, Data Engineer, and Business Intelligence Analyst. 
+ 
+    4.1 Weekly Curriculum 
+--- PAGE 3 ---
+-   Week 1: Advanced SQL & Pandas  : SQL Window functions, CTEs, optimization ➔ Data Wrangling with Pandas ➔ 
+Exploratory Data Analysis (EDA). 
+-   Week 2: Data Engineering & Warehouse  : ETL/ELT pipeline design ➔ Data Warehousing (Snowflake, Redshift) ➔ 
+NoSQL databases (MongoDB, Cassandra). 
+-   Week 3: Big Data & Dashboards  : Project Selection (e.g. Sales Prediction System, Live Web Scraping Dashboard) 
+➔ Spark/Hadoop ➔ BI Tools (Tableau/PowerBI). 
+-   Week 4: Statistics & Placement  : Statistical Hypothesis Testing (A/B testing) ➔ ML basics ➔ Aptitude ➔ Data 
+science mock interviews. 
+ 
+    4.2 Target Companies & Deliverables 
+-   Target Companies  : EY , Deloitte, KPMG, PwC, Tiger Analytics, Fractal, Target. 
+-   Deliverables  : PowerBI/Tableau interactive dashboard, Spark ETL script, Resume. 
+ 
+--- 
+ 
+   5. Electronics & Communication Engineering (ECE) 
+  Goal:   Embedded Systems, VLSI Design, IoT, and hardware design. 
+ 
+    5.1 Weekly Curriculum 
+-   Week 1: Circuit Analysis & Analog  : KVL/KCL, Network theorems ➔ Semiconductor devices & diodes ➔ 
+BJT/MOSFET amplifiers ➔ Digital design (Logic gates, FSMs). 
+-   Week 2: Microcontrollers & Verilog  : ARM Cortex/8051 architectures ➔ Embedded C scripting ➔ Verilog 
+hardware description ➔ DSP (Fourier & Z-transforms). 
+-   Week 3: IoT & Hardware Project  : Project Selection (e.g. Smart IoT Weather Station, FPGA Digital Clock) ➔ 
+Sensor interfacing (I2C, SPI, UART, LoRa) ➔ LTspice circuit simulation. 
+-   Week 4: VLSI Layout & Placement  : CMOS VLSI layout rules ➔ FPGA prototyping ➔ Aptitude ➔ Core ECE 
+technical mock interviews. 
+ 
+    5.2 Target Companies & Deliverables 
+-   Target Companies  : Intel, Qualcomm, Texas Instruments, NXP Semiconductors, Bosch, Samsung. 
+-   Deliverables  : Embedded firmware codebase, LTspice simulation layout, CAD schematic. 
+ 
+--- 
+ 
+   6. Electrical Engineering (EE) 
+  Goal:   Power Systems, Electrical Machines, Control Automation, and EV Powertrains. 
+--- PAGE 4 ---
+ 
+    6.1 Weekly Curriculum 
+-   Week 1: Machines & Electromagnetics  : Magnetic circuits & Transformers ➔ DC Machines & AC 
+Synchronous/Induction Motors ➔ Transmission lines. 
+-   Week 2: Power Electronics & Controls  : Rectifiers, Inverters, Choppers ➔ Power system fault analysis & 
+protection ➔ PID Control tuning (Bode plots, Nyquist). 
+-   Week 3: MATLAB Simulink & EV Design  : Project Selection (e.g. EV Motor Controller Simulink, Grid Solar 
+Inverter) ➔ MATLAB Power electronics model. 
+-   Week 4: Smart Grid & Placement  : Renewable integrations ➔ Industrial Safety Electrical Codes (NEC) ➔ 
+Aptitude ➔ Technical EE interview panel. 
+ 
+    6.2 Target Companies & Deliverables 
+-   Target Companies  : Power Grid, NTPC, Tata Power, ABB, Schneider Electric, General Electric. 
+-   Deliverables  : MATLAB simulation model, Power schematics, CAD layouts. 
+ 
+--- 
+ 
+   7. Electrical & Electronics Engineering (EEE) 
+  Goal:   Industrial Automation (PLC/SCADA), Embedded systems, and Smart Grid technologies. 
+ 
+    7.1 Weekly Curriculum 
+-   Week 1: Core EEE Circuits  : AC/DC Network analysis ➔ Analog Op-Amps & Digital gates ➔ Transformer & 
+Induction Motor testing. 
+-   Week 2: Control Systems & Power conversion  : PID Controller structures ➔ Power Electronic converters ➔ 
+Microcontroller interfacing (Arduino, ARM Cortex). 
+-   Week 3: Industrial Automation Project  : Project Selection (e.g. PLC-based Assembly Line Simulation, Smart 
+Energy Meter) ➔ PLC ladder logic ➔ MATLAB modeling. 
+-   Week 4: Industry 4.0 & Placement  : Smart grid communication ➔ SCADA dashboards ➔ Aptitude & Reasoning 
+➔ EEE Mock technical boards. 
+ 
+    7.2 Target Companies & Deliverables 
+-   Target Companies  : Siemens, L&T Electrical, Alstom, Honeywell, Rockwell Automation. 
+-   Deliverables  : PLC Ladder Logic diagram, MATLAB simulation files, EEE Resume. 
+ 
+--- 
+ 
+--- PAGE 5 ---
+   8. Mechanical Engineering 
+  Goal:   CAD Design, CAE Simulation, EV Powertrains, and Manufacturing. 
+ 
+    8.1 Weekly Curriculum 
+-   Week 1: Core Mechanical Foundations  : Force Systems ➔ Strength of Materials (Stress/Strain, Failure Theories) 
+➔ Theory of Machines (TOM) (Gears, Cams) ➔ Machine Design. 
+-   Week 2: Thermal & Manufacturing Systems  : Thermodynamics cycles ➔ Heat & Mass Transfer ➔ Fluid 
+Mechanics ➔ Manufacturing Processes (Casting, Machining). 
+-   Week 3: Design Tools & Project  : Project Selection (e.g. EV Go-Kart, Conveyor Design) ➔ SolidWorks/CATIA Part 
+& Assembly ➔ GD&T ➔ ANSYS CAE structural simulations. 
+-   Week 4: Future Tech & Placement  : EV Dynamics ➔ Maintenance (TPM) ➔ Quality (Six Sigma, SPC) ➔ Technical 
+Design interview grilling. 
+ 
+    8.2 Target Companies & Deliverables 
+-   Target Companies  : Tata Motors, Mahindra, Maruti Suzuki, Bosch, Cummins, L&T, Siemens. 
+-   Deliverables  : Deployed CAD Assembly, CAE Simulation Report, Resume, GD&T sheet. 
+ 
+--- 
+ 
+   9. Civil Engineering 
+  Goal:   Structural analysis, Site Engineering, Estimation, and Quantity Surveying. 
+ 
+    9.1 Weekly Curriculum 
+-   Week 1: Structural Foundations  : Strength of Materials (SFD, BMD) ➔ Structural Analysis (Trusses) ➔ 
+Reinforced Concrete (RCC) limit states ➔ Steel connections. 
+-   Week 2: Infrastructure Systems  : Geotechnical (Bearing capacity, Soil) ➔ Surveying (Total Station, GPS) ➔ 
+Highway Pavements ➔ Estimation & Costing (BOQ sheet). 
+-   Week 3: Software Tools & Project  : Project Selection (e.g. G+5 Building Design, Commercial Estimation) ➔ 
+AutoCAD plans ➔ STAAD.Pro/ETABS loading ➔ Primavera schedules. 
+-   Week 4: Site Safety & BIM  : BIM Revit overview ➔ Construction Safety (OSHA) ➔ NBC Codes ➔ Technical Site 
+Engineer Mock interview. 
+ 
+    9.2 Target Companies & Deliverables 
+-   Target Companies  : L&T Construction, Shapoorji Pallonji, Tata Projects, AECOM, Jacobs. 
+-   Deliverables  : AutoCAD civil plans, ETABS structural model, BOQ estimation sheets. 
+ 
+--- PAGE 6 ---
+--- 
+ 
+   10. Chemical Engineering 
+  Goal:   Process Design, Plant Operations, Refinery Operations, and Process Safety. 
+ 
+    10.1 Weekly Curriculum 
+-   Week 1: Chemical Foundations  : Material & Energy balances ➔ Chemical Thermodynamics ➔ Fluid Flow & 
+Pumps ➔ Heat Exchangers ➔ Mechanical operations. 
+-   Week 2: Process Engineering Core  : Mass Transfer (Distillation) ➔ Reaction Engineering (CSTR/PFR design) ➔ 
+PID Control loops ➔ PFD & P&ID interpretation. 
+-   Week 3: Aspen HYSYS Project  : Project Selection (e.g. Crude Distillation Simulation, Water Treatment plant) ➔ 
+Aspen HYSYS flowsheeting ➔ HAZOP safety audits. 
+-   Week 4: Operations & Standards  : Refinery processes ➔ Pharma GMP validation ➔ OSHA/API standards ➔ 
+Technical Process engineering mock interview. 
+ 
+    10.2 Target Companies & Deliverables 
+-   Target Companies  : Reliance Industries, IOCL, BPCL, BASF, Dow, Sun Pharma, Cipla. 
+-   Deliverables  : Aspen HYSYS flowsheet simulation file, HAZOP audit sheet, Process Report. 
+ 
+ 
+ 
+ 
+  Comprehensive Application & Curriculum Workflows 
+   Module 14: Fused Web Application, Course (Quest), & 10-Module Lifecycles 
+ 
+This document describes the foundational workflows governing the   PinIT Career OS (Version 2.0)  : 
+1.   Web Application Workflow  : Navigation states, routing structure, and screen transitions. 
+2.   Individual Course (Quest) Workflow  : The operational lifecycle of a student starting, compiling, and passing a 
+single learning quest. 
+3.   The 10-Module Unified Workflow  : How all 10 platform architecture modules interact to take a student from 
+registration to corporate placement. 
+4.   The 30-Day Branch-Specific Preparation Workflow  : Detailed chronological workflows for all 10 engineering 
+departments (CSE, IT, AI & ML, Data Science, ECE, EE, EEE, Mechanical, Civil, Chemical). 
+ 
+--- 
+ 
+   1. The Web Application Workflow 
+--- PAGE 7 ---
+ 
+PinIT's frontend is a Next.js single-page application (SPA) wrapped in a unified distraction-free shell 
+([AppShell.tsx](file:///c:/Users/vinay/Desktop/project/verify-pinit/firebase-deploy/src/components/ui/AppShell.tsx)). 
+ 
+```mermaid 
+graph TD 
+    %% Public Routes 
+    Landing["Landing Page (/)"] -->|Get Started| Signup["Signup (/signup)"] 
+    Landing -->|Sign In| Login["Login (/login)"] 
+     
+    %% Onboarding Gateway 
+    Signup --> Onboard["Onboarding Flow (/onboarding)"] 
+    Login -->|If onboarding incomplete| Onboard 
+    Login -->|If onboarding done| Dashboard["Command Center (/dashboard)"] 
+    Onboard -->|STATE_3 Unlocked| Dashboard 
+     
+    %% Core OS Shell Navigation 
+    Dashboard --> Quests["Quests Hub (/quests)"] 
+    Dashboard --> Missions["Daily Missions (/missions)"] 
+    Dashboard --> Vault["Evidence Vault (/vault)"] 
+    Dashboard --> DNA["Career DNA (/career-dna)"] 
+    Dashboard --> Opps["Opportunities (/opportunities)"] 
+    Dashboard --> Profile["Profile & Mentor Config (/profile)"] 
+``` 
+ 
+--- 
+ 
+   2. The Individual Course (Quest) Workflow 
+ 
+Every quest/course in PinIT follows a closed socratic learning loop. The browser sandbox handles compilation locally 
+to reduce server cost to zero: 
+ 
+```mermaid 
+sequenceDiagram 
+    autonumber 
+--- PAGE 8 ---
+    actor Student 
+    participant Hub as Quests Hub (/quests) 
+    participant Workspace as Editor Workspace (/quests/[id]) 
+    participant Sandbox as Local WASM Sandbox 
+    participant AI as AI Socratic Mentor 
+    participant DB as Supabase/Local Storage 
+ 
+    Student->>Hub: Click "Start Quest" 
+    Hub->>Workspace: Route to Quest Workspace (Deduct 5 Pins) 
+    Workspace->>Student: Render objective checklist (Left) & seed code (Right) 
+    Student->>Workspace: Write code or input design parameters 
+    Student->>Workspace: Click "Run Tests" 
+    Workspace->>Sandbox: Execute tests inside browser virtual environment 
+    alt Tests Fail 
+        Sandbox-->>Workspace: Return execution logs & assert errors 
+        Workspace-->>Student: Display compilation errors & suggest hints 
+    else Tests Pass 
+        Sandbox-->>Workspace: Return 100% success signature 
+        Workspace->>AI: Fetch socratic feedback tip 
+        AI-->>Workspace: Return conceptual review tip 
+        Workspace->>Student: Display success panel & AI feedback 
+        Student->>Workspace: Click "Complete Quest" 
+        Workspace->>DB: Write quest completion state, add +30 XP , award +10 Pins 
+        DB-->>Hub: Unlock next sequential quest in timeline 
+    end 
+``` 
+ 
+--- 
+ 
+   3. The 10-Module Unified Workflow 
+ 
+This workflow represents the sequential interaction of all 10 platform architecture modules as a student prepares for 
+corporate placement over 30 days: 
+ 
+--- PAGE 9 ---
+``` 
+[Module 1: Master State Machine] 
+             | 
+             v (Visitor logs in) 
+[Module 2: Onboarding Routes] ➔ Express (Resume Parser) OR Deep (Scenario/Voice Diagnostic) 
+             | 
+             v (Calculates baseline traits) 
+[Module 4: Cognitive Diagnostics] & [Module 5: Mindset Archetypes & Scoring] 
+             | 
+             v (Dashboard HUD opens & priority tasks recommended) 
+[Module 6: Command Center HUD] ➔ Toggles to WhatsApp-style Conversational Lite Mode if needed 
+             | 
+             v (Identifies skill gaps & compiles learning track) 
+[Module 7: sandboxed Workspace] ➔ Local WebAssembly sandbox executes unit tests at $0 cost 
+             | 
+             v (Deducts daily AI limits & awards operating Pins) 
+[Module 9: Fused Tokenomics] ➔ Spend Pins to request custom topic missions 
+             | 
+             v (Uploads project files / credentials) 
+[Module 3: Trust-Verify Loop] ➔ AI scanner checks signatures to raise Trust Score above 60% 
+             | 
+             v (Pre-renders voices & runs WebRTC assessments) 
+[Module 8: WebRTC Streams & S3 Caching] ➔ Dynamic grilling by Coordinated AI panel 
+             | 
+             v (Dossier packet compiled: Code, DNA, credentials, voice) 
+[Module 10: Zero-Click Placement Delivery] ➔ Pushes verified profile directly to recruiter ATS 
+``` 
+ 
+--- 
+ 
+   4. The 30-Day Branch-Specific Preparation Workflow 
+ 
+--- PAGE 10 ---
+Once onboarding completes, the platform launches a   30-Day Preparation Mode   tailored to the student's 
+department. The student completes daily tasks in their sandbox, monitored by their   AI Mentor   and verified by   
+Evidence Vault   uploads. 
+ 
+```mermaid 
+graph TD 
+    subgraph Phase 1: Foundation (Days 1-7) 
+        A[Career Mapping & Resume Review] --> B[Daily Theory Quests] 
+        B --> C[Weekly Foundation Test] 
+    end 
+    subgraph Phase 2: Core Mastery (Days 8-14) 
+        C --> D[Advanced Core Concepts] 
+        D --> E[Mid-Point Mock Interview] 
+    end 
+    subgraph Phase 3: Project Sizing (Days 15-21) 
+        E --> F[Select Industry Project] 
+        F --> G[CAD/Code Sandbox Simulations] 
+        G --> H[Upload Proof to Vault] 
+    end 
+    subgraph Phase 4: Placement Launch (Days 22-30) 
+        H --> I[Aptitude & Behavioral STAR] 
+        I --> J[Coordinated AI Panel Assessment] 
+        J --> K[Zero-Click Recruiter Push] 
+    end 
+``` 
+ 
+    4.1 Computer Science and Engineering (CSE) Workflow 
+-   Days 1–7  : Map targets (SDE, Fullstack) ➔ Resume rewrite ➔ LinkedIn/GitHub optimization ➔ Solve DSA 
+Array/String quests ➔ Execute SQL database queries. 
+-   Days 8–14  : Study OS process scheduling, DBMS transaction ACID controls, Computer Networks (HTTP/TCP), and 
+SOLID design principles. Complete mock technical interviews. 
+-   Days 15–21  : Project Selection (SaaS, AI App, LMS) ➔ System Design (caching, load balancing) ➔ Implement 
+Backend API and Auth ➔ Configure Docker deployment ➔ Commit to GitHub. 
+-   Days 22–30  : Practice aptitude tests ➔ Record STAR behavioral interview responses ➔ Solve DP/Graph challenges 
+➔ Pass mock SDE panels ➔ Finalize portfolio and activate recruiter push. 
+ 
+--- PAGE 11 ---
+    4.2 Information Technology (IT) Workflow 
+-   Days 1–7  : Audit career targets ➔ Learn web basics (HTML5, CSS3, ES6 JavaScript) ➔ Map DOM manipulations ➔ 
+Run SQL index optimization challenges. 
+-   Days 8–14  : Design RESTful backend APIs (Node.js/Express) ➔ Structure NoSQL schemas (MongoDB) vs relational 
+databases ➔ Configure network firewalls, DNS routing, and HTTPS certificates. 
+-   Days 15–21  : Project Selection (Distributed Chat, Cloud File Explorer) ➔ Setup AWS infrastructure (EC2, S3, RDS) 
+➔ Write deployment Dockerfiles ➔ Configure GitHub Action CI/CD pipelines. 
+-   Days 22–30  : Study OWASP Top 10 web vulnerabilities ➔ Solve DSA search and sort challenges ➔ Run aptitude 
+tests ➔ Complete IT infrastructure mocks ➔ Finalize portfolio. 
+ 
+    4.3 Artificial Intelligence & Machine Learning (AI & ML) Workflow 
+-   Days 1–7  : Review linear algebra, vector calculus, and statistics ➔ Write Python data wrangling scripts (NumPy, 
+Pandas) ➔ Perform exploratory data feature scaling. 
+-   Days 8–14  : Implement supervised learning algorithms (Linear/Logistic regression, SVM, Random Forests) ➔ Run 
+unsupervised clustering (K-Means, PCA) ➔ Measure precision-recall and ROC-AUC curves. 
+-   Days 15–21  : Project Selection (Image Classifier, LLM chatbot wrapper) ➔ Configure Deep Learning layers (CNNs, 
+Transformers) using PyTorch ➔ Train models on local hardware mockups. 
+-   Days 22–30  : Deploy ML models as REST APIs using FastAPI ➔ Dockerize model pipelines ➔ Practice AI/ML 
+technical interviews ➔ Upload notebooks to GitHub and trigger push. 
+ 
+    4.4 Data Science Workflow 
+-   Days 1–7  : Run advanced SQL queries (CTEs, Window functions, indexing) ➔ Analyze datasets using Pandas ➔ 
+Generate exploratory data visualization charts. 
+-   Days 22–30  : Design ETL/ELT pipeline workflows ➔ Connect streams to cloud warehouses (Snowflake, AWS 
+Redshift) ➔ Study NoSQL database storage (Cassandra, MongoDB). 
+-   Days 15–21  : Project Selection (Sales Prediction dashboard, web scraping pipeline) ➔ Run big data processing 
+scripts in Apache Spark ➔ Design BI dashboards in Tableau/PowerBI. 
+-   Days 22–30  : Perform statistical hypothesis testing (A/B testing) ➔ Complete business aptitude rounds ➔ Run 
+mock data interviews ➔ Finalize portfolio reports. 
+ 
+    4.5 Electronics & Communication Engineering (ECE) Workflow 
+-   Days 1–7  : Solve network theorems (KVL/KCL, Thevenin) ➔ Analyze analog semiconductor circuits (BJTs, MOSFET 
+amplifiers) ➔ Design logic gates and finite state machines (FSMs). 
+-   Days 8–14  : Write Embedded C scripts for microcontrollers (ARM Cortex, 8051) ➔ Describe digital circuits in 
+Verilog/VHDL ➔ Study DSP filters (Fourier, Z-transforms). 
+-   Days 15–21  : Project Selection (Smart IoT weather node, FPGA clock controller) ➔ Connect sensors using 
+protocols (I2C, SPI, UART) ➔ Model schematic designs in LTspice. 
+--- PAGE 12 ---
+-   Days 22–30  : Study CMOS VLSI layout rules ➔ Prototype FPGA chips ➔ Complete ECE core hardware mock 
+interviews ➔ Upload schematics to the Vault and trigger push. 
+ 
+    4.6 Electrical Engineering (EE) Workflow 
+-   Days 1–7  : Map targets (Power grids, EV, control automation) ➔ Analyze electromagnetic fields ➔ Study DC/AC 
+electrical machines and transformers. 
+-   Days 8–14  : Model power electronics components (choppers, rectifiers, inverters) ➔ Run power system fault 
+calculations ➔ Tune PID controller parameters (Bode plots, Nyquist). 
+-   Days 15–21  : Project Selection (EV motor control simulator, grid solar inverter simulation) ➔ Build circuits inside 
+MATLAB Simulink ➔ Settle hardware component ratings. 
+-   Days 22–30  : Study smart grid communication and renewable grid integrations ➔ Audit electrical safety standards 
+(NEC codes) ➔ Pass EE mock panels ➔ Upload MATLAB designs. 
+ 
+    4.7 Electrical & Electronics Engineering (EEE) Workflow 
+-   Days 1–7  : Solve AC/DC network circuit equations ➔ Design analog amplifiers (Op-Amps) and digital logic 
+controllers ➔ Conduct induction motor parameter tests. 
+-   Days 8–14  : Wire power converters (buck-boost controllers) ➔ Design closed-loop control systems ➔ Write 
+microcontroller code (Arduino, ARM Cortex). 
+-   Days 15–21  : Project Selection (PLC industrial assembly simulator, smart power meter) ➔ Program PLC ladder 
+logic ➔ Simulate circuits in MATLAB. 
+-   Days 22–30  : Integrate smart SCADA communication dashboards ➔ Study IoT controller nodes ➔ Complete EEE 
+technical mock interviews ➔ Upload PLC logic to the Vault. 
+ 
+    4.8 Mechanical Engineering Workflow 
+-   Days 1–7  : Audit targets (Design, Automotive, Manufacturing) ➔ Solve Strength of Materials calculations (failure 
+theories) ➔ Model TOM mechanism motions (gears, cams). 
+-   Days 8–14  : Study thermodynamic cycles and heat transfer (conduction, convection) ➔ Model fluid mechanics 
+pipe flows ➔ Analyze manufacturing processes (casting, welding). 
+-   Days 15–21  : Project Selection (EV Go-Kart, HVAC system, Conveyor design) ➔ Model parts in SolidWorks/CATIA 
+➔ Apply GD&T drawings ➔ Run structural/thermal CAE in ANSYS. 
+-   Days 22–30  : Study EV drivetrain dynamics and smart robotics ➔ Implement Lean Manufacturing (Six Sigma, TPM) 
+➔ Upload CAD models to the Vault ➔ Pass mock design interviews. 
+ 
+    4.9 Civil Engineering Workflow 
+-   Days 1–7  : Audit targets (Structures, Site, Estimation) ➔ Solve strength of materials beam diagrams (SFD, BMD) ➔ 
+Analyze trusses ➔ Design RCC concrete limit states and steel welds. 
+-   Days 8–14  : Calculate soil bearing capacities ➔ Survey total station and GPS coordinates ➔ Design highway 
+pavement pavements ➔ Compile estimation takeoffs. 
+--- PAGE 13 ---
+-   Days 15–21  : Project Selection (G+5 residential building, commercial BOQ) ➔ Draft blueprints in AutoCAD Civil ➔ 
+Apply loads in STAAD.Pro ➔ Analyze seismic safety in ETABS. 
+-   Days 22–30  : Manage scheduling in Primavera/MS Project ➔ Run Revit BIM inspections ➔ Audit IS 456/IS 800 
+code standards ➔ Pass technical site engineer mock interviews. 
+ 
+    4.10 Chemical Engineering Workflow 
+-   Days 1–7  : Calculate process material and energy balances ➔ Solve phase equilibria thermodynamics ➔ Model 
+fluid pipe flows and pumps ➔ Study heat exchangers. 
+-   Days 8–14  : Analyze distillation column mass transfer ➔ Model CSTR/PFR reactors ➔ Design PID controller loops 
+➔ Interpret process flow diagrams (PFD & P&ID). 
+-   Days 15–21  : Project Selection (Crude oil distillation simulation, water treatment design) ➔ Simulate process 
+flowsheets in Aspen HYSYS ➔ Size equipment capacities ➔ Audit HAZOP safety rules. 
+-   Days 22–30  : Study refinery petrochemical processes, pharma GMP guidelines, and green hydrogen/biofuel 
+sustainability. Upload HYSYS files, pass HAZOP technical mocks, and trigger push. 
+ 
+ 

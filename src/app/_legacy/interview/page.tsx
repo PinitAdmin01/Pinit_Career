@@ -148,7 +148,7 @@ export default function InterviewPage() {
 
   // Conversational response dispatcher (Llama API with local rule fallback)
   const getInterviewerResponse = async (userMsg: string, stage: InterviewStage, history: Message[]): Promise<string> => {
-    const key = (globalThis as any).__GROQ_KEY__ || process.env.NEXT_PUBLIC_GROQ_API_KEY;
+    const key = (globalThis as any).__GROQ_KEY__ || process.env.GROQ_API_KEY;
     if (key) {
       try {
         let stageContext = '';

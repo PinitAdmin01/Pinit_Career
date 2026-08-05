@@ -5,8 +5,11 @@ import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { useAuth } from '@/lib/context/AuthContext';
 import MissionCard from '@/components/ui/MissionCard';
 import LinguaLab from '@/components/missions/LinguaLab';
+import MissionsArchetypeMatrix from '@/components/missions/MissionsArchetypeMatrix';
+import MissionsGrowthRadar from '@/components/missions/MissionsGrowthRadar';
+import MissionsHistoryTab from '@/components/missions/MissionsHistoryTab';
 import { useMissionsToday, useMissionHistory } from '@/lib/api/hooks';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { api } from '@/lib/api/client';
 import { toast } from '@/lib/store/useAppStore';
@@ -41,6 +44,8 @@ const TYPE_META: Record<string, { icon: string; color: string; light: string }> 
 export default function MissionsPage() {
   const cOS = useCareerOS();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const isRoleplayParam = searchParams?.get('roleplay') === 'true';
   const { user, refresh } = useAuth();
   const { 
     missionStreak: streak, 
@@ -70,18 +75,27 @@ export default function MissionsPage() {
   const [customRole, setCustomRole] = useState(onboardingAnswers?.role || 'Software Developer');
   const [generatingSkill, setGeneratingSkill] = useState(false);
 
-  // Gamified Sub-tab selections & Language Trainer hooks
+  // Gamified Sub-tab selections & Universal History Command Center states
   const [activeTab, setActiveTab] = useState<'evolve' | 'language' | 'history'>('evolve');
   const [selectedHistoryRecord, setSelectedHistoryRecord] = useState<any | null>(null);
   const [socraticHistory, setSocraticHistory] = useState<any[]>([]);
+  const [historySearchQuery, setHistorySearchQuery] = useState('');
+  const [historyCategoryFilter, setHistoryCategoryFilter] = useState<'all' | 'mindset' | 'corporate_comm' | 'missions'>('all');
 
-  // ── Roleplay Simulator State ──
+  // Dynamic Plus Shape Human Archetype Chart states
+  const [hoveredQuadrant, setHoveredQuadrant] = useState<string | null>(null);
+  const [selectedQuadrant, setSelectedQuadrant] = useState<string | null>(null);
+  const [hoveredRadarMetric, setHoveredRadarMetric] = useState<string | null>(null);
+
+  // ── Roleplay Simulator State & Atomic Unlock Lock ──
   const [roleplayActive, setRoleplayActive] = useState(false);
+  const [isUnlocking, setIsUnlocking] = useState(false);
+
   const updateRoleplayActive = (active: boolean) => {
     setRoleplayActive(active);
-    if (active) {
+    if (active && !isRoleplayParam) {
       router.replace('/missions?roleplay=true');
-    } else {
+    } else if (!active && isRoleplayParam) {
       router.replace('/missions');
     }
   };
@@ -135,26 +149,26 @@ export default function MissionsPage() {
     }
   }, [activeTab]);
 
-  // Sync simulator active state with URL query param so that the AppShell knows to hide sidebar/topbar and adjust layout width
+  // Sync simulator active state with Next.js router & searchParams safely to prevent router re-render loop
   useEffect(() => {
-    if (roleplayActive) {
+    if (roleplayActive && !isRoleplayParam) {
       router.replace('/missions?roleplay=true');
-    } else {
+    } else if (!roleplayActive && isRoleplayParam) {
       router.replace('/missions');
     }
-  }, [roleplayActive, router]);
+  }, [roleplayActive, isRoleplayParam, router]);
 
   // Countdown timer for stress and natural blindness drilling
   useEffect(() => {
-    if (!roleplayActive || !roleplayScenario || roleplayScenario.choices.length === 0 || evaluationLoading || evaluationReport || animState === 'talking') {
+    if (!roleplayActive || !roleplayScenario || !roleplayScenario.choices || roleplayScenario.choices.length === 0 || evaluationLoading || evaluationReport || animState === 'talking') {
       return;
     }
     const interval = setInterval(() => {
       setTimerCount(prev => {
         if (prev <= 1) {
-          // Timer ran out! Auto-select the worst choice (Option C) representing a panic System 1 shortcut
+          // Timer ran out! Auto-select the panic choice safely with array bounds check
           toast.error("Time Expired! ⏳", "Panic option selected automatically due to stress limit.");
-          const worstIdx = roleplayScenario.choices.length - 1;
+          const worstIdx = Math.max(0, roleplayScenario.choices.length - 1);
           handleSelectChoice(worstIdx);
           return 25;
         }
@@ -165,24 +179,27 @@ export default function MissionsPage() {
   }, [roleplayActive, roleplayScenario, evaluationLoading, evaluationReport, animState]);
 
   const initiateRoleplay = async () => {
-    if (!canAfford('quest_start')) {
-      toast.error("Insufficient Pins", "Initiating a dynamic mindset evolution roleplay costs 5 Pins.");
-      return;
-    }
-
+    // Wrap unlock in atomic lock state (isUnlocking) to prevent rapid double-clicking from deducting double Pin currency
+    if (roleplayLoading || isUnlocking) return;
+    setIsUnlocking(true);
     setRoleplayLoading(true);
-    setRoleplayActive(true);
-    setScenario(null);
-    setRoleplayHistory([]);
-    setEvaluationReport('');
-    setTimerCount(25);
-    setCognitiveLoad(30);
-    setSessionElapsed(0);
-    stopSpeaking();
 
     try {
-      // Spend 5 Pins
-      await spendPins('quest_start', "Mindset Roleplay Outage Simulation");
+      const ok = cOS.unlockItem('mission:roleplay', 'mission', 'Mindset Roleplay Outage Simulation');
+      if (!ok) {
+        setRoleplayLoading(false);
+        setIsUnlocking(false);
+        return;
+      }
+
+      setRoleplayActive(true);
+      setScenario(null);
+      setRoleplayHistory([]);
+      setEvaluationReport('');
+      setTimerCount(25);
+      setCognitiveLoad(30);
+      setSessionElapsed(0);
+      stopSpeaking();
 
       const res = await fetch('/api/missions/roleplay', {
         method: 'POST',
@@ -201,7 +218,7 @@ export default function MissionsPage() {
 
         // Speak the message locally via neural voice
         setAnimState('talking');
-        speakWithAvatar(data.message, data.activeAvatar, () => setAnimState('talking'), () => setAnimState('listening'), false, true);
+        speakWithAvatar(data.message, data.activeAvatar, () => setAnimState('talking'), () => setAnimState('listening'), false, true, 'normal');
       } else {
         throw new Error(data.error || "Initialization failed");
       }
@@ -210,6 +227,7 @@ export default function MissionsPage() {
       setRoleplayActive(false);
     } finally {
       setRoleplayLoading(false);
+      setIsUnlocking(false);
     }
   };
 
@@ -264,7 +282,9 @@ export default function MissionsPage() {
               }, 800);
             }, 
             false, 
-            true
+            true,
+            undefined,
+            1.1
           );
         } else {
           // Process next dialogue step
@@ -273,7 +293,7 @@ export default function MissionsPage() {
           setRoleplayHistory(prev => [...prev, nextMsg]);
 
           setAnimState('talking');
-          speakWithAvatar(data.message, data.activeAvatar, () => setAnimState('talking'), () => setAnimState('listening'), false, true);
+          speakWithAvatar(data.message, data.activeAvatar, () => setAnimState('talking'), () => setAnimState('listening'), false, true, undefined, 1.1);
         }
       } else {
         throw new Error(data.error || "Response failed");
@@ -357,7 +377,9 @@ export default function MissionsPage() {
           () => setAnimState('talking'),
           () => setAnimState('idle'),
           false,
-          true
+          true,
+          undefined,
+          1.1
         );
 
         // Save to Socratic history in local storage
@@ -1007,7 +1029,7 @@ export default function MissionsPage() {
                 transition: 'all 0.15s'
               }}
             >
-              🦜 Learn a Language (Lingua Lab)
+              🎙️ Career Communication Lab
             </button>
             <button
               onClick={() => { setActiveTab('history'); stopSpeaking(); setRoleplayActive(false); setSelectedHistoryRecord(null); }}
@@ -1066,7 +1088,7 @@ export default function MissionsPage() {
 
                  <button
                   onClick={initiateRoleplay}
-                  disabled={roleplayLoading}
+                  disabled={roleplayLoading || isUnlocking}
                   className="btn-primary"
                   style={{ 
                     padding: '12px 28px', 
@@ -1080,7 +1102,7 @@ export default function MissionsPage() {
                     transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)'
                   }}
                   onMouseEnter={(e) => {
-                    if (!roleplayLoading) {
+                    if (!roleplayLoading && !isUnlocking) {
                       e.currentTarget.style.transform = 'scale(1.03)';
                       e.currentTarget.style.boxShadow = '0 6px 20px rgba(168,85,247,0.5)';
                     }
@@ -1090,7 +1112,7 @@ export default function MissionsPage() {
                     e.currentTarget.style.boxShadow = '0 4px 14px rgba(168,85,247,0.3)';
                   }}
                 >
-                  {roleplayLoading ? '⚡ Compiling Parameters...' : '⚡ Launch Simulator Session (5 Pins)'}
+                  {roleplayLoading || isUnlocking ? '⚡ Compiling Parameters...' : '⚡ Launch Simulator Session (5 Pins)'}
                 </button>
 
                 <div style={{ marginTop: 18 }}>
@@ -1214,7 +1236,7 @@ export default function MissionsPage() {
           ) : activeTab === 'language' ? (
             <LinguaLab streak={streak} theme={theme} />
           ) : (
-            /* Conclusion History Tab */
+            /* Conclusion History Tab - Universal History Command Center */
             <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
               {selectedHistoryRecord ? (
                 /* Selected Conclusion Report Detail View */
@@ -1228,139 +1250,90 @@ export default function MissionsPage() {
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: `1px solid ${theme.border}`, paddingBottom: 12, marginBottom: 16 }}>
                     <button 
                       onClick={() => setSelectedHistoryRecord(null)}
-                      style={{ background: theme.bgInside, border: `1px solid ${theme.border}`, padding: '6px 12px', borderRadius: 8, fontSize: 12, cursor: 'pointer', color: theme.tSecondary }}
+                      style={{ background: theme.bgInside, border: `1px solid ${theme.border}`, padding: '8px 14px', borderRadius: 10, fontSize: 12, fontWeight: 700, cursor: 'pointer', color: theme.tPrimary, display: 'inline-flex', alignItems: 'center', gap: 6 }}
                     >
-                      ← Back to History
+                      ← Back to History Timeline
                     </button>
                     <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: theme.tTertiary }}>
-                      Completed on {selectedHistoryRecord.date}
+                      Recorded on {selectedHistoryRecord.date}
                     </span>
                   </div>
 
                   <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 16 }}>
-                    <span style={{ padding: '4px 10px', borderRadius: 8, fontSize: 11, fontWeight: 700, background: 'rgba(168,85,247,0.1)', color: 'var(--purple)' }}>
-                      Archetype: {selectedHistoryRecord.mindsetArchetype}
+                    <span style={{
+                      padding: '5px 12px',
+                      borderRadius: 8,
+                      fontSize: 11,
+                      fontWeight: 800,
+                      background: selectedHistoryRecord.type === 'corporate_comm' ? 'rgba(20,184,166,0.1)' : selectedHistoryRecord.type === 'daily_mission' ? 'rgba(59,130,246,0.1)' : 'rgba(168,85,247,0.1)',
+                      color: selectedHistoryRecord.type === 'corporate_comm' ? 'var(--teal)' : selectedHistoryRecord.type === 'daily_mission' ? 'var(--blue)' : 'var(--purple)',
+                      border: `1px solid ${selectedHistoryRecord.type === 'corporate_comm' ? 'rgba(20,184,166,0.25)' : selectedHistoryRecord.type === 'daily_mission' ? 'rgba(59,130,246,0.25)' : 'rgba(168,85,247,0.25)'}`
+                    }}>
+                      {selectedHistoryRecord.type === 'corporate_comm' ? '🎙️ Corporate Comm Session' : selectedHistoryRecord.type === 'daily_mission' ? '📅 Daily Mission Proof' : `🧬 Archetype: ${selectedHistoryRecord.mindsetArchetype || 'Pattern Hunter'}`}
                     </span>
-                    <span style={{ padding: '4px 10px', borderRadius: 8, fontSize: 11, fontWeight: 700, background: selectedHistoryRecord.qt2Delta >= 0 ? 'rgba(20,184,166,0.1)' : 'rgba(239,68,68,0.1)', color: selectedHistoryRecord.qt2Delta >= 0 ? 'var(--teal)' : 'var(--red)' }}>
-                      QT2 Score Change: {selectedHistoryRecord.qt2Delta >= 0 ? `+${selectedHistoryRecord.qt2Delta}` : selectedHistoryRecord.qt2Delta}
-                    </span>
+
+                    {selectedHistoryRecord.score && (
+                      <span style={{ padding: '5px 12px', borderRadius: 8, fontSize: 11, fontWeight: 800, background: 'rgba(20,184,166,0.1)', color: 'var(--teal)', border: '1px solid rgba(20,184,166,0.25)' }}>
+                        Rating Score: {selectedHistoryRecord.score}/100
+                      </span>
+                    )}
+
+                    {selectedHistoryRecord.qt2Delta !== undefined && (
+                      <span style={{ padding: '5px 12px', borderRadius: 8, fontSize: 11, fontWeight: 800, background: selectedHistoryRecord.qt2Delta >= 0 ? 'rgba(20,184,166,0.1)' : 'rgba(239,68,68,0.1)', color: selectedHistoryRecord.qt2Delta >= 0 ? 'var(--teal)' : 'var(--red)', border: `1px solid ${selectedHistoryRecord.qt2Delta >= 0 ? 'rgba(20,184,166,0.25)' : 'rgba(239,68,68,0.25)'}` }}>
+                        QT2 Delta: {selectedHistoryRecord.qt2Delta >= 0 ? `+${selectedHistoryRecord.qt2Delta}` : selectedHistoryRecord.qt2Delta} pts
+                      </span>
+                    )}
                   </div>
 
-                  <h2 style={{ fontSize: 18, fontWeight: 800, color: theme.tPrimary, margin: '0 0 12px' }}>
+                  <h2 style={{ fontSize: 19, fontWeight: 900, color: theme.tPrimary, margin: '0 0 14px', fontFamily: 'var(--font-display)' }}>
                     {selectedHistoryRecord.title}
                   </h2>
 
                   <div style={{ 
-                    background: 'rgba(255,255,255,0.01)', 
+                    background: theme.bgInside, 
                     border: `1px solid ${theme.border}`, 
-                    borderRadius: 16, 
-                    padding: 16, 
+                    borderRadius: 18, 
+                    padding: 20, 
                     fontSize: 13, 
-                    lineHeight: 1.6, 
+                    lineHeight: 1.65, 
                     color: theme.tSecondary,
-                    maxHeight: 480,
+                    maxHeight: 520,
                     overflowY: 'auto'
                   }}>
                     {selectedHistoryRecord.report ? (
                       selectedHistoryRecord.report.split('\n').map((line: string, idx: number) => {
                         if (line.startsWith('### ')) {
-                          return <h4 key={idx} style={{ margin: '14px 0 6px', color: theme.tPrimary, fontWeight: 800 }}>{line.replace('### ', '')}</h4>;
+                          return <h4 key={idx} style={{ margin: '16px 0 6px', color: 'var(--accent)', fontWeight: 800, fontSize: 13.5, textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>{line.replace('### ', '')}</h4>;
                         }
                         if (line.startsWith('## ')) {
-                          return <h3 key={idx} style={{ margin: '18px 0 8px', color: theme.tPrimary, fontWeight: 800 }}>{line.replace('## ', '')}</h3>;
+                          return <h3 key={idx} style={{ margin: '20px 0 8px', color: theme.tPrimary, fontWeight: 800, fontSize: 15 }}>{line.replace('## ', '')}</h3>;
                         }
                         if (line.startsWith('* ')) {
-                          return <li key={idx} style={{ marginLeft: 16, marginBottom: 4 }}>{line.replace('* ', '')}</li>;
+                          return <li key={idx} style={{ marginLeft: 16, marginBottom: 4, color: theme.tPrimary }}>{line.replace('* ', '')}</li>;
                         }
                         return <p key={idx} style={{ margin: '0 0 10px' }}>{line}</p>;
                       })
+                    ) : selectedHistoryRecord.userSubmission ? (
+                      <div>
+                        <h4 style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', fontFamily: 'var(--font-mono)', margin: '0 0 6px' }}>Candidate Submission Proof:</h4>
+                        <p style={{ fontSize: 13, color: theme.tPrimary, fontStyle: 'italic', margin: '0 0 14px' }}>"{selectedHistoryRecord.userSubmission}"</p>
+                      </div>
                     ) : (
-                      <p style={{ fontStyle: 'italic' }}>No report content generated.</p>
+                      <p style={{ fontStyle: 'italic' }}>No detailed report text archived for this entry.</p>
                     )}
                   </div>
                 </div>
               ) : (
-                /* History List Grid View */
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                    <h3 style={{ fontSize: 16, fontWeight: 800, color: theme.tPrimary, margin: 0 }}>
-                      Socratic Evolution History
-                    </h3>
-                    <span style={{ fontSize: 12, color: theme.tTertiary }}>
-                      Review past dynamic outage roleplays, identified natural blindness traps, and mindset evolution conclusions.
-                    </span>
-                  </div>
-
-                  {socraticHistory.length === 0 ? (
-                    <div style={{
-                      background: theme.bgCard,
-                      border: `1.5px dashed ${theme.border}`,
-                      borderRadius: '24px',
-                      padding: '40px',
-                      textAlign: 'center'
-                    }}>
-                      <div style={{ fontSize: 44, marginBottom: 12 }}>📋</div>
-                      <h4 style={{ fontSize: 15, fontWeight: 800, color: theme.tPrimary, margin: '0 0 6px' }}>No simulation history found</h4>
-                      <p style={{ fontSize: 12.5, color: theme.tTertiary, maxWidth: 380, margin: '0 auto 16px', lineHeight: 1.5 }}>
-                        Complete your first active Mindset Persona Simulator session to compile your Socratic profile.
-                      </p>
-                      <button onClick={() => setActiveTab('evolve')} className="btn-primary btn-sm">
-                        Start Simulation
-                      </button>
-                    </div>
-                  ) : (
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 12 }}>
-                      {socraticHistory.map((item) => (
-                        <div 
-                          key={item.id}
-                          style={{
-                            background: theme.bgCard,
-                            border: `1px solid ${theme.border}`,
-                            borderRadius: '16px',
-                            padding: '16px',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            gap: 10,
-                            transition: 'transform 0.15s, border-color 0.15s',
-                            cursor: 'pointer'
-                          }}
-                          onClick={() => setSelectedHistoryRecord(item)}
-                          className="choice-card"
-                        >
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                              <span style={{ fontSize: 11, color: theme.tTertiary, fontFamily: 'var(--font-mono)' }}>
-                                {item.date}
-                              </span>
-                              <h4 style={{ fontSize: 13.5, fontWeight: 800, color: theme.tPrimary, margin: 0 }}>
-                                {item.title}
-                              </h4>
-                            </div>
-                            <span style={{ 
-                              padding: '2px 8px', 
-                              borderRadius: 6, 
-                              fontSize: 10, 
-                              fontWeight: 700, 
-                              background: item.qt2Delta >= 0 ? 'rgba(20,184,166,0.1)' : 'rgba(239,68,68,0.1)', 
-                              color: item.qt2Delta >= 0 ? 'var(--teal)' : 'var(--red)' 
-                            }}>
-                              QT2: {item.qt2Delta >= 0 ? `+${item.qt2Delta}` : item.qt2Delta}
-                            </span>
-                          </div>
-
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(255,255,255,0.04)', paddingTop: 8 }}>
-                            <span style={{ fontSize: 11, color: theme.tSecondary }}>
-                              👤 Mentor: <strong style={{ color: theme.tPrimary }}>{item.avatarName}</strong>
-                            </span>
-                            <span style={{ fontSize: 11.5, color: 'var(--accent)', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-                              View Socratic Report →
-                            </span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                <MissionsHistoryTab
+                  theme={theme}
+                  socraticHistory={socraticHistory}
+                  historySearchQuery={historySearchQuery}
+                  setHistorySearchQuery={setHistorySearchQuery}
+                  historyCategoryFilter={historyCategoryFilter}
+                  setHistoryCategoryFilter={setHistoryCategoryFilter}
+                  selectedHistoryRecord={selectedHistoryRecord}
+                  setSelectedHistoryRecord={setSelectedHistoryRecord}
+                />
               )}
             </div>
           )}
@@ -1418,54 +1391,26 @@ export default function MissionsPage() {
             </div>
           </div>
 
-          {/* Custom Skill Trainer */}
-          <div style={{ background: theme.bgCard, border: `1px solid ${theme.border}`, borderRadius: 20, padding: 22, boxShadow: 'var(--shadow-sm)' }}>
-            <span style={{ fontSize: 10.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.2px', color: theme.tTertiary, fontFamily: 'var(--font-mono)', display: 'block', marginBottom: 14 }}>
-              ⚡ Custom Skill Trainer
-            </span>
-            <p style={{ fontSize: 11.5, color: theme.tSecondary, lineHeight: 1.5, margin: '0 0 14px' }}>
-              Want to train a specific skill? Generate custom socratic learning modules to fill the gaps for your career path.
-            </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              <div>
-                <label style={{ fontSize: 11, fontWeight: 600, color: theme.tSecondary, display: 'block', marginBottom: 4 }}>Skill to Train</label>
-                <input
-                  type="text"
-                  placeholder="e.g. React, Docker, CI/CD, Python"
-                  value={customSkill}
-                  onChange={(e) => setCustomSkill(e.target.value)}
-                  style={{
-                    width: '100%', padding: '8px 12px', borderRadius: 8,
-                    background: theme.bgInside, border: `1px solid ${theme.border}`,
-                    color: theme.tPrimary, fontSize: 12.5, outline: 'none'
-                  }}
-                />
-              </div>
-              <div>
-                <label style={{ fontSize: 11, fontWeight: 600, color: theme.tSecondary, display: 'block', marginBottom: 4 }}>Target Career Role</label>
-                <input
-                  type="text"
-                  placeholder="e.g. Backend Engineer"
-                  value={customRole}
-                  onChange={(e) => setCustomRole(e.target.value)}
-                  style={{
-                    width: '100%', padding: '8px 12px', borderRadius: 8,
-                    background: theme.bgInside, border: `1px solid ${theme.border}`,
-                    color: theme.tPrimary, fontSize: 12.5, outline: 'none'
-                  }}
-                />
-              </div>
-              <button
-                type="button"
-                onClick={handleGenerateCustomQuests}
-                disabled={generatingSkill}
-                className="btn-primary btn-sm"
-                style={{ justifyContent: 'center', marginTop: 4, width: '100%' }}
-              >
-                {generatingSkill ? '⚡ Generating...' : 'Generate Training Modules'}
-              </button>
-            </div>
-          </div>
+          {/* Plus Shape Human Archetype Matrix Chart Component */}
+          <MissionsArchetypeMatrix
+            theme={theme}
+            onboardingAnswers={onboardingAnswers}
+            user={user}
+            hoveredQuadrant={hoveredQuadrant}
+            setHoveredQuadrant={setHoveredQuadrant}
+            selectedQuadrant={selectedQuadrant}
+            setSelectedQuadrant={setSelectedQuadrant}
+          />
+
+          {/* Mindset Competency Growth Radar Chart Component */}
+          <MissionsGrowthRadar
+            theme={theme}
+            onboardingAnswers={onboardingAnswers}
+            user={user}
+            hoveredRadarMetric={hoveredRadarMetric}
+            setHoveredRadarMetric={setHoveredRadarMetric}
+            setActiveTab={setActiveTab}
+          />
 
           {/* Quick Help Card */}
           <div style={{ background: theme.bgInside, border: `1px dashed ${theme.border}`, borderRadius: 20, padding: 20 }}>

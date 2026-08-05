@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 /* ── Button ── */
-export function Btn({ children, onClick, variant = 'primary', size = 'md', disabled, type = 'button', style }) {
+export function Btn({ children, onClick = () => {}, variant = 'primary', size = 'md', disabled = false, type = 'button', style = {} }) {
   const variantStyles = {
     primary:   { background: 'var(--accent)',   color: 'white' },
     success:   { background: 'var(--success)',  color: 'white' },
@@ -42,54 +42,104 @@ export function Btn({ children, onClick, variant = 'primary', size = 'md', disab
 }
 
 /* ── Input ── */
-export function Input({ label, id, error, className = '', ...props }) {
+export function Input({ label = undefined, id = undefined, error = undefined, className = '', ...props }) {
   return (
     <div style={{ marginBottom: 16 }}>
       {label && (
-        <label htmlFor={id} style={{ display: 'block', marginBottom: 6, fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+        <label htmlFor={id} style={{ display: 'block', marginBottom: 6, fontSize: 12, fontWeight: 600, color: 'var(--t2)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
           {label}
         </label>
       )}
-      <input id={id} {...props} style={{ width: '100%', ...props.style }} />
-      {error && <p style={{ marginTop: 4, fontSize: 12, color: 'var(--danger-light)' }}>{error}</p>}
+      <input 
+        id={id} 
+        {...props} 
+        style={{ 
+          width: '100%', 
+          padding: '10px 14px', 
+          fontSize: 13, 
+          borderRadius: 8, 
+          border: '1px solid var(--border)', 
+          background: 'var(--bg3)', 
+          color: 'var(--t1)', 
+          outline: 'none', 
+          fontFamily: 'var(--font-main)',
+          transition: 'all 0.15s',
+          ...props.style 
+        }} 
+      />
+      {error && <p style={{ marginTop: 4, fontSize: 12, color: 'var(--danger)' }}>{error}</p>}
     </div>
   );
 }
 
 /* ── Select ── */
-export function Select({ label, id, children, error, ...props }) {
+export function Select({ label = undefined, id = undefined, children, error = undefined, ...props }) {
   return (
     <div style={{ marginBottom: 16 }}>
       {label && (
-        <label htmlFor={id} style={{ display: 'block', marginBottom: 6, fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+        <label htmlFor={id} style={{ display: 'block', marginBottom: 6, fontSize: 12, fontWeight: 600, color: 'var(--t2)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
           {label}
         </label>
       )}
-      <select id={id} {...props} style={{ width: '100%', ...props.style }}>
+      <select 
+        id={id} 
+        {...props} 
+        style={{ 
+          width: '100%', 
+          padding: '10px 14px', 
+          fontSize: 13, 
+          borderRadius: 8, 
+          border: '1px solid var(--border)', 
+          background: 'var(--bg3)', 
+          color: 'var(--t1)', 
+          outline: 'none', 
+          fontFamily: 'var(--font-main)',
+          transition: 'all 0.15s',
+          ...props.style 
+        }}
+      >
         {children}
       </select>
-      {error && <p style={{ marginTop: 4, fontSize: 12, color: 'var(--danger-light)' }}>{error}</p>}
+      {error && <p style={{ marginTop: 4, fontSize: 12, color: 'var(--danger)' }}>{error}</p>}
     </div>
   );
 }
 
 /* ── Textarea ── */
-export function Textarea({ label, id, rows = 4, error, ...props }) {
+export function Textarea({ label = undefined, id = undefined, rows = 4, error = undefined, ...props }) {
   return (
     <div style={{ marginBottom: 16 }}>
       {label && (
-        <label htmlFor={id} style={{ display: 'block', marginBottom: 6, fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+        <label htmlFor={id} style={{ display: 'block', marginBottom: 6, fontSize: 12, fontWeight: 600, color: 'var(--t2)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
           {label}
         </label>
       )}
-      <textarea id={id} rows={rows} {...props} style={{ width: '100%', resize: 'vertical', ...props.style }} />
-      {error && <p style={{ marginTop: 4, fontSize: 12, color: 'var(--danger-light)' }}>{error}</p>}
+      <textarea 
+        id={id} 
+        rows={rows} 
+        {...props} 
+        style={{ 
+          width: '100%', 
+          padding: '10px 14px', 
+          fontSize: 13, 
+          borderRadius: 8, 
+          border: '1px solid var(--border)', 
+          background: 'var(--bg3)', 
+          color: 'var(--t1)', 
+          outline: 'none', 
+          fontFamily: 'var(--font-main)',
+          transition: 'all 0.15s',
+          resize: 'vertical', 
+          ...props.style 
+        }} 
+      />
+      {error && <p style={{ marginTop: 4, fontSize: 12, color: 'var(--danger)' }}>{error}</p>}
     </div>
   );
 }
 
 /* ── Card ── */
-export function Card({ children, style, className = '', onClick, hoverable }) {
+export function Card({ children, style = {}, className = '', onClick = undefined, hoverable = false }) {
   return (
     <div
       onClick={onClick}
@@ -298,7 +348,7 @@ export function Badge({ children, type = 'info' }) {
 }
 
 /* ── Empty State ── */
-export function EmptyState({ icon, text, action }) {
+export function EmptyState({ icon = '📭', text = '', action = null }) {
   return (
     <div className="empty-state">
       <div className="empty-icon">{icon || '📭'}</div>

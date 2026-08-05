@@ -66,7 +66,7 @@ export const EMPTY_PROFILE = {
   target_role: '', career_goal: '', intelligence_score: 0, career_dna_archetype: 'explorer',
   xp_total: 0, xp_level: 1, missions_completed: 0, interviews_done: 0, vault_count: 0,
   onboardingStep: 0, resumeGenerated: false, roadmapGenerated: false,
-  completedQuests: [], javaTestPassed: false, recruiterVisible: false, pins: 100, pinHistory: []
+  completedQuests: [], javaTestPassed: false, recruiterVisible: false, pins: 120, pinHistory: [], guidanceMentorId: 'priya'
 };
 
 // Map database snake_case keys back to camelCase frontend schema properties
@@ -107,12 +107,14 @@ export function mapRowToProfile(row: any): any {
     onboardingAnswers: row.onboarding_answers || { role: '', education: '', skills: '', experience: '', hasCompleted: false },
     jdMissingSkills: row.jd_missing_skills || [],
     structured_resume: row.structured_resume || null,
-    pins: row.pins ?? 100,
+    pins: row.pins ?? 120,
     pinHistory: row.pin_history || [],
+    unlockedItems: row.unlocked_items || {},
     resumeGenerated: !!row.resume_generated,
     roadmapGenerated: !!row.roadmap_generated,
     completedQuests: row.completed_quests || [],
     javaTestPassed: !!row.java_test_passed,
+    groupPanelPassed: !!row.group_panel_passed,
     recruiterVisible: !!row.recruiter_visible,
     forceShowCareerBuilder: !!row.force_show_career_builder,
     demoTabsUnlocked: !!row.demo_tabs_unlocked,
@@ -122,6 +124,11 @@ export function mapRowToProfile(row: any): any {
     programType: row.onboarding_answers?.programType || 'Masters',
     tasks: row.onboarding_answers?.tasks || [],
     documents: row.onboarding_answers?.documents || [],
+    guidanceMentorId: row.guidance_mentor_id || 'priya',
+    qt1_score: row.onboarding_answers?.qt1_score ?? 0,
+    qt2_score: row.onboarding_answers?.qt2_score ?? 0,
+    mindset_archetype: row.onboarding_answers?.mindset_archetype || 'Pattern Hunter',
+    voicePrint: row.voice_print || row.onboarding_answers?.voice_print || null,
   };
 }
 
@@ -160,7 +167,23 @@ export function mapProfileToRow(profile: any): any {
   if (profile.interviews_done !== undefined) row.interviews_done = profile.interviews_done;
   if (profile.vault_count !== undefined) row.vault_count = profile.vault_count;
   if (profile.onboardingStep !== undefined) row.onboarding_step = profile.onboardingStep;
-  if (profile.onboardingAnswers !== undefined) row.onboarding_answers = profile.onboardingAnswers;
+  if (profile.onboardingAnswers !== undefined) {
+    row.onboarding_answers = {
+      ...profile.onboardingAnswers,
+      qt1_score: profile.qt1_score ?? profile.onboardingAnswers.qt1_score ?? 0,
+      qt2_score: profile.qt2_score ?? profile.onboardingAnswers.qt2_score ?? 0,
+      mindset_archetype: profile.mindset_archetype ?? profile.onboardingAnswers.mindset_archetype ?? 'Pattern Hunter',
+      voice_print: profile.voicePrint ?? profile.onboardingAnswers.voice_print ?? null
+    };
+  } else if (profile.qt1_score !== undefined || profile.qt2_score !== undefined || profile.mindset_archetype !== undefined || profile.voicePrint !== undefined) {
+    row.onboarding_answers = {
+      ...(row.onboarding_answers || {}),
+      qt1_score: profile.qt1_score ?? 0,
+      qt2_score: profile.qt2_score ?? 0,
+      mindset_archetype: profile.mindset_archetype ?? 'Pattern Hunter',
+      voice_print: profile.voicePrint ?? null
+    };
+  }
   if (profile.jdMissingSkills !== undefined) row.jd_missing_skills = profile.jdMissingSkills;
   if (profile.structured_resume !== undefined) row.structured_resume = profile.structured_resume;
   if (profile.pins !== undefined) row.pins = profile.pins;
@@ -170,11 +193,38 @@ export function mapProfileToRow(profile: any): any {
   if (profile.roadmapGenerated !== undefined) row.roadmap_generated = profile.roadmapGenerated;
   if (profile.completedQuests !== undefined) row.completed_quests = profile.completedQuests;
   if (profile.javaTestPassed !== undefined) row.java_test_passed = profile.javaTestPassed;
+  if (profile.groupPanelPassed !== undefined) row.group_panel_passed = profile.groupPanelPassed;
   if (profile.recruiterVisible !== undefined) row.recruiter_visible = profile.recruiterVisible;
   if (profile.forceShowCareerBuilder !== undefined) row.force_show_career_builder = profile.forceShowCareerBuilder;
   if (profile.demoTabsUnlocked !== undefined) row.demo_tabs_unlocked = profile.demoTabsUnlocked;
+  if (profile.guidanceMentorId !== undefined) row.guidance_mentor_id = profile.guidanceMentorId;
+  if (profile.voicePrint !== undefined) {
+    row.voice_print = profile.voicePrint;
+  }
   
   return row;
+}
+
+export async function saveVoicePrintToSupabase(uid: string, voicePrint: any) {
+  if (!uid) return;
+  try {
+    // Attempt updating voice_print directly on users table & merging into onboarding_answers
+    await updateUserProfile(uid, { voicePrint });
+    console.log('[VoiceBiometrics] Voice print successfully saved to Supabase for user:', uid);
+  } catch (err: any) {
+    console.warn('[VoiceBiometrics] Failed to save voice print to Supabase:', err.message);
+  }
+}
+
+export async function getVoicePrintFromSupabase(uid: string) {
+  if (!uid) return null;
+  try {
+    const profile = await getUserProfile(uid);
+    return profile?.voicePrint || null;
+  } catch (err: any) {
+    console.warn('[VoiceBiometrics] Failed to fetch voice print from Supabase:', err.message);
+    return null;
+  }
 }
 
 export async function getUserProfile(uid: string) {
@@ -236,10 +286,17 @@ export async function updateUserProfile(uid: string, data: Record<string, any>) 
     };
   }
 
-  const { error } = await supabase.from('users').update(row).eq('id', uid);
-  if (error) {
-    // If update fails due to user profile not existing, attempt to create it
+  // Check if the user profile row exists first to handle missing user profiles correctly
+  const { data: exists, error: checkError } = await supabase.from('users').select('id').eq('id', uid).maybeSingle();
+
+  if (!exists) {
     await createUserProfile(uid, data);
+  } else {
+    const { error } = await supabase.from('users').update(row).eq('id', uid);
+    if (error) {
+      console.warn('Supabase profile update failed, falling back to upsert:', error.message, error.details);
+      await createUserProfile(uid, data);
+    }
   }
 }
 
@@ -283,21 +340,23 @@ export async function ensureSeedData(uid: string, profile: Record<string, any>) 
     }
   }
 
-  // 3. Seed opportunities (shared globally)
-  const { count: oppCount, error: oErr } = await supabase.from('opportunities').select('*', { count: 'exact', head: true });
-  if (!oErr && oppCount === 0) {
-    const rows = DEMO_OPPORTUNITIES.map(o => ({
-      title: o.title,
-      company: o.company,
-      location: o.location,
-      type: o.type,
-      salary: o.salary,
-      match_score: o.match_score,
-      skills: o.skills,
-      posted_at: o.posted_at,
-      description: o.description,
-    }));
-    await supabase.from('opportunities').insert(rows);
+  // 3. Seed opportunities (shared globally - only if user is admin)
+  if (emailLower === 'admin@pinit.in') {
+    const { count: oppCount, error: oErr } = await supabase.from('opportunities').select('*', { count: 'exact', head: true });
+    if (!oErr && oppCount === 0) {
+      const rows = DEMO_OPPORTUNITIES.map(o => ({
+        title: o.title,
+        company: o.company,
+        location: o.location,
+        type: o.type,
+        salary: o.salary,
+        match_score: o.match_score,
+        skills: o.skills,
+        posted_at: o.posted_at,
+        description: o.description,
+      }));
+      await supabase.from('opportunities').insert(rows);
+    }
   }
 }
 
@@ -324,6 +383,26 @@ export async function getMissionHistory(uid: string) {
 }
 
 export async function submitMission(uid: string, missionId: string, data: Record<string, any>) {
+  // Check daily limit: 1 completed/submitted mission per day
+  const todayStart = new Date();
+  todayStart.setHours(0, 0, 0, 0);
+  const todayEnd = new Date();
+  todayEnd.setHours(23, 59, 59, 999);
+
+  const { data: todayMissions, error: checkError } = await supabase
+    .from('missions')
+    .select('id')
+    .eq('user_id', uid)
+    .eq('status', 'submitted')
+    .gte('submitted_at', todayStart.toISOString())
+    .lte('submitted_at', todayEnd.toISOString());
+
+  if (checkError) {
+    console.warn("Failed to check daily mission limit from DB:", checkError);
+  } else if (todayMissions && todayMissions.length >= 1) {
+    throw new Error('Daily Limit Reached: You can only complete 1 mission per day.');
+  }
+
   const { error } = await supabase
     .from('missions')
     .update({ status: 'submitted', proof: data, submitted_at: new Date().toISOString() })
@@ -708,9 +787,9 @@ export async function getApplicationsForRecruiter(recruiterId: string) {
         full_name: uProfile.displayName || 'Student',
         email: uProfile.email || '',
         phone: uProfile.phone || '',
-        ats_score: uProfile.ats_score || 50,
-        trust_score: uProfile.trust_score || 50,
-        career_dna_score: uProfile.career_dna_score || 50,
+        ats_score: uProfile.ats_score || 0,
+        trust_score: uProfile.trust_score || 0,
+        career_dna_score: uProfile.career_dna_score || 0,
       } : null,
     });
   }
@@ -791,6 +870,7 @@ export async function getSessions(consultantId?: string, studentId?: string) {
 export async function addAuditEntry(adminId: string, action: string, targetId: string, meta: Record<string, any>) {
   const { error } = await supabase.from('audit_logs').insert({
     admin_id: adminId,
+    actor_id: adminId, // map current acting user ID to actor_id column
     action,
     target_id: targetId,
     meta,
@@ -865,3 +945,417 @@ export async function generateCustomSkillQuests(uid: string, targetRole: string,
     is_read: false,
   });
 }
+
+// ─── Q-C2: Server-side quest completion persistence ───────────────────────────
+// Atomically appends questId to users.completed_quests (text[]) and increments
+// xp_total so that completions survive localStorage clears and page reloads.
+// Called from CareerOSContext.addCompletedQuest after the client state is updated.
+export async function persistQuestCompletion(
+  uid: string,
+  questId: string,
+  xpAmount: number
+): Promise<{ ok: boolean; newXp?: number }> {
+  try {
+    // Step 1: Fetch current completed_quests + xp_total
+    const { data: profile, error: fetchErr } = await supabase
+      .from('users')
+      .select('completed_quests, xp_total')
+      .eq('id', uid)
+      .single();
+
+    if (fetchErr || !profile) {
+      console.warn('[persistQuestCompletion] Could not fetch profile:', fetchErr?.message);
+      return { ok: false };
+    }
+
+    const current: string[] = profile.completed_quests || [];
+    // Idempotent: skip if already recorded
+    if (current.includes(questId)) {
+      return { ok: true, newXp: profile.xp_total };
+    }
+
+    const newCompleted = [...current, questId];
+    const newXp = (profile.xp_total || 0) + xpAmount;
+
+    // Step 2: Write back atomically
+    const { error: updateErr } = await supabase
+      .from('users')
+      .update({ completed_quests: newCompleted, xp_total: newXp })
+      .eq('id', uid);
+
+    if (updateErr) {
+      console.warn('[persistQuestCompletion] Update failed:', updateErr.message);
+      return { ok: false };
+    }
+
+    return { ok: true, newXp };
+  } catch (e: any) {
+    console.error('[persistQuestCompletion] Unexpected error:', e.message);
+    return { ok: false };
+  }
+}
+
+// ─── Sync Trust Score & Career DNA Score to Supabase DB ───────────────────────
+export async function syncRewardsDB(
+  uid: string,
+  trustScore: number,
+  dnaScore: number
+): Promise<{ ok: boolean }> {
+  if (!uid || uid === 'guest') return { ok: true };
+  try {
+    const { error } = await supabase
+      .from('users')
+      .update({
+        trust_score: trustScore,
+        career_dna_score: dnaScore
+      })
+      .eq('id', uid);
+
+    if (error) {
+      console.warn('[syncRewardsDB] Update failed:', error.message);
+      return { ok: false };
+    }
+    return { ok: true };
+  } catch (e: any) {
+    console.error('[syncRewardsDB] Unexpected error:', e.message);
+    return { ok: false };
+  }
+}
+
+// ─── Step 1: Cross-Device Item Unlock Duration DB Sync ────────────────────────
+export async function syncUnlockedItemsDB(
+  uid: string,
+  unlockedItems: Record<string, number>
+): Promise<{ ok: boolean }> {
+  if (!uid || uid === 'guest') return { ok: true };
+  try {
+    const { error } = await supabase
+      .from('users')
+      .update({ unlocked_items: unlockedItems })
+      .eq('id', uid);
+
+    if (error) {
+      console.warn('[syncUnlockedItemsDB] DB update failed:', error.message);
+      return { ok: false };
+    }
+    return { ok: true };
+  } catch (e: any) {
+    console.error('[syncUnlockedItemsDB] Unexpected error:', e.message);
+    return { ok: false };
+  }
+}
+
+// ─── Step 2: Server-Verified Time Offset Calculation ──────────────────────────
+export async function fetchServerTimeOffset(): Promise<number> {
+  try {
+    const startTime = Date.now();
+    // Query system health / ping to compute network latency and server time delta
+    const res = await fetch('/api/pins/spend', { method: 'OPTIONS' }).catch(() => null);
+    const dateHeader = res?.headers.get('date');
+    if (dateHeader) {
+      const serverMs = new Date(dateHeader).getTime();
+      const clientMs = startTime + (Date.now() - startTime) / 2;
+      return serverMs - clientMs; // returns offset in milliseconds
+    }
+  } catch (e) {
+    console.warn('[fetchServerTimeOffset] Server time fetch fallback:', e);
+  }
+  return 0;
+}
+
+// ─── Q-C3: Server-side pin deduction (prevent double-spend) ───────────────────
+// Reads pin balance from DB and atomically decrements it.
+// Returns { ok: true, newBalance } on success.
+// Returns { ok: false, reason: 'INSUFFICIENT_PINS' | 'ERROR' } on failure.
+// This is called from CareerOSContext.spendPins BEFORE updating local state so
+// that the DB is the authoritative source for pin balance checks.
+export async function spendPinsDB(
+  uid: string,
+  cost: number,
+  reason: string
+): Promise<{ ok: boolean; newBalance?: number; reason?: string }> {
+  try {
+    // Read authoritative DB balance
+    const { data: profile, error: fetchErr } = await supabase
+      .from('users')
+      .select('pins')
+      .eq('id', uid)
+      .single();
+
+    if (fetchErr || !profile) {
+      console.warn('[spendPinsDB] Could not fetch pins:', fetchErr?.message);
+      return { ok: false, reason: 'ERROR' };
+    }
+
+    const current: number = profile.pins ?? 120;
+    if (current < cost) {
+      return { ok: false, reason: 'INSUFFICIENT_PINS' };
+    }
+
+    const newBalance = current - cost;
+    const { error: updateErr } = await supabase
+      .from('users')
+      .update({ pins: newBalance })
+      .eq('id', uid);
+
+    if (updateErr) {
+      console.warn('[spendPinsDB] Update failed:', updateErr.message);
+      return { ok: false, reason: 'ERROR' };
+    }
+
+    // Append to pin_history JSONB (best-effort, non-blocking)
+    (async () => {
+      try {
+        const { data } = await supabase.from('users').select('pin_history').eq('id', uid).single();
+        const history: any[] = data?.pin_history || [];
+        const tx = { id: `tx_${Date.now()}`, type: 'spend', amount: cost, reason, timestamp: Date.now() };
+        const trimmed = [tx, ...history].slice(0, 100);
+        await supabase.from('users').update({ pin_history: trimmed }).eq('id', uid);
+      } catch (err) {
+        console.warn('[spendPinsDB] History log failed:', err);
+      }
+    })();
+
+    return { ok: true, newBalance };
+  } catch (e: any) {
+    console.error('[spendPinsDB] Unexpected error:', e.message);
+    return { ok: false, reason: 'ERROR' };
+  }
+}
+
+// ─── Q-C4: Group Discussion Sync with LocalStorage fallback ──────────────────
+export async function getGroupDiscussionMessages(
+  uid: string,
+  roomId: string
+): Promise<any[]> {
+  try {
+    const { data, error } = await supabase
+      .from('chat_messages')
+      .select('*')
+      .eq('room_id', roomId)
+      .order('timestamp', { ascending: true });
+
+    if (!error && data) {
+      return data;
+    }
+  } catch (e) {
+    console.warn('[getGroupDiscussionMessages] Table fallback to local storage:', e);
+  }
+
+  // LocalStorage fallback
+  if (typeof window !== 'undefined') {
+    const local = localStorage.getItem(`pinit_chat_messages_${roomId}`);
+    return local ? JSON.parse(local) : [];
+  }
+  return [];
+}
+
+export async function saveGroupDiscussionMessage(
+  uid: string,
+  roomId: string,
+  message: { sender_name: string; sender_role: string; content: string; timestamp: number }
+): Promise<boolean> {
+  const payload = {
+    id: `msg_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+    room_id: roomId,
+    user_id: uid,
+    sender_name: message.sender_name,
+    sender_role: message.sender_role,
+    content: message.content,
+    timestamp: message.timestamp
+  };
+
+  try {
+    const { error } = await supabase.from('chat_messages').insert(payload);
+    if (!error) return true;
+  } catch (e) {
+    console.warn('[saveGroupDiscussionMessage] Table fallback to local storage:', e);
+  }
+
+  // LocalStorage fallback
+  if (typeof window !== 'undefined') {
+    const local = localStorage.getItem(`pinit_chat_messages_${roomId}`);
+    const list = local ? JSON.parse(local) : [];
+    list.push(payload);
+    localStorage.setItem(`pinit_chat_messages_${roomId}`, JSON.stringify(list));
+    return true;
+  }
+  return false;
+}
+
+// ─── Student-Teacher Direct Messaging DB Functions ─────────────────────────────
+export async function sendDirectMessage(
+  senderId: string,
+  recipientId: string,
+  senderName: string,
+  recipientName: string,
+  content: string,
+  role: string = 'student'
+): Promise<{ ok: boolean; message?: any }> {
+  const msg = {
+    id: `msg_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+    sender_id: senderId,
+    recipient_id: recipientId,
+    sender_name: senderName,
+    recipient_name: recipientName,
+    content: content,
+    role: role,
+    created_at: new Date().toISOString(),
+    is_read: false
+  };
+
+  try {
+    const { error } = await supabase.from('direct_messages').insert(msg);
+    if (!error) return { ok: true, message: msg };
+  } catch (e) {
+    console.warn('[sendDirectMessage] Local fallback:', e);
+  }
+
+  if (typeof window !== 'undefined') {
+    const key = `pinit_direct_messages_${[senderId, recipientId].sort().join('_')}`;
+    const raw = localStorage.getItem(key) || '[]';
+    const list = JSON.parse(raw);
+    list.push(msg);
+    localStorage.setItem(key, JSON.stringify(list));
+
+    // Also update global teacher inbox store
+    const inboxKey = `pinit_teacher_inbox_${recipientId}`;
+    const inboxRaw = localStorage.getItem(inboxKey) || '[]';
+    const inboxList = JSON.parse(inboxRaw);
+    inboxList.unshift(msg);
+    localStorage.setItem(inboxKey, JSON.stringify(inboxList));
+  }
+  return { ok: true, message: msg };
+}
+
+export async function getDirectMessages(user1Id: string, user2Id: string): Promise<any[]> {
+  try {
+    const { data, error } = await supabase
+      .from('direct_messages')
+      .select('*')
+      .or(`and(sender_id.eq.${user1Id},recipient_id.eq.${user2Id}),and(sender_id.eq.${user2Id},recipient_id.eq.${user1Id})`)
+      .order('created_at', { ascending: true });
+
+    if (!error && data && data.length > 0) {
+      return data;
+    }
+  } catch (e) {
+    console.warn('[getDirectMessages] Local fallback:', e);
+  }
+
+  if (typeof window !== 'undefined') {
+    const key = `pinit_direct_messages_${[user1Id, user2Id].sort().join('_')}`;
+    const raw = localStorage.getItem(key) || '[]';
+    return JSON.parse(raw);
+  }
+  return [];
+}
+
+export async function getTeacherInbox(teacherId: string): Promise<any[]> {
+  try {
+    const { data, error } = await supabase
+      .from('direct_messages')
+      .select('*')
+      .or(`recipient_id.eq.${teacherId},sender_id.eq.${teacherId}`)
+      .order('created_at', { ascending: false });
+
+    if (!error && data) {
+      return data;
+    }
+  } catch (e) {
+    console.warn('[getTeacherInbox] Local fallback:', e);
+  }
+
+  if (typeof window !== 'undefined') {
+    const inboxKey = `pinit_teacher_inbox_${teacherId}`;
+    const raw = localStorage.getItem(inboxKey) || '[]';
+    return JSON.parse(raw);
+  }
+  return [];
+}
+
+export function subscribeToDirectMessages(
+  userId: string,
+  onMessage: (payload: any) => void
+): { unsubscribe: () => void } {
+  try {
+    const channel = supabase
+      .channel(`direct_messages_${userId}`)
+      .on(
+        'postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'direct_messages', filter: `recipient_id=eq.${userId}` },
+        (payload) => {
+          if (payload.new) {
+            onMessage(payload.new);
+          }
+        }
+      )
+      .subscribe();
+
+    return {
+      unsubscribe: () => {
+        supabase.removeChannel(channel);
+      }
+    };
+  } catch (e) {
+    console.warn('[subscribeToDirectMessages] Realtime channel setup warning:', e);
+    return { unsubscribe: () => {} };
+  }
+}
+
+export async function markMessagesAsRead(user1Id: string, user2Id: string): Promise<boolean> {
+  try {
+    const { error } = await supabase
+      .from('direct_messages')
+      .update({ is_read: true })
+      .eq('recipient_id', user1Id)
+      .eq('sender_id', user2Id);
+
+    if (!error) return true;
+  } catch (e) {
+    console.warn('[markMessagesAsRead] Local fallback:', e);
+  }
+
+  if (typeof window !== 'undefined') {
+    const key = `pinit_direct_messages_${[user1Id, user2Id].sort().join('_')}`;
+    const raw = localStorage.getItem(key);
+    if (raw) {
+      const list = JSON.parse(raw);
+      let updated = false;
+      list.forEach((m: any) => {
+        if (m.recipient_id === user1Id && m.sender_id === user2Id && !m.is_read) {
+          m.is_read = true;
+          updated = true;
+        }
+      });
+      if (updated) {
+        localStorage.setItem(key, JSON.stringify(list));
+      }
+    }
+  }
+  return true;
+}
+
+export async function getUnreadMessageCount(userId: string): Promise<number> {
+  try {
+    const { count, error } = await supabase
+      .from('direct_messages')
+      .select('*', { count: 'exact', head: true })
+      .eq('recipient_id', userId)
+      .eq('is_read', false);
+
+    if (!error && count !== null) return count;
+  } catch (e) {
+    console.warn('[getUnreadMessageCount] Local fallback:', e);
+  }
+
+  if (typeof window !== 'undefined') {
+    const inboxKey = `pinit_teacher_inbox_${userId}`;
+    const raw = localStorage.getItem(inboxKey) || '[]';
+    const list = JSON.parse(raw);
+    return list.filter((m: any) => m.recipient_id === userId && !m.is_read).length;
+  }
+  return 0;
+}
+
+

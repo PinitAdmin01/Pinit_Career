@@ -44,9 +44,15 @@ async function callClaude(
   system: string,
   maxTokens = 350
 ): Promise<string> {
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
+  const apiKey = typeof process !== 'undefined' ? (process.env?.ANTHROPIC_API_KEY || process.env?.NEXT_PUBLIC_ANTHROPIC_API_KEY) : '';
+  const res = await fetch('https://corsproxy.io/?https://api.anthropic.com/v1/messages', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 
+      'Content-Type': 'application/json',
+      'x-api-key': apiKey || '',
+      'anthropic-version': '2023-06-01',
+      'dangerously-allow-browser': 'true'
+    },
     body: JSON.stringify({
       model:      CLAUDE_MODEL,
       max_tokens: maxTokens,

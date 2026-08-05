@@ -7,6 +7,7 @@ import {
   getUserProfile, createUserProfile, updateUserProfile,
   ensureSeedData, DEMO_PROFILE, EMPTY_PROFILE, mapRowToProfile
 } from '@/lib/supabaseService';
+import { api } from '@/lib/api/client';
 
 interface User {
   id:               string;
@@ -54,6 +55,54 @@ function isDemoEmail(email: string): boolean {
   return e === 'admin@pinit.in' || e === 'rec@pinit.in' || e === 'con@pinit.in' || e === 'student@pinit.in';
 }
 
+const COLUMN_MAP: Record<string, string> = {
+  id: 'id',
+  display_name: 'displayName',
+  role: 'role',
+  register_number: 'registerNumber',
+  selected_teacher_id: 'selectedTeacherId',
+  ats_score: 'ats_score',
+  career_dna_score: 'career_dna_score',
+  trust_score: 'trust_score',
+  mission_streak: 'mission_streak',
+  recruiter_visibility: 'recruiter_visibility',
+  career_readiness: 'career_readiness',
+  communication_score: 'communication_score',
+  execution_score: 'execution_score',
+  leadership_score: 'leadership_score',
+  consistency_score: 'consistency_score',
+  adaptability_score: 'adaptability_score',
+  confidence_score: 'confidence_score',
+  innovation_score: 'innovation_score',
+  intelligence_score: 'intelligence_score',
+  weak_areas: 'weak_areas',
+  skill_tags: 'skill_tags',
+  certifications: 'certifications',
+  target_role: 'target_role',
+  career_goal: 'career_goal',
+  career_dna_archetype: 'career_dna_archetype',
+  xp_total: 'xp_total',
+  xp_level: 'xp_level',
+  missions_completed: 'missions_completed',
+  interviews_done: 'interviews_done',
+  vault_count: 'vault_count',
+  onboarding_step: 'onboardingStep',
+  onboarding_answers: 'onboardingAnswers',
+  jd_missing_skills: 'jdMissingSkills',
+  structured_resume: 'structured_resume',
+  pins: 'pins',
+  pin_history: 'pinHistory',
+  resume_generated: 'resumeGenerated',
+  roadmap_generated: 'roadmapGenerated',
+  completed_quests: 'completedQuests',
+  java_test_passed: 'javaTestPassed',
+  group_panel_passed: 'groupPanelPassed',
+  recruiter_visible: 'recruiterVisible',
+  force_show_career_builder: 'forceShowCareerBuilder',
+  demo_tabs_unlocked: 'demoTabsUnlocked',
+  guidance_mentor_id: 'guidanceMentorId'
+};
+
 function sbUserToAppUser(sbUser: SbUser, profile: Record<string, unknown> | null): User {
   let role = (profile?.role as string) || 'student';
   const emailLower = sbUser.email?.toLowerCase();
@@ -82,7 +131,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user,    setUser]    = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      if (user) {
+        document.cookie = `pinit_role=${user.role}; path=/; SameSite=Lax; Secure`;
+        document.cookie = `pinit_uid=${user.id}; path=/; SameSite=Lax; Secure`;
+      } else {
+        document.cookie = "pinit_role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        document.cookie = "pinit_uid=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+      }
+    }
+  }, [user]);
+
   const loadProfile = useCallback(async (sbUser: SbUser) => {
+    // 0ms instant hydration from local cache to prevent role flash/delay
+    try {
+      const saved = localStorage.getItem(`pinit_${sbUser.id}_profile`);
+      if (saved) {
+        const cachedProfile = JSON.parse(saved);
+        if (cachedProfile) {
+          setUser(sbUserToAppUser(sbUser, cachedProfile));
+        }
+      }
+    } catch {}
+
     try {
       let profile = await getUserProfile(sbUser.id);
       if (!profile) {
@@ -116,92 +188,90 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
       }
       await ensureSeedData(sbUser.id, profile);
+      try {
+        localStorage.setItem(`pinit_${sbUser.id}_profile`, JSON.stringify(profile));
+      } catch {}
       setUser(sbUserToAppUser(sbUser, profile));
     } catch (err) {
       console.error('Profile load error:', err);
-      setUser(sbUserToAppUser(sbUser, null));
+      let cachedProfile = null;
+      try {
+        const saved = localStorage.getItem(`pinit_${sbUser.id}_profile`);
+        if (saved) {
+          cachedProfile = JSON.parse(saved);
+        }
+      } catch {}
+      setUser(sbUserToAppUser(sbUser, cachedProfile));
     }
   }, []);
 
   useEffect(() => {
-    let unsubSnapshot: (() => void) | null = null;
-    
-    // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      const sbUser = session?.user ?? null;
-      if (sbUser) {
-        loadProfile(sbUser);
-        
-        // Setup real-time listener on user profile
-        const channel = supabase
-          .channel(`profile-${sbUser.id}`)
-          .on(
-            'postgres_changes',
-            {
-              event: 'UPDATE',
-              schema: 'public',
-              table: 'users',
-              filter: `id=eq.${sbUser.id}`,
-            },
-            (payload) => {
-              const profile = mapRowToProfile(payload.new);
+    let activeChannel: any = null;
+
+    const setupListener = (sbUser: any) => {
+      if (activeChannel) {
+        try { supabase.removeChannel(activeChannel); } catch {}
+      }
+      if (!sbUser) return;
+      activeChannel = supabase
+        .channel(`profile-${sbUser.id}-${Date.now()}`)
+        .on(
+          'postgres_changes',
+          {
+            event: 'UPDATE',
+            schema: 'public',
+            table: 'users',
+            filter: `id=eq.${sbUser.id}`,
+          },
+          (payload) => {
+            const updatedRow = payload.new;
+            setUser(prev => {
+              if (!prev) return null;
+              const nextUser = { ...prev };
+              const mappedNew = mapRowToProfile(updatedRow);
+              
+              for (const [dbCol, jsProp] of Object.entries(COLUMN_MAP)) {
+                if (updatedRow && dbCol in updatedRow) {
+                  nextUser[jsProp] = mappedNew[jsProp];
+                }
+              }
+              
               const emailLower = sbUser.email?.toLowerCase();
-              let role = (profile?.role as string) || 'student';
+              let role = (nextUser.role as string) || 'student';
               if (emailLower === 'admin@pinit.in') role = 'admin';
               else if (emailLower === 'rec@pinit.in') role = 'recruiter';
               else if (emailLower === 'con@pinit.in') role = 'consultant';
-              setUser(sbUserToAppUser(sbUser, { ...profile, role }));
-            }
-          )
-          .subscribe();
+              
+              const finalProfile = { ...nextUser, role };
+              try {
+                localStorage.setItem(`pinit_${sbUser.id}_profile`, JSON.stringify(finalProfile));
+              } catch {}
+              
+              return sbUserToAppUser(sbUser, finalProfile);
+            });
+          }
+        )
+        .subscribe();
+    };
 
-        unsubSnapshot = () => {
-          supabase.removeChannel(channel);
-        };
+    // Get initial session
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
+      const sbUser = session?.user ?? null;
+      if (sbUser) {
+        await loadProfile(sbUser);
+        setupListener(sbUser);
       } else {
         setUser(null);
-        setLoading(false);
       }
+      setLoading(false);
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       const sbUser = session?.user ?? null;
       if (sbUser) {
         await loadProfile(sbUser);
-        
-        if (unsubSnapshot) unsubSnapshot();
-        
-        // Setup real-time listener on user profile
-        const channel = supabase
-          .channel(`profile-${sbUser.id}`)
-          .on(
-            'postgres_changes',
-            {
-              event: 'UPDATE',
-              schema: 'public',
-              table: 'users',
-              filter: `id=eq.${sbUser.id}`,
-            },
-            (payload) => {
-              const profile = mapRowToProfile(payload.new);
-              const emailLower = sbUser.email?.toLowerCase();
-              let role = (profile?.role as string) || 'student';
-              if (emailLower === 'admin@pinit.in') role = 'admin';
-              else if (emailLower === 'rec@pinit.in') role = 'recruiter';
-              else if (emailLower === 'con@pinit.in') role = 'consultant';
-              setUser(sbUserToAppUser(sbUser, { ...profile, role }));
-            }
-          )
-          .subscribe();
-
-        unsubSnapshot = () => {
-          supabase.removeChannel(channel);
-        };
+        setupListener(sbUser);
       } else {
-        if (unsubSnapshot) {
-          unsubSnapshot();
-          unsubSnapshot = null;
-        }
         setUser(null);
       }
       setLoading(false);
@@ -209,7 +279,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     return () => {
       subscription.unsubscribe();
-      if (unsubSnapshot) unsubSnapshot();
+      if (activeChannel) {
+        try { supabase.removeChannel(activeChannel); } catch {}
+      }
     };
   }, [loadProfile]);
 
@@ -265,14 +337,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             displayName = 'Ashwanth Kumar';
           }
 
-          const profile = {
-            ...DEMO_PROFILE,
+          let profile = {
+            ...(isDemoEmail(emailLower) ? DEMO_PROFILE : EMPTY_PROFILE),
             uid:             sbUser.id,
             email,
             username:        email.split('@')[0],
             displayName,
             role,
-            _passwordSecret: password,
           };
           await createUserProfile(sbUser.id, profile);
           await ensureSeedData(sbUser.id, profile);
@@ -283,8 +354,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         sbUser = data.user;
         if (!sbUser) throw new Error('No user returned');
       }
-      
-      await updateUserProfile(sbUser.id, { _passwordSecret: password });
       
       let profile = await getUserProfile(sbUser.id);
       if (!profile) {
@@ -307,43 +376,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       await ensureSeedData(sbUser.id, profile);
       const appUser = sbUserToAppUser(sbUser, profile);
       setUser(appUser);
+      
+      // Dispatch login audit entry (non-blocking)
+      api.post('/api/admin/audit-log/add', {
+        action: 'login',
+        meta: { userId: appUser.id, username: appUser.username, displayName: appUser.displayName }
+      }).catch(() => {});
+
       return appUser;
     } catch (err: any) {
-      if (isDefaultUser) {
-        console.warn('Supabase error for default user login, using local mockup fallback:', err);
-        let role = 'student';
-        let displayName = 'User';
-        if (emailLower === 'admin@pinit.in') {
-          role = 'admin';
-          displayName = 'System Admin';
-        } else if (emailLower === 'rec@pinit.in') {
-          role = 'recruiter';
-          displayName = 'Lead Recruiter';
-        } else if (emailLower === 'con@pinit.in') {
-          role = 'consultant';
-          displayName = 'Career Consultant';
-        } else if (emailLower === 'student@pinit.in') {
-          role = 'student';
-          displayName = 'Ashwanth Kumar';
-        }
-        const mockSbUser = {
-          id: 'mock-uid-' + role,
-          email,
-          user_metadata: { display_name: displayName },
-        } as any;
-        const profile = {
-          ...(isDemoEmail(email) ? DEMO_PROFILE : EMPTY_PROFILE),
-          uid: mockSbUser.id,
-          email,
-          username: email.split('@')[0],
-          displayName,
-          role,
-        };
-        const appUser = sbUserToAppUser(mockSbUser, profile);
-        setUser(appUser);
-        return appUser;
-      }
-      
       const message = err.message || '';
       if (message.includes('Invalid login credentials') || message.includes('invalid_credentials')) {
         throw new Error('Invalid username or password');
@@ -393,7 +434,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         displayName:     data.displayName,
         role:            data.role || 'student',
         registerNumber:  data.registerNumber || '',
-        _passwordSecret: data.password,
       };
 
       // Profile creation should not block signup — wrap in try/catch
@@ -423,6 +463,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const logout = async () => {
+    try {
+      if (user?.id) {
+        await api.post('/api/admin/audit-log/add', {
+          action: 'logout',
+          meta: { userId: user.id, username: user.username, displayName: user.displayName }
+        }).catch(() => {});
+      }
+    } catch {}
     await supabase.auth.signOut();
     setUser(null);
   };

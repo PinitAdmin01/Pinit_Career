@@ -2,16 +2,29 @@ import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
   try {
-    const { history, codingScore, telemetry } = await req.json();
+    const { history, codingScore, telemetry, domainStream, domainSubTopic } = await req.json();
 
-    const formatted = history
+    const stream = domainStream === 'non_tech' ? 'non_tech' : 'tech';
+    const topic = domainSubTopic || (stream === 'non_tech' ? 'Business / Finance' : 'Software Engineering');
+
+    const formatted = (history || [])
       .map((t: any) => `${t.role === 'assistant' ? 'INTERVIEWER' : 'CANDIDATE'}: ${t.content}`)
       .join('\n\n');
-    const candidateText = history.filter((t: any) => t.role === 'user').map((t: any) => t.content).join(' ');
-    const totalWords = candidateText.split(/\s+/).filter(Boolean).length;
-    const fillerMatch = candidateText.match(/\b(um|uh|like|you know|basically|actually|literally|i mean)\b/gi) || [];
 
-    const systemPrompt = `You are an expert interview coach. Evaluate the transcript and return ONLY valid JSON:\n{"overall_score":<0-100>,"confidence_score":<0-100>,"communication_score":<0-100>,"technical_depth":<0-100>,"leadership_score":<0-100>,"energy_level":<0-100>,"strengths":["<s>","<s>"],"weaknesses":["<s>"],"improvement_tips":["<s>","<s>","<s>"],"readiness":"not_ready"|"developing"|"ready"|"strong","summary":"<2-3 sentences>"}`;
+    const systemPrompt = `You are an expert corporate recruitment director evaluating an interview candidate in the field of "${topic}" (${stream} stream).
+Evaluate the transcript and return ONLY valid JSON:
+{
+  "overall_score": <0-100>,
+  "domain_knowledge": <0-100>,
+  "strategic_thinking": <0-100>,
+  "communication_score": <0-100>,
+  "star_alignment": <0-100>,
+  "strengths": ["string", "string"],
+  "weaknesses": ["string"],
+  "improvement_tips": ["string", "string"],
+  "readiness": "not_ready" | "developing" | "ready" | "strong",
+  "summary": "2-3 sentences evaluation summary."
+}`;
 
     const groqKey = process.env.GROQ_API_KEY || (process.env.GROQ_API_KEYS || '').split(',')[0]?.trim();
     const openRouterKey = process.env.OPENROUTER_API_KEY;
@@ -29,7 +42,7 @@ export async function POST(req: Request) {
           model: 'llama-3.3-70b-versatile',
           messages: [
             { role: 'system', content: systemPrompt },
-            { role: 'user', content: `Evaluate this transcript:\n\n${formatted.slice(0, 7000)}` }
+            { role: 'user', content: `Evaluate this candidate transcript:\n\n${formatted.slice(0, 7000)}` }
           ],
           max_tokens: 800,
           temperature: 0.2
@@ -57,7 +70,7 @@ export async function POST(req: Request) {
           model: 'meta-llama/llama-3.1-8b-instruct:free',
           messages: [
             { role: 'system', content: systemPrompt },
-            { role: 'user', content: `Evaluate this transcript:\n\n${formatted.slice(0, 7000)}` }
+            { role: 'user', content: `Evaluate this candidate transcript:\n\n${formatted.slice(0, 7000)}` }
           ]
         })
       });
@@ -73,33 +86,38 @@ export async function POST(req: Request) {
     }
 
     if (!evaluation) {
-      // Fallback
+      // Fallback evaluation
+      const calculatedScore = Math.min(100, Math.max(50, Math.round((codingScore || 70) * 0.4 + 45)));
       evaluation = {
-        overall_score: Math.min(100, Math.max(40, 60 + Math.round(codingScore / 3))),
-        confidence_score: 70,
-        communication_score: 65,
-        technical_depth: codingScore,
-        leadership_score: 60,
-        energy_level: 70,
-        strengths: ['Completed all stages', 'Delivered compiler-passed Java algorithms'],
-        weaknesses: ['Vague elaboration on cache systems design eviction patterns'],
-        improvement_tips: ['Implement STAR responses for behavioral questions', 'Structure cache eviction answers with concrete math metrics'],
-        readiness: codingScore >= 80 ? 'ready' : 'developing',
-        summary: 'Candidate demonstrates stable foundational programming proficiency but requires practice on systems design cache sharding properties.'
+        overall_score: calculatedScore,
+        domain_knowledge: codingScore || 75,
+        strategic_thinking: 70,
+        communication_score: 80,
+        star_alignment: 75,
+        strengths: [`Strong foundational understanding of ${topic}`, 'Clear communication and structured responses'],
+        weaknesses: ['Could provide deeper numerical metrics and specific case study examples'],
+        improvement_tips: [`Practice advanced ${topic} scenarios`, 'Structure behavioral answers tightly around STAR metrics'],
+        readiness: calculatedScore >= 75 ? 'ready' : 'developing',
+        summary: `Candidate demonstrated solid overall proficiency in ${topic} with clear communication and steady problem-solving velocity.`
       };
     }
 
     const finalEvaluation = {
-      verdict: evaluation.verdict || (evaluation.overall_score >= 60 || evaluation.readiness === 'ready' || evaluation.readiness === 'strong' ? 'Hire' : 'No Hire'),
-      score: evaluation.score || evaluation.overall_score || 60,
-      summary: evaluation.summary || 'Attempted all onsite questions.',
-      improvements: evaluation.improvements || (evaluation.improvement_tips ? evaluation.improvement_tips.join(', ') : 'Distributed systems coding practices.')
+      verdict: evaluation.overall_score >= 65 || evaluation.readiness === 'ready' || evaluation.readiness === 'strong' ? 'Hire' : 'No Hire',
+      score: evaluation.overall_score || 72,
+      domain_knowledge: evaluation.domain_knowledge || evaluation.technical_depth || 75,
+      strategic_thinking: evaluation.strategic_thinking || 70,
+      communication_score: evaluation.communication_score || 78,
+      star_alignment: evaluation.star_alignment || 75,
+      summary: evaluation.summary || `Attempted all interview rounds for ${topic}.`,
+      strengths: evaluation.strengths || [`Clear problem-solving flow in ${topic}`],
+      weaknesses: evaluation.weaknesses || ['Elaborate more on quantitative outcomes'],
+      improvements: evaluation.improvement_tips ? evaluation.improvement_tips.join(' • ') : (evaluation.improvements || `Refine ${topic} analysis techniques.`)
     };
 
     return NextResponse.json({
       evaluation: finalEvaluation,
-      ...evaluation,
-      filler_rate: fillerMatch.length / Math.max(totalWords, 1)
+      success: true
     });
   } catch (err: any) {
     return NextResponse.json({ error: err.message || 'Server error' }, { status: 500 });

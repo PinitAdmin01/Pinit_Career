@@ -1,4 +1,8 @@
-import { createContext, useContext, useState } from 'react';
-const ToastContext = createContext({});
-export const useToast = () => useContext(ToastContext);
+import { createContext, useContext } from 'react';
+const ToastContext = createContext(null);
+export const useToast = () => {
+  const ctx = useContext(ToastContext);
+  if (typeof ctx === 'function') return ctx;
+  return (msg, type) => { console.log(`[Toast ${type || 'info'}]:`, msg); };
+};
 export default ToastContext;

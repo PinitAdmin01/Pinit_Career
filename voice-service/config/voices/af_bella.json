@@ -1,0 +1,9 @@
+{
+  "version": "1.0",
+  "voice_id": "af_bella",
+  "display_name": "Bella (Female English)",
+  "gender": "female",
+  "language": "en-us",
+  "sample_rate": 24000,
+  "description": "Standard American English female mentor voice profile"
+}

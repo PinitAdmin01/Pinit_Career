@@ -1,22 +1,58 @@
 'use client';
-import dynamic from 'next/dynamic';
-import { useAuth } from '@/lib/context/AuthContext';
 
-const TeacherDashboard = dynamic(
-  () => import('@/components/_legacy/dsai/TeacherPages').then(m => ({ default: m.TeacherDashboard })),
-  { ssr: false, loading: () => <div style={{ padding:40, color:'var(--t3)', textAlign:'center' }}>Loading...</div> }
-);
+import { useAuth } from '@/lib/context/AuthContext';
+import TeacherDashboard from '@/components/teacher/TeacherDashboard';
+
+import { Suspense } from 'react';
+
+function TeacherPageContent() {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div style={{ padding: 40, color: 'var(--t3, #64748b)', textAlign: 'center' }}>
+        Loading authentication status...
+      </div>
+    );
+  }
+
+  // Allow teacher, admin, or superadmin roles
+  if (!user || !['teacher', 'admin', 'superadmin'].includes(user.role)) {
+    return (
+      <div style={{ padding: 40, color: '#dc2626', textAlign: 'center', fontWeight: 600 }}>
+        Access Denied: Teacher or Admin access required.
+      </div>
+    );
+  }
+
+  // Deep department fallback check
+  const actualDepartment = 
+    (user as any).department || 
+    (user as any).dept || 
+    (user as any).department_name || 
+    (user as any).user_metadata?.department || 
+    'Computer Science & AI';
+
+  return (
+    <TeacherDashboard
+      teacher={{
+        id: String(user.id || ''),
+        name: String(user.display_name || user.username || 'Faculty User'),
+        username: String(user.username || ''),
+        role: String(user.role || 'teacher'),
+        department: String(actualDepartment)
+      }}
+      onLogout={() => {
+        window.location.href = '/login';
+      }}
+    />
+  );
+}
 
 export default function TeacherPage() {
-  const { user } = useAuth();
-  if (!user || !['teacher','admin'].includes(user.role)) return <div style={{ padding:40, color:'var(--coral)' }}>Access denied</div>;
   return (
-    <div>
-      <div style={{ marginBottom:16 }}>
-        <h1 style={{ fontFamily:'var(--font-display)', fontSize:22, fontWeight:800 }}>Teacher Panel</h1>
-        <p style={{ color:'var(--t2)', fontSize:13 }}>Create coding questions, manage exam schedules, view student results</p>
-      </div>
-      <TeacherDashboard teacher={user} onLogout={() => window.location.href = '/login'} />
-    </div>
+    <Suspense fallback={<div style={{ padding: 40, color: 'var(--t3)', textAlign: 'center' }}>Loading Teacher Dashboard...</div>}>
+      <TeacherPageContent />
+    </Suspense>
   );
 }

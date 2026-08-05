@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect, useRef, Suspense, lazy } from 'react';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/lib/context/AuthContext';
 import { useCareerProfile } from '@/lib/hooks/useCareerProfile';
 import { useNotifications } from '@/lib/api/hooks';
@@ -29,193 +29,121 @@ const TEACHER_CONFIG: Record<string, { name: string; color: string; emoji: strin
 const TOUR_SLIDES = [
   {
     emoji: '👋',
-    title: 'Welcome to PinIT!',
-    text: "Hey there! 🎉 Welcome to PinIT Career OS. I am your personal AI Mentor. Let me take you on a quick tour to explain every tab in your left sidebar!",
+    title: 'Welcome to PinIT Career OS!',
+    text: "Hey there! 🎉 Welcome to PinIT Career OS. I am your AI Mentor! Let me take you on a complete story tour of all your workspace tabs and features.",
   },
   {
     emoji: '🏠',
     title: '1. Home Dashboard',
-    text: "The Dashboard is your main mission control. Here you can see your total XP, Pin balance, daily streaks, and direct guidance recommendations.",
-  },
-  {
-    emoji: '👤',
-    title: '2. Portfolio',
-    text: "The Portfolio compiles your professional profile, verified skill credentials, projects, and structured SDE resumes into a single shareable link.",
-  },
-  {
-    emoji: '💼',
-    title: '3. Industry Projects',
-    text: "Industry Projects connects you to real-world corporate codebases and developer tasks to help you build solid, production-grade engineering experience.",
-  },
-  {
-    emoji: '🏢',
-    title: '4. Internship Tracker',
-    text: "The Internship Tracker lets you organize and monitor your ongoing applications, interview progress, response deadlines, and offers in real-time.",
-  },
-  {
-    emoji: '📖',
-    title: '5. Learning Roadmap',
-    text: "Your Learning Roadmap generates personalized step-by-step masterclasses and syllabus milestones to fill your specific coding knowledge gaps.",
-  },
-  {
-    emoji: '🎯',
-    title: '6. Placement Predictor',
-    text: "The Placement Predictor analyzes your current skill ratings to predict your target salary, placement probability, and company tier matching.",
-  },
-  {
-    emoji: '🎫',
-    title: '7. Skill Passport',
-    text: "Your Skill Passport houses your cryptographically verified credentials and verified skill tags, showing recruiters exactly what you are certified in.",
+    text: "This is your Home Dashboard — your central mission control! Track your Career Score, XP tier, active streaks, and AI next-step recommendations.",
   },
   {
     emoji: '🗺',
-    title: '8. Quests',
-    text: "Quests are your guided interactive coding lessons. Complete lectures and conceptual tests to unlock fresh topics and build your foundations.",
-  },
-  {
-    emoji: '🧬',
-    title: '9. Career DNA',
-    text: "Career DNA provides a breakdown of your 9 core competencies—including logic speed, ownership, and learning velocity.",
-  },
-  {
-    emoji: '🎙',
-    title: '10. AI Interview',
-    text: "AI Interview lets you practice real-time technical rounds with virtual SDE recruiters. Get detailed Socratic feedback to level up your interview game.",
+    title: '2. Quests Tab',
+    text: "This is the Quests tab! Here you can solve guided interactive coding challenges and Socratic theory lessons to build rock-solid foundations.",
   },
   {
     emoji: '⚡',
-    title: '11. Daily Missions',
-    text: "Missions serve 5 fresh micro-scenarios every day to test your System 2 thinking, decisive accountability, and ownership under stress.",
+    title: '3. Daily Missions',
+    text: "This is Daily Missions! Every day you get 5 micro-scenarios targeted at your skill gaps to maintain your streak, earn XP, and level up.",
   },
   {
-    emoji: '🧬',
-    title: '12. Career Twin',
-    text: "Your Career Twin uses deep semantic matching to compare your skill footprint with target roles and outlines the exact gaps you need to patch next.",
+    emoji: '🚀',
+    title: '4. Industry Projects',
+    text: "This is Industry Projects! Work on real corporate codebases and production developer tasks to build verifiable engineering experience.",
+  },
+  {
+    emoji: '🎙',
+    title: '5. AI Mock Interview',
+    text: "This is AI Interview! Practice 1-on-1 Socratic technical rounds with AI SDE recruiters, answer coding questions, and get detailed evaluation feedback.",
   },
   {
     emoji: '💬',
-    title: '13. GD Practice',
-    text: "Group Discussion lets you enter Socratic debate simulations in boardroom crises against 14 AI avatars to hone your technical communication.",
+    title: '6. GD Practice Studio',
+    text: "This is GD Practice! Jump into Socratic boardroom debate simulations against 14 AI avatars to sharpen your technical communication under pressure.",
+  },
+  {
+    emoji: '📖',
+    title: '7. Learning Roadmap & Twin',
+    text: "This is Learning & Twin! Calculate your exact skill gaps against target roles and generate a personalized step-by-step masterclass roadmap.",
+  },
+  {
+    emoji: '🧠',
+    title: '8. Attention Span Trainer',
+    text: "This is Attention Span! Play neuro-cognitive focus games to sharpen your mental stamina, reaction time, and deep coding concentration.",
+  },
+  {
+    emoji: '🔬',
+    title: '9. Career DNA',
+    text: "This is Career DNA! Access a deep diagnostic breakdown of your 9 core competencies—including logic speed, ownership, and learning velocity.",
   },
   {
     emoji: '📊',
-    title: '14. Analytics',
-    text: "Analytics tracks your daily learning velocity, diagnostic performance graphs, XP growth, and streak consistencies in detail.",
+    title: '10. Analytics',
+    text: "This is Analytics! Inspect your diagnostic velocity graphs, XP growth trajectories, and comprehensive skill breakdown across all modules.",
   },
   {
-    emoji: '📂',
-    title: '15. Document Vault',
-    text: "The Document Vault safely secures all your resumes, transcripts, academic credentials, and project documentations in one central workspace.",
+    emoji: '🗂️',
+    title: '11. Document Vault',
+    text: "This is Document Vault! Safely store all your resumes, transcripts, academic credentials, and project proofs in one secure workspace.",
+  },
+  {
+    emoji: '👤',
+    title: '12. Portfolio & Skill Passport',
+    text: "This is your Portfolio! Show off your cryptographically verified skill passport, verified badges, and shareable ATS resume link to recruiters.",
+  },
+  {
+    emoji: '🎯',
+    title: '13. Placement Predictor',
+    text: "This is Placement Predictor! Predict your target salary package, company tier matching, and placement probability based on live skill scores.",
+  },
+  {
+    emoji: '🏢',
+    title: '14. Internship Tracker',
+    text: "This is Internship Tracker! Monitor and manage your ongoing job applications, interview timelines, response deadlines, and offers in real time.",
   },
   {
     emoji: '🚀',
     title: "You're All Set!",
-    text: "That is the full sidebar tour! Start by exploring your roadmap in Quests or check out your daily challenges in Missions. Let's build your career! 💙",
+    text: "That is the full tour of PinIT Career OS! Start by taking a Quest or solving today's Daily Mission. Let's build your career together! 💙",
   },
 ];
 
-// ── Activity type labels ──────────────────────────────────────────────────────
-const ACTIVITY_LABELS: Record<string, string> = {
-  quest: 'quest',
-  exam: 'coding exam',
-  mission: 'daily mission',
-  interview: 'AI interview',
-  gd: 'Group Discussion',
+const TOUR_STEP_ROUTES: Record<number, string> = {
+  0: '/dashboard',
+  1: '/dashboard',
+  2: '/quests',
+  3: '/missions',
+  4: '/projects',
+  5: '/interview',
+  6: '/group-discussion',
+  7: '/learning',
+  8: '/attention-span',
+  9: '/career-dna',
+  10: '/analytics',
+  11: '/vault',
+  12: '/portfolio',
+  13: '/placement',
+  14: '/internships',
+  15: '/dashboard',
 };
 
 // ── Build congratulations message from event payload ─────────────────────────
 function buildCongratMessage(detail: any, profile: any): { headline: string; body: string; tip: string } {
-  const label = ACTIVITY_LABELS[detail.type] || 'activity';
-  const score = typeof detail.score === 'number' ? detail.score : null;
-  const passed = detail.passed !== false;
+  const score = typeof detail?.score === 'number' ? detail.score : null;
+  const passed = detail?.passed !== false;
 
   const weakAreas = Array.isArray(profile?.weak_areas) && profile.weak_areas.length > 0 
     ? profile.weak_areas 
     : ['System Design Concepts', 'API Gateways', 'Concurrency Controls'];
   const focusImprove = weakAreas[0];
-  const secondaryImprove = weakAreas[1] || 'Unit Testing Coverage';
 
-  let headline = '';
-  let body = '';
-  let tip = '';
-
-  if (detail.type === 'interview') {
-    const verdict = detail.verdict || (passed ? 'Hire' : 'No Hire');
-    headline = verdict === 'Hire'
-      ? `🏆 Hire Verdict — Outstanding!`
-      : `💪 No Hire — But You're Growing!`;
-    
-    const strengthStr = Array.isArray(detail.strengths) && detail.strengths[0]
-      ? detail.strengths[0]
-      : "your dynamic problem-solving approach and STAR format answers";
-      
-    const improveStr = Array.isArray(detail.improvements) && detail.improvements[0]
-      ? detail.improvements[0]
-      : focusImprove;
-
-    body = score !== null
-      ? verdict === 'Hire'
-        ? `You scored ${score}% in the SDE interview! You did exceptionally well on ${strengthStr}.`
-        : `You scored ${score}% this round. You did well on ${strengthStr}, showing solid promise.`
-      : `Your SDE interview evaluation is in. You demonstrated strong capability in ${strengthStr}.`;
-    tip = `Where you can improve: Focus on refining your skills in "${improveStr}" for the next round.`;
-  } else if (detail.type === 'gd') {
-    headline = passed ? `🎤 Great Boardroom Session!` : `💬 GD Session Complete!`;
-    
-    const strengthStr = Array.isArray(detail.strengths) && detail.strengths[0]
-      ? detail.strengths[0]
-      : "articulating your ideas and structural points clearly";
-      
-    const improveStr = Array.isArray(detail.improvements) && detail.improvements[0]
-      ? detail.improvements[0]
-      : secondaryImprove;
-
-    body = score !== null
-      ? passed
-        ? `You scored ${score}% in the boardroom debate! You did really well on ${strengthStr}.`
-        : `You scored ${score}%. You did well on ${strengthStr}, but need a bit more practice.`
-      : `Your boardroom debate is complete! You did well on ${strengthStr}.`;
-    tip = `Where you can improve: Try to assert your points and work on "${improveStr}" under peer pressure.`;
-  } else if (detail.type === 'exam') {
-    headline = `🧑‍💻 Exam Passed — Excellent!`;
-    body = `You passed the coding exam! Your compiler outputs and algorithmic efficiency are top-tier.`;
-    tip = `For your next challenge, study up on ${focusImprove} to close your remaining skill gaps!`;
-  } else if (detail.type === 'mission') {
-    headline = `⚡ Daily Mission Complete!`;
-    body = `Great job on completing today's Daily Mission! Resolving these daily micro-exercises keeps your streak active and builds consistent practice.`;
-    tip = `To strengthen your profile, continue practicing coding templates and address your key focus area: ${focusImprove}.`;
-  } else {
-    // quest
-    headline = `🗺 Quest Complete — Well Done!`;
-    const wellDoneTopic = detail.title ? `Quest "${detail.title}"` : 'your active coding Quest';
-    body = score && score >= 80
-      ? `You aced ${wellDoneTopic} with a score of ${score}%! Your syntax execution and logical reasoning are excellent.`
-      : `You successfully finished ${wellDoneTopic}! Every completed lesson reinforces your skills and brings you closer to your target role.`;
-    tip = `To continue improving, let's focus on your roadmap weak spot: ${focusImprove}.`;
-  }
+  let headline = passed ? '🎉 Activity Completed!' : '💪 Keep Practicing!';
+  let body = passed ? `Great effort! You achieved a score of ${score || 80}%.` : `You scored ${score || 50}%. Review your weak areas to improve.`;
+  let tip = `Focus on improving: ${focusImprove}.`;
 
   return { headline, body, tip };
 }
-
-const TOUR_STEP_ROUTES: Record<number, string> = {
-  0: '/dashboard',
-  1: '/dashboard',
-  2: '/portfolio',
-  3: '/projects',
-  4: '/internships',
-  5: '/learning',
-  6: '/placement',
-  7: '/passport',
-  8: '/quests',
-  9: '/career-dna',
-  10: '/interview',
-  11: '/missions',
-  12: '/career-twin',
-  13: '/group-discussion',
-  14: '/analytics',
-  15: '/documents',
-  16: '/dashboard',
-};
 
 // Global floating avatar component with tab tour, activity congrats, and proper minimize handling
 function GlobalAvatar({ user, profile, refreshProfile }: { user: any; profile: any; refreshProfile?: () => void }) {
@@ -232,12 +160,13 @@ function GlobalAvatar({ user, profile, refreshProfile }: { user: any; profile: a
 
   const [mounted, setMounted] = useState(false);
   const [showSpeechBubble, setShowSpeechBubble] = useState(true);
-  const [minimized, setMinimized] = useState(false);
+  const [minimized, setMinimized] = useState(true);
   const [isEnlarged, setIsEnlarged] = useState(false);
 
   // ── Tour state ─────────────────────────────────────────────────────────────
   const [tourActive, setTourActive] = useState(false);
   const [tourStep, setTourStep] = useState(0);
+  const lastSpokenTourStepRef = useRef<number | null>(null);
 
   // ── Congratulations state ──────────────────────────────────────────────────
   const [celebEvent, setCelebEvent] = useState<any>(null);
@@ -269,7 +198,6 @@ function GlobalAvatar({ user, profile, refreshProfile }: { user: any; profile: a
 
     if (alreadyShown && !justOnboarded) return;
 
-    // Clear the just_onboarded flag and tour shown status so it runs cleanly
     if (justOnboarded) {
       sessionStorage.removeItem('pinit_just_onboarded');
       localStorage.removeItem(tourKey);
@@ -283,40 +211,99 @@ function GlobalAvatar({ user, profile, refreshProfile }: { user: any; profile: a
     return () => clearTimeout(t);
   }, [mounted, onboardingStep, pathname, user?.id]);
 
-  // ── Listen for activity completion events ─────────────────────────────────
+  // ── Listen for activity completion and story mode trigger events ──────────
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const handler = (e: Event) => {
       const detail = (e as CustomEvent).detail;
       if (!detail) return;
-      // Fetch latest profile state from database
       refreshProfile?.();
-      // Clear any running auto-dismiss timer
       if (celebTimerRef.current) clearTimeout(celebTimerRef.current);
       setCelebEvent(detail);
-      setMinimized(false); // pop the avatar open
-      // Auto-dismiss after 14 seconds
+      setMinimized(false);
       celebTimerRef.current = setTimeout(() => setCelebEvent(null), 14000);
     };
+
+    const storyHandler = () => {
+      stopSpeaking();
+      setTourActive(true);
+      setTourStep(0);
+      setMinimized(false);
+    };
+
+    const congratsHandler = (e: Event) => {
+      const custom = (e as CustomEvent).detail;
+      const testCeleb = custom || {
+        type: 'mission',
+        title: 'Daily Milestone Accomplished!',
+        score: 100,
+        passed: true,
+      };
+      stopSpeaking();
+      refreshProfile?.();
+      if (celebTimerRef.current) clearTimeout(celebTimerRef.current);
+      setCelebEvent(testCeleb);
+      setMinimized(false);
+    };
+
     window.addEventListener('pinit:activity_complete', handler);
-    return () => window.removeEventListener('pinit:activity_complete', handler);
+    window.addEventListener('pinit:start_story_mode', storyHandler);
+    window.addEventListener('pinit:trigger_congrats', congratsHandler);
+    return () => {
+      window.removeEventListener('pinit:activity_complete', handler);
+      window.removeEventListener('pinit:start_story_mode', storyHandler);
+      window.removeEventListener('pinit:trigger_congrats', congratsHandler);
+    };
   }, [refreshProfile]);
 
   // Speak tour slide out loud and automatically switch pages to show corresponding tab
   useEffect(() => {
     if (tourActive && TOUR_SLIDES[tourStep]) {
-      const slide = TOUR_SLIDES[tourStep];
-      const speechText = slide.text.replace(/\*\*/g, '').replace(/🎉|🏠|🛠️|🗺|⚡|🎙|🧬|🔬|🎯|💬|🚀|👋|🌅|✨|💙/g, '');
-      
-      stopSpeaking();
-      speakWithAvatar(speechText, teacherId, () => {}, () => {});
-
+      // 1. Navigate to target tab if needed
       const targetRoute = TOUR_STEP_ROUTES[tourStep];
       if (targetRoute && pathname !== targetRoute) {
         router.push(targetRoute);
       }
+
+      // 2. Prevent restarting speech if already speaking for this tourStep
+      if (lastSpokenTourStepRef.current === tourStep) {
+        return;
+      }
+      lastSpokenTourStepRef.current = tourStep;
+
+      const slide = TOUR_SLIDES[tourStep];
+      const speechText = slide.text.replace(/\*\*/g, '').replace(/🎉|🏠|🛠️|🗺|⚡|🎙|🧬|🔬|🎯|💬|🚀|👋|🌅|✨|💙/g, '');
+      
+      stopSpeaking();
+      speakWithAvatar(
+        speechText,
+        teacherId,
+        () => {}, // onStart
+        () => {
+          // When avatar finishes speaking about this tab, auto-advance to next tab after a 1.2s pause!
+          setTimeout(() => {
+            if (tourActive) {
+              setTourStep(prev => {
+                if (prev >= TOUR_SLIDES.length - 1) {
+                  // Reached final slide! Dismiss tour and return to dashboard
+                  setTourActive(false);
+                  stopSpeaking();
+                  if (typeof window !== 'undefined' && user?.id) {
+                    localStorage.setItem(`pinit_${user.id}_tour_shown`, 'true');
+                  }
+                  router.push('/dashboard');
+                  return prev;
+                }
+                return prev + 1;
+              });
+            }
+          }, 1200);
+        }
+      );
+    } else {
+      lastSpokenTourStepRef.current = null;
     }
-  }, [tourActive, tourStep, teacherId, router, pathname]);
+  }, [tourActive, tourStep, teacherId, router, pathname, user?.id]);
 
   // Speak congratulations out loud when a celebration triggers (ensuring only once per event object)
   useEffect(() => {
@@ -330,8 +317,6 @@ function GlobalAvatar({ user, profile, refreshProfile }: { user: any; profile: a
       speakWithAvatar(cleanText, teacherId, () => {}, () => {});
     }
   }, [celebEvent, teacherId, profile]);
-
-
 
   // Sync tutorial steps based on current path and state changes
   useEffect(() => {
@@ -352,11 +337,50 @@ function GlobalAvatar({ user, profile, refreshProfile }: { user: any; profile: a
       localStorage.setItem(`pinit_${user.id}_tour_shown`, 'true');
     }
   };
+  const prevTourSlide = () => {
+    if (tourStep > 0) {
+      lastSpokenTourStepRef.current = null;
+      setTourStep(s => s - 1);
+    }
+  };
   const nextTourSlide = () => {
     if (tourStep >= TOUR_SLIDES.length - 1) {
       dismissTour();
     } else {
+      lastSpokenTourStepRef.current = null;
       setTourStep(s => s + 1);
+    }
+  };
+  const replayCurrentSlide = () => {
+    lastSpokenTourStepRef.current = null;
+    const slide = TOUR_SLIDES[tourStep];
+    if (slide) {
+      const speechText = slide.text.replace(/\*\*/g, '').replace(/🎉|🏠|🛠️|🗺|⚡|🎙|🧬|🔬|🎯|💬|🚀|👋|🌅|✨|💙/g, '');
+      stopSpeaking();
+      speakWithAvatar(speechText, teacherId, () => {}, () => {});
+    }
+  };
+
+  const startStoryMode = () => {
+    setCelebEvent(null);
+    stopSpeaking();
+    setTourActive(true);
+    setTourStep(0);
+    setMinimized(false);
+  };
+
+  const triggerCongrats = () => {
+    setTourActive(false);
+    stopSpeaking();
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('pinit:trigger_congrats', {
+        detail: {
+          type: 'mission',
+          title: 'Big Milestone Accomplished!',
+          score: 100,
+          passed: true,
+        }
+      }));
     }
   };
 
@@ -543,7 +567,7 @@ function GlobalAvatar({ user, profile, refreshProfile }: { user: any; profile: a
           letterSpacing: '1px',
           textTransform: 'uppercase',
         }}>
-          {tourStep + 1} / {TOUR_SLIDES.length}
+          STORY MODE · STEP {tourStep + 1} / {TOUR_SLIDES.length}
         </div>
         {/* progress bar */}
         <div style={{ width: '100%', height: 3, background: 'rgba(255,255,255,0.08)', borderRadius: 2 }}>
@@ -576,44 +600,82 @@ function GlobalAvatar({ user, profile, refreshProfile }: { user: any; profile: a
         }}>
           {slide.text}
         </div>
-        {/* buttons */}
-        <div style={{ display: 'flex', gap: 8, marginTop: 4, width: '100%' }}>
+        {/* controls toolbar */}
+        <div style={{ display: 'flex', gap: 6, marginTop: 4, width: '100%', alignItems: 'center' }}>
+          {tourStep > 0 && (
+            <button
+              onClick={prevTourSlide}
+              title="Previous Tab"
+              style={{
+                background: 'rgba(255,255,255,0.08)',
+                border: '1px solid rgba(255,255,255,0.15)',
+                borderRadius: 8,
+                color: '#fff',
+                fontSize: 10,
+                fontWeight: 700,
+                padding: '6px 10px',
+                cursor: 'pointer',
+                fontFamily: 'var(--font-mono)',
+              }}
+            >
+              ← Prev
+            </button>
+          )}
+
           <button
-            onClick={dismissTour}
+            onClick={replayCurrentSlide}
+            title="Replay Voice Speech"
             style={{
-              flex: 1,
-              background: 'rgba(255,255,255,0.06)',
-              border: '1px solid rgba(255,255,255,0.12)',
-              borderRadius: 10,
-              color: 'var(--t3)',
-              fontSize: 10.5,
-              fontWeight: 600,
-              padding: '7px 0',
+              background: 'rgba(255,255,255,0.08)',
+              border: '1px solid rgba(255,255,255,0.15)',
+              borderRadius: 8,
+              color: '#fff',
+              fontSize: 10,
+              fontWeight: 700,
+              padding: '6px 10px',
               cursor: 'pointer',
               fontFamily: 'var(--font-mono)',
-              transition: 'background 0.2s',
             }}
           >
-            Skip Tour
+            🔊 Voice
           </button>
+
           <button
             onClick={nextTourSlide}
             style={{
-              flex: 2,
+              flex: 1,
               background: 'linear-gradient(90deg, var(--accent) 0%, var(--purple) 100%)',
               border: 'none',
-              borderRadius: 10,
+              borderRadius: 8,
               color: '#fff',
               fontSize: 11,
               fontWeight: 800,
-              padding: '7px 0',
+              padding: '6px 0',
               cursor: 'pointer',
               fontFamily: 'var(--font-mono)',
               boxShadow: '0 2px 12px rgba(79,70,229,0.4)',
               transition: 'opacity 0.2s',
             }}
           >
-            {isLast ? "Let's Go! 🚀" : 'Next →'}
+            {isLast ? "Finish! 🚀" : 'Next →'}
+          </button>
+
+          <button
+            onClick={dismissTour}
+            title="Exit Tour"
+            style={{
+              background: 'rgba(255,255,255,0.06)',
+              border: '1px solid rgba(255,255,255,0.12)',
+              borderRadius: 8,
+              color: 'var(--t3)',
+              fontSize: 10,
+              fontWeight: 600,
+              padding: '6px 8px',
+              cursor: 'pointer',
+              fontFamily: 'var(--font-mono)',
+            }}
+          >
+            ✖
           </button>
         </div>
       </div>
@@ -733,6 +795,83 @@ function GlobalAvatar({ user, profile, refreshProfile }: { user: any; profile: a
         >
           {/* Relative wrapper so overlays can be positioned inside */}
           <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+            {/* Quick floating action bar over avatar */}
+            <div style={{
+              position: 'absolute',
+              top: 8,
+              left: 8,
+              right: 8,
+              zIndex: 12,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              background: 'rgba(15,23,42,0.85)',
+              backdropFilter: 'blur(8px)',
+              padding: '4px 10px',
+              borderRadius: 12,
+              border: '1px solid rgba(255,255,255,0.15)',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span style={{ fontSize: 13 }}>{teacher.emoji}</span>
+                <span style={{ fontFamily: 'var(--font-display)', fontSize: 10.5, fontWeight: 800, color: '#fff' }}>{teacher.name}</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                <button
+                  onClick={startStoryMode}
+                  title="Launch Tab Tour (Story Mode)"
+                  style={{
+                    background: tourActive ? 'var(--accent)' : 'rgba(255,255,255,0.18)',
+                    border: 'none',
+                    borderRadius: 6,
+                    color: '#fff',
+                    fontSize: 9,
+                    fontWeight: 700,
+                    padding: '3px 7px',
+                    cursor: 'pointer',
+                    fontFamily: 'var(--font-mono)',
+                  }}
+                >
+                  ✨ Story Tour
+                </button>
+
+                <button
+                  onClick={triggerCongrats}
+                  title="Trigger Milestone Celebration"
+                  style={{
+                    background: celebEvent ? '#059669' : 'rgba(255,255,255,0.18)',
+                    border: 'none',
+                    borderRadius: 6,
+                    color: '#fff',
+                    fontSize: 9,
+                    fontWeight: 700,
+                    padding: '3px 7px',
+                    cursor: 'pointer',
+                    fontFamily: 'var(--font-mono)',
+                  }}
+                >
+                  🎉 Celebrate
+                </button>
+
+                <button
+                  onClick={() => setMinimized(true)}
+                  title="Dock Floating Avatar"
+                  style={{
+                    background: 'rgba(255,255,255,0.18)',
+                    border: 'none',
+                    borderRadius: 6,
+                    color: '#fff',
+                    fontSize: 9,
+                    fontWeight: 700,
+                    padding: '3px 6px',
+                    cursor: 'pointer',
+                    fontFamily: 'var(--font-mono)',
+                  }}
+                >
+                  ➖
+                </button>
+              </div>
+            </div>
             {/* 3D WebGL / VRoid Avatar Mentor Container */}
             <div style={{ width: '100%', height: '100%', overflow: 'hidden', borderRadius: isCentered ? 20 : 18 }}>
               <Suspense fallback={
@@ -777,15 +916,16 @@ type NavSection = { section: string; items: NavNode[] };
 
 const isGroup = (n: NavNode): n is NavGroup => 'children' in n;
 
-// ── Student: Redesigned Active V1 tabs ──
 const STUDENT_NAV: NavSection[] = [
   { section: 'PinIT Career OS', items: [
     { href: '/dashboard', icon: '🏠', label: 'Dashboard' },
     { href: '/quests', icon: '🗺', label: 'Quests' },
     { href: '/missions', icon: '⚡', label: 'Missions' },
+    { href: '/projects', icon: '🚀', label: 'Projects' },
     { href: '/interview', icon: '🎙', label: 'AI Interview' },
     { href: '/group-discussion', icon: '💬', label: 'GD Practice' },
-    { href: '/learning', icon: '📖', label: 'Learning & Twin' }
+    { href: '/learning', icon: '📖', label: 'Learning & Twin' },
+    { href: '/attention-span', icon: '🧠', label: 'Attention Span' }
   ]}
 ];
 
@@ -794,7 +934,7 @@ const RIGHT_NAV: { id: string; href?: string; icon: string; label: string }[] = 
   { id: 'exams', icon: '📝', label: 'My Exams' },
   { id: 'results', icon: '📊', label: 'My Results' },
   { id: 'notes', icon: '📚', label: 'Study Notes' },
-  { id: 'notifications', icon: '🔔', label: 'Notifications' },
+  { id: 'notifications', href: '/notifications', icon: '🔔', label: 'Notifications' },
   
   // Shifted student services:
   { id: 'services', href: '/services', icon: '💼', label: 'Student Services' },
@@ -807,7 +947,7 @@ const RIGHT_NAV: { id: string; href?: string; icon: string; label: string }[] = 
   // Shifted from Faculty studio:
   { id: 'research', href: '/research', icon: '🔬', label: 'Research Desk' },
   // Shifted career intelligence:
-  { id: 'career_intel', href: '/career-intelligence', icon: '💼', label: 'Career Intelligence' },
+  { id: 'career_intel', href: '/career-intelligence', icon: '🎯', label: 'Career Intelligence' },
   // Shifted operations:
   { id: 'finance', href: '/finance', icon: '💳', label: 'Finance & Fees' },
   { id: 'infrastructure', href: '/maintenance', icon: '🔧', label: 'Infrastructure' },
@@ -891,6 +1031,22 @@ const CONSULTANT_NAV: NavSection[] = [
   ]},
 ];
 
+const TEACHER_NAV: NavSection[] = [
+  { section: 'Faculty Workspace', items: [
+    { href: '/admin/teacher', icon: '👩‍🏫', label: 'Teacher Panel' },
+    { href: '/quests/teacher-select', icon: '🗺', label: 'Quest Selector' },
+    { href: '/quests', icon: '⚔️', label: 'Coding Quests' },
+    { href: '/learning', icon: '📖', label: 'Learning Roadmaps' },
+  ]},
+  { section: 'Academic Mentoring', items: [
+    { href: '/advisor', icon: '🧠', label: 'AI Advisor Logs' },
+    { href: '/portfolio', icon: '👤', label: 'Student Portfolio' },
+    { href: '/internships', icon: '🏢', label: 'Internships Review' },
+    { href: '/projects', icon: '💼', label: 'Industry Projects' },
+    { href: '/passport', icon: '🎫', label: 'Skill Passport' }
+  ]}
+];
+
 const BOTTOM_NAV: NavLeaf[] = [
   { href: '/notifications', icon: '🔔', label: 'Notifications', badge: true },
   { href: '/pricing',       icon: '⚡', label: 'Pins & Plans'            },
@@ -914,6 +1070,7 @@ const PAGE_TITLES: Record<string, string> = {
   '/notifications': 'Notifications', '/leaderboard':   'Leaderboard',
   '/applications':  'My Applications',
   '/quests':        'Career Quests',
+  '/attention-span': 'Attention Span',
   '/qr-confirm':    'Confirm QR Login',
   '/onboarding':    'Setup',         '/qr-login':      'QR Login',
   '/reset-password':'Reset Password',
@@ -921,11 +1078,12 @@ const PAGE_TITLES: Record<string, string> = {
 
 const PUBLIC_PATHS = ['/', '/signup', '/reset-password', '/qr-login', '/qr-confirm', '/onboarding', '/privacy', '/terms', '/contact', '/admissions'];
 
-function getNav(role: string): NavSection[] {
-  if (['admin','superadmin'].includes(role)) return ADMIN_NAV;
-  if (role === 'recruiter')  return RECRUITER_NAV;
-  if (role === 'parent')     return PARENT_NAV;
-  if (role === 'consultant') return CONSULTANT_NAV;
+function getNav(role: string, pathname: string = ''): NavSection[] {
+  if (pathname.startsWith('/admin/teacher') || pathname.startsWith('/teacher') || role === 'teacher') return TEACHER_NAV;
+  if (pathname.startsWith('/admin') || ['admin','superadmin'].includes(role)) return ADMIN_NAV;
+  if (pathname.startsWith('/recruiter') || role === 'recruiter')  return RECRUITER_NAV;
+  if (pathname.startsWith('/parent') || role === 'parent')     return PARENT_NAV;
+  if (pathname.startsWith('/consultant') || role === 'consultant') return CONSULTANT_NAV;
   return STUDENT_NAV;
 }
 
@@ -935,26 +1093,32 @@ function isPathActive(pathname: string, href: string) {
 }
 
 function DsaiAcademicTabWrapper({ tab, student, onStartExam, examCheckLoading }: any) {
+  if (!tab) return null;
   const academicStudent = {
-    name: student?.displayName || 'demo',
+    name: student?.displayName || student?.name || 'demo',
     registerNumber: student?.registerNumber || 'BGS2024001',
     batch: student?.batch || 'Batch 4',
   };
-  switch (tab) {
-    case 'home':
-      return <HomeTab student={academicStudent} onStartExam={onStartExam} examCheckLoading={examCheckLoading} />;
-    case 'exams':
-      return <ExamsTab student={academicStudent} onStartExam={onStartExam} examCheckLoading={examCheckLoading} />;
-    case 'results':
-      return <ResultsTab student={academicStudent} />;
-    case 'notes':
-      return <NotesTab student={academicStudent} />;
-    case 'notifications':
-      return <NotificationsTab student={academicStudent} />;
-    case 'contact':
-      return <ContactTab student={academicStudent} />;
-    default:
-      return null;
+  try {
+    switch (tab) {
+      case 'home':
+        return <HomeTab student={academicStudent} onStartExam={onStartExam} examCheckLoading={examCheckLoading} />;
+      case 'exams':
+        return <ExamsTab student={academicStudent} onStartExam={onStartExam} examCheckLoading={examCheckLoading} />;
+      case 'results':
+        return <ResultsTab student={academicStudent} />;
+      case 'notes':
+        return <NotesTab student={academicStudent} />;
+      case 'notifications':
+        return <NotificationsTab student={academicStudent} />;
+      case 'contact':
+        return <ContactTab student={academicStudent} />;
+      default:
+        return null;
+    }
+  } catch (err) {
+    console.error("Academic tab render error:", err);
+    return null;
   }
 }
 
@@ -995,6 +1159,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const [isGdCall, setIsGdCall] = useState(false);
   const [isRoleplayParamActive, setIsRoleplayParamActive] = useState(false);
 
+  const searchParams = useSearchParams();
+  const searchTab = searchParams ? searchParams.get('tab') : null;
+
   const [rightCollapsed, setRightCollapsed] = useState(true);
   const [activeAcademicTab, setActiveAcademicTab] = useState<string | null>(null);
   const [pendingExam, setPendingExam] = useState<any>(null);
@@ -1002,16 +1169,25 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const [examCheckLoading, setExamCheckLoading] = useState(false);
 
   useEffect(() => {
-    setActiveAcademicTab(null);
-  }, [pathname]);
+    if (searchTab) {
+      setActiveAcademicTab(searchTab);
+      setRightCollapsed(false);
+    } else {
+      setActiveAcademicTab(null);
+    }
+  }, [pathname, searchTab]);
 
   const handleStartExamRequest = async (examSchedule: any) => {
+    if (!user?.registerNumber) {
+      toast.warning('Register Number Required', 'Please set your Register Number in Profile settings before attempting exams.');
+      return;
+    }
     setExamCheckLoading(true);
     const { DB: dsaiDB } = await import('@/lib/dsaiFirebase');
     try {
       const results = await dsaiDB.getAll('exam_results');
       const alreadyDone = results.find(
-        (r: any) => r.registerNumber === (user?.registerNumber || 'BGS2024001') && r.examScheduleId === examSchedule.id
+        (r: any) => r.registerNumber === user.registerNumber && r.examScheduleId === examSchedule.id
       );
       if (alreadyDone) {
         toast.warning('Attempt Blocked', 'You have already attempted this exam.');
@@ -1095,7 +1271,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   };
 
   const cleanPath = pathname?.replace(/\/$/, '') || '';
-  const isLessonOrDetail = cleanPath === '/quests/lesson' || (cleanPath.startsWith('/quests/') && cleanPath !== '/quests/teacher-select' && cleanPath !== '/quests');
+  const isLessonOrDetail = cleanPath.startsWith('/quests/') && cleanPath !== '/quests';
   const isGroupDiscussionCall = isGdCall;
   const isRoleplayActive = isRoleplayParamActive;
   const effectiveFocusMode = focusMode || isLessonOrDetail || isGroupDiscussionCall || isRoleplayActive;
@@ -1113,13 +1289,17 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   const isPublic    = pathname === '/' || PUBLIC_PATHS.filter(p => p !== '/').some(p => pathname.startsWith(p));
   const unread      = Array.isArray(notifData) ? notifData.filter((n: any) => !n.is_read).length : 0;
-  const isStudent   = !['admin','superadmin','recruiter','parent','consultant'].includes(user?.role || '');
+  const isPortalRoute = pathname.startsWith('/admin') || pathname.startsWith('/teacher') || pathname.startsWith('/recruiter') || pathname.startsWith('/parent') || pathname.startsWith('/consultant');
+  const isStudent   = !['admin','superadmin','teacher','recruiter','parent','consultant'].includes(user?.role || '') && !isPortalRoute;
   const pageTitle   = PAGE_TITLES[pathname] || 'PinIT';
 
-  useEffect(() => { setMobileOpen(false); }, [pathname]);
+  useEffect(() => { 
+    setMobileOpen(false); 
+    setActiveAcademicTab(null);
+  }, [pathname]);
 
   useEffect(() => {
-    const nav = getNav(user?.role || 'student');
+    const nav = getNav(user?.role || 'student', pathname);
     const next: Record<string, boolean> = {};
     nav.forEach(sec => {
       sec.items.forEach(item => {
@@ -1145,10 +1325,12 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   }, [pathname, user]);
 
   // Redirect students who have not completed onboarding (onboardingStep < 3) to /onboarding
-  // Guarded by context loading state (isLoaded) to prevent race conditions during page reload
+  // Guarded so that accessing core demo tabs like /interview, /dashboard, /quests is never blocked
   useEffect(() => {
     if (!loading && isLoaded && user && isStudent && !isPublic && pathname !== '/onboarding') {
-      if (onboardingStep < 3) {
+      const allowedDemoTabs = ['/interview', '/dashboard', '/quests', '/missions', '/learning', '/career-builder', '/projects', '/group-discussion'];
+      const isAllowedTab = allowedDemoTabs.some(tab => pathname === tab || pathname.startsWith(tab + '/'));
+      if (onboardingStep < 3 && !isAllowedTab) {
         if (isRedirectingRef.current) return;
         isRedirectingRef.current = true;
         console.warn("[AppShell] Redirecting to /onboarding because onboardingStep is:", onboardingStep);
@@ -1180,7 +1362,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     return null;
   }
 
-  const nav = getNav(user.role || 'student');
+  const nav = getNav(user.role || 'student', pathname);
   const toggleGroup = (label: string) => setOpenGroups(prev => ({ ...prev, [label]: !prev[label] }));
 
   function NavLink({ href, icon, label, badge, indent = false }: NavLeaf & { indent?: boolean }) {
@@ -1244,10 +1426,11 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
       {/* ── Sidebar (Distraction-Free Focus mode transition) ── */}
       <aside 
-        className={`sidebar${collapsed || effectiveFocusMode ? ' collapsed' : ''}${mobileOpen ? ' open' : ''}`}
+        className={`sidebar${collapsed || effectiveFocusMode || (pathname.startsWith('/admin/teacher') || pathname.startsWith('/teacher')) ? ' collapsed' : ''}${mobileOpen ? ' open' : ''}`}
         style={{
-          width: effectiveFocusMode ? 0 : (collapsed ? '68px' : 'var(--sidebar-w)'),
-          borderRight: effectiveFocusMode ? 'none' : '1px solid var(--border)',
+          display: (effectiveFocusMode || pathname.startsWith('/admin/teacher') || pathname.startsWith('/teacher')) ? 'none' : 'flex',
+          width: effectiveFocusMode || (pathname.startsWith('/admin/teacher') || pathname.startsWith('/teacher')) ? 0 : (collapsed ? '68px' : 'var(--sidebar-w)'),
+          borderRight: effectiveFocusMode || (pathname.startsWith('/admin/teacher') || pathname.startsWith('/teacher')) ? 'none' : '1px solid var(--border)',
           transition: 'width 0.25s cubic-bezier(0.4, 0, 0.2, 1), border 0.25s',
           overflow: 'hidden'
         }}
@@ -1291,7 +1474,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           })}
         </nav>
 
-        {/* Footer */}
+        {/* Sidebar Footer */}
         <div className="sidebar-footer">
           {BOTTOM_NAV.map(it => <NavLink key={it.href} {...it} />)}
 
@@ -1319,34 +1502,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             </Link>
           )}
 
-          {!collapsed && !effectiveFocusMode && !cOS.demoTabsUnlocked && (
-            <button
-              onClick={() => {
-                cOS.setDemoTabsUnlocked(true);
-                toast.success('Demo Bypass Activated 🔓', 'All modules unlocked for evaluation.');
-              }}
-              style={{
-                width: '100%',
-                marginTop: 6,
-                padding: '7px 10px',
-                borderRadius: 9,
-                background: 'rgba(79,70,229,0.08)',
-                border: '1px solid rgba(79,70,229,0.25)',
-                color: 'var(--accent)',
-                fontSize: '11px',
-                fontWeight: 700,
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 6,
-                transition: 'all 0.2s',
-                fontFamily: 'var(--font-mono)'
-              }}
-            >
-              <span>🔓</span> Unlock All Tabs (Demo)
-            </button>
-          )}
+
 
           {!collapsed && !effectiveFocusMode && (
             <div style={{
@@ -1495,6 +1651,30 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               {theme === 'light' ? '🌙' : '☀️'}
             </button>
 
+            {/* Story Mode Button */}
+            {isStudent && (
+              <button 
+                onClick={() => {
+                  if (typeof window !== 'undefined') {
+                    window.dispatchEvent(new CustomEvent('pinit:start_story_mode'));
+                  }
+                }} 
+                title="Launch Story Mode Tab Tour"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(79,70,229,0.15), rgba(124,58,237,0.15))', 
+                  border: '1px solid rgba(79,70,229,0.3)', 
+                  borderRadius: 20, padding: '3px 12px', display: 'flex', 
+                  alignItems: 'center', gap: 5, cursor: 'pointer',
+                  fontSize: 10.5, fontWeight: 700, fontFamily: 'var(--font-mono)',
+                  color: 'var(--accent)', outline: 'none',
+                  boxShadow: '0 2px 8px rgba(79,70,229,0.15)',
+                  transition: 'all 0.15s ease'
+                }}
+              >
+                <span>✨</span> Story Mode
+              </button>
+            )}
+
             {/* Focus Mode Toggle Button (Invisible Mode) - Only for students */}
             {isStudent && (
               <button 
@@ -1561,9 +1741,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                 <ExamEngine
                   exam={pendingExam}
                   student={{
-                    name: user?.displayName || 'demo',
-                    registerNumber: user?.registerNumber || 'BGS2024001',
-                    batch: user?.batch || 'Batch 4',
+                    name: user?.displayName || user?.username || 'Student',
+                    registerNumber: user?.registerNumber || user?.uid || user?.id || '',
+                    batch: (user as any)?.batch || 'General Batch',
                   }}
                   onFinish={handleExamFinished}
                 />
@@ -1576,9 +1756,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                     <ExamStartModal
                       exam={pendingExam}
                       student={{
-                        name: user?.displayName || 'demo',
-                        registerNumber: user?.registerNumber || 'BGS2024001',
-                        batch: user?.batch || 'Batch 4',
+                        name: user?.displayName || user?.username || 'Student',
+                        registerNumber: user?.registerNumber || user?.uid || user?.id || '',
+                        batch: (user as any)?.batch || 'General Batch',
                       }}
                       onConfirm={() => setExamScreen('exam')}
                       onCancel={() => { setPendingExam(null); setExamScreen('dashboard'); }}
@@ -1595,8 +1775,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         </main>
       </div>
 
-      {/* Right Sidebar */}
-      {isStudent && !effectiveFocusMode && (
+      {/* Right Sidebar - hidden on all Quest routes so Quest workspace has 100% full screen space */}
+      {isStudent && !effectiveFocusMode && !cleanPath.startsWith('/quests') && (
         <aside
           className={`sidebar right-sidebar${rightCollapsed ? ' collapsed' : ''}`}
           style={{
@@ -1632,15 +1812,16 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               <div style={{ width: 50, height: 50, borderRadius: '50%', background: 'linear-gradient(135deg, #2563eb, #7c3aed)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 8px', fontSize: 20, color: 'white', border: '2px solid var(--bg-sidebar)', boxShadow: '0 2px 10px rgba(37,99,235,0.15)', overflow: 'hidden' }}>
                 👤
               </div>
-              <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 2, color: 'var(--t1)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user?.displayName || 'demo'}</div>
-              <div style={{ fontSize: 10, color: 'var(--t3)', marginBottom: 6, fontFamily: 'var(--font-mono)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user?.username || 'demo'}</div>
+              <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 2, color: 'var(--t1)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user?.displayName || 'Student'}</div>
+              <div style={{ fontSize: 10, color: 'var(--t3)', marginBottom: 6, fontFamily: 'var(--font-mono)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user?.username || user?.registerNumber || 'Student'}</div>
               {(() => {
-                const batchName = (user as any)?.batch || 'Batch 4';
-                const batchColor = colorMap[batchName] || '#2563eb';
+                const batchName = (user as any)?.batch || 'General Batch';
+                const rawColor = colorMap[batchName] || '#2563eb';
+                const safeColor = rawColor.startsWith('#') ? rawColor : '#2563eb';
                 return (
-                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: `${batchColor}15`, border: `1px solid ${batchColor}30`, borderRadius: 20, padding: '3px 10px' }}>
-                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: batchColor, display: 'inline-block' }} />
-                    <span style={{ fontSize: 11, fontWeight: 700, color: batchColor }}>{batchName}</span>
+                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: `${safeColor}18`, border: `1px solid ${safeColor}33`, borderRadius: 20, padding: '3px 10px' }}>
+                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: safeColor, display: 'inline-block' }} />
+                    <span style={{ fontSize: 11, fontWeight: 700, color: safeColor }}>{batchName}</span>
                   </div>
                 );
               })()}
@@ -1663,12 +1844,19 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                   onClick={() => {
                     if (item.href) {
                       setActiveAcademicTab(null);
+                      const url = new URL(window.location.href);
+                      if (url.searchParams.has('tab')) {
+                        url.searchParams.delete('tab');
+                        window.history.pushState({}, '', url.pathname + (url.search ? url.search : ''));
+                      }
                       router.push(item.href);
                     } else {
                       setActiveAcademicTab(item.id);
+                      const url = new URL(window.location.href);
+                      url.searchParams.set('tab', item.id);
+                      window.history.pushState({}, '', url.toString());
                     }
                     setRightCollapsed(false);
-                    setCollapsed(true);
                   }}
                   style={{
                     width: '100%',

@@ -24,6 +24,7 @@ create table public.users (
   subscription_tier text default 'free',
   register_number text,
   selected_teacher_id text default 'priya',
+  guidance_mentor_id text default 'priya',
   
   -- Scores and Competencies
   ats_score int default 0,
@@ -226,18 +227,50 @@ alter table public.sessions enable row level security;
 alter table public.audit_logs enable row level security;
 alter table public.qr_login_sessions enable row level security;
 
--- Add RLS permissive policies
-create policy "Allow all operations for users" on public.users for all using (true) with check (true);
-create policy "Allow all operations for vault_items" on public.vault_items for all using (true) with check (true);
-create policy "Allow all operations for missions" on public.missions for all using (true) with check (true);
-create policy "Allow all operations for opportunities" on public.opportunities for all using (true) with check (true);
-create policy "Allow all operations for jobs" on public.jobs for all using (true) with check (true);
-create policy "Allow all operations for applications" on public.applications for all using (true) with check (true);
-create policy "Allow all operations for notifications" on public.notifications for all using (true) with check (true);
-create policy "Allow all operations for interview_sessions" on public.interview_sessions for all using (true) with check (true);
-create policy "Allow all operations for sessions" on public.sessions for all using (true) with check (true);
-create policy "Allow all operations for audit_logs" on public.audit_logs for all using (true) with check (true);
-create policy "Allow all operations for qr_login_sessions" on public.qr_login_sessions for all using (true) with check (true);
+-- Add Strict Row Level Security Policies
+-- 1. Users Table
+create policy "Users can read all profiles" on public.users for select using (true);
+create policy "Users can update their own profile" on public.users for update using (auth.uid() = id) with check (auth.uid() = id);
+
+-- 2. Vault Items Table
+create policy "Users can view their own vault items" on public.vault_items for select using (auth.uid() = user_id);
+create policy "Users can insert their own vault items" on public.vault_items for insert with check (auth.uid() = user_id);
+create policy "Users can update their own vault items" on public.vault_items for update using (auth.uid() = user_id);
+create policy "Users can delete their own vault items" on public.vault_items for delete using (auth.uid() = user_id);
+
+-- 3. Missions Table
+create policy "Users can view their own missions" on public.missions for select using (auth.uid() = user_id);
+create policy "Users can update their own missions" on public.missions for update using (auth.uid() = user_id);
+create policy "Users can insert their own missions" on public.missions for insert with check (auth.uid() = user_id);
+
+-- 4. Opportunities Table
+create policy "Anyone can view opportunities" on public.opportunities for select using (true);
+create policy "Anyone can insert opportunities" on public.opportunities for insert with check (true);
+
+-- 5. Jobs Table
+create policy "Anyone can view jobs" on public.jobs for select using (true);
+create policy "Recruiters can manage their own jobs" on public.jobs for all using (auth.uid() = recruiter_id);
+
+-- 6. Applications Table
+create policy "Users can view their own applications" on public.applications for select using (auth.uid() = user_id);
+create policy "Users can manage their own applications" on public.applications for all using (auth.uid() = user_id);
+
+-- 7. Notifications Table
+create policy "Users can view their own notifications" on public.notifications for select using (auth.uid() = user_id);
+create policy "Users can update their own notifications" on public.notifications for update using (auth.uid() = user_id);
+
+-- 8. Interview Sessions Table
+create policy "Users can view their own interview sessions" on public.interview_sessions for select using (auth.uid() = user_id);
+create policy "Users can manage their own interview sessions" on public.interview_sessions for all using (auth.uid() = user_id);
+
+-- 9. Sessions Table
+create policy "Users can view their own sessions" on public.sessions for select using (auth.uid() = student_id or auth.uid() = consultant_id);
+
+-- 10. Audit Logs Table
+create policy "Admins can view audit logs" on public.audit_logs for select using (exists (select 1 from public.users where id = auth.uid() and role = 'admin'));
+
+-- 11. QR Login Sessions Table
+create policy "Anyone can manage QR login sessions" on public.qr_login_sessions for all using (true) with check (true);
 
 -- Enable Supabase Realtime for QR Login
 alter publication supabase_realtime add table public.qr_login_sessions;

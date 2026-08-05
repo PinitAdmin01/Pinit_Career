@@ -5,7 +5,7 @@
 // Backed entirely by existing /api/admin/users?role=student endpoint;
 // no schema or backend changes needed.
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, Suspense } from 'react';
 import { useAuth } from '@/lib/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import { api } from '@/lib/api/client';
@@ -29,7 +29,7 @@ type SortDir = 'asc' | 'desc';
 
 const PAGE_SIZE = 25;
 
-export default function AdminStudentsPage() {
+function AdminStudentsContent() {
   const { user }   = useAuth();
   const router     = useRouter();
 
@@ -273,6 +273,14 @@ export default function AdminStudentsPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function AdminStudentsPage() {
+  return (
+    <Suspense fallback={<div style={{ padding: 40, color: 'var(--t3)', textAlign: 'center' }}>Loading Students Roster...</div>}>
+      <AdminStudentsContent />
+    </Suspense>
   );
 }
 

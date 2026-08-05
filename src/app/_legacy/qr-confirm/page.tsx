@@ -95,7 +95,7 @@ function QRConfirmInner() {
       if (token.startsWith('mock-sim-') || !currentUser) {
         // Simulated local fallback
         const mockEmail = currentUser?.email || 'student@pinit.app';
-        const mockPass = 'password123';
+        const mockPass = '';
         const mockName = currentUser?.user_metadata?.display_name || 'Simulated User';
 
         localStorage.setItem(`qr_session_${token}`, JSON.stringify({
@@ -125,8 +125,9 @@ function QRConfirmInner() {
         .update({
           status: 'confirmed',
           email: currentUser.email,
-          password: userProfile._passwordSecret,
-          display_name: currentUser.user_metadata?.display_name || userProfile.displayName || 'User',
+          access_token: sbSession?.access_token || '',
+          refresh_token: sbSession?.refresh_token || '',
+          display_name: currentUser.user_metadata?.display_name || userProfile?.displayName || 'User',
         })
         .eq('id', token);
 
@@ -138,7 +139,7 @@ function QRConfirmInner() {
       if (err.message?.includes('permission') || err.code === 'permission-denied') {
         // Local fallback if permission is denied
         const mockEmail = currentUser?.email || 'student@pinit.app';
-        const mockPass = 'password123';
+        const mockPass = '';
         const mockName = currentUser?.user_metadata?.display_name || 'Simulated User';
 
         localStorage.setItem(`qr_session_${token}`, JSON.stringify({
@@ -192,7 +193,8 @@ function QRConfirmInner() {
         .update({
           status: 'confirmed',
           email: currentUser.email,
-          password: password.trim(),
+          access_token: sbSession?.access_token || '',
+          refresh_token: sbSession?.refresh_token || '',
           display_name: currentUser.user_metadata?.display_name || appUser?.displayName || 'User',
         })
         .eq('id', token);

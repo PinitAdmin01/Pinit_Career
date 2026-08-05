@@ -1,438 +1,14 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { usePersonalAvatarMemory }    from './hooks/usePersonalAvatarMemory';
 import { useFacialEmotionDetection }  from './hooks/useFacialEmotionDetection';
+import { matchBestAlternative, matchNavigationIntent, getGrammarVocabulary } from './hooks/useVoiceNavigation';
+import { analyzeVoiceFrames, analyzeVoiceSamples, verifyVoiceSignature, calculateSpectralFeatures, extractMelFilterbank, AcousticFrame, VoicePrint } from './hooks/useVoiceBiometrics';
+import { saveVoicePrintToSupabase, getVoicePrintFromSupabase } from '@/lib/supabaseService';
 import * as THREE from 'three';
 import { speakWithAvatar, stopSpeaking } from '@/lib/tts';
 import { toast } from '@/lib/store/useAppStore';
+import { VRoidAvatarEngine, AnimState } from './VRoidAvatarEngine';
 
-
-type AnimState = 'idle'|'listening'|'thinking'|'talking'|'wave'|'nod'|'shrug';
-
-class AvatarScene {
-  renderer!: THREE.WebGLRenderer; scene!: THREE.Scene; camera!: THREE.PerspectiveCamera;
-  head?: THREE.Object3D; neck?: THREE.Object3D; spine?: THREE.Object3D;
-  leftShoulder?: THREE.Object3D; rightShoulder?: THREE.Object3D;
-  leftArm?: THREE.Object3D; rightArm?: THREE.Object3D;
-  animState: AnimState='idle'; animT=0; talkPhase=0; disposed=false; raf?: number;
-  clock=new THREE.Clock();
-
-  isVRM = false;
-  faceMeshes: THREE.Mesh[] = [];
-  morphMaps: Map<THREE.Mesh, Record<string, number>> = new Map();
-  vowelTimer = 0;
-  nextVowelTime = 0.11;
-  currentVowel = 'silence';
-  currentInfluences: Record<string, number> = { A: 0, I: 0, U: 0, E: 0, O: 0 };
-  proceduralMouth?: THREE.Mesh;
-
-  init(canvas: HTMLCanvasElement, teacherId: string){
-    if (typeof window !== 'undefined') {
-      (window as any).mentorAvatarScene = this;
-    }
-    const w=canvas.clientWidth||280, h=canvas.clientHeight||360;
-    this.renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-    this.renderer.setSize(w,h,false);
-    this.renderer.toneMapping=THREE.ACESFilmicToneMapping;
-    this.renderer.setClearColor(0x000000,0);
-    this.scene=new THREE.Scene();
-    this.camera=new THREE.PerspectiveCamera(28,w/h,0.01,20);
-    // Position closer (Z=1.7 instead of 2.8) and look at face center (Y=1.43) to make the avatar look big and fill the viewport
-    this.camera.position.set(0,1.43,1.7);
-    this.camera.lookAt(0,1.43,0);
-    this.scene.add(new THREE.AmbientLight(0xffffff,0.6));
-    const key=new THREE.DirectionalLight(0xffffff,1.4);
-    key.position.set(1.5,3,2); this.scene.add(key);
-    this.tryLoadVRM(teacherId).catch(()=>this.buildProceduralAvatar());
-    this.loop();
-  }
-
-  async tryLoadVRM(teacherId: string){
-    const {GLTFLoader}=await import('three/examples/jsm/loaders/GLTFLoader.js');
-    const {DRACOLoader}=await import('three/examples/jsm/loaders/DRACOLoader.js');
-    const loader=new GLTFLoader();
-    const dracoLoader=new DRACOLoader();
-    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/');
-    loader.setDRACOLoader(dracoLoader);
-    
-    // Choose model paths based on selected teacherId
-    let paths: string[] = [];
-    const id = teacherId.toLowerCase();
-    if (id === 'priya' || id === 'sneha') {
-      paths = ['/avatar/hana.vrm', '/avatar/yuki.vrm'];
-    } else if (id === 'anish' || id === 'rajesh') {
-      paths = ['/avatar/riku.vrm', '/avatar/akira.vrm'];
-    } else if (id === 'aisha' || id === 'maya') {
-      paths = ['/avatar/yuki.vrm', '/avatar/rei.vrm'];
-    } else if (id === 'rohan') {
-      paths = ['/avatar/akira.vrm', '/avatar/riku.vrm'];
-    } else if (id === 'divya' || id === 'karthic' || id === 'aditya') {
-      paths = ['/avatar/sora.vrm', '/avatar/kaito.vrm'];
-    } else if (id === 'kashyap' || id === 'neha') {
-      paths = ['/avatar/mika.vrm', '/avatar/yuki.vrm'];
-    } else if (id === 'vikram' || id === 'abhijit') {
-      paths = ['/avatar/kaito.vrm', '/avatar/riku.vrm'];
-    } else if (id === 'shalini') {
-      paths = ['/avatar/rei.vrm', '/avatar/yuki.vrm'];
-    } else {
-      paths = ['/avatar/hana.vrm', '/avatar/yuki.vrm', '/avatar/mika.vrm'];
-    }
-
-    const loadAttempt = (idx: number): Promise<void> => {
-      if (idx >= paths.length) return Promise.reject(new Error("No VRMs found"));
-      return new Promise<void>((resolve, reject) => {
-        const resolvedPath = paths[idx].replace('.vrm', '.glb');
-        loader.load(resolvedPath, gltf => {
-          this.scene.add(gltf.scene);
-          this.isVRM = true;
-          this.faceMeshes = [];
-          this.morphMaps.clear();
-          gltf.scene.traverse((obj: any) => {
-            if (obj.isMesh) {
-              obj.castShadow = true;
-              obj.receiveShadow = true;
-              if (obj.morphTargetDictionary) {
-                const keys = Object.keys(obj.morphTargetDictionary);
-                const mouthKeys = keys.filter(k => {
-                  const kl = k.toLowerCase();
-                  return kl === 'a' || kl === 'i' || kl === 'u' || kl === 'e' || kl === 'o' ||
-                         kl.includes('fcl_mth') || kl.includes('mouth') || kl.includes('mth_') ||
-                         kl === 'あ' || kl === 'い' || kl === 'う' || kl === 'え' || kl === 'お' ||
-                         kl === 'aa' || kl === 'ih' || kl === 'ou' || kl === 'ee' || kl === 'oh';
-                });
-                const hasMouth = mouthKeys.length >= 3;
-                const isFaceMeshName = obj.name.toLowerCase().includes('face') || obj.name.toLowerCase().includes('head');
-                if (hasMouth && (isFaceMeshName || this.faceMeshes.length === 0)) {
-                  this.faceMeshes.push(obj);
-                  console.log("VRoidMentorWidget: Face Mesh identified:", obj.name, keys);
-                }
-              }
-            }
-
-            if (obj.isBone || obj.type === 'Bone') {
-              const nameLower = obj.name.toLowerCase();
-              
-              // Check for Head and Neck
-              if (nameLower.includes('head') && !nameLower.includes('hair') && !nameLower.includes('forehead')) {
-                this.head = obj;
-              }
-              if (nameLower.includes('neck')) {
-                this.neck = obj;
-              }
-              if (nameLower.includes('spine') || nameLower.includes('chest') || nameLower.includes('upperchest')) {
-                this.spine = obj;
-              }
-
-              // Check for Shoulders
-              if (nameLower.includes('shoulder') || nameLower.includes('clavicle')) {
-                if (nameLower.includes('left') || nameLower.includes('_l_') || nameLower.startsWith('l_') || nameLower.includes('bip_l') || nameLower.endsWith('_l') || nameLower.endsWith('.l')) {
-                  this.leftShoulder = obj;
-                } else if (nameLower.includes('right') || nameLower.includes('_r_') || nameLower.startsWith('r_') || nameLower.includes('bip_r') || nameLower.endsWith('_r') || nameLower.endsWith('.r')) {
-                  this.rightShoulder = obj;
-                }
-              }
-
-              // Check for Upper Arms
-              const isArm = (nameLower.includes('arm') || nameLower.includes('upperarm')) && 
-                            !nameLower.includes('forearm') && 
-                            !nameLower.includes('lowerarm') && 
-                            !nameLower.includes('hand') && 
-                            !nameLower.includes('finger') &&
-                            !nameLower.includes('shoulder') &&
-                            !nameLower.includes('clavicle');
-
-              if (isArm || nameLower.includes('upperarm')) {
-                if (nameLower.includes('left') || nameLower.includes('_l_') || nameLower.startsWith('l_') || nameLower.includes('bip_l') || nameLower.endsWith('_l') || nameLower.endsWith('.l')) {
-                  this.leftArm = obj;
-                } else if (nameLower.includes('right') || nameLower.includes('_r_') || nameLower.startsWith('r_') || nameLower.includes('bip_r') || nameLower.endsWith('_r') || nameLower.endsWith('.r')) {
-                  this.rightArm = obj;
-                }
-              }
-            }
-          });
-
-          // Resolve morph indices for vowels A, I, U, E, O for all face meshes
-          if (this.faceMeshes.length > 0) {
-            this.faceMeshes.forEach(mesh => {
-              if (mesh.morphTargetDictionary) {
-                const dict = mesh.morphTargetDictionary;
-                const vowels = ['A', 'I', 'U', 'E', 'O'];
-                const meshMorphMap: Record<string, number> = {};
-                vowels.forEach(v => {
-                  const foundKey = Object.keys(dict).find(k => {
-                    const kl = k.toLowerCase();
-                    const isVowelMatch = (vowel: string) => {
-                      const vl = vowel.toLowerCase();
-                      if (kl === vl || 
-                          kl === `fcl_mth_${vl}` || 
-                          kl === `mouth_${vl}`) {
-                        return true;
-                      }
-                      if (kl.endsWith(`_${vl}`) || kl.endsWith(`.${vl}`)) {
-                        return true;
-                      }
-                      if (kl.includes(`blendshape.${vl}`) || kl.includes(`preset.${vl}`)) {
-                        return true;
-                      }
-                      if (vowel === 'A' && (kl === 'あ' || kl === 'aa' || kl === 'open' || kl === 'mouth_open' || kl === 'mouthopen')) return true;
-                      if (vowel === 'I' && (kl === 'い' || kl === 'ih' || kl === 'ii')) return true;
-                      if (vowel === 'U' && (kl === 'う' || kl === 'ou' || kl === 'uu')) return true;
-                      if (vowel === 'E' && (kl === 'え' || kl === 'ee')) return true;
-                      if (vowel === 'O' && (kl === 'お' || kl === 'oh' || kl === 'oo')) return true;
-                      
-                      return false;
-                    };
-                    return isVowelMatch(v);
-                  });
-                  if (foundKey) {
-                    meshMorphMap[v] = dict[foundKey];
-                    console.log(`VRoidMentorWidget: Mapped vowel ${v} to morph target index: ${dict[foundKey]} (key: "${foundKey}") on mesh "${mesh.name}"`);
-                  } else {
-                    console.warn(`VRoidMentorWidget: Could not map morph target for vowel ${v} on mesh "${mesh.name}"`);
-                  }
-                });
-                this.morphMaps.set(mesh, meshMorphMap);
-              }
-            });
-          } else {
-            console.warn("VRoidMentorWidget: No face meshes with morph target dictionary found!");
-          }
-          this.centerCameraOnHead();
-          resolve();
-        }, undefined, () => {
-          loadAttempt(idx + 1).then(resolve).catch(reject);
-        });
-      });
-    };
-
-    return loadAttempt(0);
-  }
-
-  buildProceduralAvatar(){
-    this.isVRM = false;
-    const g=new THREE.Group();
-    const mat=(c:number,r=0.4,m=0)=>new THREE.MeshStandardMaterial({color:c,roughness:r,metalness:m});
-    const SKIN=0xf5c8a8, SHIRT=0x4f5fa8, HAIR=0x1a1008, PANT=0x2c2c3e;
-    const spine=new THREE.Group(); spine.position.y=1.22; this.spine=spine; g.add(spine);
-    const torso=new THREE.Mesh(new THREE.CapsuleGeometry(0.14,0.36,8,12),mat(SHIRT,0.7)); torso.position.y=0; spine.add(torso);
-    const neck=new THREE.Group(); neck.position.set(0,0.24,0); spine.add(neck); this.neck=neck;
-    neck.add(Object.assign(new THREE.Mesh(new THREE.CylinderGeometry(0.055,0.065,0.12,12),mat(SKIN,0.5)),{position:new THREE.Vector3(0,0.06,0)}));
-    const head=new THREE.Group(); head.position.y=0.18; neck.add(head); this.head=head;
-    const skull=new THREE.Mesh(new THREE.SphereGeometry(0.13,24,20),mat(SKIN,0.45)); skull.scale.set(1,1.08,0.97); head.add(skull);
-    const hair=new THREE.Mesh(new THREE.SphereGeometry(0.135,24,20),mat(HAIR,0.8)); hair.position.y=0.04; head.add(hair);
-    [[-0.048,0],[0.048,0]].forEach(([x])=>{
-      const ew=new THREE.Mesh(new THREE.SphereGeometry(0.028,16,12),mat(0xffffff,0.1)); ew.position.set(x,0.02,0.114); head.add(ew);
-      const ei=new THREE.Mesh(new THREE.SphereGeometry(0.018,16,12),mat(0x3a5fc8,0.3)); ei.position.set(x,0.02,0.127); head.add(ei);
-    });
-
-    // Add a simple mouth mesh to the procedural head
-    const mouth = new THREE.Mesh(new THREE.CapsuleGeometry(0.02, 0.05, 4, 8), mat(0x9b1c1c, 0.5));
-    mouth.position.set(0, -0.04, 0.125);
-    mouth.rotation.z = Math.PI / 2;
-    head.add(mouth);
-    this.proceduralMouth = mouth;
-
-    [[-0.2,0.18],[0.2,0.18]].forEach(([x])=>{
-      const sh=new THREE.Mesh(new THREE.SphereGeometry(0.07,12,10),mat(SHIRT,0.7)); sh.position.set(x,0,0); spine.add(sh);
-    });
-    const makeArm=(side:number)=>{
-      const ag=new THREE.Group(); ag.position.set(side*0.2,0.18,0); spine.add(ag);
-      if(side<0) this.leftArm=ag; else this.rightArm=ag;
-      const ua=new THREE.Mesh(new THREE.CapsuleGeometry(0.055,0.22,6,8),mat(SHIRT,0.7));
-      ua.position.set(side*0.1,-0.14,0); ua.rotation.z=side*-0.25; ag.add(ua);
-    };
-    makeArm(-1); makeArm(1);
-    const pelvis=new THREE.Mesh(new THREE.CapsuleGeometry(0.13,0.06,8,10),mat(PANT,0.8)); pelvis.position.y=1.01; g.add(pelvis);
-    [[-0.08],[0.08]].forEach(([x])=>{
-      const leg=new THREE.Mesh(new THREE.CapsuleGeometry(0.065,0.38,6,10),mat(PANT,0.8)); leg.position.set(x,0.78,0); g.add(leg);
-      const shoe=new THREE.Mesh(new THREE.BoxGeometry(0.09,0.055,0.18),mat(0x1a1a1a,0.9)); shoe.position.set(x,0.55,0.025); g.add(shoe);
-    });
-    this.scene.add(g);
-    this.centerCameraOnHead();
-  }
-
-  centerCameraOnHead() {
-    if (!this.camera) return;
-    let headPos = new THREE.Vector3(0, 1.43, 0);
-    if (this.head) {
-      this.head.updateMatrixWorld(true);
-      const temp = new THREE.Vector3();
-      this.head.getWorldPosition(temp);
-      if (temp.y > 0.3) {
-        headPos.copy(temp);
-      }
-    }
-    // Zoom in closer (Z distance 1.2 instead of 1.7) to make the avatar larger and easier to see
-    this.camera.position.set(headPos.x, headPos.y - 0.05, headPos.z + 1.2);
-    this.camera.lookAt(headPos.x, headPos.y - 0.05, headPos.z);
-    console.log("AvatarScene: Camera dynamically centered on head:", headPos);
-  }
-
-  setState(s:AnimState){ if(this.animState===s) return; this.animState=s; this.animT=0; }
-
-  loop(){
-    if(this.disposed) return;
-    this.raf=requestAnimationFrame(()=>this.loop());
-    const dt=this.clock.getDelta(), et=this.clock.getElapsedTime();
-    this.animT+=dt;
-
-    // 1. Natural Breathing & Gentle Idle Swaying
-    const breath = Math.sin(et * 1.5);
-    const breathingSpineX = breath * 0.008;
-    const breathingShoulderZ = breath * 0.004;
-
-    const swayX = Math.sin(et * 0.5) * 0.006;
-    const swayZ = Math.sin(et * 0.35) * 0.008;
-
-    if (this.spine) {
-      this.spine.rotation.x = breathingSpineX + swayX;
-      this.spine.rotation.z = swayZ;
-    }
-
-    if (this.leftShoulder) {
-      this.leftShoulder.rotation.z = -breathingShoulderZ;
-    }
-    if (this.rightShoulder) {
-      this.rightShoulder.rotation.z = breathingShoulderZ;
-    }
-
-    // 2. Head & Neck look-around sways
-    if (this.head) {
-      const s = this.animState;
-      if (s === 'idle') {
-        // Subtle desynchronized look-around sway to prevent robotic U-shape patterns
-        this.head.rotation.y = Math.sin(et * 0.13) * 0.035 + Math.cos(et * 0.07) * 0.015;
-        this.head.rotation.x = Math.cos(et * 0.11) * 0.018 + Math.sin(et * 0.05) * 0.007 + 0.015;
-        this.head.rotation.z = Math.sin(et * 0.08) * 0.008;
-        if (this.neck) {
-          this.neck.rotation.y = Math.sin(et * 0.13) * 0.01;
-        }
-      } else if (s === 'nod') {
-        this.head.rotation.x = Math.sin(this.animT * 6.5) * 0.16 + 0.02;
-        this.head.rotation.y = THREE.MathUtils.lerp(this.head.rotation.y, 0, 0.1);
-        this.head.rotation.z = THREE.MathUtils.lerp(this.head.rotation.z, 0, 0.1);
-      } else if (s === 'thinking') {
-        // Slow thinking posture with subtle desynchronized head drift
-        const targetX = 0.05 + Math.sin(et * 0.6) * 0.01;
-        const targetY = 0.12 + Math.cos(et * 0.5) * 0.015;
-        this.head.rotation.x = THREE.MathUtils.lerp(this.head.rotation.x, targetX, 0.08);
-        this.head.rotation.y = THREE.MathUtils.lerp(this.head.rotation.y, targetY, 0.08);
-        this.head.rotation.z = THREE.MathUtils.lerp(this.head.rotation.z, 0.08, 0.08);
-      } else if (s === 'shrug') {
-        this.head.rotation.x = THREE.MathUtils.lerp(this.head.rotation.x, -0.05, 0.08);
-        this.head.rotation.y = THREE.MathUtils.lerp(this.head.rotation.y, 0, 0.08);
-        this.head.rotation.z = THREE.MathUtils.lerp(this.head.rotation.z, 0, 0.08);
-      } else {
-        this.head.rotation.x = THREE.MathUtils.lerp(this.head.rotation.x, 0.02, 0.08);
-        this.head.rotation.y = THREE.MathUtils.lerp(this.head.rotation.y, 0, 0.08);
-        this.head.rotation.z = THREE.MathUtils.lerp(this.head.rotation.z, 0, 0.08);
-      }
-
-      if (s === 'talking') {
-        this.talkPhase += 0.18;
-        this.head.rotation.x += Math.sin(this.talkPhase) * 0.015;
-        this.head.rotation.y += Math.sin(this.talkPhase * 0.5) * 0.01;
-      }
-    }
-
-    // 3. Left & Right Arm rotations:
-    const defaultLeftZ = this.isVRM ? -1.25 : 0;
-    const defaultRightZ = this.isVRM ? 1.25 : 0;
-
-    if (this.leftArm) {
-      let targetLeftZ = defaultLeftZ;
-      let targetLeftX = 0;
-
-      if (this.animState === 'wave') {
-        targetLeftZ = Math.PI * 0.7 + Math.sin(et * 6) * 0.22;
-      } else if (this.animState === 'shrug') {
-        targetLeftZ = defaultLeftZ + 0.25;
-      } else if (this.animState === 'talking') {
-        targetLeftZ = defaultLeftZ + Math.sin(et * 2) * 0.04;
-      } else {
-        targetLeftZ += Math.sin(et * 1.5) * 0.015;
-      }
-
-      this.leftArm.rotation.z = THREE.MathUtils.lerp(this.leftArm.rotation.z, targetLeftZ, 0.08);
-      this.leftArm.rotation.x = THREE.MathUtils.lerp(this.leftArm.rotation.x, targetLeftX, 0.08);
-    }
-
-    if (this.rightArm) {
-      let targetRightZ = defaultRightZ;
-      let targetRightX = 0;
-
-      if (this.animState === 'thinking') {
-        targetRightZ = -1.05;
-        targetRightX = 0.4;
-      } else if (this.animState === 'shrug') {
-        targetRightZ = defaultRightZ - 0.25;
-      } else if (this.animState === 'talking') {
-        targetRightZ = defaultRightZ - 0.3 + Math.sin(et * 4) * 0.12;
-        targetRightX = 0.2 + Math.cos(et * 4) * 0.06;
-      } else {
-        targetRightZ -= Math.sin(et * 1.5) * 0.015;
-      }
-
-      this.rightArm.rotation.z = THREE.MathUtils.lerp(this.rightArm.rotation.z, targetRightZ, 0.08);
-      this.rightArm.rotation.x = THREE.MathUtils.lerp(this.rightArm.rotation.x, targetRightX, 0.08);
-    }
-
-    // 4. Lip Sync & Mouth articulators:
-    if (this.faceMeshes.length > 0) {
-      const isTalking = this.animState === 'talking';
-      if (isTalking) {
-        this.vowelTimer += dt;
-        if (this.vowelTimer > this.nextVowelTime) {
-          this.vowelTimer = 0;
-          this.nextVowelTime = 0.08 + Math.random() * 0.08; // Variable syllable duration
-          const speechVowels = ['A', 'A', 'I', 'U', 'E', 'O', 'O', 'silence'];
-          this.currentVowel = speechVowels[Math.floor(Math.random() * speechVowels.length)];
-        }
-      } else {
-        this.currentVowel = 'silence';
-      }
-
-      const vowels = ['A', 'I', 'U', 'E', 'O'];
-      vowels.forEach(v => {
-        const targetValue = (v === this.currentVowel) ? (v === 'A' || v === 'O' ? 0.85 : 0.55) : 0.0;
-        const currentVal = this.currentInfluences[v] || 0;
-        const newVal = THREE.MathUtils.lerp(currentVal, targetValue, 0.32);
-        this.currentInfluences[v] = newVal;
-
-        this.faceMeshes.forEach(mesh => {
-          const meshMorphMap = this.morphMaps.get(mesh);
-          if (meshMorphMap) {
-            const idx = meshMorphMap[v];
-            if (idx !== undefined && mesh.morphTargetInfluences) {
-              mesh.morphTargetInfluences[idx] = newVal;
-            }
-          }
-        });
-      });
-    }
-
-    if (this.proceduralMouth) {
-      const isTalking = this.animState === 'talking';
-      // Syllabic envelope: combine low and high frequencies to mimic natural talking pacing
-      const targetScaleY = isTalking ? (0.6 + Math.abs(Math.sin(et * 8)) * 1.2 + Math.sin(et * 19) * 0.4) : 0.1;
-      this.proceduralMouth.scale.y = THREE.MathUtils.lerp(this.proceduralMouth.scale.y, targetScaleY, 0.3);
-    }
-
-    this.renderer.render(this.scene,this.camera);
-  }
-
-  resize(w:number,h:number){
-    if (!this.camera || !this.renderer) return;
-    this.camera.aspect=w/h;
-    this.camera.updateProjectionMatrix();
-    this.renderer.setSize(w,h,false);
-  }
-  dispose(){
-    this.disposed=true;
-    if(this.raf) cancelAnimationFrame(this.raf);
-    if(this.renderer) this.renderer.dispose();
-  }
-}
 
 interface CareerProfile {
   ats_score?: number; trust_score?: number; career_dna_score?: number;
@@ -549,80 +125,72 @@ export default function AvatarMentorWidget({
   const [messages,       setMessages]       = useState<Array<{ role: string; content: string }>>([]);
   const [loading,        setLoading]        = useState(false);
   const [speaking,       setSpeaking]       = useState(false);
-  const [localMinimized, setLocalMinimized] = useState(false);
+  const [localMinimized, setLocalMinimized] = useState(true);
   const [mlRecs,         setMlRecs]         = useState<MLRec[]>([]);
   const [voiceFreq,      setVoiceFreq]      = useState<number | null>(null);
+  const [voicePrint,     setVoicePrint]     = useState<VoicePrint | null>(null);
   const [isRecordingVoice, setIsRecordingVoice] = useState(false);
   const [isConversing,   setIsConversing]   = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const sceneRef  = useRef<AvatarScene | null>(null);
+  const sceneRef  = useRef<VRoidAvatarEngine | null>(null);
   const [aiState, setAiState] = useState<AnimState>('idle');
 
   const pitchHistoryRef = useRef<number[]>([]);
+  const acousticFramesRef = useRef<AcousticFrame[]>([]);
   const voiceFreqRef = useRef<number | null>(null);
+  const voicePrintRef = useRef<VoicePrint | null>(null);
 
   useEffect(() => {
     voiceFreqRef.current = voiceFreq;
   }, [voiceFreq]);
 
-  // Sync voice print on load
+  useEffect(() => {
+    voicePrintRef.current = voicePrint;
+  }, [voicePrint]);
+
+  // Sync voice print from Supabase & localStorage on load
   useEffect(() => {
     if (typeof window !== 'undefined' && userId) {
-      const saved = localStorage.getItem(`pinit_${userId}_voice_print_freq`);
-      if (saved) {
-        setVoiceFreq(parseFloat(saved));
+      // 1. Read local storage cache for instant startup
+      const savedLocal = localStorage.getItem(`pinit_${userId}_voice_print_data`);
+      if (savedLocal) {
+        try {
+          const parsed = JSON.parse(savedLocal);
+          setVoicePrint(parsed);
+          setVoiceFreq(parsed.avgPitch);
+        } catch {}
+      } else {
+        const savedFreq = localStorage.getItem(`pinit_${userId}_voice_print_freq`);
+        if (savedFreq) setVoiceFreq(parseFloat(savedFreq));
       }
+
+      // 2. Fetch latest registered voice print from Supabase across all portals
+      getVoicePrintFromSupabase(userId).then(sbPrint => {
+        if (sbPrint) {
+          console.log('[VoiceBiometrics] Loaded voice print from Supabase for user:', userId, sbPrint);
+          setVoicePrint(sbPrint);
+          const pitchVal = typeof sbPrint === 'number' ? sbPrint : sbPrint.avgPitch;
+          setVoiceFreq(pitchVal);
+          localStorage.setItem(`pinit_${userId}_voice_print_data`, JSON.stringify(sbPrint));
+          localStorage.setItem(`pinit_${userId}_voice_print_freq`, pitchVal.toString());
+        }
+      }).catch(err => {
+        console.warn('[VoiceBiometrics] Could not sync voice print from Supabase:', err);
+      });
     }
   }, [userId]);
 
-  // Single persistent background pitch tracker for speaker validation
+  // Background audio tracking disabled on mount to ensure instant 0ms widget opening
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    let stream: MediaStream | null = null;
-    let audioCtx: AudioContext | null = null;
-    let interval: any = null;
-
-    navigator.mediaDevices.getUserMedia({ audio: true })
-      .then(s => {
-        stream = s;
-        const SpeechAudioContext = window.AudioContext || (window as any).webkitAudioContext;
-        audioCtx = new SpeechAudioContext();
-        const source = audioCtx.createMediaStreamSource(s);
-        const analyser = audioCtx.createAnalyser();
-        analyser.fftSize = 2048;
-        source.connect(analyser);
-
-        const dataArray = new Float32Array(analyser.fftSize);
-
-        interval = setInterval(() => {
-          if (!analyser || !audioCtx) return;
-          analyser.getFloatTimeDomainData(dataArray);
-          const p = detectPitch(dataArray, audioCtx.sampleRate);
-          if (p > 70 && p < 350) {
-            pitchHistoryRef.current.push(p);
-            if (pitchHistoryRef.current.length > 25) {
-              pitchHistoryRef.current.shift(); // keep sliding window of last 2.5 seconds
-            }
-          }
-        }, 100);
-      })
-      .catch(err => {
-        console.warn("Background microphone pitch tracking failed to start:", err);
-      });
-
-    return () => {
-      if (interval) clearInterval(interval);
-      if (stream) stream.getTracks().forEach(t => t.stop());
-      if (audioCtx) audioCtx.close();
-    };
+    // Only initialized on demand when voice recording is triggered
   }, []);
 
   const startVoiceRegistration = async () => {
     if (typeof window === 'undefined') return;
     setIsRecordingVoice(true);
-    toast.info("Voice Registration Started 🎙️", "Please speak clearly for 2.5 seconds...");
+    toast.info("Analyzing Multi-Feature Voice Signature 🎙️", "Please speak clearly into your mic for 3.5 seconds...");
 
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -634,41 +202,50 @@ export default function AvatarMentorWidget({
 
       const bufferLength = analyser.fftSize;
       const dataArray = new Float32Array(bufferLength);
-      const pitches: number[] = [];
+      const freqData = new Float32Array(analyser.frequencyBinCount);
+      const frames: AcousticFrame[] = [];
 
       const interval = setInterval(() => {
         analyser.getFloatTimeDomainData(dataArray);
+        analyser.getFloatFrequencyData(freqData);
         const pitch = detectPitch(dataArray, audioCtx.sampleRate);
-        if (pitch > 0) {
-          pitches.push(pitch);
-        }
-      }, 100);
+        const { centroid, rolloff } = calculateSpectralFeatures(freqData, audioCtx.sampleRate);
+        const mfccVector = extractMelFilterbank(freqData, audioCtx.sampleRate);
 
-      setTimeout(() => {
+        if (pitch > 0) {
+          frames.push({
+            pitch,
+            spectralCentroid: centroid,
+            spectralRolloff: rolloff,
+            mfccVector
+          });
+        }
+      }, 70);
+
+      setTimeout(async () => {
         clearInterval(interval);
         stream.getTracks().forEach(t => t.stop());
         audioCtx.close();
         setIsRecordingVoice(false);
 
-        const validPitches = pitches.filter(p => p > 70 && p < 350);
-        if (validPitches.length > 0) {
-          // Sort and slice out top and bottom 20% to remove outliers
-          const sorted = [...validPitches].sort((a, b) => a - b);
-          const startIdx = Math.floor(sorted.length * 0.2);
-          const endIdx = Math.ceil(sorted.length * 0.8);
-          const corePitches = sorted.slice(startIdx, endIdx);
-          
-          const finalPitches = corePitches.length > 0 ? corePitches : validPitches;
-          const avg = finalPitches.reduce((a, b) => a + b, 0) / finalPitches.length;
-          const rounded = Math.round(avg);
-          localStorage.setItem(`pinit_${userId}_voice_print_freq`, rounded.toString());
-          setVoiceFreq(rounded);
-          toast.success("Voice Signature Registered! 🔐", `Owner voice print locked at ${rounded}Hz.`);
-          speakReply(`Voice print registered successfully at ${rounded} Hertz! Voice command lock is now active.`);
+        const analyzedPrint = analyzeVoiceFrames(frames);
+        if (analyzedPrint) {
+          setVoicePrint(analyzedPrint);
+          setVoiceFreq(analyzedPrint.avgPitch);
+          localStorage.setItem(`pinit_${userId}_voice_print_data`, JSON.stringify(analyzedPrint));
+          localStorage.setItem(`pinit_${userId}_voice_print_freq`, analyzedPrint.avgPitch.toString());
+
+          // Persist multi-feature voice print to Supabase
+          if (userId && userId !== 'guest') {
+            await saveVoicePrintToSupabase(userId, analyzedPrint);
+          }
+
+          toast.success("Biometric Voice Signature Saved to Supabase! 🔐", `Locked acoustic fingerprint (Pitch: ${analyzedPrint.avgPitch}Hz, Timbre Fc: ${analyzedPrint.spectralCentroid}Hz).`);
+          speakReply(`Biometric voice signature successfully analyzed and saved to Supabase at ${analyzedPrint.avgPitch} Hertz! Speaker identification lock is now active across all portals.`);
         } else {
-          toast.error("Registration Failed", "No clear voice pitch detected. Please try again in a quiet room.");
+          toast.error("Registration Failed", "Could not analyze clear voice biometrics. Please speak clearly in a quiet room.");
         }
-      }, 2500);
+      }, 3500);
 
     } catch (err) {
       console.warn("Failed voice registration:", err);
@@ -690,13 +267,16 @@ export default function AvatarMentorWidget({
   // Initialize 3D Viewport on mount and reload when teacherId changes
   useEffect(() => {
     if (!canvasRef.current) return;
-    const scene = new AvatarScene();
+    const scene = new VRoidAvatarEngine();
     sceneRef.current = scene;
     try {
       scene.init(canvasRef.current, teacherId);
       scene.setState('wave');
+      if (typeof window !== 'undefined') {
+        (window as any).mentorAvatarScene = scene;
+      }
     } catch (e) {
-      console.warn("Failed to initialize WebGL avatar scene:", e);
+      console.warn("Failed to initialize WebGL avatar engine:", e);
     }
     const timer = setTimeout(() => {
       try {
@@ -923,71 +503,30 @@ export default function AvatarMentorWidget({
       return;
     }
 
-    const isNavigation = 
-      lower.includes('shift') || 
-      lower.includes('switch') || 
-      lower.includes('swap') || 
-      lower.includes('go to') || 
-      lower.includes('navigate') || 
-      lower.includes('open') || 
-      lower.includes('show');
-
-    if (isNavigation) {
-      let targetPath = '';
-      let tabName = '';
-
-      if (lower.includes('home') || lower.includes('dashboard')) {
-        targetPath = '/dashboard';
-        tabName = 'Home Dashboard';
-      } else if (lower.includes('career-builder') || lower.includes('builder') || lower.includes('roadmap') || lower.includes('resume')) {
-        targetPath = '/career-builder';
-        tabName = 'Career Builder';
-      } else if (lower.includes('quest') || lower.includes('learn')) {
-        targetPath = '/quests';
-        tabName = 'Quests';
-      } else if (lower.includes('mission') || lower.includes('daily')) {
-        targetPath = '/missions';
-        tabName = 'Daily Missions';
-      } else if (lower.includes('interview') || lower.includes('mock')) {
-        targetPath = '/interview';
-        tabName = 'AI Interview';
-      } else if (lower.includes('twin')) {
-        targetPath = '/career-twin';
-        tabName = 'Career Twin';
-      } else if (lower.includes('dna')) {
-        targetPath = '/career-dna';
-        tabName = 'Career DNA';
-      } else if (lower.includes('opportunit') || lower.includes('job')) {
-        targetPath = '/opportunities';
-        tabName = 'Opportunities';
-      } else if (lower.includes('discussion') || lower.includes('boardroom') || lower.includes('debate')) {
-        targetPath = '/group-discussion';
-        tabName = 'Group Discussion';
-      } else if (lower.includes('vault') || lower.includes('document')) {
-        targetPath = '/vault';
-        tabName = 'Vault';
-      } else if (lower.includes('pricing') || lower.includes('plan') || lower.includes('pin')) {
-        targetPath = '/pricing';
-        tabName = 'Pins & Plans';
-      } else if (lower.includes('profile') || lower.includes('settings')) {
-        targetPath = '/profile';
-        tabName = 'Profile';
-      } else if (lower.includes('notification')) {
-        targetPath = '/notifications';
-        tabName = 'Notifications';
+    // ── Voice Navigation Engine — exhaustive route matching with confidence scoring ──
+    const navResult = matchNavigationIntent(msg);
+    if (navResult.matched && navResult.confidence >= 0.7) {
+      // High confidence → navigate immediately with voice confirmation
+      console.log(`[VoiceNav] sendMessage HIGH confidence (${(navResult.confidence * 100).toFixed(0)}%) → ${navResult.path} (${navResult.displayName})`);
+      const confirmation = `Sure! Shifting you to ${navResult.displayName} now.`;
+      setMessages(prev => [...prev, { role: 'assistant', content: confirmation }]);
+      await speakReply(confirmation);
+      if (onTabShift) {
+        setTimeout(() => {
+          onTabShift(navResult.path);
+        }, 800);
       }
-
-      if (targetPath) {
-        const confirmation = `Sure! Shifting you to the ${tabName} tab now.`;
-        setMessages(prev => [...prev, { role: 'assistant', content: confirmation }]);
-        await speakReply(confirmation);
-        if (onTabShift) {
-          setTimeout(() => {
-            onTabShift(targetPath);
-          }, 800);
-        }
-        return; // Complete local intercept, bypass server call
-      }
+      return; // Complete local intercept, bypass server call
+    } else if (navResult.matched && navResult.confidence >= 0.4) {
+      // Medium confidence → ask for clarification before navigating
+      console.log(`[VoiceNav] sendMessage MEDIUM confidence (${(navResult.confidence * 100).toFixed(0)}%) → clarifying`);
+      const top2 = navResult.candidates.slice(0, 2);
+      const clarification = top2.length >= 2
+        ? `I'm not sure if you meant ${top2[0].displayName} or ${top2[1].displayName}. Which one would you like?`
+        : `Did you mean ${top2[0].displayName}? Just say yes to confirm.`;
+      setMessages(prev => [...prev, { role: 'assistant', content: clarification }]);
+      await speakReply(clarification);
+      return;
     }
 
 
@@ -1065,25 +604,75 @@ export default function AvatarMentorWidget({
     let recognition: any = null;
     let shouldListen = true;
 
+    // Pitch monitoring state (hoisted to effect scope for cleanup access)
+    let pitchStream: MediaStream | null = null;
+    let pitchAudioCtx: AudioContext | null = null;
+    let pitchInterval: ReturnType<typeof setInterval> | null = null;
+
+    const cleanupPitch = () => {
+      if (pitchInterval) { clearInterval(pitchInterval); pitchInterval = null; }
+      if (pitchStream) { pitchStream.getTracks().forEach(t => t.stop()); pitchStream = null; }
+      if (pitchAudioCtx) { pitchAudioCtx.close().catch(() => {}); pitchAudioCtx = null; }
+    };
+
     const startListening = () => {
       if (!shouldListen) return;
       try {
         recognition = new SpeechRecognition();
         recognition.continuous = false;
         recognition.interimResults = false;
-        recognition.maxAlternatives = 1;
+        recognition.maxAlternatives = 5; // Score all 5 alternatives for best navigation match
         
         // Auto-match browser locale for native accent accuracy (e.g., en-IN, en-US, en-GB)
         recognition.lang = navigator.language || 'en-US';
 
-        // Grammar List: weight recognition probabilities for critical vocabulary
+        // Grammar List: expanded vocabulary covering all portal routes + wake words + nav verbs
         const SpeechGrammarList = (window as any).SpeechGrammarList || (window as any).webkitSpeechGrammarList;
         if (SpeechGrammarList) {
           const speechRecognitionList = new SpeechGrammarList();
-          const vocab = ['priya', 'kashyap', 'karthic', 'maya', 'divya', 'sentinel', 'pinit', 'socratic', 'verify', 'exam'];
+          const vocab = getGrammarVocabulary();
           const grammar = '#JSGF V1.0; grammar vocab; public <word> = ' + vocab.join(' | ') + ' ;';
           speechRecognitionList.addFromString(grammar, 1);
           recognition.grammars = speechRecognitionList;
+        }
+
+        // ── Continuous Acoustic Feature Monitoring via parallel Web Audio AnalyserNode ──
+        // Feeds real-time pitch, spectral centroid, and MFCC vectors into acousticFramesRef for biometric identification
+        if (!pitchStream) {
+          try {
+            navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+              if (!shouldListen) { stream.getTracks().forEach(t => t.stop()); return; }
+              pitchStream = stream;
+              pitchAudioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+              const src = pitchAudioCtx.createMediaStreamSource(stream);
+              const analyser = pitchAudioCtx.createAnalyser();
+              analyser.fftSize = 2048;
+              src.connect(analyser);
+              const buf = new Float32Array(analyser.fftSize);
+              const freqData = new Float32Array(analyser.frequencyBinCount);
+              pitchInterval = setInterval(() => {
+                if (speakingRef.current || loadingRef.current) return; // Echo gate
+                analyser.getFloatTimeDomainData(buf);
+                analyser.getFloatFrequencyData(freqData);
+                const pitch = detectPitch(buf, pitchAudioCtx!.sampleRate);
+                const { centroid, rolloff } = calculateSpectralFeatures(freqData, pitchAudioCtx!.sampleRate);
+                const mfccVector = extractMelFilterbank(freqData, pitchAudioCtx!.sampleRate);
+
+                if (pitch > 0) {
+                  pitchHistoryRef.current.push(pitch);
+                  acousticFramesRef.current.push({
+                    pitch,
+                    spectralCentroid: centroid,
+                    spectralRolloff: rolloff,
+                    mfccVector
+                  });
+                  // Keep last 30 samples to avoid memory growth
+                  if (pitchHistoryRef.current.length > 30) pitchHistoryRef.current.shift();
+                  if (acousticFramesRef.current.length > 30) acousticFramesRef.current.shift();
+                }
+              }, 120);
+            }).catch(() => {}); // Mic already granted from STT, but silently fail if not
+          } catch {}
         }
 
         recognition.onstart = () => {
@@ -1094,31 +683,28 @@ export default function AvatarMentorWidget({
           // Double guard against AI voice capture
           if (speakingRef.current || loadingRef.current) return;
 
-          const transcript = e.results[0]?.[0]?.transcript;
+          // Extract all alternatives for multi-scoring
+          const allAlternatives: string[] = [];
+          const resultCount = e.results[0]?.length || 0;
+          for (let a = 0; a < resultCount; a++) {
+            const alt = e.results[0]?.[a]?.transcript;
+            if (alt) allAlternatives.push(alt.trim());
+          }
+
+          const transcript = allAlternatives[0];
           if (!transcript) return;
 
-          // ── Owner Voice Signature Lock Check ──
-          if (voiceFreqRef.current) {
-            const validPitches = pitchHistoryRef.current.slice(-12);
-            if (validPitches.length > 0) {
-              const sorted = [...validPitches].sort((a, b) => a - b);
-              const startIdx = Math.floor(sorted.length * 0.2);
-              const endIdx = Math.ceil(sorted.length * 0.8);
-              const corePitches = sorted.slice(startIdx, endIdx);
-              const finalPitches = corePitches.length > 0 ? corePitches : validPitches;
-              const avgPitch = finalPitches.reduce((a, b) => a + b, 0) / finalPitches.length;
-              const diff = Math.abs(avgPitch - voiceFreqRef.current) / voiceFreqRef.current;
-              console.log(`[Voice Lock] Stored: ${voiceFreqRef.current}Hz | trim avg: ${avgPitch.toFixed(1)}Hz | Diff: ${(diff * 100).toFixed(1)}%`);
+          // ── Owner Speaker Biometric Identification Verification Check ──
+          if (voicePrintRef.current || voiceFreqRef.current) {
+            const target = voicePrintRef.current || voiceFreqRef.current;
+            const inputFrames = acousticFramesRef.current.length > 0 ? acousticFramesRef.current : pitchHistoryRef.current;
+            const result = verifyVoiceSignature(inputFrames, target);
+            console.log(`[Speaker Biometrics] Verification result:`, result);
 
-              if (diff > 0.30) {
-                console.warn("[Voice Lock] Voice mismatch.");
-                toast.error("Voice Lock Refused 🔐", "Speaker signature mismatch. Command ignored.");
-                speakReply("Voice signature mismatch. I can only follow commands from my registered owner.");
-                return;
-              }
-            } else {
-              toast.error("Verification Timed Out 🔐", "Please speak clearly closer to your microphone.");
-              speakReply("Sorry, I could not verify your voice signature. Please try again.");
+            if (!result.verified) {
+              console.warn("[Voice Lock] Speaker identity mismatch:", result.reason);
+              toast.error("Speaker Signature Mismatch 🔐", result.reason);
+              speakReply("Voice signature mismatch. Speaker identity does not match the registered owner.");
               return;
             }
           }
@@ -1172,7 +758,39 @@ export default function AvatarMentorWidget({
               .trim();
 
             if (cleaned.length > 0) {
-              sendMessage(cleaned);
+              // ── Try Voice Navigation Engine first (multi-alternative scoring) ──
+              const cleanedAlts = allAlternatives.map(alt =>
+                alt.replace(/\b(hey|hi|hello)\b/gi, '')
+                   .replace(new RegExp(`\\b(${matchedTeacherKey}|priya|preya|pria|prea|freeya|freya|riya|kashyap|kash|cash\\s*up|catch\\s*up|ketchup|karthic|karthik|kartik|nega|negga|maya|maia|mya|divya|divia)\\b`, 'gi'), '')
+                   .trim()
+              ).filter(a => a.length > 0);
+
+              const navResult = matchBestAlternative(cleanedAlts.length > 0 ? cleanedAlts : [cleaned]);
+
+              if (navResult.matched && navResult.confidence >= 0.7) {
+                // High confidence → navigate immediately with voice confirmation
+                console.log(`[VoiceNav] HIGH confidence (${(navResult.confidence * 100).toFixed(0)}%) → ${navResult.path} (${navResult.displayName})`);
+                const confirmation = `Sure! Taking you to ${navResult.displayName} now.`;
+                setMessages(prev => [...prev, { role: 'user', content: cleaned }]);
+                setMessages(prev => [...prev, { role: 'assistant', content: confirmation }]);
+                speakReply(confirmation);
+                if (onTabShift) {
+                  setTimeout(() => { onTabShift(navResult.path); }, 800);
+                }
+              } else if (navResult.matched && navResult.confidence >= 0.4) {
+                // Medium confidence → ask for clarification
+                console.log(`[VoiceNav] MEDIUM confidence (${(navResult.confidence * 100).toFixed(0)}%) → asking clarification`);
+                const top2 = navResult.candidates.slice(0, 2);
+                const clarification = top2.length >= 2
+                  ? `I heard "${cleaned}". Did you mean ${top2[0].displayName} or ${top2[1].displayName}?`
+                  : `I heard "${cleaned}". Did you mean ${top2[0].displayName}?`;
+                setMessages(prev => [...prev, { role: 'user', content: cleaned }]);
+                setMessages(prev => [...prev, { role: 'assistant', content: clarification }]);
+                speakReply(clarification);
+              } else {
+                // No navigation match → send to AI chat
+                sendMessage(cleaned);
+              }
             } else {
               const greeting = `Yes, I am listening! How can I help you today?`;
               setMessages(prev => [...prev, { role: 'assistant', content: greeting }]);
@@ -1210,6 +828,8 @@ export default function AvatarMentorWidget({
           recognition.stop();
         } catch {}
       }
+      // Clean up pitch monitoring
+      try { cleanupPitch(); } catch {}
     };
   }, [teacherId, setIsMinimized, sendMessage, speaking, loading]);
 
@@ -1451,27 +1071,32 @@ export default function AvatarMentorWidget({
           </div>
         </div>
         <div className="mentor-controls" style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-          {voiceFreq ? (
+          {voiceFreq || voicePrint ? (
             <span 
               onClick={() => {
-                if (confirm("Reset voice lock signature?")) {
+                if (confirm("Reset voice lock signature from Supabase and local storage?")) {
                   localStorage.removeItem(`pinit_${userId}_voice_print_freq`);
+                  localStorage.removeItem(`pinit_${userId}_voice_print_data`);
                   setVoiceFreq(null);
-                  toast.info("Voice Lock Reset", "Owner voice lock is now disabled.");
+                  setVoicePrint(null);
+                  if (userId && userId !== 'guest') {
+                    saveVoicePrintToSupabase(userId, null);
+                  }
+                  toast.info("Voice Lock Reset", "Owner voice lock disabled.");
                 }
               }}
               style={{ fontSize: 9, background: 'rgba(255,255,255,0.15)', padding: '2px 6px', borderRadius: 4, color: '#fff', cursor: 'pointer', fontWeight: 'bold' }}
-              title="Voice lock active. Click to reset."
+              title="Voice lock active (Synced to Supabase). Click to reset."
             >
-              🔐 Voice Lock
+              🔐 Voice Lock ({voicePrint?.avgPitch || voiceFreq}Hz)
             </span>
           ) : (
             <span 
               onClick={startVoiceRegistration}
               style={{ fontSize: 9, background: isRecordingVoice ? 'var(--coral)' : 'rgba(255,255,255,0.2)', padding: '2px 6px', borderRadius: 4, color: '#fff', cursor: 'pointer', fontWeight: 'bold' }}
-              title="Click to register your voice print signature"
+              title="Click to analyze and register your voice signature into Supabase"
             >
-              {isRecordingVoice ? '🎙️ Speaking...' : '🎙️ Register Voice'}
+              {isRecordingVoice ? '🎙️ Analyzing...' : '🎙️ Register Voice'}
             </span>
           )}
           <button onClick={() => setIsMinimized(true)} className="minimize-btn" title="Minimize">_</button>

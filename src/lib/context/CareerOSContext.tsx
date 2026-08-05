@@ -2,10 +2,12 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { toast } from '@/lib/store/useAppStore';
+import { COURSES_REGISTRY } from '../data/coursesData';
+import { generateDynamicStudentRoadmap } from '../data/roadmapFuser';
 import { useAuth } from '@/lib/context/AuthContext';
 import { api } from '@/lib/api/client';
 import { supabase } from '@/lib/supabaseClient';
-import { persistQuestCompletion, spendPinsDB } from '@/lib/supabaseService';
+import { persistQuestCompletion, spendPinsDB, syncRewardsDB, syncUnlockedItemsDB, fetchServerTimeOffset } from '@/lib/supabaseService';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -44,6 +46,9 @@ export interface OnboardingAnswers {
   questCodes?: Record<string, string>;
   last_streak_date?: string;
   communication_history?: any[];
+  learning_mistakes?: any[];
+  projects?: any[];
+  roadmapDurationDays?: number;
 }
 
 export interface PinTransaction {
@@ -70,40 +75,49 @@ export type PinSource =
   | 'career_twin'
   | 'personality_analysis'
   | 'sentinel_fingerprint'
+  | 'communication_session'
   | 'career_assets'
   | 'career_dna_calc'
   | 'admin_grant';
 
 // Pin costs per feature — single source of truth
 export const PIN_COSTS: Record<string, { cost: number; label: string; icon: string }> = {
-  quest_start:           { cost: 5,  label: 'Quest Attempt',            icon: '🗺' },
-  ai_interview:          { cost: 20, label: 'AI Interview Round',       icon: '🎙' },
-  resume_enhance:        { cost: 15, label: 'Resume AI Enhancement',    icon: '📄' },
-  career_twin:           { cost: 30, label: 'Career Twin Simulation',   icon: '✦' },
-  personality_analysis:  { cost: 10, label: 'Personality AI Analysis',  icon: '🧠' },
-  sentinel_fingerprint:  { cost: 5,  label: 'Sentinel Fingerprint',     icon: '🔐' },
-  career_assets:         { cost: 20, label: 'Career Assets Generation', icon: '💼' },
-  career_dna_calc:       { cost: 10, label: 'Career DNA Recalculate',   icon: '🧬' },
-  jd_match:              { cost: 5,  label: 'JD Match Analysis',        icon: '🎯' },
-  ai_minutes_extend:     { cost: 100, label: '30 Min AI Token Extension', icon: '⏰' },
+  quest:                 { cost: 20, label: 'Quest (30 Min Access)',        icon: '🗺' },
+  mission:               { cost: 20, label: 'Mission (30 Min Access)',      icon: '⚡' },
+  group_discussion:      { cost: 30, label: 'GD Practice (30 Min Access)',  icon: '💬' },
+  gd:                    { cost: 30, label: 'GD Practice (30 Min Access)',  icon: '💬' },
+  ai_interview:          { cost: 40, label: 'AI Interview (30 Min Access)', icon: '🎙' },
+  interview:             { cost: 40, label: 'AI Interview (30 Min Access)', icon: '🎙' },
+  attention_span_game:   { cost: 5,  label: 'Attention Span Game Play',     icon: '🧠' },
+  // Legacy aliases
+  quest_start:           { cost: 20, label: 'Quest (30 Min Access)',        icon: '🗺' },
+  resume_enhance:        { cost: 15, label: 'Resume AI Enhancement',        icon: '📄' },
+  career_twin:           { cost: 30, label: 'Career Twin Simulation',       icon: '✦' },
+  personality_analysis:  { cost: 10, label: 'Personality AI Analysis',      icon: '🧠' },
+  sentinel_fingerprint:  { cost: 5,  label: 'Sentinel Fingerprint',         icon: '🔐' },
+  career_assets:         { cost: 20, label: 'Career Assets Generation',     icon: '💼' },
+  career_dna_calc:       { cost: 10, label: 'Career DNA Recalculate',       icon: '🧬' },
+  jd_match:              { cost: 5,  label: 'JD Match Analysis',            icon: '🎯' },
+  ai_minutes_extend:     { cost: 100, label: '30 Min AI Token Extension',    icon: '⏰' },
 };
 
-// Pin earn rates
+// Pin earn rates (Activities disabled; pins only gained via purchase or 1 AM daily refresh)
 export const PIN_EARN: Record<PinSource, number> = {
-  mission_complete:     10,
-  exam_pass:            25,
-  interview_session:    15,
-  study_session:        5,
-  onboarding_complete:  50,
-  vault_verify:         20,
-  daily_login:          3,
-  streak_bonus:         15,
+  mission_complete:     0,
+  exam_pass:            0,
+  interview_session:    0,
+  study_session:        0,
+  onboarding_complete:  0,
+  vault_verify:         0,
+  daily_login:          0,
+  streak_bonus:         0,
   purchase:             0,   // variable — set per purchase
   ai_interview:         0,
   resume_enhance:       0,
   career_twin:          0,
   personality_analysis: 0,
   sentinel_fingerprint: 0,
+  communication_session: 0,
   career_assets:        0,
   career_dna_calc:      0,
   admin_grant:          0,
@@ -148,6 +162,12 @@ interface CareerOSContextType {
   spendPins: (featureKey: string, customReason?: string) => boolean; // returns false if insufficient
   canAfford: (featureKey: string) => boolean;
   addPurchasedPins: (amount: number, packName: string) => void;
+  // Item duration unlock methods (30 min access per item)
+  unlockedItems: Record<string, number>;
+  isItemUnlocked: (itemKey: string) => boolean;
+  getItemRemainingSeconds: (itemKey: string) => number;
+  unlockItem: (itemKey: string, category: 'quest' | 'mission' | 'interview' | 'ai_interview' | 'gd' | 'group_discussion' | 'attention_span_game', customReason?: string) => boolean;
+  rewardActivity: (type: 'quest' | 'mission' | 'interview' | 'gd' | 'attention_game' | 'project', title?: string) => void;
 
   // ─── PROGRESSION SYSTEM ──────────────────────────────────────────────────
   onboardingStep: number;
@@ -156,11 +176,13 @@ interface CareerOSContextType {
   setResumeGenerated: (val: boolean) => void;
   roadmapGenerated: boolean;
   setRoadmapGenerated: (val: boolean) => void;
-  generateFusedRoadmap: (skillTags: string[], weakAreas: string[], courseId?: string) => Promise<any[] | null>;
+  generateFusedRoadmap: (skillTags: string[], weakAreas: string[], courseId?: string, durationDays?: number, dailyPace?: number) => Promise<any[] | null>;
   activeCourseId: string | null;
   setActiveCourseId: (val: string | null) => void;
   activeCourseIds?: string[];
   setActiveCourseIds?: (vals: string[]) => void;
+  switchActiveCourse?: (courseId: string) => void;
+  archiveActiveCourse?: (courseId: string) => void;
   completedQuests: string[];
   addCompletedQuest: (questId: string, isExam?: boolean, xpAmount?: number, courseId?: string) => void;
   saveQuestCode: (questId: string, code: string) => void;
@@ -219,9 +241,12 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
   const [demoTabsUnlocked, setDemoTabsUnlockedState] = useState(false);
   const [aiUseTokens, setAiUseTokensState] = useState(120);
 
-  // ── Pin state ──────────────────────────────────────────────────────────
-  const [pins, setPins] = useState(100);
+  // ── Pin & Reward state ──────────────────────────────────────────────────
+  const [pins, setPins] = useState(120);
   const [pinHistory, setPinsHistory] = useState<PinTransaction[]>([]);
+  const [unlockedItems, setUnlockedItems] = useState<Record<string, number>>({});
+  const [trustBonus, setTrustBonus] = useState(0);
+  const [dnaBonus, setDnaBonus] = useState(0);
 
   // localStorage key factory
   const keys = {
@@ -234,6 +259,10 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
     theme:     `pinit_${userId}_theme`,
     pins:      `pinit_${userId}_pins`,
     pinHist:   `pinit_${userId}_pin_history`,
+    unlockedItems: `pinit_${userId}_unlocked_items`,
+    last1AMReset:  `pinit_${userId}_last_1am_reset`,
+    trustBonus:    `pinit_${userId}_trust_bonus`,
+    dnaBonus:      `pinit_${userId}_dna_bonus`,
     // progression
     obStep:    `pinit_${userId}_ob_step`,
     resGen:    `pinit_${userId}_res_gen`,
@@ -274,8 +303,11 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
       setXp(get(keys.xp) ?? 120);
       setMissionStreak(get(keys.streak) ?? 0);
       setTheme(get(keys.theme) ?? 'light');
-      setPins(get(keys.pins) ?? 100);
+      setPins(get(keys.pins) ?? 120);
       setPinsHistory(get(keys.pinHist) ?? []);
+      setUnlockedItems(get(keys.unlockedItems) ?? {});
+      setTrustBonus(get(keys.trustBonus) ?? 0);
+      setDnaBonus(get(keys.dnaBonus) ?? 0);
       
       // progression loaders
       setOnboardingStepState(get(keys.obStep) ?? 0);
@@ -361,11 +393,9 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
       if (user.completedQuests && Array.isArray(user.completedQuests)) {
         const qVal = user.completedQuests as string[];
         setCompletedQuestsState(prev => {
-          if (prev.length < qVal.length) {
-            save(keys.quests, qVal);
-            return qVal;
-          }
-          return prev;
+          const merged = Array.from(new Set([...prev, ...qVal]));
+          save(keys.quests, merged);
+          return merged;
         });
       }
       if (user.javaTestPassed !== undefined) {
@@ -440,8 +470,16 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
           return prev;
         });
       }
+      if (user.unlockedItems && typeof user.unlockedItems === 'object') {
+        const dbUnlocked = user.unlockedItems;
+        setUnlockedItems(prev => {
+          const merged = { ...prev, ...dbUnlocked };
+          save(keys.unlockedItems, merged);
+          return merged;
+        });
+      }
     }
-  }, [user, isLoaded, save, keys.obStep, keys.onboard, keys.resGen, keys.roadGen, keys.quests, keys.javaPass, keys.recVis, keys.forceShowCareer, keys.demoTabsUnlocked, keys.streak, keys.xp]);
+  }, [user, isLoaded, save, keys]);
 
 
   // ── Theme sync ───────────────────────────────────────────────────────────
@@ -454,6 +492,55 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
     save(keys.theme, theme);
   }, [theme, keys.theme, save]);
 
+  const serverOffsetRef = React.useRef(0);
+
+  // ── Step 2: Fetch Server Time Offset on Mount ─────────────────────────────
+  useEffect(() => {
+    fetchServerTimeOffset().then(offset => {
+      serverOffsetRef.current = offset;
+    }).catch(() => {});
+  }, []);
+
+  // ── Daily 1:00 AM Pin Reset Check (Server-Verified Time) ─────────────────
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const check1AMReset = () => {
+      try {
+        const lastReset = Number(localStorage.getItem(keys.last1AMReset) || 0);
+        const verifiedNow = new Date(Date.now() + serverOffsetRef.current);
+        const today1AM = new Date(verifiedNow.getFullYear(), verifiedNow.getMonth(), verifiedNow.getDate(), 1, 0, 0, 0).getTime();
+        
+        // If server-verified time is past 1:00 AM today and reset was not completed after today's 1:00 AM
+        if (verifiedNow.getTime() >= today1AM && lastReset < today1AM) {
+          setPins(prev => {
+            const next = Math.max(120, prev);
+            save(keys.pins, next);
+            return next;
+          });
+          save(keys.last1AMReset, Date.now());
+          const tx: PinTransaction = {
+            id: `tx_reset_${Date.now()}`,
+            type: 'earn',
+            amount: 120,
+            reason: 'Daily 1:00 AM Pin Refresh (120 Pins)',
+            source: 'admin_grant',
+            timestamp: Date.now()
+          };
+          setPinsHistory(prev => {
+            const updated = [tx, ...prev].slice(0, 100);
+            save(keys.pinHist, updated);
+            return updated;
+          });
+          toast.info('Daily Pins Refreshed ⚡', '120 Pins granted for your daily Student Portal learning allowance!');
+        }
+      } catch {}
+    };
+
+    check1AMReset();
+    const interval = setInterval(check1AMReset, 60000); // Check every minute
+    return () => clearInterval(interval);
+  }, [keys.last1AMReset, keys.pins, keys.pinHist, save]);
+
   // ─── Pin helpers ───────────────────────────────────────────────────────
 
   const pushTransaction = useCallback((tx: PinTransaction, newHistory: PinTransaction[]) => {
@@ -463,6 +550,10 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
   }, [keys.pinHist, save]);
 
   const earnPins = useCallback((source: PinSource, overrideAmount?: number, reason?: string) => {
+    // REQUIREMENT: Pins can ONLY be gained via purchase or daily 1 AM refresh. Activity earnings are disabled.
+    if (source !== 'purchase' && source !== 'admin_grant') {
+      return;
+    }
     const amount = overrideAmount ?? PIN_EARN[source] ?? 0;
     if (amount <= 0) return;
     
@@ -492,31 +583,25 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
     const meta = PIN_COSTS[featureKey];
     if (!meta) return true; // no cost defined = free
     if (pins < meta.cost) {
-      toast.error(`Insufficient Pins 📌`, `Need ${meta.cost} pins for ${meta.label}. Earn more by completing missions, exams, or sessions.`);
+      toast.error(`Insufficient Pins 📌`, `Need ${meta.cost} pins for ${meta.label}. Pins refresh to 120 daily at 1:00 AM or can be purchased.`);
       return false;
     }
 
     // ── Q-C3: Authoritative DB deduction (prevent double-spend races) ────────
-    // Fire-and-forget: the local optimistic update below is the UX-critical path.
-    // The DB call validates and writes server-side — if it fails, the user's local
-    // balance may temporarily diverge from DB truth, which is corrected on next load.
     if (userId && userId !== 'guest') {
       spendPinsDB(userId, meta.cost, customReason ?? meta.label)
         .then(result => {
           if (!result.ok && result.reason === 'INSUFFICIENT_PINS') {
-            // DB says no — the local optimistic deduction was wrong. Correct it.
             setPins(prev => prev + meta.cost); // refund local state
             save(keys.pins, pins); // restore persisted value
             toast.error(`Pins Out of Sync 🔄`, 'Your pin balance was refreshed from the server. Please try again.');
           }
         })
-        .catch(() => {}); // silent fail — don't block UX
+        .catch(() => {});
     }
 
-    // Legacy background sync (keeps Firestore/API in sync)
     api.post('/api/pins/spend', { featureKey, cost: meta.cost }).catch(() => {});
 
-    // Optimistic local update
     setPins(prev => {
       const next = prev - meta.cost;
       save(keys.pins, next);
@@ -530,6 +615,49 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
     });
     return true;
   }, [pins, keys.pins, keys.pinHist, save, userId]);
+
+  // ─── Item-Specific 30-Minute Duration Unlock Helpers ─────────────────────
+  const isItemUnlocked = useCallback((itemKey: string): boolean => {
+    const expiresAt = unlockedItems[itemKey];
+    return typeof expiresAt === 'number' && expiresAt > Date.now();
+  }, [unlockedItems]);
+
+  const getItemRemainingSeconds = useCallback((itemKey: string): number => {
+    const expiresAt = unlockedItems[itemKey];
+    if (!expiresAt || expiresAt <= Date.now()) return 0;
+    return Math.ceil((expiresAt - Date.now()) / 1000);
+  }, [unlockedItems]);
+
+  const unlockItem = useCallback((
+    itemKey: string,
+    category: 'quest' | 'mission' | 'interview' | 'ai_interview' | 'gd' | 'group_discussion' | 'attention_span_game',
+    customReason?: string
+  ): boolean => {
+    if (isItemUnlocked(itemKey)) return true;
+
+    const meta = PIN_COSTS[category] || PIN_COSTS[`${category}_start`] || { cost: 20, label: category };
+    if (pins < meta.cost) {
+      toast.error(`Insufficient Pins 📌`, `Need ${meta.cost} pins to unlock ${meta.label} for 30 minutes.`);
+      return false;
+    }
+
+    const ok = spendPins(category, customReason ?? `${meta.label}: ${itemKey}`);
+    if (!ok) return false;
+
+    if (category !== 'attention_span_game') {
+      const expiresAt = Date.now() + 30 * 60 * 1000; // 30 mins duration
+      setUnlockedItems(prev => {
+        const next = { ...prev, [itemKey]: expiresAt };
+        save(keys.unlockedItems, next);
+        if (userId && userId !== 'guest') {
+          syncUnlockedItemsDB(userId, next).catch(() => {});
+        }
+        return next;
+      });
+      toast.success('30 Min Access Unlocked ⚡', `Unlocked ${itemKey} for 30 minutes!`);
+    }
+    return true;
+  }, [isItemUnlocked, pins, spendPins, keys.unlockedItems, save, userId]);
 
   const addPurchasedPins = useCallback((amount: number, packName: string) => {
     // Update Firestore in background
@@ -666,8 +794,16 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
     }
   }, [keys.activeCourse, keys.activeCourses, save]);
 
-  const generateFusedRoadmap = useCallback(async (skillTags: string[], weakAreas: string[], courseId?: string) => {
-    const targetRole = onboardingAnswers.role || 'Software Developer Engineer (SDE)';
+  const generateFusedRoadmap = useCallback(async (skillTags: string[], weakAreas: string[], courseId?: string, durationDays: number = 30, dailyPace: number = 2) => {
+    const COURSE_TO_ROLE: Record<string, string> = {
+      'course-ai-eng': 'AI & LLM Systems Engineer',
+      'course-fullstack-js': 'Full-Stack Software Developer',
+      'course-dsa-optim': 'Software Development Engineer (SDE)',
+      'course-devops-cicd': 'DevOps & Pipeline Automation Engineer',
+      'course-distributed-sys': 'Cloud Architect & Infrastructure Specialist',
+      'course-java-logic': 'Software Development Engineer (SDE)'
+    };
+    const targetRole = (courseId && COURSE_TO_ROLE[courseId]) || onboardingAnswers.role || 'Software Developer Engineer (SDE)';
     const experienceLevel = onboardingAnswers.experience || 'beginner';
     const modulesKey = `pinit_${userId}_roadmap_modules`;
 
@@ -677,10 +813,27 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
         skillTags,
         weakAreas,
         experienceLevel,
-        courseId
+        courseId,
+        durationDays,
+        dailyPace
       });
 
+      let dynamicModules: any[] | null = null;
       if (res && res.ok && Array.isArray(res.modules) && res.modules.length > 0) {
+        dynamicModules = res.modules;
+      } else if (courseId) {
+        dynamicModules = generateDynamicStudentRoadmap({
+          qt1: onboardingAnswers.qt1_score ?? 75,
+          qt2: onboardingAnswers.qt2_score ?? 80,
+          archetype: onboardingAnswers.mindset_archetype || 'Pattern Hunter',
+          goal: targetRole,
+          courseId: courseId,
+          durationDays: durationDays,
+          dailyPace: dailyPace
+        });
+      }
+
+      if (dynamicModules && Array.isArray(dynamicModules) && dynamicModules.length > 0) {
         if (courseId) {
           setActiveCourseIdState(courseId);
           save(keys.activeCourse, courseId);
@@ -697,7 +850,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
           }).catch(err => console.warn("Failed to sync active course to DB:", err));
         }
 
-        const normalized = res.modules.map((m: any) => ({
+        const normalized = dynamicModules.map((m: any) => ({
           ...m,
           quests: (m.quests || []).map((q: any) => {
             let category = q.category;
@@ -716,6 +869,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
 
         const courseModulesKey = courseId ? `pinit_${userId}_roadmap_modules_${courseId}` : modulesKey;
         save(courseModulesKey, normalized);
+        save(modulesKey, normalized);
         setRoadmapGeneratedState(true);
         save(keys.roadGen, true);
         if (onboardingStep < 4) {
@@ -741,11 +895,29 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
           console.warn("Failed to sync roadmap status to database:", err);
         }
 
-        toast.success('Quest Roadmap Active! 🗺️', 'Fused onboarding preferences and resume skills to create customized quests.');
+        toast.success('Dynamic Student Roadmap Active! 🗺️', 'Fused QT1 + QT2 + Goal + Academic Course preferences.');
         return normalized;
       }
     } catch (err) {
-      console.error('Failed to generate dynamic AI roadmap:', err);
+      console.error('Failed to generate dynamic AI roadmap, executing local dynamic fuser fallback:', err);
+      if (courseId) {
+        const localModules = generateDynamicStudentRoadmap({
+          qt1: onboardingAnswers.qt1_score ?? 75,
+          qt2: onboardingAnswers.qt2_score ?? 80,
+          archetype: onboardingAnswers.mindset_archetype || 'Pattern Hunter',
+          goal: targetRole,
+          courseId: courseId,
+          durationDays: durationDays,
+          dailyPace: dailyPace
+        });
+        if (localModules && localModules.length > 0) {
+          const courseModulesKey = `pinit_${userId}_roadmap_modules_${courseId}`;
+          save(courseModulesKey, localModules);
+          setRoadmapGeneratedState(true);
+          toast.success('Dynamic Student Roadmap Active! 🗺️', 'Fused QT1 + QT2 + Goal + Academic Course preferences.');
+          return localModules;
+        }
+      }
     }
     return null;
   }, [userId, onboardingAnswers, keys.roadGen, keys.activeCourses, onboardingStep, setOnboardingStep, save]);
@@ -790,28 +962,33 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
     setOnboardingAnswers(nextAnswers);
     save(keys.onboard, nextAnswers);
     
-    api.post('/api/auth/onboarding', { onboardingAnswers: nextAnswers }).catch(() => {});
+    api.post('/api/auth/onboarding', { onboardingAnswers: nextAnswers, completedQuests: nextQuests }).catch(() => {});
 
-    // Use quest-specific XP if provided, otherwise fall back to defaults
-    const xp = xpAmount ?? (isExam ? 150 : 100);
-    addXp(xp, isExam ? 'Passed Coding Exam' : 'Completed Quest');
-    earnPins(isExam ? 'exam_pass' : 'mission_complete');
+    // Award activity rewards (+XP, +Trust Score, +Career DNA)
+    rewardActivity(isExam ? 'project' : 'quest', isExam ? 'Passed Coding Exam' : 'Completed Quest');
     if (onboardingStep < 5) {
       setOnboardingStep(5); // unlock AI Interviews
     }
 
-    // Increment streak by 1 on completing a quest
-    setMissionStreak(prev => {
-      const next = prev + 1;
-      save(keys.streak, next);
-      
-      // Sync updated streak to Supabase database profile in background
-      api.post('/api/auth/onboarding', { mission_streak: next }).catch(() => {});
-      
-      if (next % 7 === 0) earnPins('streak_bonus', undefined, `${next}-day streak bonus!`);
-      toast.success('🔥 Quest Streak Active!', `Streak: ${next} days`);
-      return next;
-    });
+    // Increment streak by 1 ONLY ONCE PER CALENDAR DAY (as per system specs)
+    const lastStreakDateKey = `pinit_${userId}_last_streak_date`;
+    const todayStr = new Date().toDateString();
+    const lastStreakDate = localStorage.getItem(lastStreakDateKey);
+
+    if (lastStreakDate !== todayStr) {
+      localStorage.setItem(lastStreakDateKey, todayStr);
+      setMissionStreak(prev => {
+        const next = prev + 1;
+        save(keys.streak, next);
+        
+        // Sync updated streak to Supabase database profile in background
+        api.post('/api/auth/onboarding', { mission_streak: next }).catch(() => {});
+        
+        if (next % 7 === 0) earnPins('streak_bonus', undefined, `${next}-day streak bonus!`);
+        toast.success('🔥 Daily Quest Streak Up!', `Streak: ${next} days active!`);
+        return next;
+      });
+    }
 
     // ── Q-C2: Persist completion to Supabase users.completed_quests ──────
     if (userId && userId !== 'guest') {
@@ -922,9 +1099,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
   // STATE_3 (Blueprint Generated): Dashboard, Quests, Missions, Interview, Career Twin, Career DNA, Opportunities unlocked.
   // Group Discussion unlocked if groupPanelPassed is true.
   let activeTabs: string[] = [];
-  if (demoTabsUnlocked) {
-    activeTabs = ALL_TABS;
-  } else if (onboardingStep >= 3) {
+  if (onboardingStep >= 3) {
     activeTabs = ['/dashboard', '/quests', '/missions', '/interview', '/career-twin', '/career-dna', '/opportunities'];
     if (groupPanelPassed) {
       activeTabs.push('/group-discussion');
@@ -1034,10 +1209,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
       mission_streak: newStreak
     }).catch(() => {});
 
-    addXp(25, 'Mission Completed');
-    earnPins('mission_complete');
-    if (newStreak % 7 === 0) earnPins('streak_bonus', undefined, `${newStreak}-day streak bonus!`);
-    toast.success('🔥 Mission Done!', `Streak: ${newStreak} days · +10 Pins earned`);
+    rewardActivity('mission', 'Daily Mission Completed');
 
     // Notify GlobalAvatar mentor with mission completion event
     if (typeof window !== 'undefined') {
@@ -1089,10 +1261,88 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
   const careerScore = Math.min(98, baseAts + (onboardingAnswers.hasCompleted ? 10 : 0) + (vaultItems.filter(v => v.verified).length * 5) + (completedMissions.length * 5));
 
   const baseDna = typeof user?.careerDnaScore === 'number' ? user.careerDnaScore : 55;
-  const dnaScore = Math.min(95, baseDna + (onboardingAnswers.hasCompleted ? 15 : 0) + (completedMissions.length * 10));
+  const dnaScore = Math.min(95, baseDna + (onboardingAnswers.hasCompleted ? 15 : 0) + (completedMissions.length * 10) + dnaBonus);
 
   const baseTrust = typeof user?.trustScore === 'number' ? user.trustScore : 40;
-  const trustScore = Math.min(99, baseTrust + (vaultItems.filter(v => v.verified).length * 15));
+  const trustScore = Math.min(99, baseTrust + (vaultItems.filter(v => v.verified).length * 15) + trustBonus);
+
+  // ─── Unified Modest Rewarding System Dispatcher ──────────────────────────
+  const rewardActivity = useCallback((
+    type: 'quest' | 'mission' | 'interview' | 'gd' | 'attention_game' | 'project',
+    title?: string
+  ) => {
+    const MATRIX: Record<string, { xp: number; trust: number; dna: number; label: string }> = {
+      quest:          { xp: 15, trust: 1, dna: 1, label: 'Quest Lesson Mastered' },
+      mission:        { xp: 25, trust: 2, dna: 2, label: 'Mission Challenge Cleared' },
+      gd:             { xp: 30, trust: 2, dna: 2, label: 'Group Discussion Completed' },
+      interview:      { xp: 40, trust: 3, dna: 3, label: 'AI Interview Round Completed' },
+      attention_game: { xp: 10, trust: 0, dna: 1, label: 'Focus Training Completed' },
+      project:        { xp: 50, trust: 5, dna: 5, label: 'Project Verified' },
+    };
+
+    const reward = MATRIX[type] || { xp: 15, trust: 1, dna: 1, label: 'Activity Completed' };
+
+    if (reward.xp > 0) {
+      addXp(reward.xp, title ?? reward.label);
+    }
+    if (reward.trust > 0) {
+      setTrustBonus(prev => {
+        const next = prev + reward.trust;
+        save(keys.trustBonus, next);
+        return next;
+      });
+    }
+    if (reward.dna > 0) {
+      setDnaBonus(prev => {
+        const next = prev + reward.dna;
+        save(keys.dnaBonus, next);
+        return next;
+      });
+    }
+
+    // ── Step 3: Prestige Badges for Maxed Score Caps ─────────────────────────
+    if (reward.trust > 0 && trustScore + reward.trust >= 99 && trustScore < 99) {
+      addXp(500, '🎖️ Trust Sentinel Prestige Milestone');
+      toast.success('🎖️ Trust Sentinel Badge Unlocked!', 'Max Trust Score (99) achieved! +500 Prestige Bonus XP granted.');
+    }
+    if (reward.dna > 0 && dnaScore + reward.dna >= 95 && dnaScore < 95) {
+      addXp(500, '🧬 Apex Career DNA Prestige Milestone');
+      toast.success('🧬 Apex Career DNA Badge Unlocked!', 'Max Career DNA Score (95) achieved! +500 Prestige Bonus XP granted.');
+    }
+
+    const parts = [];
+    if (reward.xp > 0) parts.push(`+${reward.xp} XP`);
+    if (reward.trust > 0) parts.push(`+${reward.trust} Trust`);
+    if (reward.dna > 0) parts.push(`+${reward.dna} DNA`);
+
+    // Sync score gains to Supabase in background using live context scores
+    if (userId && userId !== 'guest') {
+      const calculatedTrust = Math.min(99, trustScore + reward.trust);
+      const calculatedDna = Math.min(95, dnaScore + reward.dna);
+      syncRewardsDB(userId, calculatedTrust, calculatedDna).catch(() => {});
+    }
+
+    toast.success(`🏆 ${reward.label}`, parts.join(' · '));
+  }, [save, keys.trustBonus, keys.dnaBonus, userId, trustScore, dnaScore, addXp]);
+
+  const switchActiveCourse = useCallback((courseId: string) => {
+    setActiveCourseIdState(courseId);
+    save(keys.activeCourse, courseId);
+    toast.info('Switched Active Roadmap 🗺️', `Now viewing: ${courseId}`);
+  }, [keys.activeCourse, save]);
+
+  const archiveActiveCourse = useCallback((courseId: string) => {
+    setActiveCourseIdsState(prev => {
+      const next = prev.filter(id => id !== courseId);
+      save(keys.activeCourses, next);
+      if (activeCourseId === courseId && next.length > 0) {
+        setActiveCourseIdState(next[0]);
+        save(keys.activeCourse, next[0]);
+      }
+      return next;
+    });
+    toast.info('Roadmap Archived 📁', `Track ${courseId} archived. Progress is 100% saved.`);
+  }, [activeCourseId, keys.activeCourse, keys.activeCourses, save]);
 
   return (
     <CareerOSContext.Provider value={{
@@ -1105,13 +1355,15 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
       theme, focusMode, toggleTheme, toggleFocusMode,
       careerScore, dnaScore, trustScore,
       pins, pinHistory, earnPins, spendPins, canAfford, addPurchasedPins,
+      unlockedItems, isItemUnlocked, getItemRemainingSeconds, unlockItem, rewardActivity,
       // progression
       onboardingStep, setOnboardingStep,
       resumeGenerated, setResumeGenerated,
       roadmapGenerated, setRoadmapGenerated,
       generateFusedRoadmap,
-      activeCourseId, setActiveCourseId,
-      activeCourseIds, setActiveCourseIds,
+      activeCourseId, setActiveCourseId: setActiveCourseIdState,
+      activeCourseIds, setActiveCourseIds: setActiveCourseIdsState,
+      switchActiveCourse, archiveActiveCourse,
       completedQuests, addCompletedQuest, saveQuestCode,
       javaTestPassed, setJavaTestPassed,
       groupPanelPassed, setGroupPanelPassed,

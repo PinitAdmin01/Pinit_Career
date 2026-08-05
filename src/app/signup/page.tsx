@@ -2,12 +2,15 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { useAuth } from '@/lib/hooks/useAuth';
+import { useAuth } from '@/lib/context/AuthContext';
 
 const ROLES = [
   { value: 'student', label: 'Student', icon: '🎓', desc: 'Complete quests, Java coding, AI interviews' },
-  { value: 'recruiter', label: 'Recruiter', icon: '🔍', desc: 'Find placement-ready candidates' },
-  { value: 'admin', label: 'Admin', icon: '⚙️', desc: 'Manage quests, exams, and platform settings' }
+  { value: 'teacher', label: 'Faculty / Teacher', icon: '👨‍🏫', desc: 'Create exams, publish study notes, grade student submissions' },
+  { value: 'parent', label: 'Parent', icon: '👨‍👩‍👧', desc: 'Monitor student academic progress, attendance, and dues' },
+  { value: 'consultant', label: 'Career Consultant', icon: '💼', desc: 'Provide 1-on-1 counseling, resume reviews, and guidance' },
+  { value: 'recruiter', label: 'Recruiter', icon: '🔍', desc: 'Discover software talent, audit verified code, post tech jobs' },
+  { value: 'admin', label: 'Administrator', icon: '⚙️', desc: 'Manage campus operations, user roles, system telemetry' }
 ];
 
 export default function SignupPage() {
@@ -42,8 +45,13 @@ export default function SignupPage() {
         role: form.role
       });
 
-      // Redirect to onboarding/dashboard
-      router.push('/dashboard?onboard=true');
+      // Role-based destination routing
+      if (form.role === 'parent') router.push('/parent');
+      else if (form.role === 'consultant') router.push('/consultant');
+      else if (form.role === 'teacher') router.push('/admin/teacher');
+      else if (form.role === 'recruiter') router.push('/recruiter');
+      else if (form.role === 'admin') router.push('/admin');
+      else router.push('/onboarding');
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : 'Signup failed');
     } finally {

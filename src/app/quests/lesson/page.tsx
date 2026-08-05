@@ -3,11 +3,13 @@ import { useState, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { COURSES_REGISTRY } from '@/lib/data/coursesData';
+import { CONCEPT_ANALOGIES_REGISTRY } from '@/lib/data/conceptAnalogies';
 import { speakWithAvatar, stopSpeaking, preloadTTS, preloadNextSpeech } from '@/lib/tts';
 import { useAuth } from '@/lib/context/AuthContext';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { api } from '@/lib/api/client';
 import { toast } from '@/lib/store/useAppStore';
+import PinsGate from '@/components/pins/PinsGate';
 
 const AvatarMentorWidget = dynamic(() => import('@/components/avatar/AvatarMentorWidget'), { ssr: false });
 
@@ -40,37 +42,45 @@ function LessonPageContent() {
   const questId = searchParams.get('questId') || '';
   const teacherId = searchParams.get('teacherId') || 'kashyap';
   const { user } = useAuth();
-  const { addCompletedQuest } = useCareerOS();
+  const { addCompletedQuest, isItemUnlocked, unlockItem, pins } = useCareerOS();
   const userId = user?.id || 'guest';
 
   const teacher = TEACHER_METADATA[teacherId] || TEACHER_METADATA.kashyap;
 
-  // Find quest details in COURSES_REGISTRY
+  // Search AI-generated roadmap modules in localStorage first across all active course module keys
   let questData: any = null;
-  for (const course of COURSES_REGISTRY) {
-    const found = (course.quests || []).find(q => q.id === questId);
-    if (found) {
-      questData = found;
-      break;
-    }
-  }
-
-  // Also search AI-generated roadmap modules in localStorage (fused roadmap quests)
-  if (!questData && typeof window !== 'undefined' && userId) {
+  if (typeof window !== 'undefined' && userId) {
     try {
-      const saved = localStorage.getItem(`pinit_${userId}_roadmap_modules`);
-      if (saved) {
-        const mods = JSON.parse(saved);
-        for (const mod of mods) {
-          const found = (mod.quests || []).find((q: any) => q.id === questId);
-          if (found) {
-            questData = found;
-            break;
+      const moduleKeys = Object.keys(localStorage).filter(k => k.startsWith(`pinit_${userId}_roadmap_modules`));
+      for (const key of moduleKeys) {
+        const saved = localStorage.getItem(key);
+        if (saved) {
+          const mods = JSON.parse(saved);
+          if (Array.isArray(mods)) {
+            for (const mod of mods) {
+              const found = (mod.quests || []).find((q: any) => q.id === questId);
+              if (found) {
+                questData = found;
+                break;
+              }
+            }
           }
         }
+        if (questData) break;
       }
     } catch (e) {
       console.error('Failed to load quest from roadmap modules:', e);
+    }
+  }
+
+  // Fallback to COURSES_REGISTRY if not found in custom generated roadmap
+  if (!questData) {
+    for (const course of COURSES_REGISTRY) {
+      const found = (course.quests || []).find(q => q.id === questId);
+      if (found) {
+        questData = found;
+        break;
+      }
     }
   }
 
@@ -89,11 +99,15 @@ function LessonPageContent() {
   }
 
 
-  const syllabus = questData.syllabus || [];
+
+  const syllabus = (questData && Array.isArray(questData.syllabus)) ? questData.syllabus : [];
   const [currentSlide, setCurrentSlide] = useState(0);
+  const currentSlideRef = useRef(currentSlide);
+  currentSlideRef.current = currentSlide;
   const [isPlaying, setIsPlaying] = useState(false);
   const [audioProgress, setAudioProgress] = useState(0);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const codeRunIntervalsRef = useRef<{ [key: number]: NodeJS.Timeout }>({});
 
   // Dynamic slides state
   const [slides, setSlides] = useState<any[]>([]);
@@ -137,7 +151,8 @@ function LessonPageContent() {
 
   // Preload next slide text in the background!
   useEffect(() => {
-    const slidesLength = slides.length || syllabus.length;
+    if (examPassed) return;
+    const slidesLength = slides.length || (syllabus?.length || 0);
     const nextSlideIdx = currentSlide; // Since currentSlide is 1-indexed, slide 1 maps to index 0, so next slide index is currentSlide
     
     if (nextSlideIdx < slidesLength) {
@@ -145,7 +160,7 @@ function LessonPageContent() {
       if (slides && slides[nextSlideIdx]) {
         const slide = slides[nextSlideIdx];
         nextSpeechText = `Let us explore Slide ${currentSlide + 1}: "${slide.title}". Here are the core concepts: First, ${slide.bulletPoints[0]}. Second, ${slide.bulletPoints[1]}. And third, ${slide.bulletPoints[2]}. Make sure you understand these before proceeding to the coding evaluation!`;
-      } else if (nextSlideIdx < syllabus.length) {
+      } else if (syllabus && nextSlideIdx < syllabus.length) {
         const concept = syllabus[nextSlideIdx];
         nextSpeechText = `Let us explore Section ${currentSlide + 1}, where we analyze the core concept of "${concept}". In modern software engineering, mastering this topic is absolutely vital for designing high-performance, lag-free systems. From an architectural perspective, "${concept}" dictates how data structures are arranged in memory and how the processor executes execution paths. If you implement this incorrectly in a production environment, you run the risk of introducing critical memory leaks, type-safety violations, or thread synchronization bottlenecks that can crash client-facing APIs. When writing code for this module, it is a best practice to enforce clean, structured syntax, utilize appropriate variable visibility modifiers, and carefully manage resource cleanup. In your upcoming coding test, you will be asked to implement an algorithm that relies heavily on the mechanics of "${concept}". I recommend that you consider boundary edge cases, check for null or empty inputs, and optimize loop conditions to achieve minimal Big-O complexity. Ensure you have a solid grasp of these mechanics before you unlock the test module. If you have any questions, you can click the interactive chat mode button below to discuss the details with me directly!`;
       }
@@ -154,44 +169,22 @@ function LessonPageContent() {
         preloadNextSpeech(nextSpeechText, teacherId);
       }
     }
-  }, [currentSlide, slides, syllabus, teacherId]);
+  }, [currentSlide, slides, syllabus, teacherId, examPassed]);
 
-  // Autoplay Block and Permission Warning detector
+  // Autoplay teacher speech when advancing slides or when lesson loads
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const checkAudioAutoplay = async () => {
-        try {
-          const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
-          if (audioCtx.state === 'suspended') {
-            toast.warning(
-              "🔊 Sound / Audio Blocked",
-              "Chrome has blocked sound for this site. Click the settings icon next to the URL, turn 'Sound' to ON, and click anywhere to unmute!"
-            );
-          }
-        } catch (e) {
-          console.log("AudioContext check failed:", e);
-        }
-      };
-      
-      const statusTimer = setTimeout(checkAudioAutoplay, 1500);
+    if (examPassed) return;
+    const timer = setTimeout(() => {
+      playSpeech();
+    }, 400);
 
-      // Check microphone permission
-      if (navigator.permissions && navigator.permissions.query) {
-        navigator.permissions.query({ name: 'microphone' as PermissionName })
-          .then(status => {
-            if (status.state === 'denied') {
-              toast.info(
-                "🎤 Microphone Access Blocked",
-                "Please click the lock/settings icon in the browser address bar and enable 'Microphone' to use voice dictation!"
-              );
-            }
-          })
-          .catch(e => console.log('Permission check failed:', e));
-      }
+    return () => {
+      clearTimeout(timer);
+      stopSpeaking();
+    };
+  }, [currentSlide, slidesLoading]);
 
-      return () => clearTimeout(statusTimer);
-    }
-  }, []);
+
 
   // Voice recording recognizer
   const startVoiceInput = () => {
@@ -265,41 +258,38 @@ function LessonPageContent() {
   // Confetti launcher
   const launchConfetti = () => {
     const colors = ['#f43f5e', '#ec4899', '#d946ef', '#a855f7', '#8b5cf6', '#6366f1', '#3b82f6', '#0ea5e9', '#06b6d4', '#14b8a6', '#10b981', '#22c55e', '#84cc16', '#eab308', '#f97316'];
-    const newParticles: any[] = [];
-    
-    for (let i = 0; i < 80; i++) {
+    const initialParticles: any[] = [];
+    const animatedParticles: any[] = [];
+
+    for (let i = 0; i < 60; i++) {
       const angle = Math.random() * Math.PI * 2;
       const distance = 50 + Math.random() * 200;
       const targetX = Math.cos(angle) * distance;
       const targetY = Math.sin(angle) * distance;
       const size = 5 + Math.random() * 8;
       const color = colors[Math.floor(Math.random() * colors.length)];
-      
-      newParticles.push({
-        id: i,
-        x: 0,
-        y: 0,
+
+      initialParticles.push({
+        id: `confetti-${i}-${Date.now()}`,
         color,
         size,
         transform: 'translate(0px, 0px) rotate(0deg) scale(1)',
         transition: 'all 0s'
       });
 
-      setTimeout(() => {
-        setConfettiParticles(prev =>
-          prev.map(p =>
-            p.id === i
-              ? {
-                  ...p,
-                  transform: `translate(${targetX}px, ${targetY}px) rotate(${Math.random() * 360}deg) scale(0)`,
-                  transition: 'all 1.2s cubic-bezier(0.1, 0.8, 0.3, 1)'
-                }
-              : p
-          )
-        );
-      }, 50);
+      animatedParticles.push({
+        id: `confetti-${i}-${Date.now()}`,
+        color,
+        size,
+        transform: `translate(${targetX}px, ${targetY}px) rotate(${Math.random() * 360}deg) scale(0)`,
+        transition: 'all 1.2s cubic-bezier(0.1, 0.8, 0.3, 1)'
+      });
     }
-    setConfettiParticles(newParticles);
+
+    setConfettiParticles(initialParticles);
+    setTimeout(() => {
+      setConfettiParticles(animatedParticles);
+    }, 50);
   };
 
   const [codeRunning, setCodeRunning] = useState<Record<number, boolean>>({});
@@ -326,12 +316,13 @@ function LessonPageContent() {
           if (currentLine < lines.length) {
             setCodeOutputs(prev => ({
               ...prev,
-              [slideIdx]: prev[slideIdx] + '\n' + lines[currentLine]
+              [slideIdx]: (prev[slideIdx] || '') + '\n' + lines[currentLine]
             }));
           } else {
             clearInterval(interval);
           }
-        }, 180); // Staggered line execution
+        }, 180);
+        codeRunIntervalsRef.current[slideIdx] = interval;
       }, 700);
     }, 500);
   };
@@ -343,61 +334,52 @@ function LessonPageContent() {
     setMcqIsCorrect(false);
   }, [currentSlide, examQuestionIndex]);
 
-  // Load slides dynamically from LLM
+  // Load slides INSTANTLY from static generator (0ms delay, zero network calls)
   useEffect(() => {
     if (!questId) return;
-    const cacheKey = `pinit_slides_${questId}`;
-    const cached = localStorage.getItem(cacheKey);
-    if (cached) {
-      try {
-        setSlides(JSON.parse(cached));
-        setSlidesLoading(false);
-        return;
-      } catch (e) {
-        console.warn("Failed to parse cached slides:", e);
-      }
-    }
 
-    setSlidesLoading(true);
-    api.post<any>('/api/quests/generate-slides', {
-      questId,
-      syllabus,
-      title: questData.title
-    })
-    .then(res => {
-      if (res && Array.isArray(res.slides)) {
-        setSlides(res.slides);
-        localStorage.setItem(cacheKey, JSON.stringify(res.slides));
+    // Instant static slide generation with rich real-world analogies & code examples
+    const rawSyllabus = (syllabus && syllabus.length > 0) ? syllabus : ['Core Foundations & Execution Rules', 'Syntax Breakdown & Memory Boundaries', 'Production Use Case & Best Practices'];
+    
+    const staticSlides = rawSyllabus.map((topic, index) => {
+      const topicLower = topic.toLowerCase();
+      let codeSnippet = `# Real-World Production Example: ${topic}\ndef process_data(payload):\n    # 1. Validate incoming data\n    if not payload:\n        return {"status": "error", "message": "Empty payload"}\n    # 2. Process logic for ${topic}\n    result = [item.strip() for item in payload if item]\n    return {"status": "success", "processed_count": len(result)}`;
+      
+      if (topicLower.includes('function') || topicLower.includes('method')) {
+        codeSnippet = `# Function Definition & Execution\ndef calculate_discount(price: float, discount_pct: float = 0.10) -> float:\n    """Calculates final price after applying percentage discount."""\n    savings = price * discount_pct\n    return round(price - savings, 2)\n\n# Execution invocation:\nfinal_amount = calculate_discount(1500.00, 0.15)\nprint(f"Final Total: ₹{final_amount}")  # Output: Final Total: ₹1275.0`;
+      } else if (topicLower.includes('loop') || topicLower.includes('iterat')) {
+        codeSnippet = `# Iteration & Loop Execution\norder_items = ["Laptop", "Mouse", "Keyboard", "Monitor"]\n\nprint("Processing Order Batch:")\nfor index, item in enumerate(order_items, start=1):\n    print(f" Item #{index}: {item} -> Verified in Warehouse Inventory")`;
+      } else if (topicLower.includes('dict') || topicLower.includes('hash') || topicLower.includes('map')) {
+        codeSnippet = `# Dictionary & Hash Map Storage\nstudent_profile = {\n    "id": "STU_9942",\n    "name": "Alex Vance",\n    "role": "Full-Stack Engineer",\n    "skills": ["Python", "React", "PostgreSQL"],\n    "ats_score": 92\n}\n\n# Fast O(1) Key Lookup:\nprint(f"Student Skill Count: {len(student_profile['skills'])}")`;
+      } else if (topicLower.includes('class') || topicLower.includes('object') || topicLower.includes('oop')) {
+        codeSnippet = `# Object-Oriented Programming (OOP) Class Blueprint\nclass UserAccount:\n    def __init__(self, username: str, email: str):\n        self.username = username\n        self.email = email\n        self.pins_balance = 100\n\n    def add_pins(self, amount: int):\n        self.pins_balance += amount\n        return self.pins_balance\n\nuser1 = UserAccount("dev_kashyap", "kashyap@pinit.ai")\nuser1.add_pins(25)\nprint(f"{user1.username} total Pins: {user1.pins_balance}")`;
       }
-    })
-    .catch(err => {
-      console.warn("Error fetching slides:", err);
-      const fallback = syllabus.map(topic => ({
+
+      return {
         title: topic,
         bulletPoints: [
-          `Understand the core concept of ${topic} through simple examples.`,
-          `Learn the basic syntax and structures used in everyday coding.`,
-          `Deconstruct small helper snippets to see how variables and data flow.`
+          `Deconstruct the core logic of ${topic} through step-by-step real-world examples.`,
+          `Understand how memory and variables are assigned and cleaned up in memory.`,
+          `Apply modern clean-code principles to eliminate bugs and edge-case failures.`
         ],
-        codeExample: "",
-        mockOutput: "",
+        codeExample: codeSnippet,
+        mockOutput: `[SUCCESS] Output generated for ${topic}\n>>> Execution completed in 0.002s with 0 memory leaks.`,
         mcq: {
-          question: `Which of the following is the best way for a beginner to describe the core purpose of ${topic}?`,
+          question: `Which of the following best describes the core technical rule of ${topic}?`,
           options: [
-            "A fundamental building block to store, manipulate, or control data flow",
-            "An advanced design construct only used in complex cloud architecture",
-            "A legacy feature that is no longer recommended for modern programs"
+            `It acts as a primary building block to organize, control, and execute program logic efficiently.`,
+            `It is an optional decorative syntax that has no impact on execution or data flow.`,
+            `It should be avoided in production environments because it slows down CPU execution.`
           ],
           answerIndex: 0,
-          explanation: `As a beginner, think of ${topic} as a simple helper. It gives your program the essential rules or boxes needed to manage logic and information.`
+          explanation: `In software engineering, ${topic} provides essential structure. Mastering it ensures your code is fast, readable, and free of runtime errors.`
         }
-      }));
-      setSlides(fallback);
-    })
-    .finally(() => {
-      setSlidesLoading(false);
+      };
     });
-  }, [questId, syllabus, questData.title]);
+
+    setSlides(staticSlides);
+    setSlidesLoading(false);
+  }, [questId, syllabus]);
 
   // Socratic Interactive Q&A State
   const [isInteractive, setIsInteractive] = useState(false);
@@ -462,6 +444,11 @@ function LessonPageContent() {
 
   // Stop speaking, reset progress, and AUTO-PLAY when slide changes
   useEffect(() => {
+    if (examPassed) {
+      stopSpeaking();
+      setIsPlaying(false);
+      return;
+    }
     stopSpeaking();
     setIsPlaying(false);
     setAudioProgress(0);
@@ -470,6 +457,7 @@ function LessonPageContent() {
     setLatestAIResponse('');
     setTeachingCompleted(false);
 
+    const activeSlideAtStart = currentSlide;
     const playTimer = setTimeout(() => {
       const speakerText = getSpeakerText();
       setIsPlaying(true);
@@ -482,9 +470,11 @@ function LessonPageContent() {
           setIsPlaying(true);
         },
         () => {
-          setIsPlaying(false);
-          setAudioProgress(100);
-          setTeachingCompleted(true);
+          if (activeSlideAtStart === currentSlideRef.current) {
+            setIsPlaying(false);
+            setAudioProgress(100);
+            setTeachingCompleted(true);
+          }
         }
       );
     }, 800);
@@ -493,7 +483,7 @@ function LessonPageContent() {
       clearTimeout(playTimer);
       stopSpeaking();
     };
-  }, [currentSlide]);
+  }, [currentSlide, examPassed]);
 
   // Scroll to bottom of chat list
   useEffect(() => {
@@ -581,7 +571,21 @@ function LessonPageContent() {
     const idx = currentSlide - 1;
     if (slides && slides[idx]) {
       const slide = slides[idx];
-      return `Let us explore Slide ${currentSlide}: "${slide.title}". Here are the core concepts: First, ${slide.bulletPoints[0]}. Second, ${slide.bulletPoints[1]}. And third, ${slide.bulletPoints[2]}. Make sure you understand these before proceeding to the coding evaluation!`;
+      const titleLower = (slide.title || '').toLowerCase();
+      let matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['python-functions'];
+      if (titleLower.includes('loop') || titleLower.includes('iterat')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['python-loops'];
+      else if (titleLower.includes('dict') || titleLower.includes('hash') || titleLower.includes('map')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['python-dicts'];
+      else if (titleLower.includes('class') || titleLower.includes('oop') || titleLower.includes('object')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['python-classes'];
+      else if (titleLower.includes('async') || titleLower.includes('event')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['python-async'];
+      else if (titleLower.includes('react') || titleLower.includes('component')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['react-components'];
+      else if (titleLower.includes('hook') || titleLower.includes('state')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['react-hooks'];
+      else if (titleLower.includes('neural') || titleLower.includes('tensor') || titleLower.includes('ml')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['ml-neural-nets'];
+      else if (titleLower.includes('index') || titleLower.includes('sql') || titleLower.includes('db')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['db-indexes'];
+      else if (titleLower.includes('docker') || titleLower.includes('container') || titleLower.includes('devops')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['devops-docker'];
+
+      const bp1 = slide.bulletPoints?.[0] || 'Understand core mechanics';
+      const bp2 = slide.bulletPoints?.[1] || 'Enforce clean boundaries';
+      return `Let us explore Slide ${currentSlide}: "${slide.title}". Here is how to think about this concept in the real world: ${matchedAnalogy.analogy}. In production software systems: ${matchedAnalogy.realWorldUseCase}. Key takeaways: First, ${bp1}. Second, ${bp2}. Pay close attention to these real-world principles!`;
     }
     if (idx < syllabus.length) {
       const concept = syllabus[idx];
@@ -633,7 +637,30 @@ function LessonPageContent() {
     }
   };
 
-  const isLastSlide = currentSlide === (slides.length || syllabus.length) + 1;
+  const [unlockedTick, setUnlockedTick] = useState(0);
+  const isLastSlide = currentSlide === (slides.length || (syllabus?.length || 0)) + 1;
+
+  if (questId && !isItemUnlocked(`quest:${questId}`)) {
+    return (
+      <div style={{ width: '100vw', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)' }}>
+        <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 24, padding: '36px 40px', maxWidth: 440, width: '90%', textAlign: 'center', boxShadow: 'var(--shadow-xl)' }}>
+          <div style={{ fontSize: 44, marginBottom: 12 }}>🗺️</div>
+          <h3 style={{ fontSize: 20, fontWeight: 900, marginBottom: 8, color: 'var(--t1)' }}>{questData?.title || 'Unlock Quest Session'}</h3>
+          <p style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 24 }}>
+            Unlocking this quest requires <strong>20 Pins</strong> for <strong>30 minutes</strong> of duration access.
+          </p>
+          <PinsGate itemKey={`quest:${questId}`} category="quest" onUnlocked={() => setUnlockedTick(t => t + 1)}>
+            <button className="btn-primary" style={{ width: '100%', padding: '14px', justifyContent: 'center', fontSize: 14 }}>
+              ⚡ Unlock Quest (20 Pins · 30m)
+            </button>
+          </PinsGate>
+          <button onClick={() => router.back()} className="btn-ghost" style={{ width: '100%', marginTop: 12, justifyContent: 'center' }}>
+            Back to Roadmap
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div style={{
@@ -1213,7 +1240,45 @@ function LessonPageContent() {
                             ))}
                           </ul>
                         )}
-                        
+
+                        {/* 🏢 REAL-WORLD ANALOGY & PRODUCTION CASE STUDY CARD */}
+                        {(() => {
+                          const currentTopicKey = (slide.title || '').toLowerCase();
+                          let matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['python-functions'];
+                          if (currentTopicKey.includes('loop') || currentTopicKey.includes('iterat')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['python-loops'];
+                          else if (currentTopicKey.includes('dict') || currentTopicKey.includes('hash') || currentTopicKey.includes('map')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['python-dicts'];
+                          else if (currentTopicKey.includes('class') || currentTopicKey.includes('oop') || currentTopicKey.includes('object')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['python-classes'];
+                          else if (currentTopicKey.includes('async') || currentTopicKey.includes('event')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['python-async'];
+                          else if (currentTopicKey.includes('react') || currentTopicKey.includes('component')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['react-components'];
+                          else if (currentTopicKey.includes('hook') || currentTopicKey.includes('state')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['react-hooks'];
+                          else if (currentTopicKey.includes('neural') || currentTopicKey.includes('tensor') || currentTopicKey.includes('ml')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['ml-neural-nets'];
+                          else if (currentTopicKey.includes('index') || currentTopicKey.includes('sql') || currentTopicKey.includes('db')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['db-indexes'];
+                          else if (currentTopicKey.includes('docker') || currentTopicKey.includes('container') || currentTopicKey.includes('devops')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['devops-docker'];
+                          else if (currentTopicKey.includes('account') || currentTopicKey.includes('financial') || currentTopicKey.includes('bookkeeping')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['bcom-accounting'];
+                          else if (currentTopicKey.includes('supply') || currentTopicKey.includes('inventory') || currentTopicKey.includes('order')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['bcom-supplychain'];
+
+                          return (
+                            <div style={{
+                              margin: '4px 0 8px 0',
+                              padding: '12px 16px',
+                              borderRadius: 14,
+                              background: 'linear-gradient(135deg, rgba(59,130,246,0.12), rgba(16,185,129,0.08))',
+                              border: '1px solid rgba(59,130,246,0.3)',
+                              boxShadow: '0 4px 14px rgba(0,0,0,0.15)'
+                            }}>
+                              <div style={{ fontSize: 10.5, fontWeight: 900, color: '#38bdf8', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 4 }}>
+                                🏢 Real-World Intuitive Analogy
+                              </div>
+                              <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--t1)', lineHeight: 1.45, marginBottom: 8 }}>
+                                {matchedAnalogy.analogy}
+                              </div>
+                              <div style={{ fontSize: 11, fontWeight: 800, color: '#34d399' }}>
+                                {matchedAnalogy.realWorldUseCase}
+                              </div>
+                            </div>
+                          );
+                        })()}
+
                         {slide.codeExample && (
                           <div style={{ marginTop: 8 }}>
                             <div style={{

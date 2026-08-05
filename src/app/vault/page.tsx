@@ -131,7 +131,7 @@ export default function VaultPage() {
   const total = vaultItems.length;
   const verified_total = vaultItems.filter(i => i.verified).length;
   const avg_score = vaultItems.length > 0 
-    ? Math.round(vaultItems.reduce((acc, i) => acc + i.ai_confidence_score, 0) / vaultItems.length)
+    ? Math.round(vaultItems.reduce((acc, i) => acc + (i.ai_confidence_score ?? 0), 0) / vaultItems.length)
     : 0;
 
   async function submit(e: React.FormEvent) {
@@ -243,20 +243,14 @@ export default function VaultPage() {
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24, flexWrap: 'wrap', gap: 12 }}>
         <div>
-          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 800, marginBottom: 4 }}>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 800, marginBottom: 4 }}>
             Proof-of-Work Vault
-          </h1>
+          </h2>
           <p style={{ color: 'var(--t2)', fontSize: 13 }}>
             🔒 AES-256 Encrypted secure storage for certifications, projects, and credentials.
           </p>
         </div>
         <div style={{ display: 'flex', gap: 10 }}>
-          <button onClick={() => {
-            setShowScanModal(true);
-            startCamera();
-          }} className="btn-ghost btn-sm">
-            📷 Scan Document
-          </button>
           <button onClick={handleGenerateTempCode} className="btn-ghost btn-sm">
             🔑 Temp Access Link
           </button>
@@ -298,23 +292,19 @@ export default function VaultPage() {
         
         {/* Biometrics Info */}
         <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 16, padding: 18, display: 'flex', alignItems: 'center', gap: 14 }}>
-          <div style={{ fontSize: 24 }}>📱</div>
+          <div style={{ fontSize: 24 }}>🛡️</div>
           <div style={{ flex: 1 }}>
-            <div style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t1)' }}>Biometrics Lock</div>
-            <div style={{ fontSize: 11, color: 'var(--t3)' }}>Fingerprint & Face Scanner mapped</div>
+            <div style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t1)' }}>Device Authentication</div>
+            <div style={{ fontSize: 11, color: 'var(--t3)' }}>Protected by client-level hardware security enclave</div>
           </div>
-          <button 
-            onClick={() => setBiometricEnabled(prev => !prev)}
-            style={{ 
-              padding: '2px 8px', borderRadius: 10, fontSize: 10.5, fontWeight: 700,
-              background: biometricEnabled ? 'rgba(16,185,129,0.15)' : 'var(--bg3)',
-              color: biometricEnabled ? 'var(--green)' : 'var(--t3)',
-              border: `1px solid ${biometricEnabled ? 'rgba(16,185,129,0.3)' : 'var(--border)'}`,
-              cursor: 'pointer'
-            }}
-          >
-            {biometricEnabled ? 'Enabled' : 'Disabled'}
-          </button>
+          <span style={{ 
+            padding: '2px 8px', borderRadius: 10, fontSize: 10, fontWeight: 700, fontFamily: 'var(--font-mono)',
+            background: 'rgba(16,185,129,0.15)',
+            color: 'var(--green)',
+            border: '1px solid rgba(16,185,129,0.3)'
+          }}>
+            SECURED
+          </span>
         </div>
 
         {/* Temporary Access Link */}
@@ -513,8 +503,8 @@ export default function VaultPage() {
                     {cfg.icon}
                   </div>
 
-                  {/* Verified Badge Overlay */}
-                  {item.verified && (
+                  {/* Verified / Pending Badge Overlay */}
+                  {item.verified ? (
                     <div style={{
                       position: 'absolute',
                       left: 12,
@@ -531,6 +521,24 @@ export default function VaultPage() {
                       textTransform: 'uppercase'
                     }}>
                       ✓ Verified
+                    </div>
+                  ) : (
+                    <div style={{
+                      position: 'absolute',
+                      left: 12,
+                      top: 12,
+                      background: 'rgba(245, 158, 11, 0.12)',
+                      color: 'var(--amber)',
+                      border: '1px solid rgba(245,158,11,0.25)',
+                      borderRadius: 100,
+                      padding: '2px 8px',
+                      fontSize: 9.5,
+                      fontWeight: 700,
+                      fontFamily: 'var(--font-mono)',
+                      letterSpacing: '0.5px',
+                      textTransform: 'uppercase'
+                    }}>
+                      ⏳ Pending
                     </div>
                   )}
 
@@ -625,155 +633,19 @@ export default function VaultPage() {
                     {item.is_public ? '🔒 Private' : '👁 Share'}
                   </button>
                   {!item.verified && (
-                    <button
-                      onClick={() => {
-                        updateVaultItem(item.id, { verified: true, ai_confidence_score: 95 });
-                        earnPins?.('vault_verify', 25);
-                      }}
-                      className="btn-ghost btn-sm"
-                      style={{ fontSize: 11, padding: '4px 8px', color: 'var(--green)', border: '1px solid rgba(34,197,94,0.2)', flex: 1, justifyContent: 'center' }}
-                    >
-                      ✓ Verify
-                    </button>
+                    <span style={{ 
+                      fontSize: 10.5, padding: '4px 8px', color: 'var(--amber)', 
+                      background: 'rgba(245,158,11,0.08)', borderRadius: 6,
+                      border: '1px solid rgba(245,158,11,0.15)', display: 'inline-flex',
+                      alignItems: 'center', justifyContent: 'center', flex: 1, fontWeight: 600
+                    }}>
+                      ⏳ Pending Audit
+                    </span>
                   )}
                 </div>
               </div>
             );
           })}
-        </div>
-      )}
-
-      {/* Document Scan Flow Simulator Modal (Capacitor/Mobile scan simulation) */}
-      {showScanModal && (
-        <div style={{
-          position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.85)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          zIndex: 9999, backdropFilter: 'blur(8px)', padding: 16
-        }} className="animate-fade-in">
-          <div style={{
-            background: 'var(--bg2)',
-            border: '1px solid var(--border)',
-            borderRadius: 24,
-            padding: 24,
-            width: 'min(500px, 95vw)',
-            color: 'var(--t1)',
-            boxShadow: 'var(--shadow-xl)',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 16
-          }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <h2 style={{ fontSize: 16, fontWeight: 900, fontFamily: 'var(--font-display)', margin: 0 }}>
-                📷 PinIT OCR Document Scanner
-              </h2>
-              <button onClick={() => { stopCamera(); setShowScanModal(false); }} style={{ background: 'none', border: 'none', color: 'var(--t3)', cursor: 'pointer', fontSize: 20 }}>
-                ✕
-              </button>
-            </div>
-
-            {scanStep === 'camera' && (
-              <div style={{ position: 'relative', borderRadius: 16, overflow: 'hidden', background: '#000', aspectRatio: '4/3', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <video ref={videoRef} muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', transform: 'scaleX(-1)' }} />
-                
-                {/* Overlay Scanning Guide Graphic */}
-                <div style={{
-                  position: 'absolute', inset: '20px',
-                  border: '2px dashed var(--accent)',
-                  borderRadius: 12,
-                  pointerEvents: 'none',
-                  boxShadow: '0 0 0 9999px rgba(0,0,0,0.5)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}>
-                  <div style={{ fontSize: 10, color: 'var(--accent)', fontWeight: 700, fontFamily: 'var(--font-mono)', textTransform: 'uppercase', background: 'rgba(0,0,0,0.6)', padding: '4px 8px', borderRadius: 4 }}>
-                    Align Document Inside Frame
-                  </div>
-                </div>
-
-                <div style={{ position: 'absolute', bottom: 16, display: 'flex', gap: 10, zIndex: 10 }}>
-                  <button onClick={triggerScan} className="btn-primary" style={{ padding: '8px 16px', fontSize: 12 }}>
-                    Capture & Run OCR Scan ⚡
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {scanStep === 'ocr' && (
-              <div style={{
-                borderRadius: 16, background: '#111', aspectRatio: '4/3',
-                display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-                padding: 24, gap: 14, position: 'relative', overflow: 'hidden'
-              }}>
-                {/* Scrolling laser scan line animation */}
-                <div style={{
-                  position: 'absolute', top: 0, left: 0, right: 0, height: '4px',
-                  background: 'var(--accent)', boxShadow: '0 0 10px var(--accent)',
-                  animation: 'scanLaser 2s linear infinite'
-                }} />
-                
-                <style>{`
-                  @keyframes scanLaser {
-                    0% { top: 0%; }
-                    50% { top: 100%; }
-                    100% { top: 0%; }
-                  }
-                `}</style>
-
-                <div style={{ fontSize: 32, animation: 'pulse 1s infinite' }}>🔍</div>
-                <div style={{ fontSize: 13, fontWeight: 700, fontFamily: 'var(--font-mono)' }}>Extracting Metadata ({scanProgress}%)</div>
-                <div style={{ height: 4, width: '100%', background: 'rgba(255,255,255,0.06)', borderRadius: 2, overflow: 'hidden', maxWidth: 240 }}>
-                  <div style={{ height: '100%', width: `${scanProgress}%`, background: 'var(--accent)', borderRadius: 2 }} />
-                </div>
-                <div style={{ fontSize: 10.5, color: 'var(--t3)', textAlign: 'center', maxWidth: 280 }}>
-                  Running SHA-256 certificate signature check & OCR word parsing...
-                </div>
-              </div>
-            )}
-
-            {scanStep === 'done' && scanResult && (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }} className="animate-fade-in">
-                <div style={{ 
-                  background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.2)', 
-                  borderRadius: 14, padding: 14, display: 'flex', gap: 12, alignItems: 'center' 
-                }}>
-                  <div style={{ fontSize: 24 }}>✅</div>
-                  <div>
-                    <div style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--green)' }}>OCR Metadata Extraction Complete</div>
-                    <div style={{ fontSize: 10, color: 'var(--t3)' }}>SHA-256 signature matched with Oracle CA ledger database.</div>
-                  </div>
-                </div>
-
-                <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 14, padding: 14, display: 'flex', flexDirection: 'column', gap: 10 }}>
-                  <div style={{ display: 'grid', gridTemplateColumns: '80px 1fr', gap: 8, fontSize: 11.5 }}>
-                    <span style={{ color: 'var(--t3)', fontWeight: 600 }}>Title:</span>
-                    <span style={{ fontWeight: 700, color: 'var(--t1)' }}>{scanResult.title}</span>
-                    
-                    <span style={{ color: 'var(--t3)', fontWeight: 600 }}>Category:</span>
-                    <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--accent)', fontWeight: 700 }}>{scanResult.category.toUpperCase()}</span>
-                    
-                    <span style={{ color: 'var(--t3)', fontWeight: 600 }}>Issuer:</span>
-                    <span>{scanResult.org}</span>
-                    
-                    <span style={{ color: 'var(--t3)', fontWeight: 600 }}>Match Score:</span>
-                    <span style={{ color: 'var(--green)', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>98% Verified</span>
-                  </div>
-                  <div style={{ borderTop: '1px solid var(--border)', paddingTop: 8, fontSize: 10.5, color: 'var(--t2)', lineHeight: 1.4 }}>
-                    <strong>Extracted Text:</strong> "{scanResult.text}"
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', gap: 10 }}>
-                  <button onClick={() => { startCamera(); }} className="btn-ghost" style={{ flex: 1, padding: 10, fontSize: 12 }}>
-                    Scan Again
-                  </button>
-                  <button onClick={saveScannedAsset} className="btn-primary" style={{ flex: 1.5, padding: 10, fontSize: 12, justifyContent: 'center' }}>
-                    Save to Secure Vault ✓
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
         </div>
       )}
     </div>

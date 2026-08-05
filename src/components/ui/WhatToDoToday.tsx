@@ -29,7 +29,6 @@ interface Action {
   urgency: number; // higher = more important, determines order
 }
 
-// Scoring function — pick the 3 highest-urgency actions for this user
 function pickActions(profile: Profile): Action[] {
   const ats     = profile?.ats_score           || 0;
   const trust   = profile?.trust_score         || 0;
@@ -38,59 +37,66 @@ function pickActions(profile: Profile): Action[] {
   const recVis  = profile?.recruiter_visibility|| 0;
   const done    = profile?.missions_completed  || 0;
   const intDone = profile?.interviews_done     || 0;
-  const gaps    = profile?.weak_areas          || [];
 
   const candidates: Action[] = [
-    // Vault / certifications
+    // 1. Resume / ATS Optimization
     {
-      icon:'🗂', color:'var(--purple)',
-      title: vault === 0 ? 'Add your first vault item' : 'Expand your vault',
-      desc:  vault === 0
-        ? 'Your vault is empty. Certifications, project docs, and course badges boost your Trust Score.'
-        : `You have ${vault} vault item${vault > 1 ? 's' : ''}. Add another to raise your recruiter visibility.`,
-      href: '/vault', cta: 'Open Vault →',
-      urgency: vault === 0 ? 85 : vault < 3 ? 50 : 10,
+      icon: '📄', color: 'var(--accent)',
+      title: ats === 0 ? 'Optimize your resume' : 'Review resume SDE keywords',
+      desc: ats === 0
+        ? 'Your ATS score is low (0/100). Upload your resume in the Career Builder to identify keyword gaps.'
+        : `Your resume is at ${ats}/100. Close missing keyword tags to push your score towards 80+.`,
+      href: '/career-builder', cta: 'Go to Resume Builder ➔',
+      urgency: ats === 0 ? 95 : ats < 55 ? 75 : 10
     },
-    // Mission streak
+    // 2. Mission Streak
     {
-      icon:'🔥', color:'var(--amber)',
-      title: streak === 0 ? 'Start your mission streak today' : streak < 3 ? 'Keep the streak going' : `${streak}-day streak — don't break it!`,
-      desc:  streak === 0
-        ? 'Complete one mission today to start building your streak. Streaks directly raise your Career DNA score.'
-        : streak < 7
-        ? `${streak}-day streak in progress. Consistent students get 3× more recruiter views.`
-        : `Outstanding! ${streak} consecutive days. Today's missions are ready.`,
-      href: '/missions', cta: 'Do Missions →',
-      urgency: streak === 0 ? 90 : streak < 3 ? 60 : 15,
+      icon: '🔥', color: 'var(--amber)',
+      title: streak === 0 ? 'Start your daily mission streak' : 'Keep the streak going',
+      desc: streak === 0
+        ? 'Complete a daily mission roleplay today to start building your streak. Consistent users get 3x more recruiter views.'
+        : `Outstanding! You are on a ${streak}-day daily streak. Complete today's mission to extend it.`,
+      href: '/missions', cta: 'Launch Daily Mission ➔',
+      urgency: streak === 0 ? 90 : streak < 3 ? 60 : 15
     },
-    // Trust score
+    // 3. Trust Score
     {
-      icon:'🛡', color:'var(--green)',
-      title: trust < 50 ? 'Build your Trust Score' : 'Boost your Trust Score further',
-      desc:  trust < 50
-        ? 'Trust Score below 50 makes you invisible to recruiters. Verify a skill or add a certificate to your vault.'
-        : `Trust at ${Math.round(trust)}/100. Adding verified projects or passing a clean exam pushes it higher.`,
-      href: '/vault', cta: 'Verify Skills →',
-      urgency: trust < 50 ? 80 : trust < 70 ? 35 : 5,
+      icon: '🛡️', color: 'var(--green)',
+      title: trust < 50 ? 'Verify a skill to build trust' : 'Boost your Trust Score further',
+      desc: trust < 50
+        ? `Your Trust Score is below 50. Pass coding exams or upload certificates to unlock recruiter visibility.`
+        : `Your Trust Score is solid at ${Math.round(trust)}/100. Passing another proctored exam keeps it high.`,
+      href: '/vault', cta: 'Verify credentials ➔',
+      urgency: trust < 50 ? 88 : trust < 70 ? 45 : 8
     },
-    // Recruiter visibility
+    // 4. Mock Interviews
     {
-      icon:'📡', color:'var(--coral)',
-      title: recVis < 30 ? 'Make yourself visible to recruiters' : 'Improve recruiter visibility',
-      desc:  recVis < 30
-        ? 'Your profile is nearly invisible. Raise your ATS and Trust scores to enter the recruiter feed.'
-        : `${Math.round(recVis)}% visibility. Complete 2 more missions this week to enter the top tier.`,
-      href: '/profile', cta: 'Go to Profile →',
-      urgency: recVis < 30 ? 65 : recVis < 60 ? 30 : 3,
+      icon: '🎙️', color: 'var(--blue)',
+      title: intDone === 0 ? 'Clear your first SDE interview' : 'Schedule mock SDE practice',
+      desc: intDone === 0
+        ? 'You have not completed any mock interviews. Practice technical/behavioral rounds with Vikram or Priya.'
+        : `You have cleared ${intDone} mock rounds. Take an advanced systems design practice session.`,
+      href: '/interview', cta: 'Start Mock Interview ➔',
+      urgency: intDone === 0 ? 82 : intDone < 3 ? 40 : 12
     },
-    // Career DNA
+    // 5. Vault items
     {
-      icon:'🧬', color:'var(--accent)',
-      title: 'Explore your Career DNA',
-      desc:  'Your archetype shapes which roles and recruiters match you. Review your 9 DNA dimensions and find your highest-impact improvement.',
-      href:  '/career-dna', cta: 'View DNA →',
-      urgency: done < 5 ? 45 : 12,
+      icon: '🗂️', color: 'var(--purple)',
+      title: vault === 0 ? 'Upload proof to Evidence Vault' : 'Expand your Vault assets',
+      desc: vault === 0
+        ? 'Your Vault is empty. Upload project documentation, university degrees, or course certificates.'
+        : `You have ${vault} items in your Vault. Add verified assets to showcase on your profile.`,
+      href: '/vault', cta: 'Open Evidence Vault ➔',
+      urgency: vault === 0 ? 84 : vault < 3 ? 50 : 15
     },
+    // 6. Group Discussion Boardroom
+    {
+      icon: '💬', color: 'var(--teal)',
+      title: 'Join System Design debate',
+      desc: 'Top-tier roles require strong communication. Join immersive boardroom debates with AI participants.',
+      href: '/group-discussion', cta: 'Join Boardroom ➔',
+      urgency: done < 3 ? 65 : 10
+    }
   ];
 
   return candidates

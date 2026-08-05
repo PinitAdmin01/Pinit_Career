@@ -4,6 +4,7 @@
 
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import Link from 'next/link';
+import './pins.css';
 
 interface Props {
   size?: 'sm' | 'md' | 'lg';
@@ -18,45 +19,55 @@ export default function PinsBadge({ size = 'md', showLink = false, className }: 
   const very_low = pins < 5;
 
   const sizes = {
-    sm: { font: 11, pad: '2px 8px', iconSize: 11, borderRadius: 10 },
-    md: { font: 12, pad: '4px 12px', iconSize: 13, borderRadius: 20 },
-    lg: { font: 14, pad: '7px 16px', iconSize: 15, borderRadius: 20 },
+    sm: { font: 11, pad: '3px 10px', iconSize: 12, borderRadius: 12 },
+    md: { font: 12.5, pad: '5px 14px', iconSize: 14, borderRadius: 16 },
+    lg: { font: 14.5, pad: '8px 18px', iconSize: 16, borderRadius: 18 },
   };
   const s = sizes[size];
 
   const badge = (
     <div
-      className={className}
+      className={`${className || ''} ${!very_low && !low ? 'pins-badge-glow' : ''}`}
       style={{
         display: 'inline-flex',
         alignItems: 'center',
-        gap: 5,
+        gap: 6,
         padding: s.pad,
         borderRadius: s.borderRadius,
         background: very_low
-          ? 'rgba(220,38,38,0.12)'
+          ? 'rgba(239, 68, 68, 0.15)'
           : low
-          ? 'rgba(217,119,6,0.12)'
-          : 'rgba(79,70,229,0.1)',
-        border: `1px solid ${very_low ? 'rgba(220,38,38,0.25)' : low ? 'rgba(217,119,6,0.25)' : 'rgba(79,70,229,0.2)'}`,
-        color: very_low ? 'var(--coral)' : low ? 'var(--amber)' : 'var(--accent)',
+          ? 'rgba(245, 158, 11, 0.15)'
+          : 'rgba(99, 102, 241, 0.15)',
+        border: `1px solid ${
+          very_low
+            ? 'rgba(239, 68, 68, 0.3)'
+            : low
+            ? 'rgba(245, 158, 11, 0.3)'
+            : 'rgba(99, 102, 241, 0.3)'
+        }`,
+        color: very_low ? '#ef4444' : low ? '#f59e0b' : '#818cf8',
         fontSize: s.font,
-        fontWeight: 700,
+        fontWeight: 800,
         fontFamily: 'var(--font-mono)',
         whiteSpace: 'nowrap',
         cursor: showLink ? 'pointer' : 'default',
-        transition: 'all 0.15s',
+        backdropFilter: 'blur(8px)',
+        transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
       }}
     >
-      <span style={{ fontSize: s.iconSize }}>⚡</span>
-      <span>{pins.toLocaleString()}</span>
-      {size !== 'sm' && <span style={{ fontWeight: 400, opacity: 0.7 }}>📌</span>}
-      {very_low && size !== 'sm' && <span style={{ fontSize: s.font - 1, marginLeft: 2 }}>⚠</span>}
+      <span className="pins-icon-energy" style={{ fontSize: s.iconSize }}>⚡</span>
+      <span>{pins.toLocaleString()} Pins</span>
+      {very_low && size !== 'sm' && <span style={{ fontSize: s.font - 1, marginLeft: 2 }}>⚠ Low</span>}
     </div>
   );
 
   if (showLink) {
-    return <Link href="/pricing" style={{ textDecoration: 'none' }}>{badge}</Link>;
+    return (
+      <Link href="/pricing" style={{ textDecoration: 'none' }}>
+        {badge}
+      </Link>
+    );
   }
   return badge;
 }

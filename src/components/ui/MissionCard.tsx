@@ -14,6 +14,7 @@ interface Mission {
   source_weakness: string; 
   learn_url?: string; 
   ai_evaluation?: { score?: number; feedback?: string; passed?: boolean } | null; 
+  priority?: 'high' | 'medium' | 'normal';
 }
 
 const TYPE_META: Record<string, { color: string; light: string; border: string; icon: string; label: string }> = {
@@ -40,6 +41,10 @@ export default function MissionCard({ mission, onComplete }: { mission: Mission;
   const meta = TYPE_META[mission.type] || TYPE_META.skill;
   const status = STATUS_CONFIG[localStatus] || STATUS_CONFIG.pending;
   const isDone = localStatus === 'completed' || localStatus === 'failed' || localStatus === 'submitted';
+  
+  const timestamps = cOS.onboardingAnswers?.completedMissionsTimestamps || [];
+  const today = new Date().toDateString();
+  const hasCompletedToday = timestamps.some(ts => new Date(ts).toDateString() === today);
 
   async function submit() {
     if (!proof.trim()) return;
@@ -51,16 +56,23 @@ export default function MissionCard({ mission, onComplete }: { mission: Mission;
         proofType: 'text', 
         proofText: proof 
       });
-    } catch (e) {
-      console.warn("API Submission failed, using CareerOS local state logic.");
-    } finally {
+      
       // Mark as completed in CareerOSContext dynamically
       setLocalStatus('completed');
       setExpanded(false);
-      setLoading(false);
       cOS.completeMission(mission.id);
       // earnPins already handled inside completeMission()
       onComplete();
+    } catch (e: any) {
+      console.error("API Submission failed:", e);
+      try {
+        const { toast } = await import('@/lib/store/useAppStore');
+        toast.error(e.message || "Failed to submit mission proof. Please try again.");
+      } catch {
+        alert(e.message || "Failed to submit mission proof. Please try again.");
+      }
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -78,10 +90,30 @@ export default function MissionCard({ mission, onComplete }: { mission: Mission;
         opacity: isDone ? 0.7 : 1
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 10, fontFamily: 'var(--font-mono)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.7px', background: meta.light, color: meta.color, border: `1px solid ${meta.border}`, padding: '2px 8px', borderRadius: 5 }}>
-          {meta.icon} {meta.label}
-        </span>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8, gap: 6, flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 10, fontFamily: 'var(--font-mono)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.7px', background: meta.light, color: meta.color, border: `1px solid ${meta.border}`, padding: '2px 8px', borderRadius: 5 }}>
+            {meta.icon} {meta.label}
+          </span>
+          {mission.priority && (
+            <span style={{ 
+              display: 'inline-flex', 
+              alignItems: 'center', 
+              fontSize: 9, 
+              fontFamily: 'var(--font-mono)', 
+              fontWeight: 800, 
+              textTransform: 'uppercase', 
+              letterSpacing: '0.5px', 
+              background: mission.priority === 'high' ? 'rgba(239,68,68,0.1)' : mission.priority === 'medium' ? 'rgba(245,158,11,0.1)' : 'rgba(255,255,255,0.05)', 
+              color: mission.priority === 'high' ? '#ef4444' : mission.priority === 'medium' ? '#f59e0b' : 'var(--t3)', 
+              border: `1px solid ${mission.priority === 'high' ? 'rgba(239,68,68,0.2)' : mission.priority === 'medium' ? 'rgba(245,158,11,0.2)' : 'var(--border)'}`, 
+              padding: '2px 6px', 
+              borderRadius: 4 
+            }}>
+              🚨 {mission.priority} priority
+            </span>
+          )}
+        </div>
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 10, fontFamily: 'var(--font-mono)', fontWeight: 700, background: status.bg, color: status.color, padding: '2px 8px', borderRadius: 5 }}>
           <span style={{ width: 5, height: 5, borderRadius: '50%', background: status.dot }} />
           {status.label}
@@ -114,24 +146,40 @@ export default function MissionCard({ mission, onComplete }: { mission: Mission;
           </a>
         )}
         {!isDone && (
-          <button 
-            onClick={() => setExpanded(e => !e)} 
-            style={{ 
-              marginLeft: 'auto', 
-              fontSize: 11, 
-              fontWeight: 700, 
-              fontFamily: 'var(--font-mono)', 
-              padding: '5px 14px', 
-              borderRadius: 8, 
-              border: 'none', 
-              background: expanded ? 'var(--bg3)' : meta.color, 
-              color: expanded ? 'var(--t2)' : 'white', 
-              cursor: 'pointer', 
-              transition: 'all 0.15s' 
-            }}
-          >
-            {expanded ? '✕ Cancel' : '→ Submit Proof'}
-          </button>
+          hasCompletedToday ? (
+            <span style={{
+              marginLeft: 'auto',
+              fontSize: 10.5,
+              fontWeight: 700,
+              fontFamily: 'var(--font-mono)',
+              color: 'var(--t3)',
+              background: 'var(--bg3)',
+              padding: '4px 10px',
+              borderRadius: 6,
+              border: '1px solid var(--border)'
+            }}>
+              🔒 Limit Reached
+            </span>
+          ) : (
+            <button 
+              onClick={() => setExpanded(e => !e)} 
+              style={{ 
+                marginLeft: 'auto', 
+                fontSize: 11, 
+                fontWeight: 700, 
+                fontFamily: 'var(--font-mono)', 
+                padding: '5px 14px', 
+                borderRadius: 8, 
+                border: 'none', 
+                background: expanded ? 'var(--bg3)' : meta.color, 
+                color: expanded ? 'var(--t2)' : 'white', 
+                cursor: 'pointer', 
+                transition: 'all 0.15s' 
+              }}
+            >
+              {expanded ? '✕ Cancel' : '→ Submit Proof'}
+            </button>
+          )
         )}
       </div>
 

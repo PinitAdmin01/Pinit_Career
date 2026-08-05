@@ -1,3 +1,14 @@
+import { BCOM_ACCOUNTING_30_DAYS_QUESTS } from './bcomAccounting30DayData';
+import { BCOM_FINANCE_30_DAYS_QUESTS } from './bcomFinance30DayData';
+import { BCOM_ANALYTICS_30_DAYS_QUESTS } from './bcomAnalytics30DayData';
+import { BCOM_MARKETING_30_DAYS_QUESTS } from './bcomMarketing30DayData';
+import { BCOM_DIGITAL_MARKETING_30_DAYS_QUESTS } from './bcomDigitalMarketing30DayData';
+import { BCOM_ECOMMERCE_30_DAYS_QUESTS } from './bcomEcommerce30DayData';
+import { BCOM_ENTREPRENEURSHIP_30_DAYS_QUESTS } from './bcomEntrepreneurship30DayData';
+import { BCOM_SALES_CRM_30_DAYS_QUESTS } from './bcomSalesCrm30DayData';
+import { BCOM_OPERATIONS_30_DAYS_QUESTS } from './bcomOperations30DayData';
+import { BCOM_AI_TRANSFORMATION_30_DAYS_QUESTS } from './bcomAiTransformation30DayData';
+
 export interface QuestData {
   id: string;
   title: string;
@@ -12,6 +23,16 @@ export interface QuestData {
 }
 
 export const QUESTS_REGISTRY: QuestData[] = [
+  ...(BCOM_ACCOUNTING_30_DAYS_QUESTS as any[]),
+  ...(BCOM_FINANCE_30_DAYS_QUESTS as any[]),
+  ...(BCOM_ANALYTICS_30_DAYS_QUESTS as any[]),
+  ...(BCOM_MARKETING_30_DAYS_QUESTS as any[]),
+  ...(BCOM_DIGITAL_MARKETING_30_DAYS_QUESTS as any[]),
+  ...(BCOM_ECOMMERCE_30_DAYS_QUESTS as any[]),
+  ...(BCOM_ENTREPRENEURSHIP_30_DAYS_QUESTS as any[]),
+  ...(BCOM_SALES_CRM_30_DAYS_QUESTS as any[]),
+  ...(BCOM_OPERATIONS_30_DAYS_QUESTS as any[]),
+  ...(BCOM_AI_TRANSFORMATION_30_DAYS_QUESTS as any[]),
   {
     id: 'fizzbuzz',
     title: 'Quest 1: FizzBuzz Mastery',

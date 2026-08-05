@@ -1,0 +1,10 @@
+{
+  "users": [],
+  "audit": [],
+  "stats": {
+    "totalUsers": 0,
+    "activeUsers": 0,
+    "tabSwitchesCount": 0,
+    "pendingGrievances": 0
+  }
+}

@@ -1,22 +1,20 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { DB } from '../firebase.js';
-import { Btn, Card, Input, Select, Modal, Spinner, EmptyState, Badge, ConfirmModal, Textarea } from '../components/UI.jsx';
-import { useToast } from '../contexts/ToastContext.jsx';
-import dsaiLogo from '../assets/dsaiLogo.js';
+import { DB } from '@/lib/dsaiFirebase';
+import { Btn, Card, Input, Select, Modal, Spinner, EmptyState, Badge, ConfirmModal, Textarea } from './UI.jsx';
+import { useToast } from '@/lib/context/ToastContext';
+import dsaiLogo from './dsaiLogo.js';
 import CodingQuestionForm from './CodingQuestionForm.jsx';
-import { downloadQuestionTemplate, importQuestionsFromExcel, exportResultsExcel, exportStudentsList, importStudentsFromExcel } from '../utils/excelUtils.js';
+import { useBatches } from '@/lib/context/BatchContext';
+import { downloadQuestionTemplate, importQuestionsFromExcel, exportResultsExcel, exportStudentsList, importStudentsFromExcel } from './excelUtils.js';
 
 /* ── Constants ── */
-const BATCHES      = ['Batch 1', 'Batch 2', 'Batch 3', 'Batch 4', 'Batch 5'];
-const ALL_BATCHES  = ['All Batches', ...BATCHES];
 const SEMS         = ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4', 'Sem 5', 'Sem 6'];
-const BATCH_COLORS = { 'Batch 1':'#2563eb', 'Batch 2':'#059669', 'Batch 3':'#7c3aed', 'Batch 4':'#d97706', 'Batch 5':'#dc2626' };
 
 /* ── Shared loader ── */
 const Loader = () => (
   <div style={{ display:'flex', justifyContent:'center', alignItems:'center', height:280, flexDirection:'column', gap:14 }}>
     <Spinner size={34} />
-    <p style={{ color:'var(--text-muted)', fontSize:13 }}>Loading…</p>
+    <p style={{ color: 'var(--t3)', fontSize:13 }}>Loading…</p>
   </div>
 );
 
@@ -51,13 +49,13 @@ export function AdminLogin({ onBack, onSuccess }) {
   }
 
   return (
-    <div style={{ minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center', padding:20, background:'var(--bg-primary)' }}>
+    <div style={{ minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center', padding:20, background: 'var(--bg)' }}>
       <div style={{ position:'fixed', inset:0, background:'radial-gradient(ellipse at 50% 30%, rgba(37,99,235,0.08) 0%, transparent 70%)', pointerEvents:'none' }} />
       <Card style={{ maxWidth:420, width:'100%', position:'relative', zIndex:1, padding:'40px 36px', boxShadow:'0 8px 40px rgba(37,99,235,0.12)' }}>
         <div style={{ textAlign:'center', marginBottom:32 }}>
           <img src={dsaiLogo} alt="DSAI" style={{ width:68, height:68, borderRadius:'50%', objectFit:'cover', border:'2px solid rgba(37,99,235,0.2)', display:'block', margin:'0 auto 16px', boxShadow:'0 4px 16px rgba(37,99,235,0.14)' }} />
           <h2 style={{ fontSize:22, fontWeight:800, letterSpacing:'-0.5px' }}>Admin Portal</h2>
-          <p style={{ color:'var(--text-muted)', fontSize:13, marginTop:6, fontWeight:500 }}>BGS Institute of Management · DSAI</p>
+          <p style={{ color: 'var(--t3)', fontSize:13, marginTop:6, fontWeight:500 }}>BGS Institute of Management · DSAI</p>
         </div>
         <form onSubmit={handleLogin}>
           <Input label="Username" value={user} onChange={e => setUser(e.target.value)} placeholder="admin" autoFocus />
@@ -68,7 +66,7 @@ export function AdminLogin({ onBack, onSuccess }) {
         </form>
         <Btn variant="ghost" style={{ width:'100%', justifyContent:'center' }} onClick={onBack}>← Back to Home</Btn>
         <div style={{ marginTop:18, padding:'10px 14px', background:'rgba(37,99,235,0.05)', border:'1px solid rgba(37,99,235,0.14)', borderRadius:9, textAlign:'center' }}>
-          <p style={{ fontSize:11, color:'var(--text-muted)' }}>Default: <strong>admin</strong> / <strong>admin123</strong></p>
+          <p style={{ fontSize:11, color: 'var(--t3)' }}>Default: <strong>admin</strong> / <strong>admin123</strong></p>
         </div>
       </Card>
     </div>
@@ -79,6 +77,7 @@ export function AdminLogin({ onBack, onSuccess }) {
    ADMIN DASHBOARD SHELL
 ══════════════════════════════════════════════ */
 export function AdminDashboard({ admin, onLogout }) {
+  const { batchNames: BATCHES, allBatchNames: ALL_BATCHES, colorMap: BATCH_COLORS, reload: reloadBatches } = useBatches();
   const [tab,       setTab]       = useState('dashboard');
   const [collapsed, setCollapsed] = useState(false);
   // Preload: track which tabs have been hovered to start loading early
@@ -101,19 +100,20 @@ export function AdminDashboard({ admin, onLogout }) {
     { id:'messages',      icon:'💬', label:'Messages'       },
     { id:'settings',      icon:'⚙️', label:'Settings'       },
     { id:'promote',       icon:'🎓', label:'Promote/Demote' },
+    { id:'batches',       icon:'🗂️',  label:'Batches'        },
   ];
 
   const W = collapsed ? 64 : 222;
 
   return (
     /* Outer wrapper: fills full viewport, no page-level scroll */
-    <div style={{ display:'flex', height:'100vh', overflow:'hidden', background:'var(--bg-primary)' }}>
+    <div style={{ display:'flex', height:'100vh', overflow:'hidden', background: 'var(--bg)' }}>
 
       {/* ── Sidebar ── fixed height, its own scroll */}
       <aside style={{
         width: W,
         flexShrink: 0,
-        background: 'white',
+        background: 'var(--bg2)',
         borderRight: '1px solid var(--border)',
         display: 'flex',
         flexDirection: 'column',
@@ -131,8 +131,8 @@ export function AdminDashboard({ admin, onLogout }) {
             <div style={{ display:'flex', alignItems:'center', gap:9, minWidth:0 }}>
               <img src={dsaiLogo} alt="DSAI" style={{ width:32, height:32, borderRadius:'50%', objectFit:'cover', flexShrink:0, border:'1.5px solid rgba(37,99,235,0.2)' }} />
               <div style={{ minWidth:0 }}>
-                <div style={{ fontSize:12, fontWeight:800, color:'var(--text-primary)', whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis' }}>BGS Admin</div>
-                <div style={{ fontSize:10, color:'var(--text-muted)', whiteSpace:'nowrap' }}>Management Portal</div>
+                <div style={{ fontSize:12, fontWeight:800, color: 'var(--t1)', whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis' }}>BGS Admin</div>
+                <div style={{ fontSize:10, color: 'var(--t3)', whiteSpace:'nowrap' }}>Management Portal</div>
               </div>
             </div>
           )}
@@ -149,14 +149,14 @@ export function AdminDashboard({ admin, onLogout }) {
 
         {/* Admin info */}
         {!collapsed && (
-          <div style={{ padding:'12px 14px', borderBottom:'1px solid var(--border)', background:'#f8faff', flexShrink:0 }}>
+          <div style={{ padding:'12px 14px', borderBottom:'1px solid var(--border)', background: 'var(--bg3)', flexShrink:0 }}>
             <div style={{ display:'flex', alignItems:'center', gap:9 }}>
               <div style={{ width:36, height:36, borderRadius:'50%', background:'linear-gradient(135deg,#2563eb,#7c3aed)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:15, color:'white', flexShrink:0, fontWeight:800, boxShadow:'0 2px 8px rgba(37,99,235,0.3)' }}>
                 {admin.username?.[0]?.toUpperCase() || 'A'}
               </div>
               <div style={{ minWidth:0 }}>
-                <div style={{ fontSize:13, fontWeight:700, color:'var(--text-primary)', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{admin.username}</div>
-                <div style={{ fontSize:10, color:'var(--text-muted)', fontWeight:500 }}>Administrator</div>
+                <div style={{ fontSize:13, fontWeight:700, color: 'var(--t1)', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{admin.username}</div>
+                <div style={{ fontSize:10, color: 'var(--t3)', fontWeight:500 }}>Administrator</div>
               </div>
             </div>
           </div>
@@ -224,6 +224,7 @@ export function AdminDashboard({ admin, onLogout }) {
           <div style={{ display: tab==='messages'      ? 'block':'none' }}>{preloaded.has('messages')      && <MessagesTab />}</div>
           <div style={{ display: tab==='settings'      ? 'block':'none' }}>{preloaded.has('settings')      && <SettingsTab admin={admin} />}</div>
           <div style={{ display: tab==='promote'       ? 'block':'none' }}>{preloaded.has('promote')       && <PromoteTab />}</div>
+          <div style={{ display: tab==='batches'       ? 'block':'none' }}>{preloaded.has('batches')       && <BatchManagerTab />}</div>
         </div>
       </main>
 
@@ -235,6 +236,7 @@ export function AdminDashboard({ admin, onLogout }) {
    DASHBOARD
 ══════════════════════════════════════════════ */
 function DashboardTab() {
+  const { batchNames: BATCHES, colorMap: BATCH_COLORS } = useBatches();
   const [stats,         setStats]         = useState(null);
   const [recentResults, setRecentResults] = useState([]);
   const toast = useToast();
@@ -260,7 +262,7 @@ function DashboardTab() {
       toast('Failed to load dashboard: ' + err.message, 'error');
       setStats({});
     });
-  }, [toast]);
+  }, [toast, BATCHES]);
   useEffect(() => { load(); }, [load]);
 
   if (!stats) return <Loader />;
@@ -269,7 +271,7 @@ function DashboardTab() {
     <div className="fade-in">
       <div style={{ marginBottom:24 }}>
         <h1 style={{ fontSize:22, fontWeight:800, letterSpacing:'-0.5px', marginBottom:4 }}>Welcome back! 👋</h1>
-        <p style={{ color:'var(--text-muted)', fontSize:13 }}>Here's what's happening at BGS Institute today.</p>
+        <p style={{ color: 'var(--t3)', fontSize:13 }}>Here's what's happening at BGS Institute today.</p>
       </div>
 
       <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(150px,1fr))', gap:12, marginBottom:22 }}>
@@ -281,11 +283,11 @@ function DashboardTab() {
           { value:`${stats.avgScore}%`,  label:'Avg Score',       icon:'📈', color:'#2563eb' },
           { value:stats.live,            label:'Live Now 🔴',     icon:'⚡', color:'#dc2626' },
         ].map((s,i) => (
-          <div key={i} style={{ background:'white', border:'1px solid var(--border)', borderRadius:12, padding:'16px 18px', display:'flex', alignItems:'center', gap:12, boxShadow:'0 1px 6px rgba(37,99,235,0.06)' }}>
+          <div key={i} style={{ background: 'var(--bg2)', border:'1px solid var(--border)', borderRadius:12, padding:'16px 18px', display:'flex', alignItems:'center', gap:12, boxShadow: 'var(--shadow-sm)' }}>
             <div style={{ width:38, height:38, borderRadius:10, background:`${s.color}15`, display:'flex', alignItems:'center', justifyContent:'center', fontSize:18, flexShrink:0 }}>{s.icon}</div>
             <div>
               <div style={{ fontSize:20, fontWeight:900, color:s.color, lineHeight:1 }}>{s.value}</div>
-              <div style={{ fontSize:11, color:'var(--text-muted)', marginTop:3, fontWeight:600 }}>{s.label}</div>
+              <div style={{ fontSize:11, color: 'var(--t3)', marginTop:3, fontWeight:600 }}>{s.label}</div>
             </div>
           </div>
         ))}
@@ -294,18 +296,18 @@ function DashboardTab() {
       <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:18, marginBottom:18 }}>
         <Card>
           <h3 style={{ fontWeight:700, fontSize:14, marginBottom:14 }}>👥 Students per Batch</h3>
-          {BATCHES.map((b,i) => {
+          {BATCHES.map((b) => {
             const count = stats.batchCounts[b] || 0;
             const pct   = stats.students ? Math.round((count/stats.students)*100) : 0;
-            const colors = ['#2563eb','#059669','#7c3aed','#d97706','#dc2626'];
+            const bColor = BATCH_COLORS[b] || '#2563eb';
             return (
               <div key={b} style={{ marginBottom:12 }}>
                 <div style={{ display:'flex', justifyContent:'space-between', marginBottom:4, fontSize:13 }}>
                   <span style={{ fontWeight:600 }}>{b}</span>
-                  <span style={{ color:'var(--text-muted)' }}>{count} · {pct}%</span>
+                  <span style={{ color: 'var(--t3)' }}>{count} · {pct}%</span>
                 </div>
                 <div style={{ height:7, background:'#e8f0fe', borderRadius:4, overflow:'hidden' }}>
-                  <div style={{ height:'100%', width:`${pct}%`, background:`linear-gradient(90deg,${colors[i]},${colors[i]}99)`, borderRadius:4, transition:'width 0.5s' }} />
+                  <div style={{ height:'100%', width:`${pct}%`, background:`linear-gradient(90deg,${bColor},${bColor}99)`, borderRadius:4, transition:'width 0.5s' }} />
                 </div>
               </div>
             );
@@ -321,7 +323,7 @@ function DashboardTab() {
           ].map((s,i) => (
             <div key={i} style={{ display:'flex', alignItems:'center', gap:10, padding:'9px 12px', background:s.bg, borderRadius:9, marginBottom:8 }}>
               <span style={{ fontSize:18 }}>{s.icon}</span>
-              <span style={{ flex:1, fontSize:13, fontWeight:500, color:'var(--text-secondary)' }}>{s.label}</span>
+              <span style={{ flex:1, fontSize:13, fontWeight:500, color: 'var(--t2)' }}>{s.label}</span>
               <span style={{ fontWeight:800, fontSize:16, color:s.color }}>{s.value}</span>
             </div>
           ))}
@@ -341,7 +343,7 @@ function DashboardTab() {
                     <td style={{ fontSize:13 }}>{r.examTitle}</td>
                     <td><Badge type={parseFloat(r.percentage)>=50?'success':'danger'}>{r.percentage}</Badge></td>
                     <td style={{ fontWeight:700, color:parseFloat(r.percentage)>=50?'var(--success)':'var(--danger)', fontSize:14 }}>{r.grade}</td>
-                    <td style={{ fontSize:12, color:'var(--text-muted)' }}>{new Date(r.submittedAt).toLocaleString()}</td>
+                    <td style={{ fontSize:12, color: 'var(--t3)' }}>{new Date(r.submittedAt).toLocaleString()}</td>
                   </tr>
                 ))}
               </tbody>
@@ -357,13 +359,14 @@ function DashboardTab() {
    STUDENTS
 ══════════════════════════════════════════════ */
 function StudentsTab() {
+  const { batchNames: BATCHES, colorMap: BATCH_COLORS } = useBatches();
   const [allStudents,   setAllStudents]   = useState(null);
   const [selectedBatch, setSelectedBatch] = useState(null);
   const [showAdd,  setShowAdd]  = useState(false);
   const [saving,   setSaving]   = useState(false);
   const [importing,setImporting]= useState(false);
   const [deleteId, setDeleteId] = useState(null);
-  const [form, setForm] = useState({ name:'', registerNumber:'', email:'', phone:'', batch:'Batch 1', password:'student123' });
+  const [form, setForm] = useState({ name:'', registerNumber:'', email:'', phone:'', batch: 'Batch 1', password:'student123' });
   const excelRef = useRef();
   const toast = useToast();
 
@@ -412,7 +415,7 @@ function StudentsTab() {
           <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:22 }}>
             <div>
               <h1 style={{ fontSize:22, fontWeight:800, marginBottom:3 }}>👨‍🎓 Students</h1>
-              <p style={{ color:'var(--text-muted)', fontSize:13 }}>{allStudents.length} students across all batches</p>
+              <p style={{ color: 'var(--t3)', fontSize:13 }}>{allStudents.length} students across all batches</p>
             </div>
             <div style={{ display:'flex', gap:8 }}>
               <Btn variant="ghost" size="sm" onClick={() => exportStudentsList(allStudents, 'students_export.xlsx')}>
@@ -430,12 +433,12 @@ function StudentsTab() {
               const count = allStudents.filter(s => s.batch===batch).length;
               const c     = BATCH_COLORS[batch];
               return (
-                <div key={batch} onClick={() => setSelectedBatch(batch)} style={{ background:'white', border:'1.5px solid var(--border)', borderRadius:16, padding:'26px 22px', cursor:'pointer', transition:'all 0.2s', boxShadow:'0 2px 10px rgba(37,99,235,0.06)' }}
+                <div key={batch} onClick={() => setSelectedBatch(batch)} style={{ background: 'var(--bg2)', border:'1.5px solid var(--border)', borderRadius:16, padding:'26px 22px', cursor:'pointer', transition:'all 0.2s', boxShadow:'0 2px 10px rgba(37,99,235,0.06)' }}
                   onMouseEnter={e => { e.currentTarget.style.borderColor=c; e.currentTarget.style.transform='translateY(-4px)'; e.currentTarget.style.boxShadow=`0 12px 28px ${c}22`; }}
                   onMouseLeave={e => { e.currentTarget.style.borderColor='var(--border)'; e.currentTarget.style.transform=''; e.currentTarget.style.boxShadow='0 2px 10px rgba(37,99,235,0.06)'; }}>
                   <div style={{ width:50, height:50, borderRadius:14, background:`${c}14`, display:'flex', alignItems:'center', justifyContent:'center', fontSize:24, marginBottom:14 }}>🎓</div>
                   <h3 style={{ fontSize:17, fontWeight:800, color:c, marginBottom:5 }}>{batch}</h3>
-                  <p style={{ fontSize:13, color:'var(--text-muted)', marginBottom:14 }}>{count} student{count!==1?'s':''} enrolled</p>
+                  <p style={{ fontSize:13, color: 'var(--t3)', marginBottom:14 }}>{count} student{count!==1?'s':''} enrolled</p>
                   <div style={{ fontSize:12, color:c, fontWeight:700 }}>View students →</div>
                 </div>
               );
@@ -448,7 +451,7 @@ function StudentsTab() {
             <Btn variant="ghost" size="sm" onClick={() => setSelectedBatch(null)}>← Batches</Btn>
             <div style={{ flex:1 }}>
               <h1 style={{ fontSize:22, fontWeight:800 }}>{selectedBatch}</h1>
-              <p style={{ color:'var(--text-muted)', fontSize:13 }}>{batchStudents.length} students</p>
+              <p style={{ color: 'var(--t3)', fontSize:13 }}>{batchStudents.length} students</p>
             </div>
             <Btn variant="primary" size="sm" onClick={() => openAdd(selectedBatch)}>+ Add Student</Btn>
           </div>
@@ -460,8 +463,8 @@ function StudentsTab() {
                   <tbody>
                     {batchStudents.map((s,i) => (
                       <tr key={s.id}>
-                        <td style={{ color:'var(--text-muted)', fontWeight:600 }}>{i+1}</td>
-                        <td style={{ fontWeight:700, color:'var(--text-primary)', fontSize:13 }}>{s.name}</td>
+                        <td style={{ color: 'var(--t3)', fontWeight:600 }}>{i+1}</td>
+                        <td style={{ fontWeight:700, color: 'var(--t1)', fontSize:13 }}>{s.name}</td>
                         <td style={{ fontFamily:'var(--font-mono)', fontSize:12, color:'var(--accent)' }}>{s.registerNumber}</td>
                         <td style={{ fontSize:13 }}>{s.email||'—'}</td>
                         <td style={{ fontSize:13 }}>{s.phone||'—'}</td>
@@ -503,6 +506,7 @@ function StudentsTab() {
    TEACHERS
 ══════════════════════════════════════════════ */
 function TeachersTab() {
+  const { batchNames: BATCHES, colorMap: BATCH_COLORS } = useBatches();
   const [teachers,      setTeachers]      = useState(null);
   const [selectedBatch, setSelectedBatch] = useState(null);
   const [showAdd, setShowAdd] = useState(false);
@@ -543,7 +547,7 @@ function TeachersTab() {
           <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:22 }}>
             <div>
               <h1 style={{ fontSize:22, fontWeight:800, marginBottom:3 }}>👨‍🏫 Teachers</h1>
-              <p style={{ color:'var(--text-muted)', fontSize:13 }}>{teachers.length} teachers total</p>
+              <p style={{ color: 'var(--t3)', fontSize:13 }}>{teachers.length} teachers total</p>
             </div>
             <Btn variant="primary" size="sm" onClick={() => openAdd(null)}>+ Add Teacher</Btn>
           </div>
@@ -552,12 +556,12 @@ function TeachersTab() {
               const count = teachers.filter(t => t.batch===batch).length;
               const c     = BATCH_COLORS[batch];
               return (
-                <div key={batch} onClick={() => setSelectedBatch(batch)} style={{ background:'white', border:'1.5px solid var(--border)', borderRadius:16, padding:'26px 22px', cursor:'pointer', transition:'all 0.2s', boxShadow:'0 2px 10px rgba(37,99,235,0.06)' }}
+                <div key={batch} onClick={() => setSelectedBatch(batch)} style={{ background: 'var(--bg2)', border:'1.5px solid var(--border)', borderRadius:16, padding:'26px 22px', cursor:'pointer', transition:'all 0.2s', boxShadow:'0 2px 10px rgba(37,99,235,0.06)' }}
                   onMouseEnter={e => { e.currentTarget.style.borderColor=c; e.currentTarget.style.transform='translateY(-4px)'; }}
                   onMouseLeave={e => { e.currentTarget.style.borderColor='var(--border)'; e.currentTarget.style.transform=''; }}>
                   <div style={{ width:50, height:50, borderRadius:14, background:`${c}14`, display:'flex', alignItems:'center', justifyContent:'center', fontSize:24, marginBottom:14 }}>👨‍🏫</div>
                   <h3 style={{ fontSize:17, fontWeight:800, color:c, marginBottom:5 }}>{batch}</h3>
-                  <p style={{ fontSize:13, color:'var(--text-muted)', marginBottom:14 }}>{count} teacher{count!==1?'s':''}</p>
+                  <p style={{ fontSize:13, color: 'var(--t3)', marginBottom:14 }}>{count} teacher{count!==1?'s':''}</p>
                   <div style={{ fontSize:12, color:c, fontWeight:700 }}>View teachers →</div>
                 </div>
               );
@@ -570,7 +574,7 @@ function TeachersTab() {
             <Btn variant="ghost" size="sm" onClick={() => setSelectedBatch(null)}>← Batches</Btn>
             <div style={{ flex:1 }}>
               <h1 style={{ fontSize:22, fontWeight:800 }}>{selectedBatch} — Teachers</h1>
-              <p style={{ color:'var(--text-muted)', fontSize:13 }}>{batchTeachers.length} teachers</p>
+              <p style={{ color: 'var(--t3)', fontSize:13 }}>{batchTeachers.length} teachers</p>
             </div>
             <Btn variant="primary" size="sm" onClick={() => openAdd(selectedBatch)}>+ Add Teacher</Btn>
           </div>
@@ -581,7 +585,7 @@ function TeachersTab() {
                 <tbody>
                   {batchTeachers.map(t => (
                     <tr key={t.id}>
-                      <td style={{ fontWeight:700, color:'var(--text-primary)', fontSize:13 }}>{t.name}</td>
+                      <td style={{ fontWeight:700, color: 'var(--t1)', fontSize:13 }}>{t.name}</td>
                       <td style={{ fontFamily:'var(--font-mono)', fontSize:12, color:'var(--accent)' }}>{t.username}</td>
                       <td style={{ fontSize:13 }}>{t.subject||'—'}</td>
                       <td><Btn variant="danger" size="sm" onClick={() => setDeleteId(t.id)}>Delete</Btn></td>
@@ -662,7 +666,10 @@ function PapersTab() {
   async function addManualQ(e) {
     e.preventDefault();
     if (!manualQ.question.trim()) { toast('Question required','warning'); return; }
-    const existing = Array.isArray(activePaper.questions) ? activePaper.questions : [];
+    // FIX: Re-fetch fresh paper to avoid stale closure overwriting concurrent changes
+    const allPapers  = await DB.getAll('papers');
+    const freshPaper = allPapers.find(p => p.id === activePaper.id) || activePaper;
+    const existing   = Array.isArray(freshPaper.questions) ? freshPaper.questions : [];
     const q = {
       id:           (crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`),
       question:     manualQ.question.trim(),
@@ -673,11 +680,15 @@ function PapersTab() {
       defaultLang:  manualQ.codingData?.defaultLang  || 'python',
       constraints:  manualQ.codingData?.constraints  || '',
       testCases:    manualQ.codingData?.testCases    || [],
-      options:      manualQ.type === 'mcq' ? manualQ.options.filter(o => o.trim())
+      options:      (manualQ.type === 'mcq' || manualQ.type === 'mcq-multiple' || manualQ.type === 'match') ? manualQ.options.filter(o => o.trim())
                   : manualQ.type === 'tf'  ? ['True','False'] : [],
-      correct:      parseInt(manualQ.correct) || 0,
+      correct:      manualQ.type === 'mcq-multiple'
+                  ? (Array.isArray(manualQ.correct) ? manualQ.correct.map(Number) : [parseInt(manualQ.correct) || 0])
+                  : manualQ.type === 'match'
+                    ? (Array.isArray(manualQ.correct) ? manualQ.correct : Array.from({ length: manualQ.options.filter(o => o.trim()).length }, (_, i) => i))
+                    : parseInt(manualQ.correct) || 0,
     };
-    await DB.update(`papers/${activePaper.id}`, { ...activePaper, questions:[...existing, q] });
+    await DB.update(`papers/${freshPaper.id}`, { ...freshPaper, questions:[...existing, q] });
     toast('Question added!','success');
     setManualQ({
       question: '', type: 'mcq', options: ['','','',''], correct: 0, description: '',
@@ -691,8 +702,11 @@ function PapersTab() {
     setImporting(true);
     try {
       const { questions: newQs, warnings } = await importQuestionsFromExcel(file);
-      const existing = Array.isArray(activePaper.questions) ? activePaper.questions : [];
-      await DB.update(`papers/${activePaper.id}`, { ...activePaper, questions:[...existing,...newQs] });
+      // FIX: Re-fetch the paper from DB to avoid stale activePaper closure bug
+      const allPapers   = await DB.getAll('papers');
+      const freshPaper  = allPapers.find(p => p.id === activePaper.id) || activePaper;
+      const existing    = Array.isArray(freshPaper.questions) ? freshPaper.questions : [];
+      await DB.update(`papers/${freshPaper.id}`, { ...freshPaper, questions:[...existing,...newQs] });
       if (warnings.length > 0) {
         toast(`⚠️ ${newQs.length} questions imported, ${warnings.length} blank row(s) skipped.`, 'warning');
       } else {
@@ -704,8 +718,11 @@ function PapersTab() {
   }
 
   async function removeQuestion(qId) {
-    const updated = (Array.isArray(activePaper.questions)?activePaper.questions:[]).filter(q => String(q.id)!==String(qId));
-    await DB.update(`papers/${activePaper.id}`, { ...activePaper, questions:updated });
+    // FIX: Re-fetch fresh paper to avoid stale closure overwriting concurrent changes
+    const allPapers  = await DB.getAll('papers');
+    const freshPaper = allPapers.find(p => p.id === activePaper.id) || activePaper;
+    const updated = (Array.isArray(freshPaper.questions) ? freshPaper.questions : []).filter(q => String(q.id) !== String(qId));
+    await DB.update(`papers/${freshPaper.id}`, { ...freshPaper, questions: updated });
     toast('Removed','success'); setDeleteQId(null); refreshActive();
   }
 
@@ -724,8 +741,8 @@ function PapersTab() {
 
   if (!papers) return <Loader />;
 
-  const typeLabels = { mcq:'MCQ', tf:'T/F', 'mcq-multiple':'Multi', fill:'Fill', essay:'Essay', coding:'Code' };
-  const typeColors = { mcq:'info', tf:'success', 'mcq-multiple':'warning', fill:'gold', essay:'danger', coding:'info' };
+  const typeLabels = { mcq:'MCQ', tf:'T/F', 'mcq-multiple':'Multi', fill:'Fill', match:'Match', essay:'Essay', coding:'Code' };
+  const typeColors = { mcq:'info', tf:'success', 'mcq-multiple':'warning', fill:'gold', match:'gold', essay:'danger', coding:'info' };
 
   /* Paper Detail */
   if (view==='detail' && activePaper) {
@@ -737,7 +754,7 @@ function PapersTab() {
           <div style={{ flex:1, minWidth:0 }}>
             <h2 style={{ fontSize:20, fontWeight:800 }}>{activePaper.title}</h2>
             <div style={{ display:'flex', gap:6, marginTop:3, flexWrap:'wrap' }}>
-              <span style={{ fontSize:12, color:'var(--text-muted)' }}>{activePaper.subject||'No subject'}</span>
+              <span style={{ fontSize:12, color: 'var(--t3)' }}>{activePaper.subject||'No subject'}</span>
               <Badge type="info">{activePaper.batch}</Badge>
               <Badge type="success">{qs.length} questions</Badge>
             </div>
@@ -756,7 +773,7 @@ function PapersTab() {
                 <tbody>
                   {qs.map((q,i) => (
                     <tr key={q.id||i}>
-                      <td style={{ color:'var(--text-muted)', fontWeight:600 }}>{i+1}</td>
+                      <td style={{ color: 'var(--t3)', fontWeight:600 }}>{i+1}</td>
                       <td style={{ fontSize:13 }}>{q.question?.substring(0,100)}{(q.question?.length||0)>100?'…':''}</td>
                       <td><Badge type={typeColors[q.type]||'info'}>{typeLabels[q.type]||q.type}</Badge></td>
                       <td><Btn variant="danger" size="sm" onClick={() => setDeleteQId(String(q.id||i))}>Remove</Btn></td>
@@ -779,25 +796,89 @@ function PapersTab() {
           {pickMode==='manual' && (
             <form onSubmit={addManualQ}>
               <Textarea label="Question *" value={manualQ.question} onChange={e => setManualQ(p => ({ ...p, question:e.target.value }))} rows={3} placeholder="Enter question..." />
-              <Select label="Type" value={manualQ.type} onChange={e => setManualQ(p => ({ ...p, type:e.target.value, correct:0 }))}>
-                <option value="mcq">MCQ</option>
+              <Select label="Type" value={manualQ.type} onChange={e => {
+                const nt = e.target.value;
+                setManualQ(p => ({
+                  ...p,
+                  type: nt,
+                  options: nt === 'match' ? [' | ', ' | ', ' | ', ' | '] : ['','','',''],
+                  correct: nt === 'mcq-multiple' ? [] : nt === 'match' ? [0, 1, 2, 3] : 0
+                }));
+              }}>
+                <option value="mcq">MCQ (Single-Select)</option>
+                <option value="mcq-multiple">Multi-Select MCQ</option>
                 <option value="tf">True / False</option>
                 <option value="fill">Fill in Blank</option>
+                <option value="match">Match the Following</option>
                 <option value="essay">Essay</option>
                 <option value="coding">Coding (HackerRank-style)</option>
               </Select>
-              {manualQ.type==='mcq' && manualQ.options.map((opt,i) => (
-                <div key={i} style={{ display:'flex', gap:8, marginBottom:8, alignItems:'center' }}>
-                  <input type="radio" name="mc" checked={manualQ.correct===i} onChange={() => setManualQ(p => ({ ...p, correct:i }))} style={{ width:16, height:16, flexShrink:0 }} />
-                  <input value={opt} onChange={e => { const o=[...manualQ.options]; o[i]=e.target.value; setManualQ(p => ({ ...p, options:o })); }} placeholder={`Option ${i+1}`} style={{ flex:1 }} />
+              {(manualQ.type === 'mcq' || manualQ.type === 'mcq-multiple') && manualQ.options.map((opt, i) => (
+                <div key={i} style={{ display: 'flex', gap: 8, marginBottom: 8, alignItems: 'center' }}>
+                  {manualQ.type === 'mcq' ? (
+                    <input type="radio" name="mc" checked={manualQ.correct === i} onChange={() => setManualQ(p => ({ ...p, correct: i }))} style={{ width: 16, height: 16, flexShrink: 0 }} />
+                  ) : (
+                    <input type="checkbox" checked={Array.isArray(manualQ.correct) && manualQ.correct.includes(i)} onChange={e => {
+                      const cur = Array.isArray(manualQ.correct) ? manualQ.correct : [];
+                      setManualQ(p => ({ ...p, correct: e.target.checked ? [...cur, i] : cur.filter(x => x !== i) }));
+                    }} style={{ width: 16, height: 16, flexShrink: 0 }} />
+                  )}
+                  <input value={opt} onChange={e => { const o = [...manualQ.options]; o[i] = e.target.value; setManualQ(p => ({ ...p, options: o })); }} placeholder={`Option ${i + 1}`} style={{ flex: 1 }} />
                 </div>
               ))}
-              {manualQ.type==='fill' && <Input label="Correct Answer" value={manualQ.options[0]||''} onChange={e => setManualQ(p => ({ ...p, options:[e.target.value] }))} />}
-              {manualQ.type==='coding' && (
+              {manualQ.type === 'tf' && (
+                <Select label="Correct Answer" value={manualQ.correct} onChange={e => setManualQ(p => ({ ...p, correct: parseInt(e.target.value) }))}>
+                  <option value={0}>True</option>
+                  <option value={1}>False</option>
+                </Select>
+              )}
+              {manualQ.type === 'fill' && <Input label="Correct Answer" value={manualQ.options[0] || ''} onChange={e => setManualQ(p => ({ ...p, options: [e.target.value] }))} />}
+              {manualQ.type === 'coding' && (
                 <CodingQuestionForm
                   value={manualQ.codingData}
                   onChange={data => setManualQ(p => ({ ...p, codingData: data }))}
                 />
+              )}
+              {manualQ.type === 'match' && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 16 }}>
+                  <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)' }}>Matching Pairs (Left side ⇄ Right side matches directly)</label>
+                  {manualQ.options.map((opt, i) => {
+                    const [leftVal, rightVal] = (opt || '').split('|').map(x => x.trim());
+                    return (
+                      <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+                        <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--t3)', width: 45 }}>Pair {i + 1}</span>
+                        <input
+                          value={leftVal || ''}
+                          onChange={e => {
+                            const o = [...manualQ.options];
+                            o[i] = `${e.target.value} | ${rightVal || ''}`;
+                            setManualQ(p => ({ ...p, options: o }));
+                          }}
+                          placeholder={`Left item ${i + 1}`}
+                          style={{ flex: 1, padding: '8px 10px', fontSize: 13, borderRadius: 6, border: '1.5px solid var(--border)', background: 'var(--bg2)' }}
+                        />
+                        <span style={{ fontWeight: 700 }}>⇄</span>
+                        <input
+                          value={rightVal || ''}
+                          onChange={e => {
+                            const o = [...manualQ.options];
+                            o[i] = `${leftVal || ''} | ${e.target.value}`;
+                            setManualQ(p => ({ ...p, options: o }));
+                          }}
+                          placeholder={`Right match ${i + 1}`}
+                          style={{ flex: 1, padding: '8px 10px', fontSize: 13, borderRadius: 6, border: '1.5px solid var(--border)', background: 'var(--bg2)' }}
+                        />
+                        <button type="button" onClick={() => {
+                          const o = manualQ.options.filter((_, idx) => idx !== i);
+                          setManualQ(p => ({ ...p, options: o }));
+                        }} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 16 }}>🗑️</button>
+                      </div>
+                    );
+                  })}
+                  <Btn variant="ghost" size="sm" type="button" onClick={() => setManualQ(p => ({ ...p, options: [...p.options, ' | '] }))} style={{ width: 'fit-content' }}>
+                    ➕ Add Pair
+                  </Btn>
+                </div>
               )}
               <div style={{ display:'flex', gap:12, marginTop:14 }}>
                 <Btn variant="ghost" onClick={() => setShowAddQ(false)} style={{ flex:1, justifyContent:'center' }}>Cancel</Btn>
@@ -808,22 +889,44 @@ function PapersTab() {
 
           {pickMode==='excel' && (
             <div style={{ padding:'16px 0' }}>
-              <div style={{ background:'#f8faff', border:'1px solid var(--border)', borderRadius:10, padding:'18px', marginBottom:18 }}>
-                <div style={{ fontSize:13, fontWeight:600, color:'var(--text-secondary)', marginBottom:8 }}>Template has 2 sheets:</div>
-                <div style={{ fontSize:12, color:'var(--text-muted)', lineHeight:1.8 }}>
-                  <strong>MCQ_Questions</strong> — mcq · tf · fill · essay<br/>
-                  <strong>Coding_Questions</strong> — coding with test cases (tc1_input, tc1_output, tc1_hidden...)<br/>
-                  <strong>correct</strong> = 0-indexed (0=A, 1=B, 2=C, 3=D). For fill, put answer in optionA.<br/>
-                  <strong>Input format:</strong> <code>"hello"</code> string · <code>42</code> number · <code>[1,2,3]</code> list · <code>(3,5)</code> two args
+              {/* Step 1: Download template */}
+              <div style={{ display:'flex', alignItems:'flex-start', gap:12, background: 'rgba(5,150,105,0.06)', border:'1.5px solid rgba(5,150,105,0.2)', borderRadius:10, padding:'14px 16px', marginBottom:12 }}>
+                <div style={{ width:28, height:28, borderRadius:'50%', background:'#059669', color:'white', display:'flex', alignItems:'center', justifyContent:'center', fontWeight:800, fontSize:13, flexShrink:0 }}>1</div>
+                <div style={{ flex:1 }}>
+                  <div style={{ fontSize:13, fontWeight:700, color:'#065f46', marginBottom:4 }}>Download the template</div>
+                  <div style={{ fontSize:12, color: 'var(--t3)', marginBottom:8, lineHeight:1.6 }}>
+                    <strong>MCQ_Questions</strong> sheet: mcq · tf · fill · essay &nbsp;|&nbsp; <strong>Coding_Questions</strong> sheet: coding with test cases
+                  </div>
+                  <Btn variant="ghost" size="sm" onClick={() => downloadQuestionTemplate()} style={{ fontSize:12 }}>📥 Download Template (.xlsx)</Btn>
                 </div>
               </div>
-              <div style={{ display:'flex', gap:10, justifyContent:'center', flexWrap:'wrap' }}>
-                <Btn variant="ghost" size="sm" onClick={() => downloadQuestionTemplate()}>
-                  📥 Download Template
-                </Btn>
-                <Btn variant="primary" onClick={() => paperExcelRef.current?.click()}>
-                  {importing ? <Spinner size={16} color="white" /> : '📤 Choose File to Upload'}
-                </Btn>
+
+              {/* Step 2: Upload */}
+              <div style={{ display:'flex', alignItems:'flex-start', gap:12, background: 'rgba(37,99,235,0.06)', border:'1.5px solid rgba(37,99,235,0.2)', borderRadius:10, padding:'14px 16px', marginBottom:16 }}>
+                <div style={{ width:28, height:28, borderRadius:'50%', background:'#2563eb', color:'white', display:'flex', alignItems:'center', justifyContent:'center', fontWeight:800, fontSize:13, flexShrink:0 }}>2</div>
+                <div style={{ flex:1 }}>
+                  <div style={{ fontSize:13, fontWeight:700, color:'#1e40af', marginBottom:4 }}>Upload your filled template</div>
+                  <div style={{ fontSize:12, color: 'var(--t3)', marginBottom:10 }}>Accepts .xlsx or .xls · All sheets imported automatically</div>
+                  {/* Drop zone */}
+                  <div
+                    onClick={() => !importing && paperExcelRef.current?.click()}
+                    onDragOver={e => { e.preventDefault(); e.currentTarget.style.borderColor='#2563eb'; e.currentTarget.style.background='rgba(37,99,235,0.08)'; }}
+                    onDragLeave={e => { e.currentTarget.style.borderColor='rgba(37,99,235,0.3)'; e.currentTarget.style.background='white'; }}
+                    onDrop={e => { e.preventDefault(); e.currentTarget.style.borderColor='rgba(37,99,235,0.3)'; e.currentTarget.style.background='white'; const f=e.dataTransfer.files[0]; if(f) addFromExcel({target:{files:[f]}}); }}
+                    style={{ border:'2px dashed rgba(37,99,235,0.3)', borderRadius:10, padding:'22px', textAlign:'center', cursor: importing?'wait':'pointer', background: 'var(--bg2)', transition:'all 0.2s' }}>
+                    {importing ? (
+                      <div style={{ display:'flex', alignItems:'center', justifyContent:'center', gap:10, color: 'var(--t3)' }}>
+                        <Spinner size={18} /> <span style={{ fontSize:13, fontWeight:600 }}>Importing questions…</span>
+                      </div>
+                    ) : (
+                      <>
+                        <div style={{ fontSize:28, marginBottom:6 }}>📤</div>
+                        <div style={{ fontSize:13, fontWeight:600, color:'#2563eb' }}>Click to browse or drag & drop</div>
+                        <div style={{ fontSize:11, color: 'var(--t3)', marginTop:3 }}>.xlsx · .xls accepted</div>
+                      </>
+                    )}
+                  </div>
+                </div>
               </div>
               <input ref={paperExcelRef} type="file" accept=".xlsx,.xls" style={{ display:'none' }} onChange={addFromExcel} />
             </div>
@@ -839,7 +942,7 @@ function PapersTab() {
         </Modal>
 
         <ConfirmModal open={!!deleteQId} onClose={() => setDeleteQId(null)} onConfirm={() => removeQuestion(deleteQId)} title="Remove Question" message="Remove this question from the paper?" confirmText="Remove" />
-        <ConfirmModal open={confirmClearAll} onClose={() => setConfirmClearAll(false)} onConfirm={async () => { await DB.update(`papers/${activePaper.id}`,{...activePaper,questions:[]}); toast('Cleared','success'); setConfirmClearAll(false); refreshActive(); }} title="Clear All Questions" message="Remove all questions from this paper?" confirmText="Clear All" />
+        <ConfirmModal open={confirmClearAll} onClose={() => setConfirmClearAll(false)} onConfirm={async () => { const ap = (await DB.getAll('papers')).find(p=>p.id===activePaper.id)||activePaper; await DB.update(`papers/${ap.id}`,{...ap,questions:[]}); toast('Cleared','success'); setConfirmClearAll(false); refreshActive(); }} title="Clear All Questions" message="Remove all questions from this paper?" confirmText="Clear All" />
         <ConfirmModal open={!!deleteId} onClose={() => setDeleteId(null)} onConfirm={() => deletePaper(deleteId)} title="Delete Paper" message="Delete this entire paper?" confirmText="Delete" />
       </div>
     );
@@ -851,7 +954,7 @@ function PapersTab() {
       <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:22 }}>
         <div>
           <h1 style={{ fontSize:22, fontWeight:800, marginBottom:3 }}>📋 Question Papers</h1>
-          <p style={{ color:'var(--text-muted)', fontSize:13 }}>{papers.length} papers</p>
+          <p style={{ color: 'var(--t3)', fontSize:13 }}>{papers.length} papers</p>
         </div>
         <Btn variant="primary" size="sm" onClick={() => setShowCreate(true)}>+ Create Paper</Btn>
       </div>
@@ -861,7 +964,7 @@ function PapersTab() {
           {papers.map(p => {
             const qs = Array.isArray(p.questions) ? p.questions : [];
             return (
-              <div key={p.id} style={{ background:'white', border:'1.5px solid var(--border)', borderRadius:16, padding:'22px', cursor:'pointer', transition:'all 0.2s', boxShadow:'0 2px 10px rgba(37,99,235,0.06)', display:'flex', flexDirection:'column' }}
+              <div key={p.id} style={{ background: 'var(--bg2)', border:'1.5px solid var(--border)', borderRadius:16, padding:'22px', cursor:'pointer', transition:'all 0.2s', boxShadow:'0 2px 10px rgba(37,99,235,0.06)', display:'flex', flexDirection:'column' }}
                 onMouseEnter={e => { e.currentTarget.style.borderColor='#2563eb'; e.currentTarget.style.transform='translateY(-2px)'; e.currentTarget.style.boxShadow='0 8px 24px rgba(37,99,235,0.13)'; }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor='var(--border)'; e.currentTarget.style.transform=''; e.currentTarget.style.boxShadow='0 2px 10px rgba(37,99,235,0.06)'; }}>
                 <div onClick={() => { setActivePaper(p); setView('detail'); }} style={{ flex:1 }}>
@@ -869,12 +972,12 @@ function PapersTab() {
                     <div style={{ width:44, height:44, borderRadius:12, background:'rgba(37,99,235,0.1)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:22 }}>📋</div>
                     <Badge type="info">{p.batch}</Badge>
                   </div>
-                  <h3 style={{ fontWeight:700, fontSize:15, marginBottom:4, color:'var(--text-primary)', lineHeight:1.3 }}>{p.title}</h3>
-                  <p style={{ fontSize:12, color:'var(--text-muted)', marginBottom:10 }}>{p.subject||'No subject'}</p>
-                  {p.description && <p style={{ fontSize:12, color:'var(--text-secondary)', marginBottom:10, lineHeight:1.5 }}>{p.description.substring(0,60)}{p.description.length>60?'…':''}</p>}
+                  <h3 style={{ fontWeight:700, fontSize:15, marginBottom:4, color: 'var(--t1)', lineHeight:1.3 }}>{p.title}</h3>
+                  <p style={{ fontSize:12, color: 'var(--t3)', marginBottom:10 }}>{p.subject||'No subject'}</p>
+                  {p.description && <p style={{ fontSize:12, color: 'var(--t2)', marginBottom:10, lineHeight:1.5 }}>{p.description.substring(0,60)}{p.description.length>60?'…':''}</p>}
                   <div style={{ display:'flex', gap:6, marginBottom:14, alignItems:'center' }}>
                     <Badge type="success">{qs.length} questions</Badge>
-                    <span style={{ fontSize:11, color:'var(--text-muted)' }}>{new Date(p.createdAt).toLocaleDateString()}</span>
+                    <span style={{ fontSize:11, color: 'var(--t3)' }}>{new Date(p.createdAt).toLocaleDateString()}</span>
                   </div>
                 </div>
                 <div style={{ display:'flex', gap:8 }}>
@@ -912,17 +1015,26 @@ function ScheduleForm({ form, setForm, papers, onSubmit, onCancel }) {
     <form onSubmit={onSubmit}>
       <Input label="Exam Title *" value={form.title} onChange={e => setForm(p => ({ ...p, title:e.target.value }))} placeholder="e.g. Unit Test 1 - Data Science" autoFocus />
 
-      {/* Paper link */}
+      {/* Paper link — FIX: show warning if no papers exist, clear dropdown feedback */}
       <div style={{ marginBottom:16 }}>
-        <label style={{ display:'block', marginBottom:6, fontSize:12, fontWeight:600, color:'var(--text-secondary)', textTransform:'uppercase', letterSpacing:'0.5px' }}>Link Question Paper</label>
-        <select value={form.paperId} onChange={e => setForm(p => ({ ...p, paperId:e.target.value }))}
-          style={{ width:'100%', padding:'10px 14px', borderRadius:8, border:'1.5px solid var(--border)', fontFamily:'var(--font-main)', fontSize:13, background:'#f8faff', color:'var(--text-primary)' }}>
-          <option value="">— No paper linked —</option>
-          {papers.map(p => <option key={p.id} value={p.id}>{p.title} ({Array.isArray(p.questions)?p.questions.length:0} questions) · {p.batch}</option>)}
-        </select>
+        <label style={{ display:'block', marginBottom:6, fontSize:12, fontWeight:600, color: 'var(--t2)', textTransform:'uppercase', letterSpacing:'0.5px' }}>
+          Link Question Paper {papers.length > 0 && <span style={{ color: 'var(--t3)', fontWeight:400, textTransform:'none' }}>({papers.length} available)</span>}
+        </label>
+        {papers.length === 0 ? (
+          <div style={{ padding:'12px 14px', background:'rgba(220,38,38,0.07)', border:'1.5px solid rgba(220,38,38,0.2)', borderRadius:8, fontSize:13, color:'#dc2626', fontWeight:500 }}>
+            ⚠️ No question papers found. Go to <strong>Papers</strong> tab and create a paper first, then come back here to link it.
+          </div>
+        ) : (
+          <select value={form.paperId} onChange={e => setForm(p => ({ ...p, paperId:e.target.value }))}
+            style={{ width:'100%', padding:'10px 14px', borderRadius:8, border:`1.5px solid ${form.paperId?'#059669':'var(--border)'}`, fontFamily:'var(--font-main)', fontSize:13, background: form.paperId?'#f0fdf4':'#f8faff', color: 'var(--t1)', transition:'all 0.2s' }}>
+            <option value="">— No paper linked (optional) —</option>
+            {papers.map(p => <option key={p.id} value={p.id}>{p.title} ({Array.isArray(p.questions)?p.questions.length:0} Qs) · {p.batch}</option>)}
+          </select>
+        )}
         {form.paperId && (
-          <div style={{ marginTop:6, fontSize:12, color:'var(--accent)', fontWeight:600 }}>
-            ✅ Linked: {papers.find(p => p.id===form.paperId)?.title}
+          <div style={{ marginTop:6, fontSize:12, color:'#059669', fontWeight:600, display:'flex', alignItems:'center', gap:6 }}>
+            ✅ Linked: <strong>{papers.find(p => p.id===form.paperId)?.title}</strong>
+            <span style={{ color: 'var(--t3)', fontWeight:400 }}>({(Array.isArray(papers.find(p=>p.id===form.paperId)?.questions)?papers.find(p=>p.id===form.paperId).questions.length:0)} questions)</span>
           </div>
         )}
       </div>
@@ -937,7 +1049,7 @@ function ScheduleForm({ form, setForm, papers, onSubmit, onCancel }) {
         <Input label="Start Date & Time *" type="datetime-local" value={form.startDateTime} onChange={e => setForm(p => ({ ...p, startDateTime:e.target.value }))} />
         <Input label="End Date & Time *"   type="datetime-local" value={form.endDateTime}   onChange={e => setForm(p => ({ ...p, endDateTime:e.target.value }))} />
       </div>
-      <Input label="No. of Questions (blank = all)" type="number" value={form.questionCount} onChange={e => setForm(p => ({ ...p, questionCount:e.target.value }))} />
+      <Input label="No. of Questions (blank = all, max 100)" type="number" value={form.questionCount} onChange={e => setForm(p => ({ ...p, questionCount:e.target.value }))} min="1" max="100" />
       <label style={{ display:'flex', alignItems:'center', gap:10, fontSize:13, cursor:'pointer', marginBottom:20, fontWeight:500 }}>
         <input type="checkbox" checked={form.randomize} onChange={e => setForm(p => ({ ...p, randomize:e.target.checked }))} style={{ width:16, height:16 }} />
         Randomize question order
@@ -954,8 +1066,9 @@ function ScheduleForm({ form, setForm, papers, onSubmit, onCancel }) {
    EXAM SCHEDULE  (batch drill-down + paper link)
 ══════════════════════════════════════════════ */
 function ExamScheduleTab() {
+  const { batchNames: BATCHES, allBatchNames: ALL_BATCHES, colorMap: BATCH_COLORS } = useBatches();
   const [exams,         setExams]         = useState(null);
-  const [papers,        setPapers]        = useState([]);
+  const [papers,        setPapers]        = useState(null); // FIX: null so loader waits for both
   const [selectedBatch, setSelectedBatch] = useState(null);
   const [showAdd,       setShowAdd]       = useState(false);
   const [deleteId,      setDeleteId]      = useState(null);
@@ -964,7 +1077,7 @@ function ExamScheduleTab() {
 
   const load = useCallback(async () => {
     const [e, p] = await Promise.all([DB.getAll('exam_schedule'), DB.getAll('papers')]);
-    setExams(e); setPapers(p);
+    setExams(e); setPapers(p); // FIX: both set atomically after Promise.all resolves
   }, []);
   useEffect(() => { load(); }, [load]);
 
@@ -972,6 +1085,10 @@ function ExamScheduleTab() {
     e.preventDefault();
     if (!form.title || !form.startDateTime || !form.endDateTime) { toast('Fill required fields','warning'); return; }
     if (new Date(form.endDateTime) <= new Date(form.startDateTime)) { toast('End time must be after start time','warning'); return; }
+    if (form.questionCount && (parseInt(form.questionCount) > 100 || parseInt(form.questionCount) < 1)) {
+      toast('No. of questions must be between 1 and 100','warning');
+      return;
+    }
     await DB.save('exam_schedule', { ...form, duration:parseInt(form.duration), questionCount:form.questionCount?parseInt(form.questionCount):null, createdAt:new Date().toISOString() });
     toast('Exam scheduled!','success'); setShowAdd(false); load();
   }
@@ -981,40 +1098,52 @@ function ExamScheduleTab() {
     setShowAdd(true);
   }
 
-  if (!exams) return <Loader />;
+  if (!exams || !papers) return <Loader />; // FIX: wait for BOTH exams AND papers to load
 
   /* Batch overview */
   if (!selectedBatch) {
+    const now = new Date();
+    const totalLive = exams.filter(e => now>=new Date(e.startDateTime) && now<=new Date(e.endDateTime)).length;
+    const totalUpcoming = exams.filter(e => new Date(e.startDateTime) > now).length;
     return (
       <div className="fade-in">
-        <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:22 }}>
+        <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:18 }}>
           <div>
             <h1 style={{ fontSize:22, fontWeight:800, marginBottom:3 }}>📝 Exam Schedule</h1>
-            <p style={{ color:'var(--text-muted)', fontSize:13 }}>{exams.length} total exams scheduled</p>
+            <div style={{ display:'flex', gap:10, flexWrap:'wrap' }}>
+              <span style={{ fontSize:12, color: 'var(--t3)' }}>{exams.length} total</span>
+              {totalLive>0 && <Badge type="danger">🔴 {totalLive} Live</Badge>}
+              {totalUpcoming>0 && <Badge type="warning">⏳ {totalUpcoming} Upcoming</Badge>}
+              {papers.length===0 && <Badge type="warning">⚠️ No papers — create papers first</Badge>}
+            </div>
           </div>
           <Btn variant="primary" size="sm" onClick={() => openAdd('All Batches')}>+ Schedule Exam</Btn>
         </div>
         <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(230px,1fr))', gap:16 }}>
-          <div onClick={() => setSelectedBatch('All Batches')} style={{ background:'white', border:'1.5px solid var(--border)', borderRadius:16, padding:'26px 22px', cursor:'pointer', transition:'all 0.2s', boxShadow:'0 2px 10px rgba(37,99,235,0.06)' }}
+          <div onClick={() => setSelectedBatch('All Batches')} style={{ background: 'var(--bg2)', border:'1.5px solid var(--border)', borderRadius:16, padding:'26px 22px', cursor:'pointer', transition:'all 0.2s', boxShadow:'0 2px 10px rgba(37,99,235,0.06)' }}
             onMouseEnter={e => { e.currentTarget.style.borderColor='#2563eb'; e.currentTarget.style.transform='translateY(-4px)'; }}
             onMouseLeave={e => { e.currentTarget.style.borderColor='var(--border)'; e.currentTarget.style.transform=''; }}>
             <div style={{ fontSize:32, marginBottom:12 }}>🌐</div>
             <h3 style={{ fontSize:17, fontWeight:800, color:'#2563eb', marginBottom:5 }}>All Batches</h3>
-            <p style={{ fontSize:13, color:'var(--text-muted)' }}>{exams.filter(e => e.batch==='All Batches').length} exams</p>
+            <p style={{ fontSize:13, color: 'var(--t3)' }}>{exams.filter(e => e.batch==='All Batches').length} exams</p>
           </div>
           {BATCHES.map(batch => {
             const bExams = exams.filter(e => e.batch===batch);
-            const now    = new Date();
             const live   = bExams.filter(e => now>=new Date(e.startDateTime) && now<=new Date(e.endDateTime)).length;
+            const upcoming = bExams.filter(e => new Date(e.startDateTime) > now).length;
             const c      = BATCH_COLORS[batch];
             return (
-              <div key={batch} onClick={() => setSelectedBatch(batch)} style={{ background:'white', border:'1.5px solid var(--border)', borderRadius:16, padding:'26px 22px', cursor:'pointer', transition:'all 0.2s', boxShadow:'0 2px 10px rgba(37,99,235,0.06)' }}
+              <div key={batch} onClick={() => setSelectedBatch(batch)} style={{ background: 'var(--bg2)', border:'1.5px solid var(--border)', borderRadius:16, padding:'26px 22px', cursor:'pointer', transition:'all 0.2s', boxShadow:'0 2px 10px rgba(37,99,235,0.06)' }}
                 onMouseEnter={e => { e.currentTarget.style.borderColor=c; e.currentTarget.style.transform='translateY(-4px)'; }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor='var(--border)'; e.currentTarget.style.transform=''; }}>
                 <div style={{ fontSize:32, marginBottom:12 }}>📝</div>
                 <h3 style={{ fontSize:17, fontWeight:800, color:c, marginBottom:5 }}>{batch}</h3>
-                <p style={{ fontSize:13, color:'var(--text-muted)', marginBottom:8 }}>{bExams.length} exams</p>
-                {live>0 && <Badge type="danger">🔴 {live} Live</Badge>}
+                <p style={{ fontSize:13, color: 'var(--t3)', marginBottom:8 }}>{bExams.length} exams total</p>
+                <div style={{ display:'flex', gap:6, flexWrap:'wrap' }}>
+                  {live>0 && <Badge type="danger">🔴 {live} Live</Badge>}
+                  {upcoming>0 && <Badge type="warning">⏳ {upcoming} Upcoming</Badge>}
+                  {live===0 && upcoming===0 && bExams.length>0 && <Badge type="success">All ended</Badge>}
+                </div>
               </div>
             );
           })}
@@ -1028,42 +1157,63 @@ function ExamScheduleTab() {
 
   /* Batch exam list */
   const batchExams = exams.filter(e => e.batch===selectedBatch);
+  const now2 = new Date();
   return (
     <div className="fade-in">
-      <div style={{ display:'flex', alignItems:'center', gap:12, marginBottom:22 }}>
+      <div style={{ display:'flex', alignItems:'center', gap:12, marginBottom:18 }}>
         <Btn variant="ghost" size="sm" onClick={() => setSelectedBatch(null)}>← Batches</Btn>
         <div style={{ flex:1 }}>
           <h1 style={{ fontSize:22, fontWeight:800 }}>{selectedBatch} — Exams</h1>
-          <p style={{ color:'var(--text-muted)', fontSize:13 }}>{batchExams.length} exams scheduled</p>
+          <p style={{ color: 'var(--t3)', fontSize:13 }}>{batchExams.length} exams scheduled</p>
         </div>
         <Btn variant="primary" size="sm" onClick={() => openAdd(selectedBatch)}>+ Schedule Exam</Btn>
       </div>
 
+      {papers.length===0 && (
+        <div style={{ padding:'12px 16px', background:'rgba(245,158,11,0.08)', border:'1.5px solid rgba(245,158,11,0.25)', borderRadius:10, fontSize:13, color:'#92400e', fontWeight:500, marginBottom:16 }}>
+          ⚠️ No question papers found. <strong>Papers tab → Create Paper</strong> first, then link it here when scheduling.
+        </div>
+      )}
+
       {batchExams.length===0 ? <Card><EmptyState icon="📝" text={`No exams scheduled for ${selectedBatch}`} /></Card> : (
-        <Card style={{ padding:0 }}>
-          <table className="data-table">
-            <thead><tr><th>Title</th><th>Linked Paper</th><th>Start</th><th>End</th><th>Duration</th><th>Status</th><th>Actions</th></tr></thead>
-            <tbody>
-              {batchExams.map(ex => {
-                const now    = new Date();
-                const start  = new Date(ex.startDateTime), end = new Date(ex.endDateTime);
-                const status = now>=start && now<=end ? 'live' : now<start ? 'upcoming' : 'ended';
-                const linked = papers.find(p => p.id===ex.paperId);
-                return (
-                  <tr key={ex.id}>
-                    <td style={{ fontWeight:700, fontSize:13 }}>{ex.title}</td>
-                    <td style={{ fontSize:12 }}>{linked ? <Badge type="success">📋 {linked.title}</Badge> : <span style={{ color:'var(--text-muted)' }}>—</span>}</td>
-                    <td style={{ fontSize:12 }}>{start.toLocaleString()}</td>
-                    <td style={{ fontSize:12 }}>{end.toLocaleString()}</td>
-                    <td style={{ fontWeight:600 }}>{ex.duration} min</td>
-                    <td><Badge type={status==='live'?'danger':status==='upcoming'?'warning':'info'}>{status==='live'?'🔴 Live':status==='upcoming'?'⏳ Upcoming':'✅ Ended'}</Badge></td>
-                    <td><Btn variant="danger" size="sm" onClick={() => setDeleteId(ex.id)}>Delete</Btn></td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </Card>
+        <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
+          {batchExams.map(ex => {
+            const start  = new Date(ex.startDateTime), end = new Date(ex.endDateTime);
+            const status = now2>=start && now2<=end ? 'live' : now2<start ? 'upcoming' : 'ended';
+            const linked = papers.find(p => p.id===ex.paperId);
+            const statusColor = status==='live'?'#dc2626':status==='upcoming'?'#d97706':'#059669';
+            const statusBg    = status==='live'?'rgba(220,38,38,0.07)':status==='upcoming'?'rgba(217,119,6,0.07)':'rgba(5,150,105,0.07)';
+            return (
+              <div key={ex.id} style={{ background: 'var(--bg2)', border:`1.5px solid ${status==='live'?'rgba(220,38,38,0.25)':'var(--border)'}`, borderRadius:14, padding:'16px 20px', display:'flex', alignItems:'center', gap:16, flexWrap:'wrap', boxShadow: status==='live'?'0 2px 12px rgba(220,38,38,0.1)':'0 1px 4px rgba(0,0,0,0.04)' }}>
+                {/* Status pill */}
+                <div style={{ background:statusBg, color:statusColor, borderRadius:8, padding:'6px 12px', fontSize:12, fontWeight:700, flexShrink:0 }}>
+                  {status==='live'?'🔴 LIVE':status==='upcoming'?'⏳ Upcoming':'✅ Ended'}
+                </div>
+                {/* Main info */}
+                <div style={{ flex:1, minWidth:160 }}>
+                  <div style={{ fontWeight:800, fontSize:14, marginBottom:4 }}>{ex.title}</div>
+                  <div style={{ fontSize:12, color: 'var(--t3)', display:'flex', gap:10, flexWrap:'wrap' }}>
+                    <span>⏱ {ex.duration} min</span>
+                    <span>📅 {start.toLocaleDateString()} {start.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}</span>
+                    <span>→ {end.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}</span>
+                    {ex.questionCount && <span>❓ {ex.questionCount} Qs</span>}
+                  </div>
+                </div>
+                {/* Linked paper */}
+                <div style={{ flexShrink:0 }}>
+                  {linked
+                    ? <div style={{ background:'rgba(5,150,105,0.08)', border:'1px solid rgba(5,150,105,0.2)', borderRadius:8, padding:'5px 10px', fontSize:12, color:'#065f46', fontWeight:600 }}>
+                        📋 {linked.title} <span style={{ color: 'var(--t3)', fontWeight:400 }}>({Array.isArray(linked.questions)?linked.questions.length:0} Qs)</span>
+                      </div>
+                    : <div style={{ fontSize:12, color: 'var(--t3)', fontStyle:'italic' }}>No paper linked</div>
+                  }
+                </div>
+                {/* Delete */}
+                <Btn variant="danger" size="sm" onClick={() => setDeleteId(ex.id)} style={{ flexShrink:0 }}>🗑 Delete</Btn>
+              </div>
+            );
+          })}
+        </div>
       )}
 
       <Modal open={showAdd} onClose={() => setShowAdd(false)} title="Schedule Exam" wide>
@@ -1078,6 +1228,7 @@ function ExamScheduleTab() {
    RESULTS  (with visibility control + answer sheets)
 ══════════════════════════════════════════════ */
 function ResultsTab() {
+  const { batchNames: BATCHES, colorMap: BATCH_COLORS } = useBatches();
   const [subTab,      setSubTab]      = useState('visibility'); // 'visibility' | 'results'
   const [results,     setResults]     = useState(null);
   const [sheets,      setSheets]      = useState(null);
@@ -1159,15 +1310,15 @@ function ResultsTab() {
 
       {/* ── Visibility Control Sub-tab ── */}
       {subTab === 'visibility' && (
-      <Card style={{ marginBottom:20, border:'1.5px solid rgba(37,99,235,0.2)', background:'#f8faff' }}>
+      <Card style={{ marginBottom:20, border:'1.5px solid rgba(37,99,235,0.2)', background: 'var(--bg3)' }}>
         <div style={{ display:'flex', alignItems:'center', gap:10, marginBottom:14 }}>
           <div style={{ width:36, height:36, borderRadius:10, background:'rgba(37,99,235,0.1)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:18 }}>🔐</div>
           <div>
             <h3 style={{ fontWeight:700, fontSize:14 }}>Result Visibility Control</h3>
-            <p style={{ fontSize:12, color:'var(--text-muted)' }}>Students cannot see results until you press Reveal. Admin always has full access.</p>
+            <p style={{ fontSize:12, color: 'var(--t3)' }}>Students cannot see results until you press Reveal. Admin always has full access.</p>
           </div>
         </div>
-        {examGroups2.length===0 ? <p style={{ fontSize:13, color:'var(--text-muted)' }}>No exam results yet</p> : (
+        {examGroups2.length===0 ? <p style={{ fontSize:13, color: 'var(--t3)' }}>No exam results yet</p> : (
           <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
             {examGroups2.map(eg => {
               const revealed = !!revealMap[eg.id];
@@ -1175,7 +1326,7 @@ function ResultsTab() {
                 <div key={eg.id} style={{ display:'flex', alignItems:'center', justifyContent:'space-between', padding:'11px 14px', background:revealed?'rgba(5,150,105,0.07)':'rgba(220,38,38,0.05)', border:`1.5px solid ${revealed?'rgba(5,150,105,0.2)':'rgba(220,38,38,0.15)'}`, borderRadius:10 }}>
                   <div>
                     <div style={{ fontWeight:600, fontSize:13 }}>{eg.title}</div>
-                    <div style={{ fontSize:11, color:'var(--text-muted)', marginTop:2 }}>{eg.count} submission{eg.count!==1?'s':''} · {revealed?'✅ Visible to students':'🔒 Hidden from students'}</div>
+                    <div style={{ fontSize:11, color: 'var(--t3)', marginTop:2 }}>{eg.count} submission{eg.count!==1?'s':''} · {revealed?'✅ Visible to students':'🔒 Hidden from students'}</div>
                   </div>
                   <Btn variant={revealed?'danger':'success'} size="sm" disabled={togglingId===eg.id} onClick={() => toggleReveal(eg.id, eg.title)}>
                     {togglingId===eg.id ? <Spinner size={12} color="white" /> : revealed ? '🔒 Hide Results' : '👁 Reveal Results'}
@@ -1190,22 +1341,127 @@ function ResultsTab() {
       )}
 
       {/* ── Student Results Sub-tab ── */}
-      {subTab === 'results' && (
-      <div>
-      <div style={{ display:'flex', gap:10, marginBottom:16, flexWrap:'wrap', alignItems:'center' }}>
-        <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search student name or reg no…"
-          style={{ flex:1, minWidth:200, padding:'8px 12px', fontSize:13, borderRadius:8, border:'1.5px solid var(--border)', background:'white', fontFamily:'var(--font-main)' }} />
-        <select value={filterBatch} onChange={e => setFilterBatch(e.target.value)} style={{ width:'auto', padding:'8px 12px', fontSize:13, borderRadius:8, border:'1.5px solid var(--border)', background:'white', fontFamily:'var(--font-main)' }}>
-          <option value="all">All Batches</option>{BATCHES.map(b => <option key={b} value={b}>{b}</option>)}
-        </select>
-        <select value={filterExam} onChange={e => setFilterExam(e.target.value)} style={{ width:'auto', padding:'8px 12px', fontSize:13, borderRadius:8, border:'1.5px solid var(--border)', background:'white', fontFamily:'var(--font-main)' }}>
-          <option value="all">All Exams</option>{[...new Set((results||[]).map(r=>r.examTitle).filter(Boolean))].map(e => <option key={e} value={e}>{e}</option>)}
-        </select>
-        <span style={{ fontSize:13, color:'var(--text-muted)' }}>{filtered.length} results</span>
-      </div>
+      {subTab === 'results' && (() => {
+        const avg = filtered.length
+          ? (filtered.reduce((a, r) => a + parseFloat(r.percentage || 0), 0) / filtered.length).toFixed(1)
+          : 0;
+        const passCount = filtered.filter(r => parseFloat(r.percentage) >= 50).length;
+        const failCount = filtered.length - passCount;
+        const passRate = filtered.length ? ((passCount / filtered.length) * 100).toFixed(0) : 0;
 
-      <Card style={{ padding:0 }}>
-        {filtered.length===0 ? <div style={{ padding:32 }}><EmptyState icon="📊" text="No results found" /></div> : (
+        const gradesList = filtered.map(r => r.grade).filter(Boolean);
+        const totalGrades = gradesList.length;
+        const gradeCounts = { 'A+': 0, 'A': 0, 'B': 0, 'C': 0, 'D': 0, 'F': 0 };
+        gradesList.forEach(g => {
+          if (gradeCounts[g] !== undefined) gradeCounts[g]++;
+        });
+
+        const gradeColors = {
+          'A+': '#10b981',
+          'A': '#3b82f6',
+          'B': '#6366f1',
+          'C': '#f59e0b',
+          'D': '#f97316',
+          'F': '#ef4444'
+        };
+
+        return (
+          <div>
+            <div style={{ display:'flex', gap:10, marginBottom:16, flexWrap:'wrap', alignItems:'center' }}>
+              <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search student name or reg no…"
+                style={{ flex:1, minWidth:200, padding:'8px 12px', fontSize:13, borderRadius:8, border:'1.5px solid var(--border)', background: 'var(--bg2)', fontFamily:'var(--font-main)' }} />
+              <select value={filterBatch} onChange={e => setFilterBatch(e.target.value)} style={{ width:'auto', padding:'8px 12px', fontSize:13, borderRadius:8, border:'1.5px solid var(--border)', background: 'var(--bg2)', fontFamily:'var(--font-main)' }}>
+                <option value="all">All Batches</option>{BATCHES.map(b => <option key={b} value={b}>{b}</option>)}
+              </select>
+              <select value={filterExam} onChange={e => setFilterExam(e.target.value)} style={{ width:'auto', padding:'8px 12px', fontSize:13, borderRadius:8, border:'1.5px solid var(--border)', background: 'var(--bg2)', fontFamily:'var(--font-main)' }}>
+                <option value="all">All Exams</option>{[...new Set((results||[]).map(r=>r.examTitle).filter(Boolean))].map(e => <option key={e} value={e}>{e}</option>)}
+              </select>
+              <span style={{ fontSize:13, color: 'var(--t3)' }}>{filtered.length} results</span>
+            </div>
+
+            {/* Visual Analytics Dashboard Card */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: window.innerWidth < 768 ? '1fr' : '1fr 1fr',
+              gap: 20,
+              marginBottom: 20,
+              background: 'var(--bg2)',
+              border: '1px solid var(--border)',
+              borderRadius: 12,
+              padding: 20,
+              boxShadow: '0 1px 6px rgba(37,99,235,0.04)'
+            }}>
+              {/* Grade Distribution */}
+              <div>
+                <h4 style={{ fontSize: 13, fontWeight: 700, color: 'var(--t2)', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 6 }}>
+                  📊 Grade Distribution
+                </h4>
+                {totalGrades > 0 ? (
+                  <>
+                    <div style={{ display: 'flex', height: 12, borderRadius: 6, overflow: 'hidden', background: '#f1f5f9', marginBottom: 16 }}>
+                      {Object.entries(gradeCounts).map(([grade, count]) => {
+                        const pct = (count / totalGrades) * 100;
+                        if (count === 0) return null;
+                        return (
+                          <div
+                            key={grade}
+                            style={{
+                              width: `${pct}%`,
+                              background: gradeColors[grade],
+                              height: '100%',
+                              transition: 'all 0.3s'
+                            }}
+                            title={`${grade}: ${count} (${pct.toFixed(0)}%)`}
+                          />
+                        );
+                      })}
+                    </div>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+                      {Object.entries(gradeCounts).map(([grade, count]) => {
+                        if (count === 0) return null;
+                        const pct = ((count / totalGrades) * 100).toFixed(0);
+                        return (
+                          <div key={grade} style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 11, fontWeight: 600 }}>
+                            <span style={{ width: 8, height: 8, borderRadius: '50%', background: gradeColors[grade] }} />
+                            <span style={{ color: 'var(--t3)' }}>{grade}:</span>
+                            <span style={{ color: 'var(--t1)' }}>{count} ({pct}%)</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </>
+                ) : (
+                  <div style={{ fontSize: 12, color: 'var(--t3)', fontStyle: 'italic', padding: '10px 0' }}>No grade data available</div>
+                )}
+              </div>
+
+              {/* Pass/Fail Metrics */}
+              <div>
+                <h4 style={{ fontSize: 13, fontWeight: 700, color: 'var(--t2)', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 6 }}>
+                  📈 Pass / Fail Metrics
+                </h4>
+                {filtered.length > 0 ? (
+                  <>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, fontWeight: 700, marginBottom: 6 }}>
+                      <span style={{ color: 'var(--success)' }}>Passed: {passCount} ({passRate}%)</span>
+                      <span style={{ color: 'var(--danger)' }}>Failed: {failCount} ({100 - passRate}%)</span>
+                    </div>
+                    <div style={{ display: 'flex', height: 12, borderRadius: 6, overflow: 'hidden', background: '#f1f5f9', marginBottom: 16 }}>
+                      <div style={{ width: `${passRate}%`, background: 'var(--success)', height: '100%' }} />
+                      <div style={{ width: `${100 - passRate}%`, background: 'var(--danger)', height: '100%' }} />
+                    </div>
+                    <div style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 500 }}>
+                      Minimum passing score is 50%. Filtered average score is <strong style={{ color: 'var(--accent)' }}>{avg}%</strong>.
+                    </div>
+                  </>
+                ) : (
+                  <div style={{ fontSize: 12, color: 'var(--t3)', fontStyle: 'italic', padding: '10px 0' }}>No results available</div>
+                )}
+              </div>
+            </div>
+
+            <Card style={{ padding:0 }}>
+              {filtered.length===0 ? <div style={{ padding:32 }}><EmptyState icon="📊" text="No results found" /></div> : (
           <div style={{ overflowX:'auto' }}>
             <table className="data-table">
               <thead><tr><th>Student</th><th>Reg No.</th><th>Batch</th><th>Exam</th><th>Score</th><th>%</th><th>Grade</th><th>Tab Switches</th><th>Date</th><th>Sheet</th><th></th></tr></thead>
@@ -1222,8 +1478,8 @@ function ResultsTab() {
                       <td><Badge type={parseFloat(r.percentage)>=50?'success':'danger'}>{r.percentage}</Badge></td>
                       <td style={{ fontWeight:800, color:parseFloat(r.percentage)>=50?'var(--success)':'var(--danger)', fontSize:14 }}>{r.grade}</td>
                       <td><Badge type={r.tabSwitches>0?'warning':'success'}>{r.tabSwitches||0}</Badge></td>
-                      <td style={{ fontSize:12, color:'var(--text-muted)' }}>{new Date(r.submittedAt).toLocaleDateString()}</td>
-                      <td>{sheet ? <Btn variant="ghost" size="sm" onClick={() => setViewSheet(sheet)}>📄 View</Btn> : <span style={{ color:'var(--text-muted)', fontSize:11 }}>—</span>}</td>
+                      <td style={{ fontSize:12, color: 'var(--t3)' }}>{new Date(r.submittedAt).toLocaleDateString()}</td>
+                      <td>{sheet ? <Btn variant="ghost" size="sm" onClick={() => setViewSheet(sheet)}>📄 View</Btn> : <span style={{ color: 'var(--t3)', fontSize:11 }}>—</span>}</td>
                       <td><Btn variant="danger" size="sm" onClick={() => setDeleteResultId(r.id)}>🗑️</Btn></td>
                     </tr>
                   );
@@ -1235,7 +1491,8 @@ function ResultsTab() {
       </Card>
 
       </div>
-      )}
+      );
+      })()}
 
       {/* Answer Sheet Modal */}
       <Modal open={!!viewSheet} onClose={() => setViewSheet(null)} title={`📄 ${viewSheet?.studentName} — ${viewSheet?.examTitle}`} wide>
@@ -1243,32 +1500,140 @@ function ResultsTab() {
           <div>
             <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:10, marginBottom:18 }}>
               {[['Student',viewSheet.studentName],['Register No',viewSheet.studentId],['Exam',viewSheet.examTitle],['Score',viewSheet.score||'—'],['Grade',viewSheet.grade||'—'],['Tab Switches',String(viewSheet.tabSwitches||0)]].map(([k,v]) => (
-                <div key={k} style={{ background:'#f8faff', padding:'10px 12px', borderRadius:8, border:'1px solid var(--border)' }}>
-                  <div style={{ fontSize:10, fontWeight:700, textTransform:'uppercase', letterSpacing:'0.5px', color:'var(--text-muted)', marginBottom:3 }}>{k}</div>
-                  <div style={{ fontWeight:600, fontSize:13, color:'var(--text-primary)' }}>{v}</div>
+                <div key={k} style={{ background: 'var(--bg3)', padding:'10px 12px', borderRadius:8, border:'1px solid var(--border)' }}>
+                  <div style={{ fontSize:10, fontWeight:700, textTransform:'uppercase', letterSpacing:'0.5px', color: 'var(--t3)', marginBottom:3 }}>{k}</div>
+                  <div style={{ fontWeight:600, fontSize:13, color: 'var(--t1)' }}>{v}</div>
                 </div>
               ))}
             </div>
-            <h4 style={{ fontWeight:700, fontSize:12, marginBottom:10, color:'var(--text-muted)', textTransform:'uppercase', letterSpacing:'0.5px' }}>Student Answers</h4>
+            <h4 style={{ fontWeight:700, fontSize:12, marginBottom:10, color: 'var(--t3)', textTransform:'uppercase', letterSpacing:'0.5px' }}>Student Answers</h4>
             {viewSheet.answers && Object.keys(viewSheet.answers).length>0 ? (
               <div style={{ maxHeight:400, overflowY:'auto', display:'flex', flexDirection:'column', gap:8 }}>
                 {Object.entries(viewSheet.answers).sort(([a],[b]) => a.localeCompare(b,undefined,{numeric:true})).map(([key,ans]) => (
-                  <div key={key} style={{ background:'#f8faff', border:'1px solid var(--border)', borderRadius:10, padding:'11px 13px' }}>
+                  <div key={key} style={{ background: 'var(--bg3)', border:'1px solid var(--border)', borderRadius:10, padding:'11px 13px' }}>
                     <div style={{ display:'flex', justifyContent:'space-between', marginBottom:6 }}>
-                      <span style={{ fontWeight:700, fontSize:13, color:'var(--text-secondary)' }}>Q{key.replace('q','')}</span>
-                      {ans.answeredAt && <span style={{ fontSize:11, color:'var(--text-muted)' }}>{new Date(ans.answeredAt).toLocaleTimeString()}</span>}
+                      <span style={{ fontWeight:700, fontSize:13, color: 'var(--t2)' }}>Q{key.replace('q','')}</span>
+                      {ans.answeredAt && <span style={{ fontSize:11, color: 'var(--t3)' }}>{new Date(ans.answeredAt).toLocaleTimeString()}</span>}
                     </div>
-                    {ans.question && <div style={{ fontSize:12, color:'var(--text-secondary)', marginBottom:6, fontWeight:500 }}>{ans.question}</div>}
-                    <div style={{ background:'white', padding:'9px 11px', borderRadius:7, border:'1px solid var(--border)', fontFamily:typeof ans.answer==='string'&&ans.answer.includes('\n')?'var(--font-mono)':'inherit', fontSize:13, color:'var(--text-primary)', whiteSpace:'pre-wrap', lineHeight:1.7 }}>
-                      {typeof ans.answer==='string' ? ans.answer||'(No answer)' : JSON.stringify(ans.answer)}
-                    </div>
+                    {ans.question && <div style={{ fontSize:12, color: 'var(--t2)', marginBottom:6, fontWeight:500 }}>{ans.question}</div>}
+                    {(() => {
+                      const isMcq = ans.questionType === 'mcq' || ans.questionType === 'mcq-multiple' || ans.questionType === 'tf';
+                      if (isMcq && Array.isArray(ans.options)) {
+                        const isMulti = ans.questionType === 'mcq-multiple';
+                        const correctSet = new Set(
+                          Array.isArray(ans.correct) 
+                            ? ans.correct.map(String) 
+                            : [String(ans.correct ?? '')]
+                        );
+                        const answerSet = new Set(
+                          Array.isArray(ans.answer) 
+                            ? ans.answer.map(String) 
+                            : [String(ans.answer ?? '')]
+                        );
+
+                        return (
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 4 }}>
+                            {ans.options.map((opt, i) => {
+                              const idxStr = String(i);
+                              const isCorrect = correctSet.has(idxStr);
+                              const isSelected = answerSet.has(idxStr);
+                              
+                              let border = '1px solid var(--border)';
+                              let bg = 'white';
+                              let badge = null;
+                              
+                              if (isCorrect && isSelected) {
+                                border = '2px solid var(--success)';
+                                bg = 'rgba(5, 150, 105, 0.08)';
+                                badge = <span style={{ color: 'var(--success)', fontWeight: 700, marginLeft: 'auto', fontSize: 11 }}>✓ Selected & Correct</span>;
+                              } else if (isCorrect) {
+                                border = '2px solid var(--success)';
+                                bg = 'rgba(5, 150, 105, 0.03)';
+                                badge = <span style={{ color: 'var(--success)', fontWeight: 700, marginLeft: 'auto', fontSize: 11 }}>✓ Correct Option</span>;
+                              } else if (isSelected) {
+                                border = '2px solid var(--danger)';
+                                bg = 'rgba(220, 38, 38, 0.08)';
+                                badge = <span style={{ color: 'var(--danger)', fontWeight: 700, marginLeft: 'auto', fontSize: 11 }}>✗ Selected (Incorrect)</span>;
+                              }
+                              
+                              return (
+                                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', border, borderRadius: 8, background: bg, fontSize: 13 }}>
+                                  <div style={{ width: 18, height: 18, borderRadius: isMulti ? 4 : '50%', border: '1.5px solid #cbd5e1', background: isSelected ? 'var(--accent)' : 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                    {isSelected && <span style={{ color: 'white', fontSize: 10 }}>{isMulti ? '✓' : '•'}</span>}
+                                  </div>
+                                  <span style={{ fontWeight: isSelected || isCorrect ? 600 : 400, color: 'var(--t1)' }}>{opt}</span>
+                                  {badge}
+                                </div>
+                              );
+                            })}
+                          </div>
+                        );
+                      }
+
+                      if (ans.questionType === 'match' && Array.isArray(ans.options)) {
+                        const studentAnswerObj = ans.answer || {};
+                        return (
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 4 }}>
+                            {ans.options.map((opt, i) => {
+                              const [leftVal, rightVal] = opt.split('|').map(x => x.trim());
+                              const selectedIdx = studentAnswerObj[i];
+                              const studentMatchedText = selectedIdx !== undefined && ans.options[selectedIdx]
+                                ? ans.options[selectedIdx].split('|')[1]?.trim()
+                                : null;
+                              
+                              const isCorrect = selectedIdx !== undefined && parseInt(selectedIdx) === i;
+                              const bg = isCorrect ? 'rgba(5, 150, 105, 0.08)' : (selectedIdx === undefined ? '#f8faff' : 'rgba(220, 38, 38, 0.08)');
+                              const border = isCorrect ? '2px solid var(--success)' : (selectedIdx === undefined ? '1px solid var(--border)' : '2px solid var(--danger)');
+
+                              return (
+                                <div key={i} style={{ padding: '10px 12px', border, borderRadius: 8, background: bg, fontSize: 13 }}>
+                                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <span style={{ fontWeight: 600 }}>{leftVal}</span>
+                                    <span style={{ fontWeight: 700 }}>⇄</span>
+                                    <span style={{
+                                      color: isCorrect ? 'var(--success)' : (selectedIdx === undefined ? 'var(--text-muted)' : 'var(--danger)'),
+                                      fontWeight: 600
+                                    }}>
+                                      {studentMatchedText || '(No answer)'}
+                                    </span>
+                                  </div>
+                                  {!isCorrect && (
+                                    <div style={{ marginTop: 6, fontSize: 11, color: 'var(--success)', fontWeight: 600 }}>
+                                      💡 Expected match: <strong>{rightVal}</strong>
+                                    </div>
+                                  )}
+                                </div>
+                              );
+                            })}
+                          </div>
+                        );
+                      }
+
+                      const isCode = ans.questionType === 'coding' || (typeof ans.answer === 'string' && ans.answer.includes('\n'));
+                      return (
+                        <div>
+                          <div style={{
+                            background: 'var(--bg2)', padding: '9px 11px', borderRadius: 7, border: '1px solid var(--border)',
+                            fontFamily: isCode ? 'var(--font-mono)' : 'inherit',
+                            fontSize: 13, color: 'var(--t1)', whiteSpace: 'pre-wrap', lineHeight: 1.7
+                          }}>
+                            {typeof ans.answer === 'string' ? ans.answer || '(No answer)' : JSON.stringify(ans.answer)}
+                          </div>
+                          {ans.questionType === 'fill' && ans.options && ans.options[0] && (
+                            <div style={{ marginTop: 6, fontSize: 12, color: 'var(--success)', fontWeight: 600 }}>
+                              💡 Expected correct answer: <strong>{ans.options[0]}</strong>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })()}
                     {viewSheet.teacherGrades?.[key] && (
                       <div style={{ marginTop:6, fontSize:12, color:'var(--success)', fontWeight:700 }}>✅ Teacher grade: {viewSheet.teacherGrades[key]} pts</div>
                     )}
                   </div>
                 ))}
               </div>
-            ) : <p style={{ color:'var(--text-muted)', fontSize:13, padding:'14px 0' }}>No answers recorded.</p>}
+            ) : <p style={{ color: 'var(--t3)', fontSize:13, padding:'14px 0' }}>No answers recorded.</p>}
           </div>
         )}
       </Modal>
@@ -1289,6 +1654,7 @@ function ResultsTab() {
    NOTES  (sem dropdown for admin upload)
 ══════════════════════════════════════════════ */
 function NotesTab() {
+  const { allBatchNames: ALL_BATCHES } = useBatches();
   const [notes,     setNotes]     = useState(null);
   const [form, setForm] = useState({ title:'', subject:'', description:'', batch:'All Batches', semester:'' });
   const [file,      setFile]      = useState(null);
@@ -1362,18 +1728,18 @@ function NotesTab() {
           </div>
           <Textarea label="Description" value={form.description} onChange={e => setForm(p => ({ ...p, description:e.target.value }))} rows={2} placeholder="Optional..." />
           <div style={{ marginBottom:16 }}>
-            <label style={{ display:'block', marginBottom:6, fontSize:12, fontWeight:600, color:'var(--text-secondary)', textTransform:'uppercase', letterSpacing:'0.5px' }}>File * (max 10 MB)</label>
+            <label style={{ display:'block', marginBottom:6, fontSize:12, fontWeight:600, color: 'var(--t2)', textTransform:'uppercase', letterSpacing:'0.5px' }}>File * (max 10 MB)</label>
             <label style={{ display:'flex', flexDirection:'column', alignItems:'center', padding:'26px 20px', border:`2px dashed ${file?'var(--accent)':'var(--border)'}`, borderRadius:10, background:file?'rgba(37,99,235,0.04)':'#fafcff', cursor:'pointer', transition:'all 0.2s' }}>
               <div style={{ fontSize:32, marginBottom:8 }}>{file?fIco(file.name):'☁️'}</div>
               {file ? (
                 <div style={{ textAlign:'center' }}>
                   <div style={{ fontWeight:600, fontSize:14, color:'var(--accent)' }}>{file.name}</div>
-                  <div style={{ fontSize:12, color:'var(--text-muted)', marginTop:4 }}>{fmt(file.size)}</div>
+                  <div style={{ fontSize:12, color: 'var(--t3)', marginTop:4 }}>{fmt(file.size)}</div>
                 </div>
               ) : (
                 <div style={{ textAlign:'center' }}>
-                  <div style={{ fontWeight:600, fontSize:14, color:'var(--text-secondary)' }}>Click to upload</div>
-                  <div style={{ fontSize:12, color:'var(--text-muted)', marginTop:4 }}>PDF, DOCX, PPTX, images — up to 10 MB</div>
+                  <div style={{ fontWeight:600, fontSize:14, color: 'var(--t2)' }}>Click to upload</div>
+                  <div style={{ fontSize:12, color: 'var(--t3)', marginTop:4 }}>PDF, DOCX, PPTX, images — up to 10 MB</div>
                 </div>
               )}
               <input ref={fileRef} type="file" style={{ display:'none' }} onChange={e => setFile(e.target.files[0]||null)} />
@@ -1395,8 +1761,8 @@ function NotesTab() {
                 <div style={{ fontWeight:600, marginBottom:3, fontSize:13, display:'flex', gap:5, alignItems:'center', flexWrap:'wrap' }}>
                   {n.title} <Badge type="info">{n.batch}</Badge> {n.semester && <Badge type="success">{n.semester}</Badge>}
                 </div>
-                <div style={{ fontSize:12, color:'var(--text-muted)' }}>{n.subject||'General'} · {n.fileName||'File'} {n.fileSize?`(${fmt(n.fileSize)})`:''}  · {new Date(n.uploadedAt).toLocaleDateString()}</div>
-                {n.description && <p style={{ fontSize:12, color:'var(--text-secondary)', marginTop:2 }}>{n.description}</p>}
+                <div style={{ fontSize:12, color: 'var(--t3)' }}>{n.subject||'General'} · {n.fileName||'File'} {n.fileSize?`(${fmt(n.fileSize)})`:''}  · {new Date(n.uploadedAt).toLocaleDateString()}</div>
+                {n.description && <p style={{ fontSize:12, color: 'var(--t2)', marginTop:2 }}>{n.description}</p>}
               </div>
             </div>
             <div style={{ display:'flex', gap:8, flexShrink:0 }}>
@@ -1415,6 +1781,7 @@ function NotesTab() {
    NOTIFICATIONS
 ══════════════════════════════════════════════ */
 function NotificationsTab() {
+  const { allBatchNames: ALL_BATCHES } = useBatches();
   const [notifs, setNotifs] = useState(null);
   const [form, setForm]     = useState({ title:'', message:'', type:'Info', batch:'All Batches' });
   const [deleteId,setDeleteId]= useState(null);
@@ -1456,7 +1823,7 @@ function NotificationsTab() {
           <div key={n.id} style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'13px 20px', borderBottom:'1px solid var(--border)' }}>
             <div>
               <div style={{ fontWeight:600, marginBottom:3, fontSize:13, display:'flex', gap:6, alignItems:'center' }}>{n.title} <Badge type="info">{n.type}</Badge></div>
-              <div style={{ fontSize:12, color:'var(--text-muted)' }}>{n.batch} · {new Date(n.createdAt).toLocaleDateString()}</div>
+              <div style={{ fontSize:12, color: 'var(--t3)' }}>{n.batch} · {new Date(n.createdAt).toLocaleDateString()}</div>
             </div>
             <Btn variant="danger" size="sm" onClick={() => setDeleteId(n.id)}>Delete</Btn>
           </div>
@@ -1504,8 +1871,8 @@ function NewsTab() {
           <div key={n.id} style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', padding:'14px 20px', borderBottom:'1px solid var(--border)' }}>
             <div>
               <div style={{ fontWeight:700, marginBottom:4, fontSize:13 }}>{n.title}</div>
-              <div style={{ fontSize:12, color:'var(--text-muted)', marginBottom:4 }}>{new Date(n.createdAt).toLocaleDateString()}</div>
-              <div style={{ fontSize:13, color:'var(--text-secondary)', lineHeight:1.5 }}>{n.content?.substring(0,120)}{n.content?.length>120?'…':''}</div>
+              <div style={{ fontSize:12, color: 'var(--t3)', marginBottom:4 }}>{new Date(n.createdAt).toLocaleDateString()}</div>
+              <div style={{ fontSize:13, color: 'var(--t2)', lineHeight:1.5 }}>{n.content?.substring(0,120)}{n.content?.length>120?'…':''}</div>
             </div>
             <Btn variant="danger" size="sm" onClick={() => setDeleteId(n.id)} style={{ flexShrink:0, marginLeft:12 }}>Delete</Btn>
           </div>
@@ -1539,19 +1906,19 @@ function MessagesTab() {
 
   return (
     <div className="fade-in">
-      <h1 style={{ fontSize:22, fontWeight:800, marginBottom:20 }}>💬 Student Messages <span style={{ fontSize:15, fontWeight:500, color:'var(--text-muted)' }}>({messages.length})</span></h1>
+      <h1 style={{ fontSize:22, fontWeight:800, marginBottom:20 }}>💬 Student Messages <span style={{ fontSize:15, fontWeight:500, color: 'var(--t3)' }}>({messages.length})</span></h1>
       <Card style={{ padding:0 }}>
         {messages.length===0 ? <div style={{ padding:28 }}><EmptyState icon="💬" text="No messages" /></div> : messages.map(m => (
           <div key={m.id} style={{ padding:'16px 20px', borderBottom:'1px solid var(--border)' }}>
             <div style={{ display:'flex', justifyContent:'space-between', marginBottom:8 }}>
               <div>
                 <span style={{ fontWeight:700, fontSize:14 }}>{m.subject}</span>
-                <span style={{ fontSize:12, color:'var(--text-muted)', marginLeft:10 }}>{m.studentName} · {m.batch}</span>
+                <span style={{ fontSize:12, color: 'var(--t3)', marginLeft:10 }}>{m.studentName} · {m.batch}</span>
               </div>
               <Badge type={m.status==='Replied'?'success':'warning'}>{m.status||'Pending'}</Badge>
             </div>
-            <p style={{ fontSize:13, color:'var(--text-secondary)', marginBottom:6, lineHeight:1.6 }}>{m.message}</p>
-            <small style={{ color:'var(--text-muted)', fontSize:11 }}>{new Date(m.sentAt).toLocaleString()}</small>
+            <p style={{ fontSize:13, color: 'var(--t2)', marginBottom:6, lineHeight:1.6 }}>{m.message}</p>
+            <small style={{ color: 'var(--t3)', fontSize:11 }}>{new Date(m.sentAt).toLocaleString()}</small>
             <div style={{ display:'flex', gap:8, marginTop:8, alignItems:'center', flexWrap:'wrap' }}>
               {m.reply ? (
                 <div style={{ flex:1, padding:'10px 12px', background:'rgba(5,150,105,0.07)', borderRadius:8, borderLeft:'3px solid var(--success)' }}>
@@ -1567,7 +1934,7 @@ function MessagesTab() {
         ))}
       </Card>
       <Modal open={!!replyModal} onClose={() => setReplyModal(null)} title="Reply to Message">
-        <p style={{ fontSize:13, color:'var(--text-muted)', marginBottom:14 }}>Subject: <strong>{replyModal?.subject}</strong></p>
+        <p style={{ fontSize:13, color: 'var(--t3)', marginBottom:14 }}>Subject: <strong>{replyModal?.subject}</strong></p>
         <Textarea label="Your Reply" value={replyText} onChange={e => setReplyText(e.target.value)} rows={4} placeholder="Type your reply…" />
         <div style={{ display:'flex', gap:12 }}>
           <Btn variant="ghost" onClick={() => setReplyModal(null)} style={{ flex:1, justifyContent:'center' }}>Cancel</Btn>
@@ -1625,14 +1992,13 @@ function SettingsTab({ admin }) {
    PROMOTE / DEMOTE  (batch only, with mode toggle)
 ══════════════════════════════════════════════ */
 function PromoteTab() {
+  const { batchNames: BATCH_ORDER, colorMap: BATCH_COLORS } = useBatches();
   const [students, setStudents] = useState(null);
   const [preview,  setPreview]  = useState(null);
   const [promoting,setPromoting]= useState(false);
   const [confirm,  setConfirm]  = useState(false);
   const [mode,     setMode]     = useState('promote');
   const toast = useToast();
-
-  const BATCH_ORDER = ['Batch 1','Batch 2','Batch 3','Batch 4'];
 
   const load = useCallback(async () => { setStudents(await DB.getAll('students')); }, []);
   useEffect(() => { load(); }, [load]);
@@ -1666,7 +2032,7 @@ function PromoteTab() {
     <div className="fade-in">
       <div style={{ marginBottom:24 }}>
         <h1 style={{ fontSize:22, fontWeight:800, marginBottom:6 }}>🎓 Promote / Demote Students</h1>
-        <p style={{ color:'var(--text-muted)', fontSize:13 }}>Move all students from one batch to another. This updates every student in the selected group.</p>
+        <p style={{ color: 'var(--t3)', fontSize:13 }}>Move all students from one batch to another. This updates every student in the selected group.</p>
       </div>
 
       {/* Mode toggle */}
@@ -1684,7 +2050,7 @@ function PromoteTab() {
             <div key={b} style={{ background:`${c}0d`, border:`1.5px solid ${c}28`, borderRadius:12, padding:'14px 16px', textAlign:'center' }}>
               <div style={{ fontWeight:800, fontSize:13, color:c, marginBottom:3 }}>{b}</div>
               <div style={{ fontSize:26, fontWeight:900, color:c, lineHeight:1.1 }}>{batchCounts[b]}</div>
-              <div style={{ fontSize:11, color:'var(--text-muted)', marginTop:3 }}>students</div>
+              <div style={{ fontSize:11, color: 'var(--t3)', marginTop:3 }}>students</div>
             </div>
           );
         })}
@@ -1702,9 +2068,9 @@ function PromoteTab() {
                 <div style={{ width:10, height:10, borderRadius:'50%', background:c, flexShrink:0 }} />
                 <span style={{ fontSize:13, fontWeight:600, flex:1 }}>
                   <span style={{ color:c }}>{from}</span>
-                  <span style={{ color:'var(--text-muted)', margin:'0 8px' }}>→</span>
+                  <span style={{ color: 'var(--t3)', margin:'0 8px' }}>→</span>
                   <span style={{ color:BATCH_COLORS[to] }}>{to}</span>
-                  <span style={{ color:'var(--text-muted)', fontWeight:400, fontSize:12, marginLeft:8 }}>({count} student{count!==1?'s':''})</span>
+                  <span style={{ color: 'var(--t3)', fontWeight:400, fontSize:12, marginLeft:8 }}>({count} student{count!==1?'s':''})</span>
                 </span>
                 <Btn variant={mode==='promote'?'primary':'danger'} size="sm" disabled={count===0} onClick={() => { buildPreview(from, to); setConfirm(true); }}>
                   {mode==='promote' ? 'Promote →' : '← Demote'}
@@ -1715,7 +2081,7 @@ function PromoteTab() {
         </div>
       </Card>
 
-      <div style={{ background:'#fffbeb', border:'1px solid rgba(217,119,6,0.22)', borderRadius:10, padding:'13px 16px', fontSize:13, color:'#92400e', lineHeight:1.7 }}>
+      <div style={{ background: 'rgba(217,119,6,0.06)', border:'1px solid rgba(217,119,6,0.22)', borderRadius:10, padding:'13px 16px', fontSize:13, color:'#92400e', lineHeight:1.7 }}>
         <strong>⚠️ Important:</strong> This updates the <code style={{ background:'rgba(217,119,6,0.1)', padding:'1px 5px', borderRadius:4 }}>batch</code> field on every matching student. This action cannot be automatically undone.
       </div>
 
@@ -1727,17 +2093,17 @@ function PromoteTab() {
               <div style={{ fontSize:28, marginBottom:8 }}>{mode==='promote'?'⬆️':'⬇️'}</div>
               <div style={{ fontSize:16, fontWeight:800 }}>
                 <span style={{ color:BATCH_COLORS[preview.from] }}>{preview.from}</span>
-                <span style={{ color:'var(--text-muted)', margin:'0 10px' }}>→</span>
+                <span style={{ color: 'var(--t3)', margin:'0 10px' }}>→</span>
                 <span style={{ color:BATCH_COLORS[preview.to] }}>{preview.to}</span>
               </div>
-              <div style={{ fontSize:13, color:'var(--text-muted)', marginTop:6 }}>{preview.affected.length} student{preview.affected.length!==1?'s':''} will be {mode==='promote'?'promoted':'demoted'}</div>
+              <div style={{ fontSize:13, color: 'var(--t3)', marginTop:6 }}>{preview.affected.length} student{preview.affected.length!==1?'s':''} will be {mode==='promote'?'promoted':'demoted'}</div>
             </div>
             {preview.affected.length > 0 && (
               <div style={{ maxHeight:200, overflowY:'auto', border:'1px solid var(--border)', borderRadius:8, marginBottom:16 }}>
                 {preview.affected.map(s => (
                   <div key={s.id} style={{ padding:'8px 14px', borderBottom:'1px solid var(--border)', fontSize:13, display:'flex', justifyContent:'space-between' }}>
                     <span style={{ fontWeight:600 }}>{s.name}</span>
-                    <span style={{ color:'var(--text-muted)', fontFamily:'var(--font-mono)', fontSize:11 }}>{s.registerNumber}</span>
+                    <span style={{ color: 'var(--t3)', fontFamily:'var(--font-mono)', fontSize:11 }}>{s.registerNumber}</span>
                   </div>
                 ))}
               </div>
@@ -1751,6 +2117,126 @@ function PromoteTab() {
           </div>
         )}
       </Modal>
+    </div>
+  );
+}
+
+/* ══════════════════════════════════════════════
+   BATCH MANAGER
+ ══════════════════════════════════════════════ */
+function BatchManagerTab() {
+  const { batches, reload } = useBatches();
+  const [newName,   setNewName]   = useState('');
+  const [newColor,  setNewColor]  = useState('#ea6c0a');
+  const [saving,    setSaving]    = useState(false);
+  const [deleting,  setDeleting]  = useState(null);
+  const toast = useToast();
+
+  const PRESET_COLOR_LIST = [
+    '#2563eb', '#059669', '#7c3aed', '#d97706', '#dc2626',
+    '#0891b2', '#db2777', '#65a30d', '#9333ea', '#ea6c0a'
+  ];
+
+  async function handleAdd(e) {
+    e.preventDefault();
+    const name = newName.trim();
+    if (!name) { toast('Enter a batch name', 'error'); return; }
+    if (batches.find(b => b.name.toLowerCase() === name.toLowerCase())) {
+      toast('Batch already exists', 'error'); return;
+    }
+    setSaving(true);
+    try {
+      await DB.save('batches', { name, color: newColor, order: batches.length, createdAt: new Date().toISOString() });
+      await reload();
+      setNewName('');
+      toast('Batch "' + name + '" created!', 'success');
+    } catch(err) { toast('Error: ' + err.message, 'error'); }
+    finally { setSaving(false); }
+  }
+
+  async function handleDelete(batch) {
+    if (!window.confirm('Delete batch "' + batch.name + '"?\nStudents assigned to this batch will need to be reassigned.')) return;
+    setDeleting(batch.id);
+    try {
+      await DB.delete('batches/' + batch.id);
+      await reload();
+      toast('Batch "' + batch.name + '" deleted', 'success');
+    } catch(err) { toast('Error: ' + err.message, 'error'); }
+    finally { setDeleting(null); }
+  }
+
+  async function handleColorChange(batch, color) {
+    try {
+      await DB.patch('batches/' + batch.id, { color });
+      await reload();
+      toast('Batch color updated', 'success');
+    } catch(err) { toast('Color update failed', 'error'); }
+  }
+
+  return (
+    <div style={{ maxWidth: 680 }} className="fade-in">
+      <div style={{ marginBottom: 24 }}>
+        <h1 style={{ fontSize: 22, fontWeight: 800, color: 'var(--t1)', marginBottom: 4 }}>Batch Manager</h1>
+        <p style={{ fontSize: 13, color: 'var(--t3)' }}>Create and manage academic cohorts. Students, exams, notes, and notifications are all assigned per batch.</p>
+      </div>
+
+      {/* Add new batch */}
+      <Card style={{ padding: 20, marginBottom: 20 }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2)', marginBottom: 14, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Add New Cohort</div>
+        <form onSubmit={handleAdd} style={{ display: 'flex', gap: 12, alignItems: 'flex-end', flexWrap: 'wrap' }}>
+          <div style={{ flex: 1, minWidth: 180 }}>
+            <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block', marginBottom: 6 }}>Cohort Name</label>
+            <input value={newName} onChange={e => setNewName(e.target.value)}
+              placeholder="e.g. Batch 7, Evening Batch, 2027..."
+              style={{ width: '100%', padding: '10px 12px', border: '1.5px solid var(--border)', borderRadius: 8, fontSize: 13, fontFamily: 'var(--font-main)', outline: 'none', background: 'var(--bg2)', color: 'var(--t1)' }} />
+          </div>
+          <div>
+            <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block', marginBottom: 6 }}>Color Swatch</label>
+            <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap' }}>
+              {PRESET_COLOR_LIST.map(c => (
+                <button key={c} type="button" onClick={() => setNewColor(c)}
+                  style={{ width: 26, height: 26, borderRadius: '50%', background: c, border: newColor === c ? '3px solid var(--t1)' : '2px solid transparent', cursor: 'pointer', transition: 'all 0.15s', flexShrink: 0 }} />
+              ))}
+              <input type="color" value={newColor} onChange={e => setNewColor(e.target.value)}
+                style={{ width: 30, height: 30, border: 'none', borderRadius: 6, cursor: 'pointer', padding: 0, background: 'none' }} title="Custom color" />
+            </div>
+          </div>
+          <Btn type="submit" variant="primary" disabled={saving} style={{ flexShrink: 0, height: 38 }}>
+            {saving ? <Spinner size={14} color="white" /> : '+ Add Cohort'}
+          </Btn>
+        </form>
+      </Card>
+
+      {/* Existing batches */}
+      <Card style={{ padding: 0, overflow: 'hidden' }}>
+        <div style={{ padding: '13px 20px', borderBottom: '1px solid var(--border)', fontSize: 12, fontWeight: 700, color: 'var(--t2)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+          Current Cohorts ({batches.length})
+        </div>
+        {batches.length === 0 ? (
+          <div style={{ padding: 32, textAlign: 'center', color: 'var(--t3)', fontSize: 13 }}>No batches found</div>
+        ) : batches.map((batch, idx) => (
+          <div key={batch.id || batch.name}
+            style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 20px', borderBottom: idx < batches.length - 1 ? '1px solid var(--border)' : 'none' }}
+          >
+            <input type="color" value={batch.color || '#ea6c0a'}
+              onChange={e => batch.id && handleColorChange(batch, e.target.value)}
+              style={{ width: 28, height: 28, border: 'none', borderRadius: 8, cursor: 'pointer', padding: 0, flexShrink: 0, background: 'none' }}
+              title="Click to change color" />
+            <div style={{ width: 10, height: 10, borderRadius: '50%', background: batch.color || 'var(--accent)', flexShrink: 0 }} />
+            <span style={{ flex: 1, fontSize: 14, fontWeight: 600, color: 'var(--t1)' }}>{batch.name}</span>
+            <span style={{ fontSize: 11, color: 'var(--t3)', background: 'var(--bg3)', padding: '2px 8px', borderRadius: 20, fontWeight: 600, border: '1px solid var(--border)' }}>#{idx + 1}</span>
+            {batch.id && (
+              <Btn variant="ghost" size="sm" onClick={() => handleDelete(batch)} disabled={deleting === batch.id}
+                style={{ color: 'var(--danger)', border: '1px solid rgba(220,38,38,0.2)', flexShrink: 0 }}>
+                {deleting === batch.id ? <Spinner size={12} color="var(--danger)" /> : '🗑 Delete'}
+              </Btn>
+            )}
+          </div>
+        ))}
+      </Card>
+      <p style={{ fontSize: 12, color: 'var(--t3)', marginTop: 12, lineHeight: 1.6 }}>
+        💡 Click the color swatch on any batch to change its color. New batches appear instantly in all dropdowns.
+      </p>
     </div>
   );
 }

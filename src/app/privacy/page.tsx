@@ -1,6 +1,8 @@
 'use client';
 
 import Link from 'next/link';
+import PublicNavbar from '@/components/nav/PublicNavbar';
+import PublicFooter from '@/components/nav/PublicFooter';
 
 export default function PrivacyPage() {
   return (
@@ -13,58 +15,8 @@ export default function PrivacyPage() {
       position: 'relative',
       overflow: 'hidden'
     }}>
-      {/* Background glow effects */}
-      <div style={{
-        position: 'absolute',
-        top: '-10%',
-        left: '-10%',
-        width: '600px',
-        height: '600px',
-        borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(79,70,229,0.08) 0%, rgba(79,70,229,0) 70%)',
-        filter: 'blur(80px)',
-        pointerEvents: 'none',
-        zIndex: 0
-      }} />
-
-      {/* Landing Header */}
-      <header style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '16px 24px',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
-        background: 'rgba(11, 15, 25, 0.4)',
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)',
-        zIndex: 10
-      }}>
-        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
-          <div style={{
-            width: '36px',
-            height: '36px',
-            background: 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)',
-            borderRadius: '10px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontWeight: 800,
-            fontSize: '15px',
-            color: 'white',
-            boxShadow: '0 4px 12px rgba(79,70,229,0.25)'
-          }}>Pi</div>
-          <span style={{ fontSize: '17px', fontWeight: 800, color: '#f8fafc' }}>PinIT Careers</span>
-        </Link>
-        <Link href="/login" style={{
-          fontSize: '12.5px',
-          fontWeight: 600,
-          color: '#94a3b8',
-          textDecoration: 'none',
-          transition: 'color 0.15s'
-        }}>
-          Back to Sign In →
-        </Link>
-      </header>
+      {/* Universal Public Navbar */}
+      <PublicNavbar />
 
       {/* Content Area */}
       <div style={{
@@ -136,16 +88,8 @@ export default function PrivacyPage() {
         </div>
       </div>
 
-      {/* Footer */}
-      <footer style={{
-        textAlign: 'center',
-        padding: '24px',
-        borderTop: '1px solid rgba(255, 255, 255, 0.05)',
-        fontSize: '11.5px',
-        color: '#64748b'
-      }}>
-        © 2026 PinIT Careers. All rights reserved.
-      </footer>
+      {/* Universal Public Footer */}
+      <PublicFooter />
     </main>
   );
 }

@@ -2,10 +2,21 @@
 import { useEffect, useRef } from 'react';
 
 const CFG = {
-  priya:  { skin:'#F5C5B0', hair:'#2C1208', cloth:'#f472b6', eye:'#5C2E00', blush:'rgba(244,114,182,.3)',  glow:'rgba(244,114,182,.25)', female:true  },
-  aisha:  { skin:'#C8915A', hair:'#111',    cloth:'#818cf8', eye:'#2A1200', blush:'rgba(129,140,248,.25)', glow:'rgba(129,140,248,.2)',  female:true, hijab:true },
-  rohan:  { skin:'#DEBA8A', hair:'#1E0E06', cloth:'#fb923c', eye:'#2A1200', blush:'rgba(251,146,60,.2)',   glow:'rgba(251,146,60,.18)', female:false },
-  vikram: { skin:'#C8915A', hair:'#0a0a0a', cloth:'#34d399', eye:'#111',    blush:'rgba(52,211,153,.18)',  glow:'rgba(52,211,153,.15)', female:false },
+  priya:   { skin:'#F5C5B0', hair:'#2C1208', cloth:'#f472b6', eye:'#5C2E00', blush:'rgba(244,114,182,.3)',  glow:'rgba(244,114,182,.25)', female:true  },
+  aisha:   { skin:'#C8915A', hair:'#111',    cloth:'#818cf8', eye:'#2A1200', blush:'rgba(129,140,248,.25)', glow:'rgba(129,140,248,.2)',  female:true, hijab:true },
+  rohan:   { skin:'#DEBA8A', hair:'#1E0E06', cloth:'#fb923c', eye:'#2A1200', blush:'rgba(251,146,60,.2)',   glow:'rgba(251,146,60,.18)', female:false },
+  vikram:  { skin:'#C8915A', hair:'#0a0a0a', cloth:'#34d399', eye:'#111',    blush:'rgba(52,211,153,.18)',  glow:'rgba(52,211,153,.15)', female:false },
+  kashyap: { skin:'#DEBA8A', hair:'#1A1008', cloth:'#3b82f6', eye:'#111',    blush:'rgba(59,130,246,.18)',  glow:'rgba(59,130,246,.15)', female:false },
+  karthic: { skin:'#DEBA8A', hair:'#111',    cloth:'#f59e0b', eye:'#111',    blush:'rgba(245,158,11,.18)',  glow:'rgba(245,158,11,.15)', female:false },
+  maya:    { skin:'#F5C5B0', hair:'#111',    cloth:'#ef4444', eye:'#2C1208', blush:'rgba(239,68,68,.2)',    glow:'rgba(239,68,68,.18)',  female:true  },
+  divya:   { skin:'#F5C5B0', hair:'#2C1208', cloth:'#10b981', eye:'#2C1208', blush:'rgba(16,185,129,.2)',   glow:'rgba(16,185,129,.18)', female:true  },
+  anish:   { skin:'#DEBA8A', hair:'#1A1008', cloth:'#6366f1', eye:'#111',    blush:'rgba(99,102,241,.18)',  glow:'rgba(99,102,241,.15)', female:false },
+  shalini: { skin:'#F5C5B0', hair:'#111',    cloth:'#ec4899', eye:'#2C1208', blush:'rgba(236,72,153,.2)',   glow:'rgba(236,72,153,.18)', female:true  },
+  aditya:  { skin:'#DEBA8A', hair:'#1A1008', cloth:'#06b6d4', eye:'#111',    blush:'rgba(6,182,212,.18)',   glow:'rgba(6,182,212,.15)',  female:false },
+  neha:    { skin:'#F5C5B0', hair:'#2C1208', cloth:'#a855f7', eye:'#2C1208', blush:'rgba(168,85,247,.2)',   glow:'rgba(168,85,247,.18)', female:true  },
+  rajesh:  { skin:'#C8915A', hair:'#0a0a0a', cloth:'#64748b', eye:'#111',    blush:'rgba(100,116,139,.18)', glow:'rgba(100,116,139,.15)',female:false },
+  sneha:   { skin:'#F5C5B0', hair:'#2C1208', cloth:'#f43f5e', eye:'#2C1208', blush:'rgba(244,63,94,.2)',    glow:'rgba(244,63,94,.18)',  female:true  },
+  abhijit: { skin:'#C8915A', hair:'#0a0a0a', cloth:'#1e293b', eye:'#111',    blush:'rgba(30,41,59,.18)',    glow:'rgba(30,41,59,.15)',   female:false }
 };
 
 export default function AvatarDisplay({ teacherId = 'priya', speaking = false, size = 200 }) {

@@ -199,6 +199,7 @@ body {
   flex-shrink: 0;
 }
 
+
 /* ── Theme transition (scoped — does NOT override animation/transform) ── */
 body, nav, aside, main, header, footer, section,
 .btn, .input, .card, .badge, .steps, .step-dot, .step-line, .logo,
@@ -207,3 +208,66 @@ div[style], span[style] {
 }
 /* Animated elements must never have colour transition override their animation */
 .spinner { transition: none !important; }
+
+/* Socratic simulator UX styles */
+.choice-card {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  position: relative;
+  overflow: hidden;
+}
+.choice-card:hover:not(:disabled) {
+  border-color: #14b8a6 !important;
+  background: rgba(20, 184, 166, 0.05) !important;
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(20, 184, 166, 0.08);
+}
+.choice-card:active:not(:disabled) {
+  transform: translateX(2px);
+}
+.timer-pulse-low {
+  animation: timerPulse 0.8s infinite alternate ease-in-out;
+}
+@keyframes timerPulse {
+  0% { transform: scale(1); filter: brightness(1); }
+  100% { transform: scale(1.08); filter: brightness(1.2); }
+}
+.summary-container-glow {
+  box-shadow: 0 0 16px rgba(20, 184, 166, 0.02);
+  transition: box-shadow 0.3s ease;
+}
+.summary-container-glow:hover {
+  box-shadow: 0 0 20px rgba(20, 184, 166, 0.06);
+}
+
+/* Live Feed glowing outline animations based on animState */
+.avatar-border-listening {
+  border: 1px solid rgba(16, 185, 129, 0.4) !important;
+  box-shadow: 0 0 14px rgba(16, 185, 129, 0.15);
+  animation: borderListen 2s infinite alternate ease-in-out;
+  transition: all 0.3s ease;
+}
+.avatar-border-thinking {
+  border: 1px solid rgba(245, 158, 11, 0.4) !important;
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.15);
+  animation: borderThink 1s infinite alternate ease-in-out;
+  transition: all 0.3s ease;
+}
+.avatar-border-talking {
+  border: 1px solid rgba(20, 184, 166, 0.4) !important;
+  box-shadow: 0 0 14px rgba(20, 184, 166, 0.15);
+  transition: all 0.3s ease;
+}
+.avatar-border-idle {
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  box-shadow: none;
+  transition: all 0.3s ease;
+}
+
+@keyframes borderListen {
+  0% { box-shadow: 0 0 6px rgba(16, 185, 129, 0.08); border-color: rgba(16, 185, 129, 0.25); }
+  100% { box-shadow: 0 0 16px rgba(16, 185, 129, 0.25); border-color: rgba(16, 185, 129, 0.5); }
+}
+@keyframes borderThink {
+  0% { box-shadow: 0 0 6px rgba(245, 158, 11, 0.08); border-color: rgba(245, 158, 11, 0.25); }
+  100% { box-shadow: 0 0 16px rgba(245, 158, 11, 0.25); border-color: rgba(245, 158, 11, 0.5); }
+}

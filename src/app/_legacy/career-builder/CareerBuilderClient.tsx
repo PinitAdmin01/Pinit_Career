@@ -531,7 +531,7 @@ export default function CareerBuilderClient() {
     resumeGenerated,
     onboardingStep, setOnboardingStep, 
     completedQuests, addCompletedQuest, 
-    javaTestPassed, pins, spendPins 
+    javaTestPassed, pins, spendPins, unlockItem 
   } = useCareerOS();
 
   const { user } = useAuth();
@@ -799,7 +799,7 @@ export default function CareerBuilderClient() {
       return;
     }
 
-    if (spendPins('quest_start', `Unlock Quest: ${q.title.split(':')[1]?.trim() || q.title}`)) {
+    if (unlockItem(`quest:${q.id}`, 'quest', `Unlock Quest: ${q.title.split(':')[1]?.trim() || q.title}`)) {
       setActivePlaygroundQuest(q);
       setCode(q.starterCode);
       setOutput(null);

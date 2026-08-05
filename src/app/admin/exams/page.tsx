@@ -7,9 +7,12 @@ const AdminDashboard = dynamic(
   { ssr: false, loading: () => <div style={{ padding:40, color:'var(--t3)', textAlign:'center' }}>Loading DSAI Admin...</div> }
 ) as any;
 
-export default function AdminExamsPage() {
-  const { user } = useAuth();
-  if (!user || user.role !== 'admin') return <div style={{ padding:40, color:'var(--coral)' }}>Access denied</div>;
+import { Suspense } from 'react';
+
+function AdminExamsContent() {
+  const { user, loading } = useAuth();
+  if (loading) return <div style={{ padding:40, color:'var(--t3)' }}>Loading authentication...</div>;
+  if (!user || !['admin', 'superadmin'].includes(user.role)) return <div style={{ padding:40, color:'var(--coral)' }}>Access denied</div>;
   return (
     <div>
       <div style={{ marginBottom:16 }}>
@@ -18,5 +21,13 @@ export default function AdminExamsPage() {
       </div>
       <AdminDashboard admin={user} onLogout={() => window.location.href = '/login'} />
     </div>
+  );
+}
+
+export default function AdminExamsPage() {
+  return (
+    <Suspense fallback={<div style={{ padding: 40, color: 'var(--t3)', textAlign: 'center' }}>Loading Exam Admin...</div>}>
+      <AdminExamsContent />
+    </Suspense>
   );
 }
