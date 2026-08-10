@@ -166,7 +166,7 @@ class NeuralTTSEngine:
             "init_time_ms": self.load_time_ms,
         }
 
-    def generate_audio(self, text: str, voice: str = "af_bella", speed: float = 1.0) -> Tuple[bytes, float, str]:
+    async def generate_audio(self, text: str, voice: str = "af_bella", speed: float = 1.0) -> Tuple[bytes, float, str]:
         """
         Returns (audio_bytes, duration_sec, media_type).
         media_type is audio/mpeg (edge) or audio/wav (onnx).
@@ -183,7 +183,7 @@ class NeuralTTSEngine:
             edge_voice = EDGE_VOICE_MAP.get(voice_key, EDGE_VOICE_MAP.get("af_bella", "en-US-AriaNeural"))
             rate = _speed_to_edge_rate(speed)
             try:
-                mp3 = _run_async(_edge_synthesize_mp3(clean, edge_voice, rate))
+                mp3 = await _edge_synthesize_mp3(clean, edge_voice, rate)
                 # Rough duration estimate for UI timers (chars ≈ 14/sec at 1.0x)
                 duration_sec = max(0.6, len(clean) / (14.0 * max(0.5, float(speed))))
                 logger.info(

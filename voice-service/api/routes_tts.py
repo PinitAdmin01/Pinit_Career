@@ -53,7 +53,7 @@ def list_voices():
 
 
 @router.post("/tts")
-def generate_tts(request: TTSRequest):
+async def generate_tts(request: TTSRequest):
     """
     Main TTS endpoint. Uses edge-tts neural voices on free tier (or Kokoro ONNX if present).
     Cache order: Redis → SSD → Supabase → generate → save.
@@ -96,7 +96,7 @@ def generate_tts(request: TTSRequest):
             }
             return Response(content=cached_bytes, media_type=media_type, headers=headers)
 
-        audio_bytes, duration_sec, media_type = engine.generate_audio(
+        audio_bytes, duration_sec, media_type = await engine.generate_audio(
             text=clean_text,
             voice=voice,
             speed=speed,
