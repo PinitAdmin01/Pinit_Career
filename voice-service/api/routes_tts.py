@@ -74,49 +74,63 @@ def generate_tts(request: TTSRequest):
     speed = request.speed or settings.DEFAULT_SPEED
     clean_text = request.text.strip()
 
-    # Step 1: Compute SHA-256 Cache Key
-    cache_key = server_cache.compute_hash(clean_text, voice, speed)
+    try:
+        # Step 1: Compute SHA-256 Cache Key
+        cache_key = server_cache.compute_hash(clean_text, voice, speed)
 
-    # Step 2: Query Server Multi-Tier Cache (Redis RAM -> SSD Disk)
-    cached_bytes, hit_source = server_cache.get_audio(cache_key)
-    if cached_bytes:
+        # Step 2: Query Server Multi-Tier Cache (Redis RAM -> SSD Disk)
+        cached_bytes = None
+        hit_source = None
+        try:
+            cached_bytes, hit_source = server_cache.get_audio(cache_key)
+        except Exception as c_err:
+            logger.warning(f"Cache lookup non-fatal error: {c_err}")
+
+        if cached_bytes:
+            latency_ms = int((time.time() - start_time) * 1000)
+            duration_sec = len(cached_bytes) / (settings.SAMPLE_RATE * 2)
+            telemetry.record_request(duration_sec, latency_ms, hit_source or "CACHE")
+            headers = {
+                "Content-Type": "audio/wav",
+                "Content-Length": str(len(cached_bytes)),
+                "X-Audio-Duration": f"{duration_sec:.3f}",
+                "X-Inference-Latency-MS": str(latency_ms),
+                "X-Cache-Status": f"HIT ({hit_source})",
+                "X-Cache-Key": cache_key,
+                "X-Voice-Engine": "Kokoro-Cache"
+            }
+            return Response(content=cached_bytes, media_type="audio/wav", headers=headers)
+
+        # Step 3: Cache Miss -> Synthesize via Kokoro Engine
+        wav_bytes, duration_sec = engine.generate_audio(
+            text=clean_text,
+            voice=voice,
+            speed=speed
+        )
+        
+        # Step 4: Persist to Redis RAM & SSD Disk Cache
+        try:
+            server_cache.save_audio(cache_key, wav_bytes, clean_text, voice, speed)
+        except Exception as cache_err:
+            logger.warning(f"Cache persistence non-fatal error: {cache_err}")
+
         latency_ms = int((time.time() - start_time) * 1000)
-        duration_sec = len(cached_bytes) / (settings.SAMPLE_RATE * 2)
-        telemetry.record_request(duration_sec, latency_ms, hit_source)
+        telemetry.record_request(duration_sec, latency_ms, "MISS")
+        
         headers = {
             "Content-Type": "audio/wav",
-            "Content-Length": str(len(cached_bytes)),
+            "Content-Length": str(len(wav_bytes)),
             "X-Audio-Duration": f"{duration_sec:.3f}",
             "X-Inference-Latency-MS": str(latency_ms),
-            "X-Cache-Status": f"HIT ({hit_source})",
+            "X-Cache-Status": "MISS",
             "X-Cache-Key": cache_key,
-            "X-Voice-Engine": "Kokoro-Cache"
+            "X-Voice-Engine": "Kokoro-ONNX" if engine.is_onnx_loaded else "Kokoro-DSP"
         }
-        return Response(content=cached_bytes, media_type="audio/wav", headers=headers)
-
-    # Step 3: Cache Miss -> Synthesize via Kokoro Engine
-    wav_bytes, duration_sec = engine.generate_audio(
-        text=clean_text,
-        voice=voice,
-        speed=speed
-    )
-    
-    # Step 4: Persist to Redis RAM & SSD Disk Cache
-    server_cache.save_audio(cache_key, wav_bytes, clean_text, voice, speed)
-    latency_ms = int((time.time() - start_time) * 1000)
-    telemetry.record_request(duration_sec, latency_ms, "MISS")
-    
-    headers = {
-        "Content-Type": "audio/wav",
-        "Content-Length": str(len(wav_bytes)),
-        "X-Audio-Duration": f"{duration_sec:.3f}",
-        "X-Inference-Latency-MS": str(latency_ms),
-        "X-Cache-Status": "MISS",
-        "X-Cache-Key": cache_key,
-        "X-Voice-Engine": "Kokoro-ONNX" if engine.is_onnx_loaded else "Kokoro-DSP"
-    }
-    
-    return Response(content=wav_bytes, media_type="audio/wav", headers=headers)
+        
+        return Response(content=wav_bytes, media_type="audio/wav", headers=headers)
+    except Exception as err:
+        logger.error(f"TTS synthesis error: {err}")
+        raise HTTPException(status_code=500, detail=f"TTS synthesis error: {str(err)}")
 
 from workers.task_queue import task_queue
 from workers.worker_pool import worker_pool
