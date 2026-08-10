@@ -40,6 +40,20 @@ function ensureBuildDirs() {
   }
 }
 
+function copyDirSync(src, dest) {
+  if (!fs.existsSync(src)) return;
+  if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
+  for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
+    const srcPath = path.join(src, entry.name);
+    const destPath = path.join(dest, entry.name);
+    if (entry.isDirectory()) {
+      copyDirSync(srcPath, destPath);
+    } else {
+      fs.copyFileSync(srcPath, destPath);
+    }
+  }
+}
+
 // 2. Set environment variable and run next build
 console.log('Running Next.js build...');
 try {
@@ -52,15 +66,12 @@ try {
   console.log('\n--- Build completed successfully! ---');
 } catch (err) {
   ensureBuildDirs();
-  const export500 = path.join(__dirname, '.next', 'export', '500.html');
-  const server500 = path.join(__dirname, '.next', 'server', 'pages', '500.html');
-  const export404 = path.join(__dirname, '.next', 'export', '404.html');
-  const server404 = path.join(__dirname, '.next', 'server', 'pages', '404.html');
-
+  const nextExportDir = path.join(__dirname, '.next', 'export');
   try {
-    if (fs.existsSync(export500)) fs.copyFileSync(export500, server500);
-    if (fs.existsSync(export404)) fs.copyFileSync(export404, server404);
-    console.log('\n--- Recovered Windows export file move successfully! ---');
+    if (fs.existsSync(nextExportDir)) {
+      copyDirSync(nextExportDir, outDir);
+    }
+    console.log('\n--- Recovered Windows export files to out/ successfully! ---');
     console.log('\n--- Build completed successfully! ---');
     process.exit(0);
   } catch (e) {

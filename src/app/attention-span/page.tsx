@@ -29,11 +29,11 @@ import {
 
 import { FocusFireGame } from '@/components/attention-span/FocusFireGame';
 import { ReflexRushGame } from '@/components/attention-span/ReflexRushGame';
-import { PrecisionPointerGame } from '@/components/attention-span/PrecisionPointerGame';
+import { PatternForgeGame } from '@/components/attention-span/PatternForgeGame';
+import { LogicCircuitGame } from '@/components/attention-span/LogicCircuitGame';
 import {
   MemoryMatrixGame,
   SequenceSnapGame,
-  FocusDuelGame,
   VortexVisionGame,
   FlashFusionGame,
   ShapeShifterGame,
@@ -320,7 +320,8 @@ export default function AttentionSpanPage() {
     if (gameId === 'vortex-vision') scoreDisplay = `${score} stars`;
     if (gameId === 'flash-fusion') scoreDisplay = `${score} matches`;
     if (gameId === 'shape-shifter') scoreDisplay = `${score} flips`;
-    if (gameId === 'precision-pointer') scoreDisplay = `${(score / 1000).toFixed(1)}s lock`;
+    if (gameId === 'pattern-forge') scoreDisplay = `${score} pts`;
+    if (gameId === 'logic-circuit') scoreDisplay = `${score} pts`;
 
     const gameInfo = GAMES.find(g => g.id === gameId) || GAMES[0];
     const xpEarned = difficulty === 'hard' ? 35 : difficulty === 'normal' ? 20 : 10;
@@ -403,7 +404,8 @@ export default function AttentionSpanPage() {
     if (gId === 'vortex-vision') return stats.vortexVisionBest ? `${stats.vortexVisionBest} stars` : '—';
     if (gId === 'flash-fusion') return stats.flashFusionBest ? `${stats.flashFusionBest} matches` : '—';
     if (gId === 'shape-shifter') return stats.shapeShifterBest ? `${stats.shapeShifterBest} flips` : '—';
-    if (gId === 'precision-pointer') return stats.precisionPointerBest ? `${(stats.precisionPointerBest / 1000).toFixed(1)}s` : '—';
+    if (gId === 'pattern-forge') return stats.patternForgeBest ? `${stats.patternForgeBest} pts` : '—';
+    if (gId === 'logic-circuit') return stats.logicCircuitBest ? `${stats.logicCircuitBest} pts` : '—';
     return 'Play';
   };
 
@@ -441,12 +443,11 @@ export default function AttentionSpanPage() {
           {activeGame === 'focus-fire' && <FocusFireGame gameId="focus-fire" difficulty={difficulty} onDifficultyChange={setDifficulty} completedDifficulties={stats.completedDifficulties} soundMuted={soundMuted} onComplete={(s, acc) => { handleGameComplete('focus-fire', s, acc); }} onExit={() => setActiveGame(null)} />}
           {activeGame === 'memory-matrix' && <MemoryMatrixGame gameId="memory-matrix" difficulty={difficulty} onDifficultyChange={setDifficulty} completedDifficulties={stats.completedDifficulties} soundMuted={soundMuted} onComplete={(s, acc) => { handleGameComplete('memory-matrix', s, acc); }} onExit={() => setActiveGame(null)} />}
           {activeGame === 'reflex-rush' && <ReflexRushGame gameId="reflex-rush" difficulty={difficulty} onDifficultyChange={setDifficulty} completedDifficulties={stats.completedDifficulties} soundMuted={soundMuted} onComplete={(s, acc) => { handleGameComplete('reflex-rush', s, acc); }} onExit={() => setActiveGame(null)} />}
-          {activeGame === 'sequence-snap' && <SequenceSnapGame gameId="sequence-snap" difficulty={difficulty} onDifficultyChange={setDifficulty} completedDifficulties={stats.completedDifficulties} soundMuted={soundMuted} onComplete={(s, acc) => { handleGameComplete('sequence-snap', s, acc); }} onExit={() => setActiveGame(null)} />}
-          {activeGame === 'focus-duel' && <FocusDuelGame soundMuted={soundMuted} onComplete={(s, acc) => { handleGameComplete('focus-duel', s, acc); }} onExit={() => setActiveGame(null)} />}
           {activeGame === 'vortex-vision' && <VortexVisionGame gameId="vortex-vision" difficulty={difficulty} onDifficultyChange={setDifficulty} completedDifficulties={stats.completedDifficulties} soundMuted={soundMuted} onComplete={(s, acc) => { handleGameComplete('vortex-vision', s, acc); }} onExit={() => setActiveGame(null)} />}
           {activeGame === 'flash-fusion' && <FlashFusionGame gameId="flash-fusion" difficulty={difficulty} onDifficultyChange={setDifficulty} completedDifficulties={stats.completedDifficulties} soundMuted={soundMuted} onComplete={(s, acc) => { handleGameComplete('flash-fusion', s, acc); }} onExit={() => setActiveGame(null)} />}
           {activeGame === 'shape-shifter' && <ShapeShifterGame gameId="shape-shifter" difficulty={difficulty} onDifficultyChange={setDifficulty} completedDifficulties={stats.completedDifficulties} soundMuted={soundMuted} onComplete={(s, acc) => { handleGameComplete('shape-shifter', s, acc); }} onExit={() => setActiveGame(null)} />}
-          {activeGame === 'precision-pointer' && <PrecisionPointerGame gameId="precision-pointer" difficulty={difficulty} onDifficultyChange={setDifficulty} completedDifficulties={stats.completedDifficulties} soundMuted={soundMuted} onComplete={(s, acc) => { handleGameComplete('precision-pointer', s, acc); }} onExit={() => setActiveGame(null)} />}
+          {activeGame === 'pattern-forge' && <PatternForgeGame gameId="pattern-forge" difficulty={difficulty} onDifficultyChange={setDifficulty} completedDifficulties={stats.completedDifficulties} soundMuted={soundMuted} onComplete={(s, acc) => { handleGameComplete('pattern-forge', s, acc); }} onExit={() => setActiveGame(null)} />}
+          {activeGame === 'logic-circuit' && <LogicCircuitGame gameId="logic-circuit" difficulty={difficulty} onDifficultyChange={setDifficulty} completedDifficulties={stats.completedDifficulties} soundMuted={soundMuted} onComplete={(s, acc) => { handleGameComplete('logic-circuit', s, acc); }} onExit={() => setActiveGame(null)} />}
         </div>
       )}
 

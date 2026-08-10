@@ -643,7 +643,17 @@ export default function RecruiterPage() {
             <div>
               {loading ? (
                 <div style={{ textAlign: 'center', padding: 48, color: 'var(--t3)' }}>Searching repository...</div>
-              ) : candidates.length === 0 ? (
+              ) : candidates.filter(c => {
+                  if (filters.minTrust && (c.trust_score || 0) < Number(filters.minTrust)) return false;
+                  if (filters.minAts && (c.ats_score || 0) < Number(filters.minAts)) return false;
+                  if (filters.domain) {
+                    const d = filters.domain.toLowerCase();
+                    const matchesName = (c.display_name || '').toLowerCase().includes(d);
+                    const matchesSkills = Array.isArray(c.skill_tags) && c.skill_tags.some((s: string) => s.toLowerCase().includes(d));
+                    if (!matchesName && !matchesSkills) return false;
+                  }
+                  return true;
+                }).length === 0 ? (
                 <div className="empty-state">
                   <div className="empty-icon">👥</div>
                   <div className="empty-title">No candidate match</div>
@@ -651,7 +661,17 @@ export default function RecruiterPage() {
                 </div>
               ) : (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                  {candidates.map((c, i) => (
+                  {candidates.filter(c => {
+                    if (filters.minTrust && (c.trust_score || 0) < Number(filters.minTrust)) return false;
+                    if (filters.minAts && (c.ats_score || 0) < Number(filters.minAts)) return false;
+                    if (filters.domain) {
+                      const d = filters.domain.toLowerCase();
+                      const matchesName = (c.display_name || '').toLowerCase().includes(d);
+                      const matchesSkills = Array.isArray(c.skill_tags) && c.skill_tags.some((s: string) => s.toLowerCase().includes(d));
+                      if (!matchesName && !matchesSkills) return false;
+                    }
+                    return true;
+                  }).map((c, i) => (
                     <div
                       key={c.id}
                       onClick={() => viewCandidate(c.id)}

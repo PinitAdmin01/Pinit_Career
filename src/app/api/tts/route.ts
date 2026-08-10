@@ -14,7 +14,7 @@ import { NextRequest, NextResponse } from 'next/server';
  * reaching this route, so we only deal with Tier 2 and 3 here.
  */
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_TTS_API_URL ? process.env.NEXT_PUBLIC_TTS_API_URL.replace(/\/api\/.*$/, '') : 'https://kitten-mjtq.onrender.com';
+const BACKEND_URL = process.env.NEXT_PUBLIC_TTS_API_URL ? process.env.NEXT_PUBLIC_TTS_API_URL.replace(/\/api\/.*$/, '') : 'https://pinit-voice-service.onrender.com';
 const CDN_URL = process.env.NEXT_PUBLIC_CDN_VOICE_URL || '';
 
 export async function POST(req: NextRequest) {

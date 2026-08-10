@@ -3,11 +3,11 @@ export type GameId =
   | 'memory-matrix'
   | 'reflex-rush'
   | 'sequence-snap'
-  | 'focus-duel'
   | 'vortex-vision'
   | 'flash-fusion'
   | 'shape-shifter'
-  | 'precision-pointer';
+  | 'pattern-forge'
+  | 'logic-circuit';
 
 export type Difficulty = 'easy' | 'normal' | 'hard';
 
@@ -19,7 +19,8 @@ export interface AttentionStats {
   vortexVisionBest?: number;     // score
   flashFusionBest?: number;      // score
   shapeShifterBest?: number;     // score
-  precisionPointerBest?: number; // lock-on time (ms)
+  patternForgeBest?: number;     // max level / score
+  logicCircuitBest?: number;     // max level / score
   totalSessions: number;
   dailySessions: Record<string, number>;
   dailyScores: Record<string, number>;
@@ -27,6 +28,10 @@ export interface AttentionStats {
   lastPlayedDate: string;
   questClaimedDate?: string;
   completedDifficulties?: Record<string, Difficulty[]>;
+
+  // Backward compatibility optional fields
+  focusDuelBest?: number;
+  precisionPointerBest?: number;
 }
 
 export interface LeaderItem {
@@ -62,6 +67,8 @@ export interface DailyLog {
   memoryScore: number;
   reflexScore: number;
   spanScore: number;
+  patternScore?: number;
+  logicScore?: number;
 }
 
 export interface MonthlySummary {
@@ -76,6 +83,8 @@ export interface MonthlySummary {
     memory: number;
     reflex: number;
     span: number;
+    pattern?: number;
+    logic?: number;
   };
 }
 
@@ -90,7 +99,8 @@ export const ANALYTICS_KEY = 'pinit_attention_analytics_v2';
 
 export const defaultStats: AttentionStats = {
   focusFireBest: 0, memoryMatrixBest: 0, reflexRushBest: 0, sequenceSnapBest: 0,
-  vortexVisionBest: 0, flashFusionBest: 0, shapeShifterBest: 0, precisionPointerBest: 0,
+  vortexVisionBest: 0, flashFusionBest: 0, shapeShifterBest: 0,
+  patternForgeBest: 0, logicCircuitBest: 0,
   totalSessions: 0, dailySessions: {}, dailyScores: {}, streak: 0, lastPlayedDate: '',
   completedDifficulties: {},
 };
@@ -108,11 +118,11 @@ export const GAMES = [
   { id: 'memory-matrix' as GameId,     icon: '🧠', name: 'Memory Matrix',     desc: 'Memorize expanding tile patterns and reproduce them from memory', skill: 'Working Memory', color: '#8b5cf6' },
   { id: 'reflex-rush' as GameId,       icon: '⚡', name: 'Reflex Rush',       desc: 'React fast to green circles — resist tapping red decoys', skill: 'Sustained Attention', color: '#10b981' },
   { id: 'sequence-snap' as GameId,     icon: '🔢', name: 'Sequence Snap',     desc: 'Watch number sequences flash and type them back in exact order', skill: 'Memory Span', color: '#3b82f6' },
-  { id: 'focus-duel' as GameId,        icon: '⚔️', name: '1v1 AI Focus Duel', desc: 'Sprint head-to-head against AI rival Aarav in a live focus battle', skill: 'Competitive Focus', color: '#ef4444' },
   { id: 'vortex-vision' as GameId,     icon: '🌀', name: 'Vortex Vision',     desc: 'Track gold stars flashing inside a spinning vortex while ignoring orbiting debris', skill: 'Peripheral Focus', color: '#ec4899' },
   { id: 'flash-fusion' as GameId,      icon: '⚡', name: 'Flash Fusion',      desc: 'High-speed symbol stream — tap ONLY when consecutive symbols match back-to-back', skill: 'N-Back Vigilance', color: '#6366f1' },
   { id: 'shape-shifter' as GameId,     icon: '🧩', name: 'Shape Shifter',     desc: 'Dynamic task-switching — adapt instantly as rules flip between MATCH COLOR & MATCH SHAPE', skill: 'Task Switching', color: '#f59e0b' },
-  { id: 'precision-pointer' as GameId, icon: '🎯', name: 'Precision Pointer', desc: 'Maintain continuous laser crosshair lock-on as targets maneuver along erratic paths', skill: 'Micro-Attention', color: '#14b8a6' },
+  { id: 'pattern-forge' as GameId,     icon: '🧩', name: 'Pattern Forge',     desc: 'Discover hidden sequence rules, rotation transformations, and 3x3 matrix patterns', skill: 'Pattern & Abstract Reasoning', color: '#ec4899' },
+  { id: 'logic-circuit' as GameId,     icon: '🧠', name: 'Logic Circuit',     desc: 'Evaluate multi-step boolean logic gates, visual node flows, and conditional syllogisms', skill: 'Logical & Analytical Reasoning', color: '#3b82f6' },
 ];
 
 export function triggerHaptic(type: 'light' | 'heavy' | 'success') {
@@ -172,13 +182,15 @@ export function playSound(type: 'correct' | 'wrong' | 'win' | 'click' | 'level',
 }
 
 export function calcFocusScore(s: AttentionStats): number {
-  const ff = Math.min(180, s.focusFireBest * 7);
-  const mm = Math.min(180, s.memoryMatrixBest * 25);
-  const rr = s.reflexRushBest > 0 ? Math.min(180, Math.max(0, 180 - (s.reflexRushBest - 150) * 0.6)) : 0;
-  const ss = Math.min(180, s.sequenceSnapBest * 18);
-  const vv = Math.min(140, (s.vortexVisionBest || 0) * 12);
-  const fl = Math.min(140, (s.flashFusionBest || 0) * 12);
-  return Math.min(999, Math.round(ff + mm + rr + ss + vv + fl));
+  const ff = Math.min(150, s.focusFireBest * 6);
+  const mm = Math.min(150, s.memoryMatrixBest * 22);
+  const rr = s.reflexRushBest > 0 ? Math.min(150, Math.max(0, 150 - (s.reflexRushBest - 150) * 0.5)) : 0;
+  const ss = Math.min(150, s.sequenceSnapBest * 16);
+  const vv = Math.min(120, (s.vortexVisionBest || 0) * 10);
+  const fl = Math.min(120, (s.flashFusionBest || 0) * 10);
+  const pf = Math.min(140, (s.patternForgeBest || 0) * 20);
+  const lc = Math.min(140, (s.logicCircuitBest || 0) * 20);
+  return Math.min(999, Math.round(ff + mm + rr + ss + vv + fl + pf + lc));
 }
 
 export function getRank(score: number) {

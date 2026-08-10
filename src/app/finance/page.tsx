@@ -120,11 +120,11 @@ export default function StudentFinance() {
   // Calculators
   const totalPaid = (dues.installments || [])
     .filter((i: any) => i.status === 'Paid')
-    .reduce((sum: number, i: any) => sum + i.amount, 0);
+    .reduce((sum: number, i: any) => sum + (i.amount || 0), 0);
 
   const totalOutstanding = (dues.installments || [])
     .filter((i: any) => i.status === 'Unpaid')
-    .reduce((sum: number, i: any) => sum + i.amount, 0) + (dues.fineLevied || 0);
+    .reduce((sum: number, i: any) => sum + (i.amount || 0), 0) + (dues.fineLevied || 0);
 
   return (
     <div style={{ minHeight: '100vh', background: '#f8fafc', color: '#0f172a', padding: '30px 20px', fontFamily: 'var(--font-body), sans-serif' }}>

@@ -310,7 +310,7 @@ export default function StudentTransport() {
                   <div style={{ fontSize: 11.5, color: '#64748b', marginTop: 2 }}>Mobile: <strong>{assignedDriver.phone}</strong> | License: <strong>{assignedDriver.license}</strong></div>
                   
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 8 }}>
-                    <span className="star-rating">{'★'.repeat(Math.max(0, Math.round(assignedDriver.rating || 0)))}</span>
+                    <span className="star-rating">{'★'.repeat(Math.min(5, Math.max(0, Math.round(assignedDriver.rating || 0))))}</span>
                     <span style={{ fontSize: 11.5, fontWeight: 700, color: '#475569' }}>({assignedDriver.rating || 0} Rating)</span>
                   </div>
                 </div>

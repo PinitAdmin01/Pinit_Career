@@ -22,7 +22,7 @@ export interface VoiceSynthesizeResult {
   cacheKey: string;
 }
 
-const DEFAULT_CLOUD_ENDPOINT = process.env.NEXT_PUBLIC_TTS_API_URL || "https://kitten-mjtq.onrender.com/api/v1/tts";
+const DEFAULT_CLOUD_ENDPOINT = process.env.NEXT_PUBLIC_TTS_API_URL || "https://pinit-voice-service.onrender.com/api/v1/tts";
 
 /**
  * Smart Hybrid Voice Router Entry Point.
@@ -87,7 +87,7 @@ async function fetchCloudFastAPI(
 ): Promise<{ audioBuffer: ArrayBuffer; durationSec: number }> {
   const targetUrl = (endpoint && endpoint.startsWith("http"))
     ? endpoint
-    : (process.env.NEXT_PUBLIC_TTS_API_URL || "https://kitten-mjtq.onrender.com/api/v1/tts");
+    : (process.env.NEXT_PUBLIC_TTS_API_URL || "https://pinit-voice-service.onrender.com/api/v1/tts");
 
   try {
     const response = await fetch(targetUrl, {
@@ -113,8 +113,8 @@ async function fetchCloudFastAPI(
     console.warn("[SmartVoiceRouter] Primary Render TTS endpoint fetch failed, trying alternate path...", primaryErr);
   }
 
-  // Fallback endpoint: alternate Render path /api/tts
-  const altUrl = "https://kitten-mjtq.onrender.com/api/tts";
+  // Fallback endpoint: alternate Render path /api/v1/tts
+  const altUrl = "https://pinit-voice-service.onrender.com/api/v1/tts";
   const altRes = await fetch(altUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
