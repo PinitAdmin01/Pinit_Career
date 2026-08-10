@@ -38,6 +38,14 @@ class SecurityAndRateLimitMiddleware(BaseHTTPMiddleware):
             # Record current request timestamp
             RATE_LIMIT_STORE[client_ip].append(now)
 
+        # Handle CORS preflight OPTIONS requests directly
+        if request.method == "OPTIONS":
+            response = Response(status_code=204)
+            response.headers["Access-Control-Allow-Origin"] = "*"
+            response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS, PUT, DELETE"
+            response.headers["Access-Control-Allow-Headers"] = "*"
+            return response
+
         # Generate or capture distributed Request ID
         request_id = request.headers.get("X-Request-ID", str(uuid.uuid4()))
         request.state.request_id = request_id
@@ -45,7 +53,10 @@ class SecurityAndRateLimitMiddleware(BaseHTTPMiddleware):
         # Process request
         response = await call_next(request)
 
-        # Inject Security & Tracing Headers
+        # Inject Security, CORS & Tracing Headers
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS, PUT, DELETE"
+        response.headers["Access-Control-Allow-Headers"] = "*"
         response.headers["X-Request-ID"] = request_id
         response.headers["X-Content-Type-Options"] = "nosniff"
         response.headers["X-Frame-Options"] = "DENY"
