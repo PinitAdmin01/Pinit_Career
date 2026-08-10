@@ -1,25 +1,36 @@
 import { NextResponse } from 'next/server';
 
 /**
- * Teacher portal auth must not accept username substring tricks
- * (e.g. "noteacher") or any password >= 4 chars.
- * Credentials come from env in production; defaults are demo-only accounts.
+ * Teacher portal auth — exact usernames only, passwords from env (no weak defaults).
+ * Intentional product demos remain the AuthContext accounts with password 111111.
  */
-const TEACHER_ACCOUNTS: Record<string, { password: string; role: 'teacher' | 'admin'; name: string }> = {
-  teacher: {
-    password: process.env.TEACHER_DEMO_PASSWORD || 'teacher1234',
-    role: 'teacher',
-    name: 'Teacher',
-  },
-  admin: {
-    password: process.env.TEACHER_ADMIN_PASSWORD || process.env.TEACHER_DEMO_PASSWORD || 'admin1234',
-    role: 'admin',
-    name: 'Admin',
-  },
-};
+function buildAccounts(): Record<string, { password: string; role: 'teacher' | 'admin'; name: string }> {
+  const teacherPw = process.env.TEACHER_DEMO_PASSWORD || '';
+  const adminPw = process.env.TEACHER_ADMIN_PASSWORD || '';
+  const accounts: Record<string, { password: string; role: 'teacher' | 'admin'; name: string }> = {};
+
+  if (teacherPw.length >= 8) {
+    accounts.teacher = { password: teacherPw, role: 'teacher', name: 'Teacher' };
+  }
+  if (adminPw.length >= 8) {
+    accounts.admin = { password: adminPw, role: 'admin', name: 'Admin' };
+  }
+  return accounts;
+}
 
 export async function POST(req: Request) {
   try {
+    const accounts = buildAccounts();
+    if (Object.keys(accounts).length === 0) {
+      return NextResponse.json(
+        {
+          error:
+            'Teacher portal credentials are not configured. Set TEACHER_DEMO_PASSWORD / TEACHER_ADMIN_PASSWORD (min 8 chars).',
+        },
+        { status: 503 }
+      );
+    }
+
     const { username, password } = await req.json();
 
     if (!username || !password) {
@@ -27,7 +38,7 @@ export async function POST(req: Request) {
     }
 
     const cleanUser = String(username).trim().toLowerCase();
-    const account = TEACHER_ACCOUNTS[cleanUser];
+    const account = accounts[cleanUser];
 
     if (!account || password !== account.password) {
       return NextResponse.json({ error: 'Invalid username or password' }, { status: 401 });

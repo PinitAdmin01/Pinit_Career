@@ -17,11 +17,7 @@ export default function UserManagement() {
   const { user: currentUser } = useAuth();
   const isSuperAdmin = currentUser?.role === 'superadmin' || currentUser?.role === 'admin';
 
-  const [users, setUsers] = useState<UserRow[]>([
-    { id: 'u_1', name: 'Aarav Sharma', email: 'aarav@campus.edu', role: 'student', trustScore: 92, atsScore: 85, status: 'active' },
-    { id: 'u_2', name: 'Dr. Meera Sen', email: 'meera@campus.edu', role: 'teacher', trustScore: 98, atsScore: 95, status: 'active' },
-    { id: 'u_3', name: 'Vikram Patel', email: 'vikram@campus.edu', role: 'student', trustScore: 45, atsScore: 60, status: 'suspended' }
-  ]);
+  const [users, setUsers] = useState<UserRow[]>([]);
 
   const [search, setSearch] = useState('');
   const [roleFilter, setRoleFilter] = useState<string>('all');

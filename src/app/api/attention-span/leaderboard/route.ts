@@ -27,10 +27,12 @@ function getSortedLeaderboard(currentUserId?: string) {
 
 export async function GET(req: Request) {
   try {
-    const { searchParams } = new URL(req.url);
-    const userId = searchParams.get('userId') || undefined;
+    const gated = await requireUserFromRequest(req);
+    if (gated.error) return gated.error;
 
-    // Try fetching live users from Supabase if connected
+    const { searchParams } = new URL(req.url);
+    const userId = searchParams.get('userId') || gated.user!.id;
+
     try {
       const { data } = await supabase
         .from('profiles')
@@ -69,11 +71,9 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { accuracyEarned } = body;
 
-    const earned = Math.max(0, Math.round(Number(accuracyEarned) || 0));
-    const name =
-      gated.user!.email ||
-      body.displayName ||
-      'You';
+    // Cap per-submission to stop arbitrary score inflation from the client.
+    const earned = Math.min(100, Math.max(0, Math.round(Number(accuracyEarned) || 0)));
+    const name = gated.user!.email || 'You';
 
     const existing = globalLeaderboard[userId] || {
       userId,

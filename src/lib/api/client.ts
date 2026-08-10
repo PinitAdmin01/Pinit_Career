@@ -1244,8 +1244,8 @@ Ensure the JSON output is strictly valid and contains no extra text or markdown 
   if(cleanPath==='/api/opportunities/applications') return { applications:[] };
   if(cleanPath.startsWith('/api/opportunities')) return { opportunities:[] };
   if(cleanPath==='/api/analytics/dashboard'){ const p=await fs.getUserProfile(uid); const ad=await fs.getDashboardAnalytics(uid).catch(()=>null); const intel=Math.round(((p as any)?.career_dna_score||0)*0.30+((p as any)?.trust_score||0)*0.25+((p as any)?.ats_score||0)*0.25+((p as any)?.recruiter_visibility||0)*0.20); const cr=Math.round(((p as any)?.ats_score||0)*0.35+((p as any)?.trust_score||0)*0.30+((p as any)?.career_dna_score||0)*0.20+((p as any)?.recruiter_visibility||0)*0.15); return { scores:{ ...p, career_readiness:cr }, career_readiness:cr, intelligence_score:intel, missions:(ad as any)||{}, score_history:(ad as any)?.score_history||[] }; }
-  if(cleanPath==='/api/analytics/leaderboard/preview') return { leaders:[{userId:'s-5',displayName:'Deepa Krishnan',score:91,streak:18},{userId:'s-3',displayName:'Sneha Iyer',score:85,streak:12},{userId:uid,displayName:'You',score:72,streak:7}], userRank:3, total:6 };
-  if(cleanPath.startsWith('/api/analytics/leaderboard')){ const metric = params.get('metric') || 'trust'; return { leaders:[{userId:'s-5',displayName:'Deepa Krishnan',score:91,streak:18},{userId:uid,displayName:'You',score:72,streak:7}], userRank:3, metric }; }
+  if(cleanPath==='/api/analytics/leaderboard/preview') return { leaders:[], userRank:0, total:0 };
+  if(cleanPath.startsWith('/api/analytics/leaderboard')){ const metric = params.get('metric') || 'trust'; return { leaders:[], userRank:0, metric }; }
   if(cleanPath.startsWith('/api/analytics')){ const p=await fs.getUserProfile(uid); return { profile:p, stats:p }; }
   // ── Pins API ──────────────────────────────────────────────────────────────
   if(cleanPath==='/api/pins/balance'){
@@ -4447,9 +4447,10 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
   }
   if(cleanPath==='/api/admin/platform-stats'){
     return {
-      missions: { total_created: 145, completed_count: 98, active_streaks: 12 },
-      resumes: { total_scanned: 54, avg_score: 72, enhancements_generated: 28 },
-      exams: { certification_issued: 15, passing_rate: 68, active_exams: 2 }
+      missions: { total_created: 0, completed_count: 0, active_streaks: 0 },
+      resumes: { total_scanned: 0, avg_score: 0, enhancements_generated: 0 },
+      exams: { certification_issued: 0, passing_rate: 0, active_exams: 0 },
+      isDemoData: false,
     };
   }
   if(cleanPath==='/api/admin/users'){

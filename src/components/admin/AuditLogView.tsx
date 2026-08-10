@@ -12,12 +12,7 @@ interface AuditLog {
 }
 
 export default function AuditLogView() {
-  const [logs] = useState<AuditLog[]>([
-    { id: '1', adminName: 'Admin System', action: 'SCORE_OVERRIDE', target: 'Rahul Sharma (Student)', timestamp: '2026-08-02 22:14:02', details: 'Trust Score adjusted from 75 to 88 after document verification.' },
-    { id: '2', adminName: 'SuperAdmin', action: 'ROLE_ELEVATION', target: 'Dr. Meera Sen', timestamp: '2026-08-01 14:05:30', details: 'Elevated user role from Student to Faculty Teacher.' },
-    { id: '3', adminName: 'Security Bot', action: 'SUSPENSION_TRIGGER', target: 'Vikram Patel', timestamp: '2026-07-29 09:12:44', details: 'Automated suspension due to multi-device fraud detection flag.' },
-    { id: '4', adminName: 'Admin System', action: 'SYSTEM_BACKUP', target: 'Database Service', timestamp: '2026-07-28 00:00:01', details: 'Automated daily database backup snapshot taken.' }
-  ]);
+  const [logs] = useState<AuditLog[]>([]);
 
   const [search, setSearch] = useState('');
   const [actionFilter, setActionFilter] = useState('all');

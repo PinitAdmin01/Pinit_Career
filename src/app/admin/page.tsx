@@ -6,6 +6,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { api } from '@/lib/api/client';
 import dynamic from 'next/dynamic';
 
+import { RoleGate } from '@/components/auth/RoleGate';
+
 import AdminDashboardShell from '@/components/admin/AdminDashboardShell';
 import AdminOverview from '@/components/admin/AdminOverview';
 import UserManagement from '@/components/admin/UserManagement';
@@ -75,8 +77,10 @@ function AdminPageContent() {
 
 export default function AdminPage() {
   return (
-    <Suspense fallback={<AdminLoading />}>
-      <AdminPageContent />
-    </Suspense>
+    <RoleGate allow={['admin', 'superadmin']} label="Admin access required">
+      <Suspense fallback={<AdminLoading />}>
+        <AdminPageContent />
+      </Suspense>
+    </RoleGate>
   );
 }

@@ -32,7 +32,7 @@ const EARN_WAYS = [
 
 export default function PricingPage() {
   const { data: user }   = useMe();
-  const { pins, pinHistory, addPurchasedPins } = useCareerOS();
+  const { pins, pinHistory } = useCareerOS();
 
   const { data: status } = useQuery({
     queryKey: ['payment', 'status'],
@@ -71,20 +71,18 @@ export default function PricingPage() {
 
   const packMutation = useMutation({
     mutationFn: (pack: typeof PIN_PACKS[0]) =>
-      api.post<{ orderId: string; amount: number; keyId: string; devMode?: boolean }>('/api/payment/create-order', { planId: pack.id, amount: pack.priceNum }),
+      api.post<{ orderId: string; amount: number; keyId: string; devMode?: boolean }>('/api/payment/create-order', { planId: pack.id }),
     onSuccess: async (data, pack) => {
       try {
         await openRazorpayCheckout({
           key: data.keyId,
-          amount: pack.priceNum,
+          amount: data.amount,
           currency: 'INR',
           name: 'PinIT Pins Upgrade',
           description: `${pack.pins} Pins — ${pack.name} Pack`,
           order_id: data.orderId,
-          handler: (response) => {
-            addPurchasedPins(pack.pins, pack.name);
-            verifyMutation.mutate({ ...response, planId: pack.id });
-          },
+          // Pins are granted only after server verify — never mint client-side.
+          handler: (response) => verifyMutation.mutate({ ...response, planId: pack.id }),
           prefill: { name: user?.displayName },
           theme: { color: '#4f46e5' },
         });

@@ -3,26 +3,19 @@ import { requireUserFromRequest } from '@/lib/server/requireAuth';
 
 /**
  * PinIT Voice Cache — Next.js TTS Route
- * Upgraded from voice-service/api_tts_route.ts
  *
- * 4-Tier Cache Architecture:
- *   Tier 0 → Static pre-rendered files (handled client-side in voiceCache.ts)
- *   Tier 1 → Browser IndexedDB (handled client-side in voiceCache.ts)
- *   Tier 2 → Redis via FastAPI backend cache lookup   ← THIS ROUTE HANDLES
- *   Tier 3 → Kokoro / Premium TTS generation          ← THIS ROUTE HANDLES
- *
- * The client (voiceCache.ts) already handles Tier 0 and 1 before ever
- * reaching this route, so we only deal with Tier 2 and 3 here.
+ * Auth is required. Guest synthesis is not allowed (prevents open proxy abuse).
  */
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_TTS_API_URL ? process.env.NEXT_PUBLIC_TTS_API_URL.replace(/\/api\/.*$/, '') : 'https://pinit-voice-service.onrender.com';
+const BACKEND_URL = process.env.NEXT_PUBLIC_TTS_API_URL
+  ? process.env.NEXT_PUBLIC_TTS_API_URL.replace(/\/api\/.*$/, '')
+  : 'https://pinit-voice-service.onrender.com';
 const CDN_URL = process.env.NEXT_PUBLIC_CDN_VOICE_URL || '';
 
 export async function POST(req: NextRequest) {
   try {
-    // Soft user check — try parsing authorization token if provided, but allow public audio synthesis
     const gated = await requireUserFromRequest(req);
-    const userId = gated.user?.id || 'guest';
+    if (gated.error) return gated.error;
 
     const body = await req.json();
     const {
@@ -34,14 +27,13 @@ export async function POST(req: NextRequest) {
       version = 'v2.0',
       sample_rate = 24000,
       context = 'avatar',
-      cacheKey,           // pre-computed SHA256 from client (optional optimisation)
+      cacheKey,
     } = body;
 
     if (!text?.trim()) {
       return NextResponse.json({ error: 'Text is required.' }, { status: 400 });
     }
 
-    // ── Tier 2: CDN Bucket check (optional — for multi-server setups) ─────────
     if (CDN_URL && cacheKey) {
       const cdnUrl = `${CDN_URL}/${language}/${cacheKey}.mp3`;
       try {
@@ -55,7 +47,7 @@ export async function POST(req: NextRequest) {
               'Content-Type': 'audio/mpeg',
               'X-Cache-Status': 'CDN_HIT',
               'X-Cache-Key': cacheKey,
-              'Cache-Control': 'public, max-age=31536000, immutable',
+              'Cache-Control': 'private, max-age=3600',
             },
           });
         }
@@ -64,12 +56,10 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // ── Tier 3: FastAPI Backend (Redis → Kokoro generation) ───────────────────
     const backendRes = await fetch(`${BACKEND_URL}/api/v1/tts`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text, voice, language, speed, emotion, version, sample_rate, context }),
-      // Allow up to 10s for first-time Kokoro generation
       signal: AbortSignal.timeout(10000),
     });
 
@@ -83,12 +73,10 @@ export async function POST(req: NextRequest) {
     }
 
     const audioBuffer = await backendRes.arrayBuffer();
-
-    // Forward cache metadata headers from backend to client
     const cacheStatus = backendRes.headers.get('X-Cache-Status') ?? 'GENERATED';
     const returnedKey = backendRes.headers.get('X-Cache-Key') ?? cacheKey ?? '';
-    const engine      = backendRes.headers.get('X-Engine') ?? 'kokoro';
-    const duration    = backendRes.headers.get('X-Duration') ?? '0';
+    const engine = backendRes.headers.get('X-Engine') ?? 'kokoro';
+    const duration = backendRes.headers.get('X-Duration') ?? '0';
     const contentType = backendRes.headers.get('Content-Type') ?? 'audio/wav';
 
     return new NextResponse(audioBuffer, {
@@ -96,15 +84,13 @@ export async function POST(req: NextRequest) {
       headers: {
         'Content-Type': contentType,
         'X-Cache-Status': cacheStatus,
-        'X-Cache-Key':   returnedKey,
-        'X-Engine':      engine,
-        'X-Duration':    duration,
-        'Cache-Control': 'public, max-age=31536000, immutable',
+        'X-Cache-Key': returnedKey,
+        'X-Engine': engine,
+        'X-Duration': duration,
+        'Cache-Control': 'private, max-age=3600',
       },
     });
-
   } catch (err: any) {
-    // Timeout or network error — client will fall back to WebSpeech
     const isTimeout = err?.name === 'TimeoutError' || err?.name === 'AbortError';
     console.error(`[/api/tts] ${isTimeout ? 'Timeout' : 'Error'}: ${err.message}`);
     return NextResponse.json(
@@ -115,5 +101,5 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET() {
-  return NextResponse.json({ status: 'PinIT TTS route active' });
+  return NextResponse.json({ status: 'PinIT TTS route active', auth: 'required' });
 }

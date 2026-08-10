@@ -729,28 +729,11 @@ function ParentPageInner() {
 
                               {pay.status === 'PENDING' && (
                                 <button
-                                  onClick={async () => {
-                                    try {
-                                      const orderRes = await api.post<{ orderId: string; amount: number; keyId: string }>('/api/payment/create-order', {
-                                        planId: pay.id,
-                                        amount: pay.amountNum * 100
-                                      });
-                                      await openRazorpayCheckout({
-                                        key: orderRes.keyId || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_test_pinit_demo',
-                                        amount: orderRes.amount || (pay.amountNum * 100),
-                                        currency: 'INR',
-                                        name: 'PinIT Parent Fee Payment',
-                                        description: `Payment for ${pay.term}`,
-                                        order_id: orderRes.orderId,
-                                        handler: (res) => {
-                                          toast.success('Payment Successful! 🎉', `Transaction ID: ${res.razorpay_payment_id}. Receipt issued.`);
-                                          qc.invalidateQueries({ queryKey: ['parent'] });
-                                        },
-                                        theme: { color: '#10b981' }
-                                      });
-                                    } catch (e: any) {
-                                      toast.error('Payment Error', e.message);
-                                    }
+                                  onClick={() => {
+                                    toast.error(
+                                      'Fee catalog not configured',
+                                      'Institutional fee amounts must be priced server-side. Client amounts are rejected for security.'
+                                    );
                                   }}
                                   style={{
                                     padding: '6px 14px', borderRadius: 8, border: 'none',

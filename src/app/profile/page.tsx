@@ -349,33 +349,13 @@ function ProfilePageInner() {
   const [examFeedback, setExamFeedback] = useState('');
   const [examDone, setExamDone] = useState(false);
 
-  const [pitch, setPitch] = useState("Passionate SDE candidate focused on low-latency payment infrastructure, cryptography, and secure system scalability.");
-  const [projects, setProjects] = useState<Array<{ id: string; title: string; description: string; tech: string[]; verified: boolean }>>([
-    { id: 'p1', title: 'Zero-Knowledge Crypto Vault', description: 'Advanced browser WebCrypto project vault implementing AES-GCM local-first wallet encryption schemes.', tech: ['Next.js', 'WebCrypto', 'TypeScript'], verified: false },
-    { id: 'p2', title: 'Billing Latency Ledger', description: 'Concurrent transaction queuing simulation resolving database index contentions during spike traffic events.', tech: ['Go Lang', 'Docker', 'PostgreSQL'], verified: true }
-  ]);
-  const [certificates, setCertificates] = useState<Array<{ id: string; title: string; issuer: string; verified: boolean }>>([
-    { id: 'c1', title: 'AWS Certified Solutions Architect', issuer: 'Amazon Web Services', verified: true },
-    { id: 'c2', title: 'Advanced Cryptography Specialization', issuer: 'Stanford / Coursera', verified: false }
-  ]);
-  const [researchPapers, setResearchPapers] = useState<Array<{ id: string; title: string; journal: string; verified: boolean }>>([
-    { id: 'r1', title: 'Formalizing Zero-Knowledge Consensus in SDE Billing Networks', journal: 'IEEE Software Engineering Journal', verified: false }
-  ]);
-  const [achievements] = useState([
-    { id: 'a1', title: '1st Place, Stripe Global Hackathon', detail: 'Awarded for developing zero-knowledge gasless transactions prototype.' }
-  ]);
-  const [recommendations] = useState([
-    { id: 'rec1', author: 'Ms. Priya (AI Faculty Lead)', text: 'Ashwanth displays exceptional architectural clarity. His zero-knowledge cryptography lab works exceed baseline requirements.' }
-  ]);
-  const [timeline, setTimeline] = useState<Array<{ id: string; year: string; category: TimelineCategory; title: string; detail: string; verified: boolean }>>([
-    { id: 't_evt1', year: '2026', category: 'Placement', title: 'SDE Pre-Placement Offer', detail: 'Hired by Stripe Payments for SDE-1 starting Fall 2026.', verified: true },
-    { id: 't_evt2', year: '2026', category: 'Internship', title: 'Corporate SDE Internship', detail: 'Infrastructure billing latency optimizations at Stripe.', verified: true },
-    { id: 't_evt3', year: '2026', category: 'Project', title: 'Zero-Knowledge Crypto Vault', detail: 'Created advanced browser WebCrypto project vault.', verified: false },
-    { id: 't_evt4', year: '2025', category: 'Hackathon', title: 'Campus Hackathon Winner', detail: '1st place for decentralised identity manager solution.', verified: true },
-    { id: 't_evt5', year: '2025', category: 'Certification', title: 'AWS Cloud Architect Credentials', detail: 'Completed certified solutions architect validation.', verified: true },
-    { id: 't_evt6', year: '2025', category: 'Award', title: 'Dean List Academic Honors', detail: 'Maintained GPA above 9.0 for two consecutive terms.', verified: true },
-    { id: 't_evt7', year: '2024', category: 'Course', title: 'Data Structures Core Curriculum', detail: 'Completed CS-301 algorithm structures exam.', verified: true }
-  ]);
+  const [pitch, setPitch] = useState("Add a short professional pitch about your skills and goals.");
+  const [projects, setProjects] = useState<Array<{ id: string; title: string; description: string; tech: string[]; verified: boolean }>>([]);
+  const [certificates, setCertificates] = useState<Array<{ id: string; title: string; issuer: string; verified: boolean }>>([]);
+  const [researchPapers, setResearchPapers] = useState<Array<{ id: string; title: string; journal: string; verified: boolean }>>([]);
+  const [achievements] = useState<Array<{ id: string; title: string; detail: string }>>([]);
+  const [recommendations] = useState<Array<{ id: string; author: string; text: string }>>([]);
+  const [timeline, setTimeline] = useState<Array<{ id: string; year: string; category: TimelineCategory; title: string; detail: string; verified: boolean }>>([]);
   const [editingPitch, setEditingPitch] = useState(false);
   const [tempPitch, setTempPitch] = useState(pitch);
   const [newProjTitle, setNewProjTitle] = useState('');
@@ -1023,8 +1003,8 @@ function ProfilePageInner() {
                 {activePortfolioTab === 'GitHub' && (
                   <div style={{ textAlign: 'center', padding: '20px 0' }}>
                     <span style={{ fontSize: 40, display: 'block', marginBottom: 12 }}>🐙</span>
-                    <div style={{ fontSize: 13, fontWeight: 800, marginBottom: 4 }}>github.com/ashwanth-dev</div>
-                    <p style={{ fontSize: 12, color: 'var(--t3)', margin: 0 }}>Syncing commits and repository metadata every 24 hours.</p>
+                    <div style={{ fontSize: 13, fontWeight: 800, marginBottom: 4 }}>Connect your GitHub profile</div>
+                    <p style={{ fontSize: 12, color: 'var(--t3)', margin: 0 }}>No repository linked yet. Sync commits after connecting an account.</p>
                   </div>
                 )}
 

@@ -2,9 +2,17 @@ import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import crypto from 'crypto';
 
+/** Server-defined catalog only — client amounts are never trusted. */
+export const PLAN_PRICES_PAISE: Record<string, number> = {
+  pro: 49900,
+  pack_50: 4900,
+  pack_150: 9900,
+  pack_500: 24900,
+};
+
 /**
  * Create a Razorpay order server-side when keys are configured.
- * Fail closed (no fake paid entitlement) when secrets are missing.
+ * Fail closed when secrets are missing or planId is unknown.
  */
 export async function POST(req: Request) {
   try {
@@ -12,13 +20,17 @@ export async function POST(req: Request) {
     if (gated.error) return gated.error;
 
     const body = await req.json().catch(() => ({}));
-    const planId = String(body.planId || 'pro');
-    const amount = Number(body.amount);
-    const defaultAmount = planId === 'pro' ? 49900 : 9900;
-    const orderAmount = Number.isFinite(amount) ? amount : defaultAmount;
+    const planId = String(body.planId || '').trim();
+    const orderAmount = PLAN_PRICES_PAISE[planId];
 
-    if (!Number.isInteger(orderAmount) || orderAmount < 100 || orderAmount > 1_000_000) {
-      return NextResponse.json({ error: 'INVALID_AMOUNT' }, { status: 400 });
+    if (!orderAmount) {
+      return NextResponse.json(
+        {
+          error: 'UNKNOWN_PLAN',
+          message: 'Only catalog plans can be purchased. Client-supplied amounts are rejected.',
+        },
+        { status: 400 }
+      );
     }
 
     const keyId = process.env.RAZORPAY_KEY_ID || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || '';
@@ -71,7 +83,6 @@ export async function POST(req: Request) {
   }
 }
 
-/** Utility kept for verify route HMAC */
 export function hmacSha256(secret: string, payload: string) {
   return crypto.createHmac('sha256', secret).update(payload).digest('hex');
 }

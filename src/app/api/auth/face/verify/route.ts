@@ -15,7 +15,7 @@ function euclideanDistance(v1: number[], v2: number[]): number {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { descriptor, username = 'student@pinit.in', livenessVerified = false, nonce } = body;
+    const { descriptor, username = 'student@pinit.in', nonce } = body;
 
     if (!descriptor || !Array.isArray(descriptor)) {
       return NextResponse.json(
@@ -32,12 +32,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    if (!livenessVerified) {
-      return NextResponse.json(
-        { ok: false, success: false, error: 'Liveness verification required before face match.' },
-        { status: 403 }
-      );
-    }
+    // Do not trust client-supplied livenessVerified — it is forgeable.
+    // Real liveness requires server-side video analysis; gate here is nonce + template match.
 
     const targetUser = String(username).toLowerCase();
 
@@ -98,7 +94,7 @@ export async function POST(req: NextRequest) {
       match: true,
       distance: Number(distance.toFixed(4)),
       confidence: matchConfidence,
-      livenessVerified: true,
+      livenessVerified: false,
       message: `Biometric Face Verification Successful (${matchConfidence}% Accuracy Match)`,
       user: userObj,
     });

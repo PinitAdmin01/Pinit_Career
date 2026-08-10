@@ -662,23 +662,10 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
     return true;
   }, [isItemUnlocked, pins, spendPins, keys.unlockedItems, save, userId]);
 
-  const addPurchasedPins = useCallback((amount: number, packName: string) => {
-    // Update Firestore in background
-    api.post('/api/pins/purchase', { amount, packName }).catch(() => {});
-
-    setPins(prev => {
-      const next = prev + amount;
-      save(keys.pins, next);
-      return next;
-    });
-    const tx: PinTransaction = { id: `tx_${Date.now()}`, type: 'earn', amount, reason: `Purchased: ${packName}`, source: 'purchase', timestamp: Date.now() };
-    setPinsHistory(prev => {
-      const updated = [tx, ...prev].slice(0, 100);
-      save(keys.pinHist, updated);
-      return updated;
-    });
-    toast.success(`⚡ ${amount} Pins Added!`, `${packName} pack activated successfully.`);
-  }, [keys.pins, keys.pinHist, save]);
+  const addPurchasedPins = useCallback((_amount: number, _packName: string) => {
+    // Client-side pin minting is disabled. Pins are granted only after /api/payment/verify.
+    toast.error('Purchase blocked', 'Pins can only be granted after server payment verification.');
+  }, []);
 
   // ─── Daily Pins Grant Scheduler & Streak Decay ─────────────────────────────
   useEffect(() => {

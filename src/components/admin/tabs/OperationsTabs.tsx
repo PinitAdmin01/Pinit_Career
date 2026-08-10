@@ -3,10 +3,7 @@
 import React, { useState } from 'react';
 
 export function AdmissionsTab() {
-  const [applications] = useState([
-    { id: 'app_1', name: 'Aarav Sharma', course: 'B.Tech CS & AI', status: 'Approved', score: '94%' },
-    { id: 'app_2', name: 'Ananya Gupta', course: 'M.Tech Data Science', status: 'Pending Review', score: '88%' }
-  ]);
+  const [applications] = useState<Array<{ id: string; name: string; course: string; status: string; score: string }>>([]);
 
   return (
     <div style={{ background: '#fff', padding: 24, borderRadius: 12, border: '1px solid #e2e8f0' }}>

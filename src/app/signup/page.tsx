@@ -4,21 +4,11 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/lib/context/AuthContext';
 
-const ROLES = [
-  { value: 'student', label: 'Student', icon: '🎓', desc: 'Complete quests, Java coding, AI interviews' },
-  { value: 'teacher', label: 'Faculty / Teacher', icon: '👨‍🏫', desc: 'Create exams, publish study notes, grade student submissions' },
-  { value: 'parent', label: 'Parent', icon: '👨‍👩‍👧', desc: 'Monitor student academic progress, attendance, and dues' },
-  { value: 'consultant', label: 'Career Consultant', icon: '💼', desc: 'Provide 1-on-1 counseling, resume reviews, and guidance' },
-  { value: 'recruiter', label: 'Recruiter', icon: '🔍', desc: 'Discover software talent, audit verified code, post tech jobs' },
-  { value: 'admin', label: 'Administrator', icon: '⚙️', desc: 'Manage campus operations, user roles, system telemetry' }
-];
-
 export default function SignupPage() {
   const { signup } = useAuth();
   const router = useRouter();
 
-  // Form State
-  const [form, setForm] = useState({ username: '', displayName: '', password: '', role: 'student' });
+  const [form, setForm] = useState({ username: '', displayName: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -37,21 +27,14 @@ export default function SignupPage() {
     setError('');
 
     try {
-      // Sign up user using standard AuthContext
+      // Signup always creates a student account (server/AuthContext enforce this).
       await signup({
         username: form.username,
         displayName: form.displayName,
         password: form.password,
-        role: form.role
+        role: 'student',
       });
-
-      // Role-based destination routing
-      if (form.role === 'parent') router.push('/parent');
-      else if (form.role === 'consultant') router.push('/consultant');
-      else if (form.role === 'teacher') router.push('/admin/teacher');
-      else if (form.role === 'recruiter') router.push('/recruiter');
-      else if (form.role === 'admin') router.push('/admin');
-      else router.push('/onboarding');
+      router.push('/onboarding');
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : 'Signup failed');
     } finally {
@@ -62,7 +45,6 @@ export default function SignupPage() {
   return (
     <div className="auth-page">
       <div className="auth-card animate-fade-in">
-        {/* Brand Logo */}
         <div className="auth-logo">
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginBottom: 8 }}>
             <div style={{
@@ -72,105 +54,81 @@ export default function SignupPage() {
               borderRadius: 12,
               display: 'flex',
               alignItems: 'center',
-              alignContent: 'center',
               justifyContent: 'center',
               fontFamily: 'var(--font-display)',
               fontSize: 17,
               fontWeight: 800,
               color: 'white',
-              boxShadow: '0 6px 16px rgba(79,70,229,0.3)',
-            }}>Pi</div>
-            <span style={{ fontFamily: 'var(--font-display)', fontSize: 21, fontWeight: 800, color: 'var(--t1)', letterSpacing: '-0.5px' }}>PinIT Career OS</span>
+            }}>
+              P
+            </div>
+            <span style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 800 }}>PinIT</span>
           </div>
-          <div className="auth-title">Create Account</div>
-          <div className="auth-sub">Choose your role and register below</div>
+          <div className="auth-sub">Create your student account</div>
         </div>
 
-        <form onSubmit={handleRegister} className="animate-fade-in">
-          <div className="form-group" style={{ marginBottom: 12 }}>
-            <label className="form-label" style={{ fontSize: 11 }}>Username</label>
-            <input 
-              className="form-input" 
-              placeholder="lowercase, no spaces (e.g. janesmith)" 
-              value={form.username}
-              onChange={e => setForm(f => ({ ...f, username: e.target.value.toLowerCase().replace(/\s/g, '') }))} 
-              required
-              style={{ padding: '8px 12px', fontSize: 12.5 }}
-            />
-          </div>
-
-          <div className="form-group" style={{ marginBottom: 12 }}>
-            <label className="form-label" style={{ fontSize: 11 }}>Display Name</label>
-            <input 
-              className="form-input" 
-              placeholder="Your full name" 
-              value={form.displayName}
-              onChange={e => setForm(f => ({ ...f, displayName: e.target.value }))} 
-              required
-              style={{ padding: '8px 12px', fontSize: 12.5 }}
-            />
-          </div>
-
-          <div className="form-group" style={{ marginBottom: 12 }}>
-            <label className="form-label" style={{ fontSize: 11 }}>Password</label>
-            <input 
-              className="form-input" 
-              type="password" 
-              placeholder="6+ characters" 
-              value={form.password}
-              onChange={e => setForm(f => ({ ...f, password: e.target.value }))} 
-              required 
-              minLength={6}
-              style={{ padding: '8px 12px', fontSize: 12.5 }}
-            />
-          </div>
-
-          <div className="form-group" style={{ marginBottom: 16 }}>
-            <label className="form-label" style={{ fontSize: 11 }}>Choose Account Role</label>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              {ROLES.map(r => (
-                <label key={r.value} style={{
-                  display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px',
-                  borderRadius: 'var(--radius)', cursor: 'pointer',
-                  border: `1.5px solid ${form.role === r.value ? 'var(--accent)' : 'var(--border)'}`,
-                  background: form.role === r.value ? 'var(--accent-light)' : 'var(--bg3)',
-                  transition: 'all 0.15s',
-                }}>
-                  <input type="radio" name="role" value={r.value} checked={form.role === r.value}
-                    onChange={() => setForm(f => ({ ...f, role: r.value }))} style={{ position: 'absolute', opacity: 0, width: 0, height: 0, pointerEvents: 'none' }} />
-                  <span style={{ fontSize: 16 }}>{r.icon}</span>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: 11.5, fontWeight: 600, color: form.role === r.value ? 'var(--accent)' : 'var(--t1)' }}>{r.label}</div>
-                    <div style={{ fontSize: 9.5, color: 'var(--t3)' }}>{r.desc}</div>
-                  </div>
-                  {form.role === r.value && (
-                    <span style={{ color: 'var(--accent)', fontWeight: 700, fontSize: 11 }}>✓</span>
-                  )}
-                </label>
-              ))}
-            </div>
-          </div>
-
+        <form onSubmit={handleRegister} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
           {error && (
-            <div className="alert alert-danger" style={{ marginBottom: 14, fontSize: 11.5 }}>
-              ⚠️ {error}
+            <div style={{
+              padding: '10px 12px',
+              borderRadius: 10,
+              background: 'rgba(239,68,68,0.1)',
+              color: '#b91c1c',
+              fontSize: 13,
+              fontWeight: 600,
+            }}>
+              {error}
             </div>
           )}
 
-          <button 
-            type="submit" 
-            className="btn-primary" 
-            style={{ width: '100%', justifyContent: 'center', padding: '11px', fontSize: 13, marginTop: 4 }}
-            disabled={loading}
-          >
-            {loading ? '⏳ Creating Account...' : 'Register Account ✓'}
+          <label style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 12, fontWeight: 700, color: 'var(--t2)' }}>
+            Email / Username
+            <input
+              className="form-input"
+              value={form.username}
+              onChange={(e) => setForm((f) => ({ ...f, username: e.target.value }))}
+              placeholder="you@college.edu"
+              autoComplete="username"
+              required
+            />
+          </label>
+
+          <label style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 12, fontWeight: 700, color: 'var(--t2)' }}>
+            Display name
+            <input
+              className="form-input"
+              value={form.displayName}
+              onChange={(e) => setForm((f) => ({ ...f, displayName: e.target.value }))}
+              placeholder="Your name"
+              autoComplete="name"
+              required
+            />
+          </label>
+
+          <label style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 12, fontWeight: 700, color: 'var(--t2)' }}>
+            Password
+            <input
+              className="form-input"
+              type="password"
+              value={form.password}
+              onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))}
+              placeholder="At least 6 characters"
+              autoComplete="new-password"
+              required
+            />
+          </label>
+
+          <p style={{ margin: 0, fontSize: 12, color: 'var(--t3)', lineHeight: 1.5 }}>
+            New accounts are registered as <strong>students</strong>. Staff and recruiter access is granted by an administrator — it cannot be self-selected at signup.
+          </p>
+
+          <button type="submit" className="btn-primary" disabled={loading} style={{ width: '100%', marginTop: 4 }}>
+            {loading ? 'Creating account…' : 'Create student account'}
           </button>
         </form>
 
-        {/* Footer */}
-        <div style={{ textAlign: 'center', marginTop: 18, fontSize: 12.5, color: 'var(--t3)', borderTop: '1px solid var(--border)', paddingTop: 12 }}>
-          Already have an account?{' '}
-          <Link href="/login" style={{ color: 'var(--accent)', fontWeight: 600, textDecoration: 'none' }}>Sign in</Link>
+        <div style={{ marginTop: 18, textAlign: 'center', fontSize: 13, color: 'var(--t3)' }}>
+          Already have an account? <Link href="/login">Sign in</Link>
         </div>
       </div>
     </div>

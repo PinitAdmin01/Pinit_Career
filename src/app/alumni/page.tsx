@@ -98,7 +98,7 @@ export default function StudentAlumniPortal() {
         contributorName
       });
       if (res && res.ok) {
-        alert('Thank you for contributing to institutional development campaigns! Payment simulator verified ✓');
+        alert('Donation recorded in the local alumni simulator. This is not a real payment.');
         setDonateAmount('5000');
         fetchAlumniData();
       }
