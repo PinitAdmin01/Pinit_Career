@@ -1,8 +1,9 @@
 
 node_modules/
+.next/
+out/
 dist/
 coverage/
-public/
 .firebase/
 .idea/  
 .vscode/
@@ -15,3 +16,5 @@ public/
 .env.local
 .env.production
 .env.development
+*.pdf
+*.docx
