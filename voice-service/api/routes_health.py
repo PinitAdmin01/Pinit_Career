@@ -12,8 +12,8 @@ def get_main_health():
     """Returns 200 OK system health status."""
     return {
         "status": "healthy",
-        "service": settings.APP_NAME,
-        "version": settings.APP_VERSION
+        "service": "PinIT Careers AI Voice Service",
+        "version": "1.0.0"
     }
 
 @router.get("/health/live")
