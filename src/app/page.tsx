@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/lib/hooks/useAuth';
 import { supabase } from '@/lib/supabaseClient';
+import PublicNavbar from '@/components/nav/PublicNavbar';
 
 function getRedirectPath(email: string | null | undefined, role: string | null | undefined): string {
   const emailLower = email?.toLowerCase() || '';
@@ -206,24 +207,6 @@ function LandingContent() {
       setTheme(savedTheme);
       document.documentElement.setAttribute('data-theme', savedTheme);
     }
-
-    // Fetch live stats from Supabase
-    async function fetchStats() {
-      try {
-        const { count: studentCount } = await supabase.from('profiles').select('*', { count: 'exact', head: true });
-        const { count: projectCount } = await supabase.from('user_projects').select('*', { count: 'exact', head: true });
-        if (studentCount && studentCount > 0) {
-          setLiveStats(prev => ({
-            ...prev,
-            activeLearners: studentCount > 1000 ? `${(studentCount / 1000).toFixed(0)}K+` : `${studentCount}+`,
-            projectsBuilt: projectCount && projectCount > 0 ? `${projectCount}+` : prev.projectsBuilt
-          }));
-        }
-      } catch (err) {
-        // Keep resilient fallbacks if offline or unauthenticated
-      }
-    }
-    fetchStats();
   }, []);
 
   const handleToggleTheme = () => {
@@ -269,47 +252,8 @@ function LandingContent() {
       <div className="floating-blob blob-2"></div>
       <div className="floating-blob blob-3"></div>
 
-      {/* 1. NAVBAR */}
-      <nav className="navbar">
-        <div className="nav-container">
-          <div className="nav-left">
-            <div className="brand-logo">
-              <span className="pi-hex-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" fill="url(#brandGrad)" />
-                  <path d="M9 7H13.5C15.433 7 17 8.567 17 10.5C17 12.433 15.433 14 13.5 14H11V17H9V7Z" fill="white" />
-                  <defs>
-                    <linearGradient id="brandGrad" x1="3" y1="2" x2="21" y2="22" gradientUnits="userSpaceOnUse">
-                      <stop stopColor="#7C3AED" />
-                      <stop offset="1" stopColor="#6366F1" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-              </span>
-              <span className="brand-text">PINITCAREER</span>
-            </div>
-          </div>
-          
-          <div className={`nav-center ${menuOpen ? 'mobile-open' : ''}`}>
-            {navLinks.map(link => (
-              <a key={link.name} href={link.href} className="nav-link" onClick={() => setMenuOpen(false)}>
-                {link.name}
-              </a>
-            ))}
-          </div>
-
-          <div className="nav-right">
-            <button className="theme-toggle-btn" onClick={toggleTheme} aria-label="Toggle Theme">
-              {theme === 'dark' ? '🌙' : '☀️'}
-            </button>
-            <button className="nav-login-btn" onClick={handleLoginClick}>Log in</button>
-            <button className="pc-btn-primary nav-cta">Get Started Free</button>
-            <button className="mobile-menu-btn" onClick={() => setMenuOpen(!menuOpen)}>
-              {menuOpen ? '✕' : '☰'}
-            </button>
-          </div>
-        </div>
-      </nav>
+      {/* 1. UNIVERSAL SHARED NAVBAR */}
+      <PublicNavbar onLoginClick={handleLoginClick} />
 
       <main className="main-content">
         {/* 2. HERO SECTION */}

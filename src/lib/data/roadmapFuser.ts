@@ -57,7 +57,7 @@ export function generateDynamicStudentRoadmap(params: DynamicRoadmapParams): Dyn
   const isHighKnowledge = qt1 >= 75;
   const isLowKnowledge = qt1 < 50;
 
-  const adaptedQuests = rawQuests.map((q, idx) => {
+  let adaptedQuests = rawQuests.map((q, idx) => {
     let fastTracked = false;
     let reinforcementNeeded = false;
     let personalizedHint = q.hint || '';
@@ -85,6 +85,19 @@ export function generateDynamicStudentRoadmap(params: DynamicRoadmapParams): Dyn
       personalizedHint
     };
   });
+
+  // Fast-Track Compression: For high QT1 (>=75), compress early basic syntax quests (indices 1-4) into 1 accelerated quest
+  if (isHighKnowledge && adaptedQuests.length > 5) {
+    adaptedQuests = [
+      {
+        ...adaptedQuests[0],
+        title: `⚡ Fast-Track Jump: ${adaptedQuests[0].title.replace('Learning: ', '')} (Basics Compressed)`,
+        desc: `Compressed 5-in-1 basic syntax summary for high QT1 (${qt1}/100) score. Jumping directly to your present skill level!`,
+        fastTracked: true
+      },
+      ...adaptedQuests.slice(5)
+    ];
+  }
 
   // 4. Mindset Adaptation (QT2 / Archetype Rules)
   let mindsetTag = '⚡ Balanced Learner';

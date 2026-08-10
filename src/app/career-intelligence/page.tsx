@@ -344,7 +344,9 @@ function CareerIntelligencePageInner() {
     const counts: Record<Application['status'], number> = {
       applied: 0, viewed: 0, shortlisted: 0, interview_scheduled: 0, offered: 0, rejected: 0, withdrawn: 0,
     };
-    for (const a of apps) counts[a.status]++;
+    for (const a of apps) {
+      if (a.status in counts) counts[a.status]++;
+    }
     return counts;
   }, [apps]);
 

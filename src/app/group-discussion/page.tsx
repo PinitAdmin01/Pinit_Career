@@ -1020,7 +1020,8 @@ export default function GroupDiscussionPage() {
     if (typeof window !== 'undefined') {
       try {
         const stored = localStorage.getItem(`pinit_gd_history_${user?.id || 'anon'}`);
-        const historyList = stored ? JSON.parse(stored) : [];
+        let historyList: any[] = [];
+        try { historyList = stored ? JSON.parse(stored) : []; } catch { historyList = []; }
         const newRecord = {
           id: `gd_${Date.now()}`,
           topic: roomName,
@@ -1522,7 +1523,8 @@ export default function GroupDiscussionPage() {
               {(() => {
                 if (typeof window === 'undefined') return null;
                 const stored = localStorage.getItem(`pinit_gd_history_${user?.id || 'anon'}`);
-                const historyList = stored ? JSON.parse(stored) : [];
+                let historyList: any[] = [];
+                try { historyList = stored ? JSON.parse(stored) : []; } catch { historyList = []; }
                 if (historyList.length === 0) {
                   return (
                     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'var(--t4)', gap: 8 }}>

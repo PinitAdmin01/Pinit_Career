@@ -6,7 +6,7 @@
 const DB_NAME = "PinITVoiceCacheDB";
 const DB_VERSION = 1;
 const STORE_NAME = "voice_audio_blobs";
-const MODEL_VERSION = "kokoro-v0_19";
+const MODEL_VERSION = "kokoro-v0_21_human_speech";
 
 export interface CachedAudioEntry {
   cacheKey: string;
@@ -78,7 +78,7 @@ class VoiceCacheDB {
   }
 
   /**
-   * Retrieves pre-rendered audio buffer from IndexedDB cache if present.
+   * Retrieves pre-rendered audio buffer from IndexedDB cache if present and valid.
    */
   async getAudio(cacheKey: string): Promise<ArrayBuffer | null> {
     try {
@@ -90,12 +90,16 @@ class VoiceCacheDB {
 
         getReq.onsuccess = () => {
           const entry: CachedAudioEntry | undefined = getReq.result;
-          if (entry) {
-            // Increment hit count
+          if (entry && entry.audioBuffer && entry.audioBuffer.byteLength > 2500) {
+            // Increment hit count for valid audio
             entry.hitCount += 1;
             store.put(entry);
             resolve(entry.audioBuffer);
           } else {
+            // Delete corrupt/robotic sine-wave entries
+            if (entry) {
+              store.delete(cacheKey);
+            }
             resolve(null);
           }
         };

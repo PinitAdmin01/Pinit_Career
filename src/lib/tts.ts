@@ -185,8 +185,17 @@ function fallbackWebSpeech(
   };
 
   if (window.speechSynthesis.getVoices().length === 0) {
-    window.speechSynthesis.onvoiceschanged = speak;
-    setTimeout(speak, 150);
+    let spoken = false;
+    let timer: any = null;
+    const safeSpeak = () => {
+      if (spoken) return;
+      spoken = true;
+      if (timer) clearTimeout(timer);
+      try { window.speechSynthesis.removeEventListener('voiceschanged', safeSpeak); } catch {}
+      speak();
+    };
+    window.speechSynthesis.addEventListener('voiceschanged', safeSpeak, { once: true });
+    timer = setTimeout(safeSpeak, 150);
   } else {
     speak();
   }
@@ -304,11 +313,15 @@ export async function speakWithAvatar(
         return;
       }
     } catch (err) {
-      console.warn('[PinIT Voice System] Smart Router playback error, falling back to WebSpeech:', err);
+      console.warn('[PinIT Voice System] Render Kokoro Server error, activating Natural Human Voice fallback:', err);
+      if (mySpeechId === currentSpeechId) {
+        fallbackWebSpeech(cleanText, teacherId, onStart, onEnd, vibe, mySpeechId, difficulty, speedMultiplier, maxDurationMs);
+        return;
+      }
     }
   }
 
-  // Tier 2: Instant Native Browser WebSpeech Fallback
+  // Tier 2: Instant Native Human Speech Fallback
   if (mySpeechId === currentSpeechId) {
     fallbackWebSpeech(cleanText, teacherId, onStart, onEnd, vibe, mySpeechId, difficulty, speedMultiplier, maxDurationMs);
   }

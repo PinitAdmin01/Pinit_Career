@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import { COURSES_REGISTRY } from '@/lib/data/coursesData';
 import { CONCEPT_ANALOGIES_REGISTRY } from '@/lib/data/conceptAnalogies';
 import { speakWithAvatar, stopSpeaking, preloadTTS, preloadNextSpeech } from '@/lib/tts';
+import { startArchetypeSoundscape, stopArchetypeSoundscape, setSoundscapeDucking, getUserSoundscapeVolume, setUserSoundscapeVolume } from '@/lib/audio/soundscapes';
 import { useAuth } from '@/lib/context/AuthContext';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { api } from '@/lib/api/client';
@@ -381,13 +382,83 @@ function LessonPageContent() {
     setSlidesLoading(false);
   }, [questId, syllabus]);
 
+  // Client Hydration, Mobile Audio Lock, & Mindset Focus Music State
+  const [isHydrated, setIsHydrated] = useState(false);
+  const [isAudioUnlocked, setIsAudioUnlocked] = useState(false);
+  const [isFocusMusicEnabled, setIsFocusMusicEnabled] = useState(false);
+  const [soundscapeVol, setSoundscapeVol] = useState<number>(50);
+
+  useEffect(() => {
+    setIsHydrated(true);
+    if (typeof window !== 'undefined') {
+      setSoundscapeVol(getUserSoundscapeVolume());
+      const unlockHandler = () => {
+        setIsAudioUnlocked(true);
+        window.removeEventListener('pointerdown', unlockHandler);
+        window.removeEventListener('keydown', unlockHandler);
+      };
+      window.addEventListener('pointerdown', unlockHandler);
+      window.addEventListener('keydown', unlockHandler);
+      return () => {
+        window.removeEventListener('pointerdown', unlockHandler);
+        window.removeEventListener('keydown', unlockHandler);
+      };
+    }
+  }, []);
+
+  // Mindset Focus Soundscape Management
+  useEffect(() => {
+    const metaData = (user?.user_metadata as any) || {};
+    const arch = metaData.mindset_archetype || 'Pattern Hunter';
+    if (isFocusMusicEnabled) {
+      startArchetypeSoundscape(arch);
+    } else {
+      stopArchetypeSoundscape();
+    }
+    return () => {
+      stopArchetypeSoundscape();
+    };
+  }, [isFocusMusicEnabled, user]);
+
+  // Auto-ducking when AI Teacher speaks
+  useEffect(() => {
+    if (isFocusMusicEnabled) {
+      setSoundscapeDucking(isPlaying);
+    }
+  }, [isPlaying, isFocusMusicEnabled]);
+
   // Socratic Interactive Q&A State
   const [isInteractive, setIsInteractive] = useState(false);
   const [chatMessages, setChatMessages] = useState<{ role: 'user' | 'assistant'; content: string }[]>([]);
   const [chatInput, setChatInput] = useState('');
   const [chatLoading, setChatLoading] = useState(false);
   const [latestAIResponse, setLatestAIResponse] = useState('');
+  const [doubtCount, setDoubtCount] = useState(0);
   const chatBottomRef = useRef<HTMLDivElement | null>(null);
+
+  // Load persistent doubts for this quest on mount
+  useEffect(() => {
+    if (typeof window !== 'undefined' && userId && questId) {
+      try {
+        const savedDoubts = localStorage.getItem(`pinit_${userId}_quest_doubts_${questId}`);
+        if (savedDoubts) {
+          const parsed = JSON.parse(savedDoubts);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            setChatMessages(parsed);
+          }
+        }
+      } catch {}
+    }
+  }, [userId, questId]);
+
+  // Save persistent doubts whenever chatMessages updates
+  useEffect(() => {
+    if (typeof window !== 'undefined' && userId && questId && chatMessages.length > 0) {
+      try {
+        localStorage.setItem(`pinit_${userId}_quest_doubts_${questId}`, JSON.stringify(chatMessages.slice(-14)));
+      } catch {}
+    }
+  }, [chatMessages, userId, questId]);
 
   // Stop speaking on unmount
   useEffect(() => {
@@ -444,6 +515,14 @@ function LessonPageContent() {
 
   // Stop speaking, reset progress, and AUTO-PLAY when slide changes
   useEffect(() => {
+    const slidesLength = slides.length || syllabus.length;
+    if (currentSlide < slidesLength + 1) {
+      setExamQuestionIndex(0);
+      setSelectedMcqAnswer(null);
+      setMcqChecked(false);
+      setMcqIsCorrect(null);
+    }
+
     if (examPassed) {
       stopSpeaking();
       setIsPlaying(false);
@@ -453,7 +532,6 @@ function LessonPageContent() {
     setIsPlaying(false);
     setAudioProgress(0);
     setIsInteractive(false);
-    setChatMessages([]);
     setLatestAIResponse('');
     setTeachingCompleted(false);
 
@@ -556,17 +634,29 @@ function LessonPageContent() {
     }
   };
 
+  const meta = (user?.user_metadata as any) || {};
+  const studentName = (meta.full_name || meta.name || user?.email?.split('@')[0] || 'Vinay').split(' ')[0];
+  const archetype = meta.mindset_archetype || 'Pattern Hunter';
+
   // Get current dialog script spoken by teacher
   const getSpeakerText = () => {
     if (currentSlide === 0) {
-      return `Welcome! I am ${teacher.name}, your dedicated career mentor, and I am absolutely thrilled to guide you through today's comprehensive technical lecture. Today we are tackling "${questData.title}", which represents a critical milestone in your software engineering trajectory. In this interactive lesson, we are going to dive deep into the syllabus modules, breaking down abstract computer science theories into practical, production-ready coding paradigms. Technical roles at top-tier companies require much more than writing basic syntax that compiles. You must understand how your code interacts with the virtual machine, how memory is allocated on the heap versus the stack, and how logic scales under massive concurrent client loads. Over the course of this slide deck, we will systematically dissect the foundational structures, execution bounds, and memory architectures that define this topic. I highly encourage you to take notes and pay close attention, as the structural patterns we discuss here will be directly tested in your upcoming coding evaluation. Let us begin our deep-dive by advancing to our first syllabus module.`;
+      let welcomeIntro = `Welcome ${studentName}! I am ${teacher.name}, your dedicated career mentor, and I am thrilled to guide you through today's lesson on "${questData.title}".`;
+      if (teacherId === 'karthic') {
+        welcomeIntro = `Hey ${studentName}! I am ${teacher.name}! Let's crush this lesson on "${questData.title}"! Get ready for high-energy coding!`;
+      } else if (teacherId === 'maya') {
+        welcomeIntro = `Attention ${studentName}. I am ${teacher.name}. Today we audit "${questData.title}". Pay close attention to system security and memory limits!`;
+      } else if (teacherId === 'divya') {
+        welcomeIntro = `Welcome ${studentName}! I am ${teacher.name}. Today we explore the beautiful visual architecture of "${questData.title}"!`;
+      }
+      return `${welcomeIntro} In this session, we will start with real-world examples first, then break down the theory, observe live code execution line-by-line, and resolve any doubts you have in your language. ${studentName}, let us begin by advancing to our first module!`;
     }
     if (currentSlide === (slides.length || syllabus.length) + 1) {
       if (examPassed) {
-        return `Congratulations! You have successfully passed the syllabus evaluation exam for "${questData.title}". You answered all questions correctly and demonstrated a stellar grasp of variables, scopes, and memory boundaries. You are now fully prepared to head back to the quest tab and start your coding challenge. Stellar job!`;
+        return `Stellar work ${studentName}! You have successfully passed the evaluation exam for "${questData.title}". You answered all questions correctly and demonstrated a great grasp of concepts. Great job!`;
       }
       const qText = slides[examQuestionIndex]?.mcq?.question || "Ready for your first question?";
-      return `Welcome to the final Exam Slide! To verify your understanding before unlocking the coding evaluation, I have prepared a series of short conceptual questions based on today's lecture. Let's start with this question: ${qText}`;
+      return `${studentName}, welcome to the final Exam Slide! Here is your question: ${qText}`;
     }
     const idx = currentSlide - 1;
     if (slides && slides[idx]) {
@@ -585,13 +675,41 @@ function LessonPageContent() {
 
       const bp1 = slide.bulletPoints?.[0] || 'Understand core mechanics';
       const bp2 = slide.bulletPoints?.[1] || 'Enforce clean boundaries';
-      return `Let us explore Slide ${currentSlide}: "${slide.title}". Here is how to think about this concept in the real world: ${matchedAnalogy.analogy}. In production software systems: ${matchedAnalogy.realWorldUseCase}. Key takeaways: First, ${bp1}. Second, ${bp2}. Pay close attention to these real-world principles!`;
+
+      // 🎭 ZERO-TOKEN TEACHER PERSONA SOUNDING ENGINE
+      let personaIntro = `${studentName}, let us explore Section ${currentSlide}: "${slide.title}".`;
+      if (teacherId === 'kashyap') {
+        personaIntro = `My dear student ${studentName}, in our journey of engineering, let us reflect on Section ${currentSlide}: "${slide.title}".`;
+      } else if (teacherId === 'karthic') {
+        personaIntro = `Hey ${studentName}! Let's crush this code! Welcome to Section ${currentSlide}: "${slide.title}"! Imagine a super fast factory conveyor belt moving at 100mph!`;
+      } else if (teacherId === 'maya') {
+        personaIntro = `Attention ${studentName}. Listen carefully to Section ${currentSlide}: "${slide.title}". If you write unverified code here, your production server will crash under load!`;
+      } else if (teacherId === 'divya') {
+        personaIntro = `Welcome ${studentName}! Look at how clean and elegant Section ${currentSlide}: "${slide.title}" flows visually on screen!`;
+      }
+
+      // 🧠 ZERO-TOKEN MINDSET ARCHETYPE ADAPTATION
+      let archetypeCallout = `${studentName}, pay close attention to how this topic connects to system architecture!`;
+      if (archetype.toLowerCase().includes('pattern') || archetype.toLowerCase().includes('hunter')) {
+        archetypeCallout = `${studentName}, since you are a Pattern Hunter, pay close attention to the Big-O memory footprint and underlying logic flow below!`;
+      } else if (archetype.toLowerCase().includes('explorer') || archetype.toLowerCase().includes('sprinter')) {
+        archetypeCallout = `${studentName}, since you are an Explorer, jump right into the live code sandbox below and experiment with different parameters!`;
+      } else if (archetype.toLowerCase().includes('social') || archetype.toLowerCase().includes('communicat')) {
+        archetypeCallout = `${studentName}, since you excel at Social IQ, think about how you would explain this architecture in a team design review!`;
+      } else {
+        archetypeCallout = `${studentName}, since you value stability, notice how boundary checks prevent runtime null-pointer crashes!`;
+      }
+
+      // 🗣️ LINE-BY-LINE CODE SPEECH EXPLANATION
+      const codeWalkthrough = `Now ${studentName}, look at the code sandbox below: On line 1, we define our function signature. On line 3, we validate incoming input data. And on line 5, we process and return sanitized output with zero memory leaks!`;
+
+      return `${personaIntro} First, here is a real-world example: ${matchedAnalogy.analogy}. In production software systems: ${matchedAnalogy.realWorldUseCase}. Next, here is the core theory: ${bp1}. ${bp2}. ${codeWalkthrough} ${archetypeCallout} ${studentName}, did you understand this concept? Click to proceed or ask me any doubt in your language!`;
     }
     if (idx < syllabus.length) {
       const concept = syllabus[idx];
-      return `Let us explore Section ${currentSlide}, where we analyze the core concept of "${concept}". In modern software engineering, mastering this topic is absolutely vital for designing high-performance, lag-free systems. From an architectural perspective, "${concept}" dictates how data structures are arranged in memory and how the processor executes execution paths. If you implement this incorrectly in a production environment, you run the risk of introducing critical memory leaks, type-safety violations, or thread synchronization bottlenecks that can crash client-facing APIs. When writing code for this module, it is a best practice to enforce clean, structured syntax, utilize appropriate variable visibility modifiers, and carefully manage resource cleanup. In your upcoming coding test, you will be asked to implement an algorithm that relies heavily on the mechanics of "${concept}". I recommend that you consider boundary edge cases, check for null or empty inputs, and optimize loop conditions to achieve minimal Big-O complexity. Ensure you have a solid grasp of these mechanics before you unlock the test module. If you have any questions, you can click the interactive chat mode button below to discuss the details with me directly!`;
+      return `${studentName}, let us explore Section ${currentSlide}: "${concept}". In modern software engineering, mastering this topic is vital for designing high-performance systems. First, understand how data structures are arranged in memory. Next, observe the execution rules and Big-O efficiency. ${studentName}, did you understand this concept? Click to proceed or ask me any doubt!`;
     }
-    return `Excellent work! We have successfully completed our comprehensive syllabus review for "${questData.title}". You are now fully prepared to demonstrate your technical capabilities in the immediate coding evaluation. Remember: the grading engine will evaluate your code not just on functional correctness, but on execution speed, memory footprint, and edge-case handling. Before you click the grading test button, make sure you take a deep breath, read the coding prompt thoroughly, and write clean, modular, and well-commented code. If you feel unsure about any of the topics we covered, feel free to step back through the slides, or toggle our interactive chat session to ask me any final questions about the syllabus. Once you are ready, click the 'Start Lesson Test' button below to begin your coding challenge. Best of luck, developer! I believe in your potential!`;
+    return `Stellar work ${studentName}! We have completed our syllabus review for "${questData.title}". You are now fully prepared to demonstrate your technical capabilities in the immediate coding evaluation!`;
   };
 
   const sendInteractiveMessage = async (text?: string) => {
@@ -600,6 +718,31 @@ function LessonPageContent() {
     setChatInput('');
     stopSpeaking();
     setIsPlaying(false);
+
+    const nextDoubtCount = doubtCount + 1;
+    setDoubtCount(nextDoubtCount);
+
+    // 7-Doubt Hard Reteach Guard: Automatically reset quest to Slide 1 if student asks > 7 doubts
+    if (nextDoubtCount > 7) {
+      const resetMsg = `${studentName}, it seems this topic is a bit tricky right now! Since we have covered 7 doubts in this session, let us restart this quest from the beginning with fresh real-world examples so you get a 100% crystal-clear foundation!`;
+      stopSpeaking();
+      setIsPlaying(true);
+      setLatestAIResponse(resetMsg);
+      setChatMessages(prev => [...prev, { role: 'user' as const, content: msg }, { role: 'assistant' as const, content: resetMsg }]);
+      speakWithAvatar(
+        resetMsg,
+        teacherId,
+        () => setIsPlaying(true),
+        () => {
+          setIsPlaying(false);
+          setDoubtCount(0);
+          setCurrentSlide(0);
+          setIsInteractive(false);
+          toast.success("Fresh Start Activated", "Restarting lesson from Slide 1 with fresh examples!");
+        }
+      );
+      return;
+    }
 
     const newMessages = [...chatMessages, { role: 'user' as const, content: msg }];
     setChatMessages(newMessages);
@@ -622,6 +765,7 @@ function LessonPageContent() {
       setChatMessages(prev => [...prev, { role: 'assistant' as const, content: reply }]);
       setLatestAIResponse(reply);
 
+      stopSpeaking();
       setIsPlaying(true);
       speakWithAvatar(
         reply,
@@ -897,7 +1041,12 @@ function LessonPageContent() {
       </button>
 
       {/* Main lesson content */}
-      <div className="lesson-card">
+      {!isHydrated ? (
+        <div style={{ minHeight: '70vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--t2)', fontSize: 13, fontWeight: 700, gap: 8 }}>
+          ⚡ Synchronizing Classroom Environment...
+        </div>
+      ) : (
+        <div className="lesson-card">
           {/* Header */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexShrink: 0 }}>
             <div>
@@ -918,6 +1067,107 @@ function LessonPageContent() {
               </h2>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 6 }}>
+              <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+                <button
+                  onClick={() => {
+                    const nextState = !isFocusMusicEnabled;
+                    setIsFocusMusicEnabled(nextState);
+                    if (nextState) {
+                      toast.success("Mindset Focus Soundscape Active", "Playing ambient focus audio tailored to your learning archetype!");
+                    } else {
+                      toast.info("Focus Music Off", "Ambient audio muted.");
+                    }
+                  }}
+                  style={{
+                    background: isFocusMusicEnabled ? 'rgba(99, 102, 241, 0.2)' : 'rgba(255, 255, 255, 0.05)',
+                    border: `1.5px solid ${isFocusMusicEnabled ? 'var(--accent)' : 'var(--border)'}`,
+                    color: isFocusMusicEnabled ? 'var(--accent)' : 'var(--t2)',
+                    borderRadius: 10,
+                    padding: '4px 10px',
+                    fontSize: 10.5,
+                    fontWeight: 800,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 4,
+                    transition: 'all 0.2s'
+                  }}
+                >
+                  🎵 Focus Audio: {isFocusMusicEnabled ? 'ON' : 'OFF'}
+                </button>
+                {isFocusMusicEnabled && (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', borderRadius: 10, padding: '2px 8px' }}>
+                    <span style={{ fontSize: 10, color: 'var(--t2)', fontWeight: 700 }}>🔈 {soundscapeVol}%</span>
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      value={soundscapeVol}
+                      onChange={(e) => {
+                        const newVol = parseInt(e.target.value, 10);
+                        setSoundscapeVol(newVol);
+                        setUserSoundscapeVolume(newVol);
+                      }}
+                      style={{ width: 60, accentColor: 'var(--accent)', cursor: 'pointer' }}
+                      title="Adjust Focus Music Volume"
+                    />
+                  </div>
+                )}
+              </div>
+              {!isAudioUnlocked && (
+                <button
+                  onClick={() => {
+                    setIsAudioUnlocked(true);
+                    stopSpeaking();
+                    playSpeech();
+                    toast.success("Audio Unlocked", "Teacher voice is now active!");
+                  }}
+                  style={{
+                    background: 'rgba(16, 185, 129, 0.2)',
+                    border: '1.5px solid #10b981',
+                    color: '#10b981',
+                    borderRadius: 10,
+                    padding: '4px 10px',
+                    fontSize: 10.5,
+                    fontWeight: 800,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 4,
+                    animation: 'pulse 1.5s infinite'
+                  }}
+                >
+                  🔊 Tap to Unmute Teacher Voice
+                </button>
+              )}
+              <button
+                onClick={() => {
+                  stopSpeaking();
+                  setIsPlaying(false);
+                  setIsInteractive(false);
+                  toast.success("Audio Skipped", "Jumping directly to code execution!");
+                  const codeEl = document.getElementById('slide-code-execution-block');
+                  if (codeEl) {
+                    codeEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  }
+                }}
+                style={{
+                  background: 'rgba(234, 179, 8, 0.15)',
+                  border: '1.5px solid rgba(234, 179, 8, 0.4)',
+                  color: '#eab308',
+                  borderRadius: 10,
+                  padding: '4px 10px',
+                  fontSize: 10.5,
+                  fontWeight: 800,
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 4,
+                  transition: 'all 0.2s'
+                }}
+              >
+                ⚡ Skip Audio & Jump to Code
+              </button>
               <span style={{ fontSize: 10, color: 'var(--t3)', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
                 Slide {currentSlide + 1} / {(slides.length || syllabus.length) + 2}
               </span>
@@ -1280,7 +1530,7 @@ function LessonPageContent() {
                         })()}
 
                         {slide.codeExample && (
-                          <div style={{ marginTop: 8 }}>
+                          <div id="slide-code-execution-block" style={{ marginTop: 8 }}>
                             <div style={{
                               display: 'flex',
                               justifyContent: 'space-between',
@@ -1438,7 +1688,36 @@ function LessonPageContent() {
                     );
                   }
 
-                  const question = slides[examQuestionIndex]?.mcq;
+                  const dynamicQuestions = slides.map(s => s.mcq).filter(Boolean);
+                  const canonicalBenchmarkQuestions = [
+                    {
+                      question: `Canonical Production Benchmark Q4: In a high-throughput enterprise service, what is the optimal architectural rule for ${questData.title}?`,
+                      options: [
+                        `Utilize fast indexed lookups O(1)/O(log N) while managing memory cache overhead cleanly.`,
+                        `Create uncached raw arrays on every request without checking heap boundaries.`,
+                        `Disable exception handling to suppress error outputs.`
+                      ],
+                      answerIndex: 0,
+                      explanation: `Enterprise production architecture requires fast O(1)/O(log N) lookup speeds while controlling memory allocations.`
+                    },
+                    {
+                      question: `Canonical System Safety Q5: What is the primary safety rule to prevent runtime null-pointer or memory-leak crashes?`,
+                      options: [
+                        `Enforce strict non-null input validation checks and clean resource deallocation before payload return.`,
+                        `Hide runtime exceptions behind silent try-catch blocks without logging.`,
+                        `Return dummy 0-byte arrays without tracing the root cause.`
+                      ],
+                      answerIndex: 0,
+                      explanation: `Robust system design requires non-null validation checks, explicit resource cleanup, and detailed error logging.`
+                    }
+                  ];
+
+                  const hybridExamQuestions = [
+                    ...dynamicQuestions.slice(0, 3),
+                    ...canonicalBenchmarkQuestions
+                  ];
+
+                  const question = hybridExamQuestions[examQuestionIndex];
                   if (!question) {
                     return (
                       <div style={{ textAlign: 'center', padding: '12px 0' }}>
@@ -1452,7 +1731,7 @@ function LessonPageContent() {
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <h4 style={{ fontSize: 14, fontWeight: 900, color: teacher.accent }}>Syllabus Evaluation Exam</h4>
                         <span style={{ fontSize: 10.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
-                          Question {examQuestionIndex + 1} of {slides.length}
+                          Question {examQuestionIndex + 1} of {hybridExamQuestions.length} ({examQuestionIndex < 3 ? 'AI Dynamic' : 'Canonical Benchmark'})
                         </span>
                       </div>
 
@@ -1538,7 +1817,7 @@ function LessonPageContent() {
                                 </div>
                                 <button
                                   onClick={() => {
-                                    if (examQuestionIndex + 1 === slides.length) {
+                                    if (examQuestionIndex + 1 === hybridExamQuestions.length) {
                                       setExamPassed(true);
                                       playChime();
                                       launchConfetti();
@@ -1555,7 +1834,7 @@ function LessonPageContent() {
                                     background: 'var(--green)'
                                   }}
                                 >
-                                  {examQuestionIndex + 1 === slides.length ? 'Finish Exam' : 'Next Question →'}
+                                  {examQuestionIndex + 1 === hybridExamQuestions.length ? 'Finish Exam 🎓' : 'Next Question →'}
                                 </button>
                               </div>
                             ) : (
@@ -1690,6 +1969,7 @@ function LessonPageContent() {
             })()}
           </div>
         </div>
+      )}
 
       {/* Confetti Visual overlay */}
       {confettiParticles.length > 0 && (

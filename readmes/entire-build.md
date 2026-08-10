@@ -421,11 +421,54 @@ The following paths are explicitly declared as bypass routes inside `PUBLIC_PATH
 
 ---
 
-## 10. Performance & Build Optimizations
 
-* **Static Export Compatibility:** Next.js static exports (`output: 'export'`) automatically compile components offline.
-* **Suspense Boundaries:** Search parameter checks on the landing page and admissions routes are wrapped inside `<Suspense>` boxes to resolve pre-rendering static generation bails.
-* **Resource Optimization:** Consolidates standard font libraries, layout assets, and reduces render blockings.
+---
+
+## 11. Master Quest Classroom & Pedagogy Engine (Today's Build Update)
+
+* **5-Step Flipped Pedagogy Engine (`src/app/quests/lesson/page.tsx`):**
+  * Leads with real-world production analogies (*Stripe, Uber, Instagram, Docker, React, etc.*) before breaking down core theory and executing code.
+  * Personalized student name addressing (*"Vinay, did you understand this concept?"*).
+  * Multilingual Voice & Text Doubt Resolution Engine supporting English and native Indian languages (Hindi, Telugu, Tamil, Kannada, Malayalam, Bengali, etc.) with strict topic lock.
+
+* **Zero-Token Teacher Personas & Mindset Archetype Transformers:**
+  * **Kashyap Sir**: Kalam-inspired & wise (*"My dear student Vinay, in our journey of engineering..."*).
+  * **Karthic Sir "Nega"**: Hyper-active & energetic (*"Hey Vinay! Let's crush this code! Imagine a super fast factory conveyor belt..."*).
+  * **Ms. Maya**: Strict security auditor (*"Attention Vinay. Listen carefully: unverified loops will crash production servers..."*).
+  * **Ms. Divya**: Visual frontend wizard (*"Welcome Vinay! Look at how clean and elegant this visual UI flows..."*).
+  * Mindset Archetype Callouts injected for **Pattern Hunter**, **Explorer**, **Social IQ**, and **Stabilizer** with **0 LLM tokens, $0 cost, and 0ms latency**.
+
+* **Avatar Line-by-Line Code Speech Explanation:**
+  * Avatar walks through the code sandbox out loud line-by-line in speech deck:
+    > *"Now Vinay, look at the code sandbox below: On line 1, we define our function signature... On line 3, we validate input data... And on line 5, we return sanitized output with zero memory leaks!"*
+
+* **Hybrid 5-Question Evaluation Exam:**
+  * **Questions 1–3 (Dynamic AI)**: Topic-specific conceptual questions generated dynamically from syllabus topics.
+  * **Questions 4–5 (Canonical Benchmarks)**: High-bar benchmark questions testing Big-O time complexity (`O(1)` lookups) and system safety (non-null validation & resource cleanup).
+
+* **Universal Audio Safety & Acceleration:**
+  * Hard `stopSpeaking()` reset on all slide transitions and button clicks.
+  * `⚡ Skip Audio & Jump to Code` button scrolls smoothly to `#slide-code-execution-block`.
+  * Pulsing `🔊 Tap to Unmute Teacher Voice` badge unlocks browser audio on mobile Safari & Chrome.
+
+* **Persistent Doubt Memory Locker & 7-Doubt Hard Reteach Guard:**
+  * Saves doubts in `localStorage` under `pinit_${userId}_quest_doubts_${questId}`.
+  * If student asks > 7 doubts, AI Teacher resets current slide back to Slide 1 with clean state and fresh examples.
+
+* **Mindset Archetype Focus Soundscape Engine (`src/lib/audio/soundscapes.ts`):**
+  * Adaptive focus music tailored to student mindset archetypes:
+    * **Pattern Hunter**: Deep Alpha Wave Focus Synth (`pattern-hunter.mp3`).
+    * **Explorer**: Chill Lofi Beats (`explorer.mp3`).
+    * **Social IQ**: Soft Neo-Classical Piano (`social-iq.mp3`).
+    * **Stabilizer**: Ambient Zen Zero-Anxiety Drone (`stabilizer.mp3`).
+  * Real MP3 track loading from `public/audio/soundscapes/` with seamless Web Audio procedural oscillator synthesis fallback.
+  * **Precision Auto-Ducking**: Automatically lowers music volume to **3%** when the AI Avatar Teacher speaks (🗣️) and swells to **14%** during silent reading & coding.
+
+* **Focus Music Volume Control System:**
+  * Persistent **0–100% Volume Slider** stored in `localStorage` (`pinit_focus_music_volume`).
+  * Dedicated **🎵 Mindset Background Music & Soundscapes** settings card in Settings (`/profile?tab=preferences`).
+  * Quick inline volume slider control next to `🎵 Focus Audio: ON / OFF` in the classroom lesson header (`/quests/lesson`).
+
 
 
 

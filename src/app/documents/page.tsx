@@ -73,7 +73,7 @@ export default function DocumentVaultPage() {
         type: docType,
         purpose: purpose.trim()
       });
-      if (res.ok) {
+      if (res?.ok) {
         setPurpose('');
         loadDocuments();
       }

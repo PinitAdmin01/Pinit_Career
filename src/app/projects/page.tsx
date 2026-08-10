@@ -24,24 +24,18 @@ export default function ProjectsPage() {
   const completedCount = completedQuests ? completedQuests.length : 0;
   const progressPercent = Math.min(100, Math.round((completedCount / Math.max(totalQuestsCount, 1)) * 100));
 
-  const [bypassGate, setBypassGate] = useState<boolean>(() => {
+  const [bypassGate, setBypassGate] = useState<boolean>(false);
+  const [bypassMentor, setBypassMentor] = useState<boolean>(false);
+  const [bypassRecruiter, setBypassRecruiter] = useState<boolean>(false);
+
+  // Hydrate bypass flags from localStorage after mount (avoids SSR mismatch)
+  useEffect(() => {
     if (typeof window !== 'undefined' && user?.id) {
-      return localStorage.getItem(`pinit_${user.id}_bypass_gate`) === 'true';
+      setBypassGate(localStorage.getItem(`pinit_${user.id}_bypass_gate`) === 'true');
+      setBypassMentor(localStorage.getItem(`pinit_${user.id}_bypass_mentor`) === 'true');
+      setBypassRecruiter(localStorage.getItem(`pinit_${user.id}_bypass_recruiter`) === 'true');
     }
-    return false;
-  });
-  const [bypassMentor, setBypassMentor] = useState<boolean>(() => {
-    if (typeof window !== 'undefined' && user?.id) {
-      return localStorage.getItem(`pinit_${user.id}_bypass_mentor`) === 'true';
-    }
-    return false;
-  });
-  const [bypassRecruiter, setBypassRecruiter] = useState<boolean>(() => {
-    if (typeof window !== 'undefined' && user?.id) {
-      return localStorage.getItem(`pinit_${user.id}_bypass_recruiter`) === 'true';
-    }
-    return false;
-  });
+  }, [user?.id]);
 
   const toggleBypassGate = (val: boolean) => {
     setBypassGate(val);
@@ -92,10 +86,16 @@ export default function ProjectsPage() {
     } else if (typeof window !== 'undefined' && user?.id) {
       const cached = localStorage.getItem(`pinit_${user.id}_career_projects`);
       if (cached) {
-        const parsed = JSON.parse(cached);
-        setProjects(parsed);
-        const active = parsed.find((p: Project) => p.status === 'In Progress' || p.status === 'Completed');
-        if (active) setSelectedGuideProject(active);
+        try {
+          const parsed = JSON.parse(cached);
+          if (Array.isArray(parsed)) {
+            setProjects(parsed);
+            const active = parsed.find((p: Project) => p.status === 'In Progress' || p.status === 'Completed');
+            if (active) setSelectedGuideProject(active);
+          }
+        } catch {
+          // Ignore corrupt localStorage cache
+        }
       }
     }
   }, [user?.id, onboardingAnswers?.projects]);
@@ -387,10 +387,12 @@ export default function ProjectsPage() {
     setVerificationStep(0);
     setShowReport(false);
 
+    const verifyIntervalRef = { current: null as ReturnType<typeof setInterval> | null };
     const interval = setInterval(() => {
       setVerificationStep(prev => {
         if (prev >= 4) {
           clearInterval(interval);
+          verifyIntervalRef.current = null;
           setTimeout(() => {
             setVerifying(false);
             setShowReport(true);
@@ -401,6 +403,7 @@ export default function ProjectsPage() {
         return prev + 1;
       });
     }, 800);
+    verifyIntervalRef.current = interval;
   };
 
   const handleIssueStandardCertificate = () => {

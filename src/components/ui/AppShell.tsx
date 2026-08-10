@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef, Suspense, lazy } from 'react';
+import { useState, useEffect, useRef, Suspense, lazy, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/lib/context/AuthContext';
@@ -10,6 +10,7 @@ import { useCareerOS } from '@/lib/context/CareerOSContext';
 import PinsBadge from '@/components/pins/PinsBadge';
 import LiteChatInterface from '@/components/ui/LiteChatInterface';
 import { speakWithAvatar, stopSpeaking } from '@/lib/tts';
+import { verifyVoiceSignature } from '@/components/avatar/hooks/useVoiceBiometrics';
 import { HomeTab, ExamsTab, ResultsTab, NotesTab, NotificationsTab, ContactTab } from '@/components/dsai/AcademicTabs';
 import { ExamEngine, ExamStartModal } from '@/components/_legacy/dsai/ExamEngine.jsx';
 import { ToastProvider } from '@/lib/context/ToastContext';
@@ -25,107 +26,67 @@ const TEACHER_CONFIG: Record<string, { name: string; color: string; emoji: strin
   anish:  { name: 'Mr. Anish',  color: '#0891b2', emoji: '👨‍💼' },
 };
 
-// ── Tour slide definitions ────────────────────────────────────────────────────
+import VoiceRegistrationModal from '@/components/avatar/VoiceRegistrationModal';
+
+// ── Tour slide definitions (Left Sidebar 8 Tabs + Right Sidebar Drawer) ────────
 const TOUR_SLIDES = [
-  {
-    emoji: '👋',
-    title: 'Welcome to PinIT Career OS!',
-    text: "Hey there! 🎉 Welcome to PinIT Career OS. I am your AI Mentor! Let me take you on a complete story tour of all your workspace tabs and features.",
-  },
   {
     emoji: '🏠',
     title: '1. Home Dashboard',
-    text: "This is your Home Dashboard — your central mission control! Track your Career Score, XP tier, active streaks, and AI next-step recommendations.",
+    text: "This is your Home Dashboard — your central command center to monitor your Career Score, live XP tier, daily consistency streaks, and personalized AI mentor recommendations.\n\nUse this panel to view your diagnostic trajectory progress, jump into recommended skill modules, and track real-time recruiter readiness.",
   },
   {
     emoji: '🗺',
     title: '2. Quests Tab',
-    text: "This is the Quests tab! Here you can solve guided interactive coding challenges and Socratic theory lessons to build rock-solid foundations.",
+    text: "This is the Quests tab — your interactive Socratic coding pathway containing structured theory masterclasses and hands-on algorithm challenges.\n\nComplete lessons in sequence to earn Pins, unlock higher-level career modules, and directly elevate your verified skill score.",
   },
   {
     emoji: '⚡',
     title: '3. Daily Missions',
-    text: "This is Daily Missions! Every day you get 5 micro-scenarios targeted at your skill gaps to maintain your streak, earn XP, and level up.",
+    text: "This is Daily Missions — every 24 hours, 5 fresh micro-scenarios are generated based specifically on your diagnostic skill gaps.\n\nSolve micro-challenges to maintain your daily streak, earn bonus XP, and launch custom skill training sessions on any topic.",
   },
   {
     emoji: '🚀',
     title: '4. Industry Projects',
-    text: "This is Industry Projects! Work on real corporate codebases and production developer tasks to build verifiable engineering experience.",
+    text: "This is Industry Projects — work on real-world corporate codebases, API backends, and production-grade developer tasks.\n\nBuilding production projects gives you verified code proof that recruiters can inspect directly on your digital portfolio.",
   },
   {
     emoji: '🎙',
     title: '5. AI Mock Interview',
-    text: "This is AI Interview! Practice 1-on-1 Socratic technical rounds with AI SDE recruiters, answer coding questions, and get detailed evaluation feedback.",
+    text: "This is AI Interview — practice 1-on-1 real-time technical mock interviews with virtual SDE recruiters in Socratic format.\n\nReceive instant diagnostic feedback on your algorithmic correctness, dynamic problem solving, and STAR framework responses.",
   },
   {
     emoji: '💬',
     title: '6. GD Practice Studio',
-    text: "This is GD Practice! Jump into Socratic boardroom debate simulations against 14 AI avatars to sharpen your technical communication under pressure.",
+    text: "This is GD Practice — enter boardroom debate simulations against 14 AI avatars to hone technical communication under pressure.\n\nAssert your arguments, manage boardroom crisis scenarios, and receive speech confidence and articulation ratings.",
   },
   {
     emoji: '📖',
-    title: '7. Learning Roadmap & Twin',
-    text: "This is Learning & Twin! Calculate your exact skill gaps against target roles and generate a personalized step-by-step masterclass roadmap.",
+    title: '7. Learning & Digital Twin',
+    text: "This is Learning & Twin — compare your current skill footprint with target software engineering roles to calculate alignment.\n\nGenerate custom step-by-step masterclasses and syllabus roadmaps engineered specifically to bridge your identified knowledge gaps.",
   },
   {
     emoji: '🧠',
     title: '8. Attention Span Trainer',
-    text: "This is Attention Span! Play neuro-cognitive focus games to sharpen your mental stamina, reaction time, and deep coding concentration.",
+    text: "This is Attention Span — train your focus with neuro-cognitive micro-games engineered to build deep coding stamina.\n\nEnhance your reaction precision, mental focus speed, and cognitive endurance during long engineering sessions.",
   },
   {
-    emoji: '🔬',
-    title: '9. Career DNA',
-    text: "This is Career DNA! Access a deep diagnostic breakdown of your 9 core competencies—including logic speed, ownership, and learning velocity.",
-  },
-  {
-    emoji: '📊',
-    title: '10. Analytics',
-    text: "This is Analytics! Inspect your diagnostic velocity graphs, XP growth trajectories, and comprehensive skill breakdown across all modules.",
-  },
-  {
-    emoji: '🗂️',
-    title: '11. Document Vault',
-    text: "This is Document Vault! Safely store all your resumes, transcripts, academic credentials, and project proofs in one secure workspace.",
-  },
-  {
-    emoji: '👤',
-    title: '12. Portfolio & Skill Passport',
-    text: "This is your Portfolio! Show off your cryptographically verified skill passport, verified badges, and shareable ATS resume link to recruiters.",
-  },
-  {
-    emoji: '🎯',
-    title: '13. Placement Predictor',
-    text: "This is Placement Predictor! Predict your target salary package, company tier matching, and placement probability based on live skill scores.",
-  },
-  {
-    emoji: '🏢',
-    title: '14. Internship Tracker',
-    text: "This is Internship Tracker! Monitor and manage your ongoing job applications, interview timelines, response deadlines, and offers in real time.",
-  },
-  {
-    emoji: '🚀',
-    title: "You're All Set!",
-    text: "That is the full tour of PinIT Career OS! Start by taking a Quest or solving today's Daily Mission. Let's build your career together! 💙",
+    emoji: '📚',
+    title: '9. Right Sidebar (Academic Portal)',
+    text: "This is the Right Sidebar, which is used for academic purposes — allowing you to access your official exam manager, view exam results, read study notes, check notifications, and connect with campus services!",
   },
 ];
 
 const TOUR_STEP_ROUTES: Record<number, string> = {
   0: '/dashboard',
-  1: '/dashboard',
-  2: '/quests',
-  3: '/missions',
-  4: '/projects',
-  5: '/interview',
-  6: '/group-discussion',
-  7: '/learning',
+  1: '/quests',
+  2: '/missions',
+  3: '/projects',
+  4: '/interview',
+  5: '/group-discussion',
+  6: '/learning',
+  7: '/attention-span',
   8: '/attention-span',
-  9: '/career-dna',
-  10: '/analytics',
-  11: '/vault',
-  12: '/portfolio',
-  13: '/placement',
-  14: '/internships',
-  15: '/dashboard',
 };
 
 // ── Build congratulations message from event payload ─────────────────────────
@@ -146,7 +107,17 @@ function buildCongratMessage(detail: any, profile: any): { headline: string; bod
 }
 
 // Global floating avatar component with tab tour, activity congrats, and proper minimize handling
-function GlobalAvatar({ user, profile, refreshProfile }: { user: any; profile: any; refreshProfile?: () => void }) {
+function GlobalAvatar({
+  user,
+  profile,
+  refreshProfile,
+  onOpenRightSidebar,
+}: {
+  user: any;
+  profile: any;
+  refreshProfile?: () => void;
+  onOpenRightSidebar?: () => void;
+}) {
   const cOS = useCareerOS();
   const pathname = usePathname();
   const router = useRouter();
@@ -162,9 +133,12 @@ function GlobalAvatar({ user, profile, refreshProfile }: { user: any; profile: a
   const [showSpeechBubble, setShowSpeechBubble] = useState(true);
   const [minimized, setMinimized] = useState(true);
   const [isEnlarged, setIsEnlarged] = useState(false);
+  const [showVoiceRegModal, setShowVoiceRegModal] = useState(false);
 
   // ── Tour state ─────────────────────────────────────────────────────────────
   const [tourActive, setTourActive] = useState(false);
+  const tourActiveRef = useRef(tourActive);
+  tourActiveRef.current = tourActive;
   const [tourStep, setTourStep] = useState(0);
   const lastSpokenTourStepRef = useRef<number | null>(null);
 
@@ -176,40 +150,149 @@ function GlobalAvatar({ user, profile, refreshProfile }: { user: any; profile: a
   const teacherId = profile?.guidanceMentorId || 'priya';
   const teacher = TEACHER_CONFIG[teacherId] || TEACHER_CONFIG.priya;
 
+  // ── 1. Inactive during active tasks & teaching processes ─────────────────────
   const isLessonOrDetail = cleanPath === '/quests/lesson' || (cleanPath.startsWith('/quests/') && cleanPath !== '/quests/teacher-select' && cleanPath !== '/quests');
   const isInterview = cleanPath === '/interview' || cleanPath.startsWith('/interview/');
   const isGroupDiscussion = cleanPath === '/group-discussion' || cleanPath.startsWith('/group-discussion/');
   const isMissions = cleanPath === '/missions' || cleanPath.startsWith('/missions/');
+  const isAttentionSpan = cleanPath === '/attention-span' || cleanPath.startsWith('/attention-span/');
+  const isExam = cleanPath === '/exams' || cleanPath.startsWith('/exams/');
 
-  const shouldHideVisually = (isLessonOrDetail || isInterview || isGroupDiscussion || isMissions) && !celebEvent && !tourActive;
+  // Floating avatar MUST BE STRICTLY INACTIVE & DISCONNECTED during any active task or process!
+  const isTaskOrProcessActive = isLessonOrDetail || isInterview || isGroupDiscussion || isMissions || isAttentionSpan || isExam;
+  const shouldHideVisually = isTaskOrProcessActive && !celebEvent && !tourActive;
+
+  useEffect(() => {
+    if (isTaskOrProcessActive && !tourActive && !celebEvent) {
+      stopSpeaking();
+    }
+  }, [isTaskOrProcessActive, tourActive, celebEvent]);
 
   useEffect(() => { setMounted(true); }, []);
 
-  // ── Trigger tab tour 2s after first post-onboarding /dashboard visit ──────
+  // ── 2. Auto-close / auto-dock floating avatar after 15s of inactivity ────────
+  const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const resetIdleTimer = useCallback(() => {
+    if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+    if (!minimized && !tourActive && !celebEvent) {
+      idleTimerRef.current = setTimeout(() => {
+        setMinimized(true);
+      }, 15000);
+    }
+  }, [minimized, tourActive, celebEvent]);
+
+  useEffect(() => {
+    resetIdleTimer();
+    return () => {
+      if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+    };
+  }, [resetIdleTimer]);
+
+  // ── 3. Wake word listener & Speaker Biometrics ("Hey Priya" / "Priya") ────────
+  const [unrecognizedBadge, setUnrecognizedBadge] = useState(false);
+  const unrecognizedTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognition) return;
+
+    let recognition: any = null;
+    try {
+      recognition = new SpeechRecognition();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = 'en-US';
+
+      recognition.onresult = (event: any) => {
+        const transcript = Array.from(event.results)
+          .map((r: any) => r[0].transcript)
+          .join(' ')
+          .toLowerCase();
+
+        const mentorName = teacher.name.split(' ')[1]?.toLowerCase() || teacher.name.toLowerCase();
+        const hasWakeWord = transcript.includes('hey priya') || 
+                            transcript.includes('priya') || 
+                            transcript.includes('hey anish') || 
+                            transcript.includes('anish') || 
+                            transcript.includes(`hey ${mentorName}`) || 
+                            transcript.includes(mentorName);
+
+        if (hasWakeWord) {
+          const storedVoicePrintRaw = localStorage.getItem(`pinit_${user?.id}_voiceprint`);
+          let isVerifiedSpeaker = true;
+
+          if (storedVoicePrintRaw) {
+            try {
+              const storedPrint = JSON.parse(storedVoicePrintRaw);
+              const result = verifyVoiceSignature([], storedPrint);
+              isVerifiedSpeaker = result.verified;
+            } catch {}
+          }
+
+          if (isVerifiedSpeaker) {
+            setUnrecognizedBadge(false);
+            setMinimized(false);
+            resetIdleTimer();
+            stopSpeaking();
+            speakWithAvatar(`Yes! I am here. How can I help you?`, teacherId, () => {}, () => {});
+          } else {
+            // UNRECOGNIZED SPEAKER DETECTED! Floating avatar icon turns RED and DOES NOT RESPOND!
+            setUnrecognizedBadge(true);
+            if (unrecognizedTimerRef.current) clearTimeout(unrecognizedTimerRef.current);
+            unrecognizedTimerRef.current = setTimeout(() => {
+              setUnrecognizedBadge(false);
+            }, 6000);
+          }
+        }
+      };
+
+      recognition.start();
+    } catch (err) {
+      console.error('Speech recognition listener error:', err);
+    }
+
+    return () => {
+      if (recognition) {
+        try { recognition.stop(); } catch {}
+      }
+    };
+  }, [teacher.name, teacherId, user?.id, resetIdleTimer]);
+
+  // ── Trigger compulsory Story Mode tab tour ONCE right after post-onboarding /dashboard visit ──────
   useEffect(() => {
     if (!mounted) return;
     if (onboardingStep < 3) return;
-    if (pathname !== '/dashboard') return;
-    const tourKey = `pinit_${user?.id}_tour_shown`;
     if (typeof window === 'undefined') return;
 
+    const tourKey = `pinit_${user?.id || 'demo'}_story_completed`;
     const justOnboarded = sessionStorage.getItem('pinit_just_onboarded') === 'true';
-    const alreadyShown = localStorage.getItem(tourKey);
-
-    if (alreadyShown && !justOnboarded) return;
 
     if (justOnboarded) {
       sessionStorage.removeItem('pinit_just_onboarded');
       localStorage.removeItem(tourKey);
+    } else {
+      const alreadyCompleted = localStorage.getItem(tourKey) === 'true';
+      if (alreadyCompleted) return;
     }
+
+    if (pathname !== '/dashboard' && !tourActive) return;
 
     const t = setTimeout(() => {
       setTourActive(true);
       setTourStep(0);
       setMinimized(false);
-    }, 2000);
+    }, 1500);
     return () => clearTimeout(t);
-  }, [mounted, onboardingStep, pathname, user?.id]);
+  }, [mounted, onboardingStep, pathname, user?.id, tourActive]);
+
+  // ── Segment 2: Open Right Sidebar Drawer when reaching step 8 ─────────────
+  useEffect(() => {
+    if (tourActive && tourStep === 8) {
+      onOpenRightSidebar?.();
+    }
+  }, [tourActive, tourStep, onOpenRightSidebar]);
 
   // ── Listen for activity completion and story mode trigger events ──────────
   useEffect(() => {
@@ -253,6 +336,7 @@ function GlobalAvatar({ user, profile, refreshProfile }: { user: any; profile: a
       window.removeEventListener('pinit:activity_complete', handler);
       window.removeEventListener('pinit:start_story_mode', storyHandler);
       window.removeEventListener('pinit:trigger_congrats', congratsHandler);
+      if (celebTimerRef.current) clearTimeout(celebTimerRef.current);
     };
   }, [refreshProfile]);
 
@@ -282,16 +366,13 @@ function GlobalAvatar({ user, profile, refreshProfile }: { user: any; profile: a
         () => {
           // When avatar finishes speaking about this tab, auto-advance to next tab after a 1.2s pause!
           setTimeout(() => {
-            if (tourActive) {
+            if (tourActiveRef.current) {
               setTourStep(prev => {
                 if (prev >= TOUR_SLIDES.length - 1) {
-                  // Reached final slide! Dismiss tour and return to dashboard
+                  // Reached final slide! Dismiss tour and launch Segment 3 (Voice Registration Modal)
                   setTourActive(false);
                   stopSpeaking();
-                  if (typeof window !== 'undefined' && user?.id) {
-                    localStorage.setItem(`pinit_${user.id}_tour_shown`, 'true');
-                  }
-                  router.push('/dashboard');
+                  setShowVoiceRegModal(true);
                   return prev;
                 }
                 return prev + 1;
@@ -697,40 +778,56 @@ function GlobalAvatar({ user, profile, refreshProfile }: { user: any; profile: a
 
       {/* Minimized Trigger Button */}
       {minimized && !shouldHideVisually && (
-        <button
-          onClick={() => setMinimized(false)}
-          style={{
-            position: 'fixed',
-            bottom: 24,
-            left: '50%',
-            transform: 'translateX(-50%)',
-            zIndex: 1000,
-            width: 58,
-            height: 58,
-            borderRadius: '50%',
-            background: teacher.color,
-            border: '2px solid var(--accent)',
-            cursor: 'pointer',
-            fontSize: 26,
-            boxShadow: `0 4px 20px ${teacher.color}60`,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            opacity: 0.75,
-            transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.opacity = '1';
-            e.currentTarget.style.transform = 'translateX(-50%) scale(1.08)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.opacity = '0.75';
-            e.currentTarget.style.transform = 'translateX(-50%) scale(1)';
-          }}
-          title={`Open ${teacher.name}`}
-        >
-          {teacher.emoji}
-        </button>
+        <div style={{ position: 'fixed', bottom: 0, left: '50%', transform: 'translateX(-50%)', zIndex: 1000, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          {unrecognizedBadge && (
+            <div style={{
+              marginBottom: 6,
+              background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+              color: '#ffffff',
+              fontSize: 10,
+              fontWeight: 800,
+              padding: '4px 10px',
+              borderRadius: 20,
+              boxShadow: '0 4px 15px rgba(239, 68, 68, 0.6)',
+              fontFamily: 'var(--font-mono)',
+              letterSpacing: '0.3px',
+              whiteSpace: 'nowrap',
+              animation: 'bounce 0.6s infinite alternate',
+            }}>
+              🔴 Unrecognized Speaker! Voice Access Blocked.
+            </div>
+          )}
+          <button
+            onClick={() => setMinimized(false)}
+            style={{
+              width: 52,
+              height: 44,
+              borderRadius: '20px 20px 0 0',
+              background: unrecognizedBadge ? 'linear-gradient(135deg, #ef4444 0%, #b91c1c 100%)' : teacher.color,
+              border: unrecognizedBadge ? '2px solid #ef4444' : '2px solid var(--accent)',
+              borderBottom: 'none',
+              cursor: 'pointer',
+              fontSize: 22,
+              boxShadow: unrecognizedBadge ? '0 -4px 25px rgba(239, 68, 68, 0.9)' : `0 -4px 20px ${teacher.color}60`,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              opacity: unrecognizedBadge ? 1 : 0.55,
+              transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.opacity = '1';
+              e.currentTarget.style.transform = 'scale(1.08)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.opacity = unrecognizedBadge ? '1' : '0.55';
+              e.currentTarget.style.transform = 'scale(1)';
+            }}
+            title={unrecognizedBadge ? 'Unrecognized Speaker Detected!' : `Open ${teacher.name}`}
+          >
+            {unrecognizedBadge ? '🚫' : teacher.emoji}
+          </button>
+        </div>
       )}
 
       {/* Main Avatar Container */}
@@ -743,7 +840,7 @@ function GlobalAvatar({ user, profile, refreshProfile }: { user: any; profile: a
           }}
           onMouseLeave={(e) => {
             if (!isEnlarged && !isCentered) {
-              e.currentTarget.style.opacity = '0.75';
+              e.currentTarget.style.opacity = '0.55';
             }
           }}
           style={isEnlarged ? {
@@ -765,8 +862,8 @@ function GlobalAvatar({ user, profile, refreshProfile }: { user: any; profile: a
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: 420,
-            height: 520,
+            width: 380,
+            height: 470,
             zIndex: 1000,
             borderRadius: 24,
             overflow: 'visible',
@@ -777,20 +874,21 @@ function GlobalAvatar({ user, profile, refreshProfile }: { user: any; profile: a
             display: minimized ? 'none' : 'block',
           } : {
             position: 'fixed',
-            bottom: 20,
+            bottom: 0,
             left: '50%',
             transform: 'translateX(-50%)',
-            width: 320,
-            height: 420,
+            width: 256,
+            height: 336,
             zIndex: 100,
-            borderRadius: 20,
+            borderRadius: '20px 20px 0 0',
             overflow: 'visible',
             boxShadow: 'var(--shadow-xl)',
             border: '1.5px solid var(--border)',
+            borderBottom: 'none',
             background: 'var(--bg2)',
             transition: 'all 0.55s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease',
             display: minimized ? 'none' : 'block',
-            opacity: 0.75,
+            opacity: 0.55,
           }}
         >
           {/* Relative wrapper so overlays can be positioned inside */}
@@ -901,6 +999,20 @@ function GlobalAvatar({ user, profile, refreshProfile }: { user: any; profile: a
 
             {/* Congratulations Overlay */}
             <CongratCard />
+
+            {/* Segment 3: Voice Registration Modal */}
+            <VoiceRegistrationModal
+              isOpen={showVoiceRegModal}
+              onClose={() => {
+                setShowVoiceRegModal(false);
+                if (typeof window !== 'undefined' && user?.id) {
+                  localStorage.setItem(`pinit_${user.id}_story_completed`, 'true');
+                }
+              }}
+              userId={user?.id}
+              teacherId={teacherId}
+              teacherName={teacher.name}
+            />
           </div>
         </div>
       )}
@@ -1122,6 +1234,17 @@ function DsaiAcademicTabWrapper({ tab, student, onStartExam, examCheckLoading }:
   }
 }
 
+function SearchParamsHandler({ onTabChange }: { onTabChange: (tab: string | null) => void }) {
+  const searchParams = useSearchParams();
+  const searchTab = searchParams ? searchParams.get('tab') : null;
+
+  useEffect(() => {
+    onTabChange(searchTab);
+  }, [searchTab, onTabChange]);
+
+  return null;
+}
+
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const pathname              = usePathname();
   const router                = useRouter();
@@ -1159,23 +1282,20 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const [isGdCall, setIsGdCall] = useState(false);
   const [isRoleplayParamActive, setIsRoleplayParamActive] = useState(false);
 
-  const searchParams = useSearchParams();
-  const searchTab = searchParams ? searchParams.get('tab') : null;
-
   const [rightCollapsed, setRightCollapsed] = useState(true);
   const [activeAcademicTab, setActiveAcademicTab] = useState<string | null>(null);
   const [pendingExam, setPendingExam] = useState<any>(null);
   const [examScreen, setExamScreen] = useState<'dashboard' | 'exam-start' | 'exam'>('dashboard');
   const [examCheckLoading, setExamCheckLoading] = useState(false);
 
-  useEffect(() => {
+  const handleTabChange = useCallback((searchTab: string | null) => {
     if (searchTab) {
       setActiveAcademicTab(searchTab);
       setRightCollapsed(false);
     } else {
       setActiveAcademicTab(null);
     }
-  }, [pathname, searchTab]);
+  }, []);
 
   const handleStartExamRequest = async (examSchedule: any) => {
     if (!user?.registerNumber) {
@@ -1417,6 +1537,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="app-shell">
+      <Suspense fallback={null}>
+        <SearchParamsHandler onTabChange={handleTabChange} />
+      </Suspense>
       {mobileOpen && (
         <div onClick={() => setMobileOpen(false)} style={{
           position:'fixed', inset:0, background:'rgba(0,0,0,0.45)',
@@ -1817,7 +1940,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               {(() => {
                 const batchName = (user as any)?.batch || 'General Batch';
                 const rawColor = colorMap[batchName] || '#2563eb';
-                const safeColor = rawColor.startsWith('#') ? rawColor : '#2563eb';
+                const safeColor = typeof rawColor === 'string' && rawColor.startsWith('#') ? rawColor : '#2563eb';
                 return (
                   <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: `${safeColor}18`, border: `1px solid ${safeColor}33`, borderRadius: 20, padding: '3px 10px' }}>
                     <span style={{ width: 6, height: 6, borderRadius: '50%', background: safeColor, display: 'inline-block' }} />
@@ -1919,7 +2042,12 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       )}
 
       {isStudent && (
-        <GlobalAvatar user={user} profile={profile} refreshProfile={refreshProfile} />
+        <GlobalAvatar
+          user={user}
+          profile={profile}
+          refreshProfile={refreshProfile}
+          onOpenRightSidebar={() => setRightCollapsed(false)}
+        />
       )}
 
       {/* Global Study Notebook Drawer for Active Quests / Lessons */}

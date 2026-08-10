@@ -150,6 +150,61 @@ export const CANONICAL_TRAJECTORIES: Record<string, CareerTrajectory> = {
       }
     ]
   },
+  'iot-embedded-engineer': {
+    roleId: 'iot-embedded-engineer',
+    roleTitle: 'IoT & Embedded Systems Engineer (Basic to Advance)',
+    icon: '🔌',
+    description: 'Ultra-beginner to pro mastery roadmap covering Microcontrollers, Circuit Design, IoT Wireless Networks, TinyML Edge AI, and Firmware Security.',
+    averageSalaryRange: '₹9–22 LPA',
+    targetTotalDays: 120,
+    nodes: [
+      {
+        nodeId: 'node-iot-foundation',
+        courseId: 'course-iot-embedded',
+        title: 'IoT & Embedded Hardware Foundations',
+        shortDesc: 'Microcontrollers (ESP32/Arduino), C/C++ Embedded syntax, GPIO pins, and sensor I/O',
+        icon: '🔌',
+        skillsLearned: ['Embedded C/C++', 'ESP32/Arduino', 'GPIO Pin Control', 'Sensor Interfacing'],
+        careerImpact: '+20% Hardware Core',
+        estimatedDays: 30
+      },
+      {
+        nodeId: 'node-iot-net',
+        courseId: 'course-iot-network',
+        title: 'IoT Industrial Networks & Wireless Protocols',
+        shortDesc: 'MQTT, Modbus, Zigbee, LoRaWAN, SPI/I2C/UART bus architectures, and cloud telemetry',
+        icon: '🌐',
+        skillsLearned: ['MQTT/Modbus', 'SPI/I2C Protocols', 'LoRaWAN', 'Cloud Telemetry'],
+        careerImpact: '+25% Network Architecture',
+        estimatedDays: 30
+      },
+      {
+        nodeId: 'node-iot-edge',
+        courseId: 'course-iot-edge-ai',
+        title: 'IoT Edge AI & TinyML Optimization',
+        shortDesc: 'On-device neural networks, MicroTVM, sensor data signal processing, and low-power tuning',
+        icon: '🧠',
+        skillsLearned: ['TinyML', 'MicroTVM', 'On-Device ML', 'Power Optimization'],
+        careerImpact: '+25% Edge AI Power',
+        estimatedDays: 30
+      },
+      {
+        nodeId: 'node-iot-sec',
+        courseId: 'course-iot-security',
+        title: 'IoT Firmware & Hardware Security Capstone',
+        shortDesc: 'Secure Boot, cryptographic co-processors, hardware security audits, and production capstone',
+        icon: '🛡️',
+        skillsLearned: ['Secure Boot', 'Hardware Crypto', 'Firmware Audits', 'Production Capstone'],
+        careerImpact: '+30% Pro Hardware Mastery',
+        estimatedDays: 30,
+        gate: {
+          minCourseCompletionPct: 100,
+          requireProjectVerification: true,
+          minAtsScore: 80
+        }
+      }
+    ]
+  },
   'ai-llm-engineer': {
     roleId: 'ai-llm-engineer',
     roleTitle: 'AI & LLM Systems Engineer',
@@ -678,6 +733,24 @@ export function recommendCareerTrajectory(
     return {
       ...CANONICAL_TRAJECTORIES['python-basic-to-advance'],
       recommendationReason: `Matched goal "${userGoal}": Zero-to-Pro Python Pipeline (Foundations ➔ OOP ➔ Data Structures ➔ Backend APIs).`
+    };
+  }
+
+  if (
+    goalClean.includes('iot') ||
+    goalClean.includes('embedded') ||
+    goalClean.includes('hardware') ||
+    goalClean.includes('microcontroller') ||
+    goalClean.includes('arduino') ||
+    goalClean.includes('esp32') ||
+    goalClean.includes('robotics') ||
+    goalClean.includes('tinyml') ||
+    goalClean.includes('firmware') ||
+    goalClean.includes('circuit')
+  ) {
+    return {
+      ...CANONICAL_TRAJECTORIES['iot-embedded-engineer'],
+      recommendationReason: `Matched goal "${userGoal}": Zero-to-Pro IoT & Hardware Systems Pipeline (Foundations ➔ Wireless Networks ➔ Edge AI ➔ Firmware Security).`
     };
   }
 

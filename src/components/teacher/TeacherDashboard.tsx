@@ -27,8 +27,12 @@ export default function TeacherDashboard({ teacher, onLogout }: TeacherDashboard
 
   useEffect(() => {
     async function loadStats() {
-      const mats = await portalService.getMaterials();
-      setMaterialsCount(mats.length);
+      try {
+        const mats = await portalService.getMaterials();
+        setMaterialsCount(Array.isArray(mats) ? mats.length : 0);
+      } catch (err) {
+        console.error('Failed to load teacher stats:', err);
+      }
     }
     loadStats();
   }, []);

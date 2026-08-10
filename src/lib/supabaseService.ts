@@ -167,7 +167,7 @@ export function mapProfileToRow(profile: any): any {
   if (profile.interviews_done !== undefined) row.interviews_done = profile.interviews_done;
   if (profile.vault_count !== undefined) row.vault_count = profile.vault_count;
   if (profile.onboardingStep !== undefined) row.onboarding_step = profile.onboardingStep;
-  if (profile.onboardingAnswers !== undefined) {
+  if (profile.onboardingAnswers != null) {
     row.onboarding_answers = {
       ...profile.onboardingAnswers,
       qt1_score: profile.qt1_score ?? profile.onboardingAnswers.qt1_score ?? 0,
@@ -802,7 +802,7 @@ export async function updateApplicationStatus(appId: string, status: string) {
     .update({ status, updated_at: new Date().toISOString() })
     .eq('id', appId);
   if (error) {
-    const parts = appId.split('_');
+    const parts = (appId || '').split('_');
     const uid = parts[0] || 'unknown';
     const oppId = parts[1] || 'unknown';
     await supabase.from('applications').upsert({

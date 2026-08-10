@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/api/client';
 import { toast } from '@/lib/store/useAppStore';
@@ -30,9 +30,14 @@ export default function ParentPage() {
     enabled:  !!selectedStudent,
   });
 
-  // Dynamic chat message update when student changes
+  // Dynamic chat message update when student changes (not on background refetch)
+  const prevStudentRef = React.useRef(selectedStudent);
   useEffect(() => {
-    setActiveTab('dashboard');
+    // Only reset tab when user explicitly switches student, not on background refetch
+    if (prevStudentRef.current !== selectedStudent) {
+      setActiveTab('dashboard');
+      prevStudentRef.current = selectedStudent;
+    }
     if (students && selectedStudent) {
       const activeChild = students.find(s => s.id === selectedStudent);
       const name = activeChild?.display_name || (activeChild as any)?.full_name || (activeChild as any)?.name || 'your child';

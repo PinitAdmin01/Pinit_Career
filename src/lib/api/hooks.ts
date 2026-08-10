@@ -233,15 +233,15 @@ export function useRunCareerTwin() {
 }
 
 // ─── Recruiter ────────────────────────────────────────────────
-export function useCandidates(filters: Record<string, string | number>) {
+export function useCandidates(filters?: Record<string, string | number>) {
   const qs = '?' + new URLSearchParams(
-    Object.entries(filters).filter(([,v]) => v !== undefined && v !== '').map(([k,v]) => [k, String(v)])
+    Object.entries(filters || {}).filter(([,v]) => v !== undefined && v !== '').map(([k,v]) => [k, String(v)])
   ).toString();
   return useQuery({
     queryKey: [...KEYS.recruiter, filters],
     queryFn:  () => api.get<{ candidates: Candidate[] }>(`/api/recruiter/candidates${qs}`).then(r => r.candidates),
     staleTime: 2 * 60 * 1000,
-    enabled:   Object.keys(filters).length > 0,
+    enabled:   Object.keys(filters || {}).length > 0,
   });
 }
 

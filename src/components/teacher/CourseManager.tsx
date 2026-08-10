@@ -19,9 +19,14 @@ export default function CourseManager() {
   useEffect(() => {
     async function load() {
       setLoading(true);
-      const data = await portalService.getMaterials();
-      setMaterials(data);
-      setLoading(false);
+      try {
+        const data = await portalService.getMaterials();
+        setMaterials(data);
+      } catch (err) {
+        console.error('Failed to load materials:', err);
+      } finally {
+        setLoading(false);
+      }
     }
     load();
   }, []);
@@ -56,7 +61,7 @@ export default function CourseManager() {
   function handleDownload(mat: CourseMaterialRecord) {
     const a = document.createElement('a');
     a.href = mat.fileUrl.startsWith('data:') ? mat.fileUrl : `data:text/plain;charset=utf-8,${encodeURIComponent(`Document: ${mat.title}`)}`;
-    a.download = `${mat.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.${mat.type === 'pdf' ? 'pdf' : mat.type === 'pptx' ? 'pptx' : 'txt'}`;
+    a.download = `${mat.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.${mat.type === 'pdf' ? 'pdf' : mat.type === 'pptx' ? 'pptx' : mat.type === 'docx' ? 'docx' : 'txt'}`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -66,7 +71,7 @@ export default function CourseManager() {
   const filtered = materials.filter(m => {
     const matchesSearch = m.title.toLowerCase().includes(search.toLowerCase()) || 
                           m.subject.toLowerCase().includes(search.toLowerCase()) ||
-                          m.tags.some(t => t.toLowerCase().includes(search.toLowerCase()));
+                          (m.tags || []).some(t => t.toLowerCase().includes(search.toLowerCase()));
     const matchesType = typeFilter === 'all' || m.type === typeFilter;
     return matchesSearch && matchesType;
   });
@@ -211,7 +216,7 @@ export default function CourseManager() {
               Uploaded on {previewMaterial.uploadedAt} • File Size: {previewMaterial.size} • Total Downloads: {previewMaterial.downloadsCount}
             </div>
             <div style={{ display: 'flex', gap: 6, marginBottom: 16 }}>
-              {previewMaterial.tags.map(t => (
+              {(previewMaterial.tags || []).map(t => (
                 <span key={t} style={{ background: '#e0e7ff', color: '#3730a3', padding: '2px 8px', borderRadius: 4, fontSize: 11, fontWeight: 600 }}>#{t}</span>
               ))}
             </div>
@@ -250,7 +255,7 @@ export default function CourseManager() {
                   <span style={{ color: '#2563eb', fontWeight: 600 }}>• 📥 {mat.downloadsCount || 0} downloads</span>
                 </div>
                 <div style={{ display: 'flex', gap: 4, marginTop: 6 }}>
-                  {mat.tags.map(tag => (
+                  {(mat.tags || []).map(tag => (
                     <span key={tag} style={{ background: '#f1f5f9', color: '#475569', padding: '1px 6px', borderRadius: 4, fontSize: 11 }}>#{tag}</span>
                   ))}
                 </div>
@@ -271,7 +276,15 @@ export default function CourseManager() {
                 📥 Download Blob
               </button>
               <button 
-                onClick={() => setMaterials(materials.filter(m => m.id !== mat.id))}
+                onClick={async () => {
+                  const prev = materials;
+                  setMaterials(materials.filter(m => m.id !== mat.id));
+                  try {
+                    await portalService.deleteMaterial(mat.id);
+                  } catch {
+                    setMaterials(prev); // Rollback on failure
+                  }
+                }}
                 style={{ padding: '6px 12px', fontSize: 13, borderRadius: 6, border: 'none', background: '#fee2e2', color: '#dc2626', cursor: 'pointer' }}
               >
                 🗑️ Delete

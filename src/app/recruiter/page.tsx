@@ -121,26 +121,27 @@ function getActionInfo(action: string) {
 }
 
 function logRecruiterActivity(userId: string, action: string, meta: any = {}) {
+  const newLog: ActivityLog = {
+    id: crypto.randomUUID(),
+    user_id: userId,
+    role: 'recruiter',
+    action,
+    meta: JSON.stringify(meta),
+    created_at: new Date().toISOString()
+  };
+
+  // Always send to server — never let localStorage issues block enterprise audit
+  api.post('/api/recruiter/activity-log', newLog).catch(() => {});
+
+  // Best-effort local cache (non-critical)
   try {
     const raw = localStorage.getItem('recruiter_activity_logs') || '[]';
-    const logs = JSON.parse(raw);
-    const newLog: ActivityLog = {
-      id: crypto.randomUUID(),
-      user_id: userId,
-      role: 'recruiter',
-      action,
-      meta: JSON.stringify(meta),
-      created_at: new Date().toISOString()
-    };
+    let logs: any[] = [];
+    try { logs = JSON.parse(raw); } catch { logs = []; }
     logs.push(newLog);
     localStorage.setItem('recruiter_activity_logs', JSON.stringify(logs));
-
-    // Send activity log to API endpoint for enterprise compliance
-    api.post('/api/recruiter/activity-log', newLog).catch(() => {
-      // Background endpoint post fail silently swallowed, local cache preserved
-    });
   } catch (e) {
-    console.warn('logActivity failed:', e);
+    console.warn('logActivity local cache failed:', e);
   }
 }
 
@@ -265,14 +266,14 @@ export default function RecruiterPage() {
   };
 
   const loadLogs = () => {
-    if (user?.uid) {
-      setLogs(getRecruiterLogs(user.uid as string));
+    if (user?.id) {
+      setLogs(getRecruiterLogs(user.id as string));
     }
   };
 
   const logActivity = (action: string, meta: any = {}) => {
-    if (user?.uid) {
-      logRecruiterActivity(user.uid as string, action, meta);
+    if (user?.id) {
+      logRecruiterActivity(user.id as string, action, meta);
       loadLogs();
     }
   };

@@ -22,7 +22,7 @@ export interface VoiceSynthesizeResult {
   cacheKey: string;
 }
 
-const DEFAULT_CLOUD_ENDPOINT = "http://localhost:3005/api/v1/tts";
+const DEFAULT_CLOUD_ENDPOINT = process.env.NEXT_PUBLIC_TTS_API_URL || "https://kitten-mjtq.onrender.com/api/v1/tts";
 
 /**
  * Smart Hybrid Voice Router Entry Point.
@@ -43,54 +43,30 @@ export async function synthesizeVoice(
   // Step 1: Compute SHA-256 Cache Key
   const cacheKey = await computeVoiceCacheKey(text, voice, speed);
 
-  // Step 2: Tier 1 - Check Browser IndexedDB Cache (0ms Latency)
+  // Step 2: Check Browser IndexedDB Cache (0ms Latency for cached human Kokoro speech)
   const cachedBuffer = await voiceCacheDB.getAudio(cacheKey);
-  if (cachedBuffer) {
+  if (cachedBuffer && cachedBuffer.byteLength > 2500) {
     const latencyMs = Math.round(performance.now() - startTime);
     console.log(`[SmartVoiceRouter] ⚡ Tier 1 IndexedDB Cache HIT for key=${cacheKey.slice(0, 8)}... (${latencyMs}ms)`);
     return {
       audioBuffer: cachedBuffer,
       source: "INDEXED_DB_CACHE",
       latencyMs,
-      durationSec: cachedBuffer.byteLength / (24000 * 2), // Approximate duration
+      durationSec: cachedBuffer.byteLength / (24000 * 2),
       cacheKey,
     };
   }
 
-  // Step 3: Tier 2 - Check Device Hardware Benchmark
-  const benchmark: DeviceBenchmarkReport = await benchmarkDeviceCapability();
-
-  // Step 4: Route based on device score
-  if (benchmark.canRunLocalWasm) {
-    try {
-      // High-spec PC: Try local client WebAudio synthesis
-      const localResult = await synthesizeLocalWebAudio(text, voice, speed);
-      const latencyMs = Math.round(performance.now() - startTime);
-      
-      // Save freshly generated audio into IndexedDB
-      await voiceCacheDB.saveAudio(cacheKey, text, voice, speed, localResult.audioBuffer);
-      
-      console.log(`[SmartVoiceRouter] 💻 Local Client WASM Synthesis Complete (${latencyMs}ms)`);
-      return {
-        audioBuffer: localResult.audioBuffer,
-        source: "LOCAL_CLIENT_WASM",
-        latencyMs,
-        durationSec: localResult.durationSec,
-        cacheKey,
-      };
-    } catch (localErr) {
-      console.warn("[SmartVoiceRouter] Local WASM synthesis failed, falling back to Cloud FastAPI:", localErr);
-    }
-  }
-
-  // Step 5: Route to Cloud FastAPI Microservice
+  // Step 3: Fetch Kokoro Neural Voice from Render Python FastAPI Server
   const cloudResult = await fetchCloudFastAPI(endpoint, text, voice, speed);
   const latencyMs = Math.round(performance.now() - startTime);
 
-  // Save freshly received Cloud audio into IndexedDB for 0ms future playback
-  await voiceCacheDB.saveAudio(cacheKey, text, voice, speed, cloudResult.audioBuffer);
+  // Save freshly received human Kokoro audio into IndexedDB for 0ms future playback
+  if (cloudResult.audioBuffer && cloudResult.audioBuffer.byteLength > 2500) {
+    await voiceCacheDB.saveAudio(cacheKey, text, voice, speed, cloudResult.audioBuffer);
+  }
 
-  console.log(`[SmartVoiceRouter] ☁️ Cloud FastAPI TTS Stream Complete (${latencyMs}ms)`);
+  console.log(`[SmartVoiceRouter] ☁️ Render Kokoro TTS Synthesis Complete (${latencyMs}ms)`);
   return {
     audioBuffer: cloudResult.audioBuffer,
     source: "CLOUD_FASTAPI",
@@ -101,7 +77,7 @@ export async function synthesizeVoice(
 }
 
 /**
- * Calls Cloud FastAPI `/api/v1/tts` endpoint.
+ * Calls Render Python FastAPI Kokoro TTS microservice endpoint.
  */
 async function fetchCloudFastAPI(
   endpoint: string,
@@ -109,27 +85,49 @@ async function fetchCloudFastAPI(
   voice: string,
   speed: number
 ): Promise<{ audioBuffer: ArrayBuffer; durationSec: number }> {
-  const response = await fetch(endpoint, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      text,
-      voice,
-      speed,
-      language: "en-us",
-    }),
-  });
+  const targetUrl = (endpoint && endpoint.startsWith("http"))
+    ? endpoint
+    : (process.env.NEXT_PUBLIC_TTS_API_URL || "https://kitten-mjtq.onrender.com/api/v1/tts");
 
-  if (!response.ok) {
-    throw new Error(`Cloud TTS API HTTP ${response.status}: ${response.statusText}`);
+  try {
+    const response = await fetch(targetUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        text,
+        voice,
+        speed,
+        language: "en-us",
+      }),
+    });
+
+    if (response.ok) {
+      const durationHeader = response.headers.get("X-Audio-Duration") || response.headers.get("X-Duration");
+      const durationSec = durationHeader ? parseFloat(durationHeader) : 3.0;
+      const audioBuffer = await response.arrayBuffer();
+      return { audioBuffer, durationSec };
+    }
+  } catch (primaryErr) {
+    console.warn("[SmartVoiceRouter] Primary Render TTS endpoint fetch failed, trying alternate path...", primaryErr);
   }
 
-  const durationHeader = response.headers.get("X-Audio-Duration");
-  const durationSec = durationHeader ? parseFloat(durationHeader) : 3.0;
-  const audioBuffer = await response.arrayBuffer();
+  // Fallback endpoint: alternate Render path /api/tts
+  const altUrl = "https://kitten-mjtq.onrender.com/api/tts";
+  const altRes = await fetch(altUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text, voice, speed, language: "en-us" }),
+  });
 
+  if (!altRes.ok) {
+    throw new Error(`Render Kokoro TTS API HTTP ${altRes.status}: ${altRes.statusText}`);
+  }
+
+  const durationHeader = altRes.headers.get("X-Audio-Duration") || altRes.headers.get("X-Duration");
+  const durationSec = durationHeader ? parseFloat(durationHeader) : 3.0;
+  const audioBuffer = await altRes.arrayBuffer();
   return { audioBuffer, durationSec };
 }
 

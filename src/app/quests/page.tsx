@@ -405,24 +405,54 @@ export default function QuestsPage() {
           if (Array.isArray(parsed) && parsed.length > 0) {
             setModules(parsed);
             if (!roadmapGenerated) setRoadmapGenerated(true);
-          } else {
-            setModules([]);
+            return;
           }
         } catch (e) {
           console.error('Error loading roadmap modules:', e);
-          setModules([]);
         }
-      } else {
-        setModules([]);
       }
+
+      // Auto-fallback: Generate dynamic modules for activeCourseId so roadmap never vanishes
+      const fallback = generateDynamicStudentRoadmap({
+        courseId: activeCourseId,
+        goal: currentRole,
+        qt1,
+        qt2,
+        archetype,
+        durationDays: 30,
+        dailyPace: 3
+      });
+      setModules(fallback as unknown as Module[]);
+      if (!roadmapGenerated) setRoadmapGenerated(true);
     } else {
-      setModules([]);
+      const fallback = generateDynamicStudentRoadmap({
+        courseId: activeCourseId || 'course-python-backend',
+        goal: currentRole,
+        qt1,
+        qt2,
+        archetype,
+        durationDays: 30,
+        dailyPace: 3
+      });
+      setModules(fallback as unknown as Module[]);
     }
-  }, [userId, activeCourseId, roadmapGenerated, setRoadmapGenerated]);
+  }, [userId, activeCourseId, roadmapGenerated, setRoadmapGenerated, currentRole, qt1, qt2, archetype]);
 
   useEffect(() => {
     loadModules();
   }, [loadModules]);
+
+  // Always smooth scroll down to the Quest Roadmap Chart section on mount (skipping hero and heatmap)
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const timer = setTimeout(() => {
+      const el = document.getElementById('quest-roadmap-chart-section');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 250);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Check completions for active course
   const ctxTimestamps: string[] = onboardingAnswers?.completedQuestsTimestamps || [];
@@ -446,7 +476,7 @@ export default function QuestsPage() {
 
   // Active course and next quest calculation
   const activeCourse = COURSES_REGISTRY.find(c => c.id === activeCourseId) || COURSES_REGISTRY[0];
-  const allQuestsInModule = modules.flatMap(m => m.quests);
+  const allQuestsInModule = modules.flatMap(m => (m.quests || []));
   const nextUncompletedQuest = allQuestsInModule.find(q => !completedQuests.includes(q.id)) || allQuestsInModule[0];
   const activeCourseCompletedCount = allQuestsInModule.filter(q => completedQuests.includes(q.id)).length;
   const activeCourseProgressPct = allQuestsInModule.length > 0 
@@ -1016,7 +1046,7 @@ export default function QuestsPage() {
       ) : (
 
         /* ── MODE 2: Dynamic Goal-Based Snake Roadmap Path ───────────────── */
-        <div className="animate-fade-in">
+        <div className="animate-fade-in" id="quest-roadmap-chart-section">
           
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 28, flexWrap: 'wrap', gap: 12 }}>
             <div>

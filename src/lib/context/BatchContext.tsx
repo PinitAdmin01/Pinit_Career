@@ -45,7 +45,7 @@ export function BatchProvider({ children }: { children: React.ReactNode }) {
     try {
       const rows = await DB.getAll('batches');
       if (rows && rows.length > 0) {
-        rows.sort((a: any, b: any) => (a.order ?? 999) - (b.order ?? 999) || a.name.localeCompare(b.name));
+        rows.sort((a: any, b: any) => (a.order ?? 999) - (b.order ?? 999) || (a.name || '').localeCompare(b.name || ''));
         setBatches(rows.map((r: any) => ({ id: r.id, name: r.name, color: r.color || '#ea6c0a', order: r.order })));
       } else {
         // Seed default batches into Firestore on first load

@@ -42,7 +42,7 @@ export default function StudentTransport() {
     const interval = setInterval(() => {
       const activeRoute = routes.find(r => r.code === allocation.route);
       if (activeRoute && activeRoute.stops) {
-        setGpsStopIndex(prev => (prev + 1) % activeRoute.stops.length);
+        setGpsStopIndex(prev => (prev + 1) % (activeRoute.stops.length || 1));
       }
     }, 4000);
     return () => clearInterval(interval);
@@ -310,7 +310,7 @@ export default function StudentTransport() {
                   <div style={{ fontSize: 11.5, color: '#64748b', marginTop: 2 }}>Mobile: <strong>{assignedDriver.phone}</strong> | License: <strong>{assignedDriver.license}</strong></div>
                   
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 8 }}>
-                    <span className="star-rating">{'★'.repeat(Math.round(assignedDriver.rating || 0))}</span>
+                    <span className="star-rating">{'★'.repeat(Math.max(0, Math.round(assignedDriver.rating || 0)))}</span>
                     <span style={{ fontSize: 11.5, fontWeight: 700, color: '#475569' }}>({assignedDriver.rating || 0} Rating)</span>
                   </div>
                 </div>

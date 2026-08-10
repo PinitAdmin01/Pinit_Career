@@ -192,46 +192,46 @@ export default function AttentionSpanPage() {
     setTimeout(() => setShowConfetti(false), 3000);
 
     const today = todayStr();
-    const prev = { ...stats };
+    const updated = { ...stats };
     let isNewHigh = false;
 
     // Difficulty Accuracy Multipliers: Easy 1.0x, Normal 1.5x, Hard 2.5x
     const mult = difficulty === 'hard' ? 2.5 : difficulty === 'normal' ? 1.5 : 1.0;
     const finalAccuracy = Math.round(rawAccuracy * mult);
 
-    if (gameId === 'focus-fire' && score > prev.focusFireBest) { prev.focusFireBest = score; isNewHigh = true; }
-    if (gameId === 'memory-matrix' && score > prev.memoryMatrixBest) { prev.memoryMatrixBest = score; isNewHigh = true; }
-    if (gameId === 'reflex-rush' && (prev.reflexRushBest === 0 || score < prev.reflexRushBest)) { prev.reflexRushBest = score; isNewHigh = true; }
-    if (gameId === 'sequence-snap' && score > prev.sequenceSnapBest) { prev.sequenceSnapBest = score; isNewHigh = true; }
-    if (gameId === 'vortex-vision' && score > (prev.vortexVisionBest || 0)) { prev.vortexVisionBest = score; isNewHigh = true; }
-    if (gameId === 'flash-fusion' && score > (prev.flashFusionBest || 0)) { prev.flashFusionBest = score; isNewHigh = true; }
-    if (gameId === 'shape-shifter' && score > (prev.shapeShifterBest || 0)) { prev.shapeShifterBest = score; isNewHigh = true; }
-    if (gameId === 'precision-pointer' && score > (prev.precisionPointerBest || 0)) { prev.precisionPointerBest = score; isNewHigh = true; }
+    if (gameId === 'focus-fire' && score > updated.focusFireBest) { updated.focusFireBest = score; isNewHigh = true; }
+    if (gameId === 'memory-matrix' && score > updated.memoryMatrixBest) { updated.memoryMatrixBest = score; isNewHigh = true; }
+    if (gameId === 'reflex-rush' && (updated.reflexRushBest === 0 || score < updated.reflexRushBest)) { updated.reflexRushBest = score; isNewHigh = true; }
+    if (gameId === 'sequence-snap' && score > updated.sequenceSnapBest) { updated.sequenceSnapBest = score; isNewHigh = true; }
+    if (gameId === 'vortex-vision' && score > (updated.vortexVisionBest || 0)) { updated.vortexVisionBest = score; isNewHigh = true; }
+    if (gameId === 'flash-fusion' && score > (updated.flashFusionBest || 0)) { updated.flashFusionBest = score; isNewHigh = true; }
+    if (gameId === 'shape-shifter' && score > (updated.shapeShifterBest || 0)) { updated.shapeShifterBest = score; isNewHigh = true; }
+    if (gameId === 'precision-pointer' && score > (updated.precisionPointerBest || 0)) { updated.precisionPointerBest = score; isNewHigh = true; }
 
     // Progressive Difficulty Completion Tracking
-    const comp = { ...prev.completedDifficulties };
+    const comp = { ...updated.completedDifficulties };
     const gameComp = comp[gameId] || [];
     if (!gameComp.includes(difficulty)) {
       comp[gameId] = [...gameComp, difficulty];
-      prev.completedDifficulties = comp;
+      updated.completedDifficulties = comp;
     }
 
-    prev.totalSessions += 1;
-    prev.dailySessions = { ...prev.dailySessions, [today]: (prev.dailySessions[today] || 0) + 1 };
+    updated.totalSessions += 1;
+    updated.dailySessions = { ...updated.dailySessions, [today]: (updated.dailySessions[today] || 0) + 1 };
 
-    if (prev.lastPlayedDate !== today) {
+    if (updated.lastPlayedDate !== today) {
       const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
       const yStr = yesterday.toISOString().slice(0, 10);
-      prev.streak = prev.lastPlayedDate === yStr ? prev.streak + 1 : 1;
-      prev.lastPlayedDate = today;
+      updated.streak = updated.lastPlayedDate === yStr ? updated.streak + 1 : 1;
+      updated.lastPlayedDate = today;
     }
 
     // Calculate updated focus score and save stats
-    const newFocusScore = calcFocusScore(prev);
-    prev.dailyScores = { ...prev.dailyScores, [today]: newFocusScore };
+    const newFocusScore = calcFocusScore(updated);
+    updated.dailyScores = { ...updated.dailyScores, [today]: newFocusScore };
 
     // Persist stats (including completedDifficulties ladder) & sync to leaderboard
-    saveStats(prev);
+    saveStats(updated);
     submitAccuracyToLeaderboard(finalAccuracy);
 
     // Update Daily and Monthly Analytics Records
@@ -245,10 +245,10 @@ export default function AttentionSpanPage() {
         totalAccuracy: 0,
         sessionsCompleted: 0,
         bestReactionMs: gameId === 'reflex-rush' ? score : 0,
-        selectiveScore: Math.min(100, Math.round((prev.focusFireBest / 25) * 100)),
-        memoryScore: Math.min(100, Math.round((prev.memoryMatrixBest / 8) * 100)),
-        reflexScore: prev.reflexRushBest > 0 ? Math.min(100, Math.max(10, Math.round(100 - (prev.reflexRushBest - 150) * 0.3))) : 0,
-        spanScore: Math.min(100, Math.round((prev.sequenceSnapBest / 9) * 100)),
+        selectiveScore: Math.min(100, Math.round((updated.focusFireBest / 25) * 100)),
+        memoryScore: Math.min(100, Math.round((updated.memoryMatrixBest / 8) * 100)),
+        reflexScore: updated.reflexRushBest > 0 ? Math.min(100, Math.max(10, Math.round(100 - (updated.reflexRushBest - 150) * 0.3))) : 0,
+        spanScore: Math.min(100, Math.round((updated.sequenceSnapBest / 9) * 100)),
       };
 
       const updatedDaily: DailyLog = {
@@ -265,7 +265,7 @@ export default function AttentionSpanPage() {
         avgFocusScore: newFocusScore,
         totalAccuracy: 0,
         totalSessions: 0,
-        peakStreak: prev.streak,
+        peakStreak: updated.streak,
         domainScores: {
           selective: updatedDaily.selectiveScore,
           memory: updatedDaily.memoryScore,
@@ -279,7 +279,7 @@ export default function AttentionSpanPage() {
         avgFocusScore: Math.round((existingMonthly.avgFocusScore + newFocusScore) / 2),
         totalAccuracy: existingMonthly.totalAccuracy + finalAccuracy,
         totalSessions: existingMonthly.totalSessions + 1,
-        peakStreak: Math.max(existingMonthly.peakStreak, prev.streak),
+        peakStreak: Math.max(existingMonthly.peakStreak, updated.streak),
         domainScores: {
           selective: Math.max(existingMonthly.domainScores.selective, updatedDaily.selectiveScore),
           memory: Math.max(existingMonthly.domainScores.memory, updatedDaily.memoryScore),

@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { useAuth } from '@/lib/context/AuthContext';
 
 interface PublicNavbarProps {
   onLoginClick?: () => void;
@@ -10,6 +11,8 @@ interface PublicNavbarProps {
 
 export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
   const pathname = usePathname();
+  const router = useRouter();
+  const { loginWithVaultSession } = useAuth();
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isHubDropdownOpen, setIsHubDropdownOpen] = useState(false);
@@ -27,6 +30,34 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
     setTheme(nextTheme);
     localStorage.setItem('pc_theme', nextTheme);
     document.documentElement.setAttribute('data-theme', nextTheme);
+  };
+
+  const handleDevModeClick = async () => {
+    const randomSuffix = Math.random().toString(36).substring(2, 7).toUpperCase();
+    const devId = `usr_dev_${Date.now()}_${randomSuffix.toLowerCase()}`;
+    const devUser = {
+      id: devId,
+      name: 'Vinay',
+      email: `vinay.dev.${randomSuffix.toLowerCase()}@pinit.in`,
+      role: 'student',
+      identityStatus: 'Active',
+      isDevUser: true
+    };
+
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem(`pinit_${devId}_onboarding_answers`);
+      localStorage.removeItem(`pinit_${devId}_ob_step`);
+      localStorage.removeItem(`pinit_${devId}_completed_quests`);
+      localStorage.removeItem(`pinit_${devId}_completed_missions`);
+      localStorage.setItem('pinit_current_user', JSON.stringify(devUser));
+    }
+
+    await loginWithVaultSession({
+      user: devUser,
+      token: `jwt_dev_${Date.now()}`
+    }, true);
+
+    router.push('/onboarding');
   };
 
   const navLinks = [
@@ -60,28 +91,54 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
         alignItems: 'center',
         justifyContent: 'space-between'
       }}>
-        {/* BRAND LOGO */}
-        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
-          <div style={{
-            width: '36px',
-            height: '36px',
-            background: 'linear-gradient(135deg, #7C3AED 0%, #A855F7 100%)',
-            borderRadius: '10px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontWeight: 900,
-            fontSize: '16px',
-            color: '#FFFFFF',
-            boxShadow: '0 4px 14px rgba(124, 58, 237, 0.35)'
-          }}>Pi</div>
-          <span style={{
-            fontSize: '18px',
-            fontWeight: 800,
-            color: theme === 'dark' ? '#FFFFFF' : '#0F172A',
-            letterSpacing: '-0.5px'
-          }}>PINITCAREER</span>
-        </Link>
+        {/* BRAND LOGO & TOP LEFT DEV MODE BUTTON */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <button
+            type="button"
+            onClick={handleDevModeClick}
+            style={{
+              background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+              color: '#000000',
+              border: 'none',
+              padding: '6px 12px',
+              borderRadius: '8px',
+              fontSize: '12px',
+              fontWeight: 800,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              boxShadow: '0 0 12px rgba(245, 158, 11, 0.4)',
+              whiteSpace: 'nowrap',
+              transition: 'transform 0.15s ease'
+            }}
+            title="Skip login/signup, assign default name Vinay with random unique ID, and launch Onboarding"
+          >
+            <span>⚡</span> Dev Mode
+          </button>
+
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
+            <div style={{
+              width: '36px',
+              height: '36px',
+              background: 'linear-gradient(135deg, #7C3AED 0%, #A855F7 100%)',
+              borderRadius: '10px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontWeight: 900,
+              fontSize: '16px',
+              color: '#FFFFFF',
+              boxShadow: '0 4px 14px rgba(124, 58, 237, 0.35)'
+            }}>Pi</div>
+            <span style={{
+              fontSize: '18px',
+              fontWeight: 800,
+              color: theme === 'dark' ? '#FFFFFF' : '#0F172A',
+              letterSpacing: '-0.5px'
+            }}>PINITCAREER</span>
+          </Link>
+        </div>
 
         {/* DESKTOP NAV LINKS */}
         <nav className="desktop-nav-links" style={{

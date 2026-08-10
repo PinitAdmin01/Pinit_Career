@@ -11,11 +11,7 @@ public/
 *.tmp
 *.bak
 *.swp
-.env/
-
-node_modules
-.next
-out
-
+.env
+.env.local
 .env.production
 .env.development

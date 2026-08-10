@@ -50,6 +50,12 @@ export default function ExamGradingManager() {
     }
   ]);
 
+  // State-driven submissions so grading updates the UI
+  const [submissions, setSubmissions] = useState([
+    { id: 'sub_1', studentId: 's1', studentName: 'Rahul Sharma', examId: 'ex_1', examTitle: 'Mid-Term Algorithms', submittedAt: '2026-08-01', score: 88, totalMarks: 100, graded: true },
+    { id: 'sub_2', studentId: 's2', studentName: 'Ananya Gupta', examId: 'ex_2', examTitle: 'Practical Neural Networks', submittedAt: '2026-07-30', score: null as number | null, totalMarks: 100, graded: false }
+  ]);
+
   const [activeTab, setActiveTab] = useState<'exams' | 'grading' | 'create'>('exams');
   const [newTitle, setNewTitle] = useState('');
   const [newSubject, setNewSubject] = useState('Computer Science');
@@ -170,7 +176,12 @@ export default function ExamGradingManager() {
       totalMarks,
       gradedAt: new Date().toISOString()
     });
-    alert(`Grade saved & synced for student ${studentId}: ${score}/${totalMarks}`);
+    // Update submissions state so UI reflects the grade
+    setSubmissions(prev => prev.map(s =>
+      s.studentId === studentId && s.examId === examId
+        ? { ...s, score, graded: true }
+        : s
+    ));
   }
 
   return (
@@ -493,24 +504,23 @@ export default function ExamGradingManager() {
               </tr>
             </thead>
             <tbody>
-              <tr style={{ borderBottom: '1px solid var(--border, #f1f5f9)' }}>
-                <td style={{ padding: 10, fontWeight: 600 }}>Rahul Sharma</td>
-                <td style={{ padding: 10 }}>Mid-Term Algorithms</td>
-                <td style={{ padding: 10 }}>2026-08-01</td>
-                <td style={{ padding: 10, color: '#16a34a', fontWeight: 700 }}>88 / 100</td>
-                <td style={{ padding: 10 }}>
-                  <button onClick={() => handleGradeSubmission('s1', 'ex_1', 88, 100)} style={{ padding: '4px 10px', fontSize: 12, borderRadius: 6, border: '1px solid #cbd5e1', cursor: 'pointer' }}>Sync Grade</button>
-                </td>
-              </tr>
-              <tr style={{ borderBottom: '1px solid var(--border, #f1f5f9)' }}>
-                <td style={{ padding: 10, fontWeight: 600 }}>Ananya Gupta</td>
-                <td style={{ padding: 10 }}>Practical Neural Networks</td>
-                <td style={{ padding: 10 }}>2026-07-30</td>
-                <td style={{ padding: 10, color: '#dc2626', fontWeight: 700 }}>Pending</td>
-                <td style={{ padding: 10 }}>
-                  <button onClick={() => handleGradeSubmission('s2', 'ex_2', 92, 100)} style={{ padding: '4px 10px', fontSize: 12, borderRadius: 6, border: 'none', background: '#3b82f6', color: '#fff', cursor: 'pointer' }}>Grade Now & Sync</button>
-                </td>
-              </tr>
+              {submissions.map(sub => (
+                <tr key={sub.id} style={{ borderBottom: '1px solid var(--border, #f1f5f9)' }}>
+                  <td style={{ padding: 10, fontWeight: 600 }}>{sub.studentName}</td>
+                  <td style={{ padding: 10 }}>{sub.examTitle}</td>
+                  <td style={{ padding: 10 }}>{sub.submittedAt}</td>
+                  <td style={{ padding: 10, color: sub.graded ? '#16a34a' : '#dc2626', fontWeight: 700 }}>
+                    {sub.graded ? `${sub.score} / ${sub.totalMarks}` : 'Pending'}
+                  </td>
+                  <td style={{ padding: 10 }}>
+                    {sub.graded ? (
+                      <button onClick={() => handleGradeSubmission(sub.studentId, sub.examId, sub.score ?? 0, sub.totalMarks)} style={{ padding: '4px 10px', fontSize: 12, borderRadius: 6, border: '1px solid #cbd5e1', cursor: 'pointer' }}>Sync Grade</button>
+                    ) : (
+                      <button onClick={() => handleGradeSubmission(sub.studentId, sub.examId, 92, sub.totalMarks)} style={{ padding: '4px 10px', fontSize: 12, borderRadius: 6, border: 'none', background: '#3b82f6', color: '#fff', cursor: 'pointer' }}>Grade Now & Sync</button>
+                    )}
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

@@ -98,6 +98,18 @@ export const portalService = {
     }
   },
 
+  async deleteMaterial(id: string): Promise<void> {
+    try {
+      if (typeof window !== 'undefined') {
+        const existing = await this.getMaterials();
+        const updated = existing.filter(m => m.id !== id);
+        localStorage.setItem(STORAGE_KEYS.MATERIALS, JSON.stringify(updated));
+      }
+    } catch (e) {
+      console.error('Failed to delete material', e);
+    }
+  },
+
   // ── Attendance ──
   async getAttendanceByDateAndBatch(date: string, batch: string): Promise<AttendanceRecord[]> {
     try {

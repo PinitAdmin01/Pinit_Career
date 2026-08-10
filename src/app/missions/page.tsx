@@ -1,6 +1,6 @@
 'use client';
 // Gamified daily missions, quest tracker, and 3D Role-Play Persona Evolution Simulator
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { useAuth } from '@/lib/context/AuthContext';
 import MissionCard from '@/components/ui/MissionCard';
@@ -41,7 +41,7 @@ const TYPE_META: Record<string, { icon: string; color: string; light: string }> 
   personality:   { icon: '🧠', color: 'var(--purple)', light: 'rgba(168,85,247,0.1)' },
 };
 
-export default function MissionsPage() {
+function MissionsPageInner() {
   const cOS = useCareerOS();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -164,19 +164,19 @@ export default function MissionsPage() {
       return;
     }
     const interval = setInterval(() => {
-      setTimerCount(prev => {
-        if (prev <= 1) {
-          // Timer ran out! Auto-select the panic choice safely with array bounds check
-          toast.error("Time Expired! ⏳", "Panic option selected automatically due to stress limit.");
-          const worstIdx = Math.max(0, roleplayScenario.choices.length - 1);
-          handleSelectChoice(worstIdx);
-          return 25;
-        }
-        return prev - 1;
-      });
+      setTimerCount(prev => Math.max(0, prev - 1));
     }, 1000);
     return () => clearInterval(interval);
   }, [roleplayActive, roleplayScenario, evaluationLoading, evaluationReport, animState]);
+
+  useEffect(() => {
+    if (timerCount === 0 && roleplayActive && roleplayScenario && roleplayScenario.choices && roleplayScenario.choices.length > 0 && !evaluationLoading && !evaluationReport && animState !== 'talking') {
+      toast.error("Time Expired! ⏳", "Panic option selected automatically due to stress limit.");
+      const worstIdx = Math.max(0, roleplayScenario.choices.length - 1);
+      handleSelectChoice(worstIdx);
+      setTimerCount(25);
+    }
+  }, [timerCount, roleplayActive, roleplayScenario, evaluationLoading, evaluationReport, animState]);
 
   const initiateRoleplay = async () => {
     // Wrap unlock in atomic lock state (isUnlocking) to prevent rapid double-clicking from deducting double Pin currency
@@ -1428,5 +1428,13 @@ export default function MissionsPage() {
       </div>
 
     </div>
+  );
+}
+
+export default function MissionsPage() {
+  return (
+    <Suspense fallback={<div style={{ padding: 40, color: 'var(--t1)' }}>Loading...</div>}>
+      <MissionsPageInner />
+    </Suspense>
   );
 }

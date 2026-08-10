@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import { toast } from '@/lib/store/useAppStore';
 import { COURSES_REGISTRY } from '../data/coursesData';
 import { generateDynamicStudentRoadmap } from '../data/roadmapFuser';
@@ -110,7 +110,7 @@ export const PIN_EARN: Record<PinSource, number> = {
   onboarding_complete:  0,
   vault_verify:         0,
   daily_login:          0,
-  streak_bonus:         0,
+  streak_bonus:         50,
   purchase:             0,   // variable — set per purchase
   ai_interview:         0,
   resume_enhance:       0,
@@ -248,8 +248,8 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
   const [trustBonus, setTrustBonus] = useState(0);
   const [dnaBonus, setDnaBonus] = useState(0);
 
-  // localStorage key factory
-  const keys = {
+  // localStorage key factory — memoized to prevent infinite re-render loops
+  const keys = useMemo(() => ({
     vault:     `pinit_${userId}_vault_items`,
     onboard:   `pinit_${userId}_onboarding_answers`,
     missions:  `pinit_${userId}_completed_missions`,
@@ -276,7 +276,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
     aiTokens:  `pinit_${userId}_ai_tokens`,
     activeCourse: `pinit_${userId}_active_course_id`,
     activeCourses: `pinit_${userId}_active_course_ids`
-  };
+  }), [userId]);
 
   const save = useCallback((key: string, data: unknown) => {
     if (typeof window !== 'undefined') {
@@ -551,7 +551,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
 
   const earnPins = useCallback((source: PinSource, overrideAmount?: number, reason?: string) => {
     // REQUIREMENT: Pins can ONLY be gained via purchase or daily 1 AM refresh. Activity earnings are disabled.
-    if (source !== 'purchase' && source !== 'admin_grant') {
+    if (source !== 'purchase' && source !== 'admin_grant' && source !== 'streak_bonus') {
       return;
     }
     const amount = overrideAmount ?? PIN_EARN[source] ?? 0;
@@ -591,9 +591,12 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
     if (userId && userId !== 'guest') {
       spendPinsDB(userId, meta.cost, customReason ?? meta.label)
         .then(result => {
-          if (!result.ok && result.reason === 'INSUFFICIENT_PINS') {
-            setPins(prev => prev + meta.cost); // refund local state
-            save(keys.pins, pins); // restore persisted value
+          if (!result.ok) {
+            setPins(prev => {
+              const refunded = prev + meta.cost;
+              save(keys.pins, refunded); // restore persisted value with correct refunded amount
+              return refunded;
+            });
             toast.error(`Pins Out of Sync 🔄`, 'Your pin balance was refreshed from the server. Please try again.');
           }
         })
@@ -992,7 +995,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
 
     // ── Q-C2: Persist completion to Supabase users.completed_quests ──────
     if (userId && userId !== 'guest') {
-      persistQuestCompletion(userId, questId, xp)
+      persistQuestCompletion(userId, questId, xpAmount || 15)
         .then(result => {
           if (!result.ok) {
             console.warn('[Q-C2] persistQuestCompletion failed for', questId);

@@ -61,13 +61,17 @@ app.include_router(tts_router, prefix="/api/v1")
 app.include_router(health_router, prefix="/api/v1")
 
 @app.get("/")
-def root():
+async def root():
     return {
-        "service": settings.APP_NAME,
-        "version": settings.APP_VERSION,
+        "service": "PinIT Careers AI Voice Service",
+        "version": "1.0.0",
         "docs": "/docs",
         "health": "/api/v1/health"
     }
+
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    return Response(status_code=204)
 
 if __name__ == "__main__":
     import uvicorn

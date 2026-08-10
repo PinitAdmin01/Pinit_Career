@@ -1,6 +1,6 @@
 'use client';
 // Premium Proof-of-Work Vault & Secure Storage
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '@/lib/context/AuthContext';
 import { api } from '@/lib/api/client';
 import { useAddVaultItem, useVault } from '@/lib/api/hooks';
@@ -75,6 +75,16 @@ export default function VaultPage() {
       streamRef.current = null;
     }
   };
+
+  // Cleanup camera on unmount to prevent hardware leak
+  useEffect(() => {
+    return () => {
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach(t => t.stop());
+        streamRef.current = null;
+      }
+    };
+  }, []);
 
   const triggerScan = () => {
     setScanStep('ocr');

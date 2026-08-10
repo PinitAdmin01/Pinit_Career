@@ -175,7 +175,16 @@ function LearningPageInner() {
   const studentsList = teacherStudentsData?.students || [];
 
   // Onboarding Chat Companion
+  const onboardingTimersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
   const [onboardingComplete, setOnboardingComplete] = useState(!!onboardingAnswers?.hasCompleted);
+
+  // Cleanup onboarding timeouts on unmount
+  useEffect(() => {
+    return () => {
+      onboardingTimersRef.current.forEach(t => clearTimeout(t));
+      onboardingTimersRef.current = [];
+    };
+  }, []);
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>((onboardingAnswers || {}) as unknown as Record<string, string>);
   const [inputVal, setInputVal] = useState('');
@@ -212,20 +221,21 @@ function LearningPageInner() {
     if (step < ONBOARDING_QUESTIONS.length - 1) {
       const nextStep = step + 1;
       setStep(nextStep);
-      setTimeout(() => {
+      const t1 = setTimeout(() => {
         setChatHistory(prev => [
           ...prev,
           { sender: 'ai', text: ONBOARDING_QUESTIONS[nextStep].q }
         ]);
       }, 700);
+      onboardingTimersRef.current.push(t1);
     } else {
-      setTimeout(() => {
+      const t2 = setTimeout(() => {
         setChatHistory(prev => [
           ...prev,
           { sender: 'ai', text: "Analyzing your data... constructing your Digital Career Twin and Roadmap blueprint!" }
         ]);
         setSimulating(true);
-        setTimeout(() => {
+        const t3 = setTimeout(() => {
           setOnboardingComplete(true);
           setOnboarding({
             role: updatedAnswers.role || '',
@@ -236,7 +246,9 @@ function LearningPageInner() {
           setSimulating(false);
           toast.success('Simulation Complete!', 'Digital Career Twin loaded successfully.');
         }, 2000);
+        onboardingTimersRef.current.push(t3);
       }, 700);
+      onboardingTimersRef.current.push(t2);
     }
   }
 
@@ -523,7 +535,7 @@ function LearningPageInner() {
                       <div style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', color: 'var(--accent)', fontFamily: 'var(--font-mono)' }}>🚀 Career OS Blueprint</div>
                       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 14 }}>
                         {[
-                          { label: 'Target Role', value: onboardingAnswers.role || 'SDE-1 Developer', color: 'var(--t1)' },
+                          { label: 'Target Role', value: onboardingAnswers?.role || 'SDE-1 Developer', color: 'var(--t1)' },
                           { label: 'Expected Salary', value: twinData?.simulation?.paths?.[selectedTwinPath]?.salary_range || '₹18 - 25 LPA', color: 'var(--green)' },
                           { label: 'Current Level', value: 'Explorer Level 1', color: 'var(--accent)' },
                           { label: 'Time Required', value: twinData?.simulation?.paths?.[selectedTwinPath]?.timeline || '8 - 12 Months', color: 'var(--purple)' }

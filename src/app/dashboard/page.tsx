@@ -286,9 +286,9 @@ export default function DashboardPage() {
   // Profile for WhatToDoToday
   function profileForActions() {
     return {
-      ats_score:            cOS.careerScore || 70,
-      trust_score:          cOS.trustScore  || 70,
-      career_dna_score:     cOS.careerScore || 70,
+      ats_score:            cOS.careerScore ?? 70,
+      trust_score:          cOS.trustScore  ?? 70,
+      career_dna_score:     cOS.careerScore ?? 70,
       mission_streak:       cOS.missionStreak || 0,
       missions_completed:   (cOS.completedMissions || []).length,
       recruiter_visibility: Number(user?.recruiter_visibility ?? 65),

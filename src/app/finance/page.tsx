@@ -4,6 +4,7 @@
 
 import { useState, useEffect } from 'react';
 import { api } from '@/lib/api/client';
+import { toast } from '@/lib/store/useAppStore';
 import { openRazorpayCheckout } from '@/lib/razorpay';
 
 export default function StudentFinance() {
@@ -49,7 +50,7 @@ export default function StudentFinance() {
     try {
       const res = await api.post<{ ok: boolean; waiver: number }>('/api/finance/apply-scholarship', { scholarshipId });
       if (res && res.ok) {
-        alert(`Scholarship applied! A waiver of ₹${res.waiver.toLocaleString()} has been deducted from your remaining final installment.`);
+        alert(`Scholarship applied! A waiver of ₹${(res.waiver ?? 0).toLocaleString()} has been deducted from your remaining final installment.`);
         fetchDuesData();
       }
     } catch {
@@ -70,8 +71,16 @@ export default function StudentFinance() {
         amount: (activeCheckoutInst.amount || 10000) * 100
       });
 
+      const razorpayKey = orderRes.keyId || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || '';
+      if (!razorpayKey) {
+        toast.error('Payment Error', 'Razorpay payment gateway key is not configured. Please contact administration.');
+        setProcessing(false);
+        setActiveCheckoutInst(null);
+        return;
+      }
+
       await openRazorpayCheckout({
-        key: orderRes.keyId || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || (() => { throw new Error('Razorpay key not configured'); })(),
+        key: razorpayKey,
         amount: orderRes.amount || (activeCheckoutInst.amount * 100),
         currency: 'INR',
         name: 'PinIT Campus Fee Payment',
@@ -293,10 +302,10 @@ export default function StudentFinance() {
         <div className="grid-3">
           <div className="stats-card">
             <div className="stats-lbl">Total Annual Course Fees</div>
-            <div className="stats-val" style={{ color: '#2563eb' }}>₹{dues.totalTermFees.toLocaleString()}</div>
+            <div className="stats-val" style={{ color: '#2563eb' }}>₹{(dues.totalTermFees ?? 0).toLocaleString()}</div>
             {dues.scholarshipWaiver > 0 && (
               <div style={{ fontSize: 11, color: '#059669', fontWeight: 700, marginTop: 4 }}>
-                Includes Waiver: -₹{dues.scholarshipWaiver.toLocaleString()}
+                Includes Waiver: -₹{(dues.scholarshipWaiver ?? 0).toLocaleString()}
               </div>
             )}
           </div>
@@ -339,7 +348,7 @@ export default function StudentFinance() {
                     <td style={{ fontWeight: 700 }}>{inst.name}</td>
                     <td style={{ color: '#64748b' }}>{new Date(inst.deadline).toLocaleDateString()}</td>
                     <td style={{ fontWeight: 700 }}>
-                      ₹{(inst.id === 'Inst-3' && dues.fineLevied > 0 ? inst.amount + dues.fineLevied : inst.amount).toLocaleString()}
+                      ₹{(inst.id === 'Inst-3' && dues.fineLevied > 0 ? (inst.amount || 0) + (dues.fineLevied || 0) : (inst.amount || 0)).toLocaleString()}
                       {inst.id === 'Inst-3' && dues.fineLevied > 0 && <span style={{ fontSize: 10, color: '#dc2626', marginLeft: 4 }}>(+₹1,500 Fine)</span>}
                     </td>
                     <td>
@@ -387,7 +396,7 @@ export default function StudentFinance() {
                   <div key={s.id} style={{ background: '#f8fafc', padding: 14, borderRadius: 12, border: '1px solid #cbd5e1' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <span style={{ fontSize: 13, fontWeight: 700 }}>{s.name}</span>
-                      <span style={{ fontSize: 12, fontWeight: 800, color: '#059669' }}>-₹{s.value.toLocaleString()}</span>
+                      <span style={{ fontSize: 12, fontWeight: 800, color: '#059669' }}>-₹{(s.value ?? 0).toLocaleString()}</span>
                     </div>
                     <div style={{ fontSize: 11, color: '#64748b', marginTop: 4 }}>Criteria: {s.criteria}</div>
                     
@@ -437,7 +446,7 @@ export default function StudentFinance() {
                 <div style={{ background: '#f8fafc', padding: 12, borderRadius: 10, border: '1px solid #e2e8f0', fontSize: 13 }}>
                   <div style={{ color: '#64748b' }}>Paying: {activeCheckoutInst.name}</div>
                   <div style={{ fontSize: 16, fontWeight: 900, color: '#0f172a', marginTop: 4 }}>
-                    ₹{(activeCheckoutInst.id === 'Inst-3' && dues.fineLevied > 0 ? activeCheckoutInst.amount + dues.fineLevied : activeCheckoutInst.amount).toLocaleString()}
+                    ₹{(activeCheckoutInst.id === 'Inst-3' && dues.fineLevied > 0 ? (activeCheckoutInst.amount || 0) + (dues.fineLevied || 0) : (activeCheckoutInst.amount || 0)).toLocaleString()}
                   </div>
                 </div>
 
@@ -512,7 +521,7 @@ export default function StudentFinance() {
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', color: '#475569', fontSize: 12.5 }}>
                   <span>{activeReceipt.name}</span>
-                  <span>₹{activeReceipt.amount.toLocaleString()}</span>
+                  <span>₹{(activeReceipt.amount ?? 0).toLocaleString()}</span>
                 </div>
                 {activeReceipt.id === 'Inst-3' && (
                   <div style={{ display: 'flex', justifyContent: 'space-between', color: '#dc2626', fontSize: 12.5, marginTop: 4 }}>
@@ -524,7 +533,7 @@ export default function StudentFinance() {
 
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 16, fontWeight: 900, marginBottom: 20 }}>
                 <span>Total Amount Paid:</span>
-                <span>₹{(activeReceipt.id === 'Inst-3' ? activeReceipt.amount + 1500 : activeReceipt.amount).toLocaleString()}</span>
+                <span>₹{(activeReceipt.id === 'Inst-3' ? (activeReceipt.amount || 0) + 1500 : (activeReceipt.amount || 0)).toLocaleString()}</span>
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

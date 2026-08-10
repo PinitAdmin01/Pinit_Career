@@ -1,6 +1,7 @@
 // apps/web/src/app/layout.tsx
 // Self-hosted fonts via next/font/google — zero external DNS, no FOUT.
 
+import { Suspense } from 'react';
 import '../styles/globals.css';
 import type { Metadata, Viewport } from 'next';
 import Script                            from 'next/script';
@@ -39,7 +40,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <AuthProvider>
             <CareerOSProvider>
               <BatchProvider>
-                <AppShell>{children}</AppShell>
+                <Suspense fallback={null}>
+                  <AppShell>{children}</AppShell>
+                </Suspense>
                 <ToastManager />
               </BatchProvider>
             </CareerOSProvider>

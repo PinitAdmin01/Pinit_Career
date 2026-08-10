@@ -402,7 +402,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
   // Spend pins to unlock the quest
   const handleUnlockQuest = () => {
     const teacher = TEACHERS.find(t => t.id === selectedTeacherId) || TEACHERS[0];
-    if (unlockItem(`quest:${questId}`, 'quest', `Unlock Quest: ${quest.title.split(':')[1]?.trim() || quest.title}`)) {
+    if (unlockItem(`quest:${questId}`, 'quest', `Unlock Quest: ${(quest.title || '').split(':')[1]?.trim() || quest.title}`)) {
       localStorage.setItem(`pinit_quest_teacher_${questId}`, selectedTeacherId);
       setQuestTeacher(selectedTeacherId);
       setIsUnlocked(true);
@@ -484,12 +484,13 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
               \${js}
               try {
                 \${tests}
-                return { success: true, message: "Verification Passed! All test cases cleared.", logs: \${JSON.stringify(logs)} };
+                return { success: true, message: "Verification Passed! All test cases cleared." };
               } catch (e) {
-                return { success: false, message: e.message, logs: \${JSON.stringify(logs)} };
+                return { success: false, message: e.message };
               }
             \`);
-            const res = evaluator(customConsole);
+            const res = evaluator(customConsole) || {};
+            res.logs = logs;
             self.postMessage(res);
           } catch (err) {
             self.postMessage({ success: false, message: "Syntax or execution error: " + err.message, logs: logs });

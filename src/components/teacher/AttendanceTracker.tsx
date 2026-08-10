@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { portalService, AttendanceRecord } from '@/lib/services/portalService';
 
 export default function AttendanceTracker() {
@@ -9,32 +9,56 @@ export default function AttendanceTracker() {
   const [students, setStudents] = useState<AttendanceRecord[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [saved, setSaved] = useState<boolean>(false);
+  const [isDirty, setIsDirty] = useState<boolean>(false);
+  const savedTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const loadAttendance = useCallback(async () => {
     setLoading(true);
     const records = await portalService.getAttendanceByDateAndBatch(date, batch);
-    setStudents(records);
+    setStudents(Array.isArray(records) ? records : []);
     setLoading(false);
+    setIsDirty(false);
   }, [date, batch]);
 
   useEffect(() => {
     loadAttendance();
   }, [loadAttendance]);
 
+  // Cleanup saved timer on unmount
+  useEffect(() => {
+    return () => {
+      if (savedTimerRef.current) clearTimeout(savedTimerRef.current);
+    };
+  }, []);
+
+  function handleDateChange(newDate: string) {
+    if (isDirty && !window.confirm('You have unsaved attendance changes. Discard and switch date?')) return;
+    setDate(newDate);
+  }
+
+  function handleBatchChange(newBatch: string) {
+    if (isDirty && !window.confirm('You have unsaved attendance changes. Discard and switch batch?')) return;
+    setBatch(newBatch);
+  }
+
   function setStatus(id: string, status: 'present' | 'absent' | 'late') {
     setStudents(students.map(s => s.id === id ? { ...s, status } : s));
     setSaved(false);
+    setIsDirty(true);
   }
 
   function markAllPresent() {
     setStudents(students.map(s => ({ ...s, status: 'present' })));
     setSaved(false);
+    setIsDirty(true);
   }
 
   async function handleSave() {
     await portalService.saveAttendance(students);
     setSaved(true);
-    setTimeout(() => setSaved(false), 3000);
+    setIsDirty(false);
+    if (savedTimerRef.current) clearTimeout(savedTimerRef.current);
+    savedTimerRef.current = setTimeout(() => setSaved(false), 3000);
   }
 
   const presentCount = students.filter(s => s.status === 'present').length;
@@ -53,13 +77,13 @@ export default function AttendanceTracker() {
           <input
             type="date"
             value={date}
-            onChange={e => setDate(e.target.value)}
+            onChange={e => handleDateChange(e.target.value)}
             style={{ padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border, #cbd5e1)' }}
           />
 
           <select
             value={batch}
-            onChange={e => setBatch(e.target.value)}
+            onChange={e => handleBatchChange(e.target.value)}
             style={{ padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border, #cbd5e1)' }}
           >
             <option value="Batch 2024-A">Batch 2024-A (CS & AI)</option>

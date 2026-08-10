@@ -11,6 +11,7 @@ import dynamic from 'next/dynamic';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import NotificationPreferences from '@/components/ui/NotificationPreferences';
 import { ArchetypeId } from '@/lib/career-archetypes';
+import { getUserSoundscapeVolume, setUserSoundscapeVolume, startArchetypeSoundscape, stopArchetypeSoundscape } from '@/lib/audio/soundscapes';
 
 const FaceEnroll = dynamic(() => import('@/components/auth/FaceEnroll'), { ssr: false });
 
@@ -226,7 +227,7 @@ function WeeklyVelocityHeatmap({ completedQuests = [], completedMissions = [], t
   const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   const WEEKS = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
 
-  const totalActivity = completedQuests.length * 3 + completedMissions.length;
+  const totalActivity = (completedQuests || []).length * 3 + (completedMissions || []).length;
   
   const grid = Array.from({ length: 7 }, (_, dayIndex) => {
     return Array.from({ length: 4 }, (_, weekIndex) => {
@@ -306,6 +307,14 @@ function ProfilePageInner() {
   const [teacherId,   setTeacherId]   = useState(user?.selectedTeacherId || 'priya');
   const [visibility,  setVisibility]  = useState('recruiters_only');
   const [saving,      setSaving]      = useState(false);
+
+  // Focus Audio Soundscape Volume State
+  const [soundscapeVol, setSoundscapeVol] = useState<number>(50);
+  const [isPreviewingAudio, setIsPreviewingAudio] = useState(false);
+
+  useEffect(() => {
+    setSoundscapeVol(getUserSoundscapeVolume());
+  }, []);
 
   // Consolidated Tabs: 'portfolio' | 'passport' | 'career-dna' | 'analytics' | 'preferences' | 'security' | 'activity'
   const [tab, setTab] = useState<TabType>('portfolio');
@@ -1470,6 +1479,53 @@ function ProfilePageInner() {
       {/* E. PREFERENCES SUB-TAB (Original Profile Page settings) */}
       {tab === 'preferences' && (
         <div style={{ display:'flex', flexDirection:'column', gap:14 }} className="animate-fade-in">
+          {/* 🎵 Mindset Focus Soundscape Settings */}
+          <div style={CS.card}>
+            <div style={CS.cardTitle}>🎵 Mindset Background Music & Soundscapes</div>
+            <p style={{ fontSize: 11.5, color: 'var(--t2)', marginBottom: 14 }}>
+              Adjust the volume of your learning soundscape (Pattern Hunter, Explorer, Social IQ, Stabilizer). Music automatically ducks when the AI Teacher speaks.
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--t1)' }}>Music Volume Level</span>
+                <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', fontFamily: 'var(--font-mono)' }}>{soundscapeVol}%</span>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value={soundscapeVol}
+                onChange={(e) => {
+                  const newVol = parseInt(e.target.value, 10);
+                  setSoundscapeVol(newVol);
+                  setUserSoundscapeVolume(newVol);
+                }}
+                style={{ width: '100%', accentColor: 'var(--accent)', cursor: 'pointer' }}
+              />
+              <div style={{ display: 'flex', gap: 10, marginTop: 4 }}>
+                <button
+                  onClick={() => {
+                    if (isPreviewingAudio) {
+                      stopArchetypeSoundscape();
+                      setIsPreviewingAudio(false);
+                      toast.info("Audio Preview Stopped", "Soundscape muted.");
+                    } else {
+                      const metaData = (user?.user_metadata as any) || {};
+                      const arch = metaData.mindset_archetype || 'Pattern Hunter';
+                      startArchetypeSoundscape(arch);
+                      setIsPreviewingAudio(true);
+                      toast.success("Playing Focus Audio", `Previewing soundscape for ${arch}`);
+                    }
+                  }}
+                  className="btn-secondary btn-sm"
+                  style={{ display: 'flex', alignItems: 'center', gap: 6 }}
+                >
+                  {isPreviewingAudio ? '⏸️ Stop Audio Preview' : '▶️ Test Soundscape Audio Track'}
+                </button>
+              </div>
+            </div>
+          </div>
+
           {/* AI Teacher selector */}
           <div style={CS.card}>
             <div style={CS.cardTitle}>🤖 AI Teacher / Mentor</div>
@@ -1669,7 +1725,7 @@ function ProfilePageInner() {
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxHeight: '320px', overflowY: 'auto', paddingRight: 4 }}>
-              {examData.questions.map((q, qIdx) => (
+              {(examData.questions || []).map((q, qIdx) => (
                 <div key={q.id} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                   <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)' }}>
                     {qIdx + 1}. {q.question}

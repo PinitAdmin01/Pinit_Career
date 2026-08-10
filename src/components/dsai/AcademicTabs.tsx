@@ -118,7 +118,7 @@ export function HomeTab({ student, onStartExam, examCheckLoading }: any) {
             {data.news.slice(0, 3).map((n: any) => (
               <div key={n.id} style={{ padding: '8px 0', borderBottom: '1px solid var(--border)' }}>
                 <div style={{ fontWeight: 600, fontSize: 13, marginBottom: 2, color: 'var(--t1)' }}>{n.title}</div>
-                <div style={{ fontSize: 12, color: 'var(--t2)', lineHeight: 1.5 }}>{n.content.slice(0, 100)}{n.content.length > 100 ? '…' : ''}</div>
+                <div style={{ fontSize: 12, color: 'var(--t2)', lineHeight: 1.5 }}>{(n.content || '').slice(0, 100)}{(n.content || '').length > 100 ? '…' : ''}</div>
                 <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 3 }}>{new Date(n.createdAt).toLocaleDateString()}</div>
               </div>
             ))}
@@ -466,7 +466,7 @@ export function ContactTab({ student }: any) {
       directMsgs.forEach(dm => {
         if (dm.role === 'teacher' || dm.sender_id === recipient) {
           // Find matching query by subject or pick most recent pending query
-          const rawSubj = dm.content?.split(']: ')[0]?.replace('[RE: ', '')?.replace('[', '');
+          const rawSubj = dm.content?.split(']: ')?.[0]?.replace('[RE: ', '')?.replace('[', '');
           const matched = filteredLocal.find(m => m.subject === rawSubj || m.status === 'Pending');
           if (matched) {
             matched.reply = dm.content?.split(']: ')[1] || dm.content;

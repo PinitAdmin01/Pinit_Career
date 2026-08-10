@@ -29,7 +29,7 @@ const RadarChart = ({ scores, size = 200 }: RadarChartProps) => {
   const getCoordinates = () => {
     const categories = ['logic', 'systems', 'comms', 'solving', 'star'];
     return categories.map((cat, i) => {
-      const score = Math.max(10, Math.min(100, (scores as any)[cat] || 50));
+      const score = Math.max(10, Math.min(100, ((scores || {}) as any)[cat] || 50));
       const radius = (score / 100) * maxRadius;
       const angle = (i * 2 * Math.PI) / 5 - Math.PI / 2;
       const x = center + radius * Math.cos(angle);
@@ -865,28 +865,74 @@ export default function InterviewPage() {
       setIsRunning(false);
 
       if (selectedLang === 'javascript') {
+        // Sandboxed execution: run user code inside an isolated iframe (no same-origin access)
         try {
-          const fn = new Function('metrics', `${codeContent}; if (typeof verifyPerformance === 'function') return verifyPerformance(metrics); return null;`);
-          const test1 = fn([10, 20, 30, 40]); // Expected: true
-          const test2 = fn([50, 20, 10]);     // Expected: false
+          const iframe = document.createElement('iframe');
+          iframe.sandbox.add('allow-scripts'); // No allow-same-origin — fully isolated
+          iframe.style.display = 'none';
+          document.body.appendChild(iframe);
 
-          if (test1 === true && test2 === false) {
-            setCodeSubmitted(true);
-            setTerminalLogs(prev => [
-              ...prev,
-              `[TEST SUITE] Test 1 (Ascending Array [10, 20, 30, 40]): PASSED -> Output: true`,
-              `[TEST SUITE] Test 2 (Unsorted Array [50, 20, 10]): PASSED -> Output: false`,
-              `[TEST SUITE] Test 3 (Performance Boundary Check): PASSED -> Execution: 0.42ms`,
-              `[SUCCESS] 100% test suite verified for ${activeTopicName}!`
-            ]);
-          } else {
+          const sandboxedCode = `
+            <script>
+              try {
+                ${codeContent};
+                const test1 = typeof verifyPerformance === 'function' ? verifyPerformance([10, 20, 30, 40]) : null;
+                const test2 = typeof verifyPerformance === 'function' ? verifyPerformance([50, 20, 10]) : null;
+                parent.postMessage({ type: 'sandbox_result', test1, test2 }, '*');
+              } catch (err) {
+                parent.postMessage({ type: 'sandbox_error', message: err.message || 'SyntaxError' }, '*');
+              }
+            <\/script>
+          `;
+
+          const handleResult = (event: MessageEvent) => {
+            if (event.data?.type === 'sandbox_result') {
+              const { test1, test2 } = event.data;
+              if (test1 === true && test2 === false) {
+                setCodeSubmitted(true);
+                setTerminalLogs(prev => [
+                  ...prev,
+                  `[TEST SUITE] Test 1 (Ascending Array [10, 20, 30, 40]): PASSED -> Output: true`,
+                  `[TEST SUITE] Test 2 (Unsorted Array [50, 20, 10]): PASSED -> Output: false`,
+                  `[TEST SUITE] Test 3 (Performance Boundary Check): PASSED -> Execution: 0.42ms`,
+                  `[SUCCESS] 100% test suite verified for ${activeTopicName}!`
+                ]);
+              } else {
+                setCodeSubmitted(false);
+                setTerminalLogs(prev => [
+                  ...prev,
+                  `[FAIL] Test Assertion Failed. Test 1 returned: ${String(test1)}, Test 2 returned: ${String(test2)}.`,
+                  `[FAIL] Solution logic incomplete for ${activeTopicName}. Please review your algorithmic logic.`
+                ]);
+              }
+              cleanup();
+            } else if (event.data?.type === 'sandbox_error') {
+              setCodeSubmitted(false);
+              setTerminalLogs(prev => [
+                ...prev,
+                `[SYNTAX ERROR] Execution failed: ${event.data.message}`,
+                `[FAILURE] Code compilation failed. Fix syntax errors before proceeding.`
+              ]);
+              cleanup();
+            }
+          };
+
+          let sandboxTimeout: any;
+          const cleanup = () => {
+            clearTimeout(sandboxTimeout);
+            window.removeEventListener('message', handleResult);
+            if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
+          };
+
+          // Timeout safety: kill sandbox after 5 seconds
+          sandboxTimeout = setTimeout(() => {
+            setTerminalLogs(prev => [...prev, `[TIMEOUT] Code execution exceeded 5 second limit.`]);
             setCodeSubmitted(false);
-            setTerminalLogs(prev => [
-              ...prev,
-              `[FAIL] Test Assertion Failed. Test 1 returned: ${String(test1)}, Test 2 returned: ${String(test2)}.`,
-              `[FAIL] Solution logic incomplete for ${activeTopicName}. Please review your algorithmic logic.`
-            ]);
-          }
+            cleanup();
+          }, 5000);
+
+          window.addEventListener('message', handleResult);
+          iframe.srcdoc = sandboxedCode;
         } catch (err: any) {
           setCodeSubmitted(false);
           setTerminalLogs(prev => [

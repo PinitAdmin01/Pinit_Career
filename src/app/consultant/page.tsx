@@ -472,7 +472,7 @@ export default function ConsultantPage() {
                                   title="Schedule 1:1 Consultation Session"
                                   onClick={() => {
                                     setSessionForm(prev => ({ ...prev, studentId: s.id }));
-                                    setActiveTab('sessions');
+                                    setActiveTab('meetings');
                                   }}
                                   className="btn-ghost"
                                   style={{ padding: '2px 6px', fontSize: 11, borderRadius: 6, background: 'rgba(255,255,255,0.03)' }}
@@ -632,7 +632,12 @@ export default function ConsultantPage() {
                 ) : (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 10 }}>
                     {((selectedStudent.tasks as any[]) || []).map((t, i) => (
-                      <div key={i} style={{ display: 'flex', gap: 8, fontSize: 11.5, alignItems: 'center', background: 'rgba(255,255,255,0.02)', padding: '6px 10px', borderRadius: 8, border: '1px solid var(--border)' }}>
+                      <div key={i} onClick={async () => {
+                        try {
+                          await api.patch(`/api/consultant/student/${selectedStudent.id}/task/${t.id || i}`, { completed: !t.completed });
+                          fetchPipeline();
+                        } catch { triggerToast('Failed to toggle task', 'error'); }
+                      }} style={{ display: 'flex', gap: 8, fontSize: 11.5, alignItems: 'center', background: 'rgba(255,255,255,0.02)', padding: '6px 10px', borderRadius: 8, border: '1px solid var(--border)', cursor: 'pointer', transition: 'all 0.15s' }}>
                         <span style={{ color: t.completed ? 'var(--green)' : 'var(--t3)', fontWeight: 'bold' }}>{t.completed ? '✓' : '○'}</span>
                         <span style={{ flex: 1, textDecoration: t.completed ? 'line-through' : 'none', color: t.completed ? 'var(--t3)' : 'var(--t1)' }}>
                           {t.title} 
@@ -651,6 +656,7 @@ export default function ConsultantPage() {
                       <option value="medium">Medium</option>
                       <option value="high">High Priority</option>
                     </select>
+                    <input type="date" className="form-input" style={{ fontSize: 11, padding: 4 }} value={newTaskDueDate} onChange={e => setNewTaskDueDate(e.target.value)} />
                     <button onClick={addTask} className="btn-primary btn-sm" style={{ padding: '4px 12px' }}>Add</button>
                   </div>
                 </div>
@@ -815,12 +821,12 @@ export default function ConsultantPage() {
                       padding: 14,
                       borderBottom: idx < 2 ? '1px solid var(--border)' : 'none',
                       cursor: 'pointer',
-                      background: selectedIntelStudent.name === stud.name ? 'rgba(99,102,241,0.06)' : 'transparent',
+                      background: selectedIntelStudent?.name === stud.name ? 'rgba(99,102,241,0.06)' : 'transparent',
                       transition: 'background 0.2s'
                     }}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <strong style={{ color: selectedIntelStudent.name === stud.name ? 'var(--accent)' : 'var(--t1)', fontSize: 13.5 }}>{stud.name}</strong>
+                      <strong style={{ color: selectedIntelStudent?.name === stud.name ? 'var(--accent)' : 'var(--t1)', fontSize: 13.5 }}>{stud.name}</strong>
                       <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--success)' }}>{stud.placement} Ready</span>
                     </div>
                     <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 4 }}>
