@@ -7,6 +7,7 @@ router = APIRouter()
 engine = KokoroEngine()
 
 @router.get("/health")
+@router.get("/status")
 def get_main_health():
     """Returns 200 OK system health status."""
     return {
