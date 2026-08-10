@@ -184,7 +184,7 @@ function CareerIntelligencePageInner() {
   const [internships, setInternships] = useState<Internship[]>([
     {
       id: 'int1',
-      studentName: 'Ashwanth Kumar',
+      studentName: 'You',
       company: 'Stripe Security',
       role: 'Software Engineering Intern',
       tasks: [
@@ -193,7 +193,7 @@ function CareerIntelligencePageInner() {
         { id: 't3', name: 'Refactor multi-currency indexing tables in schema', status: 'Pending' }
       ],
       reviews: [
-        { week: 1, text: 'Ashwanth adapted very quickly to the Stripe codebase and met all requirements.', status: 'Approved' },
+        { week: 1, text: 'Adapted very quickly to the Stripe codebase and met all requirements.', status: 'Approved' },
         { week: 2, text: 'Completed queue performance benchmarks with 14% latency reductions.', status: 'Pending' }
       ],
       performance: 92,
@@ -202,7 +202,7 @@ function CareerIntelligencePageInner() {
     },
     {
       id: 'int2',
-      studentName: 'Ashwanth Kumar',
+      studentName: 'You',
       company: 'Hana Web Agency',
       role: 'Frontend Developer Intern',
       tasks: [],
@@ -362,9 +362,9 @@ function CareerIntelligencePageInner() {
   const [projectsTab, setProjectsTab] = useState<'browse' | 'track'>('browse');
   const [projects, setProjects] = useState<Project[]>([
     { id: 'proj1', title: 'Zero-Knowledge Database Adapter', company: 'Stripe Security', budget: 2500, duration: '4 Weeks', tech: ['Next.js', 'WebCrypto API', 'SQL'], status: 'approved', applied: false },
-    { id: 'proj2', title: 'Distributed Log Telemetry Aggregator', company: 'Datadog Core', budget: 4000, duration: '6 Weeks', tech: ['Go Lang', 'gRPC', 'Docker'], status: 'approved', applied: true, studentName: 'Ashwanth Kumar' },
+    { id: 'proj2', title: 'Distributed Log Telemetry Aggregator', company: 'Datadog Core', budget: 4000, duration: '6 Weeks', tech: ['Go Lang', 'gRPC', 'Docker'], status: 'approved', applied: true, studentName: 'You' },
     { id: 'proj3', title: 'Socratic Dialogue Finetuner Module', company: 'OpenAI Labs', budget: 3500, duration: '5 Weeks', tech: ['Python', 'PyTorch', 'HuggingFace'], status: 'pending', applied: false },
-    { id: 'proj4', title: 'Real-time Canvas Whiteboard Engine', company: 'Figma Dev', budget: 3000, duration: '4 Weeks', tech: ['React', 'WebSockets', 'Canvas API'], status: 'completed', applied: true, studentName: 'Ashwanth Kumar', creditsAwarded: 4, grade: 'A+' }
+    { id: 'proj4', title: 'Real-time Canvas Whiteboard Engine', company: 'Figma Dev', budget: 3000, duration: '4 Weeks', tech: ['React', 'WebSockets', 'Canvas API'], status: 'completed', applied: true, studentName: 'You', creditsAwarded: 4, grade: 'A+' }
   ]);
 
   const [newTitle, setNewTitle] = useState('');
@@ -374,7 +374,7 @@ function CareerIntelligencePageInner() {
   const [selectedGrade, setSelectedGrade] = useState('A+');
 
   const applyToProject = (id: string) => {
-    setProjects(projects.map(p => p.id === id ? { ...p, applied: true, studentName: user?.displayName || 'Ashwanth Kumar' } : p));
+    setProjects(projects.map(p => p.id === id ? { ...p, applied: true, studentName: user?.displayName || 'Student' } : p));
     toast.success('Application Submitted', 'The company recruiter will review your developer portfolio.');
   };
 

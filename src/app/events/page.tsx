@@ -4,13 +4,18 @@
 
 import { useState, useEffect } from 'react';
 import { api } from '@/lib/api/client';
+import { useAuth } from '@/lib/context/AuthContext';
 
 export default function StudentEvents() {
+  const { user } = useAuth();
   const [events, setEvents] = useState<any[]>([]);
   const [rsvps, setRsvps] = useState<any[]>([]);
   const [filter, setFilter] = useState('All');
   const [loading, setLoading] = useState(false);
   const [viewingCertificate, setViewingCertificate] = useState<any | null>(null);
+
+  const studentName = user?.displayName || user?.email || 'Student';
+  const studentEmail = user?.email || '';
 
   useEffect(() => {
     fetchEventsData();
@@ -24,11 +29,24 @@ export default function StudentEvents() {
     } catch {}
   };
 
+  const isCurrentUserRsvp = (r: any) => {
+    if (!user) return false;
+    if (r.studentId && user.id && r.studentId === user.id) return true;
+    if (r.studentEmail && studentEmail && r.studentEmail === studentEmail) return true;
+    if (r.studentName && user.displayName && r.studentName === user.displayName) return true;
+    return false;
+  };
+
   const handleRSVP = async (eventId: string) => {
+    if (!user) {
+      alert('Please sign in to RSVP.');
+      return;
+    }
     try {
       const res = await api.post<{ ok: boolean; error?: string }>('/api/events/rsvp', {
         eventId,
-        studentName: 'Ashwanth Kumar'
+        studentName,
+        studentEmail,
       });
       if (res && res.ok) {
         alert('RSVP confirmed! See you at the event 🎉');
@@ -42,11 +60,11 @@ export default function StudentEvents() {
   };
 
   const isRsvpd = (eventId: string) => {
-    return rsvps.some((r: any) => r.eventId === eventId && r.studentName === 'Ashwanth Kumar');
+    return rsvps.some((r: any) => r.eventId === eventId && isCurrentUserRsvp(r));
   };
 
   const getRsvpDetails = (eventId: string) => {
-    return rsvps.find((r: any) => r.eventId === eventId && r.studentName === 'Ashwanth Kumar');
+    return rsvps.find((r: any) => r.eventId === eventId && isCurrentUserRsvp(r));
   };
 
   const filteredEvents = events.filter(e => {

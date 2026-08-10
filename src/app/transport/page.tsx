@@ -5,8 +5,10 @@
 import { useState, useEffect } from 'react';
 import { api } from '@/lib/api/client';
 import { RoleGate } from '@/components/auth/RoleGate';
+import { useAuth } from '@/lib/context/AuthContext';
 
 function StudentTransportInner() {
+  const { user } = useAuth();
   const [routes, setRoutes] = useState<any[]>([]);
   const [drivers, setDrivers] = useState<any[]>([]);
   const [allocation, setAllocation] = useState<any>({ route: null, stop: '', status: 'none' });
@@ -274,7 +276,7 @@ function StudentTransportInner() {
                   <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed #cbd5e1', paddingBottom: 10 }}>
                     <div>
                       <div style={{ fontSize: 10, color: '#64748b', fontWeight: 800 }}>CAMPUS SHUTTLE PASS</div>
-                      <div style={{ fontSize: 14, fontWeight: 900, color: '#2563eb', marginTop: 4 }}>Ashwanth Kumar</div>
+                      <div style={{ fontSize: 14, fontWeight: 900, color: '#2563eb', marginTop: 4 }}>{user?.displayName || 'Student'}</div>
                     </div>
                     <div style={{ textAlign: 'right' }}>
                       <div style={{ fontSize: 10, color: '#64748b', fontWeight: 800 }}>ROUTE CODE</div>

@@ -4,8 +4,12 @@
 
 import { useState, useEffect } from 'react';
 import { api } from '@/lib/api/client';
+import { useAuth } from '@/lib/context/AuthContext';
 
 export default function StudentExams() {
+  const { user } = useAuth();
+  const studentName = user?.displayName || 'Not available';
+  const registerNumber = user?.registerNumber || 'Not available';
   const [activeTab, setActiveTab] = useState<'schedule' | 'results'>('schedule');
   const [schedule, setSchedule] = useState<any[]>([]);
   const [resultsSheet, setResultsSheet] = useState<any>(null);
@@ -340,8 +344,8 @@ export default function StudentExams() {
               <div style={{ display: 'flex', gap: 16, borderBottom: '1px dashed #cbd5e1', paddingBottom: 14 }}>
                 <div style={{ width: 64, height: 64, borderRadius: 8, background: '#cbd5e1', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>🧑‍🎓</div>
                 <div>
-                  <div style={{ fontSize: 14, fontWeight: 800 }}>Ashwanth Kumar</div>
-                  <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>Register Number: <strong>BGS2024001</strong></div>
+                  <div style={{ fontSize: 14, fontWeight: 800 }}>{studentName}</div>
+                  <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>Register Number: <strong>{registerNumber}</strong></div>
                   <div style={{ fontSize: 12, color: '#64748b' }}>Major: <strong>Computer Science Engineering</strong></div>
                 </div>
               </div>
@@ -383,8 +387,8 @@ export default function StudentExams() {
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, fontSize: 12, marginBottom: 20, background: '#f8fafc', padding: 12, borderRadius: 8, border: '1px solid #cbd5e1' }}>
-                <div>Name: <strong>Ashwanth Kumar</strong></div>
-                <div>Reg No: <strong>BGS2024001</strong></div>
+                <div>Name: <strong>{studentName}</strong></div>
+                <div>Reg No: <strong>{registerNumber}</strong></div>
                 <div>Program: <strong>B.Tech CSE</strong></div>
                 <div>Date Issued: <strong>{new Date().toLocaleDateString()}</strong></div>
               </div>

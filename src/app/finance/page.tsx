@@ -7,8 +7,10 @@ import { api } from '@/lib/api/client';
 import { toast } from '@/lib/store/useAppStore';
 import { openRazorpayCheckout } from '@/lib/razorpay';
 import { RoleGate } from '@/components/auth/RoleGate';
+import { useAuth } from '@/lib/context/AuthContext';
 
 function StudentFinanceInner() {
+  const { user } = useAuth();
   const [dues, setDues] = useState<any>(null);
   const [scholarships, setScholarships] = useState<any[]>([]);
   const [activeCheckoutInst, setActiveCheckoutInst] = useState<any | null>(null);
@@ -23,7 +25,6 @@ function StudentFinanceInner() {
   
   // Scholarship applying states
   const [applyingSch, setApplyingSch] = useState(false);
-  const [eligibleGpa] = useState(9.4); // Ashwanth Kumar's GPA
 
   useEffect(() => {
     fetchDuesData();
@@ -392,7 +393,11 @@ function StudentFinanceInner() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               {scholarships.map(s => {
                 const isApplied = dues.scholarshipWaiver === s.value;
-                const isEligible = eligibleGpa >= 9.0;
+                // Only treat as eligible when the API provides a numeric GPA
+                const apiGpa = typeof dues?.gpa === 'number' ? dues.gpa
+                  : typeof dues?.eligibleGpa === 'number' ? dues.eligibleGpa
+                  : null;
+                const isEligible = apiGpa != null && apiGpa >= 9.0;
                 return (
                   <div key={s.id} style={{ background: '#f8fafc', padding: 14, borderRadius: 12, border: '1px solid #cbd5e1' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -476,7 +481,7 @@ function StudentFinanceInner() {
                 ) : (
                   <div>
                     <label style={{ fontSize: 11, fontWeight: 800, color: '#64748b' }}>UPI VIRTUAL PAYMENT ADDRESS (VPA)</label>
-                    <input type="text" className="form-input" style={{ marginTop: 4 }} placeholder="ashwanth@oksbi" value={upiVpa} onChange={e => setUpiVpa(e.target.value)} required />
+                    <input type="text" className="form-input" style={{ marginTop: 4 }} placeholder="yourname@upi" value={upiVpa} onChange={e => setUpiVpa(e.target.value)} required />
                   </div>
                 )}
 
@@ -508,7 +513,7 @@ function StudentFinanceInner() {
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span style={{ color: '#64748b' }}>Student Name:</span>
-                <span style={{ fontWeight: 700 }}>Ashwanth Kumar</span>
+                <span style={{ fontWeight: 700 }}>{user?.displayName || 'Not available'}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span style={{ color: '#64748b' }}>Paid Date:</span>

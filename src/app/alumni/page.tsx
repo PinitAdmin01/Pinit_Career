@@ -3,10 +3,13 @@
 
 import { useState, useEffect } from 'react';
 import { api } from '@/lib/api/client';
+import { useAuth } from '@/lib/context/AuthContext';
 
 type SubTab = 'directory' | 'mentorship' | 'jobs' | 'donations' | 'events';
 
 export default function StudentAlumniPortal() {
+  const { user } = useAuth();
+  const contributorName = user?.displayName || user?.email || 'Student';
   const [activeSubTab, setActiveSubTab] = useState<SubTab>('directory');
   
   const [directory, setDirectory] = useState<any[]>([]);
@@ -50,7 +53,7 @@ export default function StudentAlumniPortal() {
     try {
       const res = await api.post<{ ok: boolean }>('/api/alumni/mentorship-request', {
         mentorName,
-        studentName: 'Ashwanth Kumar',
+        studentName: contributorName,
         slot: mentorSlot
       });
       if (res && res.ok) {
@@ -70,7 +73,7 @@ export default function StudentAlumniPortal() {
     try {
       const res = await api.post<{ ok: boolean }>('/api/alumni/referral-request', {
         jobId,
-        studentName: 'Ashwanth Kumar'
+        studentName: contributorName
       });
       if (res && res.ok) {
         alert('Job referral request submitted to alum! Resume portfolio attached ✓');
@@ -92,7 +95,7 @@ export default function StudentAlumniPortal() {
       const res = await api.post<{ ok: boolean }>('/api/alumni/donate', {
         campaignId: selectedDonationId,
         amount: Number(donateAmount),
-        contributorName: 'Ashwanth Kumar'
+        contributorName
       });
       if (res && res.ok) {
         alert('Thank you for contributing to institutional development campaigns! Payment simulator verified ✓');

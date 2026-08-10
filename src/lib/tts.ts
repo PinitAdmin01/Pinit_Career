@@ -328,17 +328,16 @@ export async function speakWithAvatar(
         return;
       }
     } catch (err) {
-      console.warn('[PinIT Voice System] Render Kokoro Server error, activating Natural Human Voice fallback:', err);
+      console.warn('[PinIT Voice System] Render Kokoro Server audio synthesis notice:', err);
       if (mySpeechId === currentSpeechId) {
-        fallbackWebSpeech(cleanText, teacherId, onStart, onEnd, vibe, mySpeechId, difficulty, speedMultiplier, dynamicMaxDurationMs);
+        onEnd();
         return;
       }
     }
   }
 
-  // Tier 2: Instant Native Human Speech Fallback (same duration budget as neural path)
   if (mySpeechId === currentSpeechId) {
-    fallbackWebSpeech(cleanText, teacherId, onStart, onEnd, vibe, mySpeechId, difficulty, speedMultiplier, dynamicMaxDurationMs);
+    onEnd();
   }
 }
 

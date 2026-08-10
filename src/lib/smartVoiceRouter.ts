@@ -22,7 +22,38 @@ export interface VoiceSynthesizeResult {
   cacheKey: string;
 }
 
+export type RenderTier = "free" | "premium";
+export const CURRENT_RENDER_TIER: RenderTier = 
+  (process.env.NEXT_PUBLIC_RENDER_TIER as RenderTier) || "free";
+
 const DEFAULT_CLOUD_ENDPOINT = process.env.NEXT_PUBLIC_TTS_API_URL || "https://pinit-voice-service.onrender.com/api/v1/tts";
+const HEALTH_ENDPOINT = "https://pinit-voice-service.onrender.com/api/v1/health/live";
+
+let isServerWarming = false;
+let isServerWarm = false;
+
+/**
+ * Fires a non-blocking background wake-up ping to Render Free Tier on page entry.
+ */
+export async function pingRenderServer(): Promise<boolean> {
+  if (isServerWarm) return true;
+  if (isServerWarming) return false;
+
+  isServerWarming = true;
+  try {
+    const res = await fetch(HEALTH_ENDPOINT, { method: "GET", mode: "cors" });
+    if (res.ok) {
+      isServerWarm = true;
+      isServerWarming = false;
+      console.log("[SmartVoiceRouter] ⚡ Render Voice Microservice is warm & ready.");
+      return true;
+    }
+  } catch (e) {
+    console.log("[SmartVoiceRouter] 🌀 Render Voice Microservice is warming up in background...");
+  }
+  isServerWarming = false;
+  return false;
+}
 
 /**
  * Smart Hybrid Voice Router Entry Point.

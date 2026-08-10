@@ -4,11 +4,14 @@ import { useState, useEffect } from 'react';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { toast } from '@/lib/store/useAppStore';
 import Link from 'next/link';
+import { useAuth } from '@/lib/context/AuthContext';
 
 import PinsGate from '@/components/pins/PinsGate';
 import PinsEarnNotice from '@/components/pins/PinsEarnNotice';
 
 export default function CareerAssetsStudioPage() {
+  const { user } = useAuth();
+  const displayName = user?.displayName || 'Student';
   const { vaultItems, updateVaultItem, addXp, spendPins, canAfford } = useCareerOS();
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [generating, setGenerating] = useState(false);
@@ -252,8 +255,8 @@ export default function CareerAssetsStudioPage() {
                     <div style={{ padding: 24, fontSize: 13, color: 'var(--t1)', display: 'flex', flexDirection: 'column', gap: 16 }}>
                       <div style={{ borderBottom: '2px solid var(--border)', paddingBottom: 16, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <div>
-                          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 800 }}>Ashwanth Kumar</h2>
-                          <div style={{ fontSize: 12, color: 'var(--t2)', marginTop: 4 }}>React SDE & AI Enthusiast | ashwanth@pinit.app | +91 98765 43210</div>
+                          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 800 }}>{displayName}</h2>
+                          <div style={{ fontSize: 12, color: 'var(--t2)', marginTop: 4 }}>React SDE & AI Enthusiast | student@pinit.in | +91 98765 43210</div>
                         </div>
                         <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--green)', background: 'rgba(34,197,94,0.1)', padding: '4px 10px', borderRadius: 8, border: '1px solid rgba(5,150,105,0.2)' }}>ATS Match: 94%</span>
                       </div>
@@ -294,7 +297,7 @@ export default function CareerAssetsStudioPage() {
                   return (
                     <div style={{ padding: 24, fontSize: 13, color: 'var(--t1)', display: 'flex', flexDirection: 'column', gap: 14 }}>
                       <div style={{ textAlign: 'center', borderBottom: '1px solid var(--border)', paddingBottom: 12 }}>
-                        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 800 }}>Ashwanth Kumar</h2>
+                        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 800 }}>{displayName}</h2>
                         <span style={{ fontSize: 11.5, color: 'var(--t3)' }}>BCA Student · SDE Aspirant</span>
                       </div>
                       <div>
@@ -344,7 +347,7 @@ export default function CareerAssetsStudioPage() {
                         This validates my capacity to deploy secure, scaling interfaces.<br /><br />
                         Thank you for your time.<br /><br />
                         Sincerely,<br />
-                        Ashwanth Kumar
+                        {displayName}
                       </div>
                       <button onClick={() => {
                         navigator.clipboard.writeText("Dear Hiring Team...");
@@ -369,12 +372,12 @@ export default function CareerAssetsStudioPage() {
                           <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--coral)' }} />
                           <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--amber)' }} />
                           <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--green)' }} />
-                          <span style={{ fontSize: 9.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginLeft: 16 }}>ashwanth.pinit.me</span>
+                          <span style={{ fontSize: 9.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginLeft: 16 }}>portfolio.pinit.me</span>
                         </div>
                         {/* Landing content */}
                         <div style={{ padding: 20, textAlign: 'center', background: 'var(--bg2)' }}>
-                          <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'linear-gradient(135deg, var(--accent), var(--purple))', margin: '0 auto 10px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 800 }}>AK</div>
-                          <h4 style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>Ashwanth Kumar</h4>
+                          <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'linear-gradient(135deg, var(--accent), var(--purple))', margin: '0 auto 10px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 800 }}>{(displayName || 'ST').split(' ').map(w => w[0]).join('').slice(0, 2)}</div>
+                          <h4 style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>{displayName}</h4>
                           <p style={{ fontSize: 10.5, color: 'var(--t3)', margin: '2px 0 12px' }}>Verified SDE Aspirant Portfolio</p>
                           
                           <div style={{ display: 'flex', flexDirection: 'column', gap: 6, textAlign: 'left', maxWidth: 280, margin: '0 auto' }}>

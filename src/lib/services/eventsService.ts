@@ -94,10 +94,9 @@ export const eventsService = {
       }
     }
 
-    // Local Database Fallback
+    // Local Database Fallback — only return RSVPs for the authenticated student
     const db = readLocalDb();
-    // Filter RSVPs for current student or fallback to Ashwanth Kumar
-    const myRsvps = db.rsvps?.filter((r: any) => r.studentName === studentName || r.studentName === 'Ashwanth Kumar') || [];
+    const myRsvps = db.rsvps?.filter((r: any) => r.studentName === studentName) || [];
 
     return {
       catalog: db.catalog || [],

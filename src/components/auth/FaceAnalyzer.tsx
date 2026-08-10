@@ -287,35 +287,6 @@ export default function FaceAnalyzer({
     }
   }
 
-  function handleDemoInstantScan() {
-    setState('verifying');
-    setStatusMessage('Simulating ultra-high accuracy 128D neural facial verification...');
-    setTimeout(() => {
-      setState('success');
-      setMetrics({
-        faceDetected: true,
-        score: 99,
-        ear: 0.28,
-        blinkCount: 1,
-        livenessVerified: true,
-        poseAngle: 'Centered ✓',
-        lightingQuality: 'Optimal',
-        matchConfidence: 99.8,
-        capturedFrames: 5,
-      });
-      setStatusMessage('Biometric Face AI Verified (99.8% Accuracy). Authenticating...');
-      setTimeout(() => {
-        onSuccess?.({
-          id: 'usr_demo',
-          username: username || 'student@pinit.in',
-          email: username || 'student@pinit.in',
-          displayName: 'Ashwanth Kumar',
-          role: 'student',
-        });
-      }, 700);
-    }, 1200);
-  }
-
   useEffect(() => {
     if ((window as any).faceapi) {
       loadFaceApiModels();
@@ -514,7 +485,7 @@ export default function FaceAnalyzer({
 
           {(state === 'ready' || state === 'error' || !modelLoaded) && (
             <button
-              onClick={handleDemoInstantScan}
+              onClick={() => loadFaceApiModels()}
               className="btn-primary"
               style={{
                 width: '100%',

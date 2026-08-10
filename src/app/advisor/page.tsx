@@ -61,6 +61,14 @@ export default function AdvisorPage() {
   // Intervention feedback banner
   const [interventionMsg, setInterventionMsg] = useState<string | null>(null);
 
+  // Parent portal: linked child from API (no hard-coded identity)
+  const [linkedChild, setLinkedChild] = useState<{
+    display_name?: string;
+    register_number?: string;
+    dept?: string;
+  } | null>(null);
+  const [linkedChildLoading, setLinkedChildLoading] = useState(false);
+
   const defaultStats: AdvisorStats = {
     currentCgpa: 7.8,
     predictedCgpa: 8.2,
@@ -102,6 +110,25 @@ export default function AdvisorPage() {
       setActiveRole('admin');
     }
   }, [user]); // eslint-disable-line
+
+  useEffect(() => {
+    if (activeRole !== 'parent') return;
+    let cancelled = false;
+    (async () => {
+      setLinkedChildLoading(true);
+      try {
+        const data = await api.get<{ students: any[] }>('/api/parent/students');
+        if (!cancelled) {
+          setLinkedChild(data?.students?.[0] || null);
+        }
+      } catch {
+        if (!cancelled) setLinkedChild(null);
+      } finally {
+        if (!cancelled) setLinkedChildLoading(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [activeRole]);
 
   async function loadAdvisorData() {
     setLoading(true);
@@ -658,19 +685,37 @@ export default function AdvisorPage() {
           <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 16, padding: '24px 30px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
               <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'linear-gradient(135deg, #818cf8, #4f46e5)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, color: 'white', fontWeight: 900 }}>
-                AK
+                {linkedChild?.display_name
+                  ? linkedChild.display_name.split(/\s+/).map((w: string) => w[0]).slice(0, 2).join('').toUpperCase()
+                  : '?'}
               </div>
               <div>
                 <span style={{ fontSize: 11.5, color: 'var(--t3)', textTransform: 'uppercase', fontWeight: 700, letterSpacing: '0.5px' }}>Your Child</span>
-                <h2 style={{ fontSize: 17, fontWeight: 900, margin: '2px 0 0 0' }}>Ashwanth Kumar</h2>
-                <span style={{ fontSize: 12, color: 'var(--t3)' }}>Register Number: PIN-2026-9041 | Major: CSE</span>
+                <h2 style={{ fontSize: 17, fontWeight: 900, margin: '2px 0 0 0' }}>
+                  {linkedChildLoading ? 'Loading…' : (linkedChild?.display_name || 'No linked child')}
+                </h2>
+                <span style={{ fontSize: 12, color: 'var(--t3)' }}>
+                  Register Number: {linkedChild?.register_number || 'Not available'}
+                  {linkedChild?.dept ? ` | Major: ${linkedChild.dept}` : ''}
+                </span>
               </div>
             </div>
-            <div style={{ background: 'var(--green-light)', color: 'var(--green)', padding: '6px 14px', borderRadius: 30, fontSize: 12, fontWeight: 800 }}>
-              Status: Active Enrollment
+            <div style={{
+              background: linkedChild ? 'var(--green-light)' : 'var(--bg3)',
+              color: linkedChild ? 'var(--green)' : 'var(--t3)',
+              padding: '6px 14px', borderRadius: 30, fontSize: 12, fontWeight: 800
+            }}>
+              {linkedChild ? 'Status: Active Enrollment' : 'No student linked'}
             </div>
           </div>
 
+          {!linkedChild && !linkedChildLoading && (
+            <div style={{ ...card, textAlign: 'center', color: 'var(--t3)', fontSize: 13 }}>
+              Link a student register number from the Parent Portal to view attendance and academic insights.
+            </div>
+          )}
+
+          {linkedChild && (
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: 20 }}>
             {/* Risk Badges Column */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
@@ -690,7 +735,7 @@ export default function AdvisorPage() {
                   </span>
                 </div>
                 <div style={{ borderTop: '1px solid var(--border)', marginTop: 14, paddingTop: 12, fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.4 }}>
-                  "Ashwanth has attended <strong>88%</strong> of CSE lectures. No immediate attendance interventions needed."
+                  "{linkedChild.display_name} has attended <strong>{stats?.inputs?.attendance ?? '—'}%</strong> of lectures. Review the attendance tracker for the latest status."
                 </div>
               </div>
 
@@ -744,6 +789,7 @@ export default function AdvisorPage() {
               </div>
             </div>
           </div>
+          )}
 
         </div>
       )}

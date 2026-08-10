@@ -9,6 +9,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { KEYS } from '@/lib/api/hooks';
 import dynamic from 'next/dynamic';
 import { speakWithAvatar, stopSpeaking, preloadTTS, preloadNextSpeech, preloadMultipleSpeeches } from '@/lib/tts';
+import { pingRenderServer } from '@/lib/smartVoiceRouter';
 import { toast } from '@/lib/store/useAppStore';
 
 import { preloadAvatarGLB } from '@/components/avatar/VRoidInterviewAvatar';
@@ -544,6 +545,7 @@ export default function OnboardingPage() {
   const [isPreloaded, setIsPreloaded] = useState(false);
   useEffect(() => {
     if (typeof window !== 'undefined') {
+      pingRenderServer();
       preloadAvatarGLB(['priya', 'anish', 'kashyap', 'karthic']);
       
       const allIdentityQs = [

@@ -121,13 +121,22 @@ export const advisorService = {
       }
     }
 
-    // Local Fallback
+    // Local Fallback — no hard-coded student identities
     const db = readLocalDb();
-    const students = [
-      { id: 'ashwanth2026', name: 'Ashwanth Kumar', attendance: db.performance.attendance, cgpa: db.performance.cgpa, pendingAssignments: db.performance.assignmentsPending, riskLevel: db.performance.attendance < 75 ? 'High' : 'Low' }
-    ].filter(s => s.attendance < 90); // Simple mock check
-
-    return { students };
+    const attendance = db.performance?.attendance;
+    if (typeof attendance !== 'number' || attendance >= 90) {
+      return { students: [] };
+    }
+    return {
+      students: [{
+        id: 'local-at-risk',
+        name: 'Student',
+        attendance,
+        cgpa: db.performance.cgpa,
+        pendingAssignments: db.performance.assignmentsPending,
+        riskLevel: attendance < 75 ? 'High' : 'Medium'
+      }]
+    };
   },
 
   async sendAlert(studentId: string, message: string) {

@@ -12,7 +12,7 @@ export default function FacultyResearchPortal() {
   const [funding, setFunding] = useState<any[]>([]);
 
   const [paperTitle, setPaperTitle] = useState('');
-  const [paperAuthors, setPaperAuthors] = useState('Ashwanth Kumar');
+  const [paperAuthors, setPaperAuthors] = useState('');
   const [paperJournal, setPaperJournal] = useState('');
   const [submittingPaper, setSubmittingPaper] = useState(false);
 
