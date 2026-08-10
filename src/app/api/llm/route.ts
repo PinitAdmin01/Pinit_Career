@@ -1,7 +1,11 @@
 import { NextResponse } from 'next/server';
+import { requireUserFromRequest } from '@/lib/server/requireAuth';
 
 export async function POST(req: Request) {
   try {
+    const gated = await requireUserFromRequest(req);
+    if (gated.error) return gated.error;
+
     const { messages, systemPrompt, skillCategory, maxTokens } = await req.json();
 
     const openRouterKey = process.env.OPENROUTER_API_KEY;

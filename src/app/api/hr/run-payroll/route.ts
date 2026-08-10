@@ -1,8 +1,12 @@
 import { NextResponse } from 'next/server';
 import { hrService } from '@/lib/services/hrService';
+import { requireAdminFromRequest } from '@/lib/server/requireAdmin';
 
 export async function POST(req: Request) {
   try {
+    const denied = await requireAdminFromRequest(req);
+    if (denied) return denied;
+
     const result = await hrService.runPayroll();
     return NextResponse.json(result);
   } catch (err: any) {

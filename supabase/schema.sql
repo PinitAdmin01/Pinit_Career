@@ -229,8 +229,65 @@ alter table public.qr_login_sessions enable row level security;
 
 -- Add Strict Row Level Security Policies
 -- 1. Users Table
-create policy "Users can read all profiles" on public.users for select using (true);
-create policy "Users can update their own profile" on public.users for update using (auth.uid() = id) with check (auth.uid() = id);
+-- Profiles: users may read/update only their own row. Role/pins/tier changes must go through service role / admin APIs.
+drop policy if exists "Users can read all profiles" on public.users;
+drop policy if exists "Users can update their own profile" on public.users;
+
+create or replace function public.is_staff_reader()
+returns boolean
+language sql
+security definer
+set search_path = public
+as $$
+  select exists (
+    select 1 from public.users
+    where id = auth.uid()
+      and role in ('admin', 'superadmin', 'recruiter', 'teacher', 'consultant')
+  );
+$$;
+
+create policy "Users can read own profile" on public.users for select using (auth.uid() = id);
+create policy "Staff can read profiles" on public.users for select using (public.is_staff_reader());
+create policy "Users can update own non-privileged profile" on public.users
+  for update
+  using (auth.uid() = id)
+  with check (
+    auth.uid() = id
+    and role = (select u.role from public.users u where u.id = auth.uid())
+    and coalesce(pins, 0) = coalesce((select u.pins from public.users u where u.id = auth.uid()), 0)
+    and coalesce(subscription_tier, 'free') = coalesce((select u.subscription_tier from public.users u where u.id = auth.uid()), 'free')
+  );
+
+-- Protect role column even if a client bypasses with_check (defense in depth)
+create or replace function public.prevent_privilege_escalation()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  if new.role is distinct from old.role
+     or new.pins is distinct from old.pins
+     or coalesce(new.subscription_tier, 'free') is distinct from coalesce(old.subscription_tier, 'free')
+     or new.ats_score is distinct from old.ats_score
+     or new.trust_score is distinct from old.trust_score then
+    if auth.uid() is not null and auth.uid() = old.id then
+      -- Block self-service privilege / economy / score forgery
+      new.role := old.role;
+      new.pins := old.pins;
+      new.subscription_tier := old.subscription_tier;
+      new.ats_score := old.ats_score;
+      new.trust_score := old.trust_score;
+    end if;
+  end if;
+  return new;
+end;
+$$;
+
+drop trigger if exists trg_prevent_privilege_escalation on public.users;
+create trigger trg_prevent_privilege_escalation
+  before update on public.users
+  for each row execute function public.prevent_privilege_escalation();
 
 -- 2. Vault Items Table
 create policy "Users can view their own vault items" on public.vault_items for select using (auth.uid() = user_id);
@@ -245,7 +302,9 @@ create policy "Users can insert their own missions" on public.missions for inser
 
 -- 4. Opportunities Table
 create policy "Anyone can view opportunities" on public.opportunities for select using (true);
-create policy "Anyone can insert opportunities" on public.opportunities for insert with check (true);
+drop policy if exists "Anyone can insert opportunities" on public.opportunities;
+create policy "Authenticated users can insert opportunities" on public.opportunities
+  for insert with check (auth.uid() is not null);
 
 -- 5. Jobs Table
 create policy "Anyone can view jobs" on public.jobs for select using (true);
@@ -270,7 +329,8 @@ create policy "Users can view their own sessions" on public.sessions for select 
 create policy "Admins can view audit logs" on public.audit_logs for select using (exists (select 1 from public.users where id = auth.uid() and role = 'admin'));
 
 -- 11. QR Login Sessions Table
-create policy "Anyone can manage QR login sessions" on public.qr_login_sessions for all using (true) with check (true);
+create policy "Authenticated users can manage own QR login sessions" on public.qr_login_sessions
+  for all using (auth.uid() is not null) with check (auth.uid() is not null);
 
 -- Enable Supabase Realtime for QR Login
 alter publication supabase_realtime add table public.qr_login_sessions;

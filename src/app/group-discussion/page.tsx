@@ -983,11 +983,18 @@ export default function GroupDiscussionPage() {
     setLoading(true);
     toast.success('Analyzing Debate...', 'Generating detailed candidate performance report...');
 
-    let finalReport = {
-      score: 75,
-      verdict: 'Standard architectural layout approved.',
-      gapsIdentified: ['Distributed transaction synchronization constraints', 'Lock contention patterns under high load factors'],
-      keyMoments: ['Candidate pitched basic architecture layout solutions.', 'Boardroom debated database schemas and latency details.']
+    let finalReport: {
+      score: number;
+      verdict: string;
+      gapsIdentified: string[];
+      keyMoments: string[];
+      evaluated: boolean;
+    } = {
+      score: 0,
+      verdict: 'Evaluation unavailable — could not score this boardroom session.',
+      gapsIdentified: ['Complete a fuller discussion so an AI evaluation can be generated.'],
+      keyMoments: [],
+      evaluated: false,
     };
 
     try {
@@ -1003,8 +1010,8 @@ export default function GroupDiscussionPage() {
       });
       if (res.ok) {
         const reportData = await res.json();
-        if (reportData.score !== undefined) {
-          finalReport = reportData;
+        if (typeof reportData.score === 'number') {
+          finalReport = { ...reportData, evaluated: true };
         }
       }
     } catch (err) {
@@ -1014,7 +1021,10 @@ export default function GroupDiscussionPage() {
     }
 
     setGdReport(finalReport);
-    cOS.rewardActivity('gd', roomName || 'Group Discussion');
+    // Only reward when a real evaluation score exists — never default-pass at 75.
+    if (finalReport.evaluated && finalReport.score >= 70) {
+      cOS.rewardActivity('gd', roomName || 'Group Discussion');
+    }
 
     // Save SDE Boardroom record to localStorage database cache
     if (typeof window !== 'undefined') {
@@ -1045,8 +1055,8 @@ export default function GroupDiscussionPage() {
         detail: {
           type: 'gd',
           title: 'Group Discussion Boardroom',
-          score: Math.min(100, finalReport.score || 75),
-          passed: (finalReport.score || 75) >= 70,
+          score: Math.min(100, finalReport.score || 0),
+          passed: !!(finalReport.evaluated && (finalReport.score || 0) >= 70),
           strengths: finalReport.keyMoments || [],
           improvements: finalReport.gapsIdentified || [],
         }

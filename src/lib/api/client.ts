@@ -414,12 +414,27 @@ async function firestoreRouter(method:string, path:string, body?:any): Promise<u
   if(cleanPath==='/api/auth/logout') return { ok:true };
   if(cleanPath==='/api/auth/profile'){
     const raw = (body && typeof body === 'object' ? { ...(body as Record<string, unknown>) } : {}) as Record<string, unknown>;
-    // Never allow self-service role escalation via profile PATCH
+    // Never allow self-service privilege / economy escalation via profile PATCH
     delete raw.role;
+    delete raw.pins;
+    delete raw.subscription_tier;
+    delete raw.ats_score;
+    delete raw.trust_score;
+    delete raw.career_dna_score;
     await fs.updateUserProfile(uid, raw); const p=await fs.getUserProfile(uid); return { ok:true, user:{ id:uid,...p } };
   }
   if(cleanPath==='/api/auth/teacher'){ const{teacherId}=body as Record<string,string>; await fs.updateUserProfile(uid,{ selectedTeacherId:teacherId }); return { ok:true }; }
-  if(cleanPath==='/api/auth/onboarding'){ await fs.updateUserProfile(uid,body as Record<string,unknown>); return { ok:true }; }
+  if(cleanPath==='/api/auth/onboarding'){
+    const raw = (body && typeof body === 'object' ? { ...(body as Record<string, unknown>) } : {}) as Record<string, unknown>;
+    delete raw.role;
+    delete raw.pins;
+    delete raw.subscription_tier;
+    delete raw.ats_score;
+    delete raw.trust_score;
+    delete raw.career_dna_score;
+    await fs.updateUserProfile(uid, raw);
+    return { ok:true };
+  }
   if(cleanPath==='/api/auth/forgot-password'){
     const { email } = body as { email: string };
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
@@ -1208,12 +1223,8 @@ Ensure the JSON output is strictly valid and contains no extra text or markdown 
     return { ok:true, pins:newBal, spent:cost };
   }
   if(cleanPath==='/api/pins/purchase'&&method==='POST'){
-    const{amount,packName}=body as Record<string,unknown>;
-    const p=await fs.getUserProfile(uid);
-    const current=(p as any)?.pins||100;
-    const newBal=current+(amount as number||0);
-    await fs.updateUserProfile(uid,{ pins:newBal });
-    return { ok:true, pins:newBal, added:amount, packName };
+    // Pins cannot be minted client-side without server payment verification.
+    throw new ApiError(402, 'PAYMENT_REQUIRED', 'Pin purchases require verified server-side payment. Client minting is disabled.');
   }
 
   if (cleanPath === '/api/payment/status') {
@@ -1995,22 +2006,20 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
     if (typeof window !== 'undefined') {
       let dues = localStorage.getItem('finance_dues');
       if (!dues) {
+        // Do not seed fabricated institutional fees as if they were real.
         const initialDues = {
-          totalTermFees: 120000,
+          isDemoData: true,
+          totalTermFees: 0,
           scholarshipWaiver: 0,
-          fineLevied: 1500, // Late fee fine on Inst 3
-          installments: [
-            { id: 'Inst-1', name: '1st Installment', amount: 40000, deadline: '2026-01-15', status: 'Paid', paidOn: '2026-01-12T10:00:00Z', receiptId: 'RCP-82910' },
-            { id: 'Inst-2', name: '2nd Installment', amount: 40000, deadline: '2026-04-15', status: 'Paid', paidOn: '2026-04-14T11:30:00Z', receiptId: 'RCP-84221' },
-            { id: 'Inst-3', name: '3rd Installment (Final)', amount: 40000, deadline: '2026-07-10', status: 'Unpaid', paidOn: null, receiptId: null }
-          ]
+          fineLevied: 0,
+          installments: [] as any[],
         };
         localStorage.setItem('finance_dues', JSON.stringify(initialDues));
         return initialDues;
       }
       return JSON.parse(dues);
     }
-    return {};
+    return { isDemoData: true, totalTermFees: 0, scholarshipWaiver: 0, fineLevied: 0, installments: [] };
   }
 
   if (cleanPath === '/api/finance/pay-due') {
@@ -2524,26 +2533,15 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
       let drivers = localStorage.getItem('transport_drivers');
       let allocation = localStorage.getItem('transport_allocation');
 
+      // Do not seed fabricated drivers/phones/DL numbers as live campus transit data.
       if (!routes) {
-        const initialRoutes = [
-          { code: 'R-12', name: 'Route 12 - South Campus Express', driverName: 'Karan Dev', vehicle: 'KA-01-F-1204', stops: ['Silk Board', 'HSR Layout', 'Electronic City', 'Campus Gate'], timing: '08:00 AM - 08:45 AM' },
-          { code: 'R-05', name: 'Route 5 - North Ring Metro Route', driverName: 'Mahesh Rao', vehicle: 'KA-03-M-5902', stops: ['Hebbal Flyover', 'Kalyan Nagar', 'Marathahalli', 'Campus Gate'], timing: '07:30 AM - 08:30 AM' },
-          { code: 'R-08', name: 'Route 8 - Central Town Shuttle', driverName: 'Vijay Patil', vehicle: 'KA-05-E-8041', stops: ['Indiranagar Metro', 'Domlur', 'Koramangala', 'Campus Gate'], timing: '08:15 AM - 08:50 AM' }
-        ];
-        localStorage.setItem('transport_routes', JSON.stringify(initialRoutes));
-        routes = JSON.stringify(initialRoutes);
+        localStorage.setItem('transport_routes', JSON.stringify([]));
+        routes = '[]';
       }
-
       if (!drivers) {
-        const initialDrivers = [
-          { name: 'Karan Dev', phone: '+91 98765 43210', rating: 4.8, license: 'DL-14202619082' },
-          { name: 'Mahesh Rao', phone: '+91 99887 76655', rating: 4.9, license: 'DL-80419284102' },
-          { name: 'Vijay Patil', phone: '+91 97766 55443', rating: 4.6, license: 'DL-59281028392' }
-        ];
-        localStorage.setItem('transport_drivers', JSON.stringify(initialDrivers));
-        drivers = JSON.stringify(initialDrivers);
+        localStorage.setItem('transport_drivers', JSON.stringify([]));
+        drivers = '[]';
       }
-
       if (!allocation) {
         const initialAllocation = { route: null, stop: '', status: 'none' };
         localStorage.setItem('transport_allocation', JSON.stringify(initialAllocation));
@@ -2551,12 +2549,13 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
       }
 
       return {
+        isDemoData: true,
         routes: JSON.parse(routes),
         drivers: JSON.parse(drivers),
         allocation: JSON.parse(allocation)
       };
     }
-    return { routes: [], drivers: [], allocation: { route: null, stop: '', status: 'none' } };
+    return { isDemoData: true, routes: [], drivers: [], allocation: { route: null, stop: '', status: 'none' } };
   }
 
   if (cleanPath === '/api/transport/register') {
@@ -2603,18 +2602,16 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
     if (typeof window !== 'undefined') {
       let requests = localStorage.getItem('document_requests');
       if (!requests) {
-        const initialRequests = [
-          { id: 'DOC-501', type: 'Bonafide', purpose: 'Internship verification', requestedOn: '2026-07-10T12:00:00Z', status: 'issued', approvedOn: '2026-07-11T10:00:00Z', securityHash: 'CERT-MD5-BONA-592810' },
-          { id: 'DOC-802', type: 'ID Card', purpose: 'Duplicate card replacement', requestedOn: '2026-07-14T09:00:00Z', status: 'pending', approvedOn: null, securityHash: null }
-        ];
-        localStorage.setItem('document_requests', JSON.stringify(initialRequests));
-        requests = JSON.stringify(initialRequests);
+        // Do not seed issued institutional certificates as if they were real.
+        localStorage.setItem('document_requests', JSON.stringify([]));
+        requests = '[]';
       }
       return {
+        isDemoData: true,
         requests: JSON.parse(requests)
       };
     }
-    return { requests: [] };
+    return { isDemoData: true, requests: [] };
   }
 
   if (cleanPath === '/api/documents/request') {
@@ -4425,7 +4422,12 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
         students: users.filter(u => u.role === 'student').length,
         recruiters: users.filter(u => u.role === 'recruiter').length,
         consultants: users.filter(u => u.role === 'consultant').length,
-        active_today: Math.round(users.length * 0.4) + 1,
+          active_today: users.filter(u => {
+            const c = (u as any).lastActiveAt || (u as any).updatedAt || (u as any).createdAt;
+            if (!c) return false;
+            const ts = c.toMillis ? c.toMillis() : new Date(c).getTime();
+            return Date.now() - ts < 86400 * 1000;
+          }).length,
         new_this_week: users.filter(u => {
           const c = (u as any).createdAt;
           if (!c) return true;
@@ -4433,9 +4435,7 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
           return Date.now() - ts < 7 * 86400 * 1000;
         }).length
       },
-      fraudAlerts: [
-        { display_name: 'Ashwanth Kumar', exam_name: 'React Fundamentals Certification', tab_switches: 4 },
-      ],
+      fraudAlerts: [],
       recentSignups: users.slice(0, 5).map(u => ({
         id: u.id,
         display_name: u.displayName || u.username || 'User',
@@ -4447,12 +4447,9 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
   }
   if(cleanPath==='/api/admin/fraud-alerts'){
     return {
-      highTabSwitches: [
-        { display_name: 'Ashwanth Kumar', exam_name: 'React Fundamentals Certification', tab_switches: 4 }
-      ],
-      suspiciousScores: [
-        { display_name: 'Deepa Krishnan', delta: 25 }
-      ]
+      highTabSwitches: [],
+      suspiciousScores: []
+    };
     };
   }
   if(cleanPath==='/api/admin/platform-stats'){
@@ -5338,11 +5335,18 @@ Return exactly this JSON format:
 
 async function request<T>(method:string, path:string, body?:unknown): Promise<T> {
   // NOTE: /api/admin intentionally omitted from live-prefer list so client RBAC (profile.role) always runs.
-  if (path === '/api/interview/chat' || path === '/api/interview/evaluate' || path.startsWith('/api/hostel') || path.startsWith('/api/transport') || path.startsWith('/api/events') || path.startsWith('/api/grievances') || path.startsWith('/api/library') || path.startsWith('/api/research') || path.startsWith('/api/finance') || path.startsWith('/api/exams') || path.startsWith('/api/maintenance') || path.startsWith('/api/advisor') || path.startsWith('/api/services') || path.startsWith('/api/notes') || path.startsWith('/api/admissions') || path.startsWith('/api/hr') || path.startsWith('/api/procurement') || path.startsWith('/api/assets') || path.startsWith('/api/alumni') || path.startsWith('/api/communication') || path.startsWith('/api/documents')) {
+  if (path === '/api/interview/chat' || path === '/api/interview/evaluate' || path.startsWith('/api/hostel') || path.startsWith('/api/transport') || path.startsWith('/api/events') || path.startsWith('/api/grievances') || path.startsWith('/api/library') || path.startsWith('/api/research') || path.startsWith('/api/finance') || path.startsWith('/api/exams') || path.startsWith('/api/maintenance') || path.startsWith('/api/advisor') || path.startsWith('/api/services') || path.startsWith('/api/notes') || path.startsWith('/api/admissions') || path.startsWith('/api/hr') || path.startsWith('/api/procurement') || path.startsWith('/api/assets') || path.startsWith('/api/alumni') || path.startsWith('/api/communication') || path.startsWith('/api/documents') || path.startsWith('/api/admin') || path === '/api/llm') {
     try {
+      let authHeader: Record<string, string> = {};
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session?.access_token) {
+          authHeader = { Authorization: `Bearer ${session.access_token}` };
+        }
+      } catch { /* ignore */ }
       const res = await fetch(path, {
         method,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...authHeader },
         body: body ? JSON.stringify(body) : undefined
       });
       if (res.ok) {

@@ -173,13 +173,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return;
     }
     const token = `vlt_jwt_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
-    const role = userPayload.role || 'student';
+    // Never accept arbitrary privileged roles from client payloads.
+    // Demo emails keep their mapped roles; Dev Mode stays student; everyone else is student.
+    const emailLower = String(userPayload.email || userPayload.username || '').toLowerCase();
+    const demoRoleByEmail: Record<string, string> = {
+      'admin@pinit.in': 'admin',
+      'rec@pinit.in': 'recruiter',
+      'con@pinit.in': 'consultant',
+      'student@pinit.in': 'student',
+    };
+    let role = 'student';
+    if (userPayload.isDevUser) {
+      role = 'student';
+    } else if (demoRoleByEmail[emailLower]) {
+      role = demoRoleByEmail[emailLower];
+    }
+    // All other vault/client payloads are forced to student (no self-claimed admin/teacher/etc.)
 
     if (typeof window !== 'undefined') {
+      const sanitizedPayload = { ...userPayload, role };
       localStorage.setItem('pinit_active_uid', userPayload.id);
       localStorage.setItem('pinit_auth_token', token);
-      localStorage.setItem('pinit_current_user', JSON.stringify(userPayload));
-      localStorage.setItem(`pinit_${userPayload.id}_profile`, JSON.stringify(userPayload));
+      localStorage.setItem('pinit_current_user', JSON.stringify(sanitizedPayload));
+      localStorage.setItem(`pinit_${userPayload.id}_profile`, JSON.stringify(sanitizedPayload));
 
       const isHttps = window.location.protocol === 'https:';
       const secureFlag = isHttps ? '; Secure' : '';
@@ -200,7 +216,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
 
     setUser(appUser);
-    initializeCareerWorkspace(userPayload.id, userPayload, isNewUser);
+    initializeCareerWorkspace(userPayload.id, { ...userPayload, role }, isNewUser);
     setLoading(false);
     return appUser;
   }, [initializeCareerWorkspace]);
@@ -620,7 +636,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         email,
         username: data.username,
         displayName: data.displayName,
-        role: data.role || 'student',
+        // Signup must never accept client-supplied privileged roles (including fallback path)
+        role: 'student',
         registerNumber: data.registerNumber || '',
       };
       try {

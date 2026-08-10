@@ -5,7 +5,7 @@ import { requireAdminFromRequest } from '@/lib/server/requireAdmin';
 
 export async function POST(req: Request) {
   try {
-    const denied = requireAdminFromRequest(req);
+    const denied = await requireAdminFromRequest(req);
     if (denied) return denied;
 
     const { title, message, type, targetRole } = await req.json();

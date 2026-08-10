@@ -1005,9 +1005,12 @@ export default function InterviewPage() {
 
     const userMsgCount = messages.filter(m => m.role === 'user').length;
     const candidateAnswered = userMsgCount >= 3;
-    const isPassing = candidateAnswered && (codeSubmitted || boardLinks.length > 0);
+    // Drawing board alone must not grant Hire — require verified coding submission.
+    const isPassing = candidateAnswered && codeSubmitted;
 
-    const calculatedScore = isPassing ? 88 : Math.max(35, Math.min(60, userMsgCount * 15));
+    const calculatedScore = isPassing
+      ? Math.min(92, 60 + userMsgCount * 4 + (codeSubmitted ? 15 : 0))
+      : Math.max(30, Math.min(58, userMsgCount * 12));
     const calculatedVerdict = isPassing ? 'Hire' : 'Needs Practice / No Hire';
 
     let resultObj = {
