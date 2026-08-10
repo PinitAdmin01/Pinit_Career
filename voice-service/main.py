@@ -42,7 +42,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title=settings.APP_NAME,
     version=settings.APP_VERSION,
-    description="Decoupled Text-to-Speech (TTS) Microservice for PinIT Careers AI Mentor Avatars",
+    description="Decoupled Text-to-Speech (TTS) Microservice for PinIT Careers AI Mentor Avatars (Edge-TTS Neural v3.0)",
     lifespan=lifespan
 )
 
