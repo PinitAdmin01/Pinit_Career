@@ -264,7 +264,7 @@ export async function speakWithAvatar(
   useNeural = true,
   difficulty?: 'easy' | 'normal' | 'hard',
   speedMultiplier = 1.0,
-  maxDurationMs = 6800
+  maxDurationMs = 15000
 ) {
   stopSpeaking();
   const mySpeechId = currentSpeechId;
@@ -279,6 +279,9 @@ export async function speakWithAvatar(
 
   const cleanText = sanitized.replace(/[✦🤖👋🎯💼🔐🔬⚡✨✓⬡*`_#]/g, '').trim();
   if (!cleanText) return;
+
+  // Calculate dynamic maximum duration based on character count (150ms per character, minimum 12 seconds)
+  const dynamicMaxDurationMs = Math.max(maxDurationMs, Math.max(12000, cleanText.length * 150));
 
   const enhancedText = enhanceTextIntonation(cleanText);
   const vibe = detectVibe(enhancedText);
@@ -321,13 +324,13 @@ export async function speakWithAvatar(
         maxDurationTimer = setTimeout(() => {
           try { source.stop(); } catch {}
           finish();
-        }, maxDurationMs);
+        }, dynamicMaxDurationMs);
         return;
       }
     } catch (err) {
       console.warn('[PinIT Voice System] Render Kokoro Server error, activating Natural Human Voice fallback:', err);
       if (mySpeechId === currentSpeechId) {
-        fallbackWebSpeech(cleanText, teacherId, onStart, onEnd, vibe, mySpeechId, difficulty, speedMultiplier, maxDurationMs);
+        fallbackWebSpeech(cleanText, teacherId, onStart, onEnd, vibe, mySpeechId, difficulty, speedMultiplier, dynamicMaxDurationMs);
         return;
       }
     }
