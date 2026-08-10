@@ -57,16 +57,28 @@ def _speed_to_edge_rate(speed: float) -> str:
 
 async def _edge_synthesize_mp3(text: str, edge_voice: str, rate: str) -> bytes:
     import edge_tts
+    import re
 
-    communicate = edge_tts.Communicate(text, edge_voice, rate=rate)
-    chunks: list[bytes] = []
-    async for chunk in communicate.stream():
-        if chunk["type"] == "audio":
-            chunks.append(chunk["data"])
-    audio = b"".join(chunks)
-    if len(audio) < 500:
-        raise RuntimeError("edge-tts returned empty/too-small audio")
-    return audio
+    clean_txt = re.sub(r'[^\w\s\.,\?\'-]', '', text).strip()
+    if not clean_txt:
+        clean_txt = text.strip()
+
+    for attempt in range(2):
+        try:
+            curr_text = clean_txt if attempt == 0 else re.sub(r'[^\w\s]', '', clean_txt)
+            communicate = edge_tts.Communicate(curr_text, edge_voice, rate=rate)
+            chunks: list[bytes] = []
+            async for chunk in communicate.stream():
+                if chunk["type"] == "audio":
+                    chunks.append(chunk["data"])
+            audio = b"".join(chunks)
+            if len(audio) >= 300:
+                return audio
+        except Exception as e:
+            logger.warning(f"edge-tts attempt {attempt+1} failed: {e}")
+            await asyncio.sleep(0.2)
+
+    raise RuntimeError("edge-tts synthesis failed after retries")
 
 
 def _run_async(coro):
