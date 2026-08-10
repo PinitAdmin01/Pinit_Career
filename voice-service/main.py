@@ -4,6 +4,7 @@ import logging
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import Response
 
 # Ensure voice-service directory is in sys.path
 sys.path.insert(0, os.path.dirname(__file__))

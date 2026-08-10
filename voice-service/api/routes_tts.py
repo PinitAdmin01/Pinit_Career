@@ -29,19 +29,24 @@ class HealthResponse(BaseModel):
 
 from cache.cache_manager import server_cache
 
-@router.get("/health", response_model=HealthResponse)
+@router.get("/health")
 def get_health():
     """Health check endpoint returning system status and engine metrics."""
-    status_info = engine.get_status()
-    cache_info = server_cache.get_metrics()
-    return HealthResponse(
-        status="healthy",
-        service=settings.APP_NAME,
-        version=settings.APP_VERSION,
-        onnx_loaded=status_info["onnx_active"],
-        sample_rate=status_info["sample_rate"],
-        init_time_ms=status_info["init_time_ms"]
-    )
+    try:
+        status_info = engine.get_status()
+        return {
+            "status": "healthy",
+            "service": settings.APP_NAME,
+            "version": settings.APP_VERSION,
+            "onnx_loaded": status_info.get("onnx_active", False),
+            "sample_rate": status_info.get("sample_rate", 24000),
+            "init_time_ms": status_info.get("init_time_ms", 0)
+        }
+    except Exception as e:
+        return {
+            "status": "degraded",
+            "error": str(e)
+        }
 
 @router.get("/voices")
 def list_voices():
