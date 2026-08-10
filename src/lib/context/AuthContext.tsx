@@ -168,20 +168,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       rawPayload?.user && typeof rawPayload.user === 'object' && !rawPayload.id
         ? rawPayload.user
         : rawPayload;
-    // #region agent log
-    const _dbgA = {sessionId:'ea5c88',runId:'post-fix',hypothesisId:'A',location:'AuthContext.tsx:loginWithVaultSession',message:'vault session entry',data:{hasPayload:!!rawPayload,topLevelId:rawPayload?.id??null,nestedUserId:rawPayload?.user?.id??null,resolvedId:userPayload?.id??null,flattened:!!(rawPayload?.user&&!rawPayload?.id),keys:rawPayload?Object.keys(rawPayload):[],isNewUser},timestamp:Date.now()};
-    fetch('http://127.0.0.1:7451/ingest/df1aedb8-01ec-4753-88a2-07d249a45251',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'ea5c88'},body:JSON.stringify(_dbgA)}).catch(()=>{});
-    fetch('/api/debug-ingest',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(_dbgA)}).catch(()=>{});
-    try { const prev = JSON.parse(localStorage.getItem('pinit_debug_ea5c88') || '[]'); prev.push(_dbgA); localStorage.setItem('pinit_debug_ea5c88', JSON.stringify(prev.slice(-50))); } catch {}
-    // #endregion
     if (!userPayload || !userPayload.id) {
       console.warn('[AuthContext] loginWithVaultSession called with invalid userPayload:', rawPayload);
-      // #region agent log
-      const _dbgA2 = {sessionId:'ea5c88',runId:'post-fix',hypothesisId:'A',location:'AuthContext.tsx:loginWithVaultSession:reject',message:'early return — missing id after flatten',data:{nestedUserId:rawPayload?.user?.id??null,wouldSucceedIfFlattened:!!rawPayload?.user?.id},timestamp:Date.now()};
-      fetch('http://127.0.0.1:7451/ingest/df1aedb8-01ec-4753-88a2-07d249a45251',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'ea5c88'},body:JSON.stringify(_dbgA2)}).catch(()=>{});
-      fetch('/api/debug-ingest',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(_dbgA2)}).catch(()=>{});
-      try { const prev = JSON.parse(localStorage.getItem('pinit_debug_ea5c88') || '[]'); prev.push(_dbgA2); localStorage.setItem('pinit_debug_ea5c88', JSON.stringify(prev.slice(-50))); } catch {}
-      // #endregion
       return;
     }
     const token = `vlt_jwt_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;

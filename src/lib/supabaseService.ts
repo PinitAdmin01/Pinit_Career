@@ -139,11 +139,6 @@ export function mapProfileToRow(profile: any): any {
   
   if (profile.displayName !== undefined) row.display_name = profile.displayName;
   if (profile.role !== undefined) row.role = profile.role;
-  // #region agent log
-  if (typeof window !== 'undefined' && profile.role !== undefined) {
-    fetch('http://127.0.0.1:7451/ingest/df1aedb8-01ec-4753-88a2-07d249a45251',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'ea5c88'},body:JSON.stringify({sessionId:'ea5c88',runId:'pre-fix',hypothesisId:'C',location:'supabaseService.ts:mapProfileToRow',message:'role field accepted into DB row',data:{incomingRole:profile.role,willWriteRole:true},timestamp:Date.now()})}).catch(()=>{});
-  }
-  // #endregion
   if (profile.registerNumber !== undefined) row.register_number = profile.registerNumber;
   if (profile.selectedTeacherId !== undefined) row.selected_teacher_id = profile.selectedTeacherId;
   if (profile.ats_score !== undefined) row.ats_score = profile.ats_score;

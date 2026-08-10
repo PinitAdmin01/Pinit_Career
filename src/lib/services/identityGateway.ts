@@ -98,24 +98,12 @@ export const identityGateway = {
   async generateLoginChallenge(app = 'careers', purpose = 'login'): Promise<VaultChallenge> {
     try {
       const api = await getApi();
-      const challenge = await api.post<VaultChallenge>('/api/v1/auth/vault-challenge', {
+      return await api.post<VaultChallenge>('/api/v1/auth/vault-challenge', {
         app,
         purpose,
         identityVersion: 1,
       });
-      // #region agent log
-      const _dbgB = {sessionId:'ea5c88',runId:'post-fix',hypothesisId:'B',location:'identityGateway.ts:generateLoginChallenge',message:'vault-challenge via api client',data:{ok:true,hasChallengeId:!!challenge?.challengeId,via:'api.client'},timestamp:Date.now()};
-      fetch('http://127.0.0.1:7451/ingest/df1aedb8-01ec-4753-88a2-07d249a45251',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'ea5c88'},body:JSON.stringify(_dbgB)}).catch(()=>{});
-      fetch('/api/debug-ingest',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(_dbgB)}).catch(()=>{});
-      try { const prev = JSON.parse(localStorage.getItem('pinit_debug_ea5c88') || '[]'); prev.push(_dbgB); localStorage.setItem('pinit_debug_ea5c88', JSON.stringify(prev.slice(-50))); } catch {}
-      // #endregion
-      return challenge;
     } catch (err: any) {
-      // #region agent log
-      const _dbgB2 = {sessionId:'ea5c88',runId:'post-fix',hypothesisId:'B',location:'identityGateway.ts:generateLoginChallenge:error',message:'vault-challenge failed',data:{ok:false,error:err?.message||String(err)},timestamp:Date.now()};
-      fetch('http://127.0.0.1:7451/ingest/df1aedb8-01ec-4753-88a2-07d249a45251',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'ea5c88'},body:JSON.stringify(_dbgB2)}).catch(()=>{});
-      fetch('/api/debug-ingest',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(_dbgB2)}).catch(()=>{});
-      // #endregion
       throw new Error(err?.message || 'Failed to generate authentication challenge');
     }
   },
