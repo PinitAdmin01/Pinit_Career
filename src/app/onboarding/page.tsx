@@ -565,21 +565,13 @@ export default function OnboardingPage() {
         "Please introduce yourself and explain your target product management & business growth goals."
       ];
 
-      const dialogues = [
+      const initialDialogues = [
         "Welcome to your personal diagnostic assessment! First, are you a college student, a fresh graduate, or a working professional?",
         "Got it! Next, what is your dream job? Do you want to build websites, work with clouds, or build software?",
-        "Nice choice. Why did you join today? Are you looking for a job, wanting to learn new skills, or preparing for an interview?",
-        "Understood. Next question: How much coding experience do you have? Are you a beginner, intermediate, or advanced coder?",
-        "Understood. How do you prefer to learn? Do you like reading articles, watching videos, or writing code hands-on?",
-        "Last question: How many hours per week can you dedicate to learning? Five hours, ten hours, or more?",
-        "Fantastic! Next, let's load your Identity Discovery slides to establish your cognitive styles.",
-        ...allIdentityQs,
-        ...allWorkplaceScenarios,
-        ...allPrompts
+        "Nice choice. Why did you join today? Are you looking for a job, wanting to learn new skills, or preparing for an interview?"
       ];
 
-      preloadMultipleSpeeches(dialogues, 'priya');
-      preloadMultipleSpeeches(dialogues, 'anish');
+      preloadMultipleSpeeches(initialDialogues, 'priya');
       setIsPreloaded(true);
     }
   }, []);

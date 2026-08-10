@@ -13,8 +13,8 @@ class ServerMultiTierCache:
 
     def compute_hash(self, text: str, voice: str = "af_bella", speed: float = 1.0) -> str:
         """Computes SHA-256 fingerprint key matching the frontend keying format."""
-        normalized_text = text.strip().lower()
-        raw_str = f"kokoro-v0_19::{voice.lower()}::{speed:.2f}::{normalized_text}"
+        normalized_text = " ".join(text.strip().lower().split())
+        raw_str = f"pinit_v2::{voice.lower()}::{speed:.2f}::{normalized_text}"
         return hashlib.sha256(raw_str.encode("utf-8")).hexdigest()
 
     def get_audio(self, cache_key: str) -> Tuple[Optional[bytes], Optional[str]]:

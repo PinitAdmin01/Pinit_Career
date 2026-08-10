@@ -5373,30 +5373,29 @@ async function callExternalLLM(
 ): Promise<string> {
   // 1. Primary path: Always use the secure server-side endpoint first
   try {
-    const res = await fetch('https://pinit-backend-v8pd.onrender.com/api/llm', {
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'https://pinit-backend-v8pd.onrender.com';
+    const res = await fetch(`${backendUrl}/api/chat`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        messages,
-        systemPrompt,
-        skillCategory,
-        maxTokens
+        messages: [{ role: 'system', content: systemPrompt }, ...messages],
+        max_tokens: maxTokens || 512
       })
     });
     if (res.ok) {
       const data = await res.json();
-      if (data.reply) {
-        return data.reply;
+      if (data.content || data.reply) {
+        return data.content || data.reply;
       }
     }
   } catch (err: any) {
-    console.warn('[Client Proxy LLM] Server-side /api/llm failed:', err.message);
+    console.warn('[Client Proxy LLM] Server-side /api/chat failed:', err.message);
   }
 
   // Client-side Groq keys removed for security — LLM must go through server proxy only.
-  throw new Error("No secure LLM connection available. Configure the server-side /api/llm backend.");
+  throw new Error("No secure LLM connection available. Configure the server-side /api/chat backend.");
 }
 
 export const api = {

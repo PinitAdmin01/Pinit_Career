@@ -20,8 +20,9 @@ const CDN_URL = process.env.NEXT_PUBLIC_CDN_VOICE_URL || '';
 
 export async function POST(req: NextRequest) {
   try {
+    // Soft user check — try parsing authorization token if provided, but allow public audio synthesis
     const gated = await requireUserFromRequest(req);
-    if (gated.error) return gated.error;
+    const userId = gated.user?.id || 'guest';
 
     const body = await req.json();
     const {

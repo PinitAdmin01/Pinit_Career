@@ -89,14 +89,15 @@ def detect_emotion(text: str) -> str:
 
 
 def strip_markdown(text: str) -> str:
-    """Remove markdown symbols, role prefixes, and emoji from text before TTS."""
-    # Remove role prefixes like "[Interviewer]:" or "Ms. Priya:"
-    text = re.sub(r"^\[.*?\]:\s?", "", text)
-    text = re.sub(r"^[a-zA-Z\s\.\-]+:\s?", "", text)
-    # Remove markdown bold/italic/code
-    text = re.sub(r"\*.*?\*", "", text)
-    text = re.sub(r"\[.*?\]", "", text)
-    text = re.sub(r"\(.*?\)", "", text)
-    # Remove common emoji and special chars
-    text = re.sub(r"[✦🤖👋🎯💼🔐🔬⚡✨✓⬡*`_#]", "", text)
+    """Remove markdown formatting syntax, role prefixes, URLs, and emoji from text before TTS while preserving inner words."""
+    # Remove role prefixes like "[Interviewer]:" if bracketed at start
+    text = re.sub(r"^\[[^\]]+\]:\s*", "", text)
+    # Remove markdown link URLs while preserving anchor text: [Anchor](http://...) -> Anchor
+    text = re.sub(r"\[([^\]]+)\]\([^\)]+\)", r"\1", text)
+    # Remove markdown formatting characters (*, _, `, #) without deleting inner words
+    text = re.sub(r"[*`_#~]", "", text)
+    # Remove common emoji and special symbols
+    text = re.sub(r"[✦🤖👋🎯💼🔐🔬⚡✨✓⬡]", "", text)
+    # Collapse multiple whitespace
+    text = re.sub(r"\s+", " ", text)
     return text.strip()

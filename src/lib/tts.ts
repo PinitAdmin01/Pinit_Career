@@ -77,7 +77,7 @@ function enhanceTextIntonation(text: string): string {
   return enhanced;
 }
 
-function detectVibe(text: string): 'happy' | 'motivational' | 'teaching' | 'neutral' {
+export function detectVibe(text: string): 'happy' | 'motivational' | 'teaching' | 'neutral' {
   const lower = text.toLowerCase();
   if (lower.includes('great') || lower.includes('awesome') || lower.includes('excellent') || lower.includes('fantastic')) return 'happy';
   if (lower.includes('let\'s') || lower.includes('together') || lower.includes('challenge') || lower.includes('build')) return 'motivational';
@@ -85,14 +85,12 @@ function detectVibe(text: string): 'happy' | 'motivational' | 'teaching' | 'neut
   return 'neutral';
 }
 
-function getCleanCacheKey(text: string): string {
+export function getCleanCacheKey(text: string): string {
   let sanitized = text
-    .replace(/^\[.*?\]:\s?/, '')
-    .replace(/^[a-zA-Z\s\.\-]+:\s?/, '')
-    .replace(/\*.*?\*/g, '')
-    .replace(/\[.*?\]/g, '')
-    .replace(/\(.*?\)/g, '');
-  return sanitized.replace(/[✦🤖👋🎯💼🔐🔬⚡✨✓⬡*`_#]/g, '').trim();
+    .replace(/^\[[^\]]+\]:\s*/, '')
+    .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1')
+    .replace(/[*`_#~]/g, '');
+  return sanitized.replace(/[✦🤖👋🎯💼🔐🔬⚡✨✓⬡]/g, '').replace(/\s+/g, ' ').trim();
 }
 
 function fallbackWebSpeech(
@@ -270,14 +268,7 @@ export async function speakWithAvatar(
   const mySpeechId = currentSpeechId;
   if (isMuted || !text) return;
 
-  let sanitized = text
-    .replace(/^\[.*?\]:\s?/, '')
-    .replace(/^[a-zA-Z\s\.\-]+:\s?/, '')
-    .replace(/\*.*?\*/g, '')
-    .replace(/\[.*?\]/g, '')
-    .replace(/\(.*?\)/g, '');
-
-  const cleanText = sanitized.replace(/[✦🤖👋🎯💼🔐🔬⚡✨✓⬡*`_#]/g, '').trim();
+  const cleanText = getCleanCacheKey(text);
   if (!cleanText) return;
 
   // Calculate dynamic maximum duration based on character count (150ms per character, minimum 12 seconds)
@@ -328,17 +319,12 @@ export async function speakWithAvatar(
         return;
       }
     } catch (err) {
-      console.warn('[PinIT Voice System] Render Kokoro Server audio synthesis notice:', err);
-      if (mySpeechId === currentSpeechId) {
-        onEnd();
-        return;
-      }
+      console.warn('[PinIT Voice System] Render Kokoro Server audio synthesis notice (falling back to WebSpeech):', err);
     }
   }
 
-  if (mySpeechId === currentSpeechId) {
-    onEnd();
-  }
+  // Fallback to browser WebSpeech if neural synthesis fails or is disabled
+  fallbackWebSpeech(cleanText, teacherId, onStart, onEnd, vibe, mySpeechId, difficulty, speedMultiplier, dynamicMaxDurationMs);
 }
 
 export async function preloadTTS(text?: string, teacherId: string = 'priya') {

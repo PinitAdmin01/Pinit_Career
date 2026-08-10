@@ -32,10 +32,8 @@ def compute_cache_key(
     """
     normalized = normalize_text(text)
 
-    # Canonical payload — order matters for reproducibility
-    payload = (
-        f"{normalized}:{voice}:{language}:{speed:.2f}:{emotion}:{version}:{sample_rate}"
-    )
+    # Canonical payload — order matters for reproducibility across client and backend
+    payload = f"pinit_v2::{voice.lower()}::{speed:.2f}::{normalized}"
 
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 

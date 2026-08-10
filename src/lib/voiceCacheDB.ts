@@ -6,7 +6,7 @@
 const DB_NAME = "PinITVoiceCacheDB";
 const DB_VERSION = 1;
 const STORE_NAME = "voice_audio_blobs";
-const MODEL_VERSION = "kokoro-v0_21_human_speech";
+const MODEL_VERSION = "pinit_v2";
 
 export interface CachedAudioEntry {
   cacheKey: string;

@@ -13,8 +13,8 @@ export function installFetchInterceptor() {
   window.fetch = async (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
     const url = typeof input === 'string' ? input : input instanceof URL ? input.href : (input as Request).url;
 
-    // Only intercept relative /api/* paths
-    if (typeof url === 'string' && url.startsWith('/api/')) {
+    // Only intercept relative /api/* paths (excluding binary stream routes like /api/tts)
+    if (typeof url === 'string' && url.startsWith('/api/') && !url.includes('/api/tts')) {
       const method = (init?.method || 'GET').toUpperCase();
       let body: unknown = undefined;
       if (init?.body) {

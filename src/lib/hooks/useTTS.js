@@ -3,10 +3,21 @@
 // Used in components that need speak/stop as callbacks (interview, lesson, etc.)
 
 import { useRef, useCallback } from 'react';
-import { generateTTSAudio, detectVibe, stopSpeaking } from '@/lib/tts';
+import { generateTTSAudio, detectVibe, stopSpeaking, getCleanCacheKey } from '@/lib/tts';
+
+function getSharedAudioContext(sampleRate = 24000) {
+  if (typeof window === 'undefined') return null;
+  const win = window as any;
+  if (!win._useTTSSharedCtx || win._useTTSSharedCtx.state === 'closed') {
+    win._useTTSSharedCtx = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate });
+  }
+  if (win._useTTSSharedCtx.state === 'suspended') {
+    win._useTTSSharedCtx.resume().catch(() => {});
+  }
+  return win._useTTSSharedCtx;
+}
 
 export function useTTS() {
-  const audioCtxRef  = useRef(null);
   const sourceRef    = useRef(null);
   const synthRef     = useRef(typeof window !== 'undefined' ? window.speechSynthesis : null);
   const speakingRef  = useRef(false);
@@ -19,10 +30,6 @@ export function useTTS() {
       try { sourceRef.current.stop(); } catch {}
       sourceRef.current = null;
     }
-    if (audioCtxRef.current) {
-      try { audioCtxRef.current.close(); } catch {}
-      audioCtxRef.current = null;
-    }
     synthRef.current?.cancel();
   }, []);
 
@@ -31,12 +38,8 @@ export function useTTS() {
     stop();
     speakingRef.current = true;
 
-    // Strip markdown for TTS
-    const plain = text
-      .replace(/[*_`#>~✦🤖👋🎯💼🔐🔬⚡✨✓⬡\[\]()]/g, '')
-      .replace(/\n+/g, ' ')
-      .trim()
-      .slice(0, 600);
+    // Strip markdown for TTS while preserving words
+    const plain = getCleanCacheKey(text).slice(0, 600);
 
     if (!plain) return;
 
@@ -49,11 +52,11 @@ export function useTTS() {
         setTimeout(() => reject(new Error('Local model download timeout')), 10000)
       );
 
-      const { buffer, sampleRate } = await Promise.race([audioPromise, timeoutPromise]);
+      const { buffer, sampleRate } = await Promise.race([audioPromise, timeoutPromise]) as any;
       if (!speakingRef.current) return;
 
-      const ctx = new AudioContext({ sampleRate });
-      audioCtxRef.current = ctx;
+      const ctx = getSharedAudioContext(sampleRate);
+      if (!ctx) return;
 
       const audioBuf = ctx.createBuffer(1, buffer.length, sampleRate);
       audioBuf.copyToChannel(buffer, 0);
@@ -75,10 +78,11 @@ export function useTTS() {
       source.onended = () => { sourceRef.current = null; };
       source.start(0);
       return; // ✅ Success
-    } catch (err) {
+    } catch (err: any) {
       console.warn('[useTTS] Main-thread generation failed:', err.message);
     }
   }, [stop]);
 
   return { speak, stop };
 }
+

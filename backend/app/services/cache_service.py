@@ -111,7 +111,7 @@ async def save_cached(
         "emotion": emotion,
         "created": now,
         "last_access": now,
-        "hits": 1,
+        "hits": 0,
     }
     await r.set(_rkey(cache_key), json.dumps(entry))
 
@@ -163,7 +163,7 @@ async def compute_stats(audio_storage_dir: str) -> dict:
     entries = await get_all_entries()
     total = len(entries)
     total_hits = sum(e.get("hits", 0) for e in entries)
-    total_misses = total  # Each entry was a miss once on creation
+    total_misses = total  # Initial creation count
 
     # Storage used
     storage_bytes = 0
@@ -187,7 +187,7 @@ async def compute_stats(audio_storage_dir: str) -> dict:
         reverse=True,
     )[:5]
 
-    # Hit rate
+    # Hit rate calculation: total hits divided by (total hits + total initial misses)
     total_requests = total_hits + total_misses
     hit_rate = (total_hits / total_requests * 100) if total_requests > 0 else 0.0
 
