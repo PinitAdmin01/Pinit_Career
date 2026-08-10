@@ -29,36 +29,22 @@ class HealthResponse(BaseModel):
 
 from cache.cache_manager import server_cache
 
-@router.get("/health")
-def get_health():
-    """Health check endpoint returning system status and engine metrics."""
-    try:
-        status_info = engine.get_status()
-        return {
-            "status": "healthy",
-            "service": settings.APP_NAME,
-            "version": settings.APP_VERSION,
-            "onnx_loaded": status_info.get("onnx_active", False),
-            "sample_rate": status_info.get("sample_rate", 24000),
-            "init_time_ms": status_info.get("init_time_ms", 0)
-        }
-    except Exception as e:
-        return {
-            "status": "degraded",
-            "error": str(e)
-        }
-
 @router.get("/voices")
 def list_voices():
     """Lists all available Kokoro voices and supported sample rates."""
-    status_info = engine.get_status()
-    cache_info = server_cache.get_metrics()
-    return {
-        "default_voice": settings.DEFAULT_VOICE,
-        "sample_rate": settings.SAMPLE_RATE,
-        "voices": status_info["supported_voices"],
-        "cache_metrics": cache_info
-    }
+    try:
+        status_info = engine.get_status()
+        return {
+            "default_voice": settings.DEFAULT_VOICE,
+            "sample_rate": settings.SAMPLE_RATE,
+            "voices": status_info.get("supported_voices", []),
+        }
+    except Exception as e:
+        return {
+            "default_voice": settings.DEFAULT_VOICE,
+            "sample_rate": settings.SAMPLE_RATE,
+            "voices": ["af_bella", "af_sarah", "am_adam", "priya"]
+        }
 
 @router.post("/tts")
 def generate_tts(request: TTSRequest):
