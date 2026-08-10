@@ -342,13 +342,22 @@ export async function speakWithAvatar(
   }
 }
 
-export function preloadTTS(text?: string, teacherId: string = 'priya') {
+export async function preloadTTS(text?: string, teacherId: string = 'priya') {
   if (typeof window === 'undefined' || !text) return;
-  const cleanKey = getCleanCacheKey(text);
-  if (!cleanKey) return;
-  generateTTSAudio(cleanKey, teacherId).then(({ buffer, sampleRate }) => {
-    preloadedAudioCacheMap.set(cleanKey, { buffer, sampleRate, teacherId });
-  }).catch(() => {});
+  const sanitized = text.replace(/^[a-zA-Z\s\.\-]+:\s?/, '').replace(/[✦🤖👋🎯💼🔐🔬⚡✨✓⬡*`_#]/g, '').trim();
+  if (!sanitized) return;
+
+  try {
+    const voice = KOKORO_VOICE_MAP[teacherId.toLowerCase()] || 'af_bella';
+    await synthesizeVoice({
+      text: sanitized,
+      voice,
+      speed: 1.0
+    });
+    console.log(`[PinIT Preloader] ⚡ Successfully preloaded Render audio into IndexedDB for "${sanitized.slice(0, 30)}..."`);
+  } catch (err) {
+    console.warn('[PinIT Preloader] Audio preload deferred:', err);
+  }
 }
 
 export function preloadNextSpeech(text: string, teacherId: string) {
