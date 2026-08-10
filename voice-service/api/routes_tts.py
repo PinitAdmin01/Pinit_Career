@@ -167,7 +167,7 @@ def audio_chunk_generator(text: str, voice: str, speed: float):
     if not sentences:
         sentences = [text.strip()]
     for sentence in sentences:
-        audio_bytes, _, _ = engine.generate_audio(sentence, voice=voice, speed=speed)
+        audio_bytes, _, _ = engine.generate_audio_sync(sentence, voice=voice, speed=speed)
         yield audio_bytes
 
 

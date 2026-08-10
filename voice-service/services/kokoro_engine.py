@@ -59,13 +59,16 @@ async def _edge_synthesize_mp3(text: str, edge_voice: str, rate: str) -> bytes:
     import edge_tts
     import re
 
-    clean_txt = re.sub(r'[^\w\s\.,\?\'-]', '', text).strip()
+    clean_txt = re.sub(r"[^\w\s\.,\?\!\'\":;\-]", "", text, flags=re.UNICODE).strip()
     if not clean_txt:
         clean_txt = text.strip()
 
     for attempt in range(2):
         try:
-            curr_text = clean_txt if attempt == 0 else re.sub(r'[^\w\s]', '', clean_txt)
+            # Pass 1: keep punctuation. Pass 2: letters/numbers/spaces only.
+            curr_text = clean_txt if attempt == 0 else re.sub(r"[^\w\s]", "", clean_txt, flags=re.UNICODE)
+            if not curr_text.strip():
+                curr_text = "Hello"
             communicate = edge_tts.Communicate(curr_text, edge_voice, rate=rate)
             chunks: list[bytes] = []
             async for chunk in communicate.stream():
@@ -220,6 +223,10 @@ class NeuralTTSEngine:
             "No neural TTS backend available on this instance. "
             "Install edge-tts in requirements and redeploy, or add kokoro ONNX weights."
         )
+
+    def generate_audio_sync(self, text: str, voice: str = "af_bella", speed: float = 1.0) -> Tuple[bytes, float, str]:
+        """Sync wrapper for workers / streaming generators (fresh event loop per call)."""
+        return _run_async(self.generate_audio(text, voice=voice, speed=speed))
 
     def _synthesize_onnx(self, text: str, voice: str, speed: float) -> np.ndarray:
         # Minimal token path — only used when a real model file exists

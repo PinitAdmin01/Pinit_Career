@@ -36,7 +36,7 @@ class KokoroWorkerPool:
         wav_bytes, hit_source = server_cache.get_audio(cache_key)
 
         if not wav_bytes:
-            wav_bytes, duration_sec, _media = self.engine.generate_audio(text, voice, speed)
+            wav_bytes, duration_sec, _media = self.engine.generate_audio_sync(text, voice, speed)
             server_cache.save_audio(cache_key, wav_bytes, text, voice, speed)
             source = "SYNTHESIZED"
         else:

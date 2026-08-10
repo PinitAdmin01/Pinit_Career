@@ -571,7 +571,8 @@ export default function OnboardingPage() {
         "Nice choice. Why did you join today? Are you looking for a job, wanting to learn new skills, or preparing for an interview?"
       ];
 
-      preloadMultipleSpeeches(initialDialogues, 'priya');
+      // Free-tier Render: only preload first 2 lines to avoid mount flood
+      preloadMultipleSpeeches(initialDialogues.slice(0, 2), 'priya');
       setIsPreloaded(true);
     }
   }, []);
