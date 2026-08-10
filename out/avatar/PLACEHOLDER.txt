@@ -1,0 +1,3 @@
+Place your custom 3D model (VRM file) here and name it "mentor.vrm" (i.e., firebase-deploy/public/avatar/mentor.vrm).
+
+The 3D viewer will automatically detect and load this model instead of the 2D SVG animations.
