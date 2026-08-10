@@ -141,9 +141,12 @@ class KokoroEngine:
                 
             t_sub = t[idx_start:idx_end] - t[idx_start]
             sub_len = len(t_sub)
-            
+            if sub_len == 0:
+                continue
+                
             # Formant synthesis envelope
-            pitch_contour = base_f0 * (1.0 + 0.08 * np.sin(2 * np.pi * 3.5 * (t_sub / max(0.01, t_sub[-1]))))
+            max_t = t_sub[-1] if len(t_sub) > 0 else 0.01
+            pitch_contour = base_f0 * (1.0 + 0.08 * np.sin(2 * np.pi * 3.5 * (t_sub / max(0.01, max_t))))
             phase = 2 * np.pi * pitch_contour * t_sub
             
             # Harmonic tones (F0, F1, F2)
