@@ -67,15 +67,21 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    const { userId, displayName, accuracyEarned } = body;
-
-    if (!userId) {
-      return NextResponse.json({ ok: false, error: 'Missing userId' }, { status: 400 });
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session?.user) {
+      return NextResponse.json({ ok: false, error: 'Unauthorized' }, { status: 401 });
     }
 
+    const userId = session.user.id;
+    const body = await req.json();
+    const { accuracyEarned } = body;
+
     const earned = Math.max(0, Math.round(Number(accuracyEarned) || 0));
-    const name = displayName || 'You';
+    const name =
+      session.user.user_metadata?.displayName ||
+      session.user.email ||
+      body.displayName ||
+      'You';
 
     const existing = globalLeaderboard[userId] || {
       userId,

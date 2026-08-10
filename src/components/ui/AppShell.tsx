@@ -10,7 +10,6 @@ import { useCareerOS } from '@/lib/context/CareerOSContext';
 import PinsBadge from '@/components/pins/PinsBadge';
 import LiteChatInterface from '@/components/ui/LiteChatInterface';
 import { speakWithAvatar, stopSpeaking } from '@/lib/tts';
-import { verifyVoiceSignature } from '@/components/avatar/hooks/useVoiceBiometrics';
 import { HomeTab, ExamsTab, ResultsTab, NotesTab, NotificationsTab, ContactTab } from '@/components/dsai/AcademicTabs';
 import { ExamEngine, ExamStartModal } from '@/components/_legacy/dsai/ExamEngine.jsx';
 import { ToastProvider } from '@/lib/context/ToastContext';
@@ -220,31 +219,14 @@ function GlobalAvatar({
                             transcript.includes(mentorName);
 
         if (hasWakeWord) {
-          const storedVoicePrintRaw = localStorage.getItem(`pinit_${user?.id}_voiceprint`);
-          let isVerifiedSpeaker = true;
-
-          if (storedVoicePrintRaw) {
-            try {
-              const storedPrint = JSON.parse(storedVoicePrintRaw);
-              const result = verifyVoiceSignature([], storedPrint);
-              isVerifiedSpeaker = result.verified;
-            } catch {}
-          }
-
-          if (isVerifiedSpeaker) {
-            setUnrecognizedBadge(false);
-            setMinimized(false);
-            resetIdleTimer();
-            stopSpeaking();
-            speakWithAvatar(`Yes! I am here. How can I help you?`, teacherId, () => {}, () => {});
-          } else {
-            // UNRECOGNIZED SPEAKER DETECTED! Floating avatar icon turns RED and DOES NOT RESPOND!
-            setUnrecognizedBadge(true);
-            if (unrecognizedTimerRef.current) clearTimeout(unrecognizedTimerRef.current);
-            unrecognizedTimerRef.current = setTimeout(() => {
-              setUnrecognizedBadge(false);
-            }, 6000);
-          }
+          // Speech recognition already matched the wake phrase. This path has no live
+          // acoustic frames — verifyVoiceSignature([]) always returns verified:false after
+          // registration. Skip biometric fail when frames are unavailable.
+          setUnrecognizedBadge(false);
+          setMinimized(false);
+          resetIdleTimer();
+          stopSpeaking();
+          speakWithAvatar(`Yes! I am here. How can I help you?`, teacherId, () => {}, () => {});
         }
       };
 
@@ -1188,14 +1170,15 @@ const PAGE_TITLES: Record<string, string> = {
   '/reset-password':'Reset Password',
 };
 
-const PUBLIC_PATHS = ['/', '/signup', '/reset-password', '/qr-login', '/qr-confirm', '/onboarding', '/privacy', '/terms', '/contact', '/admissions'];
+const PUBLIC_PATHS = ['/', '/signup', '/reset-password', '/qr-login', '/qr-confirm', '/onboarding', '/privacy', '/terms', '/contact', '/admissions', '/about', '/pricing', '/services'];
 
-function getNav(role: string, pathname: string = ''): NavSection[] {
-  if (pathname.startsWith('/admin/teacher') || pathname.startsWith('/teacher') || role === 'teacher') return TEACHER_NAV;
-  if (pathname.startsWith('/admin') || ['admin','superadmin'].includes(role)) return ADMIN_NAV;
-  if (pathname.startsWith('/recruiter') || role === 'recruiter')  return RECRUITER_NAV;
-  if (pathname.startsWith('/parent') || role === 'parent')     return PARENT_NAV;
-  if (pathname.startsWith('/consultant') || role === 'consultant') return CONSULTANT_NAV;
+function getNav(role: string, _pathname: string = ''): NavSection[] {
+  // Nav must follow authenticated role only — never privilege by URL path.
+  if (role === 'teacher') return TEACHER_NAV;
+  if (['admin', 'superadmin'].includes(role)) return ADMIN_NAV;
+  if (role === 'recruiter') return RECRUITER_NAV;
+  if (role === 'parent') return PARENT_NAV;
+  if (role === 'consultant') return CONSULTANT_NAV;
   return STUDENT_NAV;
 }
 
@@ -1409,8 +1392,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   const isPublic    = pathname === '/' || PUBLIC_PATHS.filter(p => p !== '/').some(p => pathname.startsWith(p));
   const unread      = Array.isArray(notifData) ? notifData.filter((n: any) => !n.is_read).length : 0;
-  const isPortalRoute = pathname.startsWith('/admin') || pathname.startsWith('/teacher') || pathname.startsWith('/recruiter') || pathname.startsWith('/parent') || pathname.startsWith('/consultant');
-  const isStudent   = !['admin','superadmin','teacher','recruiter','parent','consultant'].includes(user?.role || '') && !isPortalRoute;
+  const isStudent   = !['admin','superadmin','teacher','recruiter','parent','consultant'].includes(user?.role || '');
   const pageTitle   = PAGE_TITLES[pathname] || 'PinIT';
 
   useEffect(() => { 

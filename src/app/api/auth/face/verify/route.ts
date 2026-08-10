@@ -24,14 +24,14 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const targetUser = username.toLowerCase();
-    
-    // Retrieve stored face vector from in-memory store or cookie
-    let storedVector = faceTemplateStore.get(targetUser) || faceTemplateStore.get('student@pinit.in') || faceTemplateStore.get('demo');
+    const targetUser = String(username).toLowerCase();
+
+    // Only match against the requested user's enrolled template — no silent demo fallback.
+    let storedVector = faceTemplateStore.get(targetUser);
 
     if (!storedVector) {
       const cookieKey = `pinit_face_vec_${targetUser.replace(/[^a-z0-9]/g, '')}`;
-      const cookieVal = req.cookies.get(cookieKey)?.value || req.cookies.get('pinit_face_vec_studentpinitin')?.value;
+      const cookieVal = req.cookies.get(cookieKey)?.value;
       if (cookieVal) {
         try {
           storedVector = JSON.parse(cookieVal);
@@ -41,22 +41,20 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // If no vector has been enrolled yet, allow high-accuracy auto-enrollment for seamless initial onboarding or test matching
-    let distance = 0.22; // Default close match for fresh setup
-    if (storedVector && storedVector.length === descriptor.length) {
-      distance = euclideanDistance(descriptor, storedVector);
-    } else {
-      // Register current face as initial template
-      faceTemplateStore.set(targetUser, descriptor);
-      faceTemplateStore.set('student@pinit.in', descriptor);
+    if (!storedVector || !Array.isArray(storedVector) || storedVector.length !== descriptor.length) {
+      return NextResponse.json({
+        ok: false,
+        success: false,
+        match: false,
+        error: 'No enrolled face template for this account. Complete face enrollment first.',
+      }, { status: 401 });
     }
 
+    const distance = euclideanDistance(descriptor, storedVector);
+
     // Strict accuracy thresholding
-    // Default face-api distance cutoff is 0.60. Cutoff of <= 0.45 yields 99.9%+ confidence.
     const STRICT_THRESHOLD = 0.48;
     const match = distance <= STRICT_THRESHOLD;
-
-    // Calculate match percentage (0.0 distance = 100%, 0.60 distance = 0%)
     const matchConfidence = Math.max(0, Math.min(100, Math.round((1 - (distance / 0.60)) * 100)));
 
     if (!match) {
@@ -70,19 +68,14 @@ export async function POST(req: NextRequest) {
       }, { status: 401 });
     }
 
-    // Auth user object
-    const userRole = targetUser.includes('admin') ? 'admin' 
-      : targetUser.includes('parent') ? 'parent'
-      : targetUser.includes('teacher') ? 'teacher'
-      : targetUser.includes('rec') ? 'recruiter'
-      : 'student';
-
+    // Never infer privileged roles from username substrings — face verify only confirms identity.
+    // Caller must merge with the real account role from the auth profile / vault session.
     const userObj = {
-      id: `usr_${Date.now()}`,
+      id: `usr_${targetUser.replace(/[^a-z0-9]/g, '_')}`,
       username: targetUser,
       email: targetUser.includes('@') ? targetUser : `${targetUser}@pinit.in`,
       displayName: targetUser.split('@')[0].toUpperCase(),
-      role: userRole,
+      role: 'student' as const,
       atsScore: 78,
       trustScore: 88,
     };

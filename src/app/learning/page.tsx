@@ -120,10 +120,14 @@ function LearningPageInner() {
 
   // Set default switch based on auth role
   useEffect(() => {
-    if (['teacher', 'faculty'].includes(user?.role || '')) {
+    if (['teacher', 'faculty', 'admin', 'superadmin'].includes(user?.role || '')) {
       setActiveRole('faculty');
+    } else {
+      setActiveRole('student');
     }
   }, [user]);
+
+  const canAccessFaculty = ['teacher', 'faculty', 'admin', 'superadmin'].includes(user?.role || '');
 
   // Mistakes tracker database sync
   const { onboardingAnswers, setOnboarding, jdMissingSkills } = cOS;
@@ -132,21 +136,8 @@ function LearningPageInner() {
   useEffect(() => {
     if (onboardingAnswers?.learning_mistakes) {
       setMistakes(onboardingAnswers.learning_mistakes);
-    } else if (onboardingAnswers?.hasCompleted) {
-      // Seed default database mistakes if they don't exist yet
-      const seedMistakes = [
-        { id: 'm1', type: 'Mission', module: 'Database Design', description: 'Incorrect fallback logic in database index schema. Rajesh pushed a direct override bypass check without unit validations.', timestamp: 'Yesterday' },
-        { id: 'm2', type: 'Quest', module: 'Array Operations', description: 'ArraySum out-of-bounds compiler error on Day 3 arrays quest.', timestamp: '2 days ago' },
-        { id: 'm3', type: 'AI Interview', module: 'Systems Design', description: 'Used multiple filler words ("basically", "actually") and gave a weak explanation of database sharding in Round 3.', timestamp: '3 days ago' },
-        { id: 'm4', type: 'GD Practice', module: 'Architecture Debate', description: 'Weak counter-argumentation on event-driven architectures under pressure from Ms. Priya.', timestamp: 'Yesterday' }
-      ];
-      setMistakes(seedMistakes);
-      
-      const nextAnswers = {
-        ...onboardingAnswers,
-        learning_mistakes: seedMistakes
-      };
-      api.post('/api/auth/onboarding', { onboardingAnswers: nextAnswers }).catch(() => {});
+    } else {
+      setMistakes([]);
     }
   }, [onboardingAnswers]);
 
@@ -169,7 +160,7 @@ function LearningPageInner() {
   const { data: teacherStudentsData } = useQuery({
     queryKey: ['teacher', 'students'],
     queryFn: () => api.get<{ students: any[] }>('/api/teacher/students'),
-    enabled: activeRole === 'faculty'
+    enabled: canAccessFaculty && activeRole === 'faculty'
   });
 
   const studentsList = teacherStudentsData?.students || [];
@@ -301,7 +292,8 @@ function LearningPageInner() {
           </p>
         </div>
 
-        {/* Switcher */}
+        {/* Switcher — Faculty Desk only for teacher/admin roles */}
+        {canAccessFaculty && (
         <div style={{ display: 'flex', gap: 6, background: 'var(--bg3)', padding: 4, borderRadius: 10, border: '1px solid var(--border)' }}>
           {[
             { id: 'student', label: '🧑‍🎓 Student Portal' },
@@ -326,9 +318,10 @@ function LearningPageInner() {
             </button>
           ))}
         </div>
+        )}
       </div>
 
-      {activeRole === 'student' ? (
+      {activeRole === 'student' || !canAccessFaculty ? (
         <div>
           {/* Sub-tabs switch */}
           <div style={{ display: 'flex', gap: 4, background: 'var(--bg3)', padding: 4, borderRadius: 12, border: '1px solid var(--border)', width: 'fit-content', marginBottom: 24 }}>

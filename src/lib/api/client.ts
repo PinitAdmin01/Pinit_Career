@@ -65,45 +65,14 @@ const DEMO_SIMULATION = {
 const pineconeMemoryCache = new Map<string, string[]>();
 const pineconeWriteBuffer = new Map<string, Array<{msg: string, reply: string}>>();
 
-async function queryPineconeMemory(uid: string, queryText: string): Promise<string[]> {
+async function queryPineconeMemory(uid: string, _queryText: string): Promise<string[]> {
   if (pineconeMemoryCache.has(uid)) {
-    console.log(`[Pinecone Memory Cache Hit] student-namespace-${uid}`);
     return pineconeMemoryCache.get(uid) || [];
   }
-  const pineconeKey = process.env.NEXT_PUBLIC_PINECONE_API_KEY;
-  if (!pineconeKey) {
-    console.log(`[Pinecone] student-namespace-${uid}: Fallback to local context`);
-    const fallback = [
-      `User discussed learning Java backend development.`,
-      `User has been struggling with Docker container concepts.`
-    ];
-    pineconeMemoryCache.set(uid, fallback);
-    return fallback;
-  }
-  try {
-    const res = await fetch(`https://api.pinecone.io/indexes/pinit-memory/query`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Api-Key': pineconeKey
-      },
-      body: JSON.stringify({
-        namespace: `student-namespace-${uid}`,
-        vector: Array(1536).fill(0).map(() => 0.0),
-        topK: 2,
-        includeMetadata: true
-      })
-    });
-    if (res.ok) {
-      const data = await res.json();
-      const memories = data.matches?.map((m: any) => m.metadata?.text || '') || [];
-      pineconeMemoryCache.set(uid, memories);
-      return memories;
-    }
-  } catch (err) {
-    console.warn("Pinecone query failed:", err);
-  }
-  return [];
+  // Do not call Pinecone from the browser with NEXT_PUBLIC keys.
+  const fallback: string[] = [];
+  pineconeMemoryCache.set(uid, fallback);
+  return fallback;
 }
 
 async function upsertPineconeMemory(uid: string, text: string, response: string) {
@@ -112,38 +81,12 @@ async function upsertPineconeMemory(uid: string, text: string, response: string)
   }
   const buffer = pineconeWriteBuffer.get(uid) || [];
   buffer.push({ msg: text, reply: response });
-  
+  // Local-only memory buffer; server-side RAG should own real Pinecone writes.
   if (buffer.length >= 5) {
-    console.log(`[Pinecone Memory Buffer Flush] student-namespace-${uid}: Upserting ${buffer.length} batched memory vectors.`);
-    const pineconeKey = process.env.NEXT_PUBLIC_PINECONE_API_KEY;
-    if (!pineconeKey) {
-      pineconeWriteBuffer.set(uid, []);
-      return;
-    }
-    try {
-      const vectors = buffer.map((item, index) => ({
-        id: `msg-${Date.now()}-${index}`,
-        values: Array(1536).fill(0).map(() => 0.0),
-        metadata: { text: `User: ${item.msg}\nAssistant: ${item.reply}` }
-      }));
-      await fetch(`https://api.pinecone.io/indexes/pinit-memory/upsert`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Api-Key': pineconeKey
-        },
-        body: JSON.stringify({
-          namespace: `student-namespace-${uid}`,
-          vectors
-        })
-      });
-      pineconeWriteBuffer.set(uid, []);
-      const cached = pineconeMemoryCache.get(uid) || [];
-      buffer.forEach(item => cached.push(`User: ${item.msg}\nAssistant: ${item.reply}`));
-      pineconeMemoryCache.set(uid, cached.slice(-4));
-    } catch (err) {
-      console.warn("Pinecone batched upsert failed:", err);
-    }
+    const cached = pineconeMemoryCache.get(uid) || [];
+    buffer.forEach(item => cached.push(`User: ${item.msg}\nAssistant: ${item.reply}`));
+    pineconeMemoryCache.set(uid, cached.slice(-20));
+    pineconeWriteBuffer.set(uid, []);
   }
 }
 
@@ -1244,12 +1187,16 @@ Ensure the JSON output is strictly valid and contains no extra text or markdown 
     return { pins:(p as any)?.pins||100, transactions:[] };
   }
   if(cleanPath==='/api/pins/earn'&&method==='POST'){
-    const{source,amount}=body as Record<string,unknown>;
+    const{amount}=body as Record<string,unknown>;
+    const n = typeof amount === 'number' ? amount : Number(amount);
+    if (!Number.isInteger(n) || n <= 0 || n > 50) {
+      throw new ApiError(400, 'INVALID_AMOUNT', 'Pin earn amount must be a positive integer ≤ 50');
+    }
     const p=await fs.getUserProfile(uid);
     const current=(p as any)?.pins||100;
-    const newBal=current+(amount as number||0);
+    const newBal=current+n;
     await fs.updateUserProfile(uid,{ pins:newBal });
-    return { ok:true, pins:newBal, earned:amount };
+    return { ok:true, pins:newBal, earned:n };
   }
   if(cleanPath==='/api/pins/spend'&&method==='POST'){
     const{featureKey,cost}=body as Record<string,unknown>;
@@ -1278,9 +1225,24 @@ Ensure the JSON output is strictly valid and contains no extra text or markdown 
   if (cleanPath === '/api/payment/create-order') {
     const { planId, amount } = body as { planId?: string; amount?: number };
     const razorpayKey = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_test_pinit_demo';
-    const orderAmount = amount || (planId === 'pro' ? 49900 : 9900);
+    const defaultAmount = planId === 'pro' ? 49900 : 9900;
+    const orderAmount = amount != null ? Number(amount) : defaultAmount;
+    // Amount is in paise; bound to a sane INR range (₹1 – ₹10,000)
+    if (!Number.isFinite(orderAmount) || !Number.isInteger(orderAmount) || orderAmount < 100 || orderAmount > 1_000_000) {
+      throw new ApiError(400, 'INVALID_AMOUNT', 'Payment amount must be an integer between 100 and 1000000 paise');
+    }
+    const orderId = `order_pinit_${Date.now()}`;
+    if (typeof window !== 'undefined') {
+      try {
+        const key = 'pinit_payment_orders';
+        const orders: Record<string, { amount: number; planId?: string; uid: string; createdAt: number }> =
+          JSON.parse(localStorage.getItem(key) || '{}');
+        orders[orderId] = { amount: orderAmount, planId, uid: uid as string, createdAt: Date.now() };
+        localStorage.setItem(key, JSON.stringify(orders));
+      } catch { /* ignore storage failures */ }
+    }
     return {
-      orderId: `order_pinit_${Date.now()}`,
+      orderId,
       amount: orderAmount,
       currency: 'INR',
       keyId: razorpayKey,
@@ -1288,16 +1250,12 @@ Ensure the JSON output is strictly valid and contains no extra text or markdown 
     };
   }
   if (cleanPath === '/api/payment/verify') {
-    const { planId, razorpay_payment_id } = body as any;
-    if (planId?.startsWith('pack_')) {
-      const pinsToAdd = planId === 'pack_50' ? 50 : planId === 'pack_150' ? 150 : 500;
-      const userP = await fs.getUserProfile(uid);
-      const current = userP?.pins || 100;
-      await fs.updateUserProfile(uid, { pins: current + pinsToAdd });
-      return { ok: true, message: `Successfully purchased ${pinsToAdd} Pins via Razorpay! Payment ID: ${razorpay_payment_id || 'rzp_pay_ok'}` };
+    // Fail closed: never grant pins/pro from the client without a real server-side Razorpay signature check
+    const { razorpay_signature } = (body || {}) as { razorpay_signature?: string };
+    if (!razorpay_signature) {
+      return { ok: false, error: 'Razorpay signature required. Server-side payment verification is required.' };
     }
-    await fs.updateUserProfile(uid, { subscription_tier: 'pro' });
-    return { ok: true, tier: 'pro', message: `Pro Plan Activated via Razorpay! Payment ID: ${razorpay_payment_id || 'rzp_pay_ok'}` };
+    return { ok: false, error: 'Server-side payment verification required. Pins and Pro are not granted from the client.' };
   }
   if (cleanPath.startsWith('/api/payment')) return { ok: true };
 
@@ -1843,6 +1801,13 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
     try {
       const parts = cleanPath.split('/api/parent/student/')[1].split('/');
       const targetStudentId = parts[0];
+      const caller = await fs.getUserProfile(uid) as any;
+      const callerRole = caller?.role || 'student';
+      const isParentOrAdmin = callerRole === 'parent' || callerRole === 'admin' || callerRole === 'superadmin';
+      const isSelf = uid === targetStudentId;
+      if (!isParentOrAdmin && !isSelf) {
+        throw new ApiError(403, 'FORBIDDEN', 'Parent access required.');
+      }
       const profile = await fs.getUserProfile(targetStudentId) as any;
       if (profile) {
         return {
@@ -1857,18 +1822,30 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
             career_track: profile.career_track || 'Software Engineer'
           },
           recentExams: [],
-          missionSummary: profile.completed_quests || []
+          missionSummary: profile.completedQuests || profile.completed_quests || []
         };
       }
-    } catch {}
+    } catch (err) {
+      if (err instanceof ApiError) throw err;
+    }
     return { profile: { career_readiness: 74, ats_score: 72, trust_score: 75, career_dna_score: 68, mission_streak: 7 }, recentExams: [], missionSummary: [] };
+  }
+  if (cleanPath.startsWith('/api/parent')) {
+    const parentCaller = await fs.getUserProfile(uid) as any;
+    const parentRole = parentCaller?.role || 'student';
+    if (parentRole !== 'parent' && parentRole !== 'admin' && parentRole !== 'superadmin') {
+      throw new ApiError(403, 'FORBIDDEN', 'Parent access required.');
+    }
   }
   if (cleanPath === '/api/parent/students') {
     try {
       const usersList = await fs.getAllUsers();
       // Filter students actually linked to this parent account
       const parentUser = usersList.find(u => u.id === uid || u.uid === uid);
-      const linkedIds = (parentUser?.onboarding_answers as any)?.linked_students || [];
+      const linkedIds =
+        (parentUser?.onboardingAnswers as any)?.linked_students ||
+        (parentUser?.onboarding_answers as any)?.linked_students ||
+        [];
 
       const students = usersList
         .filter(u => linkedIds.includes(u.id) || linkedIds.includes(u.registerNumber))
@@ -1900,15 +1877,16 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
       );
 
       if (matched) {
-        // Save link to parent user profile
+        // Save link to parent user profile (camelCase so mapProfileToRow persists it)
         const parentUser = usersList.find(u => u.id === uid || u.uid === uid);
         if (parentUser) {
-          const currentLinks = (parentUser.onboarding_answers as any)?.linked_students || [];
+          const answers = parentUser.onboardingAnswers || parentUser.onboarding_answers || {};
+          const currentLinks = (answers as any)?.linked_students || [];
           if (!currentLinks.includes(matched.id)) {
             currentLinks.push(matched.id);
             await fs.updateUserProfile(uid, {
-              onboarding_answers: {
-                ...(parentUser.onboarding_answers || {}),
+              onboardingAnswers: {
+                ...answers,
                 linked_students: currentLinks
               }
             });
@@ -4064,6 +4042,14 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
   }
 
   // ── Recruiter Candidate Search ──────────────────────────────────────────────
+  // Student self-visibility toggle is exempt; all other recruiter routes require role
+  if (cleanPath.startsWith('/api/recruiter') && !cleanPath.startsWith('/api/recruiter/visibility')) {
+    const recruiterCaller = await fs.getUserProfile(uid) as any;
+    const recruiterRole = recruiterCaller?.role || 'student';
+    if (recruiterRole !== 'recruiter' && recruiterRole !== 'admin' && recruiterRole !== 'superadmin') {
+      throw new ApiError(403, 'FORBIDDEN', 'Recruiter access required.');
+    }
+  }
   if(cleanPath==='/api/recruiter/analytics'){
     const users = await fs.getAllUsers();
     const students = users.filter(u => u.role === 'student' || !u.role);
@@ -4278,6 +4264,13 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
   if (cleanPath.startsWith('/api/university')) return { ok: true, placementStats: { total_students: 0 }, topStudents: [], deptStats: [], report: {}, gaps: [] };
 
   // ── Consultant Student Pipeline ─────────────────────────────────────────────
+  if (cleanPath.startsWith('/api/consultant')) {
+    const consultantCaller = await fs.getUserProfile(uid) as any;
+    const consultantRole = consultantCaller?.role || 'student';
+    if (consultantRole !== 'consultant' && consultantRole !== 'admin' && consultantRole !== 'superadmin') {
+      throw new ApiError(403, 'FORBIDDEN', 'Consultant access required.');
+    }
+  }
   if(cleanPath==='/api/consultant/analytics'){
     try {
       const usersList = await fs.getAllUsers();
@@ -4604,6 +4597,10 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
   }
   if(cleanPath==='/api/teacher/students'){
     try {
+      const profile = await fs.getUserProfile(uid) as any;
+      if (!['teacher', 'faculty', 'admin', 'superadmin'].includes(profile?.role || '')) {
+        throw new ApiError(403, 'FORBIDDEN', 'Teacher or admin access required.');
+      }
       const users = await fs.getAllUsers();
       const studentProfiles = users.map(u => ({
         id: u.id,
@@ -4615,7 +4612,8 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
         career_dna_score: u.career_dna_score || 0
       }));
       return { ok: true, students: studentProfiles.length > 0 ? studentProfiles : [] };
-    } catch {
+    } catch (err) {
+      if (err instanceof ApiError) throw err;
       return { ok: true, students: [] };
     }
   }
@@ -5396,60 +5394,11 @@ async function callExternalLLM(
       }
     }
   } catch (err: any) {
-    console.warn('[Client Proxy LLM] Server-side /api/llm failed, trying client fallback:', err.message);
+    console.warn('[Client Proxy LLM] Server-side /api/llm failed:', err.message);
   }
 
-  // 2. Secondary fallback path: Direct client-side call (without third-party proxies)
-  const rawKey = (typeof window !== 'undefined' && (window as any).__GROQ_KEY__) || (typeof window !== 'undefined' && localStorage.getItem('pinit_groq_api_key')) || (typeof process !== 'undefined' ? process.env?.NEXT_PUBLIC_GROQ_API_KEY : '') || '';
-  if (rawKey) {
-    const keys = rawKey.split(',').map((k: string) => k.trim()).filter(Boolean);
-    if (keys.length > 0) {
-      let lastError = new Error("No direct Groq call succeeded");
-      let delay = 300;
-      
-      for (let attempt = 0; attempt < 3; attempt++) {
-        const keyIndex = (attempt + Math.floor(Math.random() * keys.length)) % keys.length;
-        const activeKey = keys[keyIndex];
-        
-        try {
-          const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-            method: 'POST',
-            headers: {
-              'Authorization': `Bearer ${activeKey}`,
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              model: 'llama-3.3-70b-versatile',
-              messages: [
-                { role: 'system', content: systemPrompt },
-                ...messages
-                  .filter(m => m && m.content && m.content.trim())
-                  .map(m => ({ role: m.role === 'assistant' ? 'assistant' : 'user', content: m.content.trim() }))
-              ],
-              max_tokens: maxTokens || 256,
-              temperature: 0.7
-            })
-          });
-          
-          if (res.ok) {
-            const data = await res.json();
-            return data.choices[0]?.message?.content || "Let's stay focused and continue.";
-          } else {
-            const errorText = await res.text();
-            throw new Error(`Groq returned ${res.status}: ${errorText}`);
-          }
-        } catch (err: any) {
-          console.warn(`[Client Groq] Direct call attempt ${attempt + 1} failed:`, err.message);
-          lastError = err;
-          await new Promise(resolve => setTimeout(resolve, delay));
-          delay *= 2;
-        }
-      }
-      throw lastError;
-    }
-  }
-
-  throw new Error("No secure or local LLM connection available.");
+  // Client-side Groq keys removed for security — LLM must go through server proxy only.
+  throw new Error("No secure LLM connection available. Configure the server-side /api/llm backend.");
 }
 
 export const api = {

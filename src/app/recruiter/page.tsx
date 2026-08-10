@@ -5,6 +5,7 @@ import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useAuth } from '@/lib/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import { ResumeFormData } from '@/components/career/ResumeForm.types';
+import { RoleGate } from '@/components/auth/RoleGate';
 
 interface Candidate {
   id: string;
@@ -201,6 +202,14 @@ const emptyCompany: CompanyProfile = {
 };
 
 export default function RecruiterPage() {
+  return (
+    <RoleGate allow={['recruiter', 'admin', 'superadmin']} label="Recruiter access required">
+      <RecruiterPageInner />
+    </RoleGate>
+  );
+}
+
+function RecruiterPageInner() {
   const { user } = useAuth();
   const router = useRouter();
 

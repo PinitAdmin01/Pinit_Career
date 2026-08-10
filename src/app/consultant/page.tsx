@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/lib/context/AuthContext';
 import { api } from '@/lib/api/client';
+import { RoleGate } from '@/components/auth/RoleGate';
 
 const STAGES = ['onboarding', 'document_collection', 'application', 'visa', 'pre_departure', 'completed'];
 const STAGE_LABELS: Record<string, string> = {
@@ -31,7 +32,7 @@ interface Session {
   notes?: string;
 }
 
-export default function ConsultantPage() {
+function ConsultantPageInner() {
   const { user } = useAuth();
   
   const [activeTab, setActiveTab] = useState<string>('dashboard');
@@ -2587,5 +2588,13 @@ function AlumniMentorshipView({ pipeline, triggerToast }: { pipeline: Record<str
       </div>
 
     </div>
+  );
+}
+
+export default function ConsultantPage() {
+  return (
+    <RoleGate allow={['consultant', 'admin', 'superadmin']} label="Consultant access required">
+      <ConsultantPageInner />
+    </RoleGate>
   );
 }

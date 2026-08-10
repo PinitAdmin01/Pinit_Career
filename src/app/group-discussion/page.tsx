@@ -307,7 +307,7 @@ export default function GroupDiscussionPage() {
           triggerHostMidSummary();
         } else if (nextSec === 540) {
           triggerHostTimeWarning();
-        } else if (nextSec >= 600) {
+        } else if (nextSec === 600) {
           triggerHostEndSummary();
         }
         return nextSec;

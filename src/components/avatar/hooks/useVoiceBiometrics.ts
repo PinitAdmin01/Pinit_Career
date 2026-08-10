@@ -232,9 +232,9 @@ export function verifyVoiceSignature(
 ): VerificationResult {
   if (!storedPrint) {
     return {
-      verified: true,
-      confidence: 1.0,
-      reason: 'No voice print registered yet. Command allowed.'
+      verified: false,
+      confidence: 0,
+      reason: 'No voice print registered. Complete voice enrollment before biometric unlock.'
     };
   }
 
@@ -253,13 +253,13 @@ export function verifyVoiceSignature(
       }
     : storedPrint;
 
-  // Convert input to acoustic frame objects if simple pitch array passed
+  // Convert pitch-only arrays without copying the enrolled MFCC (that fake-matched 100%).
   const frames: AcousticFrame[] = typeof realtimeFrames[0] === 'number'
     ? (realtimeFrames as number[]).map(p => ({
         pitch: p,
-        spectralCentroid: 1600,
-        spectralRolloff: 3500,
-        mfccVector: targetPrint.mfccVector || new Array(12).fill(0.28)
+        spectralCentroid: 0,
+        spectralRolloff: 0,
+        mfccVector: new Array(12).fill(0)
       }))
     : (realtimeFrames as AcousticFrame[]);
 
@@ -287,11 +287,13 @@ export function verifyVoiceSignature(
     ? centroids.reduce((a, b) => a + b, 0) / centroids.length
     : targetPrint.spectralCentroid;
 
-  // 3. Measure MFCC Vector Cosine Similarity
-  const sampleMfccs = validFrames.map(f => f.mfccVector).filter(m => m && m.length === 12);
-  let avgSampleMfcc = targetPrint.mfccVector;
-  if (sampleMfccs.length > 0) {
-    avgSampleMfcc = new Array(12).fill(0);
+  // 3. Measure MFCC Vector Cosine Similarity (skip when frames lack real filterbanks)
+  const sampleMfccs = validFrames
+    .map(f => f.mfccVector)
+    .filter(m => m && m.length === 12 && m.some(v => Math.abs(v) > 1e-6));
+  const hasRealMfcc = sampleMfccs.length > 0;
+  let avgSampleMfcc = new Array(12).fill(0);
+  if (hasRealMfcc) {
     for (const m of sampleMfccs) {
       for (let i = 0; i < 12; i++) avgSampleMfcc[i] += m[i];
     }
@@ -300,23 +302,38 @@ export function verifyVoiceSignature(
 
   // ── Calculate Multi-Feature Biometric Distance ──
   // A. Fundamental Pitch Difference (Strict 18% bound for individual identity)
-  const pitchDiffRatio = Math.abs(sampleAvgPitch - targetPrint.avgPitch) / targetPrint.avgPitch;
+  const pitchDiffRatio = Math.abs(sampleAvgPitch - targetPrint.avgPitch) / Math.max(1, targetPrint.avgPitch);
   const pitchScore = Math.max(0, 1.0 - (pitchDiffRatio / 0.18)); // 0 at 18% diff
 
-  // B. Spectral Centroid / Timbre Difference (Strict 20% bound for vocal tract size)
-  const centroidDiffRatio = Math.abs(sampleAvgCentroid - targetPrint.spectralCentroid) / Math.max(100, targetPrint.spectralCentroid);
-  const centroidScore = Math.max(0, 1.0 - (centroidDiffRatio / 0.22));
+  // B. Spectral Centroid / Timbre Difference — ignore when centroid was not measured
+  const hasCentroid = centroids.length > 0;
+  const centroidDiffRatio = hasCentroid
+    ? Math.abs(sampleAvgCentroid - targetPrint.spectralCentroid) / Math.max(100, targetPrint.spectralCentroid)
+    : 1;
+  const centroidScore = hasCentroid ? Math.max(0, 1.0 - (centroidDiffRatio / 0.22)) : 0;
 
   // C. MFCC Filterbank Cosine Similarity
-  const mfccSim = cosineSimilarity(avgSampleMfcc, targetPrint.mfccVector || avgSampleMfcc);
+  const mfccSim = hasRealMfcc
+    ? cosineSimilarity(avgSampleMfcc, targetPrint.mfccVector || avgSampleMfcc)
+    : 0;
 
-  // Combined Weighted Biometric Match Index (MFCC 40%, Pitch 35%, Centroid 25%)
-  const combinedMatchScore = (mfccSim * 0.40) + (pitchScore * 0.35) + (centroidScore * 0.25);
+  // Weight only features that were actually measured (avoid fake 100% MFCC matches).
+  let combinedMatchScore: number;
+  if (hasRealMfcc && hasCentroid) {
+    combinedMatchScore = (mfccSim * 0.40) + (pitchScore * 0.35) + (centroidScore * 0.25);
+  } else if (hasCentroid) {
+    combinedMatchScore = (pitchScore * 0.60) + (centroidScore * 0.40);
+  } else {
+    combinedMatchScore = pitchScore;
+  }
   const confidence = Math.round(combinedMatchScore * 100) / 100;
 
-  // Strict Threshold for Speaker Verification:
-  // Must pass pitch distance (<= 18% diff), centroid distance (<= 22% diff), and combined score >= 0.72
-  const verified = pitchDiffRatio <= 0.18 && centroidDiffRatio <= 0.22 && combinedMatchScore >= 0.72;
+  // Strict Threshold for Speaker Verification
+  const verified =
+    pitchDiffRatio <= 0.18 &&
+    (!hasCentroid || centroidDiffRatio <= 0.22) &&
+    (!hasRealMfcc || mfccSim >= 0.70) &&
+    combinedMatchScore >= 0.72;
 
   if (verified) {
     return {

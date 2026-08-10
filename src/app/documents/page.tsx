@@ -6,7 +6,6 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { api } from '@/lib/api/client';
 import { useAuth } from '@/lib/context/AuthContext';
-import AppShell from '@/components/ui/AppShell';
 
 interface DocumentLockerItem {
   id: string;
@@ -89,7 +88,6 @@ export default function DocumentVaultPage() {
   };
 
   return (
-    <AppShell>
       <div style={{ maxWidth: 1280, margin: '0 auto', paddingBottom: 60 }} className="animate-fade-in">
         
         {/* Style configurations */}
@@ -432,6 +430,5 @@ export default function DocumentVaultPage() {
         )}
 
       </div>
-    </AppShell>
   );
 }

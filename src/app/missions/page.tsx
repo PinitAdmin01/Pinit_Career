@@ -172,7 +172,15 @@ function MissionsPageInner() {
   useEffect(() => {
     if (timerCount === 0 && roleplayActive && roleplayScenario && roleplayScenario.choices && roleplayScenario.choices.length > 0 && !evaluationLoading && !evaluationReport && animState !== 'talking') {
       toast.error("Time Expired! ⏳", "Panic option selected automatically due to stress limit.");
-      const worstIdx = Math.max(0, roleplayScenario.choices.length - 1);
+      let worstIdx = 0;
+      let worstDelta = Infinity;
+      roleplayScenario.choices.forEach((c, i) => {
+        const d = typeof c.delta === 'number' ? c.delta : 0;
+        if (d < worstDelta) {
+          worstDelta = d;
+          worstIdx = i;
+        }
+      });
       handleSelectChoice(worstIdx);
       setTimerCount(25);
     }

@@ -945,13 +945,12 @@ export default function InterviewPage() {
         const hasDef = /\bdef\s+\w+\s*\(/.test(codeContent);
         const hasReturn = /\breturn\b/.test(codeContent);
         if (hasDef && hasReturn) {
-          setCodeSubmitted(true);
+          setCodeSubmitted(false);
           setTerminalLogs(prev => [
             ...prev,
-            `[AST VERIFICATION] Python function definition verified.`,
-            `[TEST SUITE] Test 1 (Basic Input): PASSED`,
-            `[TEST SUITE] Test 2 (Edge Case): PASSED`,
-            `[SUCCESS] 100% Python test suite verified for ${activeTopicName}!`
+            `[AST CHECK] Python function structure looks present (def + return).`,
+            `[BLOCKED] Runtime test suite is not available for Python in-browser.`,
+            `[INFO] Switch to JavaScript for sandboxed verification, or submit after a server-side judge is configured.`
           ]);
         } else {
           setCodeSubmitted(false);
@@ -964,12 +963,11 @@ export default function InterviewPage() {
         const hasSelect = /\bSELECT\b/i.test(codeContent);
         const hasFrom = /\bFROM\b/i.test(codeContent);
         if (hasSelect && hasFrom) {
-          setCodeSubmitted(true);
+          setCodeSubmitted(false);
           setTerminalLogs(prev => [
             ...prev,
-            `[SQL AST ENGINE] Query structure valid.`,
-            `[EXPLAIN ANALYZE] Execution Plan: Index Scan OK`,
-            `[SUCCESS] SQL Query executed successfully!`
+            `[SQL AST] Query contains SELECT/FROM.`,
+            `[BLOCKED] SQL is not executed against a database in this client. Cannot mark as verified.`
           ]);
         } else {
           setCodeSubmitted(false);
@@ -979,17 +977,15 @@ export default function InterviewPage() {
           ]);
         }
       } else {
-        // Java
+        // Java — no in-browser JVM; do not fake a test suite pass
         const hasClass = /\bclass\b/.test(codeContent);
         const hasReturn = /\breturn\b/.test(codeContent);
         if (hasClass && hasReturn) {
-          setCodeSubmitted(true);
+          setCodeSubmitted(false);
           setTerminalLogs(prev => [
             ...prev,
-            `[JVM AST] Java Class structure verified.`,
-            `[TEST SUITE] Test 1 (Basic Input): PASSED`,
-            `[TEST SUITE] Test 2 (Edge Case): PASSED`,
-            `[SUCCESS] Java code compiled and verified successfully!`
+            `[JVM CHECK] Class/return structure detected.`,
+            `[BLOCKED] Java runtime verification is unavailable in-browser. Cannot mark as verified.`
           ]);
         } else {
           setCodeSubmitted(false);

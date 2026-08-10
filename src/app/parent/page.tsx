@@ -4,8 +4,9 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/api/client';
 import { toast } from '@/lib/store/useAppStore';
 import { openRazorpayCheckout } from '@/lib/razorpay';
+import { RoleGate } from '@/components/auth/RoleGate';
 
-export default function ParentPage() {
+function ParentPageInner() {
   const qc = useQueryClient();
   const [registerNumber, setRegisterNumber] = useState('');
   const [selectedStudent, setSelectedStudent] = useState<string | null>(null);
@@ -1130,6 +1131,14 @@ export default function ParentPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function ParentPage() {
+  return (
+    <RoleGate allow={['parent', 'admin', 'superadmin']} label="Parent access required">
+      <ParentPageInner />
+    </RoleGate>
   );
 }
 

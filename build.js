@@ -54,8 +54,9 @@ function copyDirSync(src, dest) {
   }
 }
 
-// 2. Set environment variable and run next build
+// 2. Set environment variable and run next build — fail closed on error
 console.log('Running Next.js build...');
+ensureBuildDirs();
 try {
   execSync('npx next build', {
     stdio: 'inherit',
@@ -63,19 +64,12 @@ try {
       ...process.env
     }
   });
+  const nextExportDir = path.join(__dirname, '.next', 'export');
+  if (fs.existsSync(nextExportDir)) {
+    copyDirSync(nextExportDir, outDir);
+  }
   console.log('\n--- Build completed successfully! ---');
 } catch (err) {
-  ensureBuildDirs();
-  const nextExportDir = path.join(__dirname, '.next', 'export');
-  try {
-    if (fs.existsSync(nextExportDir)) {
-      copyDirSync(nextExportDir, outDir);
-    }
-    console.log('\n--- Recovered Windows export files to out/ successfully! ---');
-    console.log('\n--- Build completed successfully! ---');
-    process.exit(0);
-  } catch (e) {
-    console.error('\n[ERROR] Next.js build execution failed.', e);
-    process.exit(1);
-  }
+  console.error('\n[ERROR] Next.js build failed. Refusing to treat as success.', err?.message || err);
+  process.exit(1);
 }

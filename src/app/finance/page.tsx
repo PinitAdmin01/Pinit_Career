@@ -6,8 +6,9 @@ import { useState, useEffect } from 'react';
 import { api } from '@/lib/api/client';
 import { toast } from '@/lib/store/useAppStore';
 import { openRazorpayCheckout } from '@/lib/razorpay';
+import { RoleGate } from '@/components/auth/RoleGate';
 
-export default function StudentFinance() {
+function StudentFinanceInner() {
   const [dues, setDues] = useState<any>(null);
   const [scholarships, setScholarships] = useState<any[]>([]);
   const [activeCheckoutInst, setActiveCheckoutInst] = useState<any | null>(null);
@@ -551,5 +552,16 @@ export default function StudentFinance() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function StudentFinance() {
+  return (
+    <RoleGate
+      allow={['student', 'admin', 'superadmin']}
+      label="Student finance access required"
+    >
+      <StudentFinanceInner />
+    </RoleGate>
   );
 }

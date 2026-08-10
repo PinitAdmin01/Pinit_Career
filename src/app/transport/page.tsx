@@ -4,8 +4,9 @@
 
 import { useState, useEffect } from 'react';
 import { api } from '@/lib/api/client';
+import { RoleGate } from '@/components/auth/RoleGate';
 
-export default function StudentTransport() {
+function StudentTransportInner() {
   const [routes, setRoutes] = useState<any[]>([]);
   const [drivers, setDrivers] = useState<any[]>([]);
   const [allocation, setAllocation] = useState<any>({ route: null, stop: '', status: 'none' });
@@ -372,5 +373,16 @@ export default function StudentTransport() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function StudentTransport() {
+  return (
+    <RoleGate
+      allow={['student', 'admin', 'superadmin']}
+      label="Student transport access required"
+    >
+      <StudentTransportInner />
+    </RoleGate>
   );
 }

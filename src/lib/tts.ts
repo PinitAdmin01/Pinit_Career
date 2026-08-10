@@ -302,14 +302,26 @@ export async function speakWithAvatar(
         source.connect(ctx.destination);
         activeSource = source;
 
-        source.onended = () => {
+        let maxDurationTimer: ReturnType<typeof setTimeout> | null = null;
+        let ended = false;
+        const finish = () => {
+          if (ended) return;
+          ended = true;
+          if (maxDurationTimer) clearTimeout(maxDurationTimer);
+          if (activeSource === source) activeSource = null;
           if (mySpeechId === currentSpeechId) {
             onEnd();
           }
         };
 
+        source.onended = finish;
+
         onStart();
         source.start(0);
+        maxDurationTimer = setTimeout(() => {
+          try { source.stop(); } catch {}
+          finish();
+        }, maxDurationMs);
         return;
       }
     } catch (err) {

@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { supabase } from '@/lib/supabaseClient';
 
 interface UserAnalyticsRecord {
   userId: string;
@@ -34,12 +35,14 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    const { userId, dailyLog, monthlySummary } = body;
-
-    if (!userId) {
-      return NextResponse.json({ ok: false, error: 'Missing userId' }, { status: 400 });
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session?.user) {
+      return NextResponse.json({ ok: false, error: 'Unauthorized' }, { status: 401 });
     }
+
+    const userId = session.user.id;
+    const body = await req.json();
+    const { dailyLog, monthlySummary } = body;
 
     const existing = globalAnalyticsStore[userId] || {
       userId,

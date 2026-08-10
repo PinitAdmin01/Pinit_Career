@@ -1751,7 +1751,7 @@ function LessonPageContent() {
                             let stateClass = "";
                             if (isSelected) stateClass = "selected";
                             if (mcqChecked) {
-                              if (oIdx === question.answerIndex) {
+                              if (isSelected && oIdx === question.answerIndex) {
                                 stateClass = "correct";
                               } else if (isSelected) {
                                 stateClass = "incorrect";

@@ -100,6 +100,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
 
   // Countdown Timer state for Taking Exam
   const [timeLeft, setTimeLeft] = useState('45:00');
+  const [examTimedOut, setExamTimedOut] = useState(false);
   useEffect(() => {
     if (category !== 'exam') return;
     let sec = 2700; // 45 minutes
@@ -108,6 +109,12 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
       if (sec <= 0) {
         clearInterval(timer);
         setTimeLeft('00:00');
+        setExamTimedOut(true);
+        setOutput({
+          success: false,
+          message: 'Exam time expired. Session locked — automatic fail. Further submissions are disabled.'
+        });
+        toast.error('Time Expired', 'Exam locked. Your attempt was auto-failed.');
         return;
       }
       const m = Math.floor(sec / 60).toString().padStart(2, '0');
@@ -189,13 +196,14 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
     const langInfo = getLangInfo(questId || '');
     const lineCount = (code || '').split('\n').length || 1;
     const lineNumbers = Array.from({ length: lineCount }, (_, i) => i + 1);
+    const editorLocked = isCompleted || (isExam && examTimedOut);
 
     return (
       <div>
         <div style={{ display: 'flex', justifyContent: 'space-between', background: 'var(--bg3)', border: '1.5px solid var(--border)', borderBottom: 'none', padding: '8px 14px', borderRadius: '12px 12px 0 0' }}>
           <span style={{ fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>{langInfo.file} ({isExam ? 'Proctored Environment' : langInfo.label})</span>
-          <span style={{ fontSize: 11, color: isCompleted ? 'var(--green)' : (isExam ? 'var(--coral)' : 'var(--accent)'), fontWeight: 700, fontFamily: 'var(--font-mono)' }}>
-            {isCompleted ? 'COMPLETED (READ-ONLY)' : (isExam ? 'EXAM ENVIRONMENT' : langInfo.label.toUpperCase())}
+          <span style={{ fontSize: 11, color: editorLocked ? (examTimedOut && !isCompleted ? 'var(--coral)' : 'var(--green)') : (isExam ? 'var(--coral)' : 'var(--accent)'), fontWeight: 700, fontFamily: 'var(--font-mono)' }}>
+            {isCompleted ? 'COMPLETED (READ-ONLY)' : (examTimedOut && isExam ? 'TIME EXPIRED (LOCKED)' : (isExam ? 'EXAM ENVIRONMENT' : langInfo.label.toUpperCase()))}
           </span>
         </div>
         <div style={{
@@ -227,19 +235,19 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
           <textarea
             value={code}
             onChange={(e) => {
-              if (isCompleted) return;
+              if (editorLocked) return;
               setCode(e.target.value);
             }}
             onKeyDown={(e) => {
-              if (isCompleted) return;
+              if (editorLocked) return;
               handleKeyDown(e);
             }}
-            readOnly={isCompleted}
+            readOnly={editorLocked}
             style={{
               width: '100%',
               height: 320,
               background: 'transparent',
-              color: isCompleted ? 'var(--t3)' : '#f8fafc',
+              color: editorLocked ? 'var(--t3)' : '#f8fafc',
               fontFamily: 'var(--font-mono)',
               fontSize: 12.5,
               padding: '16px 12px',
@@ -464,6 +472,20 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
   };
 
   const handleVerifySolution = () => {
+    if (examTimedOut) {
+      setOutput({
+        success: false,
+        message: 'Exam time expired. Session locked — further submissions are disabled.'
+      });
+      return;
+    }
+    if (!quest?.testSuite || !String(quest.testSuite).trim()) {
+      setOutput({
+        success: false,
+        message: 'Verification Error: Test suite is missing for this quest. Contact your instructor — auto-pass is not allowed.'
+      });
+      return;
+    }
     setOutput(null);
     setTerminalLogs([]);
     try {
@@ -888,23 +910,23 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
             <div style={{ display: 'flex', gap: 10 }}>
               <button
                 onClick={handleVerifySolution}
-                disabled={isCompleted}
+                disabled={isCompleted || examTimedOut}
                 className="btn-primary"
                 style={{
                   flex: 1,
                   justifyContent: 'center',
                   padding: 12,
                   fontSize: 13,
-                  background: isCompleted ? 'var(--bg3)' : 'var(--coral)',
-                  border: isCompleted ? '1px solid var(--border)' : '1px solid var(--coral)',
-                  color: isCompleted ? 'var(--t3)' : '#fff',
-                  cursor: isCompleted ? 'not-allowed' : 'pointer',
-                  boxShadow: isCompleted ? 'none' : '0 4px 12px rgba(220,38,38,0.2)'
+                  background: (isCompleted || examTimedOut) ? 'var(--bg3)' : 'var(--coral)',
+                  border: (isCompleted || examTimedOut) ? '1px solid var(--border)' : '1px solid var(--coral)',
+                  color: (isCompleted || examTimedOut) ? 'var(--t3)' : '#fff',
+                  cursor: (isCompleted || examTimedOut) ? 'not-allowed' : 'pointer',
+                  boxShadow: (isCompleted || examTimedOut) ? 'none' : '0 4px 12px rgba(220,38,38,0.2)'
                 }}
               >
-                {isCompleted ? 'Exam Submitted ✓ (Read Only)' : 'Submit Exam Solution ✓'}
+                {isCompleted ? 'Exam Submitted ✓ (Read Only)' : examTimedOut ? 'Time Expired — Locked' : 'Submit Exam Solution ✓'}
               </button>
-              {!isCompleted && (
+              {!isCompleted && !examTimedOut && (
                 <button
                   onClick={() => setCode(quest.starterCode || '')}
                   className="btn-ghost"

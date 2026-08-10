@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
     }
 
     // ── Tier 3: FastAPI Backend (Redis → Kokoro generation) ───────────────────
-    const backendRes = await fetch(`${BACKEND_URL}/api/tts`, {
+    const backendRes = await fetch(`${BACKEND_URL}/api/v1/tts`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text, voice, language, speed, emotion, version, sample_rate, context }),

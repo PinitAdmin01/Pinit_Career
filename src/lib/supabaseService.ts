@@ -75,6 +75,8 @@ export function mapRowToProfile(row: any): any {
   return {
     id: row.id,
     displayName: row.display_name || '',
+    ...(row.email != null ? { email: row.email } : {}),
+    ...(row.username != null ? { username: row.username } : {}),
     role: row.role || 'student',
     registerNumber: row.register_number || null,
     selectedTeacherId: row.selected_teacher_id || 'priya',
@@ -138,6 +140,8 @@ export function mapProfileToRow(profile: any): any {
   const row: any = {};
   
   if (profile.displayName !== undefined) row.display_name = profile.displayName;
+  if (profile.email !== undefined) row.email = profile.email;
+  if (profile.username !== undefined) row.username = profile.username;
   if (profile.role !== undefined) row.role = profile.role;
   if (profile.registerNumber !== undefined) row.register_number = profile.registerNumber;
   if (profile.selectedTeacherId !== undefined) row.selected_teacher_id = profile.selectedTeacherId;
@@ -167,13 +171,14 @@ export function mapProfileToRow(profile: any): any {
   if (profile.interviews_done !== undefined) row.interviews_done = profile.interviews_done;
   if (profile.vault_count !== undefined) row.vault_count = profile.vault_count;
   if (profile.onboardingStep !== undefined) row.onboarding_step = profile.onboardingStep;
-  if (profile.onboardingAnswers != null) {
+  const onboardingSrc = profile.onboardingAnswers ?? profile.onboarding_answers;
+  if (onboardingSrc != null) {
     row.onboarding_answers = {
-      ...profile.onboardingAnswers,
-      qt1_score: profile.qt1_score ?? profile.onboardingAnswers.qt1_score ?? 0,
-      qt2_score: profile.qt2_score ?? profile.onboardingAnswers.qt2_score ?? 0,
-      mindset_archetype: profile.mindset_archetype ?? profile.onboardingAnswers.mindset_archetype ?? 'Pattern Hunter',
-      voice_print: profile.voicePrint ?? profile.onboardingAnswers.voice_print ?? null
+      ...onboardingSrc,
+      qt1_score: profile.qt1_score ?? onboardingSrc.qt1_score ?? 0,
+      qt2_score: profile.qt2_score ?? onboardingSrc.qt2_score ?? 0,
+      mindset_archetype: profile.mindset_archetype ?? onboardingSrc.mindset_archetype ?? 'Pattern Hunter',
+      voice_print: profile.voicePrint ?? onboardingSrc.voice_print ?? null
     };
   } else if (profile.qt1_score !== undefined || profile.qt2_score !== undefined || profile.mindset_archetype !== undefined || profile.voicePrint !== undefined) {
     row.onboarding_answers = {
