@@ -17,7 +17,13 @@ class SecurityAndRateLimitMiddleware(BaseHTTPMiddleware):
     """Phase 13: Security & Rate Limiting Middleware."""
 
     async def dispatch(self, request: Request, call_next):
-        client_ip = request.client.host if request.client else "127.0.0.1"
+        client_ip = "127.0.0.1"
+        try:
+            if request.client and hasattr(request.client, "host"):
+                client_ip = request.client.host or "127.0.0.1"
+        except Exception:
+            client_ip = "127.0.0.1"
+            
         now = time.time()
 
         # Clean old timestamps outside window
@@ -25,7 +31,7 @@ class SecurityAndRateLimitMiddleware(BaseHTTPMiddleware):
         RATE_LIMIT_STORE[client_ip] = timestamps
 
         # Enforce rate limit (skip health check endpoint)
-        if request.url.path not in ["/api/v1/health", "/health", "/docs", "/openapi.json"]:
+        if not request.url.path.startswith("/api/v1/health") and request.url.path not in ["/", "/health", "/docs", "/openapi.json"]:
             if len(timestamps) >= MAX_REQUESTS_PER_MINUTE:
                 logger.warning(f"Rate limit exceeded for IP {client_ip} ({len(timestamps)} requests in 60s)")
                 return Response(
