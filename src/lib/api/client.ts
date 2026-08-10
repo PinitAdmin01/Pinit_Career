@@ -469,7 +469,18 @@ async function firestoreRouter(method:string, path:string, body?:any): Promise<u
 
   if(cleanPath==='/api/auth/me'){ const p=await fs.getUserProfile(uid); return { user:{ id:uid,...p } }; }
   if(cleanPath==='/api/auth/logout') return { ok:true };
-  if(cleanPath==='/api/auth/profile'){ await fs.updateUserProfile(uid,body as Record<string,unknown>); const p=await fs.getUserProfile(uid); return { ok:true, user:{ id:uid,...p } }; }
+  if(cleanPath==='/api/auth/profile'){
+    const raw = (body && typeof body === 'object' ? { ...(body as Record<string, unknown>) } : {}) as Record<string, unknown>;
+    const roleAttempt = raw.role;
+    // Never allow self-service role escalation via profile PATCH
+    delete raw.role;
+    // #region agent log
+    const _dbgC = {sessionId:'ea5c88',runId:'post-fix',hypothesisId:'C',location:'client.ts:/api/auth/profile',message:'profile update role stripped',data:{uid,bodyKeys:Object.keys(raw),roleAttempt:roleAttempt??null,roleStripped:roleAttempt!==undefined},timestamp:Date.now()};
+    fetch('http://127.0.0.1:7451/ingest/df1aedb8-01ec-4753-88a2-07d249a45251',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'ea5c88'},body:JSON.stringify(_dbgC)}).catch(()=>{});
+    fetch('/api/debug-ingest',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(_dbgC)}).catch(()=>{});
+    // #endregion
+    await fs.updateUserProfile(uid, raw); const p=await fs.getUserProfile(uid); return { ok:true, user:{ id:uid,...p } };
+  }
   if(cleanPath==='/api/auth/teacher'){ const{teacherId}=body as Record<string,string>; await fs.updateUserProfile(uid,{ selectedTeacherId:teacherId }); return { ok:true }; }
   if(cleanPath==='/api/auth/onboarding'){ await fs.updateUserProfile(uid,body as Record<string,unknown>); return { ok:true }; }
   if(cleanPath==='/api/auth/forgot-password'){
@@ -4414,7 +4425,7 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
   // ── Admin Panel ─────────────────────────────────────────────────────────────
   if (cleanPath.startsWith('/api/admin')) {
     const profile = await fs.getUserProfile(uid) as any;
-    if (profile?.role !== 'admin') {
+    if (profile?.role !== 'admin' && profile?.role !== 'superadmin') {
       throw new ApiError(403, 'FORBIDDEN', 'Administrator access required.');
     }
   }
@@ -5334,13 +5345,19 @@ Return exactly this JSON format:
 }
 
 async function request<T>(method:string, path:string, body?:unknown): Promise<T> {
-  if (path === '/api/interview/chat' || path === '/api/interview/evaluate' || path.startsWith('/api/hostel') || path.startsWith('/api/transport') || path.startsWith('/api/events') || path.startsWith('/api/grievances') || path.startsWith('/api/library') || path.startsWith('/api/research') || path.startsWith('/api/finance') || path.startsWith('/api/exams') || path.startsWith('/api/maintenance') || path.startsWith('/api/advisor') || path.startsWith('/api/services') || path.startsWith('/api/notes') || path.startsWith('/api/admin') || path.startsWith('/api/admissions') || path.startsWith('/api/hr') || path.startsWith('/api/procurement') || path.startsWith('/api/assets') || path.startsWith('/api/alumni') || path.startsWith('/api/communication') || path.startsWith('/api/documents')) {
+  // NOTE: /api/admin intentionally omitted from live-prefer list so client RBAC (profile.role) always runs.
+  if (path === '/api/interview/chat' || path === '/api/interview/evaluate' || path.startsWith('/api/hostel') || path.startsWith('/api/transport') || path.startsWith('/api/events') || path.startsWith('/api/grievances') || path.startsWith('/api/library') || path.startsWith('/api/research') || path.startsWith('/api/finance') || path.startsWith('/api/exams') || path.startsWith('/api/maintenance') || path.startsWith('/api/advisor') || path.startsWith('/api/services') || path.startsWith('/api/notes') || path.startsWith('/api/admissions') || path.startsWith('/api/hr') || path.startsWith('/api/procurement') || path.startsWith('/api/assets') || path.startsWith('/api/alumni') || path.startsWith('/api/communication') || path.startsWith('/api/documents')) {
     try {
       const res = await fetch(path, {
         method,
         headers: { 'Content-Type': 'application/json' },
         body: body ? JSON.stringify(body) : undefined
       });
+      // #region agent log
+      if (path === '/api/auth/profile') {
+        fetch('http://127.0.0.1:7451/ingest/df1aedb8-01ec-4753-88a2-07d249a45251',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'ea5c88'},body:JSON.stringify({sessionId:'ea5c88',runId:'post-fix',hypothesisId:'C',location:'client.ts:request:liveFetch',message:'live fetch profile',data:{path,method,status:res.status,ok:res.ok},timestamp:Date.now()})}).catch(()=>{});
+      }
+      // #endregion
       if (res.ok) {
         const json = await res.json() as any;
         if (path === '/api/interview/evaluate' && json && !json.evaluation) {

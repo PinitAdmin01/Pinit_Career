@@ -1,7 +1,7 @@
 /**
  * PinIT Identity Gateway Client SDK (v1 API)
- * Central authentication gateway SDK for PinIT ecosystem.
- * Communicates with /api/v1/auth/* endpoints.
+ * Routes through the client API layer (firestoreRouter) via dynamic import
+ * to avoid pulling the full API client into the critical path at module load.
  */
 
 export enum AuthenticationMethod {
@@ -48,15 +48,17 @@ export interface AuditRecord {
   fingerprintHash: string;
 }
 
-/**
- * Computes client risk detection fingerprint hash based on Browser, Screen, Timezone, Language, Platform
- */
+async function getApi() {
+  const mod = await import('@/lib/api/client');
+  return mod.api;
+}
+
 export function getRiskDetectionFingerprint(): string {
   if (typeof window === 'undefined') return 'ssr_node_environment';
-  
+
   const nav = window.navigator;
   const screen = window.screen;
-  
+
   const raw = [
     nav.userAgent || '',
     nav.language || '',
@@ -66,7 +68,6 @@ export function getRiskDetectionFingerprint(): string {
     nav.hardwareConcurrency || 0
   ].join('||');
 
-  // Simple, fast client-side DJB2 hash representation for risk recognition
   let hash = 5381;
   for (let i = 0; i < raw.length; i++) {
     hash = ((hash << 5) + hash) + raw.charCodeAt(i);
@@ -74,9 +75,6 @@ export function getRiskDetectionFingerprint(): string {
   return 'fp_' + Math.abs(hash).toString(36);
 }
 
-/**
- * Detects human-readable device name from User-Agent
- */
 export function getDeviceName(): string {
   if (typeof window === 'undefined') return 'Server Node';
   const ua = window.navigator.userAgent;
@@ -97,42 +95,43 @@ export function getDeviceName(): string {
 }
 
 export const identityGateway = {
-  /**
-   * Request a new signed QR login challenge from Gateway
-   */
   async generateLoginChallenge(app = 'careers', purpose = 'login'): Promise<VaultChallenge> {
-    const res = await fetch('/api/v1/auth/vault-challenge', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ app, purpose, identityVersion: 1 })
-    });
-    
-    if (!res.ok) {
-      const errData = await res.json().catch(() => ({}));
-      throw new Error(errData.message || 'Failed to generate authentication challenge');
+    try {
+      const api = await getApi();
+      const challenge = await api.post<VaultChallenge>('/api/v1/auth/vault-challenge', {
+        app,
+        purpose,
+        identityVersion: 1,
+      });
+      // #region agent log
+      const _dbgB = {sessionId:'ea5c88',runId:'post-fix',hypothesisId:'B',location:'identityGateway.ts:generateLoginChallenge',message:'vault-challenge via api client',data:{ok:true,hasChallengeId:!!challenge?.challengeId,via:'api.client'},timestamp:Date.now()};
+      fetch('http://127.0.0.1:7451/ingest/df1aedb8-01ec-4753-88a2-07d249a45251',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'ea5c88'},body:JSON.stringify(_dbgB)}).catch(()=>{});
+      fetch('/api/debug-ingest',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(_dbgB)}).catch(()=>{});
+      try { const prev = JSON.parse(localStorage.getItem('pinit_debug_ea5c88') || '[]'); prev.push(_dbgB); localStorage.setItem('pinit_debug_ea5c88', JSON.stringify(prev.slice(-50))); } catch {}
+      // #endregion
+      return challenge;
+    } catch (err: any) {
+      // #region agent log
+      const _dbgB2 = {sessionId:'ea5c88',runId:'post-fix',hypothesisId:'B',location:'identityGateway.ts:generateLoginChallenge:error',message:'vault-challenge failed',data:{ok:false,error:err?.message||String(err)},timestamp:Date.now()};
+      fetch('http://127.0.0.1:7451/ingest/df1aedb8-01ec-4753-88a2-07d249a45251',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'ea5c88'},body:JSON.stringify(_dbgB2)}).catch(()=>{});
+      fetch('/api/debug-ingest',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(_dbgB2)}).catch(()=>{});
+      // #endregion
+      throw new Error(err?.message || 'Failed to generate authentication challenge');
     }
-
-    return res.json();
   },
 
-  /**
-   * Subscribe to status-only SSE stream for challenge state transitions
-   */
   subscribeStatusStream(challengeId: string, onStatus: (status: ChallengeStatus) => void): () => void {
     let intervalId: any = null;
     let isActive = true;
 
-    // Simulate Server-Sent Events (SSE) via 1-second status query
     const checkStatus = async () => {
       if (!isActive) return;
       try {
-        const res = await fetch(`/api/v1/auth/vault-stream?challengeId=${encodeURIComponent(challengeId)}`);
-        if (res.ok) {
-          const data = await res.json();
-          if (data.status) {
-            onStatus(data.status as ChallengeStatus);
-          }
-        }
+        const api = await getApi();
+        const data = await api.get<{ status?: ChallengeStatus }>(
+          `/api/v1/auth/vault-stream?challengeId=${encodeURIComponent(challengeId)}`
+        );
+        if (data.status) onStatus(data.status as ChallengeStatus);
       } catch (err) {
         console.warn('[IdentityGateway] Stream query warning:', err);
       }
@@ -140,76 +139,60 @@ export const identityGateway = {
 
     checkStatus();
     intervalId = setInterval(checkStatus, 1200);
-
     return () => {
       isActive = false;
       if (intervalId) clearInterval(intervalId);
     };
   },
 
-  /**
-   * Exchange an APPROVED challenge for JWT session tokens and User Profile
-   */
   async exchangeSession(challengeId: string, method: AuthenticationMethod = AuthenticationMethod.QR_SCAN): Promise<{
     user: any;
     token: string;
     isFirstLogin: boolean;
     trustedDevice: TrustedDevice;
   }> {
-    const fingerprintHash = getRiskDetectionFingerprint();
-    const deviceName = getDeviceName();
-
-    const res = await fetch('/api/v1/auth/exchange-session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        challengeId,
-        fingerprintHash,
-        deviceName,
-        method,
-        app: 'careers'
-      })
+    const api = await getApi();
+    return api.post('/api/v1/auth/exchange-session', {
+      challengeId,
+      fingerprintHash: getRiskDetectionFingerprint(),
+      deviceName: getDeviceName(),
+      method,
+      app: 'careers',
     });
-
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.message || 'Failed to exchange authentication session');
-    }
-
-    return res.json();
   },
 
-  /**
-   * Approve a challenge (Simulates Vault Mobile Application scanning & approving)
-   */
   async approveChallengeFromVault(challengeId: string, userPayload?: any): Promise<boolean> {
-    const res = await fetch('/api/v1/auth/vault-approve', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ challengeId, userPayload })
-    });
-    return res.ok;
+    try {
+      const api = await getApi();
+      const res = await api.post<{ success?: boolean }>('/api/v1/auth/vault-approve', {
+        challengeId,
+        userPayload,
+      });
+      return res?.success !== false;
+    } catch {
+      return false;
+    }
   },
 
-  /**
-   * Revoke all active sessions & trusted devices across account
-   */
   async logoutAllDevices(userId: string): Promise<boolean> {
-    const res = await fetch('/api/v1/auth/logout-all', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userId })
-    });
-    return res.ok;
+    try {
+      const api = await getApi();
+      await api.post('/api/v1/auth/logout-all', { userId });
+      return true;
+    } catch {
+      return false;
+    }
   },
 
-  /**
-   * Fetch trusted devices list for account
-   */
   async listDevices(userId: string): Promise<TrustedDevice[]> {
-    const res = await fetch(`/api/v1/auth/devices?userId=${encodeURIComponent(userId)}`);
-    if (!res.ok) return [];
-    const data = await res.json();
-    return data.devices || [];
+    try {
+      const api = await getApi();
+      const data = await api.get<{ devices?: TrustedDevice[] }>(
+        `/api/v1/auth/devices?userId=${encodeURIComponent(userId)}`
+      );
+      return data.devices || [];
+    } catch {
+      return [];
+    }
   }
 };

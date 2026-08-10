@@ -162,27 +162,57 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  const loginWithVaultSession = useCallback(async (sessionData: any, isNewUser = false) => {
-    const { user: userPayload, token } = sessionData;
+  const loginWithVaultSession = useCallback(async (rawPayload: any, isNewUser: boolean = false) => {
+    // Accept flat user OR session envelope { user, token } from vault/dev/trusted callers
+    const userPayload =
+      rawPayload?.user && typeof rawPayload.user === 'object' && !rawPayload.id
+        ? rawPayload.user
+        : rawPayload;
+    // #region agent log
+    const _dbgA = {sessionId:'ea5c88',runId:'post-fix',hypothesisId:'A',location:'AuthContext.tsx:loginWithVaultSession',message:'vault session entry',data:{hasPayload:!!rawPayload,topLevelId:rawPayload?.id??null,nestedUserId:rawPayload?.user?.id??null,resolvedId:userPayload?.id??null,flattened:!!(rawPayload?.user&&!rawPayload?.id),keys:rawPayload?Object.keys(rawPayload):[],isNewUser},timestamp:Date.now()};
+    fetch('http://127.0.0.1:7451/ingest/df1aedb8-01ec-4753-88a2-07d249a45251',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'ea5c88'},body:JSON.stringify(_dbgA)}).catch(()=>{});
+    fetch('/api/debug-ingest',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(_dbgA)}).catch(()=>{});
+    try { const prev = JSON.parse(localStorage.getItem('pinit_debug_ea5c88') || '[]'); prev.push(_dbgA); localStorage.setItem('pinit_debug_ea5c88', JSON.stringify(prev.slice(-50))); } catch {}
+    // #endregion
+    if (!userPayload || !userPayload.id) {
+      console.warn('[AuthContext] loginWithVaultSession called with invalid userPayload:', rawPayload);
+      // #region agent log
+      const _dbgA2 = {sessionId:'ea5c88',runId:'post-fix',hypothesisId:'A',location:'AuthContext.tsx:loginWithVaultSession:reject',message:'early return — missing id after flatten',data:{nestedUserId:rawPayload?.user?.id??null,wouldSucceedIfFlattened:!!rawPayload?.user?.id},timestamp:Date.now()};
+      fetch('http://127.0.0.1:7451/ingest/df1aedb8-01ec-4753-88a2-07d249a45251',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'ea5c88'},body:JSON.stringify(_dbgA2)}).catch(()=>{});
+      fetch('/api/debug-ingest',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(_dbgA2)}).catch(()=>{});
+      try { const prev = JSON.parse(localStorage.getItem('pinit_debug_ea5c88') || '[]'); prev.push(_dbgA2); localStorage.setItem('pinit_debug_ea5c88', JSON.stringify(prev.slice(-50))); } catch {}
+      // #endregion
+      return;
+    }
+    const token = `vlt_jwt_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
+    const role = userPayload.role || 'student';
+
     if (typeof window !== 'undefined') {
+      localStorage.setItem('pinit_active_uid', userPayload.id);
       localStorage.setItem('pinit_auth_token', token);
       localStorage.setItem('pinit_current_user', JSON.stringify(userPayload));
-      initializeCareerWorkspace(userPayload.id, userPayload, isNewUser);
+      localStorage.setItem(`pinit_${userPayload.id}_profile`, JSON.stringify(userPayload));
+
+      const isHttps = window.location.protocol === 'https:';
+      const secureFlag = isHttps ? '; Secure' : '';
+      document.cookie = `pinit_role=${role}; path=/${secureFlag}`;
+      document.cookie = `pinit_session=active; path=/${secureFlag}`;
     }
+
     const appUser: User = {
-      id: userPayload.id || 'usr_vault_verified_student',
-      username: userPayload.email || 'alex.vance@pinit.in',
-      email: userPayload.email || 'alex.vance@pinit.in',
-      displayName: userPayload.name || 'Alex Vance',
-      role: userPayload.role || 'student',
-      subscription_tier: 'free',
-      registerNumber: 'REG-2026-8819',
-      trustScore: 85,
-      careerDnaScore: 92,
-      missionStreak: 7,
-      isDevUser: userPayload.isDevUser || false
+      id: userPayload.id,
+      username: userPayload.email || userPayload.username || `${userPayload.id}@pinit.in`,
+      email: userPayload.email || `${userPayload.id}@pinit.in`,
+      displayName: userPayload.full_name || userPayload.displayName || userPayload.name || 'PinIT User',
+      role: role,
+      full_name: userPayload.full_name || userPayload.name || 'PinIT User',
+      avatar_url: userPayload.avatar_url || '',
+      created_at: new Date().toISOString(),
+      isDevUser: !!userPayload.isDevUser
     };
+
     setUser(appUser);
+    initializeCareerWorkspace(userPayload.id, userPayload, isNewUser);
     setLoading(false);
     return appUser;
   }, [initializeCareerWorkspace]);
@@ -564,7 +594,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         email,
         username:        data.username,
         displayName:     data.displayName,
-        role:            data.role || 'student',
+        // Signup must not accept client-supplied privileged roles
+        role:            'student',
         registerNumber:  data.registerNumber || '',
       };
 

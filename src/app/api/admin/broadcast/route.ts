@@ -1,9 +1,13 @@
 import { NextResponse } from 'next/server';
 import { adminService } from '@/lib/services/adminService';
 import { supabase } from '@/lib/supabaseClient';
+import { requireAdminFromRequest } from '@/lib/server/requireAdmin';
 
 export async function POST(req: Request) {
   try {
+    const denied = requireAdminFromRequest(req);
+    if (denied) return denied;
+
     const { title, message, type, targetRole } = await req.json();
     let adminId = 'ADM-001';
 
