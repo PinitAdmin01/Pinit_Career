@@ -70,19 +70,17 @@ async def _edge_synthesize_mp3(text: str, edge_voice: str, rate: str) -> bytes:
 
 
 def _run_async(coro):
-    """Run async edge-tts from sync FastAPI threadpool workers."""
+    """Run async edge-tts safely from sync FastAPI threadpool worker threads."""
+    loop = asyncio.new_event_loop()
     try:
-        loop = asyncio.get_event_loop()
-        if loop.is_running():
-            # Nested loop (rare) — use a fresh loop in this thread
-            new_loop = asyncio.new_event_loop()
-            try:
-                return new_loop.run_until_complete(coro)
-            finally:
-                new_loop.close()
+        asyncio.set_event_loop(loop)
         return loop.run_until_complete(coro)
-    except RuntimeError:
-        return asyncio.run(coro)
+    finally:
+        try:
+            loop.close()
+        except Exception:
+            pass
+        asyncio.set_event_loop(None)
 
 
 class NeuralTTSEngine:
