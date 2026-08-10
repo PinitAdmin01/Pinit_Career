@@ -277,7 +277,7 @@ export async function speakWithAvatar(
   const enhancedText = enhanceTextIntonation(cleanText);
   const vibe = detectVibe(enhancedText);
 
-  // Attempt Smart Hybrid Voice Router (IndexedDB -> WASM -> Cloud FastAPI)
+  // Attempt Smart Hybrid Voice Router (IndexedDB → Render neural TTS)
   if (useNeural) {
     try {
       const voice = KOKORO_VOICE_MAP[teacherId.toLowerCase()] || 'af_bella';
@@ -319,12 +319,22 @@ export async function speakWithAvatar(
         return;
       }
     } catch (err) {
-      console.warn('[PinIT Voice System] Render Kokoro Server audio synthesis notice (falling back to WebSpeech):', err);
+      console.error('[PinIT Voice] Neural TTS failed (WebSpeech disabled):', err);
+      // Soft UI callbacks so lip-sync / loading states do not hang
+      if (mySpeechId === currentSpeechId) {
+        onStart();
+        onEnd();
+      }
+      return;
     }
   }
 
-  // Fallback to browser WebSpeech if neural synthesis fails or is disabled
-  fallbackWebSpeech(cleanText, teacherId, onStart, onEnd, vibe, mySpeechId, difficulty, speedMultiplier, dynamicMaxDurationMs);
+  // WebSpeech browser voices are intentionally disabled.
+  console.warn('[PinIT Voice] Neural TTS required — browser WebSpeech fallback is disabled.');
+  if (mySpeechId === currentSpeechId) {
+    onStart();
+    onEnd();
+  }
 }
 
 export async function preloadTTS(text?: string, teacherId: string = 'priya') {

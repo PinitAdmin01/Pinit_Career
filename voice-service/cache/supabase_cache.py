@@ -32,14 +32,24 @@ class SupabaseCacheManager:
         if not self.is_configured:
             return None
 
-        file_url = f"{self.url}/storage/v1/object/public/{self.bucket}/{cache_key}.wav"
+        file_url = f"{self.url}/storage/v1/object/public/{self.bucket}/{cache_key}.mp3"
         try:
-            res = requests.get(file_url, headers=self._get_headers(), timeout=2.5)
-            if res.status_code == 200 and len(res.content) > 1000:
-                logger.info(f"Supabase Storage HIT for key={cache_key[:8]}")
+            res = requests.get(file_url, headers=self._get_headers(), timeout=8.0)
+            if res.status_code == 200 and len(res.content) > 500:
+                logger.info(f"Supabase Storage HIT (mp3) for key={cache_key[:8]}")
                 return res.content
         except Exception as e:
-            logger.warning(f"Supabase Storage read error for key {cache_key[:8]}: {e}")
+            logger.warning(f"Supabase Storage mp3 read error for key {cache_key[:8]}: {e}")
+
+        # Legacy wav objects
+        file_url_wav = f"{self.url}/storage/v1/object/public/{self.bucket}/{cache_key}.wav"
+        try:
+            res = requests.get(file_url_wav, headers=self._get_headers(), timeout=8.0)
+            if res.status_code == 200 and len(res.content) > 500:
+                logger.info(f"Supabase Storage HIT (wav) for key={cache_key[:8]}")
+                return res.content
+        except Exception as e:
+            logger.warning(f"Supabase Storage wav read error for key {cache_key[:8]}: {e}")
 
         return None
 
@@ -48,19 +58,21 @@ class SupabaseCacheManager:
         if not self.is_configured:
             return None
 
-        upload_url = f"{self.url}/storage/v1/object/{self.bucket}/{cache_key}.wav"
+        is_mp3 = wav_bytes[:3] == b"ID3" or wav_bytes[:2] in (b"\xff\xfb", b"\xff\xf3", b"\xff\xf2")
+        ext = "mp3" if is_mp3 else "wav"
+        content_type = "audio/mpeg" if is_mp3 else "audio/wav"
+
+        upload_url = f"{self.url}/storage/v1/object/{self.bucket}/{cache_key}.{ext}"
         headers = self._get_headers()
-        headers["Content-Type"] = "audio/wav"
+        headers["Content-Type"] = content_type
         headers["x-upsert"] = "true"
 
         try:
-            # Upload WAV blob
-            upload_res = requests.post(upload_url, data=wav_bytes, headers=headers, timeout=4.0)
+            upload_res = requests.post(upload_url, data=wav_bytes, headers=headers, timeout=12.0)
             if upload_res.status_code in [200, 201]:
-                public_url = f"{self.url}/storage/v1/object/public/{self.bucket}/{cache_key}.wav"
-                logger.info(f"Uploaded audio to Supabase Storage: {cache_key[:8]}")
+                public_url = f"{self.url}/storage/v1/object/public/{self.bucket}/{cache_key}.{ext}"
+                logger.info(f"Uploaded audio to Supabase Storage: {cache_key[:8]}.{ext}")
                 
-                # Upsert metadata in voice_cache_metadata table
                 self._upsert_metadata(cache_key, text, voice, speed, public_url, len(wav_bytes))
                 return public_url
             else:

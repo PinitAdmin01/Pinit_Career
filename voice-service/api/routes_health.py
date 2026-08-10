@@ -48,8 +48,10 @@ def get_readiness_probe():
     return {
         "status": "READY",
         "probe": "readiness",
-        "onnx_active": engine_status["onnx_active"],
-        "sample_rate": engine_status["sample_rate"],
+        "onnx_active": engine_status.get("onnx_active"),
+        "edge_active": engine_status.get("edge_active"),
+        "engine": engine_status.get("engine"),
+        "sample_rate": engine_status.get("sample_rate"),
         "memory_rss_mb": memory_mb,
         "uptime_seconds": system_metrics["uptime_seconds"]
     }

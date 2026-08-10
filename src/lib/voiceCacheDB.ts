@@ -6,7 +6,7 @@
 const DB_NAME = "PinITVoiceCacheDB";
 const DB_VERSION = 1;
 const STORE_NAME = "voice_audio_blobs";
-const MODEL_VERSION = "pinit_v2";
+const MODEL_VERSION = "pinit_v3";
 
 export interface CachedAudioEntry {
   cacheKey: string;
@@ -90,13 +90,13 @@ class VoiceCacheDB {
 
         getReq.onsuccess = () => {
           const entry: CachedAudioEntry | undefined = getReq.result;
-          if (entry && entry.audioBuffer && entry.audioBuffer.byteLength > 2500) {
+          if (entry && entry.audioBuffer && entry.audioBuffer.byteLength > 800) {
             // Increment hit count for valid audio
             entry.hitCount += 1;
             store.put(entry);
             resolve(entry.audioBuffer);
           } else {
-            // Delete corrupt/robotic sine-wave entries
+            // Delete corrupt / too-small entries
             if (entry) {
               store.delete(cacheKey);
             }

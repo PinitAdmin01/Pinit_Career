@@ -24,9 +24,18 @@ logger = logging.getLogger("voice_service")
 async def lifespan(app: FastAPI):
     """Lifespan context manager for startup pre-warming & shutdown cleanup."""
     logger.info("Initializing PinIT Careers AI Voice Service...")
-    # Pre-warm Kokoro Engine Singleton on startup
     engine = KokoroEngine()
-    logger.info(f"Kokoro Engine pre-warmed. Status: {engine.get_status()}")
+    status = engine.get_status()
+    logger.info(
+        f"Neural TTS pre-warmed. engine={status.get('engine')} "
+        f"edge={status.get('edge_active')} onnx={status.get('onnx_active')} "
+        f"init_ms={status.get('init_time_ms')}"
+    )
+    if not status.get("edge_active") and not status.get("onnx_active"):
+        logger.error(
+            "CRITICAL: No neural TTS backend available. "
+            "Install edge-tts (pip install edge-tts) and redeploy."
+        )
     yield
     logger.info("Shutting down AI Voice Service...")
 
