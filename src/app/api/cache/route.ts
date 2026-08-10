@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { requireAdminFromRequest } from '@/lib/server/requireAdmin';
 
 /**
  * PinIT Cache API — Next.js proxy to FastAPI cache endpoints.
@@ -16,6 +17,9 @@ export async function GET(req: NextRequest) {
   const key    = searchParams.get('key') ?? '';
 
   try {
+    const denied = await requireAdminFromRequest(req);
+    if (denied) return denied;
+
     let backendPath = '/api/cache/stats';
     if (action === 'hash' && key) {
       backendPath = `/api/cache/hash?key=${encodeURIComponent(key)}`;
@@ -38,6 +42,9 @@ export async function POST(req: NextRequest) {
 
   if (action === 'gc') {
     try {
+      const denied = await requireAdminFromRequest(req);
+      if (denied) return denied;
+
       const res = await fetch(`${BACKEND_URL}/api/cache/gc`, {
         method: 'POST',
         signal: AbortSignal.timeout(30000), // GC can take a moment

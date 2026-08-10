@@ -1,17 +1,14 @@
 import { NextResponse } from 'next/server';
 import { examsService } from '@/lib/services/examsService';
-import { supabase } from '@/lib/supabaseClient';
+import { requireAdminFromRequest } from '@/lib/server/requireAdmin';
 
 export async function POST(req: Request) {
   try {
-    const { marks } = await req.json();
-    let studentId = 'demo-id';
+    const denied = await requireAdminFromRequest(req);
+    if (denied) return denied;
 
-    const { data: { session } } = await supabase.auth.getSession();
-    if (session?.user) {
-      studentId = session.user.id;
-    }
-
+    const { marks, studentId: bodyStudentId } = await req.json();
+    const studentId = bodyStudentId || 'admin';
     const result = await examsService.submitMarks(studentId, marks);
     return NextResponse.json(result);
   } catch (err: any) {

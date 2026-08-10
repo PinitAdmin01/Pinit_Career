@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { requireUserFromRequest } from '@/lib/server/requireAuth';
 
 export async function POST(req: NextRequest) {
   try {
+    const gated = await requireUserFromRequest(req);
+    if (gated.error) return gated.error;
+
     const body = await req.json();
     const { roomId, roomDesc, domain, history } = body;
 

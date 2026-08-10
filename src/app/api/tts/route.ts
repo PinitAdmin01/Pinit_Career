@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { requireUserFromRequest } from '@/lib/server/requireAuth';
 
 /**
  * PinIT Voice Cache — Next.js TTS Route
@@ -19,6 +20,9 @@ const CDN_URL = process.env.NEXT_PUBLIC_CDN_VOICE_URL || '';
 
 export async function POST(req: NextRequest) {
   try {
+    const gated = await requireUserFromRequest(req);
+    if (gated.error) return gated.error;
+
     const body = await req.json();
     const {
       text,

@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { requireUserFromRequest } from '@/lib/server/requireAuth';
 
 // Curated pool of Mindset Evolution Books for dynamic selection
 const MINDSET_BOOKS = [
@@ -22,6 +23,9 @@ const AVATARS_CAST = {
 
 export async function POST(req: Request) {
   try {
+    const gated = await requireUserFromRequest(req);
+    if (gated.error) return gated.error;
+
     const { action, qt2 = 75, role = 'Software Developer', history = [], choice, scenarioId } = await req.json();
 
     const groqKey = process.env.GROQ_API_KEY || (process.env.GROQ_API_KEYS || '').split(',')[0]?.trim();

@@ -1,8 +1,12 @@
 import { NextResponse } from 'next/server';
 import { researchService } from '@/lib/services/researchService';
+import { requireAdminFromRequest } from '@/lib/server/requireAdmin';
 
 export async function POST(req: Request) {
   try {
+    const denied = await requireAdminFromRequest(req);
+    if (denied) return denied;
+
     const { paperId, status } = await req.json();
     const result = await researchService.updatePaperStatus(paperId, status);
     return NextResponse.json(result);

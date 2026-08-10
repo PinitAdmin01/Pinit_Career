@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { requireUserFromRequest } from '@/lib/server/requireAuth';
 
 const INTERVIEWERS_MAP: Record<string, { name: string; role: string; nature: string }> = {
   vikram: {
@@ -25,6 +26,9 @@ const INTERVIEWERS_MAP: Record<string, { name: string; role: string; nature: str
 
 export async function POST(req: Request) {
   try {
+    const gated = await requireUserFromRequest(req);
+    if (gated.error) return gated.error;
+
     const { message, interviewerId, stage, history, telemetry, difficulty, customTopic, domainStream, domainSubTopic } = await req.json();
     const selectedInterviewer = INTERVIEWERS_MAP[interviewerId] || INTERVIEWERS_MAP.vikram;
 

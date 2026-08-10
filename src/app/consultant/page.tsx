@@ -47,18 +47,14 @@ function ConsultantPageInner() {
   const [loading, setLoading] = useState(true);
   const [selectedIntelStudent, setSelectedIntelStudent] = useState<any>(null);
   const [selectedGoal, setSelectedGoal] = useState<string>('AI Engineer');
-  const [matchingStudent, setMatchingStudent] = useState<string>('Rahul Sharma');
+  const [matchingStudent, setMatchingStudent] = useState<string>('');
   const [scholarshipSubTab, setScholarshipSubTab] = useState<string>('government');
-  const [selectedDocStudent, setSelectedDocStudent] = useState<string>('Rahul Sharma');
-  const [selectedVisaStudent, setSelectedVisaStudent] = useState<string>('Rahul Sharma');
+  const [selectedDocStudent, setSelectedDocStudent] = useState<string>('');
+  const [selectedVisaStudent, setSelectedVisaStudent] = useState<string>('');
   const [studyAbroadSubTab, setStudyAbroadSubTab] = useState<string>('visa');
   const [countryCompA, setCountryCompA] = useState<string>('Germany');
   const [countryCompB, setCountryCompB] = useState<string>('Canada');
-  const [roadmapProgress, setRoadmapProgress] = useState<Record<string, Record<string, boolean>>>({
-    'Rahul Sharma': { s1: true, s2: false, s3: false, s4: false },
-    'Priya Patel': { s1: true, s2: true, s3: false, s4: false },
-    'Amit Kumar': { s1: true, s2: false, s3: false, s4: false }
-  });
+  const [roadmapProgress, setRoadmapProgress] = useState<Record<string, Record<string, boolean>>>({});
   const [showCopilotSidebar, setShowCopilotSidebar] = useState<boolean>(true);
   const [sidebarMessages, setSidebarMessages] = useState<Array<{ role: 'user' | 'assistant'; text: string }>>([
     { role: 'assistant', text: 'Hello! I am your AI Consultant Copilot. Ask me anything about candidate analytics, university matching, or documents.' }
@@ -124,19 +120,24 @@ function ConsultantPageInner() {
         setSelectedVisaStudent(firstName);
         setSelectedIntelStudent({
           name: firstName,
-          ats: first.ats_score || 72,
-          coding: first.trust_score || 80,
-          comm: 'Verified',
-          placement: '82%',
-          dna: first.career_track ? `🤖 ${first.career_track}` : '🤖 Software Engineer',
-          research: '1 Paper Submitted',
-          projects: `${(first.vaultItems || []).length || 2} Verified Portfolios`,
-          ielts: '7.5 Band',
-          gre: '320 (Q168, V152)',
-          cgpa: '8.5 / 10',
-          scholarship: '85% (Eligible)',
-          probability: '82% (TU Munich)'
+          ats: first.ats_score ?? null,
+          coding: first.trust_score ?? null,
+          comm: first.email ? 'Contact on file' : 'No contact',
+          placement: first.ats_score != null ? `${first.ats_score}%` : '—',
+          dna: first.career_track ? `🤖 ${first.career_track}` : '—',
+          research: '—',
+          projects: `${(first.vaultItems || []).length} vault items`,
+          ielts: '—',
+          gre: '—',
+          cgpa: '—',
+          scholarship: '—',
+          probability: '—'
         });
+      } else {
+        setMatchingStudent('');
+        setSelectedDocStudent('');
+        setSelectedVisaStudent('');
+        setSelectedIntelStudent(null);
       }
       if (selectedStudent) {
         const updated = allStuds.find(s => s.id === selectedStudent.id);
@@ -318,8 +319,12 @@ function ConsultantPageInner() {
       {/* ── TAB: DASHBOARD (Overview Command Center) ────────────────────── */}
       {activeTab === 'dashboard' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }} className="fade-in">
-          
-          {/* AI alerts summary board */}
+          {allStudents.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: 48, color: 'var(--t3)', background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 14 }}>
+              No pipeline data. Add students or wait for API-linked candidates to appear.
+            </div>
+          ) : (
+            <>
           <div style={{
             background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.06) 0%, rgba(99, 102, 241, 0.02) 100%)',
             border: '1.5px solid rgba(99, 102, 241, 0.25)',
@@ -327,30 +332,20 @@ function ConsultantPageInner() {
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
               <span style={{ fontSize: 20 }}>🤖</span>
-              <span style={{ fontSize: 14, fontWeight: 900, color: 'var(--accent)' }}>Athena AI Command Alerts Summary</span>
+              <span style={{ fontSize: 14, fontWeight: 900, color: 'var(--accent)' }}>Pipeline Snapshot</span>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 8, fontSize: 13, color: 'var(--t2)' }}>
-                <div>💡 <strong>Scholarships:</strong> Rahul qualifies for DAAD Scholarship.</div>
-                <div>📈 <strong>Admissions:</strong> Priya has an 87% chance of admission to TU Munich.</div>
-                <div>⚠️ <strong>Incompletes:</strong> Three students have incomplete SOPs.</div>
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 8, fontSize: 13, color: 'var(--t2)' }}>
-                <div>⏰ <strong>Visa:</strong> Visa deadline in 5 days.</div>
-                <div>💼 <strong>Career:</strong> Two students are internship-ready.</div>
-              </div>
+            <div style={{ fontSize: 13, color: 'var(--t2)' }}>
+              {allStudents.length} candidate{allStudents.length === 1 ? '' : 's'} in pipeline.
+              {analytics?.totalStudents != null ? ` Analytics reports ${analytics.totalStudents} total students.` : ''}
+              {' '}No fabricated scholarship or visa alerts are shown.
             </div>
           </div>
 
-          {/* Cards Grid */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 14 }}>
             {[
-              { label: "Today's Meetings", value: '4 Sessions', desc: 'Starting from 10:00 AM', color: 'var(--accent)' },
-              { label: 'Requiring Attention', value: '3 Candidates', desc: 'Incomplete SOPs / low streak', color: 'var(--danger)' },
-              { label: 'Visa Deadline', value: '5 days', desc: 'Rahul, Amit visa locks', color: 'var(--coral)' },
-              { label: 'Application Deadline', value: 'July 31', desc: 'TU Munich & Stanford gates', color: 'var(--amber)' },
-              { label: 'High Placement Candidates', value: '8 Students', desc: 'ATS resume > 80, coding active', color: 'var(--success)' },
-              { label: 'High Scholarship Candidates', value: '5 Students', desc: 'DAAD, Erasmus eligible', color: 'var(--teal)' }
+              { label: "Today's Meetings", value: String(sessions.length), desc: sessions.length ? 'From scheduled sessions' : 'No sessions scheduled', color: 'var(--accent)' },
+              { label: 'Pipeline candidates', value: String(allStudents.length), desc: 'From consultant pipeline API', color: 'var(--success)' },
+              { label: 'Visa approved (analytics)', value: analytics?.visaApprovalRate != null ? `${analytics.visaApprovalRate}%` : '—', desc: 'From analytics endpoint', color: 'var(--coral)' },
             ].map((c, idx) => (
               <div key={idx} style={{
                 background: 'var(--bg3)', border: '1px solid var(--border)',
@@ -363,49 +358,39 @@ function ConsultantPageInner() {
             ))}
           </div>
 
-          {/* Details layout row */}
           <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 16 }}>
-            {/* Left: Today's Meetings */}
             <div style={{ border: '1px solid var(--border)', borderRadius: 12, overflow: 'hidden' }}>
-              <div style={{ background: 'var(--bg3)', padding: '10px 14px', fontSize: 12, fontWeight: 800, color: 'var(--t3)', borderBottom: '1px solid var(--border)' }}>TODAY'S CONSULTATIONS</div>
+              <div style={{ background: 'var(--bg3)', padding: '10px 14px', fontSize: 12, fontWeight: 800, color: 'var(--t3)', borderBottom: '1px solid var(--border)' }}>SCHEDULED CONSULTATIONS</div>
               <div style={{ display: 'flex', flexDirection: 'column', background: 'var(--card)' }}>
-                {[
-                  { title: 'Visa Mock Interview', student: 'Rahul Sharma', time: '10:00 AM', link: 'https://zoom.us/j/9082' },
-                  { title: 'SOP Document Review', student: 'Priya Patel', time: '11:30 AM', link: 'https://zoom.us/j/4192' },
-                  { title: 'University Choice Matching', student: 'Amit Kumar', time: '02:00 PM', link: 'https://zoom.us/j/7391' },
-                  { title: 'Pre-Departure Briefing', student: 'Nisha Sen', time: '04:30 PM', link: 'https://zoom.us/j/1094' }
-                ].map((s, idx) => (
-                  <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 14px', borderBottom: idx < 3 ? '1px solid var(--border)' : 'none', fontSize: 12.5 }}>
+                {sessions.length === 0 ? (
+                  <div style={{ padding: 20, color: 'var(--t3)', fontSize: 12.5, textAlign: 'center' }}>No pipeline sessions scheduled.</div>
+                ) : sessions.slice(0, 6).map((s, idx) => (
+                  <div key={s.id || idx} style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 14px', borderBottom: idx < Math.min(sessions.length, 6) - 1 ? '1px solid var(--border)' : 'none', fontSize: 12.5 }}>
                     <div>
                       <strong style={{ color: 'var(--t1)' }}>{s.title}</strong>
-                      <div style={{ fontSize: 10.5, color: 'var(--t3)' }}>Student: {s.student}</div>
+                      <div style={{ fontSize: 10.5, color: 'var(--t3)' }}>Student: {s.studentName || s.studentId}</div>
                     </div>
                     <div style={{ textAlign: 'right' }}>
-                      <span style={{ fontSize: 11.5, color: 'var(--accent)', fontWeight: 700 }}>{s.time}</span>
-                      <div style={{ marginTop: 2 }}><a href={s.link} target="_blank" rel="noreferrer" style={{ color: 'var(--success)', fontSize: 11, textDecoration: 'underline' }}>Join Room</a></div>
+                      <span style={{ fontSize: 11.5, color: 'var(--accent)', fontWeight: 700 }}>{s.time || s.date}</span>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Right: Urgent Action items */}
             <div style={{ border: '1px solid var(--border)', borderRadius: 12, overflow: 'hidden' }}>
-              <div style={{ background: 'var(--bg3)', padding: '10px 14px', fontSize: 12, fontWeight: 800, color: 'var(--t3)', borderBottom: '1px solid var(--border)' }}>IMMEDIATE ACTION ITEMS</div>
+              <div style={{ background: 'var(--bg3)', padding: '10px 14px', fontSize: 12, fontWeight: 800, color: 'var(--t3)', borderBottom: '1px solid var(--border)' }}>PIPELINE CANDIDATES</div>
               <div style={{ display: 'flex', flexDirection: 'column', padding: 14, background: 'var(--card)', gap: 10 }}>
-                <div style={{ background: 'rgba(239,68,68,0.03)', border: '1px solid rgba(239,68,68,0.15)', borderRadius: 10, padding: 10, fontSize: 12 }}>
-                  🔴 <strong>Rahul Sharma</strong>: Visa deadline in 5 days. Documents verify log incomplete.
-                </div>
-                <div style={{ background: 'rgba(245,158,11,0.03)', border: '1px solid rgba(245,158,11,0.15)', borderRadius: 10, padding: 10, fontSize: 12 }}>
-                  🟡 <strong>Priya Patel</strong>: Statement of Purpose (SOP) draft has spelling/formatting flags.
-                </div>
-                <div style={{ background: 'rgba(59,130,246,0.03)', border: '1px solid rgba(59,130,246,0.15)', borderRadius: 10, padding: 10, fontSize: 12 }}>
-                  🔵 <strong>Amit Kumar</strong>: Completed 4 coding quests. Eligible to connect with Microsoft recruiters.
-                </div>
+                {allStudents.slice(0, 5).map((s: any) => (
+                  <div key={s.id} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 10, padding: 10, fontSize: 12 }}>
+                    <strong>{s.displayName || s.name}</strong>: {s.status || 'onboarding'} · Visa {s.visa_status || 'not_started'}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
-
+            </>
+          )}
         </div>
       )}
 
@@ -414,6 +399,10 @@ function ConsultantPageInner() {
         <div style={{ display: 'grid', gridTemplateColumns: selectedStudent ? '1fr 380px' : '1fr', gap: 16 }}>
           {loading ? (
             <div style={{ textAlign: 'center', padding: 48, color: 'var(--t3)' }}>Refreshing student pipeline...</div>
+          ) : allStudents.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: 48, color: 'var(--t3)', background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 14 }}>
+              No pipeline data. Add a student or link candidates via the consultant API.
+            </div>
           ) : (
             <div style={{ overflowX: 'auto', paddingBottom: 8 }}>
               <div style={{ display: 'grid', gridTemplateColumns: `repeat(${STAGES.length}, minmax(195px, 1fr))`, gap: 12, minWidth: 1100 }}>
@@ -768,59 +757,31 @@ function ConsultantPageInner() {
                 COHORT REGISTRY
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', background: 'var(--card)' }}>
-                {[
-                  {
-                    name: 'Rahul Sharma',
-                    ats: 68,
-                    coding: 91,
-                    comm: 'Needs Lab Revision',
-                    placement: '74%',
-                    dna: '🤖 AI Software Engineer',
-                    research: '1 Paper (ACL Prep)',
-                    projects: '4 Hosted Portfolios',
-                    ielts: '7.5 Band',
-                    gre: '320 (Q168, V152)',
-                    cgpa: '8.4 / 10',
-                    scholarship: '85% (DAAD Eligible)',
-                    probability: '75% (TU Munich)'
-                  },
-                  {
-                    name: 'Priya Patel',
-                    ats: 84,
-                    coding: 80,
-                    comm: 'Excellent verbal',
-                    placement: '87%',
-                    dna: '☁️ Cloud Solutions Architect',
-                    research: '2 Papers (IEEE, CVPR)',
-                    projects: '6 Production Apps',
-                    ielts: '8.0 Band',
-                    gre: '328 (Q170, V158)',
-                    cgpa: '9.2 / 10',
-                    scholarship: '95% (Erasmus Eligible)',
-                    probability: '91% (TU Munich)'
-                  },
-                  {
-                    name: 'Amit Kumar',
-                    ats: 72,
-                    coding: 85,
-                    comm: 'Average dialogs',
-                    placement: '78%',
-                    dna: '📊 Distributed Systems Dev',
-                    research: 'No publications',
-                    projects: '3 GitHub Portals',
-                    ielts: '7.0 Band',
-                    gre: '315 (Q164, V151)',
-                    cgpa: '7.8 / 10',
-                    scholarship: '65% (Partial Cover)',
-                    probability: '68% (NUS Singapore)'
-                  }
-                ].map((stud, idx) => (
+                {allStudents.length === 0 ? (
+                  <div style={{ padding: 24, textAlign: 'center', color: 'var(--t3)', fontSize: 12.5 }}>No pipeline data</div>
+                ) : allStudents.map((raw: any, idx: number) => {
+                  const stud = {
+                    name: raw.displayName || raw.name || 'Candidate',
+                    ats: raw.ats_score ?? '—',
+                    coding: raw.trust_score ?? '—',
+                    comm: raw.email || '—',
+                    placement: raw.ats_score != null ? `${raw.ats_score}%` : '—',
+                    dna: raw.career_track ? `🤖 ${raw.career_track}` : '—',
+                    research: '—',
+                    projects: `${(raw.vaultItems || []).length} vault items`,
+                    ielts: '—',
+                    gre: '—',
+                    cgpa: '—',
+                    scholarship: '—',
+                    probability: '—'
+                  };
+                  return (
                   <div
-                    key={idx}
+                    key={raw.id || idx}
                     onClick={() => setSelectedIntelStudent(stud)}
                     style={{
                       padding: 14,
-                      borderBottom: idx < 2 ? '1px solid var(--border)' : 'none',
+                      borderBottom: idx < allStudents.length - 1 ? '1px solid var(--border)' : 'none',
                       cursor: 'pointer',
                       background: selectedIntelStudent?.name === stud.name ? 'rgba(99,102,241,0.06)' : 'transparent',
                       transition: 'background 0.2s'
@@ -831,10 +792,11 @@ function ConsultantPageInner() {
                       <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--success)' }}>{stud.placement} Ready</span>
                     </div>
                     <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 4 }}>
-                      ATS: {stud.ats}/100 | Coding: {stud.coding}%
+                      ATS: {stud.ats}/100 | Trust: {stud.coding}
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
@@ -997,19 +959,24 @@ function ConsultantPageInner() {
           <div style={{ border: '1px solid var(--border)', borderRadius: 12, overflow: 'hidden', marginTop: 10 }}>
             <div style={{ background: 'var(--bg3)', padding: '10px 14px', fontSize: 11.5, fontWeight: 800, color: 'var(--t3)', borderBottom: '1px solid var(--border)' }}>ACTIVE MAPPINGS BY COHORT</div>
             <div style={{ display: 'flex', flexDirection: 'column', background: 'var(--card)' }}>
-              {[
-                { name: 'Rahul Sharma', goal: 'AI Engineer', progress: '91% Skills Match' },
-                { name: 'Priya Patel', goal: 'Cloud Architect', progress: '85% Skills Match' },
-                { name: 'Amit Kumar', goal: 'Distributed Systems Dev', progress: '78% Skills Match' }
-              ].map((mapItem, idx) => (
-                <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 14px', borderBottom: idx < 2 ? '1px solid var(--border)' : 'none', fontSize: 12.5 }}>
+              {allStudents.length === 0 ? (
+                <div style={{ padding: 20, textAlign: 'center', color: 'var(--t3)', fontSize: 12.5 }}>No pipeline data</div>
+              ) : allStudents.map((raw: any, idx: number) => {
+                const mapItem = {
+                  name: raw.displayName || raw.name || 'Candidate',
+                  goal: raw.career_track || raw.programType || '—',
+                  progress: raw.ats_score != null ? `${raw.ats_score}% ATS` : 'No ATS yet'
+                };
+                return (
+                <div key={raw.id || idx} style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 14px', borderBottom: idx < allStudents.length - 1 ? '1px solid var(--border)' : 'none', fontSize: 12.5 }}>
                   <div>
                     <strong style={{ color: 'var(--t1)' }}>{mapItem.name}</strong>
                     <span style={{ fontSize: 11, color: 'var(--t3)', marginLeft: 8 }}>Targeting: {mapItem.goal}</span>
                   </div>
                   <span style={{ color: 'var(--success)', fontWeight: 800 }}>{mapItem.progress}</span>
                 </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
@@ -1027,15 +994,19 @@ function ConsultantPageInner() {
             </div>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {[
-                { name: 'Rahul Sharma', country: 'Germany', program: 'MS in Computer Science', visa: 'Submitted' },
-                { name: 'Priya Patel', country: 'Germany', program: 'MS in Data Science', visa: 'Approved' },
-                { name: 'Amit Kumar', country: 'Singapore', program: 'M.Tech in AI', visa: 'Pending' }
-              ].map((c, idx) => {
+              {allStudents.length === 0 ? (
+                <div style={{ padding: 20, textAlign: 'center', color: 'var(--t3)', fontSize: 12.5, border: '1px solid var(--border)', borderRadius: 12 }}>No pipeline data</div>
+              ) : allStudents.map((raw: any, idx: number) => {
+                const c = {
+                  name: raw.displayName || raw.name || 'Candidate',
+                  country: raw.targetCountry || '—',
+                  program: raw.programType || '—',
+                  visa: raw.visa_status || 'not_started'
+                };
                 const isSelected = selectedVisaStudent === c.name;
                 return (
                   <div
-                    key={idx}
+                    key={raw.id || idx}
                     onClick={() => setSelectedVisaStudent(c.name)}
                     style={{
                       background: isSelected ? 'var(--bg3)' : 'var(--card)',
@@ -1051,8 +1022,8 @@ function ConsultantPageInner() {
                     </div>
                     <span style={{
                       fontSize: 10,
-                      background: c.visa === 'Approved' ? 'rgba(16,185,129,0.08)' : c.visa === 'Submitted' ? 'rgba(99,102,241,0.08)' : 'rgba(245,158,11,0.08)',
-                      color: c.visa === 'Approved' ? 'var(--success)' : c.visa === 'Submitted' ? 'var(--accent)' : 'var(--amber)',
+                      background: c.visa === 'approved' || c.visa === 'Approved' ? 'rgba(16,185,129,0.08)' : 'rgba(245,158,11,0.08)',
+                      color: c.visa === 'approved' || c.visa === 'Approved' ? 'var(--success)' : 'var(--amber)',
                       padding: '3px 8px', borderRadius: 20, fontWeight: 800
                     }}>
                       {c.visa}
@@ -1144,8 +1115,14 @@ function ConsultantPageInner() {
                 }
               };
 
-              const selectedData = visaData[selectedVisaStudent] || visaData['Rahul Sharma'];
-
+              const selectedData = visaData[selectedVisaStudent] || null;
+              if (!selectedData) {
+                return (
+                  <div style={{ padding: 28, textAlign: 'center', color: 'var(--t3)', fontSize: 13, border: '1px solid var(--border)', borderRadius: 12 }}>
+                    {allStudents.length === 0 ? 'No pipeline data' : 'No visa dossier on file for this candidate. Static demo dossiers are not shown as live data.'}
+                  </div>
+                );
+              }
               return (
                 <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 14, padding: 20, display: 'flex', flexDirection: 'column', gap: 18 }} className="fade-in">
                   
@@ -1345,9 +1322,11 @@ function ConsultantPageInner() {
               className="form-input"
               style={{ padding: '6px 12px', borderRadius: 8, fontSize: 13, width: 220 }}
             >
-              <option value="Rahul Sharma">Rahul Sharma</option>
-              <option value="Priya Patel">Priya Patel</option>
-              <option value="Amit Kumar">Amit Kumar</option>
+              {allStudents.length === 0 ? (
+                <option value="">No pipeline data</option>
+              ) : allStudents.map((s: any) => (
+                <option key={s.id} value={s.displayName || s.name}>{s.displayName || s.name}</option>
+              ))}
             </select>
           </div>
 
@@ -1388,8 +1367,14 @@ function ConsultantPageInner() {
                 safe: { name: 'University of Twente (Netherlands)', rate: '92% Probability', reason: 'Favorable Visa, Low Cost' }
               }
             };
-            const current = criteria[matchingStudent] || criteria['Rahul Sharma'];
-
+            const current = criteria[matchingStudent] || null;
+            if (!current) {
+              return (
+                <div style={{ padding: 28, textAlign: 'center', color: 'var(--t3)', fontSize: 13, border: '1px solid var(--border)', borderRadius: 12 }}>
+                  {allStudents.length === 0 ? 'No pipeline data' : 'No matching dossier for this candidate. Hard-coded demo profiles are not presented as live pipeline data.'}
+                </div>
+              );
+            }
             return (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                 
@@ -1992,9 +1977,11 @@ function ConsultantPageInner() {
               className="form-input"
               style={{ padding: '6px 12px', borderRadius: 8, fontSize: 13, width: 220 }}
             >
-              <option value="Rahul Sharma">Rahul Sharma</option>
-              <option value="Priya Patel">Priya Patel</option>
-              <option value="Amit Kumar">Amit Kumar</option>
+              {allStudents.length === 0 ? (
+                <option value="">No pipeline data</option>
+              ) : allStudents.map((s: any) => (
+                <option key={s.id} value={s.displayName || s.name}>{s.displayName || s.name}</option>
+              ))}
             </select>
           </div>
 
@@ -2171,9 +2158,11 @@ function ConsultantPageInner() {
               className="form-input"
               style={{ padding: '6px 12px', borderRadius: 8, fontSize: 13, width: 220 }}
             >
-              <option value="Rahul Sharma">Rahul Sharma</option>
-              <option value="Priya Patel">Priya Patel</option>
-              <option value="Amit Kumar">Amit Kumar</option>
+              {allStudents.length === 0 ? (
+                <option value="">No pipeline data</option>
+              ) : allStudents.map((s: any) => (
+                <option key={s.id} value={s.displayName || s.name}>{s.displayName || s.name}</option>
+              ))}
             </select>
           </div>
 

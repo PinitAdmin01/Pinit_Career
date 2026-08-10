@@ -176,50 +176,7 @@ function safeFormatDate(input?: string | number | Date): { dateStr: string; isoS
   }
 }
 
-const PREVIOUS_SESSIONS: InterviewSessionRecord[] = [
-  {
-    id: 'sess-101',
-    date: 'July 28, 2026',
-    timestamp: new Date().toISOString(),
-    type: 'Tech: Software Engineering',
-    domainStream: 'tech',
-    domainSubTopic: 'software',
-    difficulty: 'normal',
-    verdict: 'Hire',
-    score: 86,
-    radar: { logic: 88, systems: 82, comms: 85, solving: 86, star: 84 },
-    telemetry: { eyeContact: 88, wpm: 132, fillerWords: 1, tabSwitches: 0 },
-    messages: [
-      { role: 'assistant', content: 'Welcome to your SDE Technical Interview! Please introduce yourself.' },
-      { role: 'user', content: 'Hi, I am a Computer Science student passionate about full-stack development and algorithms.' },
-      { role: 'assistant', content: 'Great! Can you explain how you handle race conditions in multi-threaded database transactions?' }
-    ],
-    summary: 'Demonstrated solid understanding of transactional isolation levels and asynchronous locks.',
-    strengths: ['Clear explanation of concurrency controls', 'Structured STAR responses'],
-    improvements: 'Elaborate more on distributed cache invalidation strategies.'
-  },
-  {
-    id: 'sess-102',
-    date: 'July 24, 2026',
-    timestamp: new Date().toISOString(),
-    type: 'Non-Tech: B.Com Finance',
-    domainStream: 'non_tech',
-    domainSubTopic: 'finance',
-    difficulty: 'normal',
-    verdict: 'Hire',
-    score: 91,
-    radar: { logic: 92, systems: 88, comms: 90, solving: 91, star: 89 },
-    telemetry: { eyeContact: 92, wpm: 128, fillerWords: 0, tabSwitches: 0 },
-    messages: [
-      { role: 'assistant', content: 'Welcome to your B.Com Finance Interview! Please introduce yourself.' },
-      { role: 'user', content: 'Hello, I am a Finance major specializing in corporate valuation, EBITDA metrics, and tax planning.' },
-      { role: 'assistant', content: 'Excellent. How do you compute Working Capital Ratio and evaluate liquidity risk?' }
-    ],
-    summary: 'Exceptional financial accuracy, quick calculation velocity, and confident communication.',
-    strengths: ['Precise ratio calculations', 'Clear commercial awareness'],
-    improvements: 'Include WACC discounting models for multi-year cash flows.'
-  }
-];
+const PREVIOUS_SESSIONS: InterviewSessionRecord[] = [];
 
 const STARTER_CODES: Record<string, string> = {
   java: `public class Solution {\n    public boolean verifySorted(int[] arr) {\n        // Check if array is sorted in non-decreasing order\n        for (int i = 0; i < arr.length - 1; i++) {\n            if (arr[i] > arr[i + 1]) return false;\n        }\n        return true;\n    }\n}`,
@@ -551,8 +508,8 @@ export default function InterviewPage() {
   }, [difficulty, startVoiceListening]);
 
   // Dynamic Telemetry metrics
-  const [eyeContactScore, setEyeContactScore] = useState(88);
-  const [wpmScore, setWpmScore] = useState(132);
+  const [eyeContactScore, setEyeContactScore] = useState(0);
+  const [wpmScore, setWpmScore] = useState(0);
   const [fillerWordCount, setFillerWordCount] = useState(0);
 
   // Round 2 Code Workspace State
@@ -894,8 +851,7 @@ export default function InterviewPage() {
                   ...prev,
                   `[TEST SUITE] Test 1 (Ascending Array [10, 20, 30, 40]): PASSED -> Output: true`,
                   `[TEST SUITE] Test 2 (Unsorted Array [50, 20, 10]): PASSED -> Output: false`,
-                  `[TEST SUITE] Test 3 (Performance Boundary Check): PASSED -> Execution: 0.42ms`,
-                  `[SUCCESS] 100% test suite verified for ${activeTopicName}!`
+                  `[SUCCESS] Sandboxed JS checks passed for ${activeTopicName}.`
                 ]);
               } else {
                 setCodeSubmitted(false);
@@ -1060,11 +1016,11 @@ export default function InterviewPage() {
         verdict: resultObj.verdict,
         score: resultObj.score,
         radar: {
-          logic: isPassing ? 88 : 45,
-          systems: isPassing ? 84 : 40,
-          comms: isPassing ? 89 : 50,
+          logic: Math.max(20, Math.min(95, Math.round(calculatedScore * 0.9 + (codeSubmitted ? 5 : -10)))),
+          systems: Math.max(20, Math.min(95, Math.round(calculatedScore * 0.85 + (boardLinks.length > 2 ? 5 : -8)))),
+          comms: Math.max(20, Math.min(95, Math.round(Math.min(90, 40 + userMsgCount * 8) - fillerWordCount * 3))),
           solving: calculatedScore,
-          star: isPassing ? 85 : 42
+          star: Math.max(20, Math.min(95, Math.round(30 + starStep * 12 + (candidateAnswered ? 10 : 0))))
         },
         telemetry: { eyeContact: eyeContactScore, wpm: wpmScore, fillerWords: fillerWordCount, tabSwitches: 0 },
         messages: messages,

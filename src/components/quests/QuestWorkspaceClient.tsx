@@ -185,11 +185,11 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
     }
   };
 
-  const getLangInfo = (qId: string) => {
-    if (qId.startsWith('py') || qId.includes('python') || qId.includes('ai')) return { file: 'solution.py', label: 'Python 3.11 Engine 🐍' };
-    if (qId.startsWith('database') || qId.includes('sql')) return { file: 'query.sql', label: 'SQLite DB Engine 💾' };
-    if (qId.startsWith('react') || qId.includes('fullstack')) return { file: 'App.jsx', label: 'React JSX Sandbox ⚛️' };
-    return { file: 'Solution.java', label: 'JVM Compiler Emulation ☕' };
+  const getLangInfo = (qId: string): { file: string; label: string; native: boolean } => {
+    if (qId.startsWith('py') || qId.includes('python') || qId.includes('ai')) return { file: 'solution.py', label: 'Python editor (no CPython runtime)', native: false };
+    if (qId.startsWith('database') || qId.includes('sql')) return { file: 'query.sql', label: 'SQL editor (no DB engine)', native: false };
+    if (qId.startsWith('react') || qId.includes('fullstack') || qId.includes('javascript') || qId.includes('js')) return { file: 'App.jsx', label: 'JS/JSX sandbox', native: true };
+    return { file: 'Solution.java', label: 'Java editor (no JVM runtime)', native: false };
   };
 
   const renderEditor = (isExam: boolean) => {
@@ -418,11 +418,11 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
     }
   };
 
-  // Multi-Language Native Syntax Engine (Python 3.11, SQL, Java, C++)
+  // Lightweight syntax helpers only — not real JVM/CPython/SQL engines
   const multiLangTranspiler = (inputCode: string, qId: string) => {
     let js = inputCode || '';
     
-    // 🐍 Python Track Transpiler
+    // Python-looking source → approximate JS (keyword rewrite only; not CPython)
     if (qId.startsWith('py') || qId.includes('python') || qId.includes('ai') || qId.includes('edge')) {
       js = js.replace(/#.*$/gm, '');
       js = js.replace(/\bdef\s+(\w+)\s*\(([^)]*)\):/g, 'function $1($2) {');
@@ -442,7 +442,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
       return js;
     }
 
-    // 💾 SQL Database Track Validator
+    // SQL text is not executed against a database here
     if (qId.startsWith('database') || qId.includes('sql')) {
       return `
         const sqlQuery = ${JSON.stringify(inputCode || '')};
@@ -453,13 +453,13 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
       `;
     }
 
-    // ☕ Java / C++ Default Transpiler
+    // Java-looking source → approximate JS (not a JVM)
     js = js.replace(/public\s+class\s+\w+\s*\{/, '');
     js = js.trim();
     if (js.endsWith('}') && js.split('{').length < js.split('}').length) js = js.slice(0, -1);
-    const keywords = new Set(['if', 'for', 'while', 'switch', 'catch', 'synchronized']);
+    const reserved = new Set(['if', 'for', 'while', 'switch', 'catch', 'synchronized']);
     js = js.replace(/(public|protected|private|static|\s)+([a-zA-Z0-9_<>\s\[\]]+)\s+(\w+)\s*\(([^)]*)\)/g, (match, access, retType, name, args) => {
-      if (keywords.has(name)) return match;
+      if (reserved.has(name)) return match;
       const cleanArgs = args.replace(/(int|String|double|float|boolean|char|int\[\])\s+/g, '');
       return `function ${name}(${cleanArgs})`;
     });
@@ -486,6 +486,18 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
       });
       return;
     }
+
+    const langInfo = getLangInfo(questId || '');
+    // Fail closed: keyword/transpile checks are not real JVM/Python/SQL engines
+    if (!langInfo.native) {
+      setOutput({
+        success: false,
+        message: `Verification unavailable: ${langInfo.label}. Client keyword/transpile checks are not accepted as a pass. Configure a server-side judge for this language.`
+      });
+      setTerminalLogs([`[BLOCKED] No native runtime for ${langInfo.file}. Fail-closed — not marked verified.`]);
+      return;
+    }
+
     setOutput(null);
     setTerminalLogs([]);
     try {
@@ -585,7 +597,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
       worker.postMessage({ js: jsCode, tests: quest.testSuite });
 
     } catch (err: any) {
-      setOutput({ success: false, message: 'Syntax or compiler emulation error: ' + err.message });
+      setOutput({ success: false, message: 'Syntax or sandbox error: ' + err.message });
     }
   };
 

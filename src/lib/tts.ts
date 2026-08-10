@@ -336,9 +336,9 @@ export async function speakWithAvatar(
     }
   }
 
-  // Tier 2: Instant Native Human Speech Fallback
+  // Tier 2: Instant Native Human Speech Fallback (same duration budget as neural path)
   if (mySpeechId === currentSpeechId) {
-    fallbackWebSpeech(cleanText, teacherId, onStart, onEnd, vibe, mySpeechId, difficulty, speedMultiplier, maxDurationMs);
+    fallbackWebSpeech(cleanText, teacherId, onStart, onEnd, vibe, mySpeechId, difficulty, speedMultiplier, dynamicMaxDurationMs);
   }
 }
 

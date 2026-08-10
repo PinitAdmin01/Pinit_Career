@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { requireUserFromRequest } from '@/lib/server/requireAuth';
 
 // Global atomic round-robin counters for multi-key pool load balancing
 let keyIndexA = 0;
@@ -94,6 +95,9 @@ function getActiveKeyForRole(roleType: string): string | null {
 
 export async function POST(req: NextRequest) {
   try {
+    const gated = await requireUserFromRequest(req);
+    if (gated.error) return gated.error;
+
     const body = await req.json();
     const {
       roomId,

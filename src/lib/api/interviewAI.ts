@@ -1,8 +1,5 @@
 // lib/api/interviewAI.ts
-// Interview AI — calls Anthropic Claude API directly from browser.
-// Uses claude-sonnet-4-20250514 via Anthropic v1/messages endpoint.
-
-const CLAUDE_MODEL = 'claude-sonnet-4-20250514';
+// Interview AI — server-proxied LLM only. No browser API keys or CORS proxies.
 
 const MODE_PROMPTS: Record<string, string> = {
   google: `You are a senior interviewer at a top-tier tech company (Google/Meta/Amazon level).
@@ -39,33 +36,40 @@ function buildSystem(mode: string, pressureMode: string, domain?: string): strin
 RULES: Ask exactly ONE question per response. Never give the answer. Keep under 120 words.`;
 }
 
-async function callClaude(
+async function callServerLLM(
   messages: { role: 'user' | 'assistant'; content: string }[],
   system: string,
   maxTokens = 350
 ): Promise<string> {
-  const apiKey = typeof process !== 'undefined' ? (process.env?.ANTHROPIC_API_KEY || process.env?.NEXT_PUBLIC_ANTHROPIC_API_KEY) : '';
-  const res = await fetch('https://corsproxy.io/?https://api.anthropic.com/v1/messages', {
+  let authHeader: Record<string, string> = {};
+  try {
+    const { supabase } = await import('@/lib/supabaseClient');
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session?.access_token) {
+      authHeader = { Authorization: `Bearer ${session.access_token}` };
+    }
+  } catch { /* ignore */ }
+
+  const res = await fetch('/api/llm', {
     method: 'POST',
-    headers: { 
-      'Content-Type': 'application/json',
-      'x-api-key': apiKey || '',
-      'anthropic-version': '2023-06-01',
-      'dangerously-allow-browser': 'true'
-    },
+    headers: { 'Content-Type': 'application/json', ...authHeader },
     body: JSON.stringify({
-      model:      CLAUDE_MODEL,
-      max_tokens: maxTokens,
-      system,
       messages,
+      systemPrompt: system,
+      skillCategory: 'soft-skills',
+      maxTokens,
     }),
   });
   if (!res.ok) {
-    const err = await res.text();
-    throw new Error(`Claude API error ${res.status}: ${err}`);
+    const err = await res.text().catch(() => '');
+    throw new Error(`Interview LLM unavailable (${res.status}). Server path /api/llm required. ${err}`);
   }
   const data = await res.json();
-  return (data.content?.filter((b: any) => b.type === 'text').map((b: any) => b.text).join('') || '').trim();
+  const reply = (data.reply || data.content || data.text || '').trim();
+  if (!reply) {
+    throw new Error('Interview LLM returned an empty response from /api/llm.');
+  }
+  return reply;
 }
 
 export interface InterviewStartParams { mode: string; pressureMode?: string; domain?: string; persona?: string; }
@@ -73,7 +77,7 @@ export interface InterviewRespondParams { sessionId: string; response: string; m
 
 export async function aiInterviewStart(params: InterviewStartParams): Promise<string> {
   const system = buildSystem(params.mode, params.pressureMode || 'normal', params.domain);
-  return callClaude(
+  return callServerLLM(
     [{ role:'user', content:'Begin the interview. Introduce yourself in one sentence, then ask your first question.' }],
     system, 250
   );
@@ -82,7 +86,7 @@ export async function aiInterviewStart(params: InterviewStartParams): Promise<st
 export async function aiInterviewRespond(params: InterviewRespondParams): Promise<string> {
   const system = buildSystem(params.mode, params.pressureMode || 'normal');
   const messages = [...params.transcript, { role: 'user' as const, content: params.response }];
-  return callClaude(messages, system, 350);
+  return callServerLLM(messages, system, 350);
 }
 
 export async function aiInterviewEvaluate(
@@ -99,10 +103,25 @@ export async function aiInterviewEvaluate(
   const system = `You are an expert interview coach. Evaluate the transcript and return ONLY valid JSON:\n{"overall_score":<0-100>,"confidence_score":<0-100>,"communication_score":<0-100>,"technical_depth":<0-100>,"leadership_score":<0-100>,"energy_level":<0-100>,"strengths":["<s>","<s>"],"weaknesses":["<s>"],"improvement_tips":["<s>","<s>","<s>"],"readiness":"not_ready"|"developing"|"ready"|"strong","summary":"<2-3 sentences>"}`;
 
   try {
-    const raw = await callClaude([{ role:'user', content:`Mode: ${mode.toUpperCase()}\n\nTRANSCRIPT:\n${formatted.slice(0,7000)}` }], system, 800);
+    const raw = await callServerLLM([{ role:'user', content:`Mode: ${mode.toUpperCase()}\n\nTRANSCRIPT:\n${formatted.slice(0,7000)}` }], system, 800);
     const evaluation = JSON.parse(raw.replace(/```json|```/g,'').trim());
     return { ...evaluation, filler_rate: fillerMatch.length / Math.max(totalWords,1) };
   } catch {
-    return { overall_score:65, confidence_score:60, communication_score:62, technical_depth:55, leadership_score:60, energy_level:65, strengths:['Attempted all questions'], weaknesses:['Short responses'], improvement_tips:['Use STAR method','Be more specific','Reduce filler words'], readiness:'developing', summary:'Keep practising.', filler_rate:0.05 };
+    // Fail closed — do not invent a Hire-friendly evaluation
+    return {
+      overall_score: 40,
+      confidence_score: 40,
+      communication_score: 40,
+      technical_depth: 35,
+      leadership_score: 35,
+      energy_level: 40,
+      strengths: ['Attempted the interview'],
+      weaknesses: ['Could not complete live AI evaluation'],
+      improvement_tips: ['Retry when the interview LLM service is available', 'Use STAR method', 'Provide longer specific answers'],
+      readiness: 'not_ready',
+      summary: 'Evaluation service unavailable. Marked as Needs Practice (fail-closed).',
+      filler_rate: fillerMatch.length / Math.max(totalWords, 1),
+      verdict: 'Needs Practice',
+    };
   }
 }

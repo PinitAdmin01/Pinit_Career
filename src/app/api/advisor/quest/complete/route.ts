@@ -1,15 +1,13 @@
 import { NextResponse } from 'next/server';
 import { advisorService } from '@/lib/services/advisorService';
-import { supabase } from '@/lib/supabaseClient';
+import { requireUserFromRequest } from '@/lib/server/requireAuth';
 
 export async function POST(req: Request) {
   try {
-    let studentId = 'demo-id';
+    const gated = await requireUserFromRequest(req);
+    if (gated.error) return gated.error;
 
-    const { data: { session } } = await supabase.auth.getSession();
-    if (session?.user) {
-      studentId = session.user.id;
-    }
+    const studentId = gated.user!.id;
 
     const result = await advisorService.completeQuest(studentId);
     return NextResponse.json(result);

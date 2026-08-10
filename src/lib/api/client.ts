@@ -116,11 +116,33 @@ async function firestoreRouter(method:string, path:string, body?:any): Promise<u
       localStorage.setItem(recentKey, JSON.stringify(filtered));
     }
 
-    // 2. Generate Cryptographically Signed Challenge
+    // 2. HMAC-signed challenge (Web Crypto). Not forgeable without the browser secret
+    // stored alongside the challenge; rejects approve/exchange if sig mismatches.
     const challengeId = `ch_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
-    const nonce = `n_${Math.random().toString(36).substring(2, 11)}`;
-    const exp = Math.floor((Date.now() + 60000) / 1000); // 60s expiration
-    const sig = `sig_rsa2048_${Math.random().toString(36).substring(2, 15)}`;
+    const nonce = (typeof crypto !== 'undefined' && crypto.getRandomValues)
+      ? Array.from(crypto.getRandomValues(new Uint8Array(16))).map(b => b.toString(16).padStart(2, '0')).join('')
+      : `n_${Math.random().toString(36).substring(2, 18)}`;
+    const exp = Math.floor((Date.now() + 60000) / 1000);
+    const signingMaterial = `${challengeId}.${app}.${purpose}.${nonce}.${exp}`;
+    let sig = '';
+    let challengeSecret = '';
+    if (typeof crypto !== 'undefined' && crypto.subtle) {
+      const secretBytes = crypto.getRandomValues(new Uint8Array(32));
+      challengeSecret = Array.from(secretBytes).map(b => b.toString(16).padStart(2, '0')).join('');
+      const key = await crypto.subtle.importKey(
+        'raw',
+        secretBytes,
+        { name: 'HMAC', hash: 'SHA-256' },
+        false,
+        ['sign']
+      );
+      const signature = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(signingMaterial));
+      sig = Array.from(new Uint8Array(signature)).map(b => b.toString(16).padStart(2, '0')).join('');
+    } else {
+      // Extremely constrained environments: still bind random material (weaker).
+      challengeSecret = `s_${Math.random().toString(36).slice(2)}`;
+      sig = `legacy_${challengeId}_${nonce}`;
+    }
 
     const challengeObj = {
       challengeId,
@@ -148,7 +170,7 @@ async function firestoreRouter(method:string, path:string, body?:any): Promise<u
         }
       });
 
-      challenges[challengeId] = challengeObj;
+      challenges[challengeId] = { ...challengeObj, _secret: challengeSecret, _material: signingMaterial };
       localStorage.setItem(storeKey, JSON.stringify(challenges));
     }
 
@@ -193,25 +215,39 @@ async function firestoreRouter(method:string, path:string, body?:any): Promise<u
   if (cleanPath === '/api/v1/auth/vault-approve' && method === 'POST') {
     const reqBody = typeof body === 'string' ? JSON.parse(body || '{}') : (body || {});
     const challengeId = reqBody.challengeId;
+    const providedSig = reqBody.sig;
 
     if (typeof window !== 'undefined' && challengeId) {
       const storeKey = `pinit_auth_challenges_db`;
       const challenges: Record<string, any> = JSON.parse(localStorage.getItem(storeKey) || '{}');
       const item = challenges[challengeId];
-      if (item && item.status !== 'EXPIRED' && item.status !== 'CONSUMED') {
-        item.status = 'APPROVED';
-        item.approvedAt = Date.now();
-        item.userPayload = reqBody.userPayload || {
-          id: 'usr_vault_verified_student',
-          name: 'Alex Vance',
-          email: 'alex.vance@pinit.in',
-          role: 'student',
-          identityStatus: 'Active'
-        };
+      if (!item || item.status === 'EXPIRED' || item.status === 'CONSUMED') {
+        return { success: false, reason: 'INVALID_OR_EXPIRED_CHALLENGE' };
+      }
+      if (!providedSig || providedSig !== item.sig) {
+        return { success: false, reason: 'INVALID_CHALLENGE_SIGNATURE' };
+      }
+      if (Math.floor(Date.now() / 1000) > Number(item.exp || 0)) {
+        item.status = 'EXPIRED';
         challenges[challengeId] = item;
         localStorage.setItem(storeKey, JSON.stringify(challenges));
-        return { success: true, status: 'APPROVED' };
+        return { success: false, reason: 'INVALID_OR_EXPIRED_CHALLENGE' };
       }
+
+      // Never accept privileged roles from approve payload — force student.
+      const incoming = reqBody.userPayload && typeof reqBody.userPayload === 'object' ? reqBody.userPayload : {};
+      item.status = 'APPROVED';
+      item.approvedAt = Date.now();
+      item.userPayload = {
+        id: String(incoming.id || `usr_vault_${Date.now()}`),
+        name: String(incoming.name || incoming.displayName || 'Vault User'),
+        email: String(incoming.email || 'vault.user@pinit.in'),
+        role: 'student',
+        identityStatus: 'Active'
+      };
+      challenges[challengeId] = item;
+      localStorage.setItem(storeKey, JSON.stringify(challenges));
+      return { success: true, status: 'APPROVED' };
     }
     return { success: false, reason: 'INVALID_OR_EXPIRED_CHALLENGE' };
   }
@@ -827,9 +863,11 @@ Output the response strictly in Markdown format, with headers, bullets, and GitH
   if(cleanPath==='/api/career-dna/archetype'&&method==='PATCH'){ const{archetype}=body as Record<string,string>; await fs.updateUserProfile(uid,{ career_dna_archetype:archetype }); return { ok:true, archetype }; }
   if(cleanPath==='/api/career-dna/calculate'||cleanPath==='/api/career-dna/recalculate'){ const p=await fs.recalculateCareerDna(uid); return { scores:p }; }
   if(cleanPath.startsWith('/api/career-dna/history')){ const p=await fs.getUserProfile(uid); const months=6; const now=new Date(); const history=Array.from({length:months},(_,i)=>{ const d=new Date(now); d.setMonth(d.getMonth()-(months-1-i)); const pr=i/Math.max(months-1,1); return { date:d.toISOString().slice(0,10), ats_score:Math.round(((p as any)?.ats_score||45)*(0.5+0.5*pr)), trust_score:Math.round(((p as any)?.trust_score||40)*(0.5+0.5*pr)), career_dna_score:Math.round(((p as any)?.career_dna_score||35)*(0.5+0.5*pr)), mission_streak:Math.round(((p as any)?.mission_streak||0)*pr) }; }); return { history, months }; }
-  if(cleanPath==='/api/career-twin/results') return { simulation:DEMO_SIMULATION };
-  if(cleanPath==='/api/career-twin/run'||cleanPath==='/api/career-twin/simulate') return { ok:true, simulation:DEMO_SIMULATION };
-  if(cleanPath.startsWith('/api/career-twin')) return { simulation:DEMO_SIMULATION };
+  if(cleanPath==='/api/career-twin/results') return { simulation: null, isDemoData: true, message: 'No live career-twin results yet.' };
+  if(cleanPath==='/api/career-twin/run'||cleanPath==='/api/career-twin/simulate') {
+    return { ok: true, simulation: { ...DEMO_SIMULATION, isDemoData: true }, isDemoData: true };
+  }
+  if(cleanPath.startsWith('/api/career-twin')) return { simulation: null, isDemoData: true };
   if(cleanPath==='/api/resume/structured/me'){ const p=await fs.getUserProfile(uid); const sd=(p as any)?.structured_resume||null; return { data:sd, resumeId:sd?`mock-resume-${uid}`:null }; }
   if(cleanPath==='/api/resume/structured'&&method==='POST'){
     const resumeData = body as any;
@@ -1234,41 +1272,15 @@ Ensure the JSON output is strictly valid and contains no extra text or markdown 
   }
   if (cleanPath === '/api/payment/plans') return { plans: [{ id: 'free', name: 'Free', price: 0, features: ['3 AI interviews/month', '2 resume uploads', 'Full Career DNA'] }, { id: 'pro', name: 'Pro', price: 49900, features: ['Unlimited everything', 'AI Resume Improve'] }] };
   if (cleanPath === '/api/payment/create-order') {
-    const { planId, amount } = body as { planId?: string; amount?: number };
-    const razorpayKey = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_test_pinit_demo';
-    const defaultAmount = planId === 'pro' ? 49900 : 9900;
-    const orderAmount = amount != null ? Number(amount) : defaultAmount;
-    // Amount is in paise; bound to a sane INR range (₹1 – ₹10,000)
-    if (!Number.isFinite(orderAmount) || !Number.isInteger(orderAmount) || orderAmount < 100 || orderAmount > 1_000_000) {
-      throw new ApiError(400, 'INVALID_AMOUNT', 'Payment amount must be an integer between 100 and 1000000 paise');
-    }
-    const orderId = `order_pinit_${Date.now()}`;
-    if (typeof window !== 'undefined') {
-      try {
-        const key = 'pinit_payment_orders';
-        const orders: Record<string, { amount: number; planId?: string; uid: string; createdAt: number }> =
-          JSON.parse(localStorage.getItem(key) || '{}');
-        orders[orderId] = { amount: orderAmount, planId, uid: uid as string, createdAt: Date.now() };
-        localStorage.setItem(key, JSON.stringify(orders));
-      } catch { /* ignore storage failures */ }
-    }
-    return {
-      orderId,
-      amount: orderAmount,
-      currency: 'INR',
-      keyId: razorpayKey,
-      devMode: false
-    };
+    // Prefer server route; client must not invent paid entitlements.
+    throw new ApiError(503, 'PAYMENTS_SERVER_REQUIRED', 'Payment orders must be created via authenticated /api/payment/create-order server route.');
   }
   if (cleanPath === '/api/payment/verify') {
-    // Fail closed: never grant pins/pro from the client without a real server-side Razorpay signature check
-    const { razorpay_signature } = (body || {}) as { razorpay_signature?: string };
-    if (!razorpay_signature) {
-      return { ok: false, error: 'Razorpay signature required. Server-side payment verification is required.' };
-    }
-    return { ok: false, error: 'Server-side payment verification required. Pins and Pro are not granted from the client.' };
+    throw new ApiError(503, 'PAYMENTS_SERVER_REQUIRED', 'Payment verification must run on the server with Razorpay HMAC.');
   }
-  if (cleanPath.startsWith('/api/payment')) return { ok: true };
+  if (cleanPath.startsWith('/api/payment') && cleanPath !== '/api/payment/plans' && cleanPath !== '/api/payment/status') {
+    throw new ApiError(404, 'NOT_FOUND', `Unknown payment endpoint: ${cleanPath}`);
+  }
 
   // ── Interview with real Claude AI ────────────────────────────────────────
   if(cleanPath==='/api/interview/chat'&&method==='POST'){
@@ -1364,35 +1376,33 @@ Ensure the JSON output is strictly valid and contains no extra text or markdown 
       try {
         const cleaned = responseText.replace(/```json/gi, '').replace(/```/g, '').trim();
         const parsed = JSON.parse(cleaned);
+        const explicitVerdict = typeof parsed.verdict === 'string' ? parsed.verdict : '';
         const mappedEvaluation = {
-          verdict: parsed.verdict || (parsed.overall_score >= 60 || parsed.readiness === 'ready' || parsed.readiness === 'strong' ? 'Hire' : 'No Hire'),
-          score: parsed.score || parsed.overall_score || 60,
-          summary: parsed.summary || parsed.feedback || 'Attempted all onsite questions.',
-          improvements: parsed.improvements || (parsed.improvement_tips ? parsed.improvement_tips.join(', ') : 'Distributed systems coding practices.')
+          // Fail closed: never auto-Hire from codingScore alone when verdict is missing/ambiguous
+          verdict: explicitVerdict || 'Needs Practice',
+          score: typeof parsed.score === 'number' ? parsed.score : (typeof parsed.overall_score === 'number' ? parsed.overall_score : Math.min(58, Math.round(Number(codingScore) || 40))),
+          summary: parsed.summary || parsed.feedback || 'Evaluation incomplete — marked Needs Practice (fail-closed).',
+          improvements: parsed.improvements || (parsed.improvement_tips ? parsed.improvement_tips.join(', ') : 'Strengthen answers and verified coding submission.')
         };
         return { evaluation: mappedEvaluation };
       } catch (e) {
-        const isPass = codingScore >= 60 && history.length > 5;
         return {
           evaluation: {
-            verdict: isPass ? "Hire" : "No Hire",
-            score: isPass ? Math.round(codingScore * 0.8 + 15) : Math.round(codingScore * 0.8),
-            summary: isPass 
-              ? `Candidate successfully resolved coding challenges with ${codingScore}% correctness. Socratic conversation showed acceptable communication.`
-              : `Candidate failed evaluation. Spoken answers were incomplete or lacked the required depth.`,
-            improvements: isPass ? "Distributed sharding patterns" : "Core coding complexities and Java structures"
+            verdict: 'Needs Practice',
+            score: Math.min(58, Math.round(Number(codingScore) || 40)),
+            summary: 'Could not parse live AI evaluation. Marked Needs Practice (fail-closed) — coding score alone does not grant Hire.',
+            improvements: 'Retry evaluation when LLM is available; complete verified coding and fuller spoken answers.'
           }
         };
       }
     } catch (err) {
       console.warn('Evaluation failed', err);
-      const isPass = codingScore >= 60;
       return {
         evaluation: {
-          verdict: isPass ? "Hire" : "No Hire",
-          score: codingScore,
-          summary: "Live AI evaluation request failed. Score determined by Java coding compiler correctness.",
-          improvements: "Core coding data structures."
+          verdict: 'Needs Practice',
+          score: Math.min(58, Math.round(Number(codingScore) || 40)),
+          summary: 'Live AI evaluation request failed. Marked Needs Practice (fail-closed) — no auto-Hire from codingScore.',
+          improvements: 'Core coding data structures and structured interview answers.'
         }
       };
     }
@@ -1877,37 +1887,43 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
     }
   }
   if (cleanPath === '/api/parent/link-student') {
+    const { registerNumber } = body as { registerNumber?: string };
+    const rn = (registerNumber || '').trim();
+    if (!rn) {
+      throw new ApiError(400, 'INVALID_REGISTER', 'Register number is required.');
+    }
     try {
-      const { registerNumber } = body as { registerNumber?: string };
+      // Exact register_number match only — do not dump/match all emails
       const usersList = await fs.getAllUsers();
-      const matched = usersList.find(u => 
-        u.registerNumber === registerNumber || 
-        u.id === registerNumber || 
-        u.username === registerNumber ||
-        u.email === registerNumber
-      );
+      const matched = usersList.find(u => {
+        const reg = String(u.registerNumber || (u as any).register_number || '').trim();
+        return reg.length > 0 && reg.toLowerCase() === rn.toLowerCase();
+      });
 
-      if (matched) {
-        // Save link to parent user profile (camelCase so mapProfileToRow persists it)
-        const parentUser = usersList.find(u => u.id === uid || u.uid === uid);
-        if (parentUser) {
-          const answers = parentUser.onboardingAnswers || parentUser.onboarding_answers || {};
-          const currentLinks = (answers as any)?.linked_students || [];
-          if (!currentLinks.includes(matched.id)) {
-            currentLinks.push(matched.id);
-            await fs.updateUserProfile(uid, {
-              onboardingAnswers: {
-                ...answers,
-                linked_students: currentLinks
-              }
-            });
-          }
-        }
-        await fs.addAuditEntry(uid, 'parent_link_student', matched.id, { timestamp: new Date().toISOString() });
-        return { ok: true, message: `Successfully linked ${matched.displayName || matched.email} to Parent Portal!` };
+      if (!matched) {
+        throw new ApiError(404, 'STUDENT_NOT_FOUND', 'No student found with that exact register number.');
       }
-    } catch {}
-    return { ok: true, message: 'Link request sent to student.' };
+
+      const parentUser = usersList.find(u => u.id === uid || u.uid === uid);
+      if (parentUser) {
+        const answers = parentUser.onboardingAnswers || parentUser.onboarding_answers || {};
+        const currentLinks = (answers as any)?.linked_students || [];
+        if (!currentLinks.includes(matched.id)) {
+          currentLinks.push(matched.id);
+          await fs.updateUserProfile(uid, {
+            onboardingAnswers: {
+              ...answers,
+              linked_students: currentLinks
+            }
+          });
+        }
+      }
+      await fs.addAuditEntry(uid, 'parent_link_student', matched.id, { timestamp: new Date().toISOString() });
+      return { ok: true, message: `Successfully linked ${matched.displayName || matched.email} to Parent Portal!` };
+    } catch (err) {
+      if (err instanceof ApiError) throw err;
+      throw new ApiError(500, 'LINK_FAILED', (err as Error).message || 'Failed to link student.');
+    }
   }
   if (cleanPath.startsWith('/api/parent')) return { ok: true, students: [] };
 
@@ -5330,12 +5346,12 @@ Return exactly this JSON format:
   if(cleanPath.startsWith('/api/notes')) return { notes:[] };
   if(cleanPath.startsWith('/api/attendance')) return { logs:[] };
   console.warn(`[API] Unhandled: ${method} ${path}`);
-  return { ok:true };
+  throw new ApiError(404, 'NOT_FOUND', `Unhandled API path: ${method} ${cleanPath}`);
 }
 
 async function request<T>(method:string, path:string, body?:unknown): Promise<T> {
   // NOTE: /api/admin intentionally omitted from live-prefer list so client RBAC (profile.role) always runs.
-  if (path === '/api/interview/chat' || path === '/api/interview/evaluate' || path.startsWith('/api/hostel') || path.startsWith('/api/transport') || path.startsWith('/api/events') || path.startsWith('/api/grievances') || path.startsWith('/api/library') || path.startsWith('/api/research') || path.startsWith('/api/finance') || path.startsWith('/api/exams') || path.startsWith('/api/maintenance') || path.startsWith('/api/advisor') || path.startsWith('/api/services') || path.startsWith('/api/notes') || path.startsWith('/api/admissions') || path.startsWith('/api/hr') || path.startsWith('/api/procurement') || path.startsWith('/api/assets') || path.startsWith('/api/alumni') || path.startsWith('/api/communication') || path.startsWith('/api/documents') || path.startsWith('/api/admin') || path === '/api/llm') {
+  if (path === '/api/interview/chat' || path === '/api/interview/evaluate' || path.startsWith('/api/hostel') || path.startsWith('/api/transport') || path.startsWith('/api/events') || path.startsWith('/api/grievances') || path.startsWith('/api/library') || path.startsWith('/api/research') || path.startsWith('/api/finance') || path.startsWith('/api/exams') || path.startsWith('/api/maintenance') || path.startsWith('/api/advisor') || path.startsWith('/api/services') || path.startsWith('/api/notes') || path.startsWith('/api/admissions') || path.startsWith('/api/hr') || path.startsWith('/api/procurement') || path.startsWith('/api/assets') || path.startsWith('/api/alumni') || path.startsWith('/api/communication') || path.startsWith('/api/documents') || path.startsWith('/api/admin') || path === '/api/llm' || path.startsWith('/api/payment') || path.startsWith('/api/auth/face')) {
     try {
       let authHeader: Record<string, string> = {};
       try {
@@ -5353,10 +5369,11 @@ async function request<T>(method:string, path:string, body?:unknown): Promise<T>
         const json = await res.json() as any;
         if (path === '/api/interview/evaluate' && json && !json.evaluation) {
           const finalEvaluation = {
-            verdict: json.verdict || (json.overall_score >= 60 || json.readiness === 'ready' || json.readiness === 'strong' ? 'Hire' : 'No Hire'),
-            score: json.score || json.overall_score || 60,
-            summary: json.summary || 'Attempted all onsite questions.',
-            improvements: json.improvements || (json.improvement_tips ? json.improvement_tips.join(', ') : 'Distributed systems coding practices.')
+            // Fail closed: missing/ambiguous verdict → Needs Practice (never auto-Hire)
+            verdict: typeof json.verdict === 'string' ? json.verdict : 'Needs Practice',
+            score: typeof json.score === 'number' ? json.score : (typeof json.overall_score === 'number' ? json.overall_score : 40),
+            summary: json.summary || 'Evaluation incomplete — marked Needs Practice (fail-closed).',
+            improvements: json.improvements || (json.improvement_tips ? json.improvement_tips.join(', ') : 'Strengthen verified coding and spoken answers.')
           };
           return { evaluation: finalEvaluation, ...json } as unknown as T;
         }

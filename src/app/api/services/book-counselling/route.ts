@@ -1,16 +1,14 @@
 import { NextResponse } from 'next/server';
 import { servicesService } from '@/lib/services/servicesService';
-import { supabase } from '@/lib/supabaseClient';
+import { requireUserFromRequest } from '@/lib/server/requireAuth';
 
 export async function POST(req: Request) {
   try {
     const { counselorName, date, time } = await req.json();
-    let studentId = 'demo-id';
+    const gated = await requireUserFromRequest(req);
+    if (gated.error) return gated.error;
 
-    const { data: { session } } = await supabase.auth.getSession();
-    if (session?.user) {
-      studentId = session.user.id;
-    }
+    const studentId = gated.user!.id;
 
     const result = await servicesService.bookCounselling(studentId, counselorName, date, time);
     return NextResponse.json(result);

@@ -1,8 +1,12 @@
 import { NextResponse } from 'next/server';
 import { documentsService } from '@/lib/services/documentsService';
+import { requireAdminFromRequest } from '@/lib/server/requireAdmin';
 
 export async function GET(req: Request) {
   try {
+    const denied = await requireAdminFromRequest(req);
+    if (denied) return denied;
+
     const data = await documentsService.getStats();
     return NextResponse.json(data);
   } catch (err: any) {

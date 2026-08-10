@@ -152,8 +152,16 @@ export const identityGateway = {
   async approveChallengeFromVault(challengeId: string, userPayload?: any): Promise<boolean> {
     try {
       const api = await getApi();
+      let sig = '';
+      if (typeof window !== 'undefined') {
+        try {
+          const challenges = JSON.parse(localStorage.getItem('pinit_auth_challenges_db') || '{}');
+          sig = challenges?.[challengeId]?.sig || '';
+        } catch { /* ignore */ }
+      }
       const res = await api.post<{ success?: boolean }>('/api/v1/auth/vault-approve', {
         challengeId,
+        sig,
         userPayload,
       });
       return res?.success !== false;

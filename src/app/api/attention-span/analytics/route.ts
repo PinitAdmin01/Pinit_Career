@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabaseClient';
+import { requireUserFromRequest } from '@/lib/server/requireAuth';
 
 interface UserAnalyticsRecord {
   userId: string;
@@ -13,12 +13,10 @@ let globalAnalyticsStore: Record<string, UserAnalyticsRecord> = {};
 
 export async function GET(req: Request) {
   try {
-    const { searchParams } = new URL(req.url);
-    const userId = searchParams.get('userId');
+    const gated = await requireUserFromRequest(req);
+    if (gated.error) return gated.error;
 
-    if (!userId) {
-      return NextResponse.json({ ok: false, error: 'Missing userId' }, { status: 400 });
-    }
+    const userId = gated.user!.id;
 
     const record = globalAnalyticsStore[userId] || {
       userId,
@@ -35,12 +33,10 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   try {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session?.user) {
-      return NextResponse.json({ ok: false, error: 'Unauthorized' }, { status: 401 });
-    }
+    const gated = await requireUserFromRequest(req);
+    if (gated.error) return gated.error;
 
-    const userId = session.user.id;
+    const userId = gated.user!.id;
     const body = await req.json();
     const { dailyLog, monthlySummary } = body;
 

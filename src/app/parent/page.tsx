@@ -13,12 +13,10 @@ function ParentPageInner() {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [advisorInput, setAdvisorInput] = useState('');
   const [advisorMessages, setAdvisorMessages] = useState<Array<{ role: 'assistant' | 'user'; text: string }>>([
-    { role: 'assistant', text: "Hello! I am your AI Parent Advisor. Ask me anything about your child's career progress or recent metrics." }
+    { role: 'assistant', text: "Hello! I am your AI Parent Advisor. Ask about metrics that appear in your child's live overview — I will not invent attendance or grades." }
   ]);
   const [chatInput, setChatInput] = useState('');
-  const [chatMessages, setChatMessages] = useState<Array<{ role: 'teacher' | 'parent'; text: string }>>([
-    { role: 'teacher', text: "Hello! Prof. Vikram Sen here. I reviewed your child's coding assignments. Excellent work on Python recursion! However, please ask them to attend the Networking lab sessions." }
-  ]);
+  const [chatMessages, setChatMessages] = useState<Array<{ role: 'teacher' | 'parent'; text: string }>>([]);
 
   const { data: students, isLoading } = useQuery({
     queryKey: ['parent', 'students'],
@@ -42,8 +40,9 @@ function ParentPageInner() {
     if (students && selectedStudent) {
       const activeChild = students.find(s => s.id === selectedStudent);
       const name = activeChild?.display_name || (activeChild as any)?.full_name || (activeChild as any)?.name || 'your child';
-      setChatMessages([
-        { role: 'teacher', text: `Hello! Prof. Vikram Sen here. I reviewed ${name}'s coding assignments. Excellent work on Python recursion! However, please ask them to attend the Networking lab sessions.` }
+      setChatMessages([]);
+      setAdvisorMessages([
+        { role: 'assistant', text: `Ask about ${name}'s live overview metrics (ATS, readiness, streak). Fabricated attendance/CGPA answers are disabled.` }
       ]);
     }
   }, [selectedStudent, students]);
@@ -182,40 +181,7 @@ function ParentPageInner() {
                   {activeTab === 'dashboard' && (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }} className="fade-in">
                       
-                      {/* Emergency Alerts Container */}
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
-                        <div style={{
-                          background: 'rgba(239,68,68,0.04)',
-                          border: '1.5px solid var(--danger)',
-                          borderRadius: 12, padding: 16
-                        }}>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                            <span style={{ fontSize: 11, fontWeight: 900, color: 'var(--danger)', textTransform: 'uppercase' }}>🚨 Critical Alert</span>
-                            <span style={{ fontSize: 10, color: 'var(--t3)' }}>Action Required</span>
-                          </div>
-                          <h4 style={{ margin: '0 0 4px 0', fontSize: 13.5, fontWeight: 800, color: 'var(--t1)' }}>Attendance Below 70%</h4>
-                          <p style={{ margin: 0, fontSize: 12, color: 'var(--t2)', lineHeight: 1.4 }}>
-                            Backlog Risk: <strong style={{ color: 'var(--danger)' }}>High</strong>. Immediate teacher meeting recommended.
-                          </p>
-                        </div>
-
-                        <div style={{
-                          background: 'rgba(16,185,129,0.04)',
-                          border: '1.5px solid var(--success)',
-                          borderRadius: 12, padding: 16
-                        }}>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                            <span style={{ fontSize: 11, fontWeight: 900, color: 'var(--success)', textTransform: 'uppercase' }}>🎉 Congratulations!</span>
-                            <span style={{ fontSize: 10, color: 'var(--t3)' }}>Milestone Met</span>
-                          </div>
-                          <h4 style={{ margin: '0 0 4px 0', fontSize: 13.5, fontWeight: 800, color: 'var(--t1)' }}>Career Readiness Reached 90%</h4>
-                          <p style={{ margin: 0, fontSize: 12, color: 'var(--t2)', lineHeight: 1.4 }}>
-                            Eligible for premium internships. Recommended: Apply to early campus recruiter list.
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* AI Summary Banner */}
+                      {/* Overview summary — live fields only */}
                       <div style={{
                         background: 'linear-gradient(135deg, rgba(16,185,129,0.06) 0%, rgba(5,150,105,0.02) 100%)',
                         border: '1px solid rgba(16,185,129,0.18)',
@@ -223,27 +189,25 @@ function ParentPageInner() {
                       }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
                           <span style={{ fontSize: 18 }}>🤖</span>
-                          <span style={{ fontSize: 13, fontWeight: 900, color: 'var(--success)' }}>Athena Parent Summary Alert</span>
+                          <span style={{ fontSize: 13, fontWeight: 900, color: 'var(--success)' }}>Live Overview Summary</span>
                         </div>
                         <p style={{ margin: 0, fontSize: 13, color: 'var(--t2)', lineHeight: 1.5 }}>
-                          Your child is progressing well. Career Readiness increased by 8% this month. Attendance dropped last week. Communication skills improved.
+                          Showing metrics returned by the parent overview API for {overview.profile?.displayName || 'this student'}.
+                          Attendance, CGPA, and institutional alerts appear only when those data sources are connected.
                         </p>
-                        <div style={{ marginTop: 10, fontSize: 12.5, color: 'var(--t3)' }}>
-                          💡 <strong>Action Recommended:</strong> Encourage completion of the Communication Lab this weekend.
-                        </div>
                       </div>
 
                       {/* Score Cards Grid */}
                       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 14 }}>
                         {[
-                          { label: 'Career Readiness', value: `${overview.profile?.career_readiness || 74}%`, desc: 'Overall placement readiness index', color: 'var(--success)' },
-                          { label: 'Academic Performance', value: '82%', desc: 'Roster exam performance', color: 'var(--accent)' },
-                          { label: 'Attendance', value: '88%', desc: 'Check-in log ratio', color: 'var(--teal)' },
-                          { label: 'Communication Lab', value: '53%', desc: 'Speech and dialogue metric', color: 'var(--danger)' },
-                          { label: 'Placement Eligibility', value: '72%', desc: 'Corporate hiring score', color: '#10b981' },
-                          { label: 'Current CGPA', value: '8.4', desc: 'Cumulative grade average', color: 'var(--accent)' },
-                          { label: 'Mission Streak', value: `${overview.profile?.mission_streak || 0} days`, desc: 'Continuous study index', color: 'var(--amber)' },
-                          { label: 'AI Health Status', value: 'Stable', desc: 'Overall wellness telemetry', color: 'var(--success)' }
+                          { label: 'Career Readiness', value: overview.profile?.career_readiness != null ? `${overview.profile.career_readiness}%` : '—', desc: 'From ATS + trust overview', color: 'var(--success)' },
+                          { label: 'ATS Score', value: overview.profile?.ats_score != null ? `${overview.profile.ats_score}` : '—', desc: 'Resume ATS score', color: 'var(--accent)' },
+                          { label: 'Attendance', value: overview.profile?.attendance != null ? `${overview.profile.attendance}%` : 'Not available', desc: 'No attendance feed linked', color: 'var(--teal)' },
+                          { label: 'Trust Score', value: overview.profile?.trust_score != null ? `${overview.profile.trust_score}` : '—', desc: 'Platform trust index', color: 'var(--accent)' },
+                          { label: 'Career DNA', value: overview.profile?.career_dna_score != null ? `${overview.profile.career_dna_score}` : '—', desc: 'Career DNA score', color: '#10b981' },
+                          { label: 'Current CGPA', value: overview.profile?.cgpa != null ? String(overview.profile.cgpa) : 'Not available', desc: 'No gradebook feed linked', color: 'var(--accent)' },
+                          { label: 'Mission Streak', value: `${overview.profile?.mission_streak ?? 0} days`, desc: 'Continuous study index', color: 'var(--amber)' },
+                          { label: 'Track', value: overview.profile?.career_track || '—', desc: 'Declared career track', color: 'var(--success)' }
                         ].map((card, idx) => (
                           <div key={idx} style={{
                             background: 'var(--bg3)', border: '1px solid var(--border)',
@@ -402,61 +366,16 @@ function ParentPageInner() {
                   {activeTab === 'attendance' && (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }} className="fade-in">
                       <div>
-                        <h3 style={{ margin: 0, fontSize: 15, fontWeight: 900, color: 'var(--t1)' }}>📸 Attendance & Ambient Telemetry Logs</h3>
-                        <p style={{ margin: '2px 0 0 0', fontSize: 11.5, color: 'var(--t3)' }}>Check monthly averages, today's class check-ins, late logs, and approved leaves.</p>
+                        <h3 style={{ margin: 0, fontSize: 15, fontWeight: 900, color: 'var(--t1)' }}>📸 Attendance</h3>
+                        <p style={{ margin: '2px 0 0 0', fontSize: 11.5, color: 'var(--t3)' }}>Live attendance feeds are not connected for this student yet.</p>
                       </div>
-
-                      {/* Score cards grid */}
-                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 12 }}>
-                        {[
-                          { label: "Today's Attendance", value: 'Present', desc: 'Checked-in: 08:45 AM', color: 'var(--success)' },
-                          { label: 'Monthly Average', value: '88%', desc: 'Roster target is 85%', color: 'var(--success)' },
-                          { label: 'Late Entries', value: '2', desc: 'Arrived after 08:30 AM', color: 'var(--amber)' },
-                          { label: 'Approved Leaves', value: '1', desc: 'Medical excuse logged', color: 'var(--teal)' }
-                        ].map((c, idx) => (
-                          <div key={idx} style={{
-                            background: 'var(--bg3)', border: '1px solid var(--border)',
-                            borderRadius: 10, padding: 14, display: 'flex', flexDirection: 'column', gap: 4
-                          }}>
-                            <span style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>{c.label}</span>
-                            <span style={{ fontSize: 20, fontWeight: 900, color: c.color }}>{c.value}</span>
-                            <span style={{ fontSize: 10, color: 'var(--t3)' }}>{c.desc}</span>
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* Attendance Alerts */}
-                      <div style={{ background: 'rgba(239,68,68,0.03)', border: '1px solid rgba(239,68,68,0.15)', borderRadius: 10, padding: 16 }}>
-                        <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--danger)', marginBottom: 10 }}>⚠️ Attendance Alerts & Warning Warnings</div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                          <div style={{ fontSize: 12.5, color: 'var(--t2)' }}>
-                            • <strong>Unexcused Absence (July 14)</strong>: Missed classes without prior leave submission. Action required.
-                          </div>
-                          <div style={{ fontSize: 12.5, color: 'var(--t2)' }}>
-                            • <strong>Late Arrival (July 16)</strong>: Checked-in at 09:12 AM (Webcam registered 42 mins delay).
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Attendance Trend list */}
-                      <div style={{ border: '1px solid var(--border)', borderRadius: 10, overflow: 'hidden' }}>
-                        <div style={{ background: 'var(--bg3)', padding: '10px 14px', fontSize: 11.5, fontWeight: 800, color: 'var(--t3)', borderBottom: '1px solid var(--border)' }}>WEEKLY ATTENDANCE TREND</div>
-                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                          {[
-                            { week: 'Week 1', ratio: '95%', status: 'Regular' },
-                            { week: 'Week 2', ratio: '92%', status: 'Regular' },
-                            { week: 'Week 3', ratio: '80%', status: 'Dropped last week (3 absences, alert generated)' },
-                            { week: 'Week 4', ratio: '90%', status: 'Regular' }
-                          ].map((w, idx) => (
-                            <div key={idx} style={{
-                              display: 'flex', justifyContent: 'space-between', padding: '12px 14px',
-                              borderBottom: idx < 3 ? '1px solid var(--border)' : 'none', fontSize: 12.5
-                            }}>
-                              <span style={{ fontWeight: 700 }}>{w.week}</span>
-                              <span>Check-in Rate: <strong style={{ color: idx === 2 ? 'var(--danger)' : 'var(--success)' }}>{w.ratio}</strong> ({w.status})</span>
-                            </div>
-                          ))}
-                        </div>
+                      <div style={{
+                        background: 'var(--bg3)', border: '1px solid var(--border)',
+                        borderRadius: 12, padding: 28, textAlign: 'center', color: 'var(--t3)', fontSize: 13
+                      }}>
+                        {overview.profile?.attendance != null
+                          ? `Recorded attendance: ${overview.profile.attendance}%`
+                          : 'No attendance data available. Connect an institutional attendance source to populate this view.'}
                       </div>
                     </div>
                   )}
@@ -464,26 +383,22 @@ function ParentPageInner() {
                   {/* 5. AI PARENT ADVISOR VIEW */}
                   {activeTab === 'advisor' && (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }} className="fade-in">
-                      {/* Coach Banner */}
                       <div style={{
                         background: 'linear-gradient(135deg, rgba(16,185,129,0.06) 0%, rgba(5,150,105,0.02) 100%)',
                         border: '1.5px solid rgba(16,185,129,0.2)',
                         borderRadius: 12, padding: 18
                       }}>
-                        <h4 style={{ margin: '0 0 6px 0', fontSize: 13.5, fontWeight: 900, color: 'var(--success)' }}>📋 AI Faculty Advisor Diagnostic Report</h4>
+                        <h4 style={{ margin: '0 0 6px 0', fontSize: 13.5, fontWeight: 900, color: 'var(--success)' }}>📋 Live Overview Snapshot</h4>
                         <p style={{ margin: 0, fontSize: 13, color: 'var(--t2)', lineHeight: 1.45 }}>
-                          Rahul's attendance has decreased during the last two weeks. However, coding performance has improved.
+                          {overview.profile?.displayName || 'Student'}: Career readiness {overview.profile?.career_readiness ?? '—'}%,
+                          ATS {overview.profile?.ats_score ?? '—'}, streak {overview.profile?.mission_streak ?? 0} days.
+                          Attendance and CGPA are unavailable until linked to institutional feeds.
                         </p>
-                        <div style={{ marginTop: 10, borderTop: '1px solid rgba(16,185,129,0.1)', paddingTop: 10, fontSize: 12.5, color: 'var(--t2)' }}>
-                          💡 <strong>Recommendation:</strong> Encourage Rahul to attend classes regularly. He is likely to improve his Career Readiness by completing Python Module 6.
-                        </div>
                       </div>
 
-                      {/* Interactive Chat Console */}
                       <div style={{ display: 'flex', flexDirection: 'column', height: 350, border: '1px solid var(--border)', borderRadius: 12, overflow: 'hidden' }}>
                         <div style={{ background: 'var(--bg3)', padding: '10px 14px', fontSize: 11.5, fontWeight: 800, color: 'var(--t3)', borderBottom: '1px solid var(--border)' }}>CHAT CONSOLE WITH ATHENA</div>
                         
-                        {/* Messages logs */}
                         <div style={{ flex: 1, overflowY: 'auto', padding: 14, display: 'flex', flexDirection: 'column', gap: 10, background: 'var(--card)' }}>
                           {advisorMessages.map((m, idx) => (
                             <div key={idx} style={{
@@ -499,20 +414,19 @@ function ParentPageInner() {
                           ))}
                         </div>
 
-                        {/* Presets grid */}
                         <div style={{ padding: 10, background: 'var(--bg3)', borderTop: '1px solid var(--border)', display: 'flex', gap: 6, flexWrap: 'wrap' }}>
                           {[
                             {
-                              q: 'How is my son doing?',
-                              a: 'Overall Progress: Excellent | Attendance: 88% | Coding: Very Good | Communication: Needs Improvement | Career Readiness: 81%\n\nRecommendation: Encourage participation in Communication Lab and upcoming mock interview.'
+                              q: 'How is my child doing?',
+                              a: `Live overview — Career readiness: ${overview.profile?.career_readiness ?? '—'}% | ATS: ${overview.profile?.ats_score ?? '—'} | Trust: ${overview.profile?.trust_score ?? '—'} | Streak: ${overview.profile?.mission_streak ?? 0} days. Attendance/CGPA: not available from API.`
                             },
                             {
-                              q: 'Will my child likely get placed?',
-                              a: 'Current Placement Readiness: 76% | Strengths: Programming, Projects | Weaknesses: Communication, Interview Confidence\n\nRecommended Actions: Communication Lab, Mock Interview, Resume Review'
+                              q: 'What metrics are available?',
+                              a: 'Available now from overview API: career readiness, ATS, trust, career DNA, mission streak, and career track. Attendance, CGPA, and faculty notes require institutional integrations.'
                             },
                             {
-                              q: 'What should I focus on this month?',
-                              a: 'Priority checklist for this month:\n1. Improve attendance\n2. Complete 4 coding quests\n3. Practice communication exercises\n4. Finish internship application'
+                              q: 'Will my child get placed?',
+                              a: `Placement probability is not computed here. Current readiness signal is ${overview.profile?.career_readiness ?? '—'}% from ATS/trust. Connect placement outcomes data for a real forecast.`
                             }
                           ].map((pre, idx) => (
                             <button
@@ -535,7 +449,6 @@ function ParentPageInner() {
                           ))}
                         </div>
 
-                        {/* Send tray */}
                         <div style={{ padding: 10, borderTop: '1px solid var(--border)', display: 'flex', gap: 8, background: 'var(--card)' }}>
                           <input
                             value={advisorInput}
@@ -546,8 +459,11 @@ function ParentPageInner() {
                                 setAdvisorMessages(prev => [...prev, { role: 'user', text: inputVal }]);
                                 setAdvisorInput('');
                                 setTimeout(() => {
-                                  setAdvisorMessages(prev => [...prev, { role: 'assistant', text: `I received your question about "${inputVal}". Click one of our telemetry quick buttons above to get detailed metrics alerts.` }]);
-                                }, 800);
+                                  setAdvisorMessages(prev => [...prev, {
+                                    role: 'assistant',
+                                    text: `I can only report live overview fields. Career readiness ${overview.profile?.career_readiness ?? '—'}%, ATS ${overview.profile?.ats_score ?? '—'}. No fabricated attendance/CGPA answers.`
+                                  }]);
+                                }, 400);
                               }
                             }}
                             placeholder="Type a question for Athena..."
@@ -560,8 +476,11 @@ function ParentPageInner() {
                                 setAdvisorMessages(prev => [...prev, { role: 'user', text: inputVal }]);
                                 setAdvisorInput('');
                                 setTimeout(() => {
-                                  setAdvisorMessages(prev => [...prev, { role: 'assistant', text: `I received your question about "${inputVal}". Click one of our telemetry quick buttons above to get detailed metrics alerts.` }]);
-                                }, 800);
+                                  setAdvisorMessages(prev => [...prev, {
+                                    role: 'assistant',
+                                    text: `I can only report live overview fields. Career readiness ${overview.profile?.career_readiness ?? '—'}%, ATS ${overview.profile?.ats_score ?? '—'}. No fabricated attendance/CGPA answers.`
+                                  }]);
+                                }, 400);
                               }
                             }}
                             style={{ padding: '8px 16px', borderRadius: 8, background: 'var(--success)', color: 'white', border: 'none', cursor: 'pointer', fontSize: 12.5, fontWeight: 700 }}
@@ -620,7 +539,7 @@ function ParentPageInner() {
                                   setChatMessages(prev => [...prev, { role: 'parent', text }]);
                                   setChatInput('');
                                   setTimeout(() => {
-                                    setChatMessages(prev => [...prev, { role: 'teacher', text: "Thank you for the message. I will review Rahul's logs and respond during our scheduled advising hours tomorrow." }]);
+                                    setChatMessages(prev => [...prev, { role: 'teacher', text: "Thanks — faculty messaging is not connected to a live inbox yet. Your note was kept locally in this session only." }]);
                                   }, 1000);
                                 }
                               }}
@@ -634,7 +553,7 @@ function ParentPageInner() {
                                   setChatMessages(prev => [...prev, { role: 'parent', text }]);
                                   setChatInput('');
                                   setTimeout(() => {
-                                    setChatMessages(prev => [...prev, { role: 'teacher', text: "Thank you for the message. I will review Rahul's logs and respond during our advising hours tomorrow." }]);
+                                    setChatMessages(prev => [...prev, { role: 'teacher', text: "Thanks — faculty messaging is not connected to a live inbox yet. Your note was kept locally in this session only." }]);
                                   }, 1000);
                                 }
                               }}
@@ -955,9 +874,9 @@ function ParentPageInner() {
                           👨‍💻
                         </div>
                         <div>
-                          <h4 style={{ margin: 0, fontSize: 16, fontWeight: 900, color: 'var(--t1)' }}>Rahul Sharma</h4>
+                          <h4 style={{ margin: 0, fontSize: 16, fontWeight: 900, color: 'var(--t1)' }}>{overview.profile?.displayName || students?.find(s => s.id === selectedStudent)?.display_name || 'Student'}</h4>
                           <div style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 2 }}>
-                            Registration ID: <strong style={{ color: 'var(--accent)', fontFamily: 'var(--font-mono)' }}>PinIT-90284</strong> | Status: <span style={{ color: 'var(--success)', fontWeight: 800 }}>Active Student</span>
+                            Registration ID: <strong style={{ color: 'var(--accent)', fontFamily: 'var(--font-mono)' }}>{students?.find(s => s.id === selectedStudent)?.register_number || selectedStudent}</strong> | Status: <span style={{ color: 'var(--success)', fontWeight: 800 }}>Active Student</span>
                           </div>
                         </div>
                       </div>
@@ -1047,10 +966,10 @@ function ParentPageInner() {
                           <h4 style={{ margin: '0 0 12px 0', fontSize: 13, fontWeight: 900, color: 'var(--accent)' }}>📈 Performance Summary</h4>
                           <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontSize: 12.5, color: 'var(--t2)' }}>
                             <div>
-                              <strong>Academic Progress:</strong> Current CGPA is 8.4. Strong command in Database Systems (100%) and Mathematics (80%), but Networking (40%) requires focused revision.
+                              <strong>Academic Progress:</strong> CGPA {overview.profile?.cgpa != null ? overview.profile.cgpa : 'not available from API'}. Recent exams: {(overview.recentExams || []).length || 0} recorded.
                             </div>
                             <div style={{ borderTop: '1px solid var(--border)', paddingTop: 10 }}>
-                              <strong>Career Development:</strong> Mapped as an <em>AI Software Engineer</em> target profile with an overall placement readiness rating of 74%.
+                              <strong>Career Development:</strong> Track {overview.profile?.career_track || '—'} with readiness {overview.profile?.career_readiness ?? '—'}%.
                             </div>
                           </div>
                         </div>
@@ -1060,10 +979,10 @@ function ParentPageInner() {
                           <h4 style={{ margin: '0 0 12px 0', fontSize: 13, fontWeight: 900, color: 'var(--teal)' }}>🏆 Achievements & Attendance Trends</h4>
                           <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontSize: 12.5, color: 'var(--t2)' }}>
                             <div>
-                              <strong>Attendance Trends:</strong> Monthly check-in rate is 88%. Encountered an absence spike during Week 3, but recovered to 90% last week.
+                              <strong>Attendance Trends:</strong> {overview.profile?.attendance != null ? `Recorded attendance ${overview.profile.attendance}%` : 'No attendance feed linked — not available.'}
                             </div>
                             <div style={{ borderTop: '1px solid var(--border)', paddingTop: 10 }}>
-                              <strong>New Achievements:</strong> Successfully completed Python Recursion coding quest, earning the institutional Gold Badge Credential.
+                              <strong>Mission activity:</strong> {(overview.missionSummary || []).length} completed quest/mission records in overview.
                             </div>
                           </div>
                         </div>

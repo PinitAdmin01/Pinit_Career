@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { requireUserFromRequest } from '@/lib/server/requireAuth';
 
 interface QuestionRequest {
   domainStream: 'tech' | 'non_tech';
@@ -126,6 +127,9 @@ const PRESET_TECH_QUESTIONS = [
 
 export async function POST(req: Request) {
   try {
+    const gated = await requireUserFromRequest(req);
+    if (gated.error) return gated.error;
+
     const { domainStream, domainSubTopic, difficulty } = await req.json() as QuestionRequest;
 
     if (domainStream === 'non_tech') {

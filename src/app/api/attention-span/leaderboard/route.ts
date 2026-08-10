@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabaseClient';
+import { requireUserFromRequest } from '@/lib/server/requireAuth';
 
 export interface LeaderboardEntry {
   userId: string;
@@ -10,14 +11,8 @@ export interface LeaderboardEntry {
   rank?: number;
 }
 
-// In-memory store fallback for instant end-to-end sync across sessions
-let globalLeaderboard: Record<string, LeaderboardEntry> = {
-  'demo-1': { userId: 'demo-1', displayName: 'Aarav Sharma', totalAccuracy: 420, gamesPlayed: 8, lastActive: 'Just now' },
-  'demo-2': { userId: 'demo-2', displayName: 'Priya Patel', totalAccuracy: 350, gamesPlayed: 6, lastActive: '10m ago' },
-  'demo-3': { userId: 'demo-3', displayName: 'Rohan Verma', totalAccuracy: 280, gamesPlayed: 5, lastActive: '1h ago' },
-  'demo-4': { userId: 'demo-4', displayName: 'Ananya Gupta', totalAccuracy: 210, gamesPlayed: 4, lastActive: '2h ago' },
-  'demo-5': { userId: 'demo-5', displayName: 'Kavya Nair', totalAccuracy: 150, gamesPlayed: 3, lastActive: '5h ago' },
-};
+// In-memory store — start empty (no seeded fake competitors)
+let globalLeaderboard: Record<string, LeaderboardEntry> = {};
 
 function getSortedLeaderboard(currentUserId?: string) {
   const list = Object.values(globalLeaderboard).sort((a, b) => b.totalAccuracy - a.totalAccuracy);
@@ -67,19 +62,16 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   try {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session?.user) {
-      return NextResponse.json({ ok: false, error: 'Unauthorized' }, { status: 401 });
-    }
+    const gated = await requireUserFromRequest(req);
+    if (gated.error) return gated.error;
 
-    const userId = session.user.id;
+    const userId = gated.user!.id;
     const body = await req.json();
     const { accuracyEarned } = body;
 
     const earned = Math.max(0, Math.round(Number(accuracyEarned) || 0));
     const name =
-      session.user.user_metadata?.displayName ||
-      session.user.email ||
+      gated.user!.email ||
       body.displayName ||
       'You';
 
