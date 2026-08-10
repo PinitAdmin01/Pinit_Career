@@ -6,6 +6,15 @@ from config.settings import settings
 router = APIRouter()
 engine = KokoroEngine()
 
+@router.get("/health")
+def get_main_health():
+    """Returns 200 OK system health status."""
+    return {
+        "status": "healthy",
+        "service": settings.APP_NAME,
+        "version": settings.APP_VERSION
+    }
+
 @router.get("/health/live")
 def get_liveness_probe():
     """
