@@ -4466,7 +4466,6 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
       highTabSwitches: [],
       suspiciousScores: []
     };
-    };
   }
   if(cleanPath==='/api/admin/platform-stats'){
     return {

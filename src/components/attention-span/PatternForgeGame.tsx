@@ -345,8 +345,7 @@ export function PatternForgeGame({
 
           <CompletionBanner
             difficulty={difficulty}
-            onStartNext={() => {
-              const nextDiff = difficulty === 'easy' ? 'normal' : 'hard';
+            onNextChallenge={(nextDiff) => {
               onDifficultyChange(nextDiff);
               setPhase('countdown');
             }}

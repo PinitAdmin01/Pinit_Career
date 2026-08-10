@@ -7,7 +7,9 @@ export type GameId =
   | 'flash-fusion'
   | 'shape-shifter'
   | 'pattern-forge'
-  | 'logic-circuit';
+  | 'logic-circuit'
+  | 'precision-pointer'
+  | 'focus-duel';
 
 export type Difficulty = 'easy' | 'normal' | 'hard';
 

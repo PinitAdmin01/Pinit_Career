@@ -1,20 +1,23 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',           // Static HTML export for Firebase Hosting
-  trailingSlash: true,        // Required for SPA routing on Firebase
+  // NOTE: static export disables App Router API routes on Firebase Hosting.
+  // Prefer a Node host for production APIs, or keep export only for demo static UI.
+  output: 'export',
+  trailingSlash: true,
   reactStrictMode: false,
   optimizeFonts: false,
   images: {
-    unoptimized: true,        // Required for static export
+    unoptimized: true,
     remotePatterns: [
       { protocol:'https', hostname:'firebasestorage.googleapis.com' },
       { protocol:'https', hostname:'*.supabase.co' },
-      { protocol:'https', hostname:'cdn.jsdelivr.net' },        // Kokoro / ONNX CDN
-      { protocol:'https', hostname:'huggingface.co' },          // KittenTTS models
+      { protocol:'https', hostname:'cdn.jsdelivr.net' },
+      { protocol:'https', hostname:'huggingface.co' },
       { protocol:'https', hostname:'*.huggingface.co' },
     ],
   },
-  typescript: { ignoreBuildErrors: true },
+  // Fail the build on type errors — do not ship broken TS silently.
+  typescript: { ignoreBuildErrors: false },
   eslint:     { ignoreDuringBuilds: true },
 
   webpack: (config, { isServer }) => {

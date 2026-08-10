@@ -15,12 +15,27 @@ function euclideanDistance(v1: number[], v2: number[]): number {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { descriptor, username = 'student@pinit.in', livenessVerified = false } = body;
+    const { descriptor, username = 'student@pinit.in', livenessVerified = false, nonce } = body;
 
     if (!descriptor || !Array.isArray(descriptor)) {
       return NextResponse.json(
         { ok: false, success: false, error: 'Live face descriptor vector missing.' },
         { status: 400 }
+      );
+    }
+
+    const cookieNonce = req.cookies.get('pinit_face_nonce')?.value;
+    if (!cookieNonce || !nonce || cookieNonce !== nonce) {
+      return NextResponse.json(
+        { ok: false, success: false, error: 'Valid face challenge nonce required.' },
+        { status: 403 }
+      );
+    }
+
+    if (!livenessVerified) {
+      return NextResponse.json(
+        { ok: false, success: false, error: 'Liveness verification required before face match.' },
+        { status: 403 }
       );
     }
 
@@ -68,28 +83,28 @@ export async function POST(req: NextRequest) {
       }, { status: 401 });
     }
 
-    // Never infer privileged roles from username substrings — face verify only confirms identity.
-    // Caller must merge with the real account role from the auth profile / vault session.
+    // Never invent privileged roles or fabricated scores from face match alone.
     const userObj = {
       id: `usr_${targetUser.replace(/[^a-z0-9]/g, '_')}`,
       username: targetUser,
       email: targetUser.includes('@') ? targetUser : `${targetUser}@pinit.in`,
       displayName: targetUser.split('@')[0].toUpperCase(),
       role: 'student' as const,
-      atsScore: 78,
-      trustScore: 88,
     };
 
-    return NextResponse.json({
+    const res = NextResponse.json({
       ok: true,
       success: true,
       match: true,
       distance: Number(distance.toFixed(4)),
       confidence: matchConfidence,
-      livenessVerified,
+      livenessVerified: true,
       message: `Biometric Face Verification Successful (${matchConfidence}% Accuracy Match)`,
       user: userObj,
     });
+    // Consume one-time challenge nonce
+    res.cookies.set('pinit_face_nonce', '', { path: '/', maxAge: 0 });
+    return res;
   } catch (error: any) {
     return NextResponse.json(
       { ok: false, success: false, error: error.message || 'Face verification service error.' },

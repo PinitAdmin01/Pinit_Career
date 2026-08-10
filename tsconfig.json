@@ -16,6 +16,6 @@
     "paths":           {"@/*":["./src/*"]},
     "target":          "ES2017"
   },
-  "include": ["next-env.d.ts","**/*.ts","**/*.tsx",".next/types/**/*.ts"],
-  "exclude": ["node_modules", "supabase"]
+  "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx", "next.config.js"],
+  "exclude": ["node_modules", "supabase", "out", ".next", "backend", "voice-service"]
 }
