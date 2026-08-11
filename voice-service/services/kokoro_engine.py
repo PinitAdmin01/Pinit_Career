@@ -303,9 +303,9 @@ class NeuralTTSEngine:
         return buf.getvalue()
 
 
-# Back-compat alias used by main.py lifespan
 class KokoroEngine(NeuralTTSEngine):
     pass
 
 
-kokoro_engine = NeuralTTSEngine()
+engine = NeuralTTSEngine()
+kokoro_engine = engine
