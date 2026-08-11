@@ -11,6 +11,7 @@ export interface VoiceSynthesizeOptions {
   speed?: number;
   language?: string;
   apiEndpoint?: string;
+  bypassCache?: boolean;
 }
 
 export interface VoiceSynthesizeResult {
@@ -43,6 +44,8 @@ function healthUrlFromTts(endpoint: string): string {
 let isServerWarming = false;
 let isServerWarm = false;
 let lastWarmAt = 0;
+let activeWakePromise: Promise<boolean> | null = null;
+const inFlightCloudRequests = new Map<string, Promise<{ audioBuffer: ArrayBuffer; durationSec: number; engine?: string }>>();
 
 /** Free-tier Render sleeps ~15m — keep a generous client timeout. */
 const FREE_TIER_TIMEOUT_MS = 90_000;
@@ -50,33 +53,55 @@ const PREMIUM_TIMEOUT_MS = 25_000;
 
 /**
  * Non-blocking / blocking wake-up ping for Render Free Tier.
+ * Uses silent mode to prevent Chrome CORS red errors during container boot.
  */
 export async function pingRenderServer(waitForWarm = false): Promise<boolean> {
   if (isServerWarm && Date.now() - lastWarmAt < 10 * 60 * 1000) return true;
-  if (isServerWarming && !waitForWarm) return false;
+  if (activeWakePromise) return activeWakePromise;
 
-  isServerWarming = true;
-  const endpoint = DEFAULT_CLOUD_ENDPOINT;
-  const health = healthUrlFromTts(endpoint);
-  const timeoutMs = waitForWarm ? FREE_TIER_TIMEOUT_MS : 8_000;
+  activeWakePromise = (async () => {
+    isServerWarming = true;
+    const endpoint = DEFAULT_CLOUD_ENDPOINT;
+    const health = healthUrlFromTts(endpoint);
+    const timeoutMs = waitForWarm ? FREE_TIER_TIMEOUT_MS : 8_000;
 
-  try {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), timeoutMs);
-    const res = await fetch(health, { method: "GET", mode: "cors", signal: controller.signal });
-    clearTimeout(timer);
-    if (res.ok) {
-      isServerWarm = true;
-      lastWarmAt = Date.now();
-      isServerWarming = false;
-      console.log("[SmartVoiceRouter] Render voice service is warm.");
-      return true;
+    const tryPing = async (mode: "cors" | "no-cors") => {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), timeoutMs);
+      try {
+        const res = await fetch(health, { method: "GET", mode, signal: controller.signal });
+        clearTimeout(timer);
+        if (mode === "no-cors" || res.ok) {
+          isServerWarm = true;
+          lastWarmAt = Date.now();
+          console.log("[SmartVoiceRouter] Render voice service is warm.");
+          return true;
+        }
+      } catch {
+        clearTimeout(timer);
+      }
+      return false;
+    };
+
+    // Try standard CORS ping first, silent no-cors fallback if container is booting
+    let ok = await tryPing("cors");
+    if (!ok) {
+      ok = await tryPing("no-cors");
     }
-  } catch (e) {
-    console.warn("[SmartVoiceRouter] Render wake ping failed / still cold:", e);
-  }
-  isServerWarming = false;
-  return false;
+
+    isServerWarming = false;
+    activeWakePromise = null;
+    return ok;
+  })();
+
+  return activeWakePromise;
+}
+
+// 9-minute client heartbeat to prevent Render 15-minute sleep policy
+if (typeof window !== "undefined") {
+  setInterval(() => {
+    void pingRenderServer(false);
+  }, 9 * 60 * 1000);
 }
 
 /**
@@ -97,20 +122,24 @@ export async function synthesizeVoice(
 
   const cacheKey = await computeVoiceCacheKey(text, voice, speed);
 
-  const cachedBuffer = await voiceCacheDB.getAudio(cacheKey);
-  if (cachedBuffer && cachedBuffer.byteLength > 800) {
-    const latencyMs = Math.round(performance.now() - startTime);
-    console.log(
-      `[SmartVoiceRouter] IndexedDB HIT key=${cacheKey.slice(0, 8)}... (${latencyMs}ms)`
-    );
-    return {
-      audioBuffer: cachedBuffer,
-      source: "INDEXED_DB_CACHE",
-      latencyMs,
-      durationSec: estimateDuration(text, speed),
-      cacheKey,
-      engine: "cache",
-    };
+  if (!options.bypassCache) {
+    const cachedBuffer = await voiceCacheDB.getAudio(cacheKey);
+    if (cachedBuffer && cachedBuffer.byteLength > 800) {
+      const latencyMs = Math.round(performance.now() - startTime);
+      console.log(
+        `[SmartVoiceRouter] IndexedDB HIT key=${cacheKey.slice(0, 8)}... (${latencyMs}ms)`
+      );
+      return {
+        audioBuffer: cachedBuffer,
+        source: "INDEXED_DB_CACHE",
+        latencyMs,
+        durationSec: estimateDuration(text, speed),
+        cacheKey,
+        engine: "cache",
+      };
+    }
+  } else {
+    console.log(`[SmartVoiceRouter] Bypassing IndexedDB & Server cache for fresh TTS generation.`);
   }
 
   // Wake free-tier instance before synthesis (blocks until warm or timeout)
@@ -120,10 +149,10 @@ export async function synthesizeVoice(
     void pingRenderServer(false);
   }
 
-  const cloudResult = await fetchCloudFastAPI(endpoint, text, voice, speed);
+  const cloudResult = await fetchCloudFastAPI(endpoint, text, voice, speed, options.bypassCache);
   const latencyMs = Math.round(performance.now() - startTime);
 
-  if (cloudResult.audioBuffer && cloudResult.audioBuffer.byteLength > 800) {
+  if (!options.bypassCache && cloudResult.audioBuffer && cloudResult.audioBuffer.byteLength > 800) {
     await voiceCacheDB.saveAudio(cacheKey, text, voice, speed, cloudResult.audioBuffer);
   }
 
@@ -148,56 +177,72 @@ async function fetchCloudFastAPI(
   endpoint: string,
   text: string,
   voice: string,
-  speed: number
+  speed: number,
+  bypassCache?: boolean
 ): Promise<{ audioBuffer: ArrayBuffer; durationSec: number; engine?: string }> {
-  const targetUrl =
-    endpoint && endpoint.startsWith("http")
-      ? endpoint
-      : DEFAULT_CLOUD_ENDPOINT;
-
-  const timeoutMs =
-    CURRENT_RENDER_TIER === "free" ? FREE_TIER_TIMEOUT_MS : PREMIUM_TIMEOUT_MS;
-
-  const attempt = async (url: string) => {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), timeoutMs);
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text, voice, speed, language: "en-us" }),
-        signal: controller.signal,
-      });
-      clearTimeout(timer);
-      if (!response.ok) {
-        const errText = await response.text().catch(() => "");
-        throw new Error(`TTS HTTP ${response.status}: ${errText.slice(0, 180)}`);
-      }
-      const durationHeader =
-        response.headers.get("X-Audio-Duration") || response.headers.get("X-Duration");
-      const engine = response.headers.get("X-Voice-Engine") || undefined;
-      const durationSec = durationHeader
-        ? parseFloat(durationHeader)
-        : estimateDuration(text, speed);
-      const audioBuffer = await response.arrayBuffer();
-      if (!audioBuffer || audioBuffer.byteLength < 800) {
-        throw new Error("TTS returned empty/too-small audio");
-      }
-      isServerWarm = true;
-      lastWarmAt = Date.now();
-      return { audioBuffer, durationSec, engine };
-    } catch (e) {
-      clearTimeout(timer);
-      throw e;
-    }
-  };
-
-  try {
-    return await attempt(targetUrl);
-  } catch (primaryErr) {
-    console.warn("[SmartVoiceRouter] Primary TTS attempt failed, retrying once...", primaryErr);
-    // One retry after another wake ping (covers cold-start race)
-    await pingRenderServer(true);
-    return await attempt(DEFAULT_CLOUD_ENDPOINT);
+  const requestKey = `${endpoint}::${voice}::${speed}::${text}::bypass=${Boolean(bypassCache)}`;
+  if (inFlightCloudRequests.has(requestKey)) {
+    return await inFlightCloudRequests.get(requestKey)!;
   }
+
+  const cloudPromise = (async () => {
+    const targetUrl =
+      endpoint && endpoint.startsWith("http")
+        ? endpoint
+        : DEFAULT_CLOUD_ENDPOINT;
+
+    const timeoutMs =
+      CURRENT_RENDER_TIER === "free" ? FREE_TIER_TIMEOUT_MS : PREMIUM_TIMEOUT_MS;
+
+    const attempt = async (url: string) => {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), timeoutMs);
+      try {
+        const headers: Record<string, string> = { "Content-Type": "application/json" };
+        if (bypassCache) {
+          headers["X-Bypass-Cache"] = "true";
+        }
+        const response = await fetch(url, {
+          method: "POST",
+          headers,
+          body: JSON.stringify({ text, voice, speed, language: "en-us", bypass_cache: Boolean(bypassCache) }),
+          signal: controller.signal,
+        });
+        clearTimeout(timer);
+        if (!response.ok) {
+          const errText = await response.text().catch(() => "");
+          throw new Error(`TTS HTTP ${response.status}: ${errText.slice(0, 180)}`);
+        }
+        const durationHeader =
+          response.headers.get("X-Audio-Duration") || response.headers.get("X-Duration");
+        const engine = response.headers.get("X-Voice-Engine") || undefined;
+        const durationSec = durationHeader
+          ? parseFloat(durationHeader)
+          : estimateDuration(text, speed);
+        const audioBuffer = await response.arrayBuffer();
+        if (!audioBuffer || audioBuffer.byteLength < 800) {
+          throw new Error("TTS returned empty/too-small audio");
+        }
+        isServerWarm = true;
+        lastWarmAt = Date.now();
+        return { audioBuffer, durationSec, engine };
+      } catch (e) {
+        clearTimeout(timer);
+        throw e;
+      }
+    };
+
+    try {
+      return await attempt(targetUrl);
+    } catch (primaryErr) {
+      console.warn("[SmartVoiceRouter] Primary TTS attempt failed, retrying once...", primaryErr);
+      await pingRenderServer(true);
+      return await attempt(DEFAULT_CLOUD_ENDPOINT);
+    } finally {
+      inFlightCloudRequests.delete(requestKey);
+    }
+  })();
+
+  inFlightCloudRequests.set(requestKey, cloudPromise);
+  return await cloudPromise;
 }

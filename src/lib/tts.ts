@@ -6,11 +6,20 @@ let isNeuralReady = true;
 
 const preloadedAudioCacheMap = new Map<string, { buffer: Float32Array; sampleRate: number; teacherId: string }>();
 
-function getAudioContext(sampleRate = 24000): AudioContext {
-  if (typeof window === 'undefined') return {} as any;
+function getAudioContext(): AudioContext {
   const win = window as any;
-  if (!win._sharedAudioCtx || win._sharedAudioCtx.state === 'closed') {
-    win._sharedAudioCtx = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate });
+  if (!win._sharedAudioCtx) {
+    win._sharedAudioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+    if (typeof window !== 'undefined') {
+      const unlockAudio = () => {
+        if (win._sharedAudioCtx && win._sharedAudioCtx.state === 'suspended') {
+          win._sharedAudioCtx.resume().catch(() => {});
+        }
+      };
+      window.addEventListener('click', unlockAudio, { once: true });
+      window.addEventListener('keydown', unlockAudio, { once: true });
+      window.addEventListener('touchstart', unlockAudio, { once: true });
+    }
   }
   if (win._sharedAudioCtx.state === 'suspended') {
     win._sharedAudioCtx.resume().catch(() => {});
@@ -262,7 +271,8 @@ export async function speakWithAvatar(
   useNeural = true,
   difficulty?: 'easy' | 'normal' | 'hard',
   speedMultiplier = 1.0,
-  maxDurationMs = 15000
+  maxDurationMs = 15000,
+  options?: { bypassCache?: boolean }
 ) {
   stopSpeaking();
   const mySpeechId = currentSpeechId;
@@ -284,11 +294,15 @@ export async function speakWithAvatar(
       const result = await synthesizeVoice({
         text: cleanText,
         voice,
-        speed: speedMultiplier
+        speed: speedMultiplier,
+        bypassCache: options?.bypassCache
       });
 
       if (mySpeechId === currentSpeechId) {
         const ctx = getAudioContext();
+        if (ctx.state === 'suspended') {
+          await ctx.resume().catch(() => {});
+        }
         const audioBuf = await ctx.decodeAudioData(result.audioBuffer.slice(0));
         
         const source = ctx.createBufferSource();
