@@ -76,11 +76,10 @@ from api.routes_health import router as health_router
 # Register routes (both /api/v1 and root fallback for legacy frontends)
 app.include_router(tts_router, prefix="/api/v1")
 app.include_router(health_router, prefix="/api/v1")
-app.include_router(tts_router)
-app.include_router(health_router)
 
+@app.post("/tts")
 @app.post("/generate_tts")
-async def legacy_generate_tts(request: TTSRequest):
+async def root_tts_alias(request: TTSRequest):
     return await generate_tts_route(request)
 
 @app.get("/")
