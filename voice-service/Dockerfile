@@ -2,11 +2,9 @@ FROM python:3.10-slim
 
 WORKDIR /app
 
-# Install system audio & build dependencies
+# Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
-    ffmpeg \
-    libsndfile1 \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
