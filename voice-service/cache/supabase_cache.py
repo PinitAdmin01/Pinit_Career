@@ -34,7 +34,7 @@ class SupabaseCacheManager:
 
         file_url = f"{self.url}/storage/v1/object/public/{self.bucket}/{cache_key}.mp3"
         try:
-            res = requests.get(file_url, headers=self._get_headers(), timeout=8.0)
+            res = requests.get(file_url, headers=self._get_headers(), timeout=1.5)
             if res.status_code == 200 and len(res.content) > 500:
                 logger.info(f"Supabase Storage HIT (mp3) for key={cache_key[:8]}")
                 return res.content
@@ -44,7 +44,7 @@ class SupabaseCacheManager:
         # Legacy wav objects
         file_url_wav = f"{self.url}/storage/v1/object/public/{self.bucket}/{cache_key}.wav"
         try:
-            res = requests.get(file_url_wav, headers=self._get_headers(), timeout=8.0)
+            res = requests.get(file_url_wav, headers=self._get_headers(), timeout=1.5)
             if res.status_code == 200 and len(res.content) > 500:
                 logger.info(f"Supabase Storage HIT (wav) for key={cache_key[:8]}")
                 return res.content
