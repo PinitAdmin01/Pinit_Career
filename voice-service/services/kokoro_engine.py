@@ -100,35 +100,6 @@ async def _gtts_synthesize_mp3(text: str, tld: str = "com") -> bytes:
     raise RuntimeError("gTTS generated empty audio")
 
 
-def _dsp_fallback_wav(text: str, sample_rate: int = 24000) -> bytes:
-    """Tier C bulletproof fallback: Clean DSP formant audio synthesizer."""
-    import io, wave, math
-    clean_txt = text.strip() or "Hello"
-    duration = max(0.8, len(clean_txt) * 0.08)
-    total_samples = int(sample_rate * duration)
-
-    buf = io.BytesIO()
-    with wave.open(buf, "wb") as wf:
-        wf.setnchannels(1)
-        wf.setsampwidth(2)
-        wf.setframerate(sample_rate)
-        
-        frames = bytearray()
-        f0 = 210.0  # Friendly pitch
-        for i in range(total_samples):
-            t = i / float(sample_rate)
-            env = math.sin(math.pi * i / total_samples) ** 0.5
-            sample = (
-                0.5 * math.sin(2 * math.pi * f0 * t) +
-                0.25 * math.sin(2 * math.pi * (f0 * 2) * t) +
-                0.15 * math.sin(2 * math.pi * (f0 * 3) * t)
-            ) * env * 16000
-            val = int(max(-32768, min(32767, sample)))
-            frames.extend(val.to_bytes(2, byteorder="little", signed=True))
-        wf.writeframes(bytes(frames))
-    return buf.getvalue()
-
-
 def _run_async(coro):
     """Run async edge-tts safely from sync FastAPI threadpool worker threads."""
     loop = asyncio.new_event_loop()
@@ -251,23 +222,14 @@ class NeuralTTSEngine:
                 )
                 return mp3, duration_sec, "audio/mpeg"
             except Exception as e:
-                logger.warning(f"edge-tts failed on cloud server ({e}), falling back to gTTS...")
+                logger.warning(f"edge-tts failed on cloud server ({e}), falling back to Google Speech gTTS...")
 
-        # 2) gTTS (Google Speech TTS Fallback)
-        try:
-            tld = "co.in" if "priya" in voice_key else "com"
-            mp3 = await _gtts_synthesize_mp3(clean, tld=tld)
-            duration_sec = max(0.6, len(clean) / (14.0 * max(0.5, float(speed))))
-            logger.info(f"gTTS fallback ok bytes={len(mp3)} latency={(time.time()-t0)*1000:.0f}ms")
-            return mp3, duration_sec, "audio/mpeg"
-        except Exception as e:
-            logger.warning(f"gTTS fallback failed ({e}), falling back to DSP synthesizer...")
-
-        # 3) Bulletproof DSP WAV Fallback
-        wav = _dsp_fallback_wav(clean, sample_rate=self.sample_rate)
-        duration_sec = max(0.8, len(clean) * 0.08)
-        logger.info(f"DSP WAV fallback ok bytes={len(wav)} latency={(time.time()-t0)*1000:.0f}ms")
-        return wav, duration_sec, "audio/wav"
+        # 2) gTTS (Google Speech Human Voice Fallback)
+        tld = "co.in" if "priya" in voice_key or "karthic" in voice_key else "com"
+        mp3 = await _gtts_synthesize_mp3(clean, tld=tld)
+        duration_sec = max(0.6, len(clean) / (14.0 * max(0.5, float(speed))))
+        logger.info(f"gTTS human voice fallback ok bytes={len(mp3)} latency={(time.time()-t0)*1000:.0f}ms")
+        return mp3, duration_sec, "audio/mpeg"
 
         raise RuntimeError(
             "No neural TTS backend available on this instance. "
