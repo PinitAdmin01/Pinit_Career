@@ -73,9 +73,11 @@ app.add_middleware(
 
 from api.routes_health import router as health_router
 
-# Register routes
+# Register routes (both /api/v1 and root fallback for legacy frontends)
 app.include_router(tts_router, prefix="/api/v1")
 app.include_router(health_router, prefix="/api/v1")
+app.include_router(tts_router)
+app.include_router(health_router)
 
 @app.get("/")
 async def root():
