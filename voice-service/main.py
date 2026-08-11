@@ -62,6 +62,13 @@ app.add_middleware(
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=[
+        "X-Voice-Engine",
+        "X-Audio-Duration",
+        "X-Cache-Status",
+        "X-Cache-Key",
+        "X-Inference-Latency-MS",
+    ],
 )
 
 from api.routes_health import router as health_router
