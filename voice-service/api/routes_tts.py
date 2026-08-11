@@ -23,6 +23,7 @@ class TTSRequest(BaseModel):
     voice: Optional[str] = Field("af_bella", description="Voice profile identifier")
     speed: Optional[float] = Field(1.0, ge=0.5, le=2.0, description="Speech playback rate multiplier")
     language: Optional[str] = Field("en-us", description="Language code")
+    bypass_cache: Optional[bool] = Field(False, description="If true, bypasses server cache and forces fresh neural synthesis")
 
 
 class QueueTaskResponse(BaseModel):
@@ -57,7 +58,7 @@ def list_voices():
 async def generate_tts(request: TTSRequest):
     """
     Main TTS endpoint. Uses edge-tts neural voices on free tier (or Kokoro ONNX if present).
-    Cache order: Redis → SSD → Supabase → generate → save.
+    Cache order: Redis → SSD → Supabase → generate → save (unless bypass_cache=True).
     """
     if not request.text or not request.text.strip():
         raise HTTPException(status_code=400, detail="Text parameter cannot be empty.")
@@ -66,36 +67,38 @@ async def generate_tts(request: TTSRequest):
     voice = request.voice or settings.DEFAULT_VOICE
     speed = request.speed or settings.DEFAULT_SPEED
     clean_text = request.text.strip()
+    bypass_cache = bool(request.bypass_cache)
 
     try:
         cache_key = server_cache.compute_hash(clean_text, voice, speed)
 
-        cached_bytes = None
-        hit_source = None
-        try:
-            cached_bytes, hit_source = server_cache.get_audio(cache_key)
-        except Exception as c_err:
-            logger.warning(f"Cache lookup non-fatal error: {c_err}")
+        if not bypass_cache:
+            cached_bytes = None
+            hit_source = None
+            try:
+                cached_bytes, hit_source = server_cache.get_audio(cache_key)
+            except Exception as c_err:
+                logger.warning(f"Cache lookup non-fatal error: {c_err}")
 
-        if cached_bytes and len(cached_bytes) > 500:
-            latency_ms = int((time.time() - start_time) * 1000)
-            # Prefer header estimate; byte-length for WAV 16-bit mono is approximate
-            is_mp3 = cached_bytes[:3] == b"ID3" or cached_bytes[:2] == b"\xff\xfb" or cached_bytes[:2] == b"\xff\xf3"
-            media_type = "audio/mpeg" if is_mp3 else "audio/wav"
-            duration_sec = max(0.6, len(clean_text) / (14.0 * max(0.5, float(speed))))
-            if not is_mp3:
-                duration_sec = max(duration_sec, len(cached_bytes) / (settings.SAMPLE_RATE * 2))
-            telemetry.record_request(duration_sec, latency_ms, hit_source or "CACHE")
-            headers = {
-                "Content-Type": media_type,
-                "Content-Length": str(len(cached_bytes)),
-                "X-Audio-Duration": f"{duration_sec:.3f}",
-                "X-Inference-Latency-MS": str(latency_ms),
-                "X-Cache-Status": f"HIT ({hit_source})",
-                "X-Cache-Key": cache_key,
-                "X-Voice-Engine": "Cache",
-            }
-            return Response(content=cached_bytes, media_type=media_type, headers=headers)
+            if cached_bytes and len(cached_bytes) > 500:
+                latency_ms = int((time.time() - start_time) * 1000)
+                # Prefer header estimate; byte-length for WAV 16-bit mono is approximate
+                is_mp3 = cached_bytes[:3] == b"ID3" or cached_bytes[:2] == b"\xff\xfb" or cached_bytes[:2] == b"\xff\xf3"
+                media_type = "audio/mpeg" if is_mp3 else "audio/wav"
+                duration_sec = max(0.6, len(clean_text) / (14.0 * max(0.5, float(speed))))
+                if not is_mp3:
+                    duration_sec = max(duration_sec, len(cached_bytes) / (settings.SAMPLE_RATE * 2))
+                telemetry.record_request(duration_sec, latency_ms, hit_source or "CACHE")
+                headers = {
+                    "Content-Type": media_type,
+                    "Content-Length": str(len(cached_bytes)),
+                    "X-Audio-Duration": f"{duration_sec:.3f}",
+                    "X-Inference-Latency-MS": str(latency_ms),
+                    "X-Cache-Status": f"HIT ({hit_source})",
+                    "X-Cache-Key": cache_key,
+                    "X-Voice-Engine": "Cache",
+                }
+                return Response(content=cached_bytes, media_type=media_type, headers=headers)
 
         audio_bytes, duration_sec, media_type = await engine.generate_audio(
             text=clean_text,
@@ -103,10 +106,11 @@ async def generate_tts(request: TTSRequest):
             speed=speed,
         )
 
-        try:
-            server_cache.save_audio(cache_key, audio_bytes, clean_text, voice, speed)
-        except Exception as cache_err:
-            logger.warning(f"Cache persistence non-fatal error: {cache_err}")
+        if not bypass_cache:
+            try:
+                server_cache.save_audio(cache_key, audio_bytes, clean_text, voice, speed)
+            except Exception as cache_err:
+                logger.warning(f"Cache persistence non-fatal error: {cache_err}")
 
         latency_ms = int((time.time() - start_time) * 1000)
         telemetry.record_request(duration_sec, latency_ms, "MISS")
