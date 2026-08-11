@@ -8,10 +8,21 @@ export type GameId =
   | 'shape-shifter'
   | 'pattern-forge'
   | 'logic-circuit'
+  | 'store-sim'
   | 'precision-pointer'
   | 'focus-duel';
 
 export type Difficulty = 'easy' | 'normal' | 'hard';
+
+export interface GameComponentProps {
+  gameId: GameId;
+  difficulty: Difficulty;
+  onDifficultyChange: (d: Difficulty) => void;
+  completedDifficulties?: Record<string, Difficulty[]>;
+  soundMuted: boolean;
+  onComplete: (score: number, accuracyEarned: number) => void;
+  onExit: () => void;
+}
 
 export interface AttentionStats {
   focusFireBest: number;
@@ -23,6 +34,7 @@ export interface AttentionStats {
   shapeShifterBest?: number;     // score
   patternForgeBest?: number;     // max level / score
   logicCircuitBest?: number;     // max level / score
+  storeSimBest?: number;         // close score
   totalSessions: number;
   dailySessions: Record<string, number>;
   dailyScores: Record<string, number>;
@@ -102,29 +114,30 @@ export const ANALYTICS_KEY = 'pinit_attention_analytics_v2';
 export const defaultStats: AttentionStats = {
   focusFireBest: 0, memoryMatrixBest: 0, reflexRushBest: 0, sequenceSnapBest: 0,
   vortexVisionBest: 0, flashFusionBest: 0, shapeShifterBest: 0,
-  patternForgeBest: 0, logicCircuitBest: 0,
+  patternForgeBest: 0, logicCircuitBest: 0, storeSimBest: 0,
   totalSessions: 0, dailySessions: {}, dailyScores: {}, streak: 0, lastPlayedDate: '',
   completedDifficulties: {},
 };
 
 export const RANKS = [
-  { name: 'Wandering Mind', min: 0,   icon: '💭', color: '#6b7280' },
-  { name: 'Aware',          min: 200, icon: '👁️', color: '#3b82f6' },
-  { name: 'Focused Mind',   min: 400, icon: '🎯', color: '#8b5cf6' },
-  { name: 'Deep Focus',     min: 600, icon: '🔥', color: '#f59e0b' },
-  { name: 'Zen Master',     min: 800, icon: '🧘', color: '#d4a843' },
+  { name: 'Wandering', min: 0,   icon: '·', color: '#6b7280' },
+  { name: 'Aware',     min: 200, icon: '◦', color: '#3b82f6' },
+  { name: 'Focused',   min: 400, icon: '●', color: '#8b5cf6' },
+  { name: 'Deep',      min: 600, icon: '◉', color: '#d97706' },
+  { name: 'Still',     min: 800, icon: '◎', color: '#d4a843' },
 ];
 
 export const GAMES = [
-  { id: 'focus-fire' as GameId,        icon: '🎯', name: 'Focus Fire',        desc: 'Tap gold targets as speed ramps up every 10s: Normal ➔ Boost ➔ Hyper!', skill: 'Selective Attention', color: '#d4a843' },
-  { id: 'memory-matrix' as GameId,     icon: '🧠', name: 'Memory Matrix',     desc: 'Memorize expanding tile patterns and reproduce them from memory', skill: 'Working Memory', color: '#8b5cf6' },
-  { id: 'reflex-rush' as GameId,       icon: '⚡', name: 'Reflex Rush',       desc: 'React fast to green circles — resist tapping red decoys', skill: 'Sustained Attention', color: '#10b981' },
-  { id: 'sequence-snap' as GameId,     icon: '🔢', name: 'Sequence Snap',     desc: 'Watch number sequences flash and type them back in exact order', skill: 'Memory Span', color: '#3b82f6' },
-  { id: 'vortex-vision' as GameId,     icon: '🌀', name: 'Vortex Vision',     desc: 'Track gold stars flashing inside a spinning vortex while ignoring orbiting debris', skill: 'Peripheral Focus', color: '#ec4899' },
-  { id: 'flash-fusion' as GameId,      icon: '⚡', name: 'Flash Fusion',      desc: 'High-speed symbol stream — tap ONLY when consecutive symbols match back-to-back', skill: 'N-Back Vigilance', color: '#6366f1' },
-  { id: 'shape-shifter' as GameId,     icon: '🧩', name: 'Shape Shifter',     desc: 'Dynamic task-switching — adapt instantly as rules flip between MATCH COLOR & MATCH SHAPE', skill: 'Task Switching', color: '#f59e0b' },
-  { id: 'pattern-forge' as GameId,     icon: '🧩', name: 'Pattern Forge',     desc: 'Discover hidden sequence rules, rotation transformations, and 3x3 matrix patterns', skill: 'Pattern & Abstract Reasoning', color: '#ec4899' },
-  { id: 'logic-circuit' as GameId,     icon: '🧠', name: 'Logic Circuit',     desc: 'Evaluate multi-step boolean logic gates, visual node flows, and conditional syllogisms', skill: 'Logical & Analytical Reasoning', color: '#3b82f6' },
+  { id: 'focus-fire' as GameId,    icon: '◉', name: 'Focus Fire',     desc: 'Tap the raised gold tile. Ignore the rest as the pace steps up.', skill: 'Selective attention', color: '#d97706' },
+  { id: 'memory-matrix' as GameId, icon: '▦', name: 'Memory Matrix',  desc: 'Hold a tile pattern, then tap it back from memory.', skill: 'Working memory', color: '#7c3aed' },
+  { id: 'reflex-rush' as GameId,   icon: '●', name: 'Reflex Rush',    desc: 'Wait for green. Do not tap early, and skip red.', skill: 'Sustained attention', color: '#059669' },
+  { id: 'sequence-snap' as GameId, icon: '≡', name: 'Sequence Snap',  desc: 'Watch the digits, then enter them in order on the pad.', skill: 'Memory span', color: '#2563eb' },
+  { id: 'vortex-vision' as GameId, icon: '◌', name: 'Vortex Vision',  desc: 'Track the gold mark in a slow orbit. Ignore the rest.', skill: 'Peripheral focus', color: '#db2777' },
+  { id: 'flash-fusion' as GameId,  icon: '▣', name: 'Flash Fusion',   desc: 'Tap only when the current symbol matches the last one.', skill: 'N-back vigilance', color: '#6366f1' },
+  { id: 'shape-shifter' as GameId, icon: '◇', name: 'Shape Shifter',  desc: 'The rule flips between color and shape. Switch with it.', skill: 'Task switching', color: '#d97706' },
+  { id: 'pattern-forge' as GameId, icon: '▤', name: 'Pattern Forge',  desc: 'Find the sequence, rotation, or matrix rule before time runs out.', skill: 'Pattern reasoning', color: '#db2777' },
+  { id: 'logic-circuit' as GameId, icon: '⊞', name: 'Logic Circuit',  desc: 'Read the gates and conditions. Choose the valid output.', skill: 'Analytical reasoning', color: '#2563eb' },
+  { id: 'store-sim' as GameId,     icon: '◆', name: 'Studio Counter', desc: 'Sell your CSS or business piece to an AI buyer. Match the brief, price it fairly.', skill: 'Social focus', color: '#0d9488' },
 ];
 
 export function triggerHaptic(type: 'light' | 'heavy' | 'success') {
@@ -171,6 +184,11 @@ export function playSound(type: 'correct' | 'wrong' | 'win' | 'click' | 'level',
       gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.25);
       osc.start(); osc.stop(ctx.currentTime + 0.25);
       triggerHaptic('success');
+    } else if (type === 'click') {
+      osc.frequency.setValueAtTime(520, ctx.currentTime);
+      gain.gain.setValueAtTime(0.05, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.05);
+      osc.start(); osc.stop(ctx.currentTime + 0.05);
     } else if (type === 'win') {
       osc.type = 'triangle';
       osc.frequency.setValueAtTime(440, ctx.currentTime);
@@ -192,7 +210,9 @@ export function calcFocusScore(s: AttentionStats): number {
   const fl = Math.min(120, (s.flashFusionBest || 0) * 10);
   const pf = Math.min(140, (s.patternForgeBest || 0) * 20);
   const lc = Math.min(140, (s.logicCircuitBest || 0) * 20);
-  return Math.min(999, Math.round(ff + mm + rr + ss + vv + fl + pf + lc));
+  const sh = Math.min(100, (s.shapeShifterBest || 0) * 8);
+  const st = Math.min(120, (s.storeSimBest || 0) * 0.35);
+  return Math.min(999, Math.round(ff + mm + rr + ss + vv + fl + pf + lc + sh + st));
 }
 
 export function getRank(score: number) {

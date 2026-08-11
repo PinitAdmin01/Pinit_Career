@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { GameId, Difficulty, playSound } from './types';
 import { DifficultyPicker, CompletionBanner } from './DifficultyPicker';
 import { CountdownOverlay } from './CountdownOverlay';
+import { GameShell } from './GameShell';
 
 interface PatternProblem {
   level: number;
@@ -184,107 +185,52 @@ export function PatternForgeGame({
   const accuracyEarned = Math.min(100, Math.round((correctCount / PROBLEMS.length) * 100));
 
   return (
-    <div style={{ textAlign: 'center', animation: 'attFadeIn 0.3s ease', position: 'relative', width: '100%', maxWidth: 520, margin: '0 auto', color: '#fff' }}>
-      {phase === 'countdown' && <CountdownOverlay soundMuted={soundMuted} onComplete={startGame} />}
-
-      <button onClick={onExit} style={{ position: 'absolute', top: -10, right: 0, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', padding: '8px 18px', borderRadius: 10, cursor: 'pointer', fontSize: 13, fontWeight: 600 }}>✕ Exit</button>
-
-      {phase === 'ready' && (
-        <div style={{ animation: 'attFadeIn 0.4s ease' }}>
-          <div style={{ fontSize: 56, marginBottom: 16 }}>🧩</div>
-          <h2 style={{ color: '#f0f0f0', fontSize: 28, fontWeight: 800, margin: '0 0 8px' }}>Pattern Forge</h2>
-          <p style={{ color: '#aaa', fontSize: 14, margin: '0 0 16px', maxWidth: 460 }}>
-            Discover hidden sequence rules, rotation transformations, and 3x3 Raven progressive matrices!
-          </p>
-
-          <DifficultyPicker gameId={gameId} difficulty={difficulty} onChange={onDifficultyChange} completedDifficulties={completedDifficulties} />
-
-          <button onClick={() => setPhase('countdown')} style={{ background: 'linear-gradient(135deg, #ec4899, #f43f5e)', color: '#fff', border: 'none', padding: '14px 40px', borderRadius: 12, fontSize: 16, fontWeight: 800, cursor: 'pointer', letterSpacing: 1, marginTop: 10 }}>START GAME</button>
-        </div>
-      )}
+    <GameShell
+      accent="pink"
+      mark="pattern"
+      title="Pattern Forge"
+      description="Find the sequence, rotation, or matrix rule before the clock runs out."
+      phase={phase}
+      onExit={onExit}
+      countdown={phase === 'countdown' ? <CountdownOverlay soundMuted={soundMuted} onComplete={startGame} /> : null}
+      readyExtra={<DifficultyPicker gameId={gameId} difficulty={difficulty} onChange={onDifficultyChange} completedDifficulties={completedDifficulties} />}
+      onStart={() => setPhase('countdown')}
+      doneTitle="Forge closed"
+      doneScore={`${finalScore} pts`}
+      doneHint={`${correctCount} / ${PROBLEMS.length} rules · ${accuracyPct}%`}
+      doneExtra={
+        <CompletionBanner
+          difficulty={difficulty}
+          onNextChallenge={(nextDiff) => {
+            onDifficultyChange(nextDiff);
+            setPhase('countdown');
+          }}
+        />
+      }
+      onClaim={() => { onComplete(finalScore, accuracyEarned); onExit(); }}
+      onReplay={() => setPhase('countdown')}
+    >
 
       {phase === 'playing' && (
-        <div>
-          {/* Header Status Bar */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20, background: 'rgba(15,23,42,0.85)', backdropFilter: 'blur(12px)', padding: '12px 18px', borderRadius: 14, border: '1px solid rgba(255,255,255,0.15)', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
-            <div style={{ textAlign: 'left' }}>
-              <div style={{ fontSize: 12, color: '#aaa' }}>{currentProb.title}</div>
-              <div style={{ fontSize: 18, fontWeight: 800, color: '#ec4899' }}>Score: {score}</div>
-            </div>
-
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ fontSize: 12, color: '#aaa' }}>Time Left:</span>
-              <span style={{ fontSize: 22, fontWeight: 900, color: timeLeft <= 3 ? '#ef4444' : '#10b981' }}>{timeLeft}s</span>
-            </div>
+        <>
+          <div className="att-hud">
+            <div className="att-hud-key"><span>{currentProb.title}</span><b>{score}</b></div>
+            <div><span>Time</span><b className={timeLeft <= 3 ? 'att-warn' : undefined}>{timeLeft}s</b></div>
           </div>
-
-          {/* ── 📐 2.5D PERSPECTIVE GLASS STAGE ── */}
-          <div style={{ perspective: '1000px', padding: '10px 0' }}>
-            <div
-              style={{
-                background: 'rgba(15,23,42,0.85)',
-                backdropFilter: 'blur(16px)',
-                border: '1px solid rgba(255,255,255,0.15)',
-                borderRadius: 20,
-                padding: '24px 20px',
-                marginBottom: 20,
-                boxShadow: '0 24px 48px rgba(0,0,0,0.7), inset 0 1px 1px rgba(255,255,255,0.15)',
-                transform: 'perspective(1000px) rotateX(10deg) translateZ(0)',
-                transformStyle: 'preserve-3d',
-              }}
-            >
-              <div style={{ fontSize: 14, color: '#e2e8f0', fontWeight: 600, marginBottom: 16 }}>{currentProb.questionPrompt}</div>
-
-              {/* Sequence Display View */}
+          <div className="att-arena">
+            <div className="att-board" style={{ display: 'block', width: '100%', transform: 'rotateX(6deg)' }}>
+              <p className="att-sub" style={{ marginBottom: 14 }}>{currentProb.questionPrompt}</p>
               {currentProb.sequenceDisplay && (
-                <div style={{ display: 'flex', justifyContent: 'center', gap: 12, flexWrap: 'wrap', marginBottom: 10 }}>
+                <div className="att-seq">
                   {currentProb.sequenceDisplay.map((item, idx) => (
-                    <div
-                      key={idx}
-                      style={{
-                        background: item === '?' ? 'rgba(236,72,153,0.25)' : 'rgba(255,255,255,0.08)',
-                        border: `2px solid ${item === '?' ? '#ec4899' : 'rgba(255,255,255,0.15)'}`,
-                        borderBottom: item === '?' ? '4px solid #be185d' : '4px solid rgba(0,0,0,0.5)',
-                        borderRadius: 14,
-                        padding: '14px 20px',
-                        fontSize: 22,
-                        fontWeight: 900,
-                        color: item === '?' ? '#ec4899' : '#fff',
-                        minWidth: 64,
-                        textAlign: 'center',
-                        transform: item === '?' ? 'translateZ(14px)' : 'translateZ(0px)',
-                        boxShadow: item === '?' ? '0 10px 20px rgba(236,72,153,0.4)' : 'none',
-                      }}
-                    >
-                      {item}
-                    </div>
+                    <div key={idx} className={`att-chip${item === '?' ? ' is-ask' : ''}`}>{item}</div>
                   ))}
                 </div>
               )}
-
-              {/* 3x3 Matrix Grid View */}
               {currentProb.matrixGrid && (
-                <div style={{ display: 'inline-grid', gridTemplateColumns: 'repeat(3, 70px)', gap: 10, margin: '10px 0 16px' }}>
+                <div className="att-board" style={{ gridTemplateColumns: 'repeat(3, 64px)', margin: '12px auto 0' }}>
                   {currentProb.matrixGrid.map((item, idx) => (
-                    <div
-                      key={idx}
-                      style={{
-                        width: 70,
-                        height: 70,
-                        borderRadius: 12,
-                        background: item === null ? 'rgba(236,72,153,0.25)' : 'rgba(255,255,255,0.08)',
-                        border: `2px solid ${item === null ? '#ec4899' : 'rgba(255,255,255,0.15)'}`,
-                        borderBottom: item === null ? '4px solid #be185d' : '4px solid rgba(0,0,0,0.5)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: 26,
-                        fontWeight: 900,
-                        color: item === null ? '#ec4899' : '#fff',
-                        transform: item === null ? 'translateZ(16px)' : 'translateZ(0px)',
-                        boxShadow: item === null ? '0 10px 20px rgba(236,72,153,0.4)' : 'none',
-                      }}
-                    >
+                    <div key={idx} className={`att-tile${item === null ? ' is-target' : ''}`} style={{ width: 64, height: 64, cursor: 'default' }}>
                       {item === null ? '?' : item}
                     </div>
                   ))}
@@ -292,71 +238,24 @@ export function PatternForgeGame({
               )}
             </div>
           </div>
-
-          {/* Options Choice Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12 }}>
+          <div className="att-choice" style={{ gridTemplateColumns: '1fr 1fr', marginTop: 14 }}>
             {currentProb.options.map((opt, idx) => {
               const isSelected = selectedOption === idx;
               const isCorrect = idx === currentProb.correctIdx;
-              let bg = 'rgba(255,255,255,0.08)';
-              let border = '1px solid rgba(255,255,255,0.2)';
-              let borderBottom = '4px solid rgba(0,0,0,0.5)';
-
-              if (isSelected) {
-                bg = isCorrect ? 'rgba(16,185,129,0.3)' : 'rgba(239,68,68,0.3)';
-                border = isCorrect ? '2px solid #10b981' : '2px solid #ef4444';
-                borderBottom = isCorrect ? '4px solid #047857' : '4px solid #b91c1c';
-              }
-
               return (
                 <button
                   key={idx}
+                  type="button"
+                  className={`att-choice-btn${isSelected ? (isCorrect ? ' is-good' : ' is-bad') : ''}`}
                   onClick={() => advanceLevel(isCorrect, idx)}
-                  style={{
-                    background: bg,
-                    border,
-                    borderBottom,
-                    borderRadius: 14,
-                    padding: '16px 20px',
-                    color: '#fff',
-                    fontSize: 20,
-                    fontWeight: 800,
-                    cursor: 'pointer',
-                    transform: isSelected ? 'translateY(2px) translateZ(-4px)' : 'translateZ(0)',
-                    transition: 'all 0.15s ease',
-                  }}
                 >
                   {opt}
                 </button>
               );
             })}
           </div>
-        </div>
+        </>
       )}
-
-      {phase === 'done' && (
-        <div style={{ animation: 'attFadeIn 0.4s ease', background: 'rgba(15,23,42,0.9)', padding: '32px 24px', borderRadius: 20, border: '1px solid rgba(255,255,255,0.15)' }}>
-          <div style={{ fontSize: 56, marginBottom: 12 }}>🎉</div>
-          <h2 style={{ color: '#fff', fontSize: 26, fontWeight: 800, margin: '0 0 6px' }}>Pattern Forge Mastered!</h2>
-          <div style={{ fontSize: 32, fontWeight: 900, color: '#ec4899', margin: '12px 0 6px' }}>{finalScore} pts</div>
-          <div style={{ fontSize: 14, color: '#aaa', marginBottom: 20 }}>
-            Pattern Accuracy: <strong>{accuracyPct}%</strong> ({correctCount} / {PROBLEMS.length} Rules Discovered)
-          </div>
-
-          <CompletionBanner
-            difficulty={difficulty}
-            onNextChallenge={(nextDiff) => {
-              onDifficultyChange(nextDiff);
-              setPhase('countdown');
-            }}
-          />
-
-          <div style={{ display: 'flex', gap: 12, justifyContent: 'center', marginTop: 24 }}>
-            <button onClick={() => { onComplete(finalScore, accuracyEarned); onExit(); }} style={{ background: 'linear-gradient(135deg, #ec4899, #f43f5e)', color: '#fff', border: 'none', padding: '12px 28px', borderRadius: 10, fontSize: 14, fontWeight: 800, cursor: 'pointer' }}>Claim XP & Save</button>
-            <button onClick={() => setPhase('countdown')} style={{ background: 'rgba(255,255,255,0.1)', color: '#fff', border: '1px solid rgba(255,255,255,0.2)', padding: '12px 24px', borderRadius: 10, fontSize: 14, fontWeight: 700, cursor: 'pointer' }}>Replay Level</button>
-          </div>
-        </div>
-      )}
-    </div>
+    </GameShell>
   );
 }

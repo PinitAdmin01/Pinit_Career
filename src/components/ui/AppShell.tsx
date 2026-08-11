@@ -1430,7 +1430,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   // Guarded so that accessing core demo tabs like /interview, /dashboard, /quests is never blocked
   useEffect(() => {
     if (!loading && isLoaded && user && isStudent && !isPublic && pathname !== '/onboarding') {
-      const allowedDemoTabs = ['/interview', '/dashboard', '/quests', '/missions', '/learning', '/career-builder', '/projects', '/group-discussion'];
+      const allowedDemoTabs = ['/interview', '/dashboard', '/quests', '/missions', '/learning', '/career-builder', '/projects', '/group-discussion', '/attention-span'];
       const isAllowedTab = allowedDemoTabs.some(tab => pathname === tab || pathname.startsWith(tab + '/'));
       if (onboardingStep < 3 && !isAllowedTab) {
         if (isRedirectingRef.current) return;

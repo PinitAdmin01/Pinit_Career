@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { GameId, Difficulty, playSound } from './types';
 import { DifficultyPicker, CompletionBanner } from './DifficultyPicker';
 import { CountdownOverlay } from './CountdownOverlay';
+import { GameShell } from './GameShell';
 
 interface LogicProblem {
   level: number;
@@ -191,145 +192,74 @@ export function LogicCircuitGame({
   const accuracyEarned = Math.min(100, Math.round((correctCount / LOGIC_PROBLEMS.length) * 100));
 
   return (
-    <div style={{ textAlign: 'center', animation: 'attFadeIn 0.3s ease', position: 'relative', width: '100%', maxWidth: 520, margin: '0 auto', color: '#fff' }}>
-      {phase === 'countdown' && <CountdownOverlay soundMuted={soundMuted} onComplete={startGame} />}
-
-      <button onClick={onExit} style={{ position: 'absolute', top: -10, right: 0, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', padding: '8px 18px', borderRadius: 10, cursor: 'pointer', fontSize: 13, fontWeight: 600 }}>✕ Exit</button>
-
-      {phase === 'ready' && (
-        <div style={{ animation: 'attFadeIn 0.4s ease' }}>
-          <div style={{ fontSize: 56, marginBottom: 16 }}>🧠</div>
-          <h2 style={{ color: '#f0f0f0', fontSize: 28, fontWeight: 800, margin: '0 0 8px' }}>Logic Circuit</h2>
-          <p style={{ color: '#aaa', fontSize: 14, margin: '0 0 16px', maxWidth: 460 }}>
-            Evaluate multi-step boolean logic gates, visual node flows, and conditional syllogisms!
-          </p>
-
-          <DifficultyPicker gameId={gameId} difficulty={difficulty} onChange={onDifficultyChange} completedDifficulties={completedDifficulties} />
-
-          <button onClick={() => setPhase('countdown')} style={{ background: 'linear-gradient(135deg, #3b82f6, #60a5fa)', color: '#fff', border: 'none', padding: '14px 40px', borderRadius: 12, fontSize: 16, fontWeight: 800, cursor: 'pointer', letterSpacing: 1, marginTop: 10 }}>START GAME</button>
-        </div>
-      )}
+    <GameShell
+      accent="blue"
+      mark="logic"
+      title="Logic Circuit"
+      description="Read the gates and conditions. Choose the valid output."
+      phase={phase}
+      onExit={onExit}
+      countdown={phase === 'countdown' ? <CountdownOverlay soundMuted={soundMuted} onComplete={startGame} /> : null}
+      readyExtra={<DifficultyPicker gameId={gameId} difficulty={difficulty} onChange={onDifficultyChange} completedDifficulties={completedDifficulties} />}
+      onStart={() => setPhase('countdown')}
+      doneTitle="Circuit closed"
+      doneScore={`${finalScore} pts`}
+      doneHint={`${correctCount} / ${LOGIC_PROBLEMS.length} proofs · ${accuracyPct}%`}
+      doneExtra={
+        <CompletionBanner
+          difficulty={difficulty}
+          onNextChallenge={(nextDiff) => {
+            onDifficultyChange(nextDiff);
+            setPhase('countdown');
+          }}
+        />
+      }
+      onClaim={() => { onComplete(finalScore, accuracyEarned); onExit(); }}
+      onReplay={() => setPhase('countdown')}
+    >
 
       {phase === 'playing' && (
-        <div>
-          {/* Header Status Bar */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20, background: 'rgba(15,23,42,0.85)', backdropFilter: 'blur(12px)', padding: '12px 18px', borderRadius: 14, border: '1px solid rgba(255,255,255,0.15)', boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}>
-            <div style={{ textAlign: 'left' }}>
-              <div style={{ fontSize: 12, color: '#aaa' }}>{currentProb.title}</div>
-              <div style={{ fontSize: 18, fontWeight: 800, color: '#3b82f6' }}>Score: {score}</div>
-            </div>
-
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ fontSize: 12, color: '#aaa' }}>Time Left:</span>
-              <span style={{ fontSize: 22, fontWeight: 900, color: timeLeft <= 3 ? '#ef4444' : '#10b981' }}>{timeLeft}s</span>
-            </div>
+        <>
+          <div className="att-hud">
+            <div className="att-hud-key"><span>{currentProb.title}</span><b>{score}</b></div>
+            <div><span>Time</span><b className={timeLeft <= 3 ? 'att-warn' : undefined}>{timeLeft}s</b></div>
           </div>
-
-          {/* ── 📐 2.5D PERSPECTIVE CIRCUIT BOARD STAGE ── */}
-          <div style={{ perspective: '1000px', padding: '10px 0' }}>
-            <div
-              style={{
-                background: 'rgba(15,23,42,0.85)',
-                backdropFilter: 'blur(16px)',
-                border: '1px solid rgba(255,255,255,0.15)',
-                borderRadius: 20,
-                padding: '24px 20px',
-                marginBottom: 20,
-                boxShadow: '0 24px 48px rgba(0,0,0,0.7), inset 0 1px 1px rgba(255,255,255,0.15)',
-                transform: 'perspective(1000px) rotateX(10deg) translateZ(0)',
-                transformStyle: 'preserve-3d',
-              }}
-            >
-              <div style={{ fontSize: 14, color: '#93c5fd', fontWeight: 700, marginBottom: 14 }}>{currentProb.promptTitle}</div>
-
-              {/* Statements List */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 8, textAlign: 'left', marginBottom: currentProb.visualGate ? 16 : 0 }}>
+          <div className="att-arena">
+            <div className="att-board" style={{ display: 'block', width: '100%', transform: 'rotateX(6deg)' }}>
+              <p className="att-sub" style={{ marginBottom: 12 }}>{currentProb.promptTitle}</p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8, textAlign: 'left' }}>
                 {currentProb.logicStatements.map((stmt, idx) => (
-                  <div key={idx} style={{ background: 'rgba(255,255,255,0.06)', borderLeft: '3px solid #3b82f6', padding: '10px 14px', borderRadius: 8, fontSize: 14, fontWeight: 600, color: '#f1f5f9' }}>
-                    {stmt}
-                  </div>
+                  <div key={idx} className="att-quote">{stmt}</div>
                 ))}
               </div>
-
-              {/* Visual Gate Node Diagram */}
               {currentProb.visualGate && (
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, background: 'rgba(255,255,255,0.04)', padding: 16, borderRadius: 14, border: '1px solid rgba(59,130,246,0.3)', transform: 'translateZ(14px)', boxShadow: '0 8px 24px rgba(59,130,246,0.2)' }}>
-                  <div style={{ fontSize: 32 }}>{currentProb.visualGate.input1}</div>
-                  <div style={{ background: 'linear-gradient(135deg, #3b82f6, #2563eb)', color: '#fff', padding: '8px 18px', borderRadius: 10, fontSize: 14, fontWeight: 900, borderBottom: '3px solid #1d4ed8', boxShadow: '0 4px 12px rgba(59,130,246,0.4)' }}>
-                    {currentProb.visualGate.gate}
-                  </div>
-                  {currentProb.visualGate.input2 && <div style={{ fontSize: 32 }}>{currentProb.visualGate.input2}</div>}
-                  <div style={{ fontSize: 22, color: '#93c5fd' }}>➔</div>
-                  <div style={{ fontSize: 32, fontWeight: 900, color: '#3b82f6', textShadow: '0 0 12px rgba(59,130,246,0.8)' }}>?</div>
+                <div className="att-seq" style={{ marginTop: 14 }}>
+                  <div className="att-chip">{currentProb.visualGate.input1}</div>
+                  <div className="att-chip is-ask">{currentProb.visualGate.gate}</div>
+                  {currentProb.visualGate.input2 && <div className="att-chip">{currentProb.visualGate.input2}</div>}
+                  <div className="att-chip">→ ?</div>
                 </div>
               )}
             </div>
           </div>
-
-          {/* Options Choice Buttons */}
-          <div style={{ display: 'grid', gridTemplateColumns: currentProb.options.length === 2 ? 'repeat(2, 1fr)' : 'repeat(1, 1fr)', gap: 12 }}>
+          <div className="att-choice" style={{ gridTemplateColumns: currentProb.options.length === 2 ? '1fr 1fr' : '1fr', marginTop: 14 }}>
             {currentProb.options.map((opt, idx) => {
               const isSelected = selectedOption === idx;
               const isCorrect = idx === currentProb.correctIdx;
-              let bg = 'rgba(255,255,255,0.08)';
-              let border = '1px solid rgba(255,255,255,0.2)';
-              let borderBottom = '4px solid rgba(0,0,0,0.5)';
-
-              if (isSelected) {
-                bg = isCorrect ? 'rgba(16,185,129,0.3)' : 'rgba(239,68,68,0.3)';
-                border = isCorrect ? '2px solid #10b981' : '2px solid #ef4444';
-                borderBottom = isCorrect ? '4px solid #047857' : '4px solid #b91c1c';
-              }
-
               return (
                 <button
                   key={idx}
+                  type="button"
+                  className={`att-choice-btn${isSelected ? (isCorrect ? ' is-good' : ' is-bad') : ''}`}
                   onClick={() => advanceLevel(isCorrect, idx)}
-                  style={{
-                    background: bg,
-                    border,
-                    borderBottom,
-                    borderRadius: 14,
-                    padding: '16px 20px',
-                    color: '#fff',
-                    fontSize: 16,
-                    fontWeight: 800,
-                    cursor: 'pointer',
-                    transform: isSelected ? 'translateY(2px) translateZ(-4px)' : 'translateZ(0)',
-                    transition: 'all 0.15s ease',
-                  }}
                 >
                   {opt}
                 </button>
               );
             })}
           </div>
-        </div>
+        </>
       )}
-
-      {phase === 'done' && (
-        <div style={{ animation: 'attFadeIn 0.4s ease', background: 'rgba(15,23,42,0.9)', padding: '32px 24px', borderRadius: 20, border: '1px solid rgba(255,255,255,0.15)' }}>
-          <div style={{ fontSize: 56, marginBottom: 12 }}>🎉</div>
-          <h2 style={{ color: '#fff', fontSize: 26, fontWeight: 800, margin: '0 0 6px' }}>Logic Circuit Mastered!</h2>
-          <div style={{ fontSize: 32, fontWeight: 900, color: '#3b82f6', margin: '12px 0 6px' }}>{finalScore} pts</div>
-          <div style={{ fontSize: 14, color: '#aaa', marginBottom: 20 }}>
-            Logical Reasoning Accuracy: <strong>{accuracyPct}%</strong> ({correctCount} / {LOGIC_PROBLEMS.length} Chain Proofs Resolved)
-          </div>
-
-          <CompletionBanner
-            difficulty={difficulty}
-            onNextChallenge={(nextDiff) => {
-              onDifficultyChange(nextDiff);
-              setPhase('countdown');
-            }}
-          />
-
-          <div style={{ display: 'flex', gap: 12, justifyContent: 'center', marginTop: 24 }}>
-            <button onClick={() => { onComplete(finalScore, accuracyEarned); onExit(); }} style={{ background: 'linear-gradient(135deg, #3b82f6, #60a5fa)', color: '#fff', border: 'none', padding: '12px 28px', borderRadius: 10, fontSize: 14, fontWeight: 800, cursor: 'pointer' }}>Claim XP & Save</button>
-            <button onClick={() => setPhase('countdown')} style={{ background: 'rgba(255,255,255,0.1)', color: '#fff', border: '1px solid rgba(255,255,255,0.2)', padding: '12px 24px', borderRadius: 10, fontSize: 14, fontWeight: 700, cursor: 'pointer' }}>Replay Level</button>
-          </div>
-        </div>
-      )}
-    </div>
+    </GameShell>
   );
 }

@@ -1,10 +1,11 @@
 'use client';
-import { useState, useEffect, useRef, useCallback, Suspense } from 'react';
+import { useState, useEffect, useRef, useCallback, Suspense, type CSSProperties, type MouseEvent } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/lib/hooks/useAuth';
 import { supabase } from '@/lib/supabaseClient';
 import PublicNavbar from '@/components/nav/PublicNavbar';
+import '@/styles/landing.css';
 
 function getRedirectPath(email: string | null | undefined, role: string | null | undefined): string {
   const emailLower = email?.toLowerCase() || '';
@@ -191,6 +192,17 @@ function LoginModal({
 
 function LandingContent() {
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const stageRef = useRef<HTMLDivElement>(null);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+
+  const onStageMove = (e: MouseEvent<HTMLDivElement>) => {
+    const el = stageRef.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width - 0.5;
+    const py = (e.clientY - r.top) / r.height - 0.5;
+    setTilt({ x: +(py * -14).toFixed(2), y: +(px * 16).toFixed(2) });
+  };
   const [liveStats, setLiveStats] = useState({
     activeLearners: '100K+',
     projectsBuilt: '30K+',
@@ -246,11 +258,7 @@ function LandingContent() {
 
   return (
     <div className="landing-page">
-      {/* BACKGROUND ELEMENTS */}
       <div className="bg-grid-pattern"></div>
-      <div className="floating-blob blob-1"></div>
-      <div className="floating-blob blob-2"></div>
-      <div className="floating-blob blob-3"></div>
 
       {/* 1. UNIVERSAL SHARED NAVBAR */}
       <PublicNavbar onLoginClick={handleLoginClick} />
@@ -260,50 +268,26 @@ function LandingContent() {
         <section className="hero-section section-padding">
           <div className="container hero-grid">
             <div className="hero-left">
-              <div className="badge-pill">The Future of Career Learning</div>
+              <div className="badge-pill">Career OS</div>
               <h1 className="hero-title">
-                PinitCareer is More Than Learning.<br />
-                It's Your Complete<br />
-                <span className="text-gradient">Career Operating System.</span>
+                More than courses.<br />
+                A complete<br />
+                <span className="text-gradient">career operating system.</span>
               </h1>
               <p className="hero-subtitle">
-                Learn with AI. Build real skills. Compete with peers. Collaborate in communities. Get discovered by companies. PinitCareer connects learning, projects, reputation, and opportunities into one intelligent ecosystem.
+                Learn with AI. Build real skills. Compete with peers. Collaborate in communities. Get discovered by companies.
               </p>
-              <div className="feature-chips">
-                <div className="feature-chip">
-                  <div className="chip-icon">🤖</div>
-                  <div className="chip-text">
-                    <strong>AI-Powered Learning</strong>
-                    <span>Personal AI mentor 24/7 guidance</span>
-                  </div>
-                </div>
-                <div className="feature-chip">
-                  <div className="chip-icon">💼</div>
-                  <div className="chip-text">
-                    <strong>Real Projects</strong>
-                    <span>Build. Deploy. Showcase.</span>
-                  </div>
-                </div>
-                <div className="feature-chip">
-                  <div className="chip-icon">⚔️</div>
-                  <div className="chip-text">
-                    <strong>Code Wars</strong>
-                    <span>Compete. Rank. Win rewards.</span>
-                  </div>
-                </div>
-                <div className="feature-chip">
-                  <div className="chip-icon">🏢</div>
-                  <div className="chip-text">
-                    <strong>Get Hired</strong>
-                    <span>Companies discover and hire you.</span>
-                  </div>
-                </div>
-              </div>
               <div className="hero-ctas">
-                <button className="pc-btn-primary pc-btn-glow">Start Your Journey – It's Free →</button>
-                <button className="pc-btn-outline">
-                  <span style={{ marginRight: 6 }}>▶</span> Explore How It Works
+                <button type="button" className="pc-btn-primary" onClick={handleLoginClick}>Start free</button>
+                <button type="button" className="pc-btn-outline" onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}>
+                  See how it works
                 </button>
+              </div>
+              <div className="feature-chips">
+                <div className="feature-chip"><strong>AI mentor</strong></div>
+                <div className="feature-chip"><strong>Real person</strong></div>
+                <div className="feature-chip"><strong>Code war</strong></div>
+                <div className="feature-chip"><strong>Get hired</strong></div>
               </div>
               <div className="trust-section">
                 <p className="trust-text">Trusted by 100K+ learners and 500+ companies worldwide</p>
@@ -318,124 +302,31 @@ function LandingContent() {
               </div>
             </div>
             <div className="hero-right">
-              <div className="hub-diagram">
-                {/* Central Hexagon Engine Hub (Image 2 WhatsApp Perfect Match) */}
-                <div className="hub-center-hex">
-                  <svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    {/* Outer Hexagon Shape with 3D gradient */}
-                    <polygon points="110,12 195,61 195,159 110,208 25,159 25,61" fill="url(#hexGradient3D)" filter="drop-shadow(0px 14px 36px rgba(124, 58, 237, 0.45))" />
-                    
-                    {/* 3D Hexagon Side Highlights */}
-                    <polygon points="110,12 195,61 195,159 110,208" fill="white" fillOpacity="0.08" />
-                    <polygon points="110,12 25,61 110,208" fill="black" fillOpacity="0.06" />
-
-                    {/* White P Emblem */}
-                    <path d="M92 48H124C136 48 144 57 144 69C144 81 136 90 124 90H106V118H92V48Z" fill="white" />
-
-                    <defs>
-                      <linearGradient id="hexGradient3D" x1="25" y1="12" x2="195" y2="208" gradientUnits="userSpaceOnUse">
-                        <stop stopColor="#8B5CF6" />
-                        <stop offset="0.5" stopColor="#7C3AED" />
-                        <stop offset="1" stopColor="#5B21B6" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                  <div className="hub-center-labels">
-                    <span className="hub-brand-name">PINITCAREER</span>
-                    <span className="hub-sub-name">Your Career Engine</span>
+              <div
+                ref={stageRef}
+                className="lp-stage"
+                onMouseMove={onStageMove}
+                onMouseLeave={() => setTilt({ x: 0, y: 0 })}
+                style={{ '--rx': `${tilt.x}deg`, '--ry': `${tilt.y}deg` } as CSSProperties}
+              >
+                <div className="lp-rig">
+                  <div className="lp-floor" aria-hidden />
+                  <div className="lp-ring" aria-hidden />
+                  <div className="lp-logo">
+                    <div className="lp-badge">
+                      <span className="lp-badge-front">Pi</span>
+                      <span className="lp-badge-side" />
+                      <span className="lp-badge-bottom" />
+                    </div>
+                    <strong>PINIT</strong>
                   </div>
+                  <ul className="lp-terms">
+                    <li>AI mentor</li>
+                    <li>Real person</li>
+                    <li>Code war</li>
+                    <li>Get hired</li>
+                  </ul>
                 </div>
-
-                {/* 8 Connected Orbit Nodes (Image 2 WhatsApp Layout) */}
-                <div className="hub-node node-top">
-                  <div className="node-icon-circle">🤖</div>
-                  <div className="node-text-wrap">
-                    <strong className="node-title">AI Mentor</strong>
-                    <span className="node-desc">Personalized guidance<br />24/7</span>
-                  </div>
-                </div>
-
-                <div className="hub-node node-top-right">
-                  <div className="node-icon-circle">⚔️</div>
-                  <div className="node-text-wrap">
-                    <strong className="node-title">Code Wars</strong>
-                    <span className="node-desc">Daily challenges<br />Leaderboards</span>
-                  </div>
-                </div>
-
-                <div className="hub-node node-right">
-                  <div className="node-icon-circle">🏢</div>
-                  <div className="node-text-wrap">
-                    <strong className="node-title">Companies</strong>
-                    <span className="node-desc">Real requirements<br />Real hiring</span>
-                  </div>
-                </div>
-
-                <div className="hub-node node-bottom-right">
-                  <div className="node-icon-circle">🏆</div>
-                  <div className="node-text-wrap">
-                    <strong className="node-title">Job Offers</strong>
-                    <span className="node-desc">Internships &<br />Full-time roles</span>
-                  </div>
-                </div>
-
-                <div className="hub-node node-bottom">
-                  <div className="node-icon-circle">💼</div>
-                  <div className="node-text-wrap">
-                    <strong className="node-title">Portfolio</strong>
-                    <span className="node-desc">Projects, skills<br />& achievements</span>
-                  </div>
-                </div>
-
-                <div className="hub-node node-bottom-left">
-                  <div className="node-icon-circle">👥</div>
-                  <div className="node-text-wrap">
-                    <strong className="node-title">Communities</strong>
-                    <span className="node-desc">Learn together<br />Grow together</span>
-                  </div>
-                </div>
-
-                <div className="hub-node node-left">
-                  <div className="node-icon-circle">📚</div>
-                  <div className="node-text-wrap">
-                    <strong className="node-title">Learning</strong>
-                    <span className="node-desc">AI-powered<br />personalized roadmaps</span>
-                  </div>
-                </div>
-
-                <div className="hub-node node-top-left">
-                  <div className="node-icon-circle">💼</div>
-                  <div className="node-text-wrap">
-                    <strong className="node-title">Projects</strong>
-                    <span className="node-desc">Build real-world<br />projects</span>
-                  </div>
-                </div>
-
-                {/* Guidelines SVG with exact node connections & purple orbit dots */}
-                <svg className="hub-lines-svg" viewBox="0 0 500 500">
-                  {/* Outer Orbit Dotted Ring */}
-                  <circle cx="250" cy="250" r="185" stroke="#7C3AED" strokeWidth="1.5" strokeDasharray="3 6" opacity="0.3" fill="none" />
-                  
-                  {/* Radial Spoke Lines to 8 Nodes */}
-                  <line x1="250" y1="250" x2="250" y2="65" stroke="#7C3AED" strokeWidth="1.5" strokeDasharray="3 5" opacity="0.35" />
-                  <line x1="250" y1="250" x2="380" y2="120" stroke="#7C3AED" strokeWidth="1.5" strokeDasharray="3 5" opacity="0.35" />
-                  <line x1="250" y1="250" x2="435" y2="250" stroke="#7C3AED" strokeWidth="1.5" strokeDasharray="3 5" opacity="0.35" />
-                  <line x1="250" y1="250" x2="380" y2="380" stroke="#7C3AED" strokeWidth="1.5" strokeDasharray="3 5" opacity="0.35" />
-                  <line x1="250" y1="250" x2="250" y2="435" stroke="#7C3AED" strokeWidth="1.5" strokeDasharray="3 5" opacity="0.35" />
-                  <line x1="250" y1="250" x2="120" y2="380" stroke="#7C3AED" strokeWidth="1.5" strokeDasharray="3 5" opacity="0.35" />
-                  <line x1="250" y1="250" x2="65" y2="250" stroke="#7C3AED" strokeWidth="1.5" strokeDasharray="3 5" opacity="0.35" />
-                  <line x1="250" y1="250" x2="120" y2="120" stroke="#7C3AED" strokeWidth="1.5" strokeDasharray="3 5" opacity="0.35" />
-
-                  {/* 8 Purple Orbit Connector Dots */}
-                  <circle cx="250" cy="65" r="4" fill="#7C3AED" />
-                  <circle cx="380" cy="120" r="4" fill="#7C3AED" />
-                  <circle cx="435" cy="250" r="4" fill="#7C3AED" />
-                  <circle cx="380" cy="380" r="4" fill="#7C3AED" />
-                  <circle cx="250" cy="435" r="4" fill="#7C3AED" />
-                  <circle cx="120" cy="380" r="4" fill="#7C3AED" />
-                  <circle cx="65" cy="250" r="4" fill="#7C3AED" />
-                  <circle cx="120" cy="120" r="4" fill="#7C3AED" />
-                </svg>
               </div>
             </div>
           </div>
@@ -456,27 +347,27 @@ function LandingContent() {
               {/* 6 Capability Features Grid */}
               <div className="features-grid-2x3">
                 <div className="feature-item">
-                  <div className="icon-circ">🤖</div>
+                  <div className="icon-circ" aria-hidden />
                   <span>AI-driven personalized roadmaps</span>
                 </div>
                 <div className="feature-item">
-                  <div className="icon-circ">📖</div>
+                  <div className="icon-circ" aria-hidden />
                   <span>Skill-based learning & real projects</span>
                 </div>
                 <div className="feature-item">
-                  <div className="icon-circ">💻</div>
+                  <div className="icon-circ" aria-hidden />
                   <span>Code-in-portfolio & leaderboards</span>
                 </div>
                 <div className="feature-item">
-                  <div className="icon-circ">👥</div>
+                  <div className="icon-circ" aria-hidden />
                   <span>Peer collaboration & study groups</span>
                 </div>
                 <div className="feature-item">
-                  <div className="icon-circ">🏷️</div>
+                  <div className="icon-circ" aria-hidden />
                   <span>Verified portfolio & skill badges</span>
                 </div>
                 <div className="feature-item">
-                  <div className="icon-circ">🔗</div>
+                  <div className="icon-circ" aria-hidden />
                   <span>Direct access to company requirements & hiring</span>
                 </div>
               </div>
@@ -485,15 +376,15 @@ function LandingContent() {
               <div className="journey-steps-wrapper">
                 <h4>One Platform. Every Step of Your Career Journey.</h4>
                 <div className="journey-steps">
-                  <div className="j-step"><div className="j-icon-bg">📚</div><span>Learn</span></div>
+                  <div className="j-step"><div className="j-icon-bg" aria-hidden /><span>Learn</span></div>
                   <div className="j-arrow">→</div>
-                  <div className="j-step"><div className="j-icon-bg">🔨</div><span>Build</span></div>
+                  <div className="j-step"><div className="j-icon-bg" aria-hidden /><span>Build</span></div>
                   <div className="j-arrow">→</div>
-                  <div className="j-step"><div className="j-icon-bg">⚔️</div><span>Compete</span></div>
+                  <div className="j-step"><div className="j-icon-bg" aria-hidden /><span>Compete</span></div>
                   <div className="j-arrow">→</div>
-                  <div className="j-step"><div className="j-icon-bg">👥</div><span>Collaborate</span></div>
+                  <div className="j-step"><div className="j-icon-bg" aria-hidden /><span>Collaborate</span></div>
                   <div className="j-arrow">→</div>
-                  <div className="j-step"><div className="j-icon-bg">💼</div><span>Get Hired</span></div>
+                  <div className="j-step"><div className="j-icon-bg" aria-hidden /><span>Get Hired</span></div>
                 </div>
               </div>
             </div>
@@ -503,12 +394,12 @@ function LandingContent() {
               {/* Welcome Back Card with AI Mentor Chat & Career Score */}
               <div className="glass-card welcome-card">
                 <div className="welcome-header">
-                  <h3>Welcome back, Arjun! 👋</h3>
+                  <h3>Welcome back, Arjun</h3>
                 </div>
                 <div className="welcome-body-grid">
                   {/* AI Mentor Chat Bubble */}
                   <div className="ai-chat-box">
-                    <div className="ai-avatar-small">🤖</div>
+                    <div className="ai-avatar-small" aria-hidden />
                     <div className="ai-msg-content">
                       <strong className="ai-msg-title">Your AI Mentor</strong>
                       <p className="ai-msg-text">Based on your goals, I've created a personalized roadmap to become a Full Stack Developer in 24 weeks.</p>
@@ -681,7 +572,7 @@ function LandingContent() {
                 <div className="profile-and-analysis-box">
                   <div className="profile-header">
                     <div className="avatar-photo-circle">
-                      <span className="avatar-emoji">👨‍🎓</span>
+                      <span className="avatar-emoji" aria-hidden />
                     </div>
                     <div className="profile-details">
                       <span className="info-lbl-sm">Your Profile</span>
@@ -783,29 +674,29 @@ function LandingContent() {
                   <tbody>
                     <tr>
                       <td className="rank-col">🥇 1</td>
-                      <td className="user-col"><div className="user-avatar-tiny">👩‍💻</div> Riya Singh</td>
+                      <td className="user-col"><div className="user-avatar-tiny" aria-hidden /> Riya Singh</td>
                       <td className="xp-col">2450 XP</td>
                     </tr>
                     <tr>
                       <td className="rank-col">🥈 2</td>
-                      <td className="user-col"><div className="user-avatar-tiny">🧑‍💻</div> Arjun Dev</td>
+                      <td className="user-col"><div className="user-avatar-tiny" aria-hidden /> Arjun Dev</td>
                       <td className="xp-col">2330 XP</td>
                     </tr>
                     <tr>
                       <td className="rank-col">🥉 3</td>
-                      <td className="user-col"><div className="user-avatar-tiny">👨‍💻</div> Karthik S.</td>
+                      <td className="user-col"><div className="user-avatar-tiny" aria-hidden /> Karthik S.</td>
                       <td className="xp-col">2150 XP</td>
                     </tr>
                     <tr className="highlight-user-row">
                       <td className="rank-col">🏅 4</td>
-                      <td className="user-col"><div className="user-avatar-tiny">👤</div> <strong>You</strong></td>
+                      <td className="user-col"><div className="user-avatar-tiny" aria-hidden /> <strong>You</strong></td>
                       <td className="xp-col"><strong>1980 XP</strong></td>
                     </tr>
                   </tbody>
                 </table>
               </div>
 
-              <button className="pc-btn-purple-outline pc-btn-wide">Explore Code Wars</button>
+              <button type="button" className="pc-btn-purple-outline pc-btn-wide" onClick={handleLoginClick}>Explore Code Wars</button>
               <div className="cw-tags-row">
                 <span className="cw-tag">Algorithms</span>
                 <span className="cw-tag">Data Structures</span>
@@ -821,11 +712,11 @@ function LandingContent() {
               {/* Dual Coders VS Graphic */}
               <div className="vs-illustration-box">
                 <div className="coder-card left-coder">
-                  <div className="coder-avatar-frame">🧑‍💻</div>
+                  <div className="coder-avatar-frame" aria-hidden />
                 </div>
                 <div className="vs-badge-glow">VS</div>
                 <div className="coder-card right-coder">
-                  <div className="coder-avatar-frame">👩‍💻</div>
+                  <div className="coder-avatar-frame" aria-hidden />
                 </div>
               </div>
 
@@ -834,7 +725,7 @@ function LandingContent() {
                 <h4 className="events-head">Upcoming Events</h4>
                 
                 <div className="event-row">
-                  <div className="event-icon-badge bg-purple-light">⚔️</div>
+                  <div className="event-icon-badge bg-purple-light" aria-hidden />
                   <div className="event-info">
                     <strong>Array Battle</strong>
                     <span>Today, 8:00 PM</span>
@@ -843,7 +734,7 @@ function LandingContent() {
                 </div>
 
                 <div className="event-row">
-                  <div className="event-icon-badge bg-green-light">🏆</div>
+                  <div className="event-icon-badge bg-green-light" aria-hidden />
                   <div className="event-info">
                     <strong>Weekly Contest</strong>
                     <span>Sat, 10:00 AM</span>
@@ -852,7 +743,7 @@ function LandingContent() {
                 </div>
 
                 <div className="event-row">
-                  <div className="event-icon-badge bg-blue-light">💻</div>
+                  <div className="event-icon-badge bg-blue-light" aria-hidden />
                   <div className="event-info">
                     <strong>Hackathon</strong>
                     <span>Next Week</span>
@@ -861,7 +752,7 @@ function LandingContent() {
                 </div>
 
                 <div className="event-row">
-                  <div className="event-icon-badge bg-amber-light">🐛</div>
+                  <div className="event-icon-badge bg-amber-light" aria-hidden />
                   <div className="event-info">
                     <strong>Bug Bounty</strong>
                     <span>Ongoing</span>
@@ -892,7 +783,7 @@ function LandingContent() {
               <li><span className="chk">✓</span> Conduct challenges & interviews</li>
               <li><span className="chk">✓</span> Hire interns & full-time talent</li>
             </ul>
-            <button className="pc-btn-primary mb-12">I'm a Hiring Manager</button>
+            <button type="button" className="pc-btn-primary mb-12" onClick={handleLoginClick}>I'm a hiring manager</button>
             
             {/* 4-Step Recruitment Pipeline */}
             <div className="hiring-flow-grid">
@@ -938,9 +829,9 @@ function LandingContent() {
                   <p className="shortlist-lbl">Shortlisted Candidates</p>
                   <p className="match-lbl">AI Match Score</p>
                   <div className="candidates-avatars-row">
-                    <div className="c-avatar">👩</div>
-                    <div className="c-avatar">🧑</div>
-                    <div className="c-avatar">👨</div>
+                    <div className="c-avatar" aria-hidden />
+                    <div className="c-avatar" aria-hidden />
+                    <div className="c-avatar" aria-hidden />
                     <span className="match-badge">95% Match</span>
                   </div>
                 </div>
@@ -1003,7 +894,7 @@ function LandingContent() {
           <div className="container final-cta-wrapper">
             <div className="cta-mascot-left">
               <div className="student-mascot-illustration">
-                <div className="mascot-avatar-lg">🎒🧑‍🎓</div>
+                <div className="mascot-avatar-lg" aria-hidden />
               </div>
             </div>
             <div className="cta-content-right">
@@ -1015,8 +906,8 @@ function LandingContent() {
                 Join thousands of students who are building skills, earning reputation, and getting hired with PinitCareer.
               </p>
               <div className="cta-buttons-row">
-                <button className="pc-btn-primary pc-btn-glow-lg">Start Your Journey – It's Free →</button>
-                <button className="pc-btn-outline-lg">Explore Career Paths</button>
+                <button type="button" className="pc-btn-primary pc-btn-glow-lg" onClick={handleLoginClick}>Start free</button>
+                <button type="button" className="pc-btn-outline-lg" onClick={() => document.getElementById('ai-roadmap')?.scrollIntoView({ behavior: 'smooth' })}>Explore paths</button>
               </div>
               <div className="cta-guarantees-row">
                 <span>✓ No Credit Card Required</span>

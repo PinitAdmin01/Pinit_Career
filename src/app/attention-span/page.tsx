@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/context/AuthContext';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
@@ -27,10 +28,12 @@ import {
   isDifficultyUnlocked,
 } from '@/components/attention-span/types';
 
+import '@/styles/attention-games.css';
 import { FocusFireGame } from '@/components/attention-span/FocusFireGame';
 import { ReflexRushGame } from '@/components/attention-span/ReflexRushGame';
 import { PatternForgeGame } from '@/components/attention-span/PatternForgeGame';
 import { LogicCircuitGame } from '@/components/attention-span/LogicCircuitGame';
+import { StoreSimGame } from '@/components/attention-span/StoreSimGame';
 import {
   MemoryMatrixGame,
   SequenceSnapGame,
@@ -206,6 +209,9 @@ export default function AttentionSpanPage() {
     if (gameId === 'vortex-vision' && score > (updated.vortexVisionBest || 0)) { updated.vortexVisionBest = score; isNewHigh = true; }
     if (gameId === 'flash-fusion' && score > (updated.flashFusionBest || 0)) { updated.flashFusionBest = score; isNewHigh = true; }
     if (gameId === 'shape-shifter' && score > (updated.shapeShifterBest || 0)) { updated.shapeShifterBest = score; isNewHigh = true; }
+    if (gameId === 'pattern-forge' && score > (updated.patternForgeBest || 0)) { updated.patternForgeBest = score; isNewHigh = true; }
+    if (gameId === 'logic-circuit' && score > (updated.logicCircuitBest || 0)) { updated.logicCircuitBest = score; isNewHigh = true; }
+    if (gameId === 'store-sim' && score > (updated.storeSimBest || 0)) { updated.storeSimBest = score; isNewHigh = true; }
     if (gameId === 'precision-pointer' && score > (updated.precisionPointerBest || 0)) { updated.precisionPointerBest = score; isNewHigh = true; }
 
     // Progressive Difficulty Completion Tracking
@@ -322,6 +328,7 @@ export default function AttentionSpanPage() {
     if (gameId === 'shape-shifter') scoreDisplay = `${score} flips`;
     if (gameId === 'pattern-forge') scoreDisplay = `${score} pts`;
     if (gameId === 'logic-circuit') scoreDisplay = `${score} pts`;
+    if (gameId === 'store-sim') scoreDisplay = `${score} close`;
 
     const gameInfo = GAMES.find(g => g.id === gameId) || GAMES[0];
     const xpEarned = difficulty === 'hard' ? 35 : difficulty === 'normal' ? 20 : 10;
@@ -371,7 +378,7 @@ export default function AttentionSpanPage() {
   if (!user || !loaded) {
     return (
       <div style={{ minHeight: '100vh', background: 'var(--bg)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{ width: 40, height: 40, border: '3px solid var(--border)', borderTop: '3px solid var(--amber)', borderRadius: '50%', animation: 'attSpin 1s linear infinite' }} />
+        <div style={{ width: 36, height: 36, border: '2px solid var(--border)', borderTop: '2px solid var(--amber)', borderRadius: '50%', animation: 'attSpin 0.8s linear infinite' }} />
       </div>
     );
   }
@@ -406,6 +413,7 @@ export default function AttentionSpanPage() {
     if (gId === 'shape-shifter') return stats.shapeShifterBest ? `${stats.shapeShifterBest} flips` : '—';
     if (gId === 'pattern-forge') return stats.patternForgeBest ? `${stats.patternForgeBest} pts` : '—';
     if (gId === 'logic-circuit') return stats.logicCircuitBest ? `${stats.logicCircuitBest} pts` : '—';
+    if (gId === 'store-sim') return stats.storeSimBest ? `${stats.storeSimBest} close` : '—';
     return 'Play';
   };
 
@@ -423,166 +431,106 @@ export default function AttentionSpanPage() {
           onClose={() => setShowAnalyticsModal(false)}
         />
       )}
-      <style>{`
-        @keyframes attSpin { to { transform: rotate(360deg); } }
-        @keyframes attPulse { 0%,100% { opacity:1; } 50% { opacity:.6; } }
-        @keyframes attFadeIn { from { opacity:0; transform: translateY(16px); } to { opacity:1; transform: translateY(0); } }
-        @keyframes attFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-        @keyframes attTarget { 0% { transform: scale(0.7); opacity:0.5; } 100% { transform: scale(1); opacity:1; } }
-        @keyframes attCorrect { 0% { background: #10b981; } 100% { background: transparent; } }
-        @keyframes attWrong { 0% { background: #ef4444; } 100% { background: transparent; } }
-        .att-game-card:hover { transform: translateY(-4px) !important; box-shadow: var(--shadow-md) !important; border-color: var(--amber) !important; }
-        .att-game-card:hover .att-play-btn { background: linear-gradient(135deg, #d4a843, #f5d78e) !important; color: #0a0a0f !important; }
-        .att-stat-card:hover { transform: translateY(-2px); border-color: var(--border2); }
-        .att-leader-row:hover { background: var(--bg2) !important; }
-      `}</style>
-
-      {/* ── Fullscreen Game Overlay ── */}
-      {activeGame && (
-        <div style={{ position: 'fixed', inset: 0, zIndex: 9999, background: 'rgba(10, 10, 15, 0.96)', backdropFilter: 'blur(12px)', display: 'flex', alignItems: 'center', justifyContent: 'center', animation: 'attFadeIn 0.3s ease' }}>
+      {activeGame && createPortal(
+        <div className="att-overlay">
           {activeGame === 'focus-fire' && <FocusFireGame gameId="focus-fire" difficulty={difficulty} onDifficultyChange={setDifficulty} completedDifficulties={stats.completedDifficulties} soundMuted={soundMuted} onComplete={(s, acc) => { handleGameComplete('focus-fire', s, acc); }} onExit={() => setActiveGame(null)} />}
           {activeGame === 'memory-matrix' && <MemoryMatrixGame gameId="memory-matrix" difficulty={difficulty} onDifficultyChange={setDifficulty} completedDifficulties={stats.completedDifficulties} soundMuted={soundMuted} onComplete={(s, acc) => { handleGameComplete('memory-matrix', s, acc); }} onExit={() => setActiveGame(null)} />}
           {activeGame === 'reflex-rush' && <ReflexRushGame gameId="reflex-rush" difficulty={difficulty} onDifficultyChange={setDifficulty} completedDifficulties={stats.completedDifficulties} soundMuted={soundMuted} onComplete={(s, acc) => { handleGameComplete('reflex-rush', s, acc); }} onExit={() => setActiveGame(null)} />}
+          {activeGame === 'sequence-snap' && <SequenceSnapGame gameId="sequence-snap" difficulty={difficulty} onDifficultyChange={setDifficulty} completedDifficulties={stats.completedDifficulties} soundMuted={soundMuted} onComplete={(s, acc) => { handleGameComplete('sequence-snap', s, acc); }} onExit={() => setActiveGame(null)} />}
           {activeGame === 'vortex-vision' && <VortexVisionGame gameId="vortex-vision" difficulty={difficulty} onDifficultyChange={setDifficulty} completedDifficulties={stats.completedDifficulties} soundMuted={soundMuted} onComplete={(s, acc) => { handleGameComplete('vortex-vision', s, acc); }} onExit={() => setActiveGame(null)} />}
           {activeGame === 'flash-fusion' && <FlashFusionGame gameId="flash-fusion" difficulty={difficulty} onDifficultyChange={setDifficulty} completedDifficulties={stats.completedDifficulties} soundMuted={soundMuted} onComplete={(s, acc) => { handleGameComplete('flash-fusion', s, acc); }} onExit={() => setActiveGame(null)} />}
           {activeGame === 'shape-shifter' && <ShapeShifterGame gameId="shape-shifter" difficulty={difficulty} onDifficultyChange={setDifficulty} completedDifficulties={stats.completedDifficulties} soundMuted={soundMuted} onComplete={(s, acc) => { handleGameComplete('shape-shifter', s, acc); }} onExit={() => setActiveGame(null)} />}
           {activeGame === 'pattern-forge' && <PatternForgeGame gameId="pattern-forge" difficulty={difficulty} onDifficultyChange={setDifficulty} completedDifficulties={stats.completedDifficulties} soundMuted={soundMuted} onComplete={(s, acc) => { handleGameComplete('pattern-forge', s, acc); }} onExit={() => setActiveGame(null)} />}
           {activeGame === 'logic-circuit' && <LogicCircuitGame gameId="logic-circuit" difficulty={difficulty} onDifficultyChange={setDifficulty} completedDifficulties={stats.completedDifficulties} soundMuted={soundMuted} onComplete={(s, acc) => { handleGameComplete('logic-circuit', s, acc); }} onExit={() => setActiveGame(null)} />}
-        </div>
+          {activeGame === 'store-sim' && <StoreSimGame gameId="store-sim" difficulty={difficulty} onDifficultyChange={setDifficulty} completedDifficulties={stats.completedDifficulties} soundMuted={soundMuted} onComplete={(s, acc) => { handleGameComplete('store-sim', s, acc); }} onExit={() => setActiveGame(null)} />}
+        </div>,
+        document.body
       )}
 
-      {/* ── Dashboard ── */}
-      <div style={{ padding: '32px 28px', maxWidth: 1040, margin: '0 auto', animation: 'attFadeIn 0.5s ease', color: 'var(--t1)' }}>
-        {/* Header with Sound & Global Mode Badge */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 32 }}>
+      <div className="att-dash">
+        <div className="att-dash-head">
           <div>
-            <h1 style={{ fontSize: 28, fontWeight: 800, color: 'var(--t1)', margin: 0, display: 'flex', alignItems: 'center', gap: 12 }}>
-              <span style={{ fontSize: 32, animation: 'attFloat 3s ease-in-out infinite' }}>🧠</span>
-              Attention Span
-            </h1>
-            <p style={{ color: 'var(--t2)', margin: '6px 0 0', fontSize: 14, letterSpacing: 0.5 }}>Train your brain. Sharpen your focus.</p>
+            <h1>Attention Span</h1>
+            <p>Quiet drills for focus, memory, and judgment.</p>
           </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            {/* Progress Analytics Modal Trigger Button */}
-            <button onClick={() => setShowAnalyticsModal(true)} style={{ background: 'linear-gradient(135deg, #d4a843, #f5d78e)', border: 'none', color: '#0a0a0f', padding: '8px 16px', borderRadius: 10, cursor: 'pointer', fontSize: 12, fontWeight: 800, display: 'flex', alignItems: 'center', gap: 6, boxShadow: '0 0 12px rgba(212,168,67,0.3)' }}>
-              📊 Progress Analytics
+          <div className="att-toolbar">
+            <button type="button" className="att-tool is-accent" onClick={() => setShowAnalyticsModal(true)}>Progress</button>
+            <button type="button" className={`att-tool${soundMuted ? '' : ' is-on'}`} onClick={toggleSound}>
+              {soundMuted ? 'Sound off' : 'Sound on'}
             </button>
-
-            {/* Audio Toggle */}
-            <button onClick={toggleSound} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', color: soundMuted ? 'var(--t3)' : 'var(--amber)', padding: '8px 14px', borderRadius: 10, cursor: 'pointer', fontSize: 12, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 6 }}>
-              {soundMuted ? '🔇 Muted' : '🔊 Audio ON'}
-            </button>
-
-            {/* Global Difficulty Mode Badge */}
-            <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 10, padding: '8px 14px', fontSize: 12, fontWeight: 800, color: 'var(--t1)', display: 'flex', alignItems: 'center', gap: 6 }}>
-              <span>Mode:</span>
-              <span style={{ color: difficulty === 'hard' ? '#ef4444' : difficulty === 'easy' ? '#10b981' : '#d4a843', textTransform: 'uppercase' }}>
-                {difficulty === 'easy' ? '🟢 Easy' : difficulty === 'normal' ? '⚡ Normal' : '🔥 Hard'}
-              </span>
+            <div className="att-tool">
+              Mode · {difficulty}
             </div>
           </div>
         </div>
 
-        {/* Daily Focus Quest Banner */}
-        <div style={{ background: 'linear-gradient(135deg, var(--amber-light), var(--purple-light))', border: '1px solid var(--border)', borderRadius: 16, padding: '18px 22px', marginBottom: 28, display: 'flex', alignItems: 'center', justifyContent: 'space-between', boxShadow: 'var(--shadow-sm)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-            <div style={{ width: 44, height: 44, borderRadius: 12, background: 'var(--amber-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>🎯</div>
-            <div>
-              <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)' }}>Daily Focus Quest</div>
-              <div style={{ fontSize: 13, color: 'var(--t2)', margin: '2px 0 0' }}>
-                Complete at least 2 sessions today ({todaySessionCount}/2 completed) to earn <strong style={{ color: 'var(--amber)' }}>+15 Pins ⚡</strong> & <strong style={{ color: 'var(--purple-mid, #8b5cf6)' }}>+40 XP</strong>!
-              </div>
-            </div>
+        <div className="att-quest">
+          <div>
+            <h3>Daily focus quest</h3>
+            <p>Finish 2 sessions today ({todaySessionCount}/2) for +15 Pins and +40 XP.</p>
           </div>
-
           <button
+            type="button"
+            className={`att-btn ${questCompleted && !questClaimed ? 'att-btn-primary' : 'att-btn-ghost'}`}
             onClick={claimDailyQuest}
             disabled={!questCompleted || questClaimed}
-            style={{
-              background: questClaimed ? 'var(--bg3)' : questCompleted ? 'linear-gradient(135deg, #d4a843, #f5d78e)' : 'var(--bg3)',
-              color: questClaimed ? 'var(--t3)' : questCompleted ? '#0a0a0f' : 'var(--t3)',
-              border: questClaimed ? '1px solid var(--border)' : 'none',
-              borderRadius: 10,
-              padding: '10px 20px',
-              fontSize: 13,
-              fontWeight: 800,
-              cursor: questCompleted && !questClaimed ? 'pointer' : 'default',
-              transition: 'all 0.3s ease',
-            }}
           >
-            {questClaimed ? '✓ Claimed' : questCompleted ? 'Claim Rewards 🎉' : 'In Progress'}
+            {questClaimed ? 'Claimed' : questCompleted ? 'Claim' : 'In progress'}
           </button>
         </div>
 
-        {/* Stats Bar */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14, marginBottom: 28 }}>
+        <div className="att-stats">
           {[
-            { label: 'Focus Score', value: focusScore, icon: '🎯', color: '#d4a843' },
-            { label: 'Best Streak', value: `${stats.streak} 🔥`, icon: '📈', color: '#f59e0b' },
-            { label: 'Total Accuracy', value: `${userTotalAccuracy}+`, icon: '🏆', color: '#10b981' },
-            { label: 'Total Sessions', value: stats.totalSessions, icon: '⏱️', color: '#8b5cf6' },
-          ].map((s, i) => (
-            <div key={i} className="att-stat-card" style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 14, padding: '18px 16px', transition: 'all 0.3s ease', borderTop: `3px solid ${s.color}`, cursor: 'default', boxShadow: 'var(--shadow-sm)' }}>
-              <div style={{ fontSize: 13, color: 'var(--t2)', marginBottom: 6, display: 'flex', alignItems: 'center', gap: 6, fontWeight: 600 }}>
-                <span>{s.icon}</span> {s.label}
-              </div>
-              <div style={{ fontSize: 26, fontWeight: 800, color: 'var(--t1)' }}>{s.value}</div>
+            { label: 'Focus score', value: focusScore },
+            { label: 'Streak', value: stats.streak },
+            { label: 'Accuracy', value: `${userTotalAccuracy}+` },
+            { label: 'Sessions', value: stats.totalSessions },
+          ].map((s) => (
+            <div key={s.label} className="att-stat">
+              <em>{s.label}</em>
+              <b>{s.value}</b>
             </div>
           ))}
         </div>
 
-        {/* 🎮 3x3 GRID OF 9 MINI-GAMES WITH PROGRESSIVE DIFFICULTY UNLOCK BADGES */}
-        <div style={{ marginBottom: 12, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <h2 style={{ fontSize: 18, fontWeight: 800, color: 'var(--t1)', margin: 0, display: 'flex', alignItems: 'center', gap: 8 }}>
-            🎮 Brain Training Arena (9 Games)
-          </h2>
-          <span style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>
-            Progressive Unlock Active: <strong style={{ color: '#10b981' }}>Easy ➔ Normal ➔ Hard</strong>
-          </span>
+        <div className="att-section-h">
+          <h2>Studio ({GAMES.length})</h2>
+          <span>Easy → Normal → Hard</span>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18, marginBottom: 32 }}>
+        <div className="att-grid">
           {GAMES.map((g) => {
             const compList = stats.completedDifficulties?.[g.id] || [];
             const easyDone = compList.includes('easy');
             const normalDone = compList.includes('normal');
             const hardDone = compList.includes('hard');
-            const allMastered = easyDone && normalDone && hardDone;
 
             return (
-              <div key={g.id} className="att-game-card" style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 16, padding: '20px 18px', cursor: 'pointer', transition: 'all 0.3s ease', position: 'relative', overflow: 'hidden', boxShadow: 'var(--shadow-sm)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }} onClick={() => handleLaunchGame(g.id)}>
-                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, transparent, ${g.color}, transparent)`, opacity: 0.8 }} />
+              <button
+                key={g.id}
+                type="button"
+                className="att-card"
+                style={{ ['--card-key' as string]: g.color }}
+                onClick={() => handleLaunchGame(g.id)}
+              >
                 <div>
-                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 10 }}>
-                    <div style={{ fontSize: 28, animation: 'attFloat 3s ease-in-out infinite' }}>{g.icon}</div>
-                    <div style={{ background: 'var(--bg3)', borderRadius: 8, padding: '3px 8px', fontSize: 10, color: g.color, fontWeight: 700, border: '1px solid var(--border)' }}>{g.skill}</div>
+                  <div className="att-card-top">
+                    <div className="att-card-mark" data-kind={g.id} />
+                    <div className="att-card-skill">{g.skill}</div>
                   </div>
-                  <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--t1)', marginBottom: 4, display: 'flex', alignItems: 'center', gap: 6 }}>
-                    {g.name}
-                    {allMastered && <span style={{ fontSize: 12 }} title="All Tiers Mastered!">👑</span>}
+                  <h3>{g.name}</h3>
+                  <div className="att-tiers">
+                    <i className={easyDone ? 'on' : undefined}>Easy</i>
+                    <i className={normalDone ? 'on' : undefined}>Normal</i>
+                    <i className={hardDone ? 'on' : undefined}>Hard</i>
                   </div>
-
-                  {/* Tier Completion Badges */}
-                  <div style={{ display: 'flex', gap: 4, marginBottom: 10 }}>
-                    <span style={{ fontSize: 9, padding: '1px 6px', borderRadius: 4, fontWeight: 800, background: easyDone ? 'rgba(16,185,129,0.15)' : 'var(--bg3)', color: easyDone ? '#10b981' : 'var(--t3)', border: '1px solid var(--border)' }}>
-                      {easyDone ? '🟢 Easy ✓' : '🟢 Easy'}
-                    </span>
-                    <span style={{ fontSize: 9, padding: '1px 6px', borderRadius: 4, fontWeight: 800, background: normalDone ? 'rgba(245,158,11,0.15)' : 'var(--bg3)', color: normalDone ? '#f59e0b' : 'var(--t3)', border: '1px solid var(--border)' }}>
-                      {normalDone ? '⚡ Normal ✓' : easyDone ? '⚡ Normal' : '🔒 Normal'}
-                    </span>
-                    <span style={{ fontSize: 9, padding: '1px 6px', borderRadius: 4, fontWeight: 800, background: hardDone ? 'rgba(239,68,68,0.15)' : 'var(--bg3)', color: hardDone ? '#ef4444' : 'var(--t3)', border: '1px solid var(--border)' }}>
-                      {hardDone ? '🔥 Hard ✓' : normalDone ? '🔥 Hard' : '🔒 Hard'}
-                    </span>
-                  </div>
-
-                  <p style={{ color: 'var(--t2)', fontSize: 12, margin: '0 0 14px', lineHeight: 1.4, minHeight: 34 }}>{g.desc}</p>
+                  <p>{g.desc}</p>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: 10, borderTop: '1px solid var(--border)' }}>
-                  <div style={{ fontSize: 11, color: 'var(--t3)' }}>Best: <span style={{ color: g.color, fontWeight: 800 }}>{bestDisplay(g.id)}</span></div>
-                  <div className="att-play-btn" style={{ background: 'var(--amber-light)', color: 'var(--amber)', padding: '6px 16px', borderRadius: 8, fontSize: 12, fontWeight: 800, border: '1px solid var(--border)', transition: 'all 0.3s ease' }}>▶ PLAY</div>
+                <div className="att-card-foot">
+                  <span>Best <b>{bestDisplay(g.id)}</b></span>
+                  <span className="att-play-chip">Play</span>
                 </div>
-              </div>
+              </button>
             );
           })}
         </div>
@@ -618,7 +566,7 @@ export default function AttentionSpanPage() {
           </div>
 
           <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 16, padding: '16px', textAlign: 'center', boxShadow: 'var(--shadow-sm)' }}>
-            <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)', marginBottom: 6 }}>🕸️ Cognitive Profile</div>
+            <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)', marginBottom: 6 }}>Cognitive profile</div>
             <svg viewBox="0 0 200 160" style={{ width: '100%', height: 130 }}>
               <polygon points="100,20 170,80 100,140 30,80" fill="none" stroke="var(--border2)" strokeWidth="1" />
               <polygon points="100,50 135,80 100,110 65,80" fill="none" stroke="var(--border)" strokeWidth="1" />
@@ -648,7 +596,7 @@ export default function AttentionSpanPage() {
 
         {/* 7-Day Chart */}
         <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 14, padding: '22px 24px', marginBottom: 28, boxShadow: 'var(--shadow-sm)' }}>
-          <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)', marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>📈 7-Day Focus Trend</div>
+          <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)', marginBottom: 16 }}>7-day focus</div>
           <svg viewBox="0 0 600 180" style={{ width: '100%', height: 160 }}>
             {[0, 0.25, 0.5, 0.75, 1].map((p, i) => (
               <g key={i}>
@@ -692,7 +640,7 @@ export default function AttentionSpanPage() {
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
             <div>
               <h2 style={{ fontSize: 18, fontWeight: 800, color: 'var(--t1)', margin: 0, display: 'flex', alignItems: 'center', gap: 10 }}>
-                🏆 Accuracy Leaderboard
+                Accuracy board
                 <span style={{ fontSize: 11, background: 'rgba(16,185,129,0.15)', color: '#10b981', border: '1px solid rgba(16,185,129,0.3)', borderRadius: 20, padding: '2px 8px', fontWeight: 700 }}>
                   {syncing ? '⚡ Syncing...' : '🟢 Live End-to-End'}
                 </span>
@@ -766,7 +714,7 @@ export default function AttentionSpanPage() {
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
             <div>
               <h2 style={{ fontSize: 18, fontWeight: 800, color: 'var(--t1)', margin: 0, display: 'flex', alignItems: 'center', gap: 10 }}>
-                📜 Training Session History
+                Session history
               </h2>
               <p style={{ color: 'var(--t2)', fontSize: 13, margin: '4px 0 0' }}>
                 Complete log of all your focus game sessions, accuracy gains, and difficulty levels.
@@ -811,7 +759,7 @@ export default function AttentionSpanPage() {
           {/* History List */}
           {filteredHistory.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '32px 16px', color: 'var(--t2)', fontSize: 14, background: 'var(--bg3)', borderRadius: 12, border: '1px solid var(--border)' }}>
-              🎯 No training sessions recorded yet. Play any game above to log your history!
+              No sessions yet. Play a drill above to start the log.
             </div>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>

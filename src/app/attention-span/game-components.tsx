@@ -5,6 +5,7 @@ import { GameId, Difficulty, playSound } from '@/components/attention-span/types
 import { DifficultyPicker, CompletionBanner } from '@/components/attention-span/DifficultyPicker';
 import { CountdownOverlay } from '@/components/attention-span/CountdownOverlay';
 import { OnScreenNumpad } from '@/components/attention-span/OnScreenNumpad';
+import { GameShell } from '@/components/attention-span/GameShell';
 
 /* 🧠 GAME 2: MEMORY MATRIX */
 export function MemoryMatrixGame({ gameId, difficulty, onDifficultyChange, completedDifficulties, soundMuted, onComplete, onExit }: { gameId: GameId; difficulty: Difficulty; onDifficultyChange: (d: Difficulty) => void; completedDifficulties?: Record<string, Difficulty[]>; soundMuted: boolean; onComplete: (finalLevel: number, accuracyEarned: number) => void; onExit: () => void }) {
@@ -64,79 +65,50 @@ export function MemoryMatrixGame({ gameId, difficulty, onDifficultyChange, compl
   const accuracyEarned = Math.min(100, finalLevel * 20);
 
   return (
-    <div style={{ textAlign: 'center', animation: 'attFadeIn 0.3s ease', position: 'relative', width: '100%', maxWidth: 460 }}>
-      {phase === 'countdown' && <CountdownOverlay soundMuted={soundMuted} onComplete={() => startLevel(1)} />}
-
-      <button onClick={onExit} style={{ position: 'absolute', top: -10, right: 0, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', padding: '8px 18px', borderRadius: 10, cursor: 'pointer', fontSize: 13, fontWeight: 600 }}>✕ Exit</button>
-
-      {phase === 'ready' && (
-        <div style={{ animation: 'attFadeIn 0.4s ease' }}>
-          <div style={{ fontSize: 56, marginBottom: 16 }}>🧠</div>
-          <h2 style={{ color: '#f0f0f0', fontSize: 28, fontWeight: 800, margin: '0 0 8px' }}>Memory Matrix</h2>
-          <p style={{ color: '#aaa', fontSize: 14, margin: '0 0 12px', maxWidth: 420 }}>Memorize expanding tile patterns and reproduce them from memory!</p>
-
-          <DifficultyPicker gameId={gameId} difficulty={difficulty} onChange={onDifficultyChange} completedDifficulties={completedDifficulties} />
-
-          <button onClick={() => setPhase('countdown')} style={{ background: 'linear-gradient(135deg, #8b5cf6, #c084fc)', color: '#fff', border: 'none', padding: '14px 40px', borderRadius: 12, fontSize: 16, fontWeight: 800, cursor: 'pointer', letterSpacing: 1 }}>START GAME</button>
-        </div>
-      )}
-
+    <GameShell
+      accent="violet"
+      mark="memory"
+      title="Memory Matrix"
+      description="Hold the lit tiles, then tap them back from memory."
+      phase={phase === 'memorizing' || phase === 'input' ? 'playing' : phase}
+      onExit={onExit}
+      countdown={phase === 'countdown' ? <CountdownOverlay soundMuted={soundMuted} onComplete={() => startLevel(1)} /> : null}
+      readyExtra={<DifficultyPicker gameId={gameId} difficulty={difficulty} onChange={onDifficultyChange} completedDifficulties={completedDifficulties} />}
+      onStart={() => setPhase('countdown')}
+      doneTitle="Pattern broken"
+      doneScore={`Level ${finalLevel}`}
+      doneHint="Highest complete matrix"
+      doneExtra={<CompletionBanner difficulty={difficulty} onNextChallenge={(nextD) => { onComplete(finalLevel + 1, accuracyEarned); onDifficultyChange(nextD); setPhase('ready'); }} />}
+      onClaim={() => { onComplete(finalLevel + 1, accuracyEarned); onExit(); }}
+      onReplay={() => setPhase('ready')}
+    >
       {(phase === 'memorizing' || phase === 'input') && (
-        <div>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: 40, marginBottom: 16 }}>
-            <div style={{ color: '#8b5cf6', fontSize: 18, fontWeight: 800 }}>Level {level}</div>
-            <div style={{ color: phase === 'memorizing' ? '#f59e0b' : '#10b981', fontSize: 14, fontWeight: 700 }}>
-              {phase === 'memorizing' ? '👁 Memorize Pattern!' : '🎯 Tap Highlighted Tiles'}
+        <>
+          <div className="att-hud">
+            <div className="att-hud-key"><span>Level</span><b>{level}</b></div>
+            <div className="att-phase">{phase === 'memorizing' ? 'Watch' : 'Recall'}</div>
+          </div>
+          <div className="att-arena">
+            <div className="att-board" style={{ gridTemplateColumns: `repeat(${gridSize}, 64px)` }}>
+              {Array.from({ length: gridSize * gridSize }).map((_, i) => {
+                const isPattern = activePattern.includes(i);
+                const isSelected = userSelected.includes(i);
+                const isWrong = wrongSelections.includes(i);
+                const cls = [
+                  'att-tile',
+                  phase === 'memorizing' && isPattern ? 'is-target' : '',
+                  isSelected ? 'is-good' : '',
+                  isWrong ? 'is-bad' : '',
+                ].filter(Boolean).join(' ');
+                return (
+                  <button key={i} type="button" className={cls} onClick={() => handleTileClick(i)} style={{ width: 64, height: 64, cursor: phase === 'input' ? 'pointer' : 'default' }} />
+                );
+              })}
             </div>
           </div>
-
-          <div style={{ display: 'inline-grid', gridTemplateColumns: `repeat(${gridSize}, 64px)`, gap: 8 }}>
-            {Array.from({ length: gridSize * gridSize }).map((_, i) => {
-              const isPattern = activePattern.includes(i);
-              const isSelected = userSelected.includes(i);
-              const isWrong = wrongSelections.includes(i);
-              let bg = 'rgba(255,255,255,0.06)';
-              let border = '1px solid rgba(255,255,255,0.12)';
-
-              if (phase === 'memorizing' && isPattern) {
-                bg = 'linear-gradient(135deg, #8b5cf6, #c084fc)';
-                border = '2px solid #c084fc';
-              } else if (isSelected) {
-                bg = 'linear-gradient(135deg, #10b981, #34d399)';
-                border = '2px solid #34d399';
-              } else if (isWrong) {
-                bg = 'linear-gradient(135deg, #ef4444, #f87171)';
-                border = '2px solid #ef4444';
-              }
-
-              return (
-                <div key={i} onClick={() => handleTileClick(i)} style={{ width: 64, height: 64, borderRadius: 12, background: bg, border, cursor: phase === 'input' ? 'pointer' : 'default', transition: 'all 0.2s ease', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  {isSelected && <span style={{ color: '#fff', fontSize: 20 }}>✓</span>}
-                  {isWrong && <span style={{ color: '#fff', fontSize: 20 }}>✕</span>}
-                </div>
-              );
-            })}
-          </div>
-        </div>
+        </>
       )}
-
-      {phase === 'done' && (
-        <div style={{ animation: 'attFadeIn 0.4s ease' }}>
-          <div style={{ fontSize: 48, marginBottom: 12 }}>🧠</div>
-          <h2 style={{ color: '#f0f0f0', fontSize: 28, fontWeight: 800, margin: '0 0 8px' }}>Pattern Broken!</h2>
-          <div style={{ fontSize: 56, fontWeight: 900, color: '#8b5cf6', margin: '16px 0 4px', animation: 'attCountUp 0.5s ease' }}>Level {finalLevel}</div>
-          <p style={{ color: '#aaa', fontSize: 14, margin: '0 0 4px' }}>highest matrix level achieved</p>
-
-          <CompletionBanner difficulty={difficulty} onNextChallenge={(nextD) => { onComplete(finalLevel + 1, accuracyEarned); onDifficultyChange(nextD); setPhase('ready'); }} />
-
-          <div style={{ color: '#10b981', fontSize: 14, fontWeight: 700, margin: '4px 0 24px' }}>+{accuracyEarned} Accuracy added to Leaderboard & History Log!</div>
-          <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
-            <button onClick={() => { onComplete(finalLevel + 1, accuracyEarned); onExit(); }} style={{ background: 'linear-gradient(135deg, #8b5cf6, #c084fc)', color: '#fff', border: 'none', padding: '12px 32px', borderRadius: 10, fontSize: 14, fontWeight: 700, cursor: 'pointer' }}>Collect XP & Exit</button>
-            <button onClick={() => { setPhase('ready'); }} style={{ background: 'rgba(255,255,255,0.1)', color: '#fff', border: '1px solid rgba(255,255,255,0.2)', padding: '12px 32px', borderRadius: 10, fontSize: 14, fontWeight: 700, cursor: 'pointer' }}>Play Again</button>
-          </div>
-        </div>
-      )}
-    </div>
+    </GameShell>
   );
 }
 
@@ -184,72 +156,51 @@ export function SequenceSnapGame({ gameId, difficulty, onDifficultyChange, compl
   const accuracyEarned = Math.min(100, maxReached * 12);
 
   return (
-    <div style={{ textAlign: 'center', animation: 'attFadeIn 0.3s ease', position: 'relative', width: '100%', maxWidth: 460 }}>
-      {phase === 'countdown' && <CountdownOverlay soundMuted={soundMuted} onComplete={() => { setMaxReached(0); startLevel(3); }} />}
-
-      <button onClick={onExit} style={{ position: 'absolute', top: -10, right: 0, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', padding: '8px 18px', borderRadius: 10, cursor: 'pointer', fontSize: 13, fontWeight: 600 }}>✕ Exit</button>
-
-      {phase === 'ready' && (
-        <div style={{ animation: 'attFadeIn 0.4s ease' }}>
-          <div style={{ fontSize: 56, marginBottom: 16 }}>🔢</div>
-          <h2 style={{ color: '#f0f0f0', fontSize: 28, fontWeight: 800, margin: '0 0 8px' }}>Sequence Snap</h2>
-          <p style={{ color: '#aaa', fontSize: 14, margin: '0 0 12px', maxWidth: 420 }}>Watch number sequences flash and tap them back on the touch pad in exact order!</p>
-
-          <DifficultyPicker gameId={gameId} difficulty={difficulty} onChange={onDifficultyChange} completedDifficulties={completedDifficulties} />
-
-          <button onClick={() => setPhase('countdown')} style={{ background: 'linear-gradient(135deg, #3b82f6, #60a5fa)', color: '#fff', border: 'none', padding: '14px 40px', borderRadius: 12, fontSize: 16, fontWeight: 800, cursor: 'pointer', letterSpacing: 1 }}>START GAME</button>
-        </div>
-      )}
-
+    <GameShell
+      accent="blue"
+      mark="sequence"
+      title="Sequence Snap"
+      description="Watch the digits, then enter them in order on the pad."
+      phase={phase === 'showing' || phase === 'input' ? 'playing' : phase}
+      onExit={onExit}
+      countdown={phase === 'countdown' ? <CountdownOverlay soundMuted={soundMuted} onComplete={() => { setMaxReached(0); startLevel(3); }} /> : null}
+      readyExtra={<DifficultyPicker gameId={gameId} difficulty={difficulty} onChange={onDifficultyChange} completedDifficulties={completedDifficulties} />}
+      onStart={() => setPhase('countdown')}
+      doneTitle="Sequence ended"
+      doneScore={`${maxReached} digits`}
+      doneHint="Longest run recalled in order"
+      doneExtra={<CompletionBanner difficulty={difficulty} onNextChallenge={(nextD) => { onComplete(maxReached, accuracyEarned); onDifficultyChange(nextD); setPhase('ready'); }} />}
+      onClaim={() => { onComplete(maxReached, accuracyEarned); onExit(); }}
+      onReplay={() => setPhase('ready')}
+    >
       {phase === 'showing' && (
-        <div>
-          <div style={{ color: '#3b82f6', fontSize: 18, fontWeight: 800, marginBottom: 16 }}>Sequence ({sequence.length} Digits)</div>
-          <div style={{ display: 'flex', gap: 12, justifyContent: 'center', margin: '24px 0' }}>
+        <>
+          <div className="att-hud">
+            <div className="att-hud-key"><span>Length</span><b>{sequence.length}</b></div>
+            <div className="att-phase">Watch</div>
+          </div>
+          <div className="att-seq">
             {sequence.map((n, i) => (
-              <div key={i} style={{ width: 52, height: 60, borderRadius: 12, background: 'linear-gradient(135deg, #3b82f6, #60a5fa)', color: '#fff', fontSize: 30, fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 20px rgba(59,130,246,0.5)', animation: 'attReveal 0.2s ease' }}>
-                {n}
-              </div>
+              <div key={i} className="att-chip is-ask">{n}</div>
             ))}
           </div>
-        </div>
+        </>
       )}
-
       {phase === 'input' && (
-        <div style={{ animation: 'attFadeIn 0.3s ease' }}>
-          <div style={{ color: '#aaa', fontSize: 13, marginBottom: 10 }}>Tap exact recalled sequence below:</div>
-          
-          {/* Recalled Digits Display Box */}
-          <div style={{ background: 'rgba(255,255,255,0.06)', border: '2px solid #3b82f6', color: '#fff', fontSize: 28, fontWeight: 800, textAlign: 'center', padding: '10px 20px', borderRadius: 14, minHeight: 52, minWidth: 200, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', letterSpacing: 6, marginBottom: 18 }}>
-            {inputVal || <span style={{ color: '#555', fontSize: 16, letterSpacing: 0 }}>Tap Digits...</span>}
+        <>
+          <p className="att-sub">Enter the sequence</p>
+          <div className="att-chip" style={{ margin: '0 auto 16px', minWidth: 180, letterSpacing: 6 }}>
+            {inputVal || '—'}
           </div>
-
-          {/* On-Screen Touch Numpad */}
           <OnScreenNumpad
             soundMuted={soundMuted}
             onPress={(digit) => setInputVal(prev => (prev.length < sequence.length ? prev + digit : prev))}
             onBackspace={() => setInputVal(prev => prev.slice(0, -1))}
             onSubmit={handleSubmit}
           />
-        </div>
+        </>
       )}
-
-      {phase === 'done' && (
-        <div style={{ animation: 'attFadeIn 0.4s ease' }}>
-          <div style={{ fontSize: 48, marginBottom: 12 }}>🔢</div>
-          <h2 style={{ color: '#f0f0f0', fontSize: 28, fontWeight: 800, margin: '0 0 8px' }}>Sequence Ended!</h2>
-          <div style={{ fontSize: 56, fontWeight: 900, color: '#3b82f6', margin: '16px 0 4px', animation: 'attCountUp 0.5s ease' }}>{maxReached} Digits</div>
-          <p style={{ color: '#aaa', fontSize: 14, margin: '0 0 4px' }}>longest sequence correctly recalled</p>
-
-          <CompletionBanner difficulty={difficulty} onNextChallenge={(nextD) => { onComplete(maxReached, accuracyEarned); onDifficultyChange(nextD); setPhase('ready'); }} />
-
-          <div style={{ color: '#10b981', fontSize: 14, fontWeight: 700, margin: '4px 0 24px' }}>+{accuracyEarned} Accuracy added to Leaderboard & History Log!</div>
-          <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
-            <button onClick={() => { onComplete(maxReached, accuracyEarned); onExit(); }} style={{ background: 'linear-gradient(135deg, #3b82f6, #60a5fa)', color: '#fff', border: 'none', padding: '12px 32px', borderRadius: 10, fontSize: 14, fontWeight: 700, cursor: 'pointer' }}>Collect XP & Exit</button>
-            <button onClick={() => { setPhase('ready'); }} style={{ background: 'rgba(255,255,255,0.1)', color: '#fff', border: '1px solid rgba(255,255,255,0.2)', padding: '12px 32px', borderRadius: 10, fontSize: 14, fontWeight: 700, cursor: 'pointer' }}>Play Again</button>
-          </div>
-        </div>
-      )}
-    </div>
+    </GameShell>
   );
 }
 
@@ -285,73 +236,47 @@ export function VortexVisionGame({ gameId, difficulty, onDifficultyChange, compl
   const accuracyEarned = Math.min(100, score * 8);
 
   return (
-    <div style={{ textAlign: 'center', animation: 'attFadeIn 0.3s ease', position: 'relative', width: '100%', maxWidth: 460 }}>
-      {phase === 'countdown' && <CountdownOverlay soundMuted={soundMuted} onComplete={() => { setScore(0); spawnTarget(); setPhase('playing'); setTimeout(() => setPhase('done'), 20000); }} />}
-
-      <button onClick={onExit} style={{ position: 'absolute', top: -10, right: 0, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', padding: '8px 18px', borderRadius: 10, cursor: 'pointer', fontSize: 13, fontWeight: 600 }}>✕ Exit</button>
-
-      {phase === 'ready' && (
-        <div style={{ animation: 'attFadeIn 0.4s ease' }}>
-          <div style={{ fontSize: 56, marginBottom: 16 }}>🌀</div>
-          <h2 style={{ color: '#f0f0f0', fontSize: 28, fontWeight: 800, margin: '0 0 8px' }}>Vortex Vision</h2>
-          <p style={{ color: '#aaa', fontSize: 14, margin: '0 0 12px', maxWidth: 420 }}>Track gold stars flashing inside a spinning vortex while ignoring orbiting debris!</p>
-
-          <DifficultyPicker gameId={gameId} difficulty={difficulty} onChange={onDifficultyChange} completedDifficulties={completedDifficulties} />
-
-          <button onClick={() => setPhase('countdown')} style={{ background: 'linear-gradient(135deg, #ec4899, #f472b6)', color: '#fff', border: 'none', padding: '14px 40px', borderRadius: 12, fontSize: 16, fontWeight: 800, cursor: 'pointer', letterSpacing: 1 }}>START VORTEX</button>
-        </div>
-      )}
-
+    <GameShell
+      accent="pink"
+      mark="vortex"
+      title="Vortex Vision"
+      description="Track the gold mark in a slow orbit. Ignore the rest."
+      phase={phase}
+      onExit={onExit}
+      countdown={phase === 'countdown' ? <CountdownOverlay soundMuted={soundMuted} onComplete={() => { setScore(0); spawnTarget(); setPhase('playing'); setTimeout(() => setPhase('done'), 20000); }} /> : null}
+      readyExtra={<DifficultyPicker gameId={gameId} difficulty={difficulty} onChange={onDifficultyChange} completedDifficulties={completedDifficulties} />}
+      onStart={() => setPhase('countdown')}
+      doneTitle="Orbit closed"
+      doneScore={`${score} hits`}
+      doneExtra={<CompletionBanner difficulty={difficulty} onNextChallenge={(nextD) => { onComplete(score, accuracyEarned); onDifficultyChange(nextD); setPhase('ready'); }} />}
+      onClaim={() => { onComplete(score, accuracyEarned); onExit(); }}
+      onReplay={() => setPhase('ready')}
+    >
       {phase === 'playing' && (
-        <div>
-          <div style={{ color: '#ec4899', fontSize: 18, fontWeight: 800, marginBottom: 16 }}>Stars: {score}</div>
-          <div style={{ width: 320, height: 320, margin: '0 auto', borderRadius: '50%', background: 'radial-gradient(circle at center, #1e102a, #0a0a0f)', border: '2px solid #ec4899', position: 'relative', overflow: 'hidden' }}>
-            <div style={{ position: 'absolute', inset: 0, transform: `rotate(${debrisAngle}deg)`, transition: 'transform 0.03s linear', pointerEvents: 'none' }}>
-              <div style={{ position: 'absolute', top: 40, left: 160, fontSize: 16 }}>💣</div>
-              <div style={{ position: 'absolute', top: 220, left: 80, fontSize: 16 }}>💣</div>
-              <div style={{ position: 'absolute', top: 180, left: 240, fontSize: 16 }}>💣</div>
+        <>
+          <div className="att-hud">
+            <div className="att-hud-key"><span>Hits</span><b>{score}</b></div>
+          </div>
+          <div className="att-well">
+            <div className="att-orbit" style={{ position: 'absolute', inset: 0, transform: `rotate(${debrisAngle}deg)`, pointerEvents: 'none' }}>
+              <span style={{ top: 40, left: 146 }} />
+              <span style={{ top: 220, left: 80 }} />
+              <span style={{ top: 176, left: 230 }} />
             </div>
-
-            <div
+            <button
+              type="button"
+              className="att-star"
               onClick={handleTargetClick}
               style={{
-                position: 'absolute',
-                left: 160 + targetPos.r * Math.cos((targetPos.a * Math.PI) / 180) - 20,
-                top: 160 + targetPos.r * Math.sin((targetPos.a * Math.PI) / 180) - 20,
-                width: 40,
-                height: 40,
-                borderRadius: '50%',
-                background: 'radial-gradient(circle at center, #f5d78e, #d4a843)',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: 22,
-                boxShadow: '0 0 20px #d4a843',
+                left: 150 + targetPos.r * Math.cos((targetPos.a * Math.PI) / 180) - 14,
+                top: 150 + targetPos.r * Math.sin((targetPos.a * Math.PI) / 180) - 14,
               }}
-            >
-              ★
-            </div>
+              aria-label="Target"
+            />
           </div>
-        </div>
+        </>
       )}
-
-      {phase === 'done' && (
-        <div style={{ animation: 'attFadeIn 0.4s ease' }}>
-          <div style={{ fontSize: 48, marginBottom: 12 }}>🌀</div>
-          <h2 style={{ color: '#f0f0f0', fontSize: 28, fontWeight: 800, margin: '0 0 8px' }}>Vortex Cleared!</h2>
-          <div style={{ fontSize: 56, fontWeight: 900, color: '#ec4899', margin: '16px 0 4px' }}>{score} Stars</div>
-
-          <CompletionBanner difficulty={difficulty} onNextChallenge={(nextD) => { onComplete(score, accuracyEarned); onDifficultyChange(nextD); setPhase('ready'); }} />
-
-          <div style={{ color: '#10b981', fontSize: 14, fontWeight: 700, margin: '4px 0 24px' }}>+{accuracyEarned} Accuracy added to Leaderboard & History Log!</div>
-          <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
-            <button onClick={() => { onComplete(score, accuracyEarned); onExit(); }} style={{ background: 'linear-gradient(135deg, #ec4899, #f472b6)', color: '#fff', border: 'none', padding: '12px 32px', borderRadius: 10, fontSize: 14, fontWeight: 700, cursor: 'pointer' }}>Collect XP & Exit</button>
-            <button onClick={() => { setPhase('ready'); }} style={{ background: 'rgba(255,255,255,0.1)', color: '#fff', border: '1px solid rgba(255,255,255,0.2)', padding: '12px 32px', borderRadius: 10, fontSize: 14, fontWeight: 700, cursor: 'pointer' }}>Play Again</button>
-          </div>
-        </div>
-      )}
-    </div>
+    </GameShell>
   );
 }
 
@@ -399,49 +324,33 @@ export function FlashFusionGame({ gameId, difficulty, onDifficultyChange, comple
   const accuracyEarned = Math.min(100, score * 12);
 
   return (
-    <div style={{ textAlign: 'center', animation: 'attFadeIn 0.3s ease', position: 'relative', width: '100%', maxWidth: 460 }}>
-      {phase === 'countdown' && <CountdownOverlay soundMuted={soundMuted} onComplete={() => { setScore(0); setPhase('playing'); setTimeout(() => setPhase('done'), 20000); }} />}
-
-      <button onClick={onExit} style={{ position: 'absolute', top: -10, right: 0, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', padding: '8px 18px', borderRadius: 10, cursor: 'pointer', fontSize: 13, fontWeight: 600 }}>✕ Exit</button>
-
-      {phase === 'ready' && (
-        <div style={{ animation: 'attFadeIn 0.4s ease' }}>
-          <div style={{ fontSize: 56, marginBottom: 16 }}>⚡</div>
-          <h2 style={{ color: '#f0f0f0', fontSize: 28, fontWeight: 800, margin: '0 0 8px' }}>Flash Fusion</h2>
-          <p style={{ color: '#aaa', fontSize: 14, margin: '0 0 12px', maxWidth: 420 }}>Tap ONLY when consecutive symbols match back-to-back!</p>
-
-          <DifficultyPicker gameId={gameId} difficulty={difficulty} onChange={onDifficultyChange} completedDifficulties={completedDifficulties} />
-
-          <button onClick={() => setPhase('countdown')} style={{ background: 'linear-gradient(135deg, #6366f1, #818cf8)', color: '#fff', border: 'none', padding: '14px 40px', borderRadius: 12, fontSize: 16, fontWeight: 800, cursor: 'pointer', letterSpacing: 1 }}>START STREAM</button>
-        </div>
-      )}
-
+    <GameShell
+      accent="indigo"
+      mark="flash"
+      title="Flash Fusion"
+      description="Tap only when the current symbol matches the last one."
+      phase={phase}
+      onExit={onExit}
+      countdown={phase === 'countdown' ? <CountdownOverlay soundMuted={soundMuted} onComplete={() => { setScore(0); setPhase('playing'); setTimeout(() => setPhase('done'), 20000); }} /> : null}
+      readyExtra={<DifficultyPicker gameId={gameId} difficulty={difficulty} onChange={onDifficultyChange} completedDifficulties={completedDifficulties} />}
+      onStart={() => setPhase('countdown')}
+      doneTitle="Stream closed"
+      doneScore={`${score} matches`}
+      doneExtra={<CompletionBanner difficulty={difficulty} onNextChallenge={(nextD) => { onComplete(score, accuracyEarned); onDifficultyChange(nextD); setPhase('ready'); }} />}
+      onClaim={() => { onComplete(score, accuracyEarned); onExit(); }}
+      onReplay={() => setPhase('ready')}
+    >
       {phase === 'playing' && (
-        <div>
-          <div style={{ color: '#6366f1', fontSize: 18, fontWeight: 800, marginBottom: 16 }}>Matches: {score}</div>
-          <div onClick={handleTap} style={{ width: 220, height: 220, margin: '0 auto', borderRadius: 24, background: 'rgba(255,255,255,0.06)', border: '2px solid #6366f1', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 80, animation: 'attReveal 0.2s ease', boxShadow: '0 0 30px rgba(99,102,241,0.3)' }}>
-            {currentSymbol}
+        <>
+          <div className="att-hud">
+            <div className="att-hud-key"><span>Matches</span><b>{score}</b></div>
+            <div className="att-phase">Space</div>
           </div>
-          <p style={{ color: '#aaa', fontSize: 13, marginTop: 16 }}>Tap box on match!</p>
-        </div>
+          <button type="button" className="att-flash" onClick={handleTap}>{currentSymbol}</button>
+          <p className="att-sub" style={{ marginTop: 14 }}>Tap on a repeat</p>
+        </>
       )}
-
-      {phase === 'done' && (
-        <div style={{ animation: 'attFadeIn 0.4s ease' }}>
-          <div style={{ fontSize: 48, marginBottom: 12 }}>⚡</div>
-          <h2 style={{ color: '#f0f0f0', fontSize: 28, fontWeight: 800, margin: '0 0 8px' }}>Stream Complete!</h2>
-          <div style={{ fontSize: 56, fontWeight: 900, color: '#6366f1', margin: '16px 0 4px' }}>{score} Matches</div>
-
-          <CompletionBanner difficulty={difficulty} onNextChallenge={(nextD) => { onComplete(score, accuracyEarned); onDifficultyChange(nextD); setPhase('ready'); }} />
-
-          <div style={{ color: '#10b981', fontSize: 14, fontWeight: 700, margin: '4px 0 24px' }}>+{accuracyEarned} Accuracy added to Leaderboard & History Log!</div>
-          <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
-            <button onClick={() => { onComplete(score, accuracyEarned); onExit(); }} style={{ background: 'linear-gradient(135deg, #6366f1, #818cf8)', color: '#fff', border: 'none', padding: '12px 32px', borderRadius: 10, fontSize: 14, fontWeight: 700, cursor: 'pointer' }}>Collect XP & Exit</button>
-            <button onClick={() => { setPhase('ready'); }} style={{ background: 'rgba(255,255,255,0.1)', color: '#fff', border: '1px solid rgba(255,255,255,0.2)', padding: '12px 32px', borderRadius: 10, fontSize: 14, fontWeight: 700, cursor: 'pointer' }}>Play Again</button>
-          </div>
-        </div>
-      )}
-    </div>
+    </GameShell>
   );
 }
 
@@ -514,66 +423,45 @@ export function ShapeShifterGame({ gameId, difficulty, onDifficultyChange, compl
   const accuracyEarned = Math.min(100, score * 10);
 
   return (
-    <div style={{ textAlign: 'center', animation: 'attFadeIn 0.3s ease', position: 'relative', width: '100%', maxWidth: 460 }}>
-      {phase === 'countdown' && <CountdownOverlay soundMuted={soundMuted} onComplete={() => { setScore(0); setPhase('playing'); setTimeout(() => setPhase('done'), 20000); }} />}
-
-      <button onClick={onExit} style={{ position: 'absolute', top: -10, right: 0, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', padding: '8px 18px', borderRadius: 10, cursor: 'pointer', fontSize: 13, fontWeight: 600 }}>✕ Exit</button>
-
-      {phase === 'ready' && (
-        <div style={{ animation: 'attFadeIn 0.4s ease' }}>
-          <div style={{ fontSize: 56, marginBottom: 16 }}>🧩</div>
-          <h2 style={{ color: '#f0f0f0', fontSize: 28, fontWeight: 800, margin: '0 0 8px' }}>Shape Shifter</h2>
-          <p style={{ color: '#aaa', fontSize: 14, margin: '0 0 12px', maxWidth: 420 }}>Adapt instantly as rules flip between MATCH COLOR and MATCH SHAPE!</p>
-
-          <DifficultyPicker gameId={gameId} difficulty={difficulty} onChange={onDifficultyChange} completedDifficulties={completedDifficulties} />
-
-          <button onClick={() => setPhase('countdown')} style={{ background: 'linear-gradient(135deg, #f59e0b, #fbbf24)', color: '#fff', border: 'none', padding: '14px 40px', borderRadius: 12, fontSize: 16, fontWeight: 800, cursor: 'pointer', letterSpacing: 1 }}>START SHIFTING</button>
-        </div>
-      )}
-
+    <GameShell
+      accent="amber"
+      mark="shape"
+      title="Shape Shifter"
+      description="The rule flips between color and shape. Switch with it."
+      phase={phase}
+      onExit={onExit}
+      countdown={phase === 'countdown' ? <CountdownOverlay soundMuted={soundMuted} onComplete={() => { setScore(0); setPhase('playing'); setTimeout(() => setPhase('done'), 20000); }} /> : null}
+      readyExtra={<DifficultyPicker gameId={gameId} difficulty={difficulty} onChange={onDifficultyChange} completedDifficulties={completedDifficulties} />}
+      onStart={() => setPhase('countdown')}
+      doneTitle="Switching closed"
+      doneScore={`${score} flips`}
+      doneExtra={<CompletionBanner difficulty={difficulty} onNextChallenge={(nextD) => { onComplete(score, accuracyEarned); onDifficultyChange(nextD); setPhase('ready'); }} />}
+      onClaim={() => { onComplete(score, accuracyEarned); onExit(); }}
+      onReplay={() => setPhase('ready')}
+    >
       {phase === 'playing' && (
-        <div>
-          <div style={{ background: rule === 'COLOR' ? 'rgba(59,130,246,0.2)' : 'rgba(245,158,11,0.2)', border: `2px solid ${rule === 'COLOR' ? '#3b82f6' : '#f59e0b'}`, color: rule === 'COLOR' ? '#60a5fa' : '#fbbf24', padding: '8px 20px', borderRadius: 20, fontSize: 16, fontWeight: 900, display: 'inline-block', marginBottom: 20 }}>
-            CURRENT RULE: MATCH {rule}
+        <>
+          <div className="att-phase" style={{ marginBottom: 16 }}>Match {rule.toLowerCase()}</div>
+          <div className="att-pair">
+            {[cardA, cardB].map((card, i) => {
+              const form =
+                card.shape === '🔵' ? { borderRadius: 4 } :
+                card.shape === '🟢' ? { clipPath: 'polygon(50% 0, 100% 100%, 0 100%)', borderRadius: 0 } :
+                card.shape === '🟡' ? { clipPath: 'polygon(50% 0, 100% 50%, 50% 100%, 0 50%)', borderRadius: 0 } :
+                { borderRadius: '50%' };
+              return (
+                <div key={i} className="att-face-card" style={{ borderColor: card.color, color: card.color }}>
+                  <i style={form} />
+                </div>
+              );
+            })}
           </div>
-
-          {/* Dual Stimulus Cards */}
-          <div style={{ display: 'flex', gap: 16, justifyContent: 'center', marginBottom: 24 }}>
-            <div style={{ width: 110, height: 110, borderRadius: 16, background: 'rgba(255,255,255,0.06)', border: `3px solid ${cardA.color}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 48, boxShadow: `0 0 20px ${cardA.color}40` }}>
-              {cardA.shape}
-            </div>
-            <div style={{ width: 110, height: 110, borderRadius: 16, background: 'rgba(255,255,255,0.06)', border: `3px solid ${cardB.color}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 48, boxShadow: `0 0 20px ${cardB.color}40` }}>
-              {cardB.shape}
-            </div>
+          <div className="att-actions">
+            <button type="button" className="att-btn att-btn-primary" onClick={() => handleChoice('MATCH')}>Same</button>
+            <button type="button" className="att-btn att-btn-ghost" onClick={() => handleChoice('DIFFER')}>Different</button>
           </div>
-
-          {/* Choice Buttons */}
-          <div style={{ display: 'flex', gap: 14, justifyContent: 'center' }}>
-            <button onClick={() => handleChoice('MATCH')} style={{ flex: 1, maxWidth: 160, background: 'linear-gradient(135deg, #10b981, #34d399)', color: '#fff', border: 'none', padding: '14px 20px', borderRadius: 12, fontSize: 16, fontWeight: 800, cursor: 'pointer', boxShadow: '0 0 16px rgba(16,185,129,0.3)' }}>
-              MATCH ✓
-            </button>
-            <button onClick={() => handleChoice('DIFFER')} style={{ flex: 1, maxWidth: 160, background: 'linear-gradient(135deg, #ef4444, #f87171)', color: '#fff', border: 'none', padding: '14px 20px', borderRadius: 12, fontSize: 16, fontWeight: 800, cursor: 'pointer', boxShadow: '0 0 16px rgba(239,68,68,0.3)' }}>
-              DIFFER ✕
-            </button>
-          </div>
-        </div>
+        </>
       )}
-
-      {phase === 'done' && (
-        <div style={{ animation: 'attFadeIn 0.4s ease' }}>
-          <div style={{ fontSize: 48, marginBottom: 12 }}>🧩</div>
-          <h2 style={{ color: '#f0f0f0', fontSize: 28, fontWeight: 800, margin: '0 0 8px' }}>Task Switching Complete!</h2>
-          <div style={{ fontSize: 56, fontWeight: 900, color: '#f59e0b', margin: '16px 0 4px' }}>{score} Flips</div>
-
-          <CompletionBanner difficulty={difficulty} onNextChallenge={(nextD) => { onComplete(score, accuracyEarned); onDifficultyChange(nextD); setPhase('ready'); }} />
-
-          <div style={{ color: '#10b981', fontSize: 14, fontWeight: 700, margin: '4px 0 24px' }}>+{accuracyEarned} Accuracy added to Leaderboard & History Log!</div>
-          <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
-            <button onClick={() => { onComplete(score, accuracyEarned); onExit(); }} style={{ background: 'linear-gradient(135deg, #f59e0b, #fbbf24)', color: '#fff', border: 'none', padding: '12px 32px', borderRadius: 10, fontSize: 14, fontWeight: 700, cursor: 'pointer' }}>Collect XP & Exit</button>
-            <button onClick={() => { setPhase('ready'); }} style={{ background: 'rgba(255,255,255,0.1)', color: '#fff', border: '1px solid rgba(255,255,255,0.2)', padding: '12px 32px', borderRadius: 10, fontSize: 14, fontWeight: 700, cursor: 'pointer' }}>Play Again</button>
-          </div>
-        </div>
-      )}
-    </div>
+    </GameShell>
   );
 }

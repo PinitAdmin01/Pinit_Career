@@ -70,18 +70,7 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
   ];
 
   return (
-    <header className="public-navbar-root" style={{
-      position: 'sticky',
-      top: 0,
-      zIndex: 1000,
-      width: '100%',
-      height: '64px',
-      background: theme === 'dark' ? 'rgba(8, 10, 26, 0.85)' : 'rgba(255, 255, 255, 0.85)',
-      backdropFilter: 'blur(16px)',
-      WebkitBackdropFilter: 'blur(16px)',
-      borderBottom: theme === 'dark' ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(0, 0, 0, 0.08)',
-      transition: 'background 0.3s, border-color 0.3s'
-    }}>
+    <header className="public-navbar-root">
       <div style={{
         maxWidth: '1280px',
         margin: '0 auto',
@@ -95,48 +84,37 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <button
             type="button"
+            className="lp-dev"
             onClick={handleDevModeClick}
             style={{
-              background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
-              color: '#000000',
               border: 'none',
               padding: '6px 12px',
-              borderRadius: '8px',
               fontSize: '12px',
               fontWeight: 800,
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
               gap: '6px',
-              boxShadow: '0 0 12px rgba(245, 158, 11, 0.4)',
-              whiteSpace: 'nowrap',
-              transition: 'transform 0.15s ease'
+              whiteSpace: 'nowrap'
             }}
             title="Skip login/signup, assign default name Vinay with random unique ID, and launch Onboarding"
           >
-            <span>⚡</span> Dev Mode
+            Dev Mode
           </button>
 
           <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
-            <div style={{
+            <div className="lp-mark" style={{
               width: '36px',
               height: '36px',
-              background: 'linear-gradient(135deg, #7C3AED 0%, #A855F7 100%)',
               borderRadius: '10px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
               fontSize: '16px',
-              color: '#FFFFFF',
-              boxShadow: '0 4px 14px rgba(124, 58, 237, 0.35)'
+              color: '#FFFFFF'
             }}>Pi</div>
-            <span style={{
-              fontSize: '18px',
-              fontWeight: 800,
-              color: theme === 'dark' ? '#FFFFFF' : '#0F172A',
-              letterSpacing: '-0.5px'
-            }}>PINITCAREER</span>
+            <span className="lp-wordmark">PINITCAREER</span>
           </Link>
         </div>
 
@@ -152,18 +130,7 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
               <Link
                 key={link.href}
                 href={link.href}
-                style={{
-                  fontSize: '13.5px',
-                  fontWeight: isActive ? 700 : 500,
-                  color: isActive
-                    ? '#7C3AED'
-                    : theme === 'dark' ? '#94A3B8' : '#475569',
-                  textDecoration: 'none',
-                  padding: '6px 10px',
-                  borderRadius: '8px',
-                  background: isActive ? (theme === 'dark' ? 'rgba(124,58,237,0.12)' : 'rgba(124,58,237,0.08)') : 'transparent',
-                  transition: 'all 0.15s ease'
-                }}
+                className={isActive ? 'lp-nav-link is-on' : 'lp-nav-link'}
               >
                 {link.name}
               </Link>
@@ -174,12 +141,9 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
           <div style={{ position: 'relative' }}>
             <button
               onClick={() => setIsHubDropdownOpen(!isHubDropdownOpen)}
+              className="lp-hub"
               style={{
-                background: 'linear-gradient(135deg, rgba(124,58,237,0.15), rgba(6,182,212,0.15))',
-                border: '1px solid rgba(124,58,237,0.3)',
-                color: theme === 'dark' ? '#A855F7' : '#7C3AED',
                 padding: '6px 12px',
-                borderRadius: '50px',
                 fontSize: '12px',
                 fontWeight: 800,
                 cursor: 'pointer',
@@ -188,7 +152,7 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
                 gap: '6px'
               }}
             >
-              <span>⚡ All 8 Hubs</span>
+              <span>All 8 Hubs</span>
               <span style={{ fontSize: '10px' }}>{isHubDropdownOpen ? '▲' : '▼'}</span>
             </button>
 
@@ -209,17 +173,17 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
                 zIndex: 1001
               }}>
                 <div style={{ fontSize: '10px', fontWeight: 800, color: '#64748B', padding: '4px 8px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                  🚀 Quick Jump Hub
+                  Quick jump
                 </div>
                 {[
-                  { label: '🏠 1. Landing Page', href: '/' },
-                  { label: 'ℹ️ 2. About Us', href: '/about' },
-                  { label: '💳 3. Pricing & Pin Hub', href: '/pricing' },
-                  { label: '💼 4. For Companies & Hiring', href: '/recruiter' },
-                  { label: '🛠️ 5. Platform Features', href: '/services' },
-                  { label: '📞 6. Campus Demo & Contact', href: '/contact' },
-                  { label: '🔒 7. Privacy Policy', href: '/privacy' },
-                  { label: '📜 8. Terms of Service', href: '/terms' }
+                  { label: '1. Landing', href: '/' },
+                  { label: '2. About', href: '/about' },
+                  { label: '3. Pricing', href: '/pricing' },
+                  { label: '4. Companies', href: '/recruiter' },
+                  { label: '5. Features', href: '/services' },
+                  { label: '6. Contact', href: '/contact' },
+                  { label: '7. Privacy', href: '/privacy' },
+                  { label: '8. Terms', href: '/terms' }
                 ].map((item) => (
                   <Link
                     key={item.href}
@@ -250,6 +214,7 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
         {/* ACTIONS (THEME TOGGLE + SIGN IN / GET STARTED) */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <button
+            className="lp-theme"
             onClick={toggleTheme}
             style={{
               background: 'transparent',
@@ -299,22 +264,35 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
             </Link>
           )}
 
-          <Link
-            href="/login?mode=signup"
-            style={{
-              background: 'linear-gradient(135deg, #7C3AED, #6D28D9)',
-              color: '#FFFFFF',
-              padding: '9px 18px',
-              borderRadius: '50px',
-              fontSize: '13px',
-              fontWeight: 700,
-              textDecoration: 'none',
-              boxShadow: '0 4px 14px rgba(124, 58, 237, 0.3)',
-              transition: 'transform 0.15s, box-shadow 0.15s'
-            }}
-          >
-            Get Started →
-          </Link>
+          {onLoginClick ? (
+            <button
+              type="button"
+              className="lp-start"
+              onClick={onLoginClick}
+              style={{
+                padding: '9px 18px',
+                fontSize: '13px',
+                fontWeight: 700,
+                border: 'none',
+                cursor: 'pointer'
+              }}
+            >
+              Get started
+            </button>
+          ) : (
+            <Link
+              href="/login?mode=signup"
+              className="lp-start"
+              style={{
+                padding: '9px 18px',
+                fontSize: '13px',
+                fontWeight: 700,
+                textDecoration: 'none'
+              }}
+            >
+              Get started
+            </Link>
+          )}
 
           {/* MOBILE HAMBURGER BUTTON */}
           <button
