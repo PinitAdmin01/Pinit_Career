@@ -53,6 +53,7 @@ def list_voices():
 
 
 @router.post("/tts")
+@router.post("/generate_tts")
 async def generate_tts(request: TTSRequest):
     """
     Main TTS endpoint. Uses edge-tts neural voices on free tier (or Kokoro ONNX if present).
