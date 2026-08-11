@@ -10,7 +10,7 @@ from fastapi.responses import Response
 sys.path.insert(0, os.path.dirname(__file__))
 
 from config.settings import settings
-from api.routes_tts import router as tts_router
+from api.routes_tts import router as tts_router, generate_tts as generate_tts_route, TTSRequest
 from services.kokoro_engine import KokoroEngine
 
 # Setup logging configuration
@@ -78,6 +78,10 @@ app.include_router(tts_router, prefix="/api/v1")
 app.include_router(health_router, prefix="/api/v1")
 app.include_router(tts_router)
 app.include_router(health_router)
+
+@app.post("/generate_tts")
+async def legacy_generate_tts(request: TTSRequest):
+    return await generate_tts_route(request)
 
 @app.get("/")
 async def root():
