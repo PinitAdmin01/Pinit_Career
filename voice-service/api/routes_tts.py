@@ -64,7 +64,7 @@ async def generate_tts(request: TTSRequest):
         raise HTTPException(status_code=400, detail="Text parameter cannot be empty.")
 
     start_time = time.time()
-    voice = request.voice or settings.DEFAULT_VOICE
+    voice = request.voice.strip() if request.voice and request.voice.strip() else "priya"
     speed = request.speed or settings.DEFAULT_SPEED
     clean_text = request.text.strip()
     bypass_cache = bool(request.bypass_cache)

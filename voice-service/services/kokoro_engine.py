@@ -91,7 +91,7 @@ async def _gtts_synthesize_mp3(text: str, tld: str = "com") -> bytes:
 
     clean_txt = text.strip() or "Hello"
     buf = io.BytesIO()
-    tts = gTTS(text=clean_txt, lang="en", tld=tld, slow=False)
+    tts = gTTS(text=clean_txt, lang="en", tld="com", slow=False)
     tts.write_to_fp(buf)
     buf.seek(0)
     audio = buf.read()
