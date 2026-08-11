@@ -232,13 +232,23 @@ export async function getVoicePrintFromSupabase(uid: string) {
   }
 }
 
+const IS_VALID_UUID = (str: string) => typeof str === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(str);
+
 export async function getUserProfile(uid: string) {
-  const { data, error } = await supabase.from('users').select('*').eq('id', uid).maybeSingle();
-  if (error) throw error;
-  return data ? mapRowToProfile(data) : null;
+  if (!uid || !IS_VALID_UUID(uid)) {
+    return null;
+  }
+  try {
+    const { data, error } = await supabase.from('users').select('*').eq('id', uid).maybeSingle();
+    if (error) return null;
+    return data ? mapRowToProfile(data) : null;
+  } catch (err) {
+    return null;
+  }
 }
 
 export async function createUserProfile(uid: string, data: Record<string, any>) {
+  if (!uid || !IS_VALID_UUID(uid)) return;
   const answersUpdate: Record<string, any> = {};
   if (data.status !== undefined) answersUpdate.status = data.status;
   if (data.visa_status !== undefined) answersUpdate.visa_status = data.visa_status;
@@ -265,6 +275,7 @@ export async function createUserProfile(uid: string, data: Record<string, any>) 
 }
 
 export async function updateUserProfile(uid: string, data: Record<string, any>) {
+  if (!uid || !IS_VALID_UUID(uid)) return;
   const answersUpdate: Record<string, any> = {};
   if (data.status !== undefined) answersUpdate.status = data.status;
   if (data.visa_status !== undefined) answersUpdate.visa_status = data.visa_status;
