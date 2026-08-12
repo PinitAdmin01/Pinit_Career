@@ -50,7 +50,7 @@ export default function DocumentVaultPage() {
   async function loadDocuments() {
     setLoading(true);
     try {
-      const data = await api.get<{ documents: DocumentLockerItem[]; stats: any }>('/api/documents/stats');
+      const data = await api.get<{ documents: DocumentLockerItem[]; stats: any }>('/api/documents/mine');
       setDocuments(data.documents || []);
       setStats(data.stats || { totalIssued: 0, pendingApprovals: 0, totalRequests: 0 });
     } catch {
@@ -88,7 +88,7 @@ export default function DocumentVaultPage() {
   };
 
   return (
-      <div style={{ maxWidth: 1280, margin: '0 auto', paddingBottom: 60 }} className="animate-fade-in">
+      <div className="portal-page animate-fade-in" style={{ maxWidth: 1280, margin: '0 auto', paddingBottom: 60 }}>
         
         {/* Style configurations */}
         <style>{`
@@ -350,7 +350,7 @@ export default function DocumentVaultPage() {
                   <button
                     onClick={() => setSelectedDoc(null)}
                     className="modal-dismiss-btn"
-                    style={{ background: '#f1f5f9', color: 'var(--t2)', border: 'none', padding: '8px 16px', borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: 'pointer' }}
+                    style={{ background: 'var(--bg3)', color: 'var(--t2)', border: 'none', padding: '8px 16px', borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: 'pointer' }}
                   >
                     Close
                   </button>

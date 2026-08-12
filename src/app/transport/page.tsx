@@ -210,7 +210,7 @@ function StudentTransportInner() {
               <strong style={{ fontSize: 14 }}>⏳ Seat Verification Pending</strong>
               <div style={{ fontSize: 12, marginTop: 2 }}>Requested Route: <strong>{routes.find(r => r.code === allocation.route)?.name}</strong> | Stop: <strong>{allocation.stop}</strong>.</div>
             </div>
-            <span style={{ fontSize: 11, fontWeight: 700, padding: '4px 10px', background: 'var(--card)beb', borderRadius: 20 }}>Awaiting approval</span>
+            <span style={{ fontSize: 11, fontWeight: 700, padding: '4px 10px', background: 'var(--card)', borderRadius: 20 }}>Awaiting approval</span>
           </div>
         )}
         {allocation.status === 'allocated' && (

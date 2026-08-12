@@ -93,7 +93,7 @@ export default function StudentExamPortal() {
               <div key={exam.id} style={{
                 padding: 20,
                 borderRadius: 12,
-                border: '1px solid var(--border, #e2e8f0)',
+                border: '1px solid var(--border, var(--border))',
                 background: 'var(--bg1, #fff)',
                 display: 'flex',
                 flexDirection: 'column',
@@ -118,7 +118,7 @@ export default function StudentExamPortal() {
                   <p style={{ margin: '4px 0 0', fontSize: 13, color: '#64748b' }}>{exam.subject}</p>
                 </div>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #f1f5f9', paddingTop: 12 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--border)', paddingTop: 12 }}>
                   {exam.status === 'completed' ? (
                     <span style={{ fontSize: 14, fontWeight: 800, color: '#16a34a' }}>Score: {exam.score}%</span>
                   ) : (
@@ -141,7 +141,7 @@ export default function StudentExamPortal() {
       ) : (
         /* Active Exam Taking Interface */
         <div style={{ background: '#fff', padding: 24, borderRadius: 16, border: '1px solid #cbd5e1', display: 'flex', flexDirection: 'column', gap: 20 }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #e2e8f0', paddingBottom: 16 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border)', paddingBottom: 16 }}>
             <div>
               <h2 style={{ margin: 0, fontSize: 20, fontWeight: 700 }}>{activeExam.title}</h2>
               <span style={{ fontSize: 13, color: '#64748b' }}>{activeExam.subject} • Proctored Assessment</span>
@@ -157,7 +157,7 @@ export default function StudentExamPortal() {
           {!examSubmitted ? (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
               {activeExam.questions.map((q, idx) => (
-                <div key={q.id} style={{ background: '#f8fafc', padding: 16, borderRadius: 10, border: '1px solid #e2e8f0' }}>
+                <div key={q.id} style={{ background: 'var(--bg3)', padding: 16, borderRadius: 10, border: '1px solid var(--border)' }}>
                   <h4 style={{ margin: '0 0 12px', fontSize: 15, fontWeight: 700 }}>{idx + 1}. {q.questionText}</h4>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
                     {q.options.map((opt, optIdx) => (

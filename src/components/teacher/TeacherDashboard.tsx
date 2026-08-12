@@ -42,7 +42,7 @@ export default function TeacherDashboard({ teacher, onLogout }: TeacherDashboard
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'var(--bg-main, #f8fafc)',
+      background: 'var(--bg-main, var(--bg3))',
       color: 'var(--t1, #0f172a)',
       fontFamily: 'system-ui, -apple-system, sans-serif',
       display: 'flex',
@@ -51,7 +51,7 @@ export default function TeacherDashboard({ teacher, onLogout }: TeacherDashboard
       {/* Top Navbar */}
       <header style={{
         background: 'var(--bg1, #ffffff)',
-        borderBottom: '1px solid var(--border, #e2e8f0)',
+        borderBottom: '1px solid var(--border, var(--border))',
         padding: '16px 24px',
         display: 'flex',
         justifyContent: 'space-between',
@@ -94,7 +94,7 @@ export default function TeacherDashboard({ teacher, onLogout }: TeacherDashboard
         <aside style={{
           width: 240,
           background: 'var(--bg1, #ffffff)',
-          borderRight: '1px solid var(--border, #e2e8f0)',
+          borderRight: '1px solid var(--border, var(--border))',
           padding: '20px 12px',
           display: 'flex',
           flexDirection: 'column',
@@ -142,19 +142,19 @@ export default function TeacherDashboard({ teacher, onLogout }: TeacherDashboard
 
               {/* Dynamic Stat Cards */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16 }}>
-                <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border, #e2e8f0)', background: 'var(--bg1, #fff)' }}>
+                <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border, var(--border))', background: 'var(--bg1, #fff)' }}>
                   <div style={{ fontSize: 13, color: 'var(--t3, #64748b)' }}>Active Batches</div>
                   <div style={{ fontSize: 28, fontWeight: 800, margin: '6px 0 0' }}>4</div>
                 </div>
-                <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border, #e2e8f0)', background: 'var(--bg1, #fff)' }}>
+                <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border, var(--border))', background: 'var(--bg1, #fff)' }}>
                   <div style={{ fontSize: 13, color: 'var(--t3, #64748b)' }}>Total Enrolled Students</div>
                   <div style={{ fontSize: 28, fontWeight: 800, margin: '6px 0 0' }}>{enrolledStudentsCount}</div>
                 </div>
-                <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border, #e2e8f0)', background: 'var(--bg1, #fff)' }}>
+                <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border, var(--border))', background: 'var(--bg1, #fff)' }}>
                   <div style={{ fontSize: 13, color: 'var(--t3, #64748b)' }}>Pending Grades</div>
                   <div style={{ fontSize: 28, fontWeight: 800, color: '#d97706', margin: '6px 0 0' }}>{pendingGradesCount}</div>
                 </div>
-                <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border, #e2e8f0)', background: 'var(--bg1, #fff)' }}>
+                <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border, var(--border))', background: 'var(--bg1, #fff)' }}>
                   <div style={{ fontSize: 13, color: 'var(--t3, #64748b)' }}>Course Materials Published</div>
                   <div style={{ fontSize: 28, fontWeight: 800, color: '#2563eb', margin: '6px 0 0' }}>{materialsCount}</div>
                 </div>

@@ -132,10 +132,10 @@ export default function UserManagement() {
       )}
 
       {/* User Table */}
-      <div style={{ background: 'var(--bg1, #fff)', borderRadius: 12, border: '1px solid var(--border, #e2e8f0)', overflow: 'hidden' }}>
+      <div style={{ background: 'var(--bg1, #fff)', borderRadius: 12, border: '1px solid var(--border, var(--border))', overflow: 'hidden' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>
-            <tr style={{ background: 'var(--bg2, #f8fafc)', textAlign: 'left', borderBottom: '1px solid var(--border, #e2e8f0)' }}>
+            <tr style={{ background: 'var(--bg2, var(--bg3))', textAlign: 'left', borderBottom: '1px solid var(--border, var(--border))' }}>
               <th style={{ padding: 12, fontSize: 13 }}>User</th>
               <th style={{ padding: 12, fontSize: 13 }}>Role</th>
               <th style={{ padding: 12, fontSize: 13 }}>Trust Score</th>
@@ -145,7 +145,7 @@ export default function UserManagement() {
           </thead>
           <tbody>
             {filtered.map(u => (
-              <tr key={u.id} style={{ borderBottom: '1px solid var(--border, #f1f5f9)' }}>
+              <tr key={u.id} style={{ borderBottom: '1px solid var(--border, var(--border))' }}>
                 <td style={{ padding: 12 }}>
                   <div style={{ fontWeight: 600 }}>{u.name}</div>
                   <div style={{ fontSize: 12, color: 'var(--t3, #64748b)' }}>{u.email}</div>

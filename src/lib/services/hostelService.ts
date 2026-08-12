@@ -4,6 +4,12 @@ import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
 
 const DB_FILE = 'src/lib/data/hostel_db.json';
 
+function normalizeAllocationStatus(status: string | null | undefined): string {
+  if (!status || status === 'none') return 'none';
+  if (status === 'approved') return 'allocated';
+  return status;
+}
+
 // Interface types
 export interface HostelRoom {
   code: string;
@@ -74,7 +80,9 @@ export const hostelService = {
 
         return {
           rooms: rooms || [],
-          allocation: allocation ? { requestedRoom: allocation.requested_room, status: allocation.status } : { requestedRoom: null, status: 'none' },
+          allocation: allocation
+            ? { requestedRoom: allocation.requested_room, status: normalizeAllocationStatus(allocation.status) }
+            : { requestedRoom: null, status: 'none' },
           attendance: (attendance || []).map(a => ({ id: a.id, type: a.type, timestamp: a.timestamp })),
           complaints: (complaints || []).map(c => ({ id: c.id, category: c.category, title: c.title, description: c.description, status: c.status })),
           visitors: (visitors || []).map(v => ({ id: v.id, name: v.name, relation: v.relation, purpose: v.purpose, status: v.status }))
@@ -88,7 +96,10 @@ export const hostelService = {
     const db = await readLocalDb();
     const found = db.allocations?.find((a: any) => a.student_id === studentId);
     const allocation = found
-      ? { requestedRoom: found.requestedRoom || found.requested_room || null, status: found.status || 'none' }
+      ? {
+          requestedRoom: found.requestedRoom || found.requested_room || null,
+          status: normalizeAllocationStatus(found.status),
+        }
       : { requestedRoom: null, status: 'none' };
     const myAttendance = db.attendance?.filter((a: any) => a.student_id === studentId || a.studentName === studentName) || [];
     const myComplaints = db.complaints?.filter((c: any) => c.student_id === studentId || c.studentName === studentName) || [];
@@ -278,7 +289,7 @@ export const hostelService = {
     const isSupabaseAvailable = await checkSupabaseAvailable('hostel_allocations');
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('hostel_allocations').update({ status: 'approved', requested_room: roomCode }).eq('student_id', studentId);
+        await supabase.from('hostel_allocations').update({ status: 'allocated', requested_room: roomCode }).eq('student_id', studentId);
         const { data: room } = await supabase.from('hostel_rooms').select('*').eq('code', roomCode).maybeSingle();
         if (room) {
           await supabase.from('hostel_rooms').update({
@@ -293,7 +304,7 @@ export const hostelService = {
     }
     const db = await readLocalDb();
     const alloc = (db.allocations || []).find((a: any) => a.student_id === studentId);
-    if (alloc) alloc.status = 'approved';
+    if (alloc) alloc.status = 'allocated';
     await writeLocalDb(db);
     return { ok: true };
   },

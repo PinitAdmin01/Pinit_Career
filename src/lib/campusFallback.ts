@@ -117,6 +117,8 @@ export async function tryCampusFallback(
 
     case '/api/documents/stats':
       return documentsService.getStats();
+    case '/api/documents/mine':
+      return documentsService.getStudentDocuments(studentId);
     case '/api/documents/request':
       return documentsService.requestDoc(studentId, b.type || b.category, b.purpose || b.description);
     case '/api/documents/approve':
@@ -124,6 +126,8 @@ export async function tryCampusFallback(
 
     case '/api/admissions/applications':
       return admissionsService.getApplications();
+    case '/api/admissions/track':
+      return admissionsService.trackApplication(params.get('id') || b.id || '');
     case '/api/admissions/apply':
       return admissionsService.apply(studentId || `anon-${Date.now()}`, studentName, b.course, Number(b.rank) || 0);
     case '/api/admissions/verify-doc':

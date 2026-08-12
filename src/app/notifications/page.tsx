@@ -159,7 +159,7 @@ export default function CampusCommunicationHub() {
     }
     .email-item {
       padding: 14px;
-      border-bottom: 1px solid #f1f5f9;
+      border-bottom: 1px solid var(--border);
       cursor: pointer;
       transition: all 0.15s ease;
     }
@@ -168,14 +168,14 @@ export default function CampusCommunicationHub() {
     }
     .email-item.selected {
       background: var(--accent-light);
-      border-left: 4px solid #3b82f6;
+      border-left: 4px solid var(--accent);
     }
     .phone-screen {
       width: 320px;
       height: 560px;
       border: 12px solid var(--bg3);
       border-radius: 36px;
-      background: var(--t1);
+      background: var(--bg3);
       margin: 0 auto;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
       position: relative;
@@ -200,7 +200,7 @@ export default function CampusCommunicationHub() {
       display: flex;
       flex-direction: column;
       gap: 12px;
-      background: #f1f5f9;
+      background: var(--bg3);
     }
     .sms-bubble {
       background: var(--card);
@@ -297,7 +297,7 @@ export default function CampusCommunicationHub() {
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                     <span style={{
                       padding: '3px 8px', borderRadius: 6, fontSize: 10, fontWeight: 800,
-                      background: a.category === 'Academics' ? 'var(--accent-light)' : '#f1f5f9',
+                      background: a.category === 'Academics' ? 'var(--accent-light)' : 'var(--bg3)',
                       color: a.category === 'Academics' ? 'var(--accent)' : 'var(--t2)'
                     }}>{a.category}</span>
                     <span style={{ fontSize: 11, color: 'var(--t2)' }}>📅 Date: {a.date}</span>
@@ -390,7 +390,7 @@ export default function CampusCommunicationHub() {
             <div style={{ padding: '0 10px', display: 'flex', flexDirection: 'column' }}>
               {selectedEmail ? (
                 <div>
-                  <div style={{ borderBottom: '1px solid #f1f5f9', paddingBottom: 14, marginBottom: 14 }}>
+                  <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: 14, marginBottom: 14 }}>
                     <h3 style={{ margin: '0 0 6px 0', fontSize: 16, fontWeight: 800 }}>{selectedEmail.subject}</h3>
                     <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--t2)' }}>
                       <span>From: <strong>{selectedEmail.sender}</strong></span>

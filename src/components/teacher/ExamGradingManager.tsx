@@ -187,7 +187,7 @@ export default function ExamGradingManager() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
       {/* Tab Switcher & AI Trigger */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12, borderBottom: '1px solid var(--border, #e2e8f0)', paddingBottom: 12 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12, borderBottom: '1px solid var(--border, var(--border))', paddingBottom: 12 }}>
         <div style={{ display: 'flex', gap: 8 }}>
           <button
             onClick={() => setActiveTab('exams')}
@@ -346,7 +346,7 @@ export default function ExamGradingManager() {
             <div key={exam.id} style={{
               padding: 20,
               borderRadius: 12,
-              border: '1px solid var(--border, #e2e8f0)',
+              border: '1px solid var(--border, var(--border))',
               background: 'var(--bg1, #fff)',
               display: 'flex',
               flexDirection: 'column',
@@ -378,7 +378,7 @@ export default function ExamGradingManager() {
                 )}
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--border, #f1f5f9)', paddingTop: 12 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--border, var(--border))', paddingTop: 12 }}>
                 <span style={{ fontSize: 13, fontWeight: 600 }}>📩 {exam.submissionsCount} Submissions</span>
                 <button
                   onClick={() => setActiveTab('grading')}
@@ -403,7 +403,7 @@ export default function ExamGradingManager() {
       {/* Create Exam View */}
       {activeTab === 'create' && (
         <form onSubmit={handleCreateExam} style={{
-          background: 'var(--bg2, #f8fafc)',
+          background: 'var(--bg2, var(--bg3))',
           padding: 24,
           borderRadius: 12,
           border: '1px solid var(--border, #cbd5e1)',
@@ -489,7 +489,7 @@ export default function ExamGradingManager() {
 
       {/* Grading View */}
       {activeTab === 'grading' && (
-        <div style={{ background: 'var(--bg1, #fff)', border: '1px solid var(--border, #e2e8f0)', borderRadius: 12, padding: 20 }}>
+        <div style={{ background: 'var(--bg1, #fff)', border: '1px solid var(--border, var(--border))', borderRadius: 12, padding: 20 }}>
           <h3 style={{ margin: '0 0 16px', fontSize: 18, fontWeight: 700 }}>📊 Student Submissions & Grading</h3>
           <p style={{ color: 'var(--t3, #64748b)', fontSize: 14 }}>Select a student submission to evaluate, record marks, and sync results.</p>
 
@@ -505,7 +505,7 @@ export default function ExamGradingManager() {
             </thead>
             <tbody>
               {submissions.map(sub => (
-                <tr key={sub.id} style={{ borderBottom: '1px solid var(--border, #f1f5f9)' }}>
+                <tr key={sub.id} style={{ borderBottom: '1px solid var(--border, var(--border))' }}>
                   <td style={{ padding: 10, fontWeight: 600 }}>{sub.studentName}</td>
                   <td style={{ padding: 10 }}>{sub.examTitle}</td>
                   <td style={{ padding: 10 }}>{sub.submittedAt}</td>

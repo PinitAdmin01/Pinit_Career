@@ -80,7 +80,7 @@ export default function AuditLogView() {
           <div key={log.id} style={{
             padding: 16,
             borderRadius: 10,
-            border: '1px solid var(--border, #e2e8f0)',
+            border: '1px solid var(--border, var(--border))',
             background: 'var(--bg1, #fff)',
             display: 'flex',
             justifyContent: 'space-between',
@@ -94,7 +94,7 @@ export default function AuditLogView() {
                   fontWeight: 700,
                   padding: '2px 8px',
                   borderRadius: 4,
-                  background: '#f1f5f9',
+                  background: 'var(--border)',
                   color: '#334155'
                 }}>
                   {log.action}

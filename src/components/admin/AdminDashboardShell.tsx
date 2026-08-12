@@ -12,14 +12,14 @@ export default function AdminDashboardShell() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'var(--bg-main, #f8fafc)',
-      color: 'var(--t1, #0f172a)',
+      background: 'var(--bg)',
+      color: 'var(--t1)',
       fontFamily: 'system-ui, -apple-system, sans-serif'
     }}>
       {/* Header Bar */}
       <header style={{
-        background: 'var(--bg1, #ffffff)',
-        borderBottom: '1px solid var(--border, #e2e8f0)',
+        background: 'var(--card)',
+        borderBottom: '1px solid var(--border)',
         padding: '16px 24px',
         display: 'flex',
         justifyContent: 'space-between',
@@ -41,7 +41,7 @@ export default function AdminDashboardShell() {
               fontSize: 13,
               borderRadius: 6,
               border: '1px solid var(--border, #cbd5e1)',
-              background: '#f1f5f9',
+              background: 'var(--border)',
               cursor: 'pointer',
               fontWeight: 600
             }}
@@ -57,7 +57,7 @@ export default function AdminDashboardShell() {
         <aside style={{
           width: 240,
           background: 'var(--bg1, #ffffff)',
-          borderRight: '1px solid var(--border, #e2e8f0)',
+          borderRight: '1px solid var(--border, var(--border))',
           padding: '20px 12px',
           display: 'flex',
           flexDirection: 'column',
@@ -101,7 +101,7 @@ export default function AdminDashboardShell() {
           {activeTab === 'fraud' && <FraudInspector />}
           {activeTab === 'audit' && <AuditLogView />}
           {activeTab === 'settings' && (
-            <div style={{ background: 'var(--bg1, #fff)', border: '1px solid var(--border, #e2e8f0)', borderRadius: 12, padding: 24 }}>
+            <div style={{ background: 'var(--bg1, #fff)', border: '1px solid var(--border, var(--border))', borderRadius: 12, padding: 24 }}>
               <h2 style={{ margin: '0 0 8px' }}>⚙️ System Settings & Policy Controls</h2>
               <p style={{ color: 'var(--t3, #64748b)' }}>Configure global pass-mark thresholds, security fraud alert sensitivity, and institutional integrations.</p>
             </div>

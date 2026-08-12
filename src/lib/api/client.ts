@@ -60,6 +60,8 @@ async function getUid(): Promise<string> {
         const stored = JSON.parse(raw) as { id?: string };
         if (stored?.id && typeof stored.id === 'string') return stored.id;
       }
+      const activeUid = localStorage.getItem('pinit_active_uid');
+      if (activeUid && typeof activeUid === 'string') return activeUid;
     } catch {
       // ignore malformed vault payload
     }
@@ -406,81 +408,6 @@ async function firestoreRouter(method:string, path:string, body?:any): Promise<u
       return { devices: devices.filter(d => d.userId === userId) };
     }
     return { devices: [] };
-  }
-
-  if(cleanPath==='/api/documents/stats'){
-    if (typeof window !== 'undefined') {
-      let db = localStorage.getItem('pinit_documents_db');
-      if (!db) {
-        const defaultList = [
-          { id: "DOC-2026-0001", type: "Bonafide Certificate", purpose: "Scholarship/Sponsorship Claim", status: "Issued", dateRequested: "2026-07-10", dateIssued: "2026-07-12", verificationCode: "V-BF-8819", major: "Computer Science", year: "3rd Year" },
-          { id: "DOC-2026-0002", type: "Marks Card (Sem 5)", purpose: "Recruiter Placement Verification", status: "Pending Approval", dateRequested: "2026-07-15", dateIssued: "", verificationCode: "", major: "Computer Science", year: "3rd Year" }
-        ];
-        localStorage.setItem('pinit_documents_db', JSON.stringify(defaultList));
-        db = JSON.stringify(defaultList);
-      }
-      const list = JSON.parse(db);
-      return {
-        documents: list,
-        requests: list.map((d: any) => ({
-          id: d.id,
-          type: d.type.replace(' Certificate', ''),
-          purpose: d.purpose,
-          status: d.status === 'Issued' ? 'issued' : 'pending',
-          requestedOn: d.dateRequested
-        })),
-        stats: {
-          totalIssued: list.filter((d: any) => d.status === 'Issued').length,
-          pendingApprovals: list.filter((d: any) => d.status === 'Pending Approval').length,
-          totalRequests: list.length
-        }
-      };
-    }
-    return { documents: [], requests: [], stats: { totalIssued: 0, pendingApprovals: 0, totalRequests: 0 } };
-  }
-  if(cleanPath==='/api/documents/request'){
-    if (typeof window !== 'undefined') {
-      const db = localStorage.getItem('pinit_documents_db') || '[]';
-      const list = JSON.parse(db);
-      const req = body as { type: string; purpose: string };
-      const newDoc = {
-        id: `DOC-2026-${String(list.length + 1).padStart(4, '0')}`,
-        type: req.type,
-        purpose: req.purpose,
-        status: 'Pending Approval',
-        dateRequested: new Date().toISOString().split('T')[0],
-        dateIssued: '',
-        verificationCode: '',
-        major: 'Computer Science',
-        year: '3rd Year'
-      };
-      const updated = [newDoc, ...list];
-      localStorage.setItem('pinit_documents_db', JSON.stringify(updated));
-      return { ok: true, document: newDoc };
-    }
-    return { ok: false };
-  }
-  if(cleanPath==='/api/documents/approve'){
-    if (typeof window !== 'undefined') {
-      const db = localStorage.getItem('pinit_documents_db') || '[]';
-      const list = JSON.parse(db);
-      const req = body as { id?: string; requestId?: string };
-      const targetId = req.id || req.requestId;
-      const updated = list.map((d: any) => {
-        if (d.id === targetId) {
-          return {
-            ...d,
-            status: 'Issued',
-            dateIssued: new Date().toISOString().split('T')[0],
-            verificationCode: `V-BF-${Math.floor(1000 + Math.random() * 9000)}`
-          };
-        }
-        return d;
-      });
-      localStorage.setItem('pinit_documents_db', JSON.stringify(updated));
-      return { ok: true };
-    }
-    return { ok: false };
   }
 
   if(cleanPath==='/api/auth/me'){ const p=await fs.getUserProfile(uid); return { user:{ id:uid,...p } }; }

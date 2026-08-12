@@ -46,10 +46,9 @@ export default function AdmissionsPortal() {
     setTrackError('');
     setTrackedApp(null);
     try {
-      const res = await api.get<{ applications: any[] }>('/api/admissions/applications');
-      const found = res.applications?.find(a => a.id.toLowerCase() === trackingId.trim().toLowerCase());
-      if (found) {
-        setTrackedApp(found);
+      const res = await api.get<{ application: any | null }>(`/api/admissions/track?id=${encodeURIComponent(trackingId.trim())}`);
+      if (res.application) {
+        setTrackedApp(res.application);
       } else {
         setTrackError('No application found matching this ID. Format: APP-2026-XXXX');
       }

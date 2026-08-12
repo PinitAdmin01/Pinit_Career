@@ -113,13 +113,13 @@ export default function AttendanceTracker() {
       </div>
 
       {/* Student List Table */}
-      <div style={{ background: 'var(--bg1, #fff)', border: '1px solid var(--border, #e2e8f0)', borderRadius: 12, overflow: 'hidden' }}>
+      <div style={{ background: 'var(--bg1, #fff)', border: '1px solid var(--border, var(--border))', borderRadius: 12, overflow: 'hidden' }}>
         {loading ? (
           <div style={{ padding: 40, textAlign: 'center', color: '#64748b' }}>Loading records for {date}...</div>
         ) : (
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
-              <tr style={{ background: 'var(--bg2, #f8fafc)', borderBottom: '1px solid var(--border, #e2e8f0)', textAlign: 'left' }}>
+              <tr style={{ background: 'var(--bg2, var(--bg3))', borderBottom: '1px solid var(--border, var(--border))', textAlign: 'left' }}>
                 <th style={{ padding: 12, fontSize: 13 }}>Roll No</th>
                 <th style={{ padding: 12, fontSize: 13 }}>Student Name</th>
                 <th style={{ padding: 12, fontSize: 13, textAlign: 'right' }}>Attendance Status</th>
@@ -127,7 +127,7 @@ export default function AttendanceTracker() {
             </thead>
             <tbody>
               {students.map(s => (
-                <tr key={s.id} style={{ borderBottom: '1px solid var(--border, #f1f5f9)' }}>
+                <tr key={s.id} style={{ borderBottom: '1px solid var(--border, var(--border))' }}>
                   <td style={{ padding: 12, fontWeight: 600, fontSize: 13 }}>{s.rollNo}</td>
                   <td style={{ padding: 12, fontSize: 14 }}>{s.studentName}</td>
                   <td style={{ padding: 12, textAlign: 'right' }}>
@@ -139,7 +139,7 @@ export default function AttendanceTracker() {
                           fontSize: 12,
                           borderRadius: 6,
                           border: 'none',
-                          background: s.status === 'present' ? '#16a34a' : '#f1f5f9',
+                          background: s.status === 'present' ? '#16a34a' : 'var(--border)',
                           color: s.status === 'present' ? '#fff' : '#475569',
                           cursor: 'pointer',
                           fontWeight: 600
@@ -154,7 +154,7 @@ export default function AttendanceTracker() {
                           fontSize: 12,
                           borderRadius: 6,
                           border: 'none',
-                          background: s.status === 'late' ? '#d97706' : '#f1f5f9',
+                          background: s.status === 'late' ? '#d97706' : 'var(--border)',
                           color: s.status === 'late' ? '#fff' : '#475569',
                           cursor: 'pointer',
                           fontWeight: 600
@@ -169,7 +169,7 @@ export default function AttendanceTracker() {
                           fontSize: 12,
                           borderRadius: 6,
                           border: 'none',
-                          background: s.status === 'absent' ? '#dc2626' : '#f1f5f9',
+                          background: s.status === 'absent' ? '#dc2626' : 'var(--border)',
                           color: s.status === 'absent' ? '#fff' : '#475569',
                           cursor: 'pointer',
                           fontWeight: 600

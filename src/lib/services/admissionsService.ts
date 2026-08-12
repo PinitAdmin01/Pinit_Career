@@ -32,6 +32,43 @@ async function writeLocalDb(data: any): Promise<void> {
 }
 
 export const admissionsService = {
+  async trackApplication(appId: string) {
+    const normalizedId = appId.trim();
+    if (!normalizedId) {
+      return { application: null };
+    }
+
+    const isSupabaseAvailable = await checkSupabaseAvailable('admissions_applications');
+
+    if (isSupabaseAvailable) {
+      try {
+        const { data: app } = await supabase.from('admissions_applications').select('*').eq('id', normalizedId).maybeSingle();
+        if (app) {
+          return {
+            application: {
+              id: app.id,
+              studentId: app.student_id,
+              studentName: app.student_name,
+              course: app.course,
+              rank: app.rank,
+              status: app.status,
+              docVerified: app.doc_verified,
+            },
+          };
+        }
+        return { application: null };
+      } catch (err) {
+        console.warn('Supabase read failed, falling back to local database:', err);
+      }
+    }
+
+    const db = await readLocalDb();
+    const found = (db.applications || []).find(
+      (a: AdmissionsApplication) => a.id.toLowerCase() === normalizedId.toLowerCase()
+    );
+    return { application: found || null };
+  },
+
   async getApplications() {
     const isSupabaseAvailable = await checkSupabaseAvailable('admissions_applications');
 

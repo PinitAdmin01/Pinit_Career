@@ -66,7 +66,7 @@ export default function BatchAnalyticsView() {
             style={{
               padding: 20,
               borderRadius: 12,
-              border: `2px solid ${selectedBatchId === batch.id ? 'var(--primary, #3b82f6)' : 'var(--border, #e2e8f0)'}`,
+              border: `2px solid ${selectedBatchId === batch.id ? 'var(--primary, #3b82f6)' : 'var(--border, var(--border))'}`,
               background: selectedBatchId === batch.id ? '#eff6ff' : 'var(--bg1, #fff)',
               cursor: 'pointer',
               transition: 'all 0.2s ease'
@@ -84,8 +84,8 @@ export default function BatchAnalyticsView() {
       </div>
 
       {/* Detailed Batch Breakdown */}
-      <div style={{ background: 'var(--bg1, #fff)', padding: 24, borderRadius: 12, border: '1px solid var(--border, #e2e8f0)', display: 'flex', flexDirection: 'column', gap: 20 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border, #f1f5f9)', paddingBottom: 16 }}>
+      <div style={{ background: 'var(--bg1, #fff)', padding: 24, borderRadius: 12, border: '1px solid var(--border, var(--border))', display: 'flex', flexDirection: 'column', gap: 20 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border, var(--border))', paddingBottom: 16 }}>
           <div>
             <h3 style={{ margin: 0, fontSize: 18, fontWeight: 700 }}>{selectedBatch.batchName} - Deep Dive</h3>
             <span style={{ fontSize: 13, color: 'var(--t3, #64748b)' }}>Academic Semester 2026 • Top Student: {selectedBatch.topPerformer}</span>
@@ -96,15 +96,15 @@ export default function BatchAnalyticsView() {
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16 }}>
-          <div style={{ padding: 16, borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+          <div style={{ padding: 16, borderRadius: 8, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
             <div style={{ fontSize: 12, color: '#64748b' }}>Average Attendance</div>
             <div style={{ fontSize: 24, fontWeight: 800, color: '#2563eb', marginTop: 4 }}>{selectedBatch.avgAttendance}%</div>
           </div>
-          <div style={{ padding: 16, borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+          <div style={{ padding: 16, borderRadius: 8, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
             <div style={{ fontSize: 12, color: '#64748b' }}>Average Score</div>
             <div style={{ fontSize: 24, fontWeight: 800, color: '#16a34a', marginTop: 4 }}>{selectedBatch.avgGrade}%</div>
           </div>
-          <div style={{ padding: 16, borderRadius: 8, background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+          <div style={{ padding: 16, borderRadius: 8, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
             <div style={{ fontSize: 12, color: '#64748b' }}>Students At Risk (&lt;60%)</div>
             <div style={{ fontSize: 24, fontWeight: 800, color: '#dc2626', marginTop: 4 }}>{selectedBatch.atRiskCount}</div>
           </div>

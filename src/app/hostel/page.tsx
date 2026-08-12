@@ -46,7 +46,7 @@ export default function StudentHostel() {
   };
 
   const handleLogAttendance = async (type: 'check-in' | 'check-out') => {
-    if (allocation.status !== 'allocated') {
+    if (allocation.status !== 'allocated' && allocation.status !== 'approved') {
       alert('Roll-call checks are only available for allocated residents.');
       return;
     }
@@ -224,11 +224,11 @@ export default function StudentHostel() {
               <strong style={{ fontSize: 14 }}>⏳ Allocation Review Pending</strong>
               <div style={{ fontSize: 12, marginTop: 2 }}>Requested Room: <strong>{allocation.requestedRoom}</strong>. Wardens are verifying room balances.</div>
             </div>
-            <span style={{ fontSize: 11, fontWeight: 700, padding: '4px 10px', background: 'var(--card)beb', borderRadius: 20 }}>Awaiting Warden</span>
+            <span style={{ fontSize: 11, fontWeight: 700, padding: '4px 10px', background: 'var(--card)', borderRadius: 20 }}>Awaiting Warden</span>
           </div>
         )}
-        {allocation.status === 'allocated' && (
-          <div className="status-alert" style={{ background: '#ecfdf5', borderColor: '#d1fae5', color: '#065f46' }}>
+        {(allocation.status === 'allocated' || allocation.status === 'approved') && (
+          <div className="status-alert" style={{ background: 'var(--green-light)', borderColor: 'var(--green-light)', color: 'var(--green)' }}>
             <div>
               <strong style={{ fontSize: 14 }}>✓ Accommodation Allocated</strong>
               <div style={{ fontSize: 12, marginTop: 2 }}>Room Code: <strong>{allocation.requestedRoom}</strong> | Block B. All facilities activated.</div>

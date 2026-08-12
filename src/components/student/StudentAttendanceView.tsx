@@ -314,7 +314,7 @@ export default function StudentAttendanceView() {
 
       {/* Overall Attendance Stat Cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
-        <div style={{ background: 'var(--card, #fff)', border: '1px solid var(--border, #e2e8f0)', borderRadius: 14, padding: 18 }}>
+        <div style={{ background: 'var(--card, #fff)', border: '1px solid var(--border, var(--border))', borderRadius: 14, padding: 18 }}>
           <div style={{ fontSize: 12, color: 'var(--t3, #64748b)' }}>Cumulative Attendance</div>
           <div style={{ fontSize: 32, fontWeight: 900, color: Number(overallPercentage) >= 85 ? '#16a34a' : Number(overallPercentage) >= 75 ? '#d97706' : '#dc2626', margin: '4px 0 0' }}>
             {overallPercentage}%
@@ -324,7 +324,7 @@ export default function StudentAttendanceView() {
           </div>
         </div>
 
-        <div style={{ background: 'var(--card, #fff)', border: '1px solid var(--border, #e2e8f0)', borderRadius: 14, padding: 18 }}>
+        <div style={{ background: 'var(--card, #fff)', border: '1px solid var(--border, var(--border))', borderRadius: 14, padding: 18 }}>
           <div style={{ fontSize: 12, color: 'var(--t3, #64748b)' }}>Lectures Attended</div>
           <div style={{ fontSize: 32, fontWeight: 900, color: 'var(--t1, #0f172a)', margin: '4px 0 0' }}>
             {totalAttended} <span style={{ fontSize: 16, color: 'var(--t3, #64748b)', fontWeight: 500 }}>/ {totalLectures}</span>
@@ -332,7 +332,7 @@ export default function StudentAttendanceView() {
           <div style={{ fontSize: 11, color: 'var(--t3, #64748b)', marginTop: 4 }}>Total Conducted Classes</div>
         </div>
 
-        <div style={{ background: 'var(--card, #fff)', border: '1px solid var(--border, #e2e8f0)', borderRadius: 14, padding: 18 }}>
+        <div style={{ background: 'var(--card, #fff)', border: '1px solid var(--border, var(--border))', borderRadius: 14, padding: 18 }}>
           <div style={{ fontSize: 12, color: 'var(--t3, #64748b)' }}>Deep Focus Status</div>
           <div style={{ fontSize: 24, fontWeight: 900, color: '#8b5cf6', margin: '8px 0 0', display: 'flex', alignItems: 'center', gap: 6 }}>
             🏆 Deep Focus Master
@@ -340,7 +340,7 @@ export default function StudentAttendanceView() {
           <div style={{ fontSize: 11, color: 'var(--t3, #64748b)', marginTop: 4 }}>3+ Consecutive Hours Attended</div>
         </div>
 
-        <div style={{ background: 'var(--card, #fff)', border: '1px solid var(--border, #e2e8f0)', borderRadius: 14, padding: 18 }}>
+        <div style={{ background: 'var(--card, #fff)', border: '1px solid var(--border, var(--border))', borderRadius: 14, padding: 18 }}>
           <div style={{ fontSize: 12, color: 'var(--t3, #64748b)' }}>Creative Innovation Quest</div>
           <div style={{ fontSize: 24, fontWeight: 900, color: '#10b981', margin: '8px 0 0', display: 'flex', alignItems: 'center', gap: 6 }}>
             💡 Unlocked
@@ -350,7 +350,7 @@ export default function StudentAttendanceView() {
       </div>
 
       {/* ── 🧩 3. INTERACTIVE ATTENDANCE SAFETY BUFFER MARGIN CALCULATOR ── */}
-      <div style={{ background: 'var(--card, #fff)', border: '1px solid var(--border, #e2e8f0)', borderRadius: 16, padding: '24px 26px', boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.05))' }}>
+      <div style={{ background: 'var(--card, #fff)', border: '1px solid var(--border, var(--border))', borderRadius: 16, padding: '24px 26px', boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.05))' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16, flexWrap: 'wrap', gap: 12 }}>
           <div>
             <h2 style={{ fontSize: 18, fontWeight: 800, margin: 0, display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -361,13 +361,13 @@ export default function StudentAttendanceView() {
             </p>
           </div>
 
-          <button onClick={() => router.push('/attention-span')} style={{ background: 'var(--bg3, #f1f5f9)', border: '1px solid var(--border, #cbd5e1)', color: 'var(--t1, #0f172a)', padding: '6px 14px', borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>
+          <button onClick={() => router.push('/attention-span')} style={{ background: 'var(--bg3, var(--border))', border: '1px solid var(--border, #cbd5e1)', color: 'var(--t1, #0f172a)', padding: '6px 14px', borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>
             Train Strategy (Shape Shifter) ▶
           </button>
         </div>
 
         {/* Calculator Form Controls */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14, background: 'var(--bg3, #f8fafc)', padding: 16, borderRadius: 14, border: '1px solid var(--border, #e2e8f0)', marginBottom: 18 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14, background: 'var(--bg3, var(--bg3))', padding: 16, borderRadius: 14, border: '1px solid var(--border, var(--border))', marginBottom: 18 }}>
           <div>
             <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2, #475569)', display: 'block', marginBottom: 6 }}>Select Subject:</label>
             <select value={calcSubjectId} onChange={(e) => setCalcSubjectId(e.target.value)} style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border, #cbd5e1)', background: 'var(--card, #fff)', color: 'var(--t1, #0f172a)', fontSize: 13, fontWeight: 600, outline: 'none' }}>
@@ -422,8 +422,8 @@ export default function StudentAttendanceView() {
       </div>
 
       {/* ── 📚 SUBJECT BREAKDOWN TABLE WITH MANUAL LECTURE MARKING ── */}
-      <div style={{ background: 'var(--card, #fff)', border: '1px solid var(--border, #e2e8f0)', borderRadius: 16, overflow: 'hidden', boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.05))' }}>
-        <div style={{ padding: '18px 24px', borderBottom: '1px solid var(--border, #e2e8f0)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <div style={{ background: 'var(--card, #fff)', border: '1px solid var(--border, var(--border))', borderRadius: 16, overflow: 'hidden', boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.05))' }}>
+        <div style={{ padding: '18px 24px', borderBottom: '1px solid var(--border, var(--border))', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div>
             <h2 style={{ fontSize: 16, fontWeight: 800, margin: 0 }}>Subject Compliance & Attendance Registry</h2>
             <div style={{ fontSize: 12, color: 'var(--t3, #64748b)', marginTop: 2 }}>Click "+ Attend" or "+ Miss" to manually log today's class status.</div>
@@ -433,7 +433,7 @@ export default function StudentAttendanceView() {
 
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>
-            <tr style={{ background: 'var(--bg3, #f8fafc)', borderBottom: '1px solid var(--border, #e2e8f0)', textAlign: 'left' }}>
+            <tr style={{ background: 'var(--bg3, var(--bg3))', borderBottom: '1px solid var(--border, var(--border))', textAlign: 'left' }}>
               <th style={{ padding: 14, fontSize: 13, color: 'var(--t2, #475569)' }}>Subject Code & Title</th>
               <th style={{ padding: 14, fontSize: 13, color: 'var(--t2, #475569)' }}>Total Lectures</th>
               <th style={{ padding: 14, fontSize: 13, color: 'var(--t2, #475569)' }}>Attended</th>
@@ -444,7 +444,7 @@ export default function StudentAttendanceView() {
           </thead>
           <tbody>
             {subjects.map((row) => (
-              <tr key={row.id} style={{ borderBottom: '1px solid var(--border, #f1f5f9)' }}>
+              <tr key={row.id} style={{ borderBottom: '1px solid var(--border, var(--border))' }}>
                 <td style={{ padding: 14 }}>
                   <div style={{ fontWeight: 700, fontSize: 14 }}>{row.subject}</div>
                   <div style={{ fontSize: 11, color: 'var(--t3, #64748b)' }}>Code: {row.code}</div>
@@ -455,7 +455,7 @@ export default function StudentAttendanceView() {
                   <div style={{ fontSize: 15, fontWeight: 900, color: row.percentage >= 85 ? '#16a34a' : row.percentage >= 75 ? '#d97706' : '#dc2626' }}>
                     {row.percentage}%
                   </div>
-                  <div style={{ width: 80, height: 4, background: 'var(--bg3, #e2e8f0)', borderRadius: 2, overflow: 'hidden', marginTop: 4 }}>
+                  <div style={{ width: 80, height: 4, background: 'var(--bg3, var(--border))', borderRadius: 2, overflow: 'hidden', marginTop: 4 }}>
                     <div style={{ height: '100%', width: `${Math.min(100, row.percentage)}%`, background: row.percentage >= 85 ? '#16a34a' : row.percentage >= 75 ? '#d97706' : '#dc2626', borderRadius: 2 }} />
                   </div>
                 </td>
@@ -491,7 +491,7 @@ export default function StudentAttendanceView() {
       {/* ── 📸 BIOMETRIC FACE SCAN CHECK-IN MODAL (WITH SAFE CAMERA CLEANUP) ── */}
       {showFaceScanModal && (
         <div style={{ position: 'fixed', inset: 0, zIndex: 9999, background: 'rgba(10,10,15,0.92)', backdropFilter: 'blur(10px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
-          <div style={{ background: 'var(--card, #fff)', border: '1px solid var(--border, #e2e8f0)', borderRadius: 20, width: '100%', maxWidth: 440, padding: '28px 24px', textAlign: 'center', position: 'relative' }}>
+          <div style={{ background: 'var(--card, #fff)', border: '1px solid var(--border, var(--border))', borderRadius: 20, width: '100%', maxWidth: 440, padding: '28px 24px', textAlign: 'center', position: 'relative' }}>
             
             <button onClick={() => { stopCameraStream(); setShowFaceScanModal(false); }} style={{ position: 'absolute', top: 16, right: 18, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(0,0,0,0.1)', color: 'var(--t1, #0f172a)', padding: '6px 12px', borderRadius: 8, cursor: 'pointer', fontSize: 12, fontWeight: 700 }}>✕ Close</button>
 

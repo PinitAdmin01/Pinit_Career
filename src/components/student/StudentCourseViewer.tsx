@@ -47,7 +47,7 @@ export default function StudentCourseViewer() {
           <div key={item.id} style={{
             padding: 20,
             borderRadius: 12,
-            border: '1px solid var(--border, #e2e8f0)',
+            border: '1px solid var(--border, var(--border))',
             background: 'var(--bg1, #fff)',
             display: 'flex',
             flexDirection: 'column',
@@ -69,7 +69,7 @@ export default function StudentCourseViewer() {
               </p>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #f1f5f9', paddingTop: 12 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--border)', paddingTop: 12 }}>
               <span style={{ fontSize: 12, color: '#94a3b8' }}>{item.size}</span>
               <button
                 onClick={() => alert(`Downloading ${item.title}`)}

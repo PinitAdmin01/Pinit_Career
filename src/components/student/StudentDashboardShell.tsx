@@ -25,8 +25,8 @@ export default function StudentDashboardShell({ student }: StudentDashboardShell
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'var(--bg-main, #f8fafc)',
-      color: 'var(--t1, #0f172a)',
+      background: 'var(--bg)',
+      color: 'var(--t1)',
       fontFamily: 'system-ui, -apple-system, sans-serif',
       display: 'flex',
       flexDirection: 'column'
@@ -34,7 +34,7 @@ export default function StudentDashboardShell({ student }: StudentDashboardShell
       {/* Student Top Header */}
       <header style={{
         background: 'var(--bg1, #ffffff)',
-        borderBottom: '1px solid var(--border, #e2e8f0)',
+        borderBottom: '1px solid var(--border, var(--border))',
         padding: '16px 24px',
         display: 'flex',
         justifyContent: 'space-between',
@@ -66,7 +66,7 @@ export default function StudentDashboardShell({ student }: StudentDashboardShell
         <aside style={{
           width: 240,
           background: 'var(--bg1, #ffffff)',
-          borderRight: '1px solid var(--border, #e2e8f0)',
+          borderRight: '1px solid var(--border, var(--border))',
           padding: '20px 12px',
           display: 'flex',
           flexDirection: 'column',
@@ -113,19 +113,19 @@ export default function StudentDashboardShell({ student }: StudentDashboardShell
 
               {/* Quick Action Cards */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 16 }}>
-                <div style={{ padding: 20, borderRadius: 12, border: '1px solid #e2e8f0', background: '#fff' }}>
+                <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border)', background: '#fff' }}>
                   <div style={{ fontSize: 13, color: '#64748b' }}>ATS Resume Score</div>
                   <div style={{ fontSize: 28, fontWeight: 800, color: '#2563eb', margin: '4px 0 0' }}>{atsScore}%</div>
                   <div style={{ fontSize: 12, color: '#16a34a', marginTop: 4 }}>High match for AI roles</div>
                 </div>
 
-                <div style={{ padding: 20, borderRadius: 12, border: '1px solid #e2e8f0', background: '#fff' }}>
+                <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border)', background: '#fff' }}>
                   <div style={{ fontSize: 13, color: '#64748b' }}>Pending Assessments</div>
                   <div style={{ fontSize: 28, fontWeight: 800, color: '#d97706', margin: '4px 0 0' }}>1 Test</div>
                   <div style={{ fontSize: 12, color: '#d97706', marginTop: 4 }}>Due in 3 days</div>
                 </div>
 
-                <div style={{ padding: 20, borderRadius: 12, border: '1px solid #e2e8f0', background: '#fff' }}>
+                <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border)', background: '#fff' }}>
                   <div style={{ fontSize: 13, color: '#64748b' }}>Attendance Average</div>
                   <div style={{ fontSize: 28, fontWeight: 800, color: '#16a34a', margin: '4px 0 0' }}>91.2%</div>
                   <div style={{ fontSize: 12, color: '#16a34a', marginTop: 4 }}>All criteria met</div>

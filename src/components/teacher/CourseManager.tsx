@@ -97,8 +97,8 @@ export default function CourseManager() {
 
       {/* Upload Form */}
       <form onSubmit={handleUpload} style={{
-        background: 'var(--bg2, #f8fafc)',
-        border: '1px solid var(--border, #e2e8f0)',
+        background: 'var(--bg2, var(--bg3))',
+        border: '1px solid var(--border, var(--border))',
         borderRadius: 12,
         padding: 20,
         display: 'flex',
@@ -212,7 +212,7 @@ export default function CourseManager() {
           <div style={{ background: '#fff', padding: 24, borderRadius: 16, maxWidth: 500, width: '100%' }}>
             <h3 style={{ margin: '0 0 8px' }}>📄 Preview: {previewMaterial.title}</h3>
             <p style={{ fontSize: 13, color: '#64748b' }}>Subject: {previewMaterial.subject} • {previewMaterial.semester}</p>
-            <div style={{ background: '#f8fafc', padding: 16, borderRadius: 8, border: '1px solid #e2e8f0', margin: '16px 0', fontSize: 13 }}>
+            <div style={{ background: 'var(--bg3)', padding: 16, borderRadius: 8, border: '1px solid var(--border)', margin: '16px 0', fontSize: 13 }}>
               Uploaded on {previewMaterial.uploadedAt} • File Size: {previewMaterial.size} • Total Downloads: {previewMaterial.downloadsCount}
             </div>
             <div style={{ display: 'flex', gap: 6, marginBottom: 16 }}>
@@ -239,7 +239,7 @@ export default function CourseManager() {
             justifyContent: 'space-between',
             padding: 18,
             borderRadius: 12,
-            border: '1px solid var(--border, #e2e8f0)',
+            border: '1px solid var(--border, var(--border))',
             background: 'var(--bg1, #fff)',
             flexWrap: 'wrap',
             gap: 12
@@ -256,7 +256,7 @@ export default function CourseManager() {
                 </div>
                 <div style={{ display: 'flex', gap: 4, marginTop: 6 }}>
                   {(mat.tags || []).map(tag => (
-                    <span key={tag} style={{ background: '#f1f5f9', color: '#475569', padding: '1px 6px', borderRadius: 4, fontSize: 11 }}>#{tag}</span>
+                    <span key={tag} style={{ background: 'var(--border)', color: '#475569', padding: '1px 6px', borderRadius: 4, fontSize: 11 }}>#{tag}</span>
                   ))}
                 </div>
               </div>

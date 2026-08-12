@@ -43,25 +43,25 @@ export default function AdminOverview() {
 
       {/* Summary Stat Grid */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 16 }}>
-        <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border, #e2e8f0)', background: 'var(--bg1, #fff)' }}>
+        <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border, var(--border))', background: 'var(--bg1, #fff)' }}>
           <div style={{ fontSize: 13, color: 'var(--t3, #64748b)' }}>Total Registered Users</div>
           <div style={{ fontSize: 32, fontWeight: 800, margin: '6px 0 0', color: '#2563eb' }}>1,248</div>
           <div style={{ fontSize: 12, color: '#16a34a', marginTop: 4 }}>↑ 12% this month</div>
         </div>
 
-        <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border, #e2e8f0)', background: 'var(--bg1, #fff)' }}>
+        <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border, var(--border))', background: 'var(--bg1, #fff)' }}>
           <div style={{ fontSize: 13, color: 'var(--t3, #64748b)' }}>Active Faculty & Teachers</div>
           <div style={{ fontSize: 32, fontWeight: 800, margin: '6px 0 0', color: '#7c3aed' }}>48</div>
           <div style={{ fontSize: 12, color: '#64748b', marginTop: 4 }}>12 Departments</div>
         </div>
 
-        <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border, #e2e8f0)', background: 'var(--bg1, #fff)' }}>
+        <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border, var(--border))', background: 'var(--bg1, #fff)' }}>
           <div style={{ fontSize: 13, color: 'var(--t3, #64748b)' }}>Flagged Fraud Alerts</div>
           <div style={{ fontSize: 32, fontWeight: 800, margin: '6px 0 0', color: '#dc2626' }}>2</div>
           <div style={{ fontSize: 12, color: '#dc2626', marginTop: 4 }}>Requires review</div>
         </div>
 
-        <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border, #e2e8f0)', background: 'var(--bg1, #fff)' }}>
+        <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border, var(--border))', background: 'var(--bg1, #fff)' }}>
           <div style={{ fontSize: 13, color: 'var(--t3, #64748b)' }}>System Uptime</div>
           <div style={{ fontSize: 32, fontWeight: 800, margin: '6px 0 0', color: '#16a34a' }}>99.98%</div>
           <div style={{ fontSize: 12, color: '#16a34a', marginTop: 4 }}>All API routes operational</div>
@@ -69,7 +69,7 @@ export default function AdminOverview() {
       </div>
 
       {/* Broadcast Form */}
-      <div style={{ background: 'var(--bg1, #fff)', border: '1px solid #e2e8f0', borderRadius: 12, padding: 20 }}>
+      <div style={{ background: 'var(--bg1, #fff)', border: '1px solid var(--border)', borderRadius: 12, padding: 20 }}>
         <h3 style={{ margin: '0 0 8px', fontSize: 16, fontWeight: 700 }}>📢 Send System-Wide Broadcast Notice</h3>
         <p style={{ color: '#64748b', fontSize: 13, margin: '0 0 12px' }}>Publish announcements to all student and faculty dashboards instantly.</p>
         

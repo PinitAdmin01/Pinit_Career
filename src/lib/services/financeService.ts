@@ -60,7 +60,9 @@ function getDuesForStudent(db: any, studentId: string): StudentDues {
   const mapped = asDues(db.dues?.[studentId]);
   if (mapped) return mapped;
   const legacy = asDues(db.dues);
-  if (legacy) return legacy;
+  if (legacy && db.dues && typeof db.dues === 'object' && !Array.isArray(db.dues.installments)) {
+    db.dues = { [studentId]: legacy };
+  }
   return { ...EMPTY_DUES, installments: [] };
 }
 
@@ -150,6 +152,7 @@ export const financeService = {
     const db = await readLocalDb();
     const dues = getDuesForStudent(db, studentId);
     const paid = dues.installments.find((inst) => inst.id === installmentId);
+    const fineCollected = Number(dues.fineLevied || 0);
     dues.installments = markPaid(dues.installments);
     dues.fineLevied = 0;
     setDuesForStudent(db, studentId, dues);
@@ -160,7 +163,7 @@ export const financeService = {
       studentName,
       studentEmail: email,
       amount: Number(paid?.amount || 0),
-      finePaid: Number(dues.fineLevied || 0),
+      finePaid: fineCollected,
       type: paid?.name || 'Fee installment',
       timestamp: new Date().toISOString()
     });

@@ -44,6 +44,12 @@
   --font-body: 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
+  /* Legacy aliases (used by dashboard shells & older pages) */
+  --bg-main: var(--bg);
+  --bg1:     var(--card);
+  --bg4:     var(--bg3);
+  --primary: var(--accent);
+
   /* Layout */
   --sidebar-w: 252px;
   --topbar-h:  58px;

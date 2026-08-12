@@ -35,7 +35,7 @@ export default function FraudInspector() {
           <div key={item.id} style={{
             padding: 20,
             borderRadius: 12,
-            border: item.severity === 'high' ? '2px solid #ef4444' : '1px solid #e2e8f0',
+            border: item.severity === 'high' ? '2px solid #ef4444' : '1px solid var(--border)',
             background: item.severity === 'high' ? '#fef2f2' : 'var(--bg1, #fff)',
             display: 'flex',
             justifyContent: 'space-between',
@@ -82,7 +82,7 @@ export default function FraudInspector() {
         ))}
 
         {!loading && alerts.length === 0 && (
-          <div style={{ padding: 40, textAlign: 'center', background: 'var(--bg1, #fff)', borderRadius: 12, border: '1px solid #e2e8f0' }}>
+          <div style={{ padding: 40, textAlign: 'center', background: 'var(--bg1, #fff)', borderRadius: 12, border: '1px solid var(--border)' }}>
             <span style={{ fontSize: 32 }}>✅</span>
             <h3 style={{ margin: '8px 0 0' }}>No Active Fraud Alerts</h3>
             <p style={{ color: '#64748b', fontSize: 14 }}>All current proctored exam sessions are operating within normal integrity parameters.</p>
