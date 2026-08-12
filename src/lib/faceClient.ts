@@ -1,4 +1,6 @@
 import { supabase } from '@/lib/supabaseClient';
+import { tableExists } from '@/lib/services/supabaseTable';
+import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
 
 const NONCE_KEY = 'pinit_face_nonce';
 
@@ -28,75 +30,25 @@ function fuseDescriptors(descriptors: number[][]): number[] {
 
 async function loadTemplate(userKey: string): Promise<number[] | null> {
   const key = userKey.toLowerCase();
-  try {
+  if (await tableExists('face_templates')) {
     const { data, error } = await supabase.from('face_templates').select('descriptor').eq('user_key', key).maybeSingle();
     if (!error && data?.descriptor) return data.descriptor as number[];
-  } catch {
-    // table may not exist yet
   }
-  try {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (user) {
-      const { data } = await supabase
-        .from('vault_items')
-        .select('description')
-        .eq('user_id', user.id)
-        .eq('item_type', 'campus_kv')
-        .eq('title', `campus:face:${key}`)
-        .maybeSingle();
-      if (data?.description) return JSON.parse(data.description) as number[];
-    }
-  } catch { /* ignore */ }
-  if (typeof window !== 'undefined') {
-    try {
-      const raw = localStorage.getItem(`pinit_face_template_${key}`);
-      if (raw) return JSON.parse(raw) as number[];
-    } catch { /* ignore */ }
-  }
-  return null;
+  const stored = await readLocalJson<number[] | null>(`face:${key}`, null, 'personal');
+  return Array.isArray(stored) ? stored : null;
 }
 
 async function saveTemplate(userKey: string, descriptor: number[]): Promise<void> {
   const key = userKey.toLowerCase();
-  try {
+  if (await tableExists('face_templates')) {
     const { error } = await supabase.from('face_templates').upsert({
       user_key: key,
       descriptor,
       updated_at: new Date().toISOString(),
     });
     if (!error) return;
-  } catch {
-    // fall through
   }
-  try {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (user) {
-      const title = `campus:face:${key}`;
-      const description = JSON.stringify(descriptor);
-      const { data: existing } = await supabase
-        .from('vault_items')
-        .select('id')
-        .eq('user_id', user.id)
-        .eq('item_type', 'campus_kv')
-        .eq('title', title)
-        .maybeSingle();
-      if (existing?.id) {
-        await supabase.from('vault_items').update({ description }).eq('id', existing.id);
-      } else {
-        await supabase.from('vault_items').insert({
-          user_id: user.id,
-          title,
-          item_type: 'campus_kv',
-          description,
-          organization_name: 'campus',
-        });
-      }
-      return;
-    }
-  } catch { /* ignore */ }
-  if (typeof window !== 'undefined') {
-    localStorage.setItem(`pinit_face_template_${key}`, JSON.stringify(descriptor));
-  }
+  await writeLocalJson(`face:${key}`, descriptor, 'personal');
 }
 
 export async function faceChallenge() {

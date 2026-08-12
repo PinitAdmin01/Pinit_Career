@@ -1,4 +1,5 @@
 import { supabase } from '@/lib/supabaseClient';
+import { tableExists as checkSupabaseAvailable } from '@/lib/services/supabaseTable';
 import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
 
 const DB_FILE = 'src/lib/data/finance_db.json';
@@ -33,7 +34,12 @@ export interface FinanceTransaction {
 
 // Read local JSON database
 async function readLocalDb(): Promise<any> {
-  return await readLocalJson(DB_FILE, { dues: {}, scholarships: [], transactions: [] });
+  const db = await readLocalJson(DB_FILE, { dues: {}, scholarships: [], transactions: [] });
+  return {
+    dues: db.dues || {},
+    scholarships: db.scholarships || [],
+    transactions: db.transactions || [],
+  };
 }
 
 // Write local JSON database
@@ -41,14 +47,36 @@ async function writeLocalDb(data: any): Promise<void> {
   await writeLocalJson(DB_FILE, data);
 }
 
-// Check if Supabase tables exist
-async function checkSupabaseAvailable(tableName: string): Promise<boolean> {
-  try {
-    const { error } = await supabase.from(tableName).select('count', { count: 'exact', head: true });
-    return !error;
-  } catch {
-    return false;
+const EMPTY_DUES: StudentDues = { totalTermFees: 0, scholarshipWaiver: 0, fineLevied: 0, installments: [] };
+
+function asDues(value: unknown): StudentDues | null {
+  if (!value || typeof value !== 'object') return null;
+  const dues = value as StudentDues;
+  if (!Array.isArray(dues.installments)) return null;
+  return dues;
+}
+
+function getDuesForStudent(db: any, studentId: string): StudentDues {
+  const mapped = asDues(db.dues?.[studentId]);
+  if (mapped) return mapped;
+  const legacy = asDues(db.dues);
+  if (legacy) return legacy;
+  return { ...EMPTY_DUES, installments: [] };
+}
+
+function setDuesForStudent(db: any, studentId: string, dues: StudentDues) {
+  if (asDues(db.dues) && !db.dues[studentId]) {
+    db.dues = { [studentId]: dues };
+    return;
   }
+  db.dues = db.dues && typeof db.dues === 'object' && !Array.isArray(db.dues.installments) ? db.dues : {};
+  db.dues[studentId] = dues;
+}
+
+function summarizeTransactions(transactions: Array<{ amount?: number; finePaid?: number; fine_paid?: number }>) {
+  const collected = transactions.reduce((sum, t) => sum + Number(t.amount || 0) + Number(t.finePaid ?? t.fine_paid ?? 0), 0);
+  const finesCollected = transactions.reduce((sum, t) => sum + Number(t.finePaid ?? t.fine_paid ?? 0), 0);
+  return { projected: collected, collected, duesOutstanding: 0, finesCollected };
 }
 
 export const financeService = {
@@ -71,10 +99,8 @@ export const financeService = {
       }
     }
 
-    // Local Database Fallback
     const db = await readLocalDb();
-    if (db.dues && Array.isArray(db.dues.installments)) return db.dues;
-    return { totalTermFees: 0, scholarshipWaiver: 0, fineLevied: 0, installments: [] };
+    return getDuesForStudent(db, studentId);
   },
 
   async payDue(studentId: string, studentName: string, installmentId: string, studentEmail?: string) {
@@ -82,22 +108,23 @@ export const financeService = {
     const transactionId = 'RCP-' + Math.floor(10000 + Math.random() * 90000);
     const email = studentEmail?.trim() || '';
 
+    const markPaid = (installments: FinanceInstallment[]) =>
+      (installments || []).map((inst) => {
+        if (inst.id !== installmentId) return inst;
+        return {
+          ...inst,
+          status: 'Paid',
+          paidOn: new Date().toISOString(),
+          receiptId: transactionId
+        };
+      });
+
     if (isSupabaseAvailable) {
       try {
         const { data: record } = await supabase.from('finance_dues').select('*').eq('student_id', studentId).maybeSingle();
         if (record) {
-          const updatedInstallments = (record.installments || []).map((inst: any) => {
-            if (inst.id === installmentId) {
-              return {
-                ...inst,
-                status: 'Paid',
-                paidOn: new Date().toISOString(),
-                receiptId: transactionId
-              };
-            }
-            return inst;
-          });
-
+          const paid = (record.installments || []).find((inst: FinanceInstallment) => inst.id === installmentId);
+          const updatedInstallments = markPaid(record.installments || []);
           await supabase.from('finance_dues').update({
             installments: updatedInstallments,
             fine_levied: 0
@@ -105,11 +132,12 @@ export const financeService = {
 
           await supabase.from('finance_transactions').insert({
             id: transactionId,
+            student_id: studentId,
             student_name: studentName,
             student_email: email,
-            amount: 40000,
-            fine_paid: 1500,
-            type: 'Tuition Fee (Installment 3)'
+            amount: Number(paid?.amount || 0),
+            fine_paid: Number(record.fine_levied || 0),
+            type: paid?.name || 'Fee installment'
           });
 
           return { ok: true, receiptId: transactionId };
@@ -119,28 +147,21 @@ export const financeService = {
       }
     }
 
-    // Local Database Fallback
     const db = await readLocalDb();
-    db.dues.installments = db.dues.installments.map((inst: any) => {
-      if (inst.id === installmentId) {
-        return {
-          ...inst,
-          status: 'Paid',
-          paidOn: new Date().toISOString(),
-          receiptId: transactionId
-        };
-      }
-      return inst;
-    });
-
-    db.dues.fineLevied = 0;
+    const dues = getDuesForStudent(db, studentId);
+    const paid = dues.installments.find((inst) => inst.id === installmentId);
+    dues.installments = markPaid(dues.installments);
+    dues.fineLevied = 0;
+    setDuesForStudent(db, studentId, dues);
+    db.transactions = db.transactions || [];
     db.transactions.unshift({
       id: transactionId,
+      studentId,
       studentName,
       studentEmail: email,
-      amount: 40000,
-      finePaid: 1500,
-      type: 'Tuition Fee (Installment 3)',
+      amount: Number(paid?.amount || 0),
+      finePaid: Number(dues.fineLevied || 0),
+      type: paid?.name || 'Fee installment',
       timestamp: new Date().toISOString()
     });
     await writeLocalDb(db);
@@ -162,11 +183,9 @@ export const financeService = {
       try {
         const { data: record } = await supabase.from('finance_dues').select('*').eq('student_id', studentId).maybeSingle();
         if (record) {
-          const updatedInstallments = (record.installments || []).map((inst: any) => {
-            if (inst.id === 'Inst-3') {
-              return { ...inst, amount: Math.max(0, 40000 - val) };
-            }
-            return inst;
+          const updatedInstallments = (record.installments || []).map((inst: FinanceInstallment) => {
+            if (inst.status === 'Paid') return inst;
+            return { ...inst, amount: Math.max(0, Number(inst.amount || 0) - val) };
           });
 
           await supabase.from('finance_dues').update({
@@ -181,15 +200,14 @@ export const financeService = {
       }
     }
 
-    // Local Database Fallback
     const db = await readLocalDb();
-    db.dues.scholarshipWaiver = val;
-    db.dues.installments = db.dues.installments.map((inst: any) => {
-      if (inst.id === 'Inst-3') {
-        return { ...inst, amount: Math.max(0, 40000 - val) };
-      }
-      return inst;
+    const dues = getDuesForStudent(db, studentId);
+    dues.scholarshipWaiver = val;
+    dues.installments = (dues.installments || []).map((inst) => {
+      if (inst.status === 'Paid') return inst;
+      return { ...inst, amount: Math.max(0, Number(inst.amount || 0) - val) };
     });
+    setDuesForStudent(db, studentId, dues);
     await writeLocalDb(db);
     return { ok: true, waiver: val };
   },
@@ -201,14 +219,9 @@ export const financeService = {
       try {
         const { data: txs } = await supabase.from('finance_transactions').select('*');
         const transactions = txs || [];
-        const addedAmount = transactions.reduce((sum: number, t: any) => sum + t.amount + (t.fine_paid || 0), 0);
-        const finesCollected = transactions.reduce((sum: number, t: any) => sum + (t.fine_paid || 0), 0);
-
+        const summary = summarizeTransactions(transactions);
         return {
-          projected: 4800000,
-          collected: 3920000 + addedAmount,
-          duesOutstanding: 880000 - addedAmount,
-          finesCollected: 124000 + finesCollected,
+          ...summary,
           transactions: transactions.map(t => ({
             id: t.id,
             studentName: t.student_name,
@@ -216,7 +229,7 @@ export const financeService = {
             amount: t.amount,
             finePaid: t.fine_paid,
             type: t.type,
-            timestamp: t.created_at
+            timestamp: t.timestamp || t.created_at
           }))
         };
       } catch (err) {
@@ -224,20 +237,11 @@ export const financeService = {
       }
     }
 
-    // Local Database Fallback
     const db = await readLocalDb();
     const transactions = db.transactions || [];
-    const addedAmount = transactions.reduce((sum: number, t: any) => sum + t.amount + (t.finePaid || 0), 0);
-    const initialTransactions = [
-      { id: 'RCP-84221', studentName: 'Rohan Sharma', studentEmail: 'rohan.s@gmail.com', amount: 40000, finePaid: 0, type: '2nd Installment', timestamp: '2026-07-12T14:10:00Z' },
-      { id: 'RCP-82910', studentName: 'Priya Iyer', studentEmail: 'priya@gmail.com', amount: 40000, finePaid: 0, type: '1st Installment', timestamp: '2026-07-11T09:45:00Z' }
-    ];
     return {
-      projected: 4800000,
-      collected: 3920000 + addedAmount,
-      duesOutstanding: 880000 - addedAmount,
-      finesCollected: 124000 + (transactions.length ? 1500 : 0),
-      transactions: [...transactions, ...initialTransactions]
+      ...summarizeTransactions(transactions),
+      transactions
     };
   }
 };

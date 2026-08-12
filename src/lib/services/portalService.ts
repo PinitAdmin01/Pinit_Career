@@ -60,32 +60,7 @@ export const portalService = {
         if (stored) return JSON.parse(stored);
       }
     } catch {}
-    return [
-      {
-        id: '1',
-        title: 'Data Structures & Algorithms - Module 1 Notes',
-        subject: 'Data Structures',
-        semester: 'Sem 3',
-        type: 'pdf',
-        fileUrl: 'data:application/pdf;base64,JVBERi0xLjQKJ...',
-        uploadedAt: '2026-08-01',
-        size: '2.4 MB',
-        downloadsCount: 142,
-        tags: ['Trees', 'Graphs', 'Core']
-      },
-      {
-        id: '2',
-        title: 'Neural Networks & Deep Learning Slides',
-        subject: 'Artificial Intelligence',
-        semester: 'Sem 5',
-        type: 'pptx',
-        fileUrl: 'data:application/vnd.ms-powerpoint;base64,JVBERi0xLjQKJ...',
-        uploadedAt: '2026-07-28',
-        size: '5.1 MB',
-        downloadsCount: 98,
-        tags: ['Deep Learning', 'PyTorch']
-      }
-    ];
+    return [];
   },
 
   async saveMaterial(mat: CourseMaterialRecord): Promise<void> {

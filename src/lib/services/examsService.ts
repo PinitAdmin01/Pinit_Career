@@ -1,4 +1,5 @@
 import { supabase } from '@/lib/supabaseClient';
+import { tableExists as checkSupabaseAvailable } from '@/lib/services/supabaseTable';
 import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
 
 const DB_FILE = 'src/lib/data/exams_db.json';
@@ -36,16 +37,6 @@ async function readLocalDb(): Promise<any> {
 // Write local JSON database
 async function writeLocalDb(data: any): Promise<void> {
   await writeLocalJson(DB_FILE, data);
-}
-
-// Check if Supabase tables exist
-async function checkSupabaseAvailable(tableName: string): Promise<boolean> {
-  try {
-    const { error } = await supabase.from(tableName).select('count', { count: 'exact', head: true });
-    return !error;
-  } catch {
-    return false;
-  }
 }
 
 export const examsService = {

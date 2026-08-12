@@ -260,11 +260,14 @@ export async function tryCampusFallback(
       };
     }
     case '/api/alumni/add-job':
+    case '/api/alumni/post-job':
       return alumniService.addJob(b.title, b.company, b.location, b.salary, b.postedBy || studentName);
     case '/api/alumni/mentorship-request':
       return alumniService.requestMentorship(b.mentorName, b.studentName || studentName, b.slot);
     case '/api/alumni/referral-request':
       return alumniService.requestReferral(b.jobId, b.studentName || studentName);
+    case '/api/alumni/donate':
+      return alumniService.donate(b.campaignId || b.id, Number(b.amount) || 0, b.contributorName || studentName);
 
     case '/api/notes/stats':
       return notesService.getNotes(params.get('batch') || b.batch || 'CSE-2026');
@@ -276,6 +279,6 @@ export async function tryCampusFallback(
       return { ok: false, error: 'Admin CSV/ERP tools require a Node host. They are not available on static Firebase export.' };
 
     default:
-      return { ok: false, error: `Unhandled campus path: ${method} ${cleanPath}` };
+      throw new Error(`Unhandled campus path: ${method} ${cleanPath}`);
   }
 }

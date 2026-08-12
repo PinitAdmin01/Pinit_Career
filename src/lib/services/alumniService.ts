@@ -1,4 +1,5 @@
 import { supabase } from '@/lib/supabaseClient';
+import { tableExists as checkSupabaseAvailable } from '@/lib/services/supabaseTable';
 import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
 
 const DB_FILE = 'src/lib/data/alumni_db.json';
@@ -25,22 +26,20 @@ export interface AlumniJob {
 
 // Read local JSON database
 async function readLocalDb(): Promise<any> {
-  return await readLocalJson(DB_FILE, { alumni: [], jobs: [], donations: [], events: [], connects: [], referrals: [] });
+  const db = await readLocalJson(DB_FILE, { alumni: [], jobs: [], donations: [], events: [], connects: [], referrals: [] });
+  return {
+    alumni: db.alumni || [],
+    jobs: db.jobs || [],
+    donations: db.donations || [],
+    events: db.events || [],
+    connects: db.connects || [],
+    referrals: db.referrals || [],
+  };
 }
 
 // Write local JSON database
 async function writeLocalDb(data: any): Promise<void> {
   await writeLocalJson(DB_FILE, data);
-}
-
-// Check if Supabase tables exist
-async function checkSupabaseAvailable(tableName: string): Promise<boolean> {
-  try {
-    const { error } = await supabase.from(tableName).select('count', { count: 'exact', head: true });
-    return !error;
-  } catch {
-    return false;
-  }
 }
 
 export const alumniService = {
@@ -139,5 +138,26 @@ export const alumniService = {
     db.referrals.unshift(row);
     await writeLocalDb(db);
     return { ok: true, referral: row };
+  },
+
+  async donate(campaignId: string, amount: number, contributorName: string) {
+    const db = await readLocalDb();
+    db.donations = db.donations || [];
+    const idx = db.donations.findIndex((d: any) => d.id === campaignId);
+    const gift = Number(amount) || 0;
+    if (idx === -1) {
+      db.donations.push({
+        id: campaignId || `DON-${Date.now()}`,
+        raised: gift,
+        contributors: 1,
+        lastContributor: contributorName,
+      });
+    } else {
+      db.donations[idx].raised = (Number(db.donations[idx].raised) || 0) + gift;
+      db.donations[idx].contributors = (Number(db.donations[idx].contributors) || 0) + 1;
+      db.donations[idx].lastContributor = contributorName;
+    }
+    await writeLocalDb(db);
+    return { ok: true };
   },
 };

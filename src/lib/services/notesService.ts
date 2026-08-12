@@ -1,4 +1,5 @@
 import { supabase } from '@/lib/supabaseClient';
+import { tableExists as checkSupabaseAvailable } from '@/lib/services/supabaseTable';
 import { readLocalJson } from '@/lib/services/localJsonDb';
 
 const DB_FILE = 'src/lib/data/notes_db.json';
@@ -19,16 +20,6 @@ export interface StudyNote {
 // Read local JSON database
 async function readLocalDb(): Promise<any> {
   return await readLocalJson(DB_FILE, { notes: [] });
-}
-
-// Check if Supabase tables exist
-async function checkSupabaseAvailable(tableName: string): Promise<boolean> {
-  try {
-    const { error } = await supabase.from(tableName).select('count', { count: 'exact', head: true });
-    return !error;
-  } catch {
-    return false;
-  }
 }
 
 export const notesService = {

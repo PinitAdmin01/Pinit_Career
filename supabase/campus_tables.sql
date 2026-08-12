@@ -1,6 +1,12 @@
 -- Campus tables used by browser fallback when Next /api routes are not hosted.
--- Run in the Supabase SQL editor. RLS allows authenticated users to read;
--- writes are scoped to the caller where a student_id column exists.
+-- Run in the Supabase SQL editor.
+--
+-- Shared JSON fallback (hostel/library/etc. when dedicated tables are empty):
+create table if not exists public.campus_kv (
+  key text primary key,
+  value jsonb not null default '{}'::jsonb,
+  updated_at timestamptz default timezone('utc'::text, now())
+);
 
 create table if not exists public.hostel_rooms (
   code text primary key,
@@ -58,6 +64,7 @@ create table if not exists public.finance_dues (
 
 create table if not exists public.finance_transactions (
   id text primary key,
+  student_id text,
   student_name text,
   student_email text,
   amount numeric,
@@ -65,6 +72,7 @@ create table if not exists public.finance_transactions (
   type text,
   timestamp timestamptz default timezone('utc'::text, now())
 );
+alter table public.finance_transactions add column if not exists student_id text;
 
 create table if not exists public.library_books (
   isbn text primary key,
@@ -349,47 +357,93 @@ create table if not exists public.study_notes (
   file_url text
 );
 
-alter table public.hostel_rooms enable row level security;
-alter table public.hostel_allocations enable row level security;
-alter table public.hostel_attendance enable row level security;
-alter table public.hostel_complaints enable row level security;
-alter table public.hostel_visitors enable row level security;
-alter table public.finance_dues enable row level security;
-alter table public.finance_transactions enable row level security;
-alter table public.library_books enable row level security;
-alter table public.library_borrowings enable row level security;
-alter table public.library_reservations enable row level security;
-alter table public.transport_routes enable row level security;
-alter table public.transport_drivers enable row level security;
-alter table public.transport_allocations enable row level security;
-alter table public.document_requests enable row level security;
-alter table public.face_templates enable row level security;
-alter table public.student_attendance enable row level security;
-alter table public.campus_attendance enable row level security;
-alter table public.communications_log enable row level security;
-alter table public.crm_companies enable row level security;
+create or replace function public.campus_is_staff()
+returns boolean
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select
+    lower(coalesce(auth.jwt()->>'email', '')) in ('admin@pinit.in', 'teacher@pinit.in')
+    or exists (
+      select 1 from public.users u
+      where u.id = auth.uid()
+        and u.role in ('admin', 'superadmin', 'teacher')
+    );
+$$;
+
+create or replace function public.campus_is_self(student_id text)
+returns boolean
+language sql
+stable
+as $$
+  select
+    student_id is not null
+    and (
+      student_id = auth.uid()::text
+      or lower(student_id) = lower(coalesce(auth.jwt()->>'email', ''))
+    );
+$$;
+
+grant execute on function public.campus_is_staff() to authenticated;
+grant execute on function public.campus_is_self(text) to authenticated;
 
 do $$
-declare t text;
-begin
-  foreach t in array array[
-    'hostel_rooms','hostel_allocations','hostel_attendance','hostel_complaints','hostel_visitors',
-    'finance_dues','finance_transactions','library_books','library_borrowings','library_reservations',
-    'transport_routes','transport_drivers','transport_allocations','document_requests',
-    'face_templates','student_attendance','campus_attendance','communications_log','crm_companies',
-    'crm_hr_contacts','crm_drives','crm_visits','crm_history','crm_feedback',
-    'exam_schedule','exam_results','events_catalog','events_rsvps','grievances_tickets',
-    'research_papers','research_projects','research_patents','research_funding',
-    'infrastructure_tickets','advisor_performance','admissions_applications','admissions_seat_matrix',
+declare
+  t text;
+  catalogs text[] := array[
+    'campus_kv','hostel_rooms','library_books','transport_routes','transport_drivers',
+    'exam_schedule','events_catalog','admissions_seat_matrix','communications_log',
+    'crm_companies','crm_hr_contacts','crm_drives','crm_visits','crm_history','crm_feedback',
+    'research_projects','research_patents','research_funding','infrastructure_tickets',
     'hr_faculty','hr_leaves','hr_recruitment','hr_attendance',
     'procurement_requests','procurement_orders','procurement_vendors','procurement_inventory',
     'assets_list','assets_maintenance','assets_amc',
-    'alumni_registry','alumni_jobs','alumni_connects','alumni_referrals',
-    'services_leaves','services_requests','services_appointments','services_counselling','study_notes'
-  ]
+    'alumni_registry','alumni_jobs','alumni_connects','alumni_referrals','study_notes'
+  ];
+  personal text[] := array[
+    'hostel_allocations','hostel_attendance','hostel_complaints','hostel_visitors',
+    'finance_dues','finance_transactions','library_borrowings','library_reservations',
+    'transport_allocations','document_requests','student_attendance','campus_attendance',
+    'exam_results','events_rsvps','grievances_tickets','research_papers',
+    'advisor_performance','admissions_applications',
+    'services_leaves','services_requests','services_appointments','services_counselling'
+  ];
+begin
+  foreach t in array catalogs
   loop
     execute format('alter table public.%I enable row level security', t);
     execute format('drop policy if exists campus_auth_all on public.%I', t);
-    execute format('create policy campus_auth_all on public.%I for all to authenticated using (true) with check (true)', t);
+    execute format('drop policy if exists campus_catalog_read on public.%I', t);
+    execute format('drop policy if exists campus_catalog_write on public.%I', t);
+    execute format('drop policy if exists campus_kv_write on public.%I', t);
+    execute format('create policy campus_catalog_write on public.%I for all to authenticated using (true) with check (true)', t);
   end loop;
+
+  foreach t in array personal
+  loop
+    execute format('alter table public.%I enable row level security', t);
+    execute format('drop policy if exists campus_auth_all on public.%I', t);
+    execute format('drop policy if exists campus_own_or_staff on public.%I', t);
+    execute format(
+      'create policy campus_own_or_staff on public.%I for all to authenticated using (public.campus_is_staff() or public.campus_is_self(student_id)) with check (public.campus_is_staff() or public.campus_is_self(student_id))',
+      t
+    );
+  end loop;
+
+  alter table public.face_templates enable row level security;
+  drop policy if exists campus_auth_all on public.face_templates;
+  drop policy if exists campus_face_own on public.face_templates;
+  create policy campus_face_own on public.face_templates for all to authenticated
+    using (
+      public.campus_is_staff()
+      or user_key = auth.uid()::text
+      or lower(user_key) = lower(coalesce(auth.jwt()->>'email', ''))
+    )
+    with check (
+      public.campus_is_staff()
+      or user_key = auth.uid()::text
+      or lower(user_key) = lower(coalesce(auth.jwt()->>'email', ''))
+    );
 end $$;

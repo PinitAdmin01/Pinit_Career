@@ -1,4 +1,5 @@
 import { supabase } from '@/lib/supabaseClient';
+import { tableExists as checkSupabaseAvailable } from '@/lib/services/supabaseTable';
 import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
 
 const DB_FILE = 'src/lib/data/hostel_db.json';
@@ -44,22 +45,19 @@ export interface HostelVisitor {
 
 // Read local JSON file database
 async function readLocalDb(): Promise<any> {
-  return await readLocalJson(DB_FILE, { rooms: [], allocations: [], attendance: [], complaints: [], visitors: [] });
+  const db = await readLocalJson(DB_FILE, { rooms: [], allocations: [], attendance: [], complaints: [], visitors: [] });
+  return {
+    rooms: db.rooms || [],
+    allocations: db.allocations || [],
+    attendance: db.attendance || [],
+    complaints: db.complaints || [],
+    visitors: db.visitors || [],
+  };
 }
 
 // Write local JSON file database
 async function writeLocalDb(data: any): Promise<void> {
   await writeLocalJson(DB_FILE, data);
-}
-
-// Check if Supabase tables exist
-async function checkSupabaseAvailable(tableName: string): Promise<boolean> {
-  try {
-    const { error } = await supabase.from(tableName).select('count', { count: 'exact', head: true });
-    return !error;
-  } catch {
-    return false;
-  }
 }
 
 export const hostelService = {
@@ -88,7 +86,10 @@ export const hostelService = {
 
     // Local Database Fallback
     const db = await readLocalDb();
-    const allocation = db.allocations?.find((a: any) => a.student_id === studentId) || { requestedRoom: null, status: 'none' };
+    const found = db.allocations?.find((a: any) => a.student_id === studentId);
+    const allocation = found
+      ? { requestedRoom: found.requestedRoom || found.requested_room || null, status: found.status || 'none' }
+      : { requestedRoom: null, status: 'none' };
     const myAttendance = db.attendance?.filter((a: any) => a.student_id === studentId || a.studentName === studentName) || [];
     const myComplaints = db.complaints?.filter((c: any) => c.student_id === studentId || c.studentName === studentName) || [];
     const myVisitors = db.visitors?.filter((v: any) => v.student_id === studentId) || [];
