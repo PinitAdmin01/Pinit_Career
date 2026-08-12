@@ -41,8 +41,9 @@ class NeuralTTSEngine:
         t_start = time.time()
         edge_voice_name = self._get_edge_voice(voice)
         
-        # Calculate speech rate string e.g. "+0%", "+10%", "-10%"
-        rate_str = f"{int((speed - 1.0) * 100):+d}%"
+        # Default rate boost (+12% for crisp 1.1x natural speech rate)
+        effective_speed = speed * 1.12 if speed == 1.0 else speed
+        rate_str = f"{int((effective_speed - 1.0) * 100):+d}%"
 
         try:
             communicate = edge_tts.Communicate(text, edge_voice_name, rate=rate_str)

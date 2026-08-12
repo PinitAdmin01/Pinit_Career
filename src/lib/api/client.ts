@@ -43,10 +43,23 @@ const INTERVIEWERS_MAP: Record<string, { name: string; role: string; nature: str
 };
 
 async function getUid(): Promise<string> {
-  const { data: { session } } = await supabase.auth.getSession();
-  const user = session?.user;
-  if(!user) throw new ApiError(401,'UNAUTHORIZED','Not logged in');
-  return user.id;
+  try {
+    const { data: { session } } = await supabase.auth.getSession();
+    const user = session?.user;
+    if (user) return user.id;
+  } catch (e) {
+    // Ignore auth error
+  }
+  
+  if (typeof window !== 'undefined') {
+    let guestId = localStorage.getItem('pinit_guest_uid');
+    if (!guestId) {
+      guestId = 'usr_guest_' + Math.random().toString(36).substring(2, 10);
+      localStorage.setItem('pinit_guest_uid', guestId);
+    }
+    return guestId;
+  }
+  return 'usr_guest_demo';
 }
 
 async function getActorIdentity(): Promise<{ name: string; email: string }> {
