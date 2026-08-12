@@ -1562,7 +1562,7 @@ export default function OnboardingPage() {
           <div style={{ maxWidth: '95%', width: '95%', margin: '0 auto', zIndex: 10, textAlign: 'center' }}>
             {/* Logo Header */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginBottom: 40 }}>
-              <div style={{ width: 38, height: 38, background: 'linear-gradient(135deg,#4f46e5,#7c3aed)', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, color: '#fff', fontSize: 16 }}>Pi</div>
+              <div style={{ width: 38, height: 38, background: 'linear-gradient(135deg,var(--accent),#7c3aed)', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, color: 'var(--card)', fontSize: 16 }}>Pi</div>
               <span style={{ fontSize: 20, fontWeight: 900, letterSpacing: '-0.5px' }}>PinIT Career OS</span>
             </div>
 
@@ -1570,10 +1570,10 @@ export default function OnboardingPage() {
               <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '2px', fontWeight: 700, display: 'block', marginBottom: 12 }}>
                 Staging Environment Setup
               </span>
-              <h1 style={{ fontSize: '2.5rem', fontWeight: 900, letterSpacing: '-1.5px', background: 'linear-gradient(135deg, #f8fafc 0%, #cbd5e1 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: 16 }}>
+              <h1 style={{ fontSize: '2.5rem', fontWeight: 900, letterSpacing: '-1.5px', background: 'linear-gradient(135deg, var(--bg3) 0%, var(--border2) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: 16 }}>
                 Choose Your Guidance Mentor
               </h1>
-              <p style={{ fontSize: 15, color: '#94a3b8', maxWidth: 600, margin: '0 auto', lineHeight: 1.6, marginBottom: 16 }}>
+              <p style={{ fontSize: 15, color: 'var(--t3)', maxWidth: 600, margin: '0 auto', lineHeight: 1.6, marginBottom: 16 }}>
                 Select the personal AI guide that will calibrate your career roadmap, analyze your communication DNA, and lead your socratic assessments.
               </p>
               <div style={{ display: 'flex', justifyContent: 'center', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
@@ -1581,10 +1581,10 @@ export default function OnboardingPage() {
                   type="button"
                   onClick={() => setShowVaultModal(true)}
                   style={{
-                    background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+                    background: 'linear-gradient(135deg, #6366f1 0%, var(--accent) 100%)',
                     border: 'none',
                     borderRadius: 100,
-                    color: '#fff',
+                    color: 'var(--card)',
                     fontSize: 12,
                     fontWeight: 800,
                     padding: '8px 20px',
@@ -1605,10 +1605,10 @@ export default function OnboardingPage() {
                   onClick={handleFastComplete}
                   disabled={syncing}
                   style={{
-                    background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                    background: 'linear-gradient(135deg, var(--green) 0%, var(--green) 100%)',
                     border: 'none',
                     borderRadius: 100,
-                    color: '#fff',
+                    color: 'var(--card)',
                     fontSize: 12,
                     fontWeight: 800,
                     padding: '8px 20px',
@@ -1663,20 +1663,20 @@ export default function OnboardingPage() {
                     width: '100%',
                     boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7)',
                     textAlign: 'left',
-                    color: '#f8fafc'
+                    color: 'var(--t1)'
                   }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                         <span style={{ fontSize: 24 }}>📁</span>
                         <div>
-                          <h3 style={{ fontSize: 18, fontWeight: 800, margin: 0, color: '#fff' }}>Candidate Secure Vault</h3>
-                          <span style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'var(--font-mono)' }}>Upload Resumes & Documents for QT1 Calibration</span>
+                          <h3 style={{ fontSize: 18, fontWeight: 800, margin: 0, color: 'var(--card)' }}>Candidate Secure Vault</h3>
+                          <span style={{ fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>Upload Resumes & Documents for QT1 Calibration</span>
                         </div>
                       </div>
                       <button
                         type="button"
                         onClick={() => setShowVaultModal(false)}
-                        style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: 20, cursor: 'pointer' }}
+                        style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 20, cursor: 'pointer' }}
                       >
                         ✕
                       </button>
@@ -1711,10 +1711,10 @@ export default function OnboardingPage() {
                     }}
                     >
                       <div style={{ fontSize: 36, marginBottom: 10 }}>📁</div>
-                      <div style={{ fontSize: 14, fontWeight: 700, color: '#fff', marginBottom: 6 }}>
+                      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--card)', marginBottom: 6 }}>
                         {vaultUploading ? '⏳ Batch Uploading & Analyzing Documents...' : 'Drag & drop or Click to Select Multiple Documents'}
                       </div>
-                      <div style={{ fontSize: 11.5, color: '#94a3b8' }}>
+                      <div style={{ fontSize: 11.5, color: 'var(--t3)' }}>
                         Supports selecting multiple Resumes, Certifications, Project Reports & Transcripts at once. Builds comprehensive QT1 mastery profile.
                       </div>
                     </div>
@@ -1725,7 +1725,7 @@ export default function OnboardingPage() {
                         background: 'rgba(16, 185, 129, 0.06)',
                         border: '1px solid rgba(16, 185, 129, 0.25)',
                         borderRadius: 16,
-                        color: '#f8fafc',
+                        color: 'var(--t1)',
                         fontSize: 12.5,
                         marginBottom: 20
                       }}>
@@ -1741,7 +1741,7 @@ export default function OnboardingPage() {
                         {/* Files list */}
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 12 }}>
                           {vaultUploadedFilesInfo.map((f, i) => (
-                            <div key={i} style={{ fontSize: 11, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 6, padding: '3px 8px', color: '#cbd5e1', fontFamily: 'var(--font-mono)' }}>
+                            <div key={i} style={{ fontSize: 11, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 6, padding: '3px 8px', color: 'var(--border2)', fontFamily: 'var(--font-mono)' }}>
                               📄 {f.name} ({f.size})
                             </div>
                           ))}
@@ -1749,7 +1749,7 @@ export default function OnboardingPage() {
 
                         {/* Extracted skills */}
                         <div style={{ marginBottom: 12 }}>
-                          <div style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: '#94a3b8', textTransform: 'uppercase', marginBottom: 6 }}>Extracted Skill Nodes:</div>
+                          <div style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: 'var(--t3)', textTransform: 'uppercase', marginBottom: 6 }}>Extracted Skill Nodes:</div>
                           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
                             {vaultAnalysisData.extractedSkills.map(s => (
                               <span key={s} style={{ fontSize: 10.5, background: 'rgba(99, 102, 241, 0.15)', color: '#a5b4fc', border: '1px solid rgba(99, 102, 241, 0.3)', borderRadius: 4, padding: '2px 6px', fontWeight: 700 }}>
@@ -1795,9 +1795,9 @@ export default function OnboardingPage() {
                         type="button"
                         onClick={() => setShowVaultModal(false)}
                         style={{
-                          background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+                          background: 'linear-gradient(135deg, #6366f1 0%, var(--accent) 100%)',
                           border: 'none',
-                          color: '#fff',
+                          color: 'var(--card)',
                           padding: '10px 20px',
                           borderRadius: 10,
                           fontSize: 12,
@@ -1848,11 +1848,11 @@ export default function OnboardingPage() {
                 }}
               >
                 <div style={{ fontSize: 48, marginBottom: 20 }}>👩‍💼</div>
-                <h2 style={{ fontSize: 22, fontWeight: 900, color: '#f8fafc', marginBottom: 4 }}>Ms. Priya</h2>
+                <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--t1)', marginBottom: 4 }}>Ms. Priya</h2>
                 <span style={{ fontSize: 12, fontFamily: 'var(--font-mono)', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '1px', display: 'block', marginBottom: 16 }}>
                   Full-Stack Systems Mentor
                 </span>
-                <p style={{ fontSize: 13.5, color: '#94a3b8', lineHeight: 1.6, margin: 0 }}>
+                <p style={{ fontSize: 13.5, color: 'var(--t3)', lineHeight: 1.6, margin: 0 }}>
                   Specialized in systems design, databases, backend infrastructure, and interview preparation. Prefers analytical structure and deep socratic drilling.
                 </p>
               </div>
@@ -1888,11 +1888,11 @@ export default function OnboardingPage() {
                 }}
               >
                 <div style={{ fontSize: 48, marginBottom: 20 }}>👨‍💼</div>
-                <h2 style={{ fontSize: 22, fontWeight: 900, color: '#f8fafc', marginBottom: 4 }}>Mr. Akash</h2>
+                <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--t1)', marginBottom: 4 }}>Mr. Akash</h2>
                 <span style={{ fontSize: 12, fontFamily: 'var(--font-mono)', color: 'var(--teal)', textTransform: 'uppercase', letterSpacing: '1px', display: 'block', marginBottom: 16 }}>
                   Interactive UX & Frontend Engineer
                 </span>
-                <p style={{ fontSize: 13.5, color: '#94a3b8', lineHeight: 1.6, margin: 0 }}>
+                <p style={{ fontSize: 13.5, color: 'var(--t3)', lineHeight: 1.6, margin: 0 }}>
                   Specialized in React, Next.js, responsive layouts, user experience, design systems, and rapid prototyping. Focuses on visual feedback and hands-on building.
                 </p>
               </div>
@@ -1908,7 +1908,7 @@ export default function OnboardingPage() {
       {/* Top Header */}
       <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 32px', borderBottom: '1px solid rgba(255,255,255,0.04)', background: 'rgba(10,15,26,0.3)', backdropFilter: 'blur(10px)', zIndex: 10 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <div style={{ width: 34, height: 34, background: 'linear-gradient(135deg,#4f46e5,#7c3aed)', borderRadius: 10, display: 'flex', alignItems: 'center', justifySelf: 'center', justifyContent: 'center', fontWeight: 800, color: '#fff', fontSize: 14 }}>Pi</div>
+          <div style={{ width: 34, height: 34, background: 'linear-gradient(135deg,var(--accent),#7c3aed)', borderRadius: 10, display: 'flex', alignItems: 'center', justifySelf: 'center', justifyContent: 'center', fontWeight: 800, color: 'var(--card)', fontSize: 14 }}>Pi</div>
           <span style={{ fontSize: 17, fontWeight: 800, letterSpacing: '-0.5px' }}>PinIT Career OS</span>
         </div>
         <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
@@ -1917,10 +1917,10 @@ export default function OnboardingPage() {
             onClick={handleFastComplete}
             disabled={syncing}
             style={{
-              background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+              background: 'linear-gradient(135deg, var(--green) 0%, var(--green) 100%)',
               border: 'none',
               borderRadius: 100,
-              color: '#fff',
+              color: 'var(--card)',
               fontSize: 11,
               fontWeight: 800,
               padding: '6px 14px',
@@ -1967,9 +1967,9 @@ export default function OnboardingPage() {
 
           {/* Floating Controls Overlay */}
           <div style={{ position: 'absolute', bottom: 16, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: 8, background: 'rgba(10,15,26,0.8)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 16, padding: '6px 12px', backdropFilter: 'blur(10px)', zIndex: 12 }}>
-            <button onClick={() => setZoom(z => Math.min(2.2, z + 0.1))} style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: 14, cursor: 'pointer', padding: '4px 8px' }} title="Zoom In">🔍+</button>
-            <button onClick={() => setZoom(z => Math.max(1.1, z - 0.1))} style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: 14, cursor: 'pointer', padding: '4px 8px' }} title="Zoom Out">🔍-</button>
-            <button onClick={() => setIsMuted(m => !m)} style={{ background: 'none', border: 'none', color: isMuted ? '#f87171' : '#94a3b8', fontSize: 14, cursor: 'pointer', padding: '4px 8px' }} title={isMuted ? "Unmute Voice" : "Mute Voice"}>
+            <button onClick={() => setZoom(z => Math.min(2.2, z + 0.1))} style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 14, cursor: 'pointer', padding: '4px 8px' }} title="Zoom In">🔍+</button>
+            <button onClick={() => setZoom(z => Math.max(1.1, z - 0.1))} style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 14, cursor: 'pointer', padding: '4px 8px' }} title="Zoom Out">🔍-</button>
+            <button onClick={() => setIsMuted(m => !m)} style={{ background: 'none', border: 'none', color: isMuted ? '#f87171' : 'var(--t3)', fontSize: 14, cursor: 'pointer', padding: '4px 8px' }} title={isMuted ? "Unmute Voice" : "Mute Voice"}>
               {isMuted ? '🔇' : '🔊'}
             </button>
             <button 
@@ -1982,7 +1982,7 @@ export default function OnboardingPage() {
               style={{
                 background: 'none',
                 border: 'none',
-                color: useNeural ? '#10b981' : '#94a3b8',
+                color: useNeural ? 'var(--green)' : 'var(--t3)',
                 fontSize: 12,
                 fontWeight: 900,
                 cursor: 'pointer',
@@ -2007,10 +2007,10 @@ export default function OnboardingPage() {
           {activeScreen === 'INTENT_SELECTION' && (
             <div style={{ flex: 1, padding: '24px 20px', display: 'flex', flexDirection: 'column', justifyContent: 'center', overflowY: 'auto' }}>
               <div style={{ marginBottom: 20 }}>
-                <h2 style={{ fontSize: 20, fontWeight: 900, letterSpacing: '-0.5px', background: 'linear-gradient(135deg, #f8fafc 0%, #cbd5e1 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: 8 }}>
+                <h2 style={{ fontSize: 20, fontWeight: 900, letterSpacing: '-0.5px', background: 'linear-gradient(135deg, var(--bg3) 0%, var(--border2) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: 8 }}>
                   Choose Your Staging Track
                 </h2>
-                <p style={{ fontSize: 12.5, color: '#94a3b8', lineHeight: 1.5 }}>
+                <p style={{ fontSize: 12.5, color: 'var(--t3)', lineHeight: 1.5 }}>
                   The staging sandbox is initialized. Select your diagnostic track to calculate your career blueprint.
                 </p>
               </div>
@@ -2041,9 +2041,9 @@ export default function OnboardingPage() {
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}>
                     <span style={{ fontSize: 16 }}>⚡</span>
-                    <h3 style={{ fontSize: 14, fontWeight: 800, color: '#f8fafc', margin: 0 }}>Express Route (1 Min)</h3>
+                    <h3 style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>Express Route (1 Min)</h3>
                   </div>
-                  <p style={{ fontSize: 11.5, color: '#94a3b8', lineHeight: 1.4, margin: 0 }}>
+                  <p style={{ fontSize: 11.5, color: 'var(--t3)', lineHeight: 1.4, margin: 0 }}>
                     Upload resume PDF directly to extract baseline skills.
                   </p>
                 </div>
@@ -2071,9 +2071,9 @@ export default function OnboardingPage() {
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}>
                     <span style={{ fontSize: 16 }}>🔬</span>
-                    <h3 style={{ fontSize: 14, fontWeight: 800, color: '#f8fafc', margin: 0 }}>Deep Evolution (15 Min)</h3>
+                    <h3 style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>Deep Evolution (15 Min)</h3>
                   </div>
-                  <p style={{ fontSize: 11.5, color: '#94a3b8', lineHeight: 1.4, margin: 0 }}>
+                  <p style={{ fontSize: 11.5, color: 'var(--t3)', lineHeight: 1.4, margin: 0 }}>
                     Complete full diagnostic profiling and assessments.
                   </p>
                 </div>
@@ -2085,15 +2085,15 @@ export default function OnboardingPage() {
                 <div style={{ background: 'rgba(79, 70, 229, 0.05)', border: '1.5px solid rgba(79, 70, 229, 0.2)', borderRadius: 14, padding: 14, marginBottom: 16, display: 'flex', flexDirection: 'column', gap: 8 }}>
                   <div style={{ fontSize: 11.5, fontWeight: 800, color: '#a5b4fc', textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>🎙️ Realtime Voice DNA:</div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5 }}>
-                    <span style={{ color: '#94a3b8' }}>Confidence Index:</span>
-                    <span style={{ color: '#f8fafc', fontWeight: 700 }}>{voiceConfidence}%</span>
+                    <span style={{ color: 'var(--t3)' }}>Confidence Index:</span>
+                    <span style={{ color: 'var(--t1)', fontWeight: 700 }}>{voiceConfidence}%</span>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5 }}>
-                    <span style={{ color: '#94a3b8' }}>Articulation Score:</span>
-                    <span style={{ color: '#f8fafc', fontWeight: 700 }}>{voiceArticulation}%</span>
+                    <span style={{ color: 'var(--t3)' }}>Articulation Score:</span>
+                    <span style={{ color: 'var(--t1)', fontWeight: 700 }}>{voiceArticulation}%</span>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5 }}>
-                    <span style={{ color: '#94a3b8' }}>Vocal Archetype:</span>
+                    <span style={{ color: 'var(--t3)' }}>Vocal Archetype:</span>
                     <span style={{ color: 'var(--accent)', fontWeight: 700 }}>{voiceArchetype}</span>
                   </div>
                 </div>
@@ -2111,7 +2111,7 @@ export default function OnboardingPage() {
                     background: 'rgba(255,255,255,0.02)',
                     border: '1px solid rgba(255,255,255,0.08)',
                     borderRadius: 10,
-                    color: '#cbd5e1',
+                    color: 'var(--border2)',
                     fontSize: 12,
                     fontWeight: 700,
                     cursor: 'pointer',
@@ -2195,16 +2195,16 @@ export default function OnboardingPage() {
             <div style={{ flex: 1, padding: 32, display: 'flex', flexDirection: 'column', justifyContent: 'center', overflowY: 'auto' }}>
               <button 
                 onClick={() => setActiveScreen('INTENT_SELECTION')}
-                style={{ background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer', fontSize: 12, alignSelf: 'flex-start', marginBottom: 20 }}
+                style={{ background: 'transparent', border: 'none', color: 'var(--t3)', cursor: 'pointer', fontSize: 12, alignSelf: 'flex-start', marginBottom: 20 }}
               >
                 ← Go Back
               </button>
 
               <div style={{ marginBottom: 28 }}>
-                <h2 style={{ fontSize: 22, fontWeight: 900, color: '#f8fafc', marginBottom: 8, letterSpacing: '-0.5px' }}>
+                <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--t1)', marginBottom: 8, letterSpacing: '-0.5px' }}>
                   Define Your Evolution Gap
                 </h2>
-                <p style={{ fontSize: 13, color: '#94a3b8', lineHeight: 1.5 }}>
+                <p style={{ fontSize: 13, color: 'var(--t3)', lineHeight: 1.5 }}>
                   Slide to indicate your estimated current skill level compared to your dream placement ambition. This initializes the roadmap density calculations.
                 </p>
               </div>
@@ -2215,7 +2215,7 @@ export default function OnboardingPage() {
                 {/* Current Skill Ability */}
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, fontWeight: 700, marginBottom: 8 }}>
-                    <span style={{ color: '#94a3b8' }}>Current Technical Ability</span>
+                    <span style={{ color: 'var(--t3)' }}>Current Technical Ability</span>
                     <span style={{ color: 'var(--accent)' }}>{currentAbility}%</span>
                   </div>
                   <input 
@@ -2226,7 +2226,7 @@ export default function OnboardingPage() {
                     onChange={(e) => setCurrentAbility(parseInt(e.target.value))}
                     style={{ width: '100%', accentColor: 'var(--accent)', cursor: 'pointer' }}
                   />
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, color: '#475569', marginTop: 4 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, color: 'var(--t2)', marginTop: 4 }}>
                     <span>Novice</span>
                     <span>Intermediate</span>
                     <span>Advanced</span>
@@ -2236,7 +2236,7 @@ export default function OnboardingPage() {
                 {/* Target Career Ambition */}
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, fontWeight: 700, marginBottom: 8 }}>
-                    <span style={{ color: '#94a3b8' }}>Target Career Ambition</span>
+                    <span style={{ color: 'var(--t3)' }}>Target Career Ambition</span>
                     <span style={{ color: 'var(--teal)' }}>{targetAmbition}%</span>
                   </div>
                   <input 
@@ -2247,7 +2247,7 @@ export default function OnboardingPage() {
                     onChange={(e) => setTargetAmbition(parseInt(e.target.value))}
                     style={{ width: '100%', accentColor: 'var(--teal)', cursor: 'pointer' }}
                   />
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, color: '#475569', marginTop: 4 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, color: 'var(--t2)', marginTop: 4 }}>
                     <span>Competent (60%)</span>
                     <span>Top-Tier (85%)</span>
                     <span>Legendary (100%)</span>
@@ -2259,7 +2259,7 @@ export default function OnboardingPage() {
               {/* Calculations Box */}
               <div style={{ background: 'rgba(255,255,255,0.01)', border: '1px solid rgba(255,255,255,0.04)', borderRadius: 16, padding: 18, marginBottom: 28 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-                  <span style={{ fontSize: 13, color: '#94a3b8', fontWeight: 600 }}>The Verification Gap:</span>
+                  <span style={{ fontSize: 13, color: 'var(--t3)', fontWeight: 600 }}>The Verification Gap:</span>
                   <span style={{ fontSize: 20, fontWeight: 900, color: 'var(--coral)', fontFamily: 'var(--font-mono)' }}>
                     {targetAmbition - currentAbility}%
                   </span>
@@ -2267,7 +2267,7 @@ export default function OnboardingPage() {
                 <div style={{ height: 6, background: 'rgba(255,255,255,0.04)', borderRadius: 3, overflow: 'hidden' }}>
                   <div style={{ height: '100%', width: `${targetAmbition - currentAbility}%`, background: 'linear-gradient(90deg, var(--coral), var(--accent))', borderRadius: 3 }} />
                 </div>
-                <p style={{ fontSize: 12, color: '#94a3b8', marginTop: 12, lineHeight: 1.5, fontStyle: 'italic' }}>
+                <p style={{ fontSize: 12, color: 'var(--t3)', marginTop: 12, lineHeight: 1.5, fontStyle: 'italic' }}>
                   {getSliderDialogue()}
                 </p>
               </div>
@@ -2280,7 +2280,7 @@ export default function OnboardingPage() {
                   background: 'linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%)',
                   border: 'none',
                   borderRadius: 12,
-                  color: '#fff',
+                  color: 'var(--card)',
                   fontWeight: 700,
                   cursor: 'pointer',
                   boxShadow: '0 4px 14px rgba(79, 70, 229, 0.25)',
@@ -2299,16 +2299,16 @@ export default function OnboardingPage() {
             <div style={{ flex: 1, padding: 28, display: 'flex', flexDirection: 'column', overflowY: 'auto' }}>
               <button 
                 onClick={() => setActiveScreen('INTENT_SELECTION')}
-                style={{ background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer', fontSize: 11, alignSelf: 'flex-start', marginBottom: 14 }}
+                style={{ background: 'transparent', border: 'none', color: 'var(--t3)', cursor: 'pointer', fontSize: 11, alignSelf: 'flex-start', marginBottom: 14 }}
               >
                 ← Go Back
               </button>
 
               <div style={{ marginBottom: 16 }}>
-                <h2 style={{ fontSize: 20, fontWeight: 900, color: '#f8fafc', marginBottom: 6, letterSpacing: '-0.5px' }}>
+                <h2 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', marginBottom: 6, letterSpacing: '-0.5px' }}>
                   Express Staging setup
                 </h2>
-                <p style={{ fontSize: 12, color: '#94a3b8' }}>
+                <p style={{ fontSize: 12, color: 'var(--t3)' }}>
                   Provide your target trajectory & academic demographics. Then drag & drop your resume PDF to verify.
                 </p>
               </div>
@@ -2317,7 +2317,7 @@ export default function OnboardingPage() {
                 
                 {/* Trajectory Selector */}
                 <div>
-                  <label style={{ fontSize: 11.5, fontWeight: 700, color: '#94a3b8', display: 'block', marginBottom: 6 }}>Target Career Trajectory</label>
+                  <label style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--t3)', display: 'block', marginBottom: 6 }}>Target Career Trajectory</label>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 8 }}>
                     {[
                       { id: 'react_frontend', label: 'React Frontend', emoji: '⚛️' },
@@ -2351,23 +2351,23 @@ export default function OnboardingPage() {
                 {/* College Info Grid */}
                 <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: 12 }}>
                   <div>
-                    <label style={{ fontSize: 11.5, fontWeight: 700, color: '#94a3b8', display: 'block', marginBottom: 6 }}>College Name</label>
+                    <label style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--t3)', display: 'block', marginBottom: 6 }}>College Name</label>
                     <input 
                       type="text" 
                       placeholder="e.g. Apex Institute" 
                       value={college}
                       onChange={(e) => setCollege(e.target.value)}
-                      style={{ width: '100%', height: 38, background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 8, padding: '0 12px', fontSize: 12.5, color: '#fff', outline: 'none' }}
+                      style={{ width: '100%', height: 38, background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 8, padding: '0 12px', fontSize: 12.5, color: 'var(--card)', outline: 'none' }}
                     />
                   </div>
                   <div>
-                    <label style={{ fontSize: 11.5, fontWeight: 700, color: '#94a3b8', display: 'block', marginBottom: 6 }}>Degree Major</label>
+                    <label style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--t3)', display: 'block', marginBottom: 6 }}>Degree Major</label>
                     <input 
                       type="text" 
                       placeholder="e.g. B.Tech CSE" 
                       value={degree}
                       onChange={(e) => setDegree(e.target.value)}
-                      style={{ width: '100%', height: 38, background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 8, padding: '0 12px', fontSize: 12.5, color: '#fff', outline: 'none' }}
+                      style={{ width: '100%', height: 38, background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 8, padding: '0 12px', fontSize: 12.5, color: 'var(--card)', outline: 'none' }}
                     />
                   </div>
                 </div>
@@ -2404,13 +2404,13 @@ export default function OnboardingPage() {
                     <>
                       <div style={{ fontSize: 24, marginBottom: 4 }}>📄</div>
                       <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--teal)' }}>{uploadedFile.name}</div>
-                      <div style={{ fontSize: 10, color: '#64748b', marginTop: 2 }}>Click or drag to change files</div>
+                      <div style={{ fontSize: 10, color: 'var(--t2)', marginTop: 2 }}>Click or drag to change files</div>
                     </>
                   ) : (
                     <>
                       <div style={{ fontSize: 24, marginBottom: 4 }}>📥</div>
                       <div style={{ fontSize: 12.5, fontWeight: 700 }}>Drag & Drop Resume PDF here</div>
-                      <div style={{ fontSize: 10, color: '#64748b', marginTop: 2 }}>or click to browse local files</div>
+                      <div style={{ fontSize: 10, color: 'var(--t2)', marginTop: 2 }}>or click to browse local files</div>
                     </>
                   )}
                 </div>
@@ -2424,7 +2424,7 @@ export default function OnboardingPage() {
                     background: 'linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%)',
                     border: 'none',
                     borderRadius: 10,
-                    color: '#fff',
+                    color: 'var(--card)',
                     fontWeight: 700,
                     cursor: 'pointer',
                     opacity: (!college || !degree || !uploadedFile) ? 0.5 : 1,
@@ -2443,10 +2443,10 @@ export default function OnboardingPage() {
             <>
               {/* Chat Header */}
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,0.04)', background: 'rgba(255,255,255,0.01)' }}>
-                <div style={{ width: 8, height: 8, borderRadius: '50%', background: animState === 'talking' ? '#10b981' : '#6366f1', animation: animState === 'talking' ? 'ping 1.5s infinite' : 'none' }} />
+                <div style={{ width: 8, height: 8, borderRadius: '50%', background: animState === 'talking' ? 'var(--green)' : '#6366f1', animation: animState === 'talking' ? 'ping 1.5s infinite' : 'none' }} />
                 <div>
                   <div style={{ fontSize: 13, fontWeight: 700 }}>{selectedMentor === 'priya' ? 'Ms. Priya' : 'Mr. Akash'}</div>
-                  <div style={{ fontSize: 10, color: '#64748b' }}>{animState === 'talking' ? 'Speaking...' : animState === 'listening' ? 'Listening...' : animState === 'thinking' ? 'Analyzing...' : 'Online'}</div>
+                  <div style={{ fontSize: 10, color: 'var(--t2)' }}>{animState === 'talking' ? 'Speaking...' : animState === 'listening' ? 'Listening...' : animState === 'thinking' ? 'Analyzing...' : 'Online'}</div>
                 </div>
               </div>
 
@@ -2460,9 +2460,9 @@ export default function OnboardingPage() {
                         maxWidth: '85%',
                         padding: '12px 16px',
                         borderRadius: isAi ? '16px 16px 16px 4px' : '16px 16px 4px 16px',
-                        background: isAi ? 'rgba(255,255,255,0.04)' : 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)',
+                        background: isAi ? 'rgba(255,255,255,0.04)' : 'linear-gradient(135deg, var(--accent) 0%, #7c3aed 100%)',
                         border: isAi ? '1px solid rgba(255,255,255,0.06)' : 'none',
-                        color: '#f8fafc',
+                        color: 'var(--t1)',
                         fontSize: 13,
                         lineHeight: 1.5,
                         boxShadow: isAi ? 'none' : '0 4px 12px rgba(79, 70, 229, 0.25)'
@@ -2514,7 +2514,7 @@ export default function OnboardingPage() {
 
             return (
               <div style={{ flex: 1, padding: 32, display: 'flex', flexDirection: 'column', justifyContent: 'center', overflowY: 'auto' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: '#64748b', fontFamily: 'var(--font-mono)', marginBottom: 20 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: 'var(--t2)', fontFamily: 'var(--font-mono)', marginBottom: 20 }}>
                   <span>Identity Discovery</span>
                   <span>Slide {currentIdentityQ + 1} of {identityQs.length}</span>
                 </div>
@@ -2523,7 +2523,7 @@ export default function OnboardingPage() {
                   <h3 style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 8 }}>
                     {q.category}
                   </h3>
-                  <p style={{ fontSize: 15, color: '#f8fafc', lineHeight: 1.6, fontWeight: 600 }}>
+                  <p style={{ fontSize: 15, color: 'var(--t1)', lineHeight: 1.6, fontWeight: 600 }}>
                     {q.text}
                   </p>
                 </div>
@@ -2540,7 +2540,7 @@ export default function OnboardingPage() {
                     }}
                     style={{ width: '100%', accentColor: 'var(--accent)', cursor: 'pointer', height: 6 }}
                   />
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: '#94a3b8', marginTop: 12, fontWeight: 700 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: 'var(--t3)', marginTop: 12, fontWeight: 700 }}>
                     <span>← {q.left}</span>
                     <span>{identityScores[q.id] || 50}%</span>
                     <span>{q.right} →</span>
@@ -2558,7 +2558,7 @@ export default function OnboardingPage() {
                   style={{
                     width: '100%', height: 44,
                     background: 'linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%)',
-                    border: 'none', borderRadius: 12, color: '#fff', fontWeight: 700, cursor: 'pointer',
+                    border: 'none', borderRadius: 12, color: 'var(--card)', fontWeight: 700, cursor: 'pointer',
                     boxShadow: '0 4px 14px rgba(79, 70, 229, 0.25)'
                   }}
                 >
@@ -2576,16 +2576,16 @@ export default function OnboardingPage() {
 
             return (
               <div style={{ flex: 1, padding: 32, display: 'flex', flexDirection: 'column', justifyContent: 'center', overflowY: 'auto' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: '#64748b', fontFamily: 'var(--font-mono)', marginBottom: 20 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: 'var(--t2)', fontFamily: 'var(--font-mono)', marginBottom: 20 }}>
                   <span>{isBusinessStream ? 'Business & Leadership Simulation' : 'Technical & Engineering Simulation'}</span>
                   <span>Card {currentScenario + 1} of {activeScenarios.length}</span>
                 </div>
                 
                 <div style={{ marginBottom: 24 }}>
-                  <h3 style={{ fontSize: 16, fontWeight: 800, color: '#f8fafc', marginBottom: 8 }}>
+                  <h3 style={{ fontSize: 16, fontWeight: 800, color: 'var(--t1)', marginBottom: 8 }}>
                     {scenario.title}
                   </h3>
-                  <p style={{ fontSize: 13, color: '#94a3b8', lineHeight: 1.6 }}>
+                  <p style={{ fontSize: 13, color: 'var(--t3)', lineHeight: 1.6 }}>
                     {scenario.text}
                   </p>
                 </div>
@@ -2614,7 +2614,7 @@ export default function OnboardingPage() {
                         borderRadius: 12,
                         background: 'rgba(255,255,255,0.02)',
                         border: '1px solid rgba(255,255,255,0.05)',
-                        color: '#f8fafc',
+                        color: 'var(--t1)',
                         fontSize: 12.5,
                         fontWeight: 650,
                         textAlign: 'left',
@@ -2669,7 +2669,7 @@ export default function OnboardingPage() {
 
             return (
               <div style={{ flex: 1, padding: 32, display: 'flex', flexDirection: 'column', justifyContent: 'center', overflowY: 'auto' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: '#64748b', fontFamily: 'var(--font-mono)', marginBottom: 20 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: 'var(--t2)', fontFamily: 'var(--font-mono)', marginBottom: 20 }}>
                   <span>Vocal Assessment</span>
                   <span style={{ color: 'var(--accent)' }}>Microphone Active</span>
                 </div>
@@ -2677,8 +2677,8 @@ export default function OnboardingPage() {
                 {speechState === 'ready' && (
                   <div style={{ textAlign: 'center' }}>
                     <div style={{ fontSize: 32, marginBottom: 12 }}>🎙️</div>
-                    <h3 style={{ fontSize: 16, fontWeight: 800, color: '#f8fafc', marginBottom: 8 }}>Microphone Calibration</h3>
-                    <p style={{ fontSize: 12.5, color: '#94a3b8', lineHeight: 1.6, marginBottom: 24 }}>
+                    <h3 style={{ fontSize: 16, fontWeight: 800, color: 'var(--t1)', marginBottom: 8 }}>Microphone Calibration</h3>
+                    <p style={{ fontSize: 12.5, color: 'var(--t3)', lineHeight: 1.6, marginBottom: 24 }}>
                       We calibrate background acoustics and regional accent variations to prevent scoring penalties. Click below to run a 3-second noise test.
                     </p>
                     <button
@@ -2715,11 +2715,11 @@ export default function OnboardingPage() {
                 {speechState === 'calibrating' && (
                   <div style={{ textAlign: 'center' }}>
                     <div style={{ fontSize: 32, marginBottom: 12, animation: 'spin 1.5s linear infinite' }}>⬡</div>
-                    <h3 style={{ fontSize: 16, fontWeight: 800, color: '#f8fafc', marginBottom: 8 }}>Calibrating...</h3>
+                    <h3 style={{ fontSize: 16, fontWeight: 800, color: 'var(--t1)', marginBottom: 8 }}>Calibrating...</h3>
                     <div style={{ width: 140, height: 4, background: 'rgba(255,255,255,0.06)', borderRadius: 2, margin: '16px auto', overflow: 'hidden' }}>
                       <div style={{ width: `${calibrationProgress}%`, height: '100%', background: 'var(--accent)', transition: 'width 0.3s ease' }} />
                     </div>
-                    <p style={{ fontSize: 11, color: '#64748b' }}>Checking ambient frequency thresholds.</p>
+                    <p style={{ fontSize: 11, color: 'var(--t2)' }}>Checking ambient frequency thresholds.</p>
                   </div>
                 )}
 
@@ -2728,7 +2728,7 @@ export default function OnboardingPage() {
                     <h3 style={{ fontSize: 14, fontWeight: 800, color: 'var(--teal)', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: 8 }}>
                       Spoken Prompt
                     </h3>
-                    <p style={{ fontSize: 15, color: '#f8fafc', lineHeight: 1.5, fontWeight: 600, marginBottom: 20 }}>
+                    <p style={{ fontSize: 15, color: 'var(--t1)', lineHeight: 1.5, fontWeight: 600, marginBottom: 20 }}>
                       "{spokenPromptText}"
                     </p>
 
@@ -2744,7 +2744,7 @@ export default function OnboardingPage() {
                       marginBottom: 14,
                       textAlign: 'left'
                     }}>
-                      <span style={{ color: '#64748b', display: 'block', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: 4, marginBottom: 6 }}>
+                      <span style={{ color: 'var(--t2)', display: 'block', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: 4, marginBottom: 6 }}>
                         STT TRANSCRIPT / DICTATION CONSOLE
                       </span>
                       {speechTranscript || (speechState === 'recording' ? 'Listening... Speak now...' : 'Click Record or select/type response below...')}
@@ -2752,7 +2752,7 @@ export default function OnboardingPage() {
 
                     {/* ⌨️ Mic Fault Tolerance: Quick Response Templates */}
                     <div style={{ marginBottom: 16 }}>
-                      <div style={{ fontSize: 10.5, color: '#94a3b8', fontFamily: 'var(--font-mono)', marginBottom: 6 }}>
+                      <div style={{ fontSize: 10.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginBottom: 6 }}>
                         ⌨️ Mic Fault Tolerance & Quick Dictation Presets:
                       </div>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -2770,7 +2770,7 @@ export default function OnboardingPage() {
                               background: 'rgba(255,255,255,0.02)',
                               border: '1px solid rgba(255,255,255,0.06)',
                               borderRadius: 8,
-                              color: '#cbd5e1',
+                              color: 'var(--border2)',
                               fontSize: 11,
                               textAlign: 'left',
                               cursor: 'pointer',
@@ -2838,9 +2838,9 @@ export default function OnboardingPage() {
                         }}
                         style={{
                           flex: 1, height: 42,
-                          background: speechState === 'recording' ? '#dc2626' : 'rgba(255,255,255,0.04)',
-                          border: `1.5px solid ${speechState === 'recording' ? '#dc2626' : 'rgba(255,255,255,0.1)'}`,
-                          borderRadius: 10, color: '#fff', fontWeight: 700, cursor: 'pointer'
+                          background: speechState === 'recording' ? 'var(--coral)' : 'rgba(255,255,255,0.04)',
+                          border: `1.5px solid ${speechState === 'recording' ? 'var(--coral)' : 'rgba(255,255,255,0.1)'}`,
+                          borderRadius: 10, color: 'var(--card)', fontWeight: 700, cursor: 'pointer'
                         }}
                       >
                         {speechState === 'recording' ? '⏹ Stop Recording' : '🎙️ Record Audio'}
@@ -2875,7 +2875,7 @@ export default function OnboardingPage() {
                         style={{
                           flex: 1, height: 42,
                           background: 'linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%)',
-                          border: 'none', borderRadius: 10, color: '#fff', fontWeight: 700, cursor: 'pointer',
+                          border: 'none', borderRadius: 10, color: 'var(--card)', fontWeight: 700, cursor: 'pointer',
                           opacity: (speechState !== 'recorded' && !speechTranscript) ? 0.5 : 1
                         }}
                       >
@@ -2903,10 +2903,10 @@ export default function OnboardingPage() {
                       {studentType.includes('Commerce') || studentType.includes('B.Com') ? '📊 FinTech & Commerce Track (B.Com)' : studentType.includes('Management') || studentType.includes('BBA') ? '📈 Product & Business Track (BBA)' : '💻 Tech & Software Track'}
                     </span>
                   </div>
-                  <h2 style={{ fontSize: 22, fontWeight: 900, color: '#f8fafc', marginTop: 6, letterSpacing: '-0.6px' }}>
+                  <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--t1)', marginTop: 6, letterSpacing: '-0.6px' }}>
                     {qt2Breakdown.blendTitle}
                   </h2>
-                  <p style={{ fontSize: 12, color: '#94a3b8', lineHeight: 1.5, marginTop: 4 }}>
+                  <p style={{ fontSize: 12, color: 'var(--t3)', lineHeight: 1.5, marginTop: 4 }}>
                     {qt2Breakdown.blendDescription}
                   </p>
                 </div>
@@ -2925,13 +2925,13 @@ export default function OnboardingPage() {
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 10 }}>
                     {[
                       { label: 'Pattern Hunter', icon: '🧩', score: qt2Breakdown.patternHunter, color: '#6366f1' },
-                      { label: 'Stabilizer', icon: '🛡️', score: qt2Breakdown.stabilizer, color: '#10b981' },
+                      { label: 'Stabilizer', icon: '🛡️', score: qt2Breakdown.stabilizer, color: 'var(--green)' },
                       { label: 'Social IQ', icon: '🤝', score: qt2Breakdown.socialIQ, color: '#f59e0b' },
                       { label: 'Explorer', icon: '🚀', score: qt2Breakdown.explorer, color: '#06b6d4' }
                     ].map(quad => (
                       <div key={quad.label} style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)', borderRadius: 12, padding: '10px 12px' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5, fontWeight: 700, marginBottom: 6 }}>
-                          <span style={{ color: '#f8fafc' }}>{quad.icon} {quad.label}</span>
+                          <span style={{ color: 'var(--t1)' }}>{quad.icon} {quad.label}</span>
                           <span style={{ color: quad.color, fontFamily: 'var(--font-mono)' }}>{quad.score}%</span>
                         </div>
                         <div style={{ height: 5, background: 'rgba(255,255,255,0.06)', borderRadius: 3, overflow: 'hidden' }}>
@@ -2941,14 +2941,14 @@ export default function OnboardingPage() {
                     ))}
                   </div>
 
-                  <div style={{ fontSize: 10.5, color: '#94a3b8', fontStyle: 'italic', display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <div style={{ fontSize: 10.5, color: 'var(--t3)', fontStyle: 'italic', display: 'flex', alignItems: 'center', gap: 6 }}>
                     <span>🎯 {qt2Breakdown.selfAwarenessLabel}</span>
                   </div>
                 </div>
 
                 {/* 🧑‍💼 Choose Dashboard Mentor Selector */}
                 <div style={{ marginBottom: 20 }}>
-                  <label style={{ display: 'block', fontSize: 10.5, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', marginBottom: 8, letterSpacing: '0.6px', fontFamily: 'var(--font-mono)' }}>
+                  <label style={{ display: 'block', fontSize: 10.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase', marginBottom: 8, letterSpacing: '0.6px', fontFamily: 'var(--font-mono)' }}>
                     Choose Your Dashboard VRoid Guide (Locked After Onboarding)
                   </label>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
@@ -2962,8 +2962,8 @@ export default function OnboardingPage() {
                     >
                       <span style={{ fontSize: 22 }}>👩‍💼</span>
                       <div>
-                        <div style={{ fontSize: 12, fontWeight: 800, color: selectedMentor === 'priya' ? '#a5b4fc' : '#f8fafc' }}>Ms. Priya</div>
-                        <div style={{ fontSize: 10, color: '#94a3b8' }}>Warm, structured steps.</div>
+                        <div style={{ fontSize: 12, fontWeight: 800, color: selectedMentor === 'priya' ? '#a5b4fc' : 'var(--bg3)' }}>Ms. Priya</div>
+                        <div style={{ fontSize: 10, color: 'var(--t3)' }}>Warm, structured steps.</div>
                       </div>
                     </div>
                     <div 
@@ -2976,8 +2976,8 @@ export default function OnboardingPage() {
                     >
                       <span style={{ fontSize: 22 }}>👨‍💼</span>
                       <div>
-                        <div style={{ fontSize: 12, fontWeight: 800, color: selectedMentor === 'anish' ? '#a5b4fc' : '#f8fafc' }}>Mr. Akash</div>
-                        <div style={{ fontSize: 10, color: '#94a3b8' }}>High accountability.</div>
+                        <div style={{ fontSize: 12, fontWeight: 800, color: selectedMentor === 'anish' ? '#a5b4fc' : 'var(--bg3)' }}>Mr. Akash</div>
+                        <div style={{ fontSize: 10, color: 'var(--t3)' }}>High accountability.</div>
                       </div>
                     </div>
                   </div>
@@ -2988,7 +2988,7 @@ export default function OnboardingPage() {
                   style={{
                     width: '100%', height: 44,
                     background: 'linear-gradient(135deg, var(--teal) 0%, var(--accent) 100%)',
-                    border: 'none', borderRadius: 12, color: '#fff', fontWeight: 800, cursor: 'pointer',
+                    border: 'none', borderRadius: 12, color: 'var(--card)', fontWeight: 800, cursor: 'pointer',
                     boxShadow: '0 4px 14px rgba(20, 184, 166, 0.25)'
                   }}
                 >
@@ -3024,10 +3024,10 @@ export default function OnboardingPage() {
             </div>
           </div>
 
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontWeight: 900, color: '#f8fafc', marginBottom: 4, letterSpacing: '-0.5px' }}>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontWeight: 900, color: 'var(--t1)', marginBottom: 4, letterSpacing: '-0.5px' }}>
             {uploadedFile ? 'Parser Staging Sandbox' : 'Orchestrating Trajectory OS'}
           </h2>
-          <p style={{ fontSize: 13, color: '#94a3b8', fontFamily: 'var(--font-mono)', textAlign: 'center', marginBottom: 24 }}>
+          <p style={{ fontSize: 13, color: 'var(--t3)', fontFamily: 'var(--font-mono)', textAlign: 'center', marginBottom: 24 }}>
             {syncStatus}
           </p>
 
@@ -3051,7 +3051,7 @@ export default function OnboardingPage() {
               minHeight: 120,
               justifyContent: 'flex-start'
             }}>
-              <div style={{ color: '#64748b', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: 6, marginBottom: 6, display: 'flex', justifyContent: 'space-between' }}>
+              <div style={{ color: 'var(--t2)', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: 6, marginBottom: 6, display: 'flex', justifyContent: 'space-between' }}>
                 <span>PARSER PROCESS TERMINAL</span>
                 <span>ONLINE</span>
               </div>

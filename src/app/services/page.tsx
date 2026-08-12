@@ -177,11 +177,11 @@ export default function StudentServicesPortal() {
       }
     }
     .card-box {
-      background: #ffffff;
-      border: 1px solid rgba(15, 23, 42, 0.05);
+      background: var(--card);
+      border: 1px solid var(--border);
       border-radius: 20px;
       padding: 24px;
-      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.02);
+      box-shadow: 0 4px 20px var(--border);
     }
     .category-pills {
       display: flex;
@@ -194,9 +194,9 @@ export default function StudentServicesPortal() {
       text-align: left;
       font-size: 13.5px;
       font-weight: 700;
-      color: #475569;
-      border: 1px solid #e2e8f0;
-      background: #ffffff;
+      color: var(--t2);
+      border: 1px solid var(--border);
+      background: var(--card);
       border-radius: 12px;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -205,9 +205,9 @@ export default function StudentServicesPortal() {
       gap: 8px;
     }
     .pill-btn.active {
-      background: #0f172a;
-      color: #ffffff;
-      border-color: #0f172a;
+      background: var(--t1);
+      color: var(--card);
+      border-color: var(--t1);
     }
     .tbl-services {
       width: 100%;
@@ -218,9 +218,9 @@ export default function StudentServicesPortal() {
       text-align: left;
       font-size: 11px;
       font-weight: 800;
-      color: #64748b;
+      color: var(--t2);
       padding-bottom: 10px;
-      border-bottom: 1px solid #cbd5e1;
+      border-bottom: 1px solid var(--border2);
       text-transform: uppercase;
     }
     .tbl-services td {
@@ -236,7 +236,7 @@ export default function StudentServicesPortal() {
   `;
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f8fafc', color: '#0f172a', padding: '30px 20px', fontFamily: 'var(--font-body), sans-serif' }}>
+    <div className="portal-page">
       <style dangerouslySetInnerHTML={{ __html: cssStyle }} />
 
       <div className="srv-wrapper">
@@ -275,17 +275,17 @@ export default function StudentServicesPortal() {
                   
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
                     <div>
-                      <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b' }}>Start Date *</label>
+                      <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Start Date *</label>
                       <input type="date" required className="form-input" value={leaveStart} onChange={e => setLeaveStart(e.target.value)} />
                     </div>
                     <div>
-                      <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b' }}>End Date *</label>
+                      <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>End Date *</label>
                       <input type="date" required className="form-input" value={leaveEnd} onChange={e => setLeaveEnd(e.target.value)} />
                     </div>
                   </div>
 
                   <div>
-                    <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b' }}>Leave Category Type</label>
+                    <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Leave Category Type</label>
                     <select className="form-input" value={leaveType} onChange={e => setLeaveType(e.target.value)}>
                       <option value="Personal">Personal Leave</option>
                       <option value="Medical">Medical Leave (Fit cert required)</option>
@@ -294,7 +294,7 @@ export default function StudentServicesPortal() {
                   </div>
 
                   <div>
-                    <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b' }}>Reason Details *</label>
+                    <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Reason Details *</label>
                     <textarea required className="form-input" style={{ minHeight: 70 }} placeholder="State reason for leave of absence..." value={leaveReason} onChange={e => setLeaveReason(e.target.value)} />
                   </div>
 
@@ -309,7 +309,7 @@ export default function StudentServicesPortal() {
                   <h3 style={{ fontSize: 14, fontWeight: 800, margin: 0 }}>Request Document / Certificate</h3>
                   
                   <div>
-                    <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b' }}>Certificate Type</label>
+                    <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Certificate Type</label>
                     <select className="form-input" value={certType} onChange={e => setCertType(e.target.value)}>
                       <option value="Bonafide Certificate">Bonafide Certificate</option>
                       <option value="Transfer Certificate">Transfer Certificate (TC)</option>
@@ -319,7 +319,7 @@ export default function StudentServicesPortal() {
                   </div>
 
                   <div>
-                    <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b' }}>Purpose of Request *</label>
+                    <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Purpose of Request *</label>
                     <input type="text" required className="form-input" placeholder="e.g. Visa request, internship onboarding" value={certPurpose} onChange={e => setCertPurpose(e.target.value)} />
                   </div>
 
@@ -334,7 +334,7 @@ export default function StudentServicesPortal() {
                   <h3 style={{ fontSize: 14, fontWeight: 800, margin: 0 }}>File Service Request</h3>
                   
                   <div>
-                    <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b' }}>Request Category</label>
+                    <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Request Category</label>
                     <select className="form-input" value={reqCategory} onChange={e => setReqCategory(e.target.value)}>
                       <option value="ID Card Replacement">ID Card Replacement (RFID card reissue)</option>
                       <option value="Hostel Room Change">Hostel Room Change Request</option>
@@ -344,7 +344,7 @@ export default function StudentServicesPortal() {
                   </div>
 
                   <div>
-                    <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b' }}>Detailed Description *</label>
+                    <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Detailed Description *</label>
                     <textarea required className="form-input" style={{ minHeight: 70 }} placeholder="Elaborate request details..." value={reqDesc} onChange={e => setReqDesc(e.target.value)} />
                   </div>
 
@@ -359,7 +359,7 @@ export default function StudentServicesPortal() {
                   <h3 style={{ fontSize: 14, fontWeight: 800, margin: 0 }}>Book Faculty Appointment Slot</h3>
                   
                   <div>
-                    <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b' }}>Select Staff / Faculty Member</label>
+                    <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Select Staff / Faculty Member</label>
                     <select className="form-input" value={apptStaff} onChange={e => setApptStaff(e.target.value)}>
                       <option value="Dr. Priya Sharma (CSE Professor)">Dr. Priya Sharma (CSE Professor)</option>
                       <option value="Dr. Ananya Rao (Electronics HOD)">Dr. Ananya Rao (Electronics HOD)</option>
@@ -369,11 +369,11 @@ export default function StudentServicesPortal() {
 
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
                     <div>
-                      <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b' }}>Date *</label>
+                      <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Date *</label>
                       <input type="date" required className="form-input" value={apptDate} onChange={e => setApptDate(e.target.value)} />
                     </div>
                     <div>
-                      <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b' }}>Available Time Slot</label>
+                      <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Available Time Slot</label>
                       <select className="form-input" value={apptTime} onChange={e => setApptTime(e.target.value)}>
                         <option value="10:00 AM">10:00 AM - 10:30 AM</option>
                         <option value="11:30 AM">11:30 AM - 12:00 PM</option>
@@ -383,7 +383,7 @@ export default function StudentServicesPortal() {
                   </div>
 
                   <div>
-                    <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b' }}>Purpose of Visit *</label>
+                    <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Purpose of Visit *</label>
                     <input type="text" required className="form-input" placeholder="e.g. project review or grade check" value={apptPurpose} onChange={e => setApptPurpose(e.target.value)} />
                   </div>
 
@@ -398,7 +398,7 @@ export default function StudentServicesPortal() {
                   <h3 style={{ fontSize: 14, fontWeight: 800, margin: 0 }}>Book Guidance / Counselling session</h3>
                   
                   <div>
-                    <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b' }}>Counselor Specialist</label>
+                    <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Counselor Specialist</label>
                     <select className="form-input" value={counsName} onChange={e => setCounsName(e.target.value)}>
                       <option value="Dr. Evelyn (Mental Health Advisor)">Dr. Evelyn (Mental Health & Wellness)</option>
                       <option value="Mr. Vikram (Career Alignment Lead)">Mr. Vikram (Career Guidance counselor)</option>
@@ -407,11 +407,11 @@ export default function StudentServicesPortal() {
 
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
                     <div>
-                      <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b' }}>Date *</label>
+                      <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Date *</label>
                       <input type="date" required className="form-input" value={counsDate} onChange={e => setCounsDate(e.target.value)} />
                     </div>
                     <div>
-                      <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b' }}>Available Time Slot</label>
+                      <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Available Time Slot</label>
                       <select className="form-input" value={counsTime} onChange={e => setCounsTime(e.target.value)}>
                         <option value="09:30 AM">09:30 AM - 10:30 AM</option>
                         <option value="02:00 PM">02:00 PM - 03:00 PM</option>
@@ -443,7 +443,7 @@ export default function StudentServicesPortal() {
                 </thead>
                 <tbody>
                   {data.leaves.map(l => {
-                    let bg = '#fef3c7'; let fg = '#b45309';
+                    let bg = 'var(--amber-light)'; let fg = '#b45309';
                     if (l.status === 'Approved') { bg = '#d1fae5'; fg = '#065f46'; }
                     else if (l.status === 'Rejected') { bg = '#fee2e2'; fg = '#b91c1c'; }
 
@@ -453,7 +453,7 @@ export default function StudentServicesPortal() {
                         <td>{l.startDate} to {l.endDate}</td>
                         <td>
                           <strong>{l.type}</strong>
-                          <div style={{ fontSize: 11, color: '#64748b' }}>{l.reason}</div>
+                          <div style={{ fontSize: 11, color: 'var(--t2)' }}>{l.reason}</div>
                         </td>
                         <td>
                           <span className="badge-status" style={{ background: bg, color: fg }}>{l.status}</span>
@@ -478,15 +478,15 @@ export default function StudentServicesPortal() {
                 </thead>
                 <tbody>
                   {data.requests.map(r => {
-                    let bg = '#fef3c7'; let fg = '#b45309';
+                    let bg = 'var(--amber-light)'; let fg = '#b45309';
                     if (r.status === 'Completed' || r.status === 'Approved') { bg = '#d1fae5'; fg = '#065f46'; }
-                    else if (r.status === 'In Progress') { bg = '#dbeafe'; fg = '#1e40af'; }
+                    else if (r.status === 'In Progress') { bg = 'var(--accent-light)'; fg = '#1e40af'; }
 
                     return (
                       <tr key={r.id}>
                         <td style={{ fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 700 }}>{r.id}</td>
                         <td style={{ fontWeight: 600 }}>{r.category}</td>
-                        <td style={{ fontSize: 11, color: '#64748b' }}>{r.description}</td>
+                        <td style={{ fontSize: 11, color: 'var(--t2)' }}>{r.description}</td>
                         <td>
                           <span className="badge-status" style={{ background: bg, color: fg }}>{r.status}</span>
                         </td>
@@ -501,9 +501,9 @@ export default function StudentServicesPortal() {
               <div>
                 <h4 style={{ fontSize: 12, fontWeight: 800, marginBottom: 6 }}>📅 HOD Appointments</h4>
                 {data.appointments.map(a => (
-                  <div key={a.id} style={{ padding: 10, background: '#f8fafc', borderRadius: 8, border: '1px solid #e2e8f0', fontSize: 12, marginBottom: 6 }}>
+                  <div key={a.id} style={{ padding: 10, background: 'var(--bg3)', borderRadius: 8, border: '1px solid var(--border)', fontSize: 12, marginBottom: 6 }}>
                     <strong>{a.staffName}</strong>
-                    <div style={{ color: '#64748b', fontSize: 11 }}>📅 {a.date} | {a.time}</div>
+                    <div style={{ color: 'var(--t2)', fontSize: 11 }}>📅 {a.date} | {a.time}</div>
                     <div style={{ fontSize: 11, fontStyle: 'italic', marginTop: 2 }}>"{a.purpose}"</div>
                   </div>
                 ))}
@@ -512,10 +512,10 @@ export default function StudentServicesPortal() {
               <div>
                 <h4 style={{ fontSize: 12, fontWeight: 800, marginBottom: 6 }}>🧠 Counselling Slots</h4>
                 {data.counselling.map(c => (
-                  <div key={c.id} style={{ padding: 10, background: '#f8fafc', borderRadius: 8, border: '1px solid #e2e8f0', fontSize: 12, marginBottom: 6 }}>
+                  <div key={c.id} style={{ padding: 10, background: 'var(--bg3)', borderRadius: 8, border: '1px solid var(--border)', fontSize: 12, marginBottom: 6 }}>
                     <strong>{c.counselorName}</strong>
-                    <div style={{ color: '#64748b', fontSize: 11 }}>📅 {c.date} | {c.time}</div>
-                    <span style={{ fontSize: 9.5, color: '#10b981', fontWeight: 800 }}>● {c.status}</span>
+                    <div style={{ color: 'var(--t2)', fontSize: 11 }}>📅 {c.date} | {c.time}</div>
+                    <span style={{ fontSize: 9.5, color: 'var(--green)', fontWeight: 800 }}>● {c.status}</span>
                   </div>
                 ))}
               </div>

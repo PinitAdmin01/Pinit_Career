@@ -136,7 +136,7 @@ export default function StudentAlumniPortal() {
     .sub-tab-bar {
       display: flex;
       gap: 6px;
-      border-bottom: 1px solid #cbd5e1;
+      border-bottom: 1px solid var(--border2);
       margin-bottom: 24px;
       overflow-x: auto;
     }
@@ -144,7 +144,7 @@ export default function StudentAlumniPortal() {
       padding: 10px 18px;
       font-size: 13.5px;
       font-weight: 700;
-      color: #64748b;
+      color: var(--t2);
       border: none;
       background: none;
       cursor: pointer;
@@ -152,15 +152,15 @@ export default function StudentAlumniPortal() {
       transition: all 0.2s ease;
     }
     .sub-tab-btn.active {
-      color: #0f172a;
-      border-bottom-color: #0f172a;
+      color: var(--t1);
+      border-bottom-color: var(--t1);
     }
     .card-box {
-      background: #ffffff;
-      border: 1px solid rgba(15, 23, 42, 0.05);
+      background: var(--card);
+      border: 1px solid var(--border);
       border-radius: 20px;
       padding: 24px;
-      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.02);
+      box-shadow: 0 4px 20px var(--border);
     }
     .directory-grid {
       display: grid;
@@ -168,10 +168,10 @@ export default function StudentAlumniPortal() {
       gap: 18px;
     }
     .profile-card {
-      border: 1px solid #e2e8f0;
+      border: 1px solid var(--border);
       border-radius: 14px;
       padding: 18px;
-      background: #ffffff;
+      background: var(--card);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -182,23 +182,23 @@ export default function StudentAlumniPortal() {
       gap: 14px;
     }
     .job-card {
-      border: 1px solid #e2e8f0;
+      border: 1px solid var(--border);
       border-radius: 14px;
       padding: 20px;
-      background: #ffffff;
+      background: var(--card);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
     .campaign-card {
-      border: 1px solid #e2e8f0;
+      border: 1px solid var(--border);
       border-radius: 14px;
       padding: 20px;
-      background: #ffffff;
+      background: var(--card);
       margin-bottom: 18px;
     }
     .progress-bar {
-      background: #e2e8f0;
+      background: var(--border);
       border-radius: 10px;
       height: 10px;
       overflow: hidden;
@@ -207,12 +207,12 @@ export default function StudentAlumniPortal() {
     }
     .progress-bar-fill {
       height: 100%;
-      background: #10b981;
+      background: var(--green);
     }
   `;
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f8fafc', color: '#0f172a', padding: '30px 20px', fontFamily: 'var(--font-body), sans-serif' }}>
+    <div className="portal-page">
       <style dangerouslySetInnerHTML={{ __html: cssStyle }} />
 
       <div className="alm-wrapper">
@@ -253,25 +253,25 @@ export default function StudentAlumniPortal() {
 
             <div className="directory-grid">
               {filteredDirectory.length === 0 ? (
-                <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: '60px 0', color: '#64748b' }}>
+                <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: '60px 0', color: 'var(--t2)' }}>
                   No alumni directory entries match search query.
                 </div>
               ) : (
                 filteredDirectory.map(alm => (
                   <div key={alm.id} className="profile-card">
                     <div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: '#64748b', fontWeight: 800, marginBottom: 6 }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: 'var(--t2)', fontWeight: 800, marginBottom: 6 }}>
                         <span>Batch of {alm.batch}</span>
                         <span>{alm.id}</span>
                       </div>
                       <h3 style={{ margin: '0 0 6px 0', fontSize: 15, fontWeight: 800 }}>{alm.name}</h3>
-                      <div style={{ fontSize: 13, color: '#0f172a', fontWeight: 600 }}>{alm.role}</div>
-                      <div style={{ fontSize: 12.5, color: '#475569' }}>🏢 {alm.company}</div>
-                      <div style={{ fontSize: 12, color: '#64748b', marginTop: 4 }}>Expertise: {alm.domain}</div>
+                      <div style={{ fontSize: 13, color: 'var(--t1)', fontWeight: 600 }}>{alm.role}</div>
+                      <div style={{ fontSize: 12.5, color: 'var(--t2)' }}>🏢 {alm.company}</div>
+                      <div style={{ fontSize: 12, color: 'var(--t2)', marginTop: 4 }}>Expertise: {alm.domain}</div>
                     </div>
                     
                     <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: 10, marginTop: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span style={{ fontSize: 11, color: '#64748b' }}>{alm.email}</span>
+                      <span style={{ fontSize: 11, color: 'var(--t2)' }}>{alm.email}</span>
                       <button
                         onClick={() => {
                           setActiveSubTab('mentorship');
@@ -279,7 +279,7 @@ export default function StudentAlumniPortal() {
                           setMentorSlot(alm.slot);
                         }}
                         className="btn-ghost btn-sm"
-                        style={{ border: '1px solid #cbd5e1', fontSize: 11 }}
+                        style={{ border: '1px solid var(--border2)', fontSize: 11 }}
                       >
                         💬 Connect
                       </button>
@@ -300,7 +300,7 @@ export default function StudentAlumniPortal() {
               
               <form onSubmit={handleMentorshipRequest} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                 <div>
-                  <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b', display: 'block', marginBottom: 4 }}>Mentor Professional Name</label>
+                  <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Mentor Professional Name</label>
                   <input
                     type="text"
                     required
@@ -312,7 +312,7 @@ export default function StudentAlumniPortal() {
                 </div>
 
                 <div>
-                  <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b', display: 'block', marginBottom: 4 }}>Available Sync Slot Time</label>
+                  <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Available Sync Slot Time</label>
                   <input
                     type="text"
                     required
@@ -333,22 +333,22 @@ export default function StudentAlumniPortal() {
             <div className="card-box">
               <h3 className="card-title">📋 Active Sync Connections</h3>
               {connects.length === 0 ? (
-                <div style={{ padding: '30px 0', textAlign: 'center', color: '#64748b', fontSize: 13.5 }}>
+                <div style={{ padding: '30px 0', textAlign: 'center', color: 'var(--t2)', fontSize: 13.5 }}>
                   No mentorship request logs filed yet. Find mentors in directory and click connect!
                 </div>
               ) : (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                   {connects.map(c => (
-                    <div key={c.id} style={{ padding: 14, borderRadius: 12, border: '1px solid #e2e8f0', background: '#f8fafc' }}>
+                    <div key={c.id} style={{ padding: 14, borderRadius: 12, border: '1px solid var(--border)', background: 'var(--bg3)' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <span style={{ fontWeight: 800, fontSize: 13.5 }}>{c.mentorName}</span>
                         <span style={{
                           padding: '3px 8px', borderRadius: 20, fontSize: 10, fontWeight: 700,
-                          background: '#eff6ff', color: '#1e40af'
+                          background: 'var(--accent-light)', color: '#1e40af'
                         }}>{c.status}</span>
                       </div>
-                      <div style={{ fontSize: 12, color: '#64748b', marginTop: 4 }}>Slot Time: {c.slot}</div>
-                      <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>Requested Date: {c.date}</div>
+                      <div style={{ fontSize: 12, color: 'var(--t2)', marginTop: 4 }}>Slot Time: {c.slot}</div>
+                      <div style={{ fontSize: 11, color: 'var(--t2)', marginTop: 2 }}>Requested Date: {c.date}</div>
                     </div>
                   ))}
                 </div>
@@ -370,8 +370,8 @@ export default function StudentAlumniPortal() {
                     <div key={j.id} className="job-card">
                       <div>
                         <h4 style={{ margin: '0 0 4px 0', fontSize: 15, fontWeight: 800 }}>{j.title}</h4>
-                        <div style={{ fontSize: 13, color: '#0f172a', fontWeight: 600 }}>{j.company} - <span style={{ color: '#64748b', fontWeight: 500 }}>{j.location}</span></div>
-                        <div style={{ fontSize: 12, color: '#64748b', marginTop: 4 }}>Posted By: <strong>{j.postedBy}</strong> | Salary: {j.salary}</div>
+                        <div style={{ fontSize: 13, color: 'var(--t1)', fontWeight: 600 }}>{j.company} - <span style={{ color: 'var(--t2)', fontWeight: 500 }}>{j.location}</span></div>
+                        <div style={{ fontSize: 12, color: 'var(--t2)', marginTop: 4 }}>Posted By: <strong>{j.postedBy}</strong> | Salary: {j.salary}</div>
                       </div>
 
                       <div>
@@ -406,7 +406,7 @@ export default function StudentAlumniPortal() {
                 return (
                   <div key={d.id} className="campaign-card">
                     <h4 style={{ margin: '0 0 8px 0', fontSize: 14.5, fontWeight: 800 }}>{d.title}</h4>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#64748b', marginBottom: 4 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--t2)', marginBottom: 4 }}>
                       <span>Raised: <strong>₹{d.raised.toLocaleString()}</strong></span>
                       <span>Goal: ₹{d.goal.toLocaleString()}</span>
                     </div>
@@ -415,7 +415,7 @@ export default function StudentAlumniPortal() {
                       <div className="progress-bar-fill" style={{ width: `${percent}%` }} />
                     </div>
 
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: '#64748b' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: 'var(--t2)' }}>
                       <span>{percent}% Completed</span>
                       <span>{d.contributors} Alumni Contributors</span>
                     </div>
@@ -429,7 +429,7 @@ export default function StudentAlumniPortal() {
               <h3 className="card-title">💰 Donate to Development Seeds</h3>
               <form onSubmit={handleDonateSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                 <div>
-                  <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b', display: 'block', marginBottom: 4 }}>Select Campaign *</label>
+                  <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Select Campaign *</label>
                   <select
                     className="form-input"
                     value={selectedDonationId}
@@ -443,7 +443,7 @@ export default function StudentAlumniPortal() {
                 </div>
 
                 <div>
-                  <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b', display: 'block', marginBottom: 4 }}>Donation Amount (₹) *</label>
+                  <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Donation Amount (₹) *</label>
                   <input
                     type="number"
                     required
@@ -454,7 +454,7 @@ export default function StudentAlumniPortal() {
                   />
                 </div>
 
-                <button type="submit" disabled={donating} className="btn-primary" style={{ width: '100%', marginTop: 6, background: '#10b981' }}>
+                <button type="submit" disabled={donating} className="btn-primary" style={{ width: '100%', marginTop: 6, background: 'var(--green)' }}>
                   {donating ? 'Simulating payment...' : '💳 Contribute Seed Funds'}
                 </button>
               </form>
@@ -470,9 +470,9 @@ export default function StudentAlumniPortal() {
               {events.map(e => (
                 <div key={e.id} className="profile-card">
                   <div>
-                    <span style={{ fontSize: 10, fontWeight: 800, background: '#eff6ff', color: '#2563eb', padding: '2px 6px', borderRadius: 4, textTransform: 'uppercase' }}>Reunion</span>
+                    <span style={{ fontSize: 10, fontWeight: 800, background: 'var(--accent-light)', color: 'var(--accent)', padding: '2px 6px', borderRadius: 4, textTransform: 'uppercase' }}>Reunion</span>
                     <h3 style={{ margin: '8px 0 6px 0', fontSize: 15, fontWeight: 800 }}>{e.title}</h3>
-                    <div style={{ fontSize: 12.5, color: '#475569', marginBottom: 12 }}>
+                    <div style={{ fontSize: 12.5, color: 'var(--t2)', marginBottom: 12 }}>
                       <div>📅 Date: {e.date}</div>
                       <div>🕒 Time: {e.time}</div>
                       <div>📍 Venue: {e.venue}</div>
@@ -480,7 +480,7 @@ export default function StudentAlumniPortal() {
                   </div>
 
                   <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: 10, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: 11.5, color: '#64748b' }}>👥 {e.attendees} Attending</span>
+                    <span style={{ fontSize: 11.5, color: 'var(--t2)' }}>👥 {e.attendees} Attending</span>
                     <button
                       onClick={() => {
                         alert('RSVP confirmed! Invitation badge sent to registered email.');

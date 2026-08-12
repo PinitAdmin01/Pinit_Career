@@ -81,11 +81,11 @@ export default function StudentMaintenancePortal() {
       }
     }
     .card-box {
-      background: #ffffff;
-      border: 1px solid rgba(15, 23, 42, 0.05);
+      background: var(--card);
+      border: 1px solid var(--border);
       border-radius: 20px;
       padding: 24px;
-      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.02);
+      box-shadow: 0 4px 20px var(--border);
     }
     .card-title {
       font-family: var(--font-display), sans-serif;
@@ -105,9 +105,9 @@ export default function StudentMaintenancePortal() {
       font-size: 11px;
       font-weight: 800;
       text-transform: uppercase;
-      color: #64748b;
+      color: var(--t2);
       padding-bottom: 12px;
-      border-bottom: 1px solid #cbd5e1;
+      border-bottom: 1px solid var(--border2);
     }
     .tbl-mnt td {
       padding: 12px 0;
@@ -127,16 +127,16 @@ export default function StudentMaintenancePortal() {
       margin-bottom: 24px;
     }
     .metric-card {
-      background: #ffffff;
-      border: 1px solid rgba(15, 23, 42, 0.05);
+      background: var(--card);
+      border: 1px solid var(--border);
       border-radius: 14px;
       padding: 18px;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.01);
+      box-shadow: var(--shadow-sm);
     }
   `;
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f8fafc', color: '#0f172a', padding: '30px 20px', fontFamily: 'var(--font-body), sans-serif' }}>
+    <div className="portal-page">
       <style dangerouslySetInnerHTML={{ __html: cssStyle }} />
 
       <div className="mnt-wrapper">
@@ -146,12 +146,12 @@ export default function StudentMaintenancePortal() {
         <div className="metric-grid">
           {[
             { label: 'Reported Issues', value: `${tickets.filter(t => t.status === 'Reported').length} Pending`, color: '#f59e0b' },
-            { label: 'Scheduled Visits', value: `${tickets.filter(t => t.status === 'Scheduled').length} Assigned`, color: '#2563eb' },
+            { label: 'Scheduled Visits', value: `${tickets.filter(t => t.status === 'Scheduled').length} Assigned`, color: 'var(--accent)' },
             { label: 'Work In Progress', value: `${tickets.filter(t => t.status === 'In Progress').length} Active`, color: '#8b5cf6' },
-            { label: 'Issues Resolved', value: `${tickets.filter(t => t.status === 'Resolved').length} Succeeded`, color: '#10b981' }
+            { label: 'Issues Resolved', value: `${tickets.filter(t => t.status === 'Resolved').length} Succeeded`, color: 'var(--green)' }
           ].map(s => (
             <div key={s.label} className="metric-card">
-              <div style={{ fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: 0.4 }}>{s.label}</div>
+              <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', textTransform: 'uppercase', letterSpacing: 0.4 }}>{s.label}</div>
               <div style={{ fontSize: 18, fontWeight: 800, color: s.color, marginTop: 4 }}>{s.value}</div>
             </div>
           ))}
@@ -164,7 +164,7 @@ export default function StudentMaintenancePortal() {
             
             <form onSubmit={handleReportIssue} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
               <div>
-                <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b', display: 'block', marginBottom: 4 }}>Issue Category *</label>
+                <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Issue Category *</label>
                 <select
                   className="form-input"
                   value={category}
@@ -178,7 +178,7 @@ export default function StudentMaintenancePortal() {
               </div>
 
               <div>
-                <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b', display: 'block', marginBottom: 4 }}>Exact Campus Location *</label>
+                <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Exact Campus Location *</label>
                 <input
                   type="text"
                   required
@@ -190,7 +190,7 @@ export default function StudentMaintenancePortal() {
               </div>
 
               <div>
-                <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b', display: 'block', marginBottom: 4 }}>Detailed Fault Description *</label>
+                <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Detailed Fault Description *</label>
                 <textarea
                   required
                   className="form-input"
@@ -255,14 +255,14 @@ export default function StudentMaintenancePortal() {
                 <tbody>
                   {filteredTickets.length === 0 ? (
                     <tr>
-                      <td colSpan={5} style={{ textAlign: 'center', padding: '40px 0', color: '#64748b' }}>
+                      <td colSpan={5} style={{ textAlign: 'center', padding: '40px 0', color: 'var(--t2)' }}>
                         No maintenance tickets logged matching current filters.
                       </td>
                     </tr>
                   ) : (
                     filteredTickets.map(t => {
-                      let bg = '#fef3c7'; let fg = '#b45309';
-                      if (t.status === 'Scheduled') { bg = '#dbeafe'; fg = '#1e40af'; }
+                      let bg = 'var(--amber-light)'; let fg = '#b45309';
+                      if (t.status === 'Scheduled') { bg = 'var(--accent-light)'; fg = '#1e40af'; }
                       else if (t.status === 'In Progress') { bg = '#f3e8ff'; fg = '#6b21a8'; }
                       else if (t.status === 'Resolved') { bg = '#d1fae5'; fg = '#065f46'; }
 
@@ -271,7 +271,7 @@ export default function StudentMaintenancePortal() {
                           <td style={{ fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 700 }}>{t.id}</td>
                           <td>
                             <strong style={{ display: 'block', fontSize: 13 }}>{t.category}</strong>
-                            <span style={{ fontSize: 11, color: '#64748b' }}>📍 {t.location}</span>
+                            <span style={{ fontSize: 11, color: 'var(--t2)' }}>📍 {t.location}</span>
                           </td>
                           <td style={{ maxWidth: 200, fontSize: 12 }}>{t.description}</td>
                           <td style={{ fontSize: 12, fontWeight: 600 }}>{t.technician || 'Not assigned yet'}</td>

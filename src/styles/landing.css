@@ -22,8 +22,8 @@
   --lp-ink: var(--text-primary);
   --lp-mute: var(--text-secondary);
   --lp-line: var(--border-color);
-  --lp-key: #6366f1;
-  --lp-amber: #d97706;
+  --lp-key: var(--accent);
+  --lp-amber: var(--accent);
   --rx: 0deg;
   --ry: 0deg;
   background: var(--bg-primary);
@@ -46,7 +46,8 @@
   --accent: #4f46e5;
   --accent-hover: #4338ca;
   --lp-plinth: color-mix(in srgb, #000 8%, #e6e8f0);
-  --lp-key: #4f46e5;
+  --lp-key: var(--accent);
+  --lp-amber: var(--accent);
 }
 
 .landing-page .floating-blob { display: none !important; }
@@ -100,22 +101,22 @@
 .landing-page .pc-btn-glow,
 .landing-page .pc-btn-glow-lg,
 .landing-page .pc-btn-purple-sm {
-  background: var(--lp-amber) !important;
-  color: #0c0d10 !important;
+  background: linear-gradient(135deg, var(--accent), var(--purple, #7c3aed)) !important;
+  color: #fff !important;
   border: none !important;
   border-radius: 12px !important;
-  box-shadow: 0 7px 0 color-mix(in srgb, var(--lp-amber) 50%, #000) !important;
+  box-shadow: 0 7px 0 color-mix(in srgb, var(--accent) 50%, #000) !important;
   font-weight: 750 !important;
   transition: transform 0.18s ease, box-shadow 0.18s ease !important;
 }
 .landing-page .pc-btn-primary:hover,
 .landing-page .pc-btn-glow:hover {
   transform: translateY(-3px) !important;
-  box-shadow: 0 10px 0 color-mix(in srgb, var(--lp-amber) 50%, #000) !important;
+  box-shadow: 0 10px 0 color-mix(in srgb, var(--accent) 50%, #000) !important;
 }
 .landing-page .pc-btn-primary:active {
   transform: translateY(4px) !important;
-  box-shadow: 0 2px 0 color-mix(in srgb, var(--lp-amber) 50%, #000) !important;
+  box-shadow: 0 2px 0 color-mix(in srgb, var(--accent) 50%, #000) !important;
 }
 .landing-page .pc-btn-outline,
 .landing-page .pc-btn-outline-lg,

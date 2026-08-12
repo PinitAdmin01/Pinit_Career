@@ -56,7 +56,7 @@ export default function CareerAssetsStudioPage() {
       case 'minimal':
         return {
           fontFamily: 'var(--font-body)',
-          color: '#e2e8f0',
+          color: 'var(--border)',
           borderLeft: '4px solid var(--teal)',
           background: 'rgba(20, 184, 166, 0.03)',
           fontStyle: 'normal'
@@ -64,7 +64,7 @@ export default function CareerAssetsStudioPage() {
       case 'executive':
         return {
           fontFamily: 'var(--font-display)',
-          color: '#f8fafc',
+          color: 'var(--t1)',
           borderLeft: '4px solid var(--blue)',
           background: 'rgba(59, 130, 246, 0.05)',
           textTransform: 'uppercase' as const
@@ -81,7 +81,7 @@ export default function CareerAssetsStudioPage() {
       default:
         return {
           fontFamily: 'var(--font-mono)',
-          color: '#cbd5e1',
+          color: 'var(--border2)',
           borderLeft: '4px solid var(--accent)',
           background: 'rgba(79, 70, 229, 0.04)'
         };

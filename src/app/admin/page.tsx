@@ -22,7 +22,7 @@ type AdminTab = 'dashboard' | 'users' | 'fraud' | 'stats' | 'audit' | 'broadcast
 
 function AdminLoading() {
   return (
-    <div style={{ padding: 40, color: 'var(--t3, #64748b)', textAlign: 'center', fontFamily: 'system-ui' }}>
+    <div style={{ padding: 40, color: 'var(--t3, var(--t2))', textAlign: 'center', fontFamily: 'system-ui' }}>
       Loading Admin Console & Permissions...
     </div>
   );
@@ -48,14 +48,14 @@ function AdminPageContent() {
 
   if (!user || !['admin', 'superadmin'].includes(user.role)) {
     return (
-      <div style={{ padding: 40, color: '#dc2626', textAlign: 'center', fontWeight: 600 }}>
+      <div style={{ padding: 40, color: 'var(--coral)', textAlign: 'center', fontWeight: 600 }}>
         Access Denied: Admin or SuperAdmin access required.
       </div>
     );
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f8fafc' }}>
+    <div className="portal-page">
       <AdminDashboardShell />
 
       {/* Dynamic Tab Renderer */}

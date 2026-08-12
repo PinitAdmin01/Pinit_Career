@@ -78,7 +78,7 @@ export default function ContactPage() {
               animation: 'fadeIn 0.4s ease'
             }}>
               <div style={{ fontSize: '48px', marginBottom: '16px' }}>🎉</div>
-              <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#f8fafc', marginBottom: '8px' }}>Message Sent!</h2>
+              <h2 style={{ fontSize: '18px', fontWeight: 700, color: 'var(--t1)', marginBottom: '8px' }}>Message Sent!</h2>
               <p style={{ fontSize: '13px', color: 'var(--t3)', lineHeight: '1.6', marginBottom: '24px' }}>
                 Thank you for contacting us. Our AI Career support team has received your inquiry and will respond to you via email shortly.
               </p>
@@ -155,7 +155,7 @@ export default function ContactPage() {
                 type="submit"
                 disabled={loading}
                 style={{
-                  background: 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)',
+                  background: 'linear-gradient(135deg, var(--accent) 0%, #7c3aed 100%)',
                   border: 'none',
                   borderRadius: '10px',
                   padding: '12px',

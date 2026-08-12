@@ -626,7 +626,7 @@ export default function AdvisorPage() {
                     </button>
                     <button
                       onClick={() => triggerIntervention(student.name, 'Alert Student on Dashboard')}
-                      style={{ flex: 1, padding: '8px 4px', fontSize: 10.5, fontWeight: 800, background: 'var(--amber)', color: '#0f172a', border: 'none', borderRadius: 8, cursor: 'pointer' }}
+                      style={{ flex: 1, padding: '8px 4px', fontSize: 10.5, fontWeight: 800, background: 'var(--amber)', color: 'var(--t1)', border: 'none', borderRadius: 8, cursor: 'pointer' }}
                     >
                       🔔 Alert
                     </button>

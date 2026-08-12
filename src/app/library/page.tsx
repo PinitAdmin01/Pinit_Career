@@ -87,7 +87,7 @@ export default function StudentLibrary() {
   const genres = Array.from(new Set(books.map(b => b.genre)));
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f8fafc', color: '#0f172a', padding: '30px 20px', fontFamily: 'var(--font-body), sans-serif' }}>
+    <div className="portal-page">
       <style>{`
         .lib-wrapper {
           max-width: 1040px;
@@ -115,11 +115,11 @@ export default function StudentLibrary() {
           }
         }
         .card-box {
-          background: #ffffff;
-          border: 1px solid rgba(15, 23, 42, 0.05);
+          background: var(--card);
+          border: 1px solid var(--border);
           border-radius: 20px;
           padding: 24px;
-          box-shadow: 0 4px 20px rgba(15, 23, 42, 0.02);
+          box-shadow: 0 4px 20px var(--border);
         }
         .card-title {
           font-family: var(--font-display), sans-serif;
@@ -136,8 +136,8 @@ export default function StudentLibrary() {
           gap: 16px;
         }
         .book-card {
-          background: #ffffff;
-          border: 1px solid #cbd5e1;
+          background: var(--card);
+          border: 1px solid var(--border2);
           border-radius: 16px;
           padding: 18px;
           display: flex;
@@ -147,23 +147,23 @@ export default function StudentLibrary() {
           transition: all 0.2s;
         }
         .book-card:hover {
-          border-color: #2563eb;
+          border-color: var(--accent);
           box-shadow: 0 10px 30px rgba(37, 99, 235, 0.04);
         }
         .book-title {
           font-size: 14.5px;
           font-weight: 800;
-          color: #0f172a;
+          color: var(--t1);
           line-height: 1.3;
         }
         .book-author {
           font-size: 12px;
-          color: #64748b;
+          color: var(--t2);
           margin-top: 4px;
         }
         .book-meta {
           font-size: 11px;
-          color: #94a3b8;
+          color: var(--t3);
           font-family: var(--font-mono);
           margin-top: 8px;
         }
@@ -172,14 +172,14 @@ export default function StudentLibrary() {
           font-weight: 800;
           text-transform: uppercase;
           background: #f1f5f9;
-          color: #475569;
+          color: var(--t2);
           padding: 3px 8px;
           border-radius: 6px;
           width: fit-content;
           margin-top: 8px;
         }
         .book-footer {
-          border-top: 1px solid #e2e8f0;
+          border-top: 1px solid var(--border);
           margin-top: 16px;
           padding-top: 12px;
           display: flex;
@@ -210,9 +210,9 @@ export default function StudentLibrary() {
           font-size: 11px;
           font-weight: 800;
           text-transform: uppercase;
-          color: #64748b;
+          color: var(--t2);
           padding-bottom: 12px;
-          border-bottom: 1px solid #cbd5e1;
+          border-bottom: 1px solid var(--border2);
         }
         .tbl-borrows td {
           padding: 12px 0;
@@ -230,7 +230,7 @@ export default function StudentLibrary() {
           z-index: 1000;
         }
         .reader-modal {
-          background: #ffffff;
+          background: var(--card);
           border-radius: 24px;
           width: 100%;
           max-width: 640px;
@@ -239,7 +239,7 @@ export default function StudentLibrary() {
         }
         .reader-content-box {
           background: #fafafa;
-          border: 1px solid #cbd5e1;
+          border: 1px solid var(--border2);
           border-radius: 12px;
           padding: 24px;
           font-size: 14.5px;
@@ -280,7 +280,7 @@ export default function StudentLibrary() {
           <h3 className="card-title">📖 Textbook Catalog ({filteredBooks.length} entries)</h3>
           
           {filteredBooks.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '40px 0', color: '#64748b' }}>
+            <div style={{ textAlign: 'center', padding: '40px 0', color: 'var(--t2)' }}>
               No books matching your query criteria.
             </div>
           ) : (
@@ -298,10 +298,10 @@ export default function StudentLibrary() {
 
                     <div className="book-footer">
                       <div>
-                        <div className="availability-lbl" style={{ color: b.available > 0 ? '#059669' : '#dc2626' }}>
+                        <div className="availability-lbl" style={{ color: b.available > 0 ? 'var(--green)' : 'var(--coral)' }}>
                           {b.available > 0 ? `${b.available} of ${b.copies} available` : 'Out of stock'}
                         </div>
-                        {b.isEbook && <div style={{ fontSize: 10, color: '#2563eb', marginTop: 2, fontWeight: 700 }}>⚡ Digital E-Book Available</div>}
+                        {b.isEbook && <div style={{ fontSize: 10, color: 'var(--accent)', marginTop: 2, fontWeight: 700 }}>⚡ Digital E-Book Available</div>}
                       </div>
 
                       <div style={{ display: 'flex', gap: 6 }}>
@@ -309,7 +309,7 @@ export default function StudentLibrary() {
                           <button
                             onClick={() => setReadingEbook(b)}
                             className="btn-ghost btn-sm"
-                            style={{ border: '1.5px solid #2563eb', color: '#2563eb', padding: '6px 10px', fontSize: 11 }}
+                            style={{ border: '1.5px solid var(--accent)', color: 'var(--accent)', padding: '6px 10px', fontSize: 11 }}
                           >
                             📖 Read
                           </button>
@@ -319,7 +319,7 @@ export default function StudentLibrary() {
                             onClick={() => handleBorrow(b.isbn)}
                             disabled={!!alreadyBorrowed}
                             className="btn-primary"
-                            style={{ fontSize: 11, padding: '6px 12px', background: alreadyBorrowed ? '#cbd5e1' : '#2563eb', borderColor: alreadyBorrowed ? '#cbd5e1' : '#2563eb' }}
+                            style={{ fontSize: 11, padding: '6px 12px', background: alreadyBorrowed ? 'var(--border2)' : 'var(--accent)', borderColor: alreadyBorrowed ? 'var(--border2)' : 'var(--accent)' }}
                           >
                             {alreadyBorrowed ? 'Borrowed' : 'Borrow'}
                           </button>
@@ -327,7 +327,7 @@ export default function StudentLibrary() {
                           <button
                             onClick={() => handleReserve(b.isbn)}
                             className="btn-ghost btn-sm"
-                            style={{ border: '1.5px solid #dc2626', color: '#dc2626', fontSize: 11 }}
+                            style={{ border: '1.5px solid var(--coral)', color: 'var(--coral)', fontSize: 11 }}
                           >
                             Reserve
                           </button>
@@ -344,11 +344,11 @@ export default function StudentLibrary() {
         {/* Layout Split: Borrowed Registry & Reservations */}
         <div className="layout-split">
           {/* Active Borrowings */}
-          <div className="card-block" style={{ background: '#fff', borderRadius: 20, padding: 24, border: '1px solid rgba(15,23,42,0.06)' }}>
+          <div className="card-block" style={{ background: 'var(--card)', borderRadius: 20, padding: 24, border: '1px solid rgba(15,23,42,0.06)' }}>
             <h3 className="card-title">📋 Active borrowed Registers</h3>
             
             {borrowed.length === 0 ? (
-              <div style={{ padding: '30px 0', textAlign: 'center', color: '#64748b', fontSize: 13 }}>
+              <div style={{ padding: '30px 0', textAlign: 'center', color: 'var(--t2)', fontSize: 13 }}>
                 No active borrowings recorded in register.
               </div>
             ) : (
@@ -370,12 +370,12 @@ export default function StudentLibrary() {
                       <tr key={br.id}>
                         <td style={{ fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 700 }}>{br.id}</td>
                         <td style={{ fontWeight: 600 }}>{br.title}</td>
-                        <td style={{ color: '#64748b' }}>{new Date(br.borrowedOn).toLocaleDateString()}</td>
-                        <td style={{ color: isOverdue ? '#dc2626' : '#64748b', fontWeight: isOverdue ? 700 : 400 }}>{new Date(br.dueOn).toLocaleDateString()}</td>
+                        <td style={{ color: 'var(--t2)' }}>{new Date(br.borrowedOn).toLocaleDateString()}</td>
+                        <td style={{ color: isOverdue ? 'var(--coral)' : 'var(--t2)', fontWeight: isOverdue ? 700 : 400 }}>{new Date(br.dueOn).toLocaleDateString()}</td>
                         <td>
                           <span className={`badge-status ${br.returned ? 'badge-paid' : isOverdue ? 'badge-unpaid' : 'badge-gray'}`} style={{
                             background: br.returned ? '#ecfdf5' : isOverdue ? '#fef2f2' : '#f1f5f9',
-                            color: br.returned ? '#059669' : isOverdue ? '#ef4444' : '#475569'
+                            color: br.returned ? 'var(--green)' : isOverdue ? 'var(--coral)' : 'var(--t2)'
                           }}>
                             {br.returned ? 'Returned' : isOverdue ? 'Overdue' : 'Active'}
                           </span>
@@ -385,7 +385,7 @@ export default function StudentLibrary() {
                             <button
                               onClick={() => handleReturn(br.id)}
                               className="btn-ghost btn-sm"
-                              style={{ border: '1px solid #cbd5e1', fontSize: 11, padding: '4px 8px' }}
+                              style={{ border: '1px solid var(--border2)', fontSize: 11, padding: '4px 8px' }}
                             >
                               Return
                             </button>
@@ -400,22 +400,22 @@ export default function StudentLibrary() {
           </div>
 
           {/* Active Reservations */}
-          <div className="card-block" style={{ background: '#fff', borderRadius: 20, padding: 24, border: '1px solid rgba(15,23,42,0.06)' }}>
+          <div className="card-block" style={{ background: 'var(--card)', borderRadius: 20, padding: 24, border: '1px solid rgba(15,23,42,0.06)' }}>
             <h3 className="card-title">⏳ Waitlist Reserves</h3>
             
             {reserves.length === 0 ? (
-              <div style={{ padding: '30px 0', textAlign: 'center', color: '#64748b', fontSize: 13 }}>
+              <div style={{ padding: '30px 0', textAlign: 'center', color: 'var(--t2)', fontSize: 13 }}>
                 No active reservations placed.
               </div>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {reserves.map(r => (
-                  <div key={r.id} style={{ background: '#f8fafc', padding: 12, borderRadius: 10, border: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div key={r.id} style={{ background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
                       <div style={{ fontSize: 13, fontWeight: 700 }}>{r.title}</div>
-                      <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>Queue pos: <strong>#{r.position}</strong></div>
+                      <div style={{ fontSize: 11, color: 'var(--t2)', marginTop: 2 }}>Queue pos: <strong>#{r.position}</strong></div>
                     </div>
-                    <span style={{ fontSize: 11, fontWeight: 700, color: '#2563eb', background: '#eff6ff', padding: '3px 8px', borderRadius: 20 }}>Reserved</span>
+                    <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--accent)', background: 'var(--accent-light)', padding: '3px 8px', borderRadius: 20 }}>Reserved</span>
                   </div>
                 ))}
               </div>
@@ -428,12 +428,12 @@ export default function StudentLibrary() {
       {readingEbook && (
         <div className="overlay">
           <div className="reader-modal">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #e2e8f0', paddingBottom: 12 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border)', paddingBottom: 12 }}>
               <div>
-                <h4 style={{ fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 900, color: '#2563eb' }}>⚡ BGS Digital Library E-Reader</h4>
-                <div style={{ fontSize: 12, color: '#0f172a', fontWeight: 800, marginTop: 2 }}>{readingEbook.title}</div>
+                <h4 style={{ fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 900, color: 'var(--accent)' }}>⚡ BGS Digital Library E-Reader</h4>
+                <div style={{ fontSize: 12, color: 'var(--t1)', fontWeight: 800, marginTop: 2 }}>{readingEbook.title}</div>
               </div>
-              <button onClick={() => setReadingEbook(null)} style={{ border: 'none', background: 'none', fontSize: 18, cursor: 'pointer', color: '#64748b' }}>✕</button>
+              <button onClick={() => setReadingEbook(null)} style={{ border: 'none', background: 'none', fontSize: 18, cursor: 'pointer', color: 'var(--t2)' }}>✕</button>
             </div>
 
             <div className="reader-content-box">
@@ -441,7 +441,7 @@ export default function StudentLibrary() {
             </div>
 
             <div style={{ marginTop: 20, display: 'flex', justifyContent: 'flex-end' }}>
-              <button onClick={() => setReadingEbook(null)} className="btn-primary" style={{ background: '#2563eb' }}>
+              <button onClick={() => setReadingEbook(null)} className="btn-primary" style={{ background: 'var(--accent)' }}>
                 Close Reader Drawer
               </button>
             </div>

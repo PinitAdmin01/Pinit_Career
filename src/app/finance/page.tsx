@@ -102,7 +102,7 @@ function StudentFinanceInner() {
             }, 1200);
           }
         },
-        theme: { color: '#4f46e5' }
+        theme: { color: 'var(--accent)' }
       });
     } catch (err: any) {
       alert(err.message || 'Razorpay checkout initialization failed.');
@@ -113,7 +113,7 @@ function StudentFinanceInner() {
 
   if (!dues) {
     return (
-      <div style={{ padding: 40, textAlign: 'center', color: '#64748b' }}>
+      <div style={{ padding: 40, textAlign: 'center', color: 'var(--t2)' }}>
         Loading finance records...
       </div>
     );
@@ -129,7 +129,7 @@ function StudentFinanceInner() {
     .reduce((sum: number, i: any) => sum + (i.amount || 0), 0) + (dues.fineLevied || 0);
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f8fafc', color: '#0f172a', padding: '30px 20px', fontFamily: 'var(--font-body), sans-serif' }}>
+    <div className="portal-page">
       <style>{`
         .finance-wrapper {
           max-width: 1080px;
@@ -157,28 +157,28 @@ function StudentFinanceInner() {
           }
         }
         .stats-card {
-          background: #ffffff;
-          border: 1px solid rgba(15, 23, 42, 0.05);
+          background: var(--card);
+          border: 1px solid var(--border);
           border-radius: 16px;
           padding: 20px;
-          box-shadow: 0 4px 12px rgba(15, 23, 42, 0.01);
+          box-shadow: var(--shadow-sm);
         }
         .stats-lbl {
           font-size: 11px;
           font-weight: 800;
-          color: #64748b;
+          color: var(--t2);
           text-transform: uppercase;
           letter-spacing: 0.6px;
         }
         .stats-val {
           font-size: 26px;
           font-weight: 900;
-          color: #0f172a;
+          color: var(--t1);
           margin-top: 6px;
         }
         .alert-banner {
-          background: #fffbeb;
-          border: 1px solid #fef3c7;
+          background: var(--card)beb;
+          border: 1px solid var(--amber-light);
           border-radius: 12px;
           padding: 16px;
           display: flex;
@@ -197,11 +197,11 @@ function StudentFinanceInner() {
           }
         }
         .card-block {
-          background: #ffffff;
+          background: var(--card);
           border: 1px solid rgba(15, 23, 42, 0.06);
           border-radius: 20px;
           padding: 24px;
-          box-shadow: 0 4px 20px rgba(15, 23, 42, 0.02);
+          box-shadow: 0 4px 20px var(--border);
         }
         .card-subtitle {
           font-family: var(--font-display), sans-serif;
@@ -221,9 +221,9 @@ function StudentFinanceInner() {
           font-size: 11px;
           font-weight: 800;
           text-transform: uppercase;
-          color: #64748b;
+          color: var(--t2);
           padding-bottom: 12px;
-          border-bottom: 1px solid #cbd5e1;
+          border-bottom: 1px solid var(--border2);
         }
         .table-fees td {
           padding: 14px 0;
@@ -239,8 +239,8 @@ function StudentFinanceInner() {
           font-size: 10.5px;
           font-weight: 700;
         }
-        .badge-paid { background: #ecfdf5; color: #059669; }
-        .badge-unpaid { background: #fef2f2; color: #dc2626; }
+        .badge-paid { background: #ecfdf5; color: var(--green); }
+        .badge-unpaid { background: #fef2f2; color: var(--coral); }
         .checkout-overlay {
           position: fixed;
           top: 0; left: 0; right: 0; bottom: 0;
@@ -252,7 +252,7 @@ function StudentFinanceInner() {
           z-index: 1000;
         }
         .checkout-modal {
-          background: #ffffff;
+          background: var(--card);
           border-radius: 24px;
           width: 100%;
           max-width: 440px;
@@ -260,8 +260,8 @@ function StudentFinanceInner() {
           box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15);
         }
         .btn-pay {
-          background: #2563eb;
-          color: #ffffff;
+          background: var(--accent);
+          color: var(--card);
           border: none;
           border-radius: 10px;
           padding: 12px;
@@ -271,8 +271,8 @@ function StudentFinanceInner() {
         }
         .btn-pay:hover { background: #1d4ed8; }
         .receipt-seal {
-          border: 2px dashed #059669;
-          color: #059669;
+          border: 2px dashed var(--green);
+          color: var(--green);
           font-family: monospace;
           font-weight: 800;
           font-size: 12px;
@@ -304,26 +304,26 @@ function StudentFinanceInner() {
         <div className="grid-3">
           <div className="stats-card">
             <div className="stats-lbl">Total Annual Course Fees</div>
-            <div className="stats-val" style={{ color: '#2563eb' }}>₹{(dues.totalTermFees ?? 0).toLocaleString()}</div>
+            <div className="stats-val" style={{ color: 'var(--accent)' }}>₹{(dues.totalTermFees ?? 0).toLocaleString()}</div>
             {dues.scholarshipWaiver > 0 && (
-              <div style={{ fontSize: 11, color: '#059669', fontWeight: 700, marginTop: 4 }}>
+              <div style={{ fontSize: 11, color: 'var(--green)', fontWeight: 700, marginTop: 4 }}>
                 Includes Waiver: -₹{(dues.scholarshipWaiver ?? 0).toLocaleString()}
               </div>
             )}
           </div>
           <div className="stats-card">
             <div className="stats-lbl">Fees Cleared To Date</div>
-            <div className="stats-val" style={{ color: '#10b981' }}>₹{totalPaid.toLocaleString()}</div>
-            <div style={{ fontSize: 11, color: '#64748b', marginTop: 4 }}>
+            <div className="stats-val" style={{ color: 'var(--green)' }}>₹{totalPaid.toLocaleString()}</div>
+            <div style={{ fontSize: 11, color: 'var(--t2)', marginTop: 4 }}>
               Payment efficiency: {Math.round((totalPaid / dues.totalTermFees) * 100)}%
             </div>
           </div>
           <div className="stats-card">
             <div className="stats-lbl">Dues Outstanding (with Fines)</div>
-            <div className="stats-val" style={{ color: totalOutstanding > 0 ? '#ef4444' : '#10b981' }}>
+            <div className="stats-val" style={{ color: totalOutstanding > 0 ? 'var(--coral)' : 'var(--green)' }}>
               ₹{totalOutstanding.toLocaleString()}
             </div>
-            <div style={{ fontSize: 11, color: '#64748b', marginTop: 4 }}>
+            <div style={{ fontSize: 11, color: 'var(--t2)', marginTop: 4 }}>
               Next due deadline: Immediate
             </div>
           </div>
@@ -348,10 +348,10 @@ function StudentFinanceInner() {
                 {(dues.installments || []).map((inst: any) => (
                   <tr key={inst.id}>
                     <td style={{ fontWeight: 700 }}>{inst.name}</td>
-                    <td style={{ color: '#64748b' }}>{new Date(inst.deadline).toLocaleDateString()}</td>
+                    <td style={{ color: 'var(--t2)' }}>{new Date(inst.deadline).toLocaleDateString()}</td>
                     <td style={{ fontWeight: 700 }}>
                       ₹{(inst.id === 'Inst-3' && dues.fineLevied > 0 ? (inst.amount || 0) + (dues.fineLevied || 0) : (inst.amount || 0)).toLocaleString()}
-                      {inst.id === 'Inst-3' && dues.fineLevied > 0 && <span style={{ fontSize: 10, color: '#dc2626', marginLeft: 4 }}>(+₹1,500 Fine)</span>}
+                      {inst.id === 'Inst-3' && dues.fineLevied > 0 && <span style={{ fontSize: 10, color: 'var(--coral)', marginLeft: 4 }}>(+₹1,500 Fine)</span>}
                     </td>
                     <td>
                       <span className={`badge-status ${inst.status === 'Paid' ? 'badge-paid' : 'badge-unpaid'}`}>
@@ -363,7 +363,7 @@ function StudentFinanceInner() {
                         <button
                           onClick={() => setActiveReceipt(inst)}
                           className="btn-ghost btn-sm"
-                          style={{ border: '1px solid #cbd5e1', fontSize: 11 }}
+                          style={{ border: '1px solid var(--border2)', fontSize: 11 }}
                         >
                           📄 View Receipt
                         </button>
@@ -371,7 +371,7 @@ function StudentFinanceInner() {
                         <button
                           onClick={() => setActiveCheckoutInst(inst)}
                           className="btn-primary"
-                          style={{ fontSize: 11, padding: '6px 12px', background: '#2563eb' }}
+                          style={{ fontSize: 11, padding: '6px 12px', background: 'var(--accent)' }}
                         >
                           💳 Pay Online
                         </button>
@@ -386,7 +386,7 @@ function StudentFinanceInner() {
           {/* Section 2: Scholarships Desk */}
           <div className="card-block" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <h3 className="card-subtitle">🎓 Scholarships & Waivers Desk</h3>
-            <p style={{ fontSize: 12.5, color: '#64748b' }}>
+            <p style={{ fontSize: 12.5, color: 'var(--t2)' }}>
               Students meeting institutional performance benchmarks are eligible to claim waivers applied directly to their due sheets.
             </p>
 
@@ -399,25 +399,25 @@ function StudentFinanceInner() {
                   : null;
                 const isEligible = apiGpa != null && apiGpa >= 9.0;
                 return (
-                  <div key={s.id} style={{ background: '#f8fafc', padding: 14, borderRadius: 12, border: '1px solid #cbd5e1' }}>
+                  <div key={s.id} style={{ background: 'var(--bg3)', padding: 14, borderRadius: 12, border: '1px solid var(--border2)' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <span style={{ fontSize: 13, fontWeight: 700 }}>{s.name}</span>
-                      <span style={{ fontSize: 12, fontWeight: 800, color: '#059669' }}>-₹{(s.value ?? 0).toLocaleString()}</span>
+                      <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--green)' }}>-₹{(s.value ?? 0).toLocaleString()}</span>
                     </div>
-                    <div style={{ fontSize: 11, color: '#64748b', marginTop: 4 }}>Criteria: {s.criteria}</div>
+                    <div style={{ fontSize: 11, color: 'var(--t2)', marginTop: 4 }}>Criteria: {s.criteria}</div>
                     
                     <div style={{ marginTop: 10, display: 'flex', justifyContent: 'flex-end' }}>
                       {isApplied ? (
-                        <span style={{ fontSize: 11, fontWeight: 800, color: '#059669' }}>✓ Waiver Applied</span>
+                        <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--green)' }}>✓ Waiver Applied</span>
                       ) : (
                         <button
                           onClick={() => handleApplyScholarship(s.id)}
                           disabled={!isEligible || applyingSch}
                           className="btn-ghost btn-sm"
                           style={{
-                            border: '1.5px solid #cbd5e1', fontSize: 11,
-                            background: isEligible ? '#eff6ff' : '#f1f5f9',
-                            color: isEligible ? '#2563eb' : '#94a3b8'
+                            border: '1.5px solid var(--border2)', fontSize: 11,
+                            background: isEligible ? 'var(--accent-light)' : '#f1f5f9',
+                            color: isEligible ? 'var(--accent)' : 'var(--t3)'
                           }}
                         >
                           {isEligible ? 'Claim Waiver' : 'Ineligible'}
@@ -438,49 +438,49 @@ function StudentFinanceInner() {
           <div className="checkout-modal">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
               <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 800 }}>🔒 Secure Fee Payment Checkout</h3>
-              <button onClick={() => setActiveCheckoutInst(null)} style={{ border: 'none', background: 'none', fontSize: 18, cursor: 'pointer', color: '#64748b' }}>✕</button>
+              <button onClick={() => setActiveCheckoutInst(null)} style={{ border: 'none', background: 'none', fontSize: 18, cursor: 'pointer', color: 'var(--t2)' }}>✕</button>
             </div>
 
             {success ? (
               <div style={{ textAlign: 'center', padding: '20px 0' }}>
                 <div style={{ fontSize: 40, marginBottom: 10 }}>🎉</div>
-                <h4 style={{ fontSize: 16, fontWeight: 800, color: '#059669' }}>Payment Confirmed!</h4>
-                <p style={{ fontSize: 12, color: '#64748b', marginTop: 4 }}>Your transaction was logged and receipt generated.</p>
+                <h4 style={{ fontSize: 16, fontWeight: 800, color: 'var(--green)' }}>Payment Confirmed!</h4>
+                <p style={{ fontSize: 12, color: 'var(--t2)', marginTop: 4 }}>Your transaction was logged and receipt generated.</p>
               </div>
             ) : (
               <form onSubmit={handleProcessPayment} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                <div style={{ background: '#f8fafc', padding: 12, borderRadius: 10, border: '1px solid #e2e8f0', fontSize: 13 }}>
-                  <div style={{ color: '#64748b' }}>Paying: {activeCheckoutInst.name}</div>
-                  <div style={{ fontSize: 16, fontWeight: 900, color: '#0f172a', marginTop: 4 }}>
+                <div style={{ background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)', fontSize: 13 }}>
+                  <div style={{ color: 'var(--t2)' }}>Paying: {activeCheckoutInst.name}</div>
+                  <div style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', marginTop: 4 }}>
                     ₹{(activeCheckoutInst.id === 'Inst-3' && dues.fineLevied > 0 ? (activeCheckoutInst.amount || 0) + (dues.fineLevied || 0) : (activeCheckoutInst.amount || 0)).toLocaleString()}
                   </div>
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, background: '#f1f5f9', padding: 4, borderRadius: 10 }}>
-                  <button type="button" onClick={() => setPaymentMethod('card')} style={{ padding: '8px', border: 'none', borderRadius: 8, fontSize: 12, fontWeight: 700, background: paymentMethod === 'card' ? '#ffffff' : 'transparent', color: paymentMethod === 'card' ? '#0f172a' : '#64748b', cursor: 'pointer' }}>Credit / Debit Card</button>
-                  <button type="button" onClick={() => setPaymentMethod('upi')} style={{ padding: '8px', border: 'none', borderRadius: 8, fontSize: 12, fontWeight: 700, background: paymentMethod === 'upi' ? '#ffffff' : 'transparent', color: paymentMethod === 'upi' ? '#0f172a' : '#64748b', cursor: 'pointer' }}>UPI Payment</button>
+                  <button type="button" onClick={() => setPaymentMethod('card')} style={{ padding: '8px', border: 'none', borderRadius: 8, fontSize: 12, fontWeight: 700, background: paymentMethod === 'card' ? 'var(--card)' : 'transparent', color: paymentMethod === 'card' ? 'var(--t1)' : 'var(--t2)', cursor: 'pointer' }}>Credit / Debit Card</button>
+                  <button type="button" onClick={() => setPaymentMethod('upi')} style={{ padding: '8px', border: 'none', borderRadius: 8, fontSize: 12, fontWeight: 700, background: paymentMethod === 'upi' ? 'var(--card)' : 'transparent', color: paymentMethod === 'upi' ? 'var(--t1)' : 'var(--t2)', cursor: 'pointer' }}>UPI Payment</button>
                 </div>
 
                 {paymentMethod === 'card' ? (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                     <div>
-                      <label style={{ fontSize: 11, fontWeight: 800, color: '#64748b' }}>CARD NUMBER</label>
+                      <label style={{ fontSize: 11, fontWeight: 800, color: 'var(--t2)' }}>CARD NUMBER</label>
                       <input type="text" className="form-input" style={{ marginTop: 4 }} placeholder="4111 2222 3333 4444" value={cardDetails.number} onChange={e => setCardDetails(prev => ({ ...prev, number: e.target.value }))} required />
                     </div>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
                       <div>
-                        <label style={{ fontSize: 11, fontWeight: 800, color: '#64748b' }}>EXPIRY DATE</label>
+                        <label style={{ fontSize: 11, fontWeight: 800, color: 'var(--t2)' }}>EXPIRY DATE</label>
                         <input type="text" className="form-input" style={{ marginTop: 4 }} placeholder="MM/YY" value={cardDetails.expiry} onChange={e => setCardDetails(prev => ({ ...prev, expiry: e.target.value }))} required />
                       </div>
                       <div>
-                        <label style={{ fontSize: 11, fontWeight: 800, color: '#64748b' }}>CVC CODE</label>
+                        <label style={{ fontSize: 11, fontWeight: 800, color: 'var(--t2)' }}>CVC CODE</label>
                         <input type="text" className="form-input" style={{ marginTop: 4 }} placeholder="123" value={cardDetails.cvc} onChange={e => setCardDetails(prev => ({ ...prev, cvc: e.target.value }))} required />
                       </div>
                     </div>
                   </div>
                 ) : (
                   <div>
-                    <label style={{ fontSize: 11, fontWeight: 800, color: '#64748b' }}>UPI VIRTUAL PAYMENT ADDRESS (VPA)</label>
+                    <label style={{ fontSize: 11, fontWeight: 800, color: 'var(--t2)' }}>UPI VIRTUAL PAYMENT ADDRESS (VPA)</label>
                     <input type="text" className="form-input" style={{ marginTop: 4 }} placeholder="yourname@upi" value={upiVpa} onChange={e => setUpiVpa(e.target.value)} required />
                   </div>
                 )}
@@ -498,39 +498,39 @@ function StudentFinanceInner() {
       {activeReceipt && (
         <div className="checkout-overlay">
           <div className="checkout-modal" style={{ maxWidth: 500, padding: 36, position: 'relative' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '2px solid #0f172a', paddingBottom: 16, marginBottom: 20 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '2px solid var(--t1)', paddingBottom: 16, marginBottom: 20 }}>
               <div>
                 <h4 style={{ fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 900 }}>BGS INSTITUTE OF MANAGEMENT</h4>
-                <div style={{ fontSize: 10, color: '#64748b', fontFamily: 'var(--font-mono)' }}>AFFILIATED TO CAMPUS CORE OS</div>
+                <div style={{ fontSize: 10, color: 'var(--t2)', fontFamily: 'var(--font-mono)' }}>AFFILIATED TO CAMPUS CORE OS</div>
               </div>
-              <button onClick={() => setActiveReceipt(null)} style={{ border: 'none', background: 'none', fontSize: 18, cursor: 'pointer', color: '#64748b' }}>✕</button>
+              <button onClick={() => setActiveReceipt(null)} style={{ border: 'none', background: 'none', fontSize: 18, cursor: 'pointer', color: 'var(--t2)' }}>✕</button>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14, fontSize: 13 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span style={{ color: '#64748b' }}>Receipt Reference:</span>
+                <span style={{ color: 'var(--t2)' }}>Receipt Reference:</span>
                 <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700 }}>{activeReceipt.receiptId}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span style={{ color: '#64748b' }}>Student Name:</span>
+                <span style={{ color: 'var(--t2)' }}>Student Name:</span>
                 <span style={{ fontWeight: 700 }}>{user?.displayName || 'Not available'}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span style={{ color: '#64748b' }}>Paid Date:</span>
+                <span style={{ color: 'var(--t2)' }}>Paid Date:</span>
                 <span style={{ fontWeight: 700 }}>{new Date(activeReceipt.paidOn).toLocaleDateString()}</span>
               </div>
 
-              <div style={{ borderTop: '1px dashed #cbd5e1', borderBottom: '1px dashed #cbd5e1', padding: '12px 0', margin: '10px 0' }}>
+              <div style={{ borderTop: '1px dashed var(--border2)', borderBottom: '1px dashed var(--border2)', padding: '12px 0', margin: '10px 0' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 700, marginBottom: 6 }}>
                   <span>Payment Item</span>
                   <span>Amount</span>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', color: '#475569', fontSize: 12.5 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--t2)', fontSize: 12.5 }}>
                   <span>{activeReceipt.name}</span>
                   <span>₹{(activeReceipt.amount ?? 0).toLocaleString()}</span>
                 </div>
                 {activeReceipt.id === 'Inst-3' && (
-                  <div style={{ display: 'flex', justifyContent: 'space-between', color: '#dc2626', fontSize: 12.5, marginTop: 4 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--coral)', fontSize: 12.5, marginTop: 4 }}>
                     <span>Late Payment Penalty Fee</span>
                     <span>₹1,500</span>
                   </div>
@@ -547,7 +547,7 @@ function StudentFinanceInner() {
                 <button
                   onClick={() => { window.print(); }}
                   className="btn-ghost"
-                  style={{ border: '1.5px solid #cbd5e1', fontSize: 12, padding: '6px 12px' }}
+                  style={{ border: '1.5px solid var(--border2)', fontSize: 12, padding: '6px 12px' }}
                 >
                   🖨 Print Invoice
                 </button>

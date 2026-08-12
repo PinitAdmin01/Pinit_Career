@@ -94,8 +94,8 @@ const DB_STYLES = `
   :root.light,[data-theme='light'] {
     --dash-card:    rgba(255,255,255,0.9);
     --dash-border:  rgba(0,0,0,0.07);
-    --dash-text:    #0f172a;
-    --dash-subtext: #475569;
+    --dash-text:    var(--t1);
+    --dash-subtext: var(--t2);
     --dash-banner:  linear-gradient(135deg,rgba(255,255,255,0.95),rgba(241,243,248,0.85));
   }
 

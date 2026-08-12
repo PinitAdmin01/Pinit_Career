@@ -65,16 +65,16 @@ export default function AdmissionsPortal() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f8fafc', color: '#0f172a', fontFamily: 'var(--font-body), sans-serif' }}>
+    <div className="portal-page">
       <style>{`
         /* Header topbar styles matching landing page */
         .header-topbar {
           position: sticky;
           top: 0;
-          background: rgba(248, 250, 252, 0.8);
+          background: color-mix(in srgb, var(--bg2) 88%, transparent);
           backdrop-filter: blur(16px);
           -webkit-backdrop-filter: blur(16px);
-          border-bottom: 1px solid rgba(15, 23, 42, 0.05);
+          border-bottom: 1px solid var(--border);
           z-index: 50;
           transition: background 0.3s;
         }
@@ -91,13 +91,13 @@ export default function AdmissionsPortal() {
           display: flex;
           align-items: center;
           gap: 4px;
-          background: rgba(15, 23, 42, 0.04);
+          background: var(--bg3);
           padding: 4px;
           border-radius: 30px;
         }
         .nav-btn {
           text-decoration: none;
-          color: #475569;
+          color: var(--t2);
           font-size: 13.5px;
           font-weight: 600;
           padding: 7px 18px;
@@ -105,16 +105,16 @@ export default function AdmissionsPortal() {
           transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .nav-btn.active {
-          background: #ffffff;
-          color: #0f172a;
-          box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+          background: var(--card);
+          color: var(--t1);
+          box-shadow: var(--shadow-sm);
         }
         .nav-btn:hover:not(.active) {
-          color: #0f172a;
+          color: var(--t1);
         }
         .action-btn-primary {
-          background: #2563eb;
-          color: #ffffff;
+          background: var(--accent);
+          color: var(--card);
           border: none;
           border-radius: 50px;
           padding: 11px 26px;
@@ -124,14 +124,14 @@ export default function AdmissionsPortal() {
           display: inline-flex;
           align-items: center;
           gap: 6px;
-          box-shadow: 0 4px 14px rgba(37, 99, 235, 0.12);
+          box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 25%, transparent);
           transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
           cursor: pointer;
         }
         .action-btn-primary:hover {
-          background: #1d4ed8;
+          background: var(--accent-mid);
           transform: translateY(-1.5px);
-          box-shadow: 0 6px 20px rgba(37, 99, 235, 0.25);
+          box-shadow: 0 6px 20px color-mix(in srgb, var(--accent) 35%, transparent);
         }
 
         .admissions-container {
@@ -148,17 +148,17 @@ export default function AdmissionsPortal() {
           font-size: 38px;
           font-weight: 900;
           letter-spacing: -1px;
-          color: #0f172a;
+          color: var(--t1);
           margin-bottom: 12px;
         }
         .header-title span {
-          background: linear-gradient(135deg, #2563eb, #8b5cf6);
+          background: linear-gradient(135deg, var(--accent), var(--purple));
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
         }
         .header-desc {
           font-size: 15px;
-          color: #475569;
+          color: var(--t2);
           max-width: 600px;
           margin: 0 auto;
         }
@@ -176,11 +176,11 @@ export default function AdmissionsPortal() {
           }
         }
         .card-box {
-          background: #ffffff;
+          background: var(--card);
           border: 1px solid rgba(15, 23, 42, 0.06);
           border-radius: 20px;
           padding: 30px;
-          box-shadow: 0 4px 20px rgba(15, 23, 42, 0.02);
+          box-shadow: 0 4px 20px var(--border);
         }
         .card-title {
           font-family: var(--font-display), sans-serif;
@@ -196,7 +196,7 @@ export default function AdmissionsPortal() {
           font-weight: 800;
           text-transform: uppercase;
           letter-spacing: 0.6px;
-          color: #475569;
+          color: var(--t2);
           margin-bottom: 6px;
           display: block;
         }
@@ -204,20 +204,20 @@ export default function AdmissionsPortal() {
           width: 100%;
           padding: 11px 14px;
           border-radius: 10px;
-          border: 1.5px solid #e2e8f0;
+          border: 1.5px solid var(--border);
           font-size: 13.5px;
           outline: none;
-          background: #f8fafc;
+          background: var(--bg3);
           transition: all 0.2s;
         }
         .form-input:focus {
-          border-color: #2563eb;
-          background: #ffffff;
+          border-color: var(--accent);
+          background: var(--card);
           box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08);
         }
         .btn-submit {
-          background: #2563eb;
-          color: #ffffff;
+          background: var(--accent);
+          color: var(--card);
           border: none;
           border-radius: 10px;
           padding: 12px;
@@ -243,7 +243,7 @@ export default function AdmissionsPortal() {
           top: 0;
           bottom: 0;
           width: 2px;
-          background: #e2e8f0;
+          background: var(--border);
         }
         .timeline-item {
           position: relative;
@@ -259,27 +259,27 @@ export default function AdmissionsPortal() {
           width: 12px;
           height: 12px;
           border-radius: 50%;
-          background: #cbd5e1;
-          border: 2px solid #ffffff;
+          background: var(--border2);
+          border: 2px solid var(--card);
         }
         .timeline-dot.active {
-          background: #2563eb;
+          background: var(--accent);
           box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
         }
         .timeline-dot.success {
-          background: #10b981;
+          background: var(--green);
         }
         .timeline-dot.danger {
-          background: #ef4444;
+          background: var(--coral);
         }
         .timeline-title {
           font-size: 13px;
           font-weight: 700;
-          color: #0f172a;
+          color: var(--t1);
         }
         .timeline-desc {
           font-size: 11.5px;
-          color: #64748b;
+          color: var(--t2);
           margin-top: 2px;
         }
       `}</style>
@@ -288,9 +288,9 @@ export default function AdmissionsPortal() {
       <header className="header-topbar">
         <div className="header-content">
           <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
-            <div style={{ width: 38, height: 38, borderRadius: 12, background: 'linear-gradient(135deg,#2563eb,#8b5cf6)', display: 'flex', alignItems: 'center', justifyItems: 'center', fontSize: 17, fontWeight: 800, color: 'white', justifyContent: 'center', boxShadow: '0 4px 12px rgba(37,99,235,0.25)' }}>Pi</div>
+            <div style={{ width: 38, height: 38, borderRadius: 12, background: 'linear-gradient(135deg,var(--accent),#8b5cf6)', display: 'flex', alignItems: 'center', justifyItems: 'center', fontSize: 17, fontWeight: 800, color: 'white', justifyContent: 'center', boxShadow: '0 4px 12px rgba(37,99,235,0.25)' }}>Pi</div>
             <div>
-              <span style={{ fontSize: 19, fontWeight: 900, color: '#0f172a', letterSpacing: '-0.6px', fontFamily: 'var(--font-display)' }}>PinIT</span>
+              <span style={{ fontSize: 19, fontWeight: 900, color: 'var(--t1)', letterSpacing: '-0.6px', fontFamily: 'var(--font-display)' }}>PinIT</span>
               <span style={{ fontSize: 10, color: 'var(--primary)', fontWeight: 800, marginLeft: 6, textTransform: 'uppercase', letterSpacing: '0.8px', fontFamily: 'var(--font-mono)' }}>Career OS</span>
             </div>
           </Link>
@@ -307,7 +307,7 @@ export default function AdmissionsPortal() {
       <div className="admissions-container">
         {/* Navigation link back to Home */}
         <div style={{ marginBottom: 24 }}>
-          <Link href="/" style={{ fontSize: 13, fontWeight: 700, color: '#2563eb', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+          <Link href="/" style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
             ← Back to Campus Portal Home
           </Link>
         </div>
@@ -325,19 +325,19 @@ export default function AdmissionsPortal() {
             <h2 className="card-title">📝 Online Application Form</h2>
             
             {applyResult ? (
-              <div style={{ background: '#ecfdf5', border: '1px solid #a7f3d0', borderRadius: 12, padding: 20, textAlign: 'center' }}>
+              <div style={{ background: 'var(--green-light)', border: '1px solid color-mix(in srgb, var(--green) 30%, transparent)', borderRadius: 12, padding: 20, textAlign: 'center' }}>
                 <div style={{ fontSize: 32, marginBottom: 8 }}>🎉</div>
-                <h3 style={{ fontSize: 16, fontWeight: 800, color: '#065f46', marginBottom: 4 }}>Application Submitted!</h3>
-                <p style={{ fontSize: 13, color: '#047857', marginBottom: 12 }}>
+                <h3 style={{ fontSize: 16, fontWeight: 800, color: 'var(--green)', marginBottom: 4 }}>Application Submitted!</h3>
+                <p style={{ fontSize: 13, color: 'var(--green-mid)', marginBottom: 12 }}>
                   Your application has been registered successfully.
                 </p>
-                <div style={{ background: '#ffffff', border: '1px solid #cbd5e1', borderRadius: 8, padding: 10, display: 'inline-block', fontFamily: 'monospace', fontWeight: 700, fontSize: 15 }}>
+                <div style={{ background: 'var(--card)', border: '1px solid var(--border2)', borderRadius: 8, padding: 10, display: 'inline-block', fontFamily: 'monospace', fontWeight: 700, fontSize: 15 }}>
                   {applyResult.id}
                 </div>
-                <p style={{ fontSize: 11, color: '#64748b', marginTop: 10 }}>
+                <p style={{ fontSize: 11, color: 'var(--t2)', marginTop: 10 }}>
                   Copy this ID and paste it in the Tracking Widget to monitor document audit status.
                 </p>
-                <button onClick={() => setApplyResult(null)} className="btn-submit" style={{ marginTop: 16, background: '#10b981' }}>
+                <button onClick={() => setApplyResult(null)} className="btn-submit" style={{ marginTop: 16, background: 'var(--green)' }}>
                   Submit Another Application
                 </button>
               </div>
@@ -373,17 +373,17 @@ export default function AdmissionsPortal() {
                       type="button"
                       onClick={() => setFileSimulated(true)}
                       style={{
-                        padding: '10px 14px', borderRadius: 10, border: '1.5px dashed #cbd5e1', cursor: 'pointer',
-                        fontSize: 12.5, fontWeight: 700, background: fileSimulated ? '#ecfdf5' : '#ffffff',
-                        color: fileSimulated ? '#047857' : '#475569',
-                        borderColor: fileSimulated ? '#a7f3d0' : '#cbd5e1',
+                        padding: '10px 14px', borderRadius: 10, border: '1.5px dashed var(--border2)', cursor: 'pointer',
+                        fontSize: 12.5, fontWeight: 700, background: fileSimulated ? 'var(--green-light)' : 'var(--card)',
+                        color: fileSimulated ? 'var(--green)' : 'var(--t2)',
+                        borderColor: fileSimulated ? 'color-mix(in srgb, var(--green) 30%, transparent)' : 'var(--border2)',
                         flexGrow: 1
                       }}
                     >
                       {fileSimulated ? '✓ 12th_marksheet.pdf Attached' : '📁 Attach Simulated Marksheet PDF'}
                     </button>
                     {fileSimulated && (
-                      <button type="button" onClick={() => setFileSimulated(false)} style={{ color: '#ef4444', border: 'none', background: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 700 }}>Remove</button>
+                      <button type="button" onClick={() => setFileSimulated(false)} style={{ color: 'var(--coral)', border: 'none', background: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 700 }}>Remove</button>
                     )}
                   </div>
                 </div>
@@ -399,7 +399,7 @@ export default function AdmissionsPortal() {
           <div className="card-box" style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
             <div>
               <h2 className="card-title">🔍 Status Tracking</h2>
-              <p style={{ fontSize: 13, color: '#475569', marginBottom: 14 }}>
+              <p style={{ fontSize: 13, color: 'var(--t2)', marginBottom: 14 }}>
                 Enter your unique Application ID to pull the current stage of document verification and seat allocations.
               </p>
               
@@ -418,18 +418,18 @@ export default function AdmissionsPortal() {
               </form>
               
               {trackError && (
-                <div style={{ color: '#ef4444', fontSize: 12.5, marginTop: 8, fontWeight: 600 }}>
+                <div style={{ color: 'var(--coral)', fontSize: 12.5, marginTop: 8, fontWeight: 600 }}>
                   ⚠️ {trackError}
                 </div>
               )}
             </div>
 
             {trackedApp && (
-              <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: 20 }}>
-                <div style={{ background: '#f8fafc', padding: 14, borderRadius: 12, border: '1px solid #e2e8f0', marginBottom: 20 }}>
-                  <div style={{ fontSize: 11, fontWeight: 800, color: '#64748b', textTransform: 'uppercase' }}>Candidate Details</div>
-                  <div style={{ fontSize: 15, fontWeight: 800, color: '#0f172a', marginTop: 2 }}>{trackedApp.name}</div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, color: '#475569', marginTop: 6 }}>
+              <div style={{ borderTop: '1px solid var(--border)', paddingTop: 20 }}>
+                <div style={{ background: 'var(--bg3)', padding: 14, borderRadius: 12, border: '1px solid var(--border)', marginBottom: 20 }}>
+                  <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--t2)', textTransform: 'uppercase' }}>Candidate Details</div>
+                  <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)', marginTop: 2 }}>{trackedApp.name}</div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, color: 'var(--t2)', marginTop: 6 }}>
                     <span>Course: <strong>{trackedApp.course}</strong></span>
                     <span>12th GPA: <strong>{trackedApp.gpa}</strong></span>
                   </div>

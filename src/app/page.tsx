@@ -138,7 +138,7 @@ function LoginModal({
         <p className="modal-header-desc">Log in to access your dashboard workspace</p>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 4, background: '#f1f5f9', padding: 4, borderRadius: 10, marginBottom: 20 }}>
           {['password', 'qr'].map(m => (
-            <button key={m} onClick={() => setMode(m as any)} style={{ padding: '8px 10px', borderRadius: 8, fontSize: 12.5, fontWeight: 700, cursor: 'pointer', border: 'none', background: mode === m ? '#ffffff' : 'transparent', color: mode === m ? '#0f172a' : '#64748b', boxShadow: mode === m ? '0 1px 4px rgba(0,0,0,0.06)' : 'none', transition: 'all 0.2s' }}>
+            <button key={m} onClick={() => setMode(m as any)} style={{ padding: '8px 10px', borderRadius: 8, fontSize: 12.5, fontWeight: 700, cursor: 'pointer', border: 'none', background: mode === m ? 'var(--card)' : 'transparent', color: mode === m ? 'var(--t1)' : 'var(--t2)', boxShadow: mode === m ? '0 1px 4px rgba(0,0,0,0.06)' : 'none', transition: 'all 0.2s' }}>
               {m === 'password' ? 'Password' : 'Scan QR'}
             </button>
           ))}
@@ -171,10 +171,10 @@ function LoginModal({
           </form>
         ) : (
           <div style={{ textAlign: 'center' }}>
-            <div style={{ width: 180, height: 180, margin: '0 auto 16px', border: '1.5px solid #e2e8f0', borderRadius: 16, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f8fafc' }}>
-              {qrStatus === 'loading' ? <div style={{ fontSize: 12, color: '#64748b' }}>Generating QR...</div> : qrUrl ? <img src={qrUrl} alt="QR Code" style={{ width: '100%', height: '100%' }} /> : null}
+            <div style={{ width: 180, height: 180, margin: '0 auto 16px', border: '1.5px solid var(--border)', borderRadius: 16, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg3)' }}>
+              {qrStatus === 'loading' ? <div style={{ fontSize: 12, color: 'var(--t2)' }}>Generating QR...</div> : qrUrl ? <img src={qrUrl} alt="QR Code" style={{ width: '100%', height: '100%' }} /> : null}
             </div>
-            <div style={{ fontSize: 11.5, color: '#64748b', fontFamily: 'monospace', marginBottom: 16 }}>
+            <div style={{ fontSize: 11.5, color: 'var(--t2)', fontFamily: 'monospace', marginBottom: 16 }}>
               {qrStatus === 'ready' && `Scan with phone · Expiring: ${minutes}:${secs}`}
               {qrStatus !== 'ready' && qrMessage}
             </div>
@@ -501,8 +501,8 @@ function LandingContent() {
                   <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
                     <rect width="64" height="64" rx="16" fill="#F0FDF4" />
                     <circle cx="32" cy="28" r="12" fill="#10B981" opacity="0.2" />
-                    <path d="M26 28C26 24.6863 28.6863 22 32 22C35.3137 22 38 24.6863 38 28C38 31.3137 35.3137 34 32 34V38" stroke="#059669" strokeWidth="3" strokeLinecap="round" />
-                    <circle cx="32" cy="44" r="2" fill="#059669" />
+                    <path d="M26 28C26 24.6863 28.6863 22 32 22C35.3137 22 38 24.6863 38 28C38 31.3137 35.3137 34 32 34V38" stroke="var(--green)" strokeWidth="3" strokeLinecap="round" />
+                    <circle cx="32" cy="44" r="2" fill="var(--green)" />
                   </svg>
                 </div>
                 <h3>Learn with AI Mentor</h3>
@@ -1040,7 +1040,7 @@ function LandingContent() {
           --bg-card: #FFFFFF;
           --bg-card-solid: #FFFFFF;
           --text-primary: #0F172A;
-          --text-secondary: #475569;
+          --text-secondary: var(--t2);
           --text-tertiary: #94A3B8;
           --border-color: rgba(0, 0, 0, 0.08);
           --border-hover: rgba(124, 58, 237, 0.3);
@@ -1158,7 +1158,7 @@ function LandingContent() {
         }
         .nav-container { display: flex; align-items: center; justify-content: space-between; height: 100%; max-width: 1400px; margin: 0 auto; padding: 0 24px; }
         .brand-logo { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 18px; letter-spacing: -0.5px; }
-        .pi-icon { background: linear-gradient(135deg, #7C3AED, #A855F7); color: #fff; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-size: 16px; }
+        .pi-icon { background: linear-gradient(135deg, #7C3AED, #A855F7); color: var(--card); width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-size: 16px; }
         
         .nav-center { display: flex; gap: 24px; align-items: center; }
         .nav-link { font-size: 13px; font-weight: 500; color: var(--text-secondary); transition: color 0.2s; }
@@ -1275,7 +1275,7 @@ function LandingContent() {
         .pc-btn-purple-sm { align-self: flex-start; padding: 6px 14px; border-radius: 50px; background: #7C3AED; color: #FFFFFF; font-size: 11px; font-weight: 700; border: none; cursor: pointer; margin-top: 4px; }
         
         .readiness-score-box { display: flex; flex-direction: column; align-items: center; text-align: center; width: 140px; flex-shrink: 0; background: #FFFFFF; padding: 14px; border-radius: 18px; border: 1px solid #E2E8F0; box-shadow: 0 4px 16px rgba(0,0,0,0.04); }
-        .score-heading { font-size: 10.5px; font-weight: 800; color: #475569; margin-bottom: 8px; line-height: 1.2; text-transform: uppercase; letter-spacing: 0.3px; }
+        .score-heading { font-size: 10.5px; font-weight: 800; color: var(--t2); margin-bottom: 8px; line-height: 1.2; text-transform: uppercase; letter-spacing: 0.3px; }
         .score-gauge { position: relative; width: 84px; height: 84px; display: flex; align-items: center; justify-content: center; }
         .score-center-val { position: absolute; font-size: 18px; font-weight: 900; color: #0F172A; }
         .score-subtext { font-size: 10px; color: #10B981; font-weight: 700; margin-top: 6px; }
@@ -1292,7 +1292,7 @@ function LandingContent() {
         .phase-title { font-size: 12px; font-weight: 800; color: #0F172A; line-height: 1.2; }
         .tech-stack-sub { font-size: 9.5px; color: #64748B; margin: 4px 0 10px 0; line-height: 1.2; }
         .status-badge { font-size: 9px; font-weight: 800; padding: 3px 8px; border-radius: 50px; display: inline-block; align-self: flex-start; text-transform: uppercase; letter-spacing: 0.3px; }
-        .status-done { background: #ECFDF5; color: #059669; }
+        .status-done { background: #ECFDF5; color: var(--green); }
         .status-prog { background: #FFFBEB; color: #D97706; }
         .status-next { background: #F3E8FF; color: #7C3AED; }
 
@@ -1425,11 +1425,11 @@ function LandingContent() {
         .match-lbl { font-size: 10px; color: #64748B; margin-bottom: 8px; }
         .candidates-avatars-row { display: flex; align-items: center; gap: 6px; }
         .c-avatar { width: 26px; height: 26px; border-radius: 50%; background: #F1F5F9; border: 1px solid #CBD5E1; display: flex; align-items: center; justify-content: center; font-size: 12px; }
-        .match-badge { background: #ECFDF5; color: #059669; font-size: 10px; font-weight: 800; padding: 2px 6px; border-radius: 50px; }
+        .match-badge { background: #ECFDF5; color: var(--green); font-size: 10px; font-weight: 800; padding: 2px 6px; border-radius: 50px; }
         .h-arrow-sep { color: #94A3B8; font-weight: bold; font-size: 16px; }
 
         .trust-companies-text { font-size: 12px; color: #64748B; font-weight: 600; margin-bottom: 12px; }
-        .company-logos-row { display: flex; justify-content: center; gap: 32px; font-size: 18px; font-weight: 800; color: #475569; opacity: 0.75; }
+        .company-logos-row { display: flex; justify-content: center; gap: 32px; font-size: 18px; font-weight: 800; color: var(--t2); opacity: 0.75; }
 
         /* 8. STATS BAR */
         .stats-bar-section { background: linear-gradient(135deg, #7C3AED, #4F46E5); padding: 48px 0; color: #FFFFFF; }
@@ -1516,16 +1516,16 @@ function LandingContent() {
         .fine-print { font-size: 12px; color: var(--text-tertiary); display: flex; justify-content: center; gap: 16px; }
 
         /* 10. FOOTER */
-        .footer-section { background: #05060F; padding: 60px 0 20px; border-top: 1px solid rgba(255,255,255,0.05); color: #fff; }
+        .footer-section { background: #05060F; padding: 60px 0 20px; border-top: 1px solid rgba(255,255,255,0.05); color: var(--card); }
         .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 60px; }
-        .f-col h4 { font-size: 16px; margin-bottom: 20px; color: #fff; }
+        .f-col h4 { font-size: 16px; margin-bottom: 20px; color: var(--card); }
         .f-col ul { display: flex; flex-direction: column; gap: 12px; }
         .f-col a { color: #94A3B8; font-size: 14px; transition: color 0.2s; }
         .f-col a:hover { color: #7C3AED; }
         .f-desc { color: #94A3B8; font-size: 14px; line-height: 1.6; max-width: 300px; }
         .footer-bottom { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; font-size: 13px; color: #64748B; }
         .social-icons { display: flex; gap: 16px; }
-        .social-icons span { width: 32px; height: 32px; background: rgba(255,255,255,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s; color: #fff; }
+        .social-icons span { width: 32px; height: 32px; background: rgba(255,255,255,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s; color: var(--card); }
         .social-icons span:hover { background: #7C3AED; }
         @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; } .brand-col { grid-column: span 2; } }
 
@@ -1555,24 +1555,24 @@ function LandingContent() {
 
         /* MODAL CLASSES & MORPH WIDGET STYLES (Provided in instructions) */
         .modal-mask-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); z-index: 9999; display: flex; align-items: center; justify-content: center; }
-        .modal-body-container { background: #ffffff; border-radius: 24px; padding: 36px; max-width: 420px; width: 90%; position: relative; box-shadow: 0 24px 60px rgba(0,0,0,0.3); }
-        .modal-dismiss-btn { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 18px; cursor: pointer; color: #64748b; }
-        .modal-header-title { font-size: 24px; font-weight: 800; color: #0f172a; margin-bottom: 6px; }
-        .modal-header-desc { font-size: 13px; color: #64748b; margin-bottom: 20px; }
+        .modal-body-container { background: var(--card); border-radius: 24px; padding: 36px; max-width: 420px; width: 90%; position: relative; box-shadow: 0 24px 60px rgba(0,0,0,0.3); }
+        .modal-dismiss-btn { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 18px; cursor: pointer; color: var(--t2); }
+        .modal-header-title { font-size: 24px; font-weight: 800; color: var(--t1); margin-bottom: 6px; }
+        .modal-header-desc { font-size: 13px; color: var(--t2); margin-bottom: 20px; }
         .input-group-vertical { display: flex; flex-direction: column; gap: 6px; }
         .input-label { font-size: 12px; font-weight: 700; color: #334155; }
-        .input-textbox { padding: 10px 14px; border: 1.5px solid #e2e8f0; border-radius: 10px; font-size: 13px; outline: none; transition: border 0.2s; color: #0f172a; }
+        .input-textbox { padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 13px; outline: none; transition: border 0.2s; color: var(--t1); }
         .input-textbox:focus { border-color: #7C3AED; }
-        .demo-shortcuts-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; }
-        .demo-shortcuts-title { font-size: 11px; font-weight: 800; color: #64748b; margin-bottom: 8px; text-transform: uppercase; }
+        .demo-shortcuts-box { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 14px; }
+        .demo-shortcuts-title { font-size: 11px; font-weight: 800; color: var(--t2); margin-bottom: 8px; text-transform: uppercase; }
         .demo-buttons-layout { display: flex; flex-wrap: wrap; gap: 6px; }
-        .demo-pill-btn { padding: 5px 12px; border-radius: 50px; border: 1px solid #e2e8f0; background: white; font-size: 11px; font-weight: 700; cursor: pointer; color: #334155; transition: all 0.2s; }
+        .demo-pill-btn { padding: 5px 12px; border-radius: 50px; border: 1px solid var(--border); background: white; font-size: 11px; font-weight: 700; cursor: pointer; color: #334155; transition: all 0.2s; }
         .demo-pill-btn:hover { background: #7C3AED; color: white; border-color: #7C3AED; }
-        .error-alert-banner { background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; padding: 10px 14px; border-radius: 10px; font-size: 12px; font-weight: 600; }
+        .error-alert-banner { background: #fef2f2; border: 1px solid #fecaca; color: var(--coral); padding: 10px 14px; border-radius: 10px; font-size: 12px; font-weight: 600; }
         
         .morph-widget-container { animation: fadeInUp 0.3s ease; }
-        .morph-widget-card { background: #ffffff; border-radius: 20px; padding: 20px; box-shadow: 0 12px 40px rgba(0,0,0,0.12); position: relative; text-align: center; border: 1px solid #e2e8f0; }
-        .face-hud-circle { width: 100px; height: 100px; margin: 0 auto 12px; border-radius: 50%; border: 2px solid #e2e8f0; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; background: #f8fafc; }
+        .morph-widget-card { background: var(--card); border-radius: 20px; padding: 20px; box-shadow: 0 12px 40px rgba(0,0,0,0.12); position: relative; text-align: center; border: 1px solid var(--border); }
+        .face-hud-circle { width: 100px; height: 100px; margin: 0 auto 12px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; background: var(--bg3); }
         .face-hud-avatar { font-size: 36px; z-index: 2; }
         .hud-scan-laser { position: absolute; width: 100%; height: 3px; background: linear-gradient(90deg, transparent, #7C3AED, transparent); top: 0; animation: scan 1.5s infinite linear; z-index: 3; }
       `}</style>

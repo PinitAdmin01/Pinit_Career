@@ -60,7 +60,7 @@ export default function StudentGrievances() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f8fafc', color: '#0f172a', padding: '30px 20px', fontFamily: 'var(--font-body), sans-serif' }}>
+    <div className="portal-page">
       <style>{`
         .grv-wrapper {
           max-width: 1040px;
@@ -87,11 +87,11 @@ export default function StudentGrievances() {
           }
         }
         .card-box {
-          background: #ffffff;
-          border: 1px solid rgba(15, 23, 42, 0.05);
+          background: var(--card);
+          border: 1px solid var(--border);
           border-radius: 20px;
           padding: 24px;
-          box-shadow: 0 4px 20px rgba(15, 23, 42, 0.02);
+          box-shadow: 0 4px 20px var(--border);
         }
         .card-title {
           font-family: var(--font-display), sans-serif;
@@ -111,9 +111,9 @@ export default function StudentGrievances() {
           font-size: 11px;
           font-weight: 800;
           text-transform: uppercase;
-          color: #64748b;
+          color: var(--t2);
           padding-bottom: 12px;
-          border-bottom: 1px solid #cbd5e1;
+          border-bottom: 1px solid var(--border2);
         }
         .tbl-grv td {
           padding: 12px 0;
@@ -137,7 +137,7 @@ export default function StudentGrievances() {
           z-index: 1000;
         }
         .ticket-modal {
-          background: #ffffff;
+          background: var(--card);
           border-radius: 20px;
           width: 100%;
           max-width: 540px;
@@ -149,7 +149,7 @@ export default function StudentGrievances() {
           align-items: center;
           gap: 8px;
           font-size: 13px;
-          color: #475569;
+          color: var(--t2);
           cursor: pointer;
           user-select: none;
         }
@@ -165,7 +165,7 @@ export default function StudentGrievances() {
 
             <form onSubmit={handleSubmitGrievance} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
               <div>
-                <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b', display: 'block', marginBottom: 4 }}>Grievance Category</label>
+                <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Grievance Category</label>
                 <select className="form-input" value={category} onChange={e => setCategory(e.target.value)}>
                   <option value="Academic">Academic / Syllabus</option>
                   <option value="Hostel Facilities">Hostel Facilities</option>
@@ -176,7 +176,7 @@ export default function StudentGrievances() {
               </div>
 
               <div>
-                <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b', display: 'block', marginBottom: 4 }}>Complaint Subject Title *</label>
+                <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Complaint Subject Title *</label>
                 <input
                   type="text"
                   required
@@ -188,7 +188,7 @@ export default function StudentGrievances() {
               </div>
 
               <div>
-                <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b', display: 'block', marginBottom: 4 }}>Detailed Description *</label>
+                <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Detailed Description *</label>
                 <textarea
                   className="form-input"
                   rows={4}
@@ -208,7 +208,7 @@ export default function StudentGrievances() {
                   />
                   <span>File complaint anonymously</span>
                 </label>
-                <div style={{ fontSize: 10.5, color: '#64748b', marginTop: 4, marginLeft: 22 }}>
+                <div style={{ fontSize: 10.5, color: 'var(--t2)', marginTop: 4, marginLeft: 22 }}>
                   If checked, your name and profile information will be completely hidden from administrators.
                 </div>
               </div>
@@ -224,7 +224,7 @@ export default function StudentGrievances() {
             <h3 className="card-title">📋 Track Grievance Status</h3>
 
             {grievances.length === 0 ? (
-              <div style={{ padding: '40px 0', textAlign: 'center', color: '#64748b' }}>
+              <div style={{ padding: '40px 0', textAlign: 'center', color: 'var(--t2)' }}>
                 No active complaints filed in ticket system.
               </div>
             ) : (
@@ -246,12 +246,12 @@ export default function StudentGrievances() {
                       <td style={{ fontWeight: 600 }}>{g.category}</td>
                       <td>
                         <div>{g.title}</div>
-                        {g.anonymous && <span style={{ fontSize: 9.5, background: '#f1f5f9', color: '#475569', padding: '1px 5px', borderRadius: 4, fontWeight: 700 }}>Anonymous Report</span>}
+                        {g.anonymous && <span style={{ fontSize: 9.5, background: '#f1f5f9', color: 'var(--t2)', padding: '1px 5px', borderRadius: 4, fontWeight: 700 }}>Anonymous Report</span>}
                       </td>
-                      <td style={{ color: '#64748b' }}>{new Date(g.filedOn).toLocaleDateString()}</td>
+                      <td style={{ color: 'var(--t2)' }}>{new Date(g.filedOn).toLocaleDateString()}</td>
                       <td>
                         <span className="status-badge" style={{
-                          background: g.status === 'Resolved' ? '#ecfdf5' : (g.status === 'In Investigation' ? '#eff6ff' : '#fef3c7'),
+                          background: g.status === 'Resolved' ? '#ecfdf5' : (g.status === 'In Investigation' ? 'var(--accent-light)' : 'var(--amber-light)'),
                           color: g.status === 'Resolved' ? '#047857' : (g.status === 'In Investigation' ? '#1d4ed8' : '#b45309')
                         }}>{g.status}</span>
                       </td>
@@ -259,7 +259,7 @@ export default function StudentGrievances() {
                         <button
                           onClick={() => setSelectedTicket(g)}
                           className="btn-ghost btn-sm"
-                          style={{ border: '1px solid #cbd5e1', fontSize: 11 }}
+                          style={{ border: '1px solid var(--border2)', fontSize: 11 }}
                         >
                           Details
                         </button>
@@ -277,7 +277,7 @@ export default function StudentGrievances() {
       {selectedTicket && (
         <div className="overlay">
           <div className="ticket-modal">
-            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 17, fontWeight: 800, borderBottom: '1px solid #e2e8f0', paddingBottom: 10, marginBottom: 14 }}>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 17, fontWeight: 800, borderBottom: '1px solid var(--border)', paddingBottom: 10, marginBottom: 14 }}>
               Grievance Ticket details ({selectedTicket.id})
             </h3>
             
@@ -294,16 +294,16 @@ export default function StudentGrievances() {
               <div>
                 <strong>Reporter Name:</strong> {selectedTicket.reporterName}
               </div>
-              <div style={{ background: '#f8fafc', padding: 12, borderRadius: 10, border: '1px solid #e2e8f0' }}>
+              <div style={{ background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)' }}>
                 <strong>Complaint Details:</strong>
-                <p style={{ marginTop: 4, lineHeight: 1.5, color: '#475569' }}>{selectedTicket.description}</p>
+                <p style={{ marginTop: 4, lineHeight: 1.5, color: 'var(--t2)' }}>{selectedTicket.description}</p>
               </div>
 
-              <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: 12, marginTop: 4 }}>
+              <div style={{ borderTop: '1px solid var(--border)', paddingTop: 12, marginTop: 4 }}>
                 <strong>Investigation Status:</strong>
                 <span className="status-badge" style={{
                   marginLeft: 8,
-                  background: selectedTicket.status === 'Resolved' ? '#ecfdf5' : (selectedTicket.status === 'In Investigation' ? '#eff6ff' : '#fef3c7'),
+                  background: selectedTicket.status === 'Resolved' ? '#ecfdf5' : (selectedTicket.status === 'In Investigation' ? 'var(--accent-light)' : 'var(--amber-light)'),
                   color: selectedTicket.status === 'Resolved' ? '#047857' : (selectedTicket.status === 'In Investigation' ? '#1d4ed8' : '#b45309')
                 }}>{selectedTicket.status}</span>
               </div>
@@ -315,14 +315,14 @@ export default function StudentGrievances() {
                   <div style={{ fontSize: 10.5, color: '#047857', marginTop: 6 }}>Resolved on {new Date(selectedTicket.resolvedOn).toLocaleDateString()}</div>
                 </div>
               ) : (
-                <div style={{ fontSize: 12.5, color: '#64748b', background: '#eff6ff', padding: 10, borderRadius: 8, border: '1px solid #bfdbfe' }}>
+                <div style={{ fontSize: 12.5, color: 'var(--t2)', background: 'var(--accent-light)', padding: 10, borderRadius: 8, border: '1px solid #bfdbfe' }}>
                   ℹ️ This grievance ticket is currently being investigated by the institutional administrative committee. Action responses will update here automatically.
                 </div>
               )}
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 20 }}>
-              <button onClick={() => setSelectedTicket(null)} className="btn-primary" style={{ background: '#0f172a' }}>
+              <button onClick={() => setSelectedTicket(null)} className="btn-primary" style={{ background: 'var(--t1)' }}>
                 ✕ Close Ticket Tracker
               </button>
             </div>

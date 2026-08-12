@@ -74,7 +74,7 @@ function StudentTransportInner() {
   const assignedDriver = activeRoute ? drivers.find(d => d.name === activeRoute.driverName) : null;
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f8fafc', color: '#0f172a', padding: '30px 20px', fontFamily: 'var(--font-body), sans-serif' }}>
+    <div className="portal-page">
       <style>{`
         .transit-wrapper {
           max-width: 1040px;
@@ -111,11 +111,11 @@ function StudentTransportInner() {
           }
         }
         .card-box {
-          background: #ffffff;
-          border: 1px solid rgba(15, 23, 42, 0.05);
+          background: var(--card);
+          border: 1px solid var(--border);
           border-radius: 20px;
           padding: 24px;
-          box-shadow: 0 4px 20px rgba(15, 23, 42, 0.02);
+          box-shadow: 0 4px 20px var(--border);
         }
         .card-title {
           font-family: var(--font-display), sans-serif;
@@ -127,10 +127,10 @@ function StudentTransportInner() {
           gap: 8px;
         }
         .gps-map-mock {
-          background: #0f172a;
+          background: var(--t1);
           border-radius: 16px;
           padding: 24px;
-          color: #ffffff;
+          color: var(--card);
           position: relative;
           min-height: 220px;
           display: flex;
@@ -159,13 +159,13 @@ function StudentTransportInner() {
           height: 14px;
           border-radius: 50%;
           background: #334155;
-          border: 3px solid #0f172a;
+          border: 3px solid var(--t1);
           z-index: 2;
           position: relative;
           transition: all 0.3s;
         }
         .gps-node.passed {
-          background: #10b981;
+          background: var(--green);
         }
         .gps-node.active {
           background: #3b82f6;
@@ -179,7 +179,7 @@ function StudentTransportInner() {
           transform: translateX(-50%);
           font-size: 10px;
           white-space: nowrap;
-          color: #94a3b8;
+          color: var(--t3);
           font-weight: 700;
         }
         .gps-label.active {
@@ -205,12 +205,12 @@ function StudentTransportInner() {
           </div>
         )}
         {allocation.status === 'pending' && (
-          <div className="status-alert" style={{ background: '#fef3c7', borderColor: '#fde68a', color: '#92400e' }}>
+          <div className="status-alert" style={{ background: 'var(--amber-light)', borderColor: '#fde68a', color: '#92400e' }}>
             <div>
               <strong style={{ fontSize: 14 }}>⏳ Seat Verification Pending</strong>
               <div style={{ fontSize: 12, marginTop: 2 }}>Requested Route: <strong>{routes.find(r => r.code === allocation.route)?.name}</strong> | Stop: <strong>{allocation.stop}</strong>.</div>
             </div>
-            <span style={{ fontSize: 11, fontWeight: 700, padding: '4px 10px', background: '#fffbeb', borderRadius: 20 }}>Awaiting approval</span>
+            <span style={{ fontSize: 11, fontWeight: 700, padding: '4px 10px', background: 'var(--card)beb', borderRadius: 20 }}>Awaiting approval</span>
           </div>
         )}
         {allocation.status === 'allocated' && (
@@ -219,7 +219,7 @@ function StudentTransportInner() {
               <strong style={{ fontSize: 14 }}>✓ Transit Pass Active</strong>
               <div style={{ fontSize: 12, marginTop: 2 }}>Assigned Route: <strong>{routes.find(r => r.code === allocation.route)?.name}</strong> | Boarding Stop: <strong>{allocation.stop}</strong>.</div>
             </div>
-            <span style={{ fontSize: 11, fontWeight: 700, padding: '4px 10px', background: '#ffffff', color: '#059669', borderRadius: 20 }}>Pass Status: Active</span>
+            <span style={{ fontSize: 11, fontWeight: 700, padding: '4px 10px', background: 'var(--card)', color: 'var(--green)', borderRadius: 20 }}>Pass Status: Active</span>
           </div>
         )}
 
@@ -234,7 +234,7 @@ function StudentTransportInner() {
                 <form onSubmit={handleRegister} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                   
                   <div>
-                    <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b', display: 'block', marginBottom: 4 }}>Select Route Code</label>
+                    <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Select Route Code</label>
                     <select
                       className="form-input"
                       value={selectedRouteCode}
@@ -250,7 +250,7 @@ function StudentTransportInner() {
 
                   {activeRoute && (
                     <div>
-                      <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b', display: 'block', marginBottom: 4 }}>Boarding Stop</label>
+                      <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Boarding Stop</label>
                       <select
                         className="form-input"
                         value={selectedStop}
@@ -272,30 +272,30 @@ function StudentTransportInner() {
             {allocation.status !== 'none' && (
               <div className="card-box">
                 <h3 className="card-title">🎟 Active Transit Pass</h3>
-                <div style={{ background: '#f8fafc', border: '1px solid #cbd5e1', borderRadius: 12, padding: 18 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed #cbd5e1', paddingBottom: 10 }}>
+                <div style={{ background: 'var(--bg3)', border: '1px solid var(--border2)', borderRadius: 12, padding: 18 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed var(--border2)', paddingBottom: 10 }}>
                     <div>
-                      <div style={{ fontSize: 10, color: '#64748b', fontWeight: 800 }}>CAMPUS SHUTTLE PASS</div>
-                      <div style={{ fontSize: 14, fontWeight: 900, color: '#2563eb', marginTop: 4 }}>{user?.displayName || 'Student'}</div>
+                      <div style={{ fontSize: 10, color: 'var(--t2)', fontWeight: 800 }}>CAMPUS SHUTTLE PASS</div>
+                      <div style={{ fontSize: 14, fontWeight: 900, color: 'var(--accent)', marginTop: 4 }}>{user?.displayName || 'Student'}</div>
                     </div>
                     <div style={{ textAlign: 'right' }}>
-                      <div style={{ fontSize: 10, color: '#64748b', fontWeight: 800 }}>ROUTE CODE</div>
+                      <div style={{ fontSize: 10, color: 'var(--t2)', fontWeight: 800 }}>ROUTE CODE</div>
                       <div style={{ fontSize: 14, fontWeight: 900, marginTop: 4 }}>{allocation.route}</div>
                     </div>
                   </div>
 
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginTop: 12, fontSize: 12 }}>
                     <div>
-                      <span style={{ color: '#64748b', fontSize: 10, display: 'block' }}>BOARDING STATION</span>
+                      <span style={{ color: 'var(--t2)', fontSize: 10, display: 'block' }}>BOARDING STATION</span>
                       <strong>{allocation.stop}</strong>
                     </div>
                     <div>
-                      <span style={{ color: '#64748b', fontSize: 10, display: 'block' }}>TIMINGS SCHEDULE</span>
+                      <span style={{ color: 'var(--t2)', fontSize: 10, display: 'block' }}>TIMINGS SCHEDULE</span>
                       <strong>{activeRoute?.timing}</strong>
                     </div>
                   </div>
 
-                  <div style={{ marginTop: 14, textAlign: 'center', fontSize: 10, color: '#94a3b8', fontFamily: 'var(--font-mono)' }}>
+                  <div style={{ marginTop: 14, textAlign: 'center', fontSize: 10, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
                     SECURITY HASH: MD5-PASS-TRN-80419
                   </div>
                 </div>
@@ -310,11 +310,11 @@ function StudentTransportInner() {
                 </div>
                 <div>
                   <h4 style={{ fontSize: 14, fontWeight: 800 }}>Assigned Driver: {assignedDriver.name}</h4>
-                  <div style={{ fontSize: 11.5, color: '#64748b', marginTop: 2 }}>Mobile: <strong>{assignedDriver.phone}</strong> | License: <strong>{assignedDriver.license}</strong></div>
+                  <div style={{ fontSize: 11.5, color: 'var(--t2)', marginTop: 2 }}>Mobile: <strong>{assignedDriver.phone}</strong> | License: <strong>{assignedDriver.license}</strong></div>
                   
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 8 }}>
                     <span className="star-rating">{'★'.repeat(Math.min(5, Math.max(0, Math.round(assignedDriver.rating || 0))))}</span>
-                    <span style={{ fontSize: 11.5, fontWeight: 700, color: '#475569' }}>({assignedDriver.rating || 0} Rating)</span>
+                    <span style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--t2)' }}>({assignedDriver.rating || 0} Rating)</span>
                   </div>
                 </div>
               </div>
@@ -327,22 +327,22 @@ function StudentTransportInner() {
             
             <div className="card-box">
               <h3 className="card-title">📡 Live GPS Tracker</h3>
-              <p style={{ fontSize: 12.5, color: '#64748b', marginBottom: 14 }}>
+              <p style={{ fontSize: 12.5, color: 'var(--t2)', marginBottom: 14 }}>
                 Real-time tracking coordinates mapped from the vehicle GPS transponder logs.
               </p>
 
               {allocation.status !== 'allocated' ? (
-                <div style={{ background: '#f8fafc', border: '1px dashed #cbd5e1', borderRadius: 12, padding: '40px 10px', textAlign: 'center', color: '#64748b', fontSize: 12 }}>
+                <div style={{ background: 'var(--bg3)', border: '1px dashed var(--border2)', borderRadius: 12, padding: '40px 10px', textAlign: 'center', color: 'var(--t2)', fontSize: 12 }}>
                   Live tracking maps will activate once a transport pass has been approved and allocated.
                 </div>
               ) : (
                 <div className="gps-map-mock">
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #334155', paddingBottom: 10 }}>
                     <div>
-                      <span style={{ fontSize: 10, color: '#10b981', fontWeight: 800 }}>● GPS SIGNAL CONNECTED</span>
+                      <span style={{ fontSize: 10, color: 'var(--green)', fontWeight: 800 }}>● GPS SIGNAL CONNECTED</span>
                       <div style={{ fontSize: 13, fontWeight: 900, marginTop: 2 }}>{activeRoute?.vehicle}</div>
                     </div>
-                    <span style={{ fontSize: 11, background: '#1e293b', padding: '4px 10px', borderRadius: 20 }}>Speed: 34 km/h</span>
+                    <span style={{ fontSize: 11, background: 'var(--bg3)', color: 'var(--t1)', padding: '4px 10px', borderRadius: 20 }}>Speed: 34 km/h</span>
                   </div>
 
                   {/* Nodes Line */}
@@ -363,7 +363,7 @@ function StudentTransportInner() {
                     })}
                   </div>
 
-                  <div style={{ fontSize: 11, color: '#94a3b8', borderTop: '1px solid #334155', paddingTop: 10, display: 'flex', justifyContent: 'space-between' }}>
+                  <div style={{ fontSize: 11, color: 'var(--t3)', borderTop: '1px solid #334155', paddingTop: 10, display: 'flex', justifyContent: 'space-between' }}>
                     <span>Next Stop: <strong>{activeRoute?.stops?.[(gpsStopIndex + 1) % (activeRoute?.stops?.length || 1)] || 'N/A'}</strong></span>
                     <span style={{ color: '#3b82f6' }}>ETA: 4 Mins</span>
                   </div>

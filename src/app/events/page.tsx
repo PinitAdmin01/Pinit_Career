@@ -79,7 +79,7 @@ export default function StudentEvents() {
   }).filter(Boolean);
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f8fafc', color: '#0f172a', padding: '30px 20px', fontFamily: 'var(--font-body), sans-serif' }}>
+    <div className="portal-page">
       <style>{`
         .evt-wrapper {
           max-width: 1040px;
@@ -113,15 +113,15 @@ export default function StudentEvents() {
           border-radius: 20px;
           font-size: 13px;
           font-weight: 600;
-          border: 1px solid rgba(15, 23, 42, 0.08);
-          background: #ffffff;
+          border: 1px solid var(--border);
+          background: var(--card);
           cursor: pointer;
           transition: all 0.2s ease;
         }
         .filter-btn.active {
-          background: #0f172a;
-          color: #ffffff;
-          border-color: #0f172a;
+          background: var(--t1);
+          color: var(--card);
+          border-color: var(--t1);
         }
         .events-grid {
           display: grid;
@@ -130,11 +130,11 @@ export default function StudentEvents() {
           margin-bottom: 40px;
         }
         .evt-card {
-          background: #ffffff;
-          border: 1px solid rgba(15, 23, 42, 0.05);
+          background: var(--card);
+          border: 1px solid var(--border);
           border-radius: 20px;
           padding: 24px;
-          box-shadow: 0 4px 20px rgba(15, 23, 42, 0.02);
+          box-shadow: 0 4px 20px var(--border);
           display: flex;
           flex-direction: column;
           justify-content: space-between;
@@ -157,13 +157,13 @@ export default function StudentEvents() {
         }
         .evt-desc {
           font-size: 13px;
-          color: #475569;
+          color: var(--t2);
           line-height: 1.5;
           margin-bottom: 16px;
         }
         .evt-meta {
           font-size: 12px;
-          color: #64748b;
+          color: var(--t2);
           display: flex;
           flex-direction: column;
           gap: 6px;
@@ -177,15 +177,15 @@ export default function StudentEvents() {
           gap: 6px;
         }
         .card-box {
-          background: #ffffff;
-          border: 1px solid rgba(15, 23, 42, 0.05);
+          background: var(--card);
+          border: 1px solid var(--border);
           border-radius: 20px;
           padding: 24px;
-          box-shadow: 0 4px 20px rgba(15, 23, 42, 0.02);
+          box-shadow: 0 4px 20px var(--border);
         }
         .cert-card {
-          background: #f8fafc;
-          border: 1px dashed #cbd5e1;
+          background: var(--bg3);
+          border: 1px dashed var(--border2);
           border-radius: 12px;
           padding: 16px;
           display: flex;
@@ -204,7 +204,7 @@ export default function StudentEvents() {
           z-index: 1000;
         }
         .cert-modal {
-          background: #ffffff;
+          background: var(--card);
           border-radius: 20px;
           width: 90%;
           max-width: 680px;
@@ -212,7 +212,7 @@ export default function StudentEvents() {
           box-shadow: 0 20px 60px rgba(15, 23, 42, 0.15);
         }
         .cert-border {
-          border: 8px double #0f172a;
+          border: 8px double var(--t1);
           padding: 30px;
           text-align: center;
           background: #fdfdfd;
@@ -241,7 +241,7 @@ export default function StudentEvents() {
         {/* Events Catalog grid */}
         <div className="events-grid">
           {filteredEvents.length === 0 ? (
-            <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: '60px 0', color: '#64748b' }}>
+            <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: '60px 0', color: 'var(--t2)' }}>
               No upcoming campus events listed in category.
             </div>
           ) : (
@@ -252,8 +252,8 @@ export default function StudentEvents() {
                 <div key={e.id} className="evt-card">
                   <div>
                     <span className="evt-badge" style={{
-                      background: e.category === 'Hackathons' ? '#fee2e2' : (e.category === 'Seminars' ? '#eff6ff' : '#f3e8ff'),
-                      color: e.category === 'Hackathons' ? '#ef4444' : (e.category === 'Seminars' ? '#2563eb' : '#9333ea')
+                      background: e.category === 'Hackathons' ? '#fee2e2' : (e.category === 'Seminars' ? 'var(--accent-light)' : '#f3e8ff'),
+                      color: e.category === 'Hackathons' ? 'var(--coral)' : (e.category === 'Seminars' ? 'var(--accent)' : '#9333ea')
                     }}>{e.category}</span>
                     <h3 className="evt-title">{e.title}</h3>
                     <p className="evt-desc">{e.description}</p>
@@ -308,7 +308,7 @@ export default function StudentEvents() {
           <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 800, marginBottom: 16 }}>📜 Event Participation Certificates</h3>
           
           {completedRsvps.length === 0 ? (
-            <div style={{ padding: '30px 0', textAlign: 'center', color: '#64748b', fontSize: 13.5 }}>
+            <div style={{ padding: '30px 0', textAlign: 'center', color: 'var(--t2)', fontSize: 13.5 }}>
               No completed events with RSVP confirmations found. Certificates unlock automatically once coordinators close events.
             </div>
           ) : (
@@ -316,7 +316,7 @@ export default function StudentEvents() {
               <div key={c.id} className="cert-card">
                 <div>
                   <strong style={{ fontSize: 14 }}>{c.title}</strong>
-                  <div style={{ fontSize: 11.5, color: '#64748b', marginTop: 4 }}>
+                  <div style={{ fontSize: 11.5, color: 'var(--t2)', marginTop: 4 }}>
                     Held: {c.date} | Category: {c.category}
                   </div>
                 </div>
@@ -325,7 +325,7 @@ export default function StudentEvents() {
                   <button
                     onClick={() => setViewingCertificate(c)}
                     className="btn-ghost btn-sm"
-                    style={{ border: '1.5px solid #0f172a', color: '#0f172a', padding: '6px 12px' }}
+                    style={{ border: '1.5px solid var(--t1)', color: 'var(--t1)', padding: '6px 12px' }}
                   >
                     🎓 View Certificate
                   </button>
@@ -344,13 +344,13 @@ export default function StudentEvents() {
         <div className="overlay">
           <div className="cert-modal">
             <div className="cert-border">
-              <div style={{ fontFamily: 'Georgia, serif', fontSize: 32, fontWeight: 'bold', color: '#0f172a', marginBottom: 12 }}>
+              <div style={{ fontFamily: 'Georgia, serif', fontSize: 32, fontWeight: 'bold', color: 'var(--t1)', marginBottom: 12 }}>
                 Certificate of Participation
               </div>
-              <div style={{ fontSize: 14, fontStyle: 'italic', color: '#475569', marginBottom: 20 }}>
+              <div style={{ fontSize: 14, fontStyle: 'italic', color: 'var(--t2)', marginBottom: 20 }}>
                 This is proudly presented to
               </div>
-              <div style={{ fontSize: 24, fontWeight: 800, textDecoration: 'underline', color: '#0f172a', marginBottom: 18 }}>
+              <div style={{ fontSize: 24, fontWeight: 800, textDecoration: 'underline', color: 'var(--t1)', marginBottom: 18 }}>
                 ASHWANTH KUMAR
               </div>
               <div style={{ fontSize: 13.5, color: '#334155', maxWidth: 480, margin: '0 auto', lineHeight: 1.6, marginBottom: 24 }}>
@@ -359,16 +359,16 @@ export default function StudentEvents() {
 
               <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', marginTop: 40 }}>
                 <div>
-                  <div style={{ fontSize: 13, fontWeight: 700, borderBottom: '1px solid #94a3b8', width: 140, margin: '0 auto 4px auto', paddingBottom: 6 }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, borderBottom: '1px solid var(--t3)', width: 140, margin: '0 auto 4px auto', paddingBottom: 6 }}>
                     PinIT Dean
                   </div>
-                  <div style={{ fontSize: 10, color: '#64748b' }}>Authorized Signatory</div>
+                  <div style={{ fontSize: 10, color: 'var(--t2)' }}>Authorized Signatory</div>
                 </div>
                 <div>
-                  <div style={{ fontFamily: 'monospace', fontSize: 12, fontWeight: 700, color: '#0f172a' }}>
+                  <div style={{ fontFamily: 'monospace', fontSize: 12, fontWeight: 700, color: 'var(--t1)' }}>
                     {viewingCertificate.rsvpInfo.certificateCode}
                   </div>
-                  <div style={{ fontSize: 10, color: '#64748b' }}>Verification Hash ID</div>
+                  <div style={{ fontSize: 10, color: 'var(--t2)' }}>Verification Hash ID</div>
                 </div>
               </div>
             </div>
@@ -377,14 +377,14 @@ export default function StudentEvents() {
               <button
                 onClick={() => window.print()}
                 className="btn-ghost"
-                style={{ border: '1.5px solid #0f172a' }}
+                style={{ border: '1.5px solid var(--t1)' }}
               >
                 🖨 Print Layout
               </button>
               <button
                 onClick={() => setViewingCertificate(null)}
                 className="btn-primary"
-                style={{ background: '#0f172a' }}
+                style={{ background: 'var(--t1)' }}
               >
                 ✕ Close Vault
               </button>

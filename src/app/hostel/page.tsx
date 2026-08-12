@@ -108,7 +108,7 @@ export default function StudentHostel() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f8fafc', color: '#0f172a', padding: '30px 20px', fontFamily: 'var(--font-body), sans-serif' }}>
+    <div className="portal-page">
       <style>{`
         .hostel-wrapper {
           max-width: 1040px;
@@ -145,11 +145,11 @@ export default function StudentHostel() {
           }
         }
         .card-box {
-          background: #ffffff;
-          border: 1px solid rgba(15, 23, 42, 0.05);
+          background: var(--card);
+          border: 1px solid var(--border);
           border-radius: 20px;
           padding: 24px;
-          box-shadow: 0 4px 20px rgba(15, 23, 42, 0.02);
+          box-shadow: 0 4px 20px var(--border);
         }
         .card-title {
           font-family: var(--font-display), sans-serif;
@@ -166,8 +166,8 @@ export default function StudentHostel() {
           gap: 12px;
         }
         .room-card {
-          background: #ffffff;
-          border: 1px solid #e2e8f0;
+          background: var(--card);
+          border: 1px solid var(--border);
           border-radius: 12px;
           padding: 14px;
           text-align: center;
@@ -175,12 +175,12 @@ export default function StudentHostel() {
           transition: all 0.2s;
         }
         .room-card:hover {
-          border-color: #2563eb;
-          background: #f8fafc;
+          border-color: var(--accent);
+          background: var(--bg3);
         }
         .attendance-fingerprint {
-          background: #eff6ff;
-          border: 2px dashed #2563eb;
+          background: var(--accent-light);
+          border: 2px dashed var(--accent);
           border-radius: 50%;
           width: 80px;
           height: 80px;
@@ -196,10 +196,10 @@ export default function StudentHostel() {
           transform: scale(0.9);
         }
         .ticket-row {
-          background: #f8fafc;
+          background: var(--bg3);
           padding: 12px;
           border-radius: 10px;
-          border: 1px solid #e2e8f0;
+          border: 1px solid var(--border);
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -219,12 +219,12 @@ export default function StudentHostel() {
           </div>
         )}
         {allocation.status === 'pending' && (
-          <div className="status-alert" style={{ background: '#fef3c7', borderColor: '#fde68a', color: '#92400e' }}>
+          <div className="status-alert" style={{ background: 'var(--amber-light)', borderColor: '#fde68a', color: '#92400e' }}>
             <div>
               <strong style={{ fontSize: 14 }}>⏳ Allocation Review Pending</strong>
               <div style={{ fontSize: 12, marginTop: 2 }}>Requested Room: <strong>{allocation.requestedRoom}</strong>. Wardens are verifying room balances.</div>
             </div>
-            <span style={{ fontSize: 11, fontWeight: 700, padding: '4px 10px', background: '#fffbeb', borderRadius: 20 }}>Awaiting Warden</span>
+            <span style={{ fontSize: 11, fontWeight: 700, padding: '4px 10px', background: 'var(--card)beb', borderRadius: 20 }}>Awaiting Warden</span>
           </div>
         )}
         {allocation.status === 'allocated' && (
@@ -233,7 +233,7 @@ export default function StudentHostel() {
               <strong style={{ fontSize: 14 }}>✓ Accommodation Allocated</strong>
               <div style={{ fontSize: 12, marginTop: 2 }}>Room Code: <strong>{allocation.requestedRoom}</strong> | Block B. All facilities activated.</div>
             </div>
-            <span style={{ fontSize: 11, fontWeight: 700, padding: '4px 10px', background: '#ffffff', color: '#059669', borderRadius: 20 }}>Resident Profile Active</span>
+            <span style={{ fontSize: 11, fontWeight: 700, padding: '4px 10px', background: 'var(--card)', color: 'var(--green)', borderRadius: 20 }}>Resident Profile Active</span>
           </div>
         )}
 
@@ -244,7 +244,7 @@ export default function StudentHostel() {
             {/* Rooms Grid */}
             <div className="card-box">
               <h3 className="card-title">🔑 Available Hostel Rooms</h3>
-              <p style={{ fontSize: 12.5, color: '#64748b', marginBottom: 14 }}>
+              <p style={{ fontSize: 12.5, color: 'var(--t2)', marginBottom: 14 }}>
                 Review room counts and select a vacant room to submit allocation check-in requests.
               </p>
 
@@ -257,18 +257,18 @@ export default function StudentHostel() {
                       onClick={() => isSelectable && handleRequestRoom(r.code)}
                       className="room-card"
                       style={{
-                        borderColor: isSelectable ? '#e2e8f0' : '#cbd5e1',
+                        borderColor: isSelectable ? 'var(--border)' : 'var(--border2)',
                         opacity: isSelectable ? 1 : 0.8,
                         cursor: isSelectable ? 'pointer' : 'not-allowed'
                       }}
                     >
-                      <div style={{ fontWeight: 800, fontSize: 15, color: '#0f172a' }}>{r.code}</div>
-                      <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>{r.block}</div>
-                      <div style={{ fontSize: 11, fontWeight: 700, color: r.occupied === r.capacity ? '#ef4444' : '#059669', marginTop: 6 }}>
+                      <div style={{ fontWeight: 800, fontSize: 15, color: 'var(--t1)' }}>{r.code}</div>
+                      <div style={{ fontSize: 11, color: 'var(--t2)', marginTop: 2 }}>{r.block}</div>
+                      <div style={{ fontSize: 11, fontWeight: 700, color: r.occupied === r.capacity ? 'var(--coral)' : 'var(--green)', marginTop: 6 }}>
                         {r.occupied} / {r.capacity} Beds Occupied
                       </div>
                       {isSelectable && (
-                        <span style={{ display: 'block', fontSize: 10, color: '#2563eb', fontWeight: 700, marginTop: 8 }}>
+                        <span style={{ display: 'block', fontSize: 10, color: 'var(--accent)', fontWeight: 700, marginTop: 8 }}>
                           Select Room
                         </span>
                       )}
@@ -285,7 +285,7 @@ export default function StudentHostel() {
               <form onSubmit={handleRaiseComplaint} style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 16 }}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 10 }}>
                   <div>
-                    <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b', display: 'block', marginBottom: 4 }}>Category</label>
+                    <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Category</label>
                     <select
                       className="form-input"
                       value={complaintForm.category}
@@ -297,7 +297,7 @@ export default function StudentHostel() {
                     </select>
                   </div>
                   <div>
-                    <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b', display: 'block', marginBottom: 4 }}>Problem Title *</label>
+                    <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Problem Title *</label>
                     <input
                       type="text"
                       className="form-input"
@@ -310,7 +310,7 @@ export default function StudentHostel() {
                 </div>
 
                 <div>
-                  <label style={{ fontSize: 11, fontWeight: 700, color: '#64748b', display: 'block', marginBottom: 4 }}>Details Description</label>
+                  <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Details Description</label>
                   <textarea
                     className="form-input"
                     rows={2}
@@ -330,12 +330,12 @@ export default function StudentHostel() {
                   <div key={c.id} className="ticket-row">
                     <div>
                       <div style={{ fontSize: 13, fontWeight: 700 }}>{c.title} ({c.category})</div>
-                      <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>{c.description}</div>
+                      <div style={{ fontSize: 11, color: 'var(--t2)', marginTop: 2 }}>{c.description}</div>
                     </div>
                     <span style={{
                       fontSize: 10.5, fontWeight: 700, padding: '3px 8px', borderRadius: 20,
-                      background: c.status === 'Pending' ? '#fef3c7' : '#ecfdf5',
-                      color: c.status === 'Pending' ? '#b45309' : '#059669'
+                      background: c.status === 'Pending' ? 'var(--amber-light)' : '#ecfdf5',
+                      color: c.status === 'Pending' ? '#b45309' : 'var(--green)'
                     }}>{c.status}</span>
                   </div>
                 ))}
@@ -350,7 +350,7 @@ export default function StudentHostel() {
             {/* Biometric Attendance card */}
             <div className="card-box" style={{ textAlign: 'center' }}>
               <h3 className="card-title" style={{ justifyContent: 'center' }}>📸 Room Biometric Roll-Call</h3>
-              <p style={{ fontSize: 12, color: '#64748b' }}>
+              <p style={{ fontSize: 12, color: 'var(--t2)' }}>
                 Verify nightly roll-call logs via biometric check-in. Scanner active from 8:00 PM to 10:00 PM.
               </p>
 
@@ -362,18 +362,18 @@ export default function StudentHostel() {
               </div>
 
               <div style={{ display: 'flex', gap: 6, justifyContent: 'center', marginTop: 10 }}>
-                <button onClick={() => handleLogAttendance('check-in')} className="btn-ghost btn-sm" style={{ border: '1px solid #e2e8f0', fontSize: 11 }}>
+                <button onClick={() => handleLogAttendance('check-in')} className="btn-ghost btn-sm" style={{ border: '1px solid var(--border)', fontSize: 11 }}>
                   Log check-in
                 </button>
-                <button onClick={() => handleLogAttendance('check-out')} className="btn-ghost btn-sm" style={{ border: '1px solid #e2e8f0', fontSize: 11 }}>
+                <button onClick={() => handleLogAttendance('check-out')} className="btn-ghost btn-sm" style={{ border: '1px solid var(--border)', fontSize: 11 }}>
                   Log check-out
                 </button>
               </div>
 
               <div style={{ borderTop: '1px solid #f1f5f9', marginTop: 16, paddingTop: 12, textAlign: 'left', maxHeight: 150, overflowY: 'auto' }}>
-                <div style={{ fontSize: 11.5, fontWeight: 800, color: '#475569', marginBottom: 6, textAlign: 'left' }}>Recent Punch Logs</div>
+                <div style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--t2)', marginBottom: 6, textAlign: 'left' }}>Recent Punch Logs</div>
                 {attendance.map(a => (
-                  <div key={a.id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: '#64748b', padding: '4px 0' }}>
+                  <div key={a.id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: 'var(--t2)', padding: '4px 0' }}>
                     <span>{a.type === 'check-in' ? '🟢 Checked In' : '🔴 Checked Out'}</span>
                     <span>{new Date(a.timestamp).toLocaleTimeString()}</span>
                   </div>
@@ -418,20 +418,20 @@ export default function StudentHostel() {
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 {visitors.map(v => (
-                  <div key={v.id} style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 10, padding: 12, fontSize: 12.5 }}>
+                  <div key={v.id} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 10, padding: 12, fontSize: 12.5 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 700 }}>
                       <span>{v.name} ({v.relation})</span>
-                      <span style={{ color: v.status === 'checked-in' ? '#2563eb' : '#64748b' }}>
+                      <span style={{ color: v.status === 'checked-in' ? 'var(--accent)' : 'var(--t2)' }}>
                         {v.status === 'checked-in' ? 'Active Entry' : 'Checked out'}
                       </span>
                     </div>
-                    <div style={{ fontSize: 11, color: '#64748b', marginTop: 4 }}>Purpose: {v.purpose}</div>
+                    <div style={{ fontSize: 11, color: 'var(--t2)', marginTop: 4 }}>Purpose: {v.purpose}</div>
                     
                     {v.status === 'checked-in' && (
                       <button
                         onClick={() => handleVisitorCheckout(v.id)}
                         className="btn-ghost btn-sm"
-                        style={{ border: '1px solid #cbd5e1', fontSize: 11, marginTop: 8, width: '100%' }}
+                        style={{ border: '1px solid var(--border2)', fontSize: 11, marginTop: 8, width: '100%' }}
                       >
                         Log checkout Sign-out
                       </button>

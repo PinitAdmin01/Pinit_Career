@@ -64,7 +64,7 @@ export default function FacultyResearchPortal() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f8fafc', color: '#0f172a', padding: '30px 20px', fontFamily: 'var(--font-body), sans-serif' }}>
+    <div className="portal-page">
       <style>{`
         .res-wrapper {
           max-width: 1040px;
@@ -87,17 +87,17 @@ export default function FacultyResearchPortal() {
           margin-bottom: 24px;
         }
         .metric-card {
-          background: #ffffff;
-          border: 1px solid rgba(15, 23, 42, 0.05);
+          background: var(--card);
+          border: 1px solid var(--border);
           border-radius: 16px;
           padding: 20px;
-          box-shadow: 0 4px 20px rgba(15, 23, 42, 0.02);
+          box-shadow: 0 4px 20px var(--border);
         }
         .metric-label {
           font-size: 11px;
           font-weight: 800;
           text-transform: uppercase;
-          color: #64748b;
+          color: var(--t2);
           letter-spacing: 0.5px;
         }
         .metric-value {
@@ -117,11 +117,11 @@ export default function FacultyResearchPortal() {
           }
         }
         .card-box {
-          background: #ffffff;
-          border: 1px solid rgba(15, 23, 42, 0.05);
+          background: var(--card);
+          border: 1px solid var(--border);
           border-radius: 20px;
           padding: 24px;
-          box-shadow: 0 4px 20px rgba(15, 23, 42, 0.02);
+          box-shadow: 0 4px 20px var(--border);
         }
         .card-title {
           font-family: var(--font-display), sans-serif;
@@ -143,7 +143,7 @@ export default function FacultyResearchPortal() {
           position: absolute;
           top: 8px; left: 0; right: 0;
           height: 3px;
-          background: #e2e8f0;
+          background: var(--border);
           z-index: 1;
         }
         .tracker-step {
@@ -154,24 +154,24 @@ export default function FacultyResearchPortal() {
           align-items: center;
           font-size: 10px;
           font-weight: 700;
-          color: #64748b;
+          color: var(--t2);
         }
         .tracker-dot {
           width: 18px; height: 18px;
           border-radius: 50%;
-          background: #cbd5e1;
-          border: 3px solid #ffffff;
+          background: var(--border2);
+          border: 3px solid var(--card);
           margin-bottom: 4px;
-          box-shadow: 0 2px 4px rgba(15, 23, 42, 0.05);
+          box-shadow: 0 2px 4px var(--border);
         }
         .tracker-step.active {
-          color: #2563eb;
+          color: var(--accent);
         }
         .tracker-step.active .tracker-dot {
-          background: #2563eb;
+          background: var(--accent);
         }
         .progress-bar-container {
-          background: #e2e8f0;
+          background: var(--border);
           border-radius: 10px;
           height: 8px;
           overflow: hidden;
@@ -180,15 +180,15 @@ export default function FacultyResearchPortal() {
         }
         .progress-bar-fill {
           height: 100%;
-          background: #10b981;
+          background: var(--green);
           border-radius: 10px;
         }
         .project-card {
-          border: 1px solid #e2e8f0;
+          border: 1px solid var(--border);
           border-radius: 12px;
           padding: 16px;
           margin-bottom: 16px;
-          background: #f8fafc;
+          background: var(--bg3);
         }
       `}</style>
 
@@ -198,8 +198,8 @@ export default function FacultyResearchPortal() {
         {/* Stats Header Grid */}
         <div className="metric-grid">
           {[
-            { label: 'Published Papers', value: `${papers.filter(p => p.status === 'Published').length} Papers`, color: '#2563eb' },
-            { label: 'Active Projects', value: `${projects.length} Grants`, color: '#10b981' },
+            { label: 'Published Papers', value: `${papers.filter(p => p.status === 'Published').length} Papers`, color: 'var(--accent)' },
+            { label: 'Active Projects', value: `${projects.length} Grants`, color: 'var(--green)' },
             { label: 'Filed Patents', value: `${patents.length} Filings`, color: '#8b5cf6' },
             { label: 'Funding Secured', value: `₹${(projects.reduce((acc, curr) => acc + (curr.grantAmount || 0), 0) / 100000).toFixed(1)}L`, color: '#f59e0b' }
           ].map(s => (
@@ -222,18 +222,18 @@ export default function FacultyResearchPortal() {
                 {papers.map(p => {
                   const currentStep = getStatusStep(p.status);
                   return (
-                    <div key={p.id} style={{ border: '1px solid #e2e8f0', borderRadius: 14, padding: 18, background: '#ffffff' }}>
+                    <div key={p.id} style={{ border: '1px solid var(--border)', borderRadius: 14, padding: 18, background: 'var(--card)' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, fontWeight: 700, background: '#f1f5f9', padding: '2px 6px', borderRadius: 4 }}>{p.id}</span>
                         <span style={{
                           padding: '3px 8px', borderRadius: 20, fontSize: 10.5, fontWeight: 700,
-                          background: p.status === 'Published' ? '#d1fae5' : (p.status === 'Accepted' ? '#dbeafe' : '#fef3c7'),
+                          background: p.status === 'Published' ? '#d1fae5' : (p.status === 'Accepted' ? 'var(--accent-light)' : 'var(--amber-light)'),
                           color: p.status === 'Published' ? '#065f46' : (p.status === 'Accepted' ? '#1e40af' : '#b45309')
                         }}>{p.status}</span>
                       </div>
                       
                       <h4 style={{ margin: '8px 0 4px 0', fontSize: 14.5, fontWeight: 800 }}>{p.title}</h4>
-                      <div style={{ fontSize: 11.5, color: '#64748b' }}>Authors: {p.authors} | Target Journal: {p.journal}</div>
+                      <div style={{ fontSize: 11.5, color: 'var(--t2)' }}>Authors: {p.authors} | Target Journal: {p.journal}</div>
 
                       {/* Timeline steps */}
                       <div className="tracker-bar">
@@ -255,7 +255,7 @@ export default function FacultyResearchPortal() {
               </div>
 
               {/* Manuscript Composer */}
-              <form onSubmit={handlePublishPaper} style={{ borderTop: '1px solid #e2e8f0', paddingTop: 20, marginTop: 20, display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <form onSubmit={handlePublishPaper} style={{ borderTop: '1px solid var(--border)', paddingTop: 20, marginTop: 20, display: 'flex', flexDirection: 'column', gap: 12 }}>
                 <h4 style={{ fontSize: 14, fontWeight: 800, margin: 0 }}>➕ Log Manuscript/Draft Paper</h4>
                 <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 10 }}>
                   <input
@@ -286,17 +286,17 @@ export default function FacultyResearchPortal() {
               <h3 className="card-title">💡 Intellectual Property (Patents)</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 {patents.map(pat => (
-                  <div key={pat.id} style={{ padding: 16, borderRadius: 12, border: '1px solid #e2e8f0', background: '#f8fafc', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div key={pat.id} style={{ padding: 16, borderRadius: 12, border: '1px solid var(--border)', background: 'var(--bg3)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
                       <strong style={{ fontSize: 13.5 }}>{pat.title}</strong>
-                      <div style={{ fontSize: 11.5, color: '#64748b', marginTop: 4 }}>
+                      <div style={{ fontSize: 11.5, color: 'var(--t2)', marginTop: 4 }}>
                         Inventors: {pat.inventors} | File Ref: {pat.fileNo}
                       </div>
-                      <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>Filed Date: {pat.filedOn}</div>
+                      <div style={{ fontSize: 11, color: 'var(--t2)', marginTop: 2 }}>Filed Date: {pat.filedOn}</div>
                     </div>
                     <span style={{
                       padding: '3px 8px', borderRadius: 20, fontSize: 10, fontWeight: 700,
-                      background: '#eff6ff', color: '#1e40af', border: '1px solid #bfdbfe'
+                      background: 'var(--accent-light)', color: '#1e40af', border: '1px solid #bfdbfe'
                     }}>{pat.status}</span>
                   </div>
                 ))}
@@ -315,13 +315,13 @@ export default function FacultyResearchPortal() {
               <div>
                 {projects.map(proj => (
                   <div key={proj.id} className="project-card">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5, fontWeight: 800, color: '#64748b', marginBottom: 6 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5, fontWeight: 800, color: 'var(--t2)', marginBottom: 6 }}>
                       <span>Ref: {proj.id}</span>
                       <span>Budget: ₹{(proj.grantAmount || 0).toLocaleString()}</span>
                     </div>
                     <h4 style={{ margin: '0 0 6px 0', fontSize: 14, fontWeight: 800 }}>{proj.title}</h4>
                     
-                    <div style={{ fontSize: 12, color: '#475569', marginBottom: 12 }}>
+                    <div style={{ fontSize: 12, color: 'var(--t2)', marginBottom: 12 }}>
                       <div>Principal Inv. (PI): <strong>{proj.pi}</strong></div>
                       <div>Co-PI: {proj.coPi}</div>
                       <div>Funding Agency: {proj.fundingAgency}</div>
@@ -329,7 +329,7 @@ export default function FacultyResearchPortal() {
                     </div>
 
                     <div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, fontWeight: 700, color: '#475569' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>
                         <span>Research Milestones</span>
                         <span>{proj.progress}%</span>
                       </div>
@@ -347,15 +347,15 @@ export default function FacultyResearchPortal() {
               <h3 className="card-title">💰 Grants & Seed Funding</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {funding.map(f => (
-                  <div key={f.id} style={{ padding: 14, borderRadius: 10, border: '1px solid #e2e8f0', background: '#ffffff', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12.5 }}>
+                  <div key={f.id} style={{ padding: 14, borderRadius: 10, border: '1px solid var(--border)', background: 'var(--card)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12.5 }}>
                     <div>
                       <strong>{f.title}</strong>
-                      <div style={{ color: '#64748b', fontSize: 11, marginTop: 2 }}>PI: {f.pi} | Agency: {f.agency}</div>
-                      <div style={{ fontWeight: 700, color: '#0f172a', marginTop: 4 }}>Amount: ₹{f.amount.toLocaleString()}</div>
+                      <div style={{ color: 'var(--t2)', fontSize: 11, marginTop: 2 }}>PI: {f.pi} | Agency: {f.agency}</div>
+                      <div style={{ fontWeight: 700, color: 'var(--t1)', marginTop: 4 }}>Amount: ₹{f.amount.toLocaleString()}</div>
                     </div>
                     <span style={{
                       padding: '3px 8px', borderRadius: 20, fontSize: 10, fontWeight: 700,
-                      background: f.status === 'Approved' ? '#ecfdf5' : '#fef3c7',
+                      background: f.status === 'Approved' ? '#ecfdf5' : 'var(--amber-light)',
                       color: f.status === 'Approved' ? '#047857' : '#b45309'
                     }}>{f.status}</span>
                   </div>
