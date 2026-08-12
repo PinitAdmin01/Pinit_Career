@@ -1,8 +1,7 @@
-import fs from 'fs';
-import path from 'path';
 import { supabase } from '@/lib/supabaseClient';
+import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
 
-const DB_PATH = path.join(process.cwd(), 'src/lib/data/finance_db.json');
+const DB_FILE = 'src/lib/data/finance_db.json';
 
 // Interface types
 export interface FinanceInstallment {
@@ -33,26 +32,13 @@ export interface FinanceTransaction {
 }
 
 // Read local JSON database
-function readLocalDb(): any {
-  try {
-    if (!fs.existsSync(DB_PATH)) {
-      return { dues: {}, scholarships: [], transactions: [] };
-    }
-    const raw = fs.readFileSync(DB_PATH, 'utf-8');
-    return JSON.parse(raw);
-  } catch (err) {
-    console.error('Error reading local finance database file:', err);
-    return { dues: {}, scholarships: [], transactions: [] };
-  }
+async function readLocalDb(): Promise<any> {
+  return await readLocalJson(DB_FILE, { dues: {}, scholarships: [], transactions: [] });
 }
 
 // Write local JSON database
-function writeLocalDb(data: any): void {
-  try {
-    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf-8');
-  } catch (err) {
-    console.error('Error writing local finance database file:', err);
-  }
+async function writeLocalDb(data: any): Promise<void> {
+  await writeLocalJson(DB_FILE, data);
 }
 
 // Check if Supabase tables exist
@@ -86,13 +72,15 @@ export const financeService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
-    return db.dues;
+    const db = await readLocalDb();
+    if (db.dues && Array.isArray(db.dues.installments)) return db.dues;
+    return { totalTermFees: 0, scholarshipWaiver: 0, fineLevied: 0, installments: [] };
   },
 
-  async payDue(studentId: string, studentName: string, installmentId: string) {
+  async payDue(studentId: string, studentName: string, installmentId: string, studentEmail?: string) {
     const isSupabaseAvailable = await checkSupabaseAvailable('finance_dues');
     const transactionId = 'RCP-' + Math.floor(10000 + Math.random() * 90000);
+    const email = studentEmail?.trim() || '';
 
     if (isSupabaseAvailable) {
       try {
@@ -118,7 +106,7 @@ export const financeService = {
           await supabase.from('finance_transactions').insert({
             id: transactionId,
             student_name: studentName,
-            student_email: 'student@pinit.in',
+            student_email: email,
             amount: 40000,
             fine_paid: 1500,
             type: 'Tuition Fee (Installment 3)'
@@ -132,7 +120,7 @@ export const financeService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     db.dues.installments = db.dues.installments.map((inst: any) => {
       if (inst.id === installmentId) {
         return {
@@ -149,18 +137,18 @@ export const financeService = {
     db.transactions.unshift({
       id: transactionId,
       studentName,
-      studentEmail: 'student@pinit.in',
+      studentEmail: email,
       amount: 40000,
       finePaid: 1500,
       type: 'Tuition Fee (Installment 3)',
       timestamp: new Date().toISOString()
     });
-    writeLocalDb(db);
+    await writeLocalDb(db);
     return { ok: true, receiptId: transactionId };
   },
 
   async getScholarships() {
-    const db = readLocalDb();
+    const db = await readLocalDb();
     return {
       scholarships: db.scholarships || []
     };
@@ -194,7 +182,7 @@ export const financeService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     db.dues.scholarshipWaiver = val;
     db.dues.installments = db.dues.installments.map((inst: any) => {
       if (inst.id === 'Inst-3') {
@@ -202,7 +190,7 @@ export const financeService = {
       }
       return inst;
     });
-    writeLocalDb(db);
+    await writeLocalDb(db);
     return { ok: true, waiver: val };
   },
 
@@ -237,7 +225,7 @@ export const financeService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const transactions = db.transactions || [];
     const addedAmount = transactions.reduce((sum: number, t: any) => sum + t.amount + (t.finePaid || 0), 0);
     const initialTransactions = [

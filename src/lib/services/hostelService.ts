@@ -1,8 +1,7 @@
-import fs from 'fs';
-import path from 'path';
 import { supabase } from '@/lib/supabaseClient';
+import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
 
-const DB_PATH = path.join(process.cwd(), 'src/lib/data/hostel_db.json');
+const DB_FILE = 'src/lib/data/hostel_db.json';
 
 // Interface types
 export interface HostelRoom {
@@ -44,26 +43,13 @@ export interface HostelVisitor {
 }
 
 // Read local JSON file database
-function readLocalDb(): any {
-  try {
-    if (!fs.existsSync(DB_PATH)) {
-      return { rooms: [], allocations: [], attendance: [], complaints: [], visitors: [] };
-    }
-    const raw = fs.readFileSync(DB_PATH, 'utf-8');
-    return JSON.parse(raw);
-  } catch (err) {
-    console.error('Error reading local hostel database file:', err);
-    return { rooms: [], allocations: [], attendance: [], complaints: [], visitors: [] };
-  }
+async function readLocalDb(): Promise<any> {
+  return await readLocalJson(DB_FILE, { rooms: [], allocations: [], attendance: [], complaints: [], visitors: [] });
 }
 
 // Write local JSON file database
-function writeLocalDb(data: any): void {
-  try {
-    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf-8');
-  } catch (err) {
-    console.error('Error writing local hostel database file:', err);
-  }
+async function writeLocalDb(data: any): Promise<void> {
+  await writeLocalJson(DB_FILE, data);
 }
 
 // Check if Supabase tables exist
@@ -101,7 +87,7 @@ export const hostelService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const allocation = db.allocations?.find((a: any) => a.student_id === studentId) || { requestedRoom: null, status: 'none' };
     const myAttendance = db.attendance?.filter((a: any) => a.student_id === studentId || a.studentName === studentName) || [];
     const myComplaints = db.complaints?.filter((c: any) => c.student_id === studentId || c.studentName === studentName) || [];
@@ -134,7 +120,7 @@ export const hostelService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const index = db.allocations.findIndex((a: any) => a.student_id === studentId);
     const newAlloc = { student_id: studentId, student_name: studentName, requestedRoom: roomCode, status: 'pending' };
     if (index >= 0) {
@@ -142,7 +128,7 @@ export const hostelService = {
     } else {
       db.allocations.push(newAlloc);
     }
-    writeLocalDb(db);
+    await writeLocalDb(db);
     return { ok: true };
   },
 
@@ -165,7 +151,7 @@ export const hostelService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     db.attendance.unshift({
       id: `ATT-${Math.floor(100 + Math.random() * 900)}`,
       student_id: studentId,
@@ -174,7 +160,7 @@ export const hostelService = {
       type,
       timestamp: new Date().toISOString()
     });
-    writeLocalDb(db);
+    await writeLocalDb(db);
     return { ok: true };
   },
 
@@ -198,7 +184,7 @@ export const hostelService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     db.complaints.unshift({
       id: `CMP-${Math.floor(100 + Math.random() * 900)}`,
       student_id: studentId,
@@ -209,7 +195,7 @@ export const hostelService = {
       status: 'Pending',
       timestamp: new Date().toISOString()
     });
-    writeLocalDb(db);
+    await writeLocalDb(db);
     return { ok: true };
   },
 
@@ -232,7 +218,7 @@ export const hostelService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     db.visitors.unshift({
       id: `VIS-${Math.floor(100 + Math.random() * 900)}`,
       student_id: studentId,
@@ -242,7 +228,7 @@ export const hostelService = {
       status: 'checked-in',
       timestamp: new Date().toISOString()
     });
-    writeLocalDb(db);
+    await writeLocalDb(db);
     return { ok: true };
   },
 
@@ -259,12 +245,55 @@ export const hostelService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const visitor = db.visitors.find((v: any) => v.id === visitorId);
     if (visitor) {
       visitor.status = 'checked-out';
-      writeLocalDb(db);
+      await writeLocalDb(db);
     }
     return { ok: true };
-  }
+  },
+
+  async resolveComplaint(complaintId: string) {
+    const isSupabaseAvailable = await checkSupabaseAvailable('hostel_complaints');
+    if (isSupabaseAvailable) {
+      try {
+        await supabase.from('hostel_complaints').update({ status: 'Resolved' }).eq('id', complaintId);
+        return { ok: true };
+      } catch (err) {
+        console.warn('Supabase write failed, falling back to local db:', err);
+      }
+    }
+    const db = await readLocalDb();
+    const row = (db.complaints || []).find((c: any) => c.id === complaintId);
+    if (row) {
+      row.status = 'Resolved';
+      await writeLocalDb(db);
+    }
+    return { ok: true };
+  },
+
+  async approveAllocation(studentId: string, roomCode: string) {
+    const isSupabaseAvailable = await checkSupabaseAvailable('hostel_allocations');
+    if (isSupabaseAvailable) {
+      try {
+        await supabase.from('hostel_allocations').update({ status: 'approved', requested_room: roomCode }).eq('student_id', studentId);
+        const { data: room } = await supabase.from('hostel_rooms').select('*').eq('code', roomCode).maybeSingle();
+        if (room) {
+          await supabase.from('hostel_rooms').update({
+            occupied: (room.occupied || 0) + 1,
+            status: (room.occupied || 0) + 1 >= (room.capacity || 1) ? 'full' : 'available',
+          }).eq('code', roomCode);
+        }
+        return { ok: true };
+      } catch (err) {
+        console.warn('Supabase write failed, falling back to local db:', err);
+      }
+    }
+    const db = await readLocalDb();
+    const alloc = (db.allocations || []).find((a: any) => a.student_id === studentId);
+    if (alloc) alloc.status = 'approved';
+    await writeLocalDb(db);
+    return { ok: true };
+  },
 };

@@ -1,8 +1,7 @@
-import fs from 'fs';
-import path from 'path';
 import { supabase } from '@/lib/supabaseClient';
+import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
 
-const DB_PATH = path.join(process.cwd(), 'src/lib/data/services_db.json');
+const DB_FILE = 'src/lib/data/services_db.json';
 
 // Interface types
 export interface ServiceLeave {
@@ -38,26 +37,13 @@ export interface ServiceCounselling {
 }
 
 // Read local JSON database
-function readLocalDb(): any {
-  try {
-    if (!fs.existsSync(DB_PATH)) {
-      return { leaves: [], requests: [], appointments: [], counselling: [] };
-    }
-    const raw = fs.readFileSync(DB_PATH, 'utf-8');
-    return JSON.parse(raw);
-  } catch (err) {
-    console.error('Error reading local services database file:', err);
-    return { leaves: [], requests: [], appointments: [], counselling: [] };
-  }
+async function readLocalDb(): Promise<any> {
+  return await readLocalJson(DB_FILE, { leaves: [], requests: [], appointments: [], counselling: [] });
 }
 
 // Write local JSON database
-function writeLocalDb(data: any): void {
-  try {
-    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf-8');
-  } catch (err) {
-    console.error('Error writing local services database file:', err);
-  }
+async function writeLocalDb(data: any): Promise<void> {
+  await writeLocalJson(DB_FILE, data);
 }
 
 // Check if Supabase tables exist
@@ -93,7 +79,7 @@ export const servicesService = {
     }
 
     // Local Database Fallback
-    return readLocalDb();
+    return await readLocalDb();
   },
 
   async applyLeave(studentId: string, startDate: string, endDate: string, reason: string, type: string) {
@@ -116,7 +102,7 @@ export const servicesService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     db.leaves.unshift({
       id: `LEV-${Math.floor(100 + Math.random() * 900)}`,
       startDate,
@@ -125,7 +111,7 @@ export const servicesService = {
       type,
       status: 'Pending'
     });
-    writeLocalDb(db);
+    await writeLocalDb(db);
     return { ok: true };
   },
 
@@ -147,14 +133,14 @@ export const servicesService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     db.requests.unshift({
       id: `REQ-${Math.floor(100 + Math.random() * 900)}`,
       category,
       description,
       status: 'Pending'
     });
-    writeLocalDb(db);
+    await writeLocalDb(db);
     return { ok: true };
   },
 
@@ -177,7 +163,7 @@ export const servicesService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     db.appointments.unshift({
       id: `APT-${Math.floor(100 + Math.random() * 900)}`,
       staffName,
@@ -185,7 +171,7 @@ export const servicesService = {
       time,
       purpose
     });
-    writeLocalDb(db);
+    await writeLocalDb(db);
     return { ok: true };
   },
 
@@ -212,7 +198,7 @@ export const servicesService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     db.counselling.unshift({
       id: `CNS-${Math.floor(100 + Math.random() * 900)}`,
       counselorName,
@@ -220,7 +206,7 @@ export const servicesService = {
       time,
       status: 'Confirmed'
     });
-    writeLocalDb(db);
+    await writeLocalDb(db);
     return { ok: true };
   },
 
@@ -237,11 +223,11 @@ export const servicesService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const idx = db.leaves.findIndex((l: any) => l.id === leaveId);
     if (idx !== -1) {
       db.leaves[idx].status = 'Approved';
-      writeLocalDb(db);
+      await writeLocalDb(db);
       return { ok: true };
     }
     return { ok: false };
@@ -260,11 +246,11 @@ export const servicesService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const idx = db.requests.findIndex((r: any) => r.id === requestId);
     if (idx !== -1) {
       db.requests[idx].status = 'Approved';
-      writeLocalDb(db);
+      await writeLocalDb(db);
       return { ok: true };
     }
     return { ok: false };

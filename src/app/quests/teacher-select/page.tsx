@@ -111,7 +111,7 @@ function TeacherSelectPageContent() {
           Select Your Quest Teacher
         </h1>
         <p style={{ fontSize: 13.5, color: 'var(--t2)', marginTop: 8, maxWidth: 500, margin: '8px auto 0', lineHeight: 1.5 }}>
-          Choose a specialized digital teacher avatar to narrate and guide you through this learning module.
+          Choose a specialized digital teacher from the local catalog to narrate and guide you through this learning module.
         </p>
       </div>
 

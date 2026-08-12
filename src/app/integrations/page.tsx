@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useAuth } from '@/lib/context/AuthContext';
 import { toast } from '@/lib/store/useAppStore';
 
@@ -27,15 +27,8 @@ interface ApiKey {
 
 export default function IntegrationsPage() {
   const { user } = useAuth();
-  const [activeRole, setActiveRole] = useState<'student' | 'admin'>('student');
+  const isAdmin = user?.role === 'admin' || user?.role === 'superadmin';
   const [activeTab, setActiveTab] = useState<string>('University ERP');
-
-  // Load default switch based on auth role if logged in
-  useEffect(() => {
-    if (user?.role === 'admin') {
-      setActiveRole('admin');
-    }
-  }, [user]);
 
   // Integrations state datasets
   const [erpConnectors, setErpConnectors] = useState<IntegrationSetting[]>([
@@ -54,8 +47,8 @@ export default function IntegrationsPage() {
   ]);
 
   const [gateways] = useState([
-    { name: 'Stripe Corporate Billing', mode: 'Live mode', webhookStatus: 'Healthy ✓' },
-    { name: 'Razorpay Campus Collect', mode: 'Live mode', webhookStatus: 'Healthy ✓' }
+    { name: 'Stripe Corporate Billing', mode: 'Preview', webhookStatus: 'Catalog only' },
+    { name: 'Razorpay Campus Collect', mode: 'Preview', webhookStatus: 'Catalog only' }
   ]);
 
   const [recruiterPlatforms] = useState([
@@ -74,8 +67,8 @@ export default function IntegrationsPage() {
   ]);
 
   const [apiKeys, setApiKeys] = useState<ApiKey[]>([
-    { id: 'key1', name: 'LMS Sync Daemon Key', prefix: 'pk_live_51P...', created: 'Jul 12, 2026' },
-    { id: 'key2', name: 'Biometric Gate Gateway Token', prefix: 'pk_live_90A...', created: 'Jun 18, 2026' }
+    { id: 'key1', name: 'LMS Sync Daemon Key', prefix: 'pk_preview_51P...', created: 'Jul 12, 2026' },
+    { id: 'key2', name: 'Biometric Gate Gateway Token', prefix: 'pk_preview_90A...', created: 'Jun 18, 2026' }
   ]);
 
   const [syncLogs, setSyncLogs] = useState([
@@ -97,7 +90,7 @@ export default function IntegrationsPage() {
     const newKey: ApiKey = {
       id: `key_${Date.now()}`,
       name: 'Dynamic Ad-hoc Token',
-      prefix: `pk_live_${Math.random().toString(36).substring(2, 8).toUpperCase()}...`,
+      prefix: `pk_preview_${Math.random().toString(36).substring(2, 8).toUpperCase()}...`,
       created: 'Today'
     };
     setApiKeys([...apiKeys, newKey]);
@@ -107,29 +100,10 @@ export default function IntegrationsPage() {
   return (
     <div style={{ maxWidth: 1280, margin: '0 auto', paddingBottom: 60 }} className="animate-fade-in">
       
-      {/* Demo bypass switcher */}
-      <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(255,255,255,0.02)', padding: '10px 20px', borderRadius: 14, border: '1px solid var(--border)', marginBottom: 20 }}>
-        <span style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--amber)' }}>🔧 DEMO INTERFACE BYPASS SHIELD:</span>
-        <div style={{ display: 'flex', gap: 6 }}>
-          <button
-            onClick={() => setActiveRole('student')}
-            style={{ padding: '6px 12px', fontSize: 11, borderRadius: 6, border: 'none', background: activeRole === 'student' ? 'var(--coral)' : 'transparent', color: activeRole === 'student' ? '#fff' : 'var(--t3)', cursor: 'pointer' }}
-          >
-            🧑‍🎓 Student View (Access Denied Mock)
-          </button>
-          <button
-            onClick={() => setActiveRole('admin')}
-            style={{ padding: '6px 12px', fontSize: 11, borderRadius: 6, border: 'none', background: activeRole === 'admin' ? 'var(--accent)' : 'transparent', color: activeRole === 'admin' ? '#fff' : 'var(--t3)', cursor: 'pointer' }}
-          >
-            ⚙ Administrator / IT Team Desk
-          </button>
-        </div>
-      </div>
-
       {/* ──────────────────────────────────────────────────────── */}
       {/* 🧑‍🎓 PORTAL: ACCESS DENIED SHIELD */}
       {/* ──────────────────────────────────────────────────────── */}
-      {activeRole === 'student' && (
+      {!isAdmin && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'center', justifyContent: 'center', minHeight: '50vh', textAlign: 'center' }}>
           <span style={{ fontSize: 64 }}>🔒</span>
           <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontWeight: 900, color: 'var(--coral)', margin: 0 }}>
@@ -144,8 +118,11 @@ export default function IntegrationsPage() {
       {/* ──────────────────────────────────────────────────────── */}
       {/* ⚙ PORTAL: ADMIN WORKSPACE */}
       {/* ──────────────────────────────────────────────────────── */}
-      {activeRole === 'admin' && (
+      {isAdmin && (
         <div style={{ display: 'grid', gridTemplateColumns: '240px 1fr', gap: 20, alignItems: 'start' }}>
+          <div style={{ gridColumn: '1 / -1', padding: '10px 14px', borderRadius: 10, border: '1px solid var(--border)', background: 'rgba(245, 158, 11, 0.08)', color: 'var(--amber)', fontSize: 12, fontWeight: 700 }}>
+            Preview connectors — these ERP, LMS, and payment rows are a local catalog, not live campus links.
+          </div>
           
           {/* Vertical Navigation Tabs */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4, background: 'var(--bg2)', padding: 8, borderRadius: 14, border: '1px solid var(--border)' }}>

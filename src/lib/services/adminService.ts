@@ -1,8 +1,7 @@
-import fs from 'fs';
-import path from 'path';
 import { supabase } from '@/lib/supabaseClient';
+import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
 
-const DB_PATH = path.join(process.cwd(), 'src/lib/data/admin_db.json');
+const DB_FILE = 'src/lib/data/admin_db.json';
 
 // Interface types
 export interface UserRow {
@@ -26,26 +25,13 @@ export interface AuditEntry {
 }
 
 // Read local JSON database
-function readLocalDb(): any {
-  try {
-    if (!fs.existsSync(DB_PATH)) {
-      return { users: [], audit: [], stats: {} };
-    }
-    const raw = fs.readFileSync(DB_PATH, 'utf-8');
-    return JSON.parse(raw);
-  } catch (err) {
-    console.error('Error reading local admin database file:', err);
-    return { users: [], audit: [], stats: {} };
-  }
+async function readLocalDb(): Promise<any> {
+  return await readLocalJson(DB_FILE, { users: [], audit: [], stats: {} });
 }
 
 // Write local JSON database
-function writeLocalDb(data: any): void {
-  try {
-    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf-8');
-  } catch (err) {
-    console.error('Error writing local admin database file:', err);
-  }
+async function writeLocalDb(data: any): Promise<void> {
+  await writeLocalJson(DB_FILE, data);
 }
 
 // Check if Supabase tables exist
@@ -76,7 +62,7 @@ export const adminService = {
       }
     }
 
-    const db = readLocalDb();
+    const db = await readLocalDb();
     return {
       totalUsers: db.users.length,
       activeSessions: db.users.length,
@@ -110,7 +96,7 @@ export const adminService = {
       }
     }
 
-    const db = readLocalDb();
+    const db = await readLocalDb();
     return {
       users: db.users || []
     };
@@ -139,7 +125,7 @@ export const adminService = {
       }
     }
 
-    const db = readLocalDb();
+    const db = await readLocalDb();
     return db.stats || {};
   },
 
@@ -163,7 +149,7 @@ export const adminService = {
       }
     }
 
-    const db = readLocalDb();
+    const db = await readLocalDb();
     return {
       log: db.audit || []
     };
@@ -186,7 +172,7 @@ export const adminService = {
       }
     }
 
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const newEntry = {
       adminId,
       action,
@@ -195,7 +181,7 @@ export const adminService = {
       timestamp: new Date().toISOString()
     };
     db.audit.unshift(newEntry);
-    writeLocalDb(db);
+    await writeLocalDb(db);
     return { ok: true };
   },
 
@@ -212,7 +198,7 @@ export const adminService = {
       } catch {}
     }
 
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const activeCount = db.users.filter((u: any) => !targetRole || u.role === targetRole).length;
     return { sent: activeCount };
   }

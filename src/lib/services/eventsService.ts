@@ -1,8 +1,7 @@
-import fs from 'fs';
-import path from 'path';
 import { supabase } from '@/lib/supabaseClient';
+import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
 
-const DB_PATH = path.join(process.cwd(), 'src/lib/data/events_db.json');
+const DB_FILE = 'src/lib/data/events_db.json';
 
 // Interface types
 export interface CampusEvent {
@@ -27,26 +26,13 @@ export interface EventRSVP {
 }
 
 // Read local JSON database
-function readLocalDb(): any {
-  try {
-    if (!fs.existsSync(DB_PATH)) {
-      return { catalog: [], rsvps: [] };
-    }
-    const raw = fs.readFileSync(DB_PATH, 'utf-8');
-    return JSON.parse(raw);
-  } catch (err) {
-    console.error('Error reading local events database file:', err);
-    return { catalog: [], rsvps: [] };
-  }
+async function readLocalDb(): Promise<any> {
+  return await readLocalJson(DB_FILE, { catalog: [], rsvps: [] });
 }
 
 // Write local JSON database
-function writeLocalDb(data: any): void {
-  try {
-    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf-8');
-  } catch (err) {
-    console.error('Error writing local events database file:', err);
-  }
+async function writeLocalDb(data: any): Promise<void> {
+  await writeLocalJson(DB_FILE, data);
 }
 
 // Check if Supabase tables exist
@@ -95,7 +81,7 @@ export const eventsService = {
     }
 
     // Local Database Fallback — only return RSVPs for the authenticated student
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const myRsvps = db.rsvps?.filter((r: any) => r.studentName === studentName) || [];
 
     return {
@@ -128,7 +114,7 @@ export const eventsService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const evt = db.catalog.find((e: any) => e.id === eventId);
     if (evt && evt.rsvpCount < evt.capacity) {
       evt.rsvpCount += 1;
@@ -137,7 +123,7 @@ export const eventsService = {
         studentName,
         hasCertificate: false
       });
-      writeLocalDb(db);
+      await writeLocalDb(db);
       return { ok: true };
     }
     return { ok: false, error: 'Event is full!' };
@@ -157,9 +143,9 @@ export const eventsService = {
     }
 
     // Local Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     db.catalog.unshift({ id, category, title, description, date, time, venue, capacity: Number(capacity), rsvpCount: 0, host, completed: false });
-    writeLocalDb(db);
+    await writeLocalDb(db);
     return { ok: true };
   },
 
@@ -177,12 +163,12 @@ export const eventsService = {
     }
 
     // Local Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const idx = db.rsvps.findIndex((r: any) => r.eventId === rsvpId || r.id === rsvpId);
     if (idx !== -1) {
       db.rsvps[idx].hasCertificate = true;
       db.rsvps[idx].certificateCode = certCode;
-      writeLocalDb(db);
+      await writeLocalDb(db);
       return { ok: true };
     }
     return { ok: false };

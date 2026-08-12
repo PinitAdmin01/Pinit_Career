@@ -1,8 +1,7 @@
-import fs from 'fs';
-import path from 'path';
 import { supabase } from '@/lib/supabaseClient';
+import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
 
-const DB_PATH = path.join(process.cwd(), 'src/lib/data/library_db.json');
+const DB_FILE = 'src/lib/data/library_db.json';
 
 // Interface types
 export interface LibraryBook {
@@ -40,26 +39,13 @@ export interface LibraryReservation {
 }
 
 // Read local JSON database
-function readLocalDb(): any {
-  try {
-    if (!fs.existsSync(DB_PATH)) {
-      return { books: [], borrowed: [], reserves: [] };
-    }
-    const raw = fs.readFileSync(DB_PATH, 'utf-8');
-    return JSON.parse(raw);
-  } catch (err) {
-    console.error('Error reading local library database file:', err);
-    return { books: [], borrowed: [], reserves: [] };
-  }
+async function readLocalDb(): Promise<any> {
+  return await readLocalJson(DB_FILE, { books: [], borrowed: [], reserves: [] });
 }
 
 // Write local JSON database
-function writeLocalDb(data: any): void {
-  try {
-    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf-8');
-  } catch (err) {
-    console.error('Error writing local library database file:', err);
-  }
+async function writeLocalDb(data: any): Promise<void> {
+  await writeLocalJson(DB_FILE, data);
 }
 
 // Check if Supabase tables exist
@@ -121,7 +107,7 @@ export const libraryService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const myBorrows = db.borrowed?.filter((b: any) => b.studentId === studentId || b.studentName === studentName) || [];
     const myReserves = db.reserves?.filter((r: any) => r.studentId === studentId || r.studentName === studentName) || [];
 
@@ -156,7 +142,7 @@ export const libraryService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const book = db.books.find((b: any) => b.isbn === isbn);
     if (book && book.available > 0) {
       book.available -= 1;
@@ -171,7 +157,7 @@ export const libraryService = {
         returned: false,
         fine: 0
       });
-      writeLocalDb(db);
+      await writeLocalDb(db);
       return { ok: true };
     }
     return { ok: false, message: 'Out of stock' };
@@ -210,7 +196,7 @@ export const libraryService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const borrowIndex = db.borrowed.findIndex((b: any) => b.id === borrowId);
     if (borrowIndex >= 0) {
       const borrow = db.borrowed[borrowIndex];
@@ -228,7 +214,7 @@ export const libraryService = {
       const fine = diffDays > 0 ? diffDays * 10 : 0;
       borrow.fine = fine;
 
-      writeLocalDb(db);
+      await writeLocalDb(db);
       return { ok: true, fine };
     }
     return { ok: false, fine: 0 };
@@ -261,7 +247,7 @@ export const libraryService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const book = db.books.find((b: any) => b.isbn === isbn);
     if (book) {
       const queuePosition = db.reserves.filter((r: any) => r.isbn === isbn).length + 1;
@@ -275,9 +261,43 @@ export const libraryService = {
         createdAt: new Date().toISOString()
       };
       db.reserves.push(reserve);
-      writeLocalDb(db);
+      await writeLocalDb(db);
       return { ok: true, reserve };
     }
     return { ok: false };
-  }
+  },
+
+  async addBook(isbn: string, title: string, author: string, genre: string, copies: number) {
+    const isSupabaseAvailable = await checkSupabaseAvailable('library_books');
+    const book = {
+      isbn: isbn || `ISBN-${Date.now()}`,
+      title: title || 'Untitled',
+      author: author || 'Unknown',
+      genre: genre || 'General',
+      copies: copies || 1,
+      available: copies || 1,
+      isEbook: false,
+    };
+    if (isSupabaseAvailable) {
+      try {
+        await supabase.from('library_books').insert({
+          isbn: book.isbn,
+          title: book.title,
+          author: book.author,
+          genre: book.genre,
+          copies: book.copies,
+          available: book.available,
+          is_ebook: false,
+        });
+        return { ok: true, book };
+      } catch (err) {
+        console.warn('Supabase write failed, falling back to local database:', err);
+      }
+    }
+    const db = await readLocalDb();
+    db.books = db.books || [];
+    db.books.push(book);
+    await writeLocalDb(db);
+    return { ok: true, book };
+  },
 };

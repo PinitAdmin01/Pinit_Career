@@ -1,8 +1,7 @@
-import fs from 'fs';
-import path from 'path';
 import { supabase } from '@/lib/supabaseClient';
+import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
 
-const DB_PATH = path.join(process.cwd(), 'src/lib/data/exams_db.json');
+const DB_FILE = 'src/lib/data/exams_db.json';
 
 // Interface types
 export interface ExamScheduleItem {
@@ -30,26 +29,13 @@ export interface ExamResultsSheet {
 }
 
 // Read local JSON database
-function readLocalDb(): any {
-  try {
-    if (!fs.existsSync(DB_PATH)) {
-      return { schedule: [], sheet: {} };
-    }
-    const raw = fs.readFileSync(DB_PATH, 'utf-8');
-    return JSON.parse(raw);
-  } catch (err) {
-    console.error('Error reading local exams database file:', err);
-    return { schedule: [], sheet: {} };
-  }
+async function readLocalDb(): Promise<any> {
+  return await readLocalJson(DB_FILE, { schedule: [], sheet: {} });
 }
 
 // Write local JSON database
-function writeLocalDb(data: any): void {
-  try {
-    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf-8');
-  } catch (err) {
-    console.error('Error writing local exams database file:', err);
-  }
+async function writeLocalDb(data: any): Promise<void> {
+  await writeLocalJson(DB_FILE, data);
 }
 
 // Check if Supabase tables exist
@@ -88,7 +74,7 @@ export const examsService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     return {
       schedule: db.schedule || []
     };
@@ -113,7 +99,7 @@ export const examsService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     return db.sheet;
   },
 
@@ -160,7 +146,7 @@ export const examsService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     let totalGPs = 0;
     db.sheet.results = db.sheet.results.map((r: any) => {
       const semMarkRaw = Number(marks[r.code]) || 0;
@@ -184,7 +170,7 @@ export const examsService = {
     });
 
     db.sheet.gpa = Number((totalGPs / db.sheet.results.length).toFixed(2));
-    writeLocalDb(db);
+    await writeLocalDb(db);
     return { ok: true, gpa: db.sheet.gpa };
   },
 
@@ -203,9 +189,9 @@ export const examsService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     db.sheet.isPublished = isPublished;
-    writeLocalDb(db);
+    await writeLocalDb(db);
     return { ok: true, isPublished };
   }
 };

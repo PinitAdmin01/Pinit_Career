@@ -1,8 +1,7 @@
-import fs from 'fs';
-import path from 'path';
 import { supabase } from '@/lib/supabaseClient';
+import { readLocalJson } from '@/lib/services/localJsonDb';
 
-const DB_PATH = path.join(process.cwd(), 'src/lib/data/notes_db.json');
+const DB_FILE = 'src/lib/data/notes_db.json';
 
 // Interface types
 export interface StudyNote {
@@ -18,17 +17,8 @@ export interface StudyNote {
 }
 
 // Read local JSON database
-function readLocalDb(): any {
-  try {
-    if (!fs.existsSync(DB_PATH)) {
-      return { notes: [] };
-    }
-    const raw = fs.readFileSync(DB_PATH, 'utf-8');
-    return JSON.parse(raw);
-  } catch (err) {
-    console.error('Error reading local study notes database file:', err);
-    return { notes: [] };
-  }
+async function readLocalDb(): Promise<any> {
+  return await readLocalJson(DB_FILE, { notes: [] });
 }
 
 // Check if Supabase tables exist
@@ -67,7 +57,7 @@ export const notesService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     return {
       notes: db.notes || []
     };

@@ -1,8 +1,7 @@
-import fs from 'fs';
-import path from 'path';
 import { supabase } from '@/lib/supabaseClient';
+import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
 
-const DB_PATH = path.join(process.cwd(), 'src/lib/data/research_db.json');
+const DB_FILE = 'src/lib/data/research_db.json';
 
 // Interface types
 export interface ResearchPaper {
@@ -43,26 +42,13 @@ export interface ResearchFunding {
 }
 
 // Read local JSON database
-function readLocalDb(): any {
-  try {
-    if (!fs.existsSync(DB_PATH)) {
-      return { papers: [], projects: [], patents: [], funding: [] };
-    }
-    const raw = fs.readFileSync(DB_PATH, 'utf-8');
-    return JSON.parse(raw);
-  } catch (err) {
-    console.error('Error reading local research database file:', err);
-    return { papers: [], projects: [], patents: [], funding: [] };
-  }
+async function readLocalDb(): Promise<any> {
+  return await readLocalJson(DB_FILE, { papers: [], projects: [], patents: [], funding: [] });
 }
 
 // Write local JSON database
-function writeLocalDb(data: any): void {
-  try {
-    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf-8');
-  } catch (err) {
-    console.error('Error writing local research database file:', err);
-  }
+async function writeLocalDb(data: any): Promise<void> {
+  await writeLocalJson(DB_FILE, data);
 }
 
 // Check if Supabase tables exist
@@ -98,7 +84,7 @@ export const researchService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     return {
       papers: db.papers || [],
       projects: db.projects || [],
@@ -129,7 +115,7 @@ export const researchService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     db.papers.push({
       id: `PUB-${Math.floor(100 + Math.random() * 900)}`,
       title,
@@ -137,7 +123,7 @@ export const researchService = {
       journal,
       status
     });
-    writeLocalDb(db);
+    await writeLocalDb(db);
     return { ok: true };
   },
 
@@ -154,11 +140,11 @@ export const researchService = {
     }
 
     // Local Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const idx = db.papers.findIndex((p: any) => p.id === paperId);
     if (idx !== -1) {
       db.papers[idx].status = status;
-      writeLocalDb(db);
+      await writeLocalDb(db);
       return { ok: true };
     }
     return { ok: false };
@@ -177,11 +163,11 @@ export const researchService = {
     }
 
     // Local Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const idx = db.funding.findIndex((f: any) => f.id === fundingId);
     if (idx !== -1) {
       db.funding[idx].status = 'Approved';
-      writeLocalDb(db);
+      await writeLocalDb(db);
       return { ok: true };
     }
     return { ok: false };

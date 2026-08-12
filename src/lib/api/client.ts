@@ -5,6 +5,8 @@ import { supabase } from '@/lib/supabaseClient';
 import * as fs from '@/lib/supabaseService';
 import { COURSES_REGISTRY } from '@/lib/data/coursesData';
 import { aiInterviewStart, aiInterviewRespond, aiInterviewEvaluate } from '@/lib/api/interviewAI';
+import { isCampusApiPath, tryCampusFallback } from '@/lib/campusFallback';
+import { faceChallenge, faceEnroll, faceEnrolled, faceVerify } from '@/lib/faceClient';
 
 const _transcripts = new Map<string, { role:'user'|'assistant'; content:string }[]>();
 
@@ -45,21 +47,24 @@ const INTERVIEWERS_MAP: Record<string, { name: string; role: string; nature: str
 async function getUid(): Promise<string> {
   try {
     const { data: { session } } = await supabase.auth.getSession();
-    const user = session?.user;
-    if (user) return user.id;
-  } catch (e) {
-    // Ignore auth error
+    if (session?.user?.id) return session.user.id;
+  } catch {
+    // fall through to vault session
   }
-  
+
   if (typeof window !== 'undefined') {
-    let guestId = localStorage.getItem('pinit_guest_uid');
-    if (!guestId) {
-      guestId = 'usr_guest_' + Math.random().toString(36).substring(2, 10);
-      localStorage.setItem('pinit_guest_uid', guestId);
+    try {
+      const raw = localStorage.getItem('pinit_current_user');
+      if (raw) {
+        const stored = JSON.parse(raw) as { id?: string };
+        if (stored?.id && typeof stored.id === 'string') return stored.id;
+      }
+    } catch {
+      // ignore malformed vault payload
     }
-    return guestId;
   }
-  return 'usr_guest_demo';
+
+  throw new ApiError(401, 'UNAUTHORIZED', 'Not logged in');
 }
 
 async function getActorIdentity(): Promise<{ name: string; email: string }> {
@@ -117,11 +122,16 @@ async function upsertPineconeMemory(uid: string, text: string, response: string)
 }
 
 async function firestoreRouter(method:string, path:string, body?:any): Promise<unknown> {
-  const publicPrefixes = ['/api/auth/forgot-password', '/api/auth/reset-password', '/api/payment/plans', '/api/admissions/apply', '/api/auth/signup', '/api/v1/auth/'];
+  const publicPrefixes = ['/api/auth/forgot-password', '/api/auth/reset-password', '/api/payment/plans', '/api/admissions/apply', '/api/auth/signup', '/api/auth/face/challenge', '/api/auth/face/verify', '/api/v1/auth/'];
   const isPublic = publicPrefixes.some(p => path.startsWith(p));
   const uid = isPublic ? null : await getUid();
   const [cleanPath, queryString] = path.split('?');
   const params = new URLSearchParams(queryString || '');
+
+  if (isCampusApiPath(cleanPath)) {
+    const actor = uid ? await getActorIdentity() : { name: 'Student', email: '' };
+    return tryCampusFallback(method, cleanPath, uid, body, params, actor);
+  }
 
   // ── 🔒 PinIT Identity Gateway (v1 API) Handlers ───────────────────────────
   if (cleanPath === '/api/v1/auth/vault-challenge' && method === 'POST') {
@@ -511,9 +521,21 @@ async function firestoreRouter(method:string, path:string, body?:any): Promise<u
     if (error) throw error;
     return { ok: true, message: 'Password reset successfully.' };
   }
-  if(cleanPath==='/api/auth/face/enrolled'){ return { enrolled:false }; }
-  if(cleanPath==='/api/auth/face/enroll'){ return { ok:true }; }
-  if(cleanPath.startsWith('/api/auth/')) return { ok:true };
+  if(cleanPath==='/api/auth/face/enrolled'){
+    const actor = uid ? await getActorIdentity() : { name: '', email: '' };
+    return faceEnrolled(actor.email || String((body as any)?.username || ''));
+  }
+  if(cleanPath==='/api/auth/face/enroll'){
+    const actor = uid ? await getActorIdentity() : { name: '', email: '' };
+    return faceEnroll(body, uid, actor.email);
+  }
+  if(cleanPath==='/api/auth/face/verify' || cleanPath==='/api/auth/face/challenge'){
+    if (cleanPath==='/api/auth/face/challenge') return faceChallenge();
+    return faceVerify(body);
+  }
+  if(cleanPath.startsWith('/api/auth/')) {
+    throw new ApiError(404, 'NOT_FOUND', `Unhandled API path: ${method} ${cleanPath}`);
+  }
   if(cleanPath==='/api/missions/today'){ const m=await fs.getTodayMissions(uid); return { missions:m }; }
   if(cleanPath==='/api/missions/history'){ const m=await fs.getMissionHistory(uid); return { missions:m }; }
   if(cleanPath==='/api/missions/submit'){
@@ -5334,6 +5356,21 @@ Return exactly this JSON format:
   }
 
   if(cleanPath.startsWith('/api/avatar')) return { ok:true };
+  if(cleanPath === '/api/llm' && method === 'POST') {
+    const payload = (typeof body === 'string' ? JSON.parse(body || '{}') : (body || {})) as {
+      messages?: { role: string; content: string }[];
+      systemPrompt?: string;
+      skillCategory?: 'programming' | 'soft-skills' | 'communication' | 'leadership' | 'theory';
+      maxTokens?: number;
+    };
+    const reply = await callExternalLLM(
+      payload.messages || [],
+      payload.systemPrompt || 'You are a helpful assistant.',
+      payload.skillCategory,
+      payload.maxTokens
+    );
+    return { reply };
+  }
   if(cleanPath.startsWith('/api/notes')) return { notes:[] };
   if(cleanPath.startsWith('/api/attendance')) return { logs:[] };
   console.warn(`[API] Unhandled: ${method} ${path}`);
@@ -5342,7 +5379,7 @@ Return exactly this JSON format:
 
 async function request<T>(method:string, path:string, body?:unknown): Promise<T> {
   // NOTE: /api/admin intentionally omitted from live-prefer list so client RBAC (profile.role) always runs.
-  if (path === '/api/interview/chat' || path === '/api/interview/evaluate' || path.startsWith('/api/hostel') || path.startsWith('/api/transport') || path.startsWith('/api/events') || path.startsWith('/api/grievances') || path.startsWith('/api/library') || path.startsWith('/api/research') || path.startsWith('/api/finance') || path.startsWith('/api/exams') || path.startsWith('/api/maintenance') || path.startsWith('/api/advisor') || path.startsWith('/api/services') || path.startsWith('/api/notes') || path.startsWith('/api/admissions') || path.startsWith('/api/hr') || path.startsWith('/api/procurement') || path.startsWith('/api/assets') || path.startsWith('/api/alumni') || path.startsWith('/api/communication') || path.startsWith('/api/documents') || path.startsWith('/api/admin') || path === '/api/llm' || path.startsWith('/api/payment') || path.startsWith('/api/auth/face')) {
+  if (path === '/api/interview/chat' || path === '/api/interview/evaluate' || path.startsWith('/api/hostel') || path.startsWith('/api/transport') || path.startsWith('/api/events') || path.startsWith('/api/grievances') || path.startsWith('/api/library') || path.startsWith('/api/research') || path.startsWith('/api/finance') || path.startsWith('/api/exams') || path.startsWith('/api/maintenance') || path.startsWith('/api/advisor') || path.startsWith('/api/services') || path.startsWith('/api/notes') || path.startsWith('/api/admissions') || path.startsWith('/api/hr') || path.startsWith('/api/procurement') || path.startsWith('/api/assets') || path.startsWith('/api/alumni') || path.startsWith('/api/communication') || path.startsWith('/api/documents') || path === '/api/llm' || path.startsWith('/api/payment') || path.startsWith('/api/auth/face')) {
     try {
       let authHeader: Record<string, string> = {};
       try {
@@ -5353,7 +5390,7 @@ async function request<T>(method:string, path:string, body?:unknown): Promise<T>
       } catch { /* ignore */ }
       const res = await fetch(path, {
         method,
-        headers: { 'Content-Type': 'application/json', ...authHeader },
+        headers: { 'Content-Type': 'application/json', 'X-Pinit-Direct': '1', ...authHeader },
         body: body ? JSON.stringify(body) : undefined
       });
       if (res.ok) {
@@ -5387,7 +5424,10 @@ async function callExternalLLM(
 ): Promise<string> {
   // 1. Primary path: Always use the secure server-side endpoint first
   try {
-    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'https://pinit-backend-v8pd.onrender.com';
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+    if (!backendUrl) {
+      throw new Error('NEXT_PUBLIC_BACKEND_URL is not configured.');
+    }
     const res = await fetch(`${backendUrl}/api/chat`, {
       method: 'POST',
       headers: {

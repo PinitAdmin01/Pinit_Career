@@ -1,8 +1,7 @@
-import fs from 'fs';
-import path from 'path';
 import { supabase } from '@/lib/supabaseClient';
+import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
 
-const DB_PATH = path.join(process.cwd(), 'src/lib/data/admissions_db.json');
+const DB_FILE = 'src/lib/data/admissions_db.json';
 
 // Interface types
 export interface AdmissionsApplication {
@@ -22,26 +21,13 @@ export interface SeatMatrixItem {
 }
 
 // Read local JSON database
-function readLocalDb(): any {
-  try {
-    if (!fs.existsSync(DB_PATH)) {
-      return { applications: [], matrix: [] };
-    }
-    const raw = fs.readFileSync(DB_PATH, 'utf-8');
-    return JSON.parse(raw);
-  } catch (err) {
-    console.error('Error reading local admissions database file:', err);
-    return { applications: [], matrix: [] };
-  }
+async function readLocalDb(): Promise<any> {
+  return await readLocalJson(DB_FILE, { applications: [], matrix: [] });
 }
 
 // Write local JSON database
-function writeLocalDb(data: any): void {
-  try {
-    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf-8');
-  } catch (err) {
-    console.error('Error writing local admissions database file:', err);
-  }
+async function writeLocalDb(data: any): Promise<void> {
+  await writeLocalJson(DB_FILE, data);
 }
 
 // Check if Supabase tables exist
@@ -78,7 +64,7 @@ export const admissionsService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     return {
       applications: db.applications || []
     };
@@ -103,7 +89,7 @@ export const admissionsService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     return {
       matrix: db.matrix || []
     };
@@ -125,12 +111,12 @@ export const admissionsService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const idx = db.applications.findIndex((a: any) => a.id === appId);
     if (idx !== -1) {
       db.applications[idx].docVerified = action === 'approve';
       db.applications[idx].status = action === 'approve' ? 'Documents Verified' : 'Rejected';
-      writeLocalDb(db);
+      await writeLocalDb(db);
       return { ok: true };
     }
     return { ok: false };
@@ -172,7 +158,7 @@ export const admissionsService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const courseLimits: Record<string, { allocated: number; capacity: number }> = {};
     db.matrix.forEach((m: any) => {
       courseLimits[m.course] = { allocated: 0, capacity: m.capacity };
@@ -194,7 +180,42 @@ export const admissionsService = {
       m.allocated = courseLimits[m.course].allocated;
     });
 
-    writeLocalDb(db);
+    await writeLocalDb(db);
     return { ok: true };
-  }
+  },
+
+  async apply(studentId: string, studentName: string, course: string, rank: number) {
+    const isSupabaseAvailable = await checkSupabaseAvailable('admissions_applications');
+    const id = `APP-${Date.now()}`;
+    const row = {
+      id,
+      studentId,
+      studentName,
+      course: course || 'Computer Science',
+      rank: rank || 0,
+      status: 'Submitted',
+      docVerified: false,
+    };
+    if (isSupabaseAvailable) {
+      try {
+        await supabase.from('admissions_applications').insert({
+          id,
+          student_id: studentId,
+          student_name: studentName,
+          course: row.course,
+          rank: row.rank,
+          status: row.status,
+          doc_verified: false,
+        });
+        return { ok: true, application: row };
+      } catch (err) {
+        console.warn('Supabase write failed, falling back to local database:', err);
+      }
+    }
+    const db = await readLocalDb();
+    db.applications = db.applications || [];
+    db.applications.unshift(row);
+    await writeLocalDb(db);
+    return { ok: true, application: row };
+  },
 };

@@ -1,8 +1,7 @@
-import fs from 'fs';
-import path from 'path';
 import { supabase } from '@/lib/supabaseClient';
+import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
 
-const DB_PATH = path.join(process.cwd(), 'src/lib/data/advisor_db.json');
+const DB_FILE = 'src/lib/data/advisor_db.json';
 
 // Interface types
 export interface AdvisorPerformance {
@@ -14,26 +13,13 @@ export interface AdvisorPerformance {
 }
 
 // Read local JSON database
-function readLocalDb(): any {
-  try {
-    if (!fs.existsSync(DB_PATH)) {
-      return { performance: {} };
-    }
-    const raw = fs.readFileSync(DB_PATH, 'utf-8');
-    return JSON.parse(raw);
-  } catch (err) {
-    console.error('Error reading local advisor database file:', err);
-    return { performance: {} };
-  }
+async function readLocalDb(): Promise<any> {
+  return await readLocalJson(DB_FILE, { performance: {} });
 }
 
 // Write local JSON database
-function writeLocalDb(data: any): void {
-  try {
-    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf-8');
-  } catch (err) {
-    console.error('Error writing local advisor database file:', err);
-  }
+async function writeLocalDb(data: any): Promise<void> {
+  await writeLocalJson(DB_FILE, data);
 }
 
 // Check if Supabase tables exist
@@ -68,7 +54,7 @@ export const advisorService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     return db.performance;
   },
 
@@ -93,10 +79,10 @@ export const advisorService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     db.performance.assignmentsCompleted += 1;
     db.performance.assignmentsPending = Math.max(0, db.performance.assignmentsPending - 1);
-    writeLocalDb(db);
+    await writeLocalDb(db);
     return { ok: true, completed: db.performance.assignmentsCompleted, pending: db.performance.assignmentsPending };
   },
 
@@ -122,7 +108,7 @@ export const advisorService = {
     }
 
     // Local Fallback — no hard-coded student identities
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const attendance = db.performance?.attendance;
     if (typeof attendance !== 'number' || attendance >= 90) {
       return { students: [] };
@@ -152,9 +138,9 @@ export const advisorService = {
     }
 
     // Local Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     db.performance.warningLevel = 'High';
-    writeLocalDb(db);
+    await writeLocalDb(db);
     return { ok: true };
   }
 };

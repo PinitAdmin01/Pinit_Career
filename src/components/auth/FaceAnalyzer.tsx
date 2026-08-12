@@ -257,12 +257,15 @@ export default function FaceAnalyzer({
         }
       } else {
         // Verify login descriptor
+        if (!username?.trim()) {
+          throw new Error('Username required for face verification.');
+        }
         const res = await fetch('/api/auth/face/verify', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             descriptor: liveDescriptor,
-            username: username || 'student@pinit.in',
+            username: username.trim(),
             livenessVerified: metrics.livenessVerified,
           }),
         });

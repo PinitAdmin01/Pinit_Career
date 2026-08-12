@@ -1,8 +1,7 @@
-import fs from 'fs';
-import path from 'path';
 import { supabase } from '@/lib/supabaseClient';
+import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
 
-const DB_PATH = path.join(process.cwd(), 'src/lib/data/hr_db.json');
+const DB_FILE = 'src/lib/data/hr_db.json';
 
 // Interface types
 export interface HrFaculty {
@@ -38,26 +37,13 @@ export interface HrAttendance {
 }
 
 // Read local JSON database
-function readLocalDb(): any {
-  try {
-    if (!fs.existsSync(DB_PATH)) {
-      return { faculty: [], leaves: [], recruitment: [], attendance: [], payroll: {} };
-    }
-    const raw = fs.readFileSync(DB_PATH, 'utf-8');
-    return JSON.parse(raw);
-  } catch (err) {
-    console.error('Error reading local hr database file:', err);
-    return { faculty: [], leaves: [], recruitment: [], attendance: [], payroll: {} };
-  }
+async function readLocalDb(): Promise<any> {
+  return await readLocalJson(DB_FILE, { faculty: [], leaves: [], recruitment: [], attendance: [], payroll: {} });
 }
 
 // Write local JSON database
-function writeLocalDb(data: any): void {
-  try {
-    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf-8');
-  } catch (err) {
-    console.error('Error writing local hr database file:', err);
-  }
+async function writeLocalDb(data: any): Promise<void> {
+  await writeLocalJson(DB_FILE, data);
 }
 
 // Check if Supabase tables exist
@@ -94,7 +80,7 @@ export const hrService = {
     }
 
     // Local Database Fallback
-    return readLocalDb();
+    return await readLocalDb();
   },
 
   async approveLeave(leaveId: string) {
@@ -110,11 +96,11 @@ export const hrService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const idx = db.leaves.findIndex((l: any) => l.id === leaveId);
     if (idx !== -1) {
       db.leaves[idx].status = 'Approved';
-      writeLocalDb(db);
+      await writeLocalDb(db);
       return { ok: true };
     }
     return { ok: false };
@@ -139,24 +125,24 @@ export const hrService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     db.recruitment.unshift({
       id,
       title,
       dept,
       status: 'Open'
     });
-    writeLocalDb(db);
+    await writeLocalDb(db);
     return { ok: true };
   },
 
   async runPayroll() {
-    const db = readLocalDb();
+    const db = await readLocalDb();
     db.payroll = {
       status: 'Paid',
       runDate: new Date().toISOString().split('T')[0]
     };
-    writeLocalDb(db);
+    await writeLocalDb(db);
     return { ok: true };
   }
 };

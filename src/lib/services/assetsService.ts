@@ -1,8 +1,7 @@
-import fs from 'fs';
-import path from 'path';
 import { supabase } from '@/lib/supabaseClient';
+import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
 
-const DB_PATH = path.join(process.cwd(), 'src/lib/data/assets_db.json');
+const DB_FILE = 'src/lib/data/assets_db.json';
 
 // Interface types
 export interface Asset {
@@ -32,26 +31,13 @@ export interface AssetAmc {
 }
 
 // Read local JSON database
-function readLocalDb(): any {
-  try {
-    if (!fs.existsSync(DB_PATH)) {
-      return { assets: [], maintenance: [], amc: [] };
-    }
-    const raw = fs.readFileSync(DB_PATH, 'utf-8');
-    return JSON.parse(raw);
-  } catch (err) {
-    console.error('Error reading local assets database file:', err);
-    return { assets: [], maintenance: [], amc: [] };
-  }
+async function readLocalDb(): Promise<any> {
+  return await readLocalJson(DB_FILE, { assets: [], maintenance: [], amc: [] });
 }
 
 // Write local JSON database
-function writeLocalDb(data: any): void {
-  try {
-    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf-8');
-  } catch (err) {
-    console.error('Error writing local assets database file:', err);
-  }
+async function writeLocalDb(data: any): Promise<void> {
+  await writeLocalJson(DB_FILE, data);
 }
 
 // Check if Supabase tables exist
@@ -85,7 +71,7 @@ export const assetsService = {
     }
 
     // Local Database Fallback
-    return readLocalDb();
+    return await readLocalDb();
   },
 
   async create(name: string, category: string, location: string) {
@@ -102,9 +88,9 @@ export const assetsService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     db.assets.unshift({ id: assetCode, assetCode, name, category, location, status: 'Active' });
-    writeLocalDb(db);
+    await writeLocalDb(db);
     return { ok: true };
   },
 
@@ -123,20 +109,20 @@ export const assetsService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     db.maintenance.unshift({ id, assetCode, issue, staff, scheduledDate, status: 'Scheduled' });
     const idx = db.assets.findIndex((a: any) => a.assetCode === assetCode);
     if (idx !== -1) {
       db.assets[idx].status = 'Maintenance';
     }
-    writeLocalDb(db);
+    await writeLocalDb(db);
     return { ok: true };
   },
 
   async completeMnt(mntId: string) {
     const isSupabaseAvailable = await checkSupabaseAvailable('assets_maintenance');
 
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const mnt = db.maintenance.find((m: any) => m.id === mntId) || {};
 
     if (isSupabaseAvailable) {
@@ -157,7 +143,7 @@ export const assetsService = {
       if (aIdx !== -1) {
         db.assets[aIdx].status = 'Active';
       }
-      writeLocalDb(db);
+      await writeLocalDb(db);
       return { ok: true };
     }
     return { ok: false };
@@ -176,11 +162,11 @@ export const assetsService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const idx = db.amc.findIndex((a: any) => a.id === amcId);
     if (idx !== -1) {
       db.amc[idx].expiryDate = expiryDate;
-      writeLocalDb(db);
+      await writeLocalDb(db);
       return { ok: true };
     }
     return { ok: false };

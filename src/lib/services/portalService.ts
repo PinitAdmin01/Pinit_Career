@@ -1,5 +1,7 @@
 'use client';
 
+import { supabase } from '@/lib/supabaseClient';
+
 export interface CourseMaterialRecord {
   id: string;
   title: string;
@@ -113,41 +115,55 @@ export const portalService = {
   // ── Attendance ──
   async getAttendanceByDateAndBatch(date: string, batch: string): Promise<AttendanceRecord[]> {
     try {
+      const { data, error } = await supabase.from('campus_attendance').select('*').eq('date', date).eq('batch', batch);
+      if (!error && data) {
+        return data.map((r: any) => ({
+          id: r.id,
+          date: r.date,
+          batch: r.batch,
+          studentId: r.student_id,
+          studentName: r.student_name,
+          rollNo: r.roll_no,
+          status: r.status,
+        }));
+      }
+    } catch {}
+    try {
       if (typeof window !== 'undefined') {
         const stored = localStorage.getItem(STORAGE_KEYS.ATTENDANCE);
         if (stored) {
           const all: AttendanceRecord[] = JSON.parse(stored);
-          const filtered = all.filter(r => r.date === date && r.batch === batch);
-          if (filtered.length > 0) return filtered;
+          return all.filter(r => r.date === date && r.batch === batch);
         }
       }
     } catch {}
-
-    // Default roster template for requested batch
-    return [
-      { id: `att_s1_${date}`, date, batch, studentId: 's1', rollNo: 'CS2024-001', studentName: 'Aarav Sharma', status: 'present' },
-      { id: `att_s2_${date}`, date, batch, studentId: 's2', rollNo: 'CS2024-002', studentName: 'Ananya Gupta', status: 'present' },
-      { id: `att_s3_${date}`, date, batch, studentId: 's3', rollNo: 'CS2024-003', studentName: 'Kabir Verma', status: 'absent' },
-      { id: `att_s4_${date}`, date, batch, studentId: 's4', rollNo: 'CS2024-004', studentName: 'Riya Patel', status: 'late' },
-      { id: `att_s5_${date}`, date, batch, studentId: 's5', rollNo: 'CS2024-005', studentName: 'Siddharth Rao', status: 'present' }
-    ];
+    return [];
   },
 
   async saveAttendance(records: AttendanceRecord[]): Promise<void> {
     try {
+      if (records.length) {
+        await supabase.from('campus_attendance').upsert(records.map(r => ({
+          id: r.id,
+          date: r.date,
+          batch: r.batch,
+          student_id: r.studentId,
+          student_name: r.studentName,
+          roll_no: r.rollNo,
+          status: r.status,
+        })));
+      }
+    } catch {}
+    try {
       if (typeof window !== 'undefined') {
         const stored = localStorage.getItem(STORAGE_KEYS.ATTENDANCE);
         let all: AttendanceRecord[] = stored ? JSON.parse(stored) : [];
-        
-        // Remove old entries matching same date & batch
         const date = records[0]?.date;
         const batch = records[0]?.batch;
         if (date && batch) {
           all = all.filter(r => !(r.date === date && r.batch === batch));
         }
-
-        const updated = [...records, ...all];
-        localStorage.setItem(STORAGE_KEYS.ATTENDANCE, JSON.stringify(updated));
+        localStorage.setItem(STORAGE_KEYS.ATTENDANCE, JSON.stringify([...records, ...all]));
       }
     } catch (e) {
       console.error('Failed to save attendance', e);
@@ -162,18 +178,7 @@ export const portalService = {
         if (stored) return JSON.parse(stored);
       }
     } catch {}
-    return [
-      {
-        id: 'f1',
-        studentName: 'Vikram Patel',
-        examTitle: 'Mid-Term Algorithms',
-        tabSwitches: 14,
-        ipAddress: '192.168.1.42',
-        trustScoreImpact: -25,
-        severity: 'high',
-        timestamp: '2026-08-02 21:45:10'
-      }
-    ];
+    return [];
   },
 
   async dispatchFraudAlert(alertData: Omit<FraudAlertRecord, 'id' | 'timestamp'>): Promise<void> {

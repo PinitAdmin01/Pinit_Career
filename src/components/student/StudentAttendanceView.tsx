@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/context/AuthContext';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
+import { supabase } from '@/lib/supabaseClient';
 
 export interface SubjectAttendance {
   id: string;
@@ -17,21 +18,13 @@ export interface SubjectAttendance {
 
 const STORAGE_KEY = 'pinit_student_attendance';
 
-const defaultSubjects: SubjectAttendance[] = [
-  { id: 'sub-1', subject: 'Data Structures & Algorithms', code: 'CS301', totalClasses: 28, attended: 26, percentage: 92.8, status: 'Excellent' },
-  { id: 'sub-2', subject: 'Artificial Intelligence & ML', code: 'CS302', totalClasses: 24, attended: 22, percentage: 91.6, status: 'Excellent' },
-  { id: 'sub-3', subject: 'Database Management Systems', code: 'CS303', totalClasses: 20, attended: 17, percentage: 85.0, status: 'Good' },
-  { id: 'sub-4', subject: 'Computer Networks', code: 'CS304', totalClasses: 22, attended: 21, percentage: 95.4, status: 'Excellent' },
-  { id: 'sub-5', subject: 'Operating Systems', code: 'CS305', totalClasses: 18, attended: 13, percentage: 72.2, status: 'Critical' },
-];
-
 export default function StudentAttendanceView() {
   const router = useRouter();
   const { user } = useAuth();
   const { addXp, earnPins } = useCareerOS();
 
-  const [subjects, setSubjects] = useState<SubjectAttendance[]>(defaultSubjects);
-  const [focusStreak, setFocusStreak] = useState<number>(3);
+  const [subjects, setSubjects] = useState<SubjectAttendance[]>([]);
+  const [focusStreak, setFocusStreak] = useState<number>(0);
   const [lastCheckInDate, setLastCheckInDate] = useState<string>('');
   const [showFaceScanModal, setShowFaceScanModal] = useState<boolean>(false);
   const [scanning, setScanning] = useState<boolean>(false);
@@ -45,18 +38,33 @@ export default function StudentAttendanceView() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const mediaStreamRef = useRef<MediaStream | null>(null);
 
-  // ── Load attendance from LocalStorage ──
+  // ── Load attendance from Supabase, then this-device cache ──
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (parsed.subjects) setSubjects(parsed.subjects);
-        if (parsed.focusStreak !== undefined) setFocusStreak(parsed.focusStreak);
-        if (parsed.lastCheckInDate) setLastCheckInDate(parsed.lastCheckInDate);
+    let cancelled = false;
+    (async () => {
+      if (user?.id) {
+        try {
+          const { data, error } = await supabase.from('student_attendance').select('*').eq('student_id', user.id).maybeSingle();
+          if (!error && data && !cancelled) {
+            if (Array.isArray(data.subjects)) setSubjects(data.subjects);
+            if (typeof data.focus_streak === 'number') setFocusStreak(data.focus_streak);
+            if (data.last_check_in) setLastCheckInDate(data.last_check_in);
+            return;
+          }
+        } catch { /* table may not exist yet */ }
       }
-    } catch {}
-  }, []);
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw && !cancelled) {
+          const parsed = JSON.parse(raw);
+          if (parsed.subjects) setSubjects(parsed.subjects);
+          if (parsed.focusStreak !== undefined) setFocusStreak(parsed.focusStreak);
+          if (parsed.lastCheckInDate) setLastCheckInDate(parsed.lastCheckInDate);
+        }
+      } catch {}
+    })();
+    return () => { cancelled = true; };
+  }, [user?.id]);
 
   // ── Save attendance helper ──
   const saveAttendanceState = useCallback((nextSubjects: SubjectAttendance[], nextStreak: number, nextDate: string) => {
@@ -70,7 +78,16 @@ export default function StudentAttendanceView() {
         lastCheckInDate: nextDate,
       }));
     } catch {}
-  }, []);
+    if (user?.id) {
+      supabase.from('student_attendance').upsert({
+        student_id: user.id,
+        subjects: nextSubjects,
+        focus_streak: nextStreak,
+        last_check_in: nextDate,
+        updated_at: new Date().toISOString(),
+      }).then(() => {}, () => {});
+    }
+  }, [user?.id]);
 
   // ── 🔴 Bug 2 Fix: Safe Array Percentage Calculation & Division-by-Zero Protection ──
   const calculateOverallStats = () => {
@@ -232,6 +249,9 @@ export default function StudentAttendanceView() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 24, padding: '24px 28px', maxWidth: 1080, margin: '0 auto', color: 'var(--t1, #0f172a)' }}>
+      <div style={{ padding: '10px 14px', borderRadius: 10, border: '1px solid var(--border)', background: 'rgba(245, 158, 11, 0.08)', color: 'var(--amber)', fontSize: 12, fontWeight: 700 }}>
+        Attendance is loaded from campus records when available. Until the attendance table is populated, this view stays empty instead of showing sample subjects.
+      </div>
       
       {/* Page Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>

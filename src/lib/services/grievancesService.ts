@@ -1,8 +1,7 @@
-import fs from 'fs';
-import path from 'path';
 import { supabase } from '@/lib/supabaseClient';
+import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
 
-const DB_PATH = path.join(process.cwd(), 'src/lib/data/grievances_db.json');
+const DB_FILE = 'src/lib/data/grievances_db.json';
 
 // Interface types
 export interface GrievanceTicket {
@@ -20,26 +19,13 @@ export interface GrievanceTicket {
 }
 
 // Read local JSON database
-function readLocalDb(): any {
-  try {
-    if (!fs.existsSync(DB_PATH)) {
-      return { grievances: [] };
-    }
-    const raw = fs.readFileSync(DB_PATH, 'utf-8');
-    return JSON.parse(raw);
-  } catch (err) {
-    console.error('Error reading local grievances database file:', err);
-    return { grievances: [] };
-  }
+async function readLocalDb(): Promise<any> {
+  return await readLocalJson(DB_FILE, { grievances: [] });
 }
 
 // Write local JSON database
-function writeLocalDb(data: any): void {
-  try {
-    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf-8');
-  } catch (err) {
-    console.error('Error writing local grievances database file:', err);
-  }
+async function writeLocalDb(data: any): Promise<void> {
+  await writeLocalJson(DB_FILE, data);
 }
 
 // Check if Supabase tables exist
@@ -80,7 +66,7 @@ export const grievancesService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     return {
       grievances: db.grievances || []
     };
@@ -108,7 +94,7 @@ export const grievancesService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     db.grievances.unshift({
       id: `GRV-${Math.floor(100 + Math.random() * 900)}`,
       reporterType,
@@ -120,7 +106,7 @@ export const grievancesService = {
       status: 'Pending',
       filedOn: new Date().toISOString()
     });
-    writeLocalDb(db);
+    await writeLocalDb(db);
     return { ok: true };
   },
 
@@ -137,11 +123,11 @@ export const grievancesService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const idx = db.grievances.findIndex((g: any) => g.id === ticketId);
     if (idx !== -1) {
       db.grievances[idx].status = 'Under Investigation';
-      writeLocalDb(db);
+      await writeLocalDb(db);
       return { ok: true };
     }
     return { ok: false };
@@ -164,13 +150,13 @@ export const grievancesService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const idx = db.grievances.findIndex((g: any) => g.id === ticketId);
     if (idx !== -1) {
       db.grievances[idx].status = 'Resolved';
       db.grievances[idx].resolution = resolution;
       db.grievances[idx].resolvedOn = new Date().toISOString();
-      writeLocalDb(db);
+      await writeLocalDb(db);
       return { ok: true };
     }
     return { ok: false };

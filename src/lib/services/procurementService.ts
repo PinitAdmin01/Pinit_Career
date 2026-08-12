@@ -1,8 +1,7 @@
-import fs from 'fs';
-import path from 'path';
 import { supabase } from '@/lib/supabaseClient';
+import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
 
-const DB_PATH = path.join(process.cwd(), 'src/lib/data/procurement_db.json');
+const DB_FILE = 'src/lib/data/procurement_db.json';
 
 // Interface types
 export interface ProcurementRequest {
@@ -39,26 +38,13 @@ export interface ProcurementInventory {
 }
 
 // Read local JSON database
-function readLocalDb(): any {
-  try {
-    if (!fs.existsSync(DB_PATH)) {
-      return { requests: [], orders: [], vendors: [], inventory: [] };
-    }
-    const raw = fs.readFileSync(DB_PATH, 'utf-8');
-    return JSON.parse(raw);
-  } catch (err) {
-    console.error('Error reading local procurement database file:', err);
-    return { requests: [], orders: [], vendors: [], inventory: [] };
-  }
+async function readLocalDb(): Promise<any> {
+  return await readLocalJson(DB_FILE, { requests: [], orders: [], vendors: [], inventory: [] });
 }
 
 // Write local JSON database
-function writeLocalDb(data: any): void {
-  try {
-    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf-8');
-  } catch (err) {
-    console.error('Error writing local procurement database file:', err);
-  }
+async function writeLocalDb(data: any): Promise<void> {
+  await writeLocalJson(DB_FILE, data);
 }
 
 // Check if Supabase tables exist
@@ -94,7 +80,7 @@ export const procurementService = {
     }
 
     // Local Database Fallback
-    return readLocalDb();
+    return await readLocalDb();
   },
 
   async createRequest(item: string, qty: number, dept: string, cost: number) {
@@ -111,9 +97,9 @@ export const procurementService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     db.requests.unshift({ id, item, qty, dept, cost, status: 'Pending' });
-    writeLocalDb(db);
+    await writeLocalDb(db);
     return { ok: true };
   },
 
@@ -130,11 +116,11 @@ export const procurementService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const idx = db.requests.findIndex((r: any) => r.id === requestId);
     if (idx !== -1) {
       db.requests[idx].status = 'Approved';
-      writeLocalDb(db);
+      await writeLocalDb(db);
       return { ok: true };
     }
     return { ok: false };
@@ -144,7 +130,7 @@ export const procurementService = {
     const isSupabaseAvailable = await checkSupabaseAvailable('procurement_orders');
     const poId = `PO-${Math.floor(100 + Math.random() * 900)}`;
 
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const req = db.requests.find((r: any) => r.id === requestId) || {};
 
     if (isSupabaseAvailable) {
@@ -179,7 +165,7 @@ export const procurementService = {
     if (reqIdx !== -1) {
       db.requests[reqIdx].status = 'PO Issued';
     }
-    writeLocalDb(db);
+    await writeLocalDb(db);
     return { ok: true };
   },
 
@@ -196,11 +182,11 @@ export const procurementService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const idx = db.orders.findIndex((o: any) => o.id === orderId);
     if (idx !== -1) {
       db.orders[idx].status = 'Dispatched';
-      writeLocalDb(db);
+      await writeLocalDb(db);
       return { ok: true };
     }
     return { ok: false };
@@ -209,7 +195,7 @@ export const procurementService = {
   async deliverPo(orderId: string) {
     const isSupabaseAvailable = await checkSupabaseAvailable('procurement_orders');
 
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const order = db.orders.find((o: any) => o.id === orderId) || {};
 
     if (isSupabaseAvailable) {
@@ -243,7 +229,7 @@ export const procurementService = {
           dept: 'General'
         });
       }
-      writeLocalDb(db);
+      await writeLocalDb(db);
       return { ok: true };
     }
     return { ok: false };
@@ -262,11 +248,11 @@ export const procurementService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const idx = db.orders.findIndex((o: any) => o.id === orderId);
     if (idx !== -1) {
       db.orders[idx].status = 'Completed';
-      writeLocalDb(db);
+      await writeLocalDb(db);
       return { ok: true };
     }
     return { ok: false };
@@ -286,9 +272,9 @@ export const procurementService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     db.vendors.push({ id, name, email, category });
-    writeLocalDb(db);
+    await writeLocalDb(db);
     return { ok: true };
   }
 };

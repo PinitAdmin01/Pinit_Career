@@ -26,6 +26,8 @@ const nextConfig = {
         ...config.resolve.alias,
         'sharp$':             false,
         'onnxruntime-node$':  false,
+        fs: false,
+        path: false,
       };
     }
     return config;

@@ -15,7 +15,14 @@ function euclideanDistance(v1: number[], v2: number[]): number {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { descriptor, username = 'student@pinit.in', nonce } = body;
+    const { descriptor, username, nonce } = body;
+
+    if (!username || typeof username !== 'string' || !username.trim()) {
+      return NextResponse.json(
+        { ok: false, success: false, error: 'Username required for face verify.' },
+        { status: 400 }
+      );
+    }
 
     if (!descriptor || !Array.isArray(descriptor)) {
       return NextResponse.json(

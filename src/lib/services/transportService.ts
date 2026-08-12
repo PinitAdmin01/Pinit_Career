@@ -1,8 +1,7 @@
-import fs from 'fs';
-import path from 'path';
 import { supabase } from '@/lib/supabaseClient';
+import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
 
-const DB_PATH = path.join(process.cwd(), 'src/lib/data/transport_db.json');
+const DB_FILE = 'src/lib/data/transport_db.json';
 
 // Interface types
 export interface TransportRoute {
@@ -29,26 +28,13 @@ export interface TransportAllocation {
 }
 
 // Read local JSON database
-function readLocalDb(): any {
-  try {
-    if (!fs.existsSync(DB_PATH)) {
-      return { routes: [], drivers: [], allocations: [] };
-    }
-    const raw = fs.readFileSync(DB_PATH, 'utf-8');
-    return JSON.parse(raw);
-  } catch (err) {
-    console.error('Error reading local transport database file:', err);
-    return { routes: [], drivers: [], allocations: [] };
-  }
+async function readLocalDb(): Promise<any> {
+  return await readLocalJson(DB_FILE, { routes: [], drivers: [], allocations: [] });
 }
 
 // Write local JSON database
-function writeLocalDb(data: any): void {
-  try {
-    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf-8');
-  } catch (err) {
-    console.error('Error writing local transport database file:', err);
-  }
+async function writeLocalDb(data: any): Promise<void> {
+  await writeLocalJson(DB_FILE, data);
 }
 
 // Check if Supabase tables exist
@@ -82,7 +68,7 @@ export const transportService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const allocation = db.allocations?.find((a: any) => a.student_id === studentId) || { route: null, stop: '', status: 'none' };
 
     return {
@@ -94,7 +80,7 @@ export const transportService = {
 
   async register(studentId: string, routeCode: string, stop: string) {
     const isSupabaseAvailable = await checkSupabaseAvailable('transport_allocations');
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const route = db.routes?.find((r: any) => r.code === routeCode);
     if (route && !route.stops.includes(stop)) {
       return { ok: false, error: 'Invalid boarding stop selected for this route code.' };
@@ -122,7 +108,56 @@ export const transportService = {
     } else {
       db.allocations.push(newAlloc);
     }
-    writeLocalDb(db);
+    await writeLocalDb(db);
     return { ok: true };
-  }
+  },
+
+  async approveRegistration(studentId: string) {
+    const isSupabaseAvailable = await checkSupabaseAvailable('transport_allocations');
+    if (isSupabaseAvailable) {
+      try {
+        await supabase.from('transport_allocations').update({ status: 'allocated' }).eq('student_id', studentId);
+        return { ok: true };
+      } catch (err) {
+        console.warn('Supabase write failed, falling back to local database:', err);
+      }
+    }
+    const db = await readLocalDb();
+    const alloc = (db.allocations || []).find((a: any) => a.student_id === studentId);
+    if (alloc) alloc.status = 'allocated';
+    await writeLocalDb(db);
+    return { ok: true, allocation: alloc || { status: 'allocated' } };
+  },
+
+  async addRoute(code: string, name: string, driverName: string, vehicle: string, stops: string[], timing: string) {
+    const isSupabaseAvailable = await checkSupabaseAvailable('transport_routes');
+    const route = {
+      code: code || `R-${Math.floor(10 + Math.random() * 90)}`,
+      name: name || 'New Bus Route',
+      driverName: driverName || 'Driver',
+      vehicle: vehicle || '',
+      stops: stops || [],
+      timing: timing || '',
+    };
+    if (isSupabaseAvailable) {
+      try {
+        await supabase.from('transport_routes').insert({
+          code: route.code,
+          name: route.name,
+          driver_name: route.driverName,
+          vehicle: route.vehicle,
+          stops: route.stops,
+          timing: route.timing,
+        });
+        return { ok: true, route };
+      } catch (err) {
+        console.warn('Supabase write failed, falling back to local database:', err);
+      }
+    }
+    const db = await readLocalDb();
+    db.routes = db.routes || [];
+    db.routes.push(route);
+    await writeLocalDb(db);
+    return { ok: true, route };
+  },
 };

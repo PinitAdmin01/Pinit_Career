@@ -1427,11 +1427,16 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   }, [pathname, user]);
 
   // Redirect students who have not completed onboarding (onboardingStep < 3) to /onboarding
-  // Guarded so that accessing core demo tabs like /interview, /dashboard, /quests is never blocked
   useEffect(() => {
     if (!loading && isLoaded && user && isStudent && !isPublic && pathname !== '/onboarding') {
-      const allowedDemoTabs = ['/interview', '/dashboard', '/quests', '/missions', '/learning', '/career-builder', '/projects', '/group-discussion', '/attention-span'];
-      const isAllowedTab = allowedDemoTabs.some(tab => pathname === tab || pathname.startsWith(tab + '/'));
+      const allowedStudentTabs = [
+        '/interview', '/dashboard', '/quests', '/missions', '/learning', '/career-builder',
+        '/projects', '/group-discussion', '/attention-span', '/profile', '/notifications',
+        '/vault', '/library', '/hostel', '/transport', '/events', '/grievances', '/research',
+        '/career-intelligence', '/finance', '/maintenance', '/advisor', '/exams', '/attendance',
+        '/alumni', '/documents', '/crm', '/integrations',
+      ];
+      const isAllowedTab = allowedStudentTabs.some(tab => pathname === tab || pathname.startsWith(tab + '/'));
       if (onboardingStep < 3 && !isAllowedTab) {
         if (isRedirectingRef.current) return;
         isRedirectingRef.current = true;
@@ -1440,6 +1445,34 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       }
     }
   }, [user, loading, isLoaded, isStudent, isPublic, onboardingStep, router, pathname]);
+
+  // Redirect users who land on a portal that does not match their role
+  useEffect(() => {
+    if (loading || !user || isPublic) return;
+    const role = user.role || 'student';
+    const home =
+      role === 'teacher' ? '/admin/teacher' :
+      role === 'admin' || role === 'superadmin' ? '/admin' :
+      role === 'recruiter' ? '/recruiter' :
+      role === 'consultant' ? '/consultant' :
+      role === 'parent' ? '/parent' :
+      '/dashboard';
+
+    const onTeacher = pathname.startsWith('/admin/teacher') || pathname.startsWith('/teacher');
+    const onAdmin = pathname.startsWith('/admin') && !onTeacher;
+    const denied =
+      (onTeacher && !['teacher', 'admin', 'superadmin'].includes(role)) ||
+      (onAdmin && !['admin', 'superadmin'].includes(role)) ||
+      (pathname.startsWith('/recruiter') && !['recruiter', 'admin', 'superadmin'].includes(role)) ||
+      (pathname.startsWith('/consultant') && !['consultant', 'admin', 'superadmin'].includes(role)) ||
+      (pathname.startsWith('/parent') && !['parent', 'admin', 'superadmin'].includes(role));
+
+    if (denied) {
+      if (isRedirectingRef.current) return;
+      isRedirectingRef.current = true;
+      router.replace(home);
+    }
+  }, [loading, user, pathname, router, isPublic]);
 
   // Redirect unauthenticated users to /
   useEffect(() => {

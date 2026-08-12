@@ -1,8 +1,7 @@
-import fs from 'fs';
-import path from 'path';
 import { supabase } from '@/lib/supabaseClient';
+import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
 
-const DB_PATH = path.join(process.cwd(), 'src/lib/data/alumni_db.json');
+const DB_FILE = 'src/lib/data/alumni_db.json';
 
 // Interface types
 export interface AlumniProfile {
@@ -25,26 +24,13 @@ export interface AlumniJob {
 }
 
 // Read local JSON database
-function readLocalDb(): any {
-  try {
-    if (!fs.existsSync(DB_PATH)) {
-      return { alumni: [], jobs: [], donations: [], events: [], connects: [], referrals: [] };
-    }
-    const raw = fs.readFileSync(DB_PATH, 'utf-8');
-    return JSON.parse(raw);
-  } catch (err) {
-    console.error('Error reading local alumni database file:', err);
-    return { alumni: [], jobs: [], donations: [], events: [], connects: [], referrals: [] };
-  }
+async function readLocalDb(): Promise<any> {
+  return await readLocalJson(DB_FILE, { alumni: [], jobs: [], donations: [], events: [], connects: [], referrals: [] });
 }
 
 // Write local JSON database
-function writeLocalDb(data: any): void {
-  try {
-    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf-8');
-  } catch (err) {
-    console.error('Error writing local alumni database file:', err);
-  }
+async function writeLocalDb(data: any): Promise<void> {
+  await writeLocalJson(DB_FILE, data);
 }
 
 // Check if Supabase tables exist
@@ -66,7 +52,7 @@ export const alumniService = {
         const { data: alumni } = await supabase.from('alumni_registry').select('*');
         const { data: jobs } = await supabase.from('alumni_jobs').select('*');
 
-        const db = readLocalDb(); // Fetch local donations and events metrics
+        const db = await readLocalDb(); // Fetch local donations and events metrics
 
         return {
           alumni: (alumni || []).map(a => ({ id: a.id, name: a.name, batch: a.batch, company: a.company, designation: a.designation, email: a.email })),
@@ -82,7 +68,7 @@ export const alumniService = {
     }
 
     // Local Database Fallback
-    return readLocalDb();
+    return await readLocalDb();
   },
 
   async addJob(title: string, company: string, location: string, salary: string, postedBy: string) {
@@ -99,7 +85,7 @@ export const alumniService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     db.jobs.unshift({
       id,
       title,
@@ -109,7 +95,49 @@ export const alumniService = {
       postedBy,
       date: new Date().toISOString().split('T')[0]
     });
-    writeLocalDb(db);
+    await writeLocalDb(db);
     return { ok: true };
-  }
+  },
+
+  async requestMentorship(mentorName: string, studentName: string, slot: string) {
+    const isSupabaseAvailable = await checkSupabaseAvailable('alumni_connects');
+    const id = `CON-${Date.now()}`;
+    const row = { id, mentorName, studentName, slot, status: 'Requested', date: new Date().toISOString().split('T')[0] };
+    if (isSupabaseAvailable) {
+      try {
+        await supabase.from('alumni_connects').insert({
+          id, mentor_name: mentorName, student_name: studentName, slot, status: 'Requested',
+        });
+        return { ok: true, connect: row };
+      } catch (err) {
+        console.warn('Supabase write failed, falling back to local database:', err);
+      }
+    }
+    const db = await readLocalDb();
+    db.connects = db.connects || [];
+    db.connects.unshift(row);
+    await writeLocalDb(db);
+    return { ok: true, connect: row };
+  },
+
+  async requestReferral(jobId: string, studentName: string) {
+    const isSupabaseAvailable = await checkSupabaseAvailable('alumni_referrals');
+    const id = `REF-${Date.now()}`;
+    const row = { id, jobId, studentName, status: 'Requested', date: new Date().toISOString().split('T')[0] };
+    if (isSupabaseAvailable) {
+      try {
+        await supabase.from('alumni_referrals').insert({
+          id, job_id: jobId, student_name: studentName, status: 'Requested',
+        });
+        return { ok: true, referral: row };
+      } catch (err) {
+        console.warn('Supabase write failed, falling back to local database:', err);
+      }
+    }
+    const db = await readLocalDb();
+    db.referrals = db.referrals || [];
+    db.referrals.unshift(row);
+    await writeLocalDb(db);
+    return { ok: true, referral: row };
+  },
 };

@@ -26,44 +26,39 @@ interface Drive {
 export default function CompanyCRMPage() {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState<string>('Companies');
+  const [companies, setCompanies] = useState<Company[]>([]);
+  const [hrContacts, setHrContacts] = useState<HRContact[]>([]);
+  const [drives, setDrives] = useState<Drive[]>([]);
+  const [visits, setVisits] = useState<{ date: string; topic: string; guest: string }[]>([]);
+  const [history, setHistory] = useState<{ year: string; recruited: number; avgSalary: string; topRecruiter: string }[]>([]);
+  const [feedbacks, setFeedbacks] = useState<{ company: string; rating: string; comment: string }[]>([]);
 
-  const isAdmin = user?.role === 'admin';
+  const isAdmin = user?.role === 'admin' || user?.role === 'superadmin';
 
-  // Mock CRM Datasets
-  const companies: Company[] = [
-    { name: 'Stripe Security', industry: 'FinTech / Payments', status: 'Active recruiter' },
-    { name: 'Amazon Web Services', industry: 'Cloud Infrastructure', status: 'Active recruiter' },
-    { name: 'Google Labs', industry: 'AI / Search', status: 'Partner' },
-    { name: 'Infosys Systems', industry: 'Consulting / SDE Services', status: 'Partner' },
-    { name: 'Spam Corp Inc.', industry: 'Unverified Marketing', status: 'Blacklisted' }
-  ];
-
-  const hrContacts: HRContact[] = [
-    { name: 'Vikram Grover', role: 'Staff Recruitment Lead', company: 'Stripe Security', email: 'vikram.g@stripe.com' },
-    { name: 'Sarah Jenkins', role: 'Campus Hiring Partner', company: 'Amazon', email: 's.jenkins@amazon.com' },
-    { name: 'Anish Shenoy', role: 'Senior Talent Scout', company: 'Google Labs', email: 'a.shenoy@google.com' }
-  ];
-
-  const drives: Drive[] = [
-    { date: 'Sep 12, 2026', company: 'Stripe Security', profile: 'Associate SDE - Cryptography', status: 'Scheduled' },
-    { date: 'Aug 24, 2026', company: 'Amazon Core', profile: 'Cloud Support Interns', status: 'Scheduled' },
-    { date: 'Jul 15, 2026', company: 'Infosys Systems', profile: 'Systems Developer Associate', status: 'Ongoing' }
-  ];
-
-  const visits = [
-    { date: 'Sep 05, 2026', topic: 'Guest Lecture: Event-Driven systems scaling at scale', guest: 'Dr. Sarah (Google Tech Director)' },
-    { date: 'Aug 18, 2026', topic: 'Campus Tech Hackathon Evaluation panel', guest: 'Recruiter Vikram (Stripe)' }
-  ];
-
-  const history = [
-    { year: '2025', recruited: 14, avgSalary: '₹14 LPA', topRecruiter: 'Stripe Security' },
-    { year: '2024', recruited: 38, avgSalary: '₹6.5 LPA', topRecruiter: 'Infosys Systems' }
-  ];
-
-  const feedbacks = [
-    { company: 'Stripe Security', rating: '★★★★★', comment: 'Excellent whiteboard systems logic, but debugging speeds in code compiler could be faster.' },
-    { company: 'Infosys Systems', rating: '★★★★☆', comment: 'Socratic communication index is highly polished. Candidates are ready for client calls.' }
-  ];
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const { supabase } = await import('@/lib/supabaseClient');
+        const [co, hr, dr, vi, hi, fb] = await Promise.all([
+          supabase.from('crm_companies').select('*'),
+          supabase.from('crm_hr_contacts').select('*'),
+          supabase.from('crm_drives').select('*'),
+          supabase.from('crm_visits').select('*'),
+          supabase.from('crm_history').select('*'),
+          supabase.from('crm_feedback').select('*'),
+        ]);
+        if (cancelled) return;
+        if (!co.error && co.data) setCompanies(co.data as Company[]);
+        if (!hr.error && hr.data) setHrContacts(hr.data as HRContact[]);
+        if (!dr.error && dr.data) setDrives(dr.data as Drive[]);
+        if (!vi.error && vi.data) setVisits(vi.data as { date: string; topic: string; guest: string }[]);
+        if (!hi.error && hi.data) setHistory(hi.data as { year: string; recruited: number; avgSalary: string; topRecruiter: string }[]);
+        if (!fb.error && fb.data) setFeedbacks(fb.data as { company: string; rating: string; comment: string }[]);
+      } catch { /* tables may not exist yet */ }
+    })();
+    return () => { cancelled = true; };
+  }, []);
 
   return (
     <div style={{ maxWidth: 1280, margin: '0 auto', paddingBottom: 60 }} className="animate-fade-in">
@@ -88,6 +83,9 @@ export default function CompanyCRMPage() {
       {/* ──────────────────────────────────────────────────────── */}
       {isAdmin && (
         <div style={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: 20, alignItems: 'start' }}>
+          <div style={{ gridColumn: '1 / -1', padding: '10px 14px', borderRadius: 10, border: '1px solid var(--border)', background: 'rgba(245, 158, 11, 0.08)', color: 'var(--amber)', fontSize: 12, fontWeight: 700 }}>
+            Preview data — this CRM is a local catalog, not a live recruiter feed.
+          </div>
           
           {/* Vertical CRM Navigation */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4, background: 'var(--bg2)', padding: 8, borderRadius: 14, border: '1px solid var(--border)' }}>

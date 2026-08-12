@@ -15,6 +15,11 @@ export function installFetchInterceptor() {
 
     // Only intercept relative /api/* paths (excluding binary stream routes like /api/tts)
     if (typeof url === 'string' && url.startsWith('/api/') && !url.includes('/api/tts')) {
+      const headerSource = init?.headers || (typeof Request !== 'undefined' && input instanceof Request ? input.headers : undefined);
+      const headers = new Headers(headerSource);
+      if (headers.get('X-Pinit-Direct') === '1') {
+        return originalFetch(input, init);
+      }
       const method = (init?.method || 'GET').toUpperCase();
       let body: unknown = undefined;
       if (init?.body) {

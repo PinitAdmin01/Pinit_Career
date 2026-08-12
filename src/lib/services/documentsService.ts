@@ -1,8 +1,7 @@
-import fs from 'fs';
-import path from 'path';
 import { supabase } from '@/lib/supabaseClient';
+import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
 
-const DB_PATH = path.join(process.cwd(), 'src/lib/data/documents_db.json');
+const DB_FILE = 'src/lib/data/documents_db.json';
 
 // Interface types
 export interface DocumentRequest {
@@ -15,26 +14,13 @@ export interface DocumentRequest {
 }
 
 // Read local JSON database
-function readLocalDb(): any {
-  try {
-    if (!fs.existsSync(DB_PATH)) {
-      return { requests: [] };
-    }
-    const raw = fs.readFileSync(DB_PATH, 'utf-8');
-    return JSON.parse(raw);
-  } catch (err) {
-    console.error('Error reading local documents database file:', err);
-    return { requests: [] };
-  }
+async function readLocalDb(): Promise<any> {
+  return await readLocalJson(DB_FILE, { requests: [] });
 }
 
 // Write local JSON database
-function writeLocalDb(data: any): void {
-  try {
-    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf-8');
-  } catch (err) {
-    console.error('Error writing local documents database file:', err);
-  }
+async function writeLocalDb(data: any): Promise<void> {
+  await writeLocalJson(DB_FILE, data);
 }
 
 // Check if Supabase tables exist
@@ -70,7 +56,7 @@ export const documentsService = {
     }
 
     // Local Database Fallback
-    return readLocalDb();
+    return await readLocalDb();
   },
 
   async approveDoc(requestId: string) {
@@ -86,13 +72,45 @@ export const documentsService = {
     }
 
     // Local Database Fallback
-    const db = readLocalDb();
+    const db = await readLocalDb();
     const idx = db.requests.findIndex((r: any) => r.id === requestId);
     if (idx !== -1) {
       db.requests[idx].status = 'Approved';
-      writeLocalDb(db);
+      await writeLocalDb(db);
       return { ok: true };
     }
     return { ok: false };
-  }
+  },
+
+  async requestDoc(studentId: string, type: string, purpose: string) {
+    const isSupabaseAvailable = await checkSupabaseAvailable('document_requests');
+    const id = `DOC-${Date.now()}`;
+    const row = {
+      id,
+      studentId,
+      category: type || 'Bonafide',
+      description: purpose || 'Verification',
+      status: 'pending',
+      date: new Date().toISOString().split('T')[0],
+    };
+    if (isSupabaseAvailable) {
+      try {
+        await supabase.from('document_requests').insert({
+          id,
+          student_id: studentId,
+          category: row.category,
+          description: row.description,
+          status: 'pending',
+        });
+        return { ok: true, request: row, document: row };
+      } catch (err) {
+        console.warn('Supabase write failed, falling back to local database:', err);
+      }
+    }
+    const db = await readLocalDb();
+    db.requests = db.requests || [];
+    db.requests.unshift(row);
+    await writeLocalDb(db);
+    return { ok: true, request: row, document: row };
+  },
 };

@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     const studentId = gated.user!.id;
     const studentName = gated.user!.email || 'Student';
 
-    const result = await financeService.payDue(studentId, studentName, installmentId);
+    const result = await financeService.payDue(studentId, studentName, installmentId, gated.user!.email);
     return NextResponse.json(result);
   } catch (err: any) {
     return NextResponse.json({ error: err.message || 'Server error' }, { status: 500 });
