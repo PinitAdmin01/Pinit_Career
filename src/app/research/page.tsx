@@ -224,7 +224,7 @@ export default function FacultyResearchPortal() {
                   return (
                     <div key={p.id} style={{ border: '1px solid var(--border)', borderRadius: 14, padding: 18, background: 'var(--card)' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, fontWeight: 700, background: '#f1f5f9', padding: '2px 6px', borderRadius: 4 }}>{p.id}</span>
+                        <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, fontWeight: 700, background: 'var(--bg3)', padding: '2px 6px', borderRadius: 4 }}>{p.id}</span>
                         <span style={{
                           padding: '3px 8px', borderRadius: 20, fontSize: 10.5, fontWeight: 700,
                           background: p.status === 'Published' ? '#d1fae5' : (p.status === 'Accepted' ? 'var(--accent-light)' : 'var(--amber-light)'),
@@ -355,7 +355,7 @@ export default function FacultyResearchPortal() {
                     </div>
                     <span style={{
                       padding: '3px 8px', borderRadius: 20, fontSize: 10, fontWeight: 700,
-                      background: f.status === 'Approved' ? '#ecfdf5' : 'var(--amber-light)',
+                      background: f.status === 'Approved' ? 'var(--green-light)' : 'var(--amber-light)',
                       color: f.status === 'Approved' ? '#047857' : '#b45309'
                     }}>{f.status}</span>
                   </div>

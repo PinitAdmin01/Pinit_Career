@@ -197,7 +197,7 @@ function StudentTransportInner() {
 
         {/* Status Banners */}
         {allocation.status === 'none' && (
-          <div className="status-alert" style={{ background: '#fef2f2', borderColor: '#fee2e2', color: '#991b1b' }}>
+          <div className="status-alert" style={{ background: 'var(--coral-light)', borderColor: 'var(--coral-light)', color: 'var(--coral)' }}>
             <div>
               <strong style={{ fontSize: 14 }}>⚠️ Transit Pass Inactive</strong>
               <div style={{ fontSize: 12, marginTop: 2 }}>You do not have an active transport route registration. Register via route selectors below.</div>
@@ -214,7 +214,7 @@ function StudentTransportInner() {
           </div>
         )}
         {allocation.status === 'allocated' && (
-          <div className="status-alert" style={{ background: '#ecfdf5', borderColor: '#d1fae5', color: '#065f46' }}>
+          <div className="status-alert" style={{ background: 'var(--green-light)', borderColor: 'var(--green-light)', color: 'var(--green)' }}>
             <div>
               <strong style={{ fontSize: 14 }}>✓ Transit Pass Active</strong>
               <div style={{ fontSize: 12, marginTop: 2 }}>Assigned Route: <strong>{routes.find(r => r.code === allocation.route)?.name}</strong> | Boarding Stop: <strong>{allocation.stop}</strong>.</div>
@@ -305,7 +305,7 @@ function StudentTransportInner() {
             {/* Driver Profile */}
             {activeRoute && assignedDriver && (
               <div className="card-box" style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
-                <div style={{ fontSize: 40, background: '#f1f5f9', borderRadius: '50%', width: 70, height: 70, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ fontSize: 40, background: 'var(--bg3)', borderRadius: '50%', width: 70, height: 70, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   👨‍✈️
                 </div>
                 <div>
@@ -313,7 +313,7 @@ function StudentTransportInner() {
                   <div style={{ fontSize: 11.5, color: 'var(--t2)', marginTop: 2 }}>Mobile: <strong>{assignedDriver.phone}</strong> | License: <strong>{assignedDriver.license}</strong></div>
                   
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 8 }}>
-                    <span className="star-rating">{'★'.repeat(Math.min(5, Math.max(0, Math.round(assignedDriver.rating || 0))))}</span>
+                    <span className="star-rating">{'★'.repeat(Math.min(5, Math.max(0, Math.round(Number(assignedDriver.rating) || 0))))}</span>
                     <span style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--t2)' }}>({assignedDriver.rating || 0} Rating)</span>
                   </div>
                 </div>

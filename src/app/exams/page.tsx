@@ -151,7 +151,7 @@ export default function StudentExams() {
         .tbl-results td {
           padding: 14px 0;
           font-size: 13.5px;
-          border-bottom: 1px solid #f1f5f9;
+          border-bottom: 1px solid var(--border);
         }
         .badge-grade {
           padding: 3px 8px;
@@ -160,7 +160,7 @@ export default function StudentExams() {
           font-size: 11px;
         }
         .badge-green { background: #d1fae5; color: #065f46; }
-        .badge-gray { background: #f1f5f9; color: var(--t2); }
+        .badge-gray { background: var(--bg3); color: var(--t2); }
         .badge-red { background: #fee2e2; color: var(--coral); }
         
         .overlay {
@@ -255,7 +255,7 @@ export default function StudentExams() {
         {activeTab === 'results' && (
           <div>
             {!resultsSheet.isPublished ? (
-              <div className="card-box" style={{ background: '#fef2f2', border: '1px solid #fee2e2', textAlign: 'center', padding: '40px 20px' }}>
+              <div className="card-box" style={{ background: 'var(--coral-light)', border: '1px solid var(--coral-light)', textAlign: 'center', padding: '40px 20px' }}>
                 <div style={{ fontSize: 44, marginBottom: 12 }}>⚠️</div>
                 <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 800, color: '#991b1b' }}>Results Audit Status</h3>
                 <p style={{ fontSize: 13, color: '#b91c1c', maxWidth: 460, margin: '8px auto 0' }}>
@@ -404,7 +404,7 @@ export default function StudentExams() {
                 </thead>
                 <tbody>
                   {(resultsSheet.results || []).map((r: any) => (
-                    <tr key={r.code} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                    <tr key={r.code} style={{ borderBottom: '1px solid var(--border)' }}>
                       <td style={{ fontFamily: 'var(--font-mono)', padding: '8px 0' }}>{r.code}</td>
                       <td>{r.course}</td>
                       <td style={{ textAlign: 'center', fontWeight: 700 }}>{r.grade}</td>

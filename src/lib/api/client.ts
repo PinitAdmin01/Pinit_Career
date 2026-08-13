@@ -620,7 +620,7 @@ Return ONLY JSON. Do not write any markdown formatting, code block ticks, or ext
     ];
 
     if (action === 'initialize') {
-      const selectedBooks = MINDSET_BOOKS.sort(() => 0.5 - Math.random()).slice(0, 3);
+      const selectedBooks = [...MINDSET_BOOKS].sort(() => 0.5 - Math.random()).slice(0, 3);
       const booksContext = selectedBooks.map(b => `- ${b.title}: ${b.focus}`).join('\n');
       const systemPrompt = `You are the PinIT Mindset Orchestrator. 
 Generate a real-life high-stakes Socratic crisis scenario involving a ${role} with a baseline cognitive index (QT2 score) of ${qt2}.

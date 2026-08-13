@@ -118,7 +118,7 @@ export default function StudentGrievances() {
         .tbl-grv td {
           padding: 12px 0;
           font-size: 13.5px;
-          border-bottom: 1px solid #f1f5f9;
+          border-bottom: 1px solid var(--border);
         }
         .status-badge {
           padding: 3px 8px;
@@ -246,12 +246,12 @@ export default function StudentGrievances() {
                       <td style={{ fontWeight: 600 }}>{g.category}</td>
                       <td>
                         <div>{g.title}</div>
-                        {g.anonymous && <span style={{ fontSize: 9.5, background: '#f1f5f9', color: 'var(--t2)', padding: '1px 5px', borderRadius: 4, fontWeight: 700 }}>Anonymous Report</span>}
+                        {g.anonymous && <span style={{ fontSize: 9.5, background: 'var(--bg3)', color: 'var(--t2)', padding: '1px 5px', borderRadius: 4, fontWeight: 700 }}>Anonymous Report</span>}
                       </td>
                       <td style={{ color: 'var(--t2)' }}>{new Date(g.filedOn).toLocaleDateString()}</td>
                       <td>
                         <span className="status-badge" style={{
-                          background: g.status === 'Resolved' ? '#ecfdf5' : (g.status === 'In Investigation' ? 'var(--accent-light)' : 'var(--amber-light)'),
+                          background: g.status === 'Resolved' ? 'var(--green-light)' : (g.status === 'In Investigation' ? 'var(--accent-light)' : 'var(--amber-light)'),
                           color: g.status === 'Resolved' ? '#047857' : (g.status === 'In Investigation' ? '#1d4ed8' : '#b45309')
                         }}>{g.status}</span>
                       </td>
@@ -303,13 +303,13 @@ export default function StudentGrievances() {
                 <strong>Investigation Status:</strong>
                 <span className="status-badge" style={{
                   marginLeft: 8,
-                  background: selectedTicket.status === 'Resolved' ? '#ecfdf5' : (selectedTicket.status === 'In Investigation' ? 'var(--accent-light)' : 'var(--amber-light)'),
+                  background: selectedTicket.status === 'Resolved' ? 'var(--green-light)' : (selectedTicket.status === 'In Investigation' ? 'var(--accent-light)' : 'var(--amber-light)'),
                   color: selectedTicket.status === 'Resolved' ? '#047857' : (selectedTicket.status === 'In Investigation' ? '#1d4ed8' : '#b45309')
                 }}>{selectedTicket.status}</span>
               </div>
 
               {selectedTicket.status === 'Resolved' ? (
-                <div style={{ background: '#ecfdf5', border: '1px solid #a7f3d0', padding: 12, borderRadius: 10, color: '#065f46' }}>
+                <div style={{ background: 'var(--green-light)', border: '1px solid var(--green-light)', padding: 12, borderRadius: 10, color: 'var(--green)' }}>
                   <strong>Board Resolution Note:</strong>
                   <p style={{ marginTop: 4, lineHeight: 1.5 }}>{selectedTicket.resolution}</p>
                   <div style={{ fontSize: 10.5, color: '#047857', marginTop: 6 }}>Resolved on {new Date(selectedTicket.resolvedOn).toLocaleDateString()}</div>

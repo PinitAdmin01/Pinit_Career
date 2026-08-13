@@ -62,28 +62,20 @@ function StudentFinanceInner() {
     }
   };
 
+  const razorpayKey = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || '';
+  const paymentsLive = Boolean(razorpayKey);
+
   const handleProcessPayment = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     if (!activeCheckoutInst) return;
 
+    if (!paymentsLive) {
+      toast.error('Payments unavailable', 'Fees are recorded only after a verified Razorpay payment or an admin update. Online checkout is not configured.');
+      return;
+    }
+
     setProcessing(true);
     try {
-      const razorpayKey = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || '';
-      if (!razorpayKey) {
-        const res = await api.post<{ ok: boolean; receiptId: string }>('/api/finance/pay-due', {
-          installmentId: activeCheckoutInst.id,
-        });
-        if (res?.ok) {
-          setSuccess(true);
-          setTimeout(() => {
-            setSuccess(false);
-            setActiveCheckoutInst(null);
-            fetchDuesData();
-          }, 1200);
-        }
-        return;
-      }
-
       const orderRes = await api.post<{ orderId: string; amount: number; keyId: string }>('/api/payment/create-order', {
         planId: `installment_${activeCheckoutInst.id}`,
         amount: (activeCheckoutInst.amount || 10000) * 100
@@ -113,23 +105,7 @@ function StudentFinanceInner() {
         theme: { color: 'var(--accent)' }
       });
     } catch (err: any) {
-      try {
-        const res = await api.post<{ ok: boolean; receiptId: string }>('/api/finance/pay-due', {
-          installmentId: activeCheckoutInst.id,
-        });
-        if (res?.ok) {
-          setSuccess(true);
-          setTimeout(() => {
-            setSuccess(false);
-            setActiveCheckoutInst(null);
-            fetchDuesData();
-          }, 1200);
-          return;
-        }
-      } catch {
-        // fall through to alert
-      }
-      alert(err.message || 'Payment could not be completed.');
+      toast.error('Payment failed', err.message || 'Order could not be created. The installment was not marked paid.');
     } finally {
       setProcessing(false);
     }
@@ -324,6 +300,17 @@ function StudentFinanceInner() {
           </div>
         )}
 
+        {!paymentsLive && (
+          <div className="alert-banner" style={{ marginBottom: 20 }}>
+            <div>
+              <strong style={{ fontSize: 13 }}>Online fee checkout is not configured</strong>
+              <div style={{ fontSize: 12, marginTop: 4, color: 'var(--t2)' }}>
+                Installments stay unpaid until a verified Razorpay payment or an admin records the receipt. This page will not mark fees paid locally.
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Stats Grid */}
         <div className="grid-3">
           <div className="stats-card">
@@ -339,7 +326,7 @@ function StudentFinanceInner() {
             <div className="stats-lbl">Fees Cleared To Date</div>
             <div className="stats-val" style={{ color: 'var(--green)' }}>₹{totalPaid.toLocaleString()}</div>
             <div style={{ fontSize: 11, color: 'var(--t2)', marginTop: 4 }}>
-              Payment efficiency: {Math.round((totalPaid / dues.totalTermFees) * 100)}%
+              Payment efficiency: {dues.totalTermFees > 0 ? Math.round((totalPaid / dues.totalTermFees) * 100) : 0}%
             </div>
           </div>
           <div className="stats-card">
@@ -391,14 +378,18 @@ function StudentFinanceInner() {
                         >
                           📄 View Receipt
                         </button>
-                      ) : (
+                      ) : paymentsLive ? (
                         <button
                           onClick={() => setActiveCheckoutInst(inst)}
                           className="btn-primary"
                           style={{ fontSize: 11, padding: '6px 12px', background: 'var(--accent)' }}
                         >
-                          💳 Pay Online
+                          Pay Online
                         </button>
+                      ) : (
+                        <span style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 700 }}>
+                          Awaiting verified payment
+                        </span>
                       )}
                     </td>
                   </tr>

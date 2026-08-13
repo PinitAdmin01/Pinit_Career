@@ -171,7 +171,7 @@ export default function StudentLibrary() {
           font-size: 10px;
           font-weight: 800;
           text-transform: uppercase;
-          background: #f1f5f9;
+          background: var(--bg3);
           color: var(--t2);
           padding: 3px 8px;
           border-radius: 6px;
@@ -217,7 +217,7 @@ export default function StudentLibrary() {
         .tbl-borrows td {
           padding: 12px 0;
           font-size: 13px;
-          border-bottom: 1px solid #f1f5f9;
+          border-bottom: 1px solid var(--border);
         }
         .overlay {
           position: fixed;
@@ -374,7 +374,7 @@ export default function StudentLibrary() {
                         <td style={{ color: isOverdue ? 'var(--coral)' : 'var(--t2)', fontWeight: isOverdue ? 700 : 400 }}>{new Date(br.dueOn).toLocaleDateString()}</td>
                         <td>
                           <span className={`badge-status ${br.returned ? 'badge-paid' : isOverdue ? 'badge-unpaid' : 'badge-gray'}`} style={{
-                            background: br.returned ? '#ecfdf5' : isOverdue ? '#fef2f2' : '#f1f5f9',
+                            background: br.returned ? 'var(--green-light)' : isOverdue ? 'var(--coral-light)' : 'var(--bg3)',
                             color: br.returned ? 'var(--green)' : isOverdue ? 'var(--coral)' : 'var(--t2)'
                           }}>
                             {br.returned ? 'Returned' : isOverdue ? 'Overdue' : 'Active'}

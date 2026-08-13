@@ -225,7 +225,7 @@ export default function StudentServicesPortal() {
     }
     .tbl-services td {
       padding: 10px 0;
-      border-bottom: 1px solid #f1f5f9;
+      border-bottom: 1px solid var(--border);
     }
     .badge-status {
       padding: 3px 8px;

@@ -211,7 +211,7 @@ export default function StudentHostel() {
 
         {/* Status Alerts Banners */}
         {allocation.status === 'none' && (
-          <div className="status-alert" style={{ background: '#fef2f2', borderColor: '#fee2e2', color: '#991b1b' }}>
+          <div className="status-alert" style={{ background: 'var(--coral-light)', borderColor: 'var(--coral-light)', color: 'var(--coral)' }}>
             <div>
               <strong style={{ fontSize: 14 }}>⚠️ Accommodation Required</strong>
               <div style={{ fontSize: 12, marginTop: 2 }}>You do not currently have any active room allocations. Please pick a room from the catalog grid below.</div>
@@ -334,7 +334,7 @@ export default function StudentHostel() {
                     </div>
                     <span style={{
                       fontSize: 10.5, fontWeight: 700, padding: '3px 8px', borderRadius: 20,
-                      background: c.status === 'Pending' ? 'var(--amber-light)' : '#ecfdf5',
+                      background: c.status === 'Pending' ? 'var(--amber-light)' : 'var(--green-light)',
                       color: c.status === 'Pending' ? '#b45309' : 'var(--green)'
                     }}>{c.status}</span>
                   </div>
@@ -370,7 +370,7 @@ export default function StudentHostel() {
                 </button>
               </div>
 
-              <div style={{ borderTop: '1px solid #f1f5f9', marginTop: 16, paddingTop: 12, textAlign: 'left', maxHeight: 150, overflowY: 'auto' }}>
+              <div style={{ borderTop: '1px solid var(--border)', marginTop: 16, paddingTop: 12, textAlign: 'left', maxHeight: 150, overflowY: 'auto' }}>
                 <div style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--t2)', marginBottom: 6, textAlign: 'left' }}>Recent Punch Logs</div>
                 {attendance.map(a => (
                   <div key={a.id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: 'var(--t2)', padding: '4px 0' }}>

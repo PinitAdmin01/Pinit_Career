@@ -169,7 +169,7 @@ export default function StudentEvents() {
           gap: 6px;
           margin-bottom: 20px;
           padding-top: 12px;
-          border-top: 1px solid #f1f5f9;
+          border-top: 1px solid var(--border);
         }
         .evt-meta-item {
           display: flex;

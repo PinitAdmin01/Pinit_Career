@@ -112,7 +112,7 @@ export default function StudentMaintenancePortal() {
     .tbl-mnt td {
       padding: 12px 0;
       font-size: 13px;
-      border-bottom: 1px solid #f1f5f9;
+      border-bottom: 1px solid var(--border);
     }
     .status-badge {
       padding: 3px 8px;

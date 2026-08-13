@@ -270,7 +270,7 @@ export default function StudentAlumniPortal() {
                       <div style={{ fontSize: 12, color: 'var(--t2)', marginTop: 4 }}>Expertise: {alm.domain}</div>
                     </div>
                     
-                    <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: 10, marginTop: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div style={{ borderTop: '1px solid var(--border)', paddingTop: 10, marginTop: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <span style={{ fontSize: 11, color: 'var(--t2)' }}>{alm.email}</span>
                       <button
                         onClick={() => {
@@ -402,13 +402,15 @@ export default function StudentAlumniPortal() {
             <div>
               <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 800, marginBottom: 14 }}>🚀 Active Development Campaigns</h3>
               {donations.map(d => {
-                const percent = Math.min(100, Math.round((d.raised / d.goal) * 100));
+                const raised = d.raised ?? 0;
+                const goal = d.goal && d.goal > 0 ? d.goal : 1;
+                const percent = Math.min(100, Math.round((raised / goal) * 100));
                 return (
                   <div key={d.id} className="campaign-card">
                     <h4 style={{ margin: '0 0 8px 0', fontSize: 14.5, fontWeight: 800 }}>{d.title}</h4>
                     <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--t2)', marginBottom: 4 }}>
-                      <span>Raised: <strong>₹{d.raised.toLocaleString()}</strong></span>
-                      <span>Goal: ₹{d.goal.toLocaleString()}</span>
+                      <span>Raised: <strong>₹{raised.toLocaleString()}</strong></span>
+                      <span>Goal: ₹{(d.goal ?? 0).toLocaleString()}</span>
                     </div>
 
                     <div className="progress-bar">
@@ -479,7 +481,7 @@ export default function StudentAlumniPortal() {
                     </div>
                   </div>
 
-                  <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: 10, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div style={{ borderTop: '1px solid var(--border)', paddingTop: 10, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <span style={{ fontSize: 11.5, color: 'var(--t2)' }}>👥 {e.attendees} Attending</span>
                     <button
                       onClick={() => {

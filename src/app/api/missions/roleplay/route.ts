@@ -100,7 +100,7 @@ export async function POST(req: Request) {
 
     // ── ACTION: INITIALIZE ──
     if (action === 'initialize') {
-      const selectedBooks = MINDSET_BOOKS.sort(() => 0.5 - Math.random()).slice(0, 3);
+      const selectedBooks = [...MINDSET_BOOKS].sort(() => 0.5 - Math.random()).slice(0, 3);
       const booksContext = selectedBooks.map(b => `- ${b.title}: ${b.focus}`).join('\n');
 
       const systemPrompt = `You are the PinIT Mindset Orchestrator. 
