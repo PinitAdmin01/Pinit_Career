@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { useAuth } from '@/lib/context/AuthContext';
 import { QUESTS_REGISTRY } from '@/lib/data/questsData';
+import { COURSES_REGISTRY } from '@/lib/data/coursesData';
 import { toast } from '@/lib/store/useAppStore';
 import { api } from '@/lib/api/client';
 
@@ -63,6 +64,10 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
   // AI Companion token usage warning is displayed inside AI Chat tab instead of locking the entire offline editor
 
   const quest = useMemo(() => {
+    const fromCourses = COURSES_REGISTRY.flatMap(c => c.quests || []).find((q: { id?: string }) => q.id === questId);
+    if (fromCourses) return fromCourses;
+    const fromRegistry = QUESTS_REGISTRY.find(q => q.id === questId);
+    if (fromRegistry) return fromRegistry;
     if (typeof window === 'undefined') return null;
     try {
       const moduleKeys = Object.keys(localStorage).filter(k => k.startsWith(`pinit_${userId}_roadmap_modules`));
@@ -81,8 +86,6 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
     } catch (e) {
       console.error(e);
     }
-    const regQuest = QUESTS_REGISTRY.find(q => q.id === questId);
-    if (regQuest) return regQuest;
     return null;
   }, [questId, userId]);
 

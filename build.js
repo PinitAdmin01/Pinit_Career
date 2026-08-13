@@ -17,27 +17,9 @@ function ensureDir(dir) {
 }
 
 function ensureBuildDirs() {
-  const serverPagesDir = path.join(__dirname, '.next', 'server', 'pages');
-  const exportDir = path.join(__dirname, '.next', 'export');
-  ensureDir(serverPagesDir);
-  ensureDir(exportDir);
-
-  // Pre-create stub error pages to prevent Windows rename ENOENT race conditions
-  const stub500 = '<!DOCTYPE html><html><body><h1>500 - Server Error</h1></body></html>';
-  const stub404 = '<!DOCTYPE html><html><body><h1>404 - Not Found</h1></body></html>';
-
-  const files = [
-    { path: path.join(exportDir, '500.html'), content: stub500 },
-    { path: path.join(exportDir, '404.html'), content: stub404 },
-    { path: path.join(serverPagesDir, '500.html'), content: stub500 },
-    { path: path.join(serverPagesDir, '404.html'), content: stub404 },
-  ];
-
-  for (const f of files) {
-    if (!fs.existsSync(f.path)) {
-      fs.writeFileSync(f.path, f.content);
-    }
-  }
+  // Do not pre-create .next/server/pages stubs — that makes Next look for
+  // pages/_document and fail with PageNotFoundError during collect.
+  ensureDir(outDir);
 }
 
 function copyDirSync(src, dest) {
@@ -67,6 +49,9 @@ try {
   const nextExportDir = path.join(__dirname, '.next', 'export');
   if (fs.existsSync(nextExportDir)) {
     copyDirSync(nextExportDir, outDir);
+  } else if (!fs.existsSync(path.join(outDir, 'index.html'))) {
+    console.error('[ERROR] Build finished but out/index.html is missing.');
+    process.exit(1);
   }
   console.log('\n--- Build completed successfully! ---');
 } catch (err) {
