@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
@@ -41,6 +41,17 @@ interface Module {
   difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
   estimatedWeeks: number;
   quests: Quest[];
+}
+
+interface ExtraRoadmap {
+  id: string;
+  number: number;
+  goal: string;
+  courseId: string;
+  durationDays: number;
+  dailyPace: number;
+  track: string;
+  createdAt: number;
 }
 
 // 🔊 Pure WebAudio Gamification Sound FX Engine (Task 3)
@@ -126,31 +137,61 @@ export default function QuestsPage() {
   const [historyFilter, setHistoryFilter] = useState<'all' | 'quests' | 'pins'>('all');
 
   // Dual Mode Switcher states (Fused Career Trajectory vs Standalone Single Course Direct Learning)
-  const [learningPathMode, setLearningPathMode] = useState<'fused_roadmap' | 'single_course'>('fused_roadmap');
+  const [learningPathMode, setLearningPathMode] = useState<string>('fused_roadmap');
   const [selectedStandaloneCourseId, setSelectedStandaloneCourseId] = useState<string>('course-python-backend');
+  const [extraRoadmaps, setExtraRoadmaps] = useState<ExtraRoadmap[]>([]);
+  const [tabsReady, setTabsReady] = useState(false);
+  const extrasOwnerRef = useRef<string | null>(null);
+  const fusedCourseRef = useRef<string | null>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined' || !userId) return;
+    setTabsReady(false);
+    extrasOwnerRef.current = null;
     try {
+      const extrasRaw = localStorage.getItem(`pinit_${userId}_extra_roadmaps`);
+      const extras: ExtraRoadmap[] = extrasRaw ? JSON.parse(extrasRaw) : [];
+      const list = Array.isArray(extras) ? extras : [];
+      setExtraRoadmaps(list);
+
       const saved = localStorage.getItem(`pinit_${userId}_quests_view`);
-      if (!saved) return;
-      const parsed = JSON.parse(saved);
-      if (parsed.mode === 'fused_roadmap' || parsed.mode === 'single_course') {
-        setLearningPathMode(parsed.mode);
-      }
-      if (typeof parsed.courseId === 'string' && parsed.courseId) {
-        setSelectedStandaloneCourseId(parsed.courseId);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.mode === 'fused_roadmap' || parsed.mode === 'single_course') {
+          setLearningPathMode(parsed.mode);
+        } else if (parsed.mode === 'extra' && parsed.extraId && list.some((r: ExtraRoadmap) => r.id === parsed.extraId)) {
+          const extra = list.find((r: ExtraRoadmap) => r.id === parsed.extraId);
+          setLearningPathMode(`extra:${parsed.extraId}`);
+          if (extra?.courseId) setActiveCourseId(extra.courseId);
+        }
+        if (typeof parsed.courseId === 'string' && parsed.courseId) {
+          setSelectedStandaloneCourseId(parsed.courseId);
+        }
       }
     } catch {}
-  }, [userId]);
+    extrasOwnerRef.current = userId;
+    setTabsReady(true);
+  }, [userId, setActiveCourseId]);
 
   useEffect(() => {
-    if (typeof window === 'undefined' || !userId || userId === 'guest') return;
+    if (typeof window === 'undefined' || !userId || userId === 'guest' || !tabsReady || extrasOwnerRef.current !== userId) return;
     localStorage.setItem(`pinit_${userId}_quests_view`, JSON.stringify({
-      mode: learningPathMode,
+      mode: learningPathMode.startsWith('extra:') ? 'extra' : learningPathMode,
+      extraId: learningPathMode.startsWith('extra:') ? learningPathMode.slice(6) : null,
       courseId: selectedStandaloneCourseId
     }));
-  }, [userId, learningPathMode, selectedStandaloneCourseId]);
+  }, [userId, learningPathMode, selectedStandaloneCourseId, tabsReady]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !userId || userId === 'guest' || !tabsReady || extrasOwnerRef.current !== userId) return;
+    localStorage.setItem(`pinit_${userId}_extra_roadmaps`, JSON.stringify(extraRoadmaps));
+  }, [userId, extraRoadmaps, tabsReady]);
+
+  useEffect(() => {
+    if (learningPathMode === 'fused_roadmap' && activeCourseId) {
+      fusedCourseRef.current = activeCourseId;
+    }
+  }, [learningPathMode, activeCourseId]);
 
   // Simple Notes Modal State
   const [notesModalState, setNotesModalState] = useState<{ isOpen: boolean; courseId: string; courseTitle: string }>({
@@ -300,14 +341,6 @@ export default function QuestsPage() {
 
     try {
       const finalGoal = customGoal ? customGoal.trim() : config.role;
-      const updatedAnswers = {
-        ...onboardingAnswers,
-        role: finalGoal,
-        activeCourseId: config.courseId
-      };
-      setOnboarding(updatedAnswers, true);
-      setActiveCourseId(config.courseId);
-
       const dynamicModules = generateDynamicStudentRoadmap({
         qt1: onboardingAnswers?.qt1_score ?? 75,
         qt2: onboardingAnswers?.qt2_score ?? 80,
@@ -318,14 +351,30 @@ export default function QuestsPage() {
         dailyPace: selectedPace
       });
 
-      setModules(dynamicModules as any);
+      const nextNumber = extraRoadmaps.reduce((max, rm) => Math.max(max, rm.number || 0), 1) + 1;
+      const extraId = `rm_${Date.now()}`;
+      const extra: ExtraRoadmap = {
+        id: extraId,
+        number: nextNumber,
+        goal: finalGoal,
+        courseId: config.courseId,
+        durationDays: selectedDuration,
+        dailyPace: selectedPace,
+        track: selectedTrack,
+        createdAt: Date.now()
+      };
+
+      setExtraRoadmaps(prev => [...prev, extra]);
       if (typeof window !== 'undefined' && userId !== 'guest') {
-        const modulesKey = `pinit_${userId}_roadmap_modules_${config.courseId}`;
-        localStorage.setItem(modulesKey, JSON.stringify(dynamicModules));
+        localStorage.setItem(`pinit_${userId}_extra_roadmap_${extraId}_modules`, JSON.stringify(dynamicModules));
       }
+
+      setModules(dynamicModules as any);
+      setActiveCourseId(config.courseId);
+      setLearningPathMode(`extra:${extraId}`);
       setRoadmapGenerated(true);
 
-      toast.success(`Mixed Tech/Business Roadmap Active! 🚀`, `Fused Goal: "${finalGoal}" over ${selectedDuration} days.`);
+      toast.success(`Roadmap ${nextNumber} ready`, `"${finalGoal}" · ${selectedDuration} days`);
       setShowRoadmapModal(false);
     } catch (e: any) {
       toast.error('Roadmap Generation Failed', e.message);
@@ -400,11 +449,76 @@ export default function QuestsPage() {
     ]
   };
 
-  const trajectory: CareerTrajectory = learningPathMode === 'single_course' ? standaloneTrajectory : fusedTrajectory;
+  const activeExtra = learningPathMode.startsWith('extra:')
+    ? extraRoadmaps.find(rm => `extra:${rm.id}` === learningPathMode) || null
+    : null;
+  const extraRole = activeExtra
+    ? (COURSE_TO_ROLE[activeExtra.courseId] || activeExtra.goal)
+    : currentRole;
+  const extraTrajectory: CareerTrajectory = activeExtra
+    ? {
+        ...recommendCareerTrajectory(extraRole, qt1, qt2, archetype),
+        roleTitle: `Roadmap ${activeExtra.number} · ${activeExtra.goal}`,
+        targetTotalDays: activeExtra.durationDays,
+        recommendationReason: `Custom tab: ${activeExtra.goal} (${activeExtra.durationDays} days, ${activeExtra.dailyPace} quests/day).`
+      }
+    : fusedTrajectory;
+
+  const trajectory: CareerTrajectory = learningPathMode === 'single_course'
+    ? standaloneTrajectory
+    : activeExtra
+      ? extraTrajectory
+      : fusedTrajectory;
+
+  const closeExtraRoadmap = (id: string) => {
+    const closing = extraRoadmaps.find(rm => rm.id === id);
+    setExtraRoadmaps(prev => prev.filter(rm => rm.id !== id));
+    if (typeof window !== 'undefined' && userId !== 'guest') {
+      localStorage.removeItem(`pinit_${userId}_extra_roadmap_${id}_modules`);
+    }
+    if (learningPathMode === `extra:${id}`) {
+      setLearningPathMode('fused_roadmap');
+      if (fusedCourseRef.current) setActiveCourseId(fusedCourseRef.current);
+    }
+    playPopSound();
+    toast.success(closing ? `Roadmap ${closing.number} closed` : 'Roadmap closed', 'You can generate another anytime.');
+  };
 
   // Load modules from localStorage or active state based on activeCourseId
   const loadModules = useCallback(() => {
-    if (typeof window !== 'undefined' && userId !== 'guest' && activeCourseId) {
+    if (typeof window === 'undefined' || userId === 'guest') return;
+
+    if (learningPathMode.startsWith('extra:')) {
+      const extraId = learningPathMode.slice(6);
+      const extraSaved = localStorage.getItem(`pinit_${userId}_extra_roadmap_${extraId}_modules`);
+      if (extraSaved) {
+        try {
+          const parsed = JSON.parse(extraSaved);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            setModules(parsed);
+            if (!roadmapGenerated) setRoadmapGenerated(true);
+            return;
+          }
+        } catch {}
+      }
+      const extraMeta = extraRoadmaps.find(rm => rm.id === extraId);
+      if (extraMeta) {
+        const fallback = generateDynamicStudentRoadmap({
+          courseId: extraMeta.courseId,
+          goal: extraMeta.goal,
+          qt1,
+          qt2,
+          archetype,
+          durationDays: extraMeta.durationDays,
+          dailyPace: extraMeta.dailyPace
+        });
+        setModules(fallback as unknown as Module[]);
+        if (!roadmapGenerated) setRoadmapGenerated(true);
+        return;
+      }
+    }
+
+    if (activeCourseId) {
       const modulesKey = `pinit_${userId}_roadmap_modules_${activeCourseId}`;
       let saved = localStorage.getItem(modulesKey);
 
@@ -459,7 +573,7 @@ export default function QuestsPage() {
       });
       setModules(fallback as unknown as Module[]);
     }
-  }, [userId, activeCourseId, roadmapGenerated, setRoadmapGenerated, currentRole, qt1, qt2, archetype]);
+  }, [userId, activeCourseId, learningPathMode, extraRoadmaps, roadmapGenerated, setRoadmapGenerated, currentRole, qt1, qt2, archetype]);
 
   useEffect(() => {
     loadModules();
@@ -1122,16 +1236,18 @@ export default function QuestsPage() {
             gap: 12,
             boxShadow: 'var(--shadow-md)'
           }}>
-            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'nowrap', alignItems: 'center', overflowX: 'auto', paddingBottom: 4, maxWidth: '100%' }}>
               <button
                 onClick={() => {
                   playPopSound();
                   setLearningPathMode('fused_roadmap');
+                  if (fusedCourseRef.current) setActiveCourseId(fusedCourseRef.current);
                 }}
                 style={{
-                  padding: '10px 20px',
-                  borderRadius: 14,
+                  padding: '10px 18px',
+                  borderRadius: '12px 12px 0 0',
                   border: `1.5px solid ${learningPathMode === 'fused_roadmap' ? '#10b981' : 'rgba(255,255,255,0.08)'}`,
+                  borderBottom: learningPathMode === 'fused_roadmap' ? '1.5px solid transparent' : '1.5px solid rgba(255,255,255,0.08)',
                   background: learningPathMode === 'fused_roadmap' ? 'linear-gradient(135deg, rgba(16,185,129,0.25), rgba(5,150,105,0.15))' : 'var(--bg2)',
                   color: learningPathMode === 'fused_roadmap' ? '#34d399' : 'var(--t2)',
                   fontSize: 13,
@@ -1140,13 +1256,14 @@ export default function QuestsPage() {
                   display: 'flex',
                   alignItems: 'center',
                   gap: 8,
+                  flexShrink: 0,
                   boxShadow: learningPathMode === 'fused_roadmap' ? '0 4px 16px rgba(16,185,129,0.25)' : 'none',
                   transition: 'all 0.2s ease'
                 }}
               >
-                <span>🗺️ Fused Career Trajectory Roadmap</span>
+                <span>🗺️ Fused Career Trajectory</span>
                 <span style={{ fontSize: 10, fontWeight: 800, background: 'rgba(16,185,129,0.25)', padding: '2px 7px', borderRadius: 6, color: '#10b981' }}>
-                  Multi-Course (Noob-to-Pro)
+                  Roadmap 1
                 </span>
               </button>
 
@@ -1157,9 +1274,10 @@ export default function QuestsPage() {
                   setActiveCourseId(selectedStandaloneCourseId);
                 }}
                 style={{
-                  padding: '10px 20px',
-                  borderRadius: 14,
+                  padding: '10px 18px',
+                  borderRadius: '12px 12px 0 0',
                   border: `1.5px solid ${learningPathMode === 'single_course' ? '#3b82f6' : 'rgba(255,255,255,0.08)'}`,
+                  borderBottom: learningPathMode === 'single_course' ? '1.5px solid transparent' : '1.5px solid rgba(255,255,255,0.08)',
                   background: learningPathMode === 'single_course' ? 'linear-gradient(135deg, rgba(59,130,246,0.25), rgba(37,99,235,0.15))' : 'var(--bg2)',
                   color: learningPathMode === 'single_course' ? '#60a5fa' : 'var(--t2)',
                   fontSize: 13,
@@ -1168,14 +1286,105 @@ export default function QuestsPage() {
                   display: 'flex',
                   alignItems: 'center',
                   gap: 8,
+                  flexShrink: 0,
                   boxShadow: learningPathMode === 'single_course' ? '0 4px 16px rgba(59,130,246,0.25)' : 'none',
                   transition: 'all 0.2s ease'
                 }}
               >
-                <span>📚 Standalone Single-Course Direct Learning</span>
+                <span>📚 Standalone Single-Course</span>
                 <span style={{ fontSize: 10, fontWeight: 800, background: 'rgba(59,130,246,0.25)', padding: '2px 7px', borderRadius: 6, color: '#60a5fa' }}>
-                  Traditional Focus
+                  Direct
                 </span>
+              </button>
+
+              {extraRoadmaps.map(rm => {
+                const isOn = learningPathMode === `extra:${rm.id}`;
+                return (
+                  <div
+                    key={rm.id}
+                    role="tab"
+                    aria-selected={isOn}
+                    onClick={() => {
+                      playPopSound();
+                      setLearningPathMode(`extra:${rm.id}`);
+                      setActiveCourseId(rm.courseId);
+                    }}
+                    onAuxClick={(e) => {
+                      if (e.button === 1) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        closeExtraRoadmap(rm.id);
+                      }
+                    }}
+                    title={`${rm.goal} · close with × or middle-click`}
+                    style={{
+                      padding: '8px 8px 8px 16px',
+                      borderRadius: '12px 12px 0 0',
+                      border: `1.5px solid ${isOn ? '#f59e0b' : 'rgba(255,255,255,0.08)'}`,
+                      background: isOn ? 'linear-gradient(135deg, rgba(245,158,11,0.28), rgba(217,119,6,0.16))' : 'var(--bg2)',
+                      color: isOn ? '#fbbf24' : 'var(--t2)',
+                      fontSize: 13,
+                      fontWeight: 900,
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 6,
+                      flexShrink: 0,
+                      boxShadow: isOn ? '0 4px 16px rgba(245,158,11,0.25)' : 'none',
+                      maxWidth: 220
+                    }}
+                  >
+                    <span style={{ whiteSpace: 'nowrap' }}>🗺️ Roadmap {rm.number}</span>
+                    <button
+                      type="button"
+                      aria-label={`Close Roadmap ${rm.number}`}
+                      title="Close tab"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        closeExtraRoadmap(rm.id);
+                      }}
+                      style={{
+                        width: 20,
+                        height: 20,
+                        borderRadius: 6,
+                        border: 'none',
+                        background: isOn ? 'rgba(0,0,0,0.25)' : 'rgba(255,255,255,0.06)',
+                        color: isOn ? '#fff' : 'var(--t3)',
+                        cursor: 'pointer',
+                        fontSize: 13,
+                        lineHeight: '20px',
+                        padding: 0,
+                        flexShrink: 0
+                      }}
+                    >
+                      ×
+                    </button>
+                  </div>
+                );
+              })}
+
+              <button
+                type="button"
+                title="New roadmap"
+                onClick={() => {
+                  playPopSound();
+                  setShowRoadmapModal(true);
+                }}
+                style={{
+                  width: 36,
+                  height: 36,
+                  borderRadius: 10,
+                  border: '1.5px dashed rgba(16,185,129,0.45)',
+                  background: 'rgba(16,185,129,0.08)',
+                  color: '#34d399',
+                  fontSize: 20,
+                  fontWeight: 800,
+                  cursor: 'pointer',
+                  flexShrink: 0,
+                  lineHeight: 1
+                }}
+              >
+                +
               </button>
             </div>
 
@@ -2038,7 +2247,7 @@ export default function QuestsPage() {
                     Configure Custom AI Roadmap
                   </h3>
                   <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 2 }}>
-                    Generate personalized day-by-day learning trajectory from 30 days to 1 year.
+                    Opens as a new tab next to Standalone (Roadmap {extraRoadmaps.reduce((max, rm) => Math.max(max, rm.number || 0), 1) + 1}). Close extra tabs anytime — Fused and Standalone stay.
                   </div>
                 </div>
               </div>
