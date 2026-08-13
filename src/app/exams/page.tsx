@@ -49,7 +49,7 @@ export default function StudentExams() {
     return (
       <div style={{ padding: 40, textAlign: 'center', color: 'var(--coral)' }}>
         <p style={{ marginBottom: 12 }}>{error}</p>
-        <button onClick={() => { fetchSchedule(); fetchResults(); }} style={{ padding: '8px 16px', background: '#3b82f6', color: 'var(--card)', borderRadius: 6, border: 'none', cursor: 'pointer' }}>Retry</button>
+        <button onClick={() => { fetchSchedule(); fetchResults(); }} style={{ padding: '8px 16px', background: 'var(--accent)', color: '#fff', borderRadius: 6, border: 'none', cursor: 'pointer' }}>Retry</button>
       </div>
     );
   }
@@ -159,9 +159,9 @@ export default function StudentExams() {
           font-weight: 800;
           font-size: 11px;
         }
-        .badge-green { background: #d1fae5; color: #065f46; }
+        .badge-green { background: var(--green-light); color: var(--green); }
         .badge-gray { background: var(--bg3); color: var(--t2); }
-        .badge-red { background: #fee2e2; color: var(--coral); }
+        .badge-red { background: var(--coral-light); color: var(--coral); }
         
         .overlay {
           position: fixed;
@@ -186,7 +186,7 @@ export default function StudentExams() {
           border-radius: 14px;
           padding: 20px;
           margin-top: 16px;
-          background: #fafafa;
+          background: var(--bg3);
         }
         .transcript-sheet {
           background: var(--card);
@@ -257,8 +257,8 @@ export default function StudentExams() {
             {!resultsSheet.isPublished ? (
               <div className="card-box" style={{ background: 'var(--coral-light)', border: '1px solid var(--coral-light)', textAlign: 'center', padding: '40px 20px' }}>
                 <div style={{ fontSize: 44, marginBottom: 12 }}>⚠️</div>
-                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 800, color: '#991b1b' }}>Results Audit Status</h3>
-                <p style={{ fontSize: 13, color: '#b91c1c', maxWidth: 460, margin: '8px auto 0' }}>
+                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 800, color: 'var(--coral)' }}>Results Audit Status</h3>
+                <p style={{ fontSize: 13, color: 'var(--t2)', maxWidth: 460, margin: '8px auto 0' }}>
                   The Semester Grades for Academic Year 2025–26 have not been published by the Exam Cell. Marks are currently undergoing board verification audits.
                 </p>
                 <div style={{ fontSize: 11, color: 'var(--coral)', marginTop: 14, fontFamily: 'var(--font-mono)' }}>

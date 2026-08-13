@@ -344,7 +344,7 @@ export default function StudentAlumniPortal() {
                         <span style={{ fontWeight: 800, fontSize: 13.5 }}>{c.mentorName}</span>
                         <span style={{
                           padding: '3px 8px', borderRadius: 20, fontSize: 10, fontWeight: 700,
-                          background: 'var(--accent-light)', color: '#1e40af'
+                          background: 'var(--accent-light)', color: 'var(--accent)'
                         }}>{c.status}</span>
                       </div>
                       <div style={{ fontSize: 12, color: 'var(--t2)', marginTop: 4 }}>Slot Time: {c.slot}</div>

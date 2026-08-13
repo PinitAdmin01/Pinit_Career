@@ -200,8 +200,8 @@ export default function FacultyResearchPortal() {
           {[
             { label: 'Published Papers', value: `${papers.filter(p => p.status === 'Published').length} Papers`, color: 'var(--accent)' },
             { label: 'Active Projects', value: `${projects.length} Grants`, color: 'var(--green)' },
-            { label: 'Filed Patents', value: `${patents.length} Filings`, color: '#8b5cf6' },
-            { label: 'Funding Secured', value: `₹${(projects.reduce((acc, curr) => acc + (curr.grantAmount || 0), 0) / 100000).toFixed(1)}L`, color: '#f59e0b' }
+            { label: 'Filed Patents', value: `${patents.length} Filings`, color: 'var(--purple)' },
+            { label: 'Funding Secured', value: `₹${(projects.reduce((acc, curr) => acc + (curr.grantAmount || 0), 0) / 100000).toFixed(1)}L`, color: 'var(--amber)' }
           ].map(s => (
             <div key={s.label} className="metric-card">
               <div className="metric-label">{s.label}</div>
@@ -227,8 +227,8 @@ export default function FacultyResearchPortal() {
                         <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, fontWeight: 700, background: 'var(--bg3)', padding: '2px 6px', borderRadius: 4 }}>{p.id}</span>
                         <span style={{
                           padding: '3px 8px', borderRadius: 20, fontSize: 10.5, fontWeight: 700,
-                          background: p.status === 'Published' ? '#d1fae5' : (p.status === 'Accepted' ? 'var(--accent-light)' : 'var(--amber-light)'),
-                          color: p.status === 'Published' ? '#065f46' : (p.status === 'Accepted' ? '#1e40af' : '#b45309')
+                          background: p.status === 'Published' ? 'var(--green-light)' : (p.status === 'Accepted' ? 'var(--accent-light)' : 'var(--amber-light)'),
+                          color: p.status === 'Published' ? 'var(--green)' : (p.status === 'Accepted' ? 'var(--accent)' : 'var(--amber)')
                         }}>{p.status}</span>
                       </div>
                       
@@ -296,7 +296,7 @@ export default function FacultyResearchPortal() {
                     </div>
                     <span style={{
                       padding: '3px 8px', borderRadius: 20, fontSize: 10, fontWeight: 700,
-                      background: 'var(--accent-light)', color: '#1e40af', border: '1px solid #bfdbfe'
+                      background: 'var(--accent-light)', color: 'var(--accent)', border: '1px solid var(--accent-light)'
                     }}>{pat.status}</span>
                   </div>
                 ))}
@@ -356,7 +356,7 @@ export default function FacultyResearchPortal() {
                     <span style={{
                       padding: '3px 8px', borderRadius: 20, fontSize: 10, fontWeight: 700,
                       background: f.status === 'Approved' ? 'var(--green-light)' : 'var(--amber-light)',
-                      color: f.status === 'Approved' ? '#047857' : '#b45309'
+                      color: f.status === 'Approved' ? 'var(--green)' : 'var(--amber)'
                     }}>{f.status}</span>
                   </div>
                 ))}

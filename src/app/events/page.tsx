@@ -215,7 +215,7 @@ export default function StudentEvents() {
           border: 8px double var(--t1);
           padding: 30px;
           text-align: center;
-          background: #fdfdfd;
+          background: var(--card);
           position: relative;
         }
       `}</style>
@@ -252,8 +252,8 @@ export default function StudentEvents() {
                 <div key={e.id} className="evt-card">
                   <div>
                     <span className="evt-badge" style={{
-                      background: e.category === 'Hackathons' ? '#fee2e2' : (e.category === 'Seminars' ? 'var(--accent-light)' : '#f3e8ff'),
-                      color: e.category === 'Hackathons' ? 'var(--coral)' : (e.category === 'Seminars' ? 'var(--accent)' : '#9333ea')
+                      background: e.category === 'Hackathons' ? 'var(--coral-light)' : (e.category === 'Seminars' ? 'var(--accent-light)' : 'var(--purple-light)'),
+                      color: e.category === 'Hackathons' ? 'var(--coral)' : (e.category === 'Seminars' ? 'var(--accent)' : 'var(--purple)')
                     }}>{e.category}</span>
                     <h3 className="evt-title">{e.title}</h3>
                     <p className="evt-desc">{e.description}</p>
@@ -282,7 +282,7 @@ export default function StudentEvents() {
                       <button
                         className="btn-ghost"
                         disabled
-                        style={{ width: '100%', border: '1.5px solid #22c55e', color: '#22c55e', background: '#f0fdf4', fontWeight: 700 }}
+                        style={{ width: '100%', border: '1.5px solid var(--green)', color: 'var(--green)', background: 'var(--green-light)', fontWeight: 700 }}
                       >
                         ✓ RSVP Confirmed
                       </button>
@@ -330,7 +330,7 @@ export default function StudentEvents() {
                     🎓 View Certificate
                   </button>
                 ) : (
-                  <span style={{ fontSize: 12, color: '#f59e0b', fontWeight: 600 }}>⌛ Processing Approval</span>
+                  <span style={{ fontSize: 12, color: 'var(--amber)', fontWeight: 600 }}>Processing Approval</span>
                 )}
               </div>
             ))
@@ -353,7 +353,7 @@ export default function StudentEvents() {
               <div style={{ fontSize: 24, fontWeight: 800, textDecoration: 'underline', color: 'var(--t1)', marginBottom: 18 }}>
                 ASHWANTH KUMAR
               </div>
-              <div style={{ fontSize: 13.5, color: '#334155', maxWidth: 480, margin: '0 auto', lineHeight: 1.6, marginBottom: 24 }}>
+              <div style={{ fontSize: 13.5, color: 'var(--t2)', maxWidth: 480, margin: '0 auto', lineHeight: 1.6, marginBottom: 24 }}>
                 for outstanding active attendance and contributions during the campus event <strong>{viewingCertificate.title}</strong>, hosted by the {viewingCertificate.host} on {viewingCertificate.date} at {viewingCertificate.venue}.
               </div>
 

@@ -198,10 +198,10 @@ function StudentFinanceInner() {
         }
         .card-block {
           background: var(--card);
-          border: 1px solid rgba(15, 23, 42, 0.06);
+          border: 1px solid var(--border);
           border-radius: 20px;
           padding: 24px;
-          box-shadow: 0 4px 20px var(--border);
+          box-shadow: var(--shadow-sm);
         }
         .card-subtitle {
           font-family: var(--font-display), sans-serif;
@@ -239,12 +239,12 @@ function StudentFinanceInner() {
           font-size: 10.5px;
           font-weight: 700;
         }
-        .badge-paid { background: #ecfdf5; color: var(--green); }
-        .badge-unpaid { background: #fef2f2; color: var(--coral); }
+        .badge-paid { background: var(--green-light); color: var(--green); }
+        .badge-unpaid { background: var(--coral-light); color: var(--coral); }
         .checkout-overlay {
           position: fixed;
           top: 0; left: 0; right: 0; bottom: 0;
-          background: rgba(15, 23, 42, 0.45);
+          background: color-mix(in srgb, var(--bg) 55%, transparent);
           backdrop-filter: blur(4px);
           display: flex;
           align-items: center;
@@ -253,15 +253,16 @@ function StudentFinanceInner() {
         }
         .checkout-modal {
           background: var(--card);
+          border: 1px solid var(--border);
           border-radius: 24px;
           width: 100%;
           max-width: 440px;
           padding: 28px;
-          box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15);
+          box-shadow: var(--shadow-xl);
         }
         .btn-pay {
           background: var(--accent);
-          color: var(--card);
+          color: #fff;
           border: none;
           border-radius: 10px;
           padding: 12px;
@@ -269,7 +270,7 @@ function StudentFinanceInner() {
           cursor: pointer;
           transition: background 0.2s;
         }
-        .btn-pay:hover { background: #1d4ed8; }
+        .btn-pay:hover { background: var(--accent-mid); }
         .receipt-seal {
           border: 2px dashed var(--green);
           color: var(--green);
@@ -292,8 +293,8 @@ function StudentFinanceInner() {
           <div className="alert-banner">
             <span style={{ fontSize: 20 }}>⚠️</span>
             <div>
-              <div style={{ fontSize: 13.5, fontWeight: 800, color: '#92400e' }}>Installment Overdue Alert</div>
-              <p style={{ fontSize: 12, color: '#b45309', marginTop: 3 }}>
+              <div style={{ fontSize: 13.5, fontWeight: 800, color: 'var(--amber)' }}>Installment Overdue Alert</div>
+              <p style={{ fontSize: 12, color: 'var(--t2)', marginTop: 3 }}>
                 Your Final Installment deadline was <strong>July 10, 2026</strong>. A late payment fine of <strong>₹1,500</strong> has been applied to your outstanding balance. Please clear dues online to remove late restrictions.
               </p>
             </div>

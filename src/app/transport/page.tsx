@@ -136,7 +136,7 @@ function StudentTransportInner() {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
-          border: 1px solid #334155;
+          border: 1px solid var(--border2);
         }
         .gps-route-line {
           display: flex;
@@ -150,7 +150,7 @@ function StudentTransportInner() {
           position: absolute;
           top: 50%; left: 0; right: 0;
           height: 4px;
-          background: #334155;
+          background: var(--bg3);
           transform: translateY(-50%);
           z-index: 1;
         }
@@ -158,7 +158,7 @@ function StudentTransportInner() {
           width: 14px;
           height: 14px;
           border-radius: 50%;
-          background: #334155;
+          background: var(--bg3);
           border: 3px solid var(--t1);
           z-index: 2;
           position: relative;
@@ -168,8 +168,8 @@ function StudentTransportInner() {
           background: var(--green);
         }
         .gps-node.active {
-          background: #3b82f6;
-          box-shadow: 0 0 15px #3b82f6;
+          background: var(--accent);
+          box-shadow: 0 0 15px var(--accent-glow);
           transform: scale(1.3);
         }
         .gps-label {
@@ -183,11 +183,11 @@ function StudentTransportInner() {
           font-weight: 700;
         }
         .gps-label.active {
-          color: #3b82f6;
+          color: var(--accent);
           font-weight: 800;
         }
         .star-rating {
-          color: #fbbf24;
+          color: var(--amber);
           font-size: 16px;
         }
       `}</style>
@@ -205,7 +205,7 @@ function StudentTransportInner() {
           </div>
         )}
         {allocation.status === 'pending' && (
-          <div className="status-alert" style={{ background: 'var(--amber-light)', borderColor: '#fde68a', color: '#92400e' }}>
+          <div className="status-alert" style={{ background: 'var(--amber-light)', borderColor: 'var(--amber-light)', color: 'var(--amber)' }}>
             <div>
               <strong style={{ fontSize: 14 }}>⏳ Seat Verification Pending</strong>
               <div style={{ fontSize: 12, marginTop: 2 }}>Requested Route: <strong>{routes.find(r => r.code === allocation.route)?.name}</strong> | Stop: <strong>{allocation.stop}</strong>.</div>
@@ -337,7 +337,7 @@ function StudentTransportInner() {
                 </div>
               ) : (
                 <div className="gps-map-mock">
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #334155', paddingBottom: 10 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border)', paddingBottom: 10 }}>
                     <div>
                       <span style={{ fontSize: 10, color: 'var(--green)', fontWeight: 800 }}>● GPS SIGNAL CONNECTED</span>
                       <div style={{ fontSize: 13, fontWeight: 900, marginTop: 2 }}>{activeRoute?.vehicle}</div>
@@ -363,9 +363,9 @@ function StudentTransportInner() {
                     })}
                   </div>
 
-                  <div style={{ fontSize: 11, color: 'var(--t3)', borderTop: '1px solid #334155', paddingTop: 10, display: 'flex', justifyContent: 'space-between' }}>
+                  <div style={{ fontSize: 11, color: 'var(--t3)', borderTop: '1px solid var(--border)', paddingTop: 10, display: 'flex', justifyContent: 'space-between' }}>
                     <span>Next Stop: <strong>{activeRoute?.stops?.[(gpsStopIndex + 1) % (activeRoute?.stops?.length || 1)] || 'N/A'}</strong></span>
-                    <span style={{ color: '#3b82f6' }}>ETA: 4 Mins</span>
+                    <span style={{ color: 'var(--accent)' }}>ETA: 4 Mins</span>
                   </div>
                 </div>
               )}

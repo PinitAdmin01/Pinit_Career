@@ -145,9 +145,9 @@ export default function StudentMaintenancePortal() {
         {/* Diagnostic Metrics */}
         <div className="metric-grid">
           {[
-            { label: 'Reported Issues', value: `${tickets.filter(t => t.status === 'Reported').length} Pending`, color: '#f59e0b' },
+            { label: 'Reported Issues', value: `${tickets.filter(t => t.status === 'Reported').length} Pending`, color: 'var(--amber)' },
             { label: 'Scheduled Visits', value: `${tickets.filter(t => t.status === 'Scheduled').length} Assigned`, color: 'var(--accent)' },
-            { label: 'Work In Progress', value: `${tickets.filter(t => t.status === 'In Progress').length} Active`, color: '#8b5cf6' },
+            { label: 'Work In Progress', value: `${tickets.filter(t => t.status === 'In Progress').length} Active`, color: 'var(--purple)' },
             { label: 'Issues Resolved', value: `${tickets.filter(t => t.status === 'Resolved').length} Succeeded`, color: 'var(--green)' }
           ].map(s => (
             <div key={s.label} className="metric-card">
@@ -261,10 +261,10 @@ export default function StudentMaintenancePortal() {
                     </tr>
                   ) : (
                     filteredTickets.map(t => {
-                      let bg = 'var(--amber-light)'; let fg = '#b45309';
-                      if (t.status === 'Scheduled') { bg = 'var(--accent-light)'; fg = '#1e40af'; }
-                      else if (t.status === 'In Progress') { bg = '#f3e8ff'; fg = '#6b21a8'; }
-                      else if (t.status === 'Resolved') { bg = '#d1fae5'; fg = '#065f46'; }
+                      let bg = 'var(--amber-light)'; let fg = 'var(--amber)';
+                      if (t.status === 'Scheduled') { bg = 'var(--accent-light)'; fg = 'var(--accent)'; }
+                      else if (t.status === 'In Progress') { bg = 'var(--purple-light)'; fg = 'var(--purple)'; }
+                      else if (t.status === 'Resolved') { bg = 'var(--green-light)'; fg = 'var(--green)'; }
 
                       return (
                         <tr key={t.id}>

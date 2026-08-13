@@ -238,13 +238,13 @@ export default function StudentLibrary() {
           box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15);
         }
         .reader-content-box {
-          background: #fafafa;
+          background: var(--bg3);
           border: 1px solid var(--border2);
           border-radius: 12px;
           padding: 24px;
           font-size: 14.5px;
           line-height: 1.6;
-          color: #334155;
+          color: var(--t1);
           max-height: 380px;
           overflow-y: auto;
           margin-top: 16px;

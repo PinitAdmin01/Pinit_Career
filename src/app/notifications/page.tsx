@@ -21,9 +21,9 @@ interface Notif {
 
 const TYPE_META: Record<string, { icon: string; color: string; bg: string }> = {
   success: { icon: '✓', color: 'var(--green)', bg: 'var(--accent-light)' },
-  warning: { icon: '⚠', color: '#f59e0b', bg: 'var(--amber-light)' },
-  danger: { icon: '✗', color: 'var(--coral)', bg: '#fee2e2' },
-  info: { icon: '◎', color: '#3b82f6', bg: 'var(--accent-light)' },
+  warning: { icon: '⚠', color: 'var(--amber)', bg: 'var(--amber-light)' },
+  danger: { icon: '✗', color: 'var(--coral)', bg: 'var(--coral-light)' },
+  info: { icon: '◎', color: 'var(--accent)', bg: 'var(--accent-light)' },
 };
 
 export default function CampusCommunicationHub() {
@@ -254,7 +254,7 @@ export default function CampusCommunicationHub() {
       {activePush && (
         <div className="push-banner-overlay">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-            <span style={{ fontSize: 10, fontWeight: 800, textTransform: 'uppercase', color: '#3b82f6', letterSpacing: 0.4 }}>📲 Push Notification Alert</span>
+            <span style={{ fontSize: 10, fontWeight: 800, textTransform: 'uppercase', color: 'var(--accent)', letterSpacing: 0.4 }}>Push Notification Alert</span>
             <span style={{ fontSize: 10, color: 'var(--t3)' }}>{activePush.timestamp}</span>
           </div>
           <strong style={{ display: 'block', fontSize: 13 }}>{activePush.title}</strong>
@@ -397,7 +397,7 @@ export default function CampusCommunicationHub() {
                       <span>{selectedEmail.date}</span>
                     </div>
                   </div>
-                  <p style={{ fontSize: 13.5, color: '#334155', lineHeight: 1.6, whiteSpace: 'pre-line' }}>
+                  <p style={{ fontSize: 13.5, color: 'var(--t1)', lineHeight: 1.6, whiteSpace: 'pre-line' }}>
                     {selectedEmail.body}
                   </p>
                 </div>

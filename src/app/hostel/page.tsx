@@ -149,7 +149,7 @@ export default function StudentHostel() {
           border: 1px solid var(--border);
           border-radius: 20px;
           padding: 24px;
-          box-shadow: 0 4px 20px var(--border);
+          box-shadow: var(--shadow-sm);
         }
         .card-title {
           font-family: var(--font-display), sans-serif;
@@ -219,7 +219,7 @@ export default function StudentHostel() {
           </div>
         )}
         {allocation.status === 'pending' && (
-          <div className="status-alert" style={{ background: 'var(--amber-light)', borderColor: '#fde68a', color: '#92400e' }}>
+          <div className="status-alert" style={{ background: 'var(--amber-light)', borderColor: 'var(--amber-light)', color: 'var(--amber)' }}>
             <div>
               <strong style={{ fontSize: 14 }}>⏳ Allocation Review Pending</strong>
               <div style={{ fontSize: 12, marginTop: 2 }}>Requested Room: <strong>{allocation.requestedRoom}</strong>. Wardens are verifying room balances.</div>
@@ -335,7 +335,7 @@ export default function StudentHostel() {
                     <span style={{
                       fontSize: 10.5, fontWeight: 700, padding: '3px 8px', borderRadius: 20,
                       background: c.status === 'Pending' ? 'var(--amber-light)' : 'var(--green-light)',
-                      color: c.status === 'Pending' ? '#b45309' : 'var(--green)'
+                      color: c.status === 'Pending' ? 'var(--amber)' : 'var(--green)'
                     }}>{c.status}</span>
                   </div>
                 ))}

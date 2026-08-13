@@ -252,7 +252,7 @@ export default function StudentGrievances() {
                       <td>
                         <span className="status-badge" style={{
                           background: g.status === 'Resolved' ? 'var(--green-light)' : (g.status === 'In Investigation' ? 'var(--accent-light)' : 'var(--amber-light)'),
-                          color: g.status === 'Resolved' ? '#047857' : (g.status === 'In Investigation' ? '#1d4ed8' : '#b45309')
+                          color: g.status === 'Resolved' ? 'var(--green)' : (g.status === 'In Investigation' ? 'var(--accent)' : 'var(--amber)')
                         }}>{g.status}</span>
                       </td>
                       <td>
@@ -281,7 +281,7 @@ export default function StudentGrievances() {
               Grievance Ticket details ({selectedTicket.id})
             </h3>
             
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, fontSize: 13.5, color: '#334155' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, fontSize: 13.5, color: 'var(--t1)' }}>
               <div>
                 <strong>Category:</strong> {selectedTicket.category}
               </div>
@@ -304,7 +304,7 @@ export default function StudentGrievances() {
                 <span className="status-badge" style={{
                   marginLeft: 8,
                   background: selectedTicket.status === 'Resolved' ? 'var(--green-light)' : (selectedTicket.status === 'In Investigation' ? 'var(--accent-light)' : 'var(--amber-light)'),
-                  color: selectedTicket.status === 'Resolved' ? '#047857' : (selectedTicket.status === 'In Investigation' ? '#1d4ed8' : '#b45309')
+                  color: selectedTicket.status === 'Resolved' ? 'var(--green)' : (selectedTicket.status === 'In Investigation' ? 'var(--accent)' : 'var(--amber)')
                 }}>{selectedTicket.status}</span>
               </div>
 
@@ -312,10 +312,10 @@ export default function StudentGrievances() {
                 <div style={{ background: 'var(--green-light)', border: '1px solid var(--green-light)', padding: 12, borderRadius: 10, color: 'var(--green)' }}>
                   <strong>Board Resolution Note:</strong>
                   <p style={{ marginTop: 4, lineHeight: 1.5 }}>{selectedTicket.resolution}</p>
-                  <div style={{ fontSize: 10.5, color: '#047857', marginTop: 6 }}>Resolved on {new Date(selectedTicket.resolvedOn).toLocaleDateString()}</div>
+                  <div style={{ fontSize: 10.5, color: 'var(--green)', marginTop: 6 }}>Resolved on {new Date(selectedTicket.resolvedOn).toLocaleDateString()}</div>
                 </div>
               ) : (
-                <div style={{ fontSize: 12.5, color: 'var(--t2)', background: 'var(--accent-light)', padding: 10, borderRadius: 8, border: '1px solid #bfdbfe' }}>
+                <div style={{ fontSize: 12.5, color: 'var(--t2)', background: 'var(--accent-light)', padding: 10, borderRadius: 8, border: '1px solid var(--accent-light)' }}>
                   ℹ️ This grievance ticket is currently being investigated by the institutional administrative committee. Action responses will update here automatically.
                 </div>
               )}

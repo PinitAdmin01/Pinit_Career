@@ -325,19 +325,20 @@ export default function DocumentVaultPage() {
         {/* Certificate lightbox Overlay */}
         {selectedDoc && (
           <div style={{
-            position: 'fixed', inset: 0, zIndex: 1000, background: 'rgba(15,23,42,0.85)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20
+            position: 'fixed', inset: 0, zIndex: 1000, background: 'color-mix(in srgb, var(--bg) 55%, transparent)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20,
+            backdropFilter: 'blur(4px)'
           }}>
             <div style={{
-              width: '100%', maxWidth: 800, background: 'white', borderRadius: 20,
-              padding: 24, boxShadow: '0 25px 50px -12px rgba(0,0,0,0.5)',
-              display: 'flex', flexDirection: 'column', gap: 16, color: 'black'
+              width: '100%', maxWidth: 800, background: 'var(--card)', borderRadius: 20,
+              padding: 24, boxShadow: 'var(--shadow-xl)', border: '1px solid var(--border)',
+              display: 'flex', flexDirection: 'column', gap: 16, color: 'var(--t1)'
             }}>
               
               {/* Controls bar */}
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border)', paddingBottom: 12 }}>
-                <span style={{ fontSize: 14, fontWeight: 800, color: '#334155' }}>
-                  📜 Verification Frame: {selectedDoc.id}
+                <span style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)' }}>
+                  Verification Frame: {selectedDoc.id}
                 </span>
                 <div style={{ display: 'flex', gap: 8 }}>
                   <button
@@ -359,7 +360,8 @@ export default function DocumentVaultPage() {
 
               {/* Printable Document Box Container */}
               <div className="printable-cert-area" style={{
-                border: '8px double #1e3a8a', padding: 40, background: 'var(--card)',
+                border: '8px double var(--accent)', padding: 40, background: '#fff',
+                color: '#0f172a',
                 fontFamily: 'Georgia, serif', position: 'relative', textAlign: 'center'
               }}>
                 {/* Background watermark badge */}
@@ -372,25 +374,25 @@ export default function DocumentVaultPage() {
 
                 <div style={{ position: 'relative', zIndex: 1 }}>
                   {/* Institutional Header */}
-                  <h2 style={{ margin: '0 0 4px', fontSize: 24, fontWeight: 800, textTransform: 'uppercase', color: '#1e3a8a', letterSpacing: '0.5px' }}>
+                  <h2 style={{ margin: '0 0 4px', fontSize: 24, fontWeight: 800, textTransform: 'uppercase', color: '#4338ca', letterSpacing: '0.5px' }}>
                     PinIT Career OS
                   </h2>
-                  <div style={{ fontSize: 12, textTransform: 'uppercase', color: 'var(--t2)', fontWeight: 600, letterSpacing: '1px', marginBottom: 20 }}>
+                  <div style={{ fontSize: 12, textTransform: 'uppercase', color: '#64748b', fontWeight: 600, letterSpacing: '1px', marginBottom: 20 }}>
                     Office of the Registrar · Academic Credentials Division
                   </div>
                   
-                  <div style={{ width: 80, height: 1, background: 'var(--border2)', margin: '0 auto 30px' }} />
+                  <div style={{ width: 80, height: 1, background: '#cbd5e1', margin: '0 auto 30px' }} />
 
                   <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontStyle: 'italic', color: '#334155', marginBottom: 24 }}>
                     Official Certification Document
                   </h3>
 
                   {/* Cert body text */}
-                  <p style={{ fontSize: 15, lineHeight: 1.8, color: 'var(--t1)', textAlign: 'justify', margin: '0 auto 30px', maxWidth: 640 }}>
+                  <p style={{ fontSize: 15, lineHeight: 1.8, color: '#1e293b', textAlign: 'justify', margin: '0 auto 30px', maxWidth: 640 }}>
                     This is to certify that student <strong>{user?.displayName || 'Student User'}</strong> is officially enrolled in the <strong>{selectedDoc.major}</strong> department as a <strong>{selectedDoc.year}</strong> under candidate code <strong>{user?.registerNumber || 'BGS2024001'}</strong>.
                   </p>
                   
-                  <p style={{ fontSize: 15, lineHeight: 1.8, color: 'var(--t1)', textAlign: 'justify', margin: '0 auto 30px', maxWidth: 640 }}>
+                  <p style={{ fontSize: 15, lineHeight: 1.8, color: '#1e293b', textAlign: 'justify', margin: '0 auto 30px', maxWidth: 640 }}>
                     This document is issued upon request for the designated purpose: <em>"{selectedDoc.purpose}"</em>. It carries digital verification credentials issued dynamically on <strong>{selectedDoc.dateIssued}</strong>.
                   </p>
 
@@ -400,22 +402,22 @@ export default function DocumentVaultPage() {
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, alignItems: 'end', marginTop: 40 }}>
                     {/* Left: Verification code / QR */}
                     <div style={{ textAlign: 'left', display: 'flex', gap: 12, alignItems: 'center' }}>
-                      <div style={{ width: 68, height: 68, background: 'var(--bg3)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, color: 'var(--t2)', fontWeight: 600 }}>
+                      <div style={{ width: 68, height: 68, background: '#f1f5f9', border: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, color: '#64748b', fontWeight: 600 }}>
                         QR Code
                       </div>
                       <div>
-                        <div style={{ fontSize: 10, color: 'var(--t2)', textTransform: 'uppercase' }}>Secure Verify Code</div>
-                        <div style={{ fontSize: 12, fontFamily: 'monospace', fontWeight: 700, color: '#1e3a8a' }}>{selectedDoc.verificationCode}</div>
+                        <div style={{ fontSize: 10, color: '#64748b', textTransform: 'uppercase' }}>Secure Verify Code</div>
+                        <div style={{ fontSize: 12, fontFamily: 'monospace', fontWeight: 700, color: '#4338ca' }}>{selectedDoc.verificationCode}</div>
                       </div>
                     </div>
 
                     {/* Right: Signature stamp */}
                     <div style={{ textAlign: 'right' }}>
-                      <div style={{ fontSize: 14, fontStyle: 'italic', fontFamily: '"Brush Script MT", cursive', color: '#1e3a8a', marginBottom: 2 }}>
+                      <div style={{ fontSize: 14, fontStyle: 'italic', fontFamily: '"Brush Script MT", cursive', color: '#4338ca', marginBottom: 2 }}>
                         Registrar Office
                       </div>
-                      <div style={{ width: 140, height: 1, background: 'var(--t2)', margin: '4px 0 4px auto' }} />
-                      <div style={{ fontSize: 10, textTransform: 'uppercase', color: 'var(--t2)', letterSpacing: '0.5px' }}>
+                      <div style={{ width: 140, height: 1, background: '#94a3b8', margin: '4px 0 4px auto' }} />
+                      <div style={{ fontSize: 10, textTransform: 'uppercase', color: '#64748b', letterSpacing: '0.5px' }}>
                         Authorized Digital Seal
                       </div>
                     </div>

@@ -176,10 +176,10 @@ export default function AdmissionsPortal() {
         }
         .card-box {
           background: var(--card);
-          border: 1px solid rgba(15, 23, 42, 0.06);
+          border: 1px solid var(--border);
           border-radius: 20px;
           padding: 30px;
-          box-shadow: 0 4px 20px var(--border);
+          box-shadow: var(--shadow-sm);
         }
         .card-title {
           font-family: var(--font-display), sans-serif;
@@ -212,11 +212,11 @@ export default function AdmissionsPortal() {
         .form-input:focus {
           border-color: var(--accent);
           background: var(--card);
-          box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08);
+          box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);
         }
         .btn-submit {
           background: var(--accent);
-          color: var(--card);
+          color: #fff;
           border: none;
           border-radius: 10px;
           padding: 12px;
@@ -228,7 +228,7 @@ export default function AdmissionsPortal() {
           text-align: center;
         }
         .btn-submit:hover {
-          background: #1d4ed8;
+          background: var(--accent-mid);
         }
         .timeline {
           margin-top: 24px;
@@ -263,7 +263,7 @@ export default function AdmissionsPortal() {
         }
         .timeline-dot.active {
           background: var(--accent);
-          box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+          box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
         }
         .timeline-dot.success {
           background: var(--green);
@@ -287,10 +287,10 @@ export default function AdmissionsPortal() {
       <header className="header-topbar">
         <div className="header-content">
           <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
-            <div style={{ width: 38, height: 38, borderRadius: 12, background: 'linear-gradient(135deg,var(--accent),#8b5cf6)', display: 'flex', alignItems: 'center', justifyItems: 'center', fontSize: 17, fontWeight: 800, color: 'white', justifyContent: 'center', boxShadow: '0 4px 12px rgba(37,99,235,0.25)' }}>Pi</div>
+            <div style={{ width: 38, height: 38, borderRadius: 12, background: 'linear-gradient(135deg,var(--accent),var(--purple))', display: 'flex', alignItems: 'center', justifyItems: 'center', fontSize: 17, fontWeight: 800, color: 'white', justifyContent: 'center', boxShadow: '0 4px 12px var(--accent-glow)' }}>Pi</div>
             <div>
               <span style={{ fontSize: 19, fontWeight: 900, color: 'var(--t1)', letterSpacing: '-0.6px', fontFamily: 'var(--font-display)' }}>PinIT</span>
-              <span style={{ fontSize: 10, color: 'var(--primary)', fontWeight: 800, marginLeft: 6, textTransform: 'uppercase', letterSpacing: '0.8px', fontFamily: 'var(--font-mono)' }}>Career OS</span>
+              <span style={{ fontSize: 10, color: 'var(--accent)', fontWeight: 800, marginLeft: 6, textTransform: 'uppercase', letterSpacing: '0.8px', fontFamily: 'var(--font-mono)' }}>Career OS</span>
             </div>
           </Link>
 

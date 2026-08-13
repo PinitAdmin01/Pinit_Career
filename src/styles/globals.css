@@ -467,7 +467,7 @@ body {
 .mentor-input button:disabled { opacity: .4; cursor: not-allowed; box-shadow: none; }
 
 /* == AUTH PAGES == */
-.auth-page { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #eef2ff 0%, #faf5ff 40%, #ecfdf5 100%); padding: 20px; }
+.auth-page { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: var(--bg); padding: 20px; }
 .auth-card { width: 100%; max-width: 420px; background: var(--bg2); border: 1px solid var(--border); border-radius: 20px; padding: 36px 36px 32px; box-shadow: var(--shadow-xl); }
 .auth-logo { text-align: center; margin-bottom: 24px; }
 .auth-title { font-family: var(--font-display); font-size: 21px; font-weight: 800; color: var(--t1); margin-bottom: 5px; letter-spacing: -0.5px; }
@@ -1323,19 +1323,19 @@ body {
 }
 
 .btn-emerald-glow {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
   color: #ffffff;
   font-weight: 700;
   letter-spacing: -0.01em;
   border: none;
   border-radius: 10px;
-  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
+  box-shadow: 0 4px 14px var(--accent-glow);
   transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .btn-emerald-glow:hover {
-  background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
-  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+  background: linear-gradient(135deg, var(--accent-mid) 0%, var(--purple) 100%);
+  box-shadow: 0 6px 20px var(--accent-glow);
   transform: translateY(-1px);
 }
 

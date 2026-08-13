@@ -420,7 +420,7 @@ export default function StudentServicesPortal() {
                     </div>
                   </div>
 
-                  <button type="submit" disabled={submitting} className="btn-primary" style={{ justifyContent: 'center', background: '#3b82f6' }}>
+                  <button type="submit" disabled={submitting} className="btn-primary" style={{ justifyContent: 'center' }}>
                     {submitting ? 'Booking...' : '✓ Confirm Counselling Session'}
                   </button>
                 </form>
@@ -443,9 +443,9 @@ export default function StudentServicesPortal() {
                 </thead>
                 <tbody>
                   {data.leaves.map(l => {
-                    let bg = 'var(--amber-light)'; let fg = '#b45309';
-                    if (l.status === 'Approved') { bg = '#d1fae5'; fg = '#065f46'; }
-                    else if (l.status === 'Rejected') { bg = '#fee2e2'; fg = '#b91c1c'; }
+                    let bg = 'var(--amber-light)'; let fg = 'var(--amber)';
+                    if (l.status === 'Approved') { bg = 'var(--green-light)'; fg = 'var(--green)'; }
+                    else if (l.status === 'Rejected') { bg = 'var(--coral-light)'; fg = 'var(--coral)'; }
 
                     return (
                       <tr key={l.id}>
@@ -478,9 +478,9 @@ export default function StudentServicesPortal() {
                 </thead>
                 <tbody>
                   {data.requests.map(r => {
-                    let bg = 'var(--amber-light)'; let fg = '#b45309';
-                    if (r.status === 'Completed' || r.status === 'Approved') { bg = '#d1fae5'; fg = '#065f46'; }
-                    else if (r.status === 'In Progress') { bg = 'var(--accent-light)'; fg = '#1e40af'; }
+                    let bg = 'var(--amber-light)'; let fg = 'var(--amber)';
+                    if (r.status === 'Completed' || r.status === 'Approved') { bg = 'var(--green-light)'; fg = 'var(--green)'; }
+                    else if (r.status === 'In Progress') { bg = 'var(--accent-light)'; fg = 'var(--accent)'; }
 
                     return (
                       <tr key={r.id}>
