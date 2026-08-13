@@ -47,22 +47,9 @@ export default function SignupPage() {
       <div className="auth-card animate-fade-in">
         <div className="auth-logo">
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginBottom: 8 }}>
-            <div style={{
-              width: 42,
-              height: 42,
-              background: 'linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%)',
-              borderRadius: 12,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontFamily: 'var(--font-display)',
-              fontSize: 17,
-              fontWeight: 800,
-              color: 'white',
-            }}>
-              P
-            </div>
-            <span style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 800 }}>PinIT</span>
+            <span className="lp-brand-lockup" style={{ height: 56, padding: '4px 10px' }}>
+              <img src="/brand/pinit-career-logo.png" alt="PINIT CAREER" className="lp-brand-logo" style={{ height: 48, maxWidth: 200 }} />
+            </span>
           </div>
           <div className="auth-sub">Create your student account</div>
         </div>

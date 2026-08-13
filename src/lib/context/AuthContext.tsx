@@ -2,6 +2,7 @@
 'use client';
 import { createContext, useContext, useState, useEffect, useCallback, useRef, ReactNode } from 'react';
 import { supabase } from '@/lib/supabaseClient';
+import { isDemoAuthEnabled, DEMO_PASSWORD, DEMO_ROLE_BY_EMAIL } from '@/lib/demoAuth';
 import { User as SbUser } from '@supabase/supabase-js';
 import {
   getUserProfile, createUserProfile, updateUserProfile,
@@ -54,8 +55,7 @@ function usernameToEmail(username: string): string {
 }
 
 function isDemoEmail(email: string): boolean {
-  const e = email.toLowerCase();
-  return e === 'admin@pinit.in' || e === 'rec@pinit.in' || e === 'con@pinit.in' || e === 'student@pinit.in';
+  return Boolean(DEMO_ROLE_BY_EMAIL[email.toLowerCase()]);
 }
 
 const COLUMN_MAP: Record<string, string> = {
@@ -106,13 +106,25 @@ const COLUMN_MAP: Record<string, string> = {
   guidance_mentor_id: 'guidanceMentorId'
 };
 
+function demoIdentity(emailLower: string): { role: string; displayName: string } {
+  const names: Record<string, string> = {
+    'admin@pinit.in': 'System Admin',
+    'teacher@pinit.in': 'Faculty Member',
+    'rec@pinit.in': 'Lead Recruiter',
+    'con@pinit.in': 'Career Consultant',
+    'parent@pinit.in': 'Family Representative',
+    'student@pinit.in': 'Ashwanth Kumar',
+  };
+  return {
+    role: DEMO_ROLE_BY_EMAIL[emailLower] || 'student',
+    displayName: names[emailLower] || 'User',
+  };
+}
+
 function sbUserToAppUser(sbUser: SbUser, profile: Record<string, unknown> | null): User {
   let role = (profile?.role as string) || 'student';
   const emailLower = sbUser.email?.toLowerCase();
-  if (emailLower === 'admin@pinit.in') role = 'admin';
-  else if (emailLower === 'rec@pinit.in') role = 'recruiter';
-  else if (emailLower === 'con@pinit.in') role = 'consultant';
-  else if (emailLower === 'student@pinit.in') role = 'student';
+  if (emailLower && DEMO_ROLE_BY_EMAIL[emailLower]) role = DEMO_ROLE_BY_EMAIL[emailLower];
 
   return {
     ...profile,
@@ -176,12 +188,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Never accept arbitrary privileged roles from client payloads.
     // Demo emails keep their mapped roles; Dev Mode stays student; everyone else is student.
     const emailLower = String(userPayload.email || userPayload.username || '').toLowerCase();
-    const demoRoleByEmail: Record<string, string> = {
-      'admin@pinit.in': 'admin',
-      'rec@pinit.in': 'recruiter',
-      'con@pinit.in': 'consultant',
-      'student@pinit.in': 'student',
-    };
+    const demoRoleByEmail = DEMO_ROLE_BY_EMAIL;
     let role = 'student';
     if (userPayload.isDevUser) {
       role = 'student';
@@ -431,7 +438,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const emailLower = email.toLowerCase();
     
     // Check if default credential attempt first
-    const isDefaultUser = (emailLower === 'admin@pinit.in' || emailLower === 'rec@pinit.in' || emailLower === 'con@pinit.in' || emailLower === 'student@pinit.in') && password === '111111';
+    const isDefaultUser = isDemoAuthEnabled() && isDemoEmail(emailLower) && password === DEMO_PASSWORD;
     
     try {
       let sbUser;
@@ -462,21 +469,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           }
           
           sbUser = signUpData.user;
-          let role = 'student';
-          let displayName = 'User';
-          if (emailLower === 'admin@pinit.in') {
-            role = 'admin';
-            displayName = 'System Admin';
-          } else if (emailLower === 'rec@pinit.in') {
-            role = 'recruiter';
-            displayName = 'Lead Recruiter';
-          } else if (emailLower === 'con@pinit.in') {
-            role = 'consultant';
-            displayName = 'Career Consultant';
-          } else if (emailLower === 'student@pinit.in') {
-            role = 'student';
-            displayName = 'Ashwanth Kumar';
-          }
+          const ident = demoIdentity(emailLower);
+          let role = ident.role;
+          let displayName = ident.displayName;
 
           let profile = {
             ...(isDemoEmail(emailLower) ? DEMO_PROFILE : EMPTY_PROFILE),
@@ -498,12 +493,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       
       let profile = await getUserProfile(sbUser.id);
       if (!profile) {
-        let role = 'student';
-        let displayName = 'User';
-        if (emailLower === 'admin@pinit.in') { role = 'admin'; displayName = 'System Admin'; }
-        else if (emailLower === 'rec@pinit.in') { role = 'recruiter'; displayName = 'Lead Recruiter'; }
-        else if (emailLower === 'con@pinit.in') { role = 'consultant'; displayName = 'Career Consultant'; }
-        else if (emailLower === 'student@pinit.in') { role = 'student'; displayName = 'Ashwanth Kumar'; }
+        const ident = demoIdentity(emailLower);
+        let role = ident.role;
+        let displayName = ident.displayName;
         profile = {
           ...(isDemoEmail(sbUser.email || '') ? DEMO_PROFILE : EMPTY_PROFILE),
           uid:         sbUser.id,
@@ -623,30 +615,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       setUser(sbUserToAppUser(sbUser, profile));
     } catch (err: any) {
-      console.warn('Supabase Auth signup error, activating instant fallback user session:', err?.message || err);
-      const fallbackUid = 'usr_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
-      const fallbackUser: any = {
-        id: fallbackUid,
-        email: email,
-        user_metadata: { display_name: data.displayName }
-      };
-      const profile = {
-        ...EMPTY_PROFILE,
-        uid: fallbackUid,
-        email,
-        username: data.username,
-        displayName: data.displayName,
-        // Signup must never accept client-supplied privileged roles (including fallback path)
-        role: 'student',
-        registerNumber: data.registerNumber || '',
-      };
-      try {
-        await createUserProfile(fallbackUid, profile).catch(() => {});
-        await ensureSeedData(fallbackUid, profile).catch(() => {});
-        localStorage.setItem(`pinit_${fallbackUid}_profile`, JSON.stringify(profile));
-        localStorage.setItem('pinit_active_uid', fallbackUid);
-      } catch {}
-      setUser(sbUserToAppUser(fallbackUser, profile));
+      throw new Error(err?.message || 'Signup failed. Please try again.');
     }
   };
 
@@ -659,8 +628,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }).catch(() => {});
       }
     } catch {}
+    const uid = user?.id;
     try {
       localStorage.removeItem('pinit_active_uid');
+      localStorage.removeItem('pinit_auth_token');
+      localStorage.removeItem('pinit_current_user');
+      if (uid) localStorage.removeItem(`pinit_${uid}_profile`);
     } catch {}
     await supabase.auth.signOut();
     setUser(null);

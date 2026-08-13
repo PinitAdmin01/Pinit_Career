@@ -23,23 +23,13 @@ export default function PublicFooter() {
         }}>
           {/* BRAND COLUMN */}
           <div>
-            <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', marginBottom: '16px' }}>
-              <div style={{
-                width: '36px',
-                height: '36px',
-                background: 'linear-gradient(135deg, #7C3AED 0%, #A855F7 100%)',
-                borderRadius: '10px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontWeight: 900,
-                fontSize: '16px',
-                color: '#FFFFFF'
-              }}>Pi</div>
-              <span style={{ fontSize: '18px', fontWeight: 800, color: '#FFFFFF', letterSpacing: '-0.5px' }}>PINITCAREER</span>
+            <Link href="/" className="lp-brand" style={{ textDecoration: 'none', marginBottom: '16px' }}>
+              <span className="lp-brand-lockup">
+                <img src="/brand/pinit-career-logo.png" alt="PINIT CAREER" className="lp-brand-logo" />
+              </span>
             </Link>
             <p style={{ color: '#94A3B8', fontSize: '13.5px', lineHeight: '1.6', maxWidth: '320px' }}>
-              PinitCareer is an AI-powered Career Operating System connecting personalized skill learning, real project building, code wars, and enterprise hiring into one ecosystem.
+              We don&apos;t help students find jobs. We help them discover who they are. Discover · Connect · Grow.
             </p>
           </div>
 

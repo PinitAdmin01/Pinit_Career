@@ -26,20 +26,10 @@ function AboutPageContent() {
       {/* 1. NAVBAR */}
       <nav className="about-navbar">
         <div className="container nav-content">
-          <Link href="/" className="brand-logo">
-            <span className="pi-hex-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2L2 7V17L12 22L22 17V7L12 2Z" fill="url(#brand-grad-nav)" />
-                <path d="M9 7H13.5C15.433 7 17 8.567 17 10.5C17 12.433 15.433 14 13.5 14H11V17H9V7Z" fill="white" />
-                <defs>
-                  <linearGradient id="brand-grad-nav" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#7C3AED" />
-                    <stop offset="1" stopColor="#A855F7" />
-                  </linearGradient>
-                </defs>
-              </svg>
+          <Link href="/" className="brand-logo lp-brand" aria-label="PINIT CAREER home">
+            <span className="lp-brand-lockup">
+              <img src="/brand/pinit-career-logo.png" alt="PINIT CAREER" className="lp-brand-logo" />
             </span>
-            <span className="brand-text">PINITCAREER</span>
           </Link>
 
           <div className="nav-links">
@@ -410,19 +400,9 @@ function AboutPageContent() {
         <div className="container footer-content">
           <div className="footer-left">
             <div className="brand-logo mb-2">
-              <span className="pi-hex-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 2L2 7V17L12 22L22 17V7L12 2Z" fill="url(#brand-grad-ft)" />
-                  <path d="M9 7H13.5C15.433 7 17 8.567 17 10.5C17 12.433 15.433 14 13.5 14H11V17H9V7Z" fill="white" />
-                  <defs>
-                    <linearGradient id="brand-grad-ft" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
-                      <stop stopColor="#7C3AED" />
-                      <stop offset="1" stopColor="#A855F7" />
-                    </linearGradient>
-                  </defs>
-                </svg>
+              <span className="lp-brand-lockup">
+                <img src="/brand/pinit-career-logo.png" alt="PINIT CAREER" className="lp-brand-logo" />
               </span>
-              <span className="brand-text">PINITCAREER</span>
             </div>
             <p className="footer-sub">© 2026 PinitCareer Technologies. All 54 Ecosystem Modules Active.</p>
           </div>

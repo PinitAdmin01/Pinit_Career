@@ -1,8 +1,9 @@
 'use client';
 import { useState, useEffect, useRef, useCallback, Suspense, type CSSProperties, type MouseEvent } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/lib/hooks/useAuth';
+import { isDemoAuthEnabled, DEMO_PASSWORD } from '@/lib/demoAuth';
 import { supabase } from '@/lib/supabaseClient';
 import PublicNavbar from '@/components/nav/PublicNavbar';
 import '@/styles/landing.css';
@@ -46,12 +47,13 @@ function LoginModal({
   const unsubRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
-    if (preselectRole === 'student') setForm({ username: 'student@pinit.in', password: '111111' });
-    else if (preselectRole === 'teacher') setForm({ username: 'teacher@pinit.in', password: '111111' });
-    else if (preselectRole === 'admin') setForm({ username: 'admin@pinit.in', password: '111111' });
-    else if (preselectRole === 'recruiter') setForm({ username: 'rec@pinit.in', password: '111111' });
-    else if (preselectRole === 'consultant') setForm({ username: 'con@pinit.in', password: '111111' });
-    else if (preselectRole === 'parent') setForm({ username: 'parent@pinit.in', password: '111111' });
+    const pwd = isDemoAuthEnabled() ? DEMO_PASSWORD : '';
+    if (preselectRole === 'student') setForm({ username: 'student@pinit.in', password: pwd });
+    else if (preselectRole === 'teacher') setForm({ username: 'teacher@pinit.in', password: pwd });
+    else if (preselectRole === 'admin') setForm({ username: 'admin@pinit.in', password: pwd });
+    else if (preselectRole === 'recruiter') setForm({ username: 'rec@pinit.in', password: pwd });
+    else if (preselectRole === 'consultant') setForm({ username: 'con@pinit.in', password: pwd });
+    else if (preselectRole === 'parent') setForm({ username: 'parent@pinit.in', password: pwd });
   }, [preselectRole]);
 
   const createQRSession = useCallback(async () => {
@@ -105,7 +107,7 @@ function LoginModal({
     if (!qrToken) return;
     setSimulating(true); setQrStatus('scanned'); setQrMessage('Biometric scanner active on mobile phone...');
     const email = form.username || 'student@pinit.in';
-    const pwd = form.password || '111111';
+    const pwd = form.password || (isDemoAuthEnabled() ? DEMO_PASSWORD : '');
     setTimeout(async () => {
       if (isLocalSimulation) {
         localStorage.setItem(`qr_session_${qrToken}`, JSON.stringify({ status: 'confirmed', email, password: pwd }));
@@ -156,14 +158,16 @@ function LoginModal({
               </div>
               <input type={showPwd ? 'text' : 'password'} value={form.password} onChange={e => setForm(prev => ({ ...prev, password: e.target.value }))} className="input-textbox" placeholder="••••••••" required />
             </div>
+            {isDemoAuthEnabled() && (
             <div className="demo-shortcuts-box">
-              <div className="demo-shortcuts-title">⚡ Quick Demo Shortcuts</div>
+              <div className="demo-shortcuts-title">Quick Demo Shortcuts</div>
               <div className="demo-buttons-layout">
                 {[{ label: 'Admin', email: 'admin@pinit.in' }, { label: 'Teacher', email: 'teacher@pinit.in' }, { label: 'Recruiter', email: 'rec@pinit.in' }, { label: 'Consultant', email: 'con@pinit.in' }, { label: 'Parent', email: 'parent@pinit.in' }, { label: 'Student', email: 'student@pinit.in' }].map(demo => (
-                  <button key={demo.label} type="button" onClick={() => setForm({ username: demo.email, password: '111111' })} className="demo-pill-btn">{demo.label}</button>
+                  <button key={demo.label} type="button" onClick={() => setForm({ username: demo.email, password: DEMO_PASSWORD })} className="demo-pill-btn">{demo.label}</button>
                 ))}
               </div>
             </div>
+            )}
             {error && <div className="error-alert-banner">⚠️ {error}</div>}
             <button type="submit" className="pc-btn-primary" style={{ width: '100%', justifyContent: 'center', marginTop: 6 }} disabled={loading}>
               {loading ? 'Logging in...' : 'Sign In →'}
@@ -203,15 +207,6 @@ function LandingContent() {
     const py = (e.clientY - r.top) / r.height - 0.5;
     setTilt({ x: +(py * -14).toFixed(2), y: +(px * 16).toFixed(2) });
   };
-  const [liveStats, setLiveStats] = useState({
-    activeLearners: '100K+',
-    projectsBuilt: '30K+',
-    expertMentors: '500+',
-    communityMembers: '50K+',
-    hiringPartners: '500+',
-    successRate: '89%'
-  });
-
   useEffect(() => {
     // Theme persistence
     const savedTheme = localStorage.getItem('pc_theme') as 'dark' | 'light' | null;
@@ -221,40 +216,17 @@ function LandingContent() {
     }
   }, []);
 
-  const handleToggleTheme = () => {
-    const next = theme === 'dark' ? 'light' : 'dark';
-    setTheme(next);
-    localStorage.setItem('pc_theme', next);
-    document.documentElement.setAttribute('data-theme', next);
-  };
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
   const { login } = useAuth();
-  const searchParams = useSearchParams();
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
-  };
-
   const handleLoginClick = () => {
     setShowLoginModal(true);
   };
-
-  const navLinks = [
-    { name: 'What is PinitCareer?', href: '#what-is' },
-    { name: 'How It Works', href: '#how-it-works' },
-    { name: 'AI Roadmap', href: '#ai-roadmap' },
-    { name: 'Community', href: '#community' },
-    { name: 'Code Wars', href: '#code-wars' },
-    { name: 'For Companies', href: '#for-companies' },
-    { name: 'Resources', href: '#resources' },
-    { name: 'Pricing', href: '#pricing' },
-  ];
 
   return (
     <div className="landing-page">
@@ -268,37 +240,28 @@ function LandingContent() {
         <section className="hero-section section-padding">
           <div className="container hero-grid">
             <div className="hero-left">
-              <div className="badge-pill">Career OS</div>
+              <div className="badge-pill">Discover · Connect · Grow</div>
               <h1 className="hero-title">
-                More than courses.<br />
-                A complete<br />
-                <span className="text-gradient">career operating system.</span>
+                We don&apos;t help students find jobs.<br />
+                We help them <span className="text-gradient">discover who they are.</span>
               </h1>
               <p className="hero-subtitle">
-                Learn with AI. Build real skills. Compete with peers. Collaborate in communities. Get discovered by companies.
+                PinitCareer is an AI-powered career intelligence platform that understands every student&apos;s unique strength, interests, personality, skills, and potential — before they ever submit a resume.
               </p>
               <div className="hero-ctas">
                 <button type="button" className="pc-btn-primary" onClick={handleLoginClick}>Start free</button>
-                <button type="button" className="pc-btn-outline" onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}>
-                  See how it works
+                <button type="button" className="pc-btn-outline" onClick={() => document.getElementById('the-problem')?.scrollIntoView({ behavior: 'smooth' })}>
+                  Why we exist
                 </button>
               </div>
               <div className="feature-chips">
-                <div className="feature-chip"><strong>AI mentor</strong></div>
-                <div className="feature-chip"><strong>Real person</strong></div>
-                <div className="feature-chip"><strong>Code war</strong></div>
-                <div className="feature-chip"><strong>Get hired</strong></div>
+                <div className="feature-chip"><strong>Know yourself</strong></div>
+                <div className="feature-chip"><strong>Build yourself</strong></div>
+                <div className="feature-chip"><strong>Prove yourself</strong></div>
+                <div className="feature-chip"><strong>Grow without limits</strong></div>
               </div>
               <div className="trust-section">
-                <p className="trust-text">Trusted by 100K+ learners and 500+ companies worldwide</p>
-                <div className="company-logos">
-                  <span className="logo-google">Google</span>
-                  <span className="logo-ms">Microsoft</span>
-                  <span className="logo-tcs">tcs</span>
-                  <span className="logo-infosys">Infosys</span>
-                  <span className="logo-amazon">amazon</span>
-                  <span className="logo-deloitte">Deloitte.</span>
-                </div>
+                <p className="trust-text">The future doesn&apos;t belong to people with degrees. It belongs to people who know where they fit.</p>
               </div>
             </div>
             <div className="hero-right">
@@ -313,21 +276,130 @@ function LandingContent() {
                   <div className="lp-floor" aria-hidden />
                   <div className="lp-ring" aria-hidden />
                   <div className="lp-logo">
-                    <div className="lp-badge">
-                      <span className="lp-badge-front">Pi</span>
-                      <span className="lp-badge-side" />
-                      <span className="lp-badge-bottom" />
+                    <div className="lp-badge lp-badge-official">
+                      <img src="/brand/pinit-career-logo.png" alt="PINIT CAREER" />
                     </div>
-                    <strong>PINIT</strong>
                   </div>
                   <ul className="lp-terms">
-                    <li>AI mentor</li>
-                    <li>Real person</li>
-                    <li>Code war</li>
-                    <li>Get hired</li>
+                    <li>Know yourself</li>
+                    <li>Build yourself</li>
+                    <li>Prove yourself</li>
+                    <li>Grow</li>
                   </ul>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="brief-manifesta" aria-label="Brand promise">
+          <div className="container brief-manifesta-row">
+            <span>Discover</span>
+            <i className="brief-dot" aria-hidden />
+            <span>Connect</span>
+            <i className="brief-dot" aria-hidden />
+            <span>Grow</span>
+          </div>
+        </section>
+
+        <section id="the-problem" className="brief-problem section-padding">
+          <div className="container brief-problem-grid">
+            <div>
+              <p className="badge-pill">The problem</p>
+              <h2>Every year, millions of students graduate. Thousands of resumes look identical.</h2>
+              <p className="section-desc">Most students don&apos;t know what career suits them, what skills companies need, or how to stand out. So they copy resumes, watch random videos, apply to hundreds of jobs, and hope for the best.</p>
+              <p className="bold-line text-purple">Hope isn&apos;t a strategy.</p>
+            </div>
+            <ul className="brief-problem-list">
+              <li>Don&apos;t know what career suits them</li>
+              <li>Don&apos;t know what skills companies need</li>
+              <li>Don&apos;t know how to stand out</li>
+            </ul>
+          </div>
+          <div className="container brief-worlds">
+            <h3>Education has changed. Career guidance hasn&apos;t.</h3>
+            <div className="brief-worlds-row">
+              <article>
+                <strong>Schools</strong>
+                <span>teach subjects</span>
+              </article>
+              <article>
+                <strong>Universities</strong>
+                <span>teach degrees</span>
+              </article>
+              <article>
+                <strong>Recruiters</strong>
+                <span>hire skills</span>
+              </article>
+            </div>
+            <p className="brief-worlds-end">No one connects these three worlds. Until now.</p>
+          </div>
+        </section>
+
+        <section id="career-identity" className="brief-identity section-padding alt-bg">
+          <div className="container">
+            <p className="badge-pill">Career identity</p>
+            <h2 className="section-title-lg">Every student has identity. Not just marks.</h2>
+            <p className="section-desc brief-identity-lead">
+              Not just certificates. Not just projects. PinitCareer analyzes personality, communication, technical skills, learning behavior, interests, problem solving, leadership, creativity, portfolio, experience, and career goals. Everything contributes to your Career Identity.
+            </p>
+            <ul className="brief-signals">
+              {['Personality', 'Communication', 'Technical skills', 'Learning behavior', 'Interests', 'Problem solving', 'Leadership', 'Creativity', 'Portfolio', 'Experience', 'Career goals'].map((signal) => (
+                <li key={signal}>{signal}</li>
+              ))}
+            </ul>
+            <div className="brief-os">
+              <div>
+                <h3>Your personal career operating system</h3>
+                <p>One intelligent platform. One evolving profile. One career identity. Built from thousands of data points. Continuously improving. Uniquely yours.</p>
+              </div>
+              <ul className="brief-tools">
+                {['Career assessment', 'AI resume builder', 'ATS optimizer', 'Portfolio builder', 'Mock interviews', 'AI mentor', 'Career roadmaps', 'Skill gap analysis', 'Job matching', 'Internship matching', 'Progress tracking'].map((tool) => (
+                  <li key={tool}>{tool}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="audiences" className="brief-audiences section-padding">
+          <div className="container">
+            <p className="badge-pill">Who it&apos;s for</p>
+            <h2 className="section-title-lg">One platform. Three worlds, finally connected.</h2>
+            <div className="brief-audience-grid">
+              <article>
+                <h3>For students</h3>
+                <ul>
+                  <li>Discover your strengths</li>
+                  <li>Build real skills</li>
+                  <li>Gain confidence</li>
+                  <li>Get interview ready</li>
+                  <li>Find opportunities</li>
+                  <li>Launch your career</li>
+                </ul>
+              </article>
+              <article>
+                <h3>For universities</h3>
+                <ul>
+                  <li>Measure employability</li>
+                  <li>Track student progress</li>
+                  <li>Improve placements</li>
+                  <li>Identify skill gaps</li>
+                  <li>Increase recruiter confidence</li>
+                  <li>Deliver better outcomes</li>
+                </ul>
+              </article>
+              <article>
+                <h3>For recruiters</h3>
+                <ul>
+                  <li>Move beyond resumes</li>
+                  <li>Discover verified talent</li>
+                  <li>Understand candidate potential</li>
+                  <li>Hire with confidence</li>
+                  <li>Reduce screening time</li>
+                  <li>Find the right fit</li>
+                </ul>
+              </article>
             </div>
           </div>
         </section>
@@ -339,10 +411,10 @@ function LandingContent() {
             <div className="what-is-left">
               <h2>What is PinitCareer?</h2>
               <p className="section-desc">
-                PinitCareer is an AI-powered career platform that helps students learn the right skills, build real projects, compete with peers, collaborate in communities, and get hired by top-companies.
+                The career operating system for the next generation. An AI mentor available 24/7 who knows your strengths, understands your weaknesses, tracks your goals, suggests the next step, prepares you for interviews, and keeps you accountable.
               </p>
-              <p className="bold-line">It is not just a learning platform.</p>
-              <p className="bold-line text-purple">It is a career transformation platform.</p>
+              <p className="bold-line">It is not another job board.</p>
+              <p className="bold-line text-purple">It is a career identity platform.</p>
               
               {/* 6 Capability Features Grid */}
               <div className="features-grid-2x3">
@@ -840,51 +912,29 @@ function LandingContent() {
 
             {/* Company Logos Bar */}
             <div className="company-trust-footer mt-12 text-center">
-              <p className="trust-companies-text">Trusted by 500+ companies to hire top talent</p>
-              <div className="company-logos-row">
-                <span className="logo-item">Google</span>
-                <span className="logo-item">Microsoft</span>
-                <span className="logo-item">amazon</span>
-                <span className="logo-item">tcs</span>
-                <span className="logo-item">Infosys</span>
-                <span className="logo-item">Deloitte.</span>
-              </div>
+              <p className="trust-companies-text">Recruiters move beyond resumes. Universities measure employability. Students finally know where they fit.</p>
             </div>
           </div>
         </section>
 
-        {/* 8. STATS BAR */}
-        <section className="stats-bar-section">
-          <div className="container stats-grid-6">
-            <div className="stat-card">
-              <div className="stat-icon-badge">🎓</div>
-              <div className="stat-num">100K+</div>
-              <div className="stat-lbl">Active Learners</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-icon-badge">💼</div>
-              <div className="stat-num">30K+</div>
-              <div className="stat-lbl">Projects Built</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-icon-badge">👨‍🏫</div>
-              <div className="stat-num">500+</div>
-              <div className="stat-lbl">Expert Mentors</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-icon-badge">👥</div>
-              <div className="stat-num">50K+</div>
-              <div className="stat-lbl">Community Members</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-icon-badge">🏢</div>
-              <div className="stat-num">500+</div>
-              <div className="stat-lbl">Hiring Partners</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-icon-badge">⭐</div>
-              <div className="stat-num">89%</div>
-              <div className="stat-lbl">Hiring Success Rate</div>
+        {/* 8. IDENTITY BAR — signals from the brief, not invented metrics */}
+        <section className="stats-bar-section brief-identity-bar">
+          <div className="container">
+            <p className="brief-identity-bar-kicker">What actually builds a career identity</p>
+            <div className="stats-grid-6">
+              {[
+                ['01', 'Personality'],
+                ['02', 'Communication'],
+                ['03', 'Skills'],
+                ['04', 'Portfolio'],
+                ['05', 'Experience'],
+                ['06', 'Goals'],
+              ].map(([num, label]) => (
+                <div className="stat-card" key={label}>
+                  <div className="stat-num">{num}</div>
+                  <div className="stat-lbl">{label}</div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -899,11 +949,11 @@ function LandingContent() {
             </div>
             <div className="cta-content-right">
               <h2 className="cta-heading">
-                Your Future Doesn't Start After Graduation.<br />
-                It Starts <span className="text-purple">Today.</span>
+                Degrees will matter. Skills will matter more.<br />
+                Understanding yourself will <span className="text-purple">matter the most.</span>
               </h2>
               <p className="cta-sub">
-                Join thousands of students who are building skills, earning reputation, and getting hired with PinitCareer.
+                PinitCareer prepares students not just for their first job — but for an entire lifetime of growth.
               </p>
               <div className="cta-buttons-row">
                 <button type="button" className="pc-btn-primary pc-btn-glow-lg" onClick={handleLoginClick}>Start free</button>
@@ -923,38 +973,38 @@ function LandingContent() {
         <div className="container footer-grid">
           <div className="f-col brand-col">
             <div className="brand-logo mb-4">
-              <span className="pi-icon">Pi</span>
-              <span className="brand-text">PINITCAREER</span>
+              <span className="lp-brand-lockup">
+                <img src="/brand/pinit-career-logo.png" alt="PINIT CAREER" className="lp-brand-logo" />
+              </span>
             </div>
-            <p className="f-desc mb-4">Empowering students to build their career through AI-driven learning, real projects, and community.</p>
+            <p className="f-desc mb-4">We don&apos;t help students find jobs. We help them discover who they are. Discover · Connect · Grow.</p>
           </div>
           <div className="f-col">
             <h4>Platform</h4>
             <ul>
-              <li><a href="#">AI Roadmap</a></li>
-              <li><a href="#">Code Wars</a></li>
-              <li><a href="#">Projects</a></li>
-              <li><a href="#">Community</a></li>
-              <li><a href="#">Portfolio</a></li>
+              <li><a href="#career-identity">Career Identity</a></li>
+              <li><a href="#audiences">Who it&apos;s for</a></li>
+              <li><a href="#how-it-works">How it works</a></li>
+              <li><a href="#ai-roadmap">AI Mentor</a></li>
+              <li><a href="#the-problem">The Problem</a></li>
             </ul>
           </div>
           <div className="f-col">
             <h4>Company</h4>
             <ul>
-              <li><a href="#">About</a></li>
-              <li><a href="#">Careers</a></li>
-              <li><a href="#">Blog</a></li>
-              <li><a href="#">Contact</a></li>
-              <li><a href="#">Partners</a></li>
+              <li><a href="/about">About</a></li>
+              <li><a href="/pricing">Pricing</a></li>
+              <li><a href="/services">Services</a></li>
+              <li><a href="/contact">Contact</a></li>
+              <li><a href="/recruiter">For recruiters</a></li>
             </ul>
           </div>
           <div className="f-col">
             <h4>Legal</h4>
             <ul>
-              <li><a href="#">Privacy</a></li>
-              <li><a href="#">Terms</a></li>
-              <li><a href="#">Cookie Policy</a></li>
-              <li><a href="#">Security</a></li>
+              <li><a href="/privacy">Privacy</a></li>
+              <li><a href="/terms">Terms</a></li>
+              <li><a href="/contact">Campus consult</a></li>
             </ul>
           </div>
         </div>
@@ -1020,11 +1070,11 @@ function LandingContent() {
           --text-secondary: #94A3B8;
           --text-tertiary: #64748B;
           --border-color: rgba(255, 255, 255, 0.08);
-          --border-hover: rgba(124, 58, 237, 0.4);
-          --accent: #7C3AED;
-          --accent-hover: #6D28D9;
-          --accent-glow: rgba(124, 58, 237, 0.3);
-          --accent-cyan: #06B6D4;
+          --border-hover: rgba(0, 163, 255, 0.4);
+          --accent: #00A3FF;
+          --accent-hover: #0088D6;
+          --accent-glow: rgba(0, 163, 255, 0.3);
+          --accent-cyan: #00A3FF;
           --accent-green: #10B981;
           --accent-amber: #F59E0B;
           --accent-pink: #EC4899;
@@ -1043,10 +1093,10 @@ function LandingContent() {
           --text-secondary: var(--t2);
           --text-tertiary: #94A3B8;
           --border-color: rgba(0, 0, 0, 0.08);
-          --border-hover: rgba(124, 58, 237, 0.3);
-          --accent: #7C3AED;
-          --accent-hover: #6D28D9;
-          --accent-glow: rgba(124, 58, 237, 0.15);
+          --border-hover: rgba(0, 136, 214, 0.3);
+          --accent: #0077CC;
+          --accent-hover: #0062A8;
+          --accent-glow: rgba(0, 163, 255, 0.15);
           --trust-bg: #F8FAFC;
         }
 
@@ -1582,7 +1632,7 @@ function LandingContent() {
 
 export default function PinitCareerLanding() {
   return (
-    <Suspense fallback={<div style={{height: '100vh', background: '#080A1A'}}></div>}>
+    <Suspense fallback={<div style={{ height: '100vh', background: '#000' }} />}>
       <LandingContent />
     </Suspense>
   );

@@ -1870,17 +1870,12 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
     }
     try {
       // Exact register_number match only — do not dump/match all emails
-      const usersList = await fs.getAllUsers();
-      const matched = usersList.find(u => {
-        const reg = String(u.registerNumber || (u as any).register_number || '').trim();
-        return reg.length > 0 && reg.toLowerCase() === rn.toLowerCase();
-      });
-
+      const matched = await fs.findUserByRegisterNumber(rn);
       if (!matched) {
         throw new ApiError(404, 'STUDENT_NOT_FOUND', 'No student found with that exact register number.');
       }
 
-      const parentUser = usersList.find(u => u.id === uid || u.uid === uid);
+      const parentUser = await fs.getUserProfile(uid);
       if (parentUser) {
         const answers = parentUser.onboardingAnswers || parentUser.onboarding_answers || {};
         const currentLinks = (answers as any)?.linked_students || [];
@@ -2358,25 +2353,34 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
   if(cleanPath.startsWith('/api/admin/users/') && cleanPath.endsWith('/role') && method==='PATCH'){
     const userId = cleanPath.split('/api/admin/users/')[1].split('/')[0];
     const { role } = body as Record<string, string>;
-    await fs.updateUserProfile(userId, { role });
+    await fs.updateUserProfile(userId, { role }, { allowPrivileged: true });
     return { ok: true };
   }
   if(cleanPath.startsWith('/api/admin/users/') && cleanPath.endsWith('/suspend') && method==='POST'){
     const userId = cleanPath.split('/api/admin/users/')[1].split('/')[0];
     const { reason } = (body as Record<string, any>) || {};
-    await fs.updateUserProfile(userId, { suspended: true, role: 'suspended' });
+    await fs.updateUserProfile(userId, { suspended: true, role: 'suspended' }, { allowPrivileged: true });
     await fs.addAuditEntry(uid, 'suspend_user', userId, { reason: reason || 'Violation of terms' });
     return { ok: true };
   }
   if(cleanPath.startsWith('/api/admin/users/') && method==='DELETE'){
     const userId = cleanPath.split('/api/admin/users/')[1];
-    await fs.updateUserProfile(userId, { suspended: true, role: 'suspended' });
+    await fs.updateUserProfile(userId, { suspended: true, role: 'suspended' }, { allowPrivileged: true });
     await fs.addAuditEntry(uid, 'delete_user', userId, { reason: 'Admin action' });
     return { ok: true };
   }
   if(cleanPath.includes('/api/admin/users/')&&cleanPath.includes('/score-override')){
     const userId=cleanPath.split('/api/admin/users/')[1].replace('/score-override','');
     const { field, value, reason } = body as Record<string, any>;
+    const SCORE_FIELDS = new Set([
+      'ats_score', 'trust_score', 'career_dna_score', 'career_readiness',
+      'communication_score', 'execution_score', 'leadership_score',
+      'consistency_score', 'adaptability_score', 'confidence_score',
+      'innovation_score', 'intelligence_score',
+    ]);
+    if (!SCORE_FIELDS.has(String(field))) {
+      throw new ApiError(400, 'INVALID_FIELD', 'Score override only allows competency score fields.');
+    }
     await fs.updateUserProfile(userId,{ [field]: value });
     await fs.addAuditEntry(uid, 'score_override', userId, { field, value, reason });
     return { ok:true };
@@ -2569,7 +2573,9 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
       return { ok: true, log: [], total: 0 };
     }
   }
-  if(cleanPath.startsWith('/api/admin')) return { ok:true, users:[], log:[], total:0 };
+  if(cleanPath.startsWith('/api/admin')) {
+    throw new ApiError(404, 'NOT_FOUND', `Unhandled API path: ${method} ${cleanPath}`);
+  }
 
   if(cleanPath.startsWith('/api/memory')) return { ok:true };
   if(cleanPath.startsWith('/api/tts')) return { ok:true };

@@ -389,7 +389,7 @@ export default function DocumentVaultPage() {
 
                   {/* Cert body text */}
                   <p style={{ fontSize: 15, lineHeight: 1.8, color: '#1e293b', textAlign: 'justify', margin: '0 auto 30px', maxWidth: 640 }}>
-                    This is to certify that student <strong>{user?.displayName || 'Student User'}</strong> is officially enrolled in the <strong>{selectedDoc.major}</strong> department as a <strong>{selectedDoc.year}</strong> under candidate code <strong>{user?.registerNumber || 'BGS2024001'}</strong>.
+                    This is to certify that student <strong>{user?.displayName || 'Student User'}</strong> is officially enrolled in the <strong>{selectedDoc.major}</strong> department as a <strong>{selectedDoc.year}</strong> under candidate code <strong>{user?.registerNumber || '—'}</strong>.
                   </p>
                   
                   <p style={{ fontSize: 15, lineHeight: 1.8, color: '#1e293b', textAlign: 'justify', margin: '0 auto 30px', maxWidth: 640 }}>

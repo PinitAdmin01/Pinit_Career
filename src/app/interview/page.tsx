@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
+import { useAuth } from '@/lib/context/AuthContext';
 import { speakWithAvatar as speakWithAvatarRaw, stopSpeaking } from '@/lib/tts';
 
 const VRoidInterviewAvatar = dynamic(
@@ -187,6 +188,7 @@ const STARTER_CODES: Record<string, string> = {
 
 export default function InterviewPage() {
   const cOS = useCareerOS();
+  const { user } = useAuth();
   const { addXp, earnPins } = cOS;
 
   // Interview Mode: 'roadmap' vs 'custom'
@@ -532,8 +534,9 @@ export default function InterviewPage() {
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
+    const historyKey = `pinit_interview_history_${user?.id || 'anon'}`;
     try {
-      const stored = localStorage.getItem('pinit_interview_history');
+      const stored = localStorage.getItem(historyKey);
       if (stored) {
         const parsed = JSON.parse(stored);
         if (Array.isArray(parsed) && parsed.length > 0) {
@@ -544,15 +547,15 @@ export default function InterviewPage() {
     } catch (e) {
       console.warn('Failed to parse localStorage history');
     }
-    setSessions(PREVIOUS_SESSIONS);
-  }, []);
+    setSessions([]);
+  }, [user?.id]);
 
   const saveSessionHistory = (newSession: InterviewSessionRecord) => {
     setSessions(prev => {
       const updated = [newSession, ...prev.filter(s => s.id !== newSession.id)];
       if (typeof window !== 'undefined') {
         try {
-          localStorage.setItem('pinit_interview_history', JSON.stringify(updated));
+          localStorage.setItem(`pinit_interview_history_${user?.id || 'anon'}`, JSON.stringify(updated));
         } catch (e) {
           console.warn('Failed to save to localStorage');
         }
@@ -571,7 +574,7 @@ export default function InterviewPage() {
     if (window.confirm('Are you sure you want to clear all your interview session history?')) {
       setSessions([]);
       if (typeof window !== 'undefined') {
-        localStorage.removeItem('pinit_interview_history');
+        localStorage.removeItem(`pinit_interview_history_${user?.id || 'anon'}`);
       }
     }
   };

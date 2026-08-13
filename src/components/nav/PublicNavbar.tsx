@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/context/AuthContext';
+import { isDemoAuthEnabled } from '@/lib/demoAuth';
 
 interface PublicNavbarProps {
   onLoginClick?: () => void;
@@ -33,6 +34,7 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
   };
 
   const handleDevModeClick = async () => {
+    if (!isDemoAuthEnabled()) return;
     const randomSuffix = Math.random().toString(36).substring(2, 7).toUpperCase();
     const devId = `usr_dev_${Date.now()}_${randomSuffix.toLowerCase()}`;
     const devUser = {
@@ -62,10 +64,11 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
 
   const navLinks = [
     { name: 'Home', href: '/' },
+    { name: 'Problem', href: '/#the-problem' },
+    { name: 'Identity', href: '/#career-identity' },
+    { name: 'Who it\'s for', href: '/#audiences' },
     { name: 'About Us', href: '/about' },
-    { name: 'Pricing & Plans', href: '/pricing' },
     { name: 'For Companies', href: '/recruiter' },
-    { name: 'Platform Services', href: '/services' },
     { name: 'Campus Consult', href: '/contact' },
   ];
 
@@ -82,6 +85,7 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
       }}>
         {/* BRAND LOGO & TOP LEFT DEV MODE BUTTON */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          {isDemoAuthEnabled() && (
           <button
             type="button"
             className="lp-dev"
@@ -101,20 +105,16 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
           >
             Dev Mode
           </button>
+          )}
 
-          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
-            <div className="lp-mark" style={{
-              width: '36px',
-              height: '36px',
-              borderRadius: '10px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontWeight: 900,
-              fontSize: '16px',
-              color: '#FFFFFF'
-            }}>Pi</div>
-            <span className="lp-wordmark">PINITCAREER</span>
+          <Link href="/" className="lp-brand" aria-label="PINIT CAREER home">
+            <span className="lp-brand-lockup">
+              <img
+                src="/brand/pinit-career-logo.png"
+                alt="PINIT CAREER"
+                className="lp-brand-logo"
+              />
+            </span>
           </Link>
         </div>
 
@@ -125,12 +125,21 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
           gap: '20px'
         }}>
           {navLinks.map((link) => {
-            const isActive = pathname === link.href;
+            const hash = link.href.startsWith('/#') ? link.href.slice(1) : '';
+            const isActive = !hash && pathname === link.href;
             return (
               <Link
                 key={link.href}
                 href={link.href}
                 className={isActive ? 'lp-nav-link is-on' : 'lp-nav-link'}
+                onClick={(e) => {
+                  if (!hash || pathname !== '/') return;
+                  const el = document.getElementById(hash.slice(1));
+                  if (!el) return;
+                  e.preventDefault();
+                  el.scrollIntoView({ behavior: 'smooth' });
+                  history.replaceState(null, '', hash);
+                }}
               >
                 {link.name}
               </Link>

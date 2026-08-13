@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/lib/context/AuthContext';
+import { isDemoAuthEnabled } from '@/lib/demoAuth';
 import { QRCodeSVG } from 'qrcode.react';
 import {
   identityGateway,
@@ -181,6 +182,10 @@ export default function LoginPage() {
   };
   // Developer Mode Login: Creates a brand-new unique user ID every time & skips directly to onboarding
   const handleDevModeLogin = async () => {
+    if (!isDemoAuthEnabled()) {
+      setErrorMsg('Developer Mode is disabled in this environment.');
+      return;
+    }
     setLoading(true);
     setErrorMsg('');
     try {
@@ -316,22 +321,8 @@ export default function LoginPage() {
         {/* Brand Logo Header */}
         <div className="auth-logo" style={{ textAlign: 'center', marginBottom: 24 }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginBottom: 12 }}>
-            <div style={{
-              width: 44,
-              height: 44,
-              background: 'linear-gradient(135deg, var(--accent, #4f46e5) 0%, var(--purple, #7c3aed) 100%)',
-              borderRadius: 12,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontFamily: 'var(--font-display)',
-              fontSize: 18,
-              fontWeight: 800,
-              color: 'white',
-              boxShadow: '0 6px 16px rgba(79,70,229,0.3)',
-            }}>Pi</div>
-            <span style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 800, color: 'var(--t1, #fff)', letterSpacing: '-0.5px' }}>
-              PinIT Career OS
+            <span className="lp-brand-lockup" style={{ height: 56, padding: '4px 10px' }}>
+              <img src="/brand/pinit-career-logo.png" alt="PINIT CAREER" className="lp-brand-logo" style={{ height: 48, maxWidth: 200 }} />
             </span>
           </div>
           <h2 style={{ fontSize: 20, fontWeight: 700, margin: '4px 0 4px', color: 'var(--t1)' }}>
@@ -341,7 +332,7 @@ export default function LoginPage() {
             Secure identity verification powered by PinIT Vault
           </p>
         </div>
-        {/* ⚡ Developer Mode Quick Test Banner */}
+        {isDemoAuthEnabled() && (
         <div style={{
           background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(217, 119, 6, 0.12) 100%)',
           border: '1px solid rgba(245, 158, 11, 0.35)',
@@ -378,9 +369,10 @@ export default function LoginPage() {
               boxShadow: '0 4px 12px rgba(245, 158, 11, 0.3)'
             }}
           >
-            {loading ? 'Creating...' : '🚀 Test Onboarding'}
+            {loading ? 'Creating...' : 'Test Onboarding'}
           </button>
         </div>
+        )}
 
         {/* Error / Offline Alert Banner */}
         {errorMsg && (

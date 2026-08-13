@@ -234,6 +234,18 @@ export async function getVoicePrintFromSupabase(uid: string) {
 
 const IS_VALID_UUID = (str: string) => typeof str === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(str);
 
+export async function findUserByRegisterNumber(registerNumber: string) {
+  const rn = (registerNumber || '').trim();
+  if (!rn) return null;
+  const { data, error } = await supabase
+    .from('users')
+    .select('*')
+    .ilike('register_number', rn)
+    .maybeSingle();
+  if (error || !data) return null;
+  return mapRowToProfile(data);
+}
+
 export async function getUserProfile(uid: string) {
   if (!uid || !IS_VALID_UUID(uid)) {
     return null;
@@ -274,7 +286,11 @@ export async function createUserProfile(uid: string, data: Record<string, any>) 
   if (error) throw error;
 }
 
-export async function updateUserProfile(uid: string, data: Record<string, any>) {
+export async function updateUserProfile(
+  uid: string,
+  data: Record<string, any>,
+  opts?: { allowPrivileged?: boolean }
+) {
   if (!uid || !IS_VALID_UUID(uid)) return;
   const answersUpdate: Record<string, any> = {};
   if (data.status !== undefined) answersUpdate.status = data.status;
@@ -295,6 +311,12 @@ export async function updateUserProfile(uid: string, data: Record<string, any>) 
   }
 
   const row = mapProfileToRow(data);
+  // Self-service / client updates must never change privilege or billing fields.
+  // Admin role/suspend paths pass allowPrivileged: true.
+  if (!opts?.allowPrivileged) {
+    delete row.role;
+    delete row.subscription_tier;
+  }
   if (Object.keys(answersUpdate).length > 0) {
     row.onboarding_answers = {
       ...currentAnswers,

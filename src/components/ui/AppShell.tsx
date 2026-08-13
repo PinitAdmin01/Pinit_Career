@@ -1190,9 +1190,9 @@ function isPathActive(pathname: string, href: string) {
 function DsaiAcademicTabWrapper({ tab, student, onStartExam, examCheckLoading }: any) {
   if (!tab) return null;
   const academicStudent = {
-    name: student?.displayName || student?.name || 'demo',
-    registerNumber: student?.registerNumber || 'BGS2024001',
-    batch: student?.batch || 'Batch 4',
+    name: student?.displayName || student?.name || 'Student',
+    registerNumber: student?.registerNumber || '',
+    batch: student?.batch || '',
   };
   try {
     switch (tab) {
@@ -1231,6 +1231,7 @@ function SearchParamsHandler({ onTabChange }: { onTabChange: (tab: string | null
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const pathname              = usePathname();
   const router                = useRouter();
+  const searchParams          = useSearchParams();
   const { user, loading, logout } = useAuth();
   const { profile, refresh: refreshProfile } = useCareerProfile();
   const { data: notifData }   = useNotifications();
@@ -1336,17 +1337,15 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     };
     checkCallAndRoleplay();
     window.addEventListener('popstate', checkCallAndRoleplay);
-    const interval = setInterval(checkCallAndRoleplay, 200);
     return () => {
       window.removeEventListener('popstate', checkCallAndRoleplay);
-      clearInterval(interval);
     };
-  }, [pathname]);
+  }, [pathname, searchParams]);
 
   // Load notes dynamically when questId changes
   useEffect(() => {
     if (questId) {
-      const saved = localStorage.getItem(`pinit_lesson_notes_${questId}`);
+      const saved = localStorage.getItem(`pinit_lesson_notes_${user?.id || 'anon'}_${questId}`);
       setNotesContent(saved || '');
     } else {
       setNotesContent('');
@@ -1356,7 +1355,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const handleNotesChange = (text: string) => {
     setNotesContent(text);
     if (questId) {
-      localStorage.setItem(`pinit_lesson_notes_${questId}`, text);
+      localStorage.setItem(`pinit_lesson_notes_${user?.id || 'anon'}_${questId}`, text);
     }
   };
 
@@ -1581,12 +1580,14 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             onClick={() => setActiveAcademicTab(null)}
             style={{ textDecoration:'none', display:'flex', alignItems:'center', gap:10 }}
           >
-            <div className="logo-mark">Pi</div>
-            {!collapsed && !effectiveFocusMode && (
-              <div>
-                <div className="logo-text">PinIT</div>
-                <div className="logo-sub">Career OS</div>
-              </div>
+            {collapsed || effectiveFocusMode ? (
+              <span className="logo-mark logo-mark-img">
+                <img src="/brand/pinit-career-logo.png" alt="PINIT CAREER" />
+              </span>
+            ) : (
+              <span className="lp-brand-lockup" style={{ height: 40, padding: '2px 6px' }}>
+                <img src="/brand/pinit-career-logo.png" alt="PINIT CAREER" className="lp-brand-logo" style={{ height: 34, maxWidth: 148 }} />
+              </span>
             )}
           </Link>
           {!collapsed && !focusMode && (

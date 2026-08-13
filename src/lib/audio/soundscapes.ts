@@ -5,6 +5,7 @@
 
 let audioCtx: AudioContext | null = null;
 let activeOscillators: OscillatorNode[] = [];
+let activeLfos: OscillatorNode[] = [];
 let masterGain: GainNode | null = null;
 let audioElement: HTMLAudioElement | null = null;
 let audioSourceNode: MediaElementAudioSourceNode | null = null;
@@ -93,8 +94,9 @@ function fallbackWebAudioSynthesis(key: string, targetVolume: number) {
     lfo.connect(lfoGain);
     lfoGain.connect(osc.frequency);
     lfo.start();
+    activeLfos.push(lfo);
 
-    oscGain.gain.setValueAtTime(0.12, audioCtx!.currentTime);
+    oscGain.gain.setValueAtTime(targetVolume, audioCtx!.currentTime);
     osc.connect(oscGain);
     oscGain.connect(masterGain!);
     osc.start();
@@ -111,6 +113,15 @@ export function stopArchetypeSoundscapeImmediately() {
       audioElement.pause();
       audioElement.currentTime = 0;
     } catch {}
+  }
+  if (activeLfos.length > 0) {
+    activeLfos.forEach(osc => {
+      try {
+        osc.stop();
+        osc.disconnect();
+      } catch {}
+    });
+    activeLfos = [];
   }
   if (activeOscillators.length > 0) {
     activeOscillators.forEach(osc => {

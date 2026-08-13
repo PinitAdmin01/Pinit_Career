@@ -1562,8 +1562,9 @@ export default function OnboardingPage() {
           <div style={{ maxWidth: '95%', width: '95%', margin: '0 auto', zIndex: 10, textAlign: 'center' }}>
             {/* Logo Header */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginBottom: 40 }}>
-              <div style={{ width: 38, height: 38, background: 'linear-gradient(135deg,var(--accent),#7c3aed)', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, color: 'var(--card)', fontSize: 16 }}>Pi</div>
-              <span style={{ fontSize: 20, fontWeight: 900, letterSpacing: '-0.5px' }}>PinIT Career OS</span>
+              <span className="lp-brand-lockup" style={{ height: 48, padding: '3px 8px' }}>
+                <img src="/brand/pinit-career-logo.png" alt="PINIT CAREER" className="lp-brand-logo" style={{ height: 40, maxWidth: 180 }} />
+              </span>
             </div>
 
             <div style={{ marginBottom: 48 }}>
@@ -1908,8 +1909,9 @@ export default function OnboardingPage() {
       {/* Top Header */}
       <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 32px', borderBottom: '1px solid rgba(255,255,255,0.04)', background: 'rgba(10,15,26,0.3)', backdropFilter: 'blur(10px)', zIndex: 10 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <div style={{ width: 34, height: 34, background: 'linear-gradient(135deg,var(--accent),#7c3aed)', borderRadius: 10, display: 'flex', alignItems: 'center', justifySelf: 'center', justifyContent: 'center', fontWeight: 800, color: 'var(--card)', fontSize: 14 }}>Pi</div>
-          <span style={{ fontSize: 17, fontWeight: 800, letterSpacing: '-0.5px' }}>PinIT Career OS</span>
+          <span className="lp-brand-lockup" style={{ height: 40, padding: '2px 6px' }}>
+            <img src="/brand/pinit-career-logo.png" alt="PINIT CAREER" className="lp-brand-logo" style={{ height: 34, maxWidth: 148 }} />
+          </span>
         </div>
         <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
           <button

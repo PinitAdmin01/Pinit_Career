@@ -60,8 +60,9 @@ function ResetForm() {
       <div className="auth-card animate-fade-in">
         <div className="auth-logo">
           <div style={{ display:'flex', alignItems:'center', justifyContent:'center', gap:10, marginBottom:10 }}>
-            <div style={{ width:44, height:44, background:'linear-gradient(135deg, var(--accent), var(--purple))', borderRadius:12, display:'flex', alignItems:'center', justifyContent:'center', fontFamily:'var(--font-display)', fontSize:18, fontWeight:800, color:'white', boxShadow:'0 6px 20px rgba(79,70,229,0.35)' }}>Pi</div>
-            <span style={{ fontFamily:'var(--font-display)', fontSize:22, fontWeight:800, color:'var(--t1)', letterSpacing:'-0.5px' }}>PinIT</span>
+            <span className="lp-brand-lockup" style={{ height: 56, padding: '4px 10px' }}>
+              <img src="/brand/pinit-career-logo.png" alt="PINIT CAREER" className="lp-brand-logo" style={{ height: 48, maxWidth: 200 }} />
+            </span>
           </div>
           <div className="auth-title">{token ? 'Set New Password' : 'Reset Password'}</div>
           <div className="auth-sub">{token ? 'Enter your new password below' : 'We\'ll send you a reset link'}</div>

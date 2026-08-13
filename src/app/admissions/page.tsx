@@ -287,11 +287,9 @@ export default function AdmissionsPortal() {
       <header className="header-topbar">
         <div className="header-content">
           <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
-            <div style={{ width: 38, height: 38, borderRadius: 12, background: 'linear-gradient(135deg,var(--accent),var(--purple))', display: 'flex', alignItems: 'center', justifyItems: 'center', fontSize: 17, fontWeight: 800, color: 'white', justifyContent: 'center', boxShadow: '0 4px 12px var(--accent-glow)' }}>Pi</div>
-            <div>
-              <span style={{ fontSize: 19, fontWeight: 900, color: 'var(--t1)', letterSpacing: '-0.6px', fontFamily: 'var(--font-display)' }}>PinIT</span>
-              <span style={{ fontSize: 10, color: 'var(--accent)', fontWeight: 800, marginLeft: 6, textTransform: 'uppercase', letterSpacing: '0.8px', fontFamily: 'var(--font-mono)' }}>Career OS</span>
-            </div>
+            <span className="lp-brand-lockup" style={{ height: 40, padding: '2px 6px' }}>
+              <img src="/brand/pinit-career-logo.png" alt="PINIT CAREER" className="lp-brand-logo" style={{ height: 34, maxWidth: 148 }} />
+            </span>
           </Link>
 
           <nav className="nav-group">
