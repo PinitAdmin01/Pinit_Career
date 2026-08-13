@@ -1278,7 +1278,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     careerScore, 
     dnaScore, 
     trustScore, 
-    missionStreak, 
+    missionOnlyStreak, 
     onboardingAnswers, 
     vaultItems, 
     completedMissions, 
@@ -1763,11 +1763,11 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                 Vault
               </Link>
 
-              {missionStreak > 0 && (
+              {missionOnlyStreak > 0 && (
                 <div className="ts-pill" style={{
                   background:'var(--amber-light)', borderColor:'var(--amber-light)', color:'var(--amber)',
                 }}>
-                  {missionStreak}d
+                  {missionOnlyStreak}d
                 </div>
               )}
 

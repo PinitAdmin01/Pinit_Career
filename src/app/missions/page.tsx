@@ -15,6 +15,7 @@ import { api } from '@/lib/api/client';
 import { toast } from '@/lib/store/useAppStore';
 import dynamic from 'next/dynamic';
 import { speakWithAvatar, stopSpeaking, preloadTTS } from '@/lib/tts';
+import { readRecentRoleplayTitles, rememberRoleplayTitle } from '@/lib/missions/roleplayEngine';
 
 import PinsGate from '@/components/pins/PinsGate';
 import PinsEarnNotice from '@/components/pins/PinsEarnNotice';
@@ -48,7 +49,7 @@ function MissionsPageInner() {
   const isRoleplayParam = searchParams?.get('roleplay') === 'true';
   const { user, refresh } = useAuth();
   const { 
-    missionStreak: streak, 
+    missionOnlyStreak, 
     xp, 
     completedMissions, 
     onboardingAnswers,
@@ -209,18 +210,28 @@ function MissionsPageInner() {
       setSessionElapsed(0);
       stopSpeaking();
 
+      const sessionNonce = (typeof crypto !== 'undefined' && crypto.randomUUID)
+        ? crypto.randomUUID()
+        : `n_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
+      const studentName = String(user?.displayName || user?.full_name || 'there');
+      const recentTitles = user?.id ? readRecentRoleplayTitles(user.id) : [];
+
       const res = await fetch('/api/missions/roleplay', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           action: 'initialize',
           qt2: onboardingAnswers?.qt2_score ?? 75,
-          role: onboardingAnswers?.role ?? 'Software Developer'
+          role: onboardingAnswers?.role ?? 'Software Developer',
+          studentName,
+          sessionNonce,
+          recentTitles,
         })
       });
       const data = await res.json();
       if (data && data.ok) {
         setScenario(data);
+        if (user?.id && data.scenarioTitle) rememberRoleplayTitle(user.id, data.scenarioTitle);
         const firstMessage = { role: 'assistant' as const, content: data.message };
         setRoleplayHistory([firstMessage]);
 
@@ -259,7 +270,9 @@ function MissionsPageInner() {
         body: JSON.stringify({
           action: 'respond',
           choice: selectedChoice.text,
-          history: updatedHistory
+          history: updatedHistory,
+          studentName: String(user?.displayName || user?.full_name || 'there'),
+          role: onboardingAnswers?.role ?? 'Software Developer',
         })
       });
       const data = await res.json();
@@ -321,7 +334,8 @@ function MissionsPageInner() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           action: 'evaluate',
-          history: finalHistory
+          history: finalHistory,
+          studentName: String(user?.displayName || user?.full_name || 'there'),
         })
       });
       const data = await res.json();
@@ -332,6 +346,10 @@ function MissionsPageInner() {
         // Update QT2 Score & Mindset Archetype in local context (which syncs it to Supabase)
         const todayStr = new Date().toDateString();
         const hasCompletedToday = onboardingAnswers?.last_streak_date === todayStr;
+        const nextTimestamps = [
+          ...(onboardingAnswers?.completedMissionsTimestamps || []),
+          new Date().toISOString()
+        ];
         
         const currentQT2 = onboardingAnswers?.qt2_score ?? 75;
         const newQT2 = Math.min(100, Math.max(30, currentQT2 + data.qt2_delta));
@@ -340,7 +358,8 @@ function MissionsPageInner() {
           ...onboardingAnswers,
           qt2_score: newQT2,
           mindset_archetype: computedMindsetArchetype,
-          last_streak_date: todayStr
+          last_streak_date: todayStr,
+          completedMissionsTimestamps: nextTimestamps,
         });
 
         // Patch individual skill scores, streak, and archetype to database via profile update endpoint
@@ -348,7 +367,7 @@ function MissionsPageInner() {
         const currentExec = Number(user?.execution_score ?? 75);
         const currentLead = Number(user?.leadership_score ?? 75);
         const currentIntel = Number(user?.intelligence_score ?? 75);
-        const currentStreak = Number(user?.mission_streak ?? user?.missionStreak ?? 0);
+        const currentStreak = Number(cOS.missionOnlyStreak ?? 0);
 
         const newComm = Math.min(100, Math.max(30, currentComm + (data.communication_delta || 0)));
         const newExec = Math.min(100, Math.max(30, currentExec + (data.execution_delta || 0)));
@@ -967,14 +986,14 @@ function MissionsPageInner() {
             <div style={{ fontSize: 9, color: theme.tTertiary, letterSpacing: '0.8px', textTransform: 'uppercase', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>Total XP</div>
           </div>
           <div style={{
-            background: streak > 0 ? 'var(--amber-light)' : theme.bgCard,
-            border: `1px solid ${streak > 0 ? '#fde68a' : theme.border}`,
+            background: missionOnlyStreak > 0 ? 'var(--amber-light)' : theme.bgCard,
+            border: `1px solid ${missionOnlyStreak > 0 ? '#fde68a' : theme.border}`,
             borderRadius: 16, padding: '12px 18px',
             textAlign: 'center', boxShadow: 'var(--shadow-sm)',
             minWidth: 90,
           }}>
             <div style={{ fontSize: 22, lineHeight: 1 }}>🔥</div>
-            <div style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontWeight: 800, color: 'var(--amber)', letterSpacing: '-0.5px', marginTop: 2 }}>{streak}</div>
+            <div style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontWeight: 800, color: 'var(--amber)', letterSpacing: '-0.5px', marginTop: 2 }}>{missionOnlyStreak}</div>
             <div style={{ fontSize: 9, color: 'var(--amber)', letterSpacing: '0.8px', textTransform: 'uppercase', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>Day Streak</div>
           </div>
         </div>
@@ -1242,7 +1261,7 @@ function MissionsPageInner() {
               )}
             </div>
           ) : activeTab === 'language' ? (
-            <LinguaLab streak={streak} theme={theme} />
+            <LinguaLab streak={missionOnlyStreak} theme={theme} />
           ) : (
             /* Conclusion History Tab - Universal History Command Center */
             <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>

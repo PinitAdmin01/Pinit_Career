@@ -8,6 +8,7 @@ import { aiInterviewStart, aiInterviewRespond, aiInterviewEvaluate } from '@/lib
 import { isCampusApiPath, tryCampusFallback } from '@/lib/campusFallback';
 import { faceChallenge, faceEnroll, faceEnrolled, faceVerify } from '@/lib/faceClient';
 import { tableExists } from '@/lib/services/supabaseTable';
+import { executeRoleplayTurn, readRecentRoleplayTitles, rememberRoleplayTitle } from '@/lib/missions/roleplayEngine';
 
 const _transcripts = new Map<string, { role:'user'|'assistant'; content:string }[]>();
 
@@ -610,232 +611,30 @@ Return ONLY JSON. Do not write any markdown formatting, code block ticks, or ext
     }
   }
   if (cleanPath === '/api/missions/roleplay' && method === 'POST') {
-    const { action, qt2 = 75, role = 'Software Developer', history = [], choice } = body as any;
-
-    const MINDSET_BOOKS = [
-      { title: "Thinking, Fast and Slow (Daniel Kahneman)", focus: "System 1 (automatic, biased) vs System 2 (slow, logical) thinking. Uncovering cognitive blind spots, loss aversion, and decision anxiety." },
-      { title: "Extreme Ownership (Jocko Willink)", focus: "Taking absolute accountability for team outcomes, supporting subordinates under failure, and decisive action under ambiguity." },
-      { title: "33 Strategies of War (Robert Greene)", focus: "Defensive warfare, turning situations around, counter-offensives, detecting team sabotage or political maneuverings." },
-      { title: "The Art of Seduction (Robert Greene)", focus: "Detecting false security, manipulating client desires, managing boundaries against scope creep and manipulation." },
-      { title: "Influence: The Psychology of Persuasion (Robert Cialdini)", focus: "Resisting authority bias, scarcity triggers, commitment consistency traps, and social proof manipulation." },
-      { title: "The Millionaire Fastlane (MJ DeMarco)", focus: "Producer vs Consumer mindset, law of effection (scale of impact), high-agency execution over passive ideation." },
-      { title: "The Black Swan (Nassim Nicholas Taleb)", focus: "Managing unexpected, low-probability high-impact emergencies (like critical server outrages) without panic." },
-      { title: "Crucial Conversations (Kerry Patterson)", focus: "High-stakes communication, building dialogue safety, maintaining mutual respect under extreme deadline pressure." }
-    ];
-
-    if (action === 'initialize') {
-      const selectedBooks = [...MINDSET_BOOKS].sort(() => 0.5 - Math.random()).slice(0, 3);
-      const booksContext = selectedBooks.map(b => `- ${b.title}: ${b.focus}`).join('\n');
-      const systemPrompt = `You are the PinIT Mindset Orchestrator. 
-Generate a real-life high-stakes Socratic crisis scenario involving a ${role} with a baseline cognitive index (QT2 score) of ${qt2}.
-The scenario MUST NOT be described. It should unfold directly as a role-play situation starting with a spoken dialogue by one of the following cast members:
-- rajesh (panicky dev shifting blame)
-- abhijit (impatient executive demanding metrics)
-- sneha (distracting, overly polite colleague offering dynamic shortcut traps)
-- rohan (strict tech lead grilling code details)
-
-Choose 2 avatars to cast in this scenario. Focus on these mindset evolution literatures to test cognitive blind spots:
-${booksContext}
-
-CRITICAL: The scenario must be highly challenging. Do not make choices obvious. Every choice must look plausible, representing a difficult trade-off (e.g. technical debt vs deadline pressure, authority obedience vs code standard safety). Include subtle psychological traps (gaslighting, authority bias, commitment traps, loss aversion) to trick the user into making cognitive shortcuts.
-
-Format your response strictly as a JSON object:
-{
-  "scenarioTitle": "Title of the Scenario",
-  "activeAvatar": "avatar_id (rajesh|abhijit|sneha|rohan)",
-  "avatarName": "Full name of active avatar",
-  "avatarRole": "Role name inside the scenario",
-  "message": "Dialogue starting the crisis situation. Directly address the user in first-person speech.",
-  "choices": [
-    {"text": "Option A (System 2 check: highly analytical, owns consequences, resists manipulation)", "delta": 4, "rationale": "Why this aligns with System 2"},
-    {"text": "Option B (System 1 trap: plausible, compliant with authority, but takes a dangerous technical shortcut)", "delta": -2, "rationale": "Why this is a trap"},
-    {"text": "Option C (Worst case: defensive, avoids accountability, or shifts blame to cover up)", "delta": -4, "rationale": "Why this represents blind spot failure"}
-  ]
-}
-Return only this JSON. No extra commentary.`;
-
-      try {
-        const responseText = await callExternalLLM([{ role: 'user', content: 'Generate the roleplay start.' }], systemPrompt, 'soft-skills', 600);
-        const cleanJson = responseText.replace(/```json/g, '').replace(/```/g, '').trim();
-        const parsed = JSON.parse(cleanJson);
-        return { ok: true, ...parsed, scenarioId: `sc_${Date.now()}` };
-      } catch (err) {
-        console.warn("Failed to generate client-side initialization, using fallback:", err);
-        return {
-          ok: true,
-          scenarioTitle: "Critical Branch Sync Failure",
-          activeAvatar: "rajesh",
-          avatarName: "Mr. Rajesh",
-          avatarRole: "The Panicky Dev",
-          message: "Vinay, look! The main branch just broke and the build fails. I think it's because someone pushed code without testing, and the client demo is in 5 minutes! I can force a bypass check on the repo, what do you think?",
-          choices: [
-            { text: "Take charge: 'Bypassing checks will corrupt the staging environment. Rajesh, let's roll back the last commit quickly and run the compiler locally.'", delta: 4 },
-            { text: "Panic override: 'Okay, force the bypass quickly. We cannot let the client see a failed deployment.'", delta: -3 },
-            { text: "Blame deflection: 'Who pushed that last commit? Rajesh, check the git logs and call them in, they need to fix this.'", delta: -2 }
-          ],
-          scenarioId: `sc_${Date.now()}`
-        };
-      }
+    const payload = (body || {}) as Record<string, unknown>;
+    const actor = await getActorIdentity();
+    const recentTitles = Array.isArray(payload.recentTitles)
+      ? (payload.recentTitles as string[])
+      : readRecentRoleplayTitles(uid);
+    const result = await executeRoleplayTurn(
+      {
+        action: String(payload.action || ''),
+        qt2: Number(payload.qt2 ?? 75),
+        role: String(payload.role || 'Software Developer'),
+        history: Array.isArray(payload.history) ? payload.history as any : [],
+        choice: payload.choice ? String(payload.choice) : undefined,
+        studentName: String(payload.studentName || actor.name || 'there'),
+        userId: uid,
+        sessionNonce: String(payload.sessionNonce || `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`),
+        recentTitles,
+      },
+      (messages, systemPrompt, maxTokens) =>
+        callExternalLLM(messages, systemPrompt, 'soft-skills', maxTokens)
+    );
+    if ('scenarioTitle' in result && result.scenarioTitle) {
+      rememberRoleplayTitle(uid, result.scenarioTitle);
     }
-
-    if (action === 'respond') {
-      const nodeCount = history.filter((h: any) => h.role === 'assistant').length;
-      const isFinalNode = nodeCount >= 8;
-      const selectedBooksText = MINDSET_BOOKS.slice(0, 3).map(b => b.title).join(', ');
-      const systemPrompt = `You are the PinIT Mindset Orchestrator running an interactive roleplay.
-We are evaluating the user on strategic decisions drawn from: ${selectedBooksText}.
-The user just chose: "${choice}".
-
-Generate the next node in the simulation.
-If this is the final node (isFinalNode: true), the active avatar should conclude their reaction, and the choices array MUST be empty. Set "isEnded": true.
-Otherwise, escalate the crisis. You must switch active avatars to bring in another cast member (rajesh, abhijit, sneha, rohan) to complicate the situation (e.g., Abhijit demands metrics right as Rohan raises a blocker, or Sneha offers a backdoor config workaround).
-
-CRITICAL: Keep the difficulty high. The options must represent complex engineering and management trade-offs (e.g., admitting a failure to the client vs hotpatching without QA). Do not provide easy or generic solutions. Apply social pressure and gaslighting where appropriate to test ownership and logic boundaries.
-
-Format your response strictly as a JSON object:
-{
-  "activeAvatar": "avatar_id (rajesh|abhijit|sneha|rohan)",
-  "avatarName": "Full name of the active avatar",
-  "avatarRole": "Role inside scenario",
-  "message": "Avatar's spoken response dialogue to the user's choice. Highly conversational, realistic, and maintaining first-person drama.",
-  "choices": [
-    {"text": "Option A (System 2 check: highly analytical, owns consequences, resists manipulation)", "delta": 4},
-    {"text": "Option B (System 1 trap: plausible, compliant with authority, but takes a dangerous technical shortcut)", "delta": -2},
-    {"text": "Option C (Worst case: defensive, avoids accountability, or shifts blame to cover up)", "delta": -4}
-  ],
-  "isEnded": ${isFinalNode}
-}
-Return only this JSON. No extra commentary.`;
-
-      try {
-        const responseText = await callExternalLLM(history.map((h: any) => ({ role: h.role, content: h.content })), systemPrompt, 'soft-skills', 600);
-        const cleanJson = responseText.replace(/```json/g, '').replace(/```/g, '').trim();
-        const parsed = JSON.parse(cleanJson);
-        if (isFinalNode) {
-          parsed.isEnded = true;
-          parsed.choices = [];
-        }
-        return { ok: true, ...parsed };
-      } catch (err) {
-        console.warn("Failed to generate response step, using fallback:", err);
-        if (isFinalNode) {
-          return {
-            ok: true,
-            activeAvatar: "abhijit",
-            avatarName: "Mr. Abhijit",
-            avatarRole: "The Executive",
-            message: "We are out of time. The client demo has started. We'll have to explain the logs later.",
-            choices: [],
-            isEnded: true
-          };
-        }
-
-        if (nodeCount === 1) {
-          return {
-            ok: true,
-            activeAvatar: "rohan",
-            avatarName: "Mr. Rohan",
-            avatarRole: "The Technical Lead",
-            message: "Rohan: 'Explain this rollback. Are you taking full ownership of the delay, or was there a failure in our pre-commit git hooks?'",
-            choices: [
-              { text: "Take ownership: 'Yes, I take full responsibility. I bypassed a check because I prioritized speed, but we are restoring stability now.'", delta: 4 },
-              { text: "Deflect: 'It's the automated testing suite. It takes too long, which forced us to push directly.'", delta: -3 }
-            ],
-            isEnded: false
-          };
-        } else if (nodeCount === 2) {
-          return {
-            ok: true,
-            activeAvatar: "abhijit",
-            avatarName: "Mr. Abhijit",
-            avatarRole: "The Executive",
-            message: "Abhijit: 'I don't care about git hooks, I care about the demo! We have clients waiting. Do we deploy the hotpatch now or do we postpone and risk losing their contract trust?'",
-            choices: [
-              { text: "Risk mitigation: 'Postpone the demo by 15 minutes. We must test the patch. Releasing buggy code will kill client trust permanently.'", delta: 4 },
-              { text: "Rush patch: 'Push the hotpatch immediately. We will fix any runtime issues live during the call.'", delta: -4 }
-            ],
-            isEnded: false
-          };
-        } else {
-          return {
-            ok: true,
-            activeAvatar: "sneha",
-            avatarName: "Ms. Sneha",
-            avatarRole: "The Supportive Colleague",
-            message: "Sneha: 'Hey, I have a copy of last week's stable database config on my local machine. We could secretly copy it over to override the server error. Nobody will notice, and it gets us past the demo. Should we?'",
-            choices: [
-              { text: "Reject workaround: 'No, Sneha. Overriding database configs without migration checks is a recipe for silent corruption. Let's fix the schema properly.'", delta: 4 },
-              { text: "Accept workaround: 'Thanks Sneha, copy it over. We just need to survive these next 10 minutes.'", delta: -3 }
-            ],
-            isEnded: false
-          };
-        }
-      }
-    }
-
-    if (action === 'evaluate') {
-      const systemPrompt = `You are the PinIT Mindset Evaluator.
-Analyze the complete roleplay conversation history between the student and the avatars:
-${JSON.stringify(history)}
-
-Write a detailed, professional, Socratic evaluation report documenting the student's psychological profile.
-Focus on:
-1. **Decisiveness under stress** (System 1 vs System 2 management).
-2. **Accountability levels** (Extreme Ownership vs deflection).
-3. **Deception & Persuasion resistance** (Authority bias, Seduction traps).
-4. **Fastlane Producer focus** (agency vs passive reliance).
-
-Quote specific choices they made and match them back to specific book chapters or principles (e.g. Robert Greene's strategies, Kahneman's biases).
-Output the response strictly in Markdown format, with headers, bullets, and GitHub alert blocks (NOTE/TIP/IMPORTANT) to make it look premium. Highlight their Natural Blindness metrics.`;
-
-      let finalDelta = 0;
-      history.forEach((h: any) => {
-        if (h.delta !== undefined) finalDelta += h.delta;
-      });
-      const qt2_delta = Math.min(5, Math.max(-5, finalDelta));
-      const leadership_delta = Math.min(8, Math.max(-8, Math.round(finalDelta * 1.5)));
-      const communication_delta = Math.min(6, Math.max(-6, Math.round(finalDelta * 1.2)));
-      const execution_delta = Math.min(8, Math.max(-8, Math.round(finalDelta * 1.4)));
-      const intelligence_delta = Math.min(6, Math.max(-6, Math.round(finalDelta * 1.1)));
-
-      let mindset_archetype = 'Pattern Hunter';
-      if (finalDelta >= 12) {
-        mindset_archetype = 'Extreme Owner';
-      } else if (finalDelta >= 6) {
-        mindset_archetype = 'Socratic Explorer';
-      } else if (finalDelta >= 0) {
-        mindset_archetype = 'Pattern Hunter';
-      } else if (finalDelta >= -6) {
-        mindset_archetype = 'Risk Mitigator';
-      } else {
-        mindset_archetype = 'Executive Diplomat';
-      }
-
-      try {
-        const evaluationMarkdown = await callExternalLLM([{ role: 'user', content: 'Generate evaluation report.' }], systemPrompt, 'soft-skills', 800);
-        return {
-          ok: true,
-          report: evaluationMarkdown,
-          qt2_delta,
-          leadership_delta,
-          communication_delta,
-          execution_delta,
-          intelligence_delta,
-          mindset_archetype
-        };
-      } catch (err) {
-        return {
-          ok: true,
-          report: `### 🧠 Socratic Persona Evolution Summary\n\nOffline fallback evaluator successfully executed.\n\n* **Decisiveness under stress**: Resilient System 2 responses.\n* **Accountability level**: High ownership demonstrated.\n* **Mindset alignment**: Strategy models processed locally.`,
-          qt2_delta,
-          leadership_delta,
-          communication_delta,
-          execution_delta,
-          intelligence_delta,
-          mindset_archetype
-        };
-      }
-    }
+    return result;
   }
   if(cleanPath.startsWith('/api/missions/streak')){ const p=await fs.getUserProfile(uid); return { streak:(p as any)?.mission_streak||0, xpTotal:(p as any)?.xp_total||0, xpLevel:(p as any)?.xp_level||1 }; }
   if(cleanPath==='/api/career-dna/scores'){ const p=await fs.getUserProfile(uid); return { scores:p }; }
@@ -3309,23 +3108,31 @@ async function callExternalLLM(
   messages: { role: string; content: string }[],
   systemPrompt: string,
   skillCategory?: 'programming' | 'soft-skills' | 'communication' | 'leadership' | 'theory',
-  maxTokens?: number
+  maxTokens?: number,
+  opts?: { attempts?: number; timeoutMs?: number; temperature?: number }
 ): Promise<string> {
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
   if (!backendUrl) {
     throw new Error('NEXT_PUBLIC_BACKEND_URL is not configured.');
   }
 
+  const attempts = Math.max(1, opts?.attempts ?? 3);
+  const timeoutMs = opts?.timeoutMs ?? 25000;
+  const temperature = opts?.temperature ?? 0.7;
   let lastError = 'No secure LLM connection available.';
-  for (let attempt = 0; attempt < 3; attempt++) {
+  for (let attempt = 0; attempt < attempts; attempt++) {
+    const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    const timer = controller ? setTimeout(() => controller.abort(), timeoutMs) : null;
     try {
       const res = await fetch(`${backendUrl.replace(/\/$/, '')}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           messages: [{ role: 'system', content: systemPrompt }, ...messages],
-          max_tokens: maxTokens || 512
-        })
+          max_tokens: maxTokens || 512,
+          temperature,
+        }),
+        signal: controller?.signal,
       });
       if (res.ok) {
         const data = await res.json();
@@ -3336,9 +3143,13 @@ async function callExternalLLM(
       lastError = `LLM backend HTTP ${res.status}`;
       if (res.status < 500 && res.status !== 429) break;
     } catch (err: any) {
-      lastError = err?.message || 'LLM backend network error';
+      lastError = err?.name === 'AbortError' ? 'LLM backend timed out' : (err?.message || 'LLM backend network error');
+    } finally {
+      if (timer) clearTimeout(timer);
     }
-    await new Promise(resolve => setTimeout(resolve, 1500 * (attempt + 1)));
+    if (attempt < attempts - 1) {
+      await new Promise(resolve => setTimeout(resolve, 1500 * (attempt + 1)));
+    }
   }
 
   throw new Error(`${lastError} Configure NEXT_PUBLIC_BACKEND_URL so /api/chat is reachable.`);

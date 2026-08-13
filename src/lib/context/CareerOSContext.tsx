@@ -6,6 +6,7 @@ import { COURSES_REGISTRY } from '../data/coursesData';
 import { generateDynamicStudentRoadmap } from '../data/roadmapFuser';
 import { useAuth } from '@/lib/context/AuthContext';
 import { api } from '@/lib/api/client';
+import { consecutiveCalendarStreak } from '@/lib/missions/streak';
 import { supabase } from '@/lib/supabaseClient';
 import { persistQuestCompletion, spendPinsDB, syncRewardsDB, syncUnlockedItemsDB, fetchServerTimeOffset } from '@/lib/supabaseService';
 import { markOnboardingStoryPending } from '@/lib/storyTour';
@@ -146,6 +147,7 @@ interface CareerOSContextType {
   addXp: (amount: number, reason: string) => void;
   // Streak
   missionStreak: number;
+  missionOnlyStreak: number;
   // Theme & Focus
   theme: 'light' | 'dark';
   focusMode: boolean;
@@ -451,14 +453,34 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
       }
       const dbStreak = user.missionStreak ?? (user as any).mission_streak ?? (user as any).missionStreak;
       if (dbStreak !== undefined && typeof dbStreak === 'number') {
-        const streakVal = dbStreak as number;
-        setMissionStreak(prev => {
-          if (prev !== streakVal) {
-            save(keys.streak, streakVal);
-            return streakVal;
+        const readLs = (k: string) => {
+          try {
+            const v = localStorage.getItem(k);
+            return v ? JSON.parse(v) : null;
+          } catch {
+            return null;
           }
-          return prev;
-        });
+        };
+        const answers = readLs(keys.onboard) || onboardingAnswers;
+        const hasProof =
+          (answers?.completedMissionsTimestamps?.length || 0) > 0 ||
+          (answers?.completedQuestsTimestamps?.length || 0) > 0 ||
+          (readLs(keys.missions) || []).length > 0 ||
+          (readLs(keys.quests) || []).length > 0;
+        if (!hasProof && dbStreak > 0) {
+          setMissionStreak(0);
+          save(keys.streak, 0);
+          api.post('/api/auth/onboarding', { mission_streak: 0 }).catch(() => {});
+        } else if (hasProof) {
+          const streakVal = dbStreak as number;
+          setMissionStreak(prev => {
+            if (prev !== streakVal) {
+              save(keys.streak, streakVal);
+              return streakVal;
+            }
+            return prev;
+          });
+        }
       }
       const dbXp = (user as any).xp_total ?? (user as any).xpTotal ?? user.xp;
       if (dbXp !== undefined && typeof dbXp === 'number') {
@@ -1263,6 +1285,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
   // ─── Derived scores ───────────────────────────────────────────────────────
   const baseAts = typeof user?.atsScore === 'number' ? user.atsScore : 60;
   const careerScore = Math.min(98, baseAts + (onboardingAnswers.hasCompleted ? 10 : 0) + (vaultItems.filter(v => v.verified).length * 5) + (completedMissions.length * 5));
+  const missionOnlyStreak = consecutiveCalendarStreak(onboardingAnswers.completedMissionsTimestamps);
 
   const baseDna = typeof user?.careerDnaScore === 'number' ? user.careerDnaScore : 55;
   const dnaScore = Math.min(95, baseDna + (onboardingAnswers.hasCompleted ? 15 : 0) + (completedMissions.length * 10) + dnaBonus);
@@ -1356,6 +1379,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
       jdMissingSkills, setJdMissingSkills,
       xp, addXp,
       missionStreak,
+      missionOnlyStreak,
       theme, focusMode, toggleTheme, toggleFocusMode,
       careerScore, dnaScore, trustScore,
       pins, pinHistory, earnPins, spendPins, canAfford, addPurchasedPins,

@@ -31,7 +31,7 @@ export const MissionsGrowthRadar: React.FC<MissionsGrowthRadarProps> = ({
   const rawComm = Number(user?.communication_score);
   const rawExec = Number(user?.execution_score);
   const rawLead = Number(user?.leadership_score);
-  const rawStreak = Number(user?.mission_streak ?? user?.missionStreak ?? 1);
+  const rawStreak = Number(user?.mission_streak ?? user?.missionStreak ?? 0);
 
   const safeNum = (val: any, fallback: number = 75) => {
     const parsed = Number(val);
