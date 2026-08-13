@@ -446,16 +446,16 @@
   --rx: 0deg;
   --ry: 0deg;
   position: relative;
-  width: min(440px, 100%);
+  width: min(540px, 100%);
   margin: 0 auto;
-  min-height: 420px;
+  min-height: 500px;
   perspective: 900px;
   cursor: grab;
 }
 .landing-page .lp-rig {
   position: relative;
   width: 100%;
-  height: 420px;
+  height: 500px;
   transform-style: preserve-3d;
   transform: rotateX(calc(8deg + var(--rx))) rotateY(var(--ry));
   transition: transform 0.18s ease-out;
@@ -496,32 +496,30 @@
   transform: translate(-50%, -58%) translateZ(36px);
 }
 .landing-page .lp-badge {
-  width: 92px;
-  height: 92px;
+  width: auto;
+  height: auto;
   position: relative;
   transform-style: preserve-3d;
-  transform: rotateX(-8deg) rotateY(-18deg);
-  animation: lpYaw 8s ease-in-out infinite;
+  transform: none;
+  animation: lpBob 5.4s ease-in-out infinite;
 }
 .landing-page .lp-badge-official {
-  width: 228px;
-  height: 228px;
-  border-radius: 50%;
-  background: #000;
+  width: min(300px, 78vw);
+  height: auto;
+  border-radius: 0;
+  background: transparent;
   display: grid;
   place-items: center;
-  overflow: hidden;
-  border: 1px solid rgba(0, 163, 255, 0.35);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.12),
-    0 0 48px rgba(0, 163, 255, 0.32),
-    0 18px 0 color-mix(in srgb, #000 45%, #121824);
+  overflow: visible;
+  border: none;
+  box-shadow: none;
 }
 .landing-page .lp-badge-official img {
-  width: 82%;
+  width: 100%;
   height: auto;
   object-fit: contain;
   display: block;
+  filter: drop-shadow(0 12px 32px rgba(0, 163, 255, 0.38));
 }
 .landing-page .lp-badge-front,
 .landing-page .lp-badge-side,
@@ -578,21 +576,22 @@
 }
 .landing-page .lp-terms li {
   position: absolute;
-  padding: 10px 14px;
+  padding: 16px 24px;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
-  box-shadow: 0 7px 0 var(--lp-plinth);
-  font-size: 13px;
-  font-weight: 750;
+  border-radius: 16px;
+  box-shadow: 0 8px 0 var(--lp-plinth);
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
   color: var(--text-primary);
   white-space: nowrap;
   animation: lpFloat 4.8s ease-in-out infinite;
 }
-.landing-page .lp-terms li:nth-child(1) { top: 8%; left: 50%; transform: translateX(-50%); animation-delay: 0s; }
-.landing-page .lp-terms li:nth-child(2) { top: 46%; right: 0; animation-delay: 0.5s; }
-.landing-page .lp-terms li:nth-child(3) { bottom: 8%; left: 50%; transform: translateX(-50%); animation-delay: 1s; }
-.landing-page .lp-terms li:nth-child(4) { top: 46%; left: 0; animation-delay: 1.5s; }
+.landing-page .lp-terms li:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%); animation-delay: 0s; }
+.landing-page .lp-terms li:nth-child(2) { top: 44%; right: 0; animation-delay: 0.5s; }
+.landing-page .lp-terms li:nth-child(3) { bottom: 0; left: 50%; transform: translateX(-50%); animation-delay: 1s; }
+.landing-page .lp-terms li:nth-child(4) { top: 44%; left: 0; animation-delay: 1.5s; }
 
 .landing-page .t-card,
 .landing-page .phase-card,
@@ -798,7 +797,10 @@
   .landing-page .brief-audience-grid {
     grid-template-columns: 1fr;
   }
-  .landing-page .lp-badge-official { width: 180px; height: 180px; }
+  .landing-page .lp-badge-official { width: min(220px, 70vw); height: auto; }
+  .landing-page .lp-terms li { font-size: 16px; padding: 12px 18px; }
+  .landing-page .lp-stage { min-height: 440px; }
+  .landing-page .lp-rig { height: 440px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

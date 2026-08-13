@@ -277,7 +277,7 @@ function LandingContent() {
                   <div className="lp-ring" aria-hidden />
                   <div className="lp-logo">
                     <div className="lp-badge lp-badge-official">
-                      <img src="/brand/pinit-career-logo.png" alt="PINIT CAREER" />
+                      <img src="/brand/pinit-career-logo-clear.png" alt="PINIT CAREER" />
                     </div>
                   </div>
                   <ul className="lp-terms">
