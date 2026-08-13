@@ -11,6 +11,7 @@ import dynamic from 'next/dynamic';
 import { speakWithAvatar, stopSpeaking, preloadTTS, preloadNextSpeech, preloadMultipleSpeeches } from '@/lib/tts';
 import { pingRenderServer } from '@/lib/smartVoiceRouter';
 import { toast } from '@/lib/store/useAppStore';
+import { markOnboardingStoryPending } from '@/lib/storyTour';
 
 import { preloadAvatarGLB } from '@/components/avatar/VRoidInterviewAvatar';
 
@@ -1074,11 +1075,11 @@ export default function OnboardingPage() {
 
       setSyncProgress(100);
       toast.success('Fast Onboarding Complete! ⚡', 'Software Engineering Blueprint is active.');
-      sessionStorage.setItem('pinit_just_onboarded', 'true');
+      markOnboardingStoryPending(user?.id);
       router.push('/dashboard');
     } catch (err) {
       console.error("Fast onboarding error", err);
-      sessionStorage.setItem('pinit_just_onboarded', 'true');
+      markOnboardingStoryPending(user?.id);
       router.push('/dashboard');
     }
   };
@@ -1365,7 +1366,7 @@ export default function OnboardingPage() {
         }
 
         toast.success('Onboarding Complete! 🚀', 'Your diagnostic blueprint is active.');
-        sessionStorage.setItem('pinit_just_onboarded', 'true');
+        markOnboardingStoryPending(user?.id);
         router.push('/dashboard');
       } catch (err) {
         console.error("Onboarding sync failure", err);
@@ -1376,7 +1377,7 @@ export default function OnboardingPage() {
           experience: parseExperience(profileType)
         }, true);
         cOS.setOnboardingStep(3);
-        sessionStorage.setItem('pinit_just_onboarded', 'true');
+        markOnboardingStoryPending(user?.id);
         router.push('/dashboard');
       }
     }, 150);
@@ -1510,7 +1511,7 @@ export default function OnboardingPage() {
         }
 
         toast.success('Express Onboarding Complete! ⚡', 'Unlock your dashboard and provisional job matches.');
-        sessionStorage.setItem('pinit_just_onboarded', 'true');
+        markOnboardingStoryPending(user?.id);
         router.push('/dashboard');
       } catch (err) {
         console.error('Express onboarding failure', err);
@@ -1521,7 +1522,7 @@ export default function OnboardingPage() {
           experience: 'fresher'
         }, true);
         cOS.setOnboardingStep(3);
-        sessionStorage.setItem('pinit_just_onboarded', 'true');
+        markOnboardingStoryPending(user?.id);
         router.push('/dashboard');
       }
     }, 300);
@@ -1571,8 +1572,41 @@ export default function OnboardingPage() {
     return `An active gap of ${gap}% is highly manageable. Let's close it using targeted micro-missions and Daily Quests!`;
   };
 
+  const stageLabel: Record<string, string> = {
+    INTENT_SELECTION: 'STAGE 01: INTENT SELECTION',
+    SLIDER: 'STAGE 01: GAP CHECK',
+    EXPRESS_FORM: 'STAGE 02: EXPRESS PROFILE',
+    CHOOSE_GUIDE: 'STAGE 03: CHOOSE GUIDE',
+    DEEP_CHAT: 'STAGE 04: DEEP DIAGNOSTICS',
+    IDENTITY_QUESTIONS: 'STAGE 05: IDENTITY MAP',
+    WORKPLACE_SIMULATION: 'STAGE 06: SIMULATION',
+    SPEECH_ASSESSMENT: 'STAGE 07: SPEECH LAB',
+    BLUEPRINT_REVEAL: 'STAGE 08: BLUEPRINT',
+  };
+
   return (
-    <div style={{ height: '100vh', background: '#030508', color: '#f1f5f9', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', fontFamily: 'var(--font-body), sans-serif' }}>
+    <div
+      className="onboarding-shell"
+      data-theme="dark"
+      style={{
+        height: '100vh',
+        background: '#030508',
+        color: '#f8fafc',
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'relative',
+        overflow: 'hidden',
+        fontFamily: 'var(--font-body), sans-serif',
+        // Force readable light text even if the site theme is light.
+        ['--t1' as any]: '#f8fafc',
+        ['--t2' as any]: '#e2e8f0',
+        ['--t3' as any]: '#94a3b8',
+        ['--t4' as any]: '#64748b',
+        ['--card' as any]: '#f8fafc',
+        ['--bg3' as any]: '#f1f5f9',
+        ['--border2' as any]: '#cbd5e1',
+      }}
+    >
       
       {/* Preload VRoid avatar in background by overlaying mentor selection */}
       {activeScreen === 'CHOOSE_GUIDE' && (
@@ -1593,7 +1627,7 @@ export default function OnboardingPage() {
               <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '2px', fontWeight: 700, display: 'block', marginBottom: 12 }}>
                 Staging Environment Setup
               </span>
-              <h1 style={{ fontSize: '2.5rem', fontWeight: 900, letterSpacing: '-1.5px', background: 'linear-gradient(135deg, var(--bg3) 0%, var(--border2) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: 16 }}>
+              <h1 style={{ fontSize: '2.5rem', fontWeight: 900, letterSpacing: '-1.5px', color: '#f8fafc', marginBottom: 16 }}>
                 Choose Your Guidance Mentor
               </h1>
               <p style={{ fontSize: 15, color: 'var(--t3)', maxWidth: 600, margin: '0 auto', lineHeight: 1.6, marginBottom: 16 }}>
@@ -1959,7 +1993,7 @@ export default function OnboardingPage() {
             ⚡ Fast Finish (&lt; 30s)
           </button>
           <div style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: 'rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 100, padding: '4px 12px' }}>
-            {activeScreen === 'INTENT_SELECTION' ? 'STAGE 01: INTENT SELECTION' : 'STAGE 02: PROFILE GENERATION'}
+            {stageLabel[activeScreen] || 'ONBOARDING'}
           </div>
         </div>
       </header>
@@ -2031,7 +2065,7 @@ export default function OnboardingPage() {
           {activeScreen === 'INTENT_SELECTION' && (
             <div style={{ flex: 1, padding: '24px 20px', display: 'flex', flexDirection: 'column', justifyContent: 'center', overflowY: 'auto' }}>
               <div style={{ marginBottom: 20 }}>
-                <h2 style={{ fontSize: 20, fontWeight: 900, letterSpacing: '-0.5px', background: 'linear-gradient(135deg, var(--bg3) 0%, var(--border2) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: 8 }}>
+                <h2 style={{ fontSize: 20, fontWeight: 900, letterSpacing: '-0.5px', color: '#f8fafc', marginBottom: 8 }}>
                   Choose Your Staging Track
                 </h2>
                 <p style={{ fontSize: 12.5, color: 'var(--t3)', lineHeight: 1.5 }}>
@@ -2484,11 +2518,13 @@ export default function OnboardingPage() {
                         maxWidth: '85%',
                         padding: '12px 16px',
                         borderRadius: isAi ? '16px 16px 16px 4px' : '16px 16px 4px 16px',
-                        background: isAi ? 'rgba(255,255,255,0.04)' : 'linear-gradient(135deg, var(--accent) 0%, #7c3aed 100%)',
-                        border: isAi ? '1px solid rgba(255,255,255,0.06)' : 'none',
-                        color: 'var(--t1)',
-                        fontSize: 13,
-                        lineHeight: 1.5,
+                        background: isAi ? '#1e293b' : 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)',
+                        border: isAi ? '1px solid rgba(148,163,184,0.35)' : 'none',
+                        color: '#f8fafc',
+                        fontSize: 13.5,
+                        fontWeight: 500,
+                        lineHeight: 1.6,
+                        whiteSpace: 'pre-wrap',
                         boxShadow: isAi ? 'none' : '0 4px 12px rgba(79, 70, 229, 0.25)'
                       }}>
                         {m.text}
@@ -2936,7 +2972,7 @@ export default function OnboardingPage() {
                 </div>
 
                 {/* 4 Quadrants Mindset Breakdown */}
-                <div style={{ background: 'rgba(255,255,255,0.01)', border: '1px solid rgba(255,255,255,0.04)', borderRadius: 16, padding: 16, marginBottom: 20 }}>
+                <div style={{ background: '#111827', border: '1px solid rgba(148,163,184,0.28)', borderRadius: 16, padding: 16, marginBottom: 20 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
                     <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 800 }}>
                       🧠 QT2 Cognitive Mindset Distribution:
@@ -2953,13 +2989,13 @@ export default function OnboardingPage() {
                       { label: 'Social IQ', icon: '🤝', score: qt2Breakdown.socialIQ, color: '#f59e0b' },
                       { label: 'Explorer', icon: '🚀', score: qt2Breakdown.explorer, color: '#06b6d4' }
                     ].map(quad => (
-                      <div key={quad.label} style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)', borderRadius: 12, padding: '10px 12px' }}>
+                      <div key={quad.label} style={{ background: '#1e293b', border: '1px solid rgba(148,163,184,0.28)', borderRadius: 12, padding: '10px 12px' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5, fontWeight: 700, marginBottom: 6 }}>
-                          <span style={{ color: 'var(--t1)' }}>{quad.icon} {quad.label}</span>
+                          <span style={{ color: '#f8fafc' }}>{quad.icon} {quad.label}</span>
                           <span style={{ color: quad.color, fontFamily: 'var(--font-mono)' }}>{quad.score}%</span>
                         </div>
-                        <div style={{ height: 5, background: 'rgba(255,255,255,0.06)', borderRadius: 3, overflow: 'hidden' }}>
-                          <div style={{ height: '100%', width: `${quad.score}%`, background: quad.color, borderRadius: 3, transition: 'width 0.5s ease' }} />
+                        <div style={{ height: 8, background: 'rgba(255,255,255,0.12)', borderRadius: 4, overflow: 'hidden' }}>
+                          <div style={{ height: '100%', width: `${Math.max(quad.score, 4)}%`, background: quad.color, borderRadius: 4, transition: 'width 0.5s ease' }} />
                         </div>
                       </div>
                     ))}
@@ -2986,7 +3022,7 @@ export default function OnboardingPage() {
                     >
                       <span style={{ fontSize: 22 }}>👩‍💼</span>
                       <div>
-                        <div style={{ fontSize: 12, fontWeight: 800, color: selectedMentor === 'priya' ? '#a5b4fc' : 'var(--bg3)' }}>Ms. Priya</div>
+                        <div style={{ fontSize: 12, fontWeight: 800, color: selectedMentor === 'priya' ? '#a5b4fc' : '#f8fafc' }}>Ms. Priya</div>
                         <div style={{ fontSize: 10, color: 'var(--t3)' }}>Warm, structured steps.</div>
                       </div>
                     </div>
@@ -3000,7 +3036,7 @@ export default function OnboardingPage() {
                     >
                       <span style={{ fontSize: 22 }}>👨‍💼</span>
                       <div>
-                        <div style={{ fontSize: 12, fontWeight: 800, color: selectedMentor === 'anish' ? '#a5b4fc' : 'var(--bg3)' }}>Mr. Akash</div>
+                        <div style={{ fontSize: 12, fontWeight: 800, color: selectedMentor === 'anish' ? '#a5b4fc' : '#f8fafc' }}>Mr. Akash</div>
                         <div style={{ fontSize: 10, color: 'var(--t3)' }}>High accountability.</div>
                       </div>
                     </div>

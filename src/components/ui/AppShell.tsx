@@ -26,53 +26,63 @@ const TEACHER_CONFIG: Record<string, { name: string; color: string; emoji: strin
 };
 
 import VoiceRegistrationModal from '@/components/avatar/VoiceRegistrationModal';
+import { consumeJustOnboarded, completeStoryTour, isStoryTourPending } from '@/lib/storyTour';
 
-// ── Tour slide definitions (Left Sidebar 8 Tabs + Right Sidebar Drawer) ────────
+// ── Story tour: Segment 1 left nav (2-line each) → Segment 2 right sidebar ──
 const TOUR_SLIDES = [
   {
     emoji: '🏠',
-    title: '1. Home Dashboard',
-    text: "This is your Home Dashboard — your central command center to monitor your Career Score, live XP tier, daily consistency streaks, and personalized AI mentor recommendations.\n\nUse this panel to view your diagnostic trajectory progress, jump into recommended skill modules, and track real-time recruiter readiness.",
+    title: 'Dashboard',
+    segment: 1,
+    text: "This is your Home Dashboard — already open. It shows Career Score, XP tier, streaks, and mentor recommendations.\nUse it to track progress and jump into the next skill module.",
   },
   {
     emoji: '🗺',
-    title: '2. Quests Tab',
-    text: "This is the Quests tab — your interactive Socratic coding pathway containing structured theory masterclasses and hands-on algorithm challenges.\n\nComplete lessons in sequence to earn Pins, unlock higher-level career modules, and directly elevate your verified skill score.",
+    title: 'Quests',
+    segment: 1,
+    text: "This is Quests — sequenced theory lessons plus hands-on challenges.\nComplete them to earn Pins and raise your verified skill score.",
   },
   {
     emoji: '⚡',
-    title: '3. Daily Missions',
-    text: "This is Daily Missions — every 24 hours, 5 fresh micro-scenarios are generated based specifically on your diagnostic skill gaps.\n\nSolve micro-challenges to maintain your daily streak, earn bonus XP, and launch custom skill training sessions on any topic.",
+    title: 'Missions',
+    segment: 1,
+    text: "This is Daily Missions — five fresh micro-challenges each day from your skill gaps.\nSolve them to keep your streak and earn bonus XP.",
   },
   {
     emoji: '🚀',
-    title: '4. Industry Projects',
-    text: "This is Industry Projects — work on real-world corporate codebases, API backends, and production-grade developer tasks.\n\nBuilding production projects gives you verified code proof that recruiters can inspect directly on your digital portfolio.",
+    title: 'Projects',
+    segment: 1,
+    text: "This is Projects — real production-style tasks recruiters can inspect.\nShip work here to build verified proof on your portfolio.",
   },
   {
     emoji: '🎙',
-    title: '5. AI Mock Interview',
-    text: "This is AI Interview — practice 1-on-1 real-time technical mock interviews with virtual SDE recruiters in Socratic format.\n\nReceive instant diagnostic feedback on your algorithmic correctness, dynamic problem solving, and STAR framework responses.",
+    title: 'AI Interview',
+    segment: 1,
+    text: "This is AI Interview — live 1-on-1 mock interviews with instant feedback.\nPractice algorithms, problem solving, and STAR answers here.",
   },
   {
     emoji: '💬',
-    title: '6. GD Practice Studio',
-    text: "This is GD Practice — enter boardroom debate simulations against 14 AI avatars to hone technical communication under pressure.\n\nAssert your arguments, manage boardroom crisis scenarios, and receive speech confidence and articulation ratings.",
+    title: 'GD Practice',
+    segment: 1,
+    text: "This is GD Practice — boardroom debates against AI avatars.\nTrain communication, argument structure, and speaking confidence.",
   },
   {
     emoji: '📖',
-    title: '7. Learning & Digital Twin',
-    text: "This is Learning & Twin — compare your current skill footprint with target software engineering roles to calculate alignment.\n\nGenerate custom step-by-step masterclasses and syllabus roadmaps engineered specifically to bridge your identified knowledge gaps.",
+    title: 'Learning & Twin',
+    segment: 1,
+    text: "This is Learning & Twin — compare your skills to the target role.\nGenerate a roadmap that closes the exact gaps we found.",
   },
   {
     emoji: '🧠',
-    title: '8. Attention Span Trainer',
-    text: "This is Attention Span — train your focus with neuro-cognitive micro-games engineered to build deep coding stamina.\n\nEnhance your reaction precision, mental focus speed, and cognitive endurance during long engineering sessions.",
+    title: 'Attention Span',
+    segment: 1,
+    text: "This is Attention Span — focus games that build coding stamina.\nTrain reaction speed and endurance for long work sessions.",
   },
   {
     emoji: '📚',
-    title: '9. Right Sidebar (Academic Portal)',
-    text: "This is the Right Sidebar, which is used for academic purposes — allowing you to access your official exam manager, view exam results, read study notes, check notifications, and connect with campus services!",
+    title: 'Right Sidebar',
+    segment: 2,
+    text: "This is the right sidebar, which is used for academic purposes.\nOpen it for exams, results, study notes, notifications, and campus services.",
   },
 ];
 
@@ -111,11 +121,13 @@ function GlobalAvatar({
   profile,
   refreshProfile,
   onOpenRightSidebar,
+  onExpandLeftNav,
 }: {
   user: any;
   profile: any;
   refreshProfile?: () => void;
   onOpenRightSidebar?: () => void;
+  onExpandLeftNav?: () => void;
 }) {
   const cOS = useCareerOS();
   const pathname = usePathname();
@@ -139,6 +151,7 @@ function GlobalAvatar({
   const tourActiveRef = useRef(tourActive);
   tourActiveRef.current = tourActive;
   const [tourStep, setTourStep] = useState(0);
+  const [storyLocked, setStoryLocked] = useState(false);
   const lastSpokenTourStepRef = useRef<number | null>(null);
 
   // ── Congratulations state ──────────────────────────────────────────────────
@@ -159,7 +172,7 @@ function GlobalAvatar({
 
   // Floating avatar MUST BE STRICTLY INACTIVE & DISCONNECTED during any active task or process!
   const isTaskOrProcessActive = isLessonOrDetail || isInterview || isGroupDiscussion || isMissions || isAttentionSpan || isExam;
-  const shouldHideVisually = isTaskOrProcessActive && !celebEvent && !tourActive;
+  const shouldHideVisually = isTaskOrProcessActive && !celebEvent && !tourActive && !showVoiceRegModal && !storyLocked;
 
   useEffect(() => {
     if (isTaskOrProcessActive && !tourActive && !celebEvent) {
@@ -242,32 +255,29 @@ function GlobalAvatar({
     };
   }, [teacher.name, teacherId, user?.id, resetIdleTimer]);
 
-  // ── Trigger compulsory Story Mode tab tour ONCE right after post-onboarding /dashboard visit ──────
+  // ── Compulsory 3-segment story tour after first onboarding (once) ─────────
   useEffect(() => {
-    if (!mounted) return;
-    if (onboardingStep < 3) return;
-    if (typeof window === 'undefined') return;
+    if (!mounted || typeof window === 'undefined') return;
+    if (tourActive || showVoiceRegModal) return;
+    if (!user?.id) return;
 
-    const tourKey = `pinit_${user?.id || 'demo'}_story_completed`;
-    const justOnboarded = sessionStorage.getItem('pinit_just_onboarded') === 'true';
+    consumeJustOnboarded(user.id);
+    if (!isStoryTourPending(user.id)) return;
 
-    if (justOnboarded) {
-      sessionStorage.removeItem('pinit_just_onboarded');
-      localStorage.removeItem(tourKey);
-    } else {
-      const alreadyCompleted = localStorage.getItem(tourKey) === 'true';
-      if (alreadyCompleted) return;
+    if (cleanPath !== '/dashboard') {
+      router.replace('/dashboard');
+      return;
     }
 
-    if (pathname !== '/dashboard' && !tourActive) return;
-
-    const t = setTimeout(() => {
+    const t = window.setTimeout(() => {
+      onExpandLeftNav?.();
+      setStoryLocked(true);
       setTourActive(true);
       setTourStep(0);
       setMinimized(false);
-    }, 1500);
-    return () => clearTimeout(t);
-  }, [mounted, onboardingStep, pathname, user?.id, tourActive]);
+    }, 800);
+    return () => window.clearTimeout(t);
+  }, [mounted, user?.id, cleanPath, tourActive, showVoiceRegModal, router, onExpandLeftNav]);
 
   // ── Segment 2: Open Right Sidebar Drawer when reaching step 8 ─────────────
   useEffect(() => {
@@ -327,7 +337,7 @@ function GlobalAvatar({
     if (tourActive && TOUR_SLIDES[tourStep]) {
       // 1. Navigate to target tab if needed
       const targetRoute = TOUR_STEP_ROUTES[tourStep];
-      if (targetRoute && pathname !== targetRoute) {
+      if (targetRoute && cleanPath !== targetRoute) {
         router.push(targetRoute);
       }
 
@@ -351,10 +361,11 @@ function GlobalAvatar({
             if (tourActiveRef.current) {
               setTourStep(prev => {
                 if (prev >= TOUR_SLIDES.length - 1) {
-                  // Reached final slide! Dismiss tour and launch Segment 3 (Voice Registration Modal)
                   setTourActive(false);
                   stopSpeaking();
+                  setMinimized(false);
                   setShowVoiceRegModal(true);
+                  router.push('/dashboard');
                   return prev;
                 }
                 return prev + 1;
@@ -366,7 +377,7 @@ function GlobalAvatar({
     } else {
       lastSpokenTourStepRef.current = null;
     }
-  }, [tourActive, tourStep, teacherId, router, pathname, user?.id]);
+  }, [tourActive, tourStep, teacherId, router, cleanPath, user?.id]);
 
   // Speak congratulations out loud when a celebration triggers (ensuring only once per event object)
   useEffect(() => {
@@ -393,7 +404,18 @@ function GlobalAvatar({
   if (!mounted) return null;
 
   // ── Tour navigation helpers ───────────────────────────────────────────────
+  const openVoiceSegment = () => {
+    setTourActive(false);
+    stopSpeaking();
+    setMinimized(false);
+    setShowVoiceRegModal(true);
+    if (cleanPath !== '/dashboard') router.push('/dashboard');
+  };
   const dismissTour = () => {
+    if (storyLocked) {
+      nextTourSlide();
+      return;
+    }
     setTourActive(false);
     stopSpeaking();
     if (typeof window !== 'undefined' && user?.id) {
@@ -408,7 +430,7 @@ function GlobalAvatar({
   };
   const nextTourSlide = () => {
     if (tourStep >= TOUR_SLIDES.length - 1) {
-      dismissTour();
+      openVoiceSegment();
     } else {
       lastSpokenTourStepRef.current = null;
       setTourStep(s => s + 1);
@@ -621,12 +643,25 @@ function GlobalAvatar({
         <div style={{ fontSize: 32, lineHeight: 1, filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.4))' }}>
           {slide.emoji}
         </div>
+        <div style={{
+          fontFamily: 'var(--font-mono)',
+          fontSize: 9,
+          fontWeight: 800,
+          letterSpacing: '0.6px',
+          color: '#a5b4fc',
+          background: 'rgba(79,70,229,0.2)',
+          border: '1px solid rgba(129,140,248,0.35)',
+          borderRadius: 20,
+          padding: '3px 10px',
+        }}>
+          {tourStep >= 8 ? 'SEGMENT 2/3 · ACADEMIC SIDEBAR' : 'SEGMENT 1/3 · LEFT SIDEBAR'}
+        </div>
         {/* slide counter */}
         <div style={{
           fontFamily: 'var(--font-mono)',
           fontSize: 9,
           fontWeight: 700,
-          color: 'var(--t4)',
+          color: '#94a3b8',
           letterSpacing: '1px',
           textTransform: 'uppercase',
         }}>
@@ -647,7 +682,7 @@ function GlobalAvatar({
           fontFamily: 'var(--font-display)',
           fontSize: 13,
           fontWeight: 900,
-          color: 'var(--t1)',
+          color: '#f8fafc',
           textAlign: 'center',
           letterSpacing: '-0.3px',
         }}>
@@ -656,10 +691,11 @@ function GlobalAvatar({
         {/* body */}
         <div style={{
           fontSize: 11.5,
-          color: 'var(--t2)',
+          color: '#e2e8f0',
           textAlign: 'center',
-          lineHeight: 1.6,
+          lineHeight: 1.65,
           fontFamily: 'var(--font-sans)',
+          whiteSpace: 'pre-line',
         }}>
           {slide.text}
         </div>
@@ -720,7 +756,7 @@ function GlobalAvatar({
               transition: 'opacity 0.2s',
             }}
           >
-            {isLast ? "Finish! 🚀" : 'Next →'}
+            {isLast ? 'Voice setup →' : 'Next →'}
           </button>
 
           <button
@@ -981,23 +1017,21 @@ function GlobalAvatar({
 
             {/* Congratulations Overlay */}
             <CongratCard />
-
-            {/* Segment 3: Voice Registration Modal */}
-            <VoiceRegistrationModal
-              isOpen={showVoiceRegModal}
-              onClose={() => {
-                setShowVoiceRegModal(false);
-                if (typeof window !== 'undefined' && user?.id) {
-                  localStorage.setItem(`pinit_${user.id}_story_completed`, 'true');
-                }
-              }}
-              userId={user?.id}
-              teacherId={teacherId}
-              teacherName={teacher.name}
-            />
           </div>
         </div>
       )}
+
+      <VoiceRegistrationModal
+        isOpen={showVoiceRegModal}
+        onClose={() => {
+          setShowVoiceRegModal(false);
+          setStoryLocked(false);
+          completeStoryTour(user?.id);
+        }}
+        userId={user?.id}
+        teacherId={teacherId}
+        teacherName={teacher.name}
+      />
     </>
   );
 }
@@ -2048,6 +2082,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           profile={profile}
           refreshProfile={refreshProfile}
           onOpenRightSidebar={() => setRightCollapsed(false)}
+          onExpandLeftNav={() => setCollapsed(false)}
         />
       )}
 

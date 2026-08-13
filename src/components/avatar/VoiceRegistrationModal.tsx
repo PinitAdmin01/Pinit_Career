@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { speakWithAvatar, stopSpeaking } from '@/lib/tts';
 import { saveVoicePrintToSupabase } from '@/lib/supabaseService';
 import { calculateSpectralFeatures, extractMelFilterbank, AcousticFrame, VoicePrint } from './hooks/useVoiceBiometrics';
+import { completeStoryTour } from '@/lib/storyTour';
 
 interface VoiceRegistrationModalProps {
   isOpen: boolean;
@@ -159,7 +160,7 @@ export default function VoiceRegistrationModal({
     if (typeof window !== 'undefined') {
       localStorage.setItem(`pinit_${userId}_voiceprint`, JSON.stringify(voicePrint));
       localStorage.setItem(`pinit_${userId}_voice_registered`, 'true');
-      localStorage.setItem(`pinit_${userId}_story_completed`, 'true');
+      completeStoryTour(userId);
     }
 
     try {
@@ -167,9 +168,9 @@ export default function VoiceRegistrationModal({
     } catch {}
 
     // Avatar speaks 3-line voice navigation intro
-    const line1 = `Your voice signature is now cryptographically registered to your profile! You can navigate across all tabs hands-free using simple natural speech commands.`;
-    const line2 = `Try saying commands like Hey Priya, go to Quests tab, Open Daily Missions, or Start Quest anytime without touching your mouse.`;
-    const line3 = `Voice biometrics also protects your account during live coding exams and SDE interviews by verifying your vocal signature in real time.`;
+    const line1 = `Your voice signature is now registered. You can move between tabs hands-free with short spoken commands.`;
+    const line2 = `Try saying Hey Priya go to Quest tab, or Start Quest, and I will open that workspace for you.`;
+    const line3 = `We use this voice print to recognize you, so commands like Hey Priya stay locked to your account.`;
 
     const fullIntro = `${line1} ${line2} ${line3}`;
 
@@ -229,7 +230,7 @@ export default function VoiceRegistrationModal({
           color: 'var(--teal)',
           letterSpacing: '0.5px',
         }}>
-          🎤 VOICE BIOMETRICS REGISTRATION
+          🎤 SEGMENT 3/3 · VOICE REGISTRATION
         </div>
 
         {/* Mentor Title */}
@@ -243,8 +244,8 @@ export default function VoiceRegistrationModal({
         {/* Stage 1: Prompt */}
         {stage === 'prompt' && (
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14, width: '100%' }}>
-            <p style={{ fontSize: 13.5, color: 'var(--t2)', lineHeight: 1.6, margin: 0 }}>
-              Speak continuously for <strong>15 seconds</strong> to register your vocal acoustic signature. This enables hands-free speech navigation across all tabs!
+            <p style={{ fontSize: 13.5, color: '#e2e8f0', lineHeight: 1.6, margin: 0 }}>
+              Speak continuously for <strong style={{ color: '#fff' }}>15 seconds</strong> so I can register your voice accurately. Keep talking until the timer ends.
             </p>
             <button
               onClick={startRecording}
@@ -308,8 +309,8 @@ export default function VoiceRegistrationModal({
               </div>
             </div>
 
-            <p style={{ fontSize: 13, color: 'var(--t2)', margin: 0 }}>
-              Speak naturally into your microphone... (e.g. read out loud or talk about your coding goals)
+            <p style={{ fontSize: 13, color: '#e2e8f0', margin: 0 }}>
+              Keep speaking for the full 15 seconds — pause as little as possible.
             </p>
 
             {/* Audio Waveform Bars */}
@@ -341,7 +342,7 @@ export default function VoiceRegistrationModal({
               })}
             </div>
 
-            <div style={{ fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
+            <div style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'var(--font-mono)' }}>
               Analyzed Frames: {speechCount} samples | Status: Listening...
             </div>
           </div>
@@ -374,14 +375,14 @@ export default function VoiceRegistrationModal({
               flexDirection: 'column',
               gap: 10,
             }}>
-              <div style={{ fontSize: 12, color: 'var(--t1)', lineHeight: 1.5 }}>
-                1️⃣ <strong>Hands-Free Speech Navigation:</strong> Navigate across all tabs using simple vocal commands.
+              <div style={{ fontSize: 12, color: '#f8fafc', lineHeight: 1.5 }}>
+                1️⃣ Voice registration lets you move around the OS without clicking — just speak a short command.
               </div>
-              <div style={{ fontSize: 12, color: 'var(--t1)', lineHeight: 1.5 }}>
-                2️⃣ <strong>Example Commands:</strong> Say <em>"Hey Priya, go to Quests tab"</em>, <em>"Open Daily Missions"</em>, or <em>"Start Interview"</em> anytime!
+              <div style={{ fontSize: 12, color: '#f8fafc', lineHeight: 1.5 }}>
+                2️⃣ Say <em>&quot;Hey Priya, go to Quest tab&quot;</em> or <em>&quot;Start Quest&quot;</em> and I will open that tab for you.
               </div>
-              <div style={{ fontSize: 12, color: 'var(--t1)', lineHeight: 1.5 }}>
-                3️⃣ <strong>Biometric Verification:</strong> Secures your account during live coding exams & SDE interviews by verifying your identity in real time.
+              <div style={{ fontSize: 12, color: '#f8fafc', lineHeight: 1.5 }}>
+                3️⃣ Your voice print is how I know it is you, so those commands stay private to your account.
               </div>
             </div>
 
