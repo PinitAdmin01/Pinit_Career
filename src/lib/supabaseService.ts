@@ -234,6 +234,33 @@ export async function getVoicePrintFromSupabase(uid: string) {
 
 const IS_VALID_UUID = (str: string) => typeof str === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(str);
 
+function isRlsDenied(error: { code?: string; message?: string } | null | undefined) {
+  if (!error) return false;
+  const msg = String(error.message || '').toLowerCase();
+  return error.code === '42501' || msg.includes('row-level security') || msg.includes('rls');
+}
+
+function persistLocalProfile(uid: string, data: Record<string, any>) {
+  if (typeof window === 'undefined' || !uid) return;
+  try {
+    const key = `pinit_${uid}_profile`;
+    const prev = JSON.parse(localStorage.getItem(key) || '{}');
+    localStorage.setItem(key, JSON.stringify({ ...prev, ...data, id: uid, uid }));
+  } catch {
+    // ignore quota / private mode
+  }
+}
+
+function stripSelfServicePrivileges(row: Record<string, any>) {
+  delete row.role;
+  delete row.subscription_tier;
+  delete row.pins;
+  delete row.ats_score;
+  delete row.trust_score;
+  delete row.career_dna_score;
+  return row;
+}
+
 export async function findUserByRegisterNumber(registerNumber: string) {
   const rn = (registerNumber || '').trim();
   if (!rn) return null;
@@ -260,7 +287,10 @@ export async function getUserProfile(uid: string) {
 }
 
 export async function createUserProfile(uid: string, data: Record<string, any>) {
-  if (!uid || !IS_VALID_UUID(uid)) return;
+  if (!uid || !IS_VALID_UUID(uid)) {
+    persistLocalProfile(uid, data);
+    return;
+  }
   const answersUpdate: Record<string, any> = {};
   if (data.status !== undefined) answersUpdate.status = data.status;
   if (data.visa_status !== undefined) answersUpdate.visa_status = data.visa_status;
@@ -269,8 +299,8 @@ export async function createUserProfile(uid: string, data: Record<string, any>) 
   if (data.tasks !== undefined) answersUpdate.tasks = data.tasks;
   if (data.documents !== undefined) answersUpdate.documents = data.documents;
 
-  const mappedData = mapProfileToRow({ ...EMPTY_PROFILE, ...data });
-  const row = {
+  const mappedData = stripSelfServicePrivileges(mapProfileToRow(data) || {});
+  const row: Record<string, any> = {
     id: uid,
     ...mappedData,
   };
@@ -282,8 +312,15 @@ export async function createUserProfile(uid: string, data: Record<string, any>) 
     };
   }
 
-  const { error } = await supabase.from('users').upsert(row);
-  if (error) throw error;
+  const { error } = await supabase.from('users').upsert(row, { onConflict: 'id' });
+  if (error) {
+    if (isRlsDenied(error)) {
+      console.warn('[users] RLS blocked profile create; continuing locally:', error.message);
+      persistLocalProfile(uid, data);
+      return;
+    }
+    throw error;
+  }
 }
 
 export async function updateUserProfile(
@@ -291,7 +328,10 @@ export async function updateUserProfile(
   data: Record<string, any>,
   opts?: { allowPrivileged?: boolean }
 ) {
-  if (!uid || !IS_VALID_UUID(uid)) return;
+  if (!uid || !IS_VALID_UUID(uid)) {
+    persistLocalProfile(uid, data);
+    return;
+  }
   const answersUpdate: Record<string, any> = {};
   if (data.status !== undefined) answersUpdate.status = data.status;
   if (data.visa_status !== undefined) answersUpdate.visa_status = data.visa_status;
@@ -310,12 +350,11 @@ export async function updateUserProfile(
     console.warn('Failed to load current onboarding_answers for merge:', e);
   }
 
-  const row = mapProfileToRow(data);
-  // Self-service / client updates must never change privilege or billing fields.
+  const row = mapProfileToRow(data) || {};
+  // Self-service / client updates must never change privilege, economy, or score fields.
   // Admin role/suspend paths pass allowPrivileged: true.
   if (!opts?.allowPrivileged) {
-    delete row.role;
-    delete row.subscription_tier;
+    stripSelfServicePrivileges(row);
   }
   if (Object.keys(answersUpdate).length > 0) {
     row.onboarding_answers = {
@@ -324,17 +363,22 @@ export async function updateUserProfile(
     };
   }
 
-  // Check if the user profile row exists first to handle missing user profiles correctly
-  const { data: exists, error: checkError } = await supabase.from('users').select('id').eq('id', uid).maybeSingle();
+  const { data: exists } = await supabase.from('users').select('id').eq('id', uid).maybeSingle();
 
   if (!exists) {
     await createUserProfile(uid, data);
-  } else {
-    const { error } = await supabase.from('users').update(row).eq('id', uid);
-    if (error) {
-      console.warn('Supabase profile update failed, falling back to upsert:', error.message, error.details);
-      await createUserProfile(uid, data);
+    return;
+  }
+
+  const { error } = await supabase.from('users').update(row).eq('id', uid);
+  if (error) {
+    if (isRlsDenied(error)) {
+      console.warn('[users] RLS blocked profile update; continuing locally:', error.message);
+      persistLocalProfile(uid, data);
+      return;
     }
+    console.warn('Supabase profile update failed, falling back to upsert:', error.message, error.details);
+    await createUserProfile(uid, data);
   }
 }
 

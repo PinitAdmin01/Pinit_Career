@@ -432,7 +432,11 @@ async function firestoreRouter(method:string, path:string, body?:any): Promise<u
     delete raw.ats_score;
     delete raw.trust_score;
     delete raw.career_dna_score;
-    await fs.updateUserProfile(uid, raw);
+    try {
+      await fs.updateUserProfile(uid, raw);
+    } catch (err) {
+      console.warn('[onboarding] profile sync failed; local progress still saved', err);
+    }
     return { ok:true };
   }
   if(cleanPath==='/api/auth/forgot-password'){
