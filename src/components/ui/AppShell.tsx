@@ -1505,6 +1505,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     return (
       <Link
         href={href}
+        title={collapsed ? label : undefined}
         onClick={() => {
           setActiveAcademicTab(null);
         }}
@@ -1708,39 +1709,30 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
           {/* Score pills — connected to live CareerOSContext (simpler view in Focus mode) */}
           {isStudent && !effectiveFocusMode && (
-            <div className="topbar-scores" style={{ display:'flex', gap:6, alignItems:'center' }}>
+            <div className="topbar-scores">
               {[
                 { icon:'Career', val:careerScore, color:'var(--teal)' },
                 { icon:'DNA', val:dnaScore,    color:'var(--purple)' },
                 { icon:'🛡',  val:trustScore,  color:'var(--green)'  },
               ].map(p => (
-                <div key={p.icon} style={{
-                  display:'flex', alignItems:'center', gap:5, padding:'3px 9px',
-                  borderRadius:20, background:'var(--bg3)', border:'1px solid var(--border)',
-                  fontFamily:'var(--font-mono)', fontSize:11, fontWeight:600, color:'var(--t1)',
-                }}>
-                  <span style={{ width:6, height:6, borderRadius:'50%', background:p.color, display:'inline-block' }} />
+                <div key={p.icon} className="ts-pill">
+                  <span className="ts-dot" style={{ background:p.color }} />
                   {p.icon} <span style={{ color:p.color }}>{Math.round(p.val)}</span>
                 </div>
               ))}
               
               {/* Vault Quick-link Icon */}
-              <Link href="/vault" title="Vault Secure Area" style={{
-                display:'flex', alignItems:'center', gap:4, padding:'3px 9px',
-                borderRadius:20, background:'var(--bg3)', border:'1px solid var(--accent)',
-                fontSize:11, textDecoration:'none', color:'var(--t1)', fontWeight:600,
-                fontFamily: 'var(--font-mono)'
+              <Link href="/vault" title="Vault Secure Area" className="ts-pill" style={{
+                textDecoration:'none', borderColor:'var(--accent)'
               }}>
-                🗄️ Vault
+                Vault
               </Link>
 
               {missionStreak > 0 && (
-                <div style={{
-                  padding:'3px 9px', borderRadius:20,
-                  background:'var(--amber-light)', border:'1px solid #fde68a',
-                  fontFamily:'var(--font-mono)', fontSize:11, fontWeight:600, color:'var(--amber)',
+                <div className="ts-pill" style={{
+                  background:'var(--amber-light)', borderColor:'var(--amber-light)', color:'var(--amber)',
                 }}>
-                  🔥{missionStreak}d
+                  {missionStreak}d
                 </div>
               )}
 
@@ -1763,12 +1755,10 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                   return next;
                 })} 
                 title={liteUiMode ? 'Switch to Cockpit Dashboard' : 'Switch to Conversational Lite UI'}
+                className="topbar-icon-btn"
                 style={{
-                  background: liteUiMode ? 'rgba(20,184,166,0.1)' : 'var(--bg3)', 
-                  border: liteUiMode ? '1px solid rgba(20,184,166,0.3)' : '1px solid var(--border)', 
-                  borderRadius: '50%', width: 28, height: 28, display: 'flex', 
-                  alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
-                  fontSize: 12, outline: 'none', transition: 'all 0.15s ease'
+                  background: liteUiMode ? 'var(--teal-light)' : 'var(--bg3)',
+                  borderColor: liteUiMode ? 'var(--teal)' : 'var(--border)',
                 }}
               >
                 {liteUiMode ? '💬' : '🖥️'}
@@ -1779,12 +1769,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             <button 
               onClick={toggleTheme} 
               title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'} 
-              style={{
-                background: 'var(--bg3)', border: '1px solid var(--border)', 
-                borderRadius: '50%', width: 28, height: 28, display: 'flex', 
-                alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
-                fontSize: 12, outline: 'none'
-              }}
+              className="topbar-icon-btn"
             >
               {theme === 'light' ? '🌙' : '☀️'}
             </button>
@@ -1928,7 +1913,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             position: 'sticky',
             top: 0,
             height: '100vh',
-            boxShadow: '-2px 0 12px rgba(37,99,235,0.04)',
+            boxShadow: '-2px 0 12px color-mix(in srgb, var(--accent) 8%, transparent)',
             zIndex: 10
           }}
         >
@@ -1936,26 +1921,26 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           {!rightCollapsed ? (
             <div style={{ padding: '16px 14px 12px', borderBottom: '1px solid var(--border)' }}>
               <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--t1)' }}>BGS Academic</div>
-              <div style={{ fontSize: 10, color: '#2563eb', fontWeight: 700, letterSpacing: '0.5px', textTransform: 'uppercase' }}>Portal</div>
+              <div style={{ fontSize: 10, color: 'var(--accent)', fontWeight: 700, letterSpacing: '0.5px', textTransform: 'uppercase' }}>Portal</div>
             </div>
           ) : (
-            <div style={{ padding: '16px 0 12px', borderBottom: '1px solid var(--border)', textAlign: 'center', fontSize: 12, fontWeight: 900, color: '#2563eb' }}>
+            <div style={{ padding: '16px 0 12px', borderBottom: '1px solid var(--border)', textAlign: 'center', fontSize: 12, fontWeight: 900, color: 'var(--accent)' }}>
               BGS
             </div>
           )}
 
           {/* Student Info Card */}
           {!rightCollapsed ? (
-            <div style={{ padding: '14px', borderBottom: '1px solid var(--border)', background: 'linear-gradient(135deg, rgba(37,99,235,0.04), var(--bg2))', textAlign: 'center' }}>
-              <div style={{ width: 50, height: 50, borderRadius: '50%', background: 'linear-gradient(135deg, #2563eb, #7c3aed)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 8px', fontSize: 20, color: 'white', border: '2px solid var(--bg-sidebar)', boxShadow: '0 2px 10px rgba(37,99,235,0.15)', overflow: 'hidden' }}>
+            <div style={{ padding: '14px', borderBottom: '1px solid var(--border)', background: 'linear-gradient(135deg, var(--accent-light), var(--bg2))', textAlign: 'center' }}>
+              <div style={{ width: 50, height: 50, borderRadius: '50%', background: 'linear-gradient(135deg, var(--accent), var(--purple))', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 8px', fontSize: 20, color: 'white', border: '2px solid var(--bg-sidebar)', boxShadow: '0 2px 10px color-mix(in srgb, var(--accent) 20%, transparent)', overflow: 'hidden' }}>
                 👤
               </div>
               <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 2, color: 'var(--t1)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user?.displayName || 'Student'}</div>
               <div style={{ fontSize: 10, color: 'var(--t3)', marginBottom: 6, fontFamily: 'var(--font-mono)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user?.username || user?.registerNumber || 'Student'}</div>
               {(() => {
                 const batchName = (user as any)?.batch || 'General Batch';
-                const rawColor = colorMap[batchName] || '#2563eb';
-                const safeColor = typeof rawColor === 'string' && rawColor.startsWith('#') ? rawColor : '#2563eb';
+                const rawColor = colorMap[batchName] || '#6366f1';
+                const safeColor = typeof rawColor === 'string' && rawColor.startsWith('#') ? rawColor : '#6366f1';
                 return (
                   <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: `${safeColor}18`, border: `1px solid ${safeColor}33`, borderRadius: 20, padding: '3px 10px' }}>
                     <span style={{ width: 6, height: 6, borderRadius: '50%', background: safeColor, display: 'inline-block' }} />
@@ -1966,7 +1951,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             </div>
           ) : (
             <div style={{ padding: '14px 0', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'center' }}>
-              <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'linear-gradient(135deg, #2563eb, #7c3aed)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, color: 'white', boxShadow: '0 2px 8px rgba(37,99,235,0.1)' }}>
+              <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'linear-gradient(135deg, var(--accent), var(--purple))', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, color: 'white', boxShadow: '0 2px 8px color-mix(in srgb, var(--accent) 18%, transparent)' }}>
                 👤
               </div>
             </div>
@@ -2076,8 +2061,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               bottom: 24,
               right: 24,
               zIndex: 99999, // Render at top-level z-index
-              background: 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)',
-              color: '#ffffff',
+              background: 'linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%)',
+              color: '#fff',
               width: 48,
               height: 48,
               borderRadius: '50%',
@@ -2103,7 +2088,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             right: notesOpen ? 0 : -340,
             width: 320,
             height: '100vh',
-            background: 'rgba(15, 23, 42, 0.95)',
+            background: 'color-mix(in srgb, var(--bg) 95%, transparent)',
             backdropFilter: 'blur(10px)',
             borderLeft: '1px solid var(--border)',
             boxShadow: '-4px 0 20px rgba(0,0,0,0.5)',
