@@ -9,6 +9,7 @@ import { isCampusApiPath, tryCampusFallback } from '@/lib/campusFallback';
 import { faceChallenge, faceEnroll, faceEnrolled, faceVerify } from '@/lib/faceClient';
 import { tableExists } from '@/lib/services/supabaseTable';
 import { executeRoleplayTurn, readRecentRoleplayTitles, rememberRoleplayTitle } from '@/lib/missions/roleplayEngine';
+import { executeGdTurn, GdRoleType, normalizeMentorId } from '@/lib/group-discussion/gdTurnEngine';
 
 const _transcripts = new Map<string, { role:'user'|'assistant'; content:string }[]>();
 
@@ -1395,154 +1396,30 @@ Instructions:
   }
 
   if(cleanPath==='/api/group-discussion/bot-reply' && method==='POST'){
-    const { roomId, activeMentors, history, customInstruction = '', domain = 'technical' } = body as { roomId: string; activeMentors: string[]; history: { role: string; content: string }[]; customInstruction?: string; domain?: string };
-    if (!activeMentors || activeMentors.length === 0) {
-      return { reply: null };
-    }
-    const mentorId = activeMentors[0];
-    let mentorName = 'Mr. Kashyap';
-    let personaPrompt = '';
-    
-    if (mentorId === 'kashyap') {
-      mentorName = 'Mr. Kashyap';
-      personaPrompt = "You are Mr. Kashyap, an aggressive Systems Architect. You demand deep detail, challenge assumptions, and focus on logical frameworks and operational design constraints.";
-    } else if (mentorId === 'divya') {
-      mentorName = 'Ms. Divya';
-      personaPrompt = "You are Ms. Divya, a proactive UI/UX Lead. You focus on user accessibility (WCAG), component states, responsive layouts, and user retention metrics.";
-    } else if (mentorId === 'priya') {
-      mentorName = 'Ms. Priya';
-      personaPrompt = "You are Ms. Priya, a reactive Agile Product Owner. You respond only when prompted, balancing team desires against tight sprint schedules, delivery time bounds, and product scope creep.";
-    } else if (mentorId === 'maya') {
-      mentorName = 'Ms. Maya';
-      personaPrompt = "You are Ms. Maya, a silent Cloud Security Architect. You rarely speak, offering brief but highly critical comments on AWS security groups, VPC setup, and network ingress scaling bounds.";
-    } else if (mentorId === 'anish') {
-      mentorName = 'Mr. Anish';
-      personaPrompt = "You are Mr. Anish, a proactive Career Mentor. You encourage candidates, propose structured milestones, and try to guide the team to a productive alignment on the target roadmap.";
-    } else if (mentorId === 'karthic') {
-      mentorName = 'Mr. Karthic';
-      personaPrompt = "You are Mr. Karthic, a proactive Developer/Backend Lead. You suggest database indexes, clean REST APIs, SOLID design principles, and concrete test coverages.";
-    } else if (mentorId === 'vikram') {
-      mentorName = 'Mr. Vikram';
-      personaPrompt = "You are Mr. Vikram, an aggressive Engineering Director. You care about system return-on-investment (ROI), team bandwidth, scalability, and technical debt. You challenge lazy decisions.";
-    } else if (mentorId === 'shalini') {
-      mentorName = 'Ms. Shalini';
-      personaPrompt = "You are Ms. Shalini, a reactive Talent Acquisition Lead. You focus on soft skills, candidate behaviors, team chemistry, and interview alignment.";
-    } else if (mentorId === 'aditya') {
-      mentorName = 'Mr. Aditya';
-      personaPrompt = "You are Mr. Aditya, a proactive Systems Design Specialist. You push high-level scaling ideas: distributed cache sharding, CAP theorem constraints, and consensus engines (Paxos/Raft).";
-    } else if (mentorId === 'neha') {
-      mentorName = 'Ms. Neha';
-      personaPrompt = "You are Ms. Neha, an aggressive QA & Performance Engineer. You drill integration tests, load limits, chaos engineering outages, and CI/CD compiler gate validations.";
-    } else if (mentorId === 'rajesh') {
-      mentorName = 'Mr. Rajesh';
-      personaPrompt = "You are Mr. Rajesh, a reactive Senior Developer. You worry about library dependencies, refactoring overheads, legacy code constraints, and quick workarounds.";
-    } else if (mentorId === 'abhijit') {
-      mentorName = 'Mr. Abhijit';
-      personaPrompt = "You are Mr. Abhijit, a silent Product Executive. You care only about business metrics, conversion metrics, customer acquisition costs, and budget constraints.";
-    } else if (mentorId === 'sneha') {
-      mentorName = 'Ms. Sneha';
-      personaPrompt = "You are Ms. Sneha, a proactive Senior Front-End Developer. You push for reusable React components, custom hook cleanups, state synchronization (Zustand), and visual styles.";
-    } else if (mentorId === 'rohan') {
-      mentorName = 'Mr. Rohan';
-      personaPrompt = "You are Mr. Rohan, an aggressive Technical Lead. You strictly enforce design patterns (SOLID), code cleanups, and target code smell refactoring.";
-    }
-
-    try {
-      let debateStyle = "";
-      if (domain === 'sales') {
-        debateStyle = `Your task is to participate in a high-stakes Corporate Sales & Marketing debate. Do NOT speak like a software developer. Instead, speak like a professional Growth Lead or VP of Sales in a crisis: use marketing and sales jargon (e.g., customer acquisition cost (CAC), LTV, conversion rates, SEO campaigns, marketing budgets, ad spends, ROI, lead channels). Raise direct concerns about customer retention and growth strategies.`;
-      } else if (domain === 'business') {
-        debateStyle = `Your task is to participate in a high-stakes Business Strategy & Operations debate. Do NOT speak like a software developer. Instead, speak like a CEO or operations expert: use business strategy and operations jargon (e.g., unit economics, profit margins, operational costs, organizational structure, runway, burn rate, market fits, pivots). Raise direct concerns about operational overheads and business models.`;
-      } else {
-        debateStyle = `Your task is to participate in a heated, high-stakes SDE systems architecture debate. Speak like a real engineer in a crisis: use colloquial engineering jargon (e.g., database indexes, latency bounds, thread safety, JVM models, distributed cache sharding, VPC setups, API structures), raise direct technical concerns, challenge assumptions immediately, and suggest concrete technical fixes.`;
-      }
-
-      const systemPrompt = `${personaPrompt} ${customInstruction} ${debateStyle} CRITICAL: Challenge and critique other panel members aggressively if you disagree with their architectural or strategical statements. Do not hesitate to call out bad ideas, criticize choices of other avatars, or debate them directly. Do NOT use dry or overly polite robotic phrases like "I agree with X's point" or "Let's stay focused and continue". Address other active participants by name, and frequently address the 'Candidate' directly (e.g. asking "Candidate, what is your approach to this?", "Candidate, do you agree?", "Candidate, what are your thoughts?"). Prepend your response with [${mentorName}]: and keep it short and sharp (1 to 2 sentences max).`;
-      const reply = await callExternalLLM(history.map(h => ({ role: h.role === 'SDE Candidate' ? 'user' : 'assistant', content: h.content })), systemPrompt);
-      return { reply, mentorId };
-    } catch (err) {
-      console.warn("Failed to generate bot reply:", err);
-    }
-
-    // Dynamic context-aware mock fallbacks to keep the debate cohesive, conversational, and topic-focused even on network failures
-    const topicKeywords = customInstruction.match(/Topic:\s*(.*?)\./);
-    const topicName = topicKeywords ? topicKeywords[1] : 'this architecture';
-    
-    // Check who spoke last in the history to refer to them directly!
-    let lastSpeakerName = 'Candidate';
-    if (history && history.length > 0) {
-      const lastMsg = history[history.length - 1];
-      if (lastMsg) {
-        lastSpeakerName = lastMsg.role === 'user' ? 'Candidate' : 'the last presenter';
-      }
-    }
-
-    const fallbackResponses: Record<string, string[]> = {
-      priya: [
-        `[Ms. Priya]: Product-wise, let's keep the focus on delivering our MVP for ${topicName}. I hear ${lastSpeakerName}'s point, but how does this impact our sprint deadlines?`,
-        `[Ms. Priya]: I understand the backend desires for ${topicName}, but we must balance this against scope creep. ${lastSpeakerName}, can we deliver this in the next sprint?`
-      ],
-      anish: [
-        `[Mr. Anish]: That is a solid perspective on ${topicName}. Let's make sure we document ${lastSpeakerName}'s suggestions for our team handbook.`,
-        `[Mr. Anish]: Building on what ${lastSpeakerName} just said, what are the primary milestones we need to solve for ${topicName}?`
-      ],
-      aisha: [
-        `[Ms. Aisha]: That is too disorganized. We need a structured, step-by-step guideline for ${topicName}. SDE candidate, what is your first milestone?`,
-        `[Ms. Aisha]: I disagree with the shortcut proposed by ${lastSpeakerName}. Structured architectures require strict validation rules for ${topicName}.`
-      ],
-      kashyap: [
-        `[Mr. Kashyap]: Absolutely not! ${lastSpeakerName}'s thread synchronization for ${topicName} has major lock contention issues. SDE candidate, answer my question on concurrency!`,
-        `[Mr. Kashyap]: That is way too high-level. Show me the thread-safety locks, CPU cache misses, and heap overhead calculations for ${topicName}!`
-      ],
-      karthic: [
-        `[Mr. Karthic]: From a developer standpoint, we should structure clean database indexes for ${topicName}. What is our fallback query scheme?`,
-        `[Mr. Karthic]: I agree we need solid backend components here. Let's make sure the database migrations for ${topicName} are fully backward-compatible.`
-      ],
-      maya: [
-        `[Ms. Maya]: Our AWS cloud budget will explode if we deploy ${topicName} this way. How will we isolate the networking traffic?`,
-        `[Ms. Maya]: I'm worried about VPC security and networking fees for ${topicName}. Let's keep data ingestion strictly local.`
-      ],
-      divya: [
-        `[Ms. Divya]: Let's consider the frontend states for ${topicName}. How do we handle WCAG accessibility guidelines during load lags?`,
-        `[Ms. Divya]: The visual UX transition for ${topicName} needs to feel smooth. Let's validate this prototype with actual telemetry.`
-      ],
-      vikram: [
-        `[Mr. Vikram]: Let's look at the ROI of building ${topicName}. Do we actually have the team bandwidth to maintain this microservice?`,
-        `[Mr. Vikram]: That solution adds too much technical debt. SDE candidate, what is your engineering ownership plan for ${topicName}?`
-      ],
-      shalini: [
-        `[Ms. Shalini]: I like how the team is working together on ${topicName}. SDE candidate, how would you resolve conflicts in this design?`,
-        `[Ms. Shalini]: Let's balance this technical debate with some healthy team chemistry. Communication is key for ${topicName}.`
-      ],
-      aditya: [
-        `[Mr. Aditya]: If we scale ${topicName} to a million requests, how does our Redis cluster evict keys? Let's check the CAP theorem tradeoffs.`,
-        `[Mr. Aditya]: I suggest a Paxos/Raft consensus engine to sync state for ${topicName}. That will prevent transaction drift.`
-      ],
-      neha: [
-        `[Ms. Neha]: Have you run stress testing on ${topicName}? What is our load threshold before the CI/CD pipeline fails?`,
-        `[Ms. Neha]: We need robust integration coverage for ${topicName} before shipping. What is the chaos engineering recovery plan?`
-      ],
-      rajesh: [
-        `[Mr. Rajesh]: Let's not refactor everything for ${topicName}. We already have legacy library constraints. Can we use a quick library wrapper instead?`,
-        `[Mr. Rajesh]: I am worried about breaking our legacy dependencies with this ${topicName} update. Let's keep it simple.`
-      ],
-      abhijit: [
-        `[Mr. Abhijit]: How does ${topicName} translate to business conversion rates? Let's keep our customer acquisition costs within target boundaries.`,
-        `[Mr. Abhijit]: Keep it simple. Budget is tight, and we need to see immediate user retention metrics for ${topicName}.`
-      ],
-      sneha: [
-        `[Ms. Sneha]: We should organize clean React hooks for ${topicName}. Let's sync state using a lightweight Zustand store.`,
-        `[Ms. Sneha]: Pushing clean frontend modules is vital for ${topicName}. Let's make sure our style guide is strictly followed.`
-      ],
-      rohan: [
-        `[Mr. Rohan]: That is a classic code smell! You are violating SOLID design principles with this ${topicName} layout. Let's clean up the coupling.`,
-        `[Mr. Rohan]: Let's run a strict code review on ${topicName}. We must eliminate these anti-patterns before merging.`
-      ]
-    };
-
-    const choices = fallbackResponses[mentorId] || [`[${mentorName}]: Let's analyze the tradeoffs of ${topicName} further.`];
-    const chosenText = choices[Math.floor(Math.random() * choices.length)];
-    return { reply: chosenText, mentorId };
+    const payload = (body || {}) as Record<string, unknown>;
+    const mentors = Array.isArray(payload.activeMentors) ? payload.activeMentors as string[] : [];
+    const mentorId = normalizeMentorId(String(mentors[0] || payload.mentorId || 'kashyap'));
+    const roleType: GdRoleType = payload.roleType === 'avatar_b' ? 'avatar_b' : 'avatar_a';
+    return executeGdTurn(
+      {
+        roleType,
+        mentorId,
+        topic: String(payload.roomId || payload.topic || 'this topic'),
+        objective: String(payload.objective || payload.roomDesc || ''),
+        domain: String(payload.domain || 'technical'),
+        nextSpeakerName: payload.nextSpeakerName ? String(payload.nextSpeakerName) : undefined,
+        candidateName: payload.candidateName ? String(payload.candidateName) : 'Candidate',
+        history: Array.isArray(payload.history) ? payload.history as { role: string; content: string }[] : [],
+        candidateSilenced: Boolean(payload.candidateSilenced),
+      },
+      (slot, messages, systemPrompt, maxTokens) =>
+        callExternalLLM(messages, systemPrompt, 'communication', maxTokens, {
+          attempts: 1,
+          timeoutMs: 9000,
+          temperature: 0.7,
+          groqSlot: slot,
+        })
+    );
   }
 
   if(cleanPath==='/api/group-discussion/evaluate' && method==='POST'){
@@ -3064,7 +2941,7 @@ function liveApiPrefix(path: string): string {
 
 async function request<T>(method:string, path:string, body?:unknown): Promise<T> {
   // NOTE: /api/admin intentionally omitted from live-prefer list so client RBAC (profile.role) always runs.
-  const preferLive = path === '/api/interview/chat' || path === '/api/interview/evaluate' || path.startsWith('/api/hostel') || path.startsWith('/api/transport') || path.startsWith('/api/events') || path.startsWith('/api/grievances') || path.startsWith('/api/library') || path.startsWith('/api/research') || path.startsWith('/api/finance') || path.startsWith('/api/exams') || path.startsWith('/api/maintenance') || path.startsWith('/api/advisor') || path.startsWith('/api/services') || path.startsWith('/api/notes') || path.startsWith('/api/admissions') || path.startsWith('/api/hr') || path.startsWith('/api/procurement') || path.startsWith('/api/assets') || path.startsWith('/api/alumni') || path.startsWith('/api/communication') || path.startsWith('/api/documents') || path === '/api/llm' || path.startsWith('/api/payment') || path.startsWith('/api/auth/face') || path.startsWith('/api/attendance');
+  const preferLive = path === '/api/interview/chat' || path === '/api/interview/evaluate' || path === '/api/group-discussion/bot-reply' || path.startsWith('/api/hostel') || path.startsWith('/api/transport') || path.startsWith('/api/events') || path.startsWith('/api/grievances') || path.startsWith('/api/library') || path.startsWith('/api/research') || path.startsWith('/api/finance') || path.startsWith('/api/exams') || path.startsWith('/api/maintenance') || path.startsWith('/api/advisor') || path.startsWith('/api/services') || path.startsWith('/api/notes') || path.startsWith('/api/admissions') || path.startsWith('/api/hr') || path.startsWith('/api/procurement') || path.startsWith('/api/assets') || path.startsWith('/api/alumni') || path.startsWith('/api/communication') || path.startsWith('/api/documents') || path === '/api/llm' || path.startsWith('/api/payment') || path.startsWith('/api/auth/face') || path.startsWith('/api/attendance');
   if (preferLive && !liveMissPrefixes.has(liveApiPrefix(path))) {
     try {
       let authHeader: Record<string, string> = {};
@@ -3109,7 +2986,7 @@ async function callExternalLLM(
   systemPrompt: string,
   skillCategory?: 'programming' | 'soft-skills' | 'communication' | 'leadership' | 'theory',
   maxTokens?: number,
-  opts?: { attempts?: number; timeoutMs?: number; temperature?: number }
+  opts?: { attempts?: number; timeoutMs?: number; temperature?: number; groqSlot?: 'a' | 'b' }
 ): Promise<string> {
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
   if (!backendUrl) {
@@ -3131,6 +3008,7 @@ async function callExternalLLM(
           messages: [{ role: 'system', content: systemPrompt }, ...messages],
           max_tokens: maxTokens || 512,
           temperature,
+          groq_slot: opts?.groqSlot,
         }),
         signal: controller?.signal,
       });

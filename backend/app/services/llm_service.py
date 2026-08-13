@@ -11,10 +11,29 @@ from typing import AsyncGenerator
 
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "")
 OPENROUTER_BASE_URL = os.getenv("OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1")
+GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
+GROQ_MODEL = "llama-3.3-70b-versatile"
 
 DEFAULT_MODEL = "mistralai/mistral-7b-instruct"
 SITE_URL = "https://pinit.app"
 SITE_NAME = "PinIT Career OS"
+
+
+def _parse_keys(raw: str) -> list[str]:
+    return [k.strip() for k in (raw or "").split(",") if len(k.strip()) > 8 and "placeholder" not in k]
+
+
+def groq_key_for_slot(slot: str | None) -> str:
+    shared = _parse_keys(os.getenv("GROQ_API_KEYS") or os.getenv("GROQ_API_KEY") or "")
+    keys_a = _parse_keys(os.getenv("GROQ_API_KEYS_A") or os.getenv("GROQ_API_KEY_A") or "")
+    keys_b = _parse_keys(os.getenv("GROQ_API_KEYS_B") or os.getenv("GROQ_API_KEY_B") or "")
+    pool_a = keys_a or (shared[:1] if shared else [])
+    pool_b = keys_b or (shared[1:2] if len(shared) > 1 else pool_a)
+    if slot == "b":
+        return pool_b[0] if pool_b else ""
+    if slot == "a":
+        return pool_a[0] if pool_a else ""
+    return ""
 
 
 async def chat_completion(
@@ -22,6 +41,7 @@ async def chat_completion(
     model: str = DEFAULT_MODEL,
     temperature: float = 0.7,
     max_tokens: int = 512,
+    groq_slot: str | None = None,
 ) -> dict:
     """
     Non-streaming chat completion via OpenRouter.
@@ -35,6 +55,32 @@ async def chat_completion(
     Returns:
         {"content": str, "model": str, "usage": dict}
     """
+    slot = (groq_slot or "").strip().lower()
+    groq_key = groq_key_for_slot(slot) if slot in ("a", "b") else ""
+    if groq_key:
+        try:
+            async with httpx.AsyncClient(timeout=12.0) as client:
+                response = await client.post(
+                    GROQ_API_URL,
+                    headers={
+                        "Authorization": f"Bearer {groq_key}",
+                        "Content-Type": "application/json",
+                    },
+                    json={
+                        "model": GROQ_MODEL,
+                        "messages": messages,
+                        "temperature": temperature,
+                        "max_tokens": max_tokens,
+                    },
+                )
+                response.raise_for_status()
+                data = response.json()
+            content = data["choices"][0]["message"]["content"]
+            usage = data.get("usage")
+            return {"content": content, "model": GROQ_MODEL, "usage": usage}
+        except Exception:
+            pass
+
     if not OPENROUTER_API_KEY:
         return {
             "content": "LLM service not configured. Set OPENROUTER_API_KEY.",

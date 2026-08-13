@@ -10,6 +10,18 @@ import MeetCallGrid from '@/components/group-discussion/MeetCallGrid';
 import GdReport from '@/components/group-discussion/GdReport';
 import { speakWithAvatar, stopSpeaking } from '@/lib/tts';
 import PinsGate from '@/components/pins/PinsGate';
+import {
+  GD_MAX_SPEAK_MS,
+  GD_SPEAK_MS,
+  gdDisplayName,
+  hostEndScript,
+  hostFiveMinuteScript,
+  hostIntroScript,
+  hostThirtySecondScript,
+  pickRandomSpeakerPair,
+  resolveFloatingMentorId,
+  resolveGdHostId,
+} from '@/lib/group-discussion/gdTurnEngine';
 import '@/styles/group-discussion.css';
 
 interface Avatar {
@@ -25,7 +37,7 @@ interface Avatar {
 
 const AVATARS: Avatar[] = [
   { id: 'priya', name: 'Ms. Priya', emoji: '👩‍💼', role: 'Friendly & encouraging Mentor', color: '#7c3aed', trait: 'reactive', description: 'Warm, encouraging mentor guiding general career pathways.', voiceName: 'af_heart' },
-  { id: 'anish', name: 'Mr. Anish', emoji: '👨‍💼', role: 'Casual, friendly Mentor', color: '#0891b2', trait: 'proactive', description: 'Approachable, friendly mentor guiding team workflows.', voiceName: 'am_liam' },
+  { id: 'anish', name: 'Mr. Akash', emoji: '👨‍💼', role: 'Casual, friendly Mentor', color: '#0891b2', trait: 'proactive', description: 'Approachable, friendly mentor guiding team workflows.', voiceName: 'am_liam' },
   { id: 'aisha', name: 'Ms. Aisha', emoji: '👩‍💼', role: 'Structured & methodical Teacher', color: '#6366f1', trait: 'reactive', description: 'Structured, logical teacher focusing on systematic SDE steps.', voiceName: 'af_sky' },
   { id: 'rohan', name: 'Mr. Rohan', emoji: '👨‍💻', role: 'Energetic & tech-focused Teacher', color: '#ef4444', trait: 'aggressive', description: 'Energetic, code-focused teacher drilling compiler concepts.', voiceName: 'am_fenrir' },
   { id: 'kashyap', name: 'Mr. Kashyap', emoji: '👨‍🔧', role: 'Systems Architect Teacher', color: '#d97706', trait: 'aggressive', description: 'Demands deep technical details and low-level JVM models.', voiceName: 'am_fenrir' },
@@ -46,7 +58,11 @@ export default function GroupDiscussionPage() {
   const router = useRouter();
   const { user } = useAuth();
   const cOS = useCareerOS();
-  const currentMentorId = user?.selectedTeacherId || 'priya';
+  const currentMentorId = resolveFloatingMentorId({
+    guidanceMentorId: user?.guidanceMentorId,
+    selectedTeacherId: user?.selectedTeacherId,
+  });
+  const gdHostId = resolveGdHostId(currentMentorId);
 
   // Exclude user's currently active mentor to prevent overlap
   const filteredAvatars = AVATARS.filter(a => a.id !== currentMentorId);
@@ -150,6 +166,9 @@ export default function GroupDiscussionPage() {
   const avatarBPromiseRef = useRef<Promise<any> | null>(null);
   const consecutiveSilenceCountRef = useRef<number>(0);
   const speechPauseDebounceRef = useRef<any>(null);
+  const hostIdRef = useRef<string>(gdHostId);
+  const speakerPairRef = useRef<{ a: string; b: string } | null>(null);
+  const lastPairRef = useRef<{ a?: string; b?: string } | null>(null);
 
   // Pre-warm browser speech synthesis voices immediately on load (pls preload communication)
   useEffect(() => {
@@ -274,7 +293,7 @@ export default function GroupDiscussionPage() {
   const [currentAvatarARoleId, setCurrentAvatarARoleId] = useState<string | null>(null);
   const [currentAvatarBRoleId, setCurrentAvatarBRoleId] = useState<string | null>(null);
   const [isUserTurn, setIsUserTurn] = useState(false);
-  const avatarQueueIndexRef = useRef(0);
+  const [activeHostId, setActiveHostId] = useState(gdHostId);
 
   const handleStartCall = () => {
     if (!cOS.isItemUnlocked(`gd:${roomName}`)) {
@@ -282,14 +301,19 @@ export default function GroupDiscussionPage() {
       if (!ok) return;
     }
 
-    // Ensure total 7 invited avatars + 1 host + 1 candidate = 9 total members
-    let activePanel = [...invitedAvatars];
-    if (activePanel.length < 7) {
-      const remainingPool = filteredAvatars.map(a => a.id).filter(id => !activePanel.includes(id));
-      const needed = 7 - activePanel.length;
-      activePanel = [...activePanel, ...remainingPool.slice(0, needed)];
-      setInvitedAvatars(activePanel);
+    // Host is always the opposite of the floating mentor (Priya <-> Akash).
+    const hostId = gdHostId;
+    hostIdRef.current = hostId;
+    setActiveHostId(hostId);
+    let activePanel = [...invitedAvatars].filter(id => id !== currentMentorId);
+    if (!activePanel.includes(hostId)) {
+      activePanel = [hostId, ...activePanel];
     }
+    if (activePanel.filter(id => id !== hostId).length < 2) {
+      const remainingPool = filteredAvatars.map(a => a.id).filter(id => !activePanel.includes(id) && id !== currentMentorId);
+      activePanel = [...activePanel, ...remainingPool.slice(0, 2)];
+    }
+    setInvitedAvatars(activePanel);
 
     setGdReport(null);
     setHandRaised(false);
@@ -305,7 +329,7 @@ export default function GroupDiscussionPage() {
         // Exact time-based Host interventions for 10-min GD:
         if (nextSec === 300) {
           triggerHostMidSummary();
-        } else if (nextSec === 540) {
+        } else if (nextSec === 570) {
           triggerHostTimeWarning();
         } else if (nextSec === 600) {
           triggerHostEndSummary();
@@ -318,7 +342,7 @@ export default function GroupDiscussionPage() {
       {
         sender: 'System Facilitator',
         role: 'Facilitator',
-        content: `Welcome to the 9-member boardroom: "${roomName}". Total GD Time: 10:00 Minutes | Difficulty: ${difficulty.toUpperCase()}.`,
+        content: `Welcome to the boardroom: "${roomName}". Host: ${gdDisplayName(hostId)}. Total GD Time: 10:00 Minutes.`,
         emoji: '🏛️'
       }
     ]);
@@ -329,10 +353,9 @@ export default function GroupDiscussionPage() {
       } catch {}
     }
 
-    const hostId = activePanel[0] || 'anish';
     const hostAvatar = AVATARS.find(a => a.id === hostId) || AVATARS[0];
-    const hostName = hostAvatar.name;
-    const introText = `Hello everyone, I am ${hostName}, hosting our 9-member SDE boardroom today. Our topic is "${roomName}" with objective "${roomDesc || 'architectural trade-offs'}". You have 10 minutes total for this discussion. Candidate, please start us off by pitching your initial solution.`;
+    const hostName = gdDisplayName(hostId);
+    const introText = hostIntroScript(hostName, roomName, roomDesc || selectedConcept);
 
     setTimeout(() => {
       speakWithAvatar(introText, hostId,
@@ -410,14 +433,18 @@ export default function GroupDiscussionPage() {
         }
 
         // Avatar B finished -> Hand over to Candidate (User)
-        avatarQueueIndexRef.current = (avatarQueueIndexRef.current + 2) % (invitedAvatars.length || 7);
+        lastPairRef.current = speakerPairRef.current;
         setCurrentAvatarARoleId(null);
         setCurrentAvatarBRoleId(null);
         turnSequenceRef.current = 'user';
         startCandidateTurnPrompt();
       },
       false,
-      false
+      false,
+      undefined,
+      1.0,
+      GD_MAX_SPEAK_MS,
+      { minDurationMs: GD_SPEAK_MS }
     );
   };
 
@@ -440,11 +467,14 @@ export default function GroupDiscussionPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           roomId: roomName,
+          roomDesc,
+          objective: roomDesc || selectedConcept,
           activeMentors: [avatarId],
           domain,
           roleType,
           nextSpeakerName: targetSpeakerName,
-          history: messageHistory.slice(-8).map(m => ({ role: m.role === 'SDE Candidate' ? 'user' : 'assistant', content: m.content }))
+          candidateName: user?.displayName || 'Candidate',
+          history: messageHistory.slice(-8).map(m => ({ role: m.role === 'SDE Candidate' ? 'user' : 'assistant', content: m.content, sender: m.sender }))
         })
       });
 
@@ -472,20 +502,21 @@ export default function GroupDiscussionPage() {
 
               // Preload Communication: Store an awaitable Promise ref for Avatar B reply!
               if (roleType === 'avatar_a') {
-                const activePanel = invitedAvatars.length >= 7 ? invitedAvatars : AVATARS.slice(0, 7).map(a => a.id);
-                const nextBIndex = (avatarQueueIndexRef.current + 1) % activePanel.length;
-                const avatarB_Id = activePanel[nextBIndex] || activePanel[0];
+                const avatarB_Id = speakerPairRef.current?.b || invitedAvatars.find(id => id !== avatarId && id !== hostIdRef.current) || 'kashyap';
 
                 avatarBPromiseRef.current = fetch('/api/group-discussion/bot-reply', {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({
                     roomId: roomName,
+                    roomDesc,
+                    objective: roomDesc || selectedConcept,
                     activeMentors: [avatarB_Id],
                     domain,
                     roleType: 'avatar_b',
                     nextSpeakerName: user?.displayName || 'Candidate',
-                    history: nextMessages.slice(-8).map(m => ({ role: m.role === 'SDE Candidate' ? 'user' : 'assistant', content: m.content }))
+                    candidateName: user?.displayName || 'Candidate',
+                    history: nextMessages.slice(-8).map(m => ({ role: m.role === 'SDE Candidate' ? 'user' : 'assistant', content: m.content, sender: m.sender }))
                   })
                 }).then(async (res) => {
                   if (res.ok) {
@@ -520,10 +551,7 @@ export default function GroupDiscussionPage() {
               }
               
               if (roleType === 'avatar_a') {
-                // Avatar A finished -> Await in-flight Avatar B promise to guarantee 0ms latency!
-                const activePanel = invitedAvatars.length >= 7 ? invitedAvatars : AVATARS.slice(0, 7).map(a => a.id);
-                const nextBIndex = (avatarQueueIndexRef.current + 1) % activePanel.length;
-                const avatarB_Id = activePanel[nextBIndex] || activePanel[0];
+                const avatarB_Id = speakerPairRef.current?.b || invitedAvatars.find(id => id !== avatarId && id !== hostIdRef.current) || 'kashyap';
                 setCurrentAvatarBRoleId(avatarB_Id);
                 turnSequenceRef.current = 'avatar_second';
 
@@ -543,8 +571,7 @@ export default function GroupDiscussionPage() {
                   triggerAvatarReply(avatarB_Id, 'avatar_b', user?.displayName || 'Candidate', nextMessages);
                 }
               } else {
-                // Avatar B finished -> Hand over to Candidate (User)
-                avatarQueueIndexRef.current = (avatarQueueIndexRef.current + 2) % (invitedAvatars.length || 7);
+                lastPairRef.current = speakerPairRef.current;
                 setCurrentAvatarARoleId(null);
                 setCurrentAvatarBRoleId(null);
                 turnSequenceRef.current = 'user';
@@ -552,7 +579,11 @@ export default function GroupDiscussionPage() {
               }
             },
             false,
-            false
+            false,
+            undefined,
+            1.0,
+            GD_MAX_SPEAK_MS,
+            { minDurationMs: GD_SPEAK_MS }
           );
         } else {
           setActiveSpeakingAvatar(null);
@@ -583,42 +614,23 @@ export default function GroupDiscussionPage() {
     setMicActive(false);
 
     consecutiveSilenceCountRef.current += 1;
-    const activePanel = invitedAvatars.length >= 7 ? invitedAvatars : AVATARS.slice(0, 7).map(a => a.id);
-
-    // If candidate has been silent 2 times in a row, auto-advance floor to Avatar B so debate doesn't get stuck!
-    if (consecutiveSilenceCountRef.current >= 2) {
-      consecutiveSilenceCountRef.current = 0;
-      toast.info("Candidate Silent", "Advancing debate to Avatar B...");
-
-      const indexB = (avatarQueueIndexRef.current + 1) % activePanel.length;
-      const avatarB_Id = activePanel[indexB] || activePanel[0];
-      setCurrentAvatarBRoleId(avatarB_Id);
-      turnSequenceRef.current = 'avatar_second';
-
-      triggerAvatarReply(avatarB_Id, 'avatar_b', user?.displayName || 'Candidate', messages);
-      return;
-    }
-
-    // 1st silence: Pick Host or current Avatar A to call out Candidate directly
-    const indexA = avatarQueueIndexRef.current % activePanel.length;
-    const avatarA_Id = activePanel[indexA] || 'anish';
-    const avatarA_Obj = AVATARS.find(a => a.id === avatarA_Id) || AVATARS[0];
-
-    const calloutText = `Candidate, we haven't heard your pitch on ${roomName || 'this topic'} yet. Please share your perspective with the boardroom!`;
+    const hostId = hostIdRef.current;
+    const hostAvatar = AVATARS.find(a => a.id === hostId) || AVATARS[0];
+    const calloutText = `Candidate, we haven't heard your pitch on ${roomName || 'this topic'} yet. Please share your view in simple words.`;
 
     setMessages(prev => [...prev, {
-      sender: avatarA_Obj.name,
-      role: `${avatarA_Obj.role} (Call Out)`,
+      sender: gdDisplayName(hostId),
+      role: `${hostAvatar.role} (Call Out)`,
       content: calloutText,
-      emoji: avatarA_Obj.emoji
+      emoji: hostAvatar.emoji
     }]);
 
-    toast.warning("Candidate Prompted", "The panel is waiting for your input!");
+    toast.warning("Candidate Prompted", "The host is waiting for your input!");
 
-    speakWithAvatar(calloutText, avatarA_Id,
+    speakWithAvatar(calloutText, hostId,
       () => {
         setMicActive(false);
-        setActiveSpeakingAvatar(avatarA_Obj.name);
+        setActiveSpeakingAvatar(gdDisplayName(hostId));
       },
       () => {
         setActiveSpeakingAvatar(null);
@@ -661,35 +673,37 @@ export default function GroupDiscussionPage() {
     }];
     setMessages(updated);
 
-    // Pick Avatar A and Avatar B from the 7 panel members
-    const activePanel = invitedAvatars.length >= 7 ? invitedAvatars : AVATARS.slice(0, 7).map(a => a.id);
-    const indexA = avatarQueueIndexRef.current % activePanel.length;
-    const indexB = (avatarQueueIndexRef.current + 1) % activePanel.length;
-    
-    const avatarA_Id = activePanel[indexA];
-    const avatarB_Id = activePanel[indexB];
+    consecutiveSilenceCountRef.current = 0;
+
+    // Fresh random Avatar 1 / Avatar 2 each round. Host and floating mentor stay out of the pair.
+    const speakerPool = invitedAvatars.filter(id => id !== hostIdRef.current && id !== currentMentorId);
+    const pair = pickRandomSpeakerPair(speakerPool, [hostIdRef.current, currentMentorId], lastPairRef.current);
+    speakerPairRef.current = pair;
+    const avatarA_Id = pair.a;
+    const avatarB_Id = pair.b;
     const avatarB_Obj = AVATARS.find(a => a.id === avatarB_Id) || AVATARS[0];
 
     setCurrentAvatarARoleId(avatarA_Id);
     setCurrentAvatarBRoleId(avatarB_Id);
     turnSequenceRef.current = 'avatar_first';
 
-    toast.success("Turn Passed", "Avatar A is analyzing your perspective...");
+    toast.success("Turn Passed", `${gdDisplayName(avatarA_Id)} will respond, then ${gdDisplayName(avatarB_Id)}.`);
 
     setTimeout(() => {
       triggerAvatarReply(avatarA_Id, 'avatar_a', avatarB_Obj.name, updated);
-    }, 800);
+    }, 400);
   };
 
   const triggerHostMidSummary = async () => {
     if (!isCallActiveRef.current) return;
-    const hostId = invitedAvatars[0] || 'anish';
+    const hostId = hostIdRef.current;
     const hostAvatar = AVATARS.find(a => a.id === hostId) || AVATARS[0];
-    const hostName = hostAvatar.name;
+    const hostName = gdDisplayName(hostId);
     setLoading(true);
 
     try {
-      const midText = `5-Minute Mark Pause: We have reached the halfway point of our 10-minute session. We have debated primary trade-offs for "${roomName}". Let me redirect our focus now to Security & Deployment Risks. Candidate, how do you respond to security isolate rules?`;
+      stopSpeaking();
+      const midText = hostFiveMinuteScript(hostName, roomName);
       
       speakWithAvatar(midText, hostId,
         () => {
@@ -703,7 +717,7 @@ export default function GroupDiscussionPage() {
           setActiveSpeakingAvatar(null);
           setMessages(prev => [...prev, {
             sender: hostName,
-            role: 'Host / Facilitator (5-Min Security Focus)',
+            role: 'Host (5 minutes over)',
             content: midText,
             emoji: hostAvatar.emoji
           }]);
@@ -724,13 +738,14 @@ export default function GroupDiscussionPage() {
 
   const triggerHostTimeWarning = async () => {
     if (!isCallActiveRef.current) return;
-    const hostId = invitedAvatars[0] || 'anish';
+    const hostId = hostIdRef.current;
     const hostAvatar = AVATARS.find(a => a.id === hostId) || AVATARS[0];
-    const hostName = hostAvatar.name;
+    const hostName = gdDisplayName(hostId);
     setLoading(true);
 
     try {
-      const warningText = `1-Minute Warning: We have 60 seconds remaining in our 10-minute boardroom session. Let's wrap up final resolutions for "${roomName}". Candidate, what is your closing conclusion?`;
+      stopSpeaking();
+      const warningText = hostThirtySecondScript(hostName, roomName);
       
       speakWithAvatar(warningText, hostId,
         () => {
@@ -744,7 +759,7 @@ export default function GroupDiscussionPage() {
           setActiveSpeakingAvatar(null);
           setMessages(prev => [...prev, {
             sender: hostName,
-            role: 'Host / Facilitator (1-Min Warning)',
+            role: 'Host (30 seconds left)',
             content: warningText,
             emoji: hostAvatar.emoji
           }]);
@@ -765,13 +780,14 @@ export default function GroupDiscussionPage() {
 
   const triggerHostEndSummary = async () => {
     if (!isCallActiveRef.current) return;
-    const hostId = invitedAvatars[0] || 'anish';
+    const hostId = hostIdRef.current;
     const hostAvatar = AVATARS.find(a => a.id === hostId) || AVATARS[0];
-    const hostName = hostAvatar.name;
+    const hostName = gdDisplayName(hostId);
     setLoading(true);
 
     try {
-      const endText = `10-Minute Time Limit Reached: Thank you everyone. Our 10-minute boardroom discussion for "${roomName}" has concluded. I am now generating your performance evaluation report.`;
+      stopSpeaking();
+      const endText = hostEndScript(hostName, roomName);
       
       speakWithAvatar(endText, hostId,
         () => {
@@ -1706,7 +1722,7 @@ export default function GroupDiscussionPage() {
               }}
               onEndCall={handleEndCall}
               onForceExit={handleForceExitCall}
-              hostId={invitedAvatars[0] || 'anish'}
+              hostId={activeHostId}
               handRaised={handRaised}
               micActive={micActive}
               callDurationSeconds={callDuration}

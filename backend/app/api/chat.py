@@ -30,5 +30,5 @@ async def chat(req: ChatRequest):
             },
         )
 
-    result = await chat_completion(messages, req.model, req.temperature, req.max_tokens)
+    result = await chat_completion(messages, req.model, req.temperature, req.max_tokens, req.groq_slot)
     return ChatResponse(**result)

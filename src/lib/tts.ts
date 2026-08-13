@@ -272,7 +272,7 @@ export async function speakWithAvatar(
   difficulty?: 'easy' | 'normal' | 'hard',
   speedMultiplier = 1.0,
   maxDurationMs = 15000,
-  options?: { bypassCache?: boolean }
+  options?: { bypassCache?: boolean; minDurationMs?: number }
 ) {
   stopSpeaking();
   const mySpeechId = currentSpeechId;
@@ -281,18 +281,29 @@ export async function speakWithAvatar(
   const cleanText = getCleanCacheKey(text);
   if (!cleanText) return;
 
-  // Calculate dynamic maximum duration based on character count (150ms per character, minimum 12 seconds)
-  const dynamicMaxDurationMs = Math.max(maxDurationMs, Math.max(12000, cleanText.length * 150));
+  const spokenText = enhanceTextIntonation(cleanText);
+  const minDurationMs = Math.max(0, options?.minDurationMs || 0);
+  const dynamicMaxDurationMs = Math.max(maxDurationMs, minDurationMs, Math.max(12000, cleanText.length * 150));
 
-  const enhancedText = enhanceTextIntonation(cleanText);
-  const vibe = detectVibe(enhancedText);
+  const finishAfterFloor = (startedAt: number) => {
+    if (mySpeechId !== currentSpeechId) return;
+    const elapsed = Date.now() - startedAt;
+    const remaining = minDurationMs - elapsed;
+    if (remaining > 50) {
+      setTimeout(() => {
+        if (mySpeechId === currentSpeechId) onEnd();
+      }, remaining);
+      return;
+    }
+    onEnd();
+  };
 
   // Attempt Smart Hybrid Voice Router (IndexedDB → Render neural TTS)
   if (useNeural) {
     try {
       const voice = KOKORO_VOICE_MAP[teacherId.toLowerCase()] || 'af_bella';
       const result = await synthesizeVoice({
-        text: cleanText,
+        text: spokenText,
         voice,
         speed: speedMultiplier,
         bypassCache: options?.bypassCache
@@ -312,14 +323,13 @@ export async function speakWithAvatar(
 
         let maxDurationTimer: ReturnType<typeof setTimeout> | null = null;
         let ended = false;
+        const startedAt = Date.now();
         const finish = () => {
           if (ended) return;
           ended = true;
           if (maxDurationTimer) clearTimeout(maxDurationTimer);
           if (activeSource === source) activeSource = null;
-          if (mySpeechId === currentSpeechId) {
-            onEnd();
-          }
+          finishAfterFloor(startedAt);
         };
 
         source.onended = finish;
@@ -334,10 +344,11 @@ export async function speakWithAvatar(
       }
     } catch (err) {
       console.error('[PinIT Voice] Neural TTS failed (WebSpeech disabled):', err);
-      // Soft UI callbacks so lip-sync / loading states do not hang
+      // Hold the floor for minDuration so GD turns stay 10s even if audio fails
       if (mySpeechId === currentSpeechId) {
+        const startedAt = Date.now();
         onStart();
-        onEnd();
+        finishAfterFloor(startedAt);
       }
       return;
     }
@@ -346,8 +357,9 @@ export async function speakWithAvatar(
   // WebSpeech browser voices are intentionally disabled.
   console.warn('[PinIT Voice] Neural TTS required — browser WebSpeech fallback is disabled.');
   if (mySpeechId === currentSpeechId) {
+    const startedAt = Date.now();
     onStart();
-    onEnd();
+    finishAfterFloor(startedAt);
   }
 }
 

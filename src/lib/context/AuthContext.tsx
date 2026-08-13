@@ -19,6 +19,7 @@ interface User {
   subscription_tier?: string;
   registerNumber?:  string;
   selectedTeacherId?: string;
+  guidanceMentorId?: string;
   atsScore?:        number;
   trustScore?:      number;
   careerDnaScore?:  number;
@@ -135,6 +136,7 @@ function sbUserToAppUser(sbUser: SbUser, profile: Record<string, unknown> | null
     role:        role,
     registerNumber:   profile?.registerNumber as string | undefined,
     selectedTeacherId: profile?.selectedTeacherId as string | undefined,
+    guidanceMentorId: (profile?.guidanceMentorId as string | undefined) || (profile?.guidance_mentor_id as string | undefined),
     atsScore:         profile?.ats_score as number | undefined,
     trustScore:       profile?.trust_score as number | undefined,
     careerDnaScore:   profile?.career_dna_score as number | undefined,

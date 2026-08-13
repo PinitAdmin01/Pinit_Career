@@ -86,6 +86,7 @@ class ChatRequest(BaseModel):
     temperature: float = Field(default=0.7, ge=0.0, le=2.0)
     max_tokens: int = Field(default=512, ge=1, le=4096)
     stream: bool = Field(default=False)
+    groq_slot: Optional[str] = Field(default=None, description="a or b for dual Groq keys in group discussion")
 
 
 class ChatResponse(BaseModel):
