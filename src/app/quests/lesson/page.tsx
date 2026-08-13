@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef, Suspense } from 'react';
+import { useState, useEffect, useRef, Suspense, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { COURSES_REGISTRY } from '@/lib/data/coursesData';
@@ -45,6 +45,26 @@ function LessonPageContent() {
   const { user } = useAuth();
   const { addCompletedQuest, isItemUnlocked, unlockItem, pins } = useCareerOS();
   const userId = user?.id || 'guest';
+  const returningRef = useRef(false);
+
+  const resolveQuestId = () => {
+    if (questId) return questId;
+    if (typeof window === 'undefined') return '';
+    return new URLSearchParams(window.location.search).get('questId') || '';
+  };
+
+  const finishLessonAndReturn = useCallback(() => {
+    if (returningRef.current) return;
+    returningRef.current = true;
+    const id = resolveQuestId();
+    if (id) {
+      const course = COURSES_REGISTRY.find(c => (c.quests || []).some(q => q.id === id));
+      addCompletedQuest(id, true, 150, course?.id);
+    }
+    toast.success('Stage Completed!', 'Heading back to the quest roadmap.');
+    stopSpeaking();
+    window.location.assign('/quests/');
+  }, [questId, addCompletedQuest]);
 
   const teacher = TEACHER_METADATA[teacherId] || TEACHER_METADATA.kashyap;
 
@@ -1017,7 +1037,7 @@ function LessonPageContent() {
       `}} />
       {/* Return Button */}
       <button
-        onClick={() => router.push('/quests')}
+        onClick={() => window.location.assign('/quests/')}
         style={{
           position: 'absolute',
           top: 24,
@@ -1920,11 +1940,7 @@ function LessonPageContent() {
             {isLastSlide ? (
               <button
                 disabled={!examPassed}
-                onClick={() => {
-                  addCompletedQuest(questId, true, 150);
-                  toast.success("Stage Completed!", "Heading back to the quest roadmap.");
-                  router.push('/quests');
-                }}
+                onClick={finishLessonAndReturn}
                 className={`btn-primary ${examPassed ? 'animate-pulse' : ''}`}
                 style={{
                   padding: '10px 24px',
@@ -2067,11 +2083,7 @@ function LessonPageContent() {
             </div>
 
             <button
-              onClick={() => {
-                addCompletedQuest(questId, true, 150);
-                toast.success("Stage Completed!", "Heading back to the quest roadmap.");
-                router.push('/quests');
-              }}
+              onClick={finishLessonAndReturn}
               className="btn-primary animate-pulse"
               style={{
                 marginTop: 10,

@@ -8,6 +8,7 @@ import { useAuth } from '@/lib/context/AuthContext';
 import { api } from '@/lib/api/client';
 import { supabase } from '@/lib/supabaseClient';
 import { persistQuestCompletion, spendPinsDB, syncRewardsDB, syncUnlockedItemsDB, fetchServerTimeOffset } from '@/lib/supabaseService';
+import { markOnboardingStoryPending } from '@/lib/storyTour';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -927,7 +928,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
       return new Date(ts).toDateString() === today && cid === assocCourseId;
     });
 
-    if (todayCompletions.length >= 3) {
+    if (todayCompletions.length >= 3 && !isExam) {
       toast.error('Daily Limit Reached ⏳', `You have reached your limit of 3 completed quests for this course today.`);
       return;
     }
@@ -939,8 +940,21 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
       return [...prev, questId];
     });
 
-    const nextQuests = [...completedQuests, questId];
+    const nextQuests = completedQuests.includes(questId) ? completedQuests : [...completedQuests, questId];
     save(keys.quests, nextQuests);
+    if (typeof window !== 'undefined') {
+      try {
+        const rawUser = localStorage.getItem('pinit_current_user');
+        const liveUser = rawUser ? JSON.parse(rawUser) : null;
+        const extraIds = [liveUser?.id, liveUser?.uid].filter((id: string) => id && `pinit_${id}_completed_quests` !== keys.quests);
+        for (const extraId of extraIds) {
+          const extraKey = `pinit_${extraId}_completed_quests`;
+          const prev = JSON.parse(localStorage.getItem(extraKey) || '[]');
+          if (!Array.isArray(prev) || prev.includes(questId)) continue;
+          localStorage.setItem(extraKey, JSON.stringify([...prev, questId]));
+        }
+      } catch {}
+    }
     
     // Save completion timestamp with courseId tag
     const timestampTag = `${new Date().toISOString()}|${assocCourseId}`;
@@ -1219,7 +1233,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
     setOnboardingAnswers(data); save(keys.onboard, data);
  
     if (typeof window !== 'undefined') {
-      sessionStorage.setItem('pinit_just_onboarded', 'true');
+      markOnboardingStoryPending(userId);
     }
 
     if (!skipSync) {

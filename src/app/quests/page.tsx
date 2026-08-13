@@ -129,6 +129,29 @@ export default function QuestsPage() {
   const [learningPathMode, setLearningPathMode] = useState<'fused_roadmap' | 'single_course'>('fused_roadmap');
   const [selectedStandaloneCourseId, setSelectedStandaloneCourseId] = useState<string>('course-python-backend');
 
+  useEffect(() => {
+    if (typeof window === 'undefined' || !userId) return;
+    try {
+      const saved = localStorage.getItem(`pinit_${userId}_quests_view`);
+      if (!saved) return;
+      const parsed = JSON.parse(saved);
+      if (parsed.mode === 'fused_roadmap' || parsed.mode === 'single_course') {
+        setLearningPathMode(parsed.mode);
+      }
+      if (typeof parsed.courseId === 'string' && parsed.courseId) {
+        setSelectedStandaloneCourseId(parsed.courseId);
+      }
+    } catch {}
+  }, [userId]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !userId || userId === 'guest') return;
+    localStorage.setItem(`pinit_${userId}_quests_view`, JSON.stringify({
+      mode: learningPathMode,
+      courseId: selectedStandaloneCourseId
+    }));
+  }, [userId, learningPathMode, selectedStandaloneCourseId]);
+
   // Simple Notes Modal State
   const [notesModalState, setNotesModalState] = useState<{ isOpen: boolean; courseId: string; courseTitle: string }>({
     isOpen: false,
@@ -1250,16 +1273,17 @@ export default function QuestsPage() {
                     strokeLinejoin="round"
                   />
 
-                  {/* Dashed White Center Line Markings */}
+                  {/* Dashed White Center Line — MUST use the same path as the road */}
                   <path
-                    d="M 60,35 H 270 C 320,35 320,115 270,115 H 70 C 20,115 20,195 70,195 H 270 C 320,195 320,275 270,275 H 70 C 20,275 20,355 70,355 H 270 C 320,355 320,435 270,435 H 70 C 20,435 20,515 70,515 H 270 C 320,515 320,595 270,595 H 70 C 20,595 20,675 70,675 H 270 C 320,675 320,735 270,735 H 250"
+                    d="M 50,35 H 250 C 295,35 295,115 250,115 H 60 C 15,115 15,195 60,195 H 250 C 295,195 295,275 250,275 H 60 C 15,275 15,355 60,355 H 250 C 295,355 295,435 250,435 H 60 C 15,435 15,515 60,515 H 250 C 295,515 295,595 250,595 H 60 C 15,595 15,675 60,675 H 250 C 295,675 295,735 250,735 H 230"
                     fill="none"
                     stroke="#ffffff"
-                    strokeWidth="3"
-                    strokeDasharray="8 8"
+                    strokeWidth="2.5"
+                    strokeDasharray="10 9"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    opacity="0.9"
+                    opacity="0.85"
+                    vectorEffect="non-scaling-stroke"
                   />
                 </svg>
 

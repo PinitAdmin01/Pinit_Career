@@ -64,11 +64,12 @@ export function QuestsSCurveMap({ trajectory, onScrollToNode }: QuestsSCurveMapP
         <path
           d="M 50,35 H 250 C 295,35 295,115 250,115 H 60 C 15,115 15,195 60,195 H 250 C 295,195 295,275 250,275 H 60 C 15,275 15,355 60,355 H 250 C 295,355 295,435 250,435 H 60 C 15,435 15,515 60,515 H 250 C 295,515 295,595 250,595 H 60 C 15,595 15,675 60,675 H 250 C 295,675 295,735 250,735 H 230"
           fill="none"
-          stroke="rgba(255,255,255,0.7)"
-          strokeWidth="3"
-          strokeDasharray="8 6"
+          stroke="rgba(255,255,255,0.75)"
+          strokeWidth="2.5"
+          strokeDasharray="10 9"
           strokeLinecap="round"
           strokeLinejoin="round"
+          vectorEffect="non-scaling-stroke"
         />
       </svg>
 
