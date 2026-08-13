@@ -254,12 +254,12 @@ function LandingContent() {
                   Why we exist
                 </button>
               </div>
-              <div className="feature-chips">
-                <div className="feature-chip"><strong>Know yourself</strong></div>
-                <div className="feature-chip"><strong>Build yourself</strong></div>
-                <div className="feature-chip"><strong>Prove yourself</strong></div>
-                <div className="feature-chip"><strong>Grow without limits</strong></div>
-              </div>
+              <ol className="hero-path">
+                <li><span>01</span> Know yourself</li>
+                <li><span>02</span> Build yourself</li>
+                <li><span>03</span> Prove yourself</li>
+                <li><span>04</span> Grow without limits</li>
+              </ol>
               <div className="trust-section">
                 <p className="trust-text">The future doesn&apos;t belong to people with degrees. It belongs to people who know where they fit.</p>
               </div>
@@ -272,19 +272,21 @@ function LandingContent() {
                 onMouseLeave={() => setTilt({ x: 0, y: 0 })}
                 style={{ '--rx': `${tilt.x}deg`, '--ry': `${tilt.y}deg` } as CSSProperties}
               >
+                <div className="lp-halo" aria-hidden />
                 <div className="lp-rig">
                   <div className="lp-floor" aria-hidden />
                   <div className="lp-ring" aria-hidden />
+                  <div className="lp-ring lp-ring-soft" aria-hidden />
                   <div className="lp-logo">
                     <div className="lp-badge lp-badge-official">
                       <img src="/brand/pinit-career-logo-clear.png" alt="PINIT CAREER" />
                     </div>
                   </div>
                   <ul className="lp-terms">
-                    <li>Know yourself</li>
-                    <li>Build yourself</li>
-                    <li>Prove yourself</li>
-                    <li>Grow</li>
+                    <li><em>01</em> Know yourself</li>
+                    <li><em>02</em> Build yourself</li>
+                    <li><em>03</em> Prove yourself</li>
+                    <li><em>04</em> Grow</li>
                   </ul>
                 </div>
               </div>
@@ -484,8 +486,8 @@ function LandingContent() {
                     <span className="score-heading">Career Readiness Score</span>
                     <div className="score-gauge">
                       <svg width="84" height="84" viewBox="0 0 84 84">
-                        <circle cx="42" cy="42" r="36" stroke="#E2E8F0" strokeWidth="8" fill="none" />
-                        <circle cx="42" cy="42" r="36" stroke="#10B981" strokeWidth="8" fill="none" strokeDasharray="226" strokeDashoffset="50" strokeLinecap="round" transform="rotate(-90 42 42)" />
+                        <circle cx="42" cy="42" r="36" stroke="currentColor" strokeOpacity="0.18" strokeWidth="8" fill="none" />
+                        <circle cx="42" cy="42" r="36" stroke="#00a3ff" strokeWidth="8" fill="none" strokeDasharray="226" strokeDashoffset="50" strokeLinecap="round" transform="rotate(-90 42 42)" />
                       </svg>
                       <div className="score-center-val">78%</div>
                     </div>
@@ -974,7 +976,7 @@ function LandingContent() {
           <div className="f-col brand-col">
             <div className="brand-logo mb-4">
               <span className="lp-brand-lockup">
-                <img src="/brand/pinit-career-logo.png" alt="PINIT CAREER" className="lp-brand-logo" />
+                <img src="/brand/pinit-career-logo-clear.png" alt="PINIT CAREER" className="lp-brand-logo" />
               </span>
             </div>
             <p className="f-desc mb-4">We don&apos;t help students find jobs. We help them discover who they are. Discover · Connect · Grow.</p>

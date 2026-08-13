@@ -28,7 +28,7 @@ function AboutPageContent() {
         <div className="container nav-content">
           <Link href="/" className="brand-logo lp-brand" aria-label="PINIT CAREER home">
             <span className="lp-brand-lockup">
-              <img src="/brand/pinit-career-logo.png" alt="PINIT CAREER" className="lp-brand-logo" />
+              <img src="/brand/pinit-career-logo-clear.png" alt="PINIT CAREER" className="lp-brand-logo" />
             </span>
           </Link>
 
@@ -401,7 +401,7 @@ function AboutPageContent() {
           <div className="footer-left">
             <div className="brand-logo mb-2">
               <span className="lp-brand-lockup">
-                <img src="/brand/pinit-career-logo.png" alt="PINIT CAREER" className="lp-brand-logo" />
+                <img src="/brand/pinit-career-logo-clear.png" alt="PINIT CAREER" className="lp-brand-logo" />
               </span>
             </div>
             <p className="footer-sub">© 2026 PinitCareer Technologies. All 54 Ecosystem Modules Active.</p>

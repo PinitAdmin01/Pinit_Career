@@ -25,7 +25,7 @@ export default function PublicFooter() {
           <div>
             <Link href="/" className="lp-brand" style={{ textDecoration: 'none', marginBottom: '16px' }}>
               <span className="lp-brand-lockup">
-                <img src="/brand/pinit-career-logo.png" alt="PINIT CAREER" className="lp-brand-logo" />
+                <img src="/brand/pinit-career-logo-clear.png" alt="PINIT CAREER" className="lp-brand-logo" />
               </span>
             </Link>
             <p style={{ color: '#94A3B8', fontSize: '13.5px', lineHeight: '1.6', maxWidth: '320px' }}>

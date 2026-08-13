@@ -110,7 +110,7 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
           <Link href="/" className="lp-brand" aria-label="PINIT CAREER home">
             <span className="lp-brand-lockup">
               <img
-                src="/brand/pinit-career-logo.png"
+                src="/brand/pinit-career-logo-clear.png"
                 alt="PINIT CAREER"
                 className="lp-brand-logo"
               />
