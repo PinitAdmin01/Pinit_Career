@@ -1,22 +1,28 @@
 'use client';
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { useAuth } from '@/lib/context/AuthContext';
-import { COURSES_REGISTRY, CourseQuest } from '@/lib/data/coursesData';
+import { COURSES_REGISTRY } from '@/lib/data/coursesData';
 import { generateDynamicStudentRoadmap } from '@/lib/data/roadmapFuser';
 import { recommendCareerTrajectory, CareerTrajectory, TrajectoryNode } from '@/lib/data/careerTrajectories';
 import { toast } from '@/lib/store/useAppStore';
 import { CourseNotesModal } from '@/components/CourseNotesModal';
-import { QuestsHeroHeader } from '@/components/quests/QuestsHeroHeader';
-import { QuestsActiveTrackBar } from '@/components/quests/QuestsActiveTrackBar';
-import { QuestsActivityGrid } from '@/components/quests/QuestsActivityGrid';
-import { QuestsSCurveMap } from '@/components/quests/QuestsSCurveMap';
-import { QuestsStageCards } from '@/components/quests/QuestsStageCards';
-import { QuestsHistoryLog } from '@/components/quests/QuestsHistoryLog';
-import { CustomRoadmapModal } from '@/components/quests/CustomRoadmapModal';
+import {
+  ExtraRoadmap,
+  LearningPathMode,
+  createExtraId,
+  extraIdFromMode,
+  extraRoadmapMode,
+  extrasStorageKey,
+  nextRoadmapNumber,
+  parseExtraRoadmaps,
+  readExtraModules,
+  removeExtraModules,
+  writeExtraModules,
+  writeExtraRoadmaps
+} from '@/lib/quests/extraRoadmaps';
 
 interface Quest {
   id: string;
@@ -43,16 +49,8 @@ interface Module {
   quests: Quest[];
 }
 
-interface ExtraRoadmap {
-  id: string;
-  number: number;
-  goal: string;
-  courseId: string;
-  durationDays: number;
-  dailyPace: number;
-  track: string;
-  createdAt: number;
-}
+const QUEST_S_CURVE_PATH =
+  'M 50,35 H 250 C 295,35 295,115 250,115 H 60 C 15,115 15,195 60,195 H 250 C 295,195 295,275 250,275 H 60 C 15,275 15,355 60,355 H 250 C 295,355 295,435 250,435 H 60 C 15,435 15,515 60,515 H 250 C 295,515 295,595 250,595 H 60 C 15,595 15,675 60,675 H 250 C 295,675 295,735 250,735 H 230';
 
 // 🔊 Pure WebAudio Gamification Sound FX Engine (Task 3)
 const playPopSound = () => {
@@ -130,28 +128,26 @@ export default function QuestsPage() {
   } = useCareerOS();
 
   const [modules, setModules] = useState<Module[]>([]);
-  const [generating, setGenerating] = useState(false);
   const [showCourseLibrary, setShowCourseLibrary] = useState(false);
   const [showFullJourneyModal, setShowFullJourneyModal] = useState(false);
   const [activeGateModalNode, setActiveGateModalNode] = useState<TrajectoryNode | null>(null);
   const [historyFilter, setHistoryFilter] = useState<'all' | 'quests' | 'pins'>('all');
 
   // Dual Mode Switcher states (Fused Career Trajectory vs Standalone Single Course Direct Learning)
-  const [learningPathMode, setLearningPathMode] = useState<string>('fused_roadmap');
+  const [learningPathMode, setLearningPathMode] = useState<LearningPathMode>('fused_roadmap');
   const [selectedStandaloneCourseId, setSelectedStandaloneCourseId] = useState<string>('course-python-backend');
   const [extraRoadmaps, setExtraRoadmaps] = useState<ExtraRoadmap[]>([]);
   const [tabsReady, setTabsReady] = useState(false);
   const extrasOwnerRef = useRef<string | null>(null);
   const fusedCourseRef = useRef<string | null>(null);
+  const generatingLockRef = useRef(false);
 
   useEffect(() => {
     if (typeof window === 'undefined' || !userId) return;
     setTabsReady(false);
     extrasOwnerRef.current = null;
     try {
-      const extrasRaw = localStorage.getItem(`pinit_${userId}_extra_roadmaps`);
-      const extras: ExtraRoadmap[] = extrasRaw ? JSON.parse(extrasRaw) : [];
-      const list = Array.isArray(extras) ? extras : [];
+      const list = parseExtraRoadmaps(localStorage.getItem(extrasStorageKey(userId)));
       setExtraRoadmaps(list);
 
       const saved = localStorage.getItem(`pinit_${userId}_quests_view`);
@@ -159,10 +155,12 @@ export default function QuestsPage() {
         const parsed = JSON.parse(saved);
         if (parsed.mode === 'fused_roadmap' || parsed.mode === 'single_course') {
           setLearningPathMode(parsed.mode);
-        } else if (parsed.mode === 'extra' && parsed.extraId && list.some((r: ExtraRoadmap) => r.id === parsed.extraId)) {
-          const extra = list.find((r: ExtraRoadmap) => r.id === parsed.extraId);
-          setLearningPathMode(`extra:${parsed.extraId}`);
-          if (extra?.courseId) setActiveCourseId(extra.courseId);
+        } else if (parsed.mode === 'extra' && typeof parsed.extraId === 'string') {
+          const extra = list.find(r => r.id === parsed.extraId);
+          if (extra) {
+            setLearningPathMode(extraRoadmapMode(extra.id));
+            if (extra.courseId) setActiveCourseId(extra.courseId);
+          }
         }
         if (typeof parsed.courseId === 'string' && parsed.courseId) {
           setSelectedStandaloneCourseId(parsed.courseId);
@@ -176,15 +174,15 @@ export default function QuestsPage() {
   useEffect(() => {
     if (typeof window === 'undefined' || !userId || userId === 'guest' || !tabsReady || extrasOwnerRef.current !== userId) return;
     localStorage.setItem(`pinit_${userId}_quests_view`, JSON.stringify({
-      mode: learningPathMode.startsWith('extra:') ? 'extra' : learningPathMode,
-      extraId: learningPathMode.startsWith('extra:') ? learningPathMode.slice(6) : null,
+      mode: extraIdFromMode(learningPathMode) ? 'extra' : learningPathMode,
+      extraId: extraIdFromMode(learningPathMode),
       courseId: selectedStandaloneCourseId
     }));
   }, [userId, learningPathMode, selectedStandaloneCourseId, tabsReady]);
 
   useEffect(() => {
-    if (typeof window === 'undefined' || !userId || userId === 'guest' || !tabsReady || extrasOwnerRef.current !== userId) return;
-    localStorage.setItem(`pinit_${userId}_extra_roadmaps`, JSON.stringify(extraRoadmaps));
+    if (!tabsReady || extrasOwnerRef.current !== userId) return;
+    writeExtraRoadmaps(userId, extraRoadmaps);
   }, [userId, extraRoadmaps, tabsReady]);
 
   useEffect(() => {
@@ -229,6 +227,8 @@ export default function QuestsPage() {
   };
 
   const handleCreateCustomRoadmap = async () => {
+    if (generatingLockRef.current || isGeneratingRoadmap) return;
+    generatingLockRef.current = true;
     setIsGeneratingRoadmap(true);
     setGenerationStep(1);
 
@@ -351,11 +351,10 @@ export default function QuestsPage() {
         dailyPace: selectedPace
       });
 
-      const nextNumber = extraRoadmaps.reduce((max, rm) => Math.max(max, rm.number || 0), 1) + 1;
-      const extraId = `rm_${Date.now()}`;
+      const extraId = createExtraId();
       const extra: ExtraRoadmap = {
         id: extraId,
-        number: nextNumber,
+        number: nextRoadmapNumber(extraRoadmaps),
         goal: finalGoal,
         courseId: config.courseId,
         durationDays: selectedDuration,
@@ -363,22 +362,22 @@ export default function QuestsPage() {
         track: selectedTrack,
         createdAt: Date.now()
       };
-
-      setExtraRoadmaps(prev => [...prev, extra]);
-      if (typeof window !== 'undefined' && userId !== 'guest') {
-        localStorage.setItem(`pinit_${userId}_extra_roadmap_${extraId}_modules`, JSON.stringify(dynamicModules));
-      }
+      const nextExtras = [...extraRoadmaps, extra];
+      setExtraRoadmaps(nextExtras);
+      writeExtraRoadmaps(userId, nextExtras);
+      writeExtraModules(userId, extraId, dynamicModules);
 
       setModules(dynamicModules as any);
       setActiveCourseId(config.courseId);
-      setLearningPathMode(`extra:${extraId}`);
+      setLearningPathMode(extraRoadmapMode(extraId));
       setRoadmapGenerated(true);
 
-      toast.success(`Roadmap ${nextNumber} ready`, `"${finalGoal}" · ${selectedDuration} days`);
+      toast.success(`Roadmap ${extra.number} ready`, `"${finalGoal}" · ${selectedDuration} days`);
       setShowRoadmapModal(false);
     } catch (e: any) {
       toast.error('Roadmap Generation Failed', e.message);
     } finally {
+      generatingLockRef.current = false;
       setIsGeneratingRoadmap(false);
     }
   };
@@ -449,8 +448,9 @@ export default function QuestsPage() {
     ]
   };
 
-  const activeExtra = learningPathMode.startsWith('extra:')
-    ? extraRoadmaps.find(rm => `extra:${rm.id}` === learningPathMode) || null
+  const activeExtraId = extraIdFromMode(learningPathMode);
+  const activeExtra = activeExtraId
+    ? extraRoadmaps.find(rm => rm.id === activeExtraId) || null
     : null;
   const extraRole = activeExtra
     ? (COURSE_TO_ROLE[activeExtra.courseId] || activeExtra.goal)
@@ -472,11 +472,11 @@ export default function QuestsPage() {
 
   const closeExtraRoadmap = (id: string) => {
     const closing = extraRoadmaps.find(rm => rm.id === id);
-    setExtraRoadmaps(prev => prev.filter(rm => rm.id !== id));
-    if (typeof window !== 'undefined' && userId !== 'guest') {
-      localStorage.removeItem(`pinit_${userId}_extra_roadmap_${id}_modules`);
-    }
-    if (learningPathMode === `extra:${id}`) {
+    const next = extraRoadmaps.filter(rm => rm.id !== id);
+    setExtraRoadmaps(next);
+    writeExtraRoadmaps(userId, next);
+    removeExtraModules(userId, id);
+    if (extraIdFromMode(learningPathMode) === id) {
       setLearningPathMode('fused_roadmap');
       if (fusedCourseRef.current) setActiveCourseId(fusedCourseRef.current);
     }
@@ -488,20 +488,14 @@ export default function QuestsPage() {
   const loadModules = useCallback(() => {
     if (typeof window === 'undefined' || userId === 'guest') return;
 
-    if (learningPathMode.startsWith('extra:')) {
-      const extraId = learningPathMode.slice(6);
-      const extraSaved = localStorage.getItem(`pinit_${userId}_extra_roadmap_${extraId}_modules`);
+    if (activeExtraId) {
+      const extraSaved = readExtraModules(userId, activeExtraId);
       if (extraSaved) {
-        try {
-          const parsed = JSON.parse(extraSaved);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            setModules(parsed);
-            if (!roadmapGenerated) setRoadmapGenerated(true);
-            return;
-          }
-        } catch {}
+        setModules(extraSaved as Module[]);
+        if (!roadmapGenerated) setRoadmapGenerated(true);
+        return;
       }
-      const extraMeta = extraRoadmaps.find(rm => rm.id === extraId);
+      const extraMeta = extraRoadmaps.find(rm => rm.id === activeExtraId);
       if (extraMeta) {
         const fallback = generateDynamicStudentRoadmap({
           courseId: extraMeta.courseId,
@@ -573,7 +567,7 @@ export default function QuestsPage() {
       });
       setModules(fallback as unknown as Module[]);
     }
-  }, [userId, activeCourseId, learningPathMode, extraRoadmaps, roadmapGenerated, setRoadmapGenerated, currentRole, qt1, qt2, archetype]);
+  }, [userId, activeCourseId, learningPathMode, activeExtraId, extraRoadmaps, roadmapGenerated, setRoadmapGenerated, currentRole, qt1, qt2, archetype]);
 
   useEffect(() => {
     loadModules();
@@ -1236,8 +1230,11 @@ export default function QuestsPage() {
             gap: 12,
             boxShadow: 'var(--shadow-md)'
           }}>
-            <div style={{ display: 'flex', gap: 8, flexWrap: 'nowrap', alignItems: 'center', overflowX: 'auto', paddingBottom: 4, maxWidth: '100%' }}>
+            <div role="tablist" aria-label="Learning roadmaps" style={{ display: 'flex', gap: 8, flexWrap: 'nowrap', alignItems: 'center', overflowX: 'auto', paddingBottom: 4, maxWidth: '100%' }}>
               <button
+                type="button"
+                role="tab"
+                aria-selected={learningPathMode === 'fused_roadmap'}
                 onClick={() => {
                   playPopSound();
                   setLearningPathMode('fused_roadmap');
@@ -1268,6 +1265,9 @@ export default function QuestsPage() {
               </button>
 
               <button
+                type="button"
+                role="tab"
+                aria-selected={learningPathMode === 'single_course'}
                 onClick={() => {
                   playPopSound();
                   setLearningPathMode('single_course');
@@ -1298,7 +1298,7 @@ export default function QuestsPage() {
               </button>
 
               {extraRoadmaps.map(rm => {
-                const isOn = learningPathMode === `extra:${rm.id}`;
+                const isOn = learningPathMode === extraRoadmapMode(rm.id);
                 return (
                   <div
                     key={rm.id}
@@ -1306,7 +1306,7 @@ export default function QuestsPage() {
                     aria-selected={isOn}
                     onClick={() => {
                       playPopSound();
-                      setLearningPathMode(`extra:${rm.id}`);
+                      setLearningPathMode(extraRoadmapMode(rm.id));
                       setActiveCourseId(rm.courseId);
                     }}
                     onAuxClick={(e) => {
@@ -1464,7 +1464,7 @@ export default function QuestsPage() {
 
                   {/* Outer Thick Road Shadow / Border */}
                   <path
-                    d="M 50,35 H 250 C 295,35 295,115 250,115 H 60 C 15,115 15,195 60,195 H 250 C 295,195 295,275 250,275 H 60 C 15,275 15,355 60,355 H 250 C 295,355 295,435 250,435 H 60 C 15,435 15,515 60,515 H 250 C 295,515 295,595 250,595 H 60 C 15,595 15,675 60,675 H 250 C 295,675 295,735 250,735 H 230"
+                    d={QUEST_S_CURVE_PATH}
                     fill="none"
                     stroke="rgba(0,0,0,0.15)"
                     strokeWidth="34"
@@ -1474,7 +1474,7 @@ export default function QuestsPage() {
 
                   {/* Main Colored Road Surface */}
                   <path
-                    d="M 50,35 H 250 C 295,35 295,115 250,115 H 60 C 15,115 15,195 60,195 H 250 C 295,195 295,275 250,275 H 60 C 15,275 15,355 60,355 H 250 C 295,355 295,435 250,435 H 60 C 15,435 15,515 60,515 H 250 C 295,515 295,595 250,595 H 60 C 15,595 15,675 60,675 H 250 C 295,675 295,735 250,735 H 230"
+                    d={QUEST_S_CURVE_PATH}
                     fill="none"
                     stroke="url(#scurveGradient)"
                     strokeWidth="24"
@@ -1484,7 +1484,7 @@ export default function QuestsPage() {
 
                   {/* Dashed White Center Line — MUST use the same path as the road */}
                   <path
-                    d="M 50,35 H 250 C 295,35 295,115 250,115 H 60 C 15,115 15,195 60,195 H 250 C 295,195 295,275 250,275 H 60 C 15,275 15,355 60,355 H 250 C 295,355 295,435 250,435 H 60 C 15,435 15,515 60,515 H 250 C 295,515 295,595 250,595 H 60 C 15,595 15,675 60,675 H 250 C 295,675 295,735 250,735 H 230"
+                    d={QUEST_S_CURVE_PATH}
                     fill="none"
                     stroke="#ffffff"
                     strokeWidth="2.5"
@@ -2247,7 +2247,7 @@ export default function QuestsPage() {
                     Configure Custom AI Roadmap
                   </h3>
                   <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 2 }}>
-                    Opens as a new tab next to Standalone (Roadmap {extraRoadmaps.reduce((max, rm) => Math.max(max, rm.number || 0), 1) + 1}). Close extra tabs anytime — Fused and Standalone stay.
+                    Opens as a new tab next to Standalone (Roadmap {nextRoadmapNumber(extraRoadmaps)}). Close extra tabs anytime — Fused and Standalone stay.
                   </div>
                 </div>
               </div>
@@ -2497,10 +2497,13 @@ export default function QuestsPage() {
 
                   <button
                     onClick={handleCreateCustomRoadmap}
+                    disabled={isGeneratingRoadmap}
                     style={{
                       flex: 2, padding: '12px', borderRadius: 12, border: 'none',
                       background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-                      color: '#fff', fontWeight: 800, fontSize: 13.5, cursor: 'pointer',
+                      color: '#fff', fontWeight: 800, fontSize: 13.5,
+                      cursor: isGeneratingRoadmap ? 'wait' : 'pointer',
+                      opacity: isGeneratingRoadmap ? 0.7 : 1,
                       boxShadow: '0 6px 20px rgba(16,185,129,0.3)'
                     }}
                     className="btn-glow"
