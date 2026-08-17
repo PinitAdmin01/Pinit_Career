@@ -26,13 +26,16 @@ export function isStoryTourPending(userId?: string): boolean {
   if (typeof window === 'undefined') return false;
   const uid = userId || 'guest';
   try {
+    const completed = localStorage.getItem(storyCompletedKey(uid)) === 'true';
+    // Hard stop: Once story mode has completed or triggered, never auto-run again!
+    if (completed) return false;
+
     const just = sessionStorage.getItem(JUST_ONBOARDED) === 'true';
     const pending =
       localStorage.getItem(storyPendingKey(uid)) === 'true' ||
       localStorage.getItem(PENDING_ANY) === 'true';
-    const completed = localStorage.getItem(storyCompletedKey(uid)) === 'true';
-    if (just && completed) return true; // first landing after onboarding always wins
-    return just || (pending && !completed);
+
+    return just || pending;
   } catch {
     return false;
   }
@@ -46,7 +49,6 @@ export function consumeJustOnboarded(userId?: string) {
       sessionStorage.removeItem(JUST_ONBOARDED);
       localStorage.setItem(storyPendingKey(uid), 'true');
       localStorage.setItem(PENDING_ANY, 'true');
-      localStorage.removeItem(storyCompletedKey(uid));
     }
   } catch {}
 }

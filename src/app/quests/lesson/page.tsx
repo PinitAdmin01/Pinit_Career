@@ -362,7 +362,7 @@ function LessonPageContent() {
     // Instant static slide generation with rich real-world analogies & code examples
     const rawSyllabus = (syllabus && syllabus.length > 0) ? syllabus : ['Core Foundations & Execution Rules', 'Syntax Breakdown & Memory Boundaries', 'Production Use Case & Best Practices'];
     
-    const staticSlides = rawSyllabus.map((topic, index) => {
+    const staticSlides = rawSyllabus.map((topic: string, index: number) => {
       const topicLower = topic.toLowerCase();
       let codeSnippet = `# Real-World Production Example: ${topic}\ndef process_data(payload):\n    # 1. Validate incoming data\n    if not payload:\n        return {"status": "error", "message": "Empty payload"}\n    # 2. Process logic for ${topic}\n    result = [item.strip() for item in payload if item]\n    return {"status": "success", "processed_count": len(result)}`;
       
@@ -540,7 +540,7 @@ function LessonPageContent() {
       setExamQuestionIndex(0);
       setSelectedMcqAnswer(null);
       setMcqChecked(false);
-      setMcqIsCorrect(null);
+      setMcqIsCorrect(false);
     }
 
     if (examPassed) {

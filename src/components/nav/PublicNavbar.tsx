@@ -63,13 +63,13 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
   };
 
   const navLinks = [
-    { name: 'Home', href: '/' },
     { name: 'Problem', href: '/#the-problem' },
     { name: 'Identity', href: '/#career-identity' },
-    { name: 'Who it\'s for', href: '/#audiences' },
-    { name: 'About Us', href: '/about' },
-    { name: 'For Companies', href: '/recruiter' },
-    { name: 'Campus Consult', href: '/contact' },
+    { name: 'Features', href: '/#features' },
+    { name: 'How It Works', href: '/#how-it-works' },
+    { name: '54 Ecosystem Modules', href: '/#modules' },
+    { name: 'Pricing', href: '/#pricing' },
+    { name: 'Campus Demo', href: '/#campus-demo' },
   ];
 
   return (
@@ -83,30 +83,8 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
         alignItems: 'center',
         justifyContent: 'space-between'
       }}>
-        {/* BRAND LOGO & TOP LEFT DEV MODE BUTTON */}
+        {/* BRAND LOGO */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          {isDemoAuthEnabled() && (
-          <button
-            type="button"
-            className="lp-dev"
-            onClick={handleDevModeClick}
-            style={{
-              border: 'none',
-              padding: '6px 12px',
-              fontSize: '12px',
-              fontWeight: 800,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              whiteSpace: 'nowrap'
-            }}
-            title="Skip login/signup, assign default name Vinay with random unique ID, and launch Onboarding"
-          >
-            Dev Mode
-          </button>
-          )}
-
           <Link href="/" className="lp-brand" aria-label="PINIT CAREER home">
             <span className="lp-brand-lockup">
               <img
@@ -122,7 +100,7 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
         <nav className="desktop-nav-links" style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '20px'
+          gap: '24px'
         }}>
           {navLinks.map((link) => {
             const hash = link.href.startsWith('/#') ? link.href.slice(1) : '';
@@ -145,82 +123,9 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
               </Link>
             );
           })}
-
-          {/* QUICK HUB LAUNCHER DROPDOWN */}
-          <div style={{ position: 'relative' }}>
-            <button
-              onClick={() => setIsHubDropdownOpen(!isHubDropdownOpen)}
-              className="lp-hub"
-              style={{
-                padding: '6px 12px',
-                fontSize: '12px',
-                fontWeight: 800,
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px'
-              }}
-            >
-              <span>All 8 Hubs</span>
-              <span style={{ fontSize: '10px' }}>{isHubDropdownOpen ? '▲' : '▼'}</span>
-            </button>
-
-            {isHubDropdownOpen && (
-              <div style={{
-                position: 'absolute',
-                top: '40px',
-                right: '0',
-                width: '240px',
-                background: theme === 'dark' ? '#0F1225' : '#FFFFFF',
-                border: theme === 'dark' ? '1px solid rgba(255,255,255,0.12)' : '1px solid rgba(0,0,0,0.12)',
-                borderRadius: '16px',
-                padding: '10px',
-                boxShadow: '0 16px 40px rgba(0,0,0,0.35)',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '4px',
-                zIndex: 1001
-              }}>
-                <div style={{ fontSize: '10px', fontWeight: 800, color: '#64748B', padding: '4px 8px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                  Quick jump
-                </div>
-                {[
-                  { label: '1. Landing', href: '/' },
-                  { label: '2. About', href: '/about' },
-                  { label: '3. Pricing', href: '/pricing' },
-                  { label: '4. Companies', href: '/recruiter' },
-                  { label: '5. Features', href: '/services' },
-                  { label: '6. Contact', href: '/contact' },
-                  { label: '7. Privacy', href: '/privacy' },
-                  { label: '8. Terms', href: '/terms' }
-                ].map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setIsHubDropdownOpen(false)}
-                    style={{
-                      padding: '8px 10px',
-                      borderRadius: '8px',
-                      fontSize: '12px',
-                      fontWeight: 700,
-                      color: pathname === item.href ? '#7C3AED' : (theme === 'dark' ? '#E2E8F0' : '#334155'),
-                      background: pathname === item.href ? 'rgba(124,58,237,0.12)' : 'transparent',
-                      textDecoration: 'none',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between'
-                    }}
-                  >
-                    <span>{item.label}</span>
-                    {pathname === item.href && <span style={{ fontSize: '10px', color: '#7C3AED' }}>Active</span>}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
         </nav>
 
-        {/* ACTIONS (THEME TOGGLE + SIGN IN / GET STARTED) */}
+        {/* ACTIONS (THEME TOGGLE + SIGN UP / GET STARTED) */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <button
             className="lp-theme"
@@ -243,35 +148,21 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
             {theme === 'dark' ? '☀️' : '🌙'}
           </button>
 
-          {onLoginClick ? (
-            <button
-              onClick={onLoginClick}
-              style={{
-                fontSize: '13px',
-                fontWeight: 600,
-                color: theme === 'dark' ? '#CBD5E1' : '#334155',
-                background: 'transparent',
-                border: 'none',
-                cursor: 'pointer',
-                padding: '8px 12px'
-              }}
-            >
-              Sign In
-            </button>
-          ) : (
-            <Link
-              href="/login"
-              style={{
-                fontSize: '13px',
-                fontWeight: 600,
-                color: theme === 'dark' ? '#CBD5E1' : '#334155',
-                textDecoration: 'none',
-                padding: '8px 12px'
-              }}
-            >
-              Sign In
-            </Link>
-          )}
+          <a
+            href="https://pinit-de424.web.app/signup/"
+            style={{
+              fontSize: '13px',
+              fontWeight: 700,
+              color: theme === 'dark' ? '#CBD5E1' : '#334155',
+              textDecoration: 'none',
+              padding: '8px 14px',
+              borderRadius: '8px',
+              border: theme === 'dark' ? '1px solid rgba(255,255,255,0.15)' : '1px solid rgba(0,0,0,0.15)',
+              transition: 'all 0.2s'
+            }}
+          >
+            Sign Up
+          </a>
 
           {onLoginClick ? (
             <button
@@ -353,6 +244,22 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
               {link.name}
             </Link>
           ))}
+          <a
+            href="https://pinit-de424.web.app/signup/"
+            style={{
+              fontSize: '15px',
+              fontWeight: 800,
+              color: '#041018',
+              background: 'linear-gradient(135deg, #5ad0ff, #0077cc)',
+              textDecoration: 'none',
+              padding: '10px 16px',
+              borderRadius: '10px',
+              textAlign: 'center',
+              marginTop: '8px'
+            }}
+          >
+            Sign Up →
+          </a>
         </div>
       )}
 

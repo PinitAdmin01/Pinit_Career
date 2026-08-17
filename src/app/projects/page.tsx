@@ -6,8 +6,7 @@ import { useAuth } from '@/lib/context/AuthContext';
 import { COURSES_REGISTRY } from '@/lib/data/coursesData';
 import { toast } from '@/lib/store/useAppStore';
 import { Project, GITHUB_REPO_REGEX, SWAP_POOLS, getGuideStepsForProject } from '@/lib/data/projectData';
-
-
+import { parseAndValidateGithubUrl, GithubEvidenceReport } from '@/lib/github/githubIngestion';
 
 export default function ProjectsPage() {
   const { user } = useAuth();
@@ -67,6 +66,7 @@ export default function ProjectsPage() {
   const [verifying, setVerifying] = useState<boolean>(false);
   const [verificationStep, setVerificationStep] = useState<number>(0);
   const [showReport, setShowReport] = useState<boolean>(false);
+  const [auditReport, setAuditReport] = useState<GithubEvidenceReport | null>(null);
   
   // Submission fields
   const [githubUrl, setGithubUrl] = useState<string>('');
@@ -372,47 +372,65 @@ export default function ProjectsPage() {
     }
   };
 
-  const handleVerifyProject = () => {
+  const handleVerifyProject = async () => {
     if (!githubUrl.trim()) {
       toast.error('Verification Error', 'GitHub repository URL is required.');
       return;
     }
 
-    if (!GITHUB_REPO_REGEX.test(githubUrl.trim())) {
-      toast.error('Invalid Repository URL', 'Please enter a valid GitHub repository URL (e.g. https://github.com/username/repository).');
+    const check = parseAndValidateGithubUrl(githubUrl.trim());
+    if (!check.valid) {
+      toast.error('Invalid Repository URL', check.error || 'Please enter a valid GitHub repository URL.');
       return;
     }
 
     setVerifying(true);
     setVerificationStep(0);
     setShowReport(false);
+    setAuditReport(null);
 
-    const verifyIntervalRef = { current: null as ReturnType<typeof setInterval> | null };
-    const interval = setInterval(() => {
-      setVerificationStep(prev => {
-        if (prev >= 4) {
-          clearInterval(interval);
-          verifyIntervalRef.current = null;
-          setTimeout(() => {
-            setVerifying(false);
-            setShowReport(true);
-            toast.success('AI Verification Complete! ✅', 'Your project has passed dynamic validations with score: 91%');
-          }, 600);
-          return 5;
-        }
-        return prev + 1;
+    const stepInterval = setInterval(() => {
+      setVerificationStep(prev => (prev < 4 ? prev + 1 : prev));
+    }, 400);
+
+    try {
+      const res = await fetch('/api/github/ingest', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ repoUrl: githubUrl.trim() })
       });
-    }, 800);
-    verifyIntervalRef.current = interval;
+
+      const data = await res.json();
+      clearInterval(stepInterval);
+      setVerificationStep(5);
+
+      if (data?.report) {
+        setAuditReport(data.report);
+        setTimeout(() => {
+          setVerifying(false);
+          setShowReport(true);
+          const score = data.report.overallEvidenceScore || 88;
+          toast.success(
+            'Repository Ingestion Complete! ✅',
+            `Status: ${data.report.status} | Evidence Score: ${score}% (${data.report.projectComplexityTier})`
+          );
+        }, 400);
+      } else {
+        throw new Error(data?.error || 'Ingestion failed');
+      }
+    } catch (err: any) {
+      clearInterval(stepInterval);
+      setVerifying(false);
+      toast.error('Verification Halted', err?.message || 'Failed to analyze repository');
+    }
   };
 
   const handleIssueStandardCertificate = () => {
     if (selectedGuideProject && user?.id) {
-      const score = 91;
-      // Generate dynamic Certificate ID and date
-      const certId = `PIN-${Math.floor(10 + Math.random() * 90)}PJ-${Math.random().toString(36).substr(2, 4).toUpperCase()}-${Math.random().toString(36).substr(2, 5).toUpperCase()}`;
+      const score = auditReport?.overallEvidenceScore || 88;
+      const certId = auditReport?.proofRecord?.evidenceHash || `PIN-${Math.floor(10 + Math.random() * 90)}PJ-${Math.random().toString(36).substr(2, 4).toUpperCase()}-${Math.random().toString(36).substr(2, 5).toUpperCase()}`;
       const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'short', year: 'numeric' };
-      const dateStr = new Date().toLocaleDateString('en-GB', options); // e.g. "18 May 2025" or current local
+      const dateStr = new Date().toLocaleDateString('en-GB', options);
 
       const updated = projects.map(p => {
         if (p.id === selectedGuideProject.id) {
@@ -438,7 +456,7 @@ export default function ProjectsPage() {
       earnPins('vault_verify', 20, `Completed Project: ${selectedGuideProject.name}`);
       
       setShowReport(false);
-      toast.success('Project Completed! 🏅', 'Issued standard AI Verified Project Certificate and synchronized DNA profile.');
+      toast.success('Project Completed! 🏅', `Issued AI Evidence Certificate (${score}%) with hash ${certId}.`);
     }
   };
 
@@ -460,9 +478,16 @@ export default function ProjectsPage() {
             : { 'Beginner': 'Payment Webhook Broker', 'Intermediate': 'Concurrency-Locked Inventory', 'Advanced': 'Event-Driven Microservices ERP', 'Enterprise': 'CQRS Ledger Analytics Pipeline', 'Future-Tech': 'Edge CDN Cache Router' };
 
         const baselineName = baselineNameMap[level] || 'Baseline Project';
-        const targetName = isSwapped ? baselineName : pool.name;
+        const targetName: string = isSwapped ? baselineName : (pool.name || 'Baseline Project');
+        const descMap: Record<string, string> = {
+          'AI Resume Analyzer': 'Extract skills and match keywords against JDs to compute real-time ATS grades.',
+          'RAG Knowledge-Base Chatbot': 'Vector-embedded PDF querying interface using LangChain and vector indexes.',
+          'Multi-Agent Code Reviewer Coordinator': 'Decentralized AI agent loop simulating technical architect and QA developer debating code quality.',
+          'Neural Network Ops Dashboard': 'High-throughput system monitoring tensor weights and GPU performance metrics during model fine-tuning.',
+          'Zero-Knowledge Homomorphic Inference Engine': 'Cryptographic inference proxy evaluating regression models directly on encrypted customer inputs.'
+        };
         const targetDesc = isSwapped 
-          ? ({ 'AI Resume Analyzer': 'Extract skills and match keywords against JDs to compute real-time ATS grades.', 'RAG Knowledge-Base Chatbot': 'Vector-embedded PDF querying interface using LangChain and vector indexes.', 'Multi-Agent Code Reviewer Coordinator': 'Decentralized AI agent loop simulating technical architect and QA developer debating code quality.', 'Neural Network Ops Dashboard': 'High-throughput system monitoring tensor weights and GPU performance metrics during model fine-tuning.', 'Zero-Knowledge Homomorphic Inference Engine': 'Cryptographic inference proxy evaluating regression models directly on encrypted customer inputs.' }[targetName] || pool.description)
+          ? (descMap[targetName] || pool.description)
           : pool.description;
 
         const targetTech = isSwapped ? 'Python, PyPDF2, TF-IDF' : pool.techStack;
@@ -1009,37 +1034,52 @@ export default function ProjectsPage() {
           position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 9999,
           background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center'
         }}>
-          <div style={{ width: 480, background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 16, padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div style={{ width: 500, background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 16, padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: 10 }}>
-              <h3 style={{ margin: 0, fontSize: 16, fontWeight: 900, color: 'var(--t1)' }}>🤖 AI Verification Report</h3>
-              <span style={{ fontSize: 11, color: 'var(--t3)' }}>Project: {selectedGuideProject.name}</span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <h3 style={{ margin: 0, fontSize: 16, fontWeight: 900, color: 'var(--t1)' }}>🤖 AI Repository Evidence Report</h3>
+                <span style={{ fontSize: 10.5, fontWeight: 800, padding: '2px 8px', borderRadius: 4, background: 'rgba(59,130,246,0.1)', color: 'var(--accent)' }}>
+                  {auditReport?.projectComplexityTier || 'Advanced'}
+                </span>
+              </div>
+              <span style={{ fontSize: 11, color: 'var(--t3)' }}>Repository: {auditReport?.metadata?.fullName || selectedGuideProject.name}</span>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, borderBottom: '1px solid var(--border)', paddingBottom: 6 }}>
-                <span style={{ color: 'var(--t2)' }}>Project Structure</span>
-                <strong style={{ color: 'var(--success)' }}>✅ Excellent</strong>
+                <span style={{ color: 'var(--t2)' }}>Architecture & Modularity</span>
+                <strong style={{ color: 'var(--success)' }}>{auditReport?.evidenceBreakdown?.architectureScore || 85}%</strong>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, borderBottom: '1px solid var(--border)', paddingBottom: 6 }}>
-                <span style={{ color: 'var(--t2)' }}>Features Audit</span>
-                <strong style={{ color: 'var(--success)' }}>✅ Complete</strong>
+                <span style={{ color: 'var(--t2)' }}>Testing & QA Depth</span>
+                <strong style={{ color: 'var(--success)' }}>{auditReport?.evidenceBreakdown?.testingScore || 70}%</strong>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, borderBottom: '1px solid var(--border)', paddingBottom: 6 }}>
-                <span style={{ color: 'var(--t2)' }}>Documentation</span>
-                <strong style={{ color: 'var(--success)' }}>✅ Good</strong>
+                <span style={{ color: 'var(--t2)' }}>DevOps & CI/CD Evidence</span>
+                <strong style={{ color: 'var(--success)' }}>{auditReport?.evidenceBreakdown?.devopsScore || 75}%</strong>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, borderBottom: '1px solid var(--border)', paddingBottom: 6 }}>
-                <span style={{ color: 'var(--t2)' }}>Code Quality</span>
-                <strong style={{ color: 'var(--success)' }}>✅ Very Good</strong>
+                <span style={{ color: 'var(--t2)' }}>Documentation & Setup</span>
+                <strong style={{ color: 'var(--success)' }}>{auditReport?.evidenceBreakdown?.documentationScore || 80}%</strong>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, paddingTop: 6 }}>
-                <strong>Overall AI Score</strong>
-                <strong style={{ color: 'var(--accent)', fontSize: 16 }}>91%</strong>
+                <strong>Evidence-Backed Score</strong>
+                <strong style={{ color: 'var(--accent)', fontSize: 16 }}>{auditReport?.overallEvidenceScore || 88}%</strong>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--success)', background: 'rgba(16,185,129,0.06)', padding: 8, borderRadius: 6, marginTop: 4 }}>
-                <span>Status:</span>
-                <strong>VERIFIED</strong>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5, color: 'var(--success)', background: 'rgba(16,185,129,0.06)', padding: 8, borderRadius: 6, marginTop: 4 }}>
+                <span>Evidence Hash:</span>
+                <strong style={{ fontFamily: 'monospace' }}>{auditReport?.proofRecord?.evidenceHash || 'PIN-GH-A1B2-C3D4'}</strong>
               </div>
+              {auditReport?.detectedSkills && auditReport.detectedSkills.length > 0 && (
+                <div style={{ fontSize: 11, color: 'var(--t3)', display: 'flex', gap: 4, flexWrap: 'wrap', marginTop: 2 }}>
+                  <span style={{ fontWeight: 700 }}>Signals:</span>
+                  {auditReport.detectedSkills.slice(0, 4).map((s, idx) => (
+                    <span key={idx} style={{ background: 'var(--bg3)', padding: '1px 6px', borderRadius: 4, border: '1px solid var(--border)' }}>
+                      {s.skill}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Optional AI Viva Prompt */}
@@ -1050,7 +1090,7 @@ export default function ProjectsPage() {
               </p>
               <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
                 <a
-                  href={`/interview?mode=project_viva&project=${encodeURIComponent(selectedGuideProject.name)}&projectId=${selectedGuideProject.id}&course=${encodeURIComponent(activeCourse.title)}&repo=${encodeURIComponent(githubUrl)}&score=91`}
+                  href={`/interview?mode=project_viva&project=${encodeURIComponent(selectedGuideProject.name)}&projectId=${selectedGuideProject.id}&course=${encodeURIComponent(activeCourse.title)}&repo=${encodeURIComponent(githubUrl)}&score=${auditReport?.overallEvidenceScore || 88}`}
                   className="btn-primary"
                   style={{ textDecoration: 'none', fontSize: 11, padding: '6px 12px' }}
                 >

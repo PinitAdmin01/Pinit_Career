@@ -1,9 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // NOTE: static export disables App Router API routes on Firebase Hosting.
-  // Prefer a Node host for production APIs, or keep export only for demo static UI.
-  output: 'export',
-  trailingSlash: true,
+  // Node.js deployment — API routes are active.
+  // Do NOT add output: 'export' here; it silently removes all /api/* routes.
   reactStrictMode: false,
   optimizeFonts: false,
   images: {
@@ -18,7 +16,8 @@ const nextConfig = {
   },
   // Fail the build on type errors — do not ship broken TS silently.
   typescript: { ignoreBuildErrors: false },
-  eslint:     { ignoreDuringBuilds: true },
+  // Also fail the build on ESLint errors — consistent with TS strictness.
+  eslint:     { ignoreDuringBuilds: false },
 
   webpack: (config, { isServer }) => {
     if (!isServer) {

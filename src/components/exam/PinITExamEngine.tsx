@@ -7,6 +7,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { api } from '@/lib/api/client';
+import { runTestSuite } from '@/lib/code/codeRunner';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface TestCase { input: string; output: string; hidden?: boolean; explanation?: string; }
@@ -36,48 +37,6 @@ interface Props {
   exam:     ExamData;
   studentId:string;
   onFinish: (result: { score: number; totalMarks: number; percentage: number; tabSwitches: number }) => void;
-}
-
-// ── Pyodide runner (Python in browser) ───────────────────────────────────────
-declare global { interface Window { pyodide?: any; loadPyodide?: any; } }
-
-async function loadPyodideOnce(): Promise<any> {
-  if (window.pyodide) return window.pyodide;
-  const script   = document.createElement('script');
-  script.src     = 'https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js';
-  document.head.appendChild(script);
-  await new Promise((res, rej) => { script.onload = res; script.onerror = rej; });
-  window.pyodide = await window.loadPyodide!({ indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.26.2/full/' });
-  return window.pyodide;
-}
-
-function parseInput(raw: string): unknown[] {
-  const trimmed = raw.trim();
-  if (!trimmed) return [];
-  // Tuple syntax → multiple args: (3,5) → [3, 5]
-  if (trimmed.startsWith('(') && trimmed.endsWith(')')) {
-    try { return JSON.parse('[' + trimmed.slice(1,-1) + ']'); } catch {}
-  }
-  try { return [JSON.parse(trimmed)]; } catch {}
-  return [trimmed];
-}
-
-async function runPython(code: string, fnName: string, input: string): Promise<string> {
-  const py = await loadPyodideOnce();
-  const args = parseInput(input);
-  const argStr = args.map(a => JSON.stringify(a)).join(', ');
-  const runCode = `${code}\nimport json\n_result = ${fnName}(${argStr})\nprint(json.dumps(_result) if not isinstance(_result, str) else _result)`;
-  await py.runPythonAsync('import sys, io\nsys.stdout = io.StringIO()');
-  await py.runPythonAsync(runCode);
-  const out = await py.runPythonAsync('sys.stdout.getvalue()');
-  return String(out).trim();
-}
-
-function runJavaScript(code: string, fnName: string, input: string): string {
-  const args = parseInput(input);
-  const fn   = new Function(`${code}\nreturn ${fnName};`)();
-  const result = fn(...args);
-  return result === undefined ? '' : typeof result === 'string' ? result : JSON.stringify(result);
 }
 
 // ── Tab-lock hook ─────────────────────────────────────────────────────────────
@@ -196,27 +155,39 @@ export default function PinITExamEngine({ exam, studentId, onFinish }: Props) {
     if (!tcs.length) { setResults(r => ({ ...r, [question.id]: { passed:0, total:0, output:'No test cases' } })); return; }
 
     setRunning(true);
-    let passed = 0;
-    let lastOutput = '';
-    let lastError  = '';
+    try {
+      const suiteResult = await runTestSuite(userCode, language as any, {
+        functionName: fnName,
+        testCases: tcs.map(tc => ({ input: tc.input, output: tc.output, name: tc.input })),
+        timeoutMs: 4500
+      });
 
-    for (const tc of tcs) {
-      try {
-        let out: string;
-        if (language === 'python')     out = await runPython(userCode, fnName, tc.input);
-        else if (language === 'javascript') out = runJavaScript(userCode, fnName, tc.input);
-        else { lastError = `${language} runs server-side. Submit for instructor grading.`; break; }
+      const lastOutcome = suiteResult.testOutcomes[suiteResult.testOutcomes.length - 1];
+      const lastOutput = lastOutcome?.actualOutput || suiteResult.terminalLogs.slice(-2).join('; ');
+      const lastError = suiteResult.error || (suiteResult.allPassed ? '' : 'Some test assertions failed');
 
-        lastOutput = out;
-        if (out.trim() === tc.output.trim()) passed++;
-      } catch (e: unknown) {
-        lastError = e instanceof Error ? e.message : String(e);
-        break;
-      }
+      setResults(r => ({
+        ...r,
+        [question.id]: {
+          passed: suiteResult.passedTests,
+          total: tcs.length,
+          output: lastOutput,
+          error: suiteResult.allPassed ? undefined : lastError
+        }
+      }));
+    } catch (e: any) {
+      setResults(r => ({
+        ...r,
+        [question.id]: {
+          passed: 0,
+          total: tcs.length,
+          output: '',
+          error: e?.message || String(e)
+        }
+      }));
+    } finally {
+      setRunning(false);
     }
-
-    setResults(r => ({ ...r, [question.id]: { passed, total: tcs.length, output: lastOutput, error: lastError } }));
-    setRunning(false);
   }
 
   if (submitted) {

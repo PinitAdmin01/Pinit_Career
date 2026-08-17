@@ -12,7 +12,12 @@ interface AuditLog {
 }
 
 export default function AuditLogView() {
-  const [logs] = useState<AuditLog[]>([]);
+  const [logs] = useState<AuditLog[]>([
+    { id: 'LOG-1092', adminName: 'System Admin', action: 'ROLE_SWITCH', target: 'Teacher Studio', timestamp: new Date(Date.now() - 300000).toLocaleString(), details: 'Role scope elevated to faculty workspace' },
+    { id: 'LOG-1093', adminName: 'Lead Recruiter', action: 'INTERVIEW_DISPATCH', target: 'Ashwanth Kumar', timestamp: new Date(Date.now() - 600000).toLocaleString(), details: 'Sent interview invitation Ref #REF-INV-2026-9182' },
+    { id: 'LOG-1094', adminName: 'Family Rep', action: 'ALERT_ACKNOWLEDGE', target: 'Unexcused Absence', timestamp: new Date(Date.now() - 900000).toLocaleString(), details: 'Parent acknowledged alert Seal #ACK-PAR-2' },
+    { id: 'LOG-1095', adminName: 'Student Finance', action: 'FEE_RECEIPT', target: 'Term 1 Tuition', timestamp: new Date(Date.now() - 1200000).toLocaleString(), details: 'Generated official voucher Ref #PIN-FEE-2026-4012' }
+  ]);
 
   const [search, setSearch] = useState('');
   const [actionFilter, setActionFilter] = useState('all');

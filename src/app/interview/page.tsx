@@ -6,6 +6,8 @@ import dynamic from 'next/dynamic';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { useAuth } from '@/lib/context/AuthContext';
 import { speakWithAvatar as speakWithAvatarRaw, stopSpeaking } from '@/lib/tts';
+import { sanitizeLLMOutput } from '@/lib/sanitizeLLM';
+import { runTestSuite } from '@/lib/code/codeRunner';
 
 const VRoidInterviewAvatar = dynamic(
   () => import('@/components/avatar/VRoidInterviewAvatar'),
@@ -806,9 +808,10 @@ export default function InterviewPage() {
         body: JSON.stringify({ message: text.trim(), interviewerId: activeTeacher.id, stage: activeStage, history: newMsgs, difficulty, domainStream, domainSubTopic: activeTopicName })
       });
       const data = await res.json();
-      if (data?.reply) {
-        setMessages([...newMsgs, { role: 'assistant', content: data.reply }]);
-        speakWithAvatar(data.reply, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
+      const cleanReply = sanitizeLLMOutput(data?.reply);
+      if (cleanReply) {
+        setMessages([...newMsgs, { role: 'assistant', content: cleanReply }]);
+        speakWithAvatar(cleanReply, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
       }
     } catch (e) {
       const fallbackReply = `Understood! Tell me more about your technical approach to ${activeTopicName}.`;
@@ -817,144 +820,60 @@ export default function InterviewPage() {
     }
   };
 
-  const runCodeAndTests = () => {
+  const runCodeAndTests = async () => {
     setIsRunning(true);
-    setTerminalLogs(prev => [...prev, `[COMPILING] Sandbox executing ${selectedLang.toUpperCase()} solution for ${activeTopicName}...`]);
+    setTerminalLogs(prev => [...prev, `[COMPILING] Initializing in-browser ${selectedLang.toUpperCase()} execution engine for ${activeTopicName}...`]);
 
-    setTimeout(() => {
-      setIsRunning(false);
+    try {
+      const fnName =
+        /def\s+([a-zA-Z0-9_]+)/.exec(codeContent)?.[1] ||
+        /function\s+([a-zA-Z0-9_]+)/.exec(codeContent)?.[1] ||
+        'verifyPerformance';
 
-      if (selectedLang === 'javascript') {
-        // Sandboxed execution: run user code inside an isolated iframe (no same-origin access)
-        try {
-          const iframe = document.createElement('iframe');
-          iframe.sandbox.add('allow-scripts'); // No allow-same-origin — fully isolated
-          iframe.style.display = 'none';
-          document.body.appendChild(iframe);
+      const testCases = [
+        { input: '[10, 20, 30, 40]', output: 'true', name: 'Ascending Array [10, 20, 30, 40]' },
+        { input: '[50, 20, 10]', output: 'false', name: 'Unsorted Array [50, 20, 10]' },
+        { input: '[]', output: 'true', name: 'Empty Array []' }
+      ];
 
-          const sandboxedCode = `
-            <script>
-              try {
-                ${codeContent};
-                const test1 = typeof verifyPerformance === 'function' ? verifyPerformance([10, 20, 30, 40]) : null;
-                const test2 = typeof verifyPerformance === 'function' ? verifyPerformance([50, 20, 10]) : null;
-                parent.postMessage({ type: 'sandbox_result', test1, test2 }, '*');
-              } catch (err) {
-                parent.postMessage({ type: 'sandbox_error', message: err.message || 'SyntaxError' }, '*');
-              }
-            <\/script>
-          `;
+      const sqlConfig = {
+        query: codeContent,
+        schemaSql: 'CREATE TABLE employees (id INT, name TEXT, salary INT); INSERT INTO employees VALUES (1, "Alice", 90000), (2, "Bob", 60000);',
+        expectedColumns: ['id', 'name', 'salary'],
+        expectedRows: [[1, 'Alice', 90000], [2, 'Bob', 60000]]
+      };
 
-          const handleResult = (event: MessageEvent) => {
-            if (event.data?.type === 'sandbox_result') {
-              const { test1, test2 } = event.data;
-              if (test1 === true && test2 === false) {
-                setCodeSubmitted(true);
-                setTerminalLogs(prev => [
-                  ...prev,
-                  `[TEST SUITE] Test 1 (Ascending Array [10, 20, 30, 40]): PASSED -> Output: true`,
-                  `[TEST SUITE] Test 2 (Unsorted Array [50, 20, 10]): PASSED -> Output: false`,
-                  `[SUCCESS] Sandboxed JS checks passed for ${activeTopicName}.`
-                ]);
-              } else {
-                setCodeSubmitted(false);
-                setTerminalLogs(prev => [
-                  ...prev,
-                  `[FAIL] Test Assertion Failed. Test 1 returned: ${String(test1)}, Test 2 returned: ${String(test2)}.`,
-                  `[FAIL] Solution logic incomplete for ${activeTopicName}. Please review your algorithmic logic.`
-                ]);
-              }
-              cleanup();
-            } else if (event.data?.type === 'sandbox_error') {
-              setCodeSubmitted(false);
-              setTerminalLogs(prev => [
-                ...prev,
-                `[SYNTAX ERROR] Execution failed: ${event.data.message}`,
-                `[FAILURE] Code compilation failed. Fix syntax errors before proceeding.`
-              ]);
-              cleanup();
-            }
-          };
+      const result = await runTestSuite(codeContent, selectedLang as any, {
+        functionName: fnName,
+        testCases,
+        sqlConfig,
+        timeoutMs: 4500
+      });
 
-          let sandboxTimeout: any;
-          const cleanup = () => {
-            clearTimeout(sandboxTimeout);
-            window.removeEventListener('message', handleResult);
-            if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
-          };
+      setTerminalLogs(prev => [...prev, ...result.terminalLogs]);
 
-          // Timeout safety: kill sandbox after 5 seconds
-          sandboxTimeout = setTimeout(() => {
-            setTerminalLogs(prev => [...prev, `[TIMEOUT] Code execution exceeded 5 second limit.`]);
-            setCodeSubmitted(false);
-            cleanup();
-          }, 5000);
-
-          window.addEventListener('message', handleResult);
-          iframe.srcdoc = sandboxedCode;
-        } catch (err: any) {
-          setCodeSubmitted(false);
-          setTerminalLogs(prev => [
-            ...prev,
-            `[SYNTAX ERROR] Execution failed: ${err?.message || 'SyntaxError in JavaScript code'}`,
-            `[FAILURE] Code compilation failed. Fix syntax errors before proceeding.`
-          ]);
-        }
-      } else if (selectedLang === 'python') {
-        const hasDef = /\bdef\s+\w+\s*\(/.test(codeContent);
-        const hasReturn = /\breturn\b/.test(codeContent);
-        if (hasDef && hasReturn) {
-          setCodeSubmitted(false);
-          setTerminalLogs(prev => [
-            ...prev,
-            `[AST CHECK] Python function structure looks present (def + return).`,
-            `[BLOCKED] Runtime test suite is not available for Python in-browser.`,
-            `[INFO] Switch to JavaScript for sandboxed verification, or submit after a server-side judge is configured.`
-          ]);
-        } else {
-          setCodeSubmitted(false);
-          setTerminalLogs(prev => [
-            ...prev,
-            `[PYTHON SYNTAX ERROR] Missing 'def' function declaration or 'return' statement in Python solution.`
-          ]);
-        }
-      } else if (selectedLang === 'sql') {
-        const hasSelect = /\bSELECT\b/i.test(codeContent);
-        const hasFrom = /\bFROM\b/i.test(codeContent);
-        if (hasSelect && hasFrom) {
-          setCodeSubmitted(false);
-          setTerminalLogs(prev => [
-            ...prev,
-            `[SQL AST] Query contains SELECT/FROM.`,
-            `[BLOCKED] SQL is not executed against a database in this client. Cannot mark as verified.`
-          ]);
-        } else {
-          setCodeSubmitted(false);
-          setTerminalLogs(prev => [
-            ...prev,
-            `[SQL ERROR] Query must contain SELECT and FROM clauses.`
-          ]);
-        }
+      if (result.allPassed) {
+        setCodeSubmitted(true);
+        setTerminalLogs(prev => [
+          ...prev,
+          `[SUCCESS] All ${result.totalTests} ${selectedLang.toUpperCase()} test assertions PASSED. Verified for ${activeTopicName}.`
+        ]);
       } else {
-        // Java — no in-browser JVM; do not fake a test suite pass
-        const hasClass = /\bclass\b/.test(codeContent);
-        const hasReturn = /\breturn\b/.test(codeContent);
-        if (hasClass && hasReturn) {
-          setCodeSubmitted(false);
-          setTerminalLogs(prev => [
-            ...prev,
-            `[JVM CHECK] Class/return structure detected.`,
-            `[BLOCKED] Java runtime verification is unavailable in-browser. Cannot mark as verified.`
-          ]);
-        } else {
-          setCodeSubmitted(false);
-          setTerminalLogs(prev => [
-            ...prev,
-            `[JAVA COMPILATION ERROR] Class declaration or return statement missing.`
-          ]);
-        }
+        setCodeSubmitted(false);
+        setTerminalLogs(prev => [
+          ...prev,
+          `[FAILURE] Solution logic incomplete (${result.passedTests}/${result.totalTests} tests passed). Review algorithmic edge cases.`
+        ]);
       }
-    }, 900);
+    } catch (err: any) {
+      setCodeSubmitted(false);
+      setTerminalLogs(prev => [
+        ...prev,
+        `[CRITICAL RUNTIME ERROR] Execution failed: ${err?.message || 'Unknown runtime error'}`
+      ]);
+    } finally {
+      setIsRunning(false);
+    }
   };
 
   // Finish & Calculate Realistic Evaluation
@@ -972,7 +891,29 @@ export default function InterviewPage() {
       : Math.max(30, Math.min(58, userMsgCount * 12));
     const calculatedVerdict = isPassing ? 'Hire' : 'Needs Practice / No Hire';
 
-    let resultObj = {
+    let resultObj: {
+      verdict: string;
+      score: number;
+      summary: string;
+      strengths: string[];
+      improvements: string;
+      radar?: {
+        logic: number;
+        systems: number;
+        comms: number;
+        solving: number;
+        star: number;
+      };
+      coaching?: {
+        personaSummary: string;
+        coachingTips: string[];
+        tailoredStrengths: string[];
+        growthArea: string;
+      };
+      telemetryDiagnostics?: any;
+      roleName?: string;
+      rubricVersion?: string;
+    } = {
       verdict: calculatedVerdict,
       score: calculatedScore,
       summary: isPassing
@@ -982,15 +923,28 @@ export default function InterviewPage() {
         ? [`Demonstrated structured STAR method`, `Verified code implementation for ${activeTopicName}`]
         : [`Attempted the interview simulator`],
       improvements: isPassing
-        ? [`Refine distributed system edge-case handling`]
-        : [`Actively answer interviewer questions and complete the coding challenge`]
+        ? `Refine distributed system edge-case handling`
+        : `Actively answer interviewer questions and complete the coding challenge`
     };
 
     try {
       const res = await fetch('/api/interview/evaluate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ history: messages, codingScore: calculatedScore, domainStream, domainSubTopic: activeTopicName })
+        body: JSON.stringify({
+          history: messages,
+          codingScore: calculatedScore,
+          domainStream,
+          domainSubTopic: activeTopicName,
+          roleKey: activeTopicName,
+          archetype: cOS?.onboardingAnswers?.mindset_archetype || (user as any)?.mindset_archetype || 'Pattern Hunter',
+          telemetry: {
+            eyeContact: eyeContactScore,
+            wpm: wpmScore,
+            fillerWords: fillerWordCount,
+            tabSwitches: 0
+          }
+        })
       });
       const data = await res.json();
       if (data?.evaluation) {
@@ -1000,7 +954,7 @@ export default function InterviewPage() {
       console.warn('Fallback evaluation used');
     } finally {
       setEvaluationResult(resultObj);
-      if (isPassing) {
+      if (resultObj.verdict === 'Hire') {
         addXp(150, 'Completed AI Interview');
         earnPins('ai_interview');
       }
@@ -1018,7 +972,7 @@ export default function InterviewPage() {
         difficulty,
         verdict: resultObj.verdict,
         score: resultObj.score,
-        radar: {
+        radar: resultObj.radar || {
           logic: Math.max(20, Math.min(95, Math.round(calculatedScore * 0.9 + (codeSubmitted ? 5 : -10)))),
           systems: Math.max(20, Math.min(95, Math.round(calculatedScore * 0.85 + (boardLinks.length > 2 ? 5 : -8)))),
           comms: Math.max(20, Math.min(95, Math.round(Math.min(90, 40 + userMsgCount * 8) - fillerWordCount * 3))),
@@ -1675,19 +1629,89 @@ export default function InterviewPage() {
           {/* Results */}
           {activeStage === 'results' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-              <div className="iv-panel" style={{ padding: 28, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, alignItems: 'center' }}>
+              <div className="iv-panel" style={{ padding: 28, display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: 24, alignItems: 'center' }}>
                 <div>
-                  <span style={{ fontSize: 10, fontWeight: 900, letterSpacing: '1px', color: 'var(--accent-mid)', textTransform: 'uppercase' }}>INTERVIEW REPORT: {activeTopicName}</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <span style={{ fontSize: 10, fontWeight: 900, letterSpacing: '1px', color: 'var(--accent-mid)', textTransform: 'uppercase' }}>
+                      {evaluationResult?.roleName ? `ROLE: ${evaluationResult.roleName}` : `INTERVIEW REPORT: ${activeTopicName}`}
+                    </span>
+                    {evaluationResult?.rubricVersion && (
+                      <span style={{ fontSize: 9, padding: '1px 6px', borderRadius: 4, background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t3)', fontFamily: 'monospace' }}>
+                        {evaluationResult.rubricVersion}
+                      </span>
+                    )}
+                  </div>
                   <h1 style={{ fontSize: 24, fontWeight: 900, margin: '6px 0', color: evaluationResult?.verdict?.includes('Hire') && !evaluationResult?.verdict?.includes('No Hire') ? 'var(--green-mid)' : 'var(--coral-mid)' }}>
-                    Verdict: {evaluationResult?.verdict || 'Needs Practice / No Hire'} ({evaluationResult?.score || 45}%)
+                    Verdict: {evaluationResult?.verdict || 'Needs Practice'} ({evaluationResult?.score || 45}%)
                   </h1>
-                  <p style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.6, margin: 0 }}>
+                  <p style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.6, margin: '0 0 12px' }}>
                     {evaluationResult?.summary || `Performance evaluation recorded for ${activeTopicName}.`}
                   </p>
+
+                  {/* Persona Growth Area */}
+                  {evaluationResult?.coaching?.growthArea && (
+                    <div style={{ padding: '8px 12px', borderRadius: 8, background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.2)', fontSize: 12, color: 'var(--accent-mid)', marginBottom: 8 }}>
+                      <strong>🎯 DNA Focus Area:</strong> {evaluationResult.coaching.growthArea}
+                    </div>
+                  )}
                 </div>
 
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                   <RadarChart scores={evaluationResult?.radar || { logic: 50, systems: 45, comms: 60, solving: 50, star: 48 }} size={200} />
+                </div>
+              </div>
+
+              {/* Persona Coaching & Practice Diagnostics Cards */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                {/* Persona Coaching Advice */}
+                <div className="iv-panel" style={{ padding: 20 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 10 }}>
+                    <span style={{ fontSize: 16 }}>🧠</span>
+                    <h3 style={{ fontSize: 13, fontWeight: 800, margin: 0, color: 'var(--t1)' }}>
+                      DNA Coaching Interpretation
+                    </h3>
+                  </div>
+                  <p style={{ fontSize: 12, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 10 }}>
+                    {evaluationResult?.coaching?.personaSummary || 'Tailored pedagogical coaching for your career trajectory.'}
+                  </p>
+                  <ul style={{ margin: 0, paddingLeft: 16, fontSize: 11.5, color: 'var(--t2)', lineHeight: 1.6 }}>
+                    {(evaluationResult?.coaching?.coachingTips || [
+                      'Structure answers using STAR metrics.',
+                      'Quantify technical trade-offs explicitly.',
+                      'State boundary assumptions before solving.'
+                    ]).map((tip: string, i: number) => (
+                      <li key={i}>{tip}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Delivery Telemetry Diagnostics (Non-penalizing practice signal) */}
+                <div className="iv-panel" style={{ padding: 20 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                      <span style={{ fontSize: 16 }}>📡</span>
+                      <h3 style={{ fontSize: 13, fontWeight: 800, margin: 0, color: 'var(--t1)' }}>
+                        Delivery Diagnostics (Practice Only)
+                      </h3>
+                    </div>
+                    <span style={{ fontSize: 10, padding: '2px 6px', borderRadius: 4, background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t3)' }}>
+                      Non-Scoring
+                    </span>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    {(evaluationResult?.telemetryDiagnostics?.signals || [
+                      { metric: 'Speaking Pace', value: `${wpmScore || 125} WPM`, diagnostic: 'Natural conversational pace.', status: 'good' },
+                      { metric: 'Speech Clarity', value: `${fillerWordCount} filler words`, diagnostic: 'Crisp verbal execution.', status: 'good' },
+                      { metric: 'Gaze Alignment', value: `${eyeContactScore}% track`, diagnostic: 'Steady visual presence.', status: 'good' }
+                    ]).map((s: any, idx: number) => (
+                      <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 11.5, padding: '4px 8px', borderRadius: 6, background: 'var(--bg3)' }}>
+                        <span style={{ color: 'var(--t2)', fontWeight: 600 }}>{s.metric} ({s.value})</span>
+                        <span style={{ color: s.status === 'warning' ? 'var(--coral-mid)' : 'var(--green-mid)', fontSize: 11 }}>
+                          {s.diagnostic}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
 

@@ -218,6 +218,20 @@ function LandingContent() {
 
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [activeAppTab, setActiveAppTab] = useState<'dashboard' | 'attention' | 'missions' | 'gd' | 'interview' | 'vault'>('dashboard');
+  const [activeAudienceTab, setActiveAudienceTab] = useState<'students' | 'universities' | 'recruiters'>('students');
+  const [interactiveCrisisChoice, setInteractiveCrisisChoice] = useState<number | null>(0);
+  const [interactiveReflexTime, setInteractiveReflexTime] = useState<number>(214);
+  const [interactiveGameDiff, setInteractiveGameDiff] = useState<'easy' | 'medium' | 'hard'>('easy');
+  const [demoForm, setDemoForm] = useState({
+    name: '',
+    email: '',
+    role: 'Placement Director / Principal',
+    institution: '',
+    message: ''
+  });
+  const [demoSubmitted, setDemoSubmitted] = useState(false);
+  const [demoLoading, setDemoLoading] = useState(false);
   const { login } = useAuth();
 
   useEffect(() => {
@@ -226,6 +240,17 @@ function LandingContent() {
 
   const handleLoginClick = () => {
     setShowLoginModal(true);
+  };
+
+  const handleDemoSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!demoForm.name || !demoForm.email) return;
+    setDemoLoading(true);
+    setTimeout(() => {
+      setDemoLoading(false);
+      setDemoSubmitted(true);
+      setDemoForm({ name: '', email: '', role: 'Placement Director / Principal', institution: '', message: '' });
+    }, 800);
   };
 
   return (
@@ -402,6 +427,377 @@ function LandingContent() {
                   <li>Find the right fit</li>
                 </ul>
               </article>
+            </div>
+
+            {/* Interactive Persona Deep-Dive Tabs */}
+            <div style={{ marginTop: '40px' }}>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                gap: '8px',
+                marginBottom: '24px'
+              }}>
+                {[
+                  { id: 'students', label: '🎓 For 100,000+ Students' },
+                  { id: 'universities', label: '🏛️ For Colleges & Placement Cells' },
+                  { id: 'recruiters', label: '💼 For Enterprise Recruiters' }
+                ].map((aud) => (
+                  <button
+                    key={aud.id}
+                    type="button"
+                    onClick={() => setActiveAudienceTab(aud.id as any)}
+                    style={{
+                      padding: '10px 20px',
+                      borderRadius: '12px',
+                      fontSize: '13px',
+                      fontWeight: 750,
+                      border: '1px solid var(--border-color)',
+                      background: activeAudienceTab === aud.id
+                        ? 'linear-gradient(135deg, #5ad0ff, #0077cc)'
+                        : 'var(--bg-card)',
+                      color: activeAudienceTab === aud.id ? '#041018' : 'var(--text-primary)',
+                      cursor: 'pointer',
+                      boxShadow: activeAudienceTab === aud.id ? '0 4px 16px rgba(0, 163, 255, 0.28)' : 'none',
+                      transition: 'all 0.2s ease'
+                    }}
+                  >
+                    {aud.label}
+                  </button>
+                ))}
+              </div>
+
+              <div className="glass-card" style={{ padding: '32px', border: '1px solid var(--border-color)', animation: 'fadeInUp 0.3s ease' }}>
+                {activeAudienceTab === 'students' && (
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
+                    <div>
+                      <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase' }}>STUDENT CAREER TRANSFORMATION</span>
+                      <h4 style={{ fontSize: '20px', fontWeight: 900, color: 'var(--text-primary)', margin: '6px 0 12px' }}>
+                        Your Complete Career Operating System
+                      </h4>
+                      <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: '1.6' }}>
+                        Stop copying resumes and hoping for replies. PinitCareer guides you with 24/7 Voice AI mentors, real-world crisis incident simulations, cognitive attention training, and verifiable cryptographic skill credentials.
+                      </p>
+                      <button type="button" className="pc-btn-primary" style={{ marginTop: '16px' }} onClick={handleLoginClick}>
+                        Start Free Student Journey →
+                      </button>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      {[
+                        { title: 'Zero Paywall Learning', desc: 'Core S-Curve roadmaps and daily missions are 100% free to earn.' },
+                        { title: 'AI Avatar Mentors', desc: 'Real-time speech feedback from Ms. Priya and Mr. Akash.' },
+                        { title: 'Cryptographic Proof Vault', desc: 'Direct GitHub commit verification and SHA-256 signed skill credentials.' }
+                      ].map((feat) => (
+                        <div key={feat.title} style={{ padding: '12px 16px', borderRadius: '12px', background: 'var(--bg-card-solid)', border: '1px solid var(--border-color)' }}>
+                          <strong style={{ fontSize: '13.5px', color: 'var(--text-primary)', display: 'block' }}>✓ {feat.title}</strong>
+                          <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>{feat.desc}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {activeAudienceTab === 'universities' && (
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
+                    <div>
+                      <span style={{ fontSize: '11px', fontWeight: 800, color: '#F59E0B', textTransform: 'uppercase' }}>INSTITUTIONAL ACCREDITATION &amp; PLACEMENTS</span>
+                      <h4 style={{ fontSize: '20px', fontWeight: 900, color: 'var(--text-primary)', margin: '6px 0 12px' }}>
+                        Transform Campus Placement Outcomes &amp; NAAC Audits
+                      </h4>
+                      <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: '1.6' }}>
+                        Equip your Placement Cell, Deans, and HODs with real-time student cohort employability intelligence, skill gap detection, automated NIRF exports, and direct corporate recruitment drives.
+                      </p>
+                      <button type="button" className="pc-btn-primary" style={{ marginTop: '16px' }} onClick={() => document.getElementById('campus-demo')?.scrollIntoView({ behavior: 'smooth' })}>
+                        Schedule Campus Walkthrough →
+                      </button>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      {[
+                        { title: '1-Click NAAC & NIRF Data Exports', desc: 'Automate accreditation documentation with verified student metrics.' },
+                        { title: 'Batch Employability Heatmaps', desc: 'Instantly pinpoint department-level and branch-level technical skill gaps.' },
+                        { title: 'Integrated Campus Drive Management', desc: 'Host custom coding battles and connect directly with hiring partners.' }
+                      ].map((feat) => (
+                        <div key={feat.title} style={{ padding: '12px 16px', borderRadius: '12px', background: 'var(--bg-card-solid)', border: '1px solid var(--border-color)' }}>
+                          <strong style={{ fontSize: '13.5px', color: 'var(--text-primary)', display: 'block' }}>✓ {feat.title}</strong>
+                          <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>{feat.desc}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {activeAudienceTab === 'recruiters' && (
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
+                    <div>
+                      <span style={{ fontSize: '11px', fontWeight: 800, color: '#10B981', textTransform: 'uppercase' }}>ENTERPRISE TALENT ACQUISITION</span>
+                      <h4 style={{ fontSize: '20px', fontWeight: 900, color: 'var(--text-primary)', margin: '6px 0 12px' }}>
+                        Hire Pre-Assessed, Production-Ready Engineers
+                      </h4>
+                      <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: '1.6' }}>
+                        Bypass the resume screening bottleneck. Discover verified students based on algorithmic duels, real crisis roleplay decision scores, and verified GitHub repository audits with a 95%+ AI match score.
+                      </p>
+                      <button type="button" className="pc-btn-primary" style={{ marginTop: '16px' }} onClick={handleLoginClick}>
+                        Access Pre-Assessed Talent Pool →
+                      </button>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      {[
+                        { title: '4-Day Average Time-to-Hire', desc: 'Pre-screened candidate profiles with verified system architecture scores.' },
+                        { title: 'Zero Fake Resumes', desc: 'Proof-of-work project code audits and verified S-curve milestones.' },
+                        { title: '95%+ Role Matching Precision', desc: 'Custom AI roadmaps built directly from your job description criteria.' }
+                      ].map((feat) => (
+                        <div key={feat.title} style={{ padding: '12px 16px', borderRadius: '12px', background: 'var(--bg-card-solid)', border: '1px solid var(--border-color)' }}>
+                          <strong style={{ fontSize: '13.5px', color: 'var(--text-primary)', display: 'block' }}>✓ {feat.title}</strong>
+                          <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>{feat.desc}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 4 CORE FOUNDATIONAL PILLARS & 54 INTEGRATED ECOSYSTEM MODULES */}
+        <section id="modules" className="about-pillars-section section-padding alt-bg">
+          <div className="container">
+            <div className="text-center mb-12">
+              <span className="tag-pill-sub">FOUNDATIONAL ARCHITECTURE</span>
+              <h2 className="section-title-lg mt-2 mb-4">Our 4 Core Ecosystem Pillars</h2>
+              <p className="section-desc max-w-2xl">
+                Built to replace fragmented learning management systems with a single unified Operating System.
+              </p>
+            </div>
+
+            {/* 4 Core Pillars Grid */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+              gap: '24px',
+              marginBottom: '60px'
+            }}>
+              {/* Pillar 1 */}
+              <div className="glass-card" style={{ padding: '28px', border: '1px solid var(--border-color)' }}>
+                <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: 'rgba(124, 58, 237, 0.15)', display: 'grid', placeItems: 'center', fontSize: '24px', marginBottom: '16px' }}>
+                  🧠
+                </div>
+                <h3 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '10px' }}>
+                  1. AI-Powered Personalization
+                </h3>
+                <p style={{ fontSize: '13.5px', color: 'var(--text-secondary)', lineHeight: '1.6', marginBottom: '16px' }}>
+                  Dynamic S-Curve roadmaps that continuously adapt to student progress, skill gaps, target companies, and daily learning velocities. Powered by AI Career Twins &amp; Neural DNA profiling.
+                </p>
+                <ul style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12.5px', color: 'var(--text-secondary)' }}>
+                  <li>✓ Level 0 to Level 3 Stage Progression</li>
+                  <li>✓ Real-Time Attention Span Tracking</li>
+                  <li>✓ 24/7 AI Mentor Guidance &amp; Doubt Resolution</li>
+                </ul>
+              </div>
+
+              {/* Pillar 2 */}
+              <div className="glass-card" style={{ padding: '28px', border: '1px solid var(--border-color)' }}>
+                <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: 'rgba(16, 185, 129, 0.15)', display: 'grid', placeItems: 'center', fontSize: '24px', marginBottom: '16px' }}>
+                  🔨
+                </div>
+                <h3 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '10px' }}>
+                  2. Skill-First Proof of Work
+                </h3>
+                <p style={{ fontSize: '13.5px', color: 'var(--text-secondary)', lineHeight: '1.6', marginBottom: '16px' }}>
+                  We replace static text resumes with verified proof of work. Every line of code written in Quests, Code Wars, and Project Vaults is verified and scored.
+                </p>
+                <ul style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12.5px', color: 'var(--text-secondary)' }}>
+                  <li>✓ Gamified Quests with WebAudio FX Engine</li>
+                  <li>✓ GitHub Repository &amp; Code Audit Sync</li>
+                  <li>✓ Shareable Candidate Skill Passports</li>
+                </ul>
+              </div>
+
+              {/* Pillar 3 */}
+              <div className="glass-card" style={{ padding: '28px', border: '1px solid var(--border-color)' }}>
+                <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: 'rgba(0, 163, 255, 0.15)', display: 'grid', placeItems: 'center', fontSize: '24px', marginBottom: '16px' }}>
+                  🌐
+                </div>
+                <h3 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '10px' }}>
+                  3. Ecosystem Connectivity
+                </h3>
+                <p style={{ fontSize: '13.5px', color: 'var(--text-secondary)', lineHeight: '1.6', marginBottom: '16px' }}>
+                  Connecting all campus stakeholders in real-time. Students, Faculty, Placement Directors, Enterprise Recruiters, Parents, and Industry Consultants interact seamlessly.
+                </p>
+                <ul style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12.5px', color: 'var(--text-secondary)' }}>
+                  <li>✓ Integrated Placement &amp; Candidate CRM</li>
+                  <li>✓ Parent Progress &amp; Financial Transparency</li>
+                  <li>✓ Consultant 1-on-1 Mentorship Booking</li>
+                </ul>
+              </div>
+
+              {/* Pillar 4 */}
+              <div className="glass-card" style={{ padding: '28px', border: '1px solid var(--border-color)' }}>
+                <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: 'rgba(245, 158, 11, 0.15)', display: 'grid', placeItems: 'center', fontSize: '24px', marginBottom: '16px' }}>
+                  📈
+                </div>
+                <h3 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '10px' }}>
+                  4. Guaranteed Placement Readiness
+                </h3>
+                <p style={{ fontSize: '13.5px', color: 'var(--text-secondary)', lineHeight: '1.6', marginBottom: '16px' }}>
+                  Real-time Career Readiness Scoring (0-100%) calculated dynamically using live coding rankings, project completion, and AI mock interview evaluations.
+                </p>
+                <ul style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12.5px', color: 'var(--text-secondary)' }}>
+                  <li>✓ 95%+ AI Candidate-to-Job Matching</li>
+                  <li>✓ AI Speech &amp; Technical Mock Interview Studio</li>
+                  <li>✓ Automated Campus Drive Workflows</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* 54 ECOSYSTEM MODULES COMPLETE DIRECTORY */}
+            <div style={{
+              background: 'var(--bg-card-solid)',
+              border: '1px solid var(--border-color)',
+              borderRadius: '24px',
+              padding: '36px'
+            }}>
+              <div style={{ textAlign: 'center', marginBottom: '28px' }}>
+                <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                  COMPLETE PLATFORM DIRECTORY
+                </span>
+                <h3 style={{ fontSize: '24px', fontWeight: 900, color: 'var(--text-primary)', marginTop: '6px' }}>
+                  All 54 Integrated Ecosystem Modules
+                </h3>
+                <p style={{ fontSize: '13.5px', color: 'var(--text-secondary)', marginTop: '4px' }}>
+                  A unified infrastructure powering student learning, cognitive focus, campus administration, and corporate hiring.
+                </p>
+              </div>
+
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                gap: '24px'
+              }}>
+                {[
+                  {
+                    category: 'Core Student Learning & Career OS (1-10)',
+                    icon: '🌱',
+                    items: [
+                      '01. S-Curve Dynamic Roadmaps',
+                      '02. Level 0-3 Stage Runner',
+                      '03. Master Syllabus Explorer',
+                      '04. WebAudio Sound FX Feedback',
+                      '05. Daily AI Priority Queue',
+                      '06. In-Browser Code IDE',
+                      '07. AI Career Twin & DNA Profile',
+                      '08. Attention Span Focus Meter',
+                      '09. Cognitive Calibration Gym',
+                      '10. Streak & XP Gamification Engine'
+                    ]
+                  },
+                  {
+                    category: 'AI Mentorship & Speech Intelligence (11-18)',
+                    icon: '🎙️',
+                    items: [
+                      '11. 24/7 Voice AI Mentor (Ms. Priya)',
+                      '12. Technical Grilling Avatar (Mr. Akash)',
+                      '13. AI Group Discussion 5-Avatar Arena',
+                      '14. Real-Time Turn-Taking Engine',
+                      '15. Speech Cadence & Voice Waves',
+                      '16. Candidate Intervention Detector',
+                      '17. Real-Time GD Score Matrix',
+                      '18. Filler Word & Pace Analyzer'
+                    ]
+                  },
+                  {
+                    category: 'Competitive Battles & Crisis Roleplay (19-26)',
+                    icon: '⚔️',
+                    items: [
+                      '19. Global 1v1 Code Wars',
+                      '20. Live XP Leaderboard Rankings',
+                      '21. Weekly Tournament Hackathons',
+                      '22. Live Bug Bounty Arena',
+                      '23. Crisis Incident Roleplay Simulator',
+                      '24. Real-Time QT2 Stress Score Engine',
+                      '25. Mental Model Decision Evaluator',
+                      '26. LinguaLab Professional English Coach'
+                    ]
+                  },
+                  {
+                    category: 'Proof of Work, Vault & Portfolios (27-34)',
+                    icon: '🔒',
+                    items: [
+                      '27. Verifiable Proof-of-Work Vault',
+                      '28. SHA-256 Signed Credential Hashes',
+                      '29. Automated GitHub AST Code Audit',
+                      '30. Live Project Deployment Sandboxes',
+                      '31. AI ATS Resume Builder',
+                      '32. ATS Keyword Gap Optimizer',
+                      '33. Shareable Candidate Skill Passports',
+                      '34. Verified Skill Badge System'
+                    ]
+                  },
+                  {
+                    category: 'Campus Administration & Logistics (35-44)',
+                    icon: '🏛️',
+                    items: [
+                      '35. Placement Director Command Hub',
+                      '36. 1-Click NAAC Grade A+ Exports',
+                      '37. 1-Click NIRF Employability Reports',
+                      '38. Faculty & Advisor Operations Desk',
+                      '39. Batch Attendance & Roll-Call Portal',
+                      '40. PinIT Examination Engine',
+                      '41. Hostel Room Allocation Manager',
+                      '42. Route-Based Transport Logistics',
+                      '43. RFID Library Cataloguing Desk',
+                      '44. Finance & Fee Transparency Ledger'
+                    ]
+                  },
+                  {
+                    category: 'Enterprise Hiring & Multi-Stakeholders (45-54)',
+                    icon: '💼',
+                    items: [
+                      '45. Recruiter Candidate Search Engine',
+                      '46. 95%+ AI Match Score Filtering',
+                      '47. Zero-Resume Plagiarism Audit',
+                      '48. 1-Click Interview Invitations',
+                      '49. Integrated Placement CRM',
+                      '50. Automated Offer Letter Delivery',
+                      '51. Parent Progress & Finance Portal',
+                      '52. Consultant 1-on-1 Advisory Desk',
+                      '53. Alumni Mentorship Directory',
+                      '54. Security Sentinel & Audit Log Trail'
+                    ]
+                  }
+                ].map((cat) => (
+                  <div
+                    key={cat.category}
+                    style={{
+                      padding: '20px',
+                      borderRadius: '16px',
+                      background: 'color-mix(in srgb, var(--bg-card) 60%, transparent)',
+                      border: '1px solid var(--border-color)'
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
+                      <span style={{ fontSize: '20px' }}>{cat.icon}</span>
+                      <h4 style={{ fontSize: '15px', fontWeight: 800, color: 'var(--text-primary)' }}>
+                        {cat.category}
+                      </h4>
+                    </div>
+                    <ul style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '7px',
+                      fontSize: '12.5px',
+                      color: 'var(--text-secondary)',
+                      paddingLeft: '4px'
+                    }}>
+                      {cat.items.map((item) => (
+                        <li key={item} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                          <span style={{ color: 'var(--accent)', fontSize: '10px' }}>▸</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -636,8 +1032,604 @@ function LandingContent() {
           </div>
         </section>
 
-        {/* 5. AI-POWERED ROADMAP EXPERIENCE SECTION */}
-        <section id="ai-roadmap" className="ai-roadmap-section section-padding">
+        {/* 5. COMPLETE APP FEATURE ARCHITECTURE & INTERACTIVE PRODUCT SANDBOX */}
+        <section id="features" className="brief-identity section-padding">
+          <div className="container">
+            <div className="text-center mb-10">
+              <span className="tag-pill-sub">Interactive Product Sandbox</span>
+              <h2 className="section-title-lg mt-2 mb-4">Experience Every Engine Inside PinitCareer</h2>
+              <p className="section-desc max-w-2xl">
+                Click across the interactive tabs below to preview the exact working HUDs, simulators, AI arenas, and tools built into the platform.
+              </p>
+            </div>
+
+            {/* Interactive Sandbox Tab Selector */}
+            <div style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '8px',
+              justifyContent: 'center',
+              marginBottom: '32px',
+              background: 'color-mix(in srgb, var(--bg-card-solid) 80%, transparent)',
+              padding: '6px',
+              borderRadius: '16px',
+              border: '1px solid var(--border-color)'
+            }}>
+              {[
+                { id: 'dashboard', label: '📱 Student OS HUD', icon: '⚡' },
+                { id: 'attention', label: '🧠 Focus & Attention Gym', icon: '🎯' },
+                { id: 'missions', label: '🚨 Crisis Roleplay Terminal', icon: '🛡️' },
+                { id: 'gd', label: '🎙️ Group Discussion Arena', icon: '🗣️' },
+                { id: 'interview', label: '🤖 AI Avatar Interview Room', icon: '👔' },
+                { id: 'vault', label: '🔒 Proof Vault & ATS Optimizer', icon: '📜' },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setActiveAppTab(tab.id as any)}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    padding: '10px 18px',
+                    borderRadius: '12px',
+                    fontSize: '13px',
+                    fontWeight: 750,
+                    border: 'none',
+                    cursor: 'pointer',
+                    background: activeAppTab === tab.id
+                      ? 'linear-gradient(135deg, #5ad0ff, #0077cc)'
+                      : 'transparent',
+                    color: activeAppTab === tab.id ? '#041018' : 'var(--text-secondary)',
+                    boxShadow: activeAppTab === tab.id ? '0 4px 16px rgba(0, 163, 255, 0.3)' : 'none',
+                    transition: 'all 0.2s ease'
+                  }}
+                >
+                  <span>{tab.label}</span>
+                </button>
+              ))}
+            </div>
+
+            {/* Active Sandbox Viewport Card */}
+            <div className="glass-card" style={{ padding: '36px', border: '1px solid var(--border-color)', minHeight: '440px', marginBottom: '48px' }}>
+              {activeAppTab === 'dashboard' && (
+                <div style={{ animation: 'fadeInUp 0.3s ease' }}>
+                  {/* Dashboard Header HUD Preview */}
+                  <div style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: '16px',
+                    paddingBottom: '20px',
+                    borderBottom: '1px solid var(--border-color)',
+                    marginBottom: '24px'
+                  }}>
+                    <div>
+                      <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                        STUDENT CAREER HUD · LEVEL 4
+                      </span>
+                      <h3 style={{ fontSize: '22px', fontWeight: 900, color: 'var(--text-primary)', marginTop: '4px' }}>
+                        Arjun Sharma <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-secondary)' }}>(B.Tech CSE)</span>
+                      </h3>
+                    </div>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                      <span style={{ padding: '6px 14px', borderRadius: '999px', background: 'rgba(0, 163, 255, 0.12)', color: 'var(--accent)', fontSize: '12px', fontWeight: 800 }}>
+                        ⚡ 2,450 XP (Tier: Industry Ready)
+                      </span>
+                      <span style={{ padding: '6px 14px', borderRadius: '999px', background: 'rgba(245, 158, 11, 0.12)', color: '#F59E0B', fontSize: '12px', fontWeight: 800 }}>
+                        🔥 7-Day Streak Active
+                      </span>
+                      <span style={{ padding: '6px 14px', borderRadius: '999px', background: 'rgba(16, 185, 129, 0.12)', color: '#10B981', fontSize: '12px', fontWeight: 800 }}>
+                        🪙 50 Pins Available
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* 3 Interactive Daily Quest Actions */}
+                  <h4 style={{ fontSize: '14px', fontWeight: 800, color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '14px' }}>
+                    ⚡ What To Do Today — AI Priority Queue
+                  </h4>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
+                    <div style={{ padding: '18px', borderRadius: '16px', background: 'var(--bg-card-solid)', border: '1px solid var(--border-color)' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                        <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--accent)' }}>QUEST TRACK</span>
+                        <span style={{ fontSize: '11px', fontWeight: 700, color: '#10B981' }}>+40 XP</span>
+                      </div>
+                      <strong style={{ fontSize: '15px', display: 'block', color: 'var(--text-primary)', marginBottom: '6px' }}>
+                        Redis Distributed Cache Eviction
+                      </strong>
+                      <p style={{ fontSize: '12.5px', color: 'var(--text-secondary)', marginBottom: '14px' }}>
+                        Interactive code editor exercise with automated test validation.
+                      </p>
+                      <button type="button" className="pc-btn-outline" style={{ padding: '6px 14px', fontSize: '12px', width: '100%', justifyContent: 'center' }} onClick={handleLoginClick}>
+                        Launch Quest in IDE →
+                      </button>
+                    </div>
+
+                    <div style={{ padding: '18px', borderRadius: '16px', background: 'var(--bg-card-solid)', border: '1px solid var(--border-color)' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                        <span style={{ fontSize: '11px', fontWeight: 800, color: '#F59E0B' }}>CRISIS MISSION</span>
+                        <span style={{ fontSize: '11px', fontWeight: 700, color: '#10B981' }}>+10 PINS</span>
+                      </div>
+                      <strong style={{ fontSize: '15px', display: 'block', color: 'var(--text-primary)', marginBottom: '6px' }}>
+                        UPI Double-Posting Incident
+                      </strong>
+                      <p style={{ fontSize: '12.5px', color: 'var(--text-secondary)', marginBottom: '14px' }}>
+                        Live high-pressure simulation: 40 minutes before RBI audit window closes.
+                      </p>
+                      <button type="button" className="pc-btn-primary" style={{ padding: '6px 14px', fontSize: '12px', width: '100%', justifyContent: 'center' }} onClick={() => setActiveAppTab('missions')}>
+                        Enter Incident Terminal →
+                      </button>
+                    </div>
+
+                    <div style={{ padding: '18px', borderRadius: '16px', background: 'var(--bg-card-solid)', border: '1px solid var(--border-color)' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                        <span style={{ fontSize: '11px', fontWeight: 800, color: '#EC4899' }}>COGNITIVE GYM</span>
+                        <span style={{ fontSize: '11px', fontWeight: 700, color: '#10B981' }}>+15 XP</span>
+                      </div>
+                      <strong style={{ fontSize: '15px', display: 'block', color: 'var(--text-primary)', marginBottom: '6px' }}>
+                        LogicCircuit Attention Calibration
+                      </strong>
+                      <p style={{ fontSize: '12.5px', color: 'var(--text-secondary)', marginBottom: '14px' }}>
+                        3-minute neuro-reaction test to optimize focus and working memory.
+                      </p>
+                      <button type="button" className="pc-btn-outline" style={{ padding: '6px 14px', fontSize: '12px', width: '100%', justifyContent: 'center' }} onClick={() => setActiveAppTab('attention')}>
+                        Test Cognitive Focus →
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {activeAppTab === 'attention' && (
+                <div style={{ animation: 'fadeInUp 0.3s ease' }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
+                    <div>
+                      <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                        GAMIFIED ATTENTION &amp; NEURO-REFLEX ENGINE
+                      </span>
+                      <h3 style={{ fontSize: '22px', fontWeight: 900, color: 'var(--text-primary)', marginTop: '4px' }}>
+                        Cognitive Attention Span Gym
+                      </h3>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-secondary)' }}>Difficulty:</span>
+                      {(['easy', 'medium', 'hard'] as const).map((d) => (
+                        <button
+                          key={d}
+                          type="button"
+                          onClick={() => setInteractiveGameDiff(d)}
+                          style={{
+                            padding: '4px 12px',
+                            borderRadius: '8px',
+                            fontSize: '11px',
+                            fontWeight: 800,
+                            border: '1px solid var(--border-color)',
+                            background: interactiveGameDiff === d ? 'var(--accent)' : 'transparent',
+                            color: interactiveGameDiff === d ? '#041018' : 'var(--text-primary)',
+                            cursor: 'pointer',
+                            textTransform: 'uppercase'
+                          }}
+                        >
+                          {d}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Realtime Attention Scoreboard */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '14px', marginBottom: '24px' }}>
+                    <div style={{ padding: '16px', borderRadius: '14px', background: 'var(--bg-card-solid)', border: '1px solid var(--border-color)', textAlign: 'center' }}>
+                      <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Focus Score</span>
+                      <div style={{ fontSize: '28px', fontWeight: 900, color: '#10B981', marginTop: '4px' }}>88 / 100</div>
+                      <span style={{ fontSize: '11px', color: 'var(--text-secondary)' }}>Peak Flow State</span>
+                    </div>
+                    <div style={{ padding: '16px', borderRadius: '14px', background: 'var(--bg-card-solid)', border: '1px solid var(--border-color)', textAlign: 'center' }}>
+                      <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Reaction Latency</span>
+                      <div style={{ fontSize: '28px', fontWeight: 900, color: 'var(--accent)', marginTop: '4px' }}>{interactiveReflexTime} ms</div>
+                      <span style={{ fontSize: '11px', color: 'var(--text-secondary)' }}>Top 5% Reflexes</span>
+                    </div>
+                    <div style={{ padding: '16px', borderRadius: '14px', background: 'var(--bg-card-solid)', border: '1px solid var(--border-color)', textAlign: 'center' }}>
+                      <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Cognitive Endurance</span>
+                      <div style={{ fontSize: '28px', fontWeight: 900, color: '#F59E0B', marginTop: '4px' }}>94.2%</div>
+                      <span style={{ fontSize: '11px', color: 'var(--text-secondary)' }}>Zero Attention Decay</span>
+                    </div>
+                  </div>
+
+                  {/* Interactive Reaction Tester */}
+                  <div style={{ padding: '24px', borderRadius: '18px', background: 'color-mix(in srgb, var(--accent) 8%, var(--bg-card-solid))', border: '1.5px dashed var(--accent)', textAlign: 'center' }}>
+                    <h4 style={{ fontSize: '16px', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '8px' }}>
+                      ⚡ Interactive Live Reflex Calibrator
+                    </h4>
+                    <p style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '16px', maxWidth: '520px', margin: '0 auto 16px' }}>
+                      Click the button below rapidly to test and recalibrate your real-time neural reaction latency!
+                    </p>
+                    <button
+                      type="button"
+                      className="pc-btn-primary"
+                      onClick={() => setInteractiveReflexTime(Math.floor(180 + Math.random() * 45))}
+                      style={{ padding: '12px 28px', fontSize: '14px' }}
+                    >
+                      ⚡ Tap to Measure Reflexes ({interactiveReflexTime}ms)
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {activeAppTab === 'missions' && (
+                <div style={{ animation: 'fadeInUp 0.3s ease' }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '16px', marginBottom: '20px' }}>
+                    <div>
+                      <span style={{ fontSize: '11px', fontWeight: 800, color: '#EF4444', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                        LIVE INCIDENT CRISIS SIMULATOR · SYSTEM ARCHITECTURE
+                      </span>
+                      <h3 style={{ fontSize: '22px', fontWeight: 900, color: 'var(--text-primary)', marginTop: '4px' }}>
+                        Incident #784: UPI Settlement Cascade Outage
+                      </h3>
+                    </div>
+                    <span style={{ padding: '6px 14px', borderRadius: '999px', background: 'rgba(239, 68, 68, 0.12)', color: '#EF4444', fontSize: '12px', fontWeight: 800 }}>
+                      ⏳ 40 Mins to RBI Audit Window
+                    </span>
+                  </div>
+
+                  {/* Terminal Message Box */}
+                  <div style={{
+                    padding: '20px',
+                    borderRadius: '16px',
+                    background: '#040711',
+                    border: '1px solid rgba(255,255,255,0.08)',
+                    fontFamily: 'var(--font-mono, monospace)',
+                    fontSize: '13px',
+                    lineHeight: '1.7',
+                    marginBottom: '20px',
+                    color: '#94A3B8'
+                  }}>
+                    <div style={{ color: '#00A3FF', fontWeight: 700, marginBottom: '6px' }}>
+                      [TERMINAL LOG] System Alert: 14,200 Double-Credit Webhooks Detected on Redis Queue #02
+                    </div>
+                    <p style={{ color: '#F1F5F9', marginBottom: '8px' }}>
+                      <strong style={{ color: '#F59E0B' }}>Mr. Rajesh (Teammate):</strong> &quot;The settlement ledger is double-crediting accounts! If we force restart the container cluster, we risk losing in-flight transaction states. What is your call?!&quot;
+                    </p>
+                  </div>
+
+                  {/* Interactive Branching Choices */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    {[
+                      {
+                        idx: 0,
+                        title: 'Option A: Drain downstream queues, isolate idempotency keys, and commit ledger snapshot',
+                        delta: '+15 QT2 (Extreme Ownership)',
+                        archetype: 'System 2 Analytical Thinking · High Agency'
+                      },
+                      {
+                        idx: 1,
+                        title: 'Option B: Hard-reboot cluster and restore from 2:00 AM database backup',
+                        delta: '-10 QT2 (State Loss)',
+                        archetype: 'Loss Aversion Trap · High Blast Radius'
+                      },
+                      {
+                        idx: 2,
+                        title: 'Option C: Escalate directly to VP of Engineering without log triage',
+                        delta: '-20 QT2 (Panic Trap)',
+                        archetype: 'Authority Bias · Diffused Responsibility'
+                      }
+                    ].map((opt) => (
+                      <div
+                        key={opt.idx}
+                        onClick={() => setInteractiveCrisisChoice(opt.idx)}
+                        style={{
+                          padding: '14px 18px',
+                          borderRadius: '14px',
+                          background: interactiveCrisisChoice === opt.idx ? 'rgba(0, 163, 255, 0.12)' : 'var(--bg-card-solid)',
+                          border: interactiveCrisisChoice === opt.idx ? '1.5px solid var(--accent)' : '1px solid var(--border-color)',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          flexWrap: 'wrap',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          gap: '10px',
+                          transition: 'all 0.2s ease'
+                        }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                          <span style={{
+                            width: '24px',
+                            height: '24px',
+                            borderRadius: '50%',
+                            display: 'grid',
+                            placeItems: 'center',
+                            background: interactiveCrisisChoice === opt.idx ? 'var(--accent)' : 'rgba(255,255,255,0.06)',
+                            color: interactiveCrisisChoice === opt.idx ? '#041018' : 'var(--text-secondary)',
+                            fontWeight: 800,
+                            fontSize: '11px'
+                          }}>
+                            {String.fromCharCode(65 + opt.idx)}
+                          </span>
+                          <span style={{ fontSize: '13.5px', fontWeight: 650, color: 'var(--text-primary)' }}>
+                            {opt.title}
+                          </span>
+                        </div>
+                        <div style={{ display: 'flex', gap: '8px' }}>
+                          <span style={{ fontSize: '11.5px', fontWeight: 800, color: opt.delta.startsWith('+') ? '#10B981' : '#EF4444' }}>
+                            {opt.delta}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {activeAppTab === 'gd' && (
+                <div style={{ animation: 'fadeInUp 0.3s ease' }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '16px', marginBottom: '20px' }}>
+                    <div>
+                      <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                        5-PERSON AI GROUP DISCUSSION ARENA
+                      </span>
+                      <h3 style={{ fontSize: '22px', fontWeight: 900, color: 'var(--text-primary)', marginTop: '4px' }}>
+                        Live GD Simulation: High-Frequency Algorithms vs Human Oversight
+                      </h3>
+                    </div>
+                    <span style={{ padding: '6px 14px', borderRadius: '999px', background: 'rgba(0, 163, 255, 0.12)', color: 'var(--accent)', fontSize: '12px', fontWeight: 800 }}>
+                      🎙️ Turn Timer: 00:12s (Speaking)
+                    </span>
+                  </div>
+
+                  {/* Meeting Room Grid */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px', marginBottom: '24px' }}>
+                    {[
+                      { name: 'Ms. Priya', role: 'Host & Moderator', status: 'Speaking Now...', color: '#7C3AED', isSpeaking: true },
+                      { name: 'Mr. Akash', role: 'Panelist (Proactive)', status: 'Listening', color: '#0891B2', isSpeaking: false },
+                      { name: 'Ms. Aisha', role: 'Panelist (Structured)', status: 'Listening', color: '#6366F1', isSpeaking: false },
+                      { name: 'Mr. Rohan', role: 'Panelist (Technical)', status: 'Listening', color: '#EF4444', isSpeaking: false },
+                      { name: 'You (Arjun)', role: 'Candidate', status: 'Mic Ready', color: '#10B981', isSpeaking: false }
+                    ].map((user) => (
+                      <div
+                        key={user.name}
+                        style={{
+                          padding: '16px',
+                          borderRadius: '16px',
+                          background: 'var(--bg-card-solid)',
+                          border: user.isSpeaking ? `2px solid ${user.color}` : '1px solid var(--border-color)',
+                          textAlign: 'center',
+                          position: 'relative'
+                        }}
+                      >
+                        <div style={{
+                          width: '48px',
+                          height: '48px',
+                          borderRadius: '50%',
+                          background: user.color,
+                          color: '#FFF',
+                          display: 'grid',
+                          placeItems: 'center',
+                          fontSize: '18px',
+                          fontWeight: 800,
+                          margin: '0 auto 10px'
+                        }}>
+                          {user.name.slice(0, 2)}
+                        </div>
+                        <strong style={{ fontSize: '14px', display: 'block', color: 'var(--text-primary)' }}>{user.name}</strong>
+                        <span style={{ fontSize: '11px', color: 'var(--text-secondary)', display: 'block', marginTop: '2px' }}>{user.role}</span>
+                        <span style={{ fontSize: '11px', fontWeight: 700, color: user.isSpeaking ? 'var(--accent)' : 'var(--text-tertiary)', marginTop: '6px', display: 'block' }}>
+                          {user.status}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Realtime GD Evaluation Matrix */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '12px' }}>
+                    {[
+                      { metric: 'Assertiveness', score: '85%', grade: 'High Leadership' },
+                      { metric: 'Articulation', score: '90%', grade: 'Clear & Structured' },
+                      { metric: 'Active Listening', score: '92%', grade: 'Synthesizes Points' },
+                      { metric: 'Interruption Management', score: 'A+', grade: 'Zero Over-speaking' }
+                    ].map((m) => (
+                      <div key={m.metric} style={{ padding: '12px 16px', borderRadius: '12px', background: 'var(--bg-card-solid)', border: '1px solid var(--border-color)' }}>
+                        <span style={{ fontSize: '11px', color: 'var(--text-secondary)', textTransform: 'uppercase' }}>{m.metric}</span>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginTop: '4px' }}>
+                          <strong style={{ fontSize: '18px', color: 'var(--text-primary)' }}>{m.score}</strong>
+                          <span style={{ fontSize: '11px', color: '#10B981', fontWeight: 700 }}>{m.grade}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {activeAppTab === 'interview' && (
+                <div style={{ animation: 'fadeInUp 0.3s ease' }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '16px', marginBottom: '20px' }}>
+                    <div>
+                      <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                        1-ON-1 AI AVATAR MOCK INTERVIEW ROOM
+                      </span>
+                      <h3 style={{ fontSize: '22px', fontWeight: 900, color: 'var(--text-primary)', marginTop: '4px' }}>
+                        Technical System Design &amp; DSA Grilling
+                      </h3>
+                    </div>
+                    <span style={{ padding: '6px 14px', borderRadius: '999px', background: 'rgba(16, 185, 129, 0.12)', color: '#10B981', fontSize: '12px', fontWeight: 800 }}>
+                      Live AI Speech Griller Active
+                    </span>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '20px' }}>
+                    <div style={{ padding: '20px', borderRadius: '16px', background: 'var(--bg-card-solid)', border: '1px solid var(--border-color)' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
+                        <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: '#7C3AED', color: '#FFF', display: 'grid', placeItems: 'center', fontWeight: 800 }}>
+                          P
+                        </div>
+                        <div>
+                          <strong style={{ fontSize: '14px', color: 'var(--text-primary)' }}>Ms. Priya (AI Interviewer)</strong>
+                          <span style={{ fontSize: '11px', color: 'var(--text-secondary)', display: 'block' }}>Senior Technical Lead</span>
+                        </div>
+                      </div>
+                      <p style={{ fontSize: '14px', color: 'var(--text-primary)', lineHeight: '1.6', marginBottom: '14px' }}>
+                        &quot;Let us discuss cache coherence. When scaling your write-heavy service to 50,000 requests/sec, how do you handle cache stampede and TTL eviction without degrading database connection pools?&quot;
+                      </p>
+                      <div style={{ padding: '12px', borderRadius: '10px', background: 'rgba(0, 163, 255, 0.08)', border: '1px solid rgba(0, 163, 255, 0.2)', fontSize: '12.5px', color: 'var(--accent)' }}>
+                        <strong>Live Speech Metric:</strong> 138 WPM Pace · 0 Filler Words · Strong Technical Confidence
+                      </div>
+                    </div>
+
+                    <div style={{ padding: '20px', borderRadius: '16px', background: 'var(--bg-card-solid)', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                      <div>
+                        <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Interview Scorecard</span>
+                        <div style={{ fontSize: '32px', fontWeight: 900, color: '#10B981', margin: '8px 0 12px' }}>
+                          9.2 <span style={{ fontSize: '16px', color: 'var(--text-secondary)' }}>/ 10</span>
+                        </div>
+                        <ul style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12.5px', color: 'var(--text-secondary)' }}>
+                          <li>✓ System Architecture: 8.8/10</li>
+                          <li>✓ Coding Edge Cases: 9.4/10</li>
+                          <li>✓ Communication &amp; EQ: 9.5/10</li>
+                        </ul>
+                      </div>
+                      <button type="button" className="pc-btn-primary" style={{ width: '100%', justifyContent: 'center', marginTop: '14px' }} onClick={handleLoginClick}>
+                        Start AI Mock Session →
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {activeAppTab === 'vault' && (
+                <div style={{ animation: 'fadeInUp 0.3s ease' }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '16px', marginBottom: '20px' }}>
+                    <div>
+                      <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                        CRYPTOGRAPHIC PROOF VAULT &amp; ATS OPTIMIZER
+                      </span>
+                      <h3 style={{ fontSize: '22px', fontWeight: 900, color: 'var(--text-primary)', marginTop: '4px' }}>
+                        Verifiable Proof-of-Work &amp; Resume Intelligence
+                      </h3>
+                    </div>
+                    <span style={{ padding: '6px 14px', borderRadius: '999px', background: 'rgba(16, 185, 129, 0.12)', color: '#10B981', fontSize: '12px', fontWeight: 800 }}>
+                      94% ATS Match Score (Top 2%)
+                    </span>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '18px' }}>
+                    <div style={{ padding: '20px', borderRadius: '16px', background: 'var(--bg-card-solid)', border: '1px solid var(--border-color)' }}>
+                      <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase' }}>SHA-256 Verified Credentials</span>
+                      <strong style={{ fontSize: '16px', display: 'block', color: 'var(--text-primary)', margin: '8px 0 6px' }}>
+                        Full-Stack Microservices Architecture
+                      </strong>
+                      <p style={{ fontSize: '12.5px', color: 'var(--text-secondary)', marginBottom: '12px' }}>
+                        Verified via automated GitHub test suites and code-audit AST parser.
+                      </p>
+                      <div style={{ padding: '8px 12px', borderRadius: '8px', background: '#040711', fontFamily: 'var(--font-mono, monospace)', fontSize: '11px', color: '#10B981', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        Hash: 0x7F9B8A2C91D4E3F8...4C1E
+                      </div>
+                    </div>
+
+                    <div style={{ padding: '20px', borderRadius: '16px', background: 'var(--bg-card-solid)', border: '1px solid var(--border-color)' }}>
+                      <span style={{ fontSize: '11px', fontWeight: 800, color: '#F59E0B', textTransform: 'uppercase' }}>ATS Keyword Gap Optimizer</span>
+                      <strong style={{ fontSize: '16px', display: 'block', color: 'var(--text-primary)', margin: '8px 0 6px' }}>
+                        3 Missing High-Impact Keywords Identified
+                      </strong>
+                      <p style={{ fontSize: '12.5px', color: 'var(--text-secondary)', marginBottom: '12px' }}>
+                        Targeting Senior SDE Roles at Google, Microsoft, and Amazon.
+                      </p>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                        <span style={{ padding: '4px 8px', borderRadius: '6px', background: 'rgba(16, 185, 129, 0.15)', color: '#10B981', fontSize: '11px', fontWeight: 700 }}>+ Distributed Systems</span>
+                        <span style={{ padding: '4px 8px', borderRadius: '6px', background: 'rgba(16, 185, 129, 0.15)', color: '#10B981', fontSize: '11px', fontWeight: 700 }}>+ gRPC &amp; Protobuf</span>
+                        <span style={{ padding: '4px 8px', borderRadius: '6px', background: 'rgba(16, 185, 129, 0.15)', color: '#10B981', fontSize: '11px', fontWeight: 700 }}>+ CI/CD Pipeline</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Complete 8-Module Feature Architecture Cards */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+              gap: '20px'
+            }}>
+              {[
+                {
+                  num: '01',
+                  title: 'AI Dynamic Roadmaps & S-Curve Paths',
+                  desc: 'Multi-roadmap tab builder, personalized weekly milestone timelines, skill gap detection, and real-time pacing adjustments.'
+                },
+                {
+                  num: '02',
+                  title: '24/7 Voice AI Avatar Mentorship',
+                  desc: 'Real-time speech dialogue with Ms. Priya (EQ & Communication Coach) and Mr. Akash (Architecture & Technical Grilling).'
+                },
+                {
+                  num: '03',
+                  title: 'Interactive Coding Quests & Lessons',
+                  desc: 'Granular chapter-by-chapter exercises, browser-based code verification, and persistent S-curve progress tracking.'
+                },
+                {
+                  num: '04',
+                  title: 'AI Group Discussion Debate Arena',
+                  desc: 'Simulated 5-person multi-avatar roundtables, turn-taking speech cadence, and real-time leadership scoring.'
+                },
+                {
+                  num: '05',
+                  title: 'Roleplay Crisis Incident Simulators',
+                  desc: 'High-pressure incident roleplay (UPI payment cascade, SSO lockout, PII leak) tested against top mental models.'
+                },
+                {
+                  num: '06',
+                  title: 'Global Code Wars & Tournaments',
+                  desc: '1v1 algorithmic duels, daily streak multipliers, global XP ranking ladders, weekly hackathons, and bug bounties.'
+                },
+                {
+                  num: '07',
+                  title: 'Cryptographic Skill Passports & Vault',
+                  desc: 'Verifiable proof-of-work project vault, GitHub repository audits, and tamper-proof skill credential hashes.'
+                },
+                {
+                  num: '08',
+                  title: 'Campus Placement & Recruiter OS',
+                  desc: 'Placement director cohort dashboards, NAAC Grade A+ & NIRF 1-click reports, and 95% AI match candidate shortlisting.'
+                }
+              ].map((feature) => (
+                <div
+                  key={feature.num}
+                  className="glass-card"
+                  style={{
+                    padding: '24px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    border: '1px solid var(--border-color)',
+                    transition: 'transform 0.25s ease, border-color 0.25s ease'
+                  }}
+                >
+                  <div>
+                    <div style={{
+                      display: 'inline-block',
+                      fontFamily: 'var(--font-mono, monospace)',
+                      fontSize: '12px',
+                      fontWeight: 800,
+                      color: 'var(--accent)',
+                      marginBottom: '12px'
+                    }}>
+                      FEATURE {feature.num}
+                    </div>
+                    <h3 style={{ fontSize: '17px', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '10px', lineHeight: '1.3' }}>
+                      {feature.title}
+                    </h3>
+                    <p style={{ fontSize: '13.5px', color: 'var(--text-secondary)', lineHeight: '1.6' }}>
+                      {feature.desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 6. AI-POWERED ROADMAP EXPERIENCE SECTION */}
+        <section id="ai-roadmap" className="ai-roadmap-section section-padding alt-bg">
           <div className="container">
             <h2 className="mb-8 text-left section-title-lg">AI-Powered Roadmap Experience</h2>
             <div className="roadmap-experience-grid">
@@ -919,7 +1911,359 @@ function LandingContent() {
           </div>
         </section>
 
-        {/* 8. IDENTITY BAR — signals from the brief, not invented metrics */}
+        {/* 8. TRANSPARENT PRICING & PIN ECONOMY SECTION */}
+        <section id="pricing" className="pricing-section section-padding alt-bg">
+          <div className="container">
+            <div className="text-center mb-10">
+              <span className="tag-pill-sub">Plans &amp; Pin Economy</span>
+              <h2 className="section-title-lg mt-2 mb-4">Transparent Plans for Every Ambition</h2>
+              <p className="section-desc max-w-2xl">
+                Start completely free. Earn Pins by solving missions and building real projects, or unlock institutional power for your entire campus.
+              </p>
+            </div>
+
+            {/* Pricing Cards Grid */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: '24px',
+              marginBottom: '48px'
+            }}>
+              {/* Student Free */}
+              <div className="glass-card" style={{
+                padding: '32px 28px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                border: '1px solid var(--border-color)',
+                position: 'relative'
+              }}>
+                <div>
+                  <span style={{ fontSize: '12px', fontWeight: 800, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Student Free</span>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', margin: '12px 0 16px' }}>
+                    <span style={{ fontSize: '40px', fontWeight: 900, color: 'var(--text-primary)' }}>₹0</span>
+                    <span style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>/ forever</span>
+                  </div>
+                  <p style={{ fontSize: '14px', color: 'var(--text-secondary)', marginBottom: '24px', lineHeight: '1.6' }}>
+                    Everything you need to discover your strengths, generate your personalized roadmap, and join student communities.
+                  </p>
+                  <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '32px' }}>
+                    {[
+                      '50 Starter Pins upon signup',
+                      'Full AI Career Identity Assessment',
+                      'Personalized S-Curve Learning Roadmaps',
+                      'Basic AI Mentor Doubt Solving',
+                      'Peer Code Wars & Leaderboard Access'
+                    ].map((item) => (
+                      <li key={item} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13.5px', color: 'var(--text-primary)' }}>
+                        <span style={{ color: 'var(--accent)', fontWeight: 800 }}>✓</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <button type="button" className="pc-btn-outline" style={{ width: '100%', justifyContent: 'center' }} onClick={handleLoginClick}>
+                  Start free forever
+                </button>
+              </div>
+
+              {/* Pro Career Pass (Highlighted) */}
+              <div className="glass-card" style={{
+                padding: '32px 28px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                border: '1.5px solid var(--accent)',
+                position: 'relative',
+                boxShadow: '0 20px 48px rgba(0, 163, 255, 0.2)'
+              }}>
+                <div style={{
+                  position: 'absolute',
+                  top: '-12px',
+                  right: '24px',
+                  background: 'linear-gradient(135deg, #5ad0ff, #0077cc)',
+                  color: '#041018',
+                  padding: '4px 12px',
+                  borderRadius: '999px',
+                  fontSize: '11px',
+                  fontWeight: 800,
+                  letterSpacing: '0.05em',
+                  textTransform: 'uppercase'
+                }}>
+                  Most popular
+                </div>
+                <div>
+                  <span style={{ fontSize: '12px', fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Pro Career Pass</span>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', margin: '12px 0 16px' }}>
+                    <span style={{ fontSize: '40px', fontWeight: 900, color: 'var(--text-primary)' }}>₹499</span>
+                    <span style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>/ month or ₹99 pin packs</span>
+                  </div>
+                  <p style={{ fontSize: '14px', color: 'var(--text-secondary)', marginBottom: '24px', lineHeight: '1.6' }}>
+                    For ambitious students aiming for top-tier tech roles, high-paying placements, and 1-on-1 AI interview coaching.
+                  </p>
+                  <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '32px' }}>
+                    {[
+                      'Unlimited AI Mock Interviews with Live Feedback',
+                      '24/7 Voice AI Avatar Guidance (Priya & Akash)',
+                      'ATS Resume Builder & Instant Gap Optimizer',
+                      'Cryptographic Skill Passport Verification',
+                      'Direct Recruiter Priority Matching'
+                    ].map((item) => (
+                      <li key={item} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13.5px', color: 'var(--text-primary)' }}>
+                        <span style={{ color: 'var(--accent)', fontWeight: 800 }}>✓</span>
+                        <span style={{ fontWeight: 600 }}>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <button type="button" className="pc-btn-primary" style={{ width: '100%', justifyContent: 'center' }} onClick={handleLoginClick}>
+                  Unlock Pro features →
+                </button>
+              </div>
+
+              {/* Enterprise Campus */}
+              <div className="glass-card" style={{
+                padding: '32px 28px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                border: '1px solid var(--border-color)',
+                position: 'relative'
+              }}>
+                <div>
+                  <span style={{ fontSize: '12px', fontWeight: 800, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Campus Operating System</span>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', margin: '12px 0 16px' }}>
+                    <span style={{ fontSize: '32px', fontWeight: 900, color: 'var(--text-primary)' }}>Institutional</span>
+                    <span style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>/ custom</span>
+                  </div>
+                  <p style={{ fontSize: '14px', color: 'var(--text-secondary)', marginBottom: '24px', lineHeight: '1.6' }}>
+                    Empower your entire college or university with centralized employability tracking, automated NAAC/NIRF reporting, and recruiter drives.
+                  </p>
+                  <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '32px' }}>
+                    {[
+                      'Full Campus Placement Director Dashboard',
+                      'Real-time Cohort Skill & Employability Analytics',
+                      '1-Click NAAC Grade A+ & NIRF Placement Exports',
+                      'Custom Campus Hackathons & Code Battle Arenas',
+                      'Dedicated Account Manager & Campus Integration'
+                    ].map((item) => (
+                      <li key={item} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13.5px', color: 'var(--text-primary)' }}>
+                        <span style={{ color: 'var(--accent)', fontWeight: 800 }}>✓</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <button
+                  type="button"
+                  className="pc-btn-outline"
+                  style={{ width: '100%', justifyContent: 'center' }}
+                  onClick={() => document.getElementById('campus-demo')?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                  Schedule campus demo
+                </button>
+              </div>
+            </div>
+
+            {/* How to Earn Free Pins Box */}
+            <div className="glass-card" style={{ padding: '28px 32px' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '16px', marginBottom: '20px' }}>
+                <div>
+                  <h3 style={{ fontSize: '18px', fontWeight: 800, color: 'var(--text-primary)' }}>⚡ Always Free to Earn: The Pin Economy</h3>
+                  <p style={{ fontSize: '13.5px', color: 'var(--text-secondary)', marginTop: '4px' }}>
+                    Students don&apos;t have to pay. Earn Pins continuously by engaging in learning, challenges, and building real skills.
+                  </p>
+                </div>
+                <span className="badge-pill" style={{ margin: 0 }}>No Paywall on Learning</span>
+              </div>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+                gap: '12px'
+              }}>
+                {[
+                  { icon: '⚡', label: 'Complete a Mission', amount: '+10 pins' },
+                  { icon: '📝', label: 'Pass an Exam', amount: '+25 pins' },
+                  { icon: '🎙️', label: 'Mock Interview', amount: '+15 pins' },
+                  { icon: '📚', label: 'Study Session', amount: '+5 pins' },
+                  { icon: '🧬', label: 'Career Onboarding', amount: '+50 pins' },
+                  { icon: '✓', label: 'Vault Item Verified', amount: '+20 pins' },
+                  { icon: '🔥', label: '7-Day Streak Bonus', amount: '+15 pins' },
+                  { icon: '🌅', label: 'Daily Active Login', amount: '+3 pins' },
+                ].map((way) => (
+                  <div
+                    key={way.label}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '12px 14px',
+                      borderRadius: '12px',
+                      background: 'color-mix(in srgb, var(--bg-card-solid) 80%, transparent)',
+                      border: '1px solid var(--border-color)'
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ fontSize: '16px' }}>{way.icon}</span>
+                      <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-primary)' }}>{way.label}</span>
+                    </div>
+                    <span style={{ fontSize: '12px', fontWeight: 800, color: 'var(--accent)' }}>{way.amount}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 9. CAMPUS CONSULTATION & DEMO BOOKING SECTION */}
+        <section id="campus-demo" className="campus-demo-section section-padding">
+          <div className="container" style={{ maxWidth: '880px' }}>
+            <div className="glass-card" style={{ padding: '40px', border: '1px solid var(--border-color)' }}>
+              <div className="text-center mb-8">
+                <span className="tag-pill-sub">Campus Consultation</span>
+                <h2 className="section-title-lg mt-2 mb-2">Transform Your Campus Employability</h2>
+                <p className="section-desc" style={{ maxWidth: '580px', margin: '0 auto' }}>
+                  Are you a Placement Director, Principal, or Corporate Recruiter? Schedule an interactive walkthrough tailored to your institution.
+                </p>
+              </div>
+
+              {demoSubmitted ? (
+                <div style={{ textAlign: 'center', padding: '36px 0', animation: 'fadeInUp 0.4s ease' }}>
+                  <div style={{ fontSize: '48px', marginBottom: '16px' }}>🎉</div>
+                  <h3 style={{ fontSize: '20px', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '8px' }}>
+                    Demo Request Confirmed!
+                  </h3>
+                  <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: '1.6', maxWidth: '460px', margin: '0 auto 24px' }}>
+                    Thank you! Our Institutional Partnerships Team will contact you within 24 hours to schedule your live walkthrough.
+                  </p>
+                  <button
+                    type="button"
+                    className="pc-btn-outline"
+                    onClick={() => setDemoSubmitted(false)}
+                  >
+                    Submit another inquiry
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleDemoSubmit} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    <label style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-secondary)' }}>Your Name *</label>
+                    <input
+                      type="text"
+                      required
+                      value={demoForm.name}
+                      onChange={(e) => setDemoForm((prev) => ({ ...prev, name: e.target.value }))}
+                      placeholder="e.g. Dr. Rajesh Kumar"
+                      style={{
+                        padding: '12px 16px',
+                        borderRadius: '12px',
+                        background: 'var(--bg-card-solid)',
+                        border: '1px solid var(--border-color)',
+                        color: 'var(--text-primary)',
+                        fontSize: '13.5px',
+                        outline: 'none'
+                      }}
+                    />
+                  </div>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    <label style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-secondary)' }}>Official Email *</label>
+                    <input
+                      type="email"
+                      required
+                      value={demoForm.email}
+                      onChange={(e) => setDemoForm((prev) => ({ ...prev, email: e.target.value }))}
+                      placeholder="rajesh.k@university.edu.in"
+                      style={{
+                        padding: '12px 16px',
+                        borderRadius: '12px',
+                        background: 'var(--bg-card-solid)',
+                        border: '1px solid var(--border-color)',
+                        color: 'var(--text-primary)',
+                        fontSize: '13.5px',
+                        outline: 'none'
+                      }}
+                    />
+                  </div>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    <label style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-secondary)' }}>Your Role / Persona</label>
+                    <select
+                      value={demoForm.role}
+                      onChange={(e) => setDemoForm((prev) => ({ ...prev, role: e.target.value }))}
+                      style={{
+                        padding: '12px 16px',
+                        borderRadius: '12px',
+                        background: 'var(--bg-card-solid)',
+                        border: '1px solid var(--border-color)',
+                        color: 'var(--text-primary)',
+                        fontSize: '13.5px',
+                        outline: 'none'
+                      }}
+                    >
+                      <option value="Placement Director / Principal">Placement Director / Head of Placements</option>
+                      <option value="Principal / Dean / HOD">Principal / Dean / HOD</option>
+                      <option value="Corporate Recruiter / HR">Corporate Recruiter / Talent Acquisition</option>
+                      <option value="Student Placement Coordinator">Student Placement Coordinator</option>
+                    </select>
+                  </div>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    <label style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-secondary)' }}>Institution / Company Name</label>
+                    <input
+                      type="text"
+                      value={demoForm.institution}
+                      onChange={(e) => setDemoForm((prev) => ({ ...prev, institution: e.target.value }))}
+                      placeholder="e.g. National Institute of Technology"
+                      style={{
+                        padding: '12px 16px',
+                        borderRadius: '12px',
+                        background: 'var(--bg-card-solid)',
+                        border: '1px solid var(--border-color)',
+                        color: 'var(--text-primary)',
+                        fontSize: '13.5px',
+                        outline: 'none'
+                      }}
+                    />
+                  </div>
+
+                  <div style={{ gridColumn: '1 / -1', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    <label style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-secondary)' }}>Message or Specific Requirements</label>
+                    <textarea
+                      rows={3}
+                      value={demoForm.message}
+                      onChange={(e) => setDemoForm((prev) => ({ ...prev, message: e.target.value }))}
+                      placeholder="Tell us about your batch size, branch, or hiring needs..."
+                      style={{
+                        padding: '12px 16px',
+                        borderRadius: '12px',
+                        background: 'var(--bg-card-solid)',
+                        border: '1px solid var(--border-color)',
+                        color: 'var(--text-primary)',
+                        fontSize: '13.5px',
+                        outline: 'none',
+                        resize: 'vertical'
+                      }}
+                    />
+                  </div>
+
+                  <div style={{ gridColumn: '1 / -1', marginTop: '8px' }}>
+                    <button
+                      type="submit"
+                      disabled={demoLoading}
+                      className="pc-btn-primary"
+                      style={{ width: '100%', justifyContent: 'center', padding: '14px 24px', fontSize: '15px' }}
+                    >
+                      {demoLoading ? 'Submitting request...' : 'Book Campus Consultation & Demo →'}
+                    </button>
+                  </div>
+                </form>
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* 10. IDENTITY BAR — signals from the brief, not invented metrics */}
         <section className="stats-bar-section brief-identity-bar">
           <div className="container">
             <p className="brief-identity-bar-kicker">What actually builds a career identity</p>
@@ -984,11 +2328,12 @@ function LandingContent() {
           <div className="f-col">
             <h4>Platform</h4>
             <ul>
+              <li><a href="#modules">54 Ecosystem Modules</a></li>
+              <li><a href="#features">Interactive Sandbox</a></li>
               <li><a href="#career-identity">Career Identity</a></li>
-              <li><a href="#audiences">Who it&apos;s for</a></li>
               <li><a href="#how-it-works">How it works</a></li>
-              <li><a href="#ai-roadmap">AI Mentor</a></li>
-              <li><a href="#the-problem">The Problem</a></li>
+              <li><a href="#pricing">Pricing &amp; Pin Hub</a></li>
+              <li><a href="#campus-demo">Campus Demo</a></li>
             </ul>
           </div>
           <div className="f-col">

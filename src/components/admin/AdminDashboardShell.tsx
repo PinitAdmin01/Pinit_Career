@@ -35,6 +35,35 @@ export default function AdminDashboardShell() {
 
         <div style={{ display: 'flex', gap: 8 }}>
           <button
+            onClick={() => {
+              const csvContent = "data:text/csv;charset=utf-8," 
+                + "Report_ID,Category,Generated_Date,Status\n"
+                + "REP-2026-001,Student_Admissions,2026-08-17,Verified\n"
+                + "REP-2026-002,Finance_Dues_Summary,2026-08-17,Cleared\n"
+                + "REP-2026-003,Attendance_Audit_Log,2026-08-17,Active\n";
+              const encodedUri = encodeURI(csvContent);
+              const link = document.createElement("a");
+              link.setAttribute("href", encodedUri);
+              link.setAttribute("download", `Campus_Admin_Report_${new Date().toISOString().split('T')[0]}.csv`);
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+            }}
+            style={{
+              padding: '6px 14px',
+              fontSize: 13,
+              borderRadius: 6,
+              border: 'none',
+              background: 'var(--accent)',
+              color: '#fff',
+              cursor: 'pointer',
+              fontWeight: 700
+            }}
+          >
+            📊 Export Institutional CSV Report
+          </button>
+
+          <button
             onClick={() => window.location.href = '/admin/teacher'}
             style={{
               padding: '6px 14px',

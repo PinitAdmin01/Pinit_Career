@@ -45,9 +45,12 @@ def enhance_intonation(text: str) -> str:
         flags=re.IGNORECASE,
     )
 
-    # Replace double hyphens and colons with pause markers
+    # Replace double hyphens with pause markers
     enhanced = re.sub(r"\s*--\s*", "... ", enhanced)
-    enhanced = re.sub(r":\s+", "... ", enhanced)
+
+    # Replace colons that introduce a new clause/sentence (word or sentence after colon).
+    # Excludes: time strings like 10:30, URLs like https://, numeric ratios like 16:9
+    enhanced = re.sub(r"(?<!\d)(?<!https?)(?<!http):\s+(?=[A-Za-z])", "... ", enhanced)
 
     # Clean up double punctuation
     enhanced = re.sub(r",\s*,", ",", enhanced)
@@ -96,8 +99,21 @@ def strip_markdown(text: str) -> str:
     text = re.sub(r"\[([^\]]+)\]\([^\)]+\)", r"\1", text)
     # Remove markdown formatting characters (*, _, `, #) without deleting inner words
     text = re.sub(r"[*`_#~]", "", text)
-    # Remove common emoji and special symbols
-    text = re.sub(r"[✦🤖👋🎯💼🔐🔬⚡✨✓⬡]", "", text)
+    # Remove ALL emoji and pictographic symbols using full Unicode ranges.
+    # This matches the frontend sanitizeForSpeech() behavior.
+    text = re.sub(
+        "["
+        "\U0001F300-\U0001FAFF"  # Misc symbols, emoticons, transport, etc.
+        "\U00002600-\U000027BF"  # Misc symbols, dingbats
+        "\U0000FE00-\U0000FE0F"  # Variation selectors
+        "\U0001F900-\U0001F9FF"  # Supplemental symbols and pictographs
+        "\U00002702-\U000027B0"  # Dingbats
+        "\U000024C2-\U0001F251"  # Enclosed characters
+        "✦✓⬡⚡"                  # Common UI glyphs not in above ranges
+        "]+",
+        "",
+        text,
+    )
     # Collapse multiple whitespace
     text = re.sub(r"\s+", " ", text)
     return text.strip()

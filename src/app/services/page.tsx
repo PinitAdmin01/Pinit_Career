@@ -242,6 +242,65 @@ export default function StudentServicesPortal() {
       <div className="srv-wrapper">
         <h1 className="page-title">💼 Student Services Desk</h1>
 
+        {/* Faculty & Admin Portal Quick Navigation Banner */}
+        <div style={{
+          background: 'linear-gradient(135deg, rgba(79,70,229,0.1), rgba(124,58,237,0.1))',
+          border: '1px solid rgba(79,70,229,0.25)',
+          borderRadius: 14,
+          padding: '14px 20px',
+          marginBottom: 20,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: 12
+        }}>
+          <div>
+            <div style={{ fontWeight: 800, fontSize: 14, color: 'var(--t1, #1e293b)', display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span>👩‍🏫</span> Looking for Staff & Admin Portals?
+            </div>
+            <div style={{ fontSize: 12, color: 'var(--t3, #64748b)', marginTop: 2 }}>
+              Student Services is shown below. Use the quick buttons to open the Faculty or Admin Management Consoles.
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: 10 }}>
+            <a
+              href="/teacher"
+              style={{
+                padding: '8px 14px',
+                borderRadius: 10,
+                background: 'var(--accent, #4f46e5)',
+                color: '#fff',
+                fontWeight: 700,
+                fontSize: 12,
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6
+              }}
+            >
+              👩‍🏫 Launch Teacher Portal
+            </a>
+            <a
+              href="/admin"
+              style={{
+                padding: '8px 14px',
+                borderRadius: 10,
+                background: 'rgba(51, 65, 85, 0.8)',
+                color: '#fff',
+                fontWeight: 700,
+                fontSize: 12,
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6
+              }}
+            >
+              🏬 Launch Admin Console
+            </a>
+          </div>
+        </div>
+
         <div className="grid-split">
           {/* Left Block: Services Selector & Form */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>

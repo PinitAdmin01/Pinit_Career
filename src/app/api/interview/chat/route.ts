@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
+import { sanitizeLLMOutput } from '@/lib/sanitizeLLM';
 
 const INTERVIEWERS_MAP: Record<string, { name: string; role: string; nature: string }> = {
   vikram: {
@@ -126,7 +127,8 @@ export async function POST(req: Request) {
       reply = `Thank you. Could you elaborate further on your experience with ${subTopic}? — ${selectedInterviewer.name}`;
     }
 
-    return NextResponse.json({ reply });
+    const sanitizedReply = sanitizeLLMOutput(reply);
+    return NextResponse.json({ reply: sanitizedReply });
   } catch (err: any) {
     return NextResponse.json({ error: err.message || 'Server error' }, { status: 500 });
   }

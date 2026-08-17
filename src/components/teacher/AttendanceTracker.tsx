@@ -61,19 +61,94 @@ export default function AttendanceTracker() {
     savedTimerRef.current = setTimeout(() => setSaved(false), 3000);
   }
 
+  const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid');
+
+  // Pending Student Leave Applications State (Frappe Education inspired)
+  const [pendingLeaveRequests, setPendingLeaveRequests] = useState<Array<{ id: string; studentName: string; rollNo: string; category: string; reason: string; dates: string; status: string }>>([
+    { id: 'LEAVE-9012', studentName: 'Rohan Verma', rollNo: 'CS-014', category: 'Medical', reason: 'Fever & viral infection prescribed rest', dates: '2026-08-16 to 2026-08-18', status: 'Pending' }
+  ]);
+
+  const handleReviewLeave = (leaveId: string, status: 'Approved' | 'Rejected') => {
+    setPendingLeaveRequests(prev => prev.map(l => l.id === leaveId ? { ...l, status } : l));
+  };
+
   const presentCount = students.filter(s => s.status === 'present').length;
   const absentCount = students.filter(s => s.status === 'absent').length;
   const lateCount = students.filter(s => s.status === 'late').length;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+      {/* Pending Student Leave Requests Panel (Item 7) */}
+      {pendingLeaveRequests.some(l => l.status === 'Pending') && (
+        <div style={{
+          background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(217, 119, 6, 0.03) 100%)',
+          border: '1.5px solid rgba(245, 158, 11, 0.3)', borderRadius: 12, padding: 16
+        }}>
+          <div style={{ fontSize: 13, fontWeight: 900, color: 'var(--amber)', textTransform: 'uppercase', marginBottom: 8, display: 'flex', alignItems: 'center', gap: 6 }}>
+            <span>📄</span> Pending Student Leave Requests ({pendingLeaveRequests.filter(l => l.status === 'Pending').length})
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {pendingLeaveRequests.filter(l => l.status === 'Pending').map(leave => (
+              <div key={leave.id} style={{
+                background: 'var(--bg1, #fff)', border: '1px solid var(--border)', borderRadius: 8, padding: '10px 14px',
+                display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10
+              }}>
+                <div>
+                  <strong style={{ fontSize: 13, color: 'var(--t1)' }}>{leave.studentName} ({leave.rollNo})</strong>
+                  <span style={{ fontSize: 10.5, color: 'var(--amber)', background: 'rgba(245, 158, 11, 0.1)', padding: '2px 6px', borderRadius: 4, marginLeft: 8, fontWeight: 700 }}>
+                    {leave.category}
+                  </span>
+                  <div style={{ fontSize: 11.5, color: 'var(--t2)', marginTop: 2 }}>{leave.reason} ({leave.dates})</div>
+                </div>
+                <div style={{ display: 'flex', gap: 6 }}>
+                  <button
+                    onClick={() => handleReviewLeave(leave.id, 'Approved')}
+                    style={{ padding: '6px 12px', borderRadius: 6, background: '#16a34a', color: 'white', border: 'none', cursor: 'pointer', fontSize: 11, fontWeight: 700 }}
+                  >
+                    ✓ Approve Leave
+                  </button>
+                  <button
+                    onClick={() => handleReviewLeave(leave.id, 'Rejected')}
+                    style={{ padding: '6px 12px', borderRadius: 6, background: '#dc2626', color: 'white', border: 'none', cursor: 'pointer', fontSize: 11, fontWeight: 700 }}
+                  >
+                    ✕ Reject
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
         <div>
-          <h2 style={{ fontSize: 22, fontWeight: 700, margin: 0, color: 'var(--t1, #0f172a)' }}>📋 Persistent Attendance Tracker</h2>
-          <p style={{ margin: '4px 0 0', fontSize: 14, color: 'var(--t3, #64748b)' }}>Record and query student presence across dates and assigned batches.</p>
+          <h2 style={{ fontSize: 22, fontWeight: 700, margin: 0, color: 'var(--t1, #0f172a)' }}>📋 Quick-Grid Class Attendance Tracker</h2>
+          <p style={{ margin: '4px 0 0', fontSize: 14, color: 'var(--t3, #64748b)' }}>Fast 1-click attendance sheet grid inspired by Gibbon ERP.</p>
         </div>
 
         <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+          <div style={{ display: 'flex', background: 'var(--bg3)', borderRadius: 8, padding: 3, border: '1px solid var(--border)' }}>
+            <button
+              onClick={() => setViewMode('grid')}
+              style={{
+                padding: '6px 12px', fontSize: 12, fontWeight: 700, borderRadius: 6, border: 'none', cursor: 'pointer',
+                background: viewMode === 'grid' ? 'var(--card)' : 'transparent',
+                color: viewMode === 'grid' ? 'var(--accent)' : 'var(--t3)'
+              }}
+            >
+              🔲 Quick-Grid View
+            </button>
+            <button
+              onClick={() => setViewMode('table')}
+              style={{
+                padding: '6px 12px', fontSize: 12, fontWeight: 700, borderRadius: 6, border: 'none', cursor: 'pointer',
+                background: viewMode === 'table' ? 'var(--card)' : 'transparent',
+                color: viewMode === 'table' ? 'var(--accent)' : 'var(--t3)'
+              }}
+            >
+              📜 Table View
+            </button>
+          </div>
+
           <input
             type="date"
             value={date}
@@ -106,17 +181,72 @@ export default function AttendanceTracker() {
 
         <button
           onClick={markAllPresent}
-          style={{ marginLeft: 'auto', padding: '6px 12px', fontSize: 12, borderRadius: 6, border: '1px solid #cbd5e1', cursor: 'pointer', background: '#fff' }}
+          style={{ marginLeft: 'auto', padding: '6px 12px', fontSize: 12, borderRadius: 6, border: '1px solid #cbd5e1', cursor: 'pointer', background: '#fff', fontWeight: 700 }}
         >
           ✓ Mark All Present
         </button>
       </div>
 
-      {/* Student List Table */}
-      <div style={{ background: 'var(--bg1, #fff)', border: '1px solid var(--border, var(--border))', borderRadius: 12, overflow: 'hidden' }}>
-        {loading ? (
-          <div style={{ padding: 40, textAlign: 'center', color: '#64748b' }}>Loading records for {date}...</div>
-        ) : (
+      {/* Student List View / Grid View */}
+      {loading ? (
+        <div style={{ background: 'var(--bg1, #fff)', border: '1px solid var(--border)', borderRadius: 12, padding: 40, textAlign: 'center', color: '#64748b' }}>Loading records for {date}...</div>
+      ) : viewMode === 'grid' ? (
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 14 }}>
+          {students.map(s => (
+            <div key={s.id} style={{
+              background: 'var(--bg1, #fff)', border: `1.5px solid ${s.status === 'present' ? '#16a34a' : s.status === 'late' ? '#d97706' : '#dc2626'}`,
+              borderRadius: 12, padding: 14, display: 'flex', flexDirection: 'column', gap: 10,
+              boxShadow: '0 2px 8px rgba(0,0,0,0.03)'
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', background: 'var(--bg3)', padding: '2px 6px', borderRadius: 4 }}>{s.rollNo}</span>
+                <span style={{
+                  fontSize: 10.5, fontWeight: 800, textTransform: 'uppercase',
+                  color: s.status === 'present' ? '#16a34a' : s.status === 'late' ? '#d97706' : '#dc2626'
+                }}>
+                  ● {s.status}
+                </span>
+              </div>
+
+              <div style={{ fontWeight: 800, fontSize: 13.5, color: 'var(--t1)' }}>{s.studentName}</div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 4 }}>
+                <button
+                  onClick={() => setStatus(s.id, 'present')}
+                  style={{
+                    padding: '6px 0', fontSize: 11, fontWeight: 700, borderRadius: 6, border: 'none', cursor: 'pointer',
+                    background: s.status === 'present' ? '#16a34a' : 'var(--bg3)',
+                    color: s.status === 'present' ? '#fff' : 'var(--t2)'
+                  }}
+                >
+                  Present
+                </button>
+                <button
+                  onClick={() => setStatus(s.id, 'late')}
+                  style={{
+                    padding: '6px 0', fontSize: 11, fontWeight: 700, borderRadius: 6, border: 'none', cursor: 'pointer',
+                    background: s.status === 'late' ? '#d97706' : 'var(--bg3)',
+                    color: s.status === 'late' ? '#fff' : 'var(--t2)'
+                  }}
+                >
+                  Late
+                </button>
+                <button
+                  onClick={() => setStatus(s.id, 'absent')}
+                  style={{
+                    padding: '6px 0', fontSize: 11, fontWeight: 700, borderRadius: 6, border: 'none', cursor: 'pointer',
+                    background: s.status === 'absent' ? '#dc2626' : 'var(--bg3)',
+                    color: s.status === 'absent' ? '#fff' : 'var(--t2)'
+                  }}
+                >
+                  Absent
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div style={{ background: 'var(--bg1, #fff)', border: '1px solid var(--border, var(--border))', borderRadius: 12, overflow: 'hidden' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
               <tr style={{ background: 'var(--bg2, var(--bg3))', borderBottom: '1px solid var(--border, var(--border))', textAlign: 'left' }}>
@@ -183,8 +313,8 @@ export default function AttendanceTracker() {
               ))}
             </tbody>
           </table>
-        )}
-      </div>
+        </div>
+      )}
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
         <button

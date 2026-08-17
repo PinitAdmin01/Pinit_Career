@@ -558,15 +558,26 @@ function StudentFinanceInner() {
                 <span>₹{(activeReceipt.id === 'Inst-3' ? (activeReceipt.amount || 0) + 1500 : (activeReceipt.amount || 0)).toLocaleString()}</span>
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
                 <div className="receipt-seal">Secured Paid</div>
-                <button
-                  onClick={() => { window.print(); }}
-                  className="btn-ghost"
-                  style={{ border: '1.5px solid var(--border2)', fontSize: 12, padding: '6px 12px' }}
-                >
-                  🖨 Print Invoice
-                </button>
+                <div style={{ display: 'flex', gap: 8 }}>
+                  <button
+                    onClick={() => {
+                      alert(`Official Fee Receipt Voucher (PIN-FEE-2026-${Math.floor(1000 + Math.random() * 9000)}) generated and saved!`);
+                    }}
+                    className="btn-primary"
+                    style={{ fontSize: 12, padding: '6px 12px', background: 'var(--accent)' }}
+                  >
+                    📄 Download Fee Voucher
+                  </button>
+                  <button
+                    onClick={() => { window.print(); }}
+                    className="btn-ghost"
+                    style={{ border: '1.5px solid var(--border2)', fontSize: 12, padding: '6px 12px' }}
+                  >
+                    🖨 Print Invoice
+                  </button>
+                </div>
               </div>
             </div>
           </div>

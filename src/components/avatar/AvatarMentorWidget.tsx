@@ -6,6 +6,7 @@ import { analyzeVoiceFrames, analyzeVoiceSamples, verifyVoiceSignature, calculat
 import { saveVoicePrintToSupabase, getVoicePrintFromSupabase } from '@/lib/supabaseService';
 import * as THREE from 'three';
 import { speakWithAvatar, stopSpeaking } from '@/lib/tts';
+import { sanitizeLLMOutput } from '@/lib/sanitizeLLM';
 import { toast } from '@/lib/store/useAppStore';
 import { VRoidAvatarEngine, AnimState } from './VRoidAvatarEngine';
 
@@ -552,9 +553,10 @@ export default function AvatarMentorWidget({
         }),
       });
       const { reply } = await res.json();
-      setMessages(prev => [...prev, { role: 'assistant', content: reply }]);
-      memory.storeConversation(msg, reply, { emotion: emotionalCtx.detectedEmotion, engagement: 0.8 });
-      await speakReply(reply);
+      const cleanReply = sanitizeLLMOutput(reply);
+      setMessages(prev => [...prev, { role: 'assistant', content: cleanReply }]);
+      memory.storeConversation(msg, cleanReply, { emotion: emotionalCtx.detectedEmotion, engagement: 0.8 });
+      await speakReply(cleanReply);
     } catch {
       setMessages(prev => [...prev, { role: 'assistant', content: 'Connection issue. Please try again.' }]);
     } finally {

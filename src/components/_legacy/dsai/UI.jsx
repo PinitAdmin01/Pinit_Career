@@ -42,7 +42,8 @@ export function Btn({ children, onClick = () => {}, variant = 'primary', size = 
 }
 
 /* ── Input ── */
-export function Input({ label = undefined, id = undefined, error = undefined, className = '', ...props }) {
+export function Input(props) {
+  const { label, id, error, className = '', ...rest } = props || {};
   return (
     <div style={{ marginBottom: 16 }}>
       {label && (
@@ -52,7 +53,7 @@ export function Input({ label = undefined, id = undefined, error = undefined, cl
       )}
       <input 
         id={id} 
-        {...props} 
+        {...rest} 
         style={{ 
           width: '100%', 
           padding: '10px 14px', 
@@ -64,7 +65,7 @@ export function Input({ label = undefined, id = undefined, error = undefined, cl
           outline: 'none', 
           fontFamily: 'var(--font-main)',
           transition: 'all 0.15s',
-          ...props.style 
+          ...rest.style 
         }} 
       />
       {error && <p style={{ marginTop: 4, fontSize: 12, color: 'var(--danger)' }}>{error}</p>}
@@ -73,7 +74,8 @@ export function Input({ label = undefined, id = undefined, error = undefined, cl
 }
 
 /* ── Select ── */
-export function Select({ label = undefined, id = undefined, children, error = undefined, ...props }) {
+export function Select(props) {
+  const { label, id, children, error, ...rest } = props || {};
   return (
     <div style={{ marginBottom: 16 }}>
       {label && (
@@ -83,7 +85,7 @@ export function Select({ label = undefined, id = undefined, children, error = un
       )}
       <select 
         id={id} 
-        {...props} 
+        {...rest} 
         style={{ 
           width: '100%', 
           padding: '10px 14px', 
@@ -95,7 +97,7 @@ export function Select({ label = undefined, id = undefined, children, error = un
           outline: 'none', 
           fontFamily: 'var(--font-main)',
           transition: 'all 0.15s',
-          ...props.style 
+          ...rest.style 
         }}
       >
         {children}
@@ -106,7 +108,8 @@ export function Select({ label = undefined, id = undefined, children, error = un
 }
 
 /* ── Textarea ── */
-export function Textarea({ label = undefined, id = undefined, rows = 4, error = undefined, ...props }) {
+export function Textarea(props) {
+  const { label, id, rows = 4, error, ...rest } = props || {};
   return (
     <div style={{ marginBottom: 16 }}>
       {label && (
@@ -117,7 +120,7 @@ export function Textarea({ label = undefined, id = undefined, rows = 4, error = 
       <textarea 
         id={id} 
         rows={rows} 
-        {...props} 
+        {...rest} 
         style={{ 
           width: '100%', 
           padding: '10px 14px', 
@@ -130,7 +133,7 @@ export function Textarea({ label = undefined, id = undefined, rows = 4, error = 
           fontFamily: 'var(--font-main)',
           transition: 'all 0.15s',
           resize: 'vertical', 
-          ...props.style 
+          ...rest.style 
         }} 
       />
       {error && <p style={{ marginTop: 4, fontSize: 12, color: 'var(--danger)' }}>{error}</p>}
@@ -139,7 +142,8 @@ export function Textarea({ label = undefined, id = undefined, rows = 4, error = 
 }
 
 /* ── Card ── */
-export function Card({ children, style = {}, className = '', onClick = undefined, hoverable = false }) {
+export function Card(props) {
+  const { children, style = {}, className = '', onClick, hoverable = false } = props || {};
   return (
     <div
       onClick={onClick}

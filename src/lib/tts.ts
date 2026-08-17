@@ -1,5 +1,7 @@
 // TTS Library & Audio Engine (WebSpeech Native API + Persona Vocal Signatures)
 import { synthesizeVoice } from "./smartVoiceRouter";
+import { sanitizeForSpeech, SANITIZER_VERSION } from "./sanitizeLLM";
+import { splitIntoSentences, getGlobalAudioQueue } from "./audio/streamingAudioQueue";
 let currentSpeechId = 0;
 let activeSource: AudioBufferSourceNode | null = null;
 let isNeuralReady = true;
@@ -7,19 +9,21 @@ let isNeuralReady = true;
 const preloadedAudioCacheMap = new Map<string, { buffer: Float32Array; sampleRate: number; teacherId: string }>();
 
 function getAudioContext(): AudioContext {
+  // Guard must come BEFORE any window access to be safe during SSR
+  if (typeof window === 'undefined') {
+    throw new Error('[PinIT TTS] getAudioContext() called in a non-browser environment.');
+  }
   const win = window as any;
   if (!win._sharedAudioCtx) {
     win._sharedAudioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
-    if (typeof window !== 'undefined') {
-      const unlockAudio = () => {
-        if (win._sharedAudioCtx && win._sharedAudioCtx.state === 'suspended') {
-          win._sharedAudioCtx.resume().catch(() => {});
-        }
-      };
-      window.addEventListener('click', unlockAudio, { once: true });
-      window.addEventListener('keydown', unlockAudio, { once: true });
-      window.addEventListener('touchstart', unlockAudio, { once: true });
-    }
+    const unlockAudio = () => {
+      if (win._sharedAudioCtx && win._sharedAudioCtx.state === 'suspended') {
+        win._sharedAudioCtx.resume().catch(() => {});
+      }
+    };
+    window.addEventListener('click', unlockAudio, { once: true });
+    window.addEventListener('keydown', unlockAudio, { once: true });
+    window.addEventListener('touchstart', unlockAudio, { once: true });
   }
   if (win._sharedAudioCtx.state === 'suspended') {
     win._sharedAudioCtx.resume().catch(() => {});
@@ -29,6 +33,9 @@ function getAudioContext(): AudioContext {
 
 export function stopSpeaking() {
   currentSpeechId++;
+  try {
+    getGlobalAudioQueue().stopAll();
+  } catch {}
   if (typeof window !== 'undefined' && window.speechSynthesis) {
     try {
       window.speechSynthesis.cancel();
@@ -43,22 +50,28 @@ export function stopSpeaking() {
   }
 }
 
+// KOKORO_VOICE_MAP — must match backend/app/services/audio_router.py exactly.
+// Source of truth: audio_router.py. Any change here must be mirrored there.
 const KOKORO_VOICE_MAP: Record<string, string> = {
-  kashyap:  'am_adam',
-  divya:    'af_bella',
-  priya:    'af_nicole',
-  maya:     'af_sarah',
-  anish:    'am_michael',
+  // Mentors
+  priya:    'af_heart',
+  anish:    'am_liam',
+  // Teachers
+  kashyap:  'am_fenrir',
   karthic:  'am_karthic',
-  vikram:   'am_echo',
-  shalini:  'af_sky',
-  aditya:   'am_fenrir',
-  neha:     'af_river',
-  rajesh:   'am_onyx',
-  abhijit:  'am_eric',
-  sneha:    'af_jessica',
-  rohan:    'am_liam',
-  aisha:    'af_aoede'
+  maya:     'bf_emma',
+  divya:    'af_nicole',
+  // Legacy
+  aisha:    'af_sky',
+  rohan:    'am_fenrir',
+  // Interviewers
+  vikram:   'bm_lewis',
+  shalini:  'bf_isabella',
+  aditya:   'am_adam',
+  neha:     'af_bella',
+  rajesh:   'am_liam',
+  sneha:    'af_sarah',
+  abhijit:  'bm_george',
 };
 
 const PERSONA_VOCAL_MATRIX: Record<string, { pitch: number; rateMultiplier: number }> = {
@@ -95,11 +108,8 @@ export function detectVibe(text: string): 'happy' | 'motivational' | 'teaching' 
 }
 
 export function getCleanCacheKey(text: string): string {
-  let sanitized = text
-    .replace(/^\[[^\]]+\]:\s*/, '')
-    .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1')
-    .replace(/[*`_#~]/g, '');
-  return sanitized.replace(/[✦🤖👋🎯💼🔐🔬⚡✨✓⬡]/g, '').replace(/\s+/g, ' ').trim();
+  const clean = sanitizeForSpeech(text);
+  return `${SANITIZER_VERSION}::${clean}`;
 }
 
 function fallbackWebSpeech(
@@ -214,12 +224,18 @@ export async function generateTTSAudio(text: string, teacherId: string, vibe = '
 
   const voice = KOKORO_VOICE_MAP[teacherId.toLowerCase()] || 'af_heart';
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 2500);
+  // Increased to 8 s so Render free-tier cold-start doesn't abort prematurely
+  const timeoutId = setTimeout(() => controller.abort(), 8000);
 
   try {
     const response = await fetch('/api/tts', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        // X-Pinit-Direct:1 tells the fetch interceptor to pass this through
+        // directly to the Next.js route instead of routing via the Firestore client.
+        'X-Pinit-Direct': '1',
+      },
       body: JSON.stringify({
         text,
         voice,
@@ -278,12 +294,12 @@ export async function speakWithAvatar(
   const mySpeechId = currentSpeechId;
   if (isMuted || !text) return;
 
-  const cleanText = getCleanCacheKey(text);
-  if (!cleanText) return;
+  const cleanSpeechText = sanitizeForSpeech(text);
+  if (!cleanSpeechText) return;
 
-  const spokenText = enhanceTextIntonation(cleanText);
+  const spokenText = enhanceTextIntonation(cleanSpeechText);
   const minDurationMs = Math.max(0, options?.minDurationMs || 0);
-  const dynamicMaxDurationMs = Math.max(maxDurationMs, minDurationMs, Math.max(12000, cleanText.length * 150));
+  const dynamicMaxDurationMs = Math.max(maxDurationMs, minDurationMs, Math.max(12000, cleanSpeechText.length * 150));
 
   const finishAfterFloor = (startedAt: number) => {
     if (mySpeechId !== currentSpeechId) return;
@@ -298,10 +314,35 @@ export async function speakWithAvatar(
     onEnd();
   };
 
-  // Attempt Smart Hybrid Voice Router (IndexedDB → Render neural TTS)
+  // Attempt Smart Hybrid Voice Router with Sentence Streaming for multi-sentence paragraphs
   if (useNeural) {
+    const voice = KOKORO_VOICE_MAP[teacherId.toLowerCase()] || 'af_bella';
+    const sentences = splitIntoSentences(spokenText);
+
+    if (sentences.length > 1) {
+      const startedAt = Date.now();
+      try {
+        await getGlobalAudioQueue().playSentenceStream(
+          sentences,
+          {
+            voice,
+            speed: speedMultiplier,
+            bypassCache: options?.bypassCache,
+            minDurationMs
+          },
+          {
+            onStart,
+            onEnd: () => finishAfterFloor(startedAt),
+            onError: () => finishAfterFloor(startedAt)
+          }
+        );
+        return;
+      } catch (streamErr) {
+        console.warn('[PinIT Voice] Streaming audio queue error, falling back to single buffer:', streamErr);
+      }
+    }
+
     try {
-      const voice = KOKORO_VOICE_MAP[teacherId.toLowerCase()] || 'af_bella';
       const result = await synthesizeVoice({
         text: spokenText,
         voice,
@@ -365,7 +406,7 @@ export async function speakWithAvatar(
 
 export async function preloadTTS(text?: string, teacherId: string = 'priya') {
   if (typeof window === 'undefined' || !text) return;
-  const sanitized = text.replace(/^[a-zA-Z\s\.\-]+:\s?/, '').replace(/[✦🤖👋🎯💼🔐🔬⚡✨✓⬡*`_#]/g, '').trim();
+  const sanitized = sanitizeForSpeech(text);
   if (!sanitized) return;
 
   try {

@@ -17,6 +17,7 @@ Headers on response:
 """
 
 import os
+import io
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import StreamingResponse, FileResponse
 
@@ -114,7 +115,6 @@ async def generate_tts(req: TTSRequest):
     print(f"[TTS] Generated: {cache_key[:10]}... | Engine: {result.engine} | Duration: {result.duration:.1f}s")
 
     content_type = "audio/mpeg" if fmt == "mp3" else "audio/wav"
-    import io
     return StreamingResponse(
         io.BytesIO(result.audio_bytes),
         media_type=content_type,
@@ -143,6 +143,7 @@ async def analyze_chunks(req: TTSRequest) -> ChunkAnalysisResponse:
         speed=req.speed,
         emotion=req.emotion,
         version=req.version,
+        sample_rate=req.sample_rate,
     )
 
     result = []

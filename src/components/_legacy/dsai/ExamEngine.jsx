@@ -1250,7 +1250,7 @@ const CodingView = memo(({
                   <span style={{ color: '#64748b' }}>Output: </span>
                   <span style={{ color: '#86efac' }}>{tc.output}</span>
                 </div>
-                {tc.explanation && <div style={{ color: '#64748b', marginTop: 4 }}>// {tc.explanation}</div>}
+                {tc.explanation && <div style={{ color: '#64748b', marginTop: 4 }}>{'//'} {tc.explanation}</div>}
               </div>
             ))}
             {q.testCases.some(tc => tc.hidden) && (

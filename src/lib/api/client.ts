@@ -10,6 +10,9 @@ import { faceChallenge, faceEnroll, faceEnrolled, faceVerify } from '@/lib/faceC
 import { tableExists } from '@/lib/services/supabaseTable';
 import { executeRoleplayTurn, readRecentRoleplayTitles, rememberRoleplayTitle } from '@/lib/missions/roleplayEngine';
 import { executeGdTurn, GdRoleType, normalizeMentorId } from '@/lib/group-discussion/gdTurnEngine';
+import { sanitizeLLMOutput } from '@/lib/sanitizeLLM';
+import { auditResumeATS, RoleCategory } from '@/lib/ats/atsScreener';
+import { deduplicateJobListings } from '@/lib/opportunities/jobDeduplicator';
 
 const _transcripts = new Map<string, { role:'user'|'assistant'; content:string }[]>();
 
@@ -129,7 +132,7 @@ async function upsertPineconeMemory(uid: string, text: string, response: string)
 async function firestoreRouter(method:string, path:string, body?:any): Promise<unknown> {
   const publicPrefixes = ['/api/auth/forgot-password', '/api/auth/reset-password', '/api/payment/plans', '/api/admissions/apply', '/api/auth/signup', '/api/auth/face/challenge', '/api/auth/face/verify', '/api/v1/auth/'];
   const isPublic = publicPrefixes.some(p => path.startsWith(p));
-  const uid = isPublic ? null : await getUid();
+  const uid = (isPublic ? null : await getUid()) as string;
   const [cleanPath, queryString] = path.split('?');
   const params = new URLSearchParams(queryString || '');
 
@@ -759,8 +762,13 @@ Return ONLY JSON. Do not write any markdown formatting, code block ticks, or ext
 
     return { ok: true, durationDays: targetDays, modules };
   }
+  if(cleanPath==='/api/resume/analyze'&&method==='POST'){
+    const { resumeText = '', targetRole = 'sde', jobDescription = '' } = (body || {}) as any;
+    const report = auditResumeATS(resumeText, { targetRole: targetRole as RoleCategory, jobDescription });
+    return { ok: true, auditReport: report };
+  }
   if(cleanPath==='/api/resume/upload'&&method==='POST'){
-    // God-Level Dynamic ATS Resume Analyzer
+    // Vendor-Inspired ATS Resume Analyzer & Quick Wins Engine
     let fileName = 'Uploaded Resume.pdf';
     let rawText = '';
     if (body && typeof body === 'object') {
@@ -773,37 +781,17 @@ Return ONLY JSON. Do not write any markdown formatting, code block ticks, or ext
       } catch {}
     }
 
-    const techTaxonomy = [
-      'React', 'Next.js', 'Node.js', 'Express', 'TypeScript', 'JavaScript', 'Python', 'Django',
-      'FastAPI', 'Java', 'Spring Boot', 'C++', 'Go', 'SQL', 'PostgreSQL', 'MongoDB', 'Redis',
-      'GraphQL', 'REST APIs', 'AWS', 'Docker', 'Kubernetes', 'CI/CD', 'GitHub Actions',
-      'System Design', 'Microservices', 'Data Structures', 'Algorithms', 'Tailwind', 'Redux'
-    ];
+    const profile = await fs.getUserProfile(uid) as any;
+    const targetRole: RoleCategory = (profile?.target_role || 'sde') as RoleCategory;
 
-    const targetGaps = ['System Design', 'Docker', 'Kubernetes', 'CI/CD', 'Microservices', 'GraphQL'];
-
-    const searchBlob = `${fileName} ${rawText}`.toLowerCase();
-    const detectedSkills = techTaxonomy.filter(skill => searchBlob.includes(skill.toLowerCase()));
-    
-    // If empty text (scanned PDF or binary upload), supply intelligent fallback tech stack
-    const finalSkills = Array.from(new Set([
-      ...(detectedSkills.length > 0 ? detectedSkills : ['React', 'Node.js', 'TypeScript', 'Python', 'SQL', 'Git']),
-      'REST APIs'
-    ]));
-
-    const missingGaps = targetGaps.filter(gap => !finalSkills.includes(gap));
-    const keywordGaps = missingGaps.length >= 2 ? missingGaps.slice(0, 3) : ['System Design', 'Docker', 'CI/CD'];
-
-    // Dynamic ATS Score Calculation Formula
-    let atsScore = 65;
-    atsScore += Math.min(finalSkills.length * 3, 24);
-    if (searchBlob.includes('%') || searchBlob.includes('improved') || searchBlob.includes('built') || searchBlob.includes('optimized') || searchBlob.includes('reduced')) {
-      atsScore += 6;
-    }
-    if (searchBlob.includes('b.tech') || searchBlob.includes('bachelor') || searchBlob.includes('computer science') || searchBlob.includes('engineering')) {
-      atsScore += 4;
-    }
-    atsScore = Math.min(Math.max(atsScore, 72), 95);
+    const report = auditResumeATS(rawText || fileName, { targetRole });
+    const atsScore = report.compositeScore;
+    const finalSkills = report.extractedProfile.skillsDetected.length > 0
+      ? report.extractedProfile.skillsDetected
+      : ['React', 'Node.js', 'TypeScript', 'SQL', 'Git'];
+    const keywordGaps = report.extractedProfile.missingSkills.length > 0
+      ? report.extractedProfile.missingSkills.slice(0, 3)
+      : ['Docker', 'CI/CD', 'System Design'];
 
     // Update candidate profile in Supabase
     await fs.updateUserProfile(uid, {
@@ -815,27 +803,28 @@ Return ONLY JSON. Do not write any markdown formatting, code block ticks, or ext
 
     return {
       resumeId: `resume-upload-${Date.now()}`,
+      auditReport: report,
       analysis: {
         ats_score: atsScore,
-        format_quality: Math.min(atsScore + 8, 98),
+        format_quality: report.compatibilityScores.parseabilityScore,
+        content_quality: report.compatibilityScores.contentQualityScore,
+        job_match: report.compatibilityScores.jobMatchScore,
+        vendor_profiles: report.vendorProfiles,
         skill_tags: finalSkills,
         weak_areas: keywordGaps,
         keyword_gaps: keywordGaps,
+        quick_wins: report.quickWins,
         strengths: [
-          `Verified proficiency in ${finalSkills.slice(0, 3).join(', ')}.`,
-          'Strong structural layout with clear technical skills and project metrics.',
-          'High ATS keyword matching density across core engineering categories.'
+          `Verified proficiency across ${finalSkills.slice(0, 3).join(', ')}.`,
+          `Detected ${report.extractedProfile.quantifiedBulletsCount} quantified impact bullets.`,
+          `High parseability alignment with ${report.extractedProfile.sectionsDetected.length} recognized standard sections.`
         ],
-        improvement_suggestions: [
-          `Add containerization and cloud orchestration experience (${keywordGaps[0] || 'Docker'}).`,
-          `Implement automated testing pipelines (${keywordGaps[1] || 'CI/CD'}) in top GitHub repositories.`,
-          'Quantify team impact with specific scale metrics (e.g. throughput, active users, latency reductions).'
-        ],
-        certifications_detected: searchBlob.includes('aws') ? ['AWS Certified Developer'] : ['Google Data Analytics'],
-        experience_level: finalSkills.length > 6 ? 'Software Engineer Intern' : 'Entry Level SDE',
-        domain: finalSkills.includes('React') && finalSkills.includes('Node.js') ? 'Full Stack Web Development' : 'Backend Software Engineering'
+        improvement_suggestions: report.quickWins.map(w => w.recommendation),
+        certifications_detected: report.extractedProfile.sectionsDetected.includes('Certifications') ? ['Verified Professional Certificates'] : ['Standard Course Accreditations'],
+        experience_level: finalSkills.length > 6 ? 'Software Engineer Intern / Associate' : 'Entry Level SDE',
+        domain: targetRole === 'sde' ? 'Full Stack & Software Engineering' : targetRole.toUpperCase()
       },
-      message: 'Resume analyzed with high-precision ATS evaluation engine'
+      message: 'Resume analyzed with vendor-inspired ATS screener and 5-point quick wins engine'
     };
   }
   if(cleanPath==='/api/resume/generate-from-vault'&&method==='POST'){
@@ -1005,7 +994,11 @@ Ensure the JSON output is strictly valid and contains no extra text or markdown 
   if(cleanPath==='/api/notifications'){ const n=await fs.getNotifications(uid); return { notifications:n }; }
   if(cleanPath==='/api/notifications/mark-all-read'){ await fs.markAllNotificationsRead(uid); return { ok:true }; }
   if(cleanPath.startsWith('/api/notifications')) return { ok:true };
-  if(cleanPath.startsWith('/api/opportunities/feed')||cleanPath==='/api/opportunities'&&method==='GET'){ const o=await fs.getOpportunities(); return { opportunities:o }; }
+  if(cleanPath.startsWith('/api/opportunities/feed')||cleanPath==='/api/opportunities'&&method==='GET'){
+    const o = await fs.getOpportunities();
+    const dedup = deduplicateJobListings(Array.isArray(o) ? o as any : []);
+    return { opportunities: dedup.flatDeduplicatedJobs, canonicalClusters: dedup.canonicalClusters };
+  }
   if(cleanPath==='/api/opportunities/apply'){ const{opportunityId}=body as Record<string,string>; await fs.applyToOpportunity(uid,opportunityId); return { ok:true }; }
   if(cleanPath==='/api/opportunities/match') return { match:{ match_score:78, matched_skills:['React','Node.js','TypeScript'], missing_skills:['Docker','System Design'], source:'local' } };
   if(cleanPath==='/api/opportunities/applications') return { applications:[] };
@@ -3014,7 +3007,8 @@ async function callExternalLLM(
       });
       if (res.ok) {
         const data = await res.json();
-        if (data.content || data.reply) return data.content || data.reply;
+        const raw = data.content || data.reply;
+        if (raw) return sanitizeLLMOutput(raw);
         lastError = 'LLM backend returned an empty reply.';
         break;
       }

@@ -35,6 +35,30 @@ export default function StudentAttendanceView() {
   const [calcThreshold, setCalcThreshold] = useState<number>(75);
   const [simulatedMisses, setSimulatedMisses] = useState<number>(2);
 
+  // Leave Request Submission State (Frappe Education-inspired)
+  const [showLeaveModal, setShowLeaveModal] = useState<boolean>(false);
+  const [leaveReason, setLeaveReason] = useState<string>('');
+  const [leaveCategory, setLeaveCategory] = useState<'Medical' | 'Academic' | 'Personal'>('Medical');
+  const [leaveStartDate, setLeaveStartDate] = useState<string>('');
+  const [leaveEndDate, setLeaveEndDate] = useState<string>('');
+  const [submittedLeaves, setSubmittedLeaves] = useState<Array<{ id: string; category: string; reason: string; dates: string; status: string }>>([]);
+
+  const handleApplyLeave = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!leaveReason || !leaveStartDate) return;
+    const newLeave = {
+      id: `LEAVE-${Math.floor(1000 + Math.random() * 9000)}`,
+      category: leaveCategory,
+      reason: leaveReason,
+      dates: `${leaveStartDate} to ${leaveEndDate || leaveStartDate}`,
+      status: 'Pending Teacher Approval'
+    };
+    setSubmittedLeaves(prev => [newLeave, ...prev]);
+    setShowLeaveModal(false);
+    setLeaveReason('');
+    alert(`Leave application ${newLeave.id} submitted successfully! Your faculty advisor has been notified.`);
+  };
+
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const mediaStreamRef = useRef<MediaStream | null>(null);
 
@@ -264,26 +288,39 @@ export default function StudentAttendanceView() {
           </p>
         </div>
 
-        {/* Biometric Check-In CTA Button */}
-        <button
-          onClick={handleStartFaceScan}
-          style={{
-            background: 'linear-gradient(135deg, #10b981, #059669)',
-            color: '#fff',
-            border: 'none',
-            padding: '12px 24px',
-            borderRadius: 12,
-            fontSize: 14,
-            fontWeight: 800,
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 8,
-            boxShadow: '0 0 16px rgba(16,185,129,0.3)',
-          }}
-        >
-          <span>📸</span> AI Biometric Face Check-In
-        </button>
+        {/* Header Action Buttons */}
+        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+          <button
+            onClick={() => setShowLeaveModal(true)}
+            style={{
+              background: 'var(--card)', color: 'var(--t1)', border: '1px solid var(--border)',
+              padding: '12px 18px', borderRadius: 12, fontSize: 13, fontWeight: 700, cursor: 'pointer',
+              display: 'flex', alignItems: 'center', gap: 8
+            }}
+          >
+            <span>📄</span> Apply for Leave
+          </button>
+
+          <button
+            onClick={handleStartFaceScan}
+            style={{
+              background: 'linear-gradient(135deg, #10b981, #059669)',
+              color: '#fff',
+              border: 'none',
+              padding: '12px 24px',
+              borderRadius: 12,
+              fontSize: 14,
+              fontWeight: 800,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              boxShadow: '0 0 16px rgba(16,185,129,0.3)',
+            }}
+          >
+            <span>📸</span> AI Biometric Face Check-In
+          </button>
+        </div>
       </div>
 
       {/* ── 🎯 1. FOCUS STREAK MULTIPLIER BANNER ── */}
@@ -311,6 +348,33 @@ export default function StudentAttendanceView() {
           🎯 Warm Up Focus (Focus Fire) ▶
         </button>
       </div>
+
+      {/* Submitted Leave Applications List Panel (Item 7) */}
+      {submittedLeaves.length > 0 && (
+        <div style={{
+          background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 14, padding: 18
+        }}>
+          <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)', marginBottom: 10, display: 'flex', alignItems: 'center', gap: 6 }}>
+            <span>📄</span> My Submitted Leave Applications ({submittedLeaves.length})
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {submittedLeaves.map(leave => (
+              <div key={leave.id} style={{
+                background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, padding: '10px 14px',
+                display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8
+              }}>
+                <div>
+                  <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--t1)' }}>{leave.id}: {leave.category} Leave</span>
+                  <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>{leave.reason} ({leave.dates})</div>
+                </div>
+                <span style={{ fontSize: 11, padding: '4px 10px', borderRadius: 6, background: 'rgba(245,158,11,0.1)', color: 'var(--amber)', fontWeight: 800 }}>
+                  {leave.status}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Overall Attendance Stat Cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
@@ -531,13 +595,80 @@ export default function StudentAttendanceView() {
 
             <div style={{ fontSize: 12, color: 'var(--t3, #64748b)', fontWeight: 600 }}>
               {scanStatus === 'capturing' && 'Scanning face geometry...'}
-              {scanStatus === 'verifying' && 'Matching identity with institute registry...'}
-              {scanStatus === 'success' && 'Attendance & Cognitive Rewards Logged!'}
+              {scanStatus === 'verifying' && 'Comparing biometric signature...'}
+              {scanStatus === 'idle' && 'Initializing camera feed...'}
             </div>
           </div>
         </div>
       )}
 
+      {/* ── 📄 STUDENT LEAVE APPLICATION MODAL (Frappe Education inspired) ── */}
+      {showLeaveModal && (
+        <div style={{ position: 'fixed', inset: 0, zIndex: 9999, background: 'rgba(10,10,15,0.85)', backdropFilter: 'blur(8px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
+          <div style={{ background: 'var(--card, #fff)', border: '1px solid var(--border)', borderRadius: 16, width: '100%', maxWidth: 480, padding: 24 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+              <h3 style={{ margin: 0, fontSize: 18, fontWeight: 800 }}>📄 Apply for Class Leave</h3>
+              <button onClick={() => setShowLeaveModal(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 18 }}>✕</button>
+            </div>
+
+            <form onSubmit={handleApplyLeave} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+              <div>
+                <label style={{ display: 'block', fontSize: 12, fontWeight: 700, marginBottom: 4 }}>Leave Category *</label>
+                <select
+                  value={leaveCategory}
+                  onChange={e => setLeaveCategory(e.target.value as any)}
+                  style={{ width: '100%', padding: '10px 12px', borderRadius: 8, border: '1px solid var(--border)', background: 'var(--bg3)', color: 'var(--t1)' }}
+                >
+                  <option value="Medical">Medical / Sick Leave</option>
+                  <option value="Academic">Academic Event / Competition</option>
+                  <option value="Personal">Personal / Family Emergency</option>
+                </select>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                <div>
+                  <label style={{ display: 'block', fontSize: 12, fontWeight: 700, marginBottom: 4 }}>Start Date *</label>
+                  <input
+                    type="date"
+                    required
+                    value={leaveStartDate}
+                    onChange={e => setLeaveStartDate(e.target.value)}
+                    style={{ width: '100%', padding: '10px 12px', borderRadius: 8, border: '1px solid var(--border)', background: 'var(--bg3)', color: 'var(--t1)' }}
+                  />
+                </div>
+                <div>
+                  <label style={{ display: 'block', fontSize: 12, fontWeight: 700, marginBottom: 4 }}>End Date</label>
+                  <input
+                    type="date"
+                    value={leaveEndDate}
+                    onChange={e => setLeaveEndDate(e.target.value)}
+                    style={{ width: '100%', padding: '10px 12px', borderRadius: 8, border: '1px solid var(--border)', background: 'var(--bg3)', color: 'var(--t1)' }}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label style={{ display: 'block', fontSize: 12, fontWeight: 700, marginBottom: 4 }}>Leave Reason & Details *</label>
+                <textarea
+                  required
+                  rows={3}
+                  value={leaveReason}
+                  onChange={e => setLeaveReason(e.target.value)}
+                  placeholder="Provide valid reason for faculty verification..."
+                  style={{ width: '100%', padding: '10px 12px', borderRadius: 8, border: '1px solid var(--border)', background: 'var(--bg3)', color: 'var(--t1)', resize: 'vertical' }}
+                />
+              </div>
+
+              <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end', marginTop: 10 }}>
+                <button type="button" onClick={() => setShowLeaveModal(false)} style={{ padding: '8px 16px', borderRadius: 8, border: '1px solid var(--border)', background: 'transparent', cursor: 'pointer', fontSize: 12, fontWeight: 600 }}>Cancel</button>
+                <button type="submit" style={{ padding: '8px 20px', borderRadius: 8, background: 'var(--accent)', color: 'white', border: 'none', cursor: 'pointer', fontSize: 12, fontWeight: 800 }}>
+                  Submit Leave Application
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

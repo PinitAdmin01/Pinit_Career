@@ -97,11 +97,21 @@ export async function pingRenderServer(waitForWarm = false): Promise<boolean> {
   return activeWakePromise;
 }
 
-// 9-minute client heartbeat to prevent Render 15-minute sleep policy
+// 9-minute client heartbeat to prevent Render 15-minute sleep policy.
+// Registered once per page load; cleared on page unload to avoid accumulation.
 if (typeof window !== "undefined") {
-  setInterval(() => {
-    void pingRenderServer(false);
-  }, 9 * 60 * 1000);
+  // Guard against hot-module-reload registering a second interval
+  const WIN = window as any;
+  if (!WIN.__pinit_heartbeat_id) {
+    WIN.__pinit_heartbeat_id = setInterval(() => {
+      void pingRenderServer(false);
+    }, 9 * 60 * 1000);
+
+    window.addEventListener("beforeunload", () => {
+      clearInterval(WIN.__pinit_heartbeat_id);
+      WIN.__pinit_heartbeat_id = null;
+    }, { once: true });
+  }
 }
 
 /**

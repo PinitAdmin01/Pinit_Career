@@ -250,9 +250,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (typeof document !== 'undefined') {
+      // Only add Secure flag on HTTPS — on HTTP (localhost) the browser silently drops Secure cookies.
+      const isHttps = typeof window !== 'undefined' && window.location.protocol === 'https:';
+      const secureFlag = isHttps ? '; Secure' : '';
       if (user) {
-        document.cookie = `pinit_role=${user.role}; path=/; SameSite=Lax; Secure`;
-        document.cookie = `pinit_uid=${user.id}; path=/; SameSite=Lax; Secure`;
+        document.cookie = `pinit_role=${user.role}; path=/; SameSite=Lax${secureFlag}`;
+        document.cookie = `pinit_uid=${user.id}; path=/; SameSite=Lax${secureFlag}`;
       } else {
         document.cookie = "pinit_role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
         document.cookie = "pinit_uid=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
@@ -298,7 +301,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (emailLower === 'admin@pinit.in' && profile.role !== 'admin') expectedRole = 'admin';
         else if (emailLower === 'rec@pinit.in' && profile.role !== 'recruiter') expectedRole = 'recruiter';
         else if (emailLower === 'con@pinit.in' && profile.role !== 'consultant') expectedRole = 'consultant';
-        
+
         if (expectedRole) {
           profile.role = expectedRole;
           await updateUserProfile(sbUser.id, { role: expectedRole });
@@ -320,7 +323,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       } catch {}
       setUser(sbUserToAppUser(sbUser, cachedProfile));
     }
-  }, []);
+  // setUser is a stable React state setter; service functions are module-level constants.
+  // Listing them makes the exhaustive-deps rule happy and prevents stale closures.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setUser]);
 
   useEffect(() => {
     const setupListener = (sbUser: any) => {
@@ -370,8 +376,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         .subscribe();
     };
 
+    // Safety timeout to prevent loading state from hanging indefinitely on network delay
+    const safetyTimer = setTimeout(() => {
+      setLoading(false);
+    }, 1200);
+
     // Get initial session
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
+    supabase.auth.getSession().then(async (res) => {
+      const session = res?.data?.session;
       let sbUser = session?.user ?? null;
       if (!sbUser && typeof window !== 'undefined') {
         const activeUid = localStorage.getItem('pinit_active_uid');
@@ -395,6 +407,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       } else {
         setUser(null);
       }
+    }).catch(err => {
+      console.warn('[AuthContext] getSession error fallback:', err);
+    }).finally(() => {
+      clearTimeout(safetyTimer);
       setLoading(false);
     });
 

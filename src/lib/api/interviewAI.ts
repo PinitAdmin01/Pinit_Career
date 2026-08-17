@@ -1,5 +1,7 @@
 // lib/api/interviewAI.ts
 // Interview AI — server-proxied LLM only. No browser API keys or CORS proxies.
+import { sanitizeLLMOutput, sanitizeEvaluationResult } from '@/lib/sanitizeLLM';
+import { calculateRoleWeightedScore, normalizeRoleKey, generatePersonaCoaching, clampScore, MindsetArchetype } from '@/lib/interview/scoringMatrix';
 
 const MODE_PROMPTS: Record<string, string> = {
   google: `You are a senior interviewer at a top-tier tech company (Google/Meta/Amazon level).
@@ -65,7 +67,8 @@ async function callServerLLM(
     throw new Error(`Interview LLM unavailable (${res.status}). Server path /api/llm required. ${err}`);
   }
   const data = await res.json();
-  const reply = (data.reply || data.content || data.text || '').trim();
+  const rawReply = (data.reply || data.content || data.text || '').trim();
+  const reply = sanitizeLLMOutput(rawReply);
   if (!reply) {
     throw new Error('Interview LLM returned an empty response from /api/llm.');
   }
@@ -91,7 +94,8 @@ export async function aiInterviewRespond(params: InterviewRespondParams): Promis
 
 export async function aiInterviewEvaluate(
   transcript: { role: string; content: string }[],
-  mode: string
+  mode: string,
+  options?: { roleKey?: string; archetype?: MindsetArchetype; domainStream?: string }
 ): Promise<Record<string, unknown>> {
   const formatted = transcript
     .map(t => `${t.role === 'assistant' ? 'INTERVIEWER' : 'CANDIDATE'}: ${t.content}`)
@@ -100,28 +104,70 @@ export async function aiInterviewEvaluate(
   const totalWords = candidateText.split(/\s+/).filter(Boolean).length;
   const fillerMatch = candidateText.match(/\b(um|uh|like|you know|basically|actually|literally|i mean)\b/gi) || [];
 
-  const system = `You are an expert interview coach. Evaluate the transcript and return ONLY valid JSON:\n{"overall_score":<0-100>,"confidence_score":<0-100>,"communication_score":<0-100>,"technical_depth":<0-100>,"leadership_score":<0-100>,"energy_level":<0-100>,"strengths":["<s>","<s>"],"weaknesses":["<s>"],"improvement_tips":["<s>","<s>","<s>"],"readiness":"not_ready"|"developing"|"ready"|"strong","summary":"<2-3 sentences>"}`;
+  const roleKey = normalizeRoleKey(options?.roleKey || mode, options?.domainStream);
+  const archetype: MindsetArchetype = options?.archetype || 'Pattern Hunter';
+
+  const system = `You are an expert interview coach and evaluation director. Evaluate the transcript and return ONLY valid JSON:
+{
+  "logic": <0-100>,
+  "systems": <0-100>,
+  "comms": <0-100>,
+  "solving": <0-100>,
+  "star": <0-100>,
+  "strengths": ["<s>","<s>"],
+  "weaknesses": ["<s>"],
+  "improvement_tips": ["<s>","<s>","<s>"],
+  "summary": "<2-3 sentences>"
+}`;
 
   try {
-    const raw = await callServerLLM([{ role:'user', content:`Mode: ${mode.toUpperCase()}\n\nTRANSCRIPT:\n${formatted.slice(0,7000)}` }], system, 800);
-    const evaluation = JSON.parse(raw.replace(/```json|```/g,'').trim());
-    return { ...evaluation, filler_rate: fillerMatch.length / Math.max(totalWords,1) };
+    const raw = await callServerLLM([{ role:'user', content:`Mode: ${mode.toUpperCase()} | Role: ${roleKey}\n\nTRANSCRIPT:\n${formatted.slice(0,7000)}` }], system, 800);
+    const parsed = JSON.parse(raw.replace(/```json|```/g,'').trim());
+    const evaluation = sanitizeEvaluationResult(parsed);
+
+    const dimensions = {
+      logic: clampScore(evaluation.logic, 65),
+      systems: clampScore(evaluation.systems, 65),
+      comms: clampScore(evaluation.comms, 70),
+      solving: clampScore(evaluation.solving, 65),
+      star: clampScore(evaluation.star, 65),
+    };
+
+    const scoringResult = calculateRoleWeightedScore(dimensions, roleKey);
+    const personaCoaching = generatePersonaCoaching(archetype, scoringResult.sanitizedDimensions, roleKey);
+
+    return {
+      ...evaluation,
+      overall_score: scoringResult.overallScore,
+      verdict: scoringResult.verdict,
+      readiness: scoringResult.readiness,
+      radar: scoringResult.sanitizedDimensions,
+      appliedWeights: scoringResult.appliedWeights,
+      coaching: personaCoaching,
+      filler_rate: fillerMatch.length / Math.max(totalWords, 1),
+    };
   } catch {
     // Fail closed — do not invent a Hire-friendly evaluation
+    const fallbackDimensions = { logic: 40, systems: 35, comms: 40, solving: 35, star: 40 };
+    const scoringResult = calculateRoleWeightedScore(fallbackDimensions, roleKey);
+    const personaCoaching = generatePersonaCoaching(archetype, fallbackDimensions, roleKey);
+
     return {
-      overall_score: 40,
+      overall_score: scoringResult.overallScore,
       confidence_score: 40,
       communication_score: 40,
       technical_depth: 35,
       leadership_score: 35,
       energy_level: 40,
+      radar: fallbackDimensions,
+      verdict: 'Needs Practice',
+      readiness: 'not_ready',
       strengths: ['Attempted the interview'],
       weaknesses: ['Could not complete live AI evaluation'],
       improvement_tips: ['Retry when the interview LLM service is available', 'Use STAR method', 'Provide longer specific answers'],
-      readiness: 'not_ready',
       summary: 'Evaluation service unavailable. Marked as Needs Practice (fail-closed).',
+      coaching: personaCoaching,
       filler_rate: fillerMatch.length / Math.max(totalWords, 1),
-      verdict: 'Needs Practice',
     };
   }
 }

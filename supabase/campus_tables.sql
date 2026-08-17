@@ -447,3 +447,165 @@ begin
       or lower(user_key) = lower(coalesce(auth.jwt()->>'email', ''))
     );
 end $$;
+
+create table if not exists public.student_language_progress (
+  student_id text not null,
+  language_code text not null default 'en',
+  current_level text default 'PRE_A1',
+  highest_unlocked_level text default 'PRE_A1',
+  recommended_review_level text,
+  curriculum_version text default '1.0',
+  updated_at timestamptz default timezone('utc'::text, now()),
+  primary key (student_id, language_code)
+);
+
+create table if not exists public.student_language_attempts (
+  id uuid default gen_random_uuid() primary key,
+  student_id text not null,
+  language_code text not null default 'en',
+  lesson_id text not null,
+  level text not null,
+  module_type text not null,
+  curriculum_version text default '1.0',
+  score numeric default 0,
+  completed_at timestamptz default timezone('utc'::text, now())
+);
+
+create table if not exists public.student_language_xp_awards (
+  id uuid default gen_random_uuid() primary key,
+  student_id text not null,
+  language_code text not null default 'en',
+  lesson_id text not null,
+  xp_awarded int default 0,
+  curriculum_version text default '1.0',
+  awarded_at timestamptz default timezone('utc'::text, now()),
+  unique(student_id, language_code, lesson_id)
+);
+
+create table if not exists public.student_language_assessments (
+  id uuid default gen_random_uuid() primary key,
+  student_id text not null,
+  language_code text not null default 'en',
+  placement_version text default '1.0',
+  curriculum_version text default '1.0',
+  recommended_level text not null,
+  vocab_score numeric default 0,
+  grammar_score numeric default 0,
+  listening_score numeric default 0,
+  speaking_score numeric default 0,
+  assessed_at timestamptz default timezone('utc'::text, now())
+);
+
+create table if not exists public.student_language_mastery (
+  student_id text not null,
+  language_code text not null default 'en',
+  vocabulary_mastery numeric default 0,
+  grammar_mastery numeric default 0,
+  listening_mastery numeric default 0,
+  speaking_mastery numeric default 0,
+  hiragana_mastery numeric default 0,
+  katakana_mastery numeric default 0,
+  kanji_mastery numeric default 0,
+  weak_areas jsonb default '[]'::jsonb,
+  curriculum_version text default '1.0',
+  updated_at timestamptz default timezone('utc'::text, now()),
+  primary key (student_id, language_code)
+);
+
+-- Spaced Repetition (SRS) Cards Table (SM-2 Scheduler per student, per language, per item)
+create table if not exists public.student_language_srs_cards (
+  student_id text not null,
+  language_code text not null default 'en',
+  item_id text not null,
+  item_type text not null default 'vocabulary',
+  ease_factor numeric default 2.5,
+  interval_days int default 1,
+  repetitions int default 0,
+  status text default 'new',
+  last_reviewed_at timestamptz,
+  next_review_at timestamptz default timezone('utc'::text, now()),
+  curriculum_version text default '1.0',
+  primary key (student_id, language_code, item_id)
+);
+
+-- Persistent Learner Memory Table (facts, past weaknesses, and context per student & language)
+create table if not exists public.student_language_memories (
+  id text primary key,
+  student_id text not null,
+  language_code text not null default 'en',
+  category text not null default 'student_facts',
+  content text not null,
+  created_at timestamptz default timezone('utc'::text, now())
+);
+
+alter table public.student_language_progress enable row level security;
+alter table public.student_language_attempts enable row level security;
+alter table public.student_language_xp_awards enable row level security;
+alter table public.student_language_assessments enable row level security;
+alter table public.student_language_mastery enable row level security;
+alter table public.student_language_srs_cards enable row level security;
+alter table public.student_language_memories enable row level security;
+
+create policy "Student ALL own srs cards" on public.student_language_srs_cards
+  for all to authenticated using (auth.uid()::text = student_id OR public.campus_is_staff());
+
+create policy "Student ALL own language memories" on public.student_language_memories
+  for all to authenticated using (auth.uid()::text = student_id OR public.campus_is_staff());
+
+
+create policy "Student SELECT own language progress" on public.student_language_progress
+  for select to authenticated using (auth.uid()::text = student_id OR public.campus_is_staff());
+
+create policy "Student INSERT own language progress" on public.student_language_progress
+  for insert to authenticated with check (auth.uid()::text = student_id OR public.campus_is_staff());
+
+create policy "Student UPDATE own language progress" on public.student_language_progress
+  for update to authenticated using (auth.uid()::text = student_id OR public.campus_is_staff());
+
+create policy "Student INSERT own language attempts" on public.student_language_attempts
+  for insert to authenticated with check (auth.uid()::text = student_id);
+
+create policy "Student SELECT own language attempts" on public.student_language_attempts
+  for select to authenticated using (auth.uid()::text = student_id OR public.campus_is_staff());
+
+create policy "Student INSERT own xp awards" on public.student_language_xp_awards
+  for insert to authenticated with check (auth.uid()::text = student_id);
+
+create policy "Student SELECT own xp awards" on public.student_language_xp_awards
+  for select to authenticated using (auth.uid()::text = student_id OR public.campus_is_staff());
+
+create policy "Student INSERT own assessments" on public.student_language_assessments
+  for insert to authenticated with check (auth.uid()::text = student_id);
+
+create policy "Student SELECT own assessments" on public.student_language_assessments
+  for select to authenticated using (auth.uid()::text = student_id OR public.campus_is_staff());
+
+create policy "Student SELECT own mastery" on public.student_language_mastery
+  for select to authenticated using (auth.uid()::text = student_id OR public.campus_is_staff());
+
+create policy "Student INSERT own mastery" on public.student_language_mastery
+  for insert to authenticated with check (auth.uid()::text = student_id OR public.campus_is_staff());
+
+create policy "Student UPDATE own mastery" on public.student_language_mastery
+  for update to authenticated using (auth.uid()::text = student_id OR public.campus_is_staff());
+
+create policy "Teacher SELECT assigned student progress" on public.student_language_progress
+  for select to authenticated using (public.campus_is_staff());
+
+create policy "Teacher SELECT assigned student mastery" on public.student_language_mastery
+  for select to authenticated using (public.campus_is_staff());
+
+create policy "Parent SELECT linked child language progress" on public.student_language_progress
+  for select to authenticated using (auth.uid()::text = student_id OR public.campus_is_staff());
+
+create policy "Parent SELECT linked child language mastery" on public.student_language_mastery
+  for select to authenticated using (auth.uid()::text = student_id OR public.campus_is_staff());
+
+create policy "Consultant SELECT assigned student mastery" on public.student_language_mastery
+  for select to authenticated using (public.campus_is_staff());
+
+create policy "Admin ALL language progress" on public.student_language_progress
+  for all to authenticated using (public.campus_is_staff());
+
+create policy "Admin ALL language mastery" on public.student_language_mastery
+  for all to authenticated using (public.campus_is_staff());

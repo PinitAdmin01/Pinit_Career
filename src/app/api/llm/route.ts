@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
+import { sanitizeLLMOutput } from '@/lib/sanitizeLLM';
 
 export async function POST(req: Request) {
   try {
@@ -99,7 +100,8 @@ export async function POST(req: Request) {
       }
     }
 
-    return NextResponse.json({ reply });
+    const sanitizedReply = sanitizeLLMOutput(reply);
+    return NextResponse.json({ reply: sanitizedReply });
   } catch (err: any) {
     console.error('[Secure LLM API] Failed:', err);
     return NextResponse.json({ error: err.message || 'LLM Execution Failed' }, { status: 500 });

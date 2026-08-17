@@ -159,11 +159,17 @@ async def compute_stats(audio_storage_dir: str) -> dict:
     """
     Compute cache statistics across all Redis entries.
     Returns hit rate, miss rate, storage used, top voices, average duration.
+
+    Definitions:
+      total_hits   = sum of hit counts across all entries (re-serves after generation)
+      total_misses = count of entries that were never re-served (hits == 0)
+      hit_rate     = total_hits / (total_hits + total_misses) * 100
     """
     entries = await get_all_entries()
     total = len(entries)
     total_hits = sum(e.get("hits", 0) for e in entries)
-    total_misses = total  # Initial creation count
+    # An entry was a "miss" each time it was initially generated (hits==0 means served once, never re-cached)
+    total_misses = sum(1 for e in entries if e.get("hits", 0) == 0)
 
     # Storage used
     storage_bytes = 0
@@ -187,7 +193,7 @@ async def compute_stats(audio_storage_dir: str) -> dict:
         reverse=True,
     )[:5]
 
-    # Hit rate calculation: total hits divided by (total hits + total initial misses)
+    # Hit rate: hits re-served vs (hits re-served + entries never re-served)
     total_requests = total_hits + total_misses
     hit_rate = (total_hits / total_requests * 100) if total_requests > 0 else 0.0
 

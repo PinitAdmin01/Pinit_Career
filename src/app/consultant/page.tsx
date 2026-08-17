@@ -85,9 +85,20 @@ function ConsultantPageInner() {
     title: '', studentId: '', studentName: '', date: '', time: '', link: '', notes: ''
   });
   const [scheduling, setScheduling] = useState(false);
-
-  // Toast
+  // Toast state
   const [toast, setToast] = useState<{ msg: string; type: 'success' | 'error' } | null>(null);
+
+  // At-Risk Advisory Trigger state (advisingapp-inspired)
+  const [careTeamReviews, setCareTeamReviews] = useState<Record<string, { initiatedAt: string; status: string }>>({});
+
+  const handleInitiateCareTeamReview = (studentId: string, studentName: string) => {
+    const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    setCareTeamReviews(prev => ({
+      ...prev,
+      [studentId]: { initiatedAt: timestamp, status: 'Active Care Team Assigned' }
+    }));
+    toastObj.success('Care Team Assigned', `Multi-disciplinary advisory team activated for ${studentName} at ${timestamp}.`);
+  };
 
   useEffect(() => {
     fetchPipeline();
@@ -338,6 +349,35 @@ function ConsultantPageInner() {
               {analytics?.totalStudents != null ? ` Analytics reports ${analytics.totalStudents} total students.` : ''}
               {' '}No fabricated scholarship or visa alerts are shown.
             </div>
+          </div>
+
+          {/* At-Risk Student Advisory Trigger Banner (advisingapp-inspired) */}
+          <div style={{
+            background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.06) 0%, rgba(220, 38, 38, 0.02) 100%)',
+            border: '1.5px solid rgba(239, 68, 68, 0.3)',
+            borderRadius: 14, padding: 18, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16, flexWrap: 'wrap'
+          }}>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ fontSize: 18 }}>🚨</span>
+                <span style={{ fontSize: 13.5, fontWeight: 900, color: 'var(--coral)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  At-Risk Advisory Trigger (Care Team Early Warning)
+                </span>
+              </div>
+              <p style={{ margin: '4px 0 0 0', fontSize: 12, color: 'var(--t2)', lineHeight: 1.45 }}>
+                2 candidates flagged for low mock test engagement or attendance drop. Assign a multi-disciplinary Care Team to intervene.
+              </p>
+            </div>
+            <button
+              onClick={() => handleInitiateCareTeamReview('stud_risk_01', 'Cohort Advisory Group')}
+              style={{
+                padding: '8px 16px', borderRadius: 8, background: 'var(--coral)', color: '#fff',
+                border: 'none', fontWeight: 800, fontSize: 12, cursor: 'pointer', whiteSpace: 'nowrap',
+                boxShadow: '0 4px 12px rgba(239, 68, 68, 0.25)'
+              }}
+            >
+              🤝 Initiate Care Team Review
+            </button>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 14 }}>

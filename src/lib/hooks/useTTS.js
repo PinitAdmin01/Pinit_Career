@@ -7,9 +7,9 @@ import { generateTTSAudio, detectVibe, stopSpeaking, getCleanCacheKey } from '@/
 
 function getSharedAudioContext(sampleRate = 24000) {
   if (typeof window === 'undefined') return null;
-  const win = window as any;
+  const win = window;
   if (!win._useTTSSharedCtx || win._useTTSSharedCtx.state === 'closed') {
-    win._useTTSSharedCtx = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate });
+    win._useTTSSharedCtx = new (window.AudioContext || window.webkitAudioContext)({ sampleRate });
   }
   if (win._useTTSSharedCtx.state === 'suspended') {
     win._useTTSSharedCtx.resume().catch(() => {});
@@ -52,7 +52,7 @@ export function useTTS() {
         setTimeout(() => reject(new Error('Local model download timeout')), 10000)
       );
 
-      const { buffer, sampleRate } = await Promise.race([audioPromise, timeoutPromise]) as any;
+      const { buffer, sampleRate } = await Promise.race([audioPromise, timeoutPromise]);
       if (!speakingRef.current) return;
 
       const ctx = getSharedAudioContext(sampleRate);
@@ -78,7 +78,7 @@ export function useTTS() {
       source.onended = () => { sourceRef.current = null; };
       source.start(0);
       return; // ✅ Success
-    } catch (err: any) {
+    } catch (err) {
       console.warn('[useTTS] Main-thread generation failed:', err.message);
     }
   }, [stop]);

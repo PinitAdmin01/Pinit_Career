@@ -38,10 +38,15 @@ app = FastAPI(
 )
 
 # ── CORS ─────────────────────────────────────────────────────────────────────
-# In production, restrict to your domain.
+# IMPORTANT: Browsers reject allow_origins=["*"] + allow_credentials=True.
+# Set ALLOWED_ORIGINS in .env to comma-separated list of your frontend domains.
+# Example: ALLOWED_ORIGINS=https://pinit.app,https://www.pinit.app
+_raw_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://localhost:3001")
+ALLOWED_ORIGINS = [o.strip() for o in _raw_origins.split(",") if o.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -79,4 +84,6 @@ def health_check():
 if __name__ == "__main__":
     import uvicorn
     print("Starting PinIT Voice Cache Backend on port 8000...")
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    # Pass the app object (not a string) so reload works correctly
+    # regardless of the working directory. Always run: cd backend && python main.py
+    uvicorn.run(app, host="0.0.0.0", port=8000)

@@ -18,3 +18,7 @@ coverage/
 .env.development
 *.pdf
 *.docx
+scratch/
+tmp/
+CampusOS_Client_Presentation.html
+*.mp3

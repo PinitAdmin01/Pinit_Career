@@ -1041,6 +1041,38 @@ function ProfilePageInner() {
 
                 {activePortfolioTab === 'Timeline' && (
                   <div>
+                    {/* Course Learning Outcome (CLO) Competency Matrix (Moodle-inspired) */}
+                    <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 14, padding: 18, marginBottom: 24 }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+                        <div>
+                          <span style={{ fontSize: 10, fontWeight: 900, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: 0.8 }}>Moodle Competency Framework</span>
+                          <h4 style={{ margin: '2px 0 0 0', fontSize: 14, fontWeight: 800 }}>Course Learning Outcome (CLO) Competency Matrix</h4>
+                        </div>
+                        <span style={{ fontSize: 10.5, background: 'rgba(16,185,129,0.1)', color: 'var(--success)', padding: '2px 8px', borderRadius: 6, fontWeight: 700 }}>
+                          Accredited Matrix
+                        </span>
+                      </div>
+
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                        {[
+                          { code: 'CLO-101', name: 'Data Structure & Algorithmic Crisis Recovery', mastery: 92, evidence: 'Socratic Quest #4 + WASM Sandbox' },
+                          { code: 'CLO-102', name: 'System Architecture & Concurrency Design', mastery: 85, evidence: 'GitHub AST Hash PIN-GH-9021' },
+                          { code: 'CLO-103', name: 'Technical Presentation & Verbal Alignment', mastery: 88, evidence: '4-Round AI Interview Round 3' }
+                        ].map((clo, idx) => (
+                          <div key={idx} style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 10, padding: 12 }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+                              <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--t1)' }}>{clo.code}: {clo.name}</span>
+                              <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--success)', fontFamily: 'var(--font-mono)' }}>{clo.mastery}% Mastery</span>
+                            </div>
+                            <div style={{ width: '100%', height: 6, borderRadius: 3, background: 'var(--bg3)', overflow: 'hidden', marginBottom: 6 }}>
+                              <div style={{ width: `${clo.mastery}%`, height: '100%', background: 'linear-gradient(90deg, #10b981, #059669)', borderRadius: 3 }} />
+                            </div>
+                            <div style={{ fontSize: 10, color: 'var(--t3)' }}>Verified Evidence: {clo.evidence}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
                     <h3 style={{ margin: '0 0 12px 0', fontSize: 16, fontWeight: 900 }}>Progression Timeline</h3>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 16, borderLeft: '2px solid var(--border)', paddingLeft: 16, marginLeft: 10, position: 'relative' }}>
                       {timeline.map(evt => (

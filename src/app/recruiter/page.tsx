@@ -246,6 +246,41 @@ function RecruiterPageInner() {
   // Resume full-view modal state
   const [viewResumeData, setViewResumeData] = useState<{ name: string; resume: ResumeFormData } | null>(null);
 
+  // 6-Stage Candidate Pipeline State (OpenCATS-inspired)
+  const [candidateStages, setCandidateStages] = useState<Record<string, string>>({});
+  
+  // Recruiter Notes Drawer State
+  const [candidateNotesMap, setCandidateNotesMap] = useState<Record<string, Array<{ text: string; date: string; author: string }>>>({});
+  const [newNoteText, setNewNoteText] = useState('');
+
+  const PIPELINE_STAGES = ['Submitted', 'ATS Screened', 'AI Interviewed', 'Shortlisted', 'Offered', 'Hired'];
+
+  const getCandidateStage = (candidateId: string) => {
+    return candidateStages[candidateId] || 'ATS Screened';
+  };
+
+  const handleUpdateStage = (candidateId: string, stage: string, candidateName: string) => {
+    setCandidateStages(prev => ({ ...prev, [candidateId]: stage }));
+    logActivity('STAGE_CHANGE', { candidateId, stage, candidateName });
+    triggerToast(`Updated ${candidateName}'s status to ${stage}`, 'success');
+  };
+
+  const handleAddRecruiterNote = (candidateId: string) => {
+    if (!newNoteText.trim()) return;
+    const noteObj = {
+      text: newNoteText.trim(),
+      date: new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }),
+      author: (user?.displayName || user?.username || 'Lead Recruiter') as string
+    };
+    setCandidateNotesMap(prev => ({
+      ...prev,
+      [candidateId]: [noteObj, ...(prev[candidateId] || [])]
+    }));
+    logActivity('NOTE_ADDED', { candidateId, text: newNoteText.trim() });
+    setNewNoteText('');
+    triggerToast('Recruiter note recorded successfully', 'success');
+  };
+
   // Activity Logs
   const [logs, setLogs] = useState<ActivityLog[]>([]);
   const [chartDays, setChartDays] = useState(14);
@@ -879,6 +914,65 @@ function RecruiterPageInner() {
                   )}
                 </div>
 
+                {/* 6-Stage Pipeline Status Bar (OpenCATS-inspired) */}
+                <div style={{ marginBottom: 14 }}>
+                  <div style={{ fontSize: 10, color: 'var(--t3)', letterSpacing: 1, textTransform: 'uppercase', marginBottom: 6, fontWeight: 700 }}>
+                    Hiring Stage Pipeline: <span style={{ color: 'var(--accent)' }}>{getCandidateStage(selectedCandidate.id)}</span>
+                  </div>
+                  <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+                    {PIPELINE_STAGES.map(stg => {
+                      const isActive = getCandidateStage(selectedCandidate.id) === stg;
+                      return (
+                        <button
+                          key={stg}
+                          onClick={() => handleUpdateStage(selectedCandidate.id, stg, selectedCandidate.display_name)}
+                          style={{
+                            fontSize: 9.5, padding: '3px 8px', borderRadius: 4, border: 'none', cursor: 'pointer',
+                            fontWeight: isActive ? 800 : 500,
+                            background: isActive ? 'var(--accent)' : 'var(--bg3)',
+                            color: isActive ? '#fff' : 'var(--t2)'
+                          }}
+                        >
+                          {stg}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Recruiter Notes Drawer */}
+                <div style={{ marginBottom: 14 }}>
+                  <div style={{ fontSize: 10, color: 'var(--t3)', letterSpacing: 1, textTransform: 'uppercase', marginBottom: 6, fontWeight: 700 }}>Recruiter Activity Notes</div>
+                  <div style={{ display: 'flex', gap: 6, marginBottom: 8 }}>
+                    <input
+                      value={newNoteText}
+                      onChange={e => setNewNoteText(e.target.value)}
+                      onKeyDown={e => e.key === 'Enter' && handleAddRecruiterNote(selectedCandidate.id)}
+                      placeholder="Add recruiter note or call log..."
+                      style={{ flex: 1, padding: '6px 10px', borderRadius: 6, border: '1px solid var(--border)', background: 'var(--bg3)', color: 'var(--t1)', fontSize: 11 }}
+                    />
+                    <button
+                      onClick={() => handleAddRecruiterNote(selectedCandidate.id)}
+                      style={{ padding: '6px 10px', borderRadius: 6, background: 'var(--accent)', color: 'white', border: 'none', cursor: 'pointer', fontSize: 11, fontWeight: 700 }}
+                    >
+                      + Note
+                    </button>
+                  </div>
+                  {(candidateNotesMap[selectedCandidate.id] || []).length > 0 && (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 4, maxHeight: 120, overflowY: 'auto' }}>
+                      {(candidateNotesMap[selectedCandidate.id] || []).map((n, idx) => (
+                        <div key={idx} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 6, padding: '6px 8px', fontSize: 10.5 }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--t3)', fontSize: 9.5, marginBottom: 2 }}>
+                            <span><strong>{n.author}</strong></span>
+                            <span>{n.date}</span>
+                          </div>
+                          <div style={{ color: 'var(--t1)' }}>{n.text}</div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
                 {/* Candidate Interaction History */}
                 <div style={{ marginBottom: 14 }}>
                   <div style={{ fontSize: 10, color: 'var(--t3)', letterSpacing: 1, textTransform: 'uppercase', marginBottom: 6, fontWeight: 700 }}>Candidate Interaction History</div>
@@ -921,6 +1015,17 @@ function RecruiterPageInner() {
                       📄 View Full Resume
                     </button>
                   )}
+                  <button
+                    onClick={() => {
+                      const refId = `REF-INV-2026-${Math.floor(1000 + Math.random() * 9000)}`;
+                      logActivity('INTERVIEW_DISPATCH', { candidateId: selectedCandidate.id, candidateName: selectedCandidate.display_name, refId });
+                      triggerToast(`Sent formal interview invitation to ${selectedCandidate.display_name} (Ref #${refId})`, 'success');
+                    }}
+                    className="btn-primary"
+                    style={{ width: '100%', justifyContent: 'center', background: 'linear-gradient(135deg, #10b981, #059669)', color: '#fff' }}
+                  >
+                    ✉️ Dispatch AI Interview Invitation
+                  </button>
                   <button onClick={() => shortlist(selectedCandidate.id)} className="btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
                     ★ Shortlist Candidate
                   </button>

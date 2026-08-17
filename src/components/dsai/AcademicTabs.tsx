@@ -30,15 +30,15 @@ export function HomeTab({ student, onStartExam, examCheckLoading }: any) {
       ]);
       if (cancelled) return;
       const now = new Date();
-      const myResults = results.filter(r => r.registerNumber === student.registerNumber);
-      const activeExams = schedules.filter(s => {
+      const myResults = results.filter((r: any) => r.registerNumber === student.registerNumber);
+      const activeExams = schedules.filter((s: any) => {
         const start = new Date(s.startDateTime), end = new Date(s.endDateTime);
         return now >= start && now <= end && (s.batch === student.batch || s.batch === 'All Batches');
       });
-      const attemptedIds = myResults.map(r => r.examScheduleId);
-      const myNotifs = notifications.filter(n => n.batch === student.batch || n.batch === 'All Batches');
+      const attemptedIds = myResults.map((r: any) => r.examScheduleId);
+      const myNotifs = notifications.filter((n: any) => n.batch === student.batch || n.batch === 'All Batches');
       const avg = myResults.length
-        ? (myResults.reduce((s, r) => s + parseFloat(r.percentage || 0), 0) / myResults.length).toFixed(1)
+        ? (myResults.reduce((s: number, r: any) => s + parseFloat(r.percentage || 0), 0) / myResults.length).toFixed(1)
         : 0;
       setData({ myResults, activeExams, myNotifs, news, avg, attemptedIds });
     }
@@ -135,12 +135,12 @@ export function ExamsTab({ student, onStartExam, examCheckLoading }: any) {
   const load = useCallback(async () => {
     const [schedules, results] = await Promise.all([DB.getAll('exam_schedule'), DB.getAll('exam_results')]);
     const now = new Date();
-    const attemptedIds = results.filter(r => r.registerNumber === student.registerNumber).map(r => r.examScheduleId);
-    const myExams = schedules.filter(s => s.batch === student.batch || s.batch === 'All Batches');
+    const attemptedIds = results.filter((r: any) => r.registerNumber === student.registerNumber).map((r: any) => r.examScheduleId);
+    const myExams = schedules.filter((s: any) => s.batch === student.batch || s.batch === 'All Batches');
     setData({
-      active:   myExams.filter(s => now >= new Date(s.startDateTime) && now <= new Date(s.endDateTime)),
-      upcoming: myExams.filter(s => new Date(s.startDateTime) > now),
-      past:     myExams.filter(s => new Date(s.endDateTime) < now),
+      active:   myExams.filter((s: any) => now >= new Date(s.startDateTime) && now <= new Date(s.endDateTime)),
+      upcoming: myExams.filter((s: any) => new Date(s.startDateTime) > now),
+      past:     myExams.filter((s: any) => new Date(s.endDateTime) < now),
       attemptedIds,
     });
   }, [student.registerNumber, student.batch]);
@@ -213,7 +213,7 @@ export function ResultsTab({ student }: any) {
     ]);
     const map: any = {};
     vis.forEach((v: any) => { map[v.examScheduleId] = v.revealed === true; });
-    setResults(all.filter(r => r.registerNumber === student.registerNumber));
+    setResults(all.filter((r: any) => r.registerNumber === student.registerNumber));
     setRevealMap(map);
   }, [student.registerNumber]);
   useEffect(() => { load(); }, [load]);
@@ -461,13 +461,13 @@ export function ContactTab({ student }: any) {
 
       // Map teacher replies from directMsgs back into local history
       const localMap = new Map<string, any>();
-      filteredLocal.forEach(m => localMap.set(m.id || m.subject, m));
+      filteredLocal.forEach((m: any) => localMap.set(m.id || m.subject, m));
 
-      directMsgs.forEach(dm => {
+      directMsgs.forEach((dm: any) => {
         if (dm.role === 'teacher' || dm.sender_id === recipient) {
           // Find matching query by subject or pick most recent pending query
           const rawSubj = dm.content?.split(']: ')?.[0]?.replace('[RE: ', '')?.replace('[', '');
-          const matched = filteredLocal.find(m => m.subject === rawSubj || m.status === 'Pending');
+          const matched = filteredLocal.find((m: any) => m.subject === rawSubj || m.status === 'Pending');
           if (matched) {
             matched.reply = dm.content?.split(']: ')[1] || dm.content;
             matched.status = 'Replied';

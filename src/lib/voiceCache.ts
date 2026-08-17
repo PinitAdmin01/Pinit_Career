@@ -14,12 +14,11 @@
  */
 
 // ── Constants ─────────────────────────────────────────────────────────────────
+// DB_NAME and STORE_NAME are imported from voiceCacheDB.ts (single source of truth).
+// Do NOT redefine them here.
+import { computeVoiceCacheKey, DB_NAME, STORE_NAME } from './voiceCacheDB';
 
-const DB_NAME    = 'PinIT_VoiceCacheDB';
-const STORE_NAME = 'audio_blobs';
-const MODEL_VERSION = 'v2.0';
 
-// ── Types ──────────────────────────────────────────────────────────────────────
 
 export interface VoiceCacheRequest {
   text:        string;
@@ -39,33 +38,28 @@ export interface VoiceCacheResult {
   duration?:   number;
 }
 
-// ── SHA-256 Hash (Browser Crypto API) ─────────────────────────────────────────
 
+// ── SHA-256 Hash — delegates to the canonical implementation in voiceCacheDB.ts ──
+// This ensures frontend and backend always produce the same key for the same input.
+
+/**
+ * Computes a deterministic SHA-256 voice cache key.
+ * Delegates to computeVoiceCacheKey (voiceCacheDB.ts) — single source of truth.
+ * Extra params (language, emotion, version, sampleRate) accepted for call-site
+ * compatibility but the canonical key is voice + speed + normalized_text.
+ */
 export async function computeVoiceHash(
-  text:       string,
-  voice:      string,
-  language  = 'en',
-  speed     = 1.0,
-  emotion   = 'neutral',
-  version   = MODEL_VERSION,
-  sampleRate = 24000,
+  text:        string,
+  voice:       string,
+  _language  = 'en',
+  speed      = 1.0,
+  _emotion   = 'neutral',
+  _version   = 'pinit_v2',
+  _sampleRate = 24000,
 ): Promise<string> {
-  const normalized = normalizeText(text);
-  const payload    = `${normalized}:${voice}:${language}:${speed.toFixed(2)}:${emotion}:${version}:${sampleRate}`;
-  const encoded    = new TextEncoder().encode(payload);
-  const hashBuffer = await crypto.subtle.digest('SHA-256', encoded);
-  return Array.from(new Uint8Array(hashBuffer))
-    .map(b => b.toString(16).padStart(2, '0'))
-    .join('');
+  return computeVoiceCacheKey(text, voice, speed);
 }
 
-function normalizeText(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/[^\w\s]/g, '')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
 
 // ── IndexedDB Cache (Tier 1) ───────────────────────────────────────────────────
 
@@ -128,6 +122,10 @@ const STATIC_AUDIO_MAP: Record<string, string> = {
   'last question how many hours per week can you dedicate to learning five hours ten hours or more':                           '/audio/priya/step5.wav',
   'fantastic next let s load your identity discovery slides to establish your cognitive styles':                               '/audio/priya/step6.wav',
 };
+
+function normalizeText(text: string): string {
+  return text.trim().toLowerCase().replace(/[^\w\s]/g, '').replace(/\s+/g, ' ');
+}
 
 function lookupStatic(text: string): string | null {
   const key = normalizeText(text);
@@ -303,7 +301,8 @@ export async function playCachedSpeech(
 
 export async function fetchCacheStats(): Promise<Record<string, unknown>> {
   try {
-    const res = await fetch('/api/cache?action=stats');
+    // Correct path: /api/cache/stats (not /api/cache?action=stats)
+    const res = await fetch('/api/cache/stats');
     return res.ok ? res.json() : {};
   } catch {
     return {};
@@ -312,7 +311,8 @@ export async function fetchCacheStats(): Promise<Record<string, unknown>> {
 
 export async function checkCacheKey(key: string): Promise<boolean> {
   try {
-    const res  = await fetch(`/api/cache?action=hash&key=${encodeURIComponent(key)}`);
+    // Correct path: /api/cache/hash?key=... (not /api/cache?action=hash&key=...)
+    const res  = await fetch(`/api/cache/hash?key=${encodeURIComponent(key)}`);
     const data = await res.json();
     return data?.exists === true && data?.file_exists === true;
   } catch {

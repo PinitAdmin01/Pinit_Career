@@ -265,7 +265,6 @@ function GlobalAvatar({
     if (!isStoryTourPending(user.id)) return;
 
     if (cleanPath !== '/dashboard') {
-      router.replace('/dashboard');
       return;
     }
 
@@ -275,6 +274,7 @@ function GlobalAvatar({
       setTourActive(true);
       setTourStep(0);
       setMinimized(false);
+      completeStoryTour(user.id);
     }, 800);
     return () => window.clearTimeout(t);
   }, [mounted, user?.id, cleanPath, tourActive, showVoiceRegModal, router, onExpandLeftNav]);
@@ -321,12 +321,22 @@ function GlobalAvatar({
       setMinimized(false);
     };
 
+    const cancelStoryHandler = () => {
+      stopSpeaking();
+      setTourActive(false);
+      setStoryLocked(false);
+      setMinimized(false);
+      completeStoryTour(user?.id);
+    };
+
     window.addEventListener('pinit:activity_complete', handler);
     window.addEventListener('pinit:start_story_mode', storyHandler);
+    window.addEventListener('pinit:cancel_story_mode', cancelStoryHandler);
     window.addEventListener('pinit:trigger_congrats', congratsHandler);
     return () => {
       window.removeEventListener('pinit:activity_complete', handler);
       window.removeEventListener('pinit:start_story_mode', storyHandler);
+      window.removeEventListener('pinit:cancel_story_mode', cancelStoryHandler);
       window.removeEventListener('pinit:trigger_congrats', congratsHandler);
       if (celebTimerRef.current) clearTimeout(celebTimerRef.current);
     };
@@ -412,15 +422,10 @@ function GlobalAvatar({
     if (cleanPath !== '/dashboard') router.push('/dashboard');
   };
   const dismissTour = () => {
-    if (storyLocked) {
-      nextTourSlide();
-      return;
-    }
     setTourActive(false);
+    setStoryLocked(false);
     stopSpeaking();
-    if (typeof window !== 'undefined' && user?.id) {
-      localStorage.setItem(`pinit_${user.id}_tour_shown`, 'true');
-    }
+    completeStoryTour(user?.id);
   };
   const prevTourSlide = () => {
     if (tourStep > 0) {
@@ -1204,7 +1209,7 @@ const PAGE_TITLES: Record<string, string> = {
   '/reset-password':'Reset Password',
 };
 
-const PUBLIC_PATHS = ['/', '/login', '/signup', '/reset-password', '/qr-login', '/qr-confirm', '/onboarding', '/privacy', '/terms', '/contact', '/admissions', '/about', '/pricing', '/services'];
+const PUBLIC_PATHS = ['/', '/login', '/signup', '/reset-password', '/qr-login', '/qr-confirm', '/onboarding', '/privacy', '/terms', '/contact', '/admissions', '/about', '/pricing', '/services', '/teacher', '/admin', '/recruiter', '/consultant', '/parent', '/finance'];
 
 function getNav(role: string, _pathname: string = ''): NavSection[] {
   // Nav must follow authenticated role only — never privilege by URL path.
@@ -1482,40 +1487,19 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   // Redirect users who land on a portal that does not match their role
   useEffect(() => {
     if (loading || !user || isPublic) return;
-    const role = user.role || 'student';
-    const home =
-      role === 'teacher' ? '/admin/teacher' :
-      role === 'admin' || role === 'superadmin' ? '/admin' :
-      role === 'recruiter' ? '/recruiter' :
-      role === 'consultant' ? '/consultant' :
-      role === 'parent' ? '/parent' :
-      '/dashboard';
-
-    const onTeacher = pathname.startsWith('/admin/teacher') || pathname.startsWith('/teacher');
-    const onAdmin = pathname.startsWith('/admin') && !onTeacher;
-    const denied =
-      (onTeacher && !['teacher', 'admin', 'superadmin'].includes(role)) ||
-      (onAdmin && !['admin', 'superadmin'].includes(role)) ||
-      (pathname.startsWith('/recruiter') && !['recruiter', 'admin', 'superadmin'].includes(role)) ||
-      (pathname.startsWith('/consultant') && !['consultant', 'admin', 'superadmin'].includes(role)) ||
-      (pathname.startsWith('/parent') && !['parent', 'admin', 'superadmin'].includes(role));
-
-    if (denied) {
-      if (isRedirectingRef.current) return;
-      isRedirectingRef.current = true;
-      router.replace(home);
-    }
+    // Allow users to visit staff portals (RoleGate cards manage demo login internally)
   }, [loading, user, pathname, router, isPublic]);
 
-  // Redirect unauthenticated users to /
+  // Unauthenticated redirect check — allow landing pages & staff demo portals
   useEffect(() => {
-    if (!loading && user === null && !isPublic) {
+    const isStaffPortal = ['/teacher', '/admin', '/recruiter', '/consultant', '/parent', '/finance', '/services'].some(p => pathname.startsWith(p));
+    if (!loading && user === null && !isPublic && !isStaffPortal) {
       router.push('/?login=true');
     }
-  }, [user, loading, isPublic, router]);
+  }, [user, loading, isPublic, pathname, router]);
 
-  const isOnboarding = pathname === '/onboarding';
-  if (isPublic || isOnboarding) return <>{children}</>;
+  const isLandingPage = ['/', '/login', '/signup', '/reset-password', '/qr-login', '/qr-confirm', '/onboarding', '/privacy', '/terms', '/contact', '/admissions', '/about', '/pricing'].some(p => pathname === p || (p !== '/' && pathname.startsWith(p)));
+  if (isLandingPage) return <>{children}</>;
 
   if (loading) return (
     <div style={{ minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center', background:'var(--bg)' }}>
@@ -1526,11 +1510,13 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     </div>
   );
 
-  if (user === null) {
+  // If user is null but visiting a staff demo portal, allow rendering the page inside AppShell
+  const isStaffPortal = ['/teacher', '/admin', '/recruiter', '/consultant', '/parent', '/finance', '/services'].some(p => pathname.startsWith(p));
+  if (user === null && !isStaffPortal) {
     return null;
   }
 
-  const nav = getNav(user.role || 'student', pathname);
+  const nav = getNav(user?.role || 'student', pathname);
   const toggleGroup = (label: string) => setOpenGroups(prev => ({ ...prev, [label]: !prev[label] }));
 
   function NavLink({ href, icon, label, badge, indent = false }: NavLeaf & { indent?: boolean }) {
@@ -1541,6 +1527,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         title={collapsed ? label : undefined}
         onClick={() => {
           setActiveAcademicTab(null);
+          if (typeof window !== 'undefined') {
+            window.dispatchEvent(new CustomEvent('pinit:cancel_story_mode'));
+          }
         }}
         className={`nav-item${active ? ' active' : ''}`}
         style={indent && !collapsed ? { paddingLeft: 32 } : undefined}
@@ -1689,14 +1678,14 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                 display:'flex', alignItems:'center', justifyContent:'center',
                 fontSize:12, fontWeight:800, color:'#fff',
               }}>
-                {user.displayName?.[0]?.toUpperCase() || 'U'}
+                {user?.displayName?.[0]?.toUpperCase() || 'U'}
               </div>
               <div style={{ flex:1, minWidth:0 }}>
                 <div style={{ fontSize:12, fontWeight:600, color:'var(--t1)', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>
-                  {user.displayName}
+                  {user?.displayName || 'Faculty / Visitor'}
                 </div>
                 <div style={{ fontSize:10, color:'var(--t3)', fontFamily:'var(--font-mono)', textTransform:'capitalize' }}>
-                  {user.role}
+                  {user?.role || 'Guest'}
                 </div>
               </div>
               <button onClick={() => logout().then(() => router.push('/'))}
@@ -1784,7 +1773,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                 onClick={() => setLiteUiMode(prev => {
                   const next = !prev;
                   if (typeof window !== 'undefined') {
-                    localStorage.setItem(`pinit_${user.id}_lite_ui_mode`, JSON.stringify(next));
+                    localStorage.setItem(`pinit_${user?.id || 'guest'}_lite_ui_mode`, JSON.stringify(next));
                   }
                   toast.info(next ? 'Lite Mode Active 💬' : 'Cockpit Mode Active 🖥️', next ? 'Guided conversational UI loaded.' : 'Standard telemetry graphs restored.');
                   return next;

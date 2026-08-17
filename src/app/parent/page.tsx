@@ -29,23 +29,21 @@ function ParentPageInner() {
     enabled:  !!selectedStudent,
   });
 
-  // Dynamic chat message update when student changes (not on background refetch)
-  const prevStudentRef = React.useRef(selectedStudent);
+  // Auto-select first student if none selected
   useEffect(() => {
-    // Only reset tab when user explicitly switches student, not on background refetch
-    if (prevStudentRef.current !== selectedStudent) {
-      setActiveTab('dashboard');
-      prevStudentRef.current = selectedStudent;
+    if (students && students.length > 0 && !selectedStudent) {
+      setSelectedStudent(students[0].id);
     }
-    if (students && selectedStudent) {
-      const activeChild = students.find(s => s.id === selectedStudent);
-      const name = activeChild?.display_name || (activeChild as any)?.full_name || (activeChild as any)?.name || 'your child';
-      setChatMessages([]);
-      setAdvisorMessages([
-        { role: 'assistant', text: `Ask about ${name}'s live overview metrics (ATS, readiness, streak). Fabricated attendance/CGPA answers are disabled.` }
-      ]);
-    }
-  }, [selectedStudent, students]);
+  }, [students, selectedStudent]);
+
+  // Acknowledged alerts state tracking
+  const [acknowledgedAlerts, setAcknowledgedAlerts] = useState<Record<string, string>>({});
+
+  const handleAcknowledgeAlert = (alertTitle: string) => {
+    const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    setAcknowledgedAlerts(prev => ({ ...prev, [alertTitle]: timestamp }));
+    toast.success('Alert Acknowledged', `You have formally acknowledged "${alertTitle}" at ${timestamp}.`);
+  };
 
   const linkMutation = useMutation({
     mutationFn: (rn: string) => api.post('/api/parent/link-student', { registerNumber: rn }),
@@ -196,6 +194,24 @@ function ParentPageInner() {
                           Attendance, CGPA, and institutional alerts appear only when those data sources are connected.
                         </p>
                       </div>
+
+                      {/* Parent Alert Acknowledgment Feedback Seal Banner (Item 6) */}
+                      {Object.keys(acknowledgedAlerts).length > 0 && (
+                        <div style={{
+                          background: 'rgba(16,185,129,0.06)', border: '1.5px solid rgba(16,185,129,0.25)',
+                          borderRadius: 12, padding: '12px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center'
+                        }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                            <span style={{ fontSize: 16 }}>🛡️</span>
+                            <span style={{ fontSize: 12.5, color: 'var(--success)', fontWeight: 800 }}>
+                              {Object.keys(acknowledgedAlerts).length} Institutional Advisory Alert(s) Formally Acknowledged
+                            </span>
+                          </div>
+                          <span style={{ fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
+                            SEAL #ACK-PAR-{Object.keys(acknowledgedAlerts).length}
+                          </span>
+                        </div>
+                      )}
 
                       {/* Score Cards Grid */}
                       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 14 }}>
@@ -831,6 +847,28 @@ function ParentPageInner() {
                             </div>
                             <h4 style={{ margin: '4px 0 0 0', fontSize: 13, fontWeight: 800, color: 'var(--t1)' }}>{n.title}</h4>
                             <p style={{ margin: 0, fontSize: 12, color: 'var(--t2)', lineHeight: 1.45 }}>{n.desc}</p>
+                            <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 6 }}>
+                              {acknowledgedAlerts[n.title] ? (
+                                <span style={{
+                                  fontSize: 11, fontWeight: 700, color: 'var(--success)',
+                                  background: 'rgba(16,185,129,0.1)', padding: '4px 10px', borderRadius: 6,
+                                  border: '1px solid rgba(16,185,129,0.2)'
+                                }}>
+                                  ✓ Acknowledged at {acknowledgedAlerts[n.title]}
+                                </span>
+                              ) : (
+                                <button
+                                  onClick={() => handleAcknowledgeAlert(n.title)}
+                                  style={{
+                                    fontSize: 11.5, fontWeight: 700, padding: '5px 12px', borderRadius: 6,
+                                    background: 'var(--card)', color: 'var(--t1)', border: '1px solid var(--border)',
+                                    cursor: 'pointer', transition: 'all 0.15s ease'
+                                  }}
+                                >
+                                  ✔ Acknowledge Alert
+                                </button>
+                              )}
+                            </div>
                           </div>
                         ))}
                       </div>

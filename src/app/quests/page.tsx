@@ -9,6 +9,7 @@ import { generateDynamicStudentRoadmap } from '@/lib/data/roadmapFuser';
 import { recommendCareerTrajectory, CareerTrajectory, TrajectoryNode } from '@/lib/data/careerTrajectories';
 import { toast } from '@/lib/store/useAppStore';
 import { CourseNotesModal } from '@/components/CourseNotesModal';
+import { EnglishDashboard } from '@/components/language/EnglishDashboard';
 import {
   ExtraRoadmap,
   LearningPathMode,
@@ -132,6 +133,7 @@ export default function QuestsPage() {
   const [showFullJourneyModal, setShowFullJourneyModal] = useState(false);
   const [activeGateModalNode, setActiveGateModalNode] = useState<TrajectoryNode | null>(null);
   const [historyFilter, setHistoryFilter] = useState<'all' | 'quests' | 'pins'>('all');
+  const [showEnglishDashboard, setShowEnglishDashboard] = useState(false);
 
   // Dual Mode Switcher states (Fused Career Trajectory vs Standalone Single Course Direct Learning)
   const [learningPathMode, setLearningPathMode] = useState<LearningPathMode>('fused_roadmap');
@@ -686,6 +688,10 @@ export default function QuestsPage() {
     return { dayNum, level };
   });
 
+  if (showEnglishDashboard) {
+    return <EnglishDashboard onBackToQuests={() => setShowEnglishDashboard(false)} />;
+  }
+
   return (
     <div className="quests-page" style={{ paddingBottom: 60 }}>
 
@@ -714,6 +720,24 @@ export default function QuestsPage() {
 
           {/* Right Action Buttons */}
           <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+            <button
+              onClick={() => setShowEnglishDashboard(true)}
+              style={{
+                background: 'linear-gradient(135deg, #8b5cf6, #7c3aed)',
+                border: 'none',
+                borderRadius: 8,
+                padding: '5px 12px',
+                color: '#fff',
+                fontSize: 11,
+                fontWeight: 800,
+                cursor: 'pointer',
+                boxShadow: '0 2px 6px rgba(139,92,246,0.3)'
+              }}
+              className="btn-glow"
+            >
+              🗣️ English Language Learning
+            </button>
+
             <button
               onClick={() => setShowRoadmapModal(true)}
               style={{

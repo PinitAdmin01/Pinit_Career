@@ -407,7 +407,7 @@ class AvatarScene {
     // Apply Blinking to Face Mesh
     if (this.faceMeshWithBlink && this.eyeBlinkKeys && this.faceMeshWithBlink.morphTargetInfluences) {
       this.eyeBlinkKeys.forEach(k => {
-        const idx = this.faceMeshWithBlink!.morphTargetDictionary[k];
+        const idx = this.faceMeshWithBlink!.morphTargetDictionary?.[k];
         if (idx !== undefined) {
           this.faceMeshWithBlink!.morphTargetInfluences![idx] = blinkInfluence;
         }
@@ -590,19 +590,19 @@ class AvatarScene {
       // Apply to model morph target influences
       if (this.expressionKeys.joy) {
         this.expressionKeys.joy.forEach(k => {
-          const idx = this.expressionMesh!.morphTargetDictionary[k];
+          const idx = this.expressionMesh!.morphTargetDictionary?.[k];
           if (idx !== undefined) this.expressionMesh!.morphTargetInfluences![idx] = this.expressionInfluences.joy;
         });
       }
       if (this.expressionKeys.sorrow) {
         this.expressionKeys.sorrow.forEach(k => {
-          const idx = this.expressionMesh!.morphTargetDictionary[k];
+          const idx = this.expressionMesh!.morphTargetDictionary?.[k];
           if (idx !== undefined) this.expressionMesh!.morphTargetInfluences![idx] = this.expressionInfluences.sorrow;
         });
       }
       if (this.expressionKeys.surprise) {
         this.expressionKeys.surprise.forEach(k => {
-          const idx = this.expressionMesh!.morphTargetDictionary[k];
+          const idx = this.expressionMesh!.morphTargetDictionary?.[k];
           if (idx !== undefined) this.expressionMesh!.morphTargetInfluences![idx] = this.expressionInfluences.surprise;
         });
       }

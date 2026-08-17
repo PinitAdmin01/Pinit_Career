@@ -5,6 +5,7 @@ import { Suspense } from 'react';
 import '../styles/globals.css';
 import '../styles/portal-pages.css';
 import type { Metadata, Viewport } from 'next';
+import { Bricolage_Grotesque, Inter, JetBrains_Mono } from 'next/font/google';
 import Script                            from 'next/script';
 import { AuthProvider }                  from '@/lib/context/AuthContext';
 import { CareerOSProvider }              from '@/lib/context/CareerOSContext';
@@ -13,6 +14,28 @@ import ToastManager                      from '@/components/ui/ToastManager';
 import { QueryProvider }                 from '@/lib/query/client';
 import FetchInterceptorInstaller         from '@/components/ui/FetchInterceptorInstaller';
 import { BatchProvider }                 from '@/lib/context/BatchContext';
+
+// ── Self-hosted Google Fonts (no external DNS, no FOUT) ───────────────────────
+const bricolage = Bricolage_Grotesque({
+  subsets: ['latin'],
+  weight: ['500', '700', '800'],
+  variable: '--font-bricolage',
+  display: 'swap',
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-mono',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title:       { default: 'PINIT CAREER', template: '%s · PINIT CAREER' },
@@ -26,13 +49,13 @@ export const viewport: Viewport = { width:'device-width', initialScale:1, themeC
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning data-theme="dark">
+    <html
+      lang="en"
+      suppressHydrationWarning
+      data-theme="dark"
+      className={`${bricolage.variable} ${inter.variable} ${jetbrainsMono.variable}`}
+    >
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://www.gstatic.com" />
-        <link rel="dns-prefetch" href="https://www.gstatic.com" />
-        <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
         <link rel="icon" type="image/png" href="/brand/pinit-career-logo.png" />
       </head>
       <body>
