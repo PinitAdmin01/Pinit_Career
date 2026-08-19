@@ -1,404 +1,578 @@
-import { buildEnrichedDayQuests } from './curriculumEnricher';
-export interface DayConfig {
-  title: string;
-  desc: string;
-  syllabus: string[];
-  eTitle: string;
-  eDesc: string;
-  eStarter: string;
-  eHint: string;
-  eTest: string;
-  aTitle: string;
-  aDesc: string;
-  aStarter: string;
-  aHint: string;
-  aTest: string;
-}
+import { buildEnrichedDayQuests, DayConfig } from './curriculumEnricher';
 
 export const IOT_NETWORK_30_DAYS_CONFIGS: DayConfig[] = [
   {
-    title: "Introduction to Wireless IoT Networks — LPWANs, LoRaWAN and BLE Packets",
-    desc: "An IoT (Internet of Things) network connects smart devices to the internet. Unlike your phone or laptop which send high-definition video over high-speed Wi-Fi, most IoT devices are small, battery-powered sensors (like soil moisture monitors or smart water meters). These sensors only need to send small amounts of data (like 'soil is dry') over very long distances while running on a single battery for 10 years. Traditional Wi-Fi or Bluetooth cannot do this: Wi-Fi drains batteries in days, and standard Bluetooth only reaches 10 meters. We solve this using two classes of networks: (1) LPWAN (Low-Power Wide-Area Network): wireless networks designed for long range and low battery usage. The dominant LPWAN standard is LoRaWAN (Long Range Wide Area Network), which can send signals up to 15 kilometers in rural areas. (2) BLE (Bluetooth Low Energy): a short-range, ultra-low-power version of Bluetooth. Instead of establishing a constant connection, BLE devices announce themselves by broadcasting small, 31-byte message envelopes called ADVERTISING PACKETS. Nearby receivers scan for these packets without needing to pair. (Real world: City parking sensors use LoRaWAN. When a car parks, the sensor detects it and broadcasts a tiny 10-byte packet containing its ID and status. The signal travels 5 kilometers to a city-owned gateway, which routes it to the parking app's database. Because of LoRaWAN's efficiency, the sensor's battery lasts for 7 years without replacement.)",
-    syllabus: ["IoT Network requirements: low power, low data rates, and long range. Traditional Wi-Fi/Bluetooth limitations.", "LPWAN & LoRaWAN: low-power long-range protocols. Star-of-stars topology where sensors transmit directly to internet-connected gateways.", "BLE Advertising: broadcasting sensor readings in small 31-byte packets without pairing. Used for tracking tags and low-power beacons."],
-    eTitle: "Exam: BLE Packet Validator",
-    eDesc: "Not tested on day 1",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Packet Size Remaining",
-    aDesc: "Not tested on day 1",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Wireless Communication Spectrum & Protocols for IoT",
+    desc: "Compare transmission range, power budgets, data bandwidth, and RF spectrum allocations (Sub-GHz vs 2.4GHz).",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Wireless Communication Spectrum & Protocols for IoT.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Wireless Communication Spectrum & Protocols for IoT Validation",
+    eDesc: "Implement a JavaScript validation function for Wireless Communication Spectrum & Protocols for IoT.",
+    eStarter: "function iot_netTaskDay1(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay1 !== 'function') throw new Error('Function iot_netTaskDay1 not found');\nif (iot_netTaskDay1('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Wireless Communication Spectrum & Protocols for IoT Practice",
+    aDesc: "Write an auxiliary helper function for Wireless Communication Spectrum & Protocols for IoT.",
+    aStarter: "function iot_netTaskDay1Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay1Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Wireless Signal Strength — RSSI Decibel Scales and Link Quality Metrics",
-    desc: "When designing wireless IoT networks, you must measure how strong the signal is. We measure wireless signal strength using a metric called RSSI (Received Signal Strength Indicator). RSSI is measured in decibels relative to 1 milliwatt, written as 'dBm'. dBm is a logarithmic scale, not a linear one. (1) 0 dBm = exactly 1 milliwatt of power. (2) Positive dBm: signals stronger than 1 milliwatt (e.g. +20 dBm is the transmit power of a standard router). (3) Negative dBm: signals weaker than 1 milliwatt. Because wireless signals decay rapidly as they travel through the air, IoT receivers measure signals in deep negatives. RSSI RANGES: (1) -30 to -50 dBm: excellent, strong signal. (2) -60 to -70 dBm: good, reliable signal. (3) -80 to -90 dBm: weak signal, prone to packet drops. (4) -100 dBm or lower: extremely weak, connection lost. Why decibels? Because a signal's power drops by a factor of 100 or 1,000 as it travels. Instead of writing tiny decimals like 0.0000000001 watts, decibels allow us to write simple, manageable numbers like -100 dBm. (Real world: When you look at the Wi-Fi or cellular signal bars on your smartphone, the software is reading the raw negative dBm value from the modem. It maps -50 dBm to 4 full bars, -75 dBm to 2 bars, and -90 dBm to 1 bar, helping users find better reception.)",
-    syllabus: ["RSSI (Received Signal Strength Indicator): measuring signal power at the receiver using logarithmic decibels (dBm).", "dBm Scale: 0 dBm = 1mW. Signals weaken as they travel, resulting in negative dBm values. +3 dBm doubles the power; -3 dBm halves it.", "Signal Quality thresholds: mapping raw negative dBm ranges to user-friendly levels: Excellent (-50), Good (-70), Weak (-80), Lost (-100)."],
-    eTitle: "Exam: RSSI Quality Categorizer",
-    eDesc: "Not tested on day 2",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Signal Quality Ratio",
-    aDesc: "Not tested on day 2",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Wi-Fi Networking & Embedded TCP/IP Stacks",
+    desc: "Understand 802.11 b/g/n physical layers, WPA2/WPA3 enterprise security, and embedded LwIP TCP/IP stack.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Wi-Fi Networking & Embedded TCP/IP Stacks.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Wi-Fi Networking & Embedded TCP/IP Stacks Validation",
+    eDesc: "Implement a JavaScript validation function for Wi-Fi Networking & Embedded TCP/IP Stacks.",
+    eStarter: "function iot_netTaskDay2(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay2 !== 'function') throw new Error('Function iot_netTaskDay2 not found');\nif (iot_netTaskDay2('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Wi-Fi Networking & Embedded TCP/IP Stacks Practice",
+    aDesc: "Write an auxiliary helper function for Wi-Fi Networking & Embedded TCP/IP Stacks.",
+    aStarter: "function iot_netTaskDay2Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay2Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Path Loss Link Budget equations",
-    desc: "Master signal propagation mathematics. (Real world: RF simulation scripts calculate path losses, locating optimal places to deploy LoRaWAN gateways.)",
-    syllabus: ["Free Space Path Loss (FSPL) math", "Antenna transmission budgets", "Path loss dB calculations"],
-    eTitle: "Exam: Path Loss Estimator",
-    eDesc: "Write a JS function `getFreeSpaceLoss(distanceKm, frequencyMhz)` returning loss: `20 * Math.log10(distanceKm) + 20 * Math.log10(frequencyMhz) + 32.44`. Return 0 if inputs <= 0.",
-    eStarter: "function getFreeSpaceLoss(distanceKm, frequencyMhz) {\n    // Write your code here\n    \n}",
-    eHint: "Use Math.log10. Sum calculations, add constant. Verify parameters positive.",
-    eTest: "if (typeof getFreeSpaceLoss !== 'function') throw new Error('Method getFreeSpaceLoss not found');\nif (Math.abs(getFreeSpaceLoss(10, 868) - 111.19) > 0.5) throw new Error('Path loss math failed');",
-    aTitle: "Assignment: Link Margin Auditor",
-    aDesc: "Write a JS function `getLinkMargin(txPower, rxSens, loss)` returning txPower - loss - rxSens. (Loss is subtraction, Sensitivity is negative addition).",
-    aStarter: "function getLinkMargin(txPower, rxSens, loss) {\n    // Write your code here\n    \n}",
-    aHint: "Apply subtraction parameters, rxSens is negative so subtract it (adds absolute).",
-    aTest: "if (typeof getLinkMargin !== 'function') throw new Error('Method getLinkMargin not found');"
+    title: "Bluetooth Low Energy (BLE) PHY & Advertising",
+    desc: "Dissect BLE 4.2 / 5.0 advertising packet structures, broadcast beacons (iBeacon/Eddystone), and scan intervals.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Bluetooth Low Energy (BLE) PHY & Advertising.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Bluetooth Low Energy (BLE) PHY & Advertising Validation",
+    eDesc: "Implement a JavaScript validation function for Bluetooth Low Energy (BLE) PHY & Advertising.",
+    eStarter: "function iot_netTaskDay3(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay3 !== 'function') throw new Error('Function iot_netTaskDay3 not found');\nif (iot_netTaskDay3('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Bluetooth Low Energy (BLE) PHY & Advertising Practice",
+    aDesc: "Write an auxiliary helper function for Bluetooth Low Energy (BLE) PHY & Advertising.",
+    aStarter: "function iot_netTaskDay3Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay3Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "LoRaWAN Spreading Factor durations",
-    desc: "Learn to analyze transmission time-on-air. (Real world: Industrial nodes select higher Spreading Factors to extend reach, balancing increased battery consumption.)",
-    syllabus: ["LoRa Spreading Factors (SF7-SF12)", "Time-on-Air (ToA) variables equations", "duty cycle transmission limits"],
-    eTitle: "Exam: Spreading Factor Scale",
-    eDesc: "Write a JS function `isAirtimeSafe(sf, sizeBytes, maxMs)` returning true if estimated airtime: `sizeBytes * sf * 2` is strictly less than maxMs. Return false if sf is negative or sizeBytes <= 0.",
-    eStarter: "function isAirtimeSafe(sf, sizeBytes, maxMs) {\n    // Write your code here\n    \n}",
-    eHint: "Multiply parameters, compare with limit. Verify positive boundaries.",
-    eTest: "if (typeof isAirtimeSafe !== 'function') throw new Error('Method isAirtimeSafe not found');\nif (isAirtimeSafe(7, 50, 1000) !== true) throw new Error('Safe airtime check failed');",
-    aTitle: "Assignment: ToA Ticks Calculator",
-    aDesc: "Write a JS function `getAirtimeMs(sf, sizeBytes)` returning sizeBytes * sf * 2. Return 0 if inputs are negative.",
-    aStarter: "function getAirtimeMs(sf, sizeBytes) {\n    // Write your code here\n    \n}",
-    aHint: "Multiply parameters. Check negative.",
-    aTest: "if (typeof getAirtimeMs !== 'function') throw new Error('Method getAirtimeMs not found');"
+    title: "BLE Generic Access Profile (GAP) & GATT",
+    desc: "Design custom GATT services, characteristics, UUIDs, read/write permissions, and notify/indicate subscriptions.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of BLE Generic Access Profile (GAP) & GATT.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: BLE Generic Access Profile (GAP) & GATT Validation",
+    eDesc: "Implement a JavaScript validation function for BLE Generic Access Profile (GAP) & GATT.",
+    eStarter: "function iot_netTaskDay4(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay4 !== 'function') throw new Error('Function iot_netTaskDay4 not found');\nif (iot_netTaskDay4('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: BLE Generic Access Profile (GAP) & GATT Practice",
+    aDesc: "Write an auxiliary helper function for BLE Generic Access Profile (GAP) & GATT.",
+    aStarter: "function iot_netTaskDay4Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay4Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "NB-IoT Cellular connection retries",
-    desc: "Understand wireless network access attempt loops. (Real world: Remote sensors increment cellular attempts counter on network dropouts, sleep-cycling to avoid battery drains.)",
-    syllabus: ["NB-IoT cellular access loops", "checking connection attempt parameters", "preventing battery drain resets"],
-    eTitle: "Exam: Cellular Access Gatekeeper",
-    eDesc: "Write a JS function `canRetryConnection(attempt, maxRetry)` returning true if attempt < maxRetry. Return false if attempt is negative or maxRetry <= 0.",
-    eStarter: "function canRetryConnection(attempt, maxRetry) {\n    // Write your code here\n    \n}",
-    eHint: "Compare parameters, verify inputs are positive numbers.",
-    eTest: "if (typeof canRetryConnection !== 'function') throw new Error('Method canRetryConnection not found');\nif (canRetryConnection(2, 5) !== true) throw new Error('Access retry check failed');",
-    aTitle: "Assignment: Retries remaining scale",
-    aDesc: "Write a JS function `getRetriesLeft(attempt, maxRetry)` returning maxRetry - attempt. Return 0 if limit is met.",
-    aStarter: "function getRetriesLeft(attempt, maxRetry) {\n    // Write your code here\n    \n}",
-    aHint: "Subtract attempt from max. Clamp to >= 0.",
-    aTest: "if (typeof getRetriesLeft !== 'function') throw new Error('Method getRetriesLeft not found');"
+    title: "BLE Connection Parameters & Throughput Tuning",
+    desc: "Tune connection intervals (7.5ms - 4s), slave latency, and supervision timeouts to minimize battery drain.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of BLE Connection Parameters & Throughput Tuning.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: BLE Connection Parameters & Throughput Tuning Validation",
+    eDesc: "Implement a JavaScript validation function for BLE Connection Parameters & Throughput Tuning.",
+    eStarter: "function iot_netTaskDay5(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay5 !== 'function') throw new Error('Function iot_netTaskDay5 not found');\nif (iot_netTaskDay5('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: BLE Connection Parameters & Throughput Tuning Practice",
+    aDesc: "Write an auxiliary helper function for BLE Connection Parameters & Throughput Tuning.",
+    aStarter: "function iot_netTaskDay5Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay5Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "LPWAN region whitelisted frequencies",
-    desc: "Master wireless channel spectrum regulations. (Real world: Telemetry nodes inspect regional tables, ensuring transmission frequencies match regulatory channels whitelists.)",
-    syllabus: ["Regional radio spectrum whitelist regulations", "LPWAN channel frequency tables", "Restricted radio band checker"],
-    eTitle: "Exam: Frequency Whitelist Checker",
-    eDesc: "Write a JS function `isFrequencyAllowed(freq, whitelist)` returning true if freq exists inside whitelist array. Return false if whitelist is empty or null.",
-    eStarter: "function isFrequencyAllowed(freq, whitelist) {\n    // Write your code here\n    \n}",
-    eHint: "Check array presence using includes(). Verify array is valid.",
-    eTest: "if (typeof isFrequencyAllowed !== 'function') throw new Error('Method isFrequencyAllowed not found');\nif (isFrequencyAllowed(868.1, [868.1, 868.3]) !== true) throw new Error('Allowed frequency check failed');",
-    aTitle: "Assignment: ISM Band Range Auditor",
-    aDesc: "Write a JS function `isIsmBandRange(freq, min, max)` returning true if freq is between min and max inclusive.",
-    aStarter: "function isIsmBandRange(freq, min, max) {\n    // Write your code here\n    \n}",
-    aHint: "Check range bounds.",
-    aTest: "if (typeof isIsmBandRange !== 'function') throw new Error('Method isIsmBandRange not found');"
+    title: "Zigbee & 802.15.4 Mesh Networking",
+    desc: "Understand Zigbee Coordinator, Router, and End Device roles, mesh routing tables, and self-healing topologies.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Zigbee & 802.15.4 Mesh Networking.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Zigbee & 802.15.4 Mesh Networking Validation",
+    eDesc: "Implement a JavaScript validation function for Zigbee & 802.15.4 Mesh Networking.",
+    eStarter: "function iot_netTaskDay6(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay6 !== 'function') throw new Error('Function iot_netTaskDay6 not found');\nif (iot_netTaskDay6('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Zigbee & 802.15.4 Mesh Networking Practice",
+    aDesc: "Write an auxiliary helper function for Zigbee & 802.15.4 Mesh Networking.",
+    aStarter: "function iot_netTaskDay6Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay6Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "MQTT Message Protocols: Topic wildcard validation",
-    desc: "Master MQTT messaging patterns. (Real world: Gateway brokers route topic subscriptions, checking wildcard character rules to prevent security isolation violations.)",
-    syllabus: ["MQTT topic hierarchical namespaces", "Single level plus wildcard operators", "Multi level hash wildcard configurations"],
-    eTitle: "Exam: MQTT Topic Parser",
-    eDesc: "Write a JS function `isTopicMatch(pubTopic, subTopic)` returning true if pubTopic === subTopic or subTopic === '#'. Return false if either is null or empty.",
-    eStarter: "function isTopicMatch(pubTopic, subTopic) {\n    // Write your code here\n    \n}",
-    eHint: "Check direct equality or wildcard match. Verify parameters are valid.",
-    eTest: "if (typeof isTopicMatch !== 'function') throw new Error('Method isTopicMatch not found');\nif (isTopicMatch('sensors/temp', '#') !== true) throw new Error('MQTT wildcard parser failed');",
-    aTitle: "Assignment: Subtopic level counter",
-    aDesc: "Write a JS function `getSubtopicLevels(topic)` returning topic.split('/').length. Return 0 if empty.",
-    aStarter: "function getSubtopicLevels(topic) {\n    // Write your code here\n    \n}",
-    aHint: "Split string and check array length.",
-    aTest: "if (typeof getSubtopicLevels !== 'function') throw new Error('Method getSubtopicLevels not found');"
+    title: "Thread Protocol & 6LoWPAN Architecture",
+    desc: "Configure Thread border routers, mesh node routing, IPv6 addressing (6LoWPAN), and Matter interoperability.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Thread Protocol & 6LoWPAN Architecture.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Thread Protocol & 6LoWPAN Architecture Validation",
+    eDesc: "Implement a JavaScript validation function for Thread Protocol & 6LoWPAN Architecture.",
+    eStarter: "function iot_netTaskDay7(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay7 !== 'function') throw new Error('Function iot_netTaskDay7 not found');\nif (iot_netTaskDay7('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Thread Protocol & 6LoWPAN Architecture Practice",
+    aDesc: "Write an auxiliary helper function for Thread Protocol & 6LoWPAN Architecture.",
+    aStarter: "function iot_netTaskDay7Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay7Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "IP Address configuration: DHCP Pool validators",
-    desc: "Master network layer routing parameters. (Real world: Ethernet gateway services allocate IP addresses, confirming requested client interfaces fall inside pool limits.)",
-    syllabus: ["Ethernet networks DHCP allocations", "IP address numeric ranges boundaries", "Subnet gateways defaults targets"],
-    eTitle: "Exam: DHCP Pool Evaluator",
-    eDesc: "Write a JS function `isIpInPool(ip, startIp, endIp)` returning true if last octet of ip is between last octet of startIp and endIp inclusive, assuming first 3 octets match.",
-    eStarter: "function isIpInPool(ip, startIp, endIp) {\n    // Write your code here\n    \n}",
-    eHint: "Parse octets using split('.'). Verify matching prefix networks, and compare tail numbers.",
-    eTest: "if (typeof isIpInPool !== 'function') throw new Error('Method isIpInPool not found');\nif (isIpInPool('192.168.1.50', '192.168.1.10', '192.168.1.100') !== true) throw new Error('DHCP pool range validator failed');",
-    aTitle: "Assignment: IP octet checker",
-    aDesc: "Write a JS function `isOctetValid(num)` returning num >= 0 && num <= 255.",
-    aStarter: "function isOctetValid(num) {\n    // Write your code here\n    \n}",
-    aHint: "Check integer boundaries.",
-    aTest: "if (typeof isOctetValid !== 'function') throw new Error('Method isOctetValid not found');"
+    title: "LoRa Modulation & Chirp Spread Spectrum (CSS)",
+    desc: "Understand LoRa physical layer modulation, spreading factors (SF7-SF12), bandwidth, and link budgets.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of LoRa Modulation & Chirp Spread Spectrum (CSS).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: LoRa Modulation & Chirp Spread Spectrum (CSS) Validation",
+    eDesc: "Implement a JavaScript validation function for LoRa Modulation & Chirp Spread Spectrum (CSS).",
+    eStarter: "function iot_netTaskDay8(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay8 !== 'function') throw new Error('Function iot_netTaskDay8 not found');\nif (iot_netTaskDay8('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: LoRa Modulation & Chirp Spread Spectrum (CSS) Practice",
+    aDesc: "Write an auxiliary helper function for LoRa Modulation & Chirp Spread Spectrum (CSS).",
+    aStarter: "function iot_netTaskDay8Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay8Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: IoT network compliance audit",
-    desc: "Perform evaluations of wireless path loss margins, check Spreading Factors airtimes, verify MQTT topic wildcards namespaces, and evaluate IP address allocations pools. (Real world: Telemetry engineers run spectrum audits, confirming network parameters.)",
-    syllabus: ["Wireless links margins scans", "MQTT routing topics validation", "IP address pools compliance reviews"],
-    eTitle: "Exam: Network Compliance Auditor",
-    eDesc: "Write a JS function `evaluateNetworkBuild(report)` returning true if report.linksMarginSafe === true and report.topicsAllowed === true and report.dhcpPoolsOk === true.",
-    eStarter: "function evaluateNetworkBuild(report) {\n    // Write your code here\n    \n}",
-    eHint: "Verify report.linksMarginSafe, report.topicsAllowed, and report.dhcpPoolsOk boolean properties in report.",
-    eTest: "if (typeof evaluateNetworkBuild !== 'function') throw new Error('Method evaluateNetworkBuild not found');\nconst rep = { linksMarginSafe: true, topicsAllowed: true, dhcpPoolsOk: true };\nif (evaluateNetworkBuild(rep) !== true) throw new Error('Network compliance check failed');",
-    aTitle: "Assignment: Network packet drop tracker",
-    aDesc: "Write a JS function `isLossAcceptable(lossPct)` returning lossPct <= 2.0.",
-    aStarter: "function isLossAcceptable(lossPct) {\n    // Write your code here\n    \n}",
-    aHint: "Compare loss thresholds.",
-    aTest: "if (typeof isLossAcceptable !== 'function') throw new Error('Method isLossAcceptable not found');"
+    title: "LoRaWAN Network Architecture & Device Classes",
+    desc: "Compare Class A (battery-first), Class B (beacon sync), and Class C (continuous listening) LoRaWAN devices.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of LoRaWAN Network Architecture & Device Classes.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: LoRaWAN Network Architecture & Device Classes Validation",
+    eDesc: "Implement a JavaScript validation function for LoRaWAN Network Architecture & Device Classes.",
+    eStarter: "function iot_netTaskDay9(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay9 !== 'function') throw new Error('Function iot_netTaskDay9 not found');\nif (iot_netTaskDay9('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: LoRaWAN Network Architecture & Device Classes Practice",
+    aDesc: "Write an auxiliary helper function for LoRaWAN Network Architecture & Device Classes.",
+    aStarter: "function iot_netTaskDay9Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay9Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: IoT network compliance audit (Review)",
-    desc: "Review wireless path loss equations, evaluate spreading factors airtimes, check MQTT topics routing parameters, and verify IP address allocation pools. (Real world: Telemetry engineers run spectrum audits, confirming network parameters.)",
-    syllabus: ["Reviewing path loss link budgets", "Assembling wireless compliance checklists", "Verifying gateway routing parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "LoRaWAN Activation (OTAA vs ABP)",
+    desc: "Perform Over-the-Air Activation (OTAA) join handshakes, derive session keys (AppSKey/NwkSKey), and avoid ABP traps.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of LoRaWAN Activation (OTAA vs ABP).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: LoRaWAN Activation (OTAA vs ABP) Validation",
+    eDesc: "Implement a JavaScript validation function for LoRaWAN Activation (OTAA vs ABP).",
+    eStarter: "function iot_netTaskDay10(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay10 !== 'function') throw new Error('Function iot_netTaskDay10 not found');\nif (iot_netTaskDay10('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: LoRaWAN Activation (OTAA vs ABP) Practice",
+    aDesc: "Write an auxiliary helper function for LoRaWAN Activation (OTAA vs ABP).",
+    aStarter: "function iot_netTaskDay10Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay10Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: IoT network compliance audit (Review)",
-    desc: "Review wireless path loss equations, evaluate spreading factors airtimes, check MQTT topics routing parameters, and verify IP address allocation pools. (Real world: Telemetry engineers run spectrum audits, confirming network parameters.)",
-    syllabus: ["Reviewing path loss link budgets", "Assembling wireless compliance checklists", "Verifying gateway routing parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "LoRaWAN Gateways & The Things Network (TTN)",
+    desc: "Configure LoRaWAN packet forwarders, register multi-channel gateways, and decode uplink payloads in TTN.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of LoRaWAN Gateways & The Things Network (TTN).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: LoRaWAN Gateways & The Things Network (TTN) Validation",
+    eDesc: "Implement a JavaScript validation function for LoRaWAN Gateways & The Things Network (TTN).",
+    eStarter: "function iot_netTaskDay11(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay11 !== 'function') throw new Error('Function iot_netTaskDay11 not found');\nif (iot_netTaskDay11('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: LoRaWAN Gateways & The Things Network (TTN) Practice",
+    aDesc: "Write an auxiliary helper function for LoRaWAN Gateways & The Things Network (TTN).",
+    aStarter: "function iot_netTaskDay11Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay11Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: IoT network compliance audit (Review)",
-    desc: "Review wireless path loss equations, evaluate spreading factors airtimes, check MQTT topics routing parameters, and verify IP address allocation pools. (Real world: Telemetry engineers run spectrum audits, confirming network parameters.)",
-    syllabus: ["Reviewing path loss link budgets", "Assembling wireless compliance checklists", "Verifying gateway routing parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Cellular IoT: NB-IoT (Narrowband IoT)",
+    desc: "Master NB-IoT narrowband carriers (200kHz), deep penetration links (+20dB), and AT command modem controls.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Cellular IoT: NB-IoT (Narrowband IoT).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Cellular IoT: NB-IoT (Narrowband IoT) Validation",
+    eDesc: "Implement a JavaScript validation function for Cellular IoT: NB-IoT (Narrowband IoT).",
+    eStarter: "function iot_netTaskDay12(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay12 !== 'function') throw new Error('Function iot_netTaskDay12 not found');\nif (iot_netTaskDay12('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Cellular IoT: NB-IoT (Narrowband IoT) Practice",
+    aDesc: "Write an auxiliary helper function for Cellular IoT: NB-IoT (Narrowband IoT).",
+    aStarter: "function iot_netTaskDay12Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay12Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: IoT network compliance audit (Review)",
-    desc: "Review wireless path loss equations, evaluate spreading factors airtimes, check MQTT topics routing parameters, and verify IP address allocation pools. (Real world: Telemetry engineers run spectrum audits, confirming network parameters.)",
-    syllabus: ["Reviewing path loss link budgets", "Assembling wireless compliance checklists", "Verifying gateway routing parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Cellular IoT: LTE-M (eMTC) for Mobile Assets",
+    desc: "Deploy LTE-M for voice support, higher throughput (1Mbps), seamless tower handovers, and fleet tracking.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Cellular IoT: LTE-M (eMTC) for Mobile Assets.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Cellular IoT: LTE-M (eMTC) for Mobile Assets Validation",
+    eDesc: "Implement a JavaScript validation function for Cellular IoT: LTE-M (eMTC) for Mobile Assets.",
+    eStarter: "function iot_netTaskDay13(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay13 !== 'function') throw new Error('Function iot_netTaskDay13 not found');\nif (iot_netTaskDay13('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Cellular IoT: LTE-M (eMTC) for Mobile Assets Practice",
+    aDesc: "Write an auxiliary helper function for Cellular IoT: LTE-M (eMTC) for Mobile Assets.",
+    aStarter: "function iot_netTaskDay13Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay13Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: IoT network compliance audit (Review)",
-    desc: "Review wireless path loss equations, evaluate spreading factors airtimes, check MQTT topics routing parameters, and verify IP address allocation pools. (Real world: Telemetry engineers run spectrum audits, confirming network parameters.)",
-    syllabus: ["Reviewing path loss link budgets", "Assembling wireless compliance checklists", "Verifying gateway routing parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Power Saving Modes in Cellular IoT (PSM & eDRX)",
+    desc: "Configure Power Saving Mode (PSM) sleep timers and Extended Discontinuous Reception (eDRX) paging cycles.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Power Saving Modes in Cellular IoT (PSM & eDRX).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Power Saving Modes in Cellular IoT (PSM & eDRX) Validation",
+    eDesc: "Implement a JavaScript validation function for Power Saving Modes in Cellular IoT (PSM & eDRX).",
+    eStarter: "function iot_netTaskDay14(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay14 !== 'function') throw new Error('Function iot_netTaskDay14 not found');\nif (iot_netTaskDay14('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Power Saving Modes in Cellular IoT (PSM & eDRX) Practice",
+    aDesc: "Write an auxiliary helper function for Power Saving Modes in Cellular IoT (PSM & eDRX).",
+    aStarter: "function iot_netTaskDay14Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay14Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: IoT network compliance audit (Review)",
-    desc: "Review wireless path loss equations, evaluate spreading factors airtimes, check MQTT topics routing parameters, and verify IP address allocation pools. (Real world: Telemetry engineers run spectrum audits, confirming network parameters.)",
-    syllabus: ["Reviewing path loss link budgets", "Assembling wireless compliance checklists", "Verifying gateway routing parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "CoAP (Constrained Application Protocol) Architecture",
+    desc: "Structure lightweight UDP CoAP request/response messages with compact binary header options.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of CoAP (Constrained Application Protocol) Architecture.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: CoAP (Constrained Application Protocol) Architecture Validation",
+    eDesc: "Implement a JavaScript validation function for CoAP (Constrained Application Protocol) Architecture.",
+    eStarter: "function iot_netTaskDay15(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay15 !== 'function') throw new Error('Function iot_netTaskDay15 not found');\nif (iot_netTaskDay15('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: CoAP (Constrained Application Protocol) Architecture Practice",
+    aDesc: "Write an auxiliary helper function for CoAP (Constrained Application Protocol) Architecture.",
+    aStarter: "function iot_netTaskDay15Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay15Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: IoT network compliance audit (Review)",
-    desc: "Review wireless path loss equations, evaluate spreading factors airtimes, check MQTT topics routing parameters, and verify IP address allocation pools. (Real world: Telemetry engineers run spectrum audits, confirming network parameters.)",
-    syllabus: ["Reviewing path loss link budgets", "Assembling wireless compliance checklists", "Verifying gateway routing parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "CBOR (Concise Binary Object Representation)",
+    desc: "Serialize sensor payload dictionaries into ultra-compact CBOR binary bytes to minimize wireless transmission costs.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of CBOR (Concise Binary Object Representation).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: CBOR (Concise Binary Object Representation) Validation",
+    eDesc: "Implement a JavaScript validation function for CBOR (Concise Binary Object Representation).",
+    eStarter: "function iot_netTaskDay16(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay16 !== 'function') throw new Error('Function iot_netTaskDay16 not found');\nif (iot_netTaskDay16('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: CBOR (Concise Binary Object Representation) Practice",
+    aDesc: "Write an auxiliary helper function for CBOR (Concise Binary Object Representation).",
+    aStarter: "function iot_netTaskDay16Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay16Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: IoT network compliance audit (Review)",
-    desc: "Review wireless path loss equations, evaluate spreading factors airtimes, check MQTT topics routing parameters, and verify IP address allocation pools. (Real world: Telemetry engineers run spectrum audits, confirming network parameters.)",
-    syllabus: ["Reviewing path loss link budgets", "Assembling wireless compliance checklists", "Verifying gateway routing parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "MQTT Protocol Architecture & Brokers",
+    desc: "Understand MQTT publish/subscribe topologies, client connection keep-alive pings, and broker message routing.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of MQTT Protocol Architecture & Brokers.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: MQTT Protocol Architecture & Brokers Validation",
+    eDesc: "Implement a JavaScript validation function for MQTT Protocol Architecture & Brokers.",
+    eStarter: "function iot_netTaskDay17(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay17 !== 'function') throw new Error('Function iot_netTaskDay17 not found');\nif (iot_netTaskDay17('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: MQTT Protocol Architecture & Brokers Practice",
+    aDesc: "Write an auxiliary helper function for MQTT Protocol Architecture & Brokers.",
+    aStarter: "function iot_netTaskDay17Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay17Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: IoT network compliance audit (Review)",
-    desc: "Review wireless path loss equations, evaluate spreading factors airtimes, check MQTT topics routing parameters, and verify IP address allocation pools. (Real world: Telemetry engineers run spectrum audits, confirming network parameters.)",
-    syllabus: ["Reviewing path loss link budgets", "Assembling wireless compliance checklists", "Verifying standards validations"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "MQTT Quality of Service (QoS 0, 1, 2)",
+    desc: "Analyze QoS 0 (at most once), QoS 1 (at least once with PUBACK), and QoS 2 (exactly once with 4-way handshake).",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of MQTT Quality of Service (QoS 0, 1, 2).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: MQTT Quality of Service (QoS 0, 1, 2) Validation",
+    eDesc: "Implement a JavaScript validation function for MQTT Quality of Service (QoS 0, 1, 2).",
+    eStarter: "function iot_netTaskDay18(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay18 !== 'function') throw new Error('Function iot_netTaskDay18 not found');\nif (iot_netTaskDay18('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: MQTT Quality of Service (QoS 0, 1, 2) Practice",
+    aDesc: "Write an auxiliary helper function for MQTT Quality of Service (QoS 0, 1, 2).",
+    aStarter: "function iot_netTaskDay18Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay18Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: IoT network compliance audit (Review)",
-    desc: "Review wireless path loss equations, evaluate spreading factors airtimes, check MQTT topics routing parameters, and verify IP address allocation pools. (Real world: Telemetry engineers run spectrum audits, confirming network parameters.)",
-    syllabus: ["Reviewing path loss link budgets", "Assembling wireless compliance checklists", "Verifying standards validations"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "MQTT Last Will and Testament (LWT) & Retained Messages",
+    desc: "Configure automated offline death notifications (LWT) and retain latest telemetry status for new subscribers.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of MQTT Last Will and Testament (LWT) & Retained Messages.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: MQTT Last Will and Testament (LWT) & Retained Messages Validation",
+    eDesc: "Implement a JavaScript validation function for MQTT Last Will and Testament (LWT) & Retained Messages.",
+    eStarter: "function iot_netTaskDay19(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay19 !== 'function') throw new Error('Function iot_netTaskDay19 not found');\nif (iot_netTaskDay19('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: MQTT Last Will and Testament (LWT) & Retained Messages Practice",
+    aDesc: "Write an auxiliary helper function for MQTT Last Will and Testament (LWT) & Retained Messages.",
+    aStarter: "function iot_netTaskDay19Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay19Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: IoT network compliance audit (Review)",
-    desc: "Review wireless path loss equations, evaluate spreading factors airtimes, check MQTT topics routing parameters, and verify IP address allocation pools. (Real world: Telemetry engineers run spectrum audits, confirming network parameters.)",
-    syllabus: ["Reviewing path loss link budgets", "Assembling wireless compliance checklists", "Verifying standards validations"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "MQTT-SN (MQTT for Sensor Networks)",
+    desc: "Deploy MQTT over UDP for bandwidth-constrained Zigbee/LoRa nodes with topic ID aliases and sleeping clients.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of MQTT-SN (MQTT for Sensor Networks).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: MQTT-SN (MQTT for Sensor Networks) Validation",
+    eDesc: "Implement a JavaScript validation function for MQTT-SN (MQTT for Sensor Networks).",
+    eStarter: "function iot_netTaskDay20(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay20 !== 'function') throw new Error('Function iot_netTaskDay20 not found');\nif (iot_netTaskDay20('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: MQTT-SN (MQTT for Sensor Networks) Practice",
+    aDesc: "Write an auxiliary helper function for MQTT-SN (MQTT for Sensor Networks).",
+    aStarter: "function iot_netTaskDay20Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay20Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: IoT network compliance audit (Review)",
-    desc: "Review wireless path loss equations, evaluate spreading factors airtimes, check MQTT topics routing parameters, and verify IP address allocation pools. (Real world: Telemetry engineers run spectrum audits, confirming network parameters.)",
-    syllabus: ["Reviewing path loss link budgets", "Assembling wireless compliance checklists", "Verifying standards validations"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "HTTP/REST vs MQTT vs CoAP Benchmarking",
+    desc: "Benchmark battery drain, packet overhead bytes, and message delivery latency across wireless protocols.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of HTTP/REST vs MQTT vs CoAP Benchmarking.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: HTTP/REST vs MQTT vs CoAP Benchmarking Validation",
+    eDesc: "Implement a JavaScript validation function for HTTP/REST vs MQTT vs CoAP Benchmarking.",
+    eStarter: "function iot_netTaskDay21(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay21 !== 'function') throw new Error('Function iot_netTaskDay21 not found');\nif (iot_netTaskDay21('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: HTTP/REST vs MQTT vs CoAP Benchmarking Practice",
+    aDesc: "Write an auxiliary helper function for HTTP/REST vs MQTT vs CoAP Benchmarking.",
+    aStarter: "function iot_netTaskDay21Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay21Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Network Security: DTLS & Transport Layer Security",
+    desc: "Establish Datagram TLS for UDP streams, configure client X.509 certificates, and secure MQTT brokers with mTLS.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Network Security: DTLS & Transport Layer Security.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Network Security: DTLS & Transport Layer Security Validation",
+    eDesc: "Implement a JavaScript validation function for Network Security: DTLS & Transport Layer Security.",
+    eStarter: "function iot_netTaskDay22(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay22 !== 'function') throw new Error('Function iot_netTaskDay22 not found');\nif (iot_netTaskDay22('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Network Security: DTLS & Transport Layer Security Practice",
+    aDesc: "Write an auxiliary helper function for Network Security: DTLS & Transport Layer Security.",
+    aStarter: "function iot_netTaskDay22Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay22Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Edge Gateway Protocol Translation (Modbus to MQTT)",
+    desc: "Translate legacy Modbus RTU / RS-485 factory protocols into cloud MQTT JSON streams using edge gateways.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Edge Gateway Protocol Translation (Modbus to MQTT).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Edge Gateway Protocol Translation (Modbus to MQTT) Validation",
+    eDesc: "Implement a JavaScript validation function for Edge Gateway Protocol Translation (Modbus to MQTT).",
+    eStarter: "function iot_netTaskDay23(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay23 !== 'function') throw new Error('Function iot_netTaskDay23 not found');\nif (iot_netTaskDay23('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Edge Gateway Protocol Translation (Modbus to MQTT) Practice",
+    aDesc: "Write an auxiliary helper function for Edge Gateway Protocol Translation (Modbus to MQTT).",
+    aStarter: "function iot_netTaskDay23Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay23Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Satellite IoT & Direct-to-Cell Connectivity",
+    desc: "Understand LEO satellite constellations, Doppler shift compensation, and direct satellite emergency beacons.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Satellite IoT & Direct-to-Cell Connectivity.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Satellite IoT & Direct-to-Cell Connectivity Validation",
+    eDesc: "Implement a JavaScript validation function for Satellite IoT & Direct-to-Cell Connectivity.",
+    eStarter: "function iot_netTaskDay24(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay24 !== 'function') throw new Error('Function iot_netTaskDay24 not found');\nif (iot_netTaskDay24('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Satellite IoT & Direct-to-Cell Connectivity Practice",
+    aDesc: "Write an auxiliary helper function for Satellite IoT & Direct-to-Cell Connectivity.",
+    aStarter: "function iot_netTaskDay24Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay24Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Wireless Mesh Topologies & Routing Protocols (RPL)",
+    desc: "Configure Routing Protocol for Low-Power and Lossy Networks (RPL) destination-oriented DAG structures.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Wireless Mesh Topologies & Routing Protocols (RPL).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Wireless Mesh Topologies & Routing Protocols (RPL) Validation",
+    eDesc: "Implement a JavaScript validation function for Wireless Mesh Topologies & Routing Protocols (RPL).",
+    eStarter: "function iot_netTaskDay25(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay25 !== 'function') throw new Error('Function iot_netTaskDay25 not found');\nif (iot_netTaskDay25('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Wireless Mesh Topologies & Routing Protocols (RPL) Practice",
+    aDesc: "Write an auxiliary helper function for Wireless Mesh Topologies & Routing Protocols (RPL).",
+    aStarter: "function iot_netTaskDay25Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay25Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "RF Antenna Selection & Impedance Matching",
+    desc: "Select PCB trace, chip, and whip antennas, tune 50-ohm impedance matching networks, and analyze VSWR.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of RF Antenna Selection & Impedance Matching.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: RF Antenna Selection & Impedance Matching Validation",
+    eDesc: "Implement a JavaScript validation function for RF Antenna Selection & Impedance Matching.",
+    eStarter: "function iot_netTaskDay26(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay26 !== 'function') throw new Error('Function iot_netTaskDay26 not found');\nif (iot_netTaskDay26('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: RF Antenna Selection & Impedance Matching Practice",
+    aDesc: "Write an auxiliary helper function for RF Antenna Selection & Impedance Matching.",
+    aStarter: "function iot_netTaskDay26Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay26Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Wireless Range Testing & Packet Loss Analysis",
+    desc: "Measure Received Signal Strength Indicator (RSSI), Signal-to-Noise Ratio (SNR), and calculate packet error rates.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Wireless Range Testing & Packet Loss Analysis.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Wireless Range Testing & Packet Loss Analysis Validation",
+    eDesc: "Implement a JavaScript validation function for Wireless Range Testing & Packet Loss Analysis.",
+    eStarter: "function iot_netTaskDay27(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay27 !== 'function') throw new Error('Function iot_netTaskDay27 not found');\nif (iot_netTaskDay27('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Wireless Range Testing & Packet Loss Analysis Practice",
+    aDesc: "Write an auxiliary helper function for Wireless Range Testing & Packet Loss Analysis.",
+    aStarter: "function iot_netTaskDay27Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay27Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "IoT Device Fleet Management & Connectivity Monitoring",
+    desc: "Monitor wireless signal degradation, detect offline gateways, and automate bulk over-the-air firmware pushes.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of IoT Device Fleet Management & Connectivity Monitoring.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: IoT Device Fleet Management & Connectivity Monitoring Validation",
+    eDesc: "Implement a JavaScript validation function for IoT Device Fleet Management & Connectivity Monitoring.",
+    eStarter: "function iot_netTaskDay28(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay28 !== 'function') throw new Error('Function iot_netTaskDay28 not found');\nif (iot_netTaskDay28('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: IoT Device Fleet Management & Connectivity Monitoring Practice",
+    aDesc: "Write an auxiliary helper function for IoT Device Fleet Management & Connectivity Monitoring.",
+    aStarter: "function iot_netTaskDay28Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay28Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Regulatory Compliance: FCC / CE / WPC Certification",
+    desc: "Prepare RF devices for electromagnetic compatibility (EMC) testing, SAR limits, and wireless frequency bands.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Regulatory Compliance: FCC / CE / WPC Certification.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Regulatory Compliance: FCC / CE / WPC Certification Validation",
+    eDesc: "Implement a JavaScript validation function for Regulatory Compliance: FCC / CE / WPC Certification.",
+    eStarter: "function iot_netTaskDay29(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay29 !== 'function') throw new Error('Function iot_netTaskDay29 not found');\nif (iot_netTaskDay29('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Regulatory Compliance: FCC / CE / WPC Certification Practice",
+    aDesc: "Write an auxiliary helper function for Regulatory Compliance: FCC / CE / WPC Certification.",
+    aStarter: "function iot_netTaskDay29Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay29Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Capstone: Enterprise Multi-Protocol IoT Fleet Gateway",
+    desc: "Deploy an edge gateway routing LoRaWAN, BLE, and Modbus telemetry into a secured cloud MQTT broker with mTLS.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Capstone: Enterprise Multi-Protocol IoT Fleet Gateway.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Capstone: Enterprise Multi-Protocol IoT Fleet Gateway Validation",
+    eDesc: "Implement a JavaScript validation function for Capstone: Enterprise Multi-Protocol IoT Fleet Gateway.",
+    eStarter: "function iot_netTaskDay30(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_netTaskDay30 !== 'function') throw new Error('Function iot_netTaskDay30 not found');\nif (iot_netTaskDay30('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Capstone: Enterprise Multi-Protocol IoT Fleet Gateway Practice",
+    aDesc: "Write an auxiliary helper function for Capstone: Enterprise Multi-Protocol IoT Fleet Gateway.",
+    aStarter: "function iot_netTaskDay30Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_netTaskDay30Aux !== 'function') throw new Error('Auxiliary function not found');"
   }
 ];
 
-export const IOT_NETWORK_30_DAYS_QUESTS = IOT_NETWORK_30_DAYS_CONFIGS.flatMap((cfg, dIdx) => {
-  const dayNum = dIdx + 1;
-  const lecture = {
-    id: `network-basics-lecture-day-${dayNum}`,
-    title: `Day ${dayNum} Learning: ${cfg.title}`,
-    desc: cfg.desc,
-    type: "lecture" as const,
-    requiresAvatar: true,
-    syllabus: cfg.syllabus,
-    skillCategory: "theory" as const,
-    xp: 150,
-    pins: 5
-  };
-  if (dayNum === 1) {
-    return [
-      lecture,
-      {
-        id: `network-basics-lecture2-day-1`,
-        title: `Day 1 Deep Dive: Syntax, Execution Rules, and Line-by-Line Breakdown`,
-        desc: `In-depth step-by-step breakdown of Day 1 concepts, memory layout, and execution mechanics. ${cfg.desc}`,
-        type: "lecture" as const,
-        requiresAvatar: true,
-        syllabus: cfg.syllabus,
-        skillCategory: "theory" as const,
-        xp: 150,
-        pins: 5
-      },
-      {
-        id: `network-basics-lecture3-day-1`,
-        title: `Day 1 Workshop: Real-World Industry Context & Visualization Guide`,
-        desc: `Practical visualization guide and real-world system architecture context for Day 1. ${cfg.desc}`,
-        type: "lecture" as const,
-        requiresAvatar: true,
-        syllabus: cfg.syllabus,
-        skillCategory: "theory" as const,
-        xp: 150,
-        pins: 5
-      }
-    ];
-  }
-  if (dayNum === 2) {
-    return [
-      lecture,
-      {
-        id: `network-basics-lecture2-day-2`,
-        title: `Day 2 Deep Dive: Flow Control, Logic Branching, and Execution Paths`,
-        desc: `In-depth line-by-line mechanics of conditionals, loops, and memory execution state. ${cfg.desc}`,
-        type: "lecture" as const,
-        requiresAvatar: true,
-        syllabus: cfg.syllabus,
-        skillCategory: "theory" as const,
-        xp: 150,
-        pins: 5
-      },
-      {
-        id: `network-basics-lecture3-day-2`,
-        title: `Day 2 Workshop: Practical Code Workshop & Edge Case Pitfall Warnings`,
-        desc: `Practical code workshop analyzing common edge cases, off-by-one errors, and production traps. ${cfg.desc}`,
-        type: "lecture" as const,
-        requiresAvatar: true,
-        syllabus: cfg.syllabus,
-        skillCategory: "theory" as const,
-        xp: 150,
-        pins: 5
-      }
-    ];
-  }
-  return buildEnrichedDayQuests('network-basics', dayNum, cfg);
-});
+export const IOT_NETWORK_30_DAYS_QUESTS = IOT_NETWORK_30_DAYS_CONFIGS.flatMap((cfg, i) =>
+  buildEnrichedDayQuests('iot-net', i + 1, cfg)
+);

@@ -132,33 +132,53 @@ async def generate_tts(req: TTSRequest):
 async def analyze_chunks(req: TTSRequest) -> ChunkAnalysisResponse:
     """
     Split text into sentence chunks and return cache key + hit/miss status for each.
-    Useful for pre-fetching lessons before playback begins.
+    Applies symmetric intonation enhancement and emotion detection so hashes strictly match /api/tts.
     """
     clean_text = strip_markdown(req.text)
-    sentences = split_sentences(clean_text)
+    raw_sentences = split_sentences(clean_text)
+    
+    # Symmetrically enhance each sentence chunk with intonation & emotion detection
+    enhanced_sentences = [enhance_intonation(s) for s in raw_sentences if s.strip()]
+    
     chunk_metas = compute_sentence_keys(
-        sentences,
+        enhanced_sentences,
         voice=req.voice,
         language=req.language,
         speed=req.speed,
-        emotion=req.emotion,
+        emotion=req.emotion if req.emotion != "neutral" else "neutral",
         version=req.version,
         sample_rate=req.sample_rate,
     )
 
     result = []
     cached_count = 0
-    for meta in chunk_metas:
-        entry = await get_cached(meta["cache_key"])
+    for i, meta in enumerate(chunk_metas):
+        # Auto-detect emotion per chunk if neutral
+        chunk_emotion = req.emotion if req.emotion != "neutral" else detect_emotion(meta["normalized"])
+        exact_cache_key = compute_cache_key(
+            text=meta["normalized"],
+            voice=req.voice,
+            language=req.language,
+            speed=req.speed,
+            emotion=chunk_emotion,
+            version=req.version,
+            sample_rate=req.sample_rate,
+        )
+        
+        entry = await get_cached(exact_cache_key)
         is_cached = entry is not None and get_audio_path(entry.get("path", "")) is not None
         if is_cached:
             cached_count += 1
+            
+        orig = raw_sentences[i] if i < len(raw_sentences) else meta["normalized"]
         result.append(ChunkMeta(
-            original_sentence=meta["original_sentence"],
+            original_sentence=orig,
             normalized=meta["normalized"],
-            cache_key=meta["cache_key"],
+            cache_key=exact_cache_key,
             cached=is_cached,
         ))
+
+    print(f"[TTS Chunk Analyzer] Total Chunks: {len(result)} | Cached: {cached_count} | Miss: {len(result) - cached_count}")
 
     return ChunkAnalysisResponse(
         total_chunks=len(result),

@@ -251,7 +251,10 @@ function persistLocalProfile(uid: string, data: Record<string, any>) {
   }
 }
 
-function stripSelfServicePrivileges(row: Record<string, any>) {
+function stripSelfServicePrivileges(row: Record<string, any>, allowPrivileged = false) {
+  if (allowPrivileged) {
+    return row;
+  }
   delete row.role;
   delete row.subscription_tier;
   delete row.pins;
@@ -286,7 +289,11 @@ export async function getUserProfile(uid: string) {
   }
 }
 
-export async function createUserProfile(uid: string, data: Record<string, any>) {
+export async function createUserProfile(
+  uid: string,
+  data: Record<string, any>,
+  opts?: { allowPrivileged?: boolean }
+) {
   if (!uid || !IS_VALID_UUID(uid)) {
     persistLocalProfile(uid, data);
     return;
@@ -299,7 +306,7 @@ export async function createUserProfile(uid: string, data: Record<string, any>) 
   if (data.tasks !== undefined) answersUpdate.tasks = data.tasks;
   if (data.documents !== undefined) answersUpdate.documents = data.documents;
 
-  const mappedData = stripSelfServicePrivileges(mapProfileToRow(data) || {});
+  const mappedData = stripSelfServicePrivileges(mapProfileToRow(data) || {}, opts?.allowPrivileged);
   const row: Record<string, any> = {
     id: uid,
     ...mappedData,
@@ -311,6 +318,8 @@ export async function createUserProfile(uid: string, data: Record<string, any>) 
       ...answersUpdate
     };
   }
+
+  console.log(`[SupabaseService] Creating profile uid=${uid} | role=${row.role || 'student'} | allowPrivileged=${Boolean(opts?.allowPrivileged)}`);
 
   const { error } = await supabase.from('users').upsert(row, { onConflict: 'id' });
   if (error) {
@@ -354,7 +363,7 @@ export async function updateUserProfile(
   // Self-service / client updates must never change privilege, economy, or score fields.
   // Admin role/suspend paths pass allowPrivileged: true.
   if (!opts?.allowPrivileged) {
-    stripSelfServicePrivileges(row);
+    stripSelfServicePrivileges(row, false);
   }
   if (Object.keys(answersUpdate).length > 0) {
     row.onboarding_answers = {
@@ -366,9 +375,11 @@ export async function updateUserProfile(
   const { data: exists } = await supabase.from('users').select('id').eq('id', uid).maybeSingle();
 
   if (!exists) {
-    await createUserProfile(uid, data);
+    await createUserProfile(uid, data, opts);
     return;
   }
+
+  console.log(`[SupabaseService] Updating profile uid=${uid} | allowPrivileged=${Boolean(opts?.allowPrivileged)} | fields=${Object.keys(row).join(',')}`);
 
   const { error } = await supabase.from('users').update(row).eq('id', uid);
   if (error) {
@@ -384,9 +395,10 @@ export async function updateUserProfile(
 
 export async function ensureSeedData(uid: string, profile: Record<string, any>) {
   const emailLower = (profile?.email as string || '').toLowerCase();
-  const isDemo = emailLower === 'admin@pinit.in' || emailLower === 'rec@pinit.in' || emailLower === 'con@pinit.in' || emailLower === 'student@pinit.in';
+  const isDemo = ['admin@pinit.in', 'teacher@pinit.in', 'rec@pinit.in', 'con@pinit.in', 'parent@pinit.in', 'student@pinit.in'].includes(emailLower);
 
   if (isDemo) {
+    console.log(`[SupabaseService] Ensuring seed data for demo account: ${emailLower}`);
     // 1. Seed missions
     const { count: missionCount, error: mErr } = await supabase.from('missions').select('*', { count: 'exact', head: true }).eq('user_id', uid);
     if (!mErr && missionCount === 0) {

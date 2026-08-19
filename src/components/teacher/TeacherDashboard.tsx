@@ -5,6 +5,7 @@ import CourseManager from './CourseManager';
 import ExamGradingManager from './ExamGradingManager';
 import AttendanceTracker from './AttendanceTracker';
 import BatchAnalyticsView from './BatchAnalyticsView';
+import TeacherInboxManager from './TeacherInboxManager';
 import { portalService } from '@/lib/services/portalService';
 
 interface TeacherDashboardProps {
@@ -19,7 +20,7 @@ interface TeacherDashboardProps {
 }
 
 export default function TeacherDashboard({ teacher, onLogout }: TeacherDashboardProps) {
-  const [activeNav, setActiveNav] = useState<'overview' | 'courses' | 'exams' | 'attendance' | 'analytics'>('overview');
+  const [activeNav, setActiveNav] = useState<'overview' | 'inbox' | 'courses' | 'exams' | 'attendance' | 'analytics'>('overview');
 
   const [materialsCount, setMaterialsCount] = useState<number>(0);
   const [enrolledStudentsCount, setEnrolledStudentsCount] = useState<number>(148);
@@ -102,6 +103,7 @@ export default function TeacherDashboard({ teacher, onLogout }: TeacherDashboard
         }}>
           {[
             { id: 'overview', icon: '📊', label: 'Overview' },
+            { id: 'inbox', icon: '💬', label: 'Student Messages & Inbox' },
             { id: 'courses', icon: '📚', label: 'Course Materials' },
             { id: 'exams', icon: '📝', label: 'Exams & Grading' },
             { id: 'attendance', icon: '📋', label: 'Attendance Tracker' },
@@ -162,6 +164,7 @@ export default function TeacherDashboard({ teacher, onLogout }: TeacherDashboard
             </div>
           )}
 
+          {activeNav === 'inbox' && <TeacherInboxManager />}
           {activeNav === 'courses' && <CourseManager />}
           {activeNav === 'exams' && <ExamGradingManager />}
           {activeNav === 'attendance' && <AttendanceTracker />}

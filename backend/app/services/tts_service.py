@@ -162,7 +162,7 @@ async def _kokoro_simulated(
     )
 
 
-# ── Premium TTS (ElevenLabs — Interview Mode) ─────────────────────────────────
+# ── Premium TTS (Routed 100% to Kokoro-82M) ─────────────────────────────────
 
 async def generate_premium(
     text: str,
@@ -171,50 +171,16 @@ async def generate_premium(
     speed: float = 1.0,
 ) -> TTSResult:
     """
-    Premium TTS via ElevenLabs for interview-quality voice.
-    Falls back to Kokoro simulation if API key is missing.
+    All speech routes 100% through Kokoro-82M neural engine.
+    Zero external ElevenLabs API dependencies.
     """
-    if not ELEVENLABS_API_KEY:
-        print("[TTS] No ElevenLabs key — using Kokoro simulation for interview")
-        return await _kokoro_simulated(text, voice, speed, "neutral", DEFAULT_SAMPLE_RATE)
-
-    # ElevenLabs voice mapping (interview voices only)
-    ELEVENLABS_VOICE_MAP = {
-        "bm_lewis":    "Adam",
-        "bf_isabella": "Elli",
-        "am_adam":     "Adam",
-        "af_bella":    "Bella",
-        "am_liam":     "Josh",
-        "af_sarah":    "Rachel",
-        "bm_george":   "Arnold",
-    }
-    el_voice = ELEVENLABS_VOICE_MAP.get(voice, "Adam")
-
-    async with httpx.AsyncClient(timeout=10.0) as client:
-        response = await client.post(
-            f"{ELEVENLABS_BASE_URL}/text-to-speech/{el_voice}",
-            headers={
-                "Accept": "audio/mpeg",
-                "Content-Type": "application/json",
-                "xi-api-key": ELEVENLABS_API_KEY,
-            },
-            json={
-                "text": text,
-                "model_id": "eleven_monolingual_v1",
-                "voice_settings": {"stability": 0.5, "similarity_boost": 0.75},
-            },
-        )
-        response.raise_for_status()
-        audio_bytes = response.content
-        # Estimate duration from file size (~128kbps MP3)
-        duration = len(audio_bytes) / (128 * 1024 / 8)
-        return TTSResult(
-            audio_bytes=audio_bytes,
-            duration=duration,
-            sample_rate=44100,
-            engine="elevenlabs",
-            format="mp3",
-        )
+    return await generate_kokoro(
+        text=text,
+        voice=voice,
+        language=language,
+        speed=speed,
+        emotion="neutral",
+    )
 
 
 # ── Disk Storage ──────────────────────────────────────────────────────────────

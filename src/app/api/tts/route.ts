@@ -34,11 +34,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Text is required.' }, { status: 400 });
     }
 
+    console.log(`[/api/tts] Incoming proxy request -> user=${gated.user.id} | voice=${voice} | textLen=${text.length} | context=${context}`);
+
     if (CDN_URL && cacheKey) {
       const cdnUrl = `${CDN_URL}/${language}/${cacheKey}.mp3`;
       try {
         const cdnCheck = await fetch(cdnUrl, { method: 'HEAD' });
         if (cdnCheck.ok) {
+          console.log(`[/api/tts] CDN HIT for key ${cacheKey}`);
           const audioRes = await fetch(cdnUrl);
           const audioBuffer = await audioRes.arrayBuffer();
           return new NextResponse(audioBuffer, {
@@ -51,23 +54,29 @@ export async function POST(req: NextRequest) {
             },
           });
         }
-      } catch {
-        // CDN unreachable — continue to backend
+      } catch (cdnErr: any) {
+        console.warn(`[/api/tts] CDN lookup failed: ${cdnErr?.message}`);
       }
     }
 
-    const backendRes = await fetch(`${BACKEND_URL}/api/v1/tts`, {
+    const ttsStart = Date.now();
+    const backendUrl = `${BACKEND_URL}/api/tts`;
+    console.log(`[/api/tts] Forwarding to Python Backend: ${backendUrl}`);
+
+    const backendRes = await fetch(backendUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text, voice, language, speed, emotion, version, sample_rate, context }),
-      signal: AbortSignal.timeout(10000),
+      signal: AbortSignal.timeout(35000),
     });
+
+    const roundtripMs = Date.now() - ttsStart;
 
     if (!backendRes.ok) {
       const errText = await backendRes.text();
-      console.error(`[/api/tts] Backend error: ${backendRes.status} — ${errText}`);
+      console.error(`[/api/tts] Backend returned error status ${backendRes.status} (${roundtripMs}ms):`, errText.slice(0, 300));
       return NextResponse.json(
-        { error: `Voice backend error: ${backendRes.status}` },
+        { error: `Voice backend error: ${backendRes.status}`, details: errText.slice(0, 180) },
         { status: backendRes.status },
       );
     }
@@ -78,6 +87,8 @@ export async function POST(req: NextRequest) {
     const engine = backendRes.headers.get('X-Engine') ?? 'kokoro';
     const duration = backendRes.headers.get('X-Duration') ?? '0';
     const contentType = backendRes.headers.get('Content-Type') ?? 'audio/wav';
+
+    console.log(`[/api/tts] Backend Response SUCCESS (${roundtripMs}ms) -> Status: ${cacheStatus} | Engine: ${engine} | Bytes: ${audioBuffer.byteLength}`);
 
     return new NextResponse(audioBuffer, {
       status: 200,
@@ -92,9 +103,9 @@ export async function POST(req: NextRequest) {
     });
   } catch (err: any) {
     const isTimeout = err?.name === 'TimeoutError' || err?.name === 'AbortError';
-    console.error(`[/api/tts] ${isTimeout ? 'Timeout' : 'Error'}: ${err.message}`);
+    console.error(`[/api/tts] Proxy Execution Failure (${isTimeout ? 'TIMEOUT 35s' : 'ERROR'}):`, err?.message || err);
     return NextResponse.json(
-      { error: isTimeout ? 'Voice server timeout' : (err.message || 'Internal error') },
+      { error: isTimeout ? 'Voice server cold-start timeout (35s)' : (err.message || 'Internal error') },
       { status: isTimeout ? 408 : 500 },
     );
   }

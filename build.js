@@ -47,10 +47,11 @@ try {
     }
   });
   const nextExportDir = path.join(__dirname, '.next', 'export');
+  const buildIdFile = path.join(__dirname, '.next', 'BUILD_ID');
   if (fs.existsSync(nextExportDir)) {
     copyDirSync(nextExportDir, outDir);
-  } else if (!fs.existsSync(path.join(outDir, 'index.html'))) {
-    console.error('[ERROR] Build finished but out/index.html is missing.');
+  } else if (!fs.existsSync(buildIdFile) && !fs.existsSync(path.join(outDir, 'index.html'))) {
+    console.error('[ERROR] Build finished but neither .next/BUILD_ID nor out/index.html exists.');
     process.exit(1);
   }
   console.log('\n--- Build completed successfully! ---');

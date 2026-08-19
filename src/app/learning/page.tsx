@@ -8,6 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 import { api } from '@/lib/api/client';
 import PinsGate from '@/components/pins/PinsGate';
 import Link from 'next/link';
+import SpacedReviewQueue from '@/components/learning/SpacedReviewQueue';
 
 interface Path { 
   name: string; 
@@ -100,7 +101,7 @@ function LearningPageInner() {
   const searchParams = useSearchParams();
 
   // Page level tabs: 'mistakes' | 'roadmap' | 'twin' | 'gaps'
-  const [activeTab, setActiveTab] = useState<'mistakes' | 'roadmap' | 'twin' | 'gaps'>('mistakes');
+  const [activeTab, setActiveTab] = useState<'mistakes' | 'roadmap' | 'twin' | 'gaps' | 'memory'>('mistakes');
   const [activeRole, setActiveRole] = useState<'student' | 'faculty'>('student');
   const [activeStep, setActiveStep] = useState<number>(0);
 
@@ -329,7 +330,8 @@ function LearningPageInner() {
               { id: 'mistakes', label: '⚠️ Mistakes & Remediation' },
               { id: 'roadmap', label: '📖 Growth Roadmap' },
               { id: 'twin', label: '🧬 Career Twin Simulator' },
-              { id: 'gaps', label: '🎯 Curriculum Gaps' }
+              { id: 'gaps', label: '🎯 Curriculum Gaps' },
+              { id: 'memory', label: '🧠 Spaced Memory (FSRS)' }
             ].map(t => (
               <button
                 key={t.id}
@@ -675,6 +677,13 @@ function LearningPageInner() {
                   </div>
                 </div>
               </div>
+            </div>
+          )}
+
+          {/* Tab 5: Spaced Memory Queue (FSRS-4.5) */}
+          {activeTab === 'memory' && (
+            <div style={{ maxWidth: 840, margin: '0 auto' }}>
+              <SpacedReviewQueue />
             </div>
           )}
 

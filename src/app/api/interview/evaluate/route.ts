@@ -11,13 +11,17 @@ import {
   clampScore,
   MindsetArchetype,
 } from '@/lib/interview/scoringMatrix';
+import { evaluateSystemTopology } from '@/lib/interview/systemDesignEvaluator';
 
 export async function POST(req: Request) {
   try {
     const gated = await requireUserFromRequest(req);
     if (gated.error) return gated.error;
 
+    const body = await req.json();
     const {
+      type,
+      topology,
       history = [],
       codingScore,
       telemetry,
@@ -25,7 +29,33 @@ export async function POST(req: Request) {
       domainSubTopic,
       roleKey: rawRoleKey,
       archetype: rawArchetype,
-    } = await req.json();
+    } = body;
+
+    // Dedicated System Design Topology Evaluator for Round 3
+    if (type === 'systems' && topology) {
+      console.log(`[Interview Evaluate] Evaluating System Architecture Topology for: ${domainSubTopic || 'Distributed Architecture'}`);
+      const sysEval = evaluateSystemTopology(topology, domainSubTopic || 'System Architecture', domainStream === 'non_tech' ? 'non_tech' : 'tech');
+      return NextResponse.json({
+        evaluation: {
+          score: sysEval.score,
+          verdict: sysEval.grade,
+          readiness: `${sysEval.grade} Architecture`,
+          summary: sysEval.summary,
+          strengths: sysEval.strengths,
+          weaknesses: sysEval.bottlenecks,
+          improvements: sysEval.recommendations.join(' • '),
+          spokenFeedback: sysEval.spokenFeedback,
+          radar: {
+            logic: sysEval.score,
+            systems: sysEval.score,
+            comms: 80,
+            solving: sysEval.scalabilityRating,
+            star: sysEval.reliabilityRating
+          }
+        },
+        success: true
+      });
+    }
 
     const stream = domainStream === 'non_tech' ? 'non_tech' : 'tech';
     const roleKey = normalizeRoleKey(rawRoleKey || domainSubTopic, stream);

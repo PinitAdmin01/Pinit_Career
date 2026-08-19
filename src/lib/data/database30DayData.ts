@@ -1,404 +1,578 @@
-import { buildEnrichedDayQuests } from './curriculumEnricher';
-export interface DayConfig {
-  title: string;
-  desc: string;
-  syllabus: string[];
-  eTitle: string;
-  eDesc: string;
-  eStarter: string;
-  eHint: string;
-  eTest: string;
-  aTitle: string;
-  aDesc: string;
-  aStarter: string;
-  aHint: string;
-  aTest: string;
-}
+import { buildEnrichedDayQuests, DayConfig } from './curriculumEnricher';
 
 export const DATABASE_30_DAYS_CONFIGS: DayConfig[] = [
   {
-    title: "What is a Database? — SQL vs NoSQL, Tables and Schemas Explained from Scratch",
-    desc: "A DATABASE is an organized collection of data stored and accessed electronically. Before databases, applications stored data in simple text files. But text files are slow: if you have 1 million users, finding one user means scanning the entire file from start to finish. Also, if two users update a file at the same time, the file gets corrupted. Databases solve this. They are built to handle millions of operations per second safely and instantly. Databases are split into two major categories: SQL and NoSQL. SQL (Relational Databases) organize data into structured tables with rows and columns, like a collection of spreadsheets. The structure of these tables is defined by a SCHEMA — a set of rules defining what columns exist and what data type each column can hold (e.g. name must be a string, age must be an integer). Relational databases use SQL (Structured Query Language) to read and write data. Examples include PostgreSQL, MySQL, and SQLite. SQL databases are perfect when your data is highly structured and must be 100 percent accurate, like banking systems. NoSQL (Non-Relational Databases) do not use tables. Instead, they store data in flexible formats, most commonly as JSON-like documents. Examples include MongoDB and DynamoDB. NoSQL databases are perfect when you need to store unstructured data that changes constantly, or when you need massive scaling across multiple servers. To understand relational databases, you must understand their anatomy: a DATABASE contains TABLES. A TABLE has COLUMNS (representing attributes like id, email, password) and ROWS (representing individual user records). (Real world: When you sign up on Instagram, their server inserts your username, email, and hashed password as a new row into the 'users' table in their PostgreSQL database. When you scroll your feed, the backend runs SQL queries to fetch your posts from the 'posts' table instantly.)",
-    syllabus: ["Database = specialized software for storing and retrieving data safely and instantly. Relational (SQL) databases store data in tables with fixed schemas. Non-Relational (NoSQL) databases store data in flexible documents.", "Table anatomy: a table has columns (attributes like id, username, email, created_at) and rows (individual records of data). Each column has a data type constraint (INT, VARCHAR, TIMESTAMP) that cannot be violated.", "SQL vs NoSQL trade-offs: choose SQL (PostgreSQL, MySQL) for structured transactions, financial records, and complex relationships. Choose NoSQL (MongoDB) for rapid scaling, unstructured logs, or fast-changing data shapes."],
-    eTitle: "Exam: Schema Creator",
-    eDesc: "Not tested on day 1",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Schema Analyzer",
-    aDesc: "Not tested on day 1",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Relational Database Theory & Codd's Rules",
+    desc: "Master relational models, candidate keys, primary keys, foreign key constraints, and entity integrity.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Relational Database Theory & Codd's Rules.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Relational Database Theory & Codd's Rules Validation",
+    eDesc: "Implement a JavaScript validation function for Relational Database Theory & Codd's Rules.",
+    eStarter: "function dbTaskDay1(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay1 !== 'function') throw new Error('Function dbTaskDay1 not found');\nif (dbTaskDay1('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Relational Database Theory & Codd's Rules Practice",
+    aDesc: "Write an auxiliary helper function for Relational Database Theory & Codd's Rules.",
+    aStarter: "function dbTaskDay1Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay1Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "SQL CRUD Operations — SELECT, INSERT, UPDATE, DELETE and the Safe WHERE Clause",
-    desc: "CRUD stands for Create, Read, Update, and Delete. These are the four fundamental operations you perform on any database. In SQL, each operation has a corresponding command: (1) CREATE uses the INSERT command. To add a new user to our table: INSERT INTO users (name, email, age) VALUES ('Amit', 'amit@gmail.com', 25);. This inserts a new row with these values. (2) READ uses the SELECT command. To retrieve columns: SELECT name, email FROM users;. To get all columns: SELECT * FROM users;. (3) UPDATE modifies existing rows. To change Amit's email: UPDATE users SET email = 'amit_new@gmail.com' WHERE name = 'Amit';. (4) DELETE removes rows: DELETE FROM users WHERE name = 'Amit';. THE GOLDEN RULE OF DATABASES: NEVER run an UPDATE or DELETE statement without a WHERE clause! The WHERE clause specifies which row to modify or delete. If you run 'UPDATE users SET email = \"hacked@gmail.com\";' without 'WHERE name = \"Amit\"', SQL will update EVERY SINGLE USER in your database to have that hacked email address! Similarly, running 'DELETE FROM users;' without a WHERE clause will wipe out your entire users table, deleting every customer record instantly. This mistake has cost junior developers their jobs. Always write and double-check your WHERE clause before pressing enter. (Real world: When you edit your profile bio on LinkedIn and hit save, the website sends an UPDATE query to their database: UPDATE profiles SET bio = 'New Bio Text' WHERE user_id = 9872;. This updates only your bio, leaving all other users' profiles untouched.)",
-    syllabus: ["CRUD operations: Create (INSERT), Read (SELECT), Update (UPDATE), Delete (DELETE). These four commands form the foundation of all database interactions and backend application API logic.", "INSERT syntax: INSERT INTO table (col1, col2) VALUES (val1, val2);. SELECT syntax: SELECT col1, col2 FROM table;. SELECT * FROM table retrieves all columns. Aliases with AS rename columns: SELECT name AS customer_name.", "UPDATE and DELETE safety: The WHERE clause filters which rows are affected. Running UPDATE or DELETE without WHERE modifies/deletes ALL rows in the table. This is the most dangerous mistake in backend engineering."],
-    eTitle: "Exam: CRUD Query Builder",
-    eDesc: "Not tested on day 2",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Record Deletion Safeguards",
-    aDesc: "Not tested on day 2",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "SQL DDL & Schema Definitions",
+    desc: "Write SQL schemas with CREATE TABLE, ALTER TABLE, column data types, DEFAULT values, and CHECK constraints.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of SQL DDL & Schema Definitions.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: SQL DDL & Schema Definitions Validation",
+    eDesc: "Implement a JavaScript validation function for SQL DDL & Schema Definitions.",
+    eStarter: "function dbTaskDay2(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay2 !== 'function') throw new Error('Function dbTaskDay2 not found');\nif (dbTaskDay2('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: SQL DDL & Schema Definitions Practice",
+    aDesc: "Write an auxiliary helper function for SQL DDL & Schema Definitions.",
+    aStarter: "function dbTaskDay2Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay2Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "SQL Filtering: WHERE, LIKE, IN, BETWEEN & ORDER BY",
-    desc: "Learn to filter and sort query results using clauses and patterns comparisons. (Real world: Search feeds filter items using WHERE clauses, matching categories with IN lists and sorting by timestamps.)",
-    syllabus: ["WHERE clauses and comparison operators", "Pattern matching using LIKE and wildcards", "Ordering and limiting results with ORDER BY and LIMIT"],
-    eTitle: "Exam: Query Filter Constructor",
-    eDesc: "Write a JS function `buildFilterQuery(minAge, category)` returning SQL string `'SELECT * FROM users WHERE age >= ' + minAge + \" AND category = '\" + category + \"'\"`.",
-    eStarter: "function buildFilterQuery(minAge, category) {\n    // Write your code here\n    \n}",
-    eHint: "Concatenate parameters into the SQL string matching syntax exactly.",
-    eTest: "if (typeof buildFilterQuery !== 'function') throw new Error('Method buildFilterQuery not found.');\nif (buildFilterQuery(18, 'premium') !== \"SELECT * FROM users WHERE age >= 18 AND category = 'premium'\") throw new Error('Query string compilation failed');",
-    aTitle: "Assignment: SQL Sort Constructor",
-    aDesc: "Write a JS function `buildSortedQuery(col, direction)` returning SQL string `'SELECT * FROM users ORDER BY ' + col + ' ' + direction`.",
-    aStarter: "function buildSortedQuery(col, direction) {\n    // Write your code here\n    \n}",
-    aHint: "Concatenate sorting parameters.",
-    aTest: "if (typeof buildSortedQuery !== 'function') throw new Error('Method buildSortedQuery not found.');"
+    title: "SQL DML & CRUD Operations",
+    desc: "Execute INSERT, UPDATE, DELETE, and SELECT queries with WHERE filters, ORDER BY, and LIMIT clauses.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of SQL DML & CRUD Operations.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: SQL DML & CRUD Operations Validation",
+    eDesc: "Implement a JavaScript validation function for SQL DML & CRUD Operations.",
+    eStarter: "function dbTaskDay3(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay3 !== 'function') throw new Error('Function dbTaskDay3 not found');\nif (dbTaskDay3('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: SQL DML & CRUD Operations Practice",
+    aDesc: "Write an auxiliary helper function for SQL DML & CRUD Operations.",
+    aStarter: "function dbTaskDay3Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay3Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "SQL Joins: Combining multi-tables data fields",
-    desc: "Master INNER, LEFT, RIGHT, and FULL database joins. (Real world: E-commerce dashboards join order tables with customer detail tables, calculating shipping destinations.)",
-    syllabus: ["INNER JOIN and LEFT JOIN structures", "Joining tables over foreign key maps", "Filtering joined queries records"],
-    eTitle: "Exam: Inner Join Query Builder",
-    eDesc: "Write a JS function `buildJoinQuery(table1, table2, joinKey)` returning SQL string `'SELECT * FROM ' + table1 + ' INNER JOIN ' + table2 + ' ON ' + table1 + '.' + joinKey + ' = ' + table2 + '.' + joinKey`.",
-    eStarter: "function buildJoinQuery(table1, table2, joinKey) {\n    // Write your code here\n    \n}",
-    eHint: "Concatenate string tokens forming valid JOIN queries.",
-    eTest: "if (typeof buildJoinQuery !== 'function') throw new Error('Method buildJoinQuery not found');\nif (buildJoinQuery('orders', 'users', 'userId') !== 'SELECT * FROM orders INNER JOIN users ON orders.userId = users.userId') throw new Error('Join query compile failed');",
-    aTitle: "Assignment: Left join query constructor",
-    aDesc: "Write a JS function `buildLeftJoinQuery(t1, t2, key)` returning SQL string with LEFT JOIN syntax.",
-    aStarter: "function buildLeftJoinQuery(t1, t2, key) {\n    // Write your code here\n    \n}",
-    aHint: "Construct Left Join query.",
-    aTest: "if (typeof buildLeftJoinQuery !== 'function') throw new Error('Method buildLeftJoinQuery not found');"
+    title: "SQL Joins (INNER, LEFT, RIGHT, FULL, CROSS)",
+    desc: "Query across multiple relational tables, prevent cartesian explosion, and handle NULL values in outer joins.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of SQL Joins (INNER, LEFT, RIGHT, FULL, CROSS).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: SQL Joins (INNER, LEFT, RIGHT, FULL, CROSS) Validation",
+    eDesc: "Implement a JavaScript validation function for SQL Joins (INNER, LEFT, RIGHT, FULL, CROSS).",
+    eStarter: "function dbTaskDay4(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay4 !== 'function') throw new Error('Function dbTaskDay4 not found');\nif (dbTaskDay4('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: SQL Joins (INNER, LEFT, RIGHT, FULL, CROSS) Practice",
+    aDesc: "Write an auxiliary helper function for SQL Joins (INNER, LEFT, RIGHT, FULL, CROSS).",
+    aStarter: "function dbTaskDay4Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay4Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "SQL Aggregations: SUM, AVG, COUNT, MIN, MAX & GROUP BY",
-    desc: "Master aggregates processing database records. (Real world: Financial reporting modules execute GROUP BY queries, finding total ledger deposit values by currencies.)",
-    syllabus: ["Aggregate calculations functions syntax", "Grouping rows using GROUP BY", "Filtering aggregated groups with HAVING"],
-    eTitle: "Exam: Group By Query Builder",
-    eDesc: "Write a JS function `buildGroupQuery(table, col, agg)` returning SQL string `'SELECT ' + col + ', ' + agg + '(*) FROM ' + table + ' GROUP BY ' + col`.",
-    eStarter: "function buildGroupQuery(table, col, agg) {\n    // Write your code here\n    \n}",
-    eHint: "Assemble table, aggregate, and column grouping names.",
-    eTest: "if (typeof buildGroupQuery !== 'function') throw new Error('Method buildGroupQuery not found');\nif (buildGroupQuery('users', 'country', 'COUNT') !== 'SELECT country, COUNT(*) FROM users GROUP BY country') throw new Error('Group query compile failed');",
-    aTitle: "Assignment: Having clause builder",
-    aDesc: "Write a JS function `buildHavingQuery(limit)` returning string: `'HAVING COUNT(*) > ' + limit`.",
-    aStarter: "function buildHavingQuery(limit) {\n    // Write your code here\n    \n}",
-    aHint: "Concatenate having limit bounds.",
-    aTest: "if (typeof buildHavingQuery !== 'function') throw new Error('Method buildHavingQuery not found');"
+    title: "SQL Aggregations & GROUP BY / HAVING",
+    desc: "Compute SUM, COUNT, AVG, MIN, MAX metrics, group rows by categories, and filter aggregated results.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of SQL Aggregations & GROUP BY / HAVING.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: SQL Aggregations & GROUP BY / HAVING Validation",
+    eDesc: "Implement a JavaScript validation function for SQL Aggregations & GROUP BY / HAVING.",
+    eStarter: "function dbTaskDay5(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay5 !== 'function') throw new Error('Function dbTaskDay5 not found');\nif (dbTaskDay5('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: SQL Aggregations & GROUP BY / HAVING Practice",
+    aDesc: "Write an auxiliary helper function for SQL Aggregations & GROUP BY / HAVING.",
+    aStarter: "function dbTaskDay5Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay5Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Database Indexing: Index scans vs Sequential scans",
-    desc: "Master table optimization indexes. (Real world: DBAs audit query execution plans, creating B-Tree indexes to convert expensive sequential table scans to fast index searches.)",
-    syllabus: ["Sequential vs Index execution scans", "B-Tree index structure advantages", "Auditing execution scan cost parameters"],
-    eTitle: "Exam: Scan Optimizer Auditor",
-    eDesc: "Write a JS function `isScanOptimized(scanType, cost)` returning true if scanType === 'Index Scan' or (scanType === 'Seq Scan' && cost < 100). Returns false otherwise.",
-    eStarter: "function isScanOptimized(scanType, cost) {\n    // Write your code here\n    \n}",
-    eHint: "Compare scanType and cost bounds to evaluate indexing benefits.",
-    eTest: "if (typeof isScanOptimized !== 'function') throw new Error('Method isScanOptimized not found');\nif (isScanOptimized('Seq Scan', 500) !== false) throw new Error('Inefficient scan allowed');",
-    aTitle: "Assignment: Cost reduction ratio calculator",
-    aDesc: "Write a JS function `getCostReduction(oldCost, newCost)` returning OldCost / NewCost.",
-    aStarter: "function getCostReduction(oldCost, newCost) {\n    // Write your code here\n    \n}",
-    aHint: "Divide old cost by new optimized cost.",
-    aTest: "if (typeof getCostReduction !== 'function') throw new Error('Method getCostReduction not found');"
+    title: "Subqueries & Common Table Expressions (CTEs)",
+    desc: "Write nested subqueries, scalar subqueries, correlated subqueries, and readable WITH CTE expressions.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Subqueries & Common Table Expressions (CTEs).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Subqueries & Common Table Expressions (CTEs) Validation",
+    eDesc: "Implement a JavaScript validation function for Subqueries & Common Table Expressions (CTEs).",
+    eStarter: "function dbTaskDay6(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay6 !== 'function') throw new Error('Function dbTaskDay6 not found');\nif (dbTaskDay6('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Subqueries & Common Table Expressions (CTEs) Practice",
+    aDesc: "Write an auxiliary helper function for Subqueries & Common Table Expressions (CTEs).",
+    aStarter: "function dbTaskDay6Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay6Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Transaction isolation levels & ACIDs rules",
-    desc: "Master transaction safety behaviors. (Real world: Banking databases configure isolation states to serializable, preventing dirty reads anomalies during transfers.)",
-    syllabus: ["ACID transaction properties parameters", "Dirty reads, non-repeatable reads, phantom reads", "Read Committed vs Serializable isolations limits"],
-    eTitle: "Exam: Transaction Isolation Validator",
-    eDesc: "Write a JS function `isIsolationSafe(level)` returning true if level is 'REPEATABLE READ' or 'SERIALIZABLE'. Returns false otherwise.",
-    eStarter: "function isIsolationSafe(level) {\n    // Write your code here\n    \n}",
-    eHint: "Verify input level string matches safe isolation modes.",
-    eTest: "if (typeof isIsolationSafe !== 'function') throw new Error('Method isIsolationSafe not found');\nif (isIsolationSafe('SERIALIZABLE') !== true) throw new Error('Isolation safety validation failed');",
-    aTitle: "Assignment: Phantom read risk checker",
-    aDesc: "Write a JS function `hasPhantomRisk(level)` returning true if level === 'READ UNCOMMITTED' || level === 'READ COMMITTED'.",
-    aStarter: "function hasPhantomRisk(level) {\n    // Write your code here\n    \n}",
-    aHint: "Identify weaker isolation levels.",
-    aTest: "if (typeof hasPhantomRisk !== 'function') throw new Error('Method hasPhantomRisk not found');"
+    title: "Window Functions (ROW_NUMBER, RANK, DENSE_RANK, LEAD, LAG)",
+    desc: "Compute rolling totals, moving averages, partition rankings, and period-over-period differences.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Window Functions (ROW_NUMBER, RANK, DENSE_RANK, LEAD, LAG).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Window Functions (ROW_NUMBER, RANK, DENSE_RANK, LEAD, LAG) Validation",
+    eDesc: "Implement a JavaScript validation function for Window Functions (ROW_NUMBER, RANK, DENSE_RANK, LEAD, LAG).",
+    eStarter: "function dbTaskDay7(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay7 !== 'function') throw new Error('Function dbTaskDay7 not found');\nif (dbTaskDay7('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Window Functions (ROW_NUMBER, RANK, DENSE_RANK, LEAD, LAG) Practice",
+    aDesc: "Write an auxiliary helper function for Window Functions (ROW_NUMBER, RANK, DENSE_RANK, LEAD, LAG).",
+    aStarter: "function dbTaskDay7Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay7Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Database Replication: Master-Slave configurations",
-    desc: "Master system scaling configurations. (Real world: Web applications direct write transactions to Master databases and read requests to replication replicas.)",
-    syllabus: ["Synchronous vs Asynchronous replication pipelines", "Read replicas load distributions", "Master node failover recovery procedures"],
-    eTitle: "Exam: DB Replication Router",
-    eDesc: "Write a JS function `routeQuery(queryType)` returning 'PRIMARY' if queryType is 'WRITE' or 'UPDATE', and 'REPLICA' if queryType is 'READ'. Return 'PRIMARY' otherwise.",
-    eStarter: "function routeQuery(queryType) {\n    // Write your code here\n    \n}",
-    eHint: "Verify queryType operation category matching PRIMARY/REPLICA servers.",
-    eTest: "if (typeof routeQuery !== 'function') throw new Error('Method routeQuery not found');\nif (routeQuery('READ') !== 'REPLICA') throw new Error('Query routing failed');",
-    aTitle: "Assignment: Slave replication sync lag checker",
-    aDesc: "Write a JS function `isReplicaHealthy(syncLagSec)` returning true if syncLagSec <= 5.",
-    aStarter: "function isReplicaHealthy(syncLagSec) {\n    // Write your code here\n    \n}",
-    aHint: "Compare replication delay value limits.",
-    aTest: "if (typeof isReplicaHealthy !== 'function') throw new Error('Method isReplicaHealthy not found');"
+    title: "Database Normalization (1NF, 2NF, 3NF, BCNF)",
+    desc: "Eliminate data redundancy, avoid insertion/update/deletion anomalies, and decompose table schemas.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Database Normalization (1NF, 2NF, 3NF, BCNF).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Database Normalization (1NF, 2NF, 3NF, BCNF) Validation",
+    eDesc: "Implement a JavaScript validation function for Database Normalization (1NF, 2NF, 3NF, BCNF).",
+    eStarter: "function dbTaskDay8(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay8 !== 'function') throw new Error('Function dbTaskDay8 not found');\nif (dbTaskDay8('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Database Normalization (1NF, 2NF, 3NF, BCNF) Practice",
+    aDesc: "Write an auxiliary helper function for Database Normalization (1NF, 2NF, 3NF, BCNF).",
+    aStarter: "function dbTaskDay8Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay8Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Database Query Optimizer & Compliance Audit",
-    desc: "Perform evaluations of SQL queries execution plans, check index scans cost reductions, evaluate transaction isolations safety levels, and compile performance ratings. (Real world: DBAs audit enterprise databases, locating slow queries to prevent outages.)",
-    syllabus: ["Query execution plan analysis", "Index scans optimization criteria", "Transaction isolation levels compliance checks"],
-    eTitle: "Exam: Query Optimizer Auditor",
-    eDesc: "Write a JS function `evaluateDbOptimizations(report)` returning true if report.scanType === 'Index Scan' and report.syncLagSec <= 3 and report.isolationSafe === true.",
-    eStarter: "function evaluateDbOptimizations(report) {\n    // Write your code here\n    \n}",
-    eHint: "Verify scanType, syncLagSec, and isolationSafe properties limits in report.",
-    eTest: "if (typeof evaluateDbOptimizations !== 'function') throw new Error('Method evaluateDbOptimizations not found');\nconst rep = { scanType: 'Index Scan', syncLagSec: 1, isolationSafe: true };\nif (evaluateDbOptimizations(rep) !== true) throw new Error('Database compliance evaluation failed');",
-    aTitle: "Assignment: DB Query optimization score compiler",
-    aDesc: "Write a JS function `getOptimizationScore(oldCost, newCost)` returning Math.round(((oldCost - newCost) / oldCost) * 100).",
-    aStarter: "function getOptimizationScore(oldCost, newCost) {\n    // Write your code here\n    \n}",
-    aHint: "Compute reduction ratio rounding values.",
-    aTest: "if (typeof getOptimizationScore !== 'function') throw new Error('Method getOptimizationScore not found');"
+    title: "Database Denormalization & Read Performance",
+    desc: "Strategically duplicate columns to reduce expensive joins in high-traffic read-heavy applications.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Database Denormalization & Read Performance.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Database Denormalization & Read Performance Validation",
+    eDesc: "Implement a JavaScript validation function for Database Denormalization & Read Performance.",
+    eStarter: "function dbTaskDay9(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay9 !== 'function') throw new Error('Function dbTaskDay9 not found');\nif (dbTaskDay9('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Database Denormalization & Read Performance Practice",
+    aDesc: "Write an auxiliary helper function for Database Denormalization & Read Performance.",
+    aStarter: "function dbTaskDay9Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay9Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Database Query Optimizer & Compliance Audit (Review)",
-    desc: "Review database query optimizer audits, evaluate index scans execution costs, verify master-slave replication sync delays, and check isolation levels configurations. (Real world: DBAs audit enterprise databases, locating slow queries to prevent outages.)",
-    syllabus: ["Reviewing query indexing structures", "Assembling query optimization checklists", "Verifying replication status parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "B-Tree Indexes & Point Lookups",
+    desc: "Understand B-Tree leaf nodes, root index traversal, search complexity O(log N), and index selectivity.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of B-Tree Indexes & Point Lookups.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: B-Tree Indexes & Point Lookups Validation",
+    eDesc: "Implement a JavaScript validation function for B-Tree Indexes & Point Lookups.",
+    eStarter: "function dbTaskDay10(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay10 !== 'function') throw new Error('Function dbTaskDay10 not found');\nif (dbTaskDay10('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: B-Tree Indexes & Point Lookups Practice",
+    aDesc: "Write an auxiliary helper function for B-Tree Indexes & Point Lookups.",
+    aStarter: "function dbTaskDay10Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay10Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Database Query Optimizer & Compliance Audit (Review)",
-    desc: "Review database query optimizer audits, evaluate index scans execution costs, verify master-slave replication sync delays, and check isolation levels configurations. (Real world: DBAs audit enterprise databases, locating slow queries to prevent outages.)",
-    syllabus: ["Reviewing query indexing structures", "Assembling query optimization checklists", "Verifying replication status parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Composite Indexes & Leftmost Prefix Rule",
+    desc: "Create multi-column indexes, understand column order impact, and satisfy compound WHERE queries.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Composite Indexes & Leftmost Prefix Rule.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Composite Indexes & Leftmost Prefix Rule Validation",
+    eDesc: "Implement a JavaScript validation function for Composite Indexes & Leftmost Prefix Rule.",
+    eStarter: "function dbTaskDay11(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay11 !== 'function') throw new Error('Function dbTaskDay11 not found');\nif (dbTaskDay11('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Composite Indexes & Leftmost Prefix Rule Practice",
+    aDesc: "Write an auxiliary helper function for Composite Indexes & Leftmost Prefix Rule.",
+    aStarter: "function dbTaskDay11Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay11Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Database Query Optimizer & Compliance Audit (Review)",
-    desc: "Review database query optimizer audits, evaluate index scans execution costs, verify master-slave replication sync delays, and check isolation levels configurations. (Real world: DBAs audit enterprise databases, locating slow queries to prevent outages.)",
-    syllabus: ["Reviewing query indexing structures", "Assembling query optimization checklists", "Verifying replication status parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Hash Indexes, GIN & GiST Indexes",
+    desc: "Utilize Hash indexes for exact lookups, GIN indexes for JSON/array search, and GiST for spatial data.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Hash Indexes, GIN & GiST Indexes.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Hash Indexes, GIN & GiST Indexes Validation",
+    eDesc: "Implement a JavaScript validation function for Hash Indexes, GIN & GiST Indexes.",
+    eStarter: "function dbTaskDay12(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay12 !== 'function') throw new Error('Function dbTaskDay12 not found');\nif (dbTaskDay12('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Hash Indexes, GIN & GiST Indexes Practice",
+    aDesc: "Write an auxiliary helper function for Hash Indexes, GIN & GiST Indexes.",
+    aStarter: "function dbTaskDay12Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay12Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Database Query Optimizer & Compliance Audit (Review)",
-    desc: "Review database query optimizer audits, evaluate index scans execution costs, verify master-slave replication sync delays, and check isolation levels configurations. (Real world: DBAs audit enterprise databases, locating slow queries to prevent outages.)",
-    syllabus: ["Reviewing query indexing structures", "Assembling query optimization checklists", "Verifying replication status parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Query Execution Plans (EXPLAIN ANALYZE)",
+    desc: "Analyze Sequential Scans, Index Scans, Bitmap Index Scans, Nested Loop Joins, and Hash Joins.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Query Execution Plans (EXPLAIN ANALYZE).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Query Execution Plans (EXPLAIN ANALYZE) Validation",
+    eDesc: "Implement a JavaScript validation function for Query Execution Plans (EXPLAIN ANALYZE).",
+    eStarter: "function dbTaskDay13(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay13 !== 'function') throw new Error('Function dbTaskDay13 not found');\nif (dbTaskDay13('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Query Execution Plans (EXPLAIN ANALYZE) Practice",
+    aDesc: "Write an auxiliary helper function for Query Execution Plans (EXPLAIN ANALYZE).",
+    aStarter: "function dbTaskDay13Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay13Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Database Query Optimizer & Compliance Audit (Review)",
-    desc: "Review database query optimizer audits, evaluate index scans execution costs, verify master-slave replication sync delays, and check isolation levels configurations. (Real world: DBAs audit enterprise databases, locating slow queries to prevent outages.)",
-    syllabus: ["Reviewing query indexing structures", "Assembling query optimization checklists", "Verifying replication status parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "ACID Properties & Transaction Boundaries",
+    desc: "Guarantee Atomicity, Consistency, Isolation, and Durability using BEGIN, COMMIT, and ROLLBACK blocks.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of ACID Properties & Transaction Boundaries.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: ACID Properties & Transaction Boundaries Validation",
+    eDesc: "Implement a JavaScript validation function for ACID Properties & Transaction Boundaries.",
+    eStarter: "function dbTaskDay14(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay14 !== 'function') throw new Error('Function dbTaskDay14 not found');\nif (dbTaskDay14('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: ACID Properties & Transaction Boundaries Practice",
+    aDesc: "Write an auxiliary helper function for ACID Properties & Transaction Boundaries.",
+    aStarter: "function dbTaskDay14Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay14Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Database Query Optimizer & Compliance Audit (Review)",
-    desc: "Review database query optimizer audits, evaluate index scans execution costs, verify master-slave replication sync delays, and check isolation levels configurations. (Real world: DBAs audit enterprise databases, locating slow queries to prevent outages.)",
-    syllabus: ["Reviewing query indexing structures", "Assembling query optimization checklists", "Verifying replication status parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Transaction Isolation Levels (Read Uncommitted to Serializable)",
+    desc: "Prevent Dirty Reads, Non-Repeatable Reads, and Phantom Reads using appropriate isolation modes.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Transaction Isolation Levels (Read Uncommitted to Serializable).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Transaction Isolation Levels (Read Uncommitted to Serializable) Validation",
+    eDesc: "Implement a JavaScript validation function for Transaction Isolation Levels (Read Uncommitted to Serializable).",
+    eStarter: "function dbTaskDay15(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay15 !== 'function') throw new Error('Function dbTaskDay15 not found');\nif (dbTaskDay15('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Transaction Isolation Levels (Read Uncommitted to Serializable) Practice",
+    aDesc: "Write an auxiliary helper function for Transaction Isolation Levels (Read Uncommitted to Serializable).",
+    aStarter: "function dbTaskDay15Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay15Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Database Query Optimizer & Compliance Audit (Review)",
-    desc: "Review database query optimizer audits, evaluate index scans execution costs, verify master-slave replication sync delays, and check isolation levels configurations. (Real world: DBAs audit enterprise databases, locating slow queries to prevent outages.)",
-    syllabus: ["Reviewing query indexing structures", "Assembling query optimization checklists", "Verifying replication status parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Database Deadlocks & Lock Contention",
+    desc: "Detect circular lock dependencies, tune lock timeouts, and enforce consistent transaction access order.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Database Deadlocks & Lock Contention.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Database Deadlocks & Lock Contention Validation",
+    eDesc: "Implement a JavaScript validation function for Database Deadlocks & Lock Contention.",
+    eStarter: "function dbTaskDay16(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay16 !== 'function') throw new Error('Function dbTaskDay16 not found');\nif (dbTaskDay16('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Database Deadlocks & Lock Contention Practice",
+    aDesc: "Write an auxiliary helper function for Database Deadlocks & Lock Contention.",
+    aStarter: "function dbTaskDay16Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay16Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Database Query Optimizer & Compliance Audit (Review)",
-    desc: "Review database query optimizer audits, evaluate index scans execution costs, verify master-slave replication sync delays, and check isolation levels configurations. (Real world: DBAs audit enterprise databases, locating slow queries to prevent outages.)",
-    syllabus: ["Reviewing query indexing structures", "Assembling query optimization checklists", "Verifying replication status parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "PostgreSQL MVCC & Vacuum Optimization",
+    desc: "Understand multi-version concurrency control, transaction IDs, dead tuple cleanup, and autovacuum tuning.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of PostgreSQL MVCC & Vacuum Optimization.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: PostgreSQL MVCC & Vacuum Optimization Validation",
+    eDesc: "Implement a JavaScript validation function for PostgreSQL MVCC & Vacuum Optimization.",
+    eStarter: "function dbTaskDay17(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay17 !== 'function') throw new Error('Function dbTaskDay17 not found');\nif (dbTaskDay17('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: PostgreSQL MVCC & Vacuum Optimization Practice",
+    aDesc: "Write an auxiliary helper function for PostgreSQL MVCC & Vacuum Optimization.",
+    aStarter: "function dbTaskDay17Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay17Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Database Query Optimizer & Compliance Audit (Review)",
-    desc: "Review database query optimizer audits, evaluate index scans execution costs, verify master-slave replication sync delays, and check isolation levels configurations. (Real world: DBAs audit enterprise databases, locating slow queries to prevent outages.)",
-    syllabus: ["Reviewing query indexing structures", "Assembling query optimization checklists", "Verifying replication status parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Database Partitioning (Range, List, Hash)",
+    desc: "Partition billion-row tables across date ranges, configure partition pruning, and optimize query scans.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Database Partitioning (Range, List, Hash).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Database Partitioning (Range, List, Hash) Validation",
+    eDesc: "Implement a JavaScript validation function for Database Partitioning (Range, List, Hash).",
+    eStarter: "function dbTaskDay18(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay18 !== 'function') throw new Error('Function dbTaskDay18 not found');\nif (dbTaskDay18('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Database Partitioning (Range, List, Hash) Practice",
+    aDesc: "Write an auxiliary helper function for Database Partitioning (Range, List, Hash).",
+    aStarter: "function dbTaskDay18Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay18Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Database Query Optimizer & Compliance Audit (Review)",
-    desc: "Review database query optimizer audits, evaluate index scans execution costs, verify master-slave replication sync delays, and check isolation levels configurations. (Real world: DBAs audit enterprise databases, locating slow queries to prevent outages.)",
-    syllabus: ["Reviewing query indexing structures", "Assembling query optimization checklists", "Verifying replication status parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Write-Ahead Logging (WAL) & Point-in-Time Recovery",
+    desc: "Analyze WAL buffers, replication streams, checkpoint intervals, and restore databases to precise timestamps.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Write-Ahead Logging (WAL) & Point-in-Time Recovery.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Write-Ahead Logging (WAL) & Point-in-Time Recovery Validation",
+    eDesc: "Implement a JavaScript validation function for Write-Ahead Logging (WAL) & Point-in-Time Recovery.",
+    eStarter: "function dbTaskDay19(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay19 !== 'function') throw new Error('Function dbTaskDay19 not found');\nif (dbTaskDay19('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Write-Ahead Logging (WAL) & Point-in-Time Recovery Practice",
+    aDesc: "Write an auxiliary helper function for Write-Ahead Logging (WAL) & Point-in-Time Recovery.",
+    aStarter: "function dbTaskDay19Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay19Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Database Query Optimizer & Compliance Audit (Review)",
-    desc: "Review database query optimizer audits, evaluate index scans execution costs, verify master-slave replication sync delays, and check isolation levels configurations. (Real world: DBAs audit enterprise databases, locating slow queries to prevent outages.)",
-    syllabus: ["Reviewing query indexing structures", "Assembling query optimization checklists", "Verifying replication status parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Read Replicas & Connection Pooling (PgBouncer)",
+    desc: "Scale read throughput with asynchronous replicas, load balance connections, and configure transaction pooling.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Read Replicas & Connection Pooling (PgBouncer).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Read Replicas & Connection Pooling (PgBouncer) Validation",
+    eDesc: "Implement a JavaScript validation function for Read Replicas & Connection Pooling (PgBouncer).",
+    eStarter: "function dbTaskDay20(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay20 !== 'function') throw new Error('Function dbTaskDay20 not found');\nif (dbTaskDay20('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Read Replicas & Connection Pooling (PgBouncer) Practice",
+    aDesc: "Write an auxiliary helper function for Read Replicas & Connection Pooling (PgBouncer).",
+    aStarter: "function dbTaskDay20Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay20Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Database Query Optimizer & Compliance Audit (Review)",
-    desc: "Review database query optimizer audits, evaluate index scans execution costs, verify master-slave replication sync delays, and check isolation levels configurations. (Real world: DBAs audit enterprise databases, locating slow queries to prevent outages.)",
-    syllabus: ["Reviewing query indexing structures", "Assembling query optimization checklists", "Verifying replication status parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Distributed Consensus & Raft in Databases",
+    desc: "Understand leader election, log replication quorum, partition tolerance, and split-brain prevention.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Distributed Consensus & Raft in Databases.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Distributed Consensus & Raft in Databases Validation",
+    eDesc: "Implement a JavaScript validation function for Distributed Consensus & Raft in Databases.",
+    eStarter: "function dbTaskDay21(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay21 !== 'function') throw new Error('Function dbTaskDay21 not found');\nif (dbTaskDay21('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Distributed Consensus & Raft in Databases Practice",
+    aDesc: "Write an auxiliary helper function for Distributed Consensus & Raft in Databases.",
+    aStarter: "function dbTaskDay21Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay21Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "NoSQL Modeling with MongoDB & Document Stores",
+    desc: "Design embedding vs referencing schemas, secondary indexes, aggregation pipelines, and sharding keys.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of NoSQL Modeling with MongoDB & Document Stores.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: NoSQL Modeling with MongoDB & Document Stores Validation",
+    eDesc: "Implement a JavaScript validation function for NoSQL Modeling with MongoDB & Document Stores.",
+    eStarter: "function dbTaskDay22(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay22 !== 'function') throw new Error('Function dbTaskDay22 not found');\nif (dbTaskDay22('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: NoSQL Modeling with MongoDB & Document Stores Practice",
+    aDesc: "Write an auxiliary helper function for NoSQL Modeling with MongoDB & Document Stores.",
+    aStarter: "function dbTaskDay22Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay22Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Key-Value Stores & In-Memory Redis",
+    desc: "Implement Redis strings, hashes, sets, sorted sets (zset), TTL expirations, and cache eviction policies.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Key-Value Stores & In-Memory Redis.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Key-Value Stores & In-Memory Redis Validation",
+    eDesc: "Implement a JavaScript validation function for Key-Value Stores & In-Memory Redis.",
+    eStarter: "function dbTaskDay23(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay23 !== 'function') throw new Error('Function dbTaskDay23 not found');\nif (dbTaskDay23('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Key-Value Stores & In-Memory Redis Practice",
+    aDesc: "Write an auxiliary helper function for Key-Value Stores & In-Memory Redis.",
+    aStarter: "function dbTaskDay23Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay23Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Time-Series Databases (TimescaleDB / InfluxDB)",
+    desc: "Store high-frequency IoT metrics, configure hypertables, automated rollups, and data retention policies.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Time-Series Databases (TimescaleDB / InfluxDB).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Time-Series Databases (TimescaleDB / InfluxDB) Validation",
+    eDesc: "Implement a JavaScript validation function for Time-Series Databases (TimescaleDB / InfluxDB).",
+    eStarter: "function dbTaskDay24(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay24 !== 'function') throw new Error('Function dbTaskDay24 not found');\nif (dbTaskDay24('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Time-Series Databases (TimescaleDB / InfluxDB) Practice",
+    aDesc: "Write an auxiliary helper function for Time-Series Databases (TimescaleDB / InfluxDB).",
+    aStarter: "function dbTaskDay24Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay24Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Vector Databases & Similarity Indexing (pgvector)",
+    desc: "Store embedding vectors, configure HNSW / IVFFlat indexes, and query cosine distance for RAG applications.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Vector Databases & Similarity Indexing (pgvector).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Vector Databases & Similarity Indexing (pgvector) Validation",
+    eDesc: "Implement a JavaScript validation function for Vector Databases & Similarity Indexing (pgvector).",
+    eStarter: "function dbTaskDay25(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay25 !== 'function') throw new Error('Function dbTaskDay25 not found');\nif (dbTaskDay25('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Vector Databases & Similarity Indexing (pgvector) Practice",
+    aDesc: "Write an auxiliary helper function for Vector Databases & Similarity Indexing (pgvector).",
+    aStarter: "function dbTaskDay25Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay25Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Database Migrations & Zero-Downtime Schema Changes",
+    desc: "Execute backward-compatible schema changes (add column, backfill, make NOT NULL) using migration tools.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Database Migrations & Zero-Downtime Schema Changes.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Database Migrations & Zero-Downtime Schema Changes Validation",
+    eDesc: "Implement a JavaScript validation function for Database Migrations & Zero-Downtime Schema Changes.",
+    eStarter: "function dbTaskDay26(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay26 !== 'function') throw new Error('Function dbTaskDay26 not found');\nif (dbTaskDay26('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Database Migrations & Zero-Downtime Schema Changes Practice",
+    aDesc: "Write an auxiliary helper function for Database Migrations & Zero-Downtime Schema Changes.",
+    aStarter: "function dbTaskDay26Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay26Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Database Backup Strategies & Point-in-Time Recovery",
+    desc: "Schedule logical dumps (pg_dump) and continuous physical WAL archiving to S3.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Database Backup Strategies & Point-in-Time Recovery.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Database Backup Strategies & Point-in-Time Recovery Validation",
+    eDesc: "Implement a JavaScript validation function for Database Backup Strategies & Point-in-Time Recovery.",
+    eStarter: "function dbTaskDay27(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay27 !== 'function') throw new Error('Function dbTaskDay27 not found');\nif (dbTaskDay27('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Database Backup Strategies & Point-in-Time Recovery Practice",
+    aDesc: "Write an auxiliary helper function for Database Backup Strategies & Point-in-Time Recovery.",
+    aStarter: "function dbTaskDay27Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay27Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Database Security & Role-Based Access Control",
+    desc: "Configure database users, schemas, table GRANT permissions, and row-level security (RLS) policies.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Database Security & Role-Based Access Control.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Database Security & Role-Based Access Control Validation",
+    eDesc: "Implement a JavaScript validation function for Database Security & Role-Based Access Control.",
+    eStarter: "function dbTaskDay28(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay28 !== 'function') throw new Error('Function dbTaskDay28 not found');\nif (dbTaskDay28('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Database Security & Role-Based Access Control Practice",
+    aDesc: "Write an auxiliary helper function for Database Security & Role-Based Access Control.",
+    aStarter: "function dbTaskDay28Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay28Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Database Benchmarking & Stress Testing (pgbench)",
+    desc: "Simulate concurrent transactions, benchmark transactions per second (TPS), and identify IOPS bottlenecks.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Database Benchmarking & Stress Testing (pgbench).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Database Benchmarking & Stress Testing (pgbench) Validation",
+    eDesc: "Implement a JavaScript validation function for Database Benchmarking & Stress Testing (pgbench).",
+    eStarter: "function dbTaskDay29(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay29 !== 'function') throw new Error('Function dbTaskDay29 not found');\nif (dbTaskDay29('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Database Benchmarking & Stress Testing (pgbench) Practice",
+    aDesc: "Write an auxiliary helper function for Database Benchmarking & Stress Testing (pgbench).",
+    aStarter: "function dbTaskDay29Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay29Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Capstone: High-Throughput Globally Distributed Database Cluster",
+    desc: "Design a production cluster with PgBouncer connection pools, read replicas, WAL archiving, and vector search.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Capstone: High-Throughput Globally Distributed Database Cluster.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Capstone: High-Throughput Globally Distributed Database Cluster Validation",
+    eDesc: "Implement a JavaScript validation function for Capstone: High-Throughput Globally Distributed Database Cluster.",
+    eStarter: "function dbTaskDay30(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dbTaskDay30 !== 'function') throw new Error('Function dbTaskDay30 not found');\nif (dbTaskDay30('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Capstone: High-Throughput Globally Distributed Database Cluster Practice",
+    aDesc: "Write an auxiliary helper function for Capstone: High-Throughput Globally Distributed Database Cluster.",
+    aStarter: "function dbTaskDay30Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dbTaskDay30Aux !== 'function') throw new Error('Auxiliary function not found');"
   }
 ];
 
-export const DATABASE_30_DAYS_QUESTS = DATABASE_30_DAYS_CONFIGS.flatMap((cfg, dIdx) => {
-  const dayNum = dIdx + 1;
-  const lecture = {
-    id: `database-basics-lecture-day-${dayNum}`,
-    title: `Day ${dayNum} Learning: ${cfg.title}`,
-    desc: cfg.desc,
-    type: "lecture" as const,
-    requiresAvatar: true,
-    syllabus: cfg.syllabus,
-    skillCategory: "theory" as const,
-    xp: 150,
-    pins: 5
-  };
-  if (dayNum === 1) {
-    return [
-      lecture,
-      {
-        id: `database-basics-lecture2-day-1`,
-        title: `Day 1 Deep Dive: Syntax, Execution Rules, and Line-by-Line Breakdown`,
-        desc: `In-depth step-by-step breakdown of Day 1 concepts, memory layout, and execution mechanics. ${cfg.desc}`,
-        type: "lecture" as const,
-        requiresAvatar: true,
-        syllabus: cfg.syllabus,
-        skillCategory: "theory" as const,
-        xp: 150,
-        pins: 5
-      },
-      {
-        id: `database-basics-lecture3-day-1`,
-        title: `Day 1 Workshop: Real-World Industry Context & Visualization Guide`,
-        desc: `Practical visualization guide and real-world system architecture context for Day 1. ${cfg.desc}`,
-        type: "lecture" as const,
-        requiresAvatar: true,
-        syllabus: cfg.syllabus,
-        skillCategory: "theory" as const,
-        xp: 150,
-        pins: 5
-      }
-    ];
-  }
-  if (dayNum === 2) {
-    return [
-      lecture,
-      {
-        id: `database-basics-lecture2-day-2`,
-        title: `Day 2 Deep Dive: Flow Control, Logic Branching, and Execution Paths`,
-        desc: `In-depth line-by-line mechanics of conditionals, loops, and memory execution state. ${cfg.desc}`,
-        type: "lecture" as const,
-        requiresAvatar: true,
-        syllabus: cfg.syllabus,
-        skillCategory: "theory" as const,
-        xp: 150,
-        pins: 5
-      },
-      {
-        id: `database-basics-lecture3-day-2`,
-        title: `Day 2 Workshop: Practical Code Workshop & Edge Case Pitfall Warnings`,
-        desc: `Practical code workshop analyzing common edge cases, off-by-one errors, and production traps. ${cfg.desc}`,
-        type: "lecture" as const,
-        requiresAvatar: true,
-        syllabus: cfg.syllabus,
-        skillCategory: "theory" as const,
-        xp: 150,
-        pins: 5
-      }
-    ];
-  }
-  return buildEnrichedDayQuests('database-basics', dayNum, cfg);
-});
+export const DATABASE_30_DAYS_QUESTS = DATABASE_30_DAYS_CONFIGS.flatMap((cfg, i) =>
+  buildEnrichedDayQuests('db', i + 1, cfg)
+);

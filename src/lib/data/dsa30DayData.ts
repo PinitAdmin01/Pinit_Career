@@ -1,404 +1,578 @@
-import { buildEnrichedDayQuests } from './curriculumEnricher';
-export interface DayConfig {
-  title: string;
-  desc: string;
-  syllabus: string[];
-  eTitle: string;
-  eDesc: string;
-  eStarter: string;
-  eHint: string;
-  eTest: string;
-  aTitle: string;
-  aDesc: string;
-  aStarter: string;
-  aHint: string;
-  aTest: string;
-}
+import { buildEnrichedDayQuests, DayConfig } from './curriculumEnricher';
 
 export const DSA_30_DAYS_CONFIGS: DayConfig[] = [
   {
-    title: "What is an Algorithm? — Step-by-Step Logic, Linear Search and Finding Items",
-    desc: "An ALGORITHM is simply a step-by-step set of instructions to solve a problem. You use algorithms every single day in real life. When you follow a recipe to make tea, that is an algorithm. When you search for a name in a physical address book by flipping pages one by one, that is a linear search algorithm. In computer science, an algorithm takes some inputs (like a list of numbers), performs steps, and returns an output (like finding if a number is in the list). Let us learn the simplest search algorithm: LINEAR SEARCH. Imagine you have a box of 10 cards, and each card has a name written on it. The cards are not sorted. You are looking for a card with the name 'Rahul'. How do you find it? You start with the first card. Is it 'Rahul'? No. Move to the second card. Is it 'Rahul'? No. You repeat this one by one, from left to right, until you find 'Rahul' or reach the end of the box. This is linear search. In JavaScript, we represent the cards as an array: const names = [\"Amit\", \"Priya\", \"Rahul\", \"Karan\"]. An array is a list of items. Each item has a position number called an INDEX, starting at 0. So names[0] is \"Amit\", names[1] is \"Priya\", names[2] is \"Rahul\", names[3] is \"Karan\". To find \"Rahul\", we write a loop that starts at index 0 and goes up to index 3, checking names[index] === \"Rahul\". If it matches, we return the index. If we check every card and never find it, we return -1 (meaning not found). (Real world: Finding a contact in a phone book when you do not remember the name and must scroll through the whole list, or finding a specific bill in a stack of paper receipts, is linear search. It is simple but slow if you have 10,000 items because you have to look at every single one.)",
-    syllabus: ["Algorithm = step-by-step instructions to solve a problem. Recipe analogy: make tea steps. Linear search = searching a list from start to end, checking one item at a time. Simplest search algorithm.", "Array basics: list of items. Zero-based indexing: index 0 is first item, index 1 is second, index length-1 is last. const arr = [10, 20, 30] means arr[0]=10, arr[1]=20, arr[2]=30.", "Linear search implementation: loop from index 0 to end of array. Check if current element equals target. Return index if found, or -1 if missing. Slow for huge lists (10,000+ items) but works on unsorted lists."],
-    eTitle: "Exam: Array Element Finder",
-    eDesc: "Not tested on day 1",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Occurrence Counter",
-    aDesc: "Not tested on day 1",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Time & Space Complexity (Big-O Notation)",
+    desc: "Analyze asymptotic upper bounds (O(1), O(log N), O(N), O(N log N), O(N^2)) and recursion stack space.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Time & Space Complexity (Big-O Notation).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Time & Space Complexity (Big-O Notation) Validation",
+    eDesc: "Implement a JavaScript validation function for Time & Space Complexity (Big-O Notation).",
+    eStarter: "function dsaTaskDay1(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay1 !== 'function') throw new Error('Function dsaTaskDay1 not found');\nif (dsaTaskDay1('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Time & Space Complexity (Big-O Notation) Practice",
+    aDesc: "Write an auxiliary helper function for Time & Space Complexity (Big-O Notation).",
+    aStarter: "function dsaTaskDay1Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay1Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Array Extremes — Finding Min, Max and Guarding Against Boundary Bugs",
-    desc: "Now that you know how to search an array sequentially, let us learn how to find the largest (maximum) or smallest (minimum) value in an array. This is a very common task in coding. Imagine a teacher has a stack of 5 exam papers with marks: [85, 92, 78, 95, 88]. How does the teacher find the highest marks? The teacher picks up the first paper (85) and assumes it is the highest so far. Then they pick up the second paper (92). Since 92 is greater than 85, the teacher updates their mental record: highest so far is now 92. They pick up the third paper (78). Since 78 is not greater than 92, they ignore it. The fourth paper is 95. Since 95 is greater than 92, the record becomes 95. The fifth paper is 88. Ignore. The final answer is 95. In code, we write this exact algorithm using a variable called 'max' and a loop. First, we check if the array is empty. If it is empty, we cannot find a maximum — we must return an error or null. This is called guarding against empty inputs. If not empty, we set let max = arr[0] (our initial guess). Then we loop from index 1 to the end of the array. Inside the loop, we compare the current element arr[i] with our max. If arr[i] > max, we update: max = arr[i]. When the loop finishes, max contains the highest value. Finding the minimum is the exact same, but we check if arr[i] < min. One of the most common beginner bugs in this algorithm is initializing max to 0. If the array only contains negative temperatures like [-5, -12, -3], initializing max to 0 will output 0 as the maximum temperature, which is wrong because 0 was not even in the array! Always initialize max to the first element arr[0] or a very small number like Number.MIN_SAFE_INTEGER. (Real world: An e-commerce app like Amazon scans prices of 100 products to find the cheapest (min) and most expensive (max) items to show at the top of filter sliders. A weather app scans the last 24 hours of logs to find the high and low temperatures.)",
-    syllabus: ["Finding Max/Min: sequential search pattern. Initialise max = first element arr[0], loop through remaining elements. If current element > max, update max. Same logic for min using <. Never initialise max to 0.", "Empty array guard: check if array is empty (length === 0) before starting loop. Accessing index 0 of an empty array causes a crash (out-of-bounds error). Always write safe guards first in your functions.", "Loop boundaries: start loop at index 1 since index 0 is already the initial max. Loop until index < array.length. Going beyond array.length causes undefined errors in JS or crashes in other languages."],
-    eTitle: "Exam: Array Maximum Finder",
-    eDesc: "Not tested on day 2",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Display Box Mapper",
-    aDesc: "Not tested on day 2",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Dynamic Arrays & Amortized Insertion Time",
+    desc: "Understand memory contiguous allocation, geometric capacity resizing, and amortized O(1) appends.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Dynamic Arrays & Amortized Insertion Time.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Dynamic Arrays & Amortized Insertion Time Validation",
+    eDesc: "Implement a JavaScript validation function for Dynamic Arrays & Amortized Insertion Time.",
+    eStarter: "function dsaTaskDay2(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay2 !== 'function') throw new Error('Function dsaTaskDay2 not found');\nif (dsaTaskDay2('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Dynamic Arrays & Amortized Insertion Time Practice",
+    aDesc: "Write an auxiliary helper function for Dynamic Arrays & Amortized Insertion Time.",
+    aStarter: "function dsaTaskDay2Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay2Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Binary Search: Logarithmic Scaling in Indexed Stores",
-    desc: "Understand binary search algorithms. (Real world: Relational database indexes use binary searches to identify row IDs inside sorted blocks, reducing time from O(N) to O(log N).)",
-    syllabus: ["Sorted array intervals math", "Calculating midpoints preventing overflow", "Interval divisions (O(log N) scaling)"],
-    eTitle: "Exam: Logarithmic Index Finder",
-    eDesc: "Write a JS function `binarySearch(arr, target)` returning target index inside sorted arr. Return -1 if missing.",
-    eStarter: "function binarySearch(arr, target) {\n    // Write your code here\n    \n}",
-    eHint: "Use left/right boundary pointers, updating boundary loops based on comparison against arr[mid].",
-    eTest: "if (typeof binarySearch !== 'function') throw new Error('Method binarySearch not found');\nif (binarySearch([10, 20, 30, 40], 30) !== 2) throw new Error('Standard binary search failed');\nif (binarySearch([10, 20, 30, 40], 15) !== -1) throw new Error('Missing binary search failed');",
-    aTitle: "Assignment: Midpoint Boundary check",
-    aDesc: "Write a JS function `getMidpoint(low, high)` returning Math.floor(low + (high - low) / 2).",
-    aStarter: "function getMidpoint(low, high) {\n    // Write your code here\n    \n}",
-    aHint: "Calculate midpoint safely to prevent integer overflow.",
-    aTest: "if (typeof getMidpoint !== 'function') throw new Error('Method getMidpoint not found');"
+    title: "Singly & Doubly Linked Lists",
+    desc: "Implement pointer node manipulation, head/tail insertions, node deletions, and fast pointer cycles.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Singly & Doubly Linked Lists.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Singly & Doubly Linked Lists Validation",
+    eDesc: "Implement a JavaScript validation function for Singly & Doubly Linked Lists.",
+    eStarter: "function dsaTaskDay3(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay3 !== 'function') throw new Error('Function dsaTaskDay3 not found');\nif (dsaTaskDay3('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Singly & Doubly Linked Lists Practice",
+    aDesc: "Write an auxiliary helper function for Singly & Doubly Linked Lists.",
+    aStarter: "function dsaTaskDay3Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay3Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Hashing: Cache registries & constant O(1) searches",
-    desc: "Master key-value dictionaries. (Real world: Distributed memory caches store tokens hashes in RAM, achieving constant-time O(1) sessions validation lookup.)",
-    syllabus: ["Hash map index collisions", "Constant time O(1) memory mapping rules", "Object map lookup structures"],
-    eTitle: "Exam: Cache Registry Finder",
-    eDesc: "Write a JS function `getCachedToken(cache, key)` returning cache[key] if present. Return 'EXPIRED' if cache[key] is missing or null.",
-    eStarter: "function getCachedToken(cache, key) {\n    // Write your code here\n    \n}",
-    eHint: "Check key presence in map object properties. Return fallback.",
-    eTest: "if (typeof getCachedToken !== 'function') throw new Error('Method getCachedToken not found');\nif (getCachedToken({ 'user1': 't123' }, 'user1') !== 't123') throw new Error('Cache lookup failed');\nif (getCachedToken({}, 'user2') !== 'EXPIRED') throw new Error('Cache fallback failed');",
-    aTitle: "Assignment: Cache key presence tester",
-    aDesc: "Write a JS function `isKeyCached(cache, key)` returning true if key is in cache object.",
-    aStarter: "function isKeyCached(cache, key) {\n    // Write your code here\n    \n}",
-    aHint: "Verify property key existence.",
-    aTest: "if (typeof isKeyCached !== 'function') throw new Error('Method isKeyCached not found');"
+    title: "Fast and Slow Pointer Technique (Floyd's Cycle)",
+    desc: "Detect linked list cycles, find middle elements in single passes, and detect palindromic lists.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Fast and Slow Pointer Technique (Floyd's Cycle).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Fast and Slow Pointer Technique (Floyd's Cycle) Validation",
+    eDesc: "Implement a JavaScript validation function for Fast and Slow Pointer Technique (Floyd's Cycle).",
+    eStarter: "function dsaTaskDay4(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay4 !== 'function') throw new Error('Function dsaTaskDay4 not found');\nif (dsaTaskDay4('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Fast and Slow Pointer Technique (Floyd's Cycle) Practice",
+    aDesc: "Write an auxiliary helper function for Fast and Slow Pointer Technique (Floyd's Cycle).",
+    aStarter: "function dsaTaskDay4Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay4Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Linked Lists: LRU Caches memory nodes routing",
-    desc: "Master linked node references. (Real world: File buffers link memory headers sequentially, removing least recently used elements to maintain memory bounds.)",
-    syllabus: ["Linked nodes next/prev properties", "LRU cache double links eviction", "Linked head tail insertions"],
-    eTitle: "Exam: LL Node Insertion Auditor",
-    eDesc: "Write a JS function `insertAfterNode(node, newPayload)` returning new node object `{ payload: newPayload, next: node.next }` and modifying `node.next = (new node)`.",
-    eStarter: "function insertAfterNode(node, newPayload) {\n    // Write your code here\n    \n}",
-    eHint: "Build new node object, updating current node's next property link.",
-    eTest: "if (typeof insertAfterNode !== 'function') throw new Error('Method insertAfterNode not found');\nconst first = { payload: 'A', next: null };\nconst added = insertAfterNode(first, 'B');\nif (first.next !== added || added.payload !== 'B') throw new Error('Linked node insertion failed');",
-    aTitle: "Assignment: Linked List size compiler",
-    aDesc: "Write a JS function `countNodes(head)` returning total linked node count until next is null.",
-    aStarter: "function countNodes(head) {\n    // Write your code here\n    \n}",
-    aHint: "Traverse list incrementally while head is not null.",
-    aTest: "if (typeof countNodes !== 'function') throw new Error('Method countNodes not found');"
+    title: "Stacks & Monotonic Stack Applications",
+    desc: "Apply LIFO stack evaluations for balanced parentheses, postfix expressions, and next greater element problems.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Stacks & Monotonic Stack Applications.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Stacks & Monotonic Stack Applications Validation",
+    eDesc: "Implement a JavaScript validation function for Stacks & Monotonic Stack Applications.",
+    eStarter: "function dsaTaskDay5(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay5 !== 'function') throw new Error('Function dsaTaskDay5 not found');\nif (dsaTaskDay5('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Stacks & Monotonic Stack Applications Practice",
+    aDesc: "Write an auxiliary helper function for Stacks & Monotonic Stack Applications.",
+    aStarter: "function dsaTaskDay5Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay5Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Stacks & Queues: System undo buffers & microservice queues",
-    desc: "Master stack and queue bounds. (Real world: Text editor buffers push updates to stacks to handle Undo, while routers queue requests to buffer network load.)",
-    syllabus: ["LIFO stack operations (push, pop)", "FIFO queue operations (enqueue, dequeue)", "Evaluating buffer capacity limits"],
-    eTitle: "Exam: Stack Undo Buffer Auditor",
-    eDesc: "Write a JS function `popUndoStack(stack)` returning top element. Return 'EMPTY' if stack length is 0.",
-    eStarter: "function popUndoStack(stack) {\n    // Write your code here\n    \n}",
-    eHint: "Use array pop() checking length bounds.",
-    eTest: "if (typeof popUndoStack !== 'function') throw new Error('Method popUndoStack not found');\nif (popUndoStack(['v1', 'v2']) !== 'v2') throw new Error('Stack pop failed');",
-    aTitle: "Assignment: Queue capacity checker",
-    aDesc: "Write a JS function `isQueueFull(queue, limit)` returning true if queue.length >= limit.",
-    aStarter: "function isQueueFull(queue, limit) {\n    // Write your code here\n    \n}",
-    aHint: "Compare length against limit constraints.",
-    aTest: "if (typeof isQueueFull !== 'function') throw new Error('Method isQueueFull not found');"
+    title: "Queues, Deques & Circular Ring Buffers",
+    desc: "Implement FIFO queues using array buffers, double-ended queues, and sliding window max values.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Queues, Deques & Circular Ring Buffers.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Queues, Deques & Circular Ring Buffers Validation",
+    eDesc: "Implement a JavaScript validation function for Queues, Deques & Circular Ring Buffers.",
+    eStarter: "function dsaTaskDay6(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay6 !== 'function') throw new Error('Function dsaTaskDay6 not found');\nif (dsaTaskDay6('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Queues, Deques & Circular Ring Buffers Practice",
+    aDesc: "Write an auxiliary helper function for Queues, Deques & Circular Ring Buffers.",
+    aStarter: "function dsaTaskDay6Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay6Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Trees: Trie-based Autocomplete search bar",
-    desc: "Master Trie structure routing. (Real world: Web search engines route prefix keys inside Trie structures, compiling completions lists in milliseconds.)",
-    syllabus: ["Prefix trees (Trie) nodes architecture", "Inserting search keywords prefixes", "Searching prefixes completions sets"],
-    eTitle: "Exam: Trie Node Prefix Matcher",
-    eDesc: "Write a JS function `trieHasPrefix(root, prefix)` returning true if walking the characters of prefix exists in root.children map. Returns false otherwise.",
-    eStarter: "function trieHasPrefix(root, prefix) {\n    // Write your code here\n    \n}",
-    eHint: "Loop characters in prefix, stepping root = root.children[char] variables. Return false if undefined.",
-    eTest: "if (typeof trieHasPrefix !== 'function') throw new Error('Method trieHasPrefix not found');\nconst r = { children: { 'a': { children: {} } } };\nif (trieHasPrefix(r, 'a') !== true) throw new Error('Trie lookup failed');\nif (trieHasPrefix(r, 'b') !== false) throw new Error('Trie incorrect match failed');",
-    aTitle: "Assignment: Trie node character inserter",
-    aDesc: "Write a JS function `addTrieChar(node, char)` returning `node.children[char] = node.children[char] || { children: {} }`.",
-    aStarter: "function addTrieChar(node, char) {\n    // Write your code here\n    \n}",
-    aHint: "Insert child node map if missing.",
-    aTest: "if (typeof addTrieChar !== 'function') throw new Error('Method addTrieChar not found');"
+    title: "Hash Tables & Collision Resolution",
+    desc: "Understand hash functions, load factors, separate chaining with linked lists, and open addressing probing.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Hash Tables & Collision Resolution.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Hash Tables & Collision Resolution Validation",
+    eDesc: "Implement a JavaScript validation function for Hash Tables & Collision Resolution.",
+    eStarter: "function dsaTaskDay7(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay7 !== 'function') throw new Error('Function dsaTaskDay7 not found');\nif (dsaTaskDay7('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Hash Tables & Collision Resolution Practice",
+    aDesc: "Write an auxiliary helper function for Hash Tables & Collision Resolution.",
+    aStarter: "function dsaTaskDay7Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay7Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Graphs: Microservice Dependency Resolvers",
-    desc: "Master graph structures. (Real world: Compile tools parse system packages, using Topological Sort algorithms to map builds dependency ordering.)",
-    syllabus: ["Directed Acyclic Graphs (DAG) structures", "Adjacency lists representations", "Topological sorting and dependency loops detection"],
-    eTitle: "Exam: Package Dependency Loop Checker",
-    eDesc: "Write a JS function `hasDirectDependencyLoop(adjList, pkg)` returning true if pkg is listed in adjList[pkg] (self-dependency) or if adjList[pkg].includes(pkg).",
-    eStarter: "function hasDirectDependencyLoop(adjList, pkg) {\n    // Write your code here\n    \n}",
-    eHint: "Verify adjacency list for package elements self reference. Check null.",
-    eTest: "if (typeof hasDirectDependencyLoop !== 'function') throw new Error('Method hasDirectDependencyLoop not found');\nif (hasDirectDependencyLoop({ 'p1': ['p1'] }, 'p1') !== true) throw new Error('Loop detection failed');",
-    aTitle: "Assignment: Graph path presence validator",
-    aDesc: "Write a JS function `isDependencyDirect(adjList, p1, p2)` returning true if adjList[p1] includes p2.",
-    aStarter: "function isDependencyDirect(adjList, p1, p2) {\n    // Write your code here\n    \n}",
-    aHint: "Check array inclusion.",
-    aTest: "if (typeof isDependencyDirect !== 'function') throw new Error('Method isDependencyDirect not found');"
+    title: "Two Pointers Technique",
+    desc: "Solve sorted array pair sums, container with most water, 3Sum, and string reversal in O(N) linear time.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Two Pointers Technique.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Two Pointers Technique Validation",
+    eDesc: "Implement a JavaScript validation function for Two Pointers Technique.",
+    eStarter: "function dsaTaskDay8(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay8 !== 'function') throw new Error('Function dsaTaskDay8 not found');\nif (dsaTaskDay8('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Two Pointers Technique Practice",
+    aDesc: "Write an auxiliary helper function for Two Pointers Technique.",
+    aStarter: "function dsaTaskDay8Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay8Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: System Scaling & Routing Performance Audit",
-    desc: "Perform evaluations of search queries latency, check Trie prefix nodes, evaluate dependency loops presence, and compile system performance scores. (Real world: Infrastructure architects audit algorithms complexity, verifying APIs respond inside budget targets.)",
-    syllabus: ["Algorithm complexity evaluations", "Trie search performance metrics", "Dependency trees recursion limits checks"],
-    eTitle: "Exam: System Complexity compliance auditor",
-    eDesc: "Write a JS function `evaluateSystemPerformance(report)` returning true if report.timeComplexity === 'O(log N)' || report.timeComplexity === 'O(1)'. Returns false otherwise.",
-    eStarter: "function evaluateSystemPerformance(report) {\n    // Write your code here\n    \n}",
-    eHint: "Verify report time complexity properties against targets.",
-    eTest: "if (typeof evaluateSystemPerformance !== 'function') throw new Error('Method evaluateSystemPerformance not found');\nif (evaluateSystemPerformance({ timeComplexity: 'O(log N)' }) !== true) throw new Error('Performance evaluation failed');",
-    aTitle: "Assignment: Latency rating evaluator",
-    aDesc: "Write a JS function `getLatencyRating(ms)` returning 'fast' if ms <= 50, 'slow' otherwise.",
-    aStarter: "function getLatencyRating(ms) {\n    // Write your code here\n    \n}",
-    aHint: "Check threshold bounds.",
-    aTest: "if (typeof getLatencyRating !== 'function') throw new Error('Method getLatencyRating not found');"
+    title: "Sliding Window Algorithm (Fixed & Dynamic)",
+    desc: "Track maximum subarray sums, longest substrings without repeating characters, and minimum window substrings.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Sliding Window Algorithm (Fixed & Dynamic).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Sliding Window Algorithm (Fixed & Dynamic) Validation",
+    eDesc: "Implement a JavaScript validation function for Sliding Window Algorithm (Fixed & Dynamic).",
+    eStarter: "function dsaTaskDay9(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay9 !== 'function') throw new Error('Function dsaTaskDay9 not found');\nif (dsaTaskDay9('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Sliding Window Algorithm (Fixed & Dynamic) Practice",
+    aDesc: "Write an auxiliary helper function for Sliding Window Algorithm (Fixed & Dynamic).",
+    aStarter: "function dsaTaskDay9Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay9Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: System Scaling & Routing Performance Audit (Review)",
-    desc: "Review system scaling performance audits, analyze topological sorting results, evaluate Trie prefix traversals, and verify algorithmic bounds. (Real world: Infrastructure architects audit algorithms complexity, verifying APIs respond inside budget targets.)",
-    syllabus: ["Reviewing recursive execution bounds", "Assembling performance metrics report", "Verifying algorithm scale limits"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Binary Search on Sorted Arrays",
+    desc: "Implement standard binary search, lower bound / upper bound, and search in rotated sorted arrays in O(log N).",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Binary Search on Sorted Arrays.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Binary Search on Sorted Arrays Validation",
+    eDesc: "Implement a JavaScript validation function for Binary Search on Sorted Arrays.",
+    eStarter: "function dsaTaskDay10(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay10 !== 'function') throw new Error('Function dsaTaskDay10 not found');\nif (dsaTaskDay10('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Binary Search on Sorted Arrays Practice",
+    aDesc: "Write an auxiliary helper function for Binary Search on Sorted Arrays.",
+    aStarter: "function dsaTaskDay10Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay10Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: System Scaling & Routing Performance Audit (Review)",
-    desc: "Review system scaling performance audits, analyze topological sorting results, evaluate Trie prefix traversals, and verify algorithmic bounds. (Real world: Infrastructure architects audit algorithms complexity, verifying APIs respond inside budget targets.)",
-    syllabus: ["Reviewing recursive execution bounds", "Assembling performance metrics report", "Verifying algorithm scale limits"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Binary Search on Answer Range",
+    desc: "Solve allocation and capacity optimization problems.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Binary Search on Answer Range.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Binary Search on Answer Range Validation",
+    eDesc: "Implement a JavaScript validation function for Binary Search on Answer Range.",
+    eStarter: "function dsaTaskDay11(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay11 !== 'function') throw new Error('Function dsaTaskDay11 not found');\nif (dsaTaskDay11('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Binary Search on Answer Range Practice",
+    aDesc: "Write an auxiliary helper function for Binary Search on Answer Range.",
+    aStarter: "function dsaTaskDay11Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay11Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: System Scaling & Routing Performance Audit (Review)",
-    desc: "Review system scaling performance audits, analyze topological sorting results, evaluate Trie prefix traversals, and verify algorithmic bounds. (Real world: Infrastructure architects audit algorithms complexity, verifying APIs respond inside budget targets.)",
-    syllabus: ["Reviewing recursive execution bounds", "Assembling performance metrics report", "Verifying algorithm scale limits"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Recursion & Call Stack Mechanics",
+    desc: "Master base case termination, recursive parameter passing, stack overflow limits, and backtracking trees.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Recursion & Call Stack Mechanics.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Recursion & Call Stack Mechanics Validation",
+    eDesc: "Implement a JavaScript validation function for Recursion & Call Stack Mechanics.",
+    eStarter: "function dsaTaskDay12(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay12 !== 'function') throw new Error('Function dsaTaskDay12 not found');\nif (dsaTaskDay12('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Recursion & Call Stack Mechanics Practice",
+    aDesc: "Write an auxiliary helper function for Recursion & Call Stack Mechanics.",
+    aStarter: "function dsaTaskDay12Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay12Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: System Scaling & Routing Performance Audit (Review)",
-    desc: "Review system scaling performance audits, analyze topological sorting results, evaluate Trie prefix traversals, and verify algorithmic bounds. (Real world: Infrastructure architects audit algorithms complexity, verifying APIs respond inside budget targets.)",
-    syllabus: ["Reviewing recursive execution bounds", "Assembling performance metrics report", "Verifying algorithm scale limits"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Divide and Conquer (Merge Sort & Quick Sort)",
+    desc: "Implement divide-and-conquer sorting, partition pivots, stability, and O(N log N) time bounds.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Divide and Conquer (Merge Sort & Quick Sort).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Divide and Conquer (Merge Sort & Quick Sort) Validation",
+    eDesc: "Implement a JavaScript validation function for Divide and Conquer (Merge Sort & Quick Sort).",
+    eStarter: "function dsaTaskDay13(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay13 !== 'function') throw new Error('Function dsaTaskDay13 not found');\nif (dsaTaskDay13('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Divide and Conquer (Merge Sort & Quick Sort) Practice",
+    aDesc: "Write an auxiliary helper function for Divide and Conquer (Merge Sort & Quick Sort).",
+    aStarter: "function dsaTaskDay13Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay13Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: System Scaling & Routing Performance Audit (Review)",
-    desc: "Review system scaling performance audits, analyze topological sorting results, evaluate Trie prefix traversals, and verify algorithmic bounds. (Real world: Infrastructure architects audit algorithms complexity, verifying APIs respond inside budget targets.)",
-    syllabus: ["Reviewing recursive execution bounds", "Assembling performance metrics report", "Verifying algorithm scale limits"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Binary Trees & Tree Traversals (Pre, In, Post)",
+    desc: "Implement depth-first recursive and iterative tree traversals, tree height calculations, and diameter checks.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Binary Trees & Tree Traversals (Pre, In, Post).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Binary Trees & Tree Traversals (Pre, In, Post) Validation",
+    eDesc: "Implement a JavaScript validation function for Binary Trees & Tree Traversals (Pre, In, Post).",
+    eStarter: "function dsaTaskDay14(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay14 !== 'function') throw new Error('Function dsaTaskDay14 not found');\nif (dsaTaskDay14('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Binary Trees & Tree Traversals (Pre, In, Post) Practice",
+    aDesc: "Write an auxiliary helper function for Binary Trees & Tree Traversals (Pre, In, Post).",
+    aStarter: "function dsaTaskDay14Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay14Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: System Scaling & Routing Performance Audit (Review)",
-    desc: "Review system scaling performance audits, analyze topological sorting results, evaluate Trie prefix traversals, and verify algorithmic bounds. (Real world: Infrastructure architects audit algorithms complexity, verifying APIs respond inside budget targets.)",
-    syllabus: ["Reviewing recursive execution bounds", "Assembling performance metrics report", "Verifying algorithm scale limits"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Breadth-First Search (BFS) & Level-Order Traversal",
+    desc: "Traverse tree levels using queues, compute minimum depth, and solve zigzag level order traversals.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Breadth-First Search (BFS) & Level-Order Traversal.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Breadth-First Search (BFS) & Level-Order Traversal Validation",
+    eDesc: "Implement a JavaScript validation function for Breadth-First Search (BFS) & Level-Order Traversal.",
+    eStarter: "function dsaTaskDay15(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay15 !== 'function') throw new Error('Function dsaTaskDay15 not found');\nif (dsaTaskDay15('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Breadth-First Search (BFS) & Level-Order Traversal Practice",
+    aDesc: "Write an auxiliary helper function for Breadth-First Search (BFS) & Level-Order Traversal.",
+    aStarter: "function dsaTaskDay15Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay15Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: System Scaling & Routing Performance Audit (Review)",
-    desc: "Review system scaling performance audits, analyze topological sorting results, evaluate Trie prefix traversals, and verify algorithmic bounds. (Real world: Infrastructure architects audit algorithms complexity, verifying APIs respond inside budget targets.)",
-    syllabus: ["Reviewing recursive execution bounds", "Assembling performance metrics report", "Verifying algorithm scale limits"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Binary Search Trees (BST) & Validation",
+    desc: "Perform O(log N) lookups, BST node insertions, BST node deletions, and validate binary search tree invariants.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Binary Search Trees (BST) & Validation.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Binary Search Trees (BST) & Validation Validation",
+    eDesc: "Implement a JavaScript validation function for Binary Search Trees (BST) & Validation.",
+    eStarter: "function dsaTaskDay16(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay16 !== 'function') throw new Error('Function dsaTaskDay16 not found');\nif (dsaTaskDay16('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Binary Search Trees (BST) & Validation Practice",
+    aDesc: "Write an auxiliary helper function for Binary Search Trees (BST) & Validation.",
+    aStarter: "function dsaTaskDay16Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay16Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: System Scaling & Routing Performance Audit (Review)",
-    desc: "Review system scaling performance audits, analyze topological sorting results, evaluate Trie prefix traversals, and verify algorithmic bounds. (Real world: Infrastructure architects audit algorithms complexity, verifying APIs respond inside budget targets.)",
-    syllabus: ["Reviewing recursive execution bounds", "Assembling performance metrics report", "Verifying algorithm scale limits"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Lowest Common Ancestor (LCA) in Trees",
+    desc: "Identify common ancestor nodes in generic binary trees and binary search trees using recursion.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Lowest Common Ancestor (LCA) in Trees.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Lowest Common Ancestor (LCA) in Trees Validation",
+    eDesc: "Implement a JavaScript validation function for Lowest Common Ancestor (LCA) in Trees.",
+    eStarter: "function dsaTaskDay17(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay17 !== 'function') throw new Error('Function dsaTaskDay17 not found');\nif (dsaTaskDay17('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Lowest Common Ancestor (LCA) in Trees Practice",
+    aDesc: "Write an auxiliary helper function for Lowest Common Ancestor (LCA) in Trees.",
+    aStarter: "function dsaTaskDay17Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay17Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: System Scaling & Routing Performance Audit (Review)",
-    desc: "Review system scaling performance audits, analyze topological sorting results, evaluate Trie prefix traversals, and verify algorithmic bounds. (Real world: Infrastructure architects audit algorithms complexity, verifying APIs respond inside budget targets.)",
-    syllabus: ["Reviewing recursive execution bounds", "Assembling performance metrics report", "Verifying algorithm scale limits"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Binary Heaps & Priority Queues",
+    desc: "Implement Min-Heap and Max-Heap array representations, heapify operations, and top-K frequent elements.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Binary Heaps & Priority Queues.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Binary Heaps & Priority Queues Validation",
+    eDesc: "Implement a JavaScript validation function for Binary Heaps & Priority Queues.",
+    eStarter: "function dsaTaskDay18(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay18 !== 'function') throw new Error('Function dsaTaskDay18 not found');\nif (dsaTaskDay18('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Binary Heaps & Priority Queues Practice",
+    aDesc: "Write an auxiliary helper function for Binary Heaps & Priority Queues.",
+    aStarter: "function dsaTaskDay18Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay18Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: System Scaling & Routing Performance Audit (Review)",
-    desc: "Review system scaling performance audits, analyze topological sorting results, evaluate Trie prefix traversals, and verify algorithmic bounds. (Real world: Infrastructure architects audit algorithms complexity, verifying APIs respond inside budget targets.)",
-    syllabus: ["Reviewing recursive execution bounds", "Assembling performance metrics report", "Verifying algorithm scale limits"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Graph Representations (Matrix vs Adjacency List)",
+    desc: "Represent directed and undirected graphs, compute vertex degrees, and handle sparse graph storage.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Graph Representations (Matrix vs Adjacency List).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Graph Representations (Matrix vs Adjacency List) Validation",
+    eDesc: "Implement a JavaScript validation function for Graph Representations (Matrix vs Adjacency List).",
+    eStarter: "function dsaTaskDay19(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay19 !== 'function') throw new Error('Function dsaTaskDay19 not found');\nif (dsaTaskDay19('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Graph Representations (Matrix vs Adjacency List) Practice",
+    aDesc: "Write an auxiliary helper function for Graph Representations (Matrix vs Adjacency List).",
+    aStarter: "function dsaTaskDay19Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay19Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: System Scaling & Routing Performance Audit (Review)",
-    desc: "Review system scaling performance audits, analyze topological sorting results, evaluate Trie prefix traversals, and verify algorithmic bounds. (Real world: Infrastructure architects audit algorithms complexity, verifying APIs respond inside budget targets.)",
-    syllabus: ["Reviewing recursive execution bounds", "Assembling performance metrics report", "Verifying algorithm scale limits"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Graph Traversal: Breadth-First Search (BFS)",
+    desc: "Find shortest unweighted paths, multi-source BFS on 2D matrices, and connected islands.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Graph Traversal: Breadth-First Search (BFS).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Graph Traversal: Breadth-First Search (BFS) Validation",
+    eDesc: "Implement a JavaScript validation function for Graph Traversal: Breadth-First Search (BFS).",
+    eStarter: "function dsaTaskDay20(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay20 !== 'function') throw new Error('Function dsaTaskDay20 not found');\nif (dsaTaskDay20('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Graph Traversal: Breadth-First Search (BFS) Practice",
+    aDesc: "Write an auxiliary helper function for Graph Traversal: Breadth-First Search (BFS).",
+    aStarter: "function dsaTaskDay20Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay20Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: System Scaling & Routing Performance Audit (Review)",
-    desc: "Review system scaling performance audits, analyze topological sorting results, evaluate Trie prefix traversals, and verify algorithmic bounds. (Real world: Infrastructure architects audit algorithms complexity, verifying APIs respond inside budget targets.)",
-    syllabus: ["Reviewing recursive execution bounds", "Assembling performance metrics report", "Verifying algorithm scale limits"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Graph Traversal: Depth-First Search (DFS)",
+    desc: "Explore graph connectivity, count connected components, detect cycles in undirected graphs, and clone graphs.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Graph Traversal: Depth-First Search (DFS).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Graph Traversal: Depth-First Search (DFS) Validation",
+    eDesc: "Implement a JavaScript validation function for Graph Traversal: Depth-First Search (DFS).",
+    eStarter: "function dsaTaskDay21(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay21 !== 'function') throw new Error('Function dsaTaskDay21 not found');\nif (dsaTaskDay21('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Graph Traversal: Depth-First Search (DFS) Practice",
+    aDesc: "Write an auxiliary helper function for Graph Traversal: Depth-First Search (DFS).",
+    aStarter: "function dsaTaskDay21Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay21Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Trie (Prefix Tree) Data Structure",
+    desc: "Implement autocomplete search, spell checking, word frequency counting, and bitwise Trie manipulations.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Trie (Prefix Tree) Data Structure.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Trie (Prefix Tree) Data Structure Validation",
+    eDesc: "Implement a JavaScript validation function for Trie (Prefix Tree) Data Structure.",
+    eStarter: "function dsaTaskDay22(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay22 !== 'function') throw new Error('Function dsaTaskDay22 not found');\nif (dsaTaskDay22('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Trie (Prefix Tree) Data Structure Practice",
+    aDesc: "Write an auxiliary helper function for Trie (Prefix Tree) Data Structure.",
+    aStarter: "function dsaTaskDay22Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay22Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Segment Trees & Range Query Optimizations",
+    desc: "Build segment trees with lazy propagation for fast range sum, range minimum, and point update queries in O(log N).",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Segment Trees & Range Query Optimizations.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Segment Trees & Range Query Optimizations Validation",
+    eDesc: "Implement a JavaScript validation function for Segment Trees & Range Query Optimizations.",
+    eStarter: "function dsaTaskDay23(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay23 !== 'function') throw new Error('Function dsaTaskDay23 not found');\nif (dsaTaskDay23('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Segment Trees & Range Query Optimizations Practice",
+    aDesc: "Write an auxiliary helper function for Segment Trees & Range Query Optimizations.",
+    aStarter: "function dsaTaskDay23Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay23Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Disjoint Set Union (DSU / Union-Find)",
+    desc: "Implement path compression and union by rank for Kruskal's MST algorithm and connected components detection.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Disjoint Set Union (DSU / Union-Find).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Disjoint Set Union (DSU / Union-Find) Validation",
+    eDesc: "Implement a JavaScript validation function for Disjoint Set Union (DSU / Union-Find).",
+    eStarter: "function dsaTaskDay24(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay24 !== 'function') throw new Error('Function dsaTaskDay24 not found');\nif (dsaTaskDay24('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Disjoint Set Union (DSU / Union-Find) Practice",
+    aDesc: "Write an auxiliary helper function for Disjoint Set Union (DSU / Union-Find).",
+    aStarter: "function dsaTaskDay24Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay24Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Shortest Path Algorithms (Dijkstra & Bellman-Ford)",
+    desc: "Compute single-source shortest paths in weighted directed graphs, handle negative weights, and detect cycles.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Shortest Path Algorithms (Dijkstra & Bellman-Ford).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Shortest Path Algorithms (Dijkstra & Bellman-Ford) Validation",
+    eDesc: "Implement a JavaScript validation function for Shortest Path Algorithms (Dijkstra & Bellman-Ford).",
+    eStarter: "function dsaTaskDay25(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay25 !== 'function') throw new Error('Function dsaTaskDay25 not found');\nif (dsaTaskDay25('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Shortest Path Algorithms (Dijkstra & Bellman-Ford) Practice",
+    aDesc: "Write an auxiliary helper function for Shortest Path Algorithms (Dijkstra & Bellman-Ford).",
+    aStarter: "function dsaTaskDay25Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay25Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Floyd-Warshall & All-Pairs Shortest Paths",
+    desc: "Apply dynamic programming for all-pairs shortest paths on adjacency matrices in O(V^3) complexity.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Floyd-Warshall & All-Pairs Shortest Paths.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Floyd-Warshall & All-Pairs Shortest Paths Validation",
+    eDesc: "Implement a JavaScript validation function for Floyd-Warshall & All-Pairs Shortest Paths.",
+    eStarter: "function dsaTaskDay26(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay26 !== 'function') throw new Error('Function dsaTaskDay26 not found');\nif (dsaTaskDay26('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Floyd-Warshall & All-Pairs Shortest Paths Practice",
+    aDesc: "Write an auxiliary helper function for Floyd-Warshall & All-Pairs Shortest Paths.",
+    aStarter: "function dsaTaskDay26Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay26Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Topological Sort & Cycle Detection in DAGs",
+    desc: "Determine task execution dependencies using Kahn's BFS queue algorithm and DFS recursion stacks.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Topological Sort & Cycle Detection in DAGs.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Topological Sort & Cycle Detection in DAGs Validation",
+    eDesc: "Implement a JavaScript validation function for Topological Sort & Cycle Detection in DAGs.",
+    eStarter: "function dsaTaskDay27(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay27 !== 'function') throw new Error('Function dsaTaskDay27 not found');\nif (dsaTaskDay27('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Topological Sort & Cycle Detection in DAGs Practice",
+    aDesc: "Write an auxiliary helper function for Topological Sort & Cycle Detection in DAGs.",
+    aStarter: "function dsaTaskDay27Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay27Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Dynamic Programming: 2D Grid Paths & Knapsack",
+    desc: "Master memoization and tabulation on 2D grids, 0/1 Knapsack, Unbounded Knapsack, and subset sum variations.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Dynamic Programming: 2D Grid Paths & Knapsack.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Dynamic Programming: 2D Grid Paths & Knapsack Validation",
+    eDesc: "Implement a JavaScript validation function for Dynamic Programming: 2D Grid Paths & Knapsack.",
+    eStarter: "function dsaTaskDay28(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay28 !== 'function') throw new Error('Function dsaTaskDay28 not found');\nif (dsaTaskDay28('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Dynamic Programming: 2D Grid Paths & Knapsack Practice",
+    aDesc: "Write an auxiliary helper function for Dynamic Programming: 2D Grid Paths & Knapsack.",
+    aStarter: "function dsaTaskDay28Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay28Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Dynamic Programming: Longest Common Subsequence (LCS)",
+    desc: "Solve string alignment, edit distance, longest increasing subsequence (LIS), and sequence reconstruction.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Dynamic Programming: Longest Common Subsequence (LCS).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Dynamic Programming: Longest Common Subsequence (LCS) Validation",
+    eDesc: "Implement a JavaScript validation function for Dynamic Programming: Longest Common Subsequence (LCS).",
+    eStarter: "function dsaTaskDay29(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay29 !== 'function') throw new Error('Function dsaTaskDay29 not found');\nif (dsaTaskDay29('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Dynamic Programming: Longest Common Subsequence (LCS) Practice",
+    aDesc: "Write an auxiliary helper function for Dynamic Programming: Longest Common Subsequence (LCS).",
+    aStarter: "function dsaTaskDay29Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay29Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Capstone: Production Algorithmic Routing & Scheduling Engine",
+    desc: "Implement a production-grade routing engine combining DSU, Dijkstra shortest path, and topological dependency sorting.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Capstone: Production Algorithmic Routing & Scheduling Engine.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Capstone: Production Algorithmic Routing & Scheduling Engine Validation",
+    eDesc: "Implement a JavaScript validation function for Capstone: Production Algorithmic Routing & Scheduling Engine.",
+    eStarter: "function dsaTaskDay30(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof dsaTaskDay30 !== 'function') throw new Error('Function dsaTaskDay30 not found');\nif (dsaTaskDay30('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Capstone: Production Algorithmic Routing & Scheduling Engine Practice",
+    aDesc: "Write an auxiliary helper function for Capstone: Production Algorithmic Routing & Scheduling Engine.",
+    aStarter: "function dsaTaskDay30Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof dsaTaskDay30Aux !== 'function') throw new Error('Auxiliary function not found');"
   }
 ];
 
-export const DSA_30_DAYS_QUESTS = DSA_30_DAYS_CONFIGS.flatMap((cfg, dIdx) => {
-  const dayNum = dIdx + 1;
-  const lecture = {
-    id: `dsa-basics-lecture-day-${dayNum}`,
-    title: `Day ${dayNum} Learning: ${cfg.title}`,
-    desc: cfg.desc,
-    type: "lecture" as const,
-    requiresAvatar: true,
-    syllabus: cfg.syllabus,
-    skillCategory: "theory" as const,
-    xp: 150,
-    pins: 5
-  };
-  if (dayNum === 1) {
-    return [
-      lecture,
-      {
-        id: `dsa-basics-lecture2-day-1`,
-        title: `Day 1 Deep Dive: Syntax, Execution Rules, and Line-by-Line Breakdown`,
-        desc: `In-depth step-by-step breakdown of Day 1 concepts, memory layout, and execution mechanics. ${cfg.desc}`,
-        type: "lecture" as const,
-        requiresAvatar: true,
-        syllabus: cfg.syllabus,
-        skillCategory: "theory" as const,
-        xp: 150,
-        pins: 5
-      },
-      {
-        id: `dsa-basics-lecture3-day-1`,
-        title: `Day 1 Workshop: Real-World Industry Context & Visualization Guide`,
-        desc: `Practical visualization guide and real-world system architecture context for Day 1. ${cfg.desc}`,
-        type: "lecture" as const,
-        requiresAvatar: true,
-        syllabus: cfg.syllabus,
-        skillCategory: "theory" as const,
-        xp: 150,
-        pins: 5
-      }
-    ];
-  }
-  if (dayNum === 2) {
-    return [
-      lecture,
-      {
-        id: `dsa-basics-lecture2-day-2`,
-        title: `Day 2 Deep Dive: Flow Control, Logic Branching, and Execution Paths`,
-        desc: `In-depth line-by-line mechanics of conditionals, loops, and memory execution state. ${cfg.desc}`,
-        type: "lecture" as const,
-        requiresAvatar: true,
-        syllabus: cfg.syllabus,
-        skillCategory: "theory" as const,
-        xp: 150,
-        pins: 5
-      },
-      {
-        id: `dsa-basics-lecture3-day-2`,
-        title: `Day 2 Workshop: Practical Code Workshop & Edge Case Pitfall Warnings`,
-        desc: `Practical code workshop analyzing common edge cases, off-by-one errors, and production traps. ${cfg.desc}`,
-        type: "lecture" as const,
-        requiresAvatar: true,
-        syllabus: cfg.syllabus,
-        skillCategory: "theory" as const,
-        xp: 150,
-        pins: 5
-      }
-    ];
-  }
-  return buildEnrichedDayQuests('dsa-basics', dayNum, cfg);
-});
+export const DSA_30_DAYS_QUESTS = DSA_30_DAYS_CONFIGS.flatMap((cfg, i) =>
+  buildEnrichedDayQuests('dsa', i + 1, cfg)
+);

@@ -29,6 +29,23 @@ export async function POST(req: Request) {
       );
     }
 
+    // Development / Demo Sandbox verification bypass
+    if (razorpay_order_id.startsWith('order_mock_') && (process.env.NODE_ENV !== 'production' || process.env.ALLOW_DEV_MOCK_PAYMENT === 'true')) {
+      const planId = clientPlanId || 'pack_150';
+      let pinsGranted = 0;
+      if (planId === 'pack_50') pinsGranted = 50;
+      else if (planId === 'pack_150') pinsGranted = 150;
+      else if (planId === 'pack_500') pinsGranted = 500;
+
+      return NextResponse.json({
+        ok: true,
+        planId,
+        pinsGranted,
+        isMock: true,
+        message: 'Sandbox payment verified successfully.'
+      });
+    }
+
     const keyId = process.env.RAZORPAY_KEY_ID || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || '';
     const keySecret = process.env.RAZORPAY_KEY_SECRET || '';
     if (!keySecret || !keyId) {

@@ -1,404 +1,578 @@
-import { buildEnrichedDayQuests } from './curriculumEnricher';
-export interface DayConfig {
-  title: string;
-  desc: string;
-  syllabus: string[];
-  eTitle: string;
-  eDesc: string;
-  eStarter: string;
-  eHint: string;
-  eTest: string;
-  aTitle: string;
-  aDesc: string;
-  aStarter: string;
-  aHint: string;
-  aTest: string;
-}
+import { buildEnrichedDayQuests, DayConfig } from './curriculumEnricher';
 
 export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
   {
-    title: "What is Cloud Computing? — Why It Exists, 3 Service Models and Real-World Examples",
-    desc: "Cloud computing means using someone else's computers and servers over the internet instead of buying your own. Before cloud computing, if you wanted to run a website, you had to buy physical servers (which cost tens of thousands of dollars each), find space to store them, install cooling systems, set up power backups, hire people to maintain them 24/7, and worry that if one server broke, your entire website went down. A single server room for a startup cost Rs 50 lakhs or more just to get started. Amazon Web Services (AWS) changed everything in 2006. Amazon had already built a massive computing infrastructure to run Amazon.com. They realised they could rent this infrastructure to other companies by the hour. Today AWS offers 200+ services — virtual machines, storage, databases, networking, AI, security — all available on-demand, pay-as-you-go, over the internet. No upfront purchase. No hardware maintenance. Pay only for what you actually use. Cloud computing has 3 service models. IaaS (Infrastructure as a Service): you rent raw infrastructure — virtual machines, storage, networking. You manage everything on top: the operating system, software, configuration, and security. AWS EC2 (virtual machines) and S3 (storage) are IaaS. Most control, most responsibility. PaaS (Platform as a Service): you rent a platform to run your code. The cloud provider manages the OS, runtime, and scaling. You only manage your application code. AWS Lambda and Elastic Beanstalk are PaaS. Less control but much faster development. SaaS (Software as a Service): you use a fully managed application over the internet. The provider manages everything — servers, OS, code, databases. Gmail, Slack, Salesforce, Netflix, Zoom are SaaS. You just use the product. Simple analogy: IaaS = you rent a kitchen and cook yourself. PaaS = you rent a restaurant kitchen with all the equipment and cook your dish. SaaS = you order food from a restaurant and just eat. The 4 key benefits of cloud: (1) On-demand — get 1,000 servers in 5 minutes, shut them down when done. (2) Pay-as-you-go — pay only for what you use, no upfront investment. (3) Global — deploy your app in Mumbai, Singapore, USA, Europe in minutes. (4) Reliable — AWS data centers have redundant power, cooling, and networking built-in. (Real world: Netflix runs entirely on AWS. When a popular show releases, Netflix needs 100x more servers for 2 hours. With cloud they spin up thousands of servers instantly, stream to 200 million users, then release the servers when the demand drops. Owning those servers permanently would cost billions — cloud makes it cost a few lakhs.)",
-    syllabus: ["Cloud computing = renting servers, storage, databases over the internet instead of buying them. Before cloud: buy physical servers (Rs 50 lakh+), maintain 24/7, single server room failure = entire app down. After cloud: rent on-demand, pay per hour, AWS handles all hardware. AWS launched 2006 and now offers 200+ services.", "3 service models: IaaS (EC2, S3 — you manage OS+software+security, full control), PaaS (Lambda, Elastic Beanstalk — you manage only app code, AWS handles OS+scaling), SaaS (Gmail, Slack, Netflix — AWS/provider manages everything, you just use it). Analogy: IaaS=raw kitchen, PaaS=equipped kitchen, SaaS=restaurant.", "4 cloud benefits: (1) On-demand: get 1000 servers in minutes, cancel when done. (2) Pay-as-you-go: pay only actual usage, zero upfront. (3) Global: deploy in India, USA, Europe in minutes from AWS Console. (4) Reliable: every AWS data center has redundant power, cooling, networking — no more single-server failure killing your app."],
-    eTitle: "Exam: Region Verification",
-    eDesc: "Not tested on day 1",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Infrastructure Basics",
-    aDesc: "Not tested on day 1",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Cloud Computing Models (IaaS, PaaS, SaaS)",
+    desc: "Compare infrastructure, platform, and software models and total cost of ownership.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Cloud Computing Models (IaaS, PaaS, SaaS).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Cloud Computing Models (IaaS, PaaS, SaaS) Validation",
+    eDesc: "Implement a JavaScript validation function for Cloud Computing Models (IaaS, PaaS, SaaS).",
+    eStarter: "function cloudTaskDay1(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay1 !== 'function') throw new Error('Function cloudTaskDay1 not found');\nif (cloudTaskDay1('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Cloud Computing Models (IaaS, PaaS, SaaS) Practice",
+    aDesc: "Write an auxiliary helper function for Cloud Computing Models (IaaS, PaaS, SaaS).",
+    aStarter: "function cloudTaskDay1Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay1Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "What is a VPC? — Your Private Isolated Network Inside AWS Explained from Scratch",
-    desc: "Before you launch any server, database, or service on AWS, you need a Virtual Private Cloud (VPC). A VPC is your own isolated private network inside AWS. Think of it this way: AWS is a massive city with thousands of buildings (servers, databases, services). A VPC is your own private gated compound inside that city — other AWS accounts cannot see or access your compound unless you explicitly allow them. Without a VPC, all your servers would share one big public network with every other company's servers. That is a security disaster. A VPC gives you complete network isolation. When you create a VPC, you give it a block of private IP addresses written in CIDR notation. For example, 10.0.0.0/16 gives you 65,536 private IP addresses to assign to your servers. These IPs are private — they exist only inside your VPC and are invisible to the internet. Inside the VPC, you divide your IP space into subnets. A subnet is a smaller slice of your VPC's IP range, locked to one specific Availability Zone. Example layout: Public Subnet (10.0.1.0/24, 256 IPs) for web servers that need to receive internet traffic. Private Subnet (10.0.2.0/24, 256 IPs) for application servers that only talk to web servers. Database Subnet (10.0.3.0/24, 256 IPs) for databases that only talk to application servers. Servers in public subnets can receive internet traffic. Servers in private subnets cannot be reached from the internet — much safer for sensitive data and business logic. VPC security comes in layers: Security Groups act as virtual firewalls for individual servers (allow traffic on port 80 for HTTP, block everything else). Network ACLs act as firewalls for entire subnets (broader rules applying to all servers in a subnet). Route Tables control where network traffic flows (to the internet, to other subnets, to other VPCs). AWS automatically creates a default VPC in every region with public subnets so you can launch servers immediately without manual setup. But for production, you always design your own custom VPC with proper subnet isolation. (Real world: Flipkart's AWS infrastructure has separate VPCs for production, staging, and development. Production VPC contains real customer data. Staging VPC is for testing new releases. Development VPC is for engineers experimenting. Network-level isolation ensures a bug in development can never accidentally access production customer data.)",
-    syllabus: ["VPC (Virtual Private Cloud) = your isolated private network inside AWS. Like a gated compound in the AWS city — other accounts cannot access your servers. Assign it a private IP range: 10.0.0.0/16 gives 65,536 IPs. VPC spans one AWS region. Everything you launch goes inside the VPC.", "Subnets divide your VPC into smaller zones, each locked to one Availability Zone. Public subnet: servers can receive internet traffic (web servers, load balancers). Private subnet: servers unreachable from internet (app servers, databases). Best practice: put sensitive systems (databases, internal APIs) always in private subnets.", "VPC security layers: Security Group = virtual firewall per EC2 instance (allow port 80, block others). Network ACL = firewall per subnet (applies to all servers in subnet). Route Table = controls traffic flow (local, internet, NAT). AWS creates a default VPC in each region automatically — but production systems always use custom VPCs with proper private subnet isolation."],
-    eTitle: "Exam: Subnet Masks",
-    eDesc: "Not tested on day 2",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: VPC IP Boundaries",
-    aDesc: "Not tested on day 2",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "AWS Global Infrastructure & Regions",
+    desc: "Understand AWS Regions, Availability Zones (AZs), Edge Locations, and low-latency routing.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of AWS Global Infrastructure & Regions.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: AWS Global Infrastructure & Regions Validation",
+    eDesc: "Implement a JavaScript validation function for AWS Global Infrastructure & Regions.",
+    eStarter: "function cloudTaskDay2(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay2 !== 'function') throw new Error('Function cloudTaskDay2 not found');\nif (cloudTaskDay2('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: AWS Global Infrastructure & Regions Practice",
+    aDesc: "Write an auxiliary helper function for AWS Global Infrastructure & Regions.",
+    aStarter: "function cloudTaskDay2Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay2Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "VPC Routing & Internet Gateways",
-    desc: "Route Tables, routing target associations, Internet Gateways (IGW), and default public routes. (Real world: IGWs act as route targets allowing public subnet internet access.)",
-    syllabus: ["Route Table configurations", "Internet Gateway routing", "Default route destination maps"],
-    eTitle: "Exam: Public Route Table Evaluator",
-    eDesc: "Write a JS function `evaluateVpcRoutes(routes)` where routes is an array of `{destination, target}` objects. Return true if there is a route where destination is '0.0.0.0/0' and target starts with 'igw-'.",
-    eStarter: "function evaluateVpcRoutes(routes) {\n    // Write your code here\n    \n}",
-    eHint: "Iterate array checking destination === '0.0.0.0/0' and target.startsWith('igw-').",
-    eTest: "if (typeof evaluateVpcRoutes !== 'function') throw new Error('Method evaluateVpcRoutes not found.');\nif (evaluateVpcRoutes([{destination: '0.0.0.0/0', target: 'igw-123'}]) !== true) throw new Error('Validation failed');\nif (evaluateVpcRoutes([{destination: '10.0.0.0/16', target: 'local'}]) !== false) throw new Error('Private route passed incorrectly');",
-    aTitle: "Assignment: Subnet Range Calculator",
-    aDesc: "Write a JS function `subnetRangeCalculator(cidr)` returning true if cidr ends with '/16' or '/24'.",
-    aStarter: "function subnetRangeCalculator(cidr) {\n    // Write your code here\n    \n}",
-    aHint: "Check if cidr string ends with /16 or /24.",
-    aTest: "if (typeof subnetRangeCalculator !== 'function') throw new Error('Method subnetRangeCalculator not found.');"
+    title: "Virtual Private Cloud (VPC) Architecture",
+    desc: "Design isolated VPC networks, public and private subnets, CIDR blocks, and route tables.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Virtual Private Cloud (VPC) Architecture.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Virtual Private Cloud (VPC) Architecture Validation",
+    eDesc: "Implement a JavaScript validation function for Virtual Private Cloud (VPC) Architecture.",
+    eStarter: "function cloudTaskDay3(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay3 !== 'function') throw new Error('Function cloudTaskDay3 not found');\nif (cloudTaskDay3('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Virtual Private Cloud (VPC) Architecture Practice",
+    aDesc: "Write an auxiliary helper function for Virtual Private Cloud (VPC) Architecture.",
+    aStarter: "function cloudTaskDay3Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay3Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "AWS Security Groups: Network access control ports rules",
-    desc: "Master security groups rules. (Real world: Production servers lock network access ports, dropping connections not listed in CIDR whitelist rules.)",
-    syllabus: ["Security Groups stateful rules configurations", "Ingress port boundaries whitelists", "Configuring outbound egress connection maps"],
-    eTitle: "Exam: Ingress Port Auditor",
-    eDesc: "Write a JS function `isPortOpen(rules, port, originCidr)` returning true if rules array contains an entry where fromPort <= port and toPort >= port and cidr === originCidr. Returns false otherwise.",
-    eStarter: "function isPortOpen(rules, port, originCidr) {\n    // Write your code here\n    \n}",
-    eHint: "Filter rule objects list matching target port ranges and origin whitelists.",
-    eTest: "if (typeof isPortOpen !== 'function') throw new Error('Method isPortOpen not found');\nif (isPortOpen([{ fromPort: 80, toPort: 80, cidr: '0.0.0.0/0' }], 80, '0.0.0.0/0') !== true) throw new Error('Security group checks failed');",
-    aTitle: "Assignment: SSH port restrictions checker",
-    aDesc: "Write a JS function `isSshRestricted(rules)` returning true if all rules containing port 22 restrict CIDR to a specific IP (i.e. cidr !== '0.0.0.0/0').",
-    aStarter: "function isSshRestricted(rules) {\n    // Write your code here\n    \n}",
-    aHint: "Verify no wildcard rule maps to port 22.",
-    aTest: "if (typeof isSshRestricted !== 'function') throw new Error('Method isSshRestricted not found');"
+    title: "Internet Gateways & NAT Gateways",
+    desc: "Route public traffic via IGW and enable secure outbound internet access for private subnets via NAT.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Internet Gateways & NAT Gateways.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Internet Gateways & NAT Gateways Validation",
+    eDesc: "Implement a JavaScript validation function for Internet Gateways & NAT Gateways.",
+    eStarter: "function cloudTaskDay4(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay4 !== 'function') throw new Error('Function cloudTaskDay4 not found');\nif (cloudTaskDay4('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Internet Gateways & NAT Gateways Practice",
+    aDesc: "Write an auxiliary helper function for Internet Gateways & NAT Gateways.",
+    aStarter: "function cloudTaskDay4Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay4Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "AWS EC2 instances sizes & storage maps",
-    desc: "Master server resource scaling. (Real world: Applications choose EC2 instance families matching memory parameters, mounting EBS volumes for local data storage.)",
-    syllabus: ["EC2 instance types and performance properties", "EBS volume block storage mappings", "Resource sizing bounds validations"],
-    eTitle: "Exam: EC2 Sizing Calculator",
-    eDesc: "Write a JS function `calculateEc2MonthlyCost(instanceType, hours, storageGb)` returning cost based on: instanceType 't3.micro' = 0.0104/hr, 't3.medium' = 0.0416/hr, and storageGb = 0.08/month. Return 0 if negative.",
-    eStarter: "function calculateEc2MonthlyCost(instanceType, hours, storageGb) {\n    // Write your code here\n    \n}",
-    eHint: "Multiply duration by instance rate, adding storage capacities fees.",
-    eTest: "if (typeof calculateEc2MonthlyCost !== 'function') throw new Error('Method calculateEc2MonthlyCost not found');\nif (calculateEc2MonthlyCost('t3.medium', 720, 100) !== 37.952) throw new Error('EC2 pricing calculations failed');",
-    aTitle: "Assignment: EBS volume capacity validator",
-    aDesc: "Write a JS function `isEbsVolumeSafe(sizeGb, maxLimit)` returning true if sizeGb <= maxLimit.",
-    aStarter: "function isEbsVolumeSafe(sizeGb, maxLimit) {\n    // Write your code here\n    \n}",
-    aHint: "Compare input with thresholds.",
-    aTest: "if (typeof isEbsVolumeSafe !== 'function') throw new Error('Method isEbsVolumeSafe not found');"
+    title: "Security Groups & Network ACLs",
+    desc: "Configure stateful instance firewalls and stateless subnet packet filters.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Security Groups & Network ACLs.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Security Groups & Network ACLs Validation",
+    eDesc: "Implement a JavaScript validation function for Security Groups & Network ACLs.",
+    eStarter: "function cloudTaskDay5(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay5 !== 'function') throw new Error('Function cloudTaskDay5 not found');\nif (cloudTaskDay5('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Security Groups & Network ACLs Practice",
+    aDesc: "Write an auxiliary helper function for Security Groups & Network ACLs.",
+    aStarter: "function cloudTaskDay5Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay5Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "AWS S3: Storage bucket configurations & encryption keys",
-    desc: "Master object storage security policies. (Real world: S3 storage buckets block public access configurations, enabling AES-256 server side encryption keys.)",
-    syllabus: ["S3 bucket policies structures", "Blocking public access configurations flags", "Enabling KMS default encryption keys"],
-    eTitle: "Exam: S3 Bucket Policy Auditor",
-    eDesc: "Write a JS function `isBucketPolicySafe(policy)` returning true if policy.Effect !== 'Allow' or policy.Principal !== '*'. Returns false otherwise.",
-    eStarter: "function isBucketPolicySafe(policy) {\n    // Write your code here\n    \n}",
-    eHint: "Verify policy properties, rejecting public wildcards permissions configurations. Check null.",
-    eTest: "if (typeof isBucketPolicySafe !== 'function') throw new Error('Method isBucketPolicySafe not found');\nif (isBucketPolicySafe({ Effect: 'Allow', Principal: '*' }) !== false) throw new Error('Public S3 bucket policy allowed');",
-    aTitle: "Assignment: Storage class finder",
-    aDesc: "Write a JS function `getS3StorageClass(accessDays)` returning 'Standard' if accessDays <= 30, 'Infrequent' if accessDays <= 90, 'Glacier' otherwise.",
-    aStarter: "function getS3StorageClass(accessDays) {\n    // Write your code here\n    \n}",
-    aHint: "Check access days limits.",
-    aTest: "if (typeof getS3StorageClass !== 'function') throw new Error('Method getS3StorageClass not found');"
+    title: "Elastic Compute Cloud (EC2) Instances",
+    desc: "Launch EC2 instance types, configure AMI images, EBS root volumes, and user data bootstrap scripts.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Elastic Compute Cloud (EC2) Instances.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Elastic Compute Cloud (EC2) Instances Validation",
+    eDesc: "Implement a JavaScript validation function for Elastic Compute Cloud (EC2) Instances.",
+    eStarter: "function cloudTaskDay6(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay6 !== 'function') throw new Error('Function cloudTaskDay6 not found');\nif (cloudTaskDay6('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Elastic Compute Cloud (EC2) Instances Practice",
+    aDesc: "Write an auxiliary helper function for Elastic Compute Cloud (EC2) Instances.",
+    aStarter: "function cloudTaskDay6Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay6Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "AWS Lambda serverless scaling trigger rules",
-    desc: "Master event-driven architectures. (Real world: Lambda endpoints scale memory configurations, executing serverless functions inside execution timeout thresholds.)",
-    syllabus: ["Lambda execution timeout limits", "Memory allocation boundaries", "Event payload trigger rules"],
-    eTitle: "Exam: Lambda Resource Allocator",
-    eDesc: "Write a JS function `isLambdaLimitAllowed(memoryMb, timeoutSec)` returning true if memoryMb <= 3008 and timeoutSec <= 900. Returns false otherwise.",
-    eStarter: "function isLambdaLimitAllowed(memoryMb, timeoutSec) {\n    // Write your code here\n    \n}",
-    eHint: "Verify input variables conform to AWS serverless boundaries guidelines.",
-    eTest: "if (typeof isLambdaLimitAllowed !== 'function') throw new Error('Method isLambdaLimitAllowed not found');\nif (isLambdaLimitAllowed(1024, 60) !== true) throw new Error('Lambda resource limits failed');",
-    aTitle: "Assignment: Execution retry checker",
-    aDesc: "Write a JS function `canRetryExecution(failures)` returning true if failures < 3.",
-    aStarter: "function canRetryExecution(failures) {\n    // Write your code here\n    \n}",
-    aHint: "Check attempts bounds.",
-    aTest: "if (typeof canRetryExecution !== 'function') throw new Error('Method canRetryExecution not found');"
+    title: "Elastic Block Store (EBS) & Snapshots",
+    desc: "Manage gp3/io2 SSD volumes, dynamic volume resizing, automated snapshot lifecycle managers, and encryption.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Elastic Block Store (EBS) & Snapshots.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Elastic Block Store (EBS) & Snapshots Validation",
+    eDesc: "Implement a JavaScript validation function for Elastic Block Store (EBS) & Snapshots.",
+    eStarter: "function cloudTaskDay7(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay7 !== 'function') throw new Error('Function cloudTaskDay7 not found');\nif (cloudTaskDay7('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Elastic Block Store (EBS) & Snapshots Practice",
+    aDesc: "Write an auxiliary helper function for Elastic Block Store (EBS) & Snapshots.",
+    aStarter: "function cloudTaskDay7Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay7Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "AWS API Gateway: Route mappings & status pages",
-    desc: "Master API request routing. (Real world: API Gateways route incoming URL parameters to backend Lambda triggers, formatting HTTP error responses.)",
-    syllabus: ["API Gateway route configurations mapping", "HTTP integrations target types", "Formatting status codes returns"],
-    eTitle: "Exam: API Gateway Router",
-    eDesc: "Write a JS function `routeApiGateway(method, path)` returning 'LambdaTrigger' if path starts with '/api/' and method is 'GET' or 'POST'. Return 'DefaultError' otherwise.",
-    eStarter: "function routeApiGateway(method, path) {\n    // Write your code here\n    \n}",
-    eHint: "Verify HTTP method and path string prefix conditions.",
-    eTest: "if (typeof routeApiGateway !== 'function') throw new Error('Method routeApiGateway not found');\nif (routeApiGateway('POST', '/api/users') !== 'LambdaTrigger') throw new Error('API Gateway router failed');",
-    aTitle: "Assignment: API Rate limit bucket",
-    aDesc: "Write a JS function `isRateLimitBucketSafe(bucketSize)` returning true if bucketSize >= 100.",
-    aStarter: "function isRateLimitBucketSafe(bucketSize) {\n    // Write your code here\n    \n}",
-    aHint: "Compare sizes.",
-    aTest: "if (typeof isRateLimitBucketSafe !== 'function') throw new Error('Method isRateLimitBucketSafe not found');"
+    title: "Elastic Load Balancing (ALB, NLB)",
+    desc: "Distribute HTTP/HTTPS traffic via Application Load Balancers and TCP streams via Network Load Balancers.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Elastic Load Balancing (ALB, NLB).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Elastic Load Balancing (ALB, NLB) Validation",
+    eDesc: "Implement a JavaScript validation function for Elastic Load Balancing (ALB, NLB).",
+    eStarter: "function cloudTaskDay8(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay8 !== 'function') throw new Error('Function cloudTaskDay8 not found');\nif (cloudTaskDay8('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Elastic Load Balancing (ALB, NLB) Practice",
+    aDesc: "Write an auxiliary helper function for Elastic Load Balancing (ALB, NLB).",
+    aStarter: "function cloudTaskDay8Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay8Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Cloud Native compliance audit",
-    desc: "Perform evaluations of VPC routing structures, check Security Group ingress ports safety, verify S3 bucket policies locks, and evaluate Lambda execution resource parameters. (Real world: Cloud architects audit AWS accounts, ensuring resources match secure landing zone blueprints.)",
-    syllabus: ["VPC routing compliance scans", "Security Group open ports audit", "S3 public bucket access audits"],
-    eTitle: "Exam: Cloud Compliance Auditor",
-    eDesc: "Write a JS function `evaluateCloudCompliance(report)` returning true if report.vpcRoutesSafe === true and report.portsRestricted === true and report.bucketsEncrypted === true.",
-    eStarter: "function evaluateCloudCompliance(report) {\n    // Write your code here\n    \n}",
-    eHint: "Verify report.vpcRoutesSafe, report.portsRestricted, and report.bucketsEncrypted boolean properties in report.",
-    eTest: "if (typeof evaluateCloudCompliance !== 'function') throw new Error('Method evaluateCloudCompliance not found');\nconst rep = { vpcRoutesSafe: true, portsRestricted: true, bucketsEncrypted: true };\nif (evaluateCloudCompliance(rep) !== true) throw new Error('Cloud compliance validation failed');",
-    aTitle: "Assignment: Cost compliance scorer",
-    aDesc: "Write a JS function `calcCostStatus(monthlyCost, budget)` returning monthlyCost > budget ? 'OVER_BUDGET' : 'WITHIN_BUDGET'.",
-    aStarter: "function calcCostStatus(monthlyCost, budget) {\n    // Write your code here\n    \n}",
-    aHint: "Verify cost ranges bounds.",
-    aTest: "if (typeof calcCostStatus !== 'function') throw new Error('Method calcCostStatus not found');"
+    title: "Auto Scaling Groups (ASG) & Policies",
+    desc: "Scale EC2 fleets dynamically based on CPU utilization, target tracking policies, and health checks.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Auto Scaling Groups (ASG) & Policies.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Auto Scaling Groups (ASG) & Policies Validation",
+    eDesc: "Implement a JavaScript validation function for Auto Scaling Groups (ASG) & Policies.",
+    eStarter: "function cloudTaskDay9(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay9 !== 'function') throw new Error('Function cloudTaskDay9 not found');\nif (cloudTaskDay9('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Auto Scaling Groups (ASG) & Policies Practice",
+    aDesc: "Write an auxiliary helper function for Auto Scaling Groups (ASG) & Policies.",
+    aStarter: "function cloudTaskDay9Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay9Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Cloud Native compliance audit (Review)",
-    desc: "Review cloud native architectures, evaluate VPC route table parameters, check security group access whitelists, and verify S3 bucket encryption keys. (Real world: Cloud architects audit AWS accounts, ensuring resources match secure landing zone blueprints.)",
-    syllabus: ["Reviewing VPC routing bounds", "Assembling infrastructure security checklists", "Verifying database sharding parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Simple Storage Service (S3) Buckets",
+    desc: "Configure bucket policies, versioning, lifecycle transitions, and cross-region replication.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Simple Storage Service (S3) Buckets.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Simple Storage Service (S3) Buckets Validation",
+    eDesc: "Implement a JavaScript validation function for Simple Storage Service (S3) Buckets.",
+    eStarter: "function cloudTaskDay10(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay10 !== 'function') throw new Error('Function cloudTaskDay10 not found');\nif (cloudTaskDay10('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Simple Storage Service (S3) Buckets Practice",
+    aDesc: "Write an auxiliary helper function for Simple Storage Service (S3) Buckets.",
+    aStarter: "function cloudTaskDay10Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay10Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Cloud Native compliance audit (Review)",
-    desc: "Review cloud native architectures, evaluate VPC route table parameters, check security group access whitelists, and verify S3 bucket encryption keys. (Real world: Cloud architects audit AWS accounts, ensuring resources match secure landing zone blueprints.)",
-    syllabus: ["Reviewing VPC routing bounds", "Assembling infrastructure security checklists", "Verifying database sharding parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Amazon CloudFront CDN & Origin Routing",
+    desc: "Distribute global cached content, configure edge caching behaviors, and enforce HTTPS certificates.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Amazon CloudFront CDN & Origin Routing.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Amazon CloudFront CDN & Origin Routing Validation",
+    eDesc: "Implement a JavaScript validation function for Amazon CloudFront CDN & Origin Routing.",
+    eStarter: "function cloudTaskDay11(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay11 !== 'function') throw new Error('Function cloudTaskDay11 not found');\nif (cloudTaskDay11('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Amazon CloudFront CDN & Origin Routing Practice",
+    aDesc: "Write an auxiliary helper function for Amazon CloudFront CDN & Origin Routing.",
+    aStarter: "function cloudTaskDay11Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay11Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Cloud Native compliance audit (Review)",
-    desc: "Review cloud native architectures, evaluate VPC route table parameters, check security group access whitelists, and verify S3 bucket encryption keys. (Real world: Cloud architects audit AWS accounts, ensuring resources match secure landing zone blueprints.)",
-    syllabus: ["Reviewing VPC routing bounds", "Assembling infrastructure security checklists", "Verifying database sharding parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Route 53 DNS & Traffic Policies",
+    desc: "Manage hosted zones, alias records, latency-based routing, geolocation routing, and DNS failover.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Route 53 DNS & Traffic Policies.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Route 53 DNS & Traffic Policies Validation",
+    eDesc: "Implement a JavaScript validation function for Route 53 DNS & Traffic Policies.",
+    eStarter: "function cloudTaskDay12(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay12 !== 'function') throw new Error('Function cloudTaskDay12 not found');\nif (cloudTaskDay12('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Route 53 DNS & Traffic Policies Practice",
+    aDesc: "Write an auxiliary helper function for Route 53 DNS & Traffic Policies.",
+    aStarter: "function cloudTaskDay12Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay12Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Cloud Native compliance audit (Review)",
-    desc: "Review cloud native architectures, evaluate VPC route table parameters, check security group access whitelists, and verify S3 bucket encryption keys. (Real world: Cloud architects audit AWS accounts, ensuring resources match secure landing zone blueprints.)",
-    syllabus: ["Reviewing VPC routing bounds", "Assembling infrastructure security checklists", "Verifying database sharding parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "AWS Lambda & Serverless Compute",
+    desc: "Write event-driven serverless functions, configure execution timeouts, memory allocations, and concurrency.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of AWS Lambda & Serverless Compute.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: AWS Lambda & Serverless Compute Validation",
+    eDesc: "Implement a JavaScript validation function for AWS Lambda & Serverless Compute.",
+    eStarter: "function cloudTaskDay13(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay13 !== 'function') throw new Error('Function cloudTaskDay13 not found');\nif (cloudTaskDay13('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: AWS Lambda & Serverless Compute Practice",
+    aDesc: "Write an auxiliary helper function for AWS Lambda & Serverless Compute.",
+    aStarter: "function cloudTaskDay13Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay13Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Cloud Native compliance audit (Review)",
-    desc: "Review cloud native architectures, evaluate VPC route table parameters, check security group access whitelists, and verify S3 bucket encryption keys. (Real world: Cloud architects audit AWS accounts, ensuring resources match secure landing zone blueprints.)",
-    syllabus: ["Reviewing VPC routing bounds", "Assembling infrastructure security checklists", "Verifying database sharding parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Amazon API Gateway & HTTP/REST APIs",
+    desc: "Create secure API proxies, integrate Lambda backends, configure request validation, and API rate limiting.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Amazon API Gateway & HTTP/REST APIs.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Amazon API Gateway & HTTP/REST APIs Validation",
+    eDesc: "Implement a JavaScript validation function for Amazon API Gateway & HTTP/REST APIs.",
+    eStarter: "function cloudTaskDay14(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay14 !== 'function') throw new Error('Function cloudTaskDay14 not found');\nif (cloudTaskDay14('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Amazon API Gateway & HTTP/REST APIs Practice",
+    aDesc: "Write an auxiliary helper function for Amazon API Gateway & HTTP/REST APIs.",
+    aStarter: "function cloudTaskDay14Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay14Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Cloud Native compliance audit (Review)",
-    desc: "Review cloud native architectures, evaluate VPC route table parameters, check security group access whitelists, and verify S3 bucket encryption keys. (Real world: Cloud architects audit AWS accounts, ensuring resources match secure landing zone blueprints.)",
-    syllabus: ["Reviewing VPC routing bounds", "Assembling infrastructure security checklists", "Verifying database sharding parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "DynamoDB NoSQL Single-Digit Latency",
+    desc: "Design partition keys, sort keys, Global Secondary Indexes (GSIs), and on-demand capacity scaling.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of DynamoDB NoSQL Single-Digit Latency.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: DynamoDB NoSQL Single-Digit Latency Validation",
+    eDesc: "Implement a JavaScript validation function for DynamoDB NoSQL Single-Digit Latency.",
+    eStarter: "function cloudTaskDay15(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay15 !== 'function') throw new Error('Function cloudTaskDay15 not found');\nif (cloudTaskDay15('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: DynamoDB NoSQL Single-Digit Latency Practice",
+    aDesc: "Write an auxiliary helper function for DynamoDB NoSQL Single-Digit Latency.",
+    aStarter: "function cloudTaskDay15Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay15Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Cloud Native compliance audit (Review)",
-    desc: "Review cloud native architectures, evaluate VPC route table parameters, check security group access whitelists, and verify S3 bucket encryption keys. (Real world: Cloud architects audit AWS accounts, ensuring resources match secure landing zone blueprints.)",
-    syllabus: ["Reviewing VPC routing bounds", "Assembling infrastructure security checklists", "Verifying database sharding parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Relational Database Service (RDS) & Aurora",
+    desc: "Deploy managed PostgreSQL/MySQL instances, multi-AZ high availability, and automated read replicas.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Relational Database Service (RDS) & Aurora.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Relational Database Service (RDS) & Aurora Validation",
+    eDesc: "Implement a JavaScript validation function for Relational Database Service (RDS) & Aurora.",
+    eStarter: "function cloudTaskDay16(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay16 !== 'function') throw new Error('Function cloudTaskDay16 not found');\nif (cloudTaskDay16('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Relational Database Service (RDS) & Aurora Practice",
+    aDesc: "Write an auxiliary helper function for Relational Database Service (RDS) & Aurora.",
+    aStarter: "function cloudTaskDay16Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay16Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Cloud Native compliance audit (Review)",
-    desc: "Review cloud native architectures, evaluate VPC route table parameters, check security group access whitelists, and verify S3 bucket encryption keys. (Real world: Cloud architects audit AWS accounts, ensuring resources match secure landing zone blueprints.)",
-    syllabus: ["Reviewing VPC routing bounds", "Assembling infrastructure security checklists", "Verifying database sharding parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Simple Queue Service (SQS) & Decoupling",
+    desc: "Implement standard and FIFO message queues, visibility timeouts, and Dead Letter Queues (DLQs).",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Simple Queue Service (SQS) & Decoupling.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Simple Queue Service (SQS) & Decoupling Validation",
+    eDesc: "Implement a JavaScript validation function for Simple Queue Service (SQS) & Decoupling.",
+    eStarter: "function cloudTaskDay17(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay17 !== 'function') throw new Error('Function cloudTaskDay17 not found');\nif (cloudTaskDay17('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Simple Queue Service (SQS) & Decoupling Practice",
+    aDesc: "Write an auxiliary helper function for Simple Queue Service (SQS) & Decoupling.",
+    aStarter: "function cloudTaskDay17Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay17Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Cloud Native compliance audit (Review)",
-    desc: "Review cloud native architectures, evaluate VPC route table parameters, check security group access whitelists, and verify S3 bucket encryption keys. (Real world: Cloud architects audit AWS accounts, ensuring resources match secure landing zone blueprints.)",
-    syllabus: ["Reviewing VPC routing bounds", "Assembling infrastructure security checklists", "Verifying database sharding parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Simple Notification Service (SNS) & Pub/Sub",
+    desc: "Broadcast event notifications across multiple fan-out subscribers, SQS queues, and HTTP endpoints.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Simple Notification Service (SNS) & Pub/Sub.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Simple Notification Service (SNS) & Pub/Sub Validation",
+    eDesc: "Implement a JavaScript validation function for Simple Notification Service (SNS) & Pub/Sub.",
+    eStarter: "function cloudTaskDay18(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay18 !== 'function') throw new Error('Function cloudTaskDay18 not found');\nif (cloudTaskDay18('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Simple Notification Service (SNS) & Pub/Sub Practice",
+    aDesc: "Write an auxiliary helper function for Simple Notification Service (SNS) & Pub/Sub.",
+    aStarter: "function cloudTaskDay18Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay18Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Cloud Native compliance audit (Review)",
-    desc: "Review cloud native architectures, evaluate VPC route table parameters, check security group access whitelists, and verify S3 bucket encryption keys. (Real world: Cloud architects audit AWS accounts, ensuring resources match secure landing zone blueprints.)",
-    syllabus: ["Reviewing VPC routing bounds", "Assembling infrastructure security checklists", "Verifying database sharding parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "AWS ECS & Fargate Serverless Containers",
+    desc: "Deploy Docker containers on managed ECS task definitions, ECR registries, and Fargate compute.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of AWS ECS & Fargate Serverless Containers.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: AWS ECS & Fargate Serverless Containers Validation",
+    eDesc: "Implement a JavaScript validation function for AWS ECS & Fargate Serverless Containers.",
+    eStarter: "function cloudTaskDay19(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay19 !== 'function') throw new Error('Function cloudTaskDay19 not found');\nif (cloudTaskDay19('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: AWS ECS & Fargate Serverless Containers Practice",
+    aDesc: "Write an auxiliary helper function for AWS ECS & Fargate Serverless Containers.",
+    aStarter: "function cloudTaskDay19Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay19Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Cloud Native compliance audit (Review)",
-    desc: "Review cloud native architectures, evaluate VPC route table parameters, check security group access whitelists, and verify S3 bucket encryption keys. (Real world: Cloud architects audit AWS accounts, ensuring resources match secure landing zone blueprints.)",
-    syllabus: ["Reviewing VPC routing bounds", "Assembling infrastructure security checklists", "Verifying database sharding parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "AWS EKS (Managed Kubernetes) Deployments",
+    desc: "Manage Kubernetes pods, ingress controllers, cluster node groups, and Helm chart releases on AWS.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of AWS EKS (Managed Kubernetes) Deployments.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: AWS EKS (Managed Kubernetes) Deployments Validation",
+    eDesc: "Implement a JavaScript validation function for AWS EKS (Managed Kubernetes) Deployments.",
+    eStarter: "function cloudTaskDay20(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay20 !== 'function') throw new Error('Function cloudTaskDay20 not found');\nif (cloudTaskDay20('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: AWS EKS (Managed Kubernetes) Deployments Practice",
+    aDesc: "Write an auxiliary helper function for AWS EKS (Managed Kubernetes) Deployments.",
+    aStarter: "function cloudTaskDay20Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay20Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Cloud Native compliance audit (Review)",
-    desc: "Review cloud native architectures, evaluate VPC route table parameters, check security group access whitelists, and verify S3 bucket encryption keys. (Real world: Cloud architects audit AWS accounts, ensuring resources match secure landing zone blueprints.)",
-    syllabus: ["Reviewing VPC routing bounds", "Assembling infrastructure security checklists", "Verifying database sharding parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "AWS Step Functions & Distributed Sagas",
+    desc: "Design visual state machines, retry policies, catch handlers, and distributed transaction orchestration.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of AWS Step Functions & Distributed Sagas.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: AWS Step Functions & Distributed Sagas Validation",
+    eDesc: "Implement a JavaScript validation function for AWS Step Functions & Distributed Sagas.",
+    eStarter: "function cloudTaskDay21(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay21 !== 'function') throw new Error('Function cloudTaskDay21 not found');\nif (cloudTaskDay21('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: AWS Step Functions & Distributed Sagas Practice",
+    aDesc: "Write an auxiliary helper function for AWS Step Functions & Distributed Sagas.",
+    aStarter: "function cloudTaskDay21Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay21Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Lambda@Edge & CloudFront Functions",
+    desc: "Execute lightweight code at edge locations for URL rewrites, A/B testing, and security headers.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Lambda@Edge & CloudFront Functions.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Lambda@Edge & CloudFront Functions Validation",
+    eDesc: "Implement a JavaScript validation function for Lambda@Edge & CloudFront Functions.",
+    eStarter: "function cloudTaskDay22(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay22 !== 'function') throw new Error('Function cloudTaskDay22 not found');\nif (cloudTaskDay22('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Lambda@Edge & CloudFront Functions Practice",
+    aDesc: "Write an auxiliary helper function for Lambda@Edge & CloudFront Functions.",
+    aStarter: "function cloudTaskDay22Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay22Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "AWS IAM Policy Evaluation Logic & Roles",
+    desc: "Structure least-privilege IAM policies, condition keys, assume-role STS credentials, and boundaries.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of AWS IAM Policy Evaluation Logic & Roles.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: AWS IAM Policy Evaluation Logic & Roles Validation",
+    eDesc: "Implement a JavaScript validation function for AWS IAM Policy Evaluation Logic & Roles.",
+    eStarter: "function cloudTaskDay23(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay23 !== 'function') throw new Error('Function cloudTaskDay23 not found');\nif (cloudTaskDay23('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: AWS IAM Policy Evaluation Logic & Roles Practice",
+    aDesc: "Write an auxiliary helper function for AWS IAM Policy Evaluation Logic & Roles.",
+    aStarter: "function cloudTaskDay23Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay23Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "AWS KMS & Envelope Encryption",
+    desc: "Manage Customer Managed Keys, envelope encryption, automated key rotation, and TLS certificates.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of AWS KMS & Envelope Encryption.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: AWS KMS & Envelope Encryption Validation",
+    eDesc: "Implement a JavaScript validation function for AWS KMS & Envelope Encryption.",
+    eStarter: "function cloudTaskDay24(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay24 !== 'function') throw new Error('Function cloudTaskDay24 not found');\nif (cloudTaskDay24('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: AWS KMS & Envelope Encryption Practice",
+    aDesc: "Write an auxiliary helper function for AWS KMS & Envelope Encryption.",
+    aStarter: "function cloudTaskDay24Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay24Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "AWS CloudWatch & Operational Metrics",
+    desc: "Configure custom metrics, alarm notification actions, dashboard widgets, and composite alarms.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of AWS CloudWatch & Operational Metrics.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: AWS CloudWatch & Operational Metrics Validation",
+    eDesc: "Implement a JavaScript validation function for AWS CloudWatch & Operational Metrics.",
+    eStarter: "function cloudTaskDay25(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay25 !== 'function') throw new Error('Function cloudTaskDay25 not found');\nif (cloudTaskDay25('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: AWS CloudWatch & Operational Metrics Practice",
+    aDesc: "Write an auxiliary helper function for AWS CloudWatch & Operational Metrics.",
+    aStarter: "function cloudTaskDay25Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay25Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "AWS CloudTrail & Security Auditing",
+    desc: "Track API activity across all AWS accounts, detect unauthorized role changes, and log event histories.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of AWS CloudTrail & Security Auditing.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: AWS CloudTrail & Security Auditing Validation",
+    eDesc: "Implement a JavaScript validation function for AWS CloudTrail & Security Auditing.",
+    eStarter: "function cloudTaskDay26(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay26 !== 'function') throw new Error('Function cloudTaskDay26 not found');\nif (cloudTaskDay26('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: AWS CloudTrail & Security Auditing Practice",
+    aDesc: "Write an auxiliary helper function for AWS CloudTrail & Security Auditing.",
+    aStarter: "function cloudTaskDay26Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay26Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "AWS Systems Manager & Fleet Patching",
+    desc: "Manage EC2 instances without SSH keys using Session Manager, patch baselines, and parameter store.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of AWS Systems Manager & Fleet Patching.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: AWS Systems Manager & Fleet Patching Validation",
+    eDesc: "Implement a JavaScript validation function for AWS Systems Manager & Fleet Patching.",
+    eStarter: "function cloudTaskDay27(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay27 !== 'function') throw new Error('Function cloudTaskDay27 not found');\nif (cloudTaskDay27('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: AWS Systems Manager & Fleet Patching Practice",
+    aDesc: "Write an auxiliary helper function for AWS Systems Manager & Fleet Patching.",
+    aStarter: "function cloudTaskDay27Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay27Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Disaster Recovery & Multi-Region Failover",
+    desc: "Implement active-passive pilot light, warm standby, and active-active multi-region architectures.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Disaster Recovery & Multi-Region Failover.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Disaster Recovery & Multi-Region Failover Validation",
+    eDesc: "Implement a JavaScript validation function for Disaster Recovery & Multi-Region Failover.",
+    eStarter: "function cloudTaskDay28(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay28 !== 'function') throw new Error('Function cloudTaskDay28 not found');\nif (cloudTaskDay28('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Disaster Recovery & Multi-Region Failover Practice",
+    aDesc: "Write an auxiliary helper function for Disaster Recovery & Multi-Region Failover.",
+    aStarter: "function cloudTaskDay28Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay28Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "AWS Cost Optimization & FinOps",
+    desc: "Utilize Savings Plans, Reserved Instances, S3 intelligent tiering, and Cost Explorer budgets.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of AWS Cost Optimization & FinOps.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: AWS Cost Optimization & FinOps Validation",
+    eDesc: "Implement a JavaScript validation function for AWS Cost Optimization & FinOps.",
+    eStarter: "function cloudTaskDay29(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay29 !== 'function') throw new Error('Function cloudTaskDay29 not found');\nif (cloudTaskDay29('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: AWS Cost Optimization & FinOps Practice",
+    aDesc: "Write an auxiliary helper function for AWS Cost Optimization & FinOps.",
+    aStarter: "function cloudTaskDay29Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay29Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Capstone: Multi-Tier High-Availability Cloud Architecture",
+    desc: "Architect a resilient enterprise platform with VPC peering, auto-scaling Fargate, and global caching.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Capstone: Multi-Tier High-Availability Cloud Architecture.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Capstone: Multi-Tier High-Availability Cloud Architecture Validation",
+    eDesc: "Implement a JavaScript validation function for Capstone: Multi-Tier High-Availability Cloud Architecture.",
+    eStarter: "function cloudTaskDay30(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof cloudTaskDay30 !== 'function') throw new Error('Function cloudTaskDay30 not found');\nif (cloudTaskDay30('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Capstone: Multi-Tier High-Availability Cloud Architecture Practice",
+    aDesc: "Write an auxiliary helper function for Capstone: Multi-Tier High-Availability Cloud Architecture.",
+    aStarter: "function cloudTaskDay30Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof cloudTaskDay30Aux !== 'function') throw new Error('Auxiliary function not found');"
   }
 ];
 
-export const CLOUD_30_DAYS_QUESTS = CLOUD_30_DAYS_CONFIGS.flatMap((cfg, dIdx) => {
-  const dayNum = dIdx + 1;
-  const lecture = {
-    id: `cloud-basics-lecture-day-${dayNum}`,
-    title: `Day ${dayNum} Learning: ${cfg.title}`,
-    desc: cfg.desc,
-    type: "lecture" as const,
-    requiresAvatar: true,
-    syllabus: cfg.syllabus,
-    skillCategory: "theory" as const,
-    xp: 150,
-    pins: 5
-  };
-  if (dayNum === 1) {
-    return [
-      lecture,
-      {
-        id: `cloud-basics-lecture2-day-1`,
-        title: `Day 1 Deep Dive: Syntax, Execution Rules, and Line-by-Line Breakdown`,
-        desc: `In-depth step-by-step breakdown of Day 1 concepts, memory layout, and execution mechanics. ${cfg.desc}`,
-        type: "lecture" as const,
-        requiresAvatar: true,
-        syllabus: cfg.syllabus,
-        skillCategory: "theory" as const,
-        xp: 150,
-        pins: 5
-      },
-      {
-        id: `cloud-basics-lecture3-day-1`,
-        title: `Day 1 Workshop: Real-World Industry Context & Visualization Guide`,
-        desc: `Practical visualization guide and real-world system architecture context for Day 1. ${cfg.desc}`,
-        type: "lecture" as const,
-        requiresAvatar: true,
-        syllabus: cfg.syllabus,
-        skillCategory: "theory" as const,
-        xp: 150,
-        pins: 5
-      }
-    ];
-  }
-  if (dayNum === 2) {
-    return [
-      lecture,
-      {
-        id: `cloud-basics-lecture2-day-2`,
-        title: `Day 2 Deep Dive: Flow Control, Logic Branching, and Execution Paths`,
-        desc: `In-depth line-by-line mechanics of conditionals, loops, and memory execution state. ${cfg.desc}`,
-        type: "lecture" as const,
-        requiresAvatar: true,
-        syllabus: cfg.syllabus,
-        skillCategory: "theory" as const,
-        xp: 150,
-        pins: 5
-      },
-      {
-        id: `cloud-basics-lecture3-day-2`,
-        title: `Day 2 Workshop: Practical Code Workshop & Edge Case Pitfall Warnings`,
-        desc: `Practical code workshop analyzing common edge cases, off-by-one errors, and production traps. ${cfg.desc}`,
-        type: "lecture" as const,
-        requiresAvatar: true,
-        syllabus: cfg.syllabus,
-        skillCategory: "theory" as const,
-        xp: 150,
-        pins: 5
-      }
-    ];
-  }
-  return buildEnrichedDayQuests('cloud-basics', dayNum, cfg);
-});
+export const CLOUD_30_DAYS_QUESTS = CLOUD_30_DAYS_CONFIGS.flatMap((cfg, i) =>
+  buildEnrichedDayQuests('cloud', i + 1, cfg)
+);

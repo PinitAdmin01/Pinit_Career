@@ -37,6 +37,16 @@ export async function POST(req: Request) {
     const keySecret = process.env.RAZORPAY_KEY_SECRET || '';
 
     if (!keyId || !keySecret) {
+      if (process.env.NODE_ENV !== 'production' || process.env.ALLOW_DEV_MOCK_PAYMENT === 'true') {
+        const mockOrderId = `order_mock_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
+        return NextResponse.json({
+          orderId: mockOrderId,
+          amount: orderAmount,
+          currency: 'INR',
+          keyId: 'rzp_test_mock',
+          isMock: true
+        });
+      }
       return NextResponse.json(
         {
           error: 'PAYMENTS_NOT_CONFIGURED',

@@ -277,14 +277,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     try {
       let profile = await getUserProfile(sbUser.id);
+      const emailLower = sbUser.email?.toLowerCase() || '';
+      const isPrivilegedDemo = ['admin@pinit.in', 'teacher@pinit.in', 'rec@pinit.in', 'con@pinit.in', 'parent@pinit.in'].includes(emailLower);
+
       if (!profile) {
         // New user — create profile with demo data
         let role = 'student';
         let displayName = 'User';
-        const emailLower = sbUser.email?.toLowerCase();
         if (emailLower === 'admin@pinit.in') { role = 'admin'; displayName = 'System Admin'; }
+        else if (emailLower === 'teacher@pinit.in') { role = 'teacher'; displayName = 'Faculty Member'; }
         else if (emailLower === 'rec@pinit.in') { role = 'recruiter'; displayName = 'Lead Recruiter'; }
         else if (emailLower === 'con@pinit.in') { role = 'consultant'; displayName = 'Career Consultant'; }
+        else if (emailLower === 'parent@pinit.in') { role = 'parent'; displayName = 'Parent Guardian'; }
+
         profile = {
           ...(isDemoEmail(sbUser.email || '') ? DEMO_PROFILE : EMPTY_PROFILE),
           uid:         sbUser.id,
@@ -293,24 +298,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           displayName: sbUser.user_metadata?.display_name || displayName,
           role,
         };
-        await createUserProfile(sbUser.id, profile);
+        console.log(`[AuthContext] Creating new user profile for ${emailLower} with role=${role}`);
+        await createUserProfile(sbUser.id, profile, { allowPrivileged: isPrivilegedDemo });
       } else {
         // Self-healing check for existing profiles of default accounts
-        const emailLower = sbUser.email?.toLowerCase();
         let expectedRole = null;
         if (emailLower === 'admin@pinit.in' && profile.role !== 'admin') expectedRole = 'admin';
+        else if (emailLower === 'teacher@pinit.in' && profile.role !== 'teacher') expectedRole = 'teacher';
         else if (emailLower === 'rec@pinit.in' && profile.role !== 'recruiter') expectedRole = 'recruiter';
         else if (emailLower === 'con@pinit.in' && profile.role !== 'consultant') expectedRole = 'consultant';
+        else if (emailLower === 'parent@pinit.in' && profile.role !== 'parent') expectedRole = 'parent';
 
         if (expectedRole) {
+          console.log(`[AuthContext] Self-healing profile role for ${emailLower} from ${profile.role} -> ${expectedRole}`);
           profile.role = expectedRole;
-          await updateUserProfile(sbUser.id, { role: expectedRole });
+          await updateUserProfile(sbUser.id, { role: expectedRole }, { allowPrivileged: true });
         }
       }
       await ensureSeedData(sbUser.id, profile);
       try {
         localStorage.setItem(`pinit_${sbUser.id}_profile`, JSON.stringify(profile));
       } catch {}
+      console.log(`[AuthContext] Successfully loaded profile uid=${sbUser.id} | email=${sbUser.email} | role=${profile.role}`);
       setUser(sbUserToAppUser(sbUser, profile));
     } catch (err) {
       console.error('Profile load error:', err);
@@ -361,8 +370,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
               const emailLower = sbUser.email?.toLowerCase();
               let role = (nextUser.role as string) || 'student';
               if (emailLower === 'admin@pinit.in') role = 'admin';
+              else if (emailLower === 'teacher@pinit.in') role = 'teacher';
               else if (emailLower === 'rec@pinit.in') role = 'recruiter';
               else if (emailLower === 'con@pinit.in') role = 'consultant';
+              else if (emailLower === 'parent@pinit.in') role = 'parent';
               
               const finalProfile = { ...nextUser, role };
               try {
@@ -415,6 +426,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      console.log(`[AuthContext] onAuthStateChange event=${event} | sessionUser=${session?.user?.email || 'none'}`);
+      // TOKEN_REFRESHED fires hourly from Supabase client — skip redundant profile reload & channel resubscription
+      if (event === 'TOKEN_REFRESHED') {
+        return;
+      }
+
       let sbUser = session?.user ?? null;
       if (!sbUser && typeof window !== 'undefined' && event === 'SIGNED_OUT') {
         localStorage.removeItem('pinit_active_uid');

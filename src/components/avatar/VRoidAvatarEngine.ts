@@ -100,13 +100,31 @@ export class VRoidAvatarEngine {
   eyeTargetOffset = new THREE.Vector2(0, 0);
   eyeCurrentOffset = new THREE.Vector2(0, 0);
 
+  canvas?: HTMLCanvasElement;
+  private onContextLost?: (e: Event) => void;
+  private onContextRestored?: () => void;
+
   init(canvas: HTMLCanvasElement, teacherId: string) {
+    this.canvas = canvas;
     const personaKey = teacherId.toLowerCase();
     this.persona = PERSONA_CONFIGS[personaKey] || PERSONA_CONFIGS.default;
     this.nextBlinkTime = this.persona.blinkInterval * (0.8 + Math.random() * 0.4);
 
     const w = canvas.clientWidth || 280;
     const h = canvas.clientHeight || 360;
+
+    // Attach WebGL context lifecycle listeners to prevent GPU state crashes
+    this.onContextLost = (e: Event) => {
+      e.preventDefault();
+      console.warn('[VRoidAvatarEngine] WebGL context lost. Pausing avatar rendering loop.');
+      this.paused = true;
+    };
+    this.onContextRestored = () => {
+      console.log('[VRoidAvatarEngine] WebGL context restored. Resuming avatar rendering loop.');
+      this.paused = false;
+    };
+    canvas.addEventListener('webglcontextlost', this.onContextLost, false);
+    canvas.addEventListener('webglcontextrestored', this.onContextRestored, false);
 
     this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -594,6 +612,24 @@ export class VRoidAvatarEngine {
       this.rightArm.rotation.x = THREE.MathUtils.lerp(this.rightArm.rotation.x, targetRightX, 0.08);
     }
 
+    // Natural relaxed elbow flex
+    if (this.leftForearm) {
+      const targetLeftForearmY = this.isVRM ? -0.32 : 0;
+      this.leftForearm.rotation.y = THREE.MathUtils.lerp(this.leftForearm.rotation.y, targetLeftForearmY, 0.08);
+    }
+    if (this.rightForearm) {
+      const targetRightForearmY = this.isVRM ? 0.32 : 0;
+      this.rightForearm.rotation.y = THREE.MathUtils.lerp(this.rightForearm.rotation.y, targetRightForearmY, 0.08);
+    }
+
+    // Subtle natural breathing S-curve on spine & chest
+    if (this.chest) {
+      this.chest.rotation.x = Math.sin(et * 1.4) * 0.012;
+    }
+    if (this.spine) {
+      this.spine.rotation.z = Math.sin(et * 0.7) * 0.006 * express;
+    }
+
     // 5. Lip Sync & Morph Targets
     const isTalking = this.animState === 'talking';
 
@@ -669,6 +705,43 @@ export class VRoidAvatarEngine {
   dispose() {
     this.disposed = true;
     if (this.raf) cancelAnimationFrame(this.raf);
-    if (this.renderer) this.renderer.dispose();
+
+    if (this.canvas) {
+      if (this.onContextLost) this.canvas.removeEventListener('webglcontextlost', this.onContextLost);
+      if (this.onContextRestored) this.canvas.removeEventListener('webglcontextrestored', this.onContextRestored);
+    }
+
+    if (this.scene) {
+      this.scene.traverse((obj) => {
+        if ((obj as THREE.Mesh).geometry) {
+          (obj as THREE.Mesh).geometry.dispose();
+        }
+        if ((obj as THREE.Mesh).material) {
+          const mat = (obj as THREE.Mesh).material;
+          if (Array.isArray(mat)) {
+            mat.forEach(m => {
+              if ((m as any)?.map) (m as any).map.dispose();
+              m.dispose();
+            });
+          } else {
+            if ((mat as any)?.map) (mat as any).map.dispose();
+            mat.dispose();
+          }
+        }
+      });
+    }
+
+    this.faceMeshes = [];
+    this.morphMaps.clear();
+    this.blinkMorphMaps.clear();
+    this.eyeLookMorphMaps.clear();
+
+    if (this.renderer) {
+      try {
+        this.renderer.forceContextLoss();
+      } catch {}
+      this.renderer.dispose();
+    }
+    console.log('[VRoidAvatarEngine] Successfully disposed 3D avatar scene and freed WebGL GPU memory.');
   }
 }

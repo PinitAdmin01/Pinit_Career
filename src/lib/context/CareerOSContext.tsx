@@ -112,7 +112,7 @@ export const PIN_EARN: Record<PinSource, number> = {
   onboarding_complete:  0,
   vault_verify:         0,
   daily_login:          0,
-  streak_bonus:         50,
+  streak_bonus:         0,
   purchase:             0,   // variable — set per purchase
   ai_interview:         0,
   resume_enhance:       0,
@@ -535,6 +535,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
         
         // If server-verified time is past 1:00 AM today and reset was not completed after today's 1:00 AM
         if (verifiedNow.getTime() >= today1AM && lastReset < today1AM) {
+          console.log(`[CareerOSContext] Daily 1:00 AM Pin Reset Triggered -> verifiedTime=${verifiedNow.toISOString()}`);
           setPins(prev => {
             const next = Math.max(120, prev);
             save(keys.pins, next);
@@ -554,9 +555,11 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
             save(keys.pinHist, updated);
             return updated;
           });
-          toast.info('Daily Pins Refreshed ⚡', '120 Pins granted for your daily Student Portal learning allowance!');
+          toast.info('Daily Pins Refreshed ⚡', '120 Pins granted for your daily 1:00 AM Student Portal learning allowance!');
         }
-      } catch {}
+      } catch (err) {
+        console.warn('[CareerOSContext] Error checking 1:00 AM pin reset:', err);
+      }
     };
 
     check1AMReset();
@@ -573,13 +576,16 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
   }, [keys.pinHist, save]);
 
   const earnPins = useCallback((source: PinSource, overrideAmount?: number, reason?: string) => {
-    // REQUIREMENT: Pins can ONLY be gained via purchase or daily 1 AM refresh. Activity earnings are disabled.
-    if (source !== 'purchase' && source !== 'admin_grant' && source !== 'streak_bonus') {
+    // STRICT INVARIANT: Pins can ONLY be acquired via purchase or admin grant. Activity earnings (quests, missions, attendance, interviews) grant 0 pins.
+    if (source !== 'purchase' && source !== 'admin_grant') {
+      console.log(`[CareerOSContext] Ignored activity pin grant attempt (Pins are purchase-only & reset at 1:00 AM): source=${source}, amount=${overrideAmount ?? PIN_EARN[source] ?? 0}`);
       return;
     }
     const amount = overrideAmount ?? PIN_EARN[source] ?? 0;
     if (amount <= 0) return;
     
+    console.log(`[CareerOSContext] Crediting purchased/admin pins -> amount=${amount} | source=${source} | reason=${reason || source}`);
+
     // Update Firestore in background
     api.post('/api/pins/earn', { source, amount }).catch(() => {});
 
@@ -594,7 +600,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
       save(keys.pinHist, updated);
       return updated;
     });
-    toast.success(`+${amount} Pins Earned ⚡`, reason ?? source.replace(/_/g, ' '));
+    toast.success(`+${amount} Pins Credited ⚡`, reason ?? 'Pin Purchase Successful');
   }, [keys.pins, keys.pinHist, save]);
 
   const canAfford = useCallback((featureKey: string): boolean => {
@@ -606,7 +612,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
     const meta = PIN_COSTS[featureKey];
     if (!meta) return true; // no cost defined = free
     if (pins < meta.cost) {
-      toast.error(`Insufficient Pins 📌`, `Need ${meta.cost} pins for ${meta.label}. Pins refresh to 120 daily at 1:00 AM or can be purchased.`);
+      toast.error(`Insufficient Pins 📌`, `Need ${meta.cost} pins for ${meta.label}. Pins reset to 120 daily at 1:00 AM or must be purchased.`);
       return false;
     }
 
@@ -728,39 +734,10 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
         }
       }
 
-      // Determine daily grant based on role
-      const isPro = user?.role === 'admin' || user?.role === 'recruiter';
-      const dailyAmount = isPro ? 50 : 25; // 25 pins is exactly what is required for 5 quests (5 pins each)
-      
-      setPins(prev => {
-        const next = prev + dailyAmount;
-        localStorage.setItem(keys.pins, JSON.stringify(next));
-        return next;
-      });
-      setAiUseTokensState(120);
-      localStorage.setItem(keys.aiTokens, JSON.stringify(120));
+      // Record daily check timestamp (Pins are strictly managed via 1:00 AM reset & purchases)
       localStorage.setItem(lastGrantKey, now.toString());
-      
-      // Update Firestore in background
-      api.post('/api/pins/earn', { source: 'daily_login', amount: dailyAmount }).catch(() => {});
-
-      // Log transaction
-      const tx: PinTransaction = {
-        id: `tx_daily_${now}`,
-        type: 'earn',
-        amount: dailyAmount,
-        reason: `Daily login grant (${isPro ? 'Pro' : 'Standard'} Tier)`,
-        source: 'daily_login',
-        timestamp: now
-      };
-      setPinsHistory(prev => {
-        const updated = [tx, ...prev].slice(0, 100);
-        localStorage.setItem(keys.pinHist, JSON.stringify(updated));
-        return updated;
-      });
-      toast.success(`⚡ Daily Pins Issued!`, `+${dailyAmount} Pins added for your daily login.`);
     }
-  }, [isLoaded, userId, user?.role, keys.pins, keys.pinHist, onboardingAnswers, keys.streak, save]);
+  }, [isLoaded, userId, keys.streak, onboardingAnswers, save]);
 
   const setVaultItems = useCallback((items: VaultItem[]) => {
     setVaultItemsState(items);
@@ -1278,9 +1255,9 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
 
   const setJdMissingSkills = (skills: string[]) => { setJdMissingSkillsState(skills); save(keys.gaps, skills); };
 
-  const addXp = (amount: number, reason: string) => {
+  const addXp = useCallback((amount: number, reason: string) => {
     setXp(prev => { const next = prev + amount; save(keys.xp, next); return next; });
-  };
+  }, [keys.xp, save]);
 
   // ─── Derived scores ───────────────────────────────────────────────────────
   const baseAts = typeof user?.atsScore === 'number' ? user.atsScore : 60;

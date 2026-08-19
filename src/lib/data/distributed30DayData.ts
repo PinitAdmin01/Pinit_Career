@@ -1,389 +1,578 @@
-import { buildEnrichedDayQuests } from './curriculumEnricher';
-export interface DayConfig {
-  title: string;
-  desc: string;
-  syllabus: string[];
-  eTitle: string;
-  eDesc: string;
-  eStarter: string;
-  eHint: string;
-  eTest: string;
-  aTitle: string;
-  aDesc: string;
-  aStarter: string;
-  aHint: string;
-  aTest: string;
-}
+import { buildEnrichedDayQuests, DayConfig } from './curriculumEnricher';
 
 export const DISTRIBUTED_30_DAYS_CONFIGS: DayConfig[] = [
   {
-    title: "What is a Distributed System? — Monolith vs Microservices and Scaling Methods",
-    desc: "A DISTRIBUTED SYSTEM is a collection of independent computers that appear to the end-user as a single, unified system. Before distributed systems, companies ran their applications on a single, massive computer. This is called a MONOLITH. A monolith is simple to build and deploy because all the code lives in one place. But it has two fatal flaws: (1) Scalability Limit: you can only buy a computer so big (Vertical Scaling). Eventually, you hit a hardware wall. (2) Single Point of Failure: if a bug crashes one part of the monolith (like a payment module), the entire application crashes, taking down the login page, search page, and everything else. A distributed system solves this by breaking the application into smaller services (called MICROSERVICES) that run on multiple different servers. If one server crashes, the other servers continue running, keeping the application online. SCALING METHODS: (1) Vertical Scaling (Scale Up): adding more power (more CPU, more RAM) to your existing server. Simple, but expensive and has a hard physical limit. (2) Horizontal Scaling (Scale Out): adding more servers to your network fleet. Instead of one giant computer, you connect 10 small computers. This has no limit — you can keep adding servers as your traffic grows. (Real world: When you scroll the feed on Twitter/X, you are talking to thousands of microservices in a distributed system. The post retrieval service, notifications service, direct messages service, and search service all run on separate servers. If the notifications service crashes, you can still scroll and view posts because the services are isolated.)",
-    syllabus: ["Distributed System = multiple independent computers working together to appear as one. Monolith = one giant codebase running on one server (simple, but hard to scale and has single point of failure).", "Microservices = breaking monolith into small, isolated services (e.g., payment service, cart service) running on separate servers. A failure in one service does not crash the entire application.", "Scaling models: Vertical Scaling (buying a bigger server with more CPU/RAM, simple but has hardware limits) vs Horizontal Scaling (adding more small servers, unlimited scale, standard production choice)."],
-    eTitle: "Exam: Systems Availability Calculator",
-    eDesc: "Not tested on day 1",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Scalability Plan Draft",
-    aDesc: "Not tested on day 1",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Distributed Systems Foundations & Fallacies",
+    desc: "Understand the 8 fallacies of distributed computing: latency, bandwidth, reliability, and network topology.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Distributed Systems Foundations & Fallacies.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Distributed Systems Foundations & Fallacies Validation",
+    eDesc: "Implement a JavaScript validation function for Distributed Systems Foundations & Fallacies.",
+    eStarter: "function distTaskDay1(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay1 !== 'function') throw new Error('Function distTaskDay1 not found');\nif (distTaskDay1('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Distributed Systems Foundations & Fallacies Practice",
+    aDesc: "Write an auxiliary helper function for Distributed Systems Foundations & Fallacies.",
+    aStarter: "function distTaskDay1Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay1Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "How the Web Works — The Request Lifecycle, DNS Resolution and Reverse Proxies",
-    desc: "When a user types 'youtube.com' in a browser, a complex request lifecycle begins. Understanding this sequence is essential for any backend or systems engineer. THE REQUEST LIFECYCLE: (1) DNS Lookup: the browser does not know where youtube.com is. It must resolve the domain name into an IP address. (2) Connection: the browser establishes a TCP connection with the server. (3) Request: browser sends an HTTP request. (4) Processing: the server processes the request and queries databases. (5) Response: the server returns an HTTP response (HTML/video stream). (6) Rendering: browser displays the page. DNS RESOLUTION (Domain Name System): the phonebook of the internet. It translates human-friendly domains into computer-friendly IP addresses (e.g. 172.217.16.14). The lookup sequence: Browser cache -> OS cache -> ISP recursive resolver -> Root Nameserver -> TLD Nameserver (like .com) -> Authoritative Nameserver (which holds the real IP). TTL (Time to Live) defines how many seconds a DNS resolver should cache a record before checking the authoritative server again. REVERSE PROXIES & LOAD BALANCERS: in production, your request does not hit the application server directly. Instead, it hits a REVERSE PROXY (like Nginx). A reverse proxy sits in front of your application servers, acting as a traffic cop. It handles: security (hiding backend server IPs), SSL termination (decrypting HTTPS requests), and load balancing (distributing incoming requests across multiple backend servers using algorithms like Round Robin). (Real world: Every single search query on Google passes through their global DNS servers to find the closest data center, then hits a load balancer that routes the query to a free server. This entire lifecycle completes in under 200 milliseconds.)",
-    syllabus: ["The Request Lifecycle: detailed path of a web request from browser input, DNS lookup, TCP handshakes, HTTP request payloads, server processing, and browser page rendering.", "DNS (Domain Name System): translates domain names to IP addresses. Propagation path: recursive resolver, root servers, TLD servers (.com, .in), authoritative nameserver. TTL caches DNS records.", "Reverse Proxy (Nginx) & Load Balancer: sits in front of backend servers. Hides server IPs, handles SSL encryption/decryption, and balances load across servers (Round Robin)."],
-    eTitle: "Exam: DNS Host Resolver",
-    eDesc: "Not tested on day 2",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Network Layer Selector",
-    aDesc: "Not tested on day 2",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "The CAP Theorem & PACELC Theorem",
+    desc: "Analyze Consistency, Availability, Partition tolerance trade-offs and latency vs consistency under normal operation.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of The CAP Theorem & PACELC Theorem.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: The CAP Theorem & PACELC Theorem Validation",
+    eDesc: "Implement a JavaScript validation function for The CAP Theorem & PACELC Theorem.",
+    eStarter: "function distTaskDay2(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay2 !== 'function') throw new Error('Function distTaskDay2 not found');\nif (distTaskDay2('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: The CAP Theorem & PACELC Theorem Practice",
+    aDesc: "Write an auxiliary helper function for The CAP Theorem & PACELC Theorem.",
+    aStarter: "function distTaskDay2Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay2Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Stateless Scaling & Sticky Sessions",
-    desc: "Learn to design stateless servers, manage sessions, and handle sticky routing. (Real world: E-commerce sites store sessions in shared Redis caches, allowing any application server to fulfill subsequent requests.)",
-    syllabus: ["Designing stateless application tiers", "Sticky sessions routing algorithms", "Shared distributed session stores"],
-    eTitle: "Exam: Sticky Session Router",
-    eDesc: "Write a JS function `routeStickySession(userId, servers)` returning servers[hash(userId) % servers.length], where hash is the sum of character codes. Return null if inputs are invalid.",
-    eStarter: "function routeStickySession(userId, servers) {\n    // Write your code here\n    \n}",
-    eHint: "Calculate key hash sum, apply modulo servers array length, and return target node.",
-    eTest: "if (typeof routeStickySession !== 'function') throw new Error('Method routeStickySession not found.');\nconst srvs = ['srv-A', 'srv-B'];\nlet code = 0;\nfor (let i = 0; i < 'usr-1'.length; i++) code += 'usr-1'.charCodeAt(i);\nconst idx = code % srvs.length;\nif (routeStickySession('usr-1', srvs) !== srvs[idx]) throw new Error('Sticky session routing failed');",
-    aTitle: "Assignment: Stateless Token Validator",
-    aDesc: "Write a JS function `isTokenValid(token)` returning true if token starts with 'session_' and is at least 16 characters long.",
-    aStarter: "function isTokenValid(token) {\n    // Write your code here\n    \n}",
-    aHint: "Verify string prefix and length limits.",
-    aTest: "if (typeof isTokenValid !== 'function') throw new Error('Method isTokenValid not found.');"
+    title: "RPC Communication & gRPC / Protocol Buffers",
+    desc: "Design compact binary serialization interfaces, gRPC streaming, and HTTP/2 multiplexed RPCs.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of RPC Communication & gRPC / Protocol Buffers.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: RPC Communication & gRPC / Protocol Buffers Validation",
+    eDesc: "Implement a JavaScript validation function for RPC Communication & gRPC / Protocol Buffers.",
+    eStarter: "function distTaskDay3(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay3 !== 'function') throw new Error('Function distTaskDay3 not found');\nif (distTaskDay3('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: RPC Communication & gRPC / Protocol Buffers Practice",
+    aDesc: "Write an auxiliary helper function for RPC Communication & gRPC / Protocol Buffers.",
+    aStarter: "function distTaskDay3Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay3Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Load Balancers: Consistent Hashing partitions",
-    desc: "Master load balancing hash tables. (Real world: Dynamic web gateways run consistent hashing, allocating requests to primary server slots while minimizing reshuffling when nodes crash.)",
-    syllabus: ["Consistent hashing ring structures", "Hashing keys partitions mapping", "Virtual node allocations limits"],
-    eTitle: "Exam: Consistent Hash Ring Router",
-    eDesc: "Write a JS function `routeConsistentHash(keyHash, nodesList)` returning the first node in nodesList (sorted ascending) whose nodeHash >= keyHash. Return the first node in the list (wrap around) if no node is greater.",
-    eStarter: "function routeConsistentHash(keyHash, nodesList) {\n    // Write your code here\n    \n}",
-    eHint: "Iterate sorted node objects lists finding matching hashes boundaries.",
-    eTest: "if (typeof routeConsistentHash !== 'function') throw new Error('Method routeConsistentHash not found');\nconst nds = [{ name: 'N1', hash: 100 }, { name: 'N2', hash: 200 }];\nif (routeConsistentHash(150, nds).name !== 'N2') throw new Error('Consistent hash routing failed');\nif (routeConsistentHash(250, nds).name !== 'N1') throw new Error('Wrap around failed');",
-    aTitle: "Assignment: Hash difference estimator",
-    aDesc: "Write a JS function `getHashDistance(h1, h2, ringSize)` returning the distance on the ring `(h2 - h1 + ringSize) % ringSize`.",
-    aStarter: "function getHashDistance(h1, h2, ringSize) {\n    // Write your code here\n    \n}",
-    aHint: "Implement modular subtraction math.",
-    aTest: "if (typeof getHashDistance !== 'function') throw new Error('Method getHashDistance not found');"
+    title: "Service Discovery & Health Checking (Consul/Eureka)",
+    desc: "Register dynamic microservice instances, resolve service hostnames, and prune dead instances.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Service Discovery & Health Checking (Consul/Eureka).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Service Discovery & Health Checking (Consul/Eureka) Validation",
+    eDesc: "Implement a JavaScript validation function for Service Discovery & Health Checking (Consul/Eureka).",
+    eStarter: "function distTaskDay4(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay4 !== 'function') throw new Error('Function distTaskDay4 not found');\nif (distTaskDay4('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Service Discovery & Health Checking (Consul/Eureka) Practice",
+    aDesc: "Write an auxiliary helper function for Service Discovery & Health Checking (Consul/Eureka).",
+    aStarter: "function distTaskDay4Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay4Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Load Balancers: Heartbeat health checks",
-    desc: "Master system diagnostics. (Real world: Gateway routers ping upstream nodes periodically, evicting unresponsive server slots from the active cluster mappings.)",
-    syllabus: ["Heartbeat ping systems architectures", "Tracking sequential failed pings thresholds", "Evicting bad nodes from active routing tables"],
-    eTitle: "Exam: Server Health Checker",
-    eDesc: "Write a JS function `isServerOffline(sequentialFailures, threshold)` returning true if sequentialFailures >= threshold.",
-    eStarter: "function isServerOffline(sequentialFailures, threshold) {\n    // Write your code here\n    \n}",
-    eHint: "Compare current failure counts with max thresholds.",
-    eTest: "if (typeof isServerOffline !== 'function') throw new Error('Method isServerOffline not found');\nif (isServerOffline(3, 3) !== true) throw new Error('Health check logic failed');",
-    aTitle: "Assignment: System recovery indicator",
-    aDesc: "Write a JS function `resetFailuresOnSuccess(statusCode)` returning 0 if statusCode === 200.",
-    aStarter: "function resetFailuresOnSuccess(statusCode) {\n    // Write your code here\n    \n}",
-    aHint: "Check HTTP status code.",
-    aTest: "if (typeof resetFailuresOnSuccess !== 'function') throw new Error('Method resetFailuresOnSuccess not found');"
+    title: "Load Balancing Algorithms & Circuit Breakers",
+    desc: "Implement Round Robin, Least Connections, Consistent Hashing, and Netflix Hystrix circuit breaker states.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Load Balancing Algorithms & Circuit Breakers.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Load Balancing Algorithms & Circuit Breakers Validation",
+    eDesc: "Implement a JavaScript validation function for Load Balancing Algorithms & Circuit Breakers.",
+    eStarter: "function distTaskDay5(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay5 !== 'function') throw new Error('Function distTaskDay5 not found');\nif (distTaskDay5('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Load Balancing Algorithms & Circuit Breakers Practice",
+    aDesc: "Write an auxiliary helper function for Load Balancing Algorithms & Circuit Breakers.",
+    aStarter: "function distTaskDay5Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay5Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "CAP Theorem: Paxos consensus quorum voters",
-    desc: "Master CAP partitions logic. (Real world: Distributed databases verify write operations against cluster majorities, ensuring consistent storage states.)",
-    syllabus: ["CAP theorem consistency availability boundaries", "Quorum consensus calculations rules", "Leader voter election processes"],
-    eTitle: "Exam: Consensus Quorum Validator",
-    eDesc: "Write a JS function `isQuorumAchieved(activeVotes, totalNodes)` returning true if activeVotes > Math.floor(totalNodes / 2). Return false if activeVotes <= 0.",
-    eStarter: "function isQuorumAchieved(activeVotes, totalNodes) {\n    // Write your code here\n    \n}",
-    eHint: "Verify if votes count is strictly greater than half of total nodes cluster size.",
-    eTest: "if (typeof isQuorumAchieved !== 'function') throw new Error('Method isQuorumAchieved not found');\nif (isQuorumAchieved(3, 5) !== true) throw new Error('Quorum validator failed');\nif (isQuorumAchieved(2, 5) !== false) throw new Error('Invalid quorum permitted');",
-    aTitle: "Assignment: Quorum minimum size finder",
-    aDesc: "Write a JS function `getMinQuorum(totalNodes)` returning Math.floor(totalNodes / 2) + 1.",
-    aStarter: "function getMinQuorum(totalNodes) {\n    // Write your code here\n    \n}",
-    aHint: "Calculate strict majority size.",
-    aTest: "if (typeof getMinQuorum !== 'function') throw new Error('Method getMinQuorum not found');"
+    title: "Distributed Caching & Redis Clustering",
+    desc: "Manage cache-aside patterns, write-through caches, Redis hash slots, and multi-node cluster failover.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Distributed Caching & Redis Clustering.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Distributed Caching & Redis Clustering Validation",
+    eDesc: "Implement a JavaScript validation function for Distributed Caching & Redis Clustering.",
+    eStarter: "function distTaskDay6(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay6 !== 'function') throw new Error('Function distTaskDay6 not found');\nif (distTaskDay6('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Distributed Caching & Redis Clustering Practice",
+    aDesc: "Write an auxiliary helper function for Distributed Caching & Redis Clustering.",
+    aStarter: "function distTaskDay6Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay6Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Distributed Caching: Cache Stampede lock guards",
-    desc: "Master system latency scaling. (Real world: High-traffic servers write mutual exclusion locks on cache misses, preventing database overloads during cold starts.)",
-    syllabus: ["Cache stampede (thundering herd) concepts", "Mutual exclusion cache lock algorithms", "Configuring cache TTL expirations values"],
-    eTitle: "Exam: Cache Stampede Mutex Guard",
-    eDesc: "Write a JS function `shouldFetchFromDb(cacheExpired, isLocked)` returning true if cacheExpired === true and isLocked === false. Returns false otherwise.",
-    eStarter: "shouldFetchFromDb = function(cacheExpired, isLocked) {\n    // Write your code here\n    \n}",
-    eHint: "Evaluate expired status and active mutex locks. Return boolean.",
-    eTest: "if (typeof shouldFetchFromDb !== 'function') throw new Error('Method shouldFetchFromDb not found');\nif (shouldFetchFromDb(true, false) !== true) throw new Error('Stampede lock guard failed');",
-    aTitle: "Assignment: Lock expiry duration check",
-    aDesc: "Write a JS function `isLockExpired(lockAcquiredTime, ttl, current)` returning true if lockAcquiredTime + ttl <= current.",
-    aStarter: "function isLockExpired(lockAcquiredTime, ttl, current) {\n    // Write your code here\n    \n}",
-    aHint: "Compare timestamp sums.",
-    aTest: "if (typeof isLockExpired !== 'function') throw new Error('Method isLockExpired not found');"
+    title: "Consistent Hashing & Virtual Nodes",
+    desc: "Distribute keys evenly across cache clusters, handle dynamic node additions/removals, and minimize key reshuffling.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Consistent Hashing & Virtual Nodes.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Consistent Hashing & Virtual Nodes Validation",
+    eDesc: "Implement a JavaScript validation function for Consistent Hashing & Virtual Nodes.",
+    eStarter: "function distTaskDay7(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay7 !== 'function') throw new Error('Function distTaskDay7 not found');\nif (distTaskDay7('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Consistent Hashing & Virtual Nodes Practice",
+    aDesc: "Write an auxiliary helper function for Consistent Hashing & Virtual Nodes.",
+    aStarter: "function distTaskDay7Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay7Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Database Sharding: Hash range keys mapping",
-    desc: "Master data partitioning designs. (Real world: Sharded clusters hash user keys, routing user profiles to correct physical database partitions.)",
-    syllabus: ["Database sharding partition schemes", "Hash partitioning ranges configurations", "Calculating shard indexes targets"],
-    eTitle: "Exam: Database Shard Router",
-    eDesc: "Write a JS function `getShardId(userId, totalShards)` returning `userId % totalShards`. Return 0 if totalShards <= 0.",
-    eStarter: "function getShardId(userId, totalShards) {\n    // Write your code here\n    \n}",
-    eHint: "Perform modular arithmetic dividing userId index by shard count.",
-    eTest: "if (typeof getShardId !== 'function') throw new Error('Method getShardId not found');\nif (getShardId(105, 10) !== 5) throw new Error('Shard routing math failed');",
-    aTitle: "Assignment: Shard range key boundaries check",
-    aDesc: "Write a JS function `isKeyInShardRange(key, minKey, maxKey)` returning true if key >= minKey && key <= maxKey.",
-    aStarter: "function isKeyInShardRange(key, minKey, maxKey) {\n    // Write your code here\n    \n}",
-    aHint: "Compare key value bounds.",
-    aTest: "if (typeof isKeyInShardRange !== 'function') throw new Error('Method isKeyInShardRange not found');"
+    title: "Distributed Locking with Redis (Redlock)",
+    desc: "Implement distributed mutex locks with TTL expiration, monotonic fences, and split-brain safety.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Distributed Locking with Redis (Redlock).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Distributed Locking with Redis (Redlock) Validation",
+    eDesc: "Implement a JavaScript validation function for Distributed Locking with Redis (Redlock).",
+    eStarter: "function distTaskDay8(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay8 !== 'function') throw new Error('Function distTaskDay8 not found');\nif (distTaskDay8('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Distributed Locking with Redis (Redlock) Practice",
+    aDesc: "Write an auxiliary helper function for Distributed Locking with Redis (Redlock).",
+    aStarter: "function distTaskDay8Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay8Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Distributed Infrastructure Audit",
-    desc: "Perform evaluations of infrastructure routing topologies, check consistent hash rings partitions, evaluate consensus voting statuses, and compile system availability ratings. (Real world: Infrastructure architects audit distributed clusters, ensuring replication pipelines meet target SLAs.)",
-    syllabus: ["Consistent hashing partition audits", "Consensus voter quorum verification", "Evaluating cache Stampede lock boundaries"],
-    eTitle: "Exam: Infrastructure Compliance Auditor",
-    eDesc: "Write a JS function `evaluateInfrastructure(report)` returning true if report.quorumOk === true and report.shardDistributed === true and report.stampedeLocked === true.",
-    eStarter: "function evaluateInfrastructure(report) {\n    // Write your code here\n    \n}",
-    eHint: "Verify report.quorumOk, report.shardDistributed, and report.stampedeLocked boolean properties in report.",
-    eTest: "if (typeof evaluateInfrastructure !== 'function') throw new Error('Method evaluateInfrastructure not found');\nconst rep = { quorumOk: true, shardDistributed: true, stampedeLocked: true };\nif (evaluateInfrastructure(rep) !== true) throw new Error('Infrastructure compliance validation failed');",
-    aTitle: "Assignment: Infrastructure rating evaluator",
-    aDesc: "Write a JS function `getAvailabilityRating(uptimePct)` returning 'SLA_MET' if uptimePct >= 99.99, 'SLA_BREACHED' otherwise.",
-    aStarter: "function getAvailabilityRating(uptimePct) {\n    // Write your code here\n    \n}",
-    aHint: "Verify uptime intervals limits.",
-    aTest: "if (typeof getAvailabilityRating !== 'function') throw new Error('Method getAvailabilityRating not found');"
+    title: "Message Queues & Event-Driven Architecture (Kafka)",
+    desc: "Design Kafka topics, partitions, consumer groups, offset commits, and high-throughput log streams.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Message Queues & Event-Driven Architecture (Kafka).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Message Queues & Event-Driven Architecture (Kafka) Validation",
+    eDesc: "Implement a JavaScript validation function for Message Queues & Event-Driven Architecture (Kafka).",
+    eStarter: "function distTaskDay9(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay9 !== 'function') throw new Error('Function distTaskDay9 not found');\nif (distTaskDay9('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Message Queues & Event-Driven Architecture (Kafka) Practice",
+    aDesc: "Write an auxiliary helper function for Message Queues & Event-Driven Architecture (Kafka).",
+    aStarter: "function distTaskDay9Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay9Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Distributed Infrastructure Audit (Review)",
-    desc: "Review distributed infrastructure audits, analyze consistent hashing ring structures, check quorum voting patterns, and verify sharding key routing. (Real world: Infrastructure architects audit distributed clusters, ensuring replication pipelines meet target SLAs.)",
-    syllabus: ["Reviewing consistent hash rings", "Assembling infrastructure audit checklists", "Verifying database sharding parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Idempotency & Deduplication in Distributed Messaging",
+    desc: "Implement unique idempotency keys, duplicate message detection, and at-least-once to exactly-once delivery.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Idempotency & Deduplication in Distributed Messaging.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Idempotency & Deduplication in Distributed Messaging Validation",
+    eDesc: "Implement a JavaScript validation function for Idempotency & Deduplication in Distributed Messaging.",
+    eStarter: "function distTaskDay10(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay10 !== 'function') throw new Error('Function distTaskDay10 not found');\nif (distTaskDay10('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Idempotency & Deduplication in Distributed Messaging Practice",
+    aDesc: "Write an auxiliary helper function for Idempotency & Deduplication in Distributed Messaging.",
+    aStarter: "function distTaskDay10Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay10Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Distributed Infrastructure Audit (Review)",
-    desc: "Review distributed infrastructure audits, analyze consistent hashing ring structures, check quorum voting patterns, and verify sharding key routing. (Real world: Infrastructure architects audit distributed clusters, ensuring replication pipelines meet target SLAs.)",
-    syllabus: ["Reviewing consistent hash rings", "Assembling infrastructure audit checklists", "Verifying database sharding parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Event Sourcing & CQRS Pattern",
+    desc: "Separate Command write models from Query read models, maintain immutable event logs, and project read views.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Event Sourcing & CQRS Pattern.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Event Sourcing & CQRS Pattern Validation",
+    eDesc: "Implement a JavaScript validation function for Event Sourcing & CQRS Pattern.",
+    eStarter: "function distTaskDay11(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay11 !== 'function') throw new Error('Function distTaskDay11 not found');\nif (distTaskDay11('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Event Sourcing & CQRS Pattern Practice",
+    aDesc: "Write an auxiliary helper function for Event Sourcing & CQRS Pattern.",
+    aStarter: "function distTaskDay11Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay11Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Distributed Infrastructure Audit (Review)",
-    desc: "Review distributed infrastructure audits, analyze consistent hashing ring structures, check quorum voting patterns, and verify sharding key routing. (Real world: Infrastructure architects audit distributed clusters, ensuring replication pipelines meet target SLAs.)",
-    syllabus: ["Reviewing consistent hash rings", "Assembling infrastructure audit checklists", "Verifying database sharding parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Two-Phase Commit (2PC) vs Saga Orchestration",
+    desc: "Compare strict distributed transactions against compensating saga steps for distributed business workflows.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Two-Phase Commit (2PC) vs Saga Orchestration.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Two-Phase Commit (2PC) vs Saga Orchestration Validation",
+    eDesc: "Implement a JavaScript validation function for Two-Phase Commit (2PC) vs Saga Orchestration.",
+    eStarter: "function distTaskDay12(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay12 !== 'function') throw new Error('Function distTaskDay12 not found');\nif (distTaskDay12('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Two-Phase Commit (2PC) vs Saga Orchestration Practice",
+    aDesc: "Write an auxiliary helper function for Two-Phase Commit (2PC) vs Saga Orchestration.",
+    aStarter: "function distTaskDay12Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay12Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Distributed Infrastructure Audit (Review)",
-    desc: "Review distributed infrastructure audits, analyze consistent hashing ring structures, check quorum voting patterns, and verify sharding key routing. (Real world: Infrastructure architects audit distributed clusters, ensuring replication pipelines meet target SLAs.)",
-    syllabus: ["Reviewing consistent hash rings", "Assembling infrastructure audit checklists", "Verifying database sharding parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Distributed Consensus & The Raft Algorithm",
+    desc: "Master leader election, log entry replication, term numbers, and commit index agreement across Raft clusters.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Distributed Consensus & The Raft Algorithm.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Distributed Consensus & The Raft Algorithm Validation",
+    eDesc: "Implement a JavaScript validation function for Distributed Consensus & The Raft Algorithm.",
+    eStarter: "function distTaskDay13(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay13 !== 'function') throw new Error('Function distTaskDay13 not found');\nif (distTaskDay13('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Distributed Consensus & The Raft Algorithm Practice",
+    aDesc: "Write an auxiliary helper function for Distributed Consensus & The Raft Algorithm.",
+    aStarter: "function distTaskDay13Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay13Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Distributed Infrastructure Audit (Review)",
-    desc: "Review distributed infrastructure audits, analyze consistent hashing ring structures, check quorum voting patterns, and verify sharding key routing. (Real world: Infrastructure architects audit distributed clusters, ensuring replication pipelines meet target SLAs.)",
-    syllabus: ["Reviewing consistent hash rings", "Assembling infrastructure audit checklists", "Verifying database sharding parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Gossip Protocol & Failure Detection",
+    desc: "Implement peer-to-peer heartbeat gossip, suspicion mechanisms (Phi Accrual), and cluster membership discovery.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Gossip Protocol & Failure Detection.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Gossip Protocol & Failure Detection Validation",
+    eDesc: "Implement a JavaScript validation function for Gossip Protocol & Failure Detection.",
+    eStarter: "function distTaskDay14(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay14 !== 'function') throw new Error('Function distTaskDay14 not found');\nif (distTaskDay14('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Gossip Protocol & Failure Detection Practice",
+    aDesc: "Write an auxiliary helper function for Gossip Protocol & Failure Detection.",
+    aStarter: "function distTaskDay14Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay14Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Distributed Infrastructure Audit (Review)",
-    desc: "Review distributed infrastructure audits, analyze consistent hashing ring structures, check quorum voting patterns, and verify sharding key routing. (Real world: Infrastructure architects audit distributed clusters, ensuring replication pipelines meet target SLAs.)",
-    syllabus: ["Reviewing consistent hash rings", "Assembling infrastructure audit checklists", "Verifying database sharding parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Distributed Rate Limiting (Token Bucket / Sliding Window)",
+    desc: "Enforce API rate limits across edge proxies using Redis sliding logs and token bucket algorithms.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Distributed Rate Limiting (Token Bucket / Sliding Window).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Distributed Rate Limiting (Token Bucket / Sliding Window) Validation",
+    eDesc: "Implement a JavaScript validation function for Distributed Rate Limiting (Token Bucket / Sliding Window).",
+    eStarter: "function distTaskDay15(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay15 !== 'function') throw new Error('Function distTaskDay15 not found');\nif (distTaskDay15('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Distributed Rate Limiting (Token Bucket / Sliding Window) Practice",
+    aDesc: "Write an auxiliary helper function for Distributed Rate Limiting (Token Bucket / Sliding Window).",
+    aStarter: "function distTaskDay15Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay15Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Distributed Infrastructure Audit (Review)",
-    desc: "Review distributed infrastructure audits, analyze consistent hashing ring structures, check quorum voting patterns, and verify sharding key routing. (Real world: Infrastructure architects audit distributed clusters, ensuring replication pipelines meet target SLAs.)",
-    syllabus: ["Reviewing consistent hash rings", "Assembling infrastructure audit checklists", "Verifying database sharding parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Vector Clocks & Causality Tracking",
+    desc: "Detect concurrent conflicting writes in decentralized systems using vector clock timestamps and CRDTs.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Vector Clocks & Causality Tracking.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Vector Clocks & Causality Tracking Validation",
+    eDesc: "Implement a JavaScript validation function for Vector Clocks & Causality Tracking.",
+    eStarter: "function distTaskDay16(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay16 !== 'function') throw new Error('Function distTaskDay16 not found');\nif (distTaskDay16('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Vector Clocks & Causality Tracking Practice",
+    aDesc: "Write an auxiliary helper function for Vector Clocks & Causality Tracking.",
+    aStarter: "function distTaskDay16Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay16Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Distributed Infrastructure Audit (Review)",
-    desc: "Review distributed infrastructure audits, analyze consistent hashing ring structures, check quorum voting patterns, and verify sharding key routing. (Real world: Infrastructure architects audit distributed clusters, ensuring replication pipelines meet target SLAs.)",
-    syllabus: ["Reviewing consistent hash rings", "Assembling infrastructure audit checklists", "Verifying database sharding parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Data Sharding, Rebalancing & Partition Tolerance",
+    desc: "Partition shard ranges, rebalance hot shards without downtime, and handle network partition events.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Data Sharding, Rebalancing & Partition Tolerance.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Data Sharding, Rebalancing & Partition Tolerance Validation",
+    eDesc: "Implement a JavaScript validation function for Data Sharding, Rebalancing & Partition Tolerance.",
+    eStarter: "function distTaskDay17(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay17 !== 'function') throw new Error('Function distTaskDay17 not found');\nif (distTaskDay17('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Data Sharding, Rebalancing & Partition Tolerance Practice",
+    aDesc: "Write an auxiliary helper function for Data Sharding, Rebalancing & Partition Tolerance.",
+    aStarter: "function distTaskDay17Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay17Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Distributed Infrastructure Audit (Review)",
-    desc: "Review distributed infrastructure audits, analyze consistent hashing ring structures, check quorum voting patterns, and verify sharding key routing. (Real world: Infrastructure architects audit distributed clusters, ensuring replication pipelines meet target SLAs.)",
-    syllabus: ["Reviewing consistent hash rings", "Assembling infrastructure audit checklists", "Verifying database sharding parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Distributed Cache Coherence & Thundering Herd",
+    desc: "Prevent cache stampedes using single-flight mutexes, probabilistic early expiration, and cache warming.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Distributed Cache Coherence & Thundering Herd.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Distributed Cache Coherence & Thundering Herd Validation",
+    eDesc: "Implement a JavaScript validation function for Distributed Cache Coherence & Thundering Herd.",
+    eStarter: "function distTaskDay18(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay18 !== 'function') throw new Error('Function distTaskDay18 not found');\nif (distTaskDay18('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Distributed Cache Coherence & Thundering Herd Practice",
+    aDesc: "Write an auxiliary helper function for Distributed Cache Coherence & Thundering Herd.",
+    aStarter: "function distTaskDay18Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay18Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Distributed Infrastructure Audit (Review)",
-    desc: "Review distributed infrastructure audits, analyze consistent hashing ring structures, check quorum voting patterns, and verify sharding key routing. (Real world: Infrastructure architects audit distributed clusters, ensuring replication pipelines meet target SLAs.)",
-    syllabus: ["Reviewing consistent hash rings", "Assembling infrastructure audit checklists", "Verifying database sharding parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Distributed Tracing & Context Propagation (W3C / Jaeger)",
+    desc: "Trace distributed requests across microservice boundaries, trace headers, spans, and child span links.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Distributed Tracing & Context Propagation (W3C / Jaeger).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Distributed Tracing & Context Propagation (W3C / Jaeger) Validation",
+    eDesc: "Implement a JavaScript validation function for Distributed Tracing & Context Propagation (W3C / Jaeger).",
+    eStarter: "function distTaskDay19(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay19 !== 'function') throw new Error('Function distTaskDay19 not found');\nif (distTaskDay19('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Distributed Tracing & Context Propagation (W3C / Jaeger) Practice",
+    aDesc: "Write an auxiliary helper function for Distributed Tracing & Context Propagation (W3C / Jaeger).",
+    aStarter: "function distTaskDay19Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay19Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Distributed Infrastructure Audit (Review)",
-    desc: "Review distributed infrastructure audits, analyze consistent hashing ring structures, check quorum voting patterns, and verify sharding key routing. (Real world: Infrastructure architects audit distributed clusters, ensuring replication pipelines meet target SLAs.)",
-    syllabus: ["Reviewing consistent hash rings", "Assembling infrastructure audit checklists", "Verifying database sharding parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "API Gateways & Edge Routing (Kong/Envoy)",
+    desc: "Configure edge SSL termination, JWT validation, rate limiting, and request transformation pipelines.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of API Gateways & Edge Routing (Kong/Envoy).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: API Gateways & Edge Routing (Kong/Envoy) Validation",
+    eDesc: "Implement a JavaScript validation function for API Gateways & Edge Routing (Kong/Envoy).",
+    eStarter: "function distTaskDay20(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay20 !== 'function') throw new Error('Function distTaskDay20 not found');\nif (distTaskDay20('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: API Gateways & Edge Routing (Kong/Envoy) Practice",
+    aDesc: "Write an auxiliary helper function for API Gateways & Edge Routing (Kong/Envoy).",
+    aStarter: "function distTaskDay20Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay20Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Distributed File Systems (HDFS / Ceph / S3)",
+    desc: "Understand block distribution, metadata servers, chunk replication, and high-throughput parallel streaming.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Distributed File Systems (HDFS / Ceph / S3).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Distributed File Systems (HDFS / Ceph / S3) Validation",
+    eDesc: "Implement a JavaScript validation function for Distributed File Systems (HDFS / Ceph / S3).",
+    eStarter: "function distTaskDay21(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay21 !== 'function') throw new Error('Function distTaskDay21 not found');\nif (distTaskDay21('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Distributed File Systems (HDFS / Ceph / S3) Practice",
+    aDesc: "Write an auxiliary helper function for Distributed File Systems (HDFS / Ceph / S3).",
+    aStarter: "function distTaskDay21Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay21Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Database Replication (Leader-Follower & Multi-Leader)",
+    desc: "Configure synchronous vs asynchronous replication, read-your-writes consistency, and conflict resolution.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Database Replication (Leader-Follower & Multi-Leader).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Database Replication (Leader-Follower & Multi-Leader) Validation",
+    eDesc: "Implement a JavaScript validation function for Database Replication (Leader-Follower & Multi-Leader).",
+    eStarter: "function distTaskDay22(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay22 !== 'function') throw new Error('Function distTaskDay22 not found');\nif (distTaskDay22('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Database Replication (Leader-Follower & Multi-Leader) Practice",
+    aDesc: "Write an auxiliary helper function for Database Replication (Leader-Follower & Multi-Leader).",
+    aStarter: "function distTaskDay22Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay22Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Change Data Capture (CDC) with Debezium",
+    desc: "Stream database commit log changes directly into Kafka topics for real-time analytics and search indexing.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Change Data Capture (CDC) with Debezium.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Change Data Capture (CDC) with Debezium Validation",
+    eDesc: "Implement a JavaScript validation function for Change Data Capture (CDC) with Debezium.",
+    eStarter: "function distTaskDay23(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay23 !== 'function') throw new Error('Function distTaskDay23 not found');\nif (distTaskDay23('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Change Data Capture (CDC) with Debezium Practice",
+    aDesc: "Write an auxiliary helper function for Change Data Capture (CDC) with Debezium.",
+    aStarter: "function distTaskDay23Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay23Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Distributed Batch Processing with Apache Spark",
+    desc: "Understand Resilient Distributed Datasets (RDDs), Spark DataFrames, transformations, actions, and shuffling.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Distributed Batch Processing with Apache Spark.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Distributed Batch Processing with Apache Spark Validation",
+    eDesc: "Implement a JavaScript validation function for Distributed Batch Processing with Apache Spark.",
+    eStarter: "function distTaskDay24(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay24 !== 'function') throw new Error('Function distTaskDay24 not found');\nif (distTaskDay24('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Distributed Batch Processing with Apache Spark Practice",
+    aDesc: "Write an auxiliary helper function for Distributed Batch Processing with Apache Spark.",
+    aStarter: "function distTaskDay24Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay24Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Stream Processing with Apache Flink",
+    desc: "Process event streams in real time with event-time watermarks, sliding windows, and stateful checkpointing.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Stream Processing with Apache Flink.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Stream Processing with Apache Flink Validation",
+    eDesc: "Implement a JavaScript validation function for Stream Processing with Apache Flink.",
+    eStarter: "function distTaskDay25(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay25 !== 'function') throw new Error('Function distTaskDay25 not found');\nif (distTaskDay25('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Stream Processing with Apache Flink Practice",
+    aDesc: "Write an auxiliary helper function for Stream Processing with Apache Flink.",
+    aStarter: "function distTaskDay25Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay25Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Microservice Resilience: Bulkheads, Timeouts & Retries",
+    desc: "Isolate resource pools (thread pools), configure jittered exponential backoff retries, and timeout boundaries.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Microservice Resilience: Bulkheads, Timeouts & Retries.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Microservice Resilience: Bulkheads, Timeouts & Retries Validation",
+    eDesc: "Implement a JavaScript validation function for Microservice Resilience: Bulkheads, Timeouts & Retries.",
+    eStarter: "function distTaskDay26(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay26 !== 'function') throw new Error('Function distTaskDay26 not found');\nif (distTaskDay26('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Microservice Resilience: Bulkheads, Timeouts & Retries Practice",
+    aDesc: "Write an auxiliary helper function for Microservice Resilience: Bulkheads, Timeouts & Retries.",
+    aStarter: "function distTaskDay26Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay26Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Distributed Search Engines (Elasticsearch / OpenSearch)",
+    desc: "Understand inverted indexes, shard routing, Lucene segments, and distributed cluster rebalancing.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Distributed Search Engines (Elasticsearch / OpenSearch).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Distributed Search Engines (Elasticsearch / OpenSearch) Validation",
+    eDesc: "Implement a JavaScript validation function for Distributed Search Engines (Elasticsearch / OpenSearch).",
+    eStarter: "function distTaskDay27(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay27 !== 'function') throw new Error('Function distTaskDay27 not found');\nif (distTaskDay27('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Distributed Search Engines (Elasticsearch / OpenSearch) Practice",
+    aDesc: "Write an auxiliary helper function for Distributed Search Engines (Elasticsearch / OpenSearch).",
+    aStarter: "function distTaskDay27Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay27Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Distributed System Security & Zero-Trust mTLS",
+    desc: "Enforce mutual TLS across internal service meshes, SPIFFE identity tokens, and authorization policies.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Distributed System Security & Zero-Trust mTLS.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Distributed System Security & Zero-Trust mTLS Validation",
+    eDesc: "Implement a JavaScript validation function for Distributed System Security & Zero-Trust mTLS.",
+    eStarter: "function distTaskDay28(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay28 !== 'function') throw new Error('Function distTaskDay28 not found');\nif (distTaskDay28('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Distributed System Security & Zero-Trust mTLS Practice",
+    aDesc: "Write an auxiliary helper function for Distributed System Security & Zero-Trust mTLS.",
+    aStarter: "function distTaskDay28Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay28Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Chaos Engineering in Distributed Environments",
+    desc: "Inject network latency, split networks, terminate leader nodes, and verify self-healing cluster recovery.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Chaos Engineering in Distributed Environments.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Chaos Engineering in Distributed Environments Validation",
+    eDesc: "Implement a JavaScript validation function for Chaos Engineering in Distributed Environments.",
+    eStarter: "function distTaskDay29(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay29 !== 'function') throw new Error('Function distTaskDay29 not found');\nif (distTaskDay29('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Chaos Engineering in Distributed Environments Practice",
+    aDesc: "Write an auxiliary helper function for Chaos Engineering in Distributed Environments.",
+    aStarter: "function distTaskDay29Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay29Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Capstone: Multi-Region High-Scale Distributed Auction System",
+    desc: "Architect an end-to-end distributed bidding engine handling 100K ops/sec with consistent hashing, sagas, and Redlock.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Capstone: Multi-Region High-Scale Distributed Auction System.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Capstone: Multi-Region High-Scale Distributed Auction System Validation",
+    eDesc: "Implement a JavaScript validation function for Capstone: Multi-Region High-Scale Distributed Auction System.",
+    eStarter: "function distTaskDay30(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof distTaskDay30 !== 'function') throw new Error('Function distTaskDay30 not found');\nif (distTaskDay30('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Capstone: Multi-Region High-Scale Distributed Auction System Practice",
+    aDesc: "Write an auxiliary helper function for Capstone: Multi-Region High-Scale Distributed Auction System.",
+    aStarter: "function distTaskDay30Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof distTaskDay30Aux !== 'function') throw new Error('Auxiliary function not found');"
   }
 ];
 
-export const DISTRIBUTED_30_DAYS_QUESTS = DISTRIBUTED_30_DAYS_CONFIGS.flatMap((cfg, dIdx) => {
-  const dayNum = dIdx + 1;
-  const lecture = {
-    id: `distributed-basics-lecture-day-${dayNum}`,
-    title: `Day ${dayNum} Learning: ${cfg.title}`,
-    desc: cfg.desc,
-    type: "lecture" as const,
-    requiresAvatar: true,
-    syllabus: cfg.syllabus,
-    skillCategory: "theory" as const,
-    xp: 150,
-    pins: 5
-  };
-  if (dayNum === 1) {
-    return [
-      lecture,
-      {
-        id: `distributed-basics-lecture2-day-1`,
-        title: `Day 1 Deep Dive: Syntax, Execution Rules, and Line-by-Line Breakdown`,
-        desc: `In-depth step-by-step breakdown of Day 1 concepts, memory layout, and execution mechanics. ${cfg.desc}`,
-        type: "lecture" as const,
-        requiresAvatar: true,
-        syllabus: cfg.syllabus,
-        skillCategory: "theory" as const,
-        xp: 150,
-        pins: 5
-      },
-      {
-        id: `distributed-basics-lecture3-day-1`,
-        title: `Day 1 Workshop: Real-World Industry Context & Visualization Guide`,
-        desc: `Practical visualization guide and real-world system architecture context for Day 1. ${cfg.desc}`,
-        type: "lecture" as const,
-        requiresAvatar: true,
-        syllabus: cfg.syllabus,
-        skillCategory: "theory" as const,
-        xp: 150,
-        pins: 5
-      }
-    ];
-  }
-  if (dayNum === 2) {
-    return [
-      lecture,
-      {
-        id: `distributed-basics-lecture2-day-2`,
-        title: `Day 2 Deep Dive: Flow Control, Logic Branching, and Execution Paths`,
-        desc: `In-depth line-by-line mechanics of conditionals, loops, and memory execution state. ${cfg.desc}`,
-        type: "lecture" as const,
-        requiresAvatar: true,
-        syllabus: cfg.syllabus,
-        skillCategory: "theory" as const,
-        xp: 150,
-        pins: 5
-      },
-      {
-        id: `distributed-basics-lecture3-day-2`,
-        title: `Day 2 Workshop: Practical Code Workshop & Edge Case Pitfall Warnings`,
-        desc: `Practical code workshop analyzing common edge cases, off-by-one errors, and production traps. ${cfg.desc}`,
-        type: "lecture" as const,
-        requiresAvatar: true,
-        syllabus: cfg.syllabus,
-        skillCategory: "theory" as const,
-        xp: 150,
-        pins: 5
-      }
-    ];
-  }
-  return buildEnrichedDayQuests('distributed-basics', dayNum, cfg);
-});
+export const DISTRIBUTED_30_DAYS_QUESTS = DISTRIBUTED_30_DAYS_CONFIGS.flatMap((cfg, i) =>
+  buildEnrichedDayQuests('dist', i + 1, cfg)
+);

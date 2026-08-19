@@ -59,7 +59,8 @@ def resolve_voice(voice: str) -> str:
 
 async def route_tts(request: TTSRequest) -> TTSResult:
     """
-    Route TTS request to the appropriate engine.
+    Route TTS request 100% to Kokoro-82M engine.
+    Zero external ElevenLabs API dependency; zero cost, maximum speed.
 
     Args:
         request: TTSRequest with text, voice, language, context, etc.
@@ -68,23 +69,9 @@ async def route_tts(request: TTSRequest) -> TTSResult:
         TTSResult with audio bytes, duration, and engine used.
     """
     resolved_voice = resolve_voice(request.voice)
+    print(f"[AudioRouter] Routing request -> voice={resolved_voice} (requested: {request.voice}) | context={request.context} | lang={request.language}")
 
-    if request.context in PREMIUM_CONTEXTS:
-        # 5% — Premium TTS for interview mode
-        try:
-            result = await generate_premium(
-                text=request.text,
-                voice=resolved_voice,
-                language=request.language,
-                speed=request.speed,
-            )
-            result.engine = "premium"
-            return result
-        except Exception:
-            # Fall back to Kokoro if premium fails
-            pass
-
-    # 95% — Kokoro 82M (lesson, course, avatar, mission, gd, fallback)
+    # 100% — Kokoro 82M (lesson, course, avatar, mission, interview, gd, fallback)
     result = await generate_kokoro(
         text=request.text,
         voice=resolved_voice,

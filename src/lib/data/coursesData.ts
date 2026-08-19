@@ -28,6 +28,11 @@ import { BCOM_ENTREPRENEURSHIP_30_DAYS_QUESTS } from './bcomEntrepreneurship30Da
 import { BCOM_SALES_CRM_30_DAYS_QUESTS } from './bcomSalesCrm30DayData';
 import { BCOM_OPERATIONS_30_DAYS_QUESTS } from './bcomOperations30DayData';
 import { BCOM_AI_TRANSFORMATION_30_DAYS_QUESTS } from './bcomAiTransformation30DayData';
+import { COMPUTER_FUNDAMENTALS_30_DAYS_QUESTS } from './computerFundamentals30DayData';
+import { AI_PROMPT_LITERACY_30_DAYS_QUESTS } from './aiPromptLiteracy30DayData';
+import { EXCEL_DATA_VIZ_30_DAYS_QUESTS } from './excelDataViz30DayData';
+import { GIT_VERSION_CONTROL_30_DAYS_QUESTS } from './gitVersionControl30DayData';
+import { SOFT_SKILLS_30_DAYS_QUESTS } from './softSkills30DayData';
 
 
 export interface CourseQuest {
@@ -336,13 +341,7 @@ export const COURSES_REGISTRY: Course[] = [
     difficulty: 'Beginner',
     durationWeeks: 4,
     icon: '💻',
-    quests: [
-      { id: 'cf-q1', title: 'Hardware vs Software & Operating System Architecture', desc: 'Dissect CPU, RAM, SSD storage, and OS kernel boundaries.', type: 'lecture', category: 'learning', requiresAvatar: true, xp: 100, pins: 10 },
-      { id: 'cf-q2', title: 'File System Hierarchy & Directory Navigation', desc: 'Master absolute vs relative paths, folder nesting, and file extensions.', type: 'coding', category: 'assignment', requiresAvatar: false, xp: 120, pins: 15 },
-      { id: 'cf-q3', title: 'Terminal Command Line Interface (CLI) Basics', desc: 'Run essential terminal commands (`cd`, `ls`, `mkdir`, `rm`, `cat`).', type: 'coding', category: 'learning', requiresAvatar: false, xp: 150, pins: 20 },
-      { id: 'cf-q4', title: 'Cloud Storage & Remote File Synchronization', desc: 'Configure cloud drive sync, shared permissions, and versioning.', type: 'interactive', category: 'learning', requiresAvatar: true, xp: 110, pins: 10 },
-      { id: 'cf-q5', title: 'Browser Developer Tools & Network Inspection', desc: 'Inspect HTML elements, inspect HTTP headers, and analyze console logs.', type: 'coding', category: 'assignment', requiresAvatar: false, xp: 140, pins: 15 }
-    ] as any
+    quests: COMPUTER_FUNDAMENTALS_30_DAYS_QUESTS as any
   },
   {
     id: 'course-ai-prompt-literacy',
@@ -351,13 +350,7 @@ export const COURSES_REGISTRY: Course[] = [
     difficulty: 'Beginner',
     durationWeeks: 4,
     icon: '🤖',
-    quests: [
-      { id: 'ai-q1', title: 'Foundations of Generative AI & Large Language Models', desc: 'Understand how LLMs process tokens and predict text patterns.', type: 'lecture', category: 'learning', requiresAvatar: true, xp: 100, pins: 10 },
-      { id: 'ai-q2', title: 'Crafting High-Precision System Prompts & Context', desc: 'Structure role, task, context, and output format for 10x better AI replies.', type: 'interactive', category: 'assignment', requiresAvatar: true, xp: 130, pins: 15 },
-      { id: 'ai-q3', title: 'Few-Shot Prompting & Structured JSON Formatting', desc: 'Guide AI output with concrete input-output examples.', type: 'coding', category: 'learning', requiresAvatar: false, xp: 150, pins: 20 },
-      { id: 'ai-q4', title: 'AI Research Tools & Citation Verification', desc: 'Utilize Perplexity and EuropePMC for verified scientific/business research.', type: 'interactive', category: 'learning', requiresAvatar: true, xp: 120, pins: 10 },
-      { id: 'ai-q5', title: 'Automating Repetitive Workflows with AI Assistants', desc: 'Build automated email drafts, meeting summaries, and report outlines.', type: 'interactive', category: 'assignment', requiresAvatar: true, xp: 140, pins: 15 }
-    ] as any
+    quests: AI_PROMPT_LITERACY_30_DAYS_QUESTS as any
   },
   {
     id: 'course-excel-data-viz',
@@ -366,13 +359,7 @@ export const COURSES_REGISTRY: Course[] = [
     difficulty: 'Beginner',
     durationWeeks: 4,
     icon: '📊',
-    quests: [
-      { id: 'ex-q1', title: 'Excel Grid Mechanics, Cell Formatting & Math Formulas', desc: 'Master relative vs absolute cell references (`$A$1`).', type: 'lecture', category: 'learning', requiresAvatar: true, xp: 100, pins: 10 },
-      { id: 'ex-q2', title: 'Logical Formulas & Conditional Statements (`IF`, `AND`, `OR`)', desc: 'Write nested conditional evaluation logic across data rows.', type: 'coding', category: 'assignment', requiresAvatar: false, xp: 130, pins: 15 },
-      { id: 'ex-q3', title: 'Data Searching & Lookup Functions (`VLOOKUP`, `XLOOKUP`, `INDEX/MATCH`)', desc: 'Query data dynamically across multiple spreadsheet tables.', type: 'coding', category: 'learning', requiresAvatar: false, xp: 150, pins: 20 },
-      { id: 'ex-q4', title: 'Pivot Tables, Grouping & Summary Aggregations', desc: 'Summarize 10,000 raw sales records into executive summary tables.', type: 'interactive', category: 'learning', requiresAvatar: true, xp: 140, pins: 15 },
-      { id: 'ex-q5', title: 'Creating Executive Dashboards & Dynamic Charts', desc: 'Build interactive bar charts, trend lines, and KPI scorecards.', type: 'interactive', category: 'assignment', requiresAvatar: true, xp: 160, pins: 20 }
-    ] as any
+    quests: EXCEL_DATA_VIZ_30_DAYS_QUESTS as any
   },
   {
     id: 'course-git-version-control',
@@ -381,13 +368,7 @@ export const COURSES_REGISTRY: Course[] = [
     difficulty: 'Beginner',
     durationWeeks: 4,
     icon: '🐙',
-    quests: [
-      { id: 'git-q1', title: 'Version Control Concepts & Local Repository Setup (`git init`)', desc: 'Understand working tree, staging area, and commit history.', type: 'lecture', category: 'learning', requiresAvatar: true, xp: 100, pins: 10 },
-      { id: 'git-q2', title: 'Staging, Committing & History Logs (`git add`, `git commit`)', desc: 'Create atomic commits with meaningful commit log messages.', type: 'coding', category: 'assignment', requiresAvatar: false, xp: 120, pins: 15 },
-      { id: 'git-q3', title: 'Branching Strategies & Parallel Feature Development (`git branch`)', desc: 'Create, switch, and manage isolated feature branches.', type: 'coding', category: 'learning', requiresAvatar: false, xp: 140, pins: 20 },
-      { id: 'git-q4', title: 'Resolving Merge Conflicts & Code Auditing', desc: 'Analyze diff markers and resolve overlapping branch changes.', type: 'coding', category: 'assignment', requiresAvatar: false, xp: 160, pins: 20 },
-      { id: 'git-q5', title: 'Remote Repositories & GitHub Pull Requests (`git push`, `git pull`)', desc: 'Push commits to GitHub, open PRs, and conduct code reviews.', type: 'interactive', category: 'learning', requiresAvatar: true, xp: 150, pins: 15 }
-    ] as any
+    quests: GIT_VERSION_CONTROL_30_DAYS_QUESTS as any
   },
   {
     id: 'course-softskills-communication',
@@ -396,13 +377,7 @@ export const COURSES_REGISTRY: Course[] = [
     difficulty: 'Beginner',
     durationWeeks: 4,
     icon: '🗣️',
-    quests: [
-      { id: 'comm-q1', title: 'Professional Written Communication & Email Etiquette', desc: 'Draft concise, impactful business emails and status updates.', type: 'lecture', category: 'learning', requiresAvatar: true, xp: 100, pins: 10 },
-      { id: 'comm-q2', title: 'Technical Documentation & Architecture Writing', desc: 'Write clear READMEs, API specs, and technical user guides.', type: 'interactive', category: 'assignment', requiresAvatar: true, xp: 130, pins: 15 },
-      { id: 'comm-q3', title: 'Elevator Pitch & Product Presentation Skills', desc: 'Deliver compelling 2-minute project presentations to stakeholders.', type: 'interactive', category: 'learning', requiresAvatar: true, xp: 140, pins: 15 },
-      { id: 'comm-q4', title: 'Cross-Functional Teamwork & Agile Collaboration', desc: 'Navigate sprint standups, feedback loops, and conflict resolution.', type: 'interactive', category: 'learning', requiresAvatar: true, xp: 130, pins: 10 },
-      { id: 'comm-q5', title: 'Behavioral Interview Mastery (STAR Method)', desc: 'Structure STAR (Situation, Task, Action, Result) interview responses.', type: 'interactive', category: 'assignment', requiresAvatar: true, xp: 160, pins: 20 }
-    ] as any
+    quests: SOFT_SKILLS_30_DAYS_QUESTS as any
   }
 ];
 

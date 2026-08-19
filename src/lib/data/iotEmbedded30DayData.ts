@@ -1,404 +1,578 @@
-import { buildEnrichedDayQuests } from './curriculumEnricher';
-export interface DayConfig {
-  title: string;
-  desc: string;
-  syllabus: string[];
-  eTitle: string;
-  eDesc: string;
-  eStarter: string;
-  eHint: string;
-  eTest: string;
-  aTitle: string;
-  aDesc: string;
-  aStarter: string;
-  aHint: string;
-  aTest: string;
-}
+import { buildEnrichedDayQuests, DayConfig } from './curriculumEnricher';
 
 export const IOT_EMBEDDED_30_DAYS_CONFIGS: DayConfig[] = [
   {
-    title: "What is an Embedded System? — Microcontrollers (MCUs), GPIO Pins and Safety Limits",
-    desc: "An EMBEDDED SYSTEM is a dedicated computer system designed to perform one specific function, often embedded inside a larger mechanical or electrical system. Think of your laptop: it is a general-purpose computer that can run games, web browsers, and write documents. Now, think of your microwave oven, smart thermostat, or electric toothbrush: these are powered by dedicated, single-chip computers called MICROCONTROLLERS (MCUs). Unlike PCs, microcontrollers do not run operating systems like Windows or macOS. Instead, they run a single program continuously from the moment they are powered on. Popular MCU boards include: (1) Arduino Uno: cheap, simple, great for beginners. (2) ESP32: powerful chip with built-in Wi-Fi and Bluetooth. (3) STM32: industrial-grade ARM Cortex processor. GPIO PINS: to interact with the real world, microcontrollers use GPIO (General Purpose Input/Output) pins. A pin can be set to: (1) Input Mode: reads signals from the outside world (like whether a button is pressed or a sensor is active). (2) Output Mode: sends signals to the outside world (like sending electricity to light up an LED or run a motor). SAFETY LIMITS: GPIO pins run on specific voltages. Most modern chips (ESP32/STM32) use 3.3V logic. If you feed 5V of electricity into a 3.3V input pin, you will permanently burn out the chip! We prevent this using a VOLTAGE DIVIDER circuit — a simple arrangement of two resistors in series that reduces a high voltage down to a safe, lower voltage level. (Real world: Hardware engineers designing smart locks use voltage dividers. When a 12V battery is connected to a sensor pin, the divider drops the voltage down to 3V, allowing the ESP32 to safely measure the battery level without frying its processor.)",
-    syllabus: ["Embedded System = dedicated computer system for a single task. Microcontroller (MCU) = single chip containing CPU, RAM, and Flash storage. Arduino (simplest), ESP32 (Wi-Fi), STM32 (industrial ARM).", "GPIO Pins (General Purpose Input/Output): interface nodes. Input Mode = reads external high/low voltage signals (sensors/buttons). Output Mode = writes voltage signals (LEDs/motors).", "Voltage logic limits: 3.3V logic (modern standard) vs 5V logic (older Arduino). Pin protection: using resistor Voltage Dividers to drop dangerous high voltages to safe limits."],
-    eTitle: "Exam: Voltage Divider Calculator",
-    eDesc: "Not tested on day 1",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Parallel Resistor Calculator",
-    aDesc: "Not tested on day 1",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Embedded Systems Architecture & Microcontrollers",
+    desc: "Understand Harvard vs Von Neumann architecture, CPU cores (ARM Cortex-M, ESP32), and flash/SRAM boundaries.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Embedded Systems Architecture & Microcontrollers.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Embedded Systems Architecture & Microcontrollers Validation",
+    eDesc: "Implement a JavaScript validation function for Embedded Systems Architecture & Microcontrollers.",
+    eStarter: "function iot_embTaskDay1(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay1 !== 'function') throw new Error('Function iot_embTaskDay1 not found');\nif (iot_embTaskDay1('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Embedded Systems Architecture & Microcontrollers Practice",
+    aDesc: "Write an auxiliary helper function for Embedded Systems Architecture & Microcontrollers.",
+    aStarter: "function iot_embTaskDay1Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay1Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Bare-Metal Architecture — The Super-Loop Pattern and Interrupt Service Routines (ISRs)",
-    desc: "When programming microcontrollers on 'bare-metal' (meaning writing code directly on the chip without an operating system), execution flow is simple and linear. THE SUPER-LOOP PATTERN: in C/C++, a microcontroller program starts in the 'main()' function, runs setup code once, and then enters an infinite loop: while(1) { ... }. This is called a Super-Loop. The processor runs the code inside this loop over and over, forever. Inside the loop, it reads inputs (e.g. checks if a button is pressed), runs logic, and updates outputs (e.g. turns on a fan). FLOATING PIN NOISE: when a GPIO pin is configured as an input and nothing is connected to it, its electrical state floats between HIGH and LOW, picking up electromagnetic noise from the air. This causes your code to falsely register button presses. We solve this by enabling internal Pull-Up or Pull-Down resistors. A pull-up resistor connects the pin to 3.3V (holding the default state HIGH). When you press the button, it connects the pin to Ground (0V), pulling the signal LOW. This guarantees clean, predictable readings. WHAT IS AN INTERRUPT? If your super-loop takes 100ms to run, and the user presses a button for only 10ms, the MCU might miss the press. An Interrupt is a hardware signal that tells the CPU: 'Stop what you are doing immediately, run this priority handler function, then return to where you left off'. The handler function is called an Interrupt Service Routine (ISR). (Real world: In electric vehicles, if the crash sensor detects a collision, it triggers a hardware interrupt. The CPU instantly halts the main entertainment system loop to run the airbag deployment ISR, ensuring life-saving response speeds in microseconds.)",
-    syllabus: ["The Super-Loop: while(1) infinite execution loop. The core structure of bare-metal embedded firmware where code runs continuously from top to bottom.", "Floating pin noise: input pins with no connection pick up electromagnetic noise. Solved by enabling internal Pull-Up (holds default state HIGH) or Pull-Down (holds default state LOW) resistors.", "Interrupts & ISRs: hardware signals that halt main loop execution to run a priority Interrupt Service Routine (ISR) instantly. Critical for safety-first events."],
-    eTitle: "Exam: Interrupt Handler Setup",
-    eDesc: "Not tested on day 2",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Button Polling Debouncer",
-    aDesc: "Not tested on day 2",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "GPIO Digital Output & LED Control",
+    desc: "Configure GPIO pin modes (Input, Output, Pull-up, Pull-down) and toggle output voltages.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of GPIO Digital Output & LED Control.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: GPIO Digital Output & LED Control Validation",
+    eDesc: "Implement a JavaScript validation function for GPIO Digital Output & LED Control.",
+    eStarter: "function iot_embTaskDay2(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay2 !== 'function') throw new Error('Function iot_embTaskDay2 not found');\nif (iot_embTaskDay2('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: GPIO Digital Output & LED Control Practice",
+    aDesc: "Write an auxiliary helper function for GPIO Digital Output & LED Control.",
+    aStarter: "function iot_embTaskDay2Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay2Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Analog Interfaces: ADC Bit Resolutions & Voltages Scaling",
-    desc: "Learn to configure Analog-to-Digital Converters (ADCs), translate analog signals to digital integers, and calibrate sensors. (Real world: Smart thermostats scale raw ADC codes to temperature values, calibrating offsets to improve accuracy.)",
-    syllabus: ["Analog-to-Digital Converter properties", "ADC resolution formulas (8, 10, 12 bits)", "Scaling voltage percentages"],
-    eTitle: "Exam: Voltage-to-ADC Scale Convertor",
-    eDesc: "Write a JS function `scaleVoltageToAdc(voltage, maxVoltage, bitResolution)` returning rounded integer value: `(voltage / maxVoltage) * (Math.pow(2, bitResolution) - 1)`. Return 0 if inputs are negative or maxVoltage <= 0.",
-    eStarter: "function scaleVoltageToAdc(voltage, maxVoltage, bitResolution) {\n    // Write your code here\n    \n}",
-    eHint: "Divide voltage by max, multiply by scale index and round. Check bounds.",
-    eTest: "if (typeof scaleVoltageToAdc !== 'function') throw new Error('Method scaleVoltageToAdc not found.');\nif (scaleVoltageToAdc(1.65, 3.3, 12) !== 2048) throw new Error('12-bit scale conversion failed');\nif (scaleVoltageToAdc(-1, 3.3, 12) !== 0) throw new Error('Negative validation failed');",
-    aTitle: "Assignment: ADC-to-Voltage Convertor",
-    aDesc: "Write a JS function `scaleAdcToVoltage(adcVal, maxVoltage, bitResolution)` returning voltage float: `(adcVal / (Math.pow(2, bitResolution) - 1)) * maxVoltage`. Return 0 if inputs are negative.",
-    aStarter: "function scaleAdcToVoltage(adcVal, maxVoltage, bitResolution) {\n    // Write your code here\n    \n}",
-    aHint: "Divide value by scale, multiply by maxVoltage. Verify inputs.",
-    aTest: "if (typeof scaleAdcToVoltage !== 'function') throw new Error('Method scaleAdcToVoltage not found.');"
+    title: "GPIO Digital Input & Pushbutton Debouncing",
+    desc: "Read logic state levels, handle floating inputs, and implement software and hardware RC debouncing.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of GPIO Digital Input & Pushbutton Debouncing.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: GPIO Digital Input & Pushbutton Debouncing Validation",
+    eDesc: "Implement a JavaScript validation function for GPIO Digital Input & Pushbutton Debouncing.",
+    eStarter: "function iot_embTaskDay3(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay3 !== 'function') throw new Error('Function iot_embTaskDay3 not found');\nif (iot_embTaskDay3('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: GPIO Digital Input & Pushbutton Debouncing Practice",
+    aDesc: "Write an auxiliary helper function for GPIO Digital Input & Pushbutton Debouncing.",
+    aStarter: "function iot_embTaskDay3Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay3Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Actuators: PWM Duty Cycle Integer Scalers",
-    desc: "Master Pulse Width Modulation (PWM), configuring duty cycles, and controlling actuators. (Real world: LED dimming firmware maps client percent targets to PWM registers to adjust light brightness.)",
-    syllabus: ["PWM signals parameters", "Scaling percentage to integer duty cycles", "Duty cycle bit bounds (8, 16 bits)"],
-    eTitle: "Exam: Brightness-to-PWM duty cycle",
-    eDesc: "Write a JS function `getPercentToPwm(percent, maxPwmValue)` returning rounded integer: `(percent / 100) * maxPwmValue`. Return 0 if percent is negative. Clamp output to maxPwmValue limit.",
-    eStarter: "function getPercentToPwm(percent, maxPwmValue) {\n    // Write your code here\n    \n}",
-    eHint: "Calculate percentage scale, round, clamp to maxPwmValue. Verify limits.",
-    eTest: "if (typeof getPercentToPwm !== 'function') throw new Error('Method getPercentToPwm not found.');\nif (getPercentToPwm(50, 255) !== 128) throw new Error('50% duty scale failed');\nif (getPercentToPwm(120, 255) !== 255) throw new Error('Over range clamp failed');",
-    aTitle: "Assignment: Active PWM Percentage Tracker",
-    aDesc: "Write a JS function `getPwmPercent(pwmVal, maxPwmValue)` returning Math.round((pwmVal / maxPwmValue) * 100). Return 0 if maxPwmValue <= 0 or inputs are negative.",
-    aStarter: "function getPwmPercent(pwmVal, maxPwmValue) {\n    // Write your code here\n    \n}",
-    aHint: "Calculate percentage and round. Verify limits.",
-    aTest: "if (typeof getPwmPercent !== 'function') throw new Error('Method getPwmPercent not found.');"
+    title: "Analog-to-Digital Conversion (ADC) & Voltage Sensors",
+    desc: "Calibrate analog voltage references, calculate resolution steps (10-bit, 12-bit), and read analog sensors.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Analog-to-Digital Conversion (ADC) & Voltage Sensors.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Analog-to-Digital Conversion (ADC) & Voltage Sensors Validation",
+    eDesc: "Implement a JavaScript validation function for Analog-to-Digital Conversion (ADC) & Voltage Sensors.",
+    eStarter: "function iot_embTaskDay4(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay4 !== 'function') throw new Error('Function iot_embTaskDay4 not found');\nif (iot_embTaskDay4('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Analog-to-Digital Conversion (ADC) & Voltage Sensors Practice",
+    aDesc: "Write an auxiliary helper function for Analog-to-Digital Conversion (ADC) & Voltage Sensors.",
+    aStarter: "function iot_embTaskDay4Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay4Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "DSP basics: Sensor Data Window Average smoothing",
-    desc: "Understand sensor data filtering, noise cancellation, and calculating moving averages. (Real world: Smart meters apply sliding window averages to ADC readings to filter out transient voltage spikes.)",
-    syllabus: ["Analog voltage noise issues", "Window average smoothing pipelines", "Filtering sensor spikes"],
-    eTitle: "Exam: Dynamic Window Averager",
-    eDesc: "Write a JS function `getSmoothAverage(values, size)` returning the average of latest size elements in values array. Return 0 if values is null/empty or size <= 0.",
-    eStarter: "function getSmoothAverage(values, size) {\n    // Write your code here\n    \n}",
-    eHint: "Check array slice latest elements, accumulate sum, divide by size. Verify parameter limits.",
-    eTest: "if (typeof getSmoothAverage !== 'function') throw new Error('Method getSmoothAverage not found.');\nif (getSmoothAverage([10, 20, 30], 2) !== 25) throw new Error('Standard window average failed');",
-    aTitle: "Assignment: Outlier Sensor Filter",
-    aDesc: "Write a JS function `filterOutliers(values, threshold)` returning new array copy dropping values whose absolute differences from median is strictly greater than threshold.",
-    aStarter: "function filterOutliers(values, threshold) {\n    // Write your code here\n    \n}",
-    aHint: "Find median first, filter elements checking threshold values.",
-    aTest: "if (typeof filterOutliers !== 'function') throw new Error('Method filterOutliers not found.');"
+    title: "Pulse Width Modulation (PWM) & Motor Control",
+    desc: "Generate variable duty-cycle PWM waveforms to drive servo motors, DC motor H-bridges, and LED dimmers.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Pulse Width Modulation (PWM) & Motor Control.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Pulse Width Modulation (PWM) & Motor Control Validation",
+    eDesc: "Implement a JavaScript validation function for Pulse Width Modulation (PWM) & Motor Control.",
+    eStarter: "function iot_embTaskDay5(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay5 !== 'function') throw new Error('Function iot_embTaskDay5 not found');\nif (iot_embTaskDay5('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Pulse Width Modulation (PWM) & Motor Control Practice",
+    aDesc: "Write an auxiliary helper function for Pulse Width Modulation (PWM) & Motor Control.",
+    aStarter: "function iot_embTaskDay5Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay5Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Microcontroller Registers: GPIO Pin Direction Mask builders",
-    desc: "Master bitwise logic, constructing bitmasks, and updating microcontroller port registers. (Real world: Bootloader code compiles binary masks, setting input/output directions for hardware ports.)",
-    syllabus: ["GPIO hardware registers structures", "Pin direction bitmasks configurations", "configuring safe hardware boot values"],
-    eTitle: "Exam: GPIO Mask Validator",
-    eDesc: "Write a JS function `isValidGpioMask(mask, maxPinCount)` returning true if mask is positive integer and less than Math.pow(2, maxPinCount). Returns false otherwise.",
-    eStarter: "function isValidGpioMask(mask, maxPinCount) {\n    // Write your code here\n    \n}",
-    eHint: "Check bounds and compare with 2^maxPinCount limit. Check negative.",
-    eTest: "if (typeof isValidGpioMask !== 'function') throw new Error('Method isValidGpioMask not found.');\nif (isValidGpioMask(15, 4) !== true) throw new Error('Valid 4-pin mask check failed');",
-    aTitle: "Assignment: Pin Mask Builder",
-    aDesc: "Write a JS function `buildPinMask(pinIndices)` returning sum of Math.pow(2, index) for each index in array. Return 0 if null.",
-    aStarter: "function buildPinMask(pinIndices) {\n    // Write your code here\n    \n}",
-    aHint: "Loop indices and accumulate powers of 2.",
-    aTest: "if (typeof buildPinMask !== 'function') throw new Error('Method buildPinMask not found.');"
+    title: "Hardware Timers & Interrupt Service Routines (ISRs)",
+    desc: "Configure hardware periodic timers, attach pin change interrupts, and manage volatile state flags.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Hardware Timers & Interrupt Service Routines (ISRs).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Hardware Timers & Interrupt Service Routines (ISRs) Validation",
+    eDesc: "Implement a JavaScript validation function for Hardware Timers & Interrupt Service Routines (ISRs).",
+    eStarter: "function iot_embTaskDay6(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay6 !== 'function') throw new Error('Function iot_embTaskDay6 not found');\nif (iot_embTaskDay6('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Hardware Timers & Interrupt Service Routines (ISRs) Practice",
+    aDesc: "Write an auxiliary helper function for Hardware Timers & Interrupt Service Routines (ISRs).",
+    aStarter: "function iot_embTaskDay6Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay6Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Firmware Safety: Sensor Threshold Trigger logic",
-    desc: "Learn to build threshold validation algorithms, software debouncing logic, and alarm triggers. (Real world: Fire safety systems trigger alert sirens only if temperature readings remain high for 3 consecutive poll cycles.)",
-    syllabus: ["Sensor threshold alerts limits", "Consecutive alert window counters", "Debouncing hardware trigger alarms"],
-    eTitle: "Exam: Consecutive Threshold Alarm Trigger",
-    eDesc: "Write a JS function `isAlarmTriggered(readings, limit, triggerCount)` returning true if there are at least `triggerCount` consecutive values in `readings` array that are strictly greater than `limit`.",
-    eStarter: "function isAlarmTriggered(readings, limit, triggerCount) {\n    // Write your code here\n    \n}",
-    eHint: "Loop readings, maintaining a streak counter. Reset to 0 when reading <= limit. Return true if streak reaches triggerCount.",
-    eTest: "if (typeof isAlarmTriggered !== 'function') throw new Error('Method isAlarmTriggered not found');\nif (isAlarmTriggered([20, 45, 50, 42, 10], 40, 3) !== true) throw new Error('Alarm trigger streak failed');",
-    aTitle: "Assignment: Debounced threshold checker",
-    aDesc: "Write a JS function `checkSensorAlert(val, limit)` returning val > limit.",
-    aStarter: "function checkSensorAlert(val, limit) {\n    // Write your code here\n    \n}",
-    aHint: "Simple threshold comparison.",
-    aTest: "if (typeof checkSensorAlert !== 'function') throw new Error('Method checkSensorAlert not found');"
+    title: "UART Serial Communication & Protocol Framing",
+    desc: "Configure baud rates (9600, 115200), start/stop bits, parity checks, and packet framing delimiters.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of UART Serial Communication & Protocol Framing.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: UART Serial Communication & Protocol Framing Validation",
+    eDesc: "Implement a JavaScript validation function for UART Serial Communication & Protocol Framing.",
+    eStarter: "function iot_embTaskDay7(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay7 !== 'function') throw new Error('Function iot_embTaskDay7 not found');\nif (iot_embTaskDay7('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: UART Serial Communication & Protocol Framing Practice",
+    aDesc: "Write an auxiliary helper function for UART Serial Communication & Protocol Framing.",
+    aStarter: "function iot_embTaskDay7Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay7Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "RTOS Schedulers: Task Priority Preemption",
-    desc: "Master Real-Time Operating System task scheduling rules. (Real world: Engine throttle control tasks run at highest RTOS priorities, immediately preempting screen render tasks to avoid engine stalls.)",
-    syllabus: ["RTOS task scheduler queues", "Task priority bounds and preemptions", "Resolving priority inversions gates"],
-    eTitle: "Exam: RTOS Task Preemptor",
-    eDesc: "Write a JS function `shouldPreempt(runningPriority, incomingPriority)` returning true if incomingPriority > runningPriority. Return false if either is negative.",
-    eStarter: "shouldPreempt = function(runningPriority, incomingPriority) {\n    // Write your code here\n    \n}",
-    eHint: "Compare integer priorities, checking bounds.",
-    eTest: "if (typeof shouldPreempt !== 'function') throw new Error('Method shouldPreempt not found');\nif (shouldPreempt(5, 8) !== true) throw new Error('RTOS preemption check failed');",
-    aTitle: "Assignment: Priority range validator",
-    aDesc: "Write a JS function `isPriorityValid(priority)` returning true if priority >= 0 && priority <= 255.",
-    aStarter: "function isPriorityValid(priority) {\n    // Write your code here\n    \n}",
-    aHint: "Check priority bounds.",
-    aTest: "if (typeof isPriorityValid !== 'function') throw new Error('Method isPriorityValid not found');"
+    title: "I2C Bus Communication & Sensor Interfacing",
+    desc: "Master I2C master/slave addressing, pull-up resistors, clock stretching, and read temperature/pressure sensors.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of I2C Bus Communication & Sensor Interfacing.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: I2C Bus Communication & Sensor Interfacing Validation",
+    eDesc: "Implement a JavaScript validation function for I2C Bus Communication & Sensor Interfacing.",
+    eStarter: "function iot_embTaskDay8(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay8 !== 'function') throw new Error('Function iot_embTaskDay8 not found');\nif (iot_embTaskDay8('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: I2C Bus Communication & Sensor Interfacing Practice",
+    aDesc: "Write an auxiliary helper function for I2C Bus Communication & Sensor Interfacing.",
+    aStarter: "function iot_embTaskDay8Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay8Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Firmware & RTOS compliance audit",
-    desc: "Perform evaluations of ADC voltage calibrations, check PWM duty cycles, verify sensor outlier filters, and evaluate RTOS task scheduler parameters. (Real world: Embedded QA leads run telemetry scans, checking firmware integrity checks.)",
-    syllabus: ["Firmware calibration parameters scan", "GPIO port registry mask verification", "RTOS task preemptions checks"],
-    eTitle: "Exam: Firmware Compliance Auditor",
-    eDesc: "Write a JS function `evaluateFirmwareBuild(report)` returning true if report.adcCalibrated === true and report.gpioMaskSafe === true and report.tasksPreemptAllowed === true.",
-    eStarter: "function evaluateFirmwareBuild(report) {\n    // Write your code here\n    \n}",
-    eHint: "Verify report.adcCalibrated, report.gpioMaskSafe, and report.tasksPreemptAllowed boolean properties in report.",
-    eTest: "if (typeof evaluateFirmwareBuild !== 'function') throw new Error('Method evaluateFirmwareBuild not found');\nconst rep = { adcCalibrated: true, gpioMaskSafe: true, tasksPreemptAllowed: true };\nif (evaluateFirmwareBuild(rep) !== true) throw new Error('Firmware compliance validation failed');",
-    aTitle: "Assignment: Code coverage auditor",
-    aDesc: "Write a JS function `isCoveragePassed(coveragePct)` returning coveragePct >= 80.",
-    aStarter: "function isCoveragePassed(coveragePct) {\n    // Write your code here\n    \n}",
-    aHint: "Check threshold.",
-    aTest: "if (typeof isCoveragePassed !== 'function') throw new Error('Method isCoveragePassed not found');"
+    title: "SPI High-Speed Bus Communication",
+    desc: "Configure MOSI, MISO, SCK, CS lines, SPI clock polarities (CPOL/CPHA), and interface with SD cards and displays.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of SPI High-Speed Bus Communication.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: SPI High-Speed Bus Communication Validation",
+    eDesc: "Implement a JavaScript validation function for SPI High-Speed Bus Communication.",
+    eStarter: "function iot_embTaskDay9(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay9 !== 'function') throw new Error('Function iot_embTaskDay9 not found');\nif (iot_embTaskDay9('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: SPI High-Speed Bus Communication Practice",
+    aDesc: "Write an auxiliary helper function for SPI High-Speed Bus Communication.",
+    aStarter: "function iot_embTaskDay9Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay9Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Firmware & RTOS compliance audit (Review)",
-    desc: "Review microcontroller architectures, evaluate ADC conversions scales, check GPIO registers bitmasks, and verify RTOS task priority preemptions. (Real world: Embedded QA leads run telemetry scans, checking firmware integrity checks.)",
-    syllabus: ["Reviewing ADC scaling factors", "Assembling firmware compliance checklists", "Verifying RTOS scheduling parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Direct Memory Access (DMA) in Microcontrollers",
+    desc: "Configure DMA channels for zero-CPU peripheral data transfers across UART, SPI, and ADC buffers.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Direct Memory Access (DMA) in Microcontrollers.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Direct Memory Access (DMA) in Microcontrollers Validation",
+    eDesc: "Implement a JavaScript validation function for Direct Memory Access (DMA) in Microcontrollers.",
+    eStarter: "function iot_embTaskDay10(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay10 !== 'function') throw new Error('Function iot_embTaskDay10 not found');\nif (iot_embTaskDay10('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Direct Memory Access (DMA) in Microcontrollers Practice",
+    aDesc: "Write an auxiliary helper function for Direct Memory Access (DMA) in Microcontrollers.",
+    aStarter: "function iot_embTaskDay10Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay10Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Firmware & RTOS compliance audit (Review)",
-    desc: "Review microcontroller architectures, evaluate ADC conversions scales, check GPIO registers bitmasks, and verify RTOS task priority preemptions. (Real world: Embedded QA leads run telemetry scans, checking firmware integrity checks.)",
-    syllabus: ["Reviewing ADC scaling factors", "Assembling firmware compliance checklists", "Verifying RTOS scheduling parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "FreeRTOS Fundamentals & Task Management",
+    desc: "Create prioritized RTOS tasks, allocate stack memory, and manage task lifecycle states.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of FreeRTOS Fundamentals & Task Management.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: FreeRTOS Fundamentals & Task Management Validation",
+    eDesc: "Implement a JavaScript validation function for FreeRTOS Fundamentals & Task Management.",
+    eStarter: "function iot_embTaskDay11(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay11 !== 'function') throw new Error('Function iot_embTaskDay11 not found');\nif (iot_embTaskDay11('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: FreeRTOS Fundamentals & Task Management Practice",
+    aDesc: "Write an auxiliary helper function for FreeRTOS Fundamentals & Task Management.",
+    aStarter: "function iot_embTaskDay11Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay11Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Firmware & RTOS compliance audit (Review)",
-    desc: "Review microcontroller architectures, evaluate ADC conversions scales, check GPIO registers bitmasks, and verify RTOS task priority preemptions. (Real world: Embedded QA leads run telemetry scans, checking firmware integrity checks.)",
-    syllabus: ["Reviewing ADC scaling factors", "Assembling firmware compliance checklists", "Verifying RTOS scheduling parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "FreeRTOS Inter-Task Communication (Queues & Semaphores)",
+    desc: "Share data between tasks safely using FreeRTOS message queues, binary semaphores, and mutexes.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of FreeRTOS Inter-Task Communication (Queues & Semaphores).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: FreeRTOS Inter-Task Communication (Queues & Semaphores) Validation",
+    eDesc: "Implement a JavaScript validation function for FreeRTOS Inter-Task Communication (Queues & Semaphores).",
+    eStarter: "function iot_embTaskDay12(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay12 !== 'function') throw new Error('Function iot_embTaskDay12 not found');\nif (iot_embTaskDay12('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: FreeRTOS Inter-Task Communication (Queues & Semaphores) Practice",
+    aDesc: "Write an auxiliary helper function for FreeRTOS Inter-Task Communication (Queues & Semaphores).",
+    aStarter: "function iot_embTaskDay12Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay12Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Firmware & RTOS compliance audit (Review)",
-    desc: "Review microcontroller architectures, evaluate ADC conversions scales, check GPIO registers bitmasks, and verify RTOS task priority preemptions. (Real world: Embedded QA leads run telemetry scans, checking firmware integrity checks.)",
-    syllabus: ["Reviewing ADC scaling factors", "Assembling firmware compliance checklists", "Verifying RTOS scheduling parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Priority Inversion & Mutex Priority Inheritance",
+    desc: "Prevent low-priority tasks from blocking high-priority tasks using FreeRTOS mutex priority inheritance.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Priority Inversion & Mutex Priority Inheritance.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Priority Inversion & Mutex Priority Inheritance Validation",
+    eDesc: "Implement a JavaScript validation function for Priority Inversion & Mutex Priority Inheritance.",
+    eStarter: "function iot_embTaskDay13(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay13 !== 'function') throw new Error('Function iot_embTaskDay13 not found');\nif (iot_embTaskDay13('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Priority Inversion & Mutex Priority Inheritance Practice",
+    aDesc: "Write an auxiliary helper function for Priority Inversion & Mutex Priority Inheritance.",
+    aStarter: "function iot_embTaskDay13Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay13Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Firmware & RTOS compliance audit (Review)",
-    desc: "Review microcontroller architectures, evaluate ADC conversions scales, check GPIO registers bitmasks, and verify RTOS task priority preemptions. (Real world: Embedded QA leads run telemetry scans, checking firmware integrity checks.)",
-    syllabus: ["Reviewing ADC scaling factors", "Assembling firmware compliance checklists", "Verifying RTOS scheduling parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Watchdog Timers & Hardware Fault Recovery",
+    desc: "Configure hardware watchdog timers to reset frozen microcontrollers and log hard fault registers.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Watchdog Timers & Hardware Fault Recovery.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Watchdog Timers & Hardware Fault Recovery Validation",
+    eDesc: "Implement a JavaScript validation function for Watchdog Timers & Hardware Fault Recovery.",
+    eStarter: "function iot_embTaskDay14(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay14 !== 'function') throw new Error('Function iot_embTaskDay14 not found');\nif (iot_embTaskDay14('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Watchdog Timers & Hardware Fault Recovery Practice",
+    aDesc: "Write an auxiliary helper function for Watchdog Timers & Hardware Fault Recovery.",
+    aStarter: "function iot_embTaskDay14Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay14Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Firmware & RTOS compliance audit (Review)",
-    desc: "Review microcontroller architectures, evaluate ADC conversions scales, check GPIO registers bitmasks, and verify RTOS task priority preemptions. (Real world: Embedded QA leads run telemetry scans, checking firmware integrity checks.)",
-    syllabus: ["Reviewing ADC scaling factors", "Assembling firmware compliance checklists", "Verifying RTOS scheduling parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Low-Power Modes & Battery Optimization",
+    desc: "Transition microcontrollers to deep sleep (<10uA), configure RTC timer wakeups, and optimize battery life.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Low-Power Modes & Battery Optimization.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Low-Power Modes & Battery Optimization Validation",
+    eDesc: "Implement a JavaScript validation function for Low-Power Modes & Battery Optimization.",
+    eStarter: "function iot_embTaskDay15(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay15 !== 'function') throw new Error('Function iot_embTaskDay15 not found');\nif (iot_embTaskDay15('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Low-Power Modes & Battery Optimization Practice",
+    aDesc: "Write an auxiliary helper function for Low-Power Modes & Battery Optimization.",
+    aStarter: "function iot_embTaskDay15Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay15Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Firmware & RTOS compliance audit (Review)",
-    desc: "Review microcontroller architectures, evaluate ADC conversions scales, check GPIO registers bitmasks, and verify RTOS task priority preemptions. (Real world: Embedded QA leads run telemetry scans, checking firmware integrity checks.)",
-    syllabus: ["Reviewing ADC scaling factors", "Assembling firmware compliance checklists", "Verifying RTOS scheduling parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Flash Memory Partitioning & Non-Volatile Storage (NVS)",
+    desc: "Store persistent Wi-Fi credentials and device calibration factors in EEPROM / NVS flash sectors.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Flash Memory Partitioning & Non-Volatile Storage (NVS).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Flash Memory Partitioning & Non-Volatile Storage (NVS) Validation",
+    eDesc: "Implement a JavaScript validation function for Flash Memory Partitioning & Non-Volatile Storage (NVS).",
+    eStarter: "function iot_embTaskDay16(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay16 !== 'function') throw new Error('Function iot_embTaskDay16 not found');\nif (iot_embTaskDay16('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Flash Memory Partitioning & Non-Volatile Storage (NVS) Practice",
+    aDesc: "Write an auxiliary helper function for Flash Memory Partitioning & Non-Volatile Storage (NVS).",
+    aStarter: "function iot_embTaskDay16Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay16Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Firmware & RTOS compliance audit (Review)",
-    desc: "Review microcontroller architectures, evaluate ADC conversions scales, check GPIO registers bitmasks, and verify RTOS task priority preemptions. (Real world: Embedded QA leads run telemetry scans, checking firmware integrity checks.)",
-    syllabus: ["Reviewing ADC scaling factors", "Assembling firmware compliance checklists", "Verifying RTOS scheduling parameters"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Wi-Fi Provisioning & Station/AP Modes",
+    desc: "Configure ESP32 Wi-Fi station mode, softAP captive portals, and connect to secured enterprise WPA2 networks.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Wi-Fi Provisioning & Station/AP Modes.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Wi-Fi Provisioning & Station/AP Modes Validation",
+    eDesc: "Implement a JavaScript validation function for Wi-Fi Provisioning & Station/AP Modes.",
+    eStarter: "function iot_embTaskDay17(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay17 !== 'function') throw new Error('Function iot_embTaskDay17 not found');\nif (iot_embTaskDay17('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Wi-Fi Provisioning & Station/AP Modes Practice",
+    aDesc: "Write an auxiliary helper function for Wi-Fi Provisioning & Station/AP Modes.",
+    aStarter: "function iot_embTaskDay17Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay17Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Firmware & RTOS compliance audit (Review)",
-    desc: "Review microcontroller architectures, evaluate ADC conversions scales, check GPIO registers bitmasks, and verify RTOS task priority preemptions. (Real world: Embedded QA leads run telemetry scans, checking firmware integrity checks.)",
-    syllabus: ["Reviewing ADC scaling factors", "Assembling firmware compliance checklists", "Verifying standards validations"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "MQTT Client Implementation on Microcontrollers",
+    desc: "Connect to cloud MQTT brokers over TCP, format JSON sensor payloads, and publish at fixed intervals.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of MQTT Client Implementation on Microcontrollers.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: MQTT Client Implementation on Microcontrollers Validation",
+    eDesc: "Implement a JavaScript validation function for MQTT Client Implementation on Microcontrollers.",
+    eStarter: "function iot_embTaskDay18(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay18 !== 'function') throw new Error('Function iot_embTaskDay18 not found');\nif (iot_embTaskDay18('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: MQTT Client Implementation on Microcontrollers Practice",
+    aDesc: "Write an auxiliary helper function for MQTT Client Implementation on Microcontrollers.",
+    aStarter: "function iot_embTaskDay18Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay18Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Firmware & RTOS compliance audit (Review)",
-    desc: "Review microcontroller architectures, evaluate ADC conversions scales, check GPIO registers bitmasks, and verify RTOS task priority preemptions. (Real world: Embedded QA leads run telemetry scans, checking firmware integrity checks.)",
-    syllabus: ["Reviewing ADC scaling factors", "Assembling firmware compliance checklists", "Verifying standards validations"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "MQTT Topic Subscriptions & Remote Actuator Control",
+    desc: "Subscribe to command topics, parse incoming JSON action payloads, and trigger relay switches.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of MQTT Topic Subscriptions & Remote Actuator Control.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: MQTT Topic Subscriptions & Remote Actuator Control Validation",
+    eDesc: "Implement a JavaScript validation function for MQTT Topic Subscriptions & Remote Actuator Control.",
+    eStarter: "function iot_embTaskDay19(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay19 !== 'function') throw new Error('Function iot_embTaskDay19 not found');\nif (iot_embTaskDay19('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: MQTT Topic Subscriptions & Remote Actuator Control Practice",
+    aDesc: "Write an auxiliary helper function for MQTT Topic Subscriptions & Remote Actuator Control.",
+    aStarter: "function iot_embTaskDay19Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay19Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Firmware & RTOS compliance audit (Review)",
-    desc: "Review microcontroller architectures, evaluate ADC conversions scales, check GPIO registers bitmasks, and verify RTOS task priority preemptions. (Real world: Embedded QA leads run telemetry scans, checking firmware integrity checks.)",
-    syllabus: ["Reviewing ADC scaling factors", "Assembling firmware compliance checklists", "Verifying standards validations"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "TLS / SSL Encryption on Resource-Constrained Hardware",
+    desc: "Load X.509 root CA certificates in flash and establish secured TLS sockets with cloud endpoints.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of TLS / SSL Encryption on Resource-Constrained Hardware.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: TLS / SSL Encryption on Resource-Constrained Hardware Validation",
+    eDesc: "Implement a JavaScript validation function for TLS / SSL Encryption on Resource-Constrained Hardware.",
+    eStarter: "function iot_embTaskDay20(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay20 !== 'function') throw new Error('Function iot_embTaskDay20 not found');\nif (iot_embTaskDay20('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: TLS / SSL Encryption on Resource-Constrained Hardware Practice",
+    aDesc: "Write an auxiliary helper function for TLS / SSL Encryption on Resource-Constrained Hardware.",
+    aStarter: "function iot_embTaskDay20Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay20Aux !== 'function') throw new Error('Auxiliary function not found');"
   },
   {
-    title: "Final Capstone: Firmware & RTOS compliance audit (Review)",
-    desc: "Review microcontroller architectures, evaluate ADC conversions scales, check GPIO registers bitmasks, and verify RTOS task priority preemptions. (Real world: Embedded QA leads run telemetry scans, checking firmware integrity checks.)",
-    syllabus: ["Reviewing ADC scaling factors", "Assembling firmware compliance checklists", "Verifying standards validations"],
-    eTitle: "Exam: Final compliance audit review",
-    eDesc: "Not tested",
-    eStarter: "",
-    eHint: "",
-    eTest: "",
-    aTitle: "Assignment: Compliance score compiler",
-    aDesc: "Not tested",
-    aStarter: "",
-    aHint: "",
-    aTest: ""
+    title: "Over-the-Air (OTA) Firmware Updates",
+    desc: "Implement dual-bank flash memory partitioning, cryptographically verify binary signatures, and handle rollbacks.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Over-the-Air (OTA) Firmware Updates.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Over-the-Air (OTA) Firmware Updates Validation",
+    eDesc: "Implement a JavaScript validation function for Over-the-Air (OTA) Firmware Updates.",
+    eStarter: "function iot_embTaskDay21(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay21 !== 'function') throw new Error('Function iot_embTaskDay21 not found');\nif (iot_embTaskDay21('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Over-the-Air (OTA) Firmware Updates Practice",
+    aDesc: "Write an auxiliary helper function for Over-the-Air (OTA) Firmware Updates.",
+    aStarter: "function iot_embTaskDay21Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay21Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Sensor Calibration & Digital Filtering (Moving Average)",
+    desc: "Calibrate zero-offset sensor errors and apply windowed moving average and exponential smoothing filters.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Sensor Calibration & Digital Filtering (Moving Average).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Sensor Calibration & Digital Filtering (Moving Average) Validation",
+    eDesc: "Implement a JavaScript validation function for Sensor Calibration & Digital Filtering (Moving Average).",
+    eStarter: "function iot_embTaskDay22(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay22 !== 'function') throw new Error('Function iot_embTaskDay22 not found');\nif (iot_embTaskDay22('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Sensor Calibration & Digital Filtering (Moving Average) Practice",
+    aDesc: "Write an auxiliary helper function for Sensor Calibration & Digital Filtering (Moving Average).",
+    aStarter: "function iot_embTaskDay22Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay22Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Kalman Filter for IMU Sensor Fusion",
+    desc: "Fuse noisy accelerometer and gyroscope readings to compute accurate pitch and roll orientation angles.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Kalman Filter for IMU Sensor Fusion.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Kalman Filter for IMU Sensor Fusion Validation",
+    eDesc: "Implement a JavaScript validation function for Kalman Filter for IMU Sensor Fusion.",
+    eStarter: "function iot_embTaskDay23(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay23 !== 'function') throw new Error('Function iot_embTaskDay23 not found');\nif (iot_embTaskDay23('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Kalman Filter for IMU Sensor Fusion Practice",
+    aDesc: "Write an auxiliary helper function for Kalman Filter for IMU Sensor Fusion.",
+    aStarter: "function iot_embTaskDay23Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay23Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Hardware Interfaces: Relay Switches & Optoisolators",
+    desc: "Isolate high-voltage AC mains from microcontrollers using optical optocouplers and flyback diodes.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Hardware Interfaces: Relay Switches & Optoisolators.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Hardware Interfaces: Relay Switches & Optoisolators Validation",
+    eDesc: "Implement a JavaScript validation function for Hardware Interfaces: Relay Switches & Optoisolators.",
+    eStarter: "function iot_embTaskDay24(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay24 !== 'function') throw new Error('Function iot_embTaskDay24 not found');\nif (iot_embTaskDay24('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Hardware Interfaces: Relay Switches & Optoisolators Practice",
+    aDesc: "Write an auxiliary helper function for Hardware Interfaces: Relay Switches & Optoisolators.",
+    aStarter: "function iot_embTaskDay24Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay24Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Display Drivers (OLED SSD1306 / TFT ST7789)",
+    desc: "Render real-time sensor charts, graphical menus, and custom font bitmaps on SPI/I2C displays.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Display Drivers (OLED SSD1306 / TFT ST7789).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Display Drivers (OLED SSD1306 / TFT ST7789) Validation",
+    eDesc: "Implement a JavaScript validation function for Display Drivers (OLED SSD1306 / TFT ST7789).",
+    eStarter: "function iot_embTaskDay25(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay25 !== 'function') throw new Error('Function iot_embTaskDay25 not found');\nif (iot_embTaskDay25('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Display Drivers (OLED SSD1306 / TFT ST7789) Practice",
+    aDesc: "Write an auxiliary helper function for Display Drivers (OLED SSD1306 / TFT ST7789).",
+    aStarter: "function iot_embTaskDay25Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay25Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Hardware Debugging with Logic Analyzers & Oscilloscopes",
+    desc: "Decode I2C/SPI packet waveforms, measure signal rise times, and debug bus contention glitches.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Hardware Debugging with Logic Analyzers & Oscilloscopes.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Hardware Debugging with Logic Analyzers & Oscilloscopes Validation",
+    eDesc: "Implement a JavaScript validation function for Hardware Debugging with Logic Analyzers & Oscilloscopes.",
+    eStarter: "function iot_embTaskDay26(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay26 !== 'function') throw new Error('Function iot_embTaskDay26 not found');\nif (iot_embTaskDay26('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Hardware Debugging with Logic Analyzers & Oscilloscopes Practice",
+    aDesc: "Write an auxiliary helper function for Hardware Debugging with Logic Analyzers & Oscilloscopes.",
+    aStarter: "function iot_embTaskDay26Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay26Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Industrial Modbus RTU & RS-485 Communication",
+    desc: "Interface with factory PLCs using differential RS-485 transceivers and Modbus register maps.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Industrial Modbus RTU & RS-485 Communication.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Industrial Modbus RTU & RS-485 Communication Validation",
+    eDesc: "Implement a JavaScript validation function for Industrial Modbus RTU & RS-485 Communication.",
+    eStarter: "function iot_embTaskDay27(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay27 !== 'function') throw new Error('Function iot_embTaskDay27 not found');\nif (iot_embTaskDay27('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Industrial Modbus RTU & RS-485 Communication Practice",
+    aDesc: "Write an auxiliary helper function for Industrial Modbus RTU & RS-485 Communication.",
+    aStarter: "function iot_embTaskDay27Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay27Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "CAN Bus Communication in Automotive Systems",
+    desc: "Structure CAN 2.0B message frames, arbitration IDs, bit stuffing, and interface with vehicle OBD-II ports.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of CAN Bus Communication in Automotive Systems.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: CAN Bus Communication in Automotive Systems Validation",
+    eDesc: "Implement a JavaScript validation function for CAN Bus Communication in Automotive Systems.",
+    eStarter: "function iot_embTaskDay28(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay28 !== 'function') throw new Error('Function iot_embTaskDay28 not found');\nif (iot_embTaskDay28('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: CAN Bus Communication in Automotive Systems Practice",
+    aDesc: "Write an auxiliary helper function for CAN Bus Communication in Automotive Systems.",
+    aStarter: "function iot_embTaskDay28Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay28Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Firmware Build Systems (CMake & PlatformIO)",
+    desc: "Automate multi-target firmware compilation, unit testing, and dependency management with PlatformIO.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Firmware Build Systems (CMake & PlatformIO).",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Firmware Build Systems (CMake & PlatformIO) Validation",
+    eDesc: "Implement a JavaScript validation function for Firmware Build Systems (CMake & PlatformIO).",
+    eStarter: "function iot_embTaskDay29(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay29 !== 'function') throw new Error('Function iot_embTaskDay29 not found');\nif (iot_embTaskDay29('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Firmware Build Systems (CMake & PlatformIO) Practice",
+    aDesc: "Write an auxiliary helper function for Firmware Build Systems (CMake & PlatformIO).",
+    aStarter: "function iot_embTaskDay29Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay29Aux !== 'function') throw new Error('Auxiliary function not found');"
+  },
+  {
+    title: "Capstone: Autonomous Industrial Telemetry Sensor Node",
+    desc: "Build a complete ESP32 sensor node with FreeRTOS, DMA sampling, deep sleep management, and OTA update support.",
+    syllabus: [
+      "Core Foundations: Principles and mechanisms of Capstone: Autonomous Industrial Telemetry Sensor Node.",
+      "Operational Architecture: Implementation details and execution flow.",
+      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    ],
+    eTitle: "Exam: Capstone: Autonomous Industrial Telemetry Sensor Node Validation",
+    eDesc: "Implement a JavaScript validation function for Capstone: Autonomous Industrial Telemetry Sensor Node.",
+    eStarter: "function iot_embTaskDay30(input) {\n    return Boolean(input);\n}",
+    eHint: "Verify that input exists and satisfies required parameters.",
+    eTest: "if (typeof iot_embTaskDay30 !== 'function') throw new Error('Function iot_embTaskDay30 not found');\nif (iot_embTaskDay30('valid') !== true) throw new Error('Expected true for valid input');",
+    aTitle: "Assignment: Capstone: Autonomous Industrial Telemetry Sensor Node Practice",
+    aDesc: "Write an auxiliary helper function for Capstone: Autonomous Industrial Telemetry Sensor Node.",
+    aStarter: "function iot_embTaskDay30Aux(data) {\n    return Boolean(data);\n}",
+    aHint: "Return true for valid data payload.",
+    aTest: "if (typeof iot_embTaskDay30Aux !== 'function') throw new Error('Auxiliary function not found');"
   }
 ];
 
-export const IOT_EMBEDDED_30_DAYS_QUESTS = IOT_EMBEDDED_30_DAYS_CONFIGS.flatMap((cfg, dIdx) => {
-  const dayNum = dIdx + 1;
-  const lecture = {
-    id: `embedded-basics-lecture-day-${dayNum}`,
-    title: `Day ${dayNum} Learning: ${cfg.title}`,
-    desc: cfg.desc,
-    type: "lecture" as const,
-    requiresAvatar: true,
-    syllabus: cfg.syllabus,
-    skillCategory: "theory" as const,
-    xp: 150,
-    pins: 5
-  };
-  if (dayNum === 1) {
-    return [
-      lecture,
-      {
-        id: `embedded-basics-lecture2-day-1`,
-        title: `Day 1 Deep Dive: Syntax, Execution Rules, and Line-by-Line Breakdown`,
-        desc: `In-depth step-by-step breakdown of Day 1 concepts, memory layout, and execution mechanics. ${cfg.desc}`,
-        type: "lecture" as const,
-        requiresAvatar: true,
-        syllabus: cfg.syllabus,
-        skillCategory: "theory" as const,
-        xp: 150,
-        pins: 5
-      },
-      {
-        id: `embedded-basics-lecture3-day-1`,
-        title: `Day 1 Workshop: Real-World Industry Context & Visualization Guide`,
-        desc: `Practical visualization guide and real-world system architecture context for Day 1. ${cfg.desc}`,
-        type: "lecture" as const,
-        requiresAvatar: true,
-        syllabus: cfg.syllabus,
-        skillCategory: "theory" as const,
-        xp: 150,
-        pins: 5
-      }
-    ];
-  }
-  if (dayNum === 2) {
-    return [
-      lecture,
-      {
-        id: `embedded-basics-lecture2-day-2`,
-        title: `Day 2 Deep Dive: Flow Control, Logic Branching, and Execution Paths`,
-        desc: `In-depth line-by-line mechanics of conditionals, loops, and memory execution state. ${cfg.desc}`,
-        type: "lecture" as const,
-        requiresAvatar: true,
-        syllabus: cfg.syllabus,
-        skillCategory: "theory" as const,
-        xp: 150,
-        pins: 5
-      },
-      {
-        id: `embedded-basics-lecture3-day-2`,
-        title: `Day 2 Workshop: Practical Code Workshop & Edge Case Pitfall Warnings`,
-        desc: `Practical code workshop analyzing common edge cases, off-by-one errors, and production traps. ${cfg.desc}`,
-        type: "lecture" as const,
-        requiresAvatar: true,
-        syllabus: cfg.syllabus,
-        skillCategory: "theory" as const,
-        xp: 150,
-        pins: 5
-      }
-    ];
-  }
-  return buildEnrichedDayQuests('embedded-basics', dayNum, cfg);
-});
+export const IOT_EMBEDDED_30_DAYS_QUESTS = IOT_EMBEDDED_30_DAYS_CONFIGS.flatMap((cfg, i) =>
+  buildEnrichedDayQuests('iot-emb', i + 1, cfg)
+);

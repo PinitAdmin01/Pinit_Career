@@ -4,6 +4,7 @@ import { Btn, Input, Card, Spinner, EmptyState, Badge } from '../_legacy/dsai/UI
 import { toast } from '@/lib/store/useAppStore';
 import { api } from '@/lib/api/client';
 import { subscribeToDirectMessages } from '@/lib/supabaseService';
+import { inboxSyncService } from '@/lib/chat/inboxSyncService';
 
 const SEM_TABS = ['All', 'Sem 1', 'Sem 2', 'Sem 3', 'Sem 4', 'Sem 5', 'Sem 6'];
 
@@ -492,12 +493,17 @@ export function ContactTab({ student }: any) {
       loadHistory();
     });
 
+    const unsubscribeInbox = inboxSyncService.subscribe(() => {
+      loadHistory();
+    });
+
     const timer = setInterval(() => {
       loadHistory();
     }, 4000);
 
     return () => {
       sub?.unsubscribe();
+      unsubscribeInbox();
       clearInterval(timer);
     };
   }, [loadHistory, student?.registerNumber]);
@@ -520,6 +526,17 @@ export function ContactTab({ student }: any) {
         sentAt: new Date().toISOString(),
       };
       await DB.save('student_messages', msgObj);
+      
+      // Real-time broadcast to teacher inbox
+      inboxSyncService.sendStudentMessage({
+        studentId: student.registerNumber || 'std_101',
+        studentName: student.name || 'Student',
+        studentEmail: student.email || `${student.registerNumber || 'student'}@campus.edu`,
+        course: student.course || 'Academic Batch',
+        topic: subj.trim(),
+        text: msg.trim()
+      });
+
       await api.post('/api/messages/direct', {
         recipientId: recipient,
         recipientName: recipientName,

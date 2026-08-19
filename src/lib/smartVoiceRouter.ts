@@ -29,15 +29,15 @@ export const CURRENT_RENDER_TIER: RenderTier =
 
 const DEFAULT_CLOUD_ENDPOINT =
   process.env.NEXT_PUBLIC_TTS_API_URL ||
-  "https://pinit-voice-service.onrender.com/api/v1/tts";
+  "https://pinit-voice-service.onrender.com/api/tts";
 
 function healthUrlFromTts(endpoint: string): string {
   try {
     const u = new URL(endpoint);
-    // .../api/v1/tts → .../api/v1/health/live
-    return `${u.origin}/api/v1/health/live`;
+    // .../api/tts → .../health
+    return `${u.origin}/health`;
   } catch {
-    return "https://pinit-voice-service.onrender.com/api/v1/health/live";
+    return "https://pinit-voice-service.onrender.com/health";
   }
 }
 
@@ -208,6 +208,7 @@ async function fetchCloudFastAPI(
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), timeoutMs);
       try {
+        console.log(`[SmartVoiceRouter] Initiating Cloud TTS -> ${url} | Voice: ${voice} | Speed: ${speed} | TextLen: ${text.length}`);
         const headers: Record<string, string> = { "Content-Type": "application/json" };
         if (bypassCache) {
           headers["X-Bypass-Cache"] = "true";
@@ -221,18 +222,21 @@ async function fetchCloudFastAPI(
         clearTimeout(timer);
         if (!response.ok) {
           const errText = await response.text().catch(() => "");
+          console.error(`[SmartVoiceRouter] TTS HTTP ${response.status} Error:`, errText.slice(0, 200));
           throw new Error(`TTS HTTP ${response.status}: ${errText.slice(0, 180)}`);
         }
         const durationHeader =
           response.headers.get("X-Audio-Duration") || response.headers.get("X-Duration");
-        const engine = response.headers.get("X-Voice-Engine") || undefined;
+        const engine = response.headers.get("X-Voice-Engine") || response.headers.get("X-Engine") || undefined;
         const durationSec = durationHeader
           ? parseFloat(durationHeader)
           : estimateDuration(text, speed);
         const audioBuffer = await response.arrayBuffer();
         if (!audioBuffer || audioBuffer.byteLength < 800) {
+          console.error(`[SmartVoiceRouter] Received corrupt/short audio buffer (${audioBuffer?.byteLength || 0} bytes)`);
           throw new Error("TTS returned empty/too-small audio");
         }
+        console.log(`[SmartVoiceRouter] Cloud TTS Success -> Bytes: ${audioBuffer.byteLength} | Duration: ${durationSec.toFixed(1)}s | Engine: ${engine || 'kokoro'}`);
         isServerWarm = true;
         lastWarmAt = Date.now();
         return { audioBuffer, durationSec, engine };
@@ -244,8 +248,8 @@ async function fetchCloudFastAPI(
 
     try {
       return await attempt(targetUrl);
-    } catch (primaryErr) {
-      console.warn("[SmartVoiceRouter] Primary TTS attempt failed, retrying once...", primaryErr);
+    } catch (primaryErr: any) {
+      console.warn("[SmartVoiceRouter] Primary TTS attempt failed:", primaryErr?.message || primaryErr, "Retrying with warm ping...");
       await pingRenderServer(true);
       return await attempt(DEFAULT_CLOUD_ENDPOINT);
     } finally {

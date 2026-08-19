@@ -14,6 +14,11 @@ const VRoidInterviewAvatar = dynamic(
   { ssr: false }
 );
 
+const SystemDesignWhiteboard = dynamic(
+  () => import('@/components/interview/SystemDesignWhiteboard'),
+  { ssr: false }
+);
+
 interface RadarChartProps {
   scores: {
     logic: number;
@@ -669,21 +674,41 @@ export default function InterviewPage() {
     setBoardLinks(prev => prev.filter(l => l.id !== linkId));
   };
 
-  // AI Architecture Analysis & Recruiter Follow-up Question
-  const analyzeSystemArchitecture = () => {
-    setIsAnalyzingArchitecture(true);
-    const nodeNames = boardNodes.map(n => n.type).join(', ');
-    const linkCount = boardLinks.length;
+  const [latestTopology, setLatestTopology] = useState<any>(null);
 
-    setTimeout(() => {
+  // AI Architecture Analysis & Recruiter Follow-up Question
+  const analyzeSystemArchitecture = async () => {
+    setIsAnalyzingArchitecture(true);
+    try {
+      const res = await fetch('/api/interview/evaluate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'systems',
+          topology: latestTopology,
+          domainStream,
+          domainSubTopic: activeTopicName,
+        }),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        const evalData = data.evaluation;
+        const spoken = evalData?.spokenFeedback || `Architecture review complete. Your system design achieved a grade of ${evalData?.verdict || 'A'}.`;
+        setMessages(prev => [...prev, { role: 'assistant', content: spoken }]);
+        speakWithAvatar(spoken, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
+      } else {
+        const fallbackMsg = `I evaluated your architecture for ${activeTopicName}. You have a solid distribution strategy. How do you handle failure tolerance and caching consistency when read traffic spikes?`;
+        setMessages(prev => [...prev, { role: 'assistant', content: fallbackMsg }]);
+        speakWithAvatar(fallbackMsg, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
+      }
+    } catch {
+      const fallbackMsg = `Architecture received. To optimize ${activeTopicName}, consider adding asynchronous queues and a low-latency caching tier.`;
+      setMessages(prev => [...prev, { role: 'assistant', content: fallbackMsg }]);
+      speakWithAvatar(fallbackMsg, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
+    } finally {
       setIsAnalyzingArchitecture(false);
-      const followUpMsg = domainStream === 'non_tech'
-        ? `I evaluated your business strategy canvas for ${activeTopicName}. You connected ${nodeNames} via ${linkCount} commercial strategy flows. How do you optimize customer acquisition cost (CAC), mitigate retention churn risk, and scale unit economics across this growth funnel?`
-        : `I evaluated your architecture design for ${activeTopicName}. You connected ${nodeNames} via ${linkCount} flow links. How do you handle failure tolerance, data replication, and rate-limiting if one of your database nodes goes down?`;
-      
-      setMessages(prev => [...prev, { role: 'assistant', content: followUpMsg }]);
-      speakWithAvatar(followUpMsg, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
-    }, 1200);
+    }
   };
 
   const renderLinks = () => {
@@ -1464,8 +1489,8 @@ export default function InterviewPage() {
           {/* Round 3: System Canvas + 25% Avatar Viewport (Random AI Evaluator & Proactive Mic) */}
           {activeStage === 'round3_systems' && (
             <div style={{ display: 'grid', gridTemplateColumns: '7.5fr 2.5fr', gap: 16, alignItems: 'stretch' }}>
-              {/* Left 75%: Canvas & Problem Statement */}
-              <div className="iv-panel" style={{ padding: 18, display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {/* Left 75%: Interactive System Architecture Whiteboard */}
+              <div className="iv-panel" style={{ padding: 18, display: 'flex', flexDirection: 'column', gap: 12 }}>
                 <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: 10, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div>
                     <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--teal-mid)' }}>ROUND 3 OF 4</span>
@@ -1478,90 +1503,18 @@ export default function InterviewPage() {
                         : `📋 Problem Statement: Design a high-availability, fault-tolerant system for ${activeTopicName} serving 100,000 RPS.`}
                     </p>
                   </div>
-                  <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                    <button
-                      onClick={() => setIsConnectModeActive(c => !c)}
-                      style={{
-                        background: isConnectModeActive ? 'var(--accent)' : 'var(--bg3)',
-                        border: isConnectModeActive ? '2px solid var(--accent)' : '1px solid var(--border)',
-                        color: isConnectModeActive ? '#fff' : 'var(--t1)', borderRadius: 8, padding: '6px 12px', fontSize: 11, fontWeight: 900, cursor: 'pointer'
-                      }}
-                    >
-                      {isConnectModeActive ? '🔗 Connect Mode ACTIVE' : '🔗 Connect Nodes Mode'}
-                    </button>
-
-                    <button
-                      onClick={analyzeSystemArchitecture}
-                      style={{ background: 'var(--purple)', border: 'none', color: '#fff', borderRadius: 8, padding: '6px 12px', fontSize: 11, fontWeight: 900, cursor: 'pointer' }}
-                    >
-                      {isAnalyzingArchitecture ? '🤖 Analyzing...' : (domainStream === 'non_tech' ? '🤖 Analyze Business Canvas' : '🤖 Analyze Architecture')}
-                    </button>
-
-                    <button onClick={() => proceedToNextStage('round4_star')} style={{ background: 'var(--accent)', border: 'none', color: '#fff', borderRadius: 8, padding: '6px 14px', fontSize: 11, fontWeight: 800, cursor: 'pointer' }}>
-                      Proceed to Round 4 ➔
-                    </button>
-                  </div>
+                  <button onClick={() => proceedToNextStage('round4_star')} style={{ background: 'var(--accent)', border: 'none', color: '#fff', borderRadius: 8, padding: '6px 14px', fontSize: 11, fontWeight: 800, cursor: 'pointer' }}>
+                    Proceed to Round 4 ➔
+                  </button>
                 </div>
 
-                {/* Component Palette Buttons */}
-                <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                  {(domainStream === 'non_tech'
-                    ? ['Target Segment', 'Ad Campaign', 'Landing Funnel', 'Checkout Engine', 'Revenue Model', 'Retention Loop', 'Logistics Hub', 'Supplier Network', 'Customer Support', 'Custom Node']
-                    : ['Client', 'Load Balancer', 'API Gateway', 'Microservice', 'Web Server', 'Redis Cache', 'Postgres DB', 'Kafka Queue', 'CDN', 'Custom Node']
-                  ).map(t => (
-                    <button key={t} onClick={() => addNodeToBoard(t)} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t1)', borderRadius: 6, padding: '4px 8px', fontSize: 10.5, fontWeight: 700, cursor: 'pointer' }}>
-                      + {t}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Draggable System Canvas */}
-                <div
-                  ref={canvasRef}
-                  className="iv-canvas-bg"
-                  data-board-canvas="true"
-                  onMouseMove={handleCanvasMouseMove}
-                  onMouseUp={handleCanvasMouseUp}
-                  onTouchMove={handleCanvasTouchMove}
-                  onTouchEnd={handleCanvasTouchEnd}
-                  style={{ position: 'relative', height: 420, borderRadius: 14, border: '1px solid var(--border)', overflow: 'hidden', cursor: draggingNodeId ? 'grabbing' : 'default' }}
-                >
-                  <svg style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none' }}>
-                    <defs>
-                      <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                        <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent-mid)" />
-                      </marker>
-                    </defs>
-                    {renderLinks()}
-                  </svg>
-
-                  {boardNodes.map(n => {
-                    const isSelected = selectedSourceNodeId === n.id;
-                    return (
-                      <div
-                        key={n.id}
-                        onMouseDown={(e) => handleNodeMouseDown(e, n.id)}
-                        onTouchStart={(e) => handleNodeTouchStart(e, n.id)}
-                        onClick={() => handleNodeClick(n.id)}
-                        style={{
-                          position: 'absolute', left: n.x, top: n.y, width: 130, padding: '8px 12px',
-                          background: isSelected ? 'var(--accent-light)' : 'var(--bg2)',
-                          border: isSelected ? '2px solid var(--accent)' : '1px solid var(--border)',
-                          borderRadius: 10, color: 'var(--t1)', fontSize: 11.5, fontWeight: 800, cursor: 'grab', userSelect: 'none',
-                          boxShadow: 'var(--shadow-sm)'
-                        }}
-                      >
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <span>{n.type}</span>
-                          <button onClick={(e) => { e.stopPropagation(); deleteNode(n.id); }} style={{ background: '#ef4444', border: 'none', color: '#fff', borderRadius: '50%', width: 16, height: 16, fontSize: 9, cursor: 'pointer' }}>✕</button>
-                        </div>
-                        <div style={{ fontSize: 9, color: isSelected ? 'var(--accent)' : 'var(--t3)', marginTop: 4 }}>
-                          {isSelected ? '🎯 Source Selected' : isConnectModeActive ? '🔗 Click to Connect' : '✊ Drag Node'}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
+                <SystemDesignWhiteboard
+                  domainStream={domainStream}
+                  activeTopic={activeTopicName}
+                  onTopologyChange={setLatestTopology}
+                  onAnalyze={analyzeSystemArchitecture}
+                  isAnalyzing={isAnalyzingArchitecture}
+                />
               </div>
 
               {/* Right 25%: 25% Screen Avatar Viewport (Random AI Evaluator) */}
