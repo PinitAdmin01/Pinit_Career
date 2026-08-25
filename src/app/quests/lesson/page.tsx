@@ -39,6 +39,13 @@ import { BCOM_OPERATIONS_PILOT_DAYS } from '@/lib/data/bcomOperationsPilotDays';
 import { BCOM_AI_TRANSFORMATION_PILOT_DAYS } from '@/lib/data/bcomAiTransformationPilotDays';
 import { COMPUTER_FUNDAMENTALS_PILOT_DAYS } from '@/lib/data/computerFundamentalsPilotDays';
 import { AI_PROMPT_LITERACY_PILOT_DAYS } from '@/lib/data/aiPromptLiteracyPilotDays';
+import { EXCEL_DATA_VIZ_PILOT_DAYS } from '@/lib/data/excelDataVizPilotDays';
+import { GIT_VERSION_CONTROL_PILOT_DAYS } from '@/lib/data/gitVersionControlPilotDays';
+import { SOFTSKILLS_PILOT_DAYS } from '@/lib/data/softskillsPilotDays';
+import { DESIGN_PILOT_DAYS } from '@/lib/data/designPilotDays';
+import { MOBILE_PILOT_DAYS } from '@/lib/data/mobilePilotDays';
+import { NLP_PILOT_DAYS } from '@/lib/data/nlpPilotDays';
+import { CYBER_PILOT_DAYS } from '@/lib/data/cybersecurityPilotDays';
 
 
 const AvatarMentorWidget = dynamic(() => import('@/components/avatar/AvatarMentorWidget'), { ssr: false });
@@ -62,41 +69,16 @@ const TEACHER_METADATA: Record<string, Teacher> = {
 export default function LessonPage() {
   return (
     <Suspense fallback={<div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)', color: 'var(--t1)' }}>Loading Quest Lesson...</div>}>
-      <LessonPageContent />
+      <LessonPageRouter />
     </Suspense>
   );
 }
 
-function LessonPageContent() {
-  const router = useRouter();
+function LessonPageRouter() {
   const searchParams = useSearchParams();
   const questId = searchParams.get('questId') || '';
-  const teacherId = searchParams.get('teacherId') || 'kashyap';
   const { user } = useAuth();
-  const { addCompletedQuest, isItemUnlocked, unlockItem, pins } = useCareerOS();
   const userId = user?.id || 'guest';
-  const returningRef = useRef(false);
-
-  const resolveQuestId = () => {
-    if (questId) return questId;
-    if (typeof window === 'undefined') return '';
-    return new URLSearchParams(window.location.search).get('questId') || '';
-  };
-
-  const finishLessonAndReturn = useCallback(() => {
-    if (returningRef.current) return;
-    returningRef.current = true;
-    const id = resolveQuestId();
-    if (id) {
-      const course = COURSES_REGISTRY.find(c => (c.quests || []).some(q => q.id === id));
-      addCompletedQuest(id, true, 150, course?.id);
-    }
-    toast.success('Stage Completed!', 'Heading back to the quest roadmap.');
-    stopSpeaking();
-    window.location.assign('/quests/');
-  }, [questId, addCompletedQuest]);
-
-  const teacher = TEACHER_METADATA[teacherId] || TEACHER_METADATA.kashyap;
 
   // Check COURSES_REGISTRY first for authoritative course curriculum
   let questData: any = null;
@@ -147,12 +129,42 @@ function LessonPageContent() {
     };
   }
 
-
-
   if (questData?.type === 'coding' || (questId && (questId.includes('-exam-') || questId.includes('-assign-')))) {
     return <QuestWorkspaceClient questId={questId} />;
   }
 
+  return <LessonPageContent questId={questId} questData={questData} />;
+}
+
+function LessonPageContent({ questId, questData }: { questId: string; questData: any }) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const teacherId = searchParams.get('teacherId') || 'kashyap';
+  const { user } = useAuth();
+  const { addCompletedQuest, isItemUnlocked, unlockItem, pins } = useCareerOS();
+  const userId = user?.id || 'guest';
+  const returningRef = useRef(false);
+
+  const resolveQuestId = () => {
+    if (questId) return questId;
+    if (typeof window === 'undefined') return '';
+    return new URLSearchParams(window.location.search).get('questId') || '';
+  };
+
+  const finishLessonAndReturn = useCallback(() => {
+    if (returningRef.current) return;
+    returningRef.current = true;
+    const id = resolveQuestId();
+    if (id) {
+      const course = COURSES_REGISTRY.find(c => (c.quests || []).some(q => q.id === id));
+      addCompletedQuest(id, true, 150, course?.id);
+    }
+    toast.success('Stage Completed!', 'Heading back to the quest roadmap.');
+    stopSpeaking();
+    window.location.assign('/quests/');
+  }, [questId, addCompletedQuest]);
+
+  const teacher = TEACHER_METADATA[teacherId] || TEACHER_METADATA.kashyap;
   const syllabus = (questData && Array.isArray(questData.syllabus)) ? questData.syllabus : [];
   const [currentSlide, setCurrentSlide] = useState(0);
   const currentSlideRef = useRef(currentSlide);
@@ -179,6 +191,9 @@ function LessonPageContent() {
 
   const [isRecording, setIsRecording] = useState(false);
   const [confettiParticles, setConfettiParticles] = useState<any[]>([]);
+
+  const [codeRunning, setCodeRunning] = useState<Record<number, boolean>>({});
+  const [codeOutputs, setCodeOutputs] = useState<Record<number, string>>({});
 
   // Expose active slide code to window for global notebook drawer snapshot integration
   useEffect(() => {
@@ -345,9 +360,6 @@ function LessonPageContent() {
     }, 50);
   };
 
-  const [codeRunning, setCodeRunning] = useState<Record<number, boolean>>({});
-  const [codeOutputs, setCodeOutputs] = useState<Record<number, string>>({});
-
   const simulateCodeRun = (slideIdx: number, mockOutput?: string) => {
     if (codeRunning[slideIdx]) return;
     setCodeRunning(prev => ({ ...prev, [slideIdx]: true }));
@@ -401,6 +413,14 @@ function LessonPageContent() {
     const isFullstack = qLower.includes('fullstack') || (questData.title || '').toLowerCase().includes('fullstack') || (questData.title || '').toLowerCase().includes('full-stack');
     const isCloud = qLower.includes('cloud') || (questData.title || '').toLowerCase().includes('cloud') || (questData.title || '').toLowerCase().includes('aws');
     const isDevOps = qLower.includes('devops') || qLower.includes('docker') || qLower.includes('k8s') || qLower.includes('cicd') || (questData.title || '').toLowerCase().includes('devops');
+    const isGitVcs = qLower.includes('git') || qLower.includes('git_vcs') || qLower.includes('git-vcs') || qLower.includes('github') || qLower.includes('version_control') || qLower.includes('version-control') || (questData.title || '').toLowerCase().includes('git') || (questData.title || '').toLowerCase().includes('github') || (questData.title || '').toLowerCase().includes('version control') || (questData.title || '').toLowerCase().includes('merge conflict') || (questData.title || '').toLowerCase().includes('rebase') || (questData.title || '').toLowerCase().includes('pull request');
+    const isSoftSkills = qLower.includes('softskills') || qLower.includes('soft-skills') || qLower.includes('soft_skills') || qLower.includes('communication') || qLower.includes('interview') || (questData.title || '').toLowerCase().includes('communication') || (questData.title || '').toLowerCase().includes('interview') || (questData.title || '').toLowerCase().includes('bluf') || (questData.title || '').toLowerCase().includes('star method') || (questData.title || '').toLowerCase().includes('standup') || (questData.title || '').toLowerCase().includes('minto') || (questData.title || '').toLowerCase().includes('zopa') || (questData.title || '').toLowerCase().includes('batna');
+    const isDesign = qLower.includes('design') || qLower.includes('design_systems') || qLower.includes('ui_ux') || qLower.includes('tokens') || (questData.title || '').toLowerCase().includes('design') || (questData.title || '').toLowerCase().includes('typography') || (questData.title || '').toLowerCase().includes('spacing') || (questData.title || '').toLowerCase().includes('atomic') || (questData.title || '').toLowerCase().includes('wcag') || (questData.title || '').toLowerCase().includes('contrast') || (questData.title || '').toLowerCase().includes('storybook');
+    const isMobile = qLower.includes('mobile') || qLower.includes('react_native') || qLower.includes('react-native') || qLower.includes('mobile_dev') || qLower.includes('expo') || (questData.title || '').toLowerCase().includes('mobile') || (questData.title || '').toLowerCase().includes('react native') || (questData.title || '').toLowerCase().includes('reanimated') || (questData.title || '').toLowerCase().includes('hermes') || (questData.title || '').toLowerCase().includes('faceid') || (questData.title || '').toLowerCase().includes('maestro');
+    const isNlp = qLower.includes('nlp') || qLower.includes('computational_linguistics') || qLower.includes('language_model') || (questData.title || '').toLowerCase().includes('nlp') || (questData.title || '').toLowerCase().includes('natural language') || (questData.title || '').toLowerCase().includes('computational linguistics') || (questData.title || '').toLowerCase().includes('word2vec') || (questData.title || '').toLowerCase().includes('viterbi') || (questData.title || '').toLowerCase().includes('attention') || (questData.title || '').toLowerCase().includes('pos tagging') || (questData.title || '').toLowerCase().includes('bpe');
+    const isCyber = qLower.includes('cyber') || qLower.includes('cybersecurity') || qLower.includes('infosec') || (questData.title || '').toLowerCase().includes('cybersecurity') || (questData.title || '').toLowerCase().includes('stride') || (questData.title || '').toLowerCase().includes('sqli') || (questData.title || '').toLowerCase().includes('csrf') || (questData.title || '').toLowerCase().includes('argon2id') || (questData.title || '').toLowerCase().includes('x.509') || (questData.title || '').toLowerCase().includes('snort') || (questData.title || '').toLowerCase().includes('zero trust');
+    const isExcelDataViz = qLower.includes('excel') || qLower.includes('excel_viz') || qLower.includes('excel-viz') || qLower.includes('spreadsheet') || (questData.title || '').toLowerCase().includes('excel') || (questData.title || '').toLowerCase().includes('spreadsheet') || (questData.title || '').toLowerCase().includes('vlookup') || (questData.title || '').toLowerCase().includes('xlookup') || (questData.title || '').toLowerCase().includes('pivot table') || (questData.title || '').toLowerCase().includes('power query') || (questData.title || '').toLowerCase().includes('data analysis');
+    const isAiPromptLiteracy = qLower.includes('ai_prompt') || qLower.includes('ai-prompt') || qLower.includes('prompt_literacy') || qLower.includes('prompt_engineering') || (questData.title || '').toLowerCase().includes('prompt literacy') || (questData.title || '').toLowerCase().includes('everyday ai') || (questData.title || '').toLowerCase().includes('prompt engineering') || (questData.title || '').toLowerCase().includes('few-shot') || (questData.title || '').toLowerCase().includes('chain-of-thought') || (questData.title || '').toLowerCase().includes('midjourney') || (questData.title || '').toLowerCase().includes('whisper');
     const isComputerFundamentals = qLower.includes('comp_fund') || qLower.includes('comp-fund') || qLower.includes('computer_fundamentals') || qLower.includes('digital_productivity') || (questData.title || '').toLowerCase().includes('computer literacy') || (questData.title || '').toLowerCase().includes('os fundamentals') || (questData.title || '').toLowerCase().includes('von neumann') || (questData.title || '').toLowerCase().includes('chmod') || (questData.title || '').toLowerCase().includes('shannon entropy') || (questData.title || '').toLowerCase().includes('3-2-1 backup');
     const isAiTransformation = qLower.includes('bcom_ait') || qLower.includes('bcom-ait') || qLower.includes('digital_transformation') || qLower.includes('transformation') || (questData.title || '').toLowerCase().includes('digital transformation') || (questData.title || '').toLowerCase().includes('transformation') || (questData.title || '').toLowerCase().includes('create framework') || (questData.title || '').toLowerCase().includes('4/5ths') || (questData.title || '').toLowerCase().includes('kotter') || (questData.title || '').toLowerCase().includes('finops');
     const isOperations = qLower.includes('bcom_ops') || qLower.includes('bcom-ops') || qLower.includes('operations') || qLower.includes('supplychain') || qLower.includes('compliance') || (questData.title || '').toLowerCase().includes('operations') || (questData.title || '').toLowerCase().includes('supply chain') || (questData.title || '').toLowerCase().includes('compliance') || (questData.title || '').toLowerCase().includes('sipoc') || (questData.title || '').toLowerCase().includes('eoq') || (questData.title || '').toLowerCase().includes('oee') || (questData.title || '').toLowerCase().includes('dmaic') || (questData.title || '').toLowerCase().includes('otif') || (questData.title || '').toLowerCase().includes('tpm') || (questData.title || '').toLowerCase().includes('mrp');
@@ -442,6 +462,22 @@ function LessonPageContent() {
       pilotDay = CLOUD_PILOT_DAYS.find(p => p.day === dayNum) || null;
     } else if (isDevOps && dayNum > 0) {
       pilotDay = DEVOPS_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isGitVcs && dayNum > 0) {
+      pilotDay = GIT_VERSION_CONTROL_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isSoftSkills && dayNum > 0) {
+      pilotDay = SOFTSKILLS_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isDesign && dayNum > 0) {
+      pilotDay = DESIGN_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isMobile && dayNum > 0) {
+      pilotDay = MOBILE_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isNlp && dayNum > 0) {
+      pilotDay = NLP_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isCyber && dayNum > 0) {
+      pilotDay = CYBER_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isExcelDataViz && dayNum > 0) {
+      pilotDay = EXCEL_DATA_VIZ_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isAiPromptLiteracy && dayNum > 0) {
+      pilotDay = AI_PROMPT_LITERACY_PILOT_DAYS.find(p => p.day === dayNum) || null;
     } else if (isComputerFundamentals && dayNum > 0) {
       pilotDay = COMPUTER_FUNDAMENTALS_PILOT_DAYS.find(p => p.day === dayNum) || null;
     } else if (isAiTransformation && dayNum > 0) {
@@ -509,7 +545,43 @@ function LessonPageContent() {
         }
 
         const codeExample = runnable ? runnable.initialCode : (syntax ? syntax.codeSnippet : '');
-        const runnerPrefix = isPython ? '🐍 Python 3 Executing' : (isReact ? '⚛️ React Node Sandbox' : (isSQL ? '🗄️ SQLite Engine' : (isDSA ? '🔢 DSA Node Sandbox' : (isFullstack ? '🌐 Fullstack Node/Next Sandbox' : (isCloud ? '☁️ AWS Cloud Simulator' : (isDevOps ? '🚀 DevOps Pipeline Simulator' : (isComputerFundamentals ? '💻 Computer Literacy & OS Fundamentals Sandbox' : (isAiTransformation ? '🤖 AI & Digital Transformation for Business Simulator' : (isOperations ? '⚙️ Operations, Supply Chain & Business Compliance Simulator' : (isSalesCrm ? '🤝 Sales, Customer Success & CRM Simulator' : (isEntrepreneurship ? '💡 Entrepreneurship & Business Management Simulator' : (isEcommerce ? '🛒 E-Commerce & Digital Business Simulator' : (isDigitalMarketing ? '🚀 Digital Marketing & Growth Strategy Simulator' : (isMarketing ? '🎯 Marketing & Brand Management Simulator' : (isAnalytics ? '📊 Business Analytics & Decision Intelligence Simulator' : (isFinance ? '📈 Business Finance & Investment Simulator' : (isAccounting ? '📊 Digital Accounting & ERP Simulator' : (isQuant ? '📈 Quantitative Trading & Low-Latency Simulator' : (isIotSecurity ? '🔒 IoT Security & Root of Trust Simulator' : (isIotEdge ? '🧠 Edge AI & TinyML TFLM Simulator' : (isAI ? '🤖 AI & LLM Engine Simulator' : (isDistributed ? '🌐 Distributed Systems Simulator' : (isIotNet ? '📶 IoT Radio Protocol Simulator' : (isIoT ? '🔌 Embedded MCU Simulator' : (isGraphics3D ? '🔮 WebGL2 3D Shader Sandbox' : (isBlockchain ? '🪙 EVM Web3 & Solidity Simulator' : '⚙️ Javac compiling'))))))))))))))))))))))))));
+        let runnerPrefix = '⚙️ Javac compiling';
+        if (isPython) runnerPrefix = '🐍 Python 3 Executing';
+        else if (isReact) runnerPrefix = '⚛️ React Node Sandbox';
+        else if (isSQL) runnerPrefix = '🗄️ SQLite Engine';
+        else if (isDSA) runnerPrefix = '🔢 DSA Node Sandbox';
+        else if (isFullstack) runnerPrefix = '🌐 Fullstack Node/Next Sandbox';
+        else if (isCloud) runnerPrefix = '☁️ AWS Cloud Simulator';
+        else if (isDevOps) runnerPrefix = '🚀 DevOps Pipeline Simulator';
+        else if (isGitVcs) runnerPrefix = '🐙 Git, GitHub & Version Control Sandbox';
+        else if (isSoftSkills) runnerPrefix = '🗣️ Professional Tech Communication & Interview Sandbox';
+        else if (isDesign) runnerPrefix = '🎨 UI/UX Design Systems & Visual Frontend Sandbox';
+        else if (isMobile) runnerPrefix = '📱 Mobile Application Development & React Native Sandbox';
+        else if (isNlp) runnerPrefix = '📚 Natural Language Processing & LLM Infrastructure Sandbox';
+        else if (isCyber) runnerPrefix = '🛡️ Cybersecurity Principles & Secure Systems Sandbox';
+        else if (isExcelDataViz) runnerPrefix = '📊 Excel & Spreadsheet Data Analysis Sandbox';
+        else if (isAiPromptLiteracy) runnerPrefix = '🤖 Everyday AI Literacy & Prompt Engineering Sandbox';
+        else if (isComputerFundamentals) runnerPrefix = '💻 Computer Literacy & OS Fundamentals Sandbox';
+        else if (isAiTransformation) runnerPrefix = '🤖 AI & Digital Transformation for Business Simulator';
+        else if (isOperations) runnerPrefix = '⚙️ Operations, Supply Chain & Business Compliance Simulator';
+        else if (isSalesCrm) runnerPrefix = '🤝 Sales, Customer Success & CRM Simulator';
+        else if (isEntrepreneurship) runnerPrefix = '💡 Entrepreneurship & Business Management Simulator';
+        else if (isEcommerce) runnerPrefix = '🛒 E-Commerce & Digital Business Simulator';
+        else if (isDigitalMarketing) runnerPrefix = '🚀 Digital Marketing & Growth Strategy Simulator';
+        else if (isMarketing) runnerPrefix = '🎯 Marketing & Brand Management Simulator';
+        else if (isAnalytics) runnerPrefix = '📊 Business Analytics & Decision Intelligence Simulator';
+        else if (isFinance) runnerPrefix = '📈 Business Finance & Investment Simulator';
+        else if (isAccounting) runnerPrefix = '📊 Digital Accounting & ERP Simulator';
+        else if (isQuant) runnerPrefix = '📈 Quantitative Trading & Low-Latency Simulator';
+        else if (isIotSecurity) runnerPrefix = '🔒 IoT Security & Root of Trust Simulator';
+        else if (isIotEdge) runnerPrefix = '🧠 Edge AI & TinyML TFLM Simulator';
+        else if (isAI) runnerPrefix = '🤖 AI & LLM Engine Simulator';
+        else if (isDistributed) runnerPrefix = '🌐 Distributed Systems Simulator';
+        else if (isIotNet) runnerPrefix = '📶 IoT Radio Protocol Simulator';
+        else if (isIoT) runnerPrefix = '🔌 Embedded MCU Simulator';
+        else if (isGraphics3D) runnerPrefix = '🔮 WebGL2 3D Shader Sandbox';
+        else if (isBlockchain) runnerPrefix = '🪙 EVM Web3 & Solidity Simulator';
+
         const mockOutput = runnable ? `${runnerPrefix} ${runnable.filename}...\n>>> ${runnable.expectedOutput.replace(/\n/g, '\n>>> ')}\n[SUCCESS] Code executed with 0 errors.` : '';
 
         const diag = block.diagnosticCheck;

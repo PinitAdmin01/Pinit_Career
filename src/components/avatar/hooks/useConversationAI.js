@@ -304,28 +304,29 @@ RESPONSE:`;
     }
   }, []);
 
-  // Call AI API (configure with your provider)
+  // Call AI API via secure server-side LLM router
   const callAIAPI = useCallback(async (prompt) => {
     try {
-      // Example: Using Groq API
-      const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      const response = await fetch('/api/llm', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.REACT_APP_GROQ_API_KEY}`,
         },
         body: JSON.stringify({
-          model: 'mixtral-8x7b-32768',
+          skillCategory: 'soft-skills',
+          systemPrompt: 'You are an intelligent, empathetic AI career mentor at PinIT Career OS. Provide concise, helpful responses.',
           messages: [
             { role: 'user', content: prompt }
           ],
-          temperature: 0.7,
-          max_tokens: 200,
+          maxTokens: 200,
         }),
       });
 
-      const data = await response.json();
-      return data.choices[0].message.content;
+      if (response.ok) {
+        const data = await response.json();
+        return data.reply || data.choices?.[0]?.message?.content || 'I understand. Let us proceed with your learning journey.';
+      }
+      return 'I understand. How would you like to proceed with your practice session?';
     } catch (error) {
       console.error('API Error:', error);
       return 'I\'m having trouble processing that. Could you rephrase?';

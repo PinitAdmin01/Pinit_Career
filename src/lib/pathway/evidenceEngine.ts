@@ -26,14 +26,20 @@ export interface QualifiedEvidenceSummary {
   criticalFailures: string[];
 }
 
+function canonicalSort(val: any): any {
+  if (val === null || typeof val !== 'object') return val;
+  if (Array.isArray(val)) return val.map(canonicalSort);
+  return Object.keys(val).sort().reduce((acc: any, k) => {
+    acc[k] = canonicalSort(val[k]);
+    return acc;
+  }, {});
+}
+
 /**
  * Computes a deterministic canonical SHA-256 integrity hash for an evidence record.
  */
 export function generateEvidenceIntegrityHash(record: Omit<CompetencyEvidenceRecord, 'integrityHash'>): string {
-  const sortedArtifacts = record.artifacts ? Object.keys(record.artifacts).sort().reduce((acc: any, key) => {
-    acc[key] = (record.artifacts as any)[key];
-    return acc;
-  }, {}) : {};
+  const sortedArtifacts = record.artifacts ? canonicalSort(record.artifacts) : {};
 
   const canonicalPayload = JSON.stringify({
     competencyId: record.competencyId,

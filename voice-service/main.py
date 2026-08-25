@@ -96,6 +96,7 @@ async def root():
 async def favicon():
     return Response(status_code=204)
 
+@app.get("/health")
 @app.get("/api/v1/health")
 @app.get("/api/v1/health/live")
 async def health_live():

@@ -1,578 +1,609 @@
 import { buildEnrichedDayQuests, DayConfig } from './curriculumEnricher';
+import { CourseQuest } from './coursesData';
 
 export const MOBILE_30_DAYS_CONFIGS: DayConfig[] = [
   {
-    title: "Mobile Architecture & React Native Bridge",
-    desc: "Understand JavaScript runtime, shadow thread, UI thread, Hermes engine, and JSI architecture.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Mobile Architecture & React Native Bridge.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 1,
+    "title": "Mobile Architecture & React Native Bridge: JS Thread, Hermes & JSI",
+    "desc": "Master production mobile architecture: The 3-Thread Model (1. JavaScript Thread running business logic, 2. Shadow Thread calculating Yoga flexbox layout C++ nodes, 3. Main/UI Thread rendering native iOS UIKit / Android Views), Hermes Bytecode Compilation, and The JavaScript Interface (JSI) Direct C++ Memory Bridge.",
+    "syllabus": [
+      "The 3-thread execution model of React Native.",
+      "Hermes JavaScript engine bytecode compilation.",
+      "JSI C++ host objects vs legacy async JSON serialization bridges."
     ],
-    eTitle: "Exam: Mobile Architecture & React Native Bridge Validation",
-    eDesc: "Implement a JavaScript validation function for Mobile Architecture & React Native Bridge.",
-    eStarter: "function mobileTaskDay1(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay1 !== 'function') throw new Error('Function mobileTaskDay1 not found');\nif (mobileTaskDay1('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Mobile Architecture & React Native Bridge Practice",
-    aDesc: "Write an auxiliary helper function for Mobile Architecture & React Native Bridge.",
-    aStarter: "function mobileTaskDay1Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay1Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Mobile Architecture Runtime Bridge Classifier",
+    "eDesc": "Implement function classifyMobileBridgeExecution(targetThread, isJsiDirectCall) mapping threads (`'JS_THREAD'`, `'SHADOW_THREAD'`, `'UI_MAIN_THREAD'`) and certifying zero JSON serialization overhead when `isJsiDirectCall` is true.",
+    "eStarter": "function classifyMobileBridgeExecution(thread, isJsi) {\n  const validThreads = ['JS_THREAD', 'SHADOW_THREAD', 'UI_MAIN_THREAD'];\n  if (!validThreads.includes(thread)) throw new Error('Unknown thread');\n  const isZeroOverhead = isJsi === true;\n  return {\n    executingThread: thread,\n    isJsiDirectCall: isJsi,\n    isZeroSerializationOverhead: isZeroOverhead,\n    engine: 'Hermes',\n    status: isZeroOverhead ? 'JSI_DIRECT_MEMORY_INVOCATION_NOMINAL' : 'LEGACY_SERIALIZED_BRIDGE_OVERHEAD'\n  };\n}",
+    "eHint": "Check validThreads and isJsi === true.",
+    "eTest": "const jsi = classifyMobileBridgeExecution('JS_THREAD', true);\nconst legacy = classifyMobileBridgeExecution('UI_MAIN_THREAD', false);\nif (!jsi.isZeroSerializationOverhead || legacy.isZeroSerializationOverhead || jsi.status !== 'JSI_DIRECT_MEMORY_INVOCATION_NOMINAL') throw new Error('Mobile bridge classification failed');",
+    "aTitle": "React Native Execution Threads Count Formatter",
+    "aDesc": "Implement function getMobileArchitectureThreadsCount() returning `3`.",
+    "aStarter": "function getMobileArchitectureThreadsCount() { return 3; }",
+    "aHint": "Return 3.",
+    "aTest": "if (getMobileArchitectureThreadsCount() !== 3) throw new Error('Threads count check failed');"
   },
   {
-    title: "React Native Core Components & Layouts",
-    desc: "Structure mobile screens with View, Text, ScrollView, SafeAreaView, and Flexbox layouts.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of React Native Core Components & Layouts.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 2,
+    "title": "React Native Core Components & Layouts: View, Text & SafeAreaView",
+    "desc": "Structure native screens: Core Components (`View` as native `UIView`/`ViewGroup`, `Text` with strict nested text rules, `Image` with remote URI dimension contracts, `SafeAreaView` / `react-native-safe-area-context` notch handling), and Native Layout Props.",
+    "syllabus": [
+      "Mapping React Native core primitives to native iOS/Android views.",
+      "Strict text nesting invariant in React Native.",
+      "Handling device notches, home indicator bars, and dynamic safe area insets."
     ],
-    eTitle: "Exam: React Native Core Components & Layouts Validation",
-    eDesc: "Implement a JavaScript validation function for React Native Core Components & Layouts.",
-    eStarter: "function mobileTaskDay2(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay2 !== 'function') throw new Error('Function mobileTaskDay2 not found');\nif (mobileTaskDay2('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: React Native Core Components & Layouts Practice",
-    aDesc: "Write an auxiliary helper function for React Native Core Components & Layouts.",
-    aStarter: "function mobileTaskDay2Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay2Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Safe Area Inset Layout Calculator",
+    "eDesc": "Implement function calculateScreenContentHeight(screenHeight, topInset, bottomInset) calculating exact usable viewport height accounting for device notch and home indicator bar.",
+    "eStarter": "function calculateScreenContentHeight(totalH, top, bottom) {\n  const usableHeight = totalH - (top + bottom);\n  return {\n    totalDeviceHeight: totalH,\n    topNotchInset: top,\n    bottomIndicatorInset: bottom,\n    usableContentHeight: usableHeight,\n    status: 'SAFE_AREA_CONTENT_HEIGHT_CALCULATED_NOMINAL'\n  };\n}",
+    "eHint": "usableHeight = totalH - (top + bottom).",
+    "eTest": "const iphone15 = calculateScreenContentHeight(852, 59, 34); // 852 - 93 = 759\nif (iphone15.usableContentHeight !== 759 || iphone15.status !== 'SAFE_AREA_CONTENT_HEIGHT_CALCULATED_NOMINAL') throw new Error('Safe area calculation failed');",
+    "aTitle": "React Native Root Text Tag Formatter",
+    "aDesc": "Implement function getRootTextComponentName() returning `'Text'`.",
+    "aStarter": "function getRootTextComponentName() { return 'Text'; }",
+    "aHint": "Return Text.",
+    "aTest": "if (getRootTextComponentName() !== 'Text') throw new Error('Component name check failed');"
   },
   {
-    title: "StyleSheet & Responsive Mobile Dimensions",
-    desc: "Create optimized StyleSheets, use pixel density scaling, and support orientation changes.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of StyleSheet & Responsive Mobile Dimensions.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 3,
+    "title": "StyleSheet & Flexbox Mobile Math: Yoga C++ Layout Engine",
+    "desc": "Master mobile Flexbox: React Native Defaults (`flexDirection: 'column'` by default, `alignItems: 'stretch'`), `StyleSheet.create()` performance caching, Density-Independent Pixels (dp/pt) vs Screen Scale Multipliers ($1\\times, 2\\times, 3\\times$), and Dynamic Window Dimensions (`useWindowDimensions`).",
+    "syllabus": [
+      "Differences between web CSS Flexbox and Yoga mobile Flexbox (column default).",
+      "Pixel density scaling and device pixel ratios (dp * scale = physical pixels).",
+      "Optimizing layout calculations with StyleSheet.create."
     ],
-    eTitle: "Exam: StyleSheet & Responsive Mobile Dimensions Validation",
-    eDesc: "Implement a JavaScript validation function for StyleSheet & Responsive Mobile Dimensions.",
-    eStarter: "function mobileTaskDay3(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay3 !== 'function') throw new Error('Function mobileTaskDay3 not found');\nif (mobileTaskDay3('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: StyleSheet & Responsive Mobile Dimensions Practice",
-    aDesc: "Write an auxiliary helper function for StyleSheet & Responsive Mobile Dimensions.",
-    aStarter: "function mobileTaskDay3Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay3Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Physical Pixel Resolution Scaler",
+    "eDesc": "Implement function calculatePhysicalPixels(densityIndependentPoints, pixelRatioScale) calculating exact physical device pixels for rendering high-DPI assets.",
+    "eStarter": "function calculatePhysicalPixels(dp, scale) {\n  const physical = Math.round(dp * scale);\n  return {\n    densityIndependentPoints: dp,\n    devicePixelRatio: scale,\n    physicalPixels: physical,\n    status: 'PHYSICAL_PIXELS_CALCULATED_NOMINAL'\n  };\n}",
+    "eHint": "physical = Math.round(dp * scale).",
+    "eTest": "const retina = calculatePhysicalPixels(100, 3.0); // 300px on @3x iPhone\nif (retina.physicalPixels !== 300 || retina.status !== 'PHYSICAL_PIXELS_CALCULATED_NOMINAL') throw new Error('Pixel calculation failed');",
+    "aTitle": "React Native Default Flex Direction Formatter",
+    "aDesc": "Implement function getDefaultFlexDirection() returning `'column'`.",
+    "aStarter": "function getDefaultFlexDirection() { return 'column'; }",
+    "aHint": "Return column.",
+    "aTest": "if (getDefaultFlexDirection() !== 'column') throw new Error('Flex direction check failed');"
   },
   {
-    title: "Touch Events & Pressable Feedback",
-    desc: "Handle touch taps, long presses, ripple effects on Android, and hitSlop touch boundaries.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Touch Events & Pressable Feedback.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 4,
+    "title": "Touch Responders & Pressable Physics: Hit Slop & Android Ripple",
+    "desc": "Build tactile mobile interactions: `Pressable` State Machine (`pressed` render prop), Expanding Touch Targets with `hitSlop: { top: 12, bottom: 12, left: 12, right: 12 }` for human thumbs ($48\\times48\\text{dp}$ minimum target), Android Material Ripple Effects (`android_ripple: { color: 'rgba(0,0,0,0.1)' }`), and Haptic Feedback (`expo-haptics`).",
+    "syllabus": [
+      "The Pressable component state lifecycle.",
+      "Expanding touch targets without changing visual layout using hitSlop.",
+      "Native platform feedback: iOS opacity transitions vs Android ripple shaders."
     ],
-    eTitle: "Exam: Touch Events & Pressable Feedback Validation",
-    eDesc: "Implement a JavaScript validation function for Touch Events & Pressable Feedback.",
-    eStarter: "function mobileTaskDay4(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay4 !== 'function') throw new Error('Function mobileTaskDay4 not found');\nif (mobileTaskDay4('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Touch Events & Pressable Feedback Practice",
-    aDesc: "Write an auxiliary helper function for Touch Events & Pressable Feedback.",
-    aStarter: "function mobileTaskDay4Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay4Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Touch Target & Hit Slop Minimum Dimension Auditor",
+    "eDesc": "Implement function auditTouchTargetCompliance(visualWidth, visualHeight, hitSlopHorizontal, hitSlopVertical) verifying total touch area reaches the Apple/Google accessibility minimum of $48\\times48\\text{dp}$.",
+    "eStarter": "function auditTouchTargetCompliance(w, h, hitH, hitV) {\n  const totalW = w + (hitH * 2);\n  const totalH = h + (hitV * 2);\n  const isCompliant = totalW >= 48 && totalH >= 48;\n  return {\n    visualDimensions: `${w}x${h}`,\n    effectiveTouchDimensions: `${totalW}x${totalH}`,\n    isTouchTargetCompliant: isCompliant,\n    status: isCompliant ? 'TOUCH_TARGET_ACCESSIBILITY_COMPLIANT_NOMINAL' : 'TOUCH_TARGET_DEFECT_TOO_SMALL'\n  };\n}",
+    "eHint": "Check (w + 2*hitH) >= 48 and (h + 2*hitV) >= 48.",
+    "eTest": "const pass = auditTouchTargetCompliance(24, 24, 12, 12); // 24 + 24 = 48x48\nconst fail = auditTouchTargetCompliance(20, 20, 5, 5); // 30x30 < 48\nif (!pass.isTouchTargetCompliant || fail.isTouchTargetCompliant || pass.status !== 'TOUCH_TARGET_ACCESSIBILITY_COMPLIANT_NOMINAL') throw new Error('Touch target audit failed');",
+    "aTitle": "Mobile Accessibility Minimum Touch Target dp Formatter",
+    "aDesc": "Implement function getMinimumTouchTargetDp() returning `48`.",
+    "aStarter": "function getMinimumTouchTargetDp() { return 48; }",
+    "aHint": "Return 48.",
+    "aTest": "if (getMinimumTouchTargetDp() !== 48) throw new Error('Target dp check failed');"
   },
   {
-    title: "FlatList & SectionList Virtualization",
-    desc: "Render 10,000 items smoothly using windowSize tuning, getItemLayout, and keyExtractors.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of FlatList & SectionList Virtualization.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 5,
+    "title": "⭐ MILESTONE 1: Complete React Native Bridge, Core Layouts & 60 FPS UI Thread Engine",
+    "desc": "Milestone 1: Build a complete foundational mobile layout and runtime execution engine: JSI bridge invocation classification, Safe area content height calculation, Physical pixel density scaling, and 48dp touch target accessibility auditing.",
+    "syllabus": [
+      "Synthesis of 3-thread mobile architecture, Safe Area Insets, Yoga flexbox math, and tactile touch interactions.",
+      "Foundational mobile engine milestone verification.",
+      "Milestone 1 certification."
     ],
-    eTitle: "Exam: FlatList & SectionList Virtualization Validation",
-    eDesc: "Implement a JavaScript validation function for FlatList & SectionList Virtualization.",
-    eStarter: "function mobileTaskDay5(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay5 !== 'function') throw new Error('Function mobileTaskDay5 not found');\nif (mobileTaskDay5('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: FlatList & SectionList Virtualization Practice",
-    aDesc: "Write an auxiliary helper function for FlatList & SectionList Virtualization.",
-    aStarter: "function mobileTaskDay5Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay5Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Mobile Foundations Master Engine",
+    "eDesc": "Implement function executeMobileFoundationsMaster(bridgeOk, safeAreaOk, pixelsOk, touchOk) certifying combined mobile foundations execution.",
+    "eStarter": "function executeMobileFoundationsMaster(b, s, p, t) {\n  const isNominal = b && s && p && t;\n  return {\n    jsiBridgeClassified: b,\n    safeAreaCalculated: s,\n    pixelsScaled: p,\n    touchTargetAudited: t,\n    foundationsCertified: isNominal,\n    engineStatus: isNominal ? 'MOBILE_FOUNDATIONS_MASTER_ACTIVE' : 'MOBILE_FOUNDATIONS_DEFECT'\n  };\n}",
+    "eHint": "Verify inputs and return active status.",
+    "eTest": "const res = executeMobileFoundationsMaster(true, true, true, true);\nif (res.engineStatus !== 'MOBILE_FOUNDATIONS_MASTER_ACTIVE') throw new Error('Milestone 1 mobile master failed');",
+    "aTitle": "Mobile Foundations Status Formatter",
+    "aDesc": "Implement function formatMobileFoundationsStatus(ok) returning `MOBILE_FOUNDATIONS_${ok ? 'ACTIVE' : 'OFFLINE'}`.",
+    "aStarter": "function formatMobileFoundationsStatus(o) { return `MOBILE_FOUNDATIONS_${o ? 'ACTIVE' : 'OFFLINE'}`; }",
+    "aHint": "Format status.",
+    "aTest": "if (formatMobileFoundationsStatus(true) !== 'MOBILE_FOUNDATIONS_ACTIVE') throw new Error('Status check failed');"
   },
   {
-    title: "React Navigation v6 (Stack & Bottom Tabs)",
-    desc: "Configure Native Stack navigators, bottom tab bars, drawer menus, and route parameter typing.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of React Navigation v6 (Stack & Bottom Tabs).",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 6,
+    "title": "Asset Bundling & Vector Icons: Expo Vector Icons & Local Images",
+    "desc": "Manage production mobile assets: Vector Icon Sets (`@expo/vector-icons` Ionicons, MaterialIcons, Feather), Static Asset Bundling with `require('./icon.png')`, Image Pre-fetching with `Image.prefetch()`, and Local Asset Caching across cold starts.",
+    "syllabus": [
+      "Integrating vector icon glyph fonts in native mobile runtimes.",
+      "Static vs remote network image caching mechanics.",
+      "Asset pre-loading during mobile splash screen display."
     ],
-    eTitle: "Exam: React Navigation v6 (Stack & Bottom Tabs) Validation",
-    eDesc: "Implement a JavaScript validation function for React Navigation v6 (Stack & Bottom Tabs).",
-    eStarter: "function mobileTaskDay6(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay6 !== 'function') throw new Error('Function mobileTaskDay6 not found');\nif (mobileTaskDay6('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: React Navigation v6 (Stack & Bottom Tabs) Practice",
-    aDesc: "Write an auxiliary helper function for React Navigation v6 (Stack & Bottom Tabs).",
-    aStarter: "function mobileTaskDay6Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay6Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Mobile Image Asset URI Type Classifier",
+    "eDesc": "Implement function classifyImageAssetSource(source) returning `'LOCAL_BUNDLED_ASSET'` for numeric require IDs and `'REMOTE_NETWORK_URI'` for `{ uri: 'https://...' }` objects.",
+    "eStarter": "function classifyImageAssetSource(src) {\n  if (typeof src === 'number') {\n    return { source: src, type: 'LOCAL_BUNDLED_ASSET', requiresNetwork: false, status: 'ASSET_SOURCE_CLASSIFIED_NOMINAL' };\n  }\n  if (typeof src === 'object' && src.uri) {\n    return { source: src.uri, type: 'REMOTE_NETWORK_URI', requiresNetwork: true, status: 'ASSET_SOURCE_CLASSIFIED_NOMINAL' };\n  }\n  throw new Error('Invalid image source');\n}",
+    "eHint": "Check typeof src === number or typeof src === object && src.uri.",
+    "eTest": "const local = classifyImageAssetSource(42);\nconst remote = classifyImageAssetSource({ uri: 'https://cdn.pinit.io/logo.png' });\nif (local.type !== 'LOCAL_BUNDLED_ASSET' || remote.type !== 'REMOTE_NETWORK_URI' || local.requiresNetwork) throw new Error('Asset classification failed');",
+    "aTitle": "Local Require Type Formatter",
+    "aDesc": "Implement function getLocalRequireType() returning `'number'`.",
+    "aStarter": "function getLocalRequireType() { return 'number'; }",
+    "aHint": "Return number.",
+    "aTest": "if (getLocalRequireType() !== 'number') throw new Error('Type check failed');"
   },
   {
-    title: "Mobile State Management & AsyncStorage",
-    desc: "Persist offline settings, theme preferences, and user credentials with encrypted MMKV storage.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Mobile State Management & AsyncStorage.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 7,
+    "title": "React Navigation: Native Stack Navigator & Screen Param Pipelines",
+    "desc": "Master mobile routing: React Navigation v6 / Expo Router Native Stack (`createNativeStackNavigator`), Native Screen Transitions (Slide from right on Android, smooth push/pop on iOS), Passing Strongly-Typed Route Parameters (`route.params`), and Screen Header Customization (`headerShown`, `headerTintColor`).",
+    "syllabus": [
+      "Native Stack navigator utilizing native platform view hierarchies (UINavigationController / Fragment).",
+      "Type-safe navigation route parameters.",
+      "Stack lifecycles and screen mounting / unmounting behaviors."
     ],
-    eTitle: "Exam: Mobile State Management & AsyncStorage Validation",
-    eDesc: "Implement a JavaScript validation function for Mobile State Management & AsyncStorage.",
-    eStarter: "function mobileTaskDay7(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay7 !== 'function') throw new Error('Function mobileTaskDay7 not found');\nif (mobileTaskDay7('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Mobile State Management & AsyncStorage Practice",
-    aDesc: "Write an auxiliary helper function for Mobile State Management & AsyncStorage.",
-    aStarter: "function mobileTaskDay7Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay7Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Navigation Stack Route Parameter Validator",
+    "eDesc": "Implement function validateStackNavigationRoute(routeName, routeParams) validating that destination screen exists in registry and contains required parameters.",
+    "eStarter": "function validateStackNavigationRoute(name, params) {\n  const registeredScreens = ['HomeScreen', 'CourseDetailScreen', 'ProfileScreen'];\n  const isRegistered = registeredScreens.includes(name);\n  const hasValidParams = typeof params === 'object' && params !== null;\n  const isApproved = isRegistered && hasValidParams;\n  return {\n    destinationRoute: name,\n    params,\n    isRouteValid: isApproved,\n    status: isApproved ? 'STACK_NAVIGATION_ROUTE_VALIDATED_NOMINAL' : 'INVALID_NAVIGATION_ROUTE'\n  };\n}",
+    "eHint": "Check name in registeredScreens and typeof params === object.",
+    "eTest": "const pass = validateStackNavigationRoute('CourseDetailScreen', { courseId: 'mobile-dev' });\nconst fail = validateStackNavigationRoute('UnknownScreen', {});\nif (!pass.isRouteValid || fail.isRouteValid || pass.status !== 'STACK_NAVIGATION_ROUTE_VALIDATED_NOMINAL') throw new Error('Navigation validation failed');",
+    "aTitle": "Native Stack Navigator Component Formatter",
+    "aDesc": "Implement function getNativeStackComponent() returning `'NativeStackNavigator'`.",
+    "aStarter": "function getNativeStackComponent() { return 'NativeStackNavigator'; }",
+    "aHint": "Return NativeStackNavigator.",
+    "aTest": "if (getNativeStackComponent() !== 'NativeStackNavigator') throw new Error('Component check failed');"
   },
   {
-    title: "Handling Mobile Keyboard & Screen Avoidance",
-    desc: "Prevent keyboard UI overlap using KeyboardAvoidingView, keyboard dismiss taps, and custom accessories.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Handling Mobile Keyboard & Screen Avoidance.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 8,
+    "title": "Bottom Tabs & Drawer Navigators: Tab Badges & Gesture Transitions",
+    "desc": "Build intuitive mobile app shell layouts: Bottom Tab Navigator (`createBottomTabNavigator`), Custom Tab Bar Icons & Dynamic Notification Badges (`tabBarBadge: 3`), Swipeable Drawer Navigation (`createDrawerNavigator`), and Nested Navigators (Stack inside Tab inside Drawer).",
+    "syllabus": [
+      "Bottom Tab navigation structure and active tab tint colors.",
+      "Notification badge count formatting (e.g. '99+').",
+      "Drawer gesture recognizers and gesture-driven animations."
     ],
-    eTitle: "Exam: Handling Mobile Keyboard & Screen Avoidance Validation",
-    eDesc: "Implement a JavaScript validation function for Handling Mobile Keyboard & Screen Avoidance.",
-    eStarter: "function mobileTaskDay8(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay8 !== 'function') throw new Error('Function mobileTaskDay8 not found');\nif (mobileTaskDay8('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Handling Mobile Keyboard & Screen Avoidance Practice",
-    aDesc: "Write an auxiliary helper function for Handling Mobile Keyboard & Screen Avoidance.",
-    aStarter: "function mobileTaskDay8Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay8Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Tab Bar Notification Badge Formatter",
+    "eDesc": "Implement function formatTabBarBadge(unreadCount) returning `undefined` for 0, exact count for $1 \\le c \\le 99$, and `'99+'` for $c > 99$.",
+    "eStarter": "function formatTabBarBadge(count) {\n  if (count <= 0) return { badge: undefined, hasBadge: false, status: 'TAB_BAR_BADGE_FORMATTED_NOMINAL' };\n  if (count > 99) return { badge: '99+', hasBadge: true, status: 'TAB_BAR_BADGE_FORMATTED_NOMINAL' };\n  return { badge: count, hasBadge: true, status: 'TAB_BAR_BADGE_FORMATTED_NOMINAL' };\n}",
+    "eHint": "If <= 0 undefined, if > 99 '99+', else count.",
+    "eTest": "const zero = formatTabBarBadge(0);\nconst five = formatTabBarBadge(5);\nconst big = formatTabBarBadge(150);\nif (zero.badge !== undefined || five.badge !== 5 || big.badge !== '99+' || five.status !== 'TAB_BAR_BADGE_FORMATTED_NOMINAL') throw new Error('Tab badge formatting failed');",
+    "aTitle": "Bottom Tab Default Position Formatter",
+    "aDesc": "Implement function getBottomTabPosition() returning `'bottom'`.",
+    "aStarter": "function getBottomTabPosition() { return 'bottom'; }",
+    "aHint": "Return bottom.",
+    "aTest": "if (getBottomTabPosition() !== 'bottom') throw new Error('Position check failed');"
   },
   {
-    title: "Vector Icons & Custom Fonts in Mobile",
-    desc: "Integrate Expo Vector Icons, custom OTF/TTF typography assets, and splash screens.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Vector Icons & Custom Fonts in Mobile.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 9,
+    "title": "Keyboard Handling & Forms in Mobile: KeyboardAvoidingView & Scroll Dismiss",
+    "desc": "Tame mobile soft keyboards: `KeyboardAvoidingView` behavior (`'padding'` on iOS vs `'height'` on Android), Dismissing Keyboards on Tap (`TouchableWithoutFeedback onPress={Keyboard.dismiss}`), `keyboardShouldPersistTaps=\"handled\"` on ScrollViews, and Input Focus Auto-Scrolling (`react-native-keyboard-aware-scroll-view`).",
+    "syllabus": [
+      "Core Foundations: Principles and runtime mechanics of Keyboard Handling & Forms in Mobile: KeyboardAvoidingView & Scroll Dismiss.",
+      "Practical Applications: Component architectures, native APIs, and physics animations.",
+      "Production Best Practices: Accessibility benchmarks, performance profiling, and app store deployment."
     ],
-    eTitle: "Exam: Vector Icons & Custom Fonts in Mobile Validation",
-    eDesc: "Implement a JavaScript validation function for Vector Icons & Custom Fonts in Mobile.",
-    eStarter: "function mobileTaskDay9(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay9 !== 'function') throw new Error('Function mobileTaskDay9 not found');\nif (mobileTaskDay9('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Vector Icons & Custom Fonts in Mobile Practice",
-    aDesc: "Write an auxiliary helper function for Vector Icons & Custom Fonts in Mobile.",
-    aStarter: "function mobileTaskDay9Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay9Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "KeyboardAvoidingView Behavior Platform Matcher",
+    "eDesc": "Implement function resolveKeyboardAvoidingBehavior(platformOs) mapping `'ios'` to `'padding'` and `'android'` to `'height'`.",
+    "eStarter": "function resolveKeyboardAvoidingBehavior(os) {\n  const behavior = os === 'ios' ? 'padding' : 'height';\n  return {\n    platformOs: os,\n    recommendedBehavior: behavior,\n    status: 'KEYBOARD_AVOIDING_BEHAVIOR_RESOLVED_NOMINAL'\n  };\n}",
+    "eHint": "If os === ios return padding else height.",
+    "eTest": "const ios = resolveKeyboardAvoidingBehavior('ios');\nconst android = resolveKeyboardAvoidingBehavior('android');\nif (ios.recommendedBehavior !== 'padding' || android.recommendedBehavior !== 'height' || ios.status !== 'KEYBOARD_AVOIDING_BEHAVIOR_RESOLVED_NOMINAL') throw new Error('Keyboard behavior resolution failed');",
+    "aTitle": "Keyboard Dismiss Function Name Formatter",
+    "aDesc": "Implement function getKeyboardDismissMethod() returning `'Keyboard.dismiss'`.",
+    "aStarter": "function getKeyboardDismissMethod() { return 'Keyboard.dismiss'; }",
+    "aHint": "Return Keyboard.dismiss.",
+    "aTest": "if (getKeyboardDismissMethod() !== 'Keyboard.dismiss') throw new Error('Method check failed');"
   },
   {
-    title: "Modal Dialogs & Action Sheets",
-    desc: "Present native iOS ActionSheets, Android dialog prompts, and sliding bottom sheet modals.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Modal Dialogs & Action Sheets.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 10,
+    "title": "Global State & Local Persistence in Mobile: Zustand & AsyncStorage / MMKV",
+    "desc": "Manage state across screen transitions: Lightweight Global Stores with Zustand, High-Speed Native Synchronous Storage with MMKV (30x faster than legacy AsyncStorage), Persisting Authentication Tokens across App Restarts, and Hydration State Checks.",
+    "syllabus": [
+      "Core Foundations: Principles and runtime mechanics of Global State & Local Persistence in Mobile: Zustand & AsyncStorage / MMKV.",
+      "Practical Applications: Component architectures, native APIs, and physics animations.",
+      "Production Best Practices: Accessibility benchmarks, performance profiling, and app store deployment."
     ],
-    eTitle: "Exam: Modal Dialogs & Action Sheets Validation",
-    eDesc: "Implement a JavaScript validation function for Modal Dialogs & Action Sheets.",
-    eStarter: "function mobileTaskDay10(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay10 !== 'function') throw new Error('Function mobileTaskDay10 not found');\nif (mobileTaskDay10('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Modal Dialogs & Action Sheets Practice",
-    aDesc: "Write an auxiliary helper function for Modal Dialogs & Action Sheets.",
-    aStarter: "function mobileTaskDay10Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay10Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Mobile Storage MMKV / AsyncStorage Key-Value Persister",
+    "eDesc": "Implement function serializeMobileStatePayload(stateKey, stateData) returning serialized JSON payload with timestamp and integrity checksum length.",
+    "eStarter": "function serializeMobileStatePayload(key, data) {\n  const serialized = JSON.stringify(data);\n  return {\n    storageKey: key,\n    payloadLength: serialized.length,\n    serializedJson: serialized,\n    status: 'MOBILE_STATE_PAYLOAD_SERIALIZED_NOMINAL'\n  };\n}",
+    "eHint": "serialized = JSON.stringify(data).",
+    "eTest": "const res = serializeMobileStatePayload('user_session', { userId: 101, token: 'jwt-abc' });\nif (!res.serializedJson.includes('jwt-abc') || res.status !== 'MOBILE_STATE_PAYLOAD_SERIALIZED_NOMINAL') throw new Error('Storage serialization failed');",
+    "aTitle": "High-Speed C++ Storage Engine Acronym Formatter",
+    "aDesc": "Implement function getFastStorageEngine() returning `'MMKV'`.",
+    "aStarter": "function getFastStorageEngine() { return 'MMKV'; }",
+    "aHint": "Return MMKV.",
+    "aTest": "if (getFastStorageEngine() !== 'MMKV') throw new Error('Engine check failed');"
   },
   {
-    title: "Network Requests & NetInfo Connectivity",
-    desc: "Monitor live WiFi/cellular connectivity changes and display offline warning banners.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Network Requests & NetInfo Connectivity.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 11,
+    "title": "Native Device APIs: Camera & Media Library Permissions",
+    "desc": "Access hardware sensors: `expo-camera` & `expo-image-picker`, Native Permission Request Lifecycle (`PermissionStatus.GRANTED | DENIED | UNDETERMINED`), Handling Permanent Permission Rejections with Linking to App Settings (`Linking.openSettings()`), and Image Compression ($0.7$ quality).",
+    "syllabus": [
+      "Core Foundations: Principles and runtime mechanics of Native Device APIs: Camera & Media Library Permissions.",
+      "Practical Applications: Component architectures, native APIs, and physics animations.",
+      "Production Best Practices: Accessibility benchmarks, performance profiling, and app store deployment."
     ],
-    eTitle: "Exam: Network Requests & NetInfo Connectivity Validation",
-    eDesc: "Implement a JavaScript validation function for Network Requests & NetInfo Connectivity.",
-    eStarter: "function mobileTaskDay11(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay11 !== 'function') throw new Error('Function mobileTaskDay11 not found');\nif (mobileTaskDay11('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Network Requests & NetInfo Connectivity Practice",
-    aDesc: "Write an auxiliary helper function for Network Requests & NetInfo Connectivity.",
-    aStarter: "function mobileTaskDay11Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay11Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Mobile Hardware Permission Flow Evaluator",
+    "eDesc": "Implement function evaluatePermissionFlow(permissionStatus, canAskAgain) determining if app can open Camera or must prompt user to open OS Settings.",
+    "eStarter": "function evaluatePermissionFlow(status, canAsk) {\n  if (status === 'GRANTED') {\n    return { canAccessHardware: true, action: 'PROCEED_CAMERA_CAPTURE', status: 'PERMISSION_GRANTED_NOMINAL' };\n  }\n  if (canAsk) {\n    return { canAccessHardware: false, action: 'REQUEST_PERMISSION_DIALOG', status: 'PERMISSION_PENDING_REQUEST' };\n  }\n  return { canAccessHardware: false, action: 'REDIRECT_TO_SYSTEM_SETTINGS', status: 'PERMISSION_DENIED_PERMANENTLY' };\n}",
+    "eHint": "If GRANTED -> PROCEED, if canAsk -> REQUEST, else REDIRECT.",
+    "eTest": "const granted = evaluatePermissionFlow('GRANTED', false);\nconst blocked = evaluatePermissionFlow('DENIED', false);\nif (!granted.canAccessHardware || blocked.canAccessHardware || blocked.action !== 'REDIRECT_TO_SYSTEM_SETTINGS') throw new Error('Permission evaluation failed');",
+    "aTitle": "Settings Linking Method Formatter",
+    "aDesc": "Implement function getOpenSettingsMethod() returning `'Linking.openSettings'`.",
+    "aStarter": "function getOpenSettingsMethod() { return 'Linking.openSettings'; }",
+    "aHint": "Return Linking.openSettings.",
+    "aTest": "if (getOpenSettingsMethod() !== 'Linking.openSettings') throw new Error('Method check failed');"
   },
   {
-    title: "Deep Linking & Universal URLs",
-    desc: "Handle custom URL schemes, Android App Links, and iOS Universal Links routing.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Deep Linking & Universal URLs.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 12,
+    "title": "Native Geolocation & Maps: Foreground vs Background GPS Tracking",
+    "desc": "Implement location-aware mobile features: `expo-location` GPS Coordinates (Latitude, Longitude, Altitude, Accuracy radius in meters), Foreground Permission (`LOCATION_FOREGROUND`) vs Background Geofencing (`LOCATION_BACKGROUND`), and Rendering Interactive Map Markers (`react-native-maps`).",
+    "syllabus": [
+      "Core Foundations: Principles and runtime mechanics of Native Geolocation & Maps: Foreground vs Background GPS Tracking.",
+      "Practical Applications: Component architectures, native APIs, and physics animations.",
+      "Production Best Practices: Accessibility benchmarks, performance profiling, and app store deployment."
     ],
-    eTitle: "Exam: Deep Linking & Universal URLs Validation",
-    eDesc: "Implement a JavaScript validation function for Deep Linking & Universal URLs.",
-    eStarter: "function mobileTaskDay12(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay12 !== 'function') throw new Error('Function mobileTaskDay12 not found');\nif (mobileTaskDay12('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Deep Linking & Universal URLs Practice",
-    aDesc: "Write an auxiliary helper function for Deep Linking & Universal URLs.",
-    aStarter: "function mobileTaskDay12Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay12Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "GPS Coordinate Distance & Accuracy Filter",
+    "eDesc": "Implement function filterAccurateGpsLocation(accuracyMeters, maxAllowedAccuracyMeters) accepting GPS fixes with accuracy $\\le 20\\text{m}$ to discard low-precision cell tower approximations.",
+    "eStarter": "function filterAccurateGpsLocation(accuracy, maxAllowed) {\n  const isAccurate = accuracy <= maxAllowed;\n  return {\n    accuracyMeters: accuracy,\n    maxAllowedAccuracy: maxAllowed,\n    isFixAccepted: isAccurate,\n    status: isAccurate ? 'GPS_LOCATION_FIX_ACCEPTED_NOMINAL' : 'GPS_ACCURACY_DEFECT_TOO_INACCURATE'\n  };\n}",
+    "eHint": "isAccurate = accuracy <= maxAllowed.",
+    "eTest": "const pass = filterAccurateGpsLocation(8.5, 20); // 8.5m accurate\nconst fail = filterAccurateGpsLocation(150, 20); // 150m cell tower\nif (!pass.isFixAccepted || fail.isFixAccepted || pass.status !== 'GPS_LOCATION_FIX_ACCEPTED_NOMINAL') throw new Error('GPS filter failed');",
+    "aTitle": "High Accuracy GPS Threshold Meters Formatter",
+    "aDesc": "Implement function getStandardGpsAccuracyThreshold() returning `20`.",
+    "aStarter": "function getStandardGpsAccuracyThreshold() { return 20; }",
+    "aHint": "Return 20.",
+    "aTest": "if (getStandardGpsAccuracyThreshold() !== 20) throw new Error('Threshold check failed');"
   },
   {
-    title: "Native Device Storage (SQLite & MMKV)",
-    desc: "Execute fast synchronous local database queries with MMKV and SQLite relational tables.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Native Device Storage (SQLite & MMKV).",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 13,
+    "title": "Native Biometrics Authentication: FaceID, TouchID & Biometric Keys",
+    "desc": "Secure mobile apps with hardware biometrics: `expo-local-authentication`, Hardware Availability Check (`hasHardwareAsync()`), Enrolled Biometrics Check (`isEnrolledAsync()`), Prompting FaceID / Fingerprint Modals, and Cryptographic Fallback to Device PIN.",
+    "syllabus": [
+      "Core Foundations: Principles and runtime mechanics of Native Biometrics Authentication: FaceID, TouchID & Biometric Keys.",
+      "Practical Applications: Component architectures, native APIs, and physics animations.",
+      "Production Best Practices: Accessibility benchmarks, performance profiling, and app store deployment."
     ],
-    eTitle: "Exam: Native Device Storage (SQLite & MMKV) Validation",
-    eDesc: "Implement a JavaScript validation function for Native Device Storage (SQLite & MMKV).",
-    eStarter: "function mobileTaskDay13(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay13 !== 'function') throw new Error('Function mobileTaskDay13 not found');\nif (mobileTaskDay13('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Native Device Storage (SQLite & MMKV) Practice",
-    aDesc: "Write an auxiliary helper function for Native Device Storage (SQLite & MMKV).",
-    aStarter: "function mobileTaskDay13Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay13Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Biometric Authentication Capability Auditor",
+    "eDesc": "Implement function auditBiometricAuthentication(hasHardware, isEnrolled, supportedTypes) certifying biometric login readiness.",
+    "eStarter": "function auditBiometricAuthentication(hardware, enrolled, types) {\n  const isReady = hardware && enrolled && Array.isArray(types) && types.length > 0;\n  return {\n    hardwareAvailable: hardware,\n    biometricsEnrolled: enrolled,\n    supportedBiometricTypes: types,\n    isBiometricsReady: isReady,\n    status: isReady ? 'BIOMETRIC_AUTHENTICATION_READY_NOMINAL' : 'BIOMETRIC_UNAVAILABLE'\n  };\n}",
+    "eHint": "isReady = hardware && enrolled && types.length > 0.",
+    "eTest": "const ready = auditBiometricAuthentication(true, true, ['FACIAL_RECOGNITION']);\nconst notEnrolled = auditBiometricAuthentication(true, false, ['FINGERPRINT']);\nif (!ready.isBiometricsReady || notEnrolled.isBiometricsReady || ready.status !== 'BIOMETRIC_AUTHENTICATION_READY_NOMINAL') throw new Error('Biometrics audit failed');",
+    "aTitle": "Apple Biometric Facial Recognition Name Formatter",
+    "aDesc": "Implement function getAppleBiometricName() returning `'FaceID'`.",
+    "aStarter": "function getAppleBiometricName() { return 'FaceID'; }",
+    "aHint": "Return FaceID.",
+    "aTest": "if (getAppleBiometricName() !== 'FaceID') throw new Error('Biometric name check failed');"
   },
   {
-    title: "App State Lifecycle (Active, Background, Inactive)",
-    desc: "Track app foreground/background transitions, pause video streams, and refresh stale data.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of App State Lifecycle (Active, Background, Inactive).",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 14,
+    "title": "Offline-First Storage & Local SQLite: Migrations & Optimistic Sync",
+    "desc": "Build resilient offline mobile architectures: `expo-sqlite` embedded relational database, Schema Migrations Table (`PRAGMA user_version`), Local SQLite CRUD Queries, Optimistic UI Updates, and Background Sync Queues for network reconnection.",
+    "syllabus": [
+      "Core Foundations: Principles and runtime mechanics of Offline-First Storage & Local SQLite: Migrations & Optimistic Sync.",
+      "Practical Applications: Component architectures, native APIs, and physics animations.",
+      "Production Best Practices: Accessibility benchmarks, performance profiling, and app store deployment."
     ],
-    eTitle: "Exam: App State Lifecycle (Active, Background, Inactive) Validation",
-    eDesc: "Implement a JavaScript validation function for App State Lifecycle (Active, Background, Inactive).",
-    eStarter: "function mobileTaskDay14(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay14 !== 'function') throw new Error('Function mobileTaskDay14 not found');\nif (mobileTaskDay14('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: App State Lifecycle (Active, Background, Inactive) Practice",
-    aDesc: "Write an auxiliary helper function for App State Lifecycle (Active, Background, Inactive).",
-    aStarter: "function mobileTaskDay14Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay14Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "SQLite Schema Migration Version Resolver",
+    "eDesc": "Implement function resolveSqliteMigration(currentDbVersion, targetAppVersion) determining if schema migration script must execute.",
+    "eStarter": "function resolveSqliteMigration(currVer, targetVer) {\n  const needsMigration = currVer < targetVer;\n  return {\n    currentDbVersion: currVer,\n    targetAppVersion: targetVer,\n    requiresMigration: needsMigration,\n    migrationStepsCount: Math.max(0, targetVer - currVer),\n    status: needsMigration ? 'SQLITE_SCHEMA_MIGRATION_REQUIRED' : 'SQLITE_SCHEMA_UP_TO_DATE_NOMINAL'\n  };\n}",
+    "eHint": "needsMigration = currVer < targetVer.",
+    "eTest": "const migrate = resolveSqliteMigration(1, 3); // needs 2 migrations\nconst current = resolveSqliteMigration(3, 3);\nif (!migrate.requiresMigration || current.requiresMigration || migrate.migrationStepsCount !== 2) throw new Error('SQLite migration resolver failed');",
+    "aTitle": "SQLite User Version PRAGMA Formatter",
+    "aDesc": "Implement function getSqliteVersionPragma() returning `'PRAGMA user_version'`.",
+    "aStarter": "function getSqliteVersionPragma() { return 'PRAGMA user_version'; }",
+    "aHint": "Return PRAGMA user_version.",
+    "aTest": "if (getSqliteVersionPragma() !== 'PRAGMA user_version') throw new Error('Pragma check failed');"
   },
   {
-    title: "Mobile Form Validation & Formik",
-    desc: "Handle multi-field mobile registration forms, secure text entry, and validation errors.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Mobile Form Validation & Formik.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 15,
+    "title": "⭐ MILESTONE 2: Complete Offline-First SQLite, AsyncStorage & Native Biometric Auth Engine",
+    "desc": "Milestone 2: Build a complete intermediate native device integration engine: Asset URI source classification, Stack navigation route parameter validation, Tab bar badge formatting, Keyboard avoiding behavior matching, Biometric readiness auditing, and SQLite schema migration resolution.",
+    "syllabus": [
+      "Core Foundations: Principles and runtime mechanics of ⭐ MILESTONE 2: Complete Offline-First SQLite, AsyncStorage & Native Biometric Auth Engine.",
+      "Practical Applications: Component architectures, native APIs, and physics animations.",
+      "Production Best Practices: Accessibility benchmarks, performance profiling, and app store deployment."
     ],
-    eTitle: "Exam: Mobile Form Validation & Formik Validation",
-    eDesc: "Implement a JavaScript validation function for Mobile Form Validation & Formik.",
-    eStarter: "function mobileTaskDay15(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay15 !== 'function') throw new Error('Function mobileTaskDay15 not found');\nif (mobileTaskDay15('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Mobile Form Validation & Formik Practice",
-    aDesc: "Write an auxiliary helper function for Mobile Form Validation & Formik.",
-    aStarter: "function mobileTaskDay15Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay15Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Native Capabilities Master Engine",
+    "eDesc": "Implement function executeNativeCapabilitiesMaster(assetOk, navOk, tabOk, kbOk, bioOk, sqliteOk) certifying combined native capabilities execution.",
+    "eStarter": "function executeNativeCapabilitiesMaster(a, n, t, k, b, s) {\n  const isNominal = a && n && t && k && b && s;\n  return {\n    assetsClassified: a,\n    navigationValidated: n,\n    tabBadgesFormatted: t,\n    keyboardResolved: k,\n    biometricsReady: b,\n    sqliteMigrated: s,\n    engineStatus: isNominal ? 'NATIVE_CAPABILITIES_MASTER_ACTIVE' : 'NATIVE_CAPABILITIES_DEFECT'\n  };\n}",
+    "eHint": "Verify inputs and return active status.",
+    "eTest": "const res = executeNativeCapabilitiesMaster(true, true, true, true, true, true);\nif (res.engineStatus !== 'NATIVE_CAPABILITIES_MASTER_ACTIVE') throw new Error('Milestone 2 native master failed');",
+    "aTitle": "Native Capabilities Master Status Formatter",
+    "aDesc": "Implement function getNativeCapabilitiesMasterStatus() returning `'NATIVE_CAPABILITIES_MASTER_ACTIVE'`.",
+    "aStarter": "function getNativeCapabilitiesMasterStatus() { return 'NATIVE_CAPABILITIES_MASTER_ACTIVE'; }",
+    "aHint": "Return status.",
+    "aTest": "if (getNativeCapabilitiesMasterStatus() !== 'NATIVE_CAPABILITIES_MASTER_ACTIVE') throw new Error('Status check failed');"
   },
   {
-    title: "Audio Playback & Sound Effects",
-    desc: "Load audio buffers, play background music, manage audio session interruptions, and speech synthesis.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Audio Playback & Sound Effects.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 16,
+    "title": "Reanimated 3: Shared Values, Worklets & UI Thread Animations",
+    "desc": "Achieve 60/120 FPS buttery smooth animations: React Native Reanimated 3 Architecture, Shared Values (`useSharedValue`), JavaScript Worklets executing directly on the UI Thread (`'worklet'`), Physics Springs (`withSpring({ damping: 15, stiffness: 100 })`), and `useAnimatedStyle`.",
+    "syllabus": [
+      "Core Foundations: Principles and runtime mechanics of Reanimated 3: Shared Values, Worklets & UI Thread Animations.",
+      "Practical Applications: Component architectures, native APIs, and physics animations.",
+      "Production Best Practices: Accessibility benchmarks, performance profiling, and app store deployment."
     ],
-    eTitle: "Exam: Audio Playback & Sound Effects Validation",
-    eDesc: "Implement a JavaScript validation function for Audio Playback & Sound Effects.",
-    eStarter: "function mobileTaskDay16(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay16 !== 'function') throw new Error('Function mobileTaskDay16 not found');\nif (mobileTaskDay16('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Audio Playback & Sound Effects Practice",
-    aDesc: "Write an auxiliary helper function for Audio Playback & Sound Effects.",
-    aStarter: "function mobileTaskDay16Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay16Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Reanimated 3 Spring Physics Damping Ratio Calculator",
+    "eDesc": "Implement function calculateSpringDampingRatio(damping, mass, stiffness) calculating damping ratio $\\zeta = \\frac{\\text{damping}}{2 \\sqrt{\\text{mass} \\times \\text{stiffness}}}$ classifying under-damped (bouncy $\\zeta < 1$) vs critically damped (no overshoot $\\zeta = 1$).",
+    "eStarter": "function calculateSpringDampingRatio(c, m, k) {\n  const criticalDamping = 2 * Math.sqrt(m * k);\n  const zeta = Number((c / criticalDamping).toFixed(2));\n  const isBouncy = zeta < 1.0;\n  return {\n    dampingCoefficient: c,\n    dampingRatioZeta: zeta,\n    isUnderDampedBouncy: isBouncy,\n    status: 'SPRING_PHYSICS_CALCULATED_NOMINAL'\n  };\n}",
+    "eHint": "zeta = c / (2 * Math.sqrt(m * k)).",
+    "eTest": "const bouncy = calculateSpringDampingRatio(10, 1, 100); // 10 / (2 * 10) = 0.5 < 1 (bouncy)\nconst critical = calculateSpringDampingRatio(20, 1, 100); // 20 / 20 = 1.0\nif (bouncy.dampingRatioZeta !== 0.5 || !bouncy.isUnderDampedBouncy || critical.isUnderDampedBouncy) throw new Error('Spring calculation failed');",
+    "aTitle": "Reanimated UI Thread Function Directive Formatter",
+    "aDesc": "Implement function getWorkletDirective() returning `'worklet'`.",
+    "aStarter": "function getWorkletDirective() { return 'worklet'; }",
+    "aHint": "Return worklet.",
+    "aTest": "if (getWorkletDirective() !== 'worklet') throw new Error('Directive check failed');"
   },
   {
-    title: "Haptic Feedback & Native Vibrations",
-    desc: "Trigger subtle haptic feedback on button clicks, success completions, and error warnings.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Haptic Feedback & Native Vibrations.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 17,
+    "title": "Gesture Handler: Pan, Pinch, Tap & Swipe Physics",
+    "desc": "Deliver fluid gesture interactions: `react-native-gesture-handler` v2, `GestureDetector` API, Pan Gestures with Velocity Deceleration (`Gesture.Pan().onUpdate().onEnd()`), Pinch-to-Zoom Image Viewers, Swipe-to-Dismiss List Rows, and Simultaneous Gesture Recognition.",
+    "syllabus": [
+      "Core Foundations: Principles and runtime mechanics of Gesture Handler: Pan, Pinch, Tap & Swipe Physics.",
+      "Practical Applications: Component architectures, native APIs, and physics animations.",
+      "Production Best Practices: Accessibility benchmarks, performance profiling, and app store deployment."
     ],
-    eTitle: "Exam: Haptic Feedback & Native Vibrations Validation",
-    eDesc: "Implement a JavaScript validation function for Haptic Feedback & Native Vibrations.",
-    eStarter: "function mobileTaskDay17(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay17 !== 'function') throw new Error('Function mobileTaskDay17 not found');\nif (mobileTaskDay17('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Haptic Feedback & Native Vibrations Practice",
-    aDesc: "Write an auxiliary helper function for Haptic Feedback & Native Vibrations.",
-    aStarter: "function mobileTaskDay17Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay17Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Pan Gesture Swipe Velocity Threshold Classifier",
+    "eDesc": "Implement function classifySwipeDismissVelocity(translationX, velocityX, dismissThresholdPx, velocityThreshold) determining if swipe gestures trigger row dismissal.",
+    "eStarter": "function classifySwipeDismissVelocity(tx, vx, threshDist, threshVel) {\n  const isDismissed = Math.abs(tx) > threshDist || Math.abs(vx) > threshVel;\n  const direction = tx < 0 ? 'LEFT' : 'RIGHT';\n  return {\n    translationX: tx,\n    velocityX: vx,\n    swipeDirection: direction,\n    isDismissTriggered: isDismissed,\n    status: isDismissed ? 'SWIPE_DISMISS_TRIGGERED_NOMINAL' : 'SWIPE_REVERTED_TO_ORIGIN'\n  };\n}",
+    "eHint": "isDismissed = Math.abs(tx) > threshDist || Math.abs(vx) > threshVel.",
+    "eTest": "const distDismiss = classifySwipeDismissVelocity(-120, 100, 100, 500); // dist -120 > 100\nconst velFlick = classifySwipeDismissVelocity(-30, -800, 100, 500); // fast flick\nconst cancel = classifySwipeDismissVelocity(-20, 100, 100, 500);\nif (!distDismiss.isDismissTriggered || !velFlick.isDismissTriggered || cancel.isDismissTriggered) throw new Error('Swipe classification failed');",
+    "aTitle": "Gesture Handler Root Component Formatter",
+    "aDesc": "Implement function getGestureHandlerRootComponent() returning `'GestureHandlerRootView'`.",
+    "aStarter": "function getGestureHandlerRootComponent() { return 'GestureHandlerRootView'; }",
+    "aHint": "Return GestureHandlerRootView.",
+    "aTest": "if (getGestureHandlerRootComponent() !== 'GestureHandlerRootView') throw new Error('Component check failed');"
   },
   {
-    title: "Android Back Button & Hardware Navigation",
-    desc: "Intercept hardware back button presses, show confirmation dialogs, and manage exit routes.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Android Back Button & Hardware Navigation.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 18,
+    "title": "High-Performance Virtualized Lists: FlatList & FlashList Optimization",
+    "desc": "Render 100,000 items with zero memory bloat: `FlatList` Virtualization Invariants, Fixed Height Item Optimization with `getItemLayout` (bypassing dynamic measurement), `windowSize={5}`, `maxToRenderPerBatch`, `removeClippedSubviews={true}`, and Shopify `FlashList` Recycled Cells.",
+    "syllabus": [
+      "Core Foundations: Principles and runtime mechanics of High-Performance Virtualized Lists: FlatList & FlashList Optimization.",
+      "Practical Applications: Component architectures, native APIs, and physics animations.",
+      "Production Best Practices: Accessibility benchmarks, performance profiling, and app store deployment."
     ],
-    eTitle: "Exam: Android Back Button & Hardware Navigation Validation",
-    eDesc: "Implement a JavaScript validation function for Android Back Button & Hardware Navigation.",
-    eStarter: "function mobileTaskDay18(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay18 !== 'function') throw new Error('Function mobileTaskDay18 not found');\nif (mobileTaskDay18('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Android Back Button & Hardware Navigation Practice",
-    aDesc: "Write an auxiliary helper function for Android Back Button & Hardware Navigation.",
-    aStarter: "function mobileTaskDay18Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay18Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "FlatList getItemLayout Offset Calculator",
+    "eDesc": "Implement function calculateGetItemLayout(itemHeight, index) returning exact `{ length, offset: itemHeight * index, index }` structure for zero-measurement list scrolling.",
+    "eStarter": "function calculateGetItemLayout(itemH, idx) {\n  return {\n    length: itemH,\n    offset: itemH * idx,\n    index: idx,\n    status: 'GET_ITEM_LAYOUT_COMPUTED_NOMINAL'\n  };\n}",
+    "eHint": "offset = itemH * idx.",
+    "eTest": "const row10 = calculateGetItemLayout(60, 10); // offset = 600\nif (row10.length !== 60 || row10.offset !== 600 || row10.index !== 10) throw new Error('getItemLayout calculation failed');",
+    "aTitle": "Shopify High-Speed Recycled List Formatter",
+    "aDesc": "Implement function getShopifyListEngine() returning `'FlashList'`.",
+    "aStarter": "function getShopifyListEngine() { return 'FlashList'; }",
+    "aHint": "Return FlashList.",
+    "aTest": "if (getShopifyListEngine() !== 'FlashList') throw new Error('Engine check failed');"
   },
   {
-    title: "Dark Mode & System Theme Adaptation",
-    desc: "Detect device Appearance preferences and apply dynamic color theme switching.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Dark Mode & System Theme Adaptation.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 19,
+    "title": "Deep Linking, Universal Links & App Links: `myapp://` Scheme",
+    "desc": "Route external web traffic into native screens: Custom URL Schemes (`pinit://course/mobile-dev`), iOS Universal Links (`apple-app-site-association` AASA JSON), Android App Links (`assetlinks.json`), `Linking.addEventListener('url')`, and React Navigation Deep Linking Configuration.",
+    "syllabus": [
+      "Core Foundations: Principles and runtime mechanics of Deep Linking, Universal Links & App Links: `myapp://` Scheme.",
+      "Practical Applications: Component architectures, native APIs, and physics animations.",
+      "Production Best Practices: Accessibility benchmarks, performance profiling, and app store deployment."
     ],
-    eTitle: "Exam: Dark Mode & System Theme Adaptation Validation",
-    eDesc: "Implement a JavaScript validation function for Dark Mode & System Theme Adaptation.",
-    eStarter: "function mobileTaskDay19(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay19 !== 'function') throw new Error('Function mobileTaskDay19 not found');\nif (mobileTaskDay19('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Dark Mode & System Theme Adaptation Practice",
-    aDesc: "Write an auxiliary helper function for Dark Mode & System Theme Adaptation.",
-    aStarter: "function mobileTaskDay19Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay19Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Deep Link URL Scheme Parser & Screen Param Extractor",
+    "eDesc": "Implement function parseDeepLinkUrl(url) extracting scheme, hostname/screen, and query params from strings like `'pinit://course/mobile-dev?day=19'`.",
+    "eStarter": "function parseDeepLinkUrl(url) {\n  const parts = url.split('://');\n  const scheme = parts[0];\n  const rest = parts[1] || '';\n  const [path, queryStr] = rest.split('?');\n  const [screen, paramVal] = path.split('/');\n  return {\n    scheme,\n    targetScreen: screen,\n    routeId: paramVal || null,\n    status: 'DEEP_LINK_PARSED_NOMINAL'\n  };\n}",
+    "eHint": "Extract scheme and targetScreen.",
+    "eTest": "const res = parseDeepLinkUrl('pinit://course/mobile-dev?day=19');\nif (res.scheme !== 'pinit' || res.targetScreen !== 'course' || res.routeId !== 'mobile-dev') throw new Error('Deep link parse failed');",
+    "aTitle": "iOS Universal Links Association File Formatter",
+    "aDesc": "Implement function getIosUniversalLinksFileName() returning `'apple-app-site-association'`.",
+    "aStarter": "function getIosUniversalLinksFileName() { return 'apple-app-site-association'; }",
+    "aHint": "Return apple-app-site-association.",
+    "aTest": "if (getIosUniversalLinksFileName() !== 'apple-app-site-association') throw new Error('File name check failed');"
   },
   {
-    title: "App Splash Screen & Icon Asset Generation",
-    desc: "Generate adaptive icons, launch screens, and splash images across iOS and Android resolutions.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of App Splash Screen & Icon Asset Generation.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 20,
+    "title": "Push Notifications Architecture: APNs & FCM Token Registration",
+    "desc": "Deliver real-time mobile notifications: Apple Push Notification Service (APNs), Firebase Cloud Messaging (FCM), `expo-notifications` Device Token Registration (`getExpoPushTokenAsync()`), Android Notification Channels (`Notifications.setNotificationChannelAsync`), and Background Notification Handlers.",
+    "syllabus": [
+      "Core Foundations: Principles and runtime mechanics of Push Notifications Architecture: APNs & FCM Token Registration.",
+      "Practical Applications: Component architectures, native APIs, and physics animations.",
+      "Production Best Practices: Accessibility benchmarks, performance profiling, and app store deployment."
     ],
-    eTitle: "Exam: App Splash Screen & Icon Asset Generation Validation",
-    eDesc: "Implement a JavaScript validation function for App Splash Screen & Icon Asset Generation.",
-    eStarter: "function mobileTaskDay20(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay20 !== 'function') throw new Error('Function mobileTaskDay20 not found');\nif (mobileTaskDay20('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: App Splash Screen & Icon Asset Generation Practice",
-    aDesc: "Write an auxiliary helper function for App Splash Screen & Icon Asset Generation.",
-    aStarter: "function mobileTaskDay20Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay20Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Expo Push Token Validation & Channel Formatter",
+    "eDesc": "Implement function validateExpoPushToken(tokenString) verifying that token follows format `ExponentPushToken[...]`.",
+    "eStarter": "function validateExpoPushToken(tok) {\n  const isExpoToken = typeof tok === 'string' && tok.startsWith('ExponentPushToken[') && tok.endsWith(']');\n  return {\n    pushToken: tok,\n    isValidExpoToken: isExpoToken,\n    status: isExpoToken ? 'EXPO_PUSH_TOKEN_VALIDATED_NOMINAL' : 'INVALID_PUSH_TOKEN_FORMAT'\n  };\n}",
+    "eHint": "Check startsWith ExponentPushToken[ and endsWith ].",
+    "eTest": "const pass = validateExpoPushToken('ExponentPushToken[xxxxxx_yyyyy]');\nconst fail = validateExpoPushToken('invalid_token');\nif (!pass.isValidExpoToken || fail.isValidExpoToken || pass.status !== 'EXPO_PUSH_TOKEN_VALIDATED_NOMINAL') throw new Error('Push token validation failed');",
+    "aTitle": "Android Notification Channel Mandatory Android Version Formatter",
+    "aDesc": "Implement function getAndroidChannelMinApi() returning `26`.",
+    "aStarter": "function getAndroidChannelMinApi() { return 26; }",
+    "aHint": "Return 26.",
+    "aTest": "if (getAndroidChannelMinApi() !== 26) throw new Error('API check failed');"
   },
   {
-    title: "Building APKs & iOS TestFlight Bundles",
-    desc: "Configure Gradle build settings, EAS build pipelines, provisioning profiles, and TestFlight.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Building APKs & iOS TestFlight Bundles.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 21,
+    "title": "⭐ MILESTONE 3: Complete Reanimated 3 Physics, Gesture Handling & Deep Linking Router",
+    "desc": "Milestone 3: Build a complete high-performance mobile UI physics and external routing engine: Spring physics damping calculation, Swipe-to-dismiss velocity classification, FlatList getItemLayout computation, Deep link URL parsing, and Expo push token validation.",
+    "syllabus": [
+      "Core Foundations: Principles and runtime mechanics of ⭐ MILESTONE 3: Complete Reanimated 3 Physics, Gesture Handling & Deep Linking Router.",
+      "Practical Applications: Component architectures, native APIs, and physics animations.",
+      "Production Best Practices: Accessibility benchmarks, performance profiling, and app store deployment."
     ],
-    eTitle: "Exam: Building APKs & iOS TestFlight Bundles Validation",
-    eDesc: "Implement a JavaScript validation function for Building APKs & iOS TestFlight Bundles.",
-    eStarter: "function mobileTaskDay21(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay21 !== 'function') throw new Error('Function mobileTaskDay21 not found');\nif (mobileTaskDay21('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Building APKs & iOS TestFlight Bundles Practice",
-    aDesc: "Write an auxiliary helper function for Building APKs & iOS TestFlight Bundles.",
-    aStarter: "function mobileTaskDay21Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay21Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Mobile Physics & Routing Master Engine",
+    "eDesc": "Implement function executeMobilePhysicsMaster(springOk, gestureOk, listOk, linkOk, pushOk) certifying combined mobile physics execution.",
+    "eStarter": "function executeMobilePhysicsMaster(s, g, l, d, p) {\n  const isNominal = s && g && l && d && p;\n  return {\n    springPhysicsCalculated: s,\n    gesturesAudited: g,\n    virtualizedListComputed: l,\n    deepLinksParsed: d,\n    pushTokensValidated: p,\n    engineStatus: isNominal ? 'MOBILE_PHYSICS_MASTER_ACTIVE' : 'MOBILE_PHYSICS_DEFECT'\n  };\n}",
+    "eHint": "Verify inputs and return active status.",
+    "eTest": "const res = executeMobilePhysicsMaster(true, true, true, true, true);\nif (res.engineStatus !== 'MOBILE_PHYSICS_MASTER_ACTIVE') throw new Error('Milestone 3 mobile master failed');",
+    "aTitle": "Mobile Physics Master Status Formatter",
+    "aDesc": "Implement function getMobilePhysicsMasterStatus() returning `'MOBILE_PHYSICS_MASTER_ACTIVE'`.",
+    "aStarter": "function getMobilePhysicsMasterStatus() { return 'MOBILE_PHYSICS_MASTER_ACTIVE'; }",
+    "aHint": "Return status.",
+    "aTest": "if (getMobilePhysicsMasterStatus() !== 'MOBILE_PHYSICS_MASTER_ACTIVE') throw new Error('Status check failed');"
   },
   {
-    title: "React Native Reanimated 3 & Gesture Handler",
-    desc: "Create 60 FPS UI animations, pan gestures, pinch-to-zoom, and native thread shared value interpolations.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of React Native Reanimated 3 & Gesture Handler.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 22,
+    "title": "Native Modules & TurboModules: Writing C++ / Kotlin / Swift JSI Bridges",
+    "desc": "Extend React Native with custom platform code: The New Architecture TurboModules (C++ Host Objects), Codegen Interface Specifications (`Spec.ts`), Exporting Native Methods directly into JavaScript Global Runtime, and Eliminating Bridge Serialization Latency.",
+    "syllabus": [
+      "Core Foundations: Principles and runtime mechanics of Native Modules & TurboModules: Writing C++ / Kotlin / Swift JSI Bridges.",
+      "Practical Applications: Component architectures, native APIs, and physics animations.",
+      "Production Best Practices: Accessibility benchmarks, performance profiling, and app store deployment."
     ],
-    eTitle: "Exam: React Native Reanimated 3 & Gesture Handler Validation",
-    eDesc: "Implement a JavaScript validation function for React Native Reanimated 3 & Gesture Handler.",
-    eStarter: "function mobileTaskDay22(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay22 !== 'function') throw new Error('Function mobileTaskDay22 not found');\nif (mobileTaskDay22('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: React Native Reanimated 3 & Gesture Handler Practice",
-    aDesc: "Write an auxiliary helper function for React Native Reanimated 3 & Gesture Handler.",
-    aStarter: "function mobileTaskDay22Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay22Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "TurboModule Codegen Specification Type Verifier",
+    "eDesc": "Implement function verifyTurboModuleSpec(moduleName, methodsArray) validating that native module exports expected synchronous and asynchronous methods.",
+    "eStarter": "function verifyTurboModuleSpec(name, methods) {\n  const isApproved = typeof name === 'string' && Array.isArray(methods) && methods.length > 0;\n  return {\n    moduleName: name,\n    exportedMethods: methods,\n    isTurboModuleValid: isApproved,\n    status: isApproved ? 'TURBOMODULE_SPEC_VERIFIED_NOMINAL' : 'INVALID_TURBOMODULE_SPEC'\n  };\n}",
+    "eHint": "Check name is string and methods is array.",
+    "eTest": "const pass = verifyTurboModuleSpec('NativeMathTurboModule', ['multiply', 'computeFastHash']);\nif (!pass.isTurboModuleValid || pass.status !== 'TURBOMODULE_SPEC_VERIFIED_NOMINAL') throw new Error('TurboModule validation failed');",
+    "aTitle": "React Native New Architecture Bridge Engine Formatter",
+    "aDesc": "Implement function getNewArchitectureBridge() returning `'JSI'`.",
+    "aStarter": "function getNewArchitectureBridge() { return 'JSI'; }",
+    "aHint": "Return JSI.",
+    "aTest": "if (getNewArchitectureBridge() !== 'JSI') throw new Error('Bridge check failed');"
   },
   {
-    title: "Offline-First Mobile Architecture & WatermelonDB",
-    desc: "Implement SQLite relational schemas, background sync adapters, conflict resolution, and reactive observables.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Offline-First Mobile Architecture & WatermelonDB.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 23,
+    "title": "Background Tasks & App Lifecycle: AppState & Headless JS",
+    "desc": "Manage mobile application lifecycle: `AppState` transitions (`'active'`, `'background'`, `'inactive'`), Saving Unsaved Form Drafts on Background Transition, Background Fetch Tasks (`expo-background-fetch` / `expo-task-manager`), and Headless JS Tasks on Android.",
+    "syllabus": [
+      "Core Foundations: Principles and runtime mechanics of Background Tasks & App Lifecycle: AppState & Headless JS.",
+      "Practical Applications: Component architectures, native APIs, and physics animations.",
+      "Production Best Practices: Accessibility benchmarks, performance profiling, and app store deployment."
     ],
-    eTitle: "Exam: Offline-First Mobile Architecture & WatermelonDB Validation",
-    eDesc: "Implement a JavaScript validation function for Offline-First Mobile Architecture & WatermelonDB.",
-    eStarter: "function mobileTaskDay23(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay23 !== 'function') throw new Error('Function mobileTaskDay23 not found');\nif (mobileTaskDay23('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Offline-First Mobile Architecture & WatermelonDB Practice",
-    aDesc: "Write an auxiliary helper function for Offline-First Mobile Architecture & WatermelonDB.",
-    aStarter: "function mobileTaskDay23Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay23Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "AppState Lifecycle Transition Handler",
+    "eDesc": "Implement function handleAppStateTransition(previousState, nextState) triggering automatic background state persistence when moving from `'active'` to `'background'`.",
+    "eStarter": "function handleAppStateTransition(prev, next) {\n  const shouldPersist = prev === 'active' && next === 'background';\n  return {\n    previousState: prev,\n    currentState: next,\n    triggerBackgroundPersist: shouldPersist,\n    status: 'APP_STATE_TRANSITION_HANDLED_NOMINAL'\n  };\n}",
+    "eHint": "shouldPersist = prev === active && next === background.",
+    "eTest": "const bg = handleAppStateTransition('active', 'background');\nconst fg = handleAppStateTransition('background', 'active');\nif (!bg.triggerBackgroundPersist || fg.triggerBackgroundPersist || bg.status !== 'APP_STATE_TRANSITION_HANDLED_NOMINAL') throw new Error('AppState handler failed');",
+    "aTitle": "Active AppState Value Formatter",
+    "aDesc": "Implement function getActiveAppStateValue() returning `'active'`.",
+    "aStarter": "function getActiveAppStateValue() { return 'active'; }",
+    "aHint": "Return active.",
+    "aTest": "if (getActiveAppStateValue() !== 'active') throw new Error('State value check failed');"
   },
   {
-    title: "Camera, Image Picker & Media Capture",
-    desc: "Access device camera sensors, configure flash and aspect ratios, compress photos, and upload to S3 buckets.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Camera, Image Picker & Media Capture.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 24,
+    "title": "Battery & Memory Optimization: Profiling Hermes Heap Memory Leaks",
+    "desc": "Optimize mobile device resource consumption: Profiling Hermes Heap Snapshots via Chrome DevTools / Flipper, Identifying Retained Closures & Uncleaned Event Listeners in `useEffect`, Image Memory Footprint Optimization, and Preventing Battery Drain from High-Frequency Polling.",
+    "syllabus": [
+      "Core Foundations: Principles and runtime mechanics of Battery & Memory Optimization: Profiling Hermes Heap Memory Leaks.",
+      "Practical Applications: Component architectures, native APIs, and physics animations.",
+      "Production Best Practices: Accessibility benchmarks, performance profiling, and app store deployment."
     ],
-    eTitle: "Exam: Camera, Image Picker & Media Capture Validation",
-    eDesc: "Implement a JavaScript validation function for Camera, Image Picker & Media Capture.",
-    eStarter: "function mobileTaskDay24(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay24 !== 'function') throw new Error('Function mobileTaskDay24 not found');\nif (mobileTaskDay24('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Camera, Image Picker & Media Capture Practice",
-    aDesc: "Write an auxiliary helper function for Camera, Image Picker & Media Capture.",
-    aStarter: "function mobileTaskDay24Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay24Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Hermes Heap Memory Footprint Evaluator",
+    "eDesc": "Implement function evaluateMemoryLeakThreshold(allocatedHeapMb, maxThresholdMb) auditing if Hermes JS heap exceeds safe memory ceiling ($150\\text{MB}$).",
+    "eStarter": "function evaluateMemoryLeakThreshold(heapMb, maxMb) {\n  const isNominal = heapMb <= maxMb;\n  return {\n    currentHeapMb: heapMb,\n    maxThresholdMb: maxMb,\n    isMemoryNominal: isNominal,\n    status: isNominal ? 'HERMES_HEAP_MEMORY_NOMINAL' : 'MEMORY_LEAK_DEFECT_EXCEEDS_CEILING'\n  };\n}",
+    "eHint": "isNominal = heapMb <= maxMb.",
+    "eTest": "const pass = evaluateMemoryLeakThreshold(45, 150);\nconst fail = evaluateMemoryLeakThreshold(220, 150);\nif (!pass.isMemoryNominal || fail.isMemoryNominal || pass.status !== 'HERMES_HEAP_MEMORY_NOMINAL') throw new Error('Memory evaluation failed');",
+    "aTitle": "Standard Mobile Safe Heap Ceiling MB Formatter",
+    "aDesc": "Implement function getSafeHeapCeilingMb() returning `150`.",
+    "aStarter": "function getSafeHeapCeilingMb() { return 150; }",
+    "aHint": "Return 150.",
+    "aTest": "if (getSafeHeapCeilingMb() !== 150) throw new Error('Ceiling check failed');"
   },
   {
-    title: "Geolocation, Background Location & Maps",
-    desc: "Track live GPS coordinates, geofencing triggers, background location services, and custom map pin overlays.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Geolocation, Background Location & Maps.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 25,
+    "title": "Mobile Security & Keychain Storage: EncryptedSharedPreferences & Keychain",
+    "desc": "Protect sensitive data on device: `expo-secure-store`, Hardware-Backed Keychain Services on iOS, EncryptedSharedPreferences on Android (AES-256 GCM), Storing OAuth Refresh Tokens & Encryption Keys, and Preventing Insecure Plaintext Storage in AsyncStorage.",
+    "syllabus": [
+      "Core Foundations: Principles and runtime mechanics of Mobile Security & Keychain Storage: EncryptedSharedPreferences & Keychain.",
+      "Practical Applications: Component architectures, native APIs, and physics animations.",
+      "Production Best Practices: Accessibility benchmarks, performance profiling, and app store deployment."
     ],
-    eTitle: "Exam: Geolocation, Background Location & Maps Validation",
-    eDesc: "Implement a JavaScript validation function for Geolocation, Background Location & Maps.",
-    eStarter: "function mobileTaskDay25(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay25 !== 'function') throw new Error('Function mobileTaskDay25 not found');\nif (mobileTaskDay25('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Geolocation, Background Location & Maps Practice",
-    aDesc: "Write an auxiliary helper function for Geolocation, Background Location & Maps.",
-    aStarter: "function mobileTaskDay25Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay25Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Secure Store Key-Value Payload Auditor",
+    "eDesc": "Implement function auditSecureStoreKey(keyName, valueString) verifying that sensitive tokens (`'auth_token'`, `'refresh_token'`) are routed strictly to hardware-encrypted secure storage.",
+    "eStarter": "function auditSecureStoreKey(key, val) {\n  const isSensitive = key.includes('token') || key.includes('secret') || key.includes('key');\n  return {\n    keyName: key,\n    isSensitiveData: isSensitive,\n    storageTarget: isSensitive ? 'HARDWARE_KEYCHAIN_SECURE_STORE' : 'STANDARD_STORAGE',\n    status: 'SECURE_STORE_TARGET_RESOLVED_NOMINAL'\n  };\n}",
+    "eHint": "If key has token/secret/key -> HARDWARE_KEYCHAIN_SECURE_STORE.",
+    "eTest": "const tok = auditSecureStoreKey('auth_refresh_token', 'secret123');\nconst theme = auditSecureStoreKey('app_theme_mode', 'dark');\nif (tok.storageTarget !== 'HARDWARE_KEYCHAIN_SECURE_STORE' || theme.storageTarget !== 'STANDARD_STORAGE') throw new Error('Secure store audit failed');",
+    "aTitle": "iOS Hardware Secure Storage Name Formatter",
+    "aDesc": "Implement function getIosSecureStorageName() returning `'Keychain'`.",
+    "aStarter": "function getIosSecureStorageName() { return 'Keychain'; }",
+    "aHint": "Return Keychain.",
+    "aTest": "if (getIosSecureStorageName() !== 'Keychain') throw new Error('Storage name check failed');"
   },
   {
-    title: "Push Notifications (Expo & Firebase FCM)",
-    desc: "Handle APNs/FCM tokens, rich push payloads, background notification actions, and deep link routing.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Push Notifications (Expo & Firebase FCM).",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 26,
+    "title": "Mobile Accessibility: Screen Readers VoiceOver & TalkBack Optimization",
+    "desc": "Make mobile apps universally accessible: `accessible={true}`, `accessibilityLabel=\"...\"`, `accessibilityHint=\"...\"`, `accessibilityRole=\"button | header | link\"`, Announcing Dynamic State with `AccessibilityInfo.announceForAccessibility()`, and High Contrast Display Adaptations.",
+    "syllabus": [
+      "Core Foundations: Principles and runtime mechanics of Mobile Accessibility: Screen Readers VoiceOver & TalkBack Optimization.",
+      "Practical Applications: Component architectures, native APIs, and physics animations.",
+      "Production Best Practices: Accessibility benchmarks, performance profiling, and app store deployment."
     ],
-    eTitle: "Exam: Push Notifications (Expo & Firebase FCM) Validation",
-    eDesc: "Implement a JavaScript validation function for Push Notifications (Expo & Firebase FCM).",
-    eStarter: "function mobileTaskDay26(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay26 !== 'function') throw new Error('Function mobileTaskDay26 not found');\nif (mobileTaskDay26('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Push Notifications (Expo & Firebase FCM) Practice",
-    aDesc: "Write an auxiliary helper function for Push Notifications (Expo & Firebase FCM).",
-    aStarter: "function mobileTaskDay26Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay26Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Mobile Accessibility Props Auditor",
+    "eDesc": "Implement function auditMobileAccessibilityProps(hasAccessible, hasLabel, role) certifying that interactive native elements provide label and role for VoiceOver/TalkBack.",
+    "eStarter": "function auditMobileAccessibilityProps(acc, label, role) {\n  const validRoles = ['button', 'header', 'link', 'image', 'none'];\n  const isApproved = acc && typeof label === 'string' && label.length > 0 && validRoles.includes(role);\n  return {\n    accessible: acc,\n    accessibilityLabel: label,\n    accessibilityRole: role,\n    isAccessibleElement: isApproved,\n    status: isApproved ? 'MOBILE_ACCESSIBILITY_VERIFIED_NOMINAL' : 'ACCESSIBILITY_DEFECT_MISSING_LABEL_OR_ROLE'\n  };\n}",
+    "eHint": "Check acc && label.length > 0 && validRoles.includes(role).",
+    "eTest": "const pass = auditMobileAccessibilityProps(true, 'Complete Lesson', 'button');\nconst fail = auditMobileAccessibilityProps(true, '', 'button');\nif (!pass.isAccessibleElement || fail.isAccessibleElement || pass.status !== 'MOBILE_ACCESSIBILITY_VERIFIED_NOMINAL') throw new Error('Mobile a11y audit failed');",
+    "aTitle": "Android Native Screen Reader Name Formatter",
+    "aDesc": "Implement function getAndroidScreenReaderName() returning `'TalkBack'`.",
+    "aStarter": "function getAndroidScreenReaderName() { return 'TalkBack'; }",
+    "aHint": "Return TalkBack.",
+    "aTest": "if (getAndroidScreenReaderName() !== 'TalkBack') throw new Error('Name check failed');"
   },
   {
-    title: "Biometric Authentication (FaceID & Fingerprint)",
-    desc: "Integrate native Keychain/Keystore cryptographic storage with biometric FaceID and TouchID prompt security.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Biometric Authentication (FaceID & Fingerprint).",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 27,
+    "title": "Automated Testing in Mobile: Jest, RNTL & Maestro / Detox E2E",
+    "desc": "Test mobile apps reliably: Unit Testing Pure Reducers/Hooks with Jest, Component Integration Testing with React Native Testing Library (RNTL `render`, `fireEvent.press`, `screen.getByText`), and End-to-End Black-Box Automation with Maestro YAML Flows (`maestro test flows/login.yaml`).",
+    "syllabus": [
+      "Core Foundations: Principles and runtime mechanics of Automated Testing in Mobile: Jest, RNTL & Maestro / Detox E2E.",
+      "Practical Applications: Component architectures, native APIs, and physics animations.",
+      "Production Best Practices: Accessibility benchmarks, performance profiling, and app store deployment."
     ],
-    eTitle: "Exam: Biometric Authentication (FaceID & Fingerprint) Validation",
-    eDesc: "Implement a JavaScript validation function for Biometric Authentication (FaceID & Fingerprint).",
-    eStarter: "function mobileTaskDay27(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay27 !== 'function') throw new Error('Function mobileTaskDay27 not found');\nif (mobileTaskDay27('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Biometric Authentication (FaceID & Fingerprint) Practice",
-    aDesc: "Write an auxiliary helper function for Biometric Authentication (FaceID & Fingerprint).",
-    aStarter: "function mobileTaskDay27Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay27Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Maestro E2E Test Flow Step Auditor",
+    "eDesc": "Implement function auditMaestroFlowStructure(flowName, stepsArray) validating that Maestro E2E test definition contains `appId` launch and interaction assertions.",
+    "eStarter": "function auditMaestroFlowStructure(name, steps) {\n  const hasLaunch = steps.some(s => s.action === 'launchApp');\n  const hasAssert = steps.some(s => s.action === 'assertVisible');\n  const isApproved = hasLaunch && hasAssert;\n  return {\n    flowName: name,\n    totalSteps: steps.length,\n    isFlowValid: isApproved,\n    status: isApproved ? 'MAESTRO_E2E_FLOW_VERIFIED_NOMINAL' : 'MAESTRO_FLOW_DEFECT_MISSING_LAUNCH_OR_ASSERT'\n  };\n}",
+    "eHint": "Check hasLaunch and hasAssert.",
+    "eTest": "const pass = auditMaestroFlowStructure('LoginFlow', [{ action: 'launchApp' }, { action: 'tapOn', target: 'login_btn' }, { action: 'assertVisible', text: 'Welcome' }]);\nconst fail = auditMaestroFlowStructure('BadFlow', [{ action: 'tapOn', target: 'btn' }]);\nif (!pass.isFlowValid || fail.isFlowValid || pass.status !== 'MAESTRO_E2E_FLOW_VERIFIED_NOMINAL') throw new Error('Maestro audit failed');",
+    "aTitle": "Modern Declarative Mobile E2E Testing Tool Formatter",
+    "aDesc": "Implement function getModernMobileE2eTool() returning `'Maestro'`.",
+    "aStarter": "function getModernMobileE2eTool() { return 'Maestro'; }",
+    "aHint": "Return Maestro.",
+    "aTest": "if (getModernMobileE2eTool() !== 'Maestro') throw new Error('Tool check failed');"
   },
   {
-    title: "In-App Purchases & RevenueCat Subscription Paywalls",
-    desc: "Implement Apple App Store & Google Play Store billing flows, receipt verification, and entitlement checks.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of In-App Purchases & RevenueCat Subscription Paywalls.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 28,
+    "title": "CI/CD Pipelines with Fastlane & EAS Build: Automated Code Signing & OTA Updates",
+    "desc": "Automate mobile release engineering: Expo Application Services (EAS Build `eas build --platform all`), Automated Code Signing (iOS Distribution Certificates & Provisioning Profiles, Android Keystores), Over-the-Air (OTA) Instant Updates with `eas update`, and Fastlane Match.",
+    "syllabus": [
+      "Core Foundations: Principles and runtime mechanics of CI/CD Pipelines with Fastlane & EAS Build: Automated Code Signing & OTA Updates.",
+      "Practical Applications: Component architectures, native APIs, and physics animations.",
+      "Production Best Practices: Accessibility benchmarks, performance profiling, and app store deployment."
     ],
-    eTitle: "Exam: In-App Purchases & RevenueCat Subscription Paywalls Validation",
-    eDesc: "Implement a JavaScript validation function for In-App Purchases & RevenueCat Subscription Paywalls.",
-    eStarter: "function mobileTaskDay28(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay28 !== 'function') throw new Error('Function mobileTaskDay28 not found');\nif (mobileTaskDay28('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: In-App Purchases & RevenueCat Subscription Paywalls Practice",
-    aDesc: "Write an auxiliary helper function for In-App Purchases & RevenueCat Subscription Paywalls.",
-    aStarter: "function mobileTaskDay28Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay28Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "EAS Build Profile Target Classifier",
+    "eDesc": "Implement function classifyEasBuildProfile(profileName) returning build distribution configuration (`'development'`, `'preview'`, `'production'`).",
+    "eStarter": "function classifyEasBuildProfile(name) {\n  const map = {\n    'development': { distribution: 'internal', isDevelopmentClient: true },\n    'preview': { distribution: 'internal', isDevelopmentClient: false },\n    'production': { distribution: 'store', isDevelopmentClient: false }\n  };\n  const cfg = map[name];\n  if (!cfg) throw new Error('Unknown EAS profile');\n  return {\n    profileName: name,\n    distribution: cfg.distribution,\n    isDevelopmentClient: cfg.isDevelopmentClient,\n    status: 'EAS_BUILD_PROFILE_CLASSIFIED_NOMINAL'\n  };\n}",
+    "eHint": "Map profileName to distribution and isDevClient.",
+    "eTest": "const prod = classifyEasBuildProfile('production');\nconst dev = classifyEasBuildProfile('development');\nif (prod.distribution !== 'store' || dev.distribution !== 'internal' || !dev.isDevelopmentClient) throw new Error('EAS profile classification failed');",
+    "aTitle": "Expo Over The Air Update Command Formatter",
+    "aDesc": "Implement function getEasUpdateCommand() returning `'eas update'`.",
+    "aStarter": "function getEasUpdateCommand() { return 'eas update'; }",
+    "aHint": "Return eas update.",
+    "aTest": "if (getEasUpdateCommand() !== 'eas update') throw new Error('Command check failed');"
   },
   {
-    title: "App Performance Profiling (Flipper & Hermes)",
-    desc: "Analyze JS thread FPS dips, memory heap leaks, Hermes bytecode compilation, and startup time optimizations.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of App Performance Profiling (Flipper & Hermes).",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 29,
+    "title": "App Store & Google Play Store Submission: Privacy Manifests & App Bundles",
+    "desc": "Publish production mobile apps to global app stores: Apple App Store Connect (Privacy Manifests `PrivacyInfo.xcprivacy`, App Tracking Transparency ATT, Screenshot Mockups), Google Play Console (Android App Bundles `.aab`, Target API Level 34+, Data Safety Section), and Staged Rollout Management ($10\\% \\to 50\\% \\to 100\\%$).",
+    "syllabus": [
+      "Core Foundations: Principles and runtime mechanics of App Store & Google Play Store Submission: Privacy Manifests & App Bundles.",
+      "Practical Applications: Component architectures, native APIs, and physics animations.",
+      "Production Best Practices: Accessibility benchmarks, performance profiling, and app store deployment."
     ],
-    eTitle: "Exam: App Performance Profiling (Flipper & Hermes) Validation",
-    eDesc: "Implement a JavaScript validation function for App Performance Profiling (Flipper & Hermes).",
-    eStarter: "function mobileTaskDay29(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay29 !== 'function') throw new Error('Function mobileTaskDay29 not found');\nif (mobileTaskDay29('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: App Performance Profiling (Flipper & Hermes) Practice",
-    aDesc: "Write an auxiliary helper function for App Performance Profiling (Flipper & Hermes).",
-    aStarter: "function mobileTaskDay29Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay29Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "App Store Staged Rollout Percentage Validator",
+    "eDesc": "Implement function validateStagedRolloutPercentage(percentNumber) verifying that rollout percentage is valid ($1 \\le p \\le 100$).",
+    "eStarter": "function validateStagedRolloutPercentage(pct) {\n  const isValid = pct >= 1 && pct <= 100;\n  return {\n    rolloutPercentage: pct,\n    isRolloutValid: isValid,\n    status: isValid ? 'STAGED_ROLLOUT_PERCENTAGE_VALIDATED_NOMINAL' : 'INVALID_ROLLOUT_PERCENTAGE'\n  };\n}",
+    "eHint": "isValid = pct >= 1 && pct <= 100.",
+    "eTest": "const pass = validateStagedRolloutPercentage(25);\nconst fail = validateStagedRolloutPercentage(150);\nif (!pass.isRolloutValid || fail.isRolloutValid || pass.status !== 'STAGED_ROLLOUT_PERCENTAGE_VALIDATED_NOMINAL') throw new Error('Rollout validation failed');",
+    "aTitle": "Google Play Store Primary Binary Format Formatter",
+    "aDesc": "Implement function getAndroidAppBundleFormat() returning `'.aab'`.",
+    "aStarter": "function getAndroidAppBundleFormat() { return '.aab'; }",
+    "aHint": "Return .aab.",
+    "aTest": "if (getAndroidAppBundleFormat() !== '.aab') throw new Error('Format check failed');"
   },
   {
-    title: "Capstone: Full-Featured Offline-Ready Mobile SuperApp",
-    desc: "Build and bundle a production React Native app with biometric login, offline database sync, and 60 FPS animations.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Capstone: Full-Featured Offline-Ready Mobile SuperApp.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 30,
+    "title": "🏆 FINAL CAPSTONE: Sovereign Cross-Platform Mobile Application Suite",
+    "desc": "Final Capstone Synthesis: The complete sovereign cross-platform mobile application master suite: 1. Runtime Architecture & Core Layouts (JSI C++ bridge, safe area insets, Yoga flexbox, 48dp touch targets); 2. Navigation & Native Hardware APIs (Native Stack, Tab bar badges, Keyboard avoiding, Camera permissions, FaceID biometrics, offline SQLite); 3. High-Performance Physics & Virtualization (Reanimated 3 worklets, Gesture Handler swipe physics, FlatList virtualization, Deep links, Push notifications); 4. Native Security & Optimization (TurboModules, AppState lifecycle, Hermes heap memory profiling, Keychain encrypted storage, VoiceOver/TalkBack accessibility); 5. Automated Testing & Store Deployment (Maestro E2E flows, EAS build automation, OTA updates, and App Store / Google Play submission).",
+    "syllabus": [
+      "Core Foundations: Principles and runtime mechanics of 🏆 FINAL CAPSTONE: Sovereign Cross-Platform Mobile Application Suite.",
+      "Practical Applications: Component architectures, native APIs, and physics animations.",
+      "Production Best Practices: Accessibility benchmarks, performance profiling, and app store deployment."
     ],
-    eTitle: "Exam: Capstone: Full-Featured Offline-Ready Mobile SuperApp Validation",
-    eDesc: "Implement a JavaScript validation function for Capstone: Full-Featured Offline-Ready Mobile SuperApp.",
-    eStarter: "function mobileTaskDay30(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof mobileTaskDay30 !== 'function') throw new Error('Function mobileTaskDay30 not found');\nif (mobileTaskDay30('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Capstone: Full-Featured Offline-Ready Mobile SuperApp Practice",
-    aDesc: "Write an auxiliary helper function for Capstone: Full-Featured Offline-Ready Mobile SuperApp.",
-    aStarter: "function mobileTaskDay30Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof mobileTaskDay30Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Sovereign Mobile Application Suite Orchestrator",
+    "eDesc": "Implement function orchestrateMobileAppMasterSuite(archOk, nativeOk, physicsOk, secOk, deployOk) certifying comprehensive mobile application mastery.",
+    "eStarter": "function orchestrateMobileAppMasterSuite(arch, nat, phys, sec, dep) {\n  const isCertified = arch && nat && phys && sec && dep;\n  return {\n    architectureModule: arch,\n    nativeCapabilitiesModule: nat,\n    physicsAndRoutingModule: phys,\n    securityAndA11yModule: sec,\n    testingAndDeploymentModule: dep,\n    sovereignMobileAppCertified: isCertified,\n    certified: true,\n    status: isCertified ? 'SOVEREIGN_MOBILE_APP_MASTER_CERTIFIED_NOMINAL' : 'MOBILE_APP_MASTER_SUITE_DEFECT'\n  };\n}",
+    "eHint": "Verify all 5 module flags evaluate to true.",
+    "eTest": "const ok = orchestrateMobileAppMasterSuite(true, true, true, true, true);\nconst fail = orchestrateMobileAppMasterSuite(true, true, false, true, true);\nif (!ok.sovereignMobileAppCertified || fail.sovereignMobileAppCertified || !ok.certified || ok.status !== 'SOVEREIGN_MOBILE_APP_MASTER_CERTIFIED_NOMINAL') throw new Error('Capstone orchestrator failed');",
+    "aTitle": "Mobile Master Certification Auditor",
+    "aDesc": "Implement function auditMobileMasterCert() returning `{ certified: true, score: '100/100', tier: 'SOVEREIGN_MOBILE_APP_MASTER_CERTIFIED' }`.",
+    "aStarter": "function auditMobileMasterCert() { return { certified: true, score: '100/100', tier: 'SOVEREIGN_MOBILE_APP_MASTER_CERTIFIED' }; }",
+    "aHint": "Return certification object.",
+    "aTest": "if (!auditMobileMasterCert().certified) throw new Error('Capstone cert failed');"
   }
 ];
 
-export const MOBILE_30_DAYS_QUESTS = MOBILE_30_DAYS_CONFIGS.flatMap((cfg, i) =>
-  buildEnrichedDayQuests('mobile', i + 1, cfg)
+export const MOBILE_30_DAYS_QUESTS: CourseQuest[] = MOBILE_30_DAYS_CONFIGS.flatMap((cfg, idx) => 
+  buildEnrichedDayQuests('mobile', idx + 1, cfg)
 );

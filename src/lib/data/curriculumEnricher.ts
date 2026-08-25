@@ -46,6 +46,13 @@ import { BCOM_OPERATIONS_PILOT_DAYS } from './bcomOperationsPilotDays';
 import { BCOM_AI_TRANSFORMATION_PILOT_DAYS } from './bcomAiTransformationPilotDays';
 import { COMPUTER_FUNDAMENTALS_PILOT_DAYS } from './computerFundamentalsPilotDays';
 import { AI_PROMPT_LITERACY_PILOT_DAYS } from './aiPromptLiteracyPilotDays';
+import { EXCEL_DATA_VIZ_PILOT_DAYS } from './excelDataVizPilotDays';
+import { GIT_VERSION_CONTROL_PILOT_DAYS } from './gitVersionControlPilotDays';
+import { SOFTSKILLS_PILOT_DAYS } from './softskillsPilotDays';
+import { DESIGN_PILOT_DAYS } from './designPilotDays';
+import { MOBILE_PILOT_DAYS } from './mobilePilotDays';
+import { NLP_PILOT_DAYS } from './nlpPilotDays';
+import { CYBER_PILOT_DAYS } from './cybersecurityPilotDays';
 
 export function buildEnrichedDayQuests(prefix: string, dayNum: number, cfg: DayConfig): CourseQuest[] {
   let pilotDay: any = null;
@@ -57,7 +64,7 @@ export function buildEnrichedDayQuests(prefix: string, dayNum: number, cfg: DayC
     pilotDay = REACT_PILOT_DAYS.find(p => p.day === dayNum);
   } else if (prefix.includes('sql') || prefix.includes('database')) {
     pilotDay = DATABASE_PILOT_DAYS.find(p => p.day === dayNum);
-  } else if (prefix.includes('dsa')) {
+  } else if (prefix.includes('dsa') || prefix.includes('algorithm')) {
     pilotDay = DSA_PILOT_DAYS.find(p => p.day === dayNum);
   } else if (prefix.includes('fullstack')) {
     pilotDay = FULLSTACK_PILOT_DAYS.find(p => p.day === dayNum);
@@ -65,6 +72,18 @@ export function buildEnrichedDayQuests(prefix: string, dayNum: number, cfg: DayC
     pilotDay = CLOUD_PILOT_DAYS.find(p => p.day === dayNum);
   } else if (prefix.includes('devops')) {
     pilotDay = DEVOPS_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('git') || prefix.includes('version_control') || prefix.includes('vcs')) {
+    pilotDay = GIT_VERSION_CONTROL_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('softskills') || prefix.includes('communication') || prefix.includes('soft-skills') || prefix.includes('soft_skills')) {
+    pilotDay = SOFTSKILLS_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('design') || prefix.includes('ui_ux') || prefix.includes('design_systems')) {
+    pilotDay = DESIGN_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('mobile') || prefix.includes('react_native') || prefix.includes('mobile_dev')) {
+    pilotDay = MOBILE_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('nlp') || prefix.includes('computational_linguistics') || prefix.includes('language_model')) {
+    pilotDay = NLP_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('excel') || prefix.includes('excel_viz') || prefix.includes('spreadsheet')) {
+    pilotDay = EXCEL_DATA_VIZ_PILOT_DAYS.find(p => p.day === dayNum);
   } else if (prefix.includes('ai_prompt') || prefix.includes('prompt_literacy') || prefix.includes('prompt_engineering')) {
     pilotDay = AI_PROMPT_LITERACY_PILOT_DAYS.find(p => p.day === dayNum);
   } else if (prefix.includes('comp_fund') || prefix.includes('computer_fundamentals') || prefix.includes('digital_productivity')) {
@@ -105,8 +124,10 @@ export function buildEnrichedDayQuests(prefix: string, dayNum: number, cfg: DayC
     pilotDay = IOT_EMBEDDED_PILOT_DAYS.find(p => p.day === dayNum);
   } else if (prefix.includes('g3d') || prefix.includes('graphics') || prefix.includes('3d')) {
     pilotDay = GRAPHICS_3D_PILOT_DAYS.find(p => p.day === dayNum);
-  } else if (prefix.includes('blockchain') || prefix.includes('web3') || prefix.includes('crypto')) {
+  } else if (prefix.includes('blockchain') || prefix.includes('web3')) {
     pilotDay = BLOCKCHAIN_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('cyber') || prefix.includes('cybersecurity') || prefix.includes('infosec')) {
+    pilotDay = CYBER_PILOT_DAYS.find(p => p.day === dayNum);
   }
 
   // ── 1. Unified Socratic Adaptive Lesson ──────────────────────────────────

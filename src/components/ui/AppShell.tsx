@@ -1091,6 +1091,10 @@ const STUDENT_NAV: NavSection[] = [
     { href: '/quests', icon: '🗺', label: 'Quests' },
     { href: '/missions', icon: '⚡', label: 'Missions' },
     { href: '/arena', icon: '⚔️', label: 'Challenging Arena' },
+    { href: '/code-wars', icon: '⚡', label: 'Code Wars 1v1' },
+    { href: '/teams', icon: '👥', label: 'Squad Projects' },
+    { href: '/leaderboard', icon: '🏆', label: 'Leaderboard' },
+    { href: '/passport', icon: '🛂', label: 'Career Passport' },
     { href: '/projects', icon: '🚀', label: 'Projects' },
     { href: '/interview', icon: '🎙', label: 'AI Interview' },
     { href: '/group-discussion', icon: '💬', label: 'GD Practice' },
@@ -1129,6 +1133,7 @@ const ADMIN_NAV: NavSection[] = [
   { section: 'PinIT Career OS', items: [
     { href: '/admin', icon: '🏠', label: 'Dashboard' },
     { label: 'Campus Core', icon: '🎓', children: [
+      { href: '/admin/cohorts', icon: '📊', label: 'Cohort Placement Funnel' },
       { href: '/admissions', icon: '🎟️', label: 'Admissions' },
       { href: '/admin/students', icon: '🧑‍🎓', label: 'Students Directory' },
       { href: '/admin/exams', icon: '📝', label: 'Exam Manager' },

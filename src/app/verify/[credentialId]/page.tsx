@@ -61,6 +61,9 @@ export default function PublicVerifyCredentialPage() {
 
     if (credentialId) {
       loadAndVerify();
+    } else {
+      setLoading(false);
+      setErrorMessage('No credential identifier specified. Please provide a valid credential ID in the URL.');
     }
   }, [credentialId]);
 

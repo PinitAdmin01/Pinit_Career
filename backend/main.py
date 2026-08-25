@@ -47,8 +47,10 @@ app = FastAPI(
 # ── CORS ─────────────────────────────────────────────────────────────────────
 # IMPORTANT: Browsers reject allow_origins=["*"] + allow_credentials=True.
 # Set ALLOWED_ORIGINS in .env to comma-separated list of your frontend domains.
-# Example: ALLOWED_ORIGINS=https://pinit.app,https://www.pinit.app
-_raw_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://localhost:3001")
+_raw_origins = os.getenv(
+    "ALLOWED_ORIGINS",
+    "http://localhost:3000,http://localhost:3001,https://pinit-de424.web.app,https://pinit-de424.firebaseapp.com,https://pinit-careers.web.app,https://pinit.in"
+)
 ALLOWED_ORIGINS = [o.strip() for o in _raw_origins.split(",") if o.strip()]
 
 app.add_middleware(

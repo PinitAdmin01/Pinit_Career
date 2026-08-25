@@ -5,6 +5,7 @@ import { DEVOPS_30_DAYS_QUESTS } from './devops30DayData';
 import { DESIGN_30_DAYS_QUESTS } from './design30DayData';
 import { DSA_30_DAYS_QUESTS } from './dsa30DayData';
 import { MOBILE_30_DAYS_QUESTS } from './mobile30DayData';
+import { NLP_30_DAYS_QUESTS } from './nlp30DayData';
 import { CYBER_30_DAYS_QUESTS } from './cybersecurity30DayData';
 import { DATABASE_30_DAYS_QUESTS } from './database30DayData';
 import { DISTRIBUTED_30_DAYS_QUESTS } from './distributed30DayData';
@@ -378,6 +379,15 @@ export const COURSES_REGISTRY: Course[] = [
     durationWeeks: 4,
     icon: '🗣️',
     quests: SOFT_SKILLS_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-nlp',
+    title: 'Natural Language Processing & Computational Linguistics',
+    desc: 'Master the computational models of language: Unicode preprocessing, TF-IDF vector spaces, Word2Vec/FastText embeddings, HMM POS taggers, LSTM gated memory cells, Scaled Dot-Product Self-Attention, Multi-Head Transformers, BPE tokenization, BERT/GPT architectures, SQuAD QA, Two-Stage FAISS dense retrieval, Nucleus Top-p sampling, and LoRA PEFT parameter adaptation.',
+    difficulty: 'Advanced',
+    durationWeeks: 6,
+    icon: '📚',
+    quests: NLP_30_DAYS_QUESTS as any
   }
 ];
 
