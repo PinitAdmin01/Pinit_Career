@@ -2,16 +2,37 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { CohortsApiService, CollegeOverviewStats } from '@/lib/api/cohortsApi';
+import { useAuth } from '@/lib/context/AuthContext';
 
 export default function CollegeCohortsAdminPage() {
+  const { user, loading } = useAuth();
+  const router = useRouter();
   const [stats, setStats] = useState<CollegeOverviewStats | null>(null);
   const [selectedDept, setSelectedDept] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
+  // ── Role Guard ────────────────────────────────────────────────────────────
+  useEffect(() => {
+    if (loading) return;
+    if (!user) {
+      router.replace('/login');
+      return;
+    }
+    const allowedRoles = ['admin', 'teacher', 'counsellor'];
+    if (!allowedRoles.includes(user.role)) {
+      router.replace('/dashboard');
+    }
+  }, [user, loading, router]);
+
   useEffect(() => {
     setStats(CohortsApiService.getCollegeOverview());
   }, []);
+
+  if (loading || !user || !['admin', 'teacher', 'counsellor'].includes(user.role)) {
+    return null;
+  }
 
   if (!stats) return null;
 

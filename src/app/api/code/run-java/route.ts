@@ -4,11 +4,16 @@ import fs from 'fs';
 import path from 'path';
 import os from 'os';
 import crypto from 'crypto';
+import { requireUserFromRequest } from '@/lib/server/requireAuth';
 
 export async function POST(req: NextRequest) {
   const startTime = Date.now();
 
   try {
+    // ── Auth Gate ────────────────────────────────────────────────────────────
+    const gated = await requireUserFromRequest(req);
+    if (gated.error) return gated.error;
+
     const body = await req.json();
     const { code, testSuite, stdin, timeoutMs = 3000 } = body;
 
@@ -20,11 +25,25 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Source code exceeds size limit (50KB max)' }, { status: 400 });
     }
 
+    // ── Security Sandbox — Forbidden Java APIs ───────────────────────────────
     const forbiddenPatterns = [
-      /Runtime\.getRuntime\(\)\.exec/,
-      /ProcessBuilder/,
-      /System\.exit/,
-      /java\.lang\.reflect/
+      /Runtime\.getRuntime/,          // Any Runtime usage (exec, halt, etc.)
+      /ProcessBuilder/,               // Spawn subprocesses
+      /Process\s*\(/,                 // Direct Process creation
+      /System\.exit/,                 // JVM termination
+      /java\.lang\.reflect/,          // Reflection (bypass security)
+      /Class\.forName/,               // Dynamic class loading
+      /ClassLoader/,                  // Class loader manipulation
+      /java\.io\.File/,               // Direct filesystem access
+      /Files\.delete/,                // File deletion
+      /Files\.write/,                 // File write
+      /new\s+File\s*\(/,              // File instantiation
+      /Thread\.sleep/,                // Deliberate delay / DoS
+      /new\s+Thread\s*\(/,            // Thread spawning
+      /Executors\./,                  // Thread pool usage
+      /java\.net\./,                  // Network access
+      /Socket\s*\(/,                  // Raw socket
+      /System\.setSecurityManager/,   // Remove sandbox manager
     ];
 
     for (const pattern of forbiddenPatterns) {

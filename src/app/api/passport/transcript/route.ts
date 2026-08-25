@@ -1,11 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PathwayApiService } from '@/lib/api/pathwayApi';
+import { requireUserFromRequest } from '@/lib/server/requireAuth';
 
 export async function GET(req: NextRequest) {
   try {
+    // ── Auth Gate ────────────────────────────────────────────────────────────
+    const gated = await requireUserFromRequest(req);
+    if (gated.error) return gated.error;
+
     const { searchParams } = new URL(req.url);
-    const studentId = searchParams.get('studentId') || 'demo_student_user';
     const programId = searchParams.get('programId') || 'prog_swe_accelerated_9m';
+
+    // Enforce: studentId is always the authenticated user's own ID — not user-supplied
+    const studentId = gated.user!.id;
 
     const profile = await PathwayApiService.getStudentSkillProfile(studentId);
     const readiness = await PathwayApiService.getRoleReadiness(studentId, programId);

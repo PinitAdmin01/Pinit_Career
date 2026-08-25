@@ -4,11 +4,16 @@ import fs from 'fs';
 import path from 'path';
 import os from 'os';
 import crypto from 'crypto';
+import { requireUserFromRequest } from '@/lib/server/requireAuth';
 
 export async function POST(req: NextRequest) {
   const startTime = Date.now();
 
   try {
+    // ── Auth Gate ────────────────────────────────────────────────────────────
+    const gated = await requireUserFromRequest(req);
+    if (gated.error) return gated.error;
+
     const body = await req.json();
     const { code, testSuite, stdin, timeoutMs = 3000 } = body;
 
@@ -20,13 +25,26 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Source code exceeds size limit (50KB max)' }, { status: 400 });
     }
 
+    // ── Security Sandbox — Forbidden Python APIs ─────────────────────────────
     const forbiddenPatterns = [
-      /os\.system/,
-      /subprocess/,
-      /__import__/,
-      /eval\s*\(/,
-      /exec\s*\(/,
-      /shutil\.rmtree/
+      /os\.system/,          // Shell command execution
+      /os\.popen/,           // Shell pipe open
+      /os\.remove/,          // File deletion
+      /os\.unlink/,          // File deletion
+      /os\.rmdir/,           // Directory removal
+      /subprocess/,          // Subprocess spawning
+      /__import__/,          // Dynamic import (bypass restrictions)
+      /importlib/,           // Import library (dynamic loading)
+      /eval\s*\(/,           // Dynamic code evaluation
+      /exec\s*\(/,           // Code execution
+      /compile\s*\(/,        // Code compilation
+      /open\s*\([^)]*['"]\s*w/, // File write mode
+      /shutil\.rmtree/,      // Recursive directory deletion
+      /shutil\.move/,        // File move (potential exfil)
+      /socket\s*\./,         // Raw network socket
+      /urllib\.request/,     // HTTP requests
+      /requests\./,          // HTTP requests library
+      /ctypes/,              // C library interop (bypass sandbox)
     ];
 
     for (const pattern of forbiddenPatterns) {

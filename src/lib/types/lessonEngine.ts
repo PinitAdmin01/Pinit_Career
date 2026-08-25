@@ -982,7 +982,39 @@ export type BcomAiTransformationMisconceptionId =
   | 'MC_AIT_AI_LEADERSHIP_BOARDROOM_ROI_REALIZATION'
   | 'MC_AIT_CAPSTONE_ENTERPRISE_AI_TRANSFORMATION_SUITE';
 
-export type MisconceptionId = JavaMisconceptionId | PythonMisconceptionId | ReactMisconceptionId | SqlMisconceptionId | DsaMisconceptionId | FullstackMisconceptionId | CloudMisconceptionId | DevopsMisconceptionId | AiMisconceptionId | DistributedMisconceptionId | IotEmbeddedMisconceptionId | Graphics3dMisconceptionId | BlockchainMisconceptionId | IotNetworkMisconceptionId | IotEdgeAiMisconceptionId | IotSecurityMisconceptionId | QuantMisconceptionId | BcomAccountingMisconceptionId | BcomFinanceMisconceptionId | BcomAnalyticsMisconceptionId | BcomMarketingMisconceptionId | BcomDigitalMarketingMisconceptionId | BcomEcommerceMisconceptionId | BcomEntrepreneurshipMisconceptionId | BcomSalesCrmMisconceptionId | BcomOperationsMisconceptionId | BcomAiTransformationMisconceptionId;
+export type ComputerFundamentalsMisconceptionId =
+  | 'MC_CF_HARDWARE_CPU_RAM_BUS_BANDWIDTH'
+  | 'MC_CF_OS_KERNEL_SYSTEM_CALLS_PROCESS_STATES'
+  | 'MC_CF_FILE_SYSTEMS_INODES_POSIX_PERMISSIONS'
+  | 'MC_CF_CLI_TERMINAL_PIPING_REDIRECTION'
+  | 'MC_CF_PROCESS_MANAGEMENT_PID_CONTEXT_SWITCHING'
+  | 'MC_CF_MEMORY_HIERARCHY_CACHE_VIRTUAL_PAGING'
+  | 'MC_CF_STORAGE_SSD_NAND_RAID_PARITY'
+  | 'MC_CF_NETWORKING_TCP_IP_IPV4_SUBNETTING'
+  | 'MC_CF_INTERNET_HTTP_TLS_PORT_MAPPING'
+  | 'MC_CF_BROWSER_DEVTOOLS_DOM_LOCALSTORAGE'
+  | 'MC_CF_PRODUCTIVITY_TYPING_WPM_SHORTCUTS'
+  | 'MC_CF_CLOUD_STORAGE_THREE_TWO_ONE_BACKUP'
+  | 'MC_CF_DATA_ENCODING_BINARY_HEX_UTF8'
+  | 'MC_CF_CYBERSECURITY_PASSWORD_ENTROPY_MFA'
+  | 'MC_CF_OS_SECURITY_UAC_SUDO_PRIVILEGE'
+  | 'MC_CF_CRYPTOGRAPHY_AES_RSA_SSH_KEYS'
+  | 'MC_CF_PERIPHERALS_USB4_THUNDERBOLT_HDMI'
+  | 'MC_CF_PACKAGE_MANAGERS_DEPENDENCY_TREES'
+  | 'MC_CF_VIRTUALIZATION_HYPERVISORS_DOCKER'
+  | 'MC_CF_TROUBLESHOOTING_SEVEN_STEP_METHODOLOGY'
+  | 'MC_CF_AUTOMATION_BASH_POWERSHELL_CRON'
+  | 'MC_CF_OFFICE_SUITES_SPREADSHEET_MACROS'
+  | 'MC_CF_DATA_PRIVACY_VPN_DOH_TRACKING'
+  | 'MC_CF_REMOTE_WORK_SSH_RDP_VDI_TUNNELS'
+  | 'MC_CF_HARDWARE_MAINTENANCE_THERMALS_PSU'
+  | 'MC_CF_SUSTAINABLE_EWASTE_DOD_WIPE'
+  | 'MC_CF_SYSTEM_DIAGNOSTICS_PERFORMANCE_TUNING'
+  | 'MC_CF_ENTERPRISE_IT_HELPDESK_ITIL_WORKFLOWS'
+  | 'MC_CF_DIGITAL_COLLABORATION_VERSION_HYGIENE'
+  | 'MC_CF_CAPSTONE_SOVEREIGN_OS_LITERACY_SUITE';
+
+export type MisconceptionId = JavaMisconceptionId | PythonMisconceptionId | ReactMisconceptionId | SqlMisconceptionId | DsaMisconceptionId | FullstackMisconceptionId | CloudMisconceptionId | DevopsMisconceptionId | AiMisconceptionId | DistributedMisconceptionId | IotEmbeddedMisconceptionId | Graphics3dMisconceptionId | BlockchainMisconceptionId | IotNetworkMisconceptionId | IotEdgeAiMisconceptionId | IotSecurityMisconceptionId | QuantMisconceptionId | BcomAccountingMisconceptionId | BcomFinanceMisconceptionId | BcomAnalyticsMisconceptionId | BcomMarketingMisconceptionId | BcomDigitalMarketingMisconceptionId | BcomEcommerceMisconceptionId | BcomEntrepreneurshipMisconceptionId | BcomSalesCrmMisconceptionId | BcomOperationsMisconceptionId | BcomAiTransformationMisconceptionId | ComputerFundamentalsMisconceptionId;
 
 // ── 3. Strongly-Typed Lesson Media (Zero 'any') ────────────────────────────
 
