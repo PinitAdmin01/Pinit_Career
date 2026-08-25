@@ -1014,7 +1014,39 @@ export type ComputerFundamentalsMisconceptionId =
   | 'MC_CF_DIGITAL_COLLABORATION_VERSION_HYGIENE'
   | 'MC_CF_CAPSTONE_SOVEREIGN_OS_LITERACY_SUITE';
 
-export type MisconceptionId = JavaMisconceptionId | PythonMisconceptionId | ReactMisconceptionId | SqlMisconceptionId | DsaMisconceptionId | FullstackMisconceptionId | CloudMisconceptionId | DevopsMisconceptionId | AiMisconceptionId | DistributedMisconceptionId | IotEmbeddedMisconceptionId | Graphics3dMisconceptionId | BlockchainMisconceptionId | IotNetworkMisconceptionId | IotEdgeAiMisconceptionId | IotSecurityMisconceptionId | QuantMisconceptionId | BcomAccountingMisconceptionId | BcomFinanceMisconceptionId | BcomAnalyticsMisconceptionId | BcomMarketingMisconceptionId | BcomDigitalMarketingMisconceptionId | BcomEcommerceMisconceptionId | BcomEntrepreneurshipMisconceptionId | BcomSalesCrmMisconceptionId | BcomOperationsMisconceptionId | BcomAiTransformationMisconceptionId | ComputerFundamentalsMisconceptionId;
+export type AiPromptLiteracyMisconceptionId =
+  | 'MC_AIP_TOKENOMICS_EMBEDDINGS_CONTEXT_WINDOWS'
+  | 'MC_AIP_SYSTEM_PROMPTS_ROLE_FRAMING_CREATE'
+  | 'MC_AIP_FEW_SHOT_IN_CONTEXT_LEARNING'
+  | 'MC_AIP_CHAIN_OF_THOUGHT_REASONING_COT'
+  | 'MC_AIP_HYPERPARAMETERS_TEMPERATURE_TOP_P'
+  | 'MC_AIP_STRUCTURED_JSON_SCHEMA_OUTPUTS'
+  | 'MC_AIP_SUMMARIZATION_DISTILLATION_TLDR'
+  | 'MC_AIP_RAG_DOCUMENT_GROUNDING_SIMILARITY'
+  | 'MC_AIP_DEEP_RESEARCH_FACT_CHECKING_PERPLEXITY'
+  | 'MC_AIP_PROMPT_CHAINING_MULTI_STEP_PIPELINES'
+  | 'MC_AIP_PROFESSIONAL_COMMUNICATION_TONE'
+  | 'MC_AIP_CREATIVE_IDEATION_SCAMPER_PROMPTS'
+  | 'MC_AIP_CODE_INTERPRETER_DATA_ANALYSIS'
+  | 'MC_AIP_MULTIMODAL_VISION_OCR_UNDERSTANDING'
+  | 'MC_AIP_IMAGE_GENERATION_DIFFUSION_PROMPTING'
+  | 'MC_AIP_SPEECH_TO_TEXT_WHISPER_ACTION_ITEMS'
+  | 'MC_AIP_ETHICS_BIAS_HALLUCINATION_MITIGATION'
+  | 'MC_AIP_SECURITY_PROMPT_INJECTION_DEFENSE'
+  | 'MC_AIP_CODING_ASSISTANTS_COPILOT_CURSOR'
+  | 'MC_AIP_AUTONOMOUS_AGENTS_REACT_TOOLS'
+  | 'MC_AIP_WORKFLOW_AUTOMATION_ZAPIER_WEBHOOKS'
+  | 'MC_AIP_CUSTOM_GPTS_KNOWLEDGE_BASES'
+  | 'MC_AIP_PERSONAL_PRODUCTIVITY_WORKFLOWS'
+  | 'MC_AIP_DOMAIN_SPECIFIC_LEGAL_MEDICAL_FIN'
+  | 'MC_AIP_MODEL_BENCHMARKING_EVALUATION'
+  | 'MC_AIP_CONTINUOUS_LEARNING_OPEN_SOURCE_LLMS'
+  | 'MC_AIP_PROMPT_OPTIMIZATION_TOKEN_EFFICIENCY'
+  | 'MC_AIP_ENTERPRISE_AI_DEPLOYMENT_GOVERNANCE'
+  | 'MC_AIP_COLLABORATIVE_HUMAN_AI_PAIRING'
+  | 'MC_AIP_CAPSTONE_SOVEREIGN_PROMPT_LITERACY_SUITE';
+
+export type MisconceptionId = JavaMisconceptionId | PythonMisconceptionId | ReactMisconceptionId | SqlMisconceptionId | DsaMisconceptionId | FullstackMisconceptionId | CloudMisconceptionId | DevopsMisconceptionId | AiMisconceptionId | DistributedMisconceptionId | IotEmbeddedMisconceptionId | Graphics3dMisconceptionId | BlockchainMisconceptionId | IotNetworkMisconceptionId | IotEdgeAiMisconceptionId | IotSecurityMisconceptionId | QuantMisconceptionId | BcomAccountingMisconceptionId | BcomFinanceMisconceptionId | BcomAnalyticsMisconceptionId | BcomMarketingMisconceptionId | BcomDigitalMarketingMisconceptionId | BcomEcommerceMisconceptionId | BcomEntrepreneurshipMisconceptionId | BcomSalesCrmMisconceptionId | BcomOperationsMisconceptionId | BcomAiTransformationMisconceptionId | ComputerFundamentalsMisconceptionId | AiPromptLiteracyMisconceptionId;
 
 // ── 3. Strongly-Typed Lesson Media (Zero 'any') ────────────────────────────
 

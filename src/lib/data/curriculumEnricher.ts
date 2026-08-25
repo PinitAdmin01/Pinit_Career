@@ -45,6 +45,7 @@ import { BCOM_SALES_CRM_PILOT_DAYS } from './bcomSalesCrmPilotDays';
 import { BCOM_OPERATIONS_PILOT_DAYS } from './bcomOperationsPilotDays';
 import { BCOM_AI_TRANSFORMATION_PILOT_DAYS } from './bcomAiTransformationPilotDays';
 import { COMPUTER_FUNDAMENTALS_PILOT_DAYS } from './computerFundamentalsPilotDays';
+import { AI_PROMPT_LITERACY_PILOT_DAYS } from './aiPromptLiteracyPilotDays';
 
 export function buildEnrichedDayQuests(prefix: string, dayNum: number, cfg: DayConfig): CourseQuest[] {
   let pilotDay: any = null;
@@ -64,6 +65,8 @@ export function buildEnrichedDayQuests(prefix: string, dayNum: number, cfg: DayC
     pilotDay = CLOUD_PILOT_DAYS.find(p => p.day === dayNum);
   } else if (prefix.includes('devops')) {
     pilotDay = DEVOPS_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('ai_prompt') || prefix.includes('prompt_literacy') || prefix.includes('prompt_engineering')) {
+    pilotDay = AI_PROMPT_LITERACY_PILOT_DAYS.find(p => p.day === dayNum);
   } else if (prefix.includes('comp_fund') || prefix.includes('computer_fundamentals') || prefix.includes('digital_productivity')) {
     pilotDay = COMPUTER_FUNDAMENTALS_PILOT_DAYS.find(p => p.day === dayNum);
   } else if (prefix.includes('bcom_ait') || prefix.includes('digital_transformation') || prefix.includes('transformation')) {

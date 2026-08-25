@@ -52,6 +52,7 @@ async def security_and_rate_limit(request: Request, call_next):
     response.headers["X-Request-ID"] = request_id
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["X-Frame-Options"] = "DENY"
+    response.headers["X-RateLimit-Limit"] = str(MAX_REQ_PER_MIN)
     return response
 
 # Compression Middleware

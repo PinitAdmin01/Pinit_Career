@@ -1,4 +1,7 @@
+import re
 import time
+import asyncio
+from typing import Generator
 from fastapi import APIRouter, Response, HTTPException
 from pydantic import BaseModel, Field
 from core.kokoro_engine import engine
@@ -38,3 +41,33 @@ async def generate_tts_stream(req: TTSRequest):
 @router.get("/voices")
 async def get_voices():
     return {"voices": engine.voices}
+
+
+def audio_chunk_generator(
+    text: str,
+    voice: str = "priya",
+    speed: float = 1.0
+) -> Generator[bytes, None, None]:
+    """
+    Split text into sentence clauses and yield synthesized WAV bytes per clause.
+    Used for real-time streaming playback and tested by test_stream.py.
+    """
+    # Split on sentence boundaries, keeping the delimiter
+    clauses = [c.strip() for c in re.split(r'(?<=[.!?])\s+', text) if c.strip()]
+    if not clauses:
+        clauses = [text]
+
+    loop = asyncio.new_event_loop()
+    try:
+        for clause in clauses:
+            try:
+                wav_bytes, _duration = loop.run_until_complete(
+                    engine.generate_audio_async(clause, voice, speed)
+                )
+                if wav_bytes:
+                    yield wav_bytes
+            except Exception:
+                # Skip failed clause — don't break the entire stream
+                continue
+    finally:
+        loop.close()

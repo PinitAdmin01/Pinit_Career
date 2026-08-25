@@ -66,6 +66,13 @@ class NeuralTTSEngine:
         }
 
     def _ensure_model_files(self):
+        # When KOKORO_REAL=false (e.g. CI, dev), skip the large model download.
+        # Edge-TTS fallback will be used for synthesis instead.
+        kokoro_real = os.getenv("KOKORO_REAL", "true").lower() in ("true", "1", "yes")
+        if not kokoro_real:
+            logger.info("KOKORO_REAL=false — skipping model download, using edge-tts fallback.")
+            return
+
         MODEL_URL = "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files/kokoro-v0_19.onnx"
         VOICES_URL = "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files/voices.bin"
         

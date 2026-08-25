@@ -38,6 +38,7 @@ import { BCOM_SALES_CRM_PILOT_DAYS } from '@/lib/data/bcomSalesCrmPilotDays';
 import { BCOM_OPERATIONS_PILOT_DAYS } from '@/lib/data/bcomOperationsPilotDays';
 import { BCOM_AI_TRANSFORMATION_PILOT_DAYS } from '@/lib/data/bcomAiTransformationPilotDays';
 import { COMPUTER_FUNDAMENTALS_PILOT_DAYS } from '@/lib/data/computerFundamentalsPilotDays';
+import { AI_PROMPT_LITERACY_PILOT_DAYS } from '@/lib/data/aiPromptLiteracyPilotDays';
 
 
 const AvatarMentorWidget = dynamic(() => import('@/components/avatar/AvatarMentorWidget'), { ssr: false });
