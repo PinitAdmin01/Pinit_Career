@@ -267,7 +267,7 @@ export default function AvatarMentorWidget({
 
   // Initialize 3D Viewport on mount and reload when teacherId changes
   useEffect(() => {
-    if (!canvasRef.current) return;
+    if (!canvasRef.current || isMinimized) return;
     const scene = new VRoidAvatarEngine();
     sceneRef.current = scene;
     try {
@@ -1045,8 +1045,8 @@ export default function AvatarMentorWidget({
 
   if (onlyAvatar) {
     return (
-      <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
-        <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
+      <div style={{ position: 'relative', width: '100%', height: '100%', minHeight: 380, flex: 1, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <canvas ref={canvasRef} style={{ width: '100%', height: '100%', minHeight: 380, display: 'block' }} />
         {aiState !== 'idle' && (
           <div style={{
             position: 'absolute', top: 8, right: 8, fontSize: 9, fontWeight: 700,

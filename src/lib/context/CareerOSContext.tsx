@@ -527,6 +527,9 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
   // ── Daily 1:00 AM Pin Reset Check (Server-Verified Time) ─────────────────
   useEffect(() => {
     if (typeof window === 'undefined') return;
+    // STRICT INVARIANT: Daily pins and notifications must ONLY trigger after authenticated signup/login!
+    if (!user || user.id === 'guest' || !user.email) return;
+
     const check1AMReset = () => {
       try {
         const lastReset = Number(localStorage.getItem(keys.last1AMReset) || 0);
@@ -535,7 +538,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
         
         // If server-verified time is past 1:00 AM today and reset was not completed after today's 1:00 AM
         if (verifiedNow.getTime() >= today1AM && lastReset < today1AM) {
-          console.log(`[CareerOSContext] Daily 1:00 AM Pin Reset Triggered -> verifiedTime=${verifiedNow.toISOString()}`);
+          console.log(`[CareerOSContext] Daily 1:00 AM Pin Reset Triggered for ${user.email} -> verifiedTime=${verifiedNow.toISOString()}`);
           setPins(prev => {
             const next = Math.max(120, prev);
             save(keys.pins, next);

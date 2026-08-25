@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import faceTemplateStore from '@/lib/faceStore';
+import faceTemplateStore, { setFaceTemplate } from '@/lib/faceStore';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 
 export async function POST(req: NextRequest) {
@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
     norm = Math.sqrt(norm);
     const normalizedVector = norm > 0 ? fusedVector.map(v => v / norm) : fusedVector;
 
-    faceTemplateStore.set(targetUser, normalizedVector);
+    await setFaceTemplate(targetUser, normalizedVector);
 
     const res = NextResponse.json({
       ok: true,

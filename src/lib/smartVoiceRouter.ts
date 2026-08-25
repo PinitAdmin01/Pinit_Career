@@ -32,13 +32,8 @@ const DEFAULT_CLOUD_ENDPOINT =
   "https://pinit-voice-service.onrender.com/api/tts";
 
 function healthUrlFromTts(endpoint: string): string {
-  try {
-    const u = new URL(endpoint);
-    // .../api/tts → .../health
-    return `${u.origin}/health`;
-  } catch {
-    return "https://pinit-voice-service.onrender.com/health";
-  }
+  const base = (endpoint || "https://pinit-voice-service.onrender.com").replace(/\/api(\/v\d+)?\/tts\/?$/i, '');
+  return `${base}/health`;
 }
 
 let isServerWarming = false;
@@ -208,7 +203,8 @@ async function fetchCloudFastAPI(
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), timeoutMs);
       try {
-        console.log(`[SmartVoiceRouter] Initiating Cloud TTS -> ${url} | Voice: ${voice} | Speed: ${speed} | TextLen: ${text.length}`);
+        const safeText = text.length > 950 ? text.slice(0, 940) + "..." : text;
+        console.log(`[SmartVoiceRouter] Initiating Cloud TTS -> ${url} | Voice: ${voice} | Speed: ${speed} | TextLen: ${safeText.length}`);
         const headers: Record<string, string> = { "Content-Type": "application/json" };
         if (bypassCache) {
           headers["X-Bypass-Cache"] = "true";
@@ -216,7 +212,7 @@ async function fetchCloudFastAPI(
         const response = await fetch(url, {
           method: "POST",
           headers,
-          body: JSON.stringify({ text, voice, speed, language: "en-us", bypass_cache: Boolean(bypassCache) }),
+          body: JSON.stringify({ text: safeText, voice, speed, language: "en-us", bypass_cache: Boolean(bypassCache) }),
           signal: controller.signal,
         });
         clearTimeout(timer);

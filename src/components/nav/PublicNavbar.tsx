@@ -148,8 +148,8 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
             {theme === 'dark' ? '☀️' : '🌙'}
           </button>
 
-          <a
-            href="https://pinit-de424.web.app/signup/"
+          <Link
+            href="/signup"
             style={{
               fontSize: '13px',
               fontWeight: 700,
@@ -162,7 +162,7 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
             }}
           >
             Sign Up
-          </a>
+          </Link>
 
           {onLoginClick ? (
             <button
@@ -244,8 +244,9 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
               {link.name}
             </Link>
           ))}
-          <a
-            href="https://pinit-de424.web.app/signup/"
+          <Link
+            href="/signup"
+            onClick={() => setMobileMenuOpen(false)}
             style={{
               fontSize: '15px',
               fontWeight: 800,
@@ -259,7 +260,7 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
             }}
           >
             Sign Up →
-          </a>
+          </Link>
         </div>
       )}
 

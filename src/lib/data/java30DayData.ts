@@ -1,539 +1,639 @@
-import { buildEnrichedDayQuests } from './curriculumEnricher';
-export interface DayConfig {
-  title: string;
-  desc: string;
-  syllabus: string[];
-  eTitle: string;
-  eDesc: string;
-  eStarter: string;
-  eHint: string;
-  eTest: string;
-  aTitle: string;
-  aDesc: string;
-  aStarter: string;
-  aHint: string;
-  aTest: string;
-}
+import { buildEnrichedDayQuests, DayConfig, CourseQuest } from './curriculumEnricher';
 
 export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
+  // ── Day 1: Hello World & Program Structure ───────────────────────────────
   {
-    title: "What is Java? — Writing Your Very First Program Line by Line",
-    desc: "Java is a programming language — a set of precise instructions you write to tell a computer what to do. Think of cooking a recipe: you write every step (boil water, add salt, stir for 2 minutes) and the computer follows each step exactly, in order, without skipping anything. Your very first Java program always has this shape: 'public class HelloWorld { public static void main(String[] args) { System.out.println(\"Hello World\"); } }'. Every word here matters. 'public class HelloWorld' — a class is like a container or folder that holds your code. Every Java file must have exactly one class and the class name must match the file name. 'public static void main(String[] args)' — this is the entry point. When you run your program, Java searches for this exact method and starts executing code from the first line inside its curly braces. You will write this line in every program for months — just memorise it for now. 'System.out.println(\"Hello World\");' — this prints text to the screen. 'System' is Java's built-in toolbox. 'out' is the output channel (your monitor). 'println' means print a line. Whatever you put inside the parentheses and double quotes gets displayed. The semicolon ';' at the end is mandatory — it tells Java the instruction is complete, like a full stop ends a sentence in English. Forget it and Java throws a compile error and refuses to run. Try it: change the text inside the quotes to your own name and run it — Java prints your name. This is the first program every professional Java developer ever wrote. (Real world: Every Android phone on Earth runs Java. WhatsApp, Google Maps, Flipkart, Paytm — all built in Java. When you tap 'Send' on WhatsApp, hundreds of Java instructions execute in under 10 milliseconds.)",
-    syllabus: ["What programming means: you write step-by-step instructions in a language (Java) the computer understands. The computer executes each instruction EXACTLY as written, in order, with zero guesswork. If you make a mistake in spelling or punctuation, Java refuses to run the program and shows you an error.", "Anatomy of a Java program: 'public class ClassName { }' is the container — your code lives inside. 'public static void main(String[] args) { }' is the starting point — execution begins at the first line inside this method's curly braces. 'System.out.println(\"your text\");' prints any text to the screen.", "The semicolon rule: every complete instruction in Java ends with ';'. 'System.out.println(\"Hello\");' — correct. 'System.out.println(\"Hello\")' without semicolon — compile error, program cannot run. Also: Java is case-sensitive. 'system.out.println' will not work — it must be 'System.out.println' with capital S and capital P."],
-    eTitle: "Exam: Primitive Type Boundaries",
-    eDesc: "Write a JS function `isMaxInt(value)` returning true if the value is equal to Integer.MAX_VALUE (2147483647).",
-    eStarter: "function isMaxInt(value) {\n    // Write your code here\n    \n}",
-    eHint: "Compare parameters with 2147483647.",
-    eTest: "if (typeof isMaxInt !== 'function') throw new Error('Method isMaxInt not found');\nif (isMaxInt(2147483647) !== true) throw new Error('isMaxInt(2147483647) failed');",
-    aTitle: "Assignment: Returning Swapped Primitives",
-    aDesc: "Write a JS function `swapValues(a, b)` returning array containing [b, a].",
-    aStarter: "function swapValues(a, b) {\n    // Write your code here\n    \n}",
-    aHint: "Return array swapping positions.",
-    aTest: "if (typeof swapValues !== 'function') throw new Error('Method swapValues not found');"
+    title: "What is Java? — Writing Your First Java Instructions",
+    desc: "Java is a programming language that tells a computer what to do step by step. Every Java program lives inside a class with a main method entry point: public class HelloWorld { public static void main(String[] args) { System.out.println(\"Hello, World!\"); } }. Every complete instruction ends with a semicolon (;). (Real world: Millions of Android apps, WhatsApp, and Google Maps run on Java instructions.)",
+    syllabus: [
+      "What programming means: Writing step-by-step instructions in Java.",
+      "Anatomy of a Java program: public class is the container; main is the starting door.",
+      "The semicolon rule: Every complete instruction ends with a semicolon (;)."
+    ],
+    eTitle: "Day 1 Challenge: Print Your Introduction",
+    eDesc: "Write a Java program that prints 3 lines to the screen: line 1 'Hello!', line 2 'I am learning Java.', and line 3 'Let us build!'.",
+    eStarter: "public class Solution {\n    public static void main(String[] args) {\n        // Write your 3 System.out.println lines below:\n        \n    }\n}",
+    eHint: "Use System.out.println(\"...\"); for each line.",
+    eTest: "import java.io.*;\npublic class Test {\n    public static void main(String[] args) {\n        ByteArrayOutputStream out = new ByteArrayOutputStream();\n        System.setOut(new PrintStream(out));\n        Solution.main(new String[]{});\n        String res = out.toString().trim().replace(\"\\r\\n\", \"\\n\");\n        if (!res.contains(\"Hello!\")) throw new AssertionError(\"Line 1 must contain 'Hello!'\");\n        if (!res.contains(\"I am learning Java.\")) throw new AssertionError(\"Line 2 must contain 'I am learning Java.'\");\n        if (!res.contains(\"Let us build!\")) throw new AssertionError(\"Line 3 must contain 'Let us build!'\");\n        String[] lines = res.split(\"\\n\");\n        if (lines.length != 3) throw new AssertionError(\"Must print exactly 3 lines, got: \" + lines.length);\n    }\n}",
+    aTitle: "Day 1 Assignment: Custom Message Output",
+    aDesc: "Write a Java program that prints 'Java is awesome!' to the screen.",
+    aStarter: "public class Solution {\n    public static void main(String[] args) {\n        // Print 'Java is awesome!':\n        \n    }\n}",
+    aHint: "Use System.out.println(\"Java is awesome!\");",
+    aTest: "import java.io.*;\npublic class Test {\n    public static void main(String[] args) {\n        ByteArrayOutputStream out = new ByteArrayOutputStream();\n        System.setOut(new PrintStream(out));\n        Solution.main(new String[]{});\n        String res = out.toString().trim();\n        if (!res.equals(\"Java is awesome!\")) throw new AssertionError(\"Expected 'Java is awesome!', got: \" + res);\n    }\n}"
   },
+
+  // ── Day 2: Reading User Input with Scanner ────────────────────────────────
   {
-    title: "Reading User Input — The Scanner Class, nextInt(), nextDouble() and nextLine()",
-    desc: "Every useful program needs to react to what the user types — not just print the same text every time. Think of a login screen: it waits for you to type your username, then your password. Or an ATM: it shows 'Enter amount:' and waits. In Java, you use the Scanner class to read input from the keyboard. This requires 3 steps. Step 1 — Import Scanner at the very top of your file before 'public class': 'import java.util.Scanner;'. The word 'import' tells Java to load a tool from its library. Without this line, Java does not know what 'Scanner' means. Step 2 — Create a Scanner object: 'Scanner sc = new Scanner(System.in);'. 'System.in' means 'read from the keyboard'. You only need to write this line once and then use 'sc' to read as many inputs as you need. Step 3 — Read input based on type. To read a whole number: 'System.out.println(\"Enter your age:\"); int age = sc.nextInt();'. When Java reaches 'sc.nextInt()', the program PAUSES and waits — the cursor blinks. The user types a number and presses Enter. Java stores that number in 'age' and continues. To read a decimal number: 'double price = sc.nextDouble();'. To read a word or full sentence: 'String name = sc.nextLine();'. After you are done reading input, close the Scanner to free resources: 'sc.close();'. IMPORTANT WARNING — The Enter-key trap: after calling 'sc.nextInt()' or 'sc.nextDouble()', a leftover invisible Enter key stays in memory. If you immediately call 'sc.nextLine()' after, it reads that empty Enter instead of the user's real text. The fix: call 'sc.nextLine();' once immediately after any nextInt() call to clear the buffer, then call 'sc.nextLine()' again to read the actual user input. Example: 'int age = sc.nextInt(); sc.nextLine(); String name = sc.nextLine();'. (Real world: Every sign-up form on Zomato, Swiggy, or Amazon — whether web or app — is doing exactly what Scanner does: waiting for you to type, reading what you typed, and storing it in a variable.)",
-    syllabus: ["3 steps to use Scanner: (1) 'import java.util.Scanner;' at top of file. (2) 'Scanner sc = new Scanner(System.in);' to create it. (3) Use sc.nextInt() for whole numbers, sc.nextDouble() for decimals, sc.nextLine() for text. Always print a prompt before reading: 'System.out.println(\"Enter name:\"); String name = sc.nextLine();'.", "Reading different data types: 'System.out.println(\"Enter age:\"); int age = sc.nextInt();' — user types 22, age becomes 22. 'System.out.println(\"Enter price:\"); double price = sc.nextDouble();' — user types 199.99, price becomes 199.99. 'System.out.println(\"Enter city:\"); String city = sc.nextLine();' — user types Bengaluru, city becomes \"Bengaluru\".", "The Enter-key trap fix: after nextInt() or nextDouble(), always add 'sc.nextLine();' to clear the buffer before reading a String. Correct pattern: 'int num = sc.nextInt(); sc.nextLine(); String text = sc.nextLine();'. Without the extra sc.nextLine(), your String variable will be empty."],
-    eTitle: "Exam: Local Summation",
-    eDesc: "Write a JS function `sumLocal(a, b)` returning the sum of a and b.",
-    eStarter: "function sumLocal(a, b) {\n    // Write your code here\n    \n}",
-    eHint: "Return sum directly.",
-    eTest: "if (typeof sumLocal !== 'function') throw new Error('Method sumLocal not found');",
-    aTitle: "Assignment: Variable Square",
-    aDesc: "Write a JS function `squareLocal(x)` returning square of x.",
-    aStarter: "function squareLocal(x) {\n    // Write your code here\n    \n}",
-    aHint: "Multiply x by itself.",
-    aTest: "if (typeof squareLocal !== 'function') throw new Error('Method squareLocal not found');"
+    title: "Reading User Input — The Scanner Class & Buffer Traps",
+    desc: "Use the Scanner class to read keyboard input from the user. Step 1: import java.util.Scanner;. Step 2: Scanner sc = new Scanner(System.in);. Step 3: sc.nextInt() for integers, sc.nextLine() for text sentences. Always clear the buffer with sc.nextLine() after reading numbers! (Real world: ATM pinpads and web forms pause and wait for keyboard input.)",
+    syllabus: [
+      "Scanner 3-Step Lifecycle: Import, create reader, and read input.",
+      "Type-Specific Readers: sc.nextInt() for numbers, sc.nextLine() for text.",
+      "The Enter-Key Buffer Trap: Flushing leftover newline characters."
+    ],
+    eTitle: "Day 2 Challenge: Fix the Broken Input Reader",
+    eDesc: "Fix the bug in the program below so it reads the user age and then reads their full name without skipping.",
+    eStarter: "import java.util.Scanner;\n\npublic class Solution {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int age = sc.nextInt();\n        // BUG: Add 1 line here to clear the leftover Enter key buffer:\n        \n        String name = sc.nextLine();\n        System.out.println(\"Name: \" + name + \" | Age: \" + age);\n    }\n}",
+    eHint: "Add sc.nextLine(); right after nextInt() to clear the buffer.",
+    eTest: "import java.io.*;\npublic class Test {\n    public static void main(String[] args) {\n        String input1 = \"22\\nVinay Kumar\\n\";\n        System.setIn(new ByteArrayInputStream(input1.getBytes()));\n        ByteArrayOutputStream out1 = new ByteArrayOutputStream();\n        System.setOut(new PrintStream(out1));\n        Solution.main(new String[]{});\n        if (!out1.toString().contains(\"Name: Vinay Kumar | Age: 22\")) throw new AssertionError(\"Test 1 failed: Expected 'Name: Vinay Kumar | Age: 22'\");\n        \n        String input2 = \"18\\nSarah Connor\\n\";\n        System.setIn(new ByteArrayInputStream(input2.getBytes()));\n        ByteArrayOutputStream out2 = new ByteArrayOutputStream();\n        System.setOut(new PrintStream(out2));\n        Solution.main(new String[]{});\n        if (!out2.toString().contains(\"Name: Sarah Connor | Age: 18\")) throw new AssertionError(\"Test 2 failed: Expected 'Name: Sarah Connor | Age: 18'\");\n    }\n}",
+    aTitle: "Day 2 Assignment: Reading Number Input",
+    aDesc: "Write a Java program that reads an integer score using sc.nextInt() and prints 'Score: ' followed by the score.",
+    aStarter: "import java.util.Scanner;\n\npublic class Solution {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // Read score and print it:\n        \n    }\n}",
+    aHint: "Use int score = sc.nextInt();",
+    aTest: "import java.io.*;\npublic class Test {\n    public static void main(String[] args) {\n        String input = \"88\\n\";\n        System.setIn(new ByteArrayInputStream(input.getBytes()));\n        ByteArrayOutputStream out = new ByteArrayOutputStream();\n        System.setOut(new PrintStream(out));\n        Solution.main(new String[]{});\n        String res = out.toString().trim();\n        if (!res.contains(\"Score: 88\")) throw new AssertionError(\"Expected 'Score: 88', got: \" + res);\n    }\n}"
   },
+
+  // ── Day 3: Variables & Primitive Types ────────────────────────────────────
   {
-    title: "Arithmetic Operators & Balance calculations",
-    desc: "Master Java basic operators in context of financial systems. (Real world: Bank ledger managers apply modulo math checks to allocate transactions into correct audit lists.)",
-    syllabus: ["Operators precedence & priority", "Modulo calculations", "Arithmetic balance operations"],
-    eTitle: "Exam: Transaction modulo check",
-    eDesc: "Write a JS function `remainder(a, b)` returning a % b. Return 0 if b is zero.",
-    eStarter: "function remainder(a, b) {\n    // Write your code here\n    \n}",
-    eHint: "Apply modulo check operators.",
-    eTest: "if (typeof remainder !== 'function') throw new Error('Method remainder not found');\nif (remainder(10, 3) !== 1) throw new Error('Modulo check failed');",
-    aTitle: "Assignment: Balance scale matcher",
-    aDesc: "Write a JS function `isGreater(a, b)` returning true if balance a is strictly greater than balance b.",
-    aStarter: "function isGreater(a, b) {\n    // Write your code here\n    \n}",
-    aHint: "Compare input parameters directly.",
-    aTest: "if (typeof isGreater !== 'function') throw new Error('Method isGreater not found');"
+    title: "Variables & Memory Storage Boxes",
+    desc: "A variable is like a labeled storage box in memory that holds a specific type of information. Learn the 4 fundamental types: int for whole numbers, double for decimals, boolean for true/false, and String for text.",
+    syllabus: [
+      "Whole Numbers (int): Storing integers without decimals.",
+      "Decimal Numbers (double): Storing fractional numbers and prices.",
+      "True/False (boolean) & Text (String): Storing flags and words."
+    ],
+    eTitle: "Day 3 Challenge: Declare Variables & Calculate Total",
+    eDesc: "Declare an int quantity = 3, a double unitPrice = 15.50, calculate double totalPrice = quantity * unitPrice, and print 'Total: $' + totalPrice.",
+    eStarter: "public class Solution {\n    public static void main(String[] args) {\n        // 1. Declare int quantity\n        // 2. Declare double unitPrice\n        // 3. Calculate and print totalPrice\n        \n    }\n}",
+    eHint: "double totalPrice = quantity * unitPrice;",
+    eTest: "import java.io.*;\npublic class Test {\n    public static void main(String[] args) {\n        ByteArrayOutputStream out = new ByteArrayOutputStream();\n        System.setOut(new PrintStream(out));\n        Solution.main(new String[]{});\n        String res = out.toString().trim();\n        if (!res.contains(\"Total: $46.5\")) throw new AssertionError(\"Expected 'Total: $46.5', got: \" + res);\n        if (!res.contains(\"Total:\")) throw new AssertionError(\"Must format with 'Total:' prefix\");\n    }\n}",
+    aTitle: "Day 3 Assignment: Declare Different Types",
+    aDesc: "Write a program that declares int age = 20 and boolean isStudent = true and prints them.",
+    aStarter: "public class Solution {\n    public static void main(String[] args) {\n        // Declare and print:\n        \n    }\n}",
+    aHint: "int age = 20; boolean isStudent = true;",
+    aTest: "import java.io.*;\npublic class Test {\n    public static void main(String[] args) {\n        ByteArrayOutputStream out = new ByteArrayOutputStream();\n        System.setOut(new PrintStream(out));\n        Solution.main(new String[]{});\n        String res = out.toString().trim();\n        if (!res.contains(\"20\")) throw new AssertionError(\"Output must contain age 20\");\n        if (!res.contains(\"true\")) throw new AssertionError(\"Output must contain boolean true\");\n    }\n}"
   },
+
+  // ── Day 4: Math Operators ──────────────────────────────────────────────────
   {
-    title: "Conditional Execution: Transaction Guardrails",
-    desc: "Master logical branching structures to audit withdraw operations. (Real world: ATMs verify client balances, checking constraints before dispatching payouts.)",
-    syllabus: ["Conditional statements branching logic", "Short-circuit boolean operators", "Validation guardrails"],
-    eTitle: "Exam: Withdraw Limit Guardrail",
-    eDesc: "Write a JS function `verifyWithdraw(balance, withdrawAmount)` returning remaining balance if withdrawAmount is positive, does not exceed balance, and the remaining balance is at least 500. Otherwise, return -1.",
-    eStarter: "function verifyWithdraw(balance, withdrawAmount) {\n    // Write your code here\n    \n}",
-    eHint: "Evaluate inequalities, checking remaining limits boundaries.",
-    eTest: "if (typeof verifyWithdraw !== 'function') throw new Error('Method verifyWithdraw not found');\nif (verifyWithdraw(2000, 500) !== 1500) throw new Error('Withdraw verification failed');",
-    aTitle: "Assignment: Deposit Sign Checker",
-    aDesc: "Write a JS function `isPositiveDeposit(n)` returning true if amount n > 0.",
-    aStarter: "function isPositiveDeposit(n) {\n    // Write your code here\n    \n}",
-    aHint: "Compare input with zero threshold.",
-    aTest: "if (typeof isPositiveDeposit !== 'function') throw new Error('Method isPositiveDeposit not found');"
+    title: "Math Operators & Expressions — Calculations in Java",
+    desc: "Perform calculations using +, -, *, /, and %. Master integer division truncation (7 / 2 is 3) and modulo remainder (10 % 3 is 1).",
+    syllabus: [
+      "Arithmetic Operators: +, -, *, /, %.",
+      "Integer Division: Truncating decimals when dividing integers.",
+      "Modulo: Finding remainders for even/odd and cycle calculations."
+    ],
+    eTitle: "Day 4 Challenge: Bill Splitter with Tip",
+    eDesc: "Write calculatePerPerson(double bill, double tipPercent, int people) in Solution returning total per person.",
+    eStarter: "public class Solution {\n    public static double calculatePerPerson(double bill, double tipPercent, int people) {\n        // Return (bill + (bill * tipPercent)) / people\n        return 0.0;\n    }\n}",
+    eHint: "double total = bill + (bill * tipPercent); return total / people;",
+    eTest: "public class Test {\n    public static void main(String[] args) {\n        if (Math.abs(Solution.calculatePerPerson(100.0, 0.20, 2) - 60.0) > 0.001) throw new AssertionError(\"100 + 20% / 2 must be 60.0\");\n        if (Math.abs(Solution.calculatePerPerson(200.0, 0.10, 4) - 55.0) > 0.001) throw new AssertionError(\"200 + 10% / 4 must be 55.0\");\n        if (Math.abs(Solution.calculatePerPerson(50.0, 0.0, 1) - 50.0) > 0.001) throw new AssertionError(\"50 + 0% / 1 must be 50.0\");\n    }\n}",
+    aTitle: "Day 4 Assignment: Modulo Checker",
+    aDesc: "Write isEven(int n) returning true if n is divisible by 2.",
+    aStarter: "public class Solution {\n    public static boolean isEven(int n) {\n        // Return true if n % 2 == 0:\n        return false;\n    }\n}",
+    aHint: "return n % 2 == 0;",
+    aTest: "public class Test {\n    public static void main(String[] args) {\n        if (!Solution.isEven(4)) throw new AssertionError(\"4 is even\");\n        if (Solution.isEven(7)) throw new AssertionError(\"7 is odd\");\n        if (!Solution.isEven(0)) throw new AssertionError(\"0 is even\");\n        if (Solution.isEven(-3)) throw new AssertionError(\"-3 is odd\");\n    }\n}"
   },
+
+  // ── Day 5: Conditionals & Milestone 1 ─────────────────────────────────────
   {
-    title: "Transaction Limits Multi-Branching",
-    desc: "Learn nested if-else structures and categorizing account tiers. (Real world: Credit card terminals verify transaction volumes, tagging them into STANDARD, GOLD, or PLATINUM categories.)",
-    syllabus: ["Multi-branching logic structures", "Evaluating nested conditions", "Structuring threshold controls"],
-    eTitle: "Exam: Account Tier Selector",
-    eDesc: "Write a JS function `getAccountTier(balance)` returning 'PLATINUM' if balance >= 10000, 'GOLD' if balance >= 5000, 'STANDARD' if balance >= 500, and 'CRITICAL' otherwise.",
-    eStarter: "function getAccountTier(balance) {\n    // Write your code here\n    \n}",
-    eHint: "Evaluate values checks using hierarchical conditional branching.",
-    eTest: "if (typeof getAccountTier !== 'function') throw new Error('Method getAccountTier not found');\nif (getAccountTier(6000) !== 'GOLD') throw new Error('Tier check failed');",
-    aTitle: "Assignment: Transaction Fee Estimator",
-    aDesc: "Write a JS function `calculateTransactionFee(amount, isPreferred)` returning 0 if isPreferred is true. Otherwise return amount * 0.02. Return 0 if amount <= 0.",
-    aStarter: "function calculateTransactionFee(amount, isPreferred) {\n    // Write your code here\n    \n}",
-    aHint: "Verify boolean state before applying multiplication math.",
-    aTest: "if (typeof calculateTransactionFee !== 'function') throw new Error('Method calculateTransactionFee not found');"
+    title: "Conditionals & ⭐ MILESTONE 1: Interactive Decision Console",
+    desc: "Make decisions with if, else-if, and else branches. (Milestone 1: Build an interactive decision console).",
+    syllabus: [
+      "if / else Branches: Forking execution based on boolean conditions.",
+      "Comparison Operators: ==, !=, <, <=, >, >=.",
+      "Logical Operators: && (AND), || (OR), ! (NOT)."
+    ],
+    eTitle: "Day 5 Milestone 1: Decision Console",
+    eDesc: "Write classifyScore(int score) returning 'Pass' if score >= 50, else 'Fail'.",
+    eStarter: "public class Solution {\n    public static String classifyScore(int score) {\n        // Return 'Pass' or 'Fail':\n        return \"\";\n    }\n}",
+    eHint: "if (score >= 50) return \"Pass\"; else return \"Fail\";",
+    eTest: "public class Test {\n    public static void main(String[] args) {\n        if (!Solution.classifyScore(75).equals(\"Pass\")) throw new AssertionError(\"75 must be Pass\");\n        if (!Solution.classifyScore(50).equals(\"Pass\")) throw new AssertionError(\"Boundary 50 must be Pass\");\n        if (!Solution.classifyScore(49).equals(\"Fail\")) throw new AssertionError(\"Boundary 49 must be Fail\");\n        if (!Solution.classifyScore(0).equals(\"Fail\")) throw new AssertionError(\"0 must be Fail\");\n        if (!Solution.classifyScore(100).equals(\"Pass\")) throw new AssertionError(\"100 must be Pass\");\n    }\n}",
+    aTitle: "Day 5 Assignment: Age Verification",
+    aDesc: "Write canVote(int age) returning true if age >= 18.",
+    aStarter: "public class Solution {\n    public static boolean canVote(int age) {\n        return false;\n    }\n}",
+    aHint: "return age >= 18;",
+    aTest: "public class Test {\n    public static void main(String[] args) {\n        if (!Solution.canVote(18)) throw new AssertionError(\"18 can vote\");\n        if (!Solution.canVote(25)) throw new AssertionError(\"25 can vote\");\n        if (Solution.canVote(17)) throw new AssertionError(\"17 cannot vote\");\n        if (Solution.canVote(0)) throw new AssertionError(\"0 cannot vote\");\n    }\n}"
   },
+
+  // ── Day 6: Switch Statements ───────────────────────────────────────────────
   {
-    title: "Iterative Control Flow: The while Loop",
-    desc: "Master loop boundaries and exit conditions. (Real world: Payment routers attempt remote database connection handshakes, looping while attempts are below max boundaries.)",
-    syllabus: ["While loops execution paths", "Loop counters and increments", "Safe exit conditions checks"],
-    eTitle: "Exam: Account PIN Validator",
-    eDesc: "Write a JS function `validatePin(pin)` returning true if pin is integer between 1000 and 9999 inclusive. Returns false otherwise.",
-    eStarter: "function validatePin(pin) {\n    // Write your code here\n    \n}",
-    eHint: "Evaluate range boundaries checks.",
-    eTest: "if (typeof validatePin !== 'function') throw new Error('Method validatePin not found');\nif (validatePin(1234) !== true) throw new Error('PIN verification failed');",
-    aTitle: "Assignment: Digit Count Checker",
-    aDesc: "Write a JS function `countDigits(n)` returning count of digits in integer n. Return 0 if n <= 0.",
-    aStarter: "function countDigits(n) {\n    // Write your code here\n    \n}",
-    aHint: "Convert input to string, evaluate length parameters.",
-    aTest: "if (typeof countDigits !== 'function') throw new Error('Method countDigits not found');"
+    title: "Switch Statements & Default Guards",
+    desc: "Switch statements jump directly to matching cases. Always include break to prevent fallthrough and default for unhandled cases.",
+    syllabus: [
+      "switch and case syntax: Direct value matching.",
+      "The break statement: Preventing unintentional case fallthrough.",
+      "The default branch: Catching all unlisted options."
+    ],
+    eTitle: "Day 6 Challenge: Day Name Lookup",
+    eDesc: "Write getDayName(int day) returning 'Monday' for 1, 'Tuesday' for 2, 'Wednesday' for 3, and 'Unknown' otherwise.",
+    eStarter: "public class Solution {\n    public static String getDayName(int day) {\n        switch (day) {\n            case 1: return \"Monday\";\n            case 2: return \"Tuesday\";\n            case 3: return \"Wednesday\";\n            default: return \"Unknown\";\n        }\n    }\n}",
+    eHint: "Use switch(day) with cases 1, 2, 3 and default.",
+    eTest: "public class Test {\n    public static void main(String[] args) {\n        if (!Solution.getDayName(1).equals(\"Monday\")) throw new AssertionError(\"1 must be Monday\");\n        if (!Solution.getDayName(2).equals(\"Tuesday\")) throw new AssertionError(\"2 must be Tuesday\");\n        if (!Solution.getDayName(3).equals(\"Wednesday\")) throw new AssertionError(\"3 must be Wednesday\");\n        if (!Solution.getDayName(0).equals(\"Unknown\")) throw new AssertionError(\"0 must be Unknown\");\n        if (!Solution.getDayName(99).equals(\"Unknown\")) throw new AssertionError(\"99 must be Unknown\");\n    }\n}",
+    aTitle: "Day 6 Assignment: Grade Classifier Switch",
+    aDesc: "Write getFeedback(char grade) returning 'Excellent' for 'A', 'Good' for 'B', and 'Retake' otherwise.",
+    aStarter: "public class Solution {\n    public static String getFeedback(char grade) {\n        switch (grade) {\n            case 'A': return \"Excellent\";\n            case 'B': return \"Good\";\n            default: return \"Retake\";\n        }\n    }\n}",
+    aHint: "Use switch (grade) with cases 'A', 'B' and default.",
+    aTest: "public class Test {\n    public static void main(String[] args) {\n        if (!Solution.getFeedback('A').equals(\"Excellent\")) throw new AssertionError(\"A must be Excellent\");\n        if (!Solution.getFeedback('B').equals(\"Good\")) throw new AssertionError(\"B must be Good\");\n        if (!Solution.getFeedback('F').equals(\"Retake\")) throw new AssertionError(\"F must be Retake\");\n    }\n}"
   },
+
+  // ── Day 7: While Loops ─────────────────────────────────────────────────────
   {
-    title: "Deterministic Loops: Interest Compound Calculations",
-    desc: "Master deterministic for loops. (Real world: Investment engines calculate yearly interest gains, compounding values using loops.)",
-    syllabus: ["For loops bounds allocations", "Accumulating compounding math values", "Increment control steps"],
-    eTitle: "Exam: Interest Compounder",
-    eDesc: "Write a JS function `compoundInterest(principal, ratePercent, years)` returning compound value: `principal * Math.pow(1 + ratePercent/100, years)`. Return 0 if principal is negative.",
-    eStarter: "function compoundInterest(principal, ratePercent, years) {\n    // Write your code here\n    \n}",
-    eHint: "Apply compound interest formula.",
-    eTest: "if (typeof compoundInterest !== 'function') throw new Error('Method compoundInterest not found');\nif (Math.round(compoundInterest(1000, 10, 2)) !== 1210) throw new Error('Interest compounding failed');",
-    aTitle: "Assignment: Total Savings accumulator",
-    aDesc: "Write a JS function `sumMonthlySavings(monthlyAmount, months)` returning monthlyAmount * months. Return 0 if negative.",
-    aStarter: "function sumMonthlySavings(monthlyAmount, months) {\n    // Write your code here\n    \n}",
-    aHint: "Multiply parameters.",
-    aTest: "if (typeof sumMonthlySavings !== 'function') throw new Error('Method sumMonthlySavings not found');"
+    title: "While & Do-While Loops — Iterative Repetition",
+    desc: "Loops repeat instructions while a condition remains true. Always update the loop variable to prevent infinite loops.",
+    syllabus: [
+      "while loop anatomy: Condition-first iteration.",
+      "Loop update step: Advancing the counter to prevent infinite loops.",
+      "do-while loop: Executing at least once before checking condition."
+    ],
+    eTitle: "Day 7 Challenge: Calculate Factorial with While Loop",
+    eDesc: "Write factorial(int n) in Solution returning the product of numbers from 1 to n (e.g. 4! = 1*2*3*4 = 24). For n <= 1 return 1.",
+    eStarter: "public class Solution {\n    public static int factorial(int n) {\n        int result = 1;\n        int i = 1;\n        while (i <= n) {\n            result *= i;\n            i++;\n        }\n        return result;\n    }\n}",
+    eHint: "Multiply result *= i; inside a while(i <= n) loop.",
+    eTest: "public class Test {\n    public static void main(String[] args) {\n        if (Solution.factorial(0) != 1) throw new AssertionError(\"0! must be 1\");\n        if (Solution.factorial(1) != 1) throw new AssertionError(\"1! must be 1\");\n        if (Solution.factorial(4) != 24) throw new AssertionError(\"4! must be 24\");\n        if (Solution.factorial(5) != 120) throw new AssertionError(\"5! must be 120\");\n    }\n}",
+    aTitle: "Day 7 Assignment: Sum 1 to N While Loop",
+    aDesc: "Write sumUpTo(int n) returning 1 + 2 + ... + n.",
+    aStarter: "public class Solution {\n    public static int sumUpTo(int n) {\n        int sum = 0, i = 1;\n        while (i <= n) { sum += i; i++; }\n        return sum;\n    }\n}",
+    aHint: "while (i <= n) { sum += i; i++; }",
+    aTest: "public class Test {\n    public static void main(String[] args) {\n        if (Solution.sumUpTo(3) != 6) throw new AssertionError(\"1+2+3 must be 6\");\n        if (Solution.sumUpTo(5) != 15) throw new AssertionError(\"Sum to 5 must be 15\");\n        if (Solution.sumUpTo(0) != 0) throw new AssertionError(\"Sum to 0 must be 0\");\n    }\n}"
   },
+
+  // ── Day 8: For Loops ───────────────────────────────────────────────────────
   {
-    title: "Advanced Loops: break & continue labels",
-    desc: "Master loop control flow structures. (Real world: Audit engines trace ledger histories, break-looping when matching transaction IDs are found.)",
-    syllabus: ["Loop control flow interruptions", "Labeled break statements", "Nested loops exit controls"],
-    eTitle: "Exam: First Over-Limit Finder",
-    eDesc: "Write a JS function `findFirstOverLimit(transactions, limit)` returning first transaction value exceeding limit. Return -1 if none found or inputs are empty.",
-    eStarter: "function findFirstOverLimit(transactions, limit) {\n    // Write your code here\n    \n}",
-    eHint: "Iterate array elements, checking limits thresholds.",
-    eTest: "if (typeof findFirstOverLimit !== 'function') throw new Error('Method findFirstOverLimit not found');\nif (findFirstOverLimit([100, 500, 300], 400) !== 500) throw new Error('Overlimit search failed');",
-    aTitle: "Assignment: Odd Transaction Filter",
-    aDesc: "Write a JS function `sumOddTransactions(transactions)` returning sum of all odd-valued transactions in array.",
-    aStarter: "function sumOddTransactions(transactions) {\n    // Write your code here\n    \n}",
-    aHint: "Iterate elements, checking modulo 2 matches.",
-    aTest: "if (typeof sumOddTransactions !== 'function') throw new Error('Method sumOddTransactions not found');"
+    title: "For Loops & Nested Iteration",
+    desc: "The for loop packages initialization, condition, and increment into a single compact header. Perfect for counting and iteration.",
+    syllabus: [
+      "The 3-part for loop header: (init; condition; update).",
+      "Counting Up & Counting Down: Controlling step sizes (i++, i += 2).",
+      "Nested for loops: Iterating grids and 2D spaces."
+    ],
+    eTitle: "Day 8 Challenge: Sum of Even Numbers",
+    eDesc: "Write sumEvens(int n) returning sum of all even numbers from 2 up to n.",
+    eStarter: "public class Solution {\n    public static int sumEvens(int n) {\n        int sum = 0;\n        for (int i = 2; i <= n; i += 2) {\n            sum += i;\n        }\n        return sum;\n    }\n}",
+    eHint: "for (int i = 2; i <= n; i += 2) sum += i;",
+    eTest: "public class Test {\n    public static void main(String[] args) {\n        if (Solution.sumEvens(6) != 12) throw new AssertionError(\"2+4+6 must be 12\");\n        if (Solution.sumEvens(10) != 30) throw new AssertionError(\"2+4+6+8+10 must be 30\");\n        if (Solution.sumEvens(1) != 0) throw new AssertionError(\"No evens <= 1 must be 0\");\n        if (Solution.sumEvens(7) != 12) throw new AssertionError(\"Evens <= 7 must be 12\");\n    }\n}",
+    aTitle: "Day 8 Assignment: Count Down String",
+    aDesc: "Write countDown(int start) returning '3 2 1 ' for start = 3.",
+    aStarter: "public class Solution {\n    public static String countDown(int start) {\n        String res = \"\";\n        for (int i = start; i >= 1; i--) { res += i + \" \"; }\n        return res;\n    }\n}",
+    aHint: "for (int i = start; i >= 1; i--)",
+    aTest: "public class Test {\n    public static void main(String[] args) {\n        if (!Solution.countDown(3).equals(\"3 2 1 \")) throw new AssertionError(\"Must return '3 2 1 '\");\n        if (!Solution.countDown(1).equals(\"1 \")) throw new AssertionError(\"Must return '1 '\");\n    }\n}"
   },
+
+  // ── Day 9: Custom Methods ──────────────────────────────────────────────────
   {
-    title: "OOP: Class references & object structures",
-    desc: "Master class schemas and heap references variables. (Real world: Financial frameworks define Account objects, mapping properties to memory buffers.)",
-    syllabus: ["Classes vs Objects representations", "Reference variables allocations", "Heap memory data models"],
-    eTitle: "Exam: Account Balance Checker",
-    eDesc: "Write a JS function `getAccountBalance(account)` returning account.balance value. Return -1 if account or balance is missing/null.",
-    eStarter: "function getAccountBalance(account) {\n    // Write your code here\n    \n}",
-    eHint: "Query object parameters properties.",
-    eTest: "if (typeof getAccountBalance !== 'function') throw new Error('Method getAccountBalance not found');\nif (getAccountBalance({ balance: 1000 }) !== 1000) throw new Error('Balance extraction failed');",
-    aTitle: "Assignment: Account status verification",
-    aDesc: "Write a JS function `isAccountActive(account)` returning true if account.status === 'ACTIVE'.",
-    aStarter: "function isAccountActive(account) {\n    // Write your code here\n    \n}",
-    aHint: "Compare status string variables.",
-    aTest: "if (typeof isAccountActive !== 'function') throw new Error('Method isAccountActive not found');"
+    title: "Modular Programming — Custom Methods & Reusable Logic",
+    desc: "Custom methods package reusable code under a named identifier. Learn return types, parameter passing, and the pass-by-value photocopy rule.",
+    syllabus: [
+      "The DRY Principle: Writing instructions once and calling them anywhere.",
+      "Method Anatomy: Return type, parameter list, method body.",
+      "Pass-by-Value: Why modifying primitive parameters never alters caller variables."
+    ],
+    eTitle: "Day 9 Challenge: Total Price Calculator",
+    eDesc: "Write calculateTotal(double price, double taxRate) in Solution returning price + (price * taxRate).",
+    eStarter: "public class Solution {\n    public static double calculateTotal(double price, double taxRate) {\n        return price + (price * taxRate);\n    }\n}",
+    eHint: "return price + (price * taxRate);",
+    eTest: "public class Test {\n    public static void main(String[] args) {\n        if (Math.abs(Solution.calculateTotal(100.0, 0.05) - 105.0) > 0.001) throw new AssertionError(\"100 + 5% tax must be 105.0\");\n        if (Math.abs(Solution.calculateTotal(50.0, 0.10) - 55.0) > 0.001) throw new AssertionError(\"50 + 10% tax must be 55.0\");\n        if (Math.abs(Solution.calculateTotal(200.0, 0.0) - 200.0) > 0.001) throw new AssertionError(\"200 + 0% tax must be 200.0\");\n    }\n}",
+    aTitle: "Day 9 Assignment: Max of Two Numbers",
+    aDesc: "Write max(int a, int b) returning the larger of the two numbers.",
+    aStarter: "public class Solution {\n    public static int max(int a, int b) {\n        return (a >= b) ? a : b;\n    }\n}",
+    aHint: "return (a >= b) ? a : b;",
+    aTest: "public class Test {\n    public static void main(String[] args) {\n        if (Solution.max(10, 20) != 20) throw new AssertionError(\"max(10, 20) must be 20\");\n        if (Solution.max(50, 30) != 50) throw new AssertionError(\"max(50, 30) must be 50\");\n        if (Solution.max(-5, -10) != -5) throw new AssertionError(\"max(-5, -10) must be -5\");\n    }\n}"
   },
+
+  // ── Day 10: Call Stack & Milestone 2 ───────────────────────────────────────
   {
-    title: "Data Encapsulation & Access Modifiers",
-    desc: "Master encapsulation best practices. (Real world: Transaction libraries encapsulate balance attributes, enforcing validation checks on deposit API routes.)",
-    syllabus: ["Access control modifiers keywords", "Data encapsulation principles", "Accessors and mutators validation"],
-    eTitle: "Exam: Encapsulated Deposit Guard",
-    eDesc: "Write a JS function `isValidDepositAmount(amount)` returning true if amount is strictly greater than 0 and does not exceed 10000. Returns false otherwise.",
-    eStarter: "function isValidDepositAmount(amount) {\n    // Write your code here\n    \n}",
-    eHint: "Check input ranges bounds.",
-    eTest: "if (typeof isValidDepositAmount !== 'function') throw new Error('Method isValidDepositAmount not found');\nif (isValidDepositAmount(500) !== true) throw new Error('Deposit bounds failed');",
-    aTitle: "Assignment: Max limit checker",
-    aDesc: "Write a JS function `isDepositWithinLimit(amount, maxLimit)` returning true if amount <= maxLimit.",
-    aStarter: "function isDepositWithinLimit(amount, maxLimit) {\n    // Write your code here\n    \n}",
-    aHint: "Compare input with limit constraints.",
-    aTest: "if (typeof isDepositWithinLimit !== 'function') throw new Error('Method isDepositWithinLimit not found');"
+    title: "Call Stack, Scopes & ⭐ MILESTONE 2: Financial Utility Engine",
+    desc: "Understand how the Call Stack pushes and pops stack frames. (Milestone 2: Modular Financial Utility Engine).",
+    syllabus: [
+      "The Call Stack: Stack frames, pushing, and popping upon return.",
+      "Block Scope: Local visibility within { curly braces }.",
+      "Method Composition: Helper methods calling helper methods."
+    ],
+    eTitle: "Day 10 Milestone 2: Financial Utility Engine",
+    eDesc: "Write applyDiscount(double p, double d) and finalPrice(double p, double d, double t) returning discounted price + tax in Solution.",
+    eStarter: "public class Solution {\n    public static double applyDiscount(double p, double d) {\n        return p - (p * d);\n    }\n    public static double finalPrice(double p, double d, double t) {\n        double disc = applyDiscount(p, d);\n        return disc + (disc * t);\n    }\n}",
+    eHint: "double disc = applyDiscount(p, d); return disc + (disc * t);",
+    eTest: "public class Test {\n    public static void main(String[] args) {\n        if (Math.abs(Solution.applyDiscount(100.0, 0.10) - 90.0) > 0.001) throw new AssertionError(\"100 with 10% disc must be 90.0\");\n        if (Math.abs(Solution.finalPrice(100.0, 0.10, 0.05) - 94.5) > 0.001) throw new AssertionError(\"90 with 5% tax must be 94.5\");\n        if (Math.abs(Solution.finalPrice(200.0, 0.0, 0.08) - 216.0) > 0.001) throw new AssertionError(\"200 with 0% disc and 8% tax must be 216.0\");\n    }\n}",
+    aTitle: "Day 10 Assignment: Temperature Converter",
+    aDesc: "Write cToF(double celsius) returning (celsius * 9/5) + 32.",
+    aStarter: "public class Solution {\n    public static double cToF(double c) {\n        return (c * 9.0 / 5.0) + 32.0;\n    }\n}",
+    aHint: "return (c * 9.0 / 5.0) + 32.0;",
+    aTest: "public class Test {\n    public static void main(String[] args) {\n        if (Math.abs(Solution.cToF(0.0) - 32.0) > 0.001) throw new AssertionError(\"0C must be 32F\");\n        if (Math.abs(Solution.cToF(100.0) - 212.0) > 0.001) throw new AssertionError(\"100C must be 212F\");\n    }\n}"
   },
+
+  // ── Day 11: Method Overloading ─────────────────────────────────────────────
   {
-    title: "Constructor Overloading & Initializers",
-    desc: "Master constructors models. (Real world: Banking libraries support multiple account initialization paths, creating accounts using custom or default rates.)",
-    syllabus: ["Overloading constructors models", "Initialization order properties", "Constructor default arguments"],
-    eTitle: "Exam: Account Object Builder",
-    eDesc: "Write a JS function `buildAccountObject(id, balance, type)` returning object `{ id: id, balance: balance, type: type || 'SAVINGS' }`.",
-    eStarter: "function buildAccountObject(id, balance, type) {\n    // Write your code here\n    \n}",
-    eHint: "Construct literal object with default fallback parameters.",
-    eTest: "if (typeof buildAccountObject !== 'function') throw new Error('Method buildAccountObject not found');\nif (buildAccountObject(1, 100).type !== 'SAVINGS') throw new Error('Overload builder failed');",
-    aTitle: "Assignment: Mini savings initializer",
-    aDesc: "Write a JS function `initSavings(balance)` returning account object with default values.",
-    aStarter: "function initSavings(balance) {\n    // Write your code here\n    \n}",
-    aHint: "Build defaults objects.",
-    aTest: "if (typeof initSavings !== 'function') throw new Error('Method initSavings not found');"
+    title: "Method Overloading & Clean Signatures",
+    desc: "Overloading allows multiple methods in the same class to share a name if their parameter types or counts differ.",
+    syllabus: [
+      "Overloading by Type: Handling ints vs doubles.",
+      "Overloading by Count: Optional default parameters.",
+      "Signature Differentiation: Why return type alone does not overload."
+    ],
+    eTitle: "Day 11 Challenge: Overloaded Area Calculator",
+    eDesc: "Write calculateArea(int side) returning square area, and calculateArea(int l, int w) returning rectangle area.",
+    eStarter: "public class Solution {\n    public static int calculateArea(int side) { return side * side; }\n    public static int calculateArea(int l, int w) { return l * w; }\n}",
+    eHint: "Define two calculateArea methods with different parameter lists.",
+    eTest: "public class Test {\n    public static void main(String[] args) {\n        if (Solution.calculateArea(5) != 25) throw new AssertionError(\"Square 5 must be 25\");\n        if (Solution.calculateArea(0) != 0) throw new AssertionError(\"Square 0 must be 0\");\n        if (Solution.calculateArea(4, 7) != 28) throw new AssertionError(\"Rect 4x7 must be 28\");\n        if (Solution.calculateArea(10, 2) != 20) throw new AssertionError(\"Rect 10x2 must be 20\");\n    }\n}",
+    aTitle: "Day 11 Assignment: Overloaded String Multiplier",
+    aDesc: "Write repeat(String s) returning s + s, and repeat(String s, int times) repeating s times times.",
+    aStarter: "public class Solution {\n    public static String repeat(String s) { return s + s; }\n    public static String repeat(String s, int n) {\n        String r = \"\"; for (int i=0; i<n; i++) r += s; return r;\n    }\n}",
+    aHint: "Use a loop for repeat(s, n).",
+    aTest: "public class Test {\n    public static void main(String[] args) {\n        if (!Solution.repeat(\"Hi\").equals(\"HiHi\")) throw new AssertionError(\"Default repeat must be HiHi\");\n        if (!Solution.repeat(\"A\", 3).equals(\"AAA\")) throw new AssertionError(\"A x 3 must be AAA\");\n    }\n}"
   },
+
+  // ── Day 12: 1D Arrays ──────────────────────────────────────────────────────
   {
-    title: "OOP Inheritance: Savings vs Checking Accounts",
-    desc: "Master subclass extensions. (Real world: Financial systems extend base Account classes, adding interest rate algorithms for Savings classes.)",
-    syllabus: ["Inheritance extensions structures", "Subclass creation rules", "Routing super references methods"],
-    eTitle: "Exam: Subclass Interest Calculator",
-    eDesc: "Write a JS function `computeRolePay(type, balance)` returning balance + (balance * 0.05) if type === 'SAVINGS'. Otherwise return balance.",
-    eStarter: "function computeRolePay(type, balance) {\n    // Write your code here\n    \n}",
-    eHint: "Evaluate type checking string, applying math scales.",
-    eTest: "if (typeof computeRolePay !== 'function') throw new Error('Method computeRolePay not found');\nif (computeRolePay('SAVINGS', 1000) !== 1050) throw new Error('Subclass calculation failed');",
-    aTitle: "Assignment: Savings check indicator",
-    aDesc: "Write a JS function `isSavingsAccount(account)` returning true if account.type === 'SAVINGS'.",
-    aStarter: "function isSavingsAccount(account) {\n    // Write your code here\n    \n}",
-    aHint: "Compare type strings.",
-    aTest: "if (typeof isSavingsAccount !== 'function') throw new Error('Method isSavingsAccount not found');"
+    title: "1D Arrays — Contiguous Memory Allocation & Indexing",
+    desc: "Store multiple values of the same type in a single contiguous array. Master 0-based indexing and the array.length property.",
+    syllabus: [
+      "Array Allocation: new int[size] and literal { } initialization.",
+      "0-Based Indexing: Accessing array[0] through array[length - 1].",
+      "ArrayIndexOutOfBoundsException: Preventing off-by-one index crashes."
+    ],
+    eTitle: "Day 12 Challenge: Find Maximum in Array",
+    eDesc: "Write findMax(int[] arr) returning the highest integer in arr.",
+    eStarter: "public class Solution {\n    public static int findMax(int[] arr) {\n        int max = arr[0];\n        for (int i = 1; i < arr.length; i++) {\n            if (arr[i] > max) max = arr[i];\n        }\n        return max;\n    }\n}",
+    eHint: "Initialize max = arr[0] and iterate through the rest.",
+    eTest: "public class Test {\n    public static void main(String[] args) {\n        if (Solution.findMax(new int[]{ 10, 50, 20, 80, 30 }) != 80) throw new AssertionError(\"Max must be 80\");\n        if (Solution.findMax(new int[]{ 99 }) != 99) throw new AssertionError(\"Single element max must be 99\");\n        if (Solution.findMax(new int[]{ -10, -50, -5, -20 }) != -5) throw new AssertionError(\"Negative max must be -5\");\n        if (Solution.findMax(new int[]{ 100, 20, 30 }) != 100) throw new AssertionError(\"First element max must be 100\");\n    }\n}",
+    aTitle: "Day 12 Assignment: Array Sum",
+    aDesc: "Write sumArray(int[] arr) returning total sum of elements.",
+    aStarter: "public class Solution {\n    public static int sumArray(int[] arr) {\n        int sum = 0;\n        for (int i=0; i<arr.length; i++) sum += arr[i];\n        return sum;\n    }\n}",
+    aHint: "for (int i = 0; i < arr.length; i++) sum += arr[i];",
+    aTest: "public class Test {\n    public static void main(String[] args) {\n        if (Solution.sumArray(new int[]{1, 2, 3}) != 6) throw new AssertionError(\"Sum 1+2+3 must be 6\");\n        if (Solution.sumArray(new int[]{}) != 0) throw new AssertionError(\"Empty array sum must be 0\");\n    }\n}"
   },
+
+  // ── Day 13: Enhanced For-Each ──────────────────────────────────────────────
   {
-    title: "Polymorphism: Overriding ledger logic",
-    desc: "Master polymorphism rules. (Real world: Operations platforms call abstract audit methods, routing requests dynamically to subclass implementations.)",
-    syllabus: ["Runtime polymorphism mechanics", "Method overriding conventions", "Polymorphic dispatch execution"],
-    eTitle: "Exam: Dynamic Ledger Dispatcher",
-    eDesc: "Write a JS function `dispatchSound(type, amount)` returning `SAVINGS: [amount]` if type === 'SAVINGS', and `CHECKING: [amount]` if type === 'CHECKING'. Return `UNKNOWN` otherwise.",
-    eStarter: "function dispatchSound(type, amount) {\n    // Write your code here\n    \n}",
-    eHint: "Route labels output mapping based on string inputs.",
-    eTest: "if (typeof dispatchSound !== 'function') throw new Error('Method dispatchSound not found');\nif (dispatchSound('SAVINGS', 500) !== 'SAVINGS: 500') throw new Error('Dispatch check failed');",
-    aTitle: "Assignment: Overloaded fee checker",
-    aDesc: "Write a JS function `addOverloaded(balance, deposit, fee)` returning balance + deposit - (fee || 0).",
-    aStarter: "function addOverloaded(balance, deposit, fee) {\n    // Write your code here\n    \n}",
-    aHint: "Add inputs, subtracting fee parameter if provided.",
-    aTest: "if (typeof addOverloaded !== 'function') throw new Error('Method addOverloaded not found');"
+    title: "Enhanced For-Each Loop & Array Traversal",
+    desc: "Traverse arrays cleanly with for (Type item : array) without needing manual index counters.",
+    syllabus: [
+      "for-each loop syntax: Clean item-by-item iteration.",
+      "Read-only traversal: When to use for-each vs standard for loop.",
+      "Accumulation and filtering patterns."
+    ],
+    eTitle: "Day 13 Challenge: Count Positive Numbers",
+    eDesc: "Write countPositives(int[] arr) using a for-each loop to return the count of numbers > 0.",
+    eStarter: "public class Solution {\n    public static int countPositives(int[] arr) {\n        int count = 0;\n        for (int n : arr) {\n            if (n > 0) count++;\n        }\n        return count;\n    }\n}",
+    eHint: "for (int n : arr) if (n > 0) count++;",
+    eTest: "public class Test {\n    public static void main(String[] args) {\n        if (Solution.countPositives(new int[]{ -5, 10, 0, 20, -1 }) != 2) throw new AssertionError(\"Must find 2 positives (10, 20)\");\n        if (Solution.countPositives(new int[]{ 1, 2, 3 }) != 3) throw new AssertionError(\"All positive must be 3\");\n        if (Solution.countPositives(new int[]{ -1, -2, 0 }) != 0) throw new AssertionError(\"None positive must be 0\");\n        if (Solution.countPositives(new int[]{}) != 0) throw new AssertionError(\"Empty array must return 0\");\n    }\n}",
+    aTitle: "Day 13 Assignment: String Array Joiner",
+    aDesc: "Write joinStrings(String[] words) returning words concatenated with commas.",
+    aStarter: "public class Solution {\n    public static String joinStrings(String[] words) {\n        String res = \"\";\n        for (String w : words) res += w + \",\";\n        return res;\n    }\n}",
+    aHint: "for (String w : words) res += w + \",\";",
+    aTest: "public class Test {\n    public static void main(String[] args) {\n        if (!Solution.joinStrings(new String[]{\"A\", \"B\"}).equals(\"A,B,\")) throw new AssertionError(\"Must return 'A,B,'\");\n    }\n}"
   },
+
+  // ── Day 14: 2D Arrays ──────────────────────────────────────────────────────
   {
-    title: "Abstract Classes vs Interfaces",
-    desc: "Master structural contracts. (Real world: Payment platforms define transaction interfaces, enforcing implementations parameters across billing processors.)",
-    syllabus: ["Abstract classes constraints", "Designing interfaces APIs contracts", "Verifying class implementation paths"],
-    eTitle: "Exam: Transaction validation contract check",
-    eDesc: "Write a JS function `getAbstractArea(account)` returning true if account contains implementation function 'validate'. Returns false otherwise.",
-    eStarter: "function getAbstractArea(account) {\n    // Write your code here\n    \n}",
-    eHint: "Verify property type validation using typeof.",
-    eTest: "if (typeof getAbstractArea !== 'function') throw new Error('Method getAbstractArea not found');\nif (getAbstractArea({ validate: () => {} }) !== true) throw new Error('Contract validation failed');",
-    aTitle: "Assignment: Interface check validator",
-    aDesc: "Write a JS function `implementsInterface(obj, interfaceKeys)` returning true if obj contains all string keys in interfaceKeys array.",
-    aStarter: "function implementsInterface(obj, interfaceKeys) {\n    // Write your code here\n    \n}",
-    aHint: "Check keys presence on obj.",
-    aTest: "if (typeof implementsInterface !== 'function') throw new Error('Method implementsInterface not found');"
+    title: "2D Arrays & Grid Traversal",
+    desc: "Model grids, matrices, and game boards using 2D arrays (arr[row][col]) and nested loop traversal.",
+    syllabus: [
+      "2D Array Dimensions: Rows and columns in heap memory.",
+      "Nested Loop Traversal: Outer row loop, inner col loop.",
+      "Matrix operations: Summing rows, columns, and diagonals."
+    ],
+    eTitle: "Day 14 Challenge: Matrix Diagonal Sum",
+    eDesc: "Write sumDiagonal(int[][] matrix) returning sum of matrix[i][i] across an N x N square matrix.",
+    eStarter: "public class Solution {\n    public static int sumDiagonal(int[][] matrix) {\n        int sum = 0;\n        for (int i = 0; i < matrix.length; i++) {\n            sum += matrix[i][i];\n        }\n        return sum;\n    }\n}",
+    eHint: "for (int i = 0; i < matrix.length; i++) sum += matrix[i][i];",
+    eTest: "public class Test {\n    public static void main(String[] args) {\n        int[][] m1 = { { 1, 2 }, { 3, 4 } };\n        if (Solution.sumDiagonal(m1) != 5) throw new AssertionError(\"Diagonal 1+4 must be 5\");\n        int[][] m2 = { { 5, 0, 0 }, { 0, 10, 0 }, { 0, 0, 15 } };\n        if (Solution.sumDiagonal(m2) != 30) throw new AssertionError(\"Diagonal 5+10+15 must be 30\");\n        int[][] m3 = { { 99 } };\n        if (Solution.sumDiagonal(m3) != 99) throw new AssertionError(\"1x1 matrix diagonal must be 99\");\n    }\n}",
+    aTitle: "Day 14 Assignment: Count Total Matrix Elements",
+    aDesc: "Write countCells(int[][] grid) returning total number of cells in the 2D grid.",
+    aStarter: "public class Solution {\n    public static int countCells(int[][] grid) {\n        int count = 0;\n        for (int r=0; r<grid.length; r++) count += grid[r].length;\n        return count;\n    }\n}",
+    aHint: "Count rows * cols.",
+    aTest: "public class Test {\n    public static void main(String[] args) {\n        int[][] g = { { 1, 2, 3 }, { 4, 5, 6 } };\n        if (Solution.countCells(g) != 6) throw new AssertionError(\"2x3 must have 6 cells\");\n    }\n}"
   },
+
+  // ── Day 15: Binary Search & Milestone 3 ───────────────────────────────────
   {
-    title: "Introduction to Arrays: Transaction Ledger List",
-    desc: "Master linear array models. (Real world: Ledger engines write daily transactions to memory arrays, computing sums by iterating records.)",
-    syllabus: ["Array structures initialization", "Index offset boundaries rules", "Linear array traversals loops"],
-    eTitle: "Exam: Ledger sum calculator",
-    eDesc: "Write a JS function `sum(arr)` returning sum of elements in arr array. Return 0 if arr is null/empty.",
-    eStarter: "function sum(arr) {\n    // Write your code here\n    \n}",
-    eHint: "Iterate array elements, compounding sums.",
-    eTest: "if (typeof sum !== 'function') throw new Error('Method sum not found');\nif (sum([10, 20]) !== 30) throw new Error('Ledger sum math failed');",
-    aTitle: "Assignment: Transaction average calculator",
-    aDesc: "Write a JS function `average(arr)` returning average of elements in arr array. Return 0 if null.",
-    aStarter: "function average(arr) {\n    // Write your code here\n    \n}",
-    aHint: "Sum values and divide by count.",
-    aTest: "if (typeof average !== 'function') throw new Error('Method average not found');"
+    title: "Search Algorithms & ⭐ MILESTONE 3: Fast Data Ledger",
+    desc: "Linear search vs Binary search. (Milestone 3: Fast Data Ledger & Binary Search Engine).",
+    syllabus: [
+      "Linear Search: O(N) sequential search.",
+      "Binary Search: O(log N) divide-and-conquer on sorted arrays.",
+      "The Sorted Invariant: Why binary search requires ascending order."
+    ],
+    eTitle: "Day 15 Milestone 3: Binary Search Ledger",
+    eDesc: "Write binarySearch(int[] arr, int target) in Solution returning index of target in sorted arr, or -1 if not found.",
+    eStarter: "public class Solution {\n    public static int binarySearch(int[] arr, int target) {\n        int low = 0, high = arr.length - 1;\n        while (low <= high) {\n            int mid = low + (high - low) / 2;\n            if (arr[mid] == target) return mid;\n            if (arr[mid] < target) low = mid + 1;\n            else high = mid - 1;\n        }\n        return -1;\n    }\n}",
+    eHint: "Use while (low <= high) and calculate mid = low + (high - low) / 2.",
+    eTest: "public class Test {\n    public static void main(String[] args) {\n        int[] arr = { 10, 20, 30, 40, 50, 60, 70 };\n        if (Solution.binarySearch(arr, 10) != 0) throw new AssertionError(\"Target at first index 0 failed\");\n        if (Solution.binarySearch(arr, 40) != 3) throw new AssertionError(\"Target at middle index 3 failed\");\n        if (Solution.binarySearch(arr, 70) != 6) throw new AssertionError(\"Target at last index 6 failed\");\n        if (Solution.binarySearch(arr, 99) != -1) throw new AssertionError(\"Missing element 99 must return -1\");\n        if (Solution.binarySearch(arr, 5) != -1) throw new AssertionError(\"Missing element 5 < min must return -1\");\n        if (Solution.binarySearch(new int[]{ 42 }, 42) != 0) throw new AssertionError(\"Single element match failed\");\n        if (Solution.binarySearch(new int[]{ 42 }, 99) != -1) throw new AssertionError(\"Single element missing failed\");\n    }\n}",
+    aTitle: "Day 15 Assignment: Linear Search",
+    aDesc: "Write linearSearch(int[] arr, int target) returning index of target or -1.",
+    aStarter: "public class Solution {\n    public static int linearSearch(int[] arr, int target) {\n        for (int i=0; i<arr.length; i++) if (arr[i] == target) return i;\n        return -1;\n    }\n}",
+    aHint: "for (int i = 0; i < arr.length; i++) if (arr[i] == target) return i;",
+    aTest: "public class Test {\n    public static void main(String[] args) {\n        int[] arr = { 5, 2, 8, 1 };\n        if (Solution.linearSearch(arr, 8) != 2) throw new AssertionError(\"8 must be at index 2\");\n        if (Solution.linearSearch(arr, 99) != -1) throw new AssertionError(\"99 must return -1\");\n    }\n}"
   },
+
+  // ── Day 16: OOP: Classes vs Objects ────────────────────────────────────────
   {
-    title: "Array Boundaries: Ledger Peak Searches",
-    desc: "Master linear search techniques in array structures. (Real world: Security systems check transaction sequences, identifying anomaly transaction spikes.)",
-    syllabus: ["Linear search array algorithms", "Locating maximum values bounds", "Handling empty array bounds cases"],
-    eTitle: "Exam: Ledger Peak Finder",
-    eDesc: "Write a JS function `findMax(arr)` returning maximum value in arr array. Return 0 if null/empty.",
-    eStarter: "function findMax(arr) {\n    // Write your code here\n    \n}",
-    eHint: "Iterate elements locating largest values.",
-    eTest: "if (typeof findMax !== 'function') throw new Error('Method findMax not found');\nif (findMax([100, 500, 200]) !== 500) throw new Error('Peak search failed');",
-    aTitle: "Assignment: Ledger Minimum Finder",
-    aDesc: "Write a JS function `findMin(arr)` returning minimum value in arr. Return 0 if null.",
-    aStarter: "function findMin(arr) {\n    // Write your code here\n    \n}",
-    aHint: "Iterate elements checking minimum values.",
-    aTest: "if (typeof findMin !== 'function') throw new Error('Method findMin not found');"
+    title: "Object-Oriented Programming — Classes & Objects",
+    desc: "A Class is an architectural blueprint; an Object is the real instance constructed in heap memory using new.",
+    syllabus: [
+      "Class Blueprint vs Object Instance.",
+      "The new Keyword: Allocating RAM on the Heap.",
+      "Dot Notation: Accessing instance fields and methods."
+    ],
+    eTitle: "Day 16 Challenge: BankAccount Class",
+    eDesc: "Create class BankAccount with int balance, deposit(int amt), and getBalance().",
+    eStarter: "class BankAccount {\n    int balance = 0;\n    void deposit(int amt) { balance += amt; }\n    int getBalance() { return balance; }\n}\npublic class Solution {\n    public static int testBank() {\n        BankAccount acc = new BankAccount();\n        acc.deposit(500);\n        return acc.getBalance();\n    }\n}",
+    eHint: "class BankAccount { int balance = 0; void deposit(int amt) { balance += amt; } int getBalance() { return balance; } }",
+    eTest: "public class Test {\n    public static void main(String[] args) {\n        BankAccount b1 = new BankAccount();\n        if (b1.getBalance() != 0) throw new AssertionError(\"Initial balance must be 0\");\n        b1.deposit(500);\n        if (b1.getBalance() != 500) throw new AssertionError(\"Deposit 500 must produce 500\");\n        b1.deposit(250);\n        if (b1.getBalance() != 750) throw new AssertionError(\"Second deposit must sum to 750\");\n        BankAccount b2 = new BankAccount();\n        b2.deposit(100);\n        if (b2.getBalance() != 100) throw new AssertionError(\"b2 balance must be independent (100)\");\n        if (b1.getBalance() != 750) throw new AssertionError(\"b1 balance must remain 750\");\n    }\n}",
+    aTitle: "Day 16 Assignment: Car Class",
+    aDesc: "Create Car with String model and int speed, and drive() method returning speed.",
+    aStarter: "class Car {\n    String model;\n    int speed = 60;\n    int getSpeed() { return speed; }\n}\npublic class Solution {\n    public static int getSpeed() { return new Car().getSpeed(); }\n}",
+    aHint: "class Car { int speed = 60; int getSpeed() { return speed; } }",
+    aTest: "public class Test {\n    public static void main(String[] args) {\n        if (Solution.getSpeed() != 60) throw new AssertionError(\"Speed must be 60\");\n    }\n}"
   },
+
+  // ── Day 17: Constructors & this ────────────────────────────────────────────
   {
-    title: "String Class & Memory Immutability",
-    desc: "Master string data models. (Real world: Database managers parse user transactions comments, validating formatting requirements before storing records.)",
-    syllabus: ["String pool memory models", "Immutable character data configurations", "String analysis operations"],
-    eTitle: "Exam: Reference ID Reverser",
-    eDesc: "Write a JS function `reverse(str)` returning reversed string. Return empty string if input is null.",
-    eStarter: "function reverse(str) {\n    // Write your code here\n    \n}",
-    eHint: "Split string, reverse array, join characters.",
-    eTest: "if (typeof reverse !== 'function') throw new Error('Method reverse not found');\nif (reverse('abc') !== 'cba') throw new Error('String reverse failed');",
-    aTitle: "Assignment: Palindrome Validator",
-    aDesc: "Write a JS function `isPalindrome(str)` returning true if str equals its reverse.",
-    aStarter: "function isPalindrome(str) {\n    // Write your code here\n    \n}",
-    aHint: "Compare input string with reversed string.",
-    aTest: "if (typeof isPalindrome !== 'function') throw new Error('Method isPalindrome not found');"
+    title: "Constructors & The this Keyword",
+    desc: "Constructors initialize objects atomically the moment they are created in memory. Use this to bind parameters to instance fields.",
+    syllabus: [
+      "Constructor Anatomy: Matching class name with no return type.",
+      "Parameterized Constructors: Passing initial field values.",
+      "The this Keyword: Disambiguating field names from parameter names."
+    ],
+    eTitle: "Day 17 Challenge: User Constructor",
+    eDesc: "Create class User with fields String name, int age, and constructor User(String name, int age).",
+    eStarter: "class User {\n    String name;\n    int age;\n    User(String name, int age) {\n        this.name = name;\n        this.age = age;\n    }\n}\npublic class Solution {\n    public static User createUser(String name, int age) {\n        return new User(name, age);\n    }\n}",
+    eHint: "this.name = name; this.age = age;",
+    eTest: "public class Test {\n    public static void main(String[] args) {\n        User u1 = Solution.createUser(\"Vinay\", 22);\n        if (!u1.name.equals(\"Vinay\") || u1.age != 22) throw new AssertionError(\"User Vinay 22 failed\");\n        User u2 = Solution.createUser(\"Alice\", 30);\n        if (!u2.name.equals(\"Alice\") || u2.age != 30) throw new AssertionError(\"User Alice 30 failed\");\n    }\n}",
+    aTitle: "Day 17 Assignment: Book Constructor",
+    aDesc: "Create Book with constructor Book(String title, double price).",
+    aStarter: "class Book {\n    String title; double price;\n    Book(String title, double price) { this.title = title; this.price = price; }\n}\npublic class Solution {\n    public static String getTitle() { return new Book(\"Java\", 29.99).title; }\n}",
+    aHint: "Book(String title, double price) { this.title = title; this.price = price; }",
+    aTest: "public class Test {\n    public static void main(String[] args) {\n        if (!Solution.getTitle().equals(\"Java\")) throw new AssertionError(\"Title must be Java\");\n    }\n}"
   },
+
+  // ── Day 18: Encapsulation ──────────────────────────────────────────────────
   {
-    title: "StringBuilder: Mutable Character Operations",
-    desc: "Master mutable text buffers. (Real world: Audits managers compile reports strings, appending transaction lines to prevent memory allocations issues.)",
-    syllabus: ["StringBuilder buffers efficiency", "Character appending operations", "Performance impact of immutable strings"],
-    eTitle: "Exam: Text spacing sanitizer",
-    eDesc: "Write a JS function `removeSpaces(str)` returning string with spaces removed. Return empty string if null.",
-    eStarter: "function removeSpaces(str) {\n    // Write your code here\n    \n}",
-    eHint: "Use regex replacing space characters: /\\s+/g.",
-    eTest: "if (typeof removeSpaces !== 'function') throw new Error('Method removeSpaces not found');\nif (removeSpaces('a b c') !== 'abc') throw new Error('Space removal failed');",
-    aTitle: "Assignment: Word Counter Helper",
-    aDesc: "Write a JS function `countWords(str)` returning count of words split by spaces.",
-    aStarter: "function countWords(str) {\n    // Write your code here\n    \n}",
-    aHint: "Split and return array size.",
-    aTest: "if (typeof countWords !== 'function') throw new Error('Method countWords not found');"
+    title: "Encapsulation — private Fields, Getters & Setters",
+    desc: "Encapsulate class internals with private fields and expose controlled access through getters and validated setters.",
+    syllabus: [
+      "Data Hiding: The private access modifier.",
+      "Getters and Setters: Controlled read/write access.",
+      "Defensive Setters: Validating input before mutating fields."
+    ],
+    eTitle: "Day 18 Challenge: Secure Bank Account",
+    eDesc: "Create SecureAccount with private int balance, getBalance(), and deposit(int amt) that ignores negative amounts.",
+    eStarter: "class SecureAccount {\n    private int balance = 0;\n    public int getBalance() { return balance; }\n    public void deposit(int amt) {\n        if (amt > 0) balance += amt;\n    }\n}\npublic class Solution {\n    public static int test() {\n        SecureAccount a = new SecureAccount();\n        a.deposit(200);\n        a.deposit(-50);\n        return a.getBalance();\n    }\n}",
+    eHint: "private int balance; if (amt > 0) balance += amt;",
+    eTest: "public class Test {\n    public static void main(String[] args) {\n        SecureAccount acc = new SecureAccount();\n        if (acc.getBalance() != 0) throw new AssertionError(\"Initial balance must be 0\");\n        acc.deposit(300);\n        if (acc.getBalance() != 300) throw new AssertionError(\"Deposit 300 must result in 300\");\n        acc.deposit(-100);\n        if (acc.getBalance() != 300) throw new AssertionError(\"Negative deposit must be rejected and balance remain 300\");\n        acc.deposit(0);\n        if (acc.getBalance() != 300) throw new AssertionError(\"Zero deposit must leave balance unchanged\");\n    }\n}",
+    aTitle: "Day 18 Assignment: Student GPA Encapsulation",
+    aDesc: "Create Student with private double gpa, setGpa(double g), and getGpa().",
+    aStarter: "class Student {\n    private double gpa;\n    public void setGpa(double g) { if (g >= 0.0 && g <= 4.0) this.gpa = g; }\n    public double getGpa() { return gpa; }\n}\npublic class Solution {\n    public static double test() { Student s = new Student(); s.setGpa(3.8); return s.getGpa(); }\n}",
+    aHint: "private double gpa; public void setGpa(double g) { ... }",
+    aTest: "public class Test {\n    public static void main(String[] args) {\n        if (Solution.test() != 3.8) throw new AssertionError(\"GPA must be 3.8\");\n    }\n}"
   },
+
+  // ── Day 19: Inheritance ────────────────────────────────────────────────────
   {
-    title: "Multi-Dimensional Arrays: Ledger Matrix Logs",
-    desc: "Master nested array structures. (Real world: Ledgers organize transactions by month and category, indexing records in multi-dimensional matrices.)",
-    syllabus: ["Multi-dimensional arrays memory structures", "Nested loop index traversals", "Main diagonal elements calculations"],
-    eTitle: "Exam: Ledger Diagonal Sum",
-    eDesc: "Write a JS function `sumDiagonal(matrix)` returning sum of elements where row === col. Return 0 if null/empty.",
-    eStarter: "function sumDiagonal(matrix) {\n    // Write your code here\n    \n}",
-    eHint: "Loop row index indices, adding matrix[i][i] values.",
-    eTest: "if (typeof sumDiagonal !== 'function') throw new Error('Method sumDiagonal not found');\nif (sumDiagonal([[1, 2], [3, 4]]) !== 5) throw new Error('Diagonal sum failed');",
-    aTitle: "Assignment: Matrix element checker",
-    aDesc: "Write a JS function `getDiagonalElement(matrix, idx)` returning matrix[idx][idx] element.",
-    aStarter: "function getDiagonalElement(matrix, idx) {\n    // Write your code here\n    \n}",
-    aHint: "Verify index limits, query element.",
-    aTest: "if (typeof getDiagonalElement !== 'function') throw new Error('Method getDiagonalElement not found');"
+    title: "Inheritance — Parent-Child Class Hierarchies & extends",
+    desc: "Inherit fields and methods from superclasses using extends. Reuse existing code while adding specialized subclass behavior.",
+    syllabus: [
+      "Class Inheritance: Superclass and subclass relationships.",
+      "The extends keyword: Inheriting state and methods.",
+      "The super constructor call: Initializing parent state."
+    ],
+    eTitle: "Day 19 Challenge: Employee & Manager Hierarchy",
+    eDesc: "Create Employee with double salary = 50000.0, and Manager extends Employee with double bonus = 10000.0, and getTotalPay() returning salary + bonus.",
+    eStarter: "class Employee {\n    double salary = 50000.0;\n}\nclass Manager extends Employee {\n    double bonus = 10000.0;\n    double getTotalPay() { return salary + bonus; }\n}\npublic class Solution {\n    public static double getPay() {\n        return new Manager().getTotalPay();\n    }\n}",
+    eHint: "class Manager extends Employee { double bonus = 10000.0; double getTotalPay() { return salary + bonus; } }",
+    eTest: "public class Test {\n    public static void main(String[] args) {\n        Manager m = new Manager();\n        if (m.salary != 50000.0) throw new AssertionError(\"Inherited salary must be 50000.0\");\n        if (m.bonus != 10000.0) throw new AssertionError(\"Manager bonus must be 10000.0\");\n        if (m.getTotalPay() != 60000.0) throw new AssertionError(\"Total pay must be 60000.0\");\n    }\n}",
+    aTitle: "Day 19 Assignment: Vehicle and Bike Hierarchy",
+    aDesc: "Create Vehicle with int wheels = 4, and Bike extends Vehicle with wheels = 2.",
+    aStarter: "class Vehicle { int wheels = 4; }\nclass Bike extends Vehicle { Bike() { wheels = 2; } }\npublic class Solution { public static int getWheels() { return new Bike().wheels; } }",
+    aHint: "class Bike extends Vehicle { Bike() { wheels = 2; } }",
+    aTest: "public class Test {\n    public static void main(String[] args) {\n        if (Solution.getWheels() != 2) throw new AssertionError(\"Bike wheels must be 2\");\n    }\n}"
   },
+
+  // ── Day 20: Polymorphism ───────────────────────────────────────────────────
   {
-    title: "Java Exception Handling: try-catch-finally",
-    desc: "Master exception handling. (Real world: Banking APIs wrap transaction processing routes in try-catch models, preventing crashes during failures.)",
-    syllabus: ["Throwable hierarchy classes structures", "Chaining exception catch routing blocks", "Finally block cleanup guarantees"],
-    eTitle: "Exam: Safe Account Division",
-    eDesc: "Write a JS function `safeDivide(a, b)` returning a / b. Throw an Error('ArithmeticException') if b === 0.",
-    eStarter: "function safeDivide(a, b) {\n    // Write your code here\n    \n}",
-    eHint: "Check denominator bounds, throwing error if zero.",
-    eTest: "if (typeof safeDivide !== 'function') throw new Error('Method safeDivide not found');\ntry { safeDivide(5, 0); } catch(e) { if(e.message === 'ArithmeticException') return; }\nthrow new Error('Zero division catch failed');",
-    aTitle: "Assignment: Safe transaction integer parser",
-    aDesc: "Write a JS function `safeParse(str)` returning integer. Return -1 if parsing throws errors.",
-    aStarter: "function safeParse(str) {\n    // Write your code here\n    \n}",
-    aHint: "Wrap parse logic in try-catch operations.",
-    aTest: "if (typeof safeParse !== 'function') throw new Error('Method safeParse not found');"
+    title: "Polymorphism & Dynamic Dispatch — @Override",
+    desc: "Polymorphism enables treating subclasses through a superclass reference, dynamically executing overridden methods at runtime.",
+    syllabus: [
+      "Method Overriding: Redefining superclass methods with @Override.",
+      "Dynamic Method Dispatch: Runtime method resolution.",
+      "Polymorphic Collections: Storing different subclasses in one list."
+    ],
+    eTitle: "Day 20 Challenge: Polymorphic Payment Fees",
+    eDesc: "Create Payment with double getFee(), and CardPayment overriding getFee() returning 2.50.",
+    eStarter: "class Payment {\n    double getFee() { return 0.0; }\n}\nclass CardPayment extends Payment {\n    @Override\n    double getFee() { return 2.50; }\n}\npublic class Solution {\n    public static double testFee() {\n        Payment p = new CardPayment();\n        return p.getFee();\n    }\n}",
+    eHint: "Use @Override double getFee() in CardPayment.",
+    eTest: "public class Test {\n    public static void main(String[] args) {\n        Payment base = new Payment();\n        if (base.getFee() != 0.0) throw new AssertionError(\"Base payment fee must be 0.0\");\n        Payment poly = new CardPayment();\n        if (poly.getFee() != 2.50) throw new AssertionError(\"Polymorphic CardPayment fee must be 2.50\");\n    }\n}",
+    aTitle: "Day 20 Assignment: Animal Sounds Polymorphism",
+    aDesc: "Create Animal with speak() returning '...', and Cat overriding speak() returning 'Meow'.",
+    aStarter: "class Animal { String speak() { return \"...\"; } }\nclass Cat extends Animal { @Override String speak() { return \"Meow\"; } }\npublic class Solution { public static String test() { Animal a = new Cat(); return a.speak(); } }",
+    aHint: "@Override String speak() { return \"Meow\"; }",
+    aTest: "public class Test {\n    public static void main(String[] args) {\n        if (!Solution.test().equals(\"Meow\")) throw new AssertionError(\"Cat must speak Meow\");\n    }\n}"
   },
+
+  // ── Day 21: Interfaces & Milestone 4 ───────────────────────────────────────
   {
-    title: "Custom Exceptions Throwing",
-    desc: "Master domain-specific exception checks. (Real world: Ledger libraries throw InsufficientFundsException instances, roll-backing pending balance updates.)",
-    syllabus: ["Defining custom exception subclasses", "Throwing exceptions manual declarations", "Throws signatures routing rules"],
-    eTitle: "Exam: Insufficient Funds Exception Auditor",
-    eDesc: "Write a JS function `verifyDeposit(amount)` returning amount. Throw an Error('IllegalArgumentException') if amount <= 0.",
-    eStarter: "function verifyDeposit(amount) {\n    // Write your code here\n    \n}",
-    eHint: "Verify amount range, throwing error if negative.",
-    eTest: "if (typeof verifyDeposit !== 'function') throw new Error('Method verifyDeposit not found');\ntry { verifyDeposit(-10); } catch(e) { if(e.message === 'IllegalArgumentException') return; }\nthrow new Error('IllegalArgument check failed');",
-    aTitle: "Assignment: Account age validator",
-    aDesc: "Write a JS function `verifyAge(age)` returning age. Throw an Error('InvalidAgeException') if age < 18.",
-    aStarter: "function verifyAge(age) {\n    // Write your code here\n    \n}",
-    aHint: "Check boundary limits, raising error on failures.",
-    aTest: "if (typeof verifyAge !== 'function') throw new Error('Method verifyAge not found');"
+    title: "Interfaces & ⭐ MILESTONE 4: Enterprise Payment Gateway",
+    desc: "Interfaces specify pure contracts that implementing classes must fulfill. (Milestone 4: Enterprise Payment Gateway Interface).",
+    syllabus: [
+      "Interface Contract: Method signatures without implementation.",
+      "The implements keyword: Fulfilling contract requirements.",
+      "Decoupled Architecture: Interchanging payment gateways seamlessly."
+    ],
+    eTitle: "Day 21 Milestone 4: Payment Gateway Interface",
+    eDesc: "Create interface PaymentGateway with boolean processPayment(double amount), and class CryptoGateway implementing it.",
+    eStarter: "interface PaymentGateway {\n    boolean processPayment(double amount);\n}\nclass CryptoGateway implements PaymentGateway {\n    public boolean processPayment(double amount) {\n        return amount > 0;\n    }\n}\npublic class Solution {\n    public static boolean execute(double amt) {\n        PaymentGateway gw = new CryptoGateway();\n        return gw.processPayment(amt);\n    }\n}",
+    eHint: "class CryptoGateway implements PaymentGateway { public boolean processPayment(double amount) { return amount > 0; } }",
+    eTest: "public class Test {\n    public static void main(String[] args) {\n        PaymentGateway gw = new CryptoGateway();\n        if (!gw.processPayment(100.0)) throw new AssertionError(\"Valid 100.0 payment must return true\");\n        if (gw.processPayment(0.0)) throw new AssertionError(\"0.0 payment must return false\");\n        if (gw.processPayment(-50.0)) throw new AssertionError(\"Negative payment must return false\");\n    }\n}",
+    aTitle: "Day 21 Assignment: Printable Interface",
+    aDesc: "Create interface Printable with String print(), and Document implementing it returning 'Document printed'.",
+    aStarter: "interface Printable { String print(); }\nclass Document implements Printable { public String print() { return \"Document printed\"; } }\npublic class Solution { public static String test() { Printable p = new Document(); return p.print(); } }",
+    aHint: "class Document implements Printable { public String print() { ... } }",
+    aTest: "public class Test {\n    public static void main(String[] args) {\n        if (!Solution.test().equals(\"Document printed\")) throw new AssertionError(\"Must print Document printed\");\n    }\n}"
   },
+
+  // ── Day 22: Static State ───────────────────────────────────────────────────
   {
-    title: "ArrayList Collections & Generics",
-    desc: "Master dynamic collections. (Real world: Database query adapters map results sets to ArrayList configurations, dynamically resizing capacity.)",
-    syllabus: ["ArrayList memory scaling parameters", "Generics types configuration parameters", "Adding and deleting collection entries"],
-    eTitle: "Exam: Transaction Deduplicator",
-    eDesc: "Write a JS function `deduplicate(arr)` returning array with duplicate values removed. Return empty array if null.",
-    eStarter: "function deduplicate(arr) {\n    // Write your code here\n    \n}",
-    eHint: "Use Set object helper to extract unique array values.",
-    eTest: "if (typeof deduplicate !== 'function') throw new Error('Method deduplicate not found');\nif (deduplicate([1, 1, 2]).length !== 2) throw new Error('Deduplication failed');",
-    aTitle: "Assignment: Transaction contains checker",
-    aDesc: "Write a JS function `containsElement(arr, val)` returning true if val is present in arr.",
-    aStarter: "function containsElement(arr, val) {\n    // Write your code here\n    \n}",
-    aHint: "Check array element presence using includes().",
-    aTest: "if (typeof containsElement !== 'function') throw new Error('Method containsElement not found');"
+    title: "Static State — Class-Level Variables & Utility Methods",
+    desc: "Static fields and methods belong to the Class itself rather than individual instances. Shared memory across all objects.",
+    syllabus: [
+      "static Variables: A single shared memory copy per class.",
+      "static Methods: Utility helpers (Math.max, Solution.add).",
+      "Static context rules: Why static methods cannot access this."
+    ],
+    eTitle: "Day 22 Challenge: Static Instance Counter",
+    eDesc: "Create class Counter with static int count = 0, incremented in constructor Counter().",
+    eStarter: "class Counter {\n    static int count = 0;\n    Counter() { count++; }\n}\npublic class Solution {\n    public static int testCount() {\n        Counter.count = 0;\n        new Counter();\n        new Counter();\n        new Counter();\n        return Counter.count;\n    }\n}",
+    eHint: "static int count = 0; Counter() { count++; }",
+    eTest: "public class Test {\n    public static void main(String[] args) {\n        Counter.count = 0;\n        if (Counter.count != 0) throw new AssertionError(\"Initial static count must be 0\");\n        new Counter();\n        new Counter();\n        if (Counter.count != 2) throw new AssertionError(\"Creating 2 objects must result in count 2\");\n        new Counter();\n        if (Counter.count != 3) throw new AssertionError(\"Creating 3rd object must result in count 3\");\n    }\n}",
+    aTitle: "Day 22 Assignment: Static Math Utility",
+    aDesc: "Create MathUtil with static int square(int n) returning n * n.",
+    aStarter: "class MathUtil { public static int square(int n) { return n * n; } }\npublic class Solution { public static int test() { return MathUtil.square(6); } }",
+    aHint: "public static int square(int n) { return n * n; }",
+    aTest: "public class Test {\n    public static void main(String[] args) {\n        if (MathUtil.square(6) != 36) throw new AssertionError(\"6 squared must be 36\");\n        if (MathUtil.square(-4) != 16) throw new AssertionError(\"-4 squared must be 16\");\n    }\n}"
   },
+
+  // ── Day 23: Exception Handling ─────────────────────────────────────────────
   {
-    title: "HashMap: Transaction Key-Value Mappings",
-    desc: "Master key-value database models. (Real world: Ledgers map User IDs to transaction lists, utilizing hashing tables to query records in constant time.)",
-    syllabus: ["HashMap hashing storage mechanisms", "Adding and querying key mappings", "Handling key collisions resolutions"],
-    eTitle: "Exam: Category frequency compiler",
-    eDesc: "Write a JS function `getCharCount(str)` returning object containing character counts. Return empty object if null.",
-    eStarter: "function getCharCount(str) {\n    // Write your code here\n    \n}",
-    eHint: "Loop string characters, updating properties counts.",
-    eTest: "if (typeof getCharCount !== 'function') throw new Error('Method getCharCount not found');\nif (getCharCount('aba').a !== 2) throw new Error('Frequency map failed');",
-    aTitle: "Assignment: Map key checker",
-    aDesc: "Write a JS function `hasMapping(map, key)` returning true if key exists in map.",
-    aStarter: "function hasMapping(map, key) {\n    // Write your code here\n    \n}",
-    aHint: "Check property existence in object.",
-    aTest: "if (typeof hasMapping !== 'function') throw new Error('Method hasMapping not found');"
+    title: "Robust Exception Handling — try-catch-finally",
+    desc: "Catch and recover from runtime exceptions (ArithmeticException, NullPointerException) without crashing the application.",
+    syllabus: [
+      "try Block: Guarding risky operations.",
+      "catch Block: Handling specific exception types gracefully.",
+      "finally Block: Guaranteed resource cleanup."
+    ],
+    eTitle: "Day 23 Challenge: Safe Division Parser",
+    eDesc: "Write safeDivide(int a, int b) returning a / b, or returning -1 if ArithmeticException occurs.",
+    eStarter: "public class Solution {\n    public static int safeDivide(int a, int b) {\n        try {\n            return a / b;\n        } catch (ArithmeticException e) {\n            return -1;\n        }\n    }\n}",
+    eHint: "try { return a / b; } catch (ArithmeticException e) { return -1; }",
+    eTest: "public class Test {\n    public static void main(String[] args) {\n        if (Solution.safeDivide(20, 4) != 5) throw new AssertionError(\"20 / 4 must be 5\");\n        if (Solution.safeDivide(10, 0) != -1) throw new AssertionError(\"10 / 0 must return -1 on catch\");\n        if (Solution.safeDivide(0, 5) != 0) throw new AssertionError(\"0 / 5 must be 0\");\n        if (Solution.safeDivide(-15, 3) != -5) throw new AssertionError(\"-15 / 3 must be -5\");\n    }\n}",
+    aTitle: "Day 23 Assignment: Array Index Safe Reader",
+    aDesc: "Write safeGet(int[] arr, int index) returning arr[index] or -1 if ArrayIndexOutOfBoundsException.",
+    aStarter: "public class Solution {\n    public static int safeGet(int[] arr, int i) {\n        try { return arr[i]; } catch (ArrayIndexOutOfBoundsException e) { return -1; }\n    }\n}",
+    aHint: "try { return arr[i]; } catch (ArrayIndexOutOfBoundsException e) { return -1; }",
+    aTest: "public class Test {\n    public static void main(String[] args) {\n        int[] arr = { 10, 20 };\n        if (Solution.safeGet(arr, 0) != 10) throw new AssertionError(\"Index 0 must be 10\");\n        if (Solution.safeGet(arr, 99) != -1) throw new AssertionError(\"Index 99 out of bounds must return -1\");\n    }\n}"
   },
+
+  // ── Day 24: Throwing Exceptions ────────────────────────────────────────────
   {
-    title: "Generics & Parametric Type Safety",
-    desc: "Master compile-time type boundaries. (Real world: Shared libraries export generic wrapper objects, enforcing compiler type boundaries across endpoints.)",
-    syllabus: ["Parametric class definitions syntax", "Compiler type erasure rules", "Enforcing collection structures types limits"],
-    eTitle: "Exam: First element generic extractor",
-    eDesc: "Write a JS function `getFirstElement(arr)` returning first element in arr. Return null if empty.",
-    eStarter: "function getFirstElement(arr) {\n    // Write your code here\n    \n}",
-    eHint: "Verify array length, return index 0.",
-    eTest: "if (typeof getFirstElement !== 'function') throw new Error('Method getFirstElement not found');\nif (getFirstElement([5, 6]) !== 5) throw new Error('Generic get failed');",
-    aTitle: "Assignment: Generic equality checker",
-    aDesc: "Write a JS function `areEqualGenerics(a, b)` returning true if a === b.",
-    aStarter: "function areEqualGenerics(a, b) {\n    // Write your code here\n    \n}",
-    aHint: "Compare inputs directly.",
-    aTest: "if (typeof areEqualGenerics !== 'function') throw new Error('Method areEqualGenerics not found');"
+    title: "Defensive Programming & Custom Exceptions — throw",
+    desc: "Validate invariants and reject invalid state early using throw new IllegalArgumentException(...).",
+    syllabus: [
+      "Defensive Programming: Validating arguments at boundary methods.",
+      "The throw statement: Blowing the whistle on illegal state.",
+      "Custom Exception Messages: Providing clear diagnostic feedback."
+    ],
+    eTitle: "Day 24 Challenge: Validate Deposit Amount",
+    eDesc: "Write validateDeposit(int amt) throwing IllegalArgumentException if amt <= 0.",
+    eStarter: "public class Solution {\n    public static void validateDeposit(int amt) {\n        if (amt <= 0) throw new IllegalArgumentException(\"Deposit must be positive\");\n    }\n}",
+    eHint: "if (amt <= 0) throw new IllegalArgumentException(\"Deposit must be positive\");",
+    eTest: "public class Test {\n    public static void main(String[] args) {\n        // Test valid deposit does not throw\n        try {\n            Solution.validateDeposit(100);\n        } catch (IllegalArgumentException e) {\n            throw new AssertionError(\"Valid deposit 100 must not throw\");\n        }\n        // Test negative deposit throws\n        boolean caughtNegative = false;\n        try {\n            Solution.validateDeposit(-50);\n        } catch (IllegalArgumentException e) {\n            caughtNegative = true;\n        }\n        if (!caughtNegative) throw new AssertionError(\"Negative deposit must throw IllegalArgumentException\");\n        // Test 0 deposit throws\n        boolean caughtZero = false;\n        try {\n            Solution.validateDeposit(0);\n        } catch (IllegalArgumentException e) {\n            caughtZero = true;\n        }\n        if (!caughtZero) throw new AssertionError(\"Zero deposit must throw IllegalArgumentException\");\n    }\n}",
+    aTitle: "Day 24 Assignment: Age Validator",
+    aDesc: "Write checkAge(int age) throwing IllegalArgumentException if age < 18.",
+    aStarter: "public class Solution {\n    public static void checkAge(int age) {\n        if (age < 18) throw new IllegalArgumentException(\"Underage\");\n    }\n}",
+    aHint: "if (age < 18) throw new IllegalArgumentException(\"Underage\");",
+    aTest: "public class Test {\n    public static void main(String[] args) {\n        boolean caught = false;\n        try { Solution.checkAge(15); } catch (IllegalArgumentException e) { caught = true; }\n        if (!caught) throw new AssertionError(\"Age 15 must throw\");\n    }\n}"
   },
+
+  // ── Day 25: Dynamic ArrayList<T> ───────────────────────────────────────────
   {
-    title: "Multi-Threading: Runnable task allocations",
-    desc: "Master asynchronous multi-threading. (Real world: Banking backends schedule worker threads, executing background interest calculators.)",
-    syllabus: ["Thread and Runnable configurations", "Managing asynchronous task schedulers", "Thread execution context states"],
-    eTitle: "Exam: Asynchronous thread check",
-    eDesc: "Write a JS function `isThreadActive(thread)` returning true if thread.status === 'RUNNING'.",
-    eStarter: "function isThreadActive(thread) {\n    // Write your code here\n    \n}",
-    eHint: "Inspect status property checking strings.",
-    eTest: "if (typeof isThreadActive !== 'function') throw new Error('Method isThreadActive not found');\nif (isThreadActive({ status: 'RUNNING' }) !== true) throw new Error('Thread active verification failed');",
-    aTitle: "Assignment: Thread name inspector",
-    aDesc: "Write a JS function `getThreadName(thread)` returning thread.name. Return 'Default' if missing.",
-    aStarter: "function getThreadName(thread) {\n    // Write your code here\n    \n}",
-    aHint: "Query object name property.",
-    aTest: "if (typeof getThreadName !== 'function') throw new Error('Method getThreadName not found');"
+    title: "Dynamic Collections — ArrayList<T>",
+    desc: "Resizable arrays that grow dynamically. Master add(), get(), set(), remove(), and size().",
+    syllabus: [
+      "ArrayList vs Fixed Arrays: Resizable heap storage.",
+      "CRUD Operations: add, get, set, remove, size.",
+      "Wrapper Classes: ArrayList<Integer>, ArrayList<Double>."
+    ],
+    eTitle: "Day 25 Challenge: Filter High Scores",
+    eDesc: "Write filterAbove(int[] scores, int cutoff) in Solution returning an ArrayList<Integer> of all scores > cutoff.",
+    eStarter: "import java.util.ArrayList;\n\npublic class Solution {\n    public static ArrayList<Integer> filterAbove(int[] scores, int cutoff) {\n        ArrayList<Integer> list = new ArrayList<>();\n        for (int s : scores) {\n            if (s > cutoff) list.add(s);\n        }\n        return list;\n    }\n}",
+    eHint: "ArrayList<Integer> list = new ArrayList<>(); for (int s : scores) if (s > cutoff) list.add(s); return list;",
+    eTest: "import java.util.ArrayList;\npublic class Test {\n    public static void main(String[] args) {\n        int[] scores = { 45, 90, 78, 95, 60 };\n        ArrayList<Integer> res = Solution.filterAbove(scores, 75);\n        if (res.size() != 3) throw new AssertionError(\"Must find 3 scores above 75 (90, 78, 95)\");\n        if (!res.contains(90) || !res.contains(78) || !res.contains(95)) throw new AssertionError(\"Must contain 90, 78, 95\");\n        ArrayList<Integer> emptyRes = Solution.filterAbove(scores, 100);\n        if (!emptyRes.isEmpty()) throw new AssertionError(\"Scores above 100 must be empty\");\n    }\n}",
+    aTitle: "Day 25 Assignment: Add and Get List Elements",
+    aDesc: "Write createList(String a, String b) returning ArrayList<String> containing a and b.",
+    aStarter: "import java.util.ArrayList;\npublic class Solution {\n    public static ArrayList<String> createList(String a, String b) {\n        ArrayList<String> l = new ArrayList<>(); l.add(a); l.add(b); return l;\n    }\n}",
+    aHint: "list.add(a); list.add(b);",
+    aTest: "import java.util.ArrayList;\npublic class Test {\n    public static void main(String[] args) {\n        ArrayList<String> l = Solution.createList(\"Apple\", \"Banana\");\n        if (l.size() != 2 || !l.get(0).equals(\"Apple\")) throw new AssertionError(\"List must contain Apple, Banana\");\n    }\n}"
   },
+
+  // ── Day 26: HashMap & Milestone 5 ──────────────────────────────────────────
   {
-    title: "Thread Synchronization & Shared Ledgers Locks",
-    desc: "Master data race conditions and concurrency. (Real world: Trading engines lock account ledger variables, preventing double-spend race states.)",
-    syllabus: ["Race states data conflicts", "Synchronized blocks monitors", "Volatile variables thread guarantees"],
-    eTitle: "Exam: Synchronized count compiler",
-    eDesc: "Write a JS function `getSynchronizedCount(ledger)` returning ledger.value. Return 0 if missing/null.",
-    eStarter: "function getSynchronizedCount(ledger) {\n    // Write your code here\n    \n}",
-    eHint: "Query balance property value.",
-    eTest: "if (typeof getSynchronizedCount !== 'function') throw new Error('Method getSynchronizedCount not found');\nif (getSynchronizedCount({ value: 100 }) !== 100) throw new Error('Ledger count extract failed');",
-    aTitle: "Assignment: Try acquire lock validation",
-    aDesc: "Write a JS function `tryAcquireLock(lock)` returning true if lock.isLocked === false, setting isLocked to true. Returns false otherwise.",
-    aStarter: "function tryAcquireLock(lock) {\n    // Write your code here\n    \n}",
-    aHint: "Check boolean lock state, modify property.",
-    aTest: "if (typeof tryAcquireLock !== 'function') throw new Error('Method tryAcquireLock not found');"
+    title: "Key-Value Maps & ⭐ MILESTONE 5: Inventory & Frequency Engine",
+    desc: "O(1) dictionary lookups with HashMap<K, V>. (Milestone 5: Word Frequency & Inventory Engine).",
+    syllabus: [
+      "Key-Value Pair Mechanics: put(), get(), containsKey().",
+      "Frequency Tallying: getOrDefault(key, defaultVal) + 1.",
+      "Iterating HashMaps: keySet() and entrySet()."
+    ],
+    eTitle: "Day 26 Milestone 5: Word Frequency Engine",
+    eDesc: "Write countFrequency(String[] words) returning a HashMap<String, Integer> counting occurrences of each word in Solution.",
+    eStarter: "import java.util.HashMap;\n\npublic class Solution {\n    public static HashMap<String, Integer> countFrequency(String[] words) {\n        HashMap<String, Integer> map = new HashMap<>();\n        for (String w : words) {\n            map.put(w, map.getOrDefault(w, 0) + 1);\n        }\n        return map;\n    }\n}",
+    eHint: "map.put(w, map.getOrDefault(w, 0) + 1);",
+    eTest: "import java.util.HashMap;\npublic class Test {\n    public static void main(String[] args) {\n        String[] words = { \"java\", \"code\", \"java\", \"test\", \"java\", \"code\" };\n        HashMap<String, Integer> map = Solution.countFrequency(words);\n        if (map.get(\"java\") != 3) throw new AssertionError(\"'java' must occur 3 times\");\n        if (map.get(\"code\") != 2) throw new AssertionError(\"'code' must occur 2 times\");\n        if (map.get(\"test\") != 1) throw new AssertionError(\"'test' must occur 1 time\");\n        if (map.containsKey(\"missing\")) throw new AssertionError(\"Missing word must not be in map\");\n    }\n}",
+    aTitle: "Day 26 Assignment: Stock Lookup Map",
+    aDesc: "Write getStock(HashMap<String, Integer> map, String item) returning map.getOrDefault(item, 0).",
+    aStarter: "import java.util.HashMap;\npublic class Solution {\n    public static int getStock(HashMap<String, Integer> map, String item) {\n        return map.getOrDefault(item, 0);\n    }\n}",
+    aHint: "return map.getOrDefault(item, 0);",
+    aTest: "import java.util.HashMap;\npublic class Test {\n    public static void main(String[] args) {\n        HashMap<String, Integer> m = new HashMap<>();\n        m.put(\"Apples\", 50);\n        if (Solution.getStock(m, \"Apples\") != 50) throw new AssertionError(\"Apples must be 50\");\n        if (Solution.getStock(m, \"Oranges\") != 0) throw new AssertionError(\"Missing Oranges must return 0\");\n    }\n}"
   },
+
+  // ── Day 27: Generics <T> ───────────────────────────────────────────────────
   {
-    title: "Java File I/O Streams: Reading transaction logs",
-    desc: "Master file buffer reading. (Real world: Financial audit engines stream transactional log files, parsing daily logs to generate balance summaries.)",
-    syllabus: ["Character and Byte file streams", "BufferedReader buffer reading efficiency", "Closing stream readers handles"],
-    eTitle: "Exam: Ledger log head reader",
-    eDesc: "Write a JS function `readFirstChar(content)` returning first character of content. Return empty string if empty.",
-    eStarter: "function readFirstChar(content) {\n    // Write your code here\n    \n}",
-    eHint: "Verify content string length, return character at index 0.",
-    eTest: "if (typeof readFirstChar !== 'function') throw new Error('Method readFirstChar not found');\nif (readFirstChar('abc') !== 'a') throw new Error('Char read failed');",
-    aTitle: "Assignment: Estimate file write chunks",
-    aDesc: "Write a JS function `estimateWriteChunks(bytes, chunkLimit)` returning Math.ceil(bytes / chunkLimit). Return 0 if chunkLimit <= 0.",
-    aStarter: "function estimateWriteChunks(bytes, chunkLimit) {\n    // Write your code here\n    \n}",
-    aHint: "Divide inputs, ceiling, check bounds.",
-    aTest: "if (typeof estimateWriteChunks !== 'function') throw new Error('Method estimateWriteChunks not found');"
+    title: "Java Generics <T> — Compile-Time Type Safety",
+    desc: "Parameterize classes and methods with generic type parameters <T> to write type-safe reusable code without casting.",
+    syllabus: [
+      "Generic Classes: class Box<T> { T item; }.",
+      "Multi-type Parameters: class Pair<K, V>.",
+      "Compile-time Type Safety: Preventing ClassCastException."
+    ],
+    eTitle: "Day 27 Challenge: Generic Pair Container",
+    eDesc: "Create generic class Pair<K, V> with constructor Pair(K key, V val), getKey(), and getVal().",
+    eStarter: "class Pair<K, V> {\n    private K key;\n    private V val;\n    public Pair(K key, V val) { this.key = key; this.val = val; }\n    public K getKey() { return key; }\n    public V getVal() { return val; }\n}\npublic class Solution {\n    public static String testPair() {\n        Pair<String, Integer> p = new Pair<>(\"Age\", 22);\n        return p.getKey() + \": \" + p.getVal();\n    }\n}",
+    eHint: "class Pair<K, V> { private K key; private V val; public Pair(K key, V val) { ... } }",
+    eTest: "public class Test {\n    public static void main(String[] args) {\n        Pair<String, Integer> p1 = new Pair<>(\"Score\", 95);\n        if (!p1.getKey().equals(\"Score\") || p1.getVal() != 95) throw new AssertionError(\"Pair String-Integer failed\");\n        Pair<Integer, Double> p2 = new Pair<>(101, 19.99);\n        if (p2.getKey() != 101 || p2.getVal() != 19.99) throw new AssertionError(\"Pair Integer-Double failed\");\n    }\n}",
+    aTitle: "Day 27 Assignment: Generic Box",
+    aDesc: "Create generic Box<T> with set(T item) and get().",
+    aStarter: "class Box<T> { private T item; public void set(T item) { this.item = item; } public T get() { return item; } }\npublic class Solution { public static String test() { Box<String> b = new Box<>(); b.set(\"Present\"); return b.get(); } }",
+    aHint: "class Box<T> { private T item; public void set(T item) { this.item = item; } public T get() { return item; } }",
+    aTest: "public class Test {\n    public static void main(String[] args) {\n        Box<String> b = new Box<>();\n        b.set(\"Present\");\n        if (!b.get().equals(\"Present\")) throw new AssertionError(\"Box must return Present\");\n    }\n}"
   },
+
+  // ── Day 28: Concurrency & Threads ──────────────────────────────────────────
   {
-    title: "SOLID Principles in Ledger Systems Architecture",
-    desc: "Master clean code. (Real world: Enterprise software engineers structure repositories, separating ledger storage classes from display formatting controllers.)",
-    syllabus: ["Single responsibility ledger design", "Dependency inversion interfaces configuration", "Liskov substitution subclass rules"],
-    eTitle: "Exam: Class Responsibility Checker",
-    eDesc: "Write a JS function `isValidClass(roleObject)` returning true if roleObject.methodsList.length <= 5. Returns false otherwise.",
-    eStarter: "function isValidClass(roleObject) {\n    // Write your code here\n    \n}",
-    eHint: "Verify array size is within boundary limit.",
-    eTest: "if (typeof isValidClass !== 'function') throw new Error('Method isValidClass not found');\nif (isValidClass({ methodsList: [1, 2] }) !== true) throw new Error('Class audit failed');",
-    aTitle: "Assignment: Class single role validation",
-    aDesc: "Write a JS function `classHasOnlyOneRole(roleObject)` returning true if roleObject.role === 'STORAGE'.",
-    aStarter: "function classHasOnlyOneRole(roleObject) {\n    // Write your code here\n    \n}",
-    aHint: "Compare role strings.",
-    aTest: "if (typeof classHasOnlyOneRole !== 'function') throw new Error('Method classHasOnlyOneRole not found');"
+    title: "Multithreading & Concurrency — Parallel Execution",
+    desc: "Execute tasks concurrently using the Runnable interface and Thread class. Spawn parallel background workers with t.start().",
+    syllabus: [
+      "The Runnable Interface: Defining parallel units of work.",
+      "The Thread Class: Spawning JVM threads with .start().",
+      "Concurrency Safety: Understanding shared state race conditions."
+    ],
+    eTitle: "Day 28 Challenge: Parallel Task Runner",
+    eDesc: "Create class Worker implements Runnable with run() printing 'Work Done'.",
+    eStarter: "class Worker implements Runnable {\n    public void run() {\n        System.out.println(\"Work Done\");\n    }\n}\npublic class Solution {\n    public static void execute() {\n        Worker w = new Worker();\n        w.run();\n    }\n}",
+    eHint: "class Worker implements Runnable { public void run() { System.out.println(\"Work Done\"); } }",
+    eTest: "import java.io.*;\npublic class Test {\n    public static void main(String[] args) {\n        ByteArrayOutputStream out = new ByteArrayOutputStream();\n        System.setOut(new PrintStream(out));\n        Worker w = new Worker();\n        w.run();\n        String res = out.toString().trim();\n        if (!res.contains(\"Work Done\")) throw new AssertionError(\"Worker run() must print 'Work Done'\");\n        if (res.length() < 8) throw new AssertionError(\"Output length must match Work Done\");\n    }\n}",
+    aTitle: "Day 28 Assignment: Thread Status Checker",
+    aDesc: "Write isRunning(Thread t) returning t.isAlive().",
+    aStarter: "public class Solution { public static boolean isRunning(Thread t) { return t != null && t.isAlive(); } }",
+    aHint: "return t != null && t.isAlive();",
+    aTest: "public class Test {\n    public static void main(String[] args) {\n        Thread t = new Thread(() -> {});\n        if (Solution.isRunning(t)) throw new AssertionError(\"Unstarted thread is not running\");\n        if (Solution.isRunning(null)) throw new AssertionError(\"Null thread must return false\");\n    }\n}"
   },
+
+  // ── Day 29: Stream & File I/O ──────────────────────────────────────────────
   {
-    title: "JUnit Testing & Boundary Asserts",
-    desc: "Master automated assertions testing. (Real world: CI pipelines run JUnit test suites, validating balance edge cases before code gets merged.)",
-    syllabus: ["Automated unit testing methodologies", "Configuring assertions validations checks", "Boundary test cases validation"],
-    eTitle: "Exam: Assert equal validator",
-    eDesc: "Write a JS function `assertEqual(val, expected)` returning true if val === expected. Returns false otherwise.",
-    eStarter: "function assertEqual(val, expected) {\n    // Write your code here\n    \n}",
-    eHint: "Evaluate values checks directly.",
-    eTest: "if (typeof assertEqual !== 'function') throw new Error('Method assertEqual not found');\nif (assertEqual(1, 1) !== true) throw new Error('Assertion validation failed');",
-    aTitle: "Assignment: Assert not null check",
-    aDesc: "Write a JS function `assertNotNull(val)` returning true if val !== null and val !== undefined.",
-    aStarter: "function assertNotNull(val) {\n    // Write your code here\n    \n}",
-    aHint: "Check inequalities comparisons.",
-    aTest: "if (typeof assertNotNull !== 'function') throw new Error('Method assertNotNull not found');"
+    title: "File & Stream I/O — Data Ingestion & Stream Processing",
+    desc: "Process data streams efficiently and parse real multi-line application log records with safe resource cleanup.",
+    syllabus: [
+      "Stream Pipelines: Byte streams vs Character streams.",
+      "Buffered Readers: Reading line-by-line efficiently.",
+      "Stream Log Parsing: Filtering error lines safely."
+    ],
+    eTitle: "Day 29 Challenge: Stream Error Log Parser",
+    eDesc: "Write countErrorLines(String streamText) in Solution that uses a BufferedReader / StringReader to count how many lines start with '[ERROR]'.",
+    eStarter: "import java.io.*;\n\npublic class Solution {\n    public static int countErrorLines(String streamText) {\n        if (streamText == null) return 0;\n        int count = 0;\n        try (BufferedReader reader = new BufferedReader(new StringReader(streamText))) {\n            String line;\n            while ((line = reader.readLine()) != null) {\n                if (line.trim().startsWith(\"[ERROR]\")) count++;\n            }\n        } catch (Exception e) {}\n        return count;\n    }\n}",
+    eHint: "try (BufferedReader reader = new BufferedReader(new StringReader(streamText))) { String line; while ((line = reader.readLine()) != null) if (line.startsWith(\"[ERROR]\")) count++; }",
+    eTest: "public class Test {\n    public static void main(String[] args) {\n        String log1 = \"[INFO] Boot\n[ERROR] Null pointer\n[WARN] High load\n[ERROR] Timeout\";\n        if (Solution.countErrorLines(log1) != 2) throw new AssertionError(\"Expected 2 errors in log1\");\n        String log2 = \"[INFO] Clean run\n[DEBUG] Trace info\";\n        if (Solution.countErrorLines(log2) != 0) throw new AssertionError(\"Expected 0 errors in log2\");\n        String log3 = \"[ERROR] Fatal crash\";\n        if (Solution.countErrorLines(log3) != 1) throw new AssertionError(\"Expected 1 error in log3\");\n        if (Solution.countErrorLines(null) != 0) throw new AssertionError(\"Null stream must return 0\");\n    }\n}",
+    aTitle: "Day 29 Assignment: CSV Field Stream Extractor",
+    aDesc: "Write extractFirstColumn(String csvText) in Solution returning an ArrayList<String> of the first column in each row.",
+    aStarter: "import java.io.*;\nimport java.util.ArrayList;\n\npublic class Solution {\n    public static ArrayList<String> extractFirstColumn(String csvText) {\n        ArrayList<String> res = new ArrayList<>();\n        if (csvText == null) return res;\n        try (BufferedReader reader = new BufferedReader(new StringReader(csvText))) {\n            String line;\n            while ((line = reader.readLine()) != null) {\n                String[] parts = line.split(\",\");\n                if (parts.length > 0 && !parts[0].trim().isEmpty()) res.add(parts[0].trim());\n            }\n        } catch (Exception e) {}\n        return res;\n    }\n}",
+    aHint: "BufferedReader with line.split(\",\") adding parts[0] to ArrayList.",
+    aTest: "import java.util.ArrayList;\npublic class Test {\n    public static void main(String[] args) {\n        String csv = \"Alice,95,A\nBob,88,B\nCharlie,72,C\";\n        ArrayList<String> names = Solution.extractFirstColumn(csv);\n        if (names.size() != 3) throw new AssertionError(\"Must extract 3 names\");\n        if (!names.get(0).equals(\"Alice\")) throw new AssertionError(\"First name must be Alice\");\n        if (!names.get(2).equals(\"Charlie\")) throw new AssertionError(\"Third name must be Charlie\");\n        if (Solution.extractFirstColumn(null).size() != 0) throw new AssertionError(\"Null CSV must return empty list\");\n    }\n}"
   },
+
+  // ── Day 30: 🏆 CAPSTONE PROJECT ─────────────────────────────────────────────
   {
-    title: "Java Capstone: Comprehensive Account Ledger Audit",
-    desc: "Perform evaluations of compound interest rates, check withdraw bounds checks, verify multi-dimensional transaction indexes, check exception handlers, and evaluate total compliance rating labels. (Real world: SDEs audit ledgers balance configurations before production release.)",
-    syllabus: ["Evaluating interest calculations compound rules", "Checking withdraw validations guardrails", "Auditing transaction log multi-dimensional indexes"],
-    eTitle: "Exam: Ledger Auditor",
-    eDesc: "Write a JS function `filterSum(nums, limit)` returning sum of elements in nums array strictly greater than limit. Return 0 if null.",
-    eStarter: "function filterSum(nums, limit) {\n    // Write your code here\n    \n}",
-    eHint: "Loop elements, check limits comparisons, accumulate sum.",
-    eTest: "if (typeof filterSum !== 'function') throw new Error('Method filterSum not found');\nif (filterSum([10, 50, 20], 15) !== 70) throw new Error('Ledger audit failed');",
-    aTitle: "Assignment: Transaction division factors check",
-    aDesc: "Write a JS function `hasFactors(val, f1, f2)` returning true if val % f1 === 0 and val % f2 === 0.",
-    aStarter: "function hasFactors(val, f1, f2) {\n    // Write your code here\n    \n}",
-    aHint: "Verify double modulo check divisions.",
-    aTest: "if (typeof hasFactors !== 'function') throw new Error('Method hasFactors not found');"
+    title: "🏆 Capstone Project: Ledger Transaction Auditor",
+    desc: "Synthesize all 30 days into a unified enterprise financial auditing engine: entities, defensive validation, collections, and balance reconciliation working in harmony.",
+    syllabus: [
+      "Full System Architecture: Entity design, defensive validation, and collections.",
+      "Auditor Calculation Logic: Multi-condition threshold filtering and summation.",
+      "Account Balance Reconciliation: End-to-end ledger verification."
+    ],
+    eTitle: "Day 30 Final Capstone Challenge: Ledger Transaction Auditor",
+    eDesc: "Write auditLedger(int[] amounts, int limit) in Solution returning the sum of all transaction amounts strictly greater than limit.",
+    eStarter: "public class Solution {\n    public static int auditLedger(int[] amounts, int limit) {\n        int sum = 0;\n        for (int a : amounts) {\n            if (a > limit) sum += a;\n        }\n        return sum;\n    }\n}",
+    eHint: "for (int a : amounts) if (a > limit) sum += a; return sum;",
+    eTest: "public class Test {\n    public static void main(String[] args) {\n        int[] ledger1 = { 500, 1500, 200, 3000, 800 };\n        if (Solution.auditLedger(ledger1, 1000) != 4500) throw new AssertionError(\"1500 + 3000 must be 4500\");\n        int[] ledger2 = { 100, 200, 300 };\n        if (Solution.auditLedger(ledger2, 500) != 0) throw new AssertionError(\"No amounts over limit must return 0\");\n        int[] ledger3 = { 1000, 2000 };\n        if (Solution.auditLedger(ledger3, 500) != 3000) throw new AssertionError(\"All amounts over limit must sum to 3000\");\n        int[] emptyLedger = {};\n        if (Solution.auditLedger(emptyLedger, 100) != 0) throw new AssertionError(\"Empty ledger must return 0\");\n    }\n}",
+    aTitle: "Day 30 Final Capstone Assignment: Account Balance Reconciler",
+    aDesc: "Write calculateBalance(int initialBalance, int[] transactions) in Solution returning the net reconciled balance by applying all positive credits and negative debits.",
+    aStarter: "public class Solution {\n    public static int calculateBalance(int initialBalance, int[] txs) {\n        int balance = initialBalance;\n        if (txs != null) {\n            for (int t : txs) balance += t;\n        }\n        return balance;\n    }\n}",
+    aHint: "for (int t : txs) balance += t; return balance;",
+    aTest: "public class Test {\n    public static void main(String[] args) {\n        int[] txs1 = { 500, -200, 150 };\n        if (Solution.calculateBalance(1000, txs1) != 1450) throw new AssertionError(\"1000 + 500 - 200 + 150 must be 1450\");\n        int[] txs2 = { -500, -300 };\n        if (Solution.calculateBalance(1000, txs2) != 200) throw new AssertionError(\"1000 - 800 must be 200\");\n        if (Solution.calculateBalance(500, new int[]{}) != 500) throw new AssertionError(\"Empty transactions must preserve initial\");\n        if (Solution.calculateBalance(500, null) != 500) throw new AssertionError(\"Null transactions must preserve initial\");\n    }\n}"
   }
 ];
 
-export const JAVA_30_DAYS_QUESTS = JAVA_30_DAYS_CONFIGS.flatMap((cfg, dIdx) => {
-  const dayNum = dIdx + 1;
-  const lecture = {
-    id: `java-basics-lecture-day-${dayNum}`,
-    title: `Day ${dayNum} Learning: ${cfg.title}`,
-    desc: cfg.desc,
-    type: "lecture" as const,
-    requiresAvatar: true,
-    syllabus: cfg.syllabus,
-    skillCategory: "theory" as const,
-    xp: 150,
-    pins: 5
-  };
-  if (dayNum === 1) {
-    return [
-      lecture,
-      {
-        id: `java-basics-lecture2-day-1`,
-        title: `Day 1 Deep Dive: Syntax, Execution Rules, and Line-by-Line Breakdown`,
-        desc: `In-depth step-by-step breakdown of Day 1 concepts, memory layout, and execution mechanics. ${cfg.desc}`,
-        type: "lecture" as const,
-        requiresAvatar: true,
-        syllabus: cfg.syllabus,
-        skillCategory: "theory" as const,
-        xp: 150,
-        pins: 5
-      },
-      {
-        id: `java-basics-lecture3-day-1`,
-        title: `Day 1 Workshop: Real-World Industry Context & Visualization Guide`,
-        desc: `Practical visualization guide and real-world system architecture context for Day 1. ${cfg.desc}`,
-        type: "lecture" as const,
-        requiresAvatar: true,
-        syllabus: cfg.syllabus,
-        skillCategory: "theory" as const,
-        xp: 150,
-        pins: 5
-      }
-    ];
-  }
-  if (dayNum === 2) {
-    return [
-      lecture,
-      {
-        id: `java-basics-lecture2-day-2`,
-        title: `Day 2 Deep Dive: Flow Control, Logic Branching, and Execution Paths`,
-        desc: `In-depth line-by-line mechanics of conditionals, loops, and memory execution state. ${cfg.desc}`,
-        type: "lecture" as const,
-        requiresAvatar: true,
-        syllabus: cfg.syllabus,
-        skillCategory: "theory" as const,
-        xp: 150,
-        pins: 5
-      },
-      {
-        id: `java-basics-lecture3-day-2`,
-        title: `Day 2 Workshop: Practical Code Workshop & Edge Case Pitfall Warnings`,
-        desc: `Practical code workshop analyzing common edge cases, off-by-one errors, and production traps. ${cfg.desc}`,
-        type: "lecture" as const,
-        requiresAvatar: true,
-        syllabus: cfg.syllabus,
-        skillCategory: "theory" as const,
-        xp: 150,
-        pins: 5
-      }
-    ];
-  }
-  return buildEnrichedDayQuests('java-basics', dayNum, cfg);
-});
+export const JAVA_ALL_30_DAYS_QUESTS: CourseQuest[] = JAVA_30_DAYS_CONFIGS.flatMap((cfg, i) =>
+  buildEnrichedDayQuests('java-basics', i + 1, cfg)
+);
+
+export const JAVA_30_DAYS_QUESTS: CourseQuest[] = JAVA_ALL_30_DAYS_QUESTS;

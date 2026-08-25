@@ -490,8 +490,41 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
       return;
     }
 
+    const isJava = (questId || '').includes('java') || (quest?.id || '').includes('java');
+    if (isJava) {
+      setOutput(null);
+      setTerminalLogs(['⚙️ Dispatching Java submission to isolated compiler judge...']);
+      
+      import('@/lib/code/codeRunner').then(({ runTestSuite }) => {
+        runTestSuite(code, 'java', { testSuite: quest.testSuite })
+          .then((result) => {
+            setTerminalLogs(result.terminalLogs || []);
+            if (result.allPassed) {
+              setOutput({
+                success: true,
+                message: 'Verification Passed! All automated Java test assertions cleared.'
+              });
+              if (!isCompleted) {
+                addCompletedQuest(questId, true, quest.xp || 120, 'course-java-logic');
+                toast.success('Exam Passed! 🎉', 'Earned ' + (quest.xp || 120) + ' XP & ' + (quest.pins || 6) + ' Pins.');
+              }
+            } else {
+              const errMsg = result.testOutcomes?.[0]?.error || result.terminalLogs?.[result.terminalLogs.length - 1] || 'Automated test assertion failed.';
+              setOutput({
+                success: false,
+                message: errMsg
+              });
+            }
+          })
+          .catch((err) => {
+            setOutput({ success: false, message: 'Execution judge error: ' + err.message });
+          });
+      });
+      return;
+    }
+
     const langInfo = getLangInfo(questId || '');
-    // Fail closed: keyword/transpile checks are not real JVM/Python/SQL engines
+    // Fail closed for non-native languages without dedicated runners
     if (!langInfo.native) {
       setOutput({
         success: false,

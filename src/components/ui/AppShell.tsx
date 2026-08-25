@@ -26,7 +26,7 @@ const TEACHER_CONFIG: Record<string, { name: string; color: string; emoji: strin
 };
 
 import VoiceRegistrationModal from '@/components/avatar/VoiceRegistrationModal';
-import { consumeJustOnboarded, completeStoryTour, isStoryTourPending } from '@/lib/storyTour';
+import { completeStoryTour, isStoryTourPending } from '@/lib/storyTour';
 
 // ── Story tour: Segment 1 left nav (2-line each) → Segment 2 right sidebar ──
 const TOUR_SLIDES = [
@@ -255,18 +255,20 @@ function GlobalAvatar({
     };
   }, [teacher.name, teacherId, user?.id, resetIdleTimer]);
 
-  // ── Compulsory 3-segment story tour after first onboarding (once) ─────────
+  // ── Compulsory 3-segment story tour after first onboarding (strictly once) ──
   useEffect(() => {
     if (!mounted || typeof window === 'undefined') return;
     if (tourActive || showVoiceRegModal) return;
     if (!user?.id) return;
 
-    consumeJustOnboarded(user.id);
     if (!isStoryTourPending(user.id)) return;
 
     if (cleanPath !== '/dashboard') {
       return;
     }
+
+    // Burn token immediately to prevent any double-trigger race conditions
+    completeStoryTour(user.id);
 
     const t = window.setTimeout(() => {
       onExpandLeftNav?.();
@@ -274,10 +276,9 @@ function GlobalAvatar({
       setTourActive(true);
       setTourStep(0);
       setMinimized(false);
-      completeStoryTour(user.id);
-    }, 800);
+    }, 600);
     return () => window.clearTimeout(t);
-  }, [mounted, user?.id, cleanPath, tourActive, showVoiceRegModal, router, onExpandLeftNav]);
+  }, [mounted, user?.id, cleanPath, tourActive, showVoiceRegModal, onExpandLeftNav]);
 
   // ── Segment 2: Open Right Sidebar Drawer when reaching step 8 ─────────────
   useEffect(() => {
@@ -344,50 +345,62 @@ function GlobalAvatar({
 
   // Speak tour slide out loud and automatically switch pages to show corresponding tab
   useEffect(() => {
-    if (tourActive && TOUR_SLIDES[tourStep]) {
-      // 1. Navigate to target tab if needed
-      const targetRoute = TOUR_STEP_ROUTES[tourStep];
-      if (targetRoute && cleanPath !== targetRoute) {
-        router.push(targetRoute);
-      }
-
-      // 2. Prevent restarting speech if already speaking for this tourStep
-      if (lastSpokenTourStepRef.current === tourStep) {
-        return;
-      }
-      lastSpokenTourStepRef.current = tourStep;
-
-      const slide = TOUR_SLIDES[tourStep];
-      const speechText = slide.text.replace(/\*\*/g, '').replace(/🎉|🏠|🛠️|🗺|⚡|🎙|🧬|🔬|🎯|💬|🚀|👋|🌅|✨|💙/g, '');
-      
-      stopSpeaking();
-      speakWithAvatar(
-        speechText,
-        teacherId,
-        () => {}, // onStart
-        () => {
-          // When avatar finishes speaking about this tab, auto-advance to next tab after a 1.2s pause!
-          setTimeout(() => {
-            if (tourActiveRef.current) {
-              setTourStep(prev => {
-                if (prev >= TOUR_SLIDES.length - 1) {
-                  setTourActive(false);
-                  stopSpeaking();
-                  setMinimized(false);
-                  setShowVoiceRegModal(true);
-                  router.push('/dashboard');
-                  return prev;
-                }
-                return prev + 1;
-              });
-            }
-          }, 1200);
-        }
-      );
-    } else {
+    if (!tourActive || !TOUR_SLIDES[tourStep]) {
       lastSpokenTourStepRef.current = null;
+      return;
     }
-  }, [tourActive, tourStep, teacherId, router, cleanPath, user?.id]);
+
+    // 1. Navigate to target tab if needed
+    const targetRoute = TOUR_STEP_ROUTES[tourStep];
+    if (targetRoute && cleanPath !== targetRoute) {
+      router.push(targetRoute);
+    }
+
+    // 2. Prevent restarting speech if already speaking for this tourStep
+    if (lastSpokenTourStepRef.current === tourStep) {
+      return;
+    }
+    lastSpokenTourStepRef.current = tourStep;
+
+    const slide = TOUR_SLIDES[tourStep];
+    const speechText = slide.text.replace(/\*\*/g, '').replace(/🎉|🏠|🛠️|🗺|⚡|🎙|🧬|🔬|🎯|💬|🚀|👋|🌅|✨|💙/g, '');
+    
+    stopSpeaking();
+
+    // Fallback auto-advance: if audio is blocked or ends without callback, advance after 10s
+    const fallbackTimer = setTimeout(() => {
+      if (tourActiveRef.current && lastSpokenTourStepRef.current === tourStep) {
+        if (tourStep >= TOUR_SLIDES.length - 1) {
+          openVoiceSegment();
+        } else {
+          lastSpokenTourStepRef.current = null;
+          setTourStep(prev => prev + 1);
+        }
+      }
+    }, 10000);
+
+    speakWithAvatar(
+      speechText,
+      teacherId,
+      () => {}, // onStart
+      () => {
+        clearTimeout(fallbackTimer);
+        // When avatar finishes speaking about this tab, auto-advance to next tab after a 1.2s pause!
+        setTimeout(() => {
+          if (tourActiveRef.current) {
+            if (tourStep >= TOUR_SLIDES.length - 1) {
+              openVoiceSegment();
+            } else {
+              lastSpokenTourStepRef.current = null;
+              setTourStep(prev => prev + 1);
+            }
+          }
+        }, 1200);
+      }
+    );
+
+    return () => clearTimeout(fallbackTimer);
+  }, [tourActive, tourStep, teacherId, router]);
 
   // Speak congratulations out loud when a celebration triggers (ensuring only once per event object)
   useEffect(() => {
@@ -788,14 +801,13 @@ function GlobalAvatar({
 
   return (
     <>
-      {/* Backdrop overlay when centered */}
+      {/* Non-blocking soft aura when avatar is active */}
       {isCentered && !minimized && (
         <div style={{
           position: 'fixed', inset: 0,
-          background: 'rgba(0,0,0,0.65)',
-          backdropFilter: 'blur(4px)',
-          zIndex: 999,
-          transition: 'all 0.5s'
+          background: 'transparent',
+          pointerEvents: 'none',
+          zIndex: 99,
         }} />
       )}
 
@@ -863,138 +875,162 @@ function GlobalAvatar({
           }}
           onMouseLeave={(e) => {
             if (!isEnlarged && !isCentered) {
-              e.currentTarget.style.opacity = '0.55';
+              e.currentTarget.style.opacity = '0.92';
             }
           }}
           style={isEnlarged ? {
             position: 'fixed',
-            bottom: '12.5%',
-            right: '12.5%',
-            width: '75%',
-            height: '75%',
+            bottom: '24px',
+            right: '24px',
+            width: '220px',
+            height: '280px',
+            maxWidth: '22vw',
+            maxHeight: '40vh',
             zIndex: 1000,
-            borderRadius: 24,
+            borderRadius: 18,
             overflow: 'visible',
-            boxShadow: '0 25px 50px -12px rgba(0,0,0,0.5), 0 0 50px rgba(79,70,229,0.4)',
-            border: '3.5px solid var(--accent)',
+            boxShadow: '0 20px 40px -10px rgba(0,0,0,0.5), 0 0 30px rgba(79,70,229,0.3)',
+            border: '2px solid var(--accent)',
             background: 'var(--bg2)',
-            transition: 'all 0.55s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease',
+            transition: 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease',
             display: minimized ? 'none' : 'block',
           } : isCentered ? {
             position: 'fixed',
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: 380,
-            height: 470,
+            width: '220px',
+            height: '280px',
+            maxWidth: '20vw',
+            maxHeight: '38vh',
             zIndex: 1000,
-            borderRadius: 24,
+            borderRadius: 18,
             overflow: 'visible',
-            boxShadow: '0 25px 50px -12px rgba(0,0,0,0.5), 0 0 40px rgba(79,70,229,0.3)',
-            border: '3px solid var(--accent)',
+            boxShadow: '0 20px 40px -10px rgba(0,0,0,0.5)',
+            border: '2px solid var(--accent)',
             background: 'var(--bg2)',
-            transition: 'all 0.55s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease',
+            transition: 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease',
             display: minimized ? 'none' : 'block',
           } : {
             position: 'fixed',
-            bottom: 0,
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: 256,
-            height: 336,
+            bottom: '18px',
+            right: '24px',
+            left: 'auto',
+            transform: 'none',
+            width: '150px',
+            height: '195px',
+            maxWidth: '18vw',
+            maxHeight: '28vh',
             zIndex: 100,
-            borderRadius: '20px 20px 0 0',
+            borderRadius: 18,
             overflow: 'visible',
-            boxShadow: 'var(--shadow-xl)',
-            border: '1.5px solid var(--border)',
-            borderBottom: 'none',
-            background: 'var(--bg2)',
-            transition: 'all 0.55s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease',
+            boxShadow: '0 12px 32px rgba(0,0,0,0.45), 0 0 20px rgba(99,102,241,0.25)',
+            border: '1.5px solid rgba(255,255,255,0.18)',
+            background: 'linear-gradient(180deg, rgba(30,27,75,0.92) 0%, rgba(15,23,42,0.98) 100%)',
+            backdropFilter: 'blur(16px)',
+            transition: 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease',
             display: minimized ? 'none' : 'block',
-            opacity: 0.55,
           }}
         >
+          {/* Optional Speech Bubble above Avatar */}
+          {showSpeechBubble && dialogueText && !tourActive && !celebEvent && (
+            <div style={{
+              position: 'absolute',
+              bottom: '102%',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: '260px',
+              maxWidth: '85vw',
+              background: 'rgba(15,23,42,0.95)',
+              border: '1px solid rgba(129,140,248,0.4)',
+              borderRadius: 14,
+              padding: '10px 14px',
+              boxShadow: '0 10px 25px rgba(0,0,0,0.5)',
+              backdropFilter: 'blur(12px)',
+              zIndex: 110,
+              fontSize: 11.5,
+              lineHeight: 1.5,
+              color: '#e2e8f0',
+              fontFamily: 'var(--font-sans)',
+              animation: 'fadeIn 0.25s ease-out'
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+                <span style={{ fontSize: 10, fontWeight: 800, color: '#a5b4fc', fontFamily: 'var(--font-mono)' }}>
+                  {teacher.name.toUpperCase()} · MENTOR GUIDANCE
+                </span>
+                <button
+                  onClick={() => setShowSpeechBubble(false)}
+                  style={{ background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer', fontSize: 11, padding: 0 }}
+                  title="Dismiss message"
+                >
+                  ✕
+                </button>
+              </div>
+              <div style={{ fontSize: 11, color: '#f1f5f9' }}>
+                {dialogueText.replace(/\*\*/g, '')}
+              </div>
+              {/* Pointer triangle */}
+              <div style={{
+                position: 'absolute',
+                top: '100%',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: 0,
+                height: 0,
+                borderLeft: '6px solid transparent',
+                borderRight: '6px solid transparent',
+                borderTop: '6px solid rgba(15,23,42,0.95)'
+              }} />
+            </div>
+          )}
+
           {/* Relative wrapper so overlays can be positioned inside */}
           <div style={{ position: 'relative', width: '100%', height: '100%' }}>
             {/* Quick floating action bar over avatar */}
             <div style={{
               position: 'absolute',
               top: 8,
-              left: 8,
-              right: 8,
+              left: 10,
+              right: 10,
               zIndex: 12,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              background: 'rgba(15,23,42,0.85)',
-              backdropFilter: 'blur(8px)',
-              padding: '4px 10px',
+              background: 'rgba(15,23,42,0.75)',
+              backdropFilter: 'blur(10px)',
+              padding: '5px 12px',
               borderRadius: 12,
-              border: '1px solid rgba(255,255,255,0.15)',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+              border: '1px solid rgba(255,255,255,0.12)',
+              boxShadow: '0 4px 14px rgba(0,0,0,0.3)',
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                 <span style={{ fontSize: 13 }}>{teacher.emoji}</span>
-                <span style={{ fontFamily: 'var(--font-display)', fontSize: 10.5, fontWeight: 800, color: '#fff' }}>{teacher.name}</span>
+                <span style={{ fontFamily: 'var(--font-display)', fontSize: 11, fontWeight: 800, color: '#fff' }}>{teacher.name}</span>
+                <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#22c55e', boxShadow: '0 0 6px #22c55e' }} title="Online & Listening" />
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                <button
-                  onClick={startStoryMode}
-                  title="Launch Tab Tour (Story Mode)"
-                  style={{
-                    background: tourActive ? 'var(--accent)' : 'rgba(255,255,255,0.18)',
-                    border: 'none',
-                    borderRadius: 6,
-                    color: '#fff',
-                    fontSize: 9,
-                    fontWeight: 700,
-                    padding: '3px 7px',
-                    cursor: 'pointer',
-                    fontFamily: 'var(--font-mono)',
-                  }}
-                >
-                  ✨ Story Tour
-                </button>
-
-                <button
-                  onClick={triggerCongrats}
-                  title="Trigger Milestone Celebration"
-                  style={{
-                    background: celebEvent ? '#059669' : 'rgba(255,255,255,0.18)',
-                    border: 'none',
-                    borderRadius: 6,
-                    color: '#fff',
-                    fontSize: 9,
-                    fontWeight: 700,
-                    padding: '3px 7px',
-                    cursor: 'pointer',
-                    fontFamily: 'var(--font-mono)',
-                  }}
-                >
-                  🎉 Celebrate
-                </button>
-
                 <button
                   onClick={() => setMinimized(true)}
                   title="Dock Floating Avatar"
                   style={{
-                    background: 'rgba(255,255,255,0.18)',
-                    border: 'none',
+                    background: 'rgba(255,255,255,0.12)',
+                    border: '1px solid rgba(255,255,255,0.2)',
                     borderRadius: 6,
                     color: '#fff',
-                    fontSize: 9,
+                    fontSize: 10,
                     fontWeight: 700,
-                    padding: '3px 6px',
+                    padding: '2px 7px',
                     cursor: 'pointer',
                     fontFamily: 'var(--font-mono)',
+                    lineHeight: 1.2
                   }}
                 >
-                  ➖
+                  −
                 </button>
               </div>
             </div>
             {/* 3D WebGL / VRoid Avatar Mentor Container */}
-            <div style={{ width: '100%', height: '100%', overflow: 'hidden', borderRadius: isCentered ? 20 : 18 }}>
+            <div style={{ width: '100%', height: '100%', overflow: 'hidden', borderRadius: isCentered ? 20 : '20px 20px 0 0' }}>
               <Suspense fallback={
                 <div style={{ width: '100%', height: '100%', background: 'var(--card)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--t3)' }}>
                   Loading mentor...
@@ -1012,8 +1048,8 @@ function GlobalAvatar({
                   setOnboardingStep={setOnboardingStep}
                   onTabShift={(path) => router.push(path)}
                   onEnlarge={(val) => setIsEnlarged(val)}
+                  onlyAvatar={true}
                 />
-
               </Suspense>
             </div>
 
@@ -1054,6 +1090,7 @@ const STUDENT_NAV: NavSection[] = [
     { href: '/dashboard', icon: '🏠', label: 'Dashboard' },
     { href: '/quests', icon: '🗺', label: 'Quests' },
     { href: '/missions', icon: '⚡', label: 'Missions' },
+    { href: '/arena', icon: '⚔️', label: 'Challenging Arena' },
     { href: '/projects', icon: '🚀', label: 'Projects' },
     { href: '/interview', icon: '🎙', label: 'AI Interview' },
     { href: '/group-discussion', icon: '💬', label: 'GD Practice' },
@@ -1299,26 +1336,44 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   const isRedirectingRef = useRef(false);
   const [collapsed, setCollapsed] = useState(false);
+  const [rightCollapsed, setRightCollapsed] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({});
   const [liteUiMode, setLiteUiMode] = useState(false);
   const [isGdCall, setIsGdCall] = useState(false);
   const [isRoleplayParamActive, setIsRoleplayParamActive] = useState(false);
 
-  const [rightCollapsed, setRightCollapsed] = useState(true);
+  // ── 1st Rule: If left sidebar is collapsed, right sidebar must expand, and vice versa ──
+  const toggleLeftSidebar = useCallback((forceCollapse?: boolean) => {
+    setCollapsed(prev => {
+      const nextCollapsed = typeof forceCollapse === 'boolean' ? forceCollapse : !prev;
+      setRightCollapsed(!nextCollapsed);
+      return nextCollapsed;
+    });
+  }, []);
+
+  const toggleRightSidebar = useCallback((forceCollapse?: boolean) => {
+    setRightCollapsed(prev => {
+      const nextRightCollapsed = typeof forceCollapse === 'boolean' ? forceCollapse : !prev;
+      setCollapsed(!nextRightCollapsed);
+      return nextRightCollapsed;
+    });
+  }, []);
+
   const [activeAcademicTab, setActiveAcademicTab] = useState<string | null>(null);
   const [pendingExam, setPendingExam] = useState<any>(null);
   const [examScreen, setExamScreen] = useState<'dashboard' | 'exam-start' | 'exam'>('dashboard');
   const [examCheckLoading, setExamCheckLoading] = useState(false);
 
   const handleTabChange = useCallback((searchTab: string | null) => {
-    if (searchTab) {
+    const validAcademicTabs = ['home', 'exams', 'results', 'notes', 'notifications', 'contact', 'study-notes', 'student-services', 'library', 'hostel', 'transit', 'events'];
+    if (searchTab && validAcademicTabs.includes(searchTab) && pathname !== '/profile') {
       setActiveAcademicTab(searchTab);
-      setRightCollapsed(false);
+      toggleRightSidebar(false);
     } else {
       setActiveAcademicTab(null);
     }
-  }, []);
+  }, [pathname, toggleRightSidebar]);
 
   const handleStartExamRequest = async (examSchedule: any) => {
     if (!user?.registerNumber) {
@@ -1453,11 +1508,11 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const fn = (e: KeyboardEvent) => {
-      if (e.key === '[' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); setCollapsed(c => !c); }
+      if (e.key === '[' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); toggleLeftSidebar(); }
     };
     window.addEventListener('keydown', fn);
     return () => window.removeEventListener('keydown', fn);
-  }, []);
+  }, [toggleLeftSidebar]);
 
   // Reset redirecting ref on pathname or user change
   useEffect(() => {
@@ -1527,9 +1582,6 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         title={collapsed ? label : undefined}
         onClick={() => {
           setActiveAcademicTab(null);
-          if (typeof window !== 'undefined') {
-            window.dispatchEvent(new CustomEvent('pinit:cancel_story_mode'));
-          }
         }}
         className={`nav-item${active ? ' active' : ''}`}
         style={indent && !collapsed ? { paddingLeft: 32 } : undefined}
@@ -1614,7 +1666,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             )}
           </Link>
           {!collapsed && !focusMode && (
-            <button onClick={() => setCollapsed(true)} title="Collapse (⌘[)"
+            <button onClick={() => toggleLeftSidebar(true)} title="Collapse (⌘[)"
               style={{ marginLeft:'auto', background:'none', border:'none', cursor:'pointer', color:'var(--t4)', fontSize:18, padding:'2px 6px', borderRadius:6, lineHeight:1 }}>
               ‹
             </button>
@@ -1798,30 +1850,6 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               {theme === 'light' ? '🌙' : '☀️'}
             </button>
 
-            {/* Story Mode Button */}
-            {isStudent && (
-              <button 
-                onClick={() => {
-                  if (typeof window !== 'undefined') {
-                    window.dispatchEvent(new CustomEvent('pinit:start_story_mode'));
-                  }
-                }} 
-                title="Launch Story Mode Tab Tour"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(79,70,229,0.15), rgba(124,58,237,0.15))', 
-                  border: '1px solid rgba(79,70,229,0.3)', 
-                  borderRadius: 20, padding: '3px 12px', display: 'flex', 
-                  alignItems: 'center', gap: 5, cursor: 'pointer',
-                  fontSize: 10.5, fontWeight: 700, fontFamily: 'var(--font-mono)',
-                  color: 'var(--accent)', outline: 'none',
-                  boxShadow: '0 2px 8px rgba(79,70,229,0.15)',
-                  transition: 'all 0.15s ease'
-                }}
-              >
-                <span>✨</span> Story Mode
-              </button>
-            )}
-
             {/* Focus Mode Toggle Button (Invisible Mode) - Only for students */}
             {isStudent && (
               <button 
@@ -1882,7 +1910,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             transition: 'padding 0.25s, max-width 0.25s'
           }}
         >
-          {isStudent && activeAcademicTab ? (
+          {isStudent && activeAcademicTab && pathname !== '/profile' ? (
             examScreen === 'exam' ? (
               <ToastProvider>
                 <ExamEngine
@@ -2037,13 +2065,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           {/* Sidebar Collapse Toggle Button */}
           <div style={{ padding: '8px 7px', borderTop: '1px solid var(--border)' }}>
             <button
-              onClick={() => {
-                const next = !rightCollapsed;
-                setRightCollapsed(next);
-                if (!next) {
-                  setCollapsed(true);
-                }
-              }}
+              onClick={() => toggleRightSidebar()}
               style={{
                 width: '100%',
                 display: 'flex',
@@ -2070,8 +2092,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           user={user}
           profile={profile}
           refreshProfile={refreshProfile}
-          onOpenRightSidebar={() => setRightCollapsed(false)}
-          onExpandLeftNav={() => setCollapsed(false)}
+          onOpenRightSidebar={() => toggleRightSidebar(false)}
+          onExpandLeftNav={() => toggleLeftSidebar(false)}
         />
       )}
 

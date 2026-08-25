@@ -126,7 +126,16 @@ export class VRoidAvatarEngine {
     canvas.addEventListener('webglcontextlost', this.onContextLost, false);
     canvas.addEventListener('webglcontextrestored', this.onContextRestored, false);
 
-    this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    try {
+      this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'default' });
+    } catch (e1) {
+      try {
+        this.renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true });
+      } catch (e2) {
+        console.warn('[VRoidAvatarEngine] WebGL context creation failed:', e2);
+        return;
+      }
+    }
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     this.renderer.setSize(w, h, false);
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -136,17 +145,17 @@ export class VRoidAvatarEngine {
     const fov = (w / h > 1.8) ? 32 : 28;
     this.camera = new THREE.PerspectiveCamera(fov, w / h, 0.01, 20);
 
-    this.camera.position.set(0, 1.43, 1.6);
-    this.camera.lookAt(0, 1.48, 0);
+    this.camera.position.set(0, 1.38, 1.45);
+    this.camera.lookAt(0, 1.44, 0);
 
-    this.scene.add(new THREE.AmbientLight(0xffffff, 0.65));
-    const key = new THREE.DirectionalLight(0xffffff, 1.4);
-    key.position.set(1.5, 3, 2);
+    this.scene.add(new THREE.AmbientLight(0xffffff, 1.2));
+    const key = new THREE.DirectionalLight(0xffffff, 1.6);
+    key.position.set(0, 2.5, 2.5);
     this.scene.add(key);
 
-    const rim = new THREE.DirectionalLight(0x88bbff, 0.6);
-    rim.position.set(-1.5, 2, -2);
-    this.scene.add(rim);
+    const fill = new THREE.DirectionalLight(0x90c0ff, 0.8);
+    fill.position.set(-1.5, 1.5, 2);
+    this.scene.add(fill);
 
     this.tryLoadVRM(teacherId).catch(() => this.buildProceduralAvatar());
     this.loop();
@@ -168,12 +177,13 @@ export class VRoidAvatarEngine {
     const { DRACOLoader } = await import('three/examples/jsm/loaders/DRACOLoader.js');
     const loader = new GLTFLoader();
     const dracoLoader = new DRACOLoader();
-    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/');
+    dracoLoader.setDecoderPath('/draco/gltf/');
     loader.setDRACOLoader(dracoLoader);
 
     const id = teacherId.toLowerCase().trim();
     const paths = [
       `/avatar/${id}.glb`,
+      '/avatar/kashyap.glb',
       '/avatar/priya.glb',
       '/avatar/hana.glb'
     ];
@@ -182,7 +192,9 @@ export class VRoidAvatarEngine {
       if (idx >= paths.length) return Promise.reject(new Error("No VRMs found"));
       return new Promise<void>((resolve, reject) => {
         const resolvedPath = paths[idx];
+        console.log('[VRoidAvatarEngine] Attempting to load avatar GLB from:', resolvedPath);
         loader.load(resolvedPath, gltf => {
+          console.log('[VRoidAvatarEngine] Successfully loaded 3D avatar:', resolvedPath);
           this.scene.add(gltf.scene);
           this.isVRM = true;
           this.faceMeshes = [];
@@ -190,12 +202,34 @@ export class VRoidAvatarEngine {
           this.blinkMorphMaps.clear();
           this.eyeLookMorphMaps.clear();
 
-          // 1. Identify Face & Head Meshes with Morph Targets
+          // Auto-ground and center model
+          gltf.scene.updateMatrixWorld(true);
+          const bbox = new THREE.Box3().setFromObject(gltf.scene);
+          const center = new THREE.Vector3();
+          bbox.getCenter(center);
+          gltf.scene.position.x = -center.x;
+          gltf.scene.position.z = -center.z;
+          gltf.scene.position.y = -bbox.min.y;
+          gltf.scene.updateMatrixWorld(true);
+
+          // 1. Identify Face & Head Meshes with Morph Targets, disable frustum culling & fix materials
           gltf.scene.traverse((obj: any) => {
             obj.matrixAutoUpdate = true;
             if (obj.isMesh) {
+              obj.frustumCulled = false;
               obj.castShadow = true;
               obj.receiveShadow = true;
+              if (obj.material) {
+                if (Array.isArray(obj.material)) {
+                  obj.material.forEach((m: any) => {
+                    m.side = THREE.DoubleSide;
+                    m.needsUpdate = true;
+                  });
+                } else {
+                  obj.material.side = THREE.DoubleSide;
+                  obj.material.needsUpdate = true;
+                }
+              }
               if (obj.morphTargetDictionary) {
                 const keys = Object.keys(obj.morphTargetDictionary);
                 const mouthKeys = keys.filter(k => {
@@ -343,15 +377,27 @@ export class VRoidAvatarEngine {
 
   centerCameraOnHead() {
     if (!this.camera) return;
-    let headPos = new THREE.Vector3(0, 1.43, 0);
+    let headY = 1.40;
+    let headX = 0;
+    let headZ = 0;
     if (this.head) {
       this.head.updateMatrixWorld(true);
       const temp = new THREE.Vector3();
       this.head.getWorldPosition(temp);
-      if (temp.y > 0.3) headPos.copy(temp);
+      if (temp.y > 0.3) {
+        headY = temp.y;
+        headX = temp.x;
+        headZ = temp.z;
+      }
+    } else {
+      const bbox = new THREE.Box3().setFromObject(this.scene);
+      if (bbox.max.y > 0.5) {
+        headY = bbox.min.y + (bbox.max.y - bbox.min.y) * 0.85;
+      }
     }
-    this.camera.position.set(headPos.x, headPos.y - 0.05, headPos.z + 1.25);
-    this.camera.lookAt(headPos.x, headPos.y + 0.07, headPos.z);
+    this.camera.position.set(headX, headY - 0.04, headZ + 1.65);
+    this.camera.lookAt(headX, headY - 0.02, headZ);
+    this.camera.updateProjectionMatrix();
   }
 
   buildProceduralAvatar() {
@@ -422,6 +468,7 @@ export class VRoidAvatarEngine {
     pelvis.position.y = 1.01;
     g.add(pelvis);
 
+    g.updateMatrixWorld(true);
     this.scene.add(g);
     this.centerCameraOnHead();
   }
@@ -691,7 +738,7 @@ export class VRoidAvatarEngine {
   }
 
   resize(w: number, h: number) {
-    if (!this.camera || !this.renderer) return;
+    if (!this.camera || !this.renderer || !w || !h || w <= 0 || h <= 0) return;
     this.camera.aspect = w / h;
     if (this.camera.aspect > 1.8) {
       this.camera.fov = 32;

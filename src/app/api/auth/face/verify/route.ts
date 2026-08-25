@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import faceTemplateStore from '@/lib/faceStore';
+import faceTemplateStore, { getFaceTemplate } from '@/lib/faceStore';
 
 // Euclidean distance between two vectors
 function euclideanDistance(v1: number[], v2: number[]): number {
@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
     const targetUser = String(username).toLowerCase();
 
     // Only match against the requested user's enrolled template — no silent demo fallback.
-    let storedVector = faceTemplateStore.get(targetUser);
+    let storedVector = await getFaceTemplate(targetUser);
 
     if (!storedVector) {
       const cookieKey = `pinit_face_vec_${targetUser.replace(/[^a-z0-9]/g, '')}`;

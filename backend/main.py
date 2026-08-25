@@ -22,12 +22,19 @@ from app.services.cache_service import get_redis, close_redis
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Startup: connect Redis. Shutdown: close Redis."""
-    await get_redis()
-    print("[PinIT Backend] Redis connected.")
+    """Startup: connect Redis with graceful fallback. Shutdown: close Redis."""
+    try:
+        r = await get_redis()
+        await r.ping()
+        print("[PinIT Backend] Redis connected successfully.")
+    except Exception as e:
+        print(f"[PinIT Backend] Redis connection notice ({e}). Operating in disk-first mode.")
     yield
-    await close_redis()
-    print("[PinIT Backend] Redis connection closed.")
+    try:
+        await close_redis()
+        print("[PinIT Backend] Redis connection closed.")
+    except Exception:
+        pass
 
 
 app = FastAPI(

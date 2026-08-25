@@ -1,4 +1,5 @@
 export interface DayConfig {
+  day?: number;
   title: string;
   desc: string;
   syllabus: string[];
@@ -14,112 +15,139 @@ export interface DayConfig {
   aTest: string;
 }
 
-export function buildEnrichedDayQuests(prefix: string, dayNum: number, cfg: DayConfig) {
-  // ── Part 1: Story & Real-World Industry Context ─────────────────────────
-  const teachingTask1 = {
+export type { CourseQuest } from './coursesData';
+import { CourseQuest } from './coursesData';
+import { JAVA_PILOT_DAYS } from './javaPilotDays';
+import { PYTHON_PILOT_DAYS } from './pythonPilotDays';
+import { REACT_PILOT_DAYS } from './reactPilotDays';
+import { DATABASE_PILOT_DAYS } from './databasePilotDays';
+import { DSA_PILOT_DAYS } from './dsaPilotDays';
+import { FULLSTACK_PILOT_DAYS } from './fullstackPilotDays';
+import { CLOUD_PILOT_DAYS } from './cloudPilotDays';
+import { DEVOPS_PILOT_DAYS } from './devopsPilotDays';
+import { AI_PILOT_DAYS } from './aiPilotDays';
+import { DISTRIBUTED_PILOT_DAYS } from './distributedPilotDays';
+import { IOT_EMBEDDED_PILOT_DAYS } from './iotEmbeddedPilotDays';
+import { GRAPHICS_3D_PILOT_DAYS } from './graphics3dPilotDays';
+import { BLOCKCHAIN_PILOT_DAYS } from './blockchainPilotDays';
+import { IOT_NETWORK_PILOT_DAYS } from './iotNetworkPilotDays';
+import { IOT_EDGE_AI_PILOT_DAYS } from './iotEdgeAiPilotDays';
+import { IOT_SECURITY_PILOT_DAYS } from './iotSecurityPilotDays';
+import { QUANT_PILOT_DAYS } from './quantPilotDays';
+import { BCOM_ACCOUNTING_PILOT_DAYS } from './bcomAccountingPilotDays';
+import { BCOM_FINANCE_PILOT_DAYS } from './bcomFinancePilotDays';
+import { BCOM_ANALYTICS_PILOT_DAYS } from './bcomAnalyticsPilotDays';
+import { BCOM_MARKETING_PILOT_DAYS } from './bcomMarketingPilotDays';
+import { BCOM_DIGITAL_MARKETING_PILOT_DAYS } from './bcomDigitalMarketingPilotDays';
+import { BCOM_ECOMMERCE_PILOT_DAYS } from './bcomEcommercePilotDays';
+import { BCOM_ENTREPRENEURSHIP_PILOT_DAYS } from './bcomEntrepreneurshipPilotDays';
+import { BCOM_SALES_CRM_PILOT_DAYS } from './bcomSalesCrmPilotDays';
+import { BCOM_OPERATIONS_PILOT_DAYS } from './bcomOperationsPilotDays';
+
+export function buildEnrichedDayQuests(prefix: string, dayNum: number, cfg: DayConfig): CourseQuest[] {
+  let pilotDay: any = null;
+  if (prefix.includes('java')) {
+    pilotDay = JAVA_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('python')) {
+    pilotDay = PYTHON_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('react')) {
+    pilotDay = REACT_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('sql') || prefix.includes('database')) {
+    pilotDay = DATABASE_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('dsa')) {
+    pilotDay = DSA_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('fullstack')) {
+    pilotDay = FULLSTACK_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('cloud')) {
+    pilotDay = CLOUD_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('devops')) {
+    pilotDay = DEVOPS_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('bcom_ops') || prefix.includes('operations') || prefix.includes('supplychain') || prefix.includes('compliance')) {
+    pilotDay = BCOM_OPERATIONS_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('bcom_scrm') || prefix.includes('sales') || prefix.includes('crm') || prefix.includes('customer_success')) {
+    pilotDay = BCOM_SALES_CRM_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('bcom_ent') || prefix.includes('entrepreneurship') || prefix.includes('biz_mgmt') || prefix.includes('startup')) {
+    pilotDay = BCOM_ENTREPRENEURSHIP_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('bcom_ecom') || prefix.includes('ecommerce') || prefix.includes('ecom') || prefix.includes('digital_biz')) {
+    pilotDay = BCOM_ECOMMERCE_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('bcom_dmkt') || prefix.includes('dmkt') || prefix.includes('digital_marketing') || prefix.includes('growth')) {
+    pilotDay = BCOM_DIGITAL_MARKETING_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('bcom_mkt') || prefix.includes('marketing') || prefix.includes('branding')) {
+    pilotDay = BCOM_MARKETING_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('bcom_ana') || prefix.includes('analytics') || prefix.includes('decision_intelligence')) {
+    pilotDay = BCOM_ANALYTICS_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('bcom_fin') || prefix.includes('finance') || prefix.includes('investment') || prefix.includes('capital_budgeting')) {
+    pilotDay = BCOM_FINANCE_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('bcom_acc') || prefix.includes('accounting') || prefix.includes('taxation') || prefix.includes('tally')) {
+    pilotDay = BCOM_ACCOUNTING_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('quant') || prefix.includes('trading') || prefix.includes('hft')) {
+    pilotDay = QUANT_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('iot_sec') || prefix.includes('iot-sec') || prefix.includes('security')) {
+    pilotDay = (IOT_SECURITY_PILOT_DAYS as any)[dayNum] || Object.values(IOT_SECURITY_PILOT_DAYS).find(p => p.day === dayNum);
+  } else if (prefix.includes('iot_edge') || prefix.includes('iot-edge') || prefix.includes('edge') || prefix.includes('tinyml')) {
+    pilotDay = (IOT_EDGE_AI_PILOT_DAYS as any)[dayNum] || Object.values(IOT_EDGE_AI_PILOT_DAYS).find(p => p.day === dayNum);
+  } else if (prefix.includes('ai')) {
+    pilotDay = AI_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('dist')) {
+    pilotDay = DISTRIBUTED_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('iot_net') || prefix.includes('iot-net') || prefix.includes('network')) {
+    pilotDay = IOT_NETWORK_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('iot') || prefix.includes('emb')) {
+    pilotDay = IOT_EMBEDDED_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('g3d') || prefix.includes('graphics') || prefix.includes('3d')) {
+    pilotDay = GRAPHICS_3D_PILOT_DAYS.find(p => p.day === dayNum);
+  } else if (prefix.includes('blockchain') || prefix.includes('web3') || prefix.includes('crypto')) {
+    pilotDay = BLOCKCHAIN_PILOT_DAYS.find(p => p.day === dayNum);
+  }
+
+  // ── 1. Unified Socratic Adaptive Lesson ──────────────────────────────────
+  const lessonTask: CourseQuest = {
     id: `${prefix}-lecture1-day-${dayNum}`,
-    title: `Day ${dayNum} Part 1: ${cfg.title} — Real-World Architecture & Story Context`,
-    desc: `In real production software engineering, ${cfg.title.toLowerCase()} is not just a theoretical concept — it is a critical building block used by high-scale tech companies like Zomato, Swiggy, Netflix, Amazon, and Google.
-
-Imagine building a real-world digital system. Every component must communicate clearly, process input payload state without crashing, and guarantee data consistency under high traffic. ${cfg.desc}
-
-Why do we need this concept? In large production systems, messy unorganized code leads to memory leaks, race conditions, security vulnerabilities, and system downtime. By mastering ${cfg.title.toLowerCase()}, you learn to structure logic cleanly, prevent edge-case failures, and write self-documenting code that team members can audit easily.
-
-Visualizing the system flow: Think of how an order flows on Amazon or Swiggy. When a user taps 'Checkout', the app doesn't just calculate a sum — it validates user authentication tokens, verifies inventory lock status, computes GST and delivery fees, and updates database state in a transaction audit boundary. Step 1: Input state is validated. Step 2: Transformation logic is applied. Step 3: Output payload is safely dispatched. Every step relies directly on the principles of ${cfg.title.toLowerCase()}.`,
-    type: "lecture" as const,
+    title: pilotDay ? `Day ${dayNum}: ${pilotDay.title}` : `Day ${dayNum}: ${cfg.title}`,
+    desc: pilotDay ? pilotDay.overviewMetaphor : cfg.desc,
+    type: 'lecture',
+    category: 'learning',
     requiresAvatar: true,
-    syllabus: [
-      `Real-world relevance of ${cfg.title}: Used in production microservices and scalable enterprise apps.`,
-      `System Architecture visualization: How data flows through input validation, logic processing, and output dispatching.`,
-      `Engineering rationale: Why clean structure prevents system crashes, memory bloat, and security flaws.`
-    ],
-    skillCategory: "theory" as const,
+    syllabus: pilotDay
+      ? pilotDay.blocks.map((b: any) => `${b.title}: ${b.conceptBudget.primaryConcept}`)
+      : cfg.syllabus,
+    skillCategory: 'theory',
     xp: 150,
     pins: 5
   };
 
-  // ── Part 2: Syntax Mechanics & Line-by-Line Execution ───────────────────
-  const teachingTask2 = {
-    id: `${prefix}-lecture2-day-${dayNum}`,
-    title: `Day ${dayNum} Part 2: ${cfg.title} — Syntax Mechanics & Line-by-Line Execution`,
-    desc: `Let us break down the exact syntax, keywords, parameters, and memory mechanics behind ${cfg.title.toLowerCase()} line by line.
-
-Core Mechanics Breakdown:
-1. Declarations & Types: Every variable, function, or schema definition establishes a strict memory contract. You declare parameters clearly, specifying expected data types and return bounds.
-2. Execution Order: Code executes in strict sequential order from top to bottom. Line 1 allocates memory or validates inputs; Line 2 applies transformation operations; Line 3 evaluates conditional boundaries or loop steps; Line 4 produces the final return state or side effect.
-3. Memory Representation (Stack vs Heap): Primitive values and function execution call-frames live on the CPU execution Stack for instant speed. Dynamic arrays, objects, and reference pointers live on the Heap memory area.
-
-Key Syllabus Principles:
-${cfg.syllabus.map((s, idx) => `Step ${idx + 1}: ${s}`).join('\n')}
-
-Step-by-Step Code Walkthrough:
-Always verify parameter bounds before processing values. If an input is invalid, zero, or null, throw a descriptive error or return a safe default fallback. Never allow invalid data to propagate deeper into downstream microservice layers.`,
-    type: "lecture" as const,
-    requiresAvatar: true,
-    syllabus: cfg.syllabus,
-    skillCategory: "theory" as const,
-    xp: 150,
-    pins: 5
-  };
-
-  // ── Part 3: Workshop, Edge Cases, Pitfall Warnings & Mental Models ──────
-  const teachingTask3 = {
-    id: `${prefix}-lecture3-day-${dayNum}`,
-    title: `Day ${dayNum} Part 3: ${cfg.title} — Practical Workshop, Mental Models & Pitfall Warnings`,
-    desc: `In this practical workshop, we examine edge cases, off-by-one errors, performance traps, and mental models to help you visualize ${cfg.title.toLowerCase()} effortlessly.
-
-Mental Model Visualization Guide:
-- Think of array indices like post office boxes labeled 0 to N-1. Accessing index N causes an Out-Of-Bounds index error.
-- Think of conditional logic like a multi-lane highway fork: the computer evaluates the top condition first. If satisfied, it takes that lane immediately and bypasses all lower lanes.
-- Think of loop execution like a factory conveyor belt: every iteration moves one item down the line, applies transformation rules, and increments the progress counter.
-
-Common Production Pitfalls & Warnings:
-1. Off-by-One Traps: In 0-indexed structures, the last element is at length - 1. Loop conditions must use '< length' instead of '<= length'.
-2. Type Mismatch & Overflow Traps: Ensure math operations involving integer calculations do not truncate precision or overflow integer limits.
-3. Unhandled Null / Undefined Parameters: Always guard against missing input parameters before calling methods or accessing properties.
-
-Mastering these boundary checks separates beginner coders from senior software engineers who write bulletproof production code.`,
-    type: "lecture" as const,
-    requiresAvatar: true,
-    syllabus: [
-      `Mental Model Visualizations: Arrays as labeled boxes, conditionals as highway forks, loops as conveyor belts.`,
-      `Common Production Pitfalls: Off-by-one index bugs, precision truncation, and missing guard checks.`,
-      `Senior Engineering Standard: Defensive coding patterns, boundary verification, and clean error handling.`
-    ],
-    skillCategory: "theory" as const,
-    xp: 150,
-    pins: 5
-  };
-
-  // ── Coding Exam Task ───────────────────────────────────────────────────
-  const examTask = {
+  // ── 2. Pure Coding Exam ──────────────────────────────────────────────────
+  const examTask: CourseQuest = {
     id: `${prefix}-exam-day-${dayNum}`,
     title: `Day ${dayNum} Exam: ${cfg.eTitle}`,
     desc: cfg.eDesc,
-    type: "coding" as const,
+    type: 'coding',
+    category: 'exam',
     requiresAvatar: false,
     starterCode: cfg.eStarter,
     hint: cfg.eHint,
     testSuite: cfg.eTest,
-    skillCategory: "programming" as const,
+    skillCategory: 'programming',
     xp: 120,
     pins: 6
   };
 
-  // ── Assignment Task ────────────────────────────────────────────────────
-  const assignmentTask = {
+  // ── 3. Pure Practice Assignment ──────────────────────────────────────────
+  const assignmentTask: CourseQuest = {
     id: `${prefix}-assign-day-${dayNum}`,
     title: `Day ${dayNum} Assignment: ${cfg.aTitle}`,
     desc: cfg.aDesc,
-    type: "coding" as const,
+    type: 'coding',
+    category: 'assignment',
     requiresAvatar: false,
     starterCode: cfg.aStarter,
     hint: cfg.aHint,
     testSuite: cfg.aTest,
-    skillCategory: "programming" as const,
+    skillCategory: 'programming',
     xp: 150,
     pins: 8
   };
 
-  return [teachingTask1, teachingTask2, teachingTask3, examTask, assignmentTask];
+  // Return unified quest triad per day (Adaptive Lesson + Coding Exam + Practice Assignment)
+  return [lessonTask, examTask, assignmentTask];
 }

@@ -56,6 +56,15 @@ class NeuralTTSEngine:
         else:
             logger.warning("Kokoro ONNX model files missing or kokoro-onnx package not installed.")
 
+    def get_status(self) -> dict:
+        return {
+            "status": "ready" if (self.kokoro is not None or HAS_KOKORO) else "fallback",
+            "has_kokoro": HAS_KOKORO,
+            "model_loaded": self.kokoro is not None,
+            "sample_rate": self.sample_rate,
+            "voices": list(self.voices.keys())
+        }
+
     def _ensure_model_files(self):
         MODEL_URL = "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files/kokoro-v0_19.onnx"
         VOICES_URL = "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files/voices.bin"

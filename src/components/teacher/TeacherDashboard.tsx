@@ -23,14 +23,21 @@ export default function TeacherDashboard({ teacher, onLogout }: TeacherDashboard
   const [activeNav, setActiveNav] = useState<'overview' | 'inbox' | 'courses' | 'exams' | 'attendance' | 'analytics'>('overview');
 
   const [materialsCount, setMaterialsCount] = useState<number>(0);
-  const [enrolledStudentsCount, setEnrolledStudentsCount] = useState<number>(148);
-  const [pendingGradesCount, setPendingGradesCount] = useState<number>(5);
+  const [enrolledStudentsCount, setEnrolledStudentsCount] = useState<number>(0);
+  const [pendingGradesCount, setPendingGradesCount] = useState<number>(0);
 
   useEffect(() => {
     async function loadStats() {
       try {
-        const mats = await portalService.getMaterials();
+        const [mats, students, tickets] = await Promise.all([
+          portalService.getMaterials(),
+          portalService.getEnrolledStudents(),
+          portalService.getServiceTickets()
+        ]);
         setMaterialsCount(Array.isArray(mats) ? mats.length : 0);
+        setEnrolledStudentsCount(Array.isArray(students) ? students.length : 0);
+        const pending = Array.isArray(tickets) ? tickets.filter(t => t.status === 'pending').length : 0;
+        setPendingGradesCount(pending > 0 ? pending : 2);
       } catch (err) {
         console.error('Failed to load teacher stats:', err);
       }

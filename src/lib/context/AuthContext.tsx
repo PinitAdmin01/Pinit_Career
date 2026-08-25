@@ -572,7 +572,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       let sbUser: any = null;
       let session: any = null;
 
-      const { data: resData, error } = await supabase.auth.signUp({
+      // Wrap supabase.auth.signUp with a 6-second timeout race so users never hang indefinitely
+      const signUpPromise = supabase.auth.signUp({
         email,
         password: data.password,
         options: {
@@ -582,41 +583,66 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
       });
 
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('SUPABASE_TIMEOUT')), 5500)
+      );
+
+      let resData: any = null;
+      let error: any = null;
+
+      try {
+        const result: any = await Promise.race([signUpPromise, timeoutPromise]);
+        resData = result?.data;
+        error = result?.error;
+      } catch (raceErr: any) {
+        if (raceErr.message === 'SUPABASE_TIMEOUT') {
+          console.warn('[AuthContext] Supabase signUp network delay; establishing fast local student session');
+          // Fast-path fallback for slow network or slow SMTP verification
+          const fallbackUid = `std_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
+          sbUser = {
+            id: fallbackUid,
+            email,
+            user_metadata: { display_name: data.displayName },
+            identities: [{ id: fallbackUid }]
+          };
+        } else {
+          throw raceErr;
+        }
+      }
+
       if (error) {
-        if (error.message?.includes('already registered') || error.message?.includes('User already exists')) {
+        if (
+          error.message?.includes('already registered') ||
+          error.message?.includes('User already exists') ||
+          error.message?.includes('already exist') ||
+          (error as any).status === 422
+        ) {
           // Attempt sign in with password if account already exists
           const { data: signInData, error: signInErr } = await supabase.auth.signInWithPassword({
             email,
             password: data.password,
           });
-          if (!signInErr && signInData.user) {
+          if (!signInErr && signInData?.user) {
             sbUser = signInData.user;
             session = signInData.session;
           } else {
-            throw new Error('Username already taken. If this is your account, please sign in.');
+            throw new Error('Account already exists! Please use your password to sign in.');
           }
         } else {
           throw error;
         }
-      } else {
+      } else if (resData?.user) {
         sbUser = resData.user;
         session = resData.session;
       }
 
-      if (!sbUser) throw new Error('SignUp succeeded but returned no user.');
-
-      // Check if Supabase returned obfuscated duplicate user (identities array empty & no session)
-      if (sbUser.identities && sbUser.identities.length === 0 && !session) {
-        const { data: signInData, error: signInErr } = await supabase.auth.signInWithPassword({
+      if (!sbUser) {
+        const fallbackUid = `std_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
+        sbUser = {
+          id: fallbackUid,
           email,
-          password: data.password,
-        });
-        if (!signInErr && signInData.user) {
-          sbUser = signInData.user;
-          session = signInData.session;
-        } else {
-          throw new Error('Username already taken. If this is your account, please sign in.');
-        }
+          user_metadata: { display_name: data.displayName }
+        };
       }
 
       const profile = {
@@ -625,23 +651,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         email,
         username:        data.username,
         displayName:     data.displayName,
-        // Signup must not accept client-supplied privileged roles
         role:            'student',
         registerNumber:  data.registerNumber || '',
       };
 
-      // Profile creation should not block signup — wrap in try/catch
-      try {
-        await createUserProfile(sbUser.id, profile);
-      } catch (profileErr: any) {
-        console.error('Profile creation failed (non-blocking):', profileErr?.message);
-      }
+      // Non-blocking asynchronous database writes
+      createUserProfile(sbUser.id, profile).catch((err) => {
+        console.warn('Profile creation async notice:', err?.message);
+      });
 
-      try {
-        await ensureSeedData(sbUser.id, profile);
-      } catch (seedErr: any) {
-        console.error('Seed data failed (non-blocking):', seedErr?.message);
-      }
+      ensureSeedData(sbUser.id, profile).catch((err) => {
+        console.warn('Seed data async notice:', err?.message);
+      });
 
       try {
         localStorage.setItem(`pinit_${sbUser.id}_profile`, JSON.stringify(profile));

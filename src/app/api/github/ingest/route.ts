@@ -14,12 +14,28 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: validation.error || 'Invalid GitHub URL' }, { status: 400 });
     }
 
-    const token = process.env.GITHUB_TOKEN;
+    const token = process.env.GITHUB_TOKEN || undefined;
     const report = await ingestGithubRepository(repoUrl, token);
+
+    if (report.status === 'RATE_LIMITED') {
+      return NextResponse.json({
+        report,
+        success: false,
+        error: 'GitHub API rate limit reached. Please configure GITHUB_TOKEN on the server or try again later.'
+      }, { status: 429 });
+    }
+
+    if (report.status === 'PRIVATE_OR_NOT_FOUND') {
+      return NextResponse.json({
+        report,
+        success: false,
+        error: 'GitHub repository is private or does not exist.'
+      }, { status: 404 });
+    }
 
     return NextResponse.json({
       report,
-      success: report.status === 'VERIFIED'
+      success: report.status === 'VERIFIED' || report.status === 'PARTIAL'
     });
   } catch (err: any) {
     console.error('[GitHub Ingestion Error]:', err);

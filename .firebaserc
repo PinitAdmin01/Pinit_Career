@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "pinit-de424"
-  }
+    "default": "pinit-careers"
+  },
+  "targets": {},
+  "etags": {}
 }

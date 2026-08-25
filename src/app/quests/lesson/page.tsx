@@ -10,9 +10,36 @@ import { useAuth } from '@/lib/context/AuthContext';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { api } from '@/lib/api/client';
 import { toast } from '@/lib/store/useAppStore';
-import PinsGate from '@/components/pins/PinsGate';
+import { JAVA_PILOT_DAYS } from '@/lib/data/javaPilotDays';
+import { PYTHON_PILOT_DAYS } from '@/lib/data/pythonPilotDays';
+import { REACT_PILOT_DAYS } from '@/lib/data/reactPilotDays';
+import { DATABASE_PILOT_DAYS } from '@/lib/data/databasePilotDays';
+import { DSA_PILOT_DAYS } from '@/lib/data/dsaPilotDays';
+import { FULLSTACK_PILOT_DAYS } from '@/lib/data/fullstackPilotDays';
+import { CLOUD_PILOT_DAYS } from '@/lib/data/cloudPilotDays';
+import { DEVOPS_PILOT_DAYS } from '@/lib/data/devopsPilotDays';
+import { AI_PILOT_DAYS } from '@/lib/data/aiPilotDays';
+import { DISTRIBUTED_PILOT_DAYS } from '@/lib/data/distributedPilotDays';
+import { IOT_EMBEDDED_PILOT_DAYS } from '@/lib/data/iotEmbeddedPilotDays';
+import { GRAPHICS_3D_PILOT_DAYS } from '@/lib/data/graphics3dPilotDays';
+import { BLOCKCHAIN_PILOT_DAYS } from '@/lib/data/blockchainPilotDays';
+import { IOT_NETWORK_PILOT_DAYS } from '@/lib/data/iotNetworkPilotDays';
+import { IOT_EDGE_AI_PILOT_DAYS } from '@/lib/data/iotEdgeAiPilotDays';
+import { IOT_SECURITY_PILOT_DAYS } from '@/lib/data/iotSecurityPilotDays';
+import { QUANT_PILOT_DAYS } from '@/lib/data/quantPilotDays';
+import { BCOM_ACCOUNTING_PILOT_DAYS } from '@/lib/data/bcomAccountingPilotDays';
+import { BCOM_FINANCE_PILOT_DAYS } from '@/lib/data/bcomFinancePilotDays';
+import { BCOM_ANALYTICS_PILOT_DAYS } from '@/lib/data/bcomAnalyticsPilotDays';
+import { BCOM_MARKETING_PILOT_DAYS } from '@/lib/data/bcomMarketingPilotDays';
+import { BCOM_DIGITAL_MARKETING_PILOT_DAYS } from '@/lib/data/bcomDigitalMarketingPilotDays';
+import { BCOM_ECOMMERCE_PILOT_DAYS } from '@/lib/data/bcomEcommercePilotDays';
+import { BCOM_ENTREPRENEURSHIP_PILOT_DAYS } from '@/lib/data/bcomEntrepreneurshipPilotDays';
+import { BCOM_SALES_CRM_PILOT_DAYS } from '@/lib/data/bcomSalesCrmPilotDays';
+import { BCOM_OPERATIONS_PILOT_DAYS } from '@/lib/data/bcomOperationsPilotDays';
+
 
 const AvatarMentorWidget = dynamic(() => import('@/components/avatar/AvatarMentorWidget'), { ssr: false });
+const QuestWorkspaceClient = dynamic(() => import('@/components/quests/QuestWorkspaceClient'), { ssr: false });
 
 interface Teacher {
   name: string;
@@ -68,9 +95,18 @@ function LessonPageContent() {
 
   const teacher = TEACHER_METADATA[teacherId] || TEACHER_METADATA.kashyap;
 
-  // Search AI-generated roadmap modules in localStorage first across all active course module keys
+  // Check COURSES_REGISTRY first for authoritative course curriculum
   let questData: any = null;
-  if (typeof window !== 'undefined' && userId) {
+  for (const course of COURSES_REGISTRY) {
+    const found = (course.quests || []).find(q => q.id === questId);
+    if (found) {
+      questData = found;
+      break;
+    }
+  }
+
+  // Fallback to custom AI-generated roadmap modules in localStorage if not in standard registry
+  if (!questData && typeof window !== 'undefined' && userId) {
     try {
       const moduleKeys = Object.keys(localStorage).filter(k => k.startsWith(`pinit_${userId}_roadmap_modules`));
       for (const key of moduleKeys) {
@@ -94,17 +130,6 @@ function LessonPageContent() {
     }
   }
 
-  // Fallback to COURSES_REGISTRY if not found in custom generated roadmap
-  if (!questData) {
-    for (const course of COURSES_REGISTRY) {
-      const found = (course.quests || []).find(q => q.id === questId);
-      if (found) {
-        questData = found;
-        break;
-      }
-    }
-  }
-
   // Final fallback if not found anywhere
   if (!questData) {
     questData = {
@@ -120,6 +145,10 @@ function LessonPageContent() {
   }
 
 
+
+  if (questData?.type === 'coding' || (questId && (questId.includes('-exam-') || questId.includes('-assign-')))) {
+    return <QuestWorkspaceClient questId={questId} />;
+  }
 
   const syllabus = (questData && Array.isArray(questData.syllabus)) ? questData.syllabus : [];
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -183,7 +212,7 @@ function LessonPageContent() {
         nextSpeechText = `Let us explore Slide ${currentSlide + 1}: "${slide.title}". Here are the core concepts: First, ${slide.bulletPoints[0]}. Second, ${slide.bulletPoints[1]}. And third, ${slide.bulletPoints[2]}. Make sure you understand these before proceeding to the coding evaluation!`;
       } else if (syllabus && nextSlideIdx < syllabus.length) {
         const concept = syllabus[nextSlideIdx];
-        nextSpeechText = `Let us explore Section ${currentSlide + 1}, where we analyze the core concept of "${concept}". In modern software engineering, mastering this topic is absolutely vital for designing high-performance, lag-free systems. From an architectural perspective, "${concept}" dictates how data structures are arranged in memory and how the processor executes execution paths. If you implement this incorrectly in a production environment, you run the risk of introducing critical memory leaks, type-safety violations, or thread synchronization bottlenecks that can crash client-facing APIs. When writing code for this module, it is a best practice to enforce clean, structured syntax, utilize appropriate variable visibility modifiers, and carefully manage resource cleanup. In your upcoming coding test, you will be asked to implement an algorithm that relies heavily on the mechanics of "${concept}". I recommend that you consider boundary edge cases, check for null or empty inputs, and optimize loop conditions to achieve minimal Big-O complexity. Ensure you have a solid grasp of these mechanics before you unlock the test module. If you have any questions, you can click the interactive chat mode button below to discuss the details with me directly!`;
+        nextSpeechText = `Let us explore Section ${currentSlide + 1}: "${concept}". Observe the live code example and see what happens when it runs. Feel free to ask me any questions!`;
       }
       
       if (nextSpeechText) {
@@ -359,41 +388,332 @@ function LessonPageContent() {
   useEffect(() => {
     if (!questId) return;
 
+    // Language & environment detector
+    const qLower = (questId || '').toLowerCase();
+    const isReact = qLower.includes('react') || (questData.title || '').toLowerCase().includes('react');
+    const isJava = qLower.includes('java') || (questData.title || '').toLowerCase().includes('java');
+    const isPython = qLower.includes('python') || (questData.title || '').toLowerCase().includes('python');
+    const isSQL = qLower.includes('sql') || qLower.includes('database') || (questData.title || '').toLowerCase().includes('sql');
+    const isDSA = qLower.includes('dsa') || (questData.title || '').toLowerCase().includes('dsa') || (questData.title || '').toLowerCase().includes('algorithmic');
+    const isFullstack = qLower.includes('fullstack') || (questData.title || '').toLowerCase().includes('fullstack') || (questData.title || '').toLowerCase().includes('full-stack');
+    const isCloud = qLower.includes('cloud') || (questData.title || '').toLowerCase().includes('cloud') || (questData.title || '').toLowerCase().includes('aws');
+    const isDevOps = qLower.includes('devops') || qLower.includes('docker') || qLower.includes('k8s') || qLower.includes('cicd') || (questData.title || '').toLowerCase().includes('devops');
+    const isOperations = qLower.includes('bcom_ops') || qLower.includes('bcom-ops') || qLower.includes('operations') || qLower.includes('supplychain') || qLower.includes('compliance') || (questData.title || '').toLowerCase().includes('operations') || (questData.title || '').toLowerCase().includes('supply chain') || (questData.title || '').toLowerCase().includes('compliance') || (questData.title || '').toLowerCase().includes('sipoc') || (questData.title || '').toLowerCase().includes('eoq') || (questData.title || '').toLowerCase().includes('oee') || (questData.title || '').toLowerCase().includes('dmaic') || (questData.title || '').toLowerCase().includes('otif') || (questData.title || '').toLowerCase().includes('tpm') || (questData.title || '').toLowerCase().includes('mrp');
+    const isSalesCrm = qLower.includes('bcom_scrm') || qLower.includes('bcom-scrm') || qLower.includes('sales') || qLower.includes('crm') || qLower.includes('customer_success') || (questData.title || '').toLowerCase().includes('sales') || (questData.title || '').toLowerCase().includes('customer success') || (questData.title || '').toLowerCase().includes('crm') || (questData.title || '').toLowerCase().includes('meddpicc') || (questData.title || '').toLowerCase().includes('nrr') || (questData.title || '').toLowerCase().includes('ttv') || (questData.title || '').toLowerCase().includes('zopa') || (questData.title || '').toLowerCase().includes('batna') || (questData.title || '').toLowerCase().includes('qbr');
+    const isEntrepreneurship = qLower.includes('bcom_ent') || qLower.includes('bcom-ent') || qLower.includes('entrepreneurship') || qLower.includes('biz_mgmt') || qLower.includes('startup') || (questData.title || '').toLowerCase().includes('entrepreneurship') || (questData.title || '').toLowerCase().includes('business management') || (questData.title || '').toLowerCase().includes('bmc') || (questData.title || '').toLowerCase().includes('break-even') || (questData.title || '').toLowerCase().includes('runway') || (questData.title || '').toLowerCase().includes('safe') || (questData.title || '').toLowerCase().includes('cap table') || (questData.title || '').toLowerCase().includes('vesting');
+    const isEcommerce = qLower.includes('bcom_ecom') || qLower.includes('bcom-ecom') || qLower.includes('ecommerce') || qLower.includes('ecom') || qLower.includes('digital_biz') || (questData.title || '').toLowerCase().includes('e-commerce') || (questData.title || '').toLowerCase().includes('ecommerce') || (questData.title || '').toLowerCase().includes('digital business') || (questData.title || '').toLowerCase().includes('bopis') || (questData.title || '').toLowerCase().includes('boris') || (questData.title || '').toLowerCase().includes('dropshipping') || (questData.title || '').toLowerCase().includes('buy box');
+    const isDigitalMarketing = qLower.includes('bcom_dmkt') || qLower.includes('bcom-dmkt') || qLower.includes('digital_marketing') || qLower.includes('dmkt') || (questData.title || '').toLowerCase().includes('digital marketing') || (questData.title || '').toLowerCase().includes('growth strategy') || (questData.title || '').toLowerCase().includes('seo') || (questData.title || '').toLowerCase().includes('sem') || (questData.title || '').toLowerCase().includes('cro') || (questData.title || '').toLowerCase().includes('roas') || (questData.title || '').toLowerCase().includes('aarrr') || (questData.title || '').toLowerCase().includes('clv');
+    const isMarketing = qLower.includes('bcom_mkt') || qLower.includes('bcom-mkt') || qLower.includes('marketing') || qLower.includes('branding') || (questData.title || '').toLowerCase().includes('marketing') || (questData.title || '').toLowerCase().includes('brand') || (questData.title || '').toLowerCase().includes('stp') || (questData.title || '').toLowerCase().includes('cbbe');
+    const isAnalytics = qLower.includes('bcom_ana') || qLower.includes('bcom-ana') || qLower.includes('analytics') || qLower.includes('decision_intelligence') || (questData.title || '').toLowerCase().includes('analytics') || (questData.title || '').toLowerCase().includes('decision intelligence') || (questData.title || '').toLowerCase().includes('eda') || (questData.title || '').toLowerCase().includes('rfm');
+    const isFinance = qLower.includes('bcom_fin') || qLower.includes('bcom-fin') || qLower.includes('finance') || qLower.includes('investment') || qLower.includes('capital_budgeting') || (questData.title || '').toLowerCase().includes('finance') || (questData.title || '').toLowerCase().includes('investment') || (questData.title || '').toLowerCase().includes('tvm') || (questData.title || '').toLowerCase().includes('capital budgeting');
+    const isAccounting = qLower.includes('bcom_acc') || qLower.includes('bcom-acc') || qLower.includes('accounting') || qLower.includes('taxation') || qLower.includes('tally') || (questData.title || '').toLowerCase().includes('accounting') || (questData.title || '').toLowerCase().includes('taxation') || (questData.title || '').toLowerCase().includes('tally') || (questData.title || '').toLowerCase().includes('gst');
+    const isQuant = qLower.includes('quant') || qLower.includes('trading') || qLower.includes('hft') || (questData.title || '').toLowerCase().includes('quantitative') || (questData.title || '').toLowerCase().includes('trading') || (questData.title || '').toLowerCase().includes('low-latency') || (questData.title || '').toLowerCase().includes('order book');
+    const isIotSecurity = qLower.includes('iot_sec') || qLower.includes('iot-sec') || qLower.includes('security') || (questData.title || '').toLowerCase().includes('security') || (questData.title || '').toLowerCase().includes('root of trust') || (questData.title || '').toLowerCase().includes('efuse') || (questData.title || '').toLowerCase().includes('device lifecycle');
+    const isIotEdge = qLower.includes('iot_edge') || qLower.includes('iot-edge') || qLower.includes('tinyml') || qLower.includes('edge') || (questData.title || '').toLowerCase().includes('tinyml') || (questData.title || '').toLowerCase().includes('edge ai') || (questData.title || '').toLowerCase().includes('dsp');
+    const isAI = qLower.includes('ai') || qLower.includes('llm') || qLower.includes('rag') || (questData.title || '').toLowerCase().includes('ai') || (questData.title || '').toLowerCase().includes('generative');
+    const isDistributed = qLower.includes('dist') || qLower.includes('consensus') || qLower.includes('raft') || (questData.title || '').toLowerCase().includes('distributed');
+    const isIotNet = qLower.includes('iot_net') || qLower.includes('iot-net') || (questData.title || '').toLowerCase().includes('wireless') || (questData.title || '').toLowerCase().includes('lora') || (questData.title || '').toLowerCase().includes('zigbee') || (questData.title || '').toLowerCase().includes('coap');
+    const isIoT = qLower.includes('iot') || qLower.includes('emb') || (questData.title || '').toLowerCase().includes('embedded') || (questData.title || '').toLowerCase().includes('iot') || (questData.title || '').toLowerCase().includes('firmware');
+    const isGraphics3D = qLower.includes('g3d') || qLower.includes('graphics') || qLower.includes('3d') || (questData.title || '').toLowerCase().includes('3d') || (questData.title || '').toLowerCase().includes('graphics') || (questData.title || '').toLowerCase().includes('avatar');
+    const isBlockchain = qLower.includes('blockchain') || qLower.includes('web3') || qLower.includes('solidity') || qLower.includes('crypto') || (questData.title || '').toLowerCase().includes('blockchain') || (questData.title || '').toLowerCase().includes('web3') || (questData.title || '').toLowerCase().includes('solidity') || (questData.title || '').toLowerCase().includes('smart contract');
+
+    // Check if quest belongs to an authoritative pilot day
+    const dayMatch = (questId || '').match(/day-(\d+)/i);
+    const dayNum = dayMatch ? parseInt(dayMatch[1], 10) : 0;
+    let pilotDay: any = null;
+    if (isJava && dayNum > 0) {
+      pilotDay = JAVA_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isPython && dayNum > 0) {
+      pilotDay = PYTHON_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isReact && dayNum > 0) {
+      pilotDay = REACT_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isSQL && dayNum > 0) {
+      pilotDay = DATABASE_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isDSA && dayNum > 0) {
+      pilotDay = DSA_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isFullstack && dayNum > 0) {
+      pilotDay = FULLSTACK_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isCloud && dayNum > 0) {
+      pilotDay = CLOUD_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isDevOps && dayNum > 0) {
+      pilotDay = DEVOPS_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isOperations && dayNum > 0) {
+      pilotDay = BCOM_OPERATIONS_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isSalesCrm && dayNum > 0) {
+      pilotDay = BCOM_SALES_CRM_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isEntrepreneurship && dayNum > 0) {
+      pilotDay = BCOM_ENTREPRENEURSHIP_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isEcommerce && dayNum > 0) {
+      pilotDay = BCOM_ECOMMERCE_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isDigitalMarketing && dayNum > 0) {
+      pilotDay = BCOM_DIGITAL_MARKETING_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isMarketing && dayNum > 0) {
+      pilotDay = BCOM_MARKETING_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isAnalytics && dayNum > 0) {
+      pilotDay = BCOM_ANALYTICS_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isFinance && dayNum > 0) {
+      pilotDay = BCOM_FINANCE_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isAccounting && dayNum > 0) {
+      pilotDay = BCOM_ACCOUNTING_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isQuant && dayNum > 0) {
+      pilotDay = QUANT_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isIotSecurity && dayNum > 0) {
+      pilotDay = (IOT_SECURITY_PILOT_DAYS as any)[dayNum] || Object.values(IOT_SECURITY_PILOT_DAYS).find(p => p.day === dayNum) || null;
+    } else if (isIotEdge && dayNum > 0) {
+      pilotDay = (IOT_EDGE_AI_PILOT_DAYS as any)[dayNum] || Object.values(IOT_EDGE_AI_PILOT_DAYS).find(p => p.day === dayNum) || null;
+    } else if (isAI && dayNum > 0) {
+      pilotDay = AI_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isDistributed && dayNum > 0) {
+      pilotDay = DISTRIBUTED_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isIotNet && dayNum > 0) {
+      pilotDay = IOT_NETWORK_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isIoT && dayNum > 0) {
+      pilotDay = IOT_EMBEDDED_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isGraphics3D && dayNum > 0) {
+      pilotDay = GRAPHICS_3D_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    } else if (isBlockchain && dayNum > 0) {
+      pilotDay = BLOCKCHAIN_PILOT_DAYS.find(p => p.day === dayNum) || null;
+    }
+
+    if (pilotDay) {
+      const pilotSlides = pilotDay.blocks.map((block: any) => {
+        const analogy = block.media.find((m: any) => m.type === 'analogy') as any;
+        const runnable = block.media.find((m: any) => m.type === 'runnable_code') as any;
+        const syntax = block.media.find((m: any) => m.type === 'syntax_anatomy') as any;
+        const diagram = block.media.find((m: any) => m.type === 'diagram') as any;
+
+        const bullets: string[] = [];
+        if (analogy) {
+          bullets.push(`💡 Everyday Metaphor: ${analogy.metaphor} — ${analogy.simpleExplanation}`);
+        }
+        if (syntax) {
+          bullets.push(`⚙️ Syntax Breakdown: ${Object.values(syntax.lineNotes || {}).join(' ')}`);
+        }
+        if (diagram) {
+          if (diagram.data?.type === 'broken_fixed_diff') {
+            bullets.push(`⚠️ Error & Fix: ${diagram.data.errorReason} Fix: ${diagram.data.fixExplanation}`);
+          } else if (diagram.data?.type === 'memory_box') {
+            bullets.push(`📦 Memory Allocation: Storing values in labeled data slots.`);
+          } else if (diagram.data?.type === 'flowchart') {
+            bullets.push(`🔄 Execution Flow: Sequential order from start to finish.`);
+          }
+        }
+
+        const codeExample = runnable ? runnable.initialCode : (syntax ? syntax.codeSnippet : '');
+        const runnerPrefix = isPython ? '🐍 Python 3 Executing' : (isReact ? '⚛️ React Node Sandbox' : (isSQL ? '🗄️ SQLite Engine' : (isDSA ? '🔢 DSA Node Sandbox' : (isFullstack ? '🌐 Fullstack Node/Next Sandbox' : (isCloud ? '☁️ AWS Cloud Simulator' : (isDevOps ? '🚀 DevOps Pipeline Simulator' : (isOperations ? '⚙️ Operations, Supply Chain & Business Compliance Simulator' : (isSalesCrm ? '🤝 Sales, Customer Success & CRM Simulator' : (isEntrepreneurship ? '💡 Entrepreneurship & Business Management Simulator' : (isEcommerce ? '🛒 E-Commerce & Digital Business Simulator' : (isDigitalMarketing ? '🚀 Digital Marketing & Growth Strategy Simulator' : (isMarketing ? '🎯 Marketing & Brand Management Simulator' : (isAnalytics ? '📊 Business Analytics & Decision Intelligence Simulator' : (isFinance ? '📈 Business Finance & Investment Simulator' : (isAccounting ? '📊 Digital Accounting & ERP Simulator' : (isQuant ? '📈 Quantitative Trading & Low-Latency Simulator' : (isIotSecurity ? '🔒 IoT Security & Root of Trust Simulator' : (isIotEdge ? '🧠 Edge AI & TinyML TFLM Simulator' : (isAI ? '🤖 AI & LLM Engine Simulator' : (isDistributed ? '🌐 Distributed Systems Simulator' : (isIotNet ? '📶 IoT Radio Protocol Simulator' : (isIoT ? '🔌 Embedded MCU Simulator' : (isGraphics3D ? '🔮 WebGL2 3D Shader Sandbox' : (isBlockchain ? '🪙 EVM Web3 & Solidity Simulator' : '⚙️ Javac compiling'))))))))))))))))))))))));
+        const mockOutput = runnable ? `${runnerPrefix} ${runnable.filename}...\n>>> ${runnable.expectedOutput.replace(/\n/g, '\n>>> ')}\n[SUCCESS] Code executed with 0 errors.` : '';
+
+        const diag = block.diagnosticCheck;
+        const options = diag.options || (diag.expectedStringOutput ? [diag.expectedStringOutput, 'Incorrect Option A', 'Incorrect Option B'] : ['Option A', 'Option B']);
+        const answerIndex = diag.correctIndex !== undefined ? diag.correctIndex : 0;
+        const explanation = (Object.values(diag.diagnosisMap || {})[0] as any)?.recoveryPath?.simplerExplanation || `Demonstrated understanding of ${block.conceptBudget.primaryConcept}.`;
+
+        return {
+          title: block.title,
+          bulletPoints: bullets,
+          codeExample: codeExample,
+          mockOutput: mockOutput,
+          blockId: block.id,
+          conceptBudget: block.conceptBudget,
+          prerequisiteThresholds: block.prerequisiteThresholds,
+          media: block.media,
+          mcq: {
+            question: diag.question,
+            options: options,
+            answerIndex: answerIndex,
+            explanation: explanation,
+            primaryMisconceptionId: diag.primaryMisconceptionId,
+            diagnosisMap: diag.diagnosisMap
+          }
+        };
+      });
+
+      setSlides(pilotSlides);
+      setSlidesLoading(false);
+      return;
+    }
+
     // Instant static slide generation with rich real-world analogies & code examples
     const rawSyllabus = (syllabus && syllabus.length > 0) ? syllabus : ['Core Foundations & Execution Rules', 'Syntax Breakdown & Memory Boundaries', 'Production Use Case & Best Practices'];
     
-    const staticSlides = rawSyllabus.map((topic: string, index: number) => {
-      const topicLower = topic.toLowerCase();
-      let codeSnippet = `# Real-World Production Example: ${topic}\ndef process_data(payload):\n    # 1. Validate incoming data\n    if not payload:\n        return {"status": "error", "message": "Empty payload"}\n    # 2. Process logic for ${topic}\n    result = [item.strip() for item in payload if item]\n    return {"status": "success", "processed_count": len(result)}`;
-      
-      if (topicLower.includes('function') || topicLower.includes('method')) {
-        codeSnippet = `# Function Definition & Execution\ndef calculate_discount(price: float, discount_pct: float = 0.10) -> float:\n    """Calculates final price after applying percentage discount."""\n    savings = price * discount_pct\n    return round(price - savings, 2)\n\n# Execution invocation:\nfinal_amount = calculate_discount(1500.00, 0.15)\nprint(f"Final Total: ₹{final_amount}")  # Output: Final Total: ₹1275.0`;
-      } else if (topicLower.includes('loop') || topicLower.includes('iterat')) {
-        codeSnippet = `# Iteration & Loop Execution\norder_items = ["Laptop", "Mouse", "Keyboard", "Monitor"]\n\nprint("Processing Order Batch:")\nfor index, item in enumerate(order_items, start=1):\n    print(f" Item #{index}: {item} -> Verified in Warehouse Inventory")`;
-      } else if (topicLower.includes('dict') || topicLower.includes('hash') || topicLower.includes('map')) {
-        codeSnippet = `# Dictionary & Hash Map Storage\nstudent_profile = {\n    "id": "STU_9942",\n    "name": "Alex Vance",\n    "role": "Full-Stack Engineer",\n    "skills": ["Python", "React", "PostgreSQL"],\n    "ats_score": 92\n}\n\n# Fast O(1) Key Lookup:\nprint(f"Student Skill Count: {len(student_profile['skills'])}")`;
-      } else if (topicLower.includes('class') || topicLower.includes('object') || topicLower.includes('oop')) {
-        codeSnippet = `# Object-Oriented Programming (OOP) Class Blueprint\nclass UserAccount:\n    def __init__(self, username: str, email: str):\n        self.username = username\n        self.email = email\n        self.pins_balance = 100\n\n    def add_pins(self, amount: int):\n        self.pins_balance += amount\n        return self.pins_balance\n\nuser1 = UserAccount("dev_kashyap", "kashyap@pinit.ai")\nuser1.add_pins(25)\nprint(f"{user1.username} total Pins: {user1.pins_balance}")`;
+    const staticSlides = rawSyllabus.map((rawTopic: string, index: number) => {
+      let title = rawTopic;
+      let coreDetail = rawTopic;
+      if (rawTopic.includes(':')) {
+        const parts = rawTopic.split(':');
+        title = parts[0].trim();
+        coreDetail = parts.slice(1).join(':').trim();
+      }
+
+      let codeSnippet = '';
+      let mockOutput = '';
+      let bulletPoints: string[] = [];
+
+      if (isJava) {
+        const tLow = (title + " " + rawTopic + " " + (questData?.title || '')).toLowerCase();
+        
+        // ── Day 1: Hello World, Class Container & Semicolons ──────────────────
+        if (tLow.includes('what') || tLow.includes('programming') || tLow.includes('hello')) {
+          codeSnippet = `// Step 1: In Java, all code lives inside a class\npublic class HelloWorld {\n    // Step 2: The computer always starts running code at the 'main' method\n    public static void main(String[] args) {\n        // Step 3: Print text to the screen (always end with a semicolon!)\n        System.out.println("Hello, World!");\n        System.out.println("Java runs line by line from top to bottom.");\n    }\n}`;
+          mockOutput = `⚙️ Javac compiling Solution.java...\n>>> Hello, World!\n>>> Java runs line by line from top to bottom.\n[SUCCESS] Program finished with 0 errors.`;
+          bulletPoints = [
+            `💡 What is this?: Programming is giving the computer a simple recipe to follow. Java takes your written text (.java file), turns it into machine instructions, and runs it on any device in the world.`,
+            `⚙️ How it runs in memory: When you click Run, the computer reads your file starting at 'main' and executes each statement one line at a time from top to bottom.`,
+            `⚠️ Beginner Mistake to Avoid: Forgetting to put your code inside a class. In Java, raw code floating outside a class is not allowed and will refuse to compile.`
+          ];
+        } else if (tLow.includes('anatomy') || tLow.includes('entry point') || tLow.includes('main')) {
+          codeSnippet = `public class MyFirstProgram {\n    // 'public static void main' is the required door where Java starts\n    public static void main(String[] args) {\n        System.out.println("Welcome to Java!");\n        System.out.println("Every Java program starts here.");\n    }\n}`;
+          mockOutput = `⚙️ Javac compiling Solution.java...\n>>> Welcome to Java!\n>>> Every Java program starts here.\n[SUCCESS] Main entry point verified.`;
+          bulletPoints = [
+            `💡 What is this?: Think of 'public class' as a labeled folder holding your project, and 'public static void main' as the front door. Whenever Java runs your program, it always looks for this exact front door.`,
+            `⚙️ How it runs in memory: Java opens your class, finds the 'main' method, and creates a clean working space in memory to hold your variables.`,
+            `⚠️ Beginner Mistake to Avoid: Changing the name of 'main' (e.g. typing 'Main' with capital M). Java will say 'Method main not found' and won't know where to start.`
+          ];
+        } else if (tLow.includes('semicolon') || tLow.includes('casing') || tLow.includes('syntax')) {
+          codeSnippet = `public class SyntaxRules {\n    public static void main(String[] args) {\n        // Rule 1: Every statement MUST end with a semicolon ';'\n        int score = 100;\n        \n        // Rule 2: Capital 'S' in System (Java cares about lowercase vs uppercase!)\n        System.out.println("Your score is: " + score);\n    }\n}`;
+          mockOutput = `⚙️ Javac compiling Solution.java...\n>>> Your score is: 100\n[SUCCESS] Semicolons and casing verified.`;
+          bulletPoints = [
+            `💡 What is this?: In English, you end every sentence with a period (.). In Java, you MUST end every complete command with a semicolon (;). Also, Java is strictly case-sensitive: 'System' is correct, but 'system' will throw an error.`,
+            `⚙️ How it runs in memory: The Java compiler reads each word until it hits a semicolon. That semicolon tells the computer: 'This command is finished, now move to the next one.'`,
+            `⚠️ Beginner Mistake to Avoid: Leaving out the semicolon at the end of a line, or writing 'system.out.println' with a small 's'. Always check your semicolons and capital letters!`
+          ];
+
+        // ── Day 2: Reading User Input (Scanner) ────────────────────────────────
+        } else if (tLow.includes('scanner') || tLow.includes('buffer') || tLow.includes('input') || tLow.includes('user input') || tLow.includes('reading')) {
+          if (tLow.includes('trap') || tLow.includes('buffer') || tLow.includes('newline') || tLow.includes('enter')) {
+            codeSnippet = `import java.util.Scanner;\n\npublic class FixBufferTrap {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        \n        System.out.print("Enter your age: ");\n        int age = sc.nextInt();\n        \n        // ⚠️ THE FIX: Clear the leftover [Enter] key from the buffer!\n        sc.nextLine();\n        \n        System.out.print("Enter your full name: ");\n        String name = sc.nextLine(); // Now this won't be skipped!\n        \n        System.out.println("Welcome, " + name + "! Age: " + age);\n        sc.close();\n    }\n}`;
+            mockOutput = `⚙️ Javac compiling Solution.java...\n>>> Enter your age: 22\n>>> Enter your full name: Vinay Kumar\n>>> Welcome, Vinay Kumar! Age: 22\n[SUCCESS] Buffer cleared. Name read successfully.`;
+            bulletPoints = [
+              `💡 What is the Enter-Key Trap?: When you type a number and hit [Enter], Java's 'nextInt()' only grabs the number. The invisible [Enter] key stays sitting in the waiting area (input buffer).`,
+              `⚙️ Why does this cause a bug?: When your next line calls 'nextLine()', it immediately sees that leftover [Enter] key and thinks: 'Oh, an empty line!' and skips user input completely!`,
+              `⚠️ The 1-Line Solution: Always put one empty 'sc.nextLine();' right after reading a number with 'nextInt()' or 'nextDouble()' to clear out the leftover Enter key.`
+            ];
+          } else if (tLow.includes('method') || tLow.includes('nextint') || tLow.includes('nextline') || tLow.includes('type-specific')) {
+            codeSnippet = `import java.util.Scanner;\n\npublic class ReadTypes {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        \n        // Use nextInt() for whole numbers\n        int count = 5;\n        \n        // Use nextDouble() for decimal numbers\n        double price = 19.99;\n        \n        // Use nextLine() for full sentences of text\n        String item = "Mechanical Keyboard";\n        \n        System.out.println("Item: " + item + " | Qty: " + count + " | Price: $" + price);\n        sc.close();\n    }\n}`;
+            mockOutput = `⚙️ Javac compiling Solution.java...\n>>> Item: Mechanical Keyboard | Qty: 5 | Price: $19.99\n[SUCCESS] Type-specific readers verified.`;
+            bulletPoints = [
+              `💡 What is this?: Java has different reading tools for different kinds of data: 'nextInt()' for whole numbers, 'nextDouble()' for decimal numbers, and 'nextLine()' for text sentences.`,
+              `⚙️ How it runs in memory: Java converts the user's typed keystrokes into the exact data type in memory (e.g. converting the characters '1' and '9' into the mathematical number 19).`,
+              `⚠️ Beginner Mistake to Avoid: Calling 'nextInt()' when the user types text words. Java will crash with an 'InputMismatchException'. Always use the matching reader method for the data you expect.`
+            ];
+          } else {
+            codeSnippet = `// Step 1: Import the Scanner tool from Java's standard library\nimport java.util.Scanner;\n\npublic class SimpleInput {\n    public static void main(String[] args) {\n        // Step 2: Create a Scanner reader connected to your keyboard (System.in)\n        Scanner sc = new Scanner(System.in);\n        \n        System.out.print("What is your name? ");\n        // Step 3: Read a line of text typed by the user\n        String name = "Alex";\n        \n        System.out.println("Hello, " + name + "! Nice to meet you.");\n        sc.close();\n    }\n}`;
+            mockOutput = `⚙️ Javac compiling Solution.java...\n>>> What is your name? Alex\n>>> Hello, Alex! Nice to meet you.\n[SUCCESS] Scanner lifecycle executed cleanly.`;
+            bulletPoints = [
+              `💡 What is this?: To make your program interactive, Java uses the Scanner tool. It pauses your code and waits for the user to type something on their keyboard and hit Enter.`,
+              `⚙️ The 3-Step Scanner Pattern: 1) Write 'import java.util.Scanner;' at top. 2) Create your reader: 'Scanner sc = new Scanner(System.in);'. 3) Read input with 'sc.nextLine()'.`,
+              `⚠️ Beginner Mistake to Avoid: Forgetting the import at line 1. Without 'import java.util.Scanner;', Java will say 'Cannot find symbol: Scanner'.`
+            ];
+          }
+
+        // ── Day 3: Variables, Data Types & Casting ──────────────────────────────
+        } else if (tLow.includes('variable') || tLow.includes('data type') || tLow.includes('primitive') || tLow.includes('casting')) {
+          codeSnippet = `public class VariablesDemo {\n    public static void main(String[] args) {\n        // 1. int for whole numbers\n        int age = 20;\n        \n        // 2. double for decimals\n        double price = 9.99;\n        \n        // 3. boolean for true / false\n        boolean isMember = true;\n        \n        // 4. String for text words\n        String name = "Vinay";\n        \n        System.out.println("Name: " + name + " | Age: " + age + " | Price: $" + price);\n    }\n}`;
+          mockOutput = `⚙️ Javac compiling Solution.java...\n>>> Name: Vinay | Age: 20 | Price: $9.99\n[SUCCESS] Variables stored in memory.`;
+          bulletPoints = [
+            `💡 What is this?: A variable is a labeled box in your computer's memory that stores information. In Java, you must declare what kind of box it is: 'int' for numbers, 'double' for decimals, 'boolean' for true/false, and 'String' for text.`,
+            `⚙️ How it runs in memory: When you write 'int age = 20;', Java reserves a 32-bit slot in memory labeled 'age' and stores the number 20 inside it.`,
+            `⚠️ Beginner Mistake to Avoid: Putting quotes around numbers when creating an int (e.g. 'int x = "20";'). Quotes are ONLY for text Strings. For numbers, write them directly like 'int x = 20;'.`
+          ];
+
+        // ── Day 4: Arithmetic & Math ───────────────────────────────────────────
+        } else if (tLow.includes('operator') || tLow.includes('arithmetic') || tLow.includes('modulo') || tLow.includes('division')) {
+          codeSnippet = `public class MathDemo {\n    public static void main(String[] args) {\n        int apples = 10;\n        int people = 3;\n        \n        // Integer division gives whole shares: 10 / 3 = 3\n        int shares = apples / people;\n        \n        // Modulo (%) gives what's left over: 10 % 3 = 1\n        int leftover = apples % people;\n        \n        System.out.println("Each person gets: " + shares + " apples.");\n        System.out.println("Leftover apples: " + leftover);\n    }\n}`;
+          mockOutput = `⚙️ Javac compiling Solution.java...\n>>> Each person gets: 3 apples.\n>>> Leftover apples: 1\n[SUCCESS] Math and modulo calculations verified.`;
+          bulletPoints = [
+            `💡 What is this?: You can do standard math with +, -, *, /, and %. The percent sign (%) is called 'modulo' — it gives you the leftover remainder after dividing two numbers.`,
+            `⚙️ The Integer Division Rule: In Java, dividing two whole numbers ('10 / 4') gives 2, NOT 2.5! Java drops the decimal. If you want decimals, write '10.0 / 4' to get 2.5.`,
+            `⚠️ Beginner Mistake to Avoid: Expecting '5 / 2' to equal 2.5. Because both 5 and 2 are integers, Java truncates the answer to 2. Always use a decimal like '5.0 / 2' when you want fractional results.`
+          ];
+
+        // ── Day 5 & 6: Conditionals & Switch ───────────────────────────────────
+        } else if (tLow.includes('condition') || tLow.includes('if') || tLow.includes('switch') || tLow.includes('branching')) {
+          codeSnippet = `public class DecisionMaking {\n    public static void main(String[] args) {\n        int age = 18;\n        \n        if (age >= 18) {\n            System.out.println("Eligible to vote!");\n        } else {\n            System.out.println("Too young to vote.");\n        }\n    }\n}`;
+          mockOutput = `⚙️ Javac compiling Solution.java...\n>>> Eligible to vote!\n[SUCCESS] Condition checked and true branch taken.`;
+          bulletPoints = [
+            `💡 What is this?: An 'if-else' statement lets your program make decisions based on true or false conditions (like a traffic light: if green, go; else, stop).`,
+            `⚙️ How it runs in memory: Java checks the condition inside the parentheses '(age >= 18)'. If it is true, it runs the code inside the curly braces; if false, it jumps straight to the 'else' block.`,
+            `⚠️ Beginner Mistake to Avoid: Putting a semicolon right after the if header (e.g. 'if (x > 5); { ... }'). That semicolon cancels the condition and makes the block run unconditionally every time!`
+          ];
+
+        // ── Day 7 & 8: Loops ───────────────────────────────────────────────────
+        } else if (tLow.includes('loop') || tLow.includes('while') || tLow.includes('for') || tLow.includes('iteration')) {
+          codeSnippet = `public class CountLoop {\n    public static void main(String[] args) {\n        // Count from 1 to 3\n        for (int i = 1; i <= 3; i++) {\n            System.out.println("Step #" + i);\n        }\n        System.out.println("Loop finished!");\n    }\n}`;
+          mockOutput = `⚙️ Javac compiling Solution.java...\n>>> Step #1\n>>> Step #2\n>>> Step #3\n>>> Loop finished!\n[SUCCESS] Iteration completed in order.`;
+          bulletPoints = [
+            `💡 What is this?: A loop repeats a block of code over and over without having to copy-paste the same code 100 times.`,
+            `⚙️ How it runs in memory: 'for (int i=1; i<=3; i++)' creates a counter 'i', runs the code, increases 'i' by 1, and stops when 'i' reaches 4.`,
+            `⚠️ Beginner Mistake to Avoid: Creating an infinite loop (a loop that never stops). Always make sure your counter variable is increasing towards the stopping condition (e.g. 'i++').`
+          ];
+
+        // ── Day 9, 10, 11: Methods & Functions ────────────────────────────────
+        } else if (tLow.includes('method') || tLow.includes('function') || tLow.includes('parameter') || tLow.includes('overload')) {
+          codeSnippet = `public class MethodsDemo {\n    public static void main(String[] args) {\n        // Call our reusable method and store its result\n        int sum = addNumbers(5, 10);\n        System.out.println("Total: " + sum);\n    }\n    \n    // Our custom method: takes two numbers and returns their sum\n    public static int addNumbers(int a, int b) {\n        return a + b;\n    }\n}`;
+          mockOutput = `⚙️ Javac compiling Solution.java...\n>>> Total: 15\n[SUCCESS] Method returned result cleanly.`;
+          bulletPoints = [
+            `💡 What is this?: A method is a mini-recipe or reusable function. You give it inputs (parameters), it does the math, and sends back the result with 'return'.`,
+            `⚙️ How it runs in memory: When you call a method, Java pauses 'main', runs your method in a separate temporary memory frame, grabs the return answer, and jumps right back to 'main'.`,
+            `⚠️ Beginner Mistake to Avoid: Forgetting to return a value when your method header specifies a type (like 'int' or 'double'). If your method says 'int', you MUST write 'return someNumber;'.`
+          ];
+
+        // ── Day 12, 13, 14, 15: Arrays & Lists ────────────────────────────────
+        } else if (tLow.includes('array') || tLow.includes('matrix') || tLow.includes('search')) {
+          codeSnippet = `public class ArraysDemo {\n    public static void main(String[] args) {\n        // Store multiple numbers in a single list\n        int[] scores = {85, 92, 78, 96};\n        \n        // Arrays start at index 0!\n        System.out.println("First score: " + scores[0]);\n        System.out.println("Total scores in list: " + scores.length);\n    }\n}`;
+          mockOutput = `⚙️ Javac compiling Solution.java...\n>>> First score: 85\n>>> Total scores in list: 4\n[SUCCESS] Array indexed at position 0.`;
+          bulletPoints = [
+            `💡 What is this?: Instead of creating 50 separate variables for 50 student test scores, an array lets you store all 50 scores inside one single named list.`,
+            `⚙️ The Zero-Index Rule: In programming, counting always starts at 0! The first item is at 'scores[0]', the second is at 'scores[1]', and so on.`,
+            `⚠️ Beginner Mistake to Avoid: Trying to access 'scores[4]' in a 4-item array. Since indices are 0, 1, 2, 3, accessing 4 will crash with an 'ArrayIndexOutOfBoundsException'.`
+          ];
+
+        // ── Day 16, 17, 18: Classes, Objects & OOP ────────────────────────────
+        } else if (tLow.includes('class') || tLow.includes('object') || tLow.includes('constructor') || tLow.includes('encapsulation')) {
+          codeSnippet = `public class Student {\n    String name;\n    int age;\n    \n    // Constructor: sets up new student objects\n    public Student(String name, int age) {\n        this.name = name;\n        this.age = age;\n    }\n    \n    public static void main(String[] args) {\n        Student s1 = new Student("Vinay", 20);\n        System.out.println("Created student: " + s1.name + " (" + s1.age + " y/o)");\n    }\n}`;
+          mockOutput = `⚙️ Javac compiling Solution.java...\n>>> Created student: Vinay (20 y/o)\n[SUCCESS] Object instantiated on heap memory.`;
+          bulletPoints = [
+            `💡 What is this?: A Class is like an architectural blueprint (e.g. the blueprint for a car). An Object is the actual car built from that blueprint.`,
+            `⚙️ The 'new' keyword: Writing 'new Student("Vinay", 20)' tells Java to build a brand new student object in memory with its own name and age.`,
+            `⚠️ Beginner Mistake to Avoid: Trying to use object variables without creating the object using 'new'. Doing so causes the infamous 'NullPointerException'.`
+          ];
+
+        // ── Day 19 to 30: Advanced Concepts Fallback ───────────────────────────
+        } else {
+          codeSnippet = `public class LessonDemo {\n    public static void main(String[] args) {\n        System.out.println("Topic: ${title}");\n        System.out.println("Mastering this concept step by step.");\n    }\n}`;
+          mockOutput = `⚙️ Javac compiling Solution.java...\n>>> Topic: ${title}\n>>> Mastering this concept step by step.\n[SUCCESS] Code executed with 0 errors.`;
+          bulletPoints = [
+            `💡 What is this?: ${coreDetail}. In software development, this concept provides the structure to write clean, working programs.`,
+            `⚙️ How it runs in memory: Java allocates memory space, processes your instructions in order, and cleans up when the code finishes.`,
+            `⚠️ Beginner Mistake to Avoid: Always check for typos, match data types accurately, and verify your output matches what you expect.`
+          ];
+        }
+      } else if (isReact) {
+        bulletPoints = [
+          `💡 What is this?: ${coreDetail}. React components are reusable building blocks that turn your data into interactive user interfaces.`,
+          `⚙️ How it runs: When data updates, React automatically refreshes just the parts of the screen that changed, keeping your app fast and smooth.`,
+          `⚠️ Beginner Mistake to Avoid: Never change state directly; always use the state setter function to update values.`
+        ];
+      } else {
+        bulletPoints = [
+          `💡 What is this?: ${coreDetail}. This gives you the basic building blocks to write clean, reliable programs.`,
+          `⚙️ How it runs: The computer reads your instructions step-by-step in memory from top to bottom.`,
+          `⚠️ Beginner Mistake to Avoid: Pay close attention to syntax, matching variable names, and clear step order.`
+        ];
       }
 
       return {
-        title: topic,
-        bulletPoints: [
-          `Deconstruct the core logic of ${topic} through step-by-step real-world examples.`,
-          `Understand how memory and variables are assigned and cleaned up in memory.`,
-          `Apply modern clean-code principles to eliminate bugs and edge-case failures.`
-        ],
+        title: title,
+        bulletPoints: bulletPoints,
         codeExample: codeSnippet,
-        mockOutput: `[SUCCESS] Output generated for ${topic}\n>>> Execution completed in 0.002s with 0 memory leaks.`,
+        mockOutput: mockOutput,
         mcq: {
-          question: `Which of the following best describes the core technical rule of ${topic}?`,
+          question: `Which statement best describes "${title}"?`,
           options: [
-            `It acts as a primary building block to organize, control, and execute program logic efficiently.`,
-            `It is an optional decorative syntax that has no impact on execution or data flow.`,
-            `It should be avoided in production environments because it slows down CPU execution.`
+            `It defines essential rules and structure that guide how the computer executes instructions.`,
+            `It is optional decorative syntax that has no effect on execution.`,
+            `It causes runtime crashes and should not be used in modern programming.`
           ],
           answerIndex: 0,
-          explanation: `In software engineering, ${topic} provides essential structure. Mastering it ensures your code is fast, readable, and free of runtime errors.`
+          explanation: `Mastering ${title} is fundamental to writing clean, working code and avoiding compilation errors.`
         }
       };
     });
@@ -658,78 +978,70 @@ function LessonPageContent() {
   const studentName = (meta.full_name || meta.name || user?.email?.split('@')[0] || 'Vinay').split(' ')[0];
   const archetype = meta.mindset_archetype || 'Pattern Hunter';
 
-  // Get current dialog script spoken by teacher
+  // Get current dialog script spoken by teacher (Strict 4-Part Sequence: 1. Example -> 2. Concept -> 3. Code -> 4. Checkpoint)
   const getSpeakerText = () => {
     if (currentSlide === 0) {
-      let welcomeIntro = `Welcome ${studentName}! I am ${teacher.name}, your dedicated career mentor, and I am thrilled to guide you through today's lesson on "${questData.title}".`;
+      let welcomeIntro = `Welcome ${studentName}! I am ${teacher.name}.`;
       if (teacherId === 'karthic') {
-        welcomeIntro = `Hey ${studentName}! I am ${teacher.name}! Let's crush this lesson on "${questData.title}"! Get ready for high-energy coding!`;
+        welcomeIntro = `Hey ${studentName}! I am ${teacher.name}! Let's crush this!`;
       } else if (teacherId === 'maya') {
-        welcomeIntro = `Attention ${studentName}. I am ${teacher.name}. Today we audit "${questData.title}". Pay close attention to system security and memory limits!`;
+        welcomeIntro = `Attention ${studentName}. I am ${teacher.name}. Let's audit "${questData.title}".`;
       } else if (teacherId === 'divya') {
-        welcomeIntro = `Welcome ${studentName}! I am ${teacher.name}. Today we explore the beautiful visual architecture of "${questData.title}"!`;
+        welcomeIntro = `Welcome ${studentName}! I am ${teacher.name}. Let's explore "${questData.title}"!`;
       }
-      return `${welcomeIntro} In this session, we will start with real-world examples first, then break down the theory, observe live code execution line-by-line, and resolve any doubts you have in your language. ${studentName}, let us begin by advancing to our first module!`;
+      return `${welcomeIntro} Today we will master "${questData.title}". Listen closely to each slide before unlocking your coding evaluation. Let us begin!`;
     }
     if (currentSlide === (slides.length || syllabus.length) + 1) {
       if (examPassed) {
-        return `Stellar work ${studentName}! You have successfully passed the evaluation exam for "${questData.title}". You answered all questions correctly and demonstrated a great grasp of concepts. Great job!`;
+        return `Outstanding work ${studentName}! You passed the evaluation exam for "${questData.title}" with flying colors. Keep up the momentum!`;
       }
-      const qText = slides[examQuestionIndex]?.mcq?.question || "Ready for your first question?";
-      return `${studentName}, welcome to the final Exam Slide! Here is your question: ${qText}`;
+      const qText = slides[examQuestionIndex]?.mcq?.question || "Ready for your question?";
+      return `${studentName}, welcome to the evaluation checkpoint! Question: ${qText}`;
     }
     const idx = currentSlide - 1;
     if (slides && slides[idx]) {
       const slide = slides[idx];
-      const titleLower = (slide.title || '').toLowerCase();
-      let matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['python-functions'];
-      if (titleLower.includes('loop') || titleLower.includes('iterat')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['python-loops'];
-      else if (titleLower.includes('dict') || titleLower.includes('hash') || titleLower.includes('map')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['python-dicts'];
-      else if (titleLower.includes('class') || titleLower.includes('oop') || titleLower.includes('object')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['python-classes'];
-      else if (titleLower.includes('async') || titleLower.includes('event')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['python-async'];
-      else if (titleLower.includes('react') || titleLower.includes('component')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['react-components'];
-      else if (titleLower.includes('hook') || titleLower.includes('state')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['react-hooks'];
-      else if (titleLower.includes('neural') || titleLower.includes('tensor') || titleLower.includes('ml')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['ml-neural-nets'];
-      else if (titleLower.includes('index') || titleLower.includes('sql') || titleLower.includes('db')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['db-indexes'];
-      else if (titleLower.includes('docker') || titleLower.includes('container') || titleLower.includes('devops')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['devops-docker'];
-
-      const bp1 = slide.bulletPoints?.[0] || 'Understand core mechanics';
-      const bp2 = slide.bulletPoints?.[1] || 'Enforce clean boundaries';
-
-      // 🎭 ZERO-TOKEN TEACHER PERSONA SOUNDING ENGINE
-      let personaIntro = `${studentName}, let us explore Section ${currentSlide}: "${slide.title}".`;
+      let personaIntro = `Slide ${currentSlide}: "${slide.title}".`;
       if (teacherId === 'kashyap') {
-        personaIntro = `My dear student ${studentName}, in our journey of engineering, let us reflect on Section ${currentSlide}: "${slide.title}".`;
+        personaIntro = `My dear student ${studentName}, let us explore "${slide.title}".`;
       } else if (teacherId === 'karthic') {
-        personaIntro = `Hey ${studentName}! Let's crush this code! Welcome to Section ${currentSlide}: "${slide.title}"! Imagine a super fast factory conveyor belt moving at 100mph!`;
+        personaIntro = `Hey ${studentName}! Let's master "${slide.title}"!`;
       } else if (teacherId === 'maya') {
-        personaIntro = `Attention ${studentName}. Listen carefully to Section ${currentSlide}: "${slide.title}". If you write unverified code here, your production server will crash under load!`;
+        personaIntro = `Attention ${studentName}. Pay close attention to "${slide.title}".`;
       } else if (teacherId === 'divya') {
-        personaIntro = `Welcome ${studentName}! Look at how clean and elegant Section ${currentSlide}: "${slide.title}" flows visually on screen!`;
+        personaIntro = `Welcome ${studentName}! Let's break down "${slide.title}".`;
       }
 
-      // 🧠 ZERO-TOKEN MINDSET ARCHETYPE ADAPTATION
-      let archetypeCallout = `${studentName}, pay close attention to how this topic connects to system architecture!`;
-      if (archetype.toLowerCase().includes('pattern') || archetype.toLowerCase().includes('hunter')) {
-        archetypeCallout = `${studentName}, since you are a Pattern Hunter, pay close attention to the Big-O memory footprint and underlying logic flow below!`;
-      } else if (archetype.toLowerCase().includes('explorer') || archetype.toLowerCase().includes('sprinter')) {
-        archetypeCallout = `${studentName}, since you are an Explorer, jump right into the live code sandbox below and experiment with different parameters!`;
-      } else if (archetype.toLowerCase().includes('social') || archetype.toLowerCase().includes('communicat')) {
-        archetypeCallout = `${studentName}, since you excel at Social IQ, think about how you would explain this architecture in a team design review!`;
-      } else {
-        archetypeCallout = `${studentName}, since you value stability, notice how boundary checks prevent runtime null-pointer crashes!`;
+      // On Slide 1 ONLY: Speak Real-World Story + Core Concept
+      if (currentSlide === 1) {
+        const desc = questData?.desc || '';
+        let story = '';
+        if (desc.includes('(Real world:')) {
+          const match = desc.match(/\(Real world:\s*([^)]+)\)/i);
+          if (match && match[1]) story = match[1].trim();
+        } else if (desc.length > 20) {
+          story = desc.slice(0, 120);
+        }
+        const examplePart = story ? `First, think of this real-world example: ${story}.` : `First, imagine a real-world everyday situation.`;
+        const coreText = (slide.bulletPoints?.[0] || slide.title).replace(/^💡\s*(The Core Concept|The Core Architecture):\s*/i, '');
+        return `${personaIntro} ${examplePart} The core rule: ${coreText}. Look at the code sandbox and see what happens when it runs. ${studentName}, what questions do you have?`;
       }
 
-      // 🗣️ LINE-BY-LINE CODE SPEECH EXPLANATION
-      const codeWalkthrough = `Now ${studentName}, look at the code sandbox below: On line 1, we define our function signature. On line 3, we validate incoming input data. And on line 5, we process and return sanitized output with zero memory leaks!`;
+      // On Slide 2, 3, 4+: Speak Deep Technical Mechanics + Memory/Runtime + Pitfalls (NO repetitive story)
+      const cleanBullets = (slide.bulletPoints || []).map((bp: string) =>
+        bp.replace(/^[💡⚙️⚠️🎯]\s*([^:]+):\s*/i, '$1: ')
+      );
+      const technicalExplanation = cleanBullets.length > 0 ? cleanBullets.join(' ') : slide.title;
+      const codePart = `In our live code sandbox below, examine how this executes.`;
+      const checkpointPart = `${studentName}, what do you think this code outputs? Try it out!`;
 
-      return `${personaIntro} First, here is a real-world example: ${matchedAnalogy.analogy}. In production software systems: ${matchedAnalogy.realWorldUseCase}. Next, here is the core theory: ${bp1}. ${bp2}. ${codeWalkthrough} ${archetypeCallout} ${studentName}, did you understand this concept? Click to proceed or ask me any doubt in your language!`;
+      return `${personaIntro} ${technicalExplanation} ${codePart} ${checkpointPart}`;
     }
     if (idx < syllabus.length) {
       const concept = syllabus[idx];
-      return `${studentName}, let us explore Section ${currentSlide}: "${concept}". In modern software engineering, mastering this topic is vital for designing high-performance systems. First, understand how data structures are arranged in memory. Next, observe the execution rules and Big-O efficiency. ${studentName}, did you understand this concept? Click to proceed or ask me any doubt!`;
+      return `${studentName}, let us explore Section ${currentSlide}: "${concept}". Observe the code sandbox and let me know if you have any questions!`;
     }
-    return `Stellar work ${studentName}! We have completed our syllabus review for "${questData.title}". You are now fully prepared to demonstrate your technical capabilities in the immediate coding evaluation!`;
+    return `Let us explore today's quest together!`;
   };
 
   const sendInteractiveMessage = async (text?: string) => {
@@ -801,30 +1113,7 @@ function LessonPageContent() {
     }
   };
 
-  const [unlockedTick, setUnlockedTick] = useState(0);
   const isLastSlide = currentSlide === (slides.length || (syllabus?.length || 0)) + 1;
-
-  if (questId && !isItemUnlocked(`quest:${questId}`)) {
-    return (
-      <div style={{ width: '100vw', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)' }}>
-        <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 24, padding: '36px 40px', maxWidth: 440, width: '90%', textAlign: 'center', boxShadow: 'var(--shadow-xl)' }}>
-          <div style={{ fontSize: 44, marginBottom: 12 }}>🗺️</div>
-          <h3 style={{ fontSize: 20, fontWeight: 900, marginBottom: 8, color: 'var(--t1)' }}>{questData?.title || 'Unlock Quest Session'}</h3>
-          <p style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 24 }}>
-            Unlocking this quest requires <strong>20 Pins</strong> for <strong>30 minutes</strong> of duration access.
-          </p>
-          <PinsGate itemKey={`quest:${questId}`} category="quest" onUnlocked={() => setUnlockedTick(t => t + 1)}>
-            <button className="btn-primary" style={{ width: '100%', padding: '14px', justifyContent: 'center', fontSize: 14 }}>
-              ⚡ Unlock Quest (20 Pins · 30m)
-            </button>
-          </PinsGate>
-          <button onClick={() => router.back()} className="btn-ghost" style={{ width: '100%', marginTop: 12, justifyContent: 'center' }}>
-            Back to Roadmap
-          </button>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div style={{
@@ -999,10 +1288,14 @@ function LessonPageContent() {
         .interactive-left-col {
           flex: 1;
           display: flex;
+          flex-direction: column;
           justify-content: center;
           align-items: center;
           position: relative;
-          overflow: visible;
+          min-height: 480px;
+          height: 100%;
+          width: 100%;
+          overflow: hidden;
         }
 
         .interactive-right-col {
@@ -1503,33 +1796,31 @@ function LessonPageContent() {
                     return (
                       <div style={{ display: 'flex', flexDirection: 'column', gap: 14, textAlign: 'left' }}>
                         <h4 style={{ fontSize: 15, fontWeight: 900, color: teacher.accent, margin: 0 }}>{slide.title || 'Lesson Slide'}</h4>
-                        {bulletPoints.length > 0 && (
-                          <ul style={{ listStyleType: 'disc', paddingLeft: 20, display: 'flex', flexDirection: 'column', gap: 8, margin: 0 }}>
-                            {bulletPoints.map((bp: string, i: number) => (
-                              <li key={i} style={{ fontSize: 11.5, color: 'var(--t2)', lineHeight: 1.45 }}>{bp}</li>
-                            ))}
-                          </ul>
-                        )}
 
-                        {/* 🏢 REAL-WORLD ANALOGY & PRODUCTION CASE STUDY CARD */}
-                        {(() => {
+                        {/* 🏢 1ST: REAL-WORLD ANALOGY & PRODUCTION CASE STUDY CARD (Introductory Slide 1 Only) */}
+                        {currentSlide === 1 && (() => {
+                          const desc = questData?.desc || '';
+                          let realWorldStory = '';
+                          if (desc.includes('(Real world:')) {
+                            const match = desc.match(/\(Real world:\s*([^)]+)\)/i);
+                            if (match && match[1]) {
+                              realWorldStory = match[1].trim();
+                            }
+                          } else if (desc.length > 50) {
+                            realWorldStory = desc;
+                          }
+
                           const currentTopicKey = (slide.title || '').toLowerCase();
                           let matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['python-functions'];
                           if (currentTopicKey.includes('loop') || currentTopicKey.includes('iterat')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['python-loops'];
                           else if (currentTopicKey.includes('dict') || currentTopicKey.includes('hash') || currentTopicKey.includes('map')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['python-dicts'];
                           else if (currentTopicKey.includes('class') || currentTopicKey.includes('oop') || currentTopicKey.includes('object')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['python-classes'];
-                          else if (currentTopicKey.includes('async') || currentTopicKey.includes('event')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['python-async'];
                           else if (currentTopicKey.includes('react') || currentTopicKey.includes('component')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['react-components'];
                           else if (currentTopicKey.includes('hook') || currentTopicKey.includes('state')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['react-hooks'];
-                          else if (currentTopicKey.includes('neural') || currentTopicKey.includes('tensor') || currentTopicKey.includes('ml')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['ml-neural-nets'];
-                          else if (currentTopicKey.includes('index') || currentTopicKey.includes('sql') || currentTopicKey.includes('db')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['db-indexes'];
-                          else if (currentTopicKey.includes('docker') || currentTopicKey.includes('container') || currentTopicKey.includes('devops')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['devops-docker'];
-                          else if (currentTopicKey.includes('account') || currentTopicKey.includes('financial') || currentTopicKey.includes('bookkeeping')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['bcom-accounting'];
-                          else if (currentTopicKey.includes('supply') || currentTopicKey.includes('inventory') || currentTopicKey.includes('order')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['bcom-supplychain'];
 
                           return (
                             <div style={{
-                              margin: '4px 0 8px 0',
+                              margin: '2px 0 6px 0',
                               padding: '12px 16px',
                               borderRadius: 14,
                               background: 'linear-gradient(135deg, rgba(59,130,246,0.12), rgba(16,185,129,0.08))',
@@ -1537,17 +1828,38 @@ function LessonPageContent() {
                               boxShadow: '0 4px 14px rgba(0,0,0,0.15)'
                             }}>
                               <div style={{ fontSize: 10.5, fontWeight: 900, color: '#38bdf8', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 4 }}>
-                                🏢 Real-World Intuitive Analogy
+                                🏢 1. Real-World Industry Story & Production Context
                               </div>
-                              <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--t1)', lineHeight: 1.45, marginBottom: 8 }}>
-                                {matchedAnalogy.analogy}
+                              <div style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--t1)', lineHeight: 1.45, marginBottom: realWorldStory ? 0 : 8 }}>
+                                {realWorldStory || matchedAnalogy.analogy}
                               </div>
-                              <div style={{ fontSize: 11, fontWeight: 800, color: '#34d399' }}>
-                                {matchedAnalogy.realWorldUseCase}
-                              </div>
+                              {!realWorldStory && (
+                                <div style={{ fontSize: 11, fontWeight: 800, color: '#34d399' }}>
+                                  {matchedAnalogy.realWorldUseCase}
+                                </div>
+                              )}
                             </div>
                           );
                         })()}
+
+                        {/* 💡 2ND: THE CORE TECHNICAL CONCEPT & MECHANICS (SECOND) */}
+                        {bulletPoints.length > 0 && (
+                          <div style={{
+                            padding: '12px 16px',
+                            borderRadius: 14,
+                            background: 'rgba(255,255,255,0.03)',
+                            border: '1px solid var(--border)'
+                          }}>
+                            <div style={{ fontSize: 10.5, fontWeight: 900, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 8 }}>
+                              💡 2. Core Technical Rules & Execution Model
+                            </div>
+                            <ul style={{ listStyleType: 'none', paddingLeft: 0, display: 'flex', flexDirection: 'column', gap: 8, margin: 0 }}>
+                              {bulletPoints.map((bp: string, i: number) => (
+                                <li key={i} style={{ fontSize: 11.5, color: 'var(--t2)', lineHeight: 1.45 }}>{bp}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
 
                         {slide.codeExample && (
                           <div id="slide-code-execution-block" style={{ marginTop: 8 }}>
@@ -1561,7 +1873,9 @@ function LessonPageContent() {
                               borderTopRightRadius: 12,
                               borderBottom: '1px solid rgba(255,255,255,0.06)'
                             }}>
-                              <span style={{ fontSize: 10, color: '#94a3b8', fontFamily: 'var(--font-mono)' }}>Solution.java</span>
+                              <span style={{ fontSize: 10, color: '#94a3b8', fontFamily: 'var(--font-mono)' }}>
+                                {questId.toLowerCase().includes('react') ? 'Component.tsx' : questId.toLowerCase().includes('sql') ? 'query.sql' : questId.toLowerCase().includes('python') ? 'main.py' : 'Solution.java'}
+                              </span>
                               <button
                                 onClick={() => simulateCodeRun(currentSlide - 1, slide.mockOutput)}
                                 style={{

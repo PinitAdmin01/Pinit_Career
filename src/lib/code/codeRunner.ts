@@ -6,6 +6,8 @@ import { CodeLanguage, TestCase, SqlTestCase, SuiteExecutionResult } from './typ
 import { executeJavaScriptSuite } from './runners/jsRunner';
 import { executePythonSuite, loadPyodideRuntime } from './runners/pythonRunner';
 import { executeSqlSuite } from './runners/sqlRunner';
+import { executeJavaJudgeSuite } from './runners/javaJudgeRunner';
+import { executePythonJudgeSuite } from './runners/pythonJudgeRunner';
 
 export const CODE_RUNNER_VERSION = 'v1.0';
 
@@ -34,6 +36,7 @@ export async function runTestSuite(
   options?: {
     functionName?: string;
     testCases?: TestCase[];
+    testSuite?: string;
     sqlConfig?: SqlTestCase;
     timeoutMs?: number;
   }
@@ -47,24 +50,25 @@ export async function runTestSuite(
       return executeJavaScriptSuite(code, fnName, testCases, timeoutMs);
 
     case 'python':
-      return executePythonSuite(code, fnName, testCases, timeoutMs);
+      return executePythonJudgeSuite(code, (options as any)?.testSuite, testCases, timeoutMs);
 
     case 'sql':
       return executeSqlSuite(code, options?.sqlConfig || { query: code }, timeoutMs);
 
     case 'java':
+      return executeJavaJudgeSuite(code, (options as any)?.testSuite, testCases, timeoutMs);
+
     case 'cpp': {
-      // Static AST structural checks for compiled languages in browser environment
-      const hasClass = new RegExp(`class\\s+\\w+`, 'i').test(code);
-      const hasMethod = new RegExp(`public\\s+(?:static\\s+)?\\w+\\s+${fnName}`, 'i').test(code) || /\w+\s+\w+\s*\(/.test(code);
+      // Static AST structural checks for C++ in browser environment
+      const hasMethod = new RegExp(`(?:int|void|double|string|bool)\\s+${fnName}`, 'i').test(code) || /\w+\s+\w+\s*\(/.test(code);
       const hasReturn = /\breturn\b/.test(code);
 
-      const isPass = (hasClass || language === 'cpp') && hasMethod && hasReturn;
+      const isPass = hasMethod && hasReturn;
       const logs = [
-        `[STATIC ANALYZER] Validating ${language.toUpperCase()} syntax tree for method '${fnName}'...`,
+        `[STATIC ANALYZER] Validating CPP syntax tree for method '${fnName}'...`,
         isPass
-          ? `[SUCCESS] Class structure and method signature verified for ${language.toUpperCase()}.`
-          : `[FAIL] Missing valid class or return statement in ${language.toUpperCase()} solution.`
+          ? `[SUCCESS] Function signature and return structure verified for CPP.`
+          : `[FAIL] Missing valid function or return statement in CPP solution.`
       ];
 
       return {
@@ -78,7 +82,7 @@ export async function runTestSuite(
         terminalLogs: logs,
         testOutcomes: [{
           index: 1,
-          testCaseName: `${language.toUpperCase()} Syntax & Signature Check`,
+          testCaseName: `CPP Syntax & Signature Check`,
           input: code.slice(0, 50) + '...',
           expectedOutput: 'Valid Signature',
           actualOutput: isPass ? 'Valid Signature' : 'Invalid Signature',

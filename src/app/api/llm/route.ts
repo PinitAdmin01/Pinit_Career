@@ -57,7 +57,7 @@ export async function POST(req: Request) {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${openRouterKey}`,
-          'HTTP-Referer': 'https://pinit-de424.web.app',
+          'HTTP-Referer': 'https://pinit-careers.web.app',
           'X-Title': 'Pi Career OS'
         },
         body: JSON.stringify({

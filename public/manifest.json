@@ -1,0 +1,21 @@
+﻿{
+  "name": "PinIT Career OS",
+  "short_name": "PinIT",
+  "description": "AI-Powered Career & Campus Operating System",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0e17",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "/brand/pinit-career-mark.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/brand/pinit-career-logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

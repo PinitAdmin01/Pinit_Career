@@ -26,8 +26,8 @@ from dataclasses import dataclass, field
 from typing import Optional
 
 # ── Toggle Real Kokoro vs Simulation ──────────────────────────────────────────
-# Set True once Kokoro-82M ONNX weights are available on this machine.
-KOKORO_REAL = False
+# Set True to attempt real Kokoro-82M ONNX inference with automatic graceful simulation fallback.
+KOKORO_REAL = os.getenv("KOKORO_REAL", "true").lower() in ("true", "1", "yes")
 
 # Storage directory
 AUDIO_STORAGE_DIR = os.getenv(
@@ -100,6 +100,9 @@ async def _kokoro_real(
         )
     except ImportError:
         print("[TTS] kokoro_onnx not installed — falling back to simulation")
+        return await _kokoro_simulated(text, voice, speed, "neutral", sample_rate)
+    except Exception as e:
+        print(f"[TTS] kokoro_onnx error ({e}) — falling back to simulation")
         return await _kokoro_simulated(text, voice, speed, "neutral", sample_rate)
 
 

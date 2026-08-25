@@ -8,6 +8,7 @@ import { useAuth } from '@/lib/context/AuthContext';
 import { speakWithAvatar as speakWithAvatarRaw, stopSpeaking } from '@/lib/tts';
 import { sanitizeLLMOutput } from '@/lib/sanitizeLLM';
 import { runTestSuite } from '@/lib/code/codeRunner';
+import { PathwayApiService } from '@/lib/api/pathwayApi';
 
 const VRoidInterviewAvatar = dynamic(
   () => import('@/components/avatar/VRoidInterviewAvatar'),
@@ -295,10 +296,10 @@ export default function InterviewPage() {
       };
     }
 
-    if (cleanTopic.includes('react') || cleanTopic.includes('js') || cleanTopic.includes('web')) {
+    if (cleanTopic.includes('front') || cleanTopic.includes('react') || cleanTopic.includes('js') || cleanTopic.includes('web') || cleanTopic.includes('ui') || cleanTopic.includes('css')) {
       return {
-        title: `React Component State Optimization (${topic})`,
-        description: `Implement a memoized state filter function for rendering large dataset lists smoothly without UI jank.`,
+        title: `Frontend Component State & List Optimization (${topic})`,
+        description: `Implement a memoized state filter function for rendering dynamic component lists smoothly without UI re-render bottlenecks.`,
         starterCode: {
           javascript: `function useOptimizedFilter(items, query) {\n    const memoized = React.useMemo(() => {\n        return items.filter(item => item.name.toLowerCase().includes(query.toLowerCase()));\n    }, [items, query]);\n    return memoized;\n}`,
           python: `def filter_items(items, query):\n    return [item for item in items if query.lower() in item['name'].lower()]`,
@@ -762,7 +763,7 @@ export default function InterviewPage() {
     setShowHint(false);
     setCodeSubmitted(false);
 
-    const greeting = `Hello! I am ${randomTeacher.name}, ${randomTeacher.title}. Welcome to your ${topic} Corporate Interview! Please introduce yourself, your experience, and your career goals.`;
+    const greeting = `Welcome to your ${topic} Technical Interview! I am ${randomTeacher.name}, ${randomTeacher.title}. To kick things off, please introduce yourself, tell me a bit about your background, and share what projects or experience you have with ${topic}.`;
 
     setMessages([{ role: 'assistant', content: greeting }]);
     speakWithAvatar(greeting, randomTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
@@ -786,7 +787,7 @@ export default function InterviewPage() {
       const prob = getDynamicCodingProblem(activeTopicName, selectedLang);
       stagePrompt = `Round 2: Technical Assessment for ${activeTopicName}. I am ${randomTeacher.name}, ${randomTeacher.title}. Here is your challenge: "${prob.title}". Write and run your code solution in the editor on the left.`;
     } else if (next === 'round3_systems') {
-      stagePrompt = `Round 3: System Architecture Canvas for ${activeTopicName}. I am ${randomTeacher.name}, ${randomTeacher.title}. Problem Statement: Design a scalable, resilient microservices system architecture for ${activeTopicName}. Drag components onto the canvas, use 'Connect Nodes Mode' to draw directional flow arrows, and click 'Analyze System Architecture'.`;
+      stagePrompt = `Round 3: System Architecture Canvas for ${activeTopicName}. I am ${randomTeacher.name}, ${randomTeacher.title}. Problem Statement: Design a scalable, resilient architecture for ${activeTopicName}. Drag components onto the canvas, connect the data flow arrows, and click 'Analyze System Architecture'.`;
     } else if (next === 'round4_star') {
       const builtComponents = boardNodes.map(n => n.type).join(', ');
       stagePrompt = `Round 4: Executive Review & STAR Assessment. I am ${randomTeacher.name}, ${randomTeacher.title}. I evaluated your Round 2 code and your Round 3 system architecture where you built: ${builtComponents || 'components'}. Looking back at your complete interview for ${activeTopicName}, why did you build your solution like this? What were the key architectural and trade-off decisions you made?`;
@@ -830,7 +831,21 @@ export default function InterviewPage() {
       const res = await fetch('/api/interview/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text.trim(), interviewerId: activeTeacher.id, stage: activeStage, history: newMsgs, difficulty, domainStream, domainSubTopic: activeTopicName })
+        body: JSON.stringify({
+          message: text.trim(),
+          interviewerId: activeTeacher.id,
+          stage: activeStage,
+          history: newMsgs,
+          difficulty,
+          customTopic: activeTopicName,
+          domainStream,
+          domainSubTopic: activeTopicName,
+          telemetry: {
+            eyeContact: eyeContactScore,
+            wpm: computedWpm,
+            fillerWords: fillerWordCount
+          }
+        })
       });
       const data = await res.json();
       const cleanReply = sanitizeLLMOutput(data?.reply);
@@ -839,7 +854,7 @@ export default function InterviewPage() {
         speakWithAvatar(cleanReply, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
       }
     } catch (e) {
-      const fallbackReply = `Understood! Tell me more about your technical approach to ${activeTopicName}.`;
+      const fallbackReply = `Thank you for sharing that! As a ${activeTopicName} professional, how do you approach architectural design, performance optimization, and debugging edge cases?`;
       setMessages([...newMsgs, { role: 'assistant', content: fallbackReply }]);
       speakWithAvatar(fallbackReply, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
     }
@@ -1012,6 +1027,40 @@ export default function InterviewPage() {
       };
 
       saveSessionHistory(sessionRecord);
+
+      // Record authentic oral defense evidence to Pathway Evidence Ledger
+      if (resultObj.score >= 70) {
+        try {
+          const studentId = user?.id || 'demo_student_01';
+          const targetCompId = domainStream === 'non_tech' || activeTopicName.toLowerCase().includes('behavioral') || activeTopicName.toLowerCase().includes('star')
+            ? 'comp_comm_star_interview_l2'
+            : 'comp_production_engineering_residency_l5';
+
+          PathwayApiService.recordEvidence({
+            id: `ev_interview_${sessionRecord.id}`,
+            competencyId: targetCompId,
+            competencyVersion: '1.0.0',
+            studentId,
+            programId: 'prog_swe_accelerated_9m',
+            evidenceClass: 'defense',
+            difficulty: difficulty === 'hard' ? 'production' : difficulty === 'normal' ? 'advanced' : 'intermediate',
+            evidenceFamilyId: `interview_${activeTopicName.toLowerCase().replace(/\s+/g, '_')}`,
+            sourceType: 'capstone_defense',
+            sourceId: sessionRecord.id,
+            attemptId: `att_${sessionRecord.id}`,
+            score: Math.min(100, Math.max(70, resultObj.score)),
+            evaluatorType: 'ai',
+            evaluatorVersion: 'vroid-ai-interviewer-v2',
+            rubricVersion: 'rubric-star-defense-v1',
+            timestamp: Date.now(),
+            artifacts: {
+              executionLogSnippet: `Verdict: ${resultObj.verdict} | Summary: ${resultObj.summary || 'Completed oral interview defense'}`,
+            }
+          }).catch(err => console.warn('Failed to record oral defense evidence', err));
+        } catch (err) {
+          console.warn('Failed to record oral defense evidence', err);
+        }
+      }
     }
   };
 

@@ -120,7 +120,7 @@ export default function LiteChatInterface() {
               label: '🚀 Start FizzBuzz Quest',
               onClick: () => {
                 toast.info('Loading Quest...', 'Redirecting to FizzBuzz sandbox.');
-                router.push('/quests/fizzbuzz');
+                router.push('/quests/lesson?questId=fizzbuzz');
               }
             },
             {

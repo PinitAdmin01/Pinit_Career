@@ -40,7 +40,7 @@ export interface CourseQuest {
   title: string;
   desc: string;
   type: 'coding' | 'lecture' | 'interactive';
-  category: 'learning' | 'exam' | 'assignment';
+  category?: 'learning' | 'exam' | 'assignment';
   requiresAvatar: boolean;
   starterCode?: string;
   hint?: string;
@@ -69,7 +69,7 @@ export const COURSES_REGISTRY: Course[] = [
     difficulty: 'Beginner',
     durationWeeks: 4,
     icon: '☕',
-    quests: JAVA_30_DAYS_QUESTS as any
+    quests: JAVA_30_DAYS_QUESTS
   },
   {
     id: 'course-react-web',

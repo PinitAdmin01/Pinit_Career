@@ -96,7 +96,7 @@ export default function DashboardTrajectoryMap({
                               const done2 = completedQuests.includes(q.id);
                               const catIcon = q.category === 'learning' ? '🎓' : q.category === 'exam' ? '📝' : '💻';
                               return (
-                                <Link key={q.id} href={`/quests/${q.id}`} prefetch={false} style={{ textDecoration:'none' }}>
+                                <Link key={q.id} href={`/quests/lesson?questId=${q.id}`} prefetch={false} style={{ textDecoration:'none' }}>
                                   <div style={{ display:'flex', alignItems:'center', gap:5, padding:'4px 10px', borderRadius:7, background: done2 ? 'rgba(5,150,105,0.08)' : 'var(--bg3)', border:`1px solid ${done2 ? 'rgba(5,150,105,0.2)' : 'var(--border)'}`, fontSize:11, fontWeight:600, color: done2 ? 'var(--green-mid)' : 'var(--t1)', cursor:'pointer', transition:'all 0.15s' }}>
                                     <span>{done2 ? '✓' : catIcon}</span><span>{q.title}</span>
                                   </div>

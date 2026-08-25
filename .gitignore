@@ -22,8 +22,4 @@ scratch/
 tmp/
 CampusOS_Client_Presentation.html
 # Allow product audio and media assets inside public/
-*.mp3
-!public/**/*.mp3
-!public/*.mp3
-!public/**/*.wav
-!public/*.wav
+

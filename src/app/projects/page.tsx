@@ -7,6 +7,7 @@ import { COURSES_REGISTRY } from '@/lib/data/coursesData';
 import { toast } from '@/lib/store/useAppStore';
 import { Project, GITHUB_REPO_REGEX, SWAP_POOLS, getGuideStepsForProject } from '@/lib/data/projectData';
 import { parseAndValidateGithubUrl, GithubEvidenceReport } from '@/lib/github/githubIngestion';
+import { PathwayApiService } from '@/lib/api/pathwayApi';
 
 export default function ProjectsPage() {
   const { user } = useAuth();
@@ -366,6 +367,39 @@ export default function ProjectsPage() {
       
       addXp(1200, `Bypassed Viva for Project: ${selectedGuideProject.name}`);
       earnPins('vault_verify', 25, `Bypassed Viva for Project: ${selectedGuideProject.name}`);
+
+      // Record in authoritative pathway evidence engine
+      const competencyMap: Record<string, string> = {
+        'Beginner': 'comp_comp_arch_git',
+        'Intermediate': 'comp_db_sql_postgres',
+        'Advanced': 'comp_fullstack_react_node',
+        'Enterprise': 'comp_cloud_docker_k8s',
+        'Future-Tech': 'comp_distributed_systems',
+      };
+      const compId = competencyMap[selectedGuideProject.level] || 'comp_fullstack_react_node';
+      PathwayApiService.recordEvidence({
+        id: `ev_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+        studentId: user.id,
+        competencyId: compId,
+        competencyVersion: 'v1',
+        programId: 'prog_swe_accelerated_9m',
+        evidenceClass: 'production',
+        difficulty: 'advanced',
+        evidenceFamilyId: 'project_submission',
+        sourceType: 'project',
+        sourceId: selectedGuideProject.id,
+        attemptId: certId,
+        score,
+        evaluatorType: 'deterministic',
+        evaluatorVersion: 'v1.0',
+        rubricVersion: 'v1.0',
+        timestamp: Date.now(),
+        artifacts: {
+          githubRepoUrl: githubUrl,
+          repoUrl: githubUrl,
+          commitSha: auditReport?.proofRecord?.evidenceHash?.substring(0, 12) || 'd8a1f49e0b',
+        }
+      }).catch((err: unknown) => console.warn('Failed to record project pathway evidence:', err));
       
       setShowReport(false);
       toast.success('Dev Mode: Bypassed Viva with Excellence Certificate! 🏆');
@@ -454,6 +488,39 @@ export default function ProjectsPage() {
       // Perform automated synchronization updates
       addXp(1000, `Completed Project: ${selectedGuideProject.name}`);
       earnPins('vault_verify', 20, `Completed Project: ${selectedGuideProject.name}`);
+
+      // Record in authoritative pathway evidence engine
+      const competencyMap: Record<string, string> = {
+        'Beginner': 'comp_comp_arch_git',
+        'Intermediate': 'comp_db_sql_postgres',
+        'Advanced': 'comp_fullstack_react_node',
+        'Enterprise': 'comp_cloud_docker_k8s',
+        'Future-Tech': 'comp_distributed_systems',
+      };
+      const compId = competencyMap[selectedGuideProject.level] || 'comp_fullstack_react_node';
+      PathwayApiService.recordEvidence({
+        id: `ev_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+        studentId: user.id,
+        competencyId: compId,
+        competencyVersion: 'v1',
+        programId: 'prog_swe_accelerated_9m',
+        evidenceClass: 'production',
+        difficulty: 'advanced',
+        evidenceFamilyId: 'project_submission',
+        sourceType: 'project',
+        sourceId: selectedGuideProject.id,
+        attemptId: certId,
+        score,
+        evaluatorType: 'deterministic',
+        evaluatorVersion: 'v1.0',
+        rubricVersion: 'v1.0',
+        timestamp: Date.now(),
+        artifacts: {
+          githubRepoUrl: githubUrl,
+          repoUrl: githubUrl,
+          commitSha: auditReport?.proofRecord?.evidenceHash?.substring(0, 12) || 'd8a1f49e0b',
+        }
+      }).catch((err: unknown) => console.warn('Failed to record standard project evidence:', err));
       
       setShowReport(false);
       toast.success('Project Completed! 🏅', `Issued AI Evidence Certificate (${score}%) with hash ${certId}.`);
@@ -696,11 +763,16 @@ export default function ProjectsPage() {
                       }}
                     >
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                          <span style={{ fontSize: 9, background: 'var(--bg3)', padding: '2px 6px', borderRadius: 4, fontWeight: 800, color: borderColors[p.level] }}>
-                            {p.level}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                          <span style={{ fontSize: 9.5, fontFamily: 'var(--font-mono)', background: 'var(--bg3)', padding: '2px 6px', borderRadius: 4, fontWeight: 900, color: borderColors[p.level], border: `1px solid ${borderColors[p.level]}40` }}>
+                            {p.level === 'Beginner' ? 'P1' : p.level === 'Intermediate' ? 'P2' : p.level === 'Advanced' ? 'P3 ⚡' : p.level === 'Enterprise' ? 'P4' : 'P5'} · {p.level.toUpperCase()}
                           </span>
-                          <strong style={{ fontSize: 14, color: 'var(--t1)' }}>{p.name}</strong>
+                          {p.level === 'Advanced' && (
+                            <span style={{ fontSize: 8.5, fontFamily: 'var(--font-mono)', background: 'rgba(239, 68, 68, 0.15)', color: '#ef4444', padding: '1px 5px', borderRadius: 4, fontWeight: 800 }}>
+                              INTERVIEW GATE
+                            </span>
+                          )}
+                          <strong style={{ fontSize: 13.5, color: 'var(--t1)' }}>{p.name}</strong>
                         </div>
                         <span style={{ fontSize: 10, color: 'var(--t3)' }}>+{p.xpReward} XP</span>
                       </div>

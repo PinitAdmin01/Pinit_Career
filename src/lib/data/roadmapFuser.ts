@@ -1,5 +1,7 @@
 import { COURSES_REGISTRY, CourseQuest } from './coursesData';
 import { recommendCareerTrajectory } from './careerTrajectories';
+import { mapQuestToCompetencyEvidence } from '../pathway/competencyMatrix';
+import { MasteryState } from '../pathway/competencySchema';
 
 export interface DynamicRoadmapParams {
   qt1?: number; // Technical Knowledge Score (0-100)
@@ -9,6 +11,9 @@ export interface DynamicRoadmapParams {
   courseId: string; // Active Academic Course ID
   durationDays?: number; // 30, 60, 90, 180, 365
   dailyPace?: number; // Quests per day (e.g. 1, 2, 3, 5)
+  programId?: string; // Active Career Program ID
+  stageId?: string; // Active Stage ID
+  competencyMasteryStates?: Record<string, MasteryState>; // Live mastery ledger state
 }
 
 export interface DynamicRoadmapModule {
@@ -19,10 +24,17 @@ export interface DynamicRoadmapModule {
   estimatedWeeks: number;
   personalizedPaceTag: string;
   knowledgeAdaptationTag: string;
+  associatedCompetencyIds?: string[];
   quests: (CourseQuest & {
     fastTracked?: boolean;
     reinforcementNeeded?: boolean;
     personalizedHint?: string;
+    competencyTag?: {
+      competencyId: string;
+      evidenceClass: string;
+      difficulty: string;
+      masteryState?: MasteryState;
+    };
   })[];
 }
 
@@ -78,11 +90,22 @@ export function generateDynamicStudentRoadmap(params: DynamicRoadmapParams): Dyn
       personalizedHint = `🏆 Advanced Fast-Paced Mastery Check — ${q.hint || ''}`;
     }
 
+    // Attach Competency Mapping
+    const dayNumber = Math.floor(idx / 5) + 1;
+    const compMapping = mapQuestToCompetencyEvidence(courseId, dayNumber, q.id);
+    const compTag = compMapping ? {
+      competencyId: compMapping.competencyId,
+      evidenceClass: compMapping.evidenceClass,
+      difficulty: compMapping.difficulty,
+      masteryState: params.competencyMasteryStates ? params.competencyMasteryStates[compMapping.competencyId] : undefined,
+    } : undefined;
+
     return {
       ...q,
       fastTracked,
       reinforcementNeeded,
-      personalizedHint
+      personalizedHint,
+      competencyTag: compTag,
     };
   });
 

@@ -98,6 +98,60 @@ const playLevelUpSound = () => {
   }
 };
 
+const CERTIFICATION_TRACKS = [
+  {
+    id: 'cert-12m-sde',
+    title: '12-Month SDE Industrial Specialist Certification',
+    duration: '12 Months (4 Quarters)',
+    icon: '🏆',
+    desc: 'Comprehensive enterprise track covering Core Foundations, Intermediate Architecture, Data Structures & High-Scale Systems.',
+    courseId: 'course-python-backend',
+    quarters: [
+      { q: 'Quarter 1', name: 'Foundations & Core Logic', quests: '90 Quests' },
+      { q: 'Quarter 2', name: 'Intermediate Architecture & APIs', quests: '90 Quests' },
+      { q: 'Quarter 3', name: 'Data Structures & Algorithms', quests: '90 Quests' },
+      { q: 'Quarter 4', name: 'High-Scale Production & Diploma', quests: '90 Quests' }
+    ]
+  },
+  {
+    id: 'cert-9m-fullstack',
+    title: '9-Month Full-Stack Engineering Certification',
+    duration: '9 Months (3 Quarters)',
+    icon: '🚀',
+    desc: 'Modern web architecture with React, Next.js, Node.js, and Cloud Deployment.',
+    courseId: 'course-fullstack-dev',
+    quarters: [
+      { q: 'Quarter 1', name: 'Frontend Engineering & React', quests: '90 Quests' },
+      { q: 'Quarter 2', name: 'Backend Services & Databases', quests: '90 Quests' },
+      { q: 'Quarter 3', name: 'Cloud Deployment & Capstone', quests: '90 Quests' }
+    ]
+  },
+  {
+    id: 'cert-24m-cloud-ai',
+    title: '24-Month Cloud Architecture & AI Systems Diploma',
+    duration: '24 Months (8 Quarters)',
+    icon: '☁️',
+    desc: 'Advanced distributed systems, Kubernetes orchestration, LLM engineering, and SRE operations.',
+    courseId: 'course-cloud-devops',
+    quarters: [
+      { q: 'Year 1', name: 'Cloud Infrastructure & Microservices', quests: '180 Quests' },
+      { q: 'Year 2', name: 'Distributed Systems & Applied AI', quests: '180 Quests' }
+    ]
+  },
+  {
+    id: 'cert-6m-data',
+    title: '6-Month Data Engineering & ML Systems Certification',
+    duration: '6 Months (2 Quarters)',
+    icon: '📊',
+    desc: 'Data pipelines, Apache Spark, SQL optimization, and feature stores.',
+    courseId: 'course-data-science',
+    quarters: [
+      { q: 'Quarter 1', name: 'Data Pipelines & Warehousing', quests: '90 Quests' },
+      { q: 'Quarter 2', name: 'Real-time Streaming & ML Ops', quests: '90 Quests' }
+    ]
+  }
+];
+
 export default function QuestsPage() {
   const router = useRouter();
   const { user } = useAuth();
@@ -134,6 +188,24 @@ export default function QuestsPage() {
   const [activeGateModalNode, setActiveGateModalNode] = useState<TrajectoryNode | null>(null);
   const [historyFilter, setHistoryFilter] = useState<'all' | 'quests' | 'pins'>('all');
   const [showEnglishDashboard, setShowEnglishDashboard] = useState(false);
+  const [activeSubTab, setActiveSubTab] = useState<'certification' | 'custom_roadmap' | 'standalone' | 'language'>('certification');
+  const [selectedCertTrackId, setSelectedCertTrackId] = useState<string>('cert-12m-sde');
+
+  const handleSubTabChange = (tab: 'certification' | 'custom_roadmap' | 'standalone' | 'language') => {
+    setActiveSubTab(tab);
+    setShowCourseLibrary(false);
+    if (tab === 'standalone') {
+      setLearningPathMode('single_course');
+      setActiveCourseId(selectedStandaloneCourseId);
+    } else if (tab === 'certification') {
+      setLearningPathMode('fused_roadmap');
+    }
+    if (typeof window !== 'undefined' && userId) {
+      try {
+        localStorage.setItem(`pinit_${userId}_quests_subtab`, tab);
+      } catch {}
+    }
+  };
 
   // Dual Mode Switcher states (Fused Career Trajectory vs Standalone Single Course Direct Learning)
   const [learningPathMode, setLearningPathMode] = useState<LearningPathMode>('fused_roadmap');
@@ -466,7 +538,7 @@ export default function QuestsPage() {
       }
     : fusedTrajectory;
 
-  const trajectory: CareerTrajectory = learningPathMode === 'single_course'
+  const trajectory: CareerTrajectory = (activeSubTab === 'standalone' || learningPathMode === 'single_course')
     ? standaloneTrajectory
     : activeExtra
       ? extraTrajectory
@@ -489,6 +561,52 @@ export default function QuestsPage() {
   // Load modules from localStorage or active state based on activeCourseId
   const loadModules = useCallback(() => {
     if (typeof window === 'undefined' || userId === 'guest') return;
+
+    // Direct Standalone Single-Course Loading
+    if (activeSubTab === 'standalone' || learningPathMode === 'single_course') {
+      const targetCourseId = selectedStandaloneCourseId || activeCourseId || 'course-java-logic';
+      const directCourse = COURSES_REGISTRY.find(c => c.id === targetCourseId) || COURSES_REGISTRY[0];
+      if (directCourse && directCourse.quests && directCourse.quests.length > 0) {
+        const questsPerModule = Math.ceil(directCourse.quests.length / 4);
+        const directModules: Module[] = [
+          {
+            id: `${directCourse.id}-mod-1`,
+            title: `${directCourse.title} — Stage 1: Zero Basics & Syntax`,
+            desc: `Fundamental syntax, variables, terminal I/O, and control flow for ${directCourse.title}.`,
+            difficulty: 'Beginner',
+            estimatedWeeks: 1,
+            quests: directCourse.quests.slice(0, questsPerModule) as Quest[]
+          },
+          {
+            id: `${directCourse.id}-mod-2`,
+            title: `${directCourse.title} — Stage 2: Methods & Data Structures`,
+            desc: `Methods, 1D & 2D arrays, string immutability, and algorithmic search.`,
+            difficulty: 'Intermediate',
+            estimatedWeeks: 1,
+            quests: directCourse.quests.slice(questsPerModule, questsPerModule * 2) as Quest[]
+          },
+          {
+            id: `${directCourse.id}-mod-3`,
+            title: `${directCourse.title} — Stage 3: Object-Oriented Architecture`,
+            desc: `Classes, constructors, encapsulation, inheritance, polymorphism, and interfaces.`,
+            difficulty: 'Intermediate',
+            estimatedWeeks: 1,
+            quests: directCourse.quests.slice(questsPerModule * 2, questsPerModule * 3) as Quest[]
+          },
+          {
+            id: `${directCourse.id}-mod-4`,
+            title: `${directCourse.title} — Stage 4: Enterprise Systems & Capstone`,
+            desc: `Exceptions, collections framework, multi-threading, file persistence, and capstone project.`,
+            difficulty: 'Advanced',
+            estimatedWeeks: 1,
+            quests: directCourse.quests.slice(questsPerModule * 3) as Quest[]
+          }
+        ];
+        setModules(directModules);
+        if (!roadmapGenerated) setRoadmapGenerated(true);
+        return;
+      }
+    }
 
     if (activeExtraId) {
       const extraSaved = readExtraModules(userId, activeExtraId);
@@ -517,20 +635,6 @@ export default function QuestsPage() {
     if (activeCourseId) {
       const modulesKey = `pinit_${userId}_roadmap_modules_${activeCourseId}`;
       let saved = localStorage.getItem(modulesKey);
-
-      if (!saved && activeCourseId) {
-        const legacyKey = `pinit_${userId}_roadmap_modules`;
-        const legacySaved = localStorage.getItem(legacyKey);
-        if (legacySaved) {
-          try {
-            const parsed = JSON.parse(legacySaved);
-            if (Array.isArray(parsed) && parsed.length > 0) {
-              localStorage.setItem(modulesKey, legacySaved);
-              saved = legacySaved;
-            }
-          } catch {}
-        }
-      }
 
       if (saved) {
         try {
@@ -569,7 +673,7 @@ export default function QuestsPage() {
       });
       setModules(fallback as unknown as Module[]);
     }
-  }, [userId, activeCourseId, learningPathMode, activeExtraId, extraRoadmaps, roadmapGenerated, setRoadmapGenerated, currentRole, qt1, qt2, archetype]);
+  }, [userId, activeCourseId, activeSubTab, selectedStandaloneCourseId, learningPathMode, activeExtraId, extraRoadmaps, roadmapGenerated, setRoadmapGenerated, currentRole, qt1, qt2, archetype]);
 
   useEffect(() => {
     loadModules();
@@ -688,181 +792,331 @@ export default function QuestsPage() {
     return { dayNum, level };
   });
 
-  if (showEnglishDashboard) {
-    return <EnglishDashboard onBackToQuests={() => setShowEnglishDashboard(false)} />;
-  }
-
   return (
     <div className="quests-page" style={{ paddingBottom: 60 }}>
 
-      {/* ── TOP HERO HEADER: Personalized Career Journey Summary (Ultra-Compact) ───────────── */}
-      <div className="glass-card" style={{
-        padding: '12px 18px',
+      {/* ── 🌟 4 PRIMARY SUB-TABS ───────────────────────────── */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8,
+        padding: '6px',
         borderRadius: 16,
-        marginBottom: 16,
-        background: 'linear-gradient(135deg, rgba(99,102,241,0.06), rgba(168,85,247,0.03))',
-        border: '1px solid rgba(99,102,241,0.18)',
-        boxShadow: '0 4px 16px rgba(0,0,0,0.08)'
+        background: 'var(--bg2)',
+        border: '1px solid var(--border)',
+        marginBottom: 20,
+        overflowX: 'auto',
       }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
-          
-          {/* Left: Welcome & Target Role */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-            <h1 style={{ fontSize: 17, fontWeight: 900, color: 'var(--t1)', fontFamily: 'var(--font-display)', margin: 0 }}>
-              👋 Welcome, {userName}!
-            </h1>
+        {/* Tab 1: Certification */}
+        <button
+          onClick={() => handleSubTabChange('certification')}
+          style={{
+            flex: 1,
+            minWidth: 180,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 8,
+            padding: '10px 16px',
+            borderRadius: 12,
+            border: activeSubTab === 'certification' ? '1.5px solid var(--accent)' : '1px solid transparent',
+            background: activeSubTab === 'certification'
+              ? 'linear-gradient(135deg, rgba(99,102,241,0.22), rgba(168,85,247,0.15))'
+              : 'transparent',
+            color: activeSubTab === 'certification' ? '#fff' : 'var(--t2)',
+            fontFamily: 'var(--font-display)',
+            fontSize: 13,
+            fontWeight: 800,
+            cursor: 'pointer',
+            transition: 'all 0.25s ease',
+            boxShadow: activeSubTab === 'certification' ? '0 4px 14px rgba(99,102,241,0.25)' : 'none',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          <span style={{ fontSize: 18 }}>🏆</span>
+          <span>Certification</span>
+        </button>
 
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: 'rgba(99,102,241,0.12)', border: '1px solid rgba(99,102,241,0.25)', padding: '2px 8px', borderRadius: 12, fontSize: 10.5, fontWeight: 800, color: 'var(--accent)' }}>
-              <span>{trajectory.icon}</span>
-              <span>Target Role: {trajectory.roleTitle}</span>
-            </div>
-          </div>
+        {/* Tab 2: Custom Roadmap */}
+        <button
+          onClick={() => handleSubTabChange('custom_roadmap')}
+          style={{
+            flex: 1,
+            minWidth: 180,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 8,
+            padding: '10px 16px',
+            borderRadius: 12,
+            border: activeSubTab === 'custom_roadmap' ? '1.5px solid #10b981' : '1px solid transparent',
+            background: activeSubTab === 'custom_roadmap'
+              ? 'linear-gradient(135deg, rgba(16,185,129,0.22), rgba(5,150,105,0.15))'
+              : 'transparent',
+            color: activeSubTab === 'custom_roadmap' ? '#fff' : 'var(--t2)',
+            fontFamily: 'var(--font-display)',
+            fontSize: 13,
+            fontWeight: 800,
+            cursor: 'pointer',
+            transition: 'all 0.25s ease',
+            boxShadow: activeSubTab === 'custom_roadmap' ? '0 4px 14px rgba(16,185,129,0.25)' : 'none',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          <span style={{ fontSize: 18 }}>🗺️</span>
+          <span>Custom Roadmap</span>
+        </button>
 
-          {/* Right Action Buttons */}
-          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            <button
-              onClick={() => setShowEnglishDashboard(true)}
-              style={{
-                background: 'linear-gradient(135deg, #8b5cf6, #7c3aed)',
-                border: 'none',
-                borderRadius: 8,
-                padding: '5px 12px',
-                color: '#fff',
-                fontSize: 11,
-                fontWeight: 800,
-                cursor: 'pointer',
-                boxShadow: '0 2px 6px rgba(139,92,246,0.3)'
-              }}
-              className="btn-glow"
-            >
-              🗣️ English Language Learning
-            </button>
+        {/* Tab 3: Standalone Course */}
+        <button
+          onClick={() => handleSubTabChange('standalone')}
+          style={{
+            flex: 1,
+            minWidth: 180,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 8,
+            padding: '10px 16px',
+            borderRadius: 12,
+            border: activeSubTab === 'standalone' ? '1.5px solid #3b82f6' : '1px solid transparent',
+            background: activeSubTab === 'standalone'
+              ? 'linear-gradient(135deg, rgba(59,130,246,0.22), rgba(37,99,235,0.15))'
+              : 'transparent',
+            color: activeSubTab === 'standalone' ? '#fff' : 'var(--t2)',
+            fontFamily: 'var(--font-display)',
+            fontSize: 13,
+            fontWeight: 800,
+            cursor: 'pointer',
+            transition: 'all 0.25s ease',
+            boxShadow: activeSubTab === 'standalone' ? '0 4px 14px rgba(59,130,246,0.25)' : 'none',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          <span style={{ fontSize: 18 }}>📦</span>
+          <span>Standalone Course</span>
+        </button>
 
-            <button
-              onClick={() => setShowRoadmapModal(true)}
-              style={{
-                background: 'linear-gradient(135deg, #10b981, #059669)',
-                border: 'none',
-                borderRadius: 8,
-                padding: '5px 12px',
-                color: '#fff',
-                fontSize: 11,
-                fontWeight: 800,
-                cursor: 'pointer',
-                boxShadow: '0 2px 6px rgba(16,185,129,0.2)'
-              }}
-              className="btn-glow"
-            >
-              ✨ Generate Custom AI Roadmap
-            </button>
-
-            <button
-              onClick={() => setShowCourseLibrary(!showCourseLibrary)}
-              style={{
-                background: showCourseLibrary ? 'var(--accent)' : 'rgba(255,255,255,0.05)',
-                border: '1px solid var(--border)',
-                borderRadius: 8,
-                padding: '5px 12px',
-                color: showCourseLibrary ? '#fff' : 'var(--t2)',
-                fontSize: 11,
-                fontWeight: 700,
-                cursor: 'pointer'
-              }}
-              className="card-hover"
-            >
-              {showCourseLibrary ? '🗺️ Journey' : '📚 Course Library'}
-            </button>
-
-            <button
-              onClick={() => {
-                const cId = activeCourseId || 'course-python-backend';
-                const cObj = COURSES_REGISTRY.find(c => c.id === cId);
-                setNotesModalState({
-                  isOpen: true,
-                  courseId: cId,
-                  courseTitle: cObj?.title || 'Course Study Notes'
-                });
-              }}
-              style={{
-                background: 'rgba(56,189,248,0.12)',
-                border: '1px solid rgba(56,189,248,0.3)',
-                borderRadius: 8,
-                padding: '5px 12px',
-                color: '#38bdf8',
-                fontSize: 11,
-                fontWeight: 800,
-                cursor: 'pointer'
-              }}
-              className="card-hover"
-            >
-              📖 View Simple Notes
-            </button>
-          </div>
-        </div>
-
-        {/* Bottom Compact Stats & Mission Bar */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 8, paddingTop: 8, borderTop: '1px solid rgba(255,255,255,0.06)', flexWrap: 'wrap', gap: 10 }}>
-          
-          {/* Metrics */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, fontWeight: 700 }}>
-              <span style={{ color: 'var(--t4)', textTransform: 'uppercase', fontSize: 9.5 }}>Progress:</span>
-              <span style={{ color: 'var(--t1)', fontFamily: 'var(--font-mono)' }}>{overallTrajectoryPct}%</span>
-            </div>
-
-            <div style={{ width: 1, height: 12, background: 'var(--border)' }} />
-
-            <div style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, fontWeight: 700 }}>
-              <span style={{ color: 'var(--t4)', textTransform: 'uppercase', fontSize: 9.5 }}>Est Time:</span>
-              <span style={{ color: 'var(--teal)', fontFamily: 'var(--font-mono)' }}>⏱ {daysRemaining} Days Left</span>
-            </div>
-
-            <div style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, fontWeight: 700 }}>
-              <span style={{ color: 'var(--t4)', textTransform: 'uppercase', fontSize: 9.5 }}>Salary:</span>
-              <span style={{ color: 'var(--green)', fontFamily: 'var(--font-mono)' }}>{trajectory.averageSalaryRange}</span>
-            </div>
-
-            <div style={{ width: 1, height: 12, background: 'var(--border)' }} />
-
-            <div style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, fontWeight: 700 }}>
-              <span style={{ color: 'var(--t4)', textTransform: 'uppercase', fontSize: 9.5 }}>Today Quota:</span>
-              <span style={{ color: isDailyLimitReached ? '#34d399' : '#38bdf8', fontFamily: 'var(--font-mono)', fontWeight: 900 }}>
-                🎯 {dailyCount} / 3 Quests
-              </span>
-            </div>
-          </div>
-
-          {/* Today's Mission Mini Row */}
-          {nextUncompletedQuest && !showCourseLibrary && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.2)', padding: '3px 10px', borderRadius: 8 }}>
-              <span style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--accent)' }}>🔥 Today's Mission:</span>
-              <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--t1)', maxWidth: 220, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                {nextUncompletedQuest.title}
-              </span>
-              <button
-                onClick={() => handleLaunchQuest(nextUncompletedQuest)}
-                disabled={isDailyLimitReached}
-                style={{
-                  background: isDailyLimitReached ? 'var(--bg3)' : 'linear-gradient(135deg, var(--accent), var(--purple))',
-                  border: 'none',
-                  borderRadius: 6,
-                  color: isDailyLimitReached ? 'var(--t4)' : '#fff',
-                  padding: '2px 8px',
-                  fontSize: 10.5,
-                  fontWeight: 800,
-                  cursor: isDailyLimitReached ? 'not-allowed' : 'pointer',
-                  whiteSpace: 'nowrap'
-                }}
-              >
-                {isDailyLimitReached ? 'Done' : 'Continue ➔'}
-              </button>
-            </div>
-          )}
-        </div>
+        {/* Tab 4: Global Language Academy */}
+        <button
+          onClick={() => handleSubTabChange('language')}
+          style={{
+            flex: 1,
+            minWidth: 200,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 8,
+            padding: '10px 16px',
+            borderRadius: 12,
+            border: activeSubTab === 'language' ? '1.5px solid #8b5cf6' : '1px solid transparent',
+            background: activeSubTab === 'language'
+              ? 'linear-gradient(135deg, rgba(139,92,246,0.22), rgba(124,58,237,0.15))'
+              : 'transparent',
+            color: activeSubTab === 'language' ? '#fff' : 'var(--t2)',
+            fontFamily: 'var(--font-display)',
+            fontSize: 13,
+            fontWeight: 800,
+            cursor: 'pointer',
+            transition: 'all 0.25s ease',
+            boxShadow: activeSubTab === 'language' ? '0 4px 14px rgba(139,92,246,0.25)' : 'none',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          <span style={{ fontSize: 18 }}>🌐</span>
+          <span>Language Academy</span>
+        </button>
       </div>
 
+      {/* ── SUB-TAB 4 VIEW: GLOBAL LANGUAGE ACADEMY ── */}
+      {activeSubTab === 'language' && (
+        <div style={{ marginBottom: 30 }}>
+          <EnglishDashboard onBackToQuests={() => handleSubTabChange('certification')} />
+        </div>
+      )}
+
+      {/* ── SUB-TAB 1 VIEW: INDUSTRIAL CERTIFICATION TRACKS HEADER ── */}
+      {activeSubTab === 'certification' && (
+        <div style={{
+          marginBottom: 18,
+          padding: '16px 20px',
+          borderRadius: 16,
+          background: 'linear-gradient(135deg, rgba(99,102,241,0.12), rgba(168,85,247,0.06))',
+          border: '1.5px solid rgba(99,102,241,0.25)',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 14
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ fontSize: 22 }}>🏆</span>
+                <h3 style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
+                  Industrial Certification Curriculum
+                </h3>
+              </div>
+              <p style={{ fontSize: 12, color: 'var(--t3)', margin: '4px 0 0 0' }}>
+                Select an enterprise-accredited certification track. Roadmap is compiled to match official engineering competencies.
+              </p>
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--t2)' }}>Select Track:</span>
+              <select
+                value={selectedCertTrackId}
+                onChange={(e) => {
+                  const trk = CERTIFICATION_TRACKS.find(t => t.id === e.target.value);
+                  if (trk) {
+                    setSelectedCertTrackId(trk.id);
+                    setActiveCourseId(trk.courseId);
+                  }
+                }}
+                style={{
+                  padding: '8px 14px',
+                  borderRadius: 10,
+                  border: '1.5px solid var(--accent)',
+                  background: '#090d16',
+                  color: '#ffffff',
+                  fontSize: 12.5,
+                  fontWeight: 800,
+                  cursor: 'pointer',
+                  outline: 'none',
+                  boxShadow: '0 4px 12px rgba(99,102,241,0.2)'
+                }}
+              >
+                {CERTIFICATION_TRACKS.map(t => (
+                  <option key={t.id} value={t.id}>
+                    {t.icon} {t.title} ({t.duration})
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {/* Quarters breakdown */}
+          {(() => {
+            const curTrack = CERTIFICATION_TRACKS.find(t => t.id === selectedCertTrackId) || CERTIFICATION_TRACKS[0];
+            return (
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 10 }}>
+                {curTrack.quarters.map((q) => (
+                  <div key={q.q} style={{ padding: '10px 12px', borderRadius: 10, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
+                    <div style={{ fontSize: 10, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase' }}>{q.q}</div>
+                    <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--t1)', marginTop: 2 }}>{q.name}</div>
+                    <div style={{ fontSize: 10.5, color: 'var(--t3)', marginTop: 2 }}>{q.quests}</div>
+                  </div>
+                ))}
+              </div>
+            );
+          })()}
+        </div>
+      )}
+
+      {/* ── SUB-TAB 2 VIEW: CUSTOM ROADMAP HEADER ── */}
+      {activeSubTab === 'custom_roadmap' && (
+        <div style={{
+          marginBottom: 18,
+          padding: '16px 20px',
+          borderRadius: 16,
+          background: 'linear-gradient(135deg, rgba(16,185,129,0.12), rgba(5,150,105,0.06))',
+          border: '1.5px solid rgba(16,185,129,0.25)',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: 12
+        }}>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span style={{ fontSize: 22 }}>🗺️</span>
+              <h3 style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
+                Dynamic Career Roadmap ({trajectory.roleTitle})
+              </h3>
+            </div>
+            <p style={{ fontSize: 12, color: 'var(--t3)', margin: '4px 0 0 0' }}>
+              Personalized AI roadmap compiled from your target role, skill DNA, and diagnostic assessment.
+            </p>
+          </div>
+
+          <button
+            onClick={() => setShowRoadmapModal(true)}
+            style={{
+              background: 'linear-gradient(135deg, #10b981, #059669)',
+              border: 'none',
+              borderRadius: 10,
+              padding: '8px 18px',
+              color: '#fff',
+              fontSize: 12.5,
+              fontWeight: 800,
+              cursor: 'pointer',
+              boxShadow: '0 4px 14px rgba(16,185,129,0.3)'
+            }}
+          >
+            ✨ Generate Custom AI Roadmap
+          </button>
+        </div>
+      )}
+
+      {/* ── SUB-TAB 3 VIEW: STANDALONE COURSE HEADER ── */}
+      {activeSubTab === 'standalone' && (
+        <div style={{
+          marginBottom: 18,
+          padding: '16px 20px',
+          borderRadius: 16,
+          background: 'linear-gradient(135deg, rgba(59,130,246,0.12), rgba(37,99,235,0.06))',
+          border: '1.5px solid rgba(59,130,246,0.25)',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: 12
+        }}>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span style={{ fontSize: 22 }}>📚</span>
+              <h3 style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
+                Standalone Single-Course Learning
+              </h3>
+            </div>
+            <p style={{ fontSize: 12, color: 'var(--t3)', margin: '4px 0 0 0' }}>
+              Direct curriculum for focused language, library, or engineering tracks.
+            </p>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--t2)' }}>Select Standalone Course:</span>
+            <select
+              value={selectedStandaloneCourseId}
+              onChange={e => {
+                playPopSound();
+                setSelectedStandaloneCourseId(e.target.value);
+                setActiveCourseId(e.target.value);
+                setLearningPathMode('single_course');
+              }}
+              style={{
+                padding: '8px 14px',
+                borderRadius: 10,
+                border: '1.5px solid #3b82f6',
+                background: '#090d16',
+                color: '#ffffff',
+                fontSize: 12.5,
+                fontWeight: 800,
+                cursor: 'pointer',
+                outline: 'none',
+                boxShadow: '0 4px 12px rgba(59,130,246,0.2)'
+              }}
+            >
+              {COURSES_REGISTRY.map(c => (
+                <option key={c.id} value={c.id}>
+                  {c.icon} {c.title}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      )}
+
       {/* ── MULTI-ROADMAP SWITCHER BAR (Max 3 Concurrent Tracks) ── */}
-      {(() => {
+      {activeSubTab !== 'language' && (() => {
         const myActiveCourseIds = Array.from(new Set([activeCourseId, ...activeCourseIds].filter(Boolean))) as string[];
         const count = myActiveCourseIds.length;
 
@@ -970,100 +1224,11 @@ export default function QuestsPage() {
         );
       })()}
 
-      {/* ── ENHANCEMENT 3: GitHub-Style Activity Grid & Skill Heatmap Widget ── */}
-      {!showCourseLibrary && (
-        <div className="glass-card" style={{
-          padding: '20px 24px',
-          borderRadius: 20,
-          marginBottom: 32,
-          border: '1px solid var(--border)',
-          background: 'var(--bg2)'
-        }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14, flexWrap: 'wrap', gap: 10 }}>
-            <div>
-              <h3 style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)', margin: 0, display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span>📊</span> 30-Day Activity Streak Grid & Skill Heatmap
-              </h3>
-              <span style={{ fontSize: 11.5, color: 'var(--t3)' }}>Daily Quest Completions & Verified Skill Proficiency</span>
-            </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 10.5, color: 'var(--t3)' }}>
-              <span>Less</span>
-              <div style={{ width: 10, height: 10, borderRadius: 2, background: 'var(--bg3)' }} />
-              <div style={{ width: 10, height: 10, borderRadius: 2, background: 'rgba(5,150,105,0.3)' }} />
-              <div style={{ width: 10, height: 10, borderRadius: 2, background: 'rgba(5,150,105,0.6)' }} />
-              <div style={{ width: 10, height: 10, borderRadius: 2, background: 'var(--green)' }} />
-              <span>More</span>
-            </div>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 24, alignItems: 'center' }}>
-            {/* Activity Boxes Grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(15, 1fr)', gap: 6 }}>
-              {activityDays.map(d => {
-                const bg = d.level === 3 ? 'var(--green)' : d.level === 2 ? 'rgba(5,150,105,0.6)' : d.level === 1 ? 'rgba(5,150,105,0.3)' : 'var(--bg3)';
-                return (
-                  <div
-                    key={d.dayNum}
-                    title={`Day ${d.dayNum}: ${d.level > 0 ? `${d.level * 3} quests completed` : 'No quests yet'}`}
-                    style={{
-                      height: 18,
-                      borderRadius: 4,
-                      background: bg,
-                      border: '1px solid rgba(255,255,255,0.05)',
-                      transition: 'all 0.2s'
-                    }}
-                  />
-                );
-              })}
-            </div>
-
-            {/* Skill Mastery Heatmap Bars (Dynamic from Completed Quests) */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {(() => {
-                const activeCourseObj = COURSES_REGISTRY.find(c => c.id === activeCourseId) || COURSES_REGISTRY[0];
-                const activeQuests = activeCourseObj.quests || [];
-                const completedInActive = activeQuests.filter(q => completedQuests.includes(q.id)).length;
-                const overallPct = Math.round((completedInActive / Math.max(1, activeQuests.length)) * 100);
-
-                const dynamicSkills = [
-                  {
-                    name: `🚀 ${activeCourseObj.title.split('(')[0].trim()} Core Engine`,
-                    pct: Math.min(100, overallPct + (completedQuests.length > 0 ? 10 : 0)),
-                    color: 'var(--teal)'
-                  },
-                  {
-                    name: `🧮 Data Structures & Algorithmic Problem Solving`,
-                    pct: Math.min(100, Math.round(completedQuests.length * 6.5)),
-                    color: 'var(--accent)'
-                  },
-                  {
-                    name: `💾 Architecture, APIs & System Optimization`,
-                    pct: Math.min(100, Math.round(completedQuests.length * 5)),
-                    color: 'var(--purple)'
-                  }
-                ];
-
-                return dynamicSkills.map(s => (
-                  <div key={s.name}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, fontWeight: 700, color: 'var(--t2)', marginBottom: 2 }}>
-                      <span>{s.name}</span>
-                      <span>{s.pct}%</span>
-                    </div>
-                    <div style={{ height: 5, background: 'var(--bg3)', borderRadius: 3, overflow: 'hidden' }}>
-                      <div style={{ width: `${s.pct}%`, height: '100%', background: s.color, transition: 'width 0.4s' }} />
-                    </div>
-                  </div>
-                ));
-              })()}
-            </div>
-          </div>
-        </div>
-      )}
 
 
       {/* ── MODE 1: Standalone Course Library View (Secondary Toggle) ──────── */}
-      {showCourseLibrary ? (
+      {activeSubTab !== 'language' && (showCourseLibrary ? (
         <div className="animate-fade-in">
           <div style={{ marginBottom: 24 }}>
             <h2 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', fontFamily: 'var(--font-display)' }}>
@@ -1240,210 +1405,147 @@ export default function QuestsPage() {
             </div>
           </div>
 
-          {/* 🔀 DUAL LEARNING MODE SWITCHER (Fused Career Trajectory vs Standalone Single Course Direct Learning) */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            padding: '10px 16px',
-            borderRadius: 20,
-            background: 'var(--bg3)',
-            border: '1.5px solid var(--border)',
-            marginBottom: 24,
-            flexWrap: 'wrap',
-            gap: 12,
-            boxShadow: 'var(--shadow-md)'
-          }}>
-            <div role="tablist" aria-label="Learning roadmaps" style={{ display: 'flex', gap: 8, flexWrap: 'nowrap', alignItems: 'center', overflowX: 'auto', paddingBottom: 4, maxWidth: '100%' }}>
-              <button
-                type="button"
-                role="tab"
-                aria-selected={learningPathMode === 'fused_roadmap'}
-                onClick={() => {
-                  playPopSound();
-                  setLearningPathMode('fused_roadmap');
-                  if (fusedCourseRef.current) setActiveCourseId(fusedCourseRef.current);
-                }}
-                style={{
-                  padding: '10px 18px',
-                  borderRadius: '12px 12px 0 0',
-                  border: `1.5px solid ${learningPathMode === 'fused_roadmap' ? '#10b981' : 'rgba(255,255,255,0.08)'}`,
-                  borderBottom: learningPathMode === 'fused_roadmap' ? '1.5px solid transparent' : '1.5px solid rgba(255,255,255,0.08)',
-                  background: learningPathMode === 'fused_roadmap' ? 'linear-gradient(135deg, rgba(16,185,129,0.25), rgba(5,150,105,0.15))' : 'var(--bg2)',
-                  color: learningPathMode === 'fused_roadmap' ? '#34d399' : 'var(--t2)',
-                  fontSize: 13,
-                  fontWeight: 900,
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 8,
-                  flexShrink: 0,
-                  boxShadow: learningPathMode === 'fused_roadmap' ? '0 4px 16px rgba(16,185,129,0.25)' : 'none',
-                  transition: 'all 0.2s ease'
-                }}
-              >
-                <span>🗺️ Fused Career Trajectory</span>
-                <span style={{ fontSize: 10, fontWeight: 800, background: 'rgba(16,185,129,0.25)', padding: '2px 7px', borderRadius: 6, color: '#10b981' }}>
-                  Roadmap 1
-                </span>
-              </button>
-
-              <button
-                type="button"
-                role="tab"
-                aria-selected={learningPathMode === 'single_course'}
-                onClick={() => {
-                  playPopSound();
-                  setLearningPathMode('single_course');
-                  setActiveCourseId(selectedStandaloneCourseId);
-                }}
-                style={{
-                  padding: '10px 18px',
-                  borderRadius: '12px 12px 0 0',
-                  border: `1.5px solid ${learningPathMode === 'single_course' ? '#3b82f6' : 'rgba(255,255,255,0.08)'}`,
-                  borderBottom: learningPathMode === 'single_course' ? '1.5px solid transparent' : '1.5px solid rgba(255,255,255,0.08)',
-                  background: learningPathMode === 'single_course' ? 'linear-gradient(135deg, rgba(59,130,246,0.25), rgba(37,99,235,0.15))' : 'var(--bg2)',
-                  color: learningPathMode === 'single_course' ? '#60a5fa' : 'var(--t2)',
-                  fontSize: 13,
-                  fontWeight: 900,
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 8,
-                  flexShrink: 0,
-                  boxShadow: learningPathMode === 'single_course' ? '0 4px 16px rgba(59,130,246,0.25)' : 'none',
-                  transition: 'all 0.2s ease'
-                }}
-              >
-                <span>📚 Standalone Single-Course</span>
-                <span style={{ fontSize: 10, fontWeight: 800, background: 'rgba(59,130,246,0.25)', padding: '2px 7px', borderRadius: 6, color: '#60a5fa' }}>
-                  Direct
-                </span>
-              </button>
-
-              {extraRoadmaps.map(rm => {
-                const isOn = learningPathMode === extraRoadmapMode(rm.id);
-                return (
-                  <div
-                    key={rm.id}
-                    role="tab"
-                    aria-selected={isOn}
-                    onClick={() => {
-                      playPopSound();
-                      setLearningPathMode(extraRoadmapMode(rm.id));
-                      setActiveCourseId(rm.courseId);
-                    }}
-                    onAuxClick={(e) => {
-                      if (e.button === 1) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        closeExtraRoadmap(rm.id);
-                      }
-                    }}
-                    title={`${rm.goal} · close with × or middle-click`}
-                    style={{
-                      padding: '8px 8px 8px 16px',
-                      borderRadius: '12px 12px 0 0',
-                      border: `1.5px solid ${isOn ? '#f59e0b' : 'rgba(255,255,255,0.08)'}`,
-                      background: isOn ? 'linear-gradient(135deg, rgba(245,158,11,0.28), rgba(217,119,6,0.16))' : 'var(--bg2)',
-                      color: isOn ? '#fbbf24' : 'var(--t2)',
-                      fontSize: 13,
-                      fontWeight: 900,
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 6,
-                      flexShrink: 0,
-                      boxShadow: isOn ? '0 4px 16px rgba(245,158,11,0.25)' : 'none',
-                      maxWidth: 220
-                    }}
-                  >
-                    <span style={{ whiteSpace: 'nowrap' }}>🗺️ Roadmap {rm.number}</span>
-                    <button
-                      type="button"
-                      aria-label={`Close Roadmap ${rm.number}`}
-                      title="Close tab"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        closeExtraRoadmap(rm.id);
-                      }}
-                      style={{
-                        width: 20,
-                        height: 20,
-                        borderRadius: 6,
-                        border: 'none',
-                        background: isOn ? 'rgba(0,0,0,0.25)' : 'rgba(255,255,255,0.06)',
-                        color: isOn ? '#fff' : 'var(--t3)',
-                        cursor: 'pointer',
-                        fontSize: 13,
-                        lineHeight: '20px',
-                        padding: 0,
-                        flexShrink: 0
-                      }}
-                    >
-                      ×
-                    </button>
-                  </div>
-                );
-              })}
-
-              <button
-                type="button"
-                title="New roadmap"
-                onClick={() => {
-                  playPopSound();
-                  setShowRoadmapModal(true);
-                }}
-                style={{
-                  width: 36,
-                  height: 36,
-                  borderRadius: 10,
-                  border: '1.5px dashed rgba(16,185,129,0.45)',
-                  background: 'rgba(16,185,129,0.08)',
-                  color: '#34d399',
-                  fontSize: 20,
-                  fontWeight: 800,
-                  cursor: 'pointer',
-                  flexShrink: 0,
-                  lineHeight: 1
-                }}
-              >
-                +
-              </button>
-            </div>
-
-            {learningPathMode === 'single_course' && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--t2)' }}>Select Standalone Course:</span>
-                <select
-                  value={selectedStandaloneCourseId}
-                  onChange={e => {
+          {/* 🔀 DUAL LEARNING MODE SWITCHER */}
+          {activeSubTab === 'custom_roadmap' && (
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '10px 16px',
+              borderRadius: 20,
+              background: 'var(--bg3)',
+              border: '1.5px solid var(--border)',
+              marginBottom: 24,
+              flexWrap: 'wrap',
+              gap: 12,
+              boxShadow: 'var(--shadow-md)'
+            }}>
+              <div role="tablist" aria-label="Learning roadmaps" style={{ display: 'flex', gap: 8, flexWrap: 'nowrap', alignItems: 'center', overflowX: 'auto', paddingBottom: 4, maxWidth: '100%' }}>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={learningPathMode === 'fused_roadmap'}
+                  onClick={() => {
                     playPopSound();
-                    setSelectedStandaloneCourseId(e.target.value);
-                    setActiveCourseId(e.target.value);
+                    setLearningPathMode('fused_roadmap');
+                    if (fusedCourseRef.current) setActiveCourseId(fusedCourseRef.current);
                   }}
                   style={{
-                    padding: '8px 14px',
-                    borderRadius: 12,
-                    border: '1.5px solid #3b82f6',
-                    background: '#090d16',
-                    color: '#ffffff',
-                    fontSize: 12.5,
-                    fontWeight: 800,
+                    padding: '10px 18px',
+                    borderRadius: '12px 12px 0 0',
+                    border: `1.5px solid ${learningPathMode === 'fused_roadmap' ? '#10b981' : 'rgba(255,255,255,0.08)'}`,
+                    borderBottom: learningPathMode === 'fused_roadmap' ? '1.5px solid transparent' : '1.5px solid rgba(255,255,255,0.08)',
+                    background: learningPathMode === 'fused_roadmap' ? 'linear-gradient(135deg, rgba(16,185,129,0.25), rgba(5,150,105,0.15))' : 'var(--bg2)',
+                    color: learningPathMode === 'fused_roadmap' ? '#34d399' : 'var(--t2)',
+                    fontSize: 13,
+                    fontWeight: 900,
                     cursor: 'pointer',
-                    outline: 'none',
-                    boxShadow: '0 4px 12px rgba(59,130,246,0.2)'
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 8,
+                    flexShrink: 0,
+                    boxShadow: learningPathMode === 'fused_roadmap' ? '0 4px 16px rgba(16,185,129,0.25)' : 'none',
+                    transition: 'all 0.2s ease'
                   }}
                 >
-                  {COURSES_REGISTRY.map(c => (
-                    <option key={c.id} value={c.id}>
-                      {c.icon} {c.title}
-                    </option>
-                  ))}
-                </select>
+                  <span>🗺️ Fused Career Trajectory</span>
+                  <span style={{ fontSize: 10, fontWeight: 800, background: 'rgba(16,185,129,0.25)', padding: '2px 7px', borderRadius: 6, color: '#10b981' }}>
+                    Roadmap 1
+                  </span>
+                </button>
+
+                {extraRoadmaps.map(rm => {
+                  const isOn = learningPathMode === extraRoadmapMode(rm.id);
+                  return (
+                    <div
+                      key={rm.id}
+                      role="tab"
+                      aria-selected={isOn}
+                      onClick={() => {
+                        playPopSound();
+                        setLearningPathMode(extraRoadmapMode(rm.id));
+                        setActiveCourseId(rm.courseId);
+                      }}
+                      onAuxClick={(e) => {
+                        if (e.button === 1) {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          closeExtraRoadmap(rm.id);
+                        }
+                      }}
+                      title={`${rm.goal} · close with × or middle-click`}
+                      style={{
+                        padding: '8px 8px 8px 16px',
+                        borderRadius: '12px 12px 0 0',
+                        border: `1.5px solid ${isOn ? '#f59e0b' : 'rgba(255,255,255,0.08)'}`,
+                        background: isOn ? 'linear-gradient(135deg, rgba(245,158,11,0.28), rgba(217,119,6,0.16))' : 'var(--bg2)',
+                        color: isOn ? '#fbbf24' : 'var(--t2)',
+                        fontSize: 13,
+                        fontWeight: 900,
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 6,
+                        flexShrink: 0,
+                        boxShadow: isOn ? '0 4px 16px rgba(245,158,11,0.25)' : 'none',
+                        maxWidth: 220
+                      }}
+                    >
+                      <span style={{ whiteSpace: 'nowrap' }}>🗺️ Roadmap {rm.number}</span>
+                      <button
+                        type="button"
+                        aria-label={`Close Roadmap ${rm.number}`}
+                        title="Close tab"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          closeExtraRoadmap(rm.id);
+                        }}
+                        style={{
+                          width: 20,
+                          height: 20,
+                          borderRadius: 6,
+                          border: 'none',
+                          background: isOn ? 'rgba(0,0,0,0.25)' : 'rgba(255,255,255,0.06)',
+                          color: isOn ? '#fff' : 'var(--t3)',
+                          cursor: 'pointer',
+                          fontSize: 13,
+                          lineHeight: '20px',
+                          padding: 0,
+                          flexShrink: 0
+                        }}
+                      >
+                        ×
+                      </button>
+                    </div>
+                  );
+                })}
+
+                <button
+                  type="button"
+                  title="New roadmap"
+                  onClick={() => {
+                    playPopSound();
+                    setShowRoadmapModal(true);
+                  }}
+                  style={{
+                    width: 36,
+                    height: 36,
+                    borderRadius: 10,
+                    border: '1.5px dashed rgba(16,185,129,0.45)',
+                    background: 'rgba(16,185,129,0.08)',
+                    color: '#34d399',
+                    fontSize: 20,
+                    fontWeight: 800,
+                    cursor: 'pointer',
+                    flexShrink: 0,
+                    lineHeight: 1
+                  }}
+                >
+                  +
+                </button>
               </div>
-            )}
-          </div>
+            </div>
+          )}
 
           {/* ── 40% / 60% SIDE-BY-SIDE SPLIT VIEW LAYOUT ─────────────────── */}
           <div style={{ display: 'grid', gridTemplateColumns: '38% 60%', gap: '2%', marginTop: 24, alignItems: 'flex-start' }}>
@@ -1690,14 +1792,15 @@ export default function QuestsPage() {
                       {/* Crisp Horizontal White Pill Card */}
                       <div style={{
                         background: 'rgba(255,255,255,0.95)',
-                        borderLeft: `4px solid ${isFullyCompleted ? '#10b981' : item.color}`,
                         padding: '8px 14px',
                         borderRadius: '0 12px 12px 0',
                         boxShadow: isCurrentStep
                           ? `0 0 16px ${item.color}44, 0 4px 14px rgba(0,0,0,0.12)`
                           : '0 4px 14px rgba(0,0,0,0.08)',
-                        border: isCurrentStep ? `1px solid ${item.color}44` : 'none',
-                        borderLeftWidth: 4,
+                        borderTop: isCurrentStep ? `1px solid ${item.color}44` : 'none',
+                        borderRight: isCurrentStep ? `1px solid ${item.color}44` : 'none',
+                        borderBottom: isCurrentStep ? `1px solid ${item.color}44` : 'none',
+                        borderLeft: `4px solid ${isFullyCompleted ? '#10b981' : item.color}`,
                         display: 'flex',
                         alignItems: 'center',
                         gap: 8,
@@ -1960,9 +2063,10 @@ export default function QuestsPage() {
 
           </div>
         </div>
-      )}
+      ))}
 
       {/* ── ENHANCEMENT 5: Comprehensive Quest & Learning Activity History Panel ── */}
+      {activeSubTab !== 'language' && (
       <div className="glass-card-premium" style={{
         padding: '32px 28px',
         borderRadius: 24,
@@ -2185,6 +2289,7 @@ export default function QuestsPage() {
           );
         })()}
       </div>
+      )}
 
       {/* ── ENHANCEMENT 4: Visual Career Readiness Gate Checkpoint Modal ────── */}
       {activeGateModalNode && (
@@ -2661,6 +2766,97 @@ export default function QuestsPage() {
           </div>
         </div>
       )}
+
+      {/* ── 🌟 COMMON FOOTER: 30-Day Activity Streak Grid & Skill Heatmap (All Sub-Tabs) ── */}
+      <div className="glass-card" style={{
+        padding: '22px 26px',
+        borderRadius: 20,
+        marginTop: 36,
+        marginBottom: 20,
+        border: '1.5px solid var(--border)',
+        background: 'var(--bg2)',
+        boxShadow: 'var(--shadow-md)'
+      }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14, flexWrap: 'wrap', gap: 10 }}>
+          <div>
+            <h3 style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', margin: 0, display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span>📊</span> 30-Day Activity Streak Grid & Skill Heatmap
+            </h3>
+            <span style={{ fontSize: 12, color: 'var(--t3)' }}>Daily Quest Completions & Dynamic Skill Proficiency Tracking</span>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 10.5, color: 'var(--t3)' }}>
+            <span>Less</span>
+            <div style={{ width: 10, height: 10, borderRadius: 2, background: 'var(--bg3)' }} />
+            <div style={{ width: 10, height: 10, borderRadius: 2, background: 'rgba(5,150,105,0.3)' }} />
+            <div style={{ width: 10, height: 10, borderRadius: 2, background: 'rgba(5,150,105,0.6)' }} />
+            <div style={{ width: 10, height: 10, borderRadius: 2, background: 'var(--green)' }} />
+            <span>More</span>
+          </div>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 24, alignItems: 'center' }}>
+          {/* Activity Boxes Grid */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(15, 1fr)', gap: 6 }}>
+            {activityDays.map(d => {
+              const bg = d.level === 3 ? 'var(--green)' : d.level === 2 ? 'rgba(5,150,105,0.6)' : d.level === 1 ? 'rgba(5,150,105,0.3)' : 'var(--bg3)';
+              return (
+                <div
+                  key={d.dayNum}
+                  title={`Day ${d.dayNum}: ${d.level > 0 ? `${d.level * 3} quests completed` : 'No quests yet'}`}
+                  style={{
+                    height: 20,
+                    borderRadius: 4,
+                    background: bg,
+                    border: '1px solid rgba(255,255,255,0.05)',
+                    transition: 'all 0.2s'
+                  }}
+                />
+              );
+            })}
+          </div>
+
+          {/* Skill Mastery Heatmap Bars (Dynamic from Completed Quests) */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {(() => {
+              const activeCourseObj = COURSES_REGISTRY.find(c => c.id === activeCourseId) || COURSES_REGISTRY[0];
+              const activeQuests = activeCourseObj.quests || [];
+              const completedInActive = activeQuests.filter(q => completedQuests.includes(q.id)).length;
+              const overallPct = Math.round((completedInActive / Math.max(1, activeQuests.length)) * 100);
+
+              const dynamicSkills = [
+                {
+                  name: `🚀 ${activeCourseObj.title.split('(')[0].trim()} Core Engine`,
+                  pct: Math.min(100, overallPct + (completedQuests.length > 0 ? 10 : 0)),
+                  color: 'var(--teal)'
+                },
+                {
+                  name: `🧮 Data Structures & Algorithmic Problem Solving`,
+                  pct: Math.min(100, Math.round(completedQuests.length * 6.5)),
+                  color: 'var(--accent)'
+                },
+                {
+                  name: `💾 Architecture, APIs & System Optimization`,
+                  pct: Math.min(100, Math.round(completedQuests.length * 5)),
+                  color: 'var(--purple)'
+                }
+              ];
+
+              return dynamicSkills.map(s => (
+                <div key={s.name}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5, fontWeight: 700, color: 'var(--t2)', marginBottom: 3 }}>
+                    <span>{s.name}</span>
+                    <span>{s.pct}%</span>
+                  </div>
+                  <div style={{ height: 6, background: 'var(--bg3)', borderRadius: 3, overflow: 'hidden' }}>
+                    <div style={{ width: `${s.pct}%`, height: '100%', background: s.color, transition: 'width 0.4s' }} />
+                  </div>
+                </div>
+              ));
+            })()}
+          </div>
+        </div>
+      </div>
 
       {/* ── SIMPLE COURSE NOTES MODAL ── */}
       <CourseNotesModal

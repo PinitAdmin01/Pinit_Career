@@ -46,15 +46,30 @@ try {
       ...process.env
     }
   });
-  const nextExportDir = path.join(__dirname, '.next', 'export');
-  const buildIdFile = path.join(__dirname, '.next', 'BUILD_ID');
-  if (fs.existsSync(nextExportDir)) {
-    copyDirSync(nextExportDir, outDir);
-  } else if (!fs.existsSync(buildIdFile) && !fs.existsSync(path.join(outDir, 'index.html'))) {
-    console.error('[ERROR] Build finished but neither .next/BUILD_ID nor out/index.html exists.');
-    process.exit(1);
+  const appServerDir = path.join(__dirname, '.next', 'server', 'app');
+  const staticDir = path.join(__dirname, '.next', 'static');
+  const publicDir = path.join(__dirname, 'public');
+  const outStaticDir = path.join(outDir, '_next', 'static');
+
+  // 1. Copy public assets (avatars, brand, audio, voices.bin, tts-worker) -> out/
+  if (fs.existsSync(publicDir)) {
+    console.log('Copying public assets to out/ ...');
+    copyDirSync(publicDir, outDir);
   }
-  console.log('\n--- Build completed successfully! ---');
+
+  // 2. Copy compiled static HTML and route pages -> out/
+  if (fs.existsSync(appServerDir)) {
+    console.log('Copying static HTML route pages to out/ ...');
+    copyDirSync(appServerDir, outDir);
+  }
+
+  // 3. Copy Next.js static JS/CSS bundles -> out/_next/static/
+  if (fs.existsSync(staticDir)) {
+    console.log('Copying Next.js static assets to out/_next/static/ ...');
+    copyDirSync(staticDir, outStaticDir);
+  }
+
+  console.log('\n--- Build and static bundle export completed successfully! ---');
 } catch (err) {
   console.error('\n[ERROR] Next.js build failed. Refusing to treat as success.', err?.message || err);
   process.exit(1);

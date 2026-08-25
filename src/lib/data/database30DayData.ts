@@ -1,578 +1,609 @@
 import { buildEnrichedDayQuests, DayConfig } from './curriculumEnricher';
+import { CourseQuest } from './coursesData';
 
 export const DATABASE_30_DAYS_CONFIGS: DayConfig[] = [
   {
-    title: "Relational Database Theory & Codd's Rules",
-    desc: "Master relational models, candidate keys, primary keys, foreign key constraints, and entity integrity.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Relational Database Theory & Codd's Rules.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 1,
+    "title": "Relational Database Theory, Tables & Candidate Keys",
+    "desc": "Master relational tuples, candidate keys, composite primary keys, and entity integrity rules.",
+    "syllabus": [
+      "Relational Model: Tables (relations), rows (tuples), and columns (attributes).",
+      "Key Hierarchy: Candidate keys, primary keys, and alternate keys.",
+      "Integrity Constraints: Entity integrity (no null PKs) and domain integrity."
     ],
-    eTitle: "Exam: Relational Database Theory & Codd's Rules Validation",
-    eDesc: "Implement a JavaScript validation function for Relational Database Theory & Codd's Rules.",
-    eStarter: "function dbTaskDay1(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay1 !== 'function') throw new Error('Function dbTaskDay1 not found');\nif (dbTaskDay1('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Relational Database Theory & Codd's Rules Practice",
-    aDesc: "Write an auxiliary helper function for Relational Database Theory & Codd's Rules.",
-    aStarter: "function dbTaskDay1Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay1Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "CREATE TABLE with Composite Primary Key",
+    "eDesc": "Write a SQL statement to create table `course_enrollments` with columns `student_id INT`, `course_id INT`, `enrolled_at TEXT DEFAULT CURRENT_TIMESTAMP`, and composite PRIMARY KEY (`student_id`, `course_id`).",
+    "eStarter": "-- Write CREATE TABLE statement\nCREATE TABLE course_enrollments (\n  \n);",
+    "eHint": "Use PRIMARY KEY (student_id, course_id) constraint at the bottom of table definition.",
+    "eTest": "SELECT sql FROM sqlite_master WHERE type='table' AND name='course_enrollments';\nPRAGMA table_info(course_enrollments);",
+    "aTitle": "Single-Table Employee Directory DDL",
+    "aDesc": "Write a SQL statement creating table `employees` with `id INT PRIMARY KEY`, `email TEXT NOT NULL UNIQUE`, `salary REAL CHECK(salary >= 0)`.",
+    "aStarter": "-- Write CREATE TABLE employees\nCREATE TABLE employees (\n  \n);",
+    "aHint": "Specify PRIMARY KEY, NOT NULL UNIQUE, and CHECK(salary >= 0).",
+    "aTest": "SELECT sql FROM sqlite_master WHERE type='table' AND name='employees';\nPRAGMA table_info(employees);"
   },
   {
-    title: "SQL DDL & Schema Definitions",
-    desc: "Write SQL schemas with CREATE TABLE, ALTER TABLE, column data types, DEFAULT values, and CHECK constraints.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of SQL DDL & Schema Definitions.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 2,
+    "title": "SQL DDL: Data Types, DEFAULT Values & Constraints",
+    "desc": "Define robust schemas with INTEGER, TEXT, REAL, BLOB, NOT NULL, DEFAULT, and CHECK constraints.",
+    "syllabus": [
+      "SQLite / SQL Data Types: INTEGER, TEXT, REAL, NUMERIC, BLOB.",
+      "Column Constraints: NOT NULL, UNIQUE, DEFAULT values.",
+      "CHECK Constraints: Validating business ranges directly in the engine."
     ],
-    eTitle: "Exam: SQL DDL & Schema Definitions Validation",
-    eDesc: "Implement a JavaScript validation function for SQL DDL & Schema Definitions.",
-    eStarter: "function dbTaskDay2(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay2 !== 'function') throw new Error('Function dbTaskDay2 not found');\nif (dbTaskDay2('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: SQL DDL & Schema Definitions Practice",
-    aDesc: "Write an auxiliary helper function for SQL DDL & Schema Definitions.",
-    aStarter: "function dbTaskDay2Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay2Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Product Inventory Table with Business Rules",
+    "eDesc": "Create table `products` with `id INTEGER PRIMARY KEY AUTOINCREMENT`, `name TEXT NOT NULL`, `price REAL NOT NULL CHECK(price > 0)`, `stock INT DEFAULT 0 CHECK(stock >= 0)`.",
+    "eStarter": "-- Define products table with constraints\nCREATE TABLE products (\n  \n);",
+    "eHint": "Use AUTOINCREMENT on INTEGER PRIMARY KEY, and CHECK expressions on price and stock.",
+    "eTest": "PRAGMA table_info(products);",
+    "aTitle": "Customer Account Verification Table",
+    "aDesc": "Create table `user_accounts` with `id INT PRIMARY KEY`, `username TEXT UNIQUE NOT NULL`, `status TEXT DEFAULT 'PENDING' CHECK(status IN ('PENDING', 'ACTIVE', 'SUSPENDED'))`.",
+    "aStarter": "-- Define user_accounts table\nCREATE TABLE user_accounts (\n  \n);",
+    "aHint": "Use CHECK(status IN ('PENDING', 'ACTIVE', 'SUSPENDED')).",
+    "aTest": "PRAGMA table_info(user_accounts);"
   },
   {
-    title: "SQL DML & CRUD Operations",
-    desc: "Execute INSERT, UPDATE, DELETE, and SELECT queries with WHERE filters, ORDER BY, and LIMIT clauses.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of SQL DML & CRUD Operations.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 3,
+    "title": "SQL DML: INSERT, UPDATE, DELETE & Basic SELECT",
+    "desc": "Execute fundamental CRUD data manipulation commands with strict WHERE clauses.",
+    "syllabus": [
+      "INSERT INTO: Single-row and multi-row value insertion.",
+      "UPDATE: Modifying specific row values safely with WHERE.",
+      "DELETE: Removing rows without truncating the whole table."
     ],
-    eTitle: "Exam: SQL DML & CRUD Operations Validation",
-    eDesc: "Implement a JavaScript validation function for SQL DML & CRUD Operations.",
-    eStarter: "function dbTaskDay3(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay3 !== 'function') throw new Error('Function dbTaskDay3 not found');\nif (dbTaskDay3('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: SQL DML & CRUD Operations Practice",
-    aDesc: "Write an auxiliary helper function for SQL DML & CRUD Operations.",
-    aStarter: "function dbTaskDay3Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay3Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Insert and Update Product Inventory",
+    "eDesc": "Write a SQL query that inserts a product `('Keyboard', 75.0, 10)` into table `products(name, price, stock)` and updates all products with stock < 5 to have stock = 10.",
+    "eStarter": "-- Write INSERT and UPDATE statements\nINSERT INTO products (name, price, stock) VALUES ('Keyboard', 75.0, 10);\nUPDATE products SET stock = 10 WHERE stock < 5;",
+    "eHint": "Execute INSERT followed by UPDATE with WHERE filter.",
+    "eTest": "SELECT * FROM products WHERE name = 'Keyboard';\nSELECT COUNT(*) FROM products WHERE stock < 5;",
+    "aTitle": "Deactivate Inactive User Accounts",
+    "aDesc": "Write a SQL statement to UPDATE `user_accounts` setting `status = 'SUSPENDED'` WHERE `status = 'PENDING'`.",
+    "aStarter": "-- Update user status\nUPDATE user_accounts SET status = 'SUSPENDED' WHERE status = 'PENDING';",
+    "aHint": "Use WHERE status = 'PENDING'.",
+    "aTest": "SELECT COUNT(*) FROM user_accounts WHERE status = 'PENDING';"
   },
   {
-    title: "SQL Joins (INNER, LEFT, RIGHT, FULL, CROSS)",
-    desc: "Query across multiple relational tables, prevent cartesian explosion, and handle NULL values in outer joins.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of SQL Joins (INNER, LEFT, RIGHT, FULL, CROSS).",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 4,
+    "title": "WHERE Filtering, Comparison Operators & NULL Handling",
+    "desc": "Filter records using =, !=, <, >, <=, >=, AND, OR, NOT, and the IS NULL / IS NOT NULL operators.",
+    "syllabus": [
+      "Comparison Operators: Equality, relational ranges, and boolean logic.",
+      "The Three-Valued Logic of NULL: Why `col = NULL` fails and `IS NULL` is required.",
+      "Combining Filters: Operator precedence with parentheses."
     ],
-    eTitle: "Exam: SQL Joins (INNER, LEFT, RIGHT, FULL, CROSS) Validation",
-    eDesc: "Implement a JavaScript validation function for SQL Joins (INNER, LEFT, RIGHT, FULL, CROSS).",
-    eStarter: "function dbTaskDay4(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay4 !== 'function') throw new Error('Function dbTaskDay4 not found');\nif (dbTaskDay4('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: SQL Joins (INNER, LEFT, RIGHT, FULL, CROSS) Practice",
-    aDesc: "Write an auxiliary helper function for SQL Joins (INNER, LEFT, RIGHT, FULL, CROSS).",
-    aStarter: "function dbTaskDay4Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay4Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Filter Active High-Tier Customers",
+    "eDesc": "Select `id`, `name`, `balance` from `customers` WHERE `balance >= 1000.0` AND `status = 'ACTIVE'` AND `deleted_at IS NULL`.",
+    "eStarter": "-- Query active high-balance customers\nSELECT id, name, balance FROM customers\nWHERE balance >= 1000.0 AND status = 'ACTIVE' AND deleted_at IS NULL;",
+    "eHint": "Combine balance >= 1000.0, status = 'ACTIVE', and deleted_at IS NULL with AND.",
+    "eTest": "SELECT id, name, balance FROM customers WHERE balance >= 1000.0 AND status = 'ACTIVE' AND deleted_at IS NULL;",
+    "aTitle": "Find Incomplete Customer Profiles",
+    "aDesc": "Select `id`, `email` from `customers` WHERE `phone IS NULL` OR `address IS NULL`.",
+    "aStarter": "-- Query customers with missing phone or address\nSELECT id, email FROM customers\nWHERE phone IS NULL OR address IS NULL;",
+    "aHint": "Use IS NULL on both fields joined by OR.",
+    "aTest": "SELECT id, email FROM customers WHERE phone IS NULL OR address IS NULL;"
   },
   {
-    title: "SQL Aggregations & GROUP BY / HAVING",
-    desc: "Compute SUM, COUNT, AVG, MIN, MAX metrics, group rows by categories, and filter aggregated results.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of SQL Aggregations & GROUP BY / HAVING.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 5,
+    "title": "⭐ MILESTONE 1: Customer Order Management Schema & CRUD Engine",
+    "desc": "Milestone 1: Build a complete relational schema for Customers and Orders with Foreign Keys, Cascades, and transaction CRUD operations.",
+    "syllabus": [
+      "Foreign Key Constraints: REFERENCES parent(id) ON DELETE CASCADE.",
+      "Referential Integrity: Enforcing valid parent-child relationships.",
+      "End-to-End Schema Design: Tables, constraints, insertions, and validation."
     ],
-    eTitle: "Exam: SQL Aggregations & GROUP BY / HAVING Validation",
-    eDesc: "Implement a JavaScript validation function for SQL Aggregations & GROUP BY / HAVING.",
-    eStarter: "function dbTaskDay5(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay5 !== 'function') throw new Error('Function dbTaskDay5 not found');\nif (dbTaskDay5('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: SQL Aggregations & GROUP BY / HAVING Practice",
-    aDesc: "Write an auxiliary helper function for SQL Aggregations & GROUP BY / HAVING.",
-    aStarter: "function dbTaskDay5Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay5Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Orders Relational Schema with Foreign Key",
+    "eDesc": "Create table `orders` with `id INTEGER PRIMARY KEY`, `customer_id INT NOT NULL`, `total_amount REAL CHECK(total_amount >= 0)`, `created_at TEXT DEFAULT CURRENT_TIMESTAMP`, FOREIGN KEY (`customer_id`) REFERENCES `customers`(`id`) ON DELETE CASCADE.",
+    "eStarter": "-- Create orders table with foreign key\nCREATE TABLE orders (\n  id INTEGER PRIMARY KEY,\n  customer_id INT NOT NULL,\n  total_amount REAL CHECK(total_amount >= 0),\n  created_at TEXT DEFAULT CURRENT_TIMESTAMP,\n  FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE\n);",
+    "eHint": "Define column definitions followed by FOREIGN KEY constraint.",
+    "eTest": "PRAGMA table_info(orders);\nPRAGMA foreign_key_list(orders);",
+    "aTitle": "Insert Validated Order Records",
+    "aDesc": "Insert an order `(101, 1, 249.99)` into `orders(id, customer_id, total_amount)` and select total sales for customer_id = 1.",
+    "aStarter": "-- Insert order and calculate sum\nINSERT INTO orders (id, customer_id, total_amount) VALUES (101, 1, 249.99);\nSELECT SUM(total_amount) FROM orders WHERE customer_id = 1;",
+    "aHint": "Run INSERT and then SELECT with customer_id filter.",
+    "aTest": "SELECT total_amount FROM orders WHERE id = 101;"
   },
   {
-    title: "Subqueries & Common Table Expressions (CTEs)",
-    desc: "Write nested subqueries, scalar subqueries, correlated subqueries, and readable WITH CTE expressions.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Subqueries & Common Table Expressions (CTEs).",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 6,
+    "title": "Pattern Matching (LIKE, GLOB), IN Lists & BETWEEN Ranges",
+    "desc": "Search text using wildcard patterns (%, _), match against multi-item sets (IN), and filter inclusive numerical ranges (BETWEEN).",
+    "syllabus": [
+      "LIKE Wildcards: `%` matches 0 or more characters; `_` matches exactly 1 character.",
+      "IN Operator: Checking membership in fixed sets or subquery results.",
+      "BETWEEN Operator: Inclusive boundary filtering (`val BETWEEN 10 AND 50`)."
     ],
-    eTitle: "Exam: Subqueries & Common Table Expressions (CTEs) Validation",
-    eDesc: "Implement a JavaScript validation function for Subqueries & Common Table Expressions (CTEs).",
-    eStarter: "function dbTaskDay6(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay6 !== 'function') throw new Error('Function dbTaskDay6 not found');\nif (dbTaskDay6('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Subqueries & Common Table Expressions (CTEs) Practice",
-    aDesc: "Write an auxiliary helper function for Subqueries & Common Table Expressions (CTEs).",
-    aStarter: "function dbTaskDay6Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay6Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Search Customers by Domain and Salary Range",
+    "eDesc": "Select `id`, `name`, `email` from `employees` WHERE `email LIKE '%@pinit.ai'` AND `salary BETWEEN 50000 AND 90000` AND `department IN ('ENG', 'AI', 'DATA')`.",
+    "eStarter": "-- Query specific domain, salary range, and departments\nSELECT id, name, email FROM employees\nWHERE email LIKE '%@pinit.ai' AND salary BETWEEN 50000 AND 90000 AND department IN ('ENG', 'AI', 'DATA');",
+    "eHint": "Use email LIKE '%@pinit.ai' AND salary BETWEEN 50000 AND 90000 AND department IN ('ENG', 'AI', 'DATA').",
+    "eTest": "SELECT id, name, email FROM employees WHERE email LIKE '%@pinit.ai' AND salary BETWEEN 50000 AND 90000 AND department IN ('ENG', 'AI', 'DATA');",
+    "aTitle": "Filter Inventory by SKU Pattern",
+    "aDesc": "Select `name`, `sku` from `products` WHERE `sku LIKE 'TECH-%'` AND `stock IN (0, 1, 2)`.",
+    "aStarter": "-- Query low-stock tech products\nSELECT name, sku FROM products\nWHERE sku LIKE 'TECH-%' AND stock IN (0, 1, 2);",
+    "aHint": "Use LIKE 'TECH-%' AND stock IN (0, 1, 2).",
+    "aTest": "SELECT name, sku FROM products WHERE sku LIKE 'TECH-%' AND stock IN (0, 1, 2);"
   },
   {
-    title: "Window Functions (ROW_NUMBER, RANK, DENSE_RANK, LEAD, LAG)",
-    desc: "Compute rolling totals, moving averages, partition rankings, and period-over-period differences.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Window Functions (ROW_NUMBER, RANK, DENSE_RANK, LEAD, LAG).",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 7,
+    "title": "ORDER BY Sorting (ASC, DESC) & LIMIT / OFFSET Pagination",
+    "desc": "Sort single and multi-column query results and build efficient cursor pagination with LIMIT and OFFSET.",
+    "syllabus": [
+      "ORDER BY Clause: Primary and secondary sorting directions (ASC, DESC).",
+      "Sorting with NULLs: NULLS FIRST vs NULLS LAST semantics.",
+      "LIMIT & OFFSET: Extracting fixed-size page windows from sorted sets."
     ],
-    eTitle: "Exam: Window Functions (ROW_NUMBER, RANK, DENSE_RANK, LEAD, LAG) Validation",
-    eDesc: "Implement a JavaScript validation function for Window Functions (ROW_NUMBER, RANK, DENSE_RANK, LEAD, LAG).",
-    eStarter: "function dbTaskDay7(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay7 !== 'function') throw new Error('Function dbTaskDay7 not found');\nif (dbTaskDay7('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Window Functions (ROW_NUMBER, RANK, DENSE_RANK, LEAD, LAG) Practice",
-    aDesc: "Write an auxiliary helper function for Window Functions (ROW_NUMBER, RANK, DENSE_RANK, LEAD, LAG).",
-    aStarter: "function dbTaskDay7Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay7Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Top 5 Highest Paid Employees with Secondary Sort",
+    "eDesc": "Select `id`, `name`, `salary`, `department` from `employees` ORDER BY `salary DESC`, `name ASC` LIMIT 5 OFFSET 0.",
+    "eStarter": "-- Query top 5 highest salaries\nSELECT id, name, salary, department FROM employees\nORDER BY salary DESC, name ASC\nLIMIT 5 OFFSET 0;",
+    "eHint": "Order by salary DESC first, then name ASC for ties, with LIMIT 5.",
+    "eTest": "SELECT id, name, salary, department FROM employees ORDER BY salary DESC, name ASC LIMIT 5 OFFSET 0;",
+    "aTitle": "Paginated Product Catalog (Page 2)",
+    "aDesc": "Select `id`, `name`, `price` from `products` ORDER BY `price ASC` LIMIT 10 OFFSET 10.",
+    "aStarter": "-- Query page 2 (items 11-20)\nSELECT id, name, price FROM products\nORDER BY price ASC\nLIMIT 10 OFFSET 10;",
+    "aHint": "LIMIT 10 OFFSET 10 pulls the second page of 10 items.",
+    "aTest": "SELECT id, name, price FROM products ORDER BY price ASC LIMIT 10 OFFSET 10;"
   },
   {
-    title: "Database Normalization (1NF, 2NF, 3NF, BCNF)",
-    desc: "Eliminate data redundancy, avoid insertion/update/deletion anomalies, and decompose table schemas.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Database Normalization (1NF, 2NF, 3NF, BCNF).",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 8,
+    "title": "SQL String & Date Formatting Functions",
+    "desc": "Manipulate text (UPPER, LOWER, SUBSTR, TRIM, LENGTH) and compute dates (DATE, DATETIME, STRFTIME).",
+    "syllabus": [
+      "String Functions: UPPER, LOWER, LENGTH, SUBSTR, TRIM, || (concatenation).",
+      "Date & Time Functions: DATE(), DATETIME('now'), STRFTIME('%Y-%m', date_col).",
+      "Derived Virtual Columns in SELECT projections."
     ],
-    eTitle: "Exam: Database Normalization (1NF, 2NF, 3NF, BCNF) Validation",
-    eDesc: "Implement a JavaScript validation function for Database Normalization (1NF, 2NF, 3NF, BCNF).",
-    eStarter: "function dbTaskDay8(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay8 !== 'function') throw new Error('Function dbTaskDay8 not found');\nif (dbTaskDay8('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Database Normalization (1NF, 2NF, 3NF, BCNF) Practice",
-    aDesc: "Write an auxiliary helper function for Database Normalization (1NF, 2NF, 3NF, BCNF).",
-    aStarter: "function dbTaskDay8Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay8Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Format Customer Full Name and Month of Registration",
+    "eDesc": "Select `UPPER(first_name || ' ' || last_name) AS full_name`, `STRFTIME('%Y-%m', created_at) AS signup_month` from `customers` ORDER BY `signup_month DESC`.",
+    "eStarter": "-- Format string concatenation and extract month\nSELECT UPPER(first_name || ' ' || last_name) AS full_name, STRFTIME('%Y-%m', created_at) AS signup_month\nFROM customers\nORDER BY signup_month DESC;",
+    "eHint": "Use UPPER(first_name || ' ' || last_name) AS full_name and STRFTIME('%Y-%m', created_at) AS signup_month.",
+    "eTest": "SELECT UPPER(first_name || ' ' || last_name) AS full_name, STRFTIME('%Y-%m', created_at) AS signup_month FROM customers ORDER BY signup_month DESC;",
+    "aTitle": "Sanitize Email Addresses and Compute String Lengths",
+    "aDesc": "Select `LOWER(TRIM(email)) AS clean_email`, `LENGTH(TRIM(email)) AS email_len` from `user_accounts`.",
+    "aStarter": "-- Sanitize email strings\nSELECT LOWER(TRIM(email)) AS clean_email, LENGTH(TRIM(email)) AS email_len FROM user_accounts;",
+    "aHint": "Use LOWER(TRIM(email)) and LENGTH(TRIM(email)).",
+    "aTest": "SELECT LOWER(TRIM(email)) AS clean_email, LENGTH(TRIM(email)) AS email_len FROM user_accounts;"
   },
   {
-    title: "Database Denormalization & Read Performance",
-    desc: "Strategically duplicate columns to reduce expensive joins in high-traffic read-heavy applications.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Database Denormalization & Read Performance.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 9,
+    "title": "Aggregate Functions: COUNT, SUM, AVG, MIN, MAX",
+    "desc": "Calculate summary statistics across rows using SQL aggregate functions.",
+    "syllabus": [
+      "COUNT(*) vs COUNT(col): Handling null values in counts.",
+      "SUM & AVG: Arithmetic aggregations and precision rounding with ROUND().",
+      "MIN & MAX: Finding peak and minimum values in sets."
     ],
-    eTitle: "Exam: Database Denormalization & Read Performance Validation",
-    eDesc: "Implement a JavaScript validation function for Database Denormalization & Read Performance.",
-    eStarter: "function dbTaskDay9(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay9 !== 'function') throw new Error('Function dbTaskDay9 not found');\nif (dbTaskDay9('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Database Denormalization & Read Performance Practice",
-    aDesc: "Write an auxiliary helper function for Database Denormalization & Read Performance.",
-    aStarter: "function dbTaskDay9Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay9Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Department Salary Summary Metrics",
+    "eDesc": "Select `COUNT(*) AS total_staff`, `SUM(salary) AS total_payroll`, `ROUND(AVG(salary), 2) AS avg_salary`, `MIN(salary) AS min_salary`, `MAX(salary) AS max_salary` from `employees` WHERE `status = 'ACTIVE'`",
+    "eStarter": "SELECT COUNT(*) AS total_staff, SUM(salary) AS total_payroll, ROUND(AVG(salary), 2) AS avg_salary, MIN(salary) AS min_salary, MAX(salary) AS max_salary FROM employees WHERE status = 'ACTIVE';",
+    "eHint": "Use aggregate functions with status = 'ACTIVE' filter.",
+    "eTest": "SELECT COUNT(*), SUM(salary), ROUND(AVG(salary), 2) FROM employees WHERE status = 'ACTIVE';",
+    "aTitle": "Inventory Value and SKU Count",
+    "aDesc": "Select `COUNT(id) AS total_skus`, `SUM(price * stock) AS total_inventory_value` from `products`",
+    "aStarter": "SELECT COUNT(id) AS total_skus, SUM(price * stock) AS total_inventory_value FROM products;",
+    "aHint": "Multiply price * stock inside SUM().",
+    "aTest": "SELECT COUNT(id), SUM(price * stock) FROM products;"
   },
   {
-    title: "B-Tree Indexes & Point Lookups",
-    desc: "Understand B-Tree leaf nodes, root index traversal, search complexity O(log N), and index selectivity.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of B-Tree Indexes & Point Lookups.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 10,
+    "title": "GROUP BY Aggregations & the HAVING Filter Clause",
+    "desc": "Group table rows by categorical keys and filter summarized groups with HAVING.",
+    "syllabus": [
+      "GROUP BY Clause: Aggregating by single and multiple columns.",
+      "WHERE vs HAVING: Filtering individual rows before grouping vs filtering aggregated buckets.",
+      "Sorting Aggregated Groups."
     ],
-    eTitle: "Exam: B-Tree Indexes & Point Lookups Validation",
-    eDesc: "Implement a JavaScript validation function for B-Tree Indexes & Point Lookups.",
-    eStarter: "function dbTaskDay10(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay10 !== 'function') throw new Error('Function dbTaskDay10 not found');\nif (dbTaskDay10('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: B-Tree Indexes & Point Lookups Practice",
-    aDesc: "Write an auxiliary helper function for B-Tree Indexes & Point Lookups.",
-    aStarter: "function dbTaskDay10Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay10Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "High-Volume Sales Departments Filter",
+    "eDesc": "Select `department`, `COUNT(*) AS emp_count`, `SUM(salary) AS total_dept_salary` from `employees` GROUP BY `department` HAVING `COUNT(*) >= 3` ORDER BY `total_dept_salary DESC`",
+    "eStarter": "SELECT department, COUNT(*) AS emp_count, SUM(salary) AS total_dept_salary FROM employees GROUP BY department HAVING COUNT(*) >= 3 ORDER BY total_dept_salary DESC;",
+    "eHint": "Apply HAVING COUNT(*) >= 3 on the grouped department rows.",
+    "eTest": "SELECT department, COUNT(*), SUM(salary) FROM employees GROUP BY department HAVING COUNT(*) >= 3;",
+    "aTitle": "Categories with Average Price > $50",
+    "aDesc": "Select `category`, `ROUND(AVG(price), 2) AS avg_price` from `products` GROUP BY `category` HAVING `AVG(price) > 50.0`",
+    "aStarter": "SELECT category, ROUND(AVG(price), 2) AS avg_price FROM products GROUP BY category HAVING AVG(price) > 50.0;",
+    "aHint": "Use HAVING AVG(price) > 50.0.",
+    "aTest": "SELECT category, ROUND(AVG(price), 2) FROM products GROUP BY category HAVING AVG(price) > 50.0;"
   },
   {
-    title: "Composite Indexes & Leftmost Prefix Rule",
-    desc: "Create multi-column indexes, understand column order impact, and satisfy compound WHERE queries.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Composite Indexes & Leftmost Prefix Rule.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 11,
+    "title": "INNER JOIN: Combining Relational Tables on Foreign Keys",
+    "desc": "Combine matching rows between two related tables using INNER JOIN and ON predicates.",
+    "syllabus": [
+      "Relational Joins: Cartesian product reduction via ON conditions.",
+      "Table Aliasing: Using `c` for customers and `o` for orders.",
+      "Multi-Column Projections."
     ],
-    eTitle: "Exam: Composite Indexes & Leftmost Prefix Rule Validation",
-    eDesc: "Implement a JavaScript validation function for Composite Indexes & Leftmost Prefix Rule.",
-    eStarter: "function dbTaskDay11(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay11 !== 'function') throw new Error('Function dbTaskDay11 not found');\nif (dbTaskDay11('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Composite Indexes & Leftmost Prefix Rule Practice",
-    aDesc: "Write an auxiliary helper function for Composite Indexes & Leftmost Prefix Rule.",
-    aStarter: "function dbTaskDay11Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay11Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Customer Order Itemization Report",
+    "eDesc": "Select `c.name AS customer_name`, `o.id AS order_id`, `o.total_amount`, `o.created_at` from `customers c` INNER JOIN `orders o` ON `c.id = o.customer_id` ORDER BY `o.total_amount DESC`",
+    "eStarter": "SELECT c.name AS customer_name, o.id AS order_id, o.total_amount, o.created_at FROM customers c INNER JOIN orders o ON c.id = o.customer_id ORDER BY o.total_amount DESC;",
+    "eHint": "Join customers c with orders o on c.id = o.customer_id.",
+    "eTest": "SELECT c.name, o.id, o.total_amount FROM customers c INNER JOIN orders o ON c.id = o.customer_id;",
+    "aTitle": "Employee Department Lookup",
+    "aDesc": "Select `e.name AS employee_name`, `d.name AS department_name` from `employees e` INNER JOIN `departments d` ON `e.department_id = d.id`",
+    "aStarter": "SELECT e.name AS employee_name, d.name AS department_name FROM employees e INNER JOIN departments d ON e.department_id = d.id;",
+    "aHint": "Join employees and departments on department_id.",
+    "aTest": "SELECT e.name, d.name FROM employees e INNER JOIN departments d ON e.department_id = d.id;"
   },
   {
-    title: "Hash Indexes, GIN & GiST Indexes",
-    desc: "Utilize Hash indexes for exact lookups, GIN indexes for JSON/array search, and GiST for spatial data.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Hash Indexes, GIN & GiST Indexes.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 12,
+    "title": "LEFT OUTER JOIN & Handling Missing Parent/Child Records",
+    "desc": "Preserve all left-table rows regardless of whether a matching right-table record exists.",
+    "syllabus": [
+      "Outer Joins: Preserving unmatched rows with NULL padding.",
+      "COALESCE() Function: Providing clean fallbacks for NULLs.",
+      "Finding Unmatched Rows: `WHERE right_table.id IS NULL`."
     ],
-    eTitle: "Exam: Hash Indexes, GIN & GiST Indexes Validation",
-    eDesc: "Implement a JavaScript validation function for Hash Indexes, GIN & GiST Indexes.",
-    eStarter: "function dbTaskDay12(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay12 !== 'function') throw new Error('Function dbTaskDay12 not found');\nif (dbTaskDay12('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Hash Indexes, GIN & GiST Indexes Practice",
-    aDesc: "Write an auxiliary helper function for Hash Indexes, GIN & GiST Indexes.",
-    aStarter: "function dbTaskDay12Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay12Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Customers with and without Orders",
+    "eDesc": "Select `c.id`, `c.name`, `COUNT(o.id) AS order_count`, `COALESCE(SUM(o.total_amount), 0.0) AS total_spent` from `customers c` LEFT JOIN `orders o` ON `c.id = o.customer_id` GROUP BY `c.id`, `c.name` ORDER BY `total_spent DESC`",
+    "eStarter": "SELECT c.id, c.name, COUNT(o.id) AS order_count, COALESCE(SUM(o.total_amount), 0.0) AS total_spent FROM customers c LEFT JOIN orders o ON c.id = o.customer_id GROUP BY c.id, c.name ORDER BY total_spent DESC;",
+    "eHint": "Use LEFT JOIN and COALESCE(SUM(...), 0.0).",
+    "eTest": "SELECT c.id, c.name, COUNT(o.id), COALESCE(SUM(o.total_amount), 0.0) FROM customers c LEFT JOIN orders o ON c.id = o.customer_id GROUP BY c.id, c.name;",
+    "aTitle": "Identify Inactive Customers with Zero Orders",
+    "aDesc": "Select `c.id`, `c.name` from `customers c` LEFT JOIN `orders o` ON `c.id = o.customer_id` WHERE `o.id IS NULL`",
+    "aStarter": "SELECT c.id, c.name FROM customers c LEFT JOIN orders o ON c.id = o.customer_id WHERE o.id IS NULL;",
+    "aHint": "WHERE o.id IS NULL captures customers with zero orders.",
+    "aTest": "SELECT c.id, c.name FROM customers c LEFT JOIN orders o ON c.id = o.customer_id WHERE o.id IS NULL;"
   },
   {
-    title: "Query Execution Plans (EXPLAIN ANALYZE)",
-    desc: "Analyze Sequential Scans, Index Scans, Bitmap Index Scans, Nested Loop Joins, and Hash Joins.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Query Execution Plans (EXPLAIN ANALYZE).",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 13,
+    "title": "Self Joins & Multi-Table Relational Graphs",
+    "desc": "Query hierarchical manager-employee relationships and multi-table business graphs.",
+    "syllabus": [
+      "Self Joins: Joining a table to itself using distinct aliases (`e` and `m`).",
+      "Hierarchical Trees: Parent-child relationship traversal.",
+      "Three-Table Joins: Orders -> OrderItems -> Products."
     ],
-    eTitle: "Exam: Query Execution Plans (EXPLAIN ANALYZE) Validation",
-    eDesc: "Implement a JavaScript validation function for Query Execution Plans (EXPLAIN ANALYZE).",
-    eStarter: "function dbTaskDay13(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay13 !== 'function') throw new Error('Function dbTaskDay13 not found');\nif (dbTaskDay13('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Query Execution Plans (EXPLAIN ANALYZE) Practice",
-    aDesc: "Write an auxiliary helper function for Query Execution Plans (EXPLAIN ANALYZE).",
-    aStarter: "function dbTaskDay13Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay13Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Employee Manager Hierarchy Report",
+    "eDesc": "Select `e.name AS employee_name`, `COALESCE(m.name, 'TOP_EXECUTIVE') AS manager_name` from `employees e` LEFT JOIN `employees m` ON `e.manager_id = m.id` ORDER BY `e.name ASC`",
+    "eStarter": "SELECT e.name AS employee_name, COALESCE(m.name, 'TOP_EXECUTIVE') AS manager_name FROM employees e LEFT JOIN employees m ON e.manager_id = m.id ORDER BY e.name ASC;",
+    "eHint": "Join employees to itself with alias m.",
+    "eTest": "SELECT e.name, COALESCE(m.name, 'TOP_EXECUTIVE') FROM employees e LEFT JOIN employees m ON e.manager_id = m.id;",
+    "aTitle": "Three-Table E-Commerce Line Item Join",
+    "aDesc": "Select `o.id AS order_id`, `p.name AS product_name`, `oi.quantity`, `oi.price` from `orders o` INNER JOIN `order_items oi` ON `o.id = oi.order_id` INNER JOIN `products p` ON `oi.product_id = p.id`",
+    "aStarter": "SELECT o.id AS order_id, p.name AS product_name, oi.quantity, oi.price FROM orders o INNER JOIN order_items oi ON o.id = oi.order_id INNER JOIN products p ON oi.product_id = p.id;",
+    "aHint": "Chain two INNER JOIN clauses across orders, order_items, and products.",
+    "aTest": "SELECT o.id, p.name, oi.quantity FROM orders o INNER JOIN order_items oi ON o.id = oi.order_id INNER JOIN products p ON oi.product_id = p.id;"
   },
   {
-    title: "ACID Properties & Transaction Boundaries",
-    desc: "Guarantee Atomicity, Consistency, Isolation, and Durability using BEGIN, COMMIT, and ROLLBACK blocks.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of ACID Properties & Transaction Boundaries.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 14,
+    "title": "Set Operations: UNION vs UNION ALL & INTERSECT",
+    "desc": "Combine, deduplicate, and intersect row sets across compatible SELECT statements.",
+    "syllabus": [
+      "UNION: Combining and deduplicating rows across queries.",
+      "UNION ALL: High-performance combination without deduplication overhead.",
+      "INTERSECT & EXCEPT: Finding shared and exclusive row sets."
     ],
-    eTitle: "Exam: ACID Properties & Transaction Boundaries Validation",
-    eDesc: "Implement a JavaScript validation function for ACID Properties & Transaction Boundaries.",
-    eStarter: "function dbTaskDay14(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay14 !== 'function') throw new Error('Function dbTaskDay14 not found');\nif (dbTaskDay14('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: ACID Properties & Transaction Boundaries Practice",
-    aDesc: "Write an auxiliary helper function for ACID Properties & Transaction Boundaries.",
-    aStarter: "function dbTaskDay14Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay14Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Unified User Directory from Employees and Contractors",
+    "eDesc": "Select `name`, `email`, `'EMPLOYEE' AS role` from `employees` UNION ALL Select `name`, `email`, `'CONTRACTOR' AS role` from `contractors` ORDER BY `name ASC`",
+    "eStarter": "SELECT name, email, 'EMPLOYEE' AS role FROM employees UNION ALL SELECT name, email, 'CONTRACTOR' AS role FROM contractors ORDER BY name ASC;",
+    "eHint": "Use UNION ALL with static role string literals.",
+    "eTest": "SELECT name, email, role FROM (SELECT name, email, 'EMPLOYEE' AS role FROM employees UNION ALL SELECT name, email, 'CONTRACTOR' AS role FROM contractors);",
+    "aTitle": "Deduplicated Customer Contact List",
+    "aDesc": "Select `email` from `online_customers` UNION Select `email` from `retail_customers` ORDER BY `email ASC`",
+    "aStarter": "SELECT email FROM online_customers UNION SELECT email FROM retail_customers ORDER BY email ASC;",
+    "aHint": "Use UNION to automatically deduplicate emails.",
+    "aTest": "SELECT email FROM (SELECT email FROM online_customers UNION SELECT email FROM retail_customers);"
   },
   {
-    title: "Transaction Isolation Levels (Read Uncommitted to Serializable)",
-    desc: "Prevent Dirty Reads, Non-Repeatable Reads, and Phantom Reads using appropriate isolation modes.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Transaction Isolation Levels (Read Uncommitted to Serializable).",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 15,
+    "title": "⭐ MILESTONE 2: Multi-Store Sales Reporting & Aggregation Engine",
+    "desc": "Milestone 2: Build a comprehensive analytical sales aggregation engine across multiple retail store branches.",
+    "syllabus": [
+      "Multi-Table Analytical Queries: Joining stores, orders, and items.",
+      "Grouped Metrics: Distinct order counts, revenue, and average ticket size.",
+      "HAVING Threshold Filters."
     ],
-    eTitle: "Exam: Transaction Isolation Levels (Read Uncommitted to Serializable) Validation",
-    eDesc: "Implement a JavaScript validation function for Transaction Isolation Levels (Read Uncommitted to Serializable).",
-    eStarter: "function dbTaskDay15(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay15 !== 'function') throw new Error('Function dbTaskDay15 not found');\nif (dbTaskDay15('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Transaction Isolation Levels (Read Uncommitted to Serializable) Practice",
-    aDesc: "Write an auxiliary helper function for Transaction Isolation Levels (Read Uncommitted to Serializable).",
-    aStarter: "function dbTaskDay15Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay15Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Store Branch Quarterly Performance Summary",
+    "eDesc": "Select `s.branch_name`, `COUNT(DISTINCT o.id) AS total_orders`, `SUM(o.total_amount) AS revenue`, `ROUND(AVG(o.total_amount), 2) AS avg_ticket` from `stores s` INNER JOIN `orders o` ON `s.id = o.store_id` GROUP BY `s.id`, `s.branch_name` HAVING `SUM(o.total_amount) >= 10000` ORDER BY `revenue DESC`",
+    "eStarter": "SELECT s.branch_name, COUNT(DISTINCT o.id) AS total_orders, SUM(o.total_amount) AS revenue, ROUND(AVG(o.total_amount), 2) AS avg_ticket FROM stores s INNER JOIN orders o ON s.id = o.store_id GROUP BY s.id, s.branch_name HAVING SUM(o.total_amount) >= 10000 ORDER BY revenue DESC;",
+    "eHint": "Combine stores s and orders o with COUNT(DISTINCT o.id) and HAVING SUM(total_amount) >= 10000.",
+    "eTest": "SELECT s.branch_name, COUNT(DISTINCT o.id), SUM(o.total_amount) FROM stores s INNER JOIN orders o ON s.id = o.store_id GROUP BY s.id, s.branch_name HAVING SUM(o.total_amount) >= 10000;",
+    "aTitle": "Store Inventory Valuation by Category",
+    "aDesc": "Select `s.branch_name`, `p.category`, `SUM(p.price * p.stock) AS category_value` from `stores s` INNER JOIN `products p` ON `s.id = p.store_id` GROUP BY `s.branch_name`, `p.category`",
+    "aStarter": "SELECT s.branch_name, p.category, SUM(p.price * p.stock) AS category_value FROM stores s INNER JOIN products p ON s.id = p.store_id GROUP BY s.branch_name, p.category;",
+    "aHint": "Group by both s.branch_name and p.category.",
+    "aTest": "SELECT s.branch_name, p.category, SUM(p.price * p.stock) FROM stores s INNER JOIN products p ON s.id = p.store_id GROUP BY s.branch_name, p.category;"
   },
   {
-    title: "Database Deadlocks & Lock Contention",
-    desc: "Detect circular lock dependencies, tune lock timeouts, and enforce consistent transaction access order.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Database Deadlocks & Lock Contention.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 16,
+    "title": "Subqueries: Scalar, Column Lists & Correlated Subqueries",
+    "desc": "Write nested queries inside SELECT, WHERE, and FROM clauses.",
+    "syllabus": [
+      "Scalar Subqueries: Single value returned inside SELECT or WHERE.",
+      "IN (Subquery): Matching against dynamically queried id lists.",
+      "Correlated Subqueries: Subqueries referencing the outer table."
     ],
-    eTitle: "Exam: Database Deadlocks & Lock Contention Validation",
-    eDesc: "Implement a JavaScript validation function for Database Deadlocks & Lock Contention.",
-    eStarter: "function dbTaskDay16(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay16 !== 'function') throw new Error('Function dbTaskDay16 not found');\nif (dbTaskDay16('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Database Deadlocks & Lock Contention Practice",
-    aDesc: "Write an auxiliary helper function for Database Deadlocks & Lock Contention.",
-    aStarter: "function dbTaskDay16Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay16Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Employees Earning Above Department Average",
+    "eDesc": "Select `e.id`, `e.name`, `e.salary`, `e.department_id` from `employees e` WHERE `e.salary > (SELECT AVG(salary) FROM employees WHERE department_id = e.department_id)` ORDER BY `e.salary DESC`",
+    "eStarter": "SELECT e.id, e.name, e.salary, e.department_id FROM employees e WHERE e.salary > (SELECT AVG(salary) FROM employees WHERE department_id = e.department_id) ORDER BY e.salary DESC;",
+    "eHint": "Compare e.salary against the correlated subquery AVG(salary).",
+    "eTest": "SELECT e.id, e.name, e.salary FROM employees e WHERE e.salary > (SELECT AVG(salary) FROM employees WHERE department_id = e.department_id);",
+    "aTitle": "Products Priced Above Overall Catalog Average",
+    "aDesc": "Select `id`, `name`, `price` from `products` WHERE `price > (SELECT AVG(price) FROM products)` ORDER BY `price DESC`",
+    "aStarter": "SELECT id, name, price FROM products WHERE price > (SELECT AVG(price) FROM products) ORDER BY price DESC;",
+    "aHint": "Use scalar subquery (SELECT AVG(price) FROM products).",
+    "aTest": "SELECT id, name, price FROM products WHERE price > (SELECT AVG(price) FROM products);"
   },
   {
-    title: "PostgreSQL MVCC & Vacuum Optimization",
-    desc: "Understand multi-version concurrency control, transaction IDs, dead tuple cleanup, and autovacuum tuning.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of PostgreSQL MVCC & Vacuum Optimization.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 17,
+    "title": "Common Table Expressions (WITH CTEs & Recursive CTEs)",
+    "desc": "Structure complex multi-step queries into readable, composable Common Table Expressions.",
+    "syllabus": [
+      "WITH Clause: Temporary named result sets for single query scope.",
+      "Chaining Multiple CTEs: WITH StepA AS (...), StepB AS (...).",
+      "Recursive CTEs: Hierarchical tree traversal and sequence generation."
     ],
-    eTitle: "Exam: PostgreSQL MVCC & Vacuum Optimization Validation",
-    eDesc: "Implement a JavaScript validation function for PostgreSQL MVCC & Vacuum Optimization.",
-    eStarter: "function dbTaskDay17(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay17 !== 'function') throw new Error('Function dbTaskDay17 not found');\nif (dbTaskDay17('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: PostgreSQL MVCC & Vacuum Optimization Practice",
-    aDesc: "Write an auxiliary helper function for PostgreSQL MVCC & Vacuum Optimization.",
-    aStarter: "function dbTaskDay17Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay17Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Two-Stage High-Value Customer CTE",
+    "eDesc": "WITH CustomerSpend AS (SELECT customer_id, SUM(total_amount) AS total_spent FROM orders GROUP BY customer_id) SELECT c.name, cs.total_spent FROM customers c INNER JOIN CustomerSpend cs ON c.id = cs.customer_id WHERE cs.total_spent > 500 ORDER BY cs.total_spent DESC;",
+    "eStarter": "WITH CustomerSpend AS (\n  SELECT customer_id, SUM(total_amount) AS total_spent FROM orders GROUP BY customer_id\n)\nSELECT c.name, cs.total_spent FROM customers c INNER JOIN CustomerSpend cs ON c.id = cs.customer_id WHERE cs.total_spent > 500 ORDER BY cs.total_spent DESC;",
+    "eHint": "Declare CustomerSpend CTE first, then join with customers.",
+    "eTest": "WITH CustomerSpend AS (SELECT customer_id, SUM(total_amount) AS total_spent FROM orders GROUP BY customer_id) SELECT c.name, cs.total_spent FROM customers c INNER JOIN CustomerSpend cs ON c.id = cs.customer_id WHERE cs.total_spent > 500;",
+    "aTitle": "Recursive Hierarchy Traversal CTE",
+    "aDesc": "WITH RECURSIVE NumberSeq(n) AS (SELECT 1 UNION ALL SELECT n + 1 FROM NumberSeq WHERE n < 10) SELECT n FROM NumberSeq;",
+    "aStarter": "WITH RECURSIVE NumberSeq(n) AS (\n  SELECT 1\n  UNION ALL\n  SELECT n + 1 FROM NumberSeq WHERE n < 10\n)\nSELECT n FROM NumberSeq;",
+    "aHint": "Use UNION ALL with termination condition WHERE n < 10.",
+    "aTest": "WITH RECURSIVE NumberSeq(n) AS (SELECT 1 UNION ALL SELECT n + 1 FROM NumberSeq WHERE n < 10) SELECT n FROM NumberSeq;"
   },
   {
-    title: "Database Partitioning (Range, List, Hash)",
-    desc: "Partition billion-row tables across date ranges, configure partition pruning, and optimize query scans.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Database Partitioning (Range, List, Hash).",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 18,
+    "title": "Window Functions: ROW_NUMBER(), RANK() & DENSE_RANK()",
+    "desc": "Partition and rank query rows over analytical windows without collapsing group data.",
+    "syllabus": [
+      "OVER (PARTITION BY ... ORDER BY ...): Analytical window scope.",
+      "ROW_NUMBER(): Unique sequential row IDs (1, 2, 3, 4).",
+      "RANK() vs DENSE_RANK(): Handling ties with or without gaps."
     ],
-    eTitle: "Exam: Database Partitioning (Range, List, Hash) Validation",
-    eDesc: "Implement a JavaScript validation function for Database Partitioning (Range, List, Hash).",
-    eStarter: "function dbTaskDay18(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay18 !== 'function') throw new Error('Function dbTaskDay18 not found');\nif (dbTaskDay18('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Database Partitioning (Range, List, Hash) Practice",
-    aDesc: "Write an auxiliary helper function for Database Partitioning (Range, List, Hash).",
-    aStarter: "function dbTaskDay18Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay18Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Rank Employees by Salary Within Department",
+    "eDesc": "Select `id`, `name`, `department`, `salary`, `DENSE_RANK() OVER(PARTITION BY department ORDER BY salary DESC) AS dept_salary_rank` from `employees` ORDER BY `department`, `dept_salary_rank`",
+    "eStarter": "SELECT id, name, department, salary, DENSE_RANK() OVER(PARTITION BY department ORDER BY salary DESC) AS dept_salary_rank FROM employees ORDER BY department, dept_salary_rank;",
+    "eHint": "Use DENSE_RANK() OVER(PARTITION BY department ORDER BY salary DESC).",
+    "eTest": "SELECT id, name, department, salary, DENSE_RANK() OVER(PARTITION BY department ORDER BY salary DESC) AS dept_salary_rank FROM employees;",
+    "aTitle": "Assign Row Numbers to Recent Customer Orders",
+    "aDesc": "Select `id`, `customer_id`, `total_amount`, `ROW_NUMBER() OVER(PARTITION BY customer_id ORDER BY created_at DESC) AS order_seq` from `orders`",
+    "aStarter": "SELECT id, customer_id, total_amount, ROW_NUMBER() OVER(PARTITION BY customer_id ORDER BY created_at DESC) AS order_seq FROM orders;",
+    "aHint": "Use ROW_NUMBER() OVER(PARTITION BY customer_id ORDER BY created_at DESC).",
+    "aTest": "SELECT id, customer_id, ROW_NUMBER() OVER(PARTITION BY customer_id ORDER BY created_at DESC) AS order_seq FROM orders;"
   },
   {
-    title: "Write-Ahead Logging (WAL) & Point-in-Time Recovery",
-    desc: "Analyze WAL buffers, replication streams, checkpoint intervals, and restore databases to precise timestamps.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Write-Ahead Logging (WAL) & Point-in-Time Recovery.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 19,
+    "title": "Window Aggregates: Running Totals & Moving Averages (OVER)",
+    "desc": "Compute running financial totals and moving metrics across ordered time windows.",
+    "syllabus": [
+      "Running Sum: SUM(val) OVER (ORDER BY date).",
+      "Moving Window Frames: ROWS BETWEEN N PRECEDING AND CURRENT ROW.",
+      "Analytical Partition Summaries."
     ],
-    eTitle: "Exam: Write-Ahead Logging (WAL) & Point-in-Time Recovery Validation",
-    eDesc: "Implement a JavaScript validation function for Write-Ahead Logging (WAL) & Point-in-Time Recovery.",
-    eStarter: "function dbTaskDay19(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay19 !== 'function') throw new Error('Function dbTaskDay19 not found');\nif (dbTaskDay19('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Write-Ahead Logging (WAL) & Point-in-Time Recovery Practice",
-    aDesc: "Write an auxiliary helper function for Write-Ahead Logging (WAL) & Point-in-Time Recovery.",
-    aStarter: "function dbTaskDay19Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay19Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Cumulative Running Revenue per Day",
+    "eDesc": "Select `date(created_at) AS order_day`, `total_amount`, `SUM(total_amount) OVER(ORDER BY created_at ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS running_total` from `orders` ORDER BY `created_at ASC`",
+    "eStarter": "SELECT date(created_at) AS order_day, total_amount, SUM(total_amount) OVER(ORDER BY created_at ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS running_total FROM orders ORDER BY created_at ASC;",
+    "eHint": "Use SUM(...) OVER (ORDER BY created_at ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW).",
+    "eTest": "SELECT date(created_at), total_amount, SUM(total_amount) OVER(ORDER BY created_at ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) FROM orders;",
+    "aTitle": "Moving 3-Order Average Amount",
+    "aDesc": "Select `id`, `total_amount`, `ROUND(AVG(total_amount) OVER(ORDER BY created_at ROWS BETWEEN 2 PRECEDING AND CURRENT ROW), 2) AS moving_avg_3` from `orders`",
+    "aStarter": "SELECT id, total_amount, ROUND(AVG(total_amount) OVER(ORDER BY created_at ROWS BETWEEN 2 PRECEDING AND CURRENT ROW), 2) AS moving_avg_3 FROM orders;",
+    "aHint": "Use ROWS BETWEEN 2 PRECEDING AND CURRENT ROW.",
+    "aTest": "SELECT id, total_amount, ROUND(AVG(total_amount) OVER(ORDER BY created_at ROWS BETWEEN 2 PRECEDING AND CURRENT ROW), 2) FROM orders;"
   },
   {
-    title: "Read Replicas & Connection Pooling (PgBouncer)",
-    desc: "Scale read throughput with asynchronous replicas, load balance connections, and configure transaction pooling.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Read Replicas & Connection Pooling (PgBouncer).",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 20,
+    "title": "Database Indexing: B-Tree Indexes & Composite Index Strategy",
+    "desc": "Accelerate point lookups and range scans with B-Tree indexes and column ordering rules.",
+    "syllabus": [
+      "B-Tree Index Internals: O(log N) point search vs O(N) full table scan.",
+      "Composite Index Rule: Leftmost prefix matching.",
+      "Unique Indexes & Index Overhead on Writes."
     ],
-    eTitle: "Exam: Read Replicas & Connection Pooling (PgBouncer) Validation",
-    eDesc: "Implement a JavaScript validation function for Read Replicas & Connection Pooling (PgBouncer).",
-    eStarter: "function dbTaskDay20(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay20 !== 'function') throw new Error('Function dbTaskDay20 not found');\nif (dbTaskDay20('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Read Replicas & Connection Pooling (PgBouncer) Practice",
-    aDesc: "Write an auxiliary helper function for Read Replicas & Connection Pooling (PgBouncer).",
-    aStarter: "function dbTaskDay20Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay20Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Create Composite Index for Fast Customer Search",
+    "eDesc": "Write SQL statement creating composite index `idx_orders_cust_date` on table `orders(customer_id, created_at DESC)`",
+    "eStarter": "CREATE INDEX idx_orders_cust_date ON orders(customer_id, created_at DESC);",
+    "eHint": "Use CREATE INDEX on customer_id and created_at DESC.",
+    "eTest": "SELECT name, sql FROM sqlite_master WHERE type='index' AND name='idx_orders_cust_date';",
+    "aTitle": "Create Unique Email Index",
+    "aDesc": "Write SQL statement creating unique index `idx_users_email_unique` on `user_accounts(email)`",
+    "aStarter": "CREATE UNIQUE INDEX idx_users_email_unique ON user_accounts(email);",
+    "aHint": "Use CREATE UNIQUE INDEX.",
+    "aTest": "SELECT name, sql FROM sqlite_master WHERE type='index' AND name='idx_users_email_unique';"
   },
   {
-    title: "Distributed Consensus & Raft in Databases",
-    desc: "Understand leader election, log replication quorum, partition tolerance, and split-brain prevention.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Distributed Consensus & Raft in Databases.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 21,
+    "title": "⭐ MILESTONE 3: Enterprise Query Optimizer & Execution Plan Auditor",
+    "desc": "Milestone 3: Audit query execution plans using EXPLAIN QUERY PLAN to eliminate full table scans.",
+    "syllabus": [
+      "EXPLAIN QUERY PLAN: Interpreting SCAN TABLE vs SEARCH TABLE USING INDEX.",
+      "Index Selectivity: Cardinality and covering indexes.",
+      "Preventing Accidental Full Scans."
     ],
-    eTitle: "Exam: Distributed Consensus & Raft in Databases Validation",
-    eDesc: "Implement a JavaScript validation function for Distributed Consensus & Raft in Databases.",
-    eStarter: "function dbTaskDay21(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay21 !== 'function') throw new Error('Function dbTaskDay21 not found');\nif (dbTaskDay21('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Distributed Consensus & Raft in Databases Practice",
-    aDesc: "Write an auxiliary helper function for Distributed Consensus & Raft in Databases.",
-    aStarter: "function dbTaskDay21Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay21Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Audit Query Plan to Confirm Index Scan",
+    "eDesc": "Write `EXPLAIN QUERY PLAN SELECT * FROM orders WHERE customer_id = 42 ORDER BY created_at DESC;`",
+    "eStarter": "EXPLAIN QUERY PLAN SELECT * FROM orders WHERE customer_id = 42 ORDER BY created_at DESC;",
+    "eHint": "Prefix query with EXPLAIN QUERY PLAN.",
+    "eTest": "EXPLAIN QUERY PLAN SELECT * FROM orders WHERE customer_id = 42;",
+    "aTitle": "Audit Email Lookup Plan",
+    "aDesc": "Write `EXPLAIN QUERY PLAN SELECT * FROM user_accounts WHERE email = 'test@pinit.ai';`",
+    "aStarter": "EXPLAIN QUERY PLAN SELECT * FROM user_accounts WHERE email = 'test@pinit.ai';",
+    "aHint": "Prefix with EXPLAIN QUERY PLAN.",
+    "aTest": "EXPLAIN QUERY PLAN SELECT * FROM user_accounts WHERE email = 'test@pinit.ai';"
   },
   {
-    title: "NoSQL Modeling with MongoDB & Document Stores",
-    desc: "Design embedding vs referencing schemas, secondary indexes, aggregation pipelines, and sharding keys.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of NoSQL Modeling with MongoDB & Document Stores.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 22,
+    "title": "Transactions & ACID Guarantees: BEGIN, COMMIT & ROLLBACK",
+    "desc": "Guarantee Atomicity, Consistency, Isolation, and Durability across multi-step mutations.",
+    "syllabus": [
+      "Atomicity: All-or-nothing execution.",
+      "Consistency: Enforcing schema constraints across transactions.",
+      "Rollback on Failure: Preserving database integrity."
     ],
-    eTitle: "Exam: NoSQL Modeling with MongoDB & Document Stores Validation",
-    eDesc: "Implement a JavaScript validation function for NoSQL Modeling with MongoDB & Document Stores.",
-    eStarter: "function dbTaskDay22(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay22 !== 'function') throw new Error('Function dbTaskDay22 not found');\nif (dbTaskDay22('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: NoSQL Modeling with MongoDB & Document Stores Practice",
-    aDesc: "Write an auxiliary helper function for NoSQL Modeling with MongoDB & Document Stores.",
-    aStarter: "function dbTaskDay22Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay22Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Atomic Bank Transfer Transaction",
+    "eDesc": "Write a transaction transferring $100 from account 1 to account 2: BEGIN TRANSACTION; UPDATE accounts SET balance = balance - 100 WHERE id = 1; UPDATE accounts SET balance = balance + 100 WHERE id = 2; COMMIT;",
+    "eStarter": "BEGIN TRANSACTION;\nUPDATE accounts SET balance = balance - 100 WHERE id = 1;\nUPDATE accounts SET balance = balance + 100 WHERE id = 2;\nCOMMIT;",
+    "eHint": "Execute BEGIN TRANSACTION, both updates, and COMMIT.",
+    "eTest": "SELECT balance FROM accounts WHERE id IN (1, 2);",
+    "aTitle": "Rollback on Invariant Check Failure",
+    "aDesc": "Demonstrate ROLLBACK on negative balance validation.",
+    "aStarter": "BEGIN TRANSACTION;\nROLLBACK;",
+    "aHint": "Use BEGIN TRANSACTION followed by ROLLBACK.",
+    "aTest": "SELECT 1;"
   },
   {
-    title: "Key-Value Stores & In-Memory Redis",
-    desc: "Implement Redis strings, hashes, sets, sorted sets (zset), TTL expirations, and cache eviction policies.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Key-Value Stores & In-Memory Redis.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 23,
+    "title": "Concurrency & Isolation Levels: Dirty Reads to Serializable",
+    "desc": "Understand concurrency anomalies: Dirty Reads, Non-Repeatable Reads, and Phantom Reads.",
+    "syllabus": [
+      "Isolation Levels: Read Uncommitted, Read Committed, Repeatable Read, Serializable.",
+      "Write-Ahead Logging (WAL): Concurrent readers and writers in SQLite.",
+      "Deadlock Prevention & Lock Escalation."
     ],
-    eTitle: "Exam: Key-Value Stores & In-Memory Redis Validation",
-    eDesc: "Implement a JavaScript validation function for Key-Value Stores & In-Memory Redis.",
-    eStarter: "function dbTaskDay23(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay23 !== 'function') throw new Error('Function dbTaskDay23 not found');\nif (dbTaskDay23('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Key-Value Stores & In-Memory Redis Practice",
-    aDesc: "Write an auxiliary helper function for Key-Value Stores & In-Memory Redis.",
-    aStarter: "function dbTaskDay23Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay23Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Set SQLite WAL Pragma for High Concurrency",
+    "eDesc": "Write `PRAGMA journal_mode = WAL;` to enable Write-Ahead Logging for concurrent readers and writers.",
+    "eStarter": "PRAGMA journal_mode = WAL;",
+    "eHint": "Execute PRAGMA journal_mode = WAL.",
+    "eTest": "PRAGMA journal_mode;",
+    "aTitle": "Verify Foreign Key Enforcement Pragma",
+    "aDesc": "Write `PRAGMA foreign_keys = ON;`",
+    "aStarter": "PRAGMA foreign_keys = ON;",
+    "aHint": "Execute PRAGMA foreign_keys = ON.",
+    "aTest": "PRAGMA foreign_keys;"
   },
   {
-    title: "Time-Series Databases (TimescaleDB / InfluxDB)",
-    desc: "Store high-frequency IoT metrics, configure hypertables, automated rollups, and data retention policies.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Time-Series Databases (TimescaleDB / InfluxDB).",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 24,
+    "title": "Database Normalization: 1NF, 2NF, 3NF & BCNF Architecture",
+    "desc": "Decompose redundant flat data models into anomaly-free third normal form (3NF) tables.",
+    "syllabus": [
+      "1NF: Atomic values and unique column entries.",
+      "2NF: No partial dependency on composite keys.",
+      "3NF: No transitive dependencies (`A -> B -> C`)."
     ],
-    eTitle: "Exam: Time-Series Databases (TimescaleDB / InfluxDB) Validation",
-    eDesc: "Implement a JavaScript validation function for Time-Series Databases (TimescaleDB / InfluxDB).",
-    eStarter: "function dbTaskDay24(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay24 !== 'function') throw new Error('Function dbTaskDay24 not found');\nif (dbTaskDay24('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Time-Series Databases (TimescaleDB / InfluxDB) Practice",
-    aDesc: "Write an auxiliary helper function for Time-Series Databases (TimescaleDB / InfluxDB).",
-    aStarter: "function dbTaskDay24Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay24Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Normalized Product Categories DDL",
+    "eDesc": "Create table `categories (id INT PRIMARY KEY, name TEXT UNIQUE NOT NULL)` and table `items (id INT PRIMARY KEY, category_id INT REFERENCES categories(id), name TEXT NOT NULL)`",
+    "eStarter": "CREATE TABLE categories (id INT PRIMARY KEY, name TEXT UNIQUE NOT NULL);\nCREATE TABLE items (id INT PRIMARY KEY, category_id INT REFERENCES categories(id), name TEXT NOT NULL);",
+    "eHint": "Create parent categories table and child items table with REFERENCES.",
+    "eTest": "PRAGMA table_info(categories);\nPRAGMA table_info(items);",
+    "aTitle": "Normalized Order Line Items DDL",
+    "aDesc": "Create table `invoice_lines (invoice_id INT, line_num INT, amount REAL, PRIMARY KEY (invoice_id, line_num))`",
+    "aStarter": "CREATE TABLE invoice_lines (invoice_id INT, line_num INT, amount REAL, PRIMARY KEY (invoice_id, line_num));",
+    "aHint": "Use composite PRIMARY KEY (invoice_id, line_num).",
+    "aTest": "PRAGMA table_info(invoice_lines);"
   },
   {
-    title: "Vector Databases & Similarity Indexing (pgvector)",
-    desc: "Store embedding vectors, configure HNSW / IVFFlat indexes, and query cosine distance for RAG applications.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Vector Databases & Similarity Indexing (pgvector).",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 25,
+    "title": "SQL Views & Materialized Views for Abstract Queries",
+    "desc": "Encapsulate complex multi-table joins into virtual views for security and simplicity.",
+    "syllabus": [
+      "CREATE VIEW: Stored query definitions without data duplication.",
+      "Materialized Views: Cached physical tables for intensive analytics.",
+      "View Security: Granting row and column access through views."
     ],
-    eTitle: "Exam: Vector Databases & Similarity Indexing (pgvector) Validation",
-    eDesc: "Implement a JavaScript validation function for Vector Databases & Similarity Indexing (pgvector).",
-    eStarter: "function dbTaskDay25(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay25 !== 'function') throw new Error('Function dbTaskDay25 not found');\nif (dbTaskDay25('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Vector Databases & Similarity Indexing (pgvector) Practice",
-    aDesc: "Write an auxiliary helper function for Vector Databases & Similarity Indexing (pgvector).",
-    aStarter: "function dbTaskDay25Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay25Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Create Customer Revenue Summary View",
+    "eDesc": "Create view `v_customer_revenue` AS SELECT `c.id`, `c.name`, `COALESCE(SUM(o.total_amount), 0.0) AS total_revenue` FROM `customers c` LEFT JOIN `orders o` ON `c.id = o.customer_id` GROUP BY `c.id`, `c.name`",
+    "eStarter": "CREATE VIEW v_customer_revenue AS\nSELECT c.id, c.name, COALESCE(SUM(o.total_amount), 0.0) AS total_revenue\nFROM customers c\nLEFT JOIN orders o ON c.id = o.customer_id\nGROUP BY c.id, c.name;",
+    "eHint": "Use CREATE VIEW v_customer_revenue AS followed by SELECT query.",
+    "eTest": "SELECT * FROM v_customer_revenue;",
+    "aTitle": "Create Active Staff Directory View",
+    "aDesc": "Create view `v_active_staff` AS SELECT `id`, `name`, `email` FROM `employees` WHERE `status = 'ACTIVE'`",
+    "aStarter": "CREATE VIEW v_active_staff AS SELECT id, name, email FROM employees WHERE status = 'ACTIVE';",
+    "aHint": "Use CREATE VIEW with WHERE status = 'ACTIVE'.",
+    "aTest": "SELECT * FROM v_active_staff;"
   },
   {
-    title: "Database Migrations & Zero-Downtime Schema Changes",
-    desc: "Execute backward-compatible schema changes (add column, backfill, make NOT NULL) using migration tools.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Database Migrations & Zero-Downtime Schema Changes.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 26,
+    "title": "⭐ MILESTONE 4: Real-Time Audit Log Trigger & Invariant Enforcer",
+    "desc": "Milestone 4: Implement database triggers that automatically write timestamped audit trail records on table updates.",
+    "syllabus": [
+      "CREATE TRIGGER: AFTER UPDATE OF col ON table.",
+      "OLD vs NEW Row References: Accessing pre-update and post-update values.",
+      "Automated Audit Logging & Change Tracking."
     ],
-    eTitle: "Exam: Database Migrations & Zero-Downtime Schema Changes Validation",
-    eDesc: "Implement a JavaScript validation function for Database Migrations & Zero-Downtime Schema Changes.",
-    eStarter: "function dbTaskDay26(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay26 !== 'function') throw new Error('Function dbTaskDay26 not found');\nif (dbTaskDay26('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Database Migrations & Zero-Downtime Schema Changes Practice",
-    aDesc: "Write an auxiliary helper function for Database Migrations & Zero-Downtime Schema Changes.",
-    aStarter: "function dbTaskDay26Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay26Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Create Audit Trigger on Customer Balance Changes",
+    "eDesc": "Create trigger `trg_audit_balance_change` AFTER UPDATE OF `balance` ON `accounts` BEGIN INSERT INTO `account_audit (account_id, old_bal, new_bal, changed_at)` VALUES (`OLD.id`, `OLD.balance`, `NEW.balance`, `CURRENT_TIMESTAMP`); END;",
+    "eStarter": "CREATE TRIGGER trg_audit_balance_change\nAFTER UPDATE OF balance ON accounts\nBEGIN\n  INSERT INTO account_audit (account_id, old_bal, new_bal, changed_at)\n  VALUES (OLD.id, OLD.balance, NEW.balance, CURRENT_TIMESTAMP);\nEND;",
+    "eHint": "Use AFTER UPDATE OF balance ON accounts with OLD and NEW references.",
+    "eTest": "SELECT name, sql FROM sqlite_master WHERE type='trigger' AND name='trg_audit_balance_change';",
+    "aTitle": "Create Invariant Preventative Trigger",
+    "aDesc": "Create trigger preventing negative balance inserts using RAISE(ABORT, 'Balance cannot be negative').",
+    "aStarter": "CREATE TRIGGER trg_prevent_negative_bal\nBEFORE INSERT ON accounts\nWHEN NEW.balance < 0\nBEGIN\n  SELECT RAISE(ABORT, 'Balance cannot be negative');\nEND;",
+    "aHint": "Use BEFORE INSERT ON accounts WHEN NEW.balance < 0.",
+    "aTest": "SELECT name FROM sqlite_master WHERE type='trigger' AND name='trg_prevent_negative_bal';"
   },
   {
-    title: "Database Backup Strategies & Point-in-Time Recovery",
-    desc: "Schedule logical dumps (pg_dump) and continuous physical WAL archiving to S3.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Database Backup Strategies & Point-in-Time Recovery.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 27,
+    "title": "JSON Column Storage & JSON_EXTRACT Querying",
+    "desc": "Store and query flexible semi-structured JSON payloads inside SQL relational columns.",
+    "syllabus": [
+      "JSON_EXTRACT(col, '$.path'): Unpacking nested keys from JSON strings.",
+      "JSON Functions: JSON_ARRAY, JSON_OBJECT, JSON_EACH for array unnesting.",
+      "Hybrid Relational + Document Architecture."
     ],
-    eTitle: "Exam: Database Backup Strategies & Point-in-Time Recovery Validation",
-    eDesc: "Implement a JavaScript validation function for Database Backup Strategies & Point-in-Time Recovery.",
-    eStarter: "function dbTaskDay27(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay27 !== 'function') throw new Error('Function dbTaskDay27 not found');\nif (dbTaskDay27('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Database Backup Strategies & Point-in-Time Recovery Practice",
-    aDesc: "Write an auxiliary helper function for Database Backup Strategies & Point-in-Time Recovery.",
-    aStarter: "function dbTaskDay27Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay27Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Extract Nested JSON Configuration Keys",
+    "eDesc": "Select `id`, `JSON_EXTRACT(metadata, '$.theme') AS user_theme`, `JSON_EXTRACT(metadata, '$.notifications.email') AS email_notifs` from `user_settings`",
+    "eStarter": "SELECT id, JSON_EXTRACT(metadata, '$.theme') AS user_theme, JSON_EXTRACT(metadata, '$.notifications.email') AS email_notifs FROM user_settings;",
+    "eHint": "Use JSON_EXTRACT with '$.theme' and '$.notifications.email'.",
+    "eTest": "SELECT id, JSON_EXTRACT(metadata, '$.theme') FROM user_settings;",
+    "aTitle": "Filter Records by JSON Property",
+    "aDesc": "Select `id` from `user_settings` WHERE `JSON_EXTRACT(metadata, '$.role') = 'ADMIN'`",
+    "aStarter": "SELECT id FROM user_settings WHERE JSON_EXTRACT(metadata, '$.role') = 'ADMIN';",
+    "aHint": "Use WHERE JSON_EXTRACT(...) = 'ADMIN'.",
+    "aTest": "SELECT id FROM user_settings WHERE JSON_EXTRACT(metadata, '$.role') = 'ADMIN';"
   },
   {
-    title: "Database Security & Role-Based Access Control",
-    desc: "Configure database users, schemas, table GRANT permissions, and row-level security (RLS) policies.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Database Security & Role-Based Access Control.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 28,
+    "title": "Sharding, Read Replicas & High-Availability Scaling",
+    "desc": "Explore horizontal database sharding, primary-replica replication lag, and connection pooling.",
+    "syllabus": [
+      "Horizontal Partitioning (Sharding): Shard keys and modulo distribution.",
+      "Read Replicas: Asynchronous replication and read offloading.",
+      "Connection Pooling & High Availability Failover."
     ],
-    eTitle: "Exam: Database Security & Role-Based Access Control Validation",
-    eDesc: "Implement a JavaScript validation function for Database Security & Role-Based Access Control.",
-    eStarter: "function dbTaskDay28(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay28 !== 'function') throw new Error('Function dbTaskDay28 not found');\nif (dbTaskDay28('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Database Security & Role-Based Access Control Practice",
-    aDesc: "Write an auxiliary helper function for Database Security & Role-Based Access Control.",
-    aStarter: "function dbTaskDay28Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay28Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Shard Key Modulo Hash Routing",
+    "eDesc": "Select `id`, `(id % 4) AS target_shard_id` from `accounts`",
+    "eStarter": "SELECT id, (id % 4) AS target_shard_id FROM accounts;",
+    "eHint": "Use modulo arithmetic (id % 4).",
+    "eTest": "SELECT id, (id % 4) FROM accounts;",
+    "aTitle": "Replication Lag Metric Query",
+    "aDesc": "Select `replica_name`, `(primary_lsn - replica_lsn) AS lsn_lag` from `replication_status`",
+    "aStarter": "SELECT replica_name, (primary_lsn - replica_lsn) AS lsn_lag FROM replication_status;",
+    "aHint": "Compute difference between primary and replica LSNs.",
+    "aTest": "SELECT replica_name, (primary_lsn - replica_lsn) FROM replication_status;"
   },
   {
-    title: "Database Benchmarking & Stress Testing (pgbench)",
-    desc: "Simulate concurrent transactions, benchmark transactions per second (TPS), and identify IOPS bottlenecks.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Database Benchmarking & Stress Testing (pgbench).",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 29,
+    "title": "NoSQL vs Relational Storage Engine Trade-offs",
+    "desc": "Compare ACID relational consistency with Document, Key-Value, and Columnar stores.",
+    "syllabus": [
+      "CAP Theorem: Consistency vs Availability vs Partition Tolerance.",
+      "Document Stores (MongoDB) vs Key-Value (Redis) vs Relational (Postgres/SQLite).",
+      "Selecting the Right Storage Engine for Workloads."
     ],
-    eTitle: "Exam: Database Benchmarking & Stress Testing (pgbench) Validation",
-    eDesc: "Implement a JavaScript validation function for Database Benchmarking & Stress Testing (pgbench).",
-    eStarter: "function dbTaskDay29(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay29 !== 'function') throw new Error('Function dbTaskDay29 not found');\nif (dbTaskDay29('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Database Benchmarking & Stress Testing (pgbench) Practice",
-    aDesc: "Write an auxiliary helper function for Database Benchmarking & Stress Testing (pgbench).",
-    aStarter: "function dbTaskDay29Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay29Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Query Storage Engine Benchmark Metrics",
+    "eDesc": "Select `engine_type`, `p99_latency_ms`, `throughput_qps` from `db_benchmarks` ORDER BY `throughput_qps DESC`",
+    "eStarter": "SELECT engine_type, p99_latency_ms, throughput_qps FROM db_benchmarks ORDER BY throughput_qps DESC;",
+    "eHint": "Select benchmark columns and order by throughput_qps DESC.",
+    "eTest": "SELECT engine_type, p99_latency_ms, throughput_qps FROM db_benchmarks;",
+    "aTitle": "Categorize Storage Use-Cases",
+    "aDesc": "Select `use_case`, `recommended_engine` from `storage_architectures`",
+    "aStarter": "SELECT use_case, recommended_engine FROM storage_architectures;",
+    "aHint": "Select use_case and recommended_engine.",
+    "aTest": "SELECT use_case, recommended_engine FROM storage_architectures;"
   },
   {
-    title: "Capstone: High-Throughput Globally Distributed Database Cluster",
-    desc: "Design a production cluster with PgBouncer connection pools, read replicas, WAL archiving, and vector search.",
-    syllabus: [
-      "Core Foundations: Principles and mechanisms of Capstone: High-Throughput Globally Distributed Database Cluster.",
-      "Operational Architecture: Implementation details and execution flow.",
-      "Production Best Practices: Safety checks, error handling, and performance optimization."
+    "day": 30,
+    "title": "🏆 FINAL CAPSTONE: Enterprise Multi-Tenant Banking Ledger & Real-Time Financial Audit Engine",
+    "desc": "Final Capstone Synthesis: The complete transactional banking ledger operating system featuring atomic transfers, audit logging triggers, running balances, and multi-tenant reconciliation views.",
+    "syllabus": [
+      "Full Banking Schema: Accounts, Transactions, Audit Logs, and Reconciliations.",
+      "Running Ledger Reconciliation with CTEs and Case Aggregations.",
+      "Real-Time Fraud & Anomaly Filtering."
     ],
-    eTitle: "Exam: Capstone: High-Throughput Globally Distributed Database Cluster Validation",
-    eDesc: "Implement a JavaScript validation function for Capstone: High-Throughput Globally Distributed Database Cluster.",
-    eStarter: "function dbTaskDay30(input) {\n    return Boolean(input);\n}",
-    eHint: "Verify that input exists and satisfies required parameters.",
-    eTest: "if (typeof dbTaskDay30 !== 'function') throw new Error('Function dbTaskDay30 not found');\nif (dbTaskDay30('valid') !== true) throw new Error('Expected true for valid input');",
-    aTitle: "Assignment: Capstone: High-Throughput Globally Distributed Database Cluster Practice",
-    aDesc: "Write an auxiliary helper function for Capstone: High-Throughput Globally Distributed Database Cluster.",
-    aStarter: "function dbTaskDay30Aux(data) {\n    return Boolean(data);\n}",
-    aHint: "Return true for valid data payload.",
-    aTest: "if (typeof dbTaskDay30Aux !== 'function') throw new Error('Auxiliary function not found');"
+    "eTitle": "Capstone Banking Ledger Balance Reconciliation",
+    "eDesc": "WITH ReconciledLedger AS (SELECT account_id, SUM(CASE WHEN tx_type = 'CREDIT' THEN amount ELSE -amount END) AS net_change FROM ledger_entries GROUP BY account_id) SELECT a.id, a.account_number, a.initial_balance, COALESCE(rl.net_change, 0.0) AS net_change, (a.initial_balance + COALESCE(rl.net_change, 0.0)) AS reconciled_balance FROM bank_accounts a LEFT JOIN ReconciledLedger rl ON a.id = rl.account_id ORDER BY a.id ASC;",
+    "eStarter": "WITH ReconciledLedger AS (\n  SELECT account_id, SUM(CASE WHEN tx_type = 'CREDIT' THEN amount ELSE -amount END) AS net_change\n  FROM ledger_entries\n  GROUP BY account_id\n)\nSELECT a.id, a.account_number, a.initial_balance, COALESCE(rl.net_change, 0.0) AS net_change, (a.initial_balance + COALESCE(rl.net_change, 0.0)) AS reconciled_balance\nFROM bank_accounts a\nLEFT JOIN ReconciledLedger rl ON a.id = rl.account_id\nORDER BY a.id ASC;",
+    "eHint": "Compute net_change per account using CASE WHEN tx_type = 'CREDIT' THEN amount ELSE -amount END inside CTE, then join with bank_accounts.",
+    "eTest": "WITH ReconciledLedger AS (SELECT account_id, SUM(CASE WHEN tx_type = 'CREDIT' THEN amount ELSE -amount END) AS net_change FROM ledger_entries GROUP BY account_id) SELECT a.id, (a.initial_balance + COALESCE(rl.net_change, 0.0)) FROM bank_accounts a LEFT JOIN ReconciledLedger rl ON a.id = rl.account_id;",
+    "aTitle": "Capstone Anomaly & Fraud Detection Query",
+    "aDesc": "Select `account_id`, `amount`, `created_at` from `ledger_entries` WHERE `amount >= 10000.0` OR `tx_type NOT IN ('CREDIT', 'DEBIT')` ORDER BY `amount DESC`",
+    "aStarter": "SELECT account_id, amount, created_at FROM ledger_entries WHERE amount >= 10000.0 OR tx_type NOT IN ('CREDIT', 'DEBIT') ORDER BY amount DESC;",
+    "aHint": "Filter large amounts >= 10000 or invalid transaction types.",
+    "aTest": "SELECT account_id, amount FROM ledger_entries WHERE amount >= 10000.0;"
   }
 ];
 
-export const DATABASE_30_DAYS_QUESTS = DATABASE_30_DAYS_CONFIGS.flatMap((cfg, i) =>
-  buildEnrichedDayQuests('db', i + 1, cfg)
+export const DATABASE_30_DAYS_QUESTS: CourseQuest[] = DATABASE_30_DAYS_CONFIGS.flatMap((cfg, idx) => 
+  buildEnrichedDayQuests('sql-mastery', idx + 1, cfg)
 );
