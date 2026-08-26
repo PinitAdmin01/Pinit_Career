@@ -4,7 +4,59 @@ import fs from 'fs';
 import path from 'path';
 import os from 'os';
 import crypto from 'crypto';
+import { createClient } from '@supabase/supabase-js';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
+
+// STAGE 1 FIX (§3.5 / §3.6 — Java completion authority):
+// Previously, after this route returned `allPassed: true`, the ONLY completion
+// record created was QuestWorkspaceClient.tsx calling `addCompletedQuest(...)`
+// — a purely client-side function. No server-side record existed tied to the
+// specific judge run that verified the code. JS quests get a stronger
+// guarantee via verify-quest's atomicPersistCompletion (a service-role write
+// performed entirely server-side, in the same trusted process that ran the
+// check). This gives Java the same guarantee: when THIS route's own real
+// javac/java judge says a submission passed, THIS route — not the browser —
+// writes the authoritative completion record, using the service-role key.
+//
+// This is additive: the client's existing `addCompletedQuest(...)` call is
+// left untouched (it still drives local UI/XP/streak state), so no existing
+// behavior changes if this write fails or is never reached. Follows the exact
+// env-var + graceful-degradation pattern already used by src/lib/faceStore.ts
+// (getSupabaseAdmin) — if Supabase isn't configured (e.g. demo mode), this
+// silently no-ops rather than breaking the response.
+function getSupabaseAdmin() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+  if (!url || !key) return null;
+  return createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });
+}
+
+async function persistJavaCompletionServerSide(uid: string, questId: string, xpAmount: number): Promise<void> {
+  const admin = getSupabaseAdmin();
+  if (!admin) return; // Not configured (e.g. demo mode) — no-op, matches existing degradation pattern.
+  try {
+    const { data: profile, error: fetchErr } = await admin
+      .from('users')
+      .select('completed_quests, xp_total')
+      .eq('id', uid)
+      .single();
+    if (fetchErr || !profile) {
+      console.warn('[run-java] persistJavaCompletionServerSide fetch failed:', fetchErr?.message);
+      return;
+    }
+    const current: string[] = profile.completed_quests || [];
+    if (current.includes(questId)) return; // idempotent
+    const newCompleted = [...current, questId];
+    const newXp = (profile.xp_total || 0) + xpAmount;
+    const { error: updateErr } = await admin
+      .from('users')
+      .update({ completed_quests: newCompleted, xp_total: newXp })
+      .eq('id', uid);
+    if (updateErr) console.warn('[run-java] persistJavaCompletionServerSide update failed:', updateErr.message);
+  } catch (e: any) {
+    console.warn('[run-java] persistJavaCompletionServerSide threw:', e?.message);
+  }
+}
 
 export async function POST(req: NextRequest) {
   const startTime = Date.now();
@@ -15,7 +67,7 @@ export async function POST(req: NextRequest) {
     if (gated.error) return gated.error;
 
     const body = await req.json();
-    const { code, testSuite, stdin, timeoutMs = 3000 } = body;
+    const { code, testSuite, stdin, timeoutMs = 3000, questId, xp } = body;
 
     if (!code || typeof code !== 'string') {
       return NextResponse.json({ error: 'Missing Java source code' }, { status: 400 });
@@ -176,6 +228,14 @@ export async function POST(req: NextRequest) {
         runResult.stdout ? `[OUTPUT] ${runResult.stdout.trim()}` : '[OUTPUT] Program finished with 0 output.',
         passed ? '[SUCCESS] All automated test assertions passed!' : `[FAIL] ${runResult.stderr.trim()}`
       ];
+
+      // Server-authoritative completion record (§3.5/§3.6) — written here, by
+      // this route, using the real compile+run result it just produced. Non-
+      // blocking: never delays or fails the response to the student.
+      if (passed && typeof questId === 'string' && questId) {
+        persistJavaCompletionServerSide(gated.user.id, questId, typeof xp === 'number' ? xp : 120)
+          .catch((e) => console.warn('[run-java] completion persistence rejected:', e?.message));
+      }
 
       return NextResponse.json({
         language: 'java',

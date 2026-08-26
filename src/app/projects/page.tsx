@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { useAuth } from '@/lib/context/AuthContext';
 import { COURSES_REGISTRY } from '@/lib/data/coursesData';
@@ -8,9 +9,38 @@ import { toast } from '@/lib/store/useAppStore';
 import { Project, GITHUB_REPO_REGEX, SWAP_POOLS, getGuideStepsForProject } from '@/lib/data/projectData';
 import { parseAndValidateGithubUrl, GithubEvidenceReport } from '@/lib/github/githubIngestion';
 import { PathwayApiService } from '@/lib/api/pathwayApi';
+import {
+  TeamsApiService,
+  HackathonSquad,
+  TeamRole
+} from '@/lib/api/teamsApi';
 
-export default function ProjectsPage() {
+function ProjectsPageContent() {
+  const searchParams = useSearchParams();
+  const initialTab = (searchParams?.get('tab') as any) === 'squads' ? 'squads' : 'solo';
+  const [mainTab, setMainTab] = useState<'solo' | 'squads'>(initialTab);
+
+  // Sync tab with URL query parameter
+  useEffect(() => {
+    const tabParam = searchParams?.get('tab');
+    if (tabParam === 'squads') setMainTab('squads');
+    else if (tabParam === 'solo') setMainTab('solo');
+  }, [searchParams]);
+
+  // Squads state
+  const [squads, setSquads] = useState<HackathonSquad[]>([]);
+  const [selectedSquadId, setSelectedSquadId] = useState<string>('');
+  const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
+  const [newSquadName, setNewSquadName] = useState<string>('');
+  const [newHackathonTitle, setNewHackathonTitle] = useState<string>('Global AI & Cloud Distributed Systems Hackathon');
+  const [newRole, setNewRole] = useState<TeamRole>('backend_lead');
+  const [newRepoUrl, setNewRepoUrl] = useState<string>('https://github.com/my-org/cloud-hackathon');
+  const [submittingLiveUrl, setSubmittingLiveUrl] = useState<string>('https://my-demo.pinit.app');
+  const [isSubmittingProject, setIsSubmittingProject] = useState<boolean>(false);
+
   const { user } = useAuth();
+  const studentId = (user && typeof user.id === 'string') ? user.id : 'demo_student_01';
+  const studentName = (user && typeof (user as any).name === 'string') ? (user as any).name : 'Current Student';
   const cOS = useCareerOS();
 
   const { completedQuests, onboardingAnswers, addXp, earnPins, setOnboarding } = cOS;
@@ -27,6 +57,72 @@ export default function ProjectsPage() {
   const [bypassGate, setBypassGate] = useState<boolean>(false);
   const [bypassMentor, setBypassMentor] = useState<boolean>(false);
   const [bypassRecruiter, setBypassRecruiter] = useState<boolean>(false);
+
+  useEffect(() => {
+    const list = TeamsApiService.getSquads();
+    setSquads(list);
+    if (list.length > 0 && !selectedSquadId) {
+      setSelectedSquadId(list[0].id);
+    }
+  }, [selectedSquadId]);
+
+  const activeSquad = squads.find(s => s.id === selectedSquadId) || squads[0];
+
+  const handleCreateSquad = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newSquadName.trim() || !newRepoUrl.trim()) return;
+
+    const created = TeamsApiService.createSquad({
+      name: newSquadName,
+      hackathonTitle: newHackathonTitle,
+      teamLeadStudentId: studentId,
+      teamLeadName: studentName,
+      teamLeadRole: newRole,
+      repoUrl: newRepoUrl,
+    });
+
+    setSquads(TeamsApiService.getSquads());
+    setSelectedSquadId(created.id);
+    setShowCreateModal(false);
+    setNewSquadName('');
+    toast.success('Squad Created! 🚀', `Formed ${created.name}`);
+  };
+
+  const handleJoinSquad = (role: TeamRole) => {
+    if (!activeSquad) return;
+    TeamsApiService.joinSquad({
+      squadId: activeSquad.id,
+      studentId,
+      name: studentName,
+      role,
+    });
+    setSquads(TeamsApiService.getSquads());
+    toast.success('Joined Squad! 👥', `Role: ${role.replace('_', ' ')}`);
+  };
+
+  const handleToggleMilestone = (milestoneId: string) => {
+    if (!activeSquad) return;
+    TeamsApiService.toggleMilestone(activeSquad.id, milestoneId);
+    setSquads(TeamsApiService.getSquads());
+  };
+
+  const handleSubmitTeamProject = async () => {
+    if (!activeSquad || isSubmittingProject) return;
+    setIsSubmittingProject(true);
+    try {
+      await TeamsApiService.submitTeamProject({
+        squadId: activeSquad.id,
+        liveUrl: submittingLiveUrl,
+      });
+      setSquads(TeamsApiService.getSquads());
+      toast.success('Submitted to Jury! 🏆', 'Project evidence sealed for evaluation.');
+    } catch (e: any) {
+      console.error(e);
+      toast.error('Submission Failed', 'Could not submit project.');
+    } finally {
+      setIsSubmittingProject(false);
+    }
+  };
 
   // Hydrate bypass flags from localStorage after mount (avoids SSR mismatch)
   useEffect(() => {
@@ -600,11 +696,11 @@ export default function ProjectsPage() {
     <div style={{ maxWidth: 1240, margin: '0 auto', padding: '24px 20px 80px' }} className="fade-in">
       
       {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
         <div>
-          <h1 style={{ margin: 0, fontSize: 24, fontWeight: 900, color: 'var(--t1)' }}>🚀 AI Projects Workspace</h1>
+          <h1 style={{ margin: 0, fontSize: 24, fontWeight: 900, color: 'var(--t1)' }}>🚀 Projects & Squads Innovation Hub</h1>
           <p style={{ margin: '4px 0 0 0', fontSize: 13, color: 'var(--t3)' }}>
-            Build, test, verify, and pass Project Vivas to unlock Verified Excellence Certifications.
+            Build individual GitHub-verified Capstones or collaborate with 3-person Hackathon Squads.
           </p>
         </div>
         
@@ -658,15 +754,84 @@ export default function ProjectsPage() {
         </div>
       </div>
 
-      {/* Lock Screen */}
-      {!isUnlocked ? (
-        <div style={{
-          background: 'rgba(255, 255, 255, 0.01)',
-          border: '1.5px dashed var(--border)',
-          borderRadius: 20, padding: '60px 24px', textAlign: 'center', margin: '40px auto', maxWidth: 640
-        }}>
-          <div style={{ fontSize: 64, marginBottom: 20 }}>🔒</div>
-          <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--t1)', marginBottom: 8 }}>Projects Workspace Locked</h2>
+      {/* Mode Selector Tabs */}
+      <div style={{
+        display: 'flex',
+        gap: 8,
+        padding: '6px',
+        borderRadius: 14,
+        background: 'var(--bg2)',
+        border: '1px solid var(--border)',
+        marginBottom: 24,
+        overflowX: 'auto'
+      }}>
+        <button
+          onClick={() => setMainTab('solo')}
+          style={{
+            flex: 1,
+            minWidth: 200,
+            padding: '10px 16px',
+            borderRadius: 10,
+            border: mainTab === 'solo' ? '1.5px solid var(--accent)' : '1px solid transparent',
+            background: mainTab === 'solo'
+              ? 'linear-gradient(135deg, rgba(99,102,241,0.22), rgba(168,85,247,0.15))'
+              : 'transparent',
+            color: mainTab === 'solo' ? '#fff' : 'var(--t2)',
+            fontFamily: 'var(--font-display)',
+            fontWeight: 800,
+            fontSize: 13,
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 8,
+            transition: 'all 0.15s ease'
+          }}
+        >
+          <span>🛠️</span>
+          <span>Solo Capstones (GitHub Verified)</span>
+        </button>
+
+        <button
+          onClick={() => setMainTab('squads')}
+          style={{
+            flex: 1,
+            minWidth: 200,
+            padding: '10px 16px',
+            borderRadius: 10,
+            border: mainTab === 'squads' ? '1.5px solid #a855f7' : '1px solid transparent',
+            background: mainTab === 'squads'
+              ? 'linear-gradient(135deg, rgba(168,85,247,0.22), rgba(147,51,234,0.15))'
+              : 'transparent',
+            color: mainTab === 'squads' ? '#fff' : 'var(--t2)',
+            fontFamily: 'var(--font-display)',
+            fontWeight: 800,
+            fontSize: 13,
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 8,
+            transition: 'all 0.15s ease'
+          }}
+        >
+          <span>👥</span>
+          <span>Hackathon Squads & Team Hub</span>
+        </button>
+      </div>
+
+      {/* ── TAB 1: SOLO CAPSTONES ────────────────────────────────────────── */}
+      {mainTab === 'solo' && (
+        <>
+          {/* Lock Screen */}
+          {!isUnlocked ? (
+            <div style={{
+              background: 'rgba(255, 255, 255, 0.01)',
+              border: '1.5px dashed var(--border)',
+              borderRadius: 20, padding: '60px 24px', textAlign: 'center', margin: '40px auto', maxWidth: 640
+            }}>
+              <div style={{ fontSize: 64, marginBottom: 20 }}>🔒</div>
+              <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--t1)', marginBottom: 8 }}>Projects Workspace Locked</h2>
           <p style={{ fontSize: 14, color: 'var(--t3)', lineHeight: 1.6, marginBottom: 24 }}>
             To ensure foundational skills are solid before building, the Projects tab unlocks after completing **90%** of your active course quests.
           </p>
@@ -1358,7 +1523,320 @@ export default function ProjectsPage() {
           </div>
         </div>
       )}
+      </>
+    )}
+
+      {/* ── TAB 2: HACKATHON SQUADS & TEAM WORKSPACE ────────────────────── */}
+      {mainTab === 'squads' && (
+        <div>
+          {/* Squads Action Bar */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+            <div>
+              <h2 style={{ fontSize: 18, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>
+                Active Hackathon Squads ({squads.length})
+              </h2>
+              <p style={{ fontSize: 12.5, color: 'var(--t3)', margin: '2px 0 0 0' }}>
+                Join multi-disciplinary engineering squads or form your own capstone team.
+              </p>
+            </div>
+            <button
+              onClick={() => setShowCreateModal(true)}
+              style={{
+                padding: '10px 20px',
+                borderRadius: 10,
+                background: 'linear-gradient(135deg, #10b981, #059669)',
+                color: '#fff',
+                fontSize: 13,
+                fontWeight: 800,
+                border: 'none',
+                cursor: 'pointer',
+                boxShadow: '0 4px 12px rgba(16,185,129,0.3)'
+              }}
+            >
+              + Form New Squad
+            </button>
+          </div>
+
+          {/* Main Squads Layout */}
+          <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr', gap: 24 }}>
+            {/* Left: Squad Directory */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {squads.map(squad => {
+                const isSelected = squad.id === activeSquad?.id;
+                const isMember = squad.members.some(m => m.studentId === studentId);
+                return (
+                  <div
+                    key={squad.id}
+                    onClick={() => setSelectedSquadId(squad.id)}
+                    style={{
+                      padding: 16,
+                      borderRadius: 12,
+                      background: isSelected ? 'rgba(168, 85, 247, 0.12)' : 'var(--bg2)',
+                      border: isSelected ? '1.5px solid #a855f7' : '1px solid var(--border)',
+                      cursor: 'pointer',
+                      transition: 'all 0.15s ease'
+                    }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+                      <span style={{ fontSize: 14, fontWeight: 800, color: isSelected ? '#c084fc' : 'var(--t1)' }}>
+                        {squad.name}
+                      </span>
+                      <span style={{
+                        fontSize: 10,
+                        fontWeight: 700,
+                        padding: '2px 6px',
+                        borderRadius: 4,
+                        textTransform: 'uppercase',
+                        background: squad.status === 'verified' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(234, 179, 8, 0.15)',
+                        color: squad.status === 'verified' ? '#10b981' : '#eab308'
+                      }}>
+                        {squad.status}
+                      </span>
+                    </div>
+
+                    <div style={{ fontSize: 11.5, color: 'var(--t3)', marginBottom: 8, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {squad.hackathonTitle}
+                    </div>
+
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 11 }}>
+                      <span style={{ color: 'var(--t2)', fontWeight: 600 }}>👥 {squad.members.length} Members</span>
+                      {isMember && <span style={{ color: '#38bdf8', fontWeight: 800 }}>★ Your Squad</span>}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Right: Active Squad Workspace */}
+            {activeSquad && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+                {/* Squad Hero Banner */}
+                <div style={{ padding: 24, borderRadius: 16, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12 }}>
+                    <div>
+                      <span style={{ fontSize: 11, fontWeight: 800, color: '#a855f7', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                        {activeSquad.hackathonTitle}
+                      </span>
+                      <h2 style={{ margin: '4px 0 8px 0', fontSize: 22, fontWeight: 900, color: 'var(--t1)' }}>{activeSquad.name}</h2>
+                      <div style={{ display: 'flex', gap: 14, alignItems: 'center', fontSize: 13 }}>
+                        <a href={activeSquad.repoUrl} target="_blank" rel="noreferrer" style={{ color: '#38bdf8', textDecoration: 'none', fontWeight: 700 }}>
+                          🔗 GitHub Repo ↗
+                        </a>
+                        {activeSquad.liveUrl && (
+                          <a href={activeSquad.liveUrl} target="_blank" rel="noreferrer" style={{ color: '#10b981', textDecoration: 'none', fontWeight: 700 }}>
+                            🌐 Live Prototype ↗
+                          </a>
+                        )}
+                      </div>
+                    </div>
+
+                    <div style={{ textAlign: 'right' }}>
+                      {activeSquad.status === 'verified' ? (
+                        <div style={{ padding: '8px 16px', borderRadius: 8, background: 'rgba(16, 185, 129, 0.15)', border: '1px solid rgba(16, 185, 129, 0.3)', color: '#10b981', fontWeight: 800, fontSize: 13 }}>
+                          ✓ JURY VERIFIED ({activeSquad.finalScore}/100)
+                        </div>
+                      ) : (
+                        <button
+                          onClick={handleSubmitTeamProject}
+                          disabled={isSubmittingProject}
+                          style={{
+                            padding: '10px 20px',
+                            borderRadius: 10,
+                            background: 'linear-gradient(135deg, #a855f7, #9333ea)',
+                            border: 'none',
+                            color: '#fff',
+                            fontSize: 13,
+                            fontWeight: 800,
+                            cursor: 'pointer',
+                            boxShadow: '0 4px 14px rgba(168,85,247,0.3)'
+                          }}
+                        >
+                          {isSubmittingProject ? 'Submitting to Jury...' : '🚀 Submit Project for Jury Evaluation'}
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
+                  {activeSquad.juryFeedback && (
+                    <div style={{ marginTop: 16, padding: 12, borderRadius: 8, background: 'rgba(16, 185, 129, 0.08)', border: '1px solid rgba(16, 185, 129, 0.2)', fontSize: 13, color: 'var(--t2)' }}>
+                      <strong style={{ color: '#10b981' }}>Jury Feedback:</strong> {activeSquad.juryFeedback}
+                    </div>
+                  )}
+                </div>
+
+                {/* Squad Members & Role Allocation */}
+                <div style={{ padding: 24, borderRadius: 16, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
+                  <h3 style={{ margin: '0 0 16px 0', fontSize: 15, fontWeight: 800, color: 'var(--t1)', display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <span>🛡️</span> Squad Roles & Task Allocation
+                  </h3>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 14 }}>
+                    {activeSquad.members.map((member, idx) => (
+                      <div key={idx} style={{ padding: 14, borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                          <img src={member.avatarUrl} alt={member.name} style={{ width: 36, height: 36, borderRadius: 18 }} />
+                          <div>
+                            <div style={{ fontSize: 13.5, fontWeight: 800, color: 'var(--t1)' }}>{member.name}</div>
+                            <div style={{ fontSize: 10.5, color: '#c084fc', fontWeight: 700, textTransform: 'uppercase' }}>
+                              {member.role.replace('_', ' ')}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div style={{ fontSize: 11.5, color: 'var(--t3)', marginBottom: 8 }}>
+                          Contribution: <strong style={{ color: 'var(--t1)' }}>{member.contributionPct}%</strong>
+                        </div>
+
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                          {member.assignedTasks.map((t, tIdx) => (
+                            <span key={tIdx} style={{ fontSize: 10.5, color: 'var(--t2)', background: 'var(--bg2)', padding: '3px 6px', borderRadius: 4 }}>
+                              • {t}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {!activeSquad.members.some(m => m.studentId === studentId) && (
+                    <div style={{ marginTop: 16, display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+                      <span style={{ fontSize: 12.5, color: 'var(--t3)', fontWeight: 700 }}>Join this Squad as:</span>
+                      {(['frontend_lead', 'backend_lead', 'devops_cloud', 'data_engineer'] as const).map(role => (
+                        <button
+                          key={role}
+                          onClick={() => handleJoinSquad(role)}
+                          style={{
+                            padding: '6px 12px',
+                            borderRadius: 8,
+                            background: 'rgba(168, 85, 247, 0.12)',
+                            border: '1px solid rgba(168, 85, 247, 0.3)',
+                            color: '#c084fc',
+                            fontSize: 12,
+                            fontWeight: 700,
+                            cursor: 'pointer'
+                          }}
+                        >
+                          + {role.replace('_', ' ')}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Sprints & Milestones Checklist */}
+                <div style={{ padding: 24, borderRadius: 16, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
+                  <h3 style={{ margin: '0 0 16px 0', fontSize: 15, fontWeight: 800, color: 'var(--t1)', display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <span>🎯</span> Sprint Milestones & Provenance Checklist
+                  </h3>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                    {activeSquad.milestones.map(milestone => (
+                      <div
+                        key={milestone.id}
+                        onClick={() => handleToggleMilestone(milestone.id)}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          padding: 14,
+                          borderRadius: 10,
+                          background: milestone.isCompleted ? 'rgba(16, 185, 129, 0.08)' : 'var(--bg3)',
+                          border: milestone.isCompleted ? '1px solid rgba(16, 185, 129, 0.25)' : '1px solid var(--border)',
+                          cursor: 'pointer'
+                        }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                          <span style={{ fontSize: 18 }}>{milestone.isCompleted ? '✅' : '⬜'}</span>
+                          <div>
+                            <div style={{ fontSize: 13.5, fontWeight: 800, color: milestone.isCompleted ? '#10b981' : 'var(--t1)', textDecoration: milestone.isCompleted ? 'line-through' : 'none' }}>
+                              {milestone.title}
+                            </div>
+                            <div style={{ fontSize: 12, color: 'var(--t3)' }}>{milestone.description}</div>
+                          </div>
+                        </div>
+                        <span style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 600 }}>Due: {milestone.dueDate}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Form New Squad Modal */}
+          {showCreateModal && (
+            <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, backdropFilter: 'blur(6px)' }}>
+              <div style={{ width: 480, background: 'var(--bg1)', border: '1px solid var(--border)', borderRadius: 20, padding: 28, boxShadow: '0 20px 50px rgba(0,0,0,0.4)' }}>
+                <h3 style={{ margin: '0 0 16px 0', fontSize: 18, fontWeight: 900, color: 'var(--t1)' }}>Assemble New Hackathon Squad</h3>
+                <form onSubmit={handleCreateSquad} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: 'var(--t2)', marginBottom: 6 }}>Squad Name</label>
+                    <input
+                      type="text"
+                      value={newSquadName}
+                      onChange={e => setNewSquadName(e.target.value)}
+                      placeholder="e.g. Nexus Distributed Core"
+                      required
+                      style={{ width: '100%', padding: '10px 12px', borderRadius: 8, background: 'var(--bg2)', border: '1px solid var(--border)', color: 'var(--t1)', fontSize: 13 }}
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: 'var(--t2)', marginBottom: 6 }}>Your Role in Squad</label>
+                    <select
+                      value={newRole}
+                      onChange={e => setNewRole(e.target.value as any)}
+                      style={{ width: '100%', padding: '10px 12px', borderRadius: 8, background: 'var(--bg2)', border: '1px solid var(--border)', color: 'var(--t1)', fontSize: 13 }}
+                    >
+                      <option value="backend_lead">Backend Lead (APIs & Microservices)</option>
+                      <option value="frontend_lead">Frontend Lead (React/Next.js)</option>
+                      <option value="devops_cloud">DevOps / Cloud Architect</option>
+                      <option value="data_engineer">Data / SQL Engineer</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: 'var(--t2)', marginBottom: 6 }}>GitHub Repository URL</label>
+                    <input
+                      type="url"
+                      value={newRepoUrl}
+                      onChange={e => setNewRepoUrl(e.target.value)}
+                      placeholder="https://github.com/org/repo"
+                      required
+                      style={{ width: '100%', padding: '10px 12px', borderRadius: 8, background: 'var(--bg2)', border: '1px solid var(--border)', color: 'var(--t1)', fontSize: 13 }}
+                    />
+                  </div>
+
+                  <div style={{ display: 'flex', gap: 10, marginTop: 10 }}>
+                    <button
+                      type="button"
+                      onClick={() => setShowCreateModal(false)}
+                      style={{ flex: 1, padding: 12, borderRadius: 10, background: 'var(--bg3)', color: 'var(--t2)', border: '1px solid var(--border)', cursor: 'pointer', fontSize: 13, fontWeight: 700 }}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      style={{ flex: 1, padding: 12, borderRadius: 10, background: 'linear-gradient(135deg, #10b981, #059669)', color: '#fff', border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 800 }}
+                    >
+                      Create Squad
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
 
     </div>
+  );
+}
+
+export default function ProjectsPage() {
+  return (
+    <Suspense fallback={<div style={{ padding: 40, textAlign: 'center', color: 'var(--t3)' }}>Loading Projects & Squads Hub...</div>}>
+      <ProjectsPageContent />
+    </Suspense>
   );
 }

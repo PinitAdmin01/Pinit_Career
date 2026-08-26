@@ -39,6 +39,9 @@ export async function runTestSuite(
     testSuite?: string;
     sqlConfig?: SqlTestCase;
     timeoutMs?: number;
+    /** Quest ID + XP for the server-authoritative Java completion record (§3.5/§3.6). Java only. */
+    questId?: string;
+    xp?: number;
   }
 ): Promise<SuiteExecutionResult> {
   const fnName = options?.functionName || 'solution';
@@ -56,7 +59,7 @@ export async function runTestSuite(
       return executeSqlSuite(code, options?.sqlConfig || { query: code }, timeoutMs);
 
     case 'java':
-      return executeJavaJudgeSuite(code, (options as any)?.testSuite, testCases, timeoutMs);
+      return executeJavaJudgeSuite(code, (options as any)?.testSuite, testCases, timeoutMs, options?.questId, options?.xp);
 
     case 'cpp': {
       // Static AST structural checks for C++ in browser environment

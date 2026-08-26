@@ -385,7 +385,7 @@ export default function DashboardPage() {
           </div>
 
           <Link
-            href="/passport"
+            href="/quests?tab=passport"
             style={{
               fontSize: 11,
               fontFamily: 'var(--font-mono)',

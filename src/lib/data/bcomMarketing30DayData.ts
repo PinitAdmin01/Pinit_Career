@@ -18,7 +18,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = evaluateCustomerValue(150, 100); // Ratio = 1.50 -> Superior value\nif (res.customerValueRatio !== 1.50 || !res.deliversSuperiorValue || res.marketingOrientation !== 'MODERN_CUSTOMER_CENTRIC_MARKETING_CONCEPT') throw new Error('Customer value calculation failed');",
     "aTitle": "Marketing Philosophy Formatter",
     "aDesc": "Implement function getModernMarketingPillar() returning `'CUSTOMER_NEED_SATISFACTION'`.",
-    "aStarter": "function getModernMarketingPillar() { return 'CUSTOMER_NEED_SATISFACTION'; }",
+    "aStarter": "function getModernMarketingPillar() {\n  // Write your answer here\n}",
     "aHint": "Return pillar.",
     "aTest": "if (getModernMarketingPillar() !== 'CUSTOMER_NEED_SATISFACTION') throw new Error('Marketing pillar check failed');"
   },
@@ -38,7 +38,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = evaluatePorterFiveForces([2, 1, 2, 2, 3]); // avg = 10 / 5 = 2.0 -> Attractive\nif (res.averageCompetitiveIntensity !== 2.0 || res.industryAttractiveness !== 'HIGH_MARGIN_ATTRACTIVE_INDUSTRY') throw new Error('Porter forces evaluation failed');",
     "aTitle": "PESTLE 6 Pillars Formatter",
     "aDesc": "Implement function getPestlePillars() returning `['POLITICAL', 'ECONOMIC', 'SOCIAL', 'TECHNOLOGICAL', 'LEGAL', 'ENVIRONMENTAL']`.",
-    "aStarter": "function getPestlePillars() { return ['POLITICAL', 'ECONOMIC', 'SOCIAL', 'TECHNOLOGICAL', 'LEGAL', 'ENVIRONMENTAL']; }",
+    "aStarter": "function getPestlePillars() {\n  // Write your answer here\n}",
     "aHint": "Return 6 pillars.",
     "aTest": "if (getPestlePillars().length !== 6) throw new Error('PESTLE pillars check failed');"
   },
@@ -58,7 +58,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = classifyConsumerJourneyStage('EXPERIENCING_BUYERS_REMORSE');\nif (res.stage !== 'POST_PURCHASE_EVALUATION' || res.action !== 'DEPLOY_REASSURANCE_EMAIL_AND_UNBOXING_GUIDE') throw new Error('Consumer journey classification failed');",
     "aTitle": "5 Buying Journey Stages Formatter",
     "aDesc": "Implement function getConsumerJourneyStages() returning `['NEED_RECOGNITION', 'INFORMATION_SEARCH', 'EVALUATION_OF_ALTERNATIVES', 'PURCHASE_DECISION', 'POST_PURCHASE_BEHAVIOR']`.",
-    "aStarter": "function getConsumerJourneyStages() { return ['NEED_RECOGNITION', 'INFORMATION_SEARCH', 'EVALUATION_OF_ALTERNATIVES', 'PURCHASE_DECISION', 'POST_PURCHASE_BEHAVIOR']; }",
+    "aStarter": "function getConsumerJourneyStages() {\n  // Write your answer here\n}",
     "aHint": "Return 5 stages.",
     "aTest": "if (getConsumerJourneyStages().length !== 5) throw new Error('Journey stages check failed');"
   },
@@ -78,7 +78,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const ratings = [10, 9, 10, 9, 8, 7, 6, 2, 10, 9]; // 6 Promoters (60%), 2 Passives (20%), 2 Detractors (20%) -> NPS = 60 - 20 = +40.0\nconst res = calculateNetPromoterScore(ratings);\nif (res.netPromoterScore !== 40.0 || res.npsTier !== 'HEALTHY_POSITIVE_LOYALTY') throw new Error('NPS calculation failed');",
     "aTitle": "NPS World Class Benchmark Formatter",
     "aDesc": "Implement function getNpsWorldClassThreshold() returning `50.0`.",
-    "aStarter": "function getNpsWorldClassThreshold() { return 50.0; }",
+    "aStarter": "function getNpsWorldClassThreshold() {\n  // Write your answer here\n}",
     "aHint": "Return 50.0.",
     "aTest": "if (getNpsWorldClassThreshold() !== 50.0) throw new Error('NPS benchmark check failed');"
   },
@@ -118,7 +118,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const valid = validateSegmentCriteria(true, true, true, true, true);\nconst invalid = validateSegmentCriteria(true, false, true, true, true);\nif (!valid.meetsMasdaStandards || invalid.meetsMasdaStandards || valid.evaluation !== 'VALID_VIABLE_TARGET_MARKET_SEGMENT') throw new Error('Segment validation failed');",
     "aTitle": "MASDA 5 Criteria Formatter",
     "aDesc": "Implement function getMasdaCriteria() returning `['MEASURABLE', 'SUBSTANTIAL', 'ACCESSIBLE', 'DIFFERENTIABLE', 'ACTIONABLE']`.",
-    "aStarter": "function getMasdaCriteria() { return ['MEASURABLE', 'SUBSTANTIAL', 'ACCESSIBLE', 'DIFFERENTIABLE', 'ACTIONABLE']; }",
+    "aStarter": "function getMasdaCriteria() {\n  // Write your answer here\n}",
     "aHint": "Return 5 criteria.",
     "aTest": "if (getMasdaCriteria().length !== 5) throw new Error('MASDA check failed');"
   },
@@ -133,12 +133,12 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "Target Market Coverage Strategy Selector",
     "eDesc": "Implement function selectTargetingStrategy(companyResources, productVariability, competitorStrategy) recommending the optimal target market coverage strategy.",
-    "eStarter": "function selectTargetingStrategy(resources, variability, competitor) {\n  if (resources === 'LIMITED' && variability === 'HIGH') return 'CONCENTRATED_NICHE_MARKETING';\n  if (resources === 'ABUNDANT' && variability === 'HIGH') return 'DIFFERENTIATED_MULTI_SEGMENT_MARKETING';\n  return 'UNDIFFERENTIATED_MASS_MARKETING';\n}",
+    "eStarter": "function selectTargetingStrategy(resources, variability, competitor) {\n  // Limited resources with high variability calls for Niche Marketing.\n  \n}",
     "eHint": "Limited resources with high variability calls for Niche Marketing.",
     "eTest": "const res = selectTargetingStrategy('LIMITED', 'HIGH', 'MASS');\nif (res !== 'CONCENTRATED_NICHE_MARKETING') throw new Error('Targeting selection failed');",
     "aTitle": "4 Targeting Strategies Formatter",
     "aDesc": "Implement function getTargetingStrategies() returning `['UNDIFFERENTIATED_MASS', 'DIFFERENTIATED_SEGMENTED', 'CONCENTRATED_NICHE', 'MICROMARKETING']`.",
-    "aStarter": "function getTargetingStrategies() { return ['UNDIFFERENTIATED_MASS', 'DIFFERENTIATED_SEGMENTED', 'CONCENTRATED_NICHE', 'MICROMARKETING']; }",
+    "aStarter": "function getTargetingStrategies() {\n  // Write your answer here\n}",
     "aHint": "Return 4 strategies.",
     "aTest": "if (getTargetingStrategies().length !== 4) throw new Error('Strategies check failed');"
   },
@@ -158,7 +158,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const b1 = { name: 'Tesla', x: 8, y: 9 }; // High Price, High Tech\nconst b2 = { name: 'Toyota', x: 4, y: 5 }; // Moderate Price, Moderate Tech\nconst res = calculatePerceptualDistance(b1, b2); // dist = sqrt(16 + 16) = sqrt(32) = 5.66\nif (res.euclideanDistance !== 5.66 || !res.isClearlyDifferentiated || res.positioningStatus !== 'DISTINCT_BRAND_POSITIONING') throw new Error('Perceptual distance calculation failed');",
     "aTitle": "Positioning Statement 4 Elements Formatter",
     "aDesc": "Implement function getPositioningStatementElements() returning `['TARGET_AUDIENCE', 'FRAME_OF_REFERENCE_CATEGORY', 'KEY_BENEFIT_PROMISE', 'REASON_TO_BELIEVE']`.",
-    "aStarter": "function getPositioningStatementElements() { return ['TARGET_AUDIENCE', 'FRAME_OF_REFERENCE_CATEGORY', 'KEY_BENEFIT_PROMISE', 'REASON_TO_BELIEVE']; }",
+    "aStarter": "function getPositioningStatementElements() {\n  // Write your answer here\n}",
     "aHint": "Return 4 elements.",
     "aTest": "if (getPositioningStatementElements().length !== 4) throw new Error('Positioning elements check failed');"
   },
@@ -174,12 +174,12 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     "eTitle": "Product Hierarchy & Mix Breadth Calculator",
     "eDesc": "Implement function calculateProductMixMetrics(linesCount, totalProducts, avgVariantsPerProduct) calculating Product Mix Width, Length, and Depth.",
     "eStarter": "function calculateProductMixMetrics(width, length, depth) {\n  return {\n    productMixWidth: width,\n    productMixLength: length,\n    productMixDepth: depth,\n    averageProductsPerLine: Number((length / width).toFixed(1)),\n    status: 'PRODUCT_MIX_METRICS_COMPUTED'\n  };\n}",
-    "eHint": "Return mix metrics.",
+    "eHint": "Build and return an object with productMixWidth (linesCount), productMixLength (totalProducts), productMixDepth (avgVariantsPerProduct), and averageProductsPerLine (length / width, rounded to 1 decimal place).",
     "eTest": "const res = calculateProductMixMetrics(4, 20, 3);\nif (res.productMixWidth !== 4 || res.productMixLength !== 20 || res.averageProductsPerLine !== 5.0) throw new Error('Product mix calculation failed');",
     "aTitle": "Kotler 3 Product Levels Formatter",
     "aDesc": "Implement function getProductLevels() returning `['CORE_CUSTOMER_VALUE', 'ACTUAL_PRODUCT', 'AUGMENTED_PRODUCT']`.",
-    "aStarter": "function getProductLevels() { return ['CORE_CUSTOMER_VALUE', 'ACTUAL_PRODUCT', 'AUGMENTED_PRODUCT']; }",
-    "aHint": "Return 3 levels.",
+    "aStarter": "function getProductLevels() {\n  // Write your answer here\n}",
+    "aHint": "Return an array of exactly 3 uppercase string constants: the core value layer, the actual product layer, and the augmented service layer.",
     "aTest": "if (getProductLevels().length !== 3) throw new Error('Levels check failed');"
   },
   {
@@ -198,16 +198,16 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const star = classifyBcgMatrix(15.0, 1.5); // Star\nconst cow = classifyBcgMatrix(4.0, 2.0);  // Cash Cow\nif (star.bcgQuadrant !== 'STARS_INVEST_FOR_GROWTH' || cow.bcgQuadrant !== 'CASH_COWS_MILK_FOR_CASH') throw new Error('BCG classification failed');",
     "aTitle": "BCG 4 Quadrants Formatter",
     "aDesc": "Implement function getBcgQuadrants() returning `['STARS', 'CASH_COWS', 'QUESTION_MARKS', 'DOGS']`.",
-    "aStarter": "function getBcgQuadrants() { return ['STARS', 'CASH_COWS', 'QUESTION_MARKS', 'DOGS']; }",
+    "aStarter": "function getBcgQuadrants() {\n  // Write your answer here\n}",
     "aHint": "Return 4 quadrants.",
     "aTest": "if (getBcgQuadrants().length !== 4) throw new Error('BCG quadrants check failed');"
   },
   {
     "day": 11,
-    "title": "Brand Equity & Keller's CBBE Pyramid (Customer-Based Brand Equity)",
+    "title": "Brand Equity & Keller's CBBE Pyramid (Salience to Brand Resonance)",
     "desc": "Build enduring brand equity: Kevin Lane Keller's CBBE Pyramid (1. Salience / Brand Awareness; 2. Performance & Imagery / Brand Meaning; 3. Judgments & Feelings / Brand Responses; 4. Resonance / Psychological Attachment & Brand Love).",
     "syllabus": [
-      "Core Foundations: Principles and frameworks of Brand Equity & Keller's CBBE Pyramid (Customer-Based Brand Equity).",
+      "Core Foundations: Principles and frameworks of Brand Equity & Keller's CBBE Pyramid (Salience to Brand Resonance).",
       "Strategic Architecture: Marketing models, equations, and brand management logic.",
       "Production Best Practices: Real-world enterprise campaigns, statutory compliance, and executive metrics."
     ],
@@ -215,10 +215,10 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     "eDesc": "Implement function calculateCbbeBrandResonance(salience, performance, feelings, resonanceScore) evaluating brand equity maturity tier.",
     "eStarter": "function calculateCbbeBrandResonance(s, p, f, r) {\n  const total = (s + p + f + r) / 4;\n  const isLoved = total >= 8.5;\n  return {\n    salienceScore: s,\n    performanceScore: p,\n    feelingsScore: f,\n    resonanceScore: r,\n    compositeBrandEquityIndex: Number(total.toFixed(2)),\n    brandStatus: isLoved ? 'CULT_BRAND_LOVE_AND_RESONANCE' : 'ESTABLISHED_FUNCTIONAL_BRAND',\n    status: 'CBBE_SCORE_COMPUTED'\n  };\n}",
     "eHint": "Compute average across 4 CBBE tiers, check total >= 8.5.",
-    "eTest": "const res = calculateCbbeBrandResonance(9, 9, 8.5, 9.5); // avg = 36 / 4 = 9.0 -> Cult Brand\nif (res.compositeBrandEquityIndex !== 9.0 || res.brandStatus !== 'CULT_BRAND_LOVE_AND_RESONANCE') throw new Error('CBBE calculation failed');",
+    "eTest": "const high = calculateCbbeBrandResonance(9, 9, 8.5, 9.5); // avg = 9.0\nif (high.compositeBrandEquityIndex !== 9.0 || high.brandStatus !== 'CULT_BRAND_LOVE_AND_RESONANCE') throw new Error('CBBE high score failed');\nconst low = calculateCbbeBrandResonance(6, 7, 5, 6); // avg = 6.0\nif (low.brandStatus !== 'ESTABLISHED_FUNCTIONAL_BRAND') throw new Error('CBBE low score failed');\nif (low.compositeBrandEquityIndex !== 6.0) throw new Error('CBBE composite index failed');",
     "aTitle": "CBBE Pyramid 4 Tiers Formatter",
     "aDesc": "Implement function getCbbeTiers() returning `['IDENTITY_SALIENCE', 'MEANING_PERFORMANCE_IMAGERY', 'RESPONSES_JUDGMENTS_FEELINGS', 'RELATIONSHIPS_RESONANCE']`.",
-    "aStarter": "function getCbbeTiers() { return ['IDENTITY_SALIENCE', 'MEANING_PERFORMANCE_IMAGERY', 'RESPONSES_JUDGMENTS_FEELINGS', 'RELATIONSHIPS_RESONANCE']; }",
+    "aStarter": "function getCbbeTiers() {\n  // Write your answer here\n}",
     "aHint": "Return 4 tiers.",
     "aTest": "if (getCbbeTiers().length !== 4) throw new Error('CBBE tiers check failed');"
   },
@@ -238,7 +238,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = calculatePricingModel(40, 25, 60000, 60); // Cost-Plus = 40 * 1.25 = $50. Price = $60 -> Margin = $20. BE = 60,000 / 20 = 3,000 units\nif (res.costPlusPrice !== 50.0 || res.unitContributionMargin !== 20.0 || res.breakEvenVolumeUnits !== 3000) throw new Error('Pricing model failed');",
     "aTitle": "Skimming vs Penetration Formatter",
     "aDesc": "Implement function getSkimmingTarget() returning `'EARLY_ADOPTERS_PRICE_INSENSITIVE'`.",
-    "aStarter": "function getSkimmingTarget() { return 'EARLY_ADOPTERS_PRICE_INSENSITIVE'; }",
+    "aStarter": "function getSkimmingTarget() {\n  // Write your answer here\n}",
     "aHint": "Return early adopters.",
     "aTest": "if (getSkimmingTarget() !== 'EARLY_ADOPTERS_PRICE_INSENSITIVE') throw new Error('Skimming check failed');"
   },
@@ -258,8 +258,8 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = calculateChannelMarkupChain(100, 20, 15, 25); // Mfg = 100/0.8 = 125. WS = 125/0.85 = 147.06. Retail = 147.06/0.75 = 196.08\nif (res.manufacturerSellingPrice !== 125.0 || res.finalConsumerRetailPrice !== 196.08) throw new Error('Channel markup chain failed');",
     "aTitle": "D2C Direct Channel Intermediary Count Formatter",
     "aDesc": "Implement function getD2cIntermediaryCount() returning `0`.",
-    "aStarter": "function getD2cIntermediaryCount() { return 0; }",
-    "aHint": "Return 0.",
+    "aStarter": "function getD2cIntermediaryCount() {\n  // Write your answer here\n}",
+    "aHint": "D2C (Direct-to-Consumer) means the brand sells directly to buyers with zero intermediaries — no wholesalers, distributors, or retailers stand between the brand and customer.",
     "aTest": "if (getD2cIntermediaryCount() !== 0) throw new Error('D2C count check failed');"
   },
   {
@@ -278,7 +278,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = evaluateAidaFunnel(100000, 5000, 500, 100); // CTR = 5%, Lead = 10%, Close = 20%, Overall = 0.10%\nif (res.ctrPercent !== 5.0 || res.leadConversionPercent !== 10.0 || res.closeRatePercent !== 20.0 || res.overallFunnelConversionPercent !== 0.10) throw new Error('AIDA funnel evaluation failed');",
     "aTitle": "AIDA 4 Steps Formatter",
     "aDesc": "Implement function getAidaSteps() returning `['ATTENTION', 'INTEREST', 'DESIRE', 'ACTION']`.",
-    "aStarter": "function getAidaSteps() { return ['ATTENTION', 'INTEREST', 'DESIRE', 'ACTION']; }",
+    "aStarter": "function getAidaSteps() {\n  // Write your answer here\n}",
     "aHint": "Return 4 steps.",
     "aTest": "if (getAidaSteps().length !== 4) throw new Error('AIDA steps check failed');"
   },
@@ -298,7 +298,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = executeProductBrandMaster('STARS_INVEST_FOR_GROWTH', 9.0, 3000, 0.10);\nif (res.engineStatus !== 'PRODUCT_AND_BRAND_STRATEGY_MASTER_ACTIVE') throw new Error('Milestone 2 Product Brand Strategy failed');",
     "aTitle": "Product Engine Status Formatter",
     "aDesc": "Implement function getProductEngineStatus() returning `'PRODUCT_AND_BRAND_STRATEGY_MASTER_ACTIVE'`.",
-    "aStarter": "function getProductEngineStatus() { return 'PRODUCT_AND_BRAND_STRATEGY_MASTER_ACTIVE'; }",
+    "aStarter": "function getProductEngineStatus() {\n  // Write your answer here\n}",
     "aHint": "Return status.",
     "aTest": "if (getProductEngineStatus() !== 'PRODUCT_AND_BRAND_STRATEGY_MASTER_ACTIVE') throw new Error('Status check failed');"
   },
@@ -318,8 +318,8 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const exp = [8, 9, 8, 8, 9];\nconst perc = [9, 9, 8, 9, 10]; // gaps = [+1, 0, 0, +1, +1] -> avg = +0.60\nconst res = calculateServqualGap(exp, perc);\nif (res.averageServiceQualityGap !== 0.60 || res.serviceQualityAssessment !== 'SERVICE_EXCEEDS_CUSTOMER_EXPECTATIONS') throw new Error('SERVQUAL calculation failed');",
     "aTitle": "Extended 3Ps of Services Formatter",
     "aDesc": "Implement function getExtended3Ps() returning `['PEOPLE', 'PROCESS', 'PHYSICAL_EVIDENCE']`.",
-    "aStarter": "function getExtended3Ps() { return ['PEOPLE', 'PROCESS', 'PHYSICAL_EVIDENCE']; }",
-    "aHint": "Return 3Ps.",
+    "aStarter": "function getExtended3Ps() {\n  // Write your answer here\n}",
+    "aHint": "The 7Ps of Services Marketing extends the original 4Ps with three more: People (staff quality and empathy), Process (service delivery flow), and Physical Evidence (tangible proof of quality).",
     "aTest": "if (getExtended3Ps().length !== 3) throw new Error('3Ps check failed');"
   },
   {
@@ -338,7 +338,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const full = evaluateB2bBuyingCenter(['INITIATOR', 'INFLUENCER', 'DECIDER', 'BUYER', 'USER', 'GATEKEEPER']);\nconst incomplete = evaluateB2bBuyingCenter(['USER', 'BUYER']);\nif (!full.isDecisionCenterFullyCovered || incomplete.isDecisionCenterFullyCovered || full.dealSafetyTier !== 'ENTERPRISE_DEAL_FULLY_ALIGNED') throw new Error('B2B Buying center evaluation failed');",
     "aTitle": "B2B 6 DMU Roles Formatter",
     "aDesc": "Implement function getB2bRoles() returning `['INITIATOR', 'INFLUENCER', 'DECIDER', 'BUYER', 'USER', 'GATEKEEPER']`.",
-    "aStarter": "function getB2bRoles() { return ['INITIATOR', 'INFLUENCER', 'DECIDER', 'BUYER', 'USER', 'GATEKEEPER']; }",
+    "aStarter": "function getB2bRoles() {\n  // Write your answer here\n}",
     "aHint": "Return 6 roles.",
     "aTest": "if (getB2bRoles().length !== 6) throw new Error('Roles check failed');"
   },
@@ -358,7 +358,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = evaluateOepMediaMix(10000, 100, 50, 50); // Total = 200 custs. Paid CAC = 10k/100 = $100. Blended CAC = 10k/200 = $50. Organic = 50%\nif (res.paidMediaCac !== 100.0 || res.blendedOmnichannelCac !== 50.0 || res.organicCustomerPercentage !== 50.0) throw new Error('OEP media mix evaluation failed');",
     "aTitle": "OEP 3 Media Types Formatter",
     "aDesc": "Implement function getOepTypes() returning `['OWNED', 'EARNED', 'PAID']`.",
-    "aStarter": "function getOepTypes() { return ['OWNED', 'EARNED', 'PAID']; }",
+    "aStarter": "function getOepTypes() {\n  // Write your answer here\n}",
     "aHint": "Return 3 types.",
     "aTest": "if (getOepTypes().length !== 3) throw new Error('OEP check failed');"
   },
@@ -378,7 +378,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const segs = [{ customerCount: 1000, averageClv: 500 }, { customerCount: 200, averageClv: 2500 }]; // 500k + 500k = 1,000,000 total equity across 1,200 custs\nconst res = calculateCustomerEquity(segs);\nif (res.totalCorporateCustomerEquity !== 1000000 || res.totalCustomerCount !== 1200) throw new Error('Customer equity calculation failed');",
     "aTitle": "Customer Equity Definition Formatter",
     "aDesc": "Implement function getCustomerEquityDefinition() returning `'TOTAL_DISCOUNTED_LIFETIME_VALUES_OF_ALL_CUSTOMERS'`.",
-    "aStarter": "function getCustomerEquityDefinition() { return 'TOTAL_DISCOUNTED_LIFETIME_VALUES_OF_ALL_CUSTOMERS'; }",
+    "aStarter": "function getCustomerEquityDefinition() {\n  // Write your answer here\n}",
     "aHint": "Return definition.",
     "aTest": "if (getCustomerEquityDefinition() !== 'TOTAL_DISCOUNTED_LIFETIME_VALUES_OF_ALL_CUSTOMERS') throw new Error('Definition check failed');"
   },
@@ -398,7 +398,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = calculateRomi(200000, 60, 40000); // Margin = 200k * 0.60 = 120k. Net = 120k - 40k = 80k. ROMI = 80k / 40k * 100 = 200.0%\nif (res.incrementalGrossMargin !== 120000.0 || res.netMarketingProfit !== 80000.0 || res.romiPercent !== 200.0 || res.investmentViability !== 'HIGHLY_VALUE_ACCRETIVE_CAMPAIGN') throw new Error('ROMI calculation failed');",
     "aTitle": "ROMI Equation Formatter",
     "aDesc": "Implement function getRomiFormula() returning `'ROMI = (Incremental Margin - Spend) / Spend * 100'`.",
-    "aStarter": "function getRomiFormula() { return 'ROMI = (Incremental Margin - Spend) / Spend * 100'; }",
+    "aStarter": "function getRomiFormula() {\n  // Write your answer here\n}",
     "aHint": "Return ROMI formula.",
     "aTest": "if (getRomiFormula() !== 'ROMI = (Incremental Margin - Spend) / Spend * 100') throw new Error('ROMI formula check failed');"
   },
@@ -438,8 +438,8 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = calculateViralKFactor(10, 15); // 10 invites * 15% conv = 1.50 K-Factor (Exponential viral growth!)\nif (res.viralCoefficientK !== 1.50 || !res.isViralExplosion || res.growthTrajectory !== 'EXPONENTIAL_VIRAL_LOOP_ACTIVE') throw new Error('Viral K-factor calculation failed');",
     "aTitle": "Viral Coefficient Explosion Threshold Formatter",
     "aDesc": "Implement function getViralThreshold() returning `1.0`.",
-    "aStarter": "function getViralThreshold() { return 1.0; }",
-    "aHint": "Return 1.0.",
+    "aStarter": "function getViralThreshold() {\n  // Write your answer here\n}",
+    "aHint": "A viral coefficient K > 1.0 means each user brings in more than one new user — exponential growth. K < 1.0 means the loop decays and growth stalls eventually.",
     "aTest": "if (getViralThreshold() !== 1.0) throw new Error('Viral threshold check failed');"
   },
   {
@@ -458,8 +458,8 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = evaluateDecoyEffect(59, 125, 125); // Economist Decoy: Web=$59, Print=$125, Print+Web=$125 -> Steers to Print+Web!\nif (!res.isDecoyEffectivelyConfigured || res.steeredSelection !== 'STEERS_MASS_VOLUME_TO_HIGH_MARGIN_PREMIUM') throw new Error('Decoy effect evaluation failed');",
     "aTitle": "Loss Aversion Ratio Formatter",
     "aDesc": "Implement function getLossAversionMultiple() returning `2.5`.",
-    "aStarter": "function getLossAversionMultiple() { return 2.5; }",
-    "aHint": "Return 2.5.",
+    "aStarter": "function getLossAversionMultiple() {\n  // Write your answer here\n}",
+    "aHint": "Kahneman and Tversky found losses feel roughly 2.5× more painful than equivalent gains — effective campaigns frame offers around loss aversion, not just positive gain framing.",
     "aTest": "if (getLossAversionMultiple() !== 2.5) throw new Error('Loss aversion check failed');"
   },
   {
@@ -478,7 +478,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = calculateBrandValuationRelief(10000000, 5, 10, 3); // Royalty = 500k/yr. PV = 500k/1.1 + 500k/1.21 + 500k/1.331 = 454.5k + 413.2k + 375.6k = 1,243,426\nif (res.royaltySavingsAnnual !== 500000.0 || res.brandAssetValuation !== 1243426) throw new Error('Brand valuation failed');",
     "aTitle": "Interbrand 3 Core Components Formatter",
     "aDesc": "Implement function getInterbrandComponents() returning `['FINANCIAL_FORECAST', 'ROLE_OF_BRAND_INDEX', 'BRAND_STRENGTH_SCORE']`.",
-    "aStarter": "function getInterbrandComponents() { return ['FINANCIAL_FORECAST', 'ROLE_OF_BRAND_INDEX', 'BRAND_STRENGTH_SCORE']; }",
+    "aStarter": "function getInterbrandComponents() {\n  // Write your answer here\n}",
     "aHint": "Return 3 components.",
     "aTest": "if (getInterbrandComponents().length !== 3) throw new Error('Interbrand components check failed');"
   },
@@ -493,12 +493,12 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "Global Marketing Strategy Glocalization Classifier",
     "eDesc": "Implement function evaluateGlobalStrategy(culturalDistanceIndex, scaleEconomyBenefit) determining whether to Standardize, Adapt, or deploy Glocalization.",
-    "eStarter": "function evaluateGlobalStrategy(culturalDist, scaleBenefit) {\n  if (culturalDist > 5.0 && scaleBenefit > 5.0) return 'GLOCALIZATION_STANDARDIZE_CORE_ADAPT_LOCAL_EXECUTION';\n  if (culturalDist > 5.0) return 'LOCAL_MARKET_ADAPTATION';\n  return 'GLOBAL_STANDARDIZATION_MAXIMUM_SCALE';\n}",
+    "eStarter": "function evaluateGlobalStrategy(culturalDist, scaleBenefit) {\n  // High cultural distance and high scale benefit calls for Glocalization.\n  \n}",
     "eHint": "High cultural distance and high scale benefit calls for Glocalization.",
     "eTest": "const res = evaluateGlobalStrategy(8.0, 9.0);\nif (res !== 'GLOCALIZATION_STANDARDIZE_CORE_ADAPT_LOCAL_EXECUTION') throw new Error('Global strategy evaluation failed');",
     "aTitle": "Glocalization Motto Formatter",
     "aDesc": "Implement function getGlocalizationMotto() returning `'THINK_GLOBAL_ACT_LOCAL'`.",
-    "aStarter": "function getGlocalizationMotto() { return 'THINK_GLOBAL_ACT_LOCAL'; }",
+    "aStarter": "function getGlocalizationMotto() {\n  // Write your answer here\n}",
     "aHint": "Return motto.",
     "aTest": "if (getGlocalizationMotto() !== 'THINK_GLOBAL_ACT_LOCAL') throw new Error('Motto check failed');"
   },
@@ -518,7 +518,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const compliant = evaluateCrisisResponse('CRITICAL', 1.5);\nconst late = evaluateCrisisResponse('CRITICAL', 8.0);\nif (!compliant.isCrisisResponseCompliant || late.isCrisisResponseCompliant || compliant.containmentStatus !== 'BRAND_DAMAGE_SUCCESSFULLY_CONTAINED') throw new Error('Crisis response failed');",
     "aTitle": "Crisis PR 4 Pillars Formatter",
     "aDesc": "Implement function getCrisisPrPillars() returning `['SPEED', 'TRANSPARENCY', 'EMPATHY', 'CORRECTIVE_ACTION']`.",
-    "aStarter": "function getCrisisPrPillars() { return ['SPEED', 'TRANSPARENCY', 'EMPATHY', 'CORRECTIVE_ACTION']; }",
+    "aStarter": "function getCrisisPrPillars() {\n  // Write your answer here\n}",
     "aHint": "Return 4 pillars.",
     "aTest": "if (getCrisisPrPillars().length !== 4) throw new Error('Crisis pillars check failed');"
   },
@@ -538,7 +538,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const ok = auditGreenClaims(true, true, false);\nconst bad = auditGreenClaims(false, false, true);\nif (!ok.isAuthenticGreenBrand || bad.isAuthenticGreenBrand || ok.greenwashingRiskRating !== 'LOW_RISK_AUTHENTIC_GREEN_BRAND') throw new Error('Green audit failed');",
     "aTitle": "Authentic Green Requirement Formatter",
     "aDesc": "Implement function getGreenAuthenticityRequirement() returning `'THIRD_PARTY_VERIFIABLE_LIFECYCLE_PROOF'`.",
-    "aStarter": "function getGreenAuthenticityRequirement() { return 'THIRD_PARTY_VERIFIABLE_LIFECYCLE_PROOF'; }",
+    "aStarter": "function getGreenAuthenticityRequirement() {\n  // Write your answer here\n}",
     "aHint": "Return requirement.",
     "aTest": "if (getGreenAuthenticityRequirement() !== 'THIRD_PARTY_VERIFIABLE_LIFECYCLE_PROOF') throw new Error('Green requirement check failed');"
   },
@@ -558,7 +558,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const hot = scorePredictiveLead(90, 80, 80); // 36 + 24 + 24 = 84.0 -> Hot Lead\nconst warm = scorePredictiveLead(50, 60, 50); // 20 + 18 + 15 = 53.0 -> Nurture\nif (hot.compositeLeadScore !== 84.0 || hot.routingAction !== 'HOT_LEAD_ROUTE_DIRECT_TO_ACCOUNT_EXECUTIVE' || warm.routingAction !== 'AUTOMATED_EMAIL_NURTURE_SEQUENCE') throw new Error('Lead scoring failed');",
     "aTitle": "Lead Scoring Hot Threshold Formatter",
     "aDesc": "Implement function getHotLeadThreshold() returning `75.0`.",
-    "aStarter": "function getHotLeadThreshold() { return 75.0; }",
+    "aStarter": "function getHotLeadThreshold() {\n  // Write your answer here\n}",
     "aHint": "Return 75.0.",
     "aTest": "if (getHotLeadThreshold() !== 75.0) throw new Error('Threshold check failed');"
   },
@@ -578,8 +578,8 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const ok = auditInfluencerDisclosure(true, true, false);\nconst bad = auditInfluencerDisclosure(true, false, true);\nif (!ok.isFtcAsciCompliant || bad.isFtcAsciCompliant || ok.legalStatus !== 'FULLY_REGULATORY_COMPLIANT') throw new Error('Disclosure audit failed');",
     "aTitle": "Prominent Ad Tag Formatter",
     "aDesc": "Implement function getRequiredAdTag() returning `'#AD_OR_#SPONSORED_PROMINENTLY_DISPLAYED'`.",
-    "aStarter": "function getRequiredAdTag() { return '#AD_OR_#SPONSORED_PROMINENTLY_DISPLAYED'; }",
-    "aHint": "Return tag.",
+    "aStarter": "function getRequiredAdTag() {\n  // Write your answer here\n}",
+    "aHint": "FTC and ASA rules require sponsored content to carry a prominent #AD or #SPONSORED disclosure — buried, small, or hidden tags violate advertising standards and can trigger enforcement.",
     "aTest": "if (getRequiredAdTag() !== '#AD_OR_#SPONSORED_PROMINENTLY_DISPLAYED') throw new Error('Tag check failed');"
   },
   {
@@ -598,7 +598,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const ok = orchestrateMarketingBrandSuite(true, true, true, true, true);\nconst fail = orchestrateMarketingBrandSuite(true, true, false, true, true);\nif (!ok.marketingBrandMasterCertified || fail.marketingBrandMasterCertified || !ok.certified || ok.status !== 'MARKETING_AND_BRAND_MANAGEMENT_MASTER_CERTIFIED_NOMINAL') throw new Error('Capstone marketing orchestrator failed');",
     "aTitle": "Marketing & Brand Master Certification Auditor",
     "aDesc": "Implement function auditMarketingMasterCert() returning `{ certified: true, score: '100/100', tier: 'ENTERPRISE_MARKETING_AND_BRAND_MANAGEMENT_MASTER_CERTIFIED' }`.",
-    "aStarter": "function auditMarketingMasterCert() { return { certified: true, score: '100/100', tier: 'ENTERPRISE_MARKETING_AND_BRAND_MANAGEMENT_MASTER_CERTIFIED' }; }",
+    "aStarter": "function auditMarketingMasterCert() {\n  // Write your answer here\n}",
     "aHint": "Return certification object.",
     "aTest": "if (!auditMarketingMasterCert().certified) throw new Error('Capstone cert failed');"
   }

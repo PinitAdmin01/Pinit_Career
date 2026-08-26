@@ -4,23 +4,23 @@ import { CourseQuest } from './coursesData';
 export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
   {
     "day": 1,
-    "title": "Git Object Model & Storage Architecture: Blobs, Trees, Commits & Tags",
-    "desc": "Master the internal cryptographic engine of Git: Content-Addressable Storage, The `.git/objects` Directory, SHA-1 / SHA-256 Hashing ($H = \\text{SHA1}(\\text{type } + \\text{length} + \\backslash 0 + \\text{content})$), and The 4 Fundamental Object Types: Blobs (raw file content without filename), Trees (directories mapping names to blob hashes and permissions), Commits (pointers to root tree, parent commit hashes, author metadata, and message), and Annotated Tags.",
+    "title": "What is Version Control? — Git Commits and Repositories",
+    "desc": "Understand why version control exists and what problems it solves: the version chaos problem (essay_v1_FINAL_LAST.docx), Git commits as project snapshots (what they store: changes + message + author + timestamp), and Git repositories as the complete project history store (local vs remote).",
     "syllabus": [
-      "Content-addressable storage mechanics and object deduplication.",
-      "The 4 fundamental Git object types and their internal schemas.",
-      "Calculating deterministic SHA hashes from file content."
+      "The version chaos problem that Git was built to solve.",
+      "What a commit stores: snapshot, message, author, and timestamp.",
+      "The difference between a local and remote repository."
     ],
-    "eTitle": "Git Object Model Type & SHA-1 Header Formatter",
-    "eDesc": "Implement function formatGitObjectHeader(objectType, contentPayload) constructing the standard Git low-level object storage header (`\"<type> <byteLength>\\0<content>\"`).",
-    "eStarter": "function formatGitObjectHeader(type, content) {\n  const validTypes = ['blob', 'tree', 'commit', 'tag'];\n  if (!validTypes.includes(type)) throw new Error('Invalid Git object type');\n  const len = Buffer.byteLength(content, 'utf8');\n  const headerString = `${type} ${len}\\0`;\n  return {\n    objectType: type,\n    byteLength: len,\n    headerPrefix: `${type} ${len}\\0`,\n    fullStoragePayload: headerString + content,\n    isGitStorageCompliant: true,\n    status: 'GIT_OBJECT_HEADER_FORMATTED_NOMINAL'\n  };\n}",
-    "eHint": "Construct `${type} ${len}\\0` where len is byte length.",
-    "eTest": "const blob = formatGitObjectHeader('blob', 'Hello World\\n');\nconst commit = formatGitObjectHeader('commit', 'tree 4b825dc642cb6eb9a060e54bf8d69288fbee4904\\n');\nif (blob.objectType !== 'blob' || blob.byteLength !== 12 || blob.headerPrefix !== 'blob 12\\0' || !blob.isGitStorageCompliant || blob.status !== 'GIT_OBJECT_HEADER_FORMATTED_NOMINAL') throw new Error('Git object header formatting failed');",
-    "aTitle": "Total Fundamental Git Object Types Formatter",
-    "aDesc": "Implement function getGitFundamentalObjectTypesCount() returning `4`.",
-    "aStarter": "function getGitFundamentalObjectTypesCount() { return 4; }",
-    "aHint": "Return 4.",
-    "aTest": "if (getGitFundamentalObjectTypesCount() !== 4) throw new Error('Object types count check failed');"
+    "eTitle": "Commit Property Checker",
+    "eDesc": "Implement function hasCommitProperties(commit) returning true if the commit object has all four required properties: message, author, timestamp, and snapshot.",
+    "eStarter": "function hasCommitProperties(commit) {\n  // Return true if commit has all four: message, author, timestamp, snapshot\n  // Return false otherwise\n}",
+    "eHint": "Check that all four keys exist on the commit object and are truthy.",
+    "eTest": "const good = hasCommitProperties({ message: 'Add login', author: 'Alice', timestamp: Date.now(), snapshot: true });\nconst bad = hasCommitProperties({ message: 'Add login', author: 'Alice' });\nif (!good) throw new Error('Should return true when all four properties are present');\nif (bad) throw new Error('Should return false when properties are missing');",
+    "aTitle": "Version Chaos Identifier",
+    "aDesc": "Implement function isVersionChaos(filenames) returning true if the array contains more than 3 files (a heuristic for the naming chaos problem Git solves).",
+    "aStarter": "function isVersionChaos(filenames) {\n  // Return true if filenames.length > 3\n}",
+    "aHint": "Return filenames.length > 3.",
+    "aTest": "if (!isVersionChaos(['essay_v1.docx','essay_v2.docx','essay_FINAL.docx','essay_LAST.docx'])) throw new Error('Should detect version chaos with 4+ files');\nif (isVersionChaos(['essay.docx'])) throw new Error('Single file is not version chaos');"
   },
   {
     "day": 2,

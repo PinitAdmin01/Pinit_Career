@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { useAuth } from '@/lib/context/AuthContext';
 import { PathwayApiService } from '@/lib/api/pathwayApi';
 import { StudentSkillProfile, DynamicRoleReadiness, RoleReadinessStage } from '@/lib/pathway/competencySchema';
@@ -18,6 +19,8 @@ interface LeaderboardEntry {
   defenseScore: number;
   readinessStatus: RoleReadinessStage;
   learningGainPoints: number;
+  eloRating?: number;
+  leagueTier?: 'Diamond' | 'Platinum' | 'Gold' | 'Silver' | 'Bronze';
   isCurrentUser?: boolean;
 }
 
@@ -34,6 +37,8 @@ const SAMPLE_LEADERBOARD_BASELINE: LeaderboardEntry[] = [
     defenseScore: 94,
     readinessStatus: 'ready_for_interview',
     learningGainPoints: 48,
+    eloRating: 1840,
+    leagueTier: 'Diamond'
   },
   {
     rank: 2,
@@ -47,6 +52,8 @@ const SAMPLE_LEADERBOARD_BASELINE: LeaderboardEntry[] = [
     defenseScore: 90,
     readinessStatus: 'ready_for_interview',
     learningGainPoints: 42,
+    eloRating: 1790,
+    leagueTier: 'Diamond'
   },
   {
     rank: 3,
@@ -60,6 +67,8 @@ const SAMPLE_LEADERBOARD_BASELINE: LeaderboardEntry[] = [
     defenseScore: 88,
     readinessStatus: 'ready_for_internship',
     learningGainPoints: 39,
+    eloRating: 1650,
+    leagueTier: 'Platinum'
   },
   {
     rank: 4,
@@ -73,13 +82,36 @@ const SAMPLE_LEADERBOARD_BASELINE: LeaderboardEntry[] = [
     defenseScore: 82,
     readinessStatus: 'ready_for_internship',
     learningGainPoints: 34,
+    eloRating: 1580,
+    leagueTier: 'Platinum'
+  },
+  {
+    rank: 5,
+    studentId: 'student_dev_005',
+    name: 'Aarav Patel',
+    avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80',
+    college: 'BITS Pilani CS',
+    programTitle: '6-Month Cloud Systems Track',
+    verifiedSkillsCount: 5,
+    demonstratedSkillsCount: 8,
+    defenseScore: 78,
+    readinessStatus: 'exploring',
+    learningGainPoints: 28,
+    eloRating: 1420,
+    leagueTier: 'Gold'
   }
 ];
 
-export default function LeaderboardPage() {
+function LeaderboardContent() {
   const { user } = useAuth();
+  const searchParams = useSearchParams();
   const currentStudentId = user?.id || 'demo_student_01';
   const currentStudentName = user?.name || 'You (Current Student)';
+
+  const initialTab = (searchParams?.get('tab') as any) || 'global';
+  const [activeTab, setActiveTab] = useState<'global' | 'verified_evidence' | 'weekly_leagues' | 'code_wars'>(
+    ['global', 'verified_evidence', 'weekly_leagues', 'code_wars'].includes(initialTab) ? initialTab : 'global'
+  );
 
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>(SAMPLE_LEADERBOARD_BASELINE);
   const [domainFilter, setDomainFilter] = useState<'all' | 'tech' | 'data' | 'ai'>('all');
@@ -95,9 +127,8 @@ export default function LeaderboardPage() {
         setCurrentUserProfile(profile);
         setCurrentUserReadiness(readiness);
 
-        // Inject current student dynamically based on real verified ledger state
         const userEntry: LeaderboardEntry = {
-          rank: 1, // dynamically calculated below
+          rank: 1,
           studentId: currentStudentId,
           name: `${currentStudentName} (You)`,
           avatarUrl: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80',
@@ -108,6 +139,8 @@ export default function LeaderboardPage() {
           defenseScore: readiness.capstoneDefenseScore || 0,
           readinessStatus: readiness.status,
           learningGainPoints: readiness.learningGain.pointsGained || 0,
+          eloRating: 1610,
+          leagueTier: 'Platinum',
           isCurrentUser: true,
         };
 
@@ -146,7 +179,7 @@ export default function LeaderboardPage() {
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg-primary, #090d16)', color: '#f1f5f9', padding: '24px 32px', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
       {/* Header Bar */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24, borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: 16 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24, borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: 16, flexWrap: 'wrap', gap: 14 }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <span style={{ fontSize: 28 }}>🏆</span>
@@ -163,10 +196,10 @@ export default function LeaderboardPage() {
 
         <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
           <Link
-            href="/code-wars"
+            href="/arena?tab=code_wars"
             style={{ padding: '8px 16px', borderRadius: 8, background: 'linear-gradient(135deg, #4f46e5, #7c3aed)', color: '#fff', fontSize: 13, textDecoration: 'none', fontWeight: 600 }}
           >
-            ⚔️ Enter Code Wars
+            ⚔️ Enter 1v1 Battle Arena
           </Link>
           <Link
             href="/dashboard"
@@ -177,8 +210,54 @@ export default function LeaderboardPage() {
         </div>
       </div>
 
+      {/* Primary Leaderboard Mode Switcher */}
+      <div style={{
+        display: 'flex',
+        gap: 8,
+        padding: '6px',
+        borderRadius: 14,
+        background: 'var(--bg2)',
+        border: '1px solid var(--border)',
+        marginBottom: 20,
+        overflowX: 'auto'
+      }}>
+        {[
+          { id: 'global', label: 'Global Rankings', icon: '🏆' },
+          { id: 'verified_evidence', label: 'SHA-256 Verified Ledger', icon: '🛡️' },
+          { id: 'weekly_leagues', label: 'Weekly Ranked Leagues', icon: '⚡' },
+          { id: 'code_wars', label: 'Code Wars 1v1 Duel Elo', icon: '⚔️' },
+        ].map(tab => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id as any)}
+            style={{
+              flex: 1,
+              minWidth: 170,
+              padding: '10px 14px',
+              borderRadius: 10,
+              border: activeTab === tab.id ? '1.5px solid var(--accent)' : '1px solid transparent',
+              background: activeTab === tab.id
+                ? 'linear-gradient(135deg, rgba(99,102,241,0.22), rgba(168,85,247,0.15))'
+                : 'transparent',
+              color: activeTab === tab.id ? '#fff' : 'var(--t2)',
+              fontWeight: 800,
+              fontSize: 13,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 8,
+              transition: 'all 0.15s ease'
+            }}
+          >
+            <span>{tab.icon}</span>
+            <span>{tab.label}</span>
+          </button>
+        ))}
+      </div>
+
       {/* Filter & Search Bar */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20, gap: 16 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20, gap: 16, flexWrap: 'wrap' }}>
         <div style={{ display: 'flex', gap: 8 }}>
           {(['all', 'tech', 'data', 'ai'] as const).map(d => (
             <button
@@ -227,7 +306,9 @@ export default function LeaderboardPage() {
               <th style={{ padding: '14px 20px', width: 60 }}>Rank</th>
               <th style={{ padding: '14px 20px' }}>Student & Academy</th>
               <th style={{ padding: '14px 20px' }}>Program Track</th>
-              <th style={{ padding: '14px 20px' }}>Verified Skills</th>
+              <th style={{ padding: '14px 20px' }}>
+                {activeTab === 'code_wars' ? 'Elo Rating' : activeTab === 'weekly_leagues' ? 'League Tier' : 'Verified Skills'}
+              </th>
               <th style={{ padding: '14px 20px' }}>Viva Defense</th>
               <th style={{ padding: '14px 20px' }}>Placement Status</th>
             </tr>
@@ -264,14 +345,24 @@ export default function LeaderboardPage() {
                     {entry.programTitle}
                   </td>
                   <td style={{ padding: '16px 20px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                      <span style={{ padding: '4px 8px', borderRadius: 6, background: 'rgba(16, 185, 129, 0.15)', color: '#34d399', fontWeight: 800, fontSize: 12 }}>
-                        🛡️ {entry.verifiedSkillsCount} Verified
+                    {activeTab === 'code_wars' ? (
+                      <span style={{ padding: '4px 8px', borderRadius: 6, background: 'rgba(239, 68, 68, 0.15)', color: '#f87171', fontWeight: 800, fontSize: 12 }}>
+                        ⚔️ {entry.eloRating || 1500} ELO
                       </span>
-                      <span style={{ fontSize: 11, color: '#64748b' }}>
-                        ({entry.demonstratedSkillsCount} dem.)
+                    ) : activeTab === 'weekly_leagues' ? (
+                      <span style={{ padding: '4px 8px', borderRadius: 6, background: 'rgba(168, 85, 247, 0.15)', color: '#c084fc', fontWeight: 800, fontSize: 12 }}>
+                        ⚡ {entry.leagueTier || 'Gold'} Tier
                       </span>
-                    </div>
+                    ) : (
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                        <span style={{ padding: '4px 8px', borderRadius: 6, background: 'rgba(16, 185, 129, 0.15)', color: '#34d399', fontWeight: 800, fontSize: 12 }}>
+                          🛡️ {entry.verifiedSkillsCount} Verified
+                        </span>
+                        <span style={{ fontSize: 11, color: '#64748b' }}>
+                          ({entry.demonstratedSkillsCount} dem.)
+                        </span>
+                      </div>
+                    )}
                   </td>
                   <td style={{ padding: '16px 20px' }}>
                     {entry.defenseScore > 0 ? (
@@ -302,5 +393,13 @@ export default function LeaderboardPage() {
         </table>
       </div>
     </div>
+  );
+}
+
+export default function LeaderboardPage() {
+  return (
+    <Suspense fallback={<div style={{ padding: 40, textAlign: 'center', color: 'var(--t3)' }}>Loading Leaderboard & Leagues...</div>}>
+      <LeaderboardContent />
+    </Suspense>
   );
 }

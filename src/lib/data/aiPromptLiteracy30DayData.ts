@@ -4,23 +4,23 @@ import { CourseQuest } from './coursesData';
 export const AI_PROMPT_LITERACY_30_DAYS_CONFIGS: DayConfig[] = [
   {
     "day": 1,
-    "title": "Generative AI Foundations: Tokens, Embedding Vectors & API Cost Modeling",
-    "desc": "Master the mathematical foundations of Large Language Models (LLMs): Byte-Pair Encoding (BPE) Tokenization ($1\\text{ word} \\approx 1.333\\text{ tokens} \\implies 1,000\\text{ words} \\approx 1,333\\text{ tokens}$), Multi-Dimensional Embedding Vectors (High-dimensional semantic spaces), Transformer Attention Mechanics, and API Inference Cost Calculation ($Cost = \\frac{\\text{Tokens}}{1,000,000} \\times \\text{Price Per Million} = \\frac{1,333}{1,000,000} \\times \\$5.00 = \\$0.006665$).",
+    "title": "What is AI? — Prompts, Context, and Getting Useful Responses",
+    "desc": "Understand what generative AI actually is and how to communicate with it effectively: generative AI as a pattern-predicting text model (not a search engine), what a prompt is (your instruction to the AI), the difference between vague and specific prompts, and the three key components of a useful prompt: topic, format, and audience.",
     "syllabus": [
-      "Tokenization mechanics and word-to-token ratio mathematical conversions.",
-      "Vector embeddings and semantic spatial relationships.",
-      "API inference cost modeling across input and output context windows."
+      "What generative AI is and how it generates responses.",
+      "The definition of a prompt and why prompt quality determines output quality.",
+      "The three components that make a prompt specific and useful: topic, format, audience."
     ],
-    "eTitle": "LLM Token Count & API Inference Cost Calculator",
-    "eDesc": "Implement function calculateTokenInferenceCost(wordCount, pricePerMillionTokensDollars) calculating estimated tokens ($Tokens = \\lceil Words \\times 1.3333 \\rceil$) and total API dollar cost ($Cost = \\frac{\\text{Tokens}}{1,000,000} \\times Price$).",
-    "eStarter": "function calculateTokenInferenceCost(words, pricePerMillion) {\n  const tokens = Math.ceil(words * 1.3333);\n  const cost = (tokens / 1000000) * pricePerMillion;\n  return {\n    wordCount: words,\n    estimatedTokens: tokens,\n    pricePerMillionDollars: pricePerMillion,\n    totalInferenceCostDollars: Number(cost.toFixed(6)),\n    isCostEffective: cost <= 0.05,\n    status: 'INFERENCE_COST_CALCULATED'\n  };\n}",
-    "eHint": "Tokens = Math.ceil(words * 1.3333). Cost = (tokens / 1,000,000) * pricePerMillion.",
-    "eTest": "const res = calculateTokenInferenceCost(1000, 5.0); // 1,334 tokens -> (1334 / 1,000,000) * 5 = $0.006670\nif (res.estimatedTokens !== 1334 || res.totalInferenceCostDollars !== 0.00667 || !res.isCostEffective || res.status !== 'INFERENCE_COST_CALCULATED') throw new Error('Token cost calculation failed');",
-    "aTitle": "Average English Word to Token Ratio Formatter",
-    "aDesc": "Implement function getWordToTokenRatio() returning `1.3333`.",
-    "aStarter": "function getWordToTokenRatio() { return 1.3333; }",
-    "aHint": "Return 1.3333.",
-    "aTest": "if (getWordToTokenRatio() !== 1.3333) throw new Error('Ratio check failed');"
+    "eTitle": "Prompt Specificity Checker",
+    "eDesc": "Implement function isSpecificPrompt(prompt) returning true if the prompt contains at least 8 words (a simple heuristic: longer prompts tend to be more specific) and false if it is too short to be useful.",
+    "eStarter": "function isSpecificPrompt(prompt) {\n  // Return true if prompt has 8 or more words\n  // Return false otherwise\n}",
+    "eHint": "Split the prompt by spaces and check if the word count is >= 8.",
+    "eTest": "if (!isSpecificPrompt('Write a 3-sentence summary of photosynthesis for a 10-year-old')) throw new Error('Long specific prompt should return true');\nif (isSpecificPrompt('help me')) throw new Error('Short vague prompt should return false');",
+    "aTitle": "Prompt Component Builder",
+    "aDesc": "Implement function buildPrompt(topic, format, audience) returning a full prompt string in the form: 'Explain <topic> as a <format> for <audience>'.",
+    "aStarter": "function buildPrompt(topic, format, audience) {\n  // Return 'Explain topic as a format for audience'\n}",
+    "aHint": "Use a template literal: `Explain ${topic} as a ${format} for ${audience}`",
+    "aTest": "const result = buildPrompt('photosynthesis', '3-bullet summary', 'a 12-year-old');\nif (result !== 'Explain photosynthesis as a 3-bullet summary for a 12-year-old') throw new Error('Prompt string does not match expected format');"
   },
   {
     "day": 2,

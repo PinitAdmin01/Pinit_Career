@@ -27,11 +27,16 @@
 //   SUPABASE_URL              — auto-injected
 //   SUPABASE_ANON_KEY         — auto-injected
 //   SUPABASE_SERVICE_ROLE_KEY — required for pin + completion writes (bypasses RLS)
+//   JS_JUDGE_URL              — the isolated grading judge (cloud-run/js-judge/).
+//                               This function no longer executes student code
+//                               itself — see grading.ts for why.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { createHmac } from "https://deno.land/std@0.168.0/node/crypto.ts";
+import { QUEST_TEST_SUITES } from "./questTestSuites.generated.ts";
+import { gradeSubmission } from "./grading.ts";
 
 // ── CORS ─────────────────────────────────────────────────────────────────────
 const corsHeaders = {
@@ -41,61 +46,16 @@ const corsHeaders = {
 };
 
 // ── Supported quest test suites ───────────────────────────────────────────────
-// These are the server-side test definitions. The client NEVER sees these test
-// strings in the bundle — they only exist in this Deno environment.
-const QUEST_TEST_SUITES: Record<string, string> = {
-  fizzbuzz: `
-    if (typeof fizzBuzz !== 'function') throw new Error("Method fizzBuzz(int n) not found.");
-    if (fizzBuzz(3) !== "Fizz") throw new Error("Failed: fizzBuzz(3) should return 'Fizz'");
-    if (fizzBuzz(5) !== "Buzz") throw new Error("Failed: fizzBuzz(5) should return 'Buzz'");
-    if (fizzBuzz(15) !== "FizzBuzz") throw new Error("Failed: fizzBuzz(15) should return 'FizzBuzz'");
-    if (fizzBuzz(7) !== "7") throw new Error("Failed: fizzBuzz(7) should return '7'");
-    if (fizzBuzz(1) !== "1") throw new Error("Failed: fizzBuzz(1) should return '1'");
-  `,
-  reverser: `
-    if (typeof reverseString !== 'function') throw new Error("Method reverseString(String s) not found.");
-    if (reverseString("hello") !== "olleh") throw new Error("Failed: reverseString('hello') !== 'olleh'");
-    if (reverseString("") !== "") throw new Error("Failed: reverseString('') should return ''");
-    if (reverseString("a") !== "a") throw new Error("Failed: reverseString('a') !== 'a'");
-    if (reverseString("abcde") !== "edcba") throw new Error("Failed: reverseString('abcde') !== 'edcba'");
-  `,
-  palindrome: `
-    if (typeof isPalindrome !== 'function') throw new Error("Method isPalindrome(String s) not found.");
-    if (!isPalindrome("racecar")) throw new Error("Failed: 'racecar' is a palindrome");
-    if (isPalindrome("hello")) throw new Error("Failed: 'hello' is not a palindrome");
-    if (!isPalindrome("a")) throw new Error("Failed: 'a' is a palindrome");
-  `,
-  // Generic pass-through for lecture/interactive type quests that don't have code tests
-  generic: `// Generic verification pass — no code test required`,
-};
-
-// ── Java → JS transpiler (same logic as client.ts, now running server-side) ──
-function javaToJs(javaCode: string): string {
-  let js = javaCode;
-  js = js.replace(/public\s+class\s+\w+\s*\{/, "").trim();
-  if (js.endsWith("}")) js = js.slice(0, -1);
-
-  const keywords = new Set([
-    "if", "for", "while", "switch", "catch", "synchronized",
-  ]);
-  js = js.replace(
-    /(public|protected|private|static|\s)+([a-zA-Z0-9_<>\s\[\]]+)\s+(\w+)\s*\(([^)]*)\)/g,
-    (_match: string, _access: string, _retType: string, name: string, args: string) => {
-      if (keywords.has(name)) return _match;
-      const cleanArgs = args.replace(
-        /(int|String|double|float|boolean|char|int\[\])\s+/g,
-        ""
-      );
-      return `function ${name}(${cleanArgs})`;
-    }
-  );
-  js = js.replace(/new\s+int\[\]\s*\{/g, "[");
-  js = js.replace(/\b(int|String|double|float|boolean|char)\b(?!\.)\s+(\w+)/g, "let $2");
-  js = js.replace(/String\.valueOf\(/g, "String(");
-  js = js.replace(/\.length\(\)/g, ".length");
-  js = js.replace(/System\.out\.println/g, "console.log");
-  return js;
-}
+// STAGE 1 FIX (§3.1 + §3.2): QUEST_TEST_SUITES is now a SERVER-OWNED registry
+// generated from the authoritative course data (scripts/generate-quest-test-suites.ts,
+// see questTestSuites.generated.ts), not a 4-entry hand-written map. The previous
+// map's only fallback key was `generic`, whose body never throws — so EVERY quest ID
+// that wasn't one of the 3 hardcoded demo IDs fell through to a no-op test and
+// PASSED UNCONDITIONALLY regardless of submitted code. There is no `generic` key in
+// the generated registry; an unknown quest ID now has NO entry and fails closed
+// below. The client can identify which quest it is submitting; it can no longer
+// supply or override which test runs (see the `verify` handler — `body.testSuite`
+// is no longer read at all).
 
 // ── HMAC sign a verification token ───────────────────────────────────────────
 function signVerificationToken(
@@ -233,10 +193,13 @@ serve(async (req: Request) => {
   }
 
   // ── Parse body ────────────────────────────────────────────────────────────
+  // STAGE 1 FIX (§3.2 + §3.3): `body.testSuite` is intentionally NOT read. The
+  // grader is resolved exclusively from `QUEST_TEST_SUITES[questId]` (the
+  // server-owned registry below) — the client can say which quest it is
+  // submitting, never which test verifies it.
   let action: string; // "verify" (default) or "start"
   let questId: string;
   let code: string;
-  let testSuiteOverride: string | undefined;
   let questXp: number;
   let pinCost: number;
 
@@ -245,10 +208,10 @@ serve(async (req: Request) => {
     action = body.action ?? "verify";
     questId = body.questId;
     code = body.code ?? "";
-    testSuiteOverride = body.testSuite;
     questXp = typeof body.xp === "number" ? body.xp : 150;
     pinCost = typeof body.pinCost === "number" ? body.pinCost : 5;
     if (!questId) throw new Error("questId is required");
+    if (code.length > 50000) throw new Error("Source code exceeds size limit (50KB max)");
   } catch (err) {
     return new Response(
       JSON.stringify({ error: "Invalid body", detail: (err as Error).message }),
@@ -274,43 +237,41 @@ serve(async (req: Request) => {
     );
   }
 
-  // ── action=verify → evaluate code and persist completion ─────────────────
-  const testSuite = testSuiteOverride ?? QUEST_TEST_SUITES[questId] ?? QUEST_TEST_SUITES.generic;
-
-  // ── Transpile Java → JS ───────────────────────────────────────────────────
-  let jsCode: string;
-  try {
-    jsCode = javaToJs(code);
-  } catch (err) {
+  // ── action=verify → delegate execution to the isolated judge, then persist ─
+  // STAGE 1 FIX (§3.1 + §3.2 + §3.3 + §3.4): grading logic lives in grading.ts
+  // (gradeSubmission), which:
+  //   - fails closed on unknown quest IDs (no `generic` fallback — see
+  //     questTestSuites.generated.ts, which has no such key);
+  //   - is never given a client-supplied test suite (only `testSuites[questId]`);
+  //   - no longer executes anything in THIS process — it POSTs {code,
+  //     testSuite} to JS_JUDGE_URL, a separate Cloud Run service
+  //     (cloud-run/js-judge/) with zero Supabase configuration. §3.3's
+  //     Deno.env exposure is CLOSED by this, not hidden: this function never
+  //     hands secret-bearing code and untrusted student code to the same
+  //     process. See grading.ts's header for the full history and why
+  //     splitting Supabase functions (secrets are project-wide) was ruled out.
+  //   - the Java transpiler (javaToJs) is deleted — Java was already graded
+  //     entirely through its own separate judge and never reached this path.
+  // grading.ts has no Deno-specific APIs, so the exact same function is
+  // exercised directly (not re-implemented) by the Node-based regression test
+  // at scripts/verify-quest-grading.test.ts, pointed at a real locally-running
+  // instance of cloud-run/js-judge/ — see that file and the Stage 1 report for
+  // what was actually executed vs. what could only be reviewed (this deployed
+  // function itself cannot be invoked from a dev session; JS_JUDGE_URL is not
+  // yet deployed to Cloud Run — see the report for the exact blocker).
+  const judgeUrl = Deno.env.get("JS_JUDGE_URL") ?? "";
+  if (!judgeUrl) {
     return new Response(
-      JSON.stringify({ success: false, message: "Transpile error: " + (err as Error).message }),
-      { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      JSON.stringify({ success: false, message: "JUDGE_NOT_CONFIGURED" }),
+      { status: 503, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
+  const gradeResult = await gradeSubmission(questId, code, QUEST_TEST_SUITES, judgeUrl);
+  const success = gradeResult.success;
+  const errorMessage = gradeResult.message ?? "";
 
-  // ── Execute using Deno eval (sandboxed, server-side) ─────────────────────
-  let success = false;
-  let errorMessage = "";
-
-  try {
-    const wrappedCode = `
-      (function() {
-        ${jsCode}
-        try {
-          ${testSuite}
-          return { success: true };
-        } catch (e) {
-          return { success: false, message: e.message };
-        }
-      })()
-    `;
-    // deno-lint-ignore no-eval
-    const result = eval(wrappedCode) as { success: boolean; message?: string };
-    success = result.success;
-    errorMessage = result.message ?? "";
-  } catch (err) {
-    success = false;
-    errorMessage = "Execution error: " + (err as Error).message;
+  if (gradeResult.reason === "NO_TEST_SUITE") {
+    console.log(`[verify-quest] FAIL-CLOSED — uid=${user.id} questId=${questId} reason=NO_TEST_SUITE`);
   }
 
   // ── If passed, persist completion + generate signed verification token ────

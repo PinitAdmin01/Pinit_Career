@@ -17,8 +17,12 @@ function ensureDir(dir) {
 }
 
 function ensureBuildDirs() {
-  // Do not pre-create .next/server/pages stubs — that makes Next look for
-  // pages/_document and fail with PageNotFoundError during collect.
+  const nextDir = path.join(__dirname, '.next');
+  if (fs.existsSync(nextDir)) {
+    try {
+      fs.rmSync(nextDir, { recursive: true, force: true });
+    } catch {}
+  }
   ensureDir(outDir);
 }
 

@@ -18,7 +18,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const pass = formatBlufEmail('[Action Required: by 5 PM]', 'We need approval to merge the auth refactor into production today.', 'Context details...', 'Please reply with LGTM.');\nconst fail = formatBlufEmail('No brackets', 'Short', 'Context', 'CTA');\nif (!pass.isBlufCompliant || fail.isBlufCompliant || pass.status !== 'BLUF_EMAIL_FORMATTED_NOMINAL') throw new Error('BLUF email formatting failed');",
     "aTitle": "BLUF Acronym Expanded Formatter",
     "aDesc": "Implement function getBlufAcronymMeaning() returning `'Bottom Line Up Front'`.",
-    "aStarter": "function getBlufAcronymMeaning() { return 'Bottom Line Up Front'; }",
+    "aStarter": "function getBlufAcronymMeaning() {\n  // Write your answer here\n}",
     "aHint": "Return Bottom Line Up Front.",
     "aTest": "if (getBlufAcronymMeaning() !== 'Bottom Line Up Front') throw new Error('BLUF meaning check failed');"
   },
@@ -38,8 +38,8 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const ready = auditReadmeCompleteness(['Project Overview', 'Quickstart Guide', 'System Architecture Diagram', 'API Reference', 'Contributing Guidelines']);\nconst incomplete = auditReadmeCompleteness(['Overview', 'Installation']);\nif (!ready.isDocumentationProductionReady || incomplete.isDocumentationProductionReady || ready.status !== 'TECHNICAL_README_5_SECTIONS_VERIFIED_NOMINAL') throw new Error('README audit failed');",
     "aTitle": "Total Mandatory README Sections Formatter",
     "aDesc": "Implement function getMandatoryReadmeSectionsCount() returning `5`.",
-    "aStarter": "function getMandatoryReadmeSectionsCount() { return 5; }",
-    "aHint": "Return 5.",
+    "aStarter": "function getMandatoryReadmeSectionsCount() {\n  // Write your answer here\n}",
+    "aHint": "A complete project README should cover 5 sections: Project Overview, Installation, Usage, Contributing guidelines, and License — these are the minimum for any open-source or team project.",
     "aTest": "if (getMandatoryReadmeSectionsCount() !== 5) throw new Error('Sections count check failed');"
   },
   {
@@ -58,8 +58,8 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = generateParaphrasedReflection('Sarah', 'we need to shard the user database before Black Friday traffic peaks');\nif (!res.isParaphraseValid || !res.paraphrasedReflectionString.includes('Sarah') || !res.paraphrasedReflectionString.includes('shard the user database') || res.status !== 'ACTIVE_LISTENING_PARAPHRASE_GENERATED_NOMINAL') throw new Error('Paraphrase generation failed');",
     "aTitle": "Active Listening Protocol Steps Count Formatter",
     "aDesc": "Implement function getActiveListeningStepsCount() returning `3`.",
-    "aStarter": "function getActiveListeningStepsCount() { return 3; }",
-    "aHint": "Return 3.",
+    "aStarter": "function getActiveListeningStepsCount() {\n  // Write your answer here\n}",
+    "aHint": "Active listening has 3 phases: Receive (attend fully without interrupting), Process (paraphrase internally to check understanding), and Respond (reflect back what you heard).",
     "aTest": "if (getActiveListeningStepsCount() !== 3) throw new Error('Steps count check failed');"
   },
   {
@@ -78,7 +78,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const pass = auditAsyncSlackMessage('Hi Dave, could you review the auth PR #42 when you get a chance? Link: github.com/org/repo/pull/42');\nconst fail = auditAsyncSlackMessage('Hi');\nif (!pass.isAsyncCommunicationCompliant || fail.isAsyncCommunicationCompliant || pass.status !== 'ASYNC_MESSAGE_QUALITY_COMPLIANT_NOMINAL') throw new Error('Async message audit failed');",
     "aTitle": "Async Communication Golden Etiquette Rule Formatter",
     "aDesc": "Implement function getAsyncEtiquetteRuleName() returning `'NO_HELLO_RULE'`.",
-    "aStarter": "function getAsyncEtiquetteRuleName() { return 'NO_HELLO_RULE'; }",
+    "aStarter": "function getAsyncEtiquetteRuleName() {\n  // Write your answer here\n}",
     "aHint": "Return NO_HELLO_RULE.",
     "aTest": "if (getAsyncEtiquetteRuleName() !== 'NO_HELLO_RULE') throw new Error('Rule name check failed');"
   },
@@ -118,7 +118,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = translateTechnicalJargonToBusinessValue('REFACTOR_DATABASE');\nif (!res.isBusinessAligned || !res.businessValueExplanation.includes('churn') || res.status !== 'TECHNICAL_TRANSLATION_COMPLETED_NOMINAL') throw new Error('Technical translation failed');",
     "aTitle": "Non-Technical Translation Framework Acronym Formatter",
     "aDesc": "Implement function getTranslationFrameworkAcronym() returning `'ELI5'`.",
-    "aStarter": "function getTranslationFrameworkAcronym() { return 'ELI5'; }",
+    "aStarter": "function getTranslationFrameworkAcronym() {\n  // Write your answer here\n}",
     "aHint": "Return ELI5.",
     "aTest": "if (getTranslationFrameworkAcronym() !== 'ELI5') throw new Error('Acronym check failed');"
   },
@@ -138,8 +138,8 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = formatSbiFeedback('In yesterday\\'s release', 'untested code was pushed to main', 'the login service was down for 30 minutes', 'let\\'s pair on writing unit tests before the next release');\nif (!res.isSbiCompliant || !res.formattedFeedbackString.includes('login service was down') || res.status !== 'SBI_CONSTRUCTIVE_FEEDBACK_FORMATTED_NOMINAL') throw new Error('SBI feedback formatting failed');",
     "aTitle": "SBI Feedback Framework Component Count Formatter",
     "aDesc": "Implement function getSbiComponentsCount() returning `3`.",
-    "aStarter": "function getSbiComponentsCount() { return 3; }",
-    "aHint": "Return 3.",
+    "aStarter": "function getSbiComponentsCount() {\n  // Write your answer here\n}",
+    "aHint": "SBI feedback has 3 parts: Situation (the context where the behaviour occurred), Behaviour (what was specifically observed), and Impact (the effect it had on the team or outcome).",
     "aTest": "if (getSbiComponentsCount() !== 3) throw new Error('Components count check failed');"
   },
   {
@@ -158,8 +158,8 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const pass = evaluateConflictResolutionStrategy(true, true, true);\nconst fail = evaluateConflictResolutionStrategy(true, false, true);\nif (!pass.isIbrResolutionCompliant || fail.isIbrResolutionCompliant || pass.status !== 'IBR_CONFLICT_RESOLUTION_CERTIFIED_NOMINAL') throw new Error('Conflict resolution evaluation failed');",
     "aTitle": "Interest-Based Relational Approach Acronym Formatter",
     "aDesc": "Implement function getIbrAcronym() returning `'IBR'`.",
-    "aStarter": "function getIbrAcronym() { return 'IBR'; }",
-    "aHint": "Return IBR.",
+    "aStarter": "function getIbrAcronym() {\n  // Write your answer here\n}",
+    "aHint": "IBR (Interest-Based Relational) approach separates people from problems — focus on underlying interests rather than stated positions to find options both parties can accept.",
     "aTest": "if (getIbrAcronym() !== 'IBR') throw new Error('Acronym check failed');"
   },
   {
@@ -178,8 +178,8 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const pass = formatStandupUpdate('Finished JWT auth tests', 'Will integrate Stripe webhooks', null, 45);\nconst fail = formatStandupUpdate('Finished tests', 'Will integrate', null, 120);\nif (!pass.isStandupHighSignal || fail.isStandupHighSignal || pass.status !== 'STANDUP_UPDATE_HIGH_SIGNAL_NOMINAL') throw new Error('Standup update formatting failed');",
     "aTitle": "Maximum Recommended Standup Update Duration Formatter",
     "aDesc": "Implement function getMaxStandupDurationSeconds() returning `90`.",
-    "aStarter": "function getMaxStandupDurationSeconds() { return 90; }",
-    "aHint": "Return 90.",
+    "aStarter": "function getMaxStandupDurationSeconds() {\n  // Write your answer here\n}",
+    "aHint": "Each team member's standup update should not exceed 90 seconds — Yesterday/Today/Blockers — so the total meeting stays under 15 minutes even for large teams.",
     "aTest": "if (getMaxStandupDurationSeconds() !== 90) throw new Error('Duration check failed');"
   },
   {
@@ -198,7 +198,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const pass = validateMintoPyramidOutline('We should migrate our monolithic backend to microservices to support 10x traffic growth.', ['Improves system scalability', 'Isolates deployment failure domains', 'Allows independent team velocity']);\nconst fail = validateMintoPyramidOutline('Short', ['One pillar']);\nif (!pass.isMintoStructureCompliant || fail.isMintoStructureCompliant || pass.status !== 'MINTO_PYRAMID_OUTLINE_VALID_NOMINAL') throw new Error('Minto outline validation failed');",
     "aTitle": "Minto Pyramid Top Tier Name Formatter",
     "aDesc": "Implement function getMintoTopTierName() returning `'Governing Thought'`.",
-    "aStarter": "function getMintoTopTierName() { return 'Governing Thought'; }",
+    "aStarter": "function getMintoTopTierName() {\n  // Write your answer here\n}",
     "aHint": "Return Governing Thought.",
     "aTest": "if (getMintoTopTierName() !== 'Governing Thought') throw new Error('Tier name check failed');"
   },
@@ -218,7 +218,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = formatScrCrisisCommunication('Payment processing API is live in US region', 'Third-party gateway latency spiked to 8 seconds causing 15% transaction timeouts', ['Option A: Failover to backup Stripe gateway immediately (5 min downtime)', 'Option B: Throttle non-critical traffic (0 downtime, partial capacity)']);\nif (!res.isScrCompliant || res.resolutionOptions.length !== 2 || res.status !== 'SCR_EXECUTIVE_COMMUNICATION_FORMATTED_NOMINAL') throw new Error('SCR communication formatting failed');",
     "aTitle": "SCR Framework Acronym Formatter",
     "aDesc": "Implement function getScrAcronymExpanded() returning `'Situation-Complication-Resolution'`.",
-    "aStarter": "function getScrAcronymExpanded() { return 'Situation-Complication-Resolution'; }",
+    "aStarter": "function getScrAcronymExpanded() {\n  // Write your answer here\n}",
     "aHint": "Return Situation-Complication-Resolution.",
     "aTest": "if (getScrAcronymExpanded() !== 'Situation-Complication-Resolution') throw new Error('SCR expanded check failed');"
   },
@@ -238,7 +238,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const pass = calculateZopaAgreementRange(20, 30); // 20% min vs 30% max -> 10% overlap\nconst fail = calculateZopaAgreementRange(35, 20); // Deadlock\nif (!pass.hasViableZopa || fail.hasViableZopa || pass.zopaOverlapRangePoints !== 10 || pass.status !== 'ZOPA_AGREEMENT_RANGE_ESTABLISHED_NOMINAL') throw new Error('ZOPA negotiation evaluation failed');",
     "aTitle": "BATNA Acronym Expanded Formatter",
     "aDesc": "Implement function getBatnaAcronymExpanded() returning `'Best Alternative to a Negotiated Agreement'`.",
-    "aStarter": "function getBatnaAcronymExpanded() { return 'Best Alternative to a Negotiated Agreement'; }",
+    "aStarter": "function getBatnaAcronymExpanded() {\n  // Write your answer here\n}",
     "aHint": "Return Best Alternative to a Negotiated Agreement.",
     "aTest": "if (getBatnaAcronymExpanded() !== 'Best Alternative to a Negotiated Agreement') throw new Error('BATNA check failed');"
   },
@@ -258,7 +258,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const protectedSched = auditMakersSchedule([{ durationHours: 3.0, isUninterrupted: true }, { durationHours: 2.5, isUninterrupted: true }, { durationHours: 0.5, isUninterrupted: false }]);\nconst fragmented = auditMakersSchedule([{ durationHours: 0.5, isUninterrupted: false }]);\nif (!protectedSched.isMakerScheduleProtected || fragmented.isMakerScheduleProtected || protectedSched.totalFocusBlocksCount !== 2) throw new Error('Maker schedule audit failed');",
     "aTitle": "Maker vs Manager Schedule Essay Author Formatter",
     "aDesc": "Implement function getMakersScheduleAuthor() returning `'Paul Graham'`.",
-    "aStarter": "function getMakersScheduleAuthor() { return 'Paul Graham'; }",
+    "aStarter": "function getMakersScheduleAuthor() {\n  // Write your answer here\n}",
     "aHint": "Return Paul Graham.",
     "aTest": "if (getMakersScheduleAuthor() !== 'Paul Graham') throw new Error('Author check failed');"
   },
@@ -278,7 +278,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = generateConstructiveLearningReframing('Kubernetes Operators');\nif (!res.isPsychologicallySafe || !res.empoweredResponse.includes('Kubernetes Operators') || res.status !== 'CONSTRUCTIVE_LEARNING_REFRAMING_GENERATED_NOMINAL') throw new Error('Learning reframing failed');",
     "aTitle": "Growth Mindset Inquiry Phrase Formatter",
     "aDesc": "Implement function getGrowthMindsetPhrase() returning `'I will investigate and document a POC'`.",
-    "aStarter": "function getGrowthMindsetPhrase() { return 'I will investigate and document a POC'; }",
+    "aStarter": "function getGrowthMindsetPhrase() {\n  // Write your answer here\n}",
     "aHint": "Return I will investigate and document a POC.",
     "aTest": "if (getGrowthMindsetPhrase() !== 'I will investigate and document a POC') throw new Error('Phrase check failed');"
   },
@@ -298,7 +298,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = executeTechLeadershipMaster(true, true, true, true, true, true);\nif (res.engineStatus !== 'TECH_LEADERSHIP_MASTER_ACTIVE') throw new Error('Milestone 2 leadership master failed');",
     "aTitle": "Tech Leadership Master Status Formatter",
     "aDesc": "Implement function getTechLeadershipMasterStatus() returning `'TECH_LEADERSHIP_MASTER_ACTIVE'`.",
-    "aStarter": "function getTechLeadershipMasterStatus() { return 'TECH_LEADERSHIP_MASTER_ACTIVE'; }",
+    "aStarter": "function getTechLeadershipMasterStatus() {\n  // Write your answer here\n}",
     "aHint": "Return status.",
     "aTest": "if (getTechLeadershipMasterStatus() !== 'TECH_LEADERSHIP_MASTER_ACTIVE') throw new Error('Status check failed');"
   },
@@ -318,7 +318,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const pass = validateGoogleXyzBullet('Optimized database query latency by 45% by implementing Redis caching and indexing slow Postgres queries.');\nconst fail = validateGoogleXyzBullet('Helped team with database tasks.');\nif (!pass.isGoogleXyzCompliant || fail.isGoogleXyzCompliant || pass.status !== 'GOOGLE_XYZ_BULLET_VALID_NOMINAL') throw new Error('Google XYZ bullet validation failed');",
     "aTitle": "Google Resume Formula Acronym Formatter",
     "aDesc": "Implement function getGoogleFormulaName() returning `'X-Y-Z Formula'`.",
-    "aStarter": "function getGoogleFormulaName() { return 'X-Y-Z Formula'; }",
+    "aStarter": "function getGoogleFormulaName() {\n  // Write your answer here\n}",
     "aHint": "Return X-Y-Z Formula.",
     "aTest": "if (getGoogleFormulaName() !== 'X-Y-Z Formula') throw new Error('Formula name check failed');"
   },
@@ -338,8 +338,8 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const pass = evaluateLinkedInHeadline('Senior Software Engineer | React, TypeScript, Node.js | Scaling Cloud SaaS Systems');\nconst fail = evaluateLinkedInHeadline('Looking for opportunities');\nif (!pass.isHeadlineHighSignal || fail.isHeadlineHighSignal || pass.status !== 'LINKEDIN_HEADLINE_HIGH_SIGNAL_NOMINAL') throw new Error('LinkedIn headline evaluation failed');",
     "aTitle": "Recommended LinkedIn Headline Delimiter Formatter",
     "aDesc": "Implement function getHeadlineDelimiter() returning `'|'`.",
-    "aStarter": "function getHeadlineDelimiter() { return '|'; }",
-    "aHint": "Return |.",
+    "aStarter": "function getHeadlineDelimiter() {\n  // Write your answer here\n}",
+    "aHint": "LinkedIn headline best practice uses '|' as a visual separator between your role title and key skills — it scans well in search results and increases discoverability for recruiters.",
     "aTest": "if (getHeadlineDelimiter() !== '|') throw new Error('Delimiter check failed');"
   },
   {
@@ -358,8 +358,8 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const pass = auditStarTimeAllocation(15, 15, 80, 15); // Total 125s, Action 80s = 64.0%\nconst fail = auditStarTimeAllocation(60, 60, 30, 10); // Total 160s, Action 30s = 18.8%\nif (!pass.isStarAllocationOptimal || fail.isStarAllocationOptimal || pass.actionPercentage !== 64.0) throw new Error('STAR allocation audit failed');",
     "aTitle": "Target STAR Action Section Percentage Formatter",
     "aDesc": "Implement function getTargetStarActionPercentage() returning `70`.",
-    "aStarter": "function getTargetStarActionPercentage() { return 70; }",
-    "aHint": "Return 70.",
+    "aStarter": "function getTargetStarActionPercentage() {\n  // Write your answer here\n}",
+    "aHint": "In a strong STAR answer, the Action section should fill ~70% of the response — interviewers care most about what YOU specifically did, not the situation context or the outcome alone.",
     "aTest": "if (getTargetStarActionPercentage() !== 70) throw new Error('Percentage check failed');"
   },
   {
@@ -378,7 +378,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const pass = validateElevatorPitch('Currently a fullstack dev building React/Node apps', 'Previously led database migrations at fintech startup', 'Excited to bring this expertise to Stripe to scale payments infrastructure', 'Stripe');\nconst fail = validateElevatorPitch('Dev here', 'Did stuff', 'Looking for job', 'Stripe');\nif (!pass.isPitchCompleteAndTailored || fail.isPitchCompleteAndTailored || pass.status !== 'ELEVATOR_PITCH_TAILORED_NOMINAL') throw new Error('Elevator pitch validation failed');",
     "aTitle": "Elevator Pitch Narrative Arc Model Formatter",
     "aDesc": "Implement function getElevatorPitchArcModel() returning `'Present-Past-Future'`.",
-    "aStarter": "function getElevatorPitchArcModel() { return 'Present-Past-Future'; }",
+    "aStarter": "function getElevatorPitchArcModel() {\n  // Write your answer here\n}",
     "aHint": "Return Present-Past-Future.",
     "aTest": "if (getElevatorPitchArcModel() !== 'Present-Past-Future') throw new Error('Arc model check failed');"
   },
@@ -398,7 +398,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const pass = auditFailureStory(true, true, true);\nconst fail = auditFailureStory(true, true, false);\nif (!pass.isFailureStoryHighSignal || fail.isFailureStoryHighSignal || pass.status !== 'BLAMELESS_FAILURE_STORY_CERTIFIED_NOMINAL') throw new Error('Failure story audit failed');",
     "aTitle": "Root Cause Analysis Investigation Method Formatter",
     "aDesc": "Implement function getRootCauseMethodName() returning `'5 Whys Analysis'`.",
-    "aStarter": "function getRootCauseMethodName() { return '5 Whys Analysis'; }",
+    "aStarter": "function getRootCauseMethodName() {\n  // Write your answer here\n}",
     "aHint": "Return 5 Whys Analysis.",
     "aTest": "if (getRootCauseMethodName() !== '5 Whys Analysis') throw new Error('Method check failed');"
   },
@@ -418,7 +418,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = executeCareerInterviewMaster(true, true, true, true, true);\nif (res.engineStatus !== 'CAREER_INTERVIEW_MASTER_ACTIVE') throw new Error('Milestone 3 career master failed');",
     "aTitle": "Tech Career Master Status Formatter",
     "aDesc": "Implement function getCareerInterviewMasterStatus() returning `'CAREER_INTERVIEW_MASTER_ACTIVE'`.",
-    "aStarter": "function getCareerInterviewMasterStatus() { return 'CAREER_INTERVIEW_MASTER_ACTIVE'; }",
+    "aStarter": "function getCareerInterviewMasterStatus() {\n  // Write your answer here\n}",
     "aHint": "Return status.",
     "aTest": "if (getCareerInterviewMasterStatus() !== 'CAREER_INTERVIEW_MASTER_ACTIVE') throw new Error('Status check failed');"
   },
@@ -438,8 +438,8 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const d = classifyReverseInterviewQuestion('How long does a deployment take from merge to prod?');\nconst o = classifyReverseInterviewQuestion('How often are engineers paged on-call?');\nif (d.category !== 'DEPLOYMENT_HEALTH' || o.category !== 'ON_CALL_CULTURE' || !d.isHighSignal) throw new Error('Reverse question classification failed');",
     "aTitle": "High Signal Question Category Total Formatter",
     "aDesc": "Implement function getHighSignalCategoryTotal() returning `3`.",
-    "aStarter": "function getHighSignalCategoryTotal() { return 3; }",
-    "aHint": "Return 3.",
+    "aStarter": "function getHighSignalCategoryTotal() {\n  // Write your answer here\n}",
+    "aHint": "High-signal reverse interview questions fall into 3 categories: team dynamics and communication norms, engineering culture and process quality, and role-specific success metrics.",
     "aTest": "if (getHighSignalCategoryTotal() !== 3) throw new Error('Category total check failed');"
   },
   {
@@ -458,7 +458,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const pass = validateLiveCodingProtocol(true, true, true);\nconst fail = validateLiveCodingProtocol(true, false, true);\nif (!pass.isLiveCodingProtocolPassed || fail.isLiveCodingProtocolPassed || pass.status !== 'LIVE_CODING_PROTOCOL_PASSED_NOMINAL') throw new Error('Live coding protocol validation failed');",
     "aTitle": "Live Coding Core Communication Rule Formatter",
     "aDesc": "Implement function getLiveCodingCoreRule() returning `'THINK_ALOUD_PROTOCOL'`.",
-    "aStarter": "function getLiveCodingCoreRule() { return 'THINK_ALOUD_PROTOCOL'; }",
+    "aStarter": "function getLiveCodingCoreRule() {\n  // Write your answer here\n}",
     "aHint": "Return THINK_ALOUD_PROTOCOL.",
     "aTest": "if (getLiveCodingCoreRule() !== 'THINK_ALOUD_PROTOCOL') throw new Error('Rule check failed');"
   },
@@ -478,7 +478,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const pass = auditRadioSystemDesign(['Requirements', 'Architecture', 'DataModel', 'Interfaces', 'Optimizations']);\nconst fail = auditRadioSystemDesign(['Requirements', 'Architecture']);\nif (!pass.isRadioDesignComplete || fail.isRadioDesignComplete || pass.status !== 'SYSTEM_DESIGN_RADIO_COMPLIANT_NOMINAL') throw new Error('RADIO system design audit failed');",
     "aTitle": "RADIO System Design Framework Acronym Formatter",
     "aDesc": "Implement function getRadioAcronym() returning `'RADIO'`.",
-    "aStarter": "function getRadioAcronym() { return 'RADIO'; }",
+    "aStarter": "function getRadioAcronym() {\n  // Write your answer here\n}",
     "aHint": "Return RADIO.",
     "aTest": "if (getRadioAcronym() !== 'RADIO') throw new Error('Acronym check failed');"
   },
@@ -498,8 +498,8 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const tc = calculateTotalCompensation(150000, 10, 200000, 20000); // 150k base + 15k bonus + 50k equity/yr + 20k sign-on = 235k first year\nif (tc.recurringAnnualTc !== 215000 || tc.firstYearTotalCompensation !== 235000 || tc.status !== 'TOTAL_COMPENSATION_CALCULATED_NOMINAL') throw new Error('TC calculation failed');",
     "aTitle": "Standard Tech Equity Vesting Period Years Formatter",
     "aDesc": "Implement function getStandardEquityVestingYears() returning `4`.",
-    "aStarter": "function getStandardEquityVestingYears() { return 4; }",
-    "aHint": "Return 4.",
+    "aStarter": "function getStandardEquityVestingYears() {\n  // Write your answer here\n}",
+    "aHint": "Standard tech equity vests over 4 years with a 1-year cliff — you receive 25% at month 12, then vest the remaining 75% monthly over the following 3 years.",
     "aTest": "if (getStandardEquityVestingYears() !== 4) throw new Error('Vesting years check failed');"
   },
   {
@@ -518,7 +518,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const d30 = trackOnboardingMilestone(30);\nconst d60 = trackOnboardingMilestone(60);\nconst d90 = trackOnboardingMilestone(90);\nif (d30.milestone !== 'LEARN_AND_SHIP_BUGFIX' || d60.milestone !== 'OWN_FEATURE_INDEPENDENTLY' || d90.milestone !== 'LEAD_AND_IMPROVE_ARCHITECTURE') throw new Error('Onboarding milestone tracking failed');",
     "aTitle": "Day 30 Primary Onboarding Goal Formatter",
     "aDesc": "Implement function getDay30OnboardingGoal() returning `'LEARN_AND_SHIP_BUGFIX'`.",
-    "aStarter": "function getDay30OnboardingGoal() { return 'LEARN_AND_SHIP_BUGFIX'; }",
+    "aStarter": "function getDay30OnboardingGoal() {\n  // Write your answer here\n}",
     "aHint": "Return LEARN_AND_SHIP_BUGFIX.",
     "aTest": "if (getDay30OnboardingGoal() !== 'LEARN_AND_SHIP_BUGFIX') throw new Error('Goal check failed');"
   },
@@ -538,7 +538,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const validRfc = '# Summary\\nDetails\\n# Motivation\\nWhy\\n# Proposed Design\\nHow\\n# Alternatives\\nOther options';\nconst pass = auditRfcProposalStructure(validRfc);\nconst fail = auditRfcProposalStructure('# Summary\\nJust notes');\nif (!pass.isRfcStructureCompliant || fail.isRfcStructureCompliant || pass.status !== 'RFC_PROPOSAL_STRUCTURE_VERIFIED_NOMINAL') throw new Error('RFC structure audit failed');",
     "aTitle": "RFC Acronym Expanded Formatter",
     "aDesc": "Implement function getRfcAcronymExpanded() returning `'Request for Comments'`.",
-    "aStarter": "function getRfcAcronymExpanded() { return 'Request for Comments'; }",
+    "aStarter": "function getRfcAcronymExpanded() {\n  // Write your answer here\n}",
     "aHint": "Return Request for Comments.",
     "aTest": "if (getRfcAcronymExpanded() !== 'Request for Comments') throw new Error('RFC expanded check failed');"
   },
@@ -558,7 +558,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const low = matchCulturalCommunicationStyle('LOW_CONTEXT');\nconst high = matchCulturalCommunicationStyle('HIGH_CONTEXT');\nif (low.style !== 'EXPLICIT_LITERAL_WRITTEN_DOCUMENTATION' || high.style !== 'RELATIONAL_NUANCED_CONTEXT_AWARE') throw new Error('Cultural matching failed');",
     "aTitle": "Culture Map Author Formatter",
     "aDesc": "Implement function getCultureMapAuthor() returning `'Erin Meyer'`.",
-    "aStarter": "function getCultureMapAuthor() { return 'Erin Meyer'; }",
+    "aStarter": "function getCultureMapAuthor() {\n  // Write your answer here\n}",
     "aHint": "Return Erin Meyer.",
     "aTest": "if (getCultureMapAuthor() !== 'Erin Meyer') throw new Error('Author check failed');"
   },
@@ -578,7 +578,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const pass = auditTechLeadDelegation(true, true, true);\nconst fail = auditTechLeadDelegation(true, false, true);\nif (!pass.isServantLeadershipCompliant || fail.isServantLeadershipCompliant || pass.status !== 'TECH_LEAD_DELEGATION_CERTIFIED_NOMINAL') throw new Error('Tech lead delegation audit failed');",
     "aTitle": "Core Tech Lead Leadership Philosophy Formatter",
     "aDesc": "Implement function getTechLeadPhilosophy() returning `'Servant Leadership'`.",
-    "aStarter": "function getTechLeadPhilosophy() { return 'Servant Leadership'; }",
+    "aStarter": "function getTechLeadPhilosophy() {\n  // Write your answer here\n}",
     "aHint": "Return Servant Leadership.",
     "aTest": "if (getTechLeadPhilosophy() !== 'Servant Leadership') throw new Error('Philosophy check failed');"
   },
@@ -598,7 +598,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const ok = orchestrateTechCommMasterSuite(true, true, true, true, true);\nconst fail = orchestrateTechCommMasterSuite(true, true, false, true, true);\nif (!ok.sovereignTechCommCertified || fail.sovereignTechCommCertified || !ok.certified || ok.status !== 'SOVEREIGN_TECH_COMMUNICATION_AND_CAREER_MASTER_CERTIFIED_NOMINAL') throw new Error('Capstone orchestrator failed');",
     "aTitle": "Tech Communication Master Certification Auditor",
     "aDesc": "Implement function auditTechCommMasterCert() returning `{ certified: true, score: '100/100', tier: 'SOVEREIGN_TECH_COMMUNICATION_MASTER_CERTIFIED' }`.",
-    "aStarter": "function auditTechCommMasterCert() { return { certified: true, score: '100/100', tier: 'SOVEREIGN_TECH_COMMUNICATION_MASTER_CERTIFIED' }; }",
+    "aStarter": "function auditTechCommMasterCert() {\n  // Write your answer here\n}",
     "aHint": "Return certification object.",
     "aTest": "if (!auditTechCommMasterCert().certified) throw new Error('Capstone cert failed');"
   }

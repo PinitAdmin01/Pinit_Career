@@ -1088,14 +1088,11 @@ const isGroup = (n: NavNode): n is NavGroup => 'children' in n;
 const STUDENT_NAV: NavSection[] = [
   { section: 'PinIT Career OS', items: [
     { href: '/dashboard', icon: '🏠', label: 'Dashboard' },
-    { href: '/quests', icon: '🗺', label: 'Quests' },
-    { href: '/missions', icon: '⚡', label: 'Missions' },
+    { href: '/quests', icon: '🗺', label: 'Quests & Courses' },
+    { href: '/missions', icon: '⚡', label: 'Daily Missions' },
     { href: '/arena', icon: '⚔️', label: 'Challenging Arena' },
-    { href: '/code-wars', icon: '⚡', label: 'Code Wars 1v1' },
-    { href: '/teams', icon: '👥', label: 'Squad Projects' },
-    { href: '/leaderboard', icon: '🏆', label: 'Leaderboard' },
-    { href: '/passport', icon: '🛂', label: 'Career Passport' },
-    { href: '/projects', icon: '🚀', label: 'Projects' },
+    { href: '/projects', icon: '🚀', label: 'Projects & Squads' },
+    { href: '/leaderboard', icon: '🏆', label: 'Leaderboard & Leagues' },
     { href: '/interview', icon: '🎙', label: 'AI Interview' },
     { href: '/group-discussion', icon: '💬', label: 'GD Practice' },
     { href: '/learning', icon: '📖', label: 'Learning & Twin' },
@@ -1217,8 +1214,8 @@ const TEACHER_NAV: NavSection[] = [
     { href: '/advisor', icon: '🧠', label: 'AI Advisor Logs' },
     { href: '/portfolio', icon: '👤', label: 'Student Portfolio' },
     { href: '/internships', icon: '🏢', label: 'Internships Review' },
-    { href: '/projects', icon: '💼', label: 'Industry Projects' },
-    { href: '/passport', icon: '🎫', label: 'Skill Passport' }
+    { href: '/projects', icon: '💼', label: 'Industry Projects & Squads' },
+    { href: '/quests?tab=passport', icon: '🎫', label: 'Skill Passport & Transcript' }
   ]}
 ];
 
@@ -1242,16 +1239,18 @@ const PAGE_TITLES: Record<string, string> = {
   '/admin/students':'Students',      '/consultant':    'Student CRM',
   '/attendance':    'Attendance',    '/parent':        'Parent Portal',
   '/pricing':       'Pins & Plans','/profile':      'Profile',
-  '/notifications': 'Notifications', '/leaderboard':   'Leaderboard',
+  '/notifications': 'Notifications', '/leaderboard':   'Leaderboard & Leagues',
   '/applications':  'My Applications',
-  '/quests':        'Career Quests',
+  '/quests':        'Quests & Courses',
+  '/arena':         'Challenging Arena',
+  '/projects':      'Projects & Squads',
   '/attention-span': 'Attention Span',
   '/qr-confirm':    'Confirm QR Login',
   '/onboarding':    'Setup',         '/qr-login':      'QR Login',
   '/reset-password':'Reset Password',
 };
 
-const PUBLIC_PATHS = ['/', '/login', '/signup', '/reset-password', '/qr-login', '/qr-confirm', '/onboarding', '/privacy', '/terms', '/contact', '/admissions', '/about', '/pricing', '/services', '/teacher', '/admin', '/recruiter', '/consultant', '/parent', '/finance'];
+const PUBLIC_PATHS = ['/', '/login', '/signup', '/reset-password', '/qr-login', '/qr-confirm', '/onboarding', '/privacy', '/terms', '/contact', '/admissions', '/about', '/pricing', '/problem', '/identity', '/how-it-works', '/modules', '/campus-demo', '/university', '/services', '/teacher', '/admin', '/recruiter', '/consultant', '/parent', '/finance'];
 
 function getNav(role: string, _pathname: string = ''): NavSection[] {
   // Nav must follow authenticated role only — never privilege by URL path.
@@ -1558,7 +1557,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     }
   }, [user, loading, isPublic, pathname, router]);
 
-  const isLandingPage = ['/', '/login', '/signup', '/reset-password', '/qr-login', '/qr-confirm', '/onboarding', '/privacy', '/terms', '/contact', '/admissions', '/about', '/pricing'].some(p => pathname === p || (p !== '/' && pathname.startsWith(p)));
+  const isLandingPage = ['/', '/login', '/signup', '/reset-password', '/qr-login', '/qr-confirm', '/onboarding', '/privacy', '/terms', '/contact', '/admissions', '/about', '/pricing', '/problem', '/identity', '/how-it-works', '/modules', '/campus-demo', '/university'].some(p => pathname === p || (p !== '/' && pathname.startsWith(p)));
   if (isLandingPage) return <>{children}</>;
 
   if (loading) return (

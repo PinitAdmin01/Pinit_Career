@@ -4,6 +4,7 @@
 import { Suspense } from 'react';
 import '../styles/globals.css';
 import '../styles/portal-pages.css';
+import '../styles/landing.css';
 import type { Metadata, Viewport } from 'next';
 import { Bricolage_Grotesque, Inter, JetBrains_Mono } from 'next/font/google';
 import Script                            from 'next/script';

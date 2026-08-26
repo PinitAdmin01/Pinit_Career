@@ -37,6 +37,12 @@ export interface OnboardingAnswers {
   learningStyle?: string;
   weeklyHours?: string;
   accessReason?: string;
+  career_goal?: string;
+  target_goal?: string;
+  voice_transcript?: string;
+  voice_confidence?: number;
+  voice_articulation?: number;
+  voice_archetype?: string;
   activeCourseId?: string | null;
   completedQuestsTimestamps?: string[];
   completedMissionsTimestamps?: string[];

@@ -496,7 +496,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
       setTerminalLogs(['⚙️ Dispatching Java submission to isolated compiler judge...']);
       
       import('@/lib/code/codeRunner').then(({ runTestSuite }) => {
-        runTestSuite(code, 'java', { testSuite: quest.testSuite })
+        runTestSuite(code, 'java', { testSuite: quest.testSuite, questId: quest.id, xp: quest.xp })
           .then((result) => {
             setTerminalLogs(result.terminalLogs || []);
             if (result.allPassed) {
@@ -595,6 +595,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
           api.post<{ success: boolean; message?: string }>('/api/quests/verify', {
             questId: quest.id,
             code,
+            language: 'javascript',
             isExam: category === 'exam'
           })
           .then(data => {

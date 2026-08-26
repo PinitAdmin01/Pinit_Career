@@ -58,7 +58,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const asks = [{ orderId: 'ASK_1', price: 100.0, qty: 50, timestamp: 1 }, { orderId: 'ASK_2', price: 100.5, qty: 100, timestamp: 2 }];\nconst matchRes = matchIncomingOrder(asks, { orderId: 'BUY_1', price: 100.5, qty: 80 });\nif (matchRes.totalFilledQty !== 80 || matchRes.tradeExecutions.length !== 2 || matchRes.updatedAsks[0].qty !== 70 || matchRes.status !== 'ORDER_FULLY_FILLED') throw new Error('Matching engine failed');",
     "aTitle": "Fill Price Rule Formatter",
     "aDesc": "Implement function getFillRule() returning `'MAKER_RESTING_PRICE'`.",
-    "aStarter": "function getFillRule() { return 'MAKER_RESTING_PRICE'; }",
+    "aStarter": "function getFillRule() {\n  // Write your answer here\n}",
     "aHint": "Return maker price rule string.",
     "aTest": "if (getFillRule() !== 'MAKER_RESTING_PRICE') throw new Error('Rule check failed');"
   },
@@ -379,7 +379,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
     "aTitle": "Coherent Risk Measure Verifier",
     "aDesc": "Implement function isCoherentRiskMeasure(name) returning `name === 'CVaR' || name === 'ExpectedShortfall'`.",
     "aStarter": "function isCoherentRiskMeasure(n) { return n === 'CVaR' || n === 'ExpectedShortfall'; }",
-    "aHint": "Check CVaR.",
+    "aHint": "CVaR (Conditional Value-at-Risk) is coherent; plain VaR is NOT — coherence requires subadditivity: risk(A+B) ≤ risk(A) + risk(B), which VaR can violate in fat-tailed distributions.",
     "aTest": "if (!isCoherentRiskMeasure('CVaR') || isCoherentRiskMeasure('VaR')) throw new Error('Coherent check failed');"
   },
   {
@@ -498,7 +498,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = evaluateMicrowaveAdvantage(1200); // Chicago to NJ (~1200km)\nif (res.fiberLatencyMs !== 5.88 || res.microwaveLatencyMs !== 4.00 || res.hftAdvantageMs !== 1.88) throw new Error('Microwave advantage failed');",
     "aTitle": "Air Refractive Index Formatter",
     "aDesc": "Implement function getAirRefractiveIndex() returning `1.0003`.",
-    "aStarter": "function getAirRefractiveIndex() { return 1.0003; }",
+    "aStarter": "function getAirRefractiveIndex() {\n  // Write your answer here\n}",
     "aHint": "Return 1.0003.",
     "aTest": "if (getAirRefractiveIndex() !== 1.0003) throw new Error('Index check failed');"
   },
@@ -558,7 +558,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = calculateFundingArbitrageYield(30000, 30010, 0.0001, 365); // 0.01% per 8h -> 10.95% annual yield\nif (res.annualizedFundingYieldPercent !== 10.95 || res.status !== 'FUNDING_RATE_YIELD_CALCULATED') throw new Error('Funding arbitrage yield failed');",
     "aTitle": "Funding Interval Formatter",
     "aDesc": "Implement function formatFundingInterval() returning `'8_HOUR_SETTLEMENT_CYCLE'`.",
-    "aStarter": "function formatFundingInterval() { return '8_HOUR_SETTLEMENT_CYCLE'; }",
+    "aStarter": "function formatFundingInterval() {\n  // Write your answer here\n}",
     "aHint": "Return 8 hour cycle.",
     "aTest": "if (formatFundingInterval() !== '8_HOUR_SETTLEMENT_CYCLE') throw new Error('Funding interval failed');"
   },
@@ -574,8 +574,8 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTitle": "FPGA vs Software Tick-to-Trade Latency Comparator",
     "eDesc": "Implement function compareFpgaTickToTrade(softwareLatencyNs = 800, fpgaLatencyNs = 45) calculating hardware acceleration speedup.",
     "eStarter": "function compareFpgaTickToTrade(swNs = 800, fpgaNs = 45) {\n  const speedup = swNs / fpgaNs;\n  return {\n    softwareTickToTradeNs: swNs,\n    fpgaHardwareTickToTradeNs: fpgaNs,\n    hardwareSpeedupFactor: Number(speedup.toFixed(1)),\n    status: 'FPGA_SUB_50_NANOSECOND_TICK_TO_TRADE_ACTIVE'\n  };\n}",
-    "eHint": "Compute speedup factor.",
-    "eTest": "const res = compareFpgaTickToTrade(800, 45);\nif (res.hardwareSpeedupFactor !== 17.8 || res.status !== 'FPGA_SUB_50_NANOSECOND_TICK_TO_TRADE_ACTIVE') throw new Error('FPGA comparison failed');",
+    "eHint": "Speedup = software latency ÷ FPGA latency — how many times faster FPGA executes. Divide swNs by fpgaNs and round to 1 decimal place for the hardwareSpeedupFactor.",
+    "eTest": "const res = compareFpgaTickToTrade(800, 45);\nif (res.hardwareSpeedupFactor !== 17.8 || res.status !== 'FPGA_SUB_50_NANOSECOND_TICK_TO_TRADE_ACTIVE') throw new Error('FPGA comparison failed');\nconst r2 = compareFpgaTickToTrade(100, 50);\nif (r2.hardwareSpeedupFactor !== 2.0) throw new Error('Speedup factor 100/50 should be 2.0');",
     "aTitle": "FPGA Interface Formatter",
     "aDesc": "Implement function formatFpgaInterface(standard) returning `FPGA_AXI4_STREAM_${standard}`.",
     "aStarter": "function formatFpgaInterface(s) { return `FPGA_AXI4_STREAM_${s}`; }",
@@ -598,7 +598,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const ok = orchestrateHftTradingSystem(true, true, true, true, true);\nconst fail = orchestrateHftTradingSystem(true, true, true, false, true); // Risk check failed!\nif (!ok.systemInstitutionalGradeCertified || fail.systemInstitutionalGradeCertified || !ok.certified || ok.status !== 'HFT_QUANT_TRADING_SYSTEM_OPERATIONAL_NOMINAL') throw new Error('Capstone HFT system failed');",
     "aTitle": "Quantitative Systems Master Certification Auditor",
     "aDesc": "Implement function auditQuantMasterCert() returning `{ certified: true, score: '100/100', tier: 'ENTERPRISE_QUANT_SYSTEMS_MASTER_CERTIFIED' }`.",
-    "aStarter": "function auditQuantMasterCert() { return { certified: true, score: '100/100', tier: 'ENTERPRISE_QUANT_SYSTEMS_MASTER_CERTIFIED' }; }",
+    "aStarter": "function auditQuantMasterCert() {\n  // Write your answer here\n}",
     "aHint": "Return certification object.",
     "aTest": "if (!auditQuantMasterCert().certified) throw new Error('Capstone cert failed');"
   }

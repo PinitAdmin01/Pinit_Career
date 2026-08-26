@@ -1,190 +1,183 @@
-import { DayLessonPlan } from '@/lib/types/lessonEngine';
+﻿import { DayLessonPlan } from '@/lib/types/lessonEngine';
 
 export const GIT_VERSION_CONTROL_PILOT_DAYS: DayLessonPlan[] = [
   {
     "day": 1,
-    "title": "Git Object Model & Storage Architecture: Blobs, Trees, Commits & Tags",
-    "overviewMetaphor": "Git Is a Cryptographic Content Bank of Immutable Safety Deposit Boxes: Instead of saving delta file differences, Git computes the SHA-1 fingerprint of your file contents; if two identical files exist anywhere in the project, Git only stores one underlying 'Blob' (`blob 12\\0Hello World\\n`), using 'Tree' directory maps and 'Commit' receipts to link everything into an unbreakable historical chain.",
+    "title": "What is Version Control? — Your Project's Infinite Undo Button",
+    "overviewMetaphor": "Git is like an infinite Undo button for your entire project: every time you reach a safe checkpoint, you take a 'snapshot' called a commit; if anything breaks, you can instantly rewind the project to any previous snapshot — no lost work, no panic, just confident development.",
     "blocks": [
       {
-        "id": "git-d1-b1-object-model-header-formatter",
+        "id": "git-d1-b1-why-version-control",
         "day": 1,
         "blockNumber": 1,
-        "title": "Git Object Storage Header: `blob 12\\0Hello World\\n`",
+        "title": "Why Do We Need Version Control? — The essay_FINAL_v3_LAST.docx Problem",
         "conceptBudget": {
-          "primaryConcept": "Git Low-Level Object Storage Header",
+          "primaryConcept": "The Version Control Problem",
           "supportingTerms": [
-            "Object Type (`'blob'`)",
-            "Byte Length ($12$ bytes)",
-            "Null Byte Separator (`'\\0'`)",
-            "Header Prefix (`'blob 12\\0'`)",
-            "Status: Git Object Header Formatted Nominal"
+            "Version Chaos (Saving files as essay_v1.docx, essay_v2_FINAL.docx, essay_FINAL_LAST.docx — no clear history, no safe way to undo)",
+            "Collaboration Conflict (Two people overwriting each other's changes)",
+            "Version Control Solution (One tool tracks every change, who made it, and when)"
           ]
         },
         "prerequisiteThresholds": [],
         "media": [
           {
+            "type": "analogy",
+            "metaphor": "The Infinite File Name Problem",
+            "simpleExplanation": "Imagine writing an essay and naming your files: essay_v1.docx, essay_v2_FIXED.docx, essay_FINAL.docx, essay_FINAL_ACTUALLY_FINAL.docx, essay_I_GIVE_UP.docx. Now imagine doing this across a team of 5 people. Version control solves this: one tool, clear history, always safe to undo."
+          },
+          {
             "type": "diagram",
             "data": {
-              "type": "memory_box",
-              "title": "Git Content-Addressable Storage Layout Ledger",
-              "boxes": [
-                {
-                  "label": "Content Payload",
-                  "value": "'Hello World\\n' (12 Bytes of ASCII Text)",
-                  "varType": "String",
-                  "isUpdated": false
-                },
-                {
-                  "label": "Storage Header",
-                  "value": "type ('blob') + ' ' + length (12) + '\\0'",
-                  "varType": "Header",
-                  "isUpdated": false
-                },
-                {
-                  "label": "Formatted Object",
-                  "value": "'blob 12\\0Hello World\\n' (GIT OBJECT HEADER FORMATTED NOMINAL!)",
-                  "varType": "Object",
-                  "isUpdated": true
-                }
+              "type": "flowchart",
+              "title": "Without Version Control vs With Git",
+              "nodes": [
+                { "id": "1", "label": "Without Git: essay_v1.docx, essay_FINAL_LAST.docx (confusion, lost work)", "kind": "start" },
+                { "id": "2", "label": "Problem: which version is current? who changed what? can we undo?", "kind": "decision" },
+                { "id": "3", "label": "With Git: every change is a named commit with full history and authorship", "kind": "process" },
+                { "id": "4", "label": "Result: instant undo, team-safe, no lost work, full audit trail", "kind": "end" }
               ]
             }
           },
           {
             "type": "runnable_code",
-            "filename": "git_object_demo.js",
-            "initialCode": "function formatGitObject(type, content) {\n  const len = Buffer.byteLength(content, 'utf8');\n  return {\n    type,\n    byteLength: len,\n    headerPrefix: `${type} ${len}\\0`,\n    status: 'GIT_OBJECT_HEADER_FORMATTED_NOMINAL'\n  };\n}\n\nconsole.log(JSON.stringify(formatGitObject('blob', 'Hello World\\n')));",
-            "expectedOutput": "{\"type\":\"blob\",\"byteLength\":12,\"headerPrefix\":\"blob 12\\0\",\"status\":\"GIT_OBJECT_HEADER_FORMATTED_NOMINAL\"}",
+            "filename": "version_control_demo.js",
+            "initialCode": "function describeVersionControl() {\n  return {\n    problem: 'MULTIPLE_COPIES_NO_CLEAR_HISTORY',\n    solution: 'VERSION_CONTROL_TRACKS_EVERY_CHANGE',\n    status: 'VERSION_CONTROL_UNDERSTOOD'\n  };\n}\n\nconsole.log(JSON.stringify(describeVersionControl()));",
+            "expectedOutput": "{\"problem\":\"MULTIPLE_COPIES_NO_CLEAR_HISTORY\",\"solution\":\"VERSION_CONTROL_TRACKS_EVERY_CHANGE\",\"status\":\"VERSION_CONTROL_UNDERSTOOD\"}",
             "editable": false
           }
         ],
         "diagnosticCheck": {
-          "type": "predict_output",
-          "question": "What exact header prefix string is constructed by Git when storing a 12-byte blob object?",
-          "expectedStringOutput": "blob 12\\0",
-          "acceptableAnswers": [
-            "blob 12\\0",
-            "blob 12",
-            "headerPrefix\":\"blob 12\\0\""
+          "type": "choose_answer",
+          "question": "Which of the following BEST describes the main problem that version control solves?",
+          "options": [
+            "Files take up too much disk space",
+            "Tracking every change to a project so nothing is ever lost",
+            "Making code run faster",
+            "Encrypting your files for security"
           ],
-          "primaryMisconceptionId": "MC_GIT_OBJECT_MODEL_BLOBS_TREES_COMMITS",
+          "correctIndex": 1,
+          "primaryMisconceptionId": "MC_GIT_VERSION_CONTROL_PURPOSE",
           "diagnosisMap": {
-            "blob 12": {
-              "misconceptionId": "MC_GIT_OBJECT_MODEL_BLOBS_TREES_COMMITS",
-              "errorExplanation": "Git requires a null byte separator \\0 after the byte length: blob 12\\0.",
+            "0": {
+              "misconceptionId": "MC_GIT_VERSION_CONTROL_PURPOSE",
+              "errorExplanation": "Version control is not about storage space. It tracks the history of every change so you can review, compare, or undo them at any time.",
               "recoveryPath": {
-                "simplerExplanation": "Includes null byte: blob 12\\0.",
-                "guidedFixPrompt": "Type blob 12\\0"
+                "simplerExplanation": "Think of Git as an infinite Undo button for your project folder.",
+                "guidedFixPrompt": "Select option 1: Tracking every change to a project so nothing is ever lost"
               }
             }
           }
         }
       },
       {
-        "id": "git-d1-b2-the-four-fundamental-object-types",
+        "id": "git-d1-b2-what-is-a-commit",
         "day": 1,
         "blockNumber": 2,
-        "title": "The 4 Core Git Objects: Blobs, Trees, Commits, and Annotated Tags",
+        "title": "What is a Commit? — Taking a Snapshot of Your Project",
         "conceptBudget": {
-          "primaryConcept": "Git 4 Object Types Invariant",
+          "primaryConcept": "Git Commit: A Project Snapshot",
           "supportingTerms": [
-            "Blob (Stores raw file content)",
-            "Tree (Stores directory structures & file names)",
-            "Commit (Stores root tree hash, parent commit hash, author & message)",
-            "Tag (Stores annotated release references)"
+            "Commit (A saved snapshot of your entire project at one moment in time)",
+            "Commit Message (A short description of what changed: e.g. 'Add login page')",
+            "Author (Who made the change)",
+            "Timestamp (When the change was made)"
           ]
         },
         "prerequisiteThresholds": [
           {
-            "conceptId": "git-d1-b1-object-model-header-formatter",
+            "conceptId": "git-d1-b1-why-version-control",
             "requiredLevel": "understood"
           }
         ],
         "media": [
           {
-            "type": "syntax_anatomy",
-            "title": "The 4 Core Git Objects",
-            "codeSnippet": "// 1. BLOB:   Raw byte data of a file (Does NOT store file names!)\n// 2. TREE:   Maps filenames & directory paths to SHA Blob hashes\n// 3. COMMIT: Points to a top-level Tree, Parent commit(s), Author, & Timestamp\n// 4. TAG:    Permanent cryptographic pointer to a specific commit release",
-            "lineNotes": {
-              "1": "File content.",
-              "2": "Directory structure.",
-              "3": "Historical snapshot record.",
-              "4": "Release marker."
-            }
+            "type": "analogy",
+            "metaphor": "A Photo Album of Your Project",
+            "simpleExplanation": "A commit is like a photograph of your project folder taken at one moment in time. The photograph captures exactly what every file looked like at that instant. Git keeps an album of all your photographs in order — you can flip back to any one of them instantly."
           },
           {
             "type": "runnable_code",
-            "filename": "object_types_demo.js",
-            "initialCode": "function getGitObjectTypesTotal() {\n  return 4;\n}\n\nconsole.log(getGitObjectTypesTotal());",
-            "expectedOutput": "4",
+            "filename": "commit_demo.js",
+            "initialCode": "function describeCommit(message, author) {\n  return {\n    snapshotType: 'PROJECT_SNAPSHOT',\n    message: message,\n    author: author,\n    canUndo: true,\n    status: 'COMMIT_SNAPSHOT_RECORDED'\n  };\n}\n\nconsole.log(JSON.stringify(describeCommit('Add login page', 'Alice')));",
+            "expectedOutput": "{\"snapshotType\":\"PROJECT_SNAPSHOT\",\"message\":\"Add login page\",\"author\":\"Alice\",\"canUndo\":true,\"status\":\"COMMIT_SNAPSHOT_RECORDED\"}",
             "editable": false
           }
         ],
         "diagnosticCheck": {
-          "type": "predict_output",
-          "question": "How many fundamental object types exist in Git's low-level content storage engine?",
-          "expectedStringOutput": "4",
-          "acceptableAnswers": [
-            "4",
-            "4 types",
-            "four"
+          "type": "choose_answer",
+          "question": "What does a Git commit store?",
+          "options": [
+            "Only the files you deleted",
+            "A snapshot of your entire project at that moment, plus a message describing the change",
+            "Just the name of the developer who made changes",
+            "A backup copy stored on the internet"
           ],
-          "primaryMisconceptionId": "MC_GIT_OBJECT_MODEL_BLOBS_TREES_COMMITS",
+          "correctIndex": 1,
+          "primaryMisconceptionId": "MC_GIT_COMMIT_SNAPSHOT_CONCEPT",
           "diagnosisMap": {
-            "3": {
-              "misconceptionId": "MC_GIT_OBJECT_MODEL_BLOBS_TREES_COMMITS",
-              "errorExplanation": "There are 4: Blob, Tree, Commit, and Tag.",
+            "0": {
+              "misconceptionId": "MC_GIT_COMMIT_SNAPSHOT_CONCEPT",
+              "errorExplanation": "A commit captures a snapshot of ALL tracked files in the project at that moment, not just deleted ones.",
               "recoveryPath": {
-                "simplerExplanation": "Type 4.",
-                "guidedFixPrompt": "Type 4"
+                "simplerExplanation": "Think of a commit as a complete photograph of your project folder — every file, captured at that instant.",
+                "guidedFixPrompt": "Select option 1: A snapshot of your entire project at that moment, plus a message describing the change"
               }
             }
           }
         }
       },
       {
-        "id": "git-d1-b3-sha1-hash-deterministic-fingerprints",
+        "id": "git-d1-b3-what-is-a-repository",
         "day": 1,
         "blockNumber": 3,
-        "title": "SHA-1 / SHA-256 Hashing: 40-Character Hexadecimal Fingerprints",
+        "title": "What is a Repository? — Your Project's History Book",
         "conceptBudget": {
-          "primaryConcept": "Git SHA Cryptographic Hashing Invariant",
+          "primaryConcept": "Git Repository: The History Store",
           "supportingTerms": [
-            "SHA-1 Hash (A 40-character hexadecimal string representing the exact cryptographic digest of an object; identical content ALWAYS yields the exact same SHA hash)"
+            "Repository (A folder where Git stores your project AND the full history of every commit ever made)",
+            "Local Repository (The copy on your own computer)",
+            "Remote Repository (A shared copy on a server like GitHub, for team collaboration)"
           ]
         },
         "prerequisiteThresholds": [
           {
-            "conceptId": "git-d1-b2-the-four-fundamental-object-types",
+            "conceptId": "git-d1-b2-what-is-a-commit",
             "requiredLevel": "understood"
           }
         ],
         "media": [
           {
+            "type": "analogy",
+            "metaphor": "A Library for Your Project",
+            "simpleExplanation": "A repository is like a library for your project. The library holds not just the current version of every file, but the complete history of every change — who changed what, when, and why. The local library is on your laptop; the remote library (GitHub) is the shared copy your whole team can access."
+          },
+          {
             "type": "runnable_code",
-            "filename": "sha_length_demo.js",
-            "initialCode": "function getSha1HexLength() {\n  return 40;\n}\n\nconsole.log(getSha1HexLength());",
-            "expectedOutput": "40",
+            "filename": "repository_demo.js",
+            "initialCode": "function describeRepository(name) {\n  return {\n    repositoryName: name,\n    storesCurrentFiles: true,\n    storesFullHistory: true,\n    supportsTeamCollaboration: true,\n    status: 'REPOSITORY_DESCRIBED_NOMINAL'\n  };\n}\n\nconsole.log(JSON.stringify(describeRepository('my-project')));",
+            "expectedOutput": "{\"repositoryName\":\"my-project\",\"storesCurrentFiles\":true,\"storesFullHistory\":true,\"supportsTeamCollaboration\":true,\"status\":\"REPOSITORY_DESCRIBED_NOMINAL\"}",
             "editable": false
           }
         ],
         "diagnosticCheck": {
-          "type": "predict_output",
-          "question": "How many hexadecimal characters make up a standard Git SHA-1 object identifier hash?",
-          "expectedStringOutput": "40",
-          "acceptableAnswers": [
-            "40",
-            "40 characters",
-            "40 hex characters"
+          "type": "choose_answer",
+          "question": "Which of the following BEST describes a Git repository?",
+          "options": [
+            "A website for sharing code",
+            "A type of file format for compressing data",
+            "A project folder that also stores the complete history of every change ever made",
+            "A programming language used to write Git commands"
           ],
-          "primaryMisconceptionId": "MC_GIT_OBJECT_MODEL_BLOBS_TREES_COMMITS",
+          "correctIndex": 2,
+          "primaryMisconceptionId": "MC_GIT_REPOSITORY_LOCAL_REMOTE",
           "diagnosisMap": {
-            "32": {
-              "misconceptionId": "MC_GIT_OBJECT_MODEL_BLOBS_TREES_COMMITS",
-              "errorExplanation": "32 is MD5. Git SHA-1 hashes are 40 hexadecimal characters.",
+            "0": {
+              "misconceptionId": "MC_GIT_REPOSITORY_LOCAL_REMOTE",
+              "errorExplanation": "GitHub is a website that hosts repositories, but the repository itself is the folder containing your project and its full commit history — it can exist entirely on your local computer.",
               "recoveryPath": {
-                "simplerExplanation": "SHA-1 length is 40.",
-                "guidedFixPrompt": "Type 40"
+                "simplerExplanation": "A repository is your project folder plus a complete history of every commit. GitHub is just one place to store it online.",
+                "guidedFixPrompt": "Select option 2: A project folder that also stores the complete history of every change ever made"
               }
             }
           }

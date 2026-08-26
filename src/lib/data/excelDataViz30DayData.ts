@@ -18,7 +18,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const b12 = parseCellCoordinate('B12');\nconst aa1 = parseCellCoordinate('AA1'); // 'AA' = 27 -> colIndex 26, rowIndex 0\nif (b12.colIndex !== 1 || b12.rowIndex !== 11 || aa1.colIndex !== 26 || aa1.rowIndex !== 0 || b12.status !== 'CELL_COORDINATE_PARSED_NOMINAL') throw new Error('Cell coordinate parsing failed');",
     "aTitle": "Total Columns in Standard Excel Grid Formatter",
     "aDesc": "Implement function getTotalExcelColumnsCount() returning `16384`.",
-    "aStarter": "function getTotalExcelColumnsCount() { return 16384; }",
+    "aStarter": "function getTotalExcelColumnsCount() {\n  // Write your answer here\n}",
     "aHint": "Return 16384.",
     "aTest": "if (getTotalExcelColumnsCount() !== 16384) throw new Error('Columns count check failed');"
   },
@@ -38,8 +38,8 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const data = [10.5, 20.25, 30.75, 40.0, 50.5]; // sum = 152.0, avg = 30.4\nconst res = calculateSpreadsheetAggregations(data);\nif (res.sum !== 152.0 || res.count !== 5 || res.roundedAverage !== 30.4 || res.min !== 10.5 || res.max !== 50.5 || res.status !== 'AGGREGATIONS_COMPUTED_NOMINAL') throw new Error('Aggregation calculation failed');",
     "aTitle": "Spreadsheet Formula Prefix Character Formatter",
     "aDesc": "Implement function getFormulaPrefixChar() returning `'='`.",
-    "aStarter": "function getFormulaPrefixChar() { return '='; }",
-    "aHint": "Return '='.",
+    "aStarter": "function getFormulaPrefixChar() {\n  // Write your answer here\n}",
+    "aHint": "All Excel formulas begin with '=' — this prefix signals the cell contains a computed expression, not static text or a number.",
     "aTest": "if (getFormulaPrefixChar() !== '=') throw new Error('Prefix check failed');"
   },
   {
@@ -58,8 +58,8 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const rel = shiftCellReference('A1', 2, 1);    // -> 'B3'\nconst abs = shiftCellReference('$A$1', 2, 1);  // -> '$A$1'\nconst mixCol = shiftCellReference('$A1', 2, 1); // -> '$A3'\nconst mixRow = shiftCellReference('A$1', 2, 1); // -> 'B$1'\nif (rel !== 'B3' || abs !== '$A$1' || mixCol !== '$A3' || mixRow !== 'B$1') throw new Error('Cell reference shifting failed');",
     "aTitle": "Absolute Reference Lock Symbol Formatter",
     "aDesc": "Implement function getAbsoluteLockSymbol() returning `'$'`.",
-    "aStarter": "function getAbsoluteLockSymbol() { return '$'; }",
-    "aHint": "Return '$'.",
+    "aStarter": "function getAbsoluteLockSymbol() {\n  // Write your answer here\n}",
+    "aHint": "The '$' locks a reference axis: $A$1 locks both row and column, A$1 locks the row only, $A1 locks the column — press F4 to cycle through all four locking modes.",
     "aTest": "if (getAbsoluteLockSymbol() !== '$') throw new Error('Lock symbol check failed');"
   },
   {
@@ -78,8 +78,8 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const dist = evaluatePerformanceTier(95, 92, false);\nconst pass = evaluatePerformanceTier(75, 80, false);\nconst fail = evaluatePerformanceTier(95, 92, true); // violation -> FAIL\nif (dist.tier !== 'DISTINCTION' || !dist.isQualified || pass.tier !== 'PASS' || fail.tier !== 'FAIL' || fail.isQualified) throw new Error('Logical evaluation failed');",
     "aTitle": "Excel Logical Function Name Formatter",
     "aDesc": "Implement function getExcelLogicalFunctionName() returning `'IF'`.",
-    "aStarter": "function getExcelLogicalFunctionName() { return 'IF'; }",
-    "aHint": "Return IF.",
+    "aStarter": "function getExcelLogicalFunctionName() {\n  // Write your answer here\n}",
+    "aHint": "Excel's primary conditional function is IF — syntax: =IF(logical_test, value_if_true, value_if_false). Nested IFs handle multiple branches.",
     "aTest": "if (getExcelLogicalFunctionName() !== 'IF') throw new Error('Function check failed');"
   },
   {
@@ -118,7 +118,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const data = [\n  { id: 1, region: 'NORTH', amount: 500 },\n  { id: 2, region: 'NORTH', amount: 1500 },\n  { id: 3, region: 'SOUTH', amount: 2000 },\n  { id: 4, region: 'NORTH', amount: 2500 }\n];\nconst res = executeSumifs(data, 'NORTH', 1000); // 1500 + 2500 = 4000, count = 2\nif (res.matchedCount !== 2 || res.totalAmountSum !== 4000.0 || res.averageAmount !== 2000.0 || res.status !== 'SUMIFS_CONDITIONAL_AGGREGATION_COMPUTED_NOMINAL') throw new Error('SUMIFS calculation failed');",
     "aTitle": "Multi-Criteria Excel Aggregation Function Name Formatter",
     "aDesc": "Implement function getMultiCriteriaSumFunction() returning `'SUMIFS'`.",
-    "aStarter": "function getMultiCriteriaSumFunction() { return 'SUMIFS'; }",
+    "aStarter": "function getMultiCriteriaSumFunction() {\n  // Write your answer here\n}",
     "aHint": "Return SUMIFS.",
     "aTest": "if (getMultiCriteriaSumFunction() !== 'SUMIFS') throw new Error('Function check failed');"
   },
@@ -138,7 +138,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const raw = '   john   DOE   ';\nconst res = cleanseSpreadsheetText(raw);\nif (res.cleansedText !== 'John Doe' || res.spacesRemovedCount <= 0 || res.status !== 'TEXT_CLEANSED_PROPER_CASE_NOMINAL') throw new Error('Text cleansing failed');",
     "aTitle": "Whitespace Removal Function Name Formatter",
     "aDesc": "Implement function getTrimFunctionName() returning `'TRIM'`.",
-    "aStarter": "function getTrimFunctionName() { return 'TRIM'; }",
+    "aStarter": "function getTrimFunctionName() {\n  // Write your answer here\n}",
     "aHint": "Return TRIM.",
     "aTest": "if (getTrimFunctionName() !== 'TRIM') throw new Error('Function check failed');"
   },
@@ -158,7 +158,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = calculateDateInterval('2026-01-01', '2026-01-31');\nif (res.elapsedCalendarDays !== 30 || !res.isPositiveInterval || res.status !== 'DATE_INTERVAL_CALCULATED_NOMINAL') throw new Error('Date calculation failed');",
     "aTitle": "Excel Date Serial Number Base Year Formatter",
     "aDesc": "Implement function getExcelBaseYear() returning `1900`.",
-    "aStarter": "function getExcelBaseYear() { return 1900; }",
+    "aStarter": "function getExcelBaseYear() {\n  // Write your answer here\n}",
     "aHint": "Return 1900.",
     "aTest": "if (getExcelBaseYear() !== 1900) throw new Error('Base year check failed');"
   },
@@ -178,7 +178,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const db = [{ id: 101, name: 'Alice', role: 'Engineer' }, { id: 102, name: 'Bob', role: 'Designer' }];\nconst res = executeVlookup(db, 101, 'role');\nconst fail = executeVlookup(db, 999, 'role');\nif (!res.found || res.result !== 'Engineer' || fail.found || fail.result !== '#N/A') throw new Error('VLOOKUP failed');",
     "aTitle": "VLOOKUP Exact Match Parameter Flag Formatter",
     "aDesc": "Implement function getVlookupExactMatchFlag() returning `'FALSE'`.",
-    "aStarter": "function getVlookupExactMatchFlag() { return 'FALSE'; }",
+    "aStarter": "function getVlookupExactMatchFlag() {\n  // Write your answer here\n}",
     "aHint": "Return FALSE.",
     "aTest": "if (getVlookupExactMatchFlag() !== 'FALSE') throw new Error('Flag check failed');"
   },
@@ -198,8 +198,8 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const rows = ['Q1', 'Q2', 'Q3', 'Q4'];\nconst cols = ['NORTH', 'SOUTH', 'EAST'];\nconst matrix = [[100, 200, 300], [150, 250, 350], [180, 280, 380], [220, 320, 420]];\nconst res = executeIndexMatch2D(matrix, rows, cols, 'Q3', 'SOUTH'); // 280\nif (!res.found || res.value !== 280 || res.status !== 'INDEX_MATCH_TWO_WAY_RESOLVED_NOMINAL') throw new Error('INDEX-MATCH failed');",
     "aTitle": "MATCH Exact Match Type Parameter Formatter",
     "aDesc": "Implement function getMatchExactType() returning `0`.",
-    "aStarter": "function getMatchExactType() { return 0; }",
-    "aHint": "Return 0.",
+    "aStarter": "function getMatchExactType() {\n  // Write your answer here\n}",
+    "aHint": "Pass 0 as MATCH's third argument for exact matching; 1 finds the largest value ≤ lookup (sorted ascending); -1 finds smallest ≥ lookup (sorted descending).",
     "aTest": "if (getMatchExactType() !== 0) throw new Error('Type check failed');"
   },
   {
@@ -218,7 +218,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const ids = [101, 102, 103];\nconst names = ['Alice', 'Bob', 'Charlie'];\nconst found = executeXlookup(ids, names, 102, 'Not Found');\nconst missing = executeXlookup(ids, names, 999, 'Employee Not Found');\nif (found.returnValue !== 'Bob' || !found.isFound || missing.returnValue !== 'Employee Not Found' || missing.isFound) throw new Error('XLOOKUP failed');",
     "aTitle": "Modern Excel Universal Lookup Function Name Formatter",
     "aDesc": "Implement function getXlookupFunctionName() returning `'XLOOKUP'`.",
-    "aStarter": "function getXlookupFunctionName() { return 'XLOOKUP'; }",
+    "aStarter": "function getXlookupFunctionName() {\n  // Write your answer here\n}",
     "aHint": "Return XLOOKUP.",
     "aTest": "if (getXlookupFunctionName() !== 'XLOOKUP') throw new Error('Function check failed');"
   },
@@ -238,8 +238,8 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const data = [\n  { category: 'TECH', name: 'Bob' },\n  { category: 'TECH', name: 'Alice' },\n  { category: 'SALES', name: 'Charlie' },\n  { category: 'TECH', name: 'Alice' }\n];\nconst res = executeDynamicArrayFilter(data, 'TECH'); // ['Alice', 'Bob']\nif (res.spillCount !== 2 || res.spilledArray[0] !== 'Alice' || res.spilledArray[1] !== 'Bob' || res.status !== 'DYNAMIC_ARRAY_FILTER_UNIQUE_SPILLED_NOMINAL') throw new Error('Dynamic array failed');",
     "aTitle": "Dynamic Array Spill Operator Character Formatter",
     "aDesc": "Implement function getSpillOperatorChar() returning `'#'`.",
-    "aStarter": "function getSpillOperatorChar() { return '#'; }",
-    "aHint": "Return '#'.",
+    "aStarter": "function getSpillOperatorChar() {\n  // Write your answer here\n}",
+    "aHint": "The '#' spill operator references an entire dynamic array range — =A1# expands automatically to cover all values spilled by A1, even as the source formula output grows.",
     "aTest": "if (getSpillOperatorChar() !== '#') throw new Error('Spill operator check failed');"
   },
   {
@@ -258,7 +258,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const valid = safeSpreadsheetDivision(100, 4, 0);\nconst divZero = safeSpreadsheetDivision(100, 0, 0);\nif (valid.result !== 25.0 || valid.isErrorTrapped || divZero.result !== 0 || !divZero.isErrorTrapped || divZero.errorType !== '#DIV/0!') throw new Error('Error trapping failed');",
     "aTitle": "Universal Spreadsheet Error Trapping Function Name Formatter",
     "aDesc": "Implement function getIferrorFunctionName() returning `'IFERROR'`.",
-    "aStarter": "function getIferrorFunctionName() { return 'IFERROR'; }",
+    "aStarter": "function getIferrorFunctionName() {\n  // Write your answer here\n}",
     "aHint": "Return IFERROR.",
     "aTest": "if (getIferrorFunctionName() !== 'IFERROR') throw new Error('Function check failed');"
   },
@@ -278,7 +278,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const depts = ['Engineering', 'Marketing', 'Finance'];\nconst pass = validateCellInput('Engineering', depts, false, 0, 0);\nconst fail = validateCellInput('Sales', depts, false, 0, 0);\nif (!pass.isValid || fail.isValid || pass.status !== 'DATA_VALIDATION_PASSED_NOMINAL' || fail.errorStyle !== 'STOP_ALERT') throw new Error('Data validation failed');",
     "aTitle": "Strict Spreadsheet Validation Alert Style Formatter",
     "aDesc": "Implement function getStrictValidationAlertStyle() returning `'STOP_ALERT'`.",
-    "aStarter": "function getStrictValidationAlertStyle() { return 'STOP_ALERT'; }",
+    "aStarter": "function getStrictValidationAlertStyle() {\n  // Write your answer here\n}",
     "aHint": "Return STOP_ALERT.",
     "aTest": "if (getStrictValidationAlertStyle() !== 'STOP_ALERT') throw new Error('Alert style check failed');"
   },
@@ -298,7 +298,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = executeSpreadsheetAnalyticsMaster(true, true, true, true, true, true);\nif (res.engineStatus !== 'SPREADSHEET_ANALYTICS_MASTER_ACTIVE') throw new Error('Milestone 2 analytics master failed');",
     "aTitle": "Spreadsheet Analytics Master Status Formatter",
     "aDesc": "Implement function getSpreadsheetAnalyticsMasterStatus() returning `'SPREADSHEET_ANALYTICS_MASTER_ACTIVE'`.",
-    "aStarter": "function getSpreadsheetAnalyticsMasterStatus() { return 'SPREADSHEET_ANALYTICS_MASTER_ACTIVE'; }",
+    "aStarter": "function getSpreadsheetAnalyticsMasterStatus() {\n  // Write your answer here\n}",
     "aHint": "Return status.",
     "aTest": "if (getSpreadsheetAnalyticsMasterStatus() !== 'SPREADSHEET_ANALYTICS_MASTER_ACTIVE') throw new Error('Status check failed');"
   },
@@ -318,7 +318,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const high = assignConditionalFormatting(95, 90, 70);\nconst med = assignConditionalFormatting(75, 90, 70);\nconst low = assignConditionalFormatting(50, 90, 70);\nif (high.formatClass !== 'GREEN_HIGHLIGHT' || med.formatClass !== 'YELLOW_WARNING' || low.formatClass !== 'RED_CRITICAL') throw new Error('Conditional formatting failed');",
     "aTitle": "Top Performance Conditional Formatting Class Formatter",
     "aDesc": "Implement function getTopFormatClass() returning `'GREEN_HIGHLIGHT'`.",
-    "aStarter": "function getTopFormatClass() { return 'GREEN_HIGHLIGHT'; }",
+    "aStarter": "function getTopFormatClass() {\n  // Write your answer here\n}",
     "aHint": "Return GREEN_HIGHLIGHT.",
     "aTest": "if (getTopFormatClass() !== 'GREEN_HIGHLIGHT') throw new Error('Class check failed');"
   },
@@ -338,7 +338,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const items = [{ id: 1, price: 10.5, qty: 10 }, { id: 2, price: 20.0, qty: 5 }]; // 105.0 + 100.0 = 205.0\nconst res = calculateTableColumn(items, 'price', 'qty');\nif (res.grandTotalSum !== 205.0 || res.rowCount !== 2 || res.status !== 'TABLE_STRUCTURED_REFERENCE_COMPUTED_NOMINAL') throw new Error('Table calculation failed');",
     "aTitle": "Excel Table Creation Keyboard Shortcut Formatter",
     "aDesc": "Implement function getTableShortcut() returning `'CTRL_T'`.",
-    "aStarter": "function getTableShortcut() { return 'CTRL_T'; }",
+    "aStarter": "function getTableShortcut() {\n  // Write your answer here\n}",
     "aHint": "Return CTRL_T.",
     "aTest": "if (getTableShortcut() !== 'CTRL_T') throw new Error('Shortcut check failed');"
   },
@@ -358,8 +358,8 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const sales = [\n  { region: 'EAST', amount: 100 },\n  { region: 'WEST', amount: 200 },\n  { region: 'EAST', amount: 150 }\n];\nconst res = buildPivotSummary(sales, 'region', 'amount', 'SUM'); // EAST: 250, WEST: 200\nif (res.pivotData['EAST'] !== 250 || res.pivotData['WEST'] !== 200 || res.status !== 'PIVOT_TABLE_SUMMARY_GENERATED_NOMINAL') throw new Error('Pivot table generation failed');",
     "aTitle": "Total Pivot Table Layout Quadrants Formatter",
     "aDesc": "Implement function getPivotQuadrantsCount() returning `4`.",
-    "aStarter": "function getPivotQuadrantsCount() { return 4; }",
-    "aHint": "Return 4.",
+    "aStarter": "function getPivotQuadrantsCount() {\n  // Write your answer here\n}",
+    "aHint": "A PivotTable has 4 layout areas: Rows, Columns, Values, and Filters — drag fields between them to reshape how data is summarised.",
     "aTest": "if (getPivotQuadrantsCount() !== 4) throw new Error('Quadrants count check failed');"
   },
   {
@@ -378,7 +378,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const data = { 'Laptops': 6000, 'Phones': 4000 }; // Grand total = 10,000 -> Laptops = 60.0%, Phones = 40.0%\nconst res = calculatePivotPercentageOfTotal(data);\nif (res.grandTotal !== 10000 || res.percentageShares['Laptops'] !== 60.0 || res.percentageShares['Phones'] !== 40.0 || res.status !== 'PIVOT_PERCENTAGE_OF_TOTAL_COMPUTED_NOMINAL') throw new Error('Pivot percentage failed');",
     "aTitle": "Standard Pivot Value Field Share Setting Formatter",
     "aDesc": "Implement function getPivotShareSettingName() returning `'PERCENT_OF_GRAND_TOTAL'`.",
-    "aStarter": "function getPivotShareSettingName() { return 'PERCENT_OF_GRAND_TOTAL'; }",
+    "aStarter": "function getPivotShareSettingName() {\n  // Write your answer here\n}",
     "aHint": "Return PERCENT_OF_GRAND_TOTAL.",
     "aTest": "if (getPivotShareSettingName() !== 'PERCENT_OF_GRAND_TOTAL') throw new Error('Setting check failed');"
   },
@@ -398,8 +398,8 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const pass = auditSlicerConnections(3);\nconst fail = auditSlicerConnections(1);\nif (!pass.isDashboardInteractive || fail.isDashboardInteractive || pass.status !== 'MULTI_PIVOT_SLICER_CONNECTED_NOMINAL') throw new Error('Slicer audit failed');",
     "aTitle": "Minimum Slicer Multi-Pivot Connection Benchmark Formatter",
     "aDesc": "Implement function getMinSlicerConnectionCount() returning `2`.",
-    "aStarter": "function getMinSlicerConnectionCount() { return 2; }",
-    "aHint": "Return 2.",
+    "aStarter": "function getMinSlicerConnectionCount() {\n  // Write your answer here\n}",
+    "aHint": "A slicer must connect to at least 2 PivotTables to act as a shared filter — use the Report Connections dialog to link it across multiple reports.",
     "aTest": "if (getMinSlicerConnectionCount() !== 2) throw new Error('Connection count check failed');"
   },
   {
@@ -418,7 +418,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = executeSpreadsheetBiMaster(true, true, true, true, true);\nif (res.engineStatus !== 'SPREADSHEET_BI_MASTER_ACTIVE') throw new Error('Milestone 3 BI master failed');",
     "aTitle": "Spreadsheet BI Master Status Formatter",
     "aDesc": "Implement function getSpreadsheetBiMasterStatus() returning `'SPREADSHEET_BI_MASTER_ACTIVE'`.",
-    "aStarter": "function getSpreadsheetBiMasterStatus() { return 'SPREADSHEET_BI_MASTER_ACTIVE'; }",
+    "aStarter": "function getSpreadsheetBiMasterStatus() {\n  // Write your answer here\n}",
     "aHint": "Return status.",
     "aTest": "if (getSpreadsheetBiMasterStatus() !== 'SPREADSHEET_BI_MASTER_ACTIVE') throw new Error('Status check failed');"
   },
@@ -438,7 +438,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const combo = matchBusinessChartType('REVENUE_AND_MARGIN', true);\nconst trend = matchBusinessChartType('TIME_SERIES_TREND', false);\nif (combo.chartType !== 'COMBO_CHART_SECONDARY_AXIS' || trend.chartType !== 'LINE_CHART') throw new Error('Chart matching failed');",
     "aTitle": "Dual-Unit Chart Type Name Formatter",
     "aDesc": "Implement function getDualUnitChartType() returning `'COMBO_CHART_SECONDARY_AXIS'`.",
-    "aStarter": "function getDualUnitChartType() { return 'COMBO_CHART_SECONDARY_AXIS'; }",
+    "aStarter": "function getDualUnitChartType() {\n  // Write your answer here\n}",
     "aHint": "Return COMBO_CHART_SECONDARY_AXIS.",
     "aTest": "if (getDualUnitChartType() !== 'COMBO_CHART_SECONDARY_AXIS') throw new Error('Chart check failed');"
   },
@@ -458,8 +458,8 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = calculateLoanPmt(100000, 6.0, 30); // $100k at 6% for 30 yrs -> $599.55/month\nif (res.monthlyPaymentDollars !== 599.55 || res.loanTermMonths !== 360 || res.status !== 'LOAN_PMT_PAYMENT_CALCULATED_NOMINAL') throw new Error('PMT calculation failed');",
     "aTitle": "Excel Monthly Loan Payment Function Name Formatter",
     "aDesc": "Implement function getPmtFunctionName() returning `'PMT'`.",
-    "aStarter": "function getPmtFunctionName() { return 'PMT'; }",
-    "aHint": "Return PMT.",
+    "aStarter": "function getPmtFunctionName() {\n  // Write your answer here\n}",
+    "aHint": "PMT calculates a fixed periodic loan payment: =PMT(rate, nper, pv) where rate is the period interest rate, nper is the number of periods, and pv is the principal.",
     "aTest": "if (getPmtFunctionName() !== 'PMT') throw new Error('Function check failed');"
   },
   {
@@ -478,7 +478,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = backSolveBreakEvenUnits(50000, 50, 20, 10000); // (50,000 + 10,000) / 30 = 2,000 units\nif (res.requiredUnitsToTarget !== 2000 || res.contributionMarginPerUnit !== 30.0 || res.status !== 'GOAL_SEEK_UNITS_RESOLVED_NOMINAL') throw new Error('Goal seek calculation failed');",
     "aTitle": "Spreadsheet Back-Solving Tool Name Formatter",
     "aDesc": "Implement function getGoalSeekToolName() returning `'GOAL_SEEK'`.",
-    "aStarter": "function getGoalSeekToolName() { return 'GOAL_SEEK'; }",
+    "aStarter": "function getGoalSeekToolName() {\n  // Write your answer here\n}",
     "aHint": "Return GOAL_SEEK.",
     "aTest": "if (getGoalSeekToolName() !== 'GOAL_SEEK') throw new Error('Tool check failed');"
   },
@@ -498,7 +498,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const wide = [{ product: 'A', Jan: 100, Feb: 150 }, { product: 'B', Jan: 200, Feb: 250 }];\nconst res = unpivotMonthlySpreadsheet(wide, 'product', ['Jan', 'Feb']); // 2 rows * 2 months = 4 tall rows\nif (res.normalizedTallRowCount !== 4 || res.unpivotedRecords[0].amount !== 100 || res.status !== 'POWER_QUERY_UNPIVOT_TRANSFORMATION_COMPUTED_NOMINAL') throw new Error('Power Query unpivot failed');",
     "aTitle": "Excel ETL Engine Name Formatter",
     "aDesc": "Implement function getPowerQueryEngineName() returning `'POWER_QUERY'`.",
-    "aStarter": "function getPowerQueryEngineName() { return 'POWER_QUERY'; }",
+    "aStarter": "function getPowerQueryEngineName() {\n  // Write your answer here\n}",
     "aHint": "Return POWER_QUERY.",
     "aTest": "if (getPowerQueryEngineName() !== 'POWER_QUERY') throw new Error('Engine check failed');"
   },
@@ -518,7 +518,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const sales = [{ orderId: 1, custId: 101, amount: 50 }, { orderId: 2, custId: 102, amount: 80 }];\nconst customers = [{ custId: 101, name: 'Acme Corp' }, { custId: 102, name: 'Globex' }];\nconst res = mergeSpreadsheetQueries(sales, customers, 'custId', 'name');\nif (res.mergedRecords[0].name !== 'Acme Corp' || res.mergedRecords[1].name !== 'Globex' || res.status !== 'POWER_QUERY_LEFT_OUTER_JOIN_MERGED_NOMINAL') throw new Error('Merge queries failed');",
     "aTitle": "Power Query Transformation Formula Language Formatter",
     "aDesc": "Implement function getPowerQueryLanguageName() returning `'M_CODE'`.",
-    "aStarter": "function getPowerQueryLanguageName() { return 'M_CODE'; }",
+    "aStarter": "function getPowerQueryLanguageName() {\n  // Write your answer here\n}",
     "aHint": "Return M_CODE.",
     "aTest": "if (getPowerQueryLanguageName() !== 'M_CODE') throw new Error('Language check failed');"
   },
@@ -538,8 +538,8 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const pass = calculateKpiMetricCard(120000, 100000); // +20.0% variance\nconst fail = calculateKpiMetricCard(85000, 100000);  // -15.0% variance\nif (pass.variancePercentage !== 20.0 || !pass.isTargetAchieved || fail.variancePercentage !== -15.0 || fail.isTargetAchieved) throw new Error('KPI calculation failed');",
     "aTitle": "Executive Dashboard Primary Color Palette Limit Formatter",
     "aDesc": "Implement function getMaxDashboardColorsCount() returning `3`.",
-    "aStarter": "function getMaxDashboardColorsCount() { return 3; }",
-    "aHint": "Return 3.",
+    "aStarter": "function getMaxDashboardColorsCount() {\n  // Write your answer here\n}",
+    "aHint": "Best practice limits executive dashboards to 3 primary colors — a signal color, a neutral base, and one accent — to reduce visual noise and aid at-a-glance decisions.",
     "aTest": "if (getMaxDashboardColorsCount() !== 3) throw new Error('Colors count check failed');"
   },
   {
@@ -558,7 +558,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const unlocked = evaluateCellEditPermission(true, false, false); // allowed (input cell)\nconst locked = evaluateCellEditPermission(true, true, false);   // blocked (formula cell)\nconst admin = evaluateCellEditPermission(true, true, true);     // admin override\nif (!unlocked.editAllowed || locked.editAllowed || !admin.editAllowed || locked.status !== 'CELL_LOCKED_MODIFICATION_BLOCKED') throw new Error('Security evaluation failed');",
     "aTitle": "Default Cell Protection State in Excel Formatter",
     "aDesc": "Implement function getDefaultCellProtectionState() returning `'LOCKED'`.",
-    "aStarter": "function getDefaultCellProtectionState() { return 'LOCKED'; }",
+    "aStarter": "function getDefaultCellProtectionState() {\n  // Write your answer here\n}",
     "aHint": "Return LOCKED.",
     "aTest": "if (getDefaultCellProtectionState() !== 'LOCKED') throw new Error('State check failed');"
   },
@@ -578,7 +578,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const pass = auditPythonInExcelExecution(true, true);\nconst fail = auditPythonInExcelExecution(true, false);\nif (!pass.isPythonExecutionSecure || fail.isPythonExecutionSecure || pass.status !== 'PYTHON_IN_EXCEL_EXECUTION_SECURE_NOMINAL') throw new Error('Python in Excel audit failed');",
     "aTitle": "Native Python in Excel Formula Prefix Formatter",
     "aDesc": "Implement function getPythonExcelFormulaPrefix() returning `'=PY'`.",
-    "aStarter": "function getPythonExcelFormulaPrefix() { return '=PY'; }",
+    "aStarter": "function getPythonExcelFormulaPrefix() {\n  // Write your answer here\n}",
     "aHint": "Return '=PY'.",
     "aTest": "if (getPythonExcelFormulaPrefix() !== '=PY') throw new Error('Prefix check failed');"
   },
@@ -598,7 +598,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const ok = orchestrateExcelMasterSuite(true, true, true, true, true);\nconst fail = orchestrateExcelMasterSuite(true, true, false, true, true);\nif (!ok.sovereignExcelMasterCertified || fail.sovereignExcelMasterCertified || !ok.certified || ok.status !== 'SOVEREIGN_EXCEL_AND_DATA_ANALYSIS_MASTER_CERTIFIED_NOMINAL') throw new Error('Capstone orchestrator failed');",
     "aTitle": "Excel & Data Analysis Master Certification Auditor",
     "aDesc": "Implement function auditExcelMasterCert() returning `{ certified: true, score: '100/100', tier: 'SOVEREIGN_EXCEL_AND_DATA_ANALYSIS_MASTER_CERTIFIED' }`.",
-    "aStarter": "function auditExcelMasterCert() { return { certified: true, score: '100/100', tier: 'SOVEREIGN_EXCEL_AND_DATA_ANALYSIS_MASTER_CERTIFIED' }; }",
+    "aStarter": "function auditExcelMasterCert() {\n  // Write your answer here\n}",
     "aHint": "Return certification object.",
     "aTest": "if (!auditExcelMasterCert().certified) throw new Error('Capstone cert failed');"
   }

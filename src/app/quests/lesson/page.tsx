@@ -10,46 +10,62 @@ import { useAuth } from '@/lib/context/AuthContext';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { api } from '@/lib/api/client';
 import { toast } from '@/lib/store/useAppStore';
-import { JAVA_PILOT_DAYS } from '@/lib/data/javaPilotDays';
-import { PYTHON_PILOT_DAYS } from '@/lib/data/pythonPilotDays';
-import { REACT_PILOT_DAYS } from '@/lib/data/reactPilotDays';
-import { DATABASE_PILOT_DAYS } from '@/lib/data/databasePilotDays';
-import { DSA_PILOT_DAYS } from '@/lib/data/dsaPilotDays';
-import { FULLSTACK_PILOT_DAYS } from '@/lib/data/fullstackPilotDays';
-import { CLOUD_PILOT_DAYS } from '@/lib/data/cloudPilotDays';
-import { DEVOPS_PILOT_DAYS } from '@/lib/data/devopsPilotDays';
-import { AI_PILOT_DAYS } from '@/lib/data/aiPilotDays';
-import { DISTRIBUTED_PILOT_DAYS } from '@/lib/data/distributedPilotDays';
-import { IOT_EMBEDDED_PILOT_DAYS } from '@/lib/data/iotEmbeddedPilotDays';
-import { GRAPHICS_3D_PILOT_DAYS } from '@/lib/data/graphics3dPilotDays';
-import { BLOCKCHAIN_PILOT_DAYS } from '@/lib/data/blockchainPilotDays';
-import { IOT_NETWORK_PILOT_DAYS } from '@/lib/data/iotNetworkPilotDays';
-import { IOT_EDGE_AI_PILOT_DAYS } from '@/lib/data/iotEdgeAiPilotDays';
-import { IOT_SECURITY_PILOT_DAYS } from '@/lib/data/iotSecurityPilotDays';
-import { QUANT_PILOT_DAYS } from '@/lib/data/quantPilotDays';
-import { BCOM_ACCOUNTING_PILOT_DAYS } from '@/lib/data/bcomAccountingPilotDays';
-import { BCOM_FINANCE_PILOT_DAYS } from '@/lib/data/bcomFinancePilotDays';
-import { BCOM_ANALYTICS_PILOT_DAYS } from '@/lib/data/bcomAnalyticsPilotDays';
-import { BCOM_MARKETING_PILOT_DAYS } from '@/lib/data/bcomMarketingPilotDays';
-import { BCOM_DIGITAL_MARKETING_PILOT_DAYS } from '@/lib/data/bcomDigitalMarketingPilotDays';
-import { BCOM_ECOMMERCE_PILOT_DAYS } from '@/lib/data/bcomEcommercePilotDays';
-import { BCOM_ENTREPRENEURSHIP_PILOT_DAYS } from '@/lib/data/bcomEntrepreneurshipPilotDays';
-import { BCOM_SALES_CRM_PILOT_DAYS } from '@/lib/data/bcomSalesCrmPilotDays';
-import { BCOM_OPERATIONS_PILOT_DAYS } from '@/lib/data/bcomOperationsPilotDays';
-import { BCOM_AI_TRANSFORMATION_PILOT_DAYS } from '@/lib/data/bcomAiTransformationPilotDays';
-import { COMPUTER_FUNDAMENTALS_PILOT_DAYS } from '@/lib/data/computerFundamentalsPilotDays';
-import { AI_PROMPT_LITERACY_PILOT_DAYS } from '@/lib/data/aiPromptLiteracyPilotDays';
-import { EXCEL_DATA_VIZ_PILOT_DAYS } from '@/lib/data/excelDataVizPilotDays';
-import { GIT_VERSION_CONTROL_PILOT_DAYS } from '@/lib/data/gitVersionControlPilotDays';
-import { SOFTSKILLS_PILOT_DAYS } from '@/lib/data/softskillsPilotDays';
-import { DESIGN_PILOT_DAYS } from '@/lib/data/designPilotDays';
-import { MOBILE_PILOT_DAYS } from '@/lib/data/mobilePilotDays';
-import { NLP_PILOT_DAYS } from '@/lib/data/nlpPilotDays';
-import { CYBER_PILOT_DAYS } from '@/lib/data/cybersecurityPilotDays';
+// FORENSIC NOTE (fixed): this file used to import all 36 pilot-day sources
+// directly and re-run its OWN independent copy of a substring-based dispatch
+// chain (`qLower.includes('ai')`, `questData.title.includes(...)`, etc.) to
+// pick a course's lesson content. That duplicate chain had the identical
+// collision as the one in curriculumEnricher.ts — 'blockchain' contains 'ai'
+// as a substring ("ch-AI-n"), and the broad `isAI` check ran before the
+// `isBlockchain` check — so this component independently re-derived the WRONG
+// course a second time, consistently agreeing with the already-corrupted
+// COURSES_REGISTRY data. Both dispatch sites now share ONE authoritative,
+// exact-match resolver so they cannot drift or duplicate-bug again.
+import { resolvePilotDay, parseQuestId } from '@/lib/data/curriculumEnricher';
 
 
 const AvatarMentorWidget = dynamic(() => import('@/components/avatar/AvatarMentorWidget'), { ssr: false });
 const QuestWorkspaceClient = dynamic(() => import('@/components/quests/QuestWorkspaceClient'), { ssr: false });
+
+// Cosmetic mock-terminal label per course, keyed by the exact prefix a quest
+// ID carries (see resolvePilotDay in curriculumEnricher.ts). Display-only.
+const RUNNER_LABELS: Record<string, string> = {
+  'java-basics': '⚙️ Javac compiling',
+  'python': '🐍 Python 3 Executing',
+  'react-basics': '⚛️ React Node Sandbox',
+  'sql-mastery': '🗄️ SQLite Engine',
+  'dsa-optim': '🔢 DSA Node Sandbox',
+  'fullstack-js': '🌐 Fullstack Node/Next Sandbox',
+  'cloud-native': '☁️ AWS Cloud Simulator',
+  'devops': '🚀 DevOps Pipeline Simulator',
+  'git_vcs': '🐙 Git, GitHub & Version Control Sandbox',
+  'softskills': '🗣️ Professional Tech Communication & Interview Sandbox',
+  'design': '🎨 UI/UX Design Systems & Visual Frontend Sandbox',
+  'mobile': '📱 Mobile Application Development & React Native Sandbox',
+  'nlp': '📚 Natural Language Processing & LLM Infrastructure Sandbox',
+  'cyber': '🛡️ Cybersecurity Principles & Secure Systems Sandbox',
+  'excel_viz': '📊 Excel & Spreadsheet Data Analysis Sandbox',
+  'ai_prompt': '🤖 Everyday AI Literacy & Prompt Engineering Sandbox',
+  'comp_fund': '💻 Computer Literacy & OS Fundamentals Sandbox',
+  'bcom_ait': '🤖 AI & Digital Transformation for Business Simulator',
+  'bcom_ops': '⚙️ Operations, Supply Chain & Business Compliance Simulator',
+  'bcom_scrm': '🤝 Sales, Customer Success & CRM Simulator',
+  'bcom_ent': '💡 Entrepreneurship & Business Management Simulator',
+  'bcom_ecom': '🛒 E-Commerce & Digital Business Simulator',
+  'bcom_dmkt': '🚀 Digital Marketing & Growth Strategy Simulator',
+  'bcom_mkt': '🎯 Marketing & Brand Management Simulator',
+  'bcom_ana': '📊 Business Analytics & Decision Intelligence Simulator',
+  'bcom_fin': '📈 Business Finance & Investment Simulator',
+  'bcom_acc': '📊 Digital Accounting & ERP Simulator',
+  'quant': '📈 Quantitative Trading & Low-Latency Simulator',
+  'iot_sec': '🔒 IoT Security & Root of Trust Simulator',
+  'iot_edge': '🧠 Edge AI & TinyML TFLM Simulator',
+  'ai': '🤖 AI & LLM Engine Simulator',
+  'dist': '🌐 Distributed Systems Simulator',
+  'iot_net': '📶 IoT Radio Protocol Simulator',
+  'iot_emb': '🔌 Embedded MCU Simulator',
+  'g3d': '🔮 WebGL2 3D Shader Sandbox',
+  'blockchain': '🪙 EVM Web3 & Solidity Simulator',
+};
 
 interface Teacher {
   name: string;
@@ -403,122 +419,17 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
   useEffect(() => {
     if (!questId) return;
 
-    // Language & environment detector
-    const qLower = (questId || '').toLowerCase();
-    const isReact = qLower.includes('react') || (questData.title || '').toLowerCase().includes('react');
-    const isJava = qLower.includes('java') || (questData.title || '').toLowerCase().includes('java');
-    const isPython = qLower.includes('python') || (questData.title || '').toLowerCase().includes('python');
-    const isSQL = qLower.includes('sql') || qLower.includes('database') || (questData.title || '').toLowerCase().includes('sql');
-    const isDSA = qLower.includes('dsa') || (questData.title || '').toLowerCase().includes('dsa') || (questData.title || '').toLowerCase().includes('algorithmic');
-    const isFullstack = qLower.includes('fullstack') || (questData.title || '').toLowerCase().includes('fullstack') || (questData.title || '').toLowerCase().includes('full-stack');
-    const isCloud = qLower.includes('cloud') || (questData.title || '').toLowerCase().includes('cloud') || (questData.title || '').toLowerCase().includes('aws');
-    const isDevOps = qLower.includes('devops') || qLower.includes('docker') || qLower.includes('k8s') || qLower.includes('cicd') || (questData.title || '').toLowerCase().includes('devops');
-    const isGitVcs = qLower.includes('git') || qLower.includes('git_vcs') || qLower.includes('git-vcs') || qLower.includes('github') || qLower.includes('version_control') || qLower.includes('version-control') || (questData.title || '').toLowerCase().includes('git') || (questData.title || '').toLowerCase().includes('github') || (questData.title || '').toLowerCase().includes('version control') || (questData.title || '').toLowerCase().includes('merge conflict') || (questData.title || '').toLowerCase().includes('rebase') || (questData.title || '').toLowerCase().includes('pull request');
-    const isSoftSkills = qLower.includes('softskills') || qLower.includes('soft-skills') || qLower.includes('soft_skills') || qLower.includes('communication') || qLower.includes('interview') || (questData.title || '').toLowerCase().includes('communication') || (questData.title || '').toLowerCase().includes('interview') || (questData.title || '').toLowerCase().includes('bluf') || (questData.title || '').toLowerCase().includes('star method') || (questData.title || '').toLowerCase().includes('standup') || (questData.title || '').toLowerCase().includes('minto') || (questData.title || '').toLowerCase().includes('zopa') || (questData.title || '').toLowerCase().includes('batna');
-    const isDesign = qLower.includes('design') || qLower.includes('design_systems') || qLower.includes('ui_ux') || qLower.includes('tokens') || (questData.title || '').toLowerCase().includes('design') || (questData.title || '').toLowerCase().includes('typography') || (questData.title || '').toLowerCase().includes('spacing') || (questData.title || '').toLowerCase().includes('atomic') || (questData.title || '').toLowerCase().includes('wcag') || (questData.title || '').toLowerCase().includes('contrast') || (questData.title || '').toLowerCase().includes('storybook');
-    const isMobile = qLower.includes('mobile') || qLower.includes('react_native') || qLower.includes('react-native') || qLower.includes('mobile_dev') || qLower.includes('expo') || (questData.title || '').toLowerCase().includes('mobile') || (questData.title || '').toLowerCase().includes('react native') || (questData.title || '').toLowerCase().includes('reanimated') || (questData.title || '').toLowerCase().includes('hermes') || (questData.title || '').toLowerCase().includes('faceid') || (questData.title || '').toLowerCase().includes('maestro');
-    const isNlp = qLower.includes('nlp') || qLower.includes('computational_linguistics') || qLower.includes('language_model') || (questData.title || '').toLowerCase().includes('nlp') || (questData.title || '').toLowerCase().includes('natural language') || (questData.title || '').toLowerCase().includes('computational linguistics') || (questData.title || '').toLowerCase().includes('word2vec') || (questData.title || '').toLowerCase().includes('viterbi') || (questData.title || '').toLowerCase().includes('attention') || (questData.title || '').toLowerCase().includes('pos tagging') || (questData.title || '').toLowerCase().includes('bpe');
-    const isCyber = qLower.includes('cyber') || qLower.includes('cybersecurity') || qLower.includes('infosec') || (questData.title || '').toLowerCase().includes('cybersecurity') || (questData.title || '').toLowerCase().includes('stride') || (questData.title || '').toLowerCase().includes('sqli') || (questData.title || '').toLowerCase().includes('csrf') || (questData.title || '').toLowerCase().includes('argon2id') || (questData.title || '').toLowerCase().includes('x.509') || (questData.title || '').toLowerCase().includes('snort') || (questData.title || '').toLowerCase().includes('zero trust');
-    const isExcelDataViz = qLower.includes('excel') || qLower.includes('excel_viz') || qLower.includes('excel-viz') || qLower.includes('spreadsheet') || (questData.title || '').toLowerCase().includes('excel') || (questData.title || '').toLowerCase().includes('spreadsheet') || (questData.title || '').toLowerCase().includes('vlookup') || (questData.title || '').toLowerCase().includes('xlookup') || (questData.title || '').toLowerCase().includes('pivot table') || (questData.title || '').toLowerCase().includes('power query') || (questData.title || '').toLowerCase().includes('data analysis');
-    const isAiPromptLiteracy = qLower.includes('ai_prompt') || qLower.includes('ai-prompt') || qLower.includes('prompt_literacy') || qLower.includes('prompt_engineering') || (questData.title || '').toLowerCase().includes('prompt literacy') || (questData.title || '').toLowerCase().includes('everyday ai') || (questData.title || '').toLowerCase().includes('prompt engineering') || (questData.title || '').toLowerCase().includes('few-shot') || (questData.title || '').toLowerCase().includes('chain-of-thought') || (questData.title || '').toLowerCase().includes('midjourney') || (questData.title || '').toLowerCase().includes('whisper');
-    const isComputerFundamentals = qLower.includes('comp_fund') || qLower.includes('comp-fund') || qLower.includes('computer_fundamentals') || qLower.includes('digital_productivity') || (questData.title || '').toLowerCase().includes('computer literacy') || (questData.title || '').toLowerCase().includes('os fundamentals') || (questData.title || '').toLowerCase().includes('von neumann') || (questData.title || '').toLowerCase().includes('chmod') || (questData.title || '').toLowerCase().includes('shannon entropy') || (questData.title || '').toLowerCase().includes('3-2-1 backup');
-    const isAiTransformation = qLower.includes('bcom_ait') || qLower.includes('bcom-ait') || qLower.includes('digital_transformation') || qLower.includes('transformation') || (questData.title || '').toLowerCase().includes('digital transformation') || (questData.title || '').toLowerCase().includes('transformation') || (questData.title || '').toLowerCase().includes('create framework') || (questData.title || '').toLowerCase().includes('4/5ths') || (questData.title || '').toLowerCase().includes('kotter') || (questData.title || '').toLowerCase().includes('finops');
-    const isOperations = qLower.includes('bcom_ops') || qLower.includes('bcom-ops') || qLower.includes('operations') || qLower.includes('supplychain') || qLower.includes('compliance') || (questData.title || '').toLowerCase().includes('operations') || (questData.title || '').toLowerCase().includes('supply chain') || (questData.title || '').toLowerCase().includes('compliance') || (questData.title || '').toLowerCase().includes('sipoc') || (questData.title || '').toLowerCase().includes('eoq') || (questData.title || '').toLowerCase().includes('oee') || (questData.title || '').toLowerCase().includes('dmaic') || (questData.title || '').toLowerCase().includes('otif') || (questData.title || '').toLowerCase().includes('tpm') || (questData.title || '').toLowerCase().includes('mrp');
-    const isSalesCrm = qLower.includes('bcom_scrm') || qLower.includes('bcom-scrm') || qLower.includes('sales') || qLower.includes('crm') || qLower.includes('customer_success') || (questData.title || '').toLowerCase().includes('sales') || (questData.title || '').toLowerCase().includes('customer success') || (questData.title || '').toLowerCase().includes('crm') || (questData.title || '').toLowerCase().includes('meddpicc') || (questData.title || '').toLowerCase().includes('nrr') || (questData.title || '').toLowerCase().includes('ttv') || (questData.title || '').toLowerCase().includes('zopa') || (questData.title || '').toLowerCase().includes('batna') || (questData.title || '').toLowerCase().includes('qbr');
-    const isEntrepreneurship = qLower.includes('bcom_ent') || qLower.includes('bcom-ent') || qLower.includes('entrepreneurship') || qLower.includes('biz_mgmt') || qLower.includes('startup') || (questData.title || '').toLowerCase().includes('entrepreneurship') || (questData.title || '').toLowerCase().includes('business management') || (questData.title || '').toLowerCase().includes('bmc') || (questData.title || '').toLowerCase().includes('break-even') || (questData.title || '').toLowerCase().includes('runway') || (questData.title || '').toLowerCase().includes('safe') || (questData.title || '').toLowerCase().includes('cap table') || (questData.title || '').toLowerCase().includes('vesting');
-    const isEcommerce = qLower.includes('bcom_ecom') || qLower.includes('bcom-ecom') || qLower.includes('ecommerce') || qLower.includes('ecom') || qLower.includes('digital_biz') || (questData.title || '').toLowerCase().includes('e-commerce') || (questData.title || '').toLowerCase().includes('ecommerce') || (questData.title || '').toLowerCase().includes('digital business') || (questData.title || '').toLowerCase().includes('bopis') || (questData.title || '').toLowerCase().includes('boris') || (questData.title || '').toLowerCase().includes('dropshipping') || (questData.title || '').toLowerCase().includes('buy box');
-    const isDigitalMarketing = qLower.includes('bcom_dmkt') || qLower.includes('bcom-dmkt') || qLower.includes('digital_marketing') || qLower.includes('dmkt') || (questData.title || '').toLowerCase().includes('digital marketing') || (questData.title || '').toLowerCase().includes('growth strategy') || (questData.title || '').toLowerCase().includes('seo') || (questData.title || '').toLowerCase().includes('sem') || (questData.title || '').toLowerCase().includes('cro') || (questData.title || '').toLowerCase().includes('roas') || (questData.title || '').toLowerCase().includes('aarrr') || (questData.title || '').toLowerCase().includes('clv');
-    const isMarketing = qLower.includes('bcom_mkt') || qLower.includes('bcom-mkt') || qLower.includes('marketing') || qLower.includes('branding') || (questData.title || '').toLowerCase().includes('marketing') || (questData.title || '').toLowerCase().includes('brand') || (questData.title || '').toLowerCase().includes('stp') || (questData.title || '').toLowerCase().includes('cbbe');
-    const isAnalytics = qLower.includes('bcom_ana') || qLower.includes('bcom-ana') || qLower.includes('analytics') || qLower.includes('decision_intelligence') || (questData.title || '').toLowerCase().includes('analytics') || (questData.title || '').toLowerCase().includes('decision intelligence') || (questData.title || '').toLowerCase().includes('eda') || (questData.title || '').toLowerCase().includes('rfm');
-    const isFinance = qLower.includes('bcom_fin') || qLower.includes('bcom-fin') || qLower.includes('finance') || qLower.includes('investment') || qLower.includes('capital_budgeting') || (questData.title || '').toLowerCase().includes('finance') || (questData.title || '').toLowerCase().includes('investment') || (questData.title || '').toLowerCase().includes('tvm') || (questData.title || '').toLowerCase().includes('capital budgeting');
-    const isAccounting = qLower.includes('bcom_acc') || qLower.includes('bcom-acc') || qLower.includes('accounting') || qLower.includes('taxation') || qLower.includes('tally') || (questData.title || '').toLowerCase().includes('accounting') || (questData.title || '').toLowerCase().includes('taxation') || (questData.title || '').toLowerCase().includes('tally') || (questData.title || '').toLowerCase().includes('gst');
-    const isQuant = qLower.includes('quant') || qLower.includes('trading') || qLower.includes('hft') || (questData.title || '').toLowerCase().includes('quantitative') || (questData.title || '').toLowerCase().includes('trading') || (questData.title || '').toLowerCase().includes('low-latency') || (questData.title || '').toLowerCase().includes('order book');
-    const isIotSecurity = qLower.includes('iot_sec') || qLower.includes('iot-sec') || qLower.includes('security') || (questData.title || '').toLowerCase().includes('security') || (questData.title || '').toLowerCase().includes('root of trust') || (questData.title || '').toLowerCase().includes('efuse') || (questData.title || '').toLowerCase().includes('device lifecycle');
-    const isIotEdge = qLower.includes('iot_edge') || qLower.includes('iot-edge') || qLower.includes('tinyml') || qLower.includes('edge') || (questData.title || '').toLowerCase().includes('tinyml') || (questData.title || '').toLowerCase().includes('edge ai') || (questData.title || '').toLowerCase().includes('dsp');
-    const isAI = qLower.includes('ai') || qLower.includes('llm') || qLower.includes('rag') || (questData.title || '').toLowerCase().includes('ai') || (questData.title || '').toLowerCase().includes('generative');
-    const isDistributed = qLower.includes('dist') || qLower.includes('consensus') || qLower.includes('raft') || (questData.title || '').toLowerCase().includes('distributed');
-    const isIotNet = qLower.includes('iot_net') || qLower.includes('iot-net') || (questData.title || '').toLowerCase().includes('wireless') || (questData.title || '').toLowerCase().includes('lora') || (questData.title || '').toLowerCase().includes('zigbee') || (questData.title || '').toLowerCase().includes('coap');
-    const isIoT = qLower.includes('iot') || qLower.includes('emb') || (questData.title || '').toLowerCase().includes('embedded') || (questData.title || '').toLowerCase().includes('iot') || (questData.title || '').toLowerCase().includes('firmware');
-    const isGraphics3D = qLower.includes('g3d') || qLower.includes('graphics') || qLower.includes('3d') || (questData.title || '').toLowerCase().includes('3d') || (questData.title || '').toLowerCase().includes('graphics') || (questData.title || '').toLowerCase().includes('avatar');
-    const isBlockchain = qLower.includes('blockchain') || qLower.includes('web3') || qLower.includes('solidity') || qLower.includes('crypto') || (questData.title || '').toLowerCase().includes('blockchain') || (questData.title || '').toLowerCase().includes('web3') || (questData.title || '').toLowerCase().includes('solidity') || (questData.title || '').toLowerCase().includes('smart contract');
-
-    // Check if quest belongs to an authoritative pilot day
-    const dayMatch = (questId || '').match(/day-(\d+)/i);
-    const dayNum = dayMatch ? parseInt(dayMatch[1], 10) : 0;
-    let pilotDay: any = null;
-    if (isJava && dayNum > 0) {
-      pilotDay = JAVA_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isPython && dayNum > 0) {
-      pilotDay = PYTHON_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isReact && dayNum > 0) {
-      pilotDay = REACT_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isSQL && dayNum > 0) {
-      pilotDay = DATABASE_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isDSA && dayNum > 0) {
-      pilotDay = DSA_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isFullstack && dayNum > 0) {
-      pilotDay = FULLSTACK_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isCloud && dayNum > 0) {
-      pilotDay = CLOUD_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isDevOps && dayNum > 0) {
-      pilotDay = DEVOPS_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isGitVcs && dayNum > 0) {
-      pilotDay = GIT_VERSION_CONTROL_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isSoftSkills && dayNum > 0) {
-      pilotDay = SOFTSKILLS_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isDesign && dayNum > 0) {
-      pilotDay = DESIGN_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isMobile && dayNum > 0) {
-      pilotDay = MOBILE_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isNlp && dayNum > 0) {
-      pilotDay = NLP_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isCyber && dayNum > 0) {
-      pilotDay = CYBER_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isExcelDataViz && dayNum > 0) {
-      pilotDay = EXCEL_DATA_VIZ_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isAiPromptLiteracy && dayNum > 0) {
-      pilotDay = AI_PROMPT_LITERACY_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isComputerFundamentals && dayNum > 0) {
-      pilotDay = COMPUTER_FUNDAMENTALS_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isAiTransformation && dayNum > 0) {
-      pilotDay = BCOM_AI_TRANSFORMATION_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isOperations && dayNum > 0) {
-      pilotDay = BCOM_OPERATIONS_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isSalesCrm && dayNum > 0) {
-      pilotDay = BCOM_SALES_CRM_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isEntrepreneurship && dayNum > 0) {
-      pilotDay = BCOM_ENTREPRENEURSHIP_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isEcommerce && dayNum > 0) {
-      pilotDay = BCOM_ECOMMERCE_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isDigitalMarketing && dayNum > 0) {
-      pilotDay = BCOM_DIGITAL_MARKETING_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isMarketing && dayNum > 0) {
-      pilotDay = BCOM_MARKETING_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isAnalytics && dayNum > 0) {
-      pilotDay = BCOM_ANALYTICS_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isFinance && dayNum > 0) {
-      pilotDay = BCOM_FINANCE_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isAccounting && dayNum > 0) {
-      pilotDay = BCOM_ACCOUNTING_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isQuant && dayNum > 0) {
-      pilotDay = QUANT_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isIotSecurity && dayNum > 0) {
-      pilotDay = (IOT_SECURITY_PILOT_DAYS as any)[dayNum] || Object.values(IOT_SECURITY_PILOT_DAYS).find(p => p.day === dayNum) || null;
-    } else if (isIotEdge && dayNum > 0) {
-      pilotDay = (IOT_EDGE_AI_PILOT_DAYS as any)[dayNum] || Object.values(IOT_EDGE_AI_PILOT_DAYS).find(p => p.day === dayNum) || null;
-    } else if (isAI && dayNum > 0) {
-      pilotDay = AI_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isDistributed && dayNum > 0) {
-      pilotDay = DISTRIBUTED_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isIotNet && dayNum > 0) {
-      pilotDay = IOT_NETWORK_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isIoT && dayNum > 0) {
-      pilotDay = IOT_EMBEDDED_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isGraphics3D && dayNum > 0) {
-      pilotDay = GRAPHICS_3D_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    } else if (isBlockchain && dayNum > 0) {
-      pilotDay = BLOCKCHAIN_PILOT_DAYS.find(p => p.day === dayNum) || null;
-    }
+    // ── Authoritative course + day resolution ──────────────────────────────
+    // Quest IDs are minted by buildEnrichedDayQuests() (curriculumEnricher.ts)
+    // in the exact shape `${prefix}-lecture1-day-${n}` / `-exam-day-${n}` /
+    // `-assign-day-${n}`. The prefix is recovered EXACTLY from that suffix and
+    // passed to the SAME resolver curriculumEnricher.ts uses, so this
+    // component can never re-derive a different (wrong) course from fuzzy
+    // keyword matching on questId/title substrings — the bug this replaced.
+    const parsed = parseQuestId(questId || '');
+    const coursePrefix = parsed?.prefix || '';
+    const dayNum = parsed?.dayNum || 0;
+    const pilotDay: any = parsed ? resolvePilotDay(parsed.prefix, parsed.dayNum) : null;
 
     if (pilotDay) {
       const pilotSlides = pilotDay.blocks.map((block: any) => {
@@ -545,42 +456,10 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
         }
 
         const codeExample = runnable ? runnable.initialCode : (syntax ? syntax.codeSnippet : '');
-        let runnerPrefix = '⚙️ Javac compiling';
-        if (isPython) runnerPrefix = '🐍 Python 3 Executing';
-        else if (isReact) runnerPrefix = '⚛️ React Node Sandbox';
-        else if (isSQL) runnerPrefix = '🗄️ SQLite Engine';
-        else if (isDSA) runnerPrefix = '🔢 DSA Node Sandbox';
-        else if (isFullstack) runnerPrefix = '🌐 Fullstack Node/Next Sandbox';
-        else if (isCloud) runnerPrefix = '☁️ AWS Cloud Simulator';
-        else if (isDevOps) runnerPrefix = '🚀 DevOps Pipeline Simulator';
-        else if (isGitVcs) runnerPrefix = '🐙 Git, GitHub & Version Control Sandbox';
-        else if (isSoftSkills) runnerPrefix = '🗣️ Professional Tech Communication & Interview Sandbox';
-        else if (isDesign) runnerPrefix = '🎨 UI/UX Design Systems & Visual Frontend Sandbox';
-        else if (isMobile) runnerPrefix = '📱 Mobile Application Development & React Native Sandbox';
-        else if (isNlp) runnerPrefix = '📚 Natural Language Processing & LLM Infrastructure Sandbox';
-        else if (isCyber) runnerPrefix = '🛡️ Cybersecurity Principles & Secure Systems Sandbox';
-        else if (isExcelDataViz) runnerPrefix = '📊 Excel & Spreadsheet Data Analysis Sandbox';
-        else if (isAiPromptLiteracy) runnerPrefix = '🤖 Everyday AI Literacy & Prompt Engineering Sandbox';
-        else if (isComputerFundamentals) runnerPrefix = '💻 Computer Literacy & OS Fundamentals Sandbox';
-        else if (isAiTransformation) runnerPrefix = '🤖 AI & Digital Transformation for Business Simulator';
-        else if (isOperations) runnerPrefix = '⚙️ Operations, Supply Chain & Business Compliance Simulator';
-        else if (isSalesCrm) runnerPrefix = '🤝 Sales, Customer Success & CRM Simulator';
-        else if (isEntrepreneurship) runnerPrefix = '💡 Entrepreneurship & Business Management Simulator';
-        else if (isEcommerce) runnerPrefix = '🛒 E-Commerce & Digital Business Simulator';
-        else if (isDigitalMarketing) runnerPrefix = '🚀 Digital Marketing & Growth Strategy Simulator';
-        else if (isMarketing) runnerPrefix = '🎯 Marketing & Brand Management Simulator';
-        else if (isAnalytics) runnerPrefix = '📊 Business Analytics & Decision Intelligence Simulator';
-        else if (isFinance) runnerPrefix = '📈 Business Finance & Investment Simulator';
-        else if (isAccounting) runnerPrefix = '📊 Digital Accounting & ERP Simulator';
-        else if (isQuant) runnerPrefix = '📈 Quantitative Trading & Low-Latency Simulator';
-        else if (isIotSecurity) runnerPrefix = '🔒 IoT Security & Root of Trust Simulator';
-        else if (isIotEdge) runnerPrefix = '🧠 Edge AI & TinyML TFLM Simulator';
-        else if (isAI) runnerPrefix = '🤖 AI & LLM Engine Simulator';
-        else if (isDistributed) runnerPrefix = '🌐 Distributed Systems Simulator';
-        else if (isIotNet) runnerPrefix = '📶 IoT Radio Protocol Simulator';
-        else if (isIoT) runnerPrefix = '🔌 Embedded MCU Simulator';
-        else if (isGraphics3D) runnerPrefix = '🔮 WebGL2 3D Shader Sandbox';
-        else if (isBlockchain) runnerPrefix = '🪙 EVM Web3 & Solidity Simulator';
+        // Cosmetic-only label (shown above mock terminal output). Keyed by the
+        // same exact coursePrefix used to resolve pilotDay above — no fuzzy
+        // matching, so this cannot desync from the course actually rendered.
+        const runnerPrefix = RUNNER_LABELS[coursePrefix] || '⚙️ Javac compiling';
 
         const mockOutput = runnable ? `${runnerPrefix} ${runnable.filename}...\n>>> ${runnable.expectedOutput.replace(/\n/g, '\n>>> ')}\n[SUCCESS] Code executed with 0 errors.` : '';
 
@@ -615,6 +494,9 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
     }
 
     // Instant static slide generation with rich real-world analogies & code examples
+    // (fallback path, used only when resolvePilotDay found no authoritative pilot day above)
+    const isJava = coursePrefix === 'java-basics';
+    const isReact = coursePrefix === 'react-basics';
     const rawSyllabus = (syllabus && syllabus.length > 0) ? syllabus : ['Core Foundations & Execution Rules', 'Syntax Breakdown & Memory Boundaries', 'Production Use Case & Best Practices'];
     
     const staticSlides = rawSyllabus.map((rawTopic: string, index: number) => {

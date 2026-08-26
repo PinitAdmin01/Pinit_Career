@@ -3,47 +3,130 @@ import { DayLessonPlan } from '@/lib/types/lessonEngine';
 export const COMPUTER_FUNDAMENTALS_PILOT_DAYS: DayLessonPlan[] = [
   {
     "day": 1,
-    "title": "Computer Hardware Anatomy: CPU, RAM, NVMe SSD & Motherboard Bus Architecture",
-    "overviewMetaphor": "A Computer is an Ultra-High-Speed Industrial Factory: The CPU is the master craftsman (executing 3 billion instructions per second); the RAM is the working workbench (holding active blueprints ready for instant 100ns access); the NVMe SSD is the deep storage warehouse (preserving files permanently across power outages); and the Motherboard Bus is the multi-lane conveyor belt transferring data at 25,600 MB/s ($Bandwidth = \\frac{64\\text{ bits} \\times 3,200\\text{ MHz}}{8} = 25,600$ MB/s); understanding how these physical components interact eliminates performance bottlenecks.",
+    "title": "What is a Computer? — The Input → Process → Output Machine",
+    "overviewMetaphor": "A computer is like a super-fast chef: you give it ingredients (Input — your typing, clicking, or files), it follows your recipe to cook (Process — the CPU and software do the work), and serves you the finished meal (Output — text on screen, a saved file, a printed page). The amazing part? This chef can cook millions of meals per second without ever getting tired.",
     "blocks": [
       {
-        "id": "cf-d1-b1-bus-bandwidth-calculation",
+        "id": "cf-d1-b1-input-process-output",
         "day": 1,
         "blockNumber": 1,
-        "title": "Memory Bus Bandwidth Formula: $\\text{Bandwidth (MB/s)} = \\frac{\\text{Bus Width (bits)} \\times \\text{Clock (MHz)}}{8} = 25,600\\text{ MB/s}$",
+        "title": "The 3-Step Rule Every Computer Follows: Input → Process → Output",
         "conceptBudget": {
-          "primaryConcept": "Memory Bus Bandwidth Formula",
+          "primaryConcept": "Input → Process → Output",
           "supportingTerms": [
-            "Bus Width ($64$ bits wide)",
-            "Clock Frequency ($3,200$ MHz)",
-            "Bandwidth = $\\frac{64 \\times 3,200}{8} = 25,600$ MB/s",
-            "High-Speed Benchmark: $\\ge 25,000$ MB/s $\\implies$ High-Speed Memory Bus Certified Nominal"
+            "Input (What you give the computer: typing, clicking, uploading a file)",
+            "Process (What the computer does with it: calculating, sorting, saving)",
+            "Output (What the computer gives back: text on screen, a printed page, a downloaded file)"
           ]
         },
         "prerequisiteThresholds": [],
         "media": [
           {
+            "type": "analogy",
+            "metaphor": "A Restaurant Order",
+            "simpleExplanation": "You tell the waiter what you want (Input). The kitchen cooks it (Process). Your food arrives at the table (Output). Every computer task follows this same 3-step cycle — no exceptions."
+          },
+          {
+            "type": "diagram",
+            "data": {
+              "type": "flowchart",
+              "title": "The Universal Input → Process → Output Cycle",
+              "nodes": [
+                {
+                  "id": "1",
+                  "label": "INPUT: You type 'Hello' on the keyboard",
+                  "kind": "start"
+                },
+                {
+                  "id": "2",
+                  "label": "PROCESS: Computer reads the keystrokes and stores them",
+                  "kind": "process"
+                },
+                {
+                  "id": "3",
+                  "label": "OUTPUT: 'Hello' appears on the screen",
+                  "kind": "end"
+                }
+              ]
+            }
+          },
+          {
+            "type": "runnable_code",
+            "filename": "ipo_demo.js",
+            "initialCode": "function computerCycle(input) {\n  // Step 1: Receive the input\n  const received = input;\n\n  // Step 2: Process it (here we just make it uppercase)\n  const processed = received.toUpperCase();\n\n  // Step 3: Produce the output\n  return 'OUTPUT: ' + processed;\n}\n\nconsole.log(computerCycle('hello world'));\nconsole.log(computerCycle('learn computing'));",
+            "expectedOutput": "OUTPUT: HELLO WORLD\nOUTPUT: LEARN COMPUTING",
+            "editable": false
+          }
+        ],
+        "diagnosticCheck": {
+          "type": "choose_answer",
+          "question": "A student types their name into a form and sees it appear on screen. Which step is 'the name appearing on screen'?",
+          "options": [
+            "Output — the computer showing the result back to the user",
+            "Input — the student providing information",
+            "Process — the computer calculating something"
+          ],
+          "correctIndex": 0,
+          "primaryMisconceptionId": "MC_CF_IPO_MODEL",
+          "diagnosisMap": {
+            "1": {
+              "misconceptionId": "MC_CF_IPO_MODEL",
+              "errorExplanation": "Typing the name is the Input step. The screen displaying it is Output.",
+              "recoveryPath": {
+                "simplerExplanation": "Output is anything the computer shows or gives back to you.",
+                "guidedFixPrompt": "Select Option A: Output."
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "cf-d1-b2-what-are-files-and-folders",
+        "day": 1,
+        "blockNumber": 2,
+        "title": "What is a File? What is a Folder? — Your Digital Filing Cabinet",
+        "conceptBudget": {
+          "primaryConcept": "Files and Folders",
+          "supportingTerms": [
+            "File (A single piece of saved information: a document, a photo, a song)",
+            "Folder (A container that holds and organises files — like a labelled drawer)",
+            "File Path (The address that tells the computer exactly where a file lives)"
+          ]
+        },
+        "prerequisiteThresholds": [
+          {
+            "conceptId": "cf-d1-b1-input-process-output",
+            "requiredLevel": "understood"
+          }
+        ],
+        "media": [
+          {
+            "type": "analogy",
+            "metaphor": "A Physical Filing Cabinet",
+            "simpleExplanation": "Imagine a metal filing cabinet with labelled drawers (Folders). Each drawer holds paper documents (Files). To find your homework, you open the 'School' drawer and look for the 'Maths' document. A computer stores information the exact same way."
+          },
+          {
             "type": "diagram",
             "data": {
               "type": "memory_box",
-              "title": "System Memory Bus Throughput Ledger (64-bit @ 3200 MHz = 25.6 GB/s)",
+              "title": "Your Computer's File Organization System",
               "boxes": [
                 {
-                  "label": "Data Bus Bit Width",
-                  "value": "64 Parallel Copper Traces on Motherboard PCB (8 Bytes)",
-                  "varType": "Bus Width",
+                  "label": "Folder: Documents",
+                  "value": "A container holding your saved files (like a labelled drawer)",
+                  "varType": "Folder",
                   "isUpdated": false
                 },
                 {
-                  "label": "Memory Clock Frequency",
-                  "value": "3,200 MHz High-Speed Synchronous Clock Cycles",
-                  "varType": "Clock",
+                  "label": "File: homework.docx",
+                  "value": "A single saved document living inside the Documents folder",
+                  "varType": "File",
                   "isUpdated": false
                 },
                 {
-                  "label": "Data Transfer Throughput",
-                  "value": "(64 x 3200) / 8 = 25,600 MB/s (HIGH SPEED MEMORY BUS CERTIFIED NOMINAL!)",
-                  "varType": "Throughput",
+                  "label": "Full File Path",
+                  "value": "C:/Documents/homework.docx — the exact address of this file (FILE LOCATED SUCCESSFULLY!)",
+                  "varType": "Path",
                   "isUpdated": true
                 }
               ]
@@ -51,141 +134,84 @@ export const COMPUTER_FUNDAMENTALS_PILOT_DAYS: DayLessonPlan[] = [
           },
           {
             "type": "runnable_code",
-            "filename": "bus_calc_demo.js",
-            "initialCode": "function calculateBus(width, clock) {\n  const bw = (width * clock) / 8;\n  const isFast = bw >= 25000;\n  return {\n    width,\n    clock,\n    bandwidthMbPerSec: bw,\n    isFast,\n    status: isFast ? 'HIGH_SPEED_MEMORY_BUS_CERTIFIED_NOMINAL' : 'LEGACY_BUS'\n  };\n}\n\nconsole.log(JSON.stringify(calculateBus(64, 3200)));\nconsole.log(JSON.stringify(calculateBus(32, 800)));",
-            "expectedOutput": "{\"width\":64,\"clock\":3200,\"bandwidthMbPerSec\":25600,\"isFast\":true,\"status\":\"HIGH_SPEED_MEMORY_BUS_CERTIFIED_NOMINAL\"}\n{\"width\":32,\"clock\":800,\"bandwidthMbPerSec\":3200,\"isFast\":false,\"status\":\"LEGACY_BUS\"}",
+            "filename": "files_demo.js",
+            "initialCode": "function locateFile(folder, filename) {\n  const path = folder + '/' + filename;\n  return {\n    folder: folder,\n    filename: filename,\n    fullPath: path,\n    status: 'FILE_LOCATED_SUCCESSFULLY'\n  };\n}\n\nconsole.log(JSON.stringify(locateFile('Documents', 'homework.docx')));\nconsole.log(JSON.stringify(locateFile('Photos', 'birthday.jpg')));",
+            "expectedOutput": "{\"folder\":\"Documents\",\"filename\":\"homework.docx\",\"fullPath\":\"Documents/homework.docx\",\"status\":\"FILE_LOCATED_SUCCESSFULLY\"}\n{\"folder\":\"Photos\",\"filename\":\"birthday.jpg\",\"fullPath\":\"Photos/birthday.jpg\",\"status\":\"FILE_LOCATED_SUCCESSFULLY\"}",
             "editable": false
           }
         ],
         "diagnosticCheck": {
           "type": "predict_output",
-          "question": "What is the theoretical data transfer bandwidth in Megabytes per second for a 64-bit memory bus clocked at 3,200 MHz ($ (64 \\times 3,200) / 8 $)?",
-          "expectedStringOutput": "25600",
+          "question": "What is the full file path when a file called 'notes.txt' is stored inside a folder called 'School'?",
+          "expectedStringOutput": "School/notes.txt",
           "acceptableAnswers": [
-            "25600",
-            "25,600",
-            "25600 MB/s",
-            "bandwidthMbPerSec\":25600"
+            "School/notes.txt",
+            "fullPath\":\"School/notes.txt\"",
+            "School\\notes.txt"
           ],
-          "primaryMisconceptionId": "MC_CF_HARDWARE_CPU_RAM_BUS_BANDWIDTH",
+          "primaryMisconceptionId": "MC_CF_FILES_AND_FOLDERS",
           "diagnosisMap": {
-            "204800": {
-              "misconceptionId": "MC_CF_HARDWARE_CPU_RAM_BUS_BANDWIDTH",
-              "errorExplanation": "204,800 is Megabits per second. Dividing by 8 bits per byte yields 25,600 Megabytes per second.",
+            "notes.txt": {
+              "misconceptionId": "MC_CF_FILES_AND_FOLDERS",
+              "errorExplanation": "A file path includes the folder name first: School/notes.txt — not just the filename alone.",
               "recoveryPath": {
-                "simplerExplanation": "(64 * 3200) / 8 = 25,600.",
-                "guidedFixPrompt": "Type 25600"
+                "simplerExplanation": "The path is FolderName/FileName: School/notes.txt.",
+                "guidedFixPrompt": "Type School/notes.txt"
               }
             }
           }
         }
       },
       {
-        "id": "cf-d1-b2-von-neumann-architecture-cycle",
+        "id": "cf-d1-b3-what-is-an-operating-system",
         "day": 1,
-        "blockNumber": 2,
-        "title": "The Von Neumann Cycle: Fetch $\\to$ Decode $\\to$ Execute $\\to$ Writeback",
+        "blockNumber": 3,
+        "title": "What is an Operating System? — The Computer's Manager",
         "conceptBudget": {
-          "primaryConcept": "Von Neumann Instruction Cycle",
+          "primaryConcept": "Operating System (OS)",
           "supportingTerms": [
-            "1. Fetch (CPU pulls opcode from RAM via Program Counter)",
-            "2. Decode (Instruction Register parses opcode into control signals)",
-            "3. Execute (ALU performs arithmetic computation)",
-            "4. Writeback (Result stored into registers or memory)"
+            "Operating System (The manager software that runs everything: Windows, macOS, Linux, Android)",
+            "Application (A program that runs on top of the OS: Chrome, Word, WhatsApp)",
+            "Desktop / Home Screen (What you see when the OS has started and is ready to use)"
           ]
         },
         "prerequisiteThresholds": [
           {
-            "conceptId": "cf-d1-b1-bus-bandwidth-calculation",
+            "conceptId": "cf-d1-b2-what-are-files-and-folders",
             "requiredLevel": "understood"
           }
         ],
         "media": [
           {
-            "type": "syntax_anatomy",
-            "title": "CPU Instruction Pipeline Execution",
-            "codeSnippet": "// 1. FETCH:     Pulls 'ADD R1, R2' from memory address 0x00401000\n// 2. DECODE:    Control Unit recognizes binary opcode 0x01 (Integer Addition)\n// 3. EXECUTE:   Arithmetic Logic Unit (ALU) computes 42 + 58 = 100\n// 4. WRITEBACK: Stores sum 100 into destination register R1",
-            "lineNotes": {
-              "1": "Step 1 Fetch.",
-              "2": "Step 2 Decode.",
-              "3": "Step 3 Execute.",
-              "4": "Step 4 Writeback."
-            }
+            "type": "analogy",
+            "metaphor": "A School Principal",
+            "simpleExplanation": "A school principal manages teachers, students, classrooms, and the school timetable. An Operating System manages your apps, files, screen, and keyboard — making sure everything runs in order and nothing crashes into each other."
           },
           {
             "type": "runnable_code",
-            "filename": "cpu_cycle_demo.js",
-            "initialCode": "function getCpuInstructionCycle() {\n  return 'FETCH_DECODE_EXECUTE_WRITEBACK';\n}\n\nconsole.log(getCpuInstructionCycle());",
-            "expectedOutput": "FETCH_DECODE_EXECUTE_WRITEBACK",
+            "filename": "os_demo.js",
+            "initialCode": "function describeOS(osName) {\n  const apps = ['Chrome Browser', 'Word Processor', 'Music Player'];\n  return {\n    operatingSystem: osName,\n    role: 'MANAGES_ALL_HARDWARE_AND_APPLICATIONS',\n    installedApps: apps,\n    status: 'OS_RUNNING_NOMINAL'\n  };\n}\n\nconsole.log(JSON.stringify(describeOS('Windows 11')));",
+            "expectedOutput": "{\"operatingSystem\":\"Windows 11\",\"role\":\"MANAGES_ALL_HARDWARE_AND_APPLICATIONS\",\"installedApps\":[\"Chrome Browser\",\"Word Processor\",\"Music Player\"],\"status\":\"OS_RUNNING_NOMINAL\"}",
             "editable": false
           }
         ],
         "diagnosticCheck": {
           "type": "predict_output",
-          "question": "What are the 4 fundamental stages of the Von Neumann CPU instruction execution pipeline?",
-          "expectedStringOutput": "FETCH_DECODE_EXECUTE_WRITEBACK",
+          "question": "What is the role of an Operating System like Windows or Android?",
+          "expectedStringOutput": "MANAGES_ALL_HARDWARE_AND_APPLICATIONS",
           "acceptableAnswers": [
-            "FETCH_DECODE_EXECUTE_WRITEBACK",
-            "Fetch Decode Execute Writeback",
-            "Fetch, Decode, Execute, Writeback"
+            "MANAGES_ALL_HARDWARE_AND_APPLICATIONS",
+            "manages hardware and apps",
+            "manager"
           ],
-          "primaryMisconceptionId": "MC_CF_HARDWARE_CPU_RAM_BUS_BANDWIDTH",
+          "primaryMisconceptionId": "MC_CF_OPERATING_SYSTEM",
           "diagnosisMap": {
-            "RUN": {
-              "misconceptionId": "MC_CF_HARDWARE_CPU_RAM_BUS_BANDWIDTH",
-              "errorExplanation": "Matches FETCH_DECODE_EXECUTE_WRITEBACK.",
+            "plays music": {
+              "misconceptionId": "MC_CF_OPERATING_SYSTEM",
+              "errorExplanation": "A music player is an application that runs ON the OS. The OS itself MANAGES_ALL_HARDWARE_AND_APPLICATIONS.",
               "recoveryPath": {
-                "simplerExplanation": "Matches FETCH_DECODE_EXECUTE_WRITEBACK.",
-                "guidedFixPrompt": "Type FETCH_DECODE_EXECUTE_WRITEBACK"
-              }
-            }
-          }
-        }
-      },
-      {
-        "id": "cf-d1-b3-volatile-vs-nonvolatile-storage",
-        "day": 1,
-        "blockNumber": 3,
-        "title": "Volatile (DRAM) vs Non-Volatile (NAND NVMe Flash) Storage",
-        "conceptBudget": {
-          "primaryConcept": "Volatile vs Non-Volatile Invariant",
-          "supportingTerms": [
-            "Volatile Storage (DRAM: Requires continuous electrical refresh; loses all data instantly when power is cut)",
-            "Non-Volatile Storage (NAND Flash / SSD / HDD: Retains electrons in floating gates permanently without power)"
-          ]
-        },
-        "prerequisiteThresholds": [
-          {
-            "conceptId": "cf-d1-b2-von-neumann-architecture-cycle",
-            "requiredLevel": "understood"
-          }
-        ],
-        "media": [
-          {
-            "type": "runnable_code",
-            "filename": "storage_type_demo.js",
-            "initialCode": "function getStoragePersistenceType(isDram) {\n  return isDram\n    ? 'VOLATILE_MEMORY_REQUIRES_CONTINUOUS_ELECTRICAL_POWER'\n    : 'NON_VOLATILE_STORAGE_RETAINS_DATA_PERMANENTLY';\n}\n\nconsole.log(getStoragePersistenceType(true));\nconsole.log(getStoragePersistenceType(false));",
-            "expectedOutput": "VOLATILE_MEMORY_REQUIRES_CONTINUOUS_ELECTRICAL_POWER\nNON_VOLATILE_STORAGE_RETAINS_DATA_PERMANENTLY",
-            "editable": false
-          }
-        ],
-        "diagnosticCheck": {
-          "type": "predict_output",
-          "question": "What storage persistence characteristic describes system RAM (DRAM) which requires continuous electricity to retain its binary state?",
-          "expectedStringOutput": "VOLATILE_MEMORY_REQUIRES_CONTINUOUS_ELECTRICAL_POWER",
-          "acceptableAnswers": [
-            "VOLATILE_MEMORY_REQUIRES_CONTINUOUS_ELECTRICAL_POWER",
-            "Volatile memory",
-            "Volatile"
-          ],
-          "primaryMisconceptionId": "MC_CF_HARDWARE_CPU_RAM_BUS_BANDWIDTH",
-          "diagnosisMap": {
-            "NON_VOLATILE": {
-              "misconceptionId": "MC_CF_HARDWARE_CPU_RAM_BUS_BANDWIDTH",
-              "errorExplanation": "SSDs are non-volatile. RAM is VOLATILE_MEMORY_REQUIRES_CONTINUOUS_ELECTRICAL_POWER.",
-              "recoveryPath": {
-                "simplerExplanation": "Matches VOLATILE_MEMORY_REQUIRES_CONTINUOUS_ELECTRICAL_POWER.",
-                "guidedFixPrompt": "Type VOLATILE_MEMORY_REQUIRES_CONTINUOUS_ELECTRICAL_POWER"
+                "simplerExplanation": "The OS is the manager, not one specific app.",
+                "guidedFixPrompt": "Type MANAGES_ALL_HARDWARE_AND_APPLICATIONS"
               }
             }
           }

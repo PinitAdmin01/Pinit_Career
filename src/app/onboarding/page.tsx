@@ -42,31 +42,31 @@ function parseExperience(text: string): string {
 const IDENTITY_QS = [
   {
     id: 'logic_vs_empathy',
-    category: 'System Logic vs User Empathy',
-    text: 'When solving software problems, do you focus more on backend algorithms and state architecture, or frontend user experience and intuitive workflows?',
-    left: '🎨 User Empathy (Social IQ)',
-    right: '🧠 Code Logic (Pattern Hunter)'
+    category: 'Creation & Problem-Solving Focus',
+    text: 'When creating or building something new, what excites you more?',
+    left: '🎨 Understanding how people feel & use it (Social IQ)',
+    right: '🧠 Solving the puzzle & how it works inside (Pattern Hunter)'
   },
   {
     id: 'pace_vs_depth',
-    category: 'Innovation Pace vs Systems Depth',
-    text: 'Do you prefer rapidly experimenting with new tools and frameworks, or mastering deep, low-level mechanics of system architecture?',
-    left: '🚀 Rapid Innovation (Explorer)',
-    right: '🔬 Low-Level Systems (Pattern Hunter)'
+    category: 'Learning & Exploration Style',
+    text: 'When exploring a new subject or tool, what is your natural style?',
+    left: '🚀 Jump straight in & learn by experimenting (Explorer)',
+    right: '🔬 Understand the core concepts step-by-step (Pattern Hunter)'
   },
   {
     id: 'stability_vs_speed',
-    category: 'Quality Rigor vs Execution Speed',
-    text: 'When shipping code under tight deadlines, do you prioritize zero-bug reliability with complete test coverage, or shipping working features fast to iterate live?',
-    left: '🛡️ Quality Rigor (Stabilizer)',
-    right: '⚡ Execution Speed (Explorer)'
+    category: 'Execution & Quality Instinct',
+    text: 'When working on an important project with a deadline, what is your instinct?',
+    left: '🛡️ Double-check every detail for perfection (Stabilizer)',
+    right: '⚡ Build a working prototype fast & adapt live (Explorer)'
   },
   {
     id: 'collaboration_vs_deepfocus',
-    category: 'Team Synergy vs Solo Deep Focus',
-    text: 'How do you perform best during high-stakes sprints?',
-    left: '🤝 Team Synergy & Alignment (Social IQ)',
-    right: '🎯 Solo Deep Focus & Deep Work (Pattern Hunter)'
+    category: 'Ideal Working Environment',
+    text: 'In what environment do you produce your most energized work?',
+    left: '🤝 Brainstorming & collaborating with a team (Social IQ)',
+    right: '🎯 Quiet, uninterrupted solo deep focus (Pattern Hunter)'
   }
 ];
 
@@ -78,31 +78,31 @@ function getIdentityQuestions(studentType: string = '') {
     return [
       {
         id: 'logic_vs_empathy',
-        category: 'Financial Rigor vs Market Empathy',
-        text: 'When executing a financial strategy, do you focus on quantitative auditing and ledger accuracy, or market positioning and customer sentiment?',
-        left: '🎨 Market Empathy (Social IQ)',
-        right: '📊 Financial Rigor (Pattern Hunter)'
+        category: 'Decision-Making Focus',
+        text: 'When planning financial or business decisions, what drives your focus?',
+        left: '🎨 Understanding client needs & market sentiment (Social IQ)',
+        right: '📊 Crunching numbers & balancing ledger logic (Pattern Hunter)'
       },
       {
         id: 'pace_vs_depth',
-        category: 'Market Pace vs Financial Depth',
-        text: 'Do you prefer rapidly experimenting with new market growth channels, or building deep quantitative DCF and valuation models?',
-        left: '🚀 Growth Innovation (Explorer)',
-        right: '🔬 Valuation Depth (Pattern Hunter)'
+        category: 'Growth & Strategy Pace',
+        text: 'When exploring new financial opportunities, what is your preference?',
+        left: '🚀 Testing innovative growth opportunities fast (Explorer)',
+        right: '🔬 Analyzing deep valuation & risk factors first (Pattern Hunter)'
       },
       {
         id: 'stability_vs_speed',
-        category: 'Fiscal Risk Rigor vs Execution Speed',
-        text: 'When managing Q4 budgets under tight deadlines, do you prioritize zero-risk compliance, or fast capital allocation to capture market share?',
-        left: '🛡️ Compliance Rigor (Stabilizer)',
-        right: '⚡ Rapid Capital Deployment (Explorer)'
+        category: 'Risk Management Instinct',
+        text: 'When managing budgets under tight timelines, what matters most to you?',
+        left: '🛡️ 100% compliance, zero errors & safe structure (Stabilizer)',
+        right: '⚡ Quick capital deployment to capture opportunities (Explorer)'
       },
       {
         id: 'collaboration_vs_deepfocus',
-        category: 'Executive Alignment vs Independent Modeling',
-        text: 'How do you perform best during high-stakes financial planning cycles?',
-        left: '🤝 Board & Stakeholder Sync (Social IQ)',
-        right: '🎯 Solo Financial Modeling (Pattern Hunter)'
+        category: 'Teamwork & Strategy Style',
+        text: 'How do you perform best when solving major financial challenges?',
+        left: '🤝 Collaborative discussions with stakeholders (Social IQ)',
+        right: '🎯 Focused solo financial analysis & modeling (Pattern Hunter)'
       }
     ];
   }
@@ -111,31 +111,31 @@ function getIdentityQuestions(studentType: string = '') {
     return [
       {
         id: 'logic_vs_empathy',
-        category: 'Product Analytics vs User Empathy',
-        text: 'When defining product features, do you prioritize metrics & data funnels, or user empathy & qualitative design thinking?',
-        left: '🎨 User Empathy (Social IQ)',
-        right: '📈 Product Analytics (Pattern Hunter)'
+        category: 'Product & Leadership Focus',
+        text: 'When designing a product or service, where do you begin?',
+        left: '🎨 Understanding user emotions & user stories (Social IQ)',
+        right: '📈 Analyzing performance data & success metrics (Pattern Hunter)'
       },
       {
         id: 'pace_vs_depth',
-        category: 'Agile Speed vs Operational Depth',
-        text: 'Do you prefer rapid GTM product launches, or mastering operational supply chain mechanics and unit economics?',
-        left: '🚀 Rapid Product GTM (Explorer)',
-        right: '🔬 Operational Depth (Pattern Hunter)'
+        category: 'Innovation Pace vs Systems Depth',
+        text: 'When launching new initiatives, how do you like to execute?',
+        left: '🚀 Quick market launches & live feedback loops (Explorer)',
+        right: '🔬 Deep operational structure & unit economics (Pattern Hunter)'
       },
       {
         id: 'stability_vs_speed',
-        category: 'Operational Rigor vs Iteration Speed',
-        text: 'When launching campaigns under deadline pressure, do you prioritize strict quality benchmarks, or shipping MVP features live?',
-        left: '🛡️ Operational Quality (Stabilizer)',
-        right: '⚡ Rapid MVP Iteration (Explorer)'
+        category: 'Execution Instinct',
+        text: 'When project deadlines are tight, what is your priority?',
+        left: '🛡️ Ensuring strict quality control & zero flaws (Stabilizer)',
+        right: '⚡ Shipping a fast working MVP and refining later (Explorer)'
       },
       {
         id: 'collaboration_vs_deepfocus',
-        category: 'Cross-Functional Leadership vs Strategic Modeling',
-        text: 'How do you perform best during high-stakes product sprints?',
-        left: '🤝 Cross-Functional Leadership (Social IQ)',
-        right: '🎯 Strategic Analysis (Pattern Hunter)'
+        category: 'Collaboration Style',
+        text: 'Where do you make your biggest impact?',
+        left: '🤝 Uniting and motivating a cross-functional team (Social IQ)',
+        right: '🎯 Deep strategic planning and problem decomposition (Pattern Hunter)'
       }
     ];
   }
@@ -146,46 +146,46 @@ function getIdentityQuestions(studentType: string = '') {
 const WORKPLACE_SCENARIOS = [
   {
     id: 'bug_launch',
-    title: 'Critical Crash 10 Minutes Before Production Launch',
-    text: 'An unexpected memory leak is discovered in your core service right before going live to 50,000 users. How do you respond?',
+    title: 'Sudden Glitch Right Before Project Launch',
+    text: 'An unexpected error is discovered right before releasing your project to thousands of users. What is your immediate reaction?',
     options: [
-      { text: '🛑 Delay & Audit: Postpone the launch, trace memory dumps to fix root cause, and add automated regression tests.', trait: 'Stabilizer', scores: { Stabilizer: 40, PatternHunter: 20 } },
-      { text: '🚀 Disable & Ship: Disable the leaking feature flag, launch the stable core now, and push an over-the-air hotfix later.', trait: 'Explorer', scores: { Explorer: 35, Stabilizer: 20 } },
-      { text: '🧩 Isolate Pattern: Isolate the exact leaky garbage-collection loop, patch the reference, and benchmark memory load within 5 minutes.', trait: 'PatternHunter', scores: { PatternHunter: 45, Explorer: 15 } },
-      { text: '📢 Team Alignment: Call an immediate war-room, align stakeholders on the risk, and delegate triage roles across engineers.', trait: 'SocialIQ', scores: { SocialIQ: 45, Stabilizer: 15 } }
+      { text: '🛑 Pause & Diagnose: Postpone the release, carefully trace the issue to fix the root cause, and add automated tests.', trait: 'Stabilizer', scores: { Stabilizer: 40, PatternHunter: 20 } },
+      { text: '🚀 Quick Workaround: Turn off the broken part, launch the working core now, and push an update shortly after.', trait: 'Explorer', scores: { Explorer: 35, Stabilizer: 20 } },
+      { text: '🧩 Deep Puzzle Solve: Zoom into the exact line where the logic fails, patch it with laser precision, and test in minutes.', trait: 'PatternHunter', scores: { PatternHunter: 45, Explorer: 15 } },
+      { text: '📢 Team Alignment: Call a quick team check-in, explain the situation calmly, and coordinate next steps together.', trait: 'SocialIQ', scores: { SocialIQ: 45, Stabilizer: 15 } }
     ]
   },
   {
     id: 'stack_selection',
-    title: 'Selecting Tech Stack for a High-Growth Service',
-    text: 'Your team is launching a new scalable real-time service. How do you choose the technology stack?',
+    title: 'Choosing the Tools for a New Project',
+    text: 'Your team is starting an exciting new project from scratch. How do you decide which tools and technologies to use?',
     options: [
-      { text: '📊 Benchmark Data: Run latency & throughput stress tests across 3 frameworks before making a data-driven choice.', trait: 'PatternHunter', scores: { PatternHunter: 40, Stabilizer: 20 } },
-      { text: '🛡️ Enterprise LTS: Select the industry-standard, battle-tested stack with long-term support and proven stability.', trait: 'Stabilizer', scores: { Stabilizer: 45, PatternHunter: 15 } },
-      { text: '✨ Modern & Agile: Choose the newest cutting-edge framework to unlock rapid development speed and modern DX.', trait: 'Explorer', scores: { Explorer: 45, SocialIQ: 15 } },
-      { text: '🤝 Team Consensus: Conduct team workshops to evaluate developer comfort, hiring availability, and maintainability.', trait: 'SocialIQ', scores: { SocialIQ: 40, Explorer: 20 } }
+      { text: '📊 Test & Compare Data: Run hands-on tests and compare performance benchmarks before making a smart, data-driven choice.', trait: 'PatternHunter', scores: { PatternHunter: 40, Stabilizer: 20 } },
+      { text: '🛡️ Proven & Reliable: Pick the industry-standard, battle-tested tools known for long-term stability and reliability.', trait: 'Stabilizer', scores: { Stabilizer: 45, PatternHunter: 15 } },
+      { text: '✨ New & Cutting-Edge: Pick the newest, most innovative tools to build with maximum speed and modern developer experience.', trait: 'Explorer', scores: { Explorer: 45, SocialIQ: 15 } },
+      { text: '🤝 Team Consensus: Discuss with the team to see what everyone feels most confident and productive using.', trait: 'SocialIQ', scores: { SocialIQ: 40, Explorer: 20 } }
     ]
   },
   {
     id: 'ambiguous_reqs',
-    title: 'Handling Ambiguous Product Specifications',
-    text: 'The client provides vague requirements for a key feature due in 1 week. What is your strategy?',
+    title: 'Unclear Project Requirements',
+    text: 'You are given a project with very vague, open-ended instructions that need to be finished soon. What is your strategy?',
     options: [
-      { text: '💬 Stakeholder Interview: Schedule a discovery call with end-users and product managers to map exact user stories.', trait: 'SocialIQ', scores: { SocialIQ: 45, Explorer: 15 } },
-      { text: '📐 State Machine: Construct formal state diagrams and schema contracts to turn ambiguity into clear code specs.', trait: 'PatternHunter', scores: { PatternHunter: 40, Stabilizer: 20 } },
-      { text: '🎨 Rapid Mockup: Build a working UI prototype in 4 hours to let stakeholders interact and clarify requirements visually.', trait: 'Explorer', scores: { Explorer: 40, SocialIQ: 20 } },
-      { text: '📋 Edge Case Matrix: Write comprehensive unit test stubs covering all edge cases and boundary conditions first.', trait: 'Stabilizer', scores: { Stabilizer: 40, PatternHunter: 20 } }
+      { text: '💬 Talk to Users / Mentor: Ask clarifying questions to the users or mentor to understand what they truly need.', trait: 'SocialIQ', scores: { SocialIQ: 45, Explorer: 15 } },
+      { text: '📐 Map Clear Logic: Break down the vague goal into step-by-step logical diagrams and structured rules.', trait: 'PatternHunter', scores: { PatternHunter: 40, Stabilizer: 20 } },
+      { text: '🎨 Build a Quick Prototype: Create a quick working prototype in a few hours to show and get instant visual feedback.', trait: 'Explorer', scores: { Explorer: 40, SocialIQ: 20 } },
+      { text: '📋 Step-by-Step Checklist: Write down every possible edge case and create a rigorous checklist before starting.', trait: 'Stabilizer', scores: { Stabilizer: 40, PatternHunter: 20 } }
     ]
   },
   {
     id: 'code_review_conflict',
-    title: 'Architectural Disagreement in Code Review',
-    text: 'A peer leaves critical feedback on your pull request suggesting a complete refactor of your module. How do you handle it?',
+    title: 'Handling Differing Opinions on Your Work',
+    text: 'A teammate gives critical feedback suggesting a completely different way to do what you just built. How do you handle it?',
     options: [
-      { text: '💡 Collaborative Sync: Jump on a quick huddle to understand their perspective and co-design a solution together.', trait: 'SocialIQ', scores: { SocialIQ: 45, Explorer: 15 } },
-      { text: '🔬 Analytical Compare: Create a comparative trade-off matrix analyzing memory complexity, extensibility, and performance.', trait: 'PatternHunter', scores: { PatternHunter: 45, Stabilizer: 15 } },
-      { text: '🛡️ Refactor for Safety: Adopt their suggestions to ensure code consistency, strict linting standards, and maintainability.', trait: 'Stabilizer', scores: { Stabilizer: 40, SocialIQ: 15 } },
-      { text: '🚀 Spike Experiment: Spend 30 minutes prototyping both approaches side-by-side to see which feels cleaner in practice.', trait: 'Explorer', scores: { Explorer: 40, PatternHunter: 20 } }
+      { text: '💡 Collaborative Discussion: Have a friendly chat to understand their perspective and combine the best of both ideas.', trait: 'SocialIQ', scores: { SocialIQ: 45, Explorer: 15 } },
+      { text: '🔬 Objective Comparison: Compare the pros, cons, speed, and efficiency of both approaches side-by-side.', trait: 'PatternHunter', scores: { PatternHunter: 45, Stabilizer: 15 } },
+      { text: '🛡️ Follow Best Standards: Adopt their suggestions if it makes the overall project cleaner, safer, and easier to maintain.', trait: 'Stabilizer', scores: { Stabilizer: 40, SocialIQ: 15 } },
+      { text: '🚀 Test Both Fast: Spend 20 minutes building a quick test of their idea to see which one actually works better.', trait: 'Explorer', scores: { Explorer: 40, PatternHunter: 20 } }
     ]
   }
 ];
@@ -579,10 +579,45 @@ export default function OnboardingPage() {
   
   // Common States
   const [animState, setAnimState] = useState<'idle' | 'talking' | 'listening' | 'thinking' | 'wave' | 'nod' | 'shrug'>('wave');
-  const [zoom, setZoom] = useState(1.65);
+  const [zoom, setZoom] = useState(1.617);
   const [isMuted, setIsMuted] = useState(false);
+  const [isBgmMuted, setIsBgmMuted] = useState(false);
+  const bgMusicRef = useRef<HTMLAudioElement | null>(null);
   const [useNeural, setUseNeural] = useState(true);
   const [recognizing, setRecognizing] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const audio = new Audio('/audio/onboarding_bg.mp3');
+      audio.loop = true;
+      audio.volume = 0.12;
+      bgMusicRef.current = audio;
+
+      const handleFirstInteraction = () => {
+        if (audio.paused) {
+          audio.play().catch(() => {});
+        }
+        window.removeEventListener('click', handleFirstInteraction);
+      };
+      window.addEventListener('click', handleFirstInteraction);
+
+      return () => {
+        window.removeEventListener('click', handleFirstInteraction);
+        audio.pause();
+        audio.src = '';
+      };
+    }
+  }, []);
+
+  useEffect(() => {
+    if (bgMusicRef.current) {
+      if (isBgmMuted) {
+        bgMusicRef.current.pause();
+      } else {
+        bgMusicRef.current.play().catch(() => {});
+      }
+    }
+  }, [isBgmMuted]);
 
   // Voice Analytics States
   const [speechStartTime, setSpeechStartTime] = useState<number | null>(null);
@@ -1042,8 +1077,11 @@ export default function OnboardingPage() {
       const payload = {
         guidanceMentorId: selectedMentor || 'kashyap',
         onboardingStep: 3,
+        target_role: defaultRole,
+        career_goal: "Become a high-impact Software Engineer and build production applications.",
         onboardingAnswers: {
           role: defaultRole,
+          career_goal: "Become a high-impact Software Engineer and build production applications.",
           education: defaultEdu,
           skills: defaultSkills,
           experience: 'fresher',
@@ -1063,6 +1101,7 @@ export default function OnboardingPage() {
 
       cOS.setOnboarding({
         role: defaultRole,
+        career_goal: "Become a high-impact Software Engineer and build production applications.",
         education: defaultEdu,
         skills: defaultSkills,
         experience: 'fresher'
@@ -1285,11 +1324,17 @@ export default function OnboardingPage() {
         const styleScore = learningStyle.includes('hands-on') ? 85 : learningStyle.includes('articles') ? 78 : 72;
         const computedQT2 = Math.min(99, styleScore + (codingExperience === 'Advanced Coder' ? 10 : 5));
 
+        const finalUserGoal = (speechTranscript && speechTranscript.trim().length > 5 ? speechTranscript.trim() : targetGoal) || targetRoleLabel;
+
         const payload = {
           guidanceMentorId: selectedMentor,
           onboardingStep: 3, // Set to STATE_3 (Blueprint Generated)
+          target_role: targetRoleLabel,
+          career_goal: finalUserGoal,
           onboardingAnswers: {
             role: targetRoleLabel,
+            career_goal: finalUserGoal,
+            target_goal: targetGoal,
             education: profileType,
             skills: finalArch ? `Archetype: ${finalArch}. Skills: ${skillsList}` : skillsList,
             experience: parseExperience(profileType),
@@ -1300,7 +1345,11 @@ export default function OnboardingPage() {
             accessReason: reason,
             qt1_score: computedQT1,
             qt2_score: computedQT2,
-            mindset_archetype: finalArch || 'Pattern Hunter'
+            mindset_archetype: finalArch || 'Pattern Hunter',
+            voice_transcript: speechTranscript || '',
+            voice_confidence: voiceConfidence ?? 90,
+            voice_articulation: voiceArticulation ?? 88,
+            voice_archetype: voiceArchetype || finalArch || 'Pattern Hunter'
           },
           roadmapGenerated: true
         };
@@ -1346,13 +1395,19 @@ export default function OnboardingPage() {
         // Sync context state locally — always launch even if live users INSERT is blocked by RLS
         cOS.setOnboarding({
           role: targetRoleLabel,
+          career_goal: finalUserGoal,
+          target_goal: targetGoal,
           education: profileType,
           skills: finalArch ? `Archetype: ${finalArch}. Skills: ${skillsList}` : skillsList,
           experience: parseExperience(profileType),
           codingExperience,
           learningStyle,
           weeklyHours,
-          accessReason: reason
+          accessReason: reason,
+          voice_transcript: speechTranscript || '',
+          voice_confidence: voiceConfidence ?? 90,
+          voice_articulation: voiceArticulation ?? 88,
+          voice_archetype: voiceArchetype || finalArch || 'Pattern Hunter'
         }, true);
         cOS.setOnboardingStep(3); // Update master state to 3
         cOS.setResumeGenerated(false); // Deep route doesn't generate resume automatically
@@ -1370,11 +1425,15 @@ export default function OnboardingPage() {
         router.push('/dashboard');
       } catch (err) {
         console.error("Onboarding sync failure", err);
+        const fallbackGoal = (speechTranscript && speechTranscript.trim().length > 5 ? speechTranscript.trim() : targetGoal) || targetRoleLabel;
         cOS.setOnboarding({
           role: targetRoleLabel,
+          career_goal: fallbackGoal,
+          target_goal: targetGoal,
           education: profileType,
           skills: skillsList,
-          experience: parseExperience(profileType)
+          experience: parseExperience(profileType),
+          voice_transcript: speechTranscript || ''
         }, true);
         cOS.setOnboardingStep(3);
         markOnboardingStoryPending(user?.id);
@@ -1453,10 +1512,14 @@ export default function OnboardingPage() {
         const computedQT1 = Math.min(98, (degree.includes('CS') || degree.includes('Computer')) ? 82 : 75);
         const computedQT2 = Math.min(99, 80 + (skillsList.split(',').length * 2));
 
+        const expressGoal = `Become a successful ${trajectoryLabel} in the industry.`;
         const payload = {
           onboardingStep: 3, // Set to STATE_3 (Blueprint Generated)
+          target_role: trajectoryLabel,
+          career_goal: expressGoal,
           onboardingAnswers: {
             role: trajectoryLabel,
+            career_goal: expressGoal,
             education: `${degree} at ${college}`,
             skills: skillsList,
             experience: 'fresher',
@@ -1495,6 +1558,7 @@ export default function OnboardingPage() {
 
         cOS.setOnboarding({
           role: trajectoryLabel,
+          career_goal: expressGoal,
           education: `${degree} at ${college}`,
           skills: skillsList,
           experience: 'fresher'
@@ -1999,7 +2063,7 @@ export default function OnboardingPage() {
       </header>
 
       {/* Main Container */}
-      <main style={{ flex: 1, minHeight: 0, display: 'grid', gridTemplateColumns: '60fr 40fr', maxWidth: '98%', width: '98%', margin: '0 auto', padding: '12px 24px 24px 24px', gap: 24, zIndex: 5, overflow: 'hidden' }}>
+      <main style={{ flex: 1, minHeight: 0, display: 'grid', gridTemplateColumns: '43fr 57fr', maxWidth: '98%', width: '98%', margin: '0 auto', padding: '12px 24px 24px 24px', gap: 24, zIndex: 5, overflow: 'hidden' }}>
         
         {/* Left Column: VRoid Mentor Viewport */}
         <section style={{ background: 'rgba(10, 15, 26, 0.4)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 24, display: 'flex', flexDirection: 'column', overflow: 'hidden', position: 'relative', minHeight: 0 }}>
@@ -2027,8 +2091,11 @@ export default function OnboardingPage() {
           <div style={{ position: 'absolute', bottom: 16, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: 8, background: 'rgba(10,15,26,0.8)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 16, padding: '6px 12px', backdropFilter: 'blur(10px)', zIndex: 12 }}>
             <button onClick={() => setZoom(z => Math.min(2.2, z + 0.1))} style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 14, cursor: 'pointer', padding: '4px 8px' }} title="Zoom In">🔍+</button>
             <button onClick={() => setZoom(z => Math.max(1.1, z - 0.1))} style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 14, cursor: 'pointer', padding: '4px 8px' }} title="Zoom Out">🔍-</button>
-            <button onClick={() => setIsMuted(m => !m)} style={{ background: 'none', border: 'none', color: isMuted ? '#f87171' : 'var(--t3)', fontSize: 14, cursor: 'pointer', padding: '4px 8px' }} title={isMuted ? "Unmute Voice" : "Mute Voice"}>
+            <button onClick={() => setIsMuted(m => !m)} style={{ background: 'none', border: 'none', color: isMuted ? '#f87171' : 'var(--t3)', fontSize: 14, cursor: 'pointer', padding: '4px 8px' }} title={isMuted ? "Unmute Mentor Voice" : "Mute Mentor Voice"}>
               {isMuted ? '🔇' : '🔊'}
+            </button>
+            <button onClick={() => setIsBgmMuted(m => !m)} style={{ background: 'none', border: 'none', color: isBgmMuted ? '#f87171' : 'var(--accent)', fontSize: 12, fontWeight: 800, cursor: 'pointer', padding: '4px 8px', display: 'flex', alignItems: 'center', gap: 3 }} title={isBgmMuted ? "Unmute Background Music" : "Mute Background Music"}>
+              {isBgmMuted ? '🔇' : '🎵'} <span>BGM</span>
             </button>
             <button 
               onClick={() => {

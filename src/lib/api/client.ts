@@ -2330,10 +2330,15 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
     // ── SECURITY: Evaluation now runs in the Supabase Edge Function (verify-quest) ──
     // The test suites and transpiler live in Deno, NOT in this static client bundle.
     // Students can no longer inspect or mock the evaluator via browser DevTools.
-    const { questId, code, testSuite } = body as { questId: string, code: string, testSuite?: string, isExam?: boolean };
+    // STAGE 1 FIX (§3.2 + §3.3): `testSuite` is no longer forwarded — the server
+    // resolves the grader itself from its own registry and ignores any client-
+    // supplied test suite. `language` IS forwarded (previously silently dropped
+    // by this shim, which would have made the server's language-gated Java
+    // transpile step unreachable regardless of what the caller sent).
+    const { questId, code, language } = body as { questId: string, code: string, language?: string, isExam?: boolean };
     try {
       const { data, error } = await supabase.functions.invoke('verify-quest', {
-        body: { questId, code, testSuite },
+        body: { questId, code, language },
       });
       if (error) throw error;
       return data as { success: boolean; message?: string; verificationToken?: string };

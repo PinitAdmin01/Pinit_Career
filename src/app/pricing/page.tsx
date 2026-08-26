@@ -1,347 +1,267 @@
 'use client';
-import { useQuery, useMutation } from '@tanstack/react-query';
-import { api } from '@/lib/api/client';
-import { toast } from '@/lib/store/useAppStore';
-import { useMe } from '@/lib/api/hooks';
-import { useCareerOS, PIN_COSTS } from '@/lib/context/CareerOSContext';
-import PinsHistory from '@/components/pins/PinsHistory';
-import { openRazorpayCheckout } from '@/lib/razorpay';
+
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import PublicNavbar from '@/components/nav/PublicNavbar';
+import PublicFooter from '@/components/landing/PublicFooter';
+import DynamicSkyCanvas from '@/components/effects/DynamicSkyCanvas';
+import '@/styles/landing.css';
 
-interface PaymentStatus {
-  tier: string; endsAt: string|null; planName: string;
-  limits: { aiInterviews: number; resumeUploads: number };
-}
-
-const PIN_PACKS = [
-  { id: 'pack_50',  name: 'Starter',   pins: 50,  price: '₹49',  priceNum: 4900,  highlight: false, desc: 'For trying AI features' },
-  { id: 'pack_150', name: 'Builder',   pins: 150, price: '₹99',  priceNum: 9900,  highlight: true,  desc: 'Most popular — best value' },
-  { id: 'pack_500', name: 'Grinder',   pins: 500, price: '₹249', priceNum: 24900, highlight: false, desc: 'For power users' },
-];
-
-const EARN_WAYS = [
-  { icon:'⚡', label:'Complete a Mission',       amount:'+10 cr',  color:'var(--accent)', href:'/missions' },
-  { icon:'📝', label:'Pass an Exam',             amount:'+25 cr',  color:'var(--teal)',   href:'/exams' },
-  { icon:'🎙', label:'Finish Interview Session', amount:'+15 cr',  color:'var(--purple)', href:'/interview' },
-  { icon:'📚', label:'Complete Study Session',   amount:'+5 cr',   color:'var(--blue)',   href:'/learning' },
-  { icon:'🧬', label:'Career Onboarding',        amount:'+50 cr',  color:'var(--green)',  href:'/onboarding' },
-  { icon:'✓',  label:'Vault Item Verified',      amount:'+20 cr',  color:'var(--amber)',  href:'/vault' },
-  { icon:'🔥', label:'7-Day Streak Bonus',       amount:'+15 cr',  color:'var(--coral)',  href:'/missions' },
-  { icon:'🌅', label:'Daily Login',              amount:'+3 cr',   color:'var(--teal)',   href:'/dashboard' },
-];
-
-export default function PricingPage() {
-  const { data: user }   = useMe();
-  const { pins, pinHistory } = useCareerOS();
-
-  const { data: status } = useQuery({
-    queryKey: ['payment', 'status'],
-    queryFn:  () => api.get<PaymentStatus>('/api/payment/status'),
-    enabled:  !!user,
+export default function PublicPricingPage() {
+  const [themeState, setThemeState] = useState<{ theme: 'dark' | 'light'; lastToggleTime: number }>({
+    theme: 'light',
+    lastToggleTime: 0
   });
 
-  const orderMutation = useMutation({
-    mutationFn: (planId: string) =>
-      api.post<{ orderId: string; amount: number; keyId: string; devMode?: boolean }>('/api/payment/create-order', { planId }),
-    onSuccess: async (data, planId) => {
-      try {
-        await openRazorpayCheckout({
-          key: data.keyId,
-          amount: data.amount,
-          currency: 'INR',
-          name: 'PinIT Career OS',
-          description: `${planId.toUpperCase()} Subscription Plan`,
-          order_id: data.orderId,
-          handler: (response) => verifyMutation.mutate({ ...response, planId }),
-          prefill: { name: user?.displayName, email: user?.username },
-          theme: { color: '#4f46e5' },
+  useEffect(() => {
+    const saved = (localStorage.getItem('pc_theme') as 'dark' | 'light') || 'light';
+    setThemeState(prev => ({ ...prev, theme: saved }));
+
+    const handleThemeToggle = (e: any) => {
+      if (e.detail) {
+        setThemeState({
+          theme: e.detail.theme,
+          lastToggleTime: e.detail.time
         });
-      } catch (e: any) {
-        toast.error('Checkout Error', e.message);
       }
+    };
+    window.addEventListener('pc_theme_toggled', handleThemeToggle);
+    return () => window.removeEventListener('pc_theme_toggled', handleThemeToggle);
+  }, []);
+
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  const faqs = [
+    {
+      q: 'Is PinIT Career OS truly free for students?',
+      a: 'Yes! The foundational Career OS, all 36 foundation roadmaps, 1,080 handcrafted daily quests, peer Code Wars, and daily missions are 100% free forever. Students earn Pins through active learning and completing daily challenges without ever having to enter a credit card.'
     },
-    onError: () => toast.error('Payment Error', 'Could not initiate Razorpay payment. Please try again.'),
-  });
-
-  const verifyMutation = useMutation({
-    mutationFn: (data: any) => api.post('/api/payment/verify', data),
-    onSuccess: (data: any) => { toast.success('🎉 Plan Active!', data.message); window.location.reload(); },
-    onError: () => toast.error('Verification Failed', 'Contact support with your payment ID.'),
-  });
-
-  const packMutation = useMutation({
-    mutationFn: (pack: typeof PIN_PACKS[0]) =>
-      api.post<{ orderId: string; amount: number; keyId: string; devMode?: boolean }>('/api/payment/create-order', { planId: pack.id }),
-    onSuccess: async (data, pack) => {
-      try {
-        await openRazorpayCheckout({
-          key: data.keyId,
-          amount: data.amount,
-          currency: 'INR',
-          name: 'PinIT Pins Upgrade',
-          description: `${pack.pins} Pins — ${pack.name} Pack`,
-          order_id: data.orderId,
-          // Pins are granted only after server verify — never mint client-side.
-          handler: (response) => verifyMutation.mutate({ ...response, planId: pack.id }),
-          prefill: { name: user?.displayName },
-          theme: { color: '#4f46e5' },
-        });
-      } catch (e: any) {
-        toast.error('Checkout Error', e.message);
-      }
+    {
+      q: 'What are Pins and how do I earn them?',
+      a: 'Pins are the gamified utility currency powering heavy AI speech avatar coaching, deep mock interview grading, and crisis incident rollouts. You earn Pins for free by maintaining daily streaks (+15), passing verified quest exams (+25), completing crisis roleplay missions (+10), and verifying GitHub repository commits (+20).'
     },
-    onError: () => toast.error('Payment Error', 'Failed to initialize Razorpay checkout.'),
-  });
-
-  const currentTier = status?.tier || 'free';
-  const isPro = ['pro', 'institution'].includes(currentTier);
+    {
+      q: 'How does campus institutional licensing work?',
+      a: 'For universities and colleges, our Institutional Campus Pass equips your entire placement cell with cohort employability heatmaps, skill gap diagnostics, automated 1-click NAAC Grade A+ / NIRF exports, and direct corporate recruitment pipelines.'
+    },
+    {
+      q: 'Can enterprise recruiters hire directly from PinIT?',
+      a: 'Yes! Recruiters access pre-assessed talent portfolios verified by automated AST code audits, Elo rating in Code Wars, and SHA-256 signed skill credentials with a 95%+ AI match precision.'
+    }
+  ];
 
   return (
-    <div style={{ maxWidth: 980, margin: '0 auto', paddingBottom: 60 }} className="animate-fade-in">
+    <div className="landing-page" style={{ position: 'relative', overflowX: 'hidden' }}>
+      <DynamicSkyCanvas theme={themeState.theme} lastToggleTime={themeState.lastToggleTime} opacity={0.65} />
+      <PublicNavbar />
 
-      {/* Hero */}
-      <div className="page-hero" style={{ marginBottom: 28, textAlign: 'center' }}>
-        <div style={{ position: 'relative', zIndex: 1 }}>
-          <h1 className="page-hero-title" style={{ fontSize: 28, textAlign: 'center' }}>⚡ Pins & Plans</h1>
-          <p className="page-hero-sub" style={{ textAlign: 'center', margin: '0 auto', maxWidth: 540 }}>
-            Pins power AI features. Earn free by completing missions and sessions — or buy a pack via Razorpay to unlock everything instantly.
-          </p>
-          {/* Big pin balance */}
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: 10,
-            marginTop: 20, padding: '12px 24px',
-            background: pins < 20 ? 'rgba(220,38,38,0.12)' : 'rgba(79,70,229,0.1)',
-            border: `1px solid ${pins < 20 ? 'rgba(220,38,38,0.25)' : 'rgba(79,70,229,0.2)'}`,
-            borderRadius: 20,
-          }}>
-            <span style={{ fontSize: 24 }}>⚡</span>
-            <span style={{ fontFamily: 'var(--font-display)', fontSize: 32, fontWeight: 900, color: pins < 20 ? 'var(--coral)' : 'var(--accent)', letterSpacing: '-1px' }}>
-              {pins.toLocaleString()}
-            </span>
-            <span style={{ fontSize: 14, color: 'var(--t2)', fontWeight: 600 }}>pins available</span>
+      <main style={{ padding: '60px 0 100px', position: 'relative', zIndex: 1 }}>
+        <div className="container">
+          
+          {/* Breadcrumb back to landing */}
+          <div style={{ marginBottom: 32 }}>
+            <Link href="/" style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+              <span>←</span> Back to Landing Page
+            </Link>
           </div>
-        </div>
-      </div>
 
-      <div className="pricing-grid-split">
-
-        {/* LEFT COLUMN */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-
-          {/* Enterprise Campus & Recruiter Tier Card */}
-          <div style={{ background: 'linear-gradient(135deg, rgba(124,58,237,0.12), rgba(16,185,129,0.08))', border: '1px solid rgba(124,58,237,0.3)', borderRadius: 18, padding: 20 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <span style={{ fontSize: 10, fontWeight: 900, background: 'linear-gradient(135deg, #7C3AED, #A855F7)', color: '#FFF', padding: '3px 10px', borderRadius: 50, textTransform: 'uppercase' }}>ENTERPRISE & CAMPUS</span>
-              <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--accent)' }}>Custom Pricing</span>
-            </div>
-            <h3 style={{ fontSize: 18, fontWeight: 900, marginBottom: 6 }}>Campus & Recruiter OS Pass</h3>
-            <p style={{ fontSize: 12, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 14 }}>
-              Unlimited Student Licenses, Placement CRM, Candidate Skill Passports, and University Operations Command Center.
+          {/* Section Header */}
+          <div style={{ textAlign: 'center', maxWidth: 840, margin: '0 auto 60px' }}>
+            <div className="badge-pill">TRANSPARENT PLANS &amp; PIN ECONOMY</div>
+            <h1 className="hero-title">
+              Predictable Pricing for <span className="text-gradient">Every Ambition.</span>
+            </h1>
+            <p className="hero-subtitle" style={{ margin: '16px auto 0' }}>
+              Zero paywall on foundational learning. Earn pins by building real proof-of-work, or unlock institutional super-powers for your campus.
             </p>
-            <div style={{ display: 'flex', gap: 10 }}>
-              <Link href="/contact" style={{ flex: 1, textDecoration: 'none', background: 'linear-gradient(135deg, #7C3AED, #A855F7)', color: '#FFF', padding: '10px 16px', borderRadius: 50, fontSize: 12, fontWeight: 800, textAlign: 'center' }}>
-                Request Campus Demo →
+          </div>
+
+          {/* 3 Pricing Cards Grid */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 28, marginBottom: 70 }}>
+            
+            {/* Tier 1: Student Free */}
+            <div className="glass-card" style={{ padding: '36px 30px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderRadius: 24 }}>
+              <div>
+                <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--text-secondary)', textTransform: 'uppercase' }}>STUDENT PASS</span>
+                <div style={{ fontSize: 40, fontWeight: 900, color: 'var(--text-primary)', margin: '10px 0 14px' }}>
+                  ₹0 <span style={{ fontSize: 14, color: 'var(--text-secondary)' }}>/ forever</span>
+                </div>
+                <p style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 24, lineHeight: 1.6 }}>
+                  Perfect for learners building technical foundations and earning verifiable credentials.
+                </p>
+
+                <div style={{ padding: '14px 18px', borderRadius: 14, background: 'var(--badge-bg)', border: '1px solid var(--badge-border)', marginBottom: 24 }}>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', marginBottom: 4 }}>🎁 50 SIGNUP BONUS PINS</div>
+                  <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Earn +15 Pins daily through streak consistency.</div>
+                </div>
+
+                <ul style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 32 }}>
+                  {[
+                    'All 36 Career Roadmaps (1,080 Quests)',
+                    'Multiplayer Code Wars Arena (Elo Duels)',
+                    'Cryptographic Proof-of-Work Vault',
+                    'Empathetic 3-Step Socratic Recovery Tutors',
+                    'Day 30 Capstone Project Verification'
+                  ].map((feat) => (
+                    <li key={feat} style={{ fontSize: 13.5, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: 10 }}>
+                      <span style={{ color: 'var(--accent)', fontWeight: 800 }}>✓</span> {feat}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <Link href="/signup" className="pc-btn-outline" style={{ width: '100%', justifyContent: 'center', textAlign: 'center' }}>
+                Start Free Forever
               </Link>
             </div>
-          </div>
 
-          {/* Pin Packs */}
-          <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 18, overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
-            <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border)', background: 'var(--bg3)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ fontFamily: 'var(--font-display)', fontSize: 14, fontWeight: 800 }}>💳 Buy Pin Packs (Razorpay)</span>
-              <span style={{ fontSize: 11, color: 'var(--t3)' }}>Instant delivery</span>
-            </div>
-            <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {PIN_PACKS.map(pack => (
-                <div key={pack.id} style={{
-                  display: 'flex', alignItems: 'center', gap: 14,
-                  padding: '14px 16px',
-                  background: pack.highlight ? 'linear-gradient(135deg, rgba(79,70,229,0.08), rgba(124,58,237,0.06))' : 'var(--bg3)',
-                  border: `1.5px solid ${pack.highlight ? 'rgba(79,70,229,0.25)' : 'var(--border)'}`,
-                  borderRadius: 12, position: 'relative',
-                }}>
-                  {pack.highlight && (
-                    <div style={{ position: 'absolute', top: -8, right: 12, background: 'var(--amber)', color: '#000', fontSize: 9, fontWeight: 800, padding: '2px 8px', borderRadius: 10, letterSpacing: '0.5px' }}>
-                      BEST VALUE
-                    </div>
-                  )}
-                  <div style={{ width: 44, height: 44, borderRadius: 12, background: pack.highlight ? 'var(--accent-light)' : 'var(--bg2)', border: `1px solid ${pack.highlight ? 'rgba(79,70,229,0.2)' : 'var(--border)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <span style={{ fontFamily: 'var(--font-display)', fontSize: 16, fontWeight: 900, color: pack.highlight ? 'var(--accent)' : 'var(--t1)' }}>⚡</span>
-                  </div>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontWeight: 800, fontSize: 14, color: 'var(--t1)', marginBottom: 2 }}>
-                      {pack.pins} Pins
-                      <span style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 500, marginLeft: 6 }}>{pack.name}</span>
-                    </div>
-                    <div style={{ fontSize: 11, color: 'var(--t3)' }}>{pack.desc}</div>
-                  </div>
-                  <button
-                    onClick={() => packMutation.mutate(pack)}
-                    disabled={packMutation.isPending}
-                    style={{
-                      padding: '7px 16px', borderRadius: 8, cursor: 'pointer',
-                      background: pack.highlight ? 'var(--accent)' : 'var(--bg2)',
-                      color: pack.highlight ? 'white' : 'var(--t1)',
-                      border: pack.highlight ? 'none' : '1px solid var(--border)',
-                      fontSize: 13, fontWeight: 700, whiteSpace: 'nowrap',
-                      fontFamily: 'var(--font-body)',
-                    }}>
-                    {pack.price}
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* How to Earn Free Pins */}
-          <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 18, overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
-            <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border)', background: 'var(--bg3)' }}>
-              <span style={{ fontFamily: 'var(--font-display)', fontSize: 14, fontWeight: 800 }}>🎁 Earn Pins Free</span>
-            </div>
-            <div style={{ padding: 16, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
-              {EARN_WAYS.map(w => (
-                <Link key={w.label} href={w.href} style={{ textDecoration: 'none' }}>
-                  <div style={{
-                    display: 'flex', alignItems: 'center', gap: 8,
-                    padding: '10px 12px', borderRadius: 10,
-                    background: 'var(--bg3)', border: '1px solid var(--border)',
-                    transition: 'all 0.15s', cursor: 'pointer',
-                  }}>
-                    <span style={{ fontSize: 16 }}>{w.icon}</span>
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--t1)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{w.label}</div>
-                    </div>
-                    <span style={{ fontSize: 10, fontFamily: 'var(--font-mono)', fontWeight: 700, color: w.color, flexShrink: 0 }}>{w.amount}</span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Feature Cost Table */}
-          <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 18, overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
-            <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border)', background: 'var(--bg3)' }}>
-              <span style={{ fontFamily: 'var(--font-display)', fontSize: 14, fontWeight: 800 }}>🔧 Feature Pin Costs</span>
-            </div>
-            <table className="data-table" style={{ margin: 0, width: '100%', borderCollapse: 'collapse' }}>
-              <thead>
-                <tr style={{ background: 'var(--bg3)', fontSize: 12, color: 'var(--t3)' }}>
-                  <th style={{ textAlign: 'left', padding: '10px 14px' }}>Feature</th>
-                  <th style={{ textAlign: 'right', padding: '10px 14px' }}>Cost</th>
-                  <th style={{ textAlign: 'right', padding: '10px 14px' }}>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Object.entries(PIN_COSTS).map(([key, meta]) => {
-                  const can = pins >= meta.cost;
-                  return (
-                    <tr key={key} style={{ borderTop: '1px solid var(--border)' }}>
-                      <td style={{ padding: '10px 14px', fontSize: 12.5 }}>
-                        <span style={{ marginRight: 7 }}>{meta.icon}</span>
-                        <span style={{ fontWeight: 500 }}>{meta.label}</span>
-                      </td>
-                      <td style={{ textAlign: 'right', padding: '10px 14px', fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--accent)', fontSize: 12.5 }}>
-                        {meta.cost} ⚡
-                      </td>
-                      <td style={{ textAlign: 'right', padding: '10px 14px' }}>
-                        <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 700, color: can ? 'var(--green)' : 'var(--coral)' }}>
-                          {can ? '✓ Unlocked' : 'Need more'}
-                        </span>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        {/* RIGHT COLUMN */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-
-          {/* Subscription Plans */}
-          <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 18, overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
-            <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border)', background: 'var(--bg3)' }}>
-              <span style={{ fontFamily: 'var(--font-display)', fontSize: 14, fontWeight: 800 }}>🚀 Subscription Plans (Razorpay Checkout)</span>
-            </div>
-            <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
-
-              {/* Free Plan */}
-              <div style={{ padding: '16px 18px', border: `2px solid ${currentTier === 'free' ? 'var(--border2)' : 'var(--border)'}`, borderRadius: 14, background: currentTier === 'free' ? 'var(--bg3)' : 'transparent' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
-                  <div>
-                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 4 }}>Free</div>
-                    <div style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 900, color: 'var(--t1)' }}>₹0</div>
-                    <div style={{ fontSize: 11, color: 'var(--t3)' }}>Forever free</div>
-                  </div>
-                  {currentTier === 'free' && <span className="badge badge-neutral">Current Plan</span>}
-                </div>
-                {['100 starter pins', '3 AI interviews/mo', '2 resume uploads/mo', 'Basic Career DNA', 'Full mission system'].map(f => (
-                  <div key={f} style={{ fontSize: 12.5, color: 'var(--t2)', padding: '3px 0', display: 'flex', gap: 8, alignItems: 'center' }}>
-                    <span style={{ color: 'var(--t3)', fontSize: 10 }}>✓</span>{f}
-                  </div>
-                ))}
+            {/* Tier 2: Pro Career Pass */}
+            <div className="glass-card" style={{ padding: '36px 30px', border: '2px solid var(--accent)', boxShadow: '0 16px 40px var(--accent-glow)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderRadius: 24, position: 'relative' }}>
+              <div style={{ position: 'absolute', top: -14, right: 28, background: 'var(--accent)', color: '#FFFFFF', fontSize: 11, fontWeight: 800, padding: '4px 14px', borderRadius: 999, letterSpacing: '0.05em' }}>
+                MOST POPULAR
               </div>
 
-              {/* Pro Plan */}
-              <div style={{ padding: '16px 18px', border: `2px solid ${isPro ? 'var(--accent)' : 'rgba(79,70,229,0.3)'}`, borderRadius: 14, background: 'linear-gradient(135deg, rgba(79,70,229,0.08), rgba(124,58,237,0.06))', position: 'relative' }}>
-                {!isPro && <div style={{ position: 'absolute', top: -9, right: 14, background: 'var(--accent)', color: 'white', fontSize: 9, fontWeight: 800, padding: '2px 10px', borderRadius: 10, letterSpacing: '0.5px' }}>RECOMMENDED</div>}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
-                  <div>
-                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 4 }}>Pro</div>
-                    <div style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 900, color: 'var(--t1)' }}>₹499<span style={{ fontSize: 13, fontWeight: 500, color: 'var(--t3)' }}>/mo</span></div>
-                    <div style={{ fontSize: 11, color: 'var(--accent)', fontWeight: 600 }}>+200 pins every month</div>
-                  </div>
-                  {isPro && <span className="badge badge-accent">Active ✓</span>}
+              <div>
+                <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase' }}>PRO CAREER ACCELERATOR</span>
+                <div style={{ fontSize: 40, fontWeight: 900, color: 'var(--text-primary)', margin: '10px 0 14px' }}>
+                  ₹499 <span style={{ fontSize: 14, color: 'var(--text-secondary)' }}>/ month</span>
                 </div>
-                {['200 pins/month included', 'Unlimited AI interviews', 'Unlimited resume uploads', 'Full Career Twin simulation', 'Priority evaluation queue', 'All avatar coaching modes'].map(f => (
-                  <div key={f} style={{ fontSize: 12.5, color: 'var(--t1)', padding: '3px 0', display: 'flex', gap: 8, alignItems: 'center' }}>
-                    <span style={{ color: 'var(--accent)', fontSize: 10 }}>✓</span>{f}
-                  </div>
-                ))}
-                {!isPro && (
-                  <button
-                    onClick={() => orderMutation.mutate('pro')}
-                    disabled={orderMutation.isPending || verifyMutation.isPending}
-                    className="btn-primary"
-                    style={{ width: '100%', justifyContent: 'center', marginTop: 14, padding: 12, borderRadius: 10, cursor: 'pointer', background: 'var(--accent)', color: '#fff', border: 'none', fontWeight: 800 }}>
-                    {orderMutation.isPending ? 'Connecting Razorpay...' : 'Upgrade via Razorpay ➔'}
-                  </button>
-                )}
-                {status?.endsAt && <div style={{ fontSize: 11, color: 'var(--green)', marginTop: 8, textAlign: 'center' }}>Active until {new Date(status.endsAt).toLocaleDateString()}</div>}
+                <p style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 24, lineHeight: 1.6 }}>
+                  For ambitious graduates preparing for Tier-1 interviews and global placements.
+                </p>
+
+                <div style={{ padding: '14px 18px', borderRadius: 14, background: 'var(--badge-bg)', border: '1px solid var(--badge-border)', marginBottom: 24 }}>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', marginBottom: 4 }}>⚡ UNLIMITED AI AVATAR TIME</div>
+                  <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>500 monthly bonus pins for heavy mock interviews.</div>
+                </div>
+
+                <ul style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 32 }}>
+                  {[
+                    'Everything in Free Student Pass',
+                    '24/7 Voice AI Avatar Mock Interviews',
+                    'BLUF & Executive Communication Diagnostics',
+                    'Recruiter Priority Invariant Showcase',
+                    'Live AST Code Performance Benchmarks'
+                  ].map((feat) => (
+                    <li key={feat} style={{ fontSize: 13.5, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: 10 }}>
+                      <span style={{ color: 'var(--accent)', fontWeight: 800 }}>✓</span> {feat}
+                    </li>
+                  ))}
+                </ul>
               </div>
 
+              <Link href="/onboarding" className="pc-btn-primary" style={{ width: '100%', justifyContent: 'center', textAlign: 'center' }}>
+                Unlock Pro Pass →
+              </Link>
+            </div>
+
+            {/* Tier 3: Institutional Campus Pass */}
+            <div className="glass-card" style={{ padding: '36px 30px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderRadius: 24 }}>
+              <div>
+                <span style={{ fontSize: 12, fontWeight: 800, color: '#F59E0B', textTransform: 'uppercase' }}>COLLEGE &amp; INSTITUTION</span>
+                <div style={{ fontSize: 40, fontWeight: 900, color: 'var(--text-primary)', margin: '10px 0 14px' }}>
+                  Custom <span style={{ fontSize: 14, color: 'var(--text-secondary)' }}>/ campus</span>
+                </div>
+                <p style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 24, lineHeight: 1.6 }}>
+                  Full campus placement cell command center, NAAC audit reports, and batch heatmaps.
+                </p>
+
+                <div style={{ padding: '14px 18px', borderRadius: 14, background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.3)', marginBottom: 24 }}>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: '#F59E0B', marginBottom: 4 }}>🏛️ 1-CLICK NAAC / NIRF EXPORTS</div>
+                  <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Automated accreditation documentation ready.</div>
+                </div>
+
+                <ul style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 32 }}>
+                  {[
+                    'Placement Director Real-Time Command Dashboard',
+                    'Departmental Cohort Skill Gap Heatmaps',
+                    'Automated Multi-Round Campus Drives',
+                    'Verified AST Code Integrity Audits',
+                    'Dedicated Institutional Support & Training'
+                  ].map((feat) => (
+                    <li key={feat} style={{ fontSize: 13.5, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: 10 }}>
+                      <span style={{ color: '#F59E0B', fontWeight: 800 }}>✓</span> {feat}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <Link href="/campus-demo" className="pc-btn-outline" style={{ width: '100%', justifyContent: 'center', textAlign: 'center' }}>
+                Schedule Campus Walkthrough
+              </Link>
+            </div>
+
+          </div>
+
+          {/* Pin Economy Explainer */}
+          <div className="glass-card" style={{ padding: '48px 36px', marginBottom: 60 }}>
+            <div style={{ textAlign: 'center', maxWidth: 680, margin: '0 auto 36px' }}>
+              <div className="badge-pill">GAMIFIED MERITOCRACY</div>
+              <h2 style={{ fontSize: 26, fontWeight: 900, color: 'var(--text-primary)' }}>The Pin Merit Economy</h2>
+              <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.6, marginTop: 8 }}>
+                We believe financial constraints should never prevent hard-working students from accessing state-of-the-art AI education.
+              </p>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 20 }}>
+              <div style={{ padding: 20, borderRadius: 16, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}>
+                <div style={{ fontSize: 22, fontWeight: 900, color: 'var(--accent)', marginBottom: 6 }}>+15 Pins / Day</div>
+                <strong style={{ fontSize: 14, color: 'var(--text-primary)', display: 'block', marginBottom: 4 }}>Daily Streak Maintenance</strong>
+                <span style={{ fontSize: 12.5, color: 'var(--text-secondary)' }}>Log in and complete at least one daily Socratic coding quest block.</span>
+              </div>
+
+              <div style={{ padding: 20, borderRadius: 16, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}>
+                <div style={{ fontSize: 22, fontWeight: 900, color: 'var(--accent)', marginBottom: 6 }}>+25 Pins / Test</div>
+                <strong style={{ fontSize: 14, color: 'var(--text-primary)', display: 'block', marginBottom: 4 }}>100% Invariant Pass</strong>
+                <span style={{ fontSize: 12.5, color: 'var(--text-secondary)' }}>Solve all multi-case assertions on the first attempt without guided hints.</span>
+              </div>
+
+              <div style={{ padding: 20, borderRadius: 16, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}>
+                <div style={{ fontSize: 22, fontWeight: 900, color: 'var(--accent)', marginBottom: 6 }}>+20 Pins / Repo</div>
+                <strong style={{ fontSize: 14, color: 'var(--text-primary)', display: 'block', marginBottom: 4 }}>GitHub Commit Verification</strong>
+                <span style={{ fontSize: 12.5, color: 'var(--text-secondary)' }}>Push audited capstone commits to your verified public GitHub repo.</span>
+              </div>
+
+              <div style={{ padding: 20, borderRadius: 16, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}>
+                <div style={{ fontSize: 22, fontWeight: 900, color: 'var(--accent)', marginBottom: 6 }}>+30 Pins / Win</div>
+                <strong style={{ fontSize: 14, color: 'var(--text-primary)', display: 'block', marginBottom: 4 }}>Code Wars Arena Victory</strong>
+                <span style={{ fontSize: 12.5, color: 'var(--text-secondary)' }}>Defeat peers in real-time algorithmic speed &amp; memory duels.</span>
+              </div>
             </div>
           </div>
 
-          {/* Pin Transaction History */}
-          <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 18, overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
-            <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border)', background: 'var(--bg3)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ fontFamily: 'var(--font-display)', fontSize: 14, fontWeight: 800 }}>📊 Pin History</span>
-              <span style={{ fontSize: 11, color: 'var(--t3)' }}>Last {Math.min(pinHistory.length, 10)} transactions</span>
-            </div>
-            <div style={{ padding: 16 }}>
-              <PinsHistory limit={10} />
+          {/* FAQ Accordion */}
+          <div style={{ maxWidth: 840, margin: '0 auto' }}>
+            <h2 style={{ fontSize: 24, fontWeight: 900, textAlign: 'center', marginBottom: 32 }}>Frequently Asked Questions</h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+              {faqs.map((faq, idx) => {
+                const isOpen = openFaq === idx;
+                return (
+                  <div
+                    key={idx}
+                    className="glass-card"
+                    style={{ padding: '20px 24px', cursor: 'pointer' }}
+                    onClick={() => setOpenFaq(isOpen ? null : idx)}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span style={{ fontSize: 15, fontWeight: 800, color: 'var(--text-primary)' }}>{faq.q}</span>
+                      <span style={{ fontSize: 18, color: 'var(--accent)' }}>{isOpen ? '−' : '+'}</span>
+                    </div>
+                    {isOpen && (
+                      <p style={{ fontSize: 13.5, color: 'var(--text-secondary)', lineHeight: 1.65, marginTop: 14, margin: '14px 0 0' }}>
+                        {faq.a}
+                      </p>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
 
-          <p style={{ textAlign: 'center', color: 'var(--t4)', fontSize: 11, marginTop: 4 }}>
-            💳 Powered by Razorpay · UPI / Credit / Debit / Netbanking · GST Included
-          </p>
         </div>
-      </div>
-      <style>{`
-        .pricing-grid-split {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 24px;
-        }
-        @media (max-width: 860px) {
-          .pricing-grid-split {
-            grid-template-columns: 1fr;
-          }
-        }
-      `}</style>
+      </main>
+
+      <PublicFooter />
     </div>
   );
 }

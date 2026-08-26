@@ -18,7 +18,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const ok = evaluateCorporateObjective('WEALTH_MAXIMIZATION', true, true);\nconst bad = evaluateCorporateObjective('PROFIT_MAXIMIZATION', false, false);\nif (!ok.isSuperiorToProfitMaximization || ok.status !== 'CORPORATE_GOAL_SHAREHOLDER_WEALTH_MAXIMIZATION' || bad.isSuperiorToProfitMaximization) throw new Error('Corporate objective evaluator failed');",
     "aTitle": "Core Financial Decisions Formatter",
     "aDesc": "Implement function getCoreFinancialDecisions() returning `['INVESTING', 'FINANCING', 'DIVIDEND']`.",
-    "aStarter": "function getCoreFinancialDecisions() { return ['INVESTING', 'FINANCING', 'DIVIDEND']; }",
+    "aStarter": "function getCoreFinancialDecisions() {\n  // Write your answer here\n}",
     "aHint": "Return the 3 decisions.",
     "aTest": "if (getCoreFinancialDecisions().length !== 3) throw new Error('Decisions check failed');"
   },
@@ -38,7 +38,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = calculateFutureValueAndEar(100000, 10, 2, 2); // 100k @ 10% semi-annual for 2 yrs -> 100k * (1.05)^4 = 121,550.63; EAR = 10.25%\nif (res.futureValue !== 121550.63 || res.effectiveAnnualRatePercent !== 10.25 || res.status !== 'FUTURE_VALUE_COMPUTED') throw new Error('FV calculation failed');",
     "aTitle": "Rule of 72 Doubling Time Formatter",
     "aDesc": "Implement function calculateDoublingTime(ratePct) returning `Number((72 / ratePct).toFixed(1))`.",
-    "aStarter": "function calculateDoublingTime(r) { return Number((72 / r).toFixed(1)); }",
+    "aStarter": "function calculateDoublingTime() {\n  // Write your answer here\n}",
     "aHint": "Return 72 / rate.",
     "aTest": "if (calculateDoublingTime(8) !== 9.0) throw new Error('Rule of 72 failed');"
   },
@@ -58,7 +58,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = discountCashFlowStream([10000, 20000, 30000], 10); // 10k/1.1 + 20k/1.21 + 30k/1.331 = 9090.91 + 16528.93 + 22539.44 = 48159.28\nif (res.totalPresentValue !== 48159.28 || res.status !== 'CASH_FLOW_STREAM_DISCOUNTED') throw new Error('PV discounting failed');",
     "aTitle": "Discount Factor Formatter",
     "aDesc": "Implement function getDiscountFactor(rPct, t) returning `Number((1 / Math.pow(1 + rPct / 100, t)).toFixed(4))`.",
-    "aStarter": "function getDiscountFactor(r, t) { return Number((1 / Math.pow(1 + r / 100, t)).toFixed(4)); }",
+    "aStarter": "function getDiscountFactor() {\n  // Write your answer here\n}",
     "aHint": "Return 1 / (1 + r)^t.",
     "aTest": "if (getDiscountFactor(10, 1) !== 0.9091) throw new Error('Discount factor check failed');"
   },
@@ -78,7 +78,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = calculateLoanEmi(100000, 12, 12); // 100k @ 12% for 12 months -> EMI = 8884.88, total = 106,618.56, int = 6618.56\nif (res.monthlyEmi !== 8884.88 || res.totalInterestPaid !== 6618.56 || res.status !== 'LOAN_EMI_COMPUTED') throw new Error('EMI calculation failed');",
     "aTitle": "Perpetuity Present Value Calculator",
     "aDesc": "Implement function calculatePerpetuity(pmt, rPct) returning `Math.round(pmt / (rPct / 100))`.",
-    "aStarter": "function calculatePerpetuity(p, r) { return Math.round(p / (r / 100)); }",
+    "aStarter": "function calculatePerpetuity() {\n  // Write your answer here\n}",
     "aHint": "Return pmt / r.",
     "aTest": "if (calculatePerpetuity(10000, 10) !== 100000) throw new Error('Perpetuity failed');"
   },
@@ -98,7 +98,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = executeTvmMasterKernel(100000, 10, 3, 10000); // FV = 133,100; PVA = 10k * 2.48685 = 24,868.52\nif (res.singleCashFlowFv !== 133100 || res.annuityStreamPv !== 24868.52 || res.engineStatus !== 'TVM_MASTER_KERNEL_ACTIVE_NOMINAL') throw new Error('Milestone 1 TVM kernel failed');",
     "aTitle": "TVM Engine Status Formatter",
     "aDesc": "Implement function formatTvmState(ok) returning `TVM_ENGINE_${ok ? 'ACTIVE' : 'OFFLINE'}`.",
-    "aStarter": "function formatTvmState(o) { return `TVM_ENGINE_${o ? 'ACTIVE' : 'OFFLINE'}`; }",
+    "aStarter": "function formatTvmState() {\n  // Write your answer here\n}",
     "aHint": "Format status string.",
     "aTest": "if (formatTvmState(true) !== 'TVM_ENGINE_ACTIVE') throw new Error('TVM state format failed');"
   },
@@ -118,7 +118,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const par = calculateBondPrice(1000, 10, 10, 3); // 1000\nconst prem = calculateBondPrice(1000, 12, 10, 3); // Yield < Coupon -> Premium: 1049.74\nconst disc = calculateBondPrice(1000, 8, 10, 3);  // Yield > Coupon -> Discount: 950.26\nif (par.intrinsicBondPrice !== 1000 || prem.pricingStatus !== 'PREMIUM_BOND' || disc.pricingStatus !== 'DISCOUNT_BOND') throw new Error('Bond valuation failed');",
     "aTitle": "Zero Coupon Bond Pricer",
     "aDesc": "Implement function priceZeroCouponBond(m, yieldPct, n) returning `Number((m / Math.pow(1 + yieldPct / 100, n)).toFixed(2))`.",
-    "aStarter": "function priceZeroCouponBond(m, y, n) { return Number((m / Math.pow(1 + y / 100, n)).toFixed(2)); }",
+    "aStarter": "function priceZeroCouponBond() {\n  // Write your answer here\n}",
     "aHint": "Return m / (1 + yield)^n.",
     "aTest": "if (priceZeroCouponBond(1000, 10, 2) !== 826.45) throw new Error('Zero coupon bond failed');"
   },
@@ -138,7 +138,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = calculateApproxYtm(1000, 950, 10, 5); // c=100, num = 100 + (1000-950)/5 = 110. den = 975. YTM = 110/975 = 11.28%, CY = 100/950 = 10.53%\nif (res.approxYtmPercent !== 11.28 || res.currentYieldPercent !== 10.53 || res.status !== 'BOND_YIELD_COMPUTED') throw new Error('YTM approximation failed');",
     "aTitle": "Current Yield Formula Formatter",
     "aDesc": "Implement function getYieldFormula() returning `'Current Yield = Annual Coupon / Market Price'`.",
-    "aStarter": "function getYieldFormula() { return 'Current Yield = Annual Coupon / Market Price'; }",
+    "aStarter": "function getYieldFormula() {\n  // Write your answer here\n}",
     "aHint": "Return formula string.",
     "aTest": "if (getYieldFormula() !== 'Current Yield = Annual Coupon / Market Price') throw new Error('Yield formula check failed');"
   },
@@ -158,8 +158,8 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = calculateDurationAndPriceSensitivity(1000, 10, 10, 3, 100); // 3-yr 10% par bond -> MacD = 2.74 yrs, ModD = 2.49. For +100 bps (+1%), price drops ~ -2.49%\nif (res.bondPrice !== 1000 || res.macaulayDurationYears !== 2.74 || res.modifiedDuration !== 2.49 || res.estimatedPriceChangePercent !== -2.49) throw new Error('Duration calculation failed');",
     "aTitle": "Duration Direction Invariant Formatter",
     "aDesc": "Implement function getDurationSign() returning `'-'`.",
-    "aStarter": "function getDurationSign() { return '-'; }",
-    "aHint": "Return '-'.",
+    "aStarter": "function getDurationSign() {\n  // Write your answer here\n}",
+    "aHint": "Duration has an inverse price-yield relationship — bond price falls when yield rises, so the duration sign is negative (modified duration = -dP/dY × 1/P).",
     "aTest": "if (getDurationSign() !== '-') throw new Error('Duration sign check failed');"
   },
   {
@@ -178,7 +178,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = calculateProjectNpv(100000, [40000, 50000, 60000], 10); // PV = 36363.64 + 41322.31 + 45078.89 = 122,764.84; NPV = +22,764.84\nif (!res.isProjectAccepted || res.netPresentValue !== 22764.84 || res.recommendation !== 'ACCEPT_PROJECT_CREATES_SHAREHOLDER_WEALTH') throw new Error('NPV calculation failed');",
     "aTitle": "NPV Decision Rule Formatter",
     "aDesc": "Implement function getNpvDecisionRule(npv) returning `npv > 0 ? 'ACCEPT' : 'REJECT'`.",
-    "aStarter": "function getNpvDecisionRule(n) { return n > 0 ? 'ACCEPT' : 'REJECT'; }",
+    "aStarter": "function getNpvDecisionRule() {\n  // Write your answer here\n}",
     "aHint": "Check npv > 0.",
     "aTest": "if (getNpvDecisionRule(100) !== 'ACCEPT') throw new Error('NPV decision check failed');"
   },
@@ -198,7 +198,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = solveProjectIrr(100000, [60000, 60000], 10); // 100k outlay, 60k/yr for 2 yrs -> IRR = 13.07%\nif (res.internalRateOfReturnPercent !== 13.07 || !res.isProjectAccepted || res.status !== 'IRR_SOLVER_CONVERGED') throw new Error('IRR solver failed');",
     "aTitle": "IRR vs Hurdle Rate Acceptance Formatter",
     "aDesc": "Implement function evaluateIrrRule(irr, k) returning `irr >= k ? 'ACCEPT' : 'REJECT'`.",
-    "aStarter": "function evaluateIrrRule(i, k) { return i >= k ? 'ACCEPT' : 'REJECT'; }",
+    "aStarter": "function evaluateIrrRule() {\n  // Write your answer here\n}",
     "aHint": "Compare irr vs k.",
     "aTest": "if (evaluateIrrRule(15, 10) !== 'ACCEPT') throw new Error('IRR rule check failed');"
   },
@@ -218,7 +218,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = calculatePaybackAndPi(100000, [50000, 50000, 50000], 10); // Payback = 2.0 yrs; PV = 124,342.60 -> PI = 1.24\nif (res.paybackPeriodYears !== 2.0 || res.profitabilityIndex !== 1.24 || !res.isPiAcceptable) throw new Error('Payback & PI calculation failed');",
     "aTitle": "PI Acceptance Threshold Formatter",
     "aDesc": "Implement function isPiAccepted(pi) returning `pi > 1.0`.",
-    "aStarter": "function isPiAccepted(p) { return p > 1.0; }",
+    "aStarter": "function isPiAccepted() {\n  // Write your answer here\n}",
     "aHint": "Return pi > 1.0.",
     "aTest": "if (!isPiAccepted(1.15)) throw new Error('PI threshold check failed');"
   },
@@ -234,11 +234,11 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTitle": "After-Tax Cost of Debt & Tax Shield Calculator",
     "eDesc": "Implement function calculateCostOfDebt(preTaxInterestRatePct, corporateTaxRatePct) calculating After-Tax Cost of Debt and tax shield percentage.",
     "eStarter": "function calculateCostOfDebt(iPct, taxPct) {\n  const i = iPct / 100;\n  const t = taxPct / 100;\n  const kd = i * (1 - t);\n  const taxShieldPct = iPct * t;\n  return {\n    preTaxCostOfDebtPercent: iPct,\n    corporateTaxRatePercent: taxPct,\n    taxShieldSavingsPercent: Number(taxShieldPct.toFixed(2)),\n    afterTaxCostOfDebtPercent: Number((kd * 100).toFixed(2)),\n    status: 'COST_OF_DEBT_COMPUTED'\n  };\n}",
-    "eHint": "Compute kd = i * (1 - t).",
+    "eHint": "Interest payments are tax-deductible, so the government effectively subsidises part of the cost — multiply the pre-tax rate by (1 − tax rate) to find the true after-tax cost of debt.",
     "eTest": "const res = calculateCostOfDebt(10, 25); // 10% * (1 - 0.25) = 7.5%\nif (res.afterTaxCostOfDebtPercent !== 7.5 || res.taxShieldSavingsPercent !== 2.5 || res.status !== 'COST_OF_DEBT_COMPUTED') throw new Error('Cost of debt calculation failed');",
     "aTitle": "Cost of Debt Formula Formatter",
     "aDesc": "Implement function getKdFormula() returning `'Kd = i * (1 - t)'`.",
-    "aStarter": "function getKdFormula() { return 'Kd = i * (1 - t)'; }",
+    "aStarter": "function getKdFormula() {\n  // Write your answer here\n}",
     "aHint": "Return formula string.",
     "aTest": "if (getKdFormula() !== 'Kd = i * (1 - t)') throw new Error('Kd formula check failed');"
   },
@@ -258,7 +258,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = calculateCostOfEquity(6, 1.2, 5, 4, 50, 4); // CAPM = 6 + 1.2*5 = 12%; Gordon: D1=4.16, Ke = (4.16/50)*100 + 4 = 12.32%\nif (res.capmCostOfEquityPercent !== 12.0 || res.gordonCostOfEquityPercent !== 12.32 || res.status !== 'COST_OF_EQUITY_EVALUATED') throw new Error('Cost of equity failed');",
     "aTitle": "CAPM Equation Formatter",
     "aDesc": "Implement function getCapmFormula() returning `'Ke = Rf + Beta * (Rm - Rf)'`.",
-    "aStarter": "function getCapmFormula() { return 'Ke = Rf + Beta * (Rm - Rf)'; }",
+    "aStarter": "function getCapmFormula() {\n  // Write your answer here\n}",
     "aHint": "Return CAPM formula.",
     "aTest": "if (getCapmFormula() !== 'Ke = Rf + Beta * (Rm - Rf)') throw new Error('CAPM formula check failed');"
   },
@@ -278,7 +278,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = calculateWacc(600000, 400000, 15, 10, 25); // V=1M, We=0.6, Wd=0.4. KdAfter = 7.5%. WACC = 0.6*15 + 0.4*7.5 = 9.0 + 3.0 = 12.0%\nif (res.waccPercent !== 12.0 || res.equityWeight !== 0.6 || res.debtWeight !== 0.4 || res.status !== 'WACC_COMPUTED') throw new Error('WACC calculation failed');",
     "aTitle": "WACC Formula Formatter",
     "aDesc": "Implement function getWaccFormula() returning `'WACC = We * Ke + Wd * Kd + Wp * Kp'`.",
-    "aStarter": "function getWaccFormula() { return 'WACC = We * Ke + Wd * Kd + Wp * Kp'; }",
+    "aStarter": "function getWaccFormula() {\n  // Write your answer here\n}",
     "aHint": "Return WACC formula.",
     "aTest": "if (getWaccFormula() !== 'WACC = We * Ke + Wd * Kd + Wp * Kp') throw new Error('WACC formula check failed');"
   },
@@ -298,7 +298,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = executeCapitalBudgetingMaster(100000, [60000, 60000], 600000, 400000, 15, 10, 25); // WACC = 12%, PV = 60k/1.12 + 60k/1.2544 = 53571.43 + 47831.63 = 101,403.06 -> NPV = +1403.06\nif (!res.isProjectAccepted || res.enterpriseWaccPercent !== 12.0 || res.projectNpvAtWacc !== 1403.06 || res.engineStatus !== 'CAPITAL_BUDGETING_WACC_MASTER_ACTIVE') throw new Error('Milestone 2 Capital Budgeting failed');",
     "aTitle": "Valuation Master Engine Formatter",
     "aDesc": "Implement function getValuationEngineStatus() returning `'CAPITAL_BUDGETING_WACC_MASTER_ACTIVE'`.",
-    "aStarter": "function getValuationEngineStatus() { return 'CAPITAL_BUDGETING_WACC_MASTER_ACTIVE'; }",
+    "aStarter": "function getValuationEngineStatus() {\n  // Write your answer here\n}",
     "aHint": "Return status.",
     "aTest": "if (getValuationEngineStatus() !== 'CAPITAL_BUDGETING_WACC_MASTER_ACTIVE') throw new Error('Status check failed');"
   },
@@ -318,7 +318,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = calculateLeverages(500000, 200000, 100000, 50000); // Contrib = 300k, EBIT = 200k, EBT = 150k -> DOL = 1.5, DFL = 1.33, DCL = 2.0\nif (res.degreeOfOperatingLeverage !== 1.5 || res.degreeOfFinancialLeverage !== 1.33 || res.degreeOfCombinedLeverage !== 2.0) throw new Error('Leverage calculation failed');",
     "aTitle": "Combined Leverage Relationship Formatter",
     "aDesc": "Implement function getDclFormula() returning `'DCL = DOL * DFL'`.",
-    "aStarter": "function getDclFormula() { return 'DCL = DOL * DFL'; }",
+    "aStarter": "function getDclFormula() {\n  // Write your answer here\n}",
     "aHint": "Return DCL formula.",
     "aTest": "if (getDclFormula() !== 'DCL = DOL * DFL') throw new Error('DCL formula check failed');"
   },
@@ -338,7 +338,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = calculateBreakEvenAndMos(100000, 50, 30, 8000); // Contrib = 20, BEP = 5,000 units ($250k). Actual = 8,000 units ($400k). MOS = $150k (37.5%)\nif (res.breakEvenUnits !== 5000 || res.breakEvenSalesDollars !== 250000 || res.marginOfSafetyDollars !== 150000 || res.marginOfSafetyPercent !== 37.5) throw new Error('Break-even analysis failed');",
     "aTitle": "Break-Even Equation Formatter",
     "aDesc": "Implement function getBepFormula() returning `'BEP Units = Fixed Cost / (Selling Price - Variable Cost)'`.",
-    "aStarter": "function getBepFormula() { return 'BEP Units = Fixed Cost / (Selling Price - Variable Cost)'; }",
+    "aStarter": "function getBepFormula() {\n  // Write your answer here\n}",
     "aHint": "Return BEP formula.",
     "aTest": "if (getBepFormula() !== 'BEP Units = Fixed Cost / (Selling Price - Variable Cost)') throw new Error('BEP formula check failed');"
   },
@@ -358,7 +358,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = generateCashBudget(20000, [50000, 40000], [45000, 60000], 10000); // Q1: 20k + 5k = 25k (OD=0); Q2: 25k - 20k = 5k (OD=5k to maintain 10k)\nif (res.quarterlyClosingBalances[0] !== 25000 || res.quarterlyClosingBalances[1] !== 5000 || res.quarterlyOverdraftNeeded[1] !== 5000) throw new Error('Cash budget failed');",
     "aTitle": "Cash Budget Objective Formatter",
     "aDesc": "Implement function getCashBudgetGoal() returning `'PREVENT_LIQUIDITY_CRISIS_AND_OPTIMIZE_SURPLUS_CASH'`.",
-    "aStarter": "function getCashBudgetGoal() { return 'PREVENT_LIQUIDITY_CRISIS_AND_OPTIMIZE_SURPLUS_CASH'; }",
+    "aStarter": "function getCashBudgetGoal() {\n  // Write your answer here\n}",
     "aHint": "Return objective string.",
     "aTest": "if (getCashBudgetGoal() !== 'PREVENT_LIQUIDITY_CRISIS_AND_OPTIMIZE_SURPLUS_CASH') throw new Error('Goal check failed');"
   },
@@ -374,11 +374,11 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTitle": "Modigliani-Miller (MM) Levered Firm Value Evaluator",
     "eDesc": "Implement function calculateMmLeveredValue(unleveredFirmValue, debtValue, corporateTaxRatePct) calculating levered firm value under MM with taxes.",
     "eStarter": "function calculateMmLeveredValue(vu, d, taxPct) {\n  const t = taxPct / 100;\n  const taxShieldPv = t * d;\n  const vl = vu + taxShieldPv;\n  return {\n    unleveredFirmValue: vu,\n    debtValue: d,\n    presentValueOfTaxShield: Math.round(taxShieldPv),\n    leveredFirmValue: Math.round(vl),\n    status: 'MM_THEORY_WITH_TAXES_EVALUATED'\n  };\n}",
-    "eHint": "Compute V_L = V_U + t * D.",
+    "eHint": "Under MM with taxes, debt creates a 'tax shield' because interest is deductible — the present value of that shield is t × D, which is added directly to the unlevered firm value.",
     "eTest": "const res = calculateMmLeveredValue(1000000, 400000, 25); // V_L = 1M + 0.25 * 400k = 1M + 100k = 1,100,000\nif (res.leveredFirmValue !== 1100000 || res.presentValueOfTaxShield !== 100000 || res.status !== 'MM_THEORY_WITH_TAXES_EVALUATED') throw new Error('MM valuation failed');",
     "aTitle": "MM Proposition I Formula Formatter",
     "aDesc": "Implement function getMmFormula() returning `'VL = VU + t * D'`.",
-    "aStarter": "function getMmFormula() { return 'VL = VU + t * D'; }",
+    "aStarter": "function getMmFormula() {\n  // Write your answer here\n}",
     "aHint": "Return VL formula.",
     "aTest": "if (getMmFormula() !== 'VL = VU + t * D') throw new Error('MM formula check failed');"
   },
@@ -398,7 +398,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = calculateWalterModelPrice(4, 10, 15, 10); // r=15%, ke=10% -> Growth firm! P = (4 + (0.15/0.10)*(10-4))/0.10 = (4 + 1.5*6)/0.10 = (4 + 9)/0.10 = $130.00\nif (res.calculatedSharePrice !== 130.0 || res.firmCategory !== 'GROWTH_FIRM_OPTIMAL_PAYOUT_ZERO') throw new Error('Walter model failed');",
     "aTitle": "Walter Model Growth Rule Formatter",
     "aDesc": "Implement function getGrowthFirmOptimalPayout() returning `0`.",
-    "aStarter": "function getGrowthFirmOptimalPayout() { return 0; }",
+    "aStarter": "function getGrowthFirmOptimalPayout() {\n  // Write your answer here\n}",
     "aHint": "Return 0 (0% payout).",
     "aTest": "if (getGrowthFirmOptimalPayout() !== 0) throw new Error('Growth rule check failed');"
   },
@@ -418,7 +418,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = executeCorporatePolicyMaster(200000, 50000, 400000, 25, 10, 4, 15, 10); // DFL = 1.33, Tax shield = 100k, Walter = 130.0\nif (res.degreeOfFinancialLeverage !== 1.33 || res.taxShieldBenefit !== 100000 || res.walterEquityPrice !== 130.0 || res.engineStatus !== 'CORPORATE_POLICY_MASTER_ENGINE_ACTIVE') throw new Error('Milestone 3 Corporate Policy failed');",
     "aTitle": "Corporate Policy Engine Status Formatter",
     "aDesc": "Implement function formatPolicyEngineState(ok) returning `POLICY_ENGINE_${ok ? 'ACTIVE' : 'OFFLINE'}`.",
-    "aStarter": "function formatPolicyEngineState(o) { return `POLICY_ENGINE_${o ? 'ACTIVE' : 'OFFLINE'}`; }",
+    "aStarter": "function formatPolicyEngineState() {\n  // Write your answer here\n}",
     "aHint": "Format status string.",
     "aTest": "if (formatPolicyEngineState(true) !== 'POLICY_ENGINE_ACTIVE') throw new Error('Policy state format failed');"
   },
@@ -438,7 +438,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = calculateEnterpriseAndPeValue([50000, 60000], 3, 10, 100000, 10000, 5, 15); // P/E price = 5 * 15 = 75.00\nif (res.peComparativePricePerShare !== 75.0 || res.status !== 'EQUITY_VALUATION_COMPLETED') throw new Error('Equity valuation failed');",
     "aTitle": "P/E Target Price Formatter",
     "aDesc": "Implement function calculatePeTarget(eps, pe) returning `Number((eps * pe).toFixed(2))`.",
-    "aStarter": "function calculatePeTarget(e, p) { return Number((e * p).toFixed(2)); }",
+    "aStarter": "function calculatePeTarget() {\n  // Write your answer here\n}",
     "aHint": "Return eps * pe.",
     "aTest": "if (calculatePeTarget(5, 20) !== 100.0) throw new Error('P/E target check failed');"
   },
@@ -458,7 +458,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = calculatePortfolioRiskReturn(0.5, 12, 20, 0.5, 8, 10, 0.0); // Ret = 10%. Var = 0.25*400 + 0.25*100 + 0 = 100 + 25 = 125. Std = sqrt(125) = 11.18% (< weighted avg 15%!)\nif (res.expectedPortfolioReturnPercent !== 10.0 || res.portfolioStandardDeviationPercent !== 11.18 || !res.diversificationBenefitDetected) throw new Error('Portfolio calculation failed');",
     "aTitle": "Perfect Negative Correlation Formatter",
     "aDesc": "Implement function getMinRiskCorrelation() returning `-1.0`.",
-    "aStarter": "function getMinRiskCorrelation() { return -1.0; }",
+    "aStarter": "function getMinRiskCorrelation() {\n  // Write your answer here\n}",
     "aHint": "Return -1.0.",
     "aTest": "if (getMinRiskCorrelation() !== -1.0) throw new Error('Min risk correlation check failed');"
   },
@@ -478,8 +478,8 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const buy = evaluateCapmMispricing(5, 11, 1.2, 14); // Required = 5 + 1.2*6 = 12.2%. Actual = 14% -> Alpha = +1.8% -> BUY\nconst sell = evaluateCapmMispricing(5, 11, 1.2, 10); // Required = 12.2%. Actual = 10% -> Alpha = -2.2% -> SELL\nif (buy.jensensAlphaPercent !== 1.8 || buy.investmentSignal !== 'UNDERVALUED_BUY_ABOVE_SML' || sell.investmentSignal !== 'OVERVALUED_SELL_BELOW_SML') throw new Error('CAPM mispricing failed');",
     "aTitle": "Beta Risk Benchmark Formatter",
     "aDesc": "Implement function getMarketBeta() returning `1.0`.",
-    "aStarter": "function getMarketBeta() { return 1.0; }",
-    "aHint": "Return 1.0.",
+    "aStarter": "function getMarketBeta() {\n  // Write your answer here\n}",
+    "aHint": "The market portfolio (e.g., S&P 500 index) always has beta = 1.0 by definition — it IS the benchmark; any other asset's beta is measured relative to it via CAPM.",
     "aTest": "if (getMarketBeta() !== 1.0) throw new Error('Market beta check failed');"
   },
   {
@@ -498,7 +498,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = calculatePerformanceRatios(15, 5, 12, 1.25, 11); // Excess = 10%. Sharpe = 10/12 = 0.83. Treynor = 10/1.25 = 8.0. Jensen = 15 - (5 + 1.25*6) = 15 - 12.5 = 2.5%\nif (res.sharpeRatio !== 0.83 || res.treynorRatio !== 8.0 || res.jensenAlphaPercent !== 2.5 || res.status !== 'PORTFOLIO_PERFORMANCE_RATIOS_COMPUTED') throw new Error('Performance ratios failed');",
     "aTitle": "Sharpe Ratio Denominator Formatter",
     "aDesc": "Implement function getSharpeDenominator() returning `'TOTAL_RISK_STANDARD_DEVIATION'`.",
-    "aStarter": "function getSharpeDenominator() { return 'TOTAL_RISK_STANDARD_DEVIATION'; }",
+    "aStarter": "function getSharpeDenominator() {\n  // Write your answer here\n}",
     "aHint": "Return standard deviation.",
     "aTest": "if (getSharpeDenominator() !== 'TOTAL_RISK_STANDARD_DEVIATION') throw new Error('Sharpe check failed');"
   },
@@ -518,7 +518,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = evaluateFuturesAndPutCallParity(100, 100, 5, 1, 10); // Fut = 100 * e^0.05 = 105.13; PV(K) = 100 * e^-0.05 = 95.12; Put = 10 + 95.12 - 100 = 5.12\nif (res.fairFuturesPrice !== 105.13 || res.syntheticPutPrice !== 5.12 || res.status !== 'DERIVATIVES_PARITY_EVALUATED') throw new Error('Derivatives parity failed');",
     "aTitle": "Put-Call Parity Equation Formatter",
     "aDesc": "Implement function getPutCallParityFormula() returning `'C + PV(K) = P + S'`.",
-    "aStarter": "function getPutCallParityFormula() { return 'C + PV(K) = P + S'; }",
+    "aStarter": "function getPutCallParityFormula() {\n  // Write your answer here\n}",
     "aHint": "Return parity formula.",
     "aTest": "if (getPutCallParityFormula() !== 'C + PV(K) = P + S') throw new Error('Parity formula check failed');"
   },
@@ -538,7 +538,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = calculateMergerAccretionDilution(1000000, 200000, 400000, 50000); // Pre EPS = 5.00. Combined = 1.4M / 250k = 5.60 (+12% Accretive)\nif (res.preMergerAcquirerEps !== 5.0 || res.postMergerCombinedEps !== 5.6 || res.mergerOutcome !== 'ACCRETIVE_DEAL_INCREASES_EPS') throw new Error('M&A accretion failed');",
     "aTitle": "Accretive Deal Definition Formatter",
     "aDesc": "Implement function getAccretiveDefinition() returning `'POST_MERGER_EPS_GREATER_THAN_PRE_MERGER_EPS'`.",
-    "aStarter": "function getAccretiveDefinition() { return 'POST_MERGER_EPS_GREATER_THAN_PRE_MERGER_EPS'; }",
+    "aStarter": "function getAccretiveDefinition() {\n  // Write your answer here\n}",
     "aHint": "Return accretive string.",
     "aTest": "if (getAccretiveDefinition() !== 'POST_MERGER_EPS_GREATER_THAN_PRE_MERGER_EPS') throw new Error('Accretive check failed');"
   },
@@ -558,7 +558,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = calculateAltmanZScore(200000, 300000, 200000, 800000, 1000000, 1000000, 400000); // x1=0.2, x2=0.3, x3=0.2, x4=2.0, x5=1.0 -> Z = 1.2*0.2 + 1.4*0.3 + 3.3*0.2 + 0.6*2.0 + 0.999*1.0 = 0.24 + 0.42 + 0.66 + 1.20 + 0.999 = 3.52 -> SAFE\nif (res.altmanZScore !== 3.52 || res.distressZone !== 'SAFE_ZONE_FINANCIALLY_SOUND') throw new Error('Altman Z-Score failed');",
     "aTitle": "Altman Safe Zone Threshold Formatter",
     "aDesc": "Implement function getAltmanSafeThreshold() returning `2.99`.",
-    "aStarter": "function getAltmanSafeThreshold() { return 2.99; }",
+    "aStarter": "function getAltmanSafeThreshold() {\n  // Write your answer here\n}",
     "aHint": "Return 2.99.",
     "aTest": "if (getAltmanSafeThreshold() !== 2.99) throw new Error('Altman threshold check failed');"
   },
@@ -578,7 +578,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = generateRoboEsgAllocation(7, 85); // 70% equity, 30% debt, ESG Leader Tier A\nif (res.recommendedEquityPercent !== 70 || res.recommendedDebtPercent !== 30 || res.esgRatingTier !== 'ESG_LEADER_SUSTAINABLE_TIER_A') throw new Error('Robo ESG allocation failed');",
     "aTitle": "ESG Three Pillars Formatter",
     "aDesc": "Implement function getEsgPillars() returning `['ENVIRONMENTAL', 'SOCIAL', 'GOVERNANCE']`.",
-    "aStarter": "function getEsgPillars() { return ['ENVIRONMENTAL', 'SOCIAL', 'GOVERNANCE']; }",
+    "aStarter": "function getEsgPillars() {\n  // Write your answer here\n}",
     "aHint": "Return 3 pillars.",
     "aTest": "if (getEsgPillars().length !== 3) throw new Error('ESG pillars check failed');"
   },
@@ -598,7 +598,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const ok = orchestrateCorporateFinance(true, true, true, true, true);\nconst fail = orchestrateCorporateFinance(true, true, false, true, true);\nif (!ok.corporateFinanceMasterCertified || fail.corporateFinanceMasterCertified || !ok.certified || ok.status !== 'CORPORATE_FINANCE_AND_INVESTMENT_MASTER_CERTIFIED_NOMINAL') throw new Error('Capstone finance orchestrator failed');",
     "aTitle": "Business Finance Master Certification Auditor",
     "aDesc": "Implement function auditFinanceMasterCert() returning `{ certified: true, score: '100/100', tier: 'ENTERPRISE_CORPORATE_FINANCE_AND_INVESTMENT_MASTER_CERTIFIED' }`.",
-    "aStarter": "function auditFinanceMasterCert() { return { certified: true, score: '100/100', tier: 'ENTERPRISE_CORPORATE_FINANCE_AND_INVESTMENT_MASTER_CERTIFIED' }; }",
+    "aStarter": "function auditFinanceMasterCert() {\n  // Write your answer here\n}",
     "aHint": "Return certification object.",
     "aTest": "if (!auditFinanceMasterCert().certified) throw new Error('Capstone cert failed');"
   }

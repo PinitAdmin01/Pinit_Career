@@ -1,187 +1,182 @@
-import { DayLessonPlan } from '@/lib/types/lessonEngine';
+﻿import { DayLessonPlan } from '@/lib/types/lessonEngine';
 
 export const AI_PROMPT_LITERACY_PILOT_DAYS: DayLessonPlan[] = [
   {
     "day": 1,
-    "title": "Generative AI Foundations: Tokens, Embedding Vectors & API Cost Modeling",
-    "overviewMetaphor": "Tokens Are the Scrabble Tiles of Large Language Models: AI does not read human sentences letter-by-letter or word-by-word; it breaks text into mathematical chunks called Tokens (where 1 English word $\\approx 1.333$ tokens, meaning 1,000 words equals 1,334 tokens); calculating token costs ($Cost = \\frac{1,334\\text{ tokens}}{1,000,000} \\times \\$5.00 = \\$0.00667$) ensures enterprise scalability and prevents budget overruns.",
+    "title": "What is AI? — And How Do You Talk to It?",
+    "overviewMetaphor": "AI is like a very well-read assistant who has studied billions of web pages, books, and articles: when you give it a clear instruction — called a 'prompt' — it generates the most useful response it can based on everything it has learned. The clearer and more specific your prompt, the more useful the response.",
     "blocks": [
       {
-        "id": "aip-d1-b1-token-cost-calculation",
+        "id": "aip-d1-b1-what-is-generative-ai",
         "day": 1,
         "blockNumber": 1,
-        "title": "LLM Tokenization & Inference Cost Formula: $\\text{Cost} = \\frac{\\text{Tokens}}{1,000,000} \\times \\text{Price} = \\$0.00667$",
+        "title": "What is Generative AI? — The Next-Word Predictor",
         "conceptBudget": {
-          "primaryConcept": "Tokenization & Inference Cost Formula",
+          "primaryConcept": "What Generative AI Does",
           "supportingTerms": [
-            "Word Count ($1,000$ words)",
-            "Estimated Tokens ($1,334$ tokens = $\\lceil 1000 \\times 1.3333 \\rceil$)",
-            "Price Per Million Tokens ($\\$5.00$)",
-            "Inference Cost = $\\frac{1,334}{1,000,000} \\times 5.0 = \\$0.00667$",
-            "Cost Effective Benchmark: $\\le \\$0.05$"
+            "Generative AI (Software trained on vast amounts of text that generates helpful responses by predicting the most useful continuation of your prompt)",
+            "Training (The process where AI learned patterns from billions of text examples)",
+            "Prompt (Your question or instruction to the AI)"
           ]
         },
         "prerequisiteThresholds": [],
         "media": [
           {
+            "type": "analogy",
+            "metaphor": "The Advanced Autocomplete",
+            "simpleExplanation": "Think of the autocomplete on your phone that suggests the next word when you type a message. Generative AI works the same way — but it has studied billions of web pages, books, and conversations, so its predictions are far more sophisticated. It does not think like a human; it recognizes patterns and generates the most statistically helpful response."
+          },
+          {
             "type": "diagram",
             "data": {
-              "type": "memory_box",
-              "title": "LLM Token Breakdown & API Inference Cost Ledger",
-              "boxes": [
-                {
-                  "label": "Document Word Volume",
-                  "value": "1,000 English Words in User Prompt",
-                  "varType": "Words",
-                  "isUpdated": false
-                },
-                {
-                  "label": "BPE Token Conversion",
-                  "value": "1,000 x 1.3333 = 1,334 Tokens (Byte-Pair Encoding Subwords)",
-                  "varType": "Tokens",
-                  "isUpdated": false
-                },
-                {
-                  "label": "API Inference Cost",
-                  "value": "(1,334 / 1,000,000) x $5.00 = $0.00667 (INFERENCE COST CALCULATED NOMINAL!)",
-                  "varType": "Cost USD",
-                  "isUpdated": true
-                }
+              "type": "flowchart",
+              "title": "How Generative AI Responds",
+              "nodes": [
+                { "id": "1", "label": "You type a prompt (your question or instruction)", "kind": "start" },
+                { "id": "2", "label": "AI analyzes words and context in your prompt", "kind": "process" },
+                { "id": "3", "label": "AI generates the most useful response based on training", "kind": "process" },
+                { "id": "4", "label": "You read the response and refine your prompt if needed", "kind": "end" }
               ]
             }
           },
           {
             "type": "runnable_code",
-            "filename": "token_cost_demo.js",
-            "initialCode": "function calculateTokenCost(words, pricePerM) {\n  const tokens = Math.ceil(words * 1.3333);\n  const cost = (tokens / 1000000) * pricePerM;\n  return {\n    words,\n    tokens,\n    totalInferenceCostDollars: Number(cost.toFixed(6)),\n    isCostEffective: cost <= 0.05,\n    status: 'INFERENCE_COST_CALCULATED'\n  };\n}\n\nconsole.log(JSON.stringify(calculateTokenCost(1000, 5.0)));",
-            "expectedOutput": "{\"words\":1000,\"tokens\":1334,\"totalInferenceCostDollars\":0.00667,\"isCostEffective\":true,\"status\":\"INFERENCE_COST_CALCULATED\"}",
+            "filename": "what_is_ai_demo.js",
+            "initialCode": "function describeGenerativeAI() {\n  return {\n    type: 'GENERATIVE_AI',\n    trainedOn: 'VAST_TEXT_DATA',\n    coreAbility: 'PREDICTS_USEFUL_RESPONSES',\n    inputType: 'PROMPT',\n    status: 'AI_DESCRIBED_CORRECTLY'\n  };\n}\n\nconsole.log(JSON.stringify(describeGenerativeAI()));",
+            "expectedOutput": "{\"type\":\"GENERATIVE_AI\",\"trainedOn\":\"VAST_TEXT_DATA\",\"coreAbility\":\"PREDICTS_USEFUL_RESPONSES\",\"inputType\":\"PROMPT\",\"status\":\"AI_DESCRIBED_CORRECTLY\"}",
             "editable": false
           }
         ],
         "diagnosticCheck": {
-          "type": "predict_output",
-          "question": "How many tokens are estimated for a 1,000-word prompt using the standard 1.3333 word-to-token ratio ($ \\lceil 1000 \\times 1.3333 \\rceil $)?",
-          "expectedStringOutput": "1334",
-          "acceptableAnswers": [
-            "1334",
-            "1,334",
-            "1334 tokens",
-            "tokens\":1334"
+          "type": "choose_answer",
+          "question": "What does generative AI fundamentally do when it produces a response?",
+          "options": [
+            "Searches the internet in real time for the right answer",
+            "Follows hard-coded rules written by programmers for each question",
+            "Generates a response based on patterns learned from vast amounts of text",
+            "Copies text from a database of pre-written answers"
           ],
-          "primaryMisconceptionId": "MC_AIP_TOKENOMICS_EMBEDDINGS_CONTEXT_WINDOWS",
+          "correctIndex": 2,
+          "primaryMisconceptionId": "MC_AIP_GENERATIVE_AI_DEFINITION",
           "diagnosisMap": {
-            "1000": {
-              "misconceptionId": "MC_AIP_TOKENOMICS_EMBEDDINGS_CONTEXT_WINDOWS",
-              "errorExplanation": "1 word does not equal 1 token. Words split into subwords at ~1.333 ratio, yielding 1,334 tokens.",
+            "0": {
+              "misconceptionId": "MC_AIP_GENERATIVE_AI_DEFINITION",
+              "errorExplanation": "Standard generative AI does not search the internet in real time. It generates responses from patterns learned during training and cannot access live information unless a special tool is enabled.",
               "recoveryPath": {
-                "simplerExplanation": "Math.ceil(1000 * 1.3333) = 1334.",
-                "guidedFixPrompt": "Type 1334"
+                "simplerExplanation": "Generative AI works from what it learned during training, not live internet searches.",
+                "guidedFixPrompt": "Select option 2: Generates a response based on patterns learned from vast amounts of text"
               }
             }
           }
         }
       },
       {
-        "id": "aip-d1-b2-embedding-vectors-and-semantic-space",
+        "id": "aip-d1-b2-what-is-a-prompt",
         "day": 1,
         "blockNumber": 2,
-        "title": "Embedding Vectors: High-Dimensional Semantic Geometry ($1536$ Dimensions)",
+        "title": "What is a Prompt? — Your Instruction to the AI",
         "conceptBudget": {
-          "primaryConcept": "Vector Embeddings Invariant",
+          "primaryConcept": "Prompt: Your AI Instruction",
           "supportingTerms": [
-            "Embedding Vector (A mathematical list of 1,536 floating-point numbers placing words with similar meanings close together in multi-dimensional vector space: e.g. 'King' - 'Man' + 'Woman' $\\approx$ 'Queen')"
+            "Prompt (The text you send to an AI — your question, instruction, or task description)",
+            "Vague Prompt (A short, unclear instruction that produces a generic response: 'help me')",
+            "Specific Prompt (A clear, detailed instruction with topic, format, and audience: 'Summarize in 3 bullet points for a high school student')"
           ]
         },
         "prerequisiteThresholds": [
           {
-            "conceptId": "aip-d1-b1-token-cost-calculation",
+            "conceptId": "aip-d1-b1-what-is-generative-ai",
             "requiredLevel": "understood"
           }
         ],
         "media": [
           {
-            "type": "syntax_anatomy",
-            "title": "Semantic Vector Geometry",
-            "codeSnippet": "// 'Puppy'  -> [0.82, -0.14, 0.91, 0.05, ...] (1536 floating point numbers)\n// 'Dog'    -> [0.80, -0.12, 0.89, 0.04, ...] -> High Cosine Similarity (0.96)!\n// 'Bicycle'-> [-0.31, 0.74, -0.10, 0.42, ...] -> Low Cosine Similarity (0.12)",
-            "lineNotes": {
-              "1": "Puppy vector.",
-              "2": "Semantically close Dog vector.",
-              "3": "Distant Bicycle vector."
-            }
+            "type": "analogy",
+            "metaphor": "Ordering at a Restaurant",
+            "simpleExplanation": "A prompt is like ordering at a restaurant. Saying 'give me food' leaves the chef guessing. Saying 'I would like a grilled chicken salad with no onions and extra dressing on the side' gets you exactly what you want. The AI is the chef — your prompt is the order. The more specific your order, the better the meal."
           },
           {
             "type": "runnable_code",
-            "filename": "embeddings_demo.js",
-            "initialCode": "function getEmbeddingDimensionsCount() {\n  return 1536;\n}\n\nconsole.log(getEmbeddingDimensionsCount());",
-            "expectedOutput": "1536",
+            "filename": "prompt_quality_demo.js",
+            "initialCode": "function ratePrompt(prompt) {\n  const wordCount = prompt.trim().split(/\\s+/).length;\n  const isSpecific = wordCount >= 8;\n  return {\n    wordCount,\n    isSpecific,\n    quality: isSpecific ? 'SPECIFIC_PROMPT' : 'VAGUE_PROMPT',\n    status: isSpecific ? 'PROMPT_QUALITY_GOOD' : 'PROMPT_TOO_VAGUE'\n  };\n}\n\nconsole.log(JSON.stringify(ratePrompt('Summarize this article in 3 bullet points for a high school student')));",
+            "expectedOutput": "{\"wordCount\":13,\"isSpecific\":true,\"quality\":\"SPECIFIC_PROMPT\",\"status\":\"PROMPT_QUALITY_GOOD\"}",
             "editable": false
           }
         ],
         "diagnosticCheck": {
-          "type": "predict_output",
-          "question": "What is the standard vector embedding dimension count utilized by modern OpenAI text-embedding models?",
-          "expectedStringOutput": "1536",
-          "acceptableAnswers": [
-            "1536",
-            "1,536",
-            "1536 dimensions"
+          "type": "choose_answer",
+          "question": "Which prompt will get a more useful response from an AI?",
+          "options": [
+            "help me write something",
+            "Write a 3-sentence explanation of how rainbows form in simple language for a 10-year-old",
+            "tell me about science",
+            "make it better"
           ],
-          "primaryMisconceptionId": "MC_AIP_TOKENOMICS_EMBEDDINGS_CONTEXT_WINDOWS",
+          "correctIndex": 1,
+          "primaryMisconceptionId": "MC_AIP_PROMPT_QUALITY_SPECIFICITY",
           "diagnosisMap": {
-            "3": {
-              "misconceptionId": "MC_AIP_TOKENOMICS_EMBEDDINGS_CONTEXT_WINDOWS",
-              "errorExplanation": "3 is spatial dimensions. LLM semantic vector spaces use 1536 dimensions.",
+            "0": {
+              "misconceptionId": "MC_AIP_PROMPT_QUALITY_SPECIFICITY",
+              "errorExplanation": "Vague prompts give the AI no context about what you want, who it is for, or what format you need. A specific prompt with topic, length, and audience produces far better results.",
               "recoveryPath": {
-                "simplerExplanation": "Standard embedding size is 1536.",
-                "guidedFixPrompt": "Type 1536"
+                "simplerExplanation": "A good prompt tells the AI: what topic, what format, how long, and who the audience is.",
+                "guidedFixPrompt": "Select option 1: Write a 3-sentence explanation of how rainbows form in simple language for a 10-year-old"
               }
             }
           }
         }
       },
       {
-        "id": "aip-d1-b3-context-windows-and-lost-in-the-middle",
+        "id": "aip-d1-b3-why-prompt-quality-matters",
         "day": 1,
         "blockNumber": 3,
-        "title": "Context Windows & 'Lost in the Middle' Attention Mechanics",
+        "title": "Why Prompt Quality Matters — Same AI, Very Different Results",
         "conceptBudget": {
-          "primaryConcept": "Lost in the Middle Attention Invariant",
+          "primaryConcept": "Prompt Quality and AI Output",
           "supportingTerms": [
-            "Lost in the Middle (LLMs attend strongly to tokens at the very beginning and very end of long prompts, but frequently overlook details placed in the dead center of 100k-token contexts)"
+            "Prompt Engineering (The skill of writing clear, specific prompts that get the AI to produce useful, accurate outputs)",
+            "Context (Background information you provide so the AI understands your situation)",
+            "Format Instruction (Telling the AI how to present the answer: as a list, table, paragraph, or code)"
           ]
         },
         "prerequisiteThresholds": [
           {
-            "conceptId": "aip-d1-b2-embedding-vectors-and-semantic-space",
+            "conceptId": "aip-d1-b2-what-is-a-prompt",
             "requiredLevel": "understood"
           }
         ],
         "media": [
           {
+            "type": "analogy",
+            "metaphor": "Same Chef, Different Instructions",
+            "simpleExplanation": "The same assistant with the same skills will produce very different results depending on your instructions. 'Write a report' gives you something vague and generic. 'Write a one-page business report summarizing Q3 sales in bullet points for a non-technical CEO' gives you something precise and useful. Prompt engineering is simply the skill of giving clear instructions."
+          },
+          {
             "type": "runnable_code",
-            "filename": "context_attention_demo.js",
-            "initialCode": "function getOptimalPromptPlacement() {\n  return 'CRITICAL_INSTRUCTIONS_MUST_BE_PLACED_AT_THE_BEGINNING_OR_END_OF_PROMPT';\n}\n\nconsole.log(getOptimalPromptPlacement());",
-            "expectedOutput": "CRITICAL_INSTRUCTIONS_MUST_BE_PLACED_AT_THE_BEGINNING_OR_END_OF_PROMPT",
+            "filename": "prompt_components_demo.js",
+            "initialCode": "function buildGoodPrompt(topic, format, audience) {\n  return {\n    topic,\n    format,\n    audience,\n    fullPrompt: `Explain ${topic} as a ${format} for ${audience}`,\n    status: 'PROMPT_CONSTRUCTED_NOMINAL'\n  };\n}\n\nconsole.log(JSON.stringify(buildGoodPrompt('climate change', '3-bullet summary', 'a high school student')));",
+            "expectedOutput": "{\"topic\":\"climate change\",\"format\":\"3-bullet summary\",\"audience\":\"a high school student\",\"fullPrompt\":\"Explain climate change as a 3-bullet summary for a high school student\",\"status\":\"PROMPT_CONSTRUCTED_NOMINAL\"}",
             "editable": false
           }
         ],
         "diagnosticCheck": {
-          "type": "predict_output",
-          "question": "Where should critical instructions be placed in long prompts to counter the 'Lost in the Middle' attention phenomenon?",
-          "expectedStringOutput": "CRITICAL_INSTRUCTIONS_MUST_BE_PLACED_AT_THE_BEGINNING_OR_END_OF_PROMPT",
-          "acceptableAnswers": [
-            "CRITICAL_INSTRUCTIONS_MUST_BE_PLACED_AT_THE_BEGINNING_OR_END_OF_PROMPT",
-            "Beginning or end",
-            "At the end"
+          "type": "choose_answer",
+          "question": "If you give a vague prompt like 'help me with my email', what is the most likely result?",
+          "options": [
+            "The AI will refuse — it cannot respond to vague prompts",
+            "A generic, unfocused response because the AI has no context about what you actually want",
+            "An error message saying the prompt is too short",
+            "A perfect email, because AI can always guess what you mean"
           ],
-          "primaryMisconceptionId": "MC_AIP_TOKENOMICS_EMBEDDINGS_CONTEXT_WINDOWS",
+          "correctIndex": 1,
+          "primaryMisconceptionId": "MC_AIP_PROMPT_CONTEXT_MATTERS",
           "diagnosisMap": {
-            "MIDDLE": {
-              "misconceptionId": "MC_AIP_TOKENOMICS_EMBEDDINGS_CONTEXT_WINDOWS",
-              "errorExplanation": "The middle suffers attention degradation. Key rules go at the beginning or end: CRITICAL_INSTRUCTIONS_MUST_BE_PLACED_AT_THE_BEGINNING_OR_END_OF_PROMPT.",
+            "3": {
+              "misconceptionId": "MC_AIP_PROMPT_CONTEXT_MATTERS",
+              "errorExplanation": "AI cannot read your mind. Without context about who the email is for, what it covers, and what tone is needed, the AI produces a generic template. More context always produces better output.",
               "recoveryPath": {
-                "simplerExplanation": "Matches CRITICAL_INSTRUCTIONS_MUST_BE_PLACED_AT_THE_BEGINNING_OR_END_OF_PROMPT.",
-                "guidedFixPrompt": "Type CRITICAL_INSTRUCTIONS_MUST_BE_PLACED_AT_THE_BEGINNING_OR_END_OF_PROMPT"
+                "simplerExplanation": "Garbage in, garbage out. The AI can only work with what you give it.",
+                "guidedFixPrompt": "Select option 1: A generic, unfocused response because the AI has no context about what you actually want"
               }
             }
           }

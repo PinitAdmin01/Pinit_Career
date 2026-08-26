@@ -1,0 +1,13 @@
+{
+  "name": "pinit-java-judge",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Stage 1 Risk 3 fix: real Java compiler/runtime judge, deployed as Cloud Run (production has no /api/* server otherwise).",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.108.1"
+  }
+}

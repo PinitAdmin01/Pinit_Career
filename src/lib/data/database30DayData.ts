@@ -225,7 +225,7 @@ export const DATABASE_30_DAYS_CONFIGS: DayConfig[] = [
   {
     "day": 12,
     "title": "LEFT OUTER JOIN & Handling Missing Parent/Child Records",
-    "desc": "Preserve all left-table rows regardless of whether a matching right-table record exists.",
+    "desc": "Preserve all left-table rows regardless of matching right-table records. A LEFT JOIN retains every left row and fills NULLs where no match exists — enabling customer-order gap analysis and unmatched-record detection.",
     "syllabus": [
       "Outer Joins: Preserving unmatched rows with NULL padding.",
       "COALESCE() Function: Providing clean fallbacks for NULLs.",
@@ -234,10 +234,10 @@ export const DATABASE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTitle": "Customers with and without Orders",
     "eDesc": "Select `c.id`, `c.name`, `COUNT(o.id) AS order_count`, `COALESCE(SUM(o.total_amount), 0.0) AS total_spent` from `customers c` LEFT JOIN `orders o` ON `c.id = o.customer_id` GROUP BY `c.id`, `c.name` ORDER BY `total_spent DESC`",
     "eStarter": "SELECT c.id, c.name, COUNT(o.id) AS order_count, COALESCE(SUM(o.total_amount), 0.0) AS total_spent FROM customers c LEFT JOIN orders o ON c.id = o.customer_id GROUP BY c.id, c.name ORDER BY total_spent DESC;",
-    "eHint": "Use LEFT JOIN and COALESCE(SUM(...), 0.0).",
+    "eHint": "Write FROM customers c LEFT JOIN orders o ON c.id = o.customer_id, GROUP BY c.id, c.name. Wrap the aggregate with COALESCE(SUM(o.total_amount), 0.0) so customers with no orders show 0.0 instead of NULL.",
     "eTest": "SELECT c.id, c.name, COUNT(o.id), COALESCE(SUM(o.total_amount), 0.0) FROM customers c LEFT JOIN orders o ON c.id = o.customer_id GROUP BY c.id, c.name;",
     "aTitle": "Identify Inactive Customers with Zero Orders",
-    "aDesc": "Select `c.id`, `c.name` from `customers c` LEFT JOIN `orders o` ON `c.id = o.customer_id` WHERE `o.id IS NULL`",
+    "aDesc": "Find truly inactive accounts: LEFT JOIN customers to orders, then filter WHERE o.id IS NULL to isolate customers who have never placed a single order.",
     "aStarter": "SELECT c.id, c.name FROM customers c LEFT JOIN orders o ON c.id = o.customer_id WHERE o.id IS NULL;",
     "aHint": "WHERE o.id IS NULL captures customers with zero orders.",
     "aTest": "SELECT c.id, c.name FROM customers c LEFT JOIN orders o ON c.id = o.customer_id WHERE o.id IS NULL;"
@@ -365,7 +365,7 @@ export const DATABASE_30_DAYS_CONFIGS: DayConfig[] = [
   {
     "day": 19,
     "title": "Window Aggregates: Running Totals & Moving Averages (OVER)",
-    "desc": "Compute running financial totals and moving metrics across ordered time windows.",
+    "desc": "Compute running financial totals and moving metrics across ordered time windows using SQL window functions — analytic aggregates with OVER() that span row ranges without collapsing the result set.",
     "syllabus": [
       "Running Sum: SUM(val) OVER (ORDER BY date).",
       "Moving Window Frames: ROWS BETWEEN N PRECEDING AND CURRENT ROW.",
@@ -377,7 +377,7 @@ export const DATABASE_30_DAYS_CONFIGS: DayConfig[] = [
     "eHint": "Use SUM(...) OVER (ORDER BY created_at ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW).",
     "eTest": "SELECT date(created_at), total_amount, SUM(total_amount) OVER(ORDER BY created_at ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) FROM orders;",
     "aTitle": "Moving 3-Order Average Amount",
-    "aDesc": "Select `id`, `total_amount`, `ROUND(AVG(total_amount) OVER(ORDER BY created_at ROWS BETWEEN 2 PRECEDING AND CURRENT ROW), 2) AS moving_avg_3` from `orders`",
+    "aDesc": "Smooth short-term fluctuations: compute a 3-order moving average by applying AVG(...) OVER with a sliding window of 2 PRECEDING AND CURRENT ROW, rounding to 2 decimal places.",
     "aStarter": "SELECT id, total_amount, ROUND(AVG(total_amount) OVER(ORDER BY created_at ROWS BETWEEN 2 PRECEDING AND CURRENT ROW), 2) AS moving_avg_3 FROM orders;",
     "aHint": "Use ROWS BETWEEN 2 PRECEDING AND CURRENT ROW.",
     "aTest": "SELECT id, total_amount, ROUND(AVG(total_amount) OVER(ORDER BY created_at ROWS BETWEEN 2 PRECEDING AND CURRENT ROW), 2) FROM orders;"
@@ -445,7 +445,7 @@ export const DATABASE_30_DAYS_CONFIGS: DayConfig[] = [
   {
     "day": 23,
     "title": "Concurrency & Isolation Levels: Dirty Reads to Serializable",
-    "desc": "Understand concurrency anomalies: Dirty Reads, Non-Repeatable Reads, and Phantom Reads.",
+    "desc": "Understand concurrency anomalies (Dirty Reads, Non-Repeatable Reads, Phantom Reads) and use SQLite PRAGMAs to configure isolation settings that prevent data corruption under concurrent access.",
     "syllabus": [
       "Isolation Levels: Read Uncommitted, Read Committed, Repeatable Read, Serializable.",
       "Write-Ahead Logging (WAL): Concurrent readers and writers in SQLite.",
@@ -454,10 +454,10 @@ export const DATABASE_30_DAYS_CONFIGS: DayConfig[] = [
     "eTitle": "Set SQLite WAL Pragma for High Concurrency",
     "eDesc": "Write `PRAGMA journal_mode = WAL;` to enable Write-Ahead Logging for concurrent readers and writers.",
     "eStarter": "PRAGMA journal_mode = WAL;",
-    "eHint": "Execute PRAGMA journal_mode = WAL.",
+    "eHint": "Run PRAGMA journal_mode = WAL; — WAL (Write-Ahead Logging) lets concurrent readers and a single writer run simultaneously, reducing lock contention compared to the default DELETE journal mode.",
     "eTest": "PRAGMA journal_mode;",
     "aTitle": "Verify Foreign Key Enforcement Pragma",
-    "aDesc": "Write `PRAGMA foreign_keys = ON;`",
+    "aDesc": "Enable referential integrity enforcement: PRAGMA foreign_keys = ON; makes SQLite validate foreign key constraints on INSERT and DELETE, preventing orphaned records that corrupt relational consistency.",
     "aStarter": "PRAGMA foreign_keys = ON;",
     "aHint": "Execute PRAGMA foreign_keys = ON.",
     "aTest": "PRAGMA foreign_keys;"
@@ -525,7 +525,7 @@ export const DATABASE_30_DAYS_CONFIGS: DayConfig[] = [
   {
     "day": 27,
     "title": "JSON Column Storage & JSON_EXTRACT Querying",
-    "desc": "Store and query flexible semi-structured JSON payloads inside SQL relational columns.",
+    "desc": "Store and query flexible semi-structured JSON payloads inside SQL relational columns using JSON_EXTRACT for key access — enabling hybrid relational-document queries without a separate NoSQL layer.",
     "syllabus": [
       "JSON_EXTRACT(col, '$.path'): Unpacking nested keys from JSON strings.",
       "JSON Functions: JSON_ARRAY, JSON_OBJECT, JSON_EACH for array unnesting.",
@@ -537,7 +537,7 @@ export const DATABASE_30_DAYS_CONFIGS: DayConfig[] = [
     "eHint": "Use JSON_EXTRACT with '$.theme' and '$.notifications.email'.",
     "eTest": "SELECT id, JSON_EXTRACT(metadata, '$.theme') FROM user_settings;",
     "aTitle": "Filter Records by JSON Property",
-    "aDesc": "Select `id` from `user_settings` WHERE `JSON_EXTRACT(metadata, '$.role') = 'ADMIN'`",
+    "aDesc": "Filter by an embedded JSON attribute: query user_settings WHERE JSON_EXTRACT pulls the role key from the metadata JSON column, returning only rows where the embedded role equals 'ADMIN'.",
     "aStarter": "SELECT id FROM user_settings WHERE JSON_EXTRACT(metadata, '$.role') = 'ADMIN';",
     "aHint": "Use WHERE JSON_EXTRACT(...) = 'ADMIN'.",
     "aTest": "SELECT id FROM user_settings WHERE JSON_EXTRACT(metadata, '$.role') = 'ADMIN';"
@@ -597,7 +597,7 @@ export const DATABASE_30_DAYS_CONFIGS: DayConfig[] = [
     "eHint": "Compute net_change per account using CASE WHEN tx_type = 'CREDIT' THEN amount ELSE -amount END inside CTE, then join with bank_accounts.",
     "eTest": "WITH ReconciledLedger AS (SELECT account_id, SUM(CASE WHEN tx_type = 'CREDIT' THEN amount ELSE -amount END) AS net_change FROM ledger_entries GROUP BY account_id) SELECT a.id, (a.initial_balance + COALESCE(rl.net_change, 0.0)) FROM bank_accounts a LEFT JOIN ReconciledLedger rl ON a.id = rl.account_id;",
     "aTitle": "Capstone Anomaly & Fraud Detection Query",
-    "aDesc": "Select `account_id`, `amount`, `created_at` from `ledger_entries` WHERE `amount >= 10000.0` OR `tx_type NOT IN ('CREDIT', 'DEBIT')` ORDER BY `amount DESC`",
+    "aDesc": "Fraud detection scan: flag suspicious ledger activity by querying entries where the amount exceeds $10,000 (large-value threshold) or the transaction type falls outside the recognised CREDIT and DEBIT categories.",
     "aStarter": "SELECT account_id, amount, created_at FROM ledger_entries WHERE amount >= 10000.0 OR tx_type NOT IN ('CREDIT', 'DEBIT') ORDER BY amount DESC;",
     "aHint": "Filter large amounts >= 10000 or invalid transaction types.",
     "aTest": "SELECT account_id, amount FROM ledger_entries WHERE amount >= 10000.0;"

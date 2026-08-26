@@ -1,0 +1,11 @@
+{
+  "name": "pinit-js-judge",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Isolated JavaScript grading judge: zero secrets, separate child process with empty env and Node's permission model denying network/fs-write/spawn. Closes the Deno.env exposure in supabase/functions/verify-quest by moving untrusted eval out of the secret-holding process entirely.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {}
+}

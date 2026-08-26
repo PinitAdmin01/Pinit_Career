@@ -31,6 +31,9 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
     setTheme(nextTheme);
     localStorage.setItem('pc_theme', nextTheme);
     document.documentElement.setAttribute('data-theme', nextTheme);
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('pc_theme_toggled', { detail: { theme: nextTheme, time: Date.now() } }));
+    }
   };
 
   const handleDevModeClick = async () => {
@@ -63,17 +66,26 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
   };
 
   const navLinks = [
-    { name: 'Problem', href: '/#the-problem' },
-    { name: 'Identity', href: '/#career-identity' },
-    { name: 'Features', href: '/#features' },
-    { name: 'How It Works', href: '/#how-it-works' },
-    { name: '54 Ecosystem Modules', href: '/#modules' },
-    { name: 'Pricing', href: '/#pricing' },
-    { name: 'Campus Demo', href: '/#campus-demo' },
+    { name: 'Landing Page', href: '/' },
+    { name: 'Problem', href: '/problem' },
+    { name: 'Identity', href: '/identity' },
+    { name: 'How It Works', href: '/how-it-works' },
+    { name: '54 Ecosystem Modules', href: '/modules' },
+    { name: 'Pricing', href: '/pricing' },
+    { name: 'Campus Demo', href: '/campus-demo' },
   ];
 
   return (
-    <header className="public-navbar-root">
+    <header className="public-navbar-root" style={{
+      position: 'sticky',
+      top: 0,
+      zIndex: 100,
+      height: '64px',
+      background: 'var(--bg-card)',
+      backdropFilter: 'blur(12px)',
+      WebkitBackdropFilter: 'blur(12px)',
+      borderBottom: '1px solid var(--border-color)'
+    }}>
       <div style={{
         maxWidth: '1280px',
         margin: '0 auto',
@@ -85,12 +97,13 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
       }}>
         {/* BRAND LOGO */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <Link href="/" className="lp-brand" aria-label="PINIT CAREER home">
-            <span className="lp-brand-lockup">
+          <Link href="/" className="lp-brand" aria-label="PINIT CAREER home" style={{ display: 'inline-flex', alignItems: 'center', height: '36px' }}>
+            <span className="lp-brand-lockup" style={{ display: 'inline-flex', alignItems: 'center', height: '36px' }}>
               <img
                 src="/brand/pinit-career-logo-clear.png"
                 alt="PINIT CAREER"
                 className="lp-brand-logo"
+                style={{ height: '36px', maxHeight: '36px', width: 'auto', objectFit: 'contain', display: 'block' }}
               />
             </span>
           </Link>
@@ -100,23 +113,22 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
         <nav className="desktop-nav-links" style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '24px'
+          gap: '22px'
         }}>
           {navLinks.map((link) => {
-            const hash = link.href.startsWith('/#') ? link.href.slice(1) : '';
-            const isActive = !hash && pathname === link.href;
+            const isActive = pathname === link.href;
             return (
               <Link
                 key={link.href}
                 href={link.href}
                 className={isActive ? 'lp-nav-link is-on' : 'lp-nav-link'}
-                onClick={(e) => {
-                  if (!hash || pathname !== '/') return;
-                  const el = document.getElementById(hash.slice(1));
-                  if (!el) return;
-                  e.preventDefault();
-                  el.scrollIntoView({ behavior: 'smooth' });
-                  history.replaceState(null, '', hash);
+                style={{
+                  fontSize: '13.5px',
+                  fontWeight: isActive ? 750 : 600,
+                  color: isActive ? 'var(--accent)' : 'var(--text-secondary)',
+                  textDecoration: 'none',
+                  transition: 'color 0.2s ease',
+                  padding: '6px 0'
                 }}
               >
                 {link.name}
@@ -228,22 +240,25 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
           gap: '12px',
           boxShadow: '0 12px 30px rgba(0,0,0,0.25)'
         }}>
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setMobileMenuOpen(false)}
-              style={{
-                fontSize: '15px',
-                fontWeight: pathname === link.href ? 700 : 500,
-                color: pathname === link.href ? '#7C3AED' : (theme === 'dark' ? '#94A3B8' : '#475569'),
-                textDecoration: 'none',
-                padding: '8px 0'
-              }}
-            >
-              {link.name}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMobileMenuOpen(false)}
+                style={{
+                  fontSize: '15px',
+                  fontWeight: isActive ? 750 : 500,
+                  color: isActive ? 'var(--accent)' : (theme === 'dark' ? '#94A3B8' : '#475569'),
+                  textDecoration: 'none',
+                  padding: '8px 0'
+                }}
+              >
+                {link.name}
+              </Link>
+            );
+          })}
           <Link
             href="/signup"
             onClick={() => setMobileMenuOpen(false)}

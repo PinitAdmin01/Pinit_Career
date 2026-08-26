@@ -203,7 +203,7 @@ export default function PublicVerifyCredentialPage() {
               {/* Action Buttons */}
               <div style={{ display: 'flex', gap: 12, justifyContent: 'center', marginTop: 12 }}>
                 <Link
-                  href="/passport"
+                  href="/quests?tab=passport"
                   style={{ padding: '10px 20px', borderRadius: 8, background: 'linear-gradient(135deg, #4f46e5, #7c3aed)', color: '#fff', fontSize: 13, textDecoration: 'none', fontWeight: 700 }}
                 >
                   View Full Career Passport →

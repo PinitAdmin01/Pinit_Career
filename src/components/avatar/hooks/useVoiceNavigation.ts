@@ -45,11 +45,21 @@ const ROUTE_VOCABULARY: RouteEntry[] = [
     ],
   },
   {
+    path: '/arena',
+    displayName: 'Challenging Arena',
+    synonyms: [
+      'arena', 'challenging arena', 'code wars', '1v1 duel', 'battle arena',
+      'pvp coding', 'timed duel', 'arena tab', 'code wars arena', 'multiplayer coding',
+      'speedrun', 'algorithm battle'
+    ],
+  },
+  {
     path: '/projects',
-    displayName: 'Projects',
+    displayName: 'Projects & Squads',
     synonyms: [
       'projects', 'project', 'industry projects', 'project tab', 'projects tab',
-      'my projects', 'coding projects', 'real projects', 'project page'
+      'my projects', 'coding projects', 'real projects', 'project page', 'squads',
+      'teams', 'hackathon squad', 'team projects', 'hackathon'
     ],
   },
   {
@@ -125,12 +135,12 @@ const ROUTE_VOCABULARY: RouteEntry[] = [
     ],
   },
   {
-    path: '/passport',
-    displayName: 'Skill Passport',
+    path: '/quests?tab=passport',
+    displayName: 'Skill Passport & Transcript',
     synonyms: [
       'passport', 'skill passport', 'credentials', 'certificates',
       'passport tab', 'verified skills', 'certifications', 'skill credentials',
-      'my passport', 'passport page', 'my certificates'
+      'my passport', 'passport page', 'my certificates', 'transcript', 'verifiable transcript'
     ],
   },
 

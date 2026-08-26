@@ -4,23 +4,23 @@ import { CourseQuest } from './coursesData';
 export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
   {
     "day": 1,
-    "title": "Computer Hardware Anatomy: CPU, RAM, NVMe SSD & Motherboard Bus Architecture",
-    "desc": "Master the physical and logical architecture of digital computing: The Von Neumann Architecture, Central Processing Unit (CPU Clock Speed, Multi-Core ALU, Registers), Random Access Memory (DDR5 Dual-Channel), Non-Volatile Storage (PCIe 4.0 NVMe SSD), and Memory Bus Data Transfer Bandwidth ($Bandwidth = \\frac{\\text{Bus Width (bits)} \\times \\text{Clock Frequency (MHz)}}{8} = \\frac{64 \\times 3200}{8} = 25,600$ MB/s).",
+    "title": "What is a Computer? — Input, Process, Output & Files",
+    "desc": "Every computer follows three steps: Input (you provide information), Process (the computer does something with it), and Output (the computer shows or saves the result). Everything you do on a computer — typing a message, saving a photo, searching the web — follows this same pattern.",
     "syllabus": [
-      "Von Neumann computer architecture and instruction fetch-decode-execute cycle.",
-      "CPU register files, L1/L2/L3 caches, and volatile vs non-volatile storage.",
-      "Calculating memory bus throughput and bandwidth saturation."
+      "The Input → Process → Output (IPO) model: how every computer task works.",
+      "Files and Folders: how your computer organises and stores information.",
+      "The Operating System: the manager that runs all your apps and handles your files."
     ],
-    "eTitle": "System Memory Bus Data Bandwidth Calculator",
-    "eDesc": "Implement function calculateBusBandwidth(busWidthBits, clockFrequencyMhz) calculating theoretical transfer throughput in Megabytes per second ($MB/s = \\frac{\\text{Width} \\times \\text{Clock}}{8}$) and certifying high-speed PCIe/DDR capability ($\\ge 25,000$ MB/s).",
-    "eStarter": "function calculateBusBandwidth(widthBits, clockMhz) {\n  const bandwidthMbs = (widthBits * clockMhz) / 8;\n  const isHighSpeed = bandwidthMbs >= 25000;\n  return {\n    busWidthBits: widthBits,\n    clockFrequencyMhz: clockMhz,\n    bandwidthMbPerSec: bandwidthMbs,\n    isHighSpeedBusCertified: isHighSpeed,\n    status: isHighSpeed ? 'HIGH_SPEED_MEMORY_BUS_CERTIFIED_NOMINAL' : 'LEGACY_LOW_BANDWIDTH_BUS'\n  };\n}",
-    "eHint": "Bandwidth in MB/s = (widthBits * clockMhz) / 8. High speed if >= 25,000 MB/s.",
-    "eTest": "const res = calculateBusBandwidth(64, 3200); // (64 * 3200) / 8 = 25,600 MB/s -> Certified\nconst low = calculateBusBandwidth(32, 800); // (32 * 800) / 8 = 3,200 MB/s -> Legacy\nif (res.bandwidthMbPerSec !== 25600 || !res.isHighSpeedBusCertified || low.isHighSpeedBusCertified || res.status !== 'HIGH_SPEED_MEMORY_BUS_CERTIFIED_NOMINAL') throw new Error('Bus bandwidth calculation failed');",
-    "aTitle": "Von Neumann Architecture Core Component Formatter",
-    "aDesc": "Implement function getVonNeumannPillars() returning `'CPU_MEMORY_INPUT_OUTPUT_BUS'`.",
-    "aStarter": "function getVonNeumannPillars() { return 'CPU_MEMORY_INPUT_OUTPUT_BUS'; }",
-    "aHint": "Return Von Neumann pillars.",
-    "aTest": "if (getVonNeumannPillars() !== 'CPU_MEMORY_INPUT_OUTPUT_BUS') throw new Error('Von Neumann check failed');"
+    "eTitle": "IPO Step Identifier",
+    "eDesc": "Write a function `identifyIpoStep(action)` that returns 'INPUT' when action is 'typing', 'PROCESS' when action is 'calculating', and 'OUTPUT' when action is 'displaying'.",
+    "eStarter": "function identifyIpoStep(action) {\n  // Return 'INPUT', 'PROCESS', or 'OUTPUT' based on the action\n  \n}",
+    "eHint": "Use if/else or a switch: if action === 'typing' return 'INPUT', if 'calculating' return 'PROCESS', if 'displaying' return 'OUTPUT'.",
+    "eTest": "if (identifyIpoStep('typing') !== 'INPUT') throw new Error('typing should be INPUT');\nif (identifyIpoStep('calculating') !== 'PROCESS') throw new Error('calculating should be PROCESS');\nif (identifyIpoStep('displaying') !== 'OUTPUT') throw new Error('displaying should be OUTPUT');\nconsole.log('All 3 IPO tests passed!');",
+    "aTitle": "File Path Builder",
+    "aDesc": "Write a function `buildFilePath(folder, filename)` that returns the full path as a string in the format 'folder/filename'.",
+    "aStarter": "function buildFilePath(folder, filename) {\n  // Return the full path string\n  \n}",
+    "aHint": "Return folder + '/' + filename",
+    "aTest": "if (buildFilePath('Documents', 'notes.txt') !== 'Documents/notes.txt') throw new Error('Test 1 failed');\nif (buildFilePath('Photos', 'holiday.jpg') !== 'Photos/holiday.jpg') throw new Error('Test 2 failed');\nconsole.log('Both file path tests passed!');"
   },
   {
     "day": 2,
@@ -38,8 +38,8 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const pass = validateSyscallExecution(3, true, true);\nconst fail = validateSyscallExecution(0, true, true); // Kernel cannot trap to itself\nif (!pass.isTransitionSuccessful || pass.targetRingAfterTrap !== 0 || fail.isTransitionSuccessful || pass.status !== 'KERNEL_SYSTEM_CALL_DISPATCHED_TO_RING_ZERO') throw new Error('Syscall validation failed');",
     "aTitle": "Kernel Privilege Ring Number Formatter",
     "aDesc": "Implement function getKernelRingLevel() returning `0`.",
-    "aStarter": "function getKernelRingLevel() { return 0; }",
-    "aHint": "Return 0.",
+    "aStarter": "function getKernelRingLevel() {\n  // Write your answer here\n}",
+    "aHint": "The OS kernel runs in ring 0 — the most privileged CPU protection level with unrestricted hardware access.",
     "aTest": "if (getKernelRingLevel() !== 0) throw new Error('Ring level check failed');"
   },
   {
@@ -58,7 +58,7 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = decodeChmodOctal(755); // 7=rwx, 5=r-x, 5=r-x -> 'rwxr-xr-x'\nconst priv = decodeChmodOctal(600); // 6=rw-, 0=---, 0=--- -> 'rw-------'\nif (res.permissionString !== 'rwxr-xr-x' || priv.permissionString !== 'rw-------' || !res.isOwnerFullControl || priv.isOwnerFullControl) throw new Error('Chmod decoder failed');",
     "aTitle": "Full Read-Write-Execute Octal Value Formatter",
     "aDesc": "Implement function getFullAccessOctalDigit() returning `7`.",
-    "aStarter": "function getFullAccessOctalDigit() { return 7; }",
+    "aStarter": "function getFullAccessOctalDigit() {\n  // Write your answer here\n}",
     "aHint": "Return 7 (4+2+1).",
     "aTest": "if (getFullAccessOctalDigit() !== 7) throw new Error('Octal check failed');"
   },
@@ -78,7 +78,7 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const logs = ['[INFO] Booting server', '[ERROR] Database connection timed out', '[INFO] Request handled', '[ERROR] Port 443 in use'];\nconst res = simulateGrepPipeWc(logs, 'ERROR'); // 2 matches\nif (res.matchingLinesCount !== 2 || res.matchedSnippets.length !== 2 || res.status !== 'PIPELINE_FILTER_EXECUTED_NOMINAL') throw new Error('Pipeline simulation failed');",
     "aTitle": "Standard Output Stream File Descriptor Formatter",
     "aDesc": "Implement function getStdoutFileDescriptor() returning `1`.",
-    "aStarter": "function getStdoutFileDescriptor() { return 1; }",
+    "aStarter": "function getStdoutFileDescriptor() {\n  // Write your answer here\n}",
     "aHint": "Return 1 (stdout).",
     "aTest": "if (getStdoutFileDescriptor() !== 1) throw new Error('Stdout descriptor check failed');"
   },
@@ -118,8 +118,8 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = simulateRoundRobinScheduler([10, 5, 8], 4); // Tasks take 10+5+8 = 23 ms total\nif (res.totalElapsedTimeMs !== 23 || res.status !== 'SCHEDULER_ROUND_ROBIN_COMPLETED') throw new Error('Scheduler simulation failed');",
     "aTitle": "Process Unique Identifier Acronym Formatter",
     "aDesc": "Implement function getProcessIdAcronym() returning `'PID'`.",
-    "aStarter": "function getProcessIdAcronym() { return 'PID'; }",
-    "aHint": "Return PID.",
+    "aStarter": "function getProcessIdAcronym() {\n  // Write your answer here\n}",
+    "aHint": "PID (Process Identifier) is the unique integer the OS assigns to each active process for tracking, scheduling, and signalling.",
     "aTest": "if (getProcessIdAcronym() !== 'PID') throw new Error('PID check failed');"
   },
   {
@@ -138,7 +138,7 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = calculateEffectiveMemoryAccessTime(95.0, 5.0, 100.0); // 5.0 + (0.05 * 100.0) = 5.0 + 5.0 = 10.00 ns <= 15.0 -> Ultra Fast\nif (res.amatNanoseconds !== 10.00 || !res.isUltraFastMemoryAccess) throw new Error('AMAT calculation failed');",
     "aTitle": "Standard Virtual Memory Page Size Formatter",
     "aDesc": "Implement function getStandardMemoryPageSizeKb() returning `4`.",
-    "aStarter": "function getStandardMemoryPageSizeKb() { return 4; }",
+    "aStarter": "function getStandardMemoryPageSizeKb() {\n  // Write your answer here\n}",
     "aHint": "Return 4 (4KB).",
     "aTest": "if (getStandardMemoryPageSizeKb() !== 4) throw new Error('Page size check failed');"
   },
@@ -154,12 +154,12 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTitle": "RAID 5 Usable Storage Capacity & Parity Calculator",
     "eDesc": "Implement function calculateRaid5Capacity(diskCount, singleDiskSizeTb) calculating total usable storage ($Usable = (N - 1) \\times \\text{Disk Size}$) and certifying fault tolerance (tolerates exactly 1 drive failure).",
     "eStarter": "function calculateRaid5Capacity(disks, sizeTb) {\n  if (disks < 3) throw new Error('RAID 5 requires minimum 3 disks');\n  const usable = (disks - 1) * sizeTb;\n  const parity = sizeTb; // 1 disk equivalent dedicated to parity\n  return {\n    totalDisks: disks,\n    singleDiskSizeTb: sizeTb,\n    usableCapacityTb: usable,\n    parityOverheadTb: parity,\n    tolerableDriveFailures: 1,\n    status: 'RAID_5_ARRAY_CONFIGURED_NOMINAL'\n  };\n}",
-    "eHint": "Usable = (disks - 1) * sizeTb.",
+    "eHint": "RAID 5 stripes parity across all disks, consuming one full disk-equivalent — so usable capacity is (N − 1) × disk size.",
     "eTest": "const res = calculateRaid5Capacity(4, 8); // (4 - 1) * 8 = 24 TB Usable, 8 TB Parity\nif (res.usableCapacityTb !== 24 || res.tolerableDriveFailures !== 1 || res.status !== 'RAID_5_ARRAY_CONFIGURED_NOMINAL') throw new Error('RAID 5 calculation failed');",
     "aTitle": "Minimum Disks for RAID 5 Formatter",
     "aDesc": "Implement function getMinDisksForRaid5() returning `3`.",
-    "aStarter": "function getMinDisksForRaid5() { return 3; }",
-    "aHint": "Return 3.",
+    "aStarter": "function getMinDisksForRaid5() {\n  // Write your answer here\n}",
+    "aHint": "RAID 5 requires at least 3 disks — parity data is striped across all drives and one full disk equivalent is reserved for parity.",
     "aTest": "if (getMinDisksForRaid5() !== 3) throw new Error('RAID 5 minimum disk check failed');"
   },
   {
@@ -174,12 +174,12 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTitle": "IPv4 CIDR Subnet Usable Host Calculator",
     "eDesc": "Implement function calculateSubnetHosts(cidrPrefixLength) calculating total usable host IP addresses ($Usable = 2^{(32 - \\text{Prefix})} - 2$).",
     "eStarter": "function calculateSubnetHosts(prefix) {\n  const hostBits = 32 - prefix;\n  const totalIps = Math.pow(2, hostBits);\n  const usableHosts = Math.max(0, totalIps - 2);\n  return {\n    cidrPrefix: `/${prefix}`,\n    totalAddresses: totalIps,\n    usableHostCount: usableHosts,\n    status: 'SUBNET_CALCULATED'\n  };\n}",
-    "eHint": "Usable = 2^(32 - prefix) - 2.",
+    "eHint": "Host bits = 32 − prefix, giving 2^hostBits total addresses; subtract 2 because the first (network address) and last (broadcast) are reserved and never assigned to hosts.",
     "eTest": "const res = calculateSubnetHosts(24); // 2^(32-24) - 2 = 2^8 - 2 = 256 - 2 = 254 usable hosts\nif (res.usableHostCount !== 254 || res.totalAddresses !== 256) throw new Error('Subnet calculation failed');",
     "aTitle": "IPv4 Address Bit Length Formatter",
     "aDesc": "Implement function getIpv4BitLength() returning `32`.",
-    "aStarter": "function getIpv4BitLength() { return 32; }",
-    "aHint": "Return 32.",
+    "aStarter": "function getIpv4BitLength() {\n  // Write your answer here\n}",
+    "aHint": "IPv4 uses 32-bit addresses — four 8-bit octets separated by dots (e.g., 192.168.1.1 = 4 × 8 = 32 bits total).",
     "aTest": "if (getIpv4BitLength() !== 32) throw new Error('IPv4 bit length check failed');"
   },
   {
@@ -198,8 +198,8 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const https = lookupStandardPort('HTTPS');\nconst ssh = lookupStandardPort('SSH');\nif (https.standardPortNumber !== 443 || !https.isEncryptedByDefault || ssh.standardPortNumber !== 22 || !ssh.isEncryptedByDefault) throw new Error('Port mapping failed');",
     "aTitle": "Secure HTTPS Standard Port Formatter",
     "aDesc": "Implement function getHttpsStandardPort() returning `443`.",
-    "aStarter": "function getHttpsStandardPort() { return 443; }",
-    "aHint": "Return 443.",
+    "aStarter": "function getHttpsStandardPort() {\n  // Write your answer here\n}",
+    "aHint": "HTTPS is assigned TCP port 443 by IANA — it uses TLS to encrypt HTTP traffic and is the standard for all secure web connections.",
     "aTest": "if (getHttpsStandardPort() !== 443) throw new Error('HTTPS port check failed');"
   },
   {
@@ -218,7 +218,7 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const pass = auditNetworkLatency(20, 30, 150, 100); // 300 ms <= 500 -> Certified\nconst slow = auditNetworkLatency(100, 200, 400, 300); // 1000 ms -> Bottleneck\nif (pass.totalLoadTimeMs !== 300 || !pass.isPerformanceCertified || slow.isPerformanceCertified || pass.status !== 'WEB_PAGE_LOAD_HIGH_PERFORMANCE_CERTIFIED') throw new Error('Network audit failed');",
     "aTitle": "Time To First Byte Acronym Formatter",
     "aDesc": "Implement function getTtfbAcronym() returning `'TIME_TO_FIRST_BYTE'`.",
-    "aStarter": "function getTtfbAcronym() { return 'TIME_TO_FIRST_BYTE'; }",
+    "aStarter": "function getTtfbAcronym() {\n  // Write your answer here\n}",
     "aHint": "Return TTFB full form.",
     "aTest": "if (getTtfbAcronym() !== 'TIME_TO_FIRST_BYTE') throw new Error('TTFB check failed');"
   },
@@ -238,7 +238,7 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = calculateNetWpm(210, 10, 3); // (210 - 10) / 3 = 200 / 3 = 66.7 WPM >= 60 -> Certified\nconst low = calculateNetWpm(120, 20, 3); // (120 - 20) / 3 = 33.3 WPM -> Below benchmark\nif (res.netWpm !== 66.7 || !res.isProfessionalTypingCertified || low.isProfessionalTypingCertified || res.status !== 'PROFESSIONAL_KEYBOARD_SPEED_CERTIFIED') throw new Error('WPM calculation failed');",
     "aTitle": "Target Professional Typing Benchmark Formatter",
     "aDesc": "Implement function getMinProfessionalWpm() returning `60.0`.",
-    "aStarter": "function getMinProfessionalWpm() { return 60.0; }",
+    "aStarter": "function getMinProfessionalWpm() {\n  // Write your answer here\n}",
     "aHint": "Return 60.0.",
     "aTest": "if (getMinProfessionalWpm() !== 60.0) throw new Error('WPM benchmark check failed');"
   },
@@ -258,7 +258,7 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const pass = auditThreeTwoOneBackup(3, 2, true);\nconst fail = auditThreeTwoOneBackup(3, 1, true); // Failed: Only 1 media type\nif (!pass.isThreeTwoOneCompliant || fail.isThreeTwoOneCompliant || pass.status !== 'THREE_TWO_ONE_BACKUP_COMPLIANT_ZERO_DATA_LOSS') throw new Error('Backup audit failed');",
     "aTitle": "3-2-1 Backup Rule Core Mandate Formatter",
     "aDesc": "Implement function getThreeTwoOneDefinition() returning `'THREE_COPIES_TWO_MEDIA_ONE_OFFSITE'`.",
-    "aStarter": "function getThreeTwoOneDefinition() { return 'THREE_COPIES_TWO_MEDIA_ONE_OFFSITE'; }",
+    "aStarter": "function getThreeTwoOneDefinition() {\n  // Write your answer here\n}",
     "aHint": "Return 3-2-1 definition.",
     "aTest": "if (getThreeTwoOneDefinition() !== 'THREE_COPIES_TWO_MEDIA_ONE_OFFSITE') throw new Error('3-2-1 check failed');"
   },
@@ -278,7 +278,7 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const ff = convertHexToDecimalAndBinary('FF'); // 255 -> '11111111'\nconst a0 = convertHexToDecimalAndBinary('A0'); // 160 -> '10100000'\nif (ff.decimalValue !== 255 || ff.binaryRepresentation !== '11111111' || a0.decimalValue !== 160 || a0.binaryRepresentation !== '10100000') throw new Error('Hex conversion failed');",
     "aTitle": "Universal Web Character Encoding Standard Formatter",
     "aDesc": "Implement function getUniversalWebEncoding() returning `'UTF_8'`.",
-    "aStarter": "function getUniversalWebEncoding() { return 'UTF_8'; }",
+    "aStarter": "function getUniversalWebEncoding() {\n  // Write your answer here\n}",
     "aHint": "Return UTF_8.",
     "aTest": "if (getUniversalWebEncoding() !== 'UTF_8') throw new Error('Encoding check failed');"
   },
@@ -298,7 +298,7 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = executeSystemsProductivityMaster(true, true, true, true, true, true);\nif (res.engineStatus !== 'SYSTEMS_NETWORKING_AND_PRODUCTIVITY_MASTER_ACTIVE') throw new Error('Milestone 2 systems master failed');",
     "aTitle": "Systems Master Status Formatter",
     "aDesc": "Implement function getSystemsMasterStatus() returning `'SYSTEMS_NETWORKING_AND_PRODUCTIVITY_MASTER_ACTIVE'`.",
-    "aStarter": "function getSystemsMasterStatus() { return 'SYSTEMS_NETWORKING_AND_PRODUCTIVITY_MASTER_ACTIVE'; }",
+    "aStarter": "function getSystemsMasterStatus() {\n  // Write your answer here\n}",
     "aHint": "Return status.",
     "aTest": "if (getSystemsMasterStatus() !== 'SYSTEMS_NETWORKING_AND_PRODUCTIVITY_MASTER_ACTIVE') throw new Error('Status check failed');"
   },
@@ -318,7 +318,7 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const strong = calculatePasswordEntropy(12, 94); // 12 * log2(94) = 12 * 6.55 = 78.7 bits >= 64 -> Strong\nconst weak = calculatePasswordEntropy(6, 26); // 6 * log2(26) = 28.2 bits -> Weak\nif (strong.entropyBits !== 78.7 || !strong.isCryptographicallyStrong || weak.isCryptographicallyStrong || strong.status !== 'PASSWORD_ENTROPY_MILITARY_GRADE_STRONG') throw new Error('Entropy calculation failed');",
     "aTitle": "Minimum Secure Password Entropy Threshold Formatter",
     "aDesc": "Implement function getMinPasswordEntropyBits() returning `64.0`.",
-    "aStarter": "function getMinPasswordEntropyBits() { return 64.0; }",
+    "aStarter": "function getMinPasswordEntropyBits() {\n  // Write your answer here\n}",
     "aHint": "Return 64.0.",
     "aTest": "if (getMinPasswordEntropyBits() !== 64.0) throw new Error('Entropy threshold check failed');"
   },
@@ -338,7 +338,7 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const standard = evaluatePrivilegeElevation(false, false, false);\nconst approved = evaluatePrivilegeElevation(true, true, true);\nconst denied = evaluatePrivilegeElevation(true, true, false);\nif (standard !== 'EXECUTE_AS_STANDARD_UNPRIVILEGED_USER' || approved !== 'ELEVATE_TO_ADMINISTRATIVE_ROOT_PRIVILEGE' || denied !== 'ACCESS_DENIED_PRIVILEGE_ELEVATION_REJECTED') throw new Error('Privilege gate failed');",
     "aTitle": "Core Security Architecture Principle Formatter",
     "aDesc": "Implement function getLeastPrivilegeAcronym() returning `'PRINCIPLE_OF_LEAST_PRIVILEGE'`.",
-    "aStarter": "function getLeastPrivilegeAcronym() { return 'PRINCIPLE_OF_LEAST_PRIVILEGE'; }",
+    "aStarter": "function getLeastPrivilegeAcronym() {\n  // Write your answer here\n}",
     "aHint": "Return Principle of Least Privilege.",
     "aTest": "if (getLeastPrivilegeAcronym() !== 'PRINCIPLE_OF_LEAST_PRIVILEGE') throw new Error('PoLP check failed');"
   },
@@ -358,7 +358,7 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const pass = simulateAsymmetricKeyPair(true, true);\nconst fail = simulateAsymmetricKeyPair(true, false);\nif (!pass.isDataRecoveredSuccessfully || fail.isDataRecoveredSuccessfully || pass.status !== 'ASYMMETRIC_CRYPTOGRAPHY_DECRYPTION_SUCCESSFUL') throw new Error('Crypto simulation failed');",
     "aTitle": "Gold-Standard Symmetric Encryption Standard Formatter",
     "aDesc": "Implement function getGoldStandardSymmetricCipher() returning `'AES_256'`.",
-    "aStarter": "function getGoldStandardSymmetricCipher() { return 'AES_256'; }",
+    "aStarter": "function getGoldStandardSymmetricCipher() {\n  // Write your answer here\n}",
     "aHint": "Return AES_256.",
     "aTest": "if (getGoldStandardSymmetricCipher() !== 'AES_256') throw new Error('Cipher check failed');"
   },
@@ -378,7 +378,7 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const tb4 = calculatePeripheralBandwidthGbps('THUNDERBOLT_4');\nconst hdmi = calculatePeripheralBandwidthGbps('HDMI_2_1');\nif (tb4.bandwidthGbps !== 40.0 || !tb4.isUltraHighSpeedFortyPlus || hdmi.bandwidthGbps !== 48.0) throw new Error('Bandwidth calculation failed');",
     "aTitle": "Thunderbolt 4 Maximum Bandwidth Formatter",
     "aDesc": "Implement function getThunderbolt4MaxBandwidthGbps() returning `40.0`.",
-    "aStarter": "function getThunderbolt4MaxBandwidthGbps() { return 40.0; }",
+    "aStarter": "function getThunderbolt4MaxBandwidthGbps() {\n  // Write your answer here\n}",
     "aHint": "Return 40.0.",
     "aTest": "if (getThunderbolt4MaxBandwidthGbps() !== 40.0) throw new Error('Thunderbolt bandwidth check failed');"
   },
@@ -398,7 +398,7 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const dirs = ['/usr/local/bin', '/usr/bin', '/bin'];\nconst fs = { '/usr/bin/git': { isExecutable: true } };\nconst res = resolveBinaryInPath('git', dirs, fs);\nconst fail = resolveBinaryInPath('unknown_tool', dirs, fs);\nif (res.resolvedPath !== '/usr/bin/git' || !res.isFound || fail.isFound) throw new Error('Path resolution failed');",
     "aTitle": "Windows Official Package Manager Name Formatter",
     "aDesc": "Implement function getWindowsOfficialPackageManager() returning `'WINGET'`.",
-    "aStarter": "function getWindowsOfficialPackageManager() { return 'WINGET'; }",
+    "aStarter": "function getWindowsOfficialPackageManager() {\n  // Write your answer here\n}",
     "aHint": "Return WINGET.",
     "aTest": "if (getWindowsOfficialPackageManager() !== 'WINGET') throw new Error('Winget check failed');"
   },
@@ -418,7 +418,7 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const res = executeSecurityPeripheralsMaster(true, true, true, true, true);\nif (res.engineStatus !== 'SYSTEMS_SECURITY_AND_PERIPHERALS_MASTER_ACTIVE') throw new Error('Milestone 3 security master failed');",
     "aTitle": "Security Master Status Formatter",
     "aDesc": "Implement function getSecurityMasterStatus() returning `'SYSTEMS_SECURITY_AND_PERIPHERALS_MASTER_ACTIVE'`.",
-    "aStarter": "function getSecurityMasterStatus() { return 'SYSTEMS_SECURITY_AND_PERIPHERALS_MASTER_ACTIVE'; }",
+    "aStarter": "function getSecurityMasterStatus() {\n  // Write your answer here\n}",
     "aHint": "Return status.",
     "aTest": "if (getSecurityMasterStatus() !== 'SYSTEMS_SECURITY_AND_PERIPHERALS_MASTER_ACTIVE') throw new Error('Status check failed');"
   },
@@ -438,7 +438,7 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const c = compareVmVsContainerOverhead(true);\nconst vm = compareVmVsContainerOverhead(false);\nif (c.startupLatencySeconds !== 0.5 || !c.sharesHostKernel || vm.startupLatencySeconds !== 45.0 || vm.sharesHostKernel) throw new Error('Virtualization comparison failed');",
     "aTitle": "Linux Container Resource Limiting Technology Formatter",
     "aDesc": "Implement function getLinuxContainerResourceControl() returning `'CONTROL_GROUPS_CGROUPS'`.",
-    "aStarter": "function getLinuxContainerResourceControl() { return 'CONTROL_GROUPS_CGROUPS'; }",
+    "aStarter": "function getLinuxContainerResourceControl() {\n  // Write your answer here\n}",
     "aHint": "Return Cgroups.",
     "aTest": "if (getLinuxContainerResourceControl() !== 'CONTROL_GROUPS_CGROUPS') throw new Error('Cgroups check failed');"
   },
@@ -458,7 +458,7 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const pass = validateTroubleshootingProtocol(7);\nconst fail = validateTroubleshootingProtocol(5);\nif (!pass.isDiagnosticProtocolCertified || fail.isDiagnosticProtocolCertified || pass.status !== 'SEVEN_STEP_TROUBLESHOOTING_PROTOCOL_CERTIFIED_NOMINAL') throw new Error('Troubleshooting check failed');",
     "aTitle": "Final Step in IT Troubleshooting Protocol Formatter",
     "aDesc": "Implement function getFinalTroubleshootingStep() returning `'DOCUMENT_FINDINGS_ACTIONS_AND_ROOT_CAUSE'`.",
-    "aStarter": "function getFinalTroubleshootingStep() { return 'DOCUMENT_FINDINGS_ACTIONS_AND_ROOT_CAUSE'; }",
+    "aStarter": "function getFinalTroubleshootingStep() {\n  // Write your answer here\n}",
     "aHint": "Return Document findings.",
     "aTest": "if (getFinalTroubleshootingStep() !== 'DOCUMENT_FINDINGS_ACTIONS_AND_ROOT_CAUSE') throw new Error('Step check failed');"
   },
@@ -478,8 +478,8 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const pass = evaluateScriptExecution(0);\nconst fail = evaluateScriptExecution(127); // Command not found\nif (!pass.isExecutionSuccessful || fail.isExecutionSuccessful || pass.status !== 'SCRIPT_EXECUTION_COMPLETED_SUCCESSFULLY_EXIT_ZERO') throw new Error('Script execution evaluation failed');",
     "aTitle": "POSIX Success Exit Code Formatter",
     "aDesc": "Implement function getPosixSuccessExitCode() returning `0`.",
-    "aStarter": "function getPosixSuccessExitCode() { return 0; }",
-    "aHint": "Return 0.",
+    "aStarter": "function getPosixSuccessExitCode() {\n  // Write your answer here\n}",
+    "aHint": "POSIX convention: exit code 0 signals success; any non-zero value signals an error. The shell reads $? after each command.",
     "aTest": "if (getPosixSuccessExitCode() !== 0) throw new Error('Exit code check failed');"
   },
   {
@@ -498,7 +498,7 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const data = [{ id: 'E101', name: 'Alice', salary: 90000 }, { id: 'E102', name: 'Bob', salary: 80000 }];\nconst res = simulateXlookup('E101', data, 'id', 'salary');\nconst missing = simulateXlookup('E999', data, 'id', 'salary');\nif (res.value !== 90000 || !res.found || missing.found || res.status !== 'XLOOKUP_EXACT_MATCH_FOUND') throw new Error('XLOOKUP simulation failed');",
     "aTitle": "Modern Successor to VLOOKUP Formatter",
     "aDesc": "Implement function getModernLookupFormulaName() returning `'XLOOKUP'`.",
-    "aStarter": "function getModernLookupFormulaName() { return 'XLOOKUP'; }",
+    "aStarter": "function getModernLookupFormulaName() {\n  // Write your answer here\n}",
     "aHint": "Return XLOOKUP.",
     "aTest": "if (getModernLookupFormulaName() !== 'XLOOKUP') throw new Error('Formula check failed');"
   },
@@ -518,7 +518,7 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const pass = auditDnsSecurity(true, true);\nconst fail = auditDnsSecurity(false, true);\nif (!pass.isDigitalFootprintMasked || fail.isDigitalFootprintMasked || pass.status !== 'DIGITAL_FOOTPRINT_PRIVACY_SHIELD_ACTIVE') throw new Error('DNS audit failed');",
     "aTitle": "DoH Acronym Definition Formatter",
     "aDesc": "Implement function getDohFullForm() returning `'DNS_OVER_HTTPS'`.",
-    "aStarter": "function getDohFullForm() { return 'DNS_OVER_HTTPS'; }",
+    "aStarter": "function getDohFullForm() {\n  // Write your answer here\n}",
     "aHint": "Return DNS_OVER_HTTPS.",
     "aTest": "if (getDohFullForm() !== 'DNS_OVER_HTTPS') throw new Error('DoH check failed');"
   },
@@ -538,7 +538,7 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const pass = evaluateRemoteWorkConnection(100.0, 15.0);\nconst slow = evaluateRemoteWorkConnection(15.0, 120.0);\nif (!pass.isRemoteConnectionNominal || slow.isRemoteConnectionNominal || pass.status !== 'REMOTE_WORK_HIGH_PERFORMANCE_CONNECTION_NOMINAL') throw new Error('Remote connection evaluation failed');",
     "aTitle": "Remote Desktop Protocol Standard Port Formatter",
     "aDesc": "Implement function getRdpStandardPort() returning `3389`.",
-    "aStarter": "function getRdpStandardPort() { return 3389; }",
+    "aStarter": "function getRdpStandardPort() {\n  // Write your answer here\n}",
     "aHint": "Return 3389.",
     "aTest": "if (getRdpStandardPort() !== 3389) throw new Error('RDP port check failed');"
   },
@@ -558,7 +558,7 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const cool = auditCpuThermals(65, 100); // 65 <= 85 -> Safe & Cool\nconst hot = auditCpuThermals(98, 100); // 98 >= 95 -> Throttling\nif (!cool.isOperatingSafeAndCool || cool.isThermalThrottlingActive || !hot.isThermalThrottlingActive || cool.status !== 'CPU_THERMALS_COOL_AND_NOMINAL') throw new Error('Thermal audit failed');",
     "aTitle": "Uninterruptible Power Supply Acronym Formatter",
     "aDesc": "Implement function getUpsAcronym() returning `'UNINTERRUPTIBLE_POWER_SUPPLY'`.",
-    "aStarter": "function getUpsAcronym() { return 'UNINTERRUPTIBLE_POWER_SUPPLY'; }",
+    "aStarter": "function getUpsAcronym() {\n  // Write your answer here\n}",
     "aHint": "Return UPS full form.",
     "aTest": "if (getUpsAcronym() !== 'UNINTERRUPTIBLE_POWER_SUPPLY') throw new Error('UPS check failed');"
   },
@@ -578,8 +578,8 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const pass = simulateDodSanitization(7);\nconst fail = simulateDodSanitization(3);\nif (!pass.isDodSanitizationCertified || fail.isDodSanitizationCertified || pass.status !== 'DOD_5220_22_M_SEVEN_PASS_SANITIZATION_CERTIFIED_ZERO_DATA_REMANENCE') throw new Error('Sanitization simulation failed');",
     "aTitle": "DoD 5220.22-M Required Overwrite Passes Formatter",
     "aDesc": "Implement function getDodSanitizationRequiredPasses() returning `7`.",
-    "aStarter": "function getDodSanitizationRequiredPasses() { return 7; }",
-    "aHint": "Return 7.",
+    "aStarter": "function getDodSanitizationRequiredPasses() {\n  // Write your answer here\n}",
+    "aHint": "DoD 5220.22-M mandates 7 overwrite passes of alternating 0, 1, and random bit patterns to make data forensically unrecoverable.",
     "aTest": "if (getDodSanitizationRequiredPasses() !== 7) throw new Error('DoD passes check failed');"
   },
   {
@@ -598,7 +598,7 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
     "eTest": "const ok = orchestrateComputerMasterSuite(true, true, true, true, true);\nconst fail = orchestrateComputerMasterSuite(true, true, false, true, true);\nif (!ok.sovereignComputerMasterCertified || fail.sovereignComputerMasterCertified || !ok.certified || ok.status !== 'SOVEREIGN_COMPUTER_LITERACY_AND_OS_MASTER_CERTIFIED_NOMINAL') throw new Error('Capstone orchestrator failed');",
     "aTitle": "Computer Literacy Master Certification Auditor",
     "aDesc": "Implement function auditComputerMasterCert() returning `{ certified: true, score: '100/100', tier: 'SOVEREIGN_COMPUTER_LITERACY_AND_OS_MASTER_CERTIFIED' }`.",
-    "aStarter": "function auditComputerMasterCert() { return { certified: true, score: '100/100', tier: 'SOVEREIGN_COMPUTER_LITERACY_AND_OS_MASTER_CERTIFIED' }; }",
+    "aStarter": "function auditComputerMasterCert() {\n  // Write your answer here\n}",
     "aHint": "Return certification object.",
     "aTest": "if (!auditComputerMasterCert().certified) throw new Error('Capstone cert failed');"
   }
