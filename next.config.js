@@ -15,10 +15,20 @@ const CSP = [
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com data:",
   "img-src 'self' data: blob: https://*.supabase.co https://api.dicebear.com https://avatars.githubusercontent.com",
+  // Three.js GLTFLoader unpacks the textures inside each .glb into blob: URLs
+  // and then FETCHES them, so blob: has to be allowed in connect-src as well as
+  // img-src. Without it every texture fails with "THREE.GLTFLoader: Couldn't
+  // load texture blob:..." and the 3D mentor renders as an empty black panel.
+  "media-src 'self' blob: data: https://*.supabase.co https://pinit-voice-service.onrender.com",
+  // Audio worklets and the TTS worker are constructed from blob: URLs. worker-src
+  // has no default of its own — it falls back to script-src, which does not allow
+  // blob: — so it must be stated explicitly or every worker is refused.
+  "worker-src 'self' blob:",
   // Every origin the browser is allowed to call. Anything missing here fails
   // before the request leaves the page, with no network error to debug.
   [
     "connect-src 'self'",
+    'blob:',
     'https://*.supabase.co',
     'wss://*.supabase.co',
     'https://api.razorpay.com',
