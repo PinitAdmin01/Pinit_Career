@@ -42,6 +42,10 @@ const NOT_APP_CODE = ['src/lib/data/', 'src/lib/curriculum/', CLIENT, INTERCEPTO
 
 const DB_RE = /\bsupabase\s*\.|\.from\s*\(|getDocs\s*\(|getDoc\s*\(|setDoc\s*\(|addDoc\s*\(|updateDoc\s*\(|deleteDoc\s*\(|collection\s*\(|\bfs\.[a-zA-Z_$][\w$]*\s*\(|localJsonDb|table\s*\(/;
 const EXT_RE = /callExternalLLM\s*\(|\bfetch\s*\(/;
+// Browser-local persistence. Real storage, but per-device: it never reaches
+// another browser, another machine, or any report. Worth separating from both
+// "writes to the database" and "returns a canned literal".
+const LOCAL_RE = /localStorage|sessionStorage|indexedDB/;
 
 const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
 
@@ -56,12 +60,113 @@ function walk(dir, out = []) {
 const SOURCES = walk('src');
 const APP_CODE = SOURCES.filter((f) => !NOT_APP_CODE.some((x) => f.startsWith(x) || f === x));
 
+// ── 0. reachability: which source files can a visitor actually reach? ───────
+// A path called only from a page that is never built is not a defect, it is
+// dead code. src/app/_legacy/* is the clearest case here: those pages import
+// PinITExamEngine and call /api/exam/*, but `out/_legacy` does not exist, so
+// none of it ships. Without this check the ledger sends you to fix features
+// nobody can open.
+const OUT = path.join(ROOT, 'out');
+const builtRoutes = new Set();
+(function collect(dir = OUT, prefix = '') {
+  if (!fs.existsSync(dir)) return;
+  for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (e.name === '_next') continue;
+    if (e.isDirectory()) { builtRoutes.add(prefix + '/' + e.name); collect(path.join(dir, e.name), prefix + '/' + e.name); }
+    else if (e.name.endsWith('.html')) builtRoutes.add(prefix + '/' + e.name.replace(/\.html$/, ''));
+  }
+})();
+
+const routeOf = (file) => file
+  .replace(/^src\/app/, '')
+  .replace(/\/(page|layout|template|error|loading|not-found)\.tsx?$/, '')
+  .replace(/\/\([^/]+\)/g, '')     // route groups (marketing) are not URL segments
+  || '/';
+
+const isBuiltRoute = (r) => {
+  if (builtRoutes.size === 0) return true;      // no build to compare against
+  if (r === '/' || builtRoutes.has(r)) return true;
+  // dynamic segment: /quests/[id] ships if /quests does
+  const stripped = r.replace(/\/\[[^\]]+\]/g, '');
+  return stripped === '/' || builtRoutes.has(stripped);
+};
+
+function resolveImport(spec, fromFile) {
+  if (!spec.startsWith('.') && !spec.startsWith('@/')) return null;   // node_modules
+  const base = spec.startsWith('@/')
+    ? 'src/' + spec.slice(2)
+    : path.posix.normalize(path.posix.join(path.posix.dirname(fromFile), spec));
+  for (const cand of [base + '.ts', base + '.tsx', base + '/index.ts', base + '/index.tsx', base]) {
+    if (SOURCES.includes(cand)) return cand;
+  }
+  return null;
+}
+
+const IMPORT_RE = /(?:from\s*|import\s*\(\s*)['"]([^'"]+)['"]/g;
+const roots = SOURCES.filter((f) =>
+  /^src\/app\/.*\/(page|layout)\.tsx?$/.test(f) || f === 'src/app/layout.tsx');
+const reachableRoots = roots.filter((f) => isBuiltRoute(routeOf(f)));
+const reachable = new Set();
+{
+  const queue = [...reachableRoots];
+  while (queue.length) {
+    const f = queue.pop();
+    if (reachable.has(f)) continue;
+    reachable.add(f);
+    for (const m of read(f).matchAll(IMPORT_RE)) {
+      const r = resolveImport(m[1], f);
+      if (r && !reachable.has(r)) queue.push(r);
+    }
+  }
+}
+const unbuiltPages = roots.filter((f) => !isBuiltRoute(routeOf(f)));
+
 // ── 1. every /api path the client calls ─────────────────────────────────────
 const DIRECT_RE = /(?:fetch|api\.(?:get|post|put|patch|delete))\s*\(\s*([`'"])(\/api\/[^`'"]*)\1/g;
 const ANY_RE = /([`'"])(\/api\/[a-zA-Z0-9_\-./[\]:${}]*)\1/g;
 
+// ── 0b. dead exports inside reachable files ────────────────────────────────
+// Reachability above is per-file, which over-reports: src/lib/api/hooks.ts is
+// imported by several live pages, so every API call in it looked live. But
+// usePersonality, useMarkRead and the exam hooks are referenced by nothing
+// outside that file. A call inside an export nobody imports is as dead as a
+// call inside an unbuilt page.
+const identifierFiles = new Map(); // identifier -> Set(files mentioning it)
+for (const f of SOURCES) {
+  for (const m of read(f).matchAll(/\b[A-Za-z_$][\w$]*\b/g)) {
+    if (!identifierFiles.has(m[0])) identifierFiles.set(m[0], new Set());
+    identifierFiles.get(m[0]).add(f);
+  }
+}
+const usedOutside = (name, file) => {
+  const files = identifierFiles.get(name);
+  if (!files) return false;
+  for (const f of files) if (f !== file && reachable.has(f)) return true;
+  return false;
+};
+
+/** Char ranges in `file` belonging to exported symbols nothing else references. */
+function deadExportRanges(file) {
+  const src = read(file);
+  const ranges = [];
+  const re = /export\s+(?:async\s+)?(?:function|const|class)\s+([A-Za-z_$][\w$]*)/g;
+  for (const m of src.matchAll(re)) {
+    if (usedOutside(m[1], file)) continue;
+    const open = src.indexOf('{', m.index);
+    if (open < 0) continue;
+    const end = matchPair(src, open, '{', '}');
+    if (end > open) ranges.push({ name: m[1], start: m.index, end });
+  }
+  return ranges;
+}
+const deadRangeCache = new Map();
+const inDeadExport = (file, idx) => {
+  if (!deadRangeCache.has(file)) deadRangeCache.set(file, deadExportRanges(file));
+  return deadRangeCache.get(file).some((r) => idx >= r.start && idx <= r.end);
+};
+
 const callSites = new Map();
-const addCall = (raw, file, line, direct) => {
+const addCall = (raw, file, line, direct, idx) => {
   const p = raw.split('?')[0]
     .replace(/\$\{[^}]*\}/g, ':param')
     // `/api/x${qs}` where the interpolation supplies the query string leaves a
@@ -70,13 +175,14 @@ const addCall = (raw, file, line, direct) => {
     .replace(/\/+$/, '');
   if (!p || p === '/api' || /[*\s]/.test(p)) return;
   if (!callSites.has(p)) callSites.set(p, { direct: [], indirect: [] });
-  callSites.get(p)[direct ? 'direct' : 'indirect'].push({ file, line });
+  const live = reachable.has(file) && !inDeadExport(file, idx);
+  callSites.get(p)[direct ? 'direct' : 'indirect'].push({ file, line, live });
 };
 for (const f of APP_CODE) {
   const src = read(f);
   const seen = new Set();
-  for (const m of src.matchAll(DIRECT_RE)) { addCall(m[2], f, lineOf(src, m.index), true); seen.add(m.index + 1); }
-  for (const m of src.matchAll(ANY_RE)) { if (!seen.has(m.index)) addCall(m[2], f, lineOf(src, m.index), false); }
+  for (const m of src.matchAll(DIRECT_RE)) { addCall(m[2], f, lineOf(src, m.index), true, m.index); seen.add(m.index + 1); }
+  for (const m of src.matchAll(ANY_RE)) { if (!seen.has(m.index)) addCall(m[2], f, lineOf(src, m.index), false, m.index); }
 }
 
 // ── 2. layer 1: interceptor exemptions ──────────────────────────────────────
@@ -139,9 +245,14 @@ const campusCases = new Map(); // path -> {line, verdict, delegate}
       ? (serviceDb.has(key) ? serviceDb.get(key) : !!serviceDb.get(delegate[1]))
       : DB_RE.test(code);
     const literalOnly = !delegate[1] && /return\s*\{/.test(code);
+    // A handler that returns an explicit failure explaining it is unavailable
+    // is behaving correctly, not faking data. The admin CSV/ERP tools say so
+    // outright. That is a known limitation surfaced honestly, and grouping it
+    // with handlers that invent numbers would misdirect the work.
+    const declines = /\bok\s*:\s*false\b/.test(code) && /\berror\s*:/.test(code);
     campusCases.set(hits[i][1], {
       line: lineOf(campusSrc, bodyOffset + hits[i].index),
-      verdict: touches ? 'REAL' : literalOnly ? 'STUB' : 'COMPUTE',
+      verdict: touches ? 'REAL' : declines ? 'DECLINED' : literalOnly ? 'STUB' : 'COMPUTE',
       delegate: key,
     });
     if (j > i) { for (let k = i; k <= j; k++) campusCases.set(hits[k][1], campusCases.get(hits[i][1])); i = j; }
@@ -165,6 +276,42 @@ function compileCondition(cond) {
   };
 }
 
+// A handler that delegates to an imported helper reaches the database just as
+// surely as one that calls supabase directly — `return { ok, memory: await
+// loadAvatarMemory(uid) }` is not a canned literal. Resolve which imported
+// symbols are datastore-backed so delegating handlers are not misread as stubs.
+const dbBackedSymbols = new Set();
+{
+  const moduleTouches = new Map();
+  const touches = (file, depth = 0) => {
+    if (moduleTouches.has(file)) return moduleTouches.get(file);
+    if (depth > 3) return false;
+    moduleTouches.set(file, false); // guard against import cycles
+    const src = read(file);
+    let hit = DB_RE.test(src);
+    if (!hit) {
+      for (const m of src.matchAll(IMPORT_RE)) {
+        const dep = resolveImport(m[1], file);
+        if (dep && touches(dep, depth + 1)) { hit = true; break; }
+      }
+    }
+    moduleTouches.set(file, hit);
+    return hit;
+  };
+  for (const m of clientSrc.matchAll(/import\s*\{([^}]+)\}\s*from\s*['"]([^'"]+)['"]/g)) {
+    const dep = resolveImport(m[2], CLIENT);
+    if (!dep || !touches(dep)) continue;
+    for (const raw of m[1].split(',')) {
+      const name = raw.trim().split(/\s+as\s+/).pop().trim();
+      if (/^[A-Za-z_$][\w$]*$/.test(name)) dbBackedSymbols.add(name);
+    }
+  }
+}
+const DB_SYMBOL_RE = dbBackedSymbols.size
+  ? new RegExp('\\b(' + [...dbBackedSymbols].join('|') + ')\\s*\\(')
+  : null;
+const reachesDb = (body) => DB_RE.test(body) || (DB_SYMBOL_RE ? DB_SYMBOL_RE.test(body) : false);
+
 const guards = [];
 {
   const seen = [];
@@ -186,11 +333,12 @@ const guards = [];
     const body = clientSrc.slice(i, bodyEnd);
     seen.push([m.index, bodyEnd]);
 
-    const touchesDB = DB_RE.test(body);
+    const touchesDB = reachesDb(body);
     const throwsOnly = /^\s*\{?\s*(?:\/\/[^\n]*\n\s*)*throw\s+new\s+ApiError/.test(body) && !touchesDB;
     const literalMatch = body.match(/return\s*(\{[\s\S]*|\[[\s\S]*)$/);
     const verdict = touchesDB ? 'REAL'
       : throwsOnly ? 'THROWS'
+      : LOCAL_RE.test(body) ? 'LOCAL-STORE'
       : EXT_RE.test(body) ? 'EXTERNAL'
       : literalMatch ? 'STUB'
       : 'COMPUTE';
@@ -214,13 +362,51 @@ for (const f of SOURCES) {
   const m = f.match(/^src\/app(\/api\/.*)\/route\.tsx?$/);
   if (!m) continue;
   const src = read(f);
-  const secrets = [...new Set([...src.matchAll(/process\.env\.([A-Z0-9_]*(?:KEY|SECRET|TOKEN|PASSWORD|CREDENTIAL)[A-Z0-9_]*)/g)].map((x) => x[1]))];
+  // Secrets are usually reached through a helper, not read in the route file.
+  // portfolio/verify-exam looked portable because its HMAC signing key lives in
+  // lib/portfolio/examToken.ts. Porting that to the browser would ship the
+  // service-role key and the answer key with it, so follow imports before
+  // calling anything bucket A.
+  const SECRET_RE = /process\.env\.([A-Z0-9_]*(?:KEY|SECRET|TOKEN|PASSWORD|CREDENTIAL)[A-Z0-9_]*)/g;
+  const secretsIn = (text) => [...text.matchAll(SECRET_RE)]
+    .map((x) => x[1])
+    .filter((n) => !n.startsWith('NEXT_PUBLIC_')); // public by design, not a secret
+
+  // Authentication is the one thing the browser legitimately does another way:
+  // a Supabase session plus row-level security, instead of a service-role key.
+  // Nearly every route imports requireAuth, so counting that as "needs a
+  // server" would mark the whole API bucket B and say nothing useful. Only a
+  // secret needed for the handler's actual work disqualifies it.
+  const AUTH_HELPERS = /^src\/lib\/server\//;
+
+  const secrets = new Set(secretsIn(src));
+  const secretVia = new Map();
+  let authGated = AUTH_HELPERS.test(f);
+  const seenDeps = new Set([f]);
+  const queue = [f];
+  while (queue.length) {
+    const cur = queue.pop();
+    for (const im of read(cur).matchAll(IMPORT_RE)) {
+      const dep = resolveImport(im[1], cur);
+      if (!dep || seenDeps.has(dep)) continue;
+      seenDeps.add(dep);
+      if (AUTH_HELPERS.test(dep)) { authGated = true; continue; } // don't walk into auth
+      queue.push(dep);
+      for (const s of secretsIn(read(dep))) {
+        if (!secrets.has(s)) secretVia.set(s, dep);
+        secrets.add(s);
+      }
+    }
+  }
+
   routeSpecs.set(m[1].replace(/\[\.\.\.(\w+)\]/g, ':$1').replace(/\[(\w+)\]/g, ':$1'), {
     file: f,
     lines: src.split('\n').length,
     methods: [...new Set([...src.matchAll(/export\s+async\s+function\s+(GET|POST|PUT|PATCH|DELETE)/g)].map((x) => x[1]))],
-    usesSecret: secrets.length > 0,
-    secrets,
+    usesSecret: secrets.size > 0,
+    secrets: [...secrets],
+    secretVia: Object.fromEntries(secretVia),
+    authGated,
   });
 }
 
@@ -244,7 +430,7 @@ function resolve(p, method) {
   return { layer: 'none', verdict: 'UNHANDLED-404', where: 'client.ts throws Unhandled API path' };
 }
 
-const RANK = ['UNHANDLED-404', 'CAMPUS-404', 'THROWS', 'BYPASSES-SHIM', 'STUB', 'COMPUTE', 'EXTERNAL', 'REAL'];
+const RANK = ['UNHANDLED-404', 'CAMPUS-404', 'THROWS', 'BYPASSES-SHIM', 'STUB', 'DECLINED', 'LOCAL-STORE', 'COMPUTE', 'EXTERNAL', 'REAL'];
 const contracts = [...callSites.keys()].sort().map((p) => {
   const perMethod = {};
   for (const m of METHODS) perMethod[m] = resolve(p, m);
@@ -262,8 +448,12 @@ const contracts = [...callSites.keys()].sort().map((p) => {
     : worst === 'THROWS' ? 'B'
     : (spec && spec.usesSecret ? 'B' : 'A');
   const sites = callSites.get(p);
+  const allSites = sites.direct.concat(sites.indirect);
+  const liveSites = allSites.filter((s) => s.live);
   return {
     path: p,
+    reachable: liveSites.length > 0,
+    liveCallSites: liveSites.length,
     status: verdicts.length === 1 ? verdicts[0] : 'MIXED',
     worst, bucket,
     // report the handler for a method that actually reaches one
@@ -282,7 +472,9 @@ const contracts = [...callSites.keys()].sort().map((p) => {
 
 // ── 9. emit ─────────────────────────────────────────────────────────────────
 const counts = (a, k) => a.reduce((o, x) => { o[x[k]] = (o[x[k]] || 0) + 1; return o; }, {});
-const WORKING = new Set(['REAL', 'EXTERNAL', 'COMPUTE']);
+// DECLINED counts as working: the handler correctly reports that the feature
+// needs a real server, rather than pretending to have done something.
+const WORKING = new Set(['REAL', 'EXTERNAL', 'COMPUTE', 'DECLINED', 'LOCAL-STORE']);
 // A path can resolve differently per HTTP method (e.g. /api/vault/upload is
 // REAL on POST and a stub on everything else). We do not extract the method
 // from the call site, so separate "broken no matter how it is called" from
@@ -296,8 +488,10 @@ for (const c of contracts) {
     : c.okOn.length === 0 ? 'BROKEN'
     : 'PARTIAL';
 }
-const broken = contracts.filter((c) => c.severity === 'BROKEN');
-const partial = contracts.filter((c) => c.severity === 'PARTIAL');
+// Only defects a visitor can actually hit are work. The rest is dead code.
+const broken = contracts.filter((c) => c.severity === 'BROKEN' && c.reachable);
+const partial = contracts.filter((c) => c.severity === 'PARTIAL' && c.reachable);
+const deadDefects = contracts.filter((c) => c.severity !== 'OK' && !c.reachable);
 const unreached = guards.filter((g) => !reachedGuards.has(g.idx)).map(({ test, ...g }) => g);
 
 // ── feature verticals ───────────────────────────────────────────────────────
@@ -311,10 +505,11 @@ const verticalOf = (p) => {
 const verticals = {};
 for (const c of contracts) {
   const v = verticalOf(c.path);
-  (verticals[v] = verticals[v] || { name: v, total: 0, broken: 0, partial: 0, ok: 0, buckets: {}, paths: [] });
+  (verticals[v] = verticals[v] || { name: v, total: 0, broken: 0, partial: 0, ok: 0, dead: 0, buckets: {}, paths: [] });
   verticals[v].total++;
-  verticals[v][c.severity === 'BROKEN' ? 'broken' : c.severity === 'PARTIAL' ? 'partial' : 'ok']++;
-  if (c.severity !== 'OK') {
+  const slot = c.severity === 'OK' ? 'ok' : !c.reachable ? 'dead' : c.severity === 'BROKEN' ? 'broken' : 'partial';
+  verticals[v][slot]++;
+  if (slot === 'broken' || slot === 'partial') {
     verticals[v].buckets[c.bucket] = (verticals[v].buckets[c.bucket] || 0) + 1;
     verticals[v].paths.push({ path: c.path, severity: c.severity, worst: c.worst, bucket: c.bucket, handler: c.handler });
   }
@@ -328,8 +523,12 @@ const summary = {
   verticals: verticalList.length,
   verticalsWithDefects: verticalList.filter((v) => v.broken + v.partial > 0).length,
   clientCalledPaths: contracts.length,
+  reachablePaths: contracts.filter((c) => c.reachable).length,
   brokenOnEveryMethod: broken.length,
   brokenOnSomeMethods: partial.length,
+  defectsInDeadCode: deadDefects.length,
+  unbuiltPages: unbuiltPages.length,
+  reachableSourceFiles: reachable.size,
   guardBranches: guards.length,
   unreachableOrDynamicGuards: unreached.length,
   campusSwitchCases: campusCases.size,
@@ -370,11 +569,15 @@ fs.writeFileSync(path.join(ROOT, 'audit/LEDGER.md'), [
   '## Remaining (' + verticalList.filter((v) => v.broken + v.partial > 0).length + ' verticals, '
     + broken.length + ' broken + ' + partial.length + ' partial paths)',
   '',
-  '| vertical | broken | partial | ok | buckets |',
-  '|---|---|---|---|---|',
+  '| vertical | broken | partial | ok | dead | buckets |',
+  '|---|---|---|---|---|---|',
   verticalList.filter((v) => v.broken + v.partial > 0)
-    .map((v) => '| `' + v.name + '` | ' + v.broken + ' | ' + v.partial + ' | ' + v.ok + ' | ' + B(v) + ' |')
+    .map((v) => '| `' + v.name + '` | ' + v.broken + ' | ' + v.partial + ' | ' + v.ok + ' | ' + v.dead + ' | ' + B(v) + ' |')
     .join('\n'),
+  '',
+  '`dead` = the path is only called from code that is never built, so no visitor can',
+  'reach it. Not work. ' + deadDefects.length + ' defective paths across the codebase are dead;',
+  'they are listed at the end of this file.',
   '',
   '## Clean (' + verticalList.filter((v) => v.broken + v.partial === 0).length + ' verticals)',
   '',
@@ -391,6 +594,23 @@ fs.writeFileSync(path.join(ROOT, 'audit/LEDGER.md'), [
     v.paths.map((p) => '| `' + p.path + '` | ' + p.severity + ' | ' + p.worst + ' | ' + p.bucket + ' | ' + p.handler + ' |').join('\n'),
     '',
   ].join('\n')).join('\n'),
+  '',
+  '## Defects in dead code — do not fix (' + deadDefects.length + ')',
+  '',
+  'Every call site for these lives in a file no built page imports. Fixing them',
+  'changes nothing a visitor can see. Delete the callers, or leave them.',
+  '',
+  deadDefects.length
+    ? deadDefects.map((c) => '- `' + c.path + '` (' + c.worst + ') — called from '
+        + [...new Set(c.callSites.map((s) => s.file))].slice(0, 3).join(', ')).join('\n')
+    : '_none_',
+  '',
+  unbuiltPages.length ? [
+    '## Page files that are never built (' + unbuiltPages.length + ')',
+    '',
+    unbuiltPages.map((f) => '- `' + f + '`').join('\n'),
+    '',
+  ].join('\n') : '',
 ].join('\n'));
 
 const row = (c) => '| `' + c.path + '` | ' + c.worst + ' | ' + c.bucket + ' | ' + c.layer + ' | '

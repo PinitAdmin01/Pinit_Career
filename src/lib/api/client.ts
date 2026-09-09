@@ -10,6 +10,12 @@ import { tableExists } from '@/lib/services/supabaseTable';
 import { executeRoleplayTurn, readRecentRoleplayTitles, rememberRoleplayTitle } from '@/lib/missions/roleplayEngine';
 import { executeGdTurn, GdRoleType, normalizeMentorId } from '@/lib/group-discussion/gdTurnEngine';
 import { sanitizeLLMOutput } from '@/lib/sanitizeLLM';
+import { matchJobDescription, candidateSkillsFromProfile } from '@/lib/opportunities/jdMatch';
+import { getUniversityDashboard, getEmployabilityReport, getSkillGaps } from '@/lib/university/analytics';
+import { buildAvatarRecommendations } from '@/lib/avatar/recommendations';
+import { loadAvatarMemory, saveAvatarMemory } from '@/lib/avatar/memoryStore';
+import { isPrivilegedRole, verifyItemDecision, buildRecommendation } from '@/lib/portfolio/endorsements';
+import { getAttentionLeaderboard, addAttentionAccuracy, getAttentionAnalytics, saveAttentionAnalytics } from '@/lib/attention/progress';
 import { auditResumeATS, RoleCategory } from '@/lib/ats/atsScreener';
 import {
   classifyDocumentCategory,
@@ -1185,6 +1191,11 @@ Ensure the JSON output is strictly valid and contains no extra text or markdown 
   if(cleanPath.startsWith('/api/vault')) return { ok:true };
   if(cleanPath==='/api/notifications'){ const n=await fs.getNotifications(uid); return { notifications:n }; }
   if(cleanPath==='/api/notifications/mark-all-read'){ await fs.markAllNotificationsRead(uid); return { ok:true }; }
+  if(/^\/api\/notifications\/[^/]+\/read$/.test(cleanPath)){
+    const notificationId = cleanPath.split('/')[3];
+    await fs.markNotificationRead(uid, notificationId);
+    return { ok:true, id:notificationId };
+  }
   if(cleanPath.startsWith('/api/notifications')) return { ok:true };
   if(cleanPath.startsWith('/api/opportunities/feed')||cleanPath==='/api/opportunities'&&method==='GET'){
     const o = await fs.getOpportunities();
@@ -1192,8 +1203,13 @@ Ensure the JSON output is strictly valid and contains no extra text or markdown 
     return { opportunities: dedup.flatDeduplicatedJobs, canonicalClusters: dedup.canonicalClusters };
   }
   if(cleanPath==='/api/opportunities/apply'){ const{opportunityId}=body as Record<string,string>; await fs.applyToOpportunity(uid,opportunityId); return { ok:true }; }
-  if(cleanPath==='/api/opportunities/match') return { match:{ match_score:78, matched_skills:['React','Node.js','TypeScript'], missing_skills:['Docker','System Design'], source:'local' } };
-  if(cleanPath==='/api/opportunities/applications') return { applications:[] };
+  if(cleanPath==='/api/opportunities/match'){
+    const { jd } = (body || {}) as { jd?: string };
+    const profile = await fs.getUserProfile(uid);
+    const match = matchJobDescription(jd || '', candidateSkillsFromProfile(profile));
+    return { match };
+  }
+  if(cleanPath==='/api/opportunities/applications'){ const applications=await fs.getApplicationsForUser(uid); return { applications }; }
   if(cleanPath.startsWith('/api/opportunities')) return { opportunities:[] };
   if(cleanPath==='/api/analytics/dashboard'){ const p=await fs.getUserProfile(uid); const ad=await fs.getDashboardAnalytics(uid).catch(()=>null); const intel=Math.round(((p as any)?.career_dna_score||0)*0.30+((p as any)?.trust_score||0)*0.25+((p as any)?.ats_score||0)*0.25+((p as any)?.recruiter_visibility||0)*0.20); const cr=Math.round(((p as any)?.ats_score||0)*0.35+((p as any)?.trust_score||0)*0.30+((p as any)?.career_dna_score||0)*0.20+((p as any)?.recruiter_visibility||0)*0.15); return { scores:{ ...p, career_readiness:cr }, career_readiness:cr, intelligence_score:intel, missions:(ad as any)||{}, score_history:(ad as any)?.score_history||[] }; }
   if(cleanPath==='/api/analytics/leaderboard/preview') return { leaders:[], userRank:0, total:0 };
@@ -1970,87 +1986,56 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
   if(cleanPath.startsWith('/api/recruiter/visibility')){ const{visible}=body as Record<string,unknown>; await fs.updateUserProfile(uid,{ recruiter_visibility:visible?80:0 }); return { ok:true }; }
   if(cleanPath.startsWith('/api/recruiter')) return { ok:true, candidates:[], requests:[], interviews:[] };
 
-  if (cleanPath === '/api/university/dashboard') {
-    if (typeof window !== 'undefined') {
-      const urlObj = new URL('http://localhost' + path);
-      const univ = urlObj.searchParams.get('university') || '';
-      const coll = urlObj.searchParams.get('college') || '';
-      const camp = urlObj.searchParams.get('campus') || '';
-      const dept = urlObj.searchParams.get('department') || '';
-      const branch = urlObj.searchParams.get('branch') || '';
-      const sect = urlObj.searchParams.get('section') || '';
-
-      // Base multiplier based on selectors to simulate changes
-      let multiplier = 1.0;
-      if (sect === 'Section B') multiplier = 0.88;
-      else if (dept === 'Mechanical Eng (ME)') multiplier = 0.75;
-      else if (camp === 'Extension Campus (Kanakapura Road)') multiplier = 0.92;
-
-      const totalStudents = Math.round(480 * multiplier);
-      const placementReady = Math.round(360 * multiplier);
-      const atsQualified = Math.round(290 * multiplier);
-
-      const deptStats = [
-        { dept_code: 'CSE', student_count: Math.round(180 * multiplier), avg_ats: Math.round(76 * multiplier), avg_trust: Math.round(82 * multiplier) },
-        { dept_code: 'ECE', student_count: Math.round(150 * multiplier), avg_ats: Math.round(68 * multiplier), avg_trust: Math.round(79 * multiplier) },
-        { dept_code: 'ME', student_count: Math.round(150 * multiplier), avg_ats: Math.round(59 * multiplier), avg_trust: Math.round(72 * multiplier) }
-      ];
-
-      const topStudents = [
-        { id: 'STU-01', display_name: 'Ananya Rao', register_number: '1RV22CS045', ats_score: 89, trust_score: 92, career_dna_score: 87, recruiter_visibility: 85 },
-        { id: 'STU-02', display_name: 'Priya N', register_number: '1RV22CS089', ats_score: 86, trust_score: 90, career_dna_score: 84, recruiter_visibility: 80 },
-        { id: 'STU-03', display_name: 'Rahul Varma', register_number: '1RV22CS120', ats_score: 84, trust_score: 88, career_dna_score: 82, recruiter_visibility: 75 }
-      ];
-
-      return {
-        placementStats: {
-          total_students: totalStudents,
-          placement_ready: placementReady,
-          ats_qualified: atsQualified,
-          avg_ats: Math.round(72 * multiplier),
-          avg_trust: Math.round(81 * multiplier),
-          avg_dna: Math.round(74 * multiplier),
-          engaged_students: Math.round(310 * multiplier)
-        },
-        topStudents,
-        deptStats
-      };
+  if (cleanPath.startsWith('/api/attention-span/')) {
+    const b = (body || {}) as Record<string, any>;
+    const targetId = params.get('userId') || b.userId || uid;
+    if (cleanPath === '/api/attention-span/leaderboard') {
+      return method === 'POST'
+        ? await addAttentionAccuracy(uid, b.displayName, b.accuracyEarned)
+        : await getAttentionLeaderboard(targetId);
     }
-    return { placementStats: { total_students: 0 }, topStudents: [], deptStats: [] };
+    if (cleanPath === '/api/attention-span/analytics') {
+      return method === 'POST'
+        ? await saveAttentionAnalytics(uid, b.dailyLog, b.monthlySummary)
+        : await getAttentionAnalytics(targetId);
+    }
+    throw new ApiError(404, 'NOT_FOUND', `Unknown attention-span endpoint: ${cleanPath}`);
   }
 
-  if (cleanPath === '/api/university/employability-report') {
-    if (typeof window !== 'undefined') {
-      return {
-        report: {
-          highly_employable: 110,
-          employable: 220,
-          needs_development: 70,
-          high_trust: 340,
-          highly_engaged: 290,
-          certified: 180
-        }
-      };
+  if (cleanPath === '/api/portfolio/verify-endorsement' && method === 'POST') {
+    // See src/lib/portfolio/endorsements.ts — the role check here is advisory.
+    // A Supabase RLS policy on the write is what actually has to enforce it.
+    const { action, ...rest } = (body || {}) as Record<string, any>;
+    const me = await fs.getUserProfile(uid) as any;
+    const actor = { id: uid, role: me?.role };
+
+    if (action === 'check_privilege') {
+      return { isPrivileged: isPrivilegedRole(actor.role), role: actor.role || 'student' };
     }
-    return { report: {} };
+    if (action === 'verify_item') {
+      const decision = verifyItemDecision(rest, actor);
+      if (!decision.allowed) throw new ApiError(decision.status, decision.error, decision.message);
+      return decision;
+    }
+    if (action === 'add_recommendation') {
+      return { success: true, ...buildRecommendation(rest, actor) };
+    }
+    throw new ApiError(400, 'INVALID_ACTION', 'Unknown action specified.');
   }
 
-  if (cleanPath === '/api/university/skill-gaps') {
-    if (typeof window !== 'undefined') {
-      return {
-        gaps: [
-          { skill_gap: 'System Design & Architecture', frequency: 124 },
-          { skill_gap: 'Data Structures & Algorithms', frequency: 98 },
-          { skill_gap: 'Cloud Deployment (AWS/GCP)', frequency: 86 },
-          { skill_gap: 'REST API Integration', frequency: 72 },
-          { skill_gap: 'Unit Testing & CI/CD', frequency: 54 }
-        ]
-      };
-    }
-    return { gaps: [] };
+  if (cleanPath.startsWith('/api/university')) {
+    // Filters arrive as query params; only the ones the data model can honour
+    // are applied. See src/lib/university/analytics.ts for the score bands.
+    const filters = {
+      college:    params.get('college')    || undefined,
+      department: params.get('department') || undefined,
+      batchYear:  params.get('batchYear')  ? Number(params.get('batchYear')) : undefined,
+    };
+    if (cleanPath === '/api/university/dashboard')             return await getUniversityDashboard(filters);
+    if (cleanPath === '/api/university/employability-report')  return await getEmployabilityReport(filters);
+    if (cleanPath === '/api/university/skill-gaps')            return await getSkillGaps(filters);
+    throw new ApiError(404, 'NOT_FOUND', `Unknown university endpoint: ${cleanPath}`);
   }
-
-  if (cleanPath.startsWith('/api/university')) return { ok: true, placementStats: { total_students: 0 }, topStudents: [], deptStats: [], report: {}, gaps: [] };
 
   // ── Consultant Student Pipeline ─────────────────────────────────────────────
   if (cleanPath.startsWith('/api/consultant')) {
@@ -2721,13 +2706,15 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
     return { reply };
   }
   if(cleanPath==='/api/avatar/context'){
-    return { 
-      avatarMemory: { conversationHistory: [] }, 
-      mlRecommendations: [
-        { content_type: 'tip', type: 'dsa', label: 'Improve DSA fit', icon: '📊', relevance: 0.95 },
-        { content_type: 'tip', type: 'resume', label: 'Scan your Resume', icon: '📄', relevance: 0.88 }
-      ] 
-    };
+    const [avatarProfile, avatarMemory] = await Promise.all([
+      fs.getUserProfile(uid),
+      loadAvatarMemory(uid),
+    ]);
+    return { avatarMemory, mlRecommendations: buildAvatarRecommendations(avatarProfile) };
+  }
+  if(cleanPath==='/api/avatar/memory'){
+    if (method === 'GET') return { ok:true, memory: await loadAvatarMemory(uid) };
+    return await saveAvatarMemory(uid, body);
   }
   if(cleanPath==='/api/quests/generate-slides'&&method==='POST'){
     const { questId, syllabus = [], title } = (body || {}) as { questId?: string, syllabus?: string[], title: string };

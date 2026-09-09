@@ -738,6 +738,21 @@ export async function getNotifications(uid: string) {
   return data || [];
 }
 
+/**
+ * Marks one notification read. Scoped by user_id as well as id so a client
+ * cannot flip a row belonging to somebody else by guessing its id — there is
+ * no server to check that for us.
+ */
+export async function markNotificationRead(uid: string, notificationId: string) {
+  if (!uid || !notificationId) return;
+  const { error } = await supabase
+    .from('notifications')
+    .update({ is_read: true })
+    .eq('id', notificationId)
+    .eq('user_id', uid);
+  if (error) throw error;
+}
+
 export async function markAllNotificationsRead(uid: string) {
   const { error } = await supabase
     .from('notifications')
@@ -750,6 +765,52 @@ export async function getOpportunities() {
   const { data, error } = await supabase.from('opportunities').select('*');
   if (error) throw error;
   return data || [];
+}
+
+/**
+ * A student's own applications, joined to the opportunity each was made
+ * against so the caller gets title/skills/stipend without a second round trip.
+ * Mirrors getApplicationsForRecruiter, from the student side.
+ */
+export async function getApplicationsForUser(uid: string) {
+  if (!uid) return [];
+  const { data: apps, error } = await supabase
+    .from('applications')
+    .select('*')
+    .eq('user_id', uid)
+    .order('applied_at', { ascending: false });
+  if (error) throw error;
+  if (!apps || apps.length === 0) return [];
+
+  const oppIds = [...new Set(apps.map((a: any) => a.opportunity_id).filter(Boolean))];
+  let opps: any[] = [];
+  if (oppIds.length > 0) {
+    const { data } = await supabase.from('opportunities').select('*').in('id', oppIds);
+    opps = data || [];
+  }
+  const byId = new Map(opps.map((o: any) => [o.id, o]));
+
+  return apps.map((a: any) => {
+    const o: any = byId.get(a.opportunity_id) || {};
+    return {
+      id:                 a.id,
+      status:             a.status || 'applied',
+      applied_at:         a.applied_at,
+      updated_at:         a.updated_at ?? null,
+      cover_letter:       a.cover_letter ?? null,
+      opportunity_id:     a.opportunity_id,
+      title:              o.title ?? null,
+      description:        o.description ?? null,
+      required_skills:    o.required_skills ?? null,
+      stipend_min:        o.stipend_min ?? null,
+      stipend_max:        o.stipend_max ?? null,
+      duration_weeks:     o.duration_weeks ?? null,
+      location_type:      o.location_type ?? null,
+      deadline:           o.deadline ?? null,
+      opportunity_status: o.status ?? null,
+      org_name:           o.org_name ?? o.company ?? null,
+    };
+  });
 }
 
 export async function applyToOpportunity(uid: string, oppId: string) {

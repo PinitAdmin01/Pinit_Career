@@ -11,165 +11,51 @@ handler should do.
 server, move to `backend/` (secrets, signature verification, presigning) ·
 `C` genuinely stateless.
 
-## Remaining (25 verticals, 50 broken + 12 partial paths)
+## Remaining (14 verticals, 13 broken + 8 partial paths)
 
-| vertical | broken | partial | ok | buckets |
-|---|---|---|---|---|
-| `resume` | 2 | 4 | 2 | A:6 |
-| `exam` | 5 | 0 | 0 | A:5 |
-| `interview` | 2 | 2 | 1 | B:4 |
-| `settings` | 4 | 0 | 0 | A:4 |
-| `avatar` | 2 | 1 | 0 | A:3 |
-| `chat` | 2 | 1 | 0 | A:3 |
-| `opportunities` | 2 | 1 | 2 | A:3 |
-| `personality` | 3 | 0 | 0 | A:3 |
-| `portfolio` | 3 | 0 | 0 | A:2 B:1 |
-| `university` | 3 | 0 | 0 | A:3 |
-| `v1-auth` | 3 | 0 | 1 | A:3 |
-| `vault` | 0 | 3 | 0 | A:3 |
-| `attention-span` | 2 | 0 | 0 | A:2 |
-| `cache` | 2 | 0 | 0 | A:2 |
-| `career-twin` | 2 | 0 | 0 | A:2 |
-| `code` | 2 | 0 | 0 | A:1 B:1 |
-| `notes` | 2 | 0 | 0 | A:2 |
-| `payment` | 2 | 0 | 1 | B:2 |
-| `attendance` | 1 | 0 | 0 | B:1 |
-| `gd` | 1 | 0 | 0 | B:1 |
-| `github` | 1 | 0 | 0 | B:1 |
-| `notifications` | 1 | 0 | 2 | A:1 |
-| `projects` | 1 | 0 | 0 | B:1 |
-| `stt` | 1 | 0 | 0 | B:1 |
-| `tts` | 1 | 0 | 0 | A:1 |
+| vertical | broken | partial | ok | dead | buckets |
+|---|---|---|---|---|---|
+| `interview` | 2 | 2 | 1 | 0 | B:4 |
+| `vault` | 0 | 3 | 0 | 0 | A:3 |
+| `code` | 2 | 0 | 0 | 0 | A:1 B:1 |
+| `portfolio` | 2 | 0 | 1 | 0 | B:2 |
+| `avatar` | 0 | 1 | 2 | 0 | A:1 |
+| `career-twin` | 1 | 0 | 0 | 1 | A:1 |
+| `gd` | 1 | 0 | 0 | 0 | B:1 |
+| `github` | 1 | 0 | 0 | 0 | B:1 |
+| `opportunities` | 0 | 1 | 4 | 0 | A:1 |
+| `payment` | 1 | 0 | 1 | 1 | B:1 |
+| `projects` | 1 | 0 | 0 | 0 | B:1 |
+| `resume` | 0 | 1 | 2 | 5 | A:1 |
+| `stt` | 1 | 0 | 0 | 0 | B:1 |
+| `tts` | 1 | 0 | 0 | 0 | A:1 |
 
-## Clean (32 verticals)
+`dead` = the path is only called from code that is never built, so no visitor can
+reach it. Not work. 23 defective paths across the codebase are dead;
+they are listed at the end of this file.
 
-`admin` (5) · `admissions` (1) · `advisor` (4) · `alumni` (4) · `analytics` (1) · `auth` (7) · `career-builder` (1) · `career-dna` (2) · `communication` (2) · `consultant` (8) · `documents` (2) · `events` (2) · `exams` (2) · `finance` (4) · `grievances` (2) · `group-discussion` (2) · `hostel` (6) · `library` (4) · `llm` (1) · `maintenance` (2) · `messages` (1) · `missions` (6) · `parent` (3) · `pins` (3) · `quests` (1) · `recruiter` (13) · `research` (2) · `services` (5) · `study` (1) · `teacher` (2) · `transport` (2) · `trust` (2)
+## Clean (43 verticals)
+
+`admin` (5) · `admissions` (1) · `advisor` (4) · `alumni` (4) · `analytics` (1) · `attendance` (0) · `attention-span` (2) · `auth` (7) · `cache` (0) · `career-builder` (1) · `career-dna` (2) · `chat` (0) · `communication` (2) · `consultant` (8) · `documents` (2) · `events` (2) · `exam` (0) · `exams` (2) · `finance` (4) · `grievances` (2) · `group-discussion` (2) · `hostel` (6) · `library` (4) · `llm` (1) · `maintenance` (2) · `messages` (1) · `missions` (6) · `notes` (0) · `notifications` (3) · `parent` (3) · `personality` (0) · `pins` (3) · `quests` (1) · `recruiter` (13) · `research` (2) · `services` (5) · `settings` (4) · `study` (1) · `teacher` (2) · `transport` (2) · `trust` (2) · `university` (3) · `v1-auth` (4)
 
 ## Detail
-
-### resume — 2 broken, 4 partial
-
-| path | severity | verdict | bucket | handler |
-|---|---|---|---|---|
-| `/api/resume/:param/improve` | PARTIAL | STUB | A | client.ts:1179 |
-| `/api/resume/generate-from-vault` | PARTIAL | STUB | A | client.ts:1179 |
-| `/api/resume/list` | BROKEN | STUB | A | client.ts:1179 |
-| `/api/resume/structured` | PARTIAL | STUB | A | client.ts:1179 |
-| `/api/resume/suggestions` | BROKEN | STUB | A | client.ts:1179 |
-| `/api/resume/upload` | PARTIAL | STUB | A | client.ts:1179 |
-
-### exam — 5 broken, 0 partial
-
-| path | severity | verdict | bucket | handler |
-|---|---|---|---|---|
-| `/api/exam/:param/questions` | BROKEN | STUB | A | client.ts:1465 |
-| `/api/exam/available` | BROKEN | STUB | A | client.ts:1464 |
-| `/api/exam/results` | BROKEN | STUB | A | client.ts:1467 |
-| `/api/exam/scheduled` | BROKEN | STUB | A | client.ts:1468 |
-| `/api/exam/sync-result` | BROKEN | STUB | A | client.ts:1466 |
 
 ### interview — 2 broken, 2 partial
 
 | path | severity | verdict | bucket | handler |
 |---|---|---|---|---|
-| `/api/interview/assist` | BROKEN | STUB | B | client.ts:1455 |
-| `/api/interview/chat` | PARTIAL | STUB | B | client.ts:1455 |
-| `/api/interview/evaluate` | PARTIAL | STUB | B | client.ts:1455 |
-| `/api/interview/generate-problem` | BROKEN | STUB | B | client.ts:1455 |
-
-### settings — 4 broken, 0 partial
-
-| path | severity | verdict | bucket | handler |
-|---|---|---|---|---|
-| `/api/settings/erp/sync` | BROKEN | STUB | A | campusFallback.ts:306 |
-| `/api/settings/migration/execute` | BROKEN | STUB | A | campusFallback.ts:306 |
-| `/api/settings/migration/validate` | BROKEN | STUB | A | campusFallback.ts:306 |
-| `/api/settings/rollout/feedback` | BROKEN | STUB | A | campusFallback.ts:306 |
-
-### avatar — 2 broken, 1 partial
-
-| path | severity | verdict | bucket | handler |
-|---|---|---|---|---|
-| `/api/avatar/chat` | PARTIAL | STUB | A | client.ts:3180 |
-| `/api/avatar/context` | BROKEN | STUB | A | client.ts:2723 |
-| `/api/avatar/memory` | BROKEN | STUB | A | client.ts:3180 |
-
-### chat — 2 broken, 1 partial
-
-| path | severity | verdict | bucket | handler |
-|---|---|---|---|---|
-| `/api/chat` | PARTIAL | STUB | A | client.ts:1631 |
-| `/api/chat/history/:param` | BROKEN | STUB | A | client.ts:1630 |
-| `/api/chat/session` | BROKEN | STUB | A | client.ts:1629 |
-
-### opportunities — 2 broken, 1 partial
-
-| path | severity | verdict | bucket | handler |
-|---|---|---|---|---|
-| `/api/opportunities` | PARTIAL | STUB | A | client.ts:1189 |
-| `/api/opportunities/applications` | BROKEN | STUB | A | client.ts:1196 |
-| `/api/opportunities/match` | BROKEN | STUB | A | client.ts:1195 |
-
-### personality — 3 broken, 0 partial
-
-| path | severity | verdict | bucket | handler |
-|---|---|---|---|---|
-| `/api/personality/analyze` | BROKEN | STUB | A | client.ts:1462 |
-| `/api/personality/report` | BROKEN | STUB | A | client.ts:1460 |
-| `/api/personality/session` | BROKEN | STUB | A | client.ts:1461 |
-
-### portfolio — 3 broken, 0 partial
-
-| path | severity | verdict | bucket | handler |
-|---|---|---|---|---|
-| `/api/portfolio/analyze-certificate` | BROKEN | UNHANDLED-404 | B | client.ts throws Unhandled API path |
-| `/api/portfolio/verify-endorsement` | BROKEN | UNHANDLED-404 | A | client.ts throws Unhandled API path |
-| `/api/portfolio/verify-exam` | BROKEN | UNHANDLED-404 | A | client.ts throws Unhandled API path |
-
-### university — 3 broken, 0 partial
-
-| path | severity | verdict | bucket | handler |
-|---|---|---|---|---|
-| `/api/university/dashboard` | BROKEN | STUB | A | client.ts:1973 |
-| `/api/university/employability-report` | BROKEN | STUB | A | client.ts:2022 |
-| `/api/university/skill-gaps` | BROKEN | STUB | A | client.ts:2038 |
-
-### v1-auth — 3 broken, 0 partial
-
-| path | severity | verdict | bucket | handler |
-|---|---|---|---|---|
-| `/api/v1/auth/exchange-session` | BROKEN | STUB | A | client.ts:313 |
-| `/api/v1/auth/logout-all` | BROKEN | STUB | A | client.ts:407 |
-| `/api/v1/auth/vault-approve` | BROKEN | STUB | A | client.ts:273 |
+| `/api/interview/assist` | BROKEN | STUB | B | client.ts:1471 |
+| `/api/interview/chat` | PARTIAL | STUB | B | client.ts:1471 |
+| `/api/interview/evaluate` | PARTIAL | STUB | B | client.ts:1471 |
+| `/api/interview/generate-problem` | BROKEN | STUB | B | client.ts:1471 |
 
 ### vault — 0 broken, 3 partial
 
 | path | severity | verdict | bucket | handler |
 |---|---|---|---|---|
-| `/api/vault` | PARTIAL | STUB | A | client.ts:1182 |
-| `/api/vault/delete` | PARTIAL | STUB | A | client.ts:1185 |
-| `/api/vault/upload` | PARTIAL | STUB | A | client.ts:1184 |
-
-### attention-span — 2 broken, 0 partial
-
-| path | severity | verdict | bucket | handler |
-|---|---|---|---|---|
-| `/api/attention-span/analytics` | BROKEN | UNHANDLED-404 | A | client.ts throws Unhandled API path |
-| `/api/attention-span/leaderboard` | BROKEN | UNHANDLED-404 | A | client.ts throws Unhandled API path |
-
-### cache — 2 broken, 0 partial
-
-| path | severity | verdict | bucket | handler |
-|---|---|---|---|---|
-| `/api/cache/hash` | BROKEN | UNHANDLED-404 | A | client.ts throws Unhandled API path |
-| `/api/cache/stats` | BROKEN | UNHANDLED-404 | A | client.ts throws Unhandled API path |
-
-### career-twin — 2 broken, 0 partial
-
-| path | severity | verdict | bucket | handler |
-|---|---|---|---|---|
-| `/api/career-twin/results` | BROKEN | STUB | A | client.ts:714 |
-| `/api/career-twin/run` | BROKEN | STUB | A | client.ts:715 |
+| `/api/vault` | PARTIAL | STUB | A | client.ts:1188 |
+| `/api/vault/delete` | PARTIAL | STUB | A | client.ts:1191 |
+| `/api/vault/upload` | PARTIAL | STUB | A | client.ts:1190 |
 
 ### code — 2 broken, 0 partial
 
@@ -178,25 +64,24 @@ server, move to `backend/` (secrets, signature verification, presigning) ·
 | `/api/code/run-java` | BROKEN | UNHANDLED-404 | B | client.ts throws Unhandled API path |
 | `/api/code/run-python` | BROKEN | UNHANDLED-404 | A | client.ts throws Unhandled API path |
 
-### notes — 2 broken, 0 partial
+### portfolio — 2 broken, 0 partial
 
 | path | severity | verdict | bucket | handler |
 |---|---|---|---|---|
-| `/api/notes` | BROKEN | CAMPUS-404 | A | campusFallback.ts default: throws |
-| `/api/notes/upload` | BROKEN | CAMPUS-404 | A | campusFallback.ts default: throws |
+| `/api/portfolio/analyze-certificate` | BROKEN | UNHANDLED-404 | B | client.ts throws Unhandled API path |
+| `/api/portfolio/verify-exam` | BROKEN | UNHANDLED-404 | B | client.ts throws Unhandled API path |
 
-### payment — 2 broken, 0 partial
-
-| path | severity | verdict | bucket | handler |
-|---|---|---|---|---|
-| `/api/payment/create-order` | BROKEN | THROWS | B | client.ts:1264 |
-| `/api/payment/verify` | BROKEN | THROWS | B | client.ts:1268 |
-
-### attendance — 1 broken, 0 partial
+### avatar — 0 broken, 1 partial
 
 | path | severity | verdict | bucket | handler |
 |---|---|---|---|---|
-| `/api/attendance/identify` | BROKEN | THROWS | B | client.ts:3223 |
+| `/api/avatar/chat` | PARTIAL | STUB | A | client.ts:3167 |
+
+### career-twin — 1 broken, 0 partial
+
+| path | severity | verdict | bucket | handler |
+|---|---|---|---|---|
+| `/api/career-twin/results` | BROKEN | STUB | A | client.ts:720 |
 
 ### gd — 1 broken, 0 partial
 
@@ -210,17 +95,29 @@ server, move to `backend/` (secrets, signature verification, presigning) ·
 |---|---|---|---|---|
 | `/api/github/ingest` | BROKEN | UNHANDLED-404 | B | client.ts throws Unhandled API path |
 
-### notifications — 1 broken, 0 partial
+### opportunities — 0 broken, 1 partial
 
 | path | severity | verdict | bucket | handler |
 |---|---|---|---|---|
-| `/api/notifications/:param/read` | BROKEN | STUB | A | client.ts:1188 |
+| `/api/opportunities` | PARTIAL | STUB | A | client.ts:1200 |
+
+### payment — 1 broken, 0 partial
+
+| path | severity | verdict | bucket | handler |
+|---|---|---|---|---|
+| `/api/payment/create-order` | BROKEN | THROWS | B | client.ts:1280 |
 
 ### projects — 1 broken, 0 partial
 
 | path | severity | verdict | bucket | handler |
 |---|---|---|---|---|
 | `/api/projects/generate` | BROKEN | UNHANDLED-404 | B | client.ts throws Unhandled API path |
+
+### resume — 0 broken, 1 partial
+
+| path | severity | verdict | bucket | handler |
+|---|---|---|---|---|
+| `/api/resume/upload` | PARTIAL | STUB | A | client.ts:1185 |
 
 ### stt — 1 broken, 0 partial
 
@@ -233,3 +130,51 @@ server, move to `backend/` (secrets, signature verification, presigning) ·
 | path | severity | verdict | bucket | handler |
 |---|---|---|---|---|
 | `/api/tts` | BROKEN | BYPASSES-SHIM | A | src/lib/fetchInterceptor.ts |
+
+
+## Defects in dead code — do not fix (23)
+
+Every call site for these lives in a file no built page imports. Fixing them
+changes nothing a visitor can see. Delete the callers, or leave them.
+
+- `/api/attendance/identify` (THROWS) — called from src/app/_legacy/attendance/page.tsx
+- `/api/cache/hash` (UNHANDLED-404) — called from src/lib/voiceCache.ts
+- `/api/cache/stats` (UNHANDLED-404) — called from src/lib/voiceCache.ts
+- `/api/career-twin/run` (STUB) — called from src/lib/api/hooks.ts
+- `/api/chat` (STUB) — called from src/components/learn/ChatInterface.tsx
+- `/api/chat/history/:param` (STUB) — called from src/components/learn/ChatInterface.tsx
+- `/api/chat/session` (STUB) — called from src/app/_legacy/learn/page.tsx
+- `/api/exam/:param/questions` (STUB) — called from src/app/_legacy/exam/page.tsx
+- `/api/exam/available` (STUB) — called from src/app/_legacy/exam/page.tsx
+- `/api/exam/results` (STUB) — called from src/app/_legacy/exam/page.tsx, src/lib/api/hooks.ts
+- `/api/exam/scheduled` (STUB) — called from src/lib/api/hooks.ts
+- `/api/exam/sync-result` (STUB) — called from src/components/exam/PinITExamEngine.tsx
+- `/api/notes` (CAMPUS-404) — called from src/components/learn/NotesList.tsx
+- `/api/notes/upload` (CAMPUS-404) — called from src/components/learn/NotesList.tsx
+- `/api/payment/verify` (THROWS) — called from src/app/_legacy/pricing/page.tsx
+- `/api/personality/analyze` (STUB) — called from src/app/_legacy/personality/page.tsx
+- `/api/personality/report` (STUB) — called from src/app/_legacy/personality/page.tsx, src/lib/api/hooks.ts
+- `/api/personality/session` (STUB) — called from src/app/_legacy/personality/page.tsx
+- `/api/resume/:param/improve` (STUB) — called from src/components/career/ResumeUpload.tsx
+- `/api/resume/generate-from-vault` (STUB) — called from src/app/_legacy/resume/page.tsx, src/components/career/ResumeUpload.tsx
+- `/api/resume/list` (STUB) — called from src/lib/api/hooks.ts
+- `/api/resume/structured` (STUB) — called from src/app/_legacy/resume/page.tsx
+- `/api/resume/suggestions` (STUB) — called from src/components/career/ResumeForm.tsx
+
+## Page files that are never built (15)
+
+- `src/app/_legacy/attendance/page.tsx`
+- `src/app/_legacy/career-assets/page.tsx`
+- `src/app/_legacy/career-builder/page.tsx`
+- `src/app/_legacy/exam/page.tsx`
+- `src/app/_legacy/interview/page.tsx`
+- `src/app/_legacy/leaderboard/page.tsx`
+- `src/app/_legacy/learn/page.tsx`
+- `src/app/_legacy/personality/page.tsx`
+- `src/app/_legacy/pricing/page.tsx`
+- `src/app/_legacy/qr-confirm/page.tsx`
+- `src/app/_legacy/qr-login/page.tsx`
+- `src/app/_legacy/resume/page.tsx`
+- `src/app/_legacy/sentinel/page.tsx`
+- `src/app/_legacy/teacher/page.tsx`
+- `src/app/_legacy/trust/page.tsx`

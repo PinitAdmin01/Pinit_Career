@@ -1,0 +1,31 @@
+kind: "AppHostingYaml"
+schemaVersion: "v1"
+
+# Cloud Run Container Execution Configuration
+runConfig:
+  minInstances: 0
+  maxInstances: 10
+  concurrency: 80
+  cpu: 1
+  memoryMiB: 1024
+
+# Environment Variables for Next.js App Router & Server API Routes
+env:
+  - variable: NODE_ENV
+    value: "production"
+  - variable: NEXT_PUBLIC_SUPABASE_URL
+    value: "https://wjheumrorddbkvoczuuw.supabase.co"
+  - variable: NEXT_PUBLIC_SUPABASE_ANON_KEY
+    value: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndqaGV1bXJvcmRkYmt2b2N6dXV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3ODUzNTMsImV4cCI6MjA5NDM2MTM1M30.ObgixHV4n4bnbPu4A4Z_74ifG9ESQuV6nwWV_SiFnF0"
+  - variable: NEXT_PUBLIC_TTS_API_URL
+    value: "https://pinit-voice-service.onrender.com/api/v1/tts"
+  - variable: NEXT_PUBLIC_BACKEND_URL
+    value: "https://pinit-backend-v8pd.onrender.com"
+  - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+    value: "pinit-de424"
+  - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+    value: "pinit-de424.firebaseapp.com"
+  - variable: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+    value: "pinit-de424.firebasestorage.app"
+  - variable: NEXT_PUBLIC_FIREBASE_API_KEY
+    value: "AIzaSyAAGIDuotomgFRubW9-agZjcVsCprGQ1LU"

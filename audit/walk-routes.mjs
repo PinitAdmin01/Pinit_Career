@@ -27,7 +27,16 @@ import puppeteer from 'puppeteer-core';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = path.join(ROOT, 'out');
 const PORT = Number(process.env.AUDIT_PORT || 4599);
-const PER_ROUTE_MS = Number(process.env.AUDIT_WAIT_MS || 2500);
+const PER_ROUTE_MS = Number(process.env.AUDIT_WAIT_MS || 1200);
+// Pages retry the CSP-blocked Render hosts before giving up, so a generous
+// navigation timeout makes the whole walk hang. Cap each route hard instead.
+const NAV_TIMEOUT_MS = Number(process.env.AUDIT_NAV_MS || 8000);
+const ROUTE_BUDGET_MS = Number(process.env.AUDIT_ROUTE_MS || 12000);
+
+const withTimeout = (promise, ms, label) => Promise.race([
+  promise,
+  new Promise((_, reject) => setTimeout(() => reject(new Error(label + ' exceeded ' + ms + 'ms')), ms)),
+]);
 
 const CHROME_CANDIDATES = [
   process.env.CHROME_PATH,
@@ -63,8 +72,13 @@ function routes(dir = OUT, prefix = '') {
   }
   return found;
 }
+// AUDIT_ROUTES=/vault,/profile limits the walk to specific pages. A full sweep
+// of every route is slow because several pages sit retrying the CSP-blocked
+// Render hosts, so use this to verify one vertical without waiting for all.
+const only = (process.env.AUDIT_ROUTES || '').split(',').map((s) => s.trim()).filter(Boolean);
 const ROUTE_LIST = [...new Set(routes())]
   .filter((r) => !r.startsWith('/_not-found') && !r.includes('/404'))
+  .filter((r) => only.length === 0 || only.includes(r))
   .sort();
 
 // ── server: firebase.json semantics ─────────────────────────────────────────
@@ -137,13 +151,15 @@ try {
 
     let finalUrl = route;
     try {
-      await page.goto('http://localhost:' + PORT + route, { waitUntil: 'domcontentloaded', timeout: 30000 });
-      await new Promise((r) => setTimeout(r, PER_ROUTE_MS));
-      finalUrl = new URL(page.url()).pathname;
+      await withTimeout((async () => {
+        await page.goto('http://localhost:' + PORT + route, { waitUntil: 'domcontentloaded', timeout: NAV_TIMEOUT_MS });
+        await new Promise((r) => setTimeout(r, PER_ROUTE_MS));
+        finalUrl = new URL(page.url()).pathname;
+      })(), ROUTE_BUDGET_MS, 'route budget');
     } catch (e) {
       errors.push('navigation: ' + String(e.message).slice(0, 200));
     }
-    await page.close();
+    try { await withTimeout(page.close(), 5000, 'page close'); } catch { /* leaked tab; browser closes at the end */ }
 
     results.push({
       route, finalUrl,

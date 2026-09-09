@@ -1,0 +1,68 @@
+{
+  "summary": {
+    "generated": "2026-09-09T15:48:08.169Z",
+    "authenticated": false,
+    "routesWalked": 6,
+    "routesWithErrors": 0,
+    "routesRedirected": 6,
+    "distinctErrors": 0,
+    "totalErrors": 0,
+    "signalCounts": {}
+  },
+  "results": [
+    {
+      "route": "/attention-span",
+      "finalUrl": "/",
+      "redirected": true,
+      "errors": [],
+      "warnings": [],
+      "signals": [],
+      "failedRequests": []
+    },
+    {
+      "route": "/career-intelligence",
+      "finalUrl": "/",
+      "redirected": true,
+      "errors": [],
+      "warnings": [],
+      "signals": [],
+      "failedRequests": []
+    },
+    {
+      "route": "/dashboard",
+      "finalUrl": "/",
+      "redirected": true,
+      "errors": [],
+      "warnings": [],
+      "signals": [],
+      "failedRequests": []
+    },
+    {
+      "route": "/notifications",
+      "finalUrl": "/",
+      "redirected": true,
+      "errors": [],
+      "warnings": [],
+      "signals": [],
+      "failedRequests": []
+    },
+    {
+      "route": "/profile",
+      "finalUrl": "/",
+      "redirected": true,
+      "errors": [],
+      "warnings": [],
+      "signals": [],
+      "failedRequests": []
+    },
+    {
+      "route": "/vault",
+      "finalUrl": "/",
+      "redirected": true,
+      "errors": [],
+      "warnings": [],
+      "signals": [],
+      "failedRequests": []
+    }
+  ]
+}
