@@ -2,7 +2,7 @@
 
 Regenerate: `node audit/extract-contracts.mjs`
 
-- **generated**: 2026-09-09T16:54:54.411Z
+- **generated**: 2026-09-09T18:43:03.366Z
 - **appCodeFiles**: 364
 - **verticals**: 57
 - **verticalsWithDefects**: 14
@@ -19,7 +19,7 @@ Regenerate: `node audit/extract-contracts.mjs`
 - **campusPrefixes**: 19
 - **deadRouteFiles**: 122
 - **interceptorBypasses**: ["/api/tts"]
-- **preferLivePrefixes**: 27
+- **preferLivePrefixes**: 35
 - **needsManualCheck**: 0
 - **byWorst**: {"REAL":116,"COMPUTE":2,"THROWS":3,"STUB":28,"UNHANDLED-404":10,"EXTERNAL":5,"CAMPUS-404":2,"DECLINED":4,"BYPASSES-SHIM":1,"LOCAL-STORE":3}
 - **byBucket**: {"OK":116,"C":7,"B":14,"A":37}

@@ -29,16 +29,22 @@ export function middleware(request: NextRequest) {
   // Sanitize log: log only pathname and method to prevent leaking query params (auth tokens, student IDs)
   console.log(`\n🌐 [GLOBAL MIDDLEWARE] [${requestId}] ${method} ${path}`);
 
-  // Create response and set tracking and security headers
+  // Create response and set the request correlation id.
   const response = NextResponse.next();
   response.headers.set('x-request-id', requestId);
 
-  // Mandatory Security Headers
-  response.headers.set('X-Content-Type-Options', 'nosniff');
-  response.headers.set('X-Frame-Options', 'DENY');
-  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
-  response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
-  response.headers.set('Permissions-Policy', 'camera=(self), microphone=(self), geolocation=()');
+  // Security headers are NOT set here any more.
+  //
+  // They now live in next.config.js headers(), which is the single source of
+  // truth. Middleware ran only on a server host, so while the app was deployed
+  // as a static export it set nothing — and when it did run it silently
+  // overrode the config values, producing X-Frame-Options: DENY against a CSP
+  // of frame-ancestors 'self', and dropping browsing-topics=(). Declaring them
+  // once, declaratively, also covers static assets that middleware skips.
+  //
+  // If you need to change CSP or Permissions-Policy, edit next.config.js (and
+  // firebase.json if the legacy static deploy is still in use), then run
+  // `npm run audit:headers`.
 
   // Measure timing on response
   const durationMs = Date.now() - startTime;

@@ -1,6 +1,6 @@
 {
   "summary": {
-    "generated": "2026-09-09T16:54:54.411Z",
+    "generated": "2026-09-09T18:43:03.366Z",
     "appCodeFiles": 364,
     "verticals": 57,
     "verticalsWithDefects": 14,
@@ -19,7 +19,7 @@
     "interceptorBypasses": [
       "/api/tts"
     ],
-    "preferLivePrefixes": 27,
+    "preferLivePrefixes": 35,
     "needsManualCheck": 0,
     "byWorst": {
       "REAL": 116,
@@ -4025,7 +4025,7 @@
       "handler": "client.ts throws Unhandled API path",
       "handledMethods": [],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "none",
@@ -4100,7 +4100,7 @@
       "handler": "client.ts throws Unhandled API path",
       "handledMethods": [],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "none",
@@ -5990,7 +5990,7 @@
       "handler": "client.ts throws Unhandled API path",
       "handledMethods": [],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "none",
@@ -6082,7 +6082,7 @@
       "handler": "client.ts throws Unhandled API path",
       "handledMethods": [],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "none",
@@ -6965,7 +6965,7 @@
       ],
       "returns": "{ ok:true };",
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -7242,7 +7242,7 @@
       ],
       "returns": "{ ok:true };",
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -9975,7 +9975,7 @@
         },
         {
           "file": "src/lib/supabaseService.ts",
-          "line": 1260,
+          "line": 1266,
           "live": true
         },
         {
@@ -9990,7 +9990,7 @@
         },
         {
           "file": "src/lib/supabaseService.ts",
-          "line": 1260,
+          "line": 1266,
           "live": true
         }
       ],
@@ -10017,7 +10017,7 @@
       "handler": "client.ts throws Unhandled API path",
       "handledMethods": [],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "none",
@@ -10103,7 +10103,7 @@
         "POST"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "none",
@@ -10182,7 +10182,7 @@
       "handler": "client.ts throws Unhandled API path",
       "handledMethods": [],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "none",
@@ -10263,7 +10263,7 @@
       "handler": "client.ts throws Unhandled API path",
       "handledMethods": [],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "none",
@@ -12725,7 +12725,7 @@
       "handler": "client.ts throws Unhandled API path",
       "handledMethods": [],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "none",

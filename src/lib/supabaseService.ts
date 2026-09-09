@@ -729,6 +729,11 @@ export async function generateResumeFromVault(uid: string, parsedResume: any, ta
 }
 
 export async function getNotifications(uid: string) {
+  // Logged-out visitors get a synthetic id like `guest_cmkt7d3t2` (see the
+  // guest branch in api/client.ts). user_id is a uuid column, so Postgres
+  // rejects that with a 400 — three times on every home page load, visible in
+  // the console of every anonymous visit. A guest simply has no notifications.
+  if (!IS_VALID_UUID(uid)) return [];
   const { data, error } = await supabase
     .from('notifications')
     .select('*')
@@ -744,7 +749,7 @@ export async function getNotifications(uid: string) {
  * no server to check that for us.
  */
 export async function markNotificationRead(uid: string, notificationId: string) {
-  if (!uid || !notificationId) return;
+  if (!IS_VALID_UUID(uid) || !notificationId) return;
   const { error } = await supabase
     .from('notifications')
     .update({ is_read: true })
@@ -754,6 +759,7 @@ export async function markNotificationRead(uid: string, notificationId: string) 
 }
 
 export async function markAllNotificationsRead(uid: string) {
+  if (!IS_VALID_UUID(uid)) return;   // guest ids are not uuids
   const { error } = await supabase
     .from('notifications')
     .update({ is_read: true })
@@ -773,7 +779,7 @@ export async function getOpportunities() {
  * Mirrors getApplicationsForRecruiter, from the student side.
  */
 export async function getApplicationsForUser(uid: string) {
-  if (!uid) return [];
+  if (!IS_VALID_UUID(uid)) return [];
   const { data: apps, error } = await supabase
     .from('applications')
     .select('*')

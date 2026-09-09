@@ -3226,9 +3226,56 @@ function liveApiPrefix(path: string): string {
   return clean;
 }
 
+/**
+ * Paths that should be answered by the real server route rather than the
+ * in-browser router below.
+ *
+ * This is the migration dial. Every entry here is tried over the network
+ * first; if that fails the request still falls back to firestoreRouter, so
+ * adding a path is safe — the worst case is one wasted request. Under static
+ * Firebase Hosting every entry fails (the `**` rewrite answers with
+ * index.html), which is why the whole list currently no-ops in production.
+ *
+ * MIGRATION ORDER — move features here in this order, not all at once:
+ *   1. Endpoints that are already broken in the browser. Nothing to regress.
+ *   2. Endpoints the browser can serve but the server does better.
+ *   3. Everything else, one feature at a time, checking audit/LEDGER.md.
+ *
+ * Group 1 below is complete: every one of these needs a secret the browser
+ * must never hold (Razorpay signing, the exam HMAC key, Groq/OpenRouter keys,
+ * a GitHub token) and today returns 404 or throws. Run `npm run audit` after
+ * changing this list.
+ */
+const LIVE_API_PREFIXES: readonly string[] = [
+  // ── group 1: broken in the browser, need a server secret ────────────────
+  '/api/stt',
+  '/api/code',                       // run-java / run-python judges
+  '/api/gd/history',
+  '/api/github',                     // needs GITHUB_TOKEN
+  '/api/projects/generate',          // needs OPENROUTER_API_KEY
+  '/api/portfolio',                  // verify-exam signs with EXAM_SECRET
+  '/api/interview/assist',
+  '/api/interview/generate-problem',
+
+  // ── already live-preferred before this migration ────────────────────────
+  '/api/interview/chat',
+  '/api/interview/evaluate',
+  '/api/group-discussion/bot-reply',
+  '/api/vault', '/api/hostel', '/api/transport', '/api/events', '/api/grievances',
+  '/api/library', '/api/research', '/api/finance', '/api/exams', '/api/maintenance',
+  '/api/advisor', '/api/services', '/api/notes', '/api/admissions', '/api/hr',
+  '/api/procurement', '/api/assets', '/api/alumni', '/api/communication',
+  '/api/documents', '/api/llm', '/api/payment', '/api/auth/face', '/api/attendance',
+];
+
+// NOTE: /api/admin is deliberately absent so client-side RBAC (profile.role)
+// always runs for admin screens.
+const prefersLiveServer = (path: string): boolean =>
+  LIVE_API_PREFIXES.some((p) => path === p || path.startsWith(p + '/') || path.startsWith(p + '?'));
+
 async function request<T>(method:string, path:string, body?:unknown): Promise<T> {
   // NOTE: /api/admin intentionally omitted from live-prefer list so client RBAC (profile.role) always runs.
-  const preferLive = path === '/api/interview/chat' || path === '/api/interview/evaluate' || path === '/api/group-discussion/bot-reply' || path.startsWith('/api/vault') || path.startsWith('/api/hostel') || path.startsWith('/api/transport') || path.startsWith('/api/events') || path.startsWith('/api/grievances') || path.startsWith('/api/library') || path.startsWith('/api/research') || path.startsWith('/api/finance') || path.startsWith('/api/exams') || path.startsWith('/api/maintenance') || path.startsWith('/api/advisor') || path.startsWith('/api/services') || path.startsWith('/api/notes') || path.startsWith('/api/admissions') || path.startsWith('/api/hr') || path.startsWith('/api/procurement') || path.startsWith('/api/assets') || path.startsWith('/api/alumni') || path.startsWith('/api/communication') || path.startsWith('/api/documents') || path === '/api/llm' || path.startsWith('/api/payment') || path.startsWith('/api/auth/face') || path.startsWith('/api/attendance');
+  const preferLive = prefersLiveServer(path);
   if (preferLive && !liveMissPrefixes.has(liveApiPrefix(path))) {
     try {
       let authHeader: Record<string, string> = {};

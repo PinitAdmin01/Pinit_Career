@@ -190,9 +190,14 @@ const bypassed = [...read(INTERCEPTOR).matchAll(/!url\.includes\(\s*['"]([^'"]+)
 
 // ── 3. layer 2: preferLive prefixes (always fail under static hosting) ──────
 const clientSrc = read(CLIENT);
-const preferLiveLine = clientSrc.match(/const\s+preferLive\s*=([^;]+);/);
-const preferLive = preferLiveLine
-  ? [...preferLiveLine[1].matchAll(/['"](\/api\/[^'"]*)['"]/g)].map((m) => m[1])
+// The list was a single inline boolean expression; it is now the named
+// LIVE_API_PREFIXES array, which is the dial used to move features off the
+// browser shim one at a time. Read either shape so this keeps working.
+const preferLiveBlock =
+  clientSrc.match(/const\s+LIVE_API_PREFIXES[^=]*=\s*\[([\s\S]*?)\]/) ||
+  clientSrc.match(/const\s+preferLive\s*=([^;]+);/);
+const preferLive = preferLiveBlock
+  ? [...preferLiveBlock[1].matchAll(/['"](\/api\/[^'"]*)['"]/g)].map((m) => m[1])
   : [];
 
 // ── 4. service methods: does this specific call persist anything? ───────────
