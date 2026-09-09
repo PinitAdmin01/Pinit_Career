@@ -353,7 +353,10 @@ export default function AvatarMentorWidget({
     fetch('/api/avatar/context', { credentials: 'include' })
       .then(r => r.json())
       .then(({ avatarMemory, mlRecommendations }) => {
-        if (avatarMemory?.conversationHistory?.length) memory.importMemory(avatarMemory);
+        // Gate on what is actually persisted. exportMemory deliberately sends
+        // conversationHistory as [] (transcripts are not stored), so keying the
+        // restore off its length meant memory was never restored at all.
+        if (avatarMemory?.memories?.length || avatarMemory?.persona) memory.importMemory(avatarMemory);
         if (mlRecommendations?.length) setMlRecs(mlRecommendations);
       })
       .catch(() => {});

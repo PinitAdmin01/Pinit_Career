@@ -789,7 +789,9 @@ export default function RigidAvatarMentorWidget({
     fetch('/api/avatar/context', { credentials: 'include' })
       .then(r => r.json())
       .then(({ avatarMemory, mlRecommendations }) => {
-        if (avatarMemory?.conversationHistory?.length) memory.importMemory(avatarMemory);
+        // See AvatarMentorWidget: conversationHistory is always [] by design,
+        // so restore on the fields that are actually persisted.
+        if (avatarMemory?.memories?.length || avatarMemory?.persona) memory.importMemory(avatarMemory);
         if (mlRecommendations?.length) setMlRecs(mlRecommendations);
       })
       .catch(() => {});
