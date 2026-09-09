@@ -78,7 +78,7 @@ export const servicesService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('services_leaves').insert({
+        const res = await supabase.from('services_leaves').insert({
           student_id: studentId,
           start_date: startDate,
           end_date: endDate,
@@ -86,6 +86,7 @@ export const servicesService = {
           type,
           status: 'Pending'
         });
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -111,12 +112,13 @@ export const servicesService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('services_requests').insert({
+        const res = await supabase.from('services_requests').insert({
           student_id: studentId,
           category,
           description,
           status: 'Pending'
         });
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -140,13 +142,14 @@ export const servicesService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('services_appointments').insert({
+        const res = await supabase.from('services_appointments').insert({
           student_id: studentId,
           staff_name: staffName,
           date,
           time,
           purpose
         });
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -175,13 +178,14 @@ export const servicesService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('services_counselling').insert({
+        const res = await supabase.from('services_counselling').insert({
           student_id: studentId,
           counselor_name: counselorName,
           date,
           time,
           status: 'Confirmed'
         });
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -206,7 +210,8 @@ export const servicesService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('services_leaves').update({ status: 'Approved' }).eq('id', leaveId);
+        const res = await supabase.from('services_leaves').update({ status: 'Approved' }).eq('id', leaveId);
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -229,7 +234,8 @@ export const servicesService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('services_requests').update({ status: 'Approved' }).eq('id', requestId);
+        const res = await supabase.from('services_requests').update({ status: 'Approved' }).eq('id', requestId);
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);

@@ -125,21 +125,33 @@ const PRESET_TECH_QUESTIONS = [
   }
 ];
 
+/**
+ * POST /api/interview/generate-questions
+ * Generates tailored questions based on domain stream, specialization, and difficulty.
+ */
 export async function POST(req: Request) {
+  console.log('[Question Generator API] Incoming request to /api/interview/generate-questions');
   try {
     const gated = await requireUserFromRequest(req);
-    if (gated.error) return gated.error;
+    if (gated.error) {
+      console.warn('[Question Generator API] Auth verification failed');
+      return gated.error;
+    }
 
     const { domainStream, domainSubTopic, difficulty } = await req.json() as QuestionRequest;
+    console.log(`[Question Generator API] User: ${gated.user.id} | Stream: ${domainStream} | SubTopic: ${domainSubTopic} | Difficulty: ${difficulty}`);
 
     if (domainStream === 'non_tech') {
       const topicKey = (domainSubTopic || 'finance').toLowerCase();
       const matched = PRESET_NON_TECH_QUESTIONS[topicKey] || PRESET_NON_TECH_QUESTIONS.finance;
+      console.log(`[Question Generator API] Returned ${matched.length} non-tech worksheet questions for ${topicKey}`);
       return NextResponse.json({ questions: matched });
     } else {
+      console.log(`[Question Generator API] Returned ${PRESET_TECH_QUESTIONS.length} tech coding questions`);
       return NextResponse.json({ questions: PRESET_TECH_QUESTIONS });
     }
   } catch (err: any) {
+    console.error('[Question Generator API Error]:', err);
     return NextResponse.json({ questions: PRESET_TECH_QUESTIONS });
   }
 }

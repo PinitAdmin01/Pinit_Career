@@ -233,10 +233,10 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
               color: 'var(--accent)',
               letterSpacing: '1px',
               textTransform: 'uppercase',
-              background: 'rgba(99,102,241,0.1)',
+              background: 'rgba(var(--brand-rgb), 0.1)',
               padding: '3px 9px',
               borderRadius: 6,
-              border: '1px solid rgba(99,102,241,0.2)'
+              border: '1px solid rgba(var(--brand-rgb), 0.2)'
             }}>
               ✨ Real-World Corporate Communication Lab
             </span>
@@ -248,14 +248,14 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <div style={{
-            background: 'linear-gradient(135deg, rgba(245,158,11,0.1) 0%, rgba(245,158,11,0.03) 100%)',
-            border: '1px solid rgba(245,158,11,0.25)',
+            background: 'linear-gradient(135deg, rgba(var(--warning-rgb), 0.1) 0%, rgba(var(--warning-rgb), 0.03) 100%)',
+            border: '1px solid rgba(var(--warning-rgb), 0.25)',
             padding: '8px 16px',
             borderRadius: 12,
             display: 'flex',
             alignItems: 'center',
             gap: 8,
-            boxShadow: '0 2px 8px rgba(245,158,11,0.1)'
+            boxShadow: '0 2px 8px rgba(var(--warning-rgb), 0.1)'
           }}>
             <span style={{ fontSize: 16 }}>🔥</span>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -287,13 +287,13 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
                   padding: '10px 16px',
                   borderRadius: 14,
                   border: `1.5px solid ${isSelected ? 'var(--accent)' : theme.border}`,
-                  background: isSelected ? 'linear-gradient(135deg, rgba(99,102,241,0.12) 0%, rgba(99,102,241,0.04) 100%)' : theme.bgInside,
+                  background: isSelected ? 'linear-gradient(135deg, rgba(var(--brand-rgb), 0.12) 0%, rgba(var(--brand-rgb), 0.04) 100%)' : theme.bgInside,
                   color: isSelected ? 'var(--accent)' : theme.tSecondary,
                   fontSize: 12,
                   fontWeight: isSelected ? 800 : 600,
                   cursor: 'pointer',
                   whiteSpace: 'nowrap',
-                  boxShadow: isSelected ? '0 4px 12px rgba(99,102,241,0.15)' : 'none',
+                  boxShadow: isSelected ? '0 4px 12px rgba(var(--brand-rgb), 0.15)' : 'none',
                   transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)'
                 }}
               >
@@ -319,7 +319,7 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
           <span style={{ fontSize: 10, fontWeight: 800, color: 'var(--accent)', fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.8px' }}>
             Domain Context: {scenario.role}
           </span>
-          <span style={{ fontSize: 9.5, fontWeight: 800, background: 'rgba(20,184,166,0.1)', color: 'var(--teal)', border: '1px solid rgba(20,184,166,0.2)', padding: '2px 8px', borderRadius: 6, fontFamily: 'var(--font-mono)' }}>
+          <span style={{ fontSize: 9.5, fontWeight: 800, background: 'rgba(var(--accent-teal-rgb), 0.1)', color: 'var(--teal)', border: '1px solid rgba(var(--accent-teal-rgb), 0.2)', padding: '2px 8px', borderRadius: 6, fontFamily: 'var(--font-mono)' }}>
             {scenario.badge}
           </span>
         </div>
@@ -330,10 +330,10 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
           fontSize: 12.5,
           fontWeight: 700,
           color: 'var(--teal)',
-          background: 'rgba(20,184,166,0.06)',
+          background: 'rgba(var(--accent-teal-rgb), 0.06)',
           padding: '10px 14px',
           borderRadius: 12,
-          border: '1px solid rgba(20,184,166,0.18)',
+          border: '1px solid rgba(var(--accent-teal-rgb), 0.18)',
           marginTop: 4,
           display: 'flex',
           alignItems: 'center',
@@ -355,8 +355,8 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
             onClick={handleStartDictation}
             disabled={isRecording}
             style={{
-              background: 'rgba(99,102,241,0.06)',
-              border: '1px solid rgba(99,102,241,0.2)',
+              background: 'rgba(var(--brand-rgb), 0.06)',
+              border: '1px solid rgba(var(--brand-rgb), 0.2)',
               color: isRecording ? 'var(--red)' : 'var(--accent)',
               fontSize: 11.5,
               fontWeight: 800,
@@ -374,7 +374,7 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
         </div>
 
         {isRecording && (
-          <div style={{ background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: 14, padding: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12 }}>
+          <div style={{ background: 'rgba(var(--danger-rgb), 0.06)', border: '1px solid rgba(var(--danger-rgb), 0.2)', borderRadius: 14, padding: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12 }}>
             <span style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--red)', fontFamily: 'var(--font-mono)' }}>🔴 AUDIO WAVE TRANSCRIPTION ACTIVE</span>
           </div>
         )}
@@ -415,7 +415,7 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
           fontSize: 14,
           fontWeight: 900,
           cursor: userText.trim() ? 'pointer' : 'not-allowed',
-          boxShadow: userText.trim() ? '0 6px 20px rgba(99,102,241,0.3)' : 'none',
+          boxShadow: userText.trim() ? '0 6px 20px rgba(var(--brand-rgb), 0.3)' : 'none',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -429,8 +429,8 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
       {/* AI Evaluation Results Card */}
       {evaluationResult && (
         <div style={{
-          background: 'linear-gradient(135deg, rgba(20,184,166,0.04) 0%, rgba(99,102,241,0.02) 100%)',
-          border: '1.5px solid rgba(20,184,166,0.22)',
+          background: 'linear-gradient(135deg, rgba(var(--accent-teal-rgb), 0.04) 0%, rgba(var(--brand-rgb), 0.02) 100%)',
+          border: '1.5px solid rgba(var(--accent-teal-rgb), 0.22)',
           borderRadius: 20,
           padding: 24,
           display: 'flex',
@@ -449,7 +449,7 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
                 {evaluationResult.scores?.average >= 88 ? '🌟 Executive C-Suite Ready' : evaluationResult.scores?.average >= 75 ? '👍 Corporate Ready' : '✏️ Needs Professional Polish'}
               </h3>
             </div>
-            <div style={{ background: 'rgba(20,184,166,0.12)', border: '2.5px solid var(--teal)', width: 58, height: 58, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, fontWeight: 900, color: 'var(--teal)', boxShadow: '0 0 16px rgba(20,184,166,0.2)' }}>
+            <div style={{ background: 'rgba(var(--accent-teal-rgb), 0.12)', border: '2.5px solid var(--teal)', width: 58, height: 58, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, fontWeight: 900, color: 'var(--teal)', boxShadow: '0 0 16px rgba(var(--accent-teal-rgb), 0.2)' }}>
               {evaluationResult.scores?.average || 85}
             </div>
           </div>
@@ -514,7 +514,7 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
                   handleCopyRewrite(targetText);
                 }}
                 style={{
-                  background: copiedRewrite ? 'rgba(34,197,94,0.1)' : 'rgba(255,255,255,0.05)',
+                  background: copiedRewrite ? 'rgba(var(--success-rgb), 0.1)' : 'rgba(255,255,255,0.05)',
                   border: `1px solid ${copiedRewrite ? 'var(--teal)' : theme.border}`,
                   color: copiedRewrite ? 'var(--teal)' : theme.tSecondary,
                   fontSize: 11,
@@ -538,11 +538,11 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
 
           {/* Feedback & Etiquette Cards */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
-            <div style={{ background: 'rgba(34,197,94,0.06)', border: '1px solid rgba(34,197,94,0.2)', padding: 14, borderRadius: 14 }}>
-              <strong style={{ color: '#22c55e', fontSize: 11, textTransform: 'uppercase', fontFamily: 'var(--font-mono)', display: 'block', marginBottom: 4 }}>✓ Strong Points</strong>
+            <div style={{ background: 'rgba(var(--success-rgb), 0.06)', border: '1px solid rgba(var(--success-rgb), 0.2)', padding: 14, borderRadius: 14 }}>
+              <strong style={{ color: 'var(--success)', fontSize: 11, textTransform: 'uppercase', fontFamily: 'var(--font-mono)', display: 'block', marginBottom: 4 }}>✓ Strong Points</strong>
               <p style={{ fontSize: 12, color: theme.tPrimary, margin: 0, lineHeight: 1.5 }}>{evaluationResult.feedback?.positive || "Direct ownership and clear problem breakdown."}</p>
             </div>
-            <div style={{ background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.2)', padding: 14, borderRadius: 14 }}>
+            <div style={{ background: 'rgba(var(--warning-rgb), 0.06)', border: '1px solid rgba(var(--warning-rgb), 0.2)', padding: 14, borderRadius: 14 }}>
               <strong style={{ color: 'var(--amber)', fontSize: 11, textTransform: 'uppercase', fontFamily: 'var(--font-mono)', display: 'block', marginBottom: 4 }}>⚠️ Real-World Etiquette Rule</strong>
               <p style={{ fontSize: 12, color: theme.tPrimary, margin: 0, lineHeight: 1.5 }}>{evaluationResult.feedback?.recommendation || "Eliminate filler words to project executive authority."}</p>
             </div>

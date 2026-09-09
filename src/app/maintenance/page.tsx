@@ -4,6 +4,7 @@
 
 import { useState, useEffect } from 'react';
 import { api } from '@/lib/api/client';
+import { toast } from '@/lib/store/useAppStore';
 
 export default function StudentMaintenancePortal() {
   const [tickets, setTickets] = useState<any[]>([]);
@@ -37,13 +38,13 @@ export default function StudentMaintenancePortal() {
         description
       });
       if (res && res.ok) {
-        alert('Infrastructure maintenance ticket logged successfully! Campus facilities team notified ✓');
+        toast.success('Ticket Logged 🔧', 'Infrastructure maintenance ticket logged successfully! Campus facilities team notified.');
         setLocation('');
         setDescription('');
         fetchTickets();
       }
     } catch {
-      alert('Failed to log ticket');
+      toast.error('Logging Failed', 'Failed to log maintenance ticket. Please try again.');
     } finally {
       setSubmitting(false);
     }

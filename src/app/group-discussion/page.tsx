@@ -36,23 +36,39 @@ interface Avatar {
 }
 
 const AVATARS: Avatar[] = [
-  { id: 'priya', name: 'Ms. Priya', emoji: '👩‍💼', role: 'Friendly & encouraging Mentor', color: '#7c3aed', trait: 'reactive', description: 'Warm, encouraging mentor guiding general career pathways.', voiceName: 'af_heart' },
+  { id: 'priya', name: 'Ms. Priya', emoji: '👩‍💼', role: 'Friendly & encouraging Mentor', color: 'var(--purple)', trait: 'reactive', description: 'Warm, encouraging mentor guiding general career pathways.', voiceName: 'af_heart' },
   { id: 'anish', name: 'Mr. Akash', emoji: '👨‍💼', role: 'Casual, friendly Mentor', color: '#0891b2', trait: 'proactive', description: 'Approachable, friendly mentor guiding team workflows.', voiceName: 'am_liam' },
-  { id: 'aisha', name: 'Ms. Aisha', emoji: '👩‍💼', role: 'Structured & methodical Teacher', color: '#6366f1', trait: 'reactive', description: 'Structured, logical teacher focusing on systematic SDE steps.', voiceName: 'af_sky' },
-  { id: 'rohan', name: 'Mr. Rohan', emoji: '👨‍💻', role: 'Energetic & tech-focused Teacher', color: '#ef4444', trait: 'aggressive', description: 'Energetic, code-focused teacher drilling compiler concepts.', voiceName: 'am_fenrir' },
-  { id: 'kashyap', name: 'Mr. Kashyap', emoji: '👨‍🔧', role: 'Systems Architect Teacher', color: '#d97706', trait: 'aggressive', description: 'Demands deep technical details and low-level JVM models.', voiceName: 'am_fenrir' },
-  { id: 'karthic', name: 'Mr. Karthic', emoji: '👨‍💻', role: 'Algorithmic Lead Teacher', color: '#3b82f6', trait: 'proactive', description: 'Focuses on database design, SOLID code, and algorithms.', voiceName: 'am_liam' },
+  { id: 'aisha', name: 'Ms. Aisha', emoji: '👩‍💼', role: 'Structured & methodical Teacher', color: 'var(--brand)', trait: 'reactive', description: 'Structured, logical teacher focusing on systematic SDE steps.', voiceName: 'af_sky' },
+  { id: 'rohan', name: 'Mr. Rohan', emoji: '👨‍💻', role: 'Energetic & tech-focused Teacher', color: 'var(--danger)', trait: 'aggressive', description: 'Energetic, code-focused teacher drilling compiler concepts.', voiceName: 'am_fenrir' },
+  { id: 'kashyap', name: 'Mr. Kashyap', emoji: '👨‍🔧', role: 'Systems Architect Teacher', color: 'var(--warning)', trait: 'aggressive', description: 'Demands deep technical details and low-level JVM models.', voiceName: 'am_fenrir' },
+  { id: 'karthic', name: 'Mr. Karthic', emoji: '👨‍💻', role: 'Algorithmic Lead Teacher', color: 'var(--info)', trait: 'proactive', description: 'Focuses on database design, SOLID code, and algorithms.', voiceName: 'am_liam' },
   { id: 'maya', name: 'Ms. Maya', emoji: '👩‍⚕️', role: 'Security Auditor Teacher', color: '#2563eb', trait: 'silent', description: 'Quiet, warning about cloud budgets and networking security.', voiceName: 'bf_emma' },
-  { id: 'divya', name: 'Ms. Divya', emoji: '👩‍🏫', role: 'UX Expert Teacher', color: '#059669', trait: 'proactive', description: 'Active, pushes accessible frontend components and user experiences.', voiceName: 'af_nicole' },
-  { id: 'vikram', name: 'Mr. Vikram', emoji: '👨‍💼', role: 'Serious, strict UK Interviewer', color: '#dc2626', trait: 'aggressive', description: 'Authoritative, challenges timing delays and technical debt.', voiceName: 'bm_lewis' },
+  { id: 'divya', name: 'Ms. Divya', emoji: '👩‍🏫', role: 'UX Expert Teacher', color: 'var(--success-deep)', trait: 'proactive', description: 'Active, pushes accessible frontend components and user experiences.', voiceName: 'af_nicole' },
+  { id: 'vikram', name: 'Mr. Vikram', emoji: '👨‍💼', role: 'Serious, strict UK Interviewer', color: 'var(--danger-deep)', trait: 'aggressive', description: 'Authoritative, challenges timing delays and technical debt.', voiceName: 'bm_lewis' },
   { id: 'shalini', name: 'Ms. Shalini', emoji: '👩‍💼', role: 'Silent UK observer Interviewer', color: '#ec4899', trait: 'reactive', description: 'Silent observer focusing on soft skills and team behavior.', voiceName: 'bf_isabella' },
-  { id: 'aditya', name: 'Mr. Aditya', emoji: '👨‍🎨', role: 'Wise System Design Purist', color: '#f59e0b', trait: 'proactive', description: 'Drives high-level scaling, sharding, and consensus rules.', voiceName: 'am_adam' },
-  { id: 'neha', name: 'Ms. Neha', emoji: '👩‍💻', role: 'High-Stress Driller Interviewer', color: '#10b981', trait: 'aggressive', description: 'Grills validation edges, load testing, and compiler check rules.', voiceName: 'af_bella' },
-  { id: 'rajesh', name: 'Mr. Rajesh', emoji: '👨‍💼', role: 'Friendly Legacy Defender', color: '#6366f1', trait: 'reactive', description: 'Focuses on legacy code wraps and clean codebase dependencies.', voiceName: 'am_liam' },
+  { id: 'aditya', name: 'Mr. Aditya', emoji: '👨‍🎨', role: 'Wise System Design Purist', color: 'var(--warning)', trait: 'proactive', description: 'Drives high-level scaling, sharding, and consensus rules.', voiceName: 'am_adam' },
+  { id: 'neha', name: 'Ms. Neha', emoji: '👩‍💻', role: 'High-Stress Driller Interviewer', color: 'var(--success)', trait: 'aggressive', description: 'Grills validation edges, load testing, and compiler check rules.', voiceName: 'af_bella' },
+  { id: 'rajesh', name: 'Mr. Rajesh', emoji: '👨‍💼', role: 'Friendly Legacy Defender', color: 'var(--brand)', trait: 'reactive', description: 'Focuses on legacy code wraps and clean codebase dependencies.', voiceName: 'am_liam' },
   { id: 'sneha', name: 'Ms. Sneha', emoji: '👩‍💼', role: 'Empathy-First Socratic Interviewer', color: '#db2777', trait: 'proactive', description: 'Focuses on clean hooks, empathetic cooperation, and socratic tips.', voiceName: 'af_sarah' },
-  { id: 'abhijit', name: 'Mr. Abhijit', emoji: '👨‍💼', role: 'Bored Executive Interviewer', color: '#64748b', trait: 'silent', description: 'Silent executive caring about commercial impact and metrics.', voiceName: 'bm_george' }
+  { id: 'abhijit', name: 'Mr. Abhijit', emoji: '👨‍💼', role: 'Bored Executive Interviewer', color: 'var(--text-dim)', trait: 'silent', description: 'Silent executive caring about commercial impact and metrics.', voiceName: 'bm_george' }
 ];
 
+// Helper to securely attach Supabase JWT Session Token
+async function getAuthHeaders(): Promise<Record<string, string>> {
+  try {
+    const { supabase } = await import('@/lib/supabaseClient');
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session?.access_token) {
+      return {
+        'Authorization': `Bearer ${session.access_token}`,
+        'Content-Type': 'application/json'
+      };
+    }
+  } catch (err) {
+    console.warn('[GD Auth] Could not retrieve Supabase session token:', err);
+  }
+  return { 'Content-Type': 'application/json' };
+}
 
 export default function GroupDiscussionPage() {
   const router = useRouter();
@@ -84,20 +100,43 @@ export default function GroupDiscussionPage() {
   const [roomDesc, setRoomDesc] = useState('');
   const [selectedConcept, setSelectedConcept] = useState('Microservices Orchestration');
 
-  const refreshHistoryList = () => {
-    if (typeof window !== 'undefined') {
+  const refreshHistoryList = async () => {
+    if (typeof window === 'undefined') return;
+    const historyKey = `pinit_gd_history_${user?.id || 'anon'}`;
+    let localList: any[] = [];
+    try {
+      const stored = localStorage.getItem(historyKey);
+      localList = stored ? JSON.parse(stored) : [];
+      setHistoryListState(localList);
+    } catch (e) {
+      console.warn('Failed to load local GD history:', e);
+    }
+
+    // GD-07 FIX: Fetch history from /api/gd/history so records persist across devices
+    if (user?.id) {
       try {
-        const stored = localStorage.getItem(`pinit_gd_history_${user?.id || 'anon'}`);
-        setHistoryListState(stored ? JSON.parse(stored) : []);
-      } catch (e) {
-        console.warn('Failed to load GD history:', e);
+        const headers = await getAuthHeaders();
+        const res = await fetch('/api/gd/history', { headers });
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data.sessions) && data.sessions.length > 0) {
+            const map = new Map<string, any>();
+            localList.forEach(item => map.set(item.id, item));
+            data.sessions.forEach((item: any) => map.set(item.id, item));
+            const merged = Array.from(map.values()).slice(0, 25);
+            setHistoryListState(merged);
+            localStorage.setItem(historyKey, JSON.stringify(merged));
+          }
+        }
+      } catch (err) {
+        console.warn('[GD History] Remote cloud fetch error:', err);
       }
     }
   };
 
   useEffect(() => {
     refreshHistoryList();
-  }, [user]);
+  }, [user?.id]);
 
   const handleDeleteHistoryItem = (id: string) => {
     if (typeof window === 'undefined') return;
@@ -111,6 +150,20 @@ export default function GroupDiscussionPage() {
         setSelectedHistoryItem(null);
       }
       toast.success('Record Deleted', 'Past boardroom history item removed.');
+
+      // GD-07 FIX: Delete from /api/gd/history endpoint
+      if (user?.id) {
+        getAuthHeaders().then(async headers => {
+          try {
+            await fetch(`/api/gd/history?id=${encodeURIComponent(id)}`, {
+              method: 'DELETE',
+              headers
+            });
+          } catch (err) {
+            console.warn('[GD History] Remote delete failed:', err);
+          }
+        }).catch(() => {});
+      }
     } catch (e) {
       console.warn('Failed to delete history item:', e);
     }
@@ -139,7 +192,10 @@ export default function GroupDiscussionPage() {
   const [callActive, setCallActive] = useState(false);
   const [messages, setMessages] = useState<{ sender: string; role: string; content: string; emoji: string }[]>([]);
   const [turnCount, setTurnCount] = useState(0);
-  const [consecutiveAvatarTurns, setConsecutiveAvatarTurns] = useState(0);
+  // GD-03 FIX: Was useState — setter was never called, avatars could run unlimited pairs.
+  // Converted to ref (no re-render needed). Reset when candidate speaks. After 2
+  // consecutive avatar-only exchanges with no candidate turn, force floor to candidate.
+  const consecutiveAvatarTurnsRef = useRef(0);
   const [handRaised, setHandRaised] = useState(false);
   const [suggestedHelperText, setSuggestedHelperText] = useState('');
   const [inputText, setInputText] = useState('');
@@ -148,6 +204,8 @@ export default function GroupDiscussionPage() {
   const [callDuration, setCallDuration] = useState(0);
   const callTimerRef = useRef<any>(null);
   const [domain, setDomain] = useState<'technical' | 'sales' | 'business'>('technical');
+  // GD-08 FIX: Dynamic configurable session duration (5, 10, or 15 minutes)
+  const [sessionDurationMinutes, setSessionDurationMinutes] = useState<number>(10);
   const reportRef = useRef<HTMLDivElement>(null);
 
   // Speech Recognition & Hands-free Turn-taking state
@@ -218,18 +276,7 @@ export default function GroupDiscussionPage() {
     }
   }, [gdReport]);
 
-  // Clean up on unmount
-  useEffect(() => {
-    return () => {
-      stopSpeaking();
-      if (turnTimeoutRef.current) clearInterval(turnTimeoutRef.current);
-      if (callTimerRef.current) clearInterval(callTimerRef.current);
-      if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
-      if (recognitionRef.current) {
-        try { recognitionRef.current.stop(); } catch {}
-      }
-    };
-  }, []);
+
 
   // Initialize Speech Recognition API
   useEffect(() => {
@@ -248,9 +295,8 @@ export default function GroupDiscussionPage() {
           }
           
           if (currentTranscript.trim() && isCallActiveRef.current) {
-            // Reset the silence timer!
+            // Reset the silence timer — do NOT touch candidateTurnTimer visual countdown (GD-04 fix)
             if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
-            setCandidateTurnTimer(prev => prev !== null ? Math.max(prev, 5) : null);
             silenceTimerRef.current = setTimeout(() => {
               const finalTranscript = currentTranscript.trim();
               if (finalTranscript) {
@@ -278,6 +324,19 @@ export default function GroupDiscussionPage() {
         recognitionRef.current = rec;
       }
     }
+
+    // GD-02 FIX: Cleanup — nullify all handlers on unmount to kill ghost listeners.
+    // Without this return, rec.onresult / onerror / onend remain live closures after
+    // unmount and fire setState on a dead component tree.
+    return () => {
+      if (recognitionRef.current) {
+        recognitionRef.current.onresult = null;
+        recognitionRef.current.onerror = null;
+        recognitionRef.current.onend = null;
+        try { recognitionRef.current.stop(); } catch {}
+        recognitionRef.current = null;
+      }
+    };
   }, []);
 
   const handleCreateRoom = (e: React.FormEvent) => {
@@ -323,15 +382,19 @@ export default function GroupDiscussionPage() {
     setIsUserTurn(false);
 
     if (callTimerRef.current) clearInterval(callTimerRef.current);
+    const totalTargetSeconds = sessionDurationMinutes * 60;
+    const midSummarySec = Math.round(totalTargetSeconds * 0.5);
+    const warningSec = Math.max(totalTargetSeconds - 30, midSummarySec + 30);
+
     callTimerRef.current = setInterval(() => {
       setCallDuration(prev => {
         const nextSec = prev + 1;
-        // Exact time-based Host interventions for 10-min GD:
-        if (nextSec === 300) {
+        // GD-08 FIX: Dynamic time-based Host interventions according to selected session duration:
+        if (nextSec === midSummarySec) {
           triggerHostMidSummary();
-        } else if (nextSec === 570) {
+        } else if (nextSec === warningSec) {
           triggerHostTimeWarning();
-        } else if (nextSec === 600) {
+        } else if (nextSec >= totalTargetSeconds) {
           triggerHostEndSummary();
         }
         return nextSec;
@@ -342,7 +405,7 @@ export default function GroupDiscussionPage() {
       {
         sender: 'System Facilitator',
         role: 'Facilitator',
-        content: `Welcome to the boardroom: "${roomName}". Host: ${gdDisplayName(hostId)}. Total GD Time: 10:00 Minutes.`,
+        content: `Welcome to the boardroom: "${roomName}". Host: ${gdDisplayName(hostId)}. Total GD Time: ${sessionDurationMinutes}:00 Minutes.`,
         emoji: '🏛️'
       }
     ]);
@@ -389,6 +452,39 @@ export default function GroupDiscussionPage() {
     }, 1000);
   };
 
+  const passFloorToCandidateAfterAvatarB = () => {
+    lastPairRef.current = speakerPairRef.current;
+    setCurrentAvatarARoleId(null);
+    setCurrentAvatarBRoleId(null);
+    turnSequenceRef.current = 'user';
+
+    // GD-03 enforcement: increment counter here — unified for both preloaded and fallback avatar B
+    consecutiveAvatarTurnsRef.current += 1;
+    if (consecutiveAvatarTurnsRef.current >= 3) {
+      consecutiveAvatarTurnsRef.current = 0;
+      const hostId = hostIdRef.current;
+      const hostAvatar = AVATARS.find(a => a.id === hostId) || AVATARS[0];
+      const forceText = `${user?.displayName || 'Candidate'}, we need to hear your perspective on ${roomName}. You have 40 seconds — please share your view now.`;
+      setMessages(prev => [...prev, {
+        sender: gdDisplayName(hostId),
+        role: `${hostAvatar.role} (Mandatory Turn)`,
+        content: forceText,
+        emoji: hostAvatar.emoji
+      }]);
+      speakWithAvatar(forceText, hostId,
+        () => setActiveSpeakingAvatar(gdDisplayName(hostId)),
+        () => {
+          setActiveSpeakingAvatar(null);
+          setCandidateTurnTimer(40); // extended window for forced turn
+          startCandidateTurnPrompt();
+        },
+        false, false
+      );
+    } else {
+      startCandidateTurnPrompt();
+    }
+  };
+
   const triggerPreloadedAvatarBReply = (
     avatarId: string,
     cleanReply: string,
@@ -432,12 +528,8 @@ export default function GroupDiscussionPage() {
           return;
         }
 
-        // Avatar B finished -> Hand over to Candidate (User)
-        lastPairRef.current = speakerPairRef.current;
-        setCurrentAvatarARoleId(null);
-        setCurrentAvatarBRoleId(null);
-        turnSequenceRef.current = 'user';
-        startCandidateTurnPrompt();
+        // Avatar B finished -> Hand over to Candidate (User) with GD-03 turn throttling
+        passFloorToCandidateAfterAvatarB();
       },
       false,
       false,
@@ -571,11 +663,8 @@ export default function GroupDiscussionPage() {
                   triggerAvatarReply(avatarB_Id, 'avatar_b', user?.displayName || 'Candidate', nextMessages);
                 }
               } else {
-                lastPairRef.current = speakerPairRef.current;
-                setCurrentAvatarARoleId(null);
-                setCurrentAvatarBRoleId(null);
-                turnSequenceRef.current = 'user';
-                startCandidateTurnPrompt();
+                // Avatar B finished → hand floor to candidate with GD-03 turn throttling
+                passFloorToCandidateAfterAvatarB();
               }
             },
             false,
@@ -674,6 +763,9 @@ export default function GroupDiscussionPage() {
     setMessages(updated);
 
     consecutiveSilenceCountRef.current = 0;
+    // GD-03: Candidate just contributed — reset the consecutive avatar domination counter.
+    // The counter is incremented in the avatar-B completion callback and enforced there.
+    consecutiveAvatarTurnsRef.current = 0;
 
     // Fresh random Avatar 1 / Avatar 2 each round. Host and floating mentor stay out of the pair.
     const speakerPool = invitedAvatars.filter(id => id !== hostIdRef.current && id !== currentMentorId);
@@ -843,7 +935,22 @@ export default function GroupDiscussionPage() {
         if (prev === null || prev <= 1) {
           clearInterval(turnTimeoutRef.current);
           setCandidateTurnTimer(null);
-          
+
+          // GD-05 FIX: If silence debounce is still pending, the candidate is mid-sentence.
+          // Grant a 3-second grace extension instead of hard-cutting their words.
+          if (silenceTimerRef.current) {
+            setCandidateTurnTimer(3);
+            turnTimeoutRef.current = setTimeout(() => {
+              if (recognitionRef.current) {
+                try { recognitionRef.current.stop(); } catch {}
+              }
+              setMicActive(false);
+              setCandidateTurnTimer(null);
+              handleUserFinishSpeaking();
+            }, 3000);
+            return null;
+          }
+
           if (recognitionRef.current) {
             try { recognitionRef.current.stop(); } catch {}
           }
@@ -855,6 +962,85 @@ export default function GroupDiscussionPage() {
         return prev - 1;
       });
     }, 1000);
+  };
+
+  // GD-UX-01 FIX: Manual Interjection Mechanism — cleanly cuts active avatar speech & immediately seizes the floor
+  const handleInterjectImmediately = () => {
+    if (!isCallActiveRef.current) return;
+    console.log('[GD Engine] ⚡ Immediate Candidate Interjection triggered!');
+    
+    // 1. Cut avatar voice synthesis cleanly
+    stopSpeaking();
+    
+    // 2. Clear any pending avatar speech or timer loops
+    setActiveSpeakingAvatar(null);
+    setCurrentAvatarARoleId(null);
+    setCurrentAvatarBRoleId(null);
+    turnSequenceRef.current = 'user';
+    consecutiveAvatarTurnsRef.current = 0;
+    
+    // 3. Increment candidate turns in telemetry
+    setTurnCount(prev => prev + 1);
+    
+    // 4. Immediately prompt candidate turn & activate microphone
+    toast.success("Floor Seized ⚡", "You cut in! Microphone is active — state your argument.");
+    startCandidateTurnPrompt();
+  };
+
+  // GD-UX-02 FIX: Export discussion minutes / transcript (Markdown or JSON)
+  const exportGdTranscript = (format: 'markdown' | 'json' = 'markdown') => {
+    if (format === 'json') {
+      const data = {
+        roomTopic: selectedConcept,
+        domain,
+        sessionDurationMinutes,
+        date: new Date().toISOString(),
+        hostId: activeHostId,
+        participants: invitedAvatars.map(id => {
+          const a = AVATARS.find(av => av.id === id);
+          return { id, name: a?.name, role: a?.role, trait: a?.trait };
+        }),
+        messages
+      };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `GD_${selectedConcept.replace(/[^a-zA-Z0-9]/g, '_')}_Transcript.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      toast.success('Transcript Exported', 'Saved complete GD debate as JSON.');
+    } else {
+      const lines = [
+        `# Boardroom Group Discussion Minutes`,
+        `**Objective / Topic:** ${selectedConcept}  `,
+        `**Domain:** ${domain.toUpperCase()}  `,
+        `**Scheduled Duration:** ${sessionDurationMinutes} Minutes  `,
+        `**Session Time Elapsed:** ${Math.floor(callDuration / 60)}m ${callDuration % 60}s  `,
+        `**Date:** ${new Date().toLocaleDateString('en-US', { dateStyle: 'full' })}  `,
+        `\n---\n`,
+        `## Participants`,
+        `- **Candidate (You)** — SDE Candidate`,
+        ...invitedAvatars.map(id => {
+          const a = AVATARS.find(av => av.id === id);
+          return `- **${a?.name || id}** (${a?.role || 'Panelist'}) — *${a?.trait || 'Participant'} mode*`;
+        }),
+        `\n## Discussion Transcript\n`
+      ];
+
+      messages.forEach(m => {
+        lines.push(`**${m.emoji} ${m.sender} (${m.role}):**\n${m.content}\n`);
+      });
+
+      const blob = new Blob([lines.join('\n')], { type: 'text/markdown' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `GD_${selectedConcept.replace(/[^a-zA-Z0-9]/g, '_')}_Transcript.md`;
+      a.click();
+      URL.revokeObjectURL(url);
+      toast.success('Minutes Exported', 'Saved complete GD discussion transcript as Markdown.');
+    }
   };
 
   const triggerNextAvatarSilenceReact = () => {
@@ -1042,10 +1228,11 @@ export default function GroupDiscussionPage() {
       cOS.rewardActivity('gd', roomName || 'Group Discussion');
     }
 
-    // Save SDE Boardroom record to localStorage database cache
+    // Save SDE Boardroom record to localStorage and remote API (GD-07 FIX)
     if (typeof window !== 'undefined') {
       try {
-        const stored = localStorage.getItem(`pinit_gd_history_${user?.id || 'anon'}`);
+        const historyKey = `pinit_gd_history_${user?.id || 'anon'}`;
+        const stored = localStorage.getItem(historyKey);
         let historyList: any[] = [];
         try { historyList = stored ? JSON.parse(stored) : []; } catch { historyList = []; }
         const newRecord = {
@@ -1055,11 +1242,29 @@ export default function GroupDiscussionPage() {
           date: new Date().toLocaleDateString(),
           difficulty,
           domain,
+          durationMinutes: sessionDurationMinutes,
           report: finalReport,
           transcript: messages
         };
         historyList.unshift(newRecord);
-        localStorage.setItem(`pinit_gd_history_${user?.id || 'anon'}`, JSON.stringify(historyList));
+        const trimmed = historyList.slice(0, 25);
+        localStorage.setItem(historyKey, JSON.stringify(trimmed));
+        setHistoryListState(trimmed);
+
+        // GD-07 FIX: Asynchronously sync to /api/gd/history endpoint
+        if (user?.id) {
+          getAuthHeaders().then(async headers => {
+            try {
+              await fetch('/api/gd/history', {
+                method: 'POST',
+                headers,
+                body: JSON.stringify(newRecord)
+              });
+            } catch (err) {
+              console.warn('[GD History] Remote sync POST failed:', err);
+            }
+          }).catch(() => {});
+        }
       } catch (e) {
         console.warn('Failed to store boardroom conclusion in database:', e);
       }
@@ -1168,7 +1373,7 @@ export default function GroupDiscussionPage() {
           min-height: 560px;
         }
         .gd-suggest-box {
-          background: rgba(20, 184, 166, 0.05);
+          background: rgba(var(--accent-teal-rgb),  0.05);
           border: 1.5px dashed var(--teal);
           border-radius: 12px;
           padding: 10px 14px;
@@ -1210,7 +1415,7 @@ export default function GroupDiscussionPage() {
           align-items: center;
         }
         .gd-timer-badge-active {
-          background: rgba(20, 184, 166, 0.08);
+          background: rgba(var(--accent-teal-rgb),  0.08);
           border: 1px solid var(--teal);
           border-radius: 6px;
           padding: 1px 6px;
@@ -1224,7 +1429,7 @@ export default function GroupDiscussionPage() {
           gap: 3px;
         }
         .gd-user-turn-badge {
-          background: rgba(239, 68, 68, 0.1);
+          background: rgba(var(--danger-rgb),  0.1);
           border: 1px solid var(--coral);
           border-radius: 8px;
           padding: 2px 8px;
@@ -1431,7 +1636,7 @@ export default function GroupDiscussionPage() {
                       toast.success('Random Topic Loaded', `Configured debate around "${randomTopic.name}".`);
                     }}
                     style={{
-                      background: 'rgba(20, 184, 166, 0.1)',
+                      background: 'rgba(var(--accent-teal-rgb),  0.1)',
                       border: '1.5px solid var(--teal)',
                       borderRadius: 10,
                       padding: '6px 12px',
@@ -1532,6 +1737,36 @@ export default function GroupDiscussionPage() {
                     {difficulty === 'easy' && '🟢 Easy Mode: Avatars speak gently. Response timer is 16 seconds.'}
                     {difficulty === 'medium' && '🟡 Medium Mode: Standard boardroom debate. Response timer is 12 seconds.'}
                     {difficulty === 'hard' && '🔴 Hard Mode: Aggressive critiques, fast pace. Response timer is 8 seconds.'}
+                  </p>
+                </div>
+
+                {/* GD-08 FIX: Session Duration Selector */}
+                <div>
+                  <label className="gd-form-label" style={{ marginBottom: 8 }}>SESSION LENGTH</label>
+                  <div className="gd-domain-grid">
+                    {([5, 10, 15] as const).map(mins => {
+                      const isActive = sessionDurationMinutes === mins;
+                      return (
+                        <button
+                          key={mins}
+                          type="button"
+                          onClick={() => setSessionDurationMinutes(mins)}
+                          className="gd-select-btn"
+                          style={{
+                            background: isActive ? 'var(--teal)' : 'var(--bg3)',
+                            border: `1.5px solid ${isActive ? 'var(--teal)' : 'var(--border)'}`,
+                            color: isActive ? 'white' : 'var(--t1)'
+                          }}
+                        >
+                          ⏱️ {mins} Mins {mins === 5 ? '(Express)' : mins === 10 ? '(Standard)' : '(Deep Dive)'}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <p style={{ fontSize: 9.5, color: 'var(--t4)', marginTop: 6, margin: 0, textAlign: 'center' }}>
+                    {sessionDurationMinutes === 5 && '⚡ Express session with fast-paced interventions and 5-min recap.'}
+                    {sessionDurationMinutes === 10 && '⚖️ Standard 10-min corporate debate with mid-session summary.'}
+                    {sessionDurationMinutes === 15 && '🏛️ Deep dive architectural boardroom with comprehensive closing synthesis.'}
                   </p>
                 </div>
 
@@ -1648,7 +1883,7 @@ export default function GroupDiscussionPage() {
                       }}
                       className="gd-avatar-card"
                       style={{
-                        background: isInvited ? 'rgba(20,184,166,0.06)' : 'var(--bg3)',
+                        background: isInvited ? 'rgba(var(--accent-teal-rgb), 0.06)' : 'var(--bg3)',
                         border: `1.5px solid ${isInvited ? 'var(--teal)' : 'var(--border)'}`
                       }}
                     >
@@ -1720,6 +1955,7 @@ export default function GroupDiscussionPage() {
                   toast.info("Hand Lowered", "Interruption cancelled.");
                 }
               }}
+              onInterjectImmediately={handleInterjectImmediately}
               onEndCall={handleEndCall}
               onForceExit={handleForceExitCall}
               hostId={activeHostId}
@@ -1742,11 +1978,30 @@ export default function GroupDiscussionPage() {
                   </div>
                 </div>
               </div>
-              {candidateTurnTimer !== null && (
-                <div className="gd-user-turn-badge">
-                  🎙️ USER TURN: {candidateTurnTimer}s
-                </div>
-              )}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                {candidateTurnTimer !== null && (
+                  <div className="gd-user-turn-badge">
+                    🎙️ USER TURN: {candidateTurnTimer}s
+                  </div>
+                )}
+                {/* GD-UX-02: Export Boardroom Minutes */}
+                <button
+                  onClick={() => exportGdTranscript('markdown')}
+                  style={{
+                    background: 'rgba(var(--accent-teal-rgb),  0.1)',
+                    border: '1px solid var(--teal)',
+                    borderRadius: 6,
+                    padding: '3px 8px',
+                    fontSize: 10,
+                    fontWeight: 800,
+                    color: 'var(--teal)',
+                    cursor: 'pointer'
+                  }}
+                  title="Export discussion transcript as Markdown minutes"
+                >
+                  📥 Minutes
+                </button>
+              </div>
             </div>
 
             {/* Message window */}
@@ -1783,7 +2038,7 @@ export default function GroupDiscussionPage() {
               {/* Reading script prompt card */}
               {suggestedHelperText && (
                 <div style={{
-                  background: 'rgba(20, 184, 166, 0.05)',
+                  background: 'rgba(var(--accent-teal-rgb),  0.05)',
                   border: '1.5px dashed var(--teal)',
                   borderRadius: 12,
                   padding: '10px 14px',
@@ -1810,7 +2065,7 @@ export default function GroupDiscussionPage() {
                   type="button"
                   onClick={toggleMic}
                   style={{
-                    background: micActive ? 'rgba(239, 68, 68, 0.2)' : 'rgba(20, 184, 166, 0.1)',
+                    background: micActive ? 'rgba(var(--danger-rgb),  0.2)' : 'rgba(var(--accent-teal-rgb),  0.1)',
                     border: `1.5px solid ${micActive ? 'var(--coral)' : 'var(--teal)'}`,
                     borderRadius: '50%',
                     width: 34,
@@ -1852,7 +2107,7 @@ export default function GroupDiscussionPage() {
                   type="button"
                   onClick={handleSuggestArgument}
                   style={{
-                    background: 'rgba(20, 184, 166, 0.1)',
+                    background: 'rgba(var(--accent-teal-rgb),  0.1)',
                     border: '1.5px solid var(--teal)',
                     borderRadius: 12,
                     padding: '8px 12px',
@@ -2007,7 +2262,7 @@ export default function GroupDiscussionPage() {
                     <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
                       <span style={{
                         fontSize: 8.5,
-                        background: 'rgba(20,184,166,0.1)',
+                        background: 'rgba(var(--accent-teal-rgb), 0.1)',
                         border: '1px solid var(--teal)',
                         color: 'var(--teal)',
                         padding: '2px 6px',
@@ -2103,7 +2358,13 @@ export default function GroupDiscussionPage() {
                 </div>
                 <div className="gd-stat-card">
                   <span className="gd-stat-value" style={{ color: 'var(--teal)' }}>
-                    {Math.round(historyListState.reduce((acc, curr) => acc + (curr.report?.score || 75), 0) / historyListState.length)}%
+                    {/* Guard against division by zero: a student with no completed
+                        boardrooms previously saw "NaN%" here, because
+                        reduce(...) / 0 evaluates to NaN. Show a neutral dash
+                        until there is at least one session to average. */}
+                    {historyListState.length > 0
+                      ? `${Math.round(historyListState.reduce((acc, curr) => acc + (curr.report?.score || 75), 0) / historyListState.length)}%`
+                      : '—'}
                   </span>
                   <span className="gd-stat-label">Avg Performance Score</span>
                 </div>
@@ -2161,7 +2422,7 @@ export default function GroupDiscussionPage() {
                   </div>
                   <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
                     <div style={{
-                      background: 'rgba(20,184,166,0.15)',
+                      background: 'rgba(var(--accent-teal-rgb), 0.15)',
                       border: '1.5px solid var(--teal)',
                       borderRadius: 12,
                       padding: '8px 16px',
@@ -2275,7 +2536,7 @@ export default function GroupDiscussionPage() {
                             {record.topic}
                           </span>
                           {record.domain && (
-                            <span style={{ fontSize: 8.5, background: 'rgba(20,184,166,0.1)', border: '1px solid var(--teal)', padding: '2px 6px', borderRadius: 4, color: 'var(--teal)', fontFamily: 'var(--font-mono)', textTransform: 'uppercase', fontWeight: 800 }}>
+                            <span style={{ fontSize: 8.5, background: 'rgba(var(--accent-teal-rgb), 0.1)', border: '1px solid var(--teal)', padding: '2px 6px', borderRadius: 4, color: 'var(--teal)', fontFamily: 'var(--font-mono)', textTransform: 'uppercase', fontWeight: 800 }}>
                               {record.domain}
                             </span>
                           )}

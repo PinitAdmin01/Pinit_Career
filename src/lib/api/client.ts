@@ -3,7 +3,6 @@
 
 import { supabase } from '@/lib/supabaseClient';
 import * as fs from '@/lib/supabaseService';
-import { COURSES_REGISTRY } from '@/lib/data/coursesData';
 import { aiInterviewStart, aiInterviewRespond, aiInterviewEvaluate } from '@/lib/api/interviewAI';
 import { isCampusApiPath, tryCampusFallback } from '@/lib/campusFallback';
 import { faceChallenge, faceEnroll, faceEnrolled, faceVerify } from '@/lib/faceClient';
@@ -12,6 +11,13 @@ import { executeRoleplayTurn, readRecentRoleplayTitles, rememberRoleplayTitle } 
 import { executeGdTurn, GdRoleType, normalizeMentorId } from '@/lib/group-discussion/gdTurnEngine';
 import { sanitizeLLMOutput } from '@/lib/sanitizeLLM';
 import { auditResumeATS, RoleCategory } from '@/lib/ats/atsScreener';
+import {
+  classifyDocumentCategory,
+  checkNameSimilarity,
+  VaultCategory,
+  VaultDocumentSlot
+} from '@/lib/ats/documentAuditEngine';
+import { groundAndValidateEvidence } from '@/lib/ats/factCheckValidator';
 import { deduplicateJobListings } from '@/lib/opportunities/jobDeduplicator';
 import { portalService } from '@/lib/services/portalService';
 
@@ -68,6 +74,13 @@ async function getUid(): Promise<string> {
       }
       const activeUid = localStorage.getItem('pinit_active_uid');
       if (activeUid && typeof activeUid === 'string') return activeUid;
+
+      let guestUid = localStorage.getItem('pinit_guest_uid');
+      if (!guestUid) {
+        guestUid = 'guest_' + Math.random().toString(36).slice(2, 11);
+        localStorage.setItem('pinit_guest_uid', guestUid);
+      }
+      return guestUid;
     } catch {
       // ignore malformed vault payload
     }
@@ -315,13 +328,12 @@ async function firestoreRouter(method:string, path:string, body?:any): Promise<u
       challenges[challengeId] = item;
       localStorage.setItem(storeKey, JSON.stringify(challenges));
 
-      const userObj = item.userPayload || {
-        id: 'usr_vault_verified_student',
-        name: 'Alex Vance',
-        email: 'alex.vance@pinit.in',
-        role: 'student',
-        identityStatus: 'Active'
-      };
+      const userObj = item.userPayload;
+
+      // Hard reject if the challenge has no real user attached — never invent an identity
+      if (!userObj || !userObj.id) {
+        throw new Error('Authentication challenge has no valid user payload. Please restart the QR login flow.');
+      }
 
       // Ensure Identity Lifecycle State is Active
       if (userObj.identityStatus && userObj.identityStatus !== 'Active') {
@@ -431,17 +443,48 @@ async function firestoreRouter(method:string, path:string, body?:any): Promise<u
   }
   if(cleanPath==='/api/auth/teacher'){ const{teacherId}=body as Record<string,string>; await fs.updateUserProfile(uid,{ selectedTeacherId:teacherId }); return { ok:true }; }
   if(cleanPath==='/api/auth/onboarding'){
-    const raw = (body && typeof body === 'object' ? { ...(body as Record<string, unknown>) } : {}) as Record<string, unknown>;
+    if (!uid) throw new ApiError(401, 'UNAUTHORIZED', 'Authentication required for profile update.');
+    const raw = (body && typeof body === 'object' ? { ...(body as Record<string, unknown>) } : {}) as Record<string, any>;
+    // Disallow arbitrary privileged roles and scores from client payloads
     delete raw.role;
     delete raw.pins;
     delete raw.subscription_tier;
     delete raw.ats_score;
     delete raw.trust_score;
     delete raw.career_dna_score;
+
+    const sanitizeScore = (v: unknown, maxVal = 100): number => {
+      const n = Number(v);
+      return isNaN(n) ? 0 : Math.min(maxVal, Math.max(0, Math.round(n)));
+    };
+
+    // Validate QT1 / QT2 capability scores:
+    // Initial unverified baseline QT1 is capped at 50; higher scores require passed practical quests via /api/quest/verify
+    // Initial unverified baseline QT2 is capped at 60; higher scores require passed Socratic crisis roleplays via /api/missions/roleplay
+    if (raw.qt1_score !== undefined) {
+      raw.qt1_score = sanitizeScore(raw.qt1_score, 50);
+    }
+    if (raw.qt2_score !== undefined) {
+      raw.qt2_score = sanitizeScore(raw.qt2_score, 60);
+    }
+
+    const answers = (raw.onboardingAnswers || raw.onboarding_answers) as Record<string, any> | undefined;
+    if (answers && typeof answers === 'object') {
+      delete answers.role;
+      delete answers.subscription_tier;
+      if (answers.qt1_score !== undefined) {
+        answers.qt1_score = sanitizeScore(answers.qt1_score, 50);
+      }
+      if (answers.qt2_score !== undefined) {
+        answers.qt2_score = sanitizeScore(answers.qt2_score, 60);
+      }
+    }
+
     try {
       await fs.updateUserProfile(uid, raw);
     } catch (err) {
       console.warn('[onboarding] profile sync failed; local progress still saved', err);
+      throw err;
     }
     return { ok:true };
   }
@@ -470,6 +513,27 @@ async function firestoreRouter(method:string, path:string, body?:any): Promise<u
   if(cleanPath==='/api/auth/face/verify' || cleanPath==='/api/auth/face/challenge'){
     if (cleanPath==='/api/auth/face/challenge') return faceChallenge();
     return faceVerify(body);
+  }
+  if (cleanPath === '/api/auth/profile' && (method === 'PATCH' || method === 'POST')) {
+    if (uid) {
+      await fs.updateUserProfile(uid, body as Record<string, any>);
+    }
+    return { ok: true };
+  }
+  if (cleanPath === '/api/auth/onboarding' && (method === 'PATCH' || method === 'POST')) {
+    if (uid) {
+      const payload = (body || {}) as Record<string, any>;
+      const updateData: Record<string, any> = {};
+      if (payload.onboardingAnswers) updateData.onboardingAnswers = payload.onboardingAnswers;
+      if (payload.mission_streak !== undefined) updateData.mission_streak = payload.mission_streak;
+      if (payload.completedQuests) updateData.completedQuests = payload.completedQuests;
+      if (payload.completedMissions) updateData.completedMissions = payload.completedMissions;
+      if (payload.roadmapGenerated !== undefined) updateData.roadmapGenerated = payload.roadmapGenerated;
+      if (payload.onboardingStep !== undefined) updateData.onboardingStep = payload.onboardingStep;
+      if (payload.javaTestPassed !== undefined) updateData.javaTestPassed = payload.javaTestPassed;
+      await fs.updateUserProfile(uid, updateData);
+    }
+    return { ok: true };
   }
   if(cleanPath.startsWith('/api/auth/')) {
     throw new ApiError(404, 'NOT_FOUND', `Unhandled API path: ${method} ${cleanPath}`);
@@ -674,14 +738,14 @@ Return ONLY JSON. Do not write any markdown formatting, code block ticks, or ext
     const targetDays = Math.min(365, Math.max(30, Number(durationDays) || 30));
 
     // Fetch user scores from Supabase to fuse them
-    let qt1 = 70;
-    let qt2 = 75;
+    let qt1 = 45;
+    let qt2 = 50;
     let archetype = 'Pattern Hunter';
     try {
       const profile = await fs.getUserProfile(uid);
       if (profile?.onboardingAnswers) {
-        qt1 = profile.onboardingAnswers.qt1_score ?? 70;
-        qt2 = profile.onboardingAnswers.qt2_score ?? 75;
+        qt1 = profile.onboardingAnswers.qt1_score ?? 45;
+        qt2 = profile.onboardingAnswers.qt2_score ?? 50;
         archetype = profile.onboardingAnswers.mindset_archetype || 'Pattern Hunter';
       }
     } catch (err) {
@@ -691,7 +755,8 @@ Return ONLY JSON. Do not write any markdown formatting, code block ticks, or ext
     const isAiCourse = courseId === 'course-ai-eng' || String((body as any).targetRole || '').toLowerCase().includes('ai') || String((body as any).skillTags || '').toLowerCase().includes('ai');
     const actualCourseId = isAiCourse ? 'course-ai-eng' : courseId;
 
-    // Get course quests from COURSES_REGISTRY
+    // Get course quests from COURSES_REGISTRY (dynamic import to avoid bundling into root layout)
+    const { COURSES_REGISTRY } = await import('@/lib/data/coursesData');
     const selectedCourse = COURSES_REGISTRY.find(c => c.id === actualCourseId) || (isAiCourse ? COURSES_REGISTRY.find(c => c.id === 'course-ai-eng') : COURSES_REGISTRY[0]);
     const sourceQuests = selectedCourse?.quests && selectedCourse.quests.length > 0
       ? selectedCourse.quests
@@ -827,6 +892,132 @@ Return ONLY JSON. Do not write any markdown formatting, code block ticks, or ext
       },
       message: 'Resume analyzed with vendor-inspired ATS screener and 5-point quick wins engine'
     };
+  }
+  if(cleanPath==='/api/vault/upload'&&method==='POST'){
+    let fileName = 'Uploaded_Document.pdf';
+    let rawText = '';
+    let targetCat: VaultCategory | '' = '';
+    let primaryName = '';
+    let fileSize = '120.0 KB';
+
+    if (body && typeof body === 'object') {
+      try {
+        const fileObj = (body as any).get?.('file') || (body as any).file;
+        if (fileObj && fileObj.name) {
+          fileName = fileObj.name;
+          if (fileObj.size) fileSize = (fileObj.size / 1024).toFixed(1) + ' KB';
+        }
+        if (fileObj && typeof fileObj.text === 'function') {
+          const chunk = await fileObj.text();
+          rawText = chunk.slice(0, 10000);
+        }
+        targetCat = (body as any).get?.('category') || (body as any).category || '';
+        primaryName = (body as any).get?.('primaryName') || (body as any).primaryName || '';
+      } catch {}
+    }
+
+    const category: VaultCategory = (targetCat as VaultCategory) || classifyDocumentCategory(fileName, rawText);
+    const profile = await fs.getUserProfile(uid) as any;
+    const finalPrimaryName = primaryName || profile?.displayName || 'Candidate';
+
+    const validatedGraph = groundAndValidateEvidence(rawText, fileName, 'mock_client_hash');
+    const detectedName = validatedGraph.candidateName || finalPrimaryName;
+    const institution = validatedGraph.institution || 'Academic Institution';
+    const scoreOrGpa = validatedGraph.scoreOrGpa || (category === '10th' ? '10th Marksheet' : category === '12th_puc' ? '12th/PUC Certificate' : 'Academic Credential');
+    const skills = validatedGraph.documentSupportedSkills;
+
+    let verificationStatus: 'verified' | 'mismatch_warning' | 'provisional' = 'verified';
+    let mismatchReason: string | undefined = undefined;
+
+    if (finalPrimaryName && finalPrimaryName !== 'Candidate') {
+      const check = checkNameSimilarity(finalPrimaryName, detectedName);
+      if (!check.isMatch) {
+        verificationStatus = 'mismatch_warning';
+        mismatchReason = check.reason;
+      }
+    }
+
+    const itemTypeMap: Record<string, string> = {
+      '10th': 'academic', '12th_puc': 'academic',
+      'sem1': 'academic', 'sem2': 'academic', 'sem3': 'academic', 'sem4': 'academic',
+      'sem5': 'academic', 'sem6': 'academic', 'sem7': 'academic', 'sem8': 'academic',
+      'resume': 'resume', 'achievement': 'project', 'certification': 'certification',
+      'internship': 'internship', 'other': 'other'
+    };
+
+    const categoryTitles: Record<string, string> = {
+      '10th': '10th Standard / Secondary Board Marksheet',
+      '12th_puc': '12th / 2nd PUC / Diploma Certificate',
+      'sem1': '1st Semester University Marksheet',
+      'sem2': '2nd Semester University Marksheet',
+      'sem3': '3rd Semester University Marksheet',
+      'sem4': '4th Semester University Marksheet',
+      'sem5': '5th Semester University Marksheet',
+      'sem6': '6th Semester University Marksheet',
+      'sem7': '7th Semester University Marksheet',
+      'sem8': '8th Semester University Marksheet',
+      'resume': 'Primary Candidate Master Resume',
+      'achievement': 'Certificate of Achievement / Contest Win',
+      'certification': 'Verified Technical / Cloud Certification',
+      'internship': 'Internship Experience Letter',
+      'other': 'Verified Supporting Document'
+    };
+
+    const title = categoryTitles[category] || `${fileName} (${category})`;
+    const storagePath = `vault/${uid}/${category}/${Date.now()}_${fileName.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
+
+    let dbId = `vault_${Date.now()}`;
+    try {
+      dbId = await fs.addVaultItem(uid, {
+        title,
+        item_type: itemTypeMap[category] || 'other',
+        organization_name: institution,
+        description: `Uploaded to Candidate Secure Vault (${scoreOrGpa}). Organization: ${institution}. Storage: ${storagePath}`,
+        verified: verificationStatus === 'verified',
+        ai_confidence_score: verificationStatus === 'verified' ? 95 : 45,
+        skill_tags: skills,
+        is_public: true,
+        used_in_resume: true,
+        used_in_portfolio: category === 'achievement' || category === 'certification'
+      });
+    } catch (err) {
+      console.warn('[client.ts addVaultItem warning]:', err);
+    }
+
+    const documentSlot: VaultDocumentSlot = {
+      id: dbId,
+      category,
+      title,
+      fileName,
+      fileSize,
+      fileType: fileName.endsWith('.pdf') ? 'application/pdf' : 'application/octet-stream',
+      storageUrl: storagePath,
+      candidateName: detectedName,
+      institution,
+      scoreOrGpa,
+      skills,
+      verificationStatus,
+      mismatchReason,
+      uploadedAt: Date.now()
+    };
+
+    return {
+      ok: true,
+      document: documentSlot,
+      storageUrl: storagePath,
+      message: 'Document successfully parsed and synced with Supabase.'
+    };
+  }
+  if(cleanPath==='/api/vault/delete'&&method==='POST'){
+    const { documentId } = (body || {}) as { documentId: string };
+    try {
+      if (documentId) {
+        await supabase.from('vault_items').delete().eq('id', documentId).eq('user_id', uid);
+      }
+    } catch (err) {
+      console.warn('[client.ts deleteVaultItem warning]:', err);
+    }
+    return { ok: true, message: 'Document removed from Vault.' };
   }
   if(cleanPath==='/api/resume/generate-from-vault'&&method==='POST'){
     const { itemId } = body as { itemId: string };
@@ -1045,7 +1236,29 @@ Ensure the JSON output is strictly valid and contains no extra text or markdown 
   if (cleanPath === '/api/payment/status') {
     const p = await fs.getUserProfile(uid);
     const tier = (p as any)?.subscription_tier || 'free';
-    return { tier, endsAt: tier !== 'free' ? new Date(Date.now() + 30 * 86400000).toISOString() : null, planName: tier === 'pro' ? 'Pro' : 'Free', limits: { aiInterviews: 100, resumeUploads: 100 } };
+
+    // endsAt previously returned `new Date(Date.now() + 30 days)` — recomputed
+    // on EVERY call, so the displayed expiry slid forward forever and was
+    // always ~30 days away regardless of when the user actually paid. It was
+    // not a stale value; it was a fabricated one.
+    //
+    // Now it reports the stored period written by /api/payment/verify.
+    // null means "no recorded period" — which is the honest answer for a free
+    // user, and also for a legacy Pro user whose row predates that column.
+    // Absence of a date is NOT treated as unlimited access.
+    const storedExpiry = (p as any)?.subscription_expires_at || null;
+    const endsAt = tier !== 'free' && storedExpiry ? storedExpiry : null;
+    const isActive = !!endsAt && new Date(endsAt).getTime() > Date.now();
+
+    return {
+      tier,
+      endsAt,
+      isActive,
+      startedAt: (p as any)?.subscription_started_at || null,
+      status: (p as any)?.subscription_status || 'none',
+      planName: tier === 'pro' ? 'Pro' : 'Free',
+      limits: { aiInterviews: 100, resumeUploads: 100 },
+    };
   }
   if (cleanPath === '/api/payment/plans') return { plans: [{ id: 'free', name: 'Free', price: 0, features: ['3 AI interviews/month', '2 resume uploads', 'Full Career DNA'] }, { id: 'pro', name: 'Pro', price: 49900, features: ['Unlimited everything', 'AI Resume Improve'] }] };
   if (cleanPath === '/api/payment/create-order') {
@@ -2335,10 +2548,24 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
     // supplied test suite. `language` IS forwarded (previously silently dropped
     // by this shim, which would have made the server's language-gated Java
     // transpile step unreachable regardless of what the caller sent).
-    const { questId, code, language } = body as { questId: string, code: string, language?: string, isExam?: boolean };
+    const { questId, code, language, isExam, elapsedSeconds, allowedSeconds } = body as {
+      questId: string; code: string; language?: string; isExam?: boolean;
+      elapsedSeconds?: number | null; allowedSeconds?: number | null;
+    };
     try {
+      // EXAM TIMING: elapsedSeconds/allowedSeconds are forwarded so the grader
+      // can reject an attempt that ran over its allowance.
+      //
+      // SECURITY CAVEAT — read before relying on this: these values originate
+      // on the CLIENT and are therefore untrusted. A tampered client can send
+      // elapsedSeconds: 0. This is defence-in-depth and telemetry, NOT a
+      // security boundary. The complete fix is the pattern already used by the
+      // portfolio exam (src/lib/portfolio/examToken.ts): the server issues an
+      // HMAC-signed session token carrying expiresAt when the exam starts, and
+      // validates it at submission. That requires a change to the verify-quest
+      // edge function, which lives outside this repository.
       const { data, error } = await supabase.functions.invoke('verify-quest', {
-        body: { questId, code, language },
+        body: { questId, code, language, isExam, elapsedSeconds, allowedSeconds },
       });
       if (error) throw error;
       return data as { success: boolean; message?: string; verificationToken?: string };
@@ -2424,6 +2651,7 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
       // If careerContext.activeQuest is a string, resolve it to the quest object so the prompt is fully populated
       let activeQuestObj = null;
       let activeQuestId = "";
+      const { COURSES_REGISTRY } = await import('@/lib/data/coursesData');
       if (careerContext?.activeQuest) {
         if (typeof careerContext.activeQuest === 'string') {
           activeQuestId = careerContext.activeQuest;
@@ -3013,7 +3241,7 @@ function liveApiPrefix(path: string): string {
 
 async function request<T>(method:string, path:string, body?:unknown): Promise<T> {
   // NOTE: /api/admin intentionally omitted from live-prefer list so client RBAC (profile.role) always runs.
-  const preferLive = path === '/api/interview/chat' || path === '/api/interview/evaluate' || path === '/api/group-discussion/bot-reply' || path.startsWith('/api/hostel') || path.startsWith('/api/transport') || path.startsWith('/api/events') || path.startsWith('/api/grievances') || path.startsWith('/api/library') || path.startsWith('/api/research') || path.startsWith('/api/finance') || path.startsWith('/api/exams') || path.startsWith('/api/maintenance') || path.startsWith('/api/advisor') || path.startsWith('/api/services') || path.startsWith('/api/notes') || path.startsWith('/api/admissions') || path.startsWith('/api/hr') || path.startsWith('/api/procurement') || path.startsWith('/api/assets') || path.startsWith('/api/alumni') || path.startsWith('/api/communication') || path.startsWith('/api/documents') || path === '/api/llm' || path.startsWith('/api/payment') || path.startsWith('/api/auth/face') || path.startsWith('/api/attendance');
+  const preferLive = path === '/api/interview/chat' || path === '/api/interview/evaluate' || path === '/api/group-discussion/bot-reply' || path.startsWith('/api/vault') || path.startsWith('/api/hostel') || path.startsWith('/api/transport') || path.startsWith('/api/events') || path.startsWith('/api/grievances') || path.startsWith('/api/library') || path.startsWith('/api/research') || path.startsWith('/api/finance') || path.startsWith('/api/exams') || path.startsWith('/api/maintenance') || path.startsWith('/api/advisor') || path.startsWith('/api/services') || path.startsWith('/api/notes') || path.startsWith('/api/admissions') || path.startsWith('/api/hr') || path.startsWith('/api/procurement') || path.startsWith('/api/assets') || path.startsWith('/api/alumni') || path.startsWith('/api/communication') || path.startsWith('/api/documents') || path === '/api/llm' || path.startsWith('/api/payment') || path.startsWith('/api/auth/face') || path.startsWith('/api/attendance');
   if (preferLive && !liveMissPrefixes.has(liveApiPrefix(path))) {
     try {
       let authHeader: Record<string, string> = {};
@@ -3023,10 +3251,16 @@ async function request<T>(method:string, path:string, body?:unknown): Promise<T>
           authHeader = { Authorization: `Bearer ${session.access_token}` };
         }
       } catch { /* ignore */ }
+      const isFormData = typeof FormData !== 'undefined' && body instanceof FormData;
+      const headers: Record<string, string> = {
+        'X-Pinit-Direct': '1',
+        ...authHeader,
+        ...(isFormData ? {} : { 'Content-Type': 'application/json' })
+      };
       const res = await fetch(path, {
         method,
-        headers: { 'Content-Type': 'application/json', 'X-Pinit-Direct': '1', ...authHeader },
-        body: body ? JSON.stringify(body) : undefined
+        headers,
+        body: isFormData ? (body as FormData) : body ? JSON.stringify(body) : undefined
       });
       if (res.ok) {
         const json = await res.json() as any;

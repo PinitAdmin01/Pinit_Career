@@ -92,18 +92,25 @@ Return ONLY valid JSON matching this schema:
   "summary": "2-3 sentence executive evaluation summary."
 }`;
 
-    const groqKey = process.env.GROQ_API_KEY || (process.env.GROQ_API_KEYS || '').split(',')[0]?.trim();
+    const groqKeysStr = process.env.GROQ_API_KEYS || '';
+    let groqKeys = groqKeysStr.split(',').map(k => k.trim()).filter(Boolean);
+    const singleGroqKey = process.env.GROQ_API_KEY;
+    if (singleGroqKey && !groqKeys.includes(singleGroqKey)) {
+      groqKeys.push(singleGroqKey);
+    }
     const openRouterKey = process.env.OPENROUTER_API_KEY;
 
     let rawParsedEval: any = null;
 
-    if (groqKey) {
+    // 1. Attempt Groq Multi-Key Rotation Pool
+    for (const key of groqKeys) {
       try {
+        console.log(`[Interview Evaluate API] Attempting Groq evaluation with key ending in ...${key.slice(-4)}`);
         const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${groqKey}`,
+            'Authorization': `Bearer ${key}`,
           },
           body: JSON.stringify({
             model: 'llama-3.3-70b-versatile',
@@ -120,19 +127,27 @@ Return ONLY valid JSON matching this schema:
           const raw = (data.choices?.[0]?.message?.content || '').trim();
           const cleanJsonStr = raw.replace(/```json|```/g, '').trim();
           rawParsedEval = JSON.parse(cleanJsonStr);
+          console.log('[Interview Evaluate API] Groq evaluation successfully parsed');
+          break;
+        } else {
+          console.warn(`[Interview Evaluate API] Groq key returned status: ${res.status}`);
         }
-      } catch (e) {
-        console.warn('[Interview Evaluator] Groq evaluation request error:', e);
+      } catch (e: any) {
+        console.warn('[Interview Evaluate API] Groq evaluation request error:', e?.message);
       }
     }
 
+    // 2. Fallback to OpenRouter if Groq pool is exhausted
     if (!rawParsedEval && openRouterKey) {
       try {
+        console.log('[Interview Evaluate API] Falling back to OpenRouter evaluation...');
         const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${openRouterKey}`,
+            'HTTP-Referer': 'https://pinit-careers.web.app',
+            'X-Title': 'PinIT Interview AI Evaluator'
           },
           body: JSON.stringify({
             model: 'meta-llama/llama-3.1-8b-instruct:free',
@@ -147,9 +162,10 @@ Return ONLY valid JSON matching this schema:
           const raw = (data.choices?.[0]?.message?.content || '').trim();
           const cleanJsonStr = raw.replace(/```json|```/g, '').trim();
           rawParsedEval = JSON.parse(cleanJsonStr);
+          console.log('[Interview Evaluate API] OpenRouter evaluation successfully parsed');
         }
-      } catch (e) {
-        console.warn('[Interview Evaluator] OpenRouter evaluation request error:', e);
+      } catch (e: any) {
+        console.warn('[Interview Evaluate API] OpenRouter evaluation request error:', e?.message);
       }
     }
 

@@ -267,7 +267,7 @@ function ConsultantPageInner() {
         <div style={{
           position: 'fixed', bottom: 24, right: 24, zIndex: 9999,
           background: toast.type === 'success' ? 'var(--green)' : 'var(--coral)',
-          color: '#fff', padding: '11px 20px', borderRadius: 10, fontSize: 13, fontWeight: 600,
+          color: 'var(--text)', padding: '11px 20px', borderRadius: 10, fontSize: 13, fontWeight: 600,
           boxShadow: 'var(--shadow-lg)'
         }}>
           {toast.msg}
@@ -313,7 +313,7 @@ function ConsultantPageInner() {
             style={{
               padding: '8px 16px', borderRadius: 8, border: 'none', cursor: 'pointer',
               fontSize: 12.5, fontWeight: activeTab === tab.id ? 800 : 600,
-              background: activeTab === tab.id ? 'rgba(99,102,241,0.08)' : 'transparent',
+              background: activeTab === tab.id ? 'rgba(var(--brand-rgb), 0.08)' : 'transparent',
               color: activeTab === tab.id ? 'var(--accent)' : 'var(--t2)',
               whiteSpace: 'nowrap', transition: 'all 0.15s'
             }}
@@ -336,8 +336,8 @@ function ConsultantPageInner() {
           ) : (
             <>
           <div style={{
-            background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.06) 0%, rgba(99, 102, 241, 0.02) 100%)',
-            border: '1.5px solid rgba(99, 102, 241, 0.25)',
+            background: 'linear-gradient(135deg, rgba(var(--brand-rgb),  0.06) 0%, rgba(var(--brand-rgb),  0.02) 100%)',
+            border: '1.5px solid rgba(var(--brand-rgb),  0.25)',
             borderRadius: 14, padding: 20
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
@@ -353,8 +353,8 @@ function ConsultantPageInner() {
 
           {/* At-Risk Student Advisory Trigger Banner (advisingapp-inspired) */}
           <div style={{
-            background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.06) 0%, rgba(220, 38, 38, 0.02) 100%)',
-            border: '1.5px solid rgba(239, 68, 68, 0.3)',
+            background: 'linear-gradient(135deg, rgba(var(--danger-rgb),  0.06) 0%, rgba(var(--danger-rgb),  0.02) 100%)',
+            border: '1.5px solid rgba(var(--danger-rgb),  0.3)',
             borderRadius: 14, padding: 18, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16, flexWrap: 'wrap'
           }}>
             <div>
@@ -371,9 +371,9 @@ function ConsultantPageInner() {
             <button
               onClick={() => handleInitiateCareTeamReview('stud_risk_01', 'Cohort Advisory Group')}
               style={{
-                padding: '8px 16px', borderRadius: 8, background: 'var(--coral)', color: '#fff',
+                padding: '8px 16px', borderRadius: 8, background: 'var(--coral)', color: 'var(--text)',
                 border: 'none', fontWeight: 800, fontSize: 12, cursor: 'pointer', whiteSpace: 'nowrap',
-                boxShadow: '0 4px 12px rgba(239, 68, 68, 0.25)'
+                boxShadow: '0 4px 12px rgba(var(--danger-rgb),  0.25)'
               }}
             >
               🤝 Initiate Care Team Review
@@ -477,7 +477,7 @@ function ConsultantPageInner() {
                             onClick={() => setSelectedStudent(s)}
                             className="glass-card card-hover"
                             style={{
-                              background: selectedStudent?.id === s.id ? 'rgba(99, 102, 241, 0.08)' : 'var(--bg3)',
+                              background: selectedStudent?.id === s.id ? 'rgba(var(--brand-rgb),  0.08)' : 'var(--bg3)',
                               border: `1px solid ${selectedStudent?.id === s.id ? 'var(--accent)' : 'var(--border)'}`,
                               borderRadius: 12, padding: 14, cursor: 'pointer', transition: 'all 0.2s ease',
                               position: 'relative'
@@ -594,7 +594,7 @@ function ConsultantPageInner() {
                             <button onClick={() => handleVerifyDocument(item.id, 'verified')} className="btn-primary btn-sm" style={{ padding: '4px 10px', fontSize: 10.5, flex: 1, justifyContent: 'center' }}>
                               ✓ Verify
                             </button>
-                            <button onClick={() => handleVerifyDocument(item.id, 'rejected')} className="btn-ghost btn-sm" style={{ padding: '4px 10px', fontSize: 10.5, color: 'var(--coral)', border: '1px solid rgba(239,68,68,0.2)', flex: 1, justifyContent: 'center' }}>
+                            <button onClick={() => handleVerifyDocument(item.id, 'rejected')} className="btn-ghost btn-sm" style={{ padding: '4px 10px', fontSize: 10.5, color: 'var(--coral)', border: '1px solid rgba(var(--danger-rgb), 0.2)', flex: 1, justifyContent: 'center' }}>
                               Reject
                             </button>
                           </div>
@@ -615,7 +615,7 @@ function ConsultantPageInner() {
                     <span style={{ fontWeight: 700, fontSize: 12, color: 'var(--t1)' }}>🚀 Hospital Management</span>
                     <span style={{
                       fontSize: 9, padding: '2px 6px', borderRadius: 4, fontWeight: 800, fontFamily: 'var(--font-mono)',
-                      background: 'rgba(16,185,129,0.08)', color: 'var(--success)'
+                      background: 'rgba(var(--success-rgb), 0.08)', color: 'var(--success)'
                     }}>
                       AI Verified (91%)
                     </span>
@@ -643,7 +643,7 @@ function ConsultantPageInner() {
                         ✓ Mentor Verify
                       </button>
                     ) : (
-                      <div style={{ flex: 1.2, textAlign: 'center', background: 'rgba(16,185,129,0.08)', color: 'var(--success)', padding: '6px 0', borderRadius: 8, fontSize: 10.5, fontWeight: 900 }}>
+                      <div style={{ flex: 1.2, textAlign: 'center', background: 'rgba(var(--success-rgb), 0.08)', color: 'var(--success)', padding: '6px 0', borderRadius: 8, fontSize: 10.5, fontWeight: 900 }}>
                         ✓ MENTOR VERIFIED
                       </div>
                     )}
@@ -822,7 +822,7 @@ function ConsultantPageInner() {
                       padding: 14,
                       borderBottom: idx < allStudents.length - 1 ? '1px solid var(--border)' : 'none',
                       cursor: 'pointer',
-                      background: selectedIntelStudent?.name === stud.name ? 'rgba(99,102,241,0.06)' : 'transparent',
+                      background: selectedIntelStudent?.name === stud.name ? 'rgba(var(--brand-rgb), 0.06)' : 'transparent',
                       transition: 'background 0.2s'
                     }}
                   >
@@ -904,11 +904,11 @@ function ConsultantPageInner() {
                     <span style={{ fontSize: 9.5, color: 'var(--t3)' }}>GRE Score</span>
                     <div style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--t1)', marginTop: 2 }}>{selectedIntelStudent.gre}</div>
                   </div>
-                  <div style={{ background: 'rgba(20,184,166,0.03)', borderRadius: 8, padding: 8, border: '1px solid rgba(20,184,166,0.1)' }}>
+                  <div style={{ background: 'rgba(var(--accent-teal-rgb), 0.03)', borderRadius: 8, padding: 8, border: '1px solid rgba(var(--accent-teal-rgb), 0.1)' }}>
                     <span style={{ fontSize: 9.5, color: 'var(--teal)' }}>Scholarship Match</span>
                     <div style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--teal)', marginTop: 2 }}>{selectedIntelStudent.scholarship}</div>
                   </div>
-                  <div style={{ background: 'rgba(99,102,241,0.03)', borderRadius: 8, padding: 8, border: '1px solid rgba(99,102,241,0.1)' }}>
+                  <div style={{ background: 'rgba(var(--brand-rgb), 0.03)', borderRadius: 8, padding: 8, border: '1px solid rgba(var(--brand-rgb), 0.1)' }}>
                     <span style={{ fontSize: 9.5, color: 'var(--accent)' }}>Admission Odds</span>
                     <div style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--accent)', marginTop: 2 }}>{selectedIntelStudent.probability}</div>
                   </div>
@@ -950,38 +950,38 @@ function ConsultantPageInner() {
               {
                 step: '1. GOAL',
                 val: selectedGoal,
-                bg: 'rgba(99,102,241,0.06)',
-                border: 'rgba(99,102,241,0.2)'
+                bg: 'rgba(var(--brand-rgb), 0.06)',
+                border: 'rgba(var(--brand-rgb), 0.2)'
               },
               {
                 step: '2. CAREER TARGET',
                 val: selectedGoal === 'AI Engineer' ? 'ML Ops Engineer / AI Software Dev' : selectedGoal === 'Cloud Architect' ? 'Cloud Solutions Architect' : 'Backend Infra Architect',
-                bg: 'rgba(20,184,166,0.06)',
-                border: 'rgba(20,184,166,0.2)'
+                bg: 'rgba(var(--accent-teal-rgb), 0.06)',
+                border: 'rgba(var(--accent-teal-rgb), 0.2)'
               },
               {
                 step: '3. REQUIRED SKILLS',
                 val: selectedGoal === 'AI Engineer' ? 'PyTorch, Python, MLOps, Calculus' : selectedGoal === 'Cloud Architect' ? 'AWS, Kubernetes, Terraform' : 'Go, C++, Distributed Consensus',
-                bg: 'rgba(245,158,11,0.06)',
-                border: 'rgba(245,158,11,0.2)'
+                bg: 'rgba(var(--warning-rgb), 0.06)',
+                border: 'rgba(var(--warning-rgb), 0.2)'
               },
               {
                 step: '4. BEST COUNTRIES',
                 val: selectedGoal === 'AI Engineer' ? 'Canada, Germany, USA, Singapore' : selectedGoal === 'Cloud Architect' ? 'USA, UK, Australia' : 'Germany, Singapore, Netherlands',
-                bg: 'rgba(16,185,129,0.06)',
-                border: 'rgba(16,185,129,0.2)'
+                bg: 'rgba(var(--success-rgb), 0.06)',
+                border: 'rgba(var(--success-rgb), 0.2)'
               },
               {
                 step: '5. TARGET UNIVERSITIES',
                 val: selectedGoal === 'AI Engineer' ? 'TU Munich, Stanford, NUS, Univ of Toronto' : selectedGoal === 'Cloud Architect' ? 'MIT, UC Berkeley, UCL London' : 'TU Delft, NUS Singapore, ETH Zurich',
-                bg: 'rgba(99,102,241,0.06)',
-                border: 'rgba(99,102,241,0.2)'
+                bg: 'rgba(var(--brand-rgb), 0.06)',
+                border: 'rgba(var(--brand-rgb), 0.2)'
               },
               {
                 step: '6. KEY ADVANTAGES',
                 val: selectedGoal === 'AI Engineer' ? 'Strong AI Labs, Low Tuition, Good Visa, High Placement' : selectedGoal === 'Cloud Architect' ? 'AWS Headquarter access, Tech Hub, Premium Salaries' : 'Industry R&D Centers, Visa Sponsorship, High starting CTC',
-                bg: 'rgba(20,184,166,0.06)',
-                border: 'rgba(20,184,166,0.2)'
+                bg: 'rgba(var(--accent-teal-rgb), 0.06)',
+                border: 'rgba(var(--accent-teal-rgb), 0.2)'
               }
             ].map((node, i) => (
               <div key={i} style={{
@@ -1061,7 +1061,7 @@ function ConsultantPageInner() {
                     </div>
                     <span style={{
                       fontSize: 10,
-                      background: c.visa === 'approved' || c.visa === 'Approved' ? 'rgba(16,185,129,0.08)' : 'rgba(245,158,11,0.08)',
+                      background: c.visa === 'approved' || c.visa === 'Approved' ? 'rgba(var(--success-rgb), 0.08)' : 'rgba(var(--warning-rgb), 0.08)',
                       color: c.visa === 'approved' || c.visa === 'Approved' ? 'var(--success)' : 'var(--amber)',
                       padding: '3px 8px', borderRadius: 20, fontWeight: 800
                     }}>
@@ -1101,7 +1101,7 @@ function ConsultantPageInner() {
                   style={{
                     padding: '6px 12px', borderRadius: 6, border: 'none', cursor: 'pointer',
                     fontSize: 11.5, fontWeight: studyAbroadSubTab === subTab.id ? 800 : 600,
-                    background: studyAbroadSubTab === subTab.id ? 'rgba(99,102,241,0.08)' : 'transparent',
+                    background: studyAbroadSubTab === subTab.id ? 'rgba(var(--brand-rgb), 0.08)' : 'transparent',
                     color: studyAbroadSubTab === subTab.id ? 'var(--accent)' : 'var(--t3)',
                     transition: 'all 0.15s'
                   }}
@@ -1365,7 +1365,7 @@ function ConsultantPageInner() {
                       <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'flex-end', minWidth: 160 }}>
                         <span style={{
                           fontSize: 10.5, fontWeight: 900,
-                          background: eligible ? 'rgba(16,185,129,0.08)' : 'rgba(239,68,68,0.08)',
+                          background: eligible ? 'rgba(var(--success-rgb), 0.08)' : 'rgba(var(--danger-rgb), 0.08)',
                           color: eligible ? 'var(--success)' : 'var(--danger)',
                           padding: '4px 10px', borderRadius: 20
                         }}>
@@ -1451,7 +1451,7 @@ function ConsultantPageInner() {
                 <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 10, padding: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <span style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--t1)' }}>📄 Statement of Purpose (SOP)</span>
-                    <span style={{ fontSize: 10, background: 'rgba(245,158,11,0.08)', color: 'var(--amber)', padding: '2px 6px', borderRadius: 4, fontWeight: 800 }}>Draft 2</span>
+                    <span style={{ fontSize: 10, background: 'rgba(var(--warning-rgb), 0.08)', color: 'var(--amber)', padding: '2px 6px', borderRadius: 4, fontWeight: 800 }}>Draft 2</span>
                   </div>
                   <button
                     onClick={() => {
@@ -1470,7 +1470,7 @@ function ConsultantPageInner() {
                 <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 10, padding: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <span style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--t1)' }}>📄 Resume (CV)</span>
-                    <span style={{ fontSize: 10, background: 'rgba(16,185,129,0.08)', color: 'var(--success)', padding: '2px 6px', borderRadius: 4, fontWeight: 800 }}>Completed</span>
+                    <span style={{ fontSize: 10, background: 'rgba(var(--success-rgb), 0.08)', color: 'var(--success)', padding: '2px 6px', borderRadius: 4, fontWeight: 800 }}>Completed</span>
                   </div>
                   <button
                     onClick={() => {
@@ -1489,7 +1489,7 @@ function ConsultantPageInner() {
                 <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 10, padding: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <span style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--t1)' }}>📄 Letter of Recommendation</span>
-                    <span style={{ fontSize: 10, background: 'rgba(99,102,241,0.08)', color: 'var(--accent)', padding: '2px 6px', borderRadius: 4, fontWeight: 800 }}>Locked</span>
+                    <span style={{ fontSize: 10, background: 'rgba(var(--brand-rgb), 0.08)', color: 'var(--accent)', padding: '2px 6px', borderRadius: 4, fontWeight: 800 }}>Locked</span>
                   </div>
                   <button
                     onClick={() => {
@@ -1523,7 +1523,7 @@ function ConsultantPageInner() {
                       <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border)', paddingBottom: 10 }}>
                           <strong style={{ color: 'var(--t1)', fontSize: 14.5 }}>SOP Quality Audit: {selectedDocStudent}</strong>
-                          <span style={{ fontSize: 11.5, background: 'rgba(99,102,241,0.08)', color: 'var(--accent)', padding: '3px 8px', borderRadius: 4, fontWeight: 800 }}>Overall Score: 87/100</span>
+                          <span style={{ fontSize: 11.5, background: 'rgba(var(--brand-rgb), 0.08)', color: 'var(--accent)', padding: '3px 8px', borderRadius: 4, fontWeight: 800 }}>Overall Score: 87/100</span>
                         </div>
                         
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
@@ -1556,7 +1556,7 @@ function ConsultantPageInner() {
                       <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border)', paddingBottom: 10 }}>
                           <strong style={{ color: 'var(--t1)', fontSize: 14.5 }}>Resume ATS Scan: {selectedDocStudent}</strong>
-                          <span style={{ fontSize: 11.5, background: 'rgba(20,184,166,0.08)', color: 'var(--teal)', padding: '3px 8px', borderRadius: 4, fontWeight: 800 }}>ATS Score: 82/100</span>
+                          <span style={{ fontSize: 11.5, background: 'rgba(var(--accent-teal-rgb), 0.08)', color: 'var(--teal)', padding: '3px 8px', borderRadius: 4, fontWeight: 800 }}>ATS Score: 82/100</span>
                         </div>
 
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -1575,7 +1575,7 @@ function ConsultantPageInner() {
                       <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border)', paddingBottom: 10 }}>
                           <strong style={{ color: 'var(--t1)', fontSize: 14.5 }}>LOR Tone & Verification: {selectedDocStudent}</strong>
-                          <span style={{ fontSize: 11.5, background: 'rgba(16,185,129,0.08)', color: 'var(--success)', padding: '3px 8px', borderRadius: 4, fontWeight: 800 }}>Tone: Excellent</span>
+                          <span style={{ fontSize: 11.5, background: 'rgba(var(--success-rgb), 0.08)', color: 'var(--success)', padding: '3px 8px', borderRadius: 4, fontWeight: 800 }}>Tone: Excellent</span>
                         </div>
 
                         <div style={{ fontSize: 12.5, color: 'var(--t2)', background: 'rgba(255,255,255,0.01)', border: '1px solid var(--border)', borderRadius: 8, padding: 10, lineHeight: 1.45 }}>
@@ -1667,7 +1667,7 @@ function ConsultantPageInner() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <h4 style={{ margin: 0, fontSize: 14, fontWeight: 900, color: 'var(--t1)' }}>Generated Draft Editor</h4>
                   {generatedSop && (
-                    <span style={{ fontSize: 11, background: 'rgba(16,185,129,0.08)', color: 'var(--success)', padding: '2px 8px', borderRadius: 4, fontWeight: 800 }}>
+                    <span style={{ fontSize: 11, background: 'rgba(var(--success-rgb), 0.08)', color: 'var(--success)', padding: '2px 8px', borderRadius: 4, fontWeight: 800 }}>
                       Draft Generated
                     </span>
                   )}

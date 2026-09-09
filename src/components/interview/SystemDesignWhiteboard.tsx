@@ -40,27 +40,27 @@ interface Props {
 }
 
 const TECH_COMPONENTS = [
-  { type: 'Client App', category: 'client' as const, color: '#3b82f6', icon: '📱' },
-  { type: 'CDN (Cloudflare)', category: 'gateway' as const, color: '#f59e0b', icon: '⚡' },
-  { type: 'Load Balancer', category: 'gateway' as const, color: '#8b5cf6', icon: '⚖️' },
-  { type: 'API Gateway', category: 'gateway' as const, color: '#6366f1', icon: '🛡️' },
-  { type: 'Microservice', category: 'compute' as const, color: '#10b981', icon: '⚙️' },
-  { type: 'Worker / Cron', category: 'compute' as const, color: '#14b8a6', icon: '⏱️' },
-  { type: 'Redis Cache', category: 'storage' as const, color: '#ef4444', icon: '🚀' },
+  { type: 'Client App', category: 'client' as const, color: 'var(--info)', icon: '📱' },
+  { type: 'CDN (Cloudflare)', category: 'gateway' as const, color: 'var(--warning)', icon: '⚡' },
+  { type: 'Load Balancer', category: 'gateway' as const, color: 'var(--reward)', icon: '⚖️' },
+  { type: 'API Gateway', category: 'gateway' as const, color: 'var(--brand)', icon: '🛡️' },
+  { type: 'Microservice', category: 'compute' as const, color: 'var(--success)', icon: '⚙️' },
+  { type: 'Worker / Cron', category: 'compute' as const, color: 'var(--accent-teal)', icon: '⏱️' },
+  { type: 'Redis Cache', category: 'storage' as const, color: 'var(--danger)', icon: '🚀' },
   { type: 'Postgres DB', category: 'storage' as const, color: '#0ea5e9', icon: '🗄️' },
   { type: 'Kafka / Queue', category: 'queue' as const, color: '#ec4899', icon: '📨' },
   { type: 'Blob Storage (S3)', category: 'storage' as const, color: '#f97316', icon: '📦' },
 ];
 
 const NON_TECH_COMPONENTS = [
-  { type: 'Target Audience', category: 'business' as const, color: '#3b82f6', icon: '👥' },
-  { type: 'Ad Campaign', category: 'business' as const, color: '#f59e0b', icon: '📣' },
-  { type: 'Landing Page', category: 'business' as const, color: '#8b5cf6', icon: '🎯' },
-  { type: 'Checkout Engine', category: 'business' as const, color: '#10b981', icon: '💳' },
-  { type: 'CRM / Support', category: 'business' as const, color: '#6366f1', icon: '🎧' },
+  { type: 'Target Audience', category: 'business' as const, color: 'var(--info)', icon: '👥' },
+  { type: 'Ad Campaign', category: 'business' as const, color: 'var(--warning)', icon: '📣' },
+  { type: 'Landing Page', category: 'business' as const, color: 'var(--reward)', icon: '🎯' },
+  { type: 'Checkout Engine', category: 'business' as const, color: 'var(--success)', icon: '💳' },
+  { type: 'CRM / Support', category: 'business' as const, color: 'var(--brand)', icon: '🎧' },
   { type: 'Logistics Hub', category: 'business' as const, color: '#f97316', icon: '🚚' },
   { type: 'Retention Loop', category: 'business' as const, color: '#ec4899', icon: '🔄' },
-  { type: 'Supplier Network', category: 'business' as const, color: '#14b8a6', icon: '🏭' },
+  { type: 'Supplier Network', category: 'business' as const, color: 'var(--accent-teal)', icon: '🏭' },
 ];
 
 export default function SystemDesignWhiteboard({
@@ -71,11 +71,11 @@ export default function SystemDesignWhiteboard({
   isAnalyzing = false
 }: Props) {
   const [nodes, setNodes] = useState<BoardNode[]>([
-    { id: 'node_1', type: 'Client App', label: 'Web/Mobile Client', x: 40, y: 160, category: 'client', color: '#3b82f6' },
-    { id: 'node_2', type: 'Load Balancer', label: 'ALB / Nginx', x: 230, y: 160, category: 'gateway', color: '#8b5cf6' },
-    { id: 'node_3', type: 'Microservice', label: 'Core App Server', x: 430, y: 160, category: 'compute', color: '#10b981' },
+    { id: 'node_1', type: 'Client App', label: 'Web/Mobile Client', x: 40, y: 160, category: 'client', color: 'var(--info)' },
+    { id: 'node_2', type: 'Load Balancer', label: 'ALB / Nginx', x: 230, y: 160, category: 'gateway', color: 'var(--reward)' },
+    { id: 'node_3', type: 'Microservice', label: 'Core App Server', x: 430, y: 160, category: 'compute', color: 'var(--success)' },
     { id: 'node_4', type: 'Postgres DB', label: 'Primary Relational DB', x: 640, y: 240, category: 'storage', color: '#0ea5e9' },
-    { id: 'node_5', type: 'Redis Cache', label: 'Session / Cache Layer', x: 640, y: 80, category: 'storage', color: '#ef4444' }
+    { id: 'node_5', type: 'Redis Cache', label: 'Session / Cache Layer', x: 640, y: 80, category: 'storage', color: 'var(--danger)' }
   ]);
 
   const [links, setLinks] = useState<BoardLink[]>([
@@ -95,6 +95,38 @@ export default function SystemDesignWhiteboard({
   const canvasRef = useRef<HTMLDivElement>(null);
 
   const palette = domainStream === 'non_tech' ? NON_TECH_COMPONENTS : TECH_COMPONENTS;
+
+  // Reset topology whenever domain stream changes (prevents diagram leaking across streams)
+  useEffect(() => {
+    console.log(`[Whiteboard] 🔄 Resetting topology for stream: ${domainStream} | Topic: ${activeTopic}`);
+    if (domainStream === 'non_tech') {
+      setNodes([
+        { id: 'node_1', type: 'Target Audience', label: 'Customer Cohort', x: 40, y: 160, category: 'business', color: 'var(--info)' },
+        { id: 'node_2', type: 'Ad Campaign', label: 'Paid Marketing (Meta/Google)', x: 230, y: 160, category: 'business', color: 'var(--warning)' },
+        { id: 'node_3', type: 'Landing Page', label: 'Conversion Funnel', x: 430, y: 160, category: 'business', color: 'var(--reward)' },
+        { id: 'node_4', type: 'Checkout Engine', label: 'Payment & Fulfillment', x: 640, y: 160, category: 'business', color: 'var(--success)' }
+      ]);
+      setLinks([
+        { id: 'link_1', from: 'node_1', to: 'node_2', protocol: 'Targeting' },
+        { id: 'link_2', from: 'node_2', to: 'node_3', protocol: 'Inbound Traffic' },
+        { id: 'link_3', from: 'node_3', to: 'node_4', protocol: 'Lead Conversion' }
+      ]);
+    } else {
+      setNodes([
+        { id: 'node_1', type: 'Client App', label: 'Web/Mobile Client', x: 40, y: 160, category: 'client', color: 'var(--info)' },
+        { id: 'node_2', type: 'Load Balancer', label: 'ALB / Nginx', x: 230, y: 160, category: 'gateway', color: 'var(--reward)' },
+        { id: 'node_3', type: 'Microservice', label: 'Core App Server', x: 430, y: 160, category: 'compute', color: 'var(--success)' },
+        { id: 'node_4', type: 'Postgres DB', label: 'Primary Relational DB', x: 640, y: 240, category: 'storage', color: '#0ea5e9' },
+        { id: 'node_5', type: 'Redis Cache', label: 'Session / Cache Layer', x: 640, y: 80, category: 'storage', color: 'var(--danger)' }
+      ]);
+      setLinks([
+        { id: 'link_1', from: 'node_1', to: 'node_2', protocol: 'HTTPS/REST' },
+        { id: 'link_2', from: 'node_2', to: 'node_3', protocol: 'gRPC' },
+        { id: 'link_3', from: 'node_3', to: 'node_5', protocol: 'Cache Read' },
+        { id: 'link_4', from: 'node_3', to: 'node_4', protocol: 'SQL Read/Write' }
+      ]);
+    }
+  }, [domainStream, activeTopic]);
 
   // ─── Generate & Propagate Topology Snapshot ──────────────────────────────
   const emitTopology = useCallback((currentNodes: BoardNode[], currentLinks: BoardLink[]) => {
@@ -208,15 +240,53 @@ export default function SystemDesignWhiteboard({
     }
   };
 
+  // ─── Touch Support ────────────────────────────────────────────────────────
+  const handleNodeTouchStart = (e: React.TouchEvent, id: string) => {
+    if (isConnectMode) {
+      handleNodeClick(id);
+      return;
+    }
+    const node = nodes.find(n => n.id === id);
+    if (!node || !canvasRef.current || !e.touches[0]) return;
+    const canvasRect = canvasRef.current.getBoundingClientRect();
+    setDraggingNodeId(id);
+    setDragOffset({
+      x: (e.touches[0].clientX - canvasRect.left) - node.x,
+      y: (e.touches[0].clientY - canvasRect.top) - node.y
+    });
+  };
+
+  const handleCanvasTouchMove = (e: React.TouchEvent) => {
+    if (!draggingNodeId || !canvasRef.current || !e.touches[0]) return;
+    const canvasRect = canvasRef.current.getBoundingClientRect();
+    const rawX = e.touches[0].clientX - canvasRect.left - dragOffset.x;
+    const rawY = e.touches[0].clientY - canvasRect.top - dragOffset.y;
+
+    const clampedX = Math.max(10, Math.min(canvasRect.width - 150, rawX));
+    const clampedY = Math.max(10, Math.min(canvasRect.height - 80, rawY));
+
+    setNodes(prev => prev.map(n => n.id === draggingNodeId ? { ...n, x: clampedX, y: clampedY } : n));
+  };
+
+  const handleCanvasTouchEnd = () => {
+    setDraggingNodeId(null);
+  };
+
   // ─── Presets ─────────────────────────────────────────────────────────────
   const loadPreset = (presetName: '3tier' | 'microservices') => {
+    if (nodes.length > 2 && typeof window !== 'undefined') {
+      const confirmWipe = window.confirm('Loading a preset will replace your current whiteboard architecture. Proceed?');
+      if (!confirmWipe) return;
+    }
+    console.log(`[Whiteboard] Loading architecture preset: ${presetName}`);
+
     if (presetName === '3tier') {
       const n: BoardNode[] = [
-        { id: 'p_1', type: 'Client App', label: 'Browser / iOS / Android', x: 30, y: 160, category: 'client', color: '#3b82f6' },
-        { id: 'p_2', type: 'CDN (Cloudflare)', label: 'Edge Static Cache', x: 200, y: 80, category: 'gateway', color: '#f59e0b' },
-        { id: 'p_3', type: 'Load Balancer', label: 'AWS ALB (SSL Term)', x: 200, y: 240, category: 'gateway', color: '#8b5cf6' },
-        { id: 'p_4', type: 'Microservice', label: 'Node.js App Cluster', x: 410, y: 240, category: 'compute', color: '#10b981' },
-        { id: 'p_5', type: 'Redis Cache', label: 'ElastiCache (LRU)', x: 620, y: 140, category: 'storage', color: '#ef4444' },
+        { id: 'p_1', type: 'Client App', label: 'Browser / iOS / Android', x: 30, y: 160, category: 'client', color: 'var(--info)' },
+        { id: 'p_2', type: 'CDN (Cloudflare)', label: 'Edge Static Cache', x: 200, y: 80, category: 'gateway', color: 'var(--warning)' },
+        { id: 'p_3', type: 'Load Balancer', label: 'AWS ALB (SSL Term)', x: 200, y: 240, category: 'gateway', color: 'var(--reward)' },
+        { id: 'p_4', type: 'Microservice', label: 'Node.js App Cluster', x: 410, y: 240, category: 'compute', color: 'var(--success)' },
+        { id: 'p_5', type: 'Redis Cache', label: 'ElastiCache (LRU)', x: 620, y: 140, category: 'storage', color: 'var(--danger)' },
         { id: 'p_6', type: 'Postgres DB', label: 'Aurora Primary (Multi-AZ)', x: 620, y: 290, category: 'storage', color: '#0ea5e9' },
       ];
       const l: BoardLink[] = [
@@ -230,12 +300,12 @@ export default function SystemDesignWhiteboard({
       setLinks(l);
     } else if (presetName === 'microservices') {
       const n: BoardNode[] = [
-        { id: 'm_1', type: 'Client App', label: 'Client Gateway', x: 30, y: 180, category: 'client', color: '#3b82f6' },
-        { id: 'm_2', type: 'API Gateway', label: 'Kong API Gateway', x: 200, y: 180, category: 'gateway', color: '#6366f1' },
-        { id: 'm_3', type: 'Microservice', label: 'User Service', x: 390, y: 80, category: 'compute', color: '#10b981' },
-        { id: 'm_4', type: 'Microservice', label: 'Order Service', x: 390, y: 280, category: 'compute', color: '#10b981' },
+        { id: 'm_1', type: 'Client App', label: 'Client Gateway', x: 30, y: 180, category: 'client', color: 'var(--info)' },
+        { id: 'm_2', type: 'API Gateway', label: 'Kong API Gateway', x: 200, y: 180, category: 'gateway', color: 'var(--brand)' },
+        { id: 'm_3', type: 'Microservice', label: 'User Service', x: 390, y: 80, category: 'compute', color: 'var(--success)' },
+        { id: 'm_4', type: 'Microservice', label: 'Order Service', x: 390, y: 280, category: 'compute', color: 'var(--success)' },
         { id: 'm_5', type: 'Kafka / Queue', label: 'Kafka Event Bus', x: 590, y: 180, category: 'queue', color: '#ec4899' },
-        { id: 'm_6', type: 'Worker / Cron', label: 'Payment & Fulfillment', x: 770, y: 180, category: 'compute', color: '#14b8a6' },
+        { id: 'm_6', type: 'Worker / Cron', label: 'Payment & Fulfillment', x: 770, y: 180, category: 'compute', color: 'var(--accent-teal)' },
       ];
       const l: BoardLink[] = [
         { id: 'ml_1', from: 'm_1', to: 'm_2', protocol: 'HTTPS' },
@@ -284,7 +354,7 @@ export default function SystemDesignWhiteboard({
             style={{
               background: isConnectMode ? 'var(--accent)' : 'var(--bg3)',
               border: isConnectMode ? '2px solid var(--accent)' : '1px solid var(--border)',
-              color: isConnectMode ? '#fff' : 'var(--t1)',
+              color: isConnectMode ? 'var(--text)' : 'var(--t1)',
               borderRadius: 8,
               padding: '6px 12px',
               fontSize: 11,
@@ -313,7 +383,7 @@ export default function SystemDesignWhiteboard({
               style={{
                 background: 'linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%)',
                 border: 'none',
-                color: '#fff',
+                color: 'var(--text)',
                 borderRadius: 8,
                 padding: '6px 14px',
                 fontSize: 11,
@@ -360,6 +430,8 @@ export default function SystemDesignWhiteboard({
         ref={canvasRef}
         onMouseMove={handleCanvasMouseMove}
         onMouseUp={handleCanvasMouseUp}
+        onTouchMove={handleCanvasTouchMove}
+        onTouchEnd={handleCanvasTouchEnd}
         style={{
           position: 'relative',
           height: 440,
@@ -368,6 +440,7 @@ export default function SystemDesignWhiteboard({
           borderRadius: 14,
           border: '1px solid var(--border)',
           overflow: 'hidden',
+          touchAction: 'none',
           cursor: draggingNodeId ? 'grabbing' : isConnectMode ? 'crosshair' : 'default'
         }}
       >
@@ -429,6 +502,7 @@ export default function SystemDesignWhiteboard({
             <div
               key={n.id}
               onMouseDown={(e) => handleNodeMouseDown(e, n.id)}
+              onTouchStart={(e) => handleNodeTouchStart(e, n.id)}
               onClick={() => handleNodeClick(n.id)}
               style={{
                 position: 'absolute',
@@ -458,9 +532,9 @@ export default function SystemDesignWhiteboard({
                     deleteNode(n.id);
                   }}
                   style={{
-                    background: '#ef4444',
+                    background: 'var(--danger)',
                     border: 'none',
-                    color: '#fff',
+                    color: 'var(--text)',
                     borderRadius: '50%',
                     width: 15,
                     height: 15,

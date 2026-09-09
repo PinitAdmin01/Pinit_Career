@@ -121,14 +121,16 @@ export const libraryService = {
       try {
         const { data: book } = await supabase.from('library_books').select('available, title').eq('isbn', isbn).single();
         if (book && book.available > 0) {
-          await supabase.from('library_books').update({ available: book.available - 1 }).eq('isbn', isbn);
-          await supabase.from('library_borrowings').insert({
+          const res1 = await supabase.from('library_books').update({ available: book.available - 1 }).eq('isbn', isbn);
+          if (res1.error) throw new Error(res1.error.message);
+          const res2 = await supabase.from('library_borrowings').insert({
             student_id: studentId,
             student_name: studentName,
             isbn,
             title: book.title,
             due_on: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString()
           });
+          if (res2.error) throw new Error(res2.error.message);
           return { ok: true };
         }
         return { ok: false, message: 'Out of stock' };
@@ -169,7 +171,8 @@ export const libraryService = {
           // Increment book available copy
           const { data: book } = await supabase.from('library_books').select('available').eq('isbn', borrow.isbn).single();
           if (book) {
-            await supabase.from('library_books').update({ available: book.available + 1 }).eq('isbn', borrow.isbn);
+            const res1 = await supabase.from('library_books').update({ available: book.available + 1 }).eq('isbn', borrow.isbn);
+            if (res1.error) throw new Error(res1.error.message);
           }
 
           // Calculate dynamic late penalty fine (Rs. 10 per day)
@@ -177,11 +180,12 @@ export const libraryService = {
           const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
           const fine = diffDays > 0 ? diffDays * 10 : 0;
 
-          await supabase.from('library_borrowings').update({
+          const res2 = await supabase.from('library_borrowings').update({
             returned: true,
             returned_on: new Date().toISOString(),
             fine
           }).eq('id', borrowId);
+          if (res2.error) throw new Error(res2.error.message);
 
           return { ok: true, fine };
         }
@@ -226,13 +230,14 @@ export const libraryService = {
           const { count } = await supabase.from('library_reservations').select('*', { count: 'exact', head: true }).eq('isbn', isbn);
           const queuePosition = (count || 0) + 1;
 
-          const { data: reservation } = await supabase.from('library_reservations').insert({
+          const { data: reservation, error: resErr } = await supabase.from('library_reservations').insert({
             student_id: studentId,
             student_name: studentName,
             isbn,
             title: book.title,
             position: queuePosition
           }).select('*').single();
+          if (resErr) throw new Error(resErr.message);
 
           return { ok: true, reserve: { position: queuePosition } };
         }
@@ -276,7 +281,7 @@ export const libraryService = {
     };
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('library_books').insert({
+        const res = await supabase.from('library_books').insert({
           isbn: book.isbn,
           title: book.title,
           author: book.author,
@@ -285,6 +290,7 @@ export const libraryService = {
           available: book.available,
           is_ebook: false,
         });
+        if (res.error) throw new Error(res.error.message);
         return { ok: true, book };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);

@@ -61,13 +61,14 @@ export const maintenanceService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('infrastructure_tickets').insert({
+        const res = await supabase.from('infrastructure_tickets').insert({
           ticket_code: ticketCode,
           category,
           location,
           description,
           status: 'Reported'
         });
+        if (res.error) throw new Error(res.error.message);
         return { ok: true, ticket: { id: ticketCode, category, location, description, status: 'Reported', date: new Date().toISOString().split('T')[0], technician: '' } };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -95,10 +96,11 @@ export const maintenanceService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('infrastructure_tickets').update({
+        const res = await supabase.from('infrastructure_tickets').update({
           status: 'Scheduled',
           technician
         }).eq('ticket_code', ticketId);
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -122,9 +124,10 @@ export const maintenanceService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('infrastructure_tickets').update({
+        const res = await supabase.from('infrastructure_tickets').update({
           status: 'In Progress'
         }).eq('ticket_code', ticketId);
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -147,9 +150,10 @@ export const maintenanceService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('infrastructure_tickets').update({
+        const res = await supabase.from('infrastructure_tickets').update({
           status: 'Resolved'
         }).eq('ticket_code', ticketId);
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);

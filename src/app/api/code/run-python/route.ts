@@ -21,34 +21,49 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Missing Python source code' }, { status: 400 });
     }
 
-    if (code.length > 50000) {
-      return NextResponse.json({ error: 'Source code exceeds size limit (50KB max)' }, { status: 400 });
+    if (code.length > 50000 || (testSuite && typeof testSuite === 'string' && testSuite.length > 50000)) {
+      return NextResponse.json({ error: 'Source code or test suite exceeds size limit (50KB max)' }, { status: 400 });
     }
 
-    // ── Security Sandbox — Forbidden Python APIs ─────────────────────────────
+    // ── Security Sandbox — Forbidden Python APIs across BOTH code and testSuite ──
     const forbiddenPatterns = [
-      /os\.system/,          // Shell command execution
-      /os\.popen/,           // Shell pipe open
-      /os\.remove/,          // File deletion
-      /os\.unlink/,          // File deletion
-      /os\.rmdir/,           // Directory removal
-      /subprocess/,          // Subprocess spawning
-      /__import__/,          // Dynamic import (bypass restrictions)
-      /importlib/,           // Import library (dynamic loading)
-      /eval\s*\(/,           // Dynamic code evaluation
-      /exec\s*\(/,           // Code execution
-      /compile\s*\(/,        // Code compilation
-      /open\s*\([^)]*['"]\s*w/, // File write mode
-      /shutil\.rmtree/,      // Recursive directory deletion
-      /shutil\.move/,        // File move (potential exfil)
-      /socket\s*\./,         // Raw network socket
-      /urllib\.request/,     // HTTP requests
-      /requests\./,          // HTTP requests library
-      /ctypes/,              // C library interop (bypass sandbox)
+      /os\./,                    // Any os module usage (os.environ, os.system, os.popen, etc.)
+      /\bimport\s+os\b/,         // import os
+      /\bfrom\s+os\b/,           // from os import ...
+      /sys\./,                   // sys module access (sys.modules, etc.)
+      /\bimport\s+sys\b/,        // import sys
+      /\bfrom\s+sys\b/,          // from sys import ...
+      /subprocess/,              // Subprocess spawning
+      /__import__/,              // Dynamic import (bypass restrictions)
+      /importlib/,               // Import library (dynamic loading)
+      /eval\s*\(/,               // Dynamic code evaluation
+      /exec\s*\(/,               // Code execution
+      /compile\s*\(/,            // Code compilation
+      /\bopen\s*\(/,             // Any file access
+      /\bpathlib\b/,             // Pathlib filesystem access
+      /\bPath\s*\(/,             // Path(...) construction
+      /\bio\./,                  // io module (io.open, etc.)
+      /\bimport\s+io\b/,         // import io
+      /\bfrom\s+io\b/,           // from io import ...
+      /shutil/,                  // File manipulation
+      /socket/,                  // Raw network socket
+      /urllib/,                  // HTTP requests
+      /requests/,                // HTTP requests library
+      /http\.client/,            // Python http.client exfiltration
+      /\bhttp\./,                // Any http module usage
+      /httpx/,                   // Async HTTP
+      /aiohttp/,                 // Async HTTP
+      /ctypes/,                  // C library interop (bypass sandbox)
+      /__subclasses__/,          // Class hierarchy traversal / sandbox escape
+      /__builtins__/,            // Builtin dictionary override
+      /ftplib|telnetlib/,        // Legacy network protocols
+      /\bpty\b|\bposix\b|\bfcntl\b/, // Low-level OS/process interop
     ];
 
+    const combinedSource = `${code}\n${typeof testSuite === 'string' ? testSuite : ''}`;
+
     for (const pattern of forbiddenPatterns) {
-      if (pattern.test(code)) {
+      if (pattern.test(combinedSource)) {
         return NextResponse.json({
           language: 'python',
           totalTests: 1,
@@ -58,7 +73,7 @@ export async function POST(req: NextRequest) {
           status: 'RUNTIME_ERROR',
           totalDurationMs: Date.now() - startTime,
           terminalLogs: [
-            '[SECURITY GUARD] Restricted Python module/call detected. Process execution, eval, and dynamic imports are disallowed in the sandbox.'
+            '[SECURITY GUARD] Restricted Python module/call detected in code or testSuite. Process execution, eval, network, and dynamic imports are disallowed.'
           ],
           testOutcomes: [{
             index: 1,
@@ -73,6 +88,9 @@ export async function POST(req: NextRequest) {
       }
     }
 
+    // Clamp timeout strictly between 500ms and 4000ms
+    const clampedTimeout = Math.min(Math.max(Number(timeoutMs) || 3000, 500), 4000);
+
     const runId = crypto.randomBytes(8).toString('hex');
     const tempDir = path.join(os.tmpdir(), 'pinit_python_' + runId);
     fs.mkdirSync(tempDir, { recursive: true });
@@ -81,16 +99,27 @@ export async function POST(req: NextRequest) {
       fs.writeFileSync(path.join(tempDir, 'solution.py'), code, 'utf8');
 
       // If a test suite is provided, import solution and run assertions
-      const testCode = testSuite && testSuite.trim()
+      const testCode = testSuite && typeof testSuite === 'string' && testSuite.trim()
         ? `from solution import *\n\n${testSuite}`
         : `import solution\nprint('Solution module loaded successfully.')`;
 
       fs.writeFileSync(path.join(tempDir, 'test_runner.py'), testCode, 'utf8');
 
+      // SCRUB PROCESS ENVIRONMENT: Do NOT pass server secrets to child process!
+      const sanitizedEnv: NodeJS.ProcessEnv = {
+        NODE_ENV: process.env.NODE_ENV || 'development',
+        PATH: process.env.PATH || '',
+        SYSTEMROOT: process.env.SYSTEMROOT || '',
+        TMP: tempDir,
+        TEMP: tempDir,
+        PYTHONDONTWRITEBYTECODE: '1',
+        PYTHONUNBUFFERED: '1',
+      };
+
       const runPromise = new Promise<{ stdout: string; stderr: string; timedOut?: boolean }>((resolve) => {
-        const proc = exec('python test_runner.py', { cwd: tempDir, timeout: timeoutMs }, (error, stdout, stderr) => {
+        const proc = exec('python test_runner.py', { cwd: tempDir, timeout: clampedTimeout, env: sanitizedEnv }, (error, stdout, stderr) => {
           if (error && error.killed) {
-            resolve({ stdout: stdout || '', stderr: 'Execution timed out (3000ms limit exceeded).', timedOut: true });
+            resolve({ stdout: stdout || '', stderr: `Execution timed out (${clampedTimeout}ms limit exceeded).`, timedOut: true });
           } else {
             resolve({ stdout: stdout || '', stderr: stderr || '' });
           }

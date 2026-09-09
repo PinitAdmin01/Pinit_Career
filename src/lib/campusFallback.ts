@@ -126,8 +126,35 @@ export async function tryCampusFallback(
 
     case '/api/admissions/applications':
       return admissionsService.getApplications();
-    case '/api/admissions/track':
-      return admissionsService.trackApplication(params.get('id') || b.id || '');
+    case '/api/admissions/track': {
+      // Mirrors the second-factor check in src/app/api/admissions/track/route.ts.
+      //
+      // This shim runs BEFORE any network call, so hardening the server route
+      // alone would have left this path completely unguarded — an id on its own
+      // would still return a named applicant's course, rank and status.
+      //
+      // The applicant name is not strong authentication. Its job is to stop
+      // BULK ENUMERATION: application references are guessable enough that one
+      // known id leaks its neighbours, and requiring a matching name means a
+      // scan returns nothing.
+      //
+      // Both failure modes return the SAME empty result on purpose. Telling the
+      // caller which one failed would make this an existence oracle.
+      const trackId = String(params.get('id') || b.id || '').trim();
+      const trackName = String(params.get('name') || b.name || '').trim();
+      if (!trackId || !trackName) return { application: null };
+
+      const result = await admissionsService.trackApplication(trackId);
+      const found: any = result?.application;
+      if (!found) return { application: null };
+
+      const normalise = (s: string) => s.trim().toLowerCase().replace(/\s+/g, ' ');
+      const storedName = typeof found.studentName === 'string' ? found.studentName : '';
+      if (!storedName || normalise(storedName) !== normalise(trackName)) {
+        return { application: null };
+      }
+      return { application: found };
+    }
     case '/api/admissions/apply':
       return admissionsService.apply(studentId || `anon-${Date.now()}`, studentName, b.course, Number(b.rank) || 0);
     case '/api/admissions/verify-doc':

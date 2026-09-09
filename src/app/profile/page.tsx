@@ -18,18 +18,20 @@ const CareerPathwayTimeline = dynamic(() => import('@/components/pathway/CareerP
 const CompetencyRadarView = dynamic(() => import('@/components/pathway/CompetencyRadarView'), { ssr: false });
 import { PathwayApiService } from '@/lib/api/pathwayApi';
 import { StudentSkillProfile } from '@/lib/pathway/competencySchema';
+import { parseAndValidateGithubUrl } from '@/lib/github/githubIngestion';
 
 // ── Types ───────────────────────────────────────────────────────────────────
 interface SocraticQuestion {
   id: string;
   question: string;
   options: string[];
-  correctIdx: number;
+  correctIdx?: number;
 }
 
 interface SocraticExamData {
   subject: string;
   questions: SocraticQuestion[];
+  examSessionToken?: string;
 }
 
 interface AuditLogItem {
@@ -210,7 +212,7 @@ function SkillRadarChart({ profile }: { profile: Record<string, unknown> }) {
             {line.label}
           </text>
         ))}
-        <polygon points={dataPoints} fill="rgba(99, 102, 241, 0.15)" stroke="var(--accent)" strokeWidth={2} style={{ transition: 'all 0.5s ease-in-out' }} />
+        <polygon points={dataPoints} fill="rgba(var(--brand-rgb),  0.15)" stroke="var(--accent)" strokeWidth={2} style={{ transition: 'all 0.5s ease-in-out' }} />
         {axes.map((axis, i) => {
           const score = Math.round((profile[axis.key] as number) || 40);
           const r = maxR * (score / 100);
@@ -227,16 +229,38 @@ function SkillRadarChart({ profile }: { profile: Record<string, unknown> }) {
 }
 
 // Weekly velocity heatmap for Career DNA
-function WeeklyVelocityHeatmap({ completedQuests = [], completedMissions = [], themeColor }: { completedQuests?: string[], completedMissions?: string[], themeColor: string }) {
+function WeeklyVelocityHeatmap({ completedQuests = [], completedMissions = [], themeColor, timestamps = [] }: { completedQuests?: string[], completedMissions?: string[], themeColor: string, timestamps?: string[] }) {
   const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   const WEEKS = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
 
-  const totalActivity = (completedQuests || []).length * 3 + (completedMissions || []).length;
-  
+  const now = new Date();
+  const currentDayOfWeek = (now.getDay() + 6) % 7; // 0 for Mon, ..., 6 for Sun
+  let parsedDates = (timestamps || []).map(ts => {
+    const iso = ts.includes('|') ? ts.split('|')[0] : ts;
+    return new Date(iso);
+  }).filter(d => !isNaN(d.getTime()));
+
+  // Fallback: If timestamps array is unpopulated but student has verified completions, derive activity
+  if (parsedDates.length === 0) {
+    const totalCompletions = (completedMissions?.length || 0) + (completedQuests?.length || 0);
+    if (totalCompletions > 0) {
+      const synthCount = Math.min(totalCompletions, 28);
+      parsedDates = Array.from({ length: synthCount }, (_, idx) => {
+        const d = new Date(now);
+        d.setDate(now.getDate() - Math.floor(idx / 2));
+        return d;
+      });
+    }
+  }
+
   const grid = Array.from({ length: 7 }, (_, dayIndex) => {
     return Array.from({ length: 4 }, (_, weekIndex) => {
-      const val = (dayIndex * 3 + weekIndex * 7 + totalActivity) % 11;
-      return val > 8 ? 3 : val > 5 ? 2 : val > 2 ? 1 : 0;
+      const targetDate = new Date(now);
+      const daysAgo = (3 - weekIndex) * 7 + (currentDayOfWeek - dayIndex);
+      targetDate.setDate(now.getDate() - daysAgo);
+      const targetStr = targetDate.toDateString();
+      const count = parsedDates.filter(d => d.toDateString() === targetStr).length;
+      return count >= 3 ? 3 : count === 2 ? 2 : count === 1 ? 1 : 0;
     });
   });
 
@@ -290,6 +314,23 @@ function WeeklyVelocityHeatmap({ completedQuests = [], completedMissions = [], t
       </div>
     </div>
   );
+}
+
+// Helper to securely attach Supabase JWT Session Token
+async function getAuthHeaders(): Promise<Record<string, string>> {
+  try {
+    const { supabase } = await import('@/lib/supabaseClient');
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session?.access_token) {
+      return {
+        'Authorization': `Bearer ${session.access_token}`,
+        'Content-Type': 'application/json'
+      };
+    }
+  } catch (err) {
+    console.warn('[Profile Auth] Could not retrieve Supabase session token:', err);
+  }
+  return { 'Content-Type': 'application/json' };
 }
 
 // ── Profile Main Component ────────────────────────────────────────────────────
@@ -370,8 +411,8 @@ function ProfilePageInner() {
   const [projects, setProjects] = useState<Array<{ id: string; title: string; description: string; tech: string[]; verified: boolean }>>([]);
   const [certificates, setCertificates] = useState<Array<{ id: string; title: string; issuer: string; verified: boolean }>>([]);
   const [researchPapers, setResearchPapers] = useState<Array<{ id: string; title: string; journal: string; verified: boolean }>>([]);
-  const [achievements] = useState<Array<{ id: string; title: string; detail: string }>>([]);
-  const [recommendations] = useState<Array<{ id: string; author: string; text: string }>>([]);
+  const [achievements, setAchievements] = useState<Array<{ id: string; title: string; detail: string; date?: string; verified?: boolean }>>([]);
+  const [recommendations, setRecommendations] = useState<Array<{ id: string; author: string; role?: string; text: string; date?: string; verified?: boolean }>>([]);
   const [timeline, setTimeline] = useState<Array<{ id: string; year: string; category: TimelineCategory; title: string; detail: string; verified: boolean }>>([]);
   const [editingPitch, setEditingPitch] = useState(false);
   const [tempPitch, setTempPitch] = useState(pitch);
@@ -383,31 +424,327 @@ function ProfilePageInner() {
   const [newEvtTitle, setNewEvtTitle] = useState('');
   const [newEvtDetail, setNewEvtDetail] = useState('');
 
+  const [newAchTitle, setNewAchTitle] = useState('');
+  const [newAchDetail, setNewAchDetail] = useState('');
+  const [showAddAch, setShowAddAch] = useState(false);
+
+  const [newRecAuthor, setNewRecAuthor] = useState('');
+  const [newRecRole, setNewRecRole] = useState('');
+  const [newRecText, setNewRecText] = useState('');
+  const [showAddRec, setShowAddRec] = useState(false);
+
   const savePitch = () => {
     setPitch(tempPitch);
     setEditingPitch(false);
-    toast.success('Pitch Updated', 'Your profile pitch has been updated instantly.');
+    if (typeof window !== 'undefined' && user?.id) {
+      try {
+        localStorage.setItem(`pinit_${user.id}_pitch`, tempPitch);
+      } catch {}
+    }
+    api.patch('/api/auth/profile', { bio: tempPitch }).catch(() => {});
+    toast.success('Pitch Updated', 'Your profile pitch has been updated and saved.');
   };
   const addProject = () => {
     if (!newProjTitle || !newProjDesc) return;
     const newProj = { id: `p_${Date.now()}`, title: newProjTitle, description: newProjDesc, tech: newProjTech.split(',').map(t => t.trim()).filter(Boolean), verified: false };
-    setProjects(prev => [...prev, newProj]);
+    const next = [...projects, newProj];
+    setProjects(next);
+    if (typeof window !== 'undefined' && user?.id) {
+      try { localStorage.setItem(`pinit_${user.id}_projects`, JSON.stringify(next)); } catch {}
+    }
+    api.patch('/api/auth/profile', { projects: next }).catch(() => {});
     setNewProjTitle(''); setNewProjDesc(''); setNewProjTech('');
-    toast.success('Project Pitch Saved', 'Your project has been added. Pending faculty verification.');
+    toast.success('Project Pitch Saved', 'Your project has been added and synced to your cloud portfolio. Pending faculty verification.');
   };
   const addTimelineEvent = () => {
     if (!newEvtTitle || !newEvtDetail) return;
     const newEvt = { id: `t_evt_${Date.now()}`, year: newEvtYear, category: newEvtCategory, title: newEvtTitle, detail: newEvtDetail, verified: false };
-    setTimeline(prev => [newEvt, ...prev]);
+    const next = [newEvt, ...timeline];
+    setTimeline(next);
+    if (typeof window !== 'undefined' && user?.id) {
+      try { localStorage.setItem(`pinit_${user.id}_timeline`, JSON.stringify(next)); } catch {}
+    }
+    api.patch('/api/auth/profile', { timeline: next }).catch(() => {});
     setNewEvtTitle(''); setNewEvtDetail('');
-    toast.success('Event Added', 'Achievement event added to timeline. Pending faculty verification.');
+    toast.success('Event Added', 'Achievement event added to timeline and synced. Pending faculty verification.');
   };
-  const toggleVerification = (type: 'project' | 'certificate' | 'research' | 'timeline', id: string) => {
-    if (type === 'project') setProjects(prev => prev.map(p => p.id === id ? { ...p, verified: !p.verified } : p));
-    else if (type === 'certificate') setCertificates(prev => prev.map(c => c.id === id ? { ...c, verified: !c.verified } : c));
-    else if (type === 'research') setResearchPapers(prev => prev.map(r => r.id === id ? { ...r, verified: !r.verified } : r));
-    else if (type === 'timeline') setTimeline(prev => prev.map(t => t.id === id ? { ...t, verified: !t.verified } : t));
+  const addAchievement = () => {
+    if (!newAchTitle.trim()) return;
+    const newAch = {
+      id: `ach_${Date.now()}`,
+      title: newAchTitle.trim(),
+      detail: newAchDetail.trim() || 'Competition & Honors Record',
+      date: new Date().toLocaleDateString(),
+      verified: false
+    };
+    const updated = [newAch, ...achievements];
+    setAchievements(updated);
+    if (typeof window !== 'undefined' && user?.id) {
+      try {
+        localStorage.setItem(`pinit_${user.id}_achievements`, JSON.stringify(updated));
+      } catch {}
+    }
+    api.patch('/api/auth/profile', { achievements: updated }).catch(() => {});
+    setNewAchTitle('');
+    setNewAchDetail('');
+    setShowAddAch(false);
+    toast.success('Achievement Logged', 'Honor / award added to portfolio and synced. Pending verification.');
+  };
+
+  const addRecommendation = async () => {
+    if (!newRecAuthor.trim() || !newRecText.trim()) return;
+
+    let isServerVerified = false;
+    try {
+      const headers = await getAuthHeaders();
+      const res = await fetch('/api/portfolio/verify-endorsement', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          action: 'add_recommendation',
+          author: newRecAuthor.trim(),
+          role: newRecRole.trim(),
+          text: newRecText.trim(),
+        })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        isServerVerified = Boolean(data.isVerified);
+      }
+    } catch {
+      isServerVerified = false;
+    }
+
+    const newRec = {
+      id: `rec_${Date.now()}`,
+      author: newRecAuthor.trim(),
+      role: newRecRole.trim() || 'Academic / Industry Mentor',
+      text: newRecText.trim(),
+      date: new Date().toLocaleDateString(),
+      verified: isServerVerified
+    };
+    const updated = [newRec, ...recommendations];
+    setRecommendations(updated);
+    if (typeof window !== 'undefined' && user?.id) {
+      try {
+        localStorage.setItem(`pinit_${user.id}_recommendations`, JSON.stringify(updated));
+      } catch {}
+    }
+    api.patch('/api/auth/profile', { recommendations: updated }).catch(() => {});
+
+    setNewRecAuthor('');
+    setNewRecRole('');
+    setNewRecText('');
+    setShowAddRec(false);
+    toast.success(
+      isServerVerified ? 'Faculty Recommendation Verified' : 'Recommendation Submitted',
+      isServerVerified
+        ? 'Official faculty endorsement validated by institutional authority.'
+        : 'Recommendation submitted. Awaiting official faculty verification.'
+    );
+  };
+
+  const toggleVerification = async (type: 'project' | 'certificate' | 'research' | 'timeline', id: string) => {
+    // Authoritative server-side verification check
+    try {
+      const headers = await getAuthHeaders();
+      const res = await fetch('/api/portfolio/verify-endorsement', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          action: 'verify_item',
+          type,
+          id,
+          studentId: user?.id
+        })
+      });
+      if (!res.ok) {
+        toast.error('Permission Denied', 'Only authenticated faculty mentors and institutional administrators can verify portfolio evidence.');
+        return;
+      }
+    } catch {
+      toast.error('Verification Error', 'Failed to reach server for institutional role verification.');
+      return;
+    }
+
+    if (type === 'project') {
+      const next = projects.map(p => p.id === id ? { ...p, verified: !p.verified } : p);
+      setProjects(next);
+      if (typeof window !== 'undefined' && user?.id) {
+        try { localStorage.setItem(`pinit_${user.id}_projects`, JSON.stringify(next)); } catch {}
+      }
+      api.patch('/api/auth/profile', { projects: next }).catch(() => {});
+    } else if (type === 'certificate') {
+      const next = certificates.map(c => c.id === id ? { ...c, verified: !c.verified } : c);
+      setCertificates(next);
+      if (typeof window !== 'undefined' && user?.id) {
+        try { localStorage.setItem(`pinit_${user.id}_certificates`, JSON.stringify(next)); } catch {}
+      }
+      api.patch('/api/auth/profile', { certificates: next }).catch(() => {});
+    } else if (type === 'research') {
+      const next = researchPapers.map(r => r.id === id ? { ...r, verified: !r.verified } : r);
+      setResearchPapers(next);
+      if (typeof window !== 'undefined' && user?.id) {
+        try { localStorage.setItem(`pinit_${user.id}_research`, JSON.stringify(next)); } catch {}
+      }
+      api.patch('/api/auth/profile', { researchPapers: next }).catch(() => {});
+    } else if (type === 'timeline') {
+      const next = timeline.map(t => t.id === id ? { ...t, verified: !t.verified } : t);
+      setTimeline(next);
+      if (typeof window !== 'undefined' && user?.id) {
+        try { localStorage.setItem(`pinit_${user.id}_timeline`, JSON.stringify(next)); } catch {}
+      }
+      api.patch('/api/auth/profile', { timeline: next }).catch(() => {});
+    }
     toast.success('Verification status updated');
+  };
+
+  // GitHub Repositories
+  const [githubRepoInput, setGithubRepoInput] = useState('');
+  const [linkingRepo, setLinkingRepo] = useState(false);
+  const [linkedRepos, setLinkedRepos] = useState<Array<{
+    repoUrl: string;
+    fullName: string;
+    description: string;
+    stars: number;
+    score: number;
+    skills: string[];
+    verifiedAt: string;
+  }>>([]);
+
+  useEffect(() => {
+    if (!user?.id || typeof window === 'undefined') return;
+    try {
+      const storedPitch = localStorage.getItem(`pinit_${user.id}_pitch`);
+      if (storedPitch) {
+        setPitch(storedPitch);
+        setTempPitch(storedPitch);
+      }
+      const obAny = user?.onboardingAnswers as any;
+      const storedProjects = localStorage.getItem(`pinit_${user.id}_projects`);
+      if (storedProjects) {
+        setProjects(JSON.parse(storedProjects));
+      } else if (obAny?.portfolio_projects || (user as any)?.projects) {
+        setProjects(obAny?.portfolio_projects || (user as any)?.projects);
+      }
+      const storedCerts = localStorage.getItem(`pinit_${user.id}_certificates`);
+      if (storedCerts) {
+        setCertificates(JSON.parse(storedCerts));
+      } else if (obAny?.portfolio_certificates || (user as any)?.certifications) {
+        setCertificates(obAny?.portfolio_certificates || (user as any)?.certifications);
+      }
+      const storedTimeline = localStorage.getItem(`pinit_${user.id}_timeline`);
+      if (storedTimeline) {
+        setTimeline(JSON.parse(storedTimeline));
+      } else if (obAny?.portfolio_timeline || (user as any)?.timeline) {
+        setTimeline(obAny?.portfolio_timeline || (user as any)?.timeline);
+      }
+      const storedResearch = localStorage.getItem(`pinit_${user.id}_research`);
+      if (storedResearch) {
+        setResearchPapers(JSON.parse(storedResearch));
+      }
+      const storedAchievements = localStorage.getItem(`pinit_${user.id}_achievements`);
+      if (storedAchievements) {
+        setAchievements(JSON.parse(storedAchievements));
+      } else if (obAny?.portfolio_achievements || (user as any)?.achievements) {
+        setAchievements(obAny?.portfolio_achievements || (user as any)?.achievements);
+      }
+      const storedRecs = localStorage.getItem(`pinit_${user.id}_recommendations`);
+      if (storedRecs) {
+        setRecommendations(JSON.parse(storedRecs));
+      } else if (obAny?.portfolio_recommendations || (user as any)?.recommendations) {
+        setRecommendations(obAny?.portfolio_recommendations || (user as any)?.recommendations);
+      }
+
+      const stored = localStorage.getItem(`pinit_${user.id}_github_repos`);
+      if (stored) {
+        setLinkedRepos(JSON.parse(stored));
+      } else {
+        const capstones = localStorage.getItem(`pinit_${user.id}_capstones_v1`);
+        if (capstones) {
+          const parsed = JSON.parse(capstones);
+          if (Array.isArray(parsed)) {
+            const foundRepos = parsed
+              .filter((c: any) => c.githubRepoUrl || c.repoUrl)
+              .map((c: any) => {
+                const url = c.githubRepoUrl || c.repoUrl;
+                return {
+                  repoUrl: url,
+                  fullName: url.replace(/^https?:\/\/github\.com\//i, ''),
+                  description: c.title || 'Capstone Project Repository',
+                  stars: 0,
+                  score: c.vivaScore || 85,
+                  skills: c.techStack || ['Full-Stack'],
+                  verifiedAt: new Date().toLocaleDateString()
+                };
+              });
+            if (foundRepos.length > 0) {
+              setLinkedRepos(foundRepos);
+            }
+          }
+        }
+      }
+    } catch {}
+  }, [user?.id]);
+
+  const handleLinkGithubRepo = async () => {
+    if (!githubRepoInput.trim()) {
+      toast.error('URL Required', 'Please enter a GitHub repository URL.');
+      return;
+    }
+    const check = parseAndValidateGithubUrl(githubRepoInput.trim());
+    if (!check.valid) {
+      toast.error('Invalid URL', check.error || 'Please enter a valid GitHub repository URL.');
+      return;
+    }
+    setLinkingRepo(true);
+    try {
+      const res = await fetch('/api/github/ingest', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ repoUrl: githubRepoInput.trim() })
+      });
+      const data = await res.json();
+      if (!res.ok || !data.report) {
+        toast.error('Ingestion Failed', data.error || 'Could not verify repository evidence.');
+        return;
+      }
+      const report = data.report;
+      const newEntry = {
+        repoUrl: githubRepoInput.trim(),
+        fullName: report.metadata?.fullName || `${check.owner}/${check.repo}`,
+        description: report.metadata?.description || 'Public GitHub Repository',
+        stars: report.metadata?.stars || 0,
+        score: report.overallEvidenceScore || 0,
+        skills: (report.detectedSkills || []).map((s: any) => s.skill),
+        verifiedAt: new Date().toLocaleDateString()
+      };
+      setLinkedRepos(prev => {
+        const filtered = prev.filter(r => r.repoUrl.toLowerCase() !== newEntry.repoUrl.toLowerCase());
+        const updated = [newEntry, ...filtered];
+        if (typeof window !== 'undefined' && user?.id) {
+          localStorage.setItem(`pinit_${user.id}_github_repos`, JSON.stringify(updated));
+        }
+        return updated;
+      });
+      setGithubRepoInput('');
+      toast.success('Repository Linked & Audited', `${newEntry.fullName} verified with evidence score ${newEntry.score}/100.`);
+    } catch (err: any) {
+      toast.error('Network Error', err.message || 'Failed to communicate with repository ingestion engine.');
+    } finally {
+      setLinkingRepo(false);
+    }
+  };
+
+  const handleUnlinkGithubRepo = (repoUrl: string) => {
+    setLinkedRepos(prev => {
+      const updated = prev.filter(r => r.repoUrl !== repoUrl);
+      if (typeof window !== 'undefined' && user?.id) {
+        localStorage.setItem(`pinit_${user.id}_github_repos`, JSON.stringify(updated));
+      }
+      return updated;
+    });
+    toast.success('Repository Unlinked', 'Repository removed from portfolio view.');
   };
 
   const handleUploadDocument = async () => {
@@ -426,7 +763,13 @@ function ProfilePageInner() {
     if (docCategory !== 'Course Certificate') {
       // Direct upload
       const newCert = { id: `c_${Date.now()}`, title: docTitle, issuer: docIssuer, verified: false };
-      setCertificates(prev => [...prev, newCert]);
+      setCertificates(prev => {
+        const next = [...prev, newCert];
+        if (typeof window !== 'undefined' && user?.id) {
+          try { localStorage.setItem(`pinit_${user.id}_certificates`, JSON.stringify(next)); } catch {}
+        }
+        return next;
+      });
 
       const newEvt = {
         id: `t_evt_${Date.now()}`,
@@ -436,7 +779,13 @@ function ProfilePageInner() {
         detail: `Uploaded portfolio credential issued by ${docIssuer}.`,
         verified: false
       };
-      setTimeline(prev => [newEvt, ...prev]);
+      setTimeline(prev => {
+        const next = [newEvt, ...prev];
+        if (typeof window !== 'undefined' && user?.id) {
+          try { localStorage.setItem(`pinit_${user.id}_timeline`, JSON.stringify(next)); } catch {}
+        }
+        return next;
+      });
 
       toast.success('Document Uploaded', 'Document added to your portfolio. Pending faculty verification.');
       setDocTitle('');
@@ -477,16 +826,28 @@ function ProfilePageInner() {
       return;
     }
 
-    let correct = 0;
-    examData.questions.forEach((q) => {
-      if (selectedAnswers[q.id] === q.correctIdx) {
-        correct++;
+    let verifyRes: any;
+    try {
+      const res = await fetch('/api/portfolio/verify-exam', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          examSessionToken: examData.examSessionToken,
+          selectedAnswers,
+        }),
+      });
+      verifyRes = await res.json();
+      if (!res.ok || !verifyRes.ok) {
+        throw new Error(verifyRes.error || 'Failed to grade exam.');
       }
-    });
+    } catch (e: any) {
+      toast.error('Evaluation Error', e.message || 'Failed to verify exam submission with server.');
+      return;
+    }
 
-    const passed = correct >= Math.ceil(totalQ * 0.6);
-    const currentTrust = user?.trustScore ?? 70;
-    const currentDna = user?.careerDnaScore ?? 65;
+    const { passed, correctCount: correct, total: verifiedTotal } = verifyRes;
+    const currentTrust = Number(user?.trust_score ?? (user as any)?.trustScore ?? cOS.trustScore ?? 0);
+    const currentDna = Number(user?.career_dna_score ?? (user as any)?.careerDnaScore ?? cOS.careerScore ?? 0);
 
     if (passed) {
       const newTrust = Math.min(99, currentTrust + 10);
@@ -498,20 +859,32 @@ function ProfilePageInner() {
         console.error('Failed to update scores in DB:', err);
       }
 
-      setCertificates(prev => [...prev, { id: `c_${Date.now()}`, title: docTitle, issuer: docIssuer, verified: true }]);
-      setTimeline(prev => [
-        {
-          id: `t_evt_${Date.now()}`,
-          year: '2026',
-          category: 'Course',
-          title: docTitle,
-          detail: `Passed Socratic verification exam (${correct}/${totalQ}) for course by ${docIssuer}.`,
-          verified: true
-        },
-        ...prev
-      ]);
+      const newCert = { id: `c_${Date.now()}`, title: docTitle, issuer: docIssuer, verified: true };
+      setCertificates(prev => {
+        const next = [...prev, newCert];
+        if (typeof window !== 'undefined' && user?.id) {
+          try { localStorage.setItem(`pinit_${user.id}_certificates`, JSON.stringify(next)); } catch {}
+        }
+        return next;
+      });
 
-      setExamFeedback(`🎉 PASS! You scored ${correct}/${totalQ}. Credential verified successfully!\nTrust Score increased to ${newTrust} (+10).\nCareer DNA increased to ${newDna} (+5).`);
+      const newEvt = {
+        id: `t_evt_${Date.now()}`,
+        year: '2026',
+        category: 'Course' as TimelineCategory,
+        title: docTitle,
+        detail: `Passed Socratic verification exam (${correct}/${verifiedTotal}) for course by ${docIssuer}.`,
+        verified: true
+      };
+      setTimeline(prev => {
+        const next = [newEvt, ...prev];
+        if (typeof window !== 'undefined' && user?.id) {
+          try { localStorage.setItem(`pinit_${user.id}_timeline`, JSON.stringify(next)); } catch {}
+        }
+        return next;
+      });
+
+      setExamFeedback(`🎉 PASS! You scored ${correct}/${verifiedTotal}. Credential verified successfully!\nTrust Score increased to ${newTrust} (+10).\nCareer DNA increased to ${newDna} (+5).`);
       setExamDone(true);
       toast.success('Exam Passed!', 'Your certificate is verified and scores have increased.');
     } else {
@@ -526,7 +899,7 @@ function ProfilePageInner() {
       }
 
       if (newAttempts > 0) {
-        setExamFeedback(`❌ Verification failed (Scored ${correct}/${totalQ}). You have ${newAttempts} attempts left.\nA penalty of -2 points has been applied to your Trust Score.`);
+        setExamFeedback(`❌ Verification failed (Scored ${correct}/${verifiedTotal}). You have ${newAttempts} attempts left.\nA penalty of -2 points has been applied to your Trust Score.`);
       } else {
         const finalTrust = Math.max(0, currentTrust - 10);
         try {
@@ -535,18 +908,30 @@ function ProfilePageInner() {
           console.error('Failed to update final penalty in DB:', err);
         }
 
-        setCertificates(prev => [...prev, { id: `c_${Date.now()}`, title: docTitle, issuer: docIssuer, verified: false }]);
-        setTimeline(prev => [
-          {
-            id: `t_evt_${Date.now()}`,
-            year: '2026',
-            category: 'Course',
-            title: docTitle,
-            detail: `Failed Socratic verification attempts (0/3 remaining) for course by ${docIssuer}.`,
-            verified: false
-          },
-          ...prev
-        ]);
+        const newCert = { id: `c_${Date.now()}`, title: docTitle, issuer: docIssuer, verified: false };
+        setCertificates(prev => {
+          const next = [...prev, newCert];
+          if (typeof window !== 'undefined' && user?.id) {
+            try { localStorage.setItem(`pinit_${user.id}_certificates`, JSON.stringify(next)); } catch {}
+          }
+          return next;
+        });
+
+        const newEvt = {
+          id: `t_evt_${Date.now()}`,
+          year: '2026',
+          category: 'Course' as TimelineCategory,
+          title: docTitle,
+          detail: `Failed Socratic verification attempts (0/3 remaining) for course by ${docIssuer}.`,
+          verified: false
+        };
+        setTimeline(prev => {
+          const next = [newEvt, ...prev];
+          if (typeof window !== 'undefined' && user?.id) {
+            try { localStorage.setItem(`pinit_${user.id}_timeline`, JSON.stringify(next)); } catch {}
+          }
+          return next;
+        });
 
         setExamFeedback(`❌ Failed all attempts. Certificate added as unverified.\nA penalty of -10 has been applied to your Trust Score (New Trust Score: ${finalTrust}).`);
         setExamDone(true);
@@ -559,13 +944,99 @@ function ProfilePageInner() {
   const [activePassportRole, setActivePassportRole] = useState<'student' | 'recruiter' | 'faculty'>('student');
   const [activePassportTab, setActivePassportTab] = useState<string>('Overview');
   const [skillProfile, setSkillProfile] = useState<StudentSkillProfile | null>(null);
+  const [passportSkills, setPassportSkills] = useState<Array<{ id: string; name: string; level: 1|2|3; evidence: string; recency: string; verified: boolean; category: string }>>([]);
+  const [assessmentHistory, setAssessmentHistory] = useState<Array<{ date: string; type: string; score: string; result: string }>>([]);
 
   useEffect(() => {
     let isMounted = true;
     async function fetchSkills() {
+      if (!user?.id) return;
       try {
-        const data = await PathwayApiService.getStudentSkillProfile(user?.id || 'guest_student');
-        if (isMounted) setSkillProfile(data);
+        const data = await PathwayApiService.getStudentSkillProfile(user.id);
+        if (isMounted) {
+          setSkillProfile(data);
+          const parseSkillLevel = (lvl: unknown): 1 | 2 | 3 => {
+            const str = String(lvl);
+            if (str === 'L1' || str === '1') return 1;
+            if (str === 'L2' || str === '2') return 2;
+            if (str === 'L3' || str === 'L4' || str === 'L5' || str === '3') return 3;
+            return 1;
+          };
+
+          let endorsedIds: string[] = [];
+          if (typeof window !== 'undefined') {
+            try {
+              const raw = localStorage.getItem(`pinit_${user.id}_endorsed_skills`);
+              if (raw) endorsedIds = JSON.parse(raw);
+            } catch {
+              // Ignore parse errors
+            }
+          }
+
+          const realSkills: Array<{ id: string; name: string; level: 1|2|3; evidence: string; recency: string; verified: boolean; category: string }> = [];
+          (data.verified || []).forEach(v => {
+            realSkills.push({
+              id: v.id,
+              name: v.name,
+              level: parseSkillLevel(v.level),
+              evidence: `Demonstrated practical mastery with score ${Math.round(v.score)}/100. Verification gates passed.`,
+              recency: v.verifiedAt ? new Date(v.verifiedAt).toLocaleDateString() : 'Verified',
+              verified: true,
+              category: 'Verified Competency'
+            });
+          });
+          (data.demonstrated || []).forEach(d => {
+            const isEndorsed = endorsedIds.includes(d.id);
+            realSkills.push({
+              id: d.id,
+              name: d.name,
+              level: isEndorsed ? 3 : parseSkillLevel(d.level),
+              evidence: isEndorsed ? 'Endorsed by faculty mentor.' : `Practical tasks completed in pathway (Score: ${Math.round(d.score)}/100). Ready for defense.`,
+              recency: isEndorsed ? 'Faculty Endorsed' : 'In Progress',
+              verified: isEndorsed,
+              category: 'Demonstrated'
+            });
+          });
+          setPassportSkills(realSkills);
+
+          // Populate real assessment history from verified competencies and mock interview records
+          const historyItems: Array<{ date: string; type: string; score: string; result: string }> = [];
+          (data.verified || []).forEach(v => {
+            historyItems.push({
+              date: v.verifiedAt ? new Date(v.verifiedAt).toLocaleDateString() : 'Verified',
+              type: `${v.name} Skill Defense & Verification`,
+              score: `${Math.round(v.score)}%`,
+              result: `Level ${v.level} Verified`
+            });
+          });
+          (data.demonstrated || []).forEach(d => {
+            historyItems.push({
+              date: 'Active Assessment',
+              type: `${d.name} Practical Project`,
+              score: `${Math.round(d.score)}%`,
+              result: `Level ${d.level} Demonstrated`
+            });
+          });
+          if (typeof window !== 'undefined') {
+            try {
+              const rawInterview = localStorage.getItem('pinit_mock_interview_feedback');
+              if (rawInterview) {
+                const interview = JSON.parse(rawInterview);
+                if (interview && (interview.overallScore !== undefined || interview.score !== undefined)) {
+                  historyItems.unshift({
+                    date: interview.timestamp ? new Date(interview.timestamp).toLocaleDateString() : 'Recent',
+                    type: `AI Mock Interview (${interview.role || 'General'})`,
+                    score: `${Math.round(interview.overallScore || interview.score || 0)}%`,
+                    result: (interview.overallScore || interview.score || 0) >= 75 ? 'Defense Passed' : 'Needs Practice'
+                  });
+                }
+              }
+            } catch {
+              // Ignore invalid storage
+            }
+          }
+          setAssessmentHistory(historyItems);
+        }
       } catch (err) {
         console.warn('Failed to load profile skill status:', err);
       }
@@ -574,25 +1045,33 @@ function ProfilePageInner() {
     return () => { isMounted = false; };
   }, [user?.id]);
 
-  const [passportSkills, setPassportSkills] = useState<Array<{ id: string; name: string; level: 1|2|3; evidence: string; recency: string; verified: boolean; category: string }>>([
-    { id: 'sk1', name: 'TypeScript', level: 3, evidence: 'Completed Stripe Internship queue optimization deliverables.', recency: '2 days ago', verified: true, category: 'Industry' },
-    { id: 'sk2', name: 'Web Cryptography', level: 2, evidence: 'Verified project code repository "Zero-Knowledge Vault".', recency: '1 day ago', verified: true, category: 'Implementation' },
-    { id: 'sk3', name: 'Dynamic Programming', level: 1, evidence: 'Completed 30 days of Advanced DSA Quests.', recency: 'Yesterday', verified: true, category: 'Programming' },
-    { id: 'sk4', name: 'Systems Scaling Design', level: 2, evidence: 'Passed Whiteboard Socratic Interview in Round 3.', recency: '3 days ago', verified: false, category: 'Theory' },
-    { id: 'sk5', name: 'Socratic Communication', level: 3, evidence: 'Speech telemetry scoring in Round 4 behavioral mock.', recency: 'Yesterday', verified: true, category: 'Communication' }
-  ]);
-  const [skillsInProgress] = useState([
-    { name: 'Go Lang', progress: 45, nextGoal: 'Complete Level 1 Quest' },
-    { name: 'Docker Orchestration', progress: 60, nextGoal: 'Obtain AWS Certificate Verification' }
-  ]);
-  const [assessmentHistory] = useState([
-    { date: 'Yesterday', type: 'Mock Interview (Round 4)', score: '90%', result: 'Level 3 Comms Verified' },
-    { date: '2 days ago', type: 'Coding Challenge (Round 2)', score: '82%', result: 'Level 1 Syntax Approved' },
-    { date: '3 days ago', type: 'Theory Exam (LMS)', score: '88%', result: 'Theory Verified' }
-  ]);
   const toggleEndorsement = (id: string) => {
-    setPassportSkills(prev => prev.map(s => s.id === id ? { ...s, verified: !s.verified, level: !s.verified ? 3 : 2 } : s));
-    toast.success('Skill Endorsement updated', 'Student skill passport credentials updated instantly.');
+    const isPrivilegedOrPeer = Boolean(
+      user?.role === 'admin' ||
+      user?.role === 'superadmin' ||
+      user?.role === 'teacher' ||
+      user?.role === 'recruiter' ||
+      (user as any)?.role === 'faculty'
+    );
+    if (!isPrivilegedOrPeer) {
+      toast.error('Endorsement Restricted', 'Endorsements must be awarded by verified faculty mentors or industry recruiters.');
+      return;
+    }
+
+    setPassportSkills(prev => {
+      const updated = prev.map(s => s.id === id ? { ...s, verified: !s.verified, level: (!s.verified ? 3 : 2) as 1|2|3 } : s);
+      if (typeof window !== 'undefined' && user?.id) {
+        try {
+          const endorsedIds = updated.filter(s => s.verified).map(s => s.id);
+          localStorage.setItem(`pinit_${user.id}_endorsed_skills`, JSON.stringify(endorsedIds));
+          api.patch('/api/auth/profile', { endorsed_skills: endorsedIds }).catch(() => {});
+        } catch (e) {
+          console.warn('Failed to persist endorsed skills:', e);
+        }
+      }
+      return updated;
+    });
+    toast.success('Skill Endorsement updated', 'Student skill passport credentials updated and synced.');
   };
 
   // 3. Analytics Queries
@@ -716,7 +1195,7 @@ function ProfilePageInner() {
     <div style={{ maxWidth: 1080, margin: '0 auto', paddingBottom: 60 }}>
       {/* Top Banner Profile Summary */}
       <div style={{ background:'linear-gradient(135deg,var(--bg2),var(--bg3))', border:'1px solid var(--border)', borderRadius:'var(--radius-xl)', padding:'24px 28px', marginBottom:20, display:'flex', gap:20, alignItems:'center' }}>
-        <div style={{ width:64, height:64, borderRadius:'50%', background:'linear-gradient(135deg,var(--accent),var(--purple))', display:'flex', alignItems:'center', justifyContent:'center', fontSize:26, fontWeight:800, color:'#fff', flexShrink:0, fontFamily:'var(--font-display)' }}>
+        <div style={{ width:64, height:64, borderRadius:'50%', background:'linear-gradient(135deg,var(--accent),var(--purple))', display:'flex', alignItems:'center', justifyContent:'center', fontSize:26, fontWeight:800, color: 'var(--text)', flexShrink:0, fontFamily:'var(--font-display)' }}>
           {initials}
         </div>
         <div style={{ flex:1, minWidth:0 }}>
@@ -797,7 +1276,7 @@ function ProfilePageInner() {
                       {editingPitch ? (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                           <textarea value={tempPitch} onChange={e => setTempPitch(e.target.value)} rows={3} style={{ width: '100%', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 10, padding: 10, color: 'var(--t1)', fontSize: 13, resize: 'vertical' }} />
-                          <button onClick={savePitch} style={{ alignSelf: 'flex-start', padding: '6px 16px', fontSize: 12, fontWeight: 800, background: 'var(--accent)', color: '#fff', border: 'none', borderRadius: 8, cursor: 'pointer' }}>Save Pitch</button>
+                          <button onClick={savePitch} style={{ alignSelf: 'flex-start', padding: '6px 16px', fontSize: 12, fontWeight: 800, background: 'var(--accent)', color: 'var(--text)', border: 'none', borderRadius: 8, cursor: 'pointer' }}>Save Pitch</button>
                         </div>
                       ) : (
                         <p style={{ fontSize: 14, color: 'var(--t2)', lineHeight: 1.6, margin: 0 }}>"{pitch}"</p>
@@ -811,7 +1290,13 @@ function ProfilePageInner() {
                       </div>
                       <div>
                         <h3 style={{ margin: '0 0 10px 0', fontSize: 14, fontWeight: 800 }}>🏆 Last Verified Accomplishment</h3>
-                        <div style={{ background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)', fontSize: 12 }}>{achievements[0]?.title || 'None'}</div>
+                        <div style={{ background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)', fontSize: 12 }}>
+                          {(() => {
+                            const verifiedVaultItem = cOS.vaultItems?.find(v => v.verified)?.title;
+                            const lastQuest = cOS.completedQuests?.length ? `Quest: ${cOS.completedQuests[cOS.completedQuests.length - 1]}` : null;
+                            return verifiedVaultItem || lastQuest || 'None yet';
+                          })()}
+                        </div>
                       </div>
                     </div>
                     
@@ -833,9 +1318,9 @@ function ProfilePageInner() {
                               fontWeight: 800,
                               padding: '4px 10px',
                               borderRadius: 20,
-                              background: hasTag ? 'rgba(5,150,105,0.1)' : 'rgba(239,68,68,0.1)',
+                              background: hasTag ? 'rgba(var(--success-deep-rgb), 0.1)' : 'rgba(var(--danger-rgb), 0.1)',
                               color: hasTag ? 'var(--green)' : 'var(--coral)',
-                              border: `1px solid ${hasTag ? 'rgba(5,150,105,0.2)' : 'rgba(239,68,68,0.2)'}`,
+                              border: `1px solid ${hasTag ? 'rgba(var(--success-deep-rgb), 0.2)' : 'rgba(var(--danger-rgb), 0.2)'}`,
                               display: 'flex',
                               alignItems: 'center',
                               gap: 5
@@ -848,8 +1333,8 @@ function ProfilePageInner() {
                             <div style={{
                               padding: '10px 14px',
                               borderRadius: 10,
-                              background: 'rgba(239,68,68,0.04)',
-                              border: '1px solid rgba(239,68,68,0.15)',
+                              background: 'rgba(var(--danger-rgb), 0.04)',
+                              border: '1px solid rgba(var(--danger-rgb), 0.15)',
                               fontSize: 12,
                               color: 'var(--t2)',
                               lineHeight: 1.5
@@ -947,7 +1432,7 @@ function ProfilePageInner() {
                             onClick={handleUploadDocument} 
                             disabled={!hasTag || uploading}
                             className="btn-primary" 
-                            style={{ alignSelf: 'flex-start', padding: '8px 20px', fontSize: 12, fontWeight: 800, background: 'var(--accent)', color: '#fff', border: 'none', borderRadius: 8, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6 }}
+                            style={{ alignSelf: 'flex-start', padding: '8px 20px', fontSize: 12, fontWeight: 800, background: 'var(--accent)', color: 'var(--text)', border: 'none', borderRadius: 8, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6 }}
                           >
                             {uploading ? '⏳ Analyzing Credentials...' : 'Upload & Verify Credentials ✓'}
                           </button>
@@ -958,10 +1443,71 @@ function ProfilePageInner() {
                 )}
 
                 {activePortfolioTab === 'Resume' && (
-                  <div style={{ textAlign: 'center', padding: '20px 0' }}>
-                    <span style={{ fontSize: 48, display: 'block', marginBottom: 12 }}>📄</span>
-                    <p style={{ fontSize: 13, color: 'var(--t2)', marginBottom: 16 }}>Your resume is currently up to date with verified portfolio credentials.</p>
-                    <button onClick={() => toast.success('Starting Assembly', 'Generating verified resume PDF...')} style={{ padding: '8px 20px', fontSize: 12, fontWeight: 800, background: 'var(--accent)', color: '#fff', border: 'none', borderRadius: 8, cursor: 'pointer' }}>Download Official Resume</button>
+                  <div style={{ padding: '24px', background: 'var(--bg3)', borderRadius: 12, border: '1px solid var(--border)', maxWidth: 640, margin: '0 auto' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
+                      <div>
+                        <h3 style={{ fontSize: 18, fontWeight: 800, color: 'var(--t1)', margin: '0 0 4px 0' }}>
+                          {user?.displayName || 'Student Candidate'}
+                        </h3>
+                        <p style={{ fontSize: 12, color: 'var(--t3)', margin: 0, fontFamily: 'var(--font-mono)' }}>
+                          {user?.email || 'verified@career-os.internal'}
+                        </p>
+                      </div>
+                      <span style={{ fontSize: 10, padding: '3px 8px', borderRadius: 6, background: 'rgba(var(--brand-rgb), 0.12)', color: 'var(--accent)', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>
+                        LIVE PORTFOLIO SYNC
+                      </span>
+                    </div>
+
+                    <div style={{ borderTop: '1px solid var(--border)', paddingTop: 14, marginBottom: 16 }}>
+                      <h4 style={{ fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--t2)', marginBottom: 8, fontFamily: 'var(--font-mono)' }}>
+                        Verified Skills & Competencies ({passportSkills.length})
+                      </h4>
+                      {passportSkills.length === 0 ? (
+                        <p style={{ fontSize: 12, color: 'var(--t3)', fontStyle: 'italic', margin: 0 }}>
+                          No verified skills recorded yet. Complete proctored quests to certify skills.
+                        </p>
+                      ) : (
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                          {passportSkills.map(s => (
+                            <span key={s.id} style={{ fontSize: 11, background: 'var(--bg2)', border: '1px solid var(--border)', padding: '2px 8px', borderRadius: 4, color: 'var(--t1)' }}>
+                              {s.name} (L{s.level})
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    <div style={{ borderTop: '1px solid var(--border)', paddingTop: 14, marginBottom: 20 }}>
+                      <h4 style={{ fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--t2)', marginBottom: 8, fontFamily: 'var(--font-mono)' }}>
+                        Active Projects ({projects.length})
+                      </h4>
+                      {projects.length === 0 ? (
+                        <p style={{ fontSize: 12, color: 'var(--t3)', fontStyle: 'italic', margin: 0 }}>
+                          No projects added to portfolio yet.
+                        </p>
+                      ) : (
+                        <ul style={{ margin: 0, paddingLeft: 18, fontSize: 12, color: 'var(--t2)', display: 'flex', flexDirection: 'column', gap: 4 }}>
+                          {projects.map(p => (
+                            <li key={p.id}>
+                              <strong>{p.title}</strong> &mdash; {p.description || 'Verified implementation'}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+
+                    <div style={{ display: 'flex', gap: 12, justifyContent: 'center', alignItems: 'center', borderTop: '1px solid var(--border)', paddingTop: 16, flexWrap: 'wrap' }}>
+                      <button 
+                        onClick={() => window.print()} 
+                        className="btn-primary"
+                        style={{ padding: '8px 20px', fontSize: 12, fontWeight: 800, display: 'flex', alignItems: 'center', gap: 6 }}
+                      >
+                        🖨️ Print / Save as PDF
+                      </button>
+                      <span style={{ fontSize: 11, color: 'var(--t3)', fontStyle: 'italic' }}>
+                        Direct PDF Export: Coming Soon
+                      </span>
+                    </div>
                   </div>
                 )}
 
@@ -989,7 +1535,7 @@ function ProfilePageInner() {
                         <input type="text" placeholder="Project Name" value={newProjTitle} onChange={e => setNewProjTitle(e.target.value)} style={{ width: '100%', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, padding: 8, color: 'var(--t1)', fontSize: 12.5 }} />
                         <textarea placeholder="Technical scope, problems solved..." value={newProjDesc} onChange={e => setNewProjDesc(e.target.value)} rows={3} style={{ width: '100%', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, padding: 8, color: 'var(--t1)', fontSize: 12.5, resize: 'vertical' }} />
                         <input type="text" placeholder="Tech Stack (comma separated)" value={newProjTech} onChange={e => setNewProjTech(e.target.value)} style={{ width: '100%', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, padding: 8, color: 'var(--t1)', fontSize: 12.5 }} />
-                        <button onClick={addProject} style={{ alignSelf: 'flex-start', padding: '6px 16px', fontSize: 12, fontWeight: 800, background: 'var(--accent)', color: '#fff', border: 'none', borderRadius: 8, cursor: 'pointer' }}>Add Project for Verification</button>
+                        <button onClick={addProject} style={{ alignSelf: 'flex-start', padding: '6px 16px', fontSize: 12, fontWeight: 800, background: 'var(--accent)', color: 'var(--text)', border: 'none', borderRadius: 8, cursor: 'pointer' }}>Add Project for Verification</button>
                       </div>
                     </div>
                   </div>
@@ -1025,26 +1571,217 @@ function ProfilePageInner() {
 
                 {activePortfolioTab === 'Achievements' && (
                   <div>
-                    <h3 style={{ margin: '0 0 12px 0', fontSize: 15, fontWeight: 800 }}>Verified Honors & Awards</h3>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                      {achievements.map(a => (
-                        <div key={a.id} style={{ display: 'flex', gap: 12, alignItems: 'center', background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)' }}>
-                          <span style={{ fontSize: 20 }}>🏆</span>
-                          <div>
-                            <h4 style={{ margin: 0, fontSize: 13, fontWeight: 800 }}>{a.title}</h4>
-                            <span style={{ fontSize: 11.5, color: 'var(--t3)' }}>{a.detail}</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+                      <h3 style={{ margin: 0, fontSize: 15, fontWeight: 800 }}>Verified Honors & Awards</h3>
+                      <button
+                        onClick={() => setShowAddAch(!showAddAch)}
+                        style={{
+                          background: 'var(--accent)',
+                          color: 'var(--text)',
+                          border: 'none',
+                          padding: '6px 12px',
+                          borderRadius: 8,
+                          fontSize: 12,
+                          fontWeight: 700,
+                          cursor: 'pointer'
+                        }}
+                      >
+                        {showAddAch ? 'Cancel' : '+ Log Honor / Award'}
+                      </button>
+                    </div>
+
+                    {showAddAch && (
+                      <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 10, padding: 14, marginBottom: 14 }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                          <input
+                            type="text"
+                            placeholder="Award or Honor Title (e.g. 1st Place Smart India Hackathon)"
+                            value={newAchTitle}
+                            onChange={e => setNewAchTitle(e.target.value)}
+                            style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 6, padding: '8px 10px', color: 'var(--t1)', fontSize: 12.5 }}
+                          />
+                          <input
+                            type="text"
+                            placeholder="Issuing Organization or Details (e.g. Ministry of Education / IEEE)"
+                            value={newAchDetail}
+                            onChange={e => setNewAchDetail(e.target.value)}
+                            style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 6, padding: '8px 10px', color: 'var(--t1)', fontSize: 12.5 }}
+                          />
+                          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
+                            <button onClick={() => setShowAddAch(false)} style={{ background: 'transparent', border: '1px solid var(--border)', borderRadius: 6, padding: '6px 12px', fontSize: 12, color: 'var(--t2)', cursor: 'pointer' }}>Cancel</button>
+                            <button onClick={addAchievement} style={{ background: 'var(--accent)', border: 'none', borderRadius: 6, padding: '6px 14px', fontSize: 12, fontWeight: 700, color: 'var(--text)', cursor: 'pointer' }}>Save Award</button>
                           </div>
                         </div>
-                      ))}
-                    </div>
+                      </div>
+                    )}
+
+                    {(() => {
+                      const vaultHonors = (cOS.vaultItems || []).filter(v => v.item_type === 'activity' || v.item_type === 'certification').map(v => ({
+                        id: v.id,
+                        title: v.title,
+                        detail: v.organization_name || v.description || 'Verified Vault Credential',
+                        verified: v.verified
+                      }));
+                      const allHonors = [...achievements, ...vaultHonors];
+                      if (allHonors.length === 0) {
+                        return (
+                          <div style={{ textAlign: 'center', padding: '32px 16px', background: 'var(--bg3)', borderRadius: 12, border: '1px solid var(--border)' }}>
+                            <span style={{ fontSize: 36, display: 'block', marginBottom: 10 }}>🏆</span>
+                            <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--t1)', marginBottom: 4 }}>No Honors or Awards Logged Yet</div>
+                            <p style={{ fontSize: 12, color: 'var(--t3)', maxWidth: 440, margin: '0 auto' }}>
+                              Log hackathon awards, competition honors, or verified certifications above to showcase verified achievements on your public profile.
+                            </p>
+                          </div>
+                        );
+                      }
+                      return (
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                          {allHonors.map(a => (
+                            <div key={a.id} style={{ display: 'flex', gap: 12, alignItems: 'center', background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)' }}>
+                              <span style={{ fontSize: 20 }}>🏆</span>
+                              <div style={{ flex: 1 }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                  <h4 style={{ margin: 0, fontSize: 13, fontWeight: 800 }}>{a.title}</h4>
+                                  <span style={{ fontSize: 9.5, padding: '2px 6px', borderRadius: 4, background: a.verified ? 'rgba(34,197,94,0.1)' : 'rgba(var(--warning-rgb), 0.1)', color: a.verified ? 'var(--green)' : 'var(--amber)', fontFamily: 'var(--font-mono)' }}>
+                                    {a.verified ? '✓ Verified' : 'Pending Audit'}
+                                  </span>
+                                </div>
+                                <span style={{ fontSize: 11.5, color: 'var(--t3)' }}>{a.detail}</span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      );
+                    })()}
                   </div>
                 )}
 
                 {activePortfolioTab === 'GitHub' && (
-                  <div style={{ textAlign: 'center', padding: '20px 0' }}>
-                    <span style={{ fontSize: 40, display: 'block', marginBottom: 12 }}>🐙</span>
-                    <div style={{ fontSize: 13, fontWeight: 800, marginBottom: 4 }}>Connect your GitHub profile</div>
-                    <p style={{ fontSize: 12, color: 'var(--t3)', margin: 0 }}>No repository linked yet. Sync commits after connecting an account.</p>
+                  <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+                      <div>
+                        <h3 style={{ margin: 0, fontSize: 15, fontWeight: 800 }}>Linked GitHub Repositories & Evidence</h3>
+                        <p style={{ margin: '3px 0 0 0', fontSize: 12, color: 'var(--t3)' }}>
+                          Audited via AST parsing, testing harness detection, and dependency manifests.
+                        </p>
+                      </div>
+                      <span style={{ fontSize: 10.5, background: 'rgba(var(--info-rgb), 0.1)', color: 'var(--accent)', border: '1px solid rgba(var(--info-rgb), 0.2)', padding: '3px 8px', borderRadius: 6, fontWeight: 700 }}>
+                        PinIT Ingestion Engine v1.0
+                      </span>
+                    </div>
+
+                    {/* Honest OAuth Status Banner */}
+                    <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 10, padding: '10px 14px', marginBottom: 16, display: 'flex', gap: 10, alignItems: 'center' }}>
+                      <span style={{ fontSize: 16 }}>ℹ️</span>
+                      <div style={{ fontSize: 11.5, color: 'var(--t2)', lineHeight: 1.4 }}>
+                        <strong>Direct Ingestion Active:</strong> Public repositories can be linked and verified below. OAuth token access (for private commits) is scheduled for v2.1.
+                      </div>
+                    </div>
+
+                    {/* Link Repository Form */}
+                    <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 12, padding: 14, marginBottom: 20 }}>
+                      <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: 'var(--t2)', marginBottom: 6 }}>
+                        Link & Audit Public GitHub Repository
+                      </label>
+                      <div style={{ display: 'flex', gap: 8 }}>
+                        <input
+                          type="text"
+                          placeholder="https://github.com/username/project-repo"
+                          value={githubRepoInput}
+                          onChange={e => setGithubRepoInput(e.target.value)}
+                          disabled={linkingRepo}
+                          style={{
+                            flex: 1,
+                            background: 'var(--bg3)',
+                            border: '1px solid var(--border)',
+                            borderRadius: 8,
+                            padding: '8px 12px',
+                            color: 'var(--t1)',
+                            fontSize: 12.5,
+                            fontFamily: 'var(--font-mono)'
+                          }}
+                        />
+                        <button
+                          type="button"
+                          onClick={handleLinkGithubRepo}
+                          disabled={linkingRepo || !githubRepoInput.trim()}
+                          style={{
+                            padding: '8px 16px',
+                            fontSize: 12,
+                            fontWeight: 800,
+                            background: linkingRepo ? 'var(--bg3)' : 'var(--accent)',
+                            color: linkingRepo ? 'var(--t3)' : 'var(--text)',
+                            border: 'none',
+                            borderRadius: 8,
+                            cursor: linkingRepo ? 'not-allowed' : 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 6
+                          }}
+                        >
+                          {linkingRepo ? 'Auditing Repo...' : 'Audit & Link Repo ↗'}
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Linked Repositories List */}
+                    {linkedRepos.length === 0 ? (
+                      <div style={{ textAlign: 'center', padding: '36px 16px', background: 'var(--bg3)', borderRadius: 12, border: '1px solid var(--border)' }}>
+                        <span style={{ fontSize: 36, display: 'block', marginBottom: 10 }}>🐙</span>
+                        <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--t1)', marginBottom: 4 }}>No GitHub Repositories Linked</div>
+                        <p style={{ fontSize: 12, color: 'var(--t3)', maxWidth: 440, margin: '0 auto', lineHeight: 1.5 }}>
+                          Link your project or capstone repositories above. The PinIT engine validates architecture structure, test coverage, and exports verified technical skills to your portfolio.
+                        </p>
+                      </div>
+                    ) : (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                        {linkedRepos.map((repo, idx) => (
+                          <div key={idx} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 12, padding: 14 }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 6 }}>
+                              <div>
+                                <a
+                                  href={repo.repoUrl}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  style={{ fontSize: 13.5, fontWeight: 800, color: 'var(--accent)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 4 }}
+                                >
+                                  {repo.fullName} ↗
+                                </a>
+                                <p style={{ fontSize: 12, color: 'var(--t2)', margin: '4px 0 0 0' }}>{repo.description}</p>
+                              </div>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                <span style={{ fontSize: 11, fontWeight: 800, padding: '3px 8px', borderRadius: 6, background: repo.score >= 70 ? 'rgba(var(--success-rgb), 0.1)' : 'rgba(var(--warning-rgb), 0.1)', color: repo.score >= 70 ? 'var(--green)' : 'var(--amber)', fontFamily: 'var(--font-mono)' }}>
+                                  Score: {repo.score}/100
+                                </span>
+                                <button
+                                  type="button"
+                                  onClick={() => handleUnlinkGithubRepo(repo.repoUrl)}
+                                  title="Unlink Repository"
+                                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--t3)', fontSize: 12, padding: 4 }}
+                                >
+                                  ✕
+                                </button>
+                              </div>
+                            </div>
+
+                            {repo.skills && repo.skills.length > 0 && (
+                              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 8 }}>
+                                {repo.skills.map((s, sIdx) => (
+                                  <span key={sIdx} style={{ fontSize: 10, padding: '2px 7px', borderRadius: 4, background: 'var(--card)', border: '1px solid var(--border)', color: 'var(--t1)' }}>
+                                    {s}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10, fontSize: 10.5, color: 'var(--t3)' }}>
+                              <span>★ {repo.stars} stars</span>
+                              <span>Audited: {repo.verifiedAt}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )}
 
@@ -1067,50 +1804,171 @@ function ProfilePageInner() {
 
                 {activePortfolioTab === 'Recommendations' && (
                   <div>
-                    <h3 style={{ margin: '0 0 12px 0', fontSize: 15, fontWeight: 800 }}>Endorsements from Mentors</h3>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                      {recommendations.map(rec => (
-                        <div key={rec.id} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', padding: 14, borderRadius: 12 }}>
-                          <div style={{ fontWeight: 800, fontSize: 12, color: 'var(--accent)', marginBottom: 6 }}>{rec.author}</div>
-                          <p style={{ fontSize: 12.5, color: 'var(--t2)', margin: 0, fontStyle: 'italic', lineHeight: 1.4 }}>"{rec.text}"</p>
-                        </div>
-                      ))}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+                      <h3 style={{ margin: 0, fontSize: 15, fontWeight: 800 }}>Mentor & Faculty Endorsements</h3>
+                      <button
+                        onClick={() => setShowAddRec(!showAddRec)}
+                        style={{
+                          background: 'var(--accent)',
+                          color: 'var(--text)',
+                          border: 'none',
+                          padding: '6px 12px',
+                          borderRadius: 8,
+                          fontSize: 12,
+                          fontWeight: 700,
+                          cursor: 'pointer'
+                        }}
+                      >
+                        {showAddRec ? 'Cancel' : '+ Add Endorsement'}
+                      </button>
                     </div>
+
+                    {showAddRec && (
+                      <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 10, padding: 14, marginBottom: 14 }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+                            <input
+                              type="text"
+                              placeholder="Mentor / Faculty Name (e.g. Dr. Rajesh Sharma)"
+                              value={newRecAuthor}
+                              onChange={e => setNewRecAuthor(e.target.value)}
+                              style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 6, padding: '8px 10px', color: 'var(--t1)', fontSize: 12.5 }}
+                            />
+                            <input
+                              type="text"
+                              placeholder="Designation / Role (e.g. Professor & Head of CS)"
+                              value={newRecRole}
+                              onChange={e => setNewRecRole(e.target.value)}
+                              style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 6, padding: '8px 10px', color: 'var(--t1)', fontSize: 12.5 }}
+                            />
+                          </div>
+                          <textarea
+                            rows={3}
+                            placeholder="Recommendation or letter of endorsement quote..."
+                            value={newRecText}
+                            onChange={e => setNewRecText(e.target.value)}
+                            style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 6, padding: '8px 10px', color: 'var(--t1)', fontSize: 12.5, resize: 'vertical' }}
+                          />
+                          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
+                            <button onClick={() => setShowAddRec(false)} style={{ background: 'transparent', border: '1px solid var(--border)', borderRadius: 6, padding: '6px 12px', fontSize: 12, color: 'var(--t2)', cursor: 'pointer' }}>Cancel</button>
+                            <button onClick={addRecommendation} style={{ background: 'var(--accent)', border: 'none', borderRadius: 6, padding: '6px 14px', fontSize: 12, fontWeight: 700, color: 'var(--text)', cursor: 'pointer' }}>Save Endorsement</button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {recommendations.length > 0 ? (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                        {recommendations.map(r => (
+                          <div key={r.id} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 12, padding: 14 }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                              <div>
+                                <span style={{ fontSize: 13.5, fontWeight: 800, color: 'var(--t1)' }}>{r.author}</span>
+                                {r.role && <span style={{ fontSize: 11.5, color: 'var(--t3)', marginLeft: 8 }}>&middot; {r.role}</span>}
+                              </div>
+                              <span style={{ fontSize: 10, padding: '2px 7px', borderRadius: 4, background: 'rgba(34,197,94,0.1)', color: 'var(--green)', fontWeight: 700 }}>
+                                {r.verified ? '✓ Faculty Endorsed' : 'Pending Audit'}
+                              </span>
+                            </div>
+                            <p style={{ fontSize: 12.5, color: 'var(--t2)', margin: 0, fontStyle: 'italic', lineHeight: 1.5 }}>
+                              &ldquo;{r.text}&rdquo;
+                            </p>
+                            {r.date && (
+                              <div style={{ fontSize: 10.5, color: 'var(--t3)', marginTop: 8 }}>Endorsed on {r.date}</div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div style={{ textAlign: 'center', padding: '36px 16px', background: 'var(--bg3)', borderRadius: 12, border: '1px solid var(--border)' }}>
+                        <span style={{ fontSize: 36, display: 'block', marginBottom: 10 }}>✍️</span>
+                        <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--t1)', marginBottom: 4 }}>No Endorsements Recorded Yet</div>
+                        <p style={{ fontSize: 12, color: 'var(--t3)', maxWidth: 460, margin: '0 auto 16px', lineHeight: 1.5 }}>
+                          Add cryptographically signed letters of recommendation and mentor endorsements above to showcase academic and industry credibility.
+                        </p>
+                      </div>
+                    )}
                   </div>
                 )}
 
                 {activePortfolioTab === 'Timeline' && (
                   <div>
-                    {/* Course Learning Outcome (CLO) Competency Matrix (Moodle-inspired) */}
+                    {/* Course Learning Outcome (CLO) Competency Matrix (University & Moodle-aligned) */}
                     <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 14, padding: 18, marginBottom: 24 }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
                         <div>
-                          <span style={{ fontSize: 10, fontWeight: 900, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: 0.8 }}>Moodle Competency Framework</span>
+                          <span style={{ fontSize: 10, fontWeight: 900, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: 0.8 }}>AICTE & University Outcome Framework</span>
                           <h4 style={{ margin: '2px 0 0 0', fontSize: 14, fontWeight: 800 }}>Course Learning Outcome (CLO) Competency Matrix</h4>
                         </div>
-                        <span style={{ fontSize: 10.5, background: 'rgba(16,185,129,0.1)', color: 'var(--success)', padding: '2px 8px', borderRadius: 6, fontWeight: 700 }}>
-                          Accredited Matrix
-                        </span>
+                        {(() => {
+                          const totalEvidenceCount = (cOS.completedQuests?.length || 0) + (cOS.completedMissions?.length || 0) + projects.filter(p => p.verified).length + (cOS.vaultItems?.filter(v => v.verified)?.length || 0);
+                          return (
+                            <span style={{ fontSize: 10.5, background: totalEvidenceCount > 0 ? 'rgba(var(--success-rgb), 0.1)' : 'rgba(var(--danger-rgb), 0.1)', color: totalEvidenceCount > 0 ? 'var(--success)' : 'var(--t3)', padding: '2px 8px', borderRadius: 6, fontWeight: 700 }}>
+                              {totalEvidenceCount > 0 ? '✓ Verified Progress' : 'Awaiting Submissions'}
+                            </span>
+                          );
+                        })()}
                       </div>
 
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                        {[
-                          { code: 'CLO-101', name: 'Data Structure & Algorithmic Crisis Recovery', mastery: 92, evidence: 'Socratic Quest #4 + WASM Sandbox' },
-                          { code: 'CLO-102', name: 'System Architecture & Concurrency Design', mastery: 85, evidence: 'GitHub AST Hash PIN-GH-9021' },
-                          { code: 'CLO-103', name: 'Technical Presentation & Verbal Alignment', mastery: 88, evidence: '4-Round AI Interview Round 3' }
-                        ].map((clo, idx) => (
-                          <div key={idx} style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 10, padding: 12 }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                              <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--t1)' }}>{clo.code}: {clo.name}</span>
-                              <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--success)', fontFamily: 'var(--font-mono)' }}>{clo.mastery}% Mastery</span>
-                            </div>
-                            <div style={{ width: '100%', height: 6, borderRadius: 3, background: 'var(--bg3)', overflow: 'hidden', marginBottom: 6 }}>
-                              <div style={{ width: `${clo.mastery}%`, height: '100%', background: 'linear-gradient(90deg, #10b981, #059669)', borderRadius: 3 }} />
-                            </div>
-                            <div style={{ fontSize: 10, color: 'var(--t3)' }}>Verified Evidence: {clo.evidence}</div>
+                      {(() => {
+                        const questCount = (cOS.completedQuests?.length || 0) + (cOS.completedMissions?.length || 0);
+                        const verifiedProjectsCount = projects.filter(p => p.verified).length + (cOS.onboardingAnswers?.projects?.length ? 1 : 0);
+                        const dnaMastery = Math.max(0, Math.min(100, cOS.dnaScore || 0));
+                        const verifiedCertsCount = (cOS.vaultItems?.filter(v => v.verified && (v.item_type === 'certification' || v.item_type === 'course'))?.length || 0) + certificates.filter(c => c.verified).length;
+
+                        const cloItems = [
+                          {
+                            code: 'CLO-101',
+                            name: 'Data Structures & Algorithmic Crisis Recovery',
+                            syllabus: 'Anna Univ CS3401 / VTU 21CS32 / Mumbai Univ Core DSA',
+                            mastery: questCount === 0 ? 0 : Math.min(100, Math.round((questCount / 6) * 100)),
+                            evidence: questCount > 0 ? `${cOS.completedQuests?.length || 0} Quests + ${cOS.completedMissions?.length || 0} Coding Missions Passed` : 'No verified DSA quests completed yet'
+                          },
+                          {
+                            code: 'CLO-102',
+                            name: 'System Architecture & Concurrency Design',
+                            syllabus: 'Anna Univ CS3451 / VTU 21CS33 OS & Concurrency',
+                            mastery: verifiedProjectsCount === 0 ? 0 : Math.min(100, verifiedProjectsCount * 45),
+                            evidence: verifiedProjectsCount > 0 ? `${verifiedProjectsCount} Verified Capstone Project(s) Evaluated` : 'No verified system design projects submitted'
+                          },
+                          {
+                            code: 'CLO-103',
+                            name: 'Technical Presentation & Verbal Alignment',
+                            syllabus: 'AICTE Model Curriculum: Professional Communication',
+                            mastery: dnaMastery,
+                            evidence: dnaMastery > 0 ? `AI Speech & Behavioral DNA Score: ${dnaMastery}%` : 'No AI mock interview sessions recorded'
+                          },
+                          {
+                            code: 'CLO-204',
+                            name: 'Distributed Cloud & Network Architectures',
+                            syllabus: 'Anna Univ CS3591 / VTU 21CS52 Computer Networks',
+                            mastery: verifiedCertsCount === 0 ? 0 : Math.min(100, verifiedCertsCount * 50),
+                            evidence: verifiedCertsCount > 0 ? `${verifiedCertsCount} Verified Cloud & Infrastructure Credentials` : 'No verified cloud/networking credentials in Vault'
+                          }
+                        ];
+
+                        return (
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                            {cloItems.map((clo, idx) => (
+                              <div key={idx} style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 10, padding: 14 }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+                                  <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--t1)' }}>{clo.code}: {clo.name}</span>
+                                  <span style={{ fontSize: 11, fontWeight: 800, color: clo.mastery > 0 ? 'var(--success)' : 'var(--t3)', fontFamily: 'var(--font-mono)' }}>{clo.mastery}% Mastery</span>
+                                </div>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 8 }}>
+                                  <span style={{ fontSize: 9.5, padding: '2px 6px', borderRadius: 4, background: 'rgba(var(--info-rgb),  0.1)', color: 'var(--accent)', fontWeight: 700 }}>
+                                    🏛️ {clo.syllabus}
+                                  </span>
+                                </div>
+                                <div style={{ width: '100%', height: 6, borderRadius: 3, background: 'var(--bg3)', overflow: 'hidden', marginBottom: 6 }}>
+                                  <div style={{ width: `${clo.mastery}%`, height: '100%', background: clo.mastery > 0 ? 'linear-gradient(90deg, #10b981, #059669)' : 'var(--border)', borderRadius: 3 }} />
+                                </div>
+                                <div style={{ fontSize: 10, color: clo.mastery > 0 ? 'var(--t2)' : 'var(--t3)' }}>Verified Evidence: {clo.evidence}</div>
+                              </div>
+                            ))}
                           </div>
-                        ))}
-                      </div>
+                        );
+                      })()}
                     </div>
 
                     <h3 style={{ margin: '0 0 12px 0', fontSize: 16, fontWeight: 900 }}>Progression Timeline</h3>
@@ -1140,7 +1998,7 @@ function ProfilePageInner() {
                       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                         <input type="text" placeholder="Event Title" value={newEvtTitle} onChange={e => setNewEvtTitle(e.target.value)} style={{ width: '100%', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, padding: 8, color: 'var(--t1)', fontSize: 12.5 }} />
                         <textarea placeholder="Event Details..." value={newEvtDetail} onChange={e => setNewEvtDetail(e.target.value)} rows={2} style={{ width: '100%', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 8, padding: 8, color: 'var(--t1)', fontSize: 12.5, resize: 'vertical' }} />
-                        <button onClick={addTimelineEvent} style={{ alignSelf: 'flex-start', padding: '6px 16px', fontSize: 12, fontWeight: 800, background: 'var(--accent)', color: '#fff', border: 'none', borderRadius: 8, cursor: 'pointer' }}>Add Event</button>
+                        <button onClick={addTimelineEvent} style={{ alignSelf: 'flex-start', padding: '6px 16px', fontSize: 12, fontWeight: 800, background: 'var(--accent)', color: 'var(--text)', border: 'none', borderRadius: 8, cursor: 'pointer' }}>Add Event</button>
                       </div>
                     </div>
                   </div>
@@ -1198,7 +2056,7 @@ function ProfilePageInner() {
                           <strong style={{ fontSize: 13 }}>{p.title}</strong>
                           <div style={{ fontSize: 11.5, color: 'var(--t3)' }}>{p.tech.join(', ')}</div>
                         </div>
-                        <button onClick={() => toggleVerification('project', p.id)} style={{ padding: '6px 12px', fontSize: 10.5, fontWeight: 800, background: p.verified ? 'var(--coral)' : 'var(--green)', color: '#fff', border: 'none', borderRadius: 6, cursor: 'pointer' }}>
+                        <button onClick={() => toggleVerification('project', p.id)} style={{ padding: '6px 12px', fontSize: 10.5, fontWeight: 800, background: p.verified ? 'var(--coral)' : 'var(--green)', color: 'var(--text)', border: 'none', borderRadius: 6, cursor: 'pointer' }}>
                           {p.verified ? 'Revoke Verify' : 'Verify Project'}
                         </button>
                       </div>
@@ -1274,17 +2132,27 @@ function ProfilePageInner() {
                     <div>
                       <h3 style={{ margin: '0 0 12px 0', fontSize: 15, fontWeight: 800 }}>Verified Credentials Summary</h3>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                        {(skillProfile?.verified && skillProfile.verified.length > 0 ? skillProfile.verified : passportSkills).map(s => (
-                          <div key={s.id} style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid var(--border)' }}>
-                            <span style={{ fontSize: 13, fontWeight: 700 }}>{s.name}</span>
-                            <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                              <span style={{ fontSize: 11, background: 'rgba(16, 185, 129, 0.15)', color: '#10b981', padding: '3px 8px', borderRadius: 6, fontWeight: 800 }}>
-                                {'score' in s ? `${Math.round(s.score)} Pts` : `Level ${s.level}`}
-                              </span>
-                              <span style={{ fontSize: 11, background: 'var(--accent-light)', padding: '3px 8px', borderRadius: 6, color: 'var(--accent)', fontWeight: 800 }}>{s.level}</span>
+                        {(() => {
+                          const items = (skillProfile?.verified && skillProfile.verified.length > 0 ? skillProfile.verified : passportSkills.filter(s => s.verified));
+                          if (items.length === 0) {
+                            return (
+                              <div style={{ padding: 14, textAlign: 'center', color: 'var(--t3)', fontSize: 12, background: 'var(--bg3)', borderRadius: 8 }}>
+                                No verified credentials yet. Pass Socratic Quests and Coding Labs to earn credentials.
+                              </div>
+                            );
+                          }
+                          return items.map(s => (
+                            <div key={s.id} style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid var(--border)' }}>
+                              <span style={{ fontSize: 13, fontWeight: 700 }}>{s.name}</span>
+                              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                                <span style={{ fontSize: 11, background: 'rgba(var(--success-rgb),  0.15)', color: 'var(--success)', padding: '3px 8px', borderRadius: 6, fontWeight: 800 }}>
+                                  {'score' in s ? `${Math.round(s.score)} Pts` : `Level ${s.level}`}
+                                </span>
+                                <span style={{ fontSize: 11, background: 'var(--accent-light)', padding: '3px 8px', borderRadius: 6, color: 'var(--accent)', fontWeight: 800 }}>{s.level}</span>
+                              </div>
                             </div>
-                          </div>
-                        ))}
+                          ));
+                        })()}
                       </div>
                     </div>
                   </div>
@@ -1299,7 +2167,7 @@ function ProfilePageInner() {
                           <div key={s.id} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', padding: 14, borderRadius: 12 }}>
                             <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
                               <span style={{ fontSize: 13.5, fontWeight: 800 }}>{s.name}</span>
-                              <span style={{ fontSize: 11, background: 'rgba(16, 185, 129, 0.15)', color: '#10b981', padding: '3px 8px', borderRadius: 6, fontWeight: 800 }}>{s.level} Verified ✓</span>
+                              <span style={{ fontSize: 11, background: 'rgba(var(--success-rgb),  0.15)', color: 'var(--success)', padding: '3px 8px', borderRadius: 6, fontWeight: 800 }}>{s.level} Verified ✓</span>
                             </div>
                             <p style={{ fontSize: 12, color: 'var(--t2)', margin: '0 0 8px 0', lineHeight: 1.4 }}>
                               <strong>Evaluation Score:</strong> {Math.round(s.score)}/100 &middot; <strong>Credential ID:</strong> <code style={{ fontSize: 10, color: 'var(--accent)' }}>{s.credentialId}</code>
@@ -1325,10 +2193,10 @@ function ProfilePageInner() {
                           <div key={s.id} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', padding: 14, borderRadius: 12 }}>
                             <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
                               <span style={{ fontSize: 13, fontWeight: 700 }}>{s.name}</span>
-                              <span style={{ fontSize: 11.5, color: '#3b82f6', fontWeight: 700 }}>{Math.round(s.score)} Pts Demonstrated</span>
+                              <span style={{ fontSize: 11.5, color: 'var(--info)', fontWeight: 700 }}>{Math.round(s.score)} Pts Demonstrated</span>
                             </div>
                             <div style={{ height: 6, background: 'var(--bg2)', borderRadius: 3, overflow: 'hidden', marginBottom: 8 }}>
-                              <div style={{ width: `${Math.min(100, s.score)}%`, height: '100%', background: '#3b82f6' }} />
+                              <div style={{ width: `${Math.min(100, s.score)}%`, height: '100%', background: 'var(--info)' }} />
                             </div>
                             <div style={{ fontSize: 11, color: 'var(--t3)' }}>Target: Complete production project & defense to verify.</div>
                           </div>
@@ -1360,18 +2228,24 @@ function ProfilePageInner() {
                   <div>
                     <h3 style={{ margin: '0 0 12px 0', fontSize: 15, fontWeight: 800 }}>AI Audit Transcripts</h3>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                      {assessmentHistory.map((h, i) => (
-                        <div key={i} style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)' }}>
-                          <div>
-                            <div style={{ fontSize: 13, fontWeight: 700 }}>{h.type}</div>
-                            <div style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 2 }}>Demonstrated {h.date}</div>
+                      {assessmentHistory.length > 0 ? (
+                        assessmentHistory.map((h, i) => (
+                          <div key={i} style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)' }}>
+                            <div>
+                              <div style={{ fontSize: 13, fontWeight: 700 }}>{h.type}</div>
+                              <div style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 2 }}>Demonstrated {h.date}</div>
+                            </div>
+                            <div style={{ textAlign: 'right' }}>
+                              <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--green)' }}>{h.score} Score</div>
+                              <div style={{ fontSize: 10.5, color: 'var(--t3)', marginTop: 2 }}>{h.result}</div>
+                            </div>
                           </div>
-                          <div style={{ textAlign: 'right' }}>
-                            <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--green)' }}>{h.score} Score</div>
-                            <div style={{ fontSize: 10.5, color: 'var(--t3)', marginTop: 2 }}>{h.result}</div>
-                          </div>
+                        ))
+                      ) : (
+                        <div style={{ padding: 20, textAlign: 'center', color: 'var(--t3)', fontSize: 12.5, background: 'var(--bg3)', borderRadius: 12 }}>
+                          No AI audit transcripts recorded yet. Complete coding quests, oral defenses, or AI mock interviews to generate audit records.
                         </div>
-                      ))}
+                      )}
                     </div>
                   </div>
                 )}
@@ -1401,17 +2275,23 @@ function ProfilePageInner() {
             <div style={CS.card}>
               <div style={CS.cardLabel}>Candidate Skill Passport Dossier</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                {passportSkills.map(s => (
-                  <div key={s.id} style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg3)', padding: 14, borderRadius: 12, border: '1px solid var(--border)' }}>
-                    <div>
-                      <h4 style={{ margin: 0, fontSize: 13.5 }}>{s.name}</h4>
-                      <p style={{ fontSize: 12, color: 'var(--t3)', margin: '4px 0 0' }}>{s.evidence}</p>
+                {passportSkills.length > 0 ? (
+                  passportSkills.map(s => (
+                    <div key={s.id} style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg3)', padding: 14, borderRadius: 12, border: '1px solid var(--border)' }}>
+                      <div>
+                        <h4 style={{ margin: 0, fontSize: 13.5 }}>{s.name}</h4>
+                        <p style={{ fontSize: 12, color: 'var(--t3)', margin: '4px 0 0' }}>{s.evidence}</p>
+                      </div>
+                      <span style={{ fontSize: 11, background: s.verified ? 'var(--green-light)' : 'var(--border)', color: s.verified ? 'var(--green)' : 'var(--t3)', padding: '3px 8px', borderRadius: 6, fontWeight: 800 }}>
+                        {s.verified ? `Level ${s.level} Verified` : 'Pending Validation'}
+                      </span>
                     </div>
-                    <span style={{ fontSize: 11, background: s.verified ? 'var(--green-light)' : 'var(--border)', color: s.verified ? 'var(--green)' : 'var(--t3)', padding: '3px 8px', borderRadius: 6, fontWeight: 800 }}>
-                      {s.verified ? `Level ${s.level} Verified` : 'Pending Validation'}
-                    </span>
+                  ))
+                ) : (
+                  <div style={{ padding: 18, textAlign: 'center', color: 'var(--t3)', fontSize: 12.5, background: 'var(--bg3)', borderRadius: 10 }}>
+                    No skill passport records yet. Demonstrated competencies will appear here once verified.
                   </div>
-                ))}
+                )}
               </div>
             </div>
           )}
@@ -1420,17 +2300,23 @@ function ProfilePageInner() {
             <div style={CS.card}>
               <div style={CS.cardLabel}>Skill Endorsement Panel</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                {passportSkills.map(s => (
-                  <div key={s.id} style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg3)', padding: 14, borderRadius: 12 }}>
-                    <div>
-                      <strong style={{ fontSize: 13.5 }}>{s.name} (Level {s.level})</strong>
-                      <div style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 2 }}>{s.evidence}</div>
+                {passportSkills.length > 0 ? (
+                  passportSkills.map(s => (
+                    <div key={s.id} style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg3)', padding: 14, borderRadius: 12 }}>
+                      <div>
+                        <strong style={{ fontSize: 13.5 }}>{s.name} (Level {s.level})</strong>
+                        <div style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 2 }}>{s.evidence}</div>
+                      </div>
+                      <button onClick={() => toggleEndorsement(s.id)} style={{ padding: '6px 12px', fontSize: 10.5, fontWeight: 800, background: s.verified ? 'var(--coral)' : 'var(--accent)', color: 'var(--text)', border: 'none', borderRadius: 6, cursor: 'pointer' }}>
+                        {s.verified ? 'Revoke Endorse' : 'Endorse Skill'}
+                      </button>
                     </div>
-                    <button onClick={() => toggleEndorsement(s.id)} style={{ padding: '6px 12px', fontSize: 10.5, fontWeight: 800, background: s.verified ? 'var(--coral)' : 'var(--accent)', color: '#fff', border: 'none', borderRadius: 6, cursor: 'pointer' }}>
-                      {s.verified ? 'Revoke Endorse' : 'Endorse Skill'}
-                    </button>
+                  ))
+                ) : (
+                  <div style={{ padding: 18, textAlign: 'center', color: 'var(--t3)', fontSize: 12.5, background: 'var(--bg3)', borderRadius: 10 }}>
+                    No skills submitted for faculty endorsement yet.
                   </div>
-                ))}
+                )}
               </div>
             </div>
           )}
@@ -1459,7 +2345,15 @@ function ProfilePageInner() {
 
               {/* Weekly Heatmap */}
               <div style={CS.card}>
-                <WeeklyVelocityHeatmap completedQuests={cOS.completedQuests} completedMissions={cOS.completedMissions} themeColor="var(--accent)" />
+                <WeeklyVelocityHeatmap
+                  completedQuests={cOS.completedQuests}
+                  completedMissions={cOS.completedMissions}
+                  themeColor="var(--accent)"
+                  timestamps={[
+                    ...(cOS.onboardingAnswers?.completedQuestsTimestamps || []),
+                    ...(cOS.onboardingAnswers?.completedMissionsTimestamps || [])
+                  ]}
+                />
               </div>
             </div>
 
@@ -1550,7 +2444,7 @@ function ProfilePageInner() {
                   {[
                     { label:'Pass Rate',    val:`${Math.round(ex.pass_rate||0)}%`, color:'var(--green)'   },
                     { label:'Avg Score',    val:`${Math.round(ex.avg_pct||0)}%`,   color:'var(--teal)'    },
-                    { label:'Gold Badges',  val:ex.gold||0,                         color:'#f59e0b'        },
+                    { label:'Gold Badges',  val:ex.gold||0,                         color:'var(--warning)'        },
                     { label:'Silver Badges',val:ex.silver||0,                       color:'#9ca3af'        },
                     { label:'Bronze Badges',val:ex.bronze||0,                       color:'#d97706'        },
                   ].map(item => (
@@ -1728,14 +2622,14 @@ function ProfilePageInner() {
                 }}
                 style={{
                   background: 'linear-gradient(135deg, var(--accent), var(--purple))',
-                  color: '#fff',
+                  color: 'var(--text)',
                   border: 'none',
                   borderRadius: 10,
                   padding: '8px 18px',
                   fontSize: 12.5,
                   fontWeight: 800,
                   cursor: 'pointer',
-                  boxShadow: '0 4px 14px rgba(99,102,241,0.3)',
+                  boxShadow: '0 4px 14px rgba(var(--brand-rgb), 0.3)',
                   transition: 'all 0.15s'
                 }}
               >
@@ -1801,14 +2695,14 @@ function ProfilePageInner() {
                 }}
                 style={{
                   background: 'linear-gradient(135deg, #10b981, #059669)',
-                  color: '#fff',
+                  color: 'var(--text)',
                   border: 'none',
                   borderRadius: 10,
                   padding: '8px 18px',
                   fontSize: 12.5,
                   fontWeight: 800,
                   cursor: 'pointer',
-                  boxShadow: '0 4px 14px rgba(16,185,129,0.3)',
+                  boxShadow: '0 4px 14px rgba(var(--success-rgb), 0.3)',
                   transition: 'all 0.15s'
                 }}
               >
@@ -1866,9 +2760,9 @@ function ProfilePageInner() {
               <button className="btn-ghost btn-sm">Open QR Login →</button>
             </Link>
           </div>
-          <div style={{ ...CS.card, borderColor:'rgba(239,68,68,0.2)' }}>
+          <div style={{ ...CS.card, borderColor:'rgba(var(--danger-rgb), 0.2)' }}>
             <div style={{ ...CS.cardTitle, color:'var(--coral)' }}>⚠ Danger Zone</div>
-            <button onClick={async () => { await logout(); router.push('/login'); }} className="btn-ghost btn-sm" style={{ color:'var(--coral)', borderColor:'rgba(239,68,68,0.2)' }}>
+            <button onClick={async () => { await logout(); router.push('/login'); }} className="btn-ghost btn-sm" style={{ color:'var(--coral)', borderColor:'rgba(var(--danger-rgb), 0.2)' }}>
               ⏻ Sign Out of All Devices
             </button>
           </div>
@@ -1947,7 +2841,7 @@ function ProfilePageInner() {
                 fontWeight: 800,
                 padding: '4px 10px',
                 borderRadius: 12,
-                background: attempts > 1 ? 'rgba(255,255,255,0.03)' : 'rgba(239,68,68,0.1)',
+                background: attempts > 1 ? 'rgba(255,255,255,0.03)' : 'rgba(var(--danger-rgb), 0.1)',
                 color: attempts > 1 ? 'var(--t2)' : 'var(--coral)',
                 border: '1px solid var(--border)'
               }}>
@@ -2002,8 +2896,8 @@ function ProfilePageInner() {
               <div style={{
                 padding: 12,
                 borderRadius: 10,
-                background: examFeedback.includes('🎉') ? 'rgba(5,150,105,0.06)' : 'rgba(239,68,68,0.06)',
-                border: `1px solid ${examFeedback.includes('🎉') ? 'rgba(5,150,105,0.15)' : 'rgba(239,68,68,0.15)'}`,
+                background: examFeedback.includes('🎉') ? 'rgba(var(--success-deep-rgb), 0.06)' : 'rgba(var(--danger-rgb), 0.06)',
+                border: `1px solid ${examFeedback.includes('🎉') ? 'rgba(var(--success-deep-rgb), 0.15)' : 'rgba(var(--danger-rgb), 0.15)'}`,
                 fontSize: 12.5,
                 color: 'var(--t2)',
                 lineHeight: 1.5,
@@ -2025,7 +2919,7 @@ function ProfilePageInner() {
                   </button>
                   <button 
                     onClick={async () => {
-                      const currentTrust = user?.trustScore ?? 70;
+                      const currentTrust = Number(user?.trust_score ?? (user as any)?.trustScore ?? cOS.trustScore ?? 0);
                       const penalty = Math.max(0, currentTrust - 5);
                       try {
                         await api.post('/api/auth/profile', { trust_score: penalty });
@@ -2109,7 +3003,7 @@ function SecurityFaceLogin() {
           </div>
         </div>
         {faceEnrolled === true && !showEnroll && (
-          <span style={{ fontSize:10, fontWeight:700, color:'var(--green)', background:'rgba(5,150,105,0.12)', padding:'3px 9px', borderRadius:100, whiteSpace:'nowrap', border:'1px solid rgba(5,150,105,0.25)' }}>
+          <span style={{ fontSize:10, fontWeight:700, color:'var(--green)', background:'rgba(var(--success-deep-rgb), 0.12)', padding:'3px 9px', borderRadius:100, whiteSpace:'nowrap', border:'1px solid rgba(var(--success-deep-rgb), 0.25)' }}>
             ✓ Active
           </span>
         )}

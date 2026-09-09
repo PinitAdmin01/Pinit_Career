@@ -5,6 +5,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { api } from '@/lib/api/client';
+import { toast } from '@/lib/store/useAppStore';
 
 export default function AdmissionsPortal() {
   // Form states
@@ -15,6 +16,8 @@ export default function AdmissionsPortal() {
 
   // Tracking states
   const [trackingId, setTrackingId] = useState('');
+  // Second factor for the public tracking lookup. See handleTrack below.
+  const [trackingName, setTrackingName] = useState('');
   const [trackedApp, setTrackedApp] = useState<any>(null);
   const [trackError, setTrackError] = useState('');
 
@@ -23,19 +26,20 @@ export default function AdmissionsPortal() {
   const handleApply = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!fileSimulated) {
-      alert('Please upload/simulate your 12th Grade Mark Sheet PDF first.');
+      toast.warning('Mark Sheet Required', 'Please upload or simulate your 12th Grade Mark Sheet PDF first.');
       return;
     }
     setApplying(true);
     try {
       const res: any = await api.post('/api/admissions/apply', form);
       if (res && res.ok) {
+        toast.success('Application Submitted! 🎓', `Reference ID: ${res.application?.id || 'Registered'}`);
         setApplyResult(res.application);
         setForm({ name: '', email: '', gpa: '', course: 'Computer Science' });
         setFileSimulated(false);
       }
     } catch {
-      alert('Failed to submit application. Try again.');
+      toast.error('Submission Failed', 'Failed to submit application. Please try again.');
     } finally {
       setApplying(false);
     }
@@ -45,15 +49,34 @@ export default function AdmissionsPortal() {
     e.preventDefault();
     setTrackError('');
     setTrackedApp(null);
+
+    if (!trackingName.trim()) {
+      setTrackError('Please enter the applicant name exactly as it was submitted.');
+      return;
+    }
+
     try {
-      const res = await api.get<{ application: any | null }>(`/api/admissions/track?id=${encodeURIComponent(trackingId.trim())}`);
+      // The applicant name is sent as a second factor. The tracking endpoint is
+      // public by necessity — applicants have no account — so the reference
+      // alone must not be enough to read someone's course, rank and status.
+      const res = await api.get<{ application: any | null }>(
+        `/api/admissions/track?id=${encodeURIComponent(trackingId.trim())}` +
+        `&name=${encodeURIComponent(trackingName.trim())}`
+      );
       if (res.application) {
         setTrackedApp(res.application);
       } else {
-        setTrackError('No application found matching this ID. Format: APP-2026-XXXX');
+        // Deliberately identical wording for "no such application" and "name
+        // does not match" — the server returns the same response for both, and
+        // the UI must not undo that by hinting which one it was.
+        setTrackError('No application found matching that reference and name. Please check both and try again.');
       }
-    } catch {
-      setTrackError('Failed to query tracking database.');
+    } catch (err: any) {
+      if (err?.status === 429 || /rate/i.test(err?.message || '')) {
+        setTrackError('Too many attempts. Please wait a minute and try again.');
+      } else {
+        setTrackError('Failed to query tracking database.');
+      }
     }
   };
 
@@ -397,21 +420,32 @@ export default function AdmissionsPortal() {
             <div>
               <h2 className="card-title">🔍 Status Tracking</h2>
               <p style={{ fontSize: 13, color: 'var(--t2)', marginBottom: 14 }}>
-                Enter your unique Application ID to pull the current stage of document verification and seat allocations.
+                Enter your Application ID and the applicant name exactly as submitted.
+                Both are required — this protects applicant records from being looked up by reference alone.
               </p>
-              
-              <form onSubmit={handleTrack} style={{ display: 'flex', gap: 8 }}>
+
+              <form onSubmit={handleTrack} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 <input
                   type="text"
                   value={trackingId}
                   onChange={e => setTrackingId(e.target.value)}
                   className="form-input"
-                  placeholder="e.g. APP-2026-0105"
+                  placeholder="Application ID — e.g. APP-2026-K7M4QX"
                   required
                 />
-                <button type="submit" className="btn-submit" style={{ width: 'auto', whiteSpace: 'nowrap', padding: '0 20px' }}>
-                  Track ID
-                </button>
+                <div style={{ display: 'flex', gap: 8 }}>
+                  <input
+                    type="text"
+                    value={trackingName}
+                    onChange={e => setTrackingName(e.target.value)}
+                    className="form-input"
+                    placeholder="Applicant full name (as submitted)"
+                    required
+                  />
+                  <button type="submit" className="btn-submit" style={{ width: 'auto', whiteSpace: 'nowrap', padding: '0 20px' }}>
+                    Track
+                  </button>
+                </div>
               </form>
               
               {trackError && (

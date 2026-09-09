@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
 
 interface LevelInfo {
   index: number;
@@ -33,11 +34,7 @@ interface Props {
   careerScore: number;
   trustScore: number;
   level: LevelInfo;
-  isScanning: boolean;
-  scanProgress: number;
-  scanLogs: string[];
   unverifiedCount: number;
-  onStartScan: () => void;
   vaultItemsCount: number;
   userRole?: string;
   onSeedDemo?: () => void;
@@ -45,8 +42,7 @@ interface Props {
 
 export default function DashboardStatsRow({
   xp, careerScore, trustScore, level,
-  isScanning, scanProgress, scanLogs,
-  unverifiedCount, onStartScan,
+  unverifiedCount,
   vaultItemsCount, userRole, onSeedDemo,
 }: Props) {
   const trustLevel = Math.floor(trustScore / 20);
@@ -102,9 +98,6 @@ export default function DashboardStatsRow({
 
       {/* Card 3: Trust Quotient */}
       <div className="db-glass" style={{ padding:20, display:'flex', flexDirection:'column', gap:10, overflow:'hidden', position:'relative' }}>
-        {isScanning && (
-          <div style={{ position:'absolute', left:0, width:'100%', height:2, background:'linear-gradient(90deg, transparent, var(--green-mid), transparent)', boxShadow:'0 0 6px var(--green)', animation:'hud-scan 2.5s infinite linear', zIndex:10 }} />
-        )}
         <div style={{ position:'absolute', bottom:-30, right:-30, width:120, height:120, background:'rgba(5,150,105,0.1)', borderRadius:'50%', filter:'blur(40px)', pointerEvents:'none' }} />
         <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', zIndex:1 }}>
           <div>
@@ -126,21 +119,38 @@ export default function DashboardStatsRow({
           })}
         </div>
         <div style={{ zIndex:1 }}>
-          {isScanning ? (
-            <div style={{ background:'rgba(6,8,14,0.95)', fontFamily:'var(--font-mono)', fontSize:10, borderRadius:8, border:'1px solid var(--border)', padding:10, color:'var(--green-mid)', height:80, overflowY:'auto', lineHeight:1.5 }}>
-              {scanLogs.map((log, i) => <div key={i}>{log}</div>)}
-              <div style={{ marginTop:4, height:3, background:'rgba(255,255,255,0.03)', borderRadius:2, overflow:'hidden' }}>
-                <div style={{ height:'100%', width:`${scanProgress}%`, background:'var(--green-mid)', transition:'width 0.25s linear' }} />
-              </div>
+          {unverifiedCount > 0 ? (
+            <Link
+              href="/vault"
+              style={{
+                width:'100%',
+                background:'var(--bg3)',
+                border:'1px solid var(--border)',
+                borderRadius:8,
+                padding:'8px',
+                fontSize:11.5,
+                fontWeight:700,
+                color:'var(--t1)',
+                textDecoration:'none',
+                display:'flex',
+                alignItems:'center',
+                justifyContent:'center',
+                gap:6
+              }}
+            >
+              📋 Review {unverifiedCount} Unverified in Vault ↗
+            </Link>
+          ) : vaultItemsCount === 0 ? (
+            <div style={{ fontSize:11.5, color:'var(--dash-subtext)' }}>
+              No credentials in Vault.{' '}
+              <Link href="/vault" style={{ color:'var(--accent)', textDecoration:'none', fontWeight:600 }}>
+                Upload to Vault ↗
+              </Link>
             </div>
-          ) : unverifiedCount > 0 ? (
-            <button onClick={onStartScan} style={{ width:'100%', background:'linear-gradient(135deg, var(--green) 0%, var(--green-mid) 100%)', border:'none', borderRadius:8, padding:'8px', fontSize:11.5, fontWeight:700, color:'white', cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center', gap:6 }}>
-              ⚡ Run AI Trust Audit ({unverifiedCount} Pending)
-            </button>
           ) : (
             <div style={{ fontSize:11.5, color:'var(--dash-subtext)' }}>
-              ✓ All credentials verified.
-              {vaultItemsCount === 0 && userRole === 'admin' && onSeedDemo && (
+              ✓ All {vaultItemsCount} credentials verified.
+              {userRole === 'admin' && onSeedDemo && (
                 <button onClick={onSeedDemo} style={{ marginLeft:8, background:'none', border:'1px solid var(--border)', borderRadius:6, color:'var(--accent)', fontSize:10, padding:'2px 8px', cursor:'pointer' }}>+ Seed Demo</button>
               )}
             </div>

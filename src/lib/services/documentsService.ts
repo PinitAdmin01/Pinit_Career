@@ -103,7 +103,8 @@ export const documentsService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('document_requests').update({ status: 'Approved' }).eq('id', requestId);
+        const res = await supabase.from('document_requests').update({ status: 'Approved' }).eq('id', requestId);
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -133,13 +134,14 @@ export const documentsService = {
     };
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('document_requests').insert({
+        const res = await supabase.from('document_requests').insert({
           id,
           student_id: studentId,
           category: row.category,
           description: row.description,
           status: 'pending',
         });
+        if (res.error) throw new Error(res.error.message);
         const document = mapRequestToDocument(row);
         return { ok: true, request: row, document };
       } catch (err) {

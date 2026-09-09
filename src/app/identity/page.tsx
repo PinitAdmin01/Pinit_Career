@@ -1,34 +1,31 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import Link from 'next/link';
 import PublicNavbar from '@/components/nav/PublicNavbar';
 import PublicFooter from '@/components/landing/PublicFooter';
-import DynamicSkyCanvas from '@/components/effects/DynamicSkyCanvas';
 import '@/styles/landing.css';
+import { useAuth } from '@/lib/context/AuthContext';
 
 export default function IdentityPage() {
-  const [themeState, setThemeState] = useState<{ theme: 'dark' | 'light'; lastToggleTime: number }>({
-    theme: 'light',
-    lastToggleTime: 0
-  });
+  const { user, loading } = useAuth();
+  const router = useRouter();
 
+  // Authenticated users should see /career-dna (the real page), not this marketing shell
   useEffect(() => {
-    const saved = (localStorage.getItem('pc_theme') as 'dark' | 'light') || 'light';
-    setThemeState(prev => ({ ...prev, theme: saved }));
+    if (!loading && user) {
+      router.replace('/career-dna');
+    }
+  }, [user, loading, router]);
 
-    const handleThemeToggle = (e: any) => {
-      if (e.detail) {
-        setThemeState({
-          theme: e.detail.theme,
-          lastToggleTime: e.detail.time
-        });
-      }
-    };
-    window.addEventListener('pc_theme_toggled', handleThemeToggle);
-    return () => window.removeEventListener('pc_theme_toggled', handleThemeToggle);
-  }, []);
+  // While checking auth or redirecting, show nothing to avoid flash
+  if (loading || user) {
+    return null;
+  }
 
+  // Public visitors see the marketing page
   const pillars = [
     {
       icon: '🧬',
@@ -54,7 +51,6 @@ export default function IdentityPage() {
 
   return (
     <div className="landing-page" style={{ position: 'relative', overflowX: 'hidden' }}>
-      <DynamicSkyCanvas theme={themeState.theme} lastToggleTime={themeState.lastToggleTime} opacity={0.65} />
       <PublicNavbar />
 
       <main style={{ padding: '60px 0 100px', position: 'relative', zIndex: 1 }}>
@@ -63,7 +59,7 @@ export default function IdentityPage() {
           {/* Breadcrumb back to landing */}
           <div style={{ marginBottom: 32 }}>
             <Link href="/" style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-              <span>←</span> Back to Landing Page
+              <span>←</span> Back to Home
             </Link>
           </div>
 

@@ -81,8 +81,8 @@ export default function AttendanceTracker() {
       {/* Pending Student Leave Requests Panel (Item 7) */}
       {pendingLeaveRequests.some(l => l.status === 'Pending') && (
         <div style={{
-          background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(217, 119, 6, 0.03) 100%)',
-          border: '1.5px solid rgba(245, 158, 11, 0.3)', borderRadius: 12, padding: 16
+          background: 'linear-gradient(135deg, rgba(var(--warning-rgb),  0.08) 0%, rgba(217, 119, 6, 0.03) 100%)',
+          border: '1.5px solid rgba(var(--warning-rgb),  0.3)', borderRadius: 12, padding: 16
         }}>
           <div style={{ fontSize: 13, fontWeight: 900, color: 'var(--amber)', textTransform: 'uppercase', marginBottom: 8, display: 'flex', alignItems: 'center', gap: 6 }}>
             <span>📄</span> Pending Student Leave Requests ({pendingLeaveRequests.filter(l => l.status === 'Pending').length})
@@ -95,7 +95,7 @@ export default function AttendanceTracker() {
               }}>
                 <div>
                   <strong style={{ fontSize: 13, color: 'var(--t1)' }}>{leave.studentName} ({leave.rollNo})</strong>
-                  <span style={{ fontSize: 10.5, color: 'var(--amber)', background: 'rgba(245, 158, 11, 0.1)', padding: '2px 6px', borderRadius: 4, marginLeft: 8, fontWeight: 700 }}>
+                  <span style={{ fontSize: 10.5, color: 'var(--amber)', background: 'rgba(var(--warning-rgb),  0.1)', padding: '2px 6px', borderRadius: 4, marginLeft: 8, fontWeight: 700 }}>
                     {leave.category}
                   </span>
                   <div style={{ fontSize: 11.5, color: 'var(--t2)', marginTop: 2 }}>{leave.reason} ({leave.dates})</div>
@@ -103,13 +103,13 @@ export default function AttendanceTracker() {
                 <div style={{ display: 'flex', gap: 6 }}>
                   <button
                     onClick={() => handleReviewLeave(leave.id, 'Approved')}
-                    style={{ padding: '6px 12px', borderRadius: 6, background: '#16a34a', color: 'white', border: 'none', cursor: 'pointer', fontSize: 11, fontWeight: 700 }}
+                    style={{ padding: '6px 12px', borderRadius: 6, background: 'var(--success)', color: 'white', border: 'none', cursor: 'pointer', fontSize: 11, fontWeight: 700 }}
                   >
                     ✓ Approve Leave
                   </button>
                   <button
                     onClick={() => handleReviewLeave(leave.id, 'Rejected')}
-                    style={{ padding: '6px 12px', borderRadius: 6, background: '#dc2626', color: 'white', border: 'none', cursor: 'pointer', fontSize: 11, fontWeight: 700 }}
+                    style={{ padding: '6px 12px', borderRadius: 6, background: 'var(--danger-deep)', color: 'white', border: 'none', cursor: 'pointer', fontSize: 11, fontWeight: 700 }}
                   >
                     ✕ Reject
                   </button>
@@ -122,7 +122,7 @@ export default function AttendanceTracker() {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
         <div>
           <h2 style={{ fontSize: 22, fontWeight: 700, margin: 0, color: 'var(--t1, #0f172a)' }}>📋 Quick-Grid Class Attendance Tracker</h2>
-          <p style={{ margin: '4px 0 0', fontSize: 14, color: 'var(--t3, #64748b)' }}>Fast 1-click attendance sheet grid inspired by Gibbon ERP.</p>
+          <p style={{ margin: '4px 0 0', fontSize: 14, color: 'var(--t3)' }}>Fast 1-click attendance sheet grid inspired by Gibbon ERP.</p>
         </div>
 
         <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
@@ -189,12 +189,12 @@ export default function AttendanceTracker() {
 
       {/* Student List View / Grid View */}
       {loading ? (
-        <div style={{ background: 'var(--bg1, #fff)', border: '1px solid var(--border)', borderRadius: 12, padding: 40, textAlign: 'center', color: '#64748b' }}>Loading records for {date}...</div>
+        <div style={{ background: 'var(--bg1, #fff)', border: '1px solid var(--border)', borderRadius: 12, padding: 40, textAlign: 'center', color: 'var(--text-dim)' }}>Loading records for {date}...</div>
       ) : viewMode === 'grid' ? (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 14 }}>
           {students.map(s => (
             <div key={s.id} style={{
-              background: 'var(--bg1, #fff)', border: `1.5px solid ${s.status === 'present' ? '#16a34a' : s.status === 'late' ? '#d97706' : '#dc2626'}`,
+              background: 'var(--bg1, #fff)', border: `1.5px solid ${s.status === 'present' ? 'var(--success)' : s.status === 'late' ? 'var(--warning)' : 'var(--danger-deep)'}`,
               borderRadius: 12, padding: 14, display: 'flex', flexDirection: 'column', gap: 10,
               boxShadow: '0 2px 8px rgba(0,0,0,0.03)'
             }}>
@@ -202,7 +202,7 @@ export default function AttendanceTracker() {
                 <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', background: 'var(--bg3)', padding: '2px 6px', borderRadius: 4 }}>{s.rollNo}</span>
                 <span style={{
                   fontSize: 10.5, fontWeight: 800, textTransform: 'uppercase',
-                  color: s.status === 'present' ? '#16a34a' : s.status === 'late' ? '#d97706' : '#dc2626'
+                  color: s.status === 'present' ? 'var(--success)' : s.status === 'late' ? 'var(--warning)' : 'var(--danger-deep)'
                 }}>
                   ● {s.status}
                 </span>
@@ -215,8 +215,8 @@ export default function AttendanceTracker() {
                   onClick={() => setStatus(s.id, 'present')}
                   style={{
                     padding: '6px 0', fontSize: 11, fontWeight: 700, borderRadius: 6, border: 'none', cursor: 'pointer',
-                    background: s.status === 'present' ? '#16a34a' : 'var(--bg3)',
-                    color: s.status === 'present' ? '#fff' : 'var(--t2)'
+                    background: s.status === 'present' ? 'var(--success)' : 'var(--bg3)',
+                    color: s.status === 'present' ? 'var(--text)' : 'var(--t2)'
                   }}
                 >
                   Present
@@ -225,8 +225,8 @@ export default function AttendanceTracker() {
                   onClick={() => setStatus(s.id, 'late')}
                   style={{
                     padding: '6px 0', fontSize: 11, fontWeight: 700, borderRadius: 6, border: 'none', cursor: 'pointer',
-                    background: s.status === 'late' ? '#d97706' : 'var(--bg3)',
-                    color: s.status === 'late' ? '#fff' : 'var(--t2)'
+                    background: s.status === 'late' ? 'var(--warning)' : 'var(--bg3)',
+                    color: s.status === 'late' ? 'var(--text)' : 'var(--t2)'
                   }}
                 >
                   Late
@@ -235,8 +235,8 @@ export default function AttendanceTracker() {
                   onClick={() => setStatus(s.id, 'absent')}
                   style={{
                     padding: '6px 0', fontSize: 11, fontWeight: 700, borderRadius: 6, border: 'none', cursor: 'pointer',
-                    background: s.status === 'absent' ? '#dc2626' : 'var(--bg3)',
-                    color: s.status === 'absent' ? '#fff' : 'var(--t2)'
+                    background: s.status === 'absent' ? 'var(--danger-deep)' : 'var(--bg3)',
+                    color: s.status === 'absent' ? 'var(--text)' : 'var(--t2)'
                   }}
                 >
                   Absent
@@ -269,8 +269,8 @@ export default function AttendanceTracker() {
                           fontSize: 12,
                           borderRadius: 6,
                           border: 'none',
-                          background: s.status === 'present' ? '#16a34a' : 'var(--border)',
-                          color: s.status === 'present' ? '#fff' : '#475569',
+                          background: s.status === 'present' ? 'var(--success)' : 'var(--border)',
+                          color: s.status === 'present' ? 'var(--text)' : 'var(--text-dim)',
                           cursor: 'pointer',
                           fontWeight: 600
                         }}
@@ -284,8 +284,8 @@ export default function AttendanceTracker() {
                           fontSize: 12,
                           borderRadius: 6,
                           border: 'none',
-                          background: s.status === 'late' ? '#d97706' : 'var(--border)',
-                          color: s.status === 'late' ? '#fff' : '#475569',
+                          background: s.status === 'late' ? 'var(--warning)' : 'var(--border)',
+                          color: s.status === 'late' ? 'var(--text)' : 'var(--text-dim)',
                           cursor: 'pointer',
                           fontWeight: 600
                         }}
@@ -299,8 +299,8 @@ export default function AttendanceTracker() {
                           fontSize: 12,
                           borderRadius: 6,
                           border: 'none',
-                          background: s.status === 'absent' ? '#dc2626' : 'var(--border)',
-                          color: s.status === 'absent' ? '#fff' : '#475569',
+                          background: s.status === 'absent' ? 'var(--danger-deep)' : 'var(--border)',
+                          color: s.status === 'absent' ? 'var(--text)' : 'var(--text-dim)',
                           cursor: 'pointer',
                           fontWeight: 600
                         }}
@@ -321,8 +321,8 @@ export default function AttendanceTracker() {
           onClick={handleSave}
           style={{
             padding: '10px 24px',
-            background: 'var(--primary, #3b82f6)',
-            color: '#fff',
+            background: 'var(--primary)',
+            color: 'var(--text)',
             fontWeight: 700,
             borderRadius: 8,
             border: 'none',
@@ -331,7 +331,7 @@ export default function AttendanceTracker() {
         >
           💾 Save Attendance Record
         </button>
-        {saved && <span style={{ color: '#16a34a', fontWeight: 600, fontSize: 14 }}>✓ Saved permanently for {date}!</span>}
+        {saved && <span style={{ color: 'var(--success)', fontWeight: 600, fontSize: 14 }}>✓ Saved permanently for {date}!</span>}
       </div>
     </div>
   );

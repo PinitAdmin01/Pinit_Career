@@ -1,34 +1,12 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import PublicNavbar from '@/components/nav/PublicNavbar';
 import PublicFooter from '@/components/landing/PublicFooter';
-import DynamicSkyCanvas from '@/components/effects/DynamicSkyCanvas';
 import '@/styles/landing.css';
 
 export default function ProblemPage() {
-  const [themeState, setThemeState] = useState<{ theme: 'dark' | 'light'; lastToggleTime: number }>({
-    theme: 'light',
-    lastToggleTime: 0
-  });
-
-  useEffect(() => {
-    const saved = (localStorage.getItem('pc_theme') as 'dark' | 'light') || 'light';
-    setThemeState(prev => ({ ...prev, theme: saved }));
-
-    const handleThemeToggle = (e: any) => {
-      if (e.detail) {
-        setThemeState({
-          theme: e.detail.theme,
-          lastToggleTime: e.detail.time
-        });
-      }
-    };
-    window.addEventListener('pc_theme_toggled', handleThemeToggle);
-    return () => window.removeEventListener('pc_theme_toggled', handleThemeToggle);
-  }, []);
-
   const problems = [
     {
       num: '01',
@@ -62,7 +40,6 @@ export default function ProblemPage() {
 
   return (
     <div className="landing-page" style={{ position: 'relative', overflowX: 'hidden' }}>
-      <DynamicSkyCanvas theme={themeState.theme} lastToggleTime={themeState.lastToggleTime} opacity={0.65} />
       <PublicNavbar />
 
       <main style={{ padding: '60px 0 100px', position: 'relative', zIndex: 1 }}>
@@ -71,52 +48,76 @@ export default function ProblemPage() {
           {/* Breadcrumb back to landing */}
           <div style={{ marginBottom: 32 }}>
             <Link href="/" style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-              <span>←</span> Back to Landing Page
+              <span>←</span> Back to Home
             </Link>
           </div>
 
-          <div style={{ textAlign: 'center', maxWidth: 840, margin: '0 auto 60px' }}>
-            <div className="badge-pill">THE STRUCTURAL CRISIS</div>
-            <h1 className="hero-title">
-              Why Traditional Hiring & Placement is{' '}
-              <span className="text-gradient">Fundamentally Broken.</span>
+          <div style={{ maxWidth: 840, marginBottom: 56 }}>
+            <div style={{ display: 'inline-block', padding: '6px 14px', borderRadius: 999, background: 'rgba(244,63,94,0.12)', border: '1px solid rgba(244,63,94,0.3)', color: '#f43f5e', fontSize: 12, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 16 }}>
+              Systemic Problem Statement
+            </div>
+            <h1 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 900, color: 'var(--text-primary)', lineHeight: 1.15, marginBottom: 18 }}>
+              Higher Education is Running on a Broken Currency.
             </h1>
-            <p style={{ fontSize: 16, color: 'var(--text-secondary)', lineHeight: 1.65, marginTop: 16 }}>
-              The 20-year-old tradition of submitting PDF resumes into black-box ATS algorithms is failing students, universities, and enterprise recruiters alike.
+            <p style={{ fontSize: 16, color: 'var(--text-secondary)', lineHeight: 1.6, margin: 0 }}>
+              The intersection of education and recruitment is paralyzed by a fundamental crisis of trust. PDF resumes have zero proof, video learning produces passive illusions, and recruiters spend hundreds of hours filtering noise.
             </p>
           </div>
 
-          {/* 4 Structural Crises Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 24, marginBottom: 60 }}>
-            {problems.map((prob) => (
-              <div key={prob.num} className="glass-card" style={{ padding: 32, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 24 }}>
+            {problems.map((p) => (
+              <div
+                key={p.num}
+                style={{
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border-color)',
+                  borderRadius: 20,
+                  padding: 32,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  gap: 24,
+                  boxShadow: 'var(--card-shadow)'
+                }}
+              >
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, fontWeight: 800, color: 'var(--accent)' }}>CRISIS {prob.num}</span>
-                    <span style={{ fontSize: 20, fontWeight: 900, color: '#EF4444' }}>{prob.stat}</span>
+                    <span style={{ fontSize: 13, fontWeight: 800, color: '#f43f5e', fontFamily: 'var(--font-mono)' }}>{p.num}</span>
+                    <span style={{ padding: '4px 10px', borderRadius: 999, background: 'rgba(244,63,94,0.08)', color: '#f43f5e', fontSize: 11, fontWeight: 750 }}>CRISIS POINT</span>
                   </div>
-                  <h3 style={{ fontSize: 18, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 12 }}>{prob.title}</h3>
-                  <p style={{ fontSize: 13.5, color: 'var(--text-secondary)', lineHeight: 1.6 }}>{prob.desc}</p>
+                  <h3 style={{ margin: 0, fontSize: 19, fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.3, marginBottom: 12 }}>
+                    {p.title}
+                  </h3>
+                  <p style={{ margin: 0, fontSize: 13.5, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                    {p.desc}
+                  </p>
                 </div>
-                <div style={{ marginTop: 20, paddingTop: 16, borderTop: '1px solid var(--border-color)', fontSize: 11.5, color: 'var(--text-tertiary)', fontWeight: 600 }}>
-                  Metric: {prob.statLabel}
+
+                <div style={{ padding: '16px 20px', borderRadius: 12, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', gap: 16 }}>
+                  <div style={{ fontSize: 24, fontWeight: 900, color: '#f43f5e', fontFamily: 'var(--font-mono)' }}>
+                    {p.stat}
+                  </div>
+                  <div style={{ fontSize: 11.5, fontWeight: 650, color: 'var(--text-secondary)', lineHeight: 1.35 }}>
+                    {p.statLabel}
+                  </div>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* The Solution Callout */}
-          <div className="glass-card" style={{ padding: '40px 32px', textAlign: 'center', maxWidth: 840, margin: '0 auto' }}>
-            <h2 style={{ fontSize: 24, fontWeight: 900, marginBottom: 12 }}>The PinitCareer Paradigm Shift</h2>
-            <p style={{ fontSize: 14.5, color: 'var(--text-secondary)', lineHeight: 1.6, maxWidth: 640, margin: '0 auto 24px' }}>
-              Replace unverified PDF claims with cryptographic proof-of-work, real-time AI mentorship, and verified test assertions.
+          <div style={{ marginTop: 60, textAlign: 'center', padding: '40px 24px', borderRadius: 24, background: 'var(--bg-card)', border: '1px solid var(--border-color)', boxShadow: 'var(--card-shadow)' }}>
+            <h2 style={{ fontSize: 24, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 12 }}>
+              Ready to replace unverified claims with verifiable proof of work?
+            </h2>
+            <p style={{ fontSize: 14, color: 'var(--text-secondary)', maxWidth: 600, margin: '0 auto 24px' }}>
+              Explore how PinIT Career OS establishes an auditable identity passport for every student.
             </p>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: 14, flexWrap: 'wrap' }}>
-              <Link href="/identity" className="pc-btn-primary">
+            <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
+              <Link href="/identity" className="pc-btn-primary" style={{ padding: '12px 28px', fontSize: 14, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
                 Explore Career Identity →
               </Link>
-              <Link href="/" className="pc-btn-outline">
-                Back to Overview
+              <Link href="/how-it-works" className="pc-btn-secondary" style={{ padding: '12px 24px', fontSize: 14, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                How It Works
               </Link>
             </div>
           </div>

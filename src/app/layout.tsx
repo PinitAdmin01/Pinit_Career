@@ -3,6 +3,9 @@
 
 import { Suspense } from 'react';
 import '../styles/globals.css';
+// Semantic token layer. Purely additive aliases over globals.css — defines no
+// new colours and overrides nothing, so it must load AFTER globals.css.
+import '../styles/tokens.css';
 import '../styles/portal-pages.css';
 import '../styles/landing.css';
 import type { Metadata, Viewport } from 'next';
@@ -14,6 +17,7 @@ import AppShell                          from '@/components/ui/AppShell';
 import ToastManager                      from '@/components/ui/ToastManager';
 import { QueryProvider }                 from '@/lib/query/client';
 import FetchInterceptorInstaller         from '@/components/ui/FetchInterceptorInstaller';
+import TelemetryInstaller                from '@/components/ui/TelemetryInstaller';
 import { BatchProvider }                 from '@/lib/context/BatchContext';
 
 // ── Self-hosted Google Fonts (no external DNS, no FOUT) ───────────────────────
@@ -60,6 +64,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" type="image/png" href="/brand/pinit-career-logo.png" />
       </head>
       <body>
+        <TelemetryInstaller />
         <FetchInterceptorInstaller />
         <QueryProvider>
           <AuthProvider>

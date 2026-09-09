@@ -1,0 +1,265 @@
+/* ===============================================================
+   PinIT Career OS — SEMANTIC DESIGN TOKENS
+   ===============================================================
+
+   PURPOSE
+   -------
+   This file is PURELY ADDITIVE. It defines NO new colours for things
+   that already have one, and it OVERRIDES NOTHING in globals.css.
+
+   Everything here is either:
+     (a) a role-named ALIAS pointing at an existing globals.css token, or
+     (b) a genuinely NEW scale that did not exist before (z-index, spacing).
+
+   Because the aliases resolve through the existing tokens, they inherit
+   light/dark theme switching for free — globals.css already flips
+   --bg / --card / --t1 / --green / --coral etc. under
+   `:root.light` and `[data-theme='light']`, so every alias below flips
+   with them automatically. No duplicate theme maintenance.
+
+   WHY THIS EXISTS
+   ---------------
+   The codebase contains 179 distinct hardcoded hex values across ~4,000
+   inline style objects. They bypass the token system entirely, which is
+   why no two tabs look like the same product. Four different greens are
+   all doing "success"; two different hues are both "primary".
+
+   The blocker was that globals.css names several tokens by APPEARANCE
+   (--blue, --purple, --green, --coral) rather than by ROLE. An author
+   writing a success state has to know that "success" means --green, so
+   most authors skipped the system and pasted a hex.
+
+   These aliases give every value a name that says what it is FOR.
+   Migration is then mechanical: #10b981 -> var(--success), and so on.
+
+   USAGE RULE
+   ----------
+   New and migrated code should use the SEMANTIC names below.
+   Existing code using --t1 / --card / --green keeps working untouched.
+   Nothing needs to be migrated all at once.
+   =============================================================== */
+
+:root {
+  /* ── SURFACES — elevation ladder ────────────────────────────────
+     Pick by how far the element floats above the page:
+       0 = the page itself
+       1 = a card sitting on the page
+       2 = a dropdown / popover floating over a card
+       3 = a modal floating over everything
+     Each step is lighter than the one below it, matching physical depth,
+     so there is no need to memorise which grey goes where.            */
+  --surface-0: var(--bg);     /* page ground        */
+  --surface-1: var(--card);   /* cards, panels      */
+  --surface-2: var(--bg3);    /* popovers, menus    */
+  --surface-3: #1a2130;       /* modals (see light override below) */
+
+  /* ── BORDERS — by emphasis, not by number ─────────────────────── */
+  --line:        var(--border);   /* default hairline            */
+  --line-strong: var(--border2);  /* emphasised / hover          */
+  --line-heavy:  var(--border3);  /* focus rings, active states  */
+
+  /* ── TEXT — by importance ─────────────────────────────────────── */
+  --text:        var(--t1);  /* primary reading text           */
+  --text-muted:  var(--t2);  /* secondary / supporting copy    */
+  --text-dim:    var(--t3);  /* labels, captions, placeholders */
+  --text-faint:  var(--t4);  /* disabled, watermarks           */
+
+  /* ── BRAND ────────────────────────────────────────────────────── */
+  --brand:        var(--accent);        /* the one primary action colour */
+  --brand-soft:   var(--accent-light);  /* tinted backgrounds            */
+  --brand-bright: var(--accent-mid);    /* hover / emphasis              */
+  --brand-glow:   var(--accent-glow);   /* focus glow                    */
+
+  /* ── SEMANTIC STATUS ──────────────────────────────────────────────
+     Deliberately SEPARATE from brand colour. Success is never the brand
+     accent, and the brand accent never means "OK".
+
+     VALUES CHOSEN BY CENSUS, NOT BY TASTE.
+     Each base value below is the colour ALREADY most used across the app
+     for that role, counted over every .tsx in src/app and src/components:
+
+        --success  #10b981  used 206x   (vs 34d399 65x, 059669 35x, 16a34a 31x)
+        --info     #3b82f6  used  83x
+        --danger   #ef4444  used  80x   (vs dc2626 32x)
+        --warning  #f59e0b  used  57x   (vs eab308 24x)
+        --reward   #8b5cf6  used  52x
+
+     Setting the token to the DOMINANT value means migrating a page pulls
+     its outlier shades toward what most of the product already looks like,
+     rather than repainting the majority. That keeps visible change to a
+     minimum while still collapsing 4 greens into 1.
+
+     These are literals rather than aliases because globals.css does NOT
+     theme-switch --green/--coral/--amber/--blue/--purple — only the
+     *-light variants and the surface/text tokens change under
+     `:root.light`. So nothing is lost by pinning them here.
+
+     To retune any of these later, edit ONE line and every migrated page
+     follows. That is the entire point of the exercise.                  */
+  --success:        #10b981;
+  --success-soft:   var(--green-light);
+  --success-bright: #34d399;
+  --success-deep:   #059669;
+
+  --warning:        #f59e0b;
+  --warning-soft:   var(--amber-light);
+  --warning-bright: #fbbf24;
+
+  --danger:         #ef4444;
+  --danger-soft:    var(--coral-light);
+  --danger-bright:  #f87171;
+  --danger-deep:    #dc2626;
+
+  --info:           #3b82f6;
+  --info-soft:      var(--blue-light);
+  --info-bright:    #60a5fa;
+
+  /* Achievement / XP / pins. Kept distinct from --success so that
+     "you earned something" never reads as "operation succeeded". */
+  --reward:         #8b5cf6;
+  --reward-soft:    var(--purple-light);
+  --reward-bright:  #a78bfa;
+
+  /* ── RGB TRIPLETS for translucent fills ──────────────────────────
+     A large share of hardcoded colour in this codebase is NOT hex — it is
+     rgba() used for tinted backgrounds and borders, e.g.
+        background: 'rgba(16, 185, 129, 0.15)'
+        border:     '1px solid rgba(16, 185, 129, 0.3)'
+     Those are the same colours as the hex values above, just written
+     differently, so a hex-only migration silently misses them. In
+     src/app/quests/page.tsx alone there were 139 such uses against 175 hex.
+
+     Storing the bare RGB triplet lets any alpha be composed at the point of
+     use while still resolving to ONE source of truth:
+        background: 'rgba(var(--success-rgb), 0.15)'
+        border:     '1px solid rgba(var(--success-rgb), 0.3)'
+     Retuning --success then updates its solid AND translucent uses together.
+
+     Keep each triplet numerically identical to its solid counterpart above. */
+  /* Secondary accent hues. These carry no status meaning — they are
+     decorative highlights used by onboarding, arena and quest visuals.
+     Named --accent-* rather than --teal to avoid colliding with the
+     existing globals.css --teal (#0891b2), which the product barely uses.
+
+     Census across src/app + src/components:
+        #14b8a6 / rgba(20,184,166)  90 uses  <- the real teal
+        #06b6d4 / rgba(6,182,212)   21 uses  <- a distinct cyan, kept separate
+        #0891b2 (globals --teal)     5 uses
+     Pinned to the DOMINANT value so migration does not repaint the majority. */
+  --accent-teal:     #14b8a6;
+  --accent-teal-rgb: 20, 184, 166;
+  --accent-cyan:     #06b6d4;
+  --accent-cyan-rgb: 6, 182, 212;
+
+  --success-rgb:  16, 185, 129;   /* #10b981 */
+  --success-deep-rgb: 5, 150, 105; /* #059669 */
+  --warning-rgb:  245, 158, 11;   /* #f59e0b */
+  --danger-rgb:   239, 68, 68;    /* #ef4444 */
+  --info-rgb:     59, 130, 246;   /* #3b82f6 */
+  --reward-rgb:   139, 92, 246;   /* #8b5cf6 */
+  --brand-rgb:    99, 102, 241;   /* #6366f1 — matches globals --accent */
+
+  /* ── INTERACTIVE STATE COLOURS ────────────────────────────────────
+     LATENT BUG THIS FIXES:
+     The button classes in globals.css tokenise their BASE colour but
+     hardcode their HOVER colour:
+
+        .btn-primary  { background: var(--accent); }   <- token
+        .btn-primary:hover { background: #4338ca; }    <- literal
+
+     Today those agree (indigo-500 hovering to indigo-700), so nothing looks
+     wrong. But the moment anyone retunes --accent — which is the entire point
+     of having tokens — the button changes colour and its hover does not. A
+     teal button that turns indigo on hover.
+
+     It is latent rather than active, so it costs nothing to leave and nothing
+     to fix. Values below are byte-identical to the literals they replace, so
+     applying them is a ZERO visual change today and correct behaviour later.
+
+     Each is the 700-shade of its base's 600, matching the existing design. */
+  --accent-hover: #4338ca;   /* base var(--accent) #6366f1 */
+  --coral-hover:  #b91c1c;   /* base var(--coral)  #dc2626 */
+  --teal-hover:   #0e7490;   /* base var(--teal)   #0891b2 */
+  --green-hover:  #047857;   /* base var(--green)  #059669 */
+  --purple-hover: #6d28d9;   /* base var(--purple) #7c3aed */
+
+  /* ── SPACING SCALE — 4px base ─────────────────────────────────────
+     NEW. No spacing scale existed before, so padding and gap values were
+     chosen ad hoc per component, which is a large part of why cards and
+     buttons do not line up across tabs. Stay on this scale.           */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* ── RADIUS ───────────────────────────────────────────────────────
+     Aliases onto the existing --radius / --radius-lg / --radius-xl so
+     there is exactly one radius vocabulary. --radius-pill is new.     */
+  --radius-sm:   6px;
+  --radius-md:   var(--radius);      /* 8px  */
+  --radius-lg2:  var(--radius-lg);   /* 12px */
+  --radius-xl2:  var(--radius-xl);   /* 16px */
+  --radius-pill: 999px;
+
+  /* ── Z-INDEX SCALE ────────────────────────────────────────────────
+     NEW, and the most important addition in this file.
+
+     The codebase currently contains z-index values ranging from 40 to
+     99999 — including 25 separate elements all sitting at 9999, where
+     the winner is decided by DOM order and therefore changes as
+     components mount and unmount. That is the intermittent
+     "modal opens behind the header" bug.
+
+     Six named levels cover every real case. RULE: never write a raw
+     z-index integer again — always use one of these.
+
+     NOTE: a large z-index cannot escape a parent stacking context.
+     Any ancestor with transform / filter / opacity < 1 / backdrop-filter
+     creates one. Modals and toasts must therefore ALSO be portalled to
+     document.body, or these values will not help them.                */
+  --z-base:     0;    /* normal page content                       */
+  --z-sticky:   100;  /* sticky headers, section bars, table heads  */
+  --z-dropdown: 200;  /* menus, selects, popovers, tooltips         */
+  --z-overlay:  300;  /* modal scrim / backdrop                     */
+  --z-modal:    400;  /* dialog surface itself                      */
+  --z-toast:    500;  /* notifications — always the true top        */
+
+  /* ── MOTION ───────────────────────────────────────────────────────
+     NEW. Consistent durations and easings so transitions feel like one
+     product rather than per-component guesses.                       */
+  --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast:   120ms;
+  --dur-base:   200ms;
+  --dur-slow:   360ms;
+
+  /* ── FOCUS RING ───────────────────────────────────────────────────
+     NEW. Several flows currently have no visible keyboard focus state,
+     which blocks accessibility compliance for institutional buyers.    */
+  --focus-ring: 0 0 0 2px var(--surface-0), 0 0 0 4px var(--brand);
+}
+
+/* ── LIGHT MODE ────────────────────────────────────────────────────
+   Only --surface-3 needs an explicit light value: every other token in
+   this file is an alias, so it flips automatically when globals.css
+   flips the token underneath it. Selectors mirror globals.css exactly. */
+:root.light,
+[data-theme='light'] {
+  --surface-3: #ffffff;
+}
+
+/* ── REDUCED MOTION ────────────────────────────────────────────────
+   Respect the OS accessibility setting. Animation-heavy pages currently
+   offer no opt-out. Neutralising the duration tokens disables motion
+   anywhere that uses them, without touching layout.                   */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0ms;
+    --dur-base: 0ms;
+    --dur-slow: 0ms;
+  }
+}

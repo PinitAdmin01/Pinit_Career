@@ -587,9 +587,9 @@ export default function AttentionSpanPage() {
               })()}
 
               <text x="100" y="14" fill="#d4a843" fontSize="9" textAnchor="middle" fontWeight="bold">Selective ({selectiveScore}%)</text>
-              <text x="175" y="83" fill="#8b5cf6" fontSize="9" textAnchor="start" fontWeight="bold">Memory ({memoryScore}%)</text>
-              <text x="100" y="154" fill="#10b981" fontSize="9" textAnchor="middle" fontWeight="bold">Reflex ({reactionScore}%)</text>
-              <text x="25" y="83" fill="#3b82f6" fontSize="9" textAnchor="end" fontWeight="bold">Span ({spanScore}%)</text>
+              <text x="175" y="83" fill="var(--reward)" fontSize="9" textAnchor="start" fontWeight="bold">Memory ({memoryScore}%)</text>
+              <text x="100" y="154" fill="var(--success)" fontSize="9" textAnchor="middle" fontWeight="bold">Reflex ({reactionScore}%)</text>
+              <text x="25" y="83" fill="var(--info)" fontSize="9" textAnchor="end" fontWeight="bold">Span ({spanScore}%)</text>
             </svg>
           </div>
         </div>
@@ -641,12 +641,12 @@ export default function AttentionSpanPage() {
             <div>
               <h2 style={{ fontSize: 18, fontWeight: 800, color: 'var(--t1)', margin: 0, display: 'flex', alignItems: 'center', gap: 10 }}>
                 Accuracy board
-                <span style={{ fontSize: 11, background: 'rgba(16,185,129,0.15)', color: '#10b981', border: '1px solid rgba(16,185,129,0.3)', borderRadius: 20, padding: '2px 8px', fontWeight: 700 }}>
+                <span style={{ fontSize: 11, background: 'rgba(var(--success-rgb), 0.15)', color: 'var(--success)', border: '1px solid rgba(var(--success-rgb), 0.3)', borderRadius: 20, padding: '2px 8px', fontWeight: 700 }}>
                   {syncing ? '⚡ Syncing...' : '🟢 Live End-to-End'}
                 </span>
               </h2>
               <p style={{ color: 'var(--t2)', fontSize: 13, margin: '4px 0 0' }}>
-                Rankings based on cumulative <strong style={{ color: '#10b981' }}>Accuracy Points</strong>. Higher difficulty = Multiplied Accuracy!
+                Rankings based on cumulative <strong style={{ color: 'var(--success)' }}>Accuracy Points</strong>. Higher difficulty = Multiplied Accuracy!
               </p>
             </div>
             
@@ -696,7 +696,7 @@ export default function AttentionSpanPage() {
                   </div>
 
                   <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontSize: 16, fontWeight: 800, color: '#10b981' }}>
+                    <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--success)' }}>
                       {leader.totalAccuracy}+ Accuracy
                     </div>
                     <div style={{ fontSize: 10, color: 'var(--t3)' }}>
@@ -726,7 +726,7 @@ export default function AttentionSpanPage() {
                 ↺ Reset Progress
               </button>
               {history.length > 0 && (
-                <button onClick={clearHistory} style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.25)', color: '#ef4444', padding: '6px 14px', borderRadius: 8, fontSize: 11, fontWeight: 700, cursor: 'pointer' }}>
+                <button onClick={clearHistory} style={{ background: 'rgba(var(--danger-rgb), 0.1)', border: '1px solid rgba(var(--danger-rgb), 0.25)', color: 'var(--danger)', padding: '6px 14px', borderRadius: 8, fontSize: 11, fontWeight: 700, cursor: 'pointer' }}>
                   Clear History
                 </button>
               )}
@@ -786,9 +786,9 @@ export default function AttentionSpanPage() {
                           padding: '1px 6px',
                           borderRadius: 4,
                           fontWeight: 700,
-                          background: item.difficulty === 'hard' ? 'rgba(239,68,68,0.15)' : item.difficulty === 'easy' ? 'rgba(16,185,129,0.15)' : 'var(--amber-light)',
-                          color: item.difficulty === 'hard' ? '#ef4444' : item.difficulty === 'easy' ? '#10b981' : 'var(--amber)',
-                          border: `1px solid ${item.difficulty === 'hard' ? 'rgba(239,68,68,0.3)' : item.difficulty === 'easy' ? 'rgba(16,185,129,0.3)' : 'var(--border)'}`,
+                          background: item.difficulty === 'hard' ? 'rgba(var(--danger-rgb), 0.15)' : item.difficulty === 'easy' ? 'rgba(var(--success-rgb), 0.15)' : 'var(--amber-light)',
+                          color: item.difficulty === 'hard' ? 'var(--danger)' : item.difficulty === 'easy' ? 'var(--success)' : 'var(--amber)',
+                          border: `1px solid ${item.difficulty === 'hard' ? 'rgba(var(--danger-rgb), 0.3)' : item.difficulty === 'easy' ? 'rgba(var(--success-rgb), 0.3)' : 'var(--border)'}`,
                           textTransform: 'uppercase',
                         }}>
                           {item.difficulty}
@@ -801,7 +801,7 @@ export default function AttentionSpanPage() {
                   </div>
 
                   <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontSize: 14, fontWeight: 800, color: '#10b981' }}>
+                    <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--success)' }}>
                       +{item.accuracyEarned} Accuracy • {item.scoreDisplay}
                     </div>
                     <div style={{ fontSize: 11, color: 'var(--purple-mid, #8b5cf6)', fontWeight: 600 }}>

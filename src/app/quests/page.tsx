@@ -5,8 +5,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { useAuth } from '@/lib/context/AuthContext';
-import { COURSES_REGISTRY } from '@/lib/data/coursesData';
-import { generateDynamicStudentRoadmap } from '@/lib/data/roadmapFuser';
+import type { Course } from '@/lib/data/coursesData';
+import { COURSES_CATALOG } from '@/lib/data/coursesCatalog';
 import { recommendCareerTrajectory, CareerTrajectory, TrajectoryNode } from '@/lib/data/careerTrajectories';
 import { toast } from '@/lib/store/useAppStore';
 import { CourseNotesModal } from '@/components/CourseNotesModal';
@@ -164,8 +164,8 @@ function QuestsPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const urlTab = searchParams?.get('tab');
-  const initialSubTab: 'certification' | 'passport' | 'custom_roadmap' | 'standalone' | 'language' =
-    urlTab === 'passport' ? 'passport' : 'certification';
+  const initialSubTab: 'certification_passport' | 'custom_roadmap' | 'standalone' | 'language' =
+    urlTab === 'passport' || urlTab === 'certification' ? 'certification_passport' : (urlTab as any || 'certification_passport');
 
   const { user } = useAuth();
   const userId = user?.id || 'guest';
@@ -196,13 +196,27 @@ function QuestsPageContent() {
   } = useCareerOS();
 
   const [modules, setModules] = useState<Module[]>([]);
+  const [coursesRegistry, setCoursesRegistry] = useState<Course[]>([]);
+
+  useEffect(() => {
+    let isMounted = true;
+    import('@/lib/data/coursesData').then((mod) => {
+      if (isMounted) {
+        setCoursesRegistry(mod.COURSES_REGISTRY);
+      }
+    });
+    return () => { isMounted = false; };
+  }, []);
+
+  const COURSES_REGISTRY: Course[] = coursesRegistry.length > 0 ? coursesRegistry : (COURSES_CATALOG as unknown as Course[]);
   const [showCourseLibrary, setShowCourseLibrary] = useState(false);
   const [showFullJourneyModal, setShowFullJourneyModal] = useState(false);
   const [activeGateModalNode, setActiveGateModalNode] = useState<TrajectoryNode | null>(null);
   const [historyFilter, setHistoryFilter] = useState<'all' | 'quests' | 'pins'>('all');
   const [showEnglishDashboard, setShowEnglishDashboard] = useState(false);
-  const [activeSubTab, setActiveSubTab] = useState<'certification' | 'passport' | 'custom_roadmap' | 'standalone' | 'language'>(initialSubTab);
+  const [activeSubTab, setActiveSubTab] = useState<'certification_passport' | 'custom_roadmap' | 'standalone' | 'language'>(initialSubTab);
   const [selectedCertTrackId, setSelectedCertTrackId] = useState<string>('cert-12m-sde');
+  const [showPassportDetails, setShowPassportDetails] = useState<boolean>(urlTab === 'passport');
 
   // Passport state
   const [passportView, setPassportView] = useState<'timeline' | 'matrix'>('timeline');
@@ -212,10 +226,14 @@ function QuestsPageContent() {
   const [roleReadiness, setRoleReadiness] = useState<DynamicRoleReadiness | null>(null);
   const [showQrModal, setShowQrModal] = useState<boolean>(false);
   const [copiedPassportLink, setCopiedPassportLink] = useState<boolean>(false);
+  const [isPlacementPrepFastTrack, setIsPlacementPrepFastTrack] = useState<boolean>(false);
 
   useEffect(() => {
     if (urlTab === 'passport') {
-      setActiveSubTab('passport');
+      setActiveSubTab('certification_passport');
+      setShowPassportDetails(true);
+    } else if (urlTab === 'certification') {
+      setActiveSubTab('certification_passport');
     }
   }, [urlTab]);
 
@@ -237,25 +255,25 @@ function QuestsPageContent() {
   const getPassportStatusBadge = (status: string) => {
     switch (status) {
       case 'certified':
-        return { text: 'INDUSTRY CERTIFIED (HIRE-READY)', bg: 'rgba(16, 185, 129, 0.15)', border: 'rgba(16, 185, 129, 0.3)', color: '#10b981' };
+        return { text: 'INDUSTRY CERTIFIED (HIRE-READY)', bg: 'rgba(var(--success-rgb), 0.15)', border: 'rgba(var(--success-rgb), 0.3)', color: 'var(--success)' };
       case 'in_residency':
-        return { text: 'IN RESIDENCY (ADVANCED TRACK)', bg: 'rgba(99, 102, 241, 0.15)', border: 'rgba(99, 102, 241, 0.3)', color: '#818cf8' };
+        return { text: 'IN RESIDENCY (ADVANCED TRACK)', bg: 'rgba(var(--brand-rgb), 0.15)', border: 'rgba(var(--brand-rgb), 0.3)', color: 'var(--brand-bright)' };
       case 'on_track':
-        return { text: 'ON TRACK (PROGRESSING)', bg: 'rgba(234, 179, 8, 0.15)', border: 'rgba(234, 179, 8, 0.3)', color: '#eab308' };
+        return { text: 'ON TRACK (PROGRESSING)', bg: 'rgba(var(--warning-rgb), 0.15)', border: 'rgba(var(--warning-rgb), 0.3)', color: 'var(--warning)' };
       case 'action_required':
-        return { text: 'ACTION REQUIRED (GATES BLOCKED)', bg: 'rgba(239, 68, 68, 0.15)', border: 'rgba(239, 68, 68, 0.3)', color: '#ef4444' };
+        return { text: 'ACTION REQUIRED (GATES BLOCKED)', bg: 'rgba(var(--danger-rgb), 0.15)', border: 'rgba(var(--danger-rgb), 0.3)', color: 'var(--danger)' };
       default:
         return { text: 'ENROLLED / EXPLORING', bg: 'rgba(255, 255, 255, 0.05)', border: 'var(--border)', color: 'var(--t3)' };
     }
   };
 
-  const handleSubTabChange = (tab: 'certification' | 'passport' | 'custom_roadmap' | 'standalone' | 'language') => {
+  const handleSubTabChange = (tab: 'certification_passport' | 'custom_roadmap' | 'standalone' | 'language') => {
     setActiveSubTab(tab);
     setShowCourseLibrary(false);
     if (tab === 'standalone') {
       setLearningPathMode('single_course');
       setActiveCourseId(selectedStandaloneCourseId);
-    } else if (tab === 'certification') {
+    } else if (tab === 'certification_passport') {
       setLearningPathMode('fused_roadmap');
     }
     if (typeof window !== 'undefined' && userId) {
@@ -473,6 +491,7 @@ function QuestsPageContent() {
 
     try {
       const finalGoal = customGoal ? customGoal.trim() : config.role;
+      const { generateDynamicStudentRoadmap } = await import('@/lib/data/roadmapFuser');
       const dynamicModules = generateDynamicStudentRoadmap({
         qt1: onboardingAnswers?.qt1_score ?? 75,
         qt2: onboardingAnswers?.qt2_score ?? 80,
@@ -617,8 +636,9 @@ function QuestsPageContent() {
   };
 
   // Load modules from localStorage or active state based on activeCourseId
-  const loadModules = useCallback(() => {
+  const loadModules = useCallback(async () => {
     if (typeof window === 'undefined' || userId === 'guest') return;
+    const { generateDynamicStudentRoadmap } = await import('@/lib/data/roadmapFuser');
 
     // Direct Standalone Single-Course Loading
     if (activeSubTab === 'standalone' || learningPathMode === 'single_course') {
@@ -806,7 +826,7 @@ function QuestsPageContent() {
 
     if (!isCompleted && !isInitiated) {
       if (isDailyLimitReached) {
-        alert('Daily Limit Reached for this course! ⏳ Capped to 3 completed quests per day.');
+        toast.warning('Daily Limit Reached ⏳', 'You have completed the maximum 3 quests for this course today. Come back tomorrow or explore other skill paths!');
         return;
       }
 
@@ -865,67 +885,37 @@ function QuestsPageContent() {
         marginBottom: 20,
         overflowX: 'auto',
       }}>
-        {/* Tab 1: Certification */}
+        {/* Tab 1: Unified Certification & Skill Passport */}
         <button
-          onClick={() => handleSubTabChange('certification')}
+          onClick={() => handleSubTabChange('certification_passport')}
           style={{
             flex: 1,
-            minWidth: 160,
+            minWidth: 200,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             gap: 8,
             padding: '10px 14px',
             borderRadius: 12,
-            border: activeSubTab === 'certification' ? '1.5px solid var(--accent)' : '1px solid transparent',
-            background: activeSubTab === 'certification'
-              ? 'linear-gradient(135deg, rgba(99,102,241,0.22), rgba(168,85,247,0.15))'
+            border: activeSubTab === 'certification_passport' ? '1.5px solid var(--accent)' : '1px solid transparent',
+            background: activeSubTab === 'certification_passport'
+              ? 'linear-gradient(135deg, rgba(var(--brand-rgb),0.22), rgba(var(--success-rgb),0.15))'
               : 'transparent',
-            color: activeSubTab === 'certification' ? '#fff' : 'var(--t2)',
+            color: activeSubTab === 'certification_passport' ? 'var(--text)' : 'var(--t2)',
             fontFamily: 'var(--font-display)',
             fontSize: 13,
             fontWeight: 800,
             cursor: 'pointer',
             transition: 'all 0.25s ease',
-            boxShadow: activeSubTab === 'certification' ? '0 4px 14px rgba(99,102,241,0.25)' : 'none',
+            boxShadow: activeSubTab === 'certification_passport' ? '0 4px 14px rgba(var(--brand-rgb),0.25)' : 'none',
             whiteSpace: 'nowrap',
           }}
         >
           <span style={{ fontSize: 18 }}>🏆</span>
-          <span>Certification Course</span>
+          <span>Certification & Skill Passport</span>
         </button>
 
-        {/* Tab 2: Career Passport & Transcript */}
-        <button
-          onClick={() => handleSubTabChange('passport')}
-          style={{
-            flex: 1,
-            minWidth: 190,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 8,
-            padding: '10px 14px',
-            borderRadius: 12,
-            border: activeSubTab === 'passport' ? '1.5px solid #10b981' : '1px solid transparent',
-            background: activeSubTab === 'passport'
-              ? 'linear-gradient(135deg, rgba(16,185,129,0.22), rgba(5,150,105,0.15))'
-              : 'transparent',
-            color: activeSubTab === 'passport' ? '#fff' : 'var(--t2)',
-            fontFamily: 'var(--font-display)',
-            fontSize: 13,
-            fontWeight: 800,
-            cursor: 'pointer',
-            transition: 'all 0.25s ease',
-            boxShadow: activeSubTab === 'passport' ? '0 4px 14px rgba(16,185,129,0.25)' : 'none',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          <span style={{ fontSize: 18 }}>🛂</span>
-          <span>Career Passport & Transcript</span>
-        </button>
-
-        {/* Tab 3: Custom Roadmap */}
+        {/* Tab 2: Custom Roadmap */}
         <button
           onClick={() => handleSubTabChange('custom_roadmap')}
           style={{
@@ -937,17 +927,17 @@ function QuestsPageContent() {
             gap: 8,
             padding: '10px 14px',
             borderRadius: 12,
-            border: activeSubTab === 'custom_roadmap' ? '1.5px solid #6366f1' : '1px solid transparent',
+            border: activeSubTab === 'custom_roadmap' ? '1.5px solid var(--brand)' : '1px solid transparent',
             background: activeSubTab === 'custom_roadmap'
-              ? 'linear-gradient(135deg, rgba(99,102,241,0.22), rgba(168,85,247,0.15))'
+              ? 'linear-gradient(135deg, rgba(var(--brand-rgb),0.22), rgba(var(--reward-rgb),0.15))'
               : 'transparent',
-            color: activeSubTab === 'custom_roadmap' ? '#fff' : 'var(--t2)',
+            color: activeSubTab === 'custom_roadmap' ? 'var(--text)' : 'var(--t2)',
             fontFamily: 'var(--font-display)',
             fontSize: 13,
             fontWeight: 800,
             cursor: 'pointer',
             transition: 'all 0.25s ease',
-            boxShadow: activeSubTab === 'custom_roadmap' ? '0 4px 14px rgba(99,102,241,0.25)' : 'none',
+            boxShadow: activeSubTab === 'custom_roadmap' ? '0 4px 14px rgba(var(--brand-rgb),0.25)' : 'none',
             whiteSpace: 'nowrap',
           }}
         >
@@ -955,7 +945,7 @@ function QuestsPageContent() {
           <span>Custom Roadmap</span>
         </button>
 
-        {/* Tab 4: Standalone Course */}
+        {/* Tab 3: Standalone Course */}
         <button
           onClick={() => handleSubTabChange('standalone')}
           style={{
@@ -967,17 +957,17 @@ function QuestsPageContent() {
             gap: 8,
             padding: '10px 14px',
             borderRadius: 12,
-            border: activeSubTab === 'standalone' ? '1.5px solid #3b82f6' : '1px solid transparent',
+            border: activeSubTab === 'standalone' ? '1.5px solid var(--info)' : '1px solid transparent',
             background: activeSubTab === 'standalone'
-              ? 'linear-gradient(135deg, rgba(59,130,246,0.22), rgba(37,99,235,0.15))'
+              ? 'linear-gradient(135deg, rgba(var(--info-rgb),0.22), rgba(var(--info-rgb),0.15))'
               : 'transparent',
-            color: activeSubTab === 'standalone' ? '#fff' : 'var(--t2)',
+            color: activeSubTab === 'standalone' ? 'var(--text)' : 'var(--t2)',
             fontFamily: 'var(--font-display)',
             fontSize: 13,
             fontWeight: 800,
             cursor: 'pointer',
             transition: 'all 0.25s ease',
-            boxShadow: activeSubTab === 'standalone' ? '0 4px 14px rgba(59,130,246,0.25)' : 'none',
+            boxShadow: activeSubTab === 'standalone' ? '0 4px 14px rgba(var(--info-rgb),0.25)' : 'none',
             whiteSpace: 'nowrap',
           }}
         >
@@ -985,7 +975,7 @@ function QuestsPageContent() {
           <span>Standalone Course</span>
         </button>
 
-        {/* Tab 5: Global Language Academy */}
+        {/* Tab 4: Global Language Academy */}
         <button
           onClick={() => handleSubTabChange('language')}
           style={{
@@ -997,17 +987,17 @@ function QuestsPageContent() {
             gap: 8,
             padding: '10px 14px',
             borderRadius: 12,
-            border: activeSubTab === 'language' ? '1.5px solid #8b5cf6' : '1px solid transparent',
+            border: activeSubTab === 'language' ? '1.5px solid var(--reward)' : '1px solid transparent',
             background: activeSubTab === 'language'
-              ? 'linear-gradient(135deg, rgba(139,92,246,0.22), rgba(124,58,237,0.15))'
+              ? 'linear-gradient(135deg, rgba(var(--reward-rgb),0.22), rgba(var(--reward-rgb),0.15))'
               : 'transparent',
-            color: activeSubTab === 'language' ? '#fff' : 'var(--t2)',
+            color: activeSubTab === 'language' ? 'var(--text)' : 'var(--t2)',
             fontFamily: 'var(--font-display)',
             fontSize: 13,
             fontWeight: 800,
             cursor: 'pointer',
             transition: 'all 0.25s ease',
-            boxShadow: activeSubTab === 'language' ? '0 4px 14px rgba(139,92,246,0.25)' : 'none',
+            boxShadow: activeSubTab === 'language' ? '0 4px 14px rgba(var(--reward-rgb),0.25)' : 'none',
             whiteSpace: 'nowrap',
           }}
         >
@@ -1019,65 +1009,88 @@ function QuestsPageContent() {
       {/* ── SUB-TAB 4 VIEW: GLOBAL LANGUAGE ACADEMY ── */}
       {activeSubTab === 'language' && (
         <div style={{ marginBottom: 30 }}>
-          <EnglishDashboard onBackToQuests={() => handleSubTabChange('certification')} />
+          <EnglishDashboard onBackToQuests={() => handleSubTabChange('certification_passport')} />
         </div>
       )}
 
-      {/* ── SUB-TAB 1 VIEW: INDUSTRIAL CERTIFICATION TRACKS HEADER ── */}
-      {activeSubTab === 'certification' && (
+      {/* ── UNIFIED SUB-TAB 1 VIEW: CERTIFICATION TRACKS & CAREER PASSPORT COMMAND CENTER ── */}
+      {activeSubTab === 'certification_passport' && (
         <div style={{
           marginBottom: 18,
-          padding: '16px 20px',
-          borderRadius: 16,
-          background: 'linear-gradient(135deg, rgba(99,102,241,0.12), rgba(168,85,247,0.06))',
-          border: '1.5px solid rgba(99,102,241,0.25)',
+          padding: '20px 24px',
+          borderRadius: 20,
+          background: 'linear-gradient(135deg, rgba(var(--brand-rgb),0.12) 0%, rgba(var(--success-rgb),0.08) 100%)',
+          border: '1.5px solid rgba(var(--brand-rgb),0.25)',
           display: 'flex',
           flexDirection: 'column',
-          gap: 14
+          gap: 16
         }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
+          {/* Top Row: Track Title + Selector + Quick QR Share */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 14 }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ fontSize: 22 }}>🏆</span>
-                <h3 style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
-                  Industrial Certification Curriculum
+                <span style={{ fontSize: 24 }}>🏆</span>
+                <h3 style={{ fontSize: 17, fontWeight: 900, color: 'var(--t1)', margin: 0, fontFamily: 'var(--font-display)' }}>
+                  Industrial Certification & Verifiable Skill Passport
                 </h3>
               </div>
-              <p style={{ fontSize: 12, color: 'var(--t3)', margin: '4px 0 0 0' }}>
-                Select an enterprise-accredited certification track. Roadmap is compiled to match official engineering competencies.
+              <p style={{ fontSize: 12.5, color: 'var(--t3)', margin: '4px 0 0 0' }}>
+                Enterprise-accredited curriculum with real-time SHA-256 evidence logging and live role hireability analytics.
               </p>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--t2)' }}>Select Track:</span>
-              <select
-                value={selectedCertTrackId}
-                onChange={(e) => {
-                  const trk = CERTIFICATION_TRACKS.find(t => t.id === e.target.value);
-                  if (trk) {
-                    setSelectedCertTrackId(trk.id);
-                    setActiveCourseId(trk.courseId);
-                  }
-                }}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--t2)' }}>Track:</span>
+                <select
+                  value={selectedCertTrackId}
+                  onChange={(e) => {
+                    const trk = CERTIFICATION_TRACKS.find(t => t.id === e.target.value);
+                    if (trk) {
+                      setSelectedCertTrackId(trk.id);
+                      setActiveCourseId(trk.courseId);
+                    }
+                  }}
+                  style={{
+                    padding: '8px 14px',
+                    borderRadius: 10,
+                    border: '1.5px solid var(--accent)',
+                    background: '#090d16',
+                    color: 'var(--text)',
+                    fontSize: 12.5,
+                    fontWeight: 800,
+                    cursor: 'pointer',
+                    outline: 'none',
+                    boxShadow: '0 4px 12px rgba(var(--brand-rgb),0.2)'
+                  }}
+                >
+                  {CERTIFICATION_TRACKS.map(t => (
+                    <option key={t.id} value={t.id}>
+                      {t.icon} {t.title} ({t.duration})
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <button
+                onClick={() => setShowQrModal(true)}
                 style={{
-                  padding: '8px 14px',
-                  borderRadius: 10,
-                  border: '1.5px solid var(--accent)',
-                  background: '#090d16',
-                  color: '#ffffff',
-                  fontSize: 12.5,
+                  fontSize: 12,
+                  color: 'var(--text)',
                   fontWeight: 800,
+                  padding: '8px 16px',
+                  borderRadius: 10,
+                  background: 'linear-gradient(135deg, var(--success), var(--success-deep))',
+                  border: 'none',
                   cursor: 'pointer',
-                  outline: 'none',
-                  boxShadow: '0 4px 12px rgba(99,102,241,0.2)'
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  boxShadow: '0 4px 14px rgba(var(--success-rgb),0.3)'
                 }}
               >
-                {CERTIFICATION_TRACKS.map(t => (
-                  <option key={t.id} value={t.id}>
-                    {t.icon} {t.title} ({t.duration})
-                  </option>
-                ))}
-              </select>
+                <span>📲</span> Share & Verify (QR)
+              </button>
             </div>
           </div>
 
@@ -1096,150 +1109,24 @@ function QuestsPageContent() {
               </div>
             );
           })()}
-          {/* Quick link to Verifiable Career Passport */}
-          <div style={{
-            padding: '12px 16px',
-            borderRadius: 12,
-            background: 'rgba(16, 185, 129, 0.08)',
-            border: '1px solid rgba(16, 185, 129, 0.25)',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: 10
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <span style={{ fontSize: 20 }}>🎓</span>
-              <div>
-                <div style={{ fontSize: 13, fontWeight: 800, color: '#10b981' }}>
-                  Official Cryptographic Degree & Verifiable Transcript
-                </div>
-                <div style={{ fontSize: 11.5, color: 'var(--t3)' }}>
-                  Passing curriculum module exams dynamically unlocks tamper-evident SHA-256 residency credentials.
-                </div>
-              </div>
-            </div>
-            <button
-              onClick={() => handleSubTabChange('passport')}
-              style={{
-                padding: '8px 16px',
-                borderRadius: 8,
-                background: 'linear-gradient(135deg, #10b981, #059669)',
-                color: '#fff',
-                fontSize: 12,
-                fontWeight: 800,
-                border: 'none',
-                cursor: 'pointer',
-                boxShadow: '0 2px 8px rgba(16,185,129,0.3)'
-              }}
-            >
-              View Verifiable Passport & Radar ➔
-            </button>
-          </div>
-        </div>
-      )}
 
-      {/* ── SUB-TAB 2 VIEW: CAREER PASSPORT & EVIDENCE LEDGER ── */}
-      {activeSubTab === 'passport' && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 24, marginBottom: 30 }} className="fade-in">
-          {/* Top Header Banner */}
-          <div style={{
-            background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.05) 100%)',
-            border: '1px solid var(--border)',
-            borderRadius: 'var(--radius-xl)',
-            padding: '24px 28px',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: 20,
-          }}>
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
-                <span style={{ fontSize: 24 }}>🎫</span>
-                <span style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                  PinIT Verifiable Skill Passport & Career Residency
-                </span>
-              </div>
-              <h1 style={{ fontSize: 24, fontWeight: 900, margin: 0, fontFamily: 'var(--font-display)', color: 'var(--t1)' }}>
-                Evidence-Backed Competency Transcript
-              </h1>
-              <p style={{ fontSize: 13, color: 'var(--t3)', margin: '6px 0 0 0', maxWidth: 650, lineHeight: 1.5 }}>
-                Cryptographically sealed multi-semester competency record. Evaluated via deterministic code execution, live architectural defense, and independent GitHub commit provenance.
-              </p>
-            </div>
-
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 8 }}>
-              <div style={{
-                background: 'var(--bg2)',
-                border: '1px solid var(--border)',
-                padding: '8px 14px',
-                borderRadius: 10,
-                display: 'flex',
-                alignItems: 'center',
-                gap: 10,
-              }}>
-                <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#10b981', boxShadow: '0 0 8px #10b981' }} />
-                <span style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--t2)', fontFamily: 'var(--font-mono)' }}>
-                  SHA-256 Verified
-                </span>
-              </div>
-
-              <div style={{ display: 'flex', gap: 8 }}>
-                <button
-                  onClick={() => setShowQrModal(true)}
-                  style={{
-                    fontSize: 12,
-                    color: '#fff',
-                    fontWeight: 700,
-                    padding: '6px 14px',
-                    borderRadius: 8,
-                    background: 'linear-gradient(135deg, #10b981, #059669)',
-                    border: 'none',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 6
-                  }}
-                >
-                  <span>📲</span> Share & Verify (QR)
-                </button>
-                <button
-                  onClick={() => handleSubTabChange('certification')}
-                  style={{
-                    fontSize: 12,
-                    color: 'var(--accent)',
-                    fontWeight: 700,
-                    padding: '6px 12px',
-                    borderRadius: 8,
-                    background: 'var(--accent-light)',
-                    border: 'none',
-                    cursor: 'pointer'
-                  }}
-                >
-                  ← Return to Quests
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* 15-Second Recruiter Role Readiness HUD */}
+          {/* Live Passport HUD & Expand/Collapse Toggle */}
           {roleReadiness && (
             <div style={{
               background: 'var(--bg2)',
               border: '1px solid var(--border)',
               borderRadius: 'var(--radius-lg)',
-              padding: '20px 24px',
+              padding: '16px 20px',
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-              gap: 16,
+              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+              gap: 14,
             }}>
               {/* Target Role & Readiness */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                <span style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>
                   Target Role & Readiness
                 </span>
-                <div style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)' }}>
+                <div style={{ fontSize: 14.5, fontWeight: 900, color: 'var(--t1)' }}>
                   {roleReadiness.targetRole}
                 </div>
                 {(() => {
@@ -1249,9 +1136,9 @@ function QuestsPageContent() {
                       display: 'inline-flex',
                       alignItems: 'center',
                       width: 'fit-content',
-                      padding: '4px 10px',
+                      padding: '3px 8px',
                       borderRadius: 6,
-                      fontSize: 11,
+                      fontSize: 10.5,
                       fontWeight: 800,
                       background: badge.bg,
                       border: `1px solid ${badge.border}`,
@@ -1264,142 +1151,147 @@ function QuestsPageContent() {
               </div>
 
               {/* Verified Gates & Freshness */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                <span style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>
                   Verified Gates & Freshness
                 </span>
-                <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--t1)' }}>
+                <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)' }}>
                   {roleReadiness.verifiedCompetenciesCount} / {roleReadiness.totalRequiredCompetenciesCount} Verified
                 </div>
-                <span style={{ fontSize: 12, color: 'var(--t3)' }}>
-                  Assessment Freshness: <strong>{roleReadiness.assessmentFreshnessDays === 0 ? 'Active (Today)' : `${roleReadiness.assessmentFreshnessDays} Days Ago`}</strong>
+                <span style={{ fontSize: 11.5, color: 'var(--t3)' }}>
+                  Freshness: <strong>{roleReadiness.assessmentFreshnessDays === 0 ? 'Active (Today)' : `${roleReadiness.assessmentFreshnessDays}d ago`}</strong>
                 </span>
               </div>
 
               {/* Demonstrated Learning Gain */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>
-                  Demonstrated Learning Gain
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                <span style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>
+                  Learning Gain
                 </span>
-                <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--t1)' }}>
-                  {roleReadiness.learningGain.baselineDiagnosticScore !== undefined
-                    ? `Baseline: ${roleReadiness.learningGain.baselineDiagnosticScore} → Current: ${roleReadiness.learningGain.currentCompositeScore}`
-                    : `Current Composite: ${roleReadiness.learningGain.currentCompositeScore}`}
+                <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)' }}>
+                  {roleReadiness.learningGain.currentCompositeScore}/100 Composite
                 </div>
-                <span style={{ fontSize: 12, color: roleReadiness.learningGain.pointsGained && roleReadiness.learningGain.pointsGained > 0 ? '#10b981' : 'var(--t3)' }}>
-                  {roleReadiness.learningGain.pointsGained !== undefined
-                    ? (roleReadiness.learningGain.pointsGained > 0 ? `Gain: +${roleReadiness.learningGain.pointsGained} Points` : `Gain: ${roleReadiness.learningGain.pointsGained} Points (Baseline)`)
-                    : 'Diagnostic Baseline: Complete'}
+                <span style={{ fontSize: 11.5, color: 'var(--success)' }}>
+                  {roleReadiness.learningGain.pointsGained !== undefined && roleReadiness.learningGain.pointsGained > 0
+                    ? `Gain: +${roleReadiness.learningGain.pointsGained} Points`
+                    : 'Diagnostic Baseline: Ready'}
                 </span>
               </div>
 
               {/* Capstone Oral Defense Review */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                <span style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>
                   Oral Capstone Defense
                 </span>
-                <div style={{ fontSize: 16, fontWeight: 800, color: roleReadiness.capstoneDefenseScore ? '#10b981' : 'var(--t3)' }}>
+                <div style={{ fontSize: 14.5, fontWeight: 800, color: roleReadiness.capstoneDefenseScore ? 'var(--success)' : 'var(--t3)' }}>
                   {roleReadiness.capstoneDefenseScore !== undefined
-                    ? `Passed (Score: ${roleReadiness.capstoneDefenseScore}/100)`
+                    ? `Passed (${roleReadiness.capstoneDefenseScore}/100)`
                     : 'Pending Oral Defense'}
                 </div>
-                <span style={{ fontSize: 12, color: 'var(--t3)' }}>
+                <span style={{ fontSize: 11.5, color: 'var(--t3)' }}>
                   Evaluator: {roleReadiness.capstoneDefenseEvaluator || 'Senior Engineer Board'}
                 </span>
               </div>
             </div>
           )}
 
-          {/* View Mode Switcher */}
-          <div style={{ display: 'flex', gap: 10, borderBottom: '1px solid var(--border)', paddingBottom: 12 }}>
-            <button
-              onClick={() => setPassportView('timeline')}
-              style={{
-                padding: '8px 18px',
-                borderRadius: 8,
-                border: 'none',
-                background: passportView === 'timeline' ? 'var(--accent)' : 'transparent',
-                color: passportView === 'timeline' ? '#fff' : 'var(--t3)',
-                fontSize: 13,
-                fontWeight: 800,
-                cursor: 'pointer',
-                transition: 'all 0.15s ease',
-              }}
-            >
-              📅 Multi-Semester Career Timeline
-            </button>
-            <button
-              onClick={() => setPassportView('matrix')}
-              style={{
-                padding: '8px 18px',
-                borderRadius: 8,
-                border: 'none',
-                background: passportView === 'matrix' ? 'var(--accent)' : 'transparent',
-                color: passportView === 'matrix' ? '#fff' : 'var(--t3)',
-                fontSize: 13,
-                fontWeight: 800,
-                cursor: 'pointer',
-                transition: 'all 0.15s ease',
-              }}
-            >
-              📊 Full Competency Evidence Matrix
-            </button>
-          </div>
-
-          {/* Main Passport Content */}
-          {passportView === 'timeline' ? (
-            <CareerPathwayTimeline
-              activeProgramId={passportSelectedProgramId}
-              masteryMap={masteryMap}
-              onSelectCompetency={id => {
-                setPassportSelectedCompId(id);
-                setPassportView('matrix');
-              }}
-            />
-          ) : (
-            <CompetencyRadarView
-              masteryMap={masteryMap}
-              selectedCompetencyId={passportSelectedCompId}
-              onSelectCompetency={setPassportSelectedCompId}
-            />
-          )}
-
-          {/* Return to Curriculum Callout */}
+          {/* Expandable Full Evidence Transcript Toggle */}
           <div style={{
-            padding: '18px 22px',
-            borderRadius: 14,
-            background: 'var(--bg2)',
-            border: '1px solid var(--border)',
+            padding: '10px 14px',
+            borderRadius: 12,
+            background: 'rgba(var(--success-rgb), 0.06)',
+            border: '1px solid rgba(var(--success-rgb), 0.2)',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
             flexWrap: 'wrap',
-            gap: 14
+            gap: 10
           }}>
-            <div>
-              <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)' }}>
-                Ready to advance your verified competency transcript?
-              </div>
-              <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 2 }}>
-                Complete daily hands-on curriculum quests, submit pull requests, and solve arena algorithmic challenges.
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <span style={{ fontSize: 18 }}>🎓</span>
+              <div>
+                <span style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--success)' }}>
+                  {showPassportDetails ? 'Hide Competency Evidence Matrix' : 'Full Multi-Semester Competency Matrix & Evidence Transcript'}
+                </span>
+                <span style={{ fontSize: 11, color: 'var(--t3)', marginLeft: 8 }}>
+                  (SHA-256 Verified Ledger)
+                </span>
               </div>
             </div>
             <button
-              onClick={() => handleSubTabChange('certification')}
+              onClick={() => setShowPassportDetails(prev => !prev)}
               style={{
-                padding: '10px 20px',
-                borderRadius: 10,
-                background: 'linear-gradient(135deg, #4f46e5, #7c3aed)',
-                color: '#fff',
-                fontSize: 13,
+                padding: '6px 14px',
+                borderRadius: 8,
+                background: showPassportDetails ? 'var(--bg3)' : 'linear-gradient(135deg, var(--success), var(--success-deep))',
+                color: 'var(--text)',
+                fontSize: 11.5,
                 fontWeight: 800,
                 border: 'none',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                boxShadow: showPassportDetails ? 'none' : '0 2px 8px rgba(var(--success-rgb),0.3)'
               }}
             >
-              🗺️ Return to Active Quests & Lessons ➔
+              {showPassportDetails ? '▲ Collapse Matrix' : '▼ Expand Full Matrix & Radar'}
             </button>
           </div>
+
+          {/* Expanded Passport Details (Timeline vs Matrix) */}
+          {showPassportDetails && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 18, marginTop: 6 }} className="fade-in">
+              <div style={{ display: 'flex', gap: 10, borderBottom: '1px solid var(--border)', paddingBottom: 10 }}>
+                <button
+                  onClick={() => setPassportView('timeline')}
+                  style={{
+                    padding: '6px 14px',
+                    borderRadius: 8,
+                    border: 'none',
+                    background: passportView === 'timeline' ? 'var(--accent)' : 'transparent',
+                    color: passportView === 'timeline' ? '#fff' : 'var(--t3)',
+                    fontSize: 12,
+                    fontWeight: 800,
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease',
+                  }}
+                >
+                  📅 Multi-Semester Timeline
+                </button>
+                <button
+                  onClick={() => setPassportView('matrix')}
+                  style={{
+                    padding: '6px 14px',
+                    borderRadius: 8,
+                    border: 'none',
+                    background: passportView === 'matrix' ? 'var(--accent)' : 'transparent',
+                    color: passportView === 'matrix' ? '#fff' : 'var(--t3)',
+                    fontSize: 12,
+                    fontWeight: 800,
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease',
+                  }}
+                >
+                  📊 Full Competency Evidence Matrix
+                </button>
+              </div>
+
+              {passportView === 'timeline' ? (
+                <CareerPathwayTimeline
+                  activeProgramId={passportSelectedProgramId}
+                  masteryMap={masteryMap}
+                  onSelectCompetency={id => {
+                    setPassportSelectedCompId(id);
+                    setPassportView('matrix');
+                  }}
+                />
+              ) : (
+                <CompetencyRadarView
+                  masteryMap={masteryMap}
+                  selectedCompetencyId={passportSelectedCompId}
+                  onSelectCompetency={setPassportSelectedCompId}
+                />
+              )}
+            </div>
+          )}
         </div>
       )}
 
@@ -1409,8 +1301,8 @@ function QuestsPageContent() {
           marginBottom: 18,
           padding: '16px 20px',
           borderRadius: 16,
-          background: 'linear-gradient(135deg, rgba(16,185,129,0.12), rgba(5,150,105,0.06))',
-          border: '1.5px solid rgba(16,185,129,0.25)',
+          background: 'linear-gradient(135deg, rgba(var(--success-rgb),0.12), rgba(var(--success-deep-rgb),0.06))',
+          border: '1.5px solid rgba(var(--success-rgb),0.25)',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -1432,15 +1324,15 @@ function QuestsPageContent() {
           <button
             onClick={() => setShowRoadmapModal(true)}
             style={{
-              background: 'linear-gradient(135deg, #10b981, #059669)',
+              background: 'linear-gradient(135deg, var(--success), var(--success-deep))',
               border: 'none',
               borderRadius: 10,
               padding: '8px 18px',
-              color: '#fff',
+              color: 'var(--text)',
               fontSize: 12.5,
               fontWeight: 800,
               cursor: 'pointer',
-              boxShadow: '0 4px 14px rgba(16,185,129,0.3)'
+              boxShadow: '0 4px 14px rgba(var(--success-rgb),0.3)'
             }}
           >
             ✨ Generate Custom AI Roadmap
@@ -1454,8 +1346,8 @@ function QuestsPageContent() {
           marginBottom: 18,
           padding: '16px 20px',
           borderRadius: 16,
-          background: 'linear-gradient(135deg, rgba(59,130,246,0.12), rgba(37,99,235,0.06))',
-          border: '1.5px solid rgba(59,130,246,0.25)',
+          background: 'linear-gradient(135deg, rgba(var(--info-rgb),0.12), rgba(var(--info-rgb),0.06))',
+          border: '1.5px solid rgba(var(--info-rgb),0.25)',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -1487,14 +1379,14 @@ function QuestsPageContent() {
               style={{
                 padding: '8px 14px',
                 borderRadius: 10,
-                border: '1.5px solid #3b82f6',
+                border: '1.5px solid var(--info)',
                 background: '#090d16',
-                color: '#ffffff',
+                color: 'var(--text)',
                 fontSize: 12.5,
                 fontWeight: 800,
                 cursor: 'pointer',
                 outline: 'none',
-                boxShadow: '0 4px 12px rgba(59,130,246,0.2)'
+                boxShadow: '0 4px 12px rgba(var(--info-rgb),0.2)'
               }}
             >
               {COURSES_REGISTRY.map(c => (
@@ -1508,7 +1400,7 @@ function QuestsPageContent() {
       )}
 
       {/* ── MULTI-ROADMAP SWITCHER BAR (Max 3 Concurrent Tracks) ── */}
-      {activeSubTab !== 'language' && activeSubTab !== 'passport' && (() => {
+      {activeSubTab !== 'language' && (() => {
         const myActiveCourseIds = Array.from(new Set([activeCourseId, ...activeCourseIds].filter(Boolean))) as string[];
         const count = myActiveCourseIds.length;
 
@@ -1553,19 +1445,19 @@ function QuestsPageContent() {
                       gap: 8,
                       padding: '6px 12px',
                       borderRadius: 10,
-                      border: `1.5px solid ${isCurrent ? '#10b981' : 'var(--border)'}`,
-                      background: isCurrent ? 'rgba(16,185,129,0.12)' : 'var(--bg3)',
-                      color: isCurrent ? '#10b981' : 'var(--t1)',
+                      border: `1.5px solid ${isCurrent ? 'var(--success)' : 'var(--border)'}`,
+                      background: isCurrent ? 'rgba(var(--success-rgb),0.12)' : 'var(--bg3)',
+                      color: isCurrent ? 'var(--success)' : 'var(--t1)',
                       fontSize: 11.5,
                       fontWeight: 800,
                       cursor: isCurrent ? 'default' : 'pointer',
                       transition: 'all 0.2s',
-                      boxShadow: isCurrent ? '0 2px 8px rgba(16,185,129,0.2)' : 'none'
+                      boxShadow: isCurrent ? '0 2px 8px rgba(var(--success-rgb),0.2)' : 'none'
                     }}
                   >
                     <span>{cObj.icon}</span>
                     <span>{cObj.title.split('(')[0].trim()}</span>
-                    <span style={{ fontSize: 10, padding: '1px 5px', borderRadius: 6, background: isCurrent ? '#10b981' : 'var(--bg4)', color: isCurrent ? '#fff' : 'var(--t3)' }}>
+                    <span style={{ fontSize: 10, padding: '1px 5px', borderRadius: 6, background: isCurrent ? 'var(--success)' : 'var(--bg4)', color: isCurrent ? '#fff' : 'var(--t3)' }}>
                       Day {cActiveDay} • {cProgressPct}%
                     </span>
                     {count > 1 && (
@@ -1597,9 +1489,9 @@ function QuestsPageContent() {
                 style={{
                   padding: '5px 10px',
                   borderRadius: 8,
-                  border: '1px dashed #10b981',
-                  background: 'rgba(16,185,129,0.08)',
-                  color: '#10b981',
+                  border: '1px dashed var(--success)',
+                  background: 'rgba(var(--success-rgb),0.08)',
+                  color: 'var(--success)',
                   fontSize: 11,
                   fontWeight: 800,
                   cursor: 'pointer'
@@ -1620,7 +1512,7 @@ function QuestsPageContent() {
 
 
       {/* ── MODE 1: Standalone Course Library View (Secondary Toggle) ──────── */}
-      {activeSubTab !== 'language' && activeSubTab !== 'passport' && (showCourseLibrary ? (
+      {activeSubTab !== 'language' && (showCourseLibrary ? (
         <div className="animate-fade-in">
           <div style={{ marginBottom: 24 }}>
             <h2 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', fontFamily: 'var(--font-display)' }}>
@@ -1659,7 +1551,7 @@ function QuestsPageContent() {
                       <span style={{ fontSize: 32 }}>{course.icon}</span>
                       <span style={{
                         fontSize: 9.5,
-                        background: course.difficulty === 'Beginner' ? 'rgba(5,150,105,0.1)' : 'rgba(99,102,241,0.1)',
+                        background: course.difficulty === 'Beginner' ? 'rgba(var(--success-deep-rgb),0.1)' : 'rgba(var(--brand-rgb),0.1)',
                         color: course.difficulty === 'Beginner' ? 'var(--green)' : 'var(--accent)',
                         padding: '3px 8px',
                         borderRadius: 6,
@@ -1686,11 +1578,11 @@ function QuestsPageContent() {
                           });
                         }}
                         style={{
-                          background: 'rgba(56,189,248,0.12)',
-                          border: '1px solid rgba(56,189,248,0.3)',
+                          background: 'rgba(var(--info-rgb),0.12)',
+                          border: '1px solid rgba(var(--info-rgb),0.3)',
                           borderRadius: 6,
                           padding: '3px 8px',
-                          color: '#38bdf8',
+                          color: 'var(--info-bright)',
                           fontSize: 10.5,
                           fontWeight: 800,
                           cursor: 'pointer'
@@ -1715,10 +1607,10 @@ function QuestsPageContent() {
           textAlign: 'center',
           margin: '20px 0',
           borderRadius: 24,
-          border: '1.5px dashed rgba(16,185,129,0.3)',
-          background: 'linear-gradient(135deg, rgba(16,185,129,0.04), rgba(99,102,241,0.03))'
+          border: '1.5px dashed rgba(var(--success-rgb),0.3)',
+          background: 'linear-gradient(135deg, rgba(var(--success-rgb),0.04), rgba(var(--brand-rgb),0.03))'
         }}>
-          <div style={{ width: 64, height: 64, borderRadius: 20, background: 'rgba(16,185,129,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32, margin: '0 auto 16px auto', boxShadow: '0 8px 24px rgba(16,185,129,0.2)' }}>
+          <div style={{ width: 64, height: 64, borderRadius: 20, background: 'rgba(var(--success-rgb),0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32, margin: '0 auto 16px auto', boxShadow: '0 8px 24px rgba(var(--success-rgb),0.2)' }}>
             🎯
           </div>
 
@@ -1776,22 +1668,22 @@ function QuestsPageContent() {
                 style={{
                   padding: '8px 16px',
                   borderRadius: 12,
-                  border: '1.5px solid #10b981',
-                  background: 'rgba(16,185,129,0.15)',
-                  color: '#10b981',
+                  border: '1.5px solid var(--success)',
+                  background: 'rgba(var(--success-rgb),0.15)',
+                  color: 'var(--success)',
                   fontSize: 12,
                   fontWeight: 900,
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
                   gap: 6,
-                  boxShadow: '0 4px 14px rgba(16,185,129,0.2)',
+                  boxShadow: '0 4px 14px rgba(var(--success-rgb),0.2)',
                   transition: 'all 0.2s'
                 }}
               >
                 📜 View Entire Detailed Journey ➔
               </button>
-              <span style={{ fontSize: 11, background: 'rgba(5,150,105,0.1)', color: 'var(--green)', padding: '6px 12px', borderRadius: 20, fontWeight: 700 }}>
+              <span style={{ fontSize: 11, background: 'rgba(var(--success-deep-rgb),0.1)', color: 'var(--green)', padding: '6px 12px', borderRadius: 20, fontWeight: 700 }}>
                 ✓ Single-Click Active Node Execution
               </span>
             </div>
@@ -1825,10 +1717,10 @@ function QuestsPageContent() {
                   style={{
                     padding: '10px 18px',
                     borderRadius: '12px 12px 0 0',
-                    border: `1.5px solid ${learningPathMode === 'fused_roadmap' ? '#10b981' : 'rgba(255,255,255,0.08)'}`,
+                    border: `1.5px solid ${learningPathMode === 'fused_roadmap' ? 'var(--success)' : 'rgba(255,255,255,0.08)'}`,
                     borderBottom: learningPathMode === 'fused_roadmap' ? '1.5px solid transparent' : '1.5px solid rgba(255,255,255,0.08)',
-                    background: learningPathMode === 'fused_roadmap' ? 'linear-gradient(135deg, rgba(16,185,129,0.25), rgba(5,150,105,0.15))' : 'var(--bg2)',
-                    color: learningPathMode === 'fused_roadmap' ? '#34d399' : 'var(--t2)',
+                    background: learningPathMode === 'fused_roadmap' ? 'linear-gradient(135deg, rgba(var(--success-rgb),0.25), rgba(var(--success-deep-rgb),0.15))' : 'var(--bg2)',
+                    color: learningPathMode === 'fused_roadmap' ? 'var(--success-bright)' : 'var(--t2)',
                     fontSize: 13,
                     fontWeight: 900,
                     cursor: 'pointer',
@@ -1836,12 +1728,12 @@ function QuestsPageContent() {
                     alignItems: 'center',
                     gap: 8,
                     flexShrink: 0,
-                    boxShadow: learningPathMode === 'fused_roadmap' ? '0 4px 16px rgba(16,185,129,0.25)' : 'none',
+                    boxShadow: learningPathMode === 'fused_roadmap' ? '0 4px 16px rgba(var(--success-rgb),0.25)' : 'none',
                     transition: 'all 0.2s ease'
                   }}
                 >
                   <span>🗺️ Fused Career Trajectory</span>
-                  <span style={{ fontSize: 10, fontWeight: 800, background: 'rgba(16,185,129,0.25)', padding: '2px 7px', borderRadius: 6, color: '#10b981' }}>
+                  <span style={{ fontSize: 10, fontWeight: 800, background: 'rgba(var(--success-rgb),0.25)', padding: '2px 7px', borderRadius: 6, color: 'var(--success)' }}>
                     Roadmap 1
                   </span>
                 </button>
@@ -1869,9 +1761,9 @@ function QuestsPageContent() {
                       style={{
                         padding: '8px 8px 8px 16px',
                         borderRadius: '12px 12px 0 0',
-                        border: `1.5px solid ${isOn ? '#f59e0b' : 'rgba(255,255,255,0.08)'}`,
-                        background: isOn ? 'linear-gradient(135deg, rgba(245,158,11,0.28), rgba(217,119,6,0.16))' : 'var(--bg2)',
-                        color: isOn ? '#fbbf24' : 'var(--t2)',
+                        border: `1.5px solid ${isOn ? 'var(--warning)' : 'rgba(255,255,255,0.08)'}`,
+                        background: isOn ? 'linear-gradient(135deg, rgba(var(--warning-rgb),0.28), rgba(var(--warning-rgb),0.16))' : 'var(--bg2)',
+                        color: isOn ? 'var(--warning-bright)' : 'var(--t2)',
                         fontSize: 13,
                         fontWeight: 900,
                         cursor: 'pointer',
@@ -1879,7 +1771,7 @@ function QuestsPageContent() {
                         alignItems: 'center',
                         gap: 6,
                         flexShrink: 0,
-                        boxShadow: isOn ? '0 4px 16px rgba(245,158,11,0.25)' : 'none',
+                        boxShadow: isOn ? '0 4px 16px rgba(var(--warning-rgb),0.25)' : 'none',
                         maxWidth: 220
                       }}
                     >
@@ -1923,9 +1815,9 @@ function QuestsPageContent() {
                     width: 36,
                     height: 36,
                     borderRadius: 10,
-                    border: '1.5px dashed rgba(16,185,129,0.45)',
-                    background: 'rgba(16,185,129,0.08)',
-                    color: '#34d399',
+                    border: '1.5px dashed rgba(var(--success-rgb),0.45)',
+                    background: 'rgba(var(--success-rgb),0.08)',
+                    color: 'var(--success-bright)',
                     fontSize: 20,
                     fontWeight: 800,
                     cursor: 'pointer',
@@ -1957,7 +1849,7 @@ function QuestsPageContent() {
                     🗺️ Visual Roadmap Chart
                   </h3>
                 </div>
-                <span style={{ fontSize: 10, fontWeight: 800, background: 'rgba(16,185,129,0.15)', color: 'var(--green)', padding: '3px 10px', borderRadius: 20 }}>
+                <span style={{ fontSize: 10, fontWeight: 800, background: 'rgba(var(--success-rgb),0.15)', color: 'var(--green)', padding: '3px 10px', borderRadius: 20 }}>
                   Interactive Flow
                 </span>
               </div>
@@ -1969,14 +1861,14 @@ function QuestsPageContent() {
                 <svg style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 1 }} viewBox="0 0 320 780" preserveAspectRatio="none">
                   <defs>
                     <linearGradient id="scurveGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stopColor="#f43f5e" />
-                      <stop offset="14%" stopColor="#f59e0b" />
-                      <stop offset="28%" stopColor="#10b981" />
-                      <stop offset="42%" stopColor="#06b6d4" />
-                      <stop offset="56%" stopColor="#3b82f6" />
-                      <stop offset="70%" stopColor="#8b5cf6" />
+                      <stop offset="0%" stopColor="var(--danger)" />
+                      <stop offset="14%" stopColor="var(--warning)" />
+                      <stop offset="28%" stopColor="var(--success)" />
+                      <stop offset="42%" stopColor="var(--accent-cyan)" />
+                      <stop offset="56%" stopColor="var(--info)" />
+                      <stop offset="70%" stopColor="var(--reward)" />
                       <stop offset="84%" stopColor="#ec4899" />
-                      <stop offset="100%" stopColor="#eab308" />
+                      <stop offset="100%" stopColor="var(--warning)" />
                     </linearGradient>
                   </defs>
 
@@ -2020,9 +1912,9 @@ function QuestsPageContent() {
                     width: 44,
                     height: 44,
                     borderRadius: '50%',
-                    background: '#f43f5e',
+                    background: 'var(--danger)',
                     border: '4px solid #ffffff',
-                    boxShadow: '0 4px 12px rgba(244,63,94,0.4)',
+                    boxShadow: '0 4px 12px rgba(var(--danger-rgb),0.4)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -2030,7 +1922,7 @@ function QuestsPageContent() {
                   }}>
                     🚀
                   </div>
-                  <span style={{ fontSize: 11, fontWeight: 900, color: '#f43f5e', background: 'rgba(255,255,255,0.9)', padding: '4px 10px', borderRadius: 20, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+                  <span style={{ fontSize: 11, fontWeight: 900, color: 'var(--danger)', background: 'rgba(255,255,255,0.9)', padding: '4px 10px', borderRadius: 20, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
                     START
                   </span>
                 </div>
@@ -2038,14 +1930,14 @@ function QuestsPageContent() {
                 {/* 🏃‍♂️ ANIMATED AVATAR TRACK RUNNER GLIDING ALONG THE S-CURVE ROAD (Task 2) */}
                 {(() => {
                   const steps = [
-                    { step: 1, top: 95, alignRight: true, color: '#f43f5e' },
-                    { step: 2, top: 175, alignRight: false, color: '#f59e0b' },
-                    { step: 3, top: 255, alignRight: true, color: '#10b981' },
-                    { step: 4, top: 335, alignRight: false, color: '#06b6d4' },
-                    { step: 5, top: 415, alignRight: true, color: '#3b82f6' },
-                    { step: 6, top: 495, alignRight: false, color: '#8b5cf6' },
+                    { step: 1, top: 95, alignRight: true, color: 'var(--danger)' },
+                    { step: 2, top: 175, alignRight: false, color: 'var(--warning)' },
+                    { step: 3, top: 255, alignRight: true, color: 'var(--success)' },
+                    { step: 4, top: 335, alignRight: false, color: 'var(--accent-cyan)' },
+                    { step: 5, top: 415, alignRight: true, color: 'var(--info)' },
+                    { step: 6, top: 495, alignRight: false, color: 'var(--reward)' },
                     { step: 7, top: 575, alignRight: true, color: '#ec4899' },
-                    { step: 8, top: 655, alignRight: false, color: '#eab308' },
+                    { step: 8, top: 655, alignRight: false, color: 'var(--warning)' },
                   ];
                   const activeStepIdx = steps.findIndex((s, idx) => {
                     const node = trajectory.nodes[idx];
@@ -2071,7 +1963,7 @@ function QuestsPageContent() {
                         fontSize: 8.5,
                         fontWeight: 900,
                         background: currentStep.color,
-                        color: '#ffffff',
+                        color: 'var(--text)',
                         padding: '2px 7px',
                         borderRadius: 10,
                         boxShadow: `0 4px 12px ${currentStep.color}66`,
@@ -2084,7 +1976,7 @@ function QuestsPageContent() {
                         width: 36,
                         height: 36,
                         borderRadius: '50%',
-                        background: '#ffffff',
+                        background: 'var(--text)',
                         border: `3px solid ${currentStep.color}`,
                         boxShadow: `0 0 0 4px ${currentStep.color}33, 0 6px 16px ${currentStep.color}88`,
                         display: 'flex',
@@ -2100,14 +1992,14 @@ function QuestsPageContent() {
 
                 {/* 🛣️ 8 STEP NODES & HORIZONTAL WHITE CARDS (Matching Image 2 Reference) */}
                 {[
-                  { step: 1, title: 'Sharpen Basics', icon: '📋', color: '#f43f5e', top: 95, alignRight: true },
-                  { step: 2, title: 'Learn HTML, CSS', icon: '🎨', color: '#f59e0b', top: 175, alignRight: false },
-                  { step: 3, title: 'Learn Javascript - ES6/7/8', icon: '⚡', color: '#10b981', top: 255, alignRight: true },
-                  { step: 4, title: 'Learn basic Nodejs and npm', icon: '🚀', color: '#06b6d4', top: 335, alignRight: false },
-                  { step: 5, title: 'Learn basic React', icon: '⚛️', color: '#3b82f6', top: 415, alignRight: true },
-                  { step: 6, title: 'Learn Redux', icon: '🔄', color: '#8b5cf6', top: 495, alignRight: false },
+                  { step: 1, title: 'Sharpen Basics', icon: '📋', color: 'var(--danger)', top: 95, alignRight: true },
+                  { step: 2, title: 'Learn HTML, CSS', icon: '🎨', color: 'var(--warning)', top: 175, alignRight: false },
+                  { step: 3, title: 'Learn Javascript - ES6/7/8', icon: '⚡', color: 'var(--success)', top: 255, alignRight: true },
+                  { step: 4, title: 'Learn basic Nodejs and npm', icon: '🚀', color: 'var(--accent-cyan)', top: 335, alignRight: false },
+                  { step: 5, title: 'Learn basic React', icon: '⚛️', color: 'var(--info)', top: 415, alignRight: true },
+                  { step: 6, title: 'Learn Redux', icon: '🔄', color: 'var(--reward)', top: 495, alignRight: false },
                   { step: 7, title: 'Dive into React Native', icon: '📱', color: '#ec4899', top: 575, alignRight: true },
-                  { step: 8, title: 'Learn React Navigation', icon: '🧭', color: '#eab308', top: 655, alignRight: false },
+                  { step: 8, title: 'Learn React Navigation', icon: '🧭', color: 'var(--warning)', top: 655, alignRight: false },
                 ].map((item, idx) => {
                   const targetIdx = Math.min(idx, trajectory.nodes.length - 1);
                   const targetNode = trajectory.nodes[targetIdx];
@@ -2161,12 +2053,12 @@ function QuestsPageContent() {
                         width: 48,
                         height: 48,
                         borderRadius: '50%',
-                        background: isFullyCompleted ? 'linear-gradient(135deg, #10b981, #047857)' : '#ffffff',
-                        border: `4px solid ${isFullyCompleted ? '#34d399' : item.color}`,
+                        background: isFullyCompleted ? 'linear-gradient(135deg, var(--success), var(--success-deep))' : 'var(--text)',
+                        border: `4px solid ${isFullyCompleted ? 'var(--success-bright)' : item.color}`,
                         boxShadow: isCurrentStep
                           ? `0 0 0 6px ${item.color}33, 0 0 24px ${item.color}aa`
                           : isFullyCompleted
-                          ? '0 0 16px rgba(16,185,129,0.5)'
+                          ? '0 0 16px rgba(var(--success-rgb),0.5)'
                           : `0 4px 14px ${item.color}55`,
                         transform: isCurrentStep ? 'scale(1.12)' : 'scale(1)',
                         display: 'flex',
@@ -2192,14 +2084,14 @@ function QuestsPageContent() {
                         borderTop: isCurrentStep ? `1px solid ${item.color}44` : 'none',
                         borderRight: isCurrentStep ? `1px solid ${item.color}44` : 'none',
                         borderBottom: isCurrentStep ? `1px solid ${item.color}44` : 'none',
-                        borderLeft: `4px solid ${isFullyCompleted ? '#10b981' : item.color}`,
+                        borderLeft: `4px solid ${isFullyCompleted ? 'var(--success)' : item.color}`,
                         display: 'flex',
                         alignItems: 'center',
                         gap: 8,
                         maxWidth: 220,
                         transition: 'all 0.3s ease'
                       }}>
-                        <span style={{ fontSize: 10, fontWeight: 900, color: isFullyCompleted ? '#10b981' : item.color, textTransform: 'uppercase', flexShrink: 0 }}>
+                        <span style={{ fontSize: 10, fontWeight: 900, color: isFullyCompleted ? 'var(--success)' : item.color, textTransform: 'uppercase', flexShrink: 0 }}>
                           Step {item.step}
                         </span>
                         <span style={{ fontSize: 11.5, fontWeight: 800, color: '#1e293b', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
@@ -2211,7 +2103,7 @@ function QuestsPageContent() {
                           </span>
                         )}
                         {isFullyCompleted && (
-                          <span style={{ fontSize: 8.5, fontWeight: 900, background: 'rgba(16,185,129,0.2)', color: '#10b981', padding: '2px 5px', borderRadius: 4, textTransform: 'uppercase', flexShrink: 0 }}>
+                          <span style={{ fontSize: 8.5, fontWeight: 900, background: 'rgba(var(--success-rgb),0.2)', color: 'var(--success)', padding: '2px 5px', borderRadius: 4, textTransform: 'uppercase', flexShrink: 0 }}>
                             CLEARED
                           </span>
                         )}
@@ -2222,16 +2114,16 @@ function QuestsPageContent() {
 
                 {/* 🏆 BOTTOM-RIGHT CELEBRATION GOAL NODE */}
                 <div style={{ position: 'absolute', bottom: 10, right: 20, zIndex: 4, display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span style={{ fontSize: 11, fontWeight: 900, color: '#eab308', background: 'rgba(255,255,255,0.9)', padding: '4px 10px', borderRadius: 20, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+                  <span style={{ fontSize: 11, fontWeight: 900, color: 'var(--warning)', background: 'rgba(255,255,255,0.9)', padding: '4px 10px', borderRadius: 20, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
                     CAREER GOAL REACHED
                   </span>
                   <div style={{
                     width: 44,
                     height: 44,
                     borderRadius: '50%',
-                    background: '#eab308',
+                    background: 'var(--warning)',
                     border: '4px solid #ffffff',
-                    boxShadow: '0 4px 12px rgba(234,179,8,0.5)',
+                    boxShadow: '0 4px 12px rgba(var(--warning-rgb),0.5)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -2245,7 +2137,56 @@ function QuestsPageContent() {
             </div>
 
             {/* ── RIGHT COLUMN (60% Width): Detailed Quest Stage Execution Cards (Image 1 Style) ── */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 30 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+
+              {/* ⚡ Placement Prep Fast-Track Toggle Banner */}
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                background: isPlacementPrepFastTrack ? 'rgba(var(--warning-rgb), 0.08)' : 'rgba(255,255,255,0.03)',
+                border: isPlacementPrepFastTrack ? '1px solid rgba(var(--warning-rgb), 0.35)' : '1px solid var(--border)',
+                borderRadius: 14,
+                padding: '10px 16px',
+                marginBottom: -6
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span style={{ fontSize: 16 }}>⚡</span>
+                  <div>
+                    <div style={{ fontSize: 11.5, fontWeight: 800, color: isPlacementPrepFastTrack ? 'var(--warning)' : 'var(--t1)' }}>
+                      Placement Prep Fast-Track Mode
+                    </div>
+                    <div style={{ fontSize: 10, color: 'var(--t3)' }}>
+                      {isPlacementPrepFastTrack ? 'All stages unlocked for urgent interview & campus preparation.' : 'Stages unlock sequentially as you complete prerequisites.'}
+                    </div>
+                  </div>
+                </div>
+                <button
+                  onClick={() => {
+                    const nextVal = !isPlacementPrepFastTrack;
+                    console.log(`[Quests] ⚡ Placement Prep Fast-Track toggled: ${nextVal ? 'ENABLED' : 'DISABLED'}`);
+                    setIsPlacementPrepFastTrack(nextVal);
+                    if (nextVal) {
+                      toast.success('⚡ Placement Fast-Track Enabled', 'All stages are now unlocked for immediate review!');
+                    } else {
+                      toast.info('Standard Progression Restored', 'Prerequisite stage locks have been re-enabled.');
+                    }
+                  }}
+                  style={{
+                    padding: '6px 14px',
+                    fontSize: 11,
+                    fontWeight: 800,
+                    borderRadius: 8,
+                    background: isPlacementPrepFastTrack ? 'var(--warning)' : 'var(--bg3)',
+                    color: isPlacementPrepFastTrack ? '#000000' : 'var(--t2)',
+                    border: isPlacementPrepFastTrack ? '1px solid var(--warning)' : '1px solid var(--border)',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease'
+                  }}
+                >
+                  {isPlacementPrepFastTrack ? '⚡ Fast-Track Active' : '🔓 Unlock Fast-Track'}
+                </button>
+              </div>
               
               {trajectory.nodes.map((node, idx) => {
                 const nodeCourse = COURSES_REGISTRY.find(c => c.id === node.courseId) || COURSES_REGISTRY[0];
@@ -2254,7 +2195,7 @@ function QuestsPageContent() {
                 const nodeProgressPct = Math.min(100, Math.round((nodeCompletedCount / Math.max(1, nodeQuests.length)) * 100));
                 const isNodeCompleted = nodeProgressPct === 100;
                 const isCurrentActiveNode = node.courseId === activeCourseId;
-                const isLocked = idx > 0 && (
+                const isLocked = !isPlacementPrepFastTrack && idx > 0 && (
                   (() => {
                     const prevNode = trajectory.nodes[idx - 1];
                     const prevCourse = COURSES_REGISTRY.find(c => c.id === prevNode.courseId);
@@ -2265,7 +2206,7 @@ function QuestsPageContent() {
                 );
 
                 const nextQuestInNode = nodeQuests.find(q => !completedQuests.includes(q.id)) || nodeQuests[0];
-                const stepColors = ['#f43f5e', '#f59e0b', '#10b981', '#06b6d4', '#0d9488', '#8b5cf6', '#ec4899', '#eab308'];
+                const stepColors = ['var(--danger)', 'var(--warning)', 'var(--success)', 'var(--accent-cyan)', '#0d9488', 'var(--reward)', '#ec4899', 'var(--warning)'];
                 const currentColor = stepColors[idx % stepColors.length];
 
                 return (
@@ -2283,8 +2224,8 @@ function QuestsPageContent() {
                       >
                         <div style={{
                           padding: '7px 14px',
-                          background: 'rgba(217,119,6,0.08)',
-                          border: '1px solid rgba(217,119,6,0.3)',
+                          background: 'rgba(var(--warning-rgb),0.08)',
+                          border: '1px solid rgba(var(--warning-rgb),0.3)',
                           borderRadius: 12,
                           display: 'inline-flex',
                           alignItems: 'center',
@@ -2324,7 +2265,7 @@ function QuestsPageContent() {
                         flexDirection: 'column',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        color: '#ffffff',
+                        color: 'var(--text)',
                         fontWeight: 900,
                         flexShrink: 0,
                         zIndex: 2
@@ -2366,7 +2307,7 @@ function QuestsPageContent() {
                           width: 48,
                           height: 48,
                           borderRadius: 14,
-                          background: isNodeCompleted ? 'rgba(5,150,105,0.15)' : `${currentColor}22`,
+                          background: isNodeCompleted ? 'rgba(var(--success-deep-rgb),0.15)' : `${currentColor}22`,
                           border: `1px solid ${isNodeCompleted ? 'var(--green)' : currentColor}`,
                           display: 'flex',
                           alignItems: 'center',
@@ -2385,9 +2326,9 @@ function QuestsPageContent() {
                             </span>
                             {(() => {
                               const getLevelBadge = (i: number) => {
-                                if (i === 0) return { label: '🌱 Level 0: Zero Basics', color: '#10b981' };
-                                if (i === 1) return { label: '🌱 Level 1: Foundations', color: '#06b6d4' };
-                                if (i === 2) return { label: '⚡ Level 2: Core Engineering', color: '#3b82f6' };
+                                if (i === 0) return { label: '🌱 Level 0: Zero Basics', color: 'var(--success)' };
+                                if (i === 1) return { label: '🌱 Level 1: Foundations', color: 'var(--accent-cyan)' };
+                                if (i === 2) return { label: '⚡ Level 2: Core Engineering', color: 'var(--info)' };
                                 return { label: '🔥 Level 3: Pro Mastery', color: '#ec4899' };
                               };
                               const badge = getLevelBadge(idx);
@@ -2398,7 +2339,7 @@ function QuestsPageContent() {
                               );
                             })()}
                             <h3 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>{node.title}</h3>
-                            <span style={{ fontSize: 9.5, fontWeight: 800, background: 'rgba(5,150,105,0.1)', color: 'var(--green)', padding: '2px 7px', borderRadius: 5 }}>
+                            <span style={{ fontSize: 9.5, fontWeight: 800, background: 'rgba(var(--success-deep-rgb),0.1)', color: 'var(--green)', padding: '2px 7px', borderRadius: 5 }}>
                               {node.careerImpact}
                             </span>
                           </div>
@@ -2430,9 +2371,9 @@ function QuestsPageContent() {
                           <button
                             style={{
                               marginTop: 4,
-                              background: isNodeCompleted ? 'rgba(5,150,105,0.1)' : isLocked ? 'var(--bg3)' : `linear-gradient(135deg, ${currentColor}, #059669)`,
+                              background: isNodeCompleted ? 'rgba(var(--success-deep-rgb),0.1)' : isLocked ? 'var(--bg3)' : `linear-gradient(135deg, ${currentColor}, var(--success-deep))`,
                               border: isNodeCompleted ? '1px solid var(--green)' : 'none',
-                              color: isNodeCompleted ? 'var(--green)' : isLocked ? 'var(--t4)' : '#fff',
+                              color: isNodeCompleted ? 'var(--green)' : isLocked ? 'var(--t4)' : 'var(--text)',
                               padding: '6px 14px',
                               borderRadius: 9,
                               fontSize: 11,
@@ -2458,7 +2399,7 @@ function QuestsPageContent() {
       ))}
 
       {/* ── ENHANCEMENT 5: Comprehensive Quest & Learning Activity History Panel ── */}
-      {activeSubTab !== 'language' && activeSubTab !== 'passport' && (
+      {activeSubTab !== 'language' && (
       <div className="glass-card-premium" style={{
         padding: '32px 28px',
         borderRadius: 24,
@@ -2480,13 +2421,13 @@ function QuestsPageContent() {
 
           {/* Metric Summary Badges */}
           <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-            <div style={{ padding: '8px 14px', borderRadius: 12, background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.25)', fontSize: 12, fontWeight: 800, color: '#34d399' }}>
+            <div style={{ padding: '8px 14px', borderRadius: 12, background: 'rgba(var(--success-rgb),0.1)', border: '1px solid rgba(var(--success-rgb),0.25)', fontSize: 12, fontWeight: 800, color: 'var(--success-bright)' }}>
               ✓ {completedQuests.length} Quests Cleared
             </div>
-            <div style={{ padding: '8px 14px', borderRadius: 12, background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.25)', fontSize: 12, fontWeight: 800, color: '#818cf8' }}>
+            <div style={{ padding: '8px 14px', borderRadius: 12, background: 'rgba(var(--brand-rgb),0.1)', border: '1px solid rgba(var(--brand-rgb),0.25)', fontSize: 12, fontWeight: 800, color: 'var(--brand-bright)' }}>
               ⚡ +{completedQuests.length * 150} XP Accumulated
             </div>
-            <div style={{ padding: '8px 14px', borderRadius: 12, background: 'rgba(234,179,8,0.1)', border: '1px solid rgba(234,179,8,0.25)', fontSize: 12, fontWeight: 800, color: '#fbbf24' }}>
+            <div style={{ padding: '8px 14px', borderRadius: 12, background: 'rgba(var(--warning-rgb),0.1)', border: '1px solid rgba(var(--warning-rgb),0.25)', fontSize: 12, fontWeight: 800, color: 'var(--warning-bright)' }}>
               🪙 +{completedQuests.length * 5} Pins Bonus
             </div>
           </div>
@@ -2505,9 +2446,9 @@ function QuestsPageContent() {
               style={{
                 padding: '8px 16px',
                 borderRadius: 10,
-                border: `1.5px solid ${historyFilter === tab.id ? '#10b981' : 'transparent'}`,
-                background: historyFilter === tab.id ? 'rgba(16,185,129,0.15)' : 'var(--bg3)',
-                color: historyFilter === tab.id ? '#34d399' : 'var(--t2)',
+                border: `1.5px solid ${historyFilter === tab.id ? 'var(--success)' : 'transparent'}`,
+                background: historyFilter === tab.id ? 'rgba(var(--success-rgb),0.15)' : 'var(--bg3)',
+                color: historyFilter === tab.id ? 'var(--success-bright)' : 'var(--t2)',
                 fontSize: 12.5,
                 fontWeight: 800,
                 cursor: 'pointer',
@@ -2621,8 +2562,8 @@ function QuestsPageContent() {
                       width: 44,
                       height: 44,
                       borderRadius: 14,
-                      background: item.type === 'quest' ? 'rgba(16,185,129,0.12)' : 'rgba(234,179,8,0.12)',
-                      border: `1px solid ${item.type === 'quest' ? 'rgba(16,185,129,0.3)' : 'rgba(234,179,8,0.3)'}`,
+                      background: item.type === 'quest' ? 'rgba(var(--success-rgb),0.12)' : 'rgba(var(--warning-rgb),0.12)',
+                      border: `1px solid ${item.type === 'quest' ? 'rgba(var(--success-rgb),0.3)' : 'rgba(var(--warning-rgb),0.3)'}`,
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -2634,7 +2575,7 @@ function QuestsPageContent() {
                     <div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
                         <span style={{ fontSize: 14, fontWeight: 900, color: 'var(--t1)' }}>{item.title}</span>
-                        <span style={{ fontSize: 10, fontWeight: 800, padding: '2px 8px', borderRadius: 6, background: 'rgba(255,255,255,0.06)', color: '#10b981', border: '1px solid var(--border)' }}>
+                        <span style={{ fontSize: 10, fontWeight: 800, padding: '2px 8px', borderRadius: 6, background: 'rgba(255,255,255,0.06)', color: 'var(--success)', border: '1px solid var(--border)' }}>
                           {item.courseTitle}
                         </span>
                       </div>
@@ -2646,13 +2587,13 @@ function QuestsPageContent() {
                     <span style={{ fontSize: 11, color: 'var(--t4)', fontWeight: 700 }}>{item.date}</span>
                     
                     {item.xp > 0 && (
-                      <span style={{ fontSize: 11, fontWeight: 800, color: '#818cf8', background: 'rgba(99,102,241,0.1)', padding: '4px 8px', borderRadius: 6 }}>
+                      <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--brand-bright)', background: 'rgba(var(--brand-rgb),0.1)', padding: '4px 8px', borderRadius: 6 }}>
                         +{item.xp} XP
                       </span>
                     )}
 
                     {item.pins !== 0 && (
-                      <span style={{ fontSize: 11, fontWeight: 800, color: '#fbbf24', background: 'rgba(234,179,8,0.1)', padding: '4px 8px', borderRadius: 6 }}>
+                      <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--warning-bright)', background: 'rgba(var(--warning-rgb),0.1)', padding: '4px 8px', borderRadius: 6 }}>
                         {item.pins > 0 ? `+${item.pins}` : item.pins} Pins
                       </span>
                     )}
@@ -2692,7 +2633,7 @@ function QuestsPageContent() {
         }}>
           <div style={{
             maxWidth: 480, width: '100%', background: 'var(--bg2)',
-            border: '1px solid rgba(217,119,6,0.3)', borderRadius: 24, padding: 32,
+            border: '1px solid rgba(var(--warning-rgb),0.3)', borderRadius: 24, padding: 32,
             boxShadow: '0 20px 50px rgba(0,0,0,0.5)'
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
@@ -2735,7 +2676,7 @@ function QuestsPageContent() {
               onClick={() => setActiveGateModalNode(null)}
               style={{
                 width: '100%', padding: '12px', background: 'var(--accent)',
-                border: 'none', borderRadius: 12, color: '#fff', fontWeight: 800,
+                border: 'none', borderRadius: 12, color: 'var(--text)', fontWeight: 800,
                 fontSize: 13, cursor: 'pointer'
               }}
             >
@@ -2760,7 +2701,7 @@ function QuestsPageContent() {
             
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <div style={{ width: 40, height: 40, borderRadius: 12, background: 'rgba(16,185,129,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>
+                <div style={{ width: 40, height: 40, borderRadius: 12, background: 'rgba(var(--success-rgb),0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>
                   ✨
                 </div>
                 <div>
@@ -2778,22 +2719,22 @@ function QuestsPageContent() {
             {isGeneratingRoadmap ? (
               /* Live Animated Step-by-Step AI Generation Progress */
               <div style={{ padding: '30px 10px', textAlign: 'center' }}>
-                <div style={{ width: 60, height: 60, borderRadius: '50%', border: '4px solid rgba(16,185,129,0.2)', borderTopColor: '#10b981', margin: '0 auto 20px auto', animation: 'spin 1s linear infinite' }} />
+                <div style={{ width: 60, height: 60, borderRadius: '50%', border: '4px solid rgba(var(--success-rgb),0.2)', borderTopColor: 'var(--success)', margin: '0 auto 20px auto', animation: 'spin 1s linear infinite' }} />
                 
                 <h4 style={{ fontSize: 16, fontWeight: 800, color: 'var(--t1)', marginBottom: 8 }}>
                   Generating {selectedDuration}-Day Personalized Trajectory...
                 </h4>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10, maxWidth: 420, margin: '20px auto 0 auto' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', background: generationStep >= 1 ? 'rgba(16,185,129,0.1)' : 'var(--bg3)', borderRadius: 10, border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t1)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', background: generationStep >= 1 ? 'rgba(var(--success-rgb),0.1)' : 'var(--bg3)', borderRadius: 10, border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t1)' }}>
                     <span>{generationStep > 1 ? '✅' : '🧠'}</span>
                     <span>Step 1: Analyzing Target Role & Skill Gap</span>
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', background: generationStep >= 2 ? 'rgba(16,185,129,0.1)' : 'var(--bg3)', borderRadius: 10, border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t1)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', background: generationStep >= 2 ? 'rgba(var(--success-rgb),0.1)' : 'var(--bg3)', borderRadius: 10, border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t1)' }}>
                     <span>{generationStep > 2 ? '✅' : '📅'}</span>
                     <span>Step 2: Structuring {selectedDuration}-Day Day-by-Day Milestone Plan</span>
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', background: generationStep >= 3 ? 'rgba(16,185,129,0.1)' : 'var(--bg3)', borderRadius: 10, border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t1)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', background: generationStep >= 3 ? 'rgba(var(--success-rgb),0.1)' : 'var(--bg3)', borderRadius: 10, border: '1px solid var(--border)', fontSize: 12.5, color: 'var(--t1)' }}>
                     <span>{generationStep >= 3 ? '⚡' : '⏳'}</span>
                     <span>Step 3: Compiling Socratic Lectures, Coding Quests & Vivas</span>
                   </div>
@@ -2819,7 +2760,7 @@ function QuestsPageContent() {
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                     <span style={{ color: 'var(--t4)' }}>⚡ QT1 Knowledge:</span>
-                    <span style={{ color: '#10b981' }}>{qt1}/100</span>
+                    <span style={{ color: 'var(--success)' }}>{qt1}/100</span>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                     <span style={{ color: 'var(--t4)' }}>🧠 Mindset:</span>
@@ -2835,15 +2776,15 @@ function QuestsPageContent() {
                 <div style={{
                   padding: '16px',
                   borderRadius: 16,
-                  background: 'linear-gradient(135deg, rgba(16,185,129,0.1), rgba(99,102,241,0.06))',
-                  border: '2px solid #10b981',
-                  boxShadow: '0 4px 18px rgba(16,185,129,0.15)'
+                  background: 'linear-gradient(135deg, rgba(var(--success-rgb),0.1), rgba(var(--brand-rgb),0.06))',
+                  border: '2px solid var(--success)',
+                  boxShadow: '0 4px 18px rgba(var(--success-rgb),0.15)'
                 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-                    <label style={{ fontSize: 13, fontWeight: 900, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                    <label style={{ fontSize: 13, fontWeight: 900, color: 'var(--success)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                       🎯 Target Career Goal & Mixed Specialization (Editable)
                     </label>
-                    <span style={{ fontSize: 10, fontWeight: 800, padding: '3px 8px', borderRadius: 8, background: '#10b981', color: '#fff' }}>
+                    <span style={{ fontSize: 10, fontWeight: 800, padding: '3px 8px', borderRadius: 8, background: 'var(--success)', color: 'var(--text)' }}>
                       ⭐ High-Priority Input
                     </span>
                   </div>
@@ -2870,9 +2811,9 @@ function QuestsPageContent() {
                       width: '100%',
                       padding: '12px 14px',
                       borderRadius: 10,
-                      border: '2px solid #10b981',
+                      border: '2px solid var(--success)',
                       background: '#090d16',
-                      color: '#ffffff',
+                      color: 'var(--text)',
                       fontSize: 13.5,
                       fontWeight: 800,
                       boxShadow: '0 2px 8px rgba(0,0,0,0.5)'
@@ -2883,10 +2824,10 @@ function QuestsPageContent() {
                 {/* 1. Roadmap Duration Slider & Presets */}
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                    <label style={{ fontSize: 12.5, fontWeight: 800, color: '#ffffff', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                    <label style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--text)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                       📅 Roadmap Duration (Min 30 Days - Max 1 Year)
                     </label>
-                    <span style={{ fontSize: 14, fontWeight: 900, color: '#34d399', fontFamily: 'var(--font-mono)' }}>
+                    <span style={{ fontSize: 14, fontWeight: 900, color: 'var(--success-bright)', fontFamily: 'var(--font-mono)' }}>
                       {selectedDuration} Days ({selectedDuration === 365 ? '1 Year' : `${Math.round(selectedDuration / 30 * 10) / 10} Months`})
                     </span>
                   </div>
@@ -2898,7 +2839,7 @@ function QuestsPageContent() {
                     step={5}
                     value={selectedDuration}
                     onChange={e => setSelectedDuration(Number(e.target.value))}
-                    style={{ width: '100%', accentColor: '#10b981', cursor: 'pointer', marginBottom: 12 }}
+                    style={{ width: '100%', accentColor: 'var(--success)', cursor: 'pointer', marginBottom: 12 }}
                   />
 
                   {/* Preset Duration Chips */}
@@ -2916,9 +2857,9 @@ function QuestsPageContent() {
                         style={{
                           padding: '6px 12px',
                           borderRadius: 8,
-                          border: `1.5px solid ${selectedDuration === p.days ? '#10b981' : 'rgba(255,255,255,0.12)'}`,
-                          background: selectedDuration === p.days ? 'rgba(16,185,129,0.2)' : '#121824',
-                          color: selectedDuration === p.days ? '#34d399' : '#e0e7ff',
+                          border: `1.5px solid ${selectedDuration === p.days ? 'var(--success)' : 'rgba(255,255,255,0.12)'}`,
+                          background: selectedDuration === p.days ? 'rgba(var(--success-rgb),0.2)' : '#121824',
+                          color: selectedDuration === p.days ? 'var(--success-bright)' : '#e0e7ff',
                           fontSize: 11.5,
                           fontWeight: 800,
                           cursor: 'pointer',
@@ -2942,8 +2883,8 @@ function QuestsPageContent() {
                         <div style={{
                           padding: '10px 14px',
                           borderRadius: 12,
-                          background: isSprint ? 'rgba(244,63,94,0.12)' : isBalanced ? 'rgba(16,185,129,0.12)' : 'rgba(99,102,241,0.12)',
-                          border: `1.5px solid ${isSprint ? '#f43f5e' : isBalanced ? '#10b981' : '#6366f1'}`,
+                          background: isSprint ? 'rgba(var(--danger-rgb),0.12)' : isBalanced ? 'rgba(var(--success-rgb),0.12)' : 'rgba(var(--brand-rgb),0.12)',
+                          border: `1.5px solid ${isSprint ? 'var(--danger)' : isBalanced ? 'var(--success)' : 'var(--brand)'}`,
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'space-between',
@@ -2952,7 +2893,7 @@ function QuestsPageContent() {
                           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                             <span style={{ fontSize: 16 }}>{isSprint ? '⚡' : isBalanced ? '🌿' : '🐢'}</span>
                             <div>
-                              <div style={{ fontSize: 11, fontWeight: 900, color: isSprint ? '#f43f5e' : isBalanced ? '#34d399' : '#818cf8', textTransform: 'uppercase' }}>
+                              <div style={{ fontSize: 11, fontWeight: 900, color: isSprint ? 'var(--danger)' : isBalanced ? 'var(--success-bright)' : 'var(--brand-bright)', textTransform: 'uppercase' }}>
                                 {isSprint ? 'Sprint Velocity Mode' : isBalanced ? 'Balanced Pace Mode' : 'Steady Progress Mode'}
                               </div>
                               <div style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--t1)' }}>
@@ -2960,16 +2901,16 @@ function QuestsPageContent() {
                               </div>
                             </div>
                           </div>
-                          <span style={{ fontSize: 12, fontWeight: 900, background: isSprint ? '#f43f5e' : isBalanced ? '#10b981' : '#6366f1', color: '#fff', padding: '4px 10px', borderRadius: 8 }}>
+                          <span style={{ fontSize: 12, fontWeight: 900, background: isSprint ? 'var(--danger)' : isBalanced ? 'var(--success)' : 'var(--brand)', color: 'var(--text)', padding: '4px 10px', borderRadius: 8 }}>
                             Requires {requiredVelocity} Quests/Day
                           </span>
                         </div>
 
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <label style={{ fontSize: 12.5, fontWeight: 800, color: '#ffffff', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                          <label style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--text)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                             ⚡ Select Daily Learning Target
                           </label>
-                          <span style={{ fontSize: 11, fontWeight: 800, color: '#34d399' }}>
+                          <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--success-bright)' }}>
                             {selectedPace} Quests/Day Target
                           </span>
                         </div>
@@ -2987,9 +2928,9 @@ function QuestsPageContent() {
                               style={{
                                 padding: '10px 8px',
                                 borderRadius: 12,
-                                border: `1.5px solid ${selectedPace === item.pace ? '#10b981' : 'rgba(255,255,255,0.1)'}`,
-                                background: selectedPace === item.pace ? 'rgba(16,185,129,0.2)' : '#121824',
-                                color: selectedPace === item.pace ? '#34d399' : '#e0e7ff',
+                                border: `1.5px solid ${selectedPace === item.pace ? 'var(--success)' : 'rgba(255,255,255,0.1)'}`,
+                                background: selectedPace === item.pace ? 'rgba(var(--success-rgb),0.2)' : '#121824',
+                                color: selectedPace === item.pace ? 'var(--success-bright)' : '#e0e7ff',
                                 textAlign: 'center',
                                 cursor: 'pointer',
                                 transition: 'all 0.2s'
@@ -3021,11 +2962,11 @@ function QuestsPageContent() {
                     disabled={isGeneratingRoadmap}
                     style={{
                       flex: 2, padding: '12px', borderRadius: 12, border: 'none',
-                      background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-                      color: '#fff', fontWeight: 800, fontSize: 13.5,
+                      background: 'linear-gradient(135deg, var(--success) 0%, var(--success-deep) 100%)',
+                      color: 'var(--text)', fontWeight: 800, fontSize: 13.5,
                       cursor: isGeneratingRoadmap ? 'wait' : 'pointer',
                       opacity: isGeneratingRoadmap ? 0.7 : 1,
-                      boxShadow: '0 6px 20px rgba(16,185,129,0.3)'
+                      boxShadow: '0 6px 20px rgba(var(--success-rgb),0.3)'
                     }}
                     className="btn-glow"
                   >
@@ -3048,13 +2989,13 @@ function QuestsPageContent() {
         }}>
           <div style={{
             maxWidth: 840, width: '100%', maxHeight: '90vh',
-            background: 'var(--bg2)', border: '1px solid rgba(16,185,129,0.3)',
+            background: 'var(--bg2)', border: '1px solid rgba(var(--success-rgb),0.3)',
             borderRadius: 24, padding: 32, display: 'flex', flexDirection: 'column',
             boxShadow: '0 25px 60px rgba(0,0,0,0.6)', position: 'relative', overflow: 'hidden'
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
               <div>
-                <span style={{ fontSize: 11, fontWeight: 900, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                <span style={{ fontSize: 11, fontWeight: 900, color: 'var(--success)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                   🗺️ Master Syllabus & Full Journey Breakdown
                 </span>
                 <h3 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', margin: '4px 0 0 0' }}>
@@ -3077,18 +3018,18 @@ function QuestsPageContent() {
                     padding: '20px',
                     borderRadius: 16,
                     background: 'var(--bg3)',
-                    border: `1px solid ${isFullyCompleted ? '#10b981' : 'var(--border)'}`
+                    border: `1px solid ${isFullyCompleted ? 'var(--success)' : 'var(--border)'}`
                   }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                        <span style={{ fontSize: 11, fontWeight: 900, background: isFullyCompleted ? '#10b981' : '#6366f1', color: '#fff', padding: '3px 9px', borderRadius: 12 }}>
+                        <span style={{ fontSize: 11, fontWeight: 900, background: isFullyCompleted ? 'var(--success)' : 'var(--brand)', color: 'var(--text)', padding: '3px 9px', borderRadius: 12 }}>
                           Step {nodeIdx + 1}
                         </span>
                         <h4 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
                           {node.title}
                         </h4>
                       </div>
-                      <span style={{ fontSize: 11, fontWeight: 800, color: isFullyCompleted ? '#10b981' : 'var(--t3)' }}>
+                      <span style={{ fontSize: 11, fontWeight: 800, color: isFullyCompleted ? 'var(--success)' : 'var(--t3)' }}>
                         {nodeCompletedCount} / {nodeQuests.length} Quests Cleared
                       </span>
                     </div>
@@ -3102,7 +3043,7 @@ function QuestsPageContent() {
                             padding: '12px 16px',
                             borderRadius: 12,
                             background: 'var(--bg2)',
-                            border: `1px solid ${isDone ? 'rgba(16,185,129,0.3)' : 'var(--border)'}`,
+                            border: `1px solid ${isDone ? 'rgba(var(--success-rgb),0.3)' : 'var(--border)'}`,
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'space-between',
@@ -3111,8 +3052,8 @@ function QuestsPageContent() {
                             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                               <span style={{
                                 width: 28, height: 28, borderRadius: '50%',
-                                background: isDone ? 'rgba(16,185,129,0.2)' : 'var(--bg3)',
-                                color: isDone ? '#10b981' : 'var(--t3)',
+                                background: isDone ? 'rgba(var(--success-rgb),0.2)' : 'var(--bg3)',
+                                color: isDone ? 'var(--success)' : 'var(--t3)',
                                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                                 fontSize: 12, fontWeight: 900
                               }}>
@@ -3137,8 +3078,8 @@ function QuestsPageContent() {
                                 padding: '6px 14px',
                                 borderRadius: 8,
                                 border: 'none',
-                                background: isDone ? 'rgba(16,185,129,0.15)' : '#6366f1',
-                                color: isDone ? '#10b981' : '#ffffff',
+                                background: isDone ? 'rgba(var(--success-rgb),0.15)' : 'var(--brand)',
+                                color: isDone ? 'var(--success)' : 'var(--text)',
                                 fontSize: 11.5,
                                 fontWeight: 800,
                                 cursor: 'pointer',
@@ -3180,8 +3121,8 @@ function QuestsPageContent() {
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 10.5, color: 'var(--t3)' }}>
             <span>Less</span>
             <div style={{ width: 10, height: 10, borderRadius: 2, background: 'var(--bg3)' }} />
-            <div style={{ width: 10, height: 10, borderRadius: 2, background: 'rgba(5,150,105,0.3)' }} />
-            <div style={{ width: 10, height: 10, borderRadius: 2, background: 'rgba(5,150,105,0.6)' }} />
+            <div style={{ width: 10, height: 10, borderRadius: 2, background: 'rgba(var(--success-deep-rgb),0.3)' }} />
+            <div style={{ width: 10, height: 10, borderRadius: 2, background: 'rgba(var(--success-deep-rgb),0.6)' }} />
             <div style={{ width: 10, height: 10, borderRadius: 2, background: 'var(--green)' }} />
             <span>More</span>
           </div>
@@ -3191,7 +3132,7 @@ function QuestsPageContent() {
           {/* Activity Boxes Grid */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(15, 1fr)', gap: 6 }}>
             {activityDays.map(d => {
-              const bg = d.level === 3 ? 'var(--green)' : d.level === 2 ? 'rgba(5,150,105,0.6)' : d.level === 1 ? 'rgba(5,150,105,0.3)' : 'var(--bg3)';
+              const bg = d.level === 3 ? 'var(--green)' : d.level === 2 ? 'rgba(var(--success-deep-rgb),0.6)' : d.level === 1 ? 'rgba(var(--success-deep-rgb),0.3)' : 'var(--bg3)';
               return (
                 <div
                   key={d.dayNum}
@@ -3262,18 +3203,18 @@ function QuestsPageContent() {
       {showQrModal && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.85)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: 20 }}>
           <div style={{ width: '100%', maxWidth: 440, background: '#0f172a', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 20, padding: 28, textAlign: 'center' }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 12px', borderRadius: 20, background: 'rgba(16, 185, 129, 0.15)', color: '#34d399', fontSize: 11, fontWeight: 800, textTransform: 'uppercase', marginBottom: 12 }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 12px', borderRadius: 20, background: 'rgba(var(--success-rgb), 0.15)', color: 'var(--success-bright)', fontSize: 11, fontWeight: 800, textTransform: 'uppercase', marginBottom: 12 }}>
               <span>🛡️</span> Cryptographic Proof
             </div>
             <h3 style={{ margin: '0 0 8px 0', fontSize: 20, fontWeight: 800, color: '#f8fafc' }}>
               Verifiable Skill Passport QR
             </h3>
-            <p style={{ margin: '0 0 20px 0', fontSize: 12, color: '#94a3b8' }}>
+            <p style={{ margin: '0 0 20px 0', fontSize: 12, color: 'var(--text-muted)' }}>
               Recruiters and universities can scan this code to independently verify your SHA-256 evidence chain and oral viva defense.
             </p>
 
             {/* Stylized QR Code Visualizer */}
-            <div style={{ width: 180, height: 180, margin: '0 auto 20px auto', background: '#fff', padding: 12, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 20px rgba(0,0,0,0.5)' }}>
+            <div style={{ width: 180, height: 180, margin: '0 auto 20px auto', background: 'var(--text)', padding: 12, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 20px rgba(0,0,0,0.5)' }}>
               <svg viewBox="0 0 100 100" style={{ width: '100%', height: '100%' }}>
                 <rect width="100" height="100" fill="#fff" />
                 {/* Corner Markers */}
@@ -3297,7 +3238,7 @@ function QuestsPageContent() {
                 <rect x="14" y="44" width="6" height="6" fill="#0f172a" />
                 <rect x="24" y="44" width="6" height="6" fill="#0f172a" />
                 <rect x="34" y="44" width="6" height="6" fill="#0f172a" />
-                <rect x="44" y="44" width="12" height="12" fill="#6366f1" />
+                <rect x="44" y="44" width="12" height="12" fill="var(--brand)" />
                 <rect x="64" y="44" width="6" height="6" fill="#0f172a" />
                 <rect x="74" y="44" width="6" height="6" fill="#0f172a" />
                 <rect x="42" y="64" width="6" height="6" fill="#0f172a" />
@@ -3308,7 +3249,7 @@ function QuestsPageContent() {
               </svg>
             </div>
 
-            <div style={{ background: 'rgba(0,0,0,0.3)', padding: '8px 12px', borderRadius: 8, fontSize: 11, fontFamily: 'monospace', color: '#93c5fd', wordBreak: 'break-all', marginBottom: 16 }}>
+            <div style={{ background: 'rgba(0,0,0,0.3)', padding: '8px 12px', borderRadius: 8, fontSize: 11, fontFamily: 'monospace', color: 'var(--info-bright)', wordBreak: 'break-all', marginBottom: 16 }}>
               {typeof window !== 'undefined' ? `${window.location.origin}/verify/${userId}` : `/verify/${userId}`}
             </div>
 
@@ -3324,9 +3265,9 @@ function QuestsPageContent() {
                   width: '100%',
                   padding: '10px',
                   borderRadius: 8,
-                  background: 'linear-gradient(135deg, #4f46e5, #7c3aed)',
+                  background: 'linear-gradient(135deg, var(--brand), var(--reward))',
                   border: 'none',
-                  color: '#fff',
+                  color: 'var(--text)',
                   fontSize: 13,
                   fontWeight: 700,
                   cursor: 'pointer'
@@ -3343,7 +3284,7 @@ function QuestsPageContent() {
                   borderRadius: 8,
                   background: 'rgba(255,255,255,0.06)',
                   border: 'none',
-                  color: '#cbd5e1',
+                  color: 'var(--text-muted)',
                   fontSize: 13,
                   cursor: 'pointer'
                 }}

@@ -1,0 +1,10 @@
+src/app/onboarding/page.tsx
+src/components/student/StudentAttendanceView.tsx
+src/app/quests/page.tsx
+src/components/nav/GearAudioHub.tsx
+src/components/ui/AppShell.tsx
+src/app/quests/lesson/page.tsx
+src/app/arena/page.tsx
+src/app/projects/page.tsx
+src/app/about/page.tsx
+src/app/profile/page.tsx

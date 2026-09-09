@@ -124,10 +124,11 @@ export const examsService = {
           });
 
           const newGpa = Number((totalGPs / updatedResults.length).toFixed(2));
-          await supabase.from('exam_results').update({
+          const res = await supabase.from('exam_results').update({
             results: updatedResults,
             gpa: newGpa
           }).eq('student_id', studentId);
+          if (res.error) throw new Error(res.error.message);
 
           return { ok: true, gpa: newGpa };
         }
@@ -170,9 +171,10 @@ export const examsService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('exam_results').update({
+        const res = await supabase.from('exam_results').update({
           is_published: isPublished
         }).eq('student_id', studentId);
+        if (res.error) throw new Error(res.error.message);
         return { ok: true, isPublished };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -184,5 +186,72 @@ export const examsService = {
     db.sheet.isPublished = isPublished;
     await writeLocalDb(db);
     return { ok: true, isPublished };
+  },
+
+  async checkExamAttempt(studentId: string, registerNumber: string | undefined, examScheduleId: string): Promise<boolean> {
+    const isSupabaseAvailable = await checkSupabaseAvailable('exam_attempts');
+    if (isSupabaseAvailable) {
+      try {
+        let query = supabase.from('exam_attempts').select('id');
+        if (registerNumber) {
+          query = query.or(`student_id.eq.${studentId},register_number.eq.${registerNumber}`);
+        } else {
+          query = query.eq('student_id', studentId);
+        }
+        const { data } = await query.eq('exam_schedule_id', examScheduleId).maybeSingle();
+        if (data) return true;
+      } catch (err) {
+        console.warn('Supabase checkExamAttempt failed, checking fallback:', err);
+      }
+    }
+
+    // Local Database Fallback
+    try {
+      const db = await readLocalDb();
+      const attempts = db.attempts || [];
+      return attempts.some((a: any) =>
+        (a.studentId === studentId || (registerNumber && a.registerNumber === registerNumber)) &&
+        a.examScheduleId === examScheduleId
+      );
+    } catch {
+      return false;
+    }
+  },
+
+  async recordExamAttempt(params: {
+    studentId: string;
+    registerNumber?: string;
+    examScheduleId: string;
+    score?: number;
+    passed?: boolean;
+  }): Promise<void> {
+    const isSupabaseAvailable = await checkSupabaseAvailable('exam_attempts');
+    if (isSupabaseAvailable) {
+      try {
+        const res = await supabase.from('exam_attempts').insert({
+          student_id: params.studentId,
+          register_number: params.registerNumber || params.studentId,
+          exam_schedule_id: params.examScheduleId,
+          score: params.score ?? 0,
+          passed: params.passed ?? true,
+          created_at: new Date().toISOString()
+        });
+        if (res.error) throw new Error(res.error.message);
+      } catch (err) {
+        console.warn('Supabase recordExamAttempt failed, using local DB fallback:', err);
+      }
+    }
+
+    try {
+      const db = await readLocalDb();
+      if (!Array.isArray(db.attempts)) db.attempts = [];
+      db.attempts.push({
+        ...params,
+        timestamp: Date.now()
+      });
+      await writeLocalDb(db);
+    } catch (e) {
+      console.warn('Local DB write failed:', e);
+    }
   }
 };

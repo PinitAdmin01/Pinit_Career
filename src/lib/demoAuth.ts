@@ -1,7 +1,7 @@
-/** Demo / Dev Mode auth is off in production unless explicitly enabled. */
+/** Demo / Dev Mode auth is strictly disabled in production. */
 export function isDemoAuthEnabled(): boolean {
   return (
-    process.env.NODE_ENV !== 'production' ||
+    process.env.NODE_ENV !== 'production' &&
     process.env.NEXT_PUBLIC_ENABLE_DEMO_AUTH === 'true'
   );
 }

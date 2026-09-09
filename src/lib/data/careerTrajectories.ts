@@ -1,5 +1,3 @@
-import { COURSES_REGISTRY } from './coursesData';
-
 export interface GateRequirements {
   minCourseCompletionPct: number;
   minCommunicationScore?: number;

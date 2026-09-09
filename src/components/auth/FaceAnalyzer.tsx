@@ -122,6 +122,8 @@ export default function FaceAnalyzer({
 
   // Real-time analysis animation frame loop
   const runAnalysisLoop = (fapi: any) => {
+    const cs = typeof window !== 'undefined' ? getComputedStyle(document.documentElement) : null;
+    const brand = cs?.getPropertyValue('--brand').trim() || '#6366f1'; const brandRgb = cs?.getPropertyValue('--brand-rgb').trim() || '99, 102, 241';
     const processFrame = async () => {
       if (!videoRef.current || videoRef.current.paused || videoRef.current.ended) return;
 
@@ -146,11 +148,9 @@ export default function FaceAnalyzer({
             ctx.clearRect(0, 0, videoWidth, videoHeight);
 
             // Draw 68 Landmarks Mesh
-            const landmarks = detection.landmarks;
-            const positions = landmarks.positions;
-
-            ctx.fillStyle = '#6366f1';
-            ctx.strokeStyle = 'rgba(99, 102, 241, 0.4)';
+            const landmarks = detection.landmarks; const positions = landmarks.positions;
+            ctx.fillStyle = brand;
+            ctx.strokeStyle = `rgba(${brandRgb}, 0.4)`;
             ctx.lineWidth = 1;
 
             // Render landmark dots
@@ -316,11 +316,11 @@ export default function FaceAnalyzer({
           overflow: 'hidden',
           background: '#040711',
           border: `2px solid ${
-            state === 'success' ? '#10b981' : state === 'error' ? '#ef4444' : 'var(--accent, #6366f1)'
+            state === 'success' ? 'var(--success)' : state === 'error' ? 'var(--danger)' : 'var(--brand)'
           }`,
           boxShadow: state === 'success'
-            ? '0 0 25px rgba(16, 185, 129, 0.3)'
-            : '0 0 25px rgba(99, 102, 241, 0.25)',
+            ? '0 0 25px rgba(var(--success-rgb),  0.3)'
+            : '0 0 25px rgba(var(--brand-rgb),  0.25)',
           transition: 'all 0.3s ease',
         }}>
           {/* Video Stream */}
@@ -356,7 +356,7 @@ export default function FaceAnalyzer({
             <div style={{
               position: 'absolute',
               inset: 20,
-              border: `2px dashed ${metrics.faceDetected ? '#10b981' : 'rgba(255,255,255,0.3)'}`,
+              border: `2px dashed ${metrics.faceDetected ? 'var(--success)' : 'rgba(255,255,255,0.3)'}`,
               borderRadius: 16,
               pointerEvents: 'none',
               display: 'flex',
@@ -365,10 +365,10 @@ export default function FaceAnalyzer({
               transition: 'border-color 0.2s ease',
             }}>
               {/* Corner HUD Markers */}
-              <div style={{ position: 'absolute', top: -2, left: -2, width: 14, height: 14, borderTop: '3px solid #6366f1', borderLeft: '3px solid #6366f1' }} />
-              <div style={{ position: 'absolute', top: -2, right: -2, width: 14, height: 14, borderTop: '3px solid #6366f1', borderRight: '3px solid #6366f1' }} />
-              <div style={{ position: 'absolute', bottom: -2, left: -2, width: 14, height: 14, borderBottom: '3px solid #6366f1', borderLeft: '3px solid #6366f1' }} />
-              <div style={{ position: 'absolute', bottom: -2, right: -2, width: 14, height: 14, borderBottom: '3px solid #6366f1', borderRight: '3px solid #6366f1' }} />
+              <div style={{ position: 'absolute', top: -2, left: -2, width: 14, height: 14, borderTop: '3px solid var(--brand)', borderLeft: '3px solid var(--brand)' }} />
+              <div style={{ position: 'absolute', top: -2, right: -2, width: 14, height: 14, borderTop: '3px solid var(--brand)', borderRight: '3px solid var(--brand)' }} />
+              <div style={{ position: 'absolute', bottom: -2, left: -2, width: 14, height: 14, borderBottom: '3px solid var(--brand)', borderLeft: '3px solid var(--brand)' }} />
+              <div style={{ position: 'absolute', bottom: -2, right: -2, width: 14, height: 14, borderBottom: '3px solid var(--brand)', borderRight: '3px solid var(--brand)' }} />
             </div>
           )}
 
@@ -395,7 +395,7 @@ export default function FaceAnalyzer({
             }}>
               <div style={{
                 width: 44, height: 44, borderRadius: '50%',
-                border: '3px solid rgba(99,102,241,0.2)', borderTopColor: '#6366f1',
+                border: '3px solid rgba(var(--brand-rgb), 0.2)', borderTopColor: 'var(--brand)',
                 animation: 'spin 0.8s linear infinite', marginBottom: 12
               }} />
               <span style={{ fontSize: 13, fontWeight: 600, color: '#f3f4f6' }}>
@@ -408,10 +408,10 @@ export default function FaceAnalyzer({
             <div style={{
               position: 'absolute', inset: 0,
               display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-              background: 'rgba(16, 185, 129, 0.15)', backdropFilter: 'blur(8px)', padding: 20, textAlign: 'center'
+              background: 'rgba(var(--success-rgb),  0.15)', backdropFilter: 'blur(8px)', padding: 20, textAlign: 'center'
             }}>
-              <div style={{ fontSize: 48, color: '#10b981', marginBottom: 6 }}>✓</div>
-              <div style={{ fontSize: 16, fontWeight: 800, color: '#10b981' }}>Authenticated</div>
+              <div style={{ fontSize: 48, color: 'var(--success)', marginBottom: 6 }}>✓</div>
+              <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--success)' }}>Authenticated</div>
               <div style={{ fontSize: 12, color: '#a7f3d0', marginTop: 4 }}>
                 100% Accuracy Verified ({metrics.matchConfidence || 99}% Match)
               </div>
@@ -429,7 +429,7 @@ export default function FaceAnalyzer({
                 <div style={{
                   height: '100%',
                   width: `${(metrics.capturedFrames / 5) * 100}%`,
-                  background: metrics.livenessVerified ? '#10b981' : '#6366f1',
+                  background: metrics.livenessVerified ? 'var(--success)' : 'var(--brand)',
                   transition: 'width 0.3s ease',
                 }} />
               </div>
@@ -455,7 +455,7 @@ export default function FaceAnalyzer({
         {/* Guidance / Status Text */}
         <div style={{
           fontSize: 13,
-          color: state === 'error' ? '#f87171' : state === 'success' ? '#34d399' : 'var(--t2, #d1d5db)',
+          color: state === 'error' ? 'var(--danger-bright)' : state === 'success' ? 'var(--success-bright)' : 'var(--t2, #d1d5db)',
           textAlign: 'center',
           maxWidth: 340,
           lineHeight: 1.4,
@@ -474,7 +474,7 @@ export default function FaceAnalyzer({
                 padding: '12px',
                 borderRadius: 12,
                 background: 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)',
-                color: '#fff',
+                color: 'var(--text)',
                 fontWeight: 700,
                 fontSize: 14,
                 border: 'none',
@@ -494,8 +494,8 @@ export default function FaceAnalyzer({
                 width: '100%',
                 padding: '12px',
                 borderRadius: 12,
-                background: 'linear-gradient(135deg, #4f46e5 0%, #6366f1 100%)',
-                color: '#fff',
+                background: 'linear-gradient(135deg, var(--accent) 0%, var(--brand) 100%)',
+                color: 'var(--text)',
                 fontWeight: 700,
                 fontSize: 14,
                 border: 'none',
@@ -548,8 +548,8 @@ function badgeStyle(active: boolean): React.CSSProperties {
     fontWeight: 600,
     padding: '4px 10px',
     borderRadius: 20,
-    background: active ? 'rgba(16, 185, 129, 0.15)' : 'rgba(107, 114, 128, 0.15)',
-    border: `1px solid ${active ? 'rgba(16, 185, 129, 0.3)' : 'rgba(107, 114, 128, 0.3)'}`,
-    color: active ? '#34d399' : '#9ca3af',
+    background: active ? 'rgba(var(--success-rgb),  0.15)' : 'rgba(107, 114, 128, 0.15)',
+    border: `1px solid ${active ? 'rgba(var(--success-rgb),  0.3)' : 'rgba(107, 114, 128, 0.3)'}`,
+    color: active ? 'var(--success-bright)' : '#9ca3af',
   };
 }

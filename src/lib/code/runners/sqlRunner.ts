@@ -33,11 +33,12 @@ export async function executeSqlSuite(
   }
 
   const defaultSchema = `
-    CREATE TABLE employees (id INT, name TEXT, department TEXT, salary INT);
-    INSERT INTO employees VALUES (1, 'Alice', 'Engineering', 95000);
-    INSERT INTO employees VALUES (2, 'Bob', 'Marketing', 65000);
-    INSERT INTO employees VALUES (3, 'Charlie', 'Engineering', 105000);
-    INSERT INTO employees VALUES (4, 'David', 'Sales', 72000);
+    CREATE TABLE employees (id INT, name TEXT, department_id INT, department TEXT, salary INT);
+    INSERT INTO employees VALUES (1, 'Alice', 101, 'Engineering', 95000);
+    INSERT INTO employees VALUES (2, 'Bob', 102, 'Marketing', 65000);
+    INSERT INTO employees VALUES (3, 'Charlie', 101, 'Engineering', 105000);
+    INSERT INTO employees VALUES (4, 'David', 103, 'Sales', 72000);
+    INSERT INTO employees VALUES (5, 'Emma', 101, 'Engineering', 98000);
   `;
 
   const schema = (config.schemaSql || defaultSchema) + '\n' + (config.seedSql || '');

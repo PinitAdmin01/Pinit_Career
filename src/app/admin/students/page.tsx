@@ -9,6 +9,7 @@ import { useState, useEffect, useMemo, Suspense } from 'react';
 import { useAuth } from '@/lib/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import { api } from '@/lib/api/client';
+import { toast } from '@/lib/store/useAppStore';
 
 interface StudentRow {
   id:               string;
@@ -110,8 +111,9 @@ function AdminStudentsContent() {
       await api.patch(`/api/admin/users/${id}/role`, { role });
       setRows(rs => rs.filter(r => r.id !== id));
       setTotal(t => Math.max(0, t - 1));
+      toast.success('Role Updated', `Student role reassigned to "${role}".`);
     } catch (e: unknown) {
-      alert(e instanceof Error ? e.message : 'Failed to change role');
+      toast.error('Role Update Failed', e instanceof Error ? e.message : 'Failed to change role');
     }
   }
 
@@ -127,8 +129,9 @@ function AdminStudentsContent() {
       });
       setRows(rs => rs.filter(r => r.id !== id));
       setTotal(t => Math.max(0, t - 1));
+      toast.success('User Banned', `User ${name} has been suspended from platform.`);
     } catch (e: unknown) {
-      alert(e instanceof Error ? e.message : 'Failed to ban');
+      toast.error('Ban Action Failed', e instanceof Error ? e.message : 'Failed to ban');
     }
   }
 
@@ -368,3 +371,5 @@ const iconBtnStyle: React.CSSProperties = {
   fontSize: 13,
   marginLeft: 4,
 };
+
+

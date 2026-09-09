@@ -33,6 +33,7 @@ interface Props {
   onTabShift?: (path: string) => void;
   onEnlarge?: (enlarged: boolean) => void;
   isEnlarged?: boolean;
+  gazeTracking?: boolean;
 }
 
 
@@ -97,11 +98,18 @@ function detectPitch(buffer: Float32Array, sampleRate: number): number {
   return -1;
 }
 
-const TEACHER_CONFIG: Record<string, { name: string; color: string; emoji: string }> = {
-  priya:  { name: 'Ms. Priya',  color: '#4f46e5', emoji: '👩‍💼' },
-  aisha:  { name: 'Ms. Aisha',  color: '#7c3aed', emoji: '👩‍🏫' },
-  rohan:  { name: 'Mr. Rohan',  color: '#0891b2', emoji: '👨‍💻' },
-  vikram: { name: 'Mr. Vikram', color: '#059669', emoji: '👨‍⚖️' },
+const TEACHER_CONFIG: Record<string, { name: string; color: string; emoji: string; domain?: string }> = {
+  priya:   { name: 'Ms. Priya',          color: '#4f46e5', emoji: '👩‍💼', domain: 'Full-Stack & Career Growth' },
+  anish:   { name: 'Mr. Anish',          color: '#0284c7', emoji: '👨‍💻', domain: 'Systems & Backend Scale' },
+  aisha:   { name: 'Ms. Aisha',          color: 'var(--purple)', emoji: '👩‍🏫', domain: 'Data Science & AI/ML' },
+  vikram:  { name: 'Mr. Vikram',         color: 'var(--success-deep)', emoji: '👨‍⚖️', domain: 'Finance, Commerce & Ethics' },
+  kashyap: { name: 'Kashyap Sir',        color: 'var(--warning)', emoji: '👨‍🏫', domain: 'DSA & Mathematical Reasoning' },
+  karthic: { name: 'Karthic Sir "Nega"', color: '#e11d48', emoji: '⚔️', domain: 'Competitive Arena & Speedrun' },
+  maya:    { name: 'Ms. Maya',           color: '#ec4899', emoji: '🎨', domain: 'UI/UX & Product Design' },
+  divya:   { name: 'Ms. Divya',          color: 'var(--accent-cyan)', emoji: '☁️', domain: 'Cloud & DevOps' },
+  rohan:   { name: 'Mr. Rohan',          color: '#0891b2', emoji: '🛡️', domain: 'Cybersecurity & Networks' },
+  shalini: { name: 'Ms. Shalini',        color: 'var(--reward)', emoji: '🗣️', domain: 'Soft Skills & Communication' },
+  default: { name: 'Mentor',             color: 'var(--brand)', emoji: '🎓', domain: 'Multidisciplinary Career OS' },
 };
 
 export default function AvatarMentorWidget({
@@ -121,6 +129,7 @@ export default function AvatarMentorWidget({
   onTabShift,
   onEnlarge,
   isEnlarged = false,
+  gazeTracking = true,
 }: Props) {
   const [input,          setInput]          = useState('');
   const [messages,       setMessages]       = useState<Array<{ role: string; content: string }>>([]);
@@ -302,6 +311,11 @@ export default function AvatarMentorWidget({
   useEffect(() => {
     sceneRef.current?.setState(aiState);
   }, [aiState]);
+
+  // Sync interactive gaze tracking state
+  useEffect(() => {
+    sceneRef.current?.setGazeTracking(gazeTracking);
+  }, [gazeTracking]);
 
   // Drive AI state animation from chat lifecycle
   useEffect(() => {
@@ -912,7 +926,7 @@ export default function AvatarMentorWidget({
                   fontSize: 12.5,
                   lineHeight: 1.5,
                   background: isUser ? teacher.color : 'var(--bg3)',
-                  color: isUser ? '#ffffff' : 'var(--t1)',
+                  color: isUser ? 'var(--text)' : 'var(--t1)',
                   border: isUser ? 'none' : '1px solid var(--border)',
                   boxShadow: 'var(--shadow-sm)',
                   whiteSpace: 'pre-wrap',
@@ -1011,7 +1025,7 @@ export default function AvatarMentorWidget({
           disabled={!input.trim() || loading}
           style={{
             background: input.trim() && !loading ? teacher.color : 'var(--bg3)',
-            color: input.trim() && !loading ? '#ffffff' : 'var(--t3)',
+            color: input.trim() && !loading ? 'var(--text)' : 'var(--t3)',
             border: 'none',
             borderRadius: '50%',
             width: 34,
@@ -1045,8 +1059,8 @@ export default function AvatarMentorWidget({
 
   if (onlyAvatar) {
     return (
-      <div style={{ position: 'relative', width: '100%', height: '100%', minHeight: 380, flex: 1, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <canvas ref={canvasRef} style={{ width: '100%', height: '100%', minHeight: 380, display: 'block' }} />
+      <div style={{ position: 'relative', width: '100%', height: '100%', flex: 1, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
         {aiState !== 'idle' && (
           <div style={{
             position: 'absolute', top: 8, right: 8, fontSize: 9, fontWeight: 700,
@@ -1087,7 +1101,7 @@ export default function AvatarMentorWidget({
                   toast.info("Voice Lock Reset", "Owner voice lock disabled.");
                 }
               }}
-              style={{ fontSize: 9, background: 'rgba(255,255,255,0.15)', padding: '2px 6px', borderRadius: 4, color: '#fff', cursor: 'pointer', fontWeight: 'bold' }}
+              style={{ fontSize: 9, background: 'rgba(255,255,255,0.15)', padding: '2px 6px', borderRadius: 4, color: 'var(--text)', cursor: 'pointer', fontWeight: 'bold' }}
               title="Voice lock active (Synced to Supabase). Click to reset."
             >
               🔐 Voice Lock ({voicePrint?.avgPitch || voiceFreq}Hz)
@@ -1095,7 +1109,7 @@ export default function AvatarMentorWidget({
           ) : (
             <span 
               onClick={startVoiceRegistration}
-              style={{ fontSize: 9, background: isRecordingVoice ? 'var(--coral)' : 'rgba(255,255,255,0.2)', padding: '2px 6px', borderRadius: 4, color: '#fff', cursor: 'pointer', fontWeight: 'bold' }}
+              style={{ fontSize: 9, background: isRecordingVoice ? 'var(--coral)' : 'rgba(255,255,255,0.2)', padding: '2px 6px', borderRadius: 4, color: 'var(--text)', cursor: 'pointer', fontWeight: 'bold' }}
               title="Click to analyze and register your voice signature into Supabase"
             >
               {isRecordingVoice ? '🎙️ Analyzing...' : '🎙️ Register Voice'}

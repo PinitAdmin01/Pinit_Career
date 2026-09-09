@@ -24,6 +24,8 @@ interface User {
   trustScore?:      number;
   careerDnaScore?:  number;
   missionStreak?:   number;
+  xp?:              number;
+  pins?:            number;
   [key: string]:    unknown;
 }
 
@@ -47,12 +49,41 @@ interface SignupData {
 
 const Ctx = createContext<AuthCtx | null>(null);
 
-// Convert username to a valid email
+// Deterministic hash helper for consistent username namespacing
+function getUsernameHash(raw: string): string {
+  let hash = 0;
+  for (let i = 0; i < raw.length; i++) {
+    hash = ((hash << 5) - hash) + raw.charCodeAt(i);
+    hash |= 0;
+  }
+  return Math.abs(hash).toString(36);
+}
+
+// Convert username to a collision-free internal email
 function usernameToEmail(username: string): string {
-  if (username.includes('@')) return username;
-  const clean = (username || '').toLowerCase().trim().replace(/[^a-z0-9]/g, '');
-  const prefix = clean || `user_${Date.now()}`;
-  return `${prefix}@pinit.app`;
+  const raw = (username || '').trim().toLowerCase();
+  if (raw.includes('@')) return raw;
+
+  // Preserve email-valid characters: letters, numbers, dots, dashes, underscores
+  let clean = raw
+    .replace(/\s+/g, '.')
+    .replace(/[^a-z0-9._-]/g, '');
+
+  clean = clean.replace(/\.{2,}/g, '.').replace(/^[-._]+|[-._]+$/g, '');
+  const base = clean || 'user';
+  const hashSuffix = getUsernameHash(raw);
+  return `usr_${base}_${hashSuffix}@student.pinit.internal`;
+}
+
+// Fallback for accounts created prior to namespaced domain enforcement
+function legacyUsernameToEmail(username: string): string {
+  const raw = (username || '').trim().toLowerCase();
+  if (raw.includes('@')) return raw;
+  let clean = raw
+    .replace(/\s+/g, '.')
+    .replace(/[^a-z0-9._-]/g, '');
+  clean = clean.replace(/\.{2,}/g, '.').replace(/^[-._]+|[-._]+$/g, '');
+  return `${clean || 'user'}@pinit.app`;
 }
 
 function isDemoEmail(email: string): boolean {
@@ -158,20 +189,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       obStep: `pinit_${userId}_ob_step`,
       onboard: `pinit_${userId}_onboarding_answers`
     };
-    if (!localStorage.getItem(keys.xp)) localStorage.setItem(keys.xp, '120');
-    if (!localStorage.getItem(keys.pins)) localStorage.setItem(keys.pins, '120');
+    const defaultXp = userPayload?.xp !== undefined 
+      ? String(userPayload.xp) 
+      : (userPayload?.isDevUser ? '120' : '0');
+    const defaultPins = userPayload?.pins !== undefined 
+      ? String(userPayload.pins) 
+      : (userPayload?.isDevUser ? '120' : '0');
 
-    // Only pre-set completed onboarding answers if NOT a new Dev Mode / onboarding user
-    if (!isNewUser) {
-      if (!localStorage.getItem(keys.obStep)) localStorage.setItem(keys.obStep, '5');
+    if (!localStorage.getItem(keys.xp)) localStorage.setItem(keys.xp, defaultXp);
+    if (!localStorage.getItem(keys.pins)) localStorage.setItem(keys.pins, defaultPins);
+
+    // Only hydrate onboarding answers if actual answers exist in userPayload from DB
+    const serverAnswers = userPayload?.onboarding_answers || userPayload?.onboardingAnswers;
+    if (serverAnswers && typeof serverAnswers === 'object' && (serverAnswers.role || serverAnswers.hasCompleted)) {
       if (!localStorage.getItem(keys.onboard)) {
-        localStorage.setItem(keys.onboard, JSON.stringify({
-          role: userPayload?.role || 'SDE-1 Developer',
-          education: 'B.Tech Computer Science',
-          skills: 'TypeScript, React, Node.js',
-          experience: 'Final Year Student',
-          hasCompleted: true
-        }));
+        localStorage.setItem(keys.onboard, JSON.stringify(serverAnswers));
+      }
+      if (userPayload?.onboarding_step !== undefined && !localStorage.getItem(keys.obStep)) {
+        localStorage.setItem(keys.obStep, String(userPayload.onboarding_step));
       }
     }
   }, []);
@@ -188,16 +223,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     const token = `vlt_jwt_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
     // Never accept arbitrary privileged roles from client payloads.
-    // Demo emails keep their mapped roles; Dev Mode stays student; everyone else is student.
+    // Demo emails keep their mapped roles; Dev Mode stays student.
+    // Real users: fetch role from DB — do not silently override it.
     const emailLower = String(userPayload.email || userPayload.username || '').toLowerCase();
-    const demoRoleByEmail = DEMO_ROLE_BY_EMAIL;
     let role = 'student';
     if (userPayload.isDevUser) {
       role = 'student';
-    } else if (demoRoleByEmail[emailLower]) {
-      role = demoRoleByEmail[emailLower];
+    } else if (DEMO_ROLE_BY_EMAIL[emailLower]) {
+      role = DEMO_ROLE_BY_EMAIL[emailLower];
+    } else {
+      // Fetch real role from the database for non-demo users
+      try {
+        const dbProfile = await getUserProfile(userPayload.id);
+        if (dbProfile?.role) role = dbProfile.role as string;
+      } catch {
+        // If DB fetch fails, fall back to 'student' safely
+        role = 'student';
+      }
     }
-    // All other vault/client payloads are forced to student (no self-claimed admin/teacher/etc.)
 
     if (typeof window !== 'undefined') {
       const sanitizedPayload = { ...userPayload, role };
@@ -477,10 +520,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     
     try {
       let sbUser;
-      const { data, error } = await supabase.auth.signInWithPassword({
+      let { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
+
+      // If sign-in failed and input was a username (not an explicit email), attempt legacy email format
+      if (error && !username.includes('@')) {
+        const legacyEmail = legacyUsernameToEmail(username);
+        const legacyRes = await supabase.auth.signInWithPassword({
+          email: legacyEmail,
+          password,
+        });
+        if (!legacyRes.error && legacyRes.data?.user) {
+          data = legacyRes.data;
+          error = null;
+        }
+      }
 
       if (error) {
         // If Supabase Auth fails with default demo account credentials, we try to create them
@@ -572,42 +628,31 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       let sbUser: any = null;
       let session: any = null;
 
-      // Wrap supabase.auth.signUp with a 6-second timeout race so users never hang indefinitely
-      const signUpPromise = supabase.auth.signUp({
-        email,
-        password: data.password,
-        options: {
-          data: {
-            display_name: data.displayName,
-          }
-        }
-      });
-
-      const timeoutPromise = new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('SUPABASE_TIMEOUT')), 5500)
-      );
+      // Wait for Supabase signUp to complete — no race, no ghost sessions.
+      // A real timeout (15s via AbortSignal) prevents infinite hangs while still
+      // guaranteeing we never create a local session without a confirmed DB record.
+      const signUpController = new AbortController();
+      const signUpTimeout = setTimeout(() => signUpController.abort(), 15000);
 
       let resData: any = null;
       let error: any = null;
 
       try {
-        const result: any = await Promise.race([signUpPromise, timeoutPromise]);
+        const result: any = await supabase.auth.signUp({
+          email,
+          password: data.password,
+          options: {
+            data: { display_name: data.displayName }
+          }
+        });
         resData = result?.data;
         error = result?.error;
-      } catch (raceErr: any) {
-        if (raceErr.message === 'SUPABASE_TIMEOUT') {
-          console.warn('[AuthContext] Supabase signUp network delay; establishing fast local student session');
-          // Fast-path fallback for slow network or slow SMTP verification
-          const fallbackUid = `std_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
-          sbUser = {
-            id: fallbackUid,
-            email,
-            user_metadata: { display_name: data.displayName },
-            identities: [{ id: fallbackUid }]
-          };
-        } else {
-          throw raceErr;
-        }
+      } finally {
+        clearTimeout(signUpTimeout);
+      }
+
+      if (signUpController.signal.aborted) {
+        throw new Error('Signup timed out. Your connection is slow — please check your network and try again.');
       }
 
       if (error) {
@@ -636,13 +681,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         session = resData.session;
       }
 
+      // Hard stop — if Supabase returned no user and no error, something is wrong server-side.
+      // Do NOT create a fake local user. Show a real error instead.
       if (!sbUser) {
-        const fallbackUid = `std_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
-        sbUser = {
-          id: fallbackUid,
-          email,
-          user_metadata: { display_name: data.displayName }
-        };
+        throw new Error('Signup failed — no user was returned from the server. Please try again.');
       }
 
       const profile = {

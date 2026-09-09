@@ -10,6 +10,14 @@ export default function AmbientAudioToggle() {
   useEffect(() => {
     setMounted(true);
     setIsMuted(ambientAudio.isMuted());
+
+    const handleMuteChange = (e: any) => {
+      if (typeof e.detail?.muted === 'boolean') {
+        setIsMuted(e.detail.muted);
+      }
+    };
+    window.addEventListener('pc_audio_mute_changed', handleMuteChange);
+    return () => window.removeEventListener('pc_audio_mute_changed', handleMuteChange);
   }, []);
 
   if (!mounted) return null;

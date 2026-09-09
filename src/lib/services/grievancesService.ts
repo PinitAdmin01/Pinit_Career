@@ -68,7 +68,7 @@ export const grievancesService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('grievances_tickets').insert({
+        const res = await supabase.from('grievances_tickets').insert({
           reporter_id: studentId,
           reporter_name: studentName,
           reporter_type: reporterType,
@@ -78,6 +78,7 @@ export const grievancesService = {
           anonymous,
           status: 'Pending'
         });
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -106,7 +107,8 @@ export const grievancesService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('grievances_tickets').update({ status: 'Under Investigation' }).eq('id', ticketId);
+        const res = await supabase.from('grievances_tickets').update({ status: 'Under Investigation' }).eq('id', ticketId);
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -129,11 +131,12 @@ export const grievancesService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('grievances_tickets').update({
+        const res = await supabase.from('grievances_tickets').update({
           status: 'Resolved',
           resolution,
           resolved_at: new Date().toISOString()
         }).eq('id', ticketId);
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);

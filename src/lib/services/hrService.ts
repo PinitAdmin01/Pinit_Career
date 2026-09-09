@@ -79,7 +79,8 @@ export const hrService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('hr_leaves').update({ status: 'Approved' }).eq('id', leaveId);
+        const res = await supabase.from('hr_leaves').update({ status: 'Approved' }).eq('id', leaveId);
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -103,12 +104,13 @@ export const hrService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('hr_recruitment').insert({
+        const res = await supabase.from('hr_recruitment').insert({
           id,
           title,
           dept,
           status: 'Open'
         });
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);

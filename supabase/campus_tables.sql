@@ -364,19 +364,19 @@ stable
 security definer
 set search_path = public
 as $$
-  select
-    lower(coalesce(auth.jwt()->>'email', '')) in ('admin@pinit.in', 'teacher@pinit.in')
-    or exists (
-      select 1 from public.users u
-      where u.id = auth.uid()
-        and u.role in ('admin', 'superadmin', 'teacher')
-    );
+  select exists (
+    select 1 from public.users u
+    where u.id = auth.uid()
+      and u.role in ('admin', 'superadmin', 'teacher', 'faculty')
+  );
 $$;
 
 create or replace function public.campus_is_self(student_id text)
 returns boolean
 language sql
 stable
+security definer
+set search_path = public, auth
 as $$
   select
     student_id is not null
@@ -392,33 +392,74 @@ grant execute on function public.campus_is_self(text) to authenticated;
 do $$
 declare
   t text;
-  catalogs text[] := array[
-    'campus_kv','hostel_rooms','library_books','transport_routes','transport_drivers',
-    'exam_schedule','events_catalog','admissions_seat_matrix','communications_log',
+  -- Tables readable by all students, but only writable by staff
+  public_catalogs text[] := array[
+    'library_books','transport_routes','exam_schedule','events_catalog',
+    'study_notes','alumni_jobs','alumni_connects','alumni_referrals'
+  ];
+  -- Institutional / administrative tables accessible ONLY to authenticated staff
+  staff_catalogs text[] := array[
+    'campus_kv','hostel_rooms','transport_drivers','admissions_seat_matrix','communications_log',
     'crm_companies','crm_hr_contacts','crm_drives','crm_visits','crm_history','crm_feedback',
     'research_projects','research_patents','research_funding','infrastructure_tickets',
     'hr_faculty','hr_leaves','hr_recruitment','hr_attendance',
     'procurement_requests','procurement_orders','procurement_vendors','procurement_inventory',
-    'assets_list','assets_maintenance','assets_amc',
-    'alumni_registry','alumni_jobs','alumni_connects','alumni_referrals','study_notes'
+    'assets_list','assets_maintenance','assets_amc','alumni_registry'
   ];
   personal text[] := array[
     'hostel_allocations','hostel_attendance','hostel_complaints','hostel_visitors',
     'finance_dues','finance_transactions','library_borrowings','library_reservations',
-    'transport_allocations','document_requests','student_attendance','campus_attendance',
-    'exam_results','events_rsvps','grievances_tickets','research_papers',
+    'transport_allocations','document_requests',
+    'events_rsvps','grievances_tickets','research_papers',
     'advisor_performance','admissions_applications',
     'services_leaves','services_requests','services_appointments','services_counselling'
   ];
+  -- Records that students may READ for themselves, but ONLY staff may write/update/delete (grades, attendance)
+  staff_write_self_read text[] := array[
+    'student_attendance','campus_attendance','exam_results'
+  ];
 begin
-  foreach t in array catalogs
+  -- 1. Public catalog: authenticated students can SELECT, only staff can INSERT/UPDATE/DELETE
+  foreach t in array public_catalogs
   loop
     execute format('alter table public.%I enable row level security', t);
     execute format('drop policy if exists campus_auth_all on public.%I', t);
     execute format('drop policy if exists campus_catalog_read on public.%I', t);
     execute format('drop policy if exists campus_catalog_write on public.%I', t);
     execute format('drop policy if exists campus_kv_write on public.%I', t);
-    execute format('create policy campus_catalog_write on public.%I for all to authenticated using (true) with check (true)', t);
+    execute format('drop policy if exists campus_staff_only on public.%I', t);
+    execute format('create policy campus_catalog_read on public.%I for select to authenticated using (true)', t);
+    execute format('create policy campus_catalog_write on public.%I for all to authenticated using (public.campus_is_staff()) with check (public.campus_is_staff())', t);
+  end loop;
+
+  -- 2. Staff catalog: strictly staff-only for BOTH read and write
+  foreach t in array staff_catalogs
+  loop
+    execute format('alter table public.%I enable row level security', t);
+    execute format('drop policy if exists campus_auth_all on public.%I', t);
+    execute format('drop policy if exists campus_catalog_read on public.%I', t);
+    execute format('drop policy if exists campus_catalog_write on public.%I', t);
+    execute format('drop policy if exists campus_kv_write on public.%I', t);
+    execute format('drop policy if exists campus_staff_only on public.%I', t);
+    execute format('create policy campus_staff_only on public.%I for all to authenticated using (public.campus_is_staff()) with check (public.campus_is_staff())', t);
+  end loop;
+
+  -- 3. Staff-write, self-read: students may view own attendance & exam results, but CANNOT self-certify or grade
+  foreach t in array staff_write_self_read
+  loop
+    execute format('alter table public.%I enable row level security', t);
+    execute format('drop policy if exists campus_auth_all on public.%I', t);
+    execute format('drop policy if exists campus_own_or_staff on public.%I', t);
+    execute format('drop policy if exists campus_read_own_or_staff on public.%I', t);
+    execute format('drop policy if exists campus_write_staff_only on public.%I', t);
+    execute format(
+      'create policy campus_read_own_or_staff on public.%I for select to authenticated using (public.campus_is_staff() or public.campus_is_self(student_id))',
+      t
+    );
+    execute format(
+      'create policy campus_write_staff_only on public.%I for all to authenticated using (public.campus_is_staff()) with check (public.campus_is_staff())',
+      t
+    );
   end loop;
 
   foreach t in array personal

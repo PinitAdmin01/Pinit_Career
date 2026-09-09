@@ -68,7 +68,7 @@ export const SpeakingLessonView: React.FC<SpeakingLessonViewProps> = ({
   };
 
   return (
-    <div style={{ background: 'var(--bg2, #18181b)', border: '1px solid var(--border, #27272a)', borderRadius: 16, padding: 24, color: '#fff' }}>
+    <div style={{ background: 'var(--bg2, #18181b)', border: '1px solid var(--border, #27272a)', borderRadius: 16, padding: 24, color: 'var(--text)' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
         <button onClick={onBack} style={{ background: 'transparent', border: '1px solid #3f3f46', color: '#a1a1aa', borderRadius: 8, padding: '6px 12px', cursor: 'pointer' }}>
           ← Back to Level Roadmap
@@ -81,7 +81,7 @@ export const SpeakingLessonView: React.FC<SpeakingLessonViewProps> = ({
       {/* Prompt Card */}
       <div style={{ background: '#27272a', padding: 20, borderRadius: 12, marginBottom: 24 }}>
         <h3 style={{ fontSize: 16, margin: '0 0 8px 0', color: '#ec4899' }}>Speaking Prompt:</h3>
-        <p style={{ fontSize: 15, color: '#fff', fontWeight: 600, margin: '0 0 12px 0' }}>{speaking.promptQuestion}</p>
+        <p style={{ fontSize: 15, color: 'var(--text)', fontWeight: 600, margin: '0 0 12px 0' }}>{speaking.promptQuestion}</p>
         <div style={{ fontSize: 13, color: '#a1a1aa', fontStyle: 'italic' }}>
           Sample Sentence: "{speaking.sampleResponse}"
         </div>
@@ -95,8 +95,8 @@ export const SpeakingLessonView: React.FC<SpeakingLessonViewProps> = ({
             width: 72,
             height: 72,
             borderRadius: '50%',
-            background: isRecording ? '#ef4444' : '#ec4899',
-            color: '#fff',
+            background: isRecording ? 'var(--danger)' : '#ec4899',
+            color: 'var(--text)',
             border: 'none',
             fontSize: 28,
             cursor: 'pointer',
@@ -106,7 +106,7 @@ export const SpeakingLessonView: React.FC<SpeakingLessonViewProps> = ({
         >
           🎤
         </button>
-        <div style={{ fontSize: 14, marginTop: 12, color: isRecording ? '#ef4444' : '#a1a1aa' }}>
+        <div style={{ fontSize: 14, marginTop: 12, color: isRecording ? 'var(--danger)' : '#a1a1aa' }}>
           {isRecording ? 'Listening... Speak your response clearly now!' : 'Click Microphone to Start Speaking'}
         </div>
 
@@ -122,7 +122,7 @@ export const SpeakingLessonView: React.FC<SpeakingLessonViewProps> = ({
             background: '#27272a',
             border: '1px solid #3f3f46',
             borderRadius: 8,
-            color: '#fff',
+            color: 'var(--text)',
             padding: 12,
             fontSize: 14
           }}
@@ -133,7 +133,7 @@ export const SpeakingLessonView: React.FC<SpeakingLessonViewProps> = ({
             onClick={() => setTranscript(speaking.sampleResponse)}
             style={{
               background: '#3f3f46',
-              color: '#fff',
+              color: 'var(--text)',
               border: 'none',
               borderRadius: 8,
               padding: '8px 14px',
@@ -148,7 +148,7 @@ export const SpeakingLessonView: React.FC<SpeakingLessonViewProps> = ({
             disabled={!transcript.trim()}
             style={{
               background: transcript.trim() ? '#ec4899' : '#3f3f46',
-              color: '#fff',
+              color: 'var(--text)',
               border: 'none',
               borderRadius: 8,
               padding: '10px 20px',
@@ -164,7 +164,7 @@ export const SpeakingLessonView: React.FC<SpeakingLessonViewProps> = ({
       {/* Evaluation Results Card */}
       {evalResult && (
         <div style={{ background: '#27272a', padding: 20, borderRadius: 12 }}>
-          <h4 style={{ fontSize: 16, margin: '0 0 12px 0', color: '#10b981' }}>Evaluation Scorecard: {evalResult.score} / 100</h4>
+          <h4 style={{ fontSize: 16, margin: '0 0 12px 0', color: 'var(--success)' }}>Evaluation Scorecard: {evalResult.score} / 100</h4>
           <p style={{ fontSize: 14, color: '#e4e4e7', margin: '0 0 16px 0' }}>{evalResult.feedbackText}</p>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, fontSize: 13 }}>
             <div style={{ background: '#18181b', padding: 10, borderRadius: 6 }}>Fluency: {evalResult.fluencyScore}%</div>

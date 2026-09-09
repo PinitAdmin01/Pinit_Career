@@ -42,15 +42,15 @@ export default function CareerPathwayTimeline({
   const getStateBadgeColor = (state: MasteryState) => {
     switch (state) {
       case 'verified':
-        return { bg: 'rgba(16, 185, 129, 0.15)', text: '#10b981', border: '#10b981' };
+        return { bg: 'rgba(var(--success-rgb),  0.15)', text: 'var(--success)', border: 'var(--success)' };
       case 'verified_needs_review':
-        return { bg: 'rgba(245, 158, 11, 0.15)', text: '#f59e0b', border: '#f59e0b' };
+        return { bg: 'rgba(var(--warning-rgb),  0.15)', text: 'var(--warning)', border: 'var(--warning)' };
       case 'demonstrated':
-        return { bg: 'rgba(59, 130, 246, 0.15)', text: '#3b82f6', border: '#3b82f6' };
+        return { bg: 'rgba(var(--info-rgb),  0.15)', text: 'var(--info)', border: 'var(--info)' };
       case 'provisional':
       case 'practice':
       case 'learning':
-        return { bg: 'rgba(139, 92, 246, 0.15)', text: '#8b5cf6', border: '#8b5cf6' };
+        return { bg: 'rgba(var(--reward-rgb),  0.15)', text: 'var(--reward)', border: 'var(--reward)' };
       case 'diagnostic':
         return { bg: 'rgba(236, 72, 153, 0.15)', text: '#ec4899', border: '#ec4899' };
       case 'locked':
@@ -82,7 +82,7 @@ export default function CareerPathwayTimeline({
                 borderRadius: 8,
                 border: '1px solid var(--border)',
                 background: selectedProgramId === p.id ? 'var(--accent)' : 'var(--bg2)',
-                color: selectedProgramId === p.id ? '#fff' : 'var(--t2)',
+                color: selectedProgramId === p.id ? 'var(--text)' : 'var(--t2)',
                 fontSize: 11.5,
                 fontWeight: 700,
                 cursor: 'pointer',
@@ -135,7 +135,7 @@ export default function CareerPathwayTimeline({
                 <span style={{ fontSize: 11, fontWeight: 800, color: isSelected ? 'var(--accent)' : 'var(--t3)', textTransform: 'uppercase' }}>
                   {isFinalResidency ? '👑 Residency' : `Semester ${idx + 1}`}
                 </span>
-                <span style={{ fontSize: 10.5, fontWeight: 700, color: evalResult.isStageCompleted ? '#10b981' : 'var(--t3)' }}>
+                <span style={{ fontSize: 10.5, fontWeight: 700, color: evalResult.isStageCompleted ? 'var(--success)' : 'var(--t3)' }}>
                   {evalResult.isStageCompleted ? '✓ Passed' : `${evalResult.stageProgressPct}%`}
                 </span>
               </div>
@@ -146,7 +146,7 @@ export default function CareerPathwayTimeline({
 
               {/* Mini Progress Track */}
               <div style={{ width: '100%', height: 4, background: 'rgba(255,255,255,0.08)', borderRadius: 2, overflow: 'hidden' }}>
-                <div style={{ width: `${evalResult.stageProgressPct}%`, height: '100%', background: evalResult.isStageCompleted ? '#10b981' : 'var(--accent)', transition: 'width 0.3s ease' }} />
+                <div style={{ width: `${evalResult.stageProgressPct}%`, height: '100%', background: evalResult.isStageCompleted ? 'var(--success)' : 'var(--accent)', transition: 'width 0.3s ease' }} />
               </div>
             </button>
           );
@@ -179,20 +179,20 @@ export default function CareerPathwayTimeline({
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <div style={{ textAlign: 'right' }}>
               <div style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 600 }}>Stage Completion</div>
-              <div style={{ fontSize: 18, fontWeight: 800, color: stageResult.isStageCompleted ? '#10b981' : 'var(--accent)' }}>
+              <div style={{ fontSize: 18, fontWeight: 800, color: stageResult.isStageCompleted ? 'var(--success)' : 'var(--accent)' }}>
                 {stageResult.passedRequiredCompetencies}/{stageResult.totalRequiredCompetencies} Gates
               </div>
             </div>
             {currentStage.milestoneCredentialId && (
               <div style={{
-                background: stageResult.isStageCompleted ? 'rgba(16, 185, 129, 0.12)' : 'rgba(255,255,255,0.03)',
-                border: `1px solid ${stageResult.isStageCompleted ? '#10b981' : 'var(--border)'}`,
+                background: stageResult.isStageCompleted ? 'rgba(var(--success-rgb),  0.12)' : 'rgba(255,255,255,0.03)',
+                border: `1px solid ${stageResult.isStageCompleted ? 'var(--success)' : 'var(--border)'}`,
                 padding: '8px 14px',
                 borderRadius: 10,
                 textAlign: 'center',
               }}>
                 <div style={{ fontSize: 10, color: 'var(--t3)', textTransform: 'uppercase', fontWeight: 700 }}>Milestone Badge</div>
-                <div style={{ fontSize: 12, fontWeight: 800, color: stageResult.isStageCompleted ? '#10b981' : 'var(--t2)' }}>
+                <div style={{ fontSize: 12, fontWeight: 800, color: stageResult.isStageCompleted ? 'var(--success)' : 'var(--t2)' }}>
                   {stageResult.isStageCompleted ? '🎖️ Unlocked' : '🔒 Locked'}
                 </div>
               </div>
@@ -225,7 +225,7 @@ export default function CareerPathwayTimeline({
                     padding: '12px 16px',
                     background: 'var(--bg2)',
                     borderRadius: 12,
-                    border: `1px solid ${isSatisfied ? 'rgba(16, 185, 129, 0.3)' : 'var(--border)'}`,
+                    border: `1px solid ${isSatisfied ? 'rgba(var(--success-rgb),  0.3)' : 'var(--border)'}`,
                     cursor: onSelectCompetency ? 'pointer' : 'default',
                     transition: 'border 0.2s ease',
                   }}
@@ -265,8 +265,8 @@ export default function CareerPathwayTimeline({
         {/* ── 5. Active Blockers Notice (if any) ──────────────────────────────── */}
         {stageResult.unmetStageCompetencies.length > 0 && (
           <div style={{
-            background: 'rgba(239, 68, 68, 0.08)',
-            border: '1px solid rgba(239, 68, 68, 0.25)',
+            background: 'rgba(var(--danger-rgb),  0.08)',
+            border: '1px solid rgba(var(--danger-rgb),  0.25)',
             padding: 14,
             borderRadius: 12,
             display: 'flex',
@@ -275,7 +275,7 @@ export default function CareerPathwayTimeline({
           }}>
             <span style={{ fontSize: 18 }}>⚠️</span>
             <div style={{ fontSize: 12, color: 'var(--t2)', lineHeight: 1.5 }}>
-              <strong style={{ color: '#ef4444' }}>Stage Advancement Locked:</strong> You have {stageResult.unmetStageCompetencies.length} unmet competency requirements. Complete the designated quests and forensic labs to unlock Semester {activeStageIdx + 2}.
+              <strong style={{ color: 'var(--danger)' }}>Stage Advancement Locked:</strong> You have {stageResult.unmetStageCompetencies.length} unmet competency requirements. Complete the designated quests and forensic labs to unlock Semester {activeStageIdx + 2}.
             </div>
           </div>
         )}

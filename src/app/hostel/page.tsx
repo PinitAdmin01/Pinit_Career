@@ -4,6 +4,7 @@
 
 import { useState, useEffect } from 'react';
 import { api } from '@/lib/api/client';
+import { toast } from '@/lib/store/useAppStore';
 
 export default function StudentHostel() {
   const [rooms, setRooms] = useState<any[]>([]);
@@ -37,27 +38,27 @@ export default function StudentHostel() {
     try {
       const res = await api.post<{ ok: boolean; allocation: any }>('/api/hostel/request-room', { roomCode });
       if (res && res.ok) {
-        alert(`Room allocation requested for ${roomCode}! Awaiting warden review approval.`);
+        toast.success('Room Requested! 🛏️', `Room allocation requested for ${roomCode}. Awaiting warden approval.`);
         fetchHostelData();
       }
     } catch {
-      alert('Request failed.');
+      toast.error('Request Failed', 'Could not request room. Please try again.');
     }
   };
 
   const handleLogAttendance = async (type: 'check-in' | 'check-out') => {
     if (allocation.status !== 'allocated' && allocation.status !== 'approved') {
-      alert('Roll-call checks are only available for allocated residents.');
+      toast.warning('Not Allocated', 'Roll-call checks are only available for allocated residents.');
       return;
     }
     try {
       const res = await api.post<{ ok: boolean }>('/api/hostel/log-attendance', { type, roomCode: allocation.requestedRoom });
       if (res && res.ok) {
-        alert(`Biometric ${type} logged successfully! Nightly roll-call verified.`);
+        toast.success('Attendance Logged! ⏱️', `Biometric ${type} logged successfully! Nightly roll-call verified.`);
         fetchHostelData();
       }
     } catch {
-      alert('Biometric log failed.');
+      toast.error('Biometric Log Failed', 'Error logging biometric attendance.');
     }
   };
 
@@ -67,12 +68,12 @@ export default function StudentHostel() {
     try {
       const res = await api.post<{ ok: boolean }>('/api/hostel/raise-complaint', complaintForm);
       if (res && res.ok) {
-        alert('Complaint filed successfully! Maintenance team has been notified.');
+        toast.success('Ticket Logged! 🛠️', 'Complaint filed successfully! Maintenance team has been notified.');
         setComplaintForm({ category: 'Plumbing', title: '', description: '' });
         fetchHostelData();
       }
     } catch {
-      alert('Failed to raise ticket.');
+      toast.error('Failed to Raise Ticket', 'Could not submit maintenance complaint.');
     } finally {
       setSubmittingComplaint(false);
     }
@@ -84,12 +85,12 @@ export default function StudentHostel() {
     try {
       const res = await api.post<{ ok: boolean }>('/api/hostel/register-visitor', visitorForm);
       if (res && res.ok) {
-        alert('Visitor security pass generated! Share the ID with the gatekeeper office.');
+        toast.success('Visitor Pass Generated! 🏷️', 'Share the visitor ID with security desk.');
         setVisitorForm({ name: '', relation: '', purpose: '' });
         fetchHostelData();
       }
     } catch {
-      alert('Failed to generate pass.');
+      toast.error('Pass Generation Failed', 'Failed to generate visitor security pass.');
     } finally {
       setSubmittingVisitor(false);
     }
@@ -99,11 +100,11 @@ export default function StudentHostel() {
     try {
       const res = await api.post<{ ok: boolean }>('/api/hostel/checkout-visitor', { visitorId });
       if (res && res.ok) {
-        alert('Visitor check-out logged successfully.');
+        toast.success('Check-out Recorded', 'Visitor check-out logged successfully.');
         fetchHostelData();
       }
     } catch {
-      alert('Check-out failed.');
+      toast.error('Check-out Failed', 'Failed to record visitor checkout.');
     }
   };
 

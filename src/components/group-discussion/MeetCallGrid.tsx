@@ -27,6 +27,7 @@ interface MeetCallGridProps {
   handRaised: boolean;
   micActive?: boolean;
   callDurationSeconds?: number;
+  onInterjectImmediately?: () => void;
 }
 
 export default function MeetCallGrid({
@@ -38,6 +39,7 @@ export default function MeetCallGrid({
   isUserTurn,
   onUserFinishSpeaking,
   onToggleRaiseHand,
+  onInterjectImmediately,
   onEndCall,
   onForceExit,
   hostId,
@@ -112,7 +114,7 @@ export default function MeetCallGrid({
           display: 'flex',
           alignItems: 'center',
           gap: 6,
-          background: remainingSeconds <= 60 ? 'rgba(239, 68, 68, 0.15)' : remainingSeconds <= 300 ? 'rgba(245, 158, 11, 0.15)' : 'rgba(20, 184, 166, 0.15)',
+          background: remainingSeconds <= 60 ? 'rgba(var(--danger-rgb),  0.15)' : remainingSeconds <= 300 ? 'rgba(var(--warning-rgb),  0.15)' : 'rgba(var(--accent-teal-rgb),  0.15)',
           border: `1.5px solid ${remainingSeconds <= 60 ? 'var(--red)' : remainingSeconds <= 300 ? 'var(--orange)' : 'var(--teal)'}`,
           borderRadius: 10,
           padding: '4px 12px',
@@ -155,7 +157,7 @@ export default function MeetCallGrid({
           height: '100%',
           minHeight: 155,
           position: 'relative',
-          boxShadow: isUserTurn ? '0 0 24px rgba(239, 68, 68, 0.45)' : micActive ? '0 0 20px rgba(34,197,94,0.4)' : '0 8px 24px rgba(0,0,0,0.3)',
+          boxShadow: isUserTurn ? '0 0 24px rgba(var(--danger-rgb),  0.45)' : micActive ? '0 0 20px rgba(var(--success-rgb), 0.4)' : '0 8px 24px rgba(0,0,0,0.3)',
           transition: 'all 0.25s ease'
         }}>
           {handRaised && (
@@ -181,7 +183,7 @@ export default function MeetCallGrid({
               position: 'absolute',
               top: 10,
               left: 10,
-              background: 'rgba(239,68,68,0.2)',
+              background: 'rgba(var(--danger-rgb), 0.2)',
               border: '1.5px solid var(--coral)',
               borderRadius: 6,
               padding: '2px 7px',
@@ -238,13 +240,13 @@ export default function MeetCallGrid({
               style={{
                 background: isSpeaking ? 'linear-gradient(135deg, #1b233d 0%, #0d1527 100%)' : '#111827',
                 borderRadius: 16,
-                border: `2.5px solid ${isSpeaking ? 'var(--teal)' : isAvatarA ? '#3b82f6' : isAvatarB ? '#8b5cf6' : 'rgba(255,255,255,0.08)'}`,
+                border: `2.5px solid ${isSpeaking ? 'var(--teal)' : isAvatarA ? 'var(--info)' : isAvatarB ? 'var(--reward)' : 'rgba(255,255,255,0.08)'}`,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'flex-start',
                 position: 'relative',
-                boxShadow: isSpeaking ? '0 0 20px rgba(20,184,166,0.35)' : 'var(--shadow-md)',
+                boxShadow: isSpeaking ? '0 0 20px rgba(var(--accent-teal-rgb), 0.35)' : 'var(--shadow-md)',
                 transition: 'all 0.25s ease',
                 overflow: 'hidden',
                 paddingBottom: 6,
@@ -258,7 +260,7 @@ export default function MeetCallGrid({
                   top: 8,
                   left: 8,
                   background: 'rgba(79,70,229,0.25)',
-                  border: '1.5px solid #4f46e5',
+                  border: '1.5px solid var(--brand)',
                   borderRadius: 6,
                   padding: '1px 6px',
                   fontSize: 7.5,
@@ -276,13 +278,13 @@ export default function MeetCallGrid({
                   position: 'absolute',
                   top: 8,
                   left: 8,
-                  background: 'rgba(59,130,246,0.25)',
-                  border: '1.5px solid #3b82f6',
+                  background: 'rgba(var(--info-rgb), 0.25)',
+                  border: '1.5px solid var(--info)',
                   borderRadius: 6,
                   padding: '1px 6px',
                   fontSize: 7.5,
                   fontWeight: 900,
-                  color: '#60a5fa',
+                  color: 'var(--info-bright)',
                   fontFamily: 'var(--font-mono)',
                   zIndex: 10
                 }}>
@@ -295,8 +297,8 @@ export default function MeetCallGrid({
                   position: 'absolute',
                   top: 8,
                   left: 8,
-                  background: 'rgba(139,92,246,0.25)',
-                  border: '1.5px solid #8b5cf6',
+                  background: 'rgba(var(--reward-rgb), 0.25)',
+                  border: '1.5px solid var(--reward)',
                   borderRadius: 6,
                   padding: '1px 6px',
                   fontSize: 7.5,
@@ -314,7 +316,7 @@ export default function MeetCallGrid({
                   position: 'absolute',
                   top: 8,
                   right: 8,
-                  background: 'rgba(20,184,166,0.25)',
+                  background: 'rgba(var(--accent-teal-rgb), 0.25)',
                   border: '1.5px solid var(--teal)',
                   borderRadius: 6,
                   padding: '1px 6px',
@@ -351,7 +353,7 @@ export default function MeetCallGrid({
                   alignItems: 'center',
                   justifyContent: 'center',
                   fontSize: 22,
-                  boxShadow: isSpeaking ? '0 0 16px rgba(20,184,166,0.5)' : '0 4px 12px rgba(0,0,0,0.3)',
+                  boxShadow: isSpeaking ? '0 0 16px rgba(var(--accent-teal-rgb), 0.5)' : '0 4px 12px rgba(0,0,0,0.3)',
                   transition: 'all 0.3s ease',
                   transform: isSpeaking ? 'scale(1.08)' : 'scale(1.0)'
                 }}>
@@ -420,12 +422,12 @@ export default function MeetCallGrid({
               justifyContent: 'center',
               background: 'linear-gradient(135deg, var(--teal) 0%, var(--accent) 100%)',
               border: 'none',
-              color: '#fff',
+              color: 'var(--text)',
               fontWeight: 900,
               borderRadius: 12,
               cursor: 'pointer',
               fontSize: 13,
-              boxShadow: '0 0 16px rgba(20,184,166,0.4)',
+              boxShadow: '0 0 16px rgba(var(--accent-teal-rgb), 0.4)',
               animation: 'pulse 2s infinite'
             }}
           >
@@ -435,24 +437,50 @@ export default function MeetCallGrid({
 
         {/* Interactive "Raise Hand to Interject Next" button for user while avatars are speaking */}
         {!isUserTurn && (
-          <button
-            onClick={onToggleRaiseHand}
-            className="btn-primary"
-            style={{
-              flex: 2,
-              padding: 10,
-              justifyContent: 'center',
-              background: handRaised ? 'rgba(249, 115, 22, 0.25)' : 'rgba(59, 130, 246, 0.15)',
-              border: handRaised ? '1.5px solid var(--orange)' : '1.5px solid #3b82f6',
-              color: handRaised ? 'var(--orange)' : '#60a5fa',
-              fontWeight: 900,
-              borderRadius: 12,
-              cursor: 'pointer',
-              fontSize: 13
-            }}
-          >
-            {handRaised ? '🙋 Hand Raised (You speak next after avatar)' : '🙋 Raise Hand to Interject Next'}
-          </button>
+          <div style={{ display: 'flex', gap: 8, flex: 2 }}>
+            <button
+              onClick={onToggleRaiseHand}
+              className="btn-primary"
+              style={{
+                flex: 1,
+                padding: 10,
+                justifyContent: 'center',
+                background: handRaised ? 'rgba(249, 115, 22, 0.25)' : 'rgba(var(--info-rgb),  0.15)',
+                border: handRaised ? '1.5px solid var(--orange)' : '1.5px solid #3b82f6',
+                color: handRaised ? 'var(--orange)' : 'var(--info-bright)',
+                fontWeight: 900,
+                borderRadius: 12,
+                cursor: 'pointer',
+                fontSize: 12
+              }}
+            >
+              {handRaised ? '🙋 Hand Raised (Queued Next)' : '🙋 Raise Hand (Queue Next)'}
+            </button>
+
+            {/* GD-UX-01 FIX: Direct Interjection Button — Cuts off active avatar speech immediately */}
+            {activeSpeakingAvatar && onInterjectImmediately && (
+              <button
+                onClick={onInterjectImmediately}
+                className="btn-primary"
+                style={{
+                  flex: 1,
+                  padding: 10,
+                  justifyContent: 'center',
+                  background: 'linear-gradient(135deg, #ef4444 0%, #f97316 100%)',
+                  border: 'none',
+                  color: 'var(--text)',
+                  fontWeight: 900,
+                  borderRadius: 12,
+                  cursor: 'pointer',
+                  fontSize: 12,
+                  boxShadow: '0 0 14px rgba(var(--danger-rgb),  0.5)',
+                  animation: 'pulse 1.5s infinite'
+                }}
+              >
+                ⚡ Interject (Cut In)
+              </button>
+            )}
+          </div>
         )}
 
         <button
@@ -464,7 +492,7 @@ export default function MeetCallGrid({
             justifyContent: 'center',
             background: 'var(--red)',
             border: 'none',
-            color: '#fff',
+            color: 'var(--text)',
             fontWeight: 800,
             borderRadius: 12,
             cursor: 'pointer',

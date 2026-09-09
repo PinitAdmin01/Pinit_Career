@@ -22,6 +22,13 @@ create table public.users (
   display_name text,
   role text default 'student',
   subscription_tier text default 'free',
+  -- Subscription period. subscription_tier alone never lapses, so a paid tier
+  -- with a NULL or past expires_at must NOT be treated as active. Written
+  -- server-side by /api/payment/verify; protected from self-service edits by
+  -- trg_prevent_privilege_escalation below. See migration 20260907.
+  subscription_started_at timestamptz,
+  subscription_expires_at timestamptz,
+  subscription_status text default 'none',
   register_number text,
   selected_teacher_id text default 'priya',
   guidance_mentor_id text default 'priya',
@@ -276,14 +283,23 @@ begin
      or new.pins is distinct from old.pins
      or coalesce(new.subscription_tier, 'free') is distinct from coalesce(old.subscription_tier, 'free')
      or new.ats_score is distinct from old.ats_score
-     or new.trust_score is distinct from old.trust_score then
+     or new.trust_score is distinct from old.trust_score
+     -- added 2026-09-07: the subscription period is server-owned. Without
+     -- these, a user could UPDATE their own row and push the expiry years
+     -- forward, granting themselves a free subscription.
+     or new.subscription_started_at is distinct from old.subscription_started_at
+     or new.subscription_expires_at is distinct from old.subscription_expires_at
+     or coalesce(new.subscription_status, 'none') is distinct from coalesce(old.subscription_status, 'none') then
     if auth.uid() is not null and auth.uid() = old.id then
-      -- Block self-service privilege / economy / score forgery
+      -- Block self-service privilege / economy / score / subscription forgery
       new.role := old.role;
       new.pins := old.pins;
       new.subscription_tier := old.subscription_tier;
       new.ats_score := old.ats_score;
       new.trust_score := old.trust_score;
+      new.subscription_started_at := old.subscription_started_at;
+      new.subscription_expires_at := old.subscription_expires_at;
+      new.subscription_status := old.subscription_status;
     end if;
   end if;
   return new;
@@ -340,3 +356,41 @@ create policy "Authenticated users can manage own QR login sessions" on public.q
 
 -- Enable Supabase Realtime for QR Login
 alter publication supabase_realtime add table public.qr_login_sessions;
+
+-- 12. Face Templates Table (Biometric Login Cache)
+create table if not exists public.face_templates (
+  user_key text primary key,
+  descriptor jsonb not null,
+  updated_at timestamptz default timezone('utc'::text, now())
+);
+
+alter table public.face_templates enable row level security;
+drop policy if exists face_templates_auth on public.face_templates;
+create policy face_templates_auth on public.face_templates for all to authenticated
+  using (
+    user_key = auth.uid()::text
+    or lower(user_key) = lower(coalesce(auth.jwt()->>'email', ''))
+    or exists (select 1 from public.users where id = auth.uid() and role in ('admin', 'staff'))
+  )
+  with check (
+    user_key = auth.uid()::text
+    or lower(user_key) = lower(coalesce(auth.jwt()->>'email', ''))
+    or exists (select 1 from public.users where id = auth.uid() and role in ('admin', 'staff'))
+  );
+
+-- 13. Processed Payments Idempotency Table (Anti-Replay Protection)
+create table if not exists public.processed_payments (
+  payment_id text primary key,
+  order_id text not null,
+  user_id text not null,
+  plan_id text not null,
+  pins_granted integer default 0,
+  created_at timestamptz default timezone('utc'::text, now())
+);
+
+alter table public.processed_payments enable row level security;
+drop policy if exists "Users can view own processed payments" on public.processed_payments;
+create policy "Users can view own processed payments" on public.processed_payments
+  for select to authenticated using (user_id = auth.uid()::text);
+
+

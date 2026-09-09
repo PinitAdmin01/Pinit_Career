@@ -8,12 +8,31 @@ import { api } from '@/lib/api/client';
 import { useQueryClient } from '@tanstack/react-query';
 import { KEYS } from '@/lib/api/hooks';
 import dynamic from 'next/dynamic';
-import { speakWithAvatar, stopSpeaking, preloadTTS, preloadNextSpeech, preloadMultipleSpeeches } from '@/lib/tts';
+import {
+  speakWithAvatar,
+  stopSpeaking,
+  preloadTTS,
+  preloadNextSpeech,
+  preloadMultipleSpeeches,
+  getAvatarVoiceVolume,
+  setAvatarVoiceVolume
+} from '@/lib/tts';
 import { pingRenderServer } from '@/lib/smartVoiceRouter';
 import { toast } from '@/lib/store/useAppStore';
 import { markOnboardingStoryPending } from '@/lib/storyTour';
 
 import { preloadAvatarGLB } from '@/components/avatar/VRoidInterviewAvatar';
+import GearAudioHub from '@/components/nav/GearAudioHub';
+import { ambientAudio } from '@/lib/audio/ambientAudioEngine';
+import {
+  VaultCategory,
+  VaultDocumentSlot,
+  IdentityAuditReport,
+  LiveQTCalibration,
+  classifyDocumentCategory,
+  auditDocumentCollection,
+  calculateLiveQTMetrics,
+} from '@/lib/ats/documentAuditEngine';
 
 // Dynamic import for WebGL/ThreeJS avatar to avoid SSR issues
 const VRoidInterviewAvatar = dynamic(
@@ -381,6 +400,8 @@ export default function OnboardingPage() {
       else if (user.role === 'consultant') router.replace('/consultant');
       return;
     }
+    // Guarantee previous public landing ambient music stops immediately
+    ambientAudio.stopImmediate();
     preloadTTS();
     const introText = "Welcome to your personal diagnostic assessment! First, are you a college student, a fresh graduate, or a working professional?";
     preloadNextSpeech(introText, 'priya');
@@ -389,127 +410,176 @@ export default function OnboardingPage() {
   // Screen/Route States: 'CHOOSE_GUIDE' | 'INTENT_SELECTION' | 'SLIDER' | 'EXPRESS_FORM' | 'DEEP_CHAT' | 'IDENTITY_QUESTIONS' | 'WORKPLACE_SIMULATION' | 'SPEECH_ASSESSMENT' | 'BLUEPRINT_REVEAL'
   const [activeScreen, setActiveScreen] = useState<'CHOOSE_GUIDE' | 'INTENT_SELECTION' | 'SLIDER' | 'EXPRESS_FORM' | 'DEEP_CHAT' | 'IDENTITY_QUESTIONS' | 'WORKPLACE_SIMULATION' | 'SPEECH_ASSESSMENT' | 'BLUEPRINT_REVEAL'>('CHOOSE_GUIDE');
   
+  // Candidate Secure Vault 2.0 State
   const [showVaultModal, setShowVaultModal] = useState(false);
   const [vaultUploading, setVaultUploading] = useState(false);
-  const [vaultSuccess, setVaultSuccess]     = useState(false);
-  const [vaultUploadedFilesInfo, setVaultUploadedFilesInfo] = useState<{ name: string; size: string; type: string }[]>([]);
-  const [vaultAnalysisData, setVaultAnalysisData] = useState<{
-    totalDocs: number;
-    extractedSkills: string[];
-    weakAreas: string[];
-    qt1Score: number;
-    atsScore: number;
-    integrityStatus: string;
-    isProvisional: boolean;
-  } | null>(null);
+  const [activeVaultTab, setActiveVaultTab] = useState<'resume' | 'academic' | 'achievements' | 'certifications' | 'analytics'>('resume');
+  const [vaultSlots, setVaultSlots] = useState<VaultDocumentSlot[]>([]);
+  const [isDraggingOverDropzone, setIsDraggingOverDropzone] = useState(false);
+  const [isDraggingOverResume, setIsDraggingOverResume] = useState(false);
 
-  const handleVaultFileUpload = async (filesList: File[] | FileList) => {
+  // Primary anchor name and derived live audit / QT metrics
+  const primaryCandidateName = user?.displayName || (vaultSlots.find(s => s.category === 'resume' && s.candidateName)?.candidateName) || 'Candidate';
+  const identityAuditReport: IdentityAuditReport = auditDocumentCollection(primaryCandidateName, vaultSlots);
+  const liveQTMetrics: LiveQTCalibration = calculateLiveQTMetrics(vaultSlots, identityAuditReport);
+
+  // Upload single document to a target slot
+  const handleUploadToSlot = async (file: File, targetCategory: VaultCategory) => {
+    if (!file) return;
+    setVaultUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('category', targetCategory);
+      formData.append('primaryName', primaryCandidateName);
+
+      const res = await api.post<{ ok: boolean; document: VaultDocumentSlot; storageUrl: string; message: string }>('/api/vault/upload', formData);
+
+      if (res && res.document) {
+        const newDoc = res.document;
+        setVaultSlots(prev => {
+          const singleSlotCategories = ['resume', '10th', '12th_puc', 'sem1', 'sem2', 'sem3', 'sem4', 'sem5', 'sem6', 'sem7', 'sem8'];
+          if (singleSlotCategories.includes(targetCategory)) {
+            return [...prev.filter(d => d.category !== targetCategory), newDoc];
+          }
+          return [...prev.filter(d => d.id !== newDoc.id), newDoc];
+        });
+
+        // Sync with CareerOS context vaultItems
+        const currentVaultItems = cOS.vaultItems || [];
+        const updatedVaultItem = {
+          id: newDoc.id,
+          title: newDoc.title,
+          item_type: targetCategory === 'resume' ? 'resume' : targetCategory === 'certification' ? 'certification' : 'academic',
+          organization_name: newDoc.institution || 'Verified Academic Portal',
+          description: `Uploaded document: ${newDoc.fileName}. Score/GPA: ${newDoc.scoreOrGpa}. Storage: ${newDoc.storageUrl || 'Supabase'}`,
+          verified: newDoc.verificationStatus === 'verified',
+          ai_confidence_score: newDoc.verificationStatus === 'verified' ? 95 : 45,
+          skill_tags: newDoc.skills,
+          is_public: true,
+          used_in_resume: true,
+          used_in_portfolio: targetCategory === 'achievement' || targetCategory === 'certification'
+        };
+        const updatedVaultItems = [...currentVaultItems.filter(v => v.id !== newDoc.id), updatedVaultItem];
+        cOS.setVaultItems(updatedVaultItems);
+        cOS.setResumeGenerated(true);
+
+        const currentSkills = new Set<string>();
+        [...vaultSlots, newDoc].forEach(d => d.skills.forEach(s => currentSkills.add(s)));
+        cOS.generateFusedRoadmap(Array.from(currentSkills), liveQTMetrics.weakAreas);
+
+        if (newDoc.verificationStatus === 'mismatch_warning') {
+          toast.error(
+            '⚠️ Identity Discrepancy Flagged',
+            newDoc.mismatchReason || `Detected name "${newDoc.candidateName}" does not match profile "${primaryCandidateName}".`
+          );
+        } else {
+          toast.success(
+            `✓ ${newDoc.title} Stored in Supabase Vault`,
+            `Extracted: ${newDoc.scoreOrGpa || ''} | Institution: ${newDoc.institution || ''}`
+          );
+        }
+      }
+    } catch (err: any) {
+      console.error('[Vault Slot Upload Error]:', err);
+      toast.error('Upload Error', err.message || 'Failed to upload document to vault.');
+    } finally {
+      setVaultUploading(false);
+    }
+  };
+
+  // Smart Auto-Sort Batch Upload
+  const handleBatchAutoSortUpload = async (filesList: File[] | FileList) => {
     const files = Array.from(filesList);
     if (!files || files.length === 0) return;
     setVaultUploading(true);
-    setVaultSuccess(false);
 
-    try {
-      const processedFilesInfo: { name: string; size: string; type: string }[] = [];
-      const allExtractedSkills = new Set<string>();
-      const allWeakAreas = new Set<string>();
-      const createdVaultItems: any[] = [];
+    let successCount = 0;
+    let mismatchCount = 0;
+    const newUploadedDocs: VaultDocumentSlot[] = [];
 
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        processedFilesInfo.push({
-          name: file.name,
-          size: (file.size / 1024).toFixed(1) + ' KB',
-          type: file.name.endsWith('.pdf') ? 'Resume PDF' : file.name.endsWith('.docx') ? 'Word Document' : 'Text Record'
-        });
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      try {
+        const detectedCat = classifyDocumentCategory(file.name);
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('category', detectedCat);
+        formData.append('primaryName', primaryCandidateName);
 
-        try {
-          const form = new FormData();
-          form.append('resume', file);
-          const res = await api.post<{ ok: boolean; resumeId: string; analysis: any }>('/api/resume/upload', form);
-          const skills = res?.analysis?.skill_tags || ['React', 'Node.js', 'TypeScript', 'Java', 'SQL'];
-          const gaps = res?.analysis?.weak_areas || ['Docker', 'System Design'];
-          skills.forEach((s: string) => allExtractedSkills.add(s));
-          gaps.forEach((g: string) => allWeakAreas.add(g));
-        } catch (err) {
-          if (file.name.toLowerCase().includes('cert') || file.name.toLowerCase().includes('shield')) {
-            ['Docker', 'System Design', 'CI/CD', 'AWS', 'Kubernetes'].forEach(s => allExtractedSkills.add(s));
-          } else if (file.name.toLowerCase().includes('proj') || file.name.toLowerCase().includes('repo')) {
-            ['Git', 'GraphQL', 'Next.js', 'Zustand', 'PostgreSQL'].forEach(s => allExtractedSkills.add(s));
-          } else {
-            ['React', 'Node.js', 'Python', 'TypeScript', 'Java', 'SQL'].forEach(s => allExtractedSkills.add(s));
-            ['System Design', 'Docker', 'CI/CD'].forEach(g => allWeakAreas.add(g));
-          }
+        const res = await api.post<{ ok: boolean; document: VaultDocumentSlot; storageUrl: string }>('/api/vault/upload', formData);
+        if (res && res.document) {
+          const newDoc = res.document;
+          newUploadedDocs.push(newDoc);
+          if (newDoc.verificationStatus === 'mismatch_warning') mismatchCount++;
+          else successCount++;
         }
-
-        createdVaultItems.push({
-          id: 'vault_doc_' + Date.now() + '_' + i,
-          title: file.name,
-          item_type: file.name.toLowerCase().includes('cert') ? 'certification' : 'resume',
-          organization_name: 'Provisional Diagnostic Vault',
-          description: `Uploaded during diagnostic onboarding. Provisional baseline (${(file.size / 1024).toFixed(1)} KB) - Requires Monaco Coding Quest verification.`,
-          verified: false, // Provisional baseline until coding challenge completed
-          ai_confidence_score: 88 + Math.floor(Math.random() * 8),
-          skill_tags: Array.from(allExtractedSkills).slice(0, 5),
-          is_public: true,
-          used_in_resume: true,
-          used_in_portfolio: true
-        });
+      } catch (err) {
+        console.warn('Batch item upload error', err);
       }
+    }
 
-      const extractedSkillsList = Array.from(allExtractedSkills);
-      const weakAreasList = Array.from(allWeakAreas);
-
-      // Calculate cumulative unique files and skills deterministically
-      const map = new Map<string, { name: string; size: string; type: string }>();
-      (vaultUploadedFilesInfo || []).forEach(item => map.set(item.name, item));
-      processedFilesInfo.forEach(item => map.set(item.name, item));
-      const updatedFilesInfo = Array.from(map.values());
-
-      setVaultUploadedFilesInfo(updatedFilesInfo);
-
-      const updatedExtractedSkillsList = Array.from(new Set([
-        ...(vaultAnalysisData?.extractedSkills || []),
-        ...extractedSkillsList
-      ]));
-
-      const updatedWeakAreasList = Array.from(new Set([
-        ...(vaultAnalysisData?.weakAreas || []),
-        ...weakAreasList
-      ]));
-
-      const cumulativeDocCount = updatedFilesInfo.length || (files.length + (vaultAnalysisData?.totalDocs || 0));
-
-      const baseQT1 = 74;
-      const docCountBonus = Math.min(18, cumulativeDocCount * 6);
-      const skillDiversityBonus = Math.min(10, Math.floor(updatedExtractedSkillsList.length * 1.2));
-      const computedQT1Score = Math.min(99, baseQT1 + docCountBonus + skillDiversityBonus);
-      const computedATSScore = Math.min(98, 82 + cumulativeDocCount * 4);
-
-      const existingVaultItems = cOS.vaultItems || [];
-      cOS.setVaultItems([...existingVaultItems, ...createdVaultItems]);
-      cOS.setResumeGenerated(true);
-      cOS.generateFusedRoadmap(updatedExtractedSkillsList, updatedWeakAreasList);
-
-      setVaultAnalysisData({
-        totalDocs: cumulativeDocCount,
-        extractedSkills: updatedExtractedSkillsList,
-        weakAreas: updatedWeakAreasList,
-        qt1Score: computedQT1Score,
-        atsScore: computedATSScore,
-        integrityStatus: 'Authentic Structure (Provisional Baseline - Requires Monaco Code Quest Verification)',
-        isProvisional: true
+    if (newUploadedDocs.length > 0) {
+      setVaultSlots(prev => {
+        let updated = [...prev];
+        newUploadedDocs.forEach(newDoc => {
+          const singleSlotCategories = ['resume', '10th', '12th_puc', 'sem1', 'sem2', 'sem3', 'sem4', 'sem5', 'sem6', 'sem7', 'sem8'];
+          if (singleSlotCategories.includes(newDoc.category)) {
+            updated = [...updated.filter(d => d.category !== newDoc.category), newDoc];
+          } else {
+            updated = [...updated.filter(d => d.id !== newDoc.id), newDoc];
+          }
+        });
+        return updated;
       });
-      setVaultSuccess(true);
 
-      toast.success(
-        `📁 ${files.length} New Document${files.length > 1 ? 's' : ''} Added to Vault!`,
-        `Total Vault Documents: ${cumulativeDocCount}. Cumulative Provisional QT1 Score: ${computedQT1Score}/100.`
+      const currentVaultItems = cOS.vaultItems || [];
+      const newItemsToAdd = newUploadedDocs.map(newDoc => ({
+        id: newDoc.id,
+        title: newDoc.title,
+        item_type: newDoc.category === 'resume' ? 'resume' : newDoc.category === 'certification' ? 'certification' : 'academic',
+        organization_name: newDoc.institution || 'Verified Academic Portal',
+        description: `Uploaded document: ${newDoc.fileName}. Score/GPA: ${newDoc.scoreOrGpa}. Storage: ${newDoc.storageUrl || 'Supabase'}`,
+        verified: newDoc.verificationStatus === 'verified',
+        ai_confidence_score: newDoc.verificationStatus === 'verified' ? 95 : 45,
+        skill_tags: newDoc.skills,
+        is_public: true,
+        used_in_resume: true,
+        used_in_portfolio: newDoc.category === 'achievement' || newDoc.category === 'certification'
+      }));
+      cOS.setVaultItems([...currentVaultItems.filter(v => !newUploadedDocs.some(nd => nd.id === v.id)), ...newItemsToAdd]);
+      cOS.setResumeGenerated(true);
+
+      const allUniqueSkills = new Set<string>();
+      [...vaultSlots, ...newUploadedDocs].forEach(d => d.skills.forEach(s => allUniqueSkills.add(s)));
+      cOS.generateFusedRoadmap(Array.from(allUniqueSkills), liveQTMetrics.weakAreas);
+    }
+
+    setVaultUploading(false);
+    if (mismatchCount > 0) {
+      toast.error(
+        `⚠️ Batch Upload: ${mismatchCount} Identity Mismatch Found`,
+        `Detected differing candidate names. Check the Integrity tab.`
       );
-    } catch (err: any) {
-      toast.error('Vault Upload Error', 'Processing failed for selected files.');
-    } finally {
-      setVaultUploading(false);
+    } else {
+      toast.success(
+        `✨ Auto-Sorted ${files.length} Document${files.length > 1 ? 's' : ''}!`,
+        `Stored in Supabase and categorized into academic, resume, and certification slots.`
+      );
+    }
+  };
+
+  // Delete slot document
+  const handleDeleteSlot = async (slotId: string, storageUrl?: string) => {
+    try {
+      await api.post('/api/vault/delete', { documentId: slotId, storageUrl });
+      setVaultSlots(prev => prev.filter(d => d.id !== slotId));
+      const currentVaultItems = cOS.vaultItems || [];
+      cOS.setVaultItems(currentVaultItems.filter(v => v.id !== slotId));
+      toast.info('Document Removed', 'Vault item deleted from storage and database.');
+    } catch (err) {
+      console.warn('Delete error', err);
+      setVaultSlots(prev => prev.filter(d => d.id !== slotId));
     }
   };
   
@@ -547,7 +617,7 @@ export default function OnboardingPage() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       pingRenderServer();
-      preloadAvatarGLB(['priya', 'anish', 'kashyap', 'karthic']);
+      preloadAvatarGLB(['priya', 'anish']);
       
       const allIdentityQs = [
         ...IDENTITY_QS.map(q => `${q.category}. ${q.text}`),
@@ -590,19 +660,62 @@ export default function OnboardingPage() {
     if (typeof window !== 'undefined') {
       const audio = new Audio('/audio/onboarding_bg.mp3');
       audio.loop = true;
-      audio.volume = 0.12;
+      const initialMuted = ambientAudio.isMuted();
+      setIsBgmMuted(initialMuted);
+      setIsMuted(getAvatarVoiceVolume() === 0);
+
+      const targetVol = initialMuted ? 0 : (ambientAudio.getVolume() || 0.3) * 0.4;
+      audio.volume = targetVol;
       bgMusicRef.current = audio;
 
       const handleFirstInteraction = () => {
-        if (audio.paused) {
+        if (audio.paused && !ambientAudio.isMuted()) {
           audio.play().catch(() => {});
         }
         window.removeEventListener('click', handleFirstInteraction);
       };
       window.addEventListener('click', handleFirstInteraction);
 
+      // Listen to universal volume events from Gear Hub
+      const handleAmbientVolumeChange = (e: any) => {
+        if (typeof e.detail?.volume === 'number' && bgMusicRef.current) {
+          const scaled = e.detail.volume * 0.4;
+          bgMusicRef.current.volume = Math.max(0, Math.min(1, scaled));
+          if (e.detail.volume > 0 && !ambientAudio.isMuted()) {
+            setIsBgmMuted(false);
+            bgMusicRef.current.play().catch(() => {});
+          }
+        }
+      };
+
+      const handleMuteChange = (e: any) => {
+        if (typeof e.detail?.muted === 'boolean') {
+          setIsBgmMuted(e.detail.muted);
+          if (bgMusicRef.current) {
+            if (e.detail.muted) {
+              bgMusicRef.current.pause();
+            } else {
+              bgMusicRef.current.play().catch(() => {});
+            }
+          }
+        }
+      };
+
+      const handleAvatarVolumeChange = (e: any) => {
+        if (typeof e.detail?.volume === 'number') {
+          setIsMuted(e.detail.volume === 0);
+        }
+      };
+
+      window.addEventListener('pc_audio_volume_changed', handleAmbientVolumeChange);
+      window.addEventListener('pc_audio_mute_changed', handleMuteChange);
+      window.addEventListener('pc_avatar_volume_changed', handleAvatarVolumeChange);
+
       return () => {
         window.removeEventListener('click', handleFirstInteraction);
+        window.removeEventListener('pc_audio_volume_changed', handleAmbientVolumeChange);
+        window.removeEventListener('pc_audio_mute_changed', handleMuteChange);
+        window.removeEventListener('pc_avatar_volume_changed', handleAvatarVolumeChange);
         audio.pause();
         audio.src = '';
       };
@@ -660,6 +773,8 @@ export default function OnboardingPage() {
   const [speechState, setSpeechState] = useState<'ready' | 'calibrating' | 'calibrated' | 'recording' | 'recorded'>('ready');
   const [calibrationProgress, setCalibrationProgress] = useState(0);
   const [speechTranscript, setSpeechTranscript] = useState('');
+  const [speechError, setSpeechError] = useState<string | null>(null);
+  const [manualInputMode, setManualInputMode] = useState<boolean>(false);
   const [computedArchetype, setComputedArchetype] = useState('Pattern Hunter');
   const [selectedMentor, setSelectedMentor] = useState<'priya' | 'anish'>('priya');
 
@@ -854,44 +969,26 @@ export default function OnboardingPage() {
         setAnimState('thinking');
         let transcript = '';
         
-        // 1. Try Groq Whisper online STT first for maximum accuracy
+        // 1. Try server-side STT via /api/stt (Groq Whisper runs server-side where env vars work)
         try {
-          const keysStr = process.env.GROQ_API_KEYS || '';
-          let keys = keysStr.split(',').map(k => k.trim()).filter(Boolean);
-          const singleKey = process.env.GROQ_API_KEY;
-          if (singleKey && !keys.includes(singleKey)) {
-            keys.push(singleKey);
-          }
+          const formData = new FormData();
+          formData.append('file', audioBlob, 'speech.webm');
+          formData.append('mimeType', audioBlob.type || 'audio/webm');
 
-          for (const key of keys) {
-            try {
-              const formData = new FormData();
-              formData.append('file', audioBlob, 'speech.webm');
-              formData.append('model', 'whisper-large-v3');
-              formData.append('language', 'en');
+          const res = await fetch('/api/stt', {
+            method: 'POST',
+            body: formData
+          });
 
-              const res = await fetch('https://api.groq.com/openai/v1/audio/transcriptions', {
-                method: 'POST',
-                headers: {
-                  'Authorization': `Bearer ${key}`
-                },
-                body: formData
-              });
-
-              if (res.ok) {
-                const data = await res.json();
-                transcript = (data.text || '').trim();
-                console.log("[Online STT] Transcribed via Groq Whisper:", transcript);
-                break;
-              } else {
-                throw new Error(`Whisper transcription failed: ${res.status}`);
-              }
-            } catch (err: any) {
-              console.warn(`[Online STT Failover] Key failed: ${key.slice(0, 10)}... Error: ${err.message}`);
-            }
+          if (res.ok) {
+            const data = await res.json();
+            transcript = (data.text || '').trim();
+            console.log('[Online STT] Transcribed via /api/stt:', transcript);
+          } else {
+            throw new Error(`STT route returned ${res.status}`);
           }
         } catch (err) {
-          console.warn("[Online STT] Groq Whisper failed or was blocked, falling back to In-Browser Offline Whisper:", err);
+          console.warn('[Online STT] /api/stt failed, falling back to In-Browser Offline Whisper:', err);
         }
 
         // 2. Fallback to In-Browser Offline Whisper STT
@@ -1061,8 +1158,38 @@ export default function OnboardingPage() {
     }
   };
 
-  // ⚡ 1-Click Fast Complete (< 30s)
+  // Resilient onboarding sync with automatic retries and offline localStorage queue
+  const postOnboardingWithRetry = async (payload: any, maxRetries = 3): Promise<boolean> => {
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        await api.post('/api/auth/onboarding', payload);
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem('pinit_pending_onboarding_sync');
+        }
+        return true;
+      } catch (err) {
+        console.warn(`[Onboarding] Remote sync attempt ${attempt}/${maxRetries} failed:`, err);
+        if (attempt < maxRetries) {
+          await new Promise(res => setTimeout(res, 600 * attempt));
+        }
+      }
+    }
+    // Queue payload locally so CareerOSContext reconciles it upon next mount / reload
+    if (typeof window !== 'undefined' && payload) {
+      try {
+        localStorage.setItem('pinit_pending_onboarding_sync', JSON.stringify(payload));
+        console.log('[Onboarding] 📦 Queued unsynced onboarding payload locally for background reconciliation.');
+      } catch {}
+    }
+    return false;
+  };
+
+  // ⚡ 1-Click Fast Complete (< 30s) — Administrator / QA Testing Only
   const handleFastComplete = async () => {
+    if (user?.role !== 'admin') {
+      toast.error('Restricted Action', 'Fast-complete is restricted to platform administrators for testing.');
+      return;
+    }
     stopAvatarSpeaking();
     clearSpeechTimers();
     setSyncing(true);
@@ -1090,14 +1217,14 @@ export default function OnboardingPage() {
           learningStyle: "Writing code hands-on",
           weeklyHours: "10 hours per week",
           accessReason: "To close skill gaps & earn XP",
-          qt1_score: 80,
-          qt2_score: 85,
+          qt1_score: liveQTMetrics.qt1Score || 80,
+          qt2_score: liveQTMetrics.qt2Score || 85,
           mindset_archetype: "Pattern Hunter"
         },
         roadmapGenerated: true
       };
 
-      await api.post('/api/auth/onboarding', payload);
+      await postOnboardingWithRetry(payload);
 
       cOS.setOnboarding({
         role: defaultRole,
@@ -1315,14 +1442,14 @@ export default function OnboardingPage() {
       setSyncStatus('Activating Command Center dashboard...');
 
       try {
-        // Calculate QT1 and QT2 scores deterministically based on user onboarding choices
-        const baseCodingScore = codingExperience === 'Advanced Coder' ? 88 : codingExperience === 'Intermediate Coder' ? 75 : 62;
-        const csBonus = profileType.includes('Computer Science') ? 8 : 4;
-        const hoursBonus = weeklyHours.includes('15+') ? 4 : weeklyHours.includes('10') ? 2 : 1;
-        const computedQT1 = Math.min(98, baseCodingScore + csBonus + hoursBonus);
+        // Calculate initial unverified QT1 and QT2 baseline scores (capped to entry level prior to live practical quests)
+        const baseCodingScore = codingExperience === 'Advanced Coder' ? 42 : codingExperience === 'Intermediate Coder' ? 36 : 28;
+        const csBonus = profileType.includes('Computer Science') ? 6 : 2;
+        const hoursBonus = weeklyHours.includes('15+') ? 2 : 1;
+        const computedQT1 = Math.max(liveQTMetrics.qt1Score, Math.min(50, baseCodingScore + csBonus + hoursBonus));
         
-        const styleScore = learningStyle.includes('hands-on') ? 85 : learningStyle.includes('articles') ? 78 : 72;
-        const computedQT2 = Math.min(99, styleScore + (codingExperience === 'Advanced Coder' ? 10 : 5));
+        const styleScore = learningStyle.includes('hands-on') ? 45 : learningStyle.includes('articles') ? 40 : 35;
+        const computedQT2 = Math.min(60, Math.round((styleScore + (codingExperience === 'Advanced Coder' ? 8 : 4)) * (identityAuditReport.trustScore / 100)));
 
         const finalUserGoal = (speechTranscript && speechTranscript.trim().length > 5 ? speechTranscript.trim() : targetGoal) || targetRoleLabel;
 
@@ -1355,42 +1482,13 @@ export default function OnboardingPage() {
         };
 
         try {
-          await api.post('/api/auth/onboarding', payload);
-          await refresh();
+          await postOnboardingWithRetry(payload);
+          await refresh().catch(() => {});
         } catch (err) {
           console.error("Onboarding sync failure", err);
         }
 
-        // Seed simulated Vault items in local storage
-        const dummyVaultItems = [
-          {
-            id: 'vault_resume_' + Date.now(),
-            title: 'Professional Software Engineer Resume',
-            item_type: 'resume',
-            organization_name: 'Verified PDF Portal',
-            description: 'Extracted skills: React, TypeScript, Node.js, SQL. Initial experience rating: Intern/Junior SDE.',
-            verified: true,
-            ai_confidence_score: 92,
-            skill_tags: ['React', 'TypeScript', 'Node.js', 'SQL'],
-            is_public: true,
-            used_in_resume: true,
-            used_in_portfolio: true
-          },
-          {
-            id: 'vault_cert_' + Date.now(),
-            title: 'Sentinel Cryptographic Systems Certification',
-            item_type: 'certification',
-            organization_name: 'Sentinel Academic Registry',
-            description: 'Credential demonstrating capability in cloud services and secure routing.',
-            verified: true,
-            ai_confidence_score: 95,
-            skill_tags: ['Docker', 'System Design', 'CI/CD'],
-            is_public: true,
-            used_in_resume: true,
-            used_in_portfolio: false
-          }
-        ];
-        cOS.setVaultItems(dummyVaultItems);
+        // Vault stays as-is — empty vault shows empty, no fabricated credentials
         
         // Sync context state locally — always launch even if live users INSERT is blocked by RLS
         cOS.setOnboarding({
@@ -1508,9 +1606,9 @@ export default function OnboardingPage() {
         formData.append('trajectory', trajectory);
         await api.post('/api/resume/upload', formData);
 
-        // Save Auth profile onboarding answers with deterministic QT1/QT2 evaluation
-        const computedQT1 = Math.min(98, (degree.includes('CS') || degree.includes('Computer')) ? 82 : 75);
-        const computedQT2 = Math.min(99, 80 + (skillsList.split(',').length * 2));
+        // Initial baseline QT1/QT2 evaluation (unverified entry level capped at 45/50 prior to live practical quests)
+        const computedQT1 = (degree.includes('CS') || degree.includes('Computer')) ? 45 : 38;
+        const computedQT2 = 50;
 
         const expressGoal = `Become a successful ${trajectoryLabel} in the industry.`;
         const payload = {
@@ -1532,29 +1630,13 @@ export default function OnboardingPage() {
         };
 
         try {
-          await api.post('/api/auth/onboarding', payload);
-          await refresh();
+          await postOnboardingWithRetry(payload);
+          await refresh().catch(() => {});
         } catch (err) {
           console.error('Express onboarding failure', err);
         }
 
-        // Seed simulated Vault items in local storage
-        const dummyVaultItems = [
-          {
-            id: 'vault_resume_' + Date.now(),
-            title: uploadedFile ? uploadedFile.name : 'Uploaded Resume.pdf',
-            item_type: 'resume',
-            organization_name: college || 'Verified Academic Portal',
-            description: `Extracted skills: ${skillsList}. Initial experience rating: Fresher.`,
-            verified: true,
-            ai_confidence_score: 89,
-            skill_tags: skillsList.split(',').map(s => s.trim()),
-            is_public: true,
-            used_in_resume: true,
-            used_in_portfolio: true
-          }
-        ];
-        cOS.setVaultItems(dummyVaultItems);
+        // Vault stays as-is — if user uploaded a file the real pipeline handles it, no fabricated credentials
 
         cOS.setOnboarding({
           role: trajectoryLabel,
@@ -1655,18 +1737,18 @@ export default function OnboardingPage() {
       style={{
         height: '100vh',
         background: '#030508',
-        color: '#f8fafc',
+        color: 'var(--text)',
         display: 'flex',
         flexDirection: 'column',
         position: 'relative',
         overflow: 'hidden',
         fontFamily: 'var(--font-body), sans-serif',
         // Force readable light text even if the site theme is light.
-        ['--t1' as any]: '#f8fafc',
+        ['--t1' as any]: 'var(--text)',
         ['--t2' as any]: '#e2e8f0',
-        ['--t3' as any]: '#94a3b8',
-        ['--t4' as any]: '#64748b',
-        ['--card' as any]: '#f8fafc',
+        ['--t3' as any]: 'var(--text-muted)',
+        ['--t4' as any]: 'var(--text-dim)',
+        ['--card' as any]: 'var(--text)',
         ['--bg3' as any]: '#f1f5f9',
         ['--border2' as any]: '#cbd5e1',
       }}
@@ -1674,10 +1756,10 @@ export default function OnboardingPage() {
       
       {/* Preload VRoid avatar in background by overlaying mentor selection */}
       {activeScreen === 'CHOOSE_GUIDE' && (
-        <div style={{ position: 'fixed', inset: 0, zIndex: 100, background: '#030508', color: '#f1f5f9', display: 'flex', flexDirection: 'column', overflowY: 'auto', padding: '60px 24px' }}>
+        <div style={{ position: 'fixed', inset: 0, zIndex: 100, background: '#030508', color: 'var(--text)', display: 'flex', flexDirection: 'column', overflowY: 'auto', padding: '60px 24px' }}>
           {/* Dynamic Background Mesh Orbits */}
-          <div style={{ position: 'absolute', top: '-10%', left: '-10%', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(79,70,229,0.1) 0%, transparent 70%)', filter: 'blur(80px)', pointerEvents: 'none' }} />
-          <div style={{ position: 'absolute', bottom: '-10%', right: '-10%', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(6,182,212,0.06) 0%, transparent 70%)', filter: 'blur(80px)', pointerEvents: 'none' }} />
+          <div style={{ position: 'absolute', top: '-10%', left: '-10%', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(var(--brand-rgb),0.1) 0%, transparent 70%)', filter: 'blur(80px)', pointerEvents: 'none' }} />
+          <div style={{ position: 'absolute', bottom: '-10%', right: '-10%', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(var(--accent-cyan-rgb),0.06) 0%, transparent 70%)', filter: 'blur(80px)', pointerEvents: 'none' }} />
 
           <div style={{ maxWidth: '95%', width: '95%', margin: '0 auto', zIndex: 10, textAlign: 'center' }}>
             {/* Logo Header */}
@@ -1691,7 +1773,7 @@ export default function OnboardingPage() {
               <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '2px', fontWeight: 700, display: 'block', marginBottom: 12 }}>
                 Staging Environment Setup
               </span>
-              <h1 style={{ fontSize: '2.5rem', fontWeight: 900, letterSpacing: '-1.5px', color: '#f8fafc', marginBottom: 16 }}>
+              <h1 style={{ fontSize: '2.5rem', fontWeight: 900, letterSpacing: '-1.5px', color: 'var(--text)', marginBottom: 16 }}>
                 Choose Your Guidance Mentor
               </h1>
               <p style={{ fontSize: 15, color: 'var(--t3)', maxWidth: 600, margin: '0 auto', lineHeight: 1.6, marginBottom: 16 }}>
@@ -1702,7 +1784,7 @@ export default function OnboardingPage() {
                   type="button"
                   onClick={() => setShowVaultModal(true)}
                   style={{
-                    background: 'linear-gradient(135deg, #6366f1 0%, var(--accent) 100%)',
+                    background: 'linear-gradient(135deg, var(--brand) 0%, var(--accent) 100%)',
                     border: 'none',
                     borderRadius: 100,
                     color: 'var(--card)',
@@ -1713,7 +1795,7 @@ export default function OnboardingPage() {
                     display: 'flex',
                     alignItems: 'center',
                     gap: 6,
-                    boxShadow: '0 4px 16px rgba(99, 102, 241, 0.4)',
+                    boxShadow: '0 4px 16px rgba(var(--brand-rgb), 0.4)',
                     transition: 'transform 0.15s ease'
                   }}
                   onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.03)'}
@@ -1721,36 +1803,38 @@ export default function OnboardingPage() {
                 >
                   📁 Vault (Upload Resume & Docs)
                 </button>
-                <button
-                  type="button"
-                  onClick={handleFastComplete}
-                  disabled={syncing}
-                  style={{
-                    background: 'linear-gradient(135deg, var(--green) 0%, var(--green) 100%)',
-                    border: 'none',
-                    borderRadius: 100,
-                    color: 'var(--card)',
-                    fontSize: 12,
-                    fontWeight: 800,
-                    padding: '8px 20px',
-                    cursor: syncing ? 'not-allowed' : 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 6,
-                    boxShadow: '0 4px 16px rgba(16, 185, 129, 0.4)',
-                    transition: 'transform 0.15s ease'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.03)'}
-                  onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                >
-                  ⚡ 1-Click Fast Complete (&lt; 30 Seconds)
-                </button>
+                {user?.role === 'admin' && (
+                  <button
+                    type="button"
+                    onClick={handleFastComplete}
+                    disabled={syncing}
+                    style={{
+                      background: 'linear-gradient(135deg, var(--green) 0%, var(--green) 100%)',
+                      border: 'none',
+                      borderRadius: 100,
+                      color: 'var(--card)',
+                      fontSize: 12,
+                      fontWeight: 800,
+                      padding: '8px 20px',
+                      cursor: syncing ? 'not-allowed' : 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 6,
+                      boxShadow: '0 4px 16px rgba(var(--success-rgb), 0.4)',
+                      transition: 'transform 0.15s ease'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.03)'}
+                    onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                  >
+                    ⚡ 1-Click Fast Complete (Admin Dev)
+                  </button>
+                )}
                 <div style={{
                   fontSize: 11,
                   fontFamily: 'var(--font-mono)',
                   color: 'var(--teal)',
-                  background: 'rgba(20, 184, 166, 0.1)',
-                  border: '1px solid rgba(20, 184, 166, 0.25)',
+                  background: 'rgba(var(--accent-teal-rgb), 0.1)',
+                  border: '1px solid rgba(var(--accent-teal-rgb), 0.25)',
                   borderRadius: 100,
                   padding: '6px 14px',
                   display: 'flex',
@@ -1762,175 +1846,908 @@ export default function OnboardingPage() {
                 </div>
               </div>
 
-              {/* Vault Onboarding Modal Overlay */}
+              {/* Candidate Secure Vault 2.0 Modal Overlay */}
               {showVaultModal && (
-                <div style={{
-                  position: 'fixed',
-                  inset: 0,
-                  zIndex: 200,
-                  background: 'rgba(3, 7, 18, 0.85)',
-                  backdropFilter: 'blur(12px)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: 24
-                }}>
+                <div
+                  onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); e.dataTransfer.dropEffect = 'copy'; }}
+                  onDrop={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+                      handleBatchAutoSortUpload(e.dataTransfer.files);
+                    }
+                  }}
+                  style={{
+                    position: 'fixed',
+                    inset: 0,
+                    zIndex: 200,
+                    background: 'rgba(2, 6, 19, 0.88)',
+                    backdropFilter: 'blur(24px)',
+                    WebkitBackdropFilter: 'blur(24px)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '20px 16px'
+                  }}
+                >
                   <div style={{
-                    background: 'var(--bg2, #0b0f19)',
-                    border: '1px solid var(--border, #1f2937)',
+                    background: 'radial-gradient(130% 130% at 50% 0%, #111827 0%, #090d16 55%, #030712 100%)',
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
                     borderRadius: 24,
-                    padding: 32,
-                    maxWidth: 540,
-                    width: '100%',
-                    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7)',
+                    padding: '28px 36px',
+                    maxWidth: 1080,
+                    width: '95vw',
+                    maxHeight: '92vh',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    boxShadow: '0 32px 80px -20px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(255, 255, 255, 0.05), 0 0 60px rgba(var(--brand-rgb), 0.12)',
                     textAlign: 'left',
-                    color: 'var(--t1)'
+                    color: 'var(--text)',
+                    overflow: 'hidden'
                   }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                        <span style={{ fontSize: 24 }}>📁</span>
+                    {/* Header */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18, borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: 16 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                        <div style={{
+                          width: 48,
+                          height: 48,
+                          borderRadius: 14,
+                          background: 'linear-gradient(135deg, rgba(var(--brand-rgb),0.3) 0%, rgba(var(--accent-teal-rgb),0.2) 100%)',
+                          border: '1px solid rgba(var(--brand-rgb),0.5)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: 24,
+                          boxShadow: '0 0 24px rgba(var(--brand-rgb),0.25)'
+                        }}>
+                          📁
+                        </div>
                         <div>
-                          <h3 style={{ fontSize: 18, fontWeight: 800, margin: 0, color: 'var(--card)' }}>Candidate Secure Vault</h3>
-                          <span style={{ fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>Upload Resumes & Documents for QT1 Calibration</span>
-                        </div>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => setShowVaultModal(false)}
-                        style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 20, cursor: 'pointer' }}
-                      >
-                        ✕
-                      </button>
-                    </div>
-
-                    <div style={{
-                      border: '2px dashed rgba(99, 102, 241, 0.4)',
-                      borderRadius: 16,
-                      padding: '30px 20px',
-                      textAlign: 'center',
-                      background: 'rgba(99, 102, 241, 0.05)',
-                      marginBottom: 20,
-                      cursor: 'pointer'
-                    }}
-                    onDragOver={(e) => e.preventDefault()}
-                    onDrop={(e) => {
-                      e.preventDefault();
-                      if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-                        handleVaultFileUpload(e.dataTransfer.files);
-                      }
-                    }}
-                    onClick={() => {
-                      const input = document.createElement('input');
-                      input.type = 'file';
-                      input.multiple = true;
-                      input.accept = '.pdf,.docx,.txt';
-                      input.onchange = (e: any) => {
-                        const files = e.target?.files;
-                        if (files && files.length > 0) handleVaultFileUpload(files);
-                      };
-                      input.click();
-                    }}
-                    >
-                      <div style={{ fontSize: 36, marginBottom: 10 }}>📁</div>
-                      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--card)', marginBottom: 6 }}>
-                        {vaultUploading ? '⏳ Batch Uploading & Analyzing Documents...' : 'Drag & drop or Click to Select Multiple Documents'}
-                      </div>
-                      <div style={{ fontSize: 11.5, color: 'var(--t3)' }}>
-                        Supports selecting multiple Resumes, Certifications, Project Reports & Transcripts at once. Builds comprehensive QT1 mastery profile.
-                      </div>
-                    </div>
-
-                    {vaultSuccess && vaultAnalysisData && (
-                      <div style={{
-                        padding: '16px 20px',
-                        background: 'rgba(16, 185, 129, 0.06)',
-                        border: '1px solid rgba(16, 185, 129, 0.25)',
-                        borderRadius: 16,
-                        color: 'var(--t1)',
-                        fontSize: 12.5,
-                        marginBottom: 20
-                      }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-                          <span style={{ fontWeight: 800, color: '#34d399', fontSize: 13 }}>
-                            ✓ {vaultAnalysisData.totalDocs} Document{vaultAnalysisData.totalDocs > 1 ? 's' : ''} Processed
-                          </span>
-                          <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', background: 'rgba(16, 185, 129, 0.2)', color: '#34d399', padding: '3px 8px', borderRadius: 8, fontWeight: 800 }}>
-                            Provisional QT1: {vaultAnalysisData.qt1Score}/100
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                            <h3 style={{ fontSize: 21, fontWeight: 900, margin: 0, color: 'var(--text)', letterSpacing: '-0.02em' }}>Candidate Secure Vault 2.0</h3>
+                            <span style={{
+                              fontSize: 10,
+                              background: 'rgba(var(--success-rgb), 0.15)',
+                              color: 'var(--success-bright)',
+                              border: '1px solid rgba(var(--success-rgb), 0.35)',
+                              padding: '2px 9px',
+                              borderRadius: 100,
+                              fontWeight: 800,
+                              fontFamily: 'var(--font-mono)',
+                              letterSpacing: '0.5px',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: 5
+                            }}>
+                              <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--success-bright)', boxShadow: '0 0 6px var(--success-bright)' }} />
+                              SUPABASE SYNCED
+                            </span>
+                          </div>
+                          <span style={{ fontSize: 12.5, color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', display: 'block', marginTop: 3 }}>
+                            Multi-Tier Academic & Identity Verification Engine • Anti-Fraud Sentinel Cross-Check
                           </span>
                         </div>
-
-                        {/* Files list */}
-                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 12 }}>
-                          {vaultUploadedFilesInfo.map((f, i) => (
-                            <div key={i} style={{ fontSize: 11, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 6, padding: '3px 8px', color: 'var(--border2)', fontFamily: 'var(--font-mono)' }}>
-                              📄 {f.name} ({f.size})
+                      </div>
+                      
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                        {/* Live Score Chips */}
+                        <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+                          <div style={{
+                            background: vaultSlots.length > 0 ? 'rgba(var(--brand-rgb), 0.15)' : 'rgba(15, 23, 42, 0.65)',
+                            border: vaultSlots.length > 0 ? '1px solid rgba(var(--brand-rgb), 0.45)' : '1px solid rgba(255, 255, 255, 0.08)',
+                            borderRadius: 12,
+                            padding: '6px 14px',
+                            minWidth: 105,
+                            textAlign: 'center',
+                            boxShadow: vaultSlots.length > 0 ? '0 0 15px rgba(var(--brand-rgb), 0.15)' : 'none'
+                          }}>
+                            <div style={{ fontSize: 9.5, fontFamily: 'var(--font-mono)', color: vaultSlots.length > 0 ? 'var(--brand-bright)' : 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.5px', fontWeight: 700 }}>Provisional QT1</div>
+                            <div style={{ fontSize: 16, fontWeight: 900, color: vaultSlots.length > 0 ? 'var(--brand-bright)' : 'var(--text-muted)' }}>
+                              {vaultSlots.length > 0 ? `${liveQTMetrics.qt1Score}/100` : '-- / 100'}
                             </div>
-                          ))}
-                        </div>
+                            <div style={{ fontSize: 8.5, color: 'var(--text-dim)', fontFamily: 'var(--font-mono)', marginTop: 1 }}>
+                              {vaultSlots.length > 0 ? 'Live Calibrated' : 'Awaiting Uploads'}
+                            </div>
+                          </div>
 
-                        {/* Extracted skills */}
-                        <div style={{ marginBottom: 12 }}>
-                          <div style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: 'var(--t3)', textTransform: 'uppercase', marginBottom: 6 }}>Extracted Skill Nodes:</div>
-                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
-                            {vaultAnalysisData.extractedSkills.map(s => (
-                              <span key={s} style={{ fontSize: 10.5, background: 'rgba(99, 102, 241, 0.15)', color: '#a5b4fc', border: '1px solid rgba(99, 102, 241, 0.3)', borderRadius: 4, padding: '2px 6px', fontWeight: 700 }}>
-                                {s} <span style={{ fontSize: 9, opacity: 0.7 }}>(Baseline)</span>
-                              </span>
-                            ))}
+                          <div style={{
+                            background: vaultSlots.length > 0 ? (identityAuditReport.mismatchCount > 0 ? 'rgba(var(--danger-rgb), 0.15)' : 'rgba(var(--accent-teal-rgb), 0.15)') : 'rgba(15, 23, 42, 0.65)',
+                            border: vaultSlots.length > 0 ? (identityAuditReport.mismatchCount > 0 ? '1px solid rgba(var(--danger-rgb), 0.45)' : '1px solid rgba(var(--accent-teal-rgb), 0.45)') : '1px solid rgba(255, 255, 255, 0.08)',
+                            borderRadius: 12,
+                            padding: '6px 14px',
+                            minWidth: 105,
+                            textAlign: 'center',
+                            boxShadow: vaultSlots.length > 0 ? (identityAuditReport.mismatchCount > 0 ? '0 0 15px rgba(var(--danger-rgb), 0.15)' : '0 0 15px rgba(var(--accent-teal-rgb), 0.15)') : 'none'
+                          }}>
+                            <div style={{ fontSize: 9.5, fontFamily: 'var(--font-mono)', color: vaultSlots.length > 0 ? (identityAuditReport.mismatchCount > 0 ? 'var(--danger-bright)' : 'var(--accent-teal)') : 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.5px', fontWeight: 700 }}>Integrity QT2</div>
+                            <div style={{ fontSize: 16, fontWeight: 900, color: vaultSlots.length > 0 ? (identityAuditReport.mismatchCount > 0 ? 'var(--danger-bright)' : 'var(--accent-teal)') : 'var(--text-muted)' }}>
+                              {vaultSlots.length > 0 ? `${liveQTMetrics.qt2Score}/100` : '-- / 100'}
+                            </div>
+                            <div style={{ fontSize: 8.5, color: 'var(--text-dim)', fontFamily: 'var(--font-mono)', marginTop: 1 }}>
+                              {vaultSlots.length > 0 ? (identityAuditReport.mismatchCount > 0 ? 'Mismatch Flag' : `Trust ${identityAuditReport.trustScore}%`) : '0 Docs Verified'}
+                            </div>
                           </div>
                         </div>
 
-                        {/* Audit verification tag */}
-                        <div style={{ fontSize: 10.5, fontFamily: 'var(--font-mono)', color: '#a5b4fc', background: 'rgba(99, 102, 241, 0.1)', padding: '6px 10px', borderRadius: 8, border: '1px solid rgba(99, 102, 241, 0.2)' }}>
-                          🛡️ Audit Status: {vaultAnalysisData.integrityStatus}
+                        <button
+                          type="button"
+                          onClick={() => setShowVaultModal(false)}
+                          style={{
+                            background: 'rgba(255,255,255,0.06)',
+                            border: '1px solid rgba(255,255,255,0.12)',
+                            borderRadius: 10,
+                            color: 'var(--text-muted)',
+                            width: 36,
+                            height: 36,
+                            fontSize: 16,
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            transition: 'all 0.15s ease'
+                          }}
+                          onMouseEnter={(e) => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.background = 'rgba(255,255,255,0.12)'; }}
+                          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-muted)'; e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; }}
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Identity Conflict Alert Banner (If Mismatch Detected) */}
+                    {identityAuditReport.mismatchCount > 0 && (
+                      <div style={{
+                        background: 'linear-gradient(135deg, rgba(var(--danger-rgb), 0.15) 0%, rgba(185, 28, 28, 0.1) 100%)',
+                        border: '1px solid rgba(var(--danger-rgb), 0.45)',
+                        borderRadius: 16,
+                        padding: '14px 18px',
+                        marginBottom: 16,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 10
+                      }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                          <span style={{ fontSize: 20 }}>⚠️</span>
+                          <div>
+                            <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--danger-bright)' }}>
+                              Identity Discrepancy Detected ({identityAuditReport.mismatchCount} Conflicting Document{identityAuditReport.mismatchCount > 1 ? 's' : ''})
+                            </span>
+                            <span style={{ fontSize: 11.5, color: 'var(--danger-bright)', display: 'block', marginTop: 2 }}>
+                              Documents with names different from primary candidate profile ("{primaryCandidateName}") were flagged. CareerOS maintains 100% academic trust.
+                            </span>
+                          </div>
+                        </div>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                          {identityAuditReport.conflictingDocuments.map(conf => (
+                            <div key={conf.slotId} style={{ background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(var(--danger-rgb),0.35)', borderRadius: 8, padding: '6px 12px', fontSize: 11.5, display: 'flex', alignItems: 'center', gap: 10 }}>
+                              <span>📄 <strong>{conf.fileName}</strong> (Detected: "{conf.detectedName}")</span>
+                              <button
+                                type="button"
+                                onClick={() => handleDeleteSlot(conf.slotId)}
+                                style={{ background: 'var(--danger)', color: 'var(--text)', border: 'none', borderRadius: 6, padding: '3px 8px', fontSize: 10.5, fontWeight: 800, cursor: 'pointer' }}
+                              >
+                                🗑️ Remove Discrepant Doc
+                              </button>
+                            </div>
+                          ))}
                         </div>
                       </div>
                     )}
 
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      {vaultSuccess && (
+                    {/* Auto-Sort Dropzone */}
+                    <div
+                      style={{
+                        border: isDraggingOverDropzone ? '2px dashed var(--info-bright)' : '1.5px dashed rgba(var(--brand-rgb), 0.45)',
+                        borderRadius: 16,
+                        padding: '16px 24px',
+                        background: isDraggingOverDropzone ? 'rgba(var(--info-rgb), 0.12)' : 'linear-gradient(135deg, rgba(var(--brand-rgb), 0.08) 0%, rgba(var(--accent-teal-rgb), 0.04) 100%)',
+                        marginBottom: 16,
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        gap: 20,
+                        transition: 'all 0.2s ease',
+                        boxShadow: isDraggingOverDropzone ? '0 0 25px rgba(var(--info-rgb), 0.25)' : 'none'
+                      }}
+                      onDragEnter={(e) => { e.preventDefault(); e.stopPropagation(); setIsDraggingOverDropzone(true); }}
+                      onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); e.dataTransfer.dropEffect = 'copy'; setIsDraggingOverDropzone(true); }}
+                      onDragLeave={(e) => { e.preventDefault(); e.stopPropagation(); setIsDraggingOverDropzone(false); }}
+                      onDrop={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setIsDraggingOverDropzone(false);
+                        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+                          handleBatchAutoSortUpload(e.dataTransfer.files);
+                        }
+                      }}
+                      onClick={() => {
+                        const input = document.createElement('input');
+                        input.type = 'file';
+                        input.multiple = true;
+                        input.accept = '.pdf,.docx,.txt,application/pdf';
+                        input.onchange = (e: any) => {
+                          const files = e.target?.files;
+                          if (files && files.length > 0) handleBatchAutoSortUpload(files);
+                        };
+                        input.click();
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 14, pointerEvents: 'none' }}>
+                        <div style={{ width: 42, height: 42, borderRadius: 12, background: isDraggingOverDropzone ? 'rgba(var(--info-rgb), 0.25)' : 'rgba(var(--brand-rgb), 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, border: '1px solid rgba(var(--brand-rgb),0.3)' }}>
+                          {isDraggingOverDropzone ? '📥' : '✨'}
+                        </div>
+                        <div style={{ textAlign: 'left' }}>
+                          <div style={{ fontSize: 13.5, fontWeight: 800, color: isDraggingOverDropzone ? 'var(--info-bright)' : 'var(--text)' }}>
+                            {vaultUploading ? '⏳ Uploading & Extracting Real Metadata via Supabase...' : isDraggingOverDropzone ? '⚡ Drop Files Here to Auto-Sort & Sync to Vault!' : 'Smart Auto-Sort Batch Dropzone (Drop Multiple Documents)'}
+                          </div>
+                          <div style={{ fontSize: 11.5, color: 'var(--text-muted)', marginTop: 2 }}>
+                            Drag & drop or click to upload 10th, 12th, Sem 1-8 marksheets, Resumes & Certifications. Engine auto-routes to right slots.
+                          </div>
+                        </div>
+                      </div>
+                      <div style={{
+                        background: 'linear-gradient(135deg, rgba(var(--brand-rgb), 0.3) 0%, rgba(var(--brand-rgb), 0.15) 100%)',
+                        border: '1px solid rgba(var(--brand-rgb), 0.5)',
+                        borderRadius: 10,
+                        padding: '9px 20px',
+                        fontSize: 12,
+                        fontWeight: 800,
+                        color: '#e0e7ff',
+                        whiteSpace: 'nowrap',
+                        boxShadow: '0 2px 10px rgba(var(--brand-rgb),0.25)',
+                        pointerEvents: 'none'
+                      }}>
+                        Browse Files
+                      </div>
+                    </div>
+
+                    {/* Live Extracted Skills & Document Intelligence Bar (When docs are uploaded) */}
+                    {vaultSlots.length > 0 && (
+                      <div style={{
+                        padding: '14px 18px',
+                        background: 'linear-gradient(135deg, rgba(var(--success-rgb), 0.08) 0%, rgba(var(--brand-rgb), 0.06) 100%)',
+                        border: '1px solid rgba(var(--success-rgb), 0.28)',
+                        borderRadius: 14,
+                        color: 'var(--text)',
+                        fontSize: 12.5,
+                        marginBottom: 16,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 8
+                      }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <span style={{ fontWeight: 800, color: 'var(--success-bright)', fontSize: 13 }}>
+                            ✓ {vaultSlots.length} Document{vaultSlots.length > 1 ? 's' : ''} Processed & Synchronized
+                          </span>
+                          <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', background: 'rgba(var(--success-rgb), 0.18)', color: 'var(--success-bright)', padding: '3px 9px', borderRadius: 8, fontWeight: 800 }}>
+                            {liveQTMetrics.integrityLevel}
+                          </span>
+                        </div>
+
+                        {/* Extracted skills nodes */}
+                        {liveQTMetrics.extractedSkills.length > 0 && (
+                          <div>
+                            <div style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: 6, fontWeight: 700 }}>
+                              Document-Supported Skill Nodes ({liveQTMetrics.extractedSkills.length}):
+                            </div>
+                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                              {liveQTMetrics.extractedSkills.map(s => (
+                                <span key={s} style={{ fontSize: 11, background: 'rgba(var(--brand-rgb), 0.16)', color: 'var(--brand-bright)', border: '1px solid rgba(var(--brand-rgb), 0.35)', borderRadius: 6, padding: '3px 9px', fontWeight: 700 }}>
+                                  {s} <span style={{ fontSize: 9.5, color: 'var(--info-bright)', marginLeft: 2 }}>(Supported)</span>
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Category Navigation Tabs */}
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(5, 1fr)',
+                      gap: 8,
+                      background: 'rgba(15, 23, 42, 0.6)',
+                      border: '1px solid rgba(255, 255, 255, 0.08)',
+                      borderRadius: 14,
+                      padding: 6,
+                      marginBottom: 16
+                    }}>
+                      {[
+                        { id: 'resume', label: '📄 Master Resume', badge: vaultSlots.filter(s => s.category === 'resume').length },
+                        { id: 'academic', label: '🎓 Academic Ledger', badge: vaultSlots.filter(s => s.category.startsWith('sem') || s.category === '10th' || s.category === '12th_puc').length },
+                        { id: 'achievements', label: '🏆 Achievements', badge: vaultSlots.filter(s => s.category === 'achievement').length },
+                        { id: 'certifications', label: '📜 Certifications', badge: vaultSlots.filter(s => s.category === 'certification').length },
+                        { id: 'analytics', label: '📊 QT Analytics', badge: vaultSlots.length === 0 ? 'Awaiting Data' : `${identityAuditReport.identityConsistencyPercentage}% Match` },
+                      ].map(tab => (
+                        <button
+                          key={tab.id}
+                          type="button"
+                          onClick={() => setActiveVaultTab(tab.id as any)}
+                          style={{
+                            background: activeVaultTab === tab.id ? 'linear-gradient(135deg, rgba(var(--brand-rgb), 0.3) 0%, rgba(var(--info-rgb), 0.18) 100%)' : 'transparent',
+                            border: activeVaultTab === tab.id ? '1px solid rgba(var(--brand-rgb), 0.55)' : '1px solid transparent',
+                            color: activeVaultTab === tab.id ? '#ffffff' : 'var(--text-muted)',
+                            padding: '9px 8px',
+                            borderRadius: 10,
+                            fontSize: 12,
+                            fontWeight: 700,
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: 6,
+                            whiteSpace: 'nowrap',
+                            transition: 'all 0.15s ease',
+                            boxShadow: activeVaultTab === tab.id ? '0 4px 16px rgba(var(--brand-rgb),0.25)' : 'none'
+                          }}
+                        >
+                          <span>{tab.label}</span>
+                          <span style={{
+                            fontSize: 10,
+                            background: activeVaultTab === tab.id ? 'rgba(var(--brand-rgb),0.45)' : 'rgba(255,255,255,0.06)',
+                            color: activeVaultTab === tab.id ? '#ffffff' : 'var(--text-dim)',
+                            padding: '2px 7px',
+                            borderRadius: 100,
+                            fontFamily: 'var(--font-mono)',
+                            fontWeight: 800
+                          }}>
+                            {tab.badge}
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* Tab Body Contents */}
+                    <div style={{
+                      flex: 1,
+                      minHeight: 330,
+                      maxHeight: '48vh',
+                      overflowY: 'auto',
+                      paddingRight: 6
+                    }}>
+                      
+                      {/* TAB 1: ACADEMIC LEDGER */}
+                      {activeVaultTab === 'academic' && (
+                        <div>
+                          {/* 10th and 12th/PUC Header Grid */}
+                          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 18 }}>
+                            {/* 10th Slot */}
+                            {(() => {
+                              const doc10th = vaultSlots.find(s => s.category === '10th');
+                              return (
+                                <div
+                                  onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); e.dataTransfer.dropEffect = 'copy'; }}
+                                  onDrop={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    if (e.dataTransfer.files?.[0]) handleUploadToSlot(e.dataTransfer.files[0], '10th');
+                                  }}
+                                  style={{
+                                    background: doc10th ? 'rgba(var(--brand-rgb), 0.06)' : 'rgba(255,255,255,0.02)',
+                                    border: doc10th?.verificationStatus === 'mismatch_warning' ? '1px solid var(--danger)' : doc10th ? '1px solid rgba(var(--brand-rgb), 0.4)' : '1px dashed rgba(255,255,255,0.12)',
+                                    borderRadius: 14,
+                                    padding: '16px 18px',
+                                    transition: 'all 0.15s ease'
+                                  }}
+                                >
+                                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+                                    <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--text)' }}>📜 10th Standard / SSLC</span>
+                                    <span style={{
+                                      fontSize: 10,
+                                      fontFamily: 'var(--font-mono)',
+                                      background: doc10th ? 'rgba(var(--success-rgb),0.15)' : 'rgba(255,255,255,0.05)',
+                                      color: doc10th ? 'var(--success-bright)' : 'var(--text-dim)',
+                                      padding: '2px 8px',
+                                      borderRadius: 6,
+                                      fontWeight: 800
+                                    }}>
+                                      {doc10th ? 'UPLOADED ✓' : 'REQUIRED'}
+                                    </span>
+                                  </div>
+                                  {doc10th ? (
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                                      <div style={{ fontSize: 12, color: 'var(--brand-bright)', fontWeight: 700 }}>📄 {doc10th.fileName} ({doc10th.fileSize})</div>
+                                      <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>Institution: {doc10th.institution} • Score: <strong style={{ color: 'var(--success-bright)' }}>{doc10th.scoreOrGpa}</strong></div>
+                                      <div style={{ display: 'flex', gap: 6, marginTop: 8 }}>
+                                        <button type="button" onClick={() => handleDeleteSlot(doc10th.id, doc10th.storageUrl)} style={{ background: 'rgba(var(--danger-rgb),0.1)', border: '1px solid rgba(var(--danger-rgb),0.25)', color: 'var(--danger-bright)', padding: '4px 10px', borderRadius: 6, fontSize: 10.5, cursor: 'pointer', fontWeight: 700 }}>🗑️ Remove</button>
+                                      </div>
+                                    </div>
+                                  ) : (
+                                    <button
+                                      type="button"
+                                      onClick={() => {
+                                        const input = document.createElement('input');
+                                        input.type = 'file';
+                                        input.accept = '.pdf,.docx,.txt,application/pdf';
+                                        input.onchange = (e: any) => {
+                                          if (e.target?.files?.[0]) handleUploadToSlot(e.target.files[0], '10th');
+                                        };
+                                        input.click();
+                                      }}
+                                      style={{ width: '100%', background: 'rgba(var(--brand-rgb),0.08)', border: '1px dashed rgba(var(--brand-rgb),0.35)', color: 'var(--brand-bright)', padding: '12px', borderRadius: 8, fontSize: 11.5, fontWeight: 700, cursor: 'pointer' }}
+                                    >
+                                      + Drag & Drop or Click 10th Marksheet
+                                    </button>
+                                  )}
+                                </div>
+                              );
+                            })()}
+
+                            {/* 12th / PUC Slot */}
+                            {(() => {
+                              const doc12th = vaultSlots.find(s => s.category === '12th_puc');
+                              return (
+                                <div
+                                  onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); e.dataTransfer.dropEffect = 'copy'; }}
+                                  onDrop={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    if (e.dataTransfer.files?.[0]) handleUploadToSlot(e.dataTransfer.files[0], '12th_puc');
+                                  }}
+                                  style={{
+                                    background: doc12th ? 'rgba(var(--brand-rgb), 0.06)' : 'rgba(255,255,255,0.02)',
+                                    border: doc12th?.verificationStatus === 'mismatch_warning' ? '1px solid var(--danger)' : doc12th ? '1px solid rgba(var(--brand-rgb), 0.4)' : '1px dashed rgba(255,255,255,0.12)',
+                                    borderRadius: 14,
+                                    padding: '16px 18px',
+                                    transition: 'all 0.15s ease'
+                                  }}
+                                >
+                                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+                                    <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--text)' }}>🎓 12th / 2nd PUC / Diploma</span>
+                                    <span style={{
+                                      fontSize: 10,
+                                      fontFamily: 'var(--font-mono)',
+                                      background: doc12th ? 'rgba(var(--success-rgb),0.15)' : 'rgba(255,255,255,0.05)',
+                                      color: doc12th ? 'var(--success-bright)' : 'var(--text-dim)',
+                                      padding: '2px 8px',
+                                      borderRadius: 6,
+                                      fontWeight: 800
+                                    }}>
+                                      {doc12th ? 'UPLOADED ✓' : 'REQUIRED'}
+                                    </span>
+                                  </div>
+                                  {doc12th ? (
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                                      <div style={{ fontSize: 12, color: 'var(--brand-bright)', fontWeight: 700 }}>📄 {doc12th.fileName} ({doc12th.fileSize})</div>
+                                      <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>Board: {doc12th.institution} • Score: <strong style={{ color: 'var(--success-bright)' }}>{doc12th.scoreOrGpa}</strong></div>
+                                      <div style={{ display: 'flex', gap: 6, marginTop: 8 }}>
+                                        <button type="button" onClick={() => handleDeleteSlot(doc12th.id, doc12th.storageUrl)} style={{ background: 'rgba(var(--danger-rgb),0.1)', border: '1px solid rgba(var(--danger-rgb),0.25)', color: 'var(--danger-bright)', padding: '4px 10px', borderRadius: 6, fontSize: 10.5, cursor: 'pointer', fontWeight: 700 }}>🗑️ Remove</button>
+                                      </div>
+                                    </div>
+                                  ) : (
+                                    <button
+                                      type="button"
+                                      onClick={() => {
+                                        const input = document.createElement('input');
+                                        input.type = 'file';
+                                        input.accept = '.pdf,.docx,.txt,application/pdf';
+                                        input.onchange = (e: any) => {
+                                          if (e.target?.files?.[0]) handleUploadToSlot(e.target.files[0], '12th_puc');
+                                        };
+                                        input.click();
+                                      }}
+                                      style={{ width: '100%', background: 'rgba(var(--brand-rgb),0.08)', border: '1px dashed rgba(var(--brand-rgb),0.35)', color: 'var(--brand-bright)', padding: '12px', borderRadius: 8, fontSize: 11.5, fontWeight: 700, cursor: 'pointer' }}
+                                    >
+                                      + Drag & Drop or Click 12th/PUC Marksheet
+                                    </button>
+                                  )}
+                                </div>
+                              );
+                            })()}
+                          </div>
+
+                          {/* Semester 1 to 8 Grid */}
+                          <div style={{ fontSize: 11.5, fontFamily: 'var(--font-mono)', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: 12, letterSpacing: '1px', fontWeight: 700 }}>
+                            University Semester-by-Semester Marksheets (Sem 1 through Sem 8)
+                          </div>
+                          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
+                            {[1, 2, 3, 4, 5, 6, 7, 8].map(semNum => {
+                              const catKey = `sem${semNum}` as VaultCategory;
+                              const semDoc = vaultSlots.find(s => s.category === catKey);
+                              return (
+                                <div
+                                  key={semNum}
+                                  onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); e.dataTransfer.dropEffect = 'copy'; }}
+                                  onDrop={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    if (e.dataTransfer.files?.[0]) handleUploadToSlot(e.dataTransfer.files[0], catKey);
+                                  }}
+                                  style={{
+                                    background: semDoc ? 'rgba(var(--brand-rgb),0.08)' : 'rgba(255,255,255,0.02)',
+                                    border: semDoc?.verificationStatus === 'mismatch_warning' ? '1px solid var(--danger)' : semDoc ? '1px solid rgba(var(--brand-rgb),0.45)' : '1px dashed rgba(255,255,255,0.1)',
+                                    borderRadius: 14,
+                                    padding: '14px 14px',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justifyContent: 'space-between',
+                                    minHeight: 108,
+                                    transition: 'all 0.15s ease'
+                                  }}
+                                >
+                                  <div>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+                                      <span style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--text)' }}>Semester {semNum}</span>
+                                      {semDoc && (
+                                        <span style={{ fontSize: 9.5, background: 'rgba(var(--success-rgb),0.2)', color: 'var(--success-bright)', padding: '2px 6px', borderRadius: 4, fontWeight: 800 }}>
+                                          VERIFIED ✓
+                                        </span>
+                                      )}
+                                    </div>
+                                    {semDoc ? (
+                                      <div style={{ fontSize: 10.5, color: 'var(--text-muted)' }}>
+                                        <div style={{ color: 'var(--brand-bright)', fontWeight: 700, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{semDoc.fileName}</div>
+                                        <div style={{ color: 'var(--success-bright)', fontWeight: 800, marginTop: 3 }}>Score: {semDoc.scoreOrGpa}</div>
+                                      </div>
+                                    ) : (
+                                      <div style={{ fontSize: 10.5, color: 'var(--text-dim)' }}>Empty Slot (Drop file)</div>
+                                    )}
+                                  </div>
+                                  <div style={{ marginTop: 8 }}>
+                                    {semDoc ? (
+                                      <button
+                                        type="button"
+                                        onClick={() => handleDeleteSlot(semDoc.id, semDoc.storageUrl)}
+                                        style={{ background: 'rgba(var(--danger-rgb),0.1)', border: 'none', color: 'var(--danger-bright)', fontSize: 10.5, borderRadius: 4, padding: '3px 8px', cursor: 'pointer', fontWeight: 700 }}
+                                      >
+                                        Remove
+                                      </button>
+                                    ) : (
+                                      <button
+                                        type="button"
+                                        onClick={() => {
+                                          const input = document.createElement('input');
+                                          input.type = 'file';
+                                          input.accept = '.pdf,.docx,.txt,application/pdf';
+                                          input.onchange = (e: any) => {
+                                            if (e.target?.files?.[0]) handleUploadToSlot(e.target.files[0], catKey);
+                                          };
+                                          input.click();
+                                        }}
+                                        style={{ width: '100%', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--text-muted)', fontSize: 10.5, borderRadius: 6, padding: '6px', cursor: 'pointer', fontWeight: 700 }}
+                                      >
+                                        + Add Marksheet
+                                      </button>
+                                    )}
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* TAB 2: MASTER RESUME (STRICTLY 1 ACTIVE RESUME) */}
+                      {activeVaultTab === 'resume' && (
+                        <div>
+                          {(() => {
+                            const masterResume = vaultSlots.find(s => s.category === 'resume');
+                            return (
+                              <div
+                                onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); e.dataTransfer.dropEffect = 'copy'; }}
+                                onDrop={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  if (e.dataTransfer.files?.[0]) handleUploadToSlot(e.dataTransfer.files[0], 'resume');
+                                }}
+                                style={{ background: 'rgba(255,255,255,0.02)', border: masterResume?.verificationStatus === 'mismatch_warning' ? '1.5px solid var(--danger)' : '1px solid rgba(var(--brand-rgb),0.3)', borderRadius: 18, padding: 24 }}
+                              >
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+                                  <div>
+                                    <h4 style={{ fontSize: 16, fontWeight: 800, margin: 0, color: 'var(--text)' }}>Primary Candidate Master Resume</h4>
+                                    <span style={{ fontSize: 12, color: 'var(--text-muted)' }}>CareerOS enforces strictly 1 master resume per candidate to eliminate duplicate/friend profiles.</span>
+                                  </div>
+                                  <span style={{ fontSize: 10.5, fontFamily: 'var(--font-mono)', background: masterResume ? 'rgba(var(--success-rgb),0.15)' : 'rgba(var(--danger-rgb),0.15)', color: masterResume ? 'var(--success-bright)' : 'var(--danger-bright)', padding: '4px 12px', borderRadius: 8, fontWeight: 800 }}>
+                                    {masterResume ? 'ACTIVE MASTER RESUME' : 'MISSING'}
+                                  </span>
+                                </div>
+
+                                {masterResume ? (
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+                                    <div style={{ background: 'rgba(0,0,0,0.35)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 14, padding: 18 }}>
+                                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                          <span style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--brand-bright)' }}>📄 {masterResume.fileName} ({masterResume.fileSize})</span>
+                                          <span style={{ fontSize: 9.5, background: 'rgba(var(--brand-rgb),0.2)', color: 'var(--brand-bright)', border: '1px solid rgba(var(--brand-rgb),0.4)', padding: '2px 7px', borderRadius: 4, fontWeight: 800, textTransform: 'uppercase' }}>
+                                            {masterResume.verificationLevel || 'SELF_SUBMITTED'}
+                                          </span>
+                                        </div>
+                                        <span style={{ fontSize: 12, color: 'var(--success-bright)', fontWeight: 800, background: 'rgba(var(--success-rgb),0.15)', padding: '3px 10px', borderRadius: 8 }}>
+                                          ATS Presentation: {masterResume.atsScore || 72}/100
+                                        </span>
+                                      </div>
+                                      <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 12 }}>
+                                        Detected Candidate Name: <strong style={{ color: 'var(--text)' }}>{masterResume.candidateName}</strong> • Institution: <strong style={{ color: 'var(--text-muted)' }}>{masterResume.institution || 'Academic Institution'}</strong>
+                                        {masterResume.scoreOrGpa && masterResume.scoreOrGpa !== 'Academic Credential' && (
+                                          <span style={{ marginLeft: 8 }}>• Grade: <strong style={{ color: 'var(--success-bright)' }}>{masterResume.scoreOrGpa}</strong></span>
+                                        )}
+                                      </div>
+                                      <div style={{ fontSize: 10.5, fontFamily: 'var(--font-mono)', color: 'var(--text-dim)', textTransform: 'uppercase', marginBottom: 6, fontWeight: 700 }}>
+                                        Document-Supported Skill Nodes ({masterResume.skills.length}):
+                                      </div>
+                                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                                        {masterResume.skills.length > 0 ? (
+                                          masterResume.skills.map(s => (
+                                            <span key={s} style={{ fontSize: 11, background: 'rgba(var(--brand-rgb),0.18)', color: 'var(--brand-bright)', border: '1px solid rgba(var(--brand-rgb),0.35)', borderRadius: 6, padding: '3px 9px', fontWeight: 700 }}>
+                                              {s} <span style={{ fontSize: 9.5, color: 'var(--info-bright)', marginLeft: 2 }}>(Supported)</span>
+                                            </span>
+                                          ))
+                                        ) : (
+                                          <span style={{ fontSize: 11, color: 'var(--text-dim)', fontStyle: 'italic' }}>No technical skill keywords detected in text</span>
+                                        )}
+                                      </div>
+                                    </div>
+                                    <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+                                      <button
+                                        type="button"
+                                        onClick={() => {
+                                          const input = document.createElement('input');
+                                          input.type = 'file';
+                                          input.accept = '.pdf,.docx,.txt,application/pdf';
+                                          input.onchange = (e: any) => {
+                                            if (e.target?.files?.[0]) handleUploadToSlot(e.target.files[0], 'resume');
+                                          };
+                                          input.click();
+                                        }}
+                                        style={{ background: 'rgba(var(--brand-rgb),0.2)', border: '1px solid rgba(var(--brand-rgb),0.5)', color: 'var(--brand-bright)', padding: '9px 18px', borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: 'pointer' }}
+                                      >
+                                        🔄 Replace Master Resume
+                                      </button>
+                                      <button
+                                        type="button"
+                                        onClick={() => handleDeleteSlot(masterResume.id, masterResume.storageUrl)}
+                                        style={{ background: 'rgba(var(--danger-rgb),0.1)', border: '1px solid rgba(var(--danger-rgb),0.3)', color: 'var(--danger-bright)', padding: '9px 18px', borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: 'pointer' }}
+                                      >
+                                        🗑️ Remove Resume
+                                      </button>
+                                      <span style={{ fontSize: 11.5, color: 'var(--text-dim)', marginLeft: 4 }}>Or drag & drop new resume here to replace</span>
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <div
+                                    onDragEnter={(e) => { e.preventDefault(); e.stopPropagation(); setIsDraggingOverResume(true); }}
+                                    onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); e.dataTransfer.dropEffect = 'copy'; setIsDraggingOverResume(true); }}
+                                    onDragLeave={(e) => { e.preventDefault(); e.stopPropagation(); setIsDraggingOverResume(false); }}
+                                    onDrop={(e) => {
+                                      e.preventDefault();
+                                      e.stopPropagation();
+                                      setIsDraggingOverResume(false);
+                                      if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+                                        handleUploadToSlot(e.dataTransfer.files[0], 'resume');
+                                      }
+                                    }}
+                                    onClick={() => {
+                                      const input = document.createElement('input');
+                                      input.type = 'file';
+                                      input.accept = '.pdf,.docx,.txt,application/pdf';
+                                      input.onchange = (e: any) => {
+                                        if (e.target?.files?.[0]) handleUploadToSlot(e.target.files[0], 'resume');
+                                      };
+                                      input.click();
+                                    }}
+                                    style={{
+                                      width: '100%',
+                                      padding: '38px 20px',
+                                      border: isDraggingOverResume ? '2px dashed var(--success-bright)' : '2px dashed rgba(var(--brand-rgb),0.45)',
+                                      borderRadius: 16,
+                                      background: isDraggingOverResume ? 'rgba(var(--success-rgb), 0.12)' : 'rgba(var(--brand-rgb),0.06)',
+                                      color: isDraggingOverResume ? 'var(--success-bright)' : 'var(--brand-bright)',
+                                      fontSize: 14,
+                                      fontWeight: 800,
+                                      cursor: 'pointer',
+                                      textAlign: 'center',
+                                      display: 'flex',
+                                      flexDirection: 'column',
+                                      alignItems: 'center',
+                                      justifyContent: 'center',
+                                      gap: 10,
+                                      transition: 'all 0.2s ease',
+                                      boxShadow: isDraggingOverResume ? '0 0 25px rgba(var(--success-rgb), 0.25)' : 'none'
+                                    }}
+                                  >
+                                    <div style={{ fontSize: 38 }}>{isDraggingOverResume ? '📥' : '📄'}</div>
+                                    <div style={{ fontSize: 14.5, fontWeight: 800, color: isDraggingOverResume ? 'var(--success-bright)' : 'var(--text)' }}>
+                                      {isDraggingOverResume ? 'Release to Upload Master Resume!' : '+ Drag & Drop or Click to Upload Candidate Master Resume (PDF / DOCX)'}
+                                    </div>
+                                    <div style={{ fontSize: 11.5, color: 'var(--text-muted)', fontWeight: 500 }}>
+                                      Supports single candidate master resume with automated skill parsing and ATS calibration
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          })()}
+                        </div>
+                      )}
+
+                      {/* TAB 3: ACHIEVEMENTS & CONTESTS */}
+                      {activeVaultTab === 'achievements' && (
+                        <div
+                          onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); e.dataTransfer.dropEffect = 'copy'; }}
+                          onDrop={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            if (e.dataTransfer.files?.[0]) handleUploadToSlot(e.dataTransfer.files[0], 'achievement');
+                          }}
+                        >
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+                            <span style={{ fontSize: 12.5, color: 'var(--text-muted)' }}>Upload Hackathon certificates, competitive coding rankings, or research proofs (Drag & drop anywhere).</span>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const input = document.createElement('input');
+                                input.type = 'file';
+                                input.accept = '.pdf,.docx,.txt,application/pdf';
+                                input.onchange = (e: any) => {
+                                  if (e.target?.files?.[0]) handleUploadToSlot(e.target.files[0], 'achievement');
+                                };
+                                input.click();
+                              }}
+                              style={{ background: 'rgba(var(--brand-rgb),0.2)', border: '1px solid rgba(var(--brand-rgb),0.45)', color: 'var(--brand-bright)', padding: '6px 14px', borderRadius: 8, fontSize: 11.5, fontWeight: 700, cursor: 'pointer' }}
+                            >
+                              + Add Achievement
+                            </button>
+                          </div>
+                          {vaultSlots.filter(s => s.category === 'achievement').length === 0 ? (
+                            <div style={{ padding: 36, textAlign: 'center', color: 'var(--text-dim)', fontSize: 12.5, border: '1px dashed rgba(255,255,255,0.08)', borderRadius: 14 }}>
+                              🏆 No achievement documents uploaded yet. Drag & drop files here or click "+ Add Achievement".
+                            </div>
+                          ) : (
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                              {vaultSlots.filter(s => s.category === 'achievement').map(ach => (
+                                <div key={ach.id} style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 12, padding: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                  <div>
+                                    <div style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--text)' }}>🏆 {ach.fileName}</div>
+                                    <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>Award/Rank: <span style={{ color: 'var(--warning)', fontWeight: 700 }}>{ach.scoreOrGpa}</span> • {ach.institution}</div>
+                                  </div>
+                                  <button type="button" onClick={() => handleDeleteSlot(ach.id, ach.storageUrl)} style={{ background: 'rgba(var(--danger-rgb),0.1)', border: 'none', color: 'var(--danger-bright)', padding: '4px 10px', borderRadius: 6, fontSize: 10.5, cursor: 'pointer', fontWeight: 700 }}>Remove</button>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      {/* TAB 4: CERTIFICATIONS */}
+                      {activeVaultTab === 'certifications' && (
+                        <div
+                          onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); e.dataTransfer.dropEffect = 'copy'; }}
+                          onDrop={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            if (e.dataTransfer.files?.[0]) handleUploadToSlot(e.dataTransfer.files[0], 'certification');
+                          }}
+                        >
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+                            <span style={{ fontSize: 12.5, color: 'var(--text-muted)' }}>Upload Cloud (AWS/GCP), AI/ML, Full-Stack, NPTEL or Coursera certs (Drag & drop anywhere).</span>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const input = document.createElement('input');
+                                input.type = 'file';
+                                input.accept = '.pdf,.docx,.txt,application/pdf';
+                                input.onchange = (e: any) => {
+                                  if (e.target?.files?.[0]) handleUploadToSlot(e.target.files[0], 'certification');
+                                };
+                                input.click();
+                              }}
+                              style={{ background: 'rgba(var(--brand-rgb),0.2)', border: '1px solid rgba(var(--brand-rgb),0.45)', color: 'var(--brand-bright)', padding: '6px 14px', borderRadius: 8, fontSize: 11.5, fontWeight: 700, cursor: 'pointer' }}
+                            >
+                              + Add Certification
+                            </button>
+                          </div>
+                          {vaultSlots.filter(s => s.category === 'certification').length === 0 ? (
+                            <div style={{ padding: 36, textAlign: 'center', color: 'var(--text-dim)', fontSize: 12.5, border: '1px dashed rgba(255,255,255,0.08)', borderRadius: 14 }}>
+                              📜 No certifications uploaded yet. Drag & drop credential files here or click "+ Add Certification".
+                            </div>
+                          ) : (
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                              {vaultSlots.filter(s => s.category === 'certification').map(cert => (
+                                <div key={cert.id} style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 12, padding: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                  <div>
+                                    <div style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--text)' }}>📜 {cert.fileName}</div>
+                                    <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>Issuer: {cert.institution} • <span style={{ color: 'var(--success-bright)', fontWeight: 700 }}>Verified Credential</span></div>
+                                  </div>
+                                  <button type="button" onClick={() => handleDeleteSlot(cert.id, cert.storageUrl)} style={{ background: 'rgba(var(--danger-rgb),0.1)', border: 'none', color: 'var(--danger-bright)', padding: '4px 10px', borderRadius: 6, fontSize: 10.5, cursor: 'pointer', fontWeight: 700 }}>Remove</button>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      {/* TAB 5: INTEGRITY & QT ANALYTICS */}
+                      {activeVaultTab === 'analytics' && (
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                          {/* Academic Progression Radar */}
+                          <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 16, padding: 18 }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+                              <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--text)' }}>📈 Semester GPA Progression Trajectory</span>
+                              <span style={{ fontSize: 11, color: 'var(--success-bright)', fontWeight: 800, fontFamily: 'var(--font-mono)' }}>{liveQTMetrics.growthMomentum}</span>
+                            </div>
+                            {liveQTMetrics.academicTrajectory.length === 0 ? (
+                              <div style={{ fontSize: 12, color: 'var(--text-dim)', padding: '14px 0' }}>Upload semester marksheets in the Academic Ledger tab to calibrate your GPA growth curve.</div>
+                            ) : (
+                              <div style={{ display: 'flex', gap: 10, alignItems: 'flex-end', height: 70, marginTop: 12, borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: 8 }}>
+                                {liveQTMetrics.academicTrajectory.map(sem => (
+                                  <div key={sem.semester} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+                                    <span style={{ fontSize: 10, fontWeight: 800, color: 'var(--brand-bright)' }}>{sem.gpa}</span>
+                                    <div style={{ width: '100%', maxWidth: 32, height: `${(sem.gpa / 10) * 48}px`, background: 'linear-gradient(180deg, var(--brand) 0%, var(--info) 100%)', borderRadius: '4px 4px 0 0' }} />
+                                    <span style={{ fontSize: 9.5, color: 'var(--text-dim)', fontFamily: 'var(--font-mono)' }}>S{sem.semester}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Identity Audit Table */}
+                          <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 16, padding: 18 }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+                              <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--text)' }}>🛡️ Sentinel Identity Verification Checklist</span>
+                              <span style={{ fontSize: 11, color: identityAuditReport.trustScore >= 90 ? 'var(--success-bright)' : 'var(--danger-bright)', fontWeight: 800, fontFamily: 'var(--font-mono)' }}>
+                                Trust Score: {identityAuditReport.trustScore}%
+                              </span>
+                            </div>
+                            <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 10 }}>
+                              Primary Candidate Identity: <strong style={{ color: 'var(--text)' }}>{primaryCandidateName}</strong>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                              {vaultSlots.map(slot => (
+                                <div key={slot.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 11, padding: '6px 10px', background: 'rgba(0,0,0,0.25)', borderRadius: 8 }}>
+                                  <span style={{ color: 'var(--text-muted)' }}>{slot.fileName}</span>
+                                  <span style={{ color: slot.verificationStatus === 'mismatch_warning' ? 'var(--danger-bright)' : 'var(--success-bright)', fontWeight: 700 }}>
+                                    {slot.verificationStatus === 'mismatch_warning' ? `⚠️ Name Mismatch: "${slot.candidateName}"` : `✓ Name Matched: "${slot.candidateName}"`}
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                    </div>
+
+                    {/* Footer Actions */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 18, borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 16 }}>
+                      {vaultSlots.length > 0 ? (
                         <button
                           type="button"
                           onClick={() => {
-                            setVaultUploadedFilesInfo([]);
-                            setVaultAnalysisData(null);
-                            setVaultSuccess(false);
+                            setVaultSlots([]);
                             cOS.setVaultItems([]);
-                            toast.info('Vault Reset', 'Cleared all uploaded documents from vault baseline.');
+                            toast.info('Vault Cleared', 'Cleared all local session documents.');
                           }}
-                          style={{
-                            background: 'rgba(239, 68, 68, 0.1)',
-                            border: '1px solid rgba(239, 68, 68, 0.25)',
-                            color: '#f87171',
-                            padding: '8px 14px',
-                            borderRadius: 8,
-                            fontSize: 11,
-                            fontWeight: 700,
-                            cursor: 'pointer'
-                          }}
+                          style={{ background: 'rgba(var(--danger-rgb), 0.1)', border: '1px solid rgba(var(--danger-rgb), 0.25)', color: 'var(--danger-bright)', padding: '10px 18px', borderRadius: 10, fontSize: 12, fontWeight: 700, cursor: 'pointer' }}
                         >
-                          🗑️ Clear All Vault Docs
+                          🗑️ Clear All ({vaultSlots.length} Docs)
                         </button>
+                      ) : (
+                        <span style={{ fontSize: 11.5, color: 'var(--text-dim)', fontFamily: 'var(--font-mono)' }}>
+                          🔒 AES-256 Vault Encryption • 100% Student Data Confidentiality
+                        </span>
                       )}
                       <button
                         type="button"
                         onClick={() => setShowVaultModal(false)}
                         style={{
-                          background: 'linear-gradient(135deg, #6366f1 0%, var(--accent) 100%)',
+                          background: 'linear-gradient(135deg, var(--brand) 0%, var(--accent) 100%)',
                           border: 'none',
-                          color: 'var(--card)',
-                          padding: '10px 20px',
-                          borderRadius: 10,
-                          fontSize: 12,
+                          color: 'var(--text)',
+                          padding: '12px 28px',
+                          borderRadius: 12,
+                          fontSize: 13,
                           fontWeight: 800,
                           cursor: 'pointer',
-                          boxShadow: '0 4px 14px rgba(99, 102, 241, 0.3)',
+                          boxShadow: '0 4px 18px rgba(var(--brand-rgb), 0.4)',
                           marginLeft: 'auto'
                         }}
                       >
-                        {vaultSuccess ? 'Continue Diagnostic Onboarding →' : 'Close'}
+                        {vaultSlots.length > 0 ? `Continue Diagnostic Onboarding (${vaultSlots.length} Docs Synced) →` : 'Close Vault'}
                       </button>
                     </div>
+
                   </div>
                 </div>
               )}
@@ -1960,7 +2777,7 @@ export default function OnboardingPage() {
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = 'var(--accent)';
                   e.currentTarget.style.transform = 'translateY(-6px)';
-                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(79, 70, 229, 0.15)';
+                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(var(--brand-rgb), 0.15)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
@@ -2000,7 +2817,7 @@ export default function OnboardingPage() {
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = 'var(--teal)';
                   e.currentTarget.style.transform = 'translateY(-6px)';
-                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(20, 184, 166, 0.15)';
+                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(var(--accent-teal-rgb), 0.15)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.06)';
@@ -2023,8 +2840,8 @@ export default function OnboardingPage() {
       )}
       
       {/* Dynamic Background Mesh Orbits */}
-      <div style={{ position: 'absolute', top: '-15%', left: '-15%', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(79,70,229,0.12) 0%, transparent 70%)', filter: 'blur(70px)', pointerEvents: 'none' }} />
-      <div style={{ position: 'absolute', bottom: '-15%', right: '-15%', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(6,182,212,0.08) 0%, transparent 70%)', filter: 'blur(70px)', pointerEvents: 'none' }} />
+      <div style={{ position: 'absolute', top: '-15%', left: '-15%', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(var(--brand-rgb),0.12) 0%, transparent 70%)', filter: 'blur(70px)', pointerEvents: 'none' }} />
+      <div style={{ position: 'absolute', bottom: '-15%', right: '-15%', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(var(--accent-cyan-rgb),0.08) 0%, transparent 70%)', filter: 'blur(70px)', pointerEvents: 'none' }} />
 
       {/* Top Header */}
       <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 32px', borderBottom: '1px solid rgba(255,255,255,0.04)', background: 'rgba(10,15,26,0.3)', backdropFilter: 'blur(10px)', zIndex: 10 }}>
@@ -2034,31 +2851,34 @@ export default function OnboardingPage() {
           </span>
         </div>
         <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-          <button
-            type="button"
-            onClick={handleFastComplete}
-            disabled={syncing}
-            style={{
-              background: 'linear-gradient(135deg, var(--green) 0%, var(--green) 100%)',
-              border: 'none',
-              borderRadius: 100,
-              color: 'var(--card)',
-              fontSize: 11,
-              fontWeight: 800,
-              padding: '6px 14px',
-              cursor: syncing ? 'not-allowed' : 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 6,
-              boxShadow: '0 4px 14px rgba(16, 185, 129, 0.35)',
-              transition: 'all 0.2s ease'
-            }}
-          >
-            ⚡ Fast Finish (&lt; 30s)
-          </button>
+          {user?.role === 'admin' && (
+            <button
+              type="button"
+              onClick={handleFastComplete}
+              disabled={syncing}
+              style={{
+                background: 'linear-gradient(135deg, var(--green) 0%, var(--green) 100%)',
+                border: 'none',
+                borderRadius: 100,
+                color: 'var(--card)',
+                fontSize: 11,
+                fontWeight: 800,
+                padding: '6px 14px',
+                cursor: syncing ? 'not-allowed' : 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6,
+                boxShadow: '0 4px 14px rgba(var(--success-rgb), 0.35)',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              ⚡ Fast Finish (Admin Dev)
+            </button>
+          )}
           <div style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: 'rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 100, padding: '4px 12px' }}>
             {stageLabel[activeScreen] || 'ONBOARDING'}
           </div>
+          <GearAudioHub theme={cOS.theme} size="sm" />
         </div>
       </header>
 
@@ -2069,20 +2889,20 @@ export default function OnboardingPage() {
         <section style={{ background: 'rgba(10, 15, 26, 0.4)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 24, display: 'flex', flexDirection: 'column', overflow: 'hidden', position: 'relative', minHeight: 0 }}>
           <div style={{ flex: 1, position: 'relative' }}>
             {selectedMentor === 'anish' ? (
-              <VRoidInterviewAvatar teacherId="kashyap" animState={animState} zoom={zoom} />
+              <VRoidInterviewAvatar teacherId="anish" animState={animState} zoom={zoom} />
             ) : (
               <VRoidInterviewAvatar teacherId="priya" animState={animState} zoom={zoom} />
             )}
             
             {/* Audio Wave Listening Overlay */}
             {animState === 'listening' && (
-              <div style={{ position: 'absolute', inset: 0, background: 'rgba(79,70,229,0.1)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(2px)' }}>
+              <div style={{ position: 'absolute', inset: 0, background: 'rgba(var(--brand-rgb),0.1)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(2px)' }}>
                 <div style={{ display: 'flex', gap: 4, alignItems: 'center', marginBottom: 12 }}>
                   {[1, 2, 3, 4, 5].map(i => (
                     <div key={i} className="mic-wave-bar" style={{ width: 4, height: 20, background: 'var(--accent)', borderRadius: 2, animation: `pulse-height 1s ease-in-out infinite alternate ${i * 0.15}s` }} />
                   ))}
                 </div>
-                <div style={{ fontSize: 12, fontFamily: 'var(--font-mono)', color: '#a5b4fc', textTransform: 'uppercase', letterSpacing: '1px' }}>Listening... Speak now</div>
+                <div style={{ fontSize: 12, fontFamily: 'var(--font-mono)', color: 'var(--brand-bright)', textTransform: 'uppercase', letterSpacing: '1px' }}>Listening... Speak now</div>
               </div>
             )}
           </div>
@@ -2091,10 +2911,26 @@ export default function OnboardingPage() {
           <div style={{ position: 'absolute', bottom: 16, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: 8, background: 'rgba(10,15,26,0.8)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 16, padding: '6px 12px', backdropFilter: 'blur(10px)', zIndex: 12 }}>
             <button onClick={() => setZoom(z => Math.min(2.2, z + 0.1))} style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 14, cursor: 'pointer', padding: '4px 8px' }} title="Zoom In">🔍+</button>
             <button onClick={() => setZoom(z => Math.max(1.1, z - 0.1))} style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 14, cursor: 'pointer', padding: '4px 8px' }} title="Zoom Out">🔍-</button>
-            <button onClick={() => setIsMuted(m => !m)} style={{ background: 'none', border: 'none', color: isMuted ? '#f87171' : 'var(--t3)', fontSize: 14, cursor: 'pointer', padding: '4px 8px' }} title={isMuted ? "Unmute Mentor Voice" : "Mute Mentor Voice"}>
+            <button
+              onClick={() => {
+                const next = !isMuted;
+                setIsMuted(next);
+                setAvatarVoiceVolume(next ? 0 : 0.85);
+              }}
+              style={{ background: 'none', border: 'none', color: isMuted ? 'var(--danger-bright)' : 'var(--t3)', fontSize: 14, cursor: 'pointer', padding: '4px 8px' }}
+              title={isMuted ? "Unmute Mentor Voice" : "Mute Mentor Voice"}
+            >
               {isMuted ? '🔇' : '🔊'}
             </button>
-            <button onClick={() => setIsBgmMuted(m => !m)} style={{ background: 'none', border: 'none', color: isBgmMuted ? '#f87171' : 'var(--accent)', fontSize: 12, fontWeight: 800, cursor: 'pointer', padding: '4px 8px', display: 'flex', alignItems: 'center', gap: 3 }} title={isBgmMuted ? "Unmute Background Music" : "Mute Background Music"}>
+            <button
+              onClick={() => {
+                const next = !isBgmMuted;
+                setIsBgmMuted(next);
+                ambientAudio.setMuted(next);
+              }}
+              style={{ background: 'none', border: 'none', color: isBgmMuted ? 'var(--danger-bright)' : 'var(--accent)', fontSize: 12, fontWeight: 800, cursor: 'pointer', padding: '4px 8px', display: 'flex', alignItems: 'center', gap: 3 }}
+              title={isBgmMuted ? "Unmute Background Music" : "Mute Background Music"}
+            >
               {isBgmMuted ? '🔇' : '🎵'} <span>BGM</span>
             </button>
             <button 
@@ -2132,7 +2968,7 @@ export default function OnboardingPage() {
           {activeScreen === 'INTENT_SELECTION' && (
             <div style={{ flex: 1, padding: '24px 20px', display: 'flex', flexDirection: 'column', justifyContent: 'center', overflowY: 'auto' }}>
               <div style={{ marginBottom: 20 }}>
-                <h2 style={{ fontSize: 20, fontWeight: 900, letterSpacing: '-0.5px', color: '#f8fafc', marginBottom: 8 }}>
+                <h2 style={{ fontSize: 20, fontWeight: 900, letterSpacing: '-0.5px', color: 'var(--text)', marginBottom: 8 }}>
                   Choose Your Staging Track
                 </h2>
                 <p style={{ fontSize: 12.5, color: 'var(--t3)', lineHeight: 1.5 }}>
@@ -2156,8 +2992,8 @@ export default function OnboardingPage() {
                     position: 'relative'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'rgba(79, 70, 229, 0.04)';
-                    e.currentTarget.style.borderColor = 'rgba(79, 70, 229, 0.3)';
+                    e.currentTarget.style.background = 'rgba(var(--brand-rgb), 0.04)';
+                    e.currentTarget.style.borderColor = 'rgba(var(--brand-rgb), 0.3)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.background = 'rgba(255,255,255,0.02)';
@@ -2186,8 +3022,8 @@ export default function OnboardingPage() {
                     position: 'relative'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'rgba(6, 182, 212, 0.04)';
-                    e.currentTarget.style.borderColor = 'rgba(6, 182, 212, 0.3)';
+                    e.currentTarget.style.background = 'rgba(var(--accent-cyan-rgb), 0.04)';
+                    e.currentTarget.style.borderColor = 'rgba(var(--accent-cyan-rgb), 0.3)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.background = 'rgba(255,255,255,0.02)';
@@ -2207,8 +3043,8 @@ export default function OnboardingPage() {
 
               {/* Real-time Voice Analytics Card */}
               {voiceConfidence !== null && (
-                <div style={{ background: 'rgba(79, 70, 229, 0.05)', border: '1.5px solid rgba(79, 70, 229, 0.2)', borderRadius: 14, padding: 14, marginBottom: 16, display: 'flex', flexDirection: 'column', gap: 8 }}>
-                  <div style={{ fontSize: 11.5, fontWeight: 800, color: '#a5b4fc', textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>🎙️ Realtime Voice DNA:</div>
+                <div style={{ background: 'rgba(var(--brand-rgb), 0.05)', border: '1.5px solid rgba(var(--brand-rgb), 0.2)', borderRadius: 14, padding: 14, marginBottom: 16, display: 'flex', flexDirection: 'column', gap: 8 }}>
+                  <div style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--brand-bright)', textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>🎙️ Realtime Voice DNA:</div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5 }}>
                     <span style={{ color: 'var(--t3)' }}>Confidence Index:</span>
                     <span style={{ color: 'var(--t1)', fontWeight: 700 }}>{voiceConfidence}%</span>
@@ -2257,20 +3093,20 @@ export default function OnboardingPage() {
                   }}
                   style={{
                     height: 38,
-                    background: 'rgba(79, 70, 229, 0.15)',
-                    border: '1px solid rgba(79, 70, 229, 0.3)',
+                    background: 'rgba(var(--brand-rgb), 0.15)',
+                    border: '1px solid rgba(var(--brand-rgb), 0.3)',
                     borderRadius: 10,
-                    color: '#a5b4fc',
+                    color: 'var(--brand-bright)',
                     fontSize: 12,
                     fontWeight: 700,
                     cursor: 'pointer',
                     transition: 'all 0.15s'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'rgba(79, 70, 229, 0.2)';
+                    e.currentTarget.style.background = 'rgba(var(--brand-rgb), 0.2)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'rgba(79, 70, 229, 0.15)';
+                    e.currentTarget.style.background = 'rgba(var(--brand-rgb), 0.15)';
                   }}
                 >
                   🎙️ Repeat Voice
@@ -2291,8 +3127,8 @@ export default function OnboardingPage() {
                 style={{
                   marginTop: 16,
                   height: 40,
-                  background: 'linear-gradient(135deg, rgba(79, 70, 229, 0.08) 0%, rgba(124, 58, 237, 0.08) 100%)',
-                  border: '1.5px dashed rgba(79, 70, 229, 0.35)',
+                  background: 'linear-gradient(135deg, rgba(var(--brand-rgb), 0.08) 0%, rgba(var(--reward-rgb), 0.08) 100%)',
+                  border: '1.5px dashed rgba(var(--brand-rgb), 0.35)',
                   borderRadius: 10,
                   color: 'var(--accent)',
                   fontSize: '12px',
@@ -2302,12 +3138,12 @@ export default function OnboardingPage() {
                   fontFamily: 'var(--font-mono)'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(79, 70, 229, 0.15) 0%, rgba(124, 58, 237, 0.15) 100%)';
+                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(var(--brand-rgb), 0.15) 0%, rgba(var(--reward-rgb), 0.15) 100%)';
                   e.currentTarget.style.borderColor = 'var(--accent)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(79, 70, 229, 0.08) 0%, rgba(124, 58, 237, 0.08) 100%)';
-                  e.currentTarget.style.borderColor = 'rgba(79, 70, 229, 0.35)';
+                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(var(--brand-rgb), 0.08) 0%, rgba(var(--reward-rgb), 0.08) 100%)';
+                  e.currentTarget.style.borderColor = 'rgba(var(--brand-rgb), 0.35)';
                 }}
               >
                 ⏩ Skip Onboarding (Complete Setup)
@@ -2408,7 +3244,7 @@ export default function OnboardingPage() {
                   color: 'var(--card)',
                   fontWeight: 700,
                   cursor: 'pointer',
-                  boxShadow: '0 4px 14px rgba(79, 70, 229, 0.25)',
+                  boxShadow: '0 4px 14px rgba(var(--brand-rgb), 0.25)',
                   transition: 'transform 0.15s ease'
                 }}
                 onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-1px)'}
@@ -2458,7 +3294,7 @@ export default function OnboardingPage() {
                           padding: 10,
                           borderRadius: 10,
                           border: `1.5px solid ${trajectory === t.id ? 'var(--accent)' : 'rgba(255,255,255,0.04)'}`,
-                          background: trajectory === t.id ? 'rgba(79, 70, 229, 0.08)' : 'rgba(255,255,255,0.01)',
+                          background: trajectory === t.id ? 'rgba(var(--brand-rgb), 0.08)' : 'rgba(255,255,255,0.01)',
                           cursor: 'pointer',
                           textAlign: 'center',
                           fontSize: 12,
@@ -2507,7 +3343,7 @@ export default function OnboardingPage() {
                     height: 110,
                     borderRadius: 12,
                     border: `1.5px dashed ${dragOver ? 'var(--accent)' : uploadedFile ? 'var(--teal)' : 'rgba(255,255,255,0.1)'}`,
-                    background: dragOver ? 'rgba(79, 70, 229, 0.04)' : uploadedFile ? 'rgba(20, 184, 166, 0.02)' : 'rgba(255,255,255,0.01)',
+                    background: dragOver ? 'rgba(var(--brand-rgb), 0.04)' : uploadedFile ? 'rgba(var(--accent-teal-rgb), 0.02)' : 'rgba(255,255,255,0.01)',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
@@ -2568,7 +3404,7 @@ export default function OnboardingPage() {
             <>
               {/* Chat Header */}
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,0.04)', background: 'rgba(255,255,255,0.01)' }}>
-                <div style={{ width: 8, height: 8, borderRadius: '50%', background: animState === 'talking' ? 'var(--green)' : '#6366f1', animation: animState === 'talking' ? 'ping 1.5s infinite' : 'none' }} />
+                <div style={{ width: 8, height: 8, borderRadius: '50%', background: animState === 'talking' ? 'var(--green)' : 'var(--brand)', animation: animState === 'talking' ? 'ping 1.5s infinite' : 'none' }} />
                 <div>
                   <div style={{ fontSize: 13, fontWeight: 700 }}>{selectedMentor === 'priya' ? 'Ms. Priya' : 'Mr. Akash'}</div>
                   <div style={{ fontSize: 10, color: 'var(--t2)' }}>{animState === 'talking' ? 'Speaking...' : animState === 'listening' ? 'Listening...' : animState === 'thinking' ? 'Analyzing...' : 'Online'}</div>
@@ -2585,14 +3421,14 @@ export default function OnboardingPage() {
                         maxWidth: '85%',
                         padding: '12px 16px',
                         borderRadius: isAi ? '16px 16px 16px 4px' : '16px 16px 4px 16px',
-                        background: isAi ? '#1e293b' : 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)',
+                        background: isAi ? '#1e293b' : 'linear-gradient(135deg, var(--brand) 0%, var(--reward) 100%)',
                         border: isAi ? '1px solid rgba(148,163,184,0.35)' : 'none',
-                        color: '#f8fafc',
+                        color: 'var(--text)',
                         fontSize: 13.5,
                         fontWeight: 500,
                         lineHeight: 1.6,
                         whiteSpace: 'pre-wrap',
-                        boxShadow: isAi ? 'none' : '0 4px 12px rgba(79, 70, 229, 0.25)'
+                        boxShadow: isAi ? 'none' : '0 4px 12px rgba(var(--brand-rgb), 0.25)'
                       }}>
                         {m.text}
                       </div>
@@ -2615,9 +3451,9 @@ export default function OnboardingPage() {
                         style={{
                           padding: '12px 20px',
                           borderRadius: 14,
-                          background: 'rgba(79, 70, 229, 0.15)',
-                          border: '1.5px solid rgba(79, 70, 229, 0.4)',
-                          color: '#a5b4fc',
+                          background: 'rgba(var(--brand-rgb), 0.15)',
+                          border: '1.5px solid rgba(var(--brand-rgb), 0.4)',
+                          color: 'var(--brand-bright)',
                           fontSize: 13,
                           fontWeight: 700,
                           cursor: syncing ? 'not-allowed' : 'pointer',
@@ -2686,7 +3522,7 @@ export default function OnboardingPage() {
                     width: '100%', height: 44,
                     background: 'linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%)',
                     border: 'none', borderRadius: 12, color: 'var(--card)', fontWeight: 700, cursor: 'pointer',
-                    boxShadow: '0 4px 14px rgba(79, 70, 229, 0.25)'
+                    boxShadow: '0 4px 14px rgba(var(--brand-rgb), 0.25)'
                   }}
                 >
                   {currentIdentityQ < identityQs.length - 1 ? 'Save & Slide Next' : 'Proceed to Simulations'}
@@ -2749,8 +3585,8 @@ export default function OnboardingPage() {
                         transition: 'all 0.2s'
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.background = 'rgba(79, 70, 229, 0.04)';
-                        e.currentTarget.style.borderColor = 'rgba(79, 70, 229, 0.25)';
+                        e.currentTarget.style.background = 'rgba(var(--brand-rgb), 0.04)';
+                        e.currentTarget.style.borderColor = 'rgba(var(--brand-rgb), 0.25)';
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.background = 'rgba(255,255,255,0.02)';
@@ -2826,7 +3662,7 @@ export default function OnboardingPage() {
                       }}
                       style={{
                         padding: '10px 24px',
-                        background: 'rgba(79, 70, 229, 0.1)',
+                        background: 'rgba(var(--brand-rgb), 0.1)',
                         border: '1.5px solid var(--accent)',
                         borderRadius: 12,
                         color: 'var(--accent)',
@@ -2836,6 +3672,26 @@ export default function OnboardingPage() {
                     >
                       Run Acoustic Calibration
                     </button>
+                    <div style={{ marginTop: 12 }}>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSpeechState('calibrated');
+                          setManualInputMode(true);
+                          setAnimState('idle');
+                        }}
+                        style={{
+                          background: 'transparent',
+                          border: 'none',
+                          color: 'var(--t3)',
+                          fontSize: 12,
+                          cursor: 'pointer',
+                          textDecoration: 'underline'
+                        }}
+                      >
+                        ⌨️ Skip & Answer via Keyboard / Text Input
+                      </button>
+                    </div>
                   </div>
                 )}
 
@@ -2859,22 +3715,96 @@ export default function OnboardingPage() {
                       "{spokenPromptText}"
                     </p>
 
-                    <div style={{
-                      minHeight: 80,
-                      background: '#070913',
-                      border: '1px solid rgba(255,255,255,0.06)',
-                      borderRadius: 12,
-                      padding: 14,
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: 11,
-                      color: '#34d399',
-                      marginBottom: 14,
-                      textAlign: 'left'
-                    }}>
-                      <span style={{ color: 'var(--t2)', display: 'block', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: 4, marginBottom: 6 }}>
-                        STT TRANSCRIPT / DICTATION CONSOLE
-                      </span>
-                      {speechTranscript || (speechState === 'recording' ? 'Listening... Speak now...' : 'Click Record or select/type response below...')}
+                    {speechError && (
+                      <div style={{
+                        padding: '10px 14px',
+                        background: 'rgba(var(--danger-rgb), 0.12)',
+                        border: '1px solid rgba(var(--danger-rgb), 0.3)',
+                        borderRadius: 10,
+                        color: 'var(--danger-bright)',
+                        fontSize: 12,
+                        marginBottom: 14,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        lineHeight: 1.4
+                      }}>
+                        <span>⚠️ {speechError}</span>
+                        <button
+                          type="button"
+                          onClick={() => setSpeechError(null)}
+                          style={{ background: 'transparent', border: 'none', color: 'var(--danger-bright)', cursor: 'pointer', fontSize: 13, marginLeft: 8 }}
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    )}
+
+                    <div style={{ marginBottom: 14 }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+                        <span style={{ color: 'var(--t2)', fontSize: 11, fontFamily: 'var(--font-mono)' }}>
+                          STT TRANSCRIPT / DICTATION CONSOLE
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => setManualInputMode(!manualInputMode)}
+                          style={{
+                            background: 'transparent',
+                            border: 'none',
+                            color: 'var(--accent)',
+                            fontSize: 11,
+                            cursor: 'pointer',
+                            textDecoration: 'underline'
+                          }}
+                        >
+                          {manualInputMode ? '🎙️ Switch to Speech View' : '✏️ Type / Edit Manually'}
+                        </button>
+                      </div>
+
+                      {manualInputMode ? (
+                        <textarea
+                          value={speechTranscript}
+                          onChange={(e) => {
+                            setSpeechTranscript(e.target.value);
+                            if (e.target.value.trim().length > 0) {
+                              setSpeechState('recorded');
+                            }
+                          }}
+                          placeholder="Type your career goal and technical ambition here..."
+                          className="form-input"
+                          style={{
+                            width: '100%',
+                            minHeight: 88,
+                            fontFamily: 'var(--font-mono)',
+                            fontSize: 12,
+                            color: 'var(--success-bright)',
+                            background: '#070913',
+                            border: '1px solid rgba(var(--brand-rgb), 0.3)',
+                            borderRadius: 12,
+                            padding: 12,
+                            resize: 'vertical'
+                          }}
+                        />
+                      ) : (
+                        <div
+                          onClick={() => setManualInputMode(true)}
+                          title="Click to type or edit"
+                          style={{
+                            minHeight: 80,
+                            background: '#070913',
+                            border: '1px solid rgba(255,255,255,0.06)',
+                            borderRadius: 12,
+                            padding: 14,
+                            fontFamily: 'var(--font-mono)',
+                            fontSize: 11,
+                            color: 'var(--success-bright)',
+                            textAlign: 'left',
+                            cursor: 'text'
+                          }}
+                        >
+                          {speechTranscript || (speechState === 'recording' ? 'Listening... Speak now...' : 'Click Record Audio, choose a preset, or click here to type manually...')}
+                        </div>
+                      )}
                     </div>
 
                     {/* ⌨️ Mic Fault Tolerance: Quick Response Templates */}
@@ -2891,6 +3821,7 @@ export default function OnboardingPage() {
                               setSpeechTranscript(preset);
                               setSpeechState('recorded');
                               setAnimState('idle');
+                              setSpeechError(null);
                             }}
                             style={{
                               padding: '8px 12px',
@@ -2904,8 +3835,8 @@ export default function OnboardingPage() {
                               transition: 'all 0.15s'
                             }}
                             onMouseEnter={(e) => {
-                              e.currentTarget.style.background = 'rgba(79, 70, 229, 0.1)';
-                              e.currentTarget.style.borderColor = 'rgba(79, 70, 229, 0.3)';
+                              e.currentTarget.style.background = 'rgba(var(--brand-rgb), 0.1)';
+                              e.currentTarget.style.borderColor = 'rgba(var(--brand-rgb), 0.3)';
                             }}
                             onMouseLeave={(e) => {
                               e.currentTarget.style.background = 'rgba(255,255,255,0.02)';
@@ -2922,10 +3853,13 @@ export default function OnboardingPage() {
                       <button
                         type="button"
                         onClick={() => {
+                          setSpeechError(null);
                           if (speechState === 'recording') {
                             setSpeechState('recorded');
                             setAnimState('idle');
-                            if (recognitionRef.current) recognitionRef.current.stop();
+                            if (recognitionRef.current) {
+                              try { recognitionRef.current.stop(); } catch { /* ignore */ }
+                            }
                           } else {
                             setSpeechState('recording');
                             setSpeechTranscript('');
@@ -2934,31 +3868,51 @@ export default function OnboardingPage() {
                             if (typeof window !== 'undefined') {
                               const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
                               if (SpeechRecognition) {
-                                const rec = new SpeechRecognition();
-                                rec.continuous = true;
-                                rec.interimResults = false;
-                                rec.lang = 'en-US';
-                                rec.onresult = (e: any) => {
-                                  const chunk = e.results[e.results.length - 1]?.[0]?.transcript;
-                                  if (chunk) {
-                                    setSpeechTranscript(prev => prev + ' ' + chunk);
-                                  }
-                                };
-                                rec.onerror = () => setSpeechState('recorded');
-                                rec.onend = () => setSpeechState('recorded');
-                                recognitionRef.current = rec;
-                                rec.start();
-                              } else {
-                                setTimeout(() => {
-                                  const defaultText = isCommerce
-                                    ? "My goal is to become a top Financial Analyst, build quantitative valuation models, and drive FinTech growth."
-                                    : isManagement
-                                    ? "My goal is to become a high-impact Product Manager, lead agile engineering teams, and scale market funnels."
-                                    : "My goal is to become a high-impact Software Engineer and build production applications.";
-                                  setSpeechTranscript(defaultText);
+                                try {
+                                  const rec = new SpeechRecognition();
+                                  rec.continuous = true;
+                                  rec.interimResults = false;
+                                  rec.lang = 'en-US';
+                                  rec.onresult = (e: any) => {
+                                    const chunk = e.results[e.results.length - 1]?.[0]?.transcript;
+                                    if (chunk) {
+                                      setSpeechTranscript(prev => (prev ? prev + ' ' + chunk : chunk));
+                                    }
+                                  };
+                                  rec.onerror = (e: any) => {
+                                    setSpeechState('recorded');
+                                    setAnimState('idle');
+                                    const code = e?.error;
+                                    let msg = 'Speech recognition encountered an issue. You can retry or type below.';
+                                    if (code === 'not-allowed' || code === 'service-not-allowed') {
+                                      msg = 'Microphone permission was denied by browser settings. Please type your response below or use a preset.';
+                                      setManualInputMode(true);
+                                    } else if (code === 'no-speech') {
+                                      msg = 'No speech detected. Please speak clearly into your mic, or type your response below.';
+                                    } else if (code === 'network') {
+                                      msg = 'Speech recognition network error. Please type your response below.';
+                                      setManualInputMode(true);
+                                    }
+                                    setSpeechError(msg);
+                                  };
+                                  rec.onend = () => {
+                                    setSpeechState('recorded');
+                                    setAnimState('idle');
+                                  };
+                                  recognitionRef.current = rec;
+                                  rec.start();
+                                } catch (err: any) {
+                                  console.warn('[Speech] Could not start speech recognition:', err);
                                   setSpeechState('recorded');
                                   setAnimState('idle');
-                                }, 1500);
+                                  setManualInputMode(true);
+                                  setSpeechError('Microphone could not be activated on this device. Please type your response below.');
+                                }
+                              } else {
+                                setSpeechState('recorded');
+                                setAnimState('idle');
+                                setManualInputMode(true);
+                                setSpeechError('Browser speech recognition is not supported in this environment. Please type your answer below or select a preset.');
                               }
                             }
                           }
@@ -2970,12 +3924,12 @@ export default function OnboardingPage() {
                           borderRadius: 10, color: 'var(--card)', fontWeight: 700, cursor: 'pointer'
                         }}
                       >
-                        {speechState === 'recording' ? '⏹ Stop Recording' : '🎙️ Record Audio'}
+                        {speechState === 'recording' ? '⏹ Stop Recording' : speechState === 'recorded' ? '🔄 Retry Recording' : '🎙️ Record Audio'}
                       </button>
 
                       <button
                         type="button"
-                        disabled={speechState !== 'recorded' && !speechTranscript}
+                        disabled={!speechTranscript.trim() && speechState !== 'recorded'}
                         onClick={() => {
                           let maxTrait = 'Pattern Hunter';
                           let maxVal = -1;
@@ -3003,7 +3957,7 @@ export default function OnboardingPage() {
                           flex: 1, height: 42,
                           background: 'linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%)',
                           border: 'none', borderRadius: 10, color: 'var(--card)', fontWeight: 700, cursor: 'pointer',
-                          opacity: (speechState !== 'recorded' && !speechTranscript) ? 0.5 : 1
+                          opacity: (!speechTranscript.trim() && speechState !== 'recorded') ? 0.5 : 1
                         }}
                       >
                         Complete & Grade
@@ -3023,10 +3977,10 @@ export default function OnboardingPage() {
               <div style={{ flex: 1, padding: 24, display: 'flex', flexDirection: 'column', justifyContent: 'center', overflowY: 'auto' }}>
                 <div style={{ marginBottom: 16 }}>
                   <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 8 }}>
-                    <span style={{ fontSize: 10, fontFamily: 'var(--font-mono)', background: 'rgba(20, 184, 166, 0.1)', color: 'var(--teal)', padding: '3px 8px', borderRadius: 10, fontWeight: 700, textTransform: 'uppercase' }}>
+                    <span style={{ fontSize: 10, fontFamily: 'var(--font-mono)', background: 'rgba(var(--accent-teal-rgb), 0.1)', color: 'var(--teal)', padding: '3px 8px', borderRadius: 10, fontWeight: 700, textTransform: 'uppercase' }}>
                       QT2 Mindset Analysis Complete
                     </span>
-                    <span style={{ fontSize: 10, fontFamily: 'var(--font-mono)', background: 'rgba(99, 102, 241, 0.15)', color: '#a5b4fc', padding: '3px 8px', borderRadius: 10, fontWeight: 700, textTransform: 'uppercase' }}>
+                    <span style={{ fontSize: 10, fontFamily: 'var(--font-mono)', background: 'rgba(var(--brand-rgb), 0.15)', color: 'var(--brand-bright)', padding: '3px 8px', borderRadius: 10, fontWeight: 700, textTransform: 'uppercase' }}>
                       {studentType.includes('Commerce') || studentType.includes('B.Com') ? '📊 FinTech & Commerce Track (B.Com)' : studentType.includes('Management') || studentType.includes('BBA') ? '📈 Product & Business Track (BBA)' : '💻 Tech & Software Track'}
                     </span>
                   </div>
@@ -3044,21 +3998,21 @@ export default function OnboardingPage() {
                     <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 800 }}>
                       🧠 QT2 Cognitive Mindset Distribution:
                     </div>
-                    <div style={{ fontSize: 10, fontFamily: 'var(--font-mono)', background: 'rgba(99, 102, 241, 0.12)', color: '#a5b4fc', border: '1px solid rgba(99, 102, 241, 0.25)', borderRadius: 100, padding: '2px 8px', fontWeight: 700 }}>
+                    <div style={{ fontSize: 10, fontFamily: 'var(--font-mono)', background: 'rgba(var(--brand-rgb), 0.12)', color: 'var(--brand-bright)', border: '1px solid rgba(var(--brand-rgb), 0.25)', borderRadius: 100, padding: '2px 8px', fontWeight: 700 }}>
                       Self-Awareness Index: {qt2Breakdown.selfAwarenessScore}%
                     </div>
                   </div>
 
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 10 }}>
                     {[
-                      { label: 'Pattern Hunter', icon: '🧩', score: qt2Breakdown.patternHunter, color: '#6366f1' },
+                      { label: 'Pattern Hunter', icon: '🧩', score: qt2Breakdown.patternHunter, color: 'var(--brand)' },
                       { label: 'Stabilizer', icon: '🛡️', score: qt2Breakdown.stabilizer, color: 'var(--green)' },
-                      { label: 'Social IQ', icon: '🤝', score: qt2Breakdown.socialIQ, color: '#f59e0b' },
-                      { label: 'Explorer', icon: '🚀', score: qt2Breakdown.explorer, color: '#06b6d4' }
+                      { label: 'Social IQ', icon: '🤝', score: qt2Breakdown.socialIQ, color: 'var(--warning)' },
+                      { label: 'Explorer', icon: '🚀', score: qt2Breakdown.explorer, color: 'var(--accent-cyan)' }
                     ].map(quad => (
                       <div key={quad.label} style={{ background: '#1e293b', border: '1px solid rgba(148,163,184,0.28)', borderRadius: 12, padding: '10px 12px' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5, fontWeight: 700, marginBottom: 6 }}>
-                          <span style={{ color: '#f8fafc' }}>{quad.icon} {quad.label}</span>
+                          <span style={{ color: 'var(--text)' }}>{quad.icon} {quad.label}</span>
                           <span style={{ color: quad.color, fontFamily: 'var(--font-mono)' }}>{quad.score}%</span>
                         </div>
                         <div style={{ height: 8, background: 'rgba(255,255,255,0.12)', borderRadius: 4, overflow: 'hidden' }}>
@@ -3082,28 +4036,28 @@ export default function OnboardingPage() {
                     <div 
                       onClick={() => setSelectedMentor('priya')}
                       style={{
-                        background: selectedMentor === 'priya' ? 'rgba(99, 102, 241, 0.08)' : 'rgba(255,255,255,0.01)',
+                        background: selectedMentor === 'priya' ? 'rgba(var(--brand-rgb), 0.08)' : 'rgba(255,255,255,0.01)',
                         border: `1.5px solid ${selectedMentor === 'priya' ? 'var(--accent)' : 'rgba(255,255,255,0.05)'}`,
                         borderRadius: 12, padding: 12, cursor: 'pointer', display: 'flex', gap: 10, alignItems: 'center', transition: 'all 0.15s'
                       }}
                     >
                       <span style={{ fontSize: 22 }}>👩‍💼</span>
                       <div>
-                        <div style={{ fontSize: 12, fontWeight: 800, color: selectedMentor === 'priya' ? '#a5b4fc' : '#f8fafc' }}>Ms. Priya</div>
+                        <div style={{ fontSize: 12, fontWeight: 800, color: selectedMentor === 'priya' ? 'var(--brand-bright)' : 'var(--text)' }}>Ms. Priya</div>
                         <div style={{ fontSize: 10, color: 'var(--t3)' }}>Warm, structured steps.</div>
                       </div>
                     </div>
                     <div 
                       onClick={() => setSelectedMentor('anish')}
                       style={{
-                        background: selectedMentor === 'anish' ? 'rgba(99, 102, 241, 0.08)' : 'rgba(255,255,255,0.01)',
+                        background: selectedMentor === 'anish' ? 'rgba(var(--brand-rgb), 0.08)' : 'rgba(255,255,255,0.01)',
                         border: `1.5px solid ${selectedMentor === 'anish' ? 'var(--accent)' : 'rgba(255,255,255,0.05)'}`,
                         borderRadius: 12, padding: 12, cursor: 'pointer', display: 'flex', gap: 10, alignItems: 'center', transition: 'all 0.15s'
                       }}
                     >
                       <span style={{ fontSize: 22 }}>👨‍💼</span>
                       <div>
-                        <div style={{ fontSize: 12, fontWeight: 800, color: selectedMentor === 'anish' ? '#a5b4fc' : '#f8fafc' }}>Mr. Akash</div>
+                        <div style={{ fontSize: 12, fontWeight: 800, color: selectedMentor === 'anish' ? 'var(--brand-bright)' : 'var(--text)' }}>Mr. Akash</div>
                         <div style={{ fontSize: 10, color: 'var(--t3)' }}>High accountability.</div>
                       </div>
                     </div>
@@ -3116,7 +4070,7 @@ export default function OnboardingPage() {
                     width: '100%', height: 44,
                     background: 'linear-gradient(135deg, var(--teal) 0%, var(--accent) 100%)',
                     border: 'none', borderRadius: 12, color: 'var(--card)', fontWeight: 800, cursor: 'pointer',
-                    boxShadow: '0 4px 14px rgba(20, 184, 166, 0.25)'
+                    boxShadow: '0 4px 14px rgba(var(--accent-teal-rgb), 0.25)'
                   }}
                 >
                   Activate Command Center &middot; Launch OS
@@ -3144,7 +4098,7 @@ export default function OnboardingPage() {
           
           {/* Glowing Spinner Ring */}
           <div style={{ position: 'relative', width: 100, height: 100, marginBottom: 24 }}>
-            <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: '4px solid rgba(79,70,229,0.1)' }} />
+            <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: '4px solid rgba(var(--brand-rgb),0.1)' }} />
             <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: '4px solid transparent', borderTopColor: 'var(--accent)', animation: 'spin 1.2s linear infinite' }} />
             <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-mono)', fontSize: 18, fontWeight: 800, color: 'var(--accent)' }}>
               {syncProgress}%
@@ -3169,7 +4123,7 @@ export default function OnboardingPage() {
               padding: 16,
               fontFamily: 'var(--font-mono)',
               fontSize: 11,
-              color: '#34d399',
+              color: 'var(--success-bright)',
               display: 'flex',
               flexDirection: 'column',
               gap: 6,

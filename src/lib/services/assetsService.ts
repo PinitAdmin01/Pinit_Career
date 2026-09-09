@@ -71,7 +71,8 @@ export const assetsService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('assets_list').insert({ asset_code: assetCode, name, category, location, status: 'Active' });
+        const res = await supabase.from('assets_list').insert({ asset_code: assetCode, name, category, location, status: 'Active' });
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -91,8 +92,10 @@ export const assetsService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('assets_maintenance').insert({ id, asset_code: assetCode, issue, staff, scheduled_date: scheduledDate, status: 'Scheduled' });
-        await supabase.from('assets_list').update({ status: 'Maintenance' }).eq('asset_code', assetCode);
+        const res1 = await supabase.from('assets_maintenance').insert({ id, asset_code: assetCode, issue, staff, scheduled_date: scheduledDate, status: 'Scheduled' });
+        if (res1.error) throw new Error(res1.error.message);
+        const res2 = await supabase.from('assets_list').update({ status: 'Maintenance' }).eq('asset_code', assetCode);
+        if (res2.error) throw new Error(res2.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -118,8 +121,10 @@ export const assetsService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('assets_maintenance').update({ status: 'Completed' }).eq('id', mntId);
-        await supabase.from('assets_list').update({ status: 'Active' }).eq('asset_code', mnt.assetCode);
+        const res1 = await supabase.from('assets_maintenance').update({ status: 'Completed' }).eq('id', mntId);
+        if (res1.error) throw new Error(res1.error.message);
+        const res2 = await supabase.from('assets_list').update({ status: 'Active' }).eq('asset_code', mnt.assetCode);
+        if (res2.error) throw new Error(res2.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -145,7 +150,8 @@ export const assetsService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('assets_amc').update({ expiry_date: expiryDate }).eq('id', amcId);
+        const res = await supabase.from('assets_amc').update({ expiry_date: expiryDate }).eq('id', amcId);
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);

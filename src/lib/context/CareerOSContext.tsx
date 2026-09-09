@@ -2,8 +2,6 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import { toast } from '@/lib/store/useAppStore';
-import { COURSES_REGISTRY } from '../data/coursesData';
-import { generateDynamicStudentRoadmap } from '../data/roadmapFuser';
 import { useAuth } from '@/lib/context/AuthContext';
 import { api } from '@/lib/api/client';
 import { consecutiveCalendarStreak } from '@/lib/missions/streak';
@@ -56,6 +54,7 @@ export interface OnboardingAnswers {
   communication_history?: any[];
   learning_mistakes?: any[];
   projects?: any[];
+  roadmap?: any[];
   roadmapDurationDays?: number;
 }
 
@@ -137,14 +136,14 @@ interface CareerOSContextType {
   // Vault
   vaultItems: VaultItem[];
   setVaultItems: (items: VaultItem[]) => void;
-  addVaultItem: (item: { title: string; item_type: string; organization_name?: string; description?: string; skill_tags?: string[] }) => void;
+  addVaultItem: (item: { id?: string; title: string; item_type: string; organization_name?: string; description?: string; skill_tags?: string[]; verified?: boolean; ai_confidence_score?: number }) => void;
   updateVaultItem: (id: string, updates: Partial<VaultItem>) => void;
   // Onboarding
   onboardingAnswers: OnboardingAnswers;
   setOnboarding: (answers: Omit<OnboardingAnswers, 'hasCompleted'>, skipSync?: boolean) => void;
   // Missions
   completedMissions: string[];
-  completeMission: (missionId: string) => void;
+  completeMission: (missionId: string, bypassDailyLimit?: boolean) => void;
   // JD Skills
   jdMissingSkills: string[];
   setJdMissingSkills: (skills: string[]) => void;
@@ -195,6 +194,7 @@ interface CareerOSContextType {
   completedQuests: string[];
   addCompletedQuest: (questId: string, isExam?: boolean, xpAmount?: number, courseId?: string) => void;
   saveQuestCode: (questId: string, code: string) => void;
+  saveCareerProjects: (projects: any[]) => void;
   javaTestPassed: boolean;
   setJavaTestPassed: (val: boolean) => void;
   groupPanelPassed: boolean;
@@ -229,9 +229,9 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
   const [onboardingAnswers, setOnboardingAnswers] = useState<OnboardingAnswers>({ role: '', education: '', skills: '', experience: '', hasCompleted: false });
   const [completedMissions, setCompletedMissions] = useState<string[]>([]);
   const [jdMissingSkills, setJdMissingSkillsState] = useState<string[]>([]);
-  const [xp, setXp] = useState(120);
+  const [xp, setXp] = useState(0);
   const [missionStreak, setMissionStreak] = useState(0); // Start streak at 0
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
   const [focusMode, setFocusMode] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -251,7 +251,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
   const [aiUseTokens, setAiUseTokensState] = useState(120);
 
   // ── Pin & Reward state ──────────────────────────────────────────────────
-  const [pins, setPins] = useState(120);
+  const [pins, setPins] = useState(0);
   const [pinHistory, setPinsHistory] = useState<PinTransaction[]>([]);
   const [unlockedItems, setUnlockedItems] = useState<Record<string, number>>({});
   const [trustBonus, setTrustBonus] = useState(0);
@@ -309,10 +309,10 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
       setOnboardingAnswers(get(keys.onboard) ?? { role:'', education:'', skills:'', experience:'', hasCompleted:false });
       setCompletedMissions(get(keys.missions) ?? []);
       setJdMissingSkillsState(get(keys.gaps) ?? []);
-      setXp(get(keys.xp) ?? 120);
+      setXp(get(keys.xp) ?? (user as any)?.xp ?? 0);
       setMissionStreak(get(keys.streak) ?? 0);
-      setTheme(get(keys.theme) ?? 'light');
-      setPins(get(keys.pins) ?? 120);
+      setTheme(get(keys.theme) ?? (typeof window !== 'undefined' ? (localStorage.getItem('pc_theme') as 'dark' | 'light') : null) ?? 'dark');
+      setPins(get(keys.pins) ?? (user as any)?.pins ?? 0);
       setPinsHistory(get(keys.pinHist) ?? []);
       setUnlockedItems(get(keys.unlockedItems) ?? {});
       setTrustBonus(get(keys.trustBonus) ?? 0);
@@ -371,13 +371,76 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
           save(keys.activeCourse, answers.activeCourseId);
         }
         setOnboardingAnswers(prev => {
-          // Sync if local answers are incomplete but database profile says completed
-          if (!prev.hasCompleted && answers.hasCompleted) {
-            save(keys.onboard, answers);
-            return answers;
-          }
-          return prev;
+          const mergedMissionsTimestamps = Array.from(new Set([
+            ...(prev.completedMissionsTimestamps || []),
+            ...(answers.completedMissionsTimestamps || [])
+          ]));
+          const mergedQuestsTimestamps = Array.from(new Set([
+            ...(prev.completedQuestsTimestamps || []),
+            ...(answers.completedQuestsTimestamps || [])
+          ]));
+
+          const merged: OnboardingAnswers = {
+            ...prev,
+            ...answers,
+            hasCompleted: prev.hasCompleted || answers.hasCompleted,
+            completedMissionsTimestamps: mergedMissionsTimestamps,
+            completedQuestsTimestamps: mergedQuestsTimestamps,
+            roadmap: answers.roadmap || prev.roadmap,
+            activeCourseId: answers.activeCourseId || prev.activeCourseId,
+          };
+          save(keys.onboard, merged);
+          return merged;
         });
+
+        // Hydrate remote roadmap from Supabase to localStorage if missing on this device
+        if (answers.roadmap && Array.isArray(answers.roadmap) && answers.roadmap.length > 0) {
+          if (typeof window !== 'undefined') {
+            const mKey = `pinit_${userId}_roadmap_modules`;
+            if (!localStorage.getItem(mKey)) {
+              save(mKey, answers.roadmap);
+              if (answers.activeCourseId) {
+                save(`pinit_${userId}_roadmap_modules_${answers.activeCourseId}`, answers.roadmap);
+              }
+            }
+          }
+        }
+      }
+
+      // Reconcile any pending or unsynced local onboarding answers to Supabase
+      if (typeof window !== 'undefined') {
+        const readLs = (k: string) => {
+          try {
+            const v = localStorage.getItem(k);
+            return v ? JSON.parse(v) : null;
+          } catch {
+            return null;
+          }
+        };
+        const pending = localStorage.getItem('pinit_pending_onboarding_sync');
+        const localAnswers = readLs(keys.onboard);
+        const dbSaysCompleted = !!(user?.roadmapGenerated || (user?.onboardingAnswers as any)?.hasCompleted);
+        if (pending || (localAnswers?.hasCompleted && !dbSaysCompleted)) {
+          let payloadToSync: any = null;
+          if (pending) {
+            try { payloadToSync = JSON.parse(pending); } catch {}
+          }
+          if (!payloadToSync && localAnswers?.hasCompleted) {
+            payloadToSync = {
+              onboardingAnswers: localAnswers,
+              roadmapGenerated: true,
+              onboardingStep: Math.max(Number(readLs(keys.obStep)) || 0, 3)
+            };
+          }
+          if (payloadToSync) {
+            api.post('/api/auth/onboarding', payloadToSync).then(() => {
+              console.log('[CareerOSContext] ✅ Successfully reconciled unsynced onboarding answers to database.');
+              localStorage.removeItem('pinit_pending_onboarding_sync');
+            }).catch(syncErr => {
+              console.warn('[CareerOSContext] Background onboarding reconciliation retry failed:', syncErr?.message);
+            });
+          }
+        }
       }
       if (user.resumeGenerated !== undefined) {
         const resVal = !!user.resumeGenerated;
@@ -404,6 +467,14 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
         setCompletedQuestsState(prev => {
           const merged = Array.from(new Set([...prev, ...qVal]));
           save(keys.quests, merged);
+          return merged;
+        });
+      }
+      const mVal = (user as any).completedMissions || (user as any).completed_missions;
+      if (mVal && Array.isArray(mVal)) {
+        setCompletedMissions(prev => {
+          const merged = Array.from(new Set([...prev, ...mVal]));
+          save(keys.missions, merged);
           return merged;
         });
       }
@@ -519,6 +590,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
     root.classList.add(theme);
     root.setAttribute('data-theme', theme);
     save(keys.theme, theme);
+    localStorage.setItem('pc_theme', theme);
   }, [theme, keys.theme, save]);
 
   const serverOffsetRef = React.useRef(0);
@@ -821,6 +893,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
       if (res && res.ok && Array.isArray(res.modules) && res.modules.length > 0) {
         dynamicModules = res.modules;
       } else if (courseId) {
+        const { generateDynamicStudentRoadmap } = await import('../data/roadmapFuser');
         dynamicModules = generateDynamicStudentRoadmap({
           qt1: onboardingAnswers.qt1_score ?? 75,
           qt2: onboardingAnswers.qt2_score ?? 80,
@@ -884,11 +957,20 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
           });
         }
 
-        // Sync roadmap generation and step with Supabase database profile
+        const updatedAnswers = {
+          ...onboardingAnswers,
+          ...(courseId ? { activeCourseId: courseId } : {}),
+          roadmap: normalized
+        };
+        setOnboardingAnswers(updatedAnswers);
+        save(keys.onboard, updatedAnswers);
+
+        // Sync roadmap generation, modules, and step with Supabase database profile
         try {
           await api.post('/api/auth/onboarding', {
             roadmapGenerated: true,
-            onboardingStep: Math.max(onboardingStep, 4)
+            onboardingStep: Math.max(onboardingStep, 4),
+            onboardingAnswers: updatedAnswers
           });
         } catch (err) {
           console.warn("Failed to sync roadmap status to database:", err);
@@ -900,6 +982,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
     } catch (err) {
       console.error('Failed to generate dynamic AI roadmap, executing local dynamic fuser fallback:', err);
       if (courseId) {
+        const { generateDynamicStudentRoadmap } = await import('../data/roadmapFuser');
         const localModules = generateDynamicStudentRoadmap({
           qt1: onboardingAnswers.qt1_score ?? 75,
           qt2: onboardingAnswers.qt2_score ?? 80,
@@ -912,7 +995,24 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
         if (localModules && localModules.length > 0) {
           const courseModulesKey = `pinit_${userId}_roadmap_modules_${courseId}`;
           save(courseModulesKey, localModules);
+          save(modulesKey, localModules);
           setRoadmapGeneratedState(true);
+          save(keys.roadGen, true);
+
+          const updatedFallbackAnswers = {
+            ...onboardingAnswers,
+            ...(courseId ? { activeCourseId: courseId } : {}),
+            roadmap: localModules
+          };
+          setOnboardingAnswers(updatedFallbackAnswers);
+          save(keys.onboard, updatedFallbackAnswers);
+
+          api.post('/api/auth/onboarding', {
+            roadmapGenerated: true,
+            onboardingStep: Math.max(onboardingStep, 4),
+            onboardingAnswers: updatedFallbackAnswers
+          }).catch(err => console.warn("Failed to sync fallback roadmap to database:", err));
+
           toast.success('Dynamic Student Roadmap Active! 🗺️', 'Fused QT1 + QT2 + Goal + Academic Course preferences.');
           return localModules;
         }
@@ -982,9 +1082,9 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
       setOnboardingStep(5); // unlock AI Interviews
     }
 
-    // Increment streak by 1 ONLY ONCE PER CALENDAR DAY (as per system specs)
+    // Increment streak by 1 ONLY ONCE PER CALENDAR DAY in user local timezone
     const lastStreakDateKey = `pinit_${userId}_last_streak_date`;
-    const todayStr = new Date().toDateString();
+    const todayStr = new Date().toLocaleDateString('en-CA');
     const lastStreakDate = localStorage.getItem(lastStreakDateKey);
 
     if (lastStreakDate !== todayStr) {
@@ -992,6 +1092,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
       setMissionStreak(prev => {
         const next = prev + 1;
         save(keys.streak, next);
+        console.log(`[CareerOS] 🔥 Daily streak incremented to ${next} for user ${userId} on local date ${todayStr}`);
         
         // Sync updated streak to Supabase database profile in background
         api.post('/api/auth/onboarding', { mission_streak: next }).catch(() => {});
@@ -1039,6 +1140,21 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
     save(keys.onboard, nextAnswers);
     api.post('/api/auth/onboarding', { onboardingAnswers: nextAnswers }).catch(() => {});
   }, [onboardingAnswers, keys.onboard, save]);
+
+  const saveCareerProjects = useCallback((projects: any[]) => {
+    const nextAnswers = {
+      ...onboardingAnswers,
+      projects
+    };
+    setOnboardingAnswers(nextAnswers);
+    save(keys.onboard, nextAnswers);
+    if (typeof window !== 'undefined' && userId) {
+      try {
+        localStorage.setItem(`pinit_${userId}_career_projects`, JSON.stringify(projects));
+      } catch {}
+    }
+    api.post('/api/auth/onboarding', { onboardingAnswers: nextAnswers }).catch(() => {});
+  }, [onboardingAnswers, keys.onboard, userId, save]);
 
   const setJavaTestPassed = useCallback((val: boolean) => {
     setJavaTestPassedState(val);
@@ -1123,15 +1239,15 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
   const toggleTheme = () => setTheme(p => { const n = p === 'light' ? 'dark' : 'light'; toast.info('Theme Switched', `${n === 'light' ? 'Light ☀️' : 'Dark 🌙'} Mode`); return n; });
   const toggleFocusMode = () => setFocusMode(p => { const n = !p; toast[n ? 'success' : 'info'](n ? 'Focus Mode On 🤫' : 'Focus Mode Off', n ? 'Distractions hidden.' : 'Standard layout restored.'); return n; });
 
-  const addVaultItem = async (item: { title: string; item_type: string; organization_name?: string; description?: string; skill_tags?: string[] }) => {
-    const tempId = Math.random().toString(36).substr(2,9);
+  const addVaultItem = async (item: { id?: string; title: string; item_type: string; organization_name?: string; description?: string; skill_tags?: string[]; verified?: boolean; ai_confidence_score?: number }) => {
+    const tempId = item.id || Math.random().toString(36).substr(2,9);
     const newItem: VaultItem = { 
       id: tempId, 
       ...item, 
       organization_name: item.organization_name || '', 
       description: item.description || '', 
-      verified: false, 
-      ai_confidence_score: 80 + Math.floor(Math.random() * 19), 
+      verified: item.verified ?? false, 
+      ai_confidence_score: item.ai_confidence_score ?? 0, 
       skill_tags: item.skill_tags || [], 
       is_public: false, 
       used_in_resume: false, 
@@ -1186,12 +1302,12 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
     setVaultItemsState(updated); save(keys.vault, updated);
   };
 
-  const completeMission = (missionId: string) => {
+  const completeMission = (missionId: string, bypassDailyLimit = false) => {
     // 1. Check daily limit of 1 completed mission
     const timestamps = onboardingAnswers.completedMissionsTimestamps || [];
     const today = new Date().toDateString();
     const todayCompletions = timestamps.filter(ts => new Date(ts).toDateString() === today);
-    if (todayCompletions.length >= 1) {
+    if (!bypassDailyLimit && todayCompletions.length >= 1) {
       toast.error('Daily Limit Reached ⏳', 'You have already completed 1 mission today. Come back tomorrow!');
       return;
     }
@@ -1215,9 +1331,10 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
     setOnboardingAnswers(nextAnswers);
     save(keys.onboard, nextAnswers);
 
-    // Sync updated answers and streak to database profile in background
+    // Sync updated answers, completedMissions, and streak to database profile in background
     api.post('/api/auth/onboarding', { 
       onboardingAnswers: nextAnswers,
+      completedMissions: updated,
       mission_streak: newStreak
     }).catch(() => {});
 
@@ -1269,14 +1386,14 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
   }, [keys.xp, save]);
 
   // ─── Derived scores ───────────────────────────────────────────────────────
-  const baseAts = typeof user?.atsScore === 'number' ? user.atsScore : 60;
+  const baseAts = typeof user?.atsScore === 'number' ? user.atsScore : 0;
   const careerScore = Math.min(98, baseAts + (onboardingAnswers.hasCompleted ? 10 : 0) + (vaultItems.filter(v => v.verified).length * 5) + (completedMissions.length * 5));
   const missionOnlyStreak = consecutiveCalendarStreak(onboardingAnswers.completedMissionsTimestamps);
 
-  const baseDna = typeof user?.careerDnaScore === 'number' ? user.careerDnaScore : 55;
+  const baseDna = typeof user?.careerDnaScore === 'number' ? user.careerDnaScore : 0;
   const dnaScore = Math.min(95, baseDna + (onboardingAnswers.hasCompleted ? 15 : 0) + (completedMissions.length * 10) + dnaBonus);
 
-  const baseTrust = typeof user?.trustScore === 'number' ? user.trustScore : 40;
+  const baseTrust = typeof user?.trustScore === 'number' ? user.trustScore : 0;
   const trustScore = Math.min(99, baseTrust + (vaultItems.filter(v => v.verified).length * 15) + trustBonus);
 
   // ─── Unified Modest Rewarding System Dispatcher ──────────────────────────
@@ -1378,7 +1495,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
       activeCourseId, setActiveCourseId: setActiveCourseIdState,
       activeCourseIds, setActiveCourseIds: setActiveCourseIdsState,
       switchActiveCourse, archiveActiveCourse,
-      completedQuests, addCompletedQuest, saveQuestCode,
+      completedQuests, addCompletedQuest, saveQuestCode, saveCareerProjects,
       javaTestPassed, setJavaTestPassed,
       groupPanelPassed, setGroupPanelPassed,
       recruiterVisible, setRecruiterVisible,

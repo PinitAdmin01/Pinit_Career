@@ -320,6 +320,7 @@ export interface InternshipRecord {
   skillsUsed: string[];
   projectDescription: string;
   mentorName?: string;
+  mentorContact?: string;
   performanceRating?: string;
   certificateUrl?: string;
   isVerified: boolean;

@@ -52,11 +52,11 @@ function StudentFinanceInner() {
     try {
       const res = await api.post<{ ok: boolean; waiver: number }>('/api/finance/apply-scholarship', { scholarshipId });
       if (res && res.ok) {
-        alert(`Scholarship applied! A waiver of ₹${(res.waiver ?? 0).toLocaleString()} has been deducted from your remaining final installment.`);
+        toast.success('Scholarship Applied! 🎓', `A waiver of ₹${(res.waiver ?? 0).toLocaleString()} has been deducted from your remaining final installment.`);
         fetchDuesData();
       }
     } catch {
-      alert('Failed to apply scholarship.');
+      toast.error('Application Failed', 'Failed to apply scholarship. Please try again.');
     } finally {
       setApplyingSch(false);
     }
@@ -563,7 +563,7 @@ function StudentFinanceInner() {
                 <div style={{ display: 'flex', gap: 8 }}>
                   <button
                     onClick={() => {
-                      alert(`Official Fee Receipt Voucher (PIN-FEE-2026-${Math.floor(1000 + Math.random() * 9000)}) generated and saved!`);
+                      toast.success('Fee Voucher Generated! 📄', `Official Voucher PIN-FEE-2026-${Math.floor(1000 + Math.random() * 9000)} generated and ready to print.`);
                     }}
                     className="btn-primary"
                     style={{ fontSize: 12, padding: '6px 12px', background: 'var(--accent)' }}

@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
@@ -18,7 +18,7 @@ const TEACHERS = [
     id: 'kashyap',
     name: 'Kashyap Sir',
     emoji: '👨‍🔬',
-    color: '#3b82f6',
+    color: 'var(--info)',
     nature: 'Calm & Protective (Dr. Kalam inspired)',
     characteristics: 'Profoundly patient, encourages honest engineering effort, and focuses on high-level architecture, scalability, and ethical leadership.',
     memory: 'Maintains architectural blueprints, system diagrams, and leadership records.'
@@ -27,7 +27,7 @@ const TEACHERS = [
     id: 'karthic',
     name: 'Karthic Sir (Nega)',
     emoji: '👨‍🎨',
-    color: '#f59e0b',
+    color: 'var(--warning)',
     nature: 'Hyper-active & Stress Buster',
     characteristics: 'Always happy, uses humor to destress students, and explains complex algorithms with drawing analogies and clean coding practices.',
     memory: 'Tracks funny code examples, stress-relief logs, and algorithm maps.'
@@ -45,7 +45,7 @@ const TEACHERS = [
     id: 'divya',
     name: 'Ms. Divya',
     emoji: '👩‍🏫',
-    color: '#10b981',
+    color: 'var(--success)',
     nature: 'Empathetic Frontend Wizard',
     characteristics: 'Creative, empathetic, and visually-driven. Specializes in user experience layouts, interactive web flows, and frontend gamification.',
     memory: 'Tracks UI wireframes, client feedback, and visual progression.'
@@ -101,31 +101,96 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
     return 'assignment';
   }, [quest]);
 
-  // Countdown Timer state for Taking Exam
+  // ── EXAM TIMER ───────────────────────────────────────────────────────────
+  // PREVIOUS BUG: the countdown lived entirely in a local variable
+  //   let sec = 2700;
+  // inside the effect, so it was re-initialised on every mount. Pressing F5
+  // reset the clock to 45:00 AND reset examTimedOut to false — un-failing an
+  // already-expired attempt — while the student's code survived because it is
+  // persisted separately to localStorage at the editor's onChange handler.
+  // Net effect: keep your work, reset the clock, repeat indefinitely.
+  //
+  // FIX: anchor the countdown to a persisted wall-clock start timestamp, so
+  // remaining time is derived from real elapsed time and survives refresh,
+  // navigation and tab restore. The server is also told how long the attempt
+  // took, so it can reject submissions that exceed the allowance — the client
+  // clock alone must never be the only gate.
+  const EXAM_DURATION_SEC = 2700; // 45 minutes
+
+  const examStartKey = useMemo(
+    () => `pinit_exam_started_${userId}_${questId}`,
+    [userId, questId]
+  );
+
+  /**
+   * Returns the wall-clock ms timestamp at which this exam attempt began,
+   * creating and persisting it on first call. Reading a corrupt or absent
+   * value starts a fresh attempt rather than throwing.
+   */
+  const getOrCreateExamStart = useCallback((): number => {
+    if (typeof window === 'undefined') return Date.now();
+    try {
+      const stored = localStorage.getItem(examStartKey);
+      const parsed = stored ? Number(stored) : NaN;
+      // Guard against corrupt values and clocks set to the future.
+      if (Number.isFinite(parsed) && parsed > 0 && parsed <= Date.now()) {
+        return parsed;
+      }
+      const now = Date.now();
+      localStorage.setItem(examStartKey, String(now));
+      console.log(`[QuestWorkspace] Exam attempt started for "${questId}" at ${new Date(now).toISOString()}`);
+      return now;
+    } catch (err) {
+      console.warn('[QuestWorkspace] Could not persist exam start time; falling back to in-memory clock:', err);
+      return Date.now();
+    }
+  }, [examStartKey, questId]);
+
   const [timeLeft, setTimeLeft] = useState('45:00');
   const [examTimedOut, setExamTimedOut] = useState(false);
+
   useEffect(() => {
     if (category !== 'exam') return;
-    let sec = 2700; // 45 minutes
-    const timer = setInterval(() => {
-      sec--;
-      if (sec <= 0) {
-        clearInterval(timer);
+
+    const startedAt = getOrCreateExamStart();
+
+    const tick = () => {
+      const elapsedSec = Math.floor((Date.now() - startedAt) / 1000);
+      const remaining = EXAM_DURATION_SEC - elapsedSec;
+
+      if (remaining <= 0) {
         setTimeLeft('00:00');
         setExamTimedOut(true);
         setOutput({
           success: false,
           message: 'Exam time expired. Session locked — automatic fail. Further submissions are disabled.'
         });
-        toast.error('Time Expired', 'Exam locked. Your attempt was auto-failed.');
-        return;
+        return true; // signal: stop ticking
       }
-      const m = Math.floor(sec / 60).toString().padStart(2, '0');
-      const s = (sec % 60).toString().padStart(2, '0');
+
+      const m = Math.floor(remaining / 60).toString().padStart(2, '0');
+      const s = (remaining % 60).toString().padStart(2, '0');
       setTimeLeft(`${m}:${s}`);
+      return false;
+    };
+
+    // Evaluate immediately on mount so a refresh shows the true remaining time
+    // instead of briefly displaying a full 45:00.
+    const alreadyExpired = tick();
+    if (alreadyExpired) {
+      toast.error('Time Expired', 'Exam locked. Your attempt was auto-failed.');
+      return;
+    }
+
+    const timer = setInterval(() => {
+      if (tick()) {
+        clearInterval(timer);
+        toast.error('Time Expired', 'Exam locked. Your attempt was auto-failed.');
+      }
     }, 1000);
+
     return () => clearInterval(timer);
-  }, [category]);
+  }, [category, getOrCreateExamStart]);
 
   // States
   const [selectedTeacherId, setSelectedTeacherId] = useState<string>('priya');
@@ -239,7 +304,19 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
             value={code}
             onChange={(e) => {
               if (editorLocked) return;
-              setCode(e.target.value);
+              const nextCode = e.target.value;
+              setCode(nextCode);
+              if (typeof window !== 'undefined' && questId) {
+                try {
+                  localStorage.setItem(`pinit_code_${userId}_${questId}`, nextCode);
+                  if (typeof saveQuestCode === 'function') {
+                    saveQuestCode(questId, nextCode);
+                  }
+                  console.log(`[QuestWorkspace] 💾 Draft auto-saved for ${questId} (${nextCode.length} chars)`);
+                } catch (err) {
+                  console.warn('[QuestWorkspace] Failed to persist code draft to localStorage:', err);
+                }
+              }
             }}
             onKeyDown={(e) => {
               if (editorLocked) return;
@@ -297,7 +374,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
                 }}
                 style={{
                   background: 'linear-gradient(135deg, var(--accent), var(--purple))',
-                  border: 'none', borderRadius: 8, color: '#fff',
+                  border: 'none', borderRadius: 8, color: 'var(--text)',
                   padding: '4px 12px', fontSize: 11, fontWeight: 800, cursor: 'pointer',
                   display: 'flex', alignItems: 'center', gap: 6
                 }}
@@ -309,7 +386,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
           </div>
 
           {/* Terminal Logs Prompt */}
-          <div style={{ padding: '12px 16px', minHeight: 100, fontSize: 12, lineHeight: 1.6, color: '#f8fafc' }}>
+          <div style={{ padding: '12px 16px', minHeight: 100, fontSize: 12, lineHeight: 1.6, color: 'var(--text)' }}>
             <div style={{ color: '#00ff66', fontWeight: 700, marginBottom: 6 }}>
               bash - pinit-compiler-v2.0 ~ $ execution-runner --lang={langInfo.file}
             </div>
@@ -364,7 +441,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
                 onClick={() => setShowAiTutorModal(false)}
                 style={{
                   width: '100%', marginTop: 20, padding: '10px', background: 'var(--accent)',
-                  border: 'none', borderRadius: 12, color: '#fff', fontWeight: 800, fontSize: 12, cursor: 'pointer'
+                  border: 'none', borderRadius: 12, color: 'var(--text)', fontWeight: 800, fontSize: 12, cursor: 'pointer'
                 }}
               >
                 Return to Workspace ➔
@@ -507,6 +584,10 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
               if (!isCompleted) {
                 addCompletedQuest(questId, true, quest.xp || 120, 'course-java-logic');
                 toast.success('Exam Passed! 🎉', 'Earned ' + (quest.xp || 120) + ' XP & ' + (quest.pins || 6) + ' Pins.');
+                // Clear the persisted exam start so a future retake, if one is
+                // ever permitted, begins with a fresh 45 minutes rather than
+                // inheriting this attempt's already-elapsed clock.
+                try { localStorage.removeItem(examStartKey); } catch {}
               }
             } else {
               const errMsg = result.testOutcomes?.[0]?.error || result.terminalLogs?.[result.terminalLogs.length - 1] || 'Automated test assertion failed.';
@@ -596,7 +677,17 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
             questId: quest.id,
             code,
             language: 'javascript',
-            isExam: category === 'exam'
+            isExam: category === 'exam',
+            // Report how long this exam attempt actually took, measured from
+            // the persisted start timestamp. The client clock must never be the
+            // only gate — sending this lets the grader reject an attempt that
+            // exceeded its allowance even if the local countdown was tampered
+            // with or bypassed. Null for non-exam quests, which are untimed.
+            elapsedSeconds:
+              category === 'exam'
+                ? Math.floor((Date.now() - getOrCreateExamStart()) / 1000)
+                : null,
+            allowedSeconds: category === 'exam' ? EXAM_DURATION_SEC : null
           })
           .then(data => {
             if (data.success) {
@@ -668,7 +759,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
             href="/quests"
             style={{
               display: 'inline-flex', alignItems: 'center', gap: 6,
-              background: 'var(--accent)', color: '#fff', padding: '10px 22px',
+              background: 'var(--accent)', color: 'var(--text)', padding: '10px 22px',
               borderRadius: 12, fontWeight: 700, fontSize: 13, textDecoration: 'none'
             }}
           >
@@ -800,7 +891,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
           border: '1.5px solid var(--green)',
           borderRadius: 24,
           padding: '50px 40px',
-          boxShadow: '0 20px 40px -15px rgba(5,150,105,0.15)'
+          boxShadow: '0 20px 40px -15px rgba(var(--success-deep-rgb), 0.15)'
         }}>
           <div style={{ fontSize: 60, marginBottom: 16 }}>🎉</div>
           <h2 style={{ fontSize: 24, fontWeight: 900, color: 'var(--t1)', marginBottom: 8 }}>
@@ -852,7 +943,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
             </Link>
             <h2 style={{ margin: '8px 0 0', fontSize: 22, display: 'flex', alignItems: 'center', gap: 10 }}>
               📝 Taking Exam: {quest.title}
-              <span style={{ fontSize: 10, background: 'rgba(239,68,68,0.1)', color: 'var(--coral)', padding: '2px 8px', borderRadius: 6, fontWeight: 800, textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>
+              <span style={{ fontSize: 10, background: 'rgba(var(--danger-rgb), 0.1)', color: 'var(--coral)', padding: '2px 8px', borderRadius: 6, fontWeight: 800, textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>
                 PROCTOR EXAM
               </span>
             </h2>
@@ -878,7 +969,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
               <h3 style={{ fontSize: 15, fontWeight: 800, marginBottom: 12, color: 'var(--t1)' }}>Exam Instructions</h3>
               <p style={{ fontSize: 13.5, color: 'var(--t2)', lineHeight: 1.6, margin: '0 0 16px 0' }}>{quest.desc}</p>
               
-              <div style={{ background: 'rgba(220,38,38,0.05)', border: '1px solid rgba(220,38,38,0.15)', borderRadius: 12, padding: 14, fontSize: 12.5, color: 'var(--coral)', display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+              <div style={{ background: 'rgba(var(--danger-rgb), 0.05)', border: '1px solid rgba(var(--danger-rgb), 0.15)', borderRadius: 12, padding: 14, fontSize: 12.5, color: 'var(--coral)', display: 'flex', gap: 10, alignItems: 'flex-start' }}>
                 <span>⚠️</span>
                 <div>
                   <strong>Proctored Session:</strong> Tab-switches or exiting this browser view are logged in the cryptographically signed Sentinel trust ledger. Do not exit full-screen.
@@ -894,7 +985,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
                   borderRadius: 12,
                   border: 'none',
                   background: showGuidedMentor ? 'var(--bg3)' : 'linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%)',
-                  color: showGuidedMentor ? 'var(--t1)' : '#fff',
+                  color: showGuidedMentor ? 'var(--t1)' : 'var(--text)',
                   fontWeight: 800,
                   fontSize: 12,
                   cursor: 'pointer',
@@ -902,7 +993,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: 6,
-                  boxShadow: showGuidedMentor ? 'none' : '0 4px 12px rgba(99, 102, 241, 0.2)',
+                  boxShadow: showGuidedMentor ? 'none' : '0 4px 12px rgba(var(--brand-rgb),  0.2)',
                   transition: 'all 0.2s'
                 }}
               >
@@ -942,7 +1033,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
 
             {output && (
               <div style={{
-                background: output.success ? 'rgba(5,150,105,0.06)' : 'rgba(220,38,38,0.06)',
+                background: output.success ? 'rgba(var(--success-deep-rgb), 0.06)' : 'rgba(var(--danger-rgb), 0.06)',
                 border: `1.5px solid ${output.success ? 'var(--green)' : 'var(--coral)'}`,
                 padding: 14,
                 borderRadius: 12,
@@ -968,9 +1059,9 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
                   fontSize: 13,
                   background: (isCompleted || examTimedOut) ? 'var(--bg3)' : 'var(--coral)',
                   border: (isCompleted || examTimedOut) ? '1px solid var(--border)' : '1px solid var(--coral)',
-                  color: (isCompleted || examTimedOut) ? 'var(--t3)' : '#fff',
+                  color: (isCompleted || examTimedOut) ? 'var(--t3)' : 'var(--text)',
                   cursor: (isCompleted || examTimedOut) ? 'not-allowed' : 'pointer',
-                  boxShadow: (isCompleted || examTimedOut) ? 'none' : '0 4px 12px rgba(220,38,38,0.2)'
+                  boxShadow: (isCompleted || examTimedOut) ? 'none' : '0 4px 12px rgba(var(--danger-rgb), 0.2)'
                 }}
               >
                 {isCompleted ? 'Exam Submitted ✓ (Read Only)' : examTimedOut ? 'Time Expired — Locked' : 'Submit Exam Solution ✓'}
@@ -991,18 +1082,18 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
               <div style={{
                 marginTop: 8,
                 padding: 16,
-                background: 'rgba(124,58,237,0.06)',
-                border: '1px solid rgba(124,58,237,0.2)',
+                background: 'rgba(var(--purple-rgb, 124, 58, 237), 0.06)',
+                border: '1px solid rgba(var(--purple-rgb, 124, 58, 237), 0.2)',
                 borderRadius: 16,
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 12
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <h4 style={{ fontSize: 12, fontWeight: 900, color: 'rgba(167,139,250,1)', display: 'flex', alignItems: 'center', gap: 6, margin: 0 }}>
+                  <h4 style={{ fontSize: 12, fontWeight: 900, color: 'var(--reward-bright)', display: 'flex', alignItems: 'center', gap: 6, margin: 0 }}>
                     🔌 Bynik Hardware Flashing Tool (Proctored)
                   </h4>
-                  <span style={{ fontSize: 9.5, background: 'rgba(124,58,237,0.15)', color: 'rgba(167,139,250,1)', padding: '2px 6px', borderRadius: 4, fontFamily: 'var(--font-mono)' }}>
+                  <span style={{ fontSize: 9.5, background: 'rgba(var(--purple-rgb, 124, 58, 237), 0.15)', color: 'var(--reward-bright)', padding: '2px 6px', borderRadius: 4, fontFamily: 'var(--font-mono)' }}>
                     v1.0.4 Connected
                   </span>
                 </div>
@@ -1022,12 +1113,12 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
                       padding: '8px 12px',
                       background: 'linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%)',
                       border: 'none',
-                      color: '#fff',
+                      color: 'var(--text)',
                       fontWeight: 700,
                       fontSize: 11.5,
                       borderRadius: 8,
                       cursor: 'pointer',
-                      boxShadow: '0 4px 10px rgba(124,58,237,0.2)'
+                      boxShadow: '0 4px 10px rgba(var(--purple-rgb, 124, 58, 237), 0.2)'
                     }}
                   >
                     Deploy to CPU (Bynik)
@@ -1129,7 +1220,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
                   borderRadius: 12,
                   border: 'none',
                   background: showGuidedMentor ? 'var(--bg3)' : 'linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%)',
-                  color: showGuidedMentor ? 'var(--t1)' : '#fff',
+                  color: showGuidedMentor ? 'var(--t1)' : 'var(--text)',
                   fontWeight: 800,
                   fontSize: 12,
                   cursor: 'pointer',
@@ -1137,7 +1228,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: 6,
-                  boxShadow: showGuidedMentor ? 'none' : '0 4px 12px rgba(99, 102, 241, 0.2)',
+                  boxShadow: showGuidedMentor ? 'none' : '0 4px 12px rgba(var(--brand-rgb),  0.2)',
                   transition: 'all 0.2s'
                 }}
               >
@@ -1177,7 +1268,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
 
             {output && (
               <div style={{
-                background: output.success ? 'rgba(5,150,105,0.06)' : 'rgba(220,38,38,0.06)',
+                background: output.success ? 'rgba(var(--success-deep-rgb), 0.06)' : 'rgba(var(--danger-rgb), 0.06)',
                 border: `1.5px solid ${output.success ? 'var(--green)' : 'var(--coral)'}`,
                 padding: 14,
                 borderRadius: 12,
@@ -1203,7 +1294,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
                   fontSize: 13,
                   background: isCompleted ? 'var(--bg3)' : 'var(--accent)',
                   border: isCompleted ? '1px solid var(--border)' : '1px solid var(--accent)',
-                  color: isCompleted ? 'var(--t3)' : '#fff',
+                  color: isCompleted ? 'var(--t3)' : 'var(--text)',
                   cursor: isCompleted ? 'not-allowed' : 'pointer'
                 }}
               >
@@ -1225,18 +1316,18 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
               <div style={{
                 marginTop: 8,
                 padding: 16,
-                background: 'rgba(124,58,237,0.06)',
-                border: '1px solid rgba(124,58,237,0.2)',
+                background: 'rgba(var(--purple-rgb, 124, 58, 237), 0.06)',
+                border: '1px solid rgba(var(--purple-rgb, 124, 58, 237), 0.2)',
                 borderRadius: 16,
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 12
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <h4 style={{ fontSize: 12, fontWeight: 900, color: 'rgba(167,139,250,1)', display: 'flex', alignItems: 'center', gap: 6, margin: 0 }}>
+                  <h4 style={{ fontSize: 12, fontWeight: 900, color: 'var(--reward-bright)', display: 'flex', alignItems: 'center', gap: 6, margin: 0 }}>
                     🔌 Bynik Hardware Flashing Tool
                   </h4>
-                  <span style={{ fontSize: 9.5, background: 'rgba(124,58,237,0.15)', color: 'rgba(167,139,250,1)', padding: '2px 6px', borderRadius: 4, fontFamily: 'var(--font-mono)' }}>
+                  <span style={{ fontSize: 9.5, background: 'rgba(var(--purple-rgb, 124, 58, 237), 0.15)', color: 'var(--reward-bright)', padding: '2px 6px', borderRadius: 4, fontFamily: 'var(--font-mono)' }}>
                     v1.0.4 Connected
                   </span>
                 </div>
@@ -1258,12 +1349,12 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
                       padding: '8px 12px',
                       background: isCompleted ? 'var(--bg3)' : 'linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%)',
                       border: isCompleted ? '1px solid var(--border)' : 'none',
-                      color: isCompleted ? 'var(--t3)' : '#fff',
+                      color: isCompleted ? 'var(--t3)' : 'var(--text)',
                       fontWeight: 700,
                       fontSize: 11.5,
                       borderRadius: 8,
                       cursor: isCompleted ? 'not-allowed' : 'pointer',
-                      boxShadow: isCompleted ? 'none' : '0 4px 10px rgba(124,58,237,0.2)'
+                      boxShadow: isCompleted ? 'none' : '0 4px 10px rgba(var(--purple-rgb, 124, 58, 237), 0.2)'
                     }}
                   >
                     Deploy to CPU (Bynik)
@@ -1331,7 +1422,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
           </Link>
           <h2 style={{ margin: '8px 0 0', fontSize: 22, display: 'flex', alignItems: 'center', gap: 10 }}>
             🎓 Learning Class: {quest.title}
-            <span style={{ fontSize: 10, background: 'rgba(124,58,237,0.1)', color: 'rgba(167,139,250,1)', padding: '2px 8px', borderRadius: 6, fontWeight: 800, textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>
+            <span style={{ fontSize: 10, background: 'rgba(var(--purple-rgb, 124, 58, 237), 0.1)', color: 'var(--reward-bright)', padding: '2px 8px', borderRadius: 6, fontWeight: 800, textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>
               SOCRATIC CLASS
             </span>
           </h2>
@@ -1410,7 +1501,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
                 gap: 6,
                 background: isCompleted ? 'var(--bg3)' : 'var(--accent)',
                 border: isCompleted ? '1px solid var(--border)' : '1px solid var(--accent)',
-                color: isCompleted ? 'var(--t3)' : '#fff',
+                color: isCompleted ? 'var(--t3)' : 'var(--text)',
                 cursor: isCompleted ? 'not-allowed' : 'pointer'
               }}
             >

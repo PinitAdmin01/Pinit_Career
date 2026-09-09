@@ -5,6 +5,7 @@
 import { useState, useEffect } from 'react';
 import { api } from '@/lib/api/client';
 import { useAuth } from '@/lib/context/AuthContext';
+import { toast } from '@/lib/store/useAppStore';
 
 export default function StudentEvents() {
   const { user } = useAuth();
@@ -39,7 +40,7 @@ export default function StudentEvents() {
 
   const handleRSVP = async (eventId: string) => {
     if (!user) {
-      alert('Please sign in to RSVP.');
+      toast.warning('Authentication Required', 'Please sign in to RSVP for campus events.');
       return;
     }
     try {
@@ -49,13 +50,13 @@ export default function StudentEvents() {
         studentEmail,
       });
       if (res && res.ok) {
-        alert('RSVP confirmed! See you at the event 🎉');
+        toast.success('RSVP Confirmed! 🎉', 'Your seat has been reserved. See you at the event!');
         fetchEventsData();
       } else {
-        alert(res.error || 'Failed to RSVP.');
+        toast.error('RSVP Failed', res?.error || 'Failed to RSVP.');
       }
     } catch {
-      alert('Error confirming RSVP.');
+      toast.error('Network Error', 'Error confirming RSVP. Please try again.');
     }
   };
 

@@ -89,13 +89,15 @@ export const eventsService = {
         // Increment rsvp_count
         const { data: evt } = await supabase.from('events_catalog').select('rsvp_count, capacity').eq('id', eventId).single();
         if (evt && evt.rsvp_count < evt.capacity) {
-          await supabase.from('events_catalog').update({ rsvp_count: evt.rsvp_count + 1 }).eq('id', eventId);
-          await supabase.from('events_rsvps').insert({
+          const res1 = await supabase.from('events_catalog').update({ rsvp_count: evt.rsvp_count + 1 }).eq('id', eventId);
+          if (res1.error) throw new Error(res1.error.message);
+          const res2 = await supabase.from('events_rsvps').insert({
             event_id: eventId,
             student_id: studentId,
             student_name: studentName,
             has_certificate: false
           });
+          if (res2.error) throw new Error(res2.error.message);
           return { ok: true };
         }
         return { ok: false, error: 'Event is full!' };
@@ -126,7 +128,8 @@ export const eventsService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('events_catalog').insert({ id, category, title, description, date, time, venue, capacity, rsvp_count: 0, host, completed: false });
+        const res = await supabase.from('events_catalog').insert({ id, category, title, description, date, time, venue, capacity, rsvp_count: 0, host, completed: false });
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -146,7 +149,8 @@ export const eventsService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('events_rsvps').update({ has_certificate: true, certificate_code: certCode }).eq('id', rsvpId);
+        const res = await supabase.from('events_rsvps').update({ has_certificate: true, certificate_code: certCode }).eq('id', rsvpId);
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);

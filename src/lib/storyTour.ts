@@ -1,7 +1,9 @@
 /**
  * Single-Source-of-Truth Story Tour Controller.
- * Guarantees that Story Tour runs STRICTLY ONCE per user after onboarding completion.
+ * Guarantees that Story Tour runs reliably after onboarding and allows seamless replay.
  */
+
+import { api } from '@/lib/api/client';
 
 export function storyCompletedKey(userId?: string): string {
   const uid = userId && userId !== 'guest' ? userId : 'active_user';
@@ -15,65 +17,111 @@ export function storySessionTokenKey(userId?: string): string {
 
 /**
  * Called exclusively upon completing the final onboarding step.
- * Arms an ephemeral single-use session token for the authenticated user.
+ * Arms ephemeral single-use session tokens so the tour starts upon landing on the dashboard.
  */
 export function markOnboardingStoryPending(userId?: string) {
   if (typeof window === 'undefined') return;
   const uid = userId && userId !== 'guest' ? userId : 'active_user';
   try {
-    // If the user already completed the tour in a prior lifetime, do not re-arm
-    if (localStorage.getItem(storyCompletedKey(uid)) === 'true') {
-      return;
-    }
-    // Arm ephemeral one-time session token
+    // If the user already completed the tour in a prior session, allow re-arm only if freshly onboarded
+    localStorage.removeItem(storyCompletedKey(uid));
+    localStorage.removeItem('pinit_active_user_story_completed');
+
+    // Arm ephemeral one-time session tokens (both user-scoped and session-scoped for hydration resilience)
     sessionStorage.setItem(storySessionTokenKey(uid), 'true');
-    // Clear any obsolete legacy keys to prevent ghost triggers
-    localStorage.removeItem('pinit_story_pending_any');
-    sessionStorage.removeItem('pinit_just_onboarded');
+    sessionStorage.setItem('pinit_session_just_onboarded', 'true');
+    sessionStorage.setItem('pinit_story_pending_flag', 'true');
   } catch {}
 }
 
 /**
- * Checks if the story tour should execute.
+ * Checks if the story tour should execute automatically post-onboarding.
  * Returns true ONLY if:
  * 1. The user has an active ephemeral onboarding token
- * 2. The user has NEVER completed the story tour previously
+ * 2. The user has not completed the tour in this specific lifecycle or in the database profile
  */
-export function isStoryTourPending(userId?: string): boolean {
+export function isStoryTourPending(userId?: string, profile?: any): boolean {
   if (typeof window === 'undefined') return false;
   const uid = userId && userId !== 'guest' ? userId : 'active_user';
   try {
-    // 1. Permanent Hard Stop: If already completed, never auto-run again
+    // 1. Check if database profile already confirms story tour was completed
+    const profileCompleted = 
+      profile?.onboardingAnswers?.storyTourCompleted === true ||
+      profile?.onboarding_answers?.storyTourCompleted === true;
+
+    if (profileCompleted) {
+      if (localStorage.getItem(storyCompletedKey(uid)) !== 'true') {
+        localStorage.setItem(storyCompletedKey(uid), 'true');
+      }
+      return false;
+    }
+
+    // 2. Check if already marked completed in localStorage
     if (localStorage.getItem(storyCompletedKey(uid)) === 'true') {
       return false;
     }
 
-    // 2. Check for one-time ephemeral token
-    const tokenActive = sessionStorage.getItem(storySessionTokenKey(uid)) === 'true';
-    return tokenActive;
+    // 3. Check for one-time ephemeral token
+    const tokenActive =
+      sessionStorage.getItem(storySessionTokenKey(uid)) === 'true' ||
+      sessionStorage.getItem('pinit_session_just_onboarded') === 'true' ||
+      sessionStorage.getItem('pinit_story_pending_flag') === 'true';
+
+    if (!tokenActive) return false;
+
+    return true;
   } catch {
     return false;
   }
 }
 
 /**
- * Atomically consumes the one-time token and permanently marks the tour completed.
- * Executed the very millisecond the tour is initiated.
+ * Atomically consumes the one-time token and marks the tour completed.
+ * Persists status both to localStorage and to Supabase database profile.
  */
 export function completeStoryTour(userId?: string) {
   if (typeof window === 'undefined') return;
   const uid = userId && userId !== 'guest' ? userId : 'active_user';
   try {
-    // 1. Permanently lock client-side completion
+    // 1. Mark client-side completion
     localStorage.setItem(storyCompletedKey(uid), 'true');
-    localStorage.setItem('pinit_active_user_story_completed', 'true');
     
-    // 2. Burn and purge all pending tokens
+    // 2. Burn and purge all pending session tokens
     sessionStorage.removeItem(storySessionTokenKey(uid));
+    sessionStorage.removeItem('pinit_session_just_onboarded');
+    sessionStorage.removeItem('pinit_story_pending_flag');
     sessionStorage.removeItem('pinit_just_onboarded');
     localStorage.removeItem(`pinit_${uid}_story_pending`);
     localStorage.removeItem('pinit_story_pending_any');
+
+    // 3. Persist tour completion to Supabase profile so new devices don't re-trigger tour
+    if (userId && userId !== 'guest' && !userId.startsWith('usr_dev_')) {
+      api.post('/api/auth/onboarding', {
+        onboardingAnswers: { storyTourCompleted: true }
+      }).catch(() => {});
+    }
   } catch {}
+}
+
+/**
+ * Resets story tour completion to allow replaying.
+ */
+export function resetStoryTour(userId?: string) {
+  if (typeof window === 'undefined') return;
+  const uid = userId && userId !== 'guest' ? userId : 'active_user';
+  try {
+    localStorage.removeItem(storyCompletedKey(uid));
+    localStorage.removeItem('pinit_active_user_story_completed');
+  } catch {}
+}
+
+/**
+ * Dispatches custom event to trigger story mode instantly.
+ */
+export function launchStoryTourNow() {
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('pinit:start_story_mode'));
+  }
 }
 
 export function consumeJustOnboarded(_userId?: string) {

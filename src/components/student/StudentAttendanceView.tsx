@@ -29,6 +29,7 @@ export default function StudentAttendanceView() {
   const [showFaceScanModal, setShowFaceScanModal] = useState<boolean>(false);
   const [scanning, setScanning] = useState<boolean>(false);
   const [scanStatus, setScanStatus] = useState<'idle' | 'capturing' | 'verifying' | 'success'>('idle');
+  const [watchdogWarning, setWatchdogWarning] = useState<string | null>(null);
 
   // Safety Buffer Margin Calculator State
   const [calcSubjectId, setCalcSubjectId] = useState<string>('all');
@@ -153,11 +154,53 @@ export default function StudentAttendanceView() {
     };
   }, [stopCameraStream]);
 
-  // ── Face Scan Check-In Handler ──
+  // ── Helper to finalize verified attendance check-in ──
+  const completeAttendanceCheckIn = useCallback(() => {
+    setScanStatus('success');
+    stopCameraStream();
+
+    // Use local timezone date string (en-CA -> YYYY-MM-DD)
+    const today = new Date().toLocaleDateString('en-CA');
+    const isConsecutive = lastCheckInDate ? (new Date().getTime() - new Date(lastCheckInDate).getTime()) < 172800000 : true;
+    const nextStreak = isConsecutive ? focusStreak + 1 : 1;
+
+    console.log(`[Attendance] 📸 Biometric Check-In successful for local date ${today}. Previous date=${lastCheckInDate}, nextStreak=${nextStreak}`);
+
+    // Increment attended count for default subjects
+    const updatedSubs = subjects.map(s => {
+      const nextAtt = s.attended + 1;
+      const nextTot = s.totalClasses + 1;
+      const nextPct = Number(((nextAtt / nextTot) * 100).toFixed(1));
+      let nextStat: 'Excellent' | 'Good' | 'Warning' | 'Critical' = 'Good';
+      if (nextPct >= 90) nextStat = 'Excellent';
+      else if (nextPct < 75) nextStat = 'Critical';
+      else if (nextPct < 85) nextStat = 'Warning';
+
+      return { ...s, attended: nextAtt, totalClasses: nextTot, percentage: nextPct, status: nextStat };
+    });
+
+    saveAttendanceState(updatedSubs, nextStreak, today);
+
+    try {
+      addXp(10, 'Biometric Attendance Check-In');
+      earnPins('mission_complete', 15, 'Daily Class Check-In');
+    } catch {}
+
+    setTimeout(() => {
+      setShowFaceScanModal(false);
+      setScanning(false);
+      setScanStatus('idle');
+      setWatchdogWarning(null);
+    }, 2000);
+  }, [focusStreak, lastCheckInDate, saveAttendanceState, stopCameraStream, subjects, addXp, earnPins]);
+
+  // ── Face Scan Check-In Handler with 5.5s Watchdog Guidance ──
   const handleStartFaceScan = async () => {
+    console.log(`[Attendance] 📸 Starting AI biometric face check-in...`);
     setShowFaceScanModal(true);
     setScanStatus('capturing');
     setScanning(true);
+    setWatchdogWarning(null);
 
     let stream: MediaStream | null = null;
     try {
@@ -168,43 +211,17 @@ export default function StudentAttendanceView() {
         await videoRef.current.play();
       }
 
+      // Watchdog: If camera/lighting delays detection beyond 5 seconds, offer guidance & manual bypass
+      const watchdogTimer = setTimeout(() => {
+        setWatchdogWarning("💡 Low light or camera angle detected. Look directly at the lens or click 'Confirm Attendance Manually' below.");
+      }, 4500);
+
       // Simulate AI Liveness & Face Verification
       setTimeout(() => {
         setScanStatus('verifying');
         setTimeout(() => {
-          setScanStatus('success');
-          stopCameraStream();
-
-          // Update Attendance & Focus Streak
-          const today = new Date().toISOString().slice(0, 10);
-          const isConsecutive = lastCheckInDate ? (new Date().getTime() - new Date(lastCheckInDate).getTime()) < 172800000 : true;
-          const nextStreak = isConsecutive ? focusStreak + 1 : 1;
-
-          // Increment attended count for default subjects
-          const updatedSubs = subjects.map(s => {
-            const nextAtt = s.attended + 1;
-            const nextTot = s.totalClasses + 1;
-            const nextPct = Number(((nextAtt / nextTot) * 100).toFixed(1));
-            let nextStat: 'Excellent' | 'Good' | 'Warning' | 'Critical' = 'Good';
-            if (nextPct >= 90) nextStat = 'Excellent';
-            else if (nextPct < 75) nextStat = 'Critical';
-            else if (nextPct < 85) nextStat = 'Warning';
-
-            return { ...s, attended: nextAtt, totalClasses: nextTot, percentage: nextPct, status: nextStat };
-          });
-
-          saveAttendanceState(updatedSubs, nextStreak, today);
-
-          try {
-            addXp(10, 'Biometric Attendance Check-In');
-            earnPins('mission_complete', 15, 'Daily Class Check-In');
-          } catch {}
-
-          setTimeout(() => {
-            setShowFaceScanModal(false);
-            setScanning(false);
-            setScanStatus('idle');
-          }, 2000);
+          clearTimeout(watchdogTimer);
+          completeAttendanceCheckIn();
         }, 1200);
       }, 1500);
 
@@ -273,7 +290,7 @@ export default function StudentAttendanceView() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 24, padding: '24px 28px', maxWidth: 1080, margin: '0 auto', color: 'var(--t1, #0f172a)' }}>
-      <div style={{ padding: '10px 14px', borderRadius: 10, border: '1px solid var(--border)', background: 'rgba(245, 158, 11, 0.08)', color: 'var(--amber)', fontSize: 12, fontWeight: 700 }}>
+      <div style={{ padding: '10px 14px', borderRadius: 10, border: '1px solid var(--border)', background: 'rgba(var(--warning-rgb),  0.08)', color: 'var(--amber)', fontSize: 12, fontWeight: 700 }}>
         Attendance is loaded from campus records when available. Until the attendance table is populated, this view stays empty instead of showing sample subjects.
       </div>
       
@@ -305,7 +322,7 @@ export default function StudentAttendanceView() {
             onClick={handleStartFaceScan}
             style={{
               background: 'linear-gradient(135deg, #10b981, #059669)',
-              color: '#fff',
+              color: 'var(--text)',
               border: 'none',
               padding: '12px 24px',
               borderRadius: 12,
@@ -315,7 +332,7 @@ export default function StudentAttendanceView() {
               display: 'flex',
               alignItems: 'center',
               gap: 8,
-              boxShadow: '0 0 16px rgba(16,185,129,0.3)',
+              boxShadow: '0 0 16px rgba(var(--success-rgb), 0.3)',
             }}
           >
             <span>📸</span> AI Biometric Face Check-In
@@ -324,7 +341,7 @@ export default function StudentAttendanceView() {
       </div>
 
       {/* ── 🎯 1. FOCUS STREAK MULTIPLIER BANNER ── */}
-      <div style={{ background: 'linear-gradient(135deg, rgba(212,168,67,0.15), rgba(245,158,11,0.15))', border: '1px solid #d4a843', borderRadius: 16, padding: '18px 22px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
+      <div style={{ background: 'linear-gradient(135deg, rgba(212,168,67,0.15), rgba(var(--warning-rgb), 0.15))', border: '1px solid #d4a843', borderRadius: 16, padding: '18px 22px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
           <div style={{ width: 46, height: 46, borderRadius: 12, background: 'rgba(212,168,67,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 26 }}>🔥</div>
           <div>
@@ -367,7 +384,7 @@ export default function StudentAttendanceView() {
                   <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--t1)' }}>{leave.id}: {leave.category} Leave</span>
                   <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>{leave.reason} ({leave.dates})</div>
                 </div>
-                <span style={{ fontSize: 11, padding: '4px 10px', borderRadius: 6, background: 'rgba(245,158,11,0.1)', color: 'var(--amber)', fontWeight: 800 }}>
+                <span style={{ fontSize: 11, padding: '4px 10px', borderRadius: 6, background: 'rgba(var(--warning-rgb), 0.1)', color: 'var(--amber)', fontWeight: 800 }}>
                   {leave.status}
                 </span>
               </div>
@@ -380,10 +397,10 @@ export default function StudentAttendanceView() {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
         <div style={{ background: 'var(--card, #fff)', border: '1px solid var(--border, var(--border))', borderRadius: 14, padding: 18 }}>
           <div style={{ fontSize: 12, color: 'var(--t3, #64748b)' }}>Cumulative Attendance</div>
-          <div style={{ fontSize: 32, fontWeight: 900, color: Number(overallPercentage) >= 85 ? '#16a34a' : Number(overallPercentage) >= 75 ? '#d97706' : '#dc2626', margin: '4px 0 0' }}>
+          <div style={{ fontSize: 32, fontWeight: 900, color: Number(overallPercentage) >= 85 ? '#16a34a' : Number(overallPercentage) >= 75 ? '#d97706' : 'var(--danger-deep)', margin: '4px 0 0' }}>
             {overallPercentage}%
           </div>
-          <div style={{ fontSize: 11, color: Number(overallPercentage) >= 75 ? '#16a34a' : '#dc2626', fontWeight: 700, marginTop: 4 }}>
+          <div style={{ fontSize: 11, color: Number(overallPercentage) >= 75 ? '#16a34a' : 'var(--danger-deep)', fontWeight: 700, marginTop: 4 }}>
             {Number(overallPercentage) >= 75 ? '✓ Compliant (≥ 75% Threshold)' : '⚠️ Below 75% Minimum Criteria'}
           </div>
         </div>
@@ -398,7 +415,7 @@ export default function StudentAttendanceView() {
 
         <div style={{ background: 'var(--card, #fff)', border: '1px solid var(--border, var(--border))', borderRadius: 14, padding: 18 }}>
           <div style={{ fontSize: 12, color: 'var(--t3, #64748b)' }}>Deep Focus Status</div>
-          <div style={{ fontSize: 24, fontWeight: 900, color: '#8b5cf6', margin: '8px 0 0', display: 'flex', alignItems: 'center', gap: 6 }}>
+          <div style={{ fontSize: 24, fontWeight: 900, color: 'var(--reward)', margin: '8px 0 0', display: 'flex', alignItems: 'center', gap: 6 }}>
             🏆 Deep Focus Master
           </div>
           <div style={{ fontSize: 11, color: 'var(--t3, #64748b)', marginTop: 4 }}>3+ Consecutive Hours Attended</div>
@@ -406,10 +423,10 @@ export default function StudentAttendanceView() {
 
         <div style={{ background: 'var(--card, #fff)', border: '1px solid var(--border, var(--border))', borderRadius: 14, padding: 18 }}>
           <div style={{ fontSize: 12, color: 'var(--t3, #64748b)' }}>Creative Innovation Quest</div>
-          <div style={{ fontSize: 24, fontWeight: 900, color: '#10b981', margin: '8px 0 0', display: 'flex', alignItems: 'center', gap: 6 }}>
+          <div style={{ fontSize: 24, fontWeight: 900, color: 'var(--success)', margin: '8px 0 0', display: 'flex', alignItems: 'center', gap: 6 }}>
             💡 Unlocked
           </div>
-          <div style={{ fontSize: 11, color: '#10b981', fontWeight: 700, marginTop: 4 }}>Weekly Attendance 92% ≥ 90%</div>
+          <div style={{ fontSize: 11, color: 'var(--success)', fontWeight: 700, marginTop: 4 }}>Weekly Attendance 92% ≥ 90%</div>
         </div>
       </div>
 
@@ -459,7 +476,7 @@ export default function StudentAttendanceView() {
 
         {/* Calculator Output Cards */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14 }}>
-          <div style={{ background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.3)', borderRadius: 12, padding: 14 }}>
+          <div style={{ background: 'rgba(var(--success-rgb), 0.08)', border: '1px solid rgba(var(--success-rgb), 0.3)', borderRadius: 12, padding: 14 }}>
             <div style={{ fontSize: 11, color: '#15803d', fontWeight: 700 }}>Safe Skip Buffer Margin</div>
             <div style={{ fontSize: 24, fontWeight: 900, color: '#16a34a', margin: '4px 0 0' }}>
               {bufferCalc.maxMissable} Lecture{bufferCalc.maxMissable !== 1 ? 's' : ''}
@@ -467,17 +484,17 @@ export default function StudentAttendanceView() {
             <div style={{ fontSize: 11, color: 'var(--t3, #64748b)', marginTop: 2 }}>Can safely miss without dropping below {calcThreshold}%</div>
           </div>
 
-          <div style={{ background: bufferCalc.neededToRecover > 0 ? 'rgba(239,68,68,0.08)' : 'rgba(59,130,246,0.08)', border: `1px solid ${bufferCalc.neededToRecover > 0 ? 'rgba(239,68,68,0.3)' : 'rgba(59,130,246,0.3)'}`, borderRadius: 12, padding: 14 }}>
+          <div style={{ background: bufferCalc.neededToRecover > 0 ? 'rgba(var(--danger-rgb), 0.08)' : 'rgba(var(--info-rgb), 0.08)', border: `1px solid ${bufferCalc.neededToRecover > 0 ? 'rgba(var(--danger-rgb), 0.3)' : 'rgba(var(--info-rgb), 0.3)'}`, borderRadius: 12, padding: 14 }}>
             <div style={{ fontSize: 11, color: bufferCalc.neededToRecover > 0 ? '#b91c1c' : '#1d4ed8', fontWeight: 700 }}>Required Recovery Plan</div>
-            <div style={{ fontSize: 24, fontWeight: 900, color: bufferCalc.neededToRecover > 0 ? '#dc2626' : '#2563eb', margin: '4px 0 0' }}>
+            <div style={{ fontSize: 24, fontWeight: 900, color: bufferCalc.neededToRecover > 0 ? 'var(--danger-deep)' : '#2563eb', margin: '4px 0 0' }}>
               {bufferCalc.neededToRecover > 0 ? `${bufferCalc.neededToRecover} Consecutive Lectures` : '✓ On Track'}
             </div>
             <div style={{ fontSize: 11, color: 'var(--t3, #64748b)', marginTop: 2 }}>{bufferCalc.neededToRecover > 0 ? `Must attend to reach ${calcThreshold}% minimum` : `Currently above ${calcThreshold}% criteria`}</div>
           </div>
 
-          <div style={{ background: bufferCalc.simStatus === 'SAFE' ? 'rgba(16,185,129,0.08)' : 'rgba(239,68,68,0.08)', border: `1px solid ${bufferCalc.simStatus === 'SAFE' ? 'rgba(16,185,129,0.3)' : 'rgba(239,68,68,0.3)'}`, borderRadius: 12, padding: 14 }}>
+          <div style={{ background: bufferCalc.simStatus === 'SAFE' ? 'rgba(var(--success-rgb), 0.08)' : 'rgba(var(--danger-rgb), 0.08)', border: `1px solid ${bufferCalc.simStatus === 'SAFE' ? 'rgba(var(--success-rgb), 0.3)' : 'rgba(var(--danger-rgb), 0.3)'}`, borderRadius: 12, padding: 14 }}>
             <div style={{ fontSize: 11, color: 'var(--t3, #64748b)', fontWeight: 700 }}>Simulated Result ({simulatedMisses} Misses)</div>
-            <div style={{ fontSize: 24, fontWeight: 900, color: bufferCalc.simStatus === 'SAFE' ? '#16a34a' : '#dc2626', margin: '4px 0 0' }}>
+            <div style={{ fontSize: 24, fontWeight: 900, color: bufferCalc.simStatus === 'SAFE' ? '#16a34a' : 'var(--danger-deep)', margin: '4px 0 0' }}>
               {bufferCalc.simPct}% ({bufferCalc.simStatus})
             </div>
             <div style={{ fontSize: 11, color: 'var(--t3, #64748b)', marginTop: 2 }}>Predicted ratio after missing {simulatedMisses} lectures</div>
@@ -516,11 +533,11 @@ export default function StudentAttendanceView() {
                 <td style={{ padding: 14, fontSize: 14 }}>{row.totalClasses}</td>
                 <td style={{ padding: 14, fontSize: 14, color: '#16a34a', fontWeight: 700 }}>{row.attended}</td>
                 <td style={{ padding: 14 }}>
-                  <div style={{ fontSize: 15, fontWeight: 900, color: row.percentage >= 85 ? '#16a34a' : row.percentage >= 75 ? '#d97706' : '#dc2626' }}>
+                  <div style={{ fontSize: 15, fontWeight: 900, color: row.percentage >= 85 ? '#16a34a' : row.percentage >= 75 ? '#d97706' : 'var(--danger-deep)' }}>
                     {row.percentage}%
                   </div>
                   <div style={{ width: 80, height: 4, background: 'var(--bg3, var(--border))', borderRadius: 2, overflow: 'hidden', marginTop: 4 }}>
-                    <div style={{ height: '100%', width: `${Math.min(100, row.percentage)}%`, background: row.percentage >= 85 ? '#16a34a' : row.percentage >= 75 ? '#d97706' : '#dc2626', borderRadius: 2 }} />
+                    <div style={{ height: '100%', width: `${Math.min(100, row.percentage)}%`, background: row.percentage >= 85 ? '#16a34a' : row.percentage >= 75 ? '#d97706' : 'var(--danger-deep)', borderRadius: 2 }} />
                   </div>
                 </td>
                 <td style={{ padding: 14 }}>
@@ -529,19 +546,19 @@ export default function StudentAttendanceView() {
                     borderRadius: 6,
                     fontSize: 12,
                     fontWeight: 800,
-                    background: row.percentage >= 90 ? 'rgba(16,185,129,0.15)' : row.percentage >= 75 ? 'rgba(245,158,11,0.15)' : 'rgba(239,68,68,0.15)',
+                    background: row.percentage >= 90 ? 'rgba(var(--success-rgb), 0.15)' : row.percentage >= 75 ? 'rgba(var(--warning-rgb), 0.15)' : 'rgba(var(--danger-rgb), 0.15)',
                     color: row.percentage >= 90 ? '#15803d' : row.percentage >= 75 ? '#b45309' : '#b91c1c',
-                    border: `1px solid ${row.percentage >= 90 ? 'rgba(16,185,129,0.3)' : row.percentage >= 75 ? 'rgba(245,158,11,0.3)' : 'rgba(239,68,68,0.3)'}`,
+                    border: `1px solid ${row.percentage >= 90 ? 'rgba(var(--success-rgb), 0.3)' : row.percentage >= 75 ? 'rgba(var(--warning-rgb), 0.3)' : 'rgba(var(--danger-rgb), 0.3)'}`,
                   }}>
                     {row.status}
                   </span>
                 </td>
                 <td style={{ padding: 14, textAlign: 'right' }}>
                   <div style={{ display: 'flex', gap: 6, justifyContent: 'flex-end' }}>
-                    <button onClick={() => handleMarkClassAttended(row.id, true)} style={{ background: 'rgba(16,185,129,0.15)', border: '1px solid #10b981', color: '#15803d', padding: '4px 10px', borderRadius: 6, fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>
+                    <button onClick={() => handleMarkClassAttended(row.id, true)} style={{ background: 'rgba(var(--success-rgb), 0.15)', border: '1px solid #10b981', color: '#15803d', padding: '4px 10px', borderRadius: 6, fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>
                       + Attend
                     </button>
-                    <button onClick={() => handleMarkClassAttended(row.id, false)} style={{ background: 'rgba(239,68,68,0.15)', border: '1px solid #ef4444', color: '#b91c1c', padding: '4px 10px', borderRadius: 6, fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>
+                    <button onClick={() => handleMarkClassAttended(row.id, false)} style={{ background: 'rgba(var(--danger-rgb), 0.15)', border: '1px solid #ef4444', color: '#b91c1c', padding: '4px 10px', borderRadius: 6, fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>
                       + Miss
                     </button>
                   </div>
@@ -571,21 +588,21 @@ export default function StudentAttendanceView() {
               <div style={{ position: 'absolute', inset: '20%', border: '2px dashed #10b981', borderRadius: '50%', animation: 'attPulse 1.5s infinite', pointerEvents: 'none' }} />
 
               {scanStatus === 'verifying' && (
-                <div style={{ position: 'absolute', inset: 0, background: 'rgba(10,10,15,0.75)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#10b981', fontWeight: 800, fontSize: 15 }}>
+                <div style={{ position: 'absolute', inset: 0, background: 'rgba(10,10,15,0.75)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'var(--success)', fontWeight: 800, fontSize: 15 }}>
                   <div style={{ width: 32, height: 32, border: '3px solid #10b981', borderTopColor: 'transparent', borderRadius: '50%', animation: 'attSpin 1s linear infinite', marginBottom: 10 }} />
                   Verifying AI Liveness...
                 </div>
               )}
 
               {scanStatus === 'success' && (
-                <div style={{ position: 'absolute', inset: 0, background: 'rgba(16,185,129,0.95)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 900, fontSize: 20, padding: 16 }}>
+                <div style={{ position: 'absolute', inset: 0, background: 'rgba(var(--success-rgb), 0.95)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'var(--text)', fontWeight: 900, fontSize: 20, padding: 16 }}>
                   ✓ Check-In Verified!
                   <span style={{ fontSize: 13, fontWeight: 700, marginTop: 4, background: 'rgba(0,0,0,0.2)', padding: '4px 12px', borderRadius: 8 }}>
                     +15 Pins • +10 XP • Focus Multiplier Active
                   </span>
                   <button
                     onClick={() => { stopCameraStream(); setShowFaceScanModal(false); router.push('/attention-span'); }}
-                    style={{ marginTop: 12, background: '#fff', color: '#059669', border: 'none', padding: '8px 16px', borderRadius: 8, fontSize: 12, fontWeight: 800, cursor: 'pointer' }}
+                    style={{ marginTop: 12, background: 'var(--text)', color: 'var(--success-deep)', border: 'none', padding: '8px 16px', borderRadius: 8, fontSize: 12, fontWeight: 800, cursor: 'pointer' }}
                   >
                     🎯 Launch Cognitive Engine ▶
                   </button>
@@ -598,6 +615,45 @@ export default function StudentAttendanceView() {
               {scanStatus === 'verifying' && 'Comparing biometric signature...'}
               {scanStatus === 'idle' && 'Initializing camera feed...'}
             </div>
+
+            {watchdogWarning && scanStatus !== 'success' && (
+              <div style={{
+                marginTop: 14,
+                padding: '10px 14px',
+                background: 'rgba(234, 179, 8, 0.1)',
+                border: '1px solid rgba(234, 179, 8, 0.35)',
+                borderRadius: 12,
+                textAlign: 'left',
+                fontSize: 11.5,
+                color: 'var(--t1)'
+              }}>
+                <div style={{ fontWeight: 800, color: '#eab308', marginBottom: 4 }}>
+                  ⚠️ Lighting or Angle Notice
+                </div>
+                <div style={{ color: 'var(--t2)', fontSize: 11, marginBottom: 8 }}>
+                  {watchdogWarning}
+                </div>
+                <button
+                  onClick={() => {
+                    console.log('[Attendance] 📸 Manual fallback check-in confirmed by student.');
+                    completeAttendanceCheckIn();
+                  }}
+                  style={{
+                    width: '100%',
+                    padding: '8px 12px',
+                    borderRadius: 8,
+                    background: '#eab308',
+                    color: '#000000',
+                    border: 'none',
+                    fontWeight: 800,
+                    fontSize: 11.5,
+                    cursor: 'pointer'
+                  }}
+                >
+                  ✓ Confirm Attendance Manually
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}

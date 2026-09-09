@@ -22,3 +22,16 @@ export function invalidateTableCache(tableName?: string) {
   if (tableName) cache.delete(tableName);
   else cache.clear();
 }
+
+/**
+ * Wraps a Supabase database write promise and throws if PostgREST returned an error.
+ * Ensures try/catch fallback handlers execute properly when RLS or DB constraints fail.
+ */
+export async function checkDbWrite<T extends { error: any }>(promise: PromiseLike<T>): Promise<T> {
+  const result = await promise;
+  if (result.error) {
+    throw new Error(result.error.message || 'Database write rejected by security policy');
+  }
+  return result;
+}
+

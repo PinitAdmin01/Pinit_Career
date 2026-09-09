@@ -1,14 +1,15 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 
 interface GrandFinaleCtaProps {
-  onOpenLogin: (role?: 'student' | 'teacher' | 'admin' | 'recruiter') => void;
+  onOpenLogin?: (role?: 'student' | 'teacher' | 'admin' | 'recruiter') => void;
 }
 
 export default function GrandFinaleCta({ onOpenLogin }: GrandFinaleCtaProps) {
   return (
-    <section className="lp-section" style={{ background: '#05070f', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+    <section className="lp-section">
       <div className="lp-container">
         
         <div className="grand-finale-box">
@@ -27,29 +28,27 @@ export default function GrandFinaleCta({ onOpenLogin }: GrandFinaleCtaProps) {
           </p>
 
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 14, paddingTop: 10 }}>
-            <button
-              type="button"
-              onClick={() => onOpenLogin('student')}
+            <Link
+              href="/login?mode=signup"
               className="btn-primary-hero"
-              style={{ fontSize: 16, padding: '16px 36px' }}
+              style={{ fontSize: 15, padding: '14px 32px', textDecoration: 'none' }}
             >
               <span>Start Free Exploration</span>
               <span>→</span>
-            </button>
+            </Link>
 
-            <button
-              type="button"
-              onClick={() => onOpenLogin('teacher')}
+            <Link
+              href="/login"
               className="btn-secondary-hero"
-              style={{ fontSize: 15, padding: '16px 28px' }}
+              style={{ fontSize: 14, padding: '14px 26px', textDecoration: 'none' }}
             >
               <span>Campus Institution Portal</span>
-            </button>
+            </Link>
           </div>
 
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 24, paddingTop: 20, borderTop: '1px solid rgba(255,255,255,0.06)', width: '100%', fontSize: 12, color: '#64748b' }}>
-            <span><strong style={{ color: '#10b981' }}>✓</strong> 100% Free Core Roadmaps</span>
-            <span><strong style={{ color: '#00a3ff' }}>✓</strong> Zero Credit Card Required</span>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 24, paddingTop: 20, borderTop: '1px solid var(--border-color)', width: '100%', fontSize: 12, color: 'var(--text-tertiary)' }}>
+            <span><strong style={{ color: 'var(--accent-green)' }}>✓</strong> 100% Free Core Roadmaps</span>
+            <span><strong style={{ color: 'var(--accent)' }}>✓</strong> Zero Credit Card Required</span>
             <span><strong style={{ color: '#a855f7' }}>✓</strong> Instant In-Browser Access</span>
           </div>
 

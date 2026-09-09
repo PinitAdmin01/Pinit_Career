@@ -4,6 +4,7 @@
 import { useState, useEffect } from 'react';
 import { api } from '@/lib/api/client';
 import { useAuth } from '@/lib/context/AuthContext';
+import { toast } from '@/lib/store/useAppStore';
 
 type SubTab = 'directory' | 'mentorship' | 'jobs' | 'donations' | 'events';
 
@@ -57,13 +58,13 @@ export default function StudentAlumniPortal() {
         slot: mentorSlot
       });
       if (res && res.ok) {
-        alert(`Mentorship slot session requested with ${mentorName} ✓`);
+        toast.success('Mentorship Requested! 🤝', `Session requested with ${mentorName}.`);
         setMentorName('');
         setMentorSlot('');
         fetchAlumniData();
       }
     } catch {
-      alert('Request failed');
+      toast.error('Request Failed', 'Failed to submit mentorship request. Please try again.');
     } finally {
       setRequestingMentorship(false);
     }
@@ -76,18 +77,18 @@ export default function StudentAlumniPortal() {
         studentName: contributorName
       });
       if (res && res.ok) {
-        alert('Job referral request submitted to alum! Resume portfolio attached ✓');
+        toast.success('Referral Requested! 🚀', 'Job referral request submitted to alum! Resume portfolio attached.');
         fetchAlumniData();
       }
     } catch {
-      alert('Referral request failed');
+      toast.error('Request Failed', 'Failed to submit job referral request.');
     }
   };
 
   const handleDonateSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedDonationId) {
-      alert('Please select a donation campaign drive');
+      toast.warning('Campaign Required', 'Please select a donation campaign drive first.');
       return;
     }
     setDonating(true);
@@ -98,12 +99,12 @@ export default function StudentAlumniPortal() {
         contributorName
       });
       if (res && res.ok) {
-        alert('Donation recorded in the local alumni simulator. This is not a real payment.');
+        toast.success('Donation Recorded! 💛', 'Donation recorded in the alumni simulator.');
         setDonateAmount('5000');
         fetchAlumniData();
       }
     } catch {
-      alert('Donation simulator failed');
+      toast.error('Simulation Failed', 'Donation simulator failed. Please try again.');
     } finally {
       setDonating(false);
     }
@@ -485,7 +486,7 @@ export default function StudentAlumniPortal() {
                     <span style={{ fontSize: 11.5, color: 'var(--t2)' }}>👥 {e.attendees} Attending</span>
                     <button
                       onClick={() => {
-                        alert('RSVP confirmed! Invitation badge sent to registered email.');
+                        toast.success('RSVP Confirmed! 🎉', 'Invitation badge sent to registered email.');
                         fetchAlumniData();
                       }}
                       className="btn-primary btn-sm"

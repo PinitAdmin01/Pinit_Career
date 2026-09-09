@@ -3,11 +3,14 @@ import crypto from 'crypto';
 import { PathwayApiService } from '@/lib/api/pathwayApi';
 
 function verifyGitHubSignature(payload: string, signature: string | null, secret: string): boolean {
-  if (!signature || !secret) return true; // allow dev mode without secret
+  if (!signature || !secret) return false; // Fail-closed
   try {
     const hmac = crypto.createHmac('sha256', secret);
     const digest = 'sha256=' + hmac.update(payload).digest('hex');
-    return crypto.timingSafeEqual(Buffer.from(digest), Buffer.from(signature));
+    const a = Buffer.from(digest);
+    const b = Buffer.from(signature);
+    if (a.length !== b.length) return false;
+    return crypto.timingSafeEqual(a, b);
   } catch {
     return false;
   }
@@ -20,7 +23,15 @@ export async function POST(req: NextRequest) {
     const event = req.headers.get('x-github-event') || 'push';
     const webhookSecret = process.env.GITHUB_WEBHOOK_SECRET || '';
 
-    if (webhookSecret && !verifyGitHubSignature(rawBody, signature, webhookSecret)) {
+    // FAIL-CLOSED: GITHUB_WEBHOOK_SECRET is mandatory for receiving webhooks
+    if (!webhookSecret) {
+      return NextResponse.json(
+        { error: 'WEBHOOK_NOT_CONFIGURED', message: 'GitHub webhook secret is not configured on the server.' },
+        { status: 503 }
+      );
+    }
+
+    if (!verifyGitHubSignature(rawBody, signature, webhookSecret)) {
       return NextResponse.json({ error: 'Invalid HMAC signature' }, { status: 401 });
     }
 

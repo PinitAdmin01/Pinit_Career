@@ -1,66 +1,40 @@
 import { NextResponse } from 'next/server';
+import { requireFacultyOrAdminUserFromRequest, getAuthoritativeSupabaseClient, getBearerToken } from '@/lib/server/requireAuth';
 
 /**
- * Teacher portal auth — exact usernames only, passwords from env (no weak defaults).
- * Intentional product demos remain the AuthContext accounts with password 111111.
+ * Teacher portal auth verification — validates Supabase JWT session and checks role.
+ * Replaces legacy shadow auth with authoritative RBAC.
  */
-function buildAccounts(): Record<string, { password: string; role: 'teacher' | 'admin'; name: string }> {
-  const teacherPw = process.env.TEACHER_DEMO_PASSWORD || '';
-  const adminPw = process.env.TEACHER_ADMIN_PASSWORD || '';
-  const accounts: Record<string, { password: string; role: 'teacher' | 'admin'; name: string }> = {};
+export async function GET(req: Request) {
+  const gated = await requireFacultyOrAdminUserFromRequest(req);
+  if (gated.error || !gated.user) {
+    return gated.error || NextResponse.json({ error: 'UNAUTHORIZED', message: 'Authentication required' }, { status: 401 });
+  }
 
-  if (teacherPw.length >= 8) {
-    accounts.teacher = { password: teacherPw, role: 'teacher', name: 'Teacher' };
-  }
-  if (adminPw.length >= 8) {
-    accounts.admin = { password: adminPw, role: 'admin', name: 'Admin' };
-  }
-  return accounts;
+  const token = getBearerToken(req);
+  const supabase = getAuthoritativeSupabaseClient(token);
+  const { data: profile } = await supabase
+    .from('users')
+    .select('id, email, username, display_name, role, department')
+    .eq('id', gated.user.id)
+    .maybeSingle();
+
+  const teacherProfile = {
+    id: gated.user.id,
+    username: profile?.username || gated.user.email?.split('@')[0] || 'faculty',
+    name: profile?.display_name || profile?.username || 'Faculty Member',
+    role: gated.user.role,
+    department: profile?.department || 'Computer Science & AI',
+    email: gated.user.email || '',
+    permissions: ['manage_courses', 'grade_exams', 'view_students'],
+  };
+
+  return NextResponse.json({
+    success: true,
+    teacher: teacherProfile,
+  });
 }
 
 export async function POST(req: Request) {
-  try {
-    const accounts = buildAccounts();
-    if (Object.keys(accounts).length === 0) {
-      return NextResponse.json(
-        {
-          error:
-            'Teacher portal credentials are not configured. Set TEACHER_DEMO_PASSWORD / TEACHER_ADMIN_PASSWORD (min 8 chars).',
-        },
-        { status: 503 }
-      );
-    }
-
-    const { username, password } = await req.json();
-
-    if (!username || !password) {
-      return NextResponse.json({ error: 'Username and password are required' }, { status: 400 });
-    }
-
-    const cleanUser = String(username).trim().toLowerCase();
-    const account = accounts[cleanUser];
-
-    if (!account || password !== account.password) {
-      return NextResponse.json({ error: 'Invalid username or password' }, { status: 401 });
-    }
-
-    const teacherProfile = {
-      id: `t_${cleanUser}`,
-      username: cleanUser,
-      name: account.name,
-      role: account.role,
-      department: 'Computer Science & AI',
-      email: `${cleanUser}@campus.edu`,
-      avatarUrl: '',
-      permissions: ['manage_courses', 'grade_exams', 'view_students'],
-    };
-
-    return NextResponse.json({
-      success: true,
-      teacher: teacherProfile,
-      token: `t_token_${cleanUser}_${Date.now()}`,
-    });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message || 'Internal server error' }, { status: 500 });
-  }
+  return GET(req);
 }

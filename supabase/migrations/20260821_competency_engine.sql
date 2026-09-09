@@ -76,23 +76,28 @@ ALTER TABLE public.student_program_enrollments ENABLE ROW LEVEL SECURITY;
 
 -- 5. Strict RLS Policies
 -- Students can select their own records
+DROP POLICY IF EXISTS "Students can view own evidence records" ON public.competency_evidence_records;
 CREATE POLICY "Students can view own evidence records"
     ON public.competency_evidence_records FOR SELECT
     USING (auth.uid() = student_id);
 
+DROP POLICY IF EXISTS "Students can view own mastery status" ON public.student_competency_mastery;
 CREATE POLICY "Students can view own mastery status"
     ON public.student_competency_mastery FOR SELECT
     USING (auth.uid() = student_id);
 
+DROP POLICY IF EXISTS "Students can view own program enrollment" ON public.student_program_enrollments;
 CREATE POLICY "Students can view own program enrollment"
     ON public.student_program_enrollments FOR SELECT
     USING (auth.uid() = student_id);
 
 -- Public / Recruiter verification read access for verified credentials
+DROP POLICY IF EXISTS "Public read for verified credentials" ON public.student_competency_mastery;
 CREATE POLICY "Public read for verified credentials"
     ON public.student_competency_mastery FOR SELECT
     USING (state IN ('verified', 'verified_needs_review'));
 
+DROP POLICY IF EXISTS "Public read for graduated program enrollments" ON public.student_program_enrollments;
 CREATE POLICY "Public read for graduated program enrollments"
     ON public.student_program_enrollments FOR SELECT
     USING (is_graduated = TRUE);

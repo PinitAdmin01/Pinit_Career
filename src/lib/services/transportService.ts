@@ -80,11 +80,10 @@ export const transportService = {
     if (isSupabaseAvailable) {
       try {
         const { data: existing } = await supabase.from('transport_allocations').select('*').eq('student_id', studentId).maybeSingle();
-        if (existing) {
-          await supabase.from('transport_allocations').update({ route_code: routeCode, stop, status: 'pending' }).eq('student_id', studentId);
-        } else {
-          await supabase.from('transport_allocations').insert({ student_id: studentId, route_code: routeCode, stop, status: 'pending' });
-        }
+        const res = existing
+          ? await supabase.from('transport_allocations').update({ route_code: routeCode, stop, status: 'pending' }).eq('student_id', studentId)
+          : await supabase.from('transport_allocations').insert({ student_id: studentId, route_code: routeCode, stop, status: 'pending' });
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -107,7 +106,8 @@ export const transportService = {
     const isSupabaseAvailable = await checkSupabaseAvailable('transport_allocations');
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('transport_allocations').update({ status: 'allocated' }).eq('student_id', studentId);
+        const res = await supabase.from('transport_allocations').update({ status: 'allocated' }).eq('student_id', studentId);
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -132,7 +132,7 @@ export const transportService = {
     };
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('transport_routes').insert({
+        const res = await supabase.from('transport_routes').insert({
           code: route.code,
           name: route.name,
           driver_name: route.driverName,
@@ -140,6 +140,7 @@ export const transportService = {
           stops: route.stops,
           timing: route.timing,
         });
+        if (res.error) throw new Error(res.error.message);
         return { ok: true, route };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);

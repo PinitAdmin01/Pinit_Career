@@ -4,6 +4,8 @@ import Link from 'next/link';
 import ActivityFeed from '@/components/ui/ActivityFeed';
 import { DailyMissionSlot, WorkloadBand } from '@/lib/pathway/competencySchema';
 import { PathwayApiService } from '@/lib/api/pathwayApi';
+import { useCareerOS } from '@/lib/context/CareerOSContext';
+import { api } from '@/lib/api/client';
 
 interface NextStep {
   title: string;
@@ -14,7 +16,6 @@ interface NextStep {
 }
 
 interface Props {
-  pendingMissions?: any[];
   nextStep: NextStep;
   userId?: string;
 }
@@ -30,18 +31,36 @@ const CATEGORY_META: Record<string, { icon: string; color: string; label: string
 };
 
 export default function DashboardMissionsPanel({ nextStep, userId }: Props) {
+  const cOS = useCareerOS();
   const [workloadBand, setWorkloadBand] = useState<WorkloadBand>('standard');
   const [coreMissions, setCoreMissions] = useState<DailyMissionSlot[]>([]);
   const [optionalMissions, setOptionalMissions] = useState<DailyMissionSlot[]>([]);
   const [completedIds, setCompletedIds] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(true);
 
+  // Hydrate completed missions from user-scoped localStorage and CareerOSContext
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const key = `pinit_${userId || 'anon'}_daily_missions_completed`;
+    try {
+      const saved = localStorage.getItem(key);
+      const fromLocal: string[] = saved ? JSON.parse(saved) : [];
+      const fromContext: string[] = cOS?.completedMissions || [];
+      const merged = new Set([...fromLocal, ...fromContext]);
+      setCompletedIds(merged);
+    } catch {}
+  }, [userId, cOS?.completedMissions]);
+
   useEffect(() => {
     let isMounted = true;
     async function loadMissions() {
+      if (!userId) {
+        setLoading(false);
+        return;
+      }
       setLoading(true);
       try {
-        const data = await PathwayApiService.getDynamicDailyMissions(userId || 'guest_student', workloadBand);
+        const data = await PathwayApiService.getDynamicDailyMissions(userId, workloadBand);
         if (isMounted) {
           setCoreMissions(data.coreMissions);
           setOptionalMissions(data.optionalMissions);
@@ -57,12 +76,34 @@ export default function DashboardMissionsPanel({ nextStep, userId }: Props) {
   }, [userId, workloadBand]);
 
   const toggleComplete = (id: string) => {
-    setCompletedIds(prev => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
+    const isCurrentlyDone = completedIds.has(id);
+    const next = new Set(completedIds);
+    if (isCurrentlyDone) {
+      next.delete(id);
+    } else {
+      next.add(id);
+    }
+    setCompletedIds(next);
+
+    const arr = Array.from(next);
+    // 1. Persist to user-scoped localStorage
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem(`pinit_${userId || 'anon'}_daily_missions_completed`, JSON.stringify(arr));
+      } catch {}
+    }
+
+    // 2. Register completion in CareerOSContext (awards streak, pins, XP, avatar activity event)
+    if (!isCurrentlyDone) {
+      try {
+        cOS?.completeMission?.(id, true);
+      } catch {}
+    }
+
+    // 3. Sync to cloud database profile / onboarding API
+    api.post('/api/auth/onboarding', {
+      completedMissions: arr,
+    }).catch(() => {});
   };
 
   return (

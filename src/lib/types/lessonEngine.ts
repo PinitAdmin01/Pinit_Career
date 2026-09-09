@@ -280,6 +280,92 @@ export type DsaMisconceptionId =
   | 'MC_DSA_CAPSTONE_GEO_ROUTING_NAVIGATION_ENGINE';
 
 export type FullstackMisconceptionId =
+  | 'MC_FS_PROGRAM_VS_PROCESS_CONFUSION'
+  | 'MC_FS_CPU_REGISTERS_VS_RAM_TRADEOFF'
+  | 'MC_FS_CALL_STACK_LIFO_RETURN_ORDER'
+  | 'MC_FS_PROCESS_LIFECYCLE_STATE_TRANSITION'
+  | 'MC_FS_MULTIPLE_PROCESS_INSTANCES'
+  | 'MC_FS_PROCESS_ID_PID_PURPOSE'
+  | 'MC_FS_RAM_VS_STORAGE_PERSISTENCE'
+  | 'MC_FS_ACTIVE_CALL_DEPTH_ACCUMULATION'
+  | 'MC_FS_MEMORY_LIFETIME_TEMPORARY_VS_PERSISTENT'
+  | 'MC_FS_STDIN_STDOUT_STDERR_SEPARATION'
+  | 'MC_FS_PROGRAM_IO_BOUNDARY'
+  | 'MC_FS_CONSOLE_VS_GUI_VS_NETWORK_DESTINATION'
+  | 'MC_FS_TERMINAL_VS_SHELL_VS_OS'
+  | 'MC_FS_PATH_VARIABLE_VS_CURRENT_DIRECTORY'
+  | 'MC_FS_COMMAND_VS_EXECUTABLE_FILE'
+  | 'MC_FS_ABSOLUTE_VS_RELATIVE_PATH_RESOLUTION'
+  | 'MC_FS_WORKING_DIRECTORY_CONTEXT_DEPENDENCE'
+  | 'MC_FS_FILE_PERSISTENCE_VS_RAM_STATE'
+  | 'MC_FS_UNICODE_CODEPOINTS_VS_UTF8_BYTES'
+  | 'MC_FS_CHARACTER_COUNT_VS_BYTE_LENGTH'
+  | 'MC_FS_JSON_TEXT_VS_JAVASCRIPT_OBJECT'
+  | 'MC_FS_SERIALIZATION_VS_PARSING_OPERATION'
+  | 'MC_FS_LOCAL_VS_REMOTE_IP_SCOPE'
+  | 'MC_FS_PUBLIC_VS_PRIVATE_IP_ADDRESS'
+  | 'MC_FS_IP_HOST_VS_PORT_PROCESS_TARGET'
+  | 'MC_FS_PORT_COLLISION_SAME_HOST_BINDING'
+  | 'MC_FS_DNS_RESOLUTION_VS_WEB_HOSTING'
+  | 'MC_FS_DNS_CACHE_HIERARCHY_TTL'
+  | 'MC_FS_TCP_RELIABLE_STREAM_VS_RAW_PACKETS'
+  | 'MC_FS_PACKET_LOSS_RETRANSMISSION_ORDERING'
+  | 'MC_FS_HTTP_REQUEST_RESPONSE_ANATOMY'
+  | 'MC_FS_HTTP_STATUS_CODE_SEMANTICS'
+  | 'MC_FS_SAFE_VS_IDEMPOTENT_HTTP_METHODS'
+  | 'MC_FS_URL_STRUCTURE_SCHEME_AUTHORITY_PATH'
+  | 'MC_FS_URL_FRAGMENT_CLIENT_SIDE_ONLY'
+  | 'MC_FS_URL_PERCENT_ENCODING_RESERVED_CHARS'
+  | 'MC_FS_PAGE_LIFECYCLE_SUBRESOURCE_WATERFALL'
+  | 'MC_FS_NAVIGATION_VS_SUBRESOURCE_REQUEST'
+  | 'MC_FS_HTTP_HEADER_CONTENT_TYPE_BODY_MISMATCH'
+  | 'MC_FS_HTTP_MESSAGE_REPRESENTATION_VS_OBJECT'
+  | 'MC_FS_COOKIE_VS_LOCALSTORAGE_AUTO_TRANSMIT'
+  | 'MC_FS_SESSION_ID_COOKIE_VS_SERVER_STATE'
+  | 'MC_FS_SAME_ORIGIN_TUPLE_SCHEME_HOST_PORT'
+  | 'MC_FS_CORS_BROWSER_ENFORCED_SECURITY'
+  | 'MC_FS_BROWSER_RENDERING_PIPELINE_STAGES'
+  | 'MC_FS_DOM_TREE_VS_RAW_HTML_STRING'
+  | 'MC_FS_RENDER_TREE_DISPLAY_NONE_VS_VISIBILITY_HIDDEN'
+  | 'MC_FS_LAYOUT_REFLOW_VS_PAINT_COMPOSITING'
+  | 'MC_FS_SCRIPT_LOADING_ASYNC_DEFER_BLOCKING'
+  | 'MC_FS_BROWSER_MAIN_THREAD_UI_BLOCKING'
+  | 'MC_FS_EVENT_BUBBLING_VS_CAPTURING_PHASES'
+  | 'MC_FS_EVENT_STOP_PROPAGATION_VS_IMMEDIATE'
+  | 'MC_FS_EVENT_DELEGATION_TARGET_VS_CURRENTTARGET'
+  | 'MC_FS_FETCH_HTTP_ERROR_VS_NETWORK_REJECTION'
+  | 'MC_FS_FETCH_STREAM_PARSING_JSON_BODY'
+  | 'MC_FS_EVENT_LOOP_MICROTASKS_VS_MACROTASKS'
+  | 'MC_FS_PROMISE_ALL_FAIL_FAST_VS_SETTLED'
+  | 'MC_FS_ASYNC_AWAIT_SYNTACTIC_SUGAR_PROMISE'
+  | 'MC_FS_DOM_STATE_DRIFT_MANUAL_MUTATION'
+  | 'MC_FS_FORM_DATA_API_VS_MANUAL_INPUT_READING'
+  | 'MC_FS_VANILLA_STATE_MANAGEMENT_COMPLEXITY'
+  | 'MC_FS_COMPONENT_DECOMPOSITION_HIERARCHY'
+  | 'MC_FS_REACT_COMPONENT_FUNCTION_VS_DOM_NODE'
+  | 'MC_FS_JSX_SYNTACTIC_SUGAR_CREATE_ELEMENT'
+  | 'MC_FS_PROPS_IMMUTABILITY_ONE_WAY_FLOW'
+  | 'MC_FS_USE_STATE_ASYNCHRONOUS_BATCHING'
+  | 'MC_FS_REACT_LIST_KEYS_IDENTITY_VS_INDEX'
+  | 'MC_FS_REACT_CONTROLLED_INPUTS_VS_DOM_STATE'
+  | 'MC_FS_REACT_EFFECT_SYNCHRONIZATION_VS_LIFECYCLE'
+  | 'MC_FS_REACT_EFFECT_DEPENDENCIES_AND_CLEANUP'
+  | 'MC_FS_REACT_USE_REF_PERSISTENCE_VS_STATE'
+  | 'MC_FS_REACT_USE_REDUCER_STATE_TRANSITIONS'
+  | 'MC_FS_REACT_CUSTOM_HOOKS_RULES_AND_ISOLATION'
+  | 'MC_FS_REACT_CONTEXT_PROPAGATION_AND_VALUE_IDENTITY'
+  | 'MC_FS_REACT_STATE_OWNERSHIP_AND_COLOCATION'
+  | 'MC_FS_REACT_ARCHITECTURE_CAPSTONE_NORMALIZATION'
+  | 'MC_FS_CLIENT_ROUTING_MATCHING_AND_DEEP_LINKING'
+  | 'MC_FS_NESTED_ROUTES_LAYOUT_STATE_PRESERVATION'
+  | 'MC_FS_URL_STATE_SHAREABLE_VS_LOCAL_UI'
+  | 'MC_FS_ROUTE_LEVEL_STATE_OWNERSHIP_AND_TRANSITIONS'
+  | 'MC_FS_ROUTING_ARCHITECTURE_CAPSTONE_AND_REPAIR'
+  | 'MC_FS_DESIGN_TOKENS_AND_COMPONENT_CONTRACTS'
+  | 'MC_FS_HEADLESS_UI_AND_COMPOUND_COMPONENTS'
+  | 'MC_FS_ADVANCED_ACCESSIBILITY_AND_ARIA_PATTERNS'
+  | 'MC_FS_FRONTEND_TESTING_PYRAMID_AND_MSW'
+  | 'MC_FS_CORE_WEB_VITALS_TASK_YIELDING_AND_PR_DEFENSE'
   | 'MC_FS_CLIENT_VS_SERVER_EXECUTION_BOUNDARY'
   | 'MC_FS_EVENT_LOOP_BLOCKING_SYNC_CALLS'
   | 'MC_FS_EXPRESS_MIDDLEWARE_NEXT_OMISSION'
@@ -308,7 +394,223 @@ export type FullstackMisconceptionId =
   | 'MC_FS_GRAPHQL_SCHEMA_RESOLVER_OVERFETCH'
   | 'MC_FS_ZERO_DOWNTIME_BLUE_GREEN_DEPLOY'
   | 'MC_FS_OPENAPI_SWAGGER_CONTRACT_DRIFT'
-  | 'MC_FS_CAPSTONE_ENTERPRISE_ECOMMERCE_PLATFORM';
+  | 'MC_FS_MODULAR_MONOLITH_CROSS_BOUNDARY_LEAK'
+  | 'MC_FS_CIRCULAR_SERVICE_DEPENDENCY_DEADLOCK'
+  | 'MC_FS_PRIMITIVE_OBSESSION_FLOATING_MONEY'
+  | 'MC_FS_AGGREGATE_ROOT_INVARIANT_BYPASS'
+  | 'MC_FS_REPOSITORY_PASSTHROUGH_ANEMIA'
+  | 'MC_FS_TRANSACTION_BOUNDARY_LEAK_EXTERNAL_IO'
+  | 'MC_FS_ORM_SCHEMA_VS_MIGRATION_DRIFT'
+  | 'MC_FS_CARTESIAN_EXPLOSION_UNBOUNDED_JOIN'
+  | 'MC_FS_SPAGHETTI_MONOLITH_ARCHITECTURAL_DECAY'
+  | 'MC_FS_CAPSTONE_ENTERPRISE_ECOMMERCE_PLATFORM'
+  | 'MC_FS_POSTGRESQL_INDEX_SCAN_ASSUMPTION'
+  | 'MC_FS_POSTGRESQL_BUFFER_CACHE_METRICS'
+  | 'MC_FS_POSTGRESQL_WORK_MEM_SPILL'
+  | 'MC_FS_COMPOSITE_INDEX_LEFTMOST_PREFIX'
+  | 'MC_FS_EXPRESSION_INDEX_IMMUTABILITY'
+  | 'MC_FS_POSTGRESQL_HOT_UPDATE_PHYSICS'
+  | 'MC_FS_REDIS_THREADING_MODEL'
+  | 'MC_FS_REDIS_HASH_VS_STRING_DOGMA'
+  | 'MC_FS_REDIS_EVICTION_PHYSICS'
+  | 'MC_FS_CACHE_STAMPEDE_HAZARD'
+  | 'MC_FS_DISTRIBUTED_LOCK_LEASE_EXPIRATION'
+  | 'MC_FS_CACHE_INVALIDATION_RACE_WINDOW'
+  | 'MC_FS_REDIS_PIPELINE_VS_TRANSACTION_ATOMICITY'
+  | 'MC_FS_SAFE_DISTRIBUTED_LOCK_RELEASE'
+  | 'MC_FS_CACHE_OBSERVABILITY_TELEMETRY'
+  | 'MC_FS_ASYNC_REQUEST_BOUNDARY'
+  | 'MC_FS_AT_LEAST_ONCE_DELIVERY'
+  | 'MC_FS_IN_MEMORY_QUEUE_HAZARD'
+  | 'MC_FS_REDIS_QUEUE_PRIMITIVES'
+  | 'MC_FS_BULLMQ_STALLED_LIFECYCLE'
+  | 'MC_FS_QUEUE_CONCURRENCY_ORDERING'
+  | 'MC_FS_BULLMQ_UNRECOVERABLE_ERROR'
+  | 'MC_FS_EXPONENTIAL_JITTER'
+  | 'MC_FS_IDEMPOTENCY_FENCING_TOKEN'
+  | 'MC_FS_DLQ_CRASH_WINDOW'
+  | 'MC_FS_DUAL_WRITE_HAZARD'
+  | 'MC_FS_OUTBOX_PUBLISHER_CRASH'
+  | 'MC_FS_QUEUE_VS_STREAM_MODEL'
+  | 'MC_FS_KAFKA_PARTITION_ORDERING'
+  | 'MC_FS_CRASH_MATRIX_CASE_C'
+  | 'MC_FS_WS_UNMASKED_CLIENT_FRAME'
+  | 'MC_FS_WS_CLOSE_VS_TERMINATE_DEAD_SOCKET'
+  | 'MC_FS_SSE_PROXY_BUFFERING_TRAP'
+  | 'MC_FS_REDIS_PUBSUB_AT_MOST_ONCE'
+  | 'MC_FS_LWW_CLIENT_CLOCK_SKEW_TRAP'
+  | 'MC_FS_WAF_PERIMETER_VS_APP_AUTHZ'
+  | 'MC_FS_OAUTH_PKCE_INTERCEPTION_DEFENSE'
+  | 'err_batch18_ws_unmasked_client_frame'
+  | 'err_batch18_ws_close_vs_terminate_dead_socket'
+  | 'err_batch18_sse_proxy_buffering_trap'
+  | 'err_batch18_redis_pubsub_at_most_once_loss'
+  | 'err_batch18_lww_client_clock_skew_trap'
+  | 'err_batch18_waf_perimeter_vs_app_authz'
+  | 'err_batch18_oauth_pkce_interception_defense'
+  | 'MC_FS_RLS_APP_WHERE_VS_DATABASE_ENFORCEMENT'
+  | 'MC_FS_RBAC_STATIC_ROLE_EXPLOSION_VS_ABAC'
+  | 'MC_FS_CSRF_CORS_ORIGIN_CONFUSION'
+  | 'MC_FS_CSP_NONCE_REUSE_AND_UNSAFE_INLINE'
+  | 'MC_FS_KMS_PLAINTEXT_DEK_STORAGE_HAZARD'
+  | 'MC_FS_AES_GCM_NONCE_REUSE_COLLISION'
+  | 'err_batch19_rls_app_where_vs_database_enforcement'
+  | 'err_batch19_rbac_static_role_explosion_vs_abac'
+  | 'err_batch19_csrf_cors_origin_confusion'
+  | 'err_batch19_csp_nonce_reuse_and_unsafe_inline'
+  | 'err_batch19_kms_plaintext_dek_storage_hazard'
+  | 'err_batch19_aes_gcm_nonce_reuse_collision'
+  | 'MC_FS_TEST_PYRAMID_INVERSION_ICE_CREAM_CONE'
+  | 'MC_FS_MOCKING_EXTERNAL_REALITY_OVERMOCKING'
+  | 'err_batch20_test_pyramid_inversion_ice_cream_cone'
+  | 'err_batch20_mocking_external_reality_overmocking'
+  | 'MC_FS_TESTCONTAINERS_VS_IN_MEMORY_MOCKS'
+  | 'MC_FS_POSTGRES_SEARCH_PATH_TRANSACTION_LEAK'
+  | 'err_batch20_testcontainers_vs_in_memory_mocks'
+  | 'err_batch20_postgres_search_path_transaction_leak'
+  | 'MC_FS_CONSUMER_DRIVEN_CONTRACT_DRIFT'
+  | 'MC_FS_PACT_REGEX_OVERCONSTRAINING'
+  | 'err_batch20_consumer_driven_contract_drift'
+  | 'err_batch20_pact_regex_overconstraining'
+  | 'MC_FS_PLAYWRIGHT_ARBITRARY_TIMEOUT_SLEEP'
+  | 'MC_FS_FLAKY_TEST_RETRY_MASKING'
+  | 'err_batch20_playwright_arbitrary_timeout_sleep'
+  | 'err_batch20_flaky_test_retry_masking'
+  | 'MC_FS_MUTATION_SCORE_VS_COVERAGE_VANITY'
+  | 'MC_FS_EQUIVALENT_MUTANTS_FALSE_DISHONESTY'
+  | 'err_batch20_mutation_score_vs_coverage_vanity'
+  | 'err_batch20_equivalent_mutants_false_dishonesty'
+  | 'MC_FS_POSIX_ZOMBIE_PROCESS_REAPING'
+  | 'MC_FS_SYSTEMD_NOTIFY_SOCKET_PROTOCOL_TRAP'
+  | 'err_batch20_posix_zombie_process_reaping'
+  | 'err_batch20_systemd_notify_socket_protocol_trap'
+  | 'MC_FS_CONTAINER_VS_VM_KERNEL_CONFUSION'
+  | 'MC_FS_CGROUP_V1_V2_CONTROLLER_HIERARCHY_CONFUSION'
+  | 'err_batch20_container_vs_vm_kernel_confusion'
+  | 'err_batch20_cgroup_v1_v2_controller_hierarchy_confusion'
+  | 'MC_FS_DOCKER_COMPOSE_PORT_EXPOSE_VS_PUBLISH'
+  | 'MC_FS_DOCKER_COMPOSE_DEPENDS_ON_RACE'
+  | 'MC_FS_NAMED_VOLUME_VS_BIND_MOUNT_PERFORMANCE'
+  | 'MC_FS_COMPOSE_NETWORK_DEFAULT_ISOLATION'
+  | 'err_batch21_docker_compose_port_expose_vs_publish'
+  | 'err_batch21_docker_compose_depends_on_race'
+  | 'MC_FS_GIT_COMMIT_DIFF_STORAGE_CONFUSION'
+  | 'MC_FS_GIT_REBASE_HASH_PRESERVATION'
+  | 'MC_FS_GIT_REBASE_PUBLIC_BRANCH_DISRUPTION'
+  | 'MC_FS_GIT_BISECT_LINEAR_ASSUMPTION'
+  | 'err_batch21_git_commit_diff_storage_confusion'
+  | 'err_batch21_git_rebase_hash_preservation'
+  | 'MC_FS_CONTAINER_ROOT_SECURITY_FALLACY'
+  | 'MC_FS_CI_CACHE_POLLUTION'
+  | 'MC_FS_DOCKER_TMPFS_DATA_LOSS'
+  | 'MC_FS_COMPOSE_MULTI_NETWORK_SEGREGATION'
+  | 'err_batch21_container_root_security_fallacy'
+  | 'err_batch21_ci_cache_pollution'
+  | 'MC_FS_AWS_ROOT_KEY_PRODUCTION_ANTI_PATTERN'
+  | 'MC_FS_AZ_VS_REGION_FAILURE_INDEPENDENCE'
+  | 'MC_FS_IAM_POLICY_DEFAULT_ALLOW'
+  | 'MC_FS_SHARED_RESPONSIBILITY_SERVICE_DEPENDENCE'
+  | 'err_batch21_aws_root_key_production_anti_pattern'
+  | 'err_batch21_az_vs_region_failure_independence'
+  | 'MC_FS_VPC_USABLE_IP_CALCULATION'
+  | 'MC_FS_PUBLIC_SUBNET_AUTO_IP_FALLACY'
+  | 'MC_FS_SECURITY_GROUP_STATELESS_CONFUSION'
+  | 'MC_FS_DATABASE_NAT_GATEWAY_MISPLACEMENT'
+  | 'err_batch21_vpc_usable_ip_calculation'
+  | 'err_batch21_public_subnet_auto_ip_fallacy'
+  | 'MC_FS_ALB_L4_VS_L7_ROUTING'
+  | 'MC_FS_ECS_TASK_VS_SERVICE_CONFUSION'
+  | 'MC_FS_FARGATE_SERVERLESS_CONTAINER_REALITY'
+  | 'MC_FS_ALB_HEALTHCHECK_PATH_MISMATCH'
+  | 'err_batch21_alb_l4_vs_l7_routing'
+  | 'err_batch21_ecs_task_vs_service_confusion'
+  | 'MC_FS_S3_API_SERVER_PROXY_BOTTLENECK'
+  | 'MC_FS_RDS_MULTI_AZ_VS_READ_REPLICA_PURPOSE'
+  | 'MC_FS_S3_PRE_SIGNED_URL_UNBOUNDED_EXPIRATION'
+  | 'MC_FS_RDS_PUBLIC_ACCESSIBILITY_HAZARD'
+  | 'err_batch21_s3_api_server_proxy_bottleneck'
+  | 'err_batch21_rds_multi_az_vs_read_replica_purpose'
+  | 'MC_FS_CLOUDWATCH_METRIC_RESOLUTION'
+  | 'MC_FS_LOG_METRIC_FILTER_BACKFILL_FALLACY'
+  | 'MC_FS_COMPOSITE_ALARM_M_OF_N_CONFUSION'
+  | 'MC_FS_SEARCH_METRIC_ALARM_LIMITATION'
+  | 'err_batch22_cloudwatch_metric_resolution'
+  | 'err_batch22_log_metric_filter_backfill'
+  | 'err_batch22_composite_alarm_m_of_n'
+  | 'err_batch22_search_metric_alarm_limitation'
+  | 'MC_FS_INFINITE_HORIZONTAL_SCALING_MYTH'
+  | 'MC_FS_STICKY_SESSIONS_PRODUCTION_HAZARD'
+  | 'MC_FS_CDN_PURGE_INSTANTANEOUS_FALLACY'
+  | 'MC_FS_STALE_WHILE_REVALIDATE_SEMANTICS'
+  | 'err_batch22_infinite_horizontal_scaling'
+  | 'err_batch22_sticky_sessions_hazard'
+  | 'err_batch22_cdn_purge_instantaneous'
+  | 'err_batch22_stale_while_revalidate_semantics'
+  | 'MC_FS_REPLICATION_LAG_READ_YOUR_WRITES'
+  | 'MC_FS_MODULO_SHARDING_REHASH_DISASTER'
+  | 'MC_FS_SHARDING_PREMATURE_COMPLEXITY'
+  | 'MC_FS_CONSISTENT_HASH_VNODE_UNIFORMITY'
+  | 'err_batch22_replication_lag_read_your_writes'
+  | 'err_batch22_modulo_sharding_rehash'
+  | 'err_batch22_sharding_premature_complexity'
+  | 'err_batch22_consistent_hash_vnode_uniformity'
+  | 'MC_FS_CAP_CHOOSE_CA_FALLACY'
+  | 'MC_FS_PACELC_PRODUCT_LABEL_FALLACY'
+  | 'MC_FS_QUORUM_LINEARIZABILITY_OVERCLAIM'
+  | 'MC_FS_DIRTY_READ_VS_STALE_READ_CONFUSION'
+  | 'err_batch22_cap_choose_ca'
+  | 'err_batch22_pacelc_product_label'
+  | 'err_batch22_quorum_linearizability'
+  | 'err_batch22_dirty_vs_stale_read'
+  | 'MC_FS_AVERAGE_VS_PEAK_RPS_DISASTER'
+  | 'MC_FS_STORAGE_INDEX_OVERHEAD_OMISSION'
+  | 'MC_FS_EGRESS_BANDWIDTH_COST_BLINDSPOT'
+  | 'MC_FS_HARDCODED_PRICING_FALLACY'
+  | 'err_batch22_average_vs_peak_rps'
+  | 'err_batch22_storage_index_overhead'
+  | 'err_batch22_egress_bandwidth_cost'
+  | 'err_batch22_hardcoded_pricing'
+  | 'MC_FS_CIRCUIT_BREAKER_HALF_OPEN_MISSING'
+  | 'MC_FS_RETRY_STORM_THUNDERING_HERD'
+  | 'MC_FS_SHARED_POOL_CASCADING_COLLAPSE'
+  | 'MC_FS_CHAOS_TESTING_WITHOUT_HYPOTHESIS'
+  | 'err_batch22_circuit_breaker_half_open'
+  | 'err_batch22_retry_storm_thundering_herd'
+  | 'err_batch22_shared_pool_cascading_collapse'
+  | 'err_batch22_chaos_testing_without_hypothesis'
+  | 'MC_FS_SYSTEM_DESIGN_QUALITATIVE_VAGUENESS'
+  | 'MC_FS_CACHE_SIZING_WRITE_VOLUME_CONFUSION'
+  | 'MC_FS_UNBOUNDED_QUEUE_MEMORY_SATURATION'
+  | 'MC_FS_CAPSTONE_CHAOS_DEFENSE_FAILURE'
+  | 'err_batch22_system_design_qualitative_vagueness'
+  | 'err_batch22_cache_sizing_write_volume'
+  | 'err_batch22_unbounded_queue_saturation'
+  | 'err_batch22_capstone_chaos_defense_failure'
+  // Batch 23 (Days 114-120: Month 22 AI Engineering & Months 23-24 Master Production Capstone)
+  | 'MC_FS_LLM_JSON_PARSING_TRUST'
+  | 'MC_FS_LLM_TEMPERATURE_ZERO_LINEAR'
+  | 'err_batch23_llm_json_parsing_trust'
+  | 'err_batch23_llm_temperature_zero_linear'
+  | 'MC_FS_EMBEDDING_CROSS_MODEL_MISMATCH'
+  | 'MC_FS_COSINE_VS_EUCLIDEAN_NORMALIZED'
+  | 'err_batch23_embedding_cross_model_mismatch'
+  | 'err_batch23_cosine_vs_euclidean_normalized'
+  | 'MC_FS_PGVECTOR_UNINDEXED_SCALE'
+  | 'MC_FS_IVFFLAT_RECALL_TRADEOFF'
+  | 'MC_FS_SHARED_INDEX_RLS_RECALL_DROP'
+  | 'err_batch23_pgvector_unindexed_scale'
+  | 'err_batch23_ivfflat_recall_tradeoff'
+  | 'err_batch23_shared_index_rls_recall_drop'
+  | 'MC_FS_RAG_DELIMITER_INJECTION_FALLACY'
+  | 'MC_FS_CITATION_ELIMINATES_HALLUCINATION'
+  | 'err_batch23_rag_delimiter_injection_fallacy'
+  | 'err_batch23_citation_eliminates_hallucination'
+  | 'MC_FS_ENTERPRISE_TECH_ACCUMULATION'
+  | 'err_batch23_enterprise_tech_accumulation'
+  | 'MC_FS_CONCURRENT_FAILURE_CASCADING_BLINDSPOT'
+  | 'err_batch23_concurrent_failure_cascading_blindspot'
+  | 'MC_FS_FINAL_CAPSTONE_SUPERFICIALITY'
+  | 'err_batch23_final_capstone_superficiality';
 
 export type CloudMisconceptionId =
   | 'MC_CLOUD_IAAS_PAAS_SAAS_SHARED_RESPONSIBILITY'
@@ -1348,7 +1650,8 @@ export type LessonMedia =
   | { type: 'analogy'; metaphor: string; simpleExplanation: string }
   | { type: 'diagram'; data: TypedDiagram }
   | { type: 'syntax_anatomy'; title?: string; codeSnippet: string; lineNotes: { [line: number]: string } }
-  | { type: 'runnable_code'; filename: string; initialCode: string; expectedOutput: string; editable?: boolean };
+  | { type: 'runnable_code'; filename: string; initialCode: string; expectedOutput: string; editable?: boolean }
+  | { [key: string]: any };
 
 // ── 4. Multi-Format Socratic Diagnostics ───────────────────────────────────
 
@@ -1366,10 +1669,11 @@ export interface DiagnosticCheck {
   codeSnippet?: string;
   options?: string[];
   correctIndex?: number;
+  explanation?: string;
   expectedStringOutput?: string;
   acceptableAnswers?: string[];
-  primaryMisconceptionId: MisconceptionId;
-  diagnosisMap: {
+  primaryMisconceptionId?: MisconceptionId;
+  diagnosisMap?: {
     [errorKeyOrIndex: string]: {
       misconceptionId: MisconceptionId;
       errorExplanation: string;
@@ -1380,25 +1684,28 @@ export interface DiagnosticCheck {
       };
     };
   };
+  [key: string]: any;
 }
 
 // ── 5. Micro-Learning Block & Day Lesson Plan ──────────────────────────────
 
 export interface MicroLearningBlock {
   id: string;
-  day: number;
-  blockNumber: number;
+  day?: number;
+  blockNumber?: number;
   title: string;
   conceptBudget: {
     primaryConcept: string;
     supportingTerms: string[];
   };
-  prerequisiteThresholds: Array<{
+  prerequisiteThresholds?: Array<{
     conceptId: string;
     requiredLevel: 'understood' | 'practiced';
-  }>;
-  media: LessonMedia[];
-  diagnosticCheck: DiagnosticCheck;
+  }> | string[];
+  media: LessonMedia[] | any;
+  diagnosticCheck?: DiagnosticCheck;
+  diagnostic?: any;
+  content?: string;
   novelTransferTask?: {
     prompt: string;
     initialCode: string;
@@ -1407,9 +1714,12 @@ export interface MicroLearningBlock {
 }
 
 export interface DayLessonPlan {
+  id?: string;
   day: number;
   title: string;
-  overviewMetaphor: string;
+  overview?: string | any;
+  overviewMetaphor?: string;
+  tagline?: string;
   blocks: MicroLearningBlock[];
   scaffoldedExam?: {
     title: string;

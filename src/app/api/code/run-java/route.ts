@@ -73,20 +73,24 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Missing Java source code' }, { status: 400 });
     }
 
-    if (code.length > 50000) {
-      return NextResponse.json({ error: 'Source code exceeds size limit (50KB max)' }, { status: 400 });
+    if (code.length > 50000 || (testSuite && typeof testSuite === 'string' && testSuite.length > 50000)) {
+      return NextResponse.json({ error: 'Source code or test suite exceeds size limit (50KB max)' }, { status: 400 });
     }
 
-    // ── Security Sandbox — Forbidden Java APIs ───────────────────────────────
+    // ── Security Sandbox — Forbidden Java APIs across BOTH code and testSuite ──
     const forbiddenPatterns = [
       /Runtime\.getRuntime/,          // Any Runtime usage (exec, halt, etc.)
       /ProcessBuilder/,               // Spawn subprocesses
       /Process\s*\(/,                 // Direct Process creation
       /System\.exit/,                 // JVM termination
+      /System\.getenv/,               // Environment variable exfiltration
+      /System\.getProperty/,          // System property exfiltration
       /java\.lang\.reflect/,          // Reflection (bypass security)
       /Class\.forName/,               // Dynamic class loading
       /ClassLoader/,                  // Class loader manipulation
       /java\.io\.File/,               // Direct filesystem access
+      /java\.io\./,                   // File / network IO
+      /java\.nio\./,                  // NIO file / channel access
       /Files\.delete/,                // File deletion
       /Files\.write/,                 // File write
       /new\s+File\s*\(/,              // File instantiation
@@ -95,11 +99,16 @@ export async function POST(req: NextRequest) {
       /Executors\./,                  // Thread pool usage
       /java\.net\./,                  // Network access
       /Socket\s*\(/,                  // Raw socket
+      /URL\s*\(/,                     // URL connection
+      /HttpURLConnection/,            // HTTP connection
+      /HttpClient/,                   // Modern HTTP client
       /System\.setSecurityManager/,   // Remove sandbox manager
     ];
 
+    const combinedSource = `${code}\n${typeof testSuite === 'string' ? testSuite : ''}`;
+
     for (const pattern of forbiddenPatterns) {
-      if (pattern.test(code)) {
+      if (pattern.test(combinedSource)) {
         return NextResponse.json({
           language: 'java',
           totalTests: 1,
@@ -109,7 +118,7 @@ export async function POST(req: NextRequest) {
           status: 'RUNTIME_ERROR',
           totalDurationMs: Date.now() - startTime,
           terminalLogs: [
-            '[SECURITY GUARD] Restricted Java API detected. Process spawning and reflection are disallowed in the sandbox.'
+            '[SECURITY GUARD] Restricted Java API detected in code or testSuite. Process spawning, file/network IO, reflection, and env access are disallowed.'
           ],
           testOutcomes: [{
             index: 1,
@@ -128,16 +137,26 @@ export async function POST(req: NextRequest) {
     const tempDir = path.join(os.tmpdir(), 'pinit_java_' + runId);
     fs.mkdirSync(tempDir, { recursive: true });
 
+    // SCRUB PROCESS ENVIRONMENT: Do NOT pass server secrets to javac or java!
+    const sanitizedEnv: NodeJS.ProcessEnv = {
+      NODE_ENV: process.env.NODE_ENV || 'development',
+      PATH: process.env.PATH || '',
+      SYSTEMROOT: process.env.SYSTEMROOT || '',
+      JAVA_HOME: process.env.JAVA_HOME || '',
+      TMP: tempDir,
+      TEMP: tempDir,
+    };
+
     try {
       fs.writeFileSync(path.join(tempDir, 'Solution.java'), code, 'utf8');
 
-      const testCode = testSuite && testSuite.trim()
+      const testCode = testSuite && typeof testSuite === 'string' && testSuite.trim()
         ? testSuite
         : `public class Test { public static void main(String[] args) { Solution.main(new String[]{}); } }`;
       fs.writeFileSync(path.join(tempDir, 'Test.java'), testCode, 'utf8');
 
       const compilePromise = new Promise<{ success: boolean; stderr?: string }>((resolve) => {
-        exec('javac -encoding UTF-8 Solution.java Test.java', { cwd: tempDir, timeout: 5000 }, (error, stdout, stderr) => {
+        exec('javac -encoding UTF-8 Solution.java Test.java', { cwd: tempDir, timeout: 5000, env: sanitizedEnv }, (error, stdout, stderr) => {
           if (error || stderr) {
             resolve({ success: false, stderr: stderr || error?.message });
           } else {
@@ -178,7 +197,7 @@ export async function POST(req: NextRequest) {
       const runPromise = new Promise<{ success: boolean; stdout: string; stderr: string; timedOut: boolean }>((resolve) => {
         const child = exec(
           `java -Xmx128m -Dfile.encoding=UTF-8 Test`,
-          { cwd: tempDir, timeout: maxExecTime, maxBuffer: 64 * 1024 },
+          { cwd: tempDir, timeout: maxExecTime, maxBuffer: 64 * 1024, env: sanitizedEnv },
           (error, stdout, stderr) => {
             const timedOut = Boolean(error && error.killed);
             resolve({
@@ -232,8 +251,9 @@ export async function POST(req: NextRequest) {
       // Server-authoritative completion record (§3.5/§3.6) — written here, by
       // this route, using the real compile+run result it just produced. Non-
       // blocking: never delays or fails the response to the student.
-      if (passed && typeof questId === 'string' && questId) {
-        persistJavaCompletionServerSide(gated.user.id, questId, typeof xp === 'number' ? xp : 120)
+      const authenticatedUser = gated.user;
+      if (passed && typeof questId === 'string' && questId && authenticatedUser) {
+        persistJavaCompletionServerSide(authenticatedUser.id, questId, typeof xp === 'number' ? xp : 120)
           .catch((e) => console.warn('[run-java] completion persistence rejected:', e?.message));
       }
 

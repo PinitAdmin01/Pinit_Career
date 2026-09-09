@@ -151,20 +151,27 @@ export class SentenceAudioQueuePlayer {
   }
 
   public stopAll() {
+    console.log(`[AudioQueue] 🛑 stopAll() invoked: aborting playId ${this.currentPlayId}, activeSources=${this.activeSources.length}`);
     this.isCancelled = true;
     this.currentPlayId++;
     this.abortController.abort();
     this.abortController = new AbortController();
 
+    // Immediately stop and disconnect all active scheduled Web Audio sources
+    let stoppedCount = 0;
     this.activeSources.forEach(src => {
       try {
         src.stop();
         src.disconnect();
-      } catch {}
+        stoppedCount++;
+      } catch (e) {
+        // Source might already have finished naturally
+      }
     });
     this.activeSources = [];
     this.scheduledPlaybackTime = 0;
     this.isPlaying = false;
+    console.log(`[AudioQueue] ✅ stopAll() completed: cleanly terminated ${stoppedCount} sources.`);
   }
 
   /**
@@ -279,7 +286,8 @@ export class SentenceAudioQueuePlayer {
 
         const source = ctx.createBufferSource();
         source.buffer = buf;
-        source.connect(ctx.destination);
+        const gainNode = getAvatarGainNode(ctx);
+        source.connect(gainNode);
         this.activeSources.push(source);
 
         source.start(startTime);
@@ -303,6 +311,87 @@ export class SentenceAudioQueuePlayer {
     // Kick off initial prefetch window
     pumpPrefetch();
   }
+}
+
+// ── Master Avatar Voice Gain Node & Volume Pipeline ────────────────────────
+let _avatarVoiceGainNode: GainNode | null = null;
+let _avatarVoiceVolume: number = 0.85;
+
+export function getAvatarVoiceVolume(): number {
+  if (typeof window !== 'undefined') {
+    const saved = localStorage.getItem('pc_avatar_voice_volume');
+    if (saved !== null) {
+      const parsed = parseFloat(saved);
+      if (!isNaN(parsed) && parsed >= 0 && parsed <= 1) {
+        _avatarVoiceVolume = parsed;
+      }
+    }
+  }
+  return _avatarVoiceVolume;
+}
+
+export function setAvatarVoiceVolume(volume: number): void {
+  _avatarVoiceVolume = Math.max(0, Math.min(1, volume));
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('pc_avatar_voice_volume', String(_avatarVoiceVolume));
+    window.dispatchEvent(new CustomEvent('pc_avatar_volume_changed', { detail: { volume: _avatarVoiceVolume } }));
+  }
+  if (_avatarVoiceGainNode && typeof window !== 'undefined') {
+    try {
+      const win = window as any;
+      if (win._sharedAudioCtx) {
+        _avatarVoiceGainNode.gain.setValueAtTime(_avatarVoiceVolume, win._sharedAudioCtx.currentTime);
+      }
+    } catch {}
+  }
+}
+
+// ── D-03 FIX: Shared analyser tap for avatar lip sync ─────────────────────
+// VRoidAvatarEngine.connectAudioAnalyser() existed but was never called, so the
+// engine always fell back to picking a RANDOM vowel every 80-160ms — mouth
+// movement completely uncorrelated with the speech. Every avatar voice source
+// already connects to the singleton gain node below, so inserting one
+// AnalyserNode between that gain node and the destination gives the engine a
+// real amplitude signal for the whole avatar voice bus.
+//
+// Signal path (unchanged audio, analyser is a pass-through):
+//   AudioBufferSourceNode -> gainNode -> analyserNode -> ctx.destination
+let _avatarAnalyserNode: AnalyserNode | null = null;
+
+export function getAvatarAnalyser(ctx: AudioContext): AnalyserNode {
+  if (!_avatarAnalyserNode || _avatarAnalyserNode.context !== ctx) {
+    _avatarAnalyserNode = ctx.createAnalyser();
+    // 256 bins is ample for amplitude envelope tracking and cheap to read
+    // once per animation frame. Smoothing damps frame-to-frame jitter so the
+    // jaw does not chatter between frames.
+    _avatarAnalyserNode.fftSize = 256;
+    _avatarAnalyserNode.smoothingTimeConstant = 0.6;
+    _avatarAnalyserNode.connect(ctx.destination);
+    console.log('[StreamingAudioQueue] Avatar lip-sync analyser node created and connected to destination.');
+  }
+  return _avatarAnalyserNode;
+}
+
+/**
+ * Returns the analyser only if the shared audio graph already exists.
+ * Never creates an AudioContext — browsers block context creation before a
+ * user gesture, so the avatar engine must not force one into existence just
+ * to look for an analyser.
+ */
+export function getExistingAvatarAnalyser(): AnalyserNode | null {
+  return _avatarAnalyserNode;
+}
+
+export function getAvatarGainNode(ctx: AudioContext): GainNode {
+  if (!_avatarVoiceGainNode || _avatarVoiceGainNode.context !== ctx) {
+    _avatarVoiceGainNode = ctx.createGain();
+    _avatarVoiceGainNode.gain.setValueAtTime(getAvatarVoiceVolume(), ctx.currentTime);
+    // D-03 FIX: route through the analyser instead of straight to destination.
+    // getAvatarAnalyser() connects itself onward to ctx.destination, so the
+    // audible output path is unchanged — we have only added a passive tap.
+    _avatarVoiceGainNode.connect(getAvatarAnalyser(ctx));
+  }
+  return _avatarVoiceGainNode;
 }
 
 // Global Singleton Audio Queue Instance

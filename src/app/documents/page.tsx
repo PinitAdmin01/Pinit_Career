@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { api } from '@/lib/api/client';
 import { useAuth } from '@/lib/context/AuthContext';
+import { toast } from '@/lib/store/useAppStore';
 
 interface DocumentLockerItem {
   id: string;
@@ -63,7 +64,7 @@ export default function DocumentVaultPage() {
   const handleRequest = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!purpose.trim()) {
-      alert('Please state a purpose for your request.');
+      toast.warning('Purpose Required', 'Please state a purpose for your document request.');
       return;
     }
     setSubmitting(true);
@@ -73,11 +74,12 @@ export default function DocumentVaultPage() {
         purpose: purpose.trim()
       });
       if (res?.ok) {
+        toast.success('Document Requested 📄', 'Your official certificate request has been queued for verification.');
         setPurpose('');
         loadDocuments();
       }
     } catch {
-      alert('Failed to request document. Please try again.');
+      toast.error('Request Failed', 'Failed to request document. Please try again.');
     } finally {
       setSubmitting(false);
     }

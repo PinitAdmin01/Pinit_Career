@@ -83,7 +83,7 @@ export function ProgressAnalyticsModal({
       <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 20, width: '100%', maxWidth: 760, maxHeight: '90vh', overflowY: 'auto', padding: '28px 30px', position: 'relative', boxShadow: 'var(--shadow-md)', color: 'var(--t1)' }}>
         
         {/* Exit Button */}
-        <button onClick={onClose} style={{ position: 'absolute', top: 20, right: 24, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', padding: '8px 16px', borderRadius: 10, cursor: 'pointer', fontSize: 13, fontWeight: 700 }}>✕ Close</button>
+        <button onClick={onClose} style={{ position: 'absolute', top: 20, right: 24, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: 'var(--text)', padding: '8px 16px', borderRadius: 10, cursor: 'pointer', fontSize: 13, fontWeight: 700 }}>✕ Close</button>
 
         {/* Modal Title */}
         <div style={{ marginBottom: 20 }}>
@@ -143,22 +143,22 @@ export function ProgressAnalyticsModal({
               <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 14, padding: 16 }}>
                 <div style={{ fontSize: 12, color: 'var(--t2)', marginBottom: 4 }}>Focus Score</div>
                 <div style={{ fontSize: 24, fontWeight: 900, color: '#d4a843' }}>{todayLog.avgFocusScore}</div>
-                <div style={{ fontSize: 11, fontWeight: 700, color: scoreDelta.isUp ? '#10b981' : '#ef4444', marginTop: 4 }}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: scoreDelta.isUp ? 'var(--success)' : 'var(--danger)', marginTop: 4 }}>
                   {scoreDelta.isUp ? '▲' : '▼'} {scoreDelta.pct} vs yesterday ({yesterdayLog.avgFocusScore})
                 </div>
               </div>
 
               <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 14, padding: 16 }}>
                 <div style={{ fontSize: 12, color: 'var(--t2)', marginBottom: 4 }}>Accuracy Earned Today</div>
-                <div style={{ fontSize: 24, fontWeight: 900, color: '#10b981' }}>+{todayLog.totalAccuracy}</div>
-                <div style={{ fontSize: 11, fontWeight: 700, color: accDelta.isUp ? '#10b981' : '#ef4444', marginTop: 4 }}>
+                <div style={{ fontSize: 24, fontWeight: 900, color: 'var(--success)' }}>+{todayLog.totalAccuracy}</div>
+                <div style={{ fontSize: 11, fontWeight: 700, color: accDelta.isUp ? 'var(--success)' : 'var(--danger)', marginTop: 4 }}>
                   {accDelta.isUp ? '▲' : '▼'} {accDelta.pct} vs yesterday ({yesterdayLog.totalAccuracy})
                 </div>
               </div>
 
               <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 14, padding: 16 }}>
                 <div style={{ fontSize: 12, color: 'var(--t2)', marginBottom: 4 }}>Sessions Played</div>
-                <div style={{ fontSize: 24, fontWeight: 900, color: '#3b82f6' }}>{todayLog.sessionsCompleted}</div>
+                <div style={{ fontSize: 24, fontWeight: 900, color: 'var(--info)' }}>{todayLog.sessionsCompleted}</div>
                 <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 4 }}>
                   Yesterday: {yesterdayLog.sessionsCompleted} session{yesterdayLog.sessionsCompleted !== 1 ? 's' : ''}
                 </div>
@@ -188,7 +188,7 @@ export function ProgressAnalyticsModal({
         {viewMode === 'month' && (
           <div style={{ animation: 'attFadeIn 0.3s ease' }}>
             <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--t2)', marginBottom: 14 }}>
-              Comparing <strong style={{ color: '#10b981' }}>{thisMonthSummary.monthLabel}</strong> vs <strong style={{ color: '#3b82f6' }}>{lastMonthSummary.monthLabel}</strong>
+              Comparing <strong style={{ color: 'var(--success)' }}>{thisMonthSummary.monthLabel}</strong> vs <strong style={{ color: 'var(--info)' }}>{lastMonthSummary.monthLabel}</strong>
             </div>
 
             {/* Monthly Comparison Grid Cards */}
@@ -196,10 +196,10 @@ export function ProgressAnalyticsModal({
               <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 14, padding: 18 }}>
                 <div style={{ fontSize: 12, color: 'var(--t2)', marginBottom: 6 }}>Monthly Average Focus Score</div>
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: 12 }}>
-                  <span style={{ fontSize: 28, fontWeight: 900, color: '#10b981' }}>{thisMonthSummary.avgFocusScore}</span>
+                  <span style={{ fontSize: 28, fontWeight: 900, color: 'var(--success)' }}>{thisMonthSummary.avgFocusScore}</span>
                   <span style={{ fontSize: 16, color: 'var(--t3)', textDecoration: 'line-through' }}>{lastMonthSummary.avgFocusScore}</span>
                 </div>
-                <div style={{ fontSize: 12, fontWeight: 800, color: monthScoreDelta.isUp ? '#10b981' : '#ef4444', marginTop: 6 }}>
+                <div style={{ fontSize: 12, fontWeight: 800, color: monthScoreDelta.isUp ? 'var(--success)' : 'var(--danger)', marginTop: 6 }}>
                   {monthScoreDelta.isUp ? '📈 Growth:' : '📉 Drop:'} {monthScoreDelta.pct} vs last month!
                 </div>
               </div>
@@ -210,7 +210,7 @@ export function ProgressAnalyticsModal({
                   <span style={{ fontSize: 28, fontWeight: 900, color: '#d4a843' }}>+{thisMonthSummary.totalAccuracy}</span>
                   <span style={{ fontSize: 16, color: 'var(--t3)' }}>vs +{lastMonthSummary.totalAccuracy}</span>
                 </div>
-                <div style={{ fontSize: 12, fontWeight: 800, color: monthAccDelta.isUp ? '#10b981' : '#ef4444', marginTop: 6 }}>
+                <div style={{ fontSize: 12, fontWeight: 800, color: monthAccDelta.isUp ? 'var(--success)' : 'var(--danger)', marginTop: 6 }}>
                   {monthAccDelta.isUp ? '⚡ Acceleration:' : '📉 Drop:'} {monthAccDelta.pct} volume growth!
                 </div>
               </div>
@@ -219,7 +219,7 @@ export function ProgressAnalyticsModal({
             {/* Dual Cognitive Domain Growth Overlay Radar */}
             <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 16, padding: 20, textAlign: 'center' }}>
               <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)', marginBottom: 8 }}>
-                🕸️ Cognitive Domain Growth (<span style={{ color: '#10b981' }}>This Month</span> vs <span style={{ color: '#3b82f6' }}>Last Month</span>)
+                🕸️ Cognitive Domain Growth (<span style={{ color: 'var(--success)' }}>This Month</span> vs <span style={{ color: 'var(--info)' }}>Last Month</span>)
               </div>
               <svg viewBox="0 0 200 150" style={{ width: '100%', height: 140 }}>
                 <polygon points="100,15 160,75 100,135 40,75" fill="none" stroke="var(--border)" strokeWidth="1" />
@@ -227,8 +227,8 @@ export function ProgressAnalyticsModal({
                 {/* Last Month Polygon (Blue) */}
                 <polygon
                   points="100,45 130,75 100,105 70,75"
-                  fill="rgba(59,130,246,0.15)"
-                  stroke="#3b82f6"
+                  fill="rgba(var(--info-rgb), 0.15)"
+                  stroke="var(--info)"
                   strokeWidth="2"
                   strokeDasharray="3,3"
                 />
@@ -236,14 +236,14 @@ export function ProgressAnalyticsModal({
                 {/* This Month Polygon (Emerald) */}
                 <polygon
                   points="100,25 150,75 100,125 50,75"
-                  fill="rgba(16,185,129,0.25)"
-                  stroke="#10b981"
+                  fill="rgba(var(--success-rgb), 0.25)"
+                  stroke="var(--success)"
                   strokeWidth="2"
                 />
               </svg>
               <div style={{ display: 'flex', justifyContent: 'center', gap: 20, fontSize: 11, fontWeight: 700, marginTop: 6 }}>
-                <span style={{ color: '#10b981' }}>● This Month</span>
-                <span style={{ color: '#3b82f6' }}>-- Last Month</span>
+                <span style={{ color: 'var(--success)' }}>● This Month</span>
+                <span style={{ color: 'var(--info)' }}>-- Last Month</span>
               </div>
             </div>
 

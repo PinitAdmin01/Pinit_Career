@@ -80,7 +80,8 @@ export const procurementService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('procurement_requests').insert({ id, item, qty, dept, cost, status: 'Pending' });
+        const res = await supabase.from('procurement_requests').insert({ id, item, qty, dept, cost, status: 'Pending' });
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -99,7 +100,8 @@ export const procurementService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('procurement_requests').update({ status: 'Approved' }).eq('id', requestId);
+        const res = await supabase.from('procurement_requests').update({ status: 'Approved' }).eq('id', requestId);
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -126,7 +128,7 @@ export const procurementService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('procurement_orders').insert({
+        const res1 = await supabase.from('procurement_orders').insert({
           id: poId,
           request_id: requestId,
           item: req.item || 'Generic Item',
@@ -135,7 +137,9 @@ export const procurementService = {
           vendor: vendorName,
           status: 'Issued'
         });
-        await supabase.from('procurement_requests').update({ status: 'PO Issued' }).eq('id', requestId);
+        if (res1.error) throw new Error(res1.error.message);
+        const res2 = await supabase.from('procurement_requests').update({ status: 'PO Issued' }).eq('id', requestId);
+        if (res2.error) throw new Error(res2.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -165,7 +169,8 @@ export const procurementService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('procurement_orders').update({ status: 'Dispatched' }).eq('id', orderId);
+        const res = await supabase.from('procurement_orders').update({ status: 'Dispatched' }).eq('id', orderId);
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -191,13 +196,16 @@ export const procurementService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('procurement_orders').update({ status: 'Delivered' }).eq('id', orderId);
+        const res1 = await supabase.from('procurement_orders').update({ status: 'Delivered' }).eq('id', orderId);
+        if (res1.error) throw new Error(res1.error.message);
         // Update stock
         const { data: itemData } = await supabase.from('procurement_inventory').select('*').eq('item', order.item).maybeSingle();
         if (itemData) {
-          await supabase.from('procurement_inventory').update({ qty: itemData.qty + order.qty }).eq('item', order.item);
+          const res2 = await supabase.from('procurement_inventory').update({ qty: itemData.qty + order.qty }).eq('item', order.item);
+          if (res2.error) throw new Error(res2.error.message);
         } else {
-          await supabase.from('procurement_inventory').insert({ item: order.item, qty: order.qty, dept: 'General' });
+          const res3 = await supabase.from('procurement_inventory').insert({ item: order.item, qty: order.qty, dept: 'General' });
+          if (res3.error) throw new Error(res3.error.message);
         }
         return { ok: true };
       } catch (err) {
@@ -231,7 +239,8 @@ export const procurementService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('procurement_orders').update({ status: 'Completed' }).eq('id', orderId);
+        const res = await supabase.from('procurement_orders').update({ status: 'Completed' }).eq('id', orderId);
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -255,7 +264,8 @@ export const procurementService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('procurement_vendors').insert({ id, name, email, category });
+        const res = await supabase.from('procurement_vendors').insert({ id, name, email, category });
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);

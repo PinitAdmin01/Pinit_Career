@@ -31,12 +31,13 @@ export const communicationService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('communications_log').insert({
+        const res = await supabase.from('communications_log').insert({
           type,
           subject,
           body,
           category: category || 'General'
         });
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);

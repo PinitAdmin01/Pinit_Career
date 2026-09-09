@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/context/AuthContext';
 import { isDemoAuthEnabled } from '@/lib/demoAuth';
+import GearAudioHub from '@/components/nav/GearAudioHub';
 
 interface PublicNavbarProps {
   onLoginClick?: () => void;
@@ -66,7 +67,7 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
   };
 
   const navLinks = [
-    { name: 'Landing Page', href: '/' },
+    { name: 'Home', href: '/' },
     { name: 'Problem', href: '/problem' },
     { name: 'Identity', href: '/identity' },
     { name: 'How It Works', href: '/how-it-works' },
@@ -137,8 +138,49 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
           })}
         </nav>
 
-        {/* ACTIONS (THEME TOGGLE + SIGN UP / GET STARTED) */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        {/* ACTIONS (SIGN IN & SIGN UP -> THEME TOGGLE -> GEAR AUDIO HUB) */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Link
+            href="/login"
+            className="lp-login-link"
+            style={{
+              padding: '7px 14px',
+              fontSize: '12.5px',
+              fontWeight: 700,
+              textDecoration: 'none',
+              borderRadius: '8px',
+              border: theme === 'dark' ? '1px solid rgba(255,255,255,0.15)' : '1px solid rgba(0,0,0,0.15)',
+              color: 'var(--text-primary)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'transparent'
+            }}
+          >
+            Sign In
+          </Link>
+
+          <Link
+            href="/signup"
+            className="lp-start"
+            style={{
+              padding: '8px 16px',
+              fontSize: '12.5px',
+              fontWeight: 750,
+              textDecoration: 'none',
+              borderRadius: '8px',
+              background: 'var(--accent)',
+              color: '#FFFFFF',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 2px 10px var(--accent-glow)'
+            }}
+          >
+            Sign Up Free
+          </Link>
+
+          {/* 2. THEME TOGGLE (SUN / MOON) */}
           <button
             className="lp-theme"
             onClick={toggleTheme}
@@ -160,51 +202,8 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
             {theme === 'dark' ? '☀️' : '🌙'}
           </button>
 
-          <Link
-            href="/signup"
-            style={{
-              fontSize: '13px',
-              fontWeight: 700,
-              color: theme === 'dark' ? '#CBD5E1' : '#334155',
-              textDecoration: 'none',
-              padding: '8px 14px',
-              borderRadius: '8px',
-              border: theme === 'dark' ? '1px solid rgba(255,255,255,0.15)' : '1px solid rgba(0,0,0,0.15)',
-              transition: 'all 0.2s'
-            }}
-          >
-            Sign Up
-          </Link>
-
-          {onLoginClick ? (
-            <button
-              type="button"
-              className="lp-start"
-              onClick={onLoginClick}
-              style={{
-                padding: '9px 18px',
-                fontSize: '13px',
-                fontWeight: 700,
-                border: 'none',
-                cursor: 'pointer'
-              }}
-            >
-              Get started
-            </button>
-          ) : (
-            <Link
-              href="/login?mode=signup"
-              className="lp-start"
-              style={{
-                padding: '9px 18px',
-                fontSize: '13px',
-                fontWeight: 700,
-                textDecoration: 'none'
-              }}
-            >
-              Get started
-            </Link>
-          )}
+          {/* 3. ⚙️ GEAR AUDIO VOLUME HUB */}
+          <GearAudioHub theme={theme} />
 
           {/* MOBILE HAMBURGER BUTTON */}
           <button

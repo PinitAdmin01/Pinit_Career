@@ -1,7 +1,14 @@
 // TTS Library & Audio Engine (WebSpeech Native API + Persona Vocal Signatures)
 import { synthesizeVoice } from "./smartVoiceRouter";
 import { sanitizeForSpeech, SANITIZER_VERSION } from "./sanitizeLLM";
-import { splitIntoSentences, getGlobalAudioQueue } from "./audio/streamingAudioQueue";
+import {
+  splitIntoSentences,
+  getGlobalAudioQueue,
+  getAvatarVoiceVolume,
+  setAvatarVoiceVolume,
+  getAvatarGainNode
+} from "./audio/streamingAudioQueue";
+export { getAvatarVoiceVolume, setAvatarVoiceVolume };
 let currentSpeechId = 0;
 let activeSource: AudioBufferSourceNode | null = null;
 let isNeuralReady = true;
@@ -33,9 +40,12 @@ function getAudioContext(): AudioContext {
 
 export function stopSpeaking() {
   currentSpeechId++;
+  console.log(`[PinIT TTS] 🛑 stopSpeaking() called. Advancing speechId to ${currentSpeechId}`);
   try {
     getGlobalAudioQueue().stopAll();
-  } catch {}
+  } catch (err) {
+    console.warn('[PinIT TTS] Failed to stop global audio queue:', err);
+  }
   if (typeof window !== 'undefined' && window.speechSynthesis) {
     try {
       window.speechSynthesis.cancel();
@@ -359,7 +369,8 @@ export async function speakWithAvatar(
         
         const source = ctx.createBufferSource();
         source.buffer = audioBuf;
-        source.connect(ctx.destination);
+        const gainNode = getAvatarGainNode(ctx);
+        source.connect(gainNode);
         activeSource = source;
 
         let maxDurationTimer: ReturnType<typeof setTimeout> | null = null;

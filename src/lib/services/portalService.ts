@@ -118,7 +118,7 @@ export const portalService = {
   async saveAttendance(records: AttendanceRecord[]): Promise<void> {
     try {
       if (records.length) {
-        await supabase.from('campus_attendance').upsert(records.map(r => ({
+        const res = await supabase.from('campus_attendance').upsert(records.map(r => ({
           id: r.id,
           date: r.date,
           batch: r.batch,
@@ -127,8 +127,11 @@ export const portalService = {
           roll_no: r.rollNo,
           status: r.status,
         })));
+        if (res.error) throw new Error(res.error.message);
       }
-    } catch {}
+    } catch (err) {
+      console.warn('Supabase attendance write failed, falling back to local storage:', err);
+    }
     try {
       if (typeof window !== 'undefined') {
         const stored = localStorage.getItem(STORAGE_KEYS.ATTENDANCE);

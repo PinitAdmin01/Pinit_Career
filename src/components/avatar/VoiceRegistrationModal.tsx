@@ -227,7 +227,7 @@ export default function VoiceRegistrationModal({
         flexDirection: 'column',
         alignItems: 'center',
         gap: 16,
-        color: '#fff',
+        color: 'var(--text)',
         textAlign: 'center',
       }}>
         {/* Header Badge */}
@@ -251,7 +251,7 @@ export default function VoiceRegistrationModal({
         {/* Mentor Title */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <span style={{ fontSize: 28 }}>🎙️</span>
-          <div style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 900, color: '#fff' }}>
+          <div style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 900, color: 'var(--text)' }}>
             {teacherName}'s Voice Calibration
           </div>
         </div>
@@ -259,8 +259,8 @@ export default function VoiceRegistrationModal({
         {/* Stage 1: Prompt */}
         {stage === 'prompt' && (
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14, width: '100%' }}>
-            <p style={{ fontSize: 13.5, color: '#e2e8f0', lineHeight: 1.6, margin: 0 }}>
-              Speak continuously for <strong style={{ color: '#fff' }}>15 seconds</strong> so I can register your voice accurately. Keep talking until the timer ends.
+            <p style={{ fontSize: 13.5, color: 'var(--text-muted)', lineHeight: 1.6, margin: 0 }}>
+              Speak continuously for <strong style={{ color: 'var(--text)' }}>15 seconds</strong> so I can register your voice accurately. Keep talking until the timer ends.
             </p>
             <button
               onClick={startRecording}
@@ -270,7 +270,7 @@ export default function VoiceRegistrationModal({
                 background: 'linear-gradient(90deg, var(--accent) 0%, var(--purple) 100%)',
                 border: 'none',
                 borderRadius: 14,
-                color: '#fff',
+                color: 'var(--text)',
                 fontSize: 14,
                 fontWeight: 800,
                 padding: '12px 0',
@@ -291,7 +291,7 @@ export default function VoiceRegistrationModal({
                 background: 'rgba(255,255,255,0.06)',
                 border: '1px solid rgba(255,255,255,0.15)',
                 borderRadius: 12,
-                color: '#94a3b8',
+                color: 'var(--text-muted)',
                 fontSize: 12,
                 fontWeight: 700,
                 padding: '8px 0',
@@ -338,13 +338,13 @@ export default function VoiceRegistrationModal({
                 fontFamily: 'var(--font-mono)',
                 fontSize: 26,
                 fontWeight: 900,
-                color: '#fff',
+                color: 'var(--text)',
               }}>
                 {timeLeft}s
               </div>
             </div>
 
-            <p style={{ fontSize: 13, color: '#e2e8f0', margin: 0 }}>
+            <p style={{ fontSize: 13, color: 'var(--text-muted)', margin: 0 }}>
               Keep speaking for the full 15 seconds — pause as little as possible.
             </p>
 
@@ -377,7 +377,7 @@ export default function VoiceRegistrationModal({
               })}
             </div>
 
-            <div style={{ fontSize: 11, color: '#94a3b8', fontFamily: 'var(--font-mono)' }}>
+            <div style={{ fontSize: 11, color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
               Analyzed Frames: {speechCount} samples | Status: Listening...
             </div>
           </div>
@@ -387,11 +387,11 @@ export default function VoiceRegistrationModal({
         {stage === 'completed' && (
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14, width: '100%' }}>
             <div style={{
-              background: 'rgba(5,150,105,0.2)',
-              border: '1px solid rgba(5,150,105,0.4)',
+              background: 'rgba(var(--success-deep-rgb), 0.2)',
+              border: '1px solid rgba(var(--success-deep-rgb), 0.4)',
               borderRadius: 12,
               padding: '8px 16px',
-              color: '#10b981',
+              color: 'var(--success)',
               fontWeight: 800,
               fontSize: 13,
               fontFamily: 'var(--font-mono)',
@@ -410,13 +410,13 @@ export default function VoiceRegistrationModal({
               flexDirection: 'column',
               gap: 10,
             }}>
-              <div style={{ fontSize: 12, color: '#f8fafc', lineHeight: 1.5 }}>
+              <div style={{ fontSize: 12, color: 'var(--text)', lineHeight: 1.5 }}>
                 1️⃣ Voice registration lets you move around the OS without clicking — just speak a short command.
               </div>
-              <div style={{ fontSize: 12, color: '#f8fafc', lineHeight: 1.5 }}>
+              <div style={{ fontSize: 12, color: 'var(--text)', lineHeight: 1.5 }}>
                 2️⃣ Say <em>&quot;Hey Priya, go to Quest tab&quot;</em> or <em>&quot;Start Quest&quot;</em> and I will open that tab for you.
               </div>
-              <div style={{ fontSize: 12, color: '#f8fafc', lineHeight: 1.5 }}>
+              <div style={{ fontSize: 12, color: 'var(--text)', lineHeight: 1.5 }}>
                 3️⃣ Your voice print is how I know it is you, so those commands stay private to your account.
               </div>
             </div>
@@ -429,13 +429,13 @@ export default function VoiceRegistrationModal({
                 background: 'linear-gradient(90deg, #059669 0%, #10b981 100%)',
                 border: 'none',
                 borderRadius: 14,
-                color: '#fff',
+                color: 'var(--text)',
                 fontSize: 14,
                 fontWeight: 800,
                 padding: '12px 0',
                 cursor: 'pointer',
                 fontFamily: 'var(--font-mono)',
-                boxShadow: '0 4px 20px rgba(16,185,129,0.4)',
+                boxShadow: '0 4px 20px rgba(var(--success-rgb), 0.4)',
               }}
             >
               Got It! Explore PinIT Career OS 🚀

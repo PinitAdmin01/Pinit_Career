@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
+import { signExamSessionToken } from '@/lib/portfolio/examToken';
 
 export async function POST(req: Request) {
   try {
@@ -123,14 +124,25 @@ Return ONLY a valid JSON object matching this structure (do not wrap in markdown
         const cleaned = reply.replace(/```json/g, '').replace(/```/g, '').trim();
         const parsed = JSON.parse(cleaned);
         if (parsed.questions && parsed.questions.length === 3) {
-          return NextResponse.json(parsed);
+          const answersMap: Record<string, number> = {};
+          const sanitizedQuestions = parsed.questions.map((q: any) => {
+            answersMap[q.id] = Number(q.correctIdx ?? 0);
+            const { correctIdx, ...rest } = q;
+            return rest;
+          });
+          const examSessionToken = signExamSessionToken(answersMap);
+          return NextResponse.json({
+            subject: parsed.subject || 'Technical Specialization',
+            questions: sanitizedQuestions,
+            examSessionToken,
+          });
         }
       } catch (parseErr) {
         console.warn('Failed to parse AI output, using fallback:', reply);
       }
     }
 
-    // Heuristic Fallback
+    // Heuristic Fallback with diversified correctIdx distribution
     const titleLower = title.toLowerCase();
     let subject = 'General Computer Science';
     let questions = [
@@ -150,22 +162,22 @@ Return ONLY a valid JSON object matching this structure (do not wrap in markdown
         question: 'What is a primary advantage of utilizing standard APIs over duplicate custom connections?',
         options: [
           'They allow faster local debugging by bypassing credential tokens',
-          'They reduce operational friction and sync data automatically across platform portals',
           'They increase database size by duplicating log tables',
+          'They reduce operational friction and sync data automatically across platform portals',
           'They require manual proctor validation for every user click'
         ],
-        correctIdx: 1
+        correctIdx: 2
       },
       {
         id: 'q3',
         question: 'Why are proctored exams and trust telemetry metrics used inside modern learning portfolios?',
         options: [
-          'To slow down student progression timelines',
           'To audit authentic skill attainment and verify credentials with evidence logs',
+          'To slow down student progression timelines',
           'To generate random negative penalties on low-latency interfaces',
           'To automatically approve applications without teacher review'
         ],
-        correctIdx: 1
+        correctIdx: 0
       }
     ];
 
@@ -188,22 +200,22 @@ Return ONLY a valid JSON object matching this structure (do not wrap in markdown
           question: 'Which of the following is true about React state updates?',
           options: [
             'They directly mutate the component state variable synchronously',
-            'They are batched and processed asynchronously for performance optimization',
             'They bypass the virtual DOM comparison checking loop',
+            'They are batched and processed asynchronously for performance optimization',
             'They can only be triggered inside lifecycle hooks'
           ],
-          correctIdx: 1
+          correctIdx: 2
         },
         {
           id: 'q3',
           question: 'What is a key difference between useEffect and useLayoutEffect?',
           options: [
-            'useEffect fires synchronously, while useLayoutEffect is asynchronous',
             'useEffect is executed after paint, whereas useLayoutEffect runs before browser paint',
+            'useEffect fires synchronously, while useLayoutEffect is asynchronous',
             'useEffect can trigger state updates but useLayoutEffect cannot',
             'useEffect does not support cleaning up effect subscriptions'
           ],
-          correctIdx: 1
+          correctIdx: 0
         }
       ];
     } else if (titleLower.includes('python') || titleLower.includes('django')) {
@@ -224,23 +236,23 @@ Return ONLY a valid JSON object matching this structure (do not wrap in markdown
           id: 'q2',
           question: 'What does a Python generator function do?',
           options: [
-            'It compiles Python code into native low-latency bytecode',
             'It returns an iterator that yields values one-at-a-time using the yield keyword',
+            'It compiles Python code into native low-latency bytecode',
             'It automatically profiles memory heap allocation parameters',
             'It generates proctoring questions for exam cells'
           ],
-          correctIdx: 1
+          correctIdx: 0
         },
         {
           id: 'q3',
           question: 'How does Python handle memory management?',
           options: [
             'It requires manual malloc and free calls in the code',
-            'It uses reference counting and an automatic garbage collector to reclaim heap memory',
             'It runs on a virtual sandbox with fixed allocations that cannot exceed 2GB',
+            'It uses reference counting and an automatic garbage collector to reclaim heap memory',
             'It relies entirely on operating system paging caches'
           ],
-          correctIdx: 1
+          correctIdx: 2
         }
       ];
     } else if (titleLower.includes('aws') || titleLower.includes('cloud') || titleLower.includes('docker')) {
@@ -262,22 +274,22 @@ Return ONLY a valid JSON object matching this structure (do not wrap in markdown
           question: 'What does AWS Auto Scaling do?',
           options: [
             'It increases database volume sizes when log directories fill up',
-            'It dynamically scales server instances up or down based on traffic load metrics',
             'It automatically updates API tokens and certificates',
+            'It dynamically scales server instances up or down based on traffic load metrics',
             'It schedules database backups during off-peak hours'
           ],
-          correctIdx: 1
+          correctIdx: 2
         },
         {
           id: 'q3',
           question: 'What is the function of a Load Balancer in system design?',
           options: [
-            'It encrypts incoming traffic with zero-knowledge protocols',
             'It distributes client requests evenly across target healthy servers',
+            'It encrypts incoming traffic with zero-knowledge protocols',
             'It decreases page load latency by caching database queries locally',
             'It limits CPU clock logs to prevent hardware overheat'
           ],
-          correctIdx: 1
+          correctIdx: 0
         }
       ];
     } else if (titleLower.includes('java') || titleLower.includes('spring')) {
@@ -298,28 +310,40 @@ Return ONLY a valid JSON object matching this structure (do not wrap in markdown
           id: 'q2',
           question: 'What is the primary feature of Spring Boot?',
           options: [
-            'It compiles Java source files directly into machine instructions',
             'It provides starter templates and auto-configuration to bootstrap web servers quickly',
+            'It compiles Java source files directly into machine instructions',
             'It proctors Socratic exams via websocket telemetry channels',
             'It implements zero-knowledge billing ledgers out-of-the-box'
           ],
-          correctIdx: 1
+          correctIdx: 0
         },
         {
           id: 'q3',
           question: 'What does the volatile keyword do in Java?',
           options: [
             'It indicates that a variable is stored on the GPU cache',
-            'It forces threads to read and write the variable directly from main memory rather than cache',
             'It marks a method to be executed asynchronously on background pools',
+            'It forces threads to read and write the variable directly from main memory rather than cache',
             'It throws a compile-time exception if a reference is null'
           ],
-          correctIdx: 1
+          correctIdx: 2
         }
       ];
     }
 
-    return NextResponse.json({ subject, questions });
+    const answersMap: Record<string, number> = {};
+    const sanitizedQuestions = questions.map((q: any) => {
+      answersMap[q.id] = Number(q.correctIdx);
+      const { correctIdx, ...rest } = q;
+      return rest;
+    });
+    const examSessionToken = signExamSessionToken(answersMap);
+
+    return NextResponse.json({
+      subject,
+      questions: sanitizedQuestions,
+      examSessionToken,
+    });
   } catch (err: any) {
     console.error('Certificate verification API failed:', err);
     return NextResponse.json({ error: err.message || 'Verification failed.' }, { status: 500 });

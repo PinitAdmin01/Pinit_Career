@@ -30,7 +30,39 @@ export async function POST(req: NextRequest) {
 
     const backendUrl = process.env.STT_API_URL || process.env.NEXT_PUBLIC_STT_API_URL || '';
 
-    // If external Whisper/Vosk server endpoint is configured
+    // 1. Try Groq Whisper (server-side — env vars are available here)
+    const keysStr = process.env.GROQ_API_KEYS || process.env.GROQ_API_KEY || '';
+    const groqKeys = keysStr.split(',').map((k: string) => k.trim()).filter(Boolean);
+
+    for (const key of groqKeys) {
+      try {
+        const groqForm = new FormData();
+        groqForm.append('file', file, 'speech.webm');
+        groqForm.append('model', 'whisper-large-v3');
+        groqForm.append('language', 'en');
+
+        const groqRes = await fetch('https://api.groq.com/openai/v1/audio/transcriptions', {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${key}` },
+          body: groqForm,
+          signal: AbortSignal.timeout(15000)
+        });
+
+        if (groqRes.ok) {
+          const data = await groqRes.json();
+          return NextResponse.json({
+            text: (data.text || '').trim(),
+            confidence: 0.97,
+            engine: 'groq-whisper-large-v3',
+            durationSec: data.duration || 0
+          });
+        }
+      } catch (groqErr) {
+        console.warn('[/api/stt] Groq key failed, trying next:', groqErr);
+      }
+    }
+
+    // 2. If external Whisper/Vosk server endpoint is configured
     if (backendUrl) {
       try {
         const backendForm = new FormData();

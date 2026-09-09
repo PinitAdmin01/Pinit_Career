@@ -30,11 +30,11 @@ export function QuestsSCurveMap({ trajectory, onScrollToNode }: QuestsSCurveMapP
         <defs>
           <linearGradient id="scurveGradient" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor="#f43f5e" />
-            <stop offset="14%" stopColor="#f59e0b" />
-            <stop offset="28%" stopColor="#10b981" />
-            <stop offset="42%" stopColor="#06b6d4" />
-            <stop offset="56%" stopColor="#3b82f6" />
-            <stop offset="70%" stopColor="#8b5cf6" />
+            <stop offset="14%" stopColor="var(--warning)" />
+            <stop offset="28%" stopColor="var(--success)" />
+            <stop offset="42%" stopColor="var(--accent-cyan)" />
+            <stop offset="56%" stopColor="var(--info)" />
+            <stop offset="70%" stopColor="var(--reward)" />
             <stop offset="84%" stopColor="#ec4899" />
             <stop offset="100%" stopColor="#eab308" />
           </linearGradient>
@@ -80,7 +80,7 @@ export function QuestsSCurveMap({ trajectory, onScrollToNode }: QuestsSCurveMapP
         left: 20,
         zIndex: 5,
         background: '#f43f5e',
-        color: '#fff',
+        color: 'var(--text)',
         padding: '5px 14px',
         borderRadius: 20,
         fontSize: 11,
@@ -95,11 +95,11 @@ export function QuestsSCurveMap({ trajectory, onScrollToNode }: QuestsSCurveMapP
 
       {/* 📍 VISUAL MILESTONE NODE PILLS ALONG S-CURVE */}
       {[
-        { step: 1, top: 115, align: 'right', left: 'auto', right: 20, color: '#f59e0b' },
-        { step: 2, top: 195, align: 'left', left: 20, right: 'auto', color: '#10b981' },
-        { step: 3, top: 275, align: 'right', left: 'auto', right: 20, color: '#06b6d4' },
-        { step: 4, top: 355, align: 'left', left: 20, right: 'auto', color: '#3b82f6' },
-        { step: 5, top: 435, align: 'right', left: 'auto', right: 20, color: '#8b5cf6' },
+        { step: 1, top: 115, align: 'right', left: 'auto', right: 20, color: 'var(--warning)' },
+        { step: 2, top: 195, align: 'left', left: 20, right: 'auto', color: 'var(--success)' },
+        { step: 3, top: 275, align: 'right', left: 'auto', right: 20, color: 'var(--accent-cyan)' },
+        { step: 4, top: 355, align: 'left', left: 20, right: 'auto', color: 'var(--info)' },
+        { step: 5, top: 435, align: 'right', left: 'auto', right: 20, color: 'var(--reward)' },
         { step: 6, top: 515, align: 'left', left: 20, right: 'auto', color: '#ec4899' },
         { step: 7, top: 595, align: 'right', left: 'auto', right: 20, color: '#f43f5e' },
         { step: 8, top: 675, align: 'left', left: 20, right: 'auto', color: '#eab308' }
@@ -132,7 +132,7 @@ export function QuestsSCurveMap({ trajectory, onScrollToNode }: QuestsSCurveMapP
               height: 36,
               borderRadius: '50%',
               background: item.color,
-              color: '#fff',
+              color: 'var(--text)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -170,13 +170,13 @@ export function QuestsSCurveMap({ trajectory, onScrollToNode }: QuestsSCurveMapP
                 left: item.align === 'left' ? 40 : 'auto',
                 right: item.align === 'right' ? 40 : 'auto',
                 zIndex: 20,
-                background: 'linear-gradient(135deg, #10b981, #059669)',
-                color: '#fff',
+                background: 'linear-gradient(135deg, var(--success), var(--success-deep))',
+                color: 'var(--text)',
                 padding: '4px 10px',
                 borderRadius: 12,
                 fontSize: 10,
                 fontWeight: 900,
-                boxShadow: '0 4px 12px rgba(16,185,129,0.4)',
+                boxShadow: '0 4px 12px rgba(var(--success-rgb), 0.4)',
                 animation: 'bounce 1.5s infinite',
                 display: 'flex',
                 alignItems: 'center',
@@ -196,7 +196,7 @@ export function QuestsSCurveMap({ trajectory, onScrollToNode }: QuestsSCurveMapP
         right: 20,
         zIndex: 5,
         background: 'linear-gradient(135deg, #eab308, #ca8a04)',
-        color: '#fff',
+        color: 'var(--text)',
         padding: '6px 16px',
         borderRadius: 20,
         fontSize: 11,

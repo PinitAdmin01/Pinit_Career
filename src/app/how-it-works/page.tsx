@@ -1,34 +1,12 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import PublicNavbar from '@/components/nav/PublicNavbar';
 import PublicFooter from '@/components/landing/PublicFooter';
-import DynamicSkyCanvas from '@/components/effects/DynamicSkyCanvas';
 import '@/styles/landing.css';
 
 export default function HowItWorksPage() {
-  const [themeState, setThemeState] = useState<{ theme: 'dark' | 'light'; lastToggleTime: number }>({
-    theme: 'light',
-    lastToggleTime: 0
-  });
-
-  useEffect(() => {
-    const saved = (localStorage.getItem('pc_theme') as 'dark' | 'light') || 'light';
-    setThemeState(prev => ({ ...prev, theme: saved }));
-
-    const handleThemeToggle = (e: any) => {
-      if (e.detail) {
-        setThemeState({
-          theme: e.detail.theme,
-          lastToggleTime: e.detail.time
-        });
-      }
-    };
-    window.addEventListener('pc_theme_toggled', handleThemeToggle);
-    return () => window.removeEventListener('pc_theme_toggled', handleThemeToggle);
-  }, []);
-
   const steps = [
     {
       step: '01',
@@ -59,7 +37,6 @@ export default function HowItWorksPage() {
 
   return (
     <div className="landing-page" style={{ position: 'relative', overflowX: 'hidden' }}>
-      <DynamicSkyCanvas theme={themeState.theme} lastToggleTime={themeState.lastToggleTime} opacity={0.65} />
       <PublicNavbar />
 
       <main style={{ padding: '60px 0 100px', position: 'relative', zIndex: 1 }}>
@@ -68,7 +45,7 @@ export default function HowItWorksPage() {
           {/* Breadcrumb back to landing */}
           <div style={{ marginBottom: 32 }}>
             <Link href="/" style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-              <span>←</span> Back to Landing Page
+              <span>←</span> Back to Home
             </Link>
           </div>
 

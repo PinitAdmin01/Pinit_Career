@@ -8,6 +8,7 @@ export async function POST(req: Request) {
     if (gated.error) return gated.error;
 
     const { messages, systemPrompt, skillCategory, maxTokens } = await req.json();
+    const clampedMaxTokens = Math.min(Math.max(Number(maxTokens) || 300, 50), 1000);
 
     const openRouterKey = process.env.OPENROUTER_API_KEY;
     const groqKeysStr = process.env.GROQ_API_KEYS || '';
@@ -36,7 +37,7 @@ export async function POST(req: Request) {
                 { role: 'system', content: systemPrompt },
                 ...messages
               ],
-              max_tokens: maxTokens || 300,
+              max_tokens: clampedMaxTokens,
               temperature: 0.7
             })
           });
@@ -66,7 +67,7 @@ export async function POST(req: Request) {
             { role: 'system', content: systemPrompt },
             ...messages
           ],
-          max_tokens: maxTokens || 1000,
+          max_tokens: clampedMaxTokens,
           temperature: 0.2
         })
       });

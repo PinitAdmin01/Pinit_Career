@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function PublicFooter() {
   return (
-    <footer className="footer-section" style={{ background: '#05070c', borderTop: '1px solid var(--border-color)', padding: '64px 0 40px', color: 'var(--text-secondary)', fontSize: 13 }}>
+    <footer className="footer-section" style={{ background: 'var(--bg-primary)', borderTop: '1px solid var(--border-color)', padding: '64px 0 40px', color: 'var(--text-secondary)', fontSize: 13 }}>
       <div className="container">
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 40, marginBottom: 48 }}>
           

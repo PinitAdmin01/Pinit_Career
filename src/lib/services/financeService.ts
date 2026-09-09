@@ -127,12 +127,13 @@ export const financeService = {
         if (record) {
           const paid = (record.installments || []).find((inst: FinanceInstallment) => inst.id === installmentId);
           const updatedInstallments = markPaid(record.installments || []);
-          await supabase.from('finance_dues').update({
+          const res1 = await supabase.from('finance_dues').update({
             installments: updatedInstallments,
             fine_levied: 0
           }).eq('student_id', studentId);
+          if (res1.error) throw new Error(res1.error.message);
 
-          await supabase.from('finance_transactions').insert({
+          const res2 = await supabase.from('finance_transactions').insert({
             id: transactionId,
             student_id: studentId,
             student_name: studentName,
@@ -141,6 +142,7 @@ export const financeService = {
             fine_paid: Number(record.fine_levied || 0),
             type: paid?.name || 'Fee installment'
           });
+          if (res2.error) throw new Error(res2.error.message);
 
           return { ok: true, receiptId: transactionId };
         }
@@ -191,10 +193,11 @@ export const financeService = {
             return { ...inst, amount: Math.max(0, Number(inst.amount || 0) - val) };
           });
 
-          await supabase.from('finance_dues').update({
+          const res = await supabase.from('finance_dues').update({
             scholarship_waiver: val,
             installments: updatedInstallments
           }).eq('student_id', studentId);
+          if (res.error) throw new Error(res.error.message);
 
           return { ok: true, waiver: val };
         }

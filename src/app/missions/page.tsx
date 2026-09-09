@@ -37,8 +37,8 @@ interface Mission {
 }
 
 const TYPE_META: Record<string, { icon: string; color: string; light: string }> = {
-  communication: { icon: '🎙️', color: 'var(--blue)',   light: 'rgba(59,130,246,0.1)'   },
-  skill:         { icon: '⚡',  color: 'var(--teal)',   light: 'rgba(20,184,166,0.1)'   },
+  communication: { icon: '🎙️', color: 'var(--blue)',   light: 'rgba(var(--info-rgb), 0.1)'   },
+  skill:         { icon: '⚡',  color: 'var(--teal)',   light: 'rgba(var(--accent-teal-rgb), 0.1)'   },
   personality:   { icon: '🧠', color: 'var(--purple)', light: 'rgba(168,85,247,0.1)' },
 };
 
@@ -343,6 +343,9 @@ function MissionsPageInner() {
         setEvaluationReport(data.report);
         setQt2Delta(data.qt2_delta);
 
+        // Register and persist mission completion in context, storage, and database
+        completeMission('socratic_roleplay', true);
+
         // Update QT2 Score & Mindset Archetype in local context (which syncs it to Supabase)
         const todayStr = new Date().toDateString();
         const hasCompletedToday = onboardingAnswers?.last_streak_date === todayStr;
@@ -621,8 +624,8 @@ function MissionsPageInner() {
                 }
               }}
               style={{ 
-                background: 'rgba(239, 68, 68, 0.05)', 
-                border: '1px solid rgba(239, 68, 68, 0.2)', 
+                background: 'rgba(var(--danger-rgb),  0.05)', 
+                border: '1px solid rgba(var(--danger-rgb),  0.2)', 
                 padding: '5px 12px', 
                 borderRadius: 8, 
                 fontSize: 11, 
@@ -632,12 +635,12 @@ function MissionsPageInner() {
                 transition: 'all 0.2s ease-out'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(239, 68, 68, 0.12)';
+                e.currentTarget.style.background = 'rgba(var(--danger-rgb),  0.12)';
                 e.currentTarget.style.borderColor = 'var(--red)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(239, 68, 68, 0.05)';
-                e.currentTarget.style.borderColor = 'rgba(239, 68, 68, 0.2)';
+                e.currentTarget.style.background = 'rgba(var(--danger-rgb),  0.05)';
+                e.currentTarget.style.borderColor = 'rgba(var(--danger-rgb),  0.2)';
               }}
             >
               ❌ Abort Session
@@ -808,8 +811,8 @@ function MissionsPageInner() {
                       </span>
                       <div 
                         style={{ 
-                          background: isUser ? 'rgba(20,184,166,0.08)' : 'rgba(255,255,255,0.03)',
-                          border: `1px solid ${isUser ? 'rgba(20,184,166,0.18)' : theme.border}`,
+                          background: isUser ? 'rgba(var(--accent-teal-rgb), 0.08)' : 'rgba(255,255,255,0.03)',
+                          border: `1px solid ${isUser ? 'rgba(var(--accent-teal-rgb), 0.18)' : theme.border}`,
                           padding: '10px 14px',
                           borderRadius: '16px',
                           borderTopRightRadius: isUser ? '4px' : '16px',
@@ -841,8 +844,8 @@ function MissionsPageInner() {
                 ) : evaluationReport ? (
                   /* Socratic report display box */
                   <div style={{ 
-                    background: 'rgba(20,184,166,0.03)', 
-                    border: `1.5px solid rgba(20,184,166,0.18)`, 
+                    background: 'rgba(var(--accent-teal-rgb), 0.03)', 
+                    border: `1.5px solid rgba(var(--accent-teal-rgb), 0.18)`, 
                     borderRadius: 16, 
                     padding: 16,
                     maxHeight: 280,
@@ -877,7 +880,7 @@ function MissionsPageInner() {
                           disabled={selectedChoiceIdx !== null}
                           onClick={() => handleSelectChoice(idx)}
                           style={{
-                            background: selectedChoiceIdx === idx ? 'rgba(20,184,166,0.08)' : theme.bgInside,
+                            background: selectedChoiceIdx === idx ? 'rgba(var(--accent-teal-rgb), 0.08)' : theme.bgInside,
                             border: `1px solid ${selectedChoiceIdx === idx ? 'var(--teal)' : theme.border}`,
                             borderRadius: 12,
                             padding: '10px 14px',
@@ -1080,7 +1083,7 @@ function MissionsPageInner() {
             /* Initiate Evolution Simulator Banner */
             <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
               <div style={{
-                background: 'linear-gradient(135deg, rgba(168,85,247,0.08) 0%, rgba(20,184,166,0.04) 100%)',
+                background: 'linear-gradient(135deg, rgba(168,85,247,0.08) 0%, rgba(var(--accent-teal-rgb), 0.04) 100%)',
                 border: `1.5px dashed rgba(168,85,247,0.22)`,
                 borderRadius: '24px',
                 padding: '32px',
@@ -1292,21 +1295,21 @@ function MissionsPageInner() {
                       borderRadius: 8,
                       fontSize: 11,
                       fontWeight: 800,
-                      background: selectedHistoryRecord.type === 'corporate_comm' ? 'rgba(20,184,166,0.1)' : selectedHistoryRecord.type === 'daily_mission' ? 'rgba(59,130,246,0.1)' : 'rgba(168,85,247,0.1)',
+                      background: selectedHistoryRecord.type === 'corporate_comm' ? 'rgba(var(--accent-teal-rgb), 0.1)' : selectedHistoryRecord.type === 'daily_mission' ? 'rgba(var(--info-rgb), 0.1)' : 'rgba(168,85,247,0.1)',
                       color: selectedHistoryRecord.type === 'corporate_comm' ? 'var(--teal)' : selectedHistoryRecord.type === 'daily_mission' ? 'var(--blue)' : 'var(--purple)',
-                      border: `1px solid ${selectedHistoryRecord.type === 'corporate_comm' ? 'rgba(20,184,166,0.25)' : selectedHistoryRecord.type === 'daily_mission' ? 'rgba(59,130,246,0.25)' : 'rgba(168,85,247,0.25)'}`
+                      border: `1px solid ${selectedHistoryRecord.type === 'corporate_comm' ? 'rgba(var(--accent-teal-rgb), 0.25)' : selectedHistoryRecord.type === 'daily_mission' ? 'rgba(var(--info-rgb), 0.25)' : 'rgba(168,85,247,0.25)'}`
                     }}>
                       {selectedHistoryRecord.type === 'corporate_comm' ? '🎙️ Corporate Comm Session' : selectedHistoryRecord.type === 'daily_mission' ? '📅 Daily Mission Proof' : `🧬 Archetype: ${selectedHistoryRecord.mindsetArchetype || 'Pattern Hunter'}`}
                     </span>
 
                     {selectedHistoryRecord.score && (
-                      <span style={{ padding: '5px 12px', borderRadius: 8, fontSize: 11, fontWeight: 800, background: 'rgba(20,184,166,0.1)', color: 'var(--teal)', border: '1px solid rgba(20,184,166,0.25)' }}>
+                      <span style={{ padding: '5px 12px', borderRadius: 8, fontSize: 11, fontWeight: 800, background: 'rgba(var(--accent-teal-rgb), 0.1)', color: 'var(--teal)', border: '1px solid rgba(var(--accent-teal-rgb), 0.25)' }}>
                         Rating Score: {selectedHistoryRecord.score}/100
                       </span>
                     )}
 
                     {selectedHistoryRecord.qt2Delta !== undefined && (
-                      <span style={{ padding: '5px 12px', borderRadius: 8, fontSize: 11, fontWeight: 800, background: selectedHistoryRecord.qt2Delta >= 0 ? 'rgba(20,184,166,0.1)' : 'rgba(239,68,68,0.1)', color: selectedHistoryRecord.qt2Delta >= 0 ? 'var(--teal)' : 'var(--red)', border: `1px solid ${selectedHistoryRecord.qt2Delta >= 0 ? 'rgba(20,184,166,0.25)' : 'rgba(239,68,68,0.25)'}` }}>
+                      <span style={{ padding: '5px 12px', borderRadius: 8, fontSize: 11, fontWeight: 800, background: selectedHistoryRecord.qt2Delta >= 0 ? 'rgba(var(--accent-teal-rgb), 0.1)' : 'rgba(var(--danger-rgb), 0.1)', color: selectedHistoryRecord.qt2Delta >= 0 ? 'var(--teal)' : 'var(--red)', border: `1px solid ${selectedHistoryRecord.qt2Delta >= 0 ? 'rgba(var(--accent-teal-rgb), 0.25)' : 'rgba(var(--danger-rgb), 0.25)'}` }}>
                         QT2 Delta: {selectedHistoryRecord.qt2Delta >= 0 ? `+${selectedHistoryRecord.qt2Delta}` : selectedHistoryRecord.qt2Delta} pts
                       </span>
                     )}

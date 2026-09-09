@@ -5,6 +5,7 @@
 import { useState, useEffect } from 'react';
 import { api } from '@/lib/api/client';
 import { useAuth } from '@/lib/context/AuthContext';
+import { toast } from '@/lib/store/useAppStore';
 
 export default function StudentGrievances() {
   const { user } = useAuth();
@@ -46,14 +47,14 @@ export default function StudentGrievances() {
         anonymous
       });
       if (res && res.ok) {
-        alert('Grievance filed successfully! The administrative board has been notified.');
+        toast.success('Grievance Logged ⚖️', 'Your ticket has been filed successfully. The administrative board has been notified.');
         setTitle('');
         setDescription('');
         setAnonymous(false);
         fetchGrievances();
       }
     } catch {
-      alert('Failed to submit grievance.');
+      toast.error('Submission Failed', 'Failed to submit grievance. Please check your network connection.');
     } finally {
       setSubmitting(false);
     }

@@ -5,6 +5,8 @@
  */
 
 import { PathwayApiService } from './pathwayApi';
+import { supabase } from '@/lib/supabaseClient';
+import type { RealtimeChannel } from '@supabase/supabase-js';
 
 export type TeamRole = 'frontend_lead' | 'backend_lead' | 'devops_cloud' | 'data_engineer' | 'ai_architect';
 
@@ -89,19 +91,134 @@ export const INITIAL_HACKATHON_SQUADS: HackathonSquad[] = [
 export class TeamsApiService {
   private static localSquadsKey = 'pinit_hackathon_squads_store';
   private static inMemorySquads: HackathonSquad[] = [...INITIAL_HACKATHON_SQUADS];
+  private static realtimeChannel: RealtimeChannel | null = null;
+  private static subscribers: Set<(payload: any) => void> = new Set();
 
-  static getSquads(): HackathonSquad[] {
+  static subscribe(callback: (payload: any) => void): () => void {
+    return this.subscribeToSquadUpdates(callback);
+  }
+
+  static subscribeToSquadUpdates(callback: (payload: any) => void): () => void {
+    this.subscribers.add(callback);
+
+    let localHandler: ((e: any) => void) | null = null;
+    let storageHandler: ((e: StorageEvent) => void) | null = null;
+
+    if (typeof window !== 'undefined') {
+      localHandler = (e: any) => {
+        try { callback(e.detail); } catch (err) { console.warn(err); }
+      };
+      window.addEventListener('pinit_squads_updated', localHandler);
+
+      storageHandler = (e: StorageEvent) => {
+        if (e.key === this.localSquadsKey || (e.key && e.key.includes('_hackathon_squads'))) {
+          try { callback({ type: 'storage_sync' }); } catch (err) { console.warn(err); }
+        }
+      };
+      window.addEventListener('storage', storageHandler);
+
+      if (!this.realtimeChannel && supabase) {
+        try {
+          this.realtimeChannel = supabase.channel('pinit_squads_realtime')
+            .on('broadcast', { event: 'squad_update' }, ({ payload }) => {
+              this.handleRemoteSquadUpdate(payload);
+              this.subscribers.forEach(cb => {
+                try { cb(payload); } catch (err) { console.warn(err); }
+              });
+            })
+            .subscribe();
+        } catch (err) {
+          console.warn('Realtime squad channel subscription failed:', err);
+        }
+      }
+    }
+
+    return () => {
+      this.subscribers.delete(callback);
+      if (typeof window !== 'undefined') {
+        if (localHandler) window.removeEventListener('pinit_squads_updated', localHandler);
+        if (storageHandler) window.removeEventListener('storage', storageHandler);
+      }
+    };
+  }
+
+  private static handleRemoteSquadUpdate(payload: any) {
+    if (!payload?.squad?.id) return;
+    try {
+      const current = this.getSquads();
+      const idx = current.findIndex(s => s.id === payload.squad.id);
+      if (idx >= 0) {
+        current[idx] = payload.squad;
+      } else {
+        current.unshift(payload.squad);
+      }
+      this.inMemorySquads = current;
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(this.localSquadsKey, JSON.stringify(current));
+      }
+    } catch (e) {
+      console.warn('Failed to merge remote squad update:', e);
+    }
+  }
+
+  private static broadcastUpdate(action: string, payload: { squad: HackathonSquad; studentId?: string }) {
+    if (typeof window === 'undefined') return;
+
+    const eventData = { action, ...payload, timestamp: Date.now() };
+
+    // 1. Local subscribers
+    this.subscribers.forEach(cb => {
+      try { cb(eventData); } catch (err) { console.warn(err); }
+    });
+
+    // 2. Local window event for same-page components
+    try {
+      window.dispatchEvent(new CustomEvent('pinit_squads_updated', { detail: eventData }));
+    } catch (err) {
+      console.warn('Local squad custom event dispatch failed:', err);
+    }
+
+    // 3. Supabase Realtime broadcast across clients
+    if (this.realtimeChannel) {
+      try {
+        this.realtimeChannel.send({
+          type: 'broadcast',
+          event: 'squad_update',
+          payload: eventData
+        }).catch(err => {
+          console.warn('Supabase realtime broadcast failed:', err);
+        });
+      } catch (err) {
+        console.warn('Supabase broadcast send failed:', err);
+      }
+    }
+  }
+
+  static getSquads(studentId?: string): HackathonSquad[] {
     if (typeof window === 'undefined') return this.inMemorySquads;
     try {
       const raw = localStorage.getItem(this.localSquadsKey);
-      return raw ? JSON.parse(raw) : this.inMemorySquads;
+      let list: HackathonSquad[] = raw ? JSON.parse(raw) : [...this.inMemorySquads];
+      
+      // If studentId is provided, merge with user-scoped storage to prevent data loss on refresh
+      if (studentId) {
+        const userRaw = localStorage.getItem(`pinit_${studentId}_hackathon_squads`);
+        if (userRaw) {
+          const userSquads: HackathonSquad[] = JSON.parse(userRaw);
+          const map = new Map<string, HackathonSquad>();
+          list.forEach(s => map.set(s.id, s));
+          userSquads.forEach(s => map.set(s.id, s)); // user copy takes precedence
+          list = Array.from(map.values());
+        }
+      }
+      return list;
     } catch {
       return this.inMemorySquads;
     }
   }
 
-  static getSquadById(squadId: string): HackathonSquad | undefined {
-    return this.getSquads().find(s => s.id === squadId);
+  static getSquadById(squadId: string, studentId?: string): HackathonSquad | undefined {
+    return this.getSquads(studentId).find(s => s.id === squadId);
   }
 
   static createSquad(params: {
@@ -111,8 +228,10 @@ export class TeamsApiService {
     teamLeadName: string;
     teamLeadRole: TeamRole;
     repoUrl: string;
+    avatarUrl?: string;
   }): HackathonSquad {
-    const squads = this.getSquads();
+    const squads = this.getSquads(params.teamLeadStudentId);
+    const avatar = params.avatarUrl || `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(params.teamLeadName || params.teamLeadStudentId)}`;
     const newSquad: HackathonSquad = {
       id: `squad_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
       name: params.name,
@@ -122,7 +241,7 @@ export class TeamsApiService {
         {
           studentId: params.teamLeadStudentId,
           name: params.teamLeadName,
-          avatarUrl: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80',
+          avatarUrl: avatar,
           role: params.teamLeadRole,
           contributionPct: 100,
           assignedTasks: ['Team Leadership', 'Project Architecture Initialization']
@@ -139,7 +258,8 @@ export class TeamsApiService {
     };
 
     squads.unshift(newSquad);
-    this.saveSquads(squads);
+    this.saveSquads(squads, params.teamLeadStudentId);
+    this.broadcastUpdate('create', { squad: newSquad, studentId: params.teamLeadStudentId });
     return newSquad;
   }
 
@@ -148,8 +268,9 @@ export class TeamsApiService {
     studentId: string;
     name: string;
     role: TeamRole;
+    avatarUrl?: string;
   }): HackathonSquad {
-    const squads = this.getSquads();
+    const squads = this.getSquads(params.studentId);
     const squad = squads.find(s => s.id === params.squadId);
     if (!squad) throw new Error(`Squad not found: ${params.squadId}`);
 
@@ -157,10 +278,11 @@ export class TeamsApiService {
       return squad;
     }
 
+    const avatar = params.avatarUrl || `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(params.name || params.studentId)}`;
     squad.members.push({
       studentId: params.studentId,
       name: params.name,
-      avatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80',
+      avatarUrl: avatar,
       role: params.role,
       contributionPct: Math.round(100 / (squad.members.length + 1)),
       assignedTasks: [`${params.role.replace('_', ' ').toUpperCase()} Core Deliverables`]
@@ -170,12 +292,13 @@ export class TeamsApiService {
     const equalShare = Math.floor(100 / squad.members.length);
     squad.members.forEach(m => m.contributionPct = equalShare);
 
-    this.saveSquads(squads);
+    this.saveSquads(squads, params.studentId);
+    this.broadcastUpdate('join', { squad, studentId: params.studentId });
     return squad;
   }
 
-  static toggleMilestone(squadId: string, milestoneId: string): HackathonSquad {
-    const squads = this.getSquads();
+  static toggleMilestone(squadId: string, milestoneId: string, studentId?: string): HackathonSquad {
+    const squads = this.getSquads(studentId);
     const squad = squads.find(s => s.id === squadId);
     if (!squad) throw new Error(`Squad not found: ${squadId}`);
 
@@ -189,7 +312,8 @@ export class TeamsApiService {
       squad.status = 'submitted';
     }
 
-    this.saveSquads(squads);
+    this.saveSquads(squads, studentId);
+    this.broadcastUpdate('milestone', { squad, studentId });
     return squad;
   }
 
@@ -201,20 +325,25 @@ export class TeamsApiService {
     squadId: string;
     liveUrl: string;
     demoVideoUrl?: string;
+    studentId?: string;
   }): Promise<{ squad: HackathonSquad; evidenceCount: number }> {
-    const squads = this.getSquads();
+    const squads = this.getSquads(params.studentId);
     const squad = squads.find(s => s.id === params.squadId);
     if (!squad) throw new Error(`Squad not found: ${params.squadId}`);
 
     squad.liveUrl = params.liveUrl;
     squad.demoVideoUrl = params.demoVideoUrl;
-    squad.status = 'verified';
-    squad.finalScore = 92;
-    squad.juryFeedback = 'Outstanding architectural modularity, robust CI/CD telemetry, and cohesive multi-member git provenance.';
+    squad.status = 'submitted';
+    const completedMilestones = squad.milestones.filter(m => m.isCompleted).length;
+    const computedScore = Math.round((completedMilestones / Math.max(1, squad.milestones.length)) * 100);
+    squad.finalScore = computedScore;
+    squad.juryFeedback = computedScore === 100
+      ? 'All sprint deliverables submitted. Awaiting live faculty jury defense.'
+      : `${completedMilestones}/${squad.milestones.length} sprint milestones completed. Final jury review scheduled upon completion.`;
 
     let recordedCount = 0;
 
-    // Record verified evidence for each team member based on their role
+    // Record evidence submission for each team member based on their role
     for (const member of squad.members) {
       let targetCompId = 'comp_production_engineering_residency_l5';
       if (member.role === 'backend_lead') targetCompId = 'comp_backend_apis_frameworks_l3';
@@ -233,31 +362,116 @@ export class TeamsApiService {
         sourceType: 'project',
         sourceId: `squad_project_${squad.id}`,
         attemptId: `att_team_final`,
-        score: squad.finalScore,
+        score: computedScore,
         evaluatorType: 'hybrid',
-        evaluatorVersion: 'hackathon-jury-board-v1',
+        evaluatorVersion: 'hackathon-milestone-evaluation-v1',
         rubricVersion: 'rubric-team-hackathon',
         timestamp: Date.now(),
         artifacts: {
           repoUrl: squad.repoUrl,
           githubRepoUrl: squad.repoUrl,
           liveUrl: squad.liveUrl,
-          commitSha: '7f9c2d1b8e4a',
-          executionLogSnippet: `Team ${squad.name} verified by Jury. Role: ${member.role}`,
+          executionLogSnippet: `Team ${squad.name} submission recorded. Role: ${member.role}. Milestones: ${completedMilestones}/${squad.milestones.length}`,
         }
       });
       recordedCount++;
     }
 
-    this.saveSquads(squads);
+    this.saveSquads(squads, params.studentId);
+    this.broadcastUpdate('submit', { squad, studentId: params.studentId });
     return { squad, evidenceCount: recordedCount };
   }
 
-  private static saveSquads(squads: HackathonSquad[]) {
+  static async syncRemoteSquads(studentId?: string): Promise<HackathonSquad[]> {
+    if (typeof window === 'undefined') return this.inMemorySquads;
+    const local = this.getSquads(studentId);
+    if (!supabase) return local;
+
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const uid = studentId || session?.user?.id;
+      if (!uid) return local;
+
+      // 1. Try dedicated table
+      try {
+        const { data, error } = await supabase
+          .from('student_squads')
+          .select('squads_payload')
+          .eq('user_id', uid)
+          .maybeSingle();
+
+        if (!error && data?.squads_payload && Array.isArray(data.squads_payload)) {
+          const map = new Map<string, HackathonSquad>();
+          local.forEach(s => map.set(s.id, s));
+          data.squads_payload.forEach((s: HackathonSquad) => map.set(s.id, s));
+          const merged = Array.from(map.values());
+          this.saveSquads(merged, uid);
+          return merged;
+        }
+      } catch {}
+
+      // 2. Try auth user_metadata fallback
+      const metaSquads = session?.user?.user_metadata?.hackathon_squads;
+      if (Array.isArray(metaSquads) && metaSquads.length > 0) {
+        const map = new Map<string, HackathonSquad>();
+        local.forEach(s => map.set(s.id, s));
+        metaSquads.forEach((s: HackathonSquad) => map.set(s.id, s));
+        const merged = Array.from(map.values());
+        this.saveSquads(merged, uid);
+        return merged;
+      }
+    } catch (e) {
+      console.warn('[TeamsApiService] Remote sync fallback to local store:', e);
+    }
+    return local;
+  }
+
+  private static saveSquads(squads: HackathonSquad[], studentId?: string) {
     this.inMemorySquads = squads;
     if (typeof window === 'undefined') return;
     try {
       localStorage.setItem(this.localSquadsKey, JSON.stringify(squads));
+
+      // Save user-scoped squads for any member present or specific student
+      const userIds = new Set<string>();
+      if (studentId) userIds.add(studentId);
+      squads.forEach(s => {
+        if (s.teamLeadStudentId) userIds.add(s.teamLeadStudentId);
+        s.members?.forEach(m => {
+          if (m.studentId) userIds.add(m.studentId);
+        });
+      });
+
+      userIds.forEach(uid => {
+        const userSquads = squads.filter(s =>
+          s.teamLeadStudentId === uid || s.members?.some(m => m.studentId === uid)
+        );
+        if (userSquads.length > 0) {
+          localStorage.setItem(`pinit_${uid}_hackathon_squads`, JSON.stringify(userSquads));
+        }
+      });
+
+      // PR-07 FIX: Asynchronously persist to Supabase so squads survive across devices
+      if (supabase) {
+        supabase.auth.getSession().then(({ data: { session } }) => {
+          const uid = studentId || session?.user?.id;
+          if (uid) {
+            // Attempt table upsert
+            Promise.resolve(supabase.from('student_squads').upsert({
+              user_id: uid,
+              squads_payload: squads,
+              updated_at: new Date().toISOString()
+            })).then(({ error }) => {
+              if (error && session?.user?.id === uid) {
+                // Fallback to updating user_metadata if table does not exist
+                supabase.auth.updateUser({
+                  data: { hackathon_squads: squads }
+                }).catch(() => {});
+              }
+            }).catch(() => {});
+          }
+        }).catch(() => {});
+      }
     } catch (e) {
       console.warn('Failed to save squads to local storage', e);
     }

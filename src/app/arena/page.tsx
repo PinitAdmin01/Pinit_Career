@@ -155,8 +155,8 @@ function ArenaContent() {
         padding: '24px 28px',
         borderRadius: 20,
         marginBottom: 24,
-        background: 'linear-gradient(135deg, rgba(99,102,241,0.14), rgba(236,72,153,0.08))',
-        border: '1px solid rgba(99,102,241,0.25)',
+        background: 'linear-gradient(135deg, rgba(var(--brand-rgb), 0.14), rgba(236,72,153,0.08))',
+        border: '1px solid rgba(var(--brand-rgb), 0.25)',
         boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
         display: 'flex',
         justifyContent: 'space-between',
@@ -178,7 +178,7 @@ function ArenaContent() {
 
         {/* User Arena Telemetry */}
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
-          <div style={{ padding: '8px 16px', borderRadius: 12, background: 'rgba(99,102,241,0.12)', border: '1px solid rgba(99,102,241,0.25)', textAlign: 'center' }}>
+          <div style={{ padding: '8px 16px', borderRadius: 12, background: 'rgba(var(--brand-rgb), 0.12)', border: '1px solid rgba(var(--brand-rgb), 0.25)', textAlign: 'center' }}>
             <div style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase' }}>Arena XP</div>
             <div style={{ fontSize: 18, fontWeight: 900, color: 'var(--t1)', fontFamily: 'var(--font-mono)' }}>⚡ {xp}</div>
           </div>
@@ -192,7 +192,7 @@ function ArenaContent() {
               padding: '10px 18px',
               borderRadius: 12,
               background: 'linear-gradient(135deg, #6366f1, #a855f7)',
-              color: '#fff',
+              color: 'var(--text)',
               fontWeight: 800,
               fontSize: 12.5,
               textDecoration: 'none',
@@ -238,9 +238,9 @@ function ArenaContent() {
               borderRadius: 10,
               border: activeTab === tab.id ? '1.5px solid var(--accent)' : '1px solid transparent',
               background: activeTab === tab.id
-                ? 'linear-gradient(135deg, rgba(99,102,241,0.22), rgba(168,85,247,0.15))'
+                ? 'linear-gradient(135deg, rgba(var(--brand-rgb), 0.22), rgba(168,85,247,0.15))'
                 : 'transparent',
-              color: activeTab === tab.id ? '#fff' : 'var(--t2)',
+              color: activeTab === tab.id ? 'var(--text)' : 'var(--t2)',
               fontWeight: 800,
               fontSize: 12.5,
               cursor: 'pointer',
@@ -268,7 +268,7 @@ function ArenaContent() {
             padding: 24,
             borderRadius: 18,
             background: 'var(--bg2)',
-            border: '1.5px solid rgba(239,68,68,0.25)',
+            border: '1.5px solid rgba(var(--danger-rgb), 0.25)',
             boxShadow: '0 8px 24px rgba(0,0,0,0.06)',
             display: 'flex',
             flexDirection: 'column',
@@ -278,7 +278,7 @@ function ArenaContent() {
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
                 <span style={{ fontSize: 32 }}>⚔️</span>
-                <span style={{ fontSize: 11, fontWeight: 900, color: '#ef4444', background: 'rgba(239,68,68,0.12)', border: '1px solid rgba(239,68,68,0.25)', padding: '3px 10px', borderRadius: 8 }}>
+                <span style={{ fontSize: 11, fontWeight: 900, color: 'var(--danger)', background: 'rgba(var(--danger-rgb), 0.12)', border: '1px solid rgba(var(--danger-rgb), 0.25)', padding: '3px 10px', borderRadius: 8 }}>
                   1v1 PVP ARENA
                 </span>
               </div>
@@ -308,12 +308,12 @@ function ArenaContent() {
                 padding: '12px 18px',
                 borderRadius: 12,
                 background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
-                color: '#fff',
+                color: 'var(--text)',
                 fontWeight: 800,
                 fontSize: 13,
                 border: 'none',
                 cursor: 'pointer',
-                boxShadow: '0 4px 14px rgba(239,68,68,0.3)',
+                boxShadow: '0 4px 14px rgba(var(--danger-rgb), 0.3)',
                 transition: 'transform 0.15s'
               }}
             >
@@ -366,7 +366,7 @@ function ArenaContent() {
                 padding: '12px 18px',
                 borderRadius: 12,
                 background: 'linear-gradient(135deg, #a855f7 0%, #9333ea 100%)',
-                color: '#fff',
+                color: 'var(--text)',
                 fontWeight: 800,
                 fontSize: 13,
                 textDecoration: 'none',
@@ -383,7 +383,7 @@ function ArenaContent() {
             padding: 24,
             borderRadius: 18,
             background: 'var(--bg2)',
-            border: '1.5px solid rgba(59,130,246,0.25)',
+            border: '1.5px solid rgba(var(--info-rgb), 0.25)',
             boxShadow: '0 8px 24px rgba(0,0,0,0.06)',
             display: 'flex',
             flexDirection: 'column',
@@ -393,7 +393,7 @@ function ArenaContent() {
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
                 <span style={{ fontSize: 32 }}>🎙️</span>
-                <span style={{ fontSize: 11, fontWeight: 900, color: '#3b82f6', background: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.25)', padding: '3px 10px', borderRadius: 8 }}>
+                <span style={{ fontSize: 11, fontWeight: 900, color: 'var(--info)', background: 'rgba(var(--info-rgb), 0.12)', border: '1px solid rgba(var(--info-rgb), 0.25)', padding: '3px 10px', borderRadius: 8 }}>
                   LIVE AI DEFENSE
                 </span>
               </div>
@@ -423,11 +423,11 @@ function ArenaContent() {
                 padding: '12px 18px',
                 borderRadius: 12,
                 background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
-                color: '#fff',
+                color: 'var(--text)',
                 fontWeight: 800,
                 fontSize: 13,
                 textDecoration: 'none',
-                boxShadow: '0 4px 14px rgba(59,130,246,0.3)',
+                boxShadow: '0 4px 14px rgba(var(--info-rgb), 0.3)',
                 transition: 'transform 0.15s'
               }}
             >
@@ -475,8 +475,8 @@ function ArenaContent() {
                             fontSize: 11,
                             fontWeight: 700,
                             textTransform: 'uppercase',
-                            background: problem.difficulty === 'basic' ? 'rgba(16, 185, 129, 0.15)' : problem.difficulty === 'intermediate' ? 'rgba(59, 130, 246, 0.15)' : 'rgba(239, 68, 68, 0.15)',
-                            color: problem.difficulty === 'basic' ? '#10b981' : problem.difficulty === 'intermediate' ? '#3b82f6' : '#ef4444'
+                            background: problem.difficulty === 'basic' ? 'rgba(var(--success-rgb),  0.15)' : problem.difficulty === 'intermediate' ? 'rgba(var(--info-rgb),  0.15)' : 'rgba(var(--danger-rgb),  0.15)',
+                            color: problem.difficulty === 'basic' ? 'var(--success)' : problem.difficulty === 'intermediate' ? 'var(--info)' : 'var(--danger)'
                           }}>
                             {problem.difficulty}
                           </span>
@@ -490,7 +490,7 @@ function ArenaContent() {
                           <span style={{ fontSize: 11, color: 'var(--t2)', background: 'var(--bg3)', padding: '3px 8px', borderRadius: 4 }}>
                             ⏱️ {problem.timeLimitSeconds / 60} min
                           </span>
-                          <span style={{ fontSize: 11, color: '#fbbf24', background: 'rgba(251, 191, 36, 0.12)', padding: '3px 8px', borderRadius: 4, fontWeight: 700 }}>
+                          <span style={{ fontSize: 11, color: 'var(--warning-bright)', background: 'rgba(251, 191, 36, 0.12)', padding: '3px 8px', borderRadius: 4, fontWeight: 700 }}>
                             ⚡ +{problem.xpReward} XP
                           </span>
                           {problem.tags.map(tag => (
@@ -550,7 +550,7 @@ function ArenaContent() {
                             borderRadius: 8,
                             background: language === lang ? 'var(--accent)' : 'var(--bg3)',
                             border: '1px solid var(--border)',
-                            color: language === lang ? '#fff' : 'var(--t2)',
+                            color: language === lang ? 'var(--text)' : 'var(--t2)',
                             fontSize: 12,
                             fontWeight: 700,
                             cursor: 'pointer',
@@ -583,11 +583,11 @@ function ArenaContent() {
                       borderRadius: 12,
                       background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
                       border: 'none',
-                      color: '#fff',
+                      color: 'var(--text)',
                       fontSize: 15,
                       fontWeight: 900,
                       cursor: 'pointer',
-                      boxShadow: '0 4px 14px rgba(239, 68, 68, 0.35)'
+                      boxShadow: '0 4px 14px rgba(var(--danger-rgb),  0.35)'
                     }}
                   >
                     ENTER ARENA BATTLE →
@@ -602,7 +602,7 @@ function ArenaContent() {
                       {recentMatches.slice(0, 4).map(m => (
                         <div key={m.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, padding: '8px 12px', borderRadius: 8, background: 'var(--bg3)' }}>
                           <span style={{ color: 'var(--t1)', fontWeight: 600 }}>{m.problemId}</span>
-                          <span style={{ color: m.status === 'victory' ? '#10b981' : '#ef4444', fontWeight: 800, textTransform: 'uppercase' }}>
+                          <span style={{ color: m.status === 'victory' ? 'var(--success)' : 'var(--danger)', fontWeight: 800, textTransform: 'uppercase' }}>
                             {m.status} {m.score ? `(${m.score} pts)` : ''}
                           </span>
                         </div>
@@ -626,7 +626,7 @@ function ArenaContent() {
                   </div>
                   <div style={{ textAlign: 'right' }}>
                     <div style={{ fontSize: 10.5, color: 'var(--t3)', fontWeight: 700 }}>TIME REMAINING</div>
-                    <div style={{ fontSize: 22, fontWeight: 900, color: timeRemaining < 60 ? '#ef4444' : '#38bdf8', fontVariantNumeric: 'tabular-nums', fontFamily: 'monospace' }}>
+                    <div style={{ fontSize: 22, fontWeight: 900, color: timeRemaining < 60 ? 'var(--danger)' : '#38bdf8', fontVariantNumeric: 'tabular-nums', fontFamily: 'monospace' }}>
                       ⏱️ {formatTime(timeRemaining)}
                     </div>
                   </div>
@@ -634,13 +634,13 @@ function ArenaContent() {
 
                 {/* 1v1 Opponent Telemetry */}
                 {activeMatch.mode === '1v1_duel' && activeMatch.opponent && (
-                  <div style={{ padding: 14, borderRadius: 12, background: 'rgba(239, 68, 68, 0.08)', border: '1px solid rgba(239, 68, 68, 0.2)' }}>
+                  <div style={{ padding: 14, borderRadius: 12, background: 'rgba(var(--danger-rgb),  0.08)', border: '1px solid rgba(var(--danger-rgb),  0.2)' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                         <img src={activeMatch.opponent.avatarUrl} alt="Opponent" style={{ width: 24, height: 24, borderRadius: 12 }} />
-                        <span style={{ fontSize: 13, fontWeight: 800, color: '#ef4444' }}>Opponent: {activeMatch.opponent.name}</span>
+                        <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--danger)' }}>Opponent: {activeMatch.opponent.name}</span>
                       </div>
-                      <span style={{ fontSize: 12, fontWeight: 800, color: '#ef4444' }}>{activeMatch.opponent.progressPct}% Complete</span>
+                      <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--danger)' }}>{activeMatch.opponent.progressPct}% Complete</span>
                     </div>
                     <div style={{ width: '100%', height: 6, background: 'rgba(255,255,255,0.08)', borderRadius: 3, overflow: 'hidden' }}>
                       <div style={{ width: `${activeMatch.opponent.progressPct}%`, height: '100%', background: 'linear-gradient(90deg, #ef4444, #f97316)', transition: 'width 0.5s ease' }} />
@@ -660,7 +660,7 @@ function ArenaContent() {
                     {activeProblem.testCases.map((tc, idx) => (
                       <div key={idx} style={{ padding: 10, borderRadius: 8, background: 'var(--bg3)', border: '1px solid var(--border)', fontSize: 12 }}>
                         <div style={{ color: 'var(--t2)' }}><span style={{ color: '#38bdf8', fontWeight: 700 }}>Input:</span> {tc.input}</div>
-                        <div style={{ color: 'var(--t2)' }}><span style={{ color: '#10b981', fontWeight: 700 }}>Expected:</span> {tc.expectedOutput}</div>
+                        <div style={{ color: 'var(--t2)' }}><span style={{ color: 'var(--success)', fontWeight: 700 }}>Expected:</span> {tc.expectedOutput}</div>
                       </div>
                     ))}
                   </div>
@@ -697,7 +697,7 @@ function ArenaContent() {
                         borderRadius: 8,
                         background: 'linear-gradient(135deg, #10b981, #059669)',
                         border: 'none',
-                        color: '#fff',
+                        color: 'var(--text)',
                         fontSize: 13,
                         fontWeight: 800,
                         cursor: isSubmitting ? 'not-allowed' : 'pointer',
@@ -738,10 +738,10 @@ function ArenaContent() {
                   <div style={{ color: 'var(--t3)', marginBottom: 6, fontWeight: 800 }}>Terminal Output:</div>
                   {testResult ? (
                     <div>
-                      <div style={{ color: testResult.passed ? '#10b981' : '#ef4444', fontWeight: 800, marginBottom: 4 }}>
+                      <div style={{ color: testResult.passed ? 'var(--success)' : 'var(--danger)', fontWeight: 800, marginBottom: 4 }}>
                         {testResult.passed ? '🎉 VICTORY! ALL TESTS PASSED' : '❌ TESTS FAILED'} ({testResult.testsPassed}/{testResult.totalTests} tests)
                       </div>
-                      <pre style={{ margin: 0, color: '#cbd5e1', whiteSpace: 'pre-wrap' }}>{testResult.logs}</pre>
+                      <pre style={{ margin: 0, color: 'var(--text-muted)', whiteSpace: 'pre-wrap' }}>{testResult.logs}</pre>
                       {testResult.evidenceRecordId && (
                         <div style={{ marginTop: 8, color: '#38bdf8', fontWeight: 700 }}>
                           🛡️ Evidence Sealed: {testResult.evidenceRecordId}
@@ -749,7 +749,7 @@ function ArenaContent() {
                       )}
                     </div>
                   ) : (
-                    <div style={{ color: '#64748b' }}>Ready to run code. Click 'Submit Code' to execute against test suite.</div>
+                    <div style={{ color: 'var(--text-dim)' }}>Ready to run code. Click 'Submit Code' to execute against test suite.</div>
                   )}
                 </div>
               </div>
@@ -775,7 +775,7 @@ function ArenaContent() {
                 padding: '12px 24px',
                 borderRadius: 12,
                 background: 'linear-gradient(135deg, #a855f7 0%, #7c3aed 100%)',
-                color: '#fff',
+                color: 'var(--text)',
                 fontWeight: 800,
                 fontSize: 14,
                 textDecoration: 'none'
@@ -804,7 +804,7 @@ function ArenaContent() {
                 padding: '12px 24px',
                 borderRadius: 12,
                 background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
-                color: '#fff',
+                color: 'var(--text)',
                 fontWeight: 800,
                 fontSize: 14,
                 textDecoration: 'none'

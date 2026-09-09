@@ -49,15 +49,15 @@ export default function CompetencyRadarView({
   const getStateBadge = (state: MasteryState = 'locked') => {
     switch (state) {
       case 'verified':
-        return { label: 'Verified ✓', bg: 'rgba(16, 185, 129, 0.15)', text: '#10b981', border: '#10b981' };
+        return { label: 'Verified ✓', bg: 'rgba(var(--success-rgb),  0.15)', text: 'var(--success)', border: 'var(--success)' };
       case 'verified_needs_review':
-        return { label: 'Review Due ⏳', bg: 'rgba(245, 158, 11, 0.15)', text: '#f59e0b', border: '#f59e0b' };
+        return { label: 'Review Due ⏳', bg: 'rgba(var(--warning-rgb),  0.15)', text: 'var(--warning)', border: 'var(--warning)' };
       case 'demonstrated':
-        return { label: 'Demonstrated', bg: 'rgba(59, 130, 246, 0.15)', text: '#3b82f6', border: '#3b82f6' };
+        return { label: 'Demonstrated', bg: 'rgba(var(--info-rgb),  0.15)', text: 'var(--info)', border: 'var(--info)' };
       case 'provisional':
-        return { label: 'Provisional', bg: 'rgba(139, 92, 246, 0.15)', text: '#8b5cf6', border: '#8b5cf6' };
+        return { label: 'Provisional', bg: 'rgba(var(--reward-rgb),  0.15)', text: 'var(--reward)', border: 'var(--reward)' };
       case 'practice':
-        return { label: 'Practice', bg: 'rgba(99, 102, 241, 0.15)', text: '#6366f1', border: '#6366f1' };
+        return { label: 'Practice', bg: 'rgba(var(--brand-rgb),  0.15)', text: 'var(--brand)', border: 'var(--brand)' };
       case 'learning':
         return { label: 'Learning', bg: 'rgba(236, 72, 153, 0.15)', text: '#ec4899', border: '#ec4899' };
       case 'diagnostic':
@@ -104,7 +104,7 @@ export default function CompetencyRadarView({
                 borderRadius: 8,
                 border: '1px solid var(--border)',
                 background: domainFilter === d.id ? 'var(--accent)' : 'transparent',
-                color: domainFilter === d.id ? '#fff' : 'var(--t2)',
+                color: domainFilter === d.id ? 'var(--text)' : 'var(--t2)',
                 fontSize: 11.5,
                 fontWeight: 700,
                 cursor: 'pointer',
@@ -253,18 +253,18 @@ export default function CompetencyRadarView({
                       style={{
                         padding: '6px 8px',
                         borderRadius: 6,
-                        background: isPassed ? 'rgba(16, 185, 129, 0.08)' : 'rgba(255,255,255,0.02)',
-                        border: `1px solid ${isPassed ? 'rgba(16, 185, 129, 0.25)' : 'rgba(255,255,255,0.04)'}`,
+                        background: isPassed ? 'rgba(var(--success-rgb),  0.08)' : 'rgba(255,255,255,0.02)',
+                        border: `1px solid ${isPassed ? 'rgba(var(--success-rgb),  0.25)' : 'rgba(255,255,255,0.04)'}`,
                         display: 'flex',
                         flexDirection: 'column',
                         gap: 2,
                       }}
                     >
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span style={{ fontSize: 10, fontWeight: 700, color: isPassed ? '#10b981' : 'var(--t3)', textTransform: 'capitalize' }}>
+                        <span style={{ fontSize: 10, fontWeight: 700, color: isPassed ? 'var(--success)' : 'var(--t3)', textTransform: 'capitalize' }}>
                           {getEvidenceClassIcon(req.evidenceClass)} {req.evidenceClass.slice(0, 5)}
                         </span>
-                        <span style={{ fontSize: 9.5, fontWeight: 800, color: isPassed ? '#10b981' : 'var(--t3)' }}>
+                        <span style={{ fontSize: 9.5, fontWeight: 800, color: isPassed ? 'var(--success)' : 'var(--t3)' }}>
                           {isPassed ? '✓' : `${currentScore}/${req.minScore}`}
                         </span>
                       </div>
@@ -293,7 +293,7 @@ export default function CompetencyRadarView({
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                   <span style={{ color: 'var(--t3)' }}>Score:</span>
-                  <span style={{ fontSize: 13, fontWeight: 800, color: score >= 75 ? '#10b981' : 'var(--t1)' }}>
+                  <span style={{ fontSize: 13, fontWeight: 800, color: score >= 75 ? 'var(--success)' : 'var(--t1)' }}>
                     {score}/100
                   </span>
                 </div>

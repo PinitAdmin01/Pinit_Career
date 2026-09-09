@@ -8,6 +8,8 @@ interface QuestPageProps {
   };
 }
 
+export const dynamicParams = true;
+
 export function generateStaticParams() {
   const ids = new Set<string>();
   for (const q of QUESTS_REGISTRY) {

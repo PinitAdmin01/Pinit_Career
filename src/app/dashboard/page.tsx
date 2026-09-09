@@ -109,19 +109,19 @@ const DB_STYLES = `
 
 // ── Main export ──────────────────────────────────────────────────────────────
 export default function DashboardPage() {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const router   = useRouter();
   const cOS      = useCareerOS();
 
   const {
-    onboardingAnswers = {},
+    onboardingAnswers,
     vaultItems        = [],
     xp                = 0,
     completedQuests   = [],
     roadmapGenerated  = false,
-    trustScore        = 70,
-    careerScore       = 75,
-    dnaScore          = 80,
+    trustScore        = 0,
+    careerScore       = 0,
+    dnaScore          = 0,
     completedMissions = [],
     onboardingStep    = 1,
     jdMissingSkills   = [],
@@ -137,23 +137,26 @@ export default function DashboardPage() {
   const [mounted,              setMounted]              = useState(false);
   const [selectedTrajectory,   setSelectedTrajectory]   = useState<string | null>(null);
   const [isGeneratingRoadmap,  setIsGeneratingRoadmap]  = useState(false);
-  const [isScanning,           setIsScanning]           = useState(false);
-  const [scanProgress,         setScanProgress]         = useState(0);
-  const [scanLogs,             setScanLogs]             = useState<string[]>([]);
   const [skillProfile,         setSkillProfile]         = useState<StudentSkillProfile | null>(null);
   const [roleReadiness,        setRoleReadiness]        = useState<DynamicRoleReadiness | null>(null);
-  const scanIntervalRef = useRef<NodeJS.Timeout>();
-  const itemsToVerifyRef = useRef<any[]>([]);
 
   // ── Mount guard ────────────────────────────────────────────────────────────
   useEffect(() => { setMounted(true); }, []);
 
-  // ── Load live pathway and skill profile data ───────────────────────────────
+  // ── Authentication boundary: strictly redirect unauthenticated sessions to /login ──
+  useEffect(() => {
+    if (!authLoading && !user && mounted) {
+      router.push('/login?redirect=/dashboard');
+    }
+  }, [user, authLoading, mounted, router]);
+
+  // ── Load live pathway and skill profile data for authenticated student ──────
   useEffect(() => {
     let isMounted = true;
     async function loadPathwayData() {
+      if (!user?.id) return;
       try {
-        const studentId = user?.id || 'guest_student';
+        const studentId = user.id;
         const [profile, readiness] = await Promise.all([
           PathwayApiService.getStudentSkillProfile(studentId),
           PathwayApiService.getRoleReadiness(studentId, 'prog_swe_accelerated_9m'),
@@ -184,21 +187,32 @@ export default function DashboardPage() {
     }
   }, [user, router]);
 
-  // ── Load roadmap modules from localStorage ─────────────────────────────────
+  // ── Load roadmap modules from localStorage with remote database fallback ──
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const key    = `pinit_${user?.id || 'guest'}_roadmap_modules`;
-      const saved  = localStorage.getItem(key);
+    if (typeof window !== 'undefined' && user?.id) {
+      const key   = `pinit_${user.id}_roadmap_modules`;
+      const saved = localStorage.getItem(key);
       if (saved) {
         try {
           const parsed = JSON.parse(saved);
-          if (Array.isArray(parsed)) setRoadmapModules(parsed);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            setRoadmapModules(parsed);
+            return;
+          }
         } catch { /* ignore */ }
-      } else {
-        setRoadmapModules([]);
       }
+      // Remote DB fallback if localStorage was cleared or user switched devices
+      const remoteRoadmap = (onboardingAnswers as any)?.roadmap;
+      if (remoteRoadmap && Array.isArray(remoteRoadmap) && remoteRoadmap.length > 0) {
+        setRoadmapModules(remoteRoadmap);
+        try {
+          localStorage.setItem(key, JSON.stringify(remoteRoadmap));
+        } catch {}
+        return;
+      }
+      setRoadmapModules([]);
     }
-  }, [user?.id, completedQuests, roadmapGenerated]);
+  }, [user?.id, completedQuests, roadmapGenerated, (onboardingAnswers as any)?.roadmap]);
 
   // ── 84-day contribution dates (Sun-anchored, 12 weeks) ────────────────────
   const contributionDates = useMemo(() => {
@@ -215,46 +229,29 @@ export default function DashboardPage() {
   const getContributionsForDate = useCallback((date: Date) => {
     const str = date.toDateString();
     let count = 0;
-    const qTs: string[] = (onboardingAnswers as any)?.completedQuestsTimestamps   || [];
-    const mTs: string[] = (onboardingAnswers as any)?.completedMissionsTimestamps  || [];
-    qTs.forEach(ts => { if (new Date(ts).toDateString() === str) count++; });
-    mTs.forEach(ts => { if (new Date(ts).toDateString() === str) count++; });
+    const qTs: string[] = (onboardingAnswers as any)?.completedQuestsTimestamps || [];
+    const mTs: string[] = (onboardingAnswers as any)?.completedMissionsTimestamps || [];
+
+    // Parse ISO timestamp safely, stripping any "|courseId" suffix so Date is valid
+    qTs.forEach(ts => {
+      if (!ts) return;
+      const iso = ts.includes('|') ? ts.split('|')[0] : ts;
+      const d = new Date(iso);
+      if (!isNaN(d.getTime()) && d.toDateString() === str) count++;
+    });
+
+    mTs.forEach(ts => {
+      if (!ts) return;
+      const iso = ts.includes('|') ? ts.split('|')[0] : ts;
+      const d = new Date(iso);
+      if (!isNaN(d.getTime()) && d.toDateString() === str) count++;
+    });
+
     return count;
   }, [onboardingAnswers]);
 
-  // ── Trust verification scan ────────────────────────────────────────────────
+  // ── Unverified credentials tracking ───────────────────────────────────────
   const unverifiedItems = (vaultItems || []).filter(v => !v.verified);
-  const startVerificationScan = () => {
-    if (unverifiedItems.length === 0) return;
-    itemsToVerifyRef.current = [...unverifiedItems];
-    setIsScanning(true); setScanProgress(0);
-    setScanLogs(['[SYSTEM] Initializing AI Trust Verification Protocol...']);
-    const logs = [
-      '[SYSTEM] Connected to decentralized verification nodes.',
-      '[SCANNER] Fetching metadata signature from Vault ledger...',
-      '[SCANNER] Running SHA-256 cryptographic hash check...',
-      '[SECURE] Document verification keys extracted.',
-      '[AI] Running OCR on proof asset...',
-      '[AI] Analyzing issuer credentials and accreditation...',
-      '[AI] Matching skill tags with Career Twin profile...',
-      '[SYSTEM] Authenticity score: 98.6% confidence.',
-      '[SUCCESS] Cryptographic proof verified.',
-      '[SYSTEM] Committing verification state...',
-    ];
-    let step = 0;
-    if (scanIntervalRef.current) clearInterval(scanIntervalRef.current);
-    scanIntervalRef.current = setInterval(() => {
-      step++;
-      setScanProgress(prev => Math.min(100, prev + 10));
-      if (step <= logs.length) setScanLogs(prev => [...prev, logs[step - 1]]);
-      if (step >= 10) {
-        clearInterval(scanIntervalRef.current);
-        itemsToVerifyRef.current.forEach(item => updateVaultItem(item.id, { verified: true }));
-        setIsScanning(false); setScanProgress(100);
-      }
-    }, 350);
-  };
-  useEffect(() => () => { if (scanIntervalRef.current) clearInterval(scanIntervalRef.current); }, []);
 
   // ── Trajectory selection handler ───────────────────────────────────────────
   const handleChooseTrajectory = async (trackTitle: string) => {
@@ -295,13 +292,6 @@ export default function DashboardPage() {
     if (careerScore >= EVOLUTION_STAGES[i].minScore) { activeStageIndex = i; break; }
   }
 
-  const allMissions = [
-    { id:'python_loops', title:'Complete Python loops practice',      description:'Solve 3 problems on array manipulation.', type:'skill', status: completedMissions.includes('python_loops') ? 'completed' : 'pending', trust_reward:15, estimated_minutes:25, source_weakness:'Python',       target_gap:'Python Loops & Algorithms', role_requirement:'Swiggy AI Benchmark',    priority:'high' },
-    { id:'react_loops',  title:'React Fundamentals Challenge',        description:'Implement complex state sync hooks.',       type:'skill', status: completedMissions.includes('react_loops')  ? 'completed' : 'pending', trust_reward:15, estimated_minutes:20, source_weakness:'React Hooks',  target_gap:'React Context & Render Loop', role_requirement:'Razorpay Frontend',      priority:'high' },
-    { id:'star_video',   title:'Record a STAR story video response',  description:'Describe managing a critical frontend crash.', type:'communication', status: completedMissions.includes('star_video') ? 'completed' : 'pending', trust_reward:20, estimated_minutes:30, source_weakness:'Behavioral STAR', target_gap:'STAR Communication',   role_requirement:'Corporate Readiness',  priority:'medium' },
-  ];
-  const pendingMissions = allMissions.filter(m => m.status === 'pending');
-
   // Next step logic
   let nextStep = { title:'Setup Your Career OS Profile', desc:'Take the 2-min assessment to map your strengths.', href:'/career-twin', icon:'🧬', color:'var(--accent)' };
   if (vaultItems.length === 0)          nextStep = { title:'Upload to Evidence Vault', desc:'Certifications and project docs boost your Trust Score.', href:'/vault',        icon:'🗂️', color:'var(--purple)' };
@@ -312,9 +302,9 @@ export default function DashboardPage() {
   // Profile for WhatToDoToday
   function profileForActions() {
     return {
-      ats_score:            cOS.careerScore ?? 70,
-      trust_score:          cOS.trustScore  ?? 70,
-      career_dna_score:     cOS.careerScore ?? 70,
+      ats_score:            cOS.careerScore ?? 0,
+      trust_score:          cOS.trustScore  ?? 0,
+      career_dna_score:     cOS.careerScore ?? 0,
       mission_streak:       cOS.missionStreak || 0,
       missions_completed:   (cOS.completedMissions || []).length,
       recruiter_visibility: Number(user?.recruiter_visibility ?? 65),
@@ -326,8 +316,33 @@ export default function DashboardPage() {
     };
   }
 
-  // ── Render guard ───────────────────────────────────────────────────────────
-  if (!mounted) return <div style={{ minHeight:'100vh', background:'var(--bg)' }} />;
+  // ── Render guard: Prevent leaking private dashboard to unauthenticated sessions ──
+  if (!mounted || authLoading) {
+    return (
+      <div style={{ minHeight: '100vh', background: 'var(--bg)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--t2)', display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ display: 'inline-block', width: 14, height: 14, borderRadius: '50%', border: '2px solid var(--accent)', borderTopColor: 'transparent', animation: 'spin 1s linear infinite' }} />
+          Verifying authenticated student session...
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div style={{ minHeight: '100vh', background: 'var(--bg)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ textAlign: 'center', padding: 32, maxWidth: 420 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 8, color: 'var(--t1)' }}>Authentication Required</h2>
+          <p style={{ fontSize: 13, color: 'var(--t2)', marginBottom: 20 }}>
+            You must be logged in to access the private student workspace and competency progress.
+          </p>
+          <Link href="/login?redirect=/dashboard" style={{ display: 'inline-block', padding: '10px 20px', borderRadius: 8, background: 'var(--accent)', color: '#fff', fontWeight: 600, fontSize: 13, textDecoration: 'none' }}>
+            Go to Login
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   // ── JSX ────────────────────────────────────────────────────────────────────
   return (
@@ -381,7 +396,7 @@ export default function DashboardPage() {
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, fontFamily: 'var(--font-mono)' }}>
             <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--t4)', display: 'inline-block' }} />
             <span style={{ color: 'var(--t3)' }}>Claimed:</span>
-            <strong style={{ color: 'var(--t2)' }}>{skillProfile?.claimed.length || 17}</strong>
+            <strong style={{ color: 'var(--t2)' }}>{skillProfile?.claimed.length || 0}</strong>
           </div>
 
           <Link
@@ -410,11 +425,7 @@ export default function DashboardPage() {
         careerScore={careerScore}
         trustScore={trustScore}
         level={level}
-        isScanning={isScanning}
-        scanProgress={scanProgress}
-        scanLogs={scanLogs}
         unverifiedCount={unverifiedItems.length}
-        onStartScan={startVerificationScan}
         vaultItemsCount={vaultItems.length}
         userRole={user?.role}
         onSeedDemo={() => addVaultItem({ title:'AWS Certified Cloud Practitioner', item_type:'certification', organization_name:'Amazon Web Services', description:'Validation of AWS Cloud platform understanding.', skill_tags:['Cloud','AWS','IAM','EC2'] })}
@@ -436,7 +447,6 @@ export default function DashboardPage() {
 
       {/* 5. Missions Panel — Next Step + Missions + Activity Feed */}
       <DashboardMissionsPanel
-        pendingMissions={pendingMissions}
         nextStep={nextStep}
         userId={user?.id}
       />

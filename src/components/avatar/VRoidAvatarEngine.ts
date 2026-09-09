@@ -1,33 +1,52 @@
 import * as THREE from 'three';
+// D-03 FIX: shared avatar-voice analyser tap used to drive real lip sync.
+// streamingAudioQueue imports nothing from components, so there is no cycle.
+import { getExistingAvatarAnalyser } from '@/lib/audio/streamingAudioQueue';
 
 export type AnimState = 'idle' | 'listening' | 'thinking' | 'talking' | 'wave' | 'nod' | 'shrug';
 
 export interface PersonaConfig {
   name: string;
+  domain?: string;
   expressiveness: number;
   blinkInterval: number; // in seconds
   swayAmp: number;
   headTiltAmp: number;
   gestureSpeed: number;
+  warmth?: number; // subtle smile/warmth morph target [0, 1]
+  /**
+   * D-01 FIX: Presented gender for this persona.
+   *
+   * Used ONLY to pick a gender-appropriate substitute model when the persona's
+   * own .glb fails to load. Previously the fallback chain began with
+   * kashyap.glb (a male model), so any female persona whose model failed to
+   * download — common on slow campus networks, since each model is ~6.5MB —
+   * rendered a male body while keeping her own name and her own (correct)
+   * neural voice from KOKORO_VOICE_MAP in tts.ts.
+   *
+   * Values below agree with KOKORO_VOICE_MAP for all 15 personas
+   * (af_/bf_ = female voices, am_/bm_ = male voices).
+   */
+  gender: 'male' | 'female' | 'neutral';
 }
 
 export const PERSONA_CONFIGS: Record<string, PersonaConfig> = {
-  priya:    { name: 'Ms. Priya',          expressiveness: 0.88, blinkInterval: 3.4, swayAmp: 1.00, headTiltAmp: 1.00, gestureSpeed: 1.05 },
-  kashyap:  { name: 'Kashyap Sir',        expressiveness: 0.65, blinkInterval: 4.8, swayAmp: 0.60, headTiltAmp: 0.85, gestureSpeed: 0.80 },
-  karthic:  { name: 'Karthic Sir "Nega"', expressiveness: 0.95, blinkInterval: 2.8, swayAmp: 1.25, headTiltAmp: 1.10, gestureSpeed: 1.30 },
-  maya:     { name: 'Ms. Maya',           expressiveness: 0.72, blinkInterval: 4.2, swayAmp: 0.75, headTiltAmp: 0.90, gestureSpeed: 0.95 },
-  divya:    { name: 'Ms. Divya',          expressiveness: 0.90, blinkInterval: 3.2, swayAmp: 1.10, headTiltAmp: 1.15, gestureSpeed: 1.10 },
-  aisha:    { name: 'Ms. Aisha',          expressiveness: 0.78, blinkInterval: 3.8, swayAmp: 0.85, headTiltAmp: 1.05, gestureSpeed: 0.95 },
-  rohan:    { name: 'Mr. Rohan',          expressiveness: 0.92, blinkInterval: 3.1, swayAmp: 1.15, headTiltAmp: 1.20, gestureSpeed: 1.20 },
-  anish:    { name: 'Mr. Anish',          expressiveness: 0.70, blinkInterval: 4.4, swayAmp: 0.75, headTiltAmp: 0.80, gestureSpeed: 0.88 },
-  vikram:   { name: 'Mr. Vikram',         expressiveness: 0.58, blinkInterval: 5.2, swayAmp: 0.45, headTiltAmp: 0.60, gestureSpeed: 0.72 },
-  shalini:  { name: 'Ms. Shalini',        expressiveness: 0.80, blinkInterval: 3.6, swayAmp: 0.90, headTiltAmp: 0.95, gestureSpeed: 1.00 },
-  aditya:   { name: 'Mr. Aditya',         expressiveness: 0.74, blinkInterval: 4.1, swayAmp: 0.80, headTiltAmp: 1.00, gestureSpeed: 0.92 },
-  neha:     { name: 'Ms. Neha',           expressiveness: 0.82, blinkInterval: 3.5, swayAmp: 0.95, headTiltAmp: 1.00, gestureSpeed: 1.05 },
-  rajesh:   { name: 'Mr. Rajesh',         expressiveness: 0.68, blinkInterval: 4.6, swayAmp: 0.70, headTiltAmp: 0.75, gestureSpeed: 0.85 },
-  sneha:    { name: 'Ms. Sneha',          expressiveness: 0.88, blinkInterval: 3.3, swayAmp: 1.05, headTiltAmp: 1.10, gestureSpeed: 1.10 },
-  abhijit:  { name: 'Mr. Abhijit',        expressiveness: 0.62, blinkInterval: 4.9, swayAmp: 0.55, headTiltAmp: 0.70, gestureSpeed: 0.78 },
-  default:  { name: 'Mentor',             expressiveness: 0.75, blinkInterval: 3.8, swayAmp: 0.90, headTiltAmp: 0.90, gestureSpeed: 1.00 }
+  priya:    { name: 'Ms. Priya',          domain: 'Full-Stack & Career Growth',   expressiveness: 0.88, blinkInterval: 3.4, swayAmp: 1.00, headTiltAmp: 1.05, gestureSpeed: 1.05, warmth: 0.22, gender: 'female' },
+  anish:    { name: 'Mr. Anish',          domain: 'Systems & Backend Scale',      expressiveness: 0.72, blinkInterval: 4.4, swayAmp: 0.75, headTiltAmp: 0.80, gestureSpeed: 0.90, warmth: 0.12, gender: 'male' },
+  aisha:    { name: 'Ms. Aisha',          domain: 'Data Science & AI/ML',         expressiveness: 0.82, blinkInterval: 3.8, swayAmp: 0.85, headTiltAmp: 1.00, gestureSpeed: 0.95, warmth: 0.18, gender: 'female' },
+  vikram:   { name: 'Mr. Vikram',         domain: 'Finance, Commerce & Ethics',   expressiveness: 0.65, blinkInterval: 5.0, swayAmp: 0.50, headTiltAmp: 0.65, gestureSpeed: 0.75, warmth: 0.15, gender: 'male' },
+  kashyap:  { name: 'Kashyap Sir',        domain: 'DSA & Mathematical Reasoning', expressiveness: 0.68, blinkInterval: 4.8, swayAmp: 0.60, headTiltAmp: 0.85, gestureSpeed: 0.80, warmth: 0.14, gender: 'male' },
+  karthic:  { name: 'Karthic Sir "Nega"', domain: 'Competitive Arena & Speedrun', expressiveness: 0.95, blinkInterval: 2.8, swayAmp: 1.25, headTiltAmp: 1.10, gestureSpeed: 1.30, warmth: 0.08, gender: 'male' },
+  maya:     { name: 'Ms. Maya',           domain: 'UI/UX & Product Design',       expressiveness: 0.75, blinkInterval: 4.0, swayAmp: 0.75, headTiltAmp: 0.90, gestureSpeed: 0.95, warmth: 0.20, gender: 'female' },
+  divya:    { name: 'Ms. Divya',          domain: 'Cloud Infrastructure & DevOps', expressiveness: 0.90, blinkInterval: 3.2, swayAmp: 1.10, headTiltAmp: 1.15, gestureSpeed: 1.10, warmth: 0.16, gender: 'female' },
+  rohan:    { name: 'Mr. Rohan',          domain: 'Cybersecurity & Networks',     expressiveness: 0.92, blinkInterval: 3.1, swayAmp: 1.15, headTiltAmp: 1.20, gestureSpeed: 1.20, warmth: 0.15, gender: 'male' },
+  shalini:  { name: 'Ms. Shalini',        domain: 'Soft Skills & Communication',  expressiveness: 0.80, blinkInterval: 3.6, swayAmp: 0.90, headTiltAmp: 0.95, gestureSpeed: 1.00, warmth: 0.20, gender: 'female' },
+  aditya:   { name: 'Mr. Aditya',         domain: 'IoT & Embedded Systems',       expressiveness: 0.74, blinkInterval: 4.1, swayAmp: 0.80, headTiltAmp: 1.00, gestureSpeed: 0.92, warmth: 0.14, gender: 'male' },
+  neha:     { name: 'Ms. Neha',           domain: 'Product Strategy & Marketing', expressiveness: 0.82, blinkInterval: 3.5, swayAmp: 0.95, headTiltAmp: 1.00, gestureSpeed: 1.05, warmth: 0.22, gender: 'female' },
+  rajesh:   { name: 'Mr. Rajesh',         domain: 'Operations & Supply Chain',    expressiveness: 0.68, blinkInterval: 4.6, swayAmp: 0.70, headTiltAmp: 0.75, gestureSpeed: 0.85, warmth: 0.12, gender: 'male' },
+  sneha:    { name: 'Ms. Sneha',          domain: 'Human Resources & Talent',     expressiveness: 0.88, blinkInterval: 3.3, swayAmp: 1.05, headTiltAmp: 1.10, gestureSpeed: 1.10, warmth: 0.24, gender: 'female' },
+  abhijit:  { name: 'Mr. Abhijit',        domain: 'Economics & Quantitative Data', expressiveness: 0.62, blinkInterval: 4.9, swayAmp: 0.55, headTiltAmp: 0.70, gestureSpeed: 0.78, warmth: 0.12, gender: 'male' },
+  default:  { name: 'Mentor',             domain: 'Multidisciplinary Career OS',  expressiveness: 0.75, blinkInterval: 3.8, swayAmp: 0.90, headTiltAmp: 0.90, gestureSpeed: 1.00, warmth: 0.16, gender: 'neutral' }
 };
 
 export class VRoidAvatarEngine {
@@ -49,6 +68,7 @@ export class VRoidAvatarEngine {
   rightForearm?: THREE.Object3D;
   leftHand?: THREE.Object3D;
   rightHand?: THREE.Object3D;
+  hipsRestPosition = new THREE.Vector3();
   leftEyeSphere?: THREE.Mesh;
   rightEyeSphere?: THREE.Mesh;
 
@@ -70,6 +90,29 @@ export class VRoidAvatarEngine {
   raf?: number;
   clock = new THREE.Clock();
   disposed = false;
+
+  // ── D-04 FIX: Load gating ────────────────────────────────────────────────
+  // init() starts the render loop immediately while tryLoadVRM() is still
+  // resolving asynchronously. Without this gate the loop writes rotations to a
+  // partially-bound skeleton, and uses the isVRM=false rest angles (arms
+  // horizontal) until the model resolves — then snaps to the VRM rest pose
+  // (arms down at ~1.25 rad) the instant isVRM flips true. That snap is the
+  // visible "arm flail" while an avatar loads.
+  // `ready` is set true only after ALL bone binding and isVRM resolution
+  // complete, on both the GLB path and the procedural fallback path.
+  private ready = false;
+  private restPoseApplied = false;
+
+  // ── C-02 & T6: adaptive performance state ────────────────────────────────
+  // Set during init() from device detection, then adjusted at runtime by the
+  // frame-time watchdog in loop() so weak devices degrade smoothly instead of
+  // stuttering at a fixed quality level they cannot sustain.
+  isLowPowerDevice = false;
+  private maxPixelRatio = 2;
+  private currentPixelRatio = 1;
+  private frameTimeAccumulator = 0;
+  private frameTimeSamples = 0;
+  private hasDownscaledForPerf = false;
 
   isVRM = false;
   faceMeshes: THREE.Mesh[] = [];
@@ -100,9 +143,28 @@ export class VRoidAvatarEngine {
   eyeTargetOffset = new THREE.Vector2(0, 0);
   eyeCurrentOffset = new THREE.Vector2(0, 0);
 
+  // Gaze & Cursor Tracking Controller (Active on Dashboard, Missions, Onboarding; Inactive in Story Mode & Lesson details)
+  gazeTrackingEnabled = true;
+  mouseNormalized = new THREE.Vector2(0, 0);
+  mouseTargetOffset = new THREE.Vector2(0, 0);
+  private onMouseMoveHandler?: (e: MouseEvent) => void;
+
   canvas?: HTMLCanvasElement;
   private onContextLost?: (e: Event) => void;
   private onContextRestored?: () => void;
+
+  /**
+   * Dynamically toggles interactive gaze tracking.
+   * Scoped strictly: enabled in floating avatar & missions, disabled in story mode & teaching details.
+   */
+  setGazeTracking(enabled: boolean) {
+    this.gazeTrackingEnabled = enabled;
+    if (!enabled) {
+      // Smoothly reset target offsets back to neutral forward pose
+      this.mouseNormalized.set(0, 0);
+    }
+    console.log(`[VRoidAvatarEngine] Gaze tracking mode updated: ${enabled ? 'ENABLED' : 'DISABLED'}`);
+  }
 
   init(canvas: HTMLCanvasElement, teacherId: string) {
     this.canvas = canvas;
@@ -112,6 +174,20 @@ export class VRoidAvatarEngine {
 
     const w = canvas.clientWidth || 280;
     const h = canvas.clientHeight || 360;
+
+    // Attach global mousemove listener for subtle natural eye and head gaze parallax
+    this.onMouseMoveHandler = (e: MouseEvent) => {
+      if (!this.gazeTrackingEnabled || this.disposed) return;
+      // Calculate normalized device coordinates [-1, 1] relative to window viewport
+      const nx = (e.clientX / window.innerWidth) * 2 - 1;
+      const ny = -((e.clientY / window.innerHeight) * 2 - 1);
+      this.mouseNormalized.set(nx, ny);
+    };
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('mousemove', this.onMouseMoveHandler, { passive: true });
+      console.log('[VRoidAvatarEngine] Gaze tracking mouse listener initialized successfully.');
+    }
 
     // Attach WebGL context lifecycle listeners to prevent GPU state crashes
     this.onContextLost = (e: Event) => {
@@ -126,8 +202,28 @@ export class VRoidAvatarEngine {
     canvas.addEventListener('webglcontextlost', this.onContextLost, false);
     canvas.addEventListener('webglcontextrestored', this.onContextRestored, false);
 
+    // ── C-02 FIX: device-aware renderer settings ───────────────────────────
+    // Fragment shading cost scales with the AREA of rendered pixels, so pixel
+    // ratio is quadratic: DPR 2 = 4x the work of DPR 1, DPR 3 = 9x.
+    // The previous cap of 2 meant a DPR-3 phone rendered 4x its CSS pixel
+    // count every frame, with MSAA on top, on an integrated mobile GPU.
+    // That is a large part of the reported lag on mid-range Android.
+    const isMobileDevice =
+      typeof navigator !== 'undefined' &&
+      (/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) ||
+        (typeof window !== 'undefined' && window.innerWidth < 768));
+
+    this.isLowPowerDevice = isMobileDevice;
+
     try {
-      this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'default' });
+      this.renderer = new THREE.WebGLRenderer({
+        canvas,
+        // MSAA is expensive on mobile GPUs and barely perceptible at these
+        // canvas sizes. Keep it for desktop where it is effectively free.
+        antialias: !isMobileDevice,
+        alpha: true,
+        powerPreference: 'high-performance',
+      });
     } catch (e1) {
       try {
         this.renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true });
@@ -136,7 +232,17 @@ export class VRoidAvatarEngine {
         return;
       }
     }
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // 1.5 on mobile is a 44% reduction in fragment work versus the old cap of
+    // 2, for a difference that is not perceptible on a ~6 inch screen.
+    this.maxPixelRatio = isMobileDevice ? 1.5 : 2;
+    this.currentPixelRatio = Math.min(window.devicePixelRatio, this.maxPixelRatio);
+    this.renderer.setPixelRatio(this.currentPixelRatio);
+    console.log(
+      `[VRoidAvatarEngine] Renderer configured — mobile: ${isMobileDevice}, ` +
+      `antialias: ${!isMobileDevice}, pixelRatio: ${this.currentPixelRatio.toFixed(2)} ` +
+      `(device DPR ${window.devicePixelRatio}).`
+    );
     this.renderer.setSize(w, h, false);
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
     this.renderer.setClearColor(0x000000, 0);
@@ -181,12 +287,36 @@ export class VRoidAvatarEngine {
     loader.setDRACOLoader(dracoLoader);
 
     const id = teacherId.toLowerCase().trim();
-    const paths = [
-      `/avatar/${id}.glb`,
-      '/avatar/kashyap.glb',
-      '/avatar/priya.glb',
-      '/avatar/hana.glb'
-    ];
+
+    // ── D-01 FIX: gender-matched fallback chain ────────────────────────────
+    // The old chain was [own, kashyap, priya, hana]. kashyap.glb is a MALE
+    // model, so whenever a female persona's own model failed to load — routine
+    // on slow campus networks, because each model is ~6.5MB — the student saw
+    // a male body under a female name, speaking with her correct female neural
+    // voice. The bug looked random; it actually correlates with network speed.
+    //
+    // Now: retry the persona's own model once, then substitute only a model of
+    // the same presented gender.
+    const personaForModel = PERSONA_CONFIGS[id] || PERSONA_CONFIGS.default;
+    const primaryPath = `/avatar/${id}.glb`;
+
+    const FEMALE_FALLBACK_MODELS = ['/avatar/priya.glb', '/avatar/aisha.glb'];
+    const MALE_FALLBACK_MODELS = ['/avatar/kashyap.glb', '/avatar/rohan.glb'];
+
+    const genderMatchedFallbacks =
+      personaForModel.gender === 'female' ? FEMALE_FALLBACK_MODELS
+      : personaForModel.gender === 'male' ? MALE_FALLBACK_MODELS
+      : ['/avatar/mentor.glb'];
+
+    // First entry is retried once: a transient network timeout is the most
+    // common failure mode, and a second attempt often succeeds where
+    // substituting a different person never recovers the right identity.
+    const paths = [primaryPath, primaryPath, ...genderMatchedFallbacks];
+
+    console.log(
+      `[VRoidAvatarEngine] Model chain for "${id}" (gender: ${personaForModel.gender}):`,
+      paths.join(' -> ')
+    );
 
     const loadAttempt = (idx: number): Promise<void> => {
       if (idx >= paths.length) return Promise.reject(new Error("No VRMs found"));
@@ -312,6 +442,10 @@ export class VRoidAvatarEngine {
             }
           });
 
+          if (this.hips) {
+            this.hipsRestPosition.copy(this.hips.position);
+          }
+
           // 3. Resolve Morph Indices (Lip sync, Blink, Eye Look)
           this.faceMeshes.forEach(mesh => {
             if (mesh.morphTargetDictionary) {
@@ -365,8 +499,17 @@ export class VRoidAvatarEngine {
           });
 
           this.centerCameraOnHead();
+          // D-04 FIX: all bones bound and isVRM resolved — safe to animate now.
+          this.markReady(resolvedPath);
           resolve();
         }, undefined, () => {
+          // D-01 FIX: make substitution visible instead of silent. If this
+          // warning appears with a different persona's model on the next line,
+          // that is the identity-mismatch bug happening in real time.
+          console.warn(
+            `[VRoidAvatarEngine] Failed to load "${resolvedPath}" (attempt ${idx + 1}/${paths.length}).` +
+            (idx + 1 < paths.length ? ` Falling back to "${paths[idx + 1]}".` : ' No fallbacks remain.')
+          );
           loadAttempt(idx + 1).then(resolve).catch(reject);
         });
       });
@@ -395,8 +538,24 @@ export class VRoidAvatarEngine {
         headY = bbox.min.y + (bbox.max.y - bbox.min.y) * 0.85;
       }
     }
-    this.camera.position.set(headX, headY - 0.04, headZ + 1.65);
-    this.camera.lookAt(headX, headY - 0.02, headZ);
+
+    const aspect = this.camera.aspect || 1.0;
+    if (aspect < 0.95) {
+      // Portrait / compact container (e.g. floating avatar 160px x 210px)
+      this.camera.fov = 30;
+      this.camera.position.set(headX, headY - 0.07, headZ + 1.40);
+      this.camera.lookAt(headX, headY - 0.03, headZ);
+    } else if (aspect > 1.6) {
+      // Wide / landscape container (e.g. Story Mode right pane)
+      this.camera.fov = 30;
+      this.camera.position.set(headX, headY - 0.06, headZ + 1.50);
+      this.camera.lookAt(headX, headY - 0.03, headZ);
+    } else {
+      // Standard medium container
+      this.camera.fov = 28;
+      this.camera.position.set(headX, headY - 0.06, headZ + 1.45);
+      this.camera.lookAt(headX, headY - 0.03, headZ);
+    }
     this.camera.updateProjectionMatrix();
   }
 
@@ -467,10 +626,107 @@ export class VRoidAvatarEngine {
     const pelvis = new THREE.Mesh(new THREE.CapsuleGeometry(0.13, 0.06, 8, 10), mat(PANT, 0.8));
     pelvis.position.y = 1.01;
     g.add(pelvis);
+    this.hips = pelvis;
+    this.hipsRestPosition.copy(pelvis.position);
 
     g.updateMatrixWorld(true);
     this.scene.add(g);
     this.centerCameraOnHead();
+    // D-04 FIX: procedural fallback is fully constructed — safe to animate now.
+    this.markReady('procedural-fallback');
+  }
+
+  /**
+   * D-04 FIX & T6 HARDENING: Snap every animated bone directly to its neutral rest pose.
+   *
+   * Called once on the first frame after loading completes. Without this the
+   * loop damps each joint in from rotation 0 (a horizontal T-pose) toward the
+   * VRM rest angles, which reads as the arms swinging down on entry.
+   *
+   * Rest values here MUST stay in sync with the defaults used in loop():
+   *   hips     position    ->  this.hipsRestPosition (preserves model ground offset)
+   *   hips     rotation    ->  (0, 0, 0)
+   *   arms     rotation.z  ->  isVRM ? -1.25 / +1.25 : 0   (see "4. Arm Rotations")
+   *   arms     rotation.x  ->  0
+   *   arms     rotation.y  ->  0
+   *   forearms rotation.y  ->  isVRM ? -0.32 / +0.32 : 0
+   *   forearms rotation.x  ->  0
+   *   forearms rotation.z  ->  0
+   *   hands    rotation    ->  (0, 0, 0)
+   *   shoulders rotation   ->  (0, 0, 0)
+   *   spine    rotation    ->  (0, 0, 0)
+   *   chest    rotation    ->  (0, 0, 0)
+   *   neck     rotation    ->  (0, 0, 0)
+   *   head     rotation    ->  (0, 0, 0)
+   */
+  applyRestPose() {
+    if (this.hips) {
+      this.hips.position.copy(this.hipsRestPosition);
+      this.hips.rotation.set(0, 0, 0);
+    }
+
+    if (this.leftArm) {
+      this.leftArm.rotation.z = this.isVRM ? -1.25 : 0;
+      this.leftArm.rotation.x = 0;
+      this.leftArm.rotation.y = 0;
+    }
+    if (this.rightArm) {
+      this.rightArm.rotation.z = this.isVRM ? 1.25 : 0;
+      this.rightArm.rotation.x = 0;
+      this.rightArm.rotation.y = 0;
+    }
+
+    if (this.leftForearm) {
+      this.leftForearm.rotation.y = this.isVRM ? -0.32 : 0;
+      this.leftForearm.rotation.x = 0;
+      this.leftForearm.rotation.z = 0;
+    }
+    if (this.rightForearm) {
+      this.rightForearm.rotation.y = this.isVRM ? 0.32 : 0;
+      this.rightForearm.rotation.x = 0;
+      this.rightForearm.rotation.z = 0;
+    }
+
+    if (this.leftHand) {
+      this.leftHand.rotation.set(0, 0, 0);
+    }
+    if (this.rightHand) {
+      this.rightHand.rotation.set(0, 0, 0);
+    }
+
+    if (this.leftShoulder) {
+      this.leftShoulder.rotation.set(0, 0, 0);
+    }
+    if (this.rightShoulder) {
+      this.rightShoulder.rotation.set(0, 0, 0);
+    }
+
+    if (this.spine) {
+      this.spine.rotation.set(0, 0, 0);
+    }
+    if (this.chest) {
+      this.chest.rotation.set(0, 0, 0);
+    }
+    if (this.neck) {
+      this.neck.rotation.set(0, 0, 0);
+    }
+    if (this.head) {
+      this.head.rotation.set(0, 0, 0);
+    }
+
+    this.restPoseApplied = true;
+    console.log('[VRoidAvatarEngine] Rest pose applied. Animation loop is now active.');
+  }
+
+  /**
+   * D-04 FIX: Flip the engine into its animated state.
+   * Called from BOTH load paths — successful GLB load and procedural fallback —
+   * so the loop never animates a partially-bound skeleton.
+   */
+  private markReady(source: string) {
+    if (this.ready) return;
+    this.ready = true;
+    console.log(`[VRoidAvatarEngine] Avatar ready (source: ${source}). Bones bound, isVRM=${this.isVRM}.`);
   }
 
   setState(s: AnimState) {
@@ -483,7 +739,62 @@ export class VRoidAvatarEngine {
     if (this.disposed || this._paused) return;
     this.raf = requestAnimationFrame(() => this.loop());
 
+    // ── D-04 FIX ───────────────────────────────────────────────────────────
+    // Do not drive any bone until loading and bone binding are complete.
+    // We keep rendering so the model appears the moment it is added to the
+    // scene, but we consume the clock delta so the first animated frame does
+    // not receive one huge dt accumulated across the entire load duration.
+    if (!this.ready) {
+      this.clock.getDelta();
+      if (this.renderer && this.scene && this.camera) {
+        this.renderer.render(this.scene, this.camera);
+      }
+      return;
+    }
+
+    // On the first frame after becoming ready, place bones directly at rest
+    // rather than letting them lerp in from rotation zero (the T-pose snap).
+    if (!this.restPoseApplied) this.applyRestPose();
+
     const dt = this.clock.getDelta();
+
+    // ── C-02 & T6: Two-Tier Performance Watchdog ───────────────────────────
+    // Sample rolling average frame time over ~2s (120 frames).
+    // Tier 1: if avgFrameMs > 28ms (< ~36fps), drop pixel ratio to reduce fillrate load.
+    // Tier 2: if avgFrameMs > 35ms (< ~28fps), drop pixel ratio AND set isLowPowerDevice=true
+    //         to disable secondary bone calculations (wrist follow-through, micro contrapposto).
+    if (!this.hasDownscaledForPerf && dt > 0) {
+      this.frameTimeAccumulator += dt * 1000;
+      this.frameTimeSamples++;
+      if (this.frameTimeSamples >= 120) {
+        const avgFrameMs = this.frameTimeAccumulator / this.frameTimeSamples;
+        if (avgFrameMs > 35) {
+          this.currentPixelRatio = Math.max(1, this.currentPixelRatio - 0.5);
+          if (this.renderer) this.renderer.setPixelRatio(this.currentPixelRatio);
+          this.isLowPowerDevice = true;
+          this.hasDownscaledForPerf = true;
+          console.warn(
+            `[VRoidAvatarEngine] Performance watchdog Tier 2: avg frame time ${avgFrameMs.toFixed(1)}ms. ` +
+            `Reduced pixel ratio to ${this.currentPixelRatio.toFixed(2)} and activated low-power mode.`
+          );
+        } else if (avgFrameMs > 28 && this.currentPixelRatio > 1) {
+          this.currentPixelRatio = Math.max(1, this.currentPixelRatio - 0.5);
+          if (this.renderer) this.renderer.setPixelRatio(this.currentPixelRatio);
+          this.hasDownscaledForPerf = true;
+          console.warn(
+            `[VRoidAvatarEngine] Performance watchdog Tier 1: avg frame time ${avgFrameMs.toFixed(1)}ms. ` +
+            `Reduced pixel ratio to ${this.currentPixelRatio.toFixed(2)} to restore smoothness.`
+          );
+        } else {
+          console.log(
+            `[VRoidAvatarEngine] Performance watchdog: avg frame time ${avgFrameMs.toFixed(1)}ms — within budget.`
+          );
+          this.hasDownscaledForPerf = true;
+        }
+        this.frameTimeAccumulator = 0;
+        this.frameTimeSamples = 0;
+      }
+    }
     const et = this.clock.getElapsedTime();
     this.animT += dt;
 
@@ -496,59 +807,149 @@ export class VRoidAvatarEngine {
     const breathingSpineX = breath * 0.01 * express;
     const breathingShoulderZ = breath * 0.005 * express;
 
+    // Body sway frequencies (using sine so at et=0 sway is 0, exactly matching rest pose)
     const swayX = Math.sin(et * 0.4 * speed) * 0.008 * persona.swayAmp;
-    const swayY = Math.cos(et * 0.25 * speed) * 0.012 * persona.swayAmp;
+    const swayY = Math.sin(et * 0.25 * speed) * 0.012 * persona.swayAmp;
     const swayZ = Math.sin(et * 0.3 * speed) * 0.006 * persona.swayAmp;
 
+    // Contrapposto weight shift on hips & spine counter-balance
+    let contraRoll = 0;
+    if (this.hips) {
+      if (!this.isLowPowerDevice) {
+        // Slow natural weight shift between legs (10-14s period)
+        const contraX = Math.sin(et * 0.2 * speed) * 0.012 * persona.swayAmp;
+        contraRoll = Math.sin(et * 0.2 * speed) * 0.015 * persona.swayAmp;
+        const breathHipsY = Math.sin(et * 1.5 * speed) * 0.003 * express;
+
+        this.hips.position.x = THREE.MathUtils.damp(this.hips.position.x, this.hipsRestPosition.x + contraX, 4, dt);
+        this.hips.position.y = THREE.MathUtils.damp(this.hips.position.y, this.hipsRestPosition.y + breathHipsY, 4, dt);
+        this.hips.position.z = THREE.MathUtils.damp(this.hips.position.z, this.hipsRestPosition.z, 4, dt);
+        this.hips.rotation.z = THREE.MathUtils.damp(this.hips.rotation.z, contraRoll, 4, dt);
+        this.hips.rotation.x = THREE.MathUtils.damp(this.hips.rotation.x, 0, 4, dt);
+        this.hips.rotation.y = THREE.MathUtils.damp(this.hips.rotation.y, 0, 4, dt);
+      } else {
+        // Low power mode: hold rest position with simple damping, bypass lateral contrapposto
+        this.hips.position.x = THREE.MathUtils.damp(this.hips.position.x, this.hipsRestPosition.x, 4, dt);
+        this.hips.position.y = THREE.MathUtils.damp(this.hips.position.y, this.hipsRestPosition.y, 4, dt);
+        this.hips.position.z = THREE.MathUtils.damp(this.hips.position.z, this.hipsRestPosition.z, 4, dt);
+        this.hips.rotation.set(0, 0, 0);
+      }
+    }
+
     if (this.spine) {
-      this.spine.rotation.x = breathingSpineX + swayX;
-      this.spine.rotation.z = swayZ;
+      // Spine counter-rotates contrapposto tilt to keep head and torso upright
+      const spineCounterRoll = -contraRoll * 0.85;
+      const targetSpineX = breathingSpineX + swayX;
+      const targetSpineZ = spineCounterRoll + swayZ;
+      this.spine.rotation.x = THREE.MathUtils.damp(this.spine.rotation.x, targetSpineX, 5, dt);
+      this.spine.rotation.z = THREE.MathUtils.damp(this.spine.rotation.z, targetSpineZ, 5, dt);
+      this.spine.rotation.y = THREE.MathUtils.damp(this.spine.rotation.y, 0, 5, dt);
     }
     if (this.chest) {
-      this.chest.rotation.x = breathingSpineX * 0.5;
+      const targetChestX = breathingSpineX * 0.5;
+      this.chest.rotation.x = THREE.MathUtils.damp(this.chest.rotation.x, targetChestX, 5, dt);
     }
-    if (this.leftShoulder) this.leftShoulder.rotation.z = -breathingShoulderZ;
-    if (this.rightShoulder) this.rightShoulder.rotation.z = breathingShoulderZ;
+
+    // Clavicle elevation coupling with arm lift + shrug state + breathing
+    const defaultLeftZ = this.isVRM ? -1.25 : 0;
+    const defaultRightZ = this.isVRM ? 1.25 : 0;
+
+    let armLiftLeft = 0;
+    if (this.leftArm) {
+      armLiftLeft = Math.max(0, this.leftArm.rotation.z - defaultLeftZ);
+    }
+    let armLiftRight = 0;
+    if (this.rightArm) {
+      armLiftRight = Math.max(0, defaultRightZ - this.rightArm.rotation.z);
+    }
+
+    const isShrug = this.animState === 'shrug';
+    const shrugElevation = isShrug ? 0.08 * express : 0;
+    const shrugForwardRoll = isShrug ? 0.03 : 0;
+
+    if (this.leftShoulder) {
+      // Preserve breathing coupling additively with arm lift and shrug
+      const targetShoulderZ = -breathingShoulderZ - armLiftLeft * 0.12 - shrugElevation;
+      this.leftShoulder.rotation.z = THREE.MathUtils.damp(this.leftShoulder.rotation.z, targetShoulderZ, 6, dt);
+      this.leftShoulder.rotation.x = THREE.MathUtils.damp(this.leftShoulder.rotation.x, shrugForwardRoll, 6, dt);
+    }
+    if (this.rightShoulder) {
+      // Preserve breathing coupling additively with arm lift and shrug
+      const targetShoulderZ = breathingShoulderZ + armLiftRight * 0.12 + shrugElevation;
+      this.rightShoulder.rotation.z = THREE.MathUtils.damp(this.rightShoulder.rotation.z, targetShoulderZ, 6, dt);
+      this.rightShoulder.rotation.x = THREE.MathUtils.damp(this.rightShoulder.rotation.x, shrugForwardRoll, 6, dt);
+    }
 
     // 2. Head & Neck Movement (State Machine + Persona)
     if (this.head) {
       const s = this.animState;
       const tiltAmp = persona.headTiltAmp;
 
+      let targetHeadX = 0;
+      let targetHeadY = 0;
+      let targetHeadZ = 0;
+      let targetNeckY = 0;
+
       if (s === 'idle') {
-        this.head.rotation.y = swayY + Math.sin(et * 0.13) * 0.035 * tiltAmp;
-        this.head.rotation.x = Math.cos(et * 0.11) * 0.018 * tiltAmp + 0.015;
-        this.head.rotation.z = Math.sin(et * 0.08) * 0.008 * tiltAmp;
-        if (this.neck) this.neck.rotation.y = Math.sin(et * 0.13) * 0.01;
+        if (this.gazeTrackingEnabled) {
+          // Smoothly interpolate mouse target offset with organic damping
+          this.mouseTargetOffset.x = THREE.MathUtils.damp(this.mouseTargetOffset.x, this.mouseNormalized.x, 6, dt);
+          this.mouseTargetOffset.y = THREE.MathUtils.damp(this.mouseTargetOffset.y, this.mouseNormalized.y, 6, dt);
+
+          // Subtle natural head gaze yaw and pitch towards cursor
+          const gazeYaw = this.mouseTargetOffset.x * 0.20 * tiltAmp;
+          const gazePitch = -this.mouseTargetOffset.y * 0.12 * tiltAmp;
+
+          targetHeadY = swayY + gazeYaw + Math.sin(et * 0.13) * 0.02 * tiltAmp;
+          targetHeadX = Math.sin(et * 0.11) * 0.012 * tiltAmp + gazePitch;
+          targetHeadZ = Math.sin(et * 0.08) * 0.006 * tiltAmp;
+          targetNeckY = gazeYaw * 0.35 + Math.sin(et * 0.13) * 0.008;
+        } else {
+          targetHeadY = swayY + Math.sin(et * 0.13) * 0.035 * tiltAmp;
+          targetHeadX = Math.sin(et * 0.11) * 0.018 * tiltAmp;
+          targetHeadZ = Math.sin(et * 0.08) * 0.008 * tiltAmp;
+          targetNeckY = Math.sin(et * 0.13) * 0.01;
+        }
       } else if (s === 'listening') {
         const listenTilt = 0.04 * tiltAmp;
-        this.head.rotation.x = THREE.MathUtils.lerp(this.head.rotation.x, 0.03, 0.08);
-        this.head.rotation.y = THREE.MathUtils.lerp(this.head.rotation.y, listenTilt, 0.08);
-        this.head.rotation.z = THREE.MathUtils.lerp(this.head.rotation.z, -listenTilt, 0.08);
+        targetHeadX = 0.03;
+        targetHeadY = listenTilt;
+        targetHeadZ = -listenTilt;
       } else if (s === 'nod') {
-        this.head.rotation.x = Math.sin(this.animT * 6.5 * speed) * 0.16 * express + 0.02;
-        this.head.rotation.y = THREE.MathUtils.lerp(this.head.rotation.y, 0, 0.1);
-        this.head.rotation.z = THREE.MathUtils.lerp(this.head.rotation.z, 0, 0.1);
+        const nodFreq = 6.0 * speed;
+        // Smoothly blend in nod over first 0.15s to eliminate rotational pops
+        const nodEnvelope = Math.min(1, this.animT / 0.15);
+        targetHeadX = Math.sin(this.animT * nodFreq) * 0.16 * express * nodEnvelope + 0.02;
+        targetHeadY = 0;
+        targetHeadZ = 0;
       } else if (s === 'thinking') {
-        const targetX = 0.06 * tiltAmp + Math.sin(et * 0.6) * 0.01;
-        const targetY = 0.14 * tiltAmp + Math.cos(et * 0.5) * 0.015;
-        this.head.rotation.x = THREE.MathUtils.lerp(this.head.rotation.x, targetX, 0.08);
-        this.head.rotation.y = THREE.MathUtils.lerp(this.head.rotation.y, targetY, 0.08);
-        this.head.rotation.z = THREE.MathUtils.lerp(this.head.rotation.z, 0.06 * tiltAmp, 0.08);
+        targetHeadX = 0.06 * tiltAmp + Math.sin(et * 0.6) * 0.01;
+        targetHeadY = 0.14 * tiltAmp + Math.sin(et * 0.5) * 0.015;
+        targetHeadZ = 0.06 * tiltAmp;
       } else if (s === 'shrug') {
-        this.head.rotation.x = THREE.MathUtils.lerp(this.head.rotation.x, -0.05, 0.08);
-        this.head.rotation.y = THREE.MathUtils.lerp(this.head.rotation.y, 0, 0.08);
-        this.head.rotation.z = THREE.MathUtils.lerp(this.head.rotation.z, 0, 0.08);
+        targetHeadX = -0.05;
+        targetHeadY = 0;
+        targetHeadZ = 0;
       } else {
-        this.head.rotation.x = THREE.MathUtils.lerp(this.head.rotation.x, 0.02, 0.08);
-        this.head.rotation.y = THREE.MathUtils.lerp(this.head.rotation.y, 0, 0.08);
-        this.head.rotation.z = THREE.MathUtils.lerp(this.head.rotation.z, 0, 0.08);
+        targetHeadX = 0.02;
+        targetHeadY = 0;
+        targetHeadZ = 0;
       }
 
       if (s === 'talking') {
         this.talkPhase += 0.18 * speed;
-        this.head.rotation.x += Math.sin(this.talkPhase) * 0.015 * express;
-        this.head.rotation.y += Math.sin(this.talkPhase * 0.5) * 0.01 * express;
+        targetHeadX += Math.sin(this.talkPhase) * 0.015 * express;
+        targetHeadY += Math.sin(this.talkPhase * 0.5) * 0.01 * express;
+      }
+
+      const headDampLambda = (s === 'nod') ? 12 : 5;
+      this.head.rotation.x = THREE.MathUtils.damp(this.head.rotation.x, targetHeadX, headDampLambda, dt);
+      this.head.rotation.y = THREE.MathUtils.damp(this.head.rotation.y, targetHeadY, headDampLambda, dt);
+      this.head.rotation.z = THREE.MathUtils.damp(this.head.rotation.z, targetHeadZ, headDampLambda, dt);
+
+      if (this.neck) {
+        this.neck.rotation.y = THREE.MathUtils.damp(this.neck.rotation.y, targetNeckY, 5, dt);
+        this.neck.rotation.x = THREE.MathUtils.damp(this.neck.rotation.x, targetHeadX * 0.2, 5, dt);
       }
     }
 
@@ -572,16 +973,24 @@ export class VRoidAvatarEngine {
       }
     }
 
-    // Saccadic eye movement
-    this.eyeSaccadeTimer += dt;
-    if (this.eyeSaccadeTimer > 2.5 + Math.random() * 2.0) {
-      this.eyeSaccadeTimer = 0;
+    // Saccadic eye movement + gaze tracking when active
+    if (this.gazeTrackingEnabled && this.animState === 'idle') {
       this.eyeTargetOffset.set(
-        (Math.random() - 0.5) * 0.02,
-        (Math.random() - 0.5) * 0.015
+        this.mouseTargetOffset.x * 0.38,
+        this.mouseTargetOffset.y * 0.28
       );
+    } else {
+      this.eyeSaccadeTimer += dt;
+      if (this.eyeSaccadeTimer > 2.5 + Math.random() * 2.0) {
+        this.eyeSaccadeTimer = 0;
+        this.eyeTargetOffset.set(
+          (Math.random() - 0.5) * 0.02,
+          (Math.random() - 0.5) * 0.015
+        );
+      }
     }
-    this.eyeCurrentOffset.lerp(this.eyeTargetOffset, 0.1);
+    this.eyeCurrentOffset.x = THREE.MathUtils.damp(this.eyeCurrentOffset.x, this.eyeTargetOffset.x, 8, dt);
+    this.eyeCurrentOffset.y = THREE.MathUtils.damp(this.eyeCurrentOffset.y, this.eyeTargetOffset.y, 8, dt);
 
     // Apply Blink & Eye Look Morphs
     this.faceMeshes.forEach(mesh => {
@@ -617,68 +1026,136 @@ export class VRoidAvatarEngine {
       }
     }
 
-    // 4. Arm Rotations
-    const defaultLeftZ = this.isVRM ? -1.25 : 0;
-    const defaultRightZ = this.isVRM ? 1.25 : 0;
+    // 4. Arm Rotations with Conversational Gesture Phrasing
+    let targetLeftZ = defaultLeftZ;
+    let targetLeftX = 0;
+    let targetLeftY = 0;
+
+    let targetRightZ = defaultRightZ;
+    let targetRightX = 0;
+    let targetRightY = 0;
+
+    let targetLeftForearmY = this.isVRM ? -0.32 : 0;
+    let targetRightForearmY = this.isVRM ? 0.32 : 0;
+
+    let targetLeftHandX = 0;
+    let targetLeftHandZ = 0;
+    let targetRightHandX = 0;
+    let targetRightHandZ = 0;
+
+    if (this.animState === 'wave') {
+      targetLeftZ = Math.PI * 0.7 + Math.sin(et * 6 * speed) * 0.22;
+      targetLeftX = 0.1;
+      targetLeftForearmY = (this.isVRM ? -0.32 : 0) - 0.4;
+      targetLeftHandZ = Math.sin(et * 6 * speed) * 0.15;
+    } else if (this.animState === 'shrug') {
+      targetLeftZ = defaultLeftZ + 0.25;
+      targetRightZ = defaultRightZ - 0.25;
+      targetLeftX = 0.1;
+      targetRightX = 0.1;
+      targetLeftForearmY = (this.isVRM ? -0.32 : 0) - 0.2;
+      targetRightForearmY = (this.isVRM ? 0.32 : 0) + 0.2;
+    } else if (this.animState === 'thinking') {
+      targetRightZ = -1.05;
+      targetRightX = 0.4;
+      targetRightForearmY = (this.isVRM ? 0.32 : 0) + 0.7;
+      targetRightHandX = 0.2;
+      targetLeftZ = defaultLeftZ + Math.sin(et * 1.5 * speed) * 0.015;
+    } else if (this.animState === 'talking') {
+      // Conversational Gesture Phrasing:
+      // A complete conversational phrase cycle runs over ~3.5s.
+      // Phase 1 (0 to ~2.0s): Active multi-harmonic gesture beat with forearm & wrist inflection.
+      // Phase 2 (~2.0s to 3.5s): Attentive resting hold while completing speech idea.
+      const phrasePeriod = 3.5 / Math.max(0.5, speed);
+      const phrasePhase = (this.animT % phrasePeriod) / phrasePeriod;
+
+      if (phrasePhase < 0.58) {
+        // Active gesture stroke with sinusoidal bell envelope
+        const strokeEnv = Math.sin((phrasePhase / 0.58) * Math.PI);
+        // Layered non-harmonic beats (2.5Hz primary and 1.3Hz secondary)
+        const beatPrimary = Math.sin(et * 2.5 * speed) * 0.10 * express;
+        const beatSecondary = Math.sin(et * 1.3 * speed) * 0.05 * express;
+        const gestureLift = (beatPrimary + beatSecondary) * strokeEnv;
+
+        // Dominant right arm gestures outward and forward
+        targetRightZ = defaultRightZ - 0.28 * express * strokeEnv - gestureLift * 0.8;
+        targetRightX = 0.18 * express * strokeEnv + Math.sin(et * 2.0 * speed) * 0.06 * strokeEnv;
+        targetRightForearmY = (this.isVRM ? 0.32 : 0) + 0.25 * strokeEnv + gestureLift * 0.4;
+
+        // Subtle follow-through on right hand
+        targetRightHandX = -gestureLift * 0.5;
+        targetRightHandZ = -0.12 * strokeEnv;
+
+        // Relaxed counterbalance on left arm
+        targetLeftZ = defaultLeftZ + 0.06 * express * strokeEnv + Math.sin(et * 1.8 * speed) * 0.02 * strokeEnv;
+        targetLeftForearmY = (this.isVRM ? -0.32 : 0) - 0.08 * strokeEnv;
+      } else {
+        // Attentive resting hold: arm settles near rest pose with subtle breathing modulation
+        targetRightZ = defaultRightZ - 0.06 * express;
+        targetRightX = 0.04 * express;
+        targetRightForearmY = this.isVRM ? 0.32 : 0;
+        targetLeftZ = defaultLeftZ + Math.sin(et * 1.5 * speed) * 0.015;
+      }
+    } else {
+      // Idle / Listening: subtle breathing sway on arms
+      targetLeftZ = defaultLeftZ + Math.sin(et * 1.5 * speed) * 0.015;
+      targetRightZ = defaultRightZ - Math.sin(et * 1.5 * speed) * 0.015;
+    }
 
     if (this.leftArm) {
-      let targetLeftZ = defaultLeftZ;
-      let targetLeftX = 0;
-
-      if (this.animState === 'wave') {
-        targetLeftZ = Math.PI * 0.7 + Math.sin(et * 6 * speed) * 0.22;
-      } else if (this.animState === 'shrug') {
-        targetLeftZ = defaultLeftZ + 0.25;
-      } else if (this.animState === 'talking') {
-        targetLeftZ = defaultLeftZ + Math.sin(et * 2 * speed) * 0.04 * express;
-      } else {
-        targetLeftZ += Math.sin(et * 1.5 * speed) * 0.015;
-      }
-
-      this.leftArm.rotation.z = THREE.MathUtils.lerp(this.leftArm.rotation.z, targetLeftZ, 0.08);
-      this.leftArm.rotation.x = THREE.MathUtils.lerp(this.leftArm.rotation.x, targetLeftX, 0.08);
+      this.leftArm.rotation.z = THREE.MathUtils.damp(this.leftArm.rotation.z, targetLeftZ, 6, dt);
+      this.leftArm.rotation.x = THREE.MathUtils.damp(this.leftArm.rotation.x, targetLeftX, 6, dt);
+      this.leftArm.rotation.y = THREE.MathUtils.damp(this.leftArm.rotation.y, targetLeftY, 6, dt);
     }
-
     if (this.rightArm) {
-      let targetRightZ = defaultRightZ;
-      let targetRightX = 0;
-
-      if (this.animState === 'thinking') {
-        targetRightZ = -1.05;
-        targetRightX = 0.4;
-      } else if (this.animState === 'shrug') {
-        targetRightZ = defaultRightZ - 0.25;
-      } else if (this.animState === 'talking') {
-        targetRightZ = defaultRightZ - 0.3 * express + Math.sin(et * 4 * speed) * 0.12 * express;
-        targetRightX = 0.2 * express + Math.cos(et * 4 * speed) * 0.06 * express;
-      } else {
-        targetRightZ -= Math.sin(et * 1.5 * speed) * 0.015;
-      }
-
-      this.rightArm.rotation.z = THREE.MathUtils.lerp(this.rightArm.rotation.z, targetRightZ, 0.08);
-      this.rightArm.rotation.x = THREE.MathUtils.lerp(this.rightArm.rotation.x, targetRightX, 0.08);
+      this.rightArm.rotation.z = THREE.MathUtils.damp(this.rightArm.rotation.z, targetRightZ, 6, dt);
+      this.rightArm.rotation.x = THREE.MathUtils.damp(this.rightArm.rotation.x, targetRightX, 6, dt);
+      this.rightArm.rotation.y = THREE.MathUtils.damp(this.rightArm.rotation.y, targetRightY, 6, dt);
     }
 
-    // Natural relaxed elbow flex
     if (this.leftForearm) {
-      const targetLeftForearmY = this.isVRM ? -0.32 : 0;
-      this.leftForearm.rotation.y = THREE.MathUtils.lerp(this.leftForearm.rotation.y, targetLeftForearmY, 0.08);
+      this.leftForearm.rotation.y = THREE.MathUtils.damp(this.leftForearm.rotation.y, targetLeftForearmY, 6, dt);
     }
     if (this.rightForearm) {
-      const targetRightForearmY = this.isVRM ? 0.32 : 0;
-      this.rightForearm.rotation.y = THREE.MathUtils.lerp(this.rightForearm.rotation.y, targetRightForearmY, 0.08);
+      this.rightForearm.rotation.y = THREE.MathUtils.damp(this.rightForearm.rotation.y, targetRightForearmY, 6, dt);
     }
 
-    // Subtle natural breathing S-curve on spine & chest
-    if (this.chest) {
-      this.chest.rotation.x = Math.sin(et * 1.4) * 0.012;
+    // Secondary wrist / hand motion (gated on !isLowPowerDevice)
+    if (this.leftHand) {
+      if (!this.isLowPowerDevice) {
+        this.leftHand.rotation.x = THREE.MathUtils.damp(this.leftHand.rotation.x, targetLeftHandX, 7, dt);
+        this.leftHand.rotation.z = THREE.MathUtils.damp(this.leftHand.rotation.z, targetLeftHandZ, 7, dt);
+        this.leftHand.rotation.y = THREE.MathUtils.damp(this.leftHand.rotation.y, 0, 7, dt);
+      } else {
+        this.leftHand.rotation.set(0, 0, 0);
+      }
     }
-    if (this.spine) {
-      this.spine.rotation.z = Math.sin(et * 0.7) * 0.006 * express;
+    if (this.rightHand) {
+      if (!this.isLowPowerDevice) {
+        this.rightHand.rotation.x = THREE.MathUtils.damp(this.rightHand.rotation.x, targetRightHandX, 7, dt);
+        this.rightHand.rotation.z = THREE.MathUtils.damp(this.rightHand.rotation.z, targetRightHandZ, 7, dt);
+        this.rightHand.rotation.y = THREE.MathUtils.damp(this.rightHand.rotation.y, 0, 7, dt);
+      } else {
+        this.rightHand.rotation.set(0, 0, 0);
+      }
     }
 
-    // 5. Lip Sync & Morph Targets
+    // 5. Lip Sync & Morph Targets with Asymmetric Muscle Shaping
     const isTalking = this.animState === 'talking';
+
+    // ── D-03 FIX ───────────────────────────────────────────────────────────
+    // Lazily bind to the shared avatar-voice analyser the first time this
+    // avatar speaks. We cannot do this in init(): the AudioContext is created
+    // on demand at first playback, and browsers block context creation before
+    // a user gesture. Checking here costs one null check per talking frame and
+    // stops entirely once bound.
+    if (isTalking && !this.audioAnalyser) {
+      const sharedAnalyser = getExistingAvatarAnalyser();
+      if (sharedAnalyser) {
+        this.connectAudioAnalyser(sharedAnalyser);
+        console.log('[VRoidAvatarEngine] Lip sync bound to shared avatar-voice analyser (audio-driven mouth active).');
+      }
+    }
 
     // Audio-driven lip sync if Web Audio API Analyser is connected
     if (isTalking && this.audioAnalyser && this.audioDataArray) {
@@ -690,8 +1167,14 @@ export class VRoidAvatarEngine {
         }
       }
       const audioAmp = Math.min(1.0, sum * 15.0);
-      this.currentInfluences['A'] = THREE.MathUtils.lerp(this.currentInfluences['A'] || 0, audioAmp * 0.85, 0.35);
-      this.currentInfluences['O'] = THREE.MathUtils.lerp(this.currentInfluences['O'] || 0, audioAmp * 0.4, 0.35);
+      const targetA = audioAmp * 0.85;
+      const targetO = audioAmp * 0.40;
+
+      // Asymmetric muscle attack (~35ms, lambda=28) vs decay (~110ms, lambda=9)
+      const lambdaA = targetA > (this.currentInfluences['A'] || 0) ? 28 : 9;
+      const lambdaO = targetO > (this.currentInfluences['O'] || 0) ? 28 : 9;
+      this.currentInfluences['A'] = THREE.MathUtils.damp(this.currentInfluences['A'] || 0, targetA, lambdaA, dt);
+      this.currentInfluences['O'] = THREE.MathUtils.damp(this.currentInfluences['O'] || 0, targetO, lambdaO, dt);
     } else if (isTalking) {
       this.vowelTimer += dt;
       if (this.vowelTimer > this.nextVowelTime) {
@@ -705,11 +1188,13 @@ export class VRoidAvatarEngine {
       vowels.forEach(v => {
         const targetValue = (v === this.currentVowel) ? (v === 'A' || v === 'O' ? 0.85 * express : 0.55 * express) : 0.0;
         const currentVal = this.currentInfluences[v] || 0;
-        this.currentInfluences[v] = THREE.MathUtils.lerp(currentVal, targetValue, 0.32);
+        const lambda = targetValue > currentVal ? 28 : 9; // rapid attack (~35ms), gentle decay (~110ms)
+        this.currentInfluences[v] = THREE.MathUtils.damp(currentVal, targetValue, lambda, dt);
       });
     } else {
       ['A', 'I', 'U', 'E', 'O'].forEach(v => {
-        this.currentInfluences[v] = THREE.MathUtils.lerp(this.currentInfluences[v] || 0, 0, 0.3);
+        const currentVal = this.currentInfluences[v] || 0;
+        this.currentInfluences[v] = THREE.MathUtils.damp(currentVal, 0, 10, dt);
       });
     }
 
@@ -730,28 +1215,46 @@ export class VRoidAvatarEngine {
     }
 
     if (this.proceduralMouth) {
-      const targetScaleY = isTalking ? (0.6 + Math.abs(Math.sin(et * 8 * speed)) * 1.2 + Math.sin(et * 19) * 0.4) : 0.1;
-      this.proceduralMouth.scale.y = THREE.MathUtils.lerp(this.proceduralMouth.scale.y, targetScaleY, 0.3);
+      const targetScaleY = isTalking ? (0.6 + Math.abs(Math.sin(et * 7 * speed)) * 1.0 + Math.sin(et * 13) * 0.3) : 0.1;
+      const mouthLambda = targetScaleY > this.proceduralMouth.scale.y ? 25 : 10;
+      this.proceduralMouth.scale.y = THREE.MathUtils.damp(this.proceduralMouth.scale.y, targetScaleY, mouthLambda, dt);
     }
 
-    this.renderer.render(this.scene, this.camera);
+    if (this.renderer && this.scene && this.camera) {
+      this.renderer.render(this.scene, this.camera);
+    }
   }
 
   resize(w: number, h: number) {
     if (!this.camera || !this.renderer || !w || !h || w <= 0 || h <= 0) return;
     this.camera.aspect = w / h;
-    if (this.camera.aspect > 1.8) {
-      this.camera.fov = 32;
-    } else {
-      this.camera.fov = 28;
+    this.centerCameraOnHead();
+
+    // C-02 FIX: re-clamp pixel ratio on resize. devicePixelRatio can change
+    // at runtime — browser zoom, or dragging the window between a retina and
+    // a standard monitor — and setSize() alone would keep a stale ratio.
+    // If the watchdog has already downscaled for performance we honour its
+    // decision rather than silently undoing it.
+    if (!this.hasDownscaledForPerf) {
+      const cap = this.isLowPowerDevice ? 1.5 : this.maxPixelRatio;
+      const nextRatio = Math.min(window.devicePixelRatio, cap);
+      if (Math.abs(nextRatio - this.currentPixelRatio) > 0.01) {
+        this.currentPixelRatio = nextRatio;
+        this.renderer.setPixelRatio(nextRatio);
+      }
     }
-    this.camera.updateProjectionMatrix();
+
     this.renderer.setSize(w, h, false);
   }
 
   dispose() {
     this.disposed = true;
     if (this.raf) cancelAnimationFrame(this.raf);
+
+    if (this.onMouseMoveHandler && typeof window !== 'undefined') {
+      window.removeEventListener('mousemove', this.onMouseMoveHandler);
+      console.log('[VRoidAvatarEngine] Gaze tracking mouse listener detached on engine disposal.');
+    }
 
     if (this.canvas) {
       if (this.onContextLost) this.canvas.removeEventListener('webglcontextlost', this.onContextLost);

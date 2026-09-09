@@ -58,7 +58,7 @@ export const DEMO_NOTIFICATIONS = [
 
 export const EMPTY_PROFILE = {
   displayName: '', role: 'student', registerNumber: null,
-  ats_score: 0, career_dna_score: 0, trust_score: 40, mission_streak: 0,
+  ats_score: 0, career_dna_score: 0, trust_score: 0, mission_streak: 0,
   recruiter_visibility: 0, career_readiness: 0, communication_score: 0,
   execution_score: 0, leadership_score: 0, consistency_score: 0, adaptability_score: 0,
   confidence_score: 0, innovation_score: 0,
@@ -82,7 +82,7 @@ export function mapRowToProfile(row: any): any {
     selectedTeacherId: row.selected_teacher_id || 'priya',
     ats_score: row.ats_score ?? 0,
     career_dna_score: row.career_dna_score ?? 0,
-    trust_score: row.trust_score ?? 40,
+    trust_score: row.trust_score ?? 0,
     mission_streak: row.mission_streak ?? 0,
     recruiter_visibility: row.recruiter_visibility ?? 0,
     career_readiness: row.career_readiness ?? 0,
@@ -115,6 +115,7 @@ export function mapRowToProfile(row: any): any {
     resumeGenerated: !!row.resume_generated,
     roadmapGenerated: !!row.roadmap_generated,
     completedQuests: row.completed_quests || [],
+    completedMissions: row.completed_missions || [],
     javaTestPassed: !!row.java_test_passed,
     groupPanelPassed: !!row.group_panel_passed,
     recruiterVisible: !!row.recruiter_visible,
@@ -126,6 +127,10 @@ export function mapRowToProfile(row: any): any {
     programType: row.onboarding_answers?.programType || 'Masters',
     tasks: row.onboarding_answers?.tasks || [],
     documents: row.onboarding_answers?.documents || [],
+    projects: row.onboarding_answers?.portfolio_projects || [],
+    timeline: row.onboarding_answers?.portfolio_timeline || [],
+    recommendations: row.onboarding_answers?.portfolio_recommendations || [],
+    achievements: row.onboarding_answers?.portfolio_achievements || [],
     guidanceMentorId: row.guidance_mentor_id || 'priya',
     qt1_score: row.onboarding_answers?.qt1_score ?? 0,
     qt2_score: row.onboarding_answers?.qt2_score ?? 0,
@@ -172,21 +177,34 @@ export function mapProfileToRow(profile: any): any {
   if (profile.vault_count !== undefined) row.vault_count = profile.vault_count;
   if (profile.onboardingStep !== undefined) row.onboarding_step = profile.onboardingStep;
   const onboardingSrc = profile.onboardingAnswers ?? profile.onboarding_answers;
+  const sanitizeDbScore = (v: any, fallback = 0, max = 100) => {
+    const n = Number(v);
+    return isNaN(n) ? fallback : Math.min(max, Math.max(0, Math.round(n)));
+  };
   if (onboardingSrc != null) {
     row.onboarding_answers = {
       ...onboardingSrc,
-      qt1_score: profile.qt1_score ?? onboardingSrc.qt1_score ?? 0,
-      qt2_score: profile.qt2_score ?? onboardingSrc.qt2_score ?? 0,
+      qt1_score: sanitizeDbScore(profile.qt1_score ?? onboardingSrc.qt1_score, 0, 100),
+      qt2_score: sanitizeDbScore(profile.qt2_score ?? onboardingSrc.qt2_score, 0, 100),
       mindset_archetype: profile.mindset_archetype ?? onboardingSrc.mindset_archetype ?? 'Pattern Hunter',
       voice_print: profile.voicePrint ?? onboardingSrc.voice_print ?? null
     };
   } else if (profile.qt1_score !== undefined || profile.qt2_score !== undefined || profile.mindset_archetype !== undefined || profile.voicePrint !== undefined) {
     row.onboarding_answers = {
       ...(row.onboarding_answers || {}),
-      qt1_score: profile.qt1_score ?? 0,
-      qt2_score: profile.qt2_score ?? 0,
+      qt1_score: sanitizeDbScore(profile.qt1_score, 0, 100),
+      qt2_score: sanitizeDbScore(profile.qt2_score, 0, 100),
       mindset_archetype: profile.mindset_archetype ?? 'Pattern Hunter',
       voice_print: profile.voicePrint ?? null
+    };
+  }
+  if (profile.projects !== undefined || profile.timeline !== undefined || profile.recommendations !== undefined || profile.achievements !== undefined) {
+    row.onboarding_answers = {
+      ...(row.onboarding_answers || {}),
+      ...(profile.projects !== undefined ? { portfolio_projects: profile.projects } : {}),
+      ...(profile.timeline !== undefined ? { portfolio_timeline: profile.timeline } : {}),
+      ...(profile.recommendations !== undefined ? { portfolio_recommendations: profile.recommendations } : {}),
+      ...(profile.achievements !== undefined ? { portfolio_achievements: profile.achievements } : {}),
     };
   }
   if (profile.jdMissingSkills !== undefined) row.jd_missing_skills = profile.jdMissingSkills;
@@ -197,6 +215,7 @@ export function mapProfileToRow(profile: any): any {
   if (profile.resumeGenerated !== undefined) row.resume_generated = profile.resumeGenerated;
   if (profile.roadmapGenerated !== undefined) row.roadmap_generated = profile.roadmapGenerated;
   if (profile.completedQuests !== undefined) row.completed_quests = profile.completedQuests;
+  if (profile.completedMissions !== undefined) row.completed_missions = profile.completedMissions;
   if (profile.javaTestPassed !== undefined) row.java_test_passed = profile.javaTestPassed;
   if (profile.groupPanelPassed !== undefined) row.group_panel_passed = profile.groupPanelPassed;
   if (profile.recruiterVisible !== undefined) row.recruiter_visible = profile.recruiterVisible;
@@ -251,6 +270,17 @@ function persistLocalProfile(uid: string, data: Record<string, any>) {
   }
 }
 
+function sanitizePortfolioItems(items: any[]): any[] {
+  if (!Array.isArray(items)) return [];
+  return items.map(item => {
+    if (typeof item !== 'object' || !item) return item;
+    return {
+      ...item,
+      verified: false, // Enforce unverified state for self-service / unprivileged writes
+    };
+  });
+}
+
 function stripSelfServicePrivileges(row: Record<string, any>, allowPrivileged = false) {
   if (allowPrivileged) {
     return row;
@@ -261,6 +291,28 @@ function stripSelfServicePrivileges(row: Record<string, any>, allowPrivileged = 
   delete row.ats_score;
   delete row.trust_score;
   delete row.career_dna_score;
+
+  // CAV-02 FIX: Strip verified: true from portfolio items for non-privileged callers
+  if (row.onboarding_answers && typeof row.onboarding_answers === 'object') {
+    const ob = { ...row.onboarding_answers };
+    if (Array.isArray(ob.portfolio_projects)) {
+      ob.portfolio_projects = sanitizePortfolioItems(ob.portfolio_projects);
+    }
+    if (Array.isArray(ob.portfolio_timeline)) {
+      ob.portfolio_timeline = sanitizePortfolioItems(ob.portfolio_timeline);
+    }
+    if (Array.isArray(ob.portfolio_recommendations)) {
+      ob.portfolio_recommendations = sanitizePortfolioItems(ob.portfolio_recommendations);
+    }
+    if (Array.isArray(ob.portfolio_achievements)) {
+      ob.portfolio_achievements = sanitizePortfolioItems(ob.portfolio_achievements);
+    }
+    if (Array.isArray(ob.portfolio_certificates)) {
+      ob.portfolio_certificates = sanitizePortfolioItems(ob.portfolio_certificates);
+    }
+    row.onboarding_answers = ob;
+  }
+
   return row;
 }
 
@@ -919,7 +971,7 @@ export async function verifyVaultItem(studentId: string, itemId: string, status:
 
   const profile = await getUserProfile(studentId);
   if (profile && status === 'verified') {
-    const current = profile.trust_score || 40;
+    const current = profile.trust_score ?? 0;
     await updateUserProfile(studentId, { trust_score: Math.min(100, current + 5) });
   }
 }

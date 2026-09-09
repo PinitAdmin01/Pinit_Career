@@ -1,18 +1,21 @@
 export interface DayConfig {
   day?: number;
-  title: string;
-  desc: string;
-  syllabus: string[];
-  eTitle: string;
-  eDesc: string;
-  eStarter: string;
-  eHint: string;
-  eTest: string;
-  aTitle: string;
-  aDesc: string;
-  aStarter: string;
-  aHint: string;
-  aTest: string;
+  title?: string;
+  desc?: string;
+  syllabus?: string[];
+  eTitle?: string;
+  eDesc?: string;
+  eStarter?: string;
+  eHint?: string;
+  eTest?: string;
+  aTitle?: string;
+  aDesc?: string;
+  aStarter?: string;
+  aHint?: string;
+  aTest?: string;
+  explorer?: any;
+  architect?: any;
+  [key: string]: any;
 }
 
 export type { CourseQuest } from './coursesData';
@@ -167,14 +170,14 @@ export function buildEnrichedDayQuests(prefix: string, dayNum: number, cfg: DayC
   // ── 2. Pure Coding Exam ──────────────────────────────────────────────────
   const examTask: CourseQuest = {
     id: `${prefix}-exam-day-${dayNum}`,
-    title: `Day ${dayNum} Exam: ${cfg.eTitle}`,
-    desc: cfg.eDesc,
+    title: `Day ${dayNum} Exam: ${cfg.eTitle || ''}`,
+    desc: cfg.eDesc || '',
     type: 'coding',
     category: 'exam',
     requiresAvatar: false,
-    starterCode: cfg.eStarter,
-    hint: cfg.eHint,
-    testSuite: cfg.eTest,
+    starterCode: cfg.eStarter || '',
+    hint: cfg.eHint || '',
+    testSuite: cfg.eTest || '',
     skillCategory: 'programming',
     xp: 120,
     pins: 6
@@ -183,14 +186,14 @@ export function buildEnrichedDayQuests(prefix: string, dayNum: number, cfg: DayC
   // ── 3. Pure Practice Assignment ──────────────────────────────────────────
   const assignmentTask: CourseQuest = {
     id: `${prefix}-assign-day-${dayNum}`,
-    title: `Day ${dayNum} Assignment: ${cfg.aTitle}`,
-    desc: cfg.aDesc,
+    title: `Day ${dayNum} Assignment: ${cfg.aTitle || ''}`,
+    desc: cfg.aDesc || '',
     type: 'coding',
     category: 'assignment',
     requiresAvatar: false,
-    starterCode: cfg.aStarter,
-    hint: cfg.aHint,
-    testSuite: cfg.aTest,
+    starterCode: cfg.aStarter || '',
+    hint: cfg.aHint || '',
+    testSuite: cfg.aTest || '',
     skillCategory: 'programming',
     xp: 150,
     pins: 8

@@ -76,7 +76,8 @@ export const alumniService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('alumni_jobs').insert({ id, title, company, location, salary, posted_by: postedBy });
+        const res = await supabase.from('alumni_jobs').insert({ id, title, company, location, salary, posted_by: postedBy });
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -104,9 +105,10 @@ export const alumniService = {
     const row = { id, mentorName, studentName, slot, status: 'Requested', date: new Date().toISOString().split('T')[0] };
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('alumni_connects').insert({
+        const res = await supabase.from('alumni_connects').insert({
           id, mentor_name: mentorName, student_name: studentName, slot, status: 'Requested',
         });
+        if (res.error) throw new Error(res.error.message);
         return { ok: true, connect: row };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -125,9 +127,10 @@ export const alumniService = {
     const row = { id, jobId, studentName, status: 'Requested', date: new Date().toISOString().split('T')[0] };
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('alumni_referrals').insert({
+        const res = await supabase.from('alumni_referrals').insert({
           id, job_id: jobId, student_name: studentName, status: 'Requested',
         });
+        if (res.error) throw new Error(res.error.message);
         return { ok: true, referral: row };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);

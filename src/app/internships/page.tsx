@@ -9,8 +9,8 @@ import { InternshipRecord } from '@/lib/pathway/competencySchema';
 import Link from 'next/link';
 
 export default function InternshipsPage() {
-  const { user } = useAuth();
-  const userId = user?.id || 'guest_student';
+  const { user, loading: authLoading } = useAuth();
+  const userId = user?.id;
   const cOS = useCareerOS();
 
   const [records, setRecords] = useState<InternshipRecord[]>([]);
@@ -31,9 +31,14 @@ export default function InternshipsPage() {
   const [certificateUrl, setCertificateUrl] = useState('');
   const [saving, setSaving] = useState(false);
 
-  // Load existing records
+  // Load existing records for authenticated user
   useEffect(() => {
     async function loadInternships() {
+      if (!userId) {
+        setRecords([]);
+        setLoading(false);
+        return;
+      }
       try {
         const data = await PathwayApiService.getInternshipRecords(userId);
         setRecords(data);
@@ -48,6 +53,10 @@ export default function InternshipsPage() {
 
   const handleSaveRecord = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!userId) {
+      toast.error('Authentication Required', 'Please log in to register an internship record.');
+      return;
+    }
     if (!companyName.trim() || !role.trim() || !startDate.trim() || !projectDescription.trim()) {
       toast.error('Missing Fields', 'Please fill in Company, Role, Start Date, and Description.');
       return;
@@ -64,16 +73,17 @@ export default function InternshipsPage() {
         startDate,
         endDate: isCurrentlyActive ? undefined : endDate,
         mentorName: mentorName.trim() || undefined,
+        mentorContact: mentorContact.trim() || undefined,
         performanceRating: 'Exceeds Expectations',
         projectDescription: projectDescription.trim(),
         skillsUsed: skillsArray,
         certificateUrl: certificateUrl.trim() || undefined,
-        isVerified: true,
+        isVerified: false,
       });
 
       setRecords(prev => [saved, ...prev]);
       cOS.addXp(500, `Logged Internship at ${companyName}`);
-      toast.success('Internship Record Sealed! 💼', `Logged ${companyName} experience into your cryptographic career record.`);
+      toast.success('Internship Record Submitted! 💼', `Logged ${companyName} experience into your career record (pending verification).`);
       
       // Reset
       setCompanyName('');
@@ -177,7 +187,7 @@ export default function InternshipsPage() {
               style={{
                 background: 'var(--card)',
                 border: '1px solid var(--border)',
-                borderLeft: '4px solid #10b981',
+                borderLeft: record.isVerified ? '4px solid #10b981' : '4px solid #f59e0b',
                 borderRadius: 14,
                 padding: 20,
                 display: 'flex',
@@ -200,8 +210,8 @@ export default function InternshipsPage() {
                   </div>
                 </div>
 
-                <span style={{ fontSize: 11, background: 'rgba(16, 185, 129, 0.12)', color: '#10b981', padding: '3px 8px', borderRadius: 6, fontWeight: 800, fontFamily: 'var(--font-mono)' }}>
-                  {record.isVerified ? '✓ VERIFIED' : 'PENDING'}
+                <span style={{ fontSize: 11, background: record.isVerified ? 'rgba(16, 185, 129, 0.12)' : 'rgba(245, 158, 11, 0.12)', color: record.isVerified ? '#10b981' : '#f59e0b', padding: '3px 8px', borderRadius: 6, fontWeight: 800, fontFamily: 'var(--font-mono)' }}>
+                  {record.isVerified ? '✓ VERIFIED' : '⏳ PENDING REVIEW'}
                 </span>
               </div>
 
@@ -219,9 +229,14 @@ export default function InternshipsPage() {
                 </div>
               )}
 
-              {record.mentorName && (
-                <div style={{ fontSize: 11, color: 'var(--t3)', borderTop: '1px solid var(--border)', paddingTop: 8, marginTop: 4 }}>
-                  Mentor: <strong>{record.mentorName}</strong>
+              {(record.mentorName || record.mentorContact) && (
+                <div style={{ fontSize: 11, color: 'var(--t3)', borderTop: '1px solid var(--border)', paddingTop: 8, marginTop: 4, display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+                  <span>Mentor: <strong>{record.mentorName || 'Unspecified'}</strong></span>
+                  {record.mentorContact && (
+                    <span style={{ color: 'var(--t2)', background: 'var(--bg3)', padding: '1px 6px', borderRadius: 4, fontSize: 10.5, fontFamily: 'var(--font-mono)' }}>
+                      {record.mentorContact}
+                    </span>
+                  )}
                 </div>
               )}
             </div>

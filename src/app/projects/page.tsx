@@ -1,10 +1,10 @@
 'use client';
 
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { useAuth } from '@/lib/context/AuthContext';
-import { COURSES_REGISTRY } from '@/lib/data/coursesData';
+import { COURSES_CATALOG } from '@/lib/data/coursesCatalog';
 import { toast } from '@/lib/store/useAppStore';
 import { Project, GITHUB_REPO_REGEX, SWAP_POOLS, getGuideStepsForProject } from '@/lib/data/projectData';
 import { parseAndValidateGithubUrl, GithubEvidenceReport } from '@/lib/github/githubIngestion';
@@ -34,57 +34,114 @@ function ProjectsPageContent() {
   const [newSquadName, setNewSquadName] = useState<string>('');
   const [newHackathonTitle, setNewHackathonTitle] = useState<string>('Global AI & Cloud Distributed Systems Hackathon');
   const [newRole, setNewRole] = useState<TeamRole>('backend_lead');
-  const [newRepoUrl, setNewRepoUrl] = useState<string>('https://github.com/my-org/cloud-hackathon');
-  const [submittingLiveUrl, setSubmittingLiveUrl] = useState<string>('https://my-demo.pinit.app');
+  // PR-03 FIX: Do not pre-populate with dummy/demo URLs. Start empty so user must supply real URLs.
+  const [newRepoUrl, setNewRepoUrl] = useState<string>('');
+  const [submittingLiveUrl, setSubmittingLiveUrl] = useState<string>('');
   const [isSubmittingProject, setIsSubmittingProject] = useState<boolean>(false);
+
+  // PR-UX-01 FIX: Interactive milestone checklist state with persistent storage
+  const [completedMilestones, setCompletedMilestones] = useState<Record<string, number[]>>({});
+
+  // PR-UX-02 FIX: In-memory & session-level GitHub verification audit cache
+  const verificationCacheRef = useRef<Map<string, { report: any; timestamp: number }>>(new Map());
 
   const { user } = useAuth();
   const studentId = (user && typeof user.id === 'string') ? user.id : 'demo_student_01';
   const studentName = (user && typeof (user as any).name === 'string') ? (user as any).name : 'Current Student';
   const cOS = useCareerOS();
 
-  const { completedQuests, onboardingAnswers, addXp, earnPins, setOnboarding } = cOS;
+  const { completedQuests, onboardingAnswers, addXp, earnPins, saveCareerProjects } = cOS;
 
   const educationStr = String(user?.education || (onboardingAnswers as any)?.education || 'B.Tech in Computer Science');
   const degree = educationStr.split(' at ')[0] || 'B.Tech';
 
-  const activeCourseId = onboardingAnswers?.activeCourseId || COURSES_REGISTRY[0].id;
-  const activeCourse = COURSES_REGISTRY.find(c => c.id === activeCourseId) || COURSES_REGISTRY[0];
-  const totalQuestsCount = activeCourse.quests?.length || 30;
+  const activeCourseId = onboardingAnswers?.activeCourseId || COURSES_CATALOG[0].id;
+  const activeCourse = COURSES_CATALOG.find(c => c.id === activeCourseId) || COURSES_CATALOG[0];
+
+  // PR-08 FIX: Dynamic course quest length derived from catalog duration (or minimum 10) instead of hardcoded 30.
+  const totalQuestsCount = (activeCourse as any)?.totalQuests || (activeCourse?.durationWeeks ? activeCourse.durationWeeks * 3 : 15);
   const completedCount = completedQuests ? completedQuests.length : 0;
   const progressPercent = Math.min(100, Math.round((completedCount / Math.max(totalQuestsCount, 1)) * 100));
 
-  const [bypassGate, setBypassGate] = useState<boolean>(false);
-  const [bypassMentor, setBypassMentor] = useState<boolean>(false);
-  const [bypassRecruiter, setBypassRecruiter] = useState<boolean>(false);
-
   useEffect(() => {
-    const list = TeamsApiService.getSquads();
+    const list = TeamsApiService.getSquads(studentId);
     setSquads(list);
-    if (list.length > 0 && !selectedSquadId) {
-      setSelectedSquadId(list[0].id);
-    }
-  }, [selectedSquadId]);
+
+    // PR-07 FIX: Asynchronously sync squads from cloud so squads are restored across devices
+    TeamsApiService.syncRemoteSquads(studentId).then(remoteList => {
+      if (remoteList && remoteList.length > 0) {
+        setSquads(remoteList);
+      }
+    }).catch(() => {});
+
+    const unsubscribe = TeamsApiService.subscribeToSquadUpdates(() => {
+      setSquads(TeamsApiService.getSquads(studentId));
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, [studentId]);
+
+  // Load saved milestone checkmarks from localStorage
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      const raw = localStorage.getItem(`pinit_proj_milestones_${user?.id || 'anon'}`);
+      if (raw) setCompletedMilestones(JSON.parse(raw));
+    } catch {}
+  }, [user?.id]);
+
+  const toggleMilestone = (projectId: string, stepIdx: number) => {
+    setCompletedMilestones(prev => {
+      const current = prev[projectId] || [];
+      const updated = current.includes(stepIdx)
+        ? current.filter(i => i !== stepIdx)
+        : [...current, stepIdx];
+      const next = { ...prev, [projectId]: updated };
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.setItem(`pinit_proj_milestones_${user?.id || 'anon'}`, JSON.stringify(next));
+        } catch {}
+      }
+      return next;
+    });
+  };
 
   const activeSquad = squads.find(s => s.id === selectedSquadId) || squads[0];
 
   const handleCreateSquad = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newSquadName.trim() || !newRepoUrl.trim()) return;
+    if (!newSquadName.trim()) {
+      toast.error('Squad Name Required', 'Please enter a name for your hackathon squad.');
+      return;
+    }
+    if (!newRepoUrl.trim()) {
+      toast.error('Repository URL Required', 'Please provide a valid GitHub repository URL for your squad.');
+      return;
+    }
+
+    // PR-09 FIX: Validate repository URL before allowing squad creation
+    const check = parseAndValidateGithubUrl(newRepoUrl.trim());
+    if (!check.valid) {
+      toast.error('Invalid Repository URL', check.error || 'Please enter a valid GitHub repository URL.');
+      return;
+    }
 
     const created = TeamsApiService.createSquad({
-      name: newSquadName,
+      name: newSquadName.trim(),
       hackathonTitle: newHackathonTitle,
       teamLeadStudentId: studentId,
       teamLeadName: studentName,
       teamLeadRole: newRole,
-      repoUrl: newRepoUrl,
+      repoUrl: newRepoUrl.trim(),
+      avatarUrl: (user as any)?.avatar_url || (user as any)?.avatarUrl || undefined,
     });
 
-    setSquads(TeamsApiService.getSquads());
+    setSquads(TeamsApiService.getSquads(studentId));
     setSelectedSquadId(created.id);
     setShowCreateModal(false);
     setNewSquadName('');
+    setNewRepoUrl('');
     toast.success('Squad Created! 🚀', `Formed ${created.name}`);
   };
 
@@ -95,15 +152,16 @@ function ProjectsPageContent() {
       studentId,
       name: studentName,
       role,
+      avatarUrl: (user as any)?.avatar_url || (user as any)?.avatarUrl || undefined,
     });
-    setSquads(TeamsApiService.getSquads());
+    setSquads(TeamsApiService.getSquads(studentId));
     toast.success('Joined Squad! 👥', `Role: ${role.replace('_', ' ')}`);
   };
 
   const handleToggleMilestone = (milestoneId: string) => {
     if (!activeSquad) return;
-    TeamsApiService.toggleMilestone(activeSquad.id, milestoneId);
-    setSquads(TeamsApiService.getSquads());
+    TeamsApiService.toggleMilestone(activeSquad.id, milestoneId, studentId);
+    setSquads(TeamsApiService.getSquads(studentId));
   };
 
   const handleSubmitTeamProject = async () => {
@@ -113,8 +171,9 @@ function ProjectsPageContent() {
       await TeamsApiService.submitTeamProject({
         squadId: activeSquad.id,
         liveUrl: submittingLiveUrl,
+        studentId,
       });
-      setSquads(TeamsApiService.getSquads());
+      setSquads(TeamsApiService.getSquads(studentId));
       toast.success('Submitted to Jury! 🏆', 'Project evidence sealed for evaluation.');
     } catch (e: any) {
       console.error(e);
@@ -124,33 +183,6 @@ function ProjectsPageContent() {
     }
   };
 
-  // Hydrate bypass flags from localStorage after mount (avoids SSR mismatch)
-  useEffect(() => {
-    if (typeof window !== 'undefined' && user?.id) {
-      setBypassGate(localStorage.getItem(`pinit_${user.id}_bypass_gate`) === 'true');
-      setBypassMentor(localStorage.getItem(`pinit_${user.id}_bypass_mentor`) === 'true');
-      setBypassRecruiter(localStorage.getItem(`pinit_${user.id}_bypass_recruiter`) === 'true');
-    }
-  }, [user?.id]);
-
-  const toggleBypassGate = (val: boolean) => {
-    setBypassGate(val);
-    if (typeof window !== 'undefined' && user?.id) {
-      localStorage.setItem(`pinit_${user.id}_bypass_gate`, String(val));
-    }
-  };
-  const toggleBypassMentor = (val: boolean) => {
-    setBypassMentor(val);
-    if (typeof window !== 'undefined' && user?.id) {
-      localStorage.setItem(`pinit_${user.id}_bypass_mentor`, String(val));
-    }
-  };
-  const toggleBypassRecruiter = (val: boolean) => {
-    setBypassRecruiter(val);
-    if (typeof window !== 'undefined' && user?.id) {
-      localStorage.setItem(`pinit_${user.id}_bypass_recruiter`, String(val));
-    }
-  };
   const [generating, setGenerating] = useState<boolean>(false);
   const [selectedGoal, setSelectedGoal] = useState<string>(onboardingAnswers?.role || 'AI Engineer');
   const [projects, setProjects] = useState<Project[]>([]);
@@ -173,7 +205,8 @@ function ProjectsPageContent() {
   // Certificate Modal View
   const [activeCertificate, setActiveCertificate] = useState<Project | null>(null);
 
-  const isUnlocked = progressPercent >= 90 || bypassGate;
+  // PR-08 FIX: Unlock at 25% course progress OR 3 completed quests OR if user is admin/teacher OR if candidate already has active projects
+  const isUnlocked = progressPercent >= 25 || completedCount >= 3 || user?.role === 'admin' || user?.role === 'teacher' || projects.length > 0;
 
   useEffect(() => {
     if (onboardingAnswers?.projects && onboardingAnswers.projects.length > 0) {
@@ -185,216 +218,437 @@ function ProjectsPageContent() {
       if (cached) {
         try {
           const parsed = JSON.parse(cached);
-          if (Array.isArray(parsed)) {
+          if (Array.isArray(parsed) && parsed.length > 0) {
             setProjects(parsed);
             const active = parsed.find((p: Project) => p.status === 'In Progress' || p.status === 'Completed');
             if (active) setSelectedGuideProject(active);
+            // Reconcile and persist to Supabase if DB didn't have it yet
+            saveCareerProjects(parsed);
           }
         } catch {
           // Ignore corrupt localStorage cache
         }
       }
     }
-  }, [user?.id, onboardingAnswers?.projects]);
+  }, [user?.id, onboardingAnswers?.projects, saveCareerProjects]);
 
   const saveProjects = (updated: Project[]) => {
     setProjects(updated);
-    if (typeof window !== 'undefined' && user?.id) {
-      localStorage.setItem(`pinit_${user.id}_career_projects`, JSON.stringify(updated));
-    }
-    // Sync to Supabase via onboardingAnswers projects property
-    setOnboarding({
-      ...onboardingAnswers,
-      projects: updated
-    });
+    saveCareerProjects(updated);
   };
 
-  const handleGenerate = () => {
+  const handleGenerate = async () => {
     setGenerating(true);
-    setTimeout(() => {
+    try {
       const goal = selectedGoal;
       let generated: Project[] = [];
 
-      if (goal.includes('AI') || goal.toLowerCase().includes('data')) {
-        generated = [
-          {
-            id: 'proj-1',
-            name: 'AI Resume Analyzer',
-            level: 'Beginner',
-            description: 'Extract skills and match keywords against JDs to compute real-time ATS grades.',
-            techStack: 'Python, PyPDF2, TF-IDF, Regex',
-            problem: 'Simple text parsing often misses SDE skills and miscalculates ATS matching logic.',
-            deliverable: 'Parse uploaded PDF resume files, scan against input job descriptions, and output score metrics.',
-            xpReward: 250,
-            status: 'Not Started'
+      // Extract skills from onboarding answers or student profile
+      const rawSkills = onboardingAnswers?.skills;
+      const skillsList = typeof rawSkills === 'string'
+        ? rawSkills.split(',').map(s => s.trim()).filter(Boolean)
+        : Array.isArray(rawSkills) ? (rawSkills as string[]) : [];
+
+      let authHeader: Record<string, string> = {};
+      try {
+        const { supabase } = await import('@/lib/supabaseClient');
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session?.access_token) {
+          authHeader = { Authorization: `Bearer ${session.access_token}` };
+        }
+      } catch { /* ignore auth session extraction */ }
+
+      try {
+        const res = await fetch('/api/projects/generate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...authHeader
           },
-          {
-            id: 'proj-2',
-            name: 'RAG Knowledge-Base Chatbot',
-            level: 'Intermediate',
-            description: 'Vector-embedded PDF querying interface using LangChain and vector indexes.',
-            techStack: 'React, LangChain, Pinecone, OpenAI API',
-            problem: 'Standard AI models hallucinate when answering questions from proprietary PDF manuals.',
-            deliverable: 'Complete web chatbot interface executing similarity search on semantic chunks.',
-            xpReward: 500,
-            status: 'Not Started'
-          },
-          {
-            id: 'proj-3',
-            name: 'Multi-Agent Code Reviewer Coordinator',
-            level: 'Advanced',
-            description: 'Decentralized AI agent loop simulating technical architect and QA developer debating code quality.',
-            techStack: 'CrewAI, Python, FastAPI, Gradio',
-            problem: 'Single-prompt code reviews fail to enforce complex linting and design pattern guidelines.',
-            deliverable: 'Autonomous agent coordinator console returning detailed architectural reports.',
-            xpReward: 750,
-            status: 'Not Started'
-          },
-          {
-            id: 'proj-4',
-            name: 'Neural Network Ops Dashboard',
-            level: 'Enterprise',
-            description: 'High-throughput system monitoring tensor weights and GPU performance metrics during model fine-tuning.',
-            techStack: 'PyTorch, Prometheus, Grafana, Docker',
-            problem: 'Unmonitored long-running training loops freeze or crash without warning due to vanishing gradients.',
-            deliverable: 'Dashboard rendering real-time validation curves and resource saturation stats.',
-            xpReward: 1000,
-            status: 'Not Started'
-          },
-          {
-            id: 'proj-5',
-            name: 'Zero-Knowledge Homomorphic Inference Engine',
-            level: 'Future-Tech',
-            description: 'Cryptographic inference proxy evaluating regression models directly on encrypted customer inputs.',
-            techStack: 'TenSEAL, Rust, WebAssembly',
-            problem: 'Cloud-hosted AI models expose sensitive patient/financial inputs during standard decryption steps.',
-            deliverable: 'WASM-compiled library performing dot product additions on encrypted arrays.',
-            xpReward: 1500,
-            status: 'Not Started'
+          body: JSON.stringify({
+            goal,
+            skills: skillsList,
+            education: degree,
+            experienceLevel: (onboardingAnswers as any)?.experience || (onboardingAnswers as any)?.codingExperience || 'Undergraduate',
+          })
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data.projects) && data.projects.length > 0) {
+            generated = data.projects;
           }
-        ];
-      } else if (goal.includes('Cyber') || goal.toLowerCase().includes('security')) {
-        generated = [
-          {
-            id: 'proj-1',
-            name: 'Argon2 Authentication Portal',
-            level: 'Beginner',
-            description: 'Highly secure user registry hashing credentials with salt/pepper algorithms and rate limits.',
-            techStack: 'Node.js, Express, Argon2, Redis',
-            problem: 'Brute-force credential stuffing easily compromises default bcrypt hashes.',
-            deliverable: 'Authentication API rate-limiting brute force attempts and enforcing complex password salts.',
-            xpReward: 250,
-            status: 'Not Started'
-          },
-          {
-            id: 'proj-2',
-            name: 'JWT Identity Provider Server',
-            level: 'Intermediate',
-            description: 'Custom authentication provider issuing asymmetric key-signed rotation tokens.',
-            techStack: 'Jose, TypeScript, PostgreSQL',
-            problem: 'Symmetric JWT key leaks compromise authorization across whole microservice fleets.',
-            deliverable: 'Token issuance service supporting key rotation and real-time blacklists.',
-            xpReward: 500,
-            status: 'Not Started'
-          },
-          {
-            id: 'proj-3',
-            name: 'Zero-Trust Reputational Gateway',
-            level: 'Advanced',
-            description: 'Reverse proxy filtering requests by scanning caller IP address and authorization headers.',
-            techStack: 'Nginx, Lua, Redis, Scapy',
-            problem: 'WAF rules fail to identify credentialed threat actors executing low-and-slow port scans.',
-            deliverable: 'API Gateway returning active blocks for clients displaying bad reputations.',
-            xpReward: 750,
-            status: 'Not Started'
-          },
-          {
-            id: 'proj-4',
-            name: 'Real-time Intrusion System (IDS)',
-            level: 'Enterprise',
-            description: 'Network packet inspector mapping flow patterns to alert administrators of anomalous traffic.',
-            techStack: 'Go, Scapy, ClickHouse',
-            problem: 'Standard firewalls ignore malicious activity once inside the private network boundary.',
-            deliverable: 'Dashboard tracking active flows, anomalies, and triggering alerts.',
-            xpReward: 1000,
-            status: 'Not Started'
-          },
-          {
-            id: 'proj-5',
-            name: 'Homomorphic Cryptographic Vault',
-            level: 'Future-Tech',
-            description: 'Secured database vault running searches on encrypted fields without decrypting the data.',
-            techStack: 'Rust, Concrete-ML, WebAssembly',
-            problem: 'Decrypting databases to run search queries exposes client data to server administrators.',
-            deliverable: 'WASM microservice performing arithmetic searches on encrypted numbers.',
-            xpReward: 1500,
-            status: 'Not Started'
-          }
-        ];
-      } else {
-        generated = [
-          {
-            id: 'proj-1',
-            name: 'Payment Webhook Broker',
-            level: 'Beginner',
-            description: 'REST API validating webhook signatures and updating checkout database states.',
-            techStack: 'Go, PostgreSQL, Stripe CLI',
-            problem: 'Fake webhook requests can trick databases into approving orders without payment.',
-            deliverable: 'API verifying cryptographic signatures and writing transaction logs.',
-            xpReward: 250,
-            status: 'Not Started'
-          },
-          {
-            id: 'proj-2',
-            name: 'Concurrency-Locked Inventory',
-            level: 'Intermediate',
-            description: 'Inventory management system database with pessimistic locking to prevent race conditions.',
-            techStack: 'Go, Redis, PostgreSQL',
-            problem: 'High-concurrency traffic causes double-purchasing and incorrect stock numbers.',
-            deliverable: 'Inventory service with transactional locking and validation.',
-            xpReward: 500,
-            status: 'Not Started'
-          },
-          {
-            id: 'proj-3',
-            name: 'Event-Driven Microservices ERP',
-            level: 'Advanced',
-            description: 'Logistics microservices coordinating via RabbitMQ event buses with backpressure.',
-            techStack: 'Spring Boot, RabbitMQ, Docker',
-            problem: 'Synchronous REST calls create latency cascades when backend modules fail.',
-            deliverable: 'Docker-compose fleet of event-driven messaging microservices.',
-            xpReward: 750,
-            status: 'Not Started'
-          },
-          {
-            id: 'proj-4',
-            name: 'CQRS Ledger Analytics Pipeline',
-            level: 'Enterprise',
-            description: 'Pipeline splitting ledger commands from query views using Kafka and Elasticsearch.',
-            techStack: 'Kafka, Go, Elasticsearch',
-            problem: 'Running analytics queries on active transactional databases locks rows and slows checkouts.',
-            deliverable: 'Kafka pipeline replicating data to query databases.',
-            xpReward: 1000,
-            status: 'Not Started'
-          },
-          {
-            id: 'proj-5',
-            name: 'Edge CDN Cache Router',
-            level: 'Future-Tech',
-            description: 'Edge middleware proxy routing user sessions to the nearest database replica.',
-            techStack: 'Cloudflare Workers, Rust, WASM',
-            problem: 'Global users experience lag when fetching sessions from single centralized databases.',
-            deliverable: 'Rust-WASM middleware script running routing calculations at the edge.',
-            xpReward: 1500,
-            status: 'Not Started'
-          }
-        ];
+        }
+      } catch (err) {
+        console.warn('[Projects] Backend generation request failed, using client fallback:', err);
       }
 
-      const enriched = generated.map(p => {
-        const guides = getGuideStepsForProject(p.name, goal);
+      if (generated.length === 0) {
+        if (goal.includes('AI') || goal.toLowerCase().includes('data')) {
+          generated = [
+            {
+              id: 'proj-1',
+              name: 'AI Resume Analyzer',
+              level: 'Beginner',
+              description: 'Extract skills and match keywords against JDs to compute real-time ATS grades.',
+              techStack: 'Python, PyPDF2, TF-IDF, Regex',
+              problem: 'Simple text parsing often misses SDE skills and miscalculates ATS matching logic.',
+              deliverable: 'Parse uploaded PDF resume files, scan against input job descriptions, and output score metrics.',
+              xpReward: 250,
+              status: 'Not Started'
+            },
+            {
+              id: 'proj-2',
+              name: 'RAG Knowledge-Base Chatbot',
+              level: 'Intermediate',
+              description: 'Vector-embedded PDF querying interface using LangChain and vector indexes.',
+              techStack: 'React, LangChain, Pinecone, OpenAI API',
+              problem: 'Standard AI models hallucinate when answering questions from proprietary PDF manuals.',
+              deliverable: 'Complete web chatbot interface executing similarity search on semantic chunks.',
+              xpReward: 500,
+              status: 'Not Started'
+            },
+            {
+              id: 'proj-3',
+              name: 'Multi-Agent Code Reviewer Coordinator',
+              level: 'Advanced',
+              description: 'Decentralized AI agent loop simulating technical architect and QA developer debating code quality.',
+              techStack: 'CrewAI, Python, FastAPI, Gradio',
+              problem: 'Single-prompt code reviews fail to enforce complex linting and design pattern guidelines.',
+              deliverable: 'Autonomous agent coordinator console returning detailed architectural reports.',
+              xpReward: 750,
+              status: 'Not Started'
+            },
+            {
+              id: 'proj-4',
+              name: 'Neural Network Ops Dashboard',
+              level: 'Enterprise',
+              description: 'High-throughput system monitoring tensor weights and GPU performance metrics during model fine-tuning.',
+              techStack: 'PyTorch, Prometheus, Grafana, Docker',
+              problem: 'Unmonitored long-running training loops freeze or crash without warning due to vanishing gradients.',
+              deliverable: 'Dashboard rendering real-time validation curves and resource saturation stats.',
+              xpReward: 1000,
+              status: 'Not Started'
+            },
+            {
+              id: 'proj-5',
+              name: 'Zero-Knowledge Homomorphic Inference Engine',
+              level: 'Future-Tech',
+              description: 'Cryptographic inference proxy evaluating regression models directly on encrypted customer inputs.',
+              techStack: 'TenSEAL, Rust, WebAssembly',
+              problem: 'Cloud-hosted AI models expose sensitive patient/financial inputs during standard decryption steps.',
+              deliverable: 'WASM-compiled library performing dot product additions on encrypted arrays.',
+              xpReward: 1500,
+              status: 'Not Started'
+            }
+          ];
+        } else if (goal.includes('Cyber') || goal.toLowerCase().includes('security')) {
+          generated = [
+            {
+              id: 'proj-1',
+              name: 'Argon2 Authentication Portal',
+              level: 'Beginner',
+              description: 'Highly secure user registry hashing credentials with salt/pepper algorithms and rate limits.',
+              techStack: 'Node.js, Express, Argon2, Redis',
+              problem: 'Brute-force credential stuffing easily compromises default bcrypt hashes.',
+              deliverable: 'Authentication API rate-limiting brute force attempts and enforcing complex password salts.',
+              xpReward: 250,
+              status: 'Not Started'
+            },
+            {
+              id: 'proj-2',
+              name: 'JWT Identity Provider Server',
+              level: 'Intermediate',
+              description: 'Custom authentication provider issuing asymmetric key-signed rotation tokens.',
+              techStack: 'Jose, TypeScript, PostgreSQL',
+              problem: 'Symmetric JWT key leaks compromise authorization across whole microservice fleets.',
+              deliverable: 'Token issuance service supporting key rotation and real-time blacklists.',
+              xpReward: 500,
+              status: 'Not Started'
+            },
+            {
+              id: 'proj-3',
+              name: 'Zero-Trust Reputational Gateway',
+              level: 'Advanced',
+              description: 'Reverse proxy filtering requests by scanning caller IP address and authorization headers.',
+              techStack: 'Nginx, Lua, Redis, Scapy',
+              problem: 'WAF rules fail to identify credentialed threat actors executing low-and-slow port scans.',
+              deliverable: 'API Gateway returning active blocks for clients displaying bad reputations.',
+              xpReward: 750,
+              status: 'Not Started'
+            },
+            {
+              id: 'proj-4',
+              name: 'Real-time Intrusion System (IDS)',
+              level: 'Enterprise',
+              description: 'Network packet inspector mapping flow patterns to alert administrators of anomalous traffic.',
+              techStack: 'Go, Scapy, ClickHouse',
+              problem: 'Standard firewalls ignore malicious activity once inside the private network boundary.',
+              deliverable: 'Dashboard tracking active flows, anomalies, and triggering alerts.',
+              xpReward: 1000,
+              status: 'Not Started'
+            },
+            {
+              id: 'proj-5',
+              name: 'Homomorphic Cryptographic Vault',
+              level: 'Future-Tech',
+              description: 'Secured database vault running searches on encrypted fields without decrypting the data.',
+              techStack: 'Rust, Concrete-ML, WebAssembly',
+              problem: 'Decrypting databases to run search queries exposes client data to server administrators.',
+              deliverable: 'WASM microservice performing arithmetic searches on encrypted numbers.',
+              xpReward: 1500,
+              status: 'Not Started'
+            }
+          ];
+        } else if (goal.includes('Frontend') || goal.toLowerCase().includes('react') || goal.toLowerCase().includes('web') || goal.toLowerCase().includes('ui')) {
+          generated = [
+            {
+              id: 'proj-1',
+              name: 'Design System & Component Kit',
+              level: 'Beginner',
+              description: 'Accessible, themeable UI design system with documentation, ARIA controls, and Storybook.',
+              techStack: 'React, TypeScript, Tailwind CSS, Storybook',
+              problem: 'Inconsistent component styling across product teams leads to accessibility regressions.',
+              deliverable: 'Publishable NPM component library featuring theme tokens and WCAG compliance.',
+              xpReward: 250,
+              status: 'Not Started'
+            },
+            {
+              id: 'proj-2',
+              name: 'Collaborative Multi-User Whiteboard',
+              level: 'Intermediate',
+              description: 'Real-time multi-cursor spatial canvas with stroke smoothing and presence indicators.',
+              techStack: 'Next.js, Canvas API, WebSockets, Zustand',
+              problem: 'Multiplayer diagramming apps suffer from state conflicts and desynchronized canvas layers.',
+              deliverable: 'Interactive multiplayer whiteboard with real-time room synchronization.',
+              xpReward: 500,
+              status: 'Not Started'
+            },
+            {
+              id: 'proj-3',
+              name: 'Enterprise FinTech SaaS Dashboard',
+              level: 'Advanced',
+              description: 'High-density financial charting platform with virtualized tables and real-time tickers.',
+              techStack: 'Next.js, TanStack Table, Recharts, Server Components',
+              problem: 'Rendering tens of thousands of stock order records causes UI frame drops and input lag.',
+              deliverable: 'Virtualized data grid streaming price updates without frame rate degradation.',
+              xpReward: 750,
+              status: 'Not Started'
+            },
+            {
+              id: 'proj-4',
+              name: 'Micro-Frontend Modular Portal',
+              level: 'Enterprise',
+              description: 'Decoupled web shell loading independent child apps dynamically at runtime via Module Federation.',
+              techStack: 'Webpack 5, Module Federation, React 18, Docker',
+              problem: 'Monolithic web apps slow down large engineering teams due to coupled deployment pipelines.',
+              deliverable: 'Micro-frontend shell coordinating isolated remote applications.',
+              xpReward: 1000,
+              status: 'Not Started'
+            },
+            {
+              id: 'proj-5',
+              name: 'WebAssembly Client Video Studio',
+              level: 'Future-Tech',
+              description: 'In-browser video trimmer, filter applicator, and audio visualizer running purely client-side.',
+              techStack: 'React, WebAssembly, FFmpeg-wasm, Web Workers',
+              problem: 'Server-side video transcoding incurs immense cloud compute costs for simple clips.',
+              deliverable: 'Client-side studio rendering video edits locally via WebAssembly.',
+              xpReward: 1500,
+              status: 'Not Started'
+            }
+          ];
+        } else if (goal.includes('DevOps') || goal.toLowerCase().includes('cloud') || goal.toLowerCase().includes('sre')) {
+          generated = [
+            {
+              id: 'proj-1',
+              name: 'Multi-Stage Docker CI/CD Pipeline',
+              level: 'Beginner',
+              description: 'Automated GitHub Actions workflow building optimized container images with vulnerability scanning.',
+              techStack: 'Docker, GitHub Actions, Trivy, Bash',
+              problem: 'Unoptimized bloated images slow deployments and introduce unpatched CVE vulnerabilities.',
+              deliverable: 'Hardened multi-stage Docker build pipeline reporting automated security scans.',
+              xpReward: 250,
+              status: 'Not Started'
+            },
+            {
+              id: 'proj-2',
+              name: 'Kubernetes Multi-Tier Cluster with Helm',
+              level: 'Intermediate',
+              description: 'Declarative cluster deployment configuring Ingress-NGINX, cert-manager TLS, and horizontal autoscaling.',
+              techStack: 'Kubernetes, Helm, NGINX Ingress, Cert-Manager',
+              problem: 'Manual container management fails to handle unexpected traffic spikes and SSL renewals.',
+              deliverable: 'Parameterized Helm charts deploying self-healing clusters with autoscalers.',
+              xpReward: 500,
+              status: 'Not Started'
+            },
+            {
+              id: 'proj-3',
+              name: 'Infrastructure-as-Code Cloud Foundation',
+              level: 'Advanced',
+              description: 'Modular Terraform templates provisioning VPC networks, RDS failover databases, and IAM policies.',
+              techStack: 'Terraform, AWS, LocalStack, GitHub Actions',
+              problem: 'ClickOps infrastructure creation produces configuration drift and unrepeatable environments.',
+              deliverable: 'Automated Terraform pipeline enforcing security policies and state locking.',
+              xpReward: 750,
+              status: 'Not Started'
+            },
+            {
+              id: 'proj-4',
+              name: 'Observability & APM Telemetry Mesh',
+              level: 'Enterprise',
+              description: 'Distributed tracing and metrics collection pipeline monitoring service latencies and error budgets.',
+              techStack: 'Prometheus, Grafana, OpenTelemetry, Jaeger',
+              problem: 'Debugging microservice errors is impossible without correlated logs, metrics, and traces.',
+              deliverable: 'Unified observability platform tracking SLA burn rates and distributed trace spans.',
+              xpReward: 1000,
+              status: 'Not Started'
+            },
+            {
+              id: 'proj-5',
+              name: 'GitOps Zero-Downtime Canary Deployer',
+              level: 'Future-Tech',
+              description: 'Automated progressive delivery controller routing traffic shifts based on live Prometheus error rates.',
+              techStack: 'ArgoCD, Flagger, Istio Service Mesh, Kubernetes',
+              problem: 'Big-bang software releases take down critical production APIs when silent bugs escape staging.',
+              deliverable: 'Automated canary release engine executing automated rollbacks on latency spikes.',
+              xpReward: 1500,
+              status: 'Not Started'
+            }
+          ];
+        } else if (goal.includes('Mobile') || goal.toLowerCase().includes('android') || goal.toLowerCase().includes('flutter') || goal.toLowerCase().includes('ios')) {
+          generated = [
+            {
+              id: 'proj-1',
+              name: 'Offline-First Expense Tracker',
+              level: 'Beginner',
+              description: 'Local-first financial budget manager caching transactions locally with background cloud synchronization.',
+              techStack: 'React Native, SQLite, MMKV, TypeScript',
+              problem: 'Mobile apps that depend on continuous internet fail when commuters enter low-signal transit areas.',
+              deliverable: 'Instantaneous local CRUD interface syncing to remote storage on reconnect.',
+              xpReward: 250,
+              status: 'Not Started'
+            },
+            {
+              id: 'proj-2',
+              name: 'Live GPS Fleet & Courier Tracker',
+              level: 'Intermediate',
+              description: 'Real-time location stream mapping delivery couriers with path interpolation and geofence alerts.',
+              techStack: 'Flutter / React Native, Mapbox, WebSockets, Background Geolocation',
+              problem: 'Continuous GPS polling drains mobile battery rapidly if position updates are not throttled.',
+              deliverable: 'Battery-optimized courier navigation app with real-time driver breadcrumbs.',
+              xpReward: 500,
+              status: 'Not Started'
+            },
+            {
+              id: 'proj-3',
+              name: 'End-to-End Encrypted Secure Chat',
+              level: 'Advanced',
+              description: 'Privacy-focused messaging app implementing cryptographic key exchange and ephemeral self-destructing texts.',
+              techStack: 'React Native, Libsodium, WebSockets, Secure Storage',
+              problem: 'Standard chat platforms store plaintext message payloads susceptible to server leaks.',
+              deliverable: 'Zero-knowledge chat application guaranteeing end-to-end payload encryption.',
+              xpReward: 750,
+              status: 'Not Started'
+            },
+            {
+              id: 'proj-4',
+              name: 'Bluetooth Low-Energy Telemetry Monitor',
+              level: 'Enterprise',
+              description: 'Hardware communication client pairing with BLE peripheral sensors to plot real-time biometrics.',
+              techStack: 'Flutter, BLE Protocol, SQLite, Background Services',
+              problem: 'BLE packet drops during background execution cause gaps in critical continuous telemetry.',
+              deliverable: 'Resilient Bluetooth client handling background reconnections and packet parsing.',
+              xpReward: 1000,
+              status: 'Not Started'
+            },
+            {
+              id: 'proj-5',
+              name: 'On-Device Computer Vision Scanner',
+              level: 'Future-Tech',
+              description: 'Real-time edge neural inference app classifying documents and identifying barcodes with zero cloud latency.',
+              techStack: 'React Native, TensorFlow Lite, CameraX, WebAssembly',
+              problem: 'Sending camera video frames to cloud vision APIs violates user privacy and creates lag.',
+              deliverable: 'Real-time 60fps edge inference mobile scanner running purely on device NPU.',
+              xpReward: 1500,
+              status: 'Not Started'
+            }
+          ];
+        } else {
+          generated = [
+            {
+              id: 'proj-1',
+              name: 'Payment Webhook Broker',
+              level: 'Beginner',
+              description: 'REST API validating webhook signatures and updating checkout database states.',
+              techStack: 'Go, PostgreSQL, Stripe CLI',
+              problem: 'Fake webhook requests can trick databases into approving orders without payment.',
+              deliverable: 'API verifying cryptographic signatures and writing transaction logs.',
+              xpReward: 250,
+              status: 'Not Started'
+            },
+            {
+              id: 'proj-2',
+              name: 'Concurrency-Locked Inventory',
+              level: 'Intermediate',
+              description: 'Inventory management system database with pessimistic locking to prevent race conditions.',
+              techStack: 'Go, Redis, PostgreSQL',
+              problem: 'High-concurrency traffic causes double-purchasing and incorrect stock numbers.',
+              deliverable: 'Inventory service with transactional locking and validation.',
+              xpReward: 500,
+              status: 'Not Started'
+            },
+            {
+              id: 'proj-3',
+              name: 'Event-Driven Microservices ERP',
+              level: 'Advanced',
+              description: 'Logistics microservices coordinating via RabbitMQ event buses with backpressure.',
+              techStack: 'Spring Boot, RabbitMQ, Docker',
+              problem: 'Synchronous REST calls create latency cascades when backend modules fail.',
+              deliverable: 'Docker-compose fleet of event-driven messaging microservices.',
+              xpReward: 750,
+              status: 'Not Started'
+            },
+            {
+              id: 'proj-4',
+              name: 'CQRS Ledger Analytics Pipeline',
+              level: 'Enterprise',
+              description: 'Pipeline splitting ledger commands from query views using Kafka and Elasticsearch.',
+              techStack: 'Kafka, Go, Elasticsearch',
+              problem: 'Running analytics queries on active transactional databases locks rows and slows checkouts.',
+              deliverable: 'Kafka pipeline replicating data to query databases.',
+              xpReward: 1000,
+              status: 'Not Started'
+            },
+            {
+              id: 'proj-5',
+              name: 'Edge CDN Cache Router',
+              level: 'Future-Tech',
+              description: 'Edge middleware proxy routing user sessions to the nearest database replica.',
+              techStack: 'Cloudflare Workers, Rust, WASM',
+              problem: 'Global users experience lag when fetching sessions from single centralized databases.',
+              deliverable: 'Rust-WASM middleware script running routing calculations at the edge.',
+              xpReward: 1500,
+              status: 'Not Started'
+            }
+          ];
+        }
+      }
+
+      const goalKey = goal.toLowerCase().replace(/[^a-z0-9]/g, '_');
+      const enriched = generated.map((p, idx) => {
+        const guides = p.guideSteps && p.guideSteps.length > 0
+          ? { steps: p.guideSteps, tips: p.tips || [], reqs: p.verificationReqs || [], minScore: p.minScore || 80 }
+          : getGuideStepsForProject(p.name, goal);
+        
+        // PR-01 FIX: Stable unique IDs so regenerating tracks doesn't collide with generic proj-1..5
+        const stableId = p.id && !p.id.match(/^proj-[1-5]$/)
+          ? p.id
+          : `proj_${goalKey}_${(p.level || 'lvl').toLowerCase()}_${idx + 1}`;
+
         return {
           ...p,
+          id: stableId,
           guideSteps: guides.steps,
           tips: guides.tips,
           verificationReqs: guides.reqs,
@@ -402,11 +656,27 @@ function ProjectsPageContent() {
         };
       });
 
-      saveProjects(enriched);
-      setSelectedGuideProject(enriched[0]);
+      // PR-01 FIX: Preserve in-progress or completed projects across regeneration
+      const preservedProjects = projects.filter(
+        existing => existing.status === 'In Progress' || existing.status === 'Completed'
+      );
+      
+      const merged = enriched.map(newProj => {
+        const existingMatch = preservedProjects.find(
+          ex => ex.id === newProj.id || (ex.level === newProj.level && ex.status !== 'Not Started')
+        );
+        return existingMatch || newProj;
+      });
+
+      saveProjects(merged);
+      setSelectedGuideProject(merged[0]);
+      toast.success('Projects Generated! ⚡', `Loaded 5 customized capstone tracks for: ${goal}`);
+    } catch (err: any) {
+      console.error('[Projects] handleGenerate failed:', err);
+      toast.error('Generation Failed', 'Could not generate project tracks.');
+    } finally {
       setGenerating(false);
-      toast.success('Projects Generated! ⚡', `Created 5 customized projects for degree: ${degree} & goal: ${goal}`);
-    }, 1800);
+    }
   };
 
   const handleStart = (id: string) => {
@@ -425,83 +695,6 @@ function ProjectsPageContent() {
     toast.success('Project Workspace Unlocked! 🚀', 'Guide Book and Submission portals are now active.');
   };
 
-  const handleBypassVerify = () => {
-    if (!githubUrl.trim()) {
-      setGithubUrl('https://github.com/bypass/demo-repo');
-    }
-    setVerifying(false);
-    setShowReport(true);
-    toast.success('Dev Mode: Bypassed Verification checklist checks! ✅');
-  };
-
-  const handleBypassViva = () => {
-    if (selectedGuideProject && user?.id) {
-      const score = 91;
-      const certId = `PIN-${Math.floor(10 + Math.random() * 90)}PJ-${Math.random().toString(36).substr(2, 4).toUpperCase()}-${Math.random().toString(36).substr(2, 5).toUpperCase()}`;
-      const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'short', year: 'numeric' };
-      const dateStr = new Date().toLocaleDateString('en-GB', options);
-
-      const updated = projects.map(p => {
-        if (p.id === selectedGuideProject.id) {
-          return {
-            ...p,
-            status: 'Completed' as const,
-            githubLink: githubUrl || 'https://github.com/bypass/demo-repo',
-            demoLink: liveDemoUrl || undefined,
-            verificationScore: score,
-            vivaPassed: true,
-            certificateType: 'excellence' as const,
-            certificateId: certId,
-            issueDate: dateStr
-          };
-        }
-        return p;
-      });
-      saveProjects(updated);
-      const updatedProj = updated.find(p => p.id === selectedGuideProject.id);
-      if (updatedProj) setSelectedGuideProject(updatedProj);
-      
-      addXp(1200, `Bypassed Viva for Project: ${selectedGuideProject.name}`);
-      earnPins('vault_verify', 25, `Bypassed Viva for Project: ${selectedGuideProject.name}`);
-
-      // Record in authoritative pathway evidence engine
-      const competencyMap: Record<string, string> = {
-        'Beginner': 'comp_comp_arch_git',
-        'Intermediate': 'comp_db_sql_postgres',
-        'Advanced': 'comp_fullstack_react_node',
-        'Enterprise': 'comp_cloud_docker_k8s',
-        'Future-Tech': 'comp_distributed_systems',
-      };
-      const compId = competencyMap[selectedGuideProject.level] || 'comp_fullstack_react_node';
-      PathwayApiService.recordEvidence({
-        id: `ev_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
-        studentId: user.id,
-        competencyId: compId,
-        competencyVersion: 'v1',
-        programId: 'prog_swe_accelerated_9m',
-        evidenceClass: 'production',
-        difficulty: 'advanced',
-        evidenceFamilyId: 'project_submission',
-        sourceType: 'project',
-        sourceId: selectedGuideProject.id,
-        attemptId: certId,
-        score,
-        evaluatorType: 'deterministic',
-        evaluatorVersion: 'v1.0',
-        rubricVersion: 'v1.0',
-        timestamp: Date.now(),
-        artifacts: {
-          githubRepoUrl: githubUrl,
-          repoUrl: githubUrl,
-          commitSha: auditReport?.proofRecord?.evidenceHash?.substring(0, 12) || 'd8a1f49e0b',
-        }
-      }).catch((err: unknown) => console.warn('Failed to record project pathway evidence:', err));
-      
-      setShowReport(false);
-      toast.success('Dev Mode: Bypassed Viva with Excellence Certificate! 🏆');
-    }
-  };
-
   const handleVerifyProject = async () => {
     if (!githubUrl.trim()) {
       toast.error('Verification Error', 'GitHub repository URL is required.');
@@ -514,53 +707,82 @@ function ProjectsPageContent() {
       return;
     }
 
+    const cacheKey = githubUrl.trim().toLowerCase();
+    const cachedEntry = verificationCacheRef.current.get(cacheKey);
+    // PR-UX-02 FIX: Instant verification replay from cache if audited within 10 minutes
+    if (cachedEntry && Date.now() - cachedEntry.timestamp < 10 * 60 * 1000) {
+      toast.info('Loaded Cached Analysis ⚡', 'Using fresh verified repository audit from current session.');
+      setAuditReport(cachedEntry.report);
+      setShowReport(true);
+      return;
+    }
+
     setVerifying(true);
     setVerificationStep(0);
     setShowReport(false);
     setAuditReport(null);
 
-    const stepInterval = setInterval(() => {
-      setVerificationStep(prev => (prev < 4 ? prev + 1 : prev));
-    }, 400);
-
     try {
+      let authHeader: Record<string, string> = {};
+      try {
+        const { supabase } = await import('@/lib/supabaseClient');
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session?.access_token) {
+          authHeader = { Authorization: `Bearer ${session.access_token}` };
+        }
+      } catch (authErr) {
+        console.warn('[Project Verification] Could not get session token:', authErr);
+      }
+
+      // PR-05 FIX: Real network ingestion call — zero fake setTimeout chains
       const res = await fetch('/api/github/ingest', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { ...authHeader, 'Content-Type': 'application/json' },
         body: JSON.stringify({ repoUrl: githubUrl.trim() })
       });
 
       const data = await res.json();
-      clearInterval(stepInterval);
-      setVerificationStep(5);
 
-      if (data?.report) {
-        setAuditReport(data.report);
-        setTimeout(() => {
-          setVerifying(false);
-          setShowReport(true);
-          const score = data.report.overallEvidenceScore || 88;
-          toast.success(
-            'Repository Ingestion Complete! ✅',
-            `Status: ${data.report.status} | Evidence Score: ${score}% (${data.report.projectComplexityTier})`
-          );
-        }, 400);
-      } else {
+      if (!res.ok || !data?.report) {
         throw new Error(data?.error || 'Ingestion failed');
       }
-    } catch (err: any) {
-      clearInterval(stepInterval);
+
+      // Save to session cache
+      verificationCacheRef.current.set(cacheKey, { report: data.report, timestamp: Date.now() });
+
+      // Advance directly to completion upon receipt of real validated report
+      setVerificationStep(5);
+      setAuditReport(data.report);
       setVerifying(false);
+      setShowReport(true);
+      const score = data.report.overallEvidenceScore ?? 0;
+      toast.success(
+        'Repository Ingestion Complete! ✅',
+        `Status: ${data.report.status} | Evidence Score: ${score}% (${data.report.projectComplexityTier})`
+      );
+    } catch (err: any) {
+      setVerifying(false);
+      setVerificationStep(0);
       toast.error('Verification Halted', err?.message || 'Failed to analyze repository');
     }
   };
 
   const handleIssueStandardCertificate = () => {
     if (selectedGuideProject && user?.id) {
-      const score = auditReport?.overallEvidenceScore || 88;
-      const certId = auditReport?.proofRecord?.evidenceHash || `PIN-${Math.floor(10 + Math.random() * 90)}PJ-${Math.random().toString(36).substr(2, 4).toUpperCase()}-${Math.random().toString(36).substr(2, 5).toUpperCase()}`;
+      // PR-02 FIX: Require actual verification before certificate issuance — do NOT issue with fake score 88
+      if (!auditReport || typeof auditReport.overallEvidenceScore !== 'number') {
+        toast.error('Verification Required', 'You must verify your repository before an official certificate can be issued.');
+        return;
+      }
+      const score = auditReport.overallEvidenceScore;
+
+      // PR-04 FIX: Cryptographically collision-safe Certificate ID
+      const randHex = typeof crypto !== 'undefined' && crypto.randomUUID
+        ? crypto.randomUUID().replace(/-/g, '').substring(0, 8).toUpperCase()
+        : `${Date.now().toString(36).toUpperCase()}`;
       const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'short', year: 'numeric' };
       const dateStr = new Date().toLocaleDateString('en-GB', options);
+      const certId = auditReport.proofRecord?.evidenceHash || `PIN-${dateStr.replace(/[^A-Za-z0-9]/g, '')}-${randHex}`;
 
       const updated = projects.map(p => {
         if (p.id === selectedGuideProject.id) {
@@ -595,7 +817,7 @@ function ProjectsPageContent() {
       };
       const compId = competencyMap[selectedGuideProject.level] || 'comp_fullstack_react_node';
       PathwayApiService.recordEvidence({
-        id: `ev_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+        id: `ev_${Date.now()}_${randHex.toLowerCase()}`,
         studentId: user.id,
         competencyId: compId,
         competencyVersion: 'v1',
@@ -625,7 +847,7 @@ function ProjectsPageContent() {
 
   const handleChangeProject = (id: string, level: string) => {
     const goal = selectedGoal;
-    const pool = SWAP_POOLS[goal]?.[level];
+    const pool = SWAP_POOLS[goal]?.[level] || SWAP_POOLS['Backend Engineer']?.[level] || SWAP_POOLS['AI Engineer']?.[level];
     if (!pool) {
       toast.error('Change Project Failed', 'No alternative templates available.');
       return;
@@ -704,54 +926,6 @@ function ProjectsPageContent() {
           </p>
         </div>
         
-        <div style={{ display: 'flex', gap: 8 }}>
-          <button
-            onClick={() => toggleBypassGate(!bypassGate)}
-            style={{
-              padding: '6px 12px', borderRadius: 8, fontSize: 11, fontWeight: 800,
-              background: bypassGate ? 'rgba(16,185,129,0.08)' : 'rgba(239,68,68,0.08)',
-              color: bypassGate ? 'var(--success)' : 'var(--danger)',
-              border: `1px solid ${bypassGate ? 'rgba(16,185,129,0.2)' : 'rgba(239,68,68,0.2)'}`,
-              cursor: 'pointer'
-            }}
-          >
-            ⚙️ Bypass Gate: {bypassGate ? 'ON' : 'OFF'}
-          </button>
-          
-          <button
-            onClick={() => {
-              const nextVal = !bypassMentor;
-              toggleBypassMentor(nextVal);
-              toast.success(`Mentor Verify Bypass: ${nextVal ? 'ENABLED 👨‍🏫' : 'DISABLED'}`);
-            }}
-            style={{
-              padding: '6px 12px', borderRadius: 8, fontSize: 11, fontWeight: 800,
-              background: bypassMentor ? 'rgba(16,185,129,0.08)' : 'rgba(255,255,255,0.03)',
-              color: bypassMentor ? 'var(--success)' : 'var(--t3)',
-              border: `1px solid ${bypassMentor ? 'rgba(16,185,129,0.2)' : 'var(--border)'}`,
-              cursor: 'pointer'
-            }}
-          >
-            👨‍🏫 Mentor Bypass: {bypassMentor ? 'ON' : 'OFF'}
-          </button>
-
-          <button
-            onClick={() => {
-              const nextVal = !bypassRecruiter;
-              toggleBypassRecruiter(nextVal);
-              toast.success(`Recruiter Endorsement Bypass: ${nextVal ? 'ENABLED 💼' : 'DISABLED'}`);
-            }}
-            style={{
-              padding: '6px 12px', borderRadius: 8, fontSize: 11, fontWeight: 800,
-              background: bypassRecruiter ? 'rgba(16,185,129,0.08)' : 'rgba(255,255,255,0.03)',
-              color: bypassRecruiter ? 'var(--success)' : 'var(--t3)',
-              border: `1px solid ${bypassRecruiter ? 'rgba(16,185,129,0.2)' : 'var(--border)'}`,
-              cursor: 'pointer'
-            }}
-          >
-            💼 Recruiter Bypass: {bypassRecruiter ? 'ON' : 'OFF'}
-          </button>
-        </div>
       </div>
 
       {/* Mode Selector Tabs */}
@@ -774,9 +948,9 @@ function ProjectsPageContent() {
             borderRadius: 10,
             border: mainTab === 'solo' ? '1.5px solid var(--accent)' : '1px solid transparent',
             background: mainTab === 'solo'
-              ? 'linear-gradient(135deg, rgba(99,102,241,0.22), rgba(168,85,247,0.15))'
+              ? 'linear-gradient(135deg, rgba(var(--brand-rgb),0.22), rgba(var(--reward-rgb),0.15))'
               : 'transparent',
-            color: mainTab === 'solo' ? '#fff' : 'var(--t2)',
+            color: mainTab === 'solo' ? 'var(--text)' : 'var(--t2)',
             fontFamily: 'var(--font-display)',
             fontWeight: 800,
             fontSize: 13,
@@ -799,11 +973,11 @@ function ProjectsPageContent() {
             minWidth: 200,
             padding: '10px 16px',
             borderRadius: 10,
-            border: mainTab === 'squads' ? '1.5px solid #a855f7' : '1px solid transparent',
+            border: mainTab === 'squads' ? '1.5px solid var(--reward)' : '1px solid transparent',
             background: mainTab === 'squads'
-              ? 'linear-gradient(135deg, rgba(168,85,247,0.22), rgba(147,51,234,0.15))'
+              ? 'linear-gradient(135deg, rgba(var(--reward-rgb),0.22), rgba(var(--reward-rgb),0.15))'
               : 'transparent',
-            color: mainTab === 'squads' ? '#fff' : 'var(--t2)',
+            color: mainTab === 'squads' ? 'var(--text)' : 'var(--t2)',
             fontFamily: 'var(--font-display)',
             fontWeight: 800,
             fontSize: 13,
@@ -833,7 +1007,7 @@ function ProjectsPageContent() {
               <div style={{ fontSize: 64, marginBottom: 20 }}>🔒</div>
               <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--t1)', marginBottom: 8 }}>Projects Workspace Locked</h2>
           <p style={{ fontSize: 14, color: 'var(--t3)', lineHeight: 1.6, marginBottom: 24 }}>
-            To ensure foundational skills are solid before building, the Projects tab unlocks after completing **90%** of your active course quests.
+            To ensure foundational skills are solid before building, the Projects tab unlocks after completing **25%** of your active course quests (or completing 3 quests).
           </p>
 
           <div style={{ maxWidth: 400, margin: '0 auto 30px' }}>
@@ -883,9 +1057,16 @@ function ProjectsPageContent() {
                   className="form-input"
                   style={{ width: '100%', fontSize: 12, padding: '6px 8px', marginTop: 4 }}
                 >
+                  {selectedGoal && !['AI Engineer', 'Backend Engineer', 'Cybersecurity Engineer', 'Full Stack Developer', 'Frontend Developer', 'Cloud & DevOps Engineer', 'Data Scientist / ML Engineer'].includes(selectedGoal) && (
+                    <option value={selectedGoal}>{selectedGoal}</option>
+                  )}
                   <option value="AI Engineer">AI Engineer</option>
+                  <option value="Full Stack Developer">Full Stack Developer</option>
+                  <option value="Frontend Developer">Frontend Developer</option>
                   <option value="Backend Engineer">Backend Engineer</option>
                   <option value="Cybersecurity Engineer">Cybersecurity Engineer</option>
+                  <option value="Cloud & DevOps Engineer">Cloud & DevOps Engineer</option>
+                  <option value="Data Scientist / ML Engineer">Data Scientist / ML Engineer</option>
                 </select>
               </div>
             </div>
@@ -923,7 +1104,7 @@ function ProjectsPageContent() {
                         background: 'var(--card)', border: `1px solid ${isActiveGuide ? 'var(--accent)' : 'var(--border)'}`,
                         borderLeft: `4px solid ${borderColors[p.level]}`, borderRadius: 14, padding: 16,
                         cursor: 'pointer', display: 'flex', flexDirection: 'column', gap: 8,
-                        boxShadow: isActiveGuide ? '0 0 10px rgba(99,102,241,0.08)' : 'none',
+                        boxShadow: isActiveGuide ? '0 0 10px rgba(var(--brand-rgb),0.08)' : 'none',
                         transition: 'border 0.2s, box-shadow 0.2s'
                       }}
                     >
@@ -933,7 +1114,7 @@ function ProjectsPageContent() {
                             {p.level === 'Beginner' ? 'P1' : p.level === 'Intermediate' ? 'P2' : p.level === 'Advanced' ? 'P3 ⚡' : p.level === 'Enterprise' ? 'P4' : 'P5'} · {p.level.toUpperCase()}
                           </span>
                           {p.level === 'Advanced' && (
-                            <span style={{ fontSize: 8.5, fontFamily: 'var(--font-mono)', background: 'rgba(239, 68, 68, 0.15)', color: '#ef4444', padding: '1px 5px', borderRadius: 4, fontWeight: 800 }}>
+                            <span style={{ fontSize: 8.5, fontFamily: 'var(--font-mono)', background: 'rgba(var(--danger-rgb), 0.15)', color: 'var(--danger)', padding: '1px 5px', borderRadius: 4, fontWeight: 800 }}>
                               INTERVIEW GATE
                             </span>
                           )}
@@ -1056,28 +1237,75 @@ function ProjectsPageContent() {
                         </>
                       )}
 
-                      {/* Guide Book Tab */}
+                      {/* Guide Book Tab (PR-UX-01: Interactive Milestone Checklist) */}
                       {activeWorkspaceTab === 'guide' && (
                         <>
-                          <div>
-                            <strong style={{ fontSize: 12, color: 'var(--t2)', display: 'block', marginBottom: 6 }}>🛠️ Step-by-Step Implementation Guide:</strong>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                              {(selectedGuideProject.guideSteps || []).map((step, idx) => (
-                                <div key={idx} style={{ display: 'flex', gap: 10, alignItems: 'start' }}>
-                                  <span style={{
-                                    width: 18, height: 18, borderRadius: '50%', background: 'var(--accent-light)',
-                                    color: 'var(--accent)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                                    fontSize: 10, fontWeight: 900, flexShrink: 0, marginTop: 1
-                                  }}>
-                                    {idx + 1}
+                          {/* Interactive Milestone Progress Bar */}
+                          {selectedGuideProject.guideSteps && selectedGuideProject.guideSteps.length > 0 && (() => {
+                            const steps = selectedGuideProject.guideSteps;
+                            const doneIndices = completedMilestones[selectedGuideProject.id] || [];
+                            const percent = Math.round((doneIndices.length / steps.length) * 100);
+                            return (
+                              <div style={{ background: 'var(--bg3)', borderRadius: 12, padding: '12px 16px', border: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: 6 }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                  <span style={{ fontSize: 11.5, fontWeight: 900, color: 'var(--t1)' }}>
+                                    📊 Milestone Progress: {doneIndices.length} of {steps.length} Steps Completed
                                   </span>
-                                  <span style={{ fontSize: 12, color: 'var(--t2)', lineHeight: 1.4 }}>{step}</span>
+                                  <span style={{ fontSize: 11, fontWeight: 800, color: percent === 100 ? 'var(--green-mid)' : 'var(--accent)' }}>
+                                    {percent}%
+                                  </span>
                                 </div>
-                              ))}
+                                <div style={{ height: 6, background: 'var(--bg2)', borderRadius: 3, overflow: 'hidden', border: '1px solid var(--border)' }}>
+                                  <div style={{ height: '100%', width: `${percent}%`, background: percent === 100 ? 'var(--green)' : 'linear-gradient(90deg, var(--accent), var(--purple))', transition: 'width 0.4s ease' }} />
+                                </div>
+                                {percent === 100 && (
+                                  <span style={{ fontSize: 10.5, color: 'var(--green-mid)', fontWeight: 800 }}>
+                                    🎉 All implementation milestones completed! Ready for GitHub repository verification.
+                                  </span>
+                                )}
+                              </div>
+                            );
+                          })()}
+
+                          <div>
+                            <strong style={{ fontSize: 12, color: 'var(--t2)', display: 'block', marginBottom: 6 }}>🛠️ Step-by-Step Implementation Guide & Interactive Milestones:</strong>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                              {(selectedGuideProject.guideSteps || []).map((step, idx) => {
+                                const isDone = (completedMilestones[selectedGuideProject.id] || []).includes(idx);
+                                return (
+                                  <div
+                                    key={idx}
+                                    onClick={() => toggleMilestone(selectedGuideProject.id, idx)}
+                                    style={{
+                                      display: 'flex', gap: 10, alignItems: 'center',
+                                      padding: '8px 12px', borderRadius: 8, cursor: 'pointer',
+                                      background: isDone ? 'rgba(var(--success-rgb), 0.08)' : 'var(--bg3)',
+                                      border: `1px solid ${isDone ? 'rgba(var(--success-rgb), 0.4)' : 'var(--border)'}`,
+                                      transition: 'all 0.15s ease'
+                                    }}
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      checked={isDone}
+                                      onChange={() => {}}
+                                      style={{ cursor: 'pointer', accentColor: 'var(--green)', width: 15, height: 15 }}
+                                    />
+                                    <span style={{
+                                      fontSize: 12,
+                                      color: isDone ? 'var(--t1)' : 'var(--t2)',
+                                      lineHeight: 1.4,
+                                      textDecoration: isDone ? 'line-through' : 'none',
+                                      fontWeight: isDone ? 700 : 500
+                                    }}>
+                                      {step}
+                                    </span>
+                                  </div>
+                                );
+                              })}
                             </div>
                           </div>
                           {selectedGuideProject.tips && (
-                            <div style={{ padding: 12, background: 'rgba(99,102,241,0.02)', border: '1px solid rgba(99,102,241,0.1)', borderRadius: 10 }}>
+                            <div style={{ padding: 12, background: 'rgba(var(--brand-rgb),0.02)', border: '1px solid rgba(var(--brand-rgb),0.1)', borderRadius: 10 }}>
                               <strong style={{ fontSize: 11.5, color: 'var(--accent)', display: 'block', marginBottom: 4 }}>💡 Developer Tips & Gotchas:</strong>
                               <ul style={{ margin: 0, paddingLeft: 16, fontSize: 11.5, color: 'var(--t3)', display: 'flex', flexDirection: 'column', gap: 4 }}>
                                 {selectedGuideProject.tips.map((t, idx) => <li key={idx}>{t}</li>)}
@@ -1158,7 +1386,7 @@ function ProjectsPageContent() {
                               onClick={() => setZipFileSelected(prev => !prev)}
                               style={{
                                 padding: '4px 10px', fontSize: 10, borderRadius: 6, cursor: 'pointer',
-                                background: zipFileSelected ? 'rgba(16,185,129,0.08)' : 'rgba(255,255,255,0.05)',
+                                background: zipFileSelected ? 'rgba(var(--success-rgb),0.08)' : 'rgba(255,255,255,0.05)',
                                 color: zipFileSelected ? 'var(--success)' : 'var(--t2)',
                                 border: '1px solid var(--border)'
                               }}
@@ -1167,7 +1395,7 @@ function ProjectsPageContent() {
                             </button>
                           </div>
 
-                          <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 11, color: 'var(--success)', background: 'rgba(16,185,129,0.04)', padding: 8, borderRadius: 6 }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 11, color: 'var(--success)', background: 'rgba(var(--success-rgb),0.04)', padding: 8, borderRadius: 6 }}>
                             <span>✓</span>
                             <span>Auto-detected: <strong>README.md</strong> file exists in repository root directory.</span>
                           </div>
@@ -1177,16 +1405,9 @@ function ProjectsPageContent() {
                               onClick={handleVerifyProject}
                               disabled={verifying}
                               className="btn-primary"
-                              style={{ flex: 1.5, padding: '12px 0', fontSize: 13, fontWeight: 800, justifyContent: 'center' }}
+                              style={{ width: '100%', padding: '12px 0', fontSize: 13, fontWeight: 800, justifyContent: 'center' }}
                             >
                               {verifying ? '🤖 Connecting to Verification Pipeline...' : 'Submit and Verify Project'}
-                            </button>
-                            <button
-                              onClick={handleBypassVerify}
-                              className="btn-ghost"
-                              style={{ flex: 1, padding: '12px 0', fontSize: 11, fontWeight: 800, color: 'var(--amber)', border: '1px dashed var(--amber)', justifyContent: 'center' }}
-                            >
-                              ⚡ Dev Bypass Verification
                             </button>
                           </div>
                         </div>
@@ -1245,18 +1466,47 @@ function ProjectsPageContent() {
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {[
-                'Checking Repository...',
-                'Checking Project Structure...',
-                'Checking Features...',
-                'Checking Documentation...',
-                'Generating Report...'
+                'Ingesting & Parsing Repository Tree...',
+                'Checking Manifests & Project Structure...',
+                'Analyzing Tests & Architecture Depth...',
+                'Evaluating DevOps & CI/CD Pipelines...',
+                'Synthesizing Verified Evidence Report...'
               ].map((step, idx) => {
                 const isPassed = verificationStep > idx;
                 const isActive = verificationStep === idx;
                 return (
-                  <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, color: isPassed ? 'var(--success)' : isActive ? 'var(--t1)' : 'var(--t4)' }}>
+                  <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12.5, color: isPassed ? 'var(--success)' : isActive ? 'var(--t1)' : 'var(--t4)' }}>
                     <span>{step}</span>
-                    <span>{isPassed ? '✅' : isActive ? '⚡' : '⏳'}</span>
+                    <span>
+                      {isPassed ? (
+                        <span style={{ color: 'var(--success)' }}>✅</span>
+                      ) : isActive ? (
+                        <span style={{ display: 'inline-flex', alignItems: 'center', color: 'var(--accent)' }}>
+                          <svg
+                            style={{ animation: 'spin 1s linear infinite', width: 14, height: 14 }}
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <circle
+                              style={{ opacity: 0.25 }}
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              strokeWidth="4"
+                            />
+                            <path
+                              style={{ opacity: 0.85 }}
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                            />
+                          </svg>
+                        </span>
+                      ) : (
+                        <span style={{ color: 'var(--t4)' }}>⏳</span>
+                      )}
+                    </span>
                   </div>
                 );
               })}
@@ -1275,7 +1525,7 @@ function ProjectsPageContent() {
             <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: 10 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <h3 style={{ margin: 0, fontSize: 16, fontWeight: 900, color: 'var(--t1)' }}>🤖 AI Repository Evidence Report</h3>
-                <span style={{ fontSize: 10.5, fontWeight: 800, padding: '2px 8px', borderRadius: 4, background: 'rgba(59,130,246,0.1)', color: 'var(--accent)' }}>
+                <span style={{ fontSize: 10.5, fontWeight: 800, padding: '2px 8px', borderRadius: 4, background: 'rgba(var(--info-rgb),0.1)', color: 'var(--accent)' }}>
                   {auditReport?.projectComplexityTier || 'Advanced'}
                 </span>
               </div>
@@ -1301,11 +1551,11 @@ function ProjectsPageContent() {
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, paddingTop: 6 }}>
                 <strong>Evidence-Backed Score</strong>
-                <strong style={{ color: 'var(--accent)', fontSize: 16 }}>{auditReport?.overallEvidenceScore || 88}%</strong>
+                <strong style={{ color: 'var(--accent)', fontSize: 16 }}>{auditReport?.overallEvidenceScore ?? 0}%</strong>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5, color: 'var(--success)', background: 'rgba(16,185,129,0.06)', padding: 8, borderRadius: 6, marginTop: 4 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5, color: 'var(--success)', background: 'rgba(var(--success-rgb),0.06)', padding: 8, borderRadius: 6, marginTop: 4 }}>
                 <span>Evidence Hash:</span>
-                <strong style={{ fontFamily: 'monospace' }}>{auditReport?.proofRecord?.evidenceHash || 'PIN-GH-A1B2-C3D4'}</strong>
+                <strong style={{ fontFamily: 'monospace' }}>{auditReport?.proofRecord?.evidenceHash || 'PIN-GH-PENDING'}</strong>
               </div>
               {auditReport?.detectedSkills && auditReport.detectedSkills.length > 0 && (
                 <div style={{ fontSize: 11, color: 'var(--t3)', display: 'flex', gap: 4, flexWrap: 'wrap', marginTop: 2 }}>
@@ -1327,7 +1577,7 @@ function ProjectsPageContent() {
               </p>
               <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
                 <a
-                  href={`/interview?mode=project_viva&project=${encodeURIComponent(selectedGuideProject.name)}&projectId=${selectedGuideProject.id}&course=${encodeURIComponent(activeCourse.title)}&repo=${encodeURIComponent(githubUrl)}&score=${auditReport?.overallEvidenceScore || 88}`}
+                  href={`/interview?mode=project_viva&project=${encodeURIComponent(selectedGuideProject.name)}&projectId=${selectedGuideProject.id}&course=${encodeURIComponent(activeCourse.title)}&repo=${encodeURIComponent(githubUrl)}&score=${auditReport?.overallEvidenceScore ?? 0}`}
                   className="btn-primary"
                   style={{ textDecoration: 'none', fontSize: 11, padding: '6px 12px' }}
                 >
@@ -1339,13 +1589,6 @@ function ProjectsPageContent() {
                   style={{ border: '1px solid var(--border)', fontSize: 11, padding: '6px 12px' }}
                 >
                   Skip & Issue Standard
-                </button>
-                <button
-                  onClick={handleBypassViva}
-                  className="btn-ghost"
-                  style={{ fontSize: 11, padding: '6px 12px', color: 'var(--amber)', border: '1px dashed var(--amber)' }}
-                >
-                  🏆 Dev Bypass Viva
                 </button>
               </div>
             </div>
@@ -1362,8 +1605,8 @@ function ProjectsPageContent() {
         }}>
           <div style={{
             position: 'relative', width: '100%', maxWidth: 840, background: '#060B19',
-            border: '8px solid #0d162f', borderRadius: 18, color: '#fff', overflow: 'hidden',
-            boxShadow: '0 24px 60px rgba(0,0,0,0.8), 0 0 40px rgba(129,140,248,0.1)'
+            border: '8px solid #0d162f', borderRadius: 18, color: 'var(--text)', overflow: 'hidden',
+            boxShadow: '0 24px 60px rgba(0,0,0,0.8), 0 0 40px rgba(var(--brand-rgb),0.1)'
           }}>
             
             {/* Close Button */}
@@ -1372,7 +1615,7 @@ function ProjectsPageContent() {
               style={{
                 position: 'absolute', top: 20, right: 20, zIndex: 100,
                 background: 'rgba(255,255,255,0.06)', border: 'none', borderRadius: '50%',
-                width: 32, height: 32, cursor: 'pointer', color: '#fff', fontSize: 16
+                width: 32, height: 32, cursor: 'pointer', color: 'var(--text)', fontSize: 16
               }}
             >
               ✕
@@ -1398,12 +1641,12 @@ function ProjectsPageContent() {
               }}>
                 <div>
                   <span style={{ fontSize: 9, color: '#8e701d', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 800 }}>Date</span>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: '#fff', marginTop: 4 }}>{activeCertificate.issueDate || '18 May 2025'}</div>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--text)', marginTop: 4 }}>{activeCertificate.issueDate || '18 May 2025'}</div>
                 </div>
                 
                 <div>
                   <span style={{ fontSize: 9, color: '#8e701d', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 800 }}>Project Level</span>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: '#fff', marginTop: 4 }}>{activeCertificate.level}</div>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--text)', marginTop: 4 }}>{activeCertificate.level}</div>
                 </div>
 
                 <div>
@@ -1429,20 +1672,20 @@ function ProjectsPageContent() {
                 
                 {/* Logo */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-                  <span style={{ fontSize: 20, color: '#3b82f6' }}>⬡</span>
-                  <strong style={{ fontSize: 13, letterSpacing: 1.5, color: '#fff', fontFamily: 'var(--font-mono)' }}>
-                    PinIT <span style={{ color: '#94a3b8', fontSize: 10, fontWeight: 400 }}>AI CAREER OS</span>
+                  <span style={{ fontSize: 20, color: 'var(--info)' }}>⬡</span>
+                  <strong style={{ fontSize: 13, letterSpacing: 1.5, color: 'var(--text)', fontFamily: 'var(--font-mono)' }}>
+                    PinIT <span style={{ color: 'var(--text-muted)', fontSize: 10, fontWeight: 400 }}>AI CAREER OS</span>
                   </strong>
                 </div>
 
-                <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 30, fontWeight: 900, color: '#fff', letterSpacing: '2px', margin: '10px 0 2px 0', textTransform: 'uppercase' }}>
+                <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 30, fontWeight: 900, color: 'var(--text)', letterSpacing: '2px', margin: '10px 0 2px 0', textTransform: 'uppercase' }}>
                   Certificate
                 </h2>
                 <div style={{ fontSize: 10, color: '#8e701d', letterSpacing: 3, textTransform: 'uppercase', marginBottom: 16 }}>
                   of Project Achievement
                 </div>
 
-                <div style={{ fontSize: 10.5, color: '#94a3b8', fontStyle: 'italic', marginBottom: 4, letterSpacing: '0.5px' }}>
+                <div style={{ fontSize: 10.5, color: 'var(--text-muted)', fontStyle: 'italic', marginBottom: 4, letterSpacing: '0.5px' }}>
                   PROUDLY PRESENTED TO
                 </div>
 
@@ -1453,7 +1696,7 @@ function ProjectsPageContent() {
                   {user?.displayName || (onboardingAnswers as any)?.displayName || 'Arjun Sharma'}
                 </h1>
 
-                <p style={{ fontSize: 11, color: '#94a3b8', margin: '0 0 12px 0' }}>
+                <p style={{ fontSize: 11, color: 'var(--text-muted)', margin: '0 0 12px 0' }}>
                   for successfully completing and getting
                 </p>
 
@@ -1466,21 +1709,21 @@ function ProjectsPageContent() {
                   <span style={{ color: '#D4AF37', fontSize: 14 }}>🌿</span>
                 </div>
 
-                <div style={{ fontSize: 11, color: '#94a3b8', margin: '0 0 10px 0' }}>
+                <div style={{ fontSize: 11, color: 'var(--text-muted)', margin: '0 0 10px 0' }}>
                   for the project
                 </div>
 
                 {/* Project Details Box with Brain icon */}
                 <div style={{
                   background: 'linear-gradient(90deg, #091128, #0e1b38)', border: '1px solid #8e701d', borderRadius: 8,
-                  padding: '8px 24px', fontSize: 13, fontWeight: 700, color: '#fff', display: 'flex', alignItems: 'center', gap: 10,
+                  padding: '8px 24px', fontSize: 13, fontWeight: 700, color: 'var(--text)', display: 'flex', alignItems: 'center', gap: 10,
                   boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.5)', marginBottom: 20
                 }}>
                   <span style={{ fontSize: 14 }}>🧠</span>
                   <span>{activeCertificate.name}</span>
                 </div>
 
-                <div style={{ fontSize: 10, color: '#94a3b8', display: 'flex', alignItems: 'center', gap: 6, marginBottom: 20 }}>
+                <div style={{ fontSize: 10, color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: 6, marginBottom: 20 }}>
                   <span>🚀</span>
                   <span>Real Project. Verified by AI. Built for Your Future.</span>
                 </div>
@@ -1488,36 +1731,102 @@ function ProjectsPageContent() {
                 {/* Footer Signing details */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 14, marginTop: 10 }}>
                   <div style={{ textAlign: 'left', fontSize: 9 }}>
-                    <div style={{ color: '#94a3b8', fontSize: 8 }}>SCAN TO VERIFY</div>
+                    <div style={{ color: 'var(--text-muted)', fontSize: 8 }}>SCAN TO VERIFY</div>
                     <div style={{ color: '#D4AF37', marginTop: 2, fontWeight: 700 }}>pinIt.in/verify</div>
                   </div>
                   
                   <div style={{ display: 'flex', gap: 24 }}>
                     <div style={{ textAlign: 'center', width: 130 }}>
-                      <div style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic', fontSize: 13, color: '#fff' }}>Rohit Sharma</div>
+                      <div style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic', fontSize: 13, color: 'var(--text)' }}>Rohit Sharma</div>
                       <div style={{ height: 1, background: '#8e701d', margin: '4px 0' }} />
-                      <div style={{ fontSize: 8, color: '#94a3b8', textTransform: 'uppercase', fontWeight: 700 }}>Rohit Sharma</div>
+                      <div style={{ fontSize: 8, color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700 }}>Rohit Sharma</div>
                       <div style={{ fontSize: 7, color: '#8e701d', textTransform: 'uppercase' }}>Co-founder & CTO</div>
                     </div>
 
-                    {(bypassMentor || activeCertificate.vivaPassed) && (
+                    {activeCertificate.vivaPassed && (
                       <div style={{ textAlign: 'center', width: 130 }}>
                         <div style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic', fontSize: 13, color: '#D4AF37' }}>Prof. Rajesh Kumar</div>
                         <div style={{ height: 1, background: '#8e701d', margin: '4px 0' }} />
-                        <div style={{ fontSize: 8, color: '#94a3b8', textTransform: 'uppercase', fontWeight: 700 }}>Mentor Co-signed</div>
+                        <div style={{ fontSize: 8, color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700 }}>Mentor Co-signed</div>
                         <div style={{ fontSize: 7, color: '#8e701d', textTransform: 'uppercase' }}>University Lead</div>
                       </div>
                     )}
                   </div>
 
                   <div style={{ textAlign: 'right', fontSize: 9 }}>
-                    <div style={{ color: '#94a3b8', fontSize: 8 }}>CERTIFICATE ID</div>
-                    <div style={{ color: '#94a3b8', marginTop: 2, fontFamily: 'var(--font-mono)' }}>{activeCertificate.certificateId || 'PIN-25PJ-7X2Q-09191'}</div>
+                    <div style={{ color: 'var(--text-muted)', fontSize: 8 }}>CERTIFICATE ID</div>
+                    <div style={{ color: 'var(--text-muted)', marginTop: 2, fontFamily: 'var(--font-mono)' }}>{activeCertificate.certificateId || 'PIN-25PJ-7X2Q-09191'}</div>
                   </div>
                 </div>
 
               </div>
 
+            </div>
+
+            {/* PR-UX-03 FIX: Certificate Verification Proof Link & Customization Controls */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 16, padding: '0 4px', width: '100%', maxWidth: 840 }}>
+              <button
+                onClick={() => {
+                  if (typeof window !== 'undefined') {
+                    const certId = activeCertificate.certificateId || 'PIN-VERIFIED';
+                    const verifyUrl = `${window.location.origin}/verify?certId=${encodeURIComponent(certId)}&score=${activeCertificate.verificationScore || 90}`;
+                    navigator.clipboard.writeText(verifyUrl).then(() => {
+                      toast.success('Verification Proof Copied! 📋', 'Public verification link copied to clipboard.');
+                    });
+                  }
+                }}
+                style={{
+                  background: 'rgba(212, 175, 55, 0.15)',
+                  border: '1.5px solid #D4AF37',
+                  borderRadius: 10,
+                  padding: '9px 18px',
+                  color: '#D4AF37',
+                  fontSize: 12,
+                  fontWeight: 800,
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6
+                }}
+              >
+                <span>🔗</span> Copy Public Verification Link
+              </button>
+
+              <div style={{ display: 'flex', gap: 10 }}>
+                <button
+                  onClick={() => {
+                    if (typeof window !== 'undefined') window.print();
+                  }}
+                  style={{
+                    background: 'linear-gradient(135deg, #D4AF37 0%, #aa7c11 100%)',
+                    border: 'none',
+                    borderRadius: 10,
+                    padding: '9px 20px',
+                    color: '#000',
+                    fontSize: 12,
+                    fontWeight: 900,
+                    cursor: 'pointer',
+                    boxShadow: '0 4px 14px rgba(212,175,55,0.4)'
+                  }}
+                >
+                  🖨️ Print / Save PDF
+                </button>
+                <button
+                  onClick={() => setActiveCertificate(null)}
+                  style={{
+                    background: 'rgba(255,255,255,0.1)',
+                    border: '1px solid rgba(255,255,255,0.2)',
+                    borderRadius: 10,
+                    padding: '9px 18px',
+                    color: 'var(--text)',
+                    fontSize: 12,
+                    fontWeight: 700,
+                    cursor: 'pointer'
+                  }}
+                >
+                  Close
+                </button>
+              </div>
             </div>
 
           </div>
@@ -1544,13 +1853,13 @@ function ProjectsPageContent() {
               style={{
                 padding: '10px 20px',
                 borderRadius: 10,
-                background: 'linear-gradient(135deg, #10b981, #059669)',
-                color: '#fff',
+                background: 'linear-gradient(135deg, var(--success), var(--success-deep))',
+                color: 'var(--text)',
                 fontSize: 13,
                 fontWeight: 800,
                 border: 'none',
                 cursor: 'pointer',
-                boxShadow: '0 4px 12px rgba(16,185,129,0.3)'
+                boxShadow: '0 4px 12px rgba(var(--success-rgb),0.3)'
               }}
             >
               + Form New Squad
@@ -1571,14 +1880,14 @@ function ProjectsPageContent() {
                     style={{
                       padding: 16,
                       borderRadius: 12,
-                      background: isSelected ? 'rgba(168, 85, 247, 0.12)' : 'var(--bg2)',
-                      border: isSelected ? '1.5px solid #a855f7' : '1px solid var(--border)',
+                      background: isSelected ? 'rgba(var(--reward-rgb), 0.12)' : 'var(--bg2)',
+                      border: isSelected ? '1.5px solid var(--reward)' : '1px solid var(--border)',
                       cursor: 'pointer',
                       transition: 'all 0.15s ease'
                     }}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                      <span style={{ fontSize: 14, fontWeight: 800, color: isSelected ? '#c084fc' : 'var(--t1)' }}>
+                      <span style={{ fontSize: 14, fontWeight: 800, color: isSelected ? 'var(--reward-bright)' : 'var(--t1)' }}>
                         {squad.name}
                       </span>
                       <span style={{
@@ -1587,8 +1896,8 @@ function ProjectsPageContent() {
                         padding: '2px 6px',
                         borderRadius: 4,
                         textTransform: 'uppercase',
-                        background: squad.status === 'verified' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(234, 179, 8, 0.15)',
-                        color: squad.status === 'verified' ? '#10b981' : '#eab308'
+                        background: squad.status === 'verified' ? 'rgba(var(--success-rgb), 0.15)' : 'rgba(var(--warning-rgb), 0.15)',
+                        color: squad.status === 'verified' ? 'var(--success)' : 'var(--warning)'
                       }}>
                         {squad.status}
                       </span>
@@ -1600,7 +1909,7 @@ function ProjectsPageContent() {
 
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 11 }}>
                       <span style={{ color: 'var(--t2)', fontWeight: 600 }}>👥 {squad.members.length} Members</span>
-                      {isMember && <span style={{ color: '#38bdf8', fontWeight: 800 }}>★ Your Squad</span>}
+                      {isMember && <span style={{ color: 'var(--info-bright)', fontWeight: 800 }}>★ Your Squad</span>}
                     </div>
                   </div>
                 );
@@ -1614,16 +1923,16 @@ function ProjectsPageContent() {
                 <div style={{ padding: 24, borderRadius: 16, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12 }}>
                     <div>
-                      <span style={{ fontSize: 11, fontWeight: 800, color: '#a855f7', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                      <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--reward)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                         {activeSquad.hackathonTitle}
                       </span>
                       <h2 style={{ margin: '4px 0 8px 0', fontSize: 22, fontWeight: 900, color: 'var(--t1)' }}>{activeSquad.name}</h2>
                       <div style={{ display: 'flex', gap: 14, alignItems: 'center', fontSize: 13 }}>
-                        <a href={activeSquad.repoUrl} target="_blank" rel="noreferrer" style={{ color: '#38bdf8', textDecoration: 'none', fontWeight: 700 }}>
+                        <a href={activeSquad.repoUrl} target="_blank" rel="noreferrer" style={{ color: 'var(--info-bright)', textDecoration: 'none', fontWeight: 700 }}>
                           🔗 GitHub Repo ↗
                         </a>
                         {activeSquad.liveUrl && (
-                          <a href={activeSquad.liveUrl} target="_blank" rel="noreferrer" style={{ color: '#10b981', textDecoration: 'none', fontWeight: 700 }}>
+                          <a href={activeSquad.liveUrl} target="_blank" rel="noreferrer" style={{ color: 'var(--success)', textDecoration: 'none', fontWeight: 700 }}>
                             🌐 Live Prototype ↗
                           </a>
                         )}
@@ -1632,7 +1941,7 @@ function ProjectsPageContent() {
 
                     <div style={{ textAlign: 'right' }}>
                       {activeSquad.status === 'verified' ? (
-                        <div style={{ padding: '8px 16px', borderRadius: 8, background: 'rgba(16, 185, 129, 0.15)', border: '1px solid rgba(16, 185, 129, 0.3)', color: '#10b981', fontWeight: 800, fontSize: 13 }}>
+                        <div style={{ padding: '8px 16px', borderRadius: 8, background: 'rgba(var(--success-rgb), 0.15)', border: '1px solid rgba(var(--success-rgb), 0.3)', color: 'var(--success)', fontWeight: 800, fontSize: 13 }}>
                           ✓ JURY VERIFIED ({activeSquad.finalScore}/100)
                         </div>
                       ) : (
@@ -1642,13 +1951,13 @@ function ProjectsPageContent() {
                           style={{
                             padding: '10px 20px',
                             borderRadius: 10,
-                            background: 'linear-gradient(135deg, #a855f7, #9333ea)',
+                            background: 'linear-gradient(135deg, var(--reward), var(--reward))',
                             border: 'none',
-                            color: '#fff',
+                            color: 'var(--text)',
                             fontSize: 13,
                             fontWeight: 800,
                             cursor: 'pointer',
-                            boxShadow: '0 4px 14px rgba(168,85,247,0.3)'
+                            boxShadow: '0 4px 14px rgba(var(--reward-rgb),0.3)'
                           }}
                         >
                           {isSubmittingProject ? 'Submitting to Jury...' : '🚀 Submit Project for Jury Evaluation'}
@@ -1658,8 +1967,8 @@ function ProjectsPageContent() {
                   </div>
 
                   {activeSquad.juryFeedback && (
-                    <div style={{ marginTop: 16, padding: 12, borderRadius: 8, background: 'rgba(16, 185, 129, 0.08)', border: '1px solid rgba(16, 185, 129, 0.2)', fontSize: 13, color: 'var(--t2)' }}>
-                      <strong style={{ color: '#10b981' }}>Jury Feedback:</strong> {activeSquad.juryFeedback}
+                    <div style={{ marginTop: 16, padding: 12, borderRadius: 8, background: 'rgba(var(--success-rgb), 0.08)', border: '1px solid rgba(var(--success-rgb), 0.2)', fontSize: 13, color: 'var(--t2)' }}>
+                      <strong style={{ color: 'var(--success)' }}>Jury Feedback:</strong> {activeSquad.juryFeedback}
                     </div>
                   )}
                 </div>
@@ -1677,7 +1986,7 @@ function ProjectsPageContent() {
                           <img src={member.avatarUrl} alt={member.name} style={{ width: 36, height: 36, borderRadius: 18 }} />
                           <div>
                             <div style={{ fontSize: 13.5, fontWeight: 800, color: 'var(--t1)' }}>{member.name}</div>
-                            <div style={{ fontSize: 10.5, color: '#c084fc', fontWeight: 700, textTransform: 'uppercase' }}>
+                            <div style={{ fontSize: 10.5, color: 'var(--reward-bright)', fontWeight: 700, textTransform: 'uppercase' }}>
                               {member.role.replace('_', ' ')}
                             </div>
                           </div>
@@ -1708,9 +2017,9 @@ function ProjectsPageContent() {
                           style={{
                             padding: '6px 12px',
                             borderRadius: 8,
-                            background: 'rgba(168, 85, 247, 0.12)',
-                            border: '1px solid rgba(168, 85, 247, 0.3)',
-                            color: '#c084fc',
+                            background: 'rgba(var(--reward-rgb), 0.12)',
+                            border: '1px solid rgba(var(--reward-rgb), 0.3)',
+                            color: 'var(--reward-bright)',
                             fontSize: 12,
                             fontWeight: 700,
                             cursor: 'pointer'
@@ -1740,15 +2049,15 @@ function ProjectsPageContent() {
                           justifyContent: 'space-between',
                           padding: 14,
                           borderRadius: 10,
-                          background: milestone.isCompleted ? 'rgba(16, 185, 129, 0.08)' : 'var(--bg3)',
-                          border: milestone.isCompleted ? '1px solid rgba(16, 185, 129, 0.25)' : '1px solid var(--border)',
+                          background: milestone.isCompleted ? 'rgba(var(--success-rgb), 0.08)' : 'var(--bg3)',
+                          border: milestone.isCompleted ? '1px solid rgba(var(--success-rgb), 0.25)' : '1px solid var(--border)',
                           cursor: 'pointer'
                         }}
                       >
                         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                           <span style={{ fontSize: 18 }}>{milestone.isCompleted ? '✅' : '⬜'}</span>
                           <div>
-                            <div style={{ fontSize: 13.5, fontWeight: 800, color: milestone.isCompleted ? '#10b981' : 'var(--t1)', textDecoration: milestone.isCompleted ? 'line-through' : 'none' }}>
+                            <div style={{ fontSize: 13.5, fontWeight: 800, color: milestone.isCompleted ? 'var(--success)' : 'var(--t1)', textDecoration: milestone.isCompleted ? 'line-through' : 'none' }}>
                               {milestone.title}
                             </div>
                             <div style={{ fontSize: 12, color: 'var(--t3)' }}>{milestone.description}</div>
@@ -1817,7 +2126,7 @@ function ProjectsPageContent() {
                     </button>
                     <button
                       type="submit"
-                      style={{ flex: 1, padding: 12, borderRadius: 10, background: 'linear-gradient(135deg, #10b981, #059669)', color: '#fff', border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 800 }}
+                      style={{ flex: 1, padding: 12, borderRadius: 10, background: 'linear-gradient(135deg, var(--success), var(--success-deep))', color: 'var(--text)', border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 800 }}
                     >
                       Create Squad
                     </button>

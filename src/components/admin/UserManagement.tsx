@@ -55,7 +55,7 @@ export default function UserManagement() {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
         <div>
           <h2 style={{ fontSize: 22, fontWeight: 700, margin: 0 }}>👥 User & Role Management</h2>
-          <p style={{ color: 'var(--t3, #64748b)', margin: '4px 0 0', fontSize: 14 }}>Manage student, faculty, and administrator accounts, trust scores, and access permissions.</p>
+          <p style={{ color: 'var(--t3)', margin: '4px 0 0', fontSize: 14 }}>Manage student, faculty, and administrator accounts, trust scores, and access permissions.</p>
         </div>
 
         <div style={{ background: isSuperAdmin ? '#dcfce7' : '#fee2e2', padding: '6px 14px', borderRadius: 20, fontSize: 12, fontWeight: 700, color: isSuperAdmin ? '#15803d' : '#b91c1c' }}>
@@ -75,14 +75,14 @@ export default function UserManagement() {
             minWidth: 240,
             padding: '8px 14px',
             borderRadius: 8,
-            border: '1px solid var(--border, #cbd5e1)'
+            border: '1px solid var(--border)'
           }}
         />
 
         <select
           value={roleFilter}
           onChange={e => setRoleFilter(e.target.value)}
-          style={{ padding: '8px 14px', borderRadius: 8, border: '1px solid var(--border, #cbd5e1)' }}
+          style={{ padding: '8px 14px', borderRadius: 8, border: '1px solid var(--border)' }}
         >
           <option value="all">All Roles</option>
           <option value="student">Students</option>
@@ -96,7 +96,7 @@ export default function UserManagement() {
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
           <div style={{ background: '#fff', borderRadius: 16, padding: 24, width: '100%', maxWidth: 440 }}>
             <h3 style={{ margin: '0 0 4px', fontSize: 18, fontWeight: 700 }}>📊 SuperAdmin Score Override</h3>
-            <span style={{ fontSize: 12, color: '#64748b' }}>Target User: {showOverrideModal.name}</span>
+            <span style={{ fontSize: 12, color: 'var(--text-dim)' }}>Target User: {showOverrideModal.name}</span>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 16 }}>
               <div>
@@ -124,7 +124,7 @@ export default function UserManagement() {
 
               <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8, marginTop: 8 }}>
                 <button onClick={() => setShowOverrideModal(null)} style={{ padding: '8px 16px', borderRadius: 8, border: '1px solid #cbd5e1', background: '#fff' }}>Cancel</button>
-                <button onClick={handleApplyOverride} style={{ padding: '8px 16px', borderRadius: 8, border: 'none', background: '#2563eb', color: '#fff', fontWeight: 600 }}>Save Override</button>
+                <button onClick={handleApplyOverride} style={{ padding: '8px 16px', borderRadius: 8, border: 'none', background: '#2563eb', color: 'var(--text)', fontWeight: 600 }}>Save Override</button>
               </div>
             </div>
           </div>
@@ -148,7 +148,7 @@ export default function UserManagement() {
               <tr key={u.id} style={{ borderBottom: '1px solid var(--border, var(--border))' }}>
                 <td style={{ padding: 12 }}>
                   <div style={{ fontWeight: 600 }}>{u.name}</div>
-                  <div style={{ fontSize: 12, color: 'var(--t3, #64748b)' }}>{u.email}</div>
+                  <div style={{ fontSize: 12, color: 'var(--t3)' }}>{u.email}</div>
                 </td>
                 <td style={{ padding: 12 }}>
                   <span style={{
@@ -163,11 +163,11 @@ export default function UserManagement() {
                     {u.role}
                   </span>
                 </td>
-                <td style={{ padding: 12, fontWeight: 700, color: u.trustScore > 80 ? '#16a34a' : '#d97706' }}>
+                <td style={{ padding: 12, fontWeight: 700, color: u.trustScore > 80 ? 'var(--success)' : '#d97706' }}>
                   {u.trustScore} / 100
                 </td>
                 <td style={{ padding: 12 }}>
-                  <span style={{ fontSize: 12, fontWeight: 600, color: u.status === 'active' ? '#16a34a' : '#dc2626' }}>
+                  <span style={{ fontSize: 12, fontWeight: 600, color: u.status === 'active' ? 'var(--success)' : 'var(--danger-deep)' }}>
                     ● {u.status.toUpperCase()}
                   </span>
                 </td>
@@ -189,7 +189,7 @@ export default function UserManagement() {
                         borderRadius: 6,
                         border: 'none',
                         background: u.status === 'active' ? '#fee2e2' : '#dcfce7',
-                        color: u.status === 'active' ? '#dc2626' : '#16a34a',
+                        color: u.status === 'active' ? 'var(--danger-deep)' : 'var(--success)',
                         cursor: 'pointer',
                         fontWeight: 600
                       }}

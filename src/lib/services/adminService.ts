@@ -151,12 +151,13 @@ export const adminService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('admin_audit_log').insert({
+        const res = await supabase.from('admin_audit_log').insert({
           admin_id: adminId,
           action,
           target_id: targetId,
           meta: meta || {}
         });
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);

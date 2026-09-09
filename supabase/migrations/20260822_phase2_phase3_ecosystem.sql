@@ -122,37 +122,48 @@ ALTER TABLE public.ats_skill_gaps ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.college_cohorts ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.student_cohort_enrollments ENABLE ROW LEVEL SECURITY;
 
+REVOKE ALL ON public.hackathon_squads FROM anon;
+REVOKE ALL ON public.hackathon_squad_members FROM anon;
+
 -- 9. Strict RLS Policies
 -- Students can manage their own matches, squads, internships, and ATS gaps
+DROP POLICY IF EXISTS "Students can view and create own codewars matches" ON public.codewars_matches;
 CREATE POLICY "Students can view and create own codewars matches"
     ON public.codewars_matches FOR ALL
     USING (auth.uid() = student_id);
 
+DROP POLICY IF EXISTS "Students can view all hackathon squads" ON public.hackathon_squads;
 CREATE POLICY "Students can view all hackathon squads"
-    ON public.hackathon_squads FOR SELECT
+    ON public.hackathon_squads FOR SELECT TO authenticated
     USING (true);
 
+DROP POLICY IF EXISTS "Squad leads can update their squads" ON public.hackathon_squads;
 CREATE POLICY "Squad leads can update their squads"
     ON public.hackathon_squads FOR UPDATE
     USING (auth.uid() = team_lead_student_id);
 
+DROP POLICY IF EXISTS "Members can view squad roster" ON public.hackathon_squad_members;
 CREATE POLICY "Members can view squad roster"
-    ON public.hackathon_squad_members FOR SELECT
+    ON public.hackathon_squad_members FOR SELECT TO authenticated
     USING (true);
 
+DROP POLICY IF EXISTS "Students can manage own squad membership" ON public.hackathon_squad_members;
 CREATE POLICY "Students can manage own squad membership"
     ON public.hackathon_squad_members FOR ALL
     USING (auth.uid() = student_id);
 
+DROP POLICY IF EXISTS "Students can manage own internships" ON public.external_internship_records;
 CREATE POLICY "Students can manage own internships"
     ON public.external_internship_records FOR ALL
     USING (auth.uid() = student_id);
 
+DROP POLICY IF EXISTS "Students can manage own ATS gaps" ON public.ats_skill_gaps;
 CREATE POLICY "Students can manage own ATS gaps"
     ON public.ats_skill_gaps FOR ALL
     USING (auth.uid() = student_id);
 
 -- Public verifier read access for hackathons and verified internships
+DROP POLICY IF EXISTS "Public read for verified hackathon projects" ON public.hackathon_squads;
 CREATE POLICY "Public read for verified hackathon projects"
     ON public.hackathon_squads FOR SELECT
     USING (status = 'verified');

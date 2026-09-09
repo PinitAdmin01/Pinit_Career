@@ -1,0 +1,42 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Customer {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  balanceCents Int      @map("balance_cents")
+  orders       Order[]
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  @@map("prisma_lab_customers")
+}
+
+model Order {
+  id         String      @id @default(uuid())
+  customerId String      @map("customer_id")
+  customer   Customer    @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  totalCents Int         @map("total_cents")
+  status        String
+  notes         String      @default("")
+  discountCents Int         @default(0) @map("discount_cents")
+  items      OrderItem[]
+  createdAt  DateTime    @default(now()) @map("created_at")
+
+  @@map("prisma_lab_orders")
+}
+
+model OrderItem {
+  id        String @id @default(uuid())
+  orderId   String @map("order_id")
+  order     Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  name      String
+  unitCents Int    @map("unit_cents")
+  quantity  Int
+
+  @@map("prisma_lab_order_items")
+}

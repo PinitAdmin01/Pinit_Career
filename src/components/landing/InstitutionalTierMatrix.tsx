@@ -1,8 +1,9 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 
-export default function InstitutionalTierMatrix({ onOpenLogin }: { onOpenLogin: (role?: 'student' | 'teacher') => void }) {
+export default function InstitutionalTierMatrix({ onOpenLogin }: { onOpenLogin?: (role?: 'student' | 'teacher') => void }) {
   const tiers = [
     {
       name: 'Student Sovereign Tier',
@@ -20,7 +21,7 @@ export default function InstitutionalTierMatrix({ onOpenLogin }: { onOpenLogin: 
       ],
       cta: 'Start Learning (Free)',
       role: 'student' as const,
-      buttonStyle: { background: '#1e293b', color: '#ffffff' }
+      buttonStyle: { background: 'var(--bg-secondary)', color: 'var(--text-primary)', border: '1px solid var(--border-color)' }
     },
     {
       name: 'Career Passport Pro',
@@ -39,7 +40,7 @@ export default function InstitutionalTierMatrix({ onOpenLogin }: { onOpenLogin: 
       ],
       cta: 'Claim Career Passport',
       role: 'student' as const,
-      buttonStyle: { background: 'linear-gradient(135deg, #00a3ff, #6366f1)', color: '#ffffff', boxShadow: '0 8px 24px rgba(0,163,255,0.4)' }
+      buttonStyle: { background: 'var(--accent)', color: '#ffffff', boxShadow: '0 8px 24px var(--accent-glow)' }
     },
     {
       name: 'Campus Institutional License',
@@ -58,7 +59,7 @@ export default function InstitutionalTierMatrix({ onOpenLogin }: { onOpenLogin: 
       ],
       cta: 'Request Campus Demo',
       role: 'teacher' as const,
-      buttonStyle: { background: '#1e293b', color: '#ffffff', border: '1px solid rgba(99,102,241,0.4)' }
+      buttonStyle: { background: 'var(--bg-secondary)', color: 'var(--text-primary)', border: '1px solid var(--border-color)' }
     }
   ];
 
@@ -69,62 +70,82 @@ export default function InstitutionalTierMatrix({ onOpenLogin }: { onOpenLogin: 
         <div className="lp-section-header">
           <div className="lp-badge-tag cyan">TRANSPARENT VALUE</div>
           <h2 className="lp-section-title">
-            Transparent Pricing.{' '}
-            <span className="lp-gradient-text">Zero Paywalls on Core Learning.</span>
+            Simple Pricing for{' '}
+            <span className="lp-gradient-text">Students &amp; Institutions.</span>
           </h2>
           <p className="lp-section-subtitle">
-            Every student deserves access to world-class learning without financial barriers.
+            Zero hidden fees. Zero student paywalls for core learning. Enterprise tooling scaled for universities.
           </p>
         </div>
 
-        <div className="tier-matrix-grid">
-          {tiers.map((t, idx) => (
-            <div key={idx} className={`tier-card ${t.highlight ? 'highlight' : ''}`}>
-              
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                <div>
-                  <span style={{ fontSize: 10, fontWeight: 750, fontFamily: 'monospace', color: t.highlight ? '#a5b4fc' : '#00a3ff', letterSpacing: '0.08em', textTransform: 'uppercase', display: 'block', marginBottom: 4 }}>
-                    {t.tag}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24 }}>
+          {tiers.map((tier, i) => (
+            <div
+              key={i}
+              className={`glass-card ${tier.highlight ? 'pinit-way' : ''}`}
+              style={{
+                padding: 32,
+                borderRadius: 22,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                border: tier.highlight ? '2px solid var(--accent)' : '1px solid var(--border-color)',
+                boxShadow: tier.highlight ? '0 12px 36px var(--accent-glow)' : 'var(--card-shadow)',
+                position: 'relative'
+              }}
+            >
+              <div>
+                <span style={{ fontSize: 10.5, fontWeight: 800, padding: '4px 10px', borderRadius: 999, background: tier.highlight ? 'rgba(0,163,255,0.15)' : 'var(--bg-secondary)', color: tier.highlight ? 'var(--accent)' : 'var(--text-secondary)', border: '1px solid var(--border-color)' }}>
+                  {tier.tag}
+                </span>
+
+                <h3 style={{ margin: '14px 0 6px', fontSize: 20, fontWeight: 800, color: 'var(--text-primary)' }}>
+                  {tier.name}
+                </h3>
+
+                <p style={{ margin: 0, fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.5, minHeight: 40 }}>
+                  {tier.desc}
+                </p>
+
+                <div style={{ margin: '20px 0', display: 'flex', alignItems: 'baseline', gap: 6 }}>
+                  <span style={{ fontSize: 32, fontWeight: 900, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)' }}>
+                    {tier.price}
                   </span>
-                  <h3 style={{ margin: 0, fontSize: 20, fontWeight: 800, color: '#ffffff' }}>{t.name}</h3>
-                  <p style={{ margin: '6px 0 0', fontSize: 12, color: '#94a3b8', lineHeight: 1.5 }}>{t.desc}</p>
+                  <span style={{ fontSize: 13, color: 'var(--text-secondary)' }}>
+                    {tier.period}
+                  </span>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
-                  <span style={{ fontSize: 36, fontWeight: 900, color: '#ffffff', fontFamily: 'monospace' }}>{t.price}</span>
-                  <span style={{ fontSize: 12, color: '#94a3b8' }}>{t.period}</span>
-                </div>
-
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 10, paddingTop: 16, borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-                  <div style={{ fontSize: 11, fontWeight: 750, color: '#cbd5e1', textTransform: 'uppercase' }}>What's included:</div>
-                  {t.features.map((f, i) => (
-                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: '#cbd5e1' }}>
-                      <span style={{ color: '#10b981', fontWeight: 700 }}>✓</span>
+                <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  {tier.features.map((f, fi) => (
+                    <div key={fi} style={{ fontSize: 12.5, color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <span style={{ color: 'var(--accent-green)', fontWeight: 800 }}>✓</span>
                       <span>{f}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div style={{ paddingTop: 20 }}>
-                <button
-                  type="button"
-                  onClick={() => onOpenLogin(t.role)}
-                  style={{
-                    width: '100%',
-                    padding: '14px',
-                    borderRadius: 12,
-                    border: 'none',
-                    fontWeight: 750,
-                    fontSize: 13,
-                    cursor: 'pointer',
-                    ...t.buttonStyle
-                  }}
-                >
-                  {t.cta}
-                </button>
-              </div>
-
+              <Link
+                href={tier.role === 'teacher' ? '/campus-demo' : '/login'}
+                style={{
+                  ...tier.buttonStyle,
+                  width: '100%',
+                  marginTop: 24,
+                  padding: '12px 18px',
+                  borderRadius: 12,
+                  fontSize: 13.5,
+                  fontWeight: 750,
+                  textDecoration: 'none',
+                  display: 'inline-block',
+                  textAlign: 'center',
+                  cursor: 'pointer',
+                  border: 'none',
+                  transition: 'transform 0.2s ease'
+                }}
+              >
+                {tier.cta} →
+              </Link>
             </div>
           ))}
         </div>

@@ -11,11 +11,20 @@ class AmbientAudioEngine {
   private chimeIntervalId: NodeJS.Timeout | null = null;
   private fadeIntervalId: NodeJS.Timeout | null = null;
   private targetVolume: number = 0.18;
+  private userVolumeLevel: number = 0.5; // 0.0 to 1.0
 
   constructor() {
     if (typeof window !== 'undefined') {
       const savedMute = localStorage.getItem('pc_ambient_muted');
       this.isAudioMuted = savedMute === 'true';
+      const savedVol = localStorage.getItem('pc_ambient_volume');
+      if (savedVol !== null) {
+        const parsed = parseFloat(savedVol);
+        if (!isNaN(parsed) && parsed >= 0 && parsed <= 1) {
+          this.userVolumeLevel = parsed;
+          this.targetVolume = 0.36 * parsed;
+        }
+      }
     }
   }
 
@@ -31,6 +40,30 @@ class AmbientAudioEngine {
     }
   }
 
+  public getVolume(): number {
+    return this.userVolumeLevel;
+  }
+
+  public setVolume(level: number) {
+    const clamped = Math.max(0, Math.min(1, level));
+    this.userVolumeLevel = clamped;
+    this.targetVolume = 0.36 * clamped;
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('pc_ambient_volume', String(clamped));
+      window.dispatchEvent(new CustomEvent('pc_audio_volume_changed', { detail: { volume: clamped } }));
+    }
+    // Update active HTML audio element in real-time
+    if (this.currentAudioElement && !this.isAudioMuted) {
+      this.currentAudioElement.volume = Math.max(0.0001, this.targetVolume);
+    }
+    // Update active Web Audio master gain in real-time
+    if (this.masterGain && this.ctx && !this.isAudioMuted) {
+      const now = this.ctx.currentTime;
+      this.masterGain.gain.setValueAtTime(this.masterGain.gain.value, now);
+      this.masterGain.gain.linearRampToValueAtTime(Math.max(0.0001, this.targetVolume), now + 0.08);
+    }
+  }
+
   public isMuted(): boolean {
     return this.isAudioMuted;
   }
@@ -39,6 +72,7 @@ class AmbientAudioEngine {
     this.isAudioMuted = muted;
     if (typeof window !== 'undefined') {
       localStorage.setItem('pc_ambient_muted', String(muted));
+      window.dispatchEvent(new CustomEvent('pc_audio_mute_changed', { detail: { muted } }));
     }
     if (muted) {
       this.stop();
@@ -48,12 +82,17 @@ class AmbientAudioEngine {
   }
 
   public play(theme: 'dark' | 'light', delayMs: number = 3000) {
+    if (this.currentTheme === theme && (this.currentAudioElement || this.activeNodes.length > 0 || this.timerId !== null)) {
+      // Audio is already active or scheduled to play this theme uninterrupted.
+      return;
+    }
     this.currentTheme = theme;
     this.stopImmediate();
 
     if (this.isAudioMuted) return;
 
     this.timerId = setTimeout(() => {
+      this.timerId = null;
       this.startPlayback(theme);
     }, delayMs);
   }
@@ -108,40 +147,14 @@ class AmbientAudioEngine {
 
     this.fadeIntervalId = setInterval(() => {
       currentVol = Math.min(targetVol, currentVol + volIncrement);
-      if (audio) {
+      if (audio && !this.isAudioMuted) {
         audio.volume = currentVol;
       }
-      if (currentVol >= targetVol) {
+      if (currentVol >= targetVol || this.isAudioMuted) {
         if (this.fadeIntervalId) {
           clearInterval(this.fadeIntervalId);
           this.fadeIntervalId = null;
         }
-      }
-    }, stepTime);
-  }
-
-  private fadeOutHTMLAudio(audio: HTMLAudioElement, durationMs: number, onComplete: () => void) {
-    if (this.fadeIntervalId) {
-      clearInterval(this.fadeIntervalId);
-    }
-    const steps = 20;
-    const stepTime = durationMs / steps;
-    const startVol = audio.volume;
-    const volDecrement = startVol / steps;
-    let currentVol = startVol;
-
-    this.fadeIntervalId = setInterval(() => {
-      currentVol = Math.max(0, currentVol - volDecrement);
-      if (audio) {
-        audio.volume = currentVol;
-      }
-      if (currentVol <= 0) {
-        if (this.fadeIntervalId) {
-          clearInterval(this.fadeIntervalId);
-          this.fadeIntervalId = null;
-        }
-        audio.pause();
-        onComplete();
       }
     }, stepTime);
   }
@@ -155,9 +168,9 @@ class AmbientAudioEngine {
 
     // Master Gain with gentle 2.5s Fade-In
     const master = ctx.createGain();
-    const targetVol = theme === 'dark' ? 0.15 : 0.14;
+    const effectiveVol = this.targetVolume || (theme === 'dark' ? 0.15 : 0.14);
     master.gain.setValueAtTime(0.0001, now);
-    master.gain.exponentialRampToValueAtTime(targetVol, now + 2.5);
+    master.gain.exponentialRampToValueAtTime(Math.max(0.0001, effectiveVol), now + 2.5);
     master.connect(ctx.destination);
     this.masterGain = master;
 
@@ -219,7 +232,7 @@ class AmbientAudioEngine {
         chimeOsc.frequency.setValueAtTime(randomFreq, cNow);
 
         chimeGain.gain.setValueAtTime(0.0001, cNow);
-        chimeGain.gain.exponentialRampToValueAtTime(0.035, cNow + 0.4);
+        chimeGain.gain.exponentialRampToValueAtTime(0.03, cNow + 0.1);
         chimeGain.gain.exponentialRampToValueAtTime(0.0001, cNow + 3.2);
 
         chimeOsc.connect(chimeGain);
@@ -227,34 +240,37 @@ class AmbientAudioEngine {
 
         chimeOsc.start(cNow);
         chimeOsc.stop(cNow + 3.3);
-      }, 3500);
+      }, 4200);
 
     } else {
-      // ☀️ 528Hz WARM MORNING SUNBEAM HARMONIC RESONANCE
-      const freqs = [132, 198, 330, 396, 528, 594];
+      // ☀️ WARM 528Hz GOLDEN SOLAR VIBRATION
+      const root = 528;
+      const freqs = [
+        root / 8, // 66Hz Warm Ground
+        root / 4, // 132Hz Solar Center
+        root / 2, // 264Hz Mid Heart
+        root * 0.75, // 396Hz Liberation
+        root, // 528Hz Transformation / Miracles
+        root * 1.25 // 660Hz Bright Halo
+      ];
 
       const filter = ctx.createBiquadFilter();
-      filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(280, now);
-      filter.frequency.exponentialRampToValueAtTime(1100, now + 3.5);
-      filter.Q.setValueAtTime(0.7, now);
+      filter.type = 'bandpass';
+      filter.frequency.setValueAtTime(528, now);
+      filter.Q.setValueAtTime(0.85, now);
       filter.connect(master);
-
-      const shimmer = ctx.createOscillator();
-      const shimmerGain = ctx.createGain();
-      shimmer.frequency.setValueAtTime(0.18, now);
-      shimmerGain.gain.setValueAtTime(120, now);
-      shimmer.connect(filter.frequency);
-      shimmer.start();
-      this.activeNodes.push(shimmer);
 
       freqs.forEach((f, idx) => {
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
-        osc.type = idx % 2 === 0 ? 'sine' : 'triangle';
+        osc.type = 'sine';
         osc.frequency.setValueAtTime(f, now);
 
-        const oscGain = 0.24 / (idx + 1);
+        if (idx === 4) {
+          osc.frequency.setValueAtTime(f + 2.5, now);
+        }
+
+        const oscGain = 0.22 / (idx + 1);
         gain.gain.setValueAtTime(oscGain, now);
 
         osc.connect(gain);
@@ -267,9 +283,9 @@ class AmbientAudioEngine {
         if (!this.ctx || this.isAudioMuted || this.currentTheme !== 'light') return;
         const cNow = this.ctx.currentTime;
         const sparkOsc = this.ctx.createOscillator();
-        const sparkGain = ctx.createGain();
+        const sparkGain = this.ctx.createGain();
 
-        const sparkFreqs = [1056, 1188, 1320, 1584, 1760];
+        const sparkFreqs = [528, 792, 1056, 1320];
         const randomFreq = sparkFreqs[Math.floor(Math.random() * sparkFreqs.length)];
 
         sparkOsc.type = 'sine';
@@ -289,42 +305,10 @@ class AmbientAudioEngine {
   }
 
   public stop() {
-    if (this.timerId) {
-      clearTimeout(this.timerId);
-      this.timerId = null;
-    }
-    if (this.chimeIntervalId) {
-      clearInterval(this.chimeIntervalId);
-      this.chimeIntervalId = null;
-    }
-    if (this.fadeIntervalId) {
-      clearInterval(this.fadeIntervalId);
-      this.fadeIntervalId = null;
-    }
-
-    // Fade out HTML audio if playing
-    if (this.currentAudioElement) {
-      const audio = this.currentAudioElement;
-      this.currentAudioElement = null;
-      this.fadeOutHTMLAudio(audio, 800, () => {
-        audio.src = '';
-      });
-    }
-
-    // Fade out Synthesized audio if playing
-    if (this.masterGain && this.ctx) {
-      const now = this.ctx.currentTime;
-      this.masterGain.gain.setValueAtTime(this.masterGain.gain.value, now);
-      this.masterGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.8);
-      setTimeout(() => {
-        this.stopImmediate();
-      }, 850);
-    } else {
-      this.stopImmediate();
-    }
+    this.stopImmediate();
   }
 
-  private stopImmediate() {
+  public stopImmediate() {
     if (this.timerId) {
       clearTimeout(this.timerId);
       this.timerId = null;
@@ -340,6 +324,8 @@ class AmbientAudioEngine {
     if (this.currentAudioElement) {
       try {
         this.currentAudioElement.pause();
+        this.currentAudioElement.volume = 0;
+        this.currentAudioElement.currentTime = 0;
         this.currentAudioElement.src = '';
       } catch {}
       this.currentAudioElement = null;
@@ -358,6 +344,11 @@ class AmbientAudioEngine {
         this.masterGain.disconnect();
       } catch {}
       this.masterGain = null;
+    }
+    if (this.ctx && this.ctx.state !== 'closed') {
+      try {
+        this.ctx.suspend?.();
+      } catch {}
     }
   }
 }

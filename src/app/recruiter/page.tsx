@@ -105,15 +105,15 @@ interface ActivityLog {
 }
 
 const ACTION_LABELS: Record<string, { label: string; icon: string; color: string }> = {
-  posted_job:           { label: 'Posted a job',          icon: '💼', color: '#10b981' },
-  updated_job:          { label: 'Updated a job',          icon: '✏️',  color: '#3b82f6' },
-  deleted_job:          { label: 'Deleted a job',          icon: '🗑️',  color: '#ef4444' },
-  updated_app_status:   { label: 'Updated application',    icon: '🔄', color: '#f59e0b' },
-  setup_company:        { label: 'Set up company profile', icon: '🏢', color: '#10b981' },
-  shortlist_candidate:  { label: 'Shortlisted student',    icon: '★',  color: '#8b5cf6' },
+  posted_job:           { label: 'Posted a job',          icon: '💼', color: 'var(--success)' },
+  updated_job:          { label: 'Updated a job',          icon: '✏️',  color: 'var(--info)' },
+  deleted_job:          { label: 'Deleted a job',          icon: '🗑️',  color: 'var(--danger)' },
+  updated_app_status:   { label: 'Updated application',    icon: '🔄', color: 'var(--warning)' },
+  setup_company:        { label: 'Set up company profile', icon: '🏢', color: 'var(--success)' },
+  shortlist_candidate:  { label: 'Shortlisted student',    icon: '★',  color: 'var(--reward)' },
   contact_request:      { label: 'Sent contact request',   icon: '✉',  color: '#0ea5e9' },
-  schedule_interview:   { label: 'Scheduled interview',    icon: '📅', color: '#14b8a6' },
-  viewed_candidate:     { label: 'Viewed profile',         icon: '👁', color: '#6366f1' },
+  schedule_interview:   { label: 'Scheduled interview',    icon: '📅', color: 'var(--accent-teal)' },
+  viewed_candidate:     { label: 'Viewed profile',         icon: '👁', color: 'var(--brand)' },
 };
 
 function getActionInfo(action: string) {
@@ -606,7 +606,7 @@ function RecruiterPageInner() {
         <div style={{
           position: 'fixed', bottom: 24, right: 24, zIndex: 9999,
           background: toast.type === 'success' ? 'var(--green)' : toast.type === 'error' ? 'var(--coral)' : 'var(--blue)',
-          color: '#fff', padding: '11px 20px', borderRadius: 10, fontSize: 13, fontWeight: 600,
+          color: 'var(--text)', padding: '11px 20px', borderRadius: 10, fontSize: 13, fontWeight: 600,
           boxShadow: 'var(--shadow-lg)'
         }}>
           {toast.msg}
@@ -720,7 +720,7 @@ function RecruiterPageInner() {
                       onClick={() => viewCandidate(c.id)}
                       className="glass-card card-hover"
                       style={{
-                        background: selectedCandidate?.id === c.id ? 'rgba(99, 102, 241, 0.08)' : 'var(--bg2)',
+                        background: selectedCandidate?.id === c.id ? 'rgba(var(--brand-rgb),  0.08)' : 'var(--bg2)',
                         border: `1px solid ${selectedCandidate?.id === c.id ? 'var(--accent)' : 'var(--border)'}`,
                         borderRadius: 14, padding: '16px 20px', cursor: 'pointer', transition: 'all 0.2s ease',
                         display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap'
@@ -731,7 +731,7 @@ function RecruiterPageInner() {
                         background: i < 3 ? 'linear-gradient(135deg, var(--accent), var(--teal))' : 'var(--bg3)',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                         fontSize: 12, fontWeight: 800, color: i < 3 ? 'white' : 'var(--t3)',
-                        boxShadow: i < 3 ? '0 0 10px rgba(99, 102, 241, 0.3)' : 'none',
+                        boxShadow: i < 3 ? '0 0 10px rgba(var(--brand-rgb),  0.3)' : 'none',
                         flexShrink: 0
                       }} className="flex items-center justify-center">
                         #{i + 1}
@@ -762,9 +762,9 @@ function RecruiterPageInner() {
 
                       <div style={{ display: 'flex', gap: 12, flexShrink: 0, alignItems: 'center' }}>
                         {[
-                          { label: 'ATS Match', value: c.ats_score, color: 'var(--teal)', glow: 'rgba(20,184,166,0.1)' },
-                          { label: 'Trust Verification', value: c.trust_score, color: 'var(--green)', glow: 'rgba(34,197,94,0.1)' },
-                          { label: 'Career DNA', value: c.career_dna_score, color: 'var(--accent)', glow: 'rgba(99,102,241,0.1)' }
+                          { label: 'ATS Match', value: c.ats_score, color: 'var(--teal)', glow: 'rgba(var(--accent-teal-rgb), 0.1)' },
+                          { label: 'Trust Verification', value: c.trust_score, color: 'var(--green)', glow: 'rgba(var(--success-rgb), 0.1)' },
+                          { label: 'Career DNA', value: c.career_dna_score, color: 'var(--accent)', glow: 'rgba(var(--brand-rgb), 0.1)' }
                         ].map(s => (
                           <div key={s.label} style={{
                             background: 'rgba(10, 15, 30, 0.4)',
@@ -811,7 +811,7 @@ function RecruiterPageInner() {
                       height: 38,
                       borderRadius: '50%',
                       background: 'linear-gradient(135deg, var(--accent), var(--purple))',
-                      color: '#fff',
+                      color: 'var(--text)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -930,7 +930,7 @@ function RecruiterPageInner() {
                             fontSize: 9.5, padding: '3px 8px', borderRadius: 4, border: 'none', cursor: 'pointer',
                             fontWeight: isActive ? 800 : 500,
                             background: isActive ? 'var(--accent)' : 'var(--bg3)',
-                            color: isActive ? '#fff' : 'var(--t2)'
+                            color: isActive ? 'var(--text)' : 'var(--t2)'
                           }}
                         >
                           {stg}
@@ -1011,7 +1011,7 @@ function RecruiterPageInner() {
                 {/* Actions */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
                   {selectedCandidate.structured_resume && (
-                    <button onClick={() => setViewResumeData({ name: selectedCandidate.display_name, resume: selectedCandidate.structured_resume! })} className="btn-primary" style={{ width: '100%', justifyContent: 'center', background: 'var(--purple)', color: '#fff' }}>
+                    <button onClick={() => setViewResumeData({ name: selectedCandidate.display_name, resume: selectedCandidate.structured_resume! })} className="btn-primary" style={{ width: '100%', justifyContent: 'center', background: 'var(--purple)', color: 'var(--text)' }}>
                       📄 View Full Resume
                     </button>
                   )}
@@ -1022,7 +1022,7 @@ function RecruiterPageInner() {
                       triggerToast(`Sent formal interview invitation to ${selectedCandidate.display_name} (Ref #${refId})`, 'success');
                     }}
                     className="btn-primary"
-                    style={{ width: '100%', justifyContent: 'center', background: 'linear-gradient(135deg, #10b981, #059669)', color: '#fff' }}
+                    style={{ width: '100%', justifyContent: 'center', background: 'linear-gradient(135deg, var(--success), var(--success-deep))', color: 'var(--text)' }}
                   >
                     ✉️ Dispatch AI Interview Invitation
                   </button>
@@ -1116,7 +1116,7 @@ function RecruiterPageInner() {
                     <button
                       onClick={() => handleDeleteJob(job.id!)}
                       className="btn-ghost btn-sm"
-                      style={{ color: 'var(--coral)', border: '1px solid rgba(239, 68, 68, 0.2)', fontSize: 11, padding: '4px 10px', flex: 1, justifyContent: 'center' }}
+                      style={{ color: 'var(--coral)', border: '1px solid rgba(var(--danger-rgb),  0.2)', fontSize: 11, padding: '4px 10px', flex: 1, justifyContent: 'center' }}
                     >
                       🗑 Delete
                     </button>
@@ -1199,7 +1199,7 @@ function RecruiterPageInner() {
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 16 }}>
                 {appReviewing.user?.structured_resume && (
-                  <button onClick={() => setViewResumeData({ name: appReviewing.user?.full_name || '', resume: appReviewing.user?.structured_resume! })} className="btn-primary" style={{ background: 'var(--purple)', color: '#fff', fontSize: 11, padding: '8px 12px' }}>
+                  <button onClick={() => setViewResumeData({ name: appReviewing.user?.full_name || '', resume: appReviewing.user?.structured_resume! })} className="btn-primary" style={{ background: 'var(--purple)', color: 'var(--text)', fontSize: 11, padding: '8px 12px' }}>
                     📄 View Candidate Resume
                   </button>
                 )}
@@ -1437,7 +1437,7 @@ function RecruiterPageInner() {
                     background: d.count > 0 ? 'linear-gradient(180deg,var(--accent),var(--teal))' : 'var(--border)',
                     height: `${Math.max((d.count / maxChartCount) * 80, d.count > 0 ? 6 : 2)}px`,
                     transition: 'height 0.5s ease',
-                    boxShadow: d.count > 0 ? '0 2px 8px rgba(99,102,241,0.2)' : 'none',
+                    boxShadow: d.count > 0 ? '0 2px 8px rgba(var(--brand-rgb), 0.2)' : 'none',
                   }} title={`${d.date}: ${d.count} action${d.count !== 1 ? 's' : ''}`} />
                 </div>
               ))}
@@ -1624,13 +1624,13 @@ function RecruiterPageInner() {
                       
                       {/* Evolved Verification Badges */}
                       <div style={{ display: 'flex', gap: 6, alignItems: 'center', marginTop: 6, flexWrap: 'wrap' }}>
-                        <span style={{ fontSize: 9, background: 'rgba(16,185,129,0.08)', color: 'var(--success)', padding: '2px 6px', borderRadius: 4, fontWeight: 800 }}>
+                        <span style={{ fontSize: 9, background: 'rgba(var(--success-rgb), 0.08)', color: 'var(--success)', padding: '2px 6px', borderRadius: 4, fontWeight: 800 }}>
                           ✓ AI Verified (91%)
                         </span>
-                        <span style={{ fontSize: 9, background: 'rgba(99,102,241,0.08)', color: 'var(--accent)', padding: '2px 6px', borderRadius: 4, fontWeight: 800 }}>
+                        <span style={{ fontSize: 9, background: 'rgba(var(--brand-rgb), 0.08)', color: 'var(--accent)', padding: '2px 6px', borderRadius: 4, fontWeight: 800 }}>
                           🏆 Excellence Certificate
                         </span>
-                        <span style={{ fontSize: 9, background: 'rgba(16,185,129,0.08)', color: 'var(--success)', padding: '2px 6px', borderRadius: 4, fontWeight: 800 }}>
+                        <span style={{ fontSize: 9, background: 'rgba(var(--success-rgb), 0.08)', color: 'var(--success)', padding: '2px 6px', borderRadius: 4, fontWeight: 800 }}>
                           ✓ Mentor Verified
                         </span>
                       </div>

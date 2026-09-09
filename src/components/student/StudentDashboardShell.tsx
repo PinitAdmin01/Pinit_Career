@@ -45,7 +45,7 @@ export default function StudentDashboardShell({ student }: StudentDashboardShell
           <span style={{ fontSize: 24 }}>🎓</span>
           <div>
             <h1 style={{ margin: 0, fontSize: 18, fontWeight: 700 }}>Student Learning Portal</h1>
-            <span style={{ fontSize: 12, color: 'var(--t3, #64748b)' }}>Campus OS • {student?.department || 'Computer Science & AI'}</span>
+            <span style={{ fontSize: 12, color: 'var(--t3)' }}>Campus OS • {student?.department || 'Computer Science & AI'}</span>
           </div>
         </div>
 
@@ -108,27 +108,27 @@ export default function StudentDashboardShell({ student }: StudentDashboardShell
             <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
               <div>
                 <h2 style={{ fontSize: 22, fontWeight: 700, margin: 0 }}>Welcome back, {displayName}! 👋</h2>
-                <p style={{ color: 'var(--t3, #64748b)', margin: '4px 0 0' }}>Track your active courses, assignments, and career readiness scores.</p>
+                <p style={{ color: 'var(--t3)', margin: '4px 0 0' }}>Track your active courses, assignments, and career readiness scores.</p>
               </div>
 
               {/* Quick Action Cards */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 16 }}>
                 <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border)', background: '#fff' }}>
-                  <div style={{ fontSize: 13, color: '#64748b' }}>ATS Resume Score</div>
+                  <div style={{ fontSize: 13, color: 'var(--text-dim)' }}>ATS Resume Score</div>
                   <div style={{ fontSize: 28, fontWeight: 800, color: '#2563eb', margin: '4px 0 0' }}>{atsScore}%</div>
-                  <div style={{ fontSize: 12, color: '#16a34a', marginTop: 4 }}>High match for AI roles</div>
+                  <div style={{ fontSize: 12, color: 'var(--success)', marginTop: 4 }}>High match for AI roles</div>
                 </div>
 
                 <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border)', background: '#fff' }}>
-                  <div style={{ fontSize: 13, color: '#64748b' }}>Pending Assessments</div>
-                  <div style={{ fontSize: 28, fontWeight: 800, color: '#d97706', margin: '4px 0 0' }}>1 Test</div>
-                  <div style={{ fontSize: 12, color: '#d97706', marginTop: 4 }}>Due in 3 days</div>
+                  <div style={{ fontSize: 13, color: 'var(--text-dim)' }}>Pending Assessments</div>
+                  <div style={{ fontSize: 28, fontWeight: 800, color: 'var(--warning)', margin: '4px 0 0' }}>1 Test</div>
+                  <div style={{ fontSize: 12, color: 'var(--warning)', marginTop: 4 }}>Due in 3 days</div>
                 </div>
 
                 <div style={{ padding: 20, borderRadius: 12, border: '1px solid var(--border)', background: '#fff' }}>
-                  <div style={{ fontSize: 13, color: '#64748b' }}>Attendance Average</div>
-                  <div style={{ fontSize: 28, fontWeight: 800, color: '#16a34a', margin: '4px 0 0' }}>91.2%</div>
-                  <div style={{ fontSize: 12, color: '#16a34a', marginTop: 4 }}>All criteria met</div>
+                  <div style={{ fontSize: 13, color: 'var(--text-dim)' }}>Attendance Average</div>
+                  <div style={{ fontSize: 28, fontWeight: 800, color: 'var(--success)', margin: '4px 0 0' }}>91.2%</div>
+                  <div style={{ fontSize: 12, color: 'var(--success)', marginTop: 4 }}>All criteria met</div>
                 </div>
               </div>
             </div>

@@ -9,6 +9,34 @@ export async function executePythonJudgeSuite(
 ): Promise<SuiteExecutionResult> {
   const startTime = Date.now();
 
+  // 1. In browser environments: prioritize Pyodide WebAssembly for zero server footprint & complete isolation
+  if (typeof window !== 'undefined') {
+    try {
+      return await executePythonSuite(code, 'solution', testCases, timeoutMs);
+    } catch (e: any) {
+      return {
+        language: 'python',
+        totalTests: testCases.length || 1,
+        passedTests: 0,
+        failedTests: testCases.length || 1,
+        allPassed: false,
+        status: 'RUNTIME_ERROR',
+        totalDurationMs: Date.now() - startTime,
+        terminalLogs: [`[PYODIDE WASM ERROR] ${e?.message || 'Execution failed'}`],
+        testOutcomes: [{
+          index: 1,
+          testCaseName: 'Local Python Execution',
+          input: 'Local Code',
+          expectedOutput: 'Pass',
+          actualOutput: e?.message || 'Error',
+          passed: false,
+          durationMs: Date.now() - startTime
+        }]
+      };
+    }
+  }
+
+  // 2. Headless/server environment fallback
   try {
     const res = await fetch('/api/code/run-python', {
       method: 'POST',
@@ -49,30 +77,25 @@ export async function executePythonJudgeSuite(
 
     const data: SuiteExecutionResult = await res.json();
     return data;
-  } catch {
-    // In-browser Pyodide WASM fallback if server endpoint is unreachable
-    try {
-      return await executePythonSuite(code, 'solution', testCases, timeoutMs);
-    } catch (e: any) {
-      return {
-        language: 'python',
-        totalTests: 1,
-        passedTests: 0,
-        failedTests: 1,
-        allPassed: false,
-        status: 'RUNTIME_ERROR',
-        totalDurationMs: Date.now() - startTime,
-        terminalLogs: [`[PYODIDE FALLBACK ERROR] ${e?.message || 'Execution failed'}`],
-        testOutcomes: [{
-          index: 1,
-          testCaseName: 'Local Python Execution',
-          input: 'Local Code',
-          expectedOutput: 'Pass',
-          actualOutput: e?.message || 'Error',
-          passed: false,
-          durationMs: Date.now() - startTime
-        }]
-      };
-    }
+  } catch (err: any) {
+    return {
+      language: 'python',
+      totalTests: testCases.length || 1,
+      passedTests: 0,
+      failedTests: testCases.length || 1,
+      allPassed: false,
+      status: 'RUNTIME_ERROR',
+      totalDurationMs: Date.now() - startTime,
+      terminalLogs: [`[PYTHON JUDGE ERROR] ${err?.message || 'Execution failed'}`],
+      testOutcomes: [{
+        index: 1,
+        testCaseName: 'Python Execution',
+        input: 'Code',
+        expectedOutput: 'Pass',
+        actualOutput: err?.message || 'Error',
+        passed: false,
+        durationMs: Date.now() - startTime
+      }]
+    };
   }
 }

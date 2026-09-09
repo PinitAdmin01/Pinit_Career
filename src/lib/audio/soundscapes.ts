@@ -171,14 +171,17 @@ export function setSoundscapeDucking(isTeacherSpeaking: boolean) {
 function applyEffectiveVolume(isTeacherSpeaking: boolean) {
   const userVolSetting = getUserSoundscapeVolume();
   const scale = userVolSetting / 100;
-  const targetVol = isTeacherSpeaking ? (0.08 * scale) : (0.30 * scale);
+  // Deep ducking: lower ambient soundscape to 0.04*scale during speech so avatar voice is crystal clear
+  const targetVol = isTeacherSpeaking ? (0.04 * scale) : (0.30 * scale);
+
+  console.log(`[SoundscapeEngine] 🎚️ Ducking updated: isTeacherSpeaking=${isTeacherSpeaking}, targetVol=${targetVol.toFixed(3)}, userSetting=${userVolSetting}%`);
 
   if (audioElement) {
     audioElement.volume = targetVol;
   }
   if (masterGain && audioCtx) {
     try {
-      masterGain.gain.linearRampToValueAtTime(Math.max(0.0001, targetVol), audioCtx.currentTime + 0.3);
+      masterGain.gain.linearRampToValueAtTime(Math.max(0.0001, targetVol), audioCtx.currentTime + 0.25);
     } catch {}
   }
 }

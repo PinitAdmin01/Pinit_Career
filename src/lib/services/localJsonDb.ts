@@ -194,28 +194,34 @@ export async function writeLocalJson(
   relativePath: string,
   data: unknown,
   scope: 'shared' | 'personal' = 'shared'
-): Promise<void> {
+): Promise<boolean> {
   memSet(`${scope}:${relativePath}`, data);
 
+  let nodeWriteSucceeded = false;
   const fs = nodeFs();
   const path = nodePath();
   if (fs && path) {
     try {
       const full = path.join(process.cwd(), relativePath);
       fs.writeFileSync(full, JSON.stringify(data, null, 2), 'utf-8');
+      nodeWriteSucceeded = true;
     } catch (err) {
-      console.error('Error writing local database file:', relativePath, err);
+      console.warn('Local filesystem write failed (serverless/read-only), falling back to database store:', relativePath, err);
     }
-    return;
+  }
+
+  if (nodeWriteSucceeded && process.env.NODE_ENV === 'development') {
+    return true;
   }
 
   if (scope === 'shared') {
     const wroteShared = await writeCampusKv(relativePath, data);
-    if (wroteShared) return;
+    if (wroteShared) return true;
   }
 
   const wroteVault = await writeVaultJson(relativePath, data);
-  if (wroteVault) return;
+  if (wroteVault) return true;
 
   writeBrowserStorage(relativePath, data);
+  return true;
 }

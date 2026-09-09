@@ -81,8 +81,8 @@ export default function CourseManager() {
       {/* Header & Quick Action Stats */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
         <div>
-          <h2 style={{ fontSize: 22, fontWeight: 700, margin: 0, color: 'var(--t1, #0f172a)' }}>📚 Persistent Course Material Manager</h2>
-          <p style={{ margin: '4px 0 0', fontSize: 14, color: 'var(--t3, #64748b)' }}>Publish lectures, lab manuals, and notes connected to live storage with downloadable blobs.</p>
+          <h2 style={{ fontSize: 22, fontWeight: 700, margin: 0, color: 'var(--t1)' }}>📚 Persistent Course Material Manager</h2>
+          <p style={{ margin: '4px 0 0', fontSize: 14, color: 'var(--t3)' }}>Publish lectures, lab manuals, and notes connected to live storage with downloadable blobs.</p>
         </div>
 
         <div style={{ display: 'flex', gap: 12 }}>
@@ -115,7 +115,7 @@ export default function CourseManager() {
               value={title} 
               onChange={e => setTitle(e.target.value)} 
               placeholder="e.g. Advanced Graph Traversal Algorithms"
-              style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid #cbd5e1' }}
+              style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border)' }}
               required
             />
           </div>
@@ -125,7 +125,7 @@ export default function CourseManager() {
               type="text" 
               value={subject} 
               onChange={e => setSubject(e.target.value)} 
-              style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid #cbd5e1' }}
+              style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border)' }}
             />
           </div>
           <div>
@@ -133,7 +133,7 @@ export default function CourseManager() {
             <select 
               value={semester} 
               onChange={e => setSemester(e.target.value)}
-              style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid #cbd5e1' }}
+              style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border)' }}
             >
               {['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4', 'Sem 5', 'Sem 6', 'Sem 7', 'Sem 8'].map(s => (
                 <option key={s} value={s}>{s}</option>
@@ -145,7 +145,7 @@ export default function CourseManager() {
             <select 
               value={type} 
               onChange={e => setType(e.target.value as any)}
-              style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid #cbd5e1' }}
+              style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border)' }}
             >
               <option value="pdf">📕 PDF Document</option>
               <option value="pptx">📊 Presentation (PPTX)</option>
@@ -162,7 +162,7 @@ export default function CourseManager() {
             value={tagInput} 
             onChange={e => setTagInput(e.target.value)} 
             placeholder="e.g. Dynamic Programming, Algorithms, Exam Prep"
-            style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid #cbd5e1' }}
+            style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border)' }}
           />
         </div>
 
@@ -171,8 +171,8 @@ export default function CourseManager() {
           style={{
             alignSelf: 'flex-start',
             padding: '10px 24px',
-            background: 'var(--primary, #3b82f6)',
-            color: '#fff',
+            background: 'var(--primary)',
+            color: 'var(--text)',
             fontWeight: 700,
             borderRadius: 8,
             border: 'none',
@@ -190,13 +190,13 @@ export default function CourseManager() {
           placeholder="Search materials by title, subject, or tag..." 
           value={search} 
           onChange={e => setSearch(e.target.value)}
-          style={{ flex: 1, minWidth: 260, padding: '8px 14px', borderRadius: 8, border: '1px solid #cbd5e1' }}
+          style={{ flex: 1, minWidth: 260, padding: '8px 14px', borderRadius: 8, border: '1px solid var(--border)' }}
         />
 
         <select 
           value={typeFilter} 
           onChange={e => setTypeFilter(e.target.value)}
-          style={{ padding: '8px 14px', borderRadius: 8, border: '1px solid #cbd5e1' }}
+          style={{ padding: '8px 14px', borderRadius: 8, border: '1px solid var(--border)' }}
         >
           <option value="all">All Formats</option>
           <option value="pdf">📕 PDF</option>
@@ -211,7 +211,7 @@ export default function CourseManager() {
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
           <div style={{ background: '#fff', padding: 24, borderRadius: 16, maxWidth: 500, width: '100%' }}>
             <h3 style={{ margin: '0 0 8px' }}>📄 Preview: {previewMaterial.title}</h3>
-            <p style={{ fontSize: 13, color: '#64748b' }}>Subject: {previewMaterial.subject} • {previewMaterial.semester}</p>
+            <p style={{ fontSize: 13, color: 'var(--text-dim)' }}>Subject: {previewMaterial.subject} • {previewMaterial.semester}</p>
             <div style={{ background: 'var(--bg3)', padding: 16, borderRadius: 8, border: '1px solid var(--border)', margin: '16px 0', fontSize: 13 }}>
               Uploaded on {previewMaterial.uploadedAt} • File Size: {previewMaterial.size} • Total Downloads: {previewMaterial.downloadsCount}
             </div>
@@ -221,8 +221,8 @@ export default function CourseManager() {
               ))}
             </div>
             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
-              <button onClick={() => setPreviewMaterial(null)} style={{ padding: '8px 16px', borderRadius: 8, border: '1px solid #cbd5e1', background: '#fff' }}>Close</button>
-              <button onClick={() => handleDownload(previewMaterial)} style={{ padding: '8px 16px', borderRadius: 8, border: 'none', background: '#3b82f6', color: '#fff', fontWeight: 600 }}>Download File</button>
+              <button onClick={() => setPreviewMaterial(null)} style={{ padding: '8px 16px', borderRadius: 8, border: '1px solid var(--border)', background: '#fff' }}>Close</button>
+              <button onClick={() => handleDownload(previewMaterial)} style={{ padding: '8px 16px', borderRadius: 8, border: 'none', background: 'var(--info)', color: 'var(--text)', fontWeight: 600 }}>Download File</button>
             </div>
           </div>
         </div>
@@ -231,7 +231,7 @@ export default function CourseManager() {
       {/* Material List */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         {loading ? (
-          <div style={{ padding: 40, textAlign: 'center', color: '#64748b' }}>Loading published materials...</div>
+          <div style={{ padding: 40, textAlign: 'center', color: 'var(--text-dim)' }}>Loading published materials...</div>
         ) : filtered.map(mat => (
           <div key={mat.id} style={{
             display: 'flex',
@@ -250,13 +250,13 @@ export default function CourseManager() {
               </span>
               <div>
                 <h4 style={{ margin: 0, fontSize: 16, fontWeight: 700 }}>{mat.title}</h4>
-                <div style={{ margin: '4px 0 0', fontSize: 12, color: 'var(--t3, #64748b)', display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+                <div style={{ margin: '4px 0 0', fontSize: 12, color: 'var(--t3)', display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
                   <span>{mat.subject}</span> • <span>{mat.semester}</span> • <span>{mat.uploadedAt}</span> • <span>{mat.size}</span>
                   <span style={{ color: '#2563eb', fontWeight: 600 }}>• 📥 {mat.downloadsCount || 0} downloads</span>
                 </div>
                 <div style={{ display: 'flex', gap: 4, marginTop: 6 }}>
                   {(mat.tags || []).map(tag => (
-                    <span key={tag} style={{ background: 'var(--border)', color: '#475569', padding: '1px 6px', borderRadius: 4, fontSize: 11 }}>#{tag}</span>
+                    <span key={tag} style={{ background: 'var(--border)', color: 'var(--text-dim)', padding: '1px 6px', borderRadius: 4, fontSize: 11 }}>#{tag}</span>
                   ))}
                 </div>
               </div>
@@ -265,13 +265,13 @@ export default function CourseManager() {
             <div style={{ display: 'flex', gap: 8 }}>
               <button 
                 onClick={() => setPreviewMaterial(mat)}
-                style={{ padding: '6px 12px', fontSize: 13, borderRadius: 6, border: '1px solid #cbd5e1', background: '#fff', cursor: 'pointer' }}
+                style={{ padding: '6px 12px', fontSize: 13, borderRadius: 6, border: '1px solid var(--border)', background: '#fff', cursor: 'pointer' }}
               >
                 👁️ Preview
               </button>
               <button 
                 onClick={() => handleDownload(mat)}
-                style={{ padding: '6px 14px', fontSize: 13, borderRadius: 6, border: 'none', background: '#3b82f6', color: '#fff', fontWeight: 600, cursor: 'pointer' }}
+                style={{ padding: '6px 14px', fontSize: 13, borderRadius: 6, border: 'none', background: 'var(--info)', color: 'var(--text)', fontWeight: 600, cursor: 'pointer' }}
               >
                 📥 Download Blob
               </button>
@@ -285,7 +285,7 @@ export default function CourseManager() {
                     setMaterials(prev); // Rollback on failure
                   }
                 }}
-                style={{ padding: '6px 12px', fontSize: 13, borderRadius: 6, border: 'none', background: '#fee2e2', color: '#dc2626', cursor: 'pointer' }}
+                style={{ padding: '6px 12px', fontSize: 13, borderRadius: 6, border: 'none', background: '#fee2e2', color: 'var(--danger-deep)', cursor: 'pointer' }}
               >
                 🗑️ Delete
               </button>

@@ -76,10 +76,10 @@ interface Teacher {
 }
 
 const TEACHER_METADATA: Record<string, Teacher> = {
-  kashyap: { name: 'Kashyap Sir', avatar: '👩‍🎨', color: 'rgba(59, 130, 246, 0.1)', accent: 'var(--accent)', role: 'Staff Systems Architect' },
-  karthic: { name: 'Karthic Sir "Nega"', avatar: '👨‍🏫', color: 'rgba(245, 158, 11, 0.1)', accent: 'var(--amber)', role: 'Algorithmic Lead Tutor' },
-  maya: { name: 'Ms. Maya', avatar: '👩‍💼', color: 'rgba(239, 68, 68, 0.1)', accent: 'var(--coral)', role: 'Principal Security Auditor' },
-  divya: { name: 'Ms. Divya', avatar: '👨‍💼', color: 'rgba(16, 185, 129, 0.1)', accent: 'var(--green)', role: 'Lead UX Engineer' }
+  kashyap: { name: 'Kashyap Sir', avatar: '👩‍🎨', color: 'rgba(var(--info-rgb),  0.1)', accent: 'var(--accent)', role: 'Staff Systems Architect' },
+  karthic: { name: 'Karthic Sir "Nega"', avatar: '👨‍🏫', color: 'rgba(var(--warning-rgb),  0.1)', accent: 'var(--amber)', role: 'Algorithmic Lead Tutor' },
+  maya: { name: 'Ms. Maya', avatar: '👩‍💼', color: 'rgba(var(--danger-rgb),  0.1)', accent: 'var(--coral)', role: 'Principal Security Auditor' },
+  divya: { name: 'Ms. Divya', avatar: '👨‍💼', color: 'rgba(var(--success-rgb),  0.1)', accent: 'var(--green)', role: 'Lead UX Engineer' }
 };
 
 export default function LessonPage() {
@@ -341,7 +341,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
 
   // Confetti launcher
   const launchConfetti = () => {
-    const colors = ['#f43f5e', '#ec4899', '#d946ef', '#a855f7', '#8b5cf6', '#6366f1', '#3b82f6', '#0ea5e9', '#06b6d4', '#14b8a6', '#10b981', '#22c55e', '#84cc16', '#eab308', '#f97316'];
+    const colors = ['#f43f5e', '#ec4899', '#d946ef', '#a855f7', 'var(--reward)', 'var(--brand)', 'var(--info)', '#0ea5e9', 'var(--accent-cyan)', 'var(--accent-teal)', 'var(--success)', '#22c55e', '#84cc16', '#eab308', '#f97316'];
     const initialParticles: any[] = [];
     const animatedParticles: any[] = [];
 
@@ -925,6 +925,9 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
   };
 
   const handleNextSlide = () => {
+    console.log(`[PinIT Lesson] ⏩ handleNextSlide triggered: moving from Slide ${currentSlide} to ${currentSlide + 1}`);
+    stopSpeaking();
+    setIsPlaying(false);
     const slidesLength = slides.length || syllabus.length;
     if (currentSlide < slidesLength + 1) {
       setCurrentSlide(currentSlide + 1);
@@ -932,6 +935,9 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
   };
 
   const handlePrevSlide = () => {
+    console.log(`[PinIT Lesson] ⏪ handlePrevSlide triggered: moving from Slide ${currentSlide} to ${currentSlide - 1}`);
+    stopSpeaking();
+    setIsPlaying(false);
     if (currentSlide > 0) {
       setCurrentSlide(currentSlide - 1);
     }
@@ -1107,9 +1113,9 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
           100% { transform: translateY(0px); }
         }
         @keyframes micPulse {
-          0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5); }
-          70% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
-          100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+          0% { box-shadow: 0 0 0 0 rgba(var(--danger-rgb),  0.5); }
+          70% { box-shadow: 0 0 0 8px rgba(var(--danger-rgb),  0); }
+          100% { box-shadow: 0 0 0 0 rgba(var(--danger-rgb),  0); }
         }
 
         .lesson-card {
@@ -1328,7 +1334,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
             <div>
               <span style={{
                 fontSize: 10,
-                background: 'rgba(99,102,241,0.15)',
+                background: 'rgba(var(--brand-rgb), 0.15)',
                 color: 'var(--accent)',
                 padding: '4px 10px',
                 borderRadius: 20,
@@ -1355,7 +1361,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
                     }
                   }}
                   style={{
-                    background: isFocusMusicEnabled ? 'rgba(99, 102, 241, 0.2)' : 'rgba(255, 255, 255, 0.05)',
+                    background: isFocusMusicEnabled ? 'rgba(var(--brand-rgb),  0.2)' : 'rgba(255, 255, 255, 0.05)',
                     border: `1.5px solid ${isFocusMusicEnabled ? 'var(--accent)' : 'var(--border)'}`,
                     color: isFocusMusicEnabled ? 'var(--accent)' : 'var(--t2)',
                     borderRadius: 10,
@@ -1399,9 +1405,9 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
                     toast.success("Audio Unlocked", "Teacher voice is now active!");
                   }}
                   style={{
-                    background: 'rgba(16, 185, 129, 0.2)',
+                    background: 'rgba(var(--success-rgb),  0.2)',
                     border: '1.5px solid #10b981',
-                    color: '#10b981',
+                    color: 'var(--success)',
                     borderRadius: 10,
                     padding: '4px 10px',
                     fontSize: 10.5,
@@ -1462,10 +1468,10 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
                     border = examPassed ? '1px solid var(--green)' : '1px solid rgba(234,179,8,0.4)';
                     content = '⭐';
                   } else if (isCompleted) {
-                    bg = '#10b981';
+                    bg = 'var(--success)';
                     border = '1px solid #10b981';
                   } else if (isCurrent) {
-                    bg = isInteractive ? '#f59e0b' : 'var(--accent)';
+                    bg = isInteractive ? 'var(--warning)' : 'var(--accent)';
                     border = isInteractive ? '1px solid #f59e0b' : '1px solid var(--accent)';
                   }
 
@@ -1473,6 +1479,12 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
                     <div
                       key={idx}
                       title={isExam ? 'Exam Stage' : `Slide ${idx + 1}`}
+                      onClick={() => {
+                        console.log(`[PinIT Lesson] 📍 Slide pill clicked: jumping to Slide ${idx}`);
+                        stopSpeaking();
+                        setIsPlaying(false);
+                        setCurrentSlide(idx);
+                      }}
                       style={{
                         height: 12,
                         width: isExam ? 26 : 32,
@@ -1483,6 +1495,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
                         alignItems: 'center',
                         justifyContent: 'center',
                         fontSize: 8,
+                        cursor: 'pointer',
                         transition: 'all 0.3s ease'
                       }}
                     >
@@ -1509,7 +1522,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
               />
               {isPlaying && (
                 <div className="speaking-pod">
-                  <span style={{ fontSize: 10.5, color: '#94a3b8', marginRight: 6, fontFamily: 'var(--font-mono)' }}>Tutor Speaking</span>
+                  <span style={{ fontSize: 10.5, color: 'var(--text-muted)', marginRight: 6, fontFamily: 'var(--font-mono)' }}>Tutor Speaking</span>
                   {[...Array(5)].map((_, i) => (
                     <div
                       key={i}
@@ -1640,7 +1653,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
                         type="button"
                         onClick={startVoiceInput}
                         style={{
-                          background: isRecording ? 'rgba(239, 68, 68, 0.15)' : 'var(--bg3)',
+                          background: isRecording ? 'rgba(var(--danger-rgb),  0.15)' : 'var(--bg3)',
                           border: isRecording ? '1px solid #ef4444' : '1px solid var(--border)',
                           borderRadius: 10,
                           width: 32,
@@ -1650,7 +1663,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
                           justifyContent: 'center',
                           cursor: 'pointer',
                           fontSize: 12,
-                          color: isRecording ? '#ef4444' : 'var(--t2)',
+                          color: isRecording ? 'var(--danger)' : 'var(--t2)',
                           animation: isRecording ? 'micPulse 1.5s infinite' : 'none',
                           outline: 'none'
                         }}
@@ -1705,9 +1718,9 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
                         }}
                         style={{
                           width: '100%',
-                          background: '#10b981',
+                          background: 'var(--success)',
                           border: 'none',
-                          color: '#fff',
+                          color: 'var(--text)',
                           padding: '8px 12px',
                           borderRadius: 10,
                           fontSize: 11.5,
@@ -1786,8 +1799,8 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
                               margin: '2px 0 6px 0',
                               padding: '12px 16px',
                               borderRadius: 14,
-                              background: 'linear-gradient(135deg, rgba(59,130,246,0.12), rgba(16,185,129,0.08))',
-                              border: '1px solid rgba(59,130,246,0.3)',
+                              background: 'linear-gradient(135deg, rgba(var(--info-rgb), 0.12), rgba(var(--success-rgb), 0.08))',
+                              border: '1px solid rgba(var(--info-rgb), 0.3)',
                               boxShadow: '0 4px 14px rgba(0,0,0,0.15)'
                             }}>
                               <div style={{ fontSize: 10.5, fontWeight: 900, color: '#38bdf8', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 4 }}>
@@ -1797,7 +1810,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
                                 {realWorldStory || matchedAnalogy.analogy}
                               </div>
                               {!realWorldStory && (
-                                <div style={{ fontSize: 11, fontWeight: 800, color: '#34d399' }}>
+                                <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--success-bright)' }}>
                                   {matchedAnalogy.realWorldUseCase}
                                 </div>
                               )}
@@ -1836,15 +1849,15 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
                               borderTopRightRadius: 12,
                               borderBottom: '1px solid rgba(255,255,255,0.06)'
                             }}>
-                              <span style={{ fontSize: 10, color: '#94a3b8', fontFamily: 'var(--font-mono)' }}>
+                              <span style={{ fontSize: 10, color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
                                 {questId.toLowerCase().includes('react') ? 'Component.tsx' : questId.toLowerCase().includes('sql') ? 'query.sql' : questId.toLowerCase().includes('python') ? 'main.py' : 'Solution.java'}
                               </span>
                               <button
                                 onClick={() => simulateCodeRun(currentSlide - 1, slide.mockOutput)}
                                 style={{
-                                  background: '#10b981',
+                                  background: 'var(--success)',
                                   border: 'none',
-                                  color: '#ffffff',
+                                  color: 'var(--text)',
                                   fontSize: 9.5,
                                   fontWeight: 700,
                                   padding: '3px 8px',
@@ -1866,7 +1879,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
                               borderBottomRightRadius: codeOutputs[currentSlide - 1] ? 0 : 12,
                               fontSize: 10.5,
                               fontFamily: 'var(--font-mono)',
-                              color: '#e2e8f0',
+                              color: 'var(--text-muted)',
                               overflowX: 'auto',
                               border: '1px solid rgba(255,255,255,0.06)',
                               borderTop: 'none',
@@ -1887,7 +1900,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
                                 fontSize: 10,
                                 color: '#a7f3d0'
                               }}>
-                                <div style={{ color: '#64748b', marginBottom: 4 }}>$ javac Solution.java && java Solution</div>
+                                <div style={{ color: 'var(--text-dim)', marginBottom: 4 }}>$ javac Solution.java && java Solution</div>
                                 <div style={{ whiteSpace: 'pre-line' }}>{codeOutputs[currentSlide - 1]}</div>
                               </div>
                             )}
@@ -1898,7 +1911,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
                         {(teachingCompleted || understandingConfirmed[currentSlide - 1]) && (
                           <div style={{
                             marginTop: 12,
-                            background: 'rgba(99, 102, 241, 0.03)',
+                            background: 'rgba(var(--brand-rgb),  0.03)',
                             border: '1px dashed var(--border)',
                             borderRadius: 12,
                             padding: '10px 14px',
@@ -1911,7 +1924,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
                               ❓ Did you understand this concept?
                             </span>
                             {understandingConfirmed[currentSlide - 1] ? (
-                              <span style={{ color: '#10b981', fontSize: 11, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 4 }}>
+                              <span style={{ color: 'var(--success)', fontSize: 11, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 4 }}>
                                 ✓ Concept Confirmed
                               </span>
                             ) : (
@@ -1922,9 +1935,9 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
                                     toast.success("Great!", "Understanding confirmed. Click 'Next Slide' to continue.");
                                   }}
                                   style={{
-                                    background: '#10b981',
+                                    background: 'var(--success)',
                                     border: 'none',
-                                    color: '#fff',
+                                    color: 'var(--text)',
                                     padding: '6px 12px',
                                     borderRadius: 6,
                                     fontSize: 10.5,
@@ -1951,9 +1964,9 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
                                     );
                                   }}
                                   style={{
-                                    background: 'rgba(239, 68, 68, 0.08)',
-                                    border: '1px solid rgba(239, 68, 68, 0.2)',
-                                    color: '#ef4444',
+                                    background: 'rgba(var(--danger-rgb),  0.08)',
+                                    border: '1px solid rgba(var(--danger-rgb),  0.2)',
+                                    color: 'var(--danger)',
                                     padding: '6px 12px',
                                     borderRadius: 6,
                                     fontSize: 10.5,
@@ -2075,13 +2088,14 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
                         {!mcqChecked && selectedMcqAnswer !== null && (
                           <button
                             onClick={() => {
+                              console.log(`[PinIT Lesson] 🧪 Verifying exam Q${examQuestionIndex + 1}: selected=${selectedMcqAnswer}, correct=${question.answerIndex}`);
                               setMcqChecked(true);
                               const correct = selectedMcqAnswer === question.answerIndex;
                               setMcqIsCorrect(correct);
                               if (correct) {
-                                toast.success("Correct Answer!", "Excellent work.");
+                                toast.success("Correct Answer! 🎯", "Conceptual breakdown unlocked below.");
                               } else {
-                                toast.error("Incorrect Answer", "Please try again.");
+                                toast.error("Incorrect Choice ⚠️", "Review the concept breakdown below and retry.");
                               }
                             }}
                             className="btn-primary"
@@ -2101,26 +2115,36 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
                             {mcqIsCorrect ? (
                               <div>
                                 <div style={{
-                                  background: 'var(--bg3)',
-                                  border: '1px solid var(--border)',
-                                  borderRadius: 8,
-                                  padding: 10,
-                                  fontSize: 11,
-                                  color: 'var(--t2)',
-                                  lineHeight: 1.45,
-                                  marginBottom: 10
+                                  background: 'rgba(var(--success-rgb),  0.08)',
+                                  border: '1px solid rgba(var(--success-rgb),  0.3)',
+                                  borderRadius: 10,
+                                  padding: 12,
+                                  fontSize: 11.5,
+                                  color: 'var(--t1)',
+                                  lineHeight: 1.5,
+                                  marginBottom: 12
                                 }}>
-                                  <strong style={{ color: '#10b981' }}>💡 Tutor Explanation:</strong> {question.explanation}
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontWeight: 800, color: 'var(--success)', marginBottom: 4 }}>
+                                    <span>🎯</span>
+                                    <span>Concept Mastery & Optimal Principle:</span>
+                                  </div>
+                                  <div style={{ color: 'var(--t2)', fontSize: 11 }}>
+                                    {question.explanation || "This solution directly satisfies the architectural requirement and prevents common memory or runtime degradation."}
+                                  </div>
                                 </div>
                                 <button
                                   onClick={() => {
                                     if (examQuestionIndex + 1 === hybridExamQuestions.length) {
+                                      console.log(`[PinIT Lesson] 🎓 Exam completed successfully!`);
                                       setExamPassed(true);
                                       playChime();
                                       launchConfetti();
                                       toast.success("Exam Passed!", "Congratulations on completing the syllabus review.");
                                     } else {
                                       setExamQuestionIndex(prev => prev + 1);
+                                      setSelectedMcqAnswer(null);
+                                      setMcqChecked(false);
+                                      setMcqIsCorrect(false);
                                     }
                                   }}
                                   className="btn-primary"
@@ -2135,21 +2159,45 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
                                 </button>
                               </div>
                             ) : (
-                              <button
-                                onClick={() => {
-                                  setSelectedMcqAnswer(null);
-                                  setMcqChecked(false);
-                                }}
-                                className="btn-primary"
-                                style={{
-                                  padding: '8px 18px',
-                                  fontSize: 11,
-                                  borderRadius: 8,
-                                  background: '#ef4444'
-                                }}
-                              >
-                                Try Again
-                              </button>
+                              <div>
+                                <div style={{
+                                  background: 'rgba(var(--danger-rgb),  0.08)',
+                                  border: '1px solid rgba(var(--danger-rgb),  0.3)',
+                                  borderRadius: 10,
+                                  padding: 12,
+                                  fontSize: 11.5,
+                                  color: 'var(--t1)',
+                                  lineHeight: 1.5,
+                                  marginBottom: 12
+                                }}>
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontWeight: 800, color: 'var(--danger)', marginBottom: 4 }}>
+                                    <span>⚠️</span>
+                                    <span>Why this choice is suboptimal:</span>
+                                  </div>
+                                  <div style={{ color: 'var(--t2)', fontSize: 11, marginBottom: 8 }}>
+                                    The selected option fails to enforce safety invariants or violates algorithmic constraints for this topic.
+                                  </div>
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontWeight: 700, color: 'var(--warning)', fontSize: 10.5 }}>
+                                    <span>💡 Mental Model Hint:</span>
+                                    <span>{question.explanation ? question.explanation.slice(0, 90) + '...' : 'Review the core slide concepts and consider the safest architectural invariant.'}</span>
+                                  </div>
+                                </div>
+                                <button
+                                  onClick={() => {
+                                    setSelectedMcqAnswer(null);
+                                    setMcqChecked(false);
+                                  }}
+                                  className="btn-primary"
+                                  style={{
+                                    padding: '8px 18px',
+                                    fontSize: 11,
+                                    borderRadius: 8,
+                                    background: 'var(--danger)'
+                                  }}
+                                >
+                                  🔄 Try Again
+                                </button>
+                              </div>
                             )}
                           </div>
                         )}
@@ -2337,8 +2385,8 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
             }}>
               <div style={{
                 flex: 1,
-                background: 'rgba(16,185,129,0.08)',
-                border: '1.5px solid rgba(16,185,129,0.2)',
+                background: 'rgba(var(--success-rgb), 0.08)',
+                border: '1.5px solid rgba(var(--success-rgb), 0.2)',
                 borderRadius: 14,
                 padding: '10px 6px',
                 textAlign: 'center'

@@ -4,6 +4,7 @@
 
 import { useState, useEffect } from 'react';
 import { api } from '@/lib/api/client';
+import { toast } from '@/lib/store/useAppStore';
 
 export default function StudentLibrary() {
   const [books, setBooks] = useState<any[]>([]);
@@ -35,13 +36,13 @@ export default function StudentLibrary() {
     try {
       const res = await api.post<{ ok: boolean; message?: string }>('/api/library/borrow', { isbn });
       if (res && res.ok) {
-        alert('Book borrowed successfully! Dynamic due date set for 14 days from today.');
+        toast.success('Book Borrowed! 📚', 'Dynamic due date set for 14 days from today.');
         fetchLibraryData();
       } else {
-        alert(res.message || 'Borrow failed.');
+        toast.error('Borrow Failed', res.message || 'Could not borrow book.');
       }
     } catch {
-      alert('Network error borrowing book.');
+      toast.error('Network Error', 'Network error while attempting to borrow book.');
     }
   };
 
@@ -50,14 +51,14 @@ export default function StudentLibrary() {
       const res = await api.post<{ ok: boolean; fine: number }>('/api/library/return', { borrowId });
       if (res && res.ok) {
         if (res.fine > 0) {
-          alert(`Book returned successfully! A late penalty fine of ₹${res.fine} has been added to your finance dues ledger.`);
+          toast.warning('Book Returned 📚', `Late penalty fine of ₹${res.fine} has been added to your finance dues ledger.`);
         } else {
-          alert('Book returned successfully with zero penalty fines.');
+          toast.success('Book Returned! 📚', 'Returned successfully with zero penalty fines.');
         }
         fetchLibraryData();
       }
     } catch {
-      alert('Return failed.');
+      toast.error('Return Failed', 'Could not return book. Please check connection.');
     }
   };
 
@@ -65,11 +66,13 @@ export default function StudentLibrary() {
     try {
       const res = await api.post<{ ok: boolean; reserve: any }>('/api/library/reserve', { isbn });
       if (res && res.ok) {
-        alert(`Reservation placed! You are at position #${res.reserve.position} in the waitlist queue.`);
+        toast.success('Reservation Placed! 🔖', `You are at position #${res.reserve?.position || 1} in the waitlist queue.`);
         fetchLibraryData();
+      } else {
+        toast.error('Reservation Failed', 'Could not place reservation on this book.');
       }
     } catch {
-      alert('Reservation failed.');
+      toast.error('Network Error', 'Error communicating with library reservation system.');
     }
   };
 

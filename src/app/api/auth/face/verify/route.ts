@@ -44,20 +44,9 @@ export async function POST(req: NextRequest) {
 
     const targetUser = String(username).toLowerCase();
 
-    // Only match against the requested user's enrolled template — no silent demo fallback.
-    let storedVector = await getFaceTemplate(targetUser);
-
-    if (!storedVector) {
-      const cookieKey = `pinit_face_vec_${targetUser.replace(/[^a-z0-9]/g, '')}`;
-      const cookieVal = req.cookies.get(cookieKey)?.value;
-      if (cookieVal) {
-        try {
-          storedVector = JSON.parse(cookieVal);
-        } catch {
-          // ignore
-        }
-      }
-    }
+    // Only match against the requested user's enrolled template in authoritative store.
+    // Client cookies are forgeable and must NEVER be used as the authoritative enrolled biometric template.
+    const storedVector = await getFaceTemplate(targetUser);
 
     if (!storedVector || !Array.isArray(storedVector) || storedVector.length !== descriptor.length) {
       return NextResponse.json({

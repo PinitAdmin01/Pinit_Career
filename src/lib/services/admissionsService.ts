@@ -31,6 +31,51 @@ async function writeLocalDb(data: any): Promise<void> {
   await writeLocalJson(DB_FILE, data);
 }
 
+/**
+ * Generates a public application reference.
+ *
+ * PREVIOUSLY: `APP-${Date.now()}` — a millisecond timestamp. Two problems.
+ *
+ *  1. SECURITY. Applications submitted close together get adjacent ids, so one
+ *     known reference (an attacker's own) leaks its neighbours: scanning a few
+ *     thousand milliseconds either side harvests everyone who applied that
+ *     minute. The tracking endpoint is public by design, so the id was doing
+ *     real access-control work it was never suited for.
+ *
+ *  2. HONESTY. The UI told users the format was `APP-2026-0105`, while the
+ *     generator produced `APP-1757280000000`. An applicant following the
+ *     on-screen example would never find their application.
+ *
+ * NOW: a random, non-sequential, human-typeable reference that matches what the
+ * UI has been claiming all along. Ambiguous glyphs (0/O, 1/I) are excluded so
+ * references survive being read aloud or copied off a printout.
+ *
+ * Existing timestamp-style ids keep working — lookup is unchanged and nothing
+ * is migrated or deleted. This only affects references issued from now on.
+ */
+function generateApplicationId(): string {
+  const ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // no O/0, no I/1
+  const year = new Date().getFullYear();
+
+  let suffix = '';
+  const cryptoObj: Crypto | undefined =
+    typeof globalThis !== 'undefined' ? (globalThis as any).crypto : undefined;
+
+  if (cryptoObj && typeof cryptoObj.getRandomValues === 'function') {
+    const bytes = new Uint8Array(6);
+    cryptoObj.getRandomValues(bytes);
+    for (const b of bytes) suffix += ALPHABET[b % ALPHABET.length];
+  } else {
+    // Fallback only where WebCrypto is unavailable. Lower entropy, but still
+    // non-sequential — which is the property that matters here.
+    for (let i = 0; i < 6; i++) {
+      suffix += ALPHABET[Math.floor(Math.random() * ALPHABET.length)];
+    }
+  }
+
+  return `APP-${year}-${suffix}`;
+}
+
 export const admissionsService = {
   async trackApplication(appId: string) {
     const normalizedId = appId.trim();
@@ -128,10 +173,11 @@ export const admissionsService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('admissions_applications').update({
+        const res = await supabase.from('admissions_applications').update({
           doc_verified: action === 'approve',
           status: action === 'approve' ? 'Documents Verified' : 'Rejected'
         }).eq('id', appId);
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -168,15 +214,18 @@ export const admissionsService = {
           const limit = courseLimits[app.course];
           if (limit && limit.allocated < limit.capacity) {
             limit.allocated++;
-            await supabase.from('admissions_applications').update({ status: 'Seat Allocated' }).eq('id', app.id);
+            const res1 = await supabase.from('admissions_applications').update({ status: 'Seat Allocated' }).eq('id', app.id);
+            if (res1.error) throw new Error(res1.error.message);
           } else {
-            await supabase.from('admissions_applications').update({ status: 'Waiting List' }).eq('id', app.id);
+            const res2 = await supabase.from('admissions_applications').update({ status: 'Waiting List' }).eq('id', app.id);
+            if (res2.error) throw new Error(res2.error.message);
           }
         }
 
         // Update seat matrix
         for (const course of Object.keys(courseLimits)) {
-          await supabase.from('admissions_seat_matrix').update({ allocated: courseLimits[course].allocated }).eq('course', course);
+          const res3 = await supabase.from('admissions_seat_matrix').update({ allocated: courseLimits[course].allocated }).eq('course', course);
+          if (res3.error) throw new Error(res3.error.message);
         }
 
         return { ok: true };
@@ -214,7 +263,7 @@ export const admissionsService = {
 
   async apply(studentId: string, studentName: string, course: string, rank: number) {
     const isSupabaseAvailable = await checkSupabaseAvailable('admissions_applications');
-    const id = `APP-${Date.now()}`;
+    const id = generateApplicationId();
     const row = {
       id,
       studentId,
@@ -226,7 +275,7 @@ export const admissionsService = {
     };
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('admissions_applications').insert({
+        const res = await supabase.from('admissions_applications').insert({
           id,
           student_id: studentId,
           student_name: studentName,
@@ -235,6 +284,7 @@ export const admissionsService = {
           status: row.status,
           doc_verified: false,
         });
+        if (res.error) throw new Error(res.error.message);
         return { ok: true, application: row };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);

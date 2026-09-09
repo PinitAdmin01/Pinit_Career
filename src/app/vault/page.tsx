@@ -35,98 +35,7 @@ export default function VaultPage() {
   const [filter, setFilter] = useState('all');
   const fileRef = useRef<HTMLInputElement>(null);
 
-  // Secure biometric state simulations
-  const [biometricEnabled, setBiometricEnabled] = useState(true);
-  const [activeTempAccess, setActiveTempAccess] = useState(false);
-  const [tempCode, setTempCode] = useState('');
   const [dragActive, setDragActive] = useState(false);
-
-  // Scanner Simulator State
-  const [showScanModal, setShowScanModal] = useState(false);
-  const [scanning, setScanning] = useState(false);
-  const [scanProgress, setScanProgress] = useState(0);
-  const [scanStep, setScanStep] = useState<'init' | 'camera' | 'ocr' | 'done'>('init');
-  const [scanResult, setScanResult] = useState<{ title: string; category: string; org: string; text: string } | null>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const streamRef = useRef<MediaStream | null>(null);
-
-  // Scanner Methods
-  const startCamera = async () => {
-    setScanStep('camera');
-    setScanProgress(0);
-    setScanResult(null);
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-      streamRef.current = stream;
-      setTimeout(() => {
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-          videoRef.current.play().catch(e => console.log("Play interrupted:", e));
-        }
-      }, 100);
-    } catch (err) {
-      console.warn("Camera hardware access denied/unavailable, simulating scan layout:", err);
-    }
-  };
-
-  const stopCamera = () => {
-    if (streamRef.current) {
-      streamRef.current.getTracks().forEach(t => t.stop());
-      streamRef.current = null;
-    }
-  };
-
-  // Cleanup camera on unmount to prevent hardware leak
-  useEffect(() => {
-    return () => {
-      if (streamRef.current) {
-        streamRef.current.getTracks().forEach(t => t.stop());
-        streamRef.current = null;
-      }
-    };
-  }, []);
-
-  const triggerScan = () => {
-    setScanStep('ocr');
-    setScanning(true);
-    let current = 0;
-    const interval = setInterval(() => {
-      current += 10;
-      setScanProgress(current);
-      if (current >= 100) {
-        clearInterval(interval);
-        stopCamera();
-        
-        const randomResults = [
-          { title: "Java Programming Basics Certificate", category: "certification", org: "Oracle Academy", text: "Verified Oracle Certified Associate Program Course Completion. Candidate scored 95% in standard evaluation check." },
-          { title: "SDE Internship Experience Letter", category: "internship", org: "TechCorp Labs", text: "Successfully completed SDE Internship. Led React and NodeJS microservice integrations." },
-          { title: "University Grade Transcript", category: "academic", org: "State Tech University", text: "Cumulative GPA: 3.92/4.00. Completed Advanced Data Structures, Algorithms, and Software Engineering." }
-        ];
-        const res = randomResults[Math.floor(Math.random() * randomResults.length)];
-        setScanResult(res);
-        setScanning(false);
-        setScanStep('done');
-      }
-    }, 200);
-  };
-
-  const saveScannedAsset = () => {
-    if (!scanResult) return;
-    addVaultItem({
-      title: scanResult.title,
-      item_type: scanResult.category,
-      organization_name: scanResult.org,
-      description: scanResult.text,
-      skill_tags: ['OCR Scanned', 'Camera Capture'],
-    });
-    // Sync to Firestore
-    api.post('/api/vault', {
-      title: scanResult.title, item_type: scanResult.category,
-      organization_name: scanResult.org,
-      description: scanResult.text, skill_tags: ['OCR Scanned', 'Camera Capture'],
-    }).catch(() => {});
-    setShowScanModal(false);
-  };
 
   const [form, setForm] = useState({
     title: '', itemType: 'project', description: '',
@@ -146,35 +55,42 @@ export default function VaultPage() {
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
+    if (!form.title.trim()) return;
     setUploading(true);
-    
-    // Simulate AI parsing, OCR reading, and indexing delay
-    setTimeout(() => {
-      // Default skills based on item category
+
+    try {
+      // Default tags based on item category
       let skills = ['Analytical', 'Problem Solving'];
-      if (form.itemType === 'project') skills = ['React', 'Next.js', 'GitHub', 'System Design'];
-      else if (form.itemType === 'certification') skills = ['AWS', 'Cloud Architecture', 'Security'];
-      else if (form.itemType === 'internship') skills = ['Professional Codebase', 'Agile', 'Team Collaboration'];
-      else if (form.itemType === 'hackathon') skills = ['Rapid Prototyping', 'APIs', 'Pitching'];
+      if (form.itemType === 'project') skills = ['Project Evidence', 'GitHub'];
+      else if (form.itemType === 'certification') skills = ['Certification Evidence'];
+      else if (form.itemType === 'internship') skills = ['Work Experience'];
+      else if (form.itemType === 'hackathon') skills = ['Hackathon Project'];
 
       addVaultItem({
-        title: form.title,
+        title: form.title.trim(),
         item_type: form.itemType,
-        organization_name: form.organizationName,
-        description: form.description,
+        organization_name: form.organizationName.trim(),
+        description: form.description.trim(),
         skill_tags: skills,
+        verified: false,
+        ai_confidence_score: 0,
       });
+
       // Also persist to Firestore
       api.post('/api/vault', {
-        title: form.title, item_type: form.itemType,
-        organization_name: form.organizationName,
-        description: form.description, skill_tags: skills,
-      }).catch(() => {/* offline ok — localStorage has it */});
+        title: form.title.trim(),
+        item_type: form.itemType,
+        organization_name: form.organizationName.trim(),
+        description: form.description.trim(),
+        skill_tags: skills,
+        verified: false,
+      }).catch(() => {/* offline ok — Supabase / localStorage handles it */});
 
       setShowForm(false);
       setForm({ title: '', itemType: 'project', description: '', organizationName: '', startDate: '', endDate: '' });
+    } finally {
       setUploading(false);
-    }, 1200);
+    }
   }
 
   // Drag and drop event handlers
@@ -188,57 +104,51 @@ export default function VaultPage() {
     }
   };
 
+  const handleFileUploadLive = async (file: File) => {
+    if (!file) return;
+    setUploading(true);
+    try {
+      console.log(`[VAULT PAGE]: Uploading "${file.name}" to 12-stage ingestion pipeline...`);
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('primaryName', user?.displayName || 'Candidate');
+
+      const res = await api.post<{ ok: boolean; document?: any; data?: any; message?: string }>('/api/vault/upload', formData);
+      const doc = res.document || res.data;
+      if (doc) {
+        console.log(`[VAULT PAGE]: Ingestion success: "${doc.title}", Skills: [${doc.skills?.join(', ') || ''}]`);
+        addVaultItem({
+          title: doc.title || file.name,
+          item_type: doc.category === 'resume' ? 'resume' : doc.category === 'certification' ? 'certification' : 'academic',
+          organization_name: doc.institution || 'Verified Portal',
+          description: `Uploaded file: ${doc.fileName} (${doc.fileSize}). Score/GPA: ${doc.scoreOrGpa}. Storage: ${doc.storageUrl || 'Supabase Vault'}`,
+          skill_tags: doc.skills && doc.skills.length > 0 ? doc.skills : ['Verified File'],
+        });
+      }
+    } catch (err) {
+      console.error('[VAULT PAGE UPLOAD ERROR]:', err);
+      const titleWithoutExt = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
+      addVaultItem({
+        title: titleWithoutExt.split('-').join(' ').split('_').join(' ').replace(/\b\w/g, c => c.toUpperCase()),
+        item_type: 'other',
+        organization_name: 'Local Upload',
+        description: `Uploaded file: ${file.name} (${Math.round(file.size / 1024)} KB).`,
+        skill_tags: [file.name.split('.').pop()?.toUpperCase() || 'FILE'],
+      });
+    } finally {
+      setUploading(false);
+    }
+  };
+
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
     
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      const file = e.dataTransfer.files[0];
-      setUploading(true);
-      
-      // Auto-extract title and create vault item from dropped file
-      setTimeout(() => {
-        const titleWithoutExt = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
-        // Guess item type from extension or name
-        let itemType = 'other';
-        let skillTags = ['Uploaded File'];
-        
-        if (titleWithoutExt.toLowerCase().includes('cert')) {
-          itemType = 'certification';
-          skillTags = ['Certificate', 'Verified Credential'];
-        } else if (titleWithoutExt.toLowerCase().includes('resume') || titleWithoutExt.toLowerCase().includes('cv')) {
-          itemType = 'presentation';
-          skillTags = ['ATS Resume', 'Professional Profile'];
-        } else if (titleWithoutExt.toLowerCase().includes('proj') || titleWithoutExt.toLowerCase().includes('engine') || titleWithoutExt.toLowerCase().includes('app') || titleWithoutExt.toLowerCase().includes('web')) {
-          itemType = 'project';
-          skillTags = ['GitHub', 'Source Code', 'Deployment'];
-        } else {
-          const ext = file.name.split('.').pop()?.toUpperCase() || 'FILE';
-          skillTags = [ext, 'Attached Evidence'];
-        }
-        
-        addVaultItem({
-          title: titleWithoutExt.split('-').join(' ').split('_').join(' ').replace(/\b\w/g, c => c.toUpperCase()),
-          item_type: itemType,
-          organization_name: 'Local Upload',
-          description: `Uploaded file: ${file.name} (${Math.round(file.size / 1024)} KB). Automatically parsed and indexed by PinIT AI OCR engine.`,
-          skill_tags: skillTags,
-        });
-        setUploading(false);
-      }, 1500);
+      handleFileUploadLive(e.dataTransfer.files[0]);
     }
   };
-
-  function handleGenerateTempCode() {
-    const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    let code = '';
-    for (let i = 0; i < 6; i++) {
-      code += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    setTempCode(code);
-    setActiveTempAccess(true);
-  }
 
   return (
     <div style={{ maxWidth: 1040, margin: '0 auto' }} className="animate-fade-in">
@@ -257,82 +167,14 @@ export default function VaultPage() {
             Proof-of-Work Vault
           </h2>
           <p style={{ color: 'var(--t2)', fontSize: 13 }}>
-            🔒 AES-256 Encrypted secure storage for certifications, projects, and credentials.
+            🔒 Evidence locker for certifications, projects, and credentials.
           </p>
         </div>
         <div style={{ display: 'flex', gap: 10 }}>
-          <button onClick={handleGenerateTempCode} className="btn-ghost btn-sm">
-            🔑 Temp Access Link
-          </button>
           <button onClick={() => setShowForm(s => !s)} className="btn-primary btn-sm">
             {showForm ? '✕ Cancel' : '+ Add Proof-of-Work'}
           </button>
         </div>
-      </div>
-
-      {/* Mobile QR deep-link banner */}
-      <div style={{ 
-        background: 'linear-gradient(90deg, rgba(79,70,229,0.12) 0%, rgba(20,184,166,0.08) 100%)', 
-        border: '1px solid var(--border2)', 
-        borderRadius: 18, 
-        padding: '16px 20px', 
-        marginBottom: 24, 
-        display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
-        gap: 16
-      }}>
-        <div style={{ flex: 1, minWidth: 260 }}>
-          <h3 style={{ fontSize: 13, fontWeight: 700, marginBottom: 4, display: 'flex', alignItems: 'center', gap: 6 }}>
-            <span>📲</span> PinIT Mobile Deep-Link Active
-          </h3>
-          <p style={{ fontSize: 11.5, color: 'var(--t2)', lineHeight: 1.4 }}>
-            Open the <strong>PinIT app on your phone</strong> → Go to Vault → Tap "Share to Web" and scan your dashboard QR to sync files instantly.
-          </p>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'rgba(255,255,255,0.03)', padding: '6px 12px', borderRadius: 10, border: '1px solid var(--border)' }}>
-          <div style={{ fontSize: 24 }}>📳</div>
-          <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--teal)' }}>SECURE SCANNER TUNNEL ACTIVE</div>
-        </div>
-      </div>
-
-      {/* Biometrics & Temporary Access Link Panel */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16, marginBottom: 24 }}>
-        
-        {/* Biometrics Info */}
-        <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 16, padding: 18, display: 'flex', alignItems: 'center', gap: 14 }}>
-          <div style={{ fontSize: 24 }}>🛡️</div>
-          <div style={{ flex: 1 }}>
-            <div style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t1)' }}>Device Authentication</div>
-            <div style={{ fontSize: 11, color: 'var(--t3)' }}>Protected by client-level hardware security enclave</div>
-          </div>
-          <span style={{ 
-            padding: '2px 8px', borderRadius: 10, fontSize: 10, fontWeight: 700, fontFamily: 'var(--font-mono)',
-            background: 'rgba(16,185,129,0.15)',
-            color: 'var(--green)',
-            border: '1px solid rgba(16,185,129,0.3)'
-          }}>
-            SECURED
-          </span>
-        </div>
-
-        {/* Temporary Access Link */}
-        <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 16, padding: 18, display: 'flex', alignItems: 'center', gap: 14 }}>
-          <div style={{ fontSize: 24 }}>🔑</div>
-          <div style={{ flex: 1 }}>
-            <div style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--t1)' }}>Temporary Recruiter Access</div>
-            <div style={{ fontSize: 11, color: 'var(--t3)' }}>
-              {activeTempAccess ? `Active Code: ${tempCode}` : 'Create secure single-view key'}
-            </div>
-          </div>
-          {!activeTempAccess ? (
-            <button onClick={handleGenerateTempCode} className="btn-ghost btn-sm" style={{ padding: '4px 8px' }}>Gen</button>
-          ) : (
-            <button onClick={() => setActiveTempAccess(false)} className="btn-ghost btn-sm" style={{ padding: '4px 8px', color: 'var(--coral)' }}>Revoke</button>
-          )}
-        </div>
-
       </div>
 
       {/* Stats row */}
@@ -374,19 +216,7 @@ export default function VaultPage() {
           style={{ display: 'none' }}
           onChange={(e) => {
             if (e.target.files && e.target.files[0]) {
-              const file = e.target.files[0];
-              setUploading(true);
-              setTimeout(() => {
-                const titleWithoutExt = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
-                addVaultItem({
-                  title: titleWithoutExt.split('-').join(' ').split('_').join(' ').replace(/\b\w/g, c => c.toUpperCase()),
-                  item_type: 'other',
-                  organization_name: 'Local Upload',
-                  description: `Uploaded file: ${file.name}. Parsed and indexed securely.`,
-                  skill_tags: ['Uploaded', file.name.split('.').pop()?.toUpperCase() || 'FILE'],
-                });
-                setUploading(false);
-              }, 1200);
+              handleFileUploadLive(e.target.files[0]);
             }
           }}
         />
@@ -570,8 +400,14 @@ export default function VaultPage() {
                     fontWeight: 700,
                     color: 'var(--t2)'
                   }}>
-                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: gaugeColor, boxShadow: `0 0 6px ${gaugeColor}` }} />
-                    AI Trust: {score}%
+                    {score > 0 ? (
+                      <>
+                        <span style={{ width: 6, height: 6, borderRadius: '50%', background: gaugeColor, boxShadow: `0 0 6px ${gaugeColor}` }} />
+                        AI Trust: {score}%
+                      </>
+                    ) : (
+                      <span style={{ color: 'var(--t3)', fontSize: 9.5 }}>Manual Entry</span>
+                    )}
                   </div>
                 </div>
 

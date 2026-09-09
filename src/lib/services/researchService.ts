@@ -93,12 +93,13 @@ export const researchService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('research_papers').insert({
+        const res = await supabase.from('research_papers').insert({
           title,
           authors,
           journal,
           status
         });
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -123,7 +124,8 @@ export const researchService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('research_papers').update({ status }).eq('id', paperId);
+        const res = await supabase.from('research_papers').update({ status }).eq('id', paperId);
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -146,7 +148,8 @@ export const researchService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('research_funding').update({ status: 'Approved' }).eq('id', fundingId);
+        const res = await supabase.from('research_funding').update({ status: 'Approved' }).eq('id', fundingId);
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);

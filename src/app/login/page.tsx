@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect, useCallback, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/lib/context/AuthContext';
-import { isDemoAuthEnabled } from '@/lib/demoAuth';
+import { isDemoAuthEnabled, DEMO_PASSWORD } from '@/lib/demoAuth';
 import { QRCodeSVG } from 'qrcode.react';
 import {
   identityGateway,
@@ -14,31 +14,42 @@ import {
   getDeviceName
 } from '@/lib/services/identityGateway';
 
-export default function LoginPage() {
-  const { user, loginWithVaultSession } = useAuth();
+function LoginContent() {
+  const { user, login, signup, loginWithVaultSession } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
 
-  // State Management
+  // Primary Navigation Tab: 'vault' (QR) vs 'password' (Email/Password Login) vs 'signup' (Create Student Account)
+  const initialMode = searchParams.get('mode') === 'signup' ? 'signup' : searchParams.get('mode') === 'password' ? 'password' : 'vault';
+  const [mainTab, setMainTab] = useState<'vault' | 'password' | 'signup'>(initialMode);
+
+  // Vault QR & Trusted Device State
   const [isTrustedDevice, setIsTrustedDevice] = useState<boolean>(false);
   const [trustedDeviceName, setTrustedDeviceName] = useState<string>('');
   const [authMode, setAuthMode] = useState<'qr' | 'trusted' | 'face' | 'biometric'>('qr');
-
-  // Challenge & Stream State
   const [challenge, setChallenge] = useState<VaultChallenge | null>(null);
   const [challengeStatus, setChallengeStatus] = useState<ChallengeStatus>('PENDING');
   const [secondsRemaining, setSecondsRemaining] = useState<number>(60);
+  const [currentStep, setCurrentStep] = useState<number>(1);
+
+  // Password / Signup Form State
+  const [loginForm, setLoginForm] = useState({ identifier: '', password: '', role: 'student' });
+  const [signupForm, setSignupForm] = useState({ username: '', displayName: '', password: '' });
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
-
-  // 4-Step Progress State
-  const [currentStep, setCurrentStep] = useState<number>(1);
   const [isSuccessSplash, setIsSuccessSplash] = useState<boolean>(false);
 
-  // 1. Session Check: If already authenticated, redirect to /onboarding for dev/new users or /dashboard for existing users
+  // 1. Session Check: If already authenticated, redirect to /onboarding for dev/new users or /dashboard
   useEffect(() => {
     if (user && !isSuccessSplash) {
-      const onboardCompleted = typeof window !== 'undefined' && localStorage.getItem(`pinit_${user.id}_onboarding_answers`);
-      if (!onboardCompleted || user.isDevUser) {
+      // Check DB-sourced flag first — works across all devices.
+      // localStorage is secondary fallback only (same device, already onboarded session).
+      const dbSaysComplete = !!(user as any).roadmapGenerated;
+      const localSaysComplete = typeof window !== 'undefined' &&
+        !!localStorage.getItem(`pinit_${user.id}_onboarding_answers`);
+      const onboardCompleted = dbSaysComplete || localSaysComplete;
+
+      if (!onboardCompleted || (user as any).isDevUser) {
         router.push('/onboarding');
       } else {
         router.push('/dashboard');
@@ -68,7 +79,7 @@ export default function LoginPage() {
     try {
       const newCh = await identityGateway.generateLoginChallenge('careers', 'login');
       setChallenge(newCh);
-      setCurrentStep(2); // Step 2: Waiting for Vault
+      setCurrentStep(2);
     } catch (err: any) {
       setErrorMsg(err.message || 'Failed to generate authentication QR code');
     }
@@ -76,14 +87,14 @@ export default function LoginPage() {
 
   // Initialize Challenge when entering QR mode
   useEffect(() => {
-    if (authMode === 'qr' && !challenge && !user) {
+    if (mainTab === 'vault' && authMode === 'qr' && !challenge && !user) {
       requestNewChallenge();
     }
-  }, [authMode, challenge, user, requestNewChallenge]);
+  }, [mainTab, authMode, challenge, user, requestNewChallenge]);
 
   // 4. 60-Second Countdown Timer
   useEffect(() => {
-    if (authMode !== 'qr' || !challenge || isSuccessSplash) return;
+    if (mainTab !== 'vault' || authMode !== 'qr' || !challenge || isSuccessSplash) return;
     const timer = setInterval(() => {
       setSecondsRemaining(prev => {
         if (prev <= 1) {
@@ -95,11 +106,11 @@ export default function LoginPage() {
       });
     }, 1000);
     return () => clearInterval(timer);
-  }, [authMode, challenge, isSuccessSplash, requestNewChallenge]);
+  }, [mainTab, authMode, challenge, isSuccessSplash, requestNewChallenge]);
 
   // 5. Subscribe to Status Stream
   useEffect(() => {
-    if (!challenge || authMode !== 'qr' || isSuccessSplash) return;
+    if (mainTab !== 'vault' || !challenge || authMode !== 'qr' || isSuccessSplash) return;
 
     const unsubscribe = identityGateway.subscribeStatusStream(challenge.challengeId, async (status) => {
       setChallengeStatus(status);
@@ -113,7 +124,6 @@ export default function LoginPage() {
         setErrorMsg('Authentication rejected by PinIT Vault.');
         requestNewChallenge();
       } else if (status === 'APPROVED') {
-        // Step 3 & 4: Authenticating & Preparing Workspace
         setCurrentStep(3);
         try {
           const sessionData = await identityGateway.exchangeSession(
@@ -123,7 +133,6 @@ export default function LoginPage() {
           setCurrentStep(4);
           setIsSuccessSplash(true);
 
-          // 1.0-Second Splash Transition Screen
           setTimeout(() => {
             loginWithVaultSession(sessionData).then(() => {
               router.push('/dashboard');
@@ -137,11 +146,11 @@ export default function LoginPage() {
     });
 
     return () => unsubscribe();
-  }, [challenge, authMode, isSuccessSplash, requestNewChallenge, loginWithVaultSession, router]);
+  }, [mainTab, challenge, authMode, isSuccessSplash, requestNewChallenge, loginWithVaultSession, router]);
 
-  // Helper: Simulate Vault Mobile Scan & Approval for testing
+  // Helper: Simulate Vault Mobile Scan & Approval for testing (Demo Mode Only)
   const handleSimulateVaultApproval = async () => {
-    if (!challenge) return;
+    if (!isDemoAuthEnabled() || !challenge) return;
     setLoading(true);
     try {
       await identityGateway.approveChallengeFromVault(challenge.challengeId);
@@ -157,30 +166,18 @@ export default function LoginPage() {
     setLoading(true);
     setErrorMsg('');
     try {
-      // Create instant session for trusted device
-      const mockSession = {
-        user: {
-          id: 'usr_vault_verified_student',
-          name: 'Alex Vance',
-          email: 'alex.vance@pinit.in',
-          role: 'student',
-          identityStatus: 'Active'
-        },
-        token: `jwt_trusted_${Date.now()}`
-      };
-      setIsSuccessSplash(true);
-      setTimeout(() => {
-        loginWithVaultSession(mockSession).then(() => {
-          router.push('/dashboard');
-        });
-      }, 1000);
+      // Trusted device / biometric auth requires server-side verification which is not yet implemented.
+      // Do NOT log users in with a hardcoded mock identity — that is a security hole.
+      // TODO: implement real device attestation via /api/v1/auth/trusted-device
+      throw new Error('Trusted device login is not yet available. Please use your password or QR code to sign in.');
     } catch (err: any) {
       setErrorMsg(err.message || 'Trusted device authentication failed');
     } finally {
       setLoading(false);
     }
   };
-  // Developer Mode Login: Creates a brand-new unique user ID every time & skips directly to onboarding
+
+  // Developer Mode Login
   const handleDevModeLogin = async () => {
     if (!isDemoAuthEnabled()) {
       setErrorMsg('Developer Mode is disabled in this environment.');
@@ -200,7 +197,6 @@ export default function LoginPage() {
         isDevUser: true
       };
 
-      // Completely clear any previous onboarding data for this new unique user ID
       if (typeof window !== 'undefined') {
         localStorage.removeItem(`pinit_${devId}_onboarding_answers`);
         localStorage.removeItem(`pinit_${devId}_ob_step`);
@@ -215,12 +211,64 @@ export default function LoginPage() {
           user: devUser,
           token: `jwt_dev_${Date.now()}`
         }, true).then(() => {
-          // Lands ONLY on onboarding process
           router.replace('/onboarding');
         });
       }, 800);
     } catch (err: any) {
       setErrorMsg(err.message || 'Developer mode login failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Email/Password Login Handler
+  const handlePasswordLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!loginForm.identifier || !loginForm.password) {
+      setErrorMsg('Please enter your email / username and password.');
+      return;
+    }
+    setLoading(true);
+    setErrorMsg('');
+    try {
+      await login(loginForm.identifier, loginForm.password);
+      setIsSuccessSplash(true);
+      setTimeout(() => {
+        router.push('/dashboard');
+      }, 800);
+    } catch (err: any) {
+      setErrorMsg(err.message || 'Invalid credentials. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Student Account Registration Handler
+  const handleSignupSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!signupForm.username || !signupForm.displayName || !signupForm.password) {
+      setErrorMsg('Please fill out all registration fields.');
+      return;
+    }
+    if (signupForm.password.length < 6) {
+      setErrorMsg('Password must be at least 6 characters long.');
+      return;
+    }
+    setLoading(true);
+    setErrorMsg('');
+    try {
+      await signup({
+        username: signupForm.username,
+        displayName: signupForm.displayName,
+        password: signupForm.password,
+        role: 'student'
+      });
+      setIsSuccessSplash(true);
+      setTimeout(() => {
+        router.replace('/onboarding');
+      }, 600);
+    } catch (err: any) {
+      setErrorMsg(err.message || 'Registration failed. Please try a different email.');
     } finally {
       setLoading(false);
     }
@@ -246,26 +294,26 @@ export default function LoginPage() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'var(--bg1, #030712)',
-        color: '#fff',
+        background: 'var(--bg-primary, #060813)',
+        color: 'var(--text)',
         padding: 24
       }}>
         <div style={{
           maxWidth: 420,
           width: '100%',
-          background: 'var(--bg2, #0b0f19)',
+          background: 'var(--bg-card, #0B0F1E)',
           border: '1px solid #10b981',
           borderRadius: 24,
           padding: 40,
           textAlign: 'center',
-          boxShadow: '0 0 40px rgba(16,185,129,0.2)',
-          animation: 'fadeIn 0.3s ease-in-out'
+          boxShadow: '0 0 40px rgba(var(--success-rgb), 0.25)',
+          animation: 'fadeInPop 0.3s ease-in-out'
         }}>
           <div style={{
             width: 64,
             height: 64,
-            background: 'rgba(16,185,129,0.15)',
-            color: '#10b981',
+            background: 'rgba(var(--success-rgb), 0.15)',
+            color: 'var(--success)',
             borderRadius: '50%',
             display: 'flex',
             alignItems: 'center',
@@ -274,11 +322,11 @@ export default function LoginPage() {
             margin: '0 auto 20px',
             border: '2px solid #10b981'
           }}>✓</div>
-          <h2 style={{ fontSize: 22, fontWeight: 800, margin: '0 0 8px', color: '#fff' }}>
-            Login Successful
+          <h2 style={{ fontSize: 22, fontWeight: 800, margin: '0 0 8px', color: 'var(--text)' }}>
+            Authentication Verified
           </h2>
           <p style={{ fontSize: 14, color: '#9ca3af', margin: 0 }}>
-            Loading Career Workspace...
+            Preparing your Sovereign Career Workspace...
           </p>
           <div style={{
             marginTop: 24,
@@ -289,9 +337,9 @@ export default function LoginPage() {
           }}>
             <div style={{
               height: '100%',
-              background: '#10b981',
+              background: 'var(--success)',
               width: '100%',
-              transition: 'width 1s linear'
+              transition: 'width 0.8s linear'
             }} />
           </div>
         </div>
@@ -305,268 +353,235 @@ export default function LoginPage() {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      background: 'var(--bg1, #030712)',
-      color: 'var(--t1, #f9fafb)',
+      background: 'var(--bg-primary, #060813)',
+      color: 'var(--text-primary, #f9fafb)',
       padding: '24px'
     }}>
       <div className="auth-card animate-fade-in" style={{
         maxWidth: 460,
         width: '100%',
-        background: 'var(--bg2, #0b0f19)',
-        border: '1px solid var(--border, #1f2937)',
+        background: 'var(--bg-card, #0B0F1E)',
+        border: '1px solid var(--border-color, rgba(255,255,255,0.1))',
         borderRadius: 24,
         padding: 32,
         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.6)'
       }}>
+        
         {/* Brand Logo Header */}
-        <div className="auth-logo" style={{ textAlign: 'center', marginBottom: 24 }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginBottom: 12 }}>
-            <span className="lp-brand-lockup" style={{ height: 56, padding: '4px 10px' }}>
-              <img src="/brand/pinit-career-logo.png" alt="PINIT CAREER" className="lp-brand-logo" style={{ height: 48, maxWidth: 200 }} />
-            </span>
-          </div>
-          <h2 style={{ fontSize: 20, fontWeight: 700, margin: '4px 0 4px', color: 'var(--t1)' }}>
-            PinIT Vault Login
-          </h2>
-          <p style={{ fontSize: 13, color: 'var(--t3, #9ca3af)', margin: 0 }}>
-            Secure identity verification powered by PinIT Vault
-          </p>
+        <div className="auth-logo" style={{ textAlign: 'center', marginBottom: 20 }}>
+          <Link href="/" style={{ textDecoration: 'none', display: 'inline-block' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginBottom: 12 }}>
+              <span className="lp-brand-lockup" style={{ height: 56, padding: '4px 10px' }}>
+                <img src="/brand/pinit-career-logo.png" alt="PINIT CAREER" className="lp-brand-logo" style={{ height: 48, maxWidth: 200 }} />
+              </span>
+            </div>
+          </Link>
         </div>
-        {isDemoAuthEnabled() && (
+
+        {/* 🔀 UNIFIED AUTH METHOD SWITCHER TABS */}
         <div style={{
-          background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(217, 119, 6, 0.12) 100%)',
-          border: '1px solid rgba(245, 158, 11, 0.35)',
-          borderRadius: 14,
-          padding: '12px 14px',
-          marginBottom: 20,
           display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: 12
+          background: 'var(--bg-secondary, rgba(255,255,255,0.05))',
+          padding: 4,
+          borderRadius: 14,
+          marginBottom: 20,
+          border: '1px solid var(--border-color, rgba(255,255,255,0.1))'
         }}>
-          <div>
-            <div style={{ fontSize: 12.5, fontWeight: 700, color: '#fbbf24', display: 'flex', alignItems: 'center', gap: 6 }}>
-              ⚡ Developer Mode Enabled
-            </div>
-            <div style={{ fontSize: 11, color: '#d1d5db', marginTop: 2 }}>
-              Skip Vault & create a fresh unique user to test Onboarding.
-            </div>
-          </div>
           <button
             type="button"
-            onClick={handleDevModeLogin}
-            disabled={loading}
+            onClick={() => { setMainTab('vault'); setErrorMsg(''); }}
             style={{
-              background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
-              color: '#000',
+              flex: 1,
+              padding: '9px 12px',
+              borderRadius: 10,
+              fontSize: 12.5,
+              fontWeight: 750,
               border: 'none',
-              padding: '7px 12px',
-              borderRadius: 8,
-              fontSize: 11.5,
-              fontWeight: 800,
               cursor: 'pointer',
-              whiteSpace: 'nowrap',
-              boxShadow: '0 4px 12px rgba(245, 158, 11, 0.3)'
+              background: mainTab === 'vault' ? 'var(--accent, #00A3FF)' : 'transparent',
+              color: mainTab === 'vault' ? '#fff' : 'var(--text-secondary, #94A3B8)',
+              transition: 'all 0.2s'
             }}
           >
-            {loading ? 'Creating...' : 'Test Onboarding'}
+            📱 PinIT Vault QR
+          </button>
+          <button
+            type="button"
+            onClick={() => { setMainTab('password'); setErrorMsg(''); }}
+            style={{
+              flex: 1,
+              padding: '9px 12px',
+              borderRadius: 10,
+              fontSize: 12.5,
+              fontWeight: 750,
+              border: 'none',
+              cursor: 'pointer',
+              background: mainTab === 'password' ? 'var(--accent, #00A3FF)' : 'transparent',
+              color: mainTab === 'password' ? '#fff' : 'var(--text-secondary, #94A3B8)',
+              transition: 'all 0.2s'
+            }}
+          >
+            🔑 Password Sign In
+          </button>
+          <button
+            type="button"
+            onClick={() => { setMainTab('signup'); setErrorMsg(''); }}
+            style={{
+              flex: 1,
+              padding: '9px 12px',
+              borderRadius: 10,
+              fontSize: 12.5,
+              fontWeight: 750,
+              border: 'none',
+              cursor: 'pointer',
+              background: mainTab === 'signup' ? 'var(--accent, #00A3FF)' : 'transparent',
+              color: mainTab === 'signup' ? '#fff' : 'var(--text-secondary, #94A3B8)',
+              transition: 'all 0.2s'
+            }}
+          >
+            📝 Sign Up
           </button>
         </div>
-        )}
 
-        {/* Error / Offline Alert Banner */}
+        {/* Error Alert Banner */}
         {errorMsg && (
           <div style={{
-            background: 'rgba(239, 68, 68, 0.1)',
-            border: '1px solid rgba(239, 68, 68, 0.3)',
-            color: '#f87171',
-            padding: '10px 14px',
-            borderRadius: 12,
+            background: 'rgba(var(--danger-rgb),  0.12)',
+            border: '1px solid rgba(var(--danger-rgb),  0.35)',
+            color: 'var(--danger-bright)',
+            padding: '12px 16px',
+            borderRadius: 14,
             fontSize: 13,
             marginBottom: 20,
             display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: 8
+            flexDirection: 'column',
+            gap: 10
           }}>
-            <span>⚠️ {errorMsg}</span>
-            <button
-              onClick={() => requestNewChallenge()}
-              style={{
-                background: '#ef4444',
-                color: '#fff',
-                border: 'none',
-                padding: '4px 10px',
-                borderRadius: 6,
-                fontSize: 11,
-                fontWeight: 700,
-                cursor: 'pointer'
-              }}
-            >
-              Retry
-            </button>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+              <span>⚠️ {errorMsg}</span>
+              {mainTab === 'vault' && (
+                <button
+                  type="button"
+                  onClick={() => requestNewChallenge()}
+                  style={{
+                    background: 'var(--danger)',
+                    color: 'var(--text)',
+                    border: 'none',
+                    padding: '4px 10px',
+                    borderRadius: 6,
+                    fontSize: 11,
+                    fontWeight: 700,
+                    cursor: 'pointer'
+                  }}
+                >
+                  Retry QR
+                </button>
+              )}
+            </div>
+            {mainTab === 'vault' && (
+              <div style={{ display: 'flex', gap: 8, marginTop: 4 }}>
+                <button
+                  type="button"
+                  onClick={() => { setMainTab('signup'); setErrorMsg(''); }}
+                  style={{
+                    flex: 1,
+                    background: 'var(--accent, #00A3FF)',
+                    color: 'var(--text)',
+                    border: 'none',
+                    padding: '7px 12px',
+                    borderRadius: 8,
+                    fontSize: 12,
+                    fontWeight: 750,
+                    cursor: 'pointer'
+                  }}
+                >
+                  📝 Create Account (Sign Up)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setMainTab('password'); setErrorMsg(''); }}
+                  style={{
+                    flex: 1,
+                    background: 'rgba(255,255,255,0.1)',
+                    color: 'var(--text)',
+                    border: '1px solid rgba(255,255,255,0.2)',
+                    padding: '7px 12px',
+                    borderRadius: 8,
+                    fontSize: 12,
+                    fontWeight: 750,
+                    cursor: 'pointer'
+                  }}
+                >
+                  🔑 Password Login
+                </button>
+              </div>
+            )}
           </div>
         )}
 
-        {/* Trusted Device Action Selector */}
-        {isTrustedDevice && (
-          <div style={{ marginBottom: 20 }}>
-            <div style={{
-              display: 'flex',
-              background: 'var(--bg3, #111827)',
-              padding: 4,
-              borderRadius: 14,
-              marginBottom: 16,
-              border: '1px solid var(--border, #1f2937)'
-            }}>
-              <button
-                type="button"
-                onClick={() => setAuthMode('trusted')}
-                style={{
-                  flex: 1,
-                  padding: '8px 12px',
-                  borderRadius: 10,
-                  fontSize: 12,
-                  fontWeight: 600,
-                  border: 'none',
-                  cursor: 'pointer',
-                  background: authMode === 'trusted' ? 'var(--accent, #4f46e5)' : 'transparent',
-                  color: authMode === 'trusted' ? '#fff' : 'var(--t3, #9ca3af)'
-                }}
-              >
-                🔒 Trusted Options
-              </button>
-              <button
-                type="button"
-                onClick={() => { setAuthMode('qr'); requestNewChallenge(); }}
-                style={{
-                  flex: 1,
-                  padding: '8px 12px',
-                  borderRadius: 10,
-                  fontSize: 12,
-                  fontWeight: 600,
-                  border: 'none',
-                  cursor: 'pointer',
-                  background: authMode === 'qr' ? 'var(--accent, #4f46e5)' : 'transparent',
-                  color: authMode === 'qr' ? '#fff' : 'var(--t3, #9ca3af)'
-                }}
-              >
-                📱 Scan QR
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* TRUSTED DEVICE OPTIONS VIEW */}
-        {isTrustedDevice && authMode === 'trusted' ? (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            <div style={{
-              background: 'rgba(79, 70, 229, 0.08)',
-              border: '1px solid rgba(79, 70, 229, 0.2)',
-              borderRadius: 12,
-              padding: 12,
-              fontSize: 12,
-              color: '#a5b4fc',
-              marginBottom: 8
-            }}>
-              ✓ Trusted Device Verified: <strong>{trustedDeviceName}</strong>
-            </div>
-
-            {/* Option 1: Face Authentication */}
-            <button
-              onClick={() => handleTrustedDeviceLogin(AuthenticationMethod.FACE_AUTH)}
-              disabled={loading}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 14,
-                width: '100%',
-                padding: '14px 16px',
-                background: 'var(--bg3, #111827)',
-                border: '1px solid var(--border, #1f2937)',
-                borderRadius: 14,
-                color: '#fff',
-                fontSize: 14,
-                fontWeight: 600,
-                cursor: 'pointer',
-                textAlign: 'left'
-              }}
-            >
-              <span style={{ fontSize: 24 }}>👤</span>
-              <div>
-                <div>Continue With Face Authentication</div>
-                <div style={{ fontSize: 11, color: '#9ca3af', fontWeight: 400 }}>
-                  Fast verification via PinIT Vault face match
-                </div>
-              </div>
-            </button>
-
-            {/* Option 2: Device Biometrics */}
-            <button
-              onClick={() => handleTrustedDeviceLogin(AuthenticationMethod.DEVICE_BIOMETRIC)}
-              disabled={loading}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 14,
-                width: '100%',
-                padding: '14px 16px',
-                background: 'var(--bg3, #111827)',
-                border: '1px solid var(--border, #1f2937)',
-                borderRadius: 14,
-                color: '#fff',
-                fontSize: 14,
-                fontWeight: 600,
-                cursor: 'pointer',
-                textAlign: 'left'
-              }}
-            >
-              <span style={{ fontSize: 24 }}>👆</span>
-              <div>
-                <div>Continue With Device Biometrics</div>
-                <div style={{ fontSize: 11, color: '#9ca3af', fontWeight: 400 }}>
-                  Touch ID / Face ID / Platform Biometrics
-                </div>
-              </div>
-            </button>
-
-            {/* Option 3: Scan With Vault */}
-            <button
-              onClick={() => { setAuthMode('qr'); requestNewChallenge(); }}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 14,
-                width: '100%',
-                padding: '14px 16px',
-                background: 'var(--bg3, #111827)',
-                border: '1px solid var(--border, #1f2937)',
-                borderRadius: 14,
-                color: '#fff',
-                fontSize: 14,
-                fontWeight: 600,
-                cursor: 'pointer',
-                textAlign: 'left'
-              }}
-            >
-              <span style={{ fontSize: 24 }}>📱</span>
-              <div>
-                <div>Continue With Scan With Vault</div>
-                <div style={{ fontSize: 11, color: '#9ca3af', fontWeight: 400 }}>
-                  Display signed QR code to scan with Vault mobile app
-                </div>
-              </div>
-            </button>
-          </div>
-        ) : (
-          /* UNTRUSTED / QR SCAN VIEW */
+        {/* ================================================================= */}
+        {/* TAB 1: 📱 PINIT VAULT QR LOGIN (SCREENSHOT 1)                     */}
+        {/* ================================================================= */}
+        {mainTab === 'vault' && (
           <div>
+            <div style={{ textAlign: 'center', marginBottom: 16 }}>
+              <h2 style={{ fontSize: 19, fontWeight: 800, margin: '0 0 4px', color: 'var(--text-primary)' }}>
+                PinIT Vault Login
+              </h2>
+              <p style={{ fontSize: 12.5, color: 'var(--text-tertiary)', margin: 0 }}>
+                Secure identity verification powered by PinIT Vault
+              </p>
+            </div>
+
+            {/* Developer Mode Banner */}
+            {isDemoAuthEnabled() && (
+              <div style={{
+                background: 'linear-gradient(135deg, rgba(var(--warning-rgb),  0.12) 0%, rgba(217, 119, 6, 0.12) 100%)',
+                border: '1px solid rgba(var(--warning-rgb),  0.35)',
+                borderRadius: 14,
+                padding: '12px 14px',
+                marginBottom: 18,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: 12
+              }}>
+                <div>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--warning-bright)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                    ⚡ Developer Mode Enabled
+                  </div>
+                  <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginTop: 2 }}>
+                    Skip Vault & create a fresh unique user to test Onboarding.
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleDevModeLogin}
+                  disabled={loading}
+                  style={{
+                    background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+                    color: '#000',
+                    border: 'none',
+                    padding: '7px 12px',
+                    borderRadius: 8,
+                    fontSize: 11.5,
+                    fontWeight: 800,
+                    cursor: 'pointer',
+                    whiteSpace: 'nowrap',
+                    boxShadow: '0 4px 12px rgba(var(--warning-rgb),  0.3)'
+                  }}
+                >
+                  {loading ? 'Creating...' : 'Test Onboarding'}
+                </button>
+              </div>
+            )}
+
             {/* 4-Step Progress UI Header */}
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(4, 1fr)',
               gap: 4,
-              marginBottom: 20
+              marginBottom: 16
             }}>
               {[
                 { step: 1, title: 'QR Gen', icon: '✓' },
@@ -578,11 +593,11 @@ export default function LoginPage() {
                   padding: '6px 4px',
                   borderRadius: 8,
                   textAlign: 'center',
-                  background: currentStep >= s.step ? 'rgba(79,70,229,0.2)' : 'var(--bg3, #111827)',
-                  border: `1px solid ${currentStep >= s.step ? 'var(--accent, #4f46e5)' : 'var(--border, #1f2937)'}`,
+                  background: currentStep >= s.step ? 'rgba(0, 163, 255, 0.15)' : 'var(--bg-secondary)',
+                  border: `1px solid ${currentStep >= s.step ? 'var(--accent)' : 'var(--border-color)'}`,
                   fontSize: 11,
-                  fontWeight: 600,
-                  color: currentStep >= s.step ? '#a5b4fc' : '#6b7280'
+                  fontWeight: 650,
+                  color: currentStep >= s.step ? 'var(--accent)' : 'var(--text-tertiary)'
                 }}>
                   {s.step < currentStep ? '✓' : s.icon} {s.title}
                 </div>
@@ -592,49 +607,49 @@ export default function LoginPage() {
             {/* QR Canvas Display */}
             <div style={{
               background: '#ffffff',
-              padding: 20,
+              padding: 18,
               borderRadius: 20,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 10px 25px rgba(0,0,0,0.5)',
-              margin: '0 auto 20px',
-              maxWidth: 240,
+              boxShadow: '0 10px 25px rgba(0,0,0,0.4)',
+              margin: '0 auto 16px',
+              maxWidth: 230,
               width: '100%',
               position: 'relative'
             }}>
               <QRCodeSVG
                 value={qrPayloadString}
-                size={200}
+                size={190}
                 level="M"
                 includeMargin={false}
               />
             </div>
 
             {/* Countdown Bar & Timer */}
-            <div style={{ textAlign: 'center', marginBottom: 20 }}>
+            <div style={{ textAlign: 'center', marginBottom: 16 }}>
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 fontSize: 12,
-                color: '#9ca3af',
+                color: 'var(--text-tertiary)',
                 marginBottom: 6
               }}>
                 <span>QR Expiry Timer</span>
-                <span style={{ fontWeight: 700, color: secondsRemaining < 10 ? '#f87171' : '#a5b4fc' }}>
+                <span style={{ fontWeight: 700, color: secondsRemaining < 10 ? 'var(--danger-bright)' : 'var(--accent)' }}>
                   {secondsRemaining}s remaining
                 </span>
               </div>
               <div style={{
                 height: 4,
-                background: 'var(--bg3, #111827)',
+                background: 'var(--bg-secondary)',
                 borderRadius: 2,
                 overflow: 'hidden'
               }}>
                 <div style={{
                   height: '100%',
-                  background: secondsRemaining < 10 ? '#ef4444' : 'var(--accent, #4f46e5)',
+                  background: secondsRemaining < 10 ? 'var(--danger)' : 'var(--accent)',
                   width: `${(secondsRemaining / 60) * 100}%`,
                   transition: 'width 1s linear'
                 }} />
@@ -644,16 +659,16 @@ export default function LoginPage() {
             {/* Status Indicator Message */}
             <div style={{
               textAlign: 'center',
-              fontSize: 13,
-              color: '#d1d5db',
-              marginBottom: 20,
+              fontSize: 12.5,
+              color: 'var(--text-secondary)',
+              marginBottom: 16,
               padding: '10px 14px',
-              background: 'var(--bg3, #111827)',
+              background: 'var(--bg-secondary)',
               borderRadius: 12,
-              border: '1px solid var(--border, #1f2937)'
+              border: '1px solid var(--border-color)'
             }}>
               {challengeStatus === 'SCANNING' ? (
-                <span style={{ color: '#f59e0b', fontWeight: 600 }}>
+                <span style={{ color: 'var(--warning)', fontWeight: 600 }}>
                   📱 QR Scanned! Completing Vault biometric verification...
                 </span>
               ) : (
@@ -663,37 +678,320 @@ export default function LoginPage() {
               )}
             </div>
 
-            {/* Local Simulator Button for Testing */}
-            <button
-              type="button"
-              onClick={handleSimulateVaultApproval}
-              disabled={loading || !challenge}
-              style={{
-                width: '100%',
-                padding: '10px 14px',
-                borderRadius: 12,
-                background: 'linear-gradient(135deg, #059669 0%, #10b981 100%)',
-                color: '#fff',
-                border: 'none',
-                fontSize: 13,
-                fontWeight: 700,
-                cursor: 'pointer',
-                boxShadow: '0 4px 12px rgba(16,185,129,0.3)'
-              }}
-            >
-              {loading ? 'Approving...' : '📲 Simulate PinIT Vault App Scan & Approval'}
-            </button>
+            {/* Local Simulator Button for Testing (Demo Mode Only) */}
+            {isDemoAuthEnabled() && (
+              <button
+                type="button"
+                onClick={handleSimulateVaultApproval}
+                disabled={loading || !challenge}
+                style={{
+                  width: '100%',
+                  padding: '10px 14px',
+                  borderRadius: 12,
+                  background: 'linear-gradient(135deg, var(--success-deep) 0%, var(--success) 100%)',
+                  color: 'var(--text)',
+                  border: 'none',
+                  fontSize: 13,
+                  fontWeight: 750,
+                  cursor: 'pointer',
+                  boxShadow: '0 4px 12px rgba(var(--success-rgb), 0.3)'
+                }}
+              >
+                {loading ? 'Approving...' : '📲 Simulate PinIT Vault App Scan & Approval (Demo Only)'}
+              </button>
+            )}
+
+            {/* Quick Switch Alternative Actions */}
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 8,
+              marginTop: 18,
+              paddingTop: 14,
+              borderTop: '1px solid var(--border-color)',
+              fontSize: 12.5,
+              color: 'var(--text-tertiary)'
+            }}>
+              <div>
+                <span>Don&apos;t have the Vault app? </span>
+                <button
+                  type="button"
+                  onClick={() => { setMainTab('signup'); setErrorMsg(''); }}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: 'var(--accent, #00A3FF)',
+                    fontWeight: 750,
+                    cursor: 'pointer',
+                    padding: '0 2px',
+                    fontSize: 12.5,
+                    textDecoration: 'underline'
+                  }}
+                >
+                  Create Student Account (Sign Up) →
+                </button>
+              </div>
+              <div>
+                <span>Prefer email &amp; password? </span>
+                <button
+                  type="button"
+                  onClick={() => { setMainTab('password'); setErrorMsg(''); }}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: 'var(--text-secondary, #94A3B8)',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    padding: '0 2px',
+                    fontSize: 12
+                  }}
+                >
+                  Password Sign In →
+                </button>
+              </div>
+            </div>
           </div>
         )}
 
-        {/* Footer Navigation Link */}
-        <div style={{ marginTop: 24, textAlign: 'center', fontSize: 13, color: '#9ca3af' }}>
-          Don't have the PinIT Vault mobile app?{' '}
-          <Link href="/onboarding" style={{ color: 'var(--accent, #6366f1)', fontWeight: 600, textDecoration: 'none' }}>
-            Learn More
-          </Link>
+        {/* ================================================================= */}
+        {/* TAB 2: 🔑 PASSWORD SIGN IN                                        */}
+        {/* ================================================================= */}
+        {mainTab === 'password' && (
+          <form onSubmit={handlePasswordLogin} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <div style={{ textAlign: 'center', marginBottom: 12 }}>
+              <h2 style={{ fontSize: 19, fontWeight: 800, margin: '0 0 4px', color: 'var(--text-primary)' }}>
+                Sign In With Password
+              </h2>
+              <p style={{ fontSize: 12.5, color: 'var(--text-tertiary)', margin: 0 }}>
+                Unified Portal for Students, Faculty & Recruiters
+              </p>
+            </div>
+
+            <div>
+              <label style={{ display: 'block', fontSize: 12.5, fontWeight: 650, color: 'var(--text-secondary)', marginBottom: 6 }}>
+                Email / Roll Number / Username
+              </label>
+              <input
+                type="text"
+                placeholder="you@college.edu or 21CS001"
+                value={loginForm.identifier}
+                onChange={(e) => setLoginForm({ ...loginForm, identifier: e.target.value })}
+                required
+                style={{
+                  width: '100%',
+                  padding: '11px 14px',
+                  borderRadius: 10,
+                  background: 'var(--bg-secondary)',
+                  border: '1px solid var(--border-color)',
+                  color: 'var(--text-primary)',
+                  fontSize: 13.5,
+                  outline: 'none'
+                }}
+              />
+            </div>
+
+            <div>
+              <label style={{ display: 'block', fontSize: 12.5, fontWeight: 650, color: 'var(--text-secondary)', marginBottom: 6 }}>
+                Password
+              </label>
+              <input
+                type="password"
+                placeholder="Enter password"
+                value={loginForm.password}
+                onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
+                required
+                style={{
+                  width: '100%',
+                  padding: '11px 14px',
+                  borderRadius: 10,
+                  background: 'var(--bg-secondary)',
+                  border: '1px solid var(--border-color)',
+                  color: 'var(--text-primary)',
+                  fontSize: 13.5,
+                  outline: 'none'
+                }}
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              style={{
+                width: '100%',
+                padding: '12px 18px',
+                borderRadius: 10,
+                background: 'var(--accent)',
+                color: 'var(--text)',
+                border: 'none',
+                fontSize: 13.5,
+                fontWeight: 750,
+                cursor: 'pointer',
+                marginTop: 6,
+                boxShadow: '0 4px 14px var(--accent-glow)'
+              }}
+            >
+              {loading ? 'Signing In...' : 'Sign In →'}
+            </button>
+          </form>
+        )}
+
+        {/* ================================================================= */}
+        {/* TAB 3: 📝 CREATE STUDENT ACCOUNT (SCREENSHOT 2)                   */}
+        {/* ================================================================= */}
+        {mainTab === 'signup' && (
+          <form onSubmit={handleSignupSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <div style={{ textAlign: 'center', marginBottom: 12 }}>
+              <h2 style={{ fontSize: 19, fontWeight: 800, margin: '0 0 4px', color: 'var(--text-primary)' }}>
+                Create Student Account
+              </h2>
+              <p style={{ fontSize: 12.5, color: 'var(--text-tertiary)', margin: 0 }}>
+                Join thousands of verified students mastering industry skills
+              </p>
+            </div>
+
+            <div>
+              <label style={{ display: 'block', fontSize: 12.5, fontWeight: 650, color: 'var(--text-secondary)', marginBottom: 6 }}>
+                Email / Username
+              </label>
+              <input
+                type="text"
+                placeholder="you@college.edu"
+                value={signupForm.username}
+                onChange={(e) => setSignupForm({ ...signupForm, username: e.target.value })}
+                required
+                style={{
+                  width: '100%',
+                  padding: '11px 14px',
+                  borderRadius: 10,
+                  background: 'var(--bg-secondary)',
+                  border: '1px solid var(--border-color)',
+                  color: 'var(--text-primary)',
+                  fontSize: 13.5,
+                  outline: 'none'
+                }}
+              />
+            </div>
+
+            <div>
+              <label style={{ display: 'block', fontSize: 12.5, fontWeight: 650, color: 'var(--text-secondary)', marginBottom: 6 }}>
+                Display Name
+              </label>
+              <input
+                type="text"
+                placeholder="Your Full Name"
+                value={signupForm.displayName}
+                onChange={(e) => setSignupForm({ ...signupForm, displayName: e.target.value })}
+                required
+                style={{
+                  width: '100%',
+                  padding: '11px 14px',
+                  borderRadius: 10,
+                  background: 'var(--bg-secondary)',
+                  border: '1px solid var(--border-color)',
+                  color: 'var(--text-primary)',
+                  fontSize: 13.5,
+                  outline: 'none'
+                }}
+              />
+            </div>
+
+            <div>
+              <label style={{ display: 'block', fontSize: 12.5, fontWeight: 650, color: 'var(--text-secondary)', marginBottom: 6 }}>
+                Password
+              </label>
+              <input
+                type="password"
+                placeholder="At least 6 characters"
+                value={signupForm.password}
+                onChange={(e) => setSignupForm({ ...signupForm, password: e.target.value })}
+                required
+                style={{
+                  width: '100%',
+                  padding: '11px 14px',
+                  borderRadius: 10,
+                  background: 'var(--bg-secondary)',
+                  border: '1px solid var(--border-color)',
+                  color: 'var(--text-primary)',
+                  fontSize: 13.5,
+                  outline: 'none'
+                }}
+              />
+            </div>
+
+            <p style={{ fontSize: 11.5, color: 'var(--text-tertiary)', margin: '4px 0 0', lineHeight: 1.4 }}>
+              New accounts are registered as <strong>students</strong>. Staff and recruiter access is granted by institutional administrators.
+            </p>
+
+            <button
+              type="submit"
+              disabled={loading}
+              style={{
+                width: '100%',
+                padding: '12px 18px',
+                borderRadius: 10,
+                background: 'var(--accent)',
+                color: 'var(--text)',
+                border: 'none',
+                fontSize: 13.5,
+                fontWeight: 750,
+                cursor: 'pointer',
+                marginTop: 4,
+                boxShadow: '0 4px 14px var(--accent-glow)'
+              }}
+            >
+              {loading ? 'Creating Account...' : 'Create Student Account'}
+            </button>
+          </form>
+        )}
+
+        {/* 🧭 Universal Footer Switcher */}
+        <div style={{ marginTop: 22, paddingTop: 16, borderTop: '1px solid var(--border-color)', textAlign: 'center', fontSize: 12.5, color: 'var(--text-tertiary)' }}>
+          {mainTab === 'vault' ? (
+            <span>
+              Prefer password login?{' '}
+              <button
+                type="button"
+                onClick={() => { setMainTab('password'); setErrorMsg(''); }}
+                style={{ background: 'none', border: 'none', color: 'var(--accent)', fontWeight: 700, cursor: 'pointer', padding: 0 }}
+              >
+                Sign In With Password
+              </button>
+            </span>
+          ) : mainTab === 'password' ? (
+            <span>
+              Don&apos;t have an account?{' '}
+              <button
+                type="button"
+                onClick={() => { setMainTab('signup'); setErrorMsg(''); }}
+                style={{ background: 'none', border: 'none', color: 'var(--accent)', fontWeight: 700, cursor: 'pointer', padding: 0 }}
+              >
+                Create Student Account
+              </button>
+            </span>
+          ) : (
+            <span>
+              Already have an account?{' '}
+              <button
+                type="button"
+                onClick={() => { setMainTab('password'); setErrorMsg(''); }}
+                style={{ background: 'none', border: 'none', color: 'var(--accent)', fontWeight: 700, cursor: 'pointer', padding: 0 }}
+              >
+                Sign In
+              </button>
+            </span>
+          )}
         </div>
+
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div style={{ minHeight: '100vh', background: 'var(--bg-primary, #060813)' }} />}>
+      <LoginContent />
+    </Suspense>
   );
 }

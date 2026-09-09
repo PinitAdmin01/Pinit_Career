@@ -3,8 +3,10 @@
 // Campus Communication Hub containing announcement boards, notifications feed, simulated email readboxes, simulated phone SMS messages, and push notification triggers.
 
 import { useState, useEffect } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/api/client';
-import { useNotifications, useMarkRead } from '@/lib/api/hooks';
+import { useNotifications, useMarkRead, KEYS } from '@/lib/api/hooks';
+import { toast } from '@/lib/store/useAppStore';
 
 type CommTab = 'announcements' | 'notifications' | 'emails' | 'sms' | 'tester';
 
@@ -27,6 +29,7 @@ const TYPE_META: Record<string, { icon: string; color: string; bg: string }> = {
 };
 
 export default function CampusCommunicationHub() {
+  const queryClient = useQueryClient();
   const [activeTab, setActiveTab] = useState<CommTab>('announcements');
   const { data: notifData, isLoading: loadingNotifs } = useNotifications();
   const markReadMutation = useMarkRead();
@@ -75,10 +78,11 @@ export default function CampusCommunicationHub() {
   const handleMarkAllRead = async () => {
     try {
       await api.post('/api/notifications/mark-all-read', {});
-      alert('All notifications marked as read ✓');
-      // Refresh hooks logic
-      window.location.reload();
-    } catch {}
+      await queryClient.invalidateQueries({ queryKey: KEYS.notifications });
+      toast.success('All Caught Up! ✓', 'All notifications marked as read.');
+    } catch {
+      toast.error('Action Failed', 'Could not mark notifications as read.');
+    }
   };
 
   const systemNotifs: Notif[] = Array.isArray(notifData) ? notifData : (notifData as any)?.notifications || [];

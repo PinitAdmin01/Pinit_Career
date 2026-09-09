@@ -96,7 +96,7 @@ function ParentPageInner() {
           <button
             type="submit"
             disabled={!registerNumber || linkMutation.isPending}
-            style={{ padding: '10px 20px', borderRadius: 8, background: 'var(--accent)', color: '#fff', border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 700 }}
+            style={{ padding: '10px 20px', borderRadius: 8, background: 'var(--accent)', color: 'var(--text)', border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 700 }}
           >
             {linkMutation.isPending ? 'Sending...' : 'Send Request'}
           </button>
@@ -123,7 +123,7 @@ function ParentPageInner() {
                 onClick={() => setSelectedStudent(s.id)}
                 style={{
                   padding: '16px', borderRadius: 12, cursor: 'pointer',
-                  background: selectedStudent === s.id ? 'rgba(16,185,129,0.08)' : 'var(--card)',
+                  background: selectedStudent === s.id ? 'rgba(var(--success-rgb), 0.08)' : 'var(--card)',
                   border: `1.5px solid ${selectedStudent === s.id ? 'var(--success)' : 'var(--border)'}`,
                   transition: 'all 0.15s ease'
                 }}>
@@ -160,7 +160,7 @@ function ParentPageInner() {
                         onClick={() => setActiveTab(t.id)}
                         style={{
                           padding: '8px 16px', borderRadius: 8, fontSize: 12.5, fontWeight: isActive ? 800 : 600,
-                          background: isActive ? 'rgba(16,185,129,0.08)' : 'transparent',
+                          background: isActive ? 'rgba(var(--success-rgb), 0.08)' : 'transparent',
                           color: isActive ? 'var(--success)' : 'var(--t2)',
                           border: 'none', cursor: 'pointer', whiteSpace: 'nowrap',
                           transition: 'all 0.15s ease'
@@ -181,8 +181,8 @@ function ParentPageInner() {
                       
                       {/* Overview summary — live fields only */}
                       <div style={{
-                        background: 'linear-gradient(135deg, rgba(16,185,129,0.06) 0%, rgba(5,150,105,0.02) 100%)',
-                        border: '1px solid rgba(16,185,129,0.18)',
+                        background: 'linear-gradient(135deg, rgba(var(--success-rgb), 0.06) 0%, rgba(var(--success-deep-rgb), 0.02) 100%)',
+                        border: '1px solid rgba(var(--success-rgb), 0.18)',
                         borderRadius: 12, padding: 18
                       }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
@@ -198,7 +198,7 @@ function ParentPageInner() {
                       {/* Parent Alert Acknowledgment Feedback Seal Banner (Item 6) */}
                       {Object.keys(acknowledgedAlerts).length > 0 && (
                         <div style={{
-                          background: 'rgba(16,185,129,0.06)', border: '1.5px solid rgba(16,185,129,0.25)',
+                          background: 'rgba(var(--success-rgb), 0.06)', border: '1.5px solid rgba(var(--success-rgb), 0.25)',
                           borderRadius: 12, padding: '12px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center'
                         }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -220,7 +220,7 @@ function ParentPageInner() {
                           { label: 'ATS Score', value: overview.profile?.ats_score != null ? `${overview.profile.ats_score}` : '—', desc: 'Resume ATS score', color: 'var(--accent)' },
                           { label: 'Attendance', value: overview.profile?.attendance != null ? `${overview.profile.attendance}%` : 'Not available', desc: 'No attendance feed linked', color: 'var(--teal)' },
                           { label: 'Trust Score', value: overview.profile?.trust_score != null ? `${overview.profile.trust_score}` : '—', desc: 'Platform trust index', color: 'var(--accent)' },
-                          { label: 'Career DNA', value: overview.profile?.career_dna_score != null ? `${overview.profile.career_dna_score}` : '—', desc: 'Career DNA score', color: '#10b981' },
+                          { label: 'Career DNA', value: overview.profile?.career_dna_score != null ? `${overview.profile.career_dna_score}` : '—', desc: 'Career DNA score', color: 'var(--success)' },
                           { label: 'Current CGPA', value: overview.profile?.cgpa != null ? String(overview.profile.cgpa) : 'Not available', desc: 'No gradebook feed linked', color: 'var(--accent)' },
                           { label: 'Mission Streak', value: `${overview.profile?.mission_streak ?? 0} days`, desc: 'Continuous study index', color: 'var(--amber)' },
                           { label: 'Track', value: overview.profile?.career_track || '—', desc: 'Declared career track', color: 'var(--success)' }
@@ -262,7 +262,7 @@ function ParentPageInner() {
                         <h4 style={{ margin: '0 0 14px 0', fontSize: 13, fontWeight: 800, color: 'var(--t1)' }}>📊 Subject Score Graph</h4>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                           {[
-                            { name: 'Database Systems', val: 100, color: '#10b981' },
+                            { name: 'Database Systems', val: 100, color: 'var(--success)' },
                             { name: 'Mathematics', val: 80, color: 'var(--success)' },
                             { name: 'Programming Foundations', val: 60, color: 'var(--amber)' },
                             { name: 'Computer Networking', val: 40, color: 'var(--danger)' }
@@ -304,7 +304,7 @@ function ParentPageInner() {
 
                       {/* Diagnosis trends */}
                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-                        <div style={{ background: 'rgba(5,150,105,0.03)', border: '1px solid rgba(5,150,105,0.15)', borderRadius: 10, padding: 16 }}>
+                        <div style={{ background: 'rgba(var(--success-deep-rgb), 0.03)', border: '1px solid rgba(var(--success-deep-rgb), 0.15)', borderRadius: 10, padding: 16 }}>
                           <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--success)', marginBottom: 8 }}>🚀 Improving Subjects</div>
                           <div style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 12.5, color: 'var(--t2)' }}>
                             <div>• <strong>Mathematics</strong>: +12% improvement this month</div>
@@ -312,7 +312,7 @@ function ParentPageInner() {
                           </div>
                         </div>
 
-                        <div style={{ background: 'rgba(220,38,38,0.03)', border: '1px solid rgba(220,38,38,0.15)', borderRadius: 10, padding: 16 }}>
+                        <div style={{ background: 'rgba(var(--danger-rgb), 0.03)', border: '1px solid rgba(var(--danger-rgb), 0.15)', borderRadius: 10, padding: 16 }}>
                           <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--danger)', marginBottom: 8 }}>⚠️ Weak Subjects (Revision Gaps)</div>
                           <div style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 12.5, color: 'var(--t2)' }}>
                             <div>• <strong>Computer Networking</strong>: Needs urgent notes audit</div>
@@ -400,8 +400,8 @@ function ParentPageInner() {
                   {activeTab === 'advisor' && (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }} className="fade-in">
                       <div style={{
-                        background: 'linear-gradient(135deg, rgba(16,185,129,0.06) 0%, rgba(5,150,105,0.02) 100%)',
-                        border: '1.5px solid rgba(16,185,129,0.2)',
+                        background: 'linear-gradient(135deg, rgba(var(--success-rgb), 0.06) 0%, rgba(var(--success-deep-rgb), 0.02) 100%)',
+                        border: '1.5px solid rgba(var(--success-rgb), 0.2)',
                         borderRadius: 12, padding: 18
                       }}>
                         <h4 style={{ margin: '0 0 6px 0', fontSize: 13.5, fontWeight: 900, color: 'var(--success)' }}>📋 Live Overview Snapshot</h4>
@@ -753,9 +753,9 @@ function ParentPageInner() {
                                   }}
                                   style={{
                                     padding: '6px 14px', borderRadius: 8, border: 'none',
-                                    background: 'linear-gradient(135deg, #10b981, #059669)',
-                                    color: '#fff', fontSize: 12, fontWeight: 800, cursor: 'pointer',
-                                    boxShadow: '0 4px 12px rgba(16,185,129,0.25)'
+                                    background: 'linear-gradient(135deg, var(--success), var(--success-deep))',
+                                    color: 'var(--text)', fontSize: 12, fontWeight: 800, cursor: 'pointer',
+                                    boxShadow: '0 4px 12px rgba(var(--success-rgb), 0.25)'
                                   }}
                                   className="btn-glow"
                                 >
@@ -785,8 +785,8 @@ function ParentPageInner() {
                             title: 'Unexcused Absence Recorded',
                             desc: 'Absent on July 14 without prior leave submission. Please verify and submit excuse note.',
                             color: 'var(--danger)',
-                            bg: 'rgba(220,38,38,0.03)',
-                            border: 'rgba(220,38,38,0.15)',
+                            bg: 'rgba(var(--danger-rgb), 0.03)',
+                            border: 'rgba(var(--danger-rgb), 0.15)',
                             time: '1 day ago'
                           },
                           {
@@ -794,8 +794,8 @@ function ParentPageInner() {
                             title: 'Midterm Theory Examination Schedule',
                             desc: 'Mathematics Midterm exam is locked for July 25, 09:30 AM in Examination Hall-C.',
                             color: 'var(--success)',
-                            bg: 'rgba(16,185,129,0.03)',
-                            border: 'rgba(16,185,129,0.15)',
+                            bg: 'rgba(var(--success-rgb), 0.03)',
+                            border: 'rgba(var(--success-rgb), 0.15)',
                             time: '2 days ago'
                           },
                           {
@@ -803,8 +803,8 @@ function ParentPageInner() {
                             title: 'Programming Foundations Submission',
                             desc: 'Assignment 3: Recursion and DSA structures due tomorrow at 11:59 PM. Current status: Unsubmitted.',
                             color: 'var(--amber)',
-                            bg: 'rgba(245,158,11,0.03)',
-                            border: 'rgba(245,158,11,0.15)',
+                            bg: 'rgba(var(--warning-rgb), 0.03)',
+                            border: 'rgba(var(--warning-rgb), 0.15)',
                             time: '3 hours ago'
                           },
                           {
@@ -812,8 +812,8 @@ function ParentPageInner() {
                             title: 'Microsoft Campus Recruitment Registrations',
                             desc: 'Microsoft placement register window opens on Aug 01. Mapped matching profiles (AI Engineers) are eligible.',
                             color: 'var(--accent)',
-                            bg: 'rgba(59,130,246,0.03)',
-                            border: 'rgba(59,130,246,0.15)',
+                            bg: 'rgba(var(--info-rgb), 0.03)',
+                            border: 'rgba(var(--info-rgb), 0.15)',
                             time: '3 days ago'
                           },
                           {
@@ -830,8 +830,8 @@ function ParentPageInner() {
                             title: 'Virtual Parent-Teacher Meeting (PTM)',
                             desc: 'Virtual advising slot with Prof Vikram Sen scheduled for July 29, 04:00 PM. Launch links available in Communication.',
                             color: 'var(--teal)',
-                            bg: 'rgba(20,184,166,0.03)',
-                            border: 'rgba(20,184,166,0.15)',
+                            bg: 'rgba(var(--accent-teal-rgb), 0.03)',
+                            border: 'rgba(var(--accent-teal-rgb), 0.15)',
                             time: '5 days ago'
                           }
                         ].map((n, idx) => (
@@ -851,8 +851,8 @@ function ParentPageInner() {
                               {acknowledgedAlerts[n.title] ? (
                                 <span style={{
                                   fontSize: 11, fontWeight: 700, color: 'var(--success)',
-                                  background: 'rgba(16,185,129,0.1)', padding: '4px 10px', borderRadius: 6,
-                                  border: '1px solid rgba(16,185,129,0.2)'
+                                  background: 'rgba(var(--success-rgb), 0.1)', padding: '4px 10px', borderRadius: 6,
+                                  border: '1px solid rgba(var(--success-rgb), 0.2)'
                                 }}>
                                   ✓ Acknowledged at {acknowledgedAlerts[n.title]}
                                 </span>
@@ -1036,8 +1036,8 @@ function ParentPageInner() {
 
                         {/* Right: Home Action Plan */}
                         <div style={{
-                          background: 'linear-gradient(135deg, rgba(16,185,129,0.06) 0%, rgba(5,150,105,0.02) 100%)',
-                          border: '1.5px solid rgba(16,185,129,0.2)',
+                          background: 'linear-gradient(135deg, rgba(var(--success-rgb), 0.06) 0%, rgba(var(--success-deep-rgb), 0.02) 100%)',
+                          border: '1.5px solid rgba(var(--success-rgb), 0.2)',
                           borderRadius: 12, padding: 18, display: 'flex', flexDirection: 'column', justifyItems: 'center'
                         }}>
                           <h4 style={{ margin: '0 0 8px 0', fontSize: 13, fontWeight: 900, color: 'var(--success)' }}>💡 Action Plan for Home</h4>

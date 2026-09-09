@@ -1,0 +1,15 @@
+src/app/admin/cohorts/page.tsx
+src/app/login/page.tsx
+src/app/recruiter/page.tsx
+src/app/interview/page.tsx
+src/components/effects/DynamicSkyCanvas.tsx
+src/app/leaderboard/page.tsx
+src/components/teacher/ExamGradingManager.tsx
+src/components/auth/FaceAnalyzer.tsx
+src/app/verify/[credentialId]/page.tsx
+src/components/quests/QuestWorkspaceClient.tsx
+src/components/group-discussion/MeetCallGrid.tsx
+src/app/consultant/page.tsx
+src/components/teacher/AttendanceTracker.tsx
+src/components/interview/SystemDesignWhiteboard.tsx
+src/components/ui/MissionCard.tsx

@@ -61,7 +61,7 @@ export default function RoadmapSCurve() {
       <div className="lp-container">
         
         <div className="lp-section-header">
-          <div className="lp-badge-tag emerald">METHODICAL PROGRESSION</div>
+          <div className="lp-badge-tag cyan">METHODICAL PROGRESSION</div>
           <h2 className="lp-section-title">
             The S-Curve Progression Engine.{' '}
             <span className="lp-gradient-text">Zero Guesswork.</span>
@@ -72,7 +72,7 @@ export default function RoadmapSCurve() {
         </div>
 
         {/* 4-Stage Tab Bar */}
-        <div className="s-curve-pipeline">
+        <div className="scurve-nav-bar">
           {stages.map((stage, idx) => {
             const isSelected = selectedStage === idx;
             return (
@@ -80,20 +80,20 @@ export default function RoadmapSCurve() {
                 key={idx}
                 type="button"
                 onClick={() => setSelectedStage(idx)}
-                className={`s-curve-stage-btn ${isSelected ? 'active' : ''}`}
+                className={`scurve-stage-btn ${isSelected ? 'active' : ''}`}
               >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
                   <span style={{ fontSize: 20 }}>{stage.icon}</span>
-                  <span style={{ fontSize: 10, fontFamily: 'monospace', padding: '2px 6px', borderRadius: 4, background: '#1e293b', color: '#94a3b8' }}>
+                  <span style={{ fontSize: 10.5, fontFamily: 'var(--font-mono)', padding: '2px 7px', borderRadius: 4, background: 'var(--bg-secondary)', color: 'var(--text-secondary)', border: '1px solid var(--border-color)' }}>
                     {stage.days}
                   </span>
                 </div>
 
-                <div style={{ fontSize: 11, fontWeight: 750, color: '#00a3ff', textTransform: 'uppercase' }}>
+                <div style={{ fontSize: 11, fontWeight: 750, color: 'var(--accent)', textTransform: 'uppercase', marginBottom: 2 }}>
                   {stage.level}
                 </div>
 
-                <div style={{ fontSize: 13, fontWeight: 750, color: '#ffffff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                <div style={{ fontSize: 13, fontWeight: 750, color: 'var(--text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                   {stage.title}
                 </div>
               </button>
@@ -102,38 +102,38 @@ export default function RoadmapSCurve() {
         </div>
 
         {/* Stage Details Box */}
-        <div className="lp-card" style={{ padding: '36px 32px' }}>
-          <div className="hero-cockpit-grid">
+        <div className="glass-card" style={{ padding: '36px', borderRadius: '24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '32px', alignItems: 'center' }}>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <span className="lp-badge-tag cyan" style={{ margin: 0 }}>
                   {current.level} • {current.days}
                 </span>
-                <span style={{ fontSize: 11, color: '#64748b', fontFamily: 'monospace' }}>1-Concept Cognitive Budget</span>
+                <span style={{ fontSize: 11.5, color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)' }}>1-Concept Cognitive Budget</span>
               </div>
 
-              <h3 style={{ margin: 0, fontSize: 24, fontWeight: 850, color: '#ffffff' }}>
+              <h3 style={{ margin: 0, fontSize: 24, fontWeight: 850, color: 'var(--text-primary)', lineHeight: 1.3 }}>
                 {current.title}
               </h3>
 
-              <p style={{ margin: 0, fontSize: 14, color: '#94a3b8', lineHeight: 1.6 }}>
+              <p style={{ margin: 0, fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
                 {current.desc}
               </p>
 
-              <div style={{ padding: '12px 16px', borderRadius: 10, background: 'rgba(0,163,255,0.1)', border: '1px solid rgba(0,163,255,0.25)', color: '#7ecbff', fontSize: 12, fontWeight: 650, display: 'flex', alignItems: 'center', gap: 8 }}>
+              <div style={{ padding: '12px 16px', borderRadius: 12, background: 'var(--bg-secondary)', border: '1px solid var(--accent)', color: 'var(--accent)', fontSize: 12.5, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span>🏆</span>
                 <span>{current.milestoneTitle}</span>
               </div>
 
               <div style={{ paddingTop: 8 }}>
-                <div style={{ fontSize: 11, fontWeight: 750, color: '#64748b', textTransform: 'uppercase', marginBottom: 8 }}>
+                <div style={{ fontSize: 11, fontWeight: 750, color: 'var(--text-tertiary)', textTransform: 'uppercase', marginBottom: 8 }}>
                   Verified Skills Tested in this Stage:
                 </div>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                   {current.skills.map((skill, i) => (
-                    <span key={i} style={{ padding: '4px 10px', borderRadius: 6, background: '#161f33', border: '1px solid rgba(255,255,255,0.06)', fontSize: 11, color: '#cbd5e1' }}>
-                      <span style={{ color: '#10b981', fontWeight: 700 }}>✓</span> {skill}
+                    <span key={i} style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', fontSize: 11.5, color: 'var(--text-primary)' }}>
+                      <span style={{ color: 'var(--accent-green)', fontWeight: 700 }}>✓</span> {skill}
                     </span>
                   ))}
                 </div>
@@ -141,27 +141,27 @@ export default function RoadmapSCurve() {
             </div>
 
             {/* Right Stage Verify Mock */}
-            <div style={{ padding: 22, borderRadius: 16, background: '#070a12', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'column', gap: 12, fontSize: 11, fontFamily: 'monospace', color: '#94a3b8' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.06)', paddingBottom: 10 }}>
-                <span style={{ color: '#00a3ff', fontWeight: 700 }}>Stage Verification Suite</span>
-                <span style={{ color: '#10b981' }}>PASS 100%</span>
+            <div style={{ padding: 22, borderRadius: 18, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column', gap: 12, fontSize: 11.5, fontFamily: 'var(--font-mono)', color: 'var(--text-secondary)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-color)', paddingBottom: 10 }}>
+                <span style={{ color: 'var(--accent)', fontWeight: 700 }}>Stage Verification Suite</span>
+                <span style={{ color: 'var(--accent-green)', fontWeight: 700 }}>PASS 100%</span>
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span>Socratic Check:</span>
-                <span style={{ color: '#e2e8f0' }}>Empathy 3-Step Recovery</span>
+                <span style={{ color: 'var(--text-primary)' }}>Empathy 3-Step Recovery</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span>Judge Sandbox:</span>
-                <span style={{ color: '#e2e8f0' }}>Isolated 3.0s Timeout</span>
+                <span style={{ color: 'var(--text-primary)' }}>Isolated 3.0s Timeout</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span>Assertions Checked:</span>
-                <span style={{ color: '#10b981' }}>Multi-Case Hardened</span>
+                <span style={{ color: 'var(--accent-green)' }}>Multi-Case Hardened</span>
               </div>
 
-              <div style={{ padding: 10, borderRadius: 8, background: '#0e1422', border: '1px solid rgba(255,255,255,0.04)', color: '#cbd5e1' }}>
-                <span style={{ color: '#f59e0b', fontWeight: 700 }}>[CERTIFIED]</span> Completed {current.days} proctored milestone challenges with 0 runtime errors.
+              <div style={{ padding: 10, borderRadius: 10, background: 'var(--bg-card)', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }}>
+                <span style={{ color: 'var(--accent-amber)', fontWeight: 700 }}>[CERTIFIED]</span> Completed {current.days} proctored milestone challenges with 0 runtime errors.
               </div>
             </div>
 

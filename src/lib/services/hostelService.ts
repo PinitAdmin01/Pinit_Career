@@ -120,11 +120,10 @@ export const hostelService = {
     if (isSupabaseAvailable) {
       try {
         const { data: existing } = await supabase.from('hostel_allocations').select('*').eq('student_id', studentId).maybeSingle();
-        if (existing) {
-          await supabase.from('hostel_allocations').update({ requested_room: roomCode, status: 'pending' }).eq('student_id', studentId);
-        } else {
-          await supabase.from('hostel_allocations').insert({ student_id: studentId, student_name: studentName, requested_room: roomCode, status: 'pending' });
-        }
+        const res = existing
+          ? await supabase.from('hostel_allocations').update({ requested_room: roomCode, status: 'pending' }).eq('student_id', studentId)
+          : await supabase.from('hostel_allocations').insert({ student_id: studentId, student_name: studentName, requested_room: roomCode, status: 'pending' });
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
@@ -149,13 +148,14 @@ export const hostelService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('hostel_attendance').insert({
+        const res = await supabase.from('hostel_attendance').insert({
           student_id: studentId,
           student_name: studentName,
           type,
           room_code: roomCode,
           timestamp: new Date().toISOString()
         });
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local db:', err);
@@ -181,7 +181,7 @@ export const hostelService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('hostel_complaints').insert({
+        const res = await supabase.from('hostel_complaints').insert({
           student_id: studentId,
           student_name: studentName,
           category,
@@ -189,6 +189,7 @@ export const hostelService = {
           description,
           status: 'Pending'
         });
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local db:', err);
@@ -216,13 +217,14 @@ export const hostelService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('hostel_visitors').insert({
+        const res = await supabase.from('hostel_visitors').insert({
           student_id: studentId,
           name,
           relation,
           purpose,
           status: 'checked-in'
         });
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local db:', err);
@@ -249,7 +251,8 @@ export const hostelService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('hostel_visitors').update({ status: 'checked-out' }).eq('id', visitorId);
+        const res = await supabase.from('hostel_visitors').update({ status: 'checked-out' }).eq('id', visitorId);
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local db:', err);
@@ -270,7 +273,8 @@ export const hostelService = {
     const isSupabaseAvailable = await checkSupabaseAvailable('hostel_complaints');
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('hostel_complaints').update({ status: 'Resolved' }).eq('id', complaintId);
+        const res = await supabase.from('hostel_complaints').update({ status: 'Resolved' }).eq('id', complaintId);
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local db:', err);
@@ -289,13 +293,15 @@ export const hostelService = {
     const isSupabaseAvailable = await checkSupabaseAvailable('hostel_allocations');
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('hostel_allocations').update({ status: 'allocated', requested_room: roomCode }).eq('student_id', studentId);
+        const res1 = await supabase.from('hostel_allocations').update({ status: 'allocated', requested_room: roomCode }).eq('student_id', studentId);
+        if (res1.error) throw new Error(res1.error.message);
         const { data: room } = await supabase.from('hostel_rooms').select('*').eq('code', roomCode).maybeSingle();
         if (room) {
-          await supabase.from('hostel_rooms').update({
+          const res2 = await supabase.from('hostel_rooms').update({
             occupied: (room.occupied || 0) + 1,
             status: (room.occupied || 0) + 1 >= (room.capacity || 1) ? 'full' : 'available',
           }).eq('code', roomCode);
+          if (res2.error) throw new Error(res2.error.message);
         }
         return { ok: true };
       } catch (err) {

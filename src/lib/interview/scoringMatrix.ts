@@ -421,7 +421,14 @@ export function generateTelemetryDiagnostics(telemetry?: {
   }
 
   // Camera & Visual Diagnostics (Strictly advisory, noting environmental variables)
-  if (eyeContact < 40) {
+  if (eyeContact <= 0) {
+    signals.push({
+      metric: 'Gaze & Engagement',
+      value: 'N/A (Audio Mode)',
+      diagnostic: 'Camera inactive or audio-only mode. Visual gaze tracking was cleanly excluded from evaluation.',
+      status: 'info',
+    });
+  } else if (eyeContact < 40) {
     signals.push({
       metric: 'Gaze & Engagement',
       value: `${eyeContact}% focal track`,

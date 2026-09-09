@@ -158,10 +158,11 @@ export const advisorService = {
         if (record) {
           const completed = record.assignments_completed + 1;
           const pending = Math.max(0, record.assignments_pending - 1);
-          await supabase.from('advisor_performance').update({
+          const res = await supabase.from('advisor_performance').update({
             assignments_completed: completed,
             assignments_pending: pending,
           }).eq('student_id', studentId);
+          if (res.error) throw new Error(res.error.message);
           const stats = buildAdvisorStats({
             attendance: record.attendance,
             cgpa: Number(record.cgpa),
@@ -233,7 +234,8 @@ export const advisorService = {
 
     if (isSupabaseAvailable) {
       try {
-        await supabase.from('advisor_performance').update({ warning_level: 'High' }).eq('student_id', studentId);
+        const res = await supabase.from('advisor_performance').update({ warning_level: 'High' }).eq('student_id', studentId);
+        if (res.error) throw new Error(res.error.message);
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);

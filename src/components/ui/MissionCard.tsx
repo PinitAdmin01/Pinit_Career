@@ -18,16 +18,16 @@ interface Mission {
 }
 
 const TYPE_META: Record<string, { color: string; light: string; border: string; icon: string; label: string }> = {
-  communication: { color: '#6366f1', light: 'rgba(99,102,241,0.1)', border: 'rgba(99,102,241,0.25)', icon: '🎙', label: 'Communication' },
+  communication: { color: 'var(--brand)', light: 'rgba(var(--brand-rgb), 0.1)', border: 'rgba(var(--brand-rgb), 0.25)', icon: '🎙', label: 'Communication' },
   skill:         { color: '#0ea5e9', light: 'rgba(14,165,233,0.1)', border: 'rgba(14,165,233,0.25)', icon: '⚡', label: 'Skill' },
-  personality:   { color: '#a855f7', light: 'rgba(168,85,247,0.1)', border: 'rgba(168,85,247,0.25)', icon: '🧠', label: 'Personality' },
+  personality:   { color: 'var(--purple-mid)', light: 'rgba(168,85,247,0.1)', border: 'rgba(168,85,247,0.25)', icon: '🧠', label: 'Personality' },
 };
 
 const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string; dot: string }> = {
-  completed: { label: 'Completed', color: '#22c55e', bg: 'rgba(34,197,94,0.1)', dot: '#22c55e' },
-  failed:    { label: 'Try Again', color: '#ef4444', bg: 'rgba(239,68,68,0.1)', dot: '#ef4444' },
-  submitted: { label: 'Reviewing', color: '#f59e0b', bg: 'rgba(245,158,11,0.1)', dot: '#f59e0b' },
-  pending:   { label: 'Pending',   color: '#6366f1', bg: 'rgba(99,102,241,0.1)', dot: '#6366f1' },
+  completed: { label: 'Completed', color: 'var(--success)', bg: 'rgba(var(--success-rgb), 0.1)', dot: 'var(--success)' },
+  failed:    { label: 'Try Again', color: 'var(--danger)', bg: 'rgba(var(--danger-rgb), 0.1)', dot: 'var(--danger)' },
+  submitted: { label: 'Reviewing', color: 'var(--warning)', bg: 'rgba(var(--warning-rgb), 0.1)', dot: 'var(--warning)' },
+  pending:   { label: 'Pending',   color: 'var(--brand)', bg: 'rgba(var(--brand-rgb), 0.1)', dot: 'var(--brand)' },
 };
 
 export default function MissionCard({ mission, onComplete }: { mission: Mission; onComplete: () => void }) {
@@ -104,9 +104,9 @@ export default function MissionCard({ mission, onComplete }: { mission: Mission;
               fontWeight: 800, 
               textTransform: 'uppercase', 
               letterSpacing: '0.5px', 
-              background: mission.priority === 'high' ? 'rgba(239,68,68,0.1)' : mission.priority === 'medium' ? 'rgba(245,158,11,0.1)' : 'rgba(255,255,255,0.05)', 
-              color: mission.priority === 'high' ? '#ef4444' : mission.priority === 'medium' ? '#f59e0b' : 'var(--t3)', 
-              border: `1px solid ${mission.priority === 'high' ? 'rgba(239,68,68,0.2)' : mission.priority === 'medium' ? 'rgba(245,158,11,0.2)' : 'var(--border)'}`, 
+              background: mission.priority === 'high' ? 'rgba(var(--danger-rgb), 0.1)' : mission.priority === 'medium' ? 'rgba(var(--warning-rgb), 0.1)' : 'rgba(255,255,255,0.05)', 
+              color: mission.priority === 'high' ? 'var(--danger)' : mission.priority === 'medium' ? 'var(--warning)' : 'var(--t3)', 
+              border: `1px solid ${mission.priority === 'high' ? 'rgba(var(--danger-rgb), 0.2)' : mission.priority === 'medium' ? 'rgba(var(--warning-rgb), 0.2)' : 'var(--border)'}`, 
               padding: '2px 6px', 
               borderRadius: 4 
             }}>
@@ -136,12 +136,12 @@ export default function MissionCard({ mission, onComplete }: { mission: Mission;
       )}
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 700, color: '#22c55e', background: 'rgba(34,197,94,0.08)', padding: '2px 8px', borderRadius: 5 }}>
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--success)', background: 'rgba(var(--success-rgb), 0.08)', padding: '2px 8px', borderRadius: 5 }}>
           +{mission.trust_reward} trust
         </span>
         {mission.estimated_minutes && <span style={{ fontSize: 11, color: 'var(--t4)', fontFamily: 'var(--font-mono)' }}>~{mission.estimated_minutes}m</span>}
         {mission.learn_url && !isDone && (
-          <a href={mission.learn_url} target="_blank" rel="noreferrer" style={{ fontSize: 11, color: 'var(--accent)', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontWeight: 600, padding: '2px 8px', background: 'rgba(79,70,229,0.08)', borderRadius: 5, border: '1px solid rgba(99,102,241,0.2)' }}>
+          <a href={mission.learn_url} target="_blank" rel="noreferrer" style={{ fontSize: 11, color: 'var(--accent)', textDecoration: 'none', fontFamily: 'var(--font-mono)', fontWeight: 600, padding: '2px 8px', background: 'rgba(79,70,229,0.08)', borderRadius: 5, border: '1px solid rgba(var(--brand-rgb), 0.2)' }}>
             📚 Study
           </a>
         )}
@@ -184,7 +184,7 @@ export default function MissionCard({ mission, onComplete }: { mission: Mission;
       </div>
 
       {(localStatus === 'completed' || localStatus === 'failed') && mission.ai_evaluation?.feedback && (
-        <div style={{ marginTop: 10, padding: '10px 12px', background: localStatus === 'completed' ? 'rgba(34,197,94,0.08)' : 'rgba(239,68,68,0.08)', border: `1px solid ${localStatus === 'completed' ? 'rgba(34,197,94,0.25)' : 'rgba(239,68,68,0.25)'}`, borderRadius: 8, fontSize: 12, lineHeight: 1.55, color: localStatus === 'completed' ? '#22c55e' : '#ef4444' }}>
+        <div style={{ marginTop: 10, padding: '10px 12px', background: localStatus === 'completed' ? 'rgba(var(--success-rgb), 0.08)' : 'rgba(var(--danger-rgb), 0.08)', border: `1px solid ${localStatus === 'completed' ? 'rgba(var(--success-rgb), 0.25)' : 'rgba(var(--danger-rgb), 0.25)'}`, borderRadius: 8, fontSize: 12, lineHeight: 1.55, color: localStatus === 'completed' ? 'var(--success)' : 'var(--danger)' }}>
           <span style={{ fontWeight: 800 }}>{localStatus === 'completed' ? '✓ ' : '✗ '}</span>
           {mission.ai_evaluation.feedback}
           {mission.ai_evaluation.score && <span style={{ marginLeft: 8, fontFamily: 'var(--font-mono)', fontWeight: 700 }}>· {mission.ai_evaluation.score}/100</span>}

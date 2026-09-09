@@ -239,11 +239,11 @@ export default function ExamGradingManager() {
             padding: '8px 16px',
             borderRadius: 8,
             border: 'none',
-            background: 'linear-gradient(135deg, #7c3aed, #6366f1)',
-            color: '#fff',
+            background: 'linear-gradient(135deg, var(--purple), var(--brand))',
+            color: 'var(--text)',
             fontWeight: 700,
             cursor: 'pointer',
-            boxShadow: '0 2px 6px rgba(124,58,237,0.3)',
+            boxShadow: '0 2px 6px rgba(var(--purple-rgb, 124, 58, 237), 0.3)',
             display: 'flex',
             alignItems: 'center',
             gap: 6
@@ -325,8 +325,8 @@ export default function ExamGradingManager() {
                     padding: '8px 20px',
                     borderRadius: 8,
                     border: 'none',
-                    background: '#7c3aed',
-                    color: '#fff',
+                    background: 'var(--purple)',
+                    color: 'var(--text)',
                     fontWeight: 700,
                     cursor: 'pointer'
                   }}
@@ -365,14 +365,14 @@ export default function ExamGradingManager() {
                   }}>
                     {exam.status.toUpperCase()}
                   </span>
-                  <span style={{ fontSize: 12, color: 'var(--t3, #64748b)' }}>Due: {exam.dueDate}</span>
+                  <span style={{ fontSize: 12, color: 'var(--t3)' }}>Due: {exam.dueDate}</span>
                 </div>
                 <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700 }}>{exam.title}</h3>
-                <p style={{ margin: '4px 0 0', fontSize: 13, color: 'var(--t3, #64748b)' }}>
+                <p style={{ margin: '4px 0 0', fontSize: 13, color: 'var(--t3)' }}>
                   {exam.subject} • {exam.batch}
                 </p>
                 {exam.questions && exam.questions.length > 0 && (
-                  <span style={{ fontSize: 12, color: '#7c3aed', fontWeight: 600, marginTop: 6, display: 'inline-block' }}>
+                  <span style={{ fontSize: 12, color: 'var(--purple)', fontWeight: 600, marginTop: 6, display: 'inline-block' }}>
                     ✨ {exam.questions.length} AI-Generated Questions attached
                   </span>
                 )}
@@ -387,8 +387,8 @@ export default function ExamGradingManager() {
                     fontSize: 13,
                     borderRadius: 6,
                     border: 'none',
-                    background: 'var(--primary, #3b82f6)',
-                    color: '#fff',
+                    background: 'var(--primary)',
+                    color: 'var(--text)',
                     cursor: 'pointer'
                   }}
                 >
@@ -473,8 +473,8 @@ export default function ExamGradingManager() {
             type="submit"
             style={{
               padding: '10px 20px',
-              background: 'var(--primary, #3b82f6)',
-              color: '#fff',
+              background: 'var(--primary)',
+              color: 'var(--text)',
               fontWeight: 600,
               borderRadius: 8,
               border: 'none',
@@ -491,7 +491,7 @@ export default function ExamGradingManager() {
       {activeTab === 'grading' && (
         <div style={{ background: 'var(--bg1, #fff)', border: '1px solid var(--border, var(--border))', borderRadius: 12, padding: 20 }}>
           <h3 style={{ margin: '0 0 16px', fontSize: 18, fontWeight: 700 }}>📊 Student Submissions & Grading</h3>
-          <p style={{ color: 'var(--t3, #64748b)', fontSize: 14 }}>Select a student submission to evaluate, record marks, and sync results.</p>
+          <p style={{ color: 'var(--t3)', fontSize: 14 }}>Select a student submission to evaluate, record marks, and sync results.</p>
 
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: 16 }}>
             <thead>
@@ -509,14 +509,14 @@ export default function ExamGradingManager() {
                   <td style={{ padding: 10, fontWeight: 600 }}>{sub.studentName}</td>
                   <td style={{ padding: 10 }}>{sub.examTitle}</td>
                   <td style={{ padding: 10 }}>{sub.submittedAt}</td>
-                  <td style={{ padding: 10, color: sub.graded ? '#16a34a' : '#dc2626', fontWeight: 700 }}>
+                  <td style={{ padding: 10, color: sub.graded ? 'var(--success)' : 'var(--danger-deep)', fontWeight: 700 }}>
                     {sub.graded ? `${sub.score} / ${sub.totalMarks}` : 'Pending'}
                   </td>
                   <td style={{ padding: 10 }}>
                     {sub.graded ? (
                       <button onClick={() => handleGradeSubmission(sub.studentId, sub.examId, sub.score ?? 0, sub.totalMarks)} style={{ padding: '4px 10px', fontSize: 12, borderRadius: 6, border: '1px solid #cbd5e1', cursor: 'pointer' }}>Sync Grade</button>
                     ) : (
-                      <button onClick={() => handleGradeSubmission(sub.studentId, sub.examId, 92, sub.totalMarks)} style={{ padding: '4px 10px', fontSize: 12, borderRadius: 6, border: 'none', background: '#3b82f6', color: '#fff', cursor: 'pointer' }}>Grade Now & Sync</button>
+                      <button onClick={() => handleGradeSubmission(sub.studentId, sub.examId, 92, sub.totalMarks)} style={{ padding: '4px 10px', fontSize: 12, borderRadius: 6, border: 'none', background: 'var(--info)', color: 'var(--text)', cursor: 'pointer' }}>Grade Now & Sync</button>
                     )}
                   </td>
                 </tr>
