@@ -413,23 +413,67 @@ export default function OnboardingPage() {
   // Candidate Secure Vault 2.0 State
   const [showVaultModal, setShowVaultModal] = useState(false);
   const [vaultUploading, setVaultUploading] = useState(false);
-  const [activeVaultTab, setActiveVaultTab] = useState<'resume' | 'academic' | 'achievements' | 'certifications' | 'analytics'>('certifications');
-  const [vaultSlots, setVaultSlots] = useState<VaultDocumentSlot[]>([
-    { id: 'vault-demo-1', category: 'resume', title: 'Master Resume v1', fileName: 'vinod - Resume.pdf', fileSize: '184 KB', fileType: 'application/pdf', candidateName: 'Vinod', institution: 'VTU Engineering', scoreOrGpa: '8.4 CGPA', skills: ['Python', 'JavaScript', 'TypeScript', 'SQL', 'React'], verificationStatus: 'verified', verificationLevel: 'STRUCTURALLY_VALIDATED', uploadedAt: Date.now() - 86400000 * 2 },
-    { id: 'vault-demo-2', category: 'resume', title: 'Master Resume v2', fileName: 'vinod - Resume.pdf', fileSize: '210 KB', fileType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', candidateName: 'Vinod', institution: 'VTU Engineering', scoreOrGpa: '8.4 CGPA', skills: ['Node.js', 'Next.js', 'Docker'], verificationStatus: 'verified', verificationLevel: 'STRUCTURALLY_VALIDATED', uploadedAt: Date.now() - 86400000 * 5 },
-    { id: 'vault-demo-3', category: 'resume', title: 'Master Resume v3', fileName: 'vinod - Resume.pdf', fileSize: '195 KB', fileType: 'application/pdf', candidateName: 'Vinod', institution: 'VTU Engineering', scoreOrGpa: '8.4 CGPA', skills: ['AWS', 'PostgreSQL', 'API Integration'], verificationStatus: 'verified', verificationLevel: 'STRUCTURALLY_VALIDATED', uploadedAt: Date.now() - 86400000 * 5 },
-    { id: 'vault-demo-4', category: 'resume', title: 'Master Resume v4', fileName: 'Vinod - Resume.pdf', fileSize: '202 KB', fileType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', candidateName: 'Vinod', institution: 'VTU Engineering', scoreOrGpa: '8.4 CGPA', skills: ['Machine Learning', 'Data Structures'], verificationStatus: 'verified', verificationLevel: 'STRUCTURALLY_VALIDATED', uploadedAt: Date.now() - 86400000 * 10 },
-    { id: 'vault-demo-5', category: 'certification', title: 'Certification Certifications', fileName: 'Certification Certifications', fileSize: '95 KB', fileType: 'application/pdf', candidateName: 'Vinod', institution: 'Coursera & AWS Academy', scoreOrGpa: 'Certified', skills: ['Python', 'JS', 'HTML / CSS'], verificationStatus: 'verified', verificationLevel: 'CROSS_VALIDATED', uploadedAt: Date.now() - 86400000 * 300 },
-    { id: 'vault-demo-6', category: 'certification', title: 'Certification Certificate', fileName: 'Certification Certificate', fileSize: '110 KB', fileType: 'application/pdf', candidateName: 'Vinod', institution: 'Google Cloud Certified', scoreOrGpa: 'Distinction', skills: ['Python', 'JS', 'HTML / CSS'], verificationStatus: 'verified', verificationLevel: 'CROSS_VALIDATED', uploadedAt: Date.now() - 86400000 * 300 },
-    { id: 'vault-demo-7', category: 'certification', title: 'Certification Communication', fileName: 'Certification Communication', fileSize: '88 KB', fileType: 'application/pdf', candidateName: 'Vinod', institution: 'Corporate Training', scoreOrGpa: 'Advanced C1', skills: ['JS', 'JS', 'HTML / CSS'], verificationStatus: 'verified', verificationLevel: 'CROSS_VALIDATED', uploadedAt: Date.now() - 86400000 * 300 },
-  ]);
+  const [activeVaultTab, setActiveVaultTab] = useState<'resume' | 'academic' | 'achievements' | 'certifications' | 'analytics'>('resume');
+  const [vaultSlots, setVaultSlots] = useState<VaultDocumentSlot[]>(() => {
+    const existing = (cOS as any)?.vaultItems;
+    if (existing && Array.isArray(existing) && existing.length > 0) {
+      return existing.map((item: any) => ({
+        id: item.id,
+        category: (item.item_type === 'resume' ? 'resume' : item.item_type === 'certification' ? 'certification' : 'achievement') as VaultCategory,
+        title: item.title || 'Document',
+        fileName: item.title || 'document.pdf',
+        fileSize: 'Vault Synced',
+        fileType: 'application/pdf',
+        candidateName: user?.displayName || 'Candidate',
+        institution: item.organization_name || 'Academic Institution',
+        scoreOrGpa: item.description || 'Verified Credential',
+        skills: item.skill_tags || [],
+        verificationStatus: item.verified ? 'verified' : 'provisional',
+        verificationLevel: item.verified ? 'STRUCTURALLY_VALIDATED' : 'SELF_SUBMITTED',
+        uploadedAt: Date.now()
+      }));
+    }
+    return [];
+  });
   const [isDraggingOverDropzone, setIsDraggingOverDropzone] = useState(false);
   const [isDraggingOverResume, setIsDraggingOverResume] = useState(false);
+  const [isVerifyingAll, setIsVerifyingAll] = useState(false);
+  const [customAnchorName, setCustomAnchorName] = useState<string | null>(null);
+
+  // Screen 04-07 Diagnostics & Mindset States
+  const [voiceArchetype, setVoiceArchetype] = useState<string | null>(null);
+  const [identityScores, setIdentityScores] = useState<Record<string, number>>({ logic: 50, pace: 50 });
+  const [simulationScores, setSimulationScores] = useState<Record<string, number>>({ PatternHunter: 0, Stabilizer: 0, SocialIQ: 0, Explorer: 0 });
+
+  // Standardized Vault date formatter
+  const formatVaultDate = (timestamp?: number) => {
+    if (!timestamp) return 'Verified Today';
+    try {
+      return new Date(timestamp).toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+      });
+    } catch {
+      return 'Verified';
+    }
+  };
 
   // Primary anchor name and derived live audit / QT metrics
-  const primaryCandidateName = user?.displayName || (vaultSlots.find(s => s.category === 'resume' && s.candidateName)?.candidateName) || 'Candidate';
+  const resumeDoc = vaultSlots.find(s => s.category === 'resume' && s.candidateName && s.candidateName.toLowerCase() !== 'candidate');
+  const anyDocWithName = vaultSlots.find(s => s.candidateName && s.candidateName.toLowerCase() !== 'candidate');
+  const primaryCandidateName = customAnchorName || resumeDoc?.candidateName || (user?.displayName && user.displayName !== 'Candidate' ? user.displayName : anyDocWithName?.candidateName) || 'Candidate';
   const identityAuditReport: IdentityAuditReport = auditDocumentCollection(primaryCandidateName, vaultSlots);
-  const liveQTMetrics: LiveQTCalibration = calculateLiveQTMetrics(vaultSlots, identityAuditReport);
+  const liveQTMetrics: LiveQTCalibration = calculateLiveQTMetrics(
+    vaultSlots,
+    identityAuditReport,
+    0,
+    0,
+    0,
+    simulationScores,
+    identityScores,
+    voiceArchetype
+  );
 
   // Upload single document to a target slot
   const handleUploadToSlot = async (file: File, targetCategory: VaultCategory) => {
@@ -590,6 +634,87 @@ export default function OnboardingPage() {
       setVaultSlots(prev => prev.filter(d => d.id !== slotId));
     }
   };
+
+  // Real Verification Run for all documents in vault
+  const handleRunAllVerifications = async () => {
+    if (vaultSlots.length === 0) {
+      toast.info('Vault Empty', 'Please upload at least one document (resume or credential) to run verifications.');
+      return;
+    }
+    setIsVerifyingAll(true);
+    try {
+      const anchor = user?.displayName || (vaultSlots.find(s => s.candidateName && s.candidateName !== 'Candidate')?.candidateName) || 'Candidate';
+      const audit = auditDocumentCollection(anchor, vaultSlots);
+      const metrics = calculateLiveQTMetrics(
+        vaultSlots,
+        audit,
+        0, 0, 0,
+        simulationScores,
+        identityScores,
+        voiceArchetype
+      );
+
+      await new Promise(r => setTimeout(r, 600));
+
+      setVaultSlots(prev => prev.map(slot => {
+        const isMismatch = audit.conflictingDocuments.some(c => c.slotId === slot.id);
+        return {
+          ...slot,
+          verificationStatus: isMismatch ? 'mismatch_warning' : 'verified',
+          verificationLevel: isMismatch ? 'SELF_SUBMITTED' : 'CROSS_VALIDATED'
+        };
+      }));
+
+      if (audit.mismatchCount > 0) {
+        toast.warning(
+          'Identity Warnings Flagged',
+          `Calibrated QT2 Score at ${metrics.qt2Score}/100. Flagged ${audit.mismatchCount} conflicting identity record(s).`
+        );
+      } else {
+        toast.success(
+          'Sentinel Verification Complete',
+          `QT2 Cognitive Mindset calibrated at ${metrics.qt2Score}/100 (${metrics.evaluatedDataPoints} validated data points). Archetype: ${metrics.qt2Evaluation?.archetypeBlendTitle || 'Calibrated'}.`
+        );
+      }
+    } catch (err: any) {
+      console.error('[Run All Verifications Error]:', err);
+      toast.error('Verification Error', err?.message || 'Verification could not be completed.');
+    } finally {
+      setIsVerifyingAll(false);
+    }
+  };
+
+  const handleContinueOnboarding = () => {
+    setShowVaultModal(false);
+    if (vaultSlots.length > 0) {
+      toast.success(
+        'Documents Synced',
+        `${vaultSlots.length} document(s) active in your career profile.`
+      );
+      const nameGreeting = primaryCandidateName && primaryCandidateName !== 'Candidate'
+        ? `Thanks ${primaryCandidateName}! `
+        : "Awesome! ";
+      const feedbackSpeech = `${nameGreeting}I've verified your ${vaultSlots.length} credentials and calibrated your career baseline. Let's move forward with your diagnostic assessment!`;
+      try {
+        speakWithAvatar(
+          feedbackSpeech,
+          selectedMentor,
+          () => {
+            setIsAvatarSpeaking(true);
+            isSpeakingRef.current = true;
+            setAnimState('talking');
+          },
+          () => {
+            setIsAvatarSpeaking(false);
+            isSpeakingRef.current = false;
+            setAnimState('idle');
+          }
+        );
+      } catch (e) {
+        console.warn('Avatar speech warning:', e);
+      }
+    }
+  };
   
   const activeScreenRef = useRef(activeScreen);
   const isSpeakingRef = useRef(false);
@@ -744,7 +869,6 @@ export default function OnboardingPage() {
   const [speechStartTime, setSpeechStartTime] = useState<number | null>(null);
   const [voiceConfidence, setVoiceConfidence] = useState<number | null>(null);
   const [voiceArticulation, setVoiceArticulation] = useState<number | null>(null);
-  const [voiceArchetype, setVoiceArchetype] = useState<string | null>(null);
 
   // Screen 02: Potential Slider States
   const [currentAbility, setCurrentAbility] = useState(30);
@@ -775,9 +899,7 @@ export default function OnboardingPage() {
 
   // Screen 04-07 States
   const [currentIdentityQ, setCurrentIdentityQ] = useState(0);
-  const [identityScores, setIdentityScores] = useState<Record<string, number>>({ logic: 50, pace: 50 });
   const [currentScenario, setCurrentScenario] = useState(0);
-  const [simulationScores, setSimulationScores] = useState<Record<string, number>>({ PatternHunter: 0, Stabilizer: 0, SocialIQ: 0, Explorer: 0 });
   const [speechState, setSpeechState] = useState<'ready' | 'calibrating' | 'calibrated' | 'recording' | 'recorded'>('ready');
   const [calibrationProgress, setCalibrationProgress] = useState(0);
   const [speechTranscript, setSpeechTranscript] = useState('');
@@ -1869,9 +1991,9 @@ export default function OnboardingPage() {
                     position: 'fixed',
                     inset: 0,
                     zIndex: 200,
-                    background: 'rgba(2, 6, 19, 0.88)',
-                    backdropFilter: 'blur(24px)',
-                    WebkitBackdropFilter: 'blur(24px)',
+                    background: 'rgba(2, 6, 19, 0.82)',
+                    backdropFilter: 'blur(20px)',
+                    WebkitBackdropFilter: 'blur(20px)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -1885,8 +2007,8 @@ export default function OnboardingPage() {
                     padding: '22px 28px',
                     maxWidth: 1180,
                     width: '96vw',
-                    height: '88vh',
-                    maxHeight: 880,
+                    height: '86vh',
+                    maxHeight: '86vh',
                     display: 'flex',
                     flexDirection: 'column',
                     boxShadow: '0 32px 80px -20px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(255, 255, 255, 0.05), 0 0 60px rgba(var(--brand-rgb), 0.15)',
@@ -1913,53 +2035,98 @@ export default function OnboardingPage() {
                         </div>
                         <div>
                           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                            <h3 style={{ fontSize: 20, fontWeight: 900, margin: 0, color: 'var(--text)', letterSpacing: '-0.02em' }}>Candidate Secure Vault 2.0</h3>
+                            <h3 style={{ fontSize: 19, fontWeight: 900, margin: 0, color: '#f8fafc', letterSpacing: '-0.02em' }}>
+                              Career Credentials & Document Vault
+                            </h3>
                             <span style={{
                               fontSize: 10,
-                              background: 'rgba(var(--success-rgb), 0.15)',
-                              color: 'var(--success-bright)',
-                              border: '1px solid rgba(var(--success-rgb), 0.35)',
+                              background: 'rgba(56, 189, 248, 0.15)',
+                              color: '#38bdf8',
+                              border: '1px solid rgba(56, 189, 248, 0.35)',
                               padding: '2px 9px',
                               borderRadius: 100,
                               fontWeight: 800,
-                              fontFamily: 'var(--font-mono)',
-                              letterSpacing: '0.5px',
                               display: 'inline-flex',
                               alignItems: 'center',
                               gap: 5
                             }}>
-                              <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--success-bright)', boxShadow: '0 0 6px var(--success-bright)' }} />
-                              SUPABASE SYNCED
+                              <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#38bdf8', boxShadow: '0 0 6px #38bdf8' }} />
+                              🔒 Secure & Private
+                            </span>
+                            <span style={{
+                              fontSize: 10,
+                              background: 'rgba(34, 197, 94, 0.15)',
+                              color: '#4ade80',
+                              border: '1px solid rgba(34, 197, 94, 0.35)',
+                              padding: '2px 9px',
+                              borderRadius: 100,
+                              fontWeight: 800,
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: 5
+                            }}>
+                              <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#22c55e', boxShadow: '0 0 6px #22c55e' }} />
+                              ⚡ Cloud Synced
                             </span>
                           </div>
-                          <span style={{ fontSize: 12, color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', display: 'block', marginTop: 2 }}>
-                            Multi-Tier Academic & Identity Verification Engine • Anti-Fraud Sentinel Cross-Check
+                          <span style={{ fontSize: 12, color: 'var(--text-muted)', display: 'block', marginTop: 3 }}>
+                            Store, verify, and auto-sync your academic credentials, marksheet trajectory, and technical portfolio
                           </span>
                         </div>
                       </div>
 
-                      <button
-                        type="button"
-                        onClick={() => setShowVaultModal(false)}
-                        style={{
-                          background: 'rgba(255,255,255,0.06)',
-                          border: '1px solid rgba(255,255,255,0.12)',
-                          borderRadius: 10,
-                          color: 'var(--text-muted)',
-                          width: 36,
-                          height: 36,
-                          fontSize: 16,
-                          cursor: 'pointer',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          transition: 'all 0.15s ease'
-                        }}
-                        onMouseEnter={(e) => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.background = 'rgba(255,255,255,0.12)'; }}
-                        onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-muted)'; e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; }}
-                      >
-                        ✕
-                      </button>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                        {vaultSlots.length > 0 && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              if (window.confirm(`Are you sure you want to remove all ${vaultSlots.length} documents from your vault? This cannot be undone.`)) {
+                                setVaultSlots([]);
+                                cOS.setVaultItems([]);
+                                toast.info('Vault Cleared', 'All uploaded documents removed.');
+                              }
+                            }}
+                            style={{
+                              background: 'rgba(239, 68, 68, 0.1)',
+                              border: '1px solid rgba(239, 68, 68, 0.25)',
+                              color: '#f87171',
+                              padding: '6px 12px',
+                              borderRadius: 8,
+                              fontSize: 11,
+                              fontWeight: 700,
+                              cursor: 'pointer',
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: 5,
+                              transition: 'all 0.15s ease'
+                            }}
+                          >
+                            🗑️ Reset Vault
+                          </button>
+                        )}
+                        <button
+                          type="button"
+                          onClick={() => setShowVaultModal(false)}
+                          style={{
+                            background: 'rgba(255,255,255,0.06)',
+                            border: '1px solid rgba(255,255,255,0.12)',
+                            borderRadius: 10,
+                            color: 'var(--text-muted)',
+                            width: 36,
+                            height: 36,
+                            fontSize: 16,
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            transition: 'all 0.15s ease'
+                          }}
+                          onMouseEnter={(e) => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.background = 'rgba(255,255,255,0.12)'; }}
+                          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-muted)'; e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; }}
+                        >
+                          ✕
+                        </button>
+                      </div>
                     </div>
 
                     {/* Split-Pane Main Body */}
@@ -2054,15 +2221,14 @@ export default function OnboardingPage() {
                                 />
                               </svg>
                               <div style={{ position: 'absolute', top: '48%', left: '50%', transform: 'translate(-50%, -50%)', fontSize: 17, fontWeight: 900, color: '#00f0ff', fontFamily: 'var(--font-mono), monospace', textShadow: '0 0 10px rgba(0, 240, 255, 0.6)' }}>
-                                {vaultSlots.length > 0 ? `${liveQTMetrics.qt1Score}/100` : '0/100'}
+                                {liveQTMetrics.qt1Score}/100
                               </div>
                             </div>
                             <div style={{ fontSize: 11, fontWeight: 800, color: '#f8fafc', marginTop: 3 }}>
-                              QT1 Provisional Score
+                              QT1 (Technical Execution)
                             </div>
-                            <div style={{ fontSize: 9, color: 'rgba(255, 255, 255, 0.55)', lineHeight: 1.25, marginTop: 2 }}>
-                              Initial Trust Baseline,<br />
-                              Initial Trust Baseline
+                            <div style={{ fontSize: 9.5, color: 'rgba(255, 255, 255, 0.55)', lineHeight: 1.25, marginTop: 2 }}>
+                              {liveQTMetrics.qt1Score === 0 ? 'Calibrated via Socratic Quests' : 'Demonstrated Capabilities'}
                             </div>
                           </div>
 
@@ -2089,96 +2255,133 @@ export default function OnboardingPage() {
                                 />
                               </svg>
                               <div style={{ position: 'absolute', top: '48%', left: '50%', transform: 'translate(-50%, -50%)', fontSize: 17, fontWeight: 900, color: '#ffffff', fontFamily: 'var(--font-mono), monospace', textShadow: '0 0 10px rgba(192, 132, 252, 0.6)' }}>
-                                {vaultSlots.length > 0 ? `${liveQTMetrics.qt2Score}/100` : '78/100'}
+                                {liveQTMetrics.qt2Score > 0 ? `${liveQTMetrics.qt2Score}/100` : '0/100'}
                               </div>
                             </div>
                             <div style={{ fontSize: 11, fontWeight: 800, color: '#f8fafc', marginTop: 3 }}>
-                              QT2 Integrity Score
+                              QT2 (Mindset & Trust)
                             </div>
-                            <div style={{ fontSize: 9, color: 'rgba(255, 255, 255, 0.55)', lineHeight: 1.25, marginTop: 2 }}>
-                              Validated Data Points,<br />
-                              Validated Data Points
+                            <div style={{ fontSize: 9.5, color: 'rgba(255, 255, 255, 0.55)', lineHeight: 1.25, marginTop: 2 }}>
+                              {liveQTMetrics.evaluatedDataPoints > 0 ? `${liveQTMetrics.evaluatedDataPoints} Validated Data Points` : 'Awaiting Evidence Upload'}
                             </div>
                           </div>
                         </div>
 
-                        {/* Identity Discrepancy Alert Card */}
-                        <div style={{
-                          background: 'linear-gradient(135deg, rgba(185, 28, 28, 0.18) 0%, rgba(127, 29, 29, 0.25) 100%)',
-                          border: '1px solid #ef4444',
-                          borderRadius: 14,
-                          padding: '12px 14px',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          gap: 8,
-                          boxShadow: '0 0 16px rgba(239, 68, 68, 0.2)'
-                        }}>
-                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                              <span style={{ color: '#ef4444', fontSize: 14 }}>⚠️</span>
-                              <span style={{ fontSize: 12, fontWeight: 800, color: '#fca5a5' }}>
-                                Identity Discrepancy Alert
+                        {/* Identity Status Card */}
+                        {identityAuditReport.mismatchCount > 0 ? (
+                          <div style={{
+                            background: 'linear-gradient(135deg, rgba(185, 28, 28, 0.18) 0%, rgba(127, 29, 29, 0.25) 100%)',
+                            border: '1px solid #ef4444',
+                            borderRadius: 14,
+                            padding: '12px 14px',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: 8,
+                            boxShadow: '0 0 16px rgba(239, 68, 68, 0.2)'
+                          }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                                <span style={{ color: '#ef4444', fontSize: 14 }}>⚠️</span>
+                                <span style={{ fontSize: 12, fontWeight: 800, color: '#fca5a5' }}>
+                                  Identity Discrepancy Alert
+                                </span>
+                              </div>
+                              <span style={{ color: '#ef4444', fontSize: 12, fontFamily: 'var(--font-mono)', fontWeight: 800, letterSpacing: '1px' }}>
+                                ((•))
                               </span>
                             </div>
-                            <span style={{ color: '#ef4444', fontSize: 12, fontFamily: 'var(--font-mono)', fontWeight: 800, letterSpacing: '1px' }}>
-                              ((•))
-                            </span>
-                          </div>
-                          <div>
-                            <div style={{ fontSize: 11, fontWeight: 800, color: '#f87171' }}>
-                              {identityAuditReport.mismatchCount > 0
-                                ? `${identityAuditReport.mismatchCount} Conflict Flagged (Name Mismatch)`
-                                : '1 Conflict Flagged (Name Mismatch)'}
-                            </div>
-                            <div style={{ fontSize: 9.5, color: '#fca5a5', opacity: 0.85, marginTop: 1 }}>
-                              Documents with names different from primary conflicts.
-                            </div>
-                          </div>
-                          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                            {(identityAuditReport.conflictingDocuments.length > 0
-                              ? identityAuditReport.conflictingDocuments
-                              : [{ slotId: 'demo-vinod', fileName: 'vinod - Resume.pdf', candidateName: 'Vinod' }]
-                            ).map((conf: any) => (
-                              <div key={conf.slotId} style={{ background: 'rgba(0,0,0,0.6)', border: '1px solid rgba(239, 68, 68, 0.35)', borderRadius: 8, padding: '6px 10px', fontSize: 10.5, color: '#f8fafc', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: 210 }}>
-                                  📄 {conf.fileName} (Detected: '{conf.candidateName || 'Vinod'}')
-                                </span>
-                                <button
-                                  type="button"
-                                  onClick={() => handleDeleteSlot(conf.slotId)}
-                                  style={{ background: '#ef4444', color: '#ffffff', border: 'none', borderRadius: 4, padding: '2px 6px', fontSize: 9, fontWeight: 800, cursor: 'pointer', flexShrink: 0 }}
-                                >
-                                  ✕
-                                </button>
+                            <div>
+                              <div style={{ fontSize: 11, fontWeight: 800, color: '#f87171' }}>
+                                {identityAuditReport.mismatchCount} Conflict{identityAuditReport.mismatchCount > 1 ? 's' : ''} Flagged (Name Mismatch)
                               </div>
-                            ))}
-                          </div>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              if (identityAuditReport.conflictingDocuments.length > 0) {
+                              <div style={{ fontSize: 9.5, color: '#fca5a5', opacity: 0.85, marginTop: 1 }}>
+                                Documents with detected names different from profile anchor ({primaryCandidateName}).
+                              </div>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                              {identityAuditReport.conflictingDocuments.map((conf: any) => (
+                                <div key={conf.slotId} style={{ background: 'rgba(0,0,0,0.6)', border: '1px solid rgba(239, 68, 68, 0.35)', borderRadius: 8, padding: '6px 10px', fontSize: 10.5, color: '#f8fafc', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 6 }}>
+                                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: 150 }}>
+                                    📄 {conf.fileName} ('{conf.detectedName}')
+                                  </span>
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: 4, flexShrink: 0 }}>
+                                    <button
+                                      type="button"
+                                      onClick={() => {
+                                        setCustomAnchorName(conf.detectedName);
+                                        toast.success('Anchor Updated', `Set primary identity anchor to "${conf.detectedName}".`);
+                                      }}
+                                      style={{ background: 'rgba(56, 189, 248, 0.2)', border: '1px solid rgba(56, 189, 248, 0.4)', color: '#38bdf8', borderRadius: 4, padding: '2px 6px', fontSize: 9, fontWeight: 700, cursor: 'pointer' }}
+                                      title="Set this name as your verified profile identity"
+                                    >
+                                      Set as Name
+                                    </button>
+                                    <button
+                                      type="button"
+                                      onClick={() => handleDeleteSlot(conf.slotId)}
+                                      style={{ background: '#ef4444', color: '#ffffff', border: 'none', borderRadius: 4, padding: '2px 6px', fontSize: 9, fontWeight: 800, cursor: 'pointer' }}
+                                    >
+                                      ✕
+                                    </button>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => {
                                 identityAuditReport.conflictingDocuments.forEach(c => handleDeleteSlot(c.slotId));
                                 toast.success('Resolved', 'Removed conflicting documents.');
-                              } else {
-                                toast.info('Verification Sentinel', 'Sentinel identity consistency active.');
-                              }
-                            }}
-                            style={{
-                              width: '100%',
-                              background: 'rgba(239, 68, 68, 0.2)',
-                              border: '1px solid rgba(239, 68, 68, 0.5)',
-                              color: '#fca5a5',
-                              padding: '7px 10px',
-                              borderRadius: 8,
-                              fontSize: 10.5,
-                              fontWeight: 800,
-                              cursor: 'pointer',
-                              textAlign: 'center'
-                            }}
-                          >
-                            Verify or Remove Discrepant Doc
-                          </button>
-                        </div>
+                              }}
+                              style={{
+                                width: '100%',
+                                background: 'rgba(239, 68, 68, 0.2)',
+                                border: '1px solid rgba(239, 68, 68, 0.5)',
+                                color: '#fca5a5',
+                                borderRadius: 8,
+                                padding: '7px',
+                                fontSize: 10.5,
+                                fontWeight: 700,
+                                cursor: 'pointer'
+                              }}
+                            >
+                              Remove Discrepant Docs
+                            </button>
+                          </div>
+                        ) : vaultSlots.length > 0 ? (
+                          <div style={{
+                            background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.12) 0%, rgba(16, 185, 129, 0.18) 100%)',
+                            border: '1px solid #22c55e',
+                            borderRadius: 14,
+                            padding: '12px 14px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 10,
+                            boxShadow: '0 0 16px rgba(34, 197, 94, 0.15)'
+                          }}>
+                            <span style={{ fontSize: 18 }}>🛡️</span>
+                            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                              <span style={{ fontSize: 12, fontWeight: 800, color: '#86efac' }}>Sentinel Identity Verified</span>
+                              <span style={{ fontSize: 10, color: '#bbf7d0', opacity: 0.85 }}>All {vaultSlots.length} document(s) consistent with profile anchor ({primaryCandidateName}).</span>
+                            </div>
+                          </div>
+                        ) : (
+                          <div style={{
+                            background: 'rgba(15, 23, 42, 0.6)',
+                            border: '1px dashed rgba(56, 189, 248, 0.25)',
+                            borderRadius: 14,
+                            padding: '12px 14px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 10
+                          }}>
+                            <span style={{ fontSize: 18 }}>📂</span>
+                            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                              <span style={{ fontSize: 12, fontWeight: 800, color: '#bae6fd' }}>Vault Ready For Ingestion</span>
+                              <span style={{ fontSize: 10, color: '#94a3b8' }}>Upload resume, transcripts, or certifications to generate live QT2 analysis.</span>
+                            </div>
+                          </div>
+                        )}
 
                         {/* Live Extracted Skills Bar */}
                         {vaultSlots.length > 0 && liveQTMetrics.extractedSkills.length > 0 && (
@@ -2229,7 +2432,7 @@ export default function OnboardingPage() {
                             { id: 'resume', label: '📄 Master Resume', badge: vaultSlots.filter(s => s.category === 'resume').length },
                             { id: 'academic', label: '🎓 Academic Ledger', badge: vaultSlots.filter(s => s.category.startsWith('sem') || s.category === '10th' || s.category === '12th_puc').length },
                             { id: 'certifications', label: '📜 Certifications', badge: vaultSlots.filter(s => s.category === 'certification' || s.category === 'achievement').length },
-                            { id: 'analytics', label: '📊 Analytics', badge: vaultSlots.length === 0 ? '0%' : `${identityAuditReport.identityConsistencyPercentage}%` },
+                            { id: 'analytics', label: '📊 QT2 Analytics', badge: liveQTMetrics.qt2Score > 0 ? `${liveQTMetrics.qt2Score}/100` : '0/100' },
                           ].map(tab => {
                             const isActive = activeVaultTab === tab.id;
                             const isCertTab = tab.id === 'certifications';
@@ -2498,78 +2701,242 @@ export default function OnboardingPage() {
                         </div>
                       )}
 
-                      {/* TAB 2 / 3 / 4: VERIFIED DOCUMENT INVENTORY (2-COLUMN EXECUTIVE CYBER GRID) */}
-                      {(activeVaultTab === 'certifications' || activeVaultTab === 'resume' || activeVaultTab === 'achievements') && (
+                      {/* TAB 2: MASTER RESUME & ATS CALIBRATION */}
+                      {activeVaultTab === 'resume' && (
                         <div>
-                          {/* Header: Verified Document Inventory */}
                           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
-                            <div style={{ fontSize: 16, fontWeight: 900, color: '#f8fafc', letterSpacing: '-0.01em' }}>
-                              Verified Document Inventory
+                            <div>
+                              <div style={{ fontSize: 16, fontWeight: 900, color: '#f8fafc', letterSpacing: '-0.01em' }}>
+                                Primary Master Resume & ATS Calibration
+                              </div>
+                              <div style={{ fontSize: 11.5, color: 'var(--text-muted)', marginTop: 2 }}>
+                                Core career document used to calibrate ATS readiness, extract verified skills, and anchor candidate identity.
+                              </div>
                             </div>
                             <span style={{ fontSize: 11, color: 'rgba(255, 255, 255, 0.5)', fontFamily: 'var(--font-mono)' }}>
-                              {vaultSlots.length} Verified Documents Online
+                              {vaultSlots.filter(s => s.category === 'resume').length} Active Resume
                             </span>
                           </div>
 
-                          {/* 2-Column Cyber Grid */}
-                          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
-                            {/* Column 1: Resumes & Academic Foundation (Glowing Cyan Cards) */}
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                              {(() => {
-                                const foundationDocs = vaultSlots.filter(s => s.category === 'resume' || s.category.startsWith('sem') || s.category === '10th' || s.category === '12th_puc');
-                                if (foundationDocs.length === 0) {
-                                  return (
-                                    <div
-                                      onClick={() => {
-                                        const input = document.createElement('input');
-                                        input.type = 'file';
-                                        input.accept = '.pdf,.docx,.txt,application/pdf';
-                                        input.onchange = (e: any) => {
-                                          if (e.target?.files?.[0]) handleUploadToSlot(e.target.files[0], 'resume');
-                                        };
-                                        input.click();
-                                      }}
-                                      style={{
-                                        border: '1.5px dashed rgba(0, 240, 255, 0.35)',
-                                        borderRadius: 14,
-                                        padding: 28,
-                                        textAlign: 'center',
-                                        cursor: 'pointer',
-                                        background: 'rgba(0, 240, 255, 0.02)',
-                                        color: '#00f0ff',
-                                        fontSize: 12.5,
-                                        fontWeight: 700
-                                      }}
-                                    >
-                                      + Upload Master Resume or Marksheet
+                          {(() => {
+                            const resumeDocs = vaultSlots.filter(s => s.category === 'resume');
+                            if (resumeDocs.length === 0) {
+                              return (
+                                <div
+                                  onClick={() => {
+                                    const input = document.createElement('input');
+                                    input.type = 'file';
+                                    input.accept = '.pdf,.docx,.txt,application/pdf';
+                                    input.onchange = (e: any) => {
+                                      if (e.target?.files?.[0]) handleUploadToSlot(e.target.files[0], 'resume');
+                                    };
+                                    input.click();
+                                  }}
+                                  style={{
+                                    border: '2px dashed rgba(0, 240, 255, 0.4)',
+                                    borderRadius: 16,
+                                    padding: '44px 20px',
+                                    textAlign: 'center',
+                                    cursor: 'pointer',
+                                    background: 'rgba(0, 240, 255, 0.02)',
+                                    color: '#00f0ff',
+                                    transition: 'all 0.2s ease',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    gap: 12
+                                  }}
+                                >
+                                  <div style={{ width: 48, height: 48, borderRadius: 12, background: 'rgba(0, 240, 255, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>
+                                    📄
+                                  </div>
+                                  <div>
+                                    <div style={{ fontSize: 15, fontWeight: 900, color: '#f8fafc', marginBottom: 4 }}>
+                                      + Upload Your Master Resume (PDF / DOCX)
                                     </div>
-                                  );
-                                }
-                                return foundationDocs.map((doc, idx) => {
-                                  const isWord = doc.fileName.toLowerCase().endsWith('.doc') || doc.fileName.toLowerCase().endsWith('.docx') || doc.id === 'vault-demo-2' || doc.id === 'vault-demo-4';
-                                  const dateStr = doc.id === 'vault-demo-1' ? '10/09' : (doc.id === 'vault-demo-2' || doc.id === 'vault-demo-3') ? '10/19' : doc.id === 'vault-demo-4' ? '10/14' : '10/09';
+                                    <div style={{ fontSize: 12, color: 'var(--text-muted)', maxWidth: 460, margin: '0 auto', lineHeight: 1.5 }}>
+                                      Extracts technical skills, validates project outcomes, measures ATS keyword compatibility, and sets your verified candidate profile anchor.
+                                    </div>
+                                  </div>
+                                </div>
+                              );
+                            }
+
+                            return resumeDocs.map((doc, idx) => {
+                              const isWord = !!doc.fileName.match(/\.(docx?|doc)$/i);
+                              const displayTitle = doc.fileName.replace(/\.[^/.]+$/, "");
+                              return (
+                                <div
+                                  key={doc.id || idx}
+                                  style={{
+                                    background: 'rgba(6, 14, 26, 0.88)',
+                                    border: '1.5px solid #00f0ff',
+                                    borderRadius: 16,
+                                    padding: '18px 20px',
+                                    display: 'flex',
+                                    gap: 16,
+                                    alignItems: 'flex-start',
+                                    boxShadow: '0 0 20px rgba(0, 240, 255, 0.18)',
+                                    position: 'relative'
+                                  }}
+                                >
+                                  <div style={{
+                                    width: 46,
+                                    height: 46,
+                                    borderRadius: 10,
+                                    background: isWord ? '#0284c7' : '#ef4444',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    color: '#ffffff',
+                                    fontSize: 12,
+                                    fontWeight: 900,
+                                    fontFamily: 'var(--font-mono), sans-serif',
+                                    flexShrink: 0,
+                                    boxShadow: isWord ? '0 0 12px rgba(2, 132, 199, 0.5)' : '0 0 12px rgba(239, 68, 68, 0.5)'
+                                  }}>
+                                    {isWord ? 'DOC' : 'PDF'}
+                                  </div>
+
+                                  <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 8 }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+                                      <div>
+                                        <div style={{ fontSize: 15, fontWeight: 900, color: '#f8fafc', display: 'flex', alignItems: 'center', gap: 8 }}>
+                                          {displayTitle}
+                                          <span style={{ color: '#22c55e', fontSize: 14 }}>✔</span>
+                                        </div>
+                                        <div style={{ fontSize: 11.5, color: 'var(--text-muted)', marginTop: 2 }}>
+                                          Candidate Name: <strong style={{ color: '#38bdf8' }}>{doc.candidateName || primaryCandidateName}</strong> • {doc.fileSize}
+                                        </div>
+                                      </div>
+                                      <button
+                                        type="button"
+                                        onClick={() => handleDeleteSlot(doc.id, doc.storageUrl)}
+                                        style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.25)', color: '#f87171', cursor: 'pointer', fontSize: 11, padding: '4px 10px', borderRadius: 6, fontWeight: 700 }}
+                                        title="Remove Document"
+                                      >
+                                        🗑️ Remove
+                                      </button>
+                                    </div>
+
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+                                      <span style={{ fontSize: 10, background: 'rgba(34, 197, 94, 0.15)', border: '1px solid rgba(34, 197, 94, 0.4)', color: '#4ade80', padding: '2px 8px', borderRadius: 4, fontWeight: 700 }}>
+                                        ✓ Text Parsed
+                                      </span>
+                                      <span style={{ fontSize: 10, background: 'rgba(56, 189, 248, 0.15)', border: '1px solid rgba(56, 189, 248, 0.4)', color: '#38bdf8', padding: '2px 8px', borderRadius: 4, fontWeight: 700 }}>
+                                        ✓ Ready for ATS
+                                      </span>
+                                      <span style={{ fontSize: 10, background: 'rgba(168, 85, 247, 0.15)', border: '1px solid rgba(168, 85, 247, 0.4)', color: '#c084fc', padding: '2px 8px', borderRadius: 4, fontWeight: 700 }}>
+                                        ATS Score: {doc.atsScore || 78}/100
+                                      </span>
+                                    </div>
+
+                                    {doc.skills && doc.skills.length > 0 && (
+                                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginTop: 4 }}>
+                                        {doc.skills.map((sk, sIdx) => (
+                                          <span key={sIdx} style={{ fontSize: 10, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', color: '#e2e8f0', padding: '2px 8px', borderRadius: 5, fontWeight: 600 }}>
+                                            {sk}
+                                          </span>
+                                        ))}
+                                      </div>
+                                    )}
+
+                                    <div style={{ fontSize: 10, color: '#64748b', fontFamily: 'var(--font-mono)' }}>
+                                      Uploaded: {formatVaultDate(doc.uploadedAt)}
+                                    </div>
+                                  </div>
+                                </div>
+                              );
+                            });
+                          })()}
+                        </div>
+                      )}
+
+                      {/* TAB 3: TECHNICAL CERTIFICATIONS & CREDENTIALS */}
+                      {(activeVaultTab === 'certifications' || activeVaultTab === 'achievements') && (
+                        <div>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+                            <div>
+                              <div style={{ fontSize: 16, fontWeight: 900, color: '#f8fafc', letterSpacing: '-0.01em' }}>
+                                Technical Certifications & Portfolio Proofs
+                              </div>
+                              <div style={{ fontSize: 11.5, color: 'var(--text-muted)', marginTop: 2 }}>
+                                Cloud certificates, course completions, hackathons, and verified project proofs.
+                              </div>
+                            </div>
+                            <span style={{ fontSize: 11, color: 'rgba(255, 255, 255, 0.5)', fontFamily: 'var(--font-mono)' }}>
+                              {vaultSlots.filter(s => s.category === 'certification' || s.category === 'achievement').length} Verified Credentials
+                            </span>
+                          </div>
+
+                          {(() => {
+                            const credentialDocs = vaultSlots.filter(s => s.category === 'certification' || s.category === 'achievement');
+                            if (credentialDocs.length === 0) {
+                              return (
+                                <div
+                                  onClick={() => {
+                                    const input = document.createElement('input');
+                                    input.type = 'file';
+                                    input.accept = '.pdf,.docx,.txt,application/pdf';
+                                    input.onchange = (e: any) => {
+                                      if (e.target?.files?.[0]) handleUploadToSlot(e.target.files[0], 'certification');
+                                    };
+                                    input.click();
+                                  }}
+                                  style={{
+                                    border: '2px dashed rgba(168, 85, 247, 0.35)',
+                                    borderRadius: 16,
+                                    padding: '44px 20px',
+                                    textAlign: 'center',
+                                    cursor: 'pointer',
+                                    background: 'rgba(168, 85, 247, 0.02)',
+                                    color: '#c084fc',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    gap: 12
+                                  }}
+                                >
+                                  <div style={{ width: 48, height: 48, borderRadius: 12, background: 'rgba(168, 85, 247, 0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>
+                                    📜
+                                  </div>
+                                  <div>
+                                    <div style={{ fontSize: 15, fontWeight: 900, color: '#f8fafc', marginBottom: 4 }}>
+                                      + Upload Technical Certification or Project Credential
+                                    </div>
+                                    <div style={{ fontSize: 12, color: 'var(--text-muted)', maxWidth: 440, margin: '0 auto', lineHeight: 1.5 }}>
+                                      Add AWS/GCP, NPTEL, Coursera, or Hackathon credentials to validate your verified capabilities.
+                                    </div>
+                                  </div>
+                                </div>
+                              );
+                            }
+
+                            return (
+                              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+                                {credentialDocs.map((doc, idx) => {
+                                  const isWord = !!doc.fileName.match(/\.(docx?|doc)$/i);
+                                  const displayTitle = doc.fileName.replace(/\.[^/.]+$/, "");
                                   return (
                                     <div
                                       key={doc.id || idx}
                                       style={{
-                                        background: 'rgba(6, 14, 26, 0.88)',
-                                        border: '1.5px solid #00f0ff',
+                                        background: 'rgba(16, 10, 26, 0.88)',
+                                        border: '1.5px solid #a855f7',
                                         borderRadius: 14,
-                                        padding: '12px 14px',
+                                        padding: '14px 16px',
                                         display: 'flex',
                                         gap: 12,
                                         alignItems: 'flex-start',
-                                        boxShadow: '0 0 16px rgba(0, 240, 255, 0.2)',
-                                        transition: 'all 0.2s ease',
+                                        boxShadow: '0 0 16px rgba(168, 85, 247, 0.2)',
                                         position: 'relative'
                                       }}
                                     >
-                                      {/* Left Badge: PDF (Red) or Doc (Blue) */}
                                       <div style={{
                                         width: 38,
                                         height: 38,
                                         borderRadius: 8,
-                                        background: isWord ? '#0284c7' : '#ef4444',
+                                        background: isWord ? '#0284c7' : '#7c3aed',
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'center',
@@ -2577,151 +2944,78 @@ export default function OnboardingPage() {
                                         fontSize: 11,
                                         fontWeight: 900,
                                         fontFamily: 'var(--font-mono), sans-serif',
-                                        flexShrink: 0,
-                                        boxShadow: isWord ? '0 0 10px rgba(2, 132, 199, 0.5)' : '0 0 10px rgba(239, 68, 68, 0.5)'
+                                        flexShrink: 0
                                       }}>
-                                        {isWord ? 'Doc' : 'PDF'}
+                                        {isWord ? 'DOC' : 'PDF'}
                                       </div>
 
-                                      {/* Content */}
-                                      <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 5 }}>
+                                      <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
                                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 6 }}>
-                                          <div style={{ display: 'flex', alignItems: 'center', gap: 6, minWidth: 0 }}>
-                                            <span style={{ fontSize: 13, fontWeight: 800, color: '#f8fafc', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                              {doc.fileName}
-                                            </span>
-                                            <span style={{ color: '#22c55e', fontSize: 13, fontWeight: 900, flexShrink: 0 }}>
-                                              ✔
-                                            </span>
-                                          </div>
+                                          <span style={{ fontSize: 13, fontWeight: 800, color: '#f8fafc', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                            {displayTitle}
+                                          </span>
                                           <button
                                             type="button"
                                             onClick={() => handleDeleteSlot(doc.id, doc.storageUrl)}
-                                            style={{ background: 'transparent', border: 'none', color: 'rgba(255,255,255,0.35)', cursor: 'pointer', fontSize: 12, padding: '0 2px' }}
-                                            title="Remove Document"
+                                            style={{ background: 'transparent', border: 'none', color: 'rgba(255,255,255,0.35)', cursor: 'pointer', fontSize: 12 }}
+                                            title="Remove Credential"
                                           >
                                             ✕
                                           </button>
                                         </div>
 
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
-                                          <span style={{ fontSize: 10, color: '#64748b', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
-                                            Metatags
-                                          </span>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: 5, flexWrap: 'wrap' }}>
                                           <span style={{ fontSize: 9.5, background: 'rgba(34, 197, 94, 0.15)', border: '1px solid rgba(34, 197, 94, 0.4)', color: '#4ade80', padding: '1px 7px', borderRadius: 4, fontWeight: 700 }}>
-                                            Verified via API
+                                            ✓ Verified Credential
                                           </span>
-                                          <span style={{ fontSize: 9.5, background: 'rgba(34, 197, 94, 0.15)', border: '1px solid rgba(34, 197, 94, 0.4)', color: '#4ade80', padding: '1px 7px', borderRadius: 4, fontWeight: 700 }}>
-                                            Machine-Extractable
-                                          </span>
+                                          {(doc.skills && doc.skills.length > 0 ? doc.skills.slice(0, 2) : ['Technical Skill']).map((sk, sIdx) => (
+                                            <span key={sIdx} style={{ fontSize: 9.5, background: 'rgba(168, 85, 247, 0.2)', border: '1px solid rgba(168, 85, 247, 0.45)', color: '#c084fc', padding: '1px 7px', borderRadius: 4, fontWeight: 700 }}>
+                                              {sk}
+                                            </span>
+                                          ))}
                                         </div>
 
                                         <div style={{ fontSize: 9.5, color: '#64748b', fontFamily: 'var(--font-mono)' }}>
-                                          Date uploaded: {dateStr}
+                                          Uploaded: {formatVaultDate(doc.uploadedAt)}
                                         </div>
                                       </div>
                                     </div>
                                   );
-                                });
-                              })()}
-                            </div>
+                                })}
 
-                            {/* Column 2: Certifications & Technical Proofs (Glowing Purple Cards) */}
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                              {(() => {
-                                const credentialDocs = vaultSlots.filter(s => s.category === 'certification' || s.category === 'achievement');
-                                return (
-                                  <>
-                                    {credentialDocs.map((doc, idx) => (
-                                      <div
-                                        key={doc.id || idx}
-                                        style={{
-                                          background: 'rgba(16, 10, 26, 0.88)',
-                                          border: '1.5px solid #a855f7',
-                                          borderRadius: 14,
-                                          padding: '12px 14px',
-                                          display: 'flex',
-                                          gap: 12,
-                                          alignItems: 'flex-start',
-                                          boxShadow: '0 0 16px rgba(168, 85, 247, 0.2)',
-                                          transition: 'all 0.2s ease',
-                                          position: 'relative'
-                                        }}
-                                      >
-                                        {/* Left Badge: Purple PDF */}
-                                        <div style={{
-                                          width: 38,
-                                          height: 38,
-                                          borderRadius: 8,
-                                          background: '#7c3aed',
-                                          display: 'flex',
-                                          alignItems: 'center',
-                                          justifyContent: 'center',
-                                          color: '#ffffff',
-                                          fontSize: 11,
-                                          fontWeight: 900,
-                                          fontFamily: 'var(--font-mono), sans-serif',
-                                          flexShrink: 0,
-                                          boxShadow: '0 0 10px rgba(124, 58, 237, 0.5)'
-                                        }}>
-                                          PDF
-                                        </div>
-
-                                        {/* Content */}
-                                        <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 5 }}>
-                                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 6 }}>
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: 6, minWidth: 0 }}>
-                                              <span style={{ fontSize: 13, fontWeight: 800, color: '#f8fafc', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                                {doc.fileName}
-                                              </span>
-                                              <span style={{ color: '#22c55e', fontSize: 13, fontWeight: 900, flexShrink: 0 }}>
-                                                ✔
-                                              </span>
-                                            </div>
-                                            <button
-                                              type="button"
-                                              onClick={() => handleDeleteSlot(doc.id, doc.storageUrl)}
-                                              style={{ background: 'transparent', border: 'none', color: 'rgba(255,255,255,0.35)', cursor: 'pointer', fontSize: 12, padding: '0 2px' }}
-                                              title="Remove Document"
-                                            >
-                                              ✕
-                                            </button>
-                                          </div>
-
-                                          <div style={{ display: 'flex', alignItems: 'center', gap: 5, flexWrap: 'wrap' }}>
-                                            <span style={{ fontSize: 10, color: '#64748b', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>
-                                              Metatags
-                                            </span>
-                                            <span style={{ fontSize: 9.5, background: 'rgba(59, 130, 246, 0.2)', border: '1px solid rgba(59, 130, 246, 0.45)', color: '#60a5fa', padding: '1px 7px', borderRadius: 4, fontWeight: 700 }}>Python</span>
-                                            <span style={{ fontSize: 9.5, background: 'rgba(234, 179, 8, 0.2)', border: '1px solid rgba(234, 179, 8, 0.45)', color: '#facc15', padding: '1px 7px', borderRadius: 4, fontWeight: 700 }}>JS</span>
-                                            <span style={{ fontSize: 9.5, background: 'rgba(168, 85, 247, 0.2)', border: '1px solid rgba(168, 85, 247, 0.45)', color: '#c084fc', padding: '1px 7px', borderRadius: 4, fontWeight: 700 }}>HTML / CSS</span>
-                                          </div>
-
-                                          <div style={{ fontSize: 9.5, color: '#64748b', fontFamily: 'var(--font-mono)' }}>
-                                            Date uploaded: 2023
-                                          </div>
-                                        </div>
-                                      </div>
-                                    ))}
-
-                                    {/* Subtle Mockup Placeholder */}
-                                    <div style={{
-                                      padding: '16px',
-                                      textAlign: 'center',
-                                      color: 'rgba(255, 255, 255, 0.4)',
-                                      fontSize: 12,
-                                      fontStyle: 'italic',
-                                      border: '1px dashed rgba(255, 255, 255, 0.08)',
-                                      borderRadius: 12,
-                                      marginTop: 4
-                                    }}>
-                                      No certifications uploaded...
-                                    </div>
-                                  </>
-                                );
-                              })()}
-                            </div>
-                          </div>
+                                {/* Append Tile: Add Another Certification */}
+                                <div
+                                  onClick={() => {
+                                    const input = document.createElement('input');
+                                    input.type = 'file';
+                                    input.accept = '.pdf,.docx,.txt,application/pdf';
+                                    input.onchange = (e: any) => {
+                                      if (e.target?.files?.[0]) handleUploadToSlot(e.target.files[0], 'certification');
+                                    };
+                                    input.click();
+                                  }}
+                                  style={{
+                                    border: '1.5px dashed rgba(168, 85, 247, 0.35)',
+                                    borderRadius: 14,
+                                    padding: '16px',
+                                    textAlign: 'center',
+                                    cursor: 'pointer',
+                                    background: 'rgba(168, 85, 247, 0.02)',
+                                    color: '#c084fc',
+                                    fontSize: 12,
+                                    fontWeight: 700,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    minHeight: 88,
+                                    transition: 'all 0.15s ease'
+                                  }}
+                                >
+                                  + Add Another Credential
+                                </div>
+                              </div>
+                            );
+                          })()}
                         </div>
                       )}
 
@@ -2749,6 +3043,65 @@ export default function OnboardingPage() {
                             )}
                           </div>
 
+                          {/* Live QT2 Cognitive & Integrity Model Panel */}
+                          <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(168, 85, 247, 0.25)', borderRadius: 16, padding: 18 }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                <span style={{ fontSize: 15 }}>🧠</span>
+                                <span style={{ fontSize: 13, fontWeight: 900, color: '#f8fafc' }}>
+                                  Live QT2 Cognitive Mindset Model
+                                </span>
+                              </div>
+                              <span style={{ fontSize: 12, color: liveQTMetrics.qt2Score > 0 ? '#c084fc' : 'var(--text-dim)', fontWeight: 900, fontFamily: 'var(--font-mono)' }}>
+                                {liveQTMetrics.qt2Score > 0 ? `${liveQTMetrics.qt2Score}/100 Score` : '0/100 (Uncalibrated)'}
+                              </span>
+                            </div>
+
+                            {liveQTMetrics.qt2Score > 0 && liveQTMetrics.qt2Evaluation ? (
+                              <div>
+                                <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 12, lineHeight: 1.5 }}>
+                                  <strong style={{ color: '#ffffff' }}>{liveQTMetrics.qt2Evaluation.archetypeBlendTitle}</strong> — {liveQTMetrics.qt2Evaluation.archetypeDescription}
+                                </div>
+
+                                {/* 4 Cognitive Dimensions */}
+                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 10, marginBottom: 14 }}>
+                                  {[
+                                    { label: 'Pattern Hunter', icon: '🧩', score: liveQTMetrics.qt2Evaluation.dimensions.patternHunter, color: '#00f0ff' },
+                                    { label: 'Stabilizer', icon: '🛡️', score: liveQTMetrics.qt2Evaluation.dimensions.stabilizer, color: '#22c55e' },
+                                    { label: 'Social IQ', icon: '🤝', score: liveQTMetrics.qt2Evaluation.dimensions.socialIQ, color: '#eab308' },
+                                    { label: 'Explorer', icon: '🚀', score: liveQTMetrics.qt2Evaluation.dimensions.explorer, color: '#a855f7' }
+                                  ].map(dim => (
+                                    <div key={dim.label} style={{ background: 'rgba(0,0,0,0.3)', border: `1px solid ${dim.color}40`, borderRadius: 10, padding: '10px 8px', textAlign: 'center' }}>
+                                      <div style={{ fontSize: 16, marginBottom: 4 }}>{dim.icon}</div>
+                                      <div style={{ fontSize: 14, fontWeight: 900, color: dim.color, fontFamily: 'var(--font-mono)' }}>{dim.score}%</div>
+                                      <div style={{ fontSize: 10, color: 'var(--text-dim)', fontWeight: 700, marginTop: 2 }}>{dim.label}</div>
+                                    </div>
+                                  ))}
+                                </div>
+
+                                {/* Breakdown Factors */}
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                                  {liveQTMetrics.qt2Evaluation.factors.map(f => (
+                                    <div key={f.pillar} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 11, padding: '6px 10px', background: 'rgba(0,0,0,0.2)', borderRadius: 8 }}>
+                                      <span style={{ color: '#e2e8f0', fontWeight: 600 }}>{f.pillar}</span>
+                                      <span style={{ color: '#38bdf8', fontFamily: 'var(--font-mono)', fontWeight: 800 }}>{f.score}/{f.maxScore} pts</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            ) : (
+                              <div style={{ textAlign: 'center', padding: '24px 16px', background: 'rgba(0,0,0,0.25)', borderRadius: 12, border: '1px dashed rgba(255,255,255,0.08)' }}>
+                                <div style={{ fontSize: 24, marginBottom: 6 }}>⚖️</div>
+                                <div style={{ fontSize: 13, fontWeight: 800, color: '#f8fafc', marginBottom: 4 }}>
+                                  Awaiting Document Evidence or Socratic Diagnostic
+                                </div>
+                                <div style={{ fontSize: 11.5, color: 'var(--text-dim)', maxWidth: 440, margin: '0 auto', lineHeight: 1.5 }}>
+                                  QT2 evaluates behavioral problem-solving dispositions (Pattern Hunter, Stabilizer, Social IQ, Explorer), action rigor, and identity authenticity. Upload your master resume or academic records to calibrate your live model.
+                                </div>
+                              </div>
+                            )}
+                          </div>
+
                           {/* Identity Audit Table */}
                           <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 16, padding: 18 }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
@@ -2760,16 +3113,22 @@ export default function OnboardingPage() {
                             <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 10 }}>
                               Primary Candidate Identity: <strong style={{ color: 'var(--text)' }}>{primaryCandidateName}</strong>
                             </div>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                              {vaultSlots.map(slot => (
-                                <div key={slot.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 11, padding: '6px 10px', background: 'rgba(0,0,0,0.25)', borderRadius: 8 }}>
-                                  <span style={{ color: 'var(--text-muted)' }}>{slot.fileName}</span>
-                                  <span style={{ color: slot.verificationStatus === 'mismatch_warning' ? 'var(--danger-bright)' : 'var(--success-bright)', fontWeight: 700 }}>
-                                    {slot.verificationStatus === 'mismatch_warning' ? `⚠️ Name Mismatch: "${slot.candidateName}"` : `✓ Name Matched: "${slot.candidateName}"`}
-                                  </span>
-                                </div>
-                              ))}
-                            </div>
+                            {vaultSlots.length === 0 ? (
+                              <div style={{ fontSize: 11.5, color: 'var(--text-dim)', fontStyle: 'italic', padding: '8px 0' }}>
+                                No documents in vault. Upload files to run anti-fraud identity cross-checks.
+                              </div>
+                            ) : (
+                              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                                {vaultSlots.map(slot => (
+                                  <div key={slot.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 11, padding: '6px 10px', background: 'rgba(0,0,0,0.25)', borderRadius: 8 }}>
+                                    <span style={{ color: 'var(--text-muted)' }}>{slot.fileName}</span>
+                                    <span style={{ color: slot.verificationStatus === 'mismatch_warning' ? 'var(--danger-bright)' : 'var(--success-bright)', fontWeight: 700 }}>
+                                      {slot.verificationStatus === 'mismatch_warning' ? `⚠️ Name Mismatch: "${slot.candidateName}"` : `✓ Name Matched: "${slot.candidateName}"`}
+                                    </span>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
                           </div>
                         </div>
                       )}
@@ -2780,23 +3139,10 @@ export default function OnboardingPage() {
 
                     {/* Footer Actions (Docked at Bottom) */}
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 14, borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 14, flexShrink: 0 }}>
-                      {vaultSlots.length > 0 ? (
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setVaultSlots([]);
-                            cOS.setVaultItems([]);
-                            toast.info('Vault Cleared', 'Cleared all local session documents.');
-                          }}
-                          style={{ background: 'rgba(var(--danger-rgb), 0.1)', border: '1px solid rgba(var(--danger-rgb), 0.25)', color: 'var(--danger-bright)', padding: '9px 16px', borderRadius: 10, fontSize: 11.5, fontWeight: 700, cursor: 'pointer' }}
-                        >
-                          🗑️ Clear All ({vaultSlots.length} Docs)
-                        </button>
-                      ) : (
-                        <span style={{ fontSize: 11, color: 'var(--text-dim)', fontFamily: 'var(--font-mono)' }}>
-                          🔒 AES-256 Vault Encryption • 100% Student Data Confidentiality
-                        </span>
-                      )}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 11.5, color: '#94a3b8' }}>
+                        <span style={{ fontSize: 13 }}>🔒</span>
+                        <span>Encrypted & Confidential Portfolio Storage • Auto-synced to your verified profile</span>
+                      </div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginLeft: 'auto' }}>
                         <button
                           type="button"
@@ -2828,29 +3174,49 @@ export default function OnboardingPage() {
                         >
                           <span>+</span> Add Documents
                         </button>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            toast.success('Sentinel Calibrated', 'All 12 Identity, ATS & Document Integrity checks verified.');
-                          }}
-                          style={{
-                            background: 'linear-gradient(135deg, #2563eb 0%, #7c3aed 100%)',
-                            border: 'none',
-                            color: '#ffffff',
-                            padding: '9px 20px',
-                            borderRadius: 10,
-                            fontSize: 12,
+                        {(vaultSlots.some(s => s.verificationStatus === 'provisional' || !s.verificationStatus) || isVerifyingAll) && vaultSlots.length > 0 && (
+                          <button
+                            type="button"
+                            disabled={isVerifyingAll}
+                            onClick={handleRunAllVerifications}
+                            style={{
+                              background: isVerifyingAll ? 'rgba(124, 58, 237, 0.5)' : 'linear-gradient(135deg, #2563eb 0%, #7c3aed 100%)',
+                              border: 'none',
+                              color: '#ffffff',
+                              padding: '9px 20px',
+                              borderRadius: 10,
+                              fontSize: 12,
+                              fontWeight: 800,
+                              cursor: isVerifyingAll ? 'wait' : 'pointer',
+                              boxShadow: '0 4px 14px rgba(124, 58, 237, 0.4)',
+                              transition: 'all 0.15s ease',
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: 6
+                            }}
+                          >
+                            {isVerifyingAll ? 'Analyzing Documents...' : 'Run All Verifications'}
+                          </button>
+                        )}
+                        {vaultSlots.length > 0 && !vaultSlots.some(s => s.verificationStatus === 'provisional' || !s.verificationStatus) && (
+                          <span style={{
+                            fontSize: 11,
+                            color: '#4ade80',
                             fontWeight: 800,
-                            cursor: 'pointer',
-                            boxShadow: '0 4px 14px rgba(124, 58, 237, 0.4)',
-                            transition: 'all 0.15s ease'
-                          }}
-                        >
-                          Run All Verifications
-                        </button>
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: 5,
+                            padding: '6px 12px',
+                            background: 'rgba(34, 197, 94, 0.12)',
+                            borderRadius: 8,
+                            border: '1px solid rgba(34, 197, 94, 0.3)'
+                          }}>
+                            ✓ All Verified
+                          </span>
+                        )}
                         <button
                           type="button"
-                          onClick={() => setShowVaultModal(false)}
+                          onClick={handleContinueOnboarding}
                           style={{
                             background: 'linear-gradient(135deg, var(--brand) 0%, var(--accent) 100%)',
                             border: 'none',
@@ -2860,7 +3226,8 @@ export default function OnboardingPage() {
                             fontSize: 12,
                             fontWeight: 800,
                             cursor: 'pointer',
-                            boxShadow: '0 4px 16px rgba(var(--brand-rgb), 0.4)'
+                            boxShadow: '0 4px 16px rgba(var(--brand-rgb), 0.4)',
+                            transition: 'all 0.15s ease'
                           }}
                         >
                           {vaultSlots.length > 0 ? `Continue Diagnostic Onboarding (${vaultSlots.length} Docs Synced) →` : 'Close Vault'}
@@ -3006,7 +3373,20 @@ export default function OnboardingPage() {
       <main style={{ flex: 1, minHeight: 0, display: 'grid', gridTemplateColumns: '43fr 57fr', maxWidth: '98%', width: '98%', margin: '0 auto', padding: '12px 24px 24px 24px', gap: 24, zIndex: 5, overflow: 'hidden' }}>
         
         {/* Left Column: VRoid Mentor Viewport */}
-        <section style={{ background: 'rgba(10, 15, 26, 0.4)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 24, display: 'flex', flexDirection: 'column', overflow: 'hidden', position: 'relative', minHeight: 0 }}>
+        <section style={{ 
+          backgroundImage: "linear-gradient(to bottom, rgba(10, 15, 26, 0.15), rgba(10, 15, 26, 0.65)), url('/brand/avatar-room-bg.jpg')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backdropFilter: 'blur(20px)', 
+          border: '1px solid rgba(255,255,255,0.1)', 
+          borderRadius: 24, 
+          display: 'flex', 
+          flexDirection: 'column', 
+          overflow: 'hidden', 
+          position: 'relative', 
+          minHeight: 0 
+        }}>
           <div style={{ flex: 1, position: 'relative' }}>
             {selectedMentor === 'anish' ? (
               <VRoidInterviewAvatar teacherId="anish" animState={animState} zoom={zoom} />

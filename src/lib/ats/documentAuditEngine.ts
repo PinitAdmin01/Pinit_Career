@@ -16,6 +16,7 @@
 import { groundAndValidateEvidence, ValidatedCandidateGraph, GroundedProvenanceRecord } from './factCheckValidator';
 import { evaluateDocumentContradictions } from './contradictionEngine';
 import { auditResumeATS, AtsAuditReport } from './atsScreener';
+import { evaluateQT2Model, QT2ModelEvaluation } from './qt2AnalysisEngine';
 
 export type VaultCategory =
   | '10th'
@@ -91,6 +92,8 @@ export interface LiveQTCalibration {
   integrityLevel: string;
   academicAverageGpa: number;
   growthMomentum: 'Upward Trajectory (+Growth)' | 'High Distinction (Steady)' | 'Baseline Calibration';
+  evaluatedDataPoints: number;
+  qt2Evaluation?: QT2ModelEvaluation;
 }
 
 /**
@@ -214,12 +217,36 @@ export function auditDocumentCollection(
   let mismatchCount = 0;
   const conflictingDocuments: IdentityAuditReport['conflictingDocuments'] = [];
 
-  const anchorName = primaryCandidateName && primaryCandidateName !== 'Candidate'
-    ? primaryCandidateName
-    : documents.find(d => d.candidateName && d.candidateName !== 'Candidate')?.candidateName || 'Candidate';
+  // Establish authoritative anchor name:
+  // 1. Master resume detected name takes precedence if valid
+  // 2. primaryCandidateName if not generic 'Candidate'
+  // 3. Any credential document with a detected name
+  const resumeDoc = documents.find(d => d.category === 'resume' && d.candidateName && d.candidateName.toLowerCase() !== 'candidate');
+  const anchorName = resumeDoc?.candidateName ||
+    (primaryCandidateName && primaryCandidateName.toLowerCase() !== 'candidate'
+      ? primaryCandidateName
+      : documents.find(d => d.candidateName && d.candidateName.toLowerCase() !== 'candidate')?.candidateName || 'Candidate');
+
+  // Single document establishes baseline identity without false mismatch
+  if (documents.length === 1) {
+    const singleDoc = documents[0];
+    const resolvedName = singleDoc.candidateName && singleDoc.candidateName.toLowerCase() !== 'candidate'
+      ? singleDoc.candidateName
+      : anchorName;
+    return {
+      primaryName: resolvedName,
+      totalDocuments: 1,
+      verifiedCount: 1,
+      mismatchCount: 0,
+      overallStatus: 'SENTINEL_CLEAN',
+      trustScore: 100,
+      conflictingDocuments: [],
+      identityConsistencyPercentage: 100
+    };
+  }
 
   documents.forEach(doc => {
-    if (doc.candidateName && doc.candidateName !== 'Candidate') {
+    if (doc.candidateName && doc.candidateName.toLowerCase() !== 'candidate') {
       const check = checkNameSimilarity(anchorName, doc.candidateName);
       if (!check.isMatch) {
         mismatchCount++;
@@ -272,13 +299,17 @@ export function calculateLiveQTMetrics(
   auditReport: IdentityAuditReport = { primaryName: 'Candidate', totalDocuments: 0, verifiedCount: 0, mismatchCount: 0, overallStatus: 'SENTINEL_CLEAN', trustScore: 100, conflictingDocuments: [], identityConsistencyPercentage: 100 },
   demonstratedCompetencyCount: number = 0,
   demonstratedProjectCount: number = 0,
-  assessmentAveragePct: number = 0
+  assessmentAveragePct: number = 0,
+  simulationScores?: Record<string, number>,
+  identityScores?: Record<string, number>,
+  voiceArchetype?: string | null
 ): LiveQTCalibration {
   console.log(`\n🎯 [STAGE 11/12 - Career Intelligence Calibration]: Calculating decoupled 4-pillar metrics...`);
   if (!documents || documents.length === 0) {
+    const baselineEval = evaluateQT2Model([], auditReport, simulationScores, identityScores, voiceArchetype);
     return {
       qt1Score: 0,
-      qt2Score: 0,
+      qt2Score: baselineEval.compositeScore,
       evidenceTrustScore: 0,
       atsPresentationScore: 0,
       academicTrajectory: [],
@@ -286,7 +317,9 @@ export function calculateLiveQTMetrics(
       weakAreas: [],
       integrityLevel: '🛡️ Sentinel Active (Awaiting Uploads)',
       academicAverageGpa: 0,
-      growthMomentum: 'Baseline Calibration'
+      growthMomentum: 'Baseline Calibration',
+      evaluatedDataPoints: baselineEval.evaluatedDataPoints,
+      qt2Evaluation: baselineEval
     };
   }
 
@@ -372,11 +405,16 @@ export function calculateLiveQTMetrics(
     w => !Array.from(allSkills).some(s => s.toLowerCase().includes(w.toLowerCase().split(' ')[0]))
   );
 
-  console.log(`📊 [STAGE 11/12 - Calibration Result]:\n   - QT1 Capability = ${qt1Score}/100 (Upload Baseline: 0)\n   - Evidence Trust = ${evidenceTrustScore}/100\n   - ATS Presentation = ${atsPresentationScore}/100\n   - Trajectory = ${growthMomentum} (Avg GPA: ${averageGpa})`);
+  // 5. Dynamic QT2 Cognitive Mindset & Integrity Evaluation
+  const qt2Eval = evaluateQT2Model(documents, auditReport, simulationScores, identityScores, voiceArchetype);
+  const qt2Score = qt2Eval.compositeScore;
+  const evaluatedDataPoints = qt2Eval.evaluatedDataPoints;
+
+  console.log(`📊 [STAGE 11/12 - Calibration Result]:\n   - QT1 Capability = ${qt1Score}/100 (Upload Baseline: 0)\n   - QT2 Cognitive Mindset = ${qt2Score}/100 (${evaluatedDataPoints} validated points)\n   - Evidence Trust = ${evidenceTrustScore}/100\n   - ATS Presentation = ${atsPresentationScore}/100\n   - Trajectory = ${growthMomentum} (Avg GPA: ${averageGpa})`);
 
   return {
     qt1Score,
-    qt2Score: 78, // Persona baseline from onboarding diagnostic
+    qt2Score,
     evidenceTrustScore,
     atsPresentationScore,
     academicTrajectory,
@@ -384,7 +422,9 @@ export function calculateLiveQTMetrics(
     weakAreas,
     integrityLevel,
     academicAverageGpa: averageGpa,
-    growthMomentum
+    growthMomentum,
+    evaluatedDataPoints,
+    qt2Evaluation: qt2Eval
   };
 }
 

@@ -120,14 +120,15 @@ async function runPostgresEnforcementSuite() {
     'PostgreSQL engine returned permission denied for DELETE'
   );
 
-  // Check 5: app_runtime cannot re-grant privileges to itself (cannot bypass privilege boundary)
-  let grantRejected = false;
-  try {
-    await db.query(`GRANT UPDATE ON public.financial_ledger TO app_runtime;`);
-  } catch (err: any) {
-    grantRejected = true;
-  }
-  assert(grantRejected, 'application role cannot re-grant privileges (non-owner cannot alter table ACL)');
+  // Check 5: app_runtime cannot re-grant privileges to itself (non-owner cannot alter table ACL)
+  await db.query(`GRANT UPDATE ON public.financial_ledger TO app_runtime;`);
+  const privCheck = await db.query<{ has_update: boolean }>(`
+    SELECT has_table_privilege('app_runtime', 'public.financial_ledger', 'UPDATE') AS has_update;
+  `);
+  assert(
+    privCheck.rows[0].has_update === false,
+    'application role cannot re-grant privileges (non-owner cannot alter table ACL, has_table_privilege UPDATE remains false)'
+  );
 
   // ── GROUP 3: Database-Level Trigger Guard (Defense-in-Depth) ──
   console.log('\n── GROUP 3: Live PostgreSQL Trigger Guard (Immutability Defense-in-Depth) ──');

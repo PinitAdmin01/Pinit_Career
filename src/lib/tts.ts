@@ -291,8 +291,8 @@ function normalizeKeyForStatic(key: string): string {
 export async function speakWithAvatar(
   text: string,
   teacherId: string,
-  onStart: () => void,
-  onEnd: () => void,
+  onStart: () => void = () => {},
+  onEnd: () => void = () => {},
   isMuted = false,
   useNeural = true,
   difficulty?: 'easy' | 'normal' | 'hard',
