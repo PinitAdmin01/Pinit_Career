@@ -403,7 +403,7 @@ export default function OnboardingPage() {
     // Guarantee previous public landing ambient music stops immediately
     ambientAudio.stopImmediate();
     preloadTTS();
-    const introText = "Welcome to your personal diagnostic assessment! First, are you a college student, a fresh graduate, or a working professional?";
+    const introText = "Welcome to your personal diagnostic assessment! To calibrate your career track, what is your primary academic domain or focus?";
     preloadNextSpeech(introText, 'priya');
   }, [user, router]);
 
@@ -691,28 +691,9 @@ export default function OnboardingPage() {
         'Documents Synced',
         `${vaultSlots.length} document(s) active in your career profile.`
       );
-      const nameGreeting = primaryCandidateName && primaryCandidateName !== 'Candidate'
-        ? `Thanks ${primaryCandidateName}! `
-        : "Awesome! ";
-      const feedbackSpeech = `${nameGreeting}I've verified your ${vaultSlots.length} credentials and calibrated your career baseline. Let's move forward with your diagnostic assessment!`;
-      try {
-        speakWithAvatar(
-          feedbackSpeech,
-          selectedMentor,
-          () => {
-            setIsAvatarSpeaking(true);
-            isSpeakingRef.current = true;
-            setAnimState('talking');
-          },
-          () => {
-            setIsAvatarSpeaking(false);
-            isSpeakingRef.current = false;
-            setAnimState('idle');
-          }
-        );
-      } catch (e) {
-        console.warn('Avatar speech warning:', e);
-      }
+    }
+    if (activeScreen === 'CHOOSE_GUIDE') {
+      startDeepDiagnostics();
     }
   };
   
@@ -1381,11 +1362,17 @@ export default function OnboardingPage() {
   };
 
   // Transition to Deep Route Chatflow
-  const startDeepDiagnostics = () => {
+  function startDeepDiagnostics() {
     clearSpeechTimers();
     setActiveScreen('DEEP_CHAT');
     setAnimState('nod');
-    const introText = "Welcome to your personal diagnostic assessment! First, are you a college student, a fresh graduate, or a working professional?";
+    const nameGreeting = primaryCandidateName && primaryCandidateName !== 'Candidate'
+      ? `Thanks ${primaryCandidateName}! `
+      : "";
+    const vaultPrefix = vaultSlots.length > 0
+      ? `${nameGreeting}I've verified your ${vaultSlots.length} credentials and calibrated your career baseline. `
+      : "Welcome to your personal diagnostic assessment! ";
+    const introText = `${vaultPrefix}To calibrate your career track, what is your primary academic domain or focus?`;
     setMessages([
       {
         id: 'welcome_deep',
@@ -1397,7 +1384,7 @@ export default function OnboardingPage() {
     scheduleSpeech(() => {
       speakReply(introText);
     }, 100);
-  };
+  }
 
   // Handle chatbot answers (Deep Path)
   const handleUserAnswer = (text: string) => {
@@ -1901,7 +1888,7 @@ export default function OnboardingPage() {
 
             <div style={{ marginBottom: 48 }}>
               <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '2px', fontWeight: 700, display: 'block', marginBottom: 12 }}>
-                Staging Environment Setup
+                Career Diagnostic Onboarding
               </span>
               <h1 style={{ fontSize: '2.5rem', fontWeight: 900, letterSpacing: '-1.5px', color: 'var(--text)', marginBottom: 16 }}>
                 Choose Your Guidance Mentor
@@ -1932,6 +1919,29 @@ export default function OnboardingPage() {
                   onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
                 >
                   📁 Vault (Upload Resume & Docs)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveScreen('EXPRESS_FORM')}
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.04)',
+                    border: '1px solid rgba(56, 189, 248, 0.4)',
+                    borderRadius: 100,
+                    color: '#bae6fd',
+                    fontSize: 12,
+                    fontWeight: 800,
+                    padding: '8px 20px',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    boxShadow: '0 4px 16px rgba(0,0,0,0.2)',
+                    transition: 'transform 0.15s ease'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.03)'}
+                  onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                >
+                  ⚡ Express Route (1-Min Fast Track)
                 </button>
                 {user?.role === 'admin' && (
                   <button
@@ -3313,7 +3323,7 @@ export default function OnboardingPage() {
                 }}
               >
                 <div style={{ fontSize: 48, marginBottom: 20 }}>👨‍💼</div>
-                <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--t1)', marginBottom: 4 }}>Mr. Akash</h2>
+                <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--t1)', marginBottom: 4 }}>Mr. Anish</h2>
                 <span style={{ fontSize: 12, fontFamily: 'var(--font-mono)', color: 'var(--teal)', textTransform: 'uppercase', letterSpacing: '1px', display: 'block', marginBottom: 16 }}>
                   Interactive UX & Frontend Engineer
                 </span>
@@ -3435,7 +3445,7 @@ export default function OnboardingPage() {
             </button>
             <button 
               onClick={() => {
-                if (!useNeural && !window.confirm("WARNING: Running Custom Neural TTS (Kitten) is resource-heavy and requires a steady internet connection. Proceed?")) {
+                if (!useNeural && !window.confirm("High-definition neural mentor audio requires an active internet connection. Enable neural voice?")) {
                   return;
                 }
                 setUseNeural(!useNeural);
@@ -3452,7 +3462,7 @@ export default function OnboardingPage() {
                 alignItems: 'center',
                 gap: 4
               }}
-              title={useNeural ? "Disable Kitten Voice" : "Enable Kitten Voice"}
+              title={useNeural ? "Mute Neural Voice" : "Enable Neural Voice"}
             >
               {useNeural ? '🎙️ Neural' : '🔇 Silent'}
             </button>
@@ -3469,10 +3479,10 @@ export default function OnboardingPage() {
             <div style={{ flex: 1, padding: '24px 20px', display: 'flex', flexDirection: 'column', justifyContent: 'center', overflowY: 'auto' }}>
               <div style={{ marginBottom: 20 }}>
                 <h2 style={{ fontSize: 20, fontWeight: 900, letterSpacing: '-0.5px', color: 'var(--text)', marginBottom: 8 }}>
-                  Choose Your Staging Track
+                  Choose Your Diagnostic Track
                 </h2>
                 <p style={{ fontSize: 12.5, color: 'var(--t3)', lineHeight: 1.5 }}>
-                  The staging sandbox is initialized. Select your diagnostic track to calculate your career blueprint.
+                  Your session is initialized. Select your diagnostic track to calibrate your career blueprint.
                 </p>
               </div>
 
@@ -3767,7 +3777,7 @@ export default function OnboardingPage() {
 
               <div style={{ marginBottom: 16 }}>
                 <h2 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', marginBottom: 6, letterSpacing: '-0.5px' }}>
-                  Express Staging setup
+                  Express Career Setup
                 </h2>
                 <p style={{ fontSize: 12, color: 'var(--t3)' }}>
                   Provide your target trajectory & academic demographics. Then drag & drop your resume PDF to verify.
@@ -3906,7 +3916,7 @@ export default function OnboardingPage() {
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,0.04)', background: 'rgba(255,255,255,0.01)' }}>
                 <div style={{ width: 8, height: 8, borderRadius: '50%', background: animState === 'talking' ? 'var(--green)' : 'var(--brand)', animation: animState === 'talking' ? 'ping 1.5s infinite' : 'none' }} />
                 <div>
-                  <div style={{ fontSize: 13, fontWeight: 700 }}>{selectedMentor === 'priya' ? 'Ms. Priya' : 'Mr. Akash'}</div>
+                  <div style={{ fontSize: 13, fontWeight: 700 }}>{selectedMentor === 'priya' ? 'Ms. Priya' : 'Mr. Anish'}</div>
                   <div style={{ fontSize: 10, color: 'var(--t2)' }}>{animState === 'talking' ? 'Speaking...' : animState === 'listening' ? 'Listening...' : animState === 'thinking' ? 'Analyzing...' : 'Online'}</div>
                 </div>
               </div>
@@ -4134,7 +4144,12 @@ export default function OnboardingPage() {
               <div style={{ flex: 1, padding: 32, display: 'flex', flexDirection: 'column', justifyContent: 'center', overflowY: 'auto' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: 'var(--t2)', fontFamily: 'var(--font-mono)', marginBottom: 20 }}>
                   <span>Vocal Assessment</span>
-                  <span style={{ color: 'var(--accent)' }}>Microphone Active</span>
+                  <span style={{
+                    color: speechState === 'recording' ? 'var(--coral)' : speechState === 'calibrated' ? 'var(--green)' : 'var(--accent)',
+                    fontWeight: 700
+                  }}>
+                    {speechState === 'recording' ? '● Recording Live' : speechState === 'calibrated' ? '✓ Microphone Calibrated' : 'Microphone Ready'}
+                  </span>
                 </div>
                 
                 {speechState === 'ready' && (
@@ -4527,40 +4542,53 @@ export default function OnboardingPage() {
                   </div>
                 </div>
 
-                {/* 🧑‍💼 Choose Dashboard Mentor Selector */}
+                {/* 🧑‍💼 Confirmed Guidance Mentor Companion */}
                 <div style={{ marginBottom: 20 }}>
-                  <label style={{ display: 'block', fontSize: 10.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase', marginBottom: 8, letterSpacing: '0.6px', fontFamily: 'var(--font-mono)' }}>
-                    Choose Your Dashboard VRoid Guide (Locked After Onboarding)
-                  </label>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-                    <div 
-                      onClick={() => setSelectedMentor('priya')}
-                      style={{
-                        background: selectedMentor === 'priya' ? 'rgba(var(--brand-rgb), 0.08)' : 'rgba(255,255,255,0.01)',
-                        border: `1.5px solid ${selectedMentor === 'priya' ? 'var(--accent)' : 'rgba(255,255,255,0.05)'}`,
-                        borderRadius: 12, padding: 12, cursor: 'pointer', display: 'flex', gap: 10, alignItems: 'center', transition: 'all 0.15s'
-                      }}
-                    >
-                      <span style={{ fontSize: 22 }}>👩‍💼</span>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                    <label style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.6px', fontFamily: 'var(--font-mono)' }}>
+                      Confirmed AI Guidance Companion
+                    </label>
+                    <span style={{ fontSize: 10, color: 'var(--teal)', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>✓ Calibrated with Profile</span>
+                  </div>
+                  <div style={{
+                    background: 'rgba(255,255,255,0.02)',
+                    border: '1.5px solid rgba(var(--brand-rgb), 0.35)',
+                    borderRadius: 12,
+                    padding: '12px 16px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    boxShadow: '0 4px 16px rgba(0,0,0,0.2)'
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                      <span style={{ fontSize: 28 }}>{selectedMentor === 'priya' ? '👩‍💼' : '👨‍💼'}</span>
                       <div>
-                        <div style={{ fontSize: 12, fontWeight: 800, color: selectedMentor === 'priya' ? 'var(--brand-bright)' : 'var(--text)' }}>Ms. Priya</div>
-                        <div style={{ fontSize: 10, color: 'var(--t3)' }}>Warm, structured steps.</div>
+                        <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--brand-bright)' }}>
+                          {selectedMentor === 'priya' ? 'Ms. Priya' : 'Mr. Anish'}
+                        </div>
+                        <div style={{ fontSize: 11, color: 'var(--t3)' }}>
+                          {selectedMentor === 'priya' ? 'Full-Stack Systems & Analytical Mentor' : 'Interactive UX & Frontend Engineer'}
+                        </div>
                       </div>
                     </div>
-                    <div 
-                      onClick={() => setSelectedMentor('anish')}
+                    <button
+                      type="button"
+                      onClick={() => setSelectedMentor(selectedMentor === 'priya' ? 'anish' : 'priya')}
                       style={{
-                        background: selectedMentor === 'anish' ? 'rgba(var(--brand-rgb), 0.08)' : 'rgba(255,255,255,0.01)',
-                        border: `1.5px solid ${selectedMentor === 'anish' ? 'var(--accent)' : 'rgba(255,255,255,0.05)'}`,
-                        borderRadius: 12, padding: 12, cursor: 'pointer', display: 'flex', gap: 10, alignItems: 'center', transition: 'all 0.15s'
+                        background: 'rgba(255, 255, 255, 0.04)',
+                        border: '1px solid rgba(255, 255, 255, 0.12)',
+                        color: 'var(--text-muted)',
+                        borderRadius: 8,
+                        padding: '6px 12px',
+                        fontSize: 11,
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        transition: 'all 0.15s ease'
                       }}
+                      title="Switch mentor companion"
                     >
-                      <span style={{ fontSize: 22 }}>👨‍💼</span>
-                      <div>
-                        <div style={{ fontSize: 12, fontWeight: 800, color: selectedMentor === 'anish' ? 'var(--brand-bright)' : 'var(--text)' }}>Mr. Akash</div>
-                        <div style={{ fontSize: 10, color: 'var(--t3)' }}>High accountability.</div>
-                      </div>
-                    </div>
+                      Switch to {selectedMentor === 'priya' ? 'Mr. Anish' : 'Ms. Priya'}
+                    </button>
                   </div>
                 </div>
 
@@ -4606,7 +4634,7 @@ export default function OnboardingPage() {
           </div>
 
           <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontWeight: 900, color: 'var(--t1)', marginBottom: 4, letterSpacing: '-0.5px' }}>
-            {uploadedFile ? 'Parser Staging Sandbox' : 'Orchestrating Trajectory OS'}
+            {uploadedFile ? 'Analyzing Resume & Credentials' : 'Orchestrating Trajectory OS'}
           </h2>
           <p style={{ fontSize: 13, color: 'var(--t3)', fontFamily: 'var(--font-mono)', textAlign: 'center', marginBottom: 24 }}>
             {syncStatus}
