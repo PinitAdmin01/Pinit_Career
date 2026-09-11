@@ -15,9 +15,9 @@ interface SuiteResult {
 }
 
 // ── STRICT SCOPE CONFIGURATION ──
-export const CURRENT_ACTIVE_MAX_BATCH = 31; // Batches 020–031 (Days 98–153) are now active
+export const CURRENT_ACTIVE_MAX_BATCH = 33; // Batches 020–033 (Days 98–167) are now active
 
-// ── ACTIVE REGRESSION SUITES (Days 1–153 + Production Engines) ──
+// ── ACTIVE REGRESSION SUITES (Days 1–167 + Production Engines) ──
 const ACTIVE_SUITES: { name: string; script: string }[] = [
   { name: 'Batch 001 (Days 1–5: Foundations)', script: 'scripts/test_batch001.ts' },
   { name: 'Batch 002 (Days 6–10: Syntax & Object Model)', script: 'scripts/test_batch002.ts' },
@@ -50,7 +50,9 @@ const ACTIVE_SUITES: { name: string; script: string }[] = [
   { name: 'Batch 028 (Days 138–142: Enterprise User Modeling, Authentication & Session Security)', script: 'scripts/test_batch028.ts' },
   { name: 'Batch 029 (Days 143–147: PostgreSQL Relational Architecture, Data Integrity & Advanced Constraints)', script: 'scripts/test_batch029.ts' },
   { name: 'Batch 030 (Days 148–152: Complex Relational Modeling, Joins, Aggregations & Query Execution Optimization)', script: 'scripts/test_batch030.ts' },
-  { name: 'Batch 031 (Day 153: Database Transactions, ACID Guarantees & Concurrency Control in Django [Partial])', script: 'scripts/test_batch031.ts' },
+  { name: 'Batch 031 (Days 153–157: Database Transactions, Row-Level Locking, Deadlocks & Concurrency Control)', script: 'scripts/test_batch031.ts' },
+  { name: 'Batch 032 (Days 158–162: PostgreSQL Indexing Architecture, Query Planning & Performance Tuning)', script: 'scripts/test_batch032.ts' },
+  { name: 'Batch 033 (Days 163–167: Advanced Django Full-Stack Architecture, Custom QuerySets, Tiered Caching & HTMX)', script: 'scripts/test_batch033.ts' },
   { name: 'Curriculum Infrastructure Engine', script: 'scripts/test_curriculum_infrastructure.ts' },
   { name: 'Content Engine Infrastructure', script: 'scripts/test_content_engine.ts' },
   { name: 'Assessment Engine & Security', script: 'scripts/test_assessment_engine.ts' },
@@ -111,7 +113,7 @@ function verifyScopeIntegrityGuard() {
       process.exit(1);
     }
   }
-  console.log(`  ✅ [PASS] Scope Integrity Guard: Maximum active curriculum is Days 1–153 (Batches 001–031 + Post-Gate 1 Consolidation). Zero future batches (Batch 32+) or Day 154+ content exposed.\n`);
+  console.log(`  ✅ [PASS] Scope Integrity Guard: Maximum active curriculum is Days 1–167 (Batches 001–033 + Post-Gate 1 Consolidation). Zero future batches (Batch 34+) or Day 168+ content exposed.\n`);
 }
 
 async function main() {
@@ -123,7 +125,7 @@ async function main() {
   verifyScopeIntegrityGuard();
 
   // 2. Run Active Production Suites
-  console.log('── SECTION 1: ACTIVE CURRICULUM REGRESSION SUITES (DAYS 1–153: SEMESTER 1 DAYS 1–122 + SEMESTER 2 DAYS 123–153) ──');
+  console.log('── SECTION 1: ACTIVE CURRICULUM REGRESSION SUITES (DAYS 1–167: SEMESTER 1 DAYS 1–122 + SEMESTER 2 DAYS 123–167) ──');
   const activeResults: SuiteResult[] = [];
   let activePassed = 0;
   let activeFailed = 0;
@@ -172,8 +174,8 @@ async function main() {
   const totalRepoFailed = activeFailed + quarantinedFailed;
 
   console.log('\n========================================================================');
-  console.log('📊 ACTIVE REGRESSION SCORECARD (MILESTONE: DAYS 1–153)');
-  console.log('   36 Active Suites = 31 Batch Suites + 1 Consolidation + 4 Platform Engines');
+  console.log('📊 ACTIVE REGRESSION SCORECARD (MILESTONE: DAYS 1–167)');
+  console.log('   38 Active Suites = 33 Batch Suites + 1 Consolidation + 4 Platform Engines');
   console.log('========================================================================');
   console.log('┌───────────────────────────────────────────────────┬────────┬────────┐');
   console.log('│ Active Regression Suite Name                      │ Passed │ Failed │');
@@ -187,7 +189,7 @@ async function main() {
   }
 
   console.log('├───────────────────────────────────────────────────┼────────┼────────┤');
-  console.log(`│ 36 ACTIVE SUITES (31 BATCH + 1 CONSOL + 4 ENGINE) │ ${String(activePassed).padStart(6)} │ ${String(activeFailed).padStart(6)} │`);
+  console.log(`│ 38 ACTIVE SUITES (33 BATCH + 1 CONSOL + 4 ENGINE) │ ${String(activePassed).padStart(6)} │ ${String(activeFailed).padStart(6)} │`);
   console.log('└───────────────────────────────────────────────────┴────────┴────────┘');
 
   console.log('\n========================================================================');

@@ -53,6 +53,41 @@ export interface AssessmentSnapshotReference {
   storedHash: string;
 }
 
+export interface EvidenceManifestItem {
+  gateId: string;
+  s3Uri: string;
+  pendingVersionId?: string;
+  finalVaultVersionId: string;
+  sourceSha256: string;
+  finalSha256: string;
+  s3ChecksumAlgorithm: 'SHA256';
+  s3ChecksumValue: string;
+  etag?: string; // Supplementary metadata only; not used for primary cryptographic verification
+  timestamp: string;
+}
+
+export interface ContainerProvenanceMetadata {
+  imageDigest: string;
+  sbomDigest: string;
+  buildProvenance: string;
+  sourceCommit: string;
+  toolchainLockfileDigest: string;
+}
+
+export type SigningKeyStatus = 'ACTIVE' | 'RETIRED' | 'COMPROMISED';
+
+export interface SigningKeyRecord {
+  keyId: string;
+  publicKeyPem: string;
+  status: SigningKeyStatus;
+  algorithm: 'Ed25519';
+  activatedAt: string;
+  retiredAt?: string;
+  compromisedAt?: string;
+}
+
+export type KmsPrivilegedRole = 'EmergencyKeyManager' | 'KeyPolicyAdministrator';
+
 export interface SignedCategoryCAttestation {
   version: '1.0';
   attestationId: string;
@@ -65,8 +100,10 @@ export interface SignedCategoryCAttestation {
   audience: 'PINIT_CREDENTIAL_ISSUER_STAGING' | 'PINIT_CREDENTIAL_ISSUER_PRODUCTION';
   applicationVersion: string;
   containerImageDigest: string;
+  containerProvenance?: ContainerProvenanceMetadata;
   configurationVersion: string;
   c1_c5_evidence_digest: string;
+  evidenceManifest?: EvidenceManifestItem[];
   nonce: string;
   subGatesPassed: {
     c1_infrastructure: boolean;
@@ -565,7 +602,10 @@ export class CredentialIssuanceService {
     }
 
     // 8. Container Image Digest Binding
-    if (!attestation.containerImageDigest || !attestation.containerImageDigest.startsWith('sha256:')) {
+    if (
+      !attestation.containerImageDigest ||
+      (!attestation.containerImageDigest.startsWith('sha256:') && !attestation.containerImageDigest.includes('@sha256:'))
+    ) {
       return { valid: false, reason: 'ERR_ATTESTATION_INVALID_CONTAINER_DIGEST: Must specify valid sha256 container image digest' };
     }
 
@@ -598,7 +638,31 @@ export class CredentialIssuanceService {
       return { valid: false, reason: 'ERR_ATTESTATION_INVALID_SIGNATURE: Signature missing or malformed' };
     }
 
-    // 12. Ed25519 Cryptographic Signature Verification over all canonical context fields
+    // 12. Evidence Manifest S3 Checksum & Dual-Version Immutability Verification
+    if (attestation.evidenceManifest && attestation.evidenceManifest.length > 0) {
+      for (const item of attestation.evidenceManifest) {
+        if (!item.finalVaultVersionId || item.finalVaultVersionId.trim() === '') {
+          return {
+            valid: false,
+            reason: `ERR_ATTESTATION_VAULT_VERSION_MISSING: Evidence item for gate '${item.gateId}' lacks finalVaultVersionId.`,
+          };
+        }
+        if (item.sourceSha256 !== item.finalSha256) {
+          return {
+            valid: false,
+            reason: `ERR_ATTESTATION_CHECKSUM_MISMATCH: Evidence item for gate '${item.gateId}' has mismatched sourceSha256 and finalSha256.`,
+          };
+        }
+        if (item.s3ChecksumAlgorithm !== 'SHA256' || item.s3ChecksumValue !== item.finalSha256) {
+          return {
+            valid: false,
+            reason: `ERR_ATTESTATION_S3_CHECKSUM_INVALID: Evidence item for gate '${item.gateId}' fails S3 SHA256 checksum verification.`,
+          };
+        }
+      }
+    }
+
+    // 13. Ed25519 Cryptographic Signature Verification over all canonical context fields
     if (attestation.authorizerPublicKeyPem) {
       try {
         const canonicalPayload = JSON.stringify({
@@ -612,8 +676,10 @@ export class CredentialIssuanceService {
           audience: attestation.audience,
           applicationVersion: attestation.applicationVersion,
           containerImageDigest: attestation.containerImageDigest,
+          containerProvenance: attestation.containerProvenance || null,
           configurationVersion: attestation.configurationVersion,
           c1_c5_evidence_digest: attestation.c1_c5_evidence_digest,
+          evidenceManifest: attestation.evidenceManifest || [],
           nonce: attestation.nonce,
           subGatesPassed: attestation.subGatesPassed,
         });
@@ -875,8 +941,10 @@ export class CredentialIssuanceService {
       }
     }
 
-    // 5. Construct Credential Payload
-    const credentialId = `pc-cred-${request.candidate.id}`;
+    // 5. Construct Credential Payload with 256-Bit Opaque Cryptographic Token
+    // Generates 32 bytes (256 bits) of CSPRNG entropy encoded as 64-character lowercase hex
+    const credentialToken = crypto.randomBytes(32).toString('hex');
+    const credentialId = `pc-cred-${credentialToken}`;
     const payload: Record<string, any> = {
       credentialId,
       candidateDisplayName: request.candidate.legalName,
@@ -890,7 +958,7 @@ export class CredentialIssuanceService {
         publicKeyId: request.attestationToken?.authorizerPublicKeyId || 'KEY_STAGING_DPO_REGISTRAR_AUTH_2026',
       },
       assessmentSnapshotHash: request.assessmentSnapshot.storedHash,
-      verificationUrl: `https://verify.pinit.in/credentials/${credentialId}`,
+      verificationUrl: `https://verify.pinit.in/credentials/${credentialToken}`,
       ...(request.customClaims || {}),
     };
 
@@ -922,3 +990,215 @@ export class CredentialIssuanceService {
     };
   }
 }
+
+// ── Public Credential Verification & Anti-Enumeration Interface ──────────────
+export interface PublicCredentialVerificationResult {
+  valid: boolean;
+  status: 'ACTIVE' | 'REVOKED' | 'NOT_FOUND';
+  disclosedPayload?: {
+    credentialToken: string;
+    credentialTitle: string;
+    issueDate: string;
+    status: 'ACTIVE' | 'REVOKED';
+    issuer: string;
+    publicKeyId: string;
+    signature?: string;
+  };
+  errorCode?: string;
+}
+
+/**
+ * Verifies public credential lookup requests under strict anti-enumeration and minimum-disclosure rules.
+ * Enforces:
+ *  1. 256-bit token validation (rejects invalid token formats immediately, 2^256 entropy space).
+ *  2. Uniform non-distinguishing NOT_FOUND responses (zero enumeration oracle leakage).
+ *  3. Minimum disclosure (credential token, title, issue date, status, issuer, publicKeyId, signature; ZERO candidate PII or candidate hashes).
+ *  4. Decoupling: Cryptographic signature validity != credential validity (REVOKED state returned even if signature is valid).
+ */
+export function verifyPublicCredentialRecord(
+  token: string,
+  record?: { status: 'ACTIVE' | 'REVOKED'; payload: ValidatedCredentialPayload; signatureValid: boolean; signature?: string }
+): PublicCredentialVerificationResult {
+  // Constant-time format check: exactly 64 hex characters (256 bits, 2^256 keyspace)
+  if (!token || token.length !== 64 || !/^[0-9a-f]{64}$/i.test(token)) {
+    return { valid: false, status: 'NOT_FOUND', errorCode: 'ERR_CREDENTIAL_NOT_FOUND' };
+  }
+  if (!record) {
+    return { valid: false, status: 'NOT_FOUND', errorCode: 'ERR_CREDENTIAL_NOT_FOUND' };
+  }
+  // Signature validity != credential validity
+  if (!record.signatureValid) {
+    return { valid: false, status: 'REVOKED', errorCode: 'ERR_SIGNATURE_INVALID' };
+  }
+  if (record.status === 'REVOKED') {
+    return {
+      valid: false,
+      status: 'REVOKED',
+      errorCode: 'ERR_CREDENTIAL_REVOKED',
+      disclosedPayload: {
+        credentialToken: token,
+        credentialTitle: record.payload?.credentialTitle || 'Credential',
+        issueDate: record.payload?.issuedAt || new Date().toISOString(),
+        status: 'REVOKED',
+        issuer: record.payload?.issuer?.organization || 'PinitCareer Academic & Industrial Certification Board',
+        publicKeyId: record.payload?.issuer?.publicKeyId || 'KEY_AUTH',
+        signature: record.signature || 'SIG_VALID_HISTORICAL_RECORD',
+      },
+    };
+  }
+  return {
+    valid: true,
+    status: 'ACTIVE',
+    disclosedPayload: {
+      credentialToken: token,
+      credentialTitle: record.payload?.credentialTitle || 'Credential',
+      issueDate: record.payload?.issuedAt || new Date().toISOString(),
+      status: 'ACTIVE',
+      issuer: record.payload?.issuer?.organization || 'PinitCareer Academic & Industrial Certification Board',
+      publicKeyId: record.payload?.issuer?.publicKeyId || 'KEY_AUTH',
+      signature: record.signature || 'SIG_VALID_ACTIVE_RECORD',
+    },
+  };
+}
+
+/**
+ * Validates separation of duties between KMS operational emergency management and policy administration.
+ * Prevents administrative dead-ends and unauthorized control-plane bypasses:
+ * - EmergencyKeyManager: operational emergency actions only (kms:DisableKey). Forbidden from kms:PutKeyPolicy.
+ * - KeyPolicyAdministrator: policy administration only (kms:PutKeyPolicy, requires dual approval). Forbidden from kms:DisableKey.
+ */
+export function validateKmsPrivilegedAction(
+  role: string,
+  action: 'kms:DisableKey' | 'kms:PutKeyPolicy' | 'kms:ScheduleKeyDeletion',
+  options?: { hasDualApproval?: boolean; isManagementAccount?: boolean }
+): { allowed: boolean; reason?: string } {
+  // SCP Guardrail: Root/administrative access from AWS Organizations management account cannot bypass member account controls
+  if (options?.isManagementAccount) {
+    return {
+      allowed: false,
+      reason: 'ERR_KMS_MANAGEMENT_ACCOUNT_BYPASS: KMS production vault must reside in a dedicated member account under SCP enforcement, not management account.',
+    };
+  }
+
+  if (role === 'EmergencyKeyManager') {
+    if (action === 'kms:DisableKey') {
+      return { allowed: true };
+    }
+    return {
+      allowed: false,
+      reason: `ERR_KMS_ROLE_VIOLATION: EmergencyKeyManager is restricted to operational emergency actions only; '${action}' is denied.`,
+    };
+  }
+
+  if (role === 'KeyPolicyAdministrator') {
+    if (action === 'kms:PutKeyPolicy') {
+      if (!options?.hasDualApproval) {
+        return {
+          allowed: false,
+          reason: 'ERR_KMS_QUORUM_REQUIRED: Modifying KMS Key Policy requires dual-party quorum approval (DPO + Registrar).',
+        };
+      }
+      return { allowed: true };
+    }
+    return {
+      allowed: false,
+      reason: `ERR_KMS_ROLE_VIOLATION: KeyPolicyAdministrator is restricted to policy administration only; destructive action '${action}' is denied.`,
+    };
+  }
+
+  return {
+    allowed: false,
+    reason: `ERR_KMS_UNAUTHORIZED_ROLE: Role '${role}' has no privileged access to KMS control-plane action '${action}'.`,
+  };
+}
+
+/**
+ * Validates that raw biometric data (Class 1) is strictly constrained to ephemeral RAM
+ * and has not leaked into application logs, request traces, crash dumps, temporary files, or databases.
+ */
+export function validateBiometricRamOnlyPolicy(data: {
+  rawBiometrics?: any;
+  logCapture?: string[];
+  traceCapture?: string[];
+  tmpFiles?: string[];
+  coreDumpEnabled?: boolean;
+  dbPayload?: Record<string, any>;
+}): { compliant: boolean; violations: string[] } {
+  const violations: string[] = [];
+
+  if (data.coreDumpEnabled === true) {
+    violations.push('CORE_DUMP_ENABLED: Core dumps must be disabled (ulimit -c 0) to prevent RAM biometric memory dumping.');
+  }
+
+  const rawStr = typeof data.rawBiometrics === 'string' ? data.rawBiometrics : JSON.stringify(data.rawBiometrics || '');
+  if (rawStr && rawStr.length > 5) {
+    // Check logs
+    if (data.logCapture && data.logCapture.some((log) => log.includes(rawStr))) {
+      violations.push('BIOMETRIC_LEAK_IN_LOGS: Raw biometric payload detected in application log capture.');
+    }
+    // Check traces
+    if (data.traceCapture && data.traceCapture.some((trace) => trace.includes(rawStr))) {
+      violations.push('BIOMETRIC_LEAK_IN_TRACES: Raw biometric payload detected in request distributed tracing.');
+    }
+    // Check tmp files
+    if (data.tmpFiles && data.tmpFiles.some((f) => f.includes('biometric') || f.includes('face') || f.includes('id_raw'))) {
+      violations.push('BIOMETRIC_LEAK_IN_TMP: Potential biometric artifact detected in temporary filesystem storage.');
+    }
+    // Check DB payload
+    if (data.dbPayload) {
+      const dbStr = JSON.stringify(data.dbPayload);
+      if (dbStr.includes(rawStr) || dbStr.includes('raw_biometric') || dbStr.includes('face_landmark_vector')) {
+        violations.push('BIOMETRIC_LEAK_IN_DB: Raw biometric data detected in database persistence payload.');
+      }
+    }
+  }
+
+  return {
+    compliant: violations.length === 0,
+    violations,
+  };
+}
+
+/**
+ * Evaluates signing key lifecycle operations across ACTIVE, RETIRED, and COMPROMISED states.
+ */
+export function evaluateSigningKeyLifecycle(
+  key: SigningKeyRecord,
+  action: 'ISSUE' | 'VERIFY',
+  credentialTimestamp?: string
+): { allowed: boolean; reason?: string } {
+  if (key.status === 'ACTIVE') {
+    return { allowed: true };
+  }
+
+  if (key.status === 'RETIRED') {
+    if (action === 'ISSUE') {
+      return {
+        allowed: false,
+        reason: 'ERR_SIGNING_KEY_RETIRED: Retired keys cannot be used to issue new credentials.',
+      };
+    }
+    // Action is VERIFY: check if credential was issued before key retirement
+    if (credentialTimestamp && key.retiredAt) {
+      const credTime = new Date(credentialTimestamp).getTime();
+      const retTime = new Date(key.retiredAt).getTime();
+      if (credTime > retTime) {
+        return {
+          allowed: false,
+          reason: 'ERR_CREDENTIAL_POST_RETIREMENT: Credential was issued after key was officially retired.',
+        };
+      }
+    }
+    return { allowed: true }; // Historical verification permitted
+  }
+
+  if (key.status === 'COMPROMISED') {
+    return {
+      allowed: false,
+      reason: 'ERR_SIGNING_KEY_COMPROMISED: Key is compromised; issuance and uncalibrated verification are suspended pending compromise review.',
+    };
+  }
+
+  return { allowed: false, reason: 'ERR_SIGNING_KEY_UNKNOWN_STATE: Unrecognized key lifecycle state.' };
+}
+

@@ -70,6 +70,14 @@ export const THRESHOLDS = {
 type Row = Record<string, any>;
 
 const num = (v: unknown) => (typeof v === 'number' && Number.isFinite(v) ? v : 0);
+const toArray = (v: unknown): string[] => {
+  if (Array.isArray(v)) return v.filter(Boolean).map(String);
+  if (typeof v === 'string') {
+    const clean = v.replace(/^\{|\}$/g, '').trim();
+    return clean ? clean.split(',').map((s) => s.trim().replace(/^"|"$/g, '')).filter(Boolean) : [];
+  }
+  return [];
+};
 const avg = (rows: Row[], key: string) =>
   rows.length === 0 ? 0 : Math.round(rows.reduce((a, r) => a + num(r[key]), 0) / rows.length);
 
@@ -101,22 +109,37 @@ async function scopedStudents(filters: UniversityFilters) {
   const students = data || [];
   const cohorts = await cohortIndex();
 
+  return {
+    students: applyFilters(students, cohorts, filters),
+    cohorts,
+    cohortDataAvailable: cohorts.size > 0,
+  };
+}
+
+export type CohortIndex = Map<string, { department: string; college: string; batchYear: number }>;
+
+/**
+ * Narrow a student list to a college / department / batch.
+ *
+ * Split out from the query so it can be exercised without a database — the
+ * aggregation below is where the reporting risk lives, and it was previously
+ * impossible to test without signing in against production data.
+ */
+export function applyFilters(students: Row[], cohorts: CohortIndex, filters: UniversityFilters): Row[] {
   const wantsGrouping = !!(filters.college || filters.department || filters.batchYear);
-  const filtered = !wantsGrouping ? students : students.filter((s: Row) => {
+  if (!wantsGrouping) return students;
+  return students.filter((s: Row) => {
     const c = cohorts.get(s.id);
-    if (!c) return false;
+    if (!c) return false;                                              // unenrolled cannot match a cohort filter
     if (filters.college && c.college !== filters.college) return false;
     if (filters.department && c.department !== filters.department) return false;
     if (filters.batchYear && c.batchYear !== filters.batchYear) return false;
     return true;
   });
-
-  return { students: filtered, cohorts, cohortDataAvailable: cohorts.size > 0 };
 }
 
-export async function getUniversityDashboard(filters: UniversityFilters = {}) {
-  const { students, cohorts, cohortDataAvailable } = await scopedStudents(filters);
-
+/** Pure aggregation. Same shape the dashboard endpoint returns. */
+export function computeDashboard(students: Row[], cohorts: CohortIndex, cohortDataAvailable: boolean) {
   const placementStats: PlacementStats = {
     total_students: students.length,
     placement_ready: students.filter((s: Row) =>
@@ -176,8 +199,18 @@ export async function getUniversityDashboard(filters: UniversityFilters = {}) {
   };
 }
 
+export async function getUniversityDashboard(filters: UniversityFilters = {}) {
+  const { students, cohorts, cohortDataAvailable } = await scopedStudents(filters);
+  return computeDashboard(students, cohorts, cohortDataAvailable);
+}
+
 export async function getEmployabilityReport(filters: UniversityFilters = {}) {
   const { students } = await scopedStudents(filters);
+  return computeEmployability(students);
+}
+
+/** Pure. Readiness falls back to the mean of the three scores when unset. */
+export function computeEmployability(students: Row[]) {
   const readiness = (s: Row) => num(s.career_readiness) || Math.round(
     (num(s.ats_score) + num(s.trust_score) + num(s.career_dna_score)) / 3);
 
@@ -191,7 +224,7 @@ export async function getEmployabilityReport(filters: UniversityFilters = {}) {
       needs_development: students.filter((s: Row) => readiness(s) < THRESHOLDS.employable).length,
       high_trust: students.filter((s: Row) => num(s.trust_score) >= THRESHOLDS.highTrust).length,
       highly_engaged: students.filter((s: Row) => num(s.missions_completed) >= THRESHOLDS.engagedMissions).length,
-      certified: students.filter((s: Row) => (s.certifications || []).length > 0 || num(s.vault_count) > 0).length,
+      certified: students.filter((s: Row) => toArray(s.certifications).length > 0 || num(s.vault_count) > 0).length,
     },
     thresholds: THRESHOLDS,
     dataAvailable: { students: students.length > 0 },
@@ -216,7 +249,7 @@ export async function getSkillGaps(filters: UniversityFilters = {}) {
   let source: 'ats_skill_gaps' | 'profile_weak_areas' | 'none' = counts.size > 0 ? 'ats_skill_gaps' : 'none';
   if (counts.size === 0) {
     for (const s of students) {
-      for (const w of s.weak_areas || []) {
+      for (const w of toArray(s.weak_areas)) {
         if (!w) continue;
         counts.set(w, (counts.get(w) || 0) + 1);
         source = 'profile_weak_areas';

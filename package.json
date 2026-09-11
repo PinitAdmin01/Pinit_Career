@@ -15,7 +15,7 @@
     "audit:headers": "node audit/check-headers.mjs",
     "audit:runtime": "node audit/walk-routes.mjs",
     "audit": "npm run audit:contracts && npm run audit:headers",
-    "audit:test": "npx tsx audit/jdMatch.test.ts && npx tsx audit/logic.test.ts",
+    "audit:test": "npx tsx audit/jdMatch.test.ts && npx tsx audit/logic.test.ts && npx tsx audit/university.test.ts",
     "test:security": "npx tsx scripts/test_p0_security_remediations.ts && npx tsx scripts/test_student_privilege_rls.ts && node scripts/check_bare_writes.js"
   },
   "dependencies": {

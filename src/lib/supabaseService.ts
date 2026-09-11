@@ -803,18 +803,19 @@ export async function getApplicationsForUser(uid: string) {
       status:             a.status || 'applied',
       applied_at:         a.applied_at,
       updated_at:         a.updated_at ?? null,
-      cover_letter:       a.cover_letter ?? null,
+      cover_letter:       a.cover_letter ?? null, // NOTE: 'cover_letter' column does not exist in live applications table
       opportunity_id:     a.opportunity_id,
       title:              o.title ?? null,
       description:        o.description ?? null,
-      required_skills:    o.required_skills ?? null,
-      stipend_min:        o.stipend_min ?? null,
-      stipend_max:        o.stipend_max ?? null,
-      duration_weeks:     o.duration_weeks ?? null,
-      location_type:      o.location_type ?? null,
-      deadline:           o.deadline ?? null,
-      opportunity_status: o.status ?? null,
-      org_name:           o.org_name ?? o.company ?? null,
+      required_skills:    o.required_skills ?? o.skills ?? null, // NOTE: live DB column is 'skills'
+      stipend_min:        o.stipend_min ?? null, // NOTE: 'stipend_min' does not exist; live DB stores text 'salary' (e.g. '₹25-35 LPA')
+      stipend_max:        o.stipend_max ?? null, // NOTE: 'stipend_max' does not exist; live DB stores text 'salary'
+      duration_weeks:     o.duration_weeks ?? null, // NOTE: 'duration_weeks' column does not exist in live opportunities table
+      location_type:      o.location_type ?? o.location ?? null, // NOTE: live DB column is 'location'
+      deadline:           o.deadline ?? null, // NOTE: 'deadline' column does not exist in live DB (table has 'posted_at')
+      opportunity_status: o.status ?? null, // NOTE: 'status' does not exist on opportunities table; only applications has status
+      org_name:           o.org_name ?? o.company ?? null, // NOTE: live DB column is 'company'
+      salary:             o.salary ?? null, // Raw salary string from DB schema (available for callers, not currently rendered by /career-intelligence UI)
     };
   });
 }

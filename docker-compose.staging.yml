@@ -1,0 +1,63 @@
+version: '3.8'
+
+# 🏛️ PinitCareer Phase 2 Live Staging Environment Specification
+# Architecture: Isolated Container Runtime (C1), Restricted Egress Network, Zero Host Mounts
+# Invariant: Never mount /var/run/docker.sock; drop all Linux capabilities; enforce cgroups v2 resource quotas.
+
+services:
+  # ── C1: Hardened Assessment Sandbox Container ──────────────────────────────
+  assessment-sandbox:
+    build:
+      context: ./docker/assessment-container
+      dockerfile: Dockerfile
+    image: pinit-assessment-container:v1.3.0
+    container_name: pinit-c1-assessment-sandbox
+    hostname: assessment-sandbox
+    user: "10001:10001"
+    privileged: false
+    read_only: true
+    init: true
+    security_opt:
+      - "no-new-privileges:true"
+      - "seccomp:./docker/assessment-container/seccomp-profile.json"
+    cap_drop:
+      - ALL
+    tmpfs:
+      # /tmp is strictly noexec, reducing dropped-binary execution attack surface
+      - /tmp:rw,noexec,nosuid,size=64m
+      # /workspace/scratch is the candidate's ephemeral compilation area
+      - /workspace/scratch:rw,nosuid,size=256m
+    environment:
+      - NODE_ENV=production
+      - HOME=/workspace
+      - PINIT_ENVIRONMENT=STAGING_CONTAINER
+    # Cgroups v2 Resource Quota Enforcement (C1.5)
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2048M
+          pids: 100
+    networks:
+      - assessment-egress-restricted
+    restart: "no"
+
+  # ── Controlled Staging Egress Gateway (C1.4 Two-Phase Validation) ───────────
+  staging-egress-gateway:
+    image: nginx:alpine
+    container_name: pinit-staging-egress-gateway
+    hostname: egress-gateway
+    ports:
+      - "127.0.0.1:8999:80"
+    networks:
+      - assessment-egress-restricted
+    restart: "no"
+
+networks:
+  assessment-egress-restricted:
+    driver: bridge
+    internal: false
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.0.0/16

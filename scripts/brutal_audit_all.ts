@@ -37,7 +37,7 @@ function record(severity: 'CRITICAL' | 'MAJOR' | 'MINOR' | 'PASS', category: str
 
 async function runBrutalAudit() {
   console.log('\n========================================================================');
-  console.log('🔬 EXECUTING BRUTAL 360-DEGREE AUDIT OF PINIT DAYS 01–153 (BATCHES 001–031)');
+  console.log('🔬 EXECUTING BRUTAL 360-DEGREE AUDIT OF PINIT DAYS 01–167 (BATCHES 001–033)');
   console.log('========================================================================\n');
 
   const allBatches = [
@@ -72,14 +72,16 @@ async function runBrutalAudit() {
     { num: 29, manifest: (await import('../src/lib/curriculum/pythonFullStack/batch029')).BATCH_029_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch029.ts' },
     { num: 30, manifest: (await import('../src/lib/curriculum/pythonFullStack/batch030')).BATCH_030_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch030.ts' },
     { num: 31, manifest: (await import('../src/lib/curriculum/pythonFullStack/batch031')).BATCH_031_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch031.ts' },
+    { num: 32, manifest: (await import('../src/lib/curriculum/pythonFullStack/batch032')).BATCH_032_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch032.ts' },
+    { num: 33, manifest: (await import('../src/lib/curriculum/pythonFullStack/batch033')).BATCH_033_MANIFEST, file: 'src/lib/curriculum/pythonFullStack/batch033.ts' },
   ];
 
   // ── PHASE 1: MANIFEST & STRUCTURAL INTEGRITY ──
   console.log('── PHASE 1: MANIFEST & STRUCTURAL INTEGRITY ──');
-  if (allBatches.length !== 31) {
-    record('CRITICAL', 'Structure', 'Batch Count', `Expected 31 batches, found ${allBatches.length}`);
+  if (allBatches.length !== 33) {
+    record('CRITICAL', 'Structure', 'Batch Count', `Expected 33 batches, found ${allBatches.length}`);
   } else {
-    record('PASS', 'Structure', 'Batch Count', 'Exactly 31 batches published (30 full batches + 1 partial batch)');
+    record('PASS', 'Structure', 'Batch Count', 'Exactly 33 batches published (33 full batches, 0 partial)');
   }
 
   let totalDays = 0;
@@ -143,10 +145,10 @@ async function runBrutalAudit() {
     record('CRITICAL', 'Manifest Validator', 'Post-Gate 1 Consolidation Block', `Schema violation: ${err.message}`);
   }
 
-  if (totalDays === 153) {
-    record('PASS', 'Structure', 'Total Learning Days', 'Exactly 153 learning days verified (Days 01–60 Batches 001–012 + Days 61–62 Consolidation + Days 63–122 Batches 013–024 + Days 123–127 Batch 025 + Days 128–132 Batch 026 + Days 133–137 Batch 027 + Days 138–142 Batch 028 + Days 143–147 Batch 029 + Days 148–152 Batch 030 + Day 153 Batch 031)');
+  if (totalDays === 167) {
+    record('PASS', 'Structure', 'Total Learning Days', 'Exactly 167 learning days verified (Days 01–60 Batches 001–012 + Days 61–62 Consolidation + Days 63–122 Batches 013–024 + Days 123–127 Batch 025 + Days 128–132 Batch 026 + Days 133–137 Batch 027 + Days 138–142 Batch 028 + Days 143–147 Batch 029 + Days 148–152 Batch 030 + Days 153–157 Batch 031 + Days 158–162 Batch 032 + Days 163–167 Batch 033)');
   } else {
-    record('CRITICAL', 'Structure', 'Total Learning Days', `Expected 153 days, found ${totalDays}`);
+    record('CRITICAL', 'Structure', 'Total Learning Days', `Expected 167 days, found ${totalDays}`);
   }
 
   // ── PHASE 2: PREREQUISITE PURITY & FORBIDDEN CONCEPT AST SCAN ──
@@ -214,6 +216,9 @@ async function runBrutalAudit() {
     { day: 142, batch: 28, asm: (await import('../src/lib/curriculum/pythonFullStack/batch028')).DAY_142_ASSESSMENT },
     { day: 147, batch: 29, asm: (await import('../src/lib/curriculum/pythonFullStack/batch029')).DAY_147_ASSESSMENT },
     { day: 152, batch: 30, asm: (await import('../src/lib/curriculum/pythonFullStack/batch030')).DAY_152_ASSESSMENT },
+    { day: 157, batch: 31, asm: (await import('../src/lib/curriculum/pythonFullStack/batch031')).DAY_157_ASSESSMENT },
+    { day: 162, batch: 32, asm: (await import('../src/lib/curriculum/pythonFullStack/batch032')).DAY_162_ASSESSMENT },
+    { day: 167, batch: 33, asm: (await import('../src/lib/curriculum/pythonFullStack/batch033')).DAY_167_ASSESSMENT },
   ];
 
   for (const a of assessments) {
@@ -249,10 +254,10 @@ async function runBrutalAudit() {
   const manifests = allBatches.map(b => b.manifest);
   const prog = ProgressEngine.computeProgress([...manifests, POST_GATE_01_CONSOLIDATION_MANIFEST]);
 
-  if (prog.publishedLearningDaysCount !== 153) {
-    record('CRITICAL', 'Progress Engine', 'Published Days', `Calculated ${prog.publishedLearningDaysCount}, expected 153`);
+  if (prog.publishedLearningDaysCount !== 167) {
+    record('CRITICAL', 'Progress Engine', 'Published Days', `Calculated ${prog.publishedLearningDaysCount}, expected 167`);
   } else {
-    record('PASS', 'Progress Engine', 'Published Days', 'Dynamic calculation matches exactly 153 days (Days 01–60 + Post-Gate 1 + Batches 013–031)');
+    record('PASS', 'Progress Engine', 'Published Days', 'Dynamic calculation matches exactly 167 days (Days 01–60 + Post-Gate 1 + Batches 013–033)');
   }
 
   if (prog.semester1PlannedDays !== 120) {
@@ -282,7 +287,7 @@ async function runBrutalAudit() {
   if (!invReport.valid) {
     record('CRITICAL', 'Day Inventory', 'Canonical Invariants', `Day inventory validation failed: ${invReport.errors.join('; ')}`);
   } else {
-    record('PASS', 'Day Inventory', 'Canonical Invariants', `153 program days contiguous (120 Semester 1 core + 2 consolidation + 31 Semester 2 core) verified with 0 errors`);
+    record('PASS', 'Day Inventory', 'Canonical Invariants', `167 program days contiguous (120 Semester 1 core + 2 consolidation + 45 Semester 2 core) verified with 0 errors`);
   }
 
   // ── PHASE 5: SUMMARY AND AUDIT VERDICT ──

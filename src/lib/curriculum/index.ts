@@ -48,3 +48,5 @@ export * from './pythonFullStack/batch028';
 export * from './pythonFullStack/batch029';
 export * from './pythonFullStack/batch030';
 export * from './pythonFullStack/batch031';
+export * from './pythonFullStack/batch032';
+export * from './pythonFullStack/batch033';

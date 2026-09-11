@@ -1,6 +1,6 @@
 # 🏛️ PinitCareer Credential Operations, Assessor Governance & Labor-Market Validation Charter
 
-> **Document Version:** 1.2.0 (Authoritative Post-Freeze Phase 2 Charter)  
+> **Document Version:** 1.4.0 (Authoritative Post-Freeze Phase 2 Charter)  
 > **Classification:** Phase 2 Governance Design Complete — Pre-Pilot Algorithmic & Governance Validation Complete — Staging Validation Pending  
 > **Associated Curriculum Baseline:** 24-Month Fullstack Software Engineering Master Program (Days 01–120 Sealed 🔒)  
 > **Authority:** PinitCareer Academic & Industrial Certification Board  
@@ -93,18 +93,18 @@ Candidate credentialing cannot be automated by continuous integration. Credentia
 ### Assessor Qualification Standards
 To qualify as a PinitCareer Authorized Assessor, an evaluator must:
 1. Possess a minimum of **5+ years of production fullstack or distributed systems engineering experience** in a senior, staff, or principal role.
-2. Complete the **PinitCareer Assessor Calibration Course**, achieving $\ge 90\%$ concordance on benchmark mock assessment evaluations.
+2. Complete the **PinitCareer Assessor Calibration Course**, achieving >= 90% concordance on benchmark mock assessment evaluations.
 3. Sign an annual **Conflict-of-Interest Declaration**, affirming no commercial, familial, or direct managerial relationship with evaluated candidates.
 
 ### The 5-Gate Evaluation Rubric
 
 | Gate | Assessment Focus | Passing Threshold | Critical Failure Tripwires (Immediate Disqualification) |
 |---|---|:---:|---|
-| **Gate A: First Principles** | Hardware execution, event loop mechanics, POSIX signals, WAL logging, vector geometry, L2 normalization, ASCII math derivations. | $\ge 8.5$ / 10 | Inability to explain event loop phases; claiming multi-threading in Node.js CPU loops; confusing logical storage with physical memory. |
-| **Gate B: Live Incident** | Real-time troubleshooting of a live staging failure: connection pool starvation, memory leaks, RLS tenant leakage, or lock contention. | $\ge 8.5$ / 10 | Bypassing security boundaries; hardcoding credentials; dropping tables or destroying WAL without recovery; corrupting tenant isolation. |
-| **Gate C: Break-It Chaos** | Injecting multi-service cascading failures under load; diagnosing thundering herds, replica lag, and upstream timeouts. | $\ge 8.5$ / 10 | Uncontrolled retry storms without jitter; unhandled promise rejections crashing the process; lack of circuit breaker fallback. |
-| **Gate D: Novel Transfer** | Designing an end-to-end distributed system for an unfamiliar problem domain within strict SLA, latency, and cost constraints. | $\ge 8.5$ / 10 | Hand-waving capacity math; violating CAP/PACELC trade-offs; proposing infinite horizontal scaling without persistence limits. |
-| **Gate E: Grand Master Viva** | 10-prompt adversarial oral examination defending architectural trade-offs, tech stack rejections, operational costs, and lifecycle maintainability. | $\ge 8.5$ / 10 | Defending outdated anti-patterns; unable to justify why simpler alternatives were rejected; relying on marketing claims rather than engineering telemetry. |
+| **Gate A: First Principles** | Hardware execution, event loop mechanics, POSIX signals, WAL logging, vector geometry, L2 normalization, ASCII math derivations. | >= 8.5 / 10 | Inability to explain event loop phases; claiming multi-threading in Node.js CPU loops; confusing logical storage with physical memory. |
+| **Gate B: Live Incident** | Real-time troubleshooting of a live staging failure: connection pool starvation, memory leaks, RLS tenant leakage, or lock contention. | >= 8.5 / 10 | Bypassing security boundaries; hardcoding credentials; dropping tables or destroying WAL without recovery; corrupting tenant isolation. |
+| **Gate C: Break-It Chaos** | Injecting multi-service cascading failures under load; diagnosing thundering herds, replica lag, and upstream timeouts. | >= 8.5 / 10 | Uncontrolled retry storms without jitter; unhandled promise rejections crashing the process; lack of circuit breaker fallback. |
+| **Gate D: Novel Transfer** | Designing an end-to-end distributed system for an unfamiliar problem domain within strict SLA, latency, and cost constraints. | >= 8.5 / 10 | Hand-waving capacity math; violating CAP/PACELC trade-offs; proposing infinite horizontal scaling without persistence limits. |
+| **Gate E: Grand Master Viva** | 10-prompt adversarial oral examination defending architectural trade-offs, tech stack rejections, operational costs, and lifecycle maintainability. | >= 8.5 / 10 | Defending outdated anti-patterns; unable to justify why simpler alternatives were rejected; relying on marketing claims rather than engineering telemetry. |
 
 ### Assessor Calibration & Inter-Rater Reliability
 To guarantee that the credential maintains uniform labor-market value:
@@ -254,42 +254,63 @@ Rather than using a small calibration cohort to claim labor-market validity, Pin
 
 ### Category C Staging Infrastructure Sub-Gates (C1–C6) & Granular Acceptance Criteria
 
-To guarantee that production credentials are never issued on the basis of local configuration or un-attested developer workstations, live deployment requires progressive passage through six binding Category C stages subdivided into 17 granular, independent go/no-go sub-gates (16 staging infrastructure sub-gates C1.1–C5.1 and 1 human cohort pilot gate C6.1):
+To guarantee that production credentials are never issued on the basis of local configuration or un-attested developer workstations, live deployment requires progressive passage through six binding Category C stages subdivided into 17 granular, independent go/no-go sub-gates (16 staging infrastructure sub-gates C1.1–C5.1 and 1 human cohort pilot gate C6.1), classified strictly according to the **6-Tier Evidence Hierarchy** (`L1 IMPLEMENTED`, `L2 STATIC_VERIFIED`, `L3 APPLICATION_LAYER_VERIFIED`, `L4 LIVE_STAGING_VERIFIED`, `P1 HUMAN_PILOT_VERIFIED`, `L5 PRODUCTION_VERIFIED`):
 
 ```text
 ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ CATEGORY C GRANULAR SUB-GATES & INDEPENDENT ACCEPTANCE CRITERIA (17 SUB-GATES TOTAL)                             │
-├─────────┬───────────────────────────────────────────┬────────────────────────────────────────────────────────────┤
-│ Sub-Gate│ Operational Gate Description              │ Independent Acceptance Criteria (Go / No-Go)               │
-├─────────┼───────────────────────────────────────────┼────────────────────────────────────────────────────────────┤
-│ C1.1    │ Container Runtime Identity Attestation    │ Target image digest matches signed attestation manifest.   │
-│ C1.2    │ Filesystem Isolation & Immutability       │ Read-only rootfs; noexec /tmp scratch; UID 10001 non-root. │
-│ C1.3    │ Process Boundary & Syscall Filtering      │ Seccomp profile blocks unauthorized syscalls; pids.max cap.│
-│ C1.4    │ Network / Egress Boundary Enforcement     │ Default-deny egress; reachable-before-blocked proxy probe. │
-│ C1.5    │ Cgroups v2 Resource Quota Enforcement     │ Memory limit 2GB (memory.max), CPU quota 2.0 cores bounded.│
-├─────────┼───────────────────────────────────────────┼────────────────────────────────────────────────────────────┤
-│ C2.1    │ Issuer Service Authentication             │ AWS IAM Workload Identity (SigV4 signed role) over TLS 1.3.│
-│ C2.2    │ PostgreSQL Tenant RLS Isolation           │ Multi-tenant row-level security verified against leak test.│
-│ C2.3    │ Signed Category C Attestation Verifier    │ Rejects issuance without valid 14-field attestation doc.  │
-│ C2.4    │ Idempotency & Duplicate Protection        │ Request idempotency (key + lease recovery) & business uq.  │
-├─────────┼───────────────────────────────────────────┼────────────────────────────────────────────────────────────┤
-│ C3.1    │ Hardware KMS FIPS 140-3 HSM Connectivity  │ Cloud KMS CMK verified via DescribeKey (Origin: AWS_KMS).  │
-│ C3.2    │ IAM Dual-Party Quorum Policy Enforced     │ Requires independent DPO + Registrar signatures over digest│
-│ C3.3    │ Automated Key Revocation & JWKS Purge     │ SEV-1 emergency key invalidation measured SLA in <= 300s.  │
-│ C3.4    │ Authorized KMS Key Deactivation/Destruct. │ Authorized KMS deactivation audited; ciphertext unrecover. │
-├─────────┼───────────────────────────────────────────┼────────────────────────────────────────────────────────────┤
-│ C4.1    │ Data-Class Retention Policy Enforcement   │ Raw biometrics strictly prohibited from immutable storage. │
-│ C4.2    │ S3 Object Lock Compliance Mode Locked     │ WORM compliance lock active; legal hold API verified.      │
-├─────────┼───────────────────────────────────────────┼────────────────────────────────────────────────────────────┤
-│ C5.1    │ Synthetic Candidate End-to-End Drill      │ Full dry-run with 4-way RBAC data isolation (0 leak vectors│
-├─────────┼───────────────────────────────────────────┼────────────────────────────────────────────────────────────┤
-│ C6.1    │ Real Pilot A Human Cohort Evaluation      │ 15–20 real candidates assessed by calibrated evaluators.   │
-└─────────┴───────────────────────────────────────────┴────────────────────────────────────────────────────────────┘
+├─────────┬───────────────────────────────────────────┬──────────────────────────────────────┬─────────────────────┤
+│ Sub-Gate│ Operational Gate Description              │ Independent Acceptance Criteria      │ Required Tier       │
+├─────────┼───────────────────────────────────────────┼──────────────────────────────────────┼─────────────────────┤
+│ C1.1    │ Container Runtime Identity Attestation    │ Target image digest pinned strictly  │ Live Staging Verif. │
+│         │                                           │ (node:24-alpine@sha256:d9b23b320626) │                     │
+│ C1.2    │ Filesystem Isolation & Immutability       │ Read-only rootfs; noexec /tmp; UID   │ Live Staging Verif. │
+│         │                                           │ 10001; /var/run/docker.sock excluded │                     │
+│ C1.3    │ Process Boundary & Syscall Filtering      │ Seccomp blocks unauthorized syscalls;│ Live Staging Verif. │
+│         │                                           │ toolchain processes pass cleanly     │                     │
+│ C1.4    │ Network / Egress Boundary Enforcement     │ Default-deny egress; reachable-first │ Live Staging Verif. │
+│         │                                           │ baseline vs blocked restricted probe │                     │
+│ C1.5    │ Cgroups v2 Resource Quota Enforcement     │ Disposable containers with 10s watch-│ Live Staging Verif. │
+│         │                                           │ dog; memory max 2GB, CPU max 2 cores │                     │
+├─────────┼───────────────────────────────────────────┼──────────────────────────────────────┼─────────────────────┤
+│ C2.1    │ Issuer Service Authentication             │ AWS IAM Workload Identity (SigV4)    │ App-Layer Verif.    │
+│         │                                           │ over TLS 1.3; unauthorized rejected  │                     │
+│ C2.2    │ PostgreSQL Tenant RLS Isolation           │ Monitored break-glass DBA access;    │ Live Staging Verif. │
+│         │                                           │ app role NOSUPERUSER NOBYPASSRLS     │                     │
+│ C2.3    │ Signed Category C Attestation Verifier    │ Rejects issuance without 14-field doc│ App-Layer Verif.    │
+│         │                                           │ and dual-version evidence manifest   │                     │
+│ C2.4    │ Idempotency & Duplicate Protection        │ Request idempotency (lease recovery) │ App-Layer Verif.    │
+│         │                                           │ & business issuance uniqueness       │                     │
+├─────────┼───────────────────────────────────────────┼──────────────────────────────────────┼─────────────────────┤
+│ C3.1    │ Hardware KMS FIPS 140-3 HSM Connectivity  │ Cloud KMS CMK DescribeKey confirmed; │ Live Staging Verif. │
+│         │                                           │ mapped to provider compliance cert   │                     │
+│ C3.2    │ IAM Dual-Party Quorum Policy Enforced     │ External authorization workflow; SCP │ Live Staging Verif. │
+│         │                                           │ guardrails in dedicated member acct  │                     │
+│ C3.3    │ Key Revocation & JWKS Lifecycle Policy    │ SEV-1 emergency invalidation SLA     │ Live Staging Verif. │
+│         │                                           │ <= 300s; ACTIVE/RETIRED/COMPROMISED  │                     │
+│ C3.4    │ Authorized KMS Key Deactivation/Destruct. │ DisableKey (compromise) vs Schedule- │ Live Staging Verif. │
+│         │                                           │ Deletion (decommission) audited      │                     │
+├─────────┼───────────────────────────────────────────┼──────────────────────────────────────┼─────────────────────┤
+│ C4.1    │ Application Data-Class Policy Enforcement │ Raw biometrics strictly prohibited   │ App-Layer Verif.    │
+│         │                                           │ from WORM (ERR_PROHIBITED_DATA_CLASS)│                     │
+│ C4.2    │ Real S3 Retention / WORM Enforcement      │ S3 Object Lock Compliance Mode active│ Live Staging Verif. │
+│         │                                           │ version deletion & shortening DENIED │                     │
+├─────────┼───────────────────────────────────────────┼──────────────────────────────────────┼─────────────────────┤
+│ C5.1    │ Synthetic Candidate End-to-End Drill      │ Full dry-run with 11-role RBAC data  │ Live Staging Verif. │
+│         │                                           │ boundary isolation (0 leak vectors)  │                     │
+├─────────┼───────────────────────────────────────────┼──────────────────────────────────────┼─────────────────────┤
+│ C6.1    │ Real Pilot A Human Cohort Evaluation      │ 15–20 candidates evaluated; opera-   │ Human Pilot Verif.  │
+│         │                                           │ tional process feasibility only      │ (P1)                │
+└─────────┴───────────────────────────────────────────┴──────────────────────────────────────┴─────────────────────┘
 ```
 
 > [!IMPORTANT]
-> **Hard Operational Invariant:**
-> Under no circumstances may `PINIT_CATEGORY_C_ATTESTATION_STATUS` be asserted or `CredentialIssuanceService` unlocked until sub-gates C1.1 through C5.1 (16 staging infrastructure sub-gates) are fully certified by independent cryptographic and systems inspection. Sub-gate C6.1 governs the live evaluation of the first cohort of human candidates.
+> **Hard Operational Invariants for Category C:**
+> 1. **Staging Certification Precedes Pilot:** Under no circumstances may `PINIT_CATEGORY_C_ATTESTATION_STATUS` be asserted or `CredentialIssuanceService` unlocked until sub-gates C1.1 through C5.1 (16 staging infrastructure sub-gates) are fully certified by independent cryptographic and systems inspection. Sub-gate C6.1 governs the live evaluation of the first cohort of human candidates and is classified as `P1 HUMAN_PILOT_VERIFIED`, explicitly separated from production verification.
+> 2. **Dual KMS Pathways:** Operational emergencies use `EmergencyKeyManager` (`kms:DisableKey` only; forbidden from policy edits). Key policy governance uses `KeyPolicyAdministrator` (`kms:PutKeyPolicy` with dual approval; forbidden from key disablement or deletion). All keys reside in a dedicated AWS Organizations member account where SCPs are binding.
+> 3. **Dual-Version S3 Checksums:** Evidence manifests bind `pendingVersionId` and `finalVaultVersionId`, recording `s3ChecksumAlgorithm: 'SHA256'` and `s3ChecksumValue`, asserting `sourceSha256 == finalSha256 == s3ChecksumValue` before vault promotion.
+> 4. **Biometric RAM-Only Protocol:** Verified non-presence of raw biometrics in logs, traces, core dumps (`ulimit -c 0`), temporary files, or databases.
+> 5. **Public Verifier Privacy Minimization:** Public lookup returns only credential attributes (`credentialToken`, `credentialTitle`, `issueDate`, `status`, `issuer`, `publicKeyId`, `signature`). Zero candidate display names, IDs, or hashes are disclosed.
 
 ---
 
@@ -319,6 +340,111 @@ To resolve the fundamental tension between **S3 Object Lock Compliance Mode (WOR
 │      │ Transparency Hash Chain Head │ Compliance Mode  │ 10+ Years       │ ID, and status state machine ledger.  │
 └──────┴──────────────────────────────┴──────────────────┴─────────────────┴───────────────────────────────────────┘
 ```
+
+```
+
+---
+
+### Formal Privacy Deletion-Proof Matrix (GDPR Article 17 vs Immutable WORM)
+
+To reconcile candidate privacy rights (GDPR Article 17 Right to Erasure) with regulatory compliance audits and immutable WORM storage, PinitCareer enforces a legally grounded, machine-verifiable deletion protocol:
+
+```text
+┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ FORMAL PRIVACY DELETION-PROOF MATRIX                                                                             │
+├──────┬──────────────────────┬──────────┬──────────────────┬──────────────┬──────────────────┬────────────────────┤
+│Class │ Data Category        │ Deletion?│ Legal Basis      │ Ret. Owner   │ Deletion Mech.   │ Audit Evidence     │
+├──────┼──────────────────────┼──────────┼──────────────────┼──────────────┼──────────────────┼────────────────────┤
+│ 1    │ Raw Biometric Embed- │ N/A      │ GDPR Art. 9(2)(a)│ None         │ Immediate RAM    │ Session Log zero-  │
+│      │ dings & Landmarks    │ (0 Days) │ Consent          │ (RAM only)   │ Buffer.fill(0)   │ confirmation hash  │
+├──────┼──────────────────────┼──────────┼──────────────────┼──────────────┼──────────────────┼────────────────────┤
+│ 2    │ Candidate KYC Scans  │ ERASABLE │ GDPR Art. 17(1)  │ DPO /        │ Dual-Quorum KMS  │ CloudTrail KMS     │
+│      │ & Government ID PII  │ ON REQ.  │ Right to Erasure │ Privacy Team │ DEK Crypto-Shred │ key deletion event │
+├──────┼──────────────────────┼──────────┼──────────────────┼──────────────┼──────────────────┼────────────────────┤
+│ 3    │ Screen Recordings &  │ ERASABLE │ GDPR Art. 17(1)  │ Registrar /  │ S3 Lifecycle /   │ S3 DeleteObject    │
+│      │ Terminal Session Logs│ POST-APPL│ Legitimate Int.  │ Operations   │ API Purge        │ version log record │
+├──────┼──────────────────────┼──────────┼──────────────────┼──────────────┼──────────────────┼────────────────────┤
+│ 4    │ Assessment Snapshot  │ RETAINED │ GDPR Art. 17(3)b │ Chief Audit  │ Immutable WORM   │ S3 Object Lock Put-│
+│      │ Hashes & Rubric Score│ (5–10 Y) │ Compliance Oblig.│ Officer      │ (Zero Direct PII)│ Retention event    │
+├──────┼──────────────────────┼──────────┼──────────────────┼──────────────┼──────────────────┼────────────────────┤
+│ 5    │ Public Credential    │ REVOKED /│ GDPR Art. 17(3)b │ Attestation  │ State transition │ Signed REVOCATION  │
+│      │ Verification Ledger  │ RETAINED │ Public Interest  │ Authority    │ to 'REVOKED'     │ ledger audit block │
+└──────┴──────────────────────┴──────────┴──────────────────┴──────────────┴──────────────────┴────────────────────┘
+```
+
+---
+
+### 11-Role Expanded Operational RBAC & Monitored Break-Glass Matrix
+
+Privileged operational accounts represent the primary vector for enterprise compromise. Access boundaries extend beyond application identities to govern all 11 operational roles with strict least-privilege enforcement:
+
+```text
+┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ 11-ROLE EXPANDED OPERATIONAL RBAC & ACCESS CONTROL MATRIX                                                        │
+├──────┬──────────────────────────┬─────────────────────────────┬──────────────────────────────────────────────────┤
+│ #    │ Operational Role         │ Permitted Data / Action     │ Prohibited Data / Action & Security Tripwire     │
+├──────┼──────────────────────────┼─────────────────────────────┼──────────────────────────────────────────────────┤
+│ 01   │ Candidate                │ Own code, public credential │ Prohibited from assessor rubrics & exam telemetry│
+│ 02   │ Assessor                 │ Anonymized candidate code   │ Prohibited from candidate PII & identity scans   │
+│ 03   │ Proctor                  │ Video/identity verification │ Prohibited from mutating evaluation scores       │
+│ 04   │ Issuer Service           │ Minting against signed card │ Prohibited from candidate PII & raw exam logs    │
+│ 05   │ System Administrator     │ Infra provisioning & OS     │ Prohibited from candidate code & KMS signing keys│
+│ 06   │ Security / Responder     │ Emergency key disablement   │ Prohibited from mutating assessment evaluations  │
+│ 07   │ DPO / Privacy Officer    │ Quorum crypto-shredding     │ Prohibited from credential issuance authority    │
+│ 08   │ Registrar                │ Quorum counter-signing      │ Prohibited from cloud infrastructure access      │
+│ 09   │ Attestation Authority    │ Category C manifest signing │ Prohibited from running assessment containers    │
+│ 10   │ Storage Administrator    │ Managing bucket lifecycles  │ Prohibited from overriding WORM Compliance Lock  │
+│ 11   │ Database Administrator   │ Monitored break-glass only  │ Application role NOSUPERUSER NOBYPASSRLS enforced│
+└──────┴──────────────────────────┴─────────────────────────────┴──────────────────────────────────────────────────┤
+│ Monitored DBA Break-Glass Standard: PostgreSQL application connection role is strictly NOSUPERUSER NOBYPASSRLS.  │
+│ DBA break-glass access is explicitly authorized, time-bounded via temporary STS credentials, logged via pgaudit,  │
+│ alerted in real time to the Security Response team, and subjected to mandatory post-incident security review.    │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+### Independent Attestation Provenance & Trust Boundary Model
+
+To eliminate circular self-certification, the assessment execution environment is decoupled from evidence verification and attestation signing:
+
+```text
+┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ INDEPENDENT ATTESTATION CHAIN OF CUSTODY                                                                         │
+├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ 1. Staging Execution Environment (Untrusted Assessment Runner):                                                  │
+│    • Executes C1–C5 tests; holds narrow IAM s3:PutObject permission to s3://pinit-staging-evidence/pending/ only.   │
+│    • Captures immutable execution logs and exports artifact manifest with SHA-256 digests.                       │
+│                                                                                                                  │
+│ 2. Immutable Evidence Store (S3 Object Lock Compliance Vault):                                                   │
+│    • S3 versioning captures unique objectVersionId and ETag/SHA-256 for each uploaded artifact.                 │
+│                                                                                                                  │
+│ 3. Independent External Verifier:                                                                                │
+│    • Downloads artifacts, independently recalculates SHA-256 digests, and validates against gate criteria.       │
+│    • Promotes validated evidence into Compliance Vault (s3://pinit-staging-evidence/vault/).                     │
+│                                                                                                                  │
+│ 4. Trusted Attestation Authority (External Organizational Identity):                                            │
+│    • Possesses distinct Ed25519 signing key (arn:...:key/attest-auth-2026), physically isolated from runner.     │
+│    • Signs immutable manifest binding {gateId, s3Uri, objectVersionId, sha256Digest, timestamp} into Category C.│
+│                                                                                                                  │
+│ 5. Credential Issuer Service:                                                                                    │
+│    • Verifies Category C attestation signature and versioned evidence manifest before unlocking minting engine.  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+### Canonical 256-Bit Opaque Token & Public Anti-Enumeration Specification
+
+Public credential verification (`/verify/[credentialToken]`) enforces minimum disclosure and strict anti-enumeration:
+- **Canonical Token Model:** Exactly 32 bytes (256 bits) of cryptographically secure random entropy (`crypto.randomBytes(32)`), encoded as a 64-character lowercase hex string (`pc-cred-[64-hex-token]`). UUIDv4 is retired from public verification lookup to prevent entropy degradation.
+- **Anti-Enumeration Protections:**
+  1. High entropy space (2^256 possible combinations).
+  2. Tiered rate limiting (IP-based and global token bucket rate limiting).
+  3. Uniform, non-distinguishing `ERR_CREDENTIAL_NOT_FOUND` responses for any nonexistent, malformed, or unauthorized token.
+  4. Timing equalization treated as defense-in-depth measurement.
+- **Minimum Public Disclosure:** Verifier discloses only: `credentialToken`, `credentialTitle`, `issueDate`, `status` (`ACTIVE` / `REVOKED`), `issuer`, `publicKeyId`, and `signature`. Zero candidate display names, zero candidate IDs, zero candidate hashes, zero raw scorecards, zero personal candidate PII, zero telemetry.
+- **Decoupled Revocation Semantics:** A cryptographically valid digital signature does not equal credential validity. If the ledger record status is `REVOKED`, `/verify` returns `REVOKED`.
 
 ---
 
@@ -444,7 +570,7 @@ In extraordinary operational contingencies (e.g. statewide power failures, cloud
    - Authorizing a calibrated alternate third assessor when a panel assessor suffers a sudden medical or technical outage mid-gate.
    - Authorizing forensic log reconstruction in the event of an unrecoverable telemetry capture failure.
 3. **Absolute Non-Overridable Standards (The Invariant Core):**
-   - 🛑 **Under no circumstances may an override lower the passing score threshold ($\ge 8.5 / 10.0$).**
+   - 🛑 **Under no circumstances may an override lower the passing score threshold (>= 8.5 / 10.0).**
    - 🛑 **Under no circumstances may an override waive a verified Critical Failure Tripwire.**
    - 🛑 **Under no circumstances may an override bypass candidate identity verification or the double-blind assessment protocol.**
 4. **Mandatory Immutable Public Audit Logging:**
@@ -486,14 +612,15 @@ This Charter stands as the official operational bridge between the **Permanent 1
 ├──────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────┤
 │ Authorized Approvers     │ Chief Academic Officer, Chief Assessor & Lead Systems Architect                       │
 ├──────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────┤
-│ Current Version          │ 1.2.0 (Operational Governance Hardened Release)                                       │
+│ Current Version          │ 1.4.0 (Authoritative 6-Tier & Hardened Category C Governance Release)                 │
 ├──────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────┤
 │ Effective Date           │ September 2026                                                                        │
 ├──────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────┤
-│ Supersedes               │ Version 1.1.0 (Hardened Pre-Pilot Release)                                            │
+│ Supersedes               │ Version 1.2.0 (Operational Governance Hardened Release)                               │
 ├──────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────┤
-│ Change Reason            │ Separation-of-duties matrix, emergency override authority, regulatory qualification   │
-│                          │ disclaimer, empirical workload tracking caveat, and Pilot A operational validation.   │
+│ Change Reason            │ 6-Tier evidence hierarchy with P1 HUMAN_PILOT_VERIFIED decoupling; dual KMS pathways  │
+│                          │ (EmergencyKeyManager vs KeyPolicyAdministrator) in dedicated member account; dual-    │
+│                          │ version S3 checksum verification; biometric RAM-only protocol; verifier privacy.      │
 ├──────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────┤
 │ Amendment Policy         │ Modifications require unanimous Certification Board quorum, version increment, and   │
 │                          │ published impact assessment prior to cohort execution.                                │

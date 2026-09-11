@@ -181,16 +181,47 @@ function generateCanonicalDayInventory(): DayInventoryEntry[] {
     });
   }
 
-  // Day 153: Month 8 Week 31 Partial (Batch 031 Day 1, 1 day) -> Core Index 151
-  entries.push({
-    dayNumber: 153,
-    semester: 2,
-    monthNumber: 8,
-    calendarWeekNumber: 31,
-    dayType: 'CORE_INSTRUCTION',
-    batchId: 'batch-pfs-m8-w31-031',
-    coreInstructionalDayIndex: 151,
-  });
+  // Days 153–157: Month 8 Week 31 (Batch 031 Days 1–5, 5 days) -> Core Indexes 151..155
+  for (let d = 153; d <= 157; d++) {
+    const coreIndex = d - 2; // 151..155
+    entries.push({
+      dayNumber: d,
+      semester: 2,
+      monthNumber: 8,
+      calendarWeekNumber: 31,
+      dayType: 'CORE_INSTRUCTION',
+      batchId: 'batch-pfs-m8-w31-031',
+      coreInstructionalDayIndex: coreIndex,
+    });
+  }
+
+  // Days 158–162: Month 8 Week 32 (Batch 032 Days 1–5, 5 days) -> Core Indexes 156..160
+  for (let d = 158; d <= 162; d++) {
+    const coreIndex = d - 2; // 156..160
+    entries.push({
+      dayNumber: d,
+      semester: 2,
+      monthNumber: 8,
+      calendarWeekNumber: 32,
+      dayType: 'CORE_INSTRUCTION',
+      batchId: 'batch-pfs-m8-w32-032',
+      coreInstructionalDayIndex: coreIndex,
+    });
+  }
+
+  // Days 163–167: Month 9 Week 33 (Batch 033 Days 1–5, 5 days) -> Core Indexes 161..165
+  for (let d = 163; d <= 167; d++) {
+    const coreIndex = d - 2; // 161..165
+    entries.push({
+      dayNumber: d,
+      semester: 2,
+      monthNumber: 9,
+      calendarWeekNumber: 33,
+      dayType: 'CORE_INSTRUCTION',
+      batchId: 'batch-pfs-m9-w33-033',
+      coreInstructionalDayIndex: coreIndex,
+    });
+  }
 
   return entries;
 }
@@ -213,8 +244,8 @@ export function validateDayInventory(inventory: DayInventoryEntry[] = CANONICAL_
   const errors: string[] = [];
 
   // 1. Total Days Count
-  if (inventory.length !== 153) {
-    errors.push(`Expected exactly 153 days in inventory, found ${inventory.length}`);
+  if (inventory.length !== 167) {
+    errors.push(`Expected exactly 167 days in inventory, found ${inventory.length}`);
   }
 
   // 2. Strict Contiguity of dayNumber (1..153) without gaps or duplicates
@@ -283,10 +314,10 @@ export function validateDayInventory(inventory: DayInventoryEntry[] = CANONICAL_
     }
   }
 
-  // 7. Semester 2 Core Days: exactly 31 days (121..151)
+  // 7. Semester 2 Core Days: exactly 45 days (121..165)
   const sem2CoreEntries = inventory.filter(d => d.semester === 2);
-  if (sem2CoreEntries.length !== 31) {
-    errors.push(`Expected exactly 31 Semester 2 days in active horizon, found ${sem2CoreEntries.length}`);
+  if (sem2CoreEntries.length !== 45) {
+    errors.push(`Expected exactly 45 Semester 2 days in active horizon, found ${sem2CoreEntries.length}`);
   }
   for (let i = 0; i < sem2CoreEntries.length; i++) {
     const expectedCoreIndex = 121 + i;

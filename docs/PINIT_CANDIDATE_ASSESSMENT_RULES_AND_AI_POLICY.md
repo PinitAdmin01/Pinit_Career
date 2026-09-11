@@ -1,6 +1,6 @@
 # 📋 PinitCareer Candidate Assessment Rules, Environment Controls & AI-Use Policy
 
-> **Document Version:** 1.2.0 (Authoritative Operational Standard)  
+> **Document Version:** 1.4.0 (Authoritative Operational & Container Hardening Standard)  
 > **Associated Standard:** [`docs/PINIT_CREDENTIAL_OPERATIONS_AND_GOVERNANCE_CHARTER.md`](file:///c:/Users/vinay/OneDrive/project/Present-Career-os/docs/PINIT_CREDENTIAL_OPERATIONS_AND_GOVERNANCE_CHARTER.md)  
 > **Audience:** Examination Candidates, Operations Staff, Examination Proctors, Authorized Assessors  
 > **Effective Date:** September 2026  
@@ -30,11 +30,11 @@ To prevent proxy test-taking, credential fraud, or impersonation, candidate iden
 │   (Passport, National Identity Card,   │ • 360-degree camera sweep of candidate assessment workspace             │
 │   or Driver's License) submitted via   │ • Secondary screen inspection (single monitor required)                 │
 │   secure encrypted upload.             │ • Background audio and process monitor check                            │
-│ • Candidate Identity Token generated.  │ • Candidate anonymized ID assigned to scoring packet                    │
+│ • Candidate Identity Token generated.  │ • Candidate 256-bit anonymized ID assigned to scoring packet            │
 └────────────────────────────────────────┴─────────────────────────────────────────────────────────────────────────┘
 ```
 
-*Note: The evaluating assessor receives the candidate's anonymized packet (`CANDIDATE_<UUID>`) to protect against unconscious demographic or institutional bias.*
+*Note: The evaluating assessor receives the candidate's anonymized packet (`CANDIDATE_<256-BIT-OPAQUE-TOKEN>`) to protect against unconscious demographic or institutional bias.*
 
 ---
 
@@ -156,6 +156,37 @@ PinitCareer enforces academic integrity through **hard container isolation, capa
 * **Gates B & C (Incident Troubleshooting & Chaos Engineering):** Network traffic routed through an egress filtering proxy enforcing the explicit documentation allowlist (`nodejs.org/docs`, `postgresql.org/docs`, `redis.io/docs`, `developer.mozilla.org`). All other domains return HTTP 403 Forbidden.
 * **Gate D (System Design):** Unrestricted web search permitted for technical RFCs and documentation; however, generative conversational LLM prompts for end-to-end system architectures are prohibited and flagged via proxy pattern matching.
 
+### 2. Authoritative Container Image Specification & Immutable Pinning (Sub-Gate C1.1)
+To ensure absolute reproducibility across all candidate assessment environments and prevent tag drift:
+* **Canonical Pinned Base Image Digest:**
+  ```dockerfile
+  FROM node:24-alpine@sha256:d9b23b3206260a9ea78be5cf62a4d04847e1ff965fb5b93d6dff61530ae9e3a6
+  ```
+  Mutable tags (e.g. `node:24-alpine` or `node:latest`) are strictly prohibited in assessment container production.
+* **Docker Daemon Isolation & Zero Socket Mounting:** Mounting `/var/run/docker.sock` or exposing Docker/containerd management sockets inside the candidate container is **strictly prohibited**. Any attempt to mount the Docker socket is blocked at the orchestration layer and flagged as a critical security incident.
+* **Minimal Toolchain Inclusion:** The image contains only the essential CLI utilities required for realistic fullstack engineering: Node.js 24, TypeScript (`tsc`), Git, PostgreSQL Client (`psql`), and cURL. Compilers (`gcc`, `clang`, `make`) and package managers beyond `npm` are excluded.
+
+### 3. Disposable Single-Use Containers & External Host Watchdog
+* **Single-Use Disposable Lifecycle:** Every candidate assessment run or behavioral security probe executes in a freshly initialized, disposable micro-container. At the conclusion of the session or upon test termination, the container is destroyed immediately; containers are never reused.
+* **10-Second Hard Host Supervisor Watchdog:**
+  - An independent host-level watchdog process (`timeout -k 2 10s` / Node child process supervisor) monitors every container lifecycle.
+  - If a containerized process hangs, deadlocks, or attempts an escape loop, the host watchdog forcefully terminates the container via `SIGKILL` at T = 10 seconds.
+  - Host supervisor monitors kernel cgroup v2 events (`pids.events` for fork bomb throttling, `memory.events` for OOM kills) outside the container's namespace.
+
+### 4. Dual Acceptance Standard for Assessment Environments (Sub-Gates C1.1–C1.5)
+An assessment environment cannot be validated merely by passing security containment checks while breaking candidate functionality. Validation requires satisfying both criteria:
+1. **Positive Toolchain Verification:** Candidate must have verified, working access to required engineering tools:
+   - `node --version` returns v24.x
+   - `tsc --version` runs TypeScript compiler cleanly
+   - `git --version` executes version control commands
+   - `psql --version` confirms PostgreSQL client availability
+   - `curl -s -I http://proxy.local/docs` retrieves whitelisted technical documentation
+2. **Outcome-Based Behavioral Containment:** The container runtime must physically contain hostile actions:
+   - Escalating privileges or executing `sudo` fails with permission denied
+   - Writing to `/bin`, `/usr`, `/lib`, or root filesystem fails with read-only error (`EROFS`)
+   - Creating unauthorized egress sockets to unlisted IP addresses or ports drops immediately
+   - Executing recursive process fork bombs (`:(){ :|:& };:`) is strictly constrained by `pids.max=100`
+
 ---
 
 ## 6. 🔐 Candidate Assessment Data Privacy, Retention Schedule & Backup Lineage
@@ -194,7 +225,7 @@ To solve the industry-standard backup retention flaw (where deleted records pers
 │ DATA LINEAGE & CRYPTO-SHREDDING LIFECYCLE                                                                        │
 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
 │ Step 1 (Ingress):  Candidate submits Government Photo ID & live biometric selfie.                                │
-│ Step 2 (Keying):   System generates a unique, per-candidate Data Encryption Key (`DEK_CANDIDATE_<UUID>`).       │
+│ Step 2 (Keying):   System generates a unique, per-candidate Data Encryption Key (`DEK_CANDIDATE_<TOKEN>`).        │
 │ Step 3 (Storage):  Raw image payloads are encrypted with `DEK` before writing to primary DB and backup storage.   │
 │ Step 4 (Backups):  Routine automated database backups and read replicas inherit the ciphertext; keys remain in   │
 │                    the centralized Hardware Security Module / KMS only.                                          │
@@ -213,9 +244,21 @@ To prevent unauthorized or accidental deletion of candidate data encryption keys
 * **HSM Enforced Deletion:** Single-operator API calls attempting `kms:ScheduleKeyDeletion` or `kms:DeleteKey` are automatically blocked by KMS IAM boundary policy.
 * **Deletion Audit Ledger:** The deletion operation generates an immutable deletion certificate (`DEL_VERIF_<HASH>`) signed by the KMS HSM, recording key ID, destroying principals, and hardware timestamp.
 
-### 3. Role-Based Access Control (RBAC) & Double-Blind Assessment Guarantee
-1. **Assessor Blindness:** Evaluating assessors receive only an anonymized candidate identifier (`CANDIDATE_<UUID>`) and technical deliverables (shell logs, git diffs, architectural diagrams). Assessors **never** receive access to candidate government IDs, residential addresses, contact details, or demographic attributes.
-2. **Identity Decoupling:** Identity verification is performed independently by the Operations Security Team prior to gate execution. The linkage token between legal identity and `CANDIDATE_<UUID>` is encrypted and accessible only to the Registrar.
+### 3. Biometric RAM-Only Non-Leakage Protocol & Zero-Persistence Architecture
+To prevent any possibility of raw biometric leakage, identity theft, or permanent compromise:
+* **Strict Ephemeral Ingress Processing:** Raw biometric vectors, facial embeddings, and matching landmark arrays are held exclusively in volatile RAM (`Buffer`) during active ingress matching.
+* **Immediate Cryptographic Zeroing:** Immediately upon completion of identity verification, volatile memory buffers are overwritten with zeros (`Buffer.fill(0)`) and marked for garbage collection.
+* **Categorical WORM Prohibition:** Direct ingestion or archiving of raw biometrics to S3 Object Lock Compliance WORM storage is strictly prohibited at the application layer (`ERR_PROHIBITED_DATA_CLASS`).
+* **Multi-Vector Non-Leakage Verification:** The assessment runtime actively verifies non-presence of raw biometrics across:
+  1. Application logs and structured logger payloads
+  2. Distributed APM traces and telemetry spans
+  3. Operating system core crash dumps (suppressed via `ulimit -c 0` and container `--no-addons`)
+  4. Temporary file storage (`/tmp`, `/var/tmp`)
+  5. Relational database persistence and replication streams
+
+### 4. Role-Based Access Control (RBAC) & Double-Blind Assessment Guarantee
+1. **Assessor Blindness:** Evaluating assessors receive only an anonymized candidate identifier (`CANDIDATE_<256-BIT-OPAQUE-TOKEN>`) and technical deliverables (shell logs, git diffs, architectural diagrams). Assessors **never** receive access to candidate government IDs, residential addresses, contact details, or demographic attributes.
+2. **Identity Decoupling:** Identity verification is performed independently by the Operations Security Team prior to gate execution. The linkage token between legal identity and `CANDIDATE_<256-BIT-OPAQUE-TOKEN>` is encrypted and accessible only to the Registrar.
 
 ---
 
@@ -307,14 +350,14 @@ Prior to starting any examination gate, every candidate must digitally sign the 
 ├──────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────┤
 │ Authorized Approvers     │ Chief Proctor, Information Security Officer & Academic Registrar                      │
 ├──────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────┤
-│ Current Version          │ 1.2.0 (Operational Governance Hardened Release)                                       │
+│ Current Version          │ 1.4.0 (Authoritative Operational & Container Hardening Standard)                      │
 ├──────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────┤
 │ Effective Date           │ September 2026                                                                        │
 ├──────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────┤
-│ Supersedes               │ Version 1.1.0 (Hardened Pre-Pilot Release)                                            │
+│ Supersedes               │ Version 1.3.0 (Operational Container Hardening & Cryptographic Identity Standard)     │
 ├──────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────┤
-│ Change Reason            │ AI threat model expansion (workers, daemons, CONNECT, IPv6), cryptographic shredding  │
-│                          │ correction, KMS quorum authorization, assistive software hashing, and incident SOP.   │
+│ Change Reason            │ Biometric RAM-Only Non-Leakage Protocol, core dump suppression, WORM prohibition,     │
+│                          │ pure ASCII notation enforcement, and reproducible container toolchain validation.     │
 ├──────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────┤
 │ Amendment Policy         │ Modifications require unanimous Certification Board quorum, version increment, and   │
 │                          │ published impact assessment prior to cohort execution.                                │

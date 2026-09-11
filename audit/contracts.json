@@ -1,7 +1,7 @@
 {
   "summary": {
-    "generated": "2026-09-09T22:16:42.098Z",
-    "appCodeFiles": 364,
+    "generated": "2026-09-10T11:06:48.347Z",
+    "appCodeFiles": 365,
     "verticals": 57,
     "verticalsWithDefects": 14,
     "clientCalledPaths": 174,
@@ -10,7 +10,7 @@
     "brokenOnSomeMethods": 8,
     "defectsInDeadCode": 23,
     "unbuiltPages": 15,
-    "reachableSourceFiles": 351,
+    "reachableSourceFiles": 352,
     "guardBranches": 173,
     "unreachableOrDynamicGuards": 82,
     "campusSwitchCases": 102,
@@ -2577,7 +2577,7 @@
         },
         {
           "file": "src/app/onboarding/page.tsx",
-          "line": 1165,
+          "line": 1276,
           "live": true
         },
         {
@@ -2667,7 +2667,7 @@
         },
         {
           "file": "src/app/onboarding/page.tsx",
-          "line": 1165,
+          "line": 1276,
           "live": true
         },
         {
@@ -9975,7 +9975,7 @@
         },
         {
           "file": "src/lib/supabaseService.ts",
-          "line": 1266,
+          "line": 1267,
           "live": true
         },
         {
@@ -9990,7 +9990,7 @@
         },
         {
           "file": "src/lib/supabaseService.ts",
-          "line": 1266,
+          "line": 1267,
           "live": true
         }
       ],
@@ -11981,7 +11981,7 @@
       "callSites": [
         {
           "file": "src/app/onboarding/page.tsx",
-          "line": 1607,
+          "line": 1724,
           "live": true
         },
         {
@@ -11991,7 +11991,7 @@
         },
         {
           "file": "src/app/onboarding/page.tsx",
-          "line": 1607,
+          "line": 1724,
           "live": true
         },
         {
@@ -12756,7 +12756,7 @@
       "callSites": [
         {
           "file": "src/app/onboarding/page.tsx",
-          "line": 978,
+          "line": 1089,
           "live": true
         },
         {
@@ -12766,7 +12766,7 @@
         },
         {
           "file": "src/app/onboarding/page.tsx",
-          "line": 978,
+          "line": 1089,
           "live": true
         },
         {
@@ -13958,12 +13958,12 @@
       "callSites": [
         {
           "file": "src/app/onboarding/page.tsx",
-          "line": 575,
+          "line": 627,
           "live": true
         },
         {
           "file": "src/app/onboarding/page.tsx",
-          "line": 575,
+          "line": 627,
           "live": true
         }
       ],
@@ -14043,12 +14043,12 @@
       "callSites": [
         {
           "file": "src/app/onboarding/page.tsx",
-          "line": 436,
+          "line": 488,
           "live": true
         },
         {
           "file": "src/app/onboarding/page.tsx",
-          "line": 510,
+          "line": 562,
           "live": true
         },
         {
