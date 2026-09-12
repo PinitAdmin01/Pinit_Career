@@ -493,8 +493,8 @@ function QuestsPageContent() {
       const finalGoal = customGoal ? customGoal.trim() : config.role;
       const { generateDynamicStudentRoadmap } = await import('@/lib/data/roadmapFuser');
       const dynamicModules = generateDynamicStudentRoadmap({
-        qt1: onboardingAnswers?.qt1_score ?? 75,
-        qt2: onboardingAnswers?.qt2_score ?? 80,
+        qt1: onboardingAnswers?.qt1_score ?? 40,
+        qt2: onboardingAnswers?.qt2_score ?? 40,
         archetype: onboardingAnswers?.mindset_archetype || 'Pattern Hunter',
         goal: finalGoal,
         courseId: config.courseId,
@@ -535,8 +535,8 @@ function QuestsPageContent() {
 
   // Derive target trajectory dynamically using AI Recommender based on active course ID or current role
   const currentRole = (activeCourseId && COURSE_TO_ROLE[activeCourseId]) || onboardingAnswers?.role || 'Software Development Engineer (SDE)';
-  const qt1 = onboardingAnswers?.qt1_score ?? 75;
-  const qt2 = onboardingAnswers?.qt2_score ?? 80;
+  const qt1 = onboardingAnswers?.qt1_score ?? 40;
+  const qt2 = onboardingAnswers?.qt2_score ?? 40;
   const archetype = onboardingAnswers?.mindset_archetype || 'Pattern Hunter';
   const fusedTrajectory: CareerTrajectory = recommendCareerTrajectory(
     currentRole,

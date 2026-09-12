@@ -122,6 +122,17 @@ function LeaderboardContent() {
   useEffect(() => {
     async function loadLiveTelemetry() {
       try {
+        let baseRoster = SAMPLE_LEADERBOARD_BASELINE;
+        try {
+          const res = await fetch('/api/leaderboard');
+          const data = await res.json();
+          if (data.ok && Array.isArray(data.leaderboard) && data.leaderboard.length > 0) {
+            baseRoster = data.leaderboard;
+          }
+        } catch {
+          // Network fallback to baseline
+        }
+
         const profile = await PathwayApiService.getStudentSkillProfile(currentStudentId);
         const readiness = await PathwayApiService.getRoleReadiness(currentStudentId);
         setCurrentUserProfile(profile);
@@ -144,7 +155,7 @@ function LeaderboardContent() {
           isCurrentUser: true,
         };
 
-        const combined = [...SAMPLE_LEADERBOARD_BASELINE.filter(e => e.studentId !== currentStudentId), userEntry];
+        const combined = [...baseRoster.filter(e => e.studentId !== currentStudentId), userEntry];
         
         // Sort strictly by: 1. Verified skills, 2. Defense score, 3. Learning gain
         combined.sort((a, b) => {

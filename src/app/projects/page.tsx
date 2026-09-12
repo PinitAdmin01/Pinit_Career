@@ -734,11 +734,14 @@ function ProjectsPageContent() {
         console.warn('[Project Verification] Could not get session token:', authErr);
       }
 
-      // PR-05 FIX: Real network ingestion call — zero fake setTimeout chains
+      // PR-05 FIX: Real network ingestion call with student identity verification (DEF-040)
       const res = await fetch('/api/github/ingest', {
         method: 'POST',
         headers: { ...authHeader, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ repoUrl: githubUrl.trim() })
+        body: JSON.stringify({
+          repoUrl: githubUrl.trim(),
+          studentUsername: (user as any)?.githubUsername || user?.username || (user as any)?.displayName || (user as any)?.name
+        })
       });
 
       const data = await res.json();
@@ -776,6 +779,12 @@ function ProjectsPageContent() {
       }
       const score = auditReport.overallEvidenceScore;
 
+      // DEF-040: Verify student authorship vs external reference
+      const isAuthored = auditReport.isAuthoredByStudent !== false && auditReport.authorshipStatus !== 'UNVERIFIED_EXTERNAL';
+      const certType = isAuthored ? ('standard' as const) : ('reference' as const);
+      const earnedXp = isAuthored ? 1000 : 250;
+      const earnedPins = isAuthored ? 20 : 5;
+
       // PR-04 FIX: Cryptographically collision-safe Certificate ID
       const randHex = typeof crypto !== 'undefined' && crypto.randomUUID
         ? crypto.randomUUID().replace(/-/g, '').substring(0, 8).toUpperCase()
@@ -792,7 +801,8 @@ function ProjectsPageContent() {
             githubLink: githubUrl,
             demoLink: liveDemoUrl || undefined,
             verificationScore: score,
-            certificateType: 'standard' as const,
+            certificateType: certType,
+            authorshipVerified: isAuthored,
             certificateId: certId,
             issueDate: dateStr
           };
@@ -804,8 +814,8 @@ function ProjectsPageContent() {
       if (updatedProj) setSelectedGuideProject(updatedProj);
       
       // Perform automated synchronization updates
-      addXp(1000, `Completed Project: ${selectedGuideProject.name}`);
-      earnPins('vault_verify', 20, `Completed Project: ${selectedGuideProject.name}`);
+      addXp(earnedXp, `${isAuthored ? 'Completed Project' : 'Linked Reference Project'}: ${selectedGuideProject.name}`);
+      earnPins('vault_verify', earnedPins, `${isAuthored ? 'Completed Project' : 'Linked Reference Project'}: ${selectedGuideProject.name}`);
 
       // Record in authoritative pathway evidence engine
       const competencyMap: Record<string, string> = {
@@ -822,13 +832,13 @@ function ProjectsPageContent() {
         competencyId: compId,
         competencyVersion: 'v1',
         programId: 'prog_swe_accelerated_9m',
-        evidenceClass: 'production',
+        evidenceClass: isAuthored ? 'production' : 'application',
         difficulty: 'advanced',
         evidenceFamilyId: 'project_submission',
         sourceType: 'project',
         sourceId: selectedGuideProject.id,
         attemptId: certId,
-        score,
+        score: isAuthored ? score : Math.min(score, 60),
         evaluatorType: 'deterministic',
         evaluatorVersion: 'v1.0',
         rubricVersion: 'v1.0',
@@ -841,7 +851,14 @@ function ProjectsPageContent() {
       }).catch((err: unknown) => console.warn('Failed to record standard project evidence:', err));
       
       setShowReport(false);
-      toast.success('Project Completed! 🏅', `Issued AI Evidence Certificate (${score}%) with hash ${certId}.`);
+      if (isAuthored) {
+        toast.success('Project Completed! 🏅', `Issued AI Evidence Certificate (${score}%) with hash ${certId}.`);
+      } else {
+        toast.info(
+          'Linked as External Reference 📖',
+          `Repository authored by '${auditReport.metadata?.owner || 'External'}'. Saved as External Reference (+${earnedXp} XP). Original authorship needed for full Capstone certificate.`
+        );
+      }
     }
   };
 
@@ -1161,8 +1178,10 @@ function ProjectsPageContent() {
                             <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--amber)' }}>⚡ In Progress</span>
                           )}
                           {p.status === 'Completed' && (
-                            <span style={{ fontSize: 11, fontWeight: 900, color: 'var(--success)' }}>
-                              {p.vivaPassed ? '🏆 Verified Excellence' : '🏅 AI Verified'}
+                            <span style={{ fontSize: 11, fontWeight: 900, color: p.certificateType === 'reference' ? 'var(--amber)' : 'var(--success)' }}>
+                              {p.certificateType === 'reference'
+                                ? '📖 External Reference'
+                                : p.vivaPassed ? '🏆 Verified Excellence' : '🏅 AI Verified'}
                             </span>
                           )}
                         </div>
@@ -1423,23 +1442,31 @@ function ProjectsPageContent() {
                       background: 'var(--bg3)',
                       textAlign: 'center', display: 'flex', flexDirection: 'column', gap: 12
                     }}>
-                      <div style={{ fontSize: 28 }}>🏅</div>
+                      <div style={{ fontSize: 28 }}>{selectedGuideProject.certificateType === 'reference' ? '📖' : '🏅'}</div>
                       <div>
                         <strong style={{ fontSize: 14, color: 'var(--t1)', display: 'block' }}>
-                          {selectedGuideProject.vivaPassed ? '🏆 AI Verified Excellence Certificate' : '🏅 AI Verified Project Certificate'}
+                          {selectedGuideProject.certificateType === 'reference'
+                            ? '📖 External Reference Record'
+                            : selectedGuideProject.vivaPassed ? '🏆 AI Verified Excellence Certificate' : '🏅 AI Verified Project Certificate'}
                         </strong>
                         <span style={{ fontSize: 11.5, color: 'var(--t3)' }}>
-                          Status: <strong>VERIFIED ({selectedGuideProject.verificationScore || 91}%)</strong>
+                          Status: <strong>{selectedGuideProject.certificateType === 'reference' ? 'EXTERNAL REFERENCE (Unverified Authorship)' : `VERIFIED (${selectedGuideProject.verificationScore || 91}%)`}</strong>
                         </span>
                       </div>
 
-                      <button
-                        onClick={() => setActiveCertificate(selectedGuideProject)}
-                        className="btn-primary"
-                        style={{ padding: '8px 16px', fontSize: 12, justifyContent: 'center' }}
-                      >
-                        🎓 View Certificate
-                      </button>
+                      {selectedGuideProject.certificateType !== 'reference' ? (
+                        <button
+                          onClick={() => setActiveCertificate(selectedGuideProject)}
+                          className="btn-primary"
+                          style={{ padding: '8px 16px', fontSize: 12, justifyContent: 'center' }}
+                        >
+                          🎓 View Certificate
+                        </button>
+                      ) : (
+                        <div style={{ fontSize: 11, color: 'var(--amber)', background: 'rgba(245, 158, 11, 0.08)', padding: '8px 12px', borderRadius: 8, border: '1px dashed rgba(245, 158, 11, 0.3)' }}>
+                          ℹ️ Ingested as External Reference. Link an original repository owned by your GitHub account to unlock full Capstone Certificate & Placement Credit.
+                        </div>
+                      )}
                     </div>
                   )}
 

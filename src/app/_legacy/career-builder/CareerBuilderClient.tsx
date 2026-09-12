@@ -790,7 +790,7 @@ export default function CareerBuilderClient() {
     return js;
   };
 
-  const selectPlaygroundQuest = (q: Quest) => {
+  const selectPlaygroundQuest = async (q: Quest) => {
     if (completedQuests.includes(q.id)) {
       setActivePlaygroundQuest(q);
       setCode(q.starterCode);
@@ -799,7 +799,8 @@ export default function CareerBuilderClient() {
       return;
     }
 
-    if (unlockItem(`quest:${q.id}`, 'quest', `Unlock Quest: ${q.title.split(':')[1]?.trim() || q.title}`)) {
+    const ok = await unlockItem(`quest:${q.id}`, 'quest', `Unlock Quest: ${q.title.split(':')[1]?.trim() || q.title}`);
+    if (ok) {
       setActivePlaygroundQuest(q);
       setCode(q.starterCode);
       setOutput(null);

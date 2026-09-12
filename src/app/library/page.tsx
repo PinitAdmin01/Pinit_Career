@@ -20,15 +20,37 @@ export default function StudentLibrary() {
   const [readingEbook, setReadingEbook] = useState<any | null>(null);
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const cached = localStorage.getItem('pinit_library_cache');
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          if (parsed.books) setBooks(parsed.books);
+          if (parsed.borrowed) setBorrowed(parsed.borrowed);
+          if (parsed.reserves) setReserves(parsed.reserves);
+        }
+      } catch {}
+    }
     fetchLibraryData();
   }, []);
 
   const fetchLibraryData = async () => {
     try {
       const data = await api.get<{ books: any[]; borrowed: any[]; reserves: any[] }>('/api/library/books');
-      setBooks(data.books || []);
-      setBorrowed(data.borrowed || []);
-      setReserves(data.reserves || []);
+      if (data) {
+        setBooks(data.books || []);
+        setBorrowed(data.borrowed || []);
+        setReserves(data.reserves || []);
+        if (typeof window !== 'undefined') {
+          try {
+            localStorage.setItem('pinit_library_cache', JSON.stringify({
+              books: data.books || [],
+              borrowed: data.borrowed || [],
+              reserves: data.reserves || []
+            }));
+          } catch {}
+        }
+      }
     } catch {}
   };
 
@@ -297,6 +319,9 @@ export default function StudentLibrary() {
                       <div className="book-author">by {b.author}</div>
                       <div className="book-meta">ISBN: {b.isbn}</div>
                       <div className="book-genre-tag">{b.genre}</div>
+                      <div style={{ fontSize: 11, color: 'var(--t2)', marginTop: 6, display: 'flex', alignItems: 'center', gap: 4, fontFamily: 'var(--font-mono)' }}>
+                        <span>📍</span> {b.shelfLocation || 'Aisle 4 · Rack GN-01'}
+                      </div>
                     </div>
 
                     <div className="book-footer">

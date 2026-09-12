@@ -20,7 +20,8 @@ function LoginContent() {
   const searchParams = useSearchParams();
 
   // Primary Navigation Tab: 'vault' (QR) vs 'password' (Email/Password Login) vs 'signup' (Create Student Account)
-  const initialMode = searchParams.get('mode') === 'signup' ? 'signup' : searchParams.get('mode') === 'password' ? 'password' : 'vault';
+  // Default to 'password' so single-device mobile users and standard students have immediate access
+  const initialMode = searchParams.get('mode') === 'signup' ? 'signup' : searchParams.get('mode') === 'vault' ? 'vault' : 'password';
   const [mainTab, setMainTab] = useState<'vault' | 'password' | 'signup'>(initialMode);
 
   // Vault QR & Trusted Device State
@@ -49,7 +50,7 @@ function LoginContent() {
         !!localStorage.getItem(`pinit_${user.id}_onboarding_answers`);
       const onboardCompleted = dbSaysComplete || localSaysComplete;
 
-      if (!onboardCompleted || (user as any).isDevUser) {
+      if (!onboardCompleted) {
         router.push('/onboarding');
       } else {
         router.push('/dashboard');

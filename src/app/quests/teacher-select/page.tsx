@@ -87,13 +87,13 @@ function TeacherSelectPageContent() {
     setSelected(teacherId);
     setSaving(true);
     try {
-      // Save teacher selection in onboardingAnswers or context profile
-      const nextAnswers = {
-        ...onboardingAnswers,
-        selectedTeacherId: teacherId
-      };
-      setOnboarding(nextAnswers, true);
-      
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.setItem(`pinit_quest_teacher_${questId}`, teacherId);
+          localStorage.setItem('pinit_selected_teacher_id', teacherId);
+        } catch {}
+      }
+
       // Redirect to lesson
       router.push(`/quests/lesson?questId=${encodeURIComponent(questId)}&teacherId=${encodeURIComponent(teacherId)}`);
     } catch (err) {
@@ -126,6 +126,7 @@ function TeacherSelectPageContent() {
           return (
             <div
               key={teacher.id}
+              data-testid={`teacher-card-${teacher.id}`}
               onClick={() => !saving && handleChooseTeacher(teacher.id)}
               className="glass-card card-hover"
               style={{
@@ -169,6 +170,11 @@ function TeacherSelectPageContent() {
                   🎯 Focus: {teacher.focus}
                 </div>
                 <button
+                  data-testid={`btn-select-teacher-${teacher.id}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (!saving) handleChooseTeacher(teacher.id);
+                  }}
                   style={{
                     width: '100%',
                     background: isCurrent ? teacher.accent : 'var(--bg1)',

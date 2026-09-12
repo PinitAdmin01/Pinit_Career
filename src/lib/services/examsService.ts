@@ -39,6 +39,33 @@ async function writeLocalDb(data: any): Promise<void> {
   await writeLocalJson(DB_FILE, data);
 }
 
+function getLocalSheet(db: any): ExamResultsSheet {
+  if (db.sheet && Array.isArray(db.sheet.results) && db.sheet.results.length > 0) {
+    return {
+      isPublished: Boolean(db.sheet.isPublished),
+      gpa: Number(db.sheet.gpa || 0),
+      results: db.sheet.results
+    };
+  }
+  if (Array.isArray(db.results) && db.results.length > 0) {
+    return {
+      isPublished: Boolean(db.isPublished),
+      gpa: Number(db.gpa || 0),
+      results: db.results
+    };
+  }
+  return {
+    isPublished: Boolean(db.isPublished ?? db.sheet?.isPublished),
+    gpa: Number(db.gpa ?? db.sheet?.gpa ?? 0),
+    results: [
+      { course: 'Distributed Systems', code: 'CS601', internals: 28, semester: 0, grade: 'Pending' },
+      { course: 'Compiler Design', code: 'CS602', internals: 27, semester: 0, grade: 'Pending' },
+      { course: 'Computer Networks', code: 'CS603', internals: 26, semester: 0, grade: 'Pending' },
+      { course: 'Machine Learning', code: 'CS604', internals: 29, semester: 0, grade: 'Pending' }
+    ]
+  };
+}
+
 export const examsService = {
   async getStudentSchedule() {
     const isSupabaseAvailable = await checkSupabaseAvailable('exam_schedule');
@@ -91,7 +118,11 @@ export const examsService = {
 
     // Local Database Fallback
     const db = await readLocalDb();
-    return db.sheet;
+    return getLocalSheet(db);
+  },
+
+  async getMarksSheet(studentId: string) {
+    return this.getStudentResults(studentId);
   },
 
   async submitMarks(studentId: string, marks: Record<string, number>) {
@@ -103,27 +134,35 @@ export const examsService = {
         if (record) {
           let totalGPs = 0;
           const updatedResults = (record.results || []).map((r: any) => {
-            const semMarkRaw = Number(marks[r.code]) || 0;
+            const isAbsent = marks[r.code] === undefined || marks[r.code] === null;
+            const semMarkRaw = isAbsent ? 0 : Number(marks[r.code]) || 0;
             const semMark = Math.min(70, Math.max(0, semMarkRaw));
             const total = r.internals + semMark;
             let grade = 'F';
             let gp = 0;
-            if (total >= 90) { grade = 'O'; gp = 10; }
-            else if (total >= 80) { grade = 'A+'; gp = 9; }
-            else if (total >= 70) { grade = 'A'; gp = 8; }
-            else if (total >= 60) { grade = 'B+'; gp = 7; }
-            else if (total >= 50) { grade = 'B'; gp = 6; }
-            else if (total >= 40) { grade = 'C'; gp = 5; }
+            if (!isAbsent) {
+              if (total >= 90) { grade = 'O'; gp = 10; }
+              else if (total >= 80) { grade = 'A+'; gp = 9; }
+              else if (total >= 70) { grade = 'A'; gp = 8; }
+              else if (total >= 60) { grade = 'B+'; gp = 7; }
+              else if (total >= 50) { grade = 'B'; gp = 6; }
+              else if (total >= 40) { grade = 'C'; gp = 5; }
+              else { grade = 'F'; gp = 0; }
+            } else {
+              grade = 'Absent';
+              gp = 0;
+            }
 
             totalGPs += gp;
             return {
               ...r,
               semester: semMark,
-              grade: semMark > 0 ? grade : 'Incomplete'
+              grade,
+              isAbsent
             };
           });
 
-          const newGpa = Number((totalGPs / updatedResults.length).toFixed(2));
+          const newGpa = updatedResults.length > 0 ? Number((totalGPs / updatedResults.length).toFixed(2)) : 0;
           const res = await supabase.from('exam_results').update({
             results: updatedResults,
             gpa: newGpa
@@ -139,31 +178,43 @@ export const examsService = {
 
     // Local Database Fallback
     const db = await readLocalDb();
+    const sheet = getLocalSheet(db);
     let totalGPs = 0;
-    db.sheet.results = db.sheet.results.map((r: any) => {
-      const semMarkRaw = Number(marks[r.code]) || 0;
+    sheet.results = sheet.results.map((r: any) => {
+      const isAbsent = marks[r.code] === undefined || marks[r.code] === null;
+      const semMarkRaw = isAbsent ? 0 : Number(marks[r.code]) || 0;
       const semMark = Math.min(70, Math.max(0, semMarkRaw));
       const total = r.internals + semMark;
       let grade = 'F';
       let gp = 0;
-      if (total >= 90) { grade = 'O'; gp = 10; }
-      else if (total >= 80) { grade = 'A+'; gp = 9; }
-      else if (total >= 70) { grade = 'A'; gp = 8; }
-      else if (total >= 60) { grade = 'B+'; gp = 7; }
-      else if (total >= 50) { grade = 'B'; gp = 6; }
-      else if (total >= 40) { grade = 'C'; gp = 5; }
+      if (!isAbsent) {
+        if (total >= 90) { grade = 'O'; gp = 10; }
+        else if (total >= 80) { grade = 'A+'; gp = 9; }
+        else if (total >= 70) { grade = 'A'; gp = 8; }
+        else if (total >= 60) { grade = 'B+'; gp = 7; }
+        else if (total >= 50) { grade = 'B'; gp = 6; }
+        else if (total >= 40) { grade = 'C'; gp = 5; }
+        else { grade = 'F'; gp = 0; }
+      } else {
+        grade = 'Absent';
+        gp = 0;
+      }
 
       totalGPs += gp;
       return {
         ...r,
         semester: semMark,
-        grade: semMark > 0 ? grade : 'Incomplete'
+        grade,
+        isAbsent
       };
     });
 
-    db.sheet.gpa = Number((totalGPs / db.sheet.results.length).toFixed(2));
+    sheet.gpa = sheet.results.length > 0 ? Number((totalGPs / sheet.results.length).toFixed(2)) : 0;
+    db.sheet = sheet;
+    db.results = sheet.results;
+    db.gpa = sheet.gpa;
     await writeLocalDb(db);
-    return { ok: true, gpa: db.sheet.gpa };
+    return { ok: true, gpa: sheet.gpa };
   },
 
   async publishResults(studentId: string, isPublished: boolean) {
@@ -216,6 +267,60 @@ export const examsService = {
     } catch {
       return false;
     }
+  },
+
+  async getExamCooldown(studentId: string, registerNumber: string | undefined, examScheduleId: string): Promise<{
+    inCooldown: boolean;
+    remainingHours: number;
+    lastAttemptTime?: number;
+    score?: number;
+    passed?: boolean;
+  }> {
+    const COOLDOWN_MS = 24 * 60 * 60 * 1000; // 24 hours
+    const isSupabaseAvailable = await checkSupabaseAvailable('exam_attempts');
+    if (isSupabaseAvailable) {
+      try {
+        let query = supabase.from('exam_attempts').select('id, score, passed, created_at');
+        if (registerNumber) {
+          query = query.or(`student_id.eq.${studentId},register_number.eq.${registerNumber}`);
+        } else {
+          query = query.eq('student_id', studentId);
+        }
+        const { data } = await query.eq('exam_schedule_id', examScheduleId).order('created_at', { ascending: false }).limit(1).maybeSingle();
+        if (data && data.created_at) {
+          const attemptTime = new Date(data.created_at).getTime();
+          const elapsed = Date.now() - attemptTime;
+          if (elapsed < COOLDOWN_MS) {
+            const remainingHours = Math.max(0.1, Number(((COOLDOWN_MS - elapsed) / (1000 * 60 * 60)).toFixed(1)));
+            return { inCooldown: true, remainingHours, lastAttemptTime: attemptTime, score: data.score, passed: data.passed };
+          }
+          return { inCooldown: false, remainingHours: 0, lastAttemptTime: attemptTime, score: data.score, passed: data.passed };
+        }
+      } catch (err) {
+        console.warn('Supabase getExamCooldown failed, checking local DB fallback:', err);
+      }
+    }
+
+    // Local DB Fallback
+    try {
+      const db = await readLocalDb();
+      const attempts = (db.attempts || []).filter((a: any) =>
+        (a.studentId === studentId || (registerNumber && a.registerNumber === registerNumber)) &&
+        a.examScheduleId === examScheduleId
+      );
+      if (attempts.length > 0) {
+        const last = attempts[attempts.length - 1];
+        const attemptTime = last.timestamp || (last.created_at ? new Date(last.created_at).getTime() : Date.now());
+        const elapsed = Date.now() - attemptTime;
+        if (elapsed < COOLDOWN_MS) {
+          const remainingHours = Math.max(0.1, Number(((COOLDOWN_MS - elapsed) / (1000 * 60 * 60)).toFixed(1)));
+          return { inCooldown: true, remainingHours, lastAttemptTime: attemptTime, score: last.score, passed: last.passed };
+        }
+        return { inCooldown: false, remainingHours: 0, lastAttemptTime: attemptTime, score: last.score, passed: last.passed };
+      }
+    } catch {}
+
+    return { inCooldown: false, remainingHours: 0 };
   },
 
   async recordExamAttempt(params: {

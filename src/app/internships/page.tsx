@@ -144,6 +144,17 @@ export default function InternshipsPage() {
         </button>
       </div>
 
+      {/* Navigation Quick-Bridge to Placement Predictor */}
+      <div style={{ background: 'rgba(99, 102, 241, 0.08)', border: '1px solid rgba(99, 102, 241, 0.25)', borderRadius: 12, padding: '12px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16, flexWrap: 'wrap', gap: 10 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <span style={{ fontSize: 18 }}>🔮</span>
+          <span style={{ fontSize: 12.5, color: 'var(--t1)' }}>Looking for the <strong>AI Placement Predictor</strong> and company readiness matrix?</span>
+        </div>
+        <Link href="/career-intelligence?tab=tracker" style={{ fontSize: 12, fontWeight: 700, color: 'var(--accent)', textDecoration: 'none', background: 'var(--bg2)', padding: '6px 12px', borderRadius: 8, border: '1px solid var(--border)' }}>
+          Open AI Placement Predictor →
+        </Link>
+      </div>
+
       {/* Info Notice */}
       <div style={{ background: 'rgba(59, 130, 246, 0.08)', border: '1px solid rgba(59, 130, 246, 0.25)', borderRadius: 12, padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
         <span style={{ fontSize: 20 }}>💡</span>

@@ -1,3 +1,34 @@
 {
-  "tickets": []
+  "tickets": [
+    {
+      "id": "INF-275",
+      "category": "HVAC & Electrical",
+      "location": "Block A Lab 101",
+      "description": "[EMERGENCY] Exposed sparking conduit wire near main server rack",
+      "status": "Reported",
+      "date": "2026-09-12",
+      "technician": "",
+      "urgency": "Emergency"
+    },
+    {
+      "id": "INF-768",
+      "category": "HVAC & Electrical",
+      "location": "Block A Lab 101",
+      "description": "[EMERGENCY] Exposed sparking conduit wire near main server rack",
+      "status": "Reported",
+      "date": "2026-09-12",
+      "technician": "",
+      "urgency": "Emergency"
+    },
+    {
+      "id": "INF-621",
+      "category": "HVAC & Electrical",
+      "location": "Block A Lab 101",
+      "description": "[EMERGENCY] Exposed sparking conduit wire near main server rack",
+      "status": "Reported",
+      "date": "2026-09-12",
+      "technician": "",
+      "urgency": "Emergency"
+    }
+  ]
 }

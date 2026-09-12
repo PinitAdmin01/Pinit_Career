@@ -110,6 +110,45 @@ export default function AttentionSpanPage() {
     setLoaded(true);
     if (user?.id) {
       fetchLeaderboard(user.id);
+      fetch('/api/attention-span/progress')
+        .then(res => res.json())
+        .then(data => {
+          if (data.ok && data.stats) {
+            setStats(prev => {
+              const serverStats = data.stats;
+              const merged: AttentionStats = {
+                ...prev,
+                focusFireBest: Math.max(prev.focusFireBest, serverStats.focusFireBest || 0),
+                memoryMatrixBest: Math.max(prev.memoryMatrixBest, serverStats.memoryMatrixBest || 0),
+                reflexRushBest: prev.reflexRushBest === 0
+                  ? (serverStats.reflexRushBest || 0)
+                  : serverStats.reflexRushBest > 0
+                    ? Math.min(prev.reflexRushBest, serverStats.reflexRushBest)
+                    : prev.reflexRushBest,
+                sequenceSnapBest: Math.max(prev.sequenceSnapBest, serverStats.sequenceSnapBest || 0),
+                vortexVisionBest: Math.max(prev.vortexVisionBest || 0, serverStats.vortexVisionBest || 0),
+                flashFusionBest: Math.max(prev.flashFusionBest || 0, serverStats.flashFusionBest || 0),
+                shapeShifterBest: Math.max(prev.shapeShifterBest || 0, serverStats.shapeShifterBest || 0),
+                patternForgeBest: Math.max(prev.patternForgeBest || 0, serverStats.patternForgeBest || 0),
+                logicCircuitBest: Math.max(prev.logicCircuitBest || 0, serverStats.logicCircuitBest || 0),
+                storeSimBest: Math.max(prev.storeSimBest || 0, serverStats.storeSimBest || 0),
+                precisionPointerBest: Math.max(prev.precisionPointerBest || 0, serverStats.precisionPointerBest || 0),
+                totalSessions: Math.max(prev.totalSessions, serverStats.totalSessions || 0),
+                streak: Math.max(prev.streak, serverStats.streak || 0),
+                lastPlayedDate: prev.lastPlayedDate || serverStats.lastPlayedDate || '',
+                dailyScores: { ...(serverStats.dailyScores || {}), ...prev.dailyScores },
+                dailySessions: { ...(serverStats.dailySessions || {}), ...prev.dailySessions },
+                completedDifficulties: { ...(serverStats.completedDifficulties || {}), ...prev.completedDifficulties },
+              };
+              try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+              } catch {}
+              return merged;
+            });
+          }
+        })
+        .catch(() => {});
+
       fetch(`/api/attention-span/analytics?userId=${user.id}`)
         .then(res => res.json())
         .then(data => {
@@ -133,11 +172,28 @@ export default function AttentionSpanPage() {
     }
   };
 
-  // ── Save stats helper ──
+  // ── Save stats helper with bounds checking & server persistence ──
   const saveStats = useCallback((next: AttentionStats) => {
-    setStats(next);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-  }, []);
+    const sanitized: AttentionStats = {
+      ...next,
+      reflexRushBest: next.reflexRushBest > 0 ? Math.max(80, Math.min(10000, next.reflexRushBest)) : 0,
+      focusFireBest: Math.max(0, Math.min(50000, next.focusFireBest)),
+      memoryMatrixBest: Math.max(0, Math.min(100, next.memoryMatrixBest)),
+      sequenceSnapBest: Math.max(0, Math.min(100, next.sequenceSnapBest)),
+      streak: Math.max(0, Math.min(3650, next.streak)),
+      totalSessions: Math.max(0, next.totalSessions),
+    };
+    setStats(sanitized);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(sanitized));
+
+    if (user?.id) {
+      fetch('/api/attention-span/progress', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ stats: sanitized }),
+      }).catch(() => {});
+    }
+  }, [user?.id]);
 
   // ── Save history helper ──
   const addHistoryEntry = useCallback((entry: HistoryEntry) => {

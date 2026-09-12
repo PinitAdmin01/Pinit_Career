@@ -49,13 +49,26 @@ interface Message {
 
 function parseExperience(text: string): string {
   const t = text.toLowerCase();
-  if (t.includes('fresher') || t.includes('student') || t.includes('college') || t.includes('no experience') || t.includes('none')) {
-    return 'fresher';
+  if (t.includes('years') || t.includes('senior') || t.includes('lead')) {
+    return 'experienced';
   }
   if (t.includes('intern') || t.includes('months')) {
     return 'intern';
   }
-  return 'experienced';
+  if (
+    t.includes('fresher') ||
+    t.includes('student') ||
+    t.includes('college') ||
+    t.includes('no experience') ||
+    t.includes('none') ||
+    t.includes('arts') ||
+    t.includes('science') ||
+    t.includes('engineering') ||
+    t.includes('undergrad')
+  ) {
+    return 'fresher';
+  }
+  return 'fresher';
 }
 
 const IDENTITY_QS = [
@@ -392,9 +405,10 @@ export default function OnboardingPage() {
   const cOS = useCareerOS();
 
   useEffect(() => {
-    if (user && user.role && user.role !== 'student') {
+    // Only redirect staff roles that do not participate in student onboarding (teachers, recruiters, parents, consultants)
+    // Platform administrators and superadmins are permitted to access /onboarding for QA testing and fast-complete verification
+    if (user && user.role && user.role !== 'student' && user.role !== 'admin' && user.role !== 'superadmin') {
       if (user.role === 'teacher') router.replace('/admin/teacher');
-      else if (user.role === 'admin' || user.role === 'superadmin') router.replace('/admin');
       else if (user.role === 'recruiter') router.replace('/recruiter');
       else if (user.role === 'parent') router.replace('/parent');
       else if (user.role === 'consultant') router.replace('/consultant');
@@ -722,6 +736,8 @@ export default function OnboardingPage() {
       return () => {
         document.body.style.overflow = '';
         document.documentElement.style.overflow = '';
+        stopAvatarSpeaking();
+        stopVoiceListening();
       };
     }
   }, []);
@@ -877,6 +893,7 @@ export default function OnboardingPage() {
   const [codingExperience, setCodingExperience] = useState('');
   const [learningStyle, setLearningStyle] = useState('');
   const [weeklyHours, setWeeklyHours] = useState('');
+  const [isSubmittingStep, setIsSubmittingStep] = useState(false);
 
   // Screen 04-07 States
   const [currentIdentityQ, setCurrentIdentityQ] = useState(0);
@@ -1027,18 +1044,28 @@ export default function OnboardingPage() {
     return channelData;
   };
 
-  // Lazy-load in-browser Whisper transcriber pipeline from CDN (Webpack-bypass)
+  // Lazy-load in-browser Whisper transcriber pipeline from CDN with 4s timeout fail-safe
   const loadInBrowserTranscriber = async () => {
     if (transcriberRef.current) return transcriberRef.current;
+    // In production or HTTPS environments, external CDN script injection is prohibited by strict CSP. Fail fast to native WebSpeech / presets.
+    if (typeof window !== 'undefined' && (window.location.protocol === 'https:' || process.env.NODE_ENV === 'production')) {
+      return null;
+    }
     try {
-      const dynamicImport = new Function('url', 'return import(url)');
-      const { pipeline, env } = await dynamicImport('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2');
-      env.allowLocalModels = false;
-      const pipelineInstance = await pipeline('automatic-speech-recognition', 'Xenova/whisper-tiny.en');
-      transcriberRef.current = pipelineInstance;
-      return pipelineInstance;
+      const timeoutPromise = new Promise<null>((_, reject) =>
+        setTimeout(() => reject(new Error('In-browser model load timeout (4s exceeded)')), 4000)
+      );
+      const loaderPromise = (async () => {
+        const dynamicImport = new Function('url', 'return import(url)');
+        const { pipeline, env } = await dynamicImport('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2');
+        env.allowLocalModels = false;
+        const pipelineInstance = await pipeline('automatic-speech-recognition', 'Xenova/whisper-tiny.en');
+        transcriberRef.current = pipelineInstance;
+        return pipelineInstance;
+      })();
+      return await Promise.race([loaderPromise, timeoutPromise]);
     } catch (err) {
-      console.error("In-browser transcriber load failed:", err);
+      console.warn("[In-Browser STT] Model load bypassed or timed out:", err);
       return null;
     }
   };
@@ -1155,6 +1182,8 @@ export default function OnboardingPage() {
                 setComputedArchetype('Stabilizer');
               } else if (archetype === 'Expressive Communicator') {
                 setComputedArchetype('Social IQ');
+              } else {
+                setComputedArchetype('Pattern Hunter');
               }
             }
             handleUserAnswer(transcript);
@@ -1415,6 +1444,12 @@ export default function OnboardingPage() {
       return;
     }
 
+    if (isSubmittingStep) return;
+    setIsSubmittingStep(true);
+    const stepWatchdog = setTimeout(() => {
+      setIsSubmittingStep(false);
+    }, 2000);
+
     const userMsg: Message = {
       id: `msg_${Date.now()}`,
       sender: 'user',
@@ -1426,6 +1461,8 @@ export default function OnboardingPage() {
     setAnimState('thinking');
 
     scheduleSpeech(() => {
+      setIsSubmittingStep(false);
+      clearTimeout(stepWatchdog);
       const step = currentStepRef.current;
       if (step === 0) {
         setStudentType(text);
@@ -1529,19 +1566,42 @@ export default function OnboardingPage() {
     const userId = user?.id || 'guest';
     const modulesKey = `pinit_${userId}_roadmap_modules`;
 
-    const goalLower = goalRole.toLowerCase();
-    let selectedPath: 'java_sde' | 'react_frontend' | 'devops_cloud' = 'java_sde';
+    const goalLower = (goalRole || '').toLowerCase();
+    const profileLower = (profileType || '').toLowerCase();
+
+    let selectedPath: 'java_sde' | 'react_frontend' | 'devops_cloud' | 'financial_analyst' | 'business_analyst' = 'java_sde';
     let targetRoleLabel = 'Software Engineer';
     let skillsList = 'Java Standard Library, OOP Principles, Spring Boot REST, SQL Databases, System Design';
+    let weakAreas: string[] = ['Docker', 'System Design', 'Microservices'];
 
-    if (goalLower.includes('design') || goalLower.includes('ux') || goalLower.includes('ui') || goalLower.includes('front') || goalLower.includes('react')) {
+    const isCommerce = goalLower.includes('finance') || goalLower.includes('financial') || goalLower.includes('fintech') ||
+                       goalLower.includes('accounting') || goalLower.includes('risk') ||
+                       profileLower.includes('commerce') || profileLower.includes('b.com');
+
+    const isManagement = goalLower.includes('product') || goalLower.includes('business') || goalLower.includes('consult') ||
+                         goalLower.includes('operations') || goalLower.includes('growth') ||
+                         profileLower.includes('management') || profileLower.includes('bba') || profileLower.includes('mba');
+
+    if (isCommerce) {
+      selectedPath = 'financial_analyst';
+      targetRoleLabel = 'Financial & FinTech Analyst';
+      skillsList = 'Financial Modeling, Corporate Valuation, Excel Analysis, SQL, Tally Prime, Financial Accounting, Auditing, Tax Compliance';
+      weakAreas = ['Derivatives Trading', 'Regulatory Tech', 'Corporate Restructuring'];
+    } else if (isManagement) {
+      selectedPath = 'business_analyst';
+      targetRoleLabel = 'Product & Operations Manager';
+      skillsList = 'Product Strategy, Market Research, Agile Scrum, Growth Funnels, Data Analytics, Strategic Management, Negotiation';
+      weakAreas = ['Product Analytics', 'A/B Testing Experiments', 'Stakeholder Alignment'];
+    } else if (goalLower.includes('design') || goalLower.includes('ux') || goalLower.includes('ui') || goalLower.includes('front') || goalLower.includes('react')) {
       selectedPath = 'react_frontend';
       targetRoleLabel = 'UI/UX Designer';
       skillsList = 'React Hooks, NextJS SSR, Vanilla CSS, Zustand State, TypeScript Types';
+      weakAreas = ['Webpack', 'React Performance', 'Testing Library'];
     } else if (goalLower.includes('devops') || goalLower.includes('cloud') || goalLower.includes('aws') || goalLower.includes('pipeline') || goalLower.includes('docker')) {
       selectedPath = 'devops_cloud';
       targetRoleLabel = 'DevOps Engineer';
       skillsList = 'Docker Containers, CI/CD Pipelines, AWS Cloud Services, Prometheus & Grafana, Kubernetes Orchestration';
+      weakAreas = ['Kubernetes Security', 'Terraform IaC', 'Linux Scripting'];
     }
 
     setTimeout(() => {
@@ -1560,13 +1620,15 @@ export default function OnboardingPage() {
 
       try {
         // Calculate initial unverified QT1 and QT2 baseline scores (capped to entry level prior to live practical quests)
-        const baseCodingScore = codingExperience === 'Advanced Coder' ? 42 : codingExperience === 'Intermediate Coder' ? 36 : 28;
+        const isAdvanced = codingExperience === 'Advanced Coder' || codingExperience === 'Advanced Specialist';
+        const isIntermediate = codingExperience === 'Intermediate Coder' || codingExperience === 'Intermediate Analyst';
+        const baseCodingScore = isAdvanced ? 42 : isIntermediate ? 36 : 28;
         const csBonus = profileType.includes('Computer Science') ? 6 : 2;
         const hoursBonus = weeklyHours.includes('15+') ? 2 : 1;
         const computedQT1 = Math.max(liveQTMetrics.qt1Score, Math.min(50, baseCodingScore + csBonus + hoursBonus));
         
         const styleScore = learningStyle.includes('hands-on') ? 45 : learningStyle.includes('articles') ? 40 : 35;
-        const computedQT2 = Math.min(60, Math.round((styleScore + (codingExperience === 'Advanced Coder' ? 8 : 4)) * (identityAuditReport.trustScore / 100)));
+        const computedQT2 = Math.min(60, Math.round((styleScore + (isAdvanced ? 8 : 4)) * (identityAuditReport.trustScore / 100)));
 
         const finalUserGoal = (speechTranscript && speechTranscript.trim().length > 5 ? speechTranscript.trim() : targetGoal) || targetRoleLabel;
 
@@ -1591,8 +1653,9 @@ export default function OnboardingPage() {
             qt2_score: computedQT2,
             mindset_archetype: finalArch || 'Pattern Hunter',
             voice_transcript: speechTranscript || '',
-            voice_confidence: voiceConfidence ?? 90,
-            voice_articulation: voiceArticulation ?? 88,
+            voice_confidence: voiceConfidence ?? 0,
+            voice_articulation: voiceArticulation ?? 0,
+            voice_status: voiceConfidence !== null ? 'calibrated' : 'uncalibrated',
             voice_archetype: voiceArchetype || finalArch || 'Pattern Hunter'
           },
           roadmapGenerated: true
@@ -1620,8 +1683,9 @@ export default function OnboardingPage() {
           weeklyHours,
           accessReason: reason,
           voice_transcript: speechTranscript || '',
-          voice_confidence: voiceConfidence ?? 90,
-          voice_articulation: voiceArticulation ?? 88,
+          voice_confidence: voiceConfidence ?? 0,
+          voice_articulation: voiceArticulation ?? 0,
+          voice_status: voiceConfidence !== null ? 'calibrated' : 'uncalibrated',
           voice_archetype: voiceArchetype || finalArch || 'Pattern Hunter'
         }, true);
         cOS.setOnboardingStep(3); // Update master state to 3
@@ -1629,7 +1693,7 @@ export default function OnboardingPage() {
         
         try {
           const skillsArray = skillsList.split(',').map(s => s.trim());
-          await cOS.generateFusedRoadmap(skillsArray, ['Docker', 'System Design']);
+          await cOS.generateFusedRoadmap(skillsArray, weakAreas);
           await qc.invalidateQueries({ queryKey: KEYS.me });
         } catch (err) {
           console.warn('Roadmap seed failed after onboarding', err);
@@ -1719,6 +1783,7 @@ export default function OnboardingPage() {
         // Pack and transmit real PDF resume file payload
         const formData = new FormData();
         formData.append('file', uploadedFile);
+        formData.append('resume', uploadedFile);
         formData.append('userId', userId);
         formData.append('trajectory', trajectory);
         await api.post('/api/resume/upload', formData);
@@ -3372,6 +3437,28 @@ export default function OnboardingPage() {
               ⚡ Fast Finish (Admin Dev)
             </button>
           )}
+          {(user?.roadmapGenerated || (user as any)?.onboardingCompleted || (cOS as any)?.onboardingAnswers?.hasCompleted) && (
+            <button
+              type="button"
+              onClick={() => router.push('/dashboard')}
+              style={{
+                background: 'rgba(255,255,255,0.06)',
+                border: '1px solid rgba(255,255,255,0.12)',
+                borderRadius: 100,
+                color: 'var(--foreground)',
+                fontSize: 11,
+                fontWeight: 700,
+                padding: '6px 14px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6,
+                transition: 'all 0.2s ease'
+              }}
+            >
+              ← Return to Dashboard
+            </button>
+          )}
           <div style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: 'rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 100, padding: '4px 12px' }}>
             {stageLabel[activeScreen] || 'ONBOARDING'}
           </div>
@@ -3828,7 +3915,7 @@ export default function OnboardingPage() {
                       placeholder="e.g. Apex Institute" 
                       value={college}
                       onChange={(e) => setCollege(e.target.value)}
-                      style={{ width: '100%', height: 38, background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 8, padding: '0 12px', fontSize: 12.5, color: 'var(--card)', outline: 'none' }}
+                      style={{ width: '100%', height: 38, background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 8, padding: '0 12px', fontSize: 12.5, color: 'var(--t1)', outline: 'none' }}
                     />
                   </div>
                   <div>
@@ -3838,7 +3925,7 @@ export default function OnboardingPage() {
                       placeholder="e.g. B.Tech CSE" 
                       value={degree}
                       onChange={(e) => setDegree(e.target.value)}
-                      style={{ width: '100%', height: 38, background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 8, padding: '0 12px', fontSize: 12.5, color: 'var(--card)', outline: 'none' }}
+                      style={{ width: '100%', height: 38, background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 8, padding: '0 12px', fontSize: 12.5, color: 'var(--t1)', outline: 'none' }}
                     />
                   </div>
                 </div>
@@ -3956,7 +4043,7 @@ export default function OnboardingPage() {
                       <button
                         key={opt}
                         type="button"
-                        disabled={syncing}
+                        disabled={syncing || isSubmittingStep}
                         onClick={() => handleUserAnswer(opt)}
                         style={{
                           padding: '12px 20px',
@@ -3966,8 +4053,8 @@ export default function OnboardingPage() {
                           color: 'var(--brand-bright)',
                           fontSize: 13,
                           fontWeight: 700,
-                          cursor: syncing ? 'not-allowed' : 'pointer',
-                          opacity: syncing ? 0.5 : 1,
+                          cursor: (syncing || isSubmittingStep) ? 'not-allowed' : 'pointer',
+                          opacity: (syncing || isSubmittingStep) ? 0.5 : 1,
                           transition: 'all 0.15s ease',
                         }}
                       >
@@ -4436,7 +4523,7 @@ export default function OnboardingPage() {
                           flex: 1, height: 42,
                           background: speechState === 'recording' ? 'var(--coral)' : 'rgba(255,255,255,0.04)',
                           border: `1.5px solid ${speechState === 'recording' ? 'var(--coral)' : 'rgba(255,255,255,0.1)'}`,
-                          borderRadius: 10, color: 'var(--card)', fontWeight: 700, cursor: 'pointer'
+                          borderRadius: 10, color: '#ffffff', fontWeight: 700, cursor: 'pointer'
                         }}
                       >
                         {speechState === 'recording' ? '⏹ Stop Recording' : speechState === 'recorded' ? '🔄 Retry Recording' : '🎙️ Record Audio'}
@@ -4446,22 +4533,8 @@ export default function OnboardingPage() {
                         type="button"
                         disabled={!speechTranscript.trim() && speechState !== 'recorded'}
                         onClick={() => {
-                          let maxTrait = 'Pattern Hunter';
-                          let maxVal = -1;
-                          Object.entries(simulationScores).forEach(([trait, val]) => {
-                            if (val > maxVal) {
-                              maxVal = val;
-                              maxTrait = trait;
-                            }
-                          });
-                          
-                          const archetypeMap: Record<string, string> = {
-                            PatternHunter: 'Pattern Hunter',
-                            Stabilizer: 'Stabilizer',
-                            SocialIQ: 'Social IQ',
-                            Explorer: 'Explorer'
-                          };
-                          const selectedArch = archetypeMap[maxTrait] || 'Pattern Hunter';
+                          const breakdown = calculateQT2MindsetBreakdown(identityScores, simulationScores, voiceArchetype);
+                          const selectedArch = breakdown.dominantTraits?.[0] || 'Pattern Hunter';
                           setComputedArchetype(selectedArch);
                           
                           setActiveScreen('BLUEPRINT_REVEAL');
@@ -4471,7 +4544,7 @@ export default function OnboardingPage() {
                         style={{
                           flex: 1, height: 42,
                           background: 'linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%)',
-                          border: 'none', borderRadius: 10, color: 'var(--card)', fontWeight: 700, cursor: 'pointer',
+                          border: 'none', borderRadius: 10, color: '#ffffff', fontWeight: 700, cursor: 'pointer',
                           opacity: (!speechTranscript.trim() && speechState !== 'recorded') ? 0.5 : 1
                         }}
                       >
@@ -4518,7 +4591,7 @@ export default function OnboardingPage() {
                     </div>
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 10 }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))', gap: 12, marginBottom: 10 }}>
                     {[
                       { label: 'Pattern Hunter', icon: '🧩', score: qt2Breakdown.patternHunter, color: 'var(--brand)' },
                       { label: 'Stabilizer', icon: '🛡️', score: qt2Breakdown.stabilizer, color: 'var(--green)' },

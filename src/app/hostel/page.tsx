@@ -5,8 +5,13 @@
 import { useState, useEffect } from 'react';
 import { api } from '@/lib/api/client';
 import { toast } from '@/lib/store/useAppStore';
+import { useAuth } from '@/lib/context/AuthContext';
 
 export default function StudentHostel() {
+  const { user } = useAuth();
+  const studentKey = user?.id || 'guest_student';
+  const HOSTEL_STORAGE_KEY = `pinit_hostel_data_${studentKey}`;
+
   const [rooms, setRooms] = useState<any[]>([]);
   const [allocation, setAllocation] = useState<any>({ requestedRoom: null, status: 'none' });
   const [attendance, setAttendance] = useState<any[]>([]);
@@ -20,17 +25,42 @@ export default function StudentHostel() {
   const [submittingVisitor, setSubmittingVisitor] = useState(false);
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const cached = localStorage.getItem(HOSTEL_STORAGE_KEY);
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          if (parsed.rooms) setRooms(parsed.rooms);
+          if (parsed.allocation) setAllocation(parsed.allocation);
+          if (parsed.attendance) setAttendance(parsed.attendance);
+          if (parsed.complaints) setComplaints(parsed.complaints);
+          if (parsed.visitors) setVisitors(parsed.visitors);
+        }
+      } catch {}
+    }
     fetchHostelData();
-  }, []);
+  }, [HOSTEL_STORAGE_KEY]);
 
   const fetchHostelData = async () => {
     try {
       const data = await api.get<any>('/api/hostel/stats');
-      setRooms(data.rooms || []);
-      setAllocation(data.allocation || { requestedRoom: null, status: 'none' });
-      setAttendance(data.attendance || []);
-      setComplaints(data.complaints || []);
-      setVisitors(data.visitors || []);
+      if (data) {
+        setRooms(data.rooms || []);
+        setAllocation(data.allocation || { requestedRoom: null, status: 'none' });
+        setAttendance(data.attendance || []);
+        setComplaints(prev => {
+          const localOnly = prev.filter(c => c.id?.startsWith('HST-LOCAL-') || c.status === 'Queued');
+          const serverList = data.complaints || [];
+          const merged = [...localOnly, ...serverList.filter((s: any) => !localOnly.some(l => l.id === s.id))];
+          return merged;
+        });
+        setVisitors(data.visitors || []);
+        if (typeof window !== 'undefined') {
+          try {
+            localStorage.setItem(HOSTEL_STORAGE_KEY, JSON.stringify(data));
+          } catch {}
+        }
+      }
     } catch {}
   };
 
@@ -64,16 +94,44 @@ export default function StudentHostel() {
 
   const handleRaiseComplaint = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!complaintForm.title.trim() || !complaintForm.description.trim()) {
+      toast.error('Missing Details', 'Please fill in both complaint title and description.');
+      return;
+    }
     setSubmittingComplaint(true);
+    const localComplaint = {
+      id: 'HST-LOCAL-' + Math.floor(100 + Math.random() * 900),
+      category: complaintForm.category,
+      title: complaintForm.title.trim(),
+      description: complaintForm.description.trim(),
+      status: 'Open',
+      date: new Date().toISOString().split('T')[0]
+    };
+
     try {
       const res = await api.post<{ ok: boolean }>('/api/hostel/raise-complaint', complaintForm);
       if (res && res.ok) {
         toast.success('Ticket Logged! 🛠️', 'Complaint filed successfully! Maintenance team has been notified.');
         setComplaintForm({ category: 'Plumbing', title: '', description: '' });
         fetchHostelData();
+        return;
       }
     } catch {
-      toast.error('Failed to Raise Ticket', 'Could not submit maintenance complaint.');
+      // Fallback: save locally
+      setComplaints(prev => {
+        const updated = [localComplaint, ...prev];
+        if (typeof window !== 'undefined') {
+          try {
+            const current = localStorage.getItem(HOSTEL_STORAGE_KEY);
+            const parsed = current ? JSON.parse(current) : {};
+            parsed.complaints = updated;
+            localStorage.setItem(HOSTEL_STORAGE_KEY, JSON.stringify(parsed));
+          } catch {}
+        }
+        return updated;
+      });
+      toast.info('Complaint Saved Locally 🛠️', 'Server connection delayed. Complaint recorded in browser storage.');
+      setComplaintForm({ category: 'Plumbing', title: '', description: '' });
     } finally {
       setSubmittingComplaint(false);
     }

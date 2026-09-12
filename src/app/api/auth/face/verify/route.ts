@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import faceTemplateStore, { getFaceTemplate } from '@/lib/faceStore';
+import { requireUserFromRequest } from '@/lib/server/requireAuth';
 
 // Euclidean distance between two vectors
 function euclideanDistance(v1: number[], v2: number[]): number {
@@ -14,15 +15,14 @@ function euclideanDistance(v1: number[], v2: number[]): number {
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
-    const { descriptor, username, nonce } = body;
+    const gated = await requireUserFromRequest(req);
+    if (gated.error) return gated.error;
 
-    if (!username || typeof username !== 'string' || !username.trim()) {
-      return NextResponse.json(
-        { ok: false, success: false, error: 'Username required for face verify.' },
-        { status: 400 }
-      );
-    }
+    const body = await req.json();
+    const { descriptor, nonce } = body || {};
+
+    // Session-bound identity: never trust client-supplied username for biometric authorization
+    const targetUser = (gated.user!.email || gated.user!.id).toLowerCase();
 
     if (!descriptor || !Array.isArray(descriptor)) {
       return NextResponse.json(
@@ -41,8 +41,6 @@ export async function POST(req: NextRequest) {
 
     // Do not trust client-supplied livenessVerified — it is forgeable.
     // Real liveness requires server-side video analysis; gate here is nonce + template match.
-
-    const targetUser = String(username).toLowerCase();
 
     // Only match against the requested user's enrolled template in authoritative store.
     // Client cookies are forgeable and must NEVER be used as the authoritative enrolled biometric template.

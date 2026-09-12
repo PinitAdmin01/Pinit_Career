@@ -44,7 +44,18 @@ export default function DashboardTrajectoryMap({
     <div id="trajectory-selector" style={{ background:'var(--bg2)', border:'1px solid var(--border)', borderRadius:20, overflow:'hidden', boxShadow:'var(--shadow-sm)' }}>
       {/* Header — always visible, click to expand */}
       <div
+        role="button"
+        tabIndex={0}
+        aria-expanded={open}
+        aria-controls="trajectory-body"
+        aria-label="Toggle SDE Trajectory Progress Map"
         onClick={() => setOpen(o => !o)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            setOpen(o => !o);
+          }
+        }}
         style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 20px', cursor:'pointer', borderBottom: open ? '1px solid var(--border)' : 'none', transition:'border 0.2s', userSelect:'none' }}
       >
         <div style={{ display:'flex', alignItems:'center', gap:10 }}>
@@ -65,7 +76,7 @@ export default function DashboardTrajectoryMap({
       </div>
 
       {/* Collapsible body */}
-      <div style={{ maxHeight: open ? '1200px' : 0, overflow:'hidden', transition:'max-height 0.4s cubic-bezier(0.4,0,0.2,1)' }}>
+      <div id="trajectory-body" style={{ maxHeight: open ? '1200px' : 0, overflow:'hidden', transition:'max-height 0.4s cubic-bezier(0.4,0,0.2,1)' }}>
         <div style={{ padding:20 }}>
           {roadmapGenerated && roadmapModules.length > 0 ? (
             <div style={{ display:'flex', flexDirection:'column', gap:16 }}>
@@ -130,9 +141,18 @@ export default function DashboardTrajectoryMap({
                 {TRACKS.map(track => (
                   <div
                     key={track.title}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`Select ${track.title} trajectory`}
                     onClick={() => onChooseTrajectory(track.title)}
                     onMouseEnter={() => onSelectTrajectory(track.title)}
-                    style={{ background:'var(--bg3)', border:`1.5px solid ${selectedTrajectory === track.title ? track.color : 'var(--border)'}`, borderRadius:12, padding:14, cursor:'pointer', transition:'all 0.15s', boxShadow: selectedTrajectory === track.title ? `0 0 12px ${track.color}40` : 'none' }}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        onChooseTrajectory(track.title);
+                      }
+                    }}
+                    style={{ background:'var(--bg3)', border:`1.5px solid ${selectedTrajectory === track.title ? track.color : 'var(--border)'}`, borderRadius:12, padding:14, cursor:'pointer', transition:'all 0.15s', boxShadow: selectedTrajectory === track.title ? `0 0 12px ${track.color}40` : 'none', outline: 'none' }}
                   >
                     <div style={{ display:'flex', justifyContent:'space-between', marginBottom:6 }}>
                       <span style={{ fontSize:20 }}>{track.icon}</span>

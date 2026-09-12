@@ -130,7 +130,7 @@ Return ONLY a valid JSON object matching this structure (do not wrap in markdown
             const { correctIdx, ...rest } = q;
             return rest;
           });
-          const examSessionToken = signExamSessionToken(answersMap);
+          const examSessionToken = signExamSessionToken(answersMap, 30, gated.user!.id);
           return NextResponse.json({
             subject: parsed.subject || 'Technical Specialization',
             questions: sanitizedQuestions,
@@ -337,7 +337,7 @@ Return ONLY a valid JSON object matching this structure (do not wrap in markdown
       const { correctIdx, ...rest } = q;
       return rest;
     });
-    const examSessionToken = signExamSessionToken(answersMap);
+    const examSessionToken = signExamSessionToken(answersMap, 30, gated.user!.id);
 
     return NextResponse.json({
       subject,

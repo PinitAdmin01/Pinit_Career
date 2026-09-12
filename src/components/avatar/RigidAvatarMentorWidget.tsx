@@ -628,8 +628,48 @@ class AvatarScene {
   }
   dispose(){
     this.disposed=true;
-    if(this.raf) cancelAnimationFrame(this.raf);
-    if(this.renderer) this.renderer.dispose();
+    if(this.raf) {
+      cancelAnimationFrame(this.raf);
+      this.raf = undefined;
+    }
+    if (typeof window !== 'undefined' && (window as any).mentorAvatarScene === this) {
+      delete (window as any).mentorAvatarScene;
+    }
+    if (this.scene) {
+      this.scene.traverse((obj: any) => {
+        if (obj.geometry && typeof obj.geometry.dispose === 'function') {
+          obj.geometry.dispose();
+        }
+        if (obj.material) {
+          const mats = Array.isArray(obj.material) ? obj.material : [obj.material];
+          mats.forEach((mat: any) => {
+            if (mat?.map && typeof mat.map.dispose === 'function') mat.map.dispose();
+            if (mat?.lightMap && typeof mat.lightMap.dispose === 'function') mat.lightMap.dispose();
+            if (mat?.bumpMap && typeof mat.bumpMap.dispose === 'function') mat.bumpMap.dispose();
+            if (mat?.normalMap && typeof mat.normalMap.dispose === 'function') mat.normalMap.dispose();
+            if (mat?.specularMap && typeof mat.specularMap.dispose === 'function') mat.specularMap.dispose();
+            if (mat?.envMap && typeof mat.envMap.dispose === 'function') mat.envMap.dispose();
+            if (typeof mat?.dispose === 'function') mat.dispose();
+          });
+        }
+      });
+    }
+    this.faceMeshes = [];
+    this.morphMaps.clear();
+    this.expressionKeys = { joy: [], sorrow: [], surprise: [] };
+    if(this.renderer) {
+      try {
+        this.renderer.forceContextLoss();
+      } catch {}
+      try {
+        const gl = this.renderer.getContext();
+        const loseContextExt = gl?.getExtension('WEBGL_lose_context');
+        if (loseContextExt) loseContextExt.loseContext();
+      } catch {}
+      try {
+        this.renderer.dispose();
+      } catch {}
+    }
   }
 }
 
@@ -903,6 +943,7 @@ export default function RigidAvatarMentorWidget({
   // Keep track of latest speaking/loading states in refs to avoid stale closures in SpeechRecognition handlers
   const speakingRef = useRef(speaking);
   const loadingRef = useRef(loading);
+  const micDeniedRef = useRef(false);
   useEffect(() => {
     speakingRef.current = speaking;
   }, [speaking]);
@@ -913,6 +954,7 @@ export default function RigidAvatarMentorWidget({
   // Background Speech Recognition for Wake Words
   useEffect(() => {
     if (typeof window === 'undefined') return;
+    if (micDeniedRef.current) return;
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (!SpeechRecognition) return;
 
@@ -1018,6 +1060,7 @@ export default function RigidAvatarMentorWidget({
           if (err.error === 'not-allowed') {
             console.warn("Speech recognition access denied.");
             shouldListen = false;
+            micDeniedRef.current = true;
           }
         };
 

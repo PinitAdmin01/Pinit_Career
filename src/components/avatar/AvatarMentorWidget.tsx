@@ -151,6 +151,7 @@ export default function AvatarMentorWidget({
   const acousticFramesRef = useRef<AcousticFrame[]>([]);
   const voiceFreqRef = useRef<number | null>(null);
   const voicePrintRef = useRef<VoicePrint | null>(null);
+  const micDeniedRef = useRef<boolean>(false);
 
   useEffect(() => {
     voiceFreqRef.current = voiceFreq;
@@ -611,6 +612,7 @@ export default function AvatarMentorWidget({
   // Background Speech Recognition for Wake Words with Echo Gate
   useEffect(() => {
     if (typeof window === 'undefined') return;
+    if (micDeniedRef.current) return;
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (!SpeechRecognition) return;
 
@@ -822,6 +824,7 @@ export default function AvatarMentorWidget({
           if (err.error === 'not-allowed') {
             console.warn("Speech recognition access denied.");
             shouldListen = false;
+            micDeniedRef.current = true;
           }
         };
 

@@ -255,21 +255,6 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
     }
   }, [currentSlide, slides, syllabus, teacherId, examPassed]);
 
-  // Autoplay teacher speech when advancing slides or when lesson loads
-  useEffect(() => {
-    if (examPassed) return;
-    const timer = setTimeout(() => {
-      playSpeech();
-    }, 400);
-
-    return () => {
-      clearTimeout(timer);
-      stopSpeaking();
-    };
-  }, [currentSlide, slidesLoading]);
-
-
-
   // Voice recording recognizer
   const startVoiceInput = () => {
     if (typeof window === 'undefined') return;
@@ -799,21 +784,9 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
 
   const triggerProactivePrompt = () => {
     const promptText = getProactivePromptText();
-    setIsInteractive(true);
     setLatestAIResponse(promptText);
     setChatMessages([{ role: 'assistant', content: promptText }]);
-
-    setIsPlaying(true);
-    speakWithAvatar(
-      promptText,
-      teacherId,
-      () => {
-        setIsPlaying(true);
-      },
-      () => {
-        setIsPlaying(false);
-      }
-    );
+    setTeachingCompleted(true);
   };
 
   // Stop speaking, reset progress, and AUTO-PLAY when slide changes
@@ -1710,6 +1683,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
                     {!understandingConfirmed[currentSlide - 1] && (
                       <button
                         type="button"
+                        data-testid="btn-confirm-understanding"
                         onClick={() => {
                           setUnderstandingConfirmed(prev => ({ ...prev, [currentSlide - 1]: true }));
                           setIsInteractive(false);
@@ -1771,7 +1745,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
                     const bulletPoints = Array.isArray(slide.bulletPoints) ? slide.bulletPoints : [];
                     return (
                       <div style={{ display: 'flex', flexDirection: 'column', gap: 14, textAlign: 'left' }}>
-                        <h4 style={{ fontSize: 15, fontWeight: 900, color: teacher.accent, margin: 0 }}>{slide.title || 'Lesson Slide'}</h4>
+                        <h4 data-testid="lesson-slide-title" style={{ fontSize: 15, fontWeight: 900, color: teacher.accent, margin: 0 }}>{slide.title || 'Lesson Slide'}</h4>
 
                         {/* 🏢 1ST: REAL-WORLD ANALOGY & PRODUCTION CASE STUDY CARD (Introductory Slide 1 Only) */}
                         {currentSlide === 1 && (() => {
@@ -1853,6 +1827,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
                                 {questId.toLowerCase().includes('react') ? 'Component.tsx' : questId.toLowerCase().includes('sql') ? 'query.sql' : questId.toLowerCase().includes('python') ? 'main.py' : 'Solution.java'}
                               </span>
                               <button
+                                data-testid="btn-run-code"
                                 onClick={() => simulateCodeRun(currentSlide - 1, slide.mockOutput)}
                                 style={{
                                   background: 'var(--success)',
@@ -1907,80 +1882,79 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
                           </div>
                         )}
 
-                        {/* Interactive Understanding Check instead of MCQ on content slides */}
-                        {(teachingCompleted || understandingConfirmed[currentSlide - 1]) && (
-                          <div style={{
-                            marginTop: 12,
-                            background: 'rgba(var(--brand-rgb),  0.03)',
-                            border: '1px dashed var(--border)',
-                            borderRadius: 12,
-                            padding: '10px 14px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            gap: 12
-                          }}>
-                            <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--t1)' }}>
-                              ❓ Did you understand this concept?
+                        {/* Interactive Understanding Check on content slides */}
+                        <div style={{
+                          marginTop: 12,
+                          background: 'rgba(var(--brand-rgb),  0.03)',
+                          border: '1px dashed var(--border)',
+                          borderRadius: 12,
+                          padding: '10px 14px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          gap: 12
+                        }}>
+                          <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--t1)' }}>
+                            ❓ Did you understand this concept?
+                          </span>
+                          {understandingConfirmed[currentSlide - 1] ? (
+                            <span style={{ color: 'var(--success)', fontSize: 11, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 4 }}>
+                              ✓ Concept Confirmed
                             </span>
-                            {understandingConfirmed[currentSlide - 1] ? (
-                              <span style={{ color: 'var(--success)', fontSize: 11, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 4 }}>
-                                ✓ Concept Confirmed
-                              </span>
-                            ) : (
-                              <div style={{ display: 'flex', gap: 6 }}>
-                                <button
-                                  onClick={() => {
-                                    setUnderstandingConfirmed(prev => ({ ...prev, [currentSlide - 1]: true }));
-                                    toast.success("Great!", "Understanding confirmed. Click 'Next Slide' to continue.");
-                                  }}
-                                  style={{
-                                    background: 'var(--success)',
-                                    border: 'none',
-                                    color: 'var(--text)',
-                                    padding: '6px 12px',
-                                    borderRadius: 6,
-                                    fontSize: 10.5,
-                                    fontWeight: 700,
-                                    cursor: 'pointer',
-                                    transition: 'background 0.2s'
-                                  }}
-                                >
-                                  👍 Yes
-                                </button>
-                                <button
-                                  onClick={async () => {
-                                    setIsInteractive(true);
-                                    setChatMessages([{
-                                      role: 'assistant',
-                                      content: "What did you not understand about this topic? Ask me for a real-world analogy, or let me know what was confusing."
-                                    }]);
-                                    
-                                    speakWithAvatar(
-                                      "What did you not understand?",
-                                      teacherId,
-                                      () => setIsPlaying(true),
-                                      () => setIsPlaying(false)
-                                    );
-                                  }}
-                                  style={{
-                                    background: 'rgba(var(--danger-rgb),  0.08)',
-                                    border: '1px solid rgba(var(--danger-rgb),  0.2)',
-                                    color: 'var(--danger)',
-                                    padding: '6px 12px',
-                                    borderRadius: 6,
-                                    fontSize: 10.5,
-                                    fontWeight: 700,
-                                    cursor: 'pointer',
-                                    transition: 'background 0.2s'
-                                  }}
-                                >
-                                  👎 No, explain further
-                                </button>
-                              </div>
-                            )}
-                          </div>
-                        )}
+                          ) : (
+                            <div style={{ display: 'flex', gap: 6 }}>
+                              <button
+                                data-testid="btn-confirm-understanding"
+                                onClick={() => {
+                                  setUnderstandingConfirmed(prev => ({ ...prev, [currentSlide - 1]: true }));
+                                  toast.success("Great!", "Understanding confirmed. Click 'Next Slide' to continue.");
+                                }}
+                                style={{
+                                  background: 'var(--success)',
+                                  border: 'none',
+                                  color: 'var(--text)',
+                                  padding: '6px 12px',
+                                  borderRadius: 6,
+                                  fontSize: 10.5,
+                                  fontWeight: 700,
+                                  cursor: 'pointer',
+                                  transition: 'background 0.2s'
+                                }}
+                              >
+                                👍 Yes
+                              </button>
+                              <button
+                                onClick={async () => {
+                                  setIsInteractive(true);
+                                  setChatMessages([{
+                                    role: 'assistant',
+                                    content: "What did you not understand about this topic? Ask me for a real-world analogy, or let me know what was confusing."
+                                  }]);
+                                  
+                                  speakWithAvatar(
+                                    "What did you not understand?",
+                                    teacherId,
+                                    () => setIsPlaying(true),
+                                    () => setIsPlaying(false)
+                                  );
+                                }}
+                                style={{
+                                  background: 'rgba(var(--danger-rgb),  0.08)',
+                                  border: '1px solid rgba(var(--danger-rgb),  0.2)',
+                                  color: 'var(--danger)',
+                                  padding: '6px 12px',
+                                  borderRadius: 6,
+                                  fontSize: 10.5,
+                                  fontWeight: 700,
+                                  cursor: 'pointer',
+                                  transition: 'background 0.2s'
+                                }}
+                              >
+                                👎 No, explain further
+                              </button>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     );
                   })()}
@@ -2070,6 +2044,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
                             return (
                               <button
                                 key={oIdx}
+                                data-testid={`mcq-option-${oIdx}`}
                                 disabled={mcqChecked}
                                 onClick={() => setSelectedMcqAnswer(oIdx)}
                                 className={`mcq-option-btn ${stateClass}`}
@@ -2087,6 +2062,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
 
                         {!mcqChecked && selectedMcqAnswer !== null && (
                           <button
+                            data-testid="btn-verify-mcq"
                             onClick={() => {
                               console.log(`[PinIT Lesson] 🧪 Verifying exam Q${examQuestionIndex + 1}: selected=${selectedMcqAnswer}, correct=${question.answerIndex}`);
                               setMcqChecked(true);
@@ -2100,18 +2076,18 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
                             }}
                             className="btn-primary"
                             style={{
-                              marginTop: 14,
-                              padding: '8px 18px',
-                              fontSize: 11,
-                              borderRadius: 8
+                              padding: '10px 20px',
+                              fontSize: 12,
+                              borderRadius: 10,
+                              background: teacher.accent
                             }}
                           >
-                            Verify Answer
+                            Verify Choice ➔
                           </button>
                         )}
 
                         {mcqChecked && (
-                          <div style={{ marginTop: 14 }}>
+                          <div style={{ marginTop: 8 }}>
                             {mcqIsCorrect ? (
                               <div>
                                 <div style={{
@@ -2133,6 +2109,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
                                   </div>
                                 </div>
                                 <button
+                                  data-testid="btn-next-question"
                                   onClick={() => {
                                     if (examQuestionIndex + 1 === hybridExamQuestions.length) {
                                       console.log(`[PinIT Lesson] 🎓 Exam completed successfully!`);
@@ -2264,6 +2241,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
 
             {isLastSlide ? (
               <button
+                data-testid="btn-finish-quest"
                 disabled={!examPassed}
                 onClick={finishLessonAndReturn}
                 className={`btn-primary ${examPassed ? 'animate-pulse' : ''}`}
@@ -2285,6 +2263,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
               const nextUnlocked = !isLearningSlide || understandingConfirmed[currentSlide - 1];
               return (
                 <button
+                  data-testid="btn-next-slide"
                   onClick={() => {
                     if (!nextUnlocked) {
                       toast.error("Understanding Required", "Please click 'Yes, I understand' or ask the tutor to explain before moving to the next slide.");

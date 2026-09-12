@@ -64,13 +64,13 @@ export default function PinsGate({
     setShowConfirm(true);
   }
 
-  function handleConfirm() {
+  async function handleConfirm() {
     setShowConfirm(false);
     if (targetKey && targetCategory) {
-      const ok = unlockItem(targetKey, targetCategory as any);
+      const ok = await unlockItem(targetKey, targetCategory as any);
       if (ok) onUnlocked();
     } else {
-      const ok = spendPins(targetCategory);
+      const ok = await spendPins(targetCategory);
       if (ok) onUnlocked();
     }
   }

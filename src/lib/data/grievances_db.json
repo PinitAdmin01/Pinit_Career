@@ -1,3 +1,40 @@
 {
-  "grievances": []
+  "grievances": [
+    {
+      "id": "GRV-500",
+      "reporterType": "Anonymous Whistleblower",
+      "reporterName": "Anonymous Candidate",
+      "category": "Academic Integrity",
+      "title": "Report on test grading anomaly",
+      "description": "Anomalous grade distribution detected in CS402 exam.",
+      "anonymous": true,
+      "status": "Pending",
+      "filedOn": "2026-09-12T10:51:32.910Z",
+      "receiptToken": "TRK-TBWFYLIF"
+    },
+    {
+      "id": "GRV-380",
+      "reporterType": "Anonymous Whistleblower",
+      "reporterName": "Anonymous Candidate",
+      "category": "Academic Integrity",
+      "title": "Report on test grading anomaly",
+      "description": "Anomalous grade distribution detected in CS402 exam.",
+      "anonymous": true,
+      "status": "Pending",
+      "filedOn": "2026-09-12T10:49:41.691Z",
+      "receiptToken": "TRK-UR3DUWHS"
+    },
+    {
+      "id": "GRV-280",
+      "reporterType": "Anonymous Whistleblower",
+      "reporterName": "Anonymous Candidate",
+      "category": "Academic Integrity",
+      "title": "Report on test grading anomaly",
+      "description": "Anomalous grade distribution detected in CS402 exam.",
+      "anonymous": true,
+      "status": "Pending",
+      "filedOn": "2026-09-12T10:48:42.780Z",
+      "receiptToken": "TRK-NYAKWN5D"
+    }
+  ]
 }

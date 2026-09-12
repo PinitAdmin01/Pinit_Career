@@ -76,6 +76,14 @@ export default function DashboardMissionsPanel({ nextStep, userId }: Props) {
   }, [userId, workloadBand]);
 
   const toggleComplete = (id: string) => {
+    // DEF-010: Validate that the mission ID is an authentic catalog mission slot
+    const allKnown = [...coreMissions, ...optionalMissions];
+    const isRecognized = allKnown.length === 0 || allKnown.some(m => m.id === id) || id.startsWith('msn_') || id.startsWith('core_') || id.startsWith('opt_');
+    if (!isRecognized) {
+      console.warn(`[DEF-010 Security Gate]: Rejected unregistered mission ID "${id}"`);
+      return;
+    }
+
     const isCurrentlyDone = completedIds.has(id);
     const next = new Set(completedIds);
     if (isCurrentlyDone) {
@@ -100,14 +108,16 @@ export default function DashboardMissionsPanel({ nextStep, userId }: Props) {
       } catch {}
     }
 
-    // 3. Sync to cloud database profile / onboarding API
-    api.post('/api/auth/onboarding', {
-      completedMissions: arr,
-    }).catch(() => {});
+    // 3. Sync to cloud database profile / onboarding API if session authenticated
+    if (userId) {
+      api.post('/api/auth/onboarding', {
+        completedMissions: arr,
+      }).catch(() => {});
+    }
   };
 
   return (
-    <div style={{ display:'grid', gridTemplateColumns:'minmax(0,1fr) minmax(0,1.8fr) minmax(0,1fr)', gap:16 }}>
+    <div className="db-missions-grid" style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(280px, 1fr))', gap:16 }}>
 
       {/* Col 1: Next Step Card */}
       <div className="db-glass" style={{ padding:20, display:'flex', flexDirection:'column', gap:12 }}>

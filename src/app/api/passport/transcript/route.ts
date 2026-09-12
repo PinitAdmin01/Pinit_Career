@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PathwayApiService } from '@/lib/api/pathwayApi';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
+import { supabase } from '@/lib/supabaseClient';
 
 export async function GET(req: NextRequest) {
   try {
@@ -18,6 +19,29 @@ export async function GET(req: NextRequest) {
     const readiness = await PathwayApiService.getRoleReadiness(studentId, programId);
     const evidenceList = await PathwayApiService.getAllStudentEvidence(studentId);
 
+    // DEF-063 Fix: Authoritative server database verification of student competency evidence
+    let verifiedMasteryRecords: any[] = [];
+    let serverEvidenceCount = 0;
+    try {
+      const { data: dbMastery } = await supabase
+        .from('student_competency_mastery')
+        .select('*')
+        .eq('student_id', studentId)
+        .eq('state', 'verified');
+      if (dbMastery) verifiedMasteryRecords = dbMastery;
+
+      const { count } = await supabase
+        .from('competency_evidence_records')
+        .select('*', { count: 'exact', head: true })
+        .eq('student_id', studentId);
+      serverEvidenceCount = count || 0;
+    } catch {}
+
+    const isShaVerified = (profile.verified.length > 0 || verifiedMasteryRecords.length > 0) && (evidenceList.length > 0 || serverEvidenceCount > 0);
+    const badgeText = isShaVerified ? '✓ SHA-256 Verified' : 'Provisional / Unverified';
+    const badgeBg = isShaVerified ? '#10b981' : '#f59e0b';
+    const sealText = isShaVerified ? 'Tamper-Evident Ledger Seal: SHA-256 Verified' : 'Ledger Status: Evidence Pending Verification';
+
     const htmlContent = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +52,7 @@ export async function GET(req: NextRequest) {
     .header { border-bottom: 2px solid #4f46e5; padding-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-start; }
     .brand { font-size: 24px; font-weight: 900; color: #4f46e5; }
     .subtitle { font-size: 13px; color: #64748b; margin-top: 4px; }
-    .badge { background: #10b981; color: #fff; padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 800; text-transform: uppercase; }
+    .badge { background: ${badgeBg}; color: #fff; padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 800; text-transform: uppercase; }
     .student-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; padding: 16px; background: #f8fafc; border-radius: 8px; font-size: 13px; }
     table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 13px; }
     th { text-align: left; padding: 10px; background: #f1f5f9; color: #475569; text-transform: uppercase; font-size: 11px; border-bottom: 1px solid #cbd5e1; }
@@ -45,7 +69,7 @@ export async function GET(req: NextRequest) {
       <div class="subtitle">Official Evidence-Backed Verifiable Transcript & Residency Record</div>
     </div>
     <div>
-      <span class="badge">✓ SHA-256 Verified</span>
+      <span class="badge">${badgeText}</span>
     </div>
   </div>
 
@@ -85,7 +109,7 @@ export async function GET(req: NextRequest) {
 
   <div class="footer">
     <div>Cryptographic Proof: https://pinit.app/verify/${studentId}</div>
-    <div>Tamper-Evident Ledger Seal: SHA-256 Verified</div>
+    <div>${sealText}</div>
   </div>
 </body>
 </html>`;

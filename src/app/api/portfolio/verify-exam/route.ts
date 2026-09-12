@@ -1,8 +1,13 @@
 import { NextResponse } from 'next/server';
 import { verifyExamSessionToken } from '@/lib/portfolio/examToken';
+import { requireUserFromRequest } from '@/lib/server/requireAuth';
 
 export async function POST(req: Request) {
   try {
+    // Defect 007: Authenticate caller before evaluating certificate exam
+    const gated = await requireUserFromRequest(req);
+    if (gated.error) return gated.error;
+
     const body = await req.json();
     const { examSessionToken, selectedAnswers } = body;
 
@@ -24,6 +29,15 @@ export async function POST(req: Request) {
     if (!verification.valid) {
       return NextResponse.json(
         { ok: false, passed: false, error: verification.error },
+        { status: 403 }
+      );
+    }
+
+    // Defect 007: Enforce studentId identity binding
+    if (verification.studentId && verification.studentId !== gated.user!.id) {
+      console.warn(`[SECURITY ALERT] Exam token student mismatch: caller=${gated.user!.id} vs token=${verification.studentId}`);
+      return NextResponse.json(
+        { ok: false, passed: false, error: 'FORBIDDEN: Exam session belongs to a different candidate.' },
         { status: 403 }
       );
     }

@@ -17,12 +17,31 @@ function getDiskCachePath(): string {
   }
 }
 
+function getPersistentDbPath(): string {
+  try {
+    const dir = path.join(process.cwd(), 'src', 'lib', 'data');
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    return path.join(dir, 'face_biometrics_db.json');
+  } catch {
+    return '';
+  }
+}
+
 function readDiskCache(): Record<string, number[]> {
   try {
+    const persistentPath = getPersistentDbPath();
+    if (persistentPath && fs.existsSync(persistentPath)) {
+      const raw = fs.readFileSync(persistentPath, 'utf-8');
+      const data = JSON.parse(raw);
+      if (typeof data === 'object' && data !== null) return data;
+    }
     const filePath = getDiskCachePath();
     if (filePath && fs.existsSync(filePath)) {
       const raw = fs.readFileSync(filePath, 'utf-8');
-      return JSON.parse(raw);
+      const data = JSON.parse(raw);
+      if (typeof data === 'object' && data !== null) return data;
     }
   } catch {
     // Disk read failed gracefully
@@ -32,11 +51,19 @@ function readDiskCache(): Record<string, number[]> {
 
 function writeDiskCache(key: string, vector: number[]) {
   try {
-    const filePath = getDiskCachePath();
-    if (!filePath) return;
     const current = readDiskCache();
     current[key] = vector;
-    fs.writeFileSync(filePath, JSON.stringify(current), 'utf-8');
+    const jsonStr = JSON.stringify(current, null, 2);
+
+    const persistentPath = getPersistentDbPath();
+    if (persistentPath) {
+      fs.writeFileSync(persistentPath, jsonStr, 'utf-8');
+    }
+
+    const filePath = getDiskCachePath();
+    if (filePath) {
+      fs.writeFileSync(filePath, jsonStr, 'utf-8');
+    }
   } catch {
     // Disk write failed gracefully
   }

@@ -2,7 +2,7 @@
 'use client';
 import { createContext, useContext, useState, useEffect, useCallback, useRef, ReactNode } from 'react';
 import { supabase } from '@/lib/supabaseClient';
-import { isDemoAuthEnabled, DEMO_PASSWORD, DEMO_ROLE_BY_EMAIL } from '@/lib/demoAuth';
+import { isDemoAuthEnabled, DEMO_PASSWORD, isDemoPassword, DEMO_ROLE_BY_EMAIL } from '@/lib/demoAuth';
 import { User as SbUser } from '@supabase/supabase-js';
 import {
   getUserProfile, createUserProfile, updateUserProfile,
@@ -221,38 +221,57 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       console.warn('[AuthContext] loginWithVaultSession called with invalid userPayload:', rawPayload);
       throw new Error('Invalid vault session payload');
     }
-    const token = `vlt_jwt_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
-    // Never accept arbitrary privileged roles from client payloads.
-    // Demo emails keep their mapped roles; Dev Mode stays student.
-    // Real users: fetch role from DB — do not silently override it.
-    const emailLower = String(userPayload.email || userPayload.username || '').toLowerCase();
+
+    // Defect 001: Eradicate client fake unsigned JWT token generation.
+    // Exchange session ticket with authoritative server route POST /api/auth/vault-exchange
+    let serverToken = '';
+    let authoritativeUser = userPayload;
     let role = 'student';
+
+    const emailLower = String(userPayload.email || userPayload.username || '').toLowerCase();
     if (userPayload.isDevUser) {
       role = 'student';
     } else if (DEMO_ROLE_BY_EMAIL[emailLower]) {
       role = DEMO_ROLE_BY_EMAIL[emailLower];
-    } else {
-      // Fetch real role from the database for non-demo users
-      try {
-        const dbProfile = await getUserProfile(userPayload.id);
-        if (dbProfile?.role) role = dbProfile.role as string;
-      } catch {
-        // If DB fetch fails, fall back to 'student' safely
-        role = 'student';
+    }
+
+    try {
+      const res = await fetch('/api/auth/vault-exchange', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userPayload })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.token) serverToken = data.token;
+        if (data.user) {
+          authoritativeUser = data.user;
+          role = data.user.role || role;
+        }
+      }
+    } catch {
+      // Fallback: server unreachable, fetch role from database for non-demo users if possible
+      if (!DEMO_ROLE_BY_EMAIL[emailLower] && !userPayload.isDevUser) {
+        try {
+          const dbProfile = await getUserProfile(userPayload.id);
+          if (dbProfile?.role) role = dbProfile.role as string;
+        } catch {
+          role = 'student';
+        }
       }
     }
 
     if (typeof window !== 'undefined') {
-      const sanitizedPayload = { ...userPayload, role };
+      const sanitizedPayload = { ...authoritativeUser, role };
       localStorage.setItem('pinit_active_uid', userPayload.id);
-      localStorage.setItem('pinit_auth_token', token);
+      if (serverToken) {
+        localStorage.setItem('pinit_auth_token', serverToken);
+      } else {
+        localStorage.removeItem('pinit_auth_token');
+      }
       localStorage.setItem('pinit_current_user', JSON.stringify(sanitizedPayload));
       localStorage.setItem(`pinit_${userPayload.id}_profile`, JSON.stringify(sanitizedPayload));
-
-      const isHttps = window.location.protocol === 'https:';
-      const secureFlag = isHttps ? '; Secure' : '';
-      document.cookie = `pinit_role=${role}; path=/${secureFlag}`;
-      document.cookie = `pinit_session=active; path=/${secureFlag}`;
+      // Defect 003: Client document.cookie setting eradicated; HttpOnly cookies are set by /api/auth/vault-exchange
     }
 
     const appUser: User = {
@@ -276,7 +295,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const handleIdentityAuthenticated = (e: CustomEvent) => {
       if (e.detail?.user) {
-        loginWithVaultSession({ user: e.detail.user, token: `jwt_event_${Date.now()}` }).catch(() => {});
+        loginWithVaultSession({ user: e.detail.user }).catch(() => {});
       }
     };
 
@@ -291,20 +310,51 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
   }, [loginWithVaultSession]);
 
+  // Defect 003: Sync session with server via HttpOnly cookies endpoint instead of client document.cookie
   useEffect(() => {
+    if (user) {
+      fetch('/api/auth/session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          role: user.role,
+          uid: user.id,
+          id: user.id,
+          email: user.email,
+          isDevUser: user.isDevUser
+        })
+      }).catch(() => {});
+    } else {
+      fetch('/api/auth/session', {
+        method: 'DELETE'
+      }).catch(() => {});
+    }
+
+    // Clean up any legacy non-HttpOnly client cookies
     if (typeof document !== 'undefined') {
-      // Only add Secure flag on HTTPS — on HTTP (localhost) the browser silently drops Secure cookies.
-      const isHttps = typeof window !== 'undefined' && window.location.protocol === 'https:';
-      const secureFlag = isHttps ? '; Secure' : '';
-      if (user) {
-        document.cookie = `pinit_role=${user.role}; path=/; SameSite=Lax${secureFlag}`;
-        document.cookie = `pinit_uid=${user.id}; path=/; SameSite=Lax${secureFlag}`;
-      } else {
-        document.cookie = "pinit_role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-        document.cookie = "pinit_uid=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-      }
+      document.cookie = "pinit_role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+      document.cookie = "pinit_uid=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
     }
   }, [user]);
+
+  // Defect 004: Multi-tab session synchronization listener
+  useEffect(() => {
+    if (typeof window === 'undefined' || !('BroadcastChannel' in window)) return;
+    try {
+      const channel = new BroadcastChannel('pinit_career_os_sync');
+      channel.onmessage = (event) => {
+        if (event.data?.type === 'FORCE_STORAGE_PURGE') {
+          setUser(null);
+          if (window.location.pathname !== '/login') {
+            window.location.href = '/login';
+          }
+        }
+      };
+      return () => {
+        try { channel.close(); } catch {}
+      };
+    } catch {}
+  }, []);
 
   const loadProfile = useCallback(async (sbUser: SbUser) => {
     // 0ms instant hydration from local cache to prevent role flash/delay
@@ -439,21 +489,34 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     supabase.auth.getSession().then(async (res) => {
       const session = res?.data?.session;
       let sbUser = session?.user ?? null;
+      if (!sbUser) {
+        try {
+          const refreshRes = await supabase.auth.refreshSession();
+          sbUser = refreshRes?.data?.session?.user ?? null;
+        } catch {}
+      }
+      // Defect 002: Require server session verification before trusting any local cache
       if (!sbUser && typeof window !== 'undefined') {
-        const activeUid = localStorage.getItem('pinit_active_uid');
-        if (activeUid) {
-          const saved = localStorage.getItem(`pinit_${activeUid}_profile`);
-          if (saved) {
-            try {
-              const cachedProfile = JSON.parse(saved);
-              sbUser = {
-                id: activeUid,
-                email: cachedProfile.email || `${cachedProfile.username || 'user'}@pinit.app`,
-                user_metadata: { display_name: cachedProfile.displayName }
-              } as any;
-            } catch {}
+        try {
+          const sRes = await fetch('/api/auth/session').catch(() => null);
+          if (sRes && sRes.ok) {
+            const sData = await sRes.json().catch(() => null);
+            if (sData?.authenticated && sData?.uid) {
+              const activeUid = localStorage.getItem('pinit_active_uid');
+              if (activeUid && activeUid === sData.uid) {
+                const saved = localStorage.getItem(`pinit_${activeUid}_profile`);
+                if (saved) {
+                  const cachedProfile = JSON.parse(saved);
+                  sbUser = {
+                    id: activeUid,
+                    email: cachedProfile.email || `${cachedProfile.username || 'user'}@pinit.app`,
+                    user_metadata: { display_name: cachedProfile.displayName }
+                  } as any;
+                }
+              }
+            }
           }
-        }
+        } catch {}
       }
       if (sbUser) {
         await loadProfile(sbUser);
@@ -476,20 +539,39 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
 
       let sbUser = session?.user ?? null;
-      if (!sbUser && typeof window !== 'undefined' && event === 'SIGNED_OUT') {
-        localStorage.removeItem('pinit_active_uid');
-      } else if (!sbUser && typeof window !== 'undefined') {
-        const activeUid = localStorage.getItem('pinit_active_uid');
-        if (activeUid) {
-          const saved = localStorage.getItem(`pinit_${activeUid}_profile`);
-          if (saved) {
+      if (!sbUser && typeof window !== 'undefined') {
+        if (event === 'SIGNED_OUT') {
+          localStorage.removeItem('pinit_active_uid');
+          localStorage.removeItem('pinit_auth_token');
+          localStorage.removeItem('pinit_current_user');
+          setUser(null);
+        } else {
+          try {
+            const refreshRes = await supabase.auth.refreshSession();
+            sbUser = refreshRes?.data?.session?.user ?? null;
+          } catch {}
+
+          if (!sbUser) {
+            // Defect 002: Do NOT fabricate synthetic user from orphaned localStorage; verify with server session
             try {
-              const cachedProfile = JSON.parse(saved);
-              sbUser = {
-                id: activeUid,
-                email: cachedProfile.email || `${cachedProfile.username || 'user'}@pinit.app`,
-                user_metadata: { display_name: cachedProfile.displayName }
-              } as any;
+              const sRes = await fetch('/api/auth/session').catch(() => null);
+              if (sRes && sRes.ok) {
+                const sData = await sRes.json().catch(() => null);
+                if (sData?.authenticated && sData?.uid) {
+                  const activeUid = localStorage.getItem('pinit_active_uid');
+                  if (activeUid && activeUid === sData.uid) {
+                    const saved = localStorage.getItem(`pinit_${activeUid}_profile`);
+                    if (saved) {
+                      const cachedProfile = JSON.parse(saved);
+                      sbUser = {
+                        id: activeUid,
+                        email: cachedProfile.email || `${cachedProfile.username || 'user'}@pinit.app`,
+                        user_metadata: { display_name: cachedProfile.displayName }
+                      } as any;
+                    }
+                  }
+                }
+              }
             } catch {}
           }
         }
@@ -516,7 +598,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const emailLower = email.toLowerCase();
     
     // Check if default credential attempt first
-    const isDefaultUser = isDemoAuthEnabled() && isDemoEmail(emailLower) && password === DEMO_PASSWORD;
+    const isDefaultUser = isDemoAuthEnabled() && isDemoEmail(emailLower) && isDemoPassword(password);
     
     try {
       let sbUser;
@@ -726,14 +808,44 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }).catch(() => {});
       }
     } catch {}
-    const uid = user?.id;
+
+    // Defect 004: Invalidate server session HttpOnly cookies
     try {
-      localStorage.removeItem('pinit_active_uid');
-      localStorage.removeItem('pinit_auth_token');
-      localStorage.removeItem('pinit_current_user');
-      if (uid) localStorage.removeItem(`pinit_${uid}_profile`);
+      await fetch('/api/auth/session', { method: 'DELETE' }).catch(() => {});
     } catch {}
-    await supabase.auth.signOut();
+
+    // Defect 004: Comprehensive storage purge of all pinit_, supabase, and sb- keys
+    if (typeof window !== 'undefined') {
+      try {
+        const keysToRemove: string[] = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i);
+          if (k && (k.startsWith('pinit_') || k.startsWith('sb-') || k.includes('supabase'))) {
+            keysToRemove.push(k);
+          }
+        }
+        keysToRemove.forEach(k => localStorage.removeItem(k));
+        sessionStorage.clear();
+      } catch {}
+
+      // Clear legacy client-side cookies
+      if (typeof document !== 'undefined') {
+        document.cookie = "pinit_role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        document.cookie = "pinit_uid=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        document.cookie = "pinit_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+      }
+
+      // Broadcast force purge to all open tabs
+      if ('BroadcastChannel' in window) {
+        try {
+          const authSync = new BroadcastChannel('pinit_career_os_sync');
+          authSync.postMessage({ type: 'FORCE_STORAGE_PURGE', timestamp: Date.now() });
+          authSync.close();
+        } catch {}
+      }
+    }
+
+    await supabase.auth.signOut().catch(() => {});
     setUser(null);
   };
 

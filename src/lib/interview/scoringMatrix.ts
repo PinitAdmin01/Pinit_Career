@@ -420,26 +420,26 @@ export function generateTelemetryDiagnostics(telemetry?: {
     practiceAdvice.push('Replace filler words ("um", "like") with a deliberate silent pause to project executive presence.');
   }
 
-  // Camera & Visual Diagnostics (Strictly advisory, noting environmental variables)
+  // Camera & Visual Diagnostics (Strictly advisory, honest presence & framing)
   if (eyeContact <= 0) {
     signals.push({
-      metric: 'Gaze & Engagement',
+      metric: 'Camera & Presence',
       value: 'N/A (Audio Mode)',
-      diagnostic: 'Camera inactive or audio-only mode. Visual gaze tracking was cleanly excluded from evaluation.',
+      diagnostic: 'Camera inactive or audio-only mode. Visual presence was cleanly excluded from evaluation.',
       status: 'info',
     });
-  } else if (eyeContact < 40) {
+  } else if (eyeContact < 50) {
     signals.push({
-      metric: 'Gaze & Engagement',
-      value: `${eyeContact}% focal track`,
-      diagnostic: 'Camera alignment suggestion: positioning camera at eye level enhances presence.',
+      metric: 'Camera & Presence',
+      value: 'Off-Center / Drift',
+      diagnostic: 'Camera framing suggestion: positioning camera at eye level enhances conversational presence.',
       status: 'info',
     });
   } else {
     signals.push({
-      metric: 'Gaze & Engagement',
-      value: `${eyeContact}% steady tracking`,
-      diagnostic: 'Consistent, confident focal engagement throughout the session.',
+      metric: 'Camera & Presence',
+      value: 'Centered Focus',
+      diagnostic: 'Consistent, centered visual presence maintained throughout the session.',
       status: 'good',
     });
   }

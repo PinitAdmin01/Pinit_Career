@@ -1,5 +1,156 @@
 {
-  "results": [],
+  "results": [
+    {
+      "course": "Distributed Systems",
+      "code": "CS601",
+      "internals": 28,
+      "semester": 0,
+      "grade": "Absent",
+      "isAbsent": true
+    },
+    {
+      "course": "Compiler Design",
+      "code": "CS602",
+      "internals": 27,
+      "semester": 0,
+      "grade": "Absent",
+      "isAbsent": true
+    },
+    {
+      "course": "Computer Networks",
+      "code": "CS603",
+      "internals": 26,
+      "semester": 0,
+      "grade": "Absent",
+      "isAbsent": true
+    },
+    {
+      "course": "Machine Learning",
+      "code": "CS604",
+      "internals": 29,
+      "semester": 0,
+      "grade": "Absent",
+      "isAbsent": true
+    }
+  ],
   "schedule": [],
-  "isPublished": false
+  "isPublished": false,
+  "sheet": {
+    "isPublished": false,
+    "gpa": 0,
+    "results": [
+      {
+        "course": "Distributed Systems",
+        "code": "CS601",
+        "internals": 28,
+        "semester": 0,
+        "grade": "Absent",
+        "isAbsent": true
+      },
+      {
+        "course": "Compiler Design",
+        "code": "CS602",
+        "internals": 27,
+        "semester": 0,
+        "grade": "Absent",
+        "isAbsent": true
+      },
+      {
+        "course": "Computer Networks",
+        "code": "CS603",
+        "internals": 26,
+        "semester": 0,
+        "grade": "Absent",
+        "isAbsent": true
+      },
+      {
+        "course": "Machine Learning",
+        "code": "CS604",
+        "internals": 29,
+        "semester": 0,
+        "grade": "Absent",
+        "isAbsent": true
+      }
+    ]
+  },
+  "gpa": 0,
+  "attempts": [
+    {
+      "studentId": "STU-EXAM-TEST-18",
+      "examScheduleId": "EXAM-SCHED-999",
+      "score": 92,
+      "passed": true,
+      "timestamp": 1789160183206
+    },
+    {
+      "studentId": "STU-EXAM-TEST-18-1789160803310",
+      "examScheduleId": "EXAM-SCHED-1789160803310",
+      "score": 92,
+      "passed": true,
+      "timestamp": 1789160803315
+    },
+    {
+      "studentId": "STU-EXAM-TEST-18-1789162168928",
+      "examScheduleId": "EXAM-SCHED-1789162168928",
+      "score": 92,
+      "passed": true,
+      "timestamp": 1789162168931
+    },
+    {
+      "studentId": "STU-EXAM-TEST-18-1789162257553",
+      "examScheduleId": "EXAM-SCHED-1789162257553",
+      "score": 92,
+      "passed": true,
+      "timestamp": 1789162257562
+    },
+    {
+      "studentId": "STU-EXAM-TEST-18-1789162396696",
+      "examScheduleId": "EXAM-SCHED-1789162396696",
+      "score": 92,
+      "passed": true,
+      "timestamp": 1789162396700
+    },
+    {
+      "studentId": "STU-EXAM-TEST-18-1789205044449",
+      "examScheduleId": "EXAM-SCHED-1789205044449",
+      "score": 92,
+      "passed": true,
+      "timestamp": 1789205044452
+    },
+    {
+      "studentId": "STU-EXAM-TEST-18-1789206247367",
+      "examScheduleId": "EXAM-SCHED-1789206247367",
+      "score": 92,
+      "passed": true,
+      "timestamp": 1789206247370
+    },
+    {
+      "studentId": "STU-EXAM-TEST-18-1789207965860",
+      "examScheduleId": "EXAM-SCHED-1789207965860",
+      "score": 92,
+      "passed": true,
+      "timestamp": 1789207965863
+    },
+    {
+      "studentId": "STU-EXAM-TEST-18-1789210343530",
+      "examScheduleId": "EXAM-SCHED-1789210343530",
+      "score": 92,
+      "passed": true,
+      "timestamp": 1789210343536
+    },
+    {
+      "studentId": "usr_cd_test_1789229047577",
+      "examScheduleId": "e1",
+      "score": 45,
+      "passed": false,
+      "timestamp": 1789229047580
+    },
+    {
+      "studentId": "usr_cd_api_1789229047584",
+      "examScheduleId": "e2",
+      "score": 40,
+      "passed": false,
+      "timestamp": 1789229047584
+    }
+  ]
 }

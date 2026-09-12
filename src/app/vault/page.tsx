@@ -181,8 +181,8 @@ export default function VaultPage() {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 24 }}>
         {[
           { label: 'Total Vault Assets',  value: total,          color: 'var(--accent)' },
-          { label: 'AI Auto-Verified',    value: verified_total, color: 'var(--green)'  },
-          { label: 'Confidence Quotient', value: `${avg_score}%`, color: 'var(--teal)' },
+          { label: 'Verified Proofs',    value: verified_total, color: 'var(--green)'  },
+          { label: 'Verified Trust Quotient', value: verified_total > 0 ? `${avg_score}%` : 'Pending Verification', color: 'var(--teal)' },
         ].map(s => (
           <div key={s.label} style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 16, padding: '16px 20px', borderTop: `3px solid ${s.color}` }}>
             <div style={{ fontSize: 10, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginBottom: 6 }}>{s.label}</div>
@@ -378,7 +378,7 @@ export default function VaultPage() {
                       letterSpacing: '0.5px',
                       textTransform: 'uppercase'
                     }}>
-                      ⏳ Pending
+                      ⏳ Pending Verification
                     </div>
                   )}
 
@@ -400,13 +400,13 @@ export default function VaultPage() {
                     fontWeight: 700,
                     color: 'var(--t2)'
                   }}>
-                    {score > 0 ? (
+                    {item.verified && score > 0 ? (
                       <>
                         <span style={{ width: 6, height: 6, borderRadius: '50%', background: gaugeColor, boxShadow: `0 0 6px ${gaugeColor}` }} />
                         AI Trust: {score}%
                       </>
                     ) : (
-                      <span style={{ color: 'var(--t3)', fontSize: 9.5 }}>Manual Entry</span>
+                      <span style={{ color: 'var(--amber)', fontSize: 9.5 }}>Pending Audit</span>
                     )}
                   </div>
                 </div>

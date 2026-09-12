@@ -4,9 +4,20 @@ import { requireUserFromRequest } from '@/lib/server/requireAuth';
 
 export async function POST(req: Request) {
   try {
-    const { installmentId } = await req.json();
     const gated = await requireUserFromRequest(req);
     if (gated.error) return gated.error;
+
+    let body: any;
+    try {
+      body = await req.json();
+    } catch {
+      return NextResponse.json({ error: 'INVALID_JSON', message: 'Malformed JSON payload' }, { status: 400 });
+    }
+
+    const { installmentId } = body || {};
+    if (!installmentId) {
+      return NextResponse.json({ error: 'MISSING_FIELD', message: 'installmentId is required' }, { status: 400 });
+    }
 
     const studentId = gated.user!.id;
     const studentName = gated.user!.email || 'Student';

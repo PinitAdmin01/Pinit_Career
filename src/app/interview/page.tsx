@@ -2318,8 +2318,8 @@ export default function InterviewPage() {
                       borderRadius: 6, padding: '2px 6px', fontSize: 8.5, color: 'var(--text)',
                       display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 800
                     }}>
-                      <span style={{ color: eyeContactScore !== null ? (eyeContactScore >= 70 ? 'var(--success-bright)' : eyeContactScore >= 50 ? 'var(--warning-bright)' : 'var(--danger-bright)') : 'var(--text-muted)' }}>
-                        👁️ {eyeContactScore !== null ? `${eyeContactScore}% Gaze` : 'Tracking...'}
+                      <span style={{ color: eyeContactScore !== null ? (eyeContactScore >= 60 ? 'var(--success-bright)' : 'var(--warning-bright)') : 'var(--text-muted)' }}>
+                        📷 {eyeContactScore !== null ? (eyeContactScore >= 60 ? 'Presence: Centered' : 'Presence: Adjust Angle') : 'Detecting...'}
                       </span>
                       <span style={{ color: 'var(--info-bright)' }}>⚡ {wpmScore} WPM</span>
                     </div>
@@ -2653,8 +2653,8 @@ export default function InterviewPage() {
                       borderRadius: 6, padding: '2px 6px', fontSize: 8.5, color: 'var(--text)',
                       display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 800
                     }}>
-                      <span style={{ color: eyeContactScore !== null ? (eyeContactScore >= 70 ? 'var(--success-bright)' : eyeContactScore >= 50 ? 'var(--warning-bright)' : 'var(--danger-bright)') : 'var(--text-muted)' }}>
-                        👁️ {eyeContactScore !== null ? `${eyeContactScore}% Gaze` : 'Tracking...'}
+                      <span style={{ color: eyeContactScore !== null ? (eyeContactScore >= 60 ? 'var(--success-bright)' : 'var(--warning-bright)') : 'var(--text-muted)' }}>
+                        📷 {eyeContactScore !== null ? (eyeContactScore >= 60 ? 'Presence: Centered' : 'Presence: Adjust Angle') : 'Detecting...'}
                       </span>
                       <span style={{ color: 'var(--info-bright)' }}>⚡ {wpmScore} WPM</span>
                     </div>
@@ -2854,7 +2854,7 @@ export default function InterviewPage() {
                     {(evaluationResult?.telemetryDiagnostics?.signals || [
                       { metric: 'Speaking Pace', value: `${wpmScore || 125} WPM`, diagnostic: 'Natural conversational pace.', status: 'good' },
                       { metric: 'Speech Clarity', value: `${fillerWordCount} filler words`, diagnostic: 'Clean verbal articulation.', status: 'good' },
-                      { metric: 'Gaze Alignment', value: eyeContactScore !== null ? `${eyeContactScore}% track` : 'Not Tracked', diagnostic: eyeContactScore !== null ? (eyeContactScore >= 70 ? 'Steady visual focus maintained.' : 'Gaze drift detected during speaking.') : 'Camera was inactive; gaze focus was not measured.', status: eyeContactScore !== null ? (eyeContactScore >= 70 ? 'good' : 'warning') : 'neutral' }
+                      { metric: 'Camera Presence & Framing', value: eyeContactScore !== null ? (eyeContactScore >= 60 ? 'Centered' : 'Off-Center') : 'Not Tracked', diagnostic: eyeContactScore !== null ? (eyeContactScore >= 60 ? 'Optimal eye-level framing maintained.' : 'Slight drift detected; keep webcam level with eyes.') : 'Camera was inactive; presence was not measured.', status: eyeContactScore !== null ? (eyeContactScore >= 60 ? 'good' : 'warning') : 'neutral' }
                     ]).map((s: any, idx: number) => (
                       <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 11, padding: '4px 8px', borderRadius: 6, background: 'var(--bg3)' }}>
                         <span style={{ color: 'var(--t2)', fontWeight: 600 }}>{s.metric} ({s.value})</span>

@@ -205,6 +205,17 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
   const [showHint, setShowHint] = useState<boolean>(false);
   const [isCompleteView, setIsCompleteView] = useState<boolean>(false);
   const [showGuidedMentor, setShowGuidedMentor] = useState<boolean>(false);
+  const [unlockRemainingSec, setUnlockRemainingSec] = useState<number>(0);
+
+  useEffect(() => {
+    if (!questId || typeof cOS.getItemRemainingSeconds !== 'function') return;
+    const check = () => {
+      setUnlockRemainingSec(cOS.getItemRemainingSeconds(`quest:${questId}`));
+    };
+    check();
+    const timer = setInterval(check, 2000);
+    return () => clearInterval(timer);
+  }, [questId, cOS.getItemRemainingSeconds, cOS.unlockedItems]);
 
 
 
@@ -257,7 +268,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
     if (qId.startsWith('py') || qId.includes('python') || qId.includes('ai')) return { file: 'solution.py', label: 'Python editor (no CPython runtime)', native: false };
     if (qId.startsWith('database') || qId.includes('sql')) return { file: 'query.sql', label: 'SQL editor (no DB engine)', native: false };
     if (qId.startsWith('react') || qId.includes('fullstack') || qId.includes('javascript') || qId.includes('js')) return { file: 'App.jsx', label: 'JS/JSX sandbox', native: true };
-    return { file: 'Solution.java', label: 'Java editor (no JVM runtime)', native: false };
+    return { file: 'Solution.java', label: 'Java compiler judge', native: true };
   };
 
   const renderEditor = (isExam: boolean) => {
@@ -268,6 +279,41 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
 
     return (
       <div>
+        {unlockRemainingSec > 0 && unlockRemainingSec <= 300 && (
+          <div style={{
+            background: 'rgba(234, 179, 8, 0.12)',
+            border: '1px solid #eab308',
+            borderRadius: 10,
+            padding: '8px 14px',
+            marginBottom: 10,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            fontSize: 12,
+            color: '#eab308'
+          }}>
+            <span>⏳ Quest unlock expiring in {Math.floor(unlockRemainingSec / 60)}m {unlockRemainingSec % 60}s. Your code is safely auto-saved.</span>
+            <button
+              onClick={() => {
+                if (typeof (cOS as any).extendItemGrace === 'function') {
+                  (cOS as any).extendItemGrace(`quest:${questId}`);
+                }
+              }}
+              style={{
+                background: '#eab308',
+                color: '#0f172a',
+                border: 'none',
+                borderRadius: 6,
+                padding: '4px 10px',
+                fontWeight: 800,
+                fontSize: 11,
+                cursor: 'pointer'
+              }}
+            >
+              +15 Min Grace ⚡
+            </button>
+          </div>
+        )}
         <div style={{ display: 'flex', justifyContent: 'space-between', background: 'var(--bg3)', border: '1.5px solid var(--border)', borderBottom: 'none', padding: '8px 14px', borderRadius: '12px 12px 0 0' }}>
           <span style={{ fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>{langInfo.file} ({isExam ? 'Proctored Environment' : langInfo.label})</span>
           <span style={{ fontSize: 11, color: editorLocked ? (examTimedOut && !isCompleted ? 'var(--coral)' : 'var(--green)') : (isExam ? 'var(--coral)' : 'var(--accent)'), fontWeight: 700, fontFamily: 'var(--font-mono)' }}>
@@ -488,9 +534,10 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
   }
 
   // Spend pins to unlock the quest
-  const handleUnlockQuest = () => {
+  const handleUnlockQuest = async () => {
     const teacher = TEACHERS.find(t => t.id === selectedTeacherId) || TEACHERS[0];
-    if (unlockItem(`quest:${questId}`, 'quest', `Unlock Quest: ${(quest.title || '').split(':')[1]?.trim() || quest.title}`)) {
+    const ok = await unlockItem(`quest:${questId}`, 'quest', `Unlock Quest: ${(quest.title || '').split(':')[1]?.trim() || quest.title}`);
+    if (ok) {
       localStorage.setItem(`pinit_quest_teacher_${questId}`, selectedTeacherId);
       setQuestTeacher(selectedTeacherId);
       setIsUnlocked(true);
@@ -567,7 +614,12 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
       return;
     }
 
-    const isJava = (questId || '').includes('java') || (quest?.id || '').includes('java');
+    const isJava = (questId || '').includes('java') ||
+      (quest?.id || '').includes('java') ||
+      (quest?.starterCode || '').includes('class Solution') ||
+      (quest?.starterCode || '').includes('public class') ||
+      (quest?.desc || '').toLowerCase().includes('java') ||
+      ['fizzbuzz', 'reverser', 'arraysum', 'palindrome', 'twosum'].some(id => (questId || '').includes(id));
     if (isJava) {
       setOutput(null);
       setTerminalLogs(['⚙️ Dispatching Java submission to isolated compiler judge...']);

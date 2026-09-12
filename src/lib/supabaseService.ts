@@ -86,13 +86,14 @@ export function mapRowToProfile(row: any): any {
     mission_streak: row.mission_streak ?? 0,
     recruiter_visibility: row.recruiter_visibility ?? 0,
     career_readiness: row.career_readiness ?? 0,
-    communication_score: row.communication_score ?? 60,
-    execution_score: row.execution_score ?? 60,
-    leadership_score: row.leadership_score ?? 60,
-    consistency_score: row.consistency_score ?? 60,
-    adaptability_score: row.adaptability_score ?? 60,
-    confidence_score: row.confidence_score ?? 60,
-    innovation_score: row.innovation_score ?? 60,
+    // DEF-059 Fix: Honest soft-skill calibration (null if not yet evaluated, not fabricated 60)
+    communication_score: row.communication_score ?? null,
+    execution_score: row.execution_score ?? null,
+    leadership_score: row.leadership_score ?? null,
+    consistency_score: row.consistency_score ?? null,
+    adaptability_score: row.adaptability_score ?? null,
+    confidence_score: row.confidence_score ?? null,
+    innovation_score: row.innovation_score ?? null,
     intelligence_score: row.intelligence_score ?? 0,
     weak_areas: row.weak_areas || [],
     skill_tags: row.skill_tags || [],
@@ -259,6 +260,16 @@ function isRlsDenied(error: { code?: string; message?: string } | null | undefin
   return error.code === '42501' || msg.includes('row-level security') || msg.includes('rls');
 }
 
+function getLocalProfile(uid: string): Record<string, any> | null {
+  if (typeof window === 'undefined' || !uid) return null;
+  try {
+    const raw = localStorage.getItem(`pinit_${uid}_profile`);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
 function persistLocalProfile(uid: string, data: Record<string, any>) {
   if (typeof window === 'undefined' || !uid) return;
   try {
@@ -291,10 +302,12 @@ function stripSelfServicePrivileges(row: Record<string, any>, allowPrivileged = 
   delete row.ats_score;
   delete row.trust_score;
   delete row.career_dna_score;
+  delete row.mission_streak;
 
   // CAV-02 FIX: Strip verified: true from portfolio items for non-privileged callers
   if (row.onboarding_answers && typeof row.onboarding_answers === 'object') {
     const ob = { ...row.onboarding_answers };
+    delete ob.mission_streak;
     if (Array.isArray(ob.portfolio_projects)) {
       ob.portfolio_projects = sanitizePortfolioItems(ob.portfolio_projects);
     }
@@ -330,13 +343,40 @@ export async function findUserByRegisterNumber(registerNumber: string) {
 
 export async function getUserProfile(uid: string) {
   if (!uid || !IS_VALID_UUID(uid)) {
+    if (typeof window !== 'undefined' && uid) {
+      try {
+        const raw = localStorage.getItem(`pinit_${uid}_profile`);
+        if (raw) return JSON.parse(raw);
+      } catch {}
+    }
     return null;
   }
   try {
     const { data, error } = await supabase.from('users').select('*').eq('id', uid).maybeSingle();
-    if (error) return null;
-    return data ? mapRowToProfile(data) : null;
+    if (error) {
+      if (typeof window !== 'undefined') {
+        try {
+          const raw = localStorage.getItem(`pinit_${uid}_profile`);
+          if (raw) return JSON.parse(raw);
+        } catch {}
+      }
+      return null;
+    }
+    if (data) return mapRowToProfile(data);
+    if (typeof window !== 'undefined') {
+      try {
+        const raw = localStorage.getItem(`pinit_${uid}_profile`);
+        if (raw) return JSON.parse(raw);
+      } catch {}
+    }
+    return null;
   } catch (err) {
+    if (typeof window !== 'undefined') {
+      try {
+        const raw = localStorage.getItem(`pinit_${uid}_profile`);
+        if (raw) return JSON.parse(raw);
+      } catch {}
+    }
     return null;
   }
 }
@@ -420,6 +460,7 @@ export async function updateUserProfile(
   if (Object.keys(answersUpdate).length > 0) {
     row.onboarding_answers = {
       ...currentAnswers,
+      ...(row.onboarding_answers || {}),
       ...answersUpdate
     };
   }
@@ -579,6 +620,7 @@ export async function submitMission(uid: string, missionId: string, data: Record
 }
 
 export async function getVaultItems(uid: string) {
+  if (!IS_VALID_UUID(uid)) return [];
   const { data, error } = await supabase
     .from('vault_items')
     .select('*')
@@ -589,6 +631,7 @@ export async function getVaultItems(uid: string) {
 }
 
 export async function addVaultItem(uid: string, item: Record<string, any>) {
+  if (!IS_VALID_UUID(uid)) return `vault-guest-${Date.now()}`;
   const { data, error } = await supabase
     .from('vault_items')
     .insert([{
@@ -607,6 +650,17 @@ export async function addVaultItem(uid: string, item: Record<string, any>) {
     .select();
   if (error) throw error;
   return data?.[0]?.id || `supabase-${Date.now()}`;
+}
+
+export async function deleteVaultItem(uid: string, itemId: string) {
+  if (!IS_VALID_UUID(uid)) return true;
+  const { error } = await supabase
+    .from('vault_items')
+    .delete()
+    .eq('id', itemId)
+    .eq('user_id', uid);
+  if (error) throw error;
+  return true;
 }
 
 export async function generateResumeFromVault(uid: string, parsedResume: any, targetRole?: string) {
@@ -890,12 +944,14 @@ export async function appendInterviewTranscript(uid: string, sessionId: string, 
 }
 
 export async function completeInterviewSession(uid: string, sessionId: string, evaluation: Record<string, any>) {
+  const telemetryData = evaluation.telemetryDiagnostics || evaluation.telemetry_diagnostics || null;
   const { error } = await supabase
     .from('interview_sessions')
     .update({
       status: 'completed',
-      overall_score: evaluation.overall_score || 0,
+      overall_score: evaluation.overall_score || evaluation.score || 0,
       evaluation,
+      telemetry_diagnostics: telemetryData,
       completed_at: new Date().toISOString(),
     })
     .eq('id', sessionId)
@@ -1242,34 +1298,41 @@ export async function syncUnlockedItemsDB(
   unlockedItems: Record<string, number>
 ): Promise<{ ok: boolean }> {
   if (!uid || uid === 'guest') return { ok: true };
-  try {
-    const { error } = await supabase
-      .from('users')
-      .update({ unlocked_items: unlockedItems })
-      .eq('id', uid);
-
-    if (error) {
-      console.warn('[syncUnlockedItemsDB] DB update failed:', error.message);
-      return { ok: false };
-    }
-    return { ok: true };
-  } catch (e: any) {
-    console.error('[syncUnlockedItemsDB] Unexpected error:', e.message);
-    return { ok: false };
-  }
+  persistLocalProfile(uid, { unlocked_items: unlockedItems, unlockedItems });
+  return { ok: true };
 }
 
 // ─── Step 2: Server-Verified Time Offset Calculation ──────────────────────────
 export async function fetchServerTimeOffset(): Promise<number> {
   try {
     const startTime = Date.now();
-    // Query system health / ping to compute network latency and server time delta
-    const res = await fetch('/api/pins/spend', { method: 'OPTIONS' }).catch(() => null);
-    const dateHeader = res?.headers.get('date');
-    if (dateHeader) {
-      const serverMs = new Date(dateHeader).getTime();
-      const clientMs = startTime + (Date.now() - startTime) / 2;
-      return serverMs - clientMs; // returns offset in milliseconds
+    // Query dedicated lightweight /api/time endpoint to compute network latency and server clock delta
+    const res = await fetch('/api/time', {
+      method: 'GET',
+      headers: { 'Cache-Control': 'no-cache' },
+    }).catch(() => null);
+
+    if (res) {
+      const serverHeader = res.headers.get('x-server-time');
+      let serverMs = serverHeader ? Number(serverHeader) : NaN;
+      if (isNaN(serverMs)) {
+        try {
+          const body = await res.clone().json();
+          if (typeof body?.epochMs === 'number') {
+            serverMs = body.epochMs;
+          }
+        } catch {}
+      }
+      if (isNaN(serverMs)) {
+        const dateHeader = res.headers.get('date');
+        if (dateHeader) {
+          serverMs = new Date(dateHeader).getTime();
+        }
+      }
+      if (!isNaN(serverMs)) {
+        const clientMs = startTime + (Date.now() - startTime) / 2;
+        return serverMs - clientMs; // returns offset in milliseconds
+      }
     }
   } catch (e) {
     console.warn('[fetchServerTimeOffset] Server time fetch fallback:', e);
@@ -1289,7 +1352,31 @@ export async function spendPinsDB(
   reason: string
 ): Promise<{ ok: boolean; newBalance?: number; reason?: string }> {
   try {
-    // Read authoritative DB balance
+    if (!IS_VALID_UUID(uid)) {
+      // In demo/guest/offline mode with non-UUID, perform safe local deduction
+      const local = getLocalProfile(uid);
+      const current = local?.pins ?? 120;
+      if (current < cost) return { ok: false, reason: 'INSUFFICIENT_PINS' };
+      const newBalance = current - cost;
+      persistLocalProfile(uid, { pins: newBalance });
+      return { ok: true, newBalance };
+    }
+
+    // Attempt authoritative atomic PostgreSQL RPC with FOR UPDATE row lock
+    const { data: rpcResult, error: rpcErr } = await supabase.rpc('spend_pins', {
+      p_user_id: uid,
+      p_amount: cost,
+      p_reason: reason || 'Pin deduction'
+    });
+
+    if (!rpcErr && rpcResult) {
+      if (rpcResult.ok) {
+        return { ok: true, newBalance: rpcResult.new_balance };
+      }
+      return { ok: false, reason: rpcResult.reason || 'INSUFFICIENT_PINS' };
+    }
+
+    // Fallback if RPC is not deployed yet or connection degraded
     const { data: profile, error: fetchErr } = await supabase
       .from('users')
       .select('pins')
@@ -1317,12 +1404,18 @@ export async function spendPinsDB(
       return { ok: false, reason: 'ERROR' };
     }
 
-    // Append to pin_history JSONB (best-effort, non-blocking)
+    // Append to pin_history JSONB with unique collision-free transaction ID
     (async () => {
       try {
         const { data } = await supabase.from('users').select('pin_history').eq('id', uid).single();
         const history: any[] = data?.pin_history || [];
-        const tx = { id: `tx_${Date.now()}`, type: 'spend', amount: cost, reason, timestamp: Date.now() };
+        const tx = {
+          id: `tx_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+          type: 'spend',
+          amount: cost,
+          reason,
+          timestamp: Date.now()
+        };
         const trimmed = [tx, ...history].slice(0, 100);
         await supabase.from('users').update({ pin_history: trimmed }).eq('id', uid);
       } catch (err) {

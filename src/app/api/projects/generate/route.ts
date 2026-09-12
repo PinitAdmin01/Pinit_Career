@@ -574,6 +574,7 @@ export async function POST(req: Request) {
           try {
             const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
               method: 'POST',
+              signal: AbortSignal.timeout(3500),
               headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${openRouterKey}`,
@@ -604,6 +605,7 @@ export async function POST(req: Request) {
             try {
               const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
                 method: 'POST',
+                signal: AbortSignal.timeout(3500),
                 headers: {
                   'Content-Type': 'application/json',
                   'Authorization': `Bearer ${key}`

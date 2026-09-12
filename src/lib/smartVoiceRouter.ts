@@ -38,6 +38,7 @@ function healthUrlFromTts(endpoint: string): string {
 
 let isServerWarming = false;
 let isServerWarm = false;
+let isCloudDisabled = false;
 let lastWarmAt = 0;
 let activeWakePromise: Promise<boolean> | null = null;
 const inFlightCloudRequests = new Map<string, Promise<{ audioBuffer: ArrayBuffer; durationSec: number; engine?: string }>>();
@@ -51,6 +52,7 @@ const PREMIUM_TIMEOUT_MS = 25_000;
  * Uses silent mode to prevent Chrome CORS red errors during container boot.
  */
 export async function pingRenderServer(waitForWarm = false): Promise<boolean> {
+  if (isCloudDisabled) return false;
   if (isServerWarm && Date.now() - lastWarmAt < 10 * 60 * 1000) return true;
   if (activeWakePromise) return activeWakePromise;
 
@@ -66,6 +68,11 @@ export async function pingRenderServer(waitForWarm = false): Promise<boolean> {
       try {
         const res = await fetch(health, { method: "GET", mode, signal: controller.signal });
         clearTimeout(timer);
+        if (res.status === 404) {
+          isCloudDisabled = true;
+          console.warn("[SmartVoiceRouter] Voice service health returned 404. Disabling cloud voice for this session.");
+          return false;
+        }
         if (mode === "no-cors" || res.ok) {
           isServerWarm = true;
           lastWarmAt = Date.now();
@@ -80,7 +87,7 @@ export async function pingRenderServer(waitForWarm = false): Promise<boolean> {
 
     // Try standard CORS ping first, silent no-cors fallback if container is booting
     let ok = await tryPing("cors");
-    if (!ok) {
+    if (!ok && !isCloudDisabled) {
       ok = await tryPing("no-cors");
     }
 
@@ -242,11 +249,21 @@ async function fetchCloudFastAPI(
       }
     };
 
+    if (isCloudDisabled) {
+      throw new Error("Cloud TTS disabled for session (health check unavailable)");
+    }
+
     try {
       return await attempt(targetUrl);
     } catch (primaryErr: any) {
+      if (isCloudDisabled) {
+        throw primaryErr;
+      }
       console.warn("[SmartVoiceRouter] Primary TTS attempt failed:", primaryErr?.message || primaryErr, "Retrying with warm ping...");
-      await pingRenderServer(true);
+      const warm = await pingRenderServer(true);
+      if (!warm || isCloudDisabled) {
+        throw primaryErr;
+      }
       return await attempt(DEFAULT_CLOUD_ENDPOINT);
     } finally {
       inFlightCloudRequests.delete(requestKey);

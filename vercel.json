@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/daily-pin-reset",
+      "schedule": "30 19 * * *"
+    }
+  ]
+}

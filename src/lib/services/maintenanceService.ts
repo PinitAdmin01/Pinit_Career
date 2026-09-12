@@ -13,6 +13,7 @@ export interface InfrastructureTicket {
   status: string;
   date: string;
   technician: string;
+  urgency?: 'Emergency' | 'High' | 'Normal' | 'Low';
 }
 
 // Read local JSON database
@@ -33,15 +34,19 @@ export const maintenanceService = {
       try {
         const { data: tickets } = await supabase.from('infrastructure_tickets').select('*');
         return {
-          tickets: (tickets || []).map(t => ({
-            id: t.ticket_code,
-            category: t.category,
-            location: t.location,
-            description: t.description,
-            status: t.status,
-            date: t.created_at?.split('T')[0],
-            technician: t.technician || ''
-          }))
+          tickets: (tickets || []).map(t => {
+            const urgency = t.urgency || (t.description?.includes('[EMERGENCY]') ? 'Emergency' : t.description?.includes('[HIGH]') ? 'High' : 'Normal');
+            return {
+              id: t.ticket_code || t.id,
+              category: t.category,
+              location: t.location,
+              description: t.description,
+              status: t.status,
+              date: t.created_at?.split('T')[0] || t.date,
+              technician: t.technician || '',
+              urgency
+            };
+          })
         };
       } catch (err) {
         console.warn('Supabase read failed, falling back to local database:', err);
@@ -51,25 +56,41 @@ export const maintenanceService = {
     // Local Database Fallback
     const db = await readLocalDb();
     return {
-      tickets: db.tickets || []
+      tickets: (db.tickets || []).map((t: any) => ({
+        ...t,
+        urgency: t.urgency || (t.description?.includes('[EMERGENCY]') ? 'Emergency' : 'Normal')
+      }))
     };
   },
 
-  async reportTicket(category: string, location: string, description: string) {
+  async reportTicket(category: string, location: string, description: string, urgency: 'Emergency' | 'High' | 'Normal' | 'Low' = 'Normal') {
     const isSupabaseAvailable = await checkSupabaseAvailable('infrastructure_tickets');
     const ticketCode = 'INF-' + Math.floor(100 + Math.random() * 900);
+    const taggedDesc = urgency === 'Emergency' && !description.includes('[EMERGENCY]') ? `[EMERGENCY] ${description}` : urgency === 'High' && !description.includes('[HIGH]') ? `[HIGH] ${description}` : description;
 
     if (isSupabaseAvailable) {
       try {
-        const res = await supabase.from('infrastructure_tickets').insert({
+        const payload: Record<string, any> = {
           ticket_code: ticketCode,
           category,
           location,
-          description,
-          status: 'Reported'
-        });
-        if (res.error) throw new Error(res.error.message);
-        return { ok: true, ticket: { id: ticketCode, category, location, description, status: 'Reported', date: new Date().toISOString().split('T')[0], technician: '' } };
+          description: taggedDesc,
+          status: 'Reported',
+          urgency
+        };
+        const res = await supabase.from('infrastructure_tickets').insert(payload);
+        if (res.error) {
+          // Schema tolerance: if column 'urgency' does not exist in remote DB, retry without urgency column
+          const retryRes = await supabase.from('infrastructure_tickets').insert({
+            ticket_code: ticketCode,
+            category,
+            location,
+            description: taggedDesc,
+            status: 'Reported'
+          });
+          if (retryRes.error) throw new Error(retryRes.error.message);
+        }
+        return { ok: true, ticket: { id: ticketCode, category, location, description: taggedDesc, status: 'Reported', date: new Date().toISOString().split('T')[0], technician: '', urgency } };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
       }
@@ -77,14 +98,15 @@ export const maintenanceService = {
 
     // Local Database Fallback
     const db = await readLocalDb();
-    const newTicket = {
+    const newTicket: InfrastructureTicket = {
       id: ticketCode,
       category,
       location,
-      description,
+      description: taggedDesc,
       status: 'Reported',
       date: new Date().toISOString().split('T')[0],
-      technician: ''
+      technician: '',
+      urgency
     };
     db.tickets.unshift(newTicket);
     await writeLocalDb(db);

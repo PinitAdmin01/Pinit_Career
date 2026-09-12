@@ -1,29 +1,52 @@
 import crypto from 'crypto';
 
-const EXAM_SIGNING_SECRET =
-  process.env.EXAM_SECRET ||
-  process.env.SUPABASE_SERVICE_ROLE_KEY ||
-  process.env.NEXTAUTH_SECRET ||
-  'pinit_socratic_exam_auth_key_sec_2026';
+function getExamSigningSecret(): string {
+  const secret =
+    process.env.EXAM_SECRET ||
+    process.env.SUPABASE_SERVICE_ROLE_KEY ||
+    process.env.NEXTAUTH_SECRET;
+
+  if (secret && secret.trim().length > 0) {
+    return secret;
+  }
+
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('[FATAL] EXAM_SECRET must be configured in production environment.');
+  }
+
+  // Non-production runtime: derive a secure in-process dynamic key (never hardcoded static string in repo)
+  if (!(globalThis as any).__pinit_ephemeral_exam_secret) {
+    (globalThis as any).__pinit_ephemeral_exam_secret = crypto.randomBytes(32).toString('hex');
+    console.warn('[SECURITY NOTICE] EXAM_SECRET not found; generated ephemeral runtime signing key for dev/test.');
+  }
+  return (globalThis as any).__pinit_ephemeral_exam_secret;
+}
 
 export interface ExamSessionPayload {
   answers: Record<string, number>;
   expiresAt: number;
   nonce: string;
+  studentId?: string;
 }
 
 /**
  * Signs an exam answer map into a tamper-evident session token.
  * Contains no plaintext question indices readable by clients without verification.
  */
-export function signExamSessionToken(answersMap: Record<string, number>, durationMinutes = 30): string {
+export function signExamSessionToken(
+  answersMap: Record<string, number>,
+  durationMinutes = 30,
+  studentId?: string
+): string {
   const payload: ExamSessionPayload = {
     answers: answersMap,
     expiresAt: Date.now() + durationMinutes * 60 * 1000,
     nonce: crypto.randomBytes(8).toString('hex'),
+    ...(studentId ? { studentId } : {}),
   };
+  const secret = getExamSigningSecret();
   const data = Buffer.from(JSON.stringify(payload)).toString('base64url');
-  const sig = crypto.createHmac('sha256', EXAM_SIGNING_SECRET).update(data).digest('base64url');
+  const sig = crypto.createHmac('sha256', secret).update(data).digest('base64url');
   return `${data}.${sig}`;
 }
 
@@ -32,7 +55,7 @@ export function signExamSessionToken(answersMap: Record<string, number>, duratio
  */
 export function verifyExamSessionToken(
   token: string
-): { valid: true; answers: Record<string, number> } | { valid: false; error: string } {
+): { valid: true; answers: Record<string, number>; studentId?: string } | { valid: false; error: string } {
   if (!token || typeof token !== 'string' || !token.includes('.')) {
     return { valid: false, error: 'Invalid exam token structure.' };
   }
@@ -43,7 +66,8 @@ export function verifyExamSessionToken(
   }
 
   const [data, sig] = parts;
-  const expectedSig = crypto.createHmac('sha256', EXAM_SIGNING_SECRET).update(data).digest('base64url');
+  const secret = getExamSigningSecret();
+  const expectedSig = crypto.createHmac('sha256', secret).update(data).digest('base64url');
 
   if (sig !== expectedSig) {
     return { valid: false, error: 'Cryptographic signature mismatch. Possible tampering detected.' };
@@ -57,7 +81,7 @@ export function verifyExamSessionToken(
     if (!payload.answers || typeof payload.answers !== 'object') {
       return { valid: false, error: 'Invalid answers envelope.' };
     }
-    return { valid: true, answers: payload.answers };
+    return { valid: true, answers: payload.answers, studentId: payload.studentId };
   } catch {
     return { valid: false, error: 'Failed to decode exam token data.' };
   }

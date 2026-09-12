@@ -7,6 +7,11 @@ export function isDemoAuthEnabled(): boolean {
 }
 
 export const DEMO_PASSWORD = '111111';
+export const DEMO_PASSWORDS = ['111111', 'password123'];
+
+export function isDemoPassword(password: string): boolean {
+  return DEMO_PASSWORDS.includes(password);
+}
 
 export const DEMO_ROLE_BY_EMAIL: Record<string, string> = {
   'admin@pinit.in': 'admin',

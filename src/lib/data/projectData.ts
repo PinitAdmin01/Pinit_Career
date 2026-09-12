@@ -16,7 +16,8 @@ export interface Project {
   minScore?: number;
   verificationScore?: number;
   vivaPassed?: boolean;
-  certificateType?: 'standard' | 'excellence';
+  certificateType?: 'standard' | 'excellence' | 'reference';
+  authorshipVerified?: boolean;
   certificateId?: string;
   issueDate?: string;
 }

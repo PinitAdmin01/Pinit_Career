@@ -1,29 +1,23 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
-import { toast } from '@/lib/store/useAppStore';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import { toast, useAppStore } from '@/lib/store/useAppStore';
 import { useAuth } from '@/lib/context/AuthContext';
 import { api } from '@/lib/api/client';
 import { consecutiveCalendarStreak } from '@/lib/missions/streak';
 import { supabase } from '@/lib/supabaseClient';
-import { persistQuestCompletion, spendPinsDB, syncRewardsDB, syncUnlockedItemsDB, fetchServerTimeOffset } from '@/lib/supabaseService';
+import { persistQuestCompletion, syncRewardsDB } from '@/lib/supabaseService';
 import { markOnboardingStoryPending } from '@/lib/storyTour';
+import { useVault, VaultItem } from '@/lib/hooks/useVault';
+import { usePins, PinTransaction, PinSource, PIN_COSTS, PIN_EARN } from '@/lib/hooks/usePins';
+
+// Re-export decomposed domain types and hooks for complete backward compatibility
+export type { VaultItem };
+export type { PinTransaction, PinSource };
+export { PIN_COSTS, PIN_EARN };
+export { useVault, usePins };
 
 // ─── Types ────────────────────────────────────────────────────────────────────
-
-export interface VaultItem {
-  id: string;
-  title: string;
-  item_type: string;
-  organization_name?: string;
-  description?: string;
-  verified: boolean;
-  ai_confidence_score: number;
-  skill_tags: string[];
-  is_public: boolean;
-  used_in_resume?: boolean;
-  used_in_portfolio?: boolean;
-}
 
 export interface OnboardingAnswers {
   role: string;
@@ -41,6 +35,7 @@ export interface OnboardingAnswers {
   voice_confidence?: number;
   voice_articulation?: number;
   voice_archetype?: string;
+  voice_status?: string;
   activeCourseId?: string | null;
   completedQuestsTimestamps?: string[];
   completedMissionsTimestamps?: string[];
@@ -57,78 +52,6 @@ export interface OnboardingAnswers {
   roadmap?: any[];
   roadmapDurationDays?: number;
 }
-
-export interface PinTransaction {
-  id: string;
-  type: 'earn' | 'spend';
-  amount: number;
-  reason: string;
-  source: PinSource;
-  timestamp: number;
-}
-
-export type PinSource =
-  | 'mission_complete'
-  | 'exam_pass'
-  | 'interview_session'
-  | 'study_session'
-  | 'onboarding_complete'
-  | 'vault_verify'
-  | 'daily_login'
-  | 'streak_bonus'
-  | 'purchase'
-  | 'ai_interview'
-  | 'resume_enhance'
-  | 'career_twin'
-  | 'personality_analysis'
-  | 'sentinel_fingerprint'
-  | 'communication_session'
-  | 'career_assets'
-  | 'career_dna_calc'
-  | 'admin_grant';
-
-// Pin costs per feature — single source of truth
-export const PIN_COSTS: Record<string, { cost: number; label: string; icon: string }> = {
-  quest:                 { cost: 20, label: 'Quest (30 Min Access)',        icon: '🗺' },
-  mission:               { cost: 20, label: 'Mission (30 Min Access)',      icon: '⚡' },
-  group_discussion:      { cost: 30, label: 'GD Practice (30 Min Access)',  icon: '💬' },
-  gd:                    { cost: 30, label: 'GD Practice (30 Min Access)',  icon: '💬' },
-  ai_interview:          { cost: 40, label: 'AI Interview (30 Min Access)', icon: '🎙' },
-  interview:             { cost: 40, label: 'AI Interview (30 Min Access)', icon: '🎙' },
-  attention_span_game:   { cost: 5,  label: 'Attention Span Game Play',     icon: '🧠' },
-  // Legacy aliases
-  quest_start:           { cost: 20, label: 'Quest (30 Min Access)',        icon: '🗺' },
-  resume_enhance:        { cost: 15, label: 'Resume AI Enhancement',        icon: '📄' },
-  career_twin:           { cost: 30, label: 'Career Twin Simulation',       icon: '✦' },
-  personality_analysis:  { cost: 10, label: 'Personality AI Analysis',      icon: '🧠' },
-  sentinel_fingerprint:  { cost: 5,  label: 'Sentinel Fingerprint',         icon: '🔐' },
-  career_assets:         { cost: 20, label: 'Career Assets Generation',     icon: '💼' },
-  career_dna_calc:       { cost: 10, label: 'Career DNA Recalculate',       icon: '🧬' },
-  jd_match:              { cost: 5,  label: 'JD Match Analysis',            icon: '🎯' },
-  ai_minutes_extend:     { cost: 100, label: '30 Min AI Token Extension',    icon: '⏰' },
-};
-
-// Pin earn rates (Activities disabled; pins only gained via purchase or 1 AM daily refresh)
-export const PIN_EARN: Record<PinSource, number> = {
-  mission_complete:     0,
-  exam_pass:            0,
-  interview_session:    0,
-  study_session:        0,
-  onboarding_complete:  0,
-  vault_verify:         0,
-  daily_login:          0,
-  streak_bonus:         0,
-  purchase:             0,   // variable — set per purchase
-  ai_interview:         0,
-  resume_enhance:       0,
-  career_twin:          0,
-  personality_analysis: 0,
-  sentinel_fingerprint: 0,
-  communication_session: 0,
-  career_assets:        0,
-  career_dna_calc:      0,
-  admin_grant:          0,
-};
 
 // ─── Context Interface ────────────────────────────────────────────────────────
 
@@ -167,14 +90,14 @@ interface CareerOSContextType {
   pins: number;
   pinHistory: PinTransaction[];
   earnPins: (source: PinSource, overrideAmount?: number, reason?: string) => void;
-  spendPins: (featureKey: string, customReason?: string) => boolean; // returns false if insufficient
+  spendPins: (featureKey: string, customReason?: string) => Promise<boolean>; // returns false if insufficient
   canAfford: (featureKey: string) => boolean;
-  addPurchasedPins: (amount: number, packName: string) => void;
   // Item duration unlock methods (30 min access per item)
   unlockedItems: Record<string, number>;
   isItemUnlocked: (itemKey: string) => boolean;
   getItemRemainingSeconds: (itemKey: string) => number;
-  unlockItem: (itemKey: string, category: 'quest' | 'mission' | 'interview' | 'ai_interview' | 'gd' | 'group_discussion' | 'attention_span_game', customReason?: string) => boolean;
+  extendItemGrace?: (itemKey: string, minutes?: number) => { success: boolean; newRemainingSec: number; message: string };
+  unlockItem: (itemKey: string, category: 'quest' | 'mission' | 'interview' | 'ai_interview' | 'gd' | 'group_discussion' | 'attention_span_game', customReason?: string) => Promise<boolean>;
   rewardActivity: (type: 'quest' | 'mission' | 'interview' | 'gd' | 'attention_game' | 'project', title?: string) => void;
 
   // ─── PROGRESSION SYSTEM ──────────────────────────────────────────────────
@@ -209,7 +132,7 @@ interface CareerOSContextType {
   aiUseTokens: number;
   setAiUseTokens: (val: number) => void;
   decrementAiUseTokens: (amount: number) => void;
-  buyAiMinutes: () => boolean;
+  buyAiMinutes: () => Promise<boolean>;
   isLoaded: boolean;
 }
 
@@ -225,14 +148,21 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
   const { user } = useAuth();
   const userId = user?.id || 'guest';
 
-  const [vaultItems, setVaultItemsState] = useState<VaultItem[]>([]);
+  // ── Slices extracted via Defect 107 decomposition ──────────────────────
+  const theme = useAppStore(s => s.theme);
+  const setTheme = useAppStore(s => s.setTheme);
+  const toggleTheme = useAppStore(s => s.toggleTheme);
+  const focusMode = useAppStore(s => s.focusMode);
+  const toggleFocusMode = useAppStore(s => s.toggleFocusMode);
+  const aiUseTokens = useAppStore(s => s.aiUseTokens);
+  const setAiUseTokens = useAppStore(s => s.setAiUseTokens);
+  const decrementAiUseTokens = useAppStore(s => s.decrementAiUseTokens);
+
   const [onboardingAnswers, setOnboardingAnswers] = useState<OnboardingAnswers>({ role: '', education: '', skills: '', experience: '', hasCompleted: false });
   const [completedMissions, setCompletedMissions] = useState<string[]>([]);
   const [jdMissingSkills, setJdMissingSkillsState] = useState<string[]>([]);
   const [xp, setXp] = useState(0);
   const [missionStreak, setMissionStreak] = useState(0); // Start streak at 0
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
-  const [focusMode, setFocusMode] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
   // ── Progression State ──
@@ -248,14 +178,45 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
   const [unlockedTabs, setUnlockedTabs] = useState<string[]>(['/dashboard', '/career-builder', '/quests']);
   const [forceShowCareerBuilder, setForceShowCareerBuilderState] = useState(false);
   const [demoTabsUnlocked, setDemoTabsUnlockedState] = useState(false);
-  const [aiUseTokens, setAiUseTokensState] = useState(120);
-
-  // ── Pin & Reward state ──────────────────────────────────────────────────
-  const [pins, setPins] = useState(0);
-  const [pinHistory, setPinsHistory] = useState<PinTransaction[]>([]);
-  const [unlockedItems, setUnlockedItems] = useState<Record<string, number>>({});
   const [trustBonus, setTrustBonus] = useState(0);
   const [dnaBonus, setDnaBonus] = useState(0);
+
+  // Slices decomposed into standalone hooks (Defect 107)
+  const {
+    pins,
+    setPins,
+    pinHistory,
+    setPinsHistory,
+    unlockedItems,
+    setUnlockedItems,
+    earnPins,
+    spendPins,
+    canAfford,
+    isItemUnlocked,
+    getItemRemainingSeconds,
+    extendItemGrace,
+    unlockItem,
+  } = usePins({
+    userId,
+    userEmail: user?.email,
+  });
+
+  const {
+    vaultItems,
+    setVaultItems,
+    addVaultItem,
+    updateVaultItem,
+  } = useVault({
+    userId,
+    onAddXp: (amount, reason) => {
+      setXp(prev => {
+        const next = prev + amount;
+        try { localStorage.setItem(`pinit_${userId}_xp`, String(next)); } catch {}
+        return next;
+      });
+    },
+    onEarnPins: (source) => earnPins(source as any),
+  });
 
   // localStorage key factory — memoized to prevent infinite re-render loops
   const keys = useMemo(() => ({
@@ -287,11 +248,107 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
     activeCourses: `pinit_${userId}_active_course_ids`
   }), [userId]);
 
+  const broadcastRef = useRef<BroadcastChannel | null>(null);
+  useEffect(() => {
+    if (typeof window !== 'undefined' && typeof BroadcastChannel !== 'undefined') {
+      try {
+        broadcastRef.current = new BroadcastChannel('pinit_career_os_sync');
+      } catch {}
+    }
+    return () => {
+      try { broadcastRef.current?.close(); } catch {}
+    };
+  }, []);
+
   const save = useCallback((key: string, data: unknown) => {
     if (typeof window !== 'undefined') {
       try { localStorage.setItem(key, JSON.stringify(data)); } catch {}
+      try {
+        broadcastRef.current?.postMessage({ key, data, userId });
+      } catch {}
     }
-  }, []);
+  }, [userId]);
+
+  // ── Multi-Tab Cross-Synchronization (DEF-041) ──────────────────────────
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const handleSync = (key: string | null, rawValue: string | null) => {
+      if (!key || rawValue === null) return;
+      try {
+        const parsed = JSON.parse(rawValue);
+        if (key === keys.pins && typeof parsed === 'number') {
+          setPins(parsed);
+        } else if (key === keys.pinHist && Array.isArray(parsed)) {
+          setPinsHistory(parsed);
+        } else if (key === keys.unlockedItems && typeof parsed === 'object' && parsed !== null) {
+          setUnlockedItems(parsed);
+        } else if (key === keys.quests && Array.isArray(parsed)) {
+          setCompletedQuestsState(parsed);
+        } else if (key === keys.missions && Array.isArray(parsed)) {
+          setCompletedMissions(parsed);
+        } else if (key === keys.xp && typeof parsed === 'number') {
+          setXp(parsed);
+        } else if (key === keys.streak && typeof parsed === 'number') {
+          setMissionStreak(parsed);
+        } else if (key === keys.obStep && typeof parsed === 'number') {
+          setOnboardingStepState(prev => Math.max(prev, parsed));
+        } else if (key === keys.vault && Array.isArray(parsed)) {
+          setVaultItems(parsed);
+        } else if (key === keys.onboard && typeof parsed === 'object' && parsed !== null) {
+          setOnboardingAnswers(parsed);
+        } else if (key === keys.trustBonus && typeof parsed === 'number') {
+          setTrustBonus(parsed);
+        } else if (key === keys.dnaBonus && typeof parsed === 'number') {
+          setDnaBonus(parsed);
+        } else if (key === keys.aiTokens && typeof parsed === 'number') {
+          setAiUseTokens(parsed);
+        } else if (key === keys.resGen && typeof parsed === 'boolean') {
+          setResumeGeneratedState(parsed);
+        } else if (key === keys.roadGen && typeof parsed === 'boolean') {
+          setRoadmapGeneratedState(parsed);
+        } else if (key === keys.javaPass && typeof parsed === 'boolean') {
+          setJavaTestPassedState(parsed);
+        } else if (key === keys.groupPass && typeof parsed === 'boolean') {
+          setGroupPanelPassedState(parsed);
+        } else if (key === keys.recVis && typeof parsed === 'boolean') {
+          setRecruiterVisibleState(parsed);
+        } else if (key === keys.demoTabsUnlocked && typeof parsed === 'boolean') {
+          setDemoTabsUnlockedState(parsed);
+        } else if (key === keys.activeCourse) {
+          setActiveCourseIdState(parsed);
+        } else if (key === keys.activeCourses && Array.isArray(parsed)) {
+          setActiveCourseIdsState(parsed);
+        }
+      } catch {}
+    };
+
+    const onStorage = (e: StorageEvent) => {
+      if (e.storageArea !== localStorage) return;
+      handleSync(e.key, e.newValue);
+    };
+
+    window.addEventListener('storage', onStorage);
+
+    let channel: BroadcastChannel | null = null;
+    if (typeof BroadcastChannel !== 'undefined') {
+      try {
+        channel = new BroadcastChannel('pinit_career_os_sync');
+        channel.onmessage = (ev) => {
+          if (ev.data && ev.data.userId === userId && ev.data.key) {
+            handleSync(ev.data.key, JSON.stringify(ev.data.data));
+          }
+        };
+      } catch {}
+    }
+
+    return () => {
+      window.removeEventListener('storage', onStorage);
+      if (channel) {
+        try { channel.close(); } catch {}
+      }
+    };
+  }, [userId, keys]);
 
   // ── Load all state from localStorage on mount ─────────────────────────────
   useEffect(() => {
@@ -305,7 +362,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
     try {
       const get = (k: string) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : null; } catch { return null; } };
 
-      setVaultItemsState(get(keys.vault) ?? DEFAULT_VAULT_ITEMS);
+      setVaultItems(get(keys.vault) ?? DEFAULT_VAULT_ITEMS);
       setOnboardingAnswers(get(keys.onboard) ?? { role:'', education:'', skills:'', experience:'', hasCompleted:false });
       setCompletedMissions(get(keys.missions) ?? []);
       setJdMissingSkillsState(get(keys.gaps) ?? []);
@@ -328,7 +385,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
       setRecruiterVisibleState(get(keys.recVis) ?? false);
       setForceShowCareerBuilderState(get(keys.forceShowCareer) ?? false);
       setDemoTabsUnlockedState(get(keys.demoTabsUnlocked) ?? false);
-      setAiUseTokensState(get(keys.aiTokens) ?? 120);
+      setAiUseTokens(get(keys.aiTokens) ?? 120);
       setActiveCourseIdState(get(keys.activeCourse) ?? null);
       setActiveCourseIdsState(get(keys.activeCourses) ?? []);
     } catch {}
@@ -340,15 +397,12 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (user && typeof user.pins === 'number') {
       const pinsVal = user.pins as number;
-      setPins(prev => {
-        if (prev !== pinsVal) {
-          save(keys.pins, pinsVal);
-          return pinsVal;
-        }
-        return prev;
-      });
+      if (pins !== pinsVal) {
+        setPins(pinsVal);
+        save(keys.pins, pinsVal);
+      }
     }
-  }, [user?.pins, keys.pins, save]);
+  }, [user?.pins, pins, setPins, keys.pins, save]);
 
   // Sync state from Supabase profile to context local states on load or update (One-way progression lock)
   useEffect(() => {
@@ -393,15 +447,13 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
           return merged;
         });
 
-        // Hydrate remote roadmap from Supabase to localStorage if missing on this device
+        // DEF-064 Fix: Server-first authoritative roadmap hydration (decouple stale localStorage lockout)
         if (answers.roadmap && Array.isArray(answers.roadmap) && answers.roadmap.length > 0) {
           if (typeof window !== 'undefined') {
             const mKey = `pinit_${userId}_roadmap_modules`;
-            if (!localStorage.getItem(mKey)) {
-              save(mKey, answers.roadmap);
-              if (answers.activeCourseId) {
-                save(`pinit_${userId}_roadmap_modules_${answers.activeCourseId}`, answers.roadmap);
-              }
+            save(mKey, answers.roadmap);
+            if (answers.activeCourseId) {
+              save(`pinit_${userId}_roadmap_modules_${answers.activeCourseId}`, answers.roadmap);
             }
           }
         }
@@ -547,7 +599,6 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
         if (!hasProof && dbStreak > 0) {
           setMissionStreak(0);
           save(keys.streak, 0);
-          api.post('/api/auth/onboarding', { mission_streak: 0 }).catch(() => {});
         } else if (hasProof) {
           const streakVal = dbStreak as number;
           setMissionStreak(prev => {
@@ -572,14 +623,12 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
       }
       if (user.unlockedItems && typeof user.unlockedItems === 'object') {
         const dbUnlocked = user.unlockedItems;
-        setUnlockedItems(prev => {
-          const merged = { ...prev, ...dbUnlocked };
-          save(keys.unlockedItems, merged);
-          return merged;
-        });
+        const merged = { ...unlockedItems, ...dbUnlocked };
+        setUnlockedItems(merged);
+        save(keys.unlockedItems, merged);
       }
     }
-  }, [user, isLoaded, save, keys]);
+  }, [user, isLoaded, save, keys, unlockedItems, setUnlockedItems]);
 
 
   // ── Theme sync ───────────────────────────────────────────────────────────
@@ -593,237 +642,8 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('pc_theme', theme);
   }, [theme, keys.theme, save]);
 
-  const serverOffsetRef = React.useRef(0);
 
-  // ── Step 2: Fetch Server Time Offset on Mount ─────────────────────────────
-  useEffect(() => {
-    fetchServerTimeOffset().then(offset => {
-      serverOffsetRef.current = offset;
-    }).catch(() => {});
-  }, []);
-
-  // ── Daily 1:00 AM Pin Reset Check (Server-Verified Time) ─────────────────
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    // STRICT INVARIANT: Daily pins and notifications must ONLY trigger after authenticated signup/login!
-    if (!user || user.id === 'guest' || !user.email) return;
-
-    const check1AMReset = () => {
-      try {
-        const lastReset = Number(localStorage.getItem(keys.last1AMReset) || 0);
-        const verifiedNow = new Date(Date.now() + serverOffsetRef.current);
-        const today1AM = new Date(verifiedNow.getFullYear(), verifiedNow.getMonth(), verifiedNow.getDate(), 1, 0, 0, 0).getTime();
-        
-        // If server-verified time is past 1:00 AM today and reset was not completed after today's 1:00 AM
-        if (verifiedNow.getTime() >= today1AM && lastReset < today1AM) {
-          console.log(`[CareerOSContext] Daily 1:00 AM Pin Reset Triggered for ${user.email} -> verifiedTime=${verifiedNow.toISOString()}`);
-          setPins(prev => {
-            const next = Math.max(120, prev);
-            save(keys.pins, next);
-            return next;
-          });
-          save(keys.last1AMReset, Date.now());
-          const tx: PinTransaction = {
-            id: `tx_reset_${Date.now()}`,
-            type: 'earn',
-            amount: 120,
-            reason: 'Daily 1:00 AM Pin Refresh (120 Pins)',
-            source: 'admin_grant',
-            timestamp: Date.now()
-          };
-          setPinsHistory(prev => {
-            const updated = [tx, ...prev].slice(0, 100);
-            save(keys.pinHist, updated);
-            return updated;
-          });
-          toast.info('Daily Pins Refreshed ⚡', '120 Pins granted for your daily 1:00 AM Student Portal learning allowance!');
-        }
-      } catch (err) {
-        console.warn('[CareerOSContext] Error checking 1:00 AM pin reset:', err);
-      }
-    };
-
-    check1AMReset();
-    const interval = setInterval(check1AMReset, 60000); // Check every minute
-    return () => clearInterval(interval);
-  }, [keys.last1AMReset, keys.pins, keys.pinHist, save]);
-
-  // ─── Pin helpers ───────────────────────────────────────────────────────
-
-  const pushTransaction = useCallback((tx: PinTransaction, newHistory: PinTransaction[]) => {
-    const trimmed = newHistory.slice(0, 100); // keep last 100
-    setPinsHistory(trimmed);
-    save(keys.pinHist, trimmed);
-  }, [keys.pinHist, save]);
-
-  const earnPins = useCallback((source: PinSource, overrideAmount?: number, reason?: string) => {
-    // STRICT INVARIANT: Pins can ONLY be acquired via purchase or admin grant. Activity earnings (quests, missions, attendance, interviews) grant 0 pins.
-    if (source !== 'purchase' && source !== 'admin_grant') {
-      console.log(`[CareerOSContext] Ignored activity pin grant attempt (Pins are purchase-only & reset at 1:00 AM): source=${source}, amount=${overrideAmount ?? PIN_EARN[source] ?? 0}`);
-      return;
-    }
-    const amount = overrideAmount ?? PIN_EARN[source] ?? 0;
-    if (amount <= 0) return;
-    
-    console.log(`[CareerOSContext] Crediting purchased/admin pins -> amount=${amount} | source=${source} | reason=${reason || source}`);
-
-    // Update Firestore in background
-    api.post('/api/pins/earn', { source, amount }).catch(() => {});
-
-    setPins(prev => {
-      const next = prev + amount;
-      save(keys.pins, next);
-      return next;
-    });
-    const tx: PinTransaction = { id: `tx_${Date.now()}`, type: 'earn', amount, reason: reason ?? source.replace(/_/g, ' '), source, timestamp: Date.now() };
-    setPinsHistory(prev => {
-      const updated = [tx, ...prev].slice(0, 100);
-      save(keys.pinHist, updated);
-      return updated;
-    });
-    toast.success(`+${amount} Pins Credited ⚡`, reason ?? 'Pin Purchase Successful');
-  }, [keys.pins, keys.pinHist, save]);
-
-  const canAfford = useCallback((featureKey: string): boolean => {
-    const cost = PIN_COSTS[featureKey]?.cost ?? 0;
-    return pins >= cost;
-  }, [pins]);
-
-  const spendPins = useCallback((featureKey: string, customReason?: string): boolean => {
-    const meta = PIN_COSTS[featureKey];
-    if (!meta) return true; // no cost defined = free
-    if (pins < meta.cost) {
-      toast.error(`Insufficient Pins 📌`, `Need ${meta.cost} pins for ${meta.label}. Pins reset to 120 daily at 1:00 AM or must be purchased.`);
-      return false;
-    }
-
-    // ── Q-C3: Authoritative DB deduction (prevent double-spend races) ────────
-    if (userId && userId !== 'guest') {
-      spendPinsDB(userId, meta.cost, customReason ?? meta.label)
-        .then(result => {
-          if (!result.ok) {
-            setPins(prev => {
-              const refunded = prev + meta.cost;
-              save(keys.pins, refunded); // restore persisted value with correct refunded amount
-              return refunded;
-            });
-            toast.error(`Pins Out of Sync 🔄`, 'Your pin balance was refreshed from the server. Please try again.');
-          }
-        })
-        .catch(() => {});
-    }
-
-    api.post('/api/pins/spend', { featureKey, cost: meta.cost }).catch(() => {});
-
-    setPins(prev => {
-      const next = prev - meta.cost;
-      save(keys.pins, next);
-      return next;
-    });
-    const tx: PinTransaction = { id: `tx_${Date.now()}`, type: 'spend', amount: meta.cost, reason: customReason ?? meta.label, source: featureKey as PinSource, timestamp: Date.now() };
-    setPinsHistory(prev => {
-      const updated = [tx, ...prev].slice(0, 100);
-      save(keys.pinHist, updated);
-      return updated;
-    });
-    return true;
-  }, [pins, keys.pins, keys.pinHist, save, userId]);
-
-  // ─── Item-Specific 30-Minute Duration Unlock Helpers ─────────────────────
-  const isItemUnlocked = useCallback((itemKey: string): boolean => {
-    const expiresAt = unlockedItems[itemKey];
-    return typeof expiresAt === 'number' && expiresAt > Date.now();
-  }, [unlockedItems]);
-
-  const getItemRemainingSeconds = useCallback((itemKey: string): number => {
-    const expiresAt = unlockedItems[itemKey];
-    if (!expiresAt || expiresAt <= Date.now()) return 0;
-    return Math.ceil((expiresAt - Date.now()) / 1000);
-  }, [unlockedItems]);
-
-  const unlockItem = useCallback((
-    itemKey: string,
-    category: 'quest' | 'mission' | 'interview' | 'ai_interview' | 'gd' | 'group_discussion' | 'attention_span_game',
-    customReason?: string
-  ): boolean => {
-    if (isItemUnlocked(itemKey)) return true;
-
-    const meta = PIN_COSTS[category] || PIN_COSTS[`${category}_start`] || { cost: 20, label: category };
-    if (pins < meta.cost) {
-      toast.error(`Insufficient Pins 📌`, `Need ${meta.cost} pins to unlock ${meta.label} for 30 minutes.`);
-      return false;
-    }
-
-    const ok = spendPins(category, customReason ?? `${meta.label}: ${itemKey}`);
-    if (!ok) return false;
-
-    if (category !== 'attention_span_game') {
-      const expiresAt = Date.now() + 30 * 60 * 1000; // 30 mins duration
-      setUnlockedItems(prev => {
-        const next = { ...prev, [itemKey]: expiresAt };
-        save(keys.unlockedItems, next);
-        if (userId && userId !== 'guest') {
-          syncUnlockedItemsDB(userId, next).catch(() => {});
-        }
-        return next;
-      });
-      toast.success('30 Min Access Unlocked ⚡', `Unlocked ${itemKey} for 30 minutes!`);
-    }
-    return true;
-  }, [isItemUnlocked, pins, spendPins, keys.unlockedItems, save, userId]);
-
-  const addPurchasedPins = useCallback((_amount: number, _packName: string) => {
-    // Client-side pin minting is disabled. Pins are granted only after /api/payment/verify.
-    toast.error('Purchase blocked', 'Pins can only be granted after server payment verification.');
-  }, []);
-
-  // ─── Daily Pins Grant Scheduler & Streak Decay ─────────────────────────────
-  useEffect(() => {
-    if (!isLoaded || userId === 'guest') return;
-    const lastGrantKey = `pinit_${userId}_last_daily_pins_grant`;
-    const lastGrantStr = localStorage.getItem(lastGrantKey);
-    const now = Date.now();
-    const oneDay = 24 * 60 * 60 * 1000;
-    
-    if (!lastGrantStr || now - parseInt(lastGrantStr) >= oneDay) {
-      // 1. Streak decay checking (yesterday completed check)
-      if (lastGrantStr) {
-        const yesterday = new Date(now - oneDay).toDateString();
-        
-        // Check completed quests yesterday
-        const questTimestamps: string[] = onboardingAnswers.completedQuestsTimestamps || [];
-        const questsCompletedYesterday = questTimestamps.filter(ts => new Date(ts).toDateString() === yesterday).length;
-        
-        // Check completed missions yesterday
-        const missionTimestamps: string[] = onboardingAnswers.completedMissionsTimestamps || [];
-        const missionsCompletedYesterday = missionTimestamps.filter(ts => new Date(ts).toDateString() === yesterday).length;
-
-        const completedCountYesterday = questsCompletedYesterday + missionsCompletedYesterday;
-
-        if (completedCountYesterday === 0) {
-          // No activity completed yesterday -> decay streak by 1
-          setMissionStreak(prev => {
-            const next = Math.max(0, prev - 1);
-            save(keys.streak, next);
-            
-            // Sync decayed streak to Supabase database profile in background
-            api.post('/api/auth/onboarding', { mission_streak: next }).catch(() => {});
-            
-            return next;
-          });
-          toast.warning('Streak Decayed 📉', 'You missed completing a quest or mission yesterday. Your streak decreased by 1.');
-        }
-      }
-
-      // Record daily check timestamp (Pins are strictly managed via 1:00 AM reset & purchases)
-      localStorage.setItem(lastGrantKey, now.toString());
-    }
-  }, [isLoaded, userId, keys.streak, onboardingAnswers, save]);
-
-  const setVaultItems = useCallback((items: VaultItem[]) => {
-    setVaultItemsState(items);
-    save(keys.vault, items);
-  }, [keys.vault, save]);
+  // DEF-037 FIX: Removed client-side streak decay effect. Mission streaks are computed authoritatively on the server via consecutiveCalendarStreak over validated database completion timestamps.
 
   // ─── Progression Setters ───────────────────────────────────────────────────
   const setOnboardingStep = useCallback((step: number) => {
@@ -893,10 +713,11 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
       if (res && res.ok && Array.isArray(res.modules) && res.modules.length > 0) {
         dynamicModules = res.modules;
       } else if (courseId) {
+        const isPreliminaryRoadmap = onboardingAnswers.qt1_score == null || onboardingAnswers.qt2_score == null;
         const { generateDynamicStudentRoadmap } = await import('../data/roadmapFuser');
         dynamicModules = generateDynamicStudentRoadmap({
-          qt1: onboardingAnswers.qt1_score ?? 75,
-          qt2: onboardingAnswers.qt2_score ?? 80,
+          qt1: onboardingAnswers.qt1_score ?? 40,
+          qt2: onboardingAnswers.qt2_score ?? 40,
           archetype: onboardingAnswers.mindset_archetype || 'Pattern Hunter',
           goal: targetRole,
           courseId: courseId,
@@ -910,9 +731,11 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
           setActiveCourseIdState(courseId);
           save(keys.activeCourse, courseId);
           
+          const isPreliminary = onboardingAnswers.qt1_score == null || onboardingAnswers.qt2_score == null;
           const updatedAnswers = {
             ...onboardingAnswers,
-            activeCourseId: courseId
+            activeCourseId: courseId,
+            isPreliminaryRoadmap: isPreliminary,
           };
           setOnboardingAnswers(updatedAnswers);
           save(keys.onboard, updatedAnswers);
@@ -1094,9 +917,6 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
         save(keys.streak, next);
         console.log(`[CareerOS] 🔥 Daily streak incremented to ${next} for user ${userId} on local date ${todayStr}`);
         
-        // Sync updated streak to Supabase database profile in background
-        api.post('/api/auth/onboarding', { mission_streak: next }).catch(() => {});
-        
         if (next % 7 === 0) earnPins('streak_bonus', undefined, `${next}-day streak bonus!`);
         toast.success('🔥 Daily Quest Streak Up!', `Streak: ${next} days active!`);
         return next;
@@ -1191,34 +1011,13 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
     save(keys.demoTabsUnlocked, val);
   }, [keys.demoTabsUnlocked, save]);
 
-  const setAiUseTokens = useCallback((val: number) => {
-    setAiUseTokensState(val);
-    save(keys.aiTokens, val);
-  }, [keys.aiTokens, save]);
-
-  const decrementAiUseTokens = useCallback((amount: number) => {
-    setAiUseTokensState(prev => {
-      const next = Math.max(0, prev - amount);
-      save(keys.aiTokens, next);
-      if (next === 0) {
-        toast.error('AI Limit Reached ⚠️', 'Daily AI minutes exhausted. Spend 100 Pins to extend.');
-      }
-      return next;
-    });
-  }, [keys.aiTokens, save]);
-
-  const buyAiMinutes = useCallback((): boolean => {
-    if (spendPins('ai_minutes_extend', 'Extended daily AI by 30 mins')) {
-      setAiUseTokensState(prev => {
-        const next = prev + 30;
-        save(keys.aiTokens, next);
-        return next;
-      });
-      toast.success('AI Time Extended! ⏰', '+30 AI Minutes added to your daily balance.');
-      return true;
-    }
-    return false;
-  }, [spendPins, keys.aiTokens, save]);
+  const buyAiMinutes = useCallback(async (): Promise<boolean> => {
+    const ok = await spendPins('ai_minutes_extend', 'Extended daily AI by 30 mins');
+    if (!ok) return false;
+    setAiUseTokens(aiUseTokens + 30);
+    toast.success('AI Time Extended! ⏰', '+30 AI Minutes added to your daily balance.');
+    return true;
+  }, [spendPins, aiUseTokens, setAiUseTokens]);
 
   // Derive unlocked tabs dynamically
   const ALL_TABS = ['/dashboard', '/quests', '/missions', '/interview', '/career-twin', '/career-dna', '/opportunities', '/group-discussion'];
@@ -1233,74 +1032,6 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
       activeTabs.push('/group-discussion');
     }
   }
-
-  // ─── Existing feature actions (now also earn pins) ─────────────────────
-
-  const toggleTheme = () => setTheme(p => { const n = p === 'light' ? 'dark' : 'light'; toast.info('Theme Switched', `${n === 'light' ? 'Light ☀️' : 'Dark 🌙'} Mode`); return n; });
-  const toggleFocusMode = () => setFocusMode(p => { const n = !p; toast[n ? 'success' : 'info'](n ? 'Focus Mode On 🤫' : 'Focus Mode Off', n ? 'Distractions hidden.' : 'Standard layout restored.'); return n; });
-
-  const addVaultItem = async (item: { id?: string; title: string; item_type: string; organization_name?: string; description?: string; skill_tags?: string[]; verified?: boolean; ai_confidence_score?: number }) => {
-    const tempId = item.id || Math.random().toString(36).substr(2,9);
-    const newItem: VaultItem = { 
-      id: tempId, 
-      ...item, 
-      organization_name: item.organization_name || '', 
-      description: item.description || '', 
-      verified: item.verified ?? false, 
-      ai_confidence_score: item.ai_confidence_score ?? 0, 
-      skill_tags: item.skill_tags || [], 
-      is_public: false, 
-      used_in_resume: false, 
-      used_in_portfolio: false 
-    };
-    
-    const updated = [newItem, ...vaultItems];
-    setVaultItemsState(updated); 
-    save(keys.vault, updated);
-    addXp(15, 'Added proof to Vault');
-    toast.success('🔒 Added to Vault', `"${item.title}" saved securely.`);
-
-    if (userId !== 'guest') {
-      try {
-        const { data, error } = await supabase
-          .from('vault_items')
-          .insert([{
-            user_id: userId,
-            title: item.title,
-            item_type: item.item_type,
-            organization_name: item.organization_name || '',
-            description: item.description || 'Uploaded document.',
-            verified: false,
-            ai_confidence_score: newItem.ai_confidence_score,
-            skill_tags: item.skill_tags || [],
-            is_public: false
-          }])
-          .select();
-        
-        if (!error && data && data.length > 0) {
-          const dbItem = data[0];
-          setVaultItemsState(prev => prev.map(v => v.id === tempId ? { ...v, id: dbItem.id } : v));
-          // Update local storage with the new DB ID as well
-          save(keys.vault, updated.map(v => v.id === tempId ? { ...v, id: dbItem.id } : v));
-        }
-      } catch (e) {
-        console.error('Failed to sync vault item to database:', e);
-      }
-    }
-  };
-
-  const updateVaultItem = (id: string, updates: Partial<VaultItem>) => {
-    const updated = vaultItems.map(item => {
-      if (item.id !== id) return item;
-      const merged = { ...item, ...updates };
-      if (updates.verified && !item.verified) {
-        toast.success('✓ Proof Verified', `"${item.title}" is officially verified!`);
-        setTimeout(() => { addXp(20, 'Proof Verified'); earnPins('vault_verify'); }, 100);
-      }
-      return merged;
-    });
-    setVaultItemsState(updated); save(keys.vault, updated);
-  };
 
   const completeMission = (missionId: string, bypassDailyLimit = false) => {
     // 1. Check daily limit of 1 completed mission
@@ -1331,11 +1062,10 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
     setOnboardingAnswers(nextAnswers);
     save(keys.onboard, nextAnswers);
 
-    // Sync updated answers, completedMissions, and streak to database profile in background
+    // Sync updated answers and completedMissions to database profile in background
     api.post('/api/auth/onboarding', { 
       onboardingAnswers: nextAnswers,
-      completedMissions: updated,
-      mission_streak: newStreak
+      completedMissions: updated
     }).catch(() => {});
 
     rewardActivity('mission', 'Daily Mission Completed');
@@ -1354,6 +1084,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
   };
 
   const setOnboarding = async (answers: Omit<OnboardingAnswers, 'hasCompleted'>, skipSync = false) => {
+    const wasAlreadyCompleted = onboardingAnswers.hasCompleted;
     const data = { ...answers, hasCompleted: true };
     setOnboardingAnswers(data); save(keys.onboard, data);
  
@@ -1373,10 +1104,12 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
       }
     }
 
-    addXp(50, 'Onboarding Complete');
-    earnPins('onboarding_complete');
-    setOnboardingStep(3);
-    toast.success('🧬 Career Profile Set', `Target role: ${answers.role}`);
+    if (!wasAlreadyCompleted) {
+      addXp(50, 'Onboarding Complete');
+      earnPins('onboarding_complete');
+      setOnboardingStep(3);
+      toast.success('🧬 Career Profile Set', `Target role: ${answers.role}`);
+    }
   };
 
   const setJdMissingSkills = (skills: string[]) => { setJdMissingSkillsState(skills); save(keys.gaps, skills); };
@@ -1485,8 +1218,8 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
       missionOnlyStreak,
       theme, focusMode, toggleTheme, toggleFocusMode,
       careerScore, dnaScore, trustScore,
-      pins, pinHistory, earnPins, spendPins, canAfford, addPurchasedPins,
-      unlockedItems, isItemUnlocked, getItemRemainingSeconds, unlockItem, rewardActivity,
+      pins, pinHistory, earnPins, spendPins, canAfford,
+      unlockedItems, isItemUnlocked, getItemRemainingSeconds, extendItemGrace, unlockItem, rewardActivity,
       // progression
       onboardingStep, setOnboardingStep,
       resumeGenerated, setResumeGenerated,

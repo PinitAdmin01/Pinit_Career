@@ -72,11 +72,14 @@ function ArenaContent() {
           return prev - 1;
         });
 
-        // Simulate live opponent progress in 1v1 duel
+        // Simulate Turing Benchmark AI sparring partner pace with thinking delays
         if (activeMatch.mode === '1v1_duel' && activeMatch.opponent) {
           setActiveMatch(curr => {
             if (!curr || !curr.opponent) return curr;
-            const newPct = Math.min(95, curr.opponent.progressPct + Math.floor(Math.random() * 4));
+            // Pacing model: pause during algorithmic thinking (40% of ticks), burst 1-3% during typing
+            const isThinking = Math.random() < 0.4;
+            const burst = isThinking ? 0 : Math.floor(Math.random() * 3) + 1;
+            const newPct = Math.min(92, curr.opponent.progressPct + burst);
             return {
               ...curr,
               opponent: {

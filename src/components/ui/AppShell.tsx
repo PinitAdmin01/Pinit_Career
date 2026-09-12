@@ -2006,6 +2006,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           {/* Mobile burger */}
           <button onClick={() => setMobileOpen(o => !o)}
             className="mobile-menu-btn"
+            aria-label="Toggle navigation menu"
+            aria-expanded={mobileOpen}
             style={{ background:'none', border:'none', cursor:'pointer', color:'var(--t2)', fontSize:18, padding:4, borderRadius:6, display:'none' }}>
             ☰
           </button>
@@ -2016,6 +2018,10 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               <div 
                 onClick={toggleFocusMode}
                 title="Exit Focus Mode"
+                aria-label="Exit Focus Mode"
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') toggleFocusMode(); }}
                 style={{ 
                   width: 24, height: 24, borderRadius: 6, 
                   background: 'linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%)', 
@@ -2034,27 +2040,27 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
           {/* Score pills — connected to live CareerOSContext (simpler view in Focus mode) */}
           {isStudent && !effectiveFocusMode && (
-            <div className="topbar-scores">
+            <div className="topbar-scores" role="region" aria-label="Live Telemetry Scores">
               {[
-                { icon:'Career', val:careerScore, color:'var(--teal)' },
-                { icon:'DNA', val:dnaScore,    color:'var(--purple)' },
-                { icon:'🛡',  val:trustScore,  color:'var(--green)'  },
+                { label:'Career Score', icon:'Career', val:careerScore, color:'var(--teal)' },
+                { label:'Career DNA Score', icon:'DNA', val:dnaScore,    color:'var(--purple)' },
+                { label:'Trust Score', icon:'🛡',  val:trustScore,  color:'var(--green)'  },
               ].map(p => (
-                <div key={p.icon} className="ts-pill">
-                  <span className="ts-dot" style={{ background:p.color }} />
-                  {p.icon} <span style={{ color:p.color }}>{Math.round(p.val)}</span>
+                <div key={p.icon} className="ts-pill" role="meter" aria-label={`${p.label}: ${Math.round(p.val)} out of 100`} aria-valuenow={Math.round(p.val)} aria-valuemin={0} aria-valuemax={100}>
+                  <span className="ts-dot" style={{ background:p.color }} aria-hidden="true" />
+                  <span aria-hidden="true">{p.icon}</span> <span style={{ color:p.color }}>{Math.round(p.val)}</span>
                 </div>
               ))}
               
               {/* Vault Quick-link Icon */}
-              <Link href="/vault" title="Vault Secure Area" className="ts-pill" style={{
+              <Link href="/vault" title="Vault Secure Area" aria-label="Navigate to Career Vault" className="ts-pill" style={{
                 textDecoration:'none', borderColor:'var(--accent)'
               }}>
                 Vault
               </Link>
 
               {missionOnlyStreak > 0 && (
-                <div className="ts-pill" style={{
+                <div className="ts-pill" role="status" aria-label={`Current Mission Streak: ${missionOnlyStreak} days`} style={{
                   background:'var(--amber-light)', borderColor:'var(--amber-light)', color:'var(--amber)',
                 }}>
                   {missionOnlyStreak}d
@@ -2094,9 +2100,10 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             <button 
               onClick={toggleTheme} 
               title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'} 
+              aria-label={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
               className="topbar-icon-btn"
             >
-              {theme === 'light' ? '🌙' : '☀️'}
+              <span aria-hidden="true">{theme === 'light' ? '🌙' : '☀️'}</span>
             </button>
 
             {/* ⚙️ Universal Preferences & Ambience Hub */}
@@ -2107,6 +2114,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               <button 
                 onClick={toggleFocusMode} 
                 title={effectiveFocusMode ? 'Deactivate Focus Mode' : 'Activate Focus Mode'}
+                aria-label={effectiveFocusMode ? 'Deactivate Focus Mode' : 'Activate Focus Mode'}
                 style={{
                   background: effectiveFocusMode ? 'rgba(220,38,38,0.1)' : 'var(--bg3)', 
                   border: effectiveFocusMode ? '1px solid rgba(220,38,38,0.3)' : '1px solid var(--border)', 
@@ -2117,14 +2125,14 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                   transition: 'all 0.15s ease'
                 }}
               >
-                <span>🤫</span> {!effectiveFocusMode && <span style={{ fontSize: 10 }}>Focus</span>}
+                <span aria-hidden="true">🤫</span> {!effectiveFocusMode && <span style={{ fontSize: 10 }}>Focus</span>}
               </button>
             )}
           </div>
 
           {/* WS dot */}
-          <div title={wsConnected ? 'Live data' : 'Connecting...'} style={{ display:'flex', alignItems:'center', gap:4 }}>
-            <span style={{
+          <div title={wsConnected ? 'Live data connected' : 'Connecting to live service...'} aria-label={wsConnected ? 'Live data connected' : 'Connecting to live service'} role="status" style={{ display:'flex', alignItems:'center', gap:4 }}>
+            <span aria-hidden="true" style={{
               width:6, height:6, borderRadius:'50%',
               background: 'var(--green)',
               display:'inline-block',
@@ -2134,10 +2142,10 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           </div>
 
           {/* Bell */}
-          <Link href="/notifications" style={{ position:'relative', color:'var(--t2)', textDecoration:'none', padding:6, borderRadius:8, display:'flex', alignItems:'center' }}>
-            🔔
+          <Link href="/notifications" aria-label={`Notifications${unread > 0 ? `, ${unread} unread` : ''}`} style={{ position:'relative', color:'var(--t2)', textDecoration:'none', padding:6, borderRadius:8, display:'flex', alignItems:'center' }}>
+            <span aria-hidden="true">🔔</span>
             {unread > 0 && (
-              <span style={{
+              <span aria-hidden="true" style={{
                 position:'absolute', top:2, right:2,
                 minWidth:14, height:14, borderRadius:7,
                 background:'var(--coral)', color:'white',

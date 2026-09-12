@@ -5,6 +5,10 @@ const TTL_MS = 60_000;
 
 /** Cached PostgREST probe so missing campus tables do not 404 on every click. */
 export async function tableExists(tableName: string): Promise<boolean> {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key || url.includes('placeholder-project')) return false;
+
   const hit = cache.get(tableName);
   if (hit && Date.now() - hit.at < TTL_MS) return hit.ok;
   try {

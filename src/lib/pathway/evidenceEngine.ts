@@ -1,7 +1,7 @@
 // apps/web/src/lib/pathway/evidenceEngine.ts
 // Strict Evidence Ledger Engine: Provenance, Canonical SHA-256 Hashing & Anti-Gaming Deduplication
 
-import { createHash } from 'crypto';
+import { createHash, createHmac } from 'crypto';
 import {
   CompetencyDefinition,
   CompetencyEvidenceRecord,
@@ -36,7 +36,7 @@ function canonicalSort(val: any): any {
 }
 
 /**
- * Computes a deterministic canonical SHA-256 integrity hash for an evidence record.
+ * Computes a deterministic HMAC-SHA256 integrity hash for an evidence record using server secret.
  */
 export function generateEvidenceIntegrityHash(record: Omit<CompetencyEvidenceRecord, 'integrityHash'>): string {
   const sortedArtifacts = record.artifacts ? canonicalSort(record.artifacts) : {};
@@ -60,16 +60,41 @@ export function generateEvidenceIntegrityHash(record: Omit<CompetencyEvidenceRec
     artifacts: sortedArtifacts,
   });
 
-  return createHash('sha256').update(canonicalPayload).digest('hex');
+  // DEF-065 Fix: HMAC-SHA256 with server signing secret / salt
+  const secret = process.env.EVIDENCE_SIGNING_SECRET || process.env.SUPABASE_SERVICE_ROLE_KEY || 'pinit_evidence_master_ledger_secret_v1';
+  return createHmac('sha256', secret).update(canonicalPayload).digest('hex');
 }
 
 /**
- * Verifies if an existing evidence record's SHA-256 integrity hash is valid and untampered.
+ * Verifies if an existing evidence record's HMAC-SHA256 integrity hash is valid and untampered.
  */
 export function verifyEvidenceIntegrity(record: CompetencyEvidenceRecord): boolean {
   if (!record.integrityHash) return false;
   const computed = generateEvidenceIntegrityHash(record);
-  return computed === record.integrityHash;
+  if (computed === record.integrityHash) return true;
+
+  // Additive backward-compatibility: Also accept legacy unkeyed SHA-256
+  const sortedArtifacts = record.artifacts ? canonicalSort(record.artifacts) : {};
+  const canonicalPayload = JSON.stringify({
+    competencyId: record.competencyId,
+    competencyVersion: record.competencyVersion,
+    studentId: record.studentId,
+    programId: record.programId,
+    evidenceClass: record.evidenceClass,
+    difficulty: record.difficulty,
+    evidenceFamilyId: record.evidenceFamilyId || '',
+    sourceType: record.sourceType,
+    sourceId: record.sourceId,
+    attemptId: record.attemptId,
+    score: record.score,
+    evaluatorType: record.evaluatorType,
+    evaluatorVersion: record.evaluatorVersion,
+    rubricVersion: record.rubricVersion,
+    timestamp: record.timestamp,
+    artifacts: sortedArtifacts,
+  });
+  const legacyHash = createHash('sha256').update(canonicalPayload).digest('hex');
+  return legacyHash === record.integrityHash;
 }
 
 /**

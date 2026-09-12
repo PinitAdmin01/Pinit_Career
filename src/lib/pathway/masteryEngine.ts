@@ -42,11 +42,16 @@ export function evaluateCompetencyMastery(options: MasteryEvaluationOptions): Co
   let prerequisitesSatisfied = true;
   for (const prereqId of competency.prerequisites) {
     const prereqState = prerequisiteMasteryStates[prereqId];
-    const isPrereqPassed = prereqState === 'demonstrated' || prereqState === 'verified' || prereqState === 'verified_needs_review';
+    // DEF-066 Fix: Quarantining of cheating-flagged competencies (verified_needs_review cannot unlock downstream tracks)
+    const isPrereqPassed = prereqState === 'demonstrated' || prereqState === 'verified';
 
     if (!isPrereqPassed) {
       prerequisitesSatisfied = false;
-      blockedBy.push(`Prerequisite not met: [${prereqId}] (current state: ${prereqState || 'locked'})`);
+      if (prereqState === 'verified_needs_review') {
+        blockedBy.push(`Prerequisite [${prereqId}] is under academic review`);
+      } else {
+        blockedBy.push(`Prerequisite not met: [${prereqId}] (current state: ${prereqState || 'locked'})`);
+      }
     }
   }
 

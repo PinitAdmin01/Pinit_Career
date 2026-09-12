@@ -14,6 +14,24 @@ export interface LibraryBook {
   available: number;
   isEbook: boolean;
   ebookContent?: string;
+  shelfLocation?: string;
+}
+
+export function deriveShelfLocation(genre: string = ''): string {
+  const g = (genre || '').toLowerCase();
+  if (g.includes('computer') || g.includes('software') || /\bcs\b/.test(g) || /\bai\b/.test(g) || g.includes('machine learning') || g.includes('data') || g.includes('programming')) {
+    return 'Aisle 3 · Rack CS-04';
+  }
+  if (g.includes('business') || g.includes('management') || g.includes('marketing') || g.includes('leadership')) {
+    return 'Aisle 2 · Rack MG-12';
+  }
+  if (g.includes('finance') || g.includes('fintech') || g.includes('commerce') || g.includes('economics') || g.includes('accounting')) {
+    return 'Aisle 1 · Rack FC-08';
+  }
+  if (g.includes('math') || g.includes('science') || g.includes('physics') || g.includes('engineering')) {
+    return 'Aisle 5 · Rack EN-02';
+  }
+  return 'Aisle 4 · Rack GN-01';
 }
 
 export interface LibraryBorrowing {
@@ -73,7 +91,8 @@ export const libraryService = {
             copies: b.copies,
             available: b.available,
             isEbook: b.is_ebook,
-            ebookContent: b.ebook_content
+            ebookContent: b.ebook_content,
+            shelfLocation: b.shelf_location || deriveShelfLocation(b.genre)
           })),
           borrowed: (borrowings || []).map(br => ({
             id: br.id,
@@ -108,7 +127,10 @@ export const libraryService = {
     const myReserves = db.reserves?.filter((r: any) => r.studentId === studentId || r.studentName === studentName) || [];
 
     return {
-      books: db.books || [],
+      books: (db.books || []).map((b: any) => ({
+        ...b,
+        shelfLocation: b.shelfLocation || deriveShelfLocation(b.genre)
+      })),
       borrowed: myBorrows,
       reserves: myReserves
     };

@@ -37,10 +37,11 @@ async function writeLocalDb(data: any): Promise<void> {
 
 export const adminService = {
   async getDashboard() {
-    const isAvailable = await checkSupabaseAvailable('profiles');
+    // DEF-057 Fix: Align admin queries to canonical 'users' table
+    const isAvailable = await checkSupabaseAvailable('users');
     if (isAvailable) {
       try {
-        const { count } = await supabase.from('profiles').select('*', { count: 'exact', head: true });
+        const { count } = await supabase.from('users').select('*', { count: 'exact', head: true });
         const auditRes = await this.getAuditLog();
         return {
           totalUsers: count || 0,
@@ -63,10 +64,11 @@ export const adminService = {
   },
 
   async getUsers() {
-    const isAvailable = await checkSupabaseAvailable('profiles');
+    // DEF-057 Fix: Query canonical 'users' table
+    const isAvailable = await checkSupabaseAvailable('users');
     if (isAvailable) {
       try {
-        const { data: usersData, error } = await supabase.from('profiles').select('*').order('created_at', { ascending: false });
+        const { data: usersData, error } = await supabase.from('users').select('*').order('created_at', { ascending: false });
         if (!error && usersData) {
           return {
             users: usersData.map(u => ({
@@ -94,10 +96,11 @@ export const adminService = {
   },
 
   async getPlatformStats() {
-    const isAvailable = await checkSupabaseAvailable('profiles');
+    // DEF-057 Fix: Query canonical 'users' table
+    const isAvailable = await checkSupabaseAvailable('users');
     if (isAvailable) {
       try {
-        const { data: profiles } = await supabase.from('profiles').select('ats_score, trust_score, pins, role');
+        const { data: profiles } = await supabase.from('users').select('ats_score, trust_score, pins, role');
         if (profiles) {
           const totalUsers = profiles.length;
           const avgAts = totalUsers ? (profiles.reduce((acc, p) => acc + (p.ats_score || 0), 0) / totalUsers).toFixed(1) : 0;
@@ -180,10 +183,11 @@ export const adminService = {
   async broadcast(adminId: string, title: string, message: string, type: string, targetRole: string) {
     await this.logAction(adminId, 'Broadcasting Announcement', targetRole || 'All Users', { title, message, type });
 
-    const isAvailable = await checkSupabaseAvailable('profiles');
+    // DEF-057 Fix: Query canonical 'users' table
+    const isAvailable = await checkSupabaseAvailable('users');
     if (isAvailable) {
       try {
-        let query = supabase.from('profiles').select('count', { count: 'exact', head: true });
+        let query = supabase.from('users').select('count', { count: 'exact', head: true });
         if (targetRole) query = query.eq('role', targetRole);
         const { count } = await query;
         return { sent: count || 0 };

@@ -14,7 +14,7 @@ const CSP = [
   "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.supabase.co https://checkout.razorpay.com",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com data:",
-  "img-src 'self' data: blob: https://*.supabase.co https://api.dicebear.com https://avatars.githubusercontent.com",
+  "img-src 'self' data: blob: https://*.supabase.co https://api.dicebear.com https://avatars.githubusercontent.com https://images.unsplash.com",
   // Three.js GLTFLoader unpacks the textures inside each .glb into blob: URLs
   // and then FETCHES them, so blob: has to be allowed in connect-src as well as
   // img-src. Without it every texture fails with "THREE.GLTFLoader: Couldn't
@@ -88,6 +88,10 @@ const nextConfig = {
   typescript: { ignoreBuildErrors: false },
   // Also fail the build on ESLint errors — consistent with TS strictness.
   eslint:     { ignoreDuringBuilds: false },
+  // Strip console logs in production builds to prevent leaking PII and telemetry (DEF-043)
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error', 'warn'] } : false,
+  },
 
   // NOTE: experimental.cpus was briefly set to 4 while investigating an
   // intermittent build failure. The real cause turned out to be a Windows

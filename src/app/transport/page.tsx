@@ -138,12 +138,19 @@ function StudentTransportInner() {
           justify-content: space-between;
           border: 1px solid var(--border2);
         }
+        .gps-route-line-container {
+          overflow-x: auto;
+          padding: 10px 14px 28px 14px;
+          margin: 20px -8px;
+          -webkit-overflow-scrolling: touch;
+        }
         .gps-route-line {
           display: flex;
           justify-content: space-between;
           align-items: center;
           position: relative;
-          margin: 40px 0;
+          min-width: 480px;
+          margin: 30px 10px;
         }
         .gps-route-line::before {
           content: '';
@@ -345,22 +352,24 @@ function StudentTransportInner() {
                     <span style={{ fontSize: 11, background: 'var(--bg3)', color: 'var(--t1)', padding: '4px 10px', borderRadius: 20 }}>Speed: 34 km/h</span>
                   </div>
 
-                  {/* Nodes Line */}
-                  <div className="gps-route-line">
-                    {activeRoute?.stops?.map((st: string, idx: number) => {
-                      const isActive = idx === gpsStopIndex;
-                      const isPassed = idx < gpsStopIndex;
-                      return (
-                        <div
-                          key={st}
-                          className={`gps-node ${isPassed ? 'passed' : ''} ${isActive ? 'active' : ''}`}
-                        >
-                          <div className={`gps-label ${isActive ? 'active' : ''}`}>
-                            {st}
+                  {/* Nodes Line with Horizontal Touch Scroll Container */}
+                  <div className="gps-route-line-container">
+                    <div className="gps-route-line">
+                      {activeRoute?.stops?.map((st: string, idx: number) => {
+                        const isActive = idx === gpsStopIndex;
+                        const isPassed = idx < gpsStopIndex;
+                        return (
+                          <div
+                            key={st}
+                            className={`gps-node ${isPassed ? 'passed' : ''} ${isActive ? 'active' : ''}`}
+                          >
+                            <div className={`gps-label ${isActive ? 'active' : ''}`}>
+                              {st}
+                            </div>
                           </div>
-                        </div>
-                      );
-                    })}
+                        );
+                      })}
+                    </div>
                   </div>
 
                   <div style={{ fontSize: 11, color: 'var(--t3)', borderTop: '1px solid var(--border)', paddingTop: 10, display: 'flex', justifyContent: 'space-between' }}>

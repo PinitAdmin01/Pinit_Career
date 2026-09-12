@@ -17,6 +17,7 @@ export interface GrievanceTicket {
   filedOn: string;
   resolution?: string;
   resolvedOn?: string;
+  receiptToken?: string;
 }
 
 // Read local JSON database
@@ -37,19 +38,23 @@ export const grievancesService = {
       try {
         const { data: tickets } = await supabase.from('grievances_tickets').select('*');
         return {
-          grievances: (tickets || []).map(t => ({
-            id: t.id,
-            reporterType: t.reporter_type,
-            reporterName: t.reporter_name,
-            category: t.category,
-            title: t.title,
-            description: t.description,
-            anonymous: t.anonymous,
-            status: t.status,
-            filedOn: t.created_at,
-            resolution: t.resolution,
-            resolvedOn: t.resolved_at
-          }))
+          grievances: (tickets || []).map(t => {
+            const isAnon = Boolean(t.anonymous);
+            return {
+              id: t.id,
+              reporterType: isAnon ? 'Anonymous Whistleblower' : (t.reporter_type || 'Student'),
+              reporterName: isAnon ? 'Anonymous Candidate' : (t.reporter_name || t.student_name || 'Student'),
+              category: t.category,
+              title: t.title,
+              description: t.description,
+              anonymous: isAnon,
+              status: t.status,
+              filedOn: t.created_at || t.filedOn,
+              resolution: t.resolution,
+              resolvedOn: t.resolved_at || t.resolvedOn,
+              receiptToken: isAnon ? t.receipt_token : undefined
+            };
+          })
         };
       } catch (err) {
         console.warn('Supabase read failed, falling back to local database:', err);
@@ -58,28 +63,56 @@ export const grievancesService = {
 
     // Local Database Fallback
     const db = await readLocalDb();
+    const sanitized = (db.grievances || []).map((t: any) => {
+      const isAnon = Boolean(t.anonymous);
+      return {
+        ...t,
+        reporterName: isAnon ? 'Anonymous Candidate' : t.reporterName,
+        reporterType: isAnon ? 'Anonymous Whistleblower' : t.reporterType
+      };
+    });
     return {
-      grievances: db.grievances || []
+      grievances: sanitized
     };
   },
 
   async submit(studentId: string, studentName: string, reporterType: string, category: string, title: string, description: string, anonymous: boolean) {
     const isSupabaseAvailable = await checkSupabaseAvailable('grievances_tickets');
+    const effectiveStudentId = anonymous ? null : studentId;
+    const effectiveStudentName = anonymous ? 'Anonymous Candidate' : studentName;
+    const effectiveReporterType = anonymous ? 'Anonymous Whistleblower' : reporterType;
+    const receiptToken = anonymous ? `TRK-${Math.random().toString(36).substring(2, 10).toUpperCase()}` : undefined;
 
     if (isSupabaseAvailable) {
       try {
+        // Schema tolerance: populate both student_id/student_name and reporter_id/reporter_name
         const res = await supabase.from('grievances_tickets').insert({
-          reporter_id: studentId,
-          reporter_name: studentName,
-          reporter_type: reporterType,
+          student_id: effectiveStudentId,
+          student_name: effectiveStudentName,
+          reporter_id: effectiveStudentId,
+          reporter_name: effectiveStudentName,
+          reporter_type: effectiveReporterType,
           category,
           title,
           description,
           anonymous,
           status: 'Pending'
         });
-        if (res.error) throw new Error(res.error.message);
-        return { ok: true };
+        if (res.error) {
+          // Fallback schema attempt using standard fields only
+          const retryRes = await supabase.from('grievances_tickets').insert({
+            student_id: effectiveStudentId,
+            student_name: effectiveStudentName,
+            reporter_type: effectiveReporterType,
+            category,
+            title,
+            description,
+            anonymous,
+            status: 'Pending'
+          });
+          if (retryRes.error) throw new Error(retryRes.error.message);
+        }
+        return { ok: true, receiptToken };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
       }
@@ -89,17 +122,18 @@ export const grievancesService = {
     const db = await readLocalDb();
     db.grievances.unshift({
       id: `GRV-${Math.floor(100 + Math.random() * 900)}`,
-      reporterType,
-      reporterName: anonymous ? 'Anonymous' : studentName,
+      reporterType: effectiveReporterType,
+      reporterName: effectiveStudentName,
       category,
       title,
       description,
       anonymous,
       status: 'Pending',
-      filedOn: new Date().toISOString()
+      filedOn: new Date().toISOString(),
+      receiptToken
     });
     await writeLocalDb(db);
-    return { ok: true };
+    return { ok: true, receiptToken };
   },
 
   async investigate(ticketId: string) {

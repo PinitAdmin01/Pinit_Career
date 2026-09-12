@@ -395,7 +395,7 @@ export async function speakWithAvatar(
         return;
       }
     } catch (err) {
-      console.error('[PinIT Voice] Neural TTS failed (WebSpeech disabled):', err);
+      console.warn('[PinIT Voice] Neural TTS fallback (WebSpeech disabled):', err);
       // Hold the floor for minDuration so GD turns stay 10s even if audio fails
       if (mySpeechId === currentSpeechId) {
         const startedAt = Date.now();

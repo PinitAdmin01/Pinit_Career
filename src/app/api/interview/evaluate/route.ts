@@ -12,6 +12,21 @@ import {
   MindsetArchetype,
 } from '@/lib/interview/scoringMatrix';
 import { evaluateSystemTopology } from '@/lib/interview/systemDesignEvaluator';
+import { supabase } from '@/lib/supabaseClient';
+
+/**
+ * Expands evaluation context to 35,000 chars while preserving both
+ * conversational introduction and deep technical closing defense turns.
+ */
+export function formatTranscriptForEvaluation(formatted: string, maxLimit = 35000): string {
+  if (formatted.length <= maxLimit) {
+    return formatted;
+  }
+  // Retain first 5,000 chars (introductions & problem setup) and last 30,000 chars (system design defense & Q&A)
+  const head = formatted.slice(0, 5000);
+  const tail = formatted.slice(-30000);
+  return `${head}\n\n[... intermediate turns summarized for context window ...]\n\n${tail}`;
+}
 
 export async function POST(req: Request) {
   try {
@@ -35,6 +50,18 @@ export async function POST(req: Request) {
     if (type === 'systems' && topology) {
       console.log(`[Interview Evaluate] Evaluating System Architecture Topology for: ${domainSubTopic || 'Distributed Architecture'}`);
       const sysEval = evaluateSystemTopology(topology, domainSubTopic || 'System Architecture', domainStream === 'non_tech' ? 'non_tech' : 'tech');
+      
+      // Defect 091 Fix: Extract comms rating dynamically rather than hardcoding to 80
+      let dynamicComms = sysEval.score;
+      const oralDefense = body.explanation || body.transcript || (Array.isArray(history) ? history.map((h: any) => h.content).join(' ') : '');
+      if (typeof oralDefense === 'string' && oralDefense.trim().length > 0) {
+        const lowerDefense = oralDefense.toLowerCase();
+        const tradeOffKeywords = ['tradeoff', 'trade-off', 'bottleneck', 'latency', 'scale', 'redundancy', 'failover', 'throughput', 'consistency', 'cache'];
+        const matched = tradeOffKeywords.filter(k => lowerDefense.includes(k)).length;
+        const lengthBonus = Math.min(20, Math.floor(oralDefense.length / 50));
+        dynamicComms = Math.min(95, Math.max(40, 50 + matched * 6 + lengthBonus));
+      }
+
       return NextResponse.json({
         evaluation: {
           score: sysEval.score,
@@ -48,7 +75,7 @@ export async function POST(req: Request) {
           radar: {
             logic: sysEval.score,
             systems: sysEval.score,
-            comms: 80,
+            comms: dynamicComms,
             solving: sysEval.scalabilityRating,
             star: sysEval.reliabilityRating
           }
@@ -102,6 +129,8 @@ Return ONLY valid JSON matching this schema:
 
     let rawParsedEval: any = null;
 
+    const candidateTranscriptPrompt = formatTranscriptForEvaluation(formatted);
+
     // 1. Attempt Groq Multi-Key Rotation Pool
     for (const key of groqKeys) {
       try {
@@ -116,11 +145,12 @@ Return ONLY valid JSON matching this schema:
             model: 'llama-3.3-70b-versatile',
             messages: [
               { role: 'system', content: systemPrompt },
-              { role: 'user', content: `Candidate Transcript:\n\n${formatted.slice(0, 7000)}` },
+              { role: 'user', content: `Candidate Transcript:\n\n${candidateTranscriptPrompt}` },
             ],
             max_tokens: 800,
             temperature: 0.2,
           }),
+          signal: AbortSignal.timeout(15000),
         });
         if (res.ok) {
           const data = await res.json();
@@ -133,7 +163,7 @@ Return ONLY valid JSON matching this schema:
           console.warn(`[Interview Evaluate API] Groq key returned status: ${res.status}`);
         }
       } catch (e: any) {
-        console.warn('[Interview Evaluate API] Groq evaluation request error:', e?.message);
+        console.warn('[Interview Evaluate API] Groq evaluation request error/timeout:', e?.message);
       }
     }
 
@@ -153,9 +183,10 @@ Return ONLY valid JSON matching this schema:
             model: 'meta-llama/llama-3.1-8b-instruct:free',
             messages: [
               { role: 'system', content: systemPrompt },
-              { role: 'user', content: `Candidate Transcript:\n\n${formatted.slice(0, 7000)}` },
+              { role: 'user', content: `Candidate Transcript:\n\n${candidateTranscriptPrompt}` },
             ],
           }),
+          signal: AbortSignal.timeout(15000),
         });
         if (res.ok) {
           const data = await res.json();
@@ -165,24 +196,37 @@ Return ONLY valid JSON matching this schema:
           console.log('[Interview Evaluate API] OpenRouter evaluation successfully parsed');
         }
       } catch (e: any) {
-        console.warn('[Interview Evaluate API] OpenRouter evaluation request error:', e?.message);
+        console.warn('[Interview Evaluate API] OpenRouter evaluation request error/timeout:', e?.message);
       }
     }
 
-    // Fail-Safe Fallback Dimensions if LLM service is offline or unparseable
+    // Fail-Safe: Defect 087 Fix — NEVER FABRICATE PASSING 65-70 SCORES ON OFFLINE SERVICE
     if (!rawParsedEval) {
-      const fallbackSolving = typeof codingScore === 'number' ? clampScore(codingScore, 70) : 65;
-      rawParsedEval = {
-        logic: clampScore(fallbackSolving * 0.95, 68),
-        systems: 65,
-        comms: 70,
-        solving: fallbackSolving,
-        star: 65,
-        strengths: [`Demonstrated core engagement for ${topic}`, 'Structured response attempt'],
-        weaknesses: ['Live AI evaluation service was unreachable; baseline heuristic applied'],
-        improvement_tips: [`Deepen concrete problem-solving metrics for ${roleConfig.roleName}`, 'Use structured STAR format'],
-        summary: `Candidate completed the interview session for ${topic}. Evaluated under baseline ${roleConfig.roleName} rubric.`,
-      };
+      if (body.sessionId && gated.user?.id) {
+        try {
+          await supabase
+            .from('interview_sessions')
+            .update({
+              status: 'PENDING_EVALUATION',
+              transcript: history,
+              telemetry_diagnostics: generateTelemetryDiagnostics(telemetry) || null,
+            })
+            .eq('id', body.sessionId)
+            .eq('user_id', gated.user.id);
+        } catch (dbErr: any) {
+          console.warn('[Interview Evaluate] Failed to store PENDING_EVALUATION session:', dbErr?.message);
+        }
+      }
+
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'AI_EVALUATION_OFFLINE',
+          retryable: true,
+          message: 'AI evaluation services unreachable. Interview session preserved as PENDING_EVALUATION.',
+        },
+        { status: 503 }
+      );
     }
 
     // Sanitize string fields safely preserving numeric dimension ratings
@@ -202,7 +246,7 @@ Return ONLY valid JSON matching this schema:
     // Persona-Tailored Pedagogical Coaching (Purely advisory; does NOT alter score)
     const personaCoaching = generatePersonaCoaching(archetype, scoringResult.sanitizedDimensions, roleKey);
 
-    // Telemetry Practice Diagnostics (Purely advisory; does NOT alter score)
+    // Telemetry Practice Diagnostics (Defect 090: Persisted to DB)
     const telemetryDiagnostics = generateTelemetryDiagnostics(telemetry);
 
     const finalEvaluation = {
@@ -232,6 +276,25 @@ Return ONLY valid JSON matching this schema:
       coaching: personaCoaching,
       telemetryDiagnostics,
     };
+
+    // Persist completed evaluation and telemetry diagnostics to database (Defect 090)
+    if (body.sessionId && gated.user?.id) {
+      try {
+        await supabase
+          .from('interview_sessions')
+          .update({
+            status: 'completed',
+            overall_score: finalEvaluation.score,
+            evaluation: finalEvaluation,
+            telemetry_diagnostics: telemetryDiagnostics || null,
+            completed_at: new Date().toISOString(),
+          })
+          .eq('id', body.sessionId)
+          .eq('user_id', gated.user.id);
+      } catch (dbErr: any) {
+        console.warn('[Interview Evaluate] Failed to persist evaluation & telemetry to interview_sessions:', dbErr?.message);
+      }
+    }
 
     return NextResponse.json({
       evaluation: finalEvaluation,

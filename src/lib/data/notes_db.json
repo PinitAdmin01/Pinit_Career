@@ -1,3 +1,37 @@
 {
-  "notes": []
+  "notes": [
+    {
+      "id": "NOTE-001",
+      "title": "Data Structures & Algorithms - Module 1 Notes",
+      "subject": "Data Structures",
+      "semester": "Semester 3",
+      "batch": "Batch 2024-A",
+      "description": "Prof. Priya",
+      "fileName": "dsa_module1_notes.pdf",
+      "fileSize": 2516582,
+      "fileUrl": "/notes/dsa_module1_notes.pdf"
+    },
+    {
+      "id": "NOTE-002",
+      "title": "Neural Networks & Deep Learning Slides",
+      "subject": "Artificial Intelligence",
+      "semester": "Semester 5",
+      "batch": "Batch 2024-A",
+      "description": "Dr. Meera Sen",
+      "fileName": "neural_networks_slides.pptx",
+      "fileSize": 5347737,
+      "fileUrl": "/notes/neural_networks_slides.pptx"
+    },
+    {
+      "id": "NOTE-003",
+      "title": "Database Systems & SQL Lab Manual",
+      "subject": "DBMS",
+      "semester": "Semester 4",
+      "batch": "Batch 2024-A",
+      "description": "Mr. Rohan",
+      "fileName": "dbms_sql_lab_manual.docx",
+      "fileSize": 1887436,
+      "fileUrl": "/notes/dbms_sql_lab_manual.docx"
+    }
+  ]
 }

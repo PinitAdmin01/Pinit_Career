@@ -1,5 +1,15 @@
 {
-  "books": [],
+  "books": [
+    {
+      "isbn": "978-0134685991",
+      "title": "Effective Java",
+      "author": "Joshua Bloch",
+      "genre": "Computer Science",
+      "copies": 3,
+      "available": 3,
+      "isEbook": false
+    }
+  ],
   "borrowed": [],
   "reserves": []
 }

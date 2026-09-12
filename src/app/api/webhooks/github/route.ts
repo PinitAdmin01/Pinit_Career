@@ -45,6 +45,41 @@ export async function POST(req: NextRequest) {
       const authorEmail = payload?.head_commit?.author?.email || 'student@pinit.app';
       const studentId = payload?.sender?.login || 'student_github_user';
 
+      // Inspect commits for functional code files vs documentation/config files
+      const commits = Array.isArray(payload?.commits) ? payload.commits : [payload?.head_commit].filter(Boolean);
+      const allFiles: string[] = commits.flatMap((c: any) => [
+        ...(Array.isArray(c?.added) ? c.added : []),
+        ...(Array.isArray(c?.modified) ? c.modified : []),
+      ]);
+
+      const isDocsOnly = allFiles.length > 0 && allFiles.every(f =>
+        /\.(md|txt|markdown|rst|gitignore|env\.example|license)$/i.test(f)
+      );
+
+      const hasFunctionalCode = allFiles.some(f =>
+        /\.(ts|tsx|js|jsx|py|java|go|rs|cpp|c|sql|rb|php|cs)$/i.test(f)
+      );
+
+      const hasTests = allFiles.some(f =>
+        /(test|spec|\.test\.|\.spec\.)/i.test(f)
+      );
+
+      // Defect 095: Reject docs-only commits from production engineering competency
+      if (isDocsOnly || (!hasFunctionalCode && allFiles.length > 0)) {
+        return NextResponse.json({
+          success: true,
+          message: 'Documentation-only or non-functional commit ignored for production competency evidence.',
+          score: 0,
+        });
+      }
+
+      // Calculate dynamic score based on commit file breadth and test presence
+      let calculatedScore = 70;
+      if (hasTests) calculatedScore += 15;
+      if (allFiles.length >= 3) calculatedScore += 5;
+      if (commits.length >= 2) calculatedScore += 5;
+      const dynamicScore = Math.min(95, Math.max(65, calculatedScore));
+
       // Infer target competency based on repo name or message
       let targetCompId = 'comp_git_version_control_l1';
       if (repoName.includes('api') || repoName.includes('backend')) {
@@ -55,7 +90,7 @@ export async function POST(req: NextRequest) {
         targetCompId = 'comp_database_sql_internals_l3';
       }
 
-      // Record authentic project evidence with genuine GitHub commit SHA
+      // Record authentic project evidence with genuine GitHub commit SHA & dynamic score
       const evidence = await PathwayApiService.recordEvidence({
         id: `ev_github_${commitSha.slice(0, 12)}_${Date.now()}`,
         competencyId: targetCompId,
@@ -68,16 +103,16 @@ export async function POST(req: NextRequest) {
         sourceType: 'project',
         sourceId: `repo_${repoName}`,
         attemptId: `commit_${commitSha.slice(0, 7)}`,
-        score: 92,
+        score: dynamicScore,
         evaluatorType: 'deterministic',
-        evaluatorVersion: 'github-webhook-ingest-v1',
+        evaluatorVersion: 'github-webhook-ingest-v2',
         rubricVersion: 'rubric-git-commits',
         timestamp: Date.now(),
         artifacts: {
           repoUrl,
           githubRepoUrl: repoUrl,
           commitSha,
-          executionLogSnippet: `Verified GitHub push to ${repoName}. Message: "${commitMessage}" by ${authorEmail}`,
+          executionLogSnippet: `Verified GitHub push to ${repoName} (${allFiles.length} files). Message: "${commitMessage}" by ${authorEmail}`,
         }
       });
 

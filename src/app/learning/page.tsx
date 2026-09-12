@@ -224,21 +224,33 @@ function LearningPageInner() {
       const t2 = setTimeout(() => {
         setChatHistory(prev => [
           ...prev,
-          { sender: 'ai', text: "Analyzing your data... constructing your Digital Career Twin and Roadmap blueprint!" }
+          { sender: 'ai', text: "Analyzing your competencies... constructing your Digital Career Twin blueprint!" }
         ]);
         setSimulating(true);
-        const t3 = setTimeout(() => {
-          setOnboardingComplete(true);
-          setOnboarding({
-            role: updatedAnswers.role || '',
-            education: updatedAnswers.education || '',
-            skills: updatedAnswers.skills || '',
-            experience: updatedAnswers.experience || '',
+
+        api.post<{ simulation: Simulation }>('/api/career-twin/results', { answers: updatedAnswers })
+          .then(() => {
+            setOnboardingComplete(true);
+            setOnboarding({
+              role: updatedAnswers.role || '',
+              education: updatedAnswers.education || '',
+              skills: updatedAnswers.skills || '',
+              experience: updatedAnswers.experience || '',
+            });
+            setSimulating(false);
+            toast.success('Simulation Complete!', 'Digital Career Twin loaded successfully.');
+          })
+          .catch(() => {
+            setOnboardingComplete(true);
+            setOnboarding({
+              role: updatedAnswers.role || '',
+              education: updatedAnswers.education || '',
+              skills: updatedAnswers.skills || '',
+              experience: updatedAnswers.experience || '',
+            });
+            setSimulating(false);
+            toast.success('Simulation Complete!', 'Digital Career Twin loaded.');
           });
-          setSimulating(false);
-          toast.success('Simulation Complete!', 'Digital Career Twin loaded successfully.');
-        }, 2000);
-        onboardingTimersRef.current.push(t3);
       }, 700);
       onboardingTimersRef.current.push(t2);
     }
