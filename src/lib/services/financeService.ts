@@ -75,7 +75,7 @@ export async function acquireDistributedLock(lockKey: string, userId: string, tt
 
           if (existing && (isStale || isPastExpiry)) {
             // Auto-reclaim expired/orphaned lock
-            await supabase.from('payment_idempotency_keys').delete().eq('key', lockKey);
+            const { error: _reclaimErr } = await supabase.from('payment_idempotency_keys').delete().eq('key', lockKey);
             const { error: retryError } = await supabase
               .from('payment_idempotency_keys')
               .insert({
