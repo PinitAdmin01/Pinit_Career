@@ -42,23 +42,57 @@ export async function acquireDistributedLock(lockKey: string, userId: string, tt
       const expiresAt = new Date(now.getTime() + ttlSeconds * 1000).toISOString();
 
       // Prune expired locks
-      await supabase
-        .from('payment_idempotency_keys')
-        .delete()
-        .lt('expires_at', now.toISOString());
+      try {
+        await supabase
+          .from('payment_idempotency_keys')
+          .delete()
+          .lt('expires_at', now.toISOString());
+      } catch { /* ignore prune errors */ }
 
-      // Attempt atomic insert
+      // Attempt atomic insert with created_at timestamp
       const { error } = await supabase
         .from('payment_idempotency_keys')
         .insert({
           key: lockKey,
           user_id: userId,
           locked_at: now.toISOString(),
+          created_at: now.toISOString(),
           expires_at: expiresAt
         });
 
       if (error) {
-        // Another container holds the active lock
+        // Check if existing lock is older than 45 seconds (orphaned by crashed container)
+        try {
+          const { data: existing } = await supabase
+            .from('payment_idempotency_keys')
+            .select('key, locked_at, created_at, expires_at')
+            .eq('key', lockKey)
+            .maybeSingle();
+
+          const lockTimestamp = existing?.created_at || existing?.locked_at;
+          const isStale = lockTimestamp && (now.getTime() - new Date(lockTimestamp).getTime() >= 45 * 1000);
+          const isPastExpiry = existing?.expires_at && new Date(existing.expires_at).getTime() <= now.getTime();
+
+          if (existing && (isStale || isPastExpiry)) {
+            // Auto-reclaim expired/orphaned lock
+            await supabase.from('payment_idempotency_keys').delete().eq('key', lockKey);
+            const { error: retryError } = await supabase
+              .from('payment_idempotency_keys')
+              .insert({
+                key: lockKey,
+                user_id: userId,
+                locked_at: now.toISOString(),
+                created_at: now.toISOString(),
+                expires_at: expiresAt
+              });
+
+            if (!retryError) {
+              return true;
+            }
+          }
+        } catch { /* ignore fallback query errors */ }
+
+        // Another container holds an active unexpired lock
         activePaymentLocks.delete(lockKey);
         activeScholarshipLocks.delete(lockKey);
         return false;
