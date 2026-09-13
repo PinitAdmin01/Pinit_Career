@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { sanitizeLLMOutput } from '@/lib/sanitizeLLM';
+import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 
 interface MentorChatRequest {
   message?: string;
@@ -17,6 +18,15 @@ interface MentorChatRequest {
 
 export async function POST(req: Request) {
   try {
+    const ip = getClientIp(req);
+    const rl = checkRateLimit(`llm_${ip}`, { limit: 30, windowMs: 60_000 });
+    if (!rl.allowed) {
+      return NextResponse.json(
+        { error: 'RATE_LIMIT', message: 'Too many requests. Wait a moment.' },
+        { status: 429, headers: { 'Retry-After': String(rl.resetSec) } }
+      );
+    }
+
     const gated = await requireUserFromRequest(req);
     if (gated.error) return gated.error;
 

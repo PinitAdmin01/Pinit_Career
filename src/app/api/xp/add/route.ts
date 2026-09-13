@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { createClient } from '@supabase/supabase-js';
+import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 
 // Authoritative Action Type Registry (Task 2.3)
 export const VALID_ACTION_TYPES = new Set([
@@ -31,6 +32,15 @@ export const DAILY_XP_MAX_CAP = 3000;
  */
 export async function POST(req: Request) {
   try {
+    const ip = getClientIp(req);
+    const rl = checkRateLimit(`xp_${ip}`, { limit: 60, windowMs: 60_000 });
+    if (!rl.allowed) {
+      return NextResponse.json(
+        { error: 'RATE_LIMIT', message: 'Too many requests. Wait a moment.' },
+        { status: 429, headers: { 'Retry-After': String(rl.resetSec) } }
+      );
+    }
+
     const gated = await requireUserFromRequest(req);
     if (gated.error) return gated.error;
 

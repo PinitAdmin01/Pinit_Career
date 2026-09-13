@@ -7,6 +7,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/api/client';
 import { useNotifications, useMarkRead, KEYS } from '@/lib/api/hooks';
 import { toast } from '@/lib/store/useAppStore';
+import { sanitizeHtml } from '@/lib/sanitize';
 
 type CommTab = 'announcements' | 'notifications' | 'emails' | 'sms' | 'tester';
 
@@ -252,7 +253,7 @@ export default function CampusCommunicationHub() {
 
   return (
     <div className="portal-page">
-      <style dangerouslySetInnerHTML={{ __html: cssStyle }} />
+      <style dangerouslySetInnerHTML={{ __html: sanitizeHtml(cssStyle) }} />
 
       {/* Push Notification Overlay Simulator */}
       {activePush && (

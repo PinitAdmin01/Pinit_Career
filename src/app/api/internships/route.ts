@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
     const studentId = gated.user!.id;
     const body = await req.json();
     const record: InternshipRecord = {
-      id: body.id || `internship_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+      id: body.id || `internship_${crypto.randomUUID()}`,
       studentId,
       companyName: body.companyName || body.company || 'Enterprise Partner',
       role: body.role || 'Software Engineering Resident',

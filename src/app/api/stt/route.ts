@@ -4,7 +4,7 @@ import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 
 export const maxDuration = 30; // 30s timeout
 
-export const MAX_STT_BYTES = 25 * 1024 * 1024; // 25MB
+export const MAX_STT_BYTES = 10 * 1024 * 1024; // 10MB — sufficient for 10-min audio
 export const MIN_STT_BYTES = 1024; // 1KB
 
 export const ALLOWED_MIME_PREFIXES = [
@@ -133,22 +133,19 @@ export function validateAudioMagicBytes(buffer: Uint8Array): boolean {
 
 export async function POST(req: NextRequest) {
   try {
-    const gated = await requireUserFromRequest(req);
-    if (gated.error) return gated.error;
-
-    const rateLimitKey = `stt_${gated.user?.id || getClientIp(req)}`;
-    const rateCheck = checkRateLimit(rateLimitKey, { limit: 4, windowMs: 60 * 1000 });
+    // ── Rate Limiting (must be FIRST, before auth) ─────────────────────────
+    const clientIp = getClientIp(req);
+    const rateCheck = checkRateLimit(`stt_${clientIp}`, { limit: 20, windowMs: 60_000 });
     if (!rateCheck.allowed) {
       return NextResponse.json(
-        { error: 'TOO_MANY_REQUESTS', message: `Rate limit exceeded. Please wait ${rateCheck.resetSec}s.` },
-        {
-          status: 429,
-          headers: {
-            'Retry-After': String(rateCheck.resetSec),
-          },
-        }
+        { error: 'TOO_MANY_REQUESTS', message: 'STT rate limit exceeded. Max 20 requests/min.' },
+        { status: 429, headers: { 'Retry-After': String(rateCheck.resetSec) } }
       );
     }
+
+    // ── Auth Gate ──────────────────────────────────────────────────────────
+    const gated = await requireUserFromRequest(req);
+    if (gated.error) return gated.error;
 
     const formData = await req.formData();
     const file = formData.get('file') as Blob | null;

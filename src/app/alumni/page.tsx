@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { api } from '@/lib/api/client';
 import { useAuth } from '@/lib/context/AuthContext';
 import { toast } from '@/lib/store/useAppStore';
+import { sanitizeHtml } from '@/lib/sanitize';
 
 type SubTab = 'directory' | 'mentorship' | 'jobs' | 'donations' | 'events';
 
@@ -214,7 +215,7 @@ export default function StudentAlumniPortal() {
 
   return (
     <div className="portal-page">
-      <style dangerouslySetInnerHTML={{ __html: cssStyle }} />
+      <style dangerouslySetInnerHTML={{ __html: sanitizeHtml(cssStyle) }} />
 
       <div className="alm-wrapper">
         <h1 className="page-title">🎓 Alumni Portal</h1>

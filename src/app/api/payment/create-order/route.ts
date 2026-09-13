@@ -38,7 +38,7 @@ export async function POST(req: Request) {
 
     if (!keyId || !keySecret) {
       if (process.env.NODE_ENV !== 'production' || process.env.ALLOW_DEV_MOCK_PAYMENT === 'true') {
-        const mockOrderId = `order_mock_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
+        const mockOrderId = `order_mock_${crypto.randomUUID()}`;
         return NextResponse.json({
           orderId: mockOrderId,
           amount: orderAmount,

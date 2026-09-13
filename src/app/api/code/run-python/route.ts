@@ -5,11 +5,21 @@ import path from 'path';
 import os from 'os';
 import crypto from 'crypto';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
+import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 
 export async function POST(req: NextRequest) {
   const startTime = Date.now();
 
   try {
+    const ip = getClientIp(req);
+    const rl = checkRateLimit(`pyrun_${ip}`, { limit: 15, windowMs: 60_000 });
+    if (!rl.allowed) {
+      return NextResponse.json(
+        { error: 'RATE_LIMIT', message: 'Too many execution requests. Wait a moment.' },
+        { status: 429, headers: { 'Retry-After': String(rl.resetSec) } }
+      );
+    }
+
     // ── Auth Gate ────────────────────────────────────────────────────────────
     const gated = await requireUserFromRequest(req);
     if (gated.error) return gated.error;

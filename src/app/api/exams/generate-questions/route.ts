@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { examsService } from '@/lib/services/examsService';
+import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 
 /**
  * POST /api/exams/generate-questions
@@ -9,6 +10,15 @@ import { examsService } from '@/lib/services/examsService';
  */
 export async function POST(req: NextRequest) {
   try {
+    const ip = getClientIp(req);
+    const rl = checkRateLimit(`exam_gen_${ip}`, { limit: 20, windowMs: 60_000 });
+    if (!rl.allowed) {
+      return NextResponse.json(
+        { error: 'RATE_LIMIT', message: 'Too many question generation requests. Wait a moment.' },
+        { status: 429, headers: { 'Retry-After': String(rl.resetSec) } }
+      );
+    }
+
     const gated = await requireUserFromRequest(req);
     if (gated.error || !gated.user) {
       return gated.error || NextResponse.json({ error: 'UNAUTHORIZED' }, { status: 401 });

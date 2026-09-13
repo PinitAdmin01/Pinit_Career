@@ -13,6 +13,7 @@ import RoadmapPreview from './components/RoadmapPreview';
 import { calculateQT2MindsetBreakdown } from './types';
 import { setAvatarVoiceVolume } from '@/lib/tts';
 import { ambientAudio } from '@/lib/audio/ambientAudioEngine';
+import { sanitizeHtml } from '@/lib/sanitize';
 
 // Dynamic import for WebGL/ThreeJS avatar to avoid SSR issues
 const VRoidInterviewAvatar = dynamic(
@@ -686,7 +687,7 @@ export default function OnboardingPage() {
       )}
 
       {/* Embedded Animations */}
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{ __html: sanitizeHtml(`
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(8px); }
           to { opacity: 1; transform: translateY(0); }
@@ -699,7 +700,7 @@ export default function OnboardingPage() {
           to { transform: rotate(360deg); }
         }
         .mic-wave-bar { transition: height 0.1s ease; }
-      `}} />
+      `)}} />
     </div>
   );
 }

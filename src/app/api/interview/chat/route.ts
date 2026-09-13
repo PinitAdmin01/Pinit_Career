@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { sanitizeLLMOutput } from '@/lib/sanitizeLLM';
+import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 
 // Comprehensive Interviewer Persona Roster matching all frontend 3D VRoid Avatars
 const INTERVIEWERS_MAP: Record<string, { name: string; role: string; nature: string }> = {
@@ -80,6 +81,15 @@ export async function POST(req: Request) {
   console.log('[Interview Chat API] Incoming request received at /api/interview/chat');
   
   try {
+    const ip = getClientIp(req);
+    const rl = checkRateLimit(`llm_${ip}`, { limit: 30, windowMs: 60_000 });
+    if (!rl.allowed) {
+      return NextResponse.json(
+        { error: 'RATE_LIMIT', message: 'Too many requests. Wait a moment.' },
+        { status: 429, headers: { 'Retry-After': String(rl.resetSec) } }
+      );
+    }
+
     // 1. Authenticate Request via Bearer Token
     const gated = await requireUserFromRequest(req);
     if (gated.error) {

@@ -470,13 +470,15 @@ export class CodeWarsApiService {
     const { problemId, code } = params;
 
     let vmModule: any = null;
-    if (typeof window === 'undefined') {
+    if (typeof process !== 'undefined' && process.versions?.node) {
       try {
-        vmModule = eval('require')('node:vm');
+        vmModule = (new Function('return require'))()('node:vm');
       } catch {
         try {
-          vmModule = eval('require')('vm');
-        } catch {}
+          vmModule = (new Function('return require'))()('vm');
+        } catch {
+          vmModule = null;
+        }
       }
     }
 
@@ -651,13 +653,15 @@ export class CodeWarsApiService {
 
   static extractFunctionFromSandbox(jsCode: string, fnNames: string[]): Function | null {
     let vmModule: any = null;
-    if (typeof window === 'undefined') {
+    if (typeof process !== 'undefined' && process.versions?.node) {
       try {
-        vmModule = eval('require')('node:vm');
+        vmModule = (new Function('return require'))()('node:vm');
       } catch {
         try {
-          vmModule = eval('require')('vm');
-        } catch {}
+          vmModule = (new Function('return require'))()('vm');
+        } catch {
+          vmModule = null;
+        }
       }
     }
     if (!vmModule) return null;

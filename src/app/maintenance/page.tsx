@@ -2,10 +2,11 @@
 // src/app/maintenance/page.tsx
 // Student/Faculty Infrastructure Maintenance Page containing ticket logger forms, Category selectors, and tickets progression trackers.
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { api } from '@/lib/api/client';
 import { toast } from '@/lib/store/useAppStore';
 import { useAuth } from '@/lib/context/AuthContext';
+import { sanitizeHtml } from '@/lib/sanitize';
 
 export default function StudentMaintenancePortal() {
   const { user } = useAuth();
@@ -23,19 +24,7 @@ export default function StudentMaintenancePortal() {
   const [description, setDescription] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const cached = localStorage.getItem(STORAGE_KEY);
-        if (cached) {
-          setTickets(JSON.parse(cached));
-        }
-      } catch {}
-    }
-    fetchTickets();
-  }, [STORAGE_KEY]);
-
-  const fetchTickets = async () => {
+  const fetchTickets = useCallback(async () => {
     try {
       const data = await api.get<{ tickets: any[] }>('/api/maintenance/stats');
       if (data && Array.isArray(data.tickets)) {
@@ -49,7 +38,19 @@ export default function StudentMaintenancePortal() {
         });
       }
     } catch {}
-  };
+  }, [STORAGE_KEY]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const cached = localStorage.getItem(STORAGE_KEY);
+        if (cached) {
+          setTickets(JSON.parse(cached));
+        }
+      } catch {}
+    }
+    fetchTickets();
+  }, [STORAGE_KEY, fetchTickets]);
 
   const handleReportIssue = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -196,7 +197,7 @@ export default function StudentMaintenancePortal() {
 
   return (
     <div className="portal-page">
-      <style dangerouslySetInnerHTML={{ __html: cssStyle }} />
+      <style dangerouslySetInnerHTML={{ __html: sanitizeHtml(cssStyle) }} />
 
       <div className="mnt-wrapper">
         <h1 className="page-title">🔧 Infrastructure Maintenance Desk</h1>

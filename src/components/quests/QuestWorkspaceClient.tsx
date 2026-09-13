@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { useAuth } from '@/lib/context/AuthContext';
+import { supabase } from '@/lib/supabaseClient';
 import { QUESTS_REGISTRY } from '@/lib/data/questsData';
 import { COURSES_REGISTRY } from '@/lib/data/coursesData';
 import { toast } from '@/lib/store/useAppStore';
@@ -68,26 +69,15 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
     if (fromCourses) return fromCourses;
     const fromRegistry = QUESTS_REGISTRY.find(q => q.id === questId);
     if (fromRegistry) return fromRegistry;
-    if (typeof window === 'undefined') return null;
-    try {
-      const moduleKeys = Object.keys(localStorage).filter(k => k.startsWith(`pinit_${userId}_roadmap_modules`));
-      for (const key of moduleKeys) {
-        const saved = localStorage.getItem(key);
-        if (saved) {
-          const mods = JSON.parse(saved);
-          if (Array.isArray(mods)) {
-            for (const m of mods) {
-              const q = m.quests?.find((qi: any) => qi.id === questId);
-              if (q) return q;
-            }
-          }
-        }
+    const answers = cOS.onboardingAnswers as any;
+    if (answers?.roadmap_modules && Array.isArray(answers.roadmap_modules)) {
+      for (const m of answers.roadmap_modules) {
+        const q = m.quests?.find((qi: any) => qi.id === questId);
+        if (q) return q;
       }
-    } catch (e) {
-      console.error(e);
     }
     return null;
-  }, [questId, userId]);
+  }, [questId, cOS.onboardingAnswers]);
 
   const category = useMemo(() => {
     if (!quest) return 'assignment';
@@ -107,7 +97,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
   // inside the effect, so it was re-initialised on every mount. Pressing F5
   // reset the clock to 45:00 AND reset examTimedOut to false — un-failing an
   // already-expired attempt — while the student's code survived because it is
-  // persisted separately to localStorage at the editor's onChange handler.
+  // persisted separately as an editor draft buffer at the editor's onChange handler.
   // Net effect: keep your work, reset the clock, repeat indefinitely.
   //
   // FIX: anchor the countdown to a persisted wall-clock start timestamp, so
@@ -130,14 +120,14 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
   const getOrCreateExamStart = useCallback((): number => {
     if (typeof window === 'undefined') return Date.now();
     try {
-      const stored = localStorage.getItem(examStartKey);
+      const stored = sessionStorage.getItem(examStartKey);
       const parsed = stored ? Number(stored) : NaN;
       // Guard against corrupt values and clocks set to the future.
       if (Number.isFinite(parsed) && parsed > 0 && parsed <= Date.now()) {
         return parsed;
       }
       const now = Date.now();
-      localStorage.setItem(examStartKey, String(now));
+      sessionStorage.setItem(examStartKey, String(now));
       console.log(`[QuestWorkspace] Exam attempt started for "${questId}" at ${new Date(now).toISOString()}`);
       return now;
     } catch (err) {
@@ -360,7 +350,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
                   }
                   console.log(`[QuestWorkspace] 💾 Draft auto-saved for ${questId} (${nextCode.length} chars)`);
                 } catch (err) {
-                  console.warn('[QuestWorkspace] Failed to persist code draft to localStorage:', err);
+                  console.warn('[QuestWorkspace] Failed to persist code draft buffer:', err);
                 }
               }
             }}
@@ -500,10 +490,10 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
     );
   };
 
-  // Load unlock status and selected teacher from localStorage on mount
+  // Load unlock status and selected teacher from session/context on mount
   useEffect(() => {
     if (!questId) return;
-    const teacherStored = localStorage.getItem(`pinit_quest_teacher_${questId}`);
+    const teacherStored = typeof window !== 'undefined' ? sessionStorage.getItem(`pinit_quest_teacher_${questId}`) : null;
     const isPaid = (cOS.onboardingAnswers?.initiatedQuests || []).includes(questId);
     if (teacherStored || isPaid || completedQuests.includes(questId)) {
       const selectedTeacher = cOS.onboardingAnswers?.selectedTeacherId || teacherStored || 'kashyap';
@@ -538,7 +528,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
     const teacher = TEACHERS.find(t => t.id === selectedTeacherId) || TEACHERS[0];
     const ok = await unlockItem(`quest:${questId}`, 'quest', `Unlock Quest: ${(quest.title || '').split(':')[1]?.trim() || quest.title}`);
     if (ok) {
-      localStorage.setItem(`pinit_quest_teacher_${questId}`, selectedTeacherId);
+      if (typeof window !== 'undefined') { sessionStorage.setItem(`pinit_quest_teacher_${questId}`, selectedTeacherId); }
       setQuestTeacher(selectedTeacherId);
       setIsUnlocked(true);
       toast.success('Quest Active! ⚡', `Unlocked with ${teacher.name} as your instructor.`);
@@ -639,7 +629,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
                 // Clear the persisted exam start so a future retake, if one is
                 // ever permitted, begins with a fresh 45 minutes rather than
                 // inheriting this attempt's already-elapsed clock.
-                try { localStorage.removeItem(examStartKey); } catch {}
+                try { sessionStorage.removeItem(examStartKey); } catch {}
               }
             } else {
               const errMsg = result.testOutcomes?.[0]?.error || result.terminalLogs?.[result.terminalLogs.length - 1] || 'Automated test assertion failed.';
@@ -749,6 +739,13 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
                 localStorage.setItem(`pinit_code_${userId}_${quest.id}`, code);
               }
               addCompletedQuest(quest.id, category === 'exam', quest.xp || 150);
+              if (userId && userId !== 'guest') {
+                Promise.resolve(supabase.from('quest_completions').upsert({
+                  user_id: userId,
+                  quest_id: quest.id,
+                  completed_at: new Date().toISOString(),
+                }, { onConflict: 'user_id,quest_id' })).then(() => {}).catch(() => {});
+              }
               setIsCompleteView(true);
               
               api.post('/api/admin/audit-log/add', {

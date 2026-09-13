@@ -19,7 +19,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const startTime = Date.now();
   const requestId = `req_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
   const method = request.method;
@@ -109,30 +109,41 @@ export function middleware(request: NextRequest) {
       }
     }
 
-    // 4. Validate token expiration if it is a JWT
-    let isExpired = false;
-    if (token && token !== 'dev-bypass-authorized') {
+    // 4. Cryptographically verify JWT signature + expiry
+    let isVerified = false;
+    if (token === 'dev-bypass-authorized') {
+      isVerified = true;
+    } else if (token) {
       try {
-        const parts = token.split('.');
-        if (parts.length === 3) {
-          const payloadBase64 = parts[1].replace(/-/g, '+').replace(/_/g, '/');
-          const payloadJson = atob(payloadBase64);
-          const payload = JSON.parse(payloadJson);
-          if (payload && typeof payload.exp === 'number') {
-            const now = Math.floor(Date.now() / 1000);
-            if (payload.exp < now) {
-              isExpired = true;
+        const jwtSecret = process.env.SUPABASE_JWT_SECRET;
+        if (jwtSecret) {
+          const { jwtVerify } = await import('jose');
+          const secretKey = new TextEncoder().encode(jwtSecret);
+          await jwtVerify(token, secretKey, { algorithms: ['HS256'] });
+          isVerified = true; // Only reaches here if signature + expiry are valid
+        } else if (process.env.NODE_ENV !== 'production') {
+          // Development fallback when SUPABASE_JWT_SECRET is not yet configured locally
+          const parts = token.split('.');
+          if (parts.length === 3) {
+            const payloadBase64 = parts[1].replace(/-/g, '+').replace(/_/g, '/');
+            const payloadJson = atob(payloadBase64);
+            const payload = JSON.parse(payloadJson);
+            if (payload && typeof payload.exp === 'number') {
+              const now = Math.floor(Date.now() / 1000);
+              if (payload.exp >= now) {
+                isVerified = true;
+              }
             }
           }
         }
       } catch {
-        // If JWT parsing fails, do not mark expired
+        isVerified = false; // Expired, wrong signature, or malformed
       }
     }
 
-    // 5. If unauthorized or expired, redirect to /login with 307
-    if (!token || isExpired) {
-      console.warn(`🛡️ [EDGE GUARD] Unauthorized access attempt to ${path} (token: ${token ? 'expired' : 'none'}). Redirecting to /login.`);
+    // 5. Redirect if token missing or verification failed
+    if (!token || !isVerified) {
+      console.warn(`🛡️ [EDGE GUARD] Unauthorized access attempt to ${path} (token: ${token ? 'unverified/expired' : 'none'}). Redirecting to /login.`);
       const loginUrl = new URL(`/login?redirect=${encodeURIComponent(path + (search || ''))}`, request.url);
       const redirectResponse = NextResponse.redirect(loginUrl, 307);
       redirectResponse.headers.set('x-request-id', requestId);
