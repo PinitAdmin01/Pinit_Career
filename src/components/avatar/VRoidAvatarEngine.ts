@@ -832,7 +832,10 @@ export class VRoidAvatarEngine {
     // When the avatar is idle and no user mouse interaction has occurred within 2.0s,
     // throttle rendering to 20 FPS (50ms interval) to drop GPU load by up to 66%.
     // Ramp up to 60 FPS (16.6ms) only when talking, gesturing, or interacting.
-    const now = typeof performance !== 'undefined' ? performance.now() : Date.now();
+    const clockMs = (this.clock && typeof this.clock.getElapsedTime === 'function')
+      ? this.clock.getElapsedTime() * 1000
+      : 0;
+    const now = clockMs > 0 ? clockMs : (typeof performance !== 'undefined' ? performance.now() : Date.now());
     const isInteracting = (now - this.lastUserInteractionTimestamp) < 2000;
     const isTalkingOrAnimating = this.animState !== 'idle' || (this.audioAnalyser !== undefined && this.talkPhase > 0);
     const targetFps = (isTalkingOrAnimating || isInteracting) ? 60 : 20;
