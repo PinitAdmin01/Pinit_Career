@@ -102,14 +102,17 @@ export async function acquireDistributedLock(lockKey: string, userId: string, tt
       activePaymentLocks.delete(lockKey);
       activeScholarshipLocks.delete(lockKey);
       return false;
+    } else {
+      console.warn('⚠️ [DEV WARNING] LIVE DATABASE PERSISTENCE DISABLED: `payment_idempotency_keys` table is unavailable. Running on in-memory process locks. Locks will NOT be shared across server clusters.');
     }
     return true;
-  } catch {
+  } catch (err) {
     if (process.env.NODE_ENV === 'production') {
       activePaymentLocks.delete(lockKey);
       activeScholarshipLocks.delete(lockKey);
       return false;
     }
+    console.warn('⚠️ [DEV WARNING] LIVE DATABASE PERSISTENCE DISABLED: Exception during distributed lock check. Running on in-memory process locks:', err);
     // If Supabase table check fails in non-production, local process lock is already held
     return true;
   }
@@ -143,6 +146,7 @@ export interface FinanceTransaction {
 
 // Read local JSON database
 async function readLocalDb(): Promise<any> {
+  console.warn('⚠️ [DEV WARNING] LIVE DATABASE PERSISTENCE DISABLED: Reading finance data from local JSON database mock (src/lib/data/finance_db.json). Changes will NOT persist to Supabase.');
   const db = await readLocalJson(DB_FILE, { dues: {}, scholarships: [], transactions: [] });
   return {
     dues: db.dues || {},
@@ -153,6 +157,7 @@ async function readLocalDb(): Promise<any> {
 
 // Write local JSON database
 async function writeLocalDb(data: any): Promise<void> {
+  console.warn('⚠️ [DEV WARNING] LIVE DATABASE PERSISTENCE DISABLED: Writing finance data to local JSON database mock (src/lib/data/finance_db.json). Changes will NOT persist to Supabase.');
   await writeLocalJson(DB_FILE, data);
 }
 
