@@ -2,6 +2,7 @@
 import { useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { api } from '@/lib/api/client';
 import { supabase } from '@/lib/supabaseClient';
 
@@ -61,7 +62,7 @@ function ResetForm() {
         <div className="auth-logo">
           <div style={{ display:'flex', alignItems:'center', justifyContent:'center', gap:10, marginBottom:10 }}>
             <span className="lp-brand-lockup" style={{ height: 56, padding: '4px 10px' }}>
-              <img src="/brand/pinit-career-logo.png" alt="PINIT CAREER" className="lp-brand-logo" style={{ height: 48, maxWidth: 200 }} />
+              <Image src="/brand/pinit-career-logo.png" alt="PINIT CAREER" width={200} height={48} className="lp-brand-logo" style={{ height: 48, maxWidth: 200, width: 'auto' }} priority />
             </span>
           </div>
           <div className="auth-title">{token ? 'Set New Password' : 'Reset Password'}</div>

@@ -3,6 +3,7 @@ import { api } from '@/lib/api/client';
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useAuth } from '@/lib/context/AuthContext';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { ResumeFormData } from '@/components/career/ResumeForm.types';
 import { RoleGate } from '@/components/auth/RoleGate';
 
@@ -1253,7 +1254,7 @@ function RecruiterPageInner() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
               <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
                 <div style={{ width: 64, height: 64, borderRadius: 12, background: 'var(--bg3)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>
-                  {companyProfile.logo_url ? <img src={companyProfile.logo_url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 12 }} /> : '🏢'}
+                  {companyProfile.logo_url ? <Image src={companyProfile.logo_url} alt="" width={64} height={64} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 12 }} unoptimized /> : '🏢'}
                 </div>
                 <div>
                   <h4 style={{ fontWeight: 800, fontSize: 16, margin: 0 }}>{companyProfile.company_name}</h4>

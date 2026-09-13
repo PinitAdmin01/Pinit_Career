@@ -820,8 +820,15 @@ export default function RigidAvatarMentorWidget({
   }, [isMinimized]);
 
   const memory    = usePersonalAvatarMemory(userId);
+  const memoryRef = useRef(memory);
+  memoryRef.current = memory;
+
   const emotionAI = useFacialEmotionDetection();
+  const emotionAIRef = useRef(emotionAI);
+  emotionAIRef.current = emotionAI;
+
   const teacher   = TEACHER_CONFIG[teacherId] || TEACHER_CONFIG.priya;
+  const hasGreetedRef = useRef(false);
 
   // Load avatar context + ML recommendations on mount
   useEffect(() => {
@@ -831,26 +838,24 @@ export default function RigidAvatarMentorWidget({
       .then(({ avatarMemory, mlRecommendations }) => {
         // See AvatarMentorWidget: conversationHistory is always [] by design,
         // so restore on the fields that are actually persisted.
-        if (avatarMemory?.memories?.length || avatarMemory?.persona) memory.importMemory(avatarMemory);
+        if (avatarMemory?.memories?.length || avatarMemory?.persona) memoryRef.current.importMemory(avatarMemory);
         if (mlRecommendations?.length) setMlRecs(mlRecommendations);
       })
       .catch(() => {});
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
 
   // Sync career profile to avatar memory
   useEffect(() => {
     if (!careerProfile || userId === 'guest') return;
-    memory.storePersonalInfo({
+    memoryRef.current.storePersonalInfo({
       name: userId, goals: [`Improve Career Score from ${careerProfile.ats_score||0} to 80+`],
       occupation: 'student', interests: careerProfile.weak_areas||[],
       preferences: { atsScore: careerProfile.ats_score, trustScore: careerProfile.trust_score, dnaScore: careerProfile.career_dna_score, streak: careerProfile.mission_streak, teacherId },
     });
     fetch('/api/avatar/memory', {
       method: 'PATCH', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(memory.exportMemory()), credentials: 'include',
+      body: JSON.stringify(memoryRef.current.exportMemory()), credentials: 'include',
     }).catch(() => {});
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [careerProfile, userId, teacherId]);
 
   // Stop speaking on unmount
@@ -862,10 +867,11 @@ export default function RigidAvatarMentorWidget({
 
   // Greeting on mount
   useEffect(() => {
-    if (messages.length > 0) return;
+    if (hasGreetedRef.current || messages.length > 0) return;
     if (activeQuest) {
       const g = `Hello! I am ${teacher.name}, your mentor for this quest: "${activeQuest.title}". We will cover: ${activeQuest.desc}. What questions do you have about this topic?`;
       setMessages([{ role: 'assistant', content: g }]);
+      hasGreetedRef.current = true;
     } else if (careerProfile) {
       const score  = careerProfile?.ats_score||0;
       const streak = careerProfile?.mission_streak||0;
@@ -873,9 +879,9 @@ export default function RigidAvatarMentorWidget({
         ? `Hi! I'm ${teacher.name}. Your Career Score is ${score}/100 — let's build it together. What shall we work on?`
         : `Welcome back! Score ${score}/100 · 🔥 ${streak}-day streak. How can I help today?`;
       setMessages([{ role: 'assistant', content: g }]);
+      hasGreetedRef.current = true;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [careerProfile, activeQuest, teacher.name]);
+  }, [careerProfile, activeQuest, teacher.name, messages.length]);
 
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages, loading]);
 
@@ -887,6 +893,17 @@ export default function RigidAvatarMentorWidget({
     '💼 Am I ready for job interviews?',
     ...mlRecs.slice(0,2).map(r => `${r.icon} Show me ${r.label.toLowerCase()} options`),
   ].slice(0, 5);
+
+  const speakReply = useCallback(async (text: string) => {
+    setSubtitle(text);
+    setSubtitleRole('assistant');
+    speakWithAvatar(
+      text,
+      teacherId,
+      () => setSpeaking(true),
+      () => setSpeaking(false)
+    );
+  }, [teacherId]);
 
   const sendMessage = useCallback(async (text?: string) => {
     const msg = (text || input).trim();
@@ -902,8 +919,8 @@ export default function RigidAvatarMentorWidget({
     setSubtitleRole('user');
     setLoading(true);
 
-    const emotionalCtx = emotionAI.getEmotionalContext(msg);
-    const historyForAPI = memory.getConversationContext(10)
+    const emotionalCtx = emotionAIRef.current.getEmotionalContext(msg);
+    const historyForAPI = memoryRef.current.getConversationContext(10)
       .map((c: { userMessage?: string; avatarResponse?: string; role?: string; content?: string }) =>
         c.userMessage
           ? [{ role:'user', content:c.userMessage }, { role:'assistant', content:c.avatarResponse }]
@@ -923,37 +940,38 @@ export default function RigidAvatarMentorWidget({
       });
       const { reply } = await res.json();
       setMessages(prev => [...prev, { role: 'assistant', content: reply }]);
-      memory.storeConversation(msg, reply, { emotion: emotionalCtx.detectedEmotion, engagement: 0.8 });
+      memoryRef.current.storeConversation(msg, reply, { emotion: emotionalCtx.detectedEmotion, engagement: 0.8 });
       await speakReply(reply);
     } catch {
       setMessages(prev => [...prev, { role: 'assistant', content: 'Connection issue. Please try again.' }]);
     } finally {
       setLoading(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [input, loading, careerProfile, teacherId, memory, emotionAI]);
-
-  async function speakReply(text: string) {
-    setSubtitle(text);
-    setSubtitleRole('assistant');
-    speakWithAvatar(
-      text,
-      teacherId,
-      () => setSpeaking(true),
-      () => setSpeaking(false)
-    );
-  }
+  }, [input, loading, careerProfile, teacherId, activeQuest, speakReply]);
 
   // Keep track of latest speaking/loading states in refs to avoid stale closures in SpeechRecognition handlers
   const speakingRef = useRef(speaking);
   const loadingRef = useRef(loading);
   const micDeniedRef = useRef(false);
+  const routerRef = useRef(router);
+  const sendMessageRef = useRef(sendMessage);
+  const speakReplyRef = useRef(speakReply);
+
   useEffect(() => {
     speakingRef.current = speaking;
   }, [speaking]);
   useEffect(() => {
     loadingRef.current = loading;
   }, [loading]);
+  useEffect(() => {
+    routerRef.current = router;
+  }, [router]);
+  useEffect(() => {
+    sendMessageRef.current = sendMessage;
+  }, [sendMessage]);
+  useEffect(() => {
+    speakReplyRef.current = speakReply;
+  }, [speakReply]);
 
   // Background Speech Recognition for Wake Words
   useEffect(() => {
@@ -1013,48 +1031,48 @@ export default function RigidAvatarMentorWidget({
               const cleanLower = cleaned.toLowerCase();
               if (cleanLower.includes('open') || cleanLower.includes('go to') || cleanLower.includes('navigate to') || cleanLower.includes('show me')) {
                 if (cleanLower.includes('vault')) {
-                  router.push('/vault');
-                  speakReply("Opening your secure Evidence Vault.");
+                  routerRef.current.push('/vault');
+                  speakReplyRef.current("Opening your secure Evidence Vault.");
                   return;
                 }
                 if (cleanLower.includes('dashboard') || cleanLower.includes('home')) {
-                  router.push('/dashboard');
-                  speakReply("Opening your Command Center Dashboard.");
+                  routerRef.current.push('/dashboard');
+                  speakReplyRef.current("Opening your Command Center Dashboard.");
                   return;
                 }
                 if (cleanLower.includes('quest')) {
-                  router.push('/quests');
-                  speakReply("Navigating to your Socratic Quest registry.");
+                  routerRef.current.push('/quests');
+                  speakReplyRef.current("Navigating to your Socratic Quest registry.");
                   return;
                 }
                 if (cleanLower.includes('mission')) {
-                  router.push('/missions');
-                  speakReply("Opening your Daily Gap-Closure Missions.");
+                  routerRef.current.push('/missions');
+                  speakReplyRef.current("Opening your Daily Gap-Closure Missions.");
                   return;
                 }
                 if (cleanLower.includes('twin') || cleanLower.includes('career twin')) {
-                  router.push('/career-twin');
-                  speakReply("Opening your Career Twin configuration.");
+                  routerRef.current.push('/career-twin');
+                  speakReplyRef.current("Opening your Career Twin configuration.");
                   return;
                 }
                 if (cleanLower.includes('dna') || cleanLower.includes('career dna')) {
-                  router.push('/career-dna');
-                  speakReply("Opening your Human Evolution DNA analytics.");
+                  routerRef.current.push('/career-dna');
+                  speakReplyRef.current("Opening your Human Evolution DNA analytics.");
                   return;
                 }
                 if (cleanLower.includes('opportunit') || cleanLower.includes('job') || cleanLower.includes('match')) {
-                  router.push('/opportunities');
-                  speakReply("Opening your matched placement opportunities.");
+                  routerRef.current.push('/opportunities');
+                  speakReplyRef.current("Opening your matched placement opportunities.");
                   return;
                 }
               }
 
-              sendMessage(cleaned);
+              sendMessageRef.current(cleaned);
             } else {
               // Just wake word, speak greeting
               const greeting = `Yes, I am listening! How can I help you today?`;
               setMessages(prev => [...prev, { role: 'assistant', content: greeting }]);
-              speakReply(greeting);
+              speakReplyRef.current(greeting);
             }
           }
         };
@@ -1092,8 +1110,7 @@ export default function RigidAvatarMentorWidget({
         } catch {}
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [teacherId, setIsMinimized, sendMessage]);
+  }, [teacherId, setIsMinimized]);
 
   // Auto-close (minimize) timer when not responding/speaking
   useEffect(() => {
