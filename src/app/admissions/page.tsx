@@ -4,6 +4,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { api } from '@/lib/api/client';
 import { toast } from '@/lib/store/useAppStore';
 
@@ -311,7 +312,15 @@ export default function AdmissionsPortal() {
         <div className="header-content">
           <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
             <span className="lp-brand-lockup" style={{ height: 40, padding: '2px 6px' }}>
-              <img src="/brand/pinit-career-logo.png" alt="PINIT CAREER" className="lp-brand-logo" style={{ height: 34, maxWidth: 148 }} />
+              <Image
+                src="/brand/pinit-career-logo.png"
+                alt="PINIT CAREER"
+                width={148}
+                height={34}
+                priority
+                className="lp-brand-logo"
+                style={{ height: 34, width: 'auto', maxWidth: 148, objectFit: 'contain' }}
+              />
             </span>
           </Link>
 

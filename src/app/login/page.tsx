@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useAuth } from '@/lib/context/AuthContext';
 import { isDemoAuthEnabled, DEMO_PASSWORD } from '@/lib/demoAuth';
 import { QRCodeSVG } from 'qrcode.react';
@@ -373,7 +374,15 @@ function LoginContent() {
           <Link href="/" style={{ textDecoration: 'none', display: 'inline-block' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginBottom: 12 }}>
               <span className="lp-brand-lockup" style={{ height: 56, padding: '4px 10px' }}>
-                <img src="/brand/pinit-career-logo.png" alt="PINIT CAREER" className="lp-brand-logo" style={{ height: 48, maxWidth: 200 }} />
+                <Image
+                  src="/brand/pinit-career-logo.png"
+                  alt="PINIT CAREER"
+                  width={200}
+                  height={48}
+                  priority
+                  className="lp-brand-logo"
+                  style={{ height: 48, width: 'auto', maxWidth: 200, objectFit: 'contain' }}
+                />
               </span>
             </div>
           </Link>

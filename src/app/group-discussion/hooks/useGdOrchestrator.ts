@@ -90,12 +90,15 @@ export function useGdOrchestrator({
   const preloadedAvatarBDataRef = useRef<{ avatarB_Id: string; cleanReply: string; nextMessages: GdChatMessage[] } | null>(null);
   const avatarBPromiseRef = useRef<Promise<any> | null>(null);
   const consecutiveSilenceCountRef = useRef<number>(0);
-  const speechPauseDebounceRef = useRef<any>(null);
+  const handleUserFinishSpeakingRef = useRef<(userText?: string) => void>(() => {});
+  const handleSendVoiceMessageRef = useRef<(text: string) => void>(() => {});
   const hostIdRef = useRef<string>(gdHostId);
   const speakerPairRef = useRef<{ a: string; b: string } | null>(null);
   const lastPairRef = useRef<{ a?: string; b?: string } | null>(null);
   const consecutiveAvatarTurnsRef = useRef(0);
   const mediaStreamRef = useRef<MediaStream | null>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const analyserRef = useRef<AnalyserNode | null>(null);
 
   // Pre-warm browser speech synthesis voices
   useEffect(() => {
@@ -148,12 +151,28 @@ export function useGdOrchestrator({
         recognitionRef.current = null;
       }
 
-      // Stop any acquired audio media streams (Task 4.4 guarantee)
+      // Stop mic tracks
       if (mediaStreamRef.current) {
         try {
-          mediaStreamRef.current.getTracks().forEach(track => track.stop());
+          mediaStreamRef.current.getTracks().forEach((track) => track.stop());
         } catch {}
         mediaStreamRef.current = null;
+      }
+
+      // Close AudioContext — CRITICAL: browsers limit to 6 per page
+      if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
+        try {
+          audioContextRef.current.close().catch(() => {});
+        } catch {}
+        audioContextRef.current = null;
+      }
+
+      // Disconnect analyser
+      if (analyserRef.current) {
+        try {
+          analyserRef.current.disconnect();
+        } catch {}
+        analyserRef.current = null;
       }
 
       // WebGL context cleanup
@@ -227,6 +246,27 @@ export function useGdOrchestrator({
         recognitionRef.current.onend = null;
         try { recognitionRef.current.stop(); } catch {}
         recognitionRef.current = null;
+      }
+      // Stop mic tracks
+      if (mediaStreamRef.current) {
+        try {
+          mediaStreamRef.current.getTracks().forEach((track) => track.stop());
+        } catch {}
+        mediaStreamRef.current = null;
+      }
+      // Close AudioContext — CRITICAL: browsers limit to 6 per page
+      if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
+        try {
+          audioContextRef.current.close().catch(() => {});
+        } catch {}
+        audioContextRef.current = null;
+      }
+      // Disconnect analyser
+      if (analyserRef.current) {
+        try {
+          analyserRef.current.disconnect();
+        } catch {}
+        analyserRef.current = null;
       }
     };
   }, []);

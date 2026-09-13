@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef, Suspense } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { useAuth } from '@/lib/context/AuthContext';
@@ -640,7 +641,14 @@ function ArenaContent() {
                   <div style={{ padding: 14, borderRadius: 12, background: 'rgba(var(--danger-rgb),  0.08)', border: '1px solid rgba(var(--danger-rgb),  0.2)' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                        <img src={activeMatch.opponent.avatarUrl} alt="Opponent" style={{ width: 24, height: 24, borderRadius: 12 }} />
+                        <Image
+                          src={activeMatch.opponent.avatarUrl}
+                          alt="Opponent"
+                          width={24}
+                          height={24}
+                          style={{ width: 24, height: 24, borderRadius: 12, objectFit: 'cover' }}
+                          unoptimized
+                        />
                         <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--danger)' }}>Opponent: {activeMatch.opponent.name}</span>
                       </div>
                       <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--danger)' }}>{activeMatch.opponent.progressPct}% Complete</span>

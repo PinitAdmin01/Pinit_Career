@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { useAuth } from '@/lib/context/AuthContext';
 import { PathwayApiService } from '@/lib/api/pathwayApi';
@@ -342,7 +343,14 @@ function LeaderboardContent() {
                   </td>
                   <td style={{ padding: '16px 20px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                      <img src={entry.avatarUrl} alt={entry.name} style={{ width: 36, height: 36, borderRadius: 18, border: entry.isCurrentUser ? '2px solid #6366f1' : 'none' }} />
+                      <Image
+                        src={entry.avatarUrl}
+                        alt={entry.name}
+                        width={36}
+                        height={36}
+                        style={{ width: 36, height: 36, borderRadius: 18, border: entry.isCurrentUser ? '2px solid #6366f1' : 'none', objectFit: 'cover' }}
+                        unoptimized
+                      />
                       <div>
                         <div style={{ fontWeight: 700, color: entry.isCurrentUser ? '#a5b4fc' : '#f8fafc', display: 'flex', alignItems: 'center', gap: 6 }}>
                           {entry.name}

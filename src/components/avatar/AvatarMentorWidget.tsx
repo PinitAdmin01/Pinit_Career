@@ -152,6 +152,10 @@ export default function AvatarMentorWidget({
   const voiceFreqRef = useRef<number | null>(null);
   const voicePrintRef = useRef<VoicePrint | null>(null);
   const micDeniedRef = useRef<boolean>(false);
+  const voiceRegStreamRef = useRef<MediaStream | null>(null);
+  const voiceRegAudioCtxRef = useRef<AudioContext | null>(null);
+  const voiceRegIntervalRef = useRef<any>(null);
+  const voiceRegTimeoutRef = useRef<any>(null);
 
   useEffect(() => {
     voiceFreqRef.current = voiceFreq;
@@ -205,7 +209,9 @@ export default function AvatarMentorWidget({
 
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      voiceRegStreamRef.current = stream;
       const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+      voiceRegAudioCtxRef.current = audioCtx;
       const source = audioCtx.createMediaStreamSource(stream);
       const analyser = audioCtx.createAnalyser();
       analyser.fftSize = 2048;
@@ -232,11 +238,16 @@ export default function AvatarMentorWidget({
           });
         }
       }, 70);
+      voiceRegIntervalRef.current = interval;
 
-      setTimeout(async () => {
+      const timeout = setTimeout(async () => {
         clearInterval(interval);
+        voiceRegIntervalRef.current = null;
         stream.getTracks().forEach(t => t.stop());
-        audioCtx.close();
+        voiceRegStreamRef.current = null;
+        try { audioCtx.close(); } catch {}
+        voiceRegAudioCtxRef.current = null;
+        voiceRegTimeoutRef.current = null;
         setIsRecordingVoice(false);
 
         const analyzedPrint = analyzeVoiceFrames(frames);
@@ -257,6 +268,7 @@ export default function AvatarMentorWidget({
           toast.error("Registration Failed", "Could not analyze clear voice biometrics. Please speak clearly in a quiet room.");
         }
       }, 3500);
+      voiceRegTimeoutRef.current = timeout;
 
     } catch (err) {
       console.warn("Failed voice registration:", err);
@@ -304,7 +316,41 @@ export default function AvatarMentorWidget({
     return () => {
       clearTimeout(timer);
       ro.disconnect();
-      scene.dispose();
+
+      // 1. Dispose all scene objects (geometries + materials + textures) and WebGL renderer
+      if (sceneRef.current) {
+        try {
+          sceneRef.current.dispose();
+        } catch (e) {
+          console.warn('[AvatarMentorWidget] Error disposing avatar engine:', e);
+        }
+        sceneRef.current = null;
+      }
+      if (typeof window !== 'undefined' && (window as any).mentorAvatarScene === scene) {
+        (window as any).mentorAvatarScene = null;
+      }
+
+      // 2. Stop any active microphone tracks from voice registration
+      if (voiceRegStreamRef.current) {
+        try {
+          voiceRegStreamRef.current.getTracks().forEach((track: MediaStreamTrack) => track.stop());
+        } catch {}
+        voiceRegStreamRef.current = null;
+      }
+      if (voiceRegAudioCtxRef.current && voiceRegAudioCtxRef.current.state !== 'closed') {
+        try {
+          voiceRegAudioCtxRef.current.close().catch(() => {});
+        } catch {}
+        voiceRegAudioCtxRef.current = null;
+      }
+      if (voiceRegIntervalRef.current) {
+        clearInterval(voiceRegIntervalRef.current);
+        voiceRegIntervalRef.current = null;
+      }
+      if (voiceRegTimeoutRef.current) {
+        clearTimeout(voiceRegTimeoutRef.current);
+        voiceRegTimeoutRef.current = null;
+      }
     };
   }, [teacherId, isMinimized]);
 
@@ -384,10 +430,30 @@ export default function AvatarMentorWidget({
     }).catch(() => {});
   }, [careerProfile, userId, teacherId]);
 
-  // Stop speaking on unmount
+  // Stop speaking and release voice media resources on unmount
   useEffect(() => {
     return () => {
       stopSpeaking();
+      if (voiceRegStreamRef.current) {
+        try {
+          voiceRegStreamRef.current.getTracks().forEach((track: MediaStreamTrack) => track.stop());
+        } catch {}
+        voiceRegStreamRef.current = null;
+      }
+      if (voiceRegAudioCtxRef.current && voiceRegAudioCtxRef.current.state !== 'closed') {
+        try {
+          voiceRegAudioCtxRef.current.close().catch(() => {});
+        } catch {}
+        voiceRegAudioCtxRef.current = null;
+      }
+      if (voiceRegIntervalRef.current) {
+        clearInterval(voiceRegIntervalRef.current);
+        voiceRegIntervalRef.current = null;
+      }
+      if (voiceRegTimeoutRef.current) {
+        clearTimeout(voiceRegTimeoutRef.current);
+        voiceRegTimeoutRef.current = null;
+      }
     };
   }, []);
 

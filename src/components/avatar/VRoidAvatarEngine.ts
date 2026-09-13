@@ -397,6 +397,27 @@ export class VRoidAvatarEngine {
             if (settled) return;
             settled = true;
             clearTimeout(timer);
+            if (this.disposed) {
+              if (gltf?.scene) {
+                gltf.scene.traverse((obj: any) => {
+                  if (obj.geometry) obj.geometry.dispose();
+                  if (obj.material) {
+                    const mats = Array.isArray(obj.material) ? obj.material : [obj.material];
+                    mats.forEach((m: any) => {
+                      if (m) {
+                        Object.values(m).forEach((v: any) => {
+                          if (v && typeof v.dispose === 'function') {
+                            try { v.dispose(); } catch {}
+                          }
+                        });
+                        try { m.dispose(); } catch {}
+                      }
+                    });
+                  }
+                });
+              }
+              return;
+            }
             console.log('[VRoidAvatarEngine] Successfully loaded 3D avatar:', resolvedPath);
           this.scene.add(gltf.scene);
           this.isVRM = true;
@@ -1443,22 +1464,27 @@ export class VRoidAvatarEngine {
 
     if (this.scene) {
       this.scene.traverse((obj) => {
-        if ((obj as THREE.Mesh).geometry) {
-          (obj as THREE.Mesh).geometry.dispose();
+        const mesh = obj as THREE.Mesh;
+        if (mesh.geometry) {
+          try { mesh.geometry.dispose(); } catch {}
         }
-        if ((obj as THREE.Mesh).material) {
-          const mat = (obj as THREE.Mesh).material;
-          if (Array.isArray(mat)) {
-            mat.forEach(m => {
-              if ((m as any)?.map) (m as any).map.dispose();
-              m.dispose();
+        if (mesh.material) {
+          const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+          mats.forEach((m: any) => {
+            if (!m) return;
+            // Dispose all texture maps attached to the material
+            Object.values(m).forEach((val: any) => {
+              if (val && typeof val.dispose === 'function') {
+                try { val.dispose(); } catch {}
+              }
             });
-          } else {
-            if ((mat as any)?.map) (mat as any).map.dispose();
-            mat.dispose();
-          }
+            try { m.dispose(); } catch {}
+          });
         }
       });
+      while (this.scene.children.length > 0) {
+        this.scene.remove(this.scene.children[0]);
+      }
     }
 
     this.faceMeshes = [];
@@ -1471,6 +1497,9 @@ export class VRoidAvatarEngine {
         this.renderer.forceContextLoss();
       } catch {}
       this.renderer.dispose();
+      if (this.renderer.domElement) {
+        try { this.renderer.domElement.remove(); } catch {}
+      }
     }
     console.log('[VRoidAvatarEngine] Successfully disposed 3D avatar scene and freed WebGL GPU memory.');
   }
