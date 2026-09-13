@@ -2,7 +2,7 @@
 
 Regenerate: `node audit/extract-contracts.mjs`
 
-- **generated**: 2026-09-13T13:54:13.894Z
+- **generated**: 2026-09-13T14:01:41.552Z
 - **appCodeFiles**: 378
 - **verticals**: 66
 - **verticalsWithDefects**: 17

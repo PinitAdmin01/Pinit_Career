@@ -148,6 +148,7 @@ export function useConversationAI(memorySystem, emotionDetection) {
       setIsGeneratingResponse(false);
       return { text: 'I\'m thinking...', error };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [memorySystem, emotionDetection]);
 
   // Extract main topic from input

@@ -129,6 +129,7 @@ export function useFlexibleBodyMovement(vrmModel) {
     } catch (error) {
       console.error('❌ Error initializing body:', error);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [vrmModel]);
 
   // Fix T-pose (arms naturally down instead of spread)

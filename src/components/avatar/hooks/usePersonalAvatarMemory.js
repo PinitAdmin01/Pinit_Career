@@ -133,6 +133,7 @@ export function usePersonalAvatarMemory(userId) {
     updateRelationshipState(context);
 
     return conversation;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [storeMemory]);
 
   // Store user preferences

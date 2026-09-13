@@ -184,6 +184,7 @@ export function useVRoidLipSync(vrmExpressions) {
     if (estimatedPhoneme) {
       applyPhonemeShape(estimatedPhoneme);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSpeak, applyPhonemeShape]);
 
   // Detect dominant frequency from audio

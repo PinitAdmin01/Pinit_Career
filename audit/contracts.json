@@ -1,6 +1,6 @@
 {
   "summary": {
-    "generated": "2026-09-13T13:54:13.894Z",
+    "generated": "2026-09-13T14:01:41.552Z",
     "appCodeFiles": 378,
     "verticals": 66,
     "verticalsWithDefects": 17,
@@ -3511,12 +3511,12 @@
       "callSites": [
         {
           "file": "src/components/avatar/AvatarMentorWidget.tsx",
-          "line": 563,
+          "line": 566,
           "live": true
         },
         {
           "file": "src/components/avatar/RigidAvatarMentorWidget.tsx",
-          "line": 911,
+          "line": 914,
           "live": false
         },
         {
@@ -3526,12 +3526,12 @@
         },
         {
           "file": "src/components/avatar/AvatarMentorWidget.tsx",
-          "line": 563,
+          "line": 566,
           "live": true
         },
         {
           "file": "src/components/avatar/RigidAvatarMentorWidget.tsx",
-          "line": 911,
+          "line": 914,
           "live": false
         }
       ],
@@ -3691,22 +3691,22 @@
       "callSites": [
         {
           "file": "src/components/avatar/AvatarMentorWidget.tsx",
-          "line": 374,
+          "line": 375,
           "live": true
         },
         {
           "file": "src/components/avatar/RigidAvatarMentorWidget.tsx",
-          "line": 848,
+          "line": 849,
           "live": false
         },
         {
           "file": "src/components/avatar/AvatarMentorWidget.tsx",
-          "line": 374,
+          "line": 375,
           "live": true
         },
         {
           "file": "src/components/avatar/RigidAvatarMentorWidget.tsx",
-          "line": 848,
+          "line": 849,
           "live": false
         }
       ],
