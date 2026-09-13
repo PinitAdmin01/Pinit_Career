@@ -297,6 +297,7 @@ export function stripSelfServicePrivileges<T extends Record<string, any>>(row: T
   if (allowPrivileged || !row || typeof row !== 'object') {
     return row;
   }
+  delete row.mission_streak;
   const sanitized: Record<string, any> = { ...row };
 
   const forbiddenFields = [
@@ -1154,7 +1155,15 @@ export async function updateApplicationStatus(appId: string, status: string) {
   }
 }
 
-export async function verifyVaultItem(studentId: string, itemId: string, status: 'verified' | 'rejected') {
+export async function verifyVaultItem(
+  studentId: string,
+  itemId: string,
+  status: 'verified' | 'rejected',
+  verifier?: { id: string; role?: string }
+) {
+  if (verifier && verifier.role !== 'admin' && verifier.role !== 'faculty') {
+    throw new Error('FORBIDDEN: Only faculty mentors or administrators can verify vault items.');
+  }
   const { error } = await supabase
     .from('vault_items')
     .update({ verified: status === 'verified' })

@@ -67,7 +67,7 @@ export const PIN_EARN: Record<PinSource, number> = {
   onboarding_complete:  0,
   vault_verify:         0,
   daily_login:          0,
-  streak_bonus:         0,
+  streak_bonus:         50,
   purchase:             100,
   ai_interview:         0,
   resume_enhance:       0,
@@ -248,7 +248,7 @@ export function usePins(options: UsePinsOptions = {}) {
   // DEF-033 FIX: Removed client-side 1:00 AM pin reset useEffect. Daily reset is handled authoritatively by /api/cron/daily-pin-reset server cron.
 
   const earnPins = useCallback((source: PinSource, overrideAmount?: number, reason?: string) => {
-    if (source !== 'purchase' && source !== 'admin_grant') {
+    if (source !== 'purchase' && source !== 'admin_grant' && source !== 'streak_bonus') {
       return;
     }
     const amount = overrideAmount ?? PIN_EARN[source] ?? 0;

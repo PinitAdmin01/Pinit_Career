@@ -1069,7 +1069,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
           setPins(res.newBalance);
         }
         const added = res.minutesAdded || 30;
-        setAiUseTokens(aiUseTokens + added);
+        setAiUseTokens((prev: number) => prev + added);
         toast.success('AI Time Extended! ⏰', `+${added} AI Minutes added to your daily balance.`);
         return true;
       } catch (err: any) {
@@ -1079,11 +1079,11 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
     } else {
       const ok = await spendPins('ai_minutes_extend', 'Extended daily AI by 30 mins');
       if (!ok) return false;
-      setAiUseTokens(aiUseTokens + 30);
+      setAiUseTokens((prev: number) => prev + 30);
       toast.success('AI Time Extended! ⏰', '+30 AI Minutes added to your daily balance.');
       return true;
     }
-  }, [userId, setPins, spendPins, aiUseTokens, setAiUseTokens]);
+  }, [userId, setPins, spendPins, setAiUseTokens]);
 
   // Derive unlocked tabs dynamically
   const ALL_TABS = ['/dashboard', '/quests', '/missions', '/interview', '/career-twin', '/career-dna', '/opportunities', '/group-discussion'];
