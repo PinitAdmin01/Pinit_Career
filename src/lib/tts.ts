@@ -395,23 +395,37 @@ export async function speakWithAvatar(
         return;
       }
     } catch (err) {
-      console.warn('[PinIT Voice] Neural TTS fallback (WebSpeech disabled):', err);
-      // Hold the floor for minDuration so GD turns stay 10s even if audio fails
+      console.warn('[PinIT Voice] Neural TTS unavailable, executing instant WebSpeech fallback:', err);
       if (mySpeechId === currentSpeechId) {
-        const startedAt = Date.now();
-        onStart();
-        finishAfterFloor(startedAt);
+        fallbackWebSpeech(
+          cleanSpeechText,
+          teacherId,
+          onStart,
+          () => finishAfterFloor(Date.now()),
+          detectVibe(cleanSpeechText),
+          mySpeechId,
+          difficulty,
+          speedMultiplier,
+          dynamicMaxDurationMs
+        );
       }
       return;
     }
   }
 
-  // WebSpeech browser voices are intentionally disabled.
-  console.warn('[PinIT Voice] Neural TTS required — browser WebSpeech fallback is disabled.');
+  // Fallback to WebSpeech if neural synthesis was bypassed or disabled
   if (mySpeechId === currentSpeechId) {
-    const startedAt = Date.now();
-    onStart();
-    finishAfterFloor(startedAt);
+    fallbackWebSpeech(
+      cleanSpeechText,
+      teacherId,
+      onStart,
+      () => finishAfterFloor(Date.now()),
+      detectVibe(cleanSpeechText),
+      mySpeechId,
+      difficulty,
+      speedMultiplier,
+      dynamicMaxDurationMs
+    );
   }
 }
 

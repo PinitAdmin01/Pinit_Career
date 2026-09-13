@@ -174,7 +174,7 @@ RULES:
       ? history.map((h: any) => ({ role: h.role === 'assistant' ? 'assistant' : 'user', content: String(h.content || '') }))
       : [];
 
-    // Attempt Groq Multi-Key Pool
+    // Attempt Groq Multi-Key Pool with ultra-fast 8B conversational model and 3.5s timeout
     for (const key of groqKeys) {
       try {
         console.log(`[Interview Chat API] Attempting Groq inference with key ending in ...${key.slice(-4)}`);
@@ -185,14 +185,15 @@ RULES:
             'Authorization': `Bearer ${key}`
           },
           body: JSON.stringify({
-            model: 'llama-3.3-70b-versatile',
+            model: 'llama-3.1-8b-instant',
             messages: [
               { role: 'system', content: systemPrompt },
               ...formattedHistory
             ],
             max_tokens: 280,
             temperature: 0.7
-          })
+          }),
+          signal: AbortSignal.timeout(3500)
         });
 
         if (res.ok) {
@@ -230,7 +231,8 @@ RULES:
             ],
             max_tokens: 280,
             temperature: 0.7
-          })
+          }),
+          signal: AbortSignal.timeout(4000)
         });
 
         if (res.ok) {

@@ -82,6 +82,7 @@ export default function VRoidInterviewAvatar({ teacherId = 'priya', animState = 
         window.dispatchEvent(new CustomEvent('pinit_vroid_active', { detail: { active: false } }));
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [teacherId]);
 
   useEffect(() => {

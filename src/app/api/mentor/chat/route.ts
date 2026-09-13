@@ -75,7 +75,7 @@ YOUR INSTRUCTIONS:
               'Authorization': `Bearer ${key}`
             },
             body: JSON.stringify({
-              model: 'llama-3.3-70b-versatile',
+              model: 'llama-3.1-8b-instant',
               messages: [
                 { role: 'system', content: systemPrompt },
                 ...history,
@@ -84,7 +84,7 @@ YOUR INSTRUCTIONS:
               max_tokens: 350,
               temperature: 0.7
             }),
-            signal: AbortSignal.timeout(12000)
+            signal: AbortSignal.timeout(3500)
           });
           if (res.ok) {
             const data = await res.json();
@@ -108,7 +108,7 @@ YOUR INSTRUCTIONS:
             'X-Title': 'PinIT Career OS Mentor'
           },
           body: JSON.stringify({
-            model: 'meta-llama/llama-3.3-70b-instruct',
+            model: 'meta-llama/llama-3.1-8b-instruct:free',
             messages: [
               { role: 'system', content: systemPrompt },
               ...history,
@@ -117,7 +117,7 @@ YOUR INSTRUCTIONS:
             max_tokens: 350,
             temperature: 0.7
           }),
-          signal: AbortSignal.timeout(12000)
+          signal: AbortSignal.timeout(4000)
         });
         if (res.ok) {
           const data = await res.json();

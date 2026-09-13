@@ -83,6 +83,7 @@ export class VRoidAvatarEngine {
     const wasPaused = this._paused;
     this._paused = v;
     if (wasPaused && !v) {
+      this.lastRenderTimestamp = 0;
       this.clock.getDelta();
       this.loop();
     }
@@ -117,6 +118,10 @@ export class VRoidAvatarEngine {
   private frameTimeAccumulator = 0;
   private frameTimeSamples = 0;
   private hasDownscaledForPerf = false;
+
+  // ── Task 1.2: Idle render throttling state ──
+  private lastRenderTimestamp = 0;
+  private lastUserInteractionTimestamp = typeof performance !== 'undefined' ? performance.now() : 0;
 
   isVRM = false;
   faceMeshes: THREE.Mesh[] = [];
@@ -192,6 +197,7 @@ export class VRoidAvatarEngine {
 
     // Attach global mousemove listener for subtle natural eye and head gaze parallax
     this.onMouseMoveHandler = (e: MouseEvent) => {
+      this.lastUserInteractionTimestamp = typeof performance !== 'undefined' ? performance.now() : Date.now();
       if (!this.gazeTrackingEnabled || this.disposed) return;
       let nx = (e.clientX / window.innerWidth) * 2 - 1;
       let ny = -((e.clientY / window.innerHeight) * 2 - 1);
@@ -230,6 +236,7 @@ export class VRoidAvatarEngine {
     this.onContextRestored = () => {
       console.log('[VRoidAvatarEngine] WebGL context restored. Resuming avatar rendering loop.');
       this.paused = false;
+      this.lastRenderTimestamp = 0;
       this.clock.getDelta();
       this.loop();
     };
@@ -247,6 +254,7 @@ export class VRoidAvatarEngine {
         }
       } else if (document.visibilityState === 'visible' && !this.disposed) {
         this.paused = false;
+        this.lastRenderTimestamp = 0;
         this.clock.getDelta();
         this.loop();
       }
@@ -819,6 +827,21 @@ export class VRoidAvatarEngine {
   loop() {
     if (this.disposed || this.paused) return;
     this.raf = requestAnimationFrame(() => this.loop());
+
+    // ── Task 1.2: Adaptive FPS Throttling on Idle (Fix GPU Lag) ───────────
+    // When the avatar is idle and no user mouse interaction has occurred within 2.0s,
+    // throttle rendering to 20 FPS (50ms interval) to drop GPU load by up to 66%.
+    // Ramp up to 60 FPS (16.6ms) only when talking, gesturing, or interacting.
+    const now = typeof performance !== 'undefined' ? performance.now() : Date.now();
+    const isInteracting = (now - this.lastUserInteractionTimestamp) < 2000;
+    const isTalkingOrAnimating = this.animState !== 'idle' || (this.audioAnalyser !== undefined && this.talkPhase > 0);
+    const targetFps = (isTalkingOrAnimating || isInteracting) ? 60 : 20;
+    const minFrameIntervalMs = 1000 / targetFps;
+
+    if (this.lastRenderTimestamp > 0 && (now - this.lastRenderTimestamp) < (minFrameIntervalMs - 1.5)) {
+      return;
+    }
+    this.lastRenderTimestamp = now;
 
     // ── D-04 FIX ───────────────────────────────────────────────────────────
     // Do not drive any bone until loading and bone binding are complete.

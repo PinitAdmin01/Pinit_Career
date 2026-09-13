@@ -43,9 +43,9 @@ let lastWarmAt = 0;
 let activeWakePromise: Promise<boolean> | null = null;
 const inFlightCloudRequests = new Map<string, Promise<{ audioBuffer: ArrayBuffer; durationSec: number; engine?: string }>>();
 
-/** Free-tier Render sleeps ~15m — keep a generous client timeout. */
-const FREE_TIER_TIMEOUT_MS = 90_000;
-const PREMIUM_TIMEOUT_MS = 25_000;
+/** Free-tier Render sleeps ~15m — keep a fast failover timeout so the UI never freezes. */
+const FREE_TIER_TIMEOUT_MS = 2_000;
+const PREMIUM_TIMEOUT_MS = 10_000;
 
 /**
  * Non-blocking / blocking wake-up ping for Render Free Tier.
@@ -60,7 +60,7 @@ export async function pingRenderServer(waitForWarm = false): Promise<boolean> {
     isServerWarming = true;
     const endpoint = DEFAULT_CLOUD_ENDPOINT;
     const health = healthUrlFromTts(endpoint);
-    const timeoutMs = waitForWarm ? FREE_TIER_TIMEOUT_MS : 8_000;
+    const timeoutMs = Math.min(FREE_TIER_TIMEOUT_MS, 2_000);
 
     const tryPing = async (mode: "cors" | "no-cors") => {
       const controller = new AbortController();
