@@ -804,50 +804,61 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = async () => {
     const currentUser = user;
-    await supabase.auth.signOut().catch(() => {});
-    setUser(null);
-
-    // Non-blocking fire-and-forget audit log
-    if (currentUser?.id) {
-      api.post('/api/admin/audit-log/add', {
-        action: 'logout',
-        meta: { userId: currentUser.id, username: currentUser.username, displayName: currentUser.displayName }
-      }).catch(() => {});
-    }
-
-    // Defect 004: Invalidate server session HttpOnly cookies
     try {
-      await fetch('/api/auth/session', { method: 'DELETE' }).catch(() => {});
-    } catch {}
-
-    // Defect 004: Comprehensive storage purge of all pinit_, supabase, and sb- keys
-    if (typeof window !== 'undefined') {
-      try {
-        const keysToRemove: string[] = [];
-        for (let i = 0; i < localStorage.length; i++) {
-          const k = localStorage.key(i);
-          if (k && (k.startsWith('pinit_') || k.startsWith('sb-') || k.includes('supabase'))) {
-            keysToRemove.push(k);
-          }
-        }
-        keysToRemove.forEach(k => localStorage.removeItem(k));
-        sessionStorage.clear();
-      } catch {}
-
-      // Clear legacy client-side cookies
-      if (typeof document !== 'undefined') {
-        document.cookie = "pinit_role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-        document.cookie = "pinit_uid=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-        document.cookie = "pinit_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+      // Non-blocking fire-and-forget audit log
+      if (currentUser?.id) {
+        api.post('/api/admin/audit-log/add', {
+          action: 'logout',
+          meta: { userId: currentUser.id, username: currentUser.username, displayName: currentUser.displayName }
+        }).catch(() => {});
       }
 
-      // Broadcast force purge to all open tabs
-      if ('BroadcastChannel' in window) {
+      // Gap 3.1: Wrap supabase.auth.signOut() in 2000ms timeout to prevent hangs on slow mobile networks
+      const signOutTimeout = new Promise<void>((resolve) => setTimeout(resolve, 2000));
+      await Promise.race([
+        supabase.auth.signOut().catch(() => {}),
+        signOutTimeout,
+      ]);
+    } catch (e) {
+      console.warn('[AuthContext] Network signout warning:', e);
+    } finally {
+      // Guaranteed local state reset and storage/cookie purging
+      setUser(null);
+
+      // Defect 004: Invalidate server session HttpOnly cookies
+      try {
+        await fetch('/api/auth/session', { method: 'DELETE' }).catch(() => {});
+      } catch {}
+
+      // Comprehensive storage purge of all pinit_, supabase, and sb- keys
+      if (typeof window !== 'undefined') {
         try {
-          const authSync = new BroadcastChannel('pinit_career_os_sync');
-          authSync.postMessage({ type: 'FORCE_STORAGE_PURGE', timestamp: Date.now() });
-          authSync.close();
+          const keysToRemove: string[] = [];
+          for (let i = 0; i < localStorage.length; i++) {
+            const k = localStorage.key(i);
+            if (k && (k.startsWith('pinit_') || k.startsWith('sb-') || k.includes('supabase'))) {
+              keysToRemove.push(k);
+            }
+          }
+          keysToRemove.forEach(k => localStorage.removeItem(k));
+          sessionStorage.clear();
         } catch {}
+
+        // Clear legacy client-side cookies
+        if (typeof document !== 'undefined') {
+          document.cookie = "pinit_role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+          document.cookie = "pinit_uid=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+          document.cookie = "pinit_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        }
+
+        // Broadcast force purge to all open tabs
+        if ('BroadcastChannel' in window) {
+          try {
+            const authSync = new BroadcastChannel('pinit_career_os_sync');
+            authSync.postMessage({ type: 'FORCE_STORAGE_PURGE', timestamp: Date.now() });
+            authSync.close();
+          } catch {}
+        }
       }
     }
   };
