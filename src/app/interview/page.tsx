@@ -339,6 +339,13 @@ export default function InterviewPage() {
   const micRetryCountRef = useRef<number>(0);
   const lastSpokenEndTimeRef = useRef<number>(0);
 
+  const isMountedRef = useRef<boolean>(true);
+  const isInterviewActiveRef = useRef<boolean>(false);
+
+  useEffect(() => {
+    isInterviewActiveRef.current = isInterviewActive;
+  }, [isInterviewActive]);
+
   useEffect(() => {
     autoVoiceLoopRef.current = autoVoiceLoop;
   }, [autoVoiceLoop]);
@@ -528,8 +535,11 @@ export default function InterviewPage() {
   };
 
   useEffect(() => {
+    isMountedRef.current = true;
     return () => {
       console.log('[Interview Page] 🛑 Unmounting interview page: Terminating voice synthesis, media tracks, and recognition...');
+      isMountedRef.current = false;
+      isInterviewActiveRef.current = false;
       stopSpeaking();
       if (recognitionRef.current) {
         try {
@@ -577,12 +587,16 @@ export default function InterviewPage() {
 
   // Speech Recognition & Hands-Free Auto-Listen Loop
   const startVoiceListening = useCallback(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined' || !isMountedRef.current || !isInterviewActiveRef.current) return;
 
     // Acoustic Echo Cancellation: Ensure 400ms has elapsed since avatar stopped speaking
     const now = Date.now();
     if (now - lastSpokenEndTimeRef.current < 400 && !isAvatarSpeakingRef.current) {
-      setTimeout(() => startVoiceListening(), 400);
+      setTimeout(() => {
+        if (isMountedRef.current && isInterviewActiveRef.current) {
+          startVoiceListening();
+        }
+      }, 400);
       return;
     }
 
@@ -737,6 +751,7 @@ export default function InterviewPage() {
         }, 800);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTopicName, activeTeacher.id, difficulty, activeStage]);
 
   // Avatar Speech with Proactive Auto-Listen Loop
@@ -758,9 +773,11 @@ export default function InterviewPage() {
       lastSpokenEndTimeRef.current = Date.now();
       onEnd();
       // Auto-start microphone 500ms after avatar finishes speaking
-      if (autoVoiceLoopRef.current) {
+      if (autoVoiceLoopRef.current && isInterviewActiveRef.current && isMountedRef.current) {
         setTimeout(() => {
-          startVoiceListening();
+          if (isInterviewActiveRef.current && isMountedRef.current) {
+            startVoiceListening();
+          }
         }, 500);
       }
     }, false, true, difficulty);
@@ -913,7 +930,7 @@ export default function InterviewPage() {
     } finally {
       setIsFetchingAssist(false);
     }
-  }, [isInterviewActive, activeStage, activeTopicName, domainStream, difficulty, assistScriptLevel]);
+  }, [isInterviewActive, isScoredStage, activeStage, activeTopicName, domainStream, difficulty, assistScriptLevel]);
 
   // IV-03 FIX: Track whether candidate has manually edited the editor.
   // Without this, switching language OR topic mid-round called setCodeContent(starterCode)
@@ -1202,7 +1219,16 @@ export default function InterviewPage() {
   };
 
   const exitInterview = () => {
+    isInterviewActiveRef.current = false;
     stopSpeaking();
+    setAnimState('idle');
+    if (recognitionRef.current) {
+      try {
+        recognitionRef.current.stop();
+        recognitionRef.current = null;
+      } catch (e) {}
+    }
+    setIsVoiceListening(false);
     if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
     if (timerIntervalRef.current) clearInterval(timerIntervalRef.current);
     if (cameraStreamRef.current) {

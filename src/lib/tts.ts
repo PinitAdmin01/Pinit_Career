@@ -12,6 +12,7 @@ export { getAvatarVoiceVolume, setAvatarVoiceVolume };
 let currentSpeechId = 0;
 let activeSource: AudioBufferSourceNode | null = null;
 let isNeuralReady = true;
+let activeOnEndCallback: (() => void) | null = null;
 
 const preloadedAudioCacheMap = new Map<string, { buffer: Float32Array; sampleRate: number; teacherId: string }>();
 
@@ -41,6 +42,18 @@ function getAudioContext(): AudioContext {
 export function stopSpeaking() {
   currentSpeechId++;
   console.log(`[PinIT TTS] 🛑 stopSpeaking() called. Advancing speechId to ${currentSpeechId}`);
+
+  // Guarantee that any pending onEnd callback is notified so the avatar returns cleanly to 'idle'
+  if (activeOnEndCallback) {
+    const prevEnd = activeOnEndCallback;
+    activeOnEndCallback = null;
+    try {
+      prevEnd();
+    } catch (err) {
+      console.warn('[PinIT TTS] Error executing pending onEnd during stopSpeaking:', err);
+    }
+  }
+
   try {
     getGlobalAudioQueue().stopAll();
   } catch (err) {
@@ -149,13 +162,14 @@ function fallbackWebSpeech(
 
   const utterance = new SpeechSynthesisUtterance(cleanText);
   let maxDurationTimer: any = null;
+  let ended = false;
 
   const cleanupAndEnd = () => {
+    if (ended) return;
+    ended = true;
     if (maxDurationTimer) clearTimeout(maxDurationTimer);
-    if (speechId === currentSpeechId) {
-      try { window.speechSynthesis.cancel(); } catch {}
-      onEnd();
-    }
+    try { window.speechSynthesis.cancel(); } catch {}
+    onEnd();
   };
 
   utterance.onstart = () => {
@@ -307,21 +321,39 @@ export async function speakWithAvatar(
   const cleanSpeechText = sanitizeForSpeech(text);
   if (!cleanSpeechText) return;
 
+  let ended = false;
+  const safeOnEnd = () => {
+    if (ended) return;
+    ended = true;
+    if (activeOnEndCallback === safeOnEnd) {
+      activeOnEndCallback = null;
+    }
+    try {
+      onEnd();
+    } catch (err) {
+      console.warn('[PinIT TTS] onEnd callback error:', err);
+    }
+  };
+  activeOnEndCallback = safeOnEnd;
+
   const spokenText = enhanceTextIntonation(cleanSpeechText);
   const minDurationMs = Math.max(0, options?.minDurationMs || 0);
   const dynamicMaxDurationMs = Math.max(maxDurationMs, minDurationMs, Math.max(12000, cleanSpeechText.length * 150));
 
   const finishAfterFloor = (startedAt: number) => {
-    if (mySpeechId !== currentSpeechId) return;
+    if (mySpeechId !== currentSpeechId) {
+      safeOnEnd();
+      return;
+    }
     const elapsed = Date.now() - startedAt;
     const remaining = minDurationMs - elapsed;
     if (remaining > 50) {
       setTimeout(() => {
-        if (mySpeechId === currentSpeechId) onEnd();
+        safeOnEnd();
       }, remaining);
       return;
     }
-    onEnd();
+    safeOnEnd();
   };
 
   // Attempt Smart Hybrid Voice Router with Sentence Streaming for multi-sentence paragraphs
