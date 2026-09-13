@@ -3,6 +3,14 @@
   "allocations": [],
   "attendance": [
     {
+      "id": "ATT-998",
+      "student_id": "test_user_001",
+      "studentName": "student@pinit.in",
+      "room": "B-204",
+      "type": "checkin",
+      "timestamp": "2026-09-13T07:29:19.546Z"
+    },
+    {
       "id": "ATT-149",
       "student_id": "test_user_001",
       "studentName": "student@pinit.in",
@@ -36,6 +44,16 @@
     }
   ],
   "complaints": [
+    {
+      "id": "CMP-915",
+      "student_id": "test_user_001",
+      "studentName": "student@pinit.in",
+      "category": "maintenance",
+      "title": "Water leakage",
+      "description": "Pipe leaking in bathroom",
+      "status": "Pending",
+      "timestamp": "2026-09-13T07:29:19.561Z"
+    },
     {
       "id": "CMP-671",
       "student_id": "test_user_001",
