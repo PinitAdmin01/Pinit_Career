@@ -111,6 +111,19 @@ const nextConfig = {
         fs: false,
         path: false,
       };
+      config.optimization.splitChunks = {
+        ...config.optimization.splitChunks,
+        cacheGroups: {
+          ...(config.optimization.splitChunks?.cacheGroups || {}),
+          legacyFirestore: {
+            test: /legacyFirestoreRouter/,
+            name: 'legacy-firestore',
+            chunks: 'async',
+            priority: 100,
+            enforce: true,
+          },
+        },
+      };
     }
     return config;
   },

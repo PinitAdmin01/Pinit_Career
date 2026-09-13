@@ -28,6 +28,8 @@ interface UseInterviewPersistenceProps {
   latestTopology: any;
 }
 
+const DRAFT_CACHE_TTL_MS = 30_000; // 30-second TTL for mid-answer autosave
+
 export function useInterviewPersistence({
   userId,
   isInterviewActive,
@@ -54,7 +56,7 @@ export function useInterviewPersistence({
     return `pinit_active_interview_draft_${validUid}`;
   }, []);
 
-  // Check for recoverable draft on load (IV-08 FIX: localStorage with 4-hour TTL)
+  // Check for recoverable draft on load (30-second TTL for mid-answer autosave buffer)
   useEffect(() => {
     if (typeof window === 'undefined') return;
     try {
@@ -62,7 +64,7 @@ export function useInterviewPersistence({
       const raw = localStorage.getItem(key);
       if (raw) {
         const parsed: ActiveInterviewDraft = JSON.parse(raw);
-        if (Date.now() - parsed.timestamp < 4 * 3600 * 1000 && Array.isArray(parsed.messages) && parsed.messages.length > 0) {
+        if (Date.now() - parsed.timestamp < DRAFT_CACHE_TTL_MS && Array.isArray(parsed.messages) && parsed.messages.length > 0) {
           setActiveSessionDraft(parsed);
         } else {
           localStorage.removeItem(key);
@@ -71,7 +73,7 @@ export function useInterviewPersistence({
     } catch {}
   }, [userId, getDraftKey]);
 
-  // Persist draft while in-flight
+  // Persist short-term draft while in-flight (autosave buffer)
   useEffect(() => {
     if (!isInterviewActive || activeStage === 'results') return;
     try {
@@ -113,78 +115,118 @@ export function useInterviewPersistence({
     getDraftKey
   ]);
 
-  // Sessions History State (localStorage + remote API)
+  // Sessions History State (Supabase is source of truth on mount)
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const historyKey = `pinit_interview_history_${userId || 'anon'}`;
-    try {
-      const stored = localStorage.getItem(historyKey);
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          setSessions(parsed);
+    if (!userId || userId === 'guest') return;
+    let isMounted = true;
+
+    async function loadSessionsFromSupabase() {
+      try {
+        const { supabase } = await import('@/lib/supabaseClient');
+        const { data, error } = await supabase
+          .from('interview_sessions')
+          .select('*')
+          .eq('user_id', userId)
+          .order('created_at', { ascending: false })
+          .limit(20);
+
+        if (!error && Array.isArray(data) && data.length > 0 && isMounted) {
+          const formatted: InterviewSessionRecord[] = data.map((row: any) => {
+            const evalData = row.evaluation || {};
+            return {
+              id: evalData.id || row.id,
+              date: evalData.date || new Date(row.created_at).toLocaleDateString(),
+              timestamp: evalData.timestamp || row.created_at,
+              type: row.mode || evalData.type || 'technical',
+              domainStream: evalData.domainStream || 'tech',
+              domainSubTopic: row.domain || evalData.domainSubTopic || '',
+              difficulty: row.pressure_mode || evalData.difficulty || 'normal',
+              verdict: evalData.verdict || (row.overall_score >= 70 ? 'Pass' : 'Needs Work'),
+              score: row.overall_score ?? evalData.score ?? 0,
+              radar: evalData.radar || {},
+              telemetry: evalData.telemetry || {},
+              summary: evalData.summary || '',
+              strengths: evalData.strengths || [],
+              improvements: evalData.improvements || [],
+              topology: evalData.topology || null,
+              messages: row.messages || evalData.messages || [],
+            };
+          });
+          setSessions(formatted);
+          return;
         }
+      } catch (err) {
+        console.warn('[Interview History] Direct Supabase fetch error, trying API fallback:', err);
       }
-    } catch (e) {
-      console.warn('[Interview History] Failed to parse localStorage history');
+
+      // API fallback
+      try {
+        const headers = await getAuthHeaders();
+        const res = await fetch('/api/interview/history', { headers });
+        if (res.ok && isMounted) {
+          const data = await res.json();
+          if (Array.isArray(data.sessions) && data.sessions.length > 0) {
+            setSessions(data.sessions);
+          }
+        }
+      } catch (e) {
+        console.warn('[Interview History] Failed to fetch session history:', e);
+      }
     }
 
-    if (userId) {
-      getAuthHeaders().then(async (headers: Record<string, string>) => {
-        try {
-          const res = await fetch('/api/interview/history', { headers });
-          if (res.ok) {
-            const data = await res.json();
-            if (Array.isArray(data.sessions) && data.sessions.length > 0) {
-              setSessions(prev => {
-                const map = new Map<string, InterviewSessionRecord>();
-                data.sessions.forEach((s: InterviewSessionRecord) => map.set(s.id, s));
-                prev.forEach(s => map.set(s.id, s));
-                const merged = Array.from(map.values()).slice(0, 20);
-                try {
-                  localStorage.setItem(historyKey, JSON.stringify(merged));
-                } catch {}
-                return merged;
-              });
-            }
-          }
-        } catch (err) {
-          console.warn('[Interview History] Failed to fetch remote session history:', err);
-        }
-      }).catch(() => {});
-    }
+    loadSessionsFromSupabase();
+    return () => { isMounted = false; };
   }, [userId]);
 
   const saveSessionHistory = async (newSession: InterviewSessionRecord) => {
-    setSessions(prev => {
-      const updated = [newSession, ...prev.filter(s => s.id !== newSession.id)].slice(0, 20);
-      if (typeof window !== 'undefined') {
-        try {
-          localStorage.setItem(`pinit_interview_history_${userId || 'anon'}`, JSON.stringify(updated));
-        } catch (e) {
-          console.warn('[Interview History] Storage quota exceeded; trimmed history.');
-        }
-      }
-      return updated;
-    });
+    // 1. Optimistic UI update
+    setSessions(prev => [newSession, ...prev.filter(s => s.id !== newSession.id)].slice(0, 20));
 
-    try {
-      const headers = await getAuthHeaders();
-      await fetch('/api/interview/history', {
-        method: 'POST',
-        headers,
-        body: JSON.stringify(newSession)
-      });
-    } catch (e) {
-      console.warn('[Interview History] Remote sync failed, stored locally.');
+    // 2. Persist directly to Supabase
+    if (userId && userId !== 'guest') {
+      try {
+        const { supabase } = await import('@/lib/supabaseClient');
+        await supabase.from('interview_sessions').upsert({
+          id: newSession.id,
+          user_id: userId,
+          mode: newSession.type || 'technical',
+          domain: newSession.domainSubTopic || newSession.domainStream || 'general',
+          pressure_mode: newSession.difficulty || 'normal',
+          status: 'completed',
+          overall_score: Math.round(Number(newSession.score) || 0),
+          evaluation: newSession,
+          session_data: newSession,
+          completed_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        }, { onConflict: 'id' });
+      } catch (err) {
+        console.warn('[Interview History] Direct Supabase upsert error:', err);
+      }
+
+      // Also dispatch to API endpoint for server-side audit
+      try {
+        const headers = await getAuthHeaders();
+        await fetch('/api/interview/history', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(newSession)
+        });
+      } catch (e) {
+        console.warn('[Interview History] Remote sync failed:', e);
+      }
     }
   };
 
-  const clearSessionHistory = () => {
-    if (window.confirm('Are you sure you want to clear all your interview session history?')) {
+  const clearSessionHistory = async () => {
+    if (typeof window !== 'undefined' && window.confirm('Are you sure you want to clear all your interview session history?')) {
       setSessions([]);
-      if (typeof window !== 'undefined') {
-        localStorage.removeItem(`pinit_interview_history_${userId || 'anon'}`);
+      if (userId && userId !== 'guest') {
+        try {
+          const { supabase } = await import('@/lib/supabaseClient');
+          await supabase.from('interview_sessions').delete().eq('user_id', userId);
+        } catch (err) {
+          console.warn('[Interview History] Failed to delete sessions from Supabase:', err);
+        }
       }
     }
   };

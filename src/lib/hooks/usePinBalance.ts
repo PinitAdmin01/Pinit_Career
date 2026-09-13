@@ -5,6 +5,7 @@ import { toast } from '@/lib/store/useAppStore';
 import { api } from '@/lib/api/client';
 import { spendPinsDB } from '@/lib/supabaseService';
 import { supabase } from '@/lib/supabaseClient';
+import { useAuth } from '@/lib/context/AuthContext';
 import { generateTxId } from '@/lib/utils/transactionId';
 
 export { generateTxId };
@@ -85,77 +86,96 @@ export interface UsePinBalanceOptions {
   userEmail?: string;
 }
 
+// ── TASK 3.4: Authoritative Supabase Balance with 60s Read-Only Client Cache ──
+const CACHE_KEY = 'pinit_balance_cache';
+const CACHE_TTL_MS = 60_000; // 60 seconds only
+
 /**
- * Modular hook for authoritative pin balance tracking, history deduplication,
- * and Supabase Realtime synchronization across browser tabs (Task 2.1).
+ * Authoritative pin balance hook. Supabase is the single source of truth for money.
+ * Client writes to localStorage are disallowed; localStorage is strictly an ephemeral 60s read-cache.
  */
 export function usePinBalance(options: UsePinBalanceOptions = {}) {
-  const { userId = 'guest' } = options;
-  const storageKeys = {
-    pins: `pinit_${userId}_pins`,
-    pinHist: `pinit_${userId}_pin_history`,
-  };
+  const { user } = useAuth();
+  const effectiveUserId = (options.userId && options.userId !== 'guest') ? options.userId : user?.id;
 
-  const [pins, setPinsState] = useState<number>(120);
+  const getCachedBalance = useCallback((): number | null => {
+    if (typeof window === 'undefined') return null;
+    try {
+      const raw = localStorage.getItem(CACHE_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      if (!parsed || typeof parsed.value !== 'number') return null;
+      if (Date.now() - parsed.ts > CACHE_TTL_MS) return null; // Expired after 60s
+      return parsed.value as number;
+    } catch {
+      return null;
+    }
+  }, []);
+
+  const [pins, setPinsState] = useState<number>(() => getCachedBalance() ?? 120);
   const [pinHistory, setPinHistoryState] = useState<PinTransaction[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Hydrate from localStorage on initial client render
+  // ── Authoritative Server Hydration from Supabase on Mount (Task 3.4) ──
   useEffect(() => {
-    try {
-      const rawPins = localStorage.getItem(storageKeys.pins);
-      if (rawPins !== null) setPinsState(Number(rawPins) || 0);
-
-      const rawHist = localStorage.getItem(storageKeys.pinHist);
-      if (rawHist) {
-        const parsed = JSON.parse(rawHist);
-        if (Array.isArray(parsed)) setPinHistoryState(parsed);
-      }
-    } catch {
-      // ignore
-    } finally {
+    if (!effectiveUserId || effectiveUserId === 'guest') {
       setIsLoaded(true);
+      return;
     }
-  }, [storageKeys.pins, storageKeys.pinHist]);
-
-  // ── DEF-053: Authoritative Server Hydration & Pin History Deduplication ──
-  useEffect(() => {
-    if (!userId || userId === 'guest') return;
     let isMounted = true;
 
     async function hydrateFromServer() {
       try {
-        const { data, error } = await supabase
-          .from('users')
-          .select('pins, pin_history')
-          .eq('id', userId)
-          .maybeSingle();
+        let authoritativeBalance: number | null = null;
 
-        if (error || !data || !isMounted) return;
+        // 1. Attempt authoritative RPC first
+        const { data: rpcData, error: rpcErr } = await supabase.rpc('get_pin_balance', {
+          p_user_id: effectiveUserId,
+        });
 
-        if (typeof data.pins === 'number') {
-          setPinsState(data.pins);
-          try { localStorage.setItem(storageKeys.pins, String(data.pins)); } catch {}
+        if (!rpcErr && typeof rpcData === 'number') {
+          authoritativeBalance = rpcData;
         }
 
-        if (Array.isArray(data.pin_history)) {
+        // 2. Fetch history and fallback balance from canonical users table
+        const { data: userData, error: userErr } = await supabase
+          .from('users')
+          .select('pins, pin_history')
+          .eq('id', effectiveUserId)
+          .maybeSingle();
+
+        if (authoritativeBalance === null && !userErr && userData && typeof userData.pins === 'number') {
+          authoritativeBalance = userData.pins;
+        }
+
+        if (authoritativeBalance !== null && isMounted) {
+          setPinsState(authoritativeBalance);
+          try {
+            localStorage.setItem(
+              CACHE_KEY,
+              JSON.stringify({ value: authoritativeBalance, ts: Date.now() })
+            );
+          } catch {}
+        }
+
+        if (userData && Array.isArray(userData.pin_history) && isMounted) {
           setPinHistoryState(prev => {
             const map = new Map<string, PinTransaction>();
-            for (const tx of data.pin_history) {
+            for (const tx of userData.pin_history) {
               if (tx && tx.id) map.set(tx.id, tx);
             }
             for (const tx of prev) {
               if (tx && tx.id && !map.has(tx.id)) map.set(tx.id, tx);
             }
-            const merged = Array.from(map.values())
+            return Array.from(map.values())
               .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0))
               .slice(0, 100);
-            try { localStorage.setItem(storageKeys.pinHist, JSON.stringify(merged)); } catch {}
-            return merged;
           });
         }
       } catch (err) {
-        console.warn('[usePinBalance] Error hydrating pins from Supabase:', err);
+        console.warn('[usePinBalance] Error hydrating authoritative pins:', err);
+      } finally {
+        if (isMounted) setIsLoaded(true);
       }
     }
 
@@ -164,27 +184,32 @@ export function usePinBalance(options: UsePinBalanceOptions = {}) {
     return () => {
       isMounted = false;
     };
-  }, [userId, storageKeys.pins, storageKeys.pinHist]);
+  }, [effectiveUserId, getCachedBalance]);
 
-  // ── DEF-054: Server-Event Driven Multi-Tab Sync via Supabase Realtime ────
+  // ── Realtime Synchronization from Supabase ──
   useEffect(() => {
-    if (!userId || userId === 'guest') return;
+    if (!effectiveUserId || effectiveUserId === 'guest') return;
 
     try {
       const channel = supabase
-        .channel(`user-pins-realtime-${userId}`)
+        .channel(`user-pins-realtime-${effectiveUserId}`)
         .on(
           'postgres_changes',
           {
             event: 'UPDATE',
             schema: 'public',
             table: 'users',
-            filter: `id=eq.${userId}`,
+            filter: `id=eq.${effectiveUserId}`,
           },
           (payload: any) => {
             if (payload?.new && typeof payload.new.pins === 'number') {
               setPinsState(payload.new.pins);
-              try { localStorage.setItem(storageKeys.pins, String(payload.new.pins)); } catch {}
+              try {
+                localStorage.setItem(
+                  CACHE_KEY,
+                  JSON.stringify({ value: payload.new.pins, ts: Date.now() })
+                );
+              } catch {}
             }
             if (payload?.new && Array.isArray(payload.new.pin_history)) {
               setPinHistoryState(prev => {
@@ -195,11 +220,9 @@ export function usePinBalance(options: UsePinBalanceOptions = {}) {
                 for (const tx of prev) {
                   if (tx && tx.id && !map.has(tx.id)) map.set(tx.id, tx);
                 }
-                const merged = Array.from(map.values())
+                return Array.from(map.values())
                   .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0))
                   .slice(0, 100);
-                try { localStorage.setItem(storageKeys.pinHist, JSON.stringify(merged)); } catch {}
-                return merged;
               });
             }
           }
@@ -212,17 +235,16 @@ export function usePinBalance(options: UsePinBalanceOptions = {}) {
     } catch (err) {
       console.warn('[usePinBalance] Realtime pin subscription error:', err);
     }
-  }, [userId, storageKeys.pins, storageKeys.pinHist]);
+  }, [effectiveUserId]);
 
+  // Client-side local updates only update React state without raw localStorage write authority
   const savePins = useCallback((newPins: number) => {
     setPinsState(newPins);
-    try { localStorage.setItem(storageKeys.pins, String(newPins)); } catch {}
-  }, [storageKeys.pins]);
+  }, []);
 
   const saveHistory = useCallback((hist: PinTransaction[]) => {
     setPinHistoryState(hist);
-    try { localStorage.setItem(storageKeys.pinHist, JSON.stringify(hist)); } catch {}
-  }, [storageKeys.pinHist]);
+  }, []);
 
   const earnPins = useCallback((source: PinSource, overrideAmount?: number, reason?: string) => {
     if (source !== 'purchase' && source !== 'admin_grant' && source !== 'streak_bonus') {
@@ -233,8 +255,8 @@ export function usePinBalance(options: UsePinBalanceOptions = {}) {
 
     api.post('/api/pins/earn', { source, amount }).catch(() => {});
 
-    const next = pins + amount;
-    savePins(next);
+    // Optimistically update React state only
+    setPinsState(prev => prev + amount);
 
     const tx: PinTransaction = {
       id: generateTxId('tx'),
@@ -244,9 +266,9 @@ export function usePinBalance(options: UsePinBalanceOptions = {}) {
       source,
       timestamp: Date.now(),
     };
-    saveHistory([tx, ...pinHistory].slice(0, 100));
+    setPinHistoryState(prev => [tx, ...prev].slice(0, 100));
     toast.success(`+${amount} Pins Credited ⚡`, reason ?? 'Pin Purchase Successful');
-  }, [pins, pinHistory, savePins, saveHistory]);
+  }, []);
 
   const canAfford = useCallback((featureKey: string): boolean => {
     const cost = PIN_COSTS[featureKey]?.cost ?? 0;
@@ -261,22 +283,25 @@ export function usePinBalance(options: UsePinBalanceOptions = {}) {
       return false;
     }
 
-    if (userId && userId !== 'guest') {
+    if (effectiveUserId && effectiveUserId !== 'guest') {
       try {
-        const result = await spendPinsDB(userId, meta.cost, customReason ?? meta.label);
+        const result = await spendPinsDB(effectiveUserId, meta.cost, customReason ?? meta.label);
         if (!result.ok) {
           toast.error(`Pins Out of Sync 🔄`, result.reason === 'INSUFFICIENT_PINS' ? 'Insufficient pins in authoritative balance.' : 'Failed to deduct pins on server.');
           return false;
         }
         if (typeof result.newBalance === 'number') {
-          savePins(result.newBalance);
+          setPinsState(result.newBalance);
+          try {
+            localStorage.setItem(CACHE_KEY, JSON.stringify({ value: result.newBalance, ts: Date.now() }));
+          } catch {}
         }
       } catch {
         toast.error(`Pins Spend Error ⚠️`, 'Network error verifying pin deduction.');
         return false;
       }
     } else {
-      savePins(Math.max(0, pins - meta.cost));
+      setPinsState(prev => Math.max(0, prev - meta.cost));
     }
 
     const tx: PinTransaction = {
@@ -287,9 +312,9 @@ export function usePinBalance(options: UsePinBalanceOptions = {}) {
       source: featureKey as PinSource,
       timestamp: Date.now(),
     };
-    saveHistory([tx, ...pinHistory].slice(0, 100));
+    setPinHistoryState(prev => [tx, ...prev].slice(0, 100));
     return true;
-  }, [pins, userId, savePins, saveHistory, pinHistory]);
+  }, [pins, effectiveUserId]);
 
   return {
     pins,

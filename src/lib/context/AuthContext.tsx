@@ -6,7 +6,7 @@ import { isDemoAuthEnabled, DEMO_PASSWORD, isDemoPassword, DEMO_ROLE_BY_EMAIL } 
 import { User as SbUser } from '@supabase/supabase-js';
 import {
   getUserProfile, createUserProfile, updateUserProfile,
-  ensureSeedData, DEMO_PROFILE, EMPTY_PROFILE, mapRowToProfile
+  ensureSeedData, EMPTY_PROFILE, mapRowToProfile
 } from '@/lib/supabaseService';
 import { api } from '@/lib/api/client';
 
@@ -384,7 +384,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         else if (emailLower === 'parent@pinit.in') { role = 'parent'; displayName = 'Parent Guardian'; }
 
         profile = {
-          ...(isDemoEmail(sbUser.email || '') ? DEMO_PROFILE : EMPTY_PROFILE),
+          ...EMPTY_PROFILE,
           uid:         sbUser.id,
           email:       sbUser.email || '',
           username:    sbUser.email?.split('@')[0] || 'user',
@@ -647,7 +647,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           let displayName = ident.displayName;
 
           let profile = {
-            ...(isDemoEmail(emailLower) ? DEMO_PROFILE : EMPTY_PROFILE),
+            ...EMPTY_PROFILE,
             uid:             sbUser.id,
             email,
             username:        email.split('@')[0],
@@ -670,7 +670,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         let role = ident.role;
         let displayName = ident.displayName;
         profile = {
-          ...(isDemoEmail(sbUser.email || '') ? DEMO_PROFILE : EMPTY_PROFILE),
+          ...EMPTY_PROFILE,
           uid:         sbUser.id,
           email:       sbUser.email || '',
           username:    sbUser.email?.split('@')[0] || 'user',
@@ -770,7 +770,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
 
       const profile = {
-        ...(isDemoEmail(email) ? DEMO_PROFILE : EMPTY_PROFILE),
+        ...EMPTY_PROFILE,
         uid:             sbUser.id,
         email,
         username:        data.username,

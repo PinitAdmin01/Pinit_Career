@@ -2,40 +2,6 @@
 import { supabase } from './supabaseClient';
 import { generateTxId } from './utils/transactionId';
 
-export const DEMO_PROFILE = {
-  display_name: 'Ashwanth Kumar',
-  role: 'student',
-  register_number: 'REG2024001',
-  ats_score: 72,
-  career_dna_score: 68,
-  trust_score: 81,
-  mission_streak: 7,
-  recruiter_visibility: 65,
-  career_readiness: 74,
-  communication_score: 76,
-  execution_score: 71,
-  leadership_score: 58,
-  consistency_score: 83,
-  adaptability_score: 69,
-  confidence_score: 72,
-  innovation_score: 65,
-  weak_areas: ['System Design', 'DSA - Trees', 'Behavioral STAR'],
-  skill_tags: ['React', 'Node.js', 'Python', 'Machine Learning', 'TypeScript'],
-  certifications: ['AWS Cloud Practitioner', 'Google Data Analytics'],
-  target_role: 'Full Stack Engineer',
-  career_goal: 'Land at a top product company',
-  intelligence_score: 78,
-  career_dna_archetype: 'builder',
-  xp_total: 2500,
-  xp_level: 2,
-  missions_completed: 18,
-  interviews_done: 6,
-  vault_count: 3,
-  onboarding_step: 5,
-  onboarding_answers: { role: 'Full Stack Engineer', education: 'B.Tech CS', skills: 'React, Node.js, Python', experience: 'None', hasCompleted: true },
-  roadmap_generated: true,
-  completed_quests: ['fizzbuzz', 'reverser'],
-};
 
 export const DEMO_MISSIONS = [
   { title: 'LinkedIn Post: Tech Insight', description: 'Write a 200-word LinkedIn post sharing a technical insight. Use STAR format and include one specific metric.', type: 'communication', status: 'pending', proof_type: 'url', due_date: new Date().toISOString().slice(0, 10), trust_reward: 8, source_weakness: 'Communication', estimated_minutes: 20, learn_url: 'https://linkedin.com', ai_evaluation: null },
