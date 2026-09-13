@@ -51,10 +51,14 @@ export async function requireUserFromRequest(req: Request): Promise<
     const { data, error } = await supabase.auth.getUser(token);
     if (error || !data?.user?.id) {
       console.warn('[Auth Middleware] Invalid or expired JWT token:', error?.message);
+      const isExpired = Boolean(error?.message && error.message.toLowerCase().includes('expired'));
       return {
         user: null,
         error: NextResponse.json(
-          { error: 'UNAUTHORIZED', message: 'Invalid or expired session.' },
+          {
+            error: isExpired ? 'TOKEN_EXPIRED' : 'UNAUTHORIZED',
+            message: isExpired ? 'Session token has expired. Please refresh your session.' : 'Invalid or expired session.',
+          },
           { status: 401 }
         ),
       };
@@ -63,10 +67,14 @@ export async function requireUserFromRequest(req: Request): Promise<
     return { user: { id: data.user.id, email: data.user.email }, error: null };
   } catch (err: any) {
     console.error('[Auth Middleware Exception]:', err?.message);
+    const isExpired = Boolean(err?.message && err.message.toLowerCase().includes('expired'));
     return {
       user: null,
       error: NextResponse.json(
-        { error: 'UNAUTHORIZED', message: 'Session verification failed.' },
+        {
+          error: isExpired ? 'TOKEN_EXPIRED' : 'UNAUTHORIZED',
+          message: isExpired ? 'Session token has expired. Please refresh your session.' : 'Session verification failed.',
+        },
         { status: 401 }
       ),
     };

@@ -1,8 +1,19 @@
+export const dynamic = 'force-dynamic';
+
 import { NextResponse } from 'next/server';
 import crypto from 'crypto';
+import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
+    const clientIp = getClientIp(req);
+    const rateCheck = checkRateLimit(`face_chal_${clientIp}`, { limit: 30, windowMs: 60_000 });
+    if (!rateCheck.allowed) {
+      return NextResponse.json(
+        { error: 'TOO_MANY_REQUESTS', message: 'Too many face challenge requests. Please wait a moment.' },
+        { status: 429, headers: { 'Retry-After': String(rateCheck.resetSec) } }
+      );
+    }
     const nonce = crypto.randomBytes(16).toString('hex');
     const expiresAt = Date.now() + 5 * 60 * 1000; // 5 minutes validity
 

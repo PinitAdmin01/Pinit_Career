@@ -249,6 +249,48 @@
       "score": 40,
       "passed": false,
       "timestamp": 1789288032539
+    },
+    {
+      "studentId": "usr_cd_test_1789294742254",
+      "examScheduleId": "e1",
+      "score": 45,
+      "passed": false,
+      "timestamp": 1789294742256
+    },
+    {
+      "studentId": "usr_cd_api_1789294742259",
+      "examScheduleId": "e2",
+      "score": 40,
+      "passed": false,
+      "timestamp": 1789294742259
+    },
+    {
+      "studentId": "usr_cd_test_1789294883979",
+      "examScheduleId": "e1",
+      "score": 45,
+      "passed": false,
+      "timestamp": 1789294883984
+    },
+    {
+      "studentId": "usr_cd_api_1789294883986",
+      "examScheduleId": "e2",
+      "score": 40,
+      "passed": false,
+      "timestamp": 1789294883986
+    },
+    {
+      "studentId": "usr_cd_test_1789295224960",
+      "examScheduleId": "e1",
+      "score": 45,
+      "passed": false,
+      "timestamp": 1789295224964
+    },
+    {
+      "studentId": "usr_cd_api_1789295224967",
+      "examScheduleId": "e2",
+      "score": 40,
+      "passed": false,
+      "timestamp": 1789295224967
     }
   ]
 }

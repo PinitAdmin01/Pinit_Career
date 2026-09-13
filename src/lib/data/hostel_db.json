@@ -3,6 +3,30 @@
   "allocations": [],
   "attendance": [
     {
+      "id": "ATT-443",
+      "student_id": "test_user_001",
+      "studentName": "student@pinit.in",
+      "room": "B-204",
+      "type": "checkin",
+      "timestamp": "2026-09-13T10:28:19.824Z"
+    },
+    {
+      "id": "ATT-535",
+      "student_id": "test_user_001",
+      "studentName": "student@pinit.in",
+      "room": "B-204",
+      "type": "checkin",
+      "timestamp": "2026-09-13T10:22:29.723Z"
+    },
+    {
+      "id": "ATT-709",
+      "student_id": "test_user_001",
+      "studentName": "student@pinit.in",
+      "room": "B-204",
+      "type": "checkin",
+      "timestamp": "2026-09-13T10:20:22.705Z"
+    },
+    {
       "id": "ATT-920",
       "student_id": "test_user_001",
       "studentName": "student@pinit.in",
@@ -60,6 +84,36 @@
     }
   ],
   "complaints": [
+    {
+      "id": "CMP-522",
+      "student_id": "test_user_001",
+      "studentName": "student@pinit.in",
+      "category": "maintenance",
+      "title": "Water leakage",
+      "description": "Pipe leaking in bathroom",
+      "status": "Pending",
+      "timestamp": "2026-09-13T10:28:19.840Z"
+    },
+    {
+      "id": "CMP-438",
+      "student_id": "test_user_001",
+      "studentName": "student@pinit.in",
+      "category": "maintenance",
+      "title": "Water leakage",
+      "description": "Pipe leaking in bathroom",
+      "status": "Pending",
+      "timestamp": "2026-09-13T10:22:29.731Z"
+    },
+    {
+      "id": "CMP-916",
+      "student_id": "test_user_001",
+      "studentName": "student@pinit.in",
+      "category": "maintenance",
+      "title": "Water leakage",
+      "description": "Pipe leaking in bathroom",
+      "status": "Pending",
+      "timestamp": "2026-09-13T10:20:22.715Z"
+    },
     {
       "id": "CMP-476",
       "student_id": "test_user_001",
