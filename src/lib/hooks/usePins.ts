@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { toast } from '@/lib/store/useAppStore';
 import { api } from '@/lib/api/client';
 import { spendPinsDB, syncUnlockedItemsDB, fetchServerTimeOffset } from '@/lib/supabaseService';
+import { supabase } from '@/lib/supabaseClient';
 
 export interface PinTransaction {
   id: string;
@@ -13,6 +14,9 @@ export interface PinTransaction {
   source: PinSource;
   timestamp: number;
 }
+
+import { generateTxId } from '@/lib/utils/transactionId';
+export { generateTxId };
 
 export type PinSource =
   | 'mission_complete'
@@ -130,6 +134,102 @@ export function usePins(options: UsePinsOptions = {}) {
     }
   }, [storageKeys.pins, storageKeys.pinHist, storageKeys.unlockedItems]);
 
+  // ── DEF-053: Authoritative Server Hydration & Pin History Deduplication ──
+  useEffect(() => {
+    if (!userId || userId === 'guest') return;
+    let isMounted = true;
+
+    async function hydrateFromServer() {
+      try {
+        const { data, error } = await supabase
+          .from('users')
+          .select('pins, pin_history')
+          .eq('id', userId)
+          .maybeSingle();
+
+        if (error || !data || !isMounted) return;
+
+        if (typeof data.pins === 'number') {
+          setPinsState(data.pins);
+          try { localStorage.setItem(storageKeys.pins, String(data.pins)); } catch {}
+        }
+
+        if (Array.isArray(data.pin_history)) {
+          setPinHistoryState(prev => {
+            const map = new Map<string, PinTransaction>();
+            for (const tx of data.pin_history) {
+              if (tx && tx.id) map.set(tx.id, tx);
+            }
+            for (const tx of prev) {
+              if (tx && tx.id && !map.has(tx.id)) map.set(tx.id, tx);
+            }
+            const merged = Array.from(map.values())
+              .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0))
+              .slice(0, 100);
+            try { localStorage.setItem(storageKeys.pinHist, JSON.stringify(merged)); } catch {}
+            return merged;
+          });
+        }
+      } catch (err) {
+        console.warn('[usePins] Error hydrating pins from Supabase:', err);
+      }
+    }
+
+    hydrateFromServer();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [userId, storageKeys.pins, storageKeys.pinHist]);
+
+  // ── DEF-054: Server-Event Driven Multi-Tab Sync via Supabase Realtime ────
+  useEffect(() => {
+    if (!userId || userId === 'guest') return;
+
+    try {
+      const channel = supabase
+        .channel(`user-pins-realtime-${userId}`)
+        .on(
+          'postgres_changes',
+          {
+            event: 'UPDATE',
+            schema: 'public',
+            table: 'users',
+            filter: `id=eq.${userId}`,
+          },
+          (payload: any) => {
+            if (payload?.new && typeof payload.new.pins === 'number') {
+              setPinsState(payload.new.pins);
+              try { localStorage.setItem(storageKeys.pins, String(payload.new.pins)); } catch {}
+            }
+            if (payload?.new && Array.isArray(payload.new.pin_history)) {
+              setPinHistoryState(prev => {
+                const map = new Map<string, PinTransaction>();
+                for (const tx of payload.new.pin_history) {
+                  if (tx && tx.id) map.set(tx.id, tx);
+                }
+                for (const tx of prev) {
+                  if (tx && tx.id && !map.has(tx.id)) map.set(tx.id, tx);
+                }
+                const merged = Array.from(map.values())
+                  .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0))
+                  .slice(0, 100);
+                try { localStorage.setItem(storageKeys.pinHist, JSON.stringify(merged)); } catch {}
+                return merged;
+              });
+            }
+          }
+        )
+        .subscribe();
+
+      return () => {
+        try { supabase.removeChannel(channel); } catch {}
+      };
+    } catch (err) {
+      console.warn('[usePins] Realtime pin subscription error:', err);
+    }
+  }, [userId, storageKeys.pins, storageKeys.pinHist]);
+
   const savePins = useCallback((newPins: number) => {
     setPinsState(newPins);
     try { localStorage.setItem(storageKeys.pins, String(newPins)); } catch {}
@@ -160,7 +260,7 @@ export function usePins(options: UsePinsOptions = {}) {
     savePins(next);
 
     const tx: PinTransaction = {
-      id: `tx_${Date.now()}`,
+      id: generateTxId('tx'),
       type: 'earn',
       amount,
       reason: reason ?? source.replace(/_/g, ' '),
@@ -203,7 +303,7 @@ export function usePins(options: UsePinsOptions = {}) {
     }
 
     const tx: PinTransaction = {
-      id: `tx_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+      id: generateTxId('tx'),
       type: 'spend',
       amount: meta.cost,
       reason: customReason ?? meta.label,
@@ -216,13 +316,15 @@ export function usePins(options: UsePinsOptions = {}) {
 
   const isItemUnlocked = useCallback((itemKey: string): boolean => {
     const expiresAt = unlockedItems[itemKey];
-    return typeof expiresAt === 'number' && expiresAt > Date.now();
+    const now = Date.now() + (serverOffsetRef.current || 0);
+    return typeof expiresAt === 'number' && expiresAt > now;
   }, [unlockedItems]);
 
   const getItemRemainingSeconds = useCallback((itemKey: string): number => {
     const expiresAt = unlockedItems[itemKey];
-    if (!expiresAt || expiresAt <= Date.now()) return 0;
-    return Math.ceil((expiresAt - Date.now()) / 1000);
+    const now = Date.now() + (serverOffsetRef.current || 0);
+    if (!expiresAt || expiresAt <= now) return 0;
+    return Math.ceil((expiresAt - now) / 1000);
   }, [unlockedItems]);
 
   const unlockItem = useCallback(async (
@@ -242,7 +344,8 @@ export function usePins(options: UsePinsOptions = {}) {
     if (!ok) return false;
 
     if (category !== 'attention_span_game') {
-      const expiresAt = Date.now() + 30 * 60 * 1000;
+      const now = Date.now() + (serverOffsetRef.current || 0);
+      const expiresAt = now + 30 * 60 * 1000;
       if (typeof window !== 'undefined') {
         try { localStorage.removeItem(`pinit_${userId}_grace_applied_${itemKey}`); } catch {}
       }
@@ -256,32 +359,70 @@ export function usePins(options: UsePinsOptions = {}) {
     return true;
   }, [isItemUnlocked, pins, spendPins, unlockedItems, saveUnlockedItems, userId]);
 
-  const extendItemGrace = useCallback((
+  const extendItemGrace = useCallback(async (
     itemKey: string,
     minutes: number = 15
-  ): { success: boolean; newRemainingSec: number; message: string } => {
+  ): Promise<{ success: boolean; newRemainingSec: number; message: string }> => {
     const expiresAt = unlockedItems[itemKey];
+    const now = Date.now() + (serverOffsetRef.current || 0);
     if (!expiresAt || typeof expiresAt !== 'number') {
       return { success: false, newRemainingSec: 0, message: 'Item is not currently active.' };
     }
 
-    const graceKey = `pinit_${userId}_grace_applied_${itemKey}`;
-    if (typeof window !== 'undefined' && localStorage.getItem(graceKey)) {
-      toast.error('Grace Already Used ⚠️', 'Emergency grace can only be claimed once per 30-minute unlock cycle.');
-      return { success: false, newRemainingSec: Math.max(0, Math.ceil((expiresAt - Date.now()) / 1000)), message: 'Grace period already used.' };
-    }
-
     const boundedMinutes = Math.min(15, Math.max(5, minutes));
-    const newExpiresAt = Math.max(expiresAt, Date.now()) + boundedMinutes * 60 * 1000;
-    const next = { ...unlockedItems, [itemKey]: newExpiresAt };
-    saveUnlockedItems(next);
 
-    if (typeof window !== 'undefined') {
-      try { localStorage.setItem(graceKey, 'true'); } catch {}
+    if (userId && userId !== 'guest') {
+      try {
+        const res = (await api.post('/api/pins/extend-grace', {
+          itemKey,
+          minutes: boundedMinutes,
+        })) as any;
+
+        if (!res?.ok) {
+          const errMsg = res?.message || 'Emergency grace could not be applied.';
+          toast.error(res?.error === 'GRACE_ALREADY_CLAIMED' ? 'Grace Already Used ⚠️' : 'Grace Extension Failed ⚠️', errMsg);
+          return {
+            success: false,
+            newRemainingSec: Math.max(0, Math.ceil((expiresAt - now) / 1000)),
+            message: errMsg,
+          };
+        }
+
+        const newExpiresAt = res.newExpiresAt || (Math.max(expiresAt, now) + boundedMinutes * 60 * 1000);
+        const next = { ...unlockedItems, [itemKey]: newExpiresAt };
+        saveUnlockedItems(next);
+        toast.info('Emergency Grace Applied ⏱️', `+${boundedMinutes} minutes granted to complete your active work!`);
+        return {
+          success: true,
+          newRemainingSec: Math.ceil((newExpiresAt - now) / 1000),
+          message: 'Grace extended successfully.',
+        };
+      } catch (err: any) {
+        toast.error('Grace Extension Failed ⚠️', err?.message || 'Network error applying grace period.');
+        return {
+          success: false,
+          newRemainingSec: Math.max(0, Math.ceil((expiresAt - now) / 1000)),
+          message: err?.message || 'Network error applying grace period.',
+        };
+      }
+    } else {
+      const graceKey = `pinit_${userId}_grace_applied_${itemKey}`;
+      if (typeof window !== 'undefined' && localStorage.getItem(graceKey)) {
+        toast.error('Grace Already Used ⚠️', 'Emergency grace can only be claimed once per 30-minute unlock cycle.');
+        return { success: false, newRemainingSec: Math.max(0, Math.ceil((expiresAt - now) / 1000)), message: 'Grace period already used.' };
+      }
+
+      const newExpiresAt = Math.max(expiresAt, now) + boundedMinutes * 60 * 1000;
+      const next = { ...unlockedItems, [itemKey]: newExpiresAt };
+      saveUnlockedItems(next);
+
+      if (typeof window !== 'undefined') {
+        try { localStorage.setItem(graceKey, 'true'); } catch {}
+      }
+
+      toast.info('Emergency Grace Applied ⏱️', `+${boundedMinutes} minutes granted to complete your active work!`);
+      return { success: true, newRemainingSec: Math.ceil((newExpiresAt - now) / 1000), message: 'Grace extended successfully.' };
     }
-
-    toast.info('Emergency Grace Applied ⏱️', `+${boundedMinutes} minutes granted to complete your active work!`);
-    return { success: true, newRemainingSec: Math.ceil((newExpiresAt - Date.now()) / 1000), message: 'Grace extended successfully.' };
   }, [unlockedItems, userId, saveUnlockedItems]);
 
   return {

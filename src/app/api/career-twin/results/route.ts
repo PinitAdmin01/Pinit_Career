@@ -43,11 +43,16 @@ function calculateSimulation(profile: any, answers?: any): CareerSimulation {
   const skillCount = Math.max(1, skills.length);
   const coreCompetencyFit = Math.min(95, Math.max(45, Math.round(atsScore * 0.45 + trustScore * 0.35 + (skillCount * 3))));
 
-  // Defect 098 Fix: Salary computation decoupled from mutable client XP
-  // Brackets based strictly on verified competencies:
+  // Defect 098 Fix: Salary computation decoupled from mutable client XP & unverified self-reported skill_tags
+  // Brackets based strictly on verified competencies and completed verified evidence:
   // Entry Level (<= 2): ₹4–7 LPA | Intermediate (3–6): ₹8–14 LPA | Advanced (7+): ₹15–24 LPA
-  const verifiedCount = Number(profile?.verified_skills_count) ||
-    (Array.isArray(profile?.skill_tags) ? profile.skill_tags.length : 0);
+  const verifiedCount = typeof profile?.verified_skills_count === 'number' && profile.verified_skills_count > 0
+    ? profile.verified_skills_count
+    : (Array.isArray(profile?.completed_quests) && profile.completed_quests.length > 0)
+      ? Math.floor(profile.completed_quests.length / 2)
+      : (Number(profile?.missions_completed) > 0)
+        ? Math.floor(Number(profile.missions_completed) / 2)
+        : 0;
 
   let baseSalaryMin: number;
   let baseSalaryMax: number;

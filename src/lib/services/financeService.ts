@@ -198,6 +198,48 @@ export const financeService = {
       const transactionId = 'RCP-' + Math.floor(10000 + Math.random() * 90000);
       const email = studentEmail?.trim() || '';
 
+      if (!isSupabaseAvailable) {
+        // DEF-040 FIX: Eradicate local storage/JSON fallback for payment confirmations. Fail closed.
+        console.error('[FinanceService] Database unavailable during payDue; failing closed');
+        return {
+          ok: false,
+          error: 'PAYMENT_GATEWAY_RECORDING_FAILED',
+          message: 'Payment recording failed. Database record could not be confirmed.'
+        };
+      }
+
+      // DEF-041 FIX: Try executing authoritative process_fee_installment_payment stored procedure with row locks
+      try {
+        const { data: rpcRes, error: rpcErr } = await supabase.rpc('process_fee_installment_payment', {
+          p_student_id: studentId,
+          p_student_name: studentName,
+          p_student_email: email,
+          p_installment_id: installmentId,
+          p_transaction_id: transactionId
+        });
+
+        if (!rpcErr && rpcRes) {
+          if (rpcRes.already_paid) {
+            return { ok: true, receiptId: rpcRes.receipt_id || transactionId, alreadyPaid: true };
+          }
+          if (rpcRes.ok) {
+            return { ok: true, receiptId: rpcRes.receipt_id || transactionId };
+          }
+          return {
+            ok: false,
+            error: rpcRes.error || 'PAYMENT_FAILED',
+            message: rpcRes.message || 'Installment payment could not be completed.'
+          };
+        }
+
+        if (rpcErr) {
+          console.warn('[FinanceService] process_fee_installment_payment RPC error, evaluating direct fallback:', rpcErr);
+        }
+      } catch (rpcEx) {
+        console.warn('[FinanceService] process_fee_installment_payment threw:', rpcEx);
+      }
+
+      // Direct Supabase fallback if RPC is not yet deployed, with strict fail-closed
       const markPaid = (installments: FinanceInstallment[]) =>
         (installments || []).map((inst) => {
           if (inst.id !== installmentId) return inst;
@@ -209,65 +251,80 @@ export const financeService = {
           };
         });
 
-      if (isSupabaseAvailable) {
-        try {
-          const { data: record } = await supabase.from('finance_dues').select('*').eq('student_id', studentId).maybeSingle();
-          if (record) {
-            const paid = (record.installments || []).find((inst: FinanceInstallment) => inst.id === installmentId);
-            if (paid && paid.status === 'Paid') {
-              return { ok: true, receiptId: paid.receiptId || transactionId, alreadyPaid: true };
-            }
-            const updatedInstallments = markPaid(record.installments || []);
-            const res1 = await supabase.from('finance_dues').update({
-              installments: updatedInstallments,
-              fine_levied: 0
-            }).eq('student_id', studentId);
-            if (res1.error) throw new Error(res1.error.message);
+      const { data: record, error: duesFetchErr } = await supabase
+        .from('finance_dues')
+        .select('*')
+        .eq('student_id', studentId)
+        .maybeSingle();
 
-            const res2 = await supabase.from('finance_transactions').insert({
-              id: transactionId,
-              student_id: studentId,
-              student_name: studentName,
-              student_email: email,
-              amount: Number(paid?.amount || 0),
-              fine_paid: Number(record.fine_levied || 0),
-              type: paid?.name || 'Fee installment'
-            });
-            if (res2.error) throw new Error(res2.error.message);
-
-            return { ok: true, receiptId: transactionId };
-          }
-        } catch (err) {
-          console.warn('Supabase write failed, falling back to local database:', err);
-        }
+      if (duesFetchErr || !record) {
+        console.error('[FinanceService] Failed to query finance_dues for student:', duesFetchErr);
+        return {
+          ok: false,
+          error: 'PAYMENT_GATEWAY_RECORDING_FAILED',
+          message: 'Payment recording failed. Dues record not found or inaccessible.'
+        };
       }
 
-      const db = await readLocalDb();
-      const dues = getDuesForStudent(db, studentId);
-      const paid = dues.installments.find((inst) => inst.id === installmentId);
+      const paid = (record.installments || []).find((inst: FinanceInstallment) => inst.id === installmentId);
       if (paid && paid.status === 'Paid') {
         return { ok: true, receiptId: paid.receiptId || transactionId, alreadyPaid: true };
       }
 
-      const updatedInstallments = markPaid(dues.installments);
-      const fineCollected = Number(dues.fineLevied || 0);
-      setDuesForStudent(db, studentId, {
-        ...dues,
+      const updatedInstallments = markPaid(record.installments || []);
+      const fineLevied = Number(record.fine_levied || 0);
+      const paidAmount = Number(paid?.amount || 0);
+
+      const { error: updateErr } = await supabase.from('finance_dues').update({
         installments: updatedInstallments,
-        fineLevied: 0
+        fine_levied: 0
+      }).eq('student_id', studentId);
+
+      if (updateErr) {
+        console.error('[FinanceService] Failed to update finance_dues:', updateErr);
+        return {
+          ok: false,
+          error: 'PAYMENT_GATEWAY_RECORDING_FAILED',
+          message: 'Payment recording failed. Dues state could not be updated.'
+        };
+      }
+
+      const { error: txErr } = await supabase.from('finance_transactions').insert({
+        id: transactionId,
+        student_id: studentId,
+        student_name: studentName,
+        student_email: email,
+        amount: paidAmount,
+        fine_paid: fineLevied,
+        type: paid?.name || 'Fee installment'
       });
 
-      db.transactions = db.transactions || [];
-      db.transactions.unshift({
-        id: transactionId,
-        studentName,
-        studentEmail: email,
-        amount: Number(paid?.amount || 0),
-        finePaid: fineCollected,
-        type: paid?.name || 'Fee installment',
-        timestamp: new Date().toISOString()
-      });
-      await writeLocalDb(db);
+      if (txErr) {
+        console.error('[FinanceService] Failed to insert finance_transactions:', txErr);
+        return {
+          ok: false,
+          error: 'PAYMENT_GATEWAY_RECORDING_FAILED',
+          message: 'Payment recording failed. Transaction audit could not be recorded.'
+        };
+      }
+
+      // Record in append-only fee_payments ledger if table exists
+      try {
+        const feeRes = await supabase.from('fee_payments').insert({
+          id: transactionId,
+          student_id: studentId,
+          installment_id: installmentId,
+          amount: paidAmount,
+          fine_paid: fineLevied,
+          receipt_id: transactionId
+        });
+        if (feeRes.error) {
+          console.warn('[FinanceService] fee_payments ledger insert notice:', feeRes.error.message);
+        }
+      } catch (ledgerErr) {
+        console.warn('[FinanceService] fee_payments ledger insert notice:', ledgerErr);
+      }
+
       return { ok: true, receiptId: transactionId };
     } finally {
       await releaseDistributedLock(lockKey);

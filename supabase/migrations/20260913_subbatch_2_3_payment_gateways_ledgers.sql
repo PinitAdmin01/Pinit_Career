@@ -104,23 +104,40 @@ BEGIN
   -- 2. Traverse installments
   IF v_dues_record.installments IS NOT NULL AND jsonb_array_length(v_dues_record.installments) > 0 THEN
     FOR v_inst IN SELECT * FROM jsonb_to_recordset(v_dues_record.installments) AS x(
-      id TEXT, name TEXT, amount NUMERIC, deadline TEXT, status TEXT, paidOn TEXT, receiptId TEXT
+      id TEXT, name TEXT, amount NUMERIC, deadline TEXT, status TEXT, "paidOn" TEXT, "receiptId" TEXT
     )
     LOOP
       IF v_inst.id = p_installment_id THEN
         v_found_inst := true;
         IF v_inst.status = 'Paid' THEN
-          v_existing_receipt := COALESCE(v_inst.receiptId, p_transaction_id);
+          v_existing_receipt := COALESCE(v_inst."receiptId", p_transaction_id);
           RETURN jsonb_build_object('ok', true, 'already_paid', true, 'receipt_id', v_existing_receipt);
         END IF;
         v_paid_amount := COALESCE(v_inst.amount, 0);
         v_inst_name := COALESCE(v_inst.name, 'Fee installment');
-        v_inst.status := 'Paid';
-        v_inst.paidOn := timezone('utc'::text, now())::TEXT;
-        v_inst.receiptId := p_transaction_id;
-        v_new_installments := v_new_installments || jsonb_build_array(to_jsonb(v_inst));
+        v_new_installments := v_new_installments || jsonb_build_array(
+          jsonb_build_object(
+            'id', v_inst.id,
+            'name', v_inst_name,
+            'amount', v_paid_amount,
+            'deadline', v_inst.deadline,
+            'status', 'Paid',
+            'paidOn', timezone('utc'::text, now())::TEXT,
+            'receiptId', p_transaction_id
+          )
+        );
       ELSE
-        v_new_installments := v_new_installments || jsonb_build_array(to_jsonb(v_inst));
+        v_new_installments := v_new_installments || jsonb_build_array(
+          jsonb_build_object(
+            'id', v_inst.id,
+            'name', v_inst.name,
+            'amount', v_inst.amount,
+            'deadline', v_inst.deadline,
+            'status', v_inst.status,
+            'paidOn', v_inst."paidOn",
+            'receiptId', v_inst."receiptId"
+          )
+        );
       END IF;
     END LOOP;
   END IF;

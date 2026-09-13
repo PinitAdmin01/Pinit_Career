@@ -35,7 +35,7 @@ export async function GET(req: Request) {
 
     try {
       const { data } = await supabase
-        .from('profiles')
+        .from('users')
         .select('id, display_name, attention_accuracy, games_played')
         .order('attention_accuracy', { ascending: false })
         .limit(20);
@@ -94,10 +94,10 @@ export async function POST(req: Request) {
       lastActive: 'Just now',
     };
 
-    // Try persisting to Supabase if profile table supports it
+    // Try persisting to Supabase if users table supports it
     try {
       await supabase
-        .from('profiles')
+        .from('users')
         .update({
           attention_accuracy: updatedTotal,
           games_played: updatedGames,

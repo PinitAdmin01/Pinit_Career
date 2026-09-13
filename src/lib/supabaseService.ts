@@ -1,5 +1,6 @@
 // Supabase service — complete implementation mapping Firestore logic to PostgreSQL
 import { supabase } from './supabaseClient';
+import { generateTxId } from './utils/transactionId';
 
 export const DEMO_PROFILE = {
   display_name: 'Ashwanth Kumar',
@@ -292,22 +293,46 @@ function sanitizePortfolioItems(items: any[]): any[] {
   });
 }
 
-function stripSelfServicePrivileges(row: Record<string, any>, allowPrivileged = false) {
-  if (allowPrivileged) {
+export function stripSelfServicePrivileges<T extends Record<string, any>>(row: T, allowPrivileged = false): T {
+  if (allowPrivileged || !row || typeof row !== 'object') {
     return row;
   }
-  delete row.role;
-  delete row.subscription_tier;
-  delete row.pins;
-  delete row.ats_score;
-  delete row.trust_score;
-  delete row.career_dna_score;
-  delete row.mission_streak;
+  const sanitized: Record<string, any> = { ...row };
+
+  const forbiddenFields = [
+    'role',
+    'subscription_tier',
+    'pins',
+    'ats_score',
+    'trust_score',
+    'career_dna_score',
+    'mission_streak',
+    'xp',
+    'xp_total',
+    'xp_level',
+    'missions_completed',
+    'completed_missions',
+    'completed_quests',
+    'interviews_done',
+    'grade_audit_log',
+    'verified_credentials',
+    'vault_count',
+    'verified_skills_count',
+    'quests',
+    'attendance_rate',
+    'cgpa'
+  ];
+
+  for (const field of forbiddenFields) {
+    delete sanitized[field];
+  }
 
   // CAV-02 FIX: Strip verified: true from portfolio items for non-privileged callers
-  if (row.onboarding_answers && typeof row.onboarding_answers === 'object') {
-    const ob = { ...row.onboarding_answers };
-    delete ob.mission_streak;
+  if (sanitized.onboarding_answers && typeof sanitized.onboarding_answers === 'object') {
+    const ob = { ...sanitized.onboarding_answers };
+    for (const field of forbiddenFields) {
+      delete ob[field];
+    }
     if (Array.isArray(ob.portfolio_projects)) {
       ob.portfolio_projects = sanitizePortfolioItems(ob.portfolio_projects);
     }
@@ -323,10 +348,10 @@ function stripSelfServicePrivileges(row: Record<string, any>, allowPrivileged = 
     if (Array.isArray(ob.portfolio_certificates)) {
       ob.portfolio_certificates = sanitizePortfolioItems(ob.portfolio_certificates);
     }
-    row.onboarding_answers = ob;
+    sanitized.onboarding_answers = ob;
   }
 
-  return row;
+  return sanitized as T;
 }
 
 export async function findUserByRegisterNumber(registerNumber: string) {
@@ -892,8 +917,9 @@ export async function recalculateCareerDna(uid: string) {
   if (!profile) return null;
   const { data: missions } = await supabase.from('missions').select('status').eq('user_id', uid);
   const completed = (missions || []).filter((m: any) => m.status === 'submitted' || m.status === 'completed').length;
-  const newDna = Math.min(100, (profile.career_dna_score || 68) + completed);
-  await updateUserProfile(uid, { career_dna_score: newDna });
+  const baseDna = typeof profile.career_dna_score === 'number' ? profile.career_dna_score : 0;
+  const newDna = Math.min(100, Math.max(0, baseDna + completed * 2));
+  await updateUserProfile(uid, { career_dna_score: newDna }, { allowPrivileged: true });
   return { ...profile, career_dna_score: newDna };
 }
 
@@ -960,12 +986,17 @@ export async function completeInterviewSession(uid: string, sessionId: string, e
 
   const profile = await getUserProfile(uid);
   if (profile) {
-    const prev = profile.communication_score || 60;
-    const next = Math.min(100, Math.round(prev * 0.6 + (evaluation.communication_score || prev) * 0.4));
+    const currentScore = typeof evaluation.communication_score === 'number' ? evaluation.communication_score : (evaluation.overall_score || evaluation.score || 0);
+    let next: number;
+    if (profile.interviews_done === 0 || profile.communication_score == null) {
+      next = Math.min(100, Math.max(0, Math.round(currentScore)));
+    } else {
+      next = Math.min(100, Math.max(0, Math.round((profile.communication_score * 0.7) + (currentScore * 0.3))));
+    }
     await updateUserProfile(uid, {
       communication_score: next,
       interviews_done: (profile.interviews_done || 0) + 1,
-    });
+    }, { allowPrivileged: true });
   }
 }
 
@@ -986,10 +1017,48 @@ export async function getInterviewHistory(uid: string) {
   }));
 }
 
-export async function getAllUsers(): Promise<any[]> {
-  const { data, error } = await supabase.from('users').select('*');
-  if (error) throw error;
-  return (data || []).map(d => mapRowToProfile(d));
+export async function getUsersPage(
+  page = 1,
+  limit = 50,
+  role?: string
+): Promise<{ users: any[]; totalCount: number; totalPages: number }> {
+  try {
+    const from = (page - 1) * limit;
+    const to = page * limit - 1;
+    let query = supabase
+      .from('users')
+      .select('id, display_name, email, role, ats_score, trust_score, career_dna_score, created_at', { count: 'exact' });
+    if (role) {
+      query = query.eq('role', role);
+    }
+    const { data, count, error } = await query.order('created_at', { ascending: false }).range(from, to);
+    if (error) {
+      console.warn('[getUsersPage] Query error:', error.message);
+      return { users: [], totalCount: 0, totalPages: 0 };
+    }
+    const totalCount = count ?? (data?.length || 0);
+    return {
+      users: (data || []).map(d => mapRowToProfile(d)),
+      totalCount,
+      totalPages: Math.ceil(totalCount / limit) || 1,
+    };
+  } catch (err: any) {
+    console.warn('[getUsersPage] Exception:', err?.message);
+    return { users: [], totalCount: 0, totalPages: 0 };
+  }
+}
+
+export async function getAllUsers(maxLimit = 100): Promise<any[]> {
+  try {
+    const { data, error } = await supabase
+      .from('users')
+      .select('id, display_name, email, role, ats_score, trust_score, career_dna_score, created_at')
+      .limit(maxLimit);
+    if (error) throw error;
+    return (data || []).map(d => mapRowToProfile(d));
+  } catch {
+    return [];
+  }
 }
 
 export async function addJob(recruiterId: string, jobData: Record<string, any>) {
@@ -1265,6 +1334,45 @@ export async function persistQuestCompletion(
   }
 }
 
+// ─── F3-2: Authoritative server-side XP addition persistence ─────────────────
+export async function persistXpAddition(
+  uid: string,
+  amount: number,
+  reason?: string
+): Promise<{ ok: boolean; newXp?: number }> {
+  if (!uid || uid === 'guest') return { ok: true };
+  try {
+    const { data: profile, error: fetchErr } = await supabase
+      .from('users')
+      .select('xp_total')
+      .eq('id', uid)
+      .single();
+
+    if (fetchErr || !profile) {
+      console.warn('[persistXpAddition] Could not fetch profile:', fetchErr?.message);
+      return { ok: false };
+    }
+
+    const currentXp = profile.xp_total || 0;
+    const newXp = currentXp + amount;
+
+    const { error: updateErr } = await supabase
+      .from('users')
+      .update({ xp_total: newXp })
+      .eq('id', uid);
+
+    if (updateErr) {
+      console.warn('[persistXpAddition] Update failed:', updateErr.message);
+      return { ok: false };
+    }
+
+    return { ok: true, newXp };
+  } catch (e: any) {
+    console.error('[persistXpAddition] Unexpected error:', e.message);
+    return { ok: false };
+  }
+}
+
 // ─── Sync Trust Score & Career DNA Score to Supabase DB ───────────────────────
 export async function syncRewardsDB(
   uid: string,
@@ -1298,8 +1406,24 @@ export async function syncUnlockedItemsDB(
   unlockedItems: Record<string, number>
 ): Promise<{ ok: boolean }> {
   if (!uid || uid === 'guest') return { ok: true };
-  persistLocalProfile(uid, { unlocked_items: unlockedItems, unlockedItems });
-  return { ok: true };
+  try {
+    const { error } = await supabase
+      .from('users')
+      .update({
+        unlocked_items: unlockedItems
+      })
+      .eq('id', uid);
+
+    if (error) {
+      console.warn('[syncUnlockedItemsDB] Update failed:', error.message);
+      return { ok: false };
+    }
+    persistLocalProfile(uid, { unlocked_items: unlockedItems, unlockedItems });
+    return { ok: true };
+  } catch (e: any) {
+    console.error('[syncUnlockedItemsDB] Unexpected error:', e.message);
+    return { ok: false };
+  }
 }
 
 // ─── Step 2: Server-Verified Time Offset Calculation ──────────────────────────
@@ -1410,7 +1534,7 @@ export async function spendPinsDB(
         const { data } = await supabase.from('users').select('pin_history').eq('id', uid).single();
         const history: any[] = data?.pin_history || [];
         const tx = {
-          id: `tx_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+          id: generateTxId('tx'),
           type: 'spend',
           amount: cost,
           reason,

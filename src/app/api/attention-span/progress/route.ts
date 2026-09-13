@@ -83,7 +83,7 @@ export async function GET(req: Request) {
     if (!entry) {
       try {
         const { data } = await supabase
-          .from('profiles')
+          .from('users')
           .select('id, attention_stats')
           .eq('id', userId)
           .single();
@@ -164,10 +164,10 @@ export async function POST(req: Request) {
       lastUpdated: now,
     };
 
-    // Try saving to Supabase profiles
+    // Try saving to Supabase users
     try {
       await supabase
-        .from('profiles')
+        .from('users')
         .update({
           attention_stats: validatedStats,
           updated_at: now,

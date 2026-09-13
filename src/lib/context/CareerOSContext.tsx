@@ -10,6 +10,7 @@ import { persistQuestCompletion, syncRewardsDB } from '@/lib/supabaseService';
 import { markOnboardingStoryPending } from '@/lib/storyTour';
 import { useVault, VaultItem } from '@/lib/hooks/useVault';
 import { usePins, PinTransaction, PinSource, PIN_COSTS, PIN_EARN } from '@/lib/hooks/usePins';
+import { safeLocalStorageSetItem } from '@/lib/storage/careerStorage';
 
 // Re-export decomposed domain types and hooks for complete backward compatibility
 export type { VaultItem };
@@ -72,7 +73,7 @@ interface CareerOSContextType {
   setJdMissingSkills: (skills: string[]) => void;
   // XP (legacy, kept for backward compat)
   xp: number;
-  addXp: (amount: number, reason: string) => void;
+  addXp: (amount: number, reason: string) => void | Promise<void>;
   // Streak
   missionStreak: number;
   missionOnlyStreak: number;
@@ -96,7 +97,7 @@ interface CareerOSContextType {
   unlockedItems: Record<string, number>;
   isItemUnlocked: (itemKey: string) => boolean;
   getItemRemainingSeconds: (itemKey: string) => number;
-  extendItemGrace?: (itemKey: string, minutes?: number) => { success: boolean; newRemainingSec: number; message: string };
+  extendItemGrace?: (itemKey: string, minutes?: number) => Promise<{ success: boolean; newRemainingSec: number; message: string }> | { success: boolean; newRemainingSec: number; message: string };
   unlockItem: (itemKey: string, category: 'quest' | 'mission' | 'interview' | 'ai_interview' | 'gd' | 'group_discussion' | 'attention_span_game', customReason?: string) => Promise<boolean>;
   rewardActivity: (type: 'quest' | 'mission' | 'interview' | 'gd' | 'attention_game' | 'project', title?: string) => void;
 
@@ -180,6 +181,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
   const [demoTabsUnlocked, setDemoTabsUnlockedState] = useState(false);
   const [trustBonus, setTrustBonus] = useState(0);
   const [dnaBonus, setDnaBonus] = useState(0);
+  const lastRewardTimeRef = useRef<number>(0);
 
   // Slices decomposed into standalone hooks (Defect 107)
   const {
@@ -209,11 +211,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
   } = useVault({
     userId,
     onAddXp: (amount, reason) => {
-      setXp(prev => {
-        const next = prev + amount;
-        try { localStorage.setItem(`pinit_${userId}_xp`, String(next)); } catch {}
-        return next;
-      });
+      addXp(amount, reason);
     },
     onEarnPins: (source) => earnPins(source as any),
   });
@@ -260,16 +258,29 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
+  const lastSyncTimestamps = useRef<Record<string, number>>({});
+
   const save = useCallback((key: string, data: unknown) => {
     if (typeof window !== 'undefined') {
-      try { localStorage.setItem(key, JSON.stringify(data)); } catch {}
+      const serialized = JSON.stringify(data);
+      const res = safeLocalStorageSetItem(key, serialized);
+      if (res.fallbackToIdb) {
+        toast.warning('Storage Space Low', 'Cached items pruned; vital progress safely backed up to IndexedDB.');
+      }
+      // DEF-054: Discontinue manual broadcast posting for pin balances and history.
+      // Financial balance and transaction sync is driven authoritatively via Supabase Realtime.
+      if (key === keys.pins || key === keys.pinHist) {
+        return;
+      }
+      const timestamp = Date.now();
+      lastSyncTimestamps.current[key] = timestamp;
       try {
-        broadcastRef.current?.postMessage({ key, data, userId });
+        broadcastRef.current?.postMessage({ key, data, userId, timestamp });
       } catch {}
     }
-  }, [userId]);
+  }, [userId, keys.pins, keys.pinHist]);
 
-  // ── Multi-Tab Cross-Synchronization (DEF-041) ──────────────────────────
+  // ── Multi-Tab Cross-Synchronization (DEF-041, DEF-072) ──────────────────
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -277,30 +288,47 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
       if (!key || rawValue === null) return;
       try {
         const parsed = JSON.parse(rawValue);
-        if (key === keys.pins && typeof parsed === 'number') {
-          setPins(parsed);
-        } else if (key === keys.pinHist && Array.isArray(parsed)) {
-          setPinsHistory(parsed);
+        if (key === keys.pins || key === keys.pinHist) {
+          // DEF-054: Drop raw broadcast channel messages for pins to prevent stale cross-tab echo flicker.
+          // Pin balance and history sync across tabs is handled authoritatively via Supabase Realtime in usePins.
+          return;
         } else if (key === keys.unlockedItems && typeof parsed === 'object' && parsed !== null) {
           setUnlockedItems(parsed);
         } else if (key === keys.quests && Array.isArray(parsed)) {
-          setCompletedQuestsState(parsed);
+          // CRDT Set union: never drop completions from another tab (DEF-072)
+          setCompletedQuestsState(prev => Array.from(new Set([...prev, ...parsed])));
         } else if (key === keys.missions && Array.isArray(parsed)) {
-          setCompletedMissions(parsed);
+          // CRDT Set union: never drop completed missions from another tab (DEF-072)
+          setCompletedMissions(prev => Array.from(new Set([...prev, ...parsed])));
         } else if (key === keys.xp && typeof parsed === 'number') {
-          setXp(parsed);
+          setXp(prev => Math.max(prev, parsed));
         } else if (key === keys.streak && typeof parsed === 'number') {
-          setMissionStreak(parsed);
+          setMissionStreak(prev => Math.max(prev, parsed));
         } else if (key === keys.obStep && typeof parsed === 'number') {
           setOnboardingStepState(prev => Math.max(prev, parsed));
         } else if (key === keys.vault && Array.isArray(parsed)) {
           setVaultItems(parsed);
         } else if (key === keys.onboard && typeof parsed === 'object' && parsed !== null) {
-          setOnboardingAnswers(parsed);
+          setOnboardingAnswers(prev => ({
+            ...prev,
+            ...parsed,
+            completedQuestsTimestamps: Array.from(new Set([
+              ...(prev.completedQuestsTimestamps || []),
+              ...(parsed.completedQuestsTimestamps || [])
+            ])),
+            completedMissionsTimestamps: Array.from(new Set([
+              ...(prev.completedMissionsTimestamps || []),
+              ...(parsed.completedMissionsTimestamps || [])
+            ])),
+            questCodes: {
+              ...(prev.questCodes || {}),
+              ...(parsed.questCodes || {})
+            }
+          }));
         } else if (key === keys.trustBonus && typeof parsed === 'number') {
-          setTrustBonus(parsed);
+          setTrustBonus(prev => Math.max(prev, parsed));
         } else if (key === keys.dnaBonus && typeof parsed === 'number') {
-          setDnaBonus(parsed);
+          setDnaBonus(prev => Math.max(prev, parsed));
         } else if (key === keys.aiTokens && typeof parsed === 'number') {
           setAiUseTokens(parsed);
         } else if (key === keys.resGen && typeof parsed === 'boolean') {
@@ -318,7 +346,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
         } else if (key === keys.activeCourse) {
           setActiveCourseIdState(parsed);
         } else if (key === keys.activeCourses && Array.isArray(parsed)) {
-          setActiveCourseIdsState(parsed);
+          setActiveCourseIdsState(prev => Array.from(new Set([...prev, ...parsed])));
         }
       } catch {}
     };
@@ -336,6 +364,15 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
         channel = new BroadcastChannel('pinit_career_os_sync');
         channel.onmessage = (ev) => {
           if (ev.data && ev.data.userId === userId && ev.data.key) {
+            const msgTs = typeof ev.data.timestamp === 'number' ? ev.data.timestamp : 0;
+            const lastTs = lastSyncTimestamps.current[ev.data.key] || 0;
+            if (msgTs > 0 && lastTs > 0 && msgTs < lastTs) {
+              // Stale broadcast message dropped to prevent race overwrites (DEF-072)
+              return;
+            }
+            if (msgTs > 0) {
+              lastSyncTimestamps.current[ev.data.key] = msgTs;
+            }
             handleSync(ev.data.key, JSON.stringify(ev.data.data));
           }
         };
@@ -848,19 +885,17 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
     // Determine the courseId to associate. If not supplied, try to guess or use activeCourseId.
     const assocCourseId = courseId || activeCourseId || 'default-course';
 
-    // Check daily limit of 3 completed quests FOR THIS COURSE
-    // We store timestamps as stringified objects: "2026-07-17T13:00:00.000Z|course-java-logic"
+    // Global cap of 3 completed quests per calendar day across all courses (DEF-074)
     const timestamps = onboardingAnswers.completedQuestsTimestamps || [];
     const today = new Date().toDateString();
     const todayCompletions = timestamps.filter(raw => {
       const parts = raw.split('|');
       const ts = parts[0];
-      const cid = parts[1] || activeCourseId || 'default-course';
-      return new Date(ts).toDateString() === today && cid === assocCourseId;
+      return new Date(ts).toDateString() === today;
     });
 
     if (todayCompletions.length >= 3 && !isExam) {
-      toast.error('Daily Limit Reached ⏳', `You have reached your limit of 3 completed quests for this course today.`);
+      toast.error('Daily Limit Reached ⏳', 'You have reached your global daily limit of 3 completed quests across all courses today.');
       return;
     }
 
@@ -873,19 +908,6 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
 
     const nextQuests = completedQuests.includes(questId) ? completedQuests : [...completedQuests, questId];
     save(keys.quests, nextQuests);
-    if (typeof window !== 'undefined') {
-      try {
-        const rawUser = localStorage.getItem('pinit_current_user');
-        const liveUser = rawUser ? JSON.parse(rawUser) : null;
-        const extraIds = [liveUser?.id, liveUser?.uid].filter((id: string) => id && `pinit_${id}_completed_quests` !== keys.quests);
-        for (const extraId of extraIds) {
-          const extraKey = `pinit_${extraId}_completed_quests`;
-          const prev = JSON.parse(localStorage.getItem(extraKey) || '[]');
-          if (!Array.isArray(prev) || prev.includes(questId)) continue;
-          localStorage.setItem(extraKey, JSON.stringify([...prev, questId]));
-        }
-      } catch {}
-    }
     
     // Save completion timestamp with courseId tag
     const timestampTag = `${new Date().toISOString()}|${assocCourseId}`;
@@ -897,7 +919,16 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
     setOnboardingAnswers(nextAnswers);
     save(keys.onboard, nextAnswers);
     
-    api.post('/api/auth/onboarding', { onboardingAnswers: nextAnswers, completedQuests: nextQuests }).catch(() => {});
+    // DEF-074: Call server-side authoritative quest completion endpoint
+    api.post('/api/quest/complete', {
+      questId,
+      isExam,
+      xpAmount: xpAmount || 15,
+      courseId: assocCourseId
+    }).catch(() => {
+      // Fallback sync to onboarding endpoint
+      api.post('/api/auth/onboarding', { onboardingAnswers: nextAnswers, completedQuests: nextQuests }).catch(() => {});
+    });
 
     // Award activity rewards (+XP, +Trust Score, +Career DNA)
     rewardActivity(isExam ? 'project' : 'quest', isExam ? 'Passed Coding Exam' : 'Completed Quest');
@@ -915,9 +946,18 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
       setMissionStreak(prev => {
         const next = prev + 1;
         save(keys.streak, next);
-        console.log(`[CareerOS] 🔥 Daily streak incremented to ${next} for user ${userId} on local date ${todayStr}`);
-        
-        if (next % 7 === 0) earnPins('streak_bonus', undefined, `${next}-day streak bonus!`);
+        // DEF-042 FIX: Streak milestone bonus is verified and claimed authoritatively on server
+        if (next % 7 === 0 && userId && userId !== 'guest') {
+          api.post('/api/pins/claim-streak-bonus', { milestone: next })
+            .then((res: any) => {
+              if (res?.ok && res?.pinsGranted) {
+                toast.success('⚡ Streak Milestone Bonus!', `+${res.pinsGranted} pins credited for your ${next}-day streak!`);
+              }
+            })
+            .catch((err) => {
+              console.warn('[CareerOS] Streak bonus claim notice:', err?.message || err);
+            });
+        }
         toast.success('🔥 Daily Quest Streak Up!', `Streak: ${next} days active!`);
         return next;
       });
@@ -1012,12 +1052,38 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
   }, [keys.demoTabsUnlocked, save]);
 
   const buyAiMinutes = useCallback(async (): Promise<boolean> => {
-    const ok = await spendPins('ai_minutes_extend', 'Extended daily AI by 30 mins');
-    if (!ok) return false;
-    setAiUseTokens(aiUseTokens + 30);
-    toast.success('AI Time Extended! ⏰', '+30 AI Minutes added to your daily balance.');
-    return true;
-  }, [spendPins, aiUseTokens, setAiUseTokens]);
+    if (userId && userId !== 'guest') {
+      try {
+        const res = (await api.post('/api/pins/buy-ai-minutes', {})) as any;
+        if (!res?.ok) {
+          if (res?.error === 'DAILY_AI_MINUTES_LIMIT_EXCEEDED') {
+            toast.error('Daily Limit Reached ⏳', res.message || 'Maximum 2 AI extensions (60 minutes total) allowed per day.');
+          } else if (res?.error === 'INSUFFICIENT_PINS') {
+            toast.error('Insufficient Pins 📌', 'Need 100 pins for 30 Min AI Token Extension.');
+          } else {
+            toast.error('Purchase Failed ⚠️', res?.message || 'Failed to purchase AI minutes.');
+          }
+          return false;
+        }
+        if (typeof res.newBalance === 'number') {
+          setPins(res.newBalance);
+        }
+        const added = res.minutesAdded || 30;
+        setAiUseTokens(aiUseTokens + added);
+        toast.success('AI Time Extended! ⏰', `+${added} AI Minutes added to your daily balance.`);
+        return true;
+      } catch (err: any) {
+        toast.error('Purchase Error ⚠️', err?.message || 'Network error purchasing AI minutes.');
+        return false;
+      }
+    } else {
+      const ok = await spendPins('ai_minutes_extend', 'Extended daily AI by 30 mins');
+      if (!ok) return false;
+      setAiUseTokens(aiUseTokens + 30);
+      toast.success('AI Time Extended! ⏰', '+30 AI Minutes added to your daily balance.');
+      return true;
+    }
+  }, [userId, setPins, spendPins, aiUseTokens, setAiUseTokens]);
 
   // Derive unlocked tabs dynamically
   const ALL_TABS = ['/dashboard', '/quests', '/missions', '/interview', '/career-twin', '/career-dna', '/opportunities', '/group-discussion'];
@@ -1114,9 +1180,41 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
 
   const setJdMissingSkills = (skills: string[]) => { setJdMissingSkillsState(skills); save(keys.gaps, skills); };
 
-  const addXp = useCallback((amount: number, reason: string) => {
-    setXp(prev => { const next = prev + amount; save(keys.xp, next); return next; });
-  }, [keys.xp, save]);
+  const addXp = useCallback(async (amount: number, reason: string) => {
+    if (amount <= 0 || amount > 500) {
+      console.warn(`[addXp] Rejected invalid XP amount: ${amount}`);
+      return;
+    }
+
+    // Client-side fallback for guest users
+    if (!userId || userId === 'guest') {
+      setXp(prev => { const next = prev + amount; save(keys.xp, next); return next; });
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/xp/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount, reason })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (typeof data.newXp === 'number') {
+          setXp(data.newXp);
+          save(keys.xp, data.newXp);
+          return;
+        }
+      } else {
+        const errData = await res.json().catch(() => ({}));
+        console.warn('[addXp] Server rejected XP increment:', errData);
+        return;
+      }
+    } catch (e) {
+      console.warn('Network error syncing XP to server, applying offline fallback:', e);
+      setXp(prev => { const next = prev + amount; save(keys.xp, next); return next; });
+    }
+  }, [userId, keys.xp, save]);
 
   // ─── Derived scores ───────────────────────────────────────────────────────
   const baseAts = typeof user?.atsScore === 'number' ? user.atsScore : 0;
@@ -1129,11 +1227,18 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
   const baseTrust = typeof user?.trustScore === 'number' ? user.trustScore : 0;
   const trustScore = Math.min(99, baseTrust + (vaultItems.filter(v => v.verified).length * 15) + trustBonus);
 
-  // ─── Unified Modest Rewarding System Dispatcher ──────────────────────────
+  // ─── Unified Modest Rewarding System Dispatcher (DEF-049, DEF-050) ────────
   const rewardActivity = useCallback((
     type: 'quest' | 'mission' | 'interview' | 'gd' | 'attention_game' | 'project',
     title?: string
   ) => {
+    const now = Date.now();
+    if (now - lastRewardTimeRef.current < 2000) {
+      console.warn('[rewardActivity] Throttled: Activity rewards rate limited.');
+      return;
+    }
+    lastRewardTimeRef.current = now;
+
     const MATRIX: Record<string, { xp: number; trust: number; dna: number; label: string }> = {
       quest:          { xp: 15, trust: 1, dna: 1, label: 'Quest Lesson Mastered' },
       mission:        { xp: 25, trust: 2, dna: 2, label: 'Mission Challenge Cleared' },
@@ -1163,14 +1268,53 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
       });
     }
 
-    // ── Step 3: Prestige Badges for Maxed Score Caps ─────────────────────────
+    // ── Step 3: Prestige Badges for Maxed Score Caps (DEF-049) ────────────────
     if (reward.trust > 0 && trustScore + reward.trust >= 99 && trustScore < 99) {
-      addXp(500, '🎖️ Trust Sentinel Prestige Milestone');
-      toast.success('🎖️ Trust Sentinel Badge Unlocked!', 'Max Trust Score (99) achieved! +500 Prestige Bonus XP granted.');
+      if (userId && userId !== 'guest') {
+        fetch('/api/user/award-badge', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ badgeId: 'trust_sentinel_99', milestoneKey: 'trust_score_99' }),
+        })
+          .then(r => r.json())
+          .then(data => {
+            if (data.ok && data.newlyAwarded) {
+              if (typeof data.newXp === 'number') {
+                setXp(data.newXp);
+                save(keys.xp, data.newXp);
+              }
+              toast.success('🎖️ Trust Sentinel Badge Unlocked!', 'Max Trust Score (99) achieved! +500 Prestige Bonus XP granted.');
+            }
+          })
+          .catch(e => console.warn('Failed to award trust milestone:', e));
+      } else {
+        addXp(500, '🎖️ Trust Sentinel Prestige Milestone');
+        toast.success('🎖️ Trust Sentinel Badge Unlocked!', 'Max Trust Score (99) achieved! +500 Prestige Bonus XP granted.');
+      }
     }
+
     if (reward.dna > 0 && dnaScore + reward.dna >= 95 && dnaScore < 95) {
-      addXp(500, '🧬 Apex Career DNA Prestige Milestone');
-      toast.success('🧬 Apex Career DNA Badge Unlocked!', 'Max Career DNA Score (95) achieved! +500 Prestige Bonus XP granted.');
+      if (userId && userId !== 'guest') {
+        fetch('/api/user/award-badge', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ badgeId: 'apex_career_dna_95', milestoneKey: 'dna_score_95' }),
+        })
+          .then(r => r.json())
+          .then(data => {
+            if (data.ok && data.newlyAwarded) {
+              if (typeof data.newXp === 'number') {
+                setXp(data.newXp);
+                save(keys.xp, data.newXp);
+              }
+              toast.success('🧬 Apex Career DNA Badge Unlocked!', 'Max Career DNA Score (95) achieved! +500 Prestige Bonus XP granted.');
+            }
+          })
+          .catch(e => console.warn('Failed to award DNA milestone:', e));
+      } else {
+        addXp(500, '🧬 Apex Career DNA Prestige Milestone');
+        toast.success('🧬 Apex Career DNA Badge Unlocked!', 'Max Career DNA Score (95) achieved! +500 Prestige Bonus XP granted.');
+      }
     }
 
     const parts = [];
@@ -1186,7 +1330,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
     }
 
     toast.success(`🏆 ${reward.label}`, parts.join(' · '));
-  }, [save, keys.trustBonus, keys.dnaBonus, userId, trustScore, dnaScore, addXp]);
+  }, [save, keys.trustBonus, keys.dnaBonus, keys.xp, userId, trustScore, dnaScore, addXp]);
 
   const switchActiveCourse = useCallback((courseId: string) => {
     setActiveCourseIdState(courseId);

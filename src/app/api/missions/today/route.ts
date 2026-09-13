@@ -6,7 +6,8 @@ import { WorkloadBand } from '@/lib/pathway/competencySchema';
 export async function GET(req: Request) {
   try {
     const gated = await requireUserFromRequest(req);
-    const studentId = gated.user?.id || 'demo_student';
+    if (gated.error) return gated.error;
+    const studentId = gated.user!.id;
 
     const url = new URL(req.url);
     const bandParam = (url.searchParams.get('workloadBand') || 'standard') as WorkloadBand;

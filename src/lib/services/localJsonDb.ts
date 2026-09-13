@@ -143,12 +143,31 @@ async function writeVaultJson(relativePath: string, data: unknown): Promise<bool
   }
 }
 
+function getScopedKey(relativePath: string, scope: 'shared' | 'personal', userId?: string): string {
+  if (scope === 'personal' && userId) {
+    return `${relativePath}::${userId}`;
+  }
+  return relativePath;
+}
+
+function getScopedFilePath(relativePath: string, scope: 'shared' | 'personal', userId?: string): string {
+  if (scope === 'personal' && userId) {
+    if (relativePath.endsWith('.json')) {
+      return relativePath.replace(/\.json$/, `.${userId}.json`);
+    }
+    return `${relativePath}.${userId}`;
+  }
+  return relativePath;
+}
+
 export async function readLocalJson<T>(
   relativePath: string,
   fallback: T,
-  scope: 'shared' | 'personal' = 'shared'
+  scope: 'shared' | 'personal' = 'shared',
+  userId?: string
 ): Promise<T> {
-  const cacheKey = `${scope}:${relativePath}`;
+  const scopedKey = getScopedKey(relativePath, scope, userId);
+  const cacheKey = `${scope}:${scopedKey}`;
   const cached = memGet<T>(cacheKey);
   if (cached !== undefined) return cached;
 
@@ -156,11 +175,13 @@ export async function readLocalJson<T>(
   const path = nodePath();
   if (fs && path) {
     try {
-      const full = path.join(process.cwd(), relativePath);
-      if (!fs.existsSync(full)) return fallback;
-      const parsed = JSON.parse(fs.readFileSync(full, 'utf-8')) as T;
-      memSet(cacheKey, parsed);
-      return parsed;
+      const scopedPath = getScopedFilePath(relativePath, scope, userId);
+      const full = path.join(process.cwd(), scopedPath);
+      if (fs.existsSync(full)) {
+        const parsed = JSON.parse(fs.readFileSync(full, 'utf-8')) as T;
+        memSet(cacheKey, parsed);
+        return parsed;
+      }
     } catch (err) {
       console.error('Error reading local database file:', relativePath, err);
       return fallback;
@@ -177,15 +198,25 @@ export async function readLocalJson<T>(
     } catch {
       // table missing or RLS
     }
+  } else if (scope === 'personal') {
+    try {
+      const personal = await readCampusKv<T>(scopedKey);
+      if (personal != null) {
+        memSet(cacheKey, personal);
+        return personal;
+      }
+    } catch {
+      // table missing or RLS
+    }
   }
 
-  const vault = await readVaultJson<T>(relativePath);
+  const vault = await readVaultJson<T>(scopedKey);
   if (vault != null) {
     memSet(cacheKey, vault);
     return vault;
   }
 
-  const local = readBrowserStorage(relativePath, fallback);
+  const local = readBrowserStorage(scopedKey, fallback);
   memSet(cacheKey, local);
   return local;
 }
@@ -193,16 +224,23 @@ export async function readLocalJson<T>(
 export async function writeLocalJson(
   relativePath: string,
   data: unknown,
-  scope: 'shared' | 'personal' = 'shared'
+  scope: 'shared' | 'personal' = 'shared',
+  userId?: string
 ): Promise<boolean> {
-  memSet(`${scope}:${relativePath}`, data);
+  const scopedKey = getScopedKey(relativePath, scope, userId);
+  memSet(`${scope}:${scopedKey}`, data);
 
   let nodeWriteSucceeded = false;
   const fs = nodeFs();
   const path = nodePath();
   if (fs && path) {
     try {
-      const full = path.join(process.cwd(), relativePath);
+      const scopedPath = getScopedFilePath(relativePath, scope, userId);
+      const full = path.join(process.cwd(), scopedPath);
+      const dir = path.dirname(full);
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
       fs.writeFileSync(full, JSON.stringify(data, null, 2), 'utf-8');
       nodeWriteSucceeded = true;
     } catch (err) {
@@ -217,11 +255,14 @@ export async function writeLocalJson(
   if (scope === 'shared') {
     const wroteShared = await writeCampusKv(relativePath, data);
     if (wroteShared) return true;
+  } else if (scope === 'personal') {
+    const wrotePersonal = await writeCampusKv(scopedKey, data);
+    if (wrotePersonal) return true;
   }
 
-  const wroteVault = await writeVaultJson(relativePath, data);
+  const wroteVault = await writeVaultJson(scopedKey, data);
   if (wroteVault) return true;
 
-  writeBrowserStorage(relativePath, data);
+  writeBrowserStorage(scopedKey, data);
   return true;
 }
