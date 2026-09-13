@@ -10,7 +10,7 @@
     "// build:static": "Legacy Firebase Hosting only. build.js copies .next/server/app into out/ so the app can be served as files, which disables every /api/* route and makes the browser shim the backend. Server hosts (Vercel, App Hosting, Render) must use `build`.",
     "build:static": "node build.js",
     "deploy:static": "npm run build:static && firebase deploy --only hosting",
-    "lint": "next lint",
+    "lint": "node scripts/check_eslint_comments.js && next lint",
     "audit:contracts": "node audit/extract-contracts.mjs",
     "audit:headers": "node audit/check-headers.mjs",
     "audit:runtime": "node audit/walk-routes.mjs",
