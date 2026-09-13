@@ -1706,6 +1706,13 @@ export default function OnboardingPage() {
         toast.success('Onboarding Complete! 🚀', 'Your diagnostic blueprint is active.');
         markOnboardingStoryPending(user?.id);
         router.push('/dashboard');
+        if (typeof window !== 'undefined') {
+          setTimeout(() => {
+            if (window.location.pathname.includes('/onboarding')) {
+              window.location.href = '/dashboard';
+            }
+          }, 1200);
+        }
       } catch (err) {
         console.error("Onboarding sync failure", err);
         const fallbackGoal = (speechTranscript && speechTranscript.trim().length > 5 ? speechTranscript.trim() : targetGoal) || targetRoleLabel;
@@ -1721,6 +1728,13 @@ export default function OnboardingPage() {
         cOS.setOnboardingStep(3);
         markOnboardingStoryPending(user?.id);
         router.push('/dashboard');
+        if (typeof window !== 'undefined') {
+          setTimeout(() => {
+            if (window.location.pathname.includes('/onboarding')) {
+              window.location.href = '/dashboard';
+            }
+          }, 1200);
+        }
       }
     }, 150);
   };
@@ -1845,6 +1859,13 @@ export default function OnboardingPage() {
         toast.success('Express Onboarding Complete! ⚡', 'Unlock your dashboard and provisional job matches.');
         markOnboardingStoryPending(user?.id);
         router.push('/dashboard');
+        if (typeof window !== 'undefined') {
+          setTimeout(() => {
+            if (window.location.pathname.includes('/onboarding')) {
+              window.location.href = '/dashboard';
+            }
+          }, 1200);
+        }
       } catch (err) {
         console.error('Express onboarding failure', err);
         cOS.setOnboarding({
@@ -1856,6 +1877,13 @@ export default function OnboardingPage() {
         cOS.setOnboardingStep(3);
         markOnboardingStoryPending(user?.id);
         router.push('/dashboard');
+        if (typeof window !== 'undefined') {
+          setTimeout(() => {
+            if (window.location.pathname.includes('/onboarding')) {
+              window.location.href = '/dashboard';
+            }
+          }, 1200);
+        }
       }
     }, 300);
   };

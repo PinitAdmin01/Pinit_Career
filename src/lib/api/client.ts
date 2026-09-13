@@ -4202,6 +4202,9 @@ const LIVE_API_PREFIXES: readonly string[] = [
   '/api/advisor', '/api/services', '/api/notes', '/api/admissions', '/api/hr',
   '/api/procurement', '/api/assets', '/api/alumni', '/api/communication',
   '/api/documents', '/api/llm', '/api/payment', '/api/auth/face', '/api/attendance',
+  '/api/xp', '/api/pins', '/api/time', '/api/pathway', '/api/internships', '/api/codewars',
+  '/api/attention-span', '/api/career-twin', '/api/leaderboard', '/api/mentor', '/api/quest',
+  '/api/resume', '/api/tts',
 ];
 
 // NOTE: /api/admin is deliberately absent so client-side RBAC (profile.role)
