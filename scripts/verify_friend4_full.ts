@@ -4,6 +4,7 @@
  */
 
 import { execSync } from 'child_process';
+import * as fs from 'fs';
 import * as path from 'path';
 
 const suites = [
@@ -18,6 +19,51 @@ const suites = [
 console.log('========================================================================');
 console.log('🤖 MASTER VERIFICATION: FRIEND 4 (ISSUES 082 – 107)');
 console.log('========================================================================\n');
+
+// ── TASK 4.3: Binary 3D Asset Size & Draco Verification Assertion ──────────
+console.log('▶️  VERIFYING 3D ASSET COMPRESSION (Task 4.1 & Task 4.3)');
+const avatarDir = path.join(process.cwd(), 'public/avatar');
+const glbFiles = fs.readdirSync(avatarDir).filter(f => f.endsWith('.glb'));
+
+if (glbFiles.length < 32) {
+  console.error(`❌ Binary Asset Failure: Expected at least 32 .glb models in public/avatar/, found ${glbFiles.length}`);
+  process.exit(1);
+}
+
+const MAX_GLB_BYTES = 2.0 * 1024 * 1024; // 2.0 MB maximum threshold
+let totalDirBytes = 0;
+let assetFailed = false;
+
+for (const file of glbFiles) {
+  const filePath = path.join(avatarDir, file);
+  const stat = fs.statSync(filePath);
+  totalDirBytes += stat.size;
+  const sizeMB = stat.size / (1024 * 1024);
+
+  // Read header to verify Draco extension
+  const buf = fs.readFileSync(filePath);
+  const chunk0Len = buf.readUInt32LE(12);
+  const jsonStr = buf.toString('utf8', 20, 20 + chunk0Len);
+  const hasDraco = jsonStr.includes('KHR_draco_mesh_compression');
+
+  if (stat.size > MAX_GLB_BYTES) {
+    console.error(`  ❌ [FAIL] ${file} exceeds 2.0 MB: ${sizeMB.toFixed(2)} MB`);
+    assetFailed = true;
+  } else if (!hasDraco) {
+    console.error(`  ❌ [FAIL] ${file} missing KHR_draco_mesh_compression`);
+    assetFailed = true;
+  } else {
+    console.log(`  ✅ [PASS] ${file.padEnd(20)}: ${sizeMB.toFixed(2)} MB (Draco Verified)`);
+  }
+}
+
+console.log(`\n📦 Total Avatar Assets: ${glbFiles.length} models, ${(totalDirBytes / (1024 * 1024)).toFixed(2)} MB`);
+
+if (assetFailed) {
+  console.error('\n❌ 3D Asset Size Assertion Failed: One or more models exceed 2.0 MB or lack Draco compression.');
+  process.exit(1);
+}
+console.log('✨ 3D ASSET SIZE & DRACO VERIFICATION PASSED CLEANLY!\n');
 
 let totalPassedSuites = 0;
 let totalFailedSuites = 0;
