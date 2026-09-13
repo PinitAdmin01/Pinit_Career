@@ -1141,8 +1141,8 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
       window.dispatchEvent(new CustomEvent('pinit:activity_complete', {
         detail: {
           type: 'mission',
-          title: 'Daily Mission',
-          score: 80,
+          title: missionId || 'Daily Mission',
+          score: null, // Score must be determined by evaluation, not hardcoded
           passed: true,
         }
       }));

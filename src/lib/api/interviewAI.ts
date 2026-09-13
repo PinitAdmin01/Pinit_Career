@@ -121,7 +121,7 @@ export async function aiInterviewEvaluate(
 }`;
 
   try {
-    const raw = await callServerLLM([{ role:'user', content:`Mode: ${mode.toUpperCase()} | Role: ${roleKey}\n\nTRANSCRIPT:\n${formatted.slice(0,7000)}` }], system, 800);
+    const raw = await callServerLLM([{ role:'user', content:`Mode: ${mode.toUpperCase()} | Role: ${roleKey}\n\nTRANSCRIPT:\n${formatted.slice(0, 35000)}` }], system, 800);
     const parsed = JSON.parse(raw.replace(/```json|```/g,'').trim());
     const evaluation = sanitizeEvaluationResult(parsed);
 
