@@ -21,6 +21,7 @@ import {
 } from '@/lib/interview/scoringMatrix';
 
 // Dynamic import of 3D VRoid Avatar to protect SSR
+import { preloadAvatarGLB } from '@/components/avatar/VRoidInterviewAvatar';
 const VRoidInterviewAvatar = dynamic(
   () => import('@/components/avatar/VRoidInterviewAvatar'),
   { ssr: false }
@@ -344,6 +345,11 @@ export default function InterviewPage() {
 
   // Maintain consistent avatar across all rounds of a session (avoids 4x WebGL canvas teardown)
   const [activeTeacher, setActiveTeacher] = useState(AVATAR_POOL[0]);
+
+  // Preload avatar GLB assets in background when candidate enters interview lobby
+  useEffect(() => {
+    preloadAvatarGLB([activeTeacher.id, 'priya', 'anish']);
+  }, [activeTeacher.id]);
 
   const selectRandomTeacherForSession = useCallback(() => {
     const randomIndex = Math.floor(Math.random() * AVATAR_POOL.length);

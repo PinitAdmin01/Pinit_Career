@@ -20,19 +20,33 @@ export default function VRoidInterviewAvatar({ teacherId = 'priya', animState = 
   useEffect(() => {
     setIsLoading(true);
     if (!canvasRef.current) return;
+    const canvas = canvasRef.current;
     const scene = new VRoidAvatarEngine();
     sceneRef.current = scene;
+
+    // 8-second safety timeout: degrades smoothly to 2D fallback if network is slow
     const safetyTimer = setTimeout(() => {
       setIsLoading(false);
-    }, 10000);
+    }, 8000);
 
     scene.onReady = () => {
       clearTimeout(safetyTimer);
       setIsLoading(false);
     };
+
+    // Immediate 2D portrait fallback if WebGL context is lost (GPU crash or low memory)
+    const handleContextLost = (e: Event) => {
+      e.preventDefault();
+      console.warn("[VRoid Avatar] WebGL context lost (webglcontextlost). Falling back to 2D portrait immediately.");
+      clearTimeout(safetyTimer);
+      setHasWebGLError(true);
+      setIsLoading(false);
+    };
+    canvas.addEventListener('webglcontextlost', handleContextLost, false);
+
     scene.paused = paused || !visible;
     try {
-      scene.init(canvasRef.current, teacherId);
+      scene.init(canvas, teacherId);
       scene.setState(animState);
       if (scene.camera) {
         scene.camera.position.z = zoom;
@@ -54,10 +68,11 @@ export default function VRoidInterviewAvatar({ teacherId = 'priya', animState = 
         sceneRef.current.resize(entry.contentRect.width, entry.contentRect.height);
       }
     });
-    ro.observe(canvasRef.current);
+    ro.observe(canvas);
 
     return () => {
       clearTimeout(safetyTimer);
+      canvas.removeEventListener('webglcontextlost', handleContextLost);
       ro.disconnect();
       scene.dispose();
       if (typeof window !== 'undefined') {
@@ -151,9 +166,11 @@ export default function VRoidInterviewAvatar({ teacherId = 'priya', animState = 
   );
 }
 
-export function preloadAvatarGLB(teacherIds: string[] = ['priya', 'anish']) {
+export function preloadAvatarGLB(teacherIds: string | string[] = ['priya', 'anish']) {
   if (typeof window === 'undefined') return;
-  teacherIds.forEach(id => {
+  const list = Array.isArray(teacherIds) ? teacherIds : [teacherIds];
+  list.forEach(id => {
+    if (!id) return;
     const charId = id.toLowerCase().trim();
     const url = `/avatar/${charId}.glb`;
     fetch(url, { mode: 'cors', cache: 'force-cache' }).catch(() => {});
