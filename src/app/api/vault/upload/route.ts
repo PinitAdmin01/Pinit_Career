@@ -28,6 +28,7 @@
 
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest, getBearerToken, getAuthoritativeSupabaseClient } from '@/lib/server/requireAuth';
+import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 import { validateDocumentSecurity } from '@/lib/ats/documentGateway';
 import { extractDocumentEvidence } from '@/lib/ats/pdfTextExtractor';
 import { groundAndValidateEvidence } from '@/lib/ats/factCheckValidator';
@@ -41,6 +42,10 @@ import {
 
 export async function POST(req: Request) {
   const startTime = Date.now();
+  const ip = getClientIp(req);
+  const rl = checkRateLimit(`vault_upload_${ip}`, { limit: 10, windowMs: 3_600_000 });
+  if (!rl.allowed) return NextResponse.json({ error: 'RATE_LIMIT' }, { status: 429 });
+
   console.log(`\n================================================================================`);
   console.log(`🚀 [VAULT UPLOAD INGESTION PIPELINE]: New document upload request received at ${new Date().toISOString()}`);
   console.log(`================================================================================`);
@@ -54,6 +59,15 @@ export async function POST(req: Request) {
       return gated.error;
     }
 
+    const MAX_VAULT_BYTES = 10 * 1024 * 1024; // 10MB per file
+    const contentLength = parseInt(req.headers.get('content-length') || '0', 10);
+    if (contentLength > MAX_VAULT_BYTES) {
+      return NextResponse.json(
+        { error: 'FILE_TOO_LARGE', message: 'Max file size is 10MB per upload.' },
+        { status: 413 }
+      );
+    }
+
     const userId = gated.user.id;
     const token = getBearerToken(req);
     const supabase = getAuthoritativeSupabaseClient(token);
@@ -61,6 +75,15 @@ export async function POST(req: Request) {
 
     const formData = await req.formData();
     const file = formData.get('file') as File | null;
+    if (!file) {
+      return NextResponse.json({ error: 'FILE_MISSING', message: 'No file provided in form-data' }, { status: 400 });
+    }
+    if (file.size > MAX_VAULT_BYTES) {
+      return NextResponse.json(
+        { error: 'FILE_TOO_LARGE', message: 'Max file size is 10MB per upload.' },
+        { status: 413 }
+      );
+    }
     const targetCategory = (formData.get('category') as string) || '';
     const primaryName = (formData.get('primaryName') as string) || '';
 

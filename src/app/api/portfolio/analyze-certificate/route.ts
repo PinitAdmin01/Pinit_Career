@@ -1,9 +1,14 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { signExamSessionToken } from '@/lib/portfolio/examToken';
+import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 
 export async function POST(req: Request) {
   try {
+    const ip = getClientIp(req);
+    const rl = checkRateLimit(`analyze_cert_${ip}`, { limit: 20, windowMs: 3_600_000 });
+    if (!rl.allowed) return NextResponse.json({ error: 'RATE_LIMIT' }, { status: 429 });
+
     const gated = await requireUserFromRequest(req);
     if (gated.error) return gated.error;
 

@@ -65,7 +65,11 @@ function executeNodeVmSuite(
   let vmModule: any = null;
   if (typeof window === 'undefined') {
     try {
-      vmModule = eval('require')('vm');
+      if (typeof require !== 'undefined') {
+        vmModule = require('vm');
+      } else {
+        vmModule = null; // Browser: no VM module
+      }
     } catch {}
   }
 

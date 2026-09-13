@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { sanitizeLLMOutput } from '@/lib/sanitizeLLM';
+import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 
 export interface AssistRequest {
   question: string;
@@ -162,6 +163,10 @@ function getFallbackAssistScript(
 }
 
 export async function POST(req: Request) {
+  const ip = getClientIp(req);
+  const rl = checkRateLimit(`interview_assist_${ip}`, { limit: 30, windowMs: 60_000 });
+  if (!rl.allowed) return NextResponse.json({ error: 'RATE_LIMIT' }, { status: 429 });
+
   console.log('[Interview Assist API] Incoming request received at /api/interview/assist');
 
   try {

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { sanitizeLLMOutput } from '@/lib/sanitizeLLM';
+import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 
 export interface DynamicProblemRequest {
   topic: string;
@@ -128,6 +129,10 @@ function generateSemanticProblemFallback(
 }
 
 export async function POST(req: Request) {
+  const ip = getClientIp(req);
+  const rl = checkRateLimit(`interview_gen_problem_${ip}`, { limit: 10, windowMs: 3_600_000 });
+  if (!rl.allowed) return NextResponse.json({ error: 'RATE_LIMIT' }, { status: 429 });
+
   console.log('[Dynamic Problem API] Incoming problem generation request received');
 
   try {

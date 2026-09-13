@@ -6,6 +6,7 @@ import os from 'os';
 import crypto from 'crypto';
 import { createClient } from '@supabase/supabase-js';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
+import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 
 // STAGE 1 FIX (§3.5 / §3.6 — Java completion authority):
 // Previously, after this route returned `allPassed: true`, the ONLY completion
@@ -72,6 +73,10 @@ export function getAuthoritativeQuestXp(questId?: string): number {
 }
 
 export async function POST(req: NextRequest) {
+  const ip = getClientIp(req);
+  const rl = checkRateLimit(`code_run_java_${ip}`, { limit: 15, windowMs: 60_000 });
+  if (!rl.allowed) return NextResponse.json({ error: 'RATE_LIMIT' }, { status: 429 });
+
   const startTime = Date.now();
 
   try {

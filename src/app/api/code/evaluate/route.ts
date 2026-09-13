@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import vm from 'node:vm';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { CodeWarsApiService } from '@/lib/api/codeWarsApi';
+import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 
 export function validateVmCodeSecurity(code: string): { safe: boolean; reason?: string } {
   const forbiddenPatterns = [
@@ -91,6 +92,10 @@ export const CODEWARS_PROBLEM_REGISTRY: Record<
 
 export async function POST(req: NextRequest) {
   try {
+    const ip = getClientIp(req);
+    const rl = checkRateLimit(`code_eval_${ip}`, { limit: 20, windowMs: 60_000 });
+    if (!rl.allowed) return NextResponse.json({ error: 'RATE_LIMIT' }, { status: 429 });
+
     const auth = await requireUserFromRequest(req);
     if (auth.error) {
       return auth.error;

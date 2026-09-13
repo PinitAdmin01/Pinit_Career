@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { createClient } from '@supabase/supabase-js';
 import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
+import { validateBody } from '@/lib/server/validate';
+import { z } from 'zod';
 
 // Authoritative Action Type Registry (Task 2.3)
 export const VALID_ACTION_TYPES = new Set([
@@ -46,7 +48,7 @@ export async function POST(req: Request) {
 
     const body = await req.json().catch(() => ({}));
     const amount = Number(body?.amount);
-    const reason = typeof body?.reason === 'string' ? body.reason.trim() : 'XP Award';
+    const reason = typeof body?.reason === 'string' ? body.reason.trim().slice(0, 200) : 'XP Award';
     const actionType = typeof body?.actionType === 'string' ? body.actionType.trim().toLowerCase() : null;
 
     if (!Number.isInteger(amount) || amount <= 0 || amount > 500) {

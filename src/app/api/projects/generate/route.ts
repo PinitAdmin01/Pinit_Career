@@ -1,5 +1,15 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
+import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
+import { validateBody } from '@/lib/server/validate';
+import { z } from 'zod';
+
+const ProjectGenerateSchema = z.object({
+  goal: z.string().max(200).optional().default('Full Stack Engineer'),
+  skills: z.array(z.string().max(100)).optional().default([]),
+  education: z.string().max(200).optional().default(''),
+  experienceLevel: z.string().max(100).optional().default(''),
+});
 
 export interface GeneratedProject {
   id: string;
@@ -511,6 +521,10 @@ function getDomainFallback(goal: string, skills: string[]): GeneratedProject[] {
 
 export async function POST(req: Request) {
   try {
+    const ip = getClientIp(req);
+    const rl = checkRateLimit(`projects_gen_${ip}`, { limit: 10, windowMs: 3_600_000 });
+    if (!rl.allowed) return NextResponse.json({ error: 'RATE_LIMIT' }, { status: 429 });
+
     const gated = await requireUserFromRequest(req);
     // Allow guest mode preview if auth header is not provided, but record if authenticated
     const userId = gated.user ? gated.user.id : 'guest';
@@ -522,10 +536,13 @@ export async function POST(req: Request) {
       body = {};
     }
 
-    const goal = String(body.goal || 'Full Stack Engineer').trim();
-    const skills = Array.isArray(body.skills) ? body.skills.map((s: any) => String(s).trim()).filter(Boolean) : [];
-    const education = String(body.education || '').trim();
-    const experienceLevel = String(body.experienceLevel || '').trim();
+    const { data, error } = validateBody(ProjectGenerateSchema, body);
+    if (error) return error;
+
+    const goal = data.goal.trim() || 'Full Stack Engineer';
+    const skills = data.skills.map((s: string) => s.trim()).filter(Boolean);
+    const education = data.education.trim();
+    const experienceLevel = data.experienceLevel.trim();
 
     const openRouterKey = process.env.OPENROUTER_API_KEY;
     const groqKeysStr = process.env.GROQ_API_KEYS || '';

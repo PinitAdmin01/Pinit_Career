@@ -1,6 +1,12 @@
 import { NextResponse } from 'next/server';
 import { financeService } from '@/lib/services/financeService';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
+import { validateBody } from '@/lib/server/validate';
+import { z } from 'zod';
+
+const PayDueSchema = z.object({
+  installmentId: z.string().min(1, 'installmentId is required'),
+});
 
 export async function POST(req: Request) {
   try {
@@ -14,10 +20,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'INVALID_JSON', message: 'Malformed JSON payload' }, { status: 400 });
     }
 
-    const { installmentId } = body || {};
-    if (!installmentId) {
-      return NextResponse.json({ error: 'MISSING_FIELD', message: 'installmentId is required' }, { status: 400 });
-    }
+    const { data, error } = validateBody(PayDueSchema, body);
+    if (error) return error;
+
+    const { installmentId } = data;
 
     const studentId = gated.user!.id;
     const studentName = gated.user!.email || 'Student';

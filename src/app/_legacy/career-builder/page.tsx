@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import CareerBuilderClient from './CareerBuilderClient';
+import { sanitizeHtml } from '@/lib/sanitize';
 
 export const metadata: Metadata = {
   title: 'AI Trajectory Builder',
@@ -28,7 +29,7 @@ export default function CareerBuilderPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        dangerouslySetInnerHTML={{ __html: sanitizeHtml(JSON.stringify(schema)) }}
       />
       <CareerBuilderClient />
     </>

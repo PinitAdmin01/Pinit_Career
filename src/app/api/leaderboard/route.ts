@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabaseClient';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
+import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 
 export interface LeaderboardEntry {
   rank: number;
@@ -21,6 +22,10 @@ export interface LeaderboardEntry {
 
 export async function GET(req: Request) {
   try {
+    const ip = getClientIp(req);
+    const rl = checkRateLimit(`leaderboard_${ip}`, { limit: 60, windowMs: 60_000 });
+    if (!rl.allowed) return NextResponse.json({ error: 'RATE_LIMIT' }, { status: 429 });
+
     const gated = await requireUserFromRequest(req);
     const currentUserId = gated.user?.id;
 

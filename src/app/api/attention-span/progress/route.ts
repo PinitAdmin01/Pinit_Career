@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { supabase } from '@/lib/supabaseClient';
 import crypto from 'crypto';
+import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 
 interface AttentionStats {
   focusFireBest: number;
@@ -143,6 +144,10 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   try {
+    const ip = getClientIp(req);
+    const rl = checkRateLimit(`attention_progress_${ip}`, { limit: 30, windowMs: 60_000 });
+    if (!rl.allowed) return NextResponse.json({ error: 'RATE_LIMIT' }, { status: 429 });
+
     const gated = await requireUserFromRequest(req);
     if (gated.error) return gated.error;
 

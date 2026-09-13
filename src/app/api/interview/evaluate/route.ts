@@ -1,6 +1,24 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { sanitizeLLMOutput, sanitizeEvaluationResult } from '@/lib/sanitizeLLM';
+import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
+import { validateBody } from '@/lib/server/validate';
+import { z } from 'zod';
+
+const InterviewEvaluateSchema = z.object({
+  type: z.string().optional(),
+  topology: z.any().optional(),
+  history: z.array(z.any()).optional().default([]),
+  codingScore: z.number().optional(),
+  telemetry: z.any().optional(),
+  domainStream: z.string().optional(),
+  domainSubTopic: z.string().optional(),
+  roleKey: z.string().optional(),
+  archetype: z.string().optional(),
+  explanation: z.string().optional(),
+  transcript: z.string().optional(),
+  currentStage: z.string().optional(),
+}).passthrough();
 import {
   calculateRoleWeightedScore,
   generatePersonaCoaching,
@@ -30,10 +48,17 @@ export function formatTranscriptForEvaluation(formatted: string, maxLimit = 3500
 
 export async function POST(req: Request) {
   try {
+    const ip = getClientIp(req);
+    const rl = checkRateLimit(`interview_eval_${ip}`, { limit: 20, windowMs: 3_600_000 });
+    if (!rl.allowed) return NextResponse.json({ error: 'RATE_LIMIT' }, { status: 429 });
+
     const gated = await requireUserFromRequest(req);
     if (gated.error) return gated.error;
 
-    const body = await req.json();
+    const rawBody = await req.json();
+    const { data: body, error } = validateBody(InterviewEvaluateSchema, rawBody);
+    if (error) return error;
+
     const {
       type,
       topology,
@@ -89,8 +114,10 @@ export async function POST(req: Request) {
     const roleConfig = ROLE_SCORING_MATRICES[roleKey] || ROLE_SCORING_MATRICES.sde;
     const topic = domainSubTopic || roleConfig.roleName;
 
-    const validArchetypes: MindsetArchetype[] = ['Pattern Hunter', 'Explorer', 'Social IQ', 'Stabilizer'];
-    const archetype: MindsetArchetype = validArchetypes.includes(rawArchetype) ? rawArchetype : 'Pattern Hunter';
+    const validArchetypes = ['Pattern Hunter', 'Explorer', 'Social IQ', 'Stabilizer'] as const;
+    const archetype: MindsetArchetype = (rawArchetype && (validArchetypes as readonly string[]).includes(rawArchetype))
+      ? (rawArchetype as MindsetArchetype)
+      : 'Pattern Hunter';
 
     const formatted = (history || [])
       .map((t: any) => `${t.role === 'assistant' ? 'INTERVIEWER' : 'CANDIDATE'}: ${t.content}`)

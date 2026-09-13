@@ -1,6 +1,13 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { supabase } from '@/lib/supabaseClient';
+import { validateBody } from '@/lib/server/validate';
+import { z } from 'zod';
+
+const CareerTwinResultsSchema = z.object({
+  answers: z.record(z.string(), z.any()).optional(),
+  onboardingAnswers: z.record(z.string(), z.any()).optional(),
+}).passthrough();
 
 export interface CareerPath {
   name: string;
@@ -187,8 +194,11 @@ export async function POST(req: Request) {
     const gated = await requireUserFromRequest(req);
     if (gated.error) return gated.error;
 
-    const body = await req.json();
-    const customAnswers = body?.answers || body?.onboardingAnswers;
+    const rawBody = await req.json().catch(() => ({}));
+    const { data, error } = validateBody(CareerTwinResultsSchema, rawBody);
+    if (error) return error;
+
+    const customAnswers = data.answers || data.onboardingAnswers;
 
     let profileData: any = null;
     try {

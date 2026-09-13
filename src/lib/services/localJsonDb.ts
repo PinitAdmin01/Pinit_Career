@@ -17,7 +17,8 @@ const MEMORY_MS = 1500;
 function nodeFs(): typeof import('fs') | null {
   if (typeof window !== 'undefined') return null;
   try {
-    return eval('require')('fs') as typeof import('fs');
+    if (typeof require !== 'undefined') { return require('fs') as typeof import('fs'); }
+    throw new Error('localJsonDb: fs not available in this runtime (serverless/edge)');
   } catch {
     return null;
   }
@@ -26,7 +27,8 @@ function nodeFs(): typeof import('fs') | null {
 function nodePath(): typeof import('path') | null {
   if (typeof window !== 'undefined') return null;
   try {
-    return eval('require')('path') as typeof import('path');
+    if (typeof require !== 'undefined') { return require('path') as typeof import('path'); }
+    throw new Error('localJsonDb: path not available in this runtime (serverless/edge)');
   } catch {
     return null;
   }
