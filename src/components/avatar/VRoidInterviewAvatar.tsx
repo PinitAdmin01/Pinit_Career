@@ -29,6 +29,7 @@ export default function VRoidInterviewAvatar({ teacherId = 'priya', animState = 
       }
       if (typeof window !== 'undefined') {
         (window as any).interviewAvatarScene = scene;
+        window.dispatchEvent(new CustomEvent('pinit_vroid_active', { detail: { active: true } }));
       }
     } catch (e) {
       console.warn("[VRoid Avatar] WebGL Engine initialization failed, falling back to 2D portrait:", e);
@@ -46,6 +47,12 @@ export default function VRoidInterviewAvatar({ teacherId = 'priya', animState = 
     return () => {
       ro.disconnect();
       scene.dispose();
+      if (typeof window !== 'undefined') {
+        if ((window as any).interviewAvatarScene === scene) {
+          delete (window as any).interviewAvatarScene;
+        }
+        window.dispatchEvent(new CustomEvent('pinit_vroid_active', { detail: { active: false } }));
+      }
     };
   }, [teacherId]);
 
@@ -90,7 +97,7 @@ export default function VRoidInterviewAvatar({ teacherId = 'priya', animState = 
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-      <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
+      <canvas ref={canvasRef} data-vroid-canvas="true" style={{ width: '100%', height: '100%', display: 'block' }} />
     </div>
   );
 }

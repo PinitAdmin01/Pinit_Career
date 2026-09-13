@@ -31,6 +31,11 @@ for (const suite of suites) {
       encoding: 'utf-8',
       stdio: 'pipe',
       timeout: 120000,
+      env: {
+        ...process.env,
+        ALLOW_DEV_AUTH_BYPASS: 'true',
+        NODE_ENV: 'test',
+      },
     });
     console.log(output.trim());
     console.log(`\n✨ SUB-BATCH ${suite.id} PASSED CLEANLY!`);

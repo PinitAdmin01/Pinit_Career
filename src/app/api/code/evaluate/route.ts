@@ -64,6 +64,31 @@ export async function executeWithTimeout<T>(
   });
 }
 
+export const CODEWARS_PROBLEM_REGISTRY: Record<
+  string,
+  {
+    functionName: string;
+    totalTests: number;
+    evaluator: (fn: Function) => { passedCount: number; errorLog?: string };
+  }
+> = {
+  war_tree_lca_01: {
+    functionName: 'lowestCommonAncestor',
+    totalTests: 3,
+    evaluator: (fn) => CodeWarsApiService.evaluateLcaTestCases(fn),
+  },
+  war_concurrency_deadlock_02: {
+    functionName: 'acquireResourcesDeterministically',
+    totalTests: 2,
+    evaluator: (fn) => CodeWarsApiService.evaluateConcurrencyTestCases(fn),
+  },
+  war_sql_btree_query_03: {
+    functionName: 'generateOptimalCompositeIndex',
+    totalTests: 2,
+    evaluator: (fn) => CodeWarsApiService.evaluateSqlTestCases(fn),
+  },
+};
+
 export async function POST(req: NextRequest) {
   try {
     const auth = await requireUserFromRequest(req);
@@ -78,6 +103,32 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Code is required' }, { status: 400 });
     }
 
+    // Task 4.1: Reject unknown or missing problem IDs with HTTP 400 UNSUPPORTED_PROBLEM
+    if (!problemId || !CODEWARS_PROBLEM_REGISTRY[problemId]) {
+      return NextResponse.json(
+        {
+          passed: false,
+          status: 'UNSUPPORTED_PROBLEM',
+          error: 'UNSUPPORTED_PROBLEM',
+          message: `Problem '${problemId}' is not supported for evaluation.`,
+        },
+        { status: 400 }
+      );
+    }
+
+    const problemConfig = CODEWARS_PROBLEM_REGISTRY[problemId];
+
+    if (language && !['javascript', 'typescript', 'js', 'ts'].includes(language.toLowerCase())) {
+      return NextResponse.json(
+        {
+          passed: false,
+          status: 'UNSUPPORTED_LANGUAGE',
+          error: `Language '${language}' is not supported by the sandbox evaluator. Only JavaScript and TypeScript are supported.`,
+        },
+        { status: 400 }
+      );
+    }
+
     const secCheck = validateVmCodeSecurity(code);
     if (!secCheck.safe) {
       return NextResponse.json(
@@ -85,65 +136,121 @@ export async function POST(req: NextRequest) {
           passed: false,
           status: 'SECURITY_VIOLATION',
           reason: secCheck.reason,
+          error: `Security violation: ${secCheck.reason}`,
         },
         { status: 400 }
       );
     }
 
-    // Clean code for execution
-    const cleanCode = code
-      .replace(/:\s*[A-Za-z0-9_<>|\[\]\s]+(?=\s*[\),={])/g, '')
-      .replace(/<[A-Za-z0-9_,\s]+>/g, '');
+    // Clean code for execution using authoritative cleaner
+    const cleanCode = CodeWarsApiService.cleanTypeScriptForExecution(code);
 
     // Execute in secure, isolated node:vm sandbox
     const sandbox: Record<string, any> = Object.create(null);
     sandbox.console = Object.freeze({ log: () => {}, error: () => {}, warn: () => {} });
+    sandbox.Math = Math;
+    sandbox.Date = Date;
+    sandbox.Array = Array;
+    sandbox.Object = Object;
+    sandbox.String = String;
+    sandbox.Number = Number;
+    sandbox.Boolean = Boolean;
+    sandbox.RegExp = RegExp;
+    sandbox.JSON = JSON;
+    sandbox.parseInt = parseInt;
+    sandbox.parseFloat = parseFloat;
+    sandbox.isNaN = isNaN;
+    sandbox.isFinite = isFinite;
+    sandbox.Map = Map;
+    sandbox.Set = Set;
+
+    let targetFn: Function | null = null;
+    sandbox.__exportFn = (fn: Function) => {
+      targetFn = fn;
+    };
+
     const context = vm.createContext(sandbox);
 
-    const script = new vm.Script(`
-      ${cleanCode}
-      if (typeof lowestCommonAncestor === 'function') {
-        globalThis.__resultFn = lowestCommonAncestor;
+    const scriptPreamble = `
+      if (typeof TreeNode === 'undefined') {
+        function TreeNode(val, left, right) {
+          this.val = (val === undefined ? 0 : val);
+          this.left = (left === undefined ? null : left);
+          this.right = (right === undefined ? null : right);
+        }
       }
-    `);
+    `;
+
+    const scriptPostamble = `
+      if (typeof ${problemConfig.functionName} === 'function') {
+        __exportFn(${problemConfig.functionName});
+      }
+    `;
+
+    // Task 4.3: Add clean error handling when non-JavaScript/invalid syntax is submitted
+    let script: vm.Script;
+    try {
+      script = new vm.Script(`${scriptPreamble}\n${cleanCode}\n${scriptPostamble}`, {
+        filename: 'submission.js',
+      });
+    } catch (syntaxErr: any) {
+      return NextResponse.json(
+        {
+          passed: false,
+          status: 'SYNTAX_ERROR',
+          testsPassed: 0,
+          totalTests: problemConfig.totalTests,
+          error: `Invalid JavaScript syntax: ${syntaxErr?.message || 'Syntax error'}`,
+        },
+        { status: 400 }
+      );
+    }
 
     // Execution timeout wrapper around VM script execution
-    await executeWithTimeout(async () => {
-      script.runInContext(context, { timeout: 2000 });
-    }, 2500);
+    try {
+      await executeWithTimeout(async () => {
+        script.runInContext(context, { timeout: 2000 });
+      }, 2500);
+    } catch (runErr: any) {
+      return NextResponse.json(
+        {
+          passed: false,
+          status: 'RUNTIME_ERROR',
+          testsPassed: 0,
+          totalTests: problemConfig.totalTests,
+          error: `Runtime error during initialization: ${runErr?.message || 'Execution error'}`,
+        },
+        { status: 400 }
+      );
+    }
 
-    const targetFn = sandbox.__resultFn;
     if (typeof targetFn !== 'function') {
       return NextResponse.json(
         {
           passed: false,
           status: 'EXECUTION_ERROR',
-          error: 'Solution function not found',
+          testsPassed: 0,
+          totalTests: problemConfig.totalTests,
+          error: `Solution function '${problemConfig.functionName}' was not found or not defined.`,
         },
         { status: 400 }
       );
     }
 
-    if (problemId === 'war_tree_lca_01') {
-      const evalRes = await executeWithTimeout(async () => {
-        return CodeWarsApiService.evaluateLcaTestCases(targetFn);
-      }, 2500);
+    // Task 4.1: Authoritatively evaluate target function against problem test cases
+    const evalRes = await executeWithTimeout(async () => {
+      return problemConfig.evaluator(targetFn!);
+    }, 2500);
 
-      const passed = evalRes.passedCount === 3;
-      return NextResponse.json({
-        passed,
-        status: passed ? 'SUCCESS' : 'FAILED',
-        testsPassed: evalRes.passedCount,
-        totalTests: 3,
-        error: evalRes.errorLog,
-      });
-    }
+    const totalTests = problemConfig.totalTests;
+    const passed = evalRes.passedCount === totalTests;
 
     return NextResponse.json({
-      passed: true,
-      status: 'SUCCESS',
-      testsPassed: 3,
-      totalTests: 3,
+      passed,
+      status: passed ? 'SUCCESS' : 'FAILED',
+      testsPassed: evalRes.passedCount,
+      totalTests,
+      error: evalRes.errorLog,
     });
   } catch (err: any) {
     return NextResponse.json(

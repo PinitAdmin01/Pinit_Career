@@ -263,39 +263,56 @@ export class CodeWarsApiService {
     try {
       const isTsOrJs = language === 'typescript' || language === 'javascript';
       if (isTsOrJs) {
-        const cleanedCode = CodeWarsApiService.cleanTypeScriptForExecution(code);
-        const factory = new Function(`
-          if (typeof TreeNode === 'undefined') {
-            function TreeNode(val, left, right) {
-              this.val = (val === undefined ? 0 : val);
-              this.left = (left === undefined ? null : left);
-              this.right = (right === undefined ? null : right);
-            }
+        // Delegate evaluation to secured sandbox endpoint (/api/code/evaluate) or secure node:vm sandbox
+        let evalResult: {
+          passed?: boolean;
+          status?: string;
+          testsPassed?: number;
+          totalTests?: number;
+          error?: string;
+        } | null = null;
+
+        if (typeof window !== 'undefined') {
+          try {
+            let headers: Record<string, string> = { 'Content-Type': 'application/json' };
+            try {
+              const { supabase } = await import('@/lib/supabaseClient');
+              const { data: { session } } = await supabase.auth.getSession();
+              if (session?.access_token) {
+                headers['Authorization'] = `Bearer ${session.access_token}`;
+              }
+            } catch {}
+
+            const res = await fetch('/api/code/evaluate', {
+              method: 'POST',
+              headers,
+              body: JSON.stringify({
+                problemId: problem.id,
+                code,
+                language,
+              }),
+            });
+            evalResult = await res.json();
+          } catch (fetchErr: any) {
+            evalErrorLog = `Sandbox evaluation request failed: ${fetchErr?.message || 'Network error'}`;
           }
-          ${cleanedCode}
-          if (typeof lowestCommonAncestor === 'function') return lowestCommonAncestor;
-          if (typeof acquireResourcesDeterministically === 'function') return acquireResourcesDeterministically;
-          if (typeof generateOptimalCompositeIndex === 'function') return generateOptimalCompositeIndex;
-          return null;
-        `);
-        const targetFn = factory();
-        if (!targetFn || typeof targetFn !== 'function') {
-          evalErrorLog = 'Required solution function was not defined or failed syntax parsing.';
         } else {
-          if (problem.id === 'war_tree_lca_01') {
-            const res = CodeWarsApiService.evaluateLcaTestCases(targetFn);
-            testsPassed = res.passedCount;
-            evalErrorLog = res.errorLog;
-          } else if (problem.id === 'war_concurrency_deadlock_02') {
-            const res = CodeWarsApiService.evaluateConcurrencyTestCases(targetFn);
-            testsPassed = res.passedCount;
-            evalErrorLog = res.errorLog;
-          } else if (problem.id === 'war_sql_btree_query_03') {
-            const res = CodeWarsApiService.evaluateSqlTestCases(targetFn);
-            testsPassed = res.passedCount;
-            evalErrorLog = res.errorLog;
-          } else {
-            testsPassed = totalTests;
+          // Server / test CLI environment: execute in secure isolated node:vm sandbox (no raw new Function)
+          try {
+            evalResult = await CodeWarsApiService.evaluateInNodeVmSandbox({
+              problemId: problem.id,
+              code,
+              language,
+            });
+          } catch (sandboxErr: any) {
+            evalErrorLog = `Sandbox evaluation error: ${sandboxErr?.message || 'VM execution failed'}`;
+          }
+        }
+
+        if (evalResult) {
+          testsPassed = typeof evalResult.testsPassed === 'number' ? evalResult.testsPassed : 0;
+          if (evalResult.error) {
+            evalErrorLog = evalResult.error;
           }
         }
       } else {
@@ -424,14 +441,275 @@ export class CodeWarsApiService {
     }
   }
 
-  private static cleanTypeScriptForExecution(tsCode: string): string {
+  static cleanTypeScriptForExecution(tsCode: string): string {
     let cleaned = tsCode;
     cleaned = cleaned.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*/g, '');
-    cleaned = cleaned.replace(/interface\s+\w+\s*\{[\s\S]*?\}/g, '');
+    cleaned = cleaned.replace(/interface\s+[\s\S]*?\{[\s\S]*?\}/g, '');
     cleaned = cleaned.replace(/type\s+\w+\s*=\s*[^;]+;/g, '');
-    cleaned = cleaned.replace(/:\s*[A-Za-z0-9_<>|\[\]\s]+(?=,|\))/g, '');
+    cleaned = cleaned.replace(/:\s*[A-Za-z0-9_<>|\[\]\s]+(?=\s*[\),={])/g, '');
+    cleaned = cleaned.replace(/<[A-Za-z0-9_,\s]+>/g, '');
     cleaned = cleaned.replace(/\)\s*:\s*[A-Za-z0-9_<>|\[\]\s]+(?=\s*\{)/g, ')');
     return cleaned;
+  }
+
+  /**
+   * Evaluates solution code in an isolated node:vm sandbox (never raw new Function)
+   * Enforces security token validation, prototype pollution guards, and execution timeout.
+   */
+  static async evaluateInNodeVmSandbox(params: {
+    problemId: string;
+    code: string;
+    language?: string;
+  }): Promise<{
+    passed: boolean;
+    status: string;
+    testsPassed: number;
+    totalTests: number;
+    error?: string;
+  }> {
+    const { problemId, code } = params;
+
+    let vmModule: any = null;
+    if (typeof window === 'undefined') {
+      try {
+        vmModule = eval('require')('node:vm');
+      } catch {
+        try {
+          vmModule = eval('require')('vm');
+        } catch {}
+      }
+    }
+
+    if (!vmModule) {
+      return {
+        passed: false,
+        status: 'VM_UNAVAILABLE',
+        testsPassed: 0,
+        totalTests: 0,
+        error: 'Node VM module is not available in this environment.',
+      };
+    }
+
+    const forbiddenPatterns = [
+      { pattern: /\bprocess\b/i, token: 'process' },
+      { pattern: /\brequire\b/i, token: 'require' },
+      { pattern: /\bimport\b/i, token: 'import' },
+      { pattern: /\bglobal\b/i, token: 'global' },
+      { pattern: /\bglobalThis\b/i, token: 'globalThis' },
+      { pattern: /\bchild_process\b/i, token: 'child_process' },
+      { pattern: /\bfs\b/i, token: 'fs' },
+      { pattern: /\bFunction\b/, token: 'Function' },
+      { pattern: /\beval\b/i, token: 'eval' },
+      { pattern: /\bconstructor\b/i, token: 'constructor' },
+      { pattern: /__proto__/i, token: '__proto__' },
+      { pattern: /\bprototype\b/i, token: 'prototype' },
+      { pattern: /\bReflect\b/i, token: 'Reflect' },
+      { pattern: /\bgetPrototypeOf\b/i, token: 'getPrototypeOf' },
+      { pattern: /\bsetPrototypeOf\b/i, token: 'setPrototypeOf' },
+    ];
+
+    for (const { pattern, token } of forbiddenPatterns) {
+      if (pattern.test(code)) {
+        return {
+          passed: false,
+          status: 'SECURITY_VIOLATION',
+          testsPassed: 0,
+          totalTests: 0,
+          error: `Security violation: Forbidden token ${token}`,
+        };
+      }
+    }
+
+    const registry: Record<
+      string,
+      {
+        fnName: string;
+        totalTests: number;
+        evaluator: (fn: Function) => { passedCount: number; errorLog?: string };
+      }
+    > = {
+      war_tree_lca_01: {
+        fnName: 'lowestCommonAncestor',
+        totalTests: 3,
+        evaluator: (fn) => CodeWarsApiService.evaluateLcaTestCases(fn),
+      },
+      war_concurrency_deadlock_02: {
+        fnName: 'acquireResourcesDeterministically',
+        totalTests: 2,
+        evaluator: (fn) => CodeWarsApiService.evaluateConcurrencyTestCases(fn),
+      },
+      war_sql_btree_query_03: {
+        fnName: 'generateOptimalCompositeIndex',
+        totalTests: 2,
+        evaluator: (fn) => CodeWarsApiService.evaluateSqlTestCases(fn),
+      },
+    };
+
+    const targetConfig = registry[problemId];
+    if (!targetConfig) {
+      return {
+        passed: false,
+        status: 'UNSUPPORTED_PROBLEM',
+        testsPassed: 0,
+        totalTests: 0,
+        error: `Problem '${problemId}' is not supported for evaluation.`,
+      };
+    }
+
+    const cleanedCode = CodeWarsApiService.cleanTypeScriptForExecution(code);
+
+    const sandbox: Record<string, any> = Object.create(null);
+    sandbox.console = Object.freeze({ log: () => {}, error: () => {}, warn: () => {} });
+    sandbox.Math = Math;
+    sandbox.Date = Date;
+    sandbox.Array = Array;
+    sandbox.Object = Object;
+    sandbox.String = String;
+    sandbox.Number = Number;
+    sandbox.Boolean = Boolean;
+    sandbox.RegExp = RegExp;
+    sandbox.JSON = JSON;
+    sandbox.parseInt = parseInt;
+    sandbox.parseFloat = parseFloat;
+    sandbox.isNaN = isNaN;
+    sandbox.isFinite = isFinite;
+    sandbox.Map = Map;
+    sandbox.Set = Set;
+
+    let targetFn: Function | null = null;
+    sandbox.__exportFn = (fn: Function) => {
+      targetFn = fn;
+    };
+
+    const context = vmModule.createContext(sandbox);
+
+    const scriptPreamble = `
+      if (typeof TreeNode === 'undefined') {
+        function TreeNode(val, left, right) {
+          this.val = (val === undefined ? 0 : val);
+          this.left = (left === undefined ? null : left);
+          this.right = (right === undefined ? null : right);
+        }
+      }
+    `;
+
+    const scriptPostamble = `
+      if (typeof ${targetConfig.fnName} === 'function') {
+        __exportFn(${targetConfig.fnName});
+      }
+    `;
+
+    let script: any;
+    try {
+      script = new vmModule.Script(`${scriptPreamble}\n${cleanedCode}\n${scriptPostamble}`, {
+        filename: 'submission.js',
+        displayErrors: true,
+      });
+    } catch (syntaxErr: any) {
+      return {
+        passed: false,
+        status: 'SYNTAX_ERROR',
+        testsPassed: 0,
+        totalTests: targetConfig.totalTests,
+        error: `Syntax error: ${syntaxErr?.message || 'Invalid syntax'}`,
+      };
+    }
+
+    try {
+      script.runInContext(context, { timeout: 2000 });
+    } catch (runErr: any) {
+      return {
+        passed: false,
+        status: 'RUNTIME_ERROR',
+        testsPassed: 0,
+        totalTests: targetConfig.totalTests,
+        error: `Runtime error: ${runErr?.message || 'Execution error'}`,
+      };
+    }
+
+    if (typeof targetFn !== 'function') {
+      return {
+        passed: false,
+        status: 'EXECUTION_ERROR',
+        testsPassed: 0,
+        totalTests: targetConfig.totalTests,
+        error: `Solution function '${targetConfig.fnName}' was not defined.`,
+      };
+    }
+
+    const res = targetConfig.evaluator(targetFn);
+    const passed = res.passedCount === targetConfig.totalTests;
+
+    return {
+      passed,
+      status: passed ? 'SUCCESS' : 'FAILED',
+      testsPassed: res.passedCount,
+      totalTests: targetConfig.totalTests,
+      error: res.errorLog,
+    };
+  }
+
+  static extractFunctionFromSandbox(jsCode: string, fnNames: string[]): Function | null {
+    let vmModule: any = null;
+    if (typeof window === 'undefined') {
+      try {
+        vmModule = eval('require')('node:vm');
+      } catch {
+        try {
+          vmModule = eval('require')('vm');
+        } catch {}
+      }
+    }
+    if (!vmModule) return null;
+
+    const sandbox: Record<string, any> = Object.create(null);
+    sandbox.console = Object.freeze({ log: () => {}, error: () => {}, warn: () => {} });
+    sandbox.Math = Math;
+    sandbox.Date = Date;
+    sandbox.Array = Array;
+    sandbox.Object = Object;
+    sandbox.String = String;
+    sandbox.Number = Number;
+    sandbox.Boolean = Boolean;
+    sandbox.RegExp = RegExp;
+    sandbox.JSON = JSON;
+    sandbox.parseInt = parseInt;
+    sandbox.parseFloat = parseFloat;
+    sandbox.isNaN = isNaN;
+    sandbox.isFinite = isFinite;
+    sandbox.Map = Map;
+    sandbox.Set = Set;
+
+    let targetFn: Function | null = null;
+    sandbox.__exportFn = (fn: Function) => {
+      targetFn = fn;
+    };
+
+    const context = vmModule.createContext(sandbox);
+    const checks = fnNames
+      .map((name) => `if (typeof ${name} === 'function') __exportFn(${name});`)
+      .join('\n');
+
+    const wrapped = `
+      if (typeof TreeNode === 'undefined') {
+        function TreeNode(val, left, right) {
+          this.val = (val === undefined ? 0 : val);
+          this.left = (left || null);
+          this.right = (right || null);
+        }
+      }
+      try {
+        ${jsCode}
+        ${checks}
+      } catch (e) {}
+    `;
+
+    try {
+      const script = new vmModule.Script(wrapped, { timeout: 2000 });
+      script.runInContext(context, { timeout: 2000 });
+    } catch {}
+
+    return targetFn;
   }
 
   static evaluateLcaTestCases(fn: Function): { passedCount: number; errorLog?: string } {
@@ -492,7 +770,7 @@ export class CodeWarsApiService {
     return { passedCount: passed };
   }
 
-  private static evaluateConcurrencyTestCases(fn: Function): { passedCount: number; errorLog?: string } {
+  static evaluateConcurrencyTestCases(fn: Function): { passedCount: number; errorLog?: string } {
     const cases = [
       {
         requests: [{ threadId: 'T1', resourceIds: ['R2', 'R1'] }, { threadId: 'T2', resourceIds: ['R1', 'R2'] }],
@@ -522,7 +800,7 @@ export class CodeWarsApiService {
     return { passedCount: passed };
   }
 
-  private static evaluateSqlTestCases(fn: Function): { passedCount: number; errorLog?: string } {
+  static evaluateSqlTestCases(fn: Function): { passedCount: number; errorLog?: string } {
     const cases = [
       {
         table: 'orders',
@@ -611,18 +889,10 @@ export class CodeWarsApiService {
             jsEquivalent += '\n}';
           }
         }
-        const factory = new Function(`
-          if (typeof TreeNode === 'undefined') {
-            function TreeNode(val, left, right) { this.val = (val === undefined ? 0 : val); this.left = (left || null); this.right = (right || null); }
-          }
-          try {
-            ${jsEquivalent}
-            if (typeof lowestCommonAncestor === 'function') return lowestCommonAncestor;
-            if (typeof lowest_common_ancestor === 'function') return lowest_common_ancestor;
-          } catch {}
-          return null;
-        `);
-        const fn = factory();
+        const fn = CodeWarsApiService.extractFunctionFromSandbox(jsEquivalent, [
+          'lowestCommonAncestor',
+          'lowest_common_ancestor',
+        ]);
         if (typeof fn === 'function') {
           const res = CodeWarsApiService.evaluateLcaTestCases(fn);
           return { testsPassed: res.passedCount, evalErrorLog: res.errorLog };

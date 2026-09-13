@@ -1,6 +1,29 @@
 {
   "grievances": [
     {
+      "id": "GRV-105",
+      "reporterType": "Student",
+      "reporterName": "student@pinit.in",
+      "category": "library",
+      "title": "Book return glitch",
+      "description": "Need my library card unlocked",
+      "anonymous": false,
+      "status": "Pending",
+      "filedOn": "2026-09-13T08:29:13.971Z"
+    },
+    {
+      "id": "GRV-777",
+      "reporterType": "Anonymous Whistleblower",
+      "reporterName": "Anonymous Candidate",
+      "category": "academic",
+      "title": "Unfair evaluation",
+      "description": "Anonymous report on grading bias",
+      "anonymous": true,
+      "status": "Pending",
+      "filedOn": "2026-09-13T08:29:13.964Z",
+      "receiptToken": "TRK-U8GL0B17"
+    },
+    {
       "id": "GRV-251",
       "reporterType": "Student",
       "reporterName": "student@pinit.in",

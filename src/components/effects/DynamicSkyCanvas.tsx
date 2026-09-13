@@ -114,6 +114,20 @@ export default function DynamicSkyCanvas({
     };
     window.addEventListener('pc_animation_toggle', handleAnimationToggle);
 
+    // Check low-end device profile (CPU cores <= 4 or device memory <= 4GB)
+    const isLowEndDevice = typeof navigator !== 'undefined' && (
+      (typeof navigator.hardwareConcurrency === 'number' && navigator.hardwareConcurrency <= 4) ||
+      (typeof (navigator as any).deviceMemory === 'number' && (navigator as any).deviceMemory <= 4)
+    );
+
+    let avatarActive = false;
+    const handleAvatarToggle = (e: any) => {
+      if (typeof e.detail?.active === 'boolean') {
+        avatarActive = e.detail.active;
+      }
+    };
+    window.addEventListener('pinit_vroid_active', handleAvatarToggle);
+
     const handleResize = () => {
       if (!canvas) return;
       width = canvas.width = window.innerWidth;
@@ -264,6 +278,22 @@ export default function DynamicSkyCanvas({
       const rampProgress = Math.min(1, rampElapsed / 2000);
       const easeIntensity = rampProgress * rampProgress * opacity;
 
+      // ── AVATAR ACTIVITY & LAG MITIGATION (Task Fix 1) ──────────────────────
+      const isAvatarActive = avatarActive || Boolean(
+        (typeof window !== 'undefined' && (window as any).interviewAvatarScene && !(window as any).interviewAvatarScene.paused) ||
+        (typeof document !== 'undefined' && document.querySelector('canvas[data-vroid-canvas]'))
+      );
+
+      // When 3D VRoid avatar is active on a lower-end device, pause DynamicSkyCanvas completely
+      if (isAvatarActive && isLowEndDevice) {
+        ctx.clearRect(0, 0, width, height);
+        animFrameIdRef.current = requestAnimationFrame(render);
+        return;
+      }
+
+      // When 3D VRoid avatar is active, reduce particle count by 80% (render only 20%)
+      const particleScale = isAvatarActive ? 0.2 : 1.0;
+
       ctx.clearRect(0, 0, width, height);
 
       // ── SHOCKWAVE SYSTEM ────────────────────────────────────────────────────
@@ -308,8 +338,10 @@ export default function DynamicSkyCanvas({
         // ======================================================================
         ctx.save();
 
-        // 1. Render Stars
-        stars.forEach((s) => {
+        // 1. Render Stars (scaled when 3D avatar active)
+        const visibleStarsCount = Math.max(12, Math.round(stars.length * particleScale));
+        for (let i = 0; i < visibleStarsCount; i++) {
+          const s = stars[i];
           s.alpha += s.twinkleSpeed * (dt * 60);
           if (s.alpha > s.baseAlpha + 0.35 || s.alpha < s.baseAlpha - 0.25) {
             s.twinkleSpeed = -s.twinkleSpeed;
@@ -320,11 +352,13 @@ export default function DynamicSkyCanvas({
           ctx.beginPath();
           ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
           ctx.fill();
-        });
+        }
 
-        // 2. Render Fast Meteors
+        // 2. Render Fast Meteors (scaled when 3D avatar active)
         ctx.globalCompositeOperation = 'lighter';
-        meteors.forEach((m) => {
+        const visibleMeteorsCount = Math.max(4, Math.round(meteors.length * particleScale));
+        for (let i = 0; i < visibleMeteorsCount; i++) {
+          const m = meteors[i];
           m.x -= m.speed * dt * 0.82;
           m.y += m.speed * dt;
 
@@ -364,7 +398,7 @@ export default function DynamicSkyCanvas({
           ctx.beginPath();
           ctx.arc(m.x, m.y, m.size * 2.8, 0, Math.PI * 2);
           ctx.fill();
-        });
+        }
 
         ctx.restore();
 
@@ -414,9 +448,11 @@ export default function DynamicSkyCanvas({
         });
         ctx.restore();
 
-        // 3. Layer 2: Rapid Photon Streamer Rays (Delicate flowing photon streams)
+        // 3. Layer 2: Rapid Photon Streamer Rays (scaled when 3D avatar active)
         ctx.save();
-        streamers.forEach((p) => {
+        const activeStreamersCount = Math.max(16, Math.round(streamers.length * particleScale));
+        for (let i = 0; i < activeStreamersCount; i++) {
+          const p = streamers[i];
           p.dist += p.speed * dt;
           if (p.dist > p.maxDist) {
             p.dist = Math.random() * 40 + 10;
@@ -429,7 +465,7 @@ export default function DynamicSkyCanvas({
           const px = sunX + Math.cos(angle) * p.dist;
           const py = sunY + Math.sin(angle) * p.dist;
 
-          if (px < -50 || px > width + 50 || py > height + 50) return;
+          if (px < -50 || px > width + 50 || py > height + 50) continue;
 
           const tailX = px - Math.cos(angle) * p.trailLength;
           const tailY = py - Math.sin(angle) * p.trailLength;
@@ -459,12 +495,14 @@ export default function DynamicSkyCanvas({
           ctx.beginPath();
           ctx.arc(px, py, p.size * 0.5, 0, Math.PI * 2);
           ctx.fill();
-        });
+        }
         ctx.restore();
 
-        // 4. Layer 1: Soft Atmospheric Tyndall Dust Motes with Gentle Glinting
+        // 4. Layer 1: Soft Atmospheric Tyndall Dust Motes (scaled when 3D avatar active)
         ctx.save();
-        motes.forEach((m) => {
+        const activeMotesCount = Math.max(20, Math.round(motes.length * particleScale));
+        for (let i = 0; i < activeMotesCount; i++) {
+          const m = motes[i];
           m.x += (m.vx + Math.sin(totalElapsed * 1.5 + m.phase) * 6) * dt;
           m.y += (m.vy + Math.cos(totalElapsed * 1.2 + m.phase) * 5) * dt;
           m.phase += dt * m.twinkleSpeed;
@@ -531,7 +569,7 @@ export default function DynamicSkyCanvas({
             ctx.arc(m.x, m.y, m.radius, 0, Math.PI * 2);
             ctx.fill();
           }
-        });
+        }
         ctx.restore();
 
         // 5. Layer 4: Prismatic Lens Glints Along Axis
@@ -621,6 +659,7 @@ export default function DynamicSkyCanvas({
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('pc_sky_shockwave', handleShockwaveEvent);
       window.removeEventListener('pc_animation_toggle', handleAnimationToggle);
+      window.removeEventListener('pinit_vroid_active', handleAvatarToggle);
       if (animFrameIdRef.current) cancelAnimationFrame(animFrameIdRef.current);
     };
   }, [theme, lastToggleTime, opacity]);

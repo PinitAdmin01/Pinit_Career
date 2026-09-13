@@ -284,10 +284,9 @@ export class VRoidAvatarEngine {
       }
     }
 
-    // 1.5 on mobile is a 44% reduction in fragment work versus the old cap of
-    // 2, for a difference that is not perceptible on a ~6 inch screen.
-    this.maxPixelRatio = isMobileDevice ? 1.5 : 2;
-    this.currentPixelRatio = Math.min(window.devicePixelRatio, this.maxPixelRatio);
+    // Clamp pixel ratio to 1.5 so high-DPI (Retina/4K) screens do not render 4× pixels unnecessarily
+    this.maxPixelRatio = 1.5;
+    this.currentPixelRatio = Math.min(window.devicePixelRatio, 1.5);
     this.renderer.setPixelRatio(this.currentPixelRatio);
     console.log(
       `[VRoidAvatarEngine] Renderer configured — mobile: ${isMobileDevice}, ` +

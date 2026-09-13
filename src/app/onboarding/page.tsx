@@ -788,6 +788,9 @@ export default function OnboardingPage() {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
+      // Stop and pause ambient audio drone so it does not conflict with onboarding soundtrack
+      ambientAudio.stopImmediate();
+
       const audio = new Audio('/audio/onboarding_bg.mp3');
       audio.loop = true;
       const initialMuted = ambientAudio.isMuted();
@@ -799,6 +802,7 @@ export default function OnboardingPage() {
       bgMusicRef.current = audio;
 
       const handleFirstInteraction = () => {
+        ambientAudio.stopImmediate();
         if (audio.paused && !ambientAudio.isMuted()) {
           audio.play().catch(() => {});
         }
