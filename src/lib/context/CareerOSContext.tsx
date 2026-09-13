@@ -1069,7 +1069,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
           setPins(res.newBalance);
         }
         const added = res.minutesAdded || 30;
-        setAiUseTokens((prev: number) => prev + added);
+        setAiUseTokens(useAppStore.getState().aiUseTokens + added);
         toast.success('AI Time Extended! ⏰', `+${added} AI Minutes added to your daily balance.`);
         return true;
       } catch (err: any) {
@@ -1079,7 +1079,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
     } else {
       const ok = await spendPins('ai_minutes_extend', 'Extended daily AI by 30 mins');
       if (!ok) return false;
-      setAiUseTokens((prev: number) => prev + 30);
+      setAiUseTokens(useAppStore.getState().aiUseTokens + 30);
       toast.success('AI Time Extended! ⏰', '+30 AI Minutes added to your daily balance.');
       return true;
     }

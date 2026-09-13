@@ -59,6 +59,7 @@ export async function acquireDistributedLock(lockKey: string, userId: string, tt
       if (error) {
         // Another container holds the active lock
         activePaymentLocks.delete(lockKey);
+        activeScholarshipLocks.delete(lockKey);
         return false;
       }
     }
