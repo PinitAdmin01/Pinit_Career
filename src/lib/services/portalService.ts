@@ -332,7 +332,7 @@ export const portalService = {
   }>> {
     const defaultStudents = [
       { id: 'std_vinay', name: 'Vinay Kumar', email: 'vinayrocker2002@gmail.com', rollNo: 'CS-2024-001', batch: 'Batch 2024-A', department: 'Computer Science', courseTrack: 'Full Stack Python & AI', completedQuestsCount: 8, xp: 1450, pins: 60, atsScore: 88, attendancePct: 94, status: 'active' as const },
-      { id: 'std_ashwanth', name: 'Ashwanth Kumar', email: 'student@pinit.in', rollNo: 'CS-2024-002', batch: 'Batch 2024-A', department: 'Computer Science', courseTrack: 'Full Stack Engineering', completedQuestsCount: 12, xp: 2100, pins: 95, atsScore: 92, attendancePct: 96, status: 'active' as const },
+      { id: 'std_scholar', name: 'Student Scholar', email: 'student@campus.edu', rollNo: 'CS-2024-002', batch: 'Batch 2024-A', department: 'Computer Science', courseTrack: 'Full Stack Engineering', completedQuestsCount: 12, xp: 2100, pins: 95, atsScore: 92, attendancePct: 96, status: 'active' as const },
       { id: 'std_priya_s', name: 'Priya Sharma', email: 'priya.s@campus.edu', rollNo: 'CS-2024-003', batch: 'Batch 2024-A', department: 'Information Tech', courseTrack: 'AI & Data Engineering', completedQuestsCount: 6, xp: 980, pins: 40, atsScore: 84, attendancePct: 89, status: 'active' as const },
       { id: 'std_rohan_v', name: 'Rohan Verma', email: 'rohan.v@campus.edu', rollNo: 'CS-2024-014', batch: 'Batch 2024-A', department: 'Computer Science', courseTrack: 'Cloud & DevOps Systems', completedQuestsCount: 4, xp: 620, pins: 25, atsScore: 78, attendancePct: 82, status: 'active' as const },
       { id: 'std_ananya_m', name: 'Ananya Mishra', email: 'ananya.m@campus.edu', rollNo: 'CS-2024-019', batch: 'Batch 2024-B', department: 'Computer Science', courseTrack: 'Frontend Engineering & UI/UX', completedQuestsCount: 14, xp: 2450, pins: 110, atsScore: 95, attendancePct: 98, status: 'placed' as const }
@@ -366,7 +366,7 @@ export const portalService = {
   }>> {
     const defaultCandidates = [
       { id: 'cand_1', name: 'Vinay Kumar', email: 'vinayrocker2002@gmail.com', roleTarget: 'Frontend Engineer', atsScore: 92, codeWarsElo: 1420, verifiedSkills: ['React 18', 'TypeScript', 'Next.js', 'Tailwind', 'WebSockets'], stage: 'shortlisted' as const, appliedDate: '2026-08-20' },
-      { id: 'cand_2', name: 'Ashwanth Kumar', email: 'student@pinit.in', roleTarget: 'Full Stack Engineer', atsScore: 94, codeWarsElo: 1580, verifiedSkills: ['Python FastAPI', 'PostgreSQL', 'Docker', 'React', 'Redis'], stage: 'interview_scheduled' as const, appliedDate: '2026-08-18' },
+      { id: 'cand_2', name: 'Student Scholar', email: 'student@campus.edu', roleTarget: 'Full Stack Engineer', atsScore: 94, codeWarsElo: 1580, verifiedSkills: ['Python FastAPI', 'PostgreSQL', 'Docker', 'React', 'Redis'], stage: 'interview_scheduled' as const, appliedDate: '2026-08-18' },
       { id: 'cand_3', name: 'Ananya Mishra', email: 'ananya.m@campus.edu', roleTarget: 'UI/UX & Frontend Lead', atsScore: 96, codeWarsElo: 1640, verifiedSkills: ['Next.js 14', 'Figma Tokens', 'State Machines', 'CSS Architecture'], stage: 'offered' as const, appliedDate: '2026-08-15' },
       { id: 'cand_4', name: 'Priya Sharma', email: 'priya.s@campus.edu', roleTarget: 'AI & Data Engineer', atsScore: 88, codeWarsElo: 1390, verifiedSkills: ['PyTorch', 'LangChain', 'Vector DBs', 'Python'], stage: 'discovered' as const, appliedDate: '2026-08-22' }
     ];
@@ -409,7 +409,7 @@ export const portalService = {
   }>> {
     const defaultTickets = [
       { id: 'TKT-1042', studentName: 'Vinay Kumar', rollNo: 'CS-2024-001', category: 'Leave Approval', subject: 'Medical leave certificate submission', details: 'Hospital prescription attached for 3 days absence due to flu', submittedAt: '2026-08-22', status: 'pending' as const },
-      { id: 'TKT-1039', studentName: 'Ashwanth Kumar', rollNo: 'CS-2024-002', category: 'Bonafide Certificate', subject: 'Passport and internship verification bonafide', details: 'Required for corporate off-campus internship onboarding', submittedAt: '2026-08-21', status: 'resolved' as const },
+      { id: 'TKT-1039', studentName: 'Student Scholar', rollNo: 'CS-2024-002', category: 'Bonafide Certificate', subject: 'Passport and internship verification bonafide', details: 'Required for corporate off-campus internship onboarding', submittedAt: '2026-08-21', status: 'resolved' as const },
       { id: 'TKT-1035', studentName: 'Rohan Verma', rollNo: 'CS-2024-014', category: 'Hostel Re-allocation', subject: 'Room change request to North Wing', details: 'Closer proximity to computer vision laboratory', submittedAt: '2026-08-19', status: 'in_review' as const }
     ];
 

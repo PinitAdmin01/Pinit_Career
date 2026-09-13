@@ -145,7 +145,7 @@ function demoIdentity(emailLower: string): { role: string; displayName: string }
     'rec@pinit.in': 'Lead Recruiter',
     'con@pinit.in': 'Career Consultant',
     'parent@pinit.in': 'Family Representative',
-    'student@pinit.in': 'Ashwanth Kumar',
+    'student@pinit.in': 'Demo Student',
   };
   return {
     role: DEMO_ROLE_BY_EMAIL[emailLower] || 'student',

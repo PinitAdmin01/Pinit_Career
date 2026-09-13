@@ -352,7 +352,7 @@ export default function StudentEvents() {
                 This is proudly presented to
               </div>
               <div style={{ fontSize: 24, fontWeight: 800, textDecoration: 'underline', color: 'var(--t1)', marginBottom: 18 }}>
-                ASHWANTH KUMAR
+                {(viewingCertificate.rsvpInfo?.studentName || studentName || 'STUDENT SCHOLAR').toUpperCase()}
               </div>
               <div style={{ fontSize: 13.5, color: 'var(--t2)', maxWidth: 480, margin: '0 auto', lineHeight: 1.6, marginBottom: 24 }}>
                 for outstanding active attendance and contributions during the campus event <strong>{viewingCertificate.title}</strong>, hosted by the {viewingCertificate.host} on {viewingCertificate.date} at {viewingCertificate.venue}.
