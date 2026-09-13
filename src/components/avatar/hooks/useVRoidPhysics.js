@@ -128,18 +128,6 @@ export function useVRoidPhysics() {
     });
   }, []);
 
-  // Apply physics to bone
-  const applyPhysicsToBone = useCallback((boneName, bone) => {
-    const physicsObj = physicsObjectsRef.current.find((obj) => obj.boneName === boneName);
-    if (!physicsObj) return;
-
-    // Update physics
-    updateBoneVelocity(boneName, bone);
-
-    // Collision detection
-    checkCollisions(physicsObj);
-  }, [updateBoneVelocity]);
-
   // Collision detection
   const checkCollisions = useCallback((physicsObj) => {
     // Simple sphere collision detection
@@ -169,6 +157,18 @@ export function useVRoidPhysics() {
       }
     });
   }, []);
+
+  // Apply physics to bone
+  const applyPhysicsToBone = useCallback((boneName, bone) => {
+    const physicsObj = physicsObjectsRef.current.find((obj) => obj.boneName === boneName);
+    if (!physicsObj) return;
+
+    // Update physics
+    updateBoneVelocity(boneName, bone);
+
+    // Collision detection
+    checkCollisions(physicsObj);
+  }, [updateBoneVelocity, checkCollisions]);
 
   // Hair jiggle effect
   const addHairJiggle = useCallback((bone, intensity = 0.5) => {

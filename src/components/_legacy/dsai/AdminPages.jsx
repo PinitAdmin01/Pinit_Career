@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import Image from 'next/image';
 import { DB } from '@/lib/dsaiFirebase';
 import { Btn, Card, Input, Select, Modal, Spinner, EmptyState, Badge, ConfirmModal, Textarea } from './UI.jsx';
 import { useToast } from '@/lib/context/ToastContext';
@@ -53,7 +54,7 @@ export function AdminLogin({ onBack, onSuccess }) {
       <div style={{ position:'fixed', inset:0, background:'radial-gradient(ellipse at 50% 30%, rgba(37,99,235,0.08) 0%, transparent 70%)', pointerEvents:'none' }} />
       <Card style={{ maxWidth:420, width:'100%', position:'relative', zIndex:1, padding:'40px 36px', boxShadow:'0 8px 40px rgba(37,99,235,0.12)' }}>
         <div style={{ textAlign:'center', marginBottom:32 }}>
-          <img src={dsaiLogo} alt="DSAI" style={{ width:68, height:68, borderRadius:'50%', objectFit:'cover', border:'2px solid rgba(37,99,235,0.2)', display:'block', margin:'0 auto 16px', boxShadow:'0 4px 16px rgba(37,99,235,0.14)' }} />
+          <Image src={dsaiLogo} alt="DSAI" width={68} height={68} unoptimized style={{ width:68, height:68, borderRadius:'50%', objectFit:'cover', border:'2px solid rgba(37,99,235,0.2)', display:'block', margin:'0 auto 16px', boxShadow:'0 4px 16px rgba(37,99,235,0.14)' }} priority />
           <h2 style={{ fontSize:22, fontWeight:800, letterSpacing:'-0.5px' }}>Admin Portal</h2>
           <p style={{ color: 'var(--t3)', fontSize:13, marginTop:6, fontWeight:500 }}>BGS Institute of Management · DSAI</p>
         </div>
@@ -129,7 +130,7 @@ export function AdminDashboard({ admin, onLogout }) {
         <div style={{ padding:'14px 12px', borderBottom:'1px solid var(--border)', display:'flex', alignItems:'center', justifyContent: collapsed?'center':'space-between', minHeight:62, flexShrink:0 }}>
           {!collapsed && (
             <div style={{ display:'flex', alignItems:'center', gap:9, minWidth:0 }}>
-              <img src={dsaiLogo} alt="DSAI" style={{ width:32, height:32, borderRadius:'50%', objectFit:'cover', flexShrink:0, border:'1.5px solid rgba(37,99,235,0.2)' }} />
+              <Image src={dsaiLogo} alt="DSAI" width={32} height={32} unoptimized style={{ width:32, height:32, borderRadius:'50%', objectFit:'cover', flexShrink:0, border:'1.5px solid rgba(37,99,235,0.2)' }} />
               <div style={{ minWidth:0 }}>
                 <div style={{ fontSize:12, fontWeight:800, color: 'var(--t1)', whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis' }}>BGS Admin</div>
                 <div style={{ fontSize:10, color: 'var(--t3)', whiteSpace:'nowrap' }}>Management Portal</div>
@@ -137,7 +138,7 @@ export function AdminDashboard({ admin, onLogout }) {
             </div>
           )}
           {collapsed && (
-            <img src={dsaiLogo} alt="DSAI" style={{ width:32, height:32, borderRadius:'50%', objectFit:'cover', border:'1.5px solid rgba(37,99,235,0.2)' }} />
+            <Image src={dsaiLogo} alt="DSAI" width={32} height={32} unoptimized style={{ width:32, height:32, borderRadius:'50%', objectFit:'cover', border:'1.5px solid rgba(37,99,235,0.2)' }} />
           )}
           <button
             onClick={() => setCollapsed(c => !c)}

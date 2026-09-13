@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/context/AuthContext';
 import { isDemoAuthEnabled } from '@/lib/demoAuth';
@@ -100,11 +101,14 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <Link href="/" className="lp-brand" aria-label="PINIT CAREER home" style={{ display: 'inline-flex', alignItems: 'center', height: '36px' }}>
             <span className="lp-brand-lockup" style={{ display: 'inline-flex', alignItems: 'center', height: '36px' }}>
-              <img
+              <Image
                 src="/brand/pinit-career-logo-clear.png"
                 alt="PINIT CAREER"
+                width={140}
+                height={36}
                 className="lp-brand-logo"
                 style={{ height: '36px', maxHeight: '36px', width: 'auto', objectFit: 'contain', display: 'block' }}
+                priority
               />
             </span>
           </Link>

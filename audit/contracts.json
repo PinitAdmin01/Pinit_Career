@@ -1,32 +1,32 @@
 {
   "summary": {
-    "generated": "2026-09-12T16:04:31.532Z",
-    "appCodeFiles": 369,
-    "verticals": 63,
-    "verticalsWithDefects": 12,
-    "clientCalledPaths": 183,
-    "reachablePaths": 145,
-    "brokenOnEveryMethod": 12,
+    "generated": "2026-09-13T13:54:13.894Z",
+    "appCodeFiles": 378,
+    "verticals": 66,
+    "verticalsWithDefects": 17,
+    "clientCalledPaths": 190,
+    "reachablePaths": 152,
+    "brokenOnEveryMethod": 19,
     "brokenOnSomeMethods": 4,
     "defectsInDeadCode": 24,
     "unbuiltPages": 15,
-    "reachableSourceFiles": 354,
+    "reachableSourceFiles": 362,
     "guardBranches": 181,
     "unreachableOrDynamicGuards": 82,
     "campusSwitchCases": 102,
     "campusPrefixes": 19,
-    "deadRouteFiles": 137,
+    "deadRouteFiles": 147,
     "interceptorBypasses": [
       "/api/tts"
     ],
-    "preferLivePrefixes": 35,
+    "preferLivePrefixes": 58,
     "needsManualCheck": 0,
     "byWorst": {
       "REAL": 128,
       "COMPUTE": 3,
       "THROWS": 5,
       "STUB": 24,
-      "UNHANDLED-404": 8,
+      "UNHANDLED-404": 15,
       "EXTERNAL": 5,
       "CAMPUS-404": 2,
       "DECLINED": 4,
@@ -36,13 +36,13 @@
     "byBucket": {
       "OK": 128,
       "C": 8,
-      "B": 13,
-      "A": 34
+      "B": 19,
+      "A": 35
     },
     "byLayer": {
       "firestoreRouter": 125,
       "campusFallback": 49,
-      "none": 8,
+      "none": 15,
       "interceptor-bypass": 1
     },
     "guardsByVerdict": {
@@ -93,6 +93,40 @@
           "worst": "STUB",
           "bucket": "B",
           "handler": "client.ts:1948"
+        }
+      ]
+    },
+    {
+      "name": "pins",
+      "total": 6,
+      "broken": 3,
+      "partial": 0,
+      "ok": 3,
+      "dead": 0,
+      "buckets": {
+        "B": 3
+      },
+      "paths": [
+        {
+          "path": "/api/pins/buy-ai-minutes",
+          "severity": "BROKEN",
+          "worst": "UNHANDLED-404",
+          "bucket": "B",
+          "handler": "client.ts throws Unhandled API path"
+        },
+        {
+          "path": "/api/pins/claim-streak-bonus",
+          "severity": "BROKEN",
+          "worst": "UNHANDLED-404",
+          "bucket": "B",
+          "handler": "client.ts throws Unhandled API path"
+        },
+        {
+          "path": "/api/pins/extend-grace",
+          "severity": "BROKEN",
+          "worst": "UNHANDLED-404",
+          "bucket": "B",
+          "handler": "client.ts throws Unhandled API path"
         }
       ]
     },
@@ -160,6 +194,26 @@
           "worst": "STUB",
           "bucket": "A",
           "handler": "client.ts:738"
+        }
+      ]
+    },
+    {
+      "name": "code",
+      "total": 3,
+      "broken": 1,
+      "partial": 0,
+      "ok": 2,
+      "dead": 0,
+      "buckets": {
+        "B": 1
+      },
+      "paths": [
+        {
+          "path": "/api/code/evaluate",
+          "severity": "BROKEN",
+          "worst": "UNHANDLED-404",
+          "bucket": "B",
+          "handler": "client.ts throws Unhandled API path"
         }
       ]
     },
@@ -284,6 +338,26 @@
       ]
     },
     {
+      "name": "quest",
+      "total": 1,
+      "broken": 1,
+      "partial": 0,
+      "ok": 0,
+      "dead": 0,
+      "buckets": {
+        "A": 1
+      },
+      "paths": [
+        {
+          "path": "/api/quest/complete",
+          "severity": "BROKEN",
+          "worst": "UNHANDLED-404",
+          "bucket": "A",
+          "handler": "client.ts throws Unhandled API path"
+        }
+      ]
+    },
+    {
       "name": "time",
       "total": 1,
       "broken": 1,
@@ -320,6 +394,46 @@
           "worst": "BYPASSES-SHIM",
           "bucket": "A",
           "handler": "src/lib/fetchInterceptor.ts"
+        }
+      ]
+    },
+    {
+      "name": "user",
+      "total": 1,
+      "broken": 1,
+      "partial": 0,
+      "ok": 0,
+      "dead": 0,
+      "buckets": {
+        "B": 1
+      },
+      "paths": [
+        {
+          "path": "/api/user/award-badge",
+          "severity": "BROKEN",
+          "worst": "UNHANDLED-404",
+          "bucket": "B",
+          "handler": "client.ts throws Unhandled API path"
+        }
+      ]
+    },
+    {
+      "name": "xp",
+      "total": 1,
+      "broken": 1,
+      "partial": 0,
+      "ok": 0,
+      "dead": 0,
+      "buckets": {
+        "B": 1
+      },
+      "paths": [
+        {
+          "path": "/api/xp/add",
+          "severity": "BROKEN",
+          "worst": "UNHANDLED-404",
+          "bucket": "B",
+          "handler": "client.ts throws Unhandled API path"
         }
       ]
     },
@@ -430,16 +544,6 @@
       "partial": 0,
       "ok": 0,
       "dead": 3,
-      "buckets": {},
-      "paths": []
-    },
-    {
-      "name": "code",
-      "total": 2,
-      "broken": 0,
-      "partial": 0,
-      "ok": 2,
-      "dead": 0,
       "buckets": {},
       "paths": []
     },
@@ -660,16 +764,6 @@
       "partial": 0,
       "ok": 0,
       "dead": 3,
-      "buckets": {},
-      "paths": []
-    },
-    {
-      "name": "pins",
-      "total": 3,
-      "broken": 0,
-      "partial": 0,
-      "ok": 3,
-      "dead": 0,
       "buckets": {},
       "paths": []
     },
@@ -977,7 +1071,7 @@
         },
         {
           "file": "src/lib/context/AuthContext.tsx",
-          "line": 805,
+          "line": 810,
           "live": true
         },
         {
@@ -1002,7 +1096,7 @@
         },
         {
           "file": "src/lib/context/AuthContext.tsx",
-          "line": 805,
+          "line": 810,
           "live": true
         }
       ],
@@ -2071,7 +2165,7 @@
         "DELETE"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -2156,7 +2250,7 @@
         "DELETE"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -2236,7 +2330,7 @@
         "DELETE"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -2571,7 +2665,7 @@
         "DELETE"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -2650,7 +2744,7 @@
         "DELETE"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -2686,7 +2780,7 @@
         },
         {
           "file": "src/app/onboarding/page.tsx",
-          "line": 1305,
+          "line": 972,
           "live": true
         },
         {
@@ -2696,57 +2790,57 @@
         },
         {
           "file": "src/lib/context/CareerOSContext.tsx",
-          "line": 488,
+          "line": 525,
           "live": true
         },
         {
           "file": "src/lib/context/CareerOSContext.tsx",
-          "line": 743,
+          "line": 780,
           "live": true
         },
         {
           "file": "src/lib/context/CareerOSContext.tsx",
-          "line": 793,
+          "line": 830,
           "live": true
         },
         {
           "file": "src/lib/context/CareerOSContext.tsx",
-          "line": 833,
+          "line": 870,
           "live": true
         },
         {
           "file": "src/lib/context/CareerOSContext.tsx",
-          "line": 900,
+          "line": 930,
           "live": true
         },
         {
           "file": "src/lib/context/CareerOSContext.tsx",
-          "line": 961,
+          "line": 1002,
           "live": true
         },
         {
           "file": "src/lib/context/CareerOSContext.tsx",
-          "line": 976,
+          "line": 1017,
           "live": true
         },
         {
           "file": "src/lib/context/CareerOSContext.tsx",
-          "line": 985,
+          "line": 1026,
           "live": true
         },
         {
           "file": "src/lib/context/CareerOSContext.tsx",
-          "line": 994,
+          "line": 1035,
           "live": true
         },
         {
           "file": "src/lib/context/CareerOSContext.tsx",
-          "line": 1066,
+          "line": 1133,
           "live": true
         },
         {
           "file": "src/lib/context/CareerOSContext.tsx",
-          "line": 1098,
+          "line": 1165,
           "live": true
         },
         {
@@ -2761,7 +2855,7 @@
         },
         {
           "file": "src/app/onboarding/page.tsx",
-          "line": 1305,
+          "line": 972,
           "live": true
         },
         {
@@ -2771,57 +2865,57 @@
         },
         {
           "file": "src/lib/context/CareerOSContext.tsx",
-          "line": 488,
+          "line": 525,
           "live": true
         },
         {
           "file": "src/lib/context/CareerOSContext.tsx",
-          "line": 743,
+          "line": 780,
           "live": true
         },
         {
           "file": "src/lib/context/CareerOSContext.tsx",
-          "line": 793,
+          "line": 830,
           "live": true
         },
         {
           "file": "src/lib/context/CareerOSContext.tsx",
-          "line": 833,
+          "line": 870,
           "live": true
         },
         {
           "file": "src/lib/context/CareerOSContext.tsx",
-          "line": 900,
+          "line": 930,
           "live": true
         },
         {
           "file": "src/lib/context/CareerOSContext.tsx",
-          "line": 961,
+          "line": 1002,
           "live": true
         },
         {
           "file": "src/lib/context/CareerOSContext.tsx",
-          "line": 976,
+          "line": 1017,
           "live": true
         },
         {
           "file": "src/lib/context/CareerOSContext.tsx",
-          "line": 985,
+          "line": 1026,
           "live": true
         },
         {
           "file": "src/lib/context/CareerOSContext.tsx",
-          "line": 994,
+          "line": 1035,
           "live": true
         },
         {
           "file": "src/lib/context/CareerOSContext.tsx",
-          "line": 1066,
+          "line": 1133,
           "live": true
         },
         {
           "file": "src/lib/context/CareerOSContext.tsx",
-          "line": 1098,
+          "line": 1165,
           "live": true
         },
         {
@@ -2859,7 +2953,7 @@
         "DELETE"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -3108,7 +3202,7 @@
         "DELETE"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -3159,7 +3253,7 @@
         },
         {
           "file": "src/lib/context/AuthContext.tsx",
-          "line": 814,
+          "line": 830,
           "live": true
         },
         {
@@ -3184,7 +3278,7 @@
         },
         {
           "file": "src/lib/context/AuthContext.tsx",
-          "line": 814,
+          "line": 830,
           "live": true
         }
       ],
@@ -3229,7 +3323,7 @@
         "DELETE"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -3298,7 +3392,7 @@
         "DELETE"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -3341,14 +3435,15 @@
       "directCalls": 1,
       "spec": {
         "file": "src/app/api/auth/vault-exchange/route.ts",
-        "lines": 116,
+        "lines": 124,
         "methods": [
           "POST"
         ],
         "usesSecret": true,
         "secrets": [
           "SUPABASE_SERVICE_ROLE_KEY",
-          "EXAM_SECRET"
+          "EXAM_SECRET",
+          "NEXTAUTH_SECRET"
         ],
         "secretVia": {},
         "authGated": false
@@ -3381,7 +3476,7 @@
       ],
       "returns": "{ ok: true, success: true, reply, message: reply }; }",
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -3486,7 +3581,7 @@
         "DELETE"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -3565,7 +3660,7 @@
         "DELETE"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -3638,7 +3733,7 @@
       "handler": "client.ts throws Unhandled API path",
       "handledMethods": [],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "none",
@@ -3696,7 +3791,7 @@
       "handler": "client.ts throws Unhandled API path",
       "handledMethods": [],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "none",
@@ -3797,7 +3892,7 @@
         },
         {
           "file": "src/lib/context/CareerOSContext.tsx",
-          "line": 702,
+          "line": 739,
           "live": true
         }
       ],
@@ -3955,7 +4050,7 @@
       ],
       "returns": "{ simulation: null, isDemoData: true, message: 'No live career-twin results yet.' };",
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -4008,7 +4103,7 @@
       "directCalls": 0,
       "spec": {
         "file": "src/app/api/career-twin/results/route.ts",
-        "lines": 223,
+        "lines": 228,
         "methods": [
           "GET",
           "POST"
@@ -4046,7 +4141,7 @@
       ],
       "returns": "{ ok: true, simulation: { ...DEMO_SIMULATION, isDemoData: true }, isDemoData: true }; }",
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -4329,6 +4424,87 @@
       "severity": "BROKEN"
     },
     {
+      "path": "/api/code/evaluate",
+      "reachable": true,
+      "liveCallSites": 2,
+      "status": "UNHANDLED-404",
+      "worst": "UNHANDLED-404",
+      "bucket": "B",
+      "layer": "none",
+      "handler": "client.ts throws Unhandled API path",
+      "handledMethods": [],
+      "undecidable": false,
+      "preferLive": true,
+      "perMethod": {
+        "GET": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "POST": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "PUT": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "PATCH": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "DELETE": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        }
+      },
+      "callSites": [
+        {
+          "file": "src/lib/api/codeWarsApi.ts",
+          "line": 286,
+          "live": true
+        },
+        {
+          "file": "src/lib/api/codeWarsApi.ts",
+          "line": 286,
+          "live": true
+        }
+      ],
+      "directCalls": 1,
+      "spec": {
+        "file": "src/app/api/code/evaluate/route.ts",
+        "lines": 266,
+        "methods": [
+          "POST"
+        ],
+        "usesSecret": true,
+        "secrets": [
+          "EVIDENCE_SIGNING_SECRET",
+          "SUPABASE_SERVICE_ROLE_KEY",
+          "EXAM_SECRET"
+        ],
+        "secretVia": {
+          "EVIDENCE_SIGNING_SECRET": "src/lib/pathway/evidenceEngine.ts",
+          "SUPABASE_SERVICE_ROLE_KEY": "src/lib/pathway/evidenceEngine.ts",
+          "EXAM_SECRET": "src/lib/pathway/evidenceEngine.ts"
+        },
+        "authGated": true
+      },
+      "brokenOn": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "okOn": [],
+      "severity": "BROKEN"
+    },
+    {
       "path": "/api/code/run-java",
       "reachable": true,
       "liveCallSites": 2,
@@ -4384,7 +4560,7 @@
       "directCalls": 1,
       "spec": {
         "file": "src/app/api/code/run-java/route.ts",
-        "lines": 314,
+        "lines": 329,
         "methods": [
           "POST"
         ],
@@ -4514,22 +4690,22 @@
       "callSites": [
         {
           "file": "src/lib/api/codeWarsApi.ts",
-          "line": 357,
+          "line": 407,
           "live": true
         },
         {
           "file": "src/lib/api/codeWarsApi.ts",
-          "line": 383,
+          "line": 433,
           "live": true
         },
         {
           "file": "src/lib/api/codeWarsApi.ts",
-          "line": 357,
+          "line": 407,
           "live": true
         },
         {
           "file": "src/lib/api/codeWarsApi.ts",
-          "line": 383,
+          "line": 433,
           "live": true
         }
       ],
@@ -6815,7 +6991,7 @@
         "POST"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "none",
@@ -7012,7 +7188,7 @@
       "directCalls": 0,
       "spec": {
         "file": "src/app/api/hostel/log-attendance/route.ts",
-        "lines": 20,
+        "lines": 28,
         "methods": [
           "POST"
         ],
@@ -7091,7 +7267,7 @@
       "directCalls": 0,
       "spec": {
         "file": "src/app/api/hostel/raise-complaint/route.ts",
-        "lines": 20,
+        "lines": 28,
         "methods": [
           "POST"
         ],
@@ -7358,7 +7534,7 @@
       "handler": "client.ts throws Unhandled API path",
       "handledMethods": [],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "none",
@@ -7485,12 +7661,12 @@
       "callSites": [
         {
           "file": "src/app/interview/page.tsx",
-          "line": 887,
+          "line": 893,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 887,
+          "line": 893,
           "live": true
         }
       ],
@@ -7573,19 +7749,19 @@
       "callSites": [
         {
           "file": "src/app/interview/page.tsx",
-          "line": 1301,
+          "line": 1307,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 1301,
+          "line": 1307,
           "live": true
         }
       ],
       "directCalls": 1,
       "spec": {
         "file": "src/app/api/interview/chat/route.ts",
-        "lines": 260,
+        "lines": 262,
         "methods": [
           "POST"
         ],
@@ -7662,22 +7838,22 @@
       "callSites": [
         {
           "file": "src/app/interview/page.tsx",
-          "line": 1025,
+          "line": 1031,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 1486,
+          "line": 1492,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 1025,
+          "line": 1031,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 1486,
+          "line": 1492,
           "live": true
         }
       ],
@@ -7762,12 +7938,12 @@
       "callSites": [
         {
           "file": "src/app/interview/page.tsx",
-          "line": 369,
+          "line": 375,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 369,
+          "line": 375,
           "live": true
         }
       ],
@@ -7814,7 +7990,7 @@
         "DELETE"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -7845,22 +8021,22 @@
       "callSites": [
         {
           "file": "src/app/interview/page.tsx",
-          "line": 957,
+          "line": 963,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 996,
+          "line": 1002,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 957,
+          "line": 963,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 996,
+          "line": 1002,
           "live": true
         }
       ],
@@ -7906,7 +8082,7 @@
         "DELETE"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -8340,7 +8516,7 @@
       "directCalls": 1,
       "spec": {
         "file": "src/app/api/llm/route.ts",
-        "lines": 111,
+        "lines": 126,
         "methods": [
           "POST"
         ],
@@ -8528,7 +8704,7 @@
       "handler": "client.ts throws Unhandled API path",
       "handledMethods": [],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "none",
@@ -8559,19 +8735,19 @@
       "callSites": [
         {
           "file": "src/lib/mentor/avatarDialogue.ts",
-          "line": 87,
+          "line": 88,
           "live": false
         },
         {
           "file": "src/lib/mentor/avatarDialogue.ts",
-          "line": 87,
+          "line": 88,
           "live": false
         }
       ],
       "directCalls": 1,
       "spec": {
         "file": "src/app/api/mentor/chat/route.ts",
-        "lines": 169,
+        "lines": 172,
         "methods": [
           "POST"
         ],
@@ -8676,7 +8852,7 @@
         "POST"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "none",
@@ -8741,7 +8917,7 @@
         "DELETE"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -8801,7 +8977,7 @@
         "POST"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "none",
@@ -8900,7 +9076,7 @@
         "DELETE"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -8964,7 +9140,7 @@
         "DELETE"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -9053,7 +9229,7 @@
         "DELETE"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -9096,18 +9272,20 @@
       "directCalls": 0,
       "spec": {
         "file": "src/app/api/missions/today/route.ts",
-        "lines": 40,
+        "lines": 41,
         "methods": [
           "GET"
         ],
         "usesSecret": true,
         "secrets": [
           "EVIDENCE_SIGNING_SECRET",
-          "SUPABASE_SERVICE_ROLE_KEY"
+          "SUPABASE_SERVICE_ROLE_KEY",
+          "EXAM_SECRET"
         ],
         "secretVia": {
           "EVIDENCE_SIGNING_SECRET": "src/lib/pathway/evidenceEngine.ts",
-          "SUPABASE_SERVICE_ROLE_KEY": "src/lib/pathway/evidenceEngine.ts"
+          "SUPABASE_SERVICE_ROLE_KEY": "src/lib/pathway/evidenceEngine.ts",
+          "EXAM_SECRET": "src/lib/pathway/evidenceEngine.ts"
         },
         "authGated": true
       },
@@ -10010,7 +10188,7 @@
       "handler": "client.ts throws Unhandled API path",
       "handledMethods": [],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "none",
@@ -10060,11 +10238,13 @@
         "usesSecret": true,
         "secrets": [
           "EVIDENCE_SIGNING_SECRET",
-          "SUPABASE_SERVICE_ROLE_KEY"
+          "SUPABASE_SERVICE_ROLE_KEY",
+          "EXAM_SECRET"
         ],
         "secretVia": {
           "EVIDENCE_SIGNING_SECRET": "src/lib/pathway/evidenceEngine.ts",
-          "SUPABASE_SERVICE_ROLE_KEY": "src/lib/pathway/evidenceEngine.ts"
+          "SUPABASE_SERVICE_ROLE_KEY": "src/lib/pathway/evidenceEngine.ts",
+          "EXAM_SECRET": "src/lib/pathway/evidenceEngine.ts"
         },
         "authGated": true
       },
@@ -10289,15 +10469,15 @@
       "directCalls": 1,
       "spec": {
         "file": "src/app/api/payment/verify/route.ts",
-        "lines": 275,
+        "lines": 378,
         "methods": [
           "POST"
         ],
         "usesSecret": true,
         "secrets": [
+          "SUPABASE_SERVICE_ROLE_KEY",
           "RAZORPAY_KEY_ID",
-          "RAZORPAY_KEY_SECRET",
-          "SUPABASE_SERVICE_ROLE_KEY"
+          "RAZORPAY_KEY_SECRET"
         ],
         "secretVia": {},
         "authGated": true
@@ -10544,7 +10724,7 @@
         "DELETE"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -10592,6 +10772,156 @@
       "severity": "OK"
     },
     {
+      "path": "/api/pins/buy-ai-minutes",
+      "reachable": true,
+      "liveCallSites": 2,
+      "status": "UNHANDLED-404",
+      "worst": "UNHANDLED-404",
+      "bucket": "B",
+      "layer": "none",
+      "handler": "client.ts throws Unhandled API path",
+      "handledMethods": [],
+      "undecidable": false,
+      "preferLive": true,
+      "perMethod": {
+        "GET": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "POST": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "PUT": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "PATCH": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "DELETE": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        }
+      },
+      "callSites": [
+        {
+          "file": "src/lib/context/CareerOSContext.tsx",
+          "line": 1058,
+          "live": true
+        },
+        {
+          "file": "src/lib/context/CareerOSContext.tsx",
+          "line": 1058,
+          "live": true
+        }
+      ],
+      "directCalls": 1,
+      "spec": {
+        "file": "src/app/api/pins/buy-ai-minutes/route.ts",
+        "lines": 128,
+        "methods": [
+          "POST"
+        ],
+        "usesSecret": true,
+        "secrets": [
+          "SUPABASE_SERVICE_ROLE_KEY"
+        ],
+        "secretVia": {},
+        "authGated": true
+      },
+      "brokenOn": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "okOn": [],
+      "severity": "BROKEN"
+    },
+    {
+      "path": "/api/pins/claim-streak-bonus",
+      "reachable": true,
+      "liveCallSites": 2,
+      "status": "UNHANDLED-404",
+      "worst": "UNHANDLED-404",
+      "bucket": "B",
+      "layer": "none",
+      "handler": "client.ts throws Unhandled API path",
+      "handledMethods": [],
+      "undecidable": false,
+      "preferLive": true,
+      "perMethod": {
+        "GET": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "POST": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "PUT": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "PATCH": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "DELETE": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        }
+      },
+      "callSites": [
+        {
+          "file": "src/lib/context/CareerOSContext.tsx",
+          "line": 951,
+          "live": true
+        },
+        {
+          "file": "src/lib/context/CareerOSContext.tsx",
+          "line": 951,
+          "live": true
+        }
+      ],
+      "directCalls": 1,
+      "spec": {
+        "file": "src/app/api/pins/claim-streak-bonus/route.ts",
+        "lines": 162,
+        "methods": [
+          "POST"
+        ],
+        "usesSecret": true,
+        "secrets": [
+          "SUPABASE_SERVICE_ROLE_KEY"
+        ],
+        "secretVia": {},
+        "authGated": true
+      },
+      "brokenOn": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "okOn": [],
+      "severity": "BROKEN"
+    },
+    {
       "path": "/api/pins/earn",
       "reachable": true,
       "liveCallSites": 2,
@@ -10604,7 +10934,7 @@
         "POST"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "none",
@@ -10640,7 +10970,7 @@
         },
         {
           "file": "src/lib/hooks/usePins.ts",
-          "line": 157,
+          "line": 257,
           "live": true
         },
         {
@@ -10650,7 +10980,7 @@
         },
         {
           "file": "src/lib/hooks/usePins.ts",
-          "line": 157,
+          "line": 257,
           "live": true
         }
       ],
@@ -10661,6 +10991,81 @@
         "POST"
       ],
       "severity": "OK"
+    },
+    {
+      "path": "/api/pins/extend-grace",
+      "reachable": true,
+      "liveCallSites": 2,
+      "status": "UNHANDLED-404",
+      "worst": "UNHANDLED-404",
+      "bucket": "B",
+      "layer": "none",
+      "handler": "client.ts throws Unhandled API path",
+      "handledMethods": [],
+      "undecidable": false,
+      "preferLive": true,
+      "perMethod": {
+        "GET": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "POST": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "PUT": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "PATCH": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "DELETE": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        }
+      },
+      "callSites": [
+        {
+          "file": "src/lib/hooks/usePins.ts",
+          "line": 376,
+          "live": true
+        },
+        {
+          "file": "src/lib/hooks/usePins.ts",
+          "line": 376,
+          "live": true
+        }
+      ],
+      "directCalls": 1,
+      "spec": {
+        "file": "src/app/api/pins/extend-grace/route.ts",
+        "lines": 171,
+        "methods": [
+          "POST"
+        ],
+        "usesSecret": true,
+        "secrets": [
+          "SUPABASE_SERVICE_ROLE_KEY"
+        ],
+        "secretVia": {},
+        "authGated": true
+      },
+      "brokenOn": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "okOn": [],
+      "severity": "BROKEN"
     },
     {
       "path": "/api/pins/spend",
@@ -10679,7 +11084,7 @@
         "DELETE"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -11049,6 +11454,79 @@
       "severity": "OK"
     },
     {
+      "path": "/api/quest/complete",
+      "reachable": true,
+      "liveCallSites": 2,
+      "status": "UNHANDLED-404",
+      "worst": "UNHANDLED-404",
+      "bucket": "A",
+      "layer": "none",
+      "handler": "client.ts throws Unhandled API path",
+      "handledMethods": [],
+      "undecidable": false,
+      "preferLive": true,
+      "perMethod": {
+        "GET": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "POST": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "PUT": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "PATCH": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "DELETE": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        }
+      },
+      "callSites": [
+        {
+          "file": "src/lib/context/CareerOSContext.tsx",
+          "line": 923,
+          "live": true
+        },
+        {
+          "file": "src/lib/context/CareerOSContext.tsx",
+          "line": 923,
+          "live": true
+        }
+      ],
+      "directCalls": 1,
+      "spec": {
+        "file": "src/app/api/quest/complete/route.ts",
+        "lines": 103,
+        "methods": [
+          "POST"
+        ],
+        "usesSecret": false,
+        "secrets": [],
+        "secretVia": {},
+        "authGated": true
+      },
+      "brokenOn": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "okOn": [],
+      "severity": "BROKEN"
+    },
+    {
       "path": "/api/quests/verify",
       "reachable": true,
       "liveCallSites": 1,
@@ -11061,7 +11539,7 @@
         "POST"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "none",
@@ -12182,7 +12660,7 @@
       ],
       "returns": "{ resumes:[], resume:null };",
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -12252,7 +12730,7 @@
       ],
       "returns": "{ resumes:[], resume:null };",
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -12327,7 +12805,7 @@
       ],
       "returns": "{ resumes:[], resume:null };",
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -12397,7 +12875,7 @@
       ],
       "returns": "{ resumes:[], resume:null };",
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -12466,7 +12944,7 @@
         "DELETE"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -12530,7 +13008,7 @@
         "DELETE"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -12595,7 +13073,7 @@
       ],
       "returns": "{ resumes:[], resume:null };",
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -12664,7 +13142,7 @@
         "DELETE"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -12695,7 +13173,7 @@
       "callSites": [
         {
           "file": "src/app/onboarding/page.tsx",
-          "line": 1789,
+          "line": 1470,
           "live": true
         },
         {
@@ -12705,7 +13183,7 @@
         },
         {
           "file": "src/app/onboarding/page.tsx",
-          "line": 1789,
+          "line": 1470,
           "live": true
         },
         {
@@ -13475,7 +13953,7 @@
       "callSites": [
         {
           "file": "src/app/onboarding/page.tsx",
-          "line": 1116,
+          "line": 783,
           "live": true
         },
         {
@@ -13485,7 +13963,7 @@
         },
         {
           "file": "src/app/onboarding/page.tsx",
-          "line": 1116,
+          "line": 783,
           "live": true
         },
         {
@@ -13497,7 +13975,7 @@
       "directCalls": 2,
       "spec": {
         "file": "src/app/api/stt/route.ts",
-        "lines": 302,
+        "lines": 317,
         "methods": [
           "POST"
         ],
@@ -13605,7 +14083,7 @@
         "DELETE"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "firestoreRouter",
@@ -13670,7 +14148,7 @@
         "POST"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "none",
@@ -13729,7 +14207,7 @@
       "handler": "client.ts throws Unhandled API path",
       "handledMethods": [],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "none",
@@ -13760,12 +14238,12 @@
       "callSites": [
         {
           "file": "src/lib/supabaseService.ts",
-          "line": 1310,
+          "line": 1443,
           "live": true
         },
         {
           "file": "src/lib/supabaseService.ts",
-          "line": 1310,
+          "line": 1443,
           "live": true
         }
       ],
@@ -14099,7 +14577,7 @@
         "DELETE"
       ],
       "undecidable": false,
-      "preferLive": false,
+      "preferLive": true,
       "perMethod": {
         "GET": {
           "layer": "interceptor-bypass",
@@ -14373,6 +14851,91 @@
         "DELETE"
       ],
       "severity": "OK"
+    },
+    {
+      "path": "/api/user/award-badge",
+      "reachable": true,
+      "liveCallSites": 4,
+      "status": "UNHANDLED-404",
+      "worst": "UNHANDLED-404",
+      "bucket": "B",
+      "layer": "none",
+      "handler": "client.ts throws Unhandled API path",
+      "handledMethods": [],
+      "undecidable": false,
+      "preferLive": true,
+      "perMethod": {
+        "GET": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "POST": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "PUT": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "PATCH": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "DELETE": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        }
+      },
+      "callSites": [
+        {
+          "file": "src/lib/context/CareerOSContext.tsx",
+          "line": 1275,
+          "live": true
+        },
+        {
+          "file": "src/lib/context/CareerOSContext.tsx",
+          "line": 1299,
+          "live": true
+        },
+        {
+          "file": "src/lib/context/CareerOSContext.tsx",
+          "line": 1275,
+          "live": true
+        },
+        {
+          "file": "src/lib/context/CareerOSContext.tsx",
+          "line": 1299,
+          "live": true
+        }
+      ],
+      "directCalls": 2,
+      "spec": {
+        "file": "src/app/api/user/award-badge/route.ts",
+        "lines": 88,
+        "methods": [
+          "POST"
+        ],
+        "usesSecret": true,
+        "secrets": [
+          "SUPABASE_SERVICE_ROLE_KEY"
+        ],
+        "secretVia": {},
+        "authGated": true
+      },
+      "brokenOn": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "okOn": [],
+      "severity": "BROKEN"
     },
     {
       "path": "/api/v1/auth/exchange-session",
@@ -14733,12 +15296,12 @@
       "callSites": [
         {
           "file": "src/app/onboarding/page.tsx",
-          "line": 641,
+          "line": 299,
           "live": true
         },
         {
           "file": "src/app/onboarding/page.tsx",
-          "line": 641,
+          "line": 299,
           "live": true
         }
       ],
@@ -14809,12 +15372,12 @@
       "callSites": [
         {
           "file": "src/app/onboarding/page.tsx",
-          "line": 502,
+          "line": 160,
           "live": true
         },
         {
           "file": "src/app/onboarding/page.tsx",
-          "line": 576,
+          "line": 234,
           "live": true
         },
         {
@@ -14844,6 +15407,81 @@
         "DELETE"
       ],
       "severity": "OK"
+    },
+    {
+      "path": "/api/xp/add",
+      "reachable": true,
+      "liveCallSites": 2,
+      "status": "UNHANDLED-404",
+      "worst": "UNHANDLED-404",
+      "bucket": "B",
+      "layer": "none",
+      "handler": "client.ts throws Unhandled API path",
+      "handledMethods": [],
+      "undecidable": false,
+      "preferLive": true,
+      "perMethod": {
+        "GET": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "POST": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "PUT": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "PATCH": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "DELETE": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        }
+      },
+      "callSites": [
+        {
+          "file": "src/lib/context/CareerOSContext.tsx",
+          "line": 1197,
+          "live": true
+        },
+        {
+          "file": "src/lib/context/CareerOSContext.tsx",
+          "line": 1197,
+          "live": true
+        }
+      ],
+      "directCalls": 1,
+      "spec": {
+        "file": "src/app/api/xp/add/route.ts",
+        "lines": 145,
+        "methods": [
+          "POST"
+        ],
+        "usesSecret": true,
+        "secrets": [
+          "SUPABASE_SERVICE_ROLE_KEY"
+        ],
+        "secretVia": {},
+        "authGated": true
+      },
+      "brokenOn": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "okOn": [],
+      "severity": "BROKEN"
     }
   ],
   "unreachableOrDynamicGuards": [

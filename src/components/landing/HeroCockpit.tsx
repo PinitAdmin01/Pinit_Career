@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, type CSSProperties, type MouseEvent } from 'react';
+import Image from 'next/image';
 
 interface HeroCockpitProps {
   onOpenLogin: (role?: 'student' | 'teacher' | 'admin' | 'recruiter') => void;
@@ -71,7 +72,7 @@ export default function HeroCockpit({ onOpenLogin, onExploreCourses }: HeroCockp
               <div className="lp-ring lp-ring-soft" aria-hidden />
               <div className="lp-logo">
                 <div className="lp-badge lp-badge-official">
-                  <img src="/brand/pinit-career-logo-clear.png" alt="PINIT CAREER" />
+                  <Image src="/brand/pinit-career-logo-clear.png" alt="PINIT CAREER" width={120} height={32} style={{ width: 'auto', height: 'auto', maxHeight: 32 }} priority />
                 </div>
               </div>
               <ul className="lp-terms">

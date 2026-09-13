@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import dsaiLogo from '../assets/dsaiLogo.js';
 
 /* ─────────────────────────────────────────────
@@ -552,7 +553,7 @@ export default function LandingPage({ onStudentLogin, onAdminLogin, onTeacherLog
       <nav className={`lp-nav${scrolled ? ' scrolled' : ''}`}>
         <div className="lp-nav-brand" onClick={() => setTab('home')}>
           <div className="lp-nav-brand-img-wrap">
-            <img src={dsaiLogo} alt="DSAI" className="lp-nav-brand-img" />
+            <Image src={dsaiLogo || '/brand/pinit-career-logo.png'} alt="DSAI" width={44} height={44} className="lp-nav-brand-img" unoptimized />
             <span className="lp-nav-brand-dot" />
           </div>
           <div className="lp-nav-brand-text">
@@ -818,7 +819,7 @@ export default function LandingPage({ onStudentLogin, onAdminLogin, onTeacherLog
                   equipping students with hands-on data science and AI skills that matter.
                 </p>
                 <div style={{ display:'flex', alignItems:'center', gap:14 }}>
-                  <img src={dsaiLogo} alt="DSAI" style={{ width:52, height:52, borderRadius:'50%', objectFit:'cover', border:'2px solid rgba(37,99,235,0.2)', boxShadow:'0 4px 16px rgba(37,99,235,0.14)', display:'block', flexShrink:0 }} />
+                  <Image src={dsaiLogo || '/brand/pinit-career-logo.png'} alt="DSAI" width={52} height={52} unoptimized style={{ width:52, height:52, borderRadius:'50%', objectFit:'cover', border:'2px solid rgba(37,99,235,0.2)', boxShadow:'0 4px 16px rgba(37,99,235,0.14)', display:'block', flexShrink:0 }} />
                   <div>
                     <div style={{ fontSize:14, fontWeight:800, color:'#060e1e', letterSpacing:'-0.2px' }}>BGS Institute of Management</div>
                     <div style={{ fontSize:11, fontWeight:700, color:'#2563eb', letterSpacing:'0.4px', marginTop:2 }}>DSAI Division · Future of Tech</div>
@@ -927,7 +928,7 @@ export default function LandingPage({ onStudentLogin, onAdminLogin, onTeacherLog
       {/* ════ FOOTER ════ */}
       <footer className="lp-footer">
         <div style={{ display:'flex', alignItems:'center', gap:10 }}>
-          <img src={dsaiLogo} alt="DSAI" style={{ width:28, height:28, borderRadius:'50%', objectFit:'cover', border:'1.5px solid rgba(37,99,235,0.15)' }} />
+          <Image src={dsaiLogo || '/brand/pinit-career-logo.png'} alt="DSAI" width={28} height={28} unoptimized style={{ width:28, height:28, borderRadius:'50%', objectFit:'cover', border:'1.5px solid rgba(37,99,235,0.15)' }} />
           <span style={{ fontSize:12, color:'#94a3b8', fontWeight:500 }}>© 2025 BGS Institute of Management · DSAI Division</span>
         </div>
         <nav className="lp-footer-nav">

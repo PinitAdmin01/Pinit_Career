@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect, useRef, Suspense, lazy, useCallback } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/lib/context/AuthContext';
 import { useCareerProfile } from '@/lib/hooks/useCareerProfile';
@@ -1906,11 +1907,11 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           >
             {collapsed || effectiveFocusMode ? (
               <span className="logo-mark logo-mark-img">
-                <img src="/brand/pinit-career-logo.png" alt="PINIT CAREER" />
+                <Image src="/brand/pinit-career-logo.png" alt="PINIT CAREER" width={32} height={32} priority />
               </span>
             ) : (
               <span className="lp-brand-lockup" style={{ height: 40, padding: '2px 6px' }}>
-                <img src="/brand/pinit-career-logo.png" alt="PINIT CAREER" className="lp-brand-logo" style={{ height: 34, maxWidth: 148 }} />
+                <Image src="/brand/pinit-career-logo.png" alt="PINIT CAREER" width={148} height={34} className="lp-brand-logo" style={{ height: 34, maxWidth: 148, width: 'auto', objectFit: 'contain' }} priority />
               </span>
             )}
           </Link>

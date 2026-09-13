@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function PublicFooter() {
   return (
@@ -25,7 +26,7 @@ export default function PublicFooter() {
           <div>
             <Link href="/" className="lp-brand" style={{ textDecoration: 'none', marginBottom: '16px' }}>
               <span className="lp-brand-lockup">
-                <img src="/brand/pinit-career-logo-clear.png" alt="PINIT CAREER" className="lp-brand-logo" />
+                <Image src="/brand/pinit-career-logo-clear.png" alt="PINIT CAREER" width={140} height={36} className="lp-brand-logo" style={{ height: '36px', width: 'auto', objectFit: 'contain' }} />
               </span>
             </Link>
             <p style={{ color: '#94A3B8', fontSize: '13.5px', lineHeight: '1.6', maxWidth: '320px' }}>

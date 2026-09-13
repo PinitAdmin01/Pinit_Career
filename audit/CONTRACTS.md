@@ -2,28 +2,28 @@
 
 Regenerate: `node audit/extract-contracts.mjs`
 
-- **generated**: 2026-09-12T16:04:31.532Z
-- **appCodeFiles**: 369
-- **verticals**: 63
-- **verticalsWithDefects**: 12
-- **clientCalledPaths**: 183
-- **reachablePaths**: 145
-- **brokenOnEveryMethod**: 12
+- **generated**: 2026-09-13T13:54:13.894Z
+- **appCodeFiles**: 378
+- **verticals**: 66
+- **verticalsWithDefects**: 17
+- **clientCalledPaths**: 190
+- **reachablePaths**: 152
+- **brokenOnEveryMethod**: 19
 - **brokenOnSomeMethods**: 4
 - **defectsInDeadCode**: 24
 - **unbuiltPages**: 15
-- **reachableSourceFiles**: 354
+- **reachableSourceFiles**: 362
 - **guardBranches**: 181
 - **unreachableOrDynamicGuards**: 82
 - **campusSwitchCases**: 102
 - **campusPrefixes**: 19
-- **deadRouteFiles**: 137
+- **deadRouteFiles**: 147
 - **interceptorBypasses**: ["/api/tts"]
-- **preferLivePrefixes**: 35
+- **preferLivePrefixes**: 58
 - **needsManualCheck**: 0
-- **byWorst**: {"REAL":128,"COMPUTE":3,"THROWS":5,"STUB":24,"UNHANDLED-404":8,"EXTERNAL":5,"CAMPUS-404":2,"DECLINED":4,"BYPASSES-SHIM":1,"LOCAL-STORE":3}
-- **byBucket**: {"OK":128,"C":8,"B":13,"A":34}
-- **byLayer**: {"firestoreRouter":125,"campusFallback":49,"none":8,"interceptor-bypass":1}
+- **byWorst**: {"REAL":128,"COMPUTE":3,"THROWS":5,"STUB":24,"UNHANDLED-404":15,"EXTERNAL":5,"CAMPUS-404":2,"DECLINED":4,"BYPASSES-SHIM":1,"LOCAL-STORE":3}
+- **byBucket**: {"OK":128,"C":8,"B":19,"A":35}
+- **byLayer**: {"firestoreRouter":125,"campusFallback":49,"none":15,"interceptor-bypass":1}
 - **guardsByVerdict**: {"REAL":120,"LOCAL-STORE":5,"STUB":38,"THROWS":9,"EXTERNAL":8,"COMPUTE":1}
 
 **Verdict** — `REAL` reaches a datastore · `STUB` returns a literal · `THROWS` raises ApiError
@@ -33,13 +33,14 @@ Regenerate: `node audit/extract-contracts.mjs`
 
 **Bucket** — `A` port to client · `B` needs a trusted server · `C` genuinely stateless · `OK` already real.
 
-## Broken no matter how they are called (12)
+## Broken no matter how they are called (19)
 
 | path | verdict | bucket | layer | handler | spec route | direct/total |
 |---|---|---|---|---|---|---|
 | `/api/auth/session` | THROWS | B | firestoreRouter | client.ts:562 | /api/auth/session/route.ts | 5/10 |
 | `/api/auth/vault-exchange` | THROWS | B | firestoreRouter | client.ts:562 | /api/auth/vault-exchange/route.ts | 1/2 |
 | `/api/career-twin/results` | STUB | A | firestoreRouter | client.ts:738 | /api/career-twin/results/route.ts | 0/3 |
+| `/api/code/evaluate` | UNHANDLED-404 | B | none | client.ts throws Unhandled API path | /api/code/evaluate/route.ts | 1/2 |
 | `/api/codewars/matches` | UNHANDLED-404 | A | none | client.ts throws Unhandled API path | /api/codewars/matches/route.ts | 2/4 |
 | `/api/github/ingest` | UNHANDLED-404 | B | none | client.ts throws Unhandled API path | /api/github/ingest/route.ts | 2/4 |
 | `/api/internships` | UNHANDLED-404 | A | none | client.ts throws Unhandled API path | /api/internships/route.ts | 2/4 |
@@ -47,8 +48,14 @@ Regenerate: `node audit/extract-contracts.mjs`
 | `/api/interview/generate-problem` | STUB | B | firestoreRouter | client.ts:1948 | /api/interview/generate-problem/route.ts | 1/2 |
 | `/api/pathway/evidence` | UNHANDLED-404 | B | none | client.ts throws Unhandled API path | /api/pathway/evidence/route.ts | 1/2 |
 | `/api/payment/create-order` | THROWS | B | firestoreRouter | client.ts:1757 | /api/payment/create-order/route.ts | 0/3 |
+| `/api/pins/buy-ai-minutes` | UNHANDLED-404 | B | none | client.ts throws Unhandled API path | /api/pins/buy-ai-minutes/route.ts | 1/2 |
+| `/api/pins/claim-streak-bonus` | UNHANDLED-404 | B | none | client.ts throws Unhandled API path | /api/pins/claim-streak-bonus/route.ts | 1/2 |
+| `/api/pins/extend-grace` | UNHANDLED-404 | B | none | client.ts throws Unhandled API path | /api/pins/extend-grace/route.ts | 1/2 |
+| `/api/quest/complete` | UNHANDLED-404 | A | none | client.ts throws Unhandled API path | /api/quest/complete/route.ts | 1/2 |
 | `/api/time` | UNHANDLED-404 | A | none | client.ts throws Unhandled API path | /api/time/route.ts | 1/2 |
 | `/api/tts` | BYPASSES-SHIM | A | interceptor-bypass | src/lib/fetchInterceptor.ts | /api/tts/route.ts | 3/6 |
+| `/api/user/award-badge` | UNHANDLED-404 | B | none | client.ts throws Unhandled API path | /api/user/award-badge/route.ts | 2/4 |
+| `/api/xp/add` | UNHANDLED-404 | B | none | client.ts throws Unhandled API path | /api/xp/add/route.ts | 1/2 |
 
 ## Broken only on some methods (4)
 
@@ -60,7 +67,7 @@ method the call site actually uses before treating one as a defect.
 - `/api/interview/evaluate` — broken on GET, PUT, PATCH, DELETE; works on POST
 - `/api/opportunities` — broken on POST, PUT, PATCH, DELETE; works on GET
 
-## All paths (183)
+## All paths (190)
 
 | path | verdict | bucket | layer | handler | spec route | direct/total |
 |---|---|---|---|---|---|---|
@@ -105,6 +112,7 @@ method the call site actually uses before treating one as a defect.
 | `/api/chat` | STUB | A | firestoreRouter | client.ts:2214 | — | 1/2 |
 | `/api/chat/history/:param` | STUB | A | firestoreRouter | client.ts:2213 | — | 1/2 |
 | `/api/chat/session` | STUB | A | firestoreRouter | client.ts:2212 | — | 1/2 |
+| `/api/code/evaluate` | UNHANDLED-404 | B | none | client.ts throws Unhandled API path | /api/code/evaluate/route.ts | 1/2 |
 | `/api/code/run-java` | REAL | OK | firestoreRouter | client.ts:2060 | /api/code/run-java/route.ts | 1/2 |
 | `/api/code/run-python` | REAL | OK | firestoreRouter | client.ts:1993 | /api/code/run-python/route.ts | 1/2 |
 | `/api/codewars/matches` | UNHANDLED-404 | A | none | client.ts throws Unhandled API path | /api/codewars/matches/route.ts | 2/4 |
@@ -188,12 +196,16 @@ method the call site actually uses before treating one as a defect.
 | `/api/personality/report` | STUB | A | firestoreRouter | client.ts:1953 | — | 0/2 |
 | `/api/personality/session` | STUB | A | firestoreRouter | client.ts:1954 | — | 0/1 |
 | `/api/pins/balance` | REAL | OK | firestoreRouter | client.ts:1696 | — | 0/1 |
+| `/api/pins/buy-ai-minutes` | UNHANDLED-404 | B | none | client.ts throws Unhandled API path | /api/pins/buy-ai-minutes/route.ts | 1/2 |
+| `/api/pins/claim-streak-bonus` | UNHANDLED-404 | B | none | client.ts throws Unhandled API path | /api/pins/claim-streak-bonus/route.ts | 1/2 |
 | `/api/pins/earn` | REAL | OK | firestoreRouter | client.ts:1700 | — | 2/4 |
+| `/api/pins/extend-grace` | UNHANDLED-404 | B | none | client.ts throws Unhandled API path | /api/pins/extend-grace/route.ts | 1/2 |
 | `/api/pins/spend` | REAL | OK | firestoreRouter | client.ts:1712 | — | 1/2 |
 | `/api/portfolio/analyze-certificate` | REAL | OK | firestoreRouter | client.ts:2746 | /api/portfolio/analyze-certificate/route.ts | 1/2 |
 | `/api/portfolio/verify-endorsement` | REAL | OK | firestoreRouter | client.ts:2725 | /api/portfolio/verify-endorsement/route.ts | 2/4 |
 | `/api/portfolio/verify-exam` | REAL | OK | firestoreRouter | client.ts:2882 | /api/portfolio/verify-exam/route.ts | 1/2 |
 | `/api/projects/generate` | REAL | OK | firestoreRouter | client.ts:1459 | /api/projects/generate/route.ts | 1/2 |
+| `/api/quest/complete` | UNHANDLED-404 | A | none | client.ts throws Unhandled API path | /api/quest/complete/route.ts | 1/2 |
 | `/api/quests/verify` | REAL | OK | firestoreRouter | client.ts:3449 | — | 0/1 |
 | `/api/recruiter/activity-log` | REAL | OK | firestoreRouter | client.ts:2571 | — | 1/2 |
 | `/api/recruiter/analytics` | REAL | OK | firestoreRouter | client.ts:2571 | — | 0/1 |
@@ -240,6 +252,7 @@ method the call site actually uses before treating one as a defect.
 | `/api/university/dashboard` | REAL | OK | firestoreRouter | client.ts:2942 | — | 0/1 |
 | `/api/university/employability-report` | REAL | OK | firestoreRouter | client.ts:2942 | — | 0/1 |
 | `/api/university/skill-gaps` | REAL | OK | firestoreRouter | client.ts:2942 | — | 0/1 |
+| `/api/user/award-badge` | UNHANDLED-404 | B | none | client.ts throws Unhandled API path | /api/user/award-badge/route.ts | 2/4 |
 | `/api/v1/auth/exchange-session` | LOCAL-STORE | A | firestoreRouter | client.ts:320 | — | 1/2 |
 | `/api/v1/auth/logout-all` | LOCAL-STORE | A | firestoreRouter | client.ts:414 | — | 1/2 |
 | `/api/v1/auth/vault-approve` | LOCAL-STORE | A | firestoreRouter | client.ts:280 | — | 0/1 |
@@ -247,3 +260,4 @@ method the call site actually uses before treating one as a defect.
 | `/api/vault` | REAL | OK | firestoreRouter | client.ts:1282 | — | 2/5 |
 | `/api/vault/delete` | REAL | OK | firestoreRouter | client.ts:1068 | /api/vault/delete/route.ts | 1/2 |
 | `/api/vault/upload` | REAL | OK | firestoreRouter | client.ts:1284 | /api/vault/upload/route.ts | 0/3 |
+| `/api/xp/add` | UNHANDLED-404 | B | none | client.ts throws Unhandled API path | /api/xp/add/route.ts | 1/2 |
