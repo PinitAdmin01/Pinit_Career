@@ -17,13 +17,7 @@ export function generateTxId(prefix: string = 'tx'): string {
     return `${prefix}_${Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('')}`;
   }
 
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const nodeCrypto = require('crypto');
-    if (typeof nodeCrypto?.randomUUID === 'function') {
-      return `${prefix}_${nodeCrypto.randomUUID()}`;
-    }
-  } catch {}
+
 
   // Task 3.3: High-entropy monotonic counter + high-resolution timestamp fallback
   const now = Date.now();
