@@ -15,11 +15,16 @@ export default function VRoidInterviewAvatar({ teacherId = 'priya', animState = 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const sceneRef = useRef<VRoidAvatarEngine | null>(null);
   const [hasWebGLError, setHasWebGLError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     if (!canvasRef.current) return;
     const scene = new VRoidAvatarEngine();
     sceneRef.current = scene;
+    scene.onReady = () => {
+      setIsLoading(false);
+    };
     scene.paused = paused || !visible;
     try {
       scene.init(canvasRef.current, teacherId);
@@ -34,6 +39,7 @@ export default function VRoidInterviewAvatar({ teacherId = 'priya', animState = 
     } catch (e) {
       console.warn("[VRoid Avatar] WebGL Engine initialization failed, falling back to 2D portrait:", e);
       setHasWebGLError(true);
+      setIsLoading(false);
     }
 
     const ro = new ResizeObserver(entries => {
@@ -98,6 +104,42 @@ export default function VRoidInterviewAvatar({ teacherId = 'priya', animState = 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
       <canvas ref={canvasRef} data-vroid-canvas="true" style={{ width: '100%', height: '100%', display: 'block' }} />
+      {isLoading && (
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: 'radial-gradient(circle at center, rgba(15, 23, 42, 0.7) 0%, rgba(2, 6, 23, 0.9) 100%)',
+            backdropFilter: 'blur(4px)',
+            zIndex: 10,
+            pointerEvents: 'none',
+          }}
+        >
+          <div
+            style={{
+              width: 38,
+              height: 38,
+              borderRadius: '50%',
+              border: '3px solid rgba(99, 102, 241, 0.2)',
+              borderTopColor: '#818cf8',
+              animation: 'vroid-avatar-spin 0.85s linear infinite',
+            }}
+          />
+          <style>{`
+            @keyframes vroid-avatar-spin {
+              from { transform: rotate(0deg); }
+              to { transform: rotate(360deg); }
+            }
+          `}</style>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', marginTop: 12, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+            Synthesizing 3D Mentor...
+          </div>
+        </div>
+      )}
     </div>
   );
 }

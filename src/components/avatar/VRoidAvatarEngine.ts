@@ -104,6 +104,8 @@ export class VRoidAvatarEngine {
   // complete, on both the GLB path and the procedural fallback path.
   private ready = false;
   private restPoseApplied = false;
+  onReady?: () => void;
+  get isReady(): boolean { return this.ready; }
 
   // ── C-02 & T6: adaptive performance state ────────────────────────────────
   // Set during init() from device detection, then adjusted at runtime by the
@@ -780,6 +782,13 @@ export class VRoidAvatarEngine {
     if (this.ready) return;
     this.ready = true;
     console.log(`[VRoidAvatarEngine] Avatar ready (source: ${source}). Bones bound, isVRM=${this.isVRM}.`);
+    if (this.onReady) {
+      try {
+        this.onReady();
+      } catch (err) {
+        console.error('[VRoidAvatarEngine] Error in onReady callback:', err);
+      }
+    }
   }
 
   setState(s: AnimState) {
