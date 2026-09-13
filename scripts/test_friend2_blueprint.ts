@@ -106,6 +106,15 @@ async function runFriend2BlueprintTests() {
     } finally {
       (process.env as any).NODE_ENV = originalEnv;
     }
+
+    // 2.3 Verify 45s TTL auto-expiration and created_at support in source
+    const hasCreatedAt = financeServiceSrc.includes('created_at: now.toISOString()');
+    const has45sThreshold = financeServiceSrc.includes('45 * 1000');
+    assert(
+      hasCreatedAt && has45sThreshold,
+      'Task 2.2.3: acquireDistributedLock records created_at and auto-reclaims locks older than 45s',
+      `created_at: ${hasCreatedAt}, 45s threshold: ${has45sThreshold}`
+    );
   } catch (err: any) {
     assert(false, 'Task 2.2 execution failed', err?.message);
   }

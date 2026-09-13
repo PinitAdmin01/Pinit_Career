@@ -11,7 +11,8 @@ const suites = [
   { name: 'Sub-Batch 2.4 (Issues 043-047: Feature Unlocks & Grace)', file: 'scripts/test_subbatch_2_4.ts' },
   { name: 'Sub-Batch 2.5 (Issues 048-052: XP Progression & Scoring)', file: 'scripts/test_subbatch_2_5.ts' },
   { name: 'Sub-Batch 2.6 (Issues 053-054: Store Sync & Realtime)', file: 'scripts/test_subbatch_2_6.ts' },
-  { name: 'Blueprint 10/10 (Tasks 2.1-2.3: Cryptographic Receipts, Fail-Closed Locks, Daily XP Cap)', file: 'scripts/test_friend2_blueprint.ts' },
+  { name: 'Dual-Router Parity (Task 2.1: LIVE_API_PREFIXES Parity Linter)', file: 'scripts/verify_api_parity.ts' },
+  { name: 'Blueprint 10/10 (Tasks 2.1-2.3: Cryptographic Receipts, 45s Fail-Closed Locks, Daily XP Cap)', file: 'scripts/test_friend2_blueprint.ts' },
 ];
 
 console.log('========================================================================');

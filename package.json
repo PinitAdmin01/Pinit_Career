@@ -11,7 +11,7 @@
     "build:static": "node build.js",
     "deploy:static": "npm run build:static && firebase deploy --only hosting",
     "lint": "node scripts/check_eslint_comments.js && next lint",
-    "audit:contracts": "node audit/extract-contracts.mjs",
+    "audit:contracts": "node audit/extract-contracts.mjs && npx tsx scripts/verify_api_parity.ts",
     "audit:headers": "node audit/check-headers.mjs",
     "audit:runtime": "node audit/walk-routes.mjs",
     "audit": "npm run audit:contracts && npm run audit:headers",
