@@ -186,6 +186,89 @@ async function runFriend2BlueprintTests() {
   }
 
   // ───────────────────────────────────────────────────────────────────────────
+  // TASK 2.4: Serverless Read-Only Filesystem & Fail-Closed Defense (financeService.ts)
+  // ───────────────────────────────────────────────────────────────────────────
+  console.log('\n── TASK 2.4: Serverless Read-Only Filesystem & Fail-Closed Defense ──');
+  try {
+    const financeServiceSrc = fs.readFileSync(
+      path.join(process.cwd(), 'src', 'lib', 'services', 'financeService.ts'),
+      'utf8'
+    );
+
+    // 4.1 Verify zero imports of localJsonDb or filesystem writing utilities
+    const hasLocalJsonImport = financeServiceSrc.includes('localJsonDb');
+    const hasDbFile = financeServiceSrc.includes('finance_db.json');
+    const hasReadLocalDb = financeServiceSrc.includes('readLocalDb');
+    const hasWriteLocalDb = financeServiceSrc.includes('writeLocalDb');
+
+    assert(
+      !hasLocalJsonImport && !hasDbFile && !hasReadLocalDb && !hasWriteLocalDb,
+      'Task 2.4.1: Eradicated localJsonDb imports, finance_db.json, and readLocalDb/writeLocalDb from financeService.ts',
+      `localJsonDb: ${hasLocalJsonImport}, finance_db.json: ${hasDbFile}, readLocalDb: ${hasReadLocalDb}, writeLocalDb: ${hasWriteLocalDb}`
+    );
+
+    // 4.2 Verify serverless runtime detection helper exists
+    const hasServerlessHelper = financeServiceSrc.includes('isServerlessRuntime') &&
+                                financeServiceSrc.includes('LIVE_DB_UNAVAILABLE');
+    assert(
+      hasServerlessHelper,
+      'Task 2.4.2: financeService declares isServerlessRuntime() and returns LIVE_DB_UNAVAILABLE in serverless runtimes',
+      `Helper present: ${hasServerlessHelper}`
+    );
+
+    // 4.3 Behavioral test: Serverless runtime fail-closed when database is offline
+    const prevEnv = process.env.VERCEL;
+    try {
+      process.env.VERCEL = '1';
+      const duesRes = await financeService.getStudentDues('serverless_test_student_01');
+      assert(
+        (duesRes as any).error === 'LIVE_DB_UNAVAILABLE',
+        'Task 2.4.3: getStudentDues fails closed with LIVE_DB_UNAVAILABLE in serverless runtime when DB is offline',
+        `Error code: ${(duesRes as any).error}`
+      );
+
+      const scholRes = await financeService.applyScholarship('serverless_test_student_01', 'SCH-MERIT');
+      assert(
+        scholRes.ok === false && scholRes.error === 'LIVE_DB_UNAVAILABLE',
+        'Task 2.4.4: applyScholarship fails closed with LIVE_DB_UNAVAILABLE in serverless runtime when DB is offline',
+        `Result ok: ${scholRes.ok}, error: ${scholRes.error}`
+      );
+    } finally {
+      if (prevEnv !== undefined) {
+        process.env.VERCEL = prevEnv;
+      } else {
+        delete process.env.VERCEL;
+      }
+    }
+
+    // 4.4 Relational schema migration validation
+    const migrationPath = path.join(process.cwd(), 'supabase', 'migrations', '20260915_finance_dues_and_scholarships.sql');
+    const migrationExists = fs.existsSync(migrationPath);
+    const migrationSql = migrationExists ? fs.readFileSync(migrationPath, 'utf8') : '';
+    const hasDuesTable = migrationSql.includes('CREATE TABLE IF NOT EXISTS public.student_fee_dues');
+    const hasInstallmentsTable = migrationSql.includes('CREATE TABLE IF NOT EXISTS public.fee_installments');
+    const hasAppliedScholTable = migrationSql.includes('CREATE TABLE IF NOT EXISTS public.applied_scholarships');
+    const hasRelationalRpc = migrationSql.includes('apply_student_scholarship_relational');
+
+    assert(
+      migrationExists && hasDuesTable && hasInstallmentsTable && hasAppliedScholTable && hasRelationalRpc,
+      'Task 2.4.5: Migration 20260915_finance_dues_and_scholarships.sql declares student_fee_dues, fee_installments, and applied_scholarships with relational RPC',
+      `Migration exists: ${migrationExists}, tables: dues=${hasDuesTable}, installments=${hasInstallmentsTable}, scholarships=${hasAppliedScholTable}`
+    );
+
+    // 4.5 Verify zero filesystem mutations (finance_db.json was never created or modified)
+    const jsonPath = path.join(process.cwd(), 'src', 'lib', 'data', 'finance_db.json');
+    const jsonModifiedRecently = fs.existsSync(jsonPath) ? (Date.now() - fs.statSync(jsonPath).mtimeMs < 60000) : false;
+    assert(
+      !jsonModifiedRecently,
+      'Task 2.4.6: Zero filesystem writes: finance_db.json was untouched during offline/serverless operations',
+      `Modified recently: ${jsonModifiedRecently}`
+    );
+  } catch (err: any) {
+    assert(false, 'Task 2.4 execution failed', err?.message);
+  }
+
+  // ───────────────────────────────────────────────────────────────────────────
   // SUMMARY
   // ───────────────────────────────────────────────────────────────────────────
   console.log('\n========================================================================');
@@ -196,7 +279,7 @@ async function runFriend2BlueprintTests() {
     console.error(`\n❌ ${failed} Friend 2 Blueprint check(s) failed.`);
     process.exit(1);
   } else {
-    console.log('\n🎉 ALL FRIEND 2 BLUEPRINT REQUIREMENTS (TASKS 2.1, 2.2, 2.3) VERIFIED (100% GREEN)!');
+    console.log('\n🎉 ALL FRIEND 2 BLUEPRINT REQUIREMENTS (TASKS 2.1 - 2.4) VERIFIED (100% GREEN)!');
     process.exit(0);
   }
 }

@@ -1,9 +1,6 @@
 import { supabase } from '@/lib/supabaseClient';
 import { tableExists as checkSupabaseAvailable } from '@/lib/services/supabaseTable';
-import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
 import { generateTxId } from '@/lib/utils/transactionId';
-
-const DB_FILE = 'src/lib/data/finance_db.json';
 
 // Interface types
 export interface FinanceInstallment {
@@ -22,11 +19,29 @@ export interface StudentDues {
   fineLevied: number;
   installments: FinanceInstallment[];
   appliedScholarships?: string[];
+  ok?: boolean;
+  error?: string;
+  message?: string;
 }
 
 // In-flight concurrency locks backed by distributed database keys to survive multi-container / serverless deployments (Defect 029 & 035)
 export const activePaymentLocks = new Set<string>();
 export const activeScholarshipLocks = new Set<string>();
+
+/**
+ * Detects whether the code is running inside a serverless runtime (Vercel, AWS Lambda, production container)
+ * where filesystem writes are prohibited and persistent database backing is strictly mandatory.
+ */
+export function isServerlessRuntime(): boolean {
+  return (
+    process.env.NODE_ENV === 'production' ||
+    !!process.env.VERCEL ||
+    !!process.env.AWS_LAMBDA_FUNCTION_NAME ||
+    !!process.env.LAMBDA_TASK_ROOT ||
+    !!process.env.NETLIFY ||
+    process.env.SERVERLESS_RUNTIME === 'true'
+  );
+}
 
 export async function acquireDistributedLock(lockKey: string, userId: string, ttlSeconds = 30): Promise<boolean> {
   if (activePaymentLocks.has(lockKey) || activeScholarshipLocks.has(lockKey)) {
@@ -43,7 +58,7 @@ export async function acquireDistributedLock(lockKey: string, userId: string, tt
 
       // Prune expired locks
       try {
-        await supabase
+        const { error: _pruneErr } = await supabase
           .from('payment_idempotency_keys')
           .delete()
           .lt('expires_at', now.toISOString());
@@ -124,7 +139,7 @@ export async function releaseDistributedLock(lockKey: string): Promise<void> {
   try {
     const isSupabase = await checkSupabaseAvailable('payment_idempotency_keys');
     if (isSupabase) {
-      await supabase
+      const { error: _relErr } = await supabase
         .from('payment_idempotency_keys')
         .delete()
         .eq('key', lockKey);
@@ -144,23 +159,6 @@ export interface FinanceTransaction {
   timestamp: string;
 }
 
-// Read local JSON database
-async function readLocalDb(): Promise<any> {
-  console.warn('⚠️ [DEV WARNING] LIVE DATABASE PERSISTENCE DISABLED: Reading finance data from local JSON database mock (src/lib/data/finance_db.json). Changes will NOT persist to Supabase.');
-  const db = await readLocalJson(DB_FILE, { dues: {}, scholarships: [], transactions: [] });
-  return {
-    dues: db.dues || {},
-    scholarships: db.scholarships || [],
-    transactions: db.transactions || [],
-  };
-}
-
-// Write local JSON database
-async function writeLocalDb(data: any): Promise<void> {
-  console.warn('⚠️ [DEV WARNING] LIVE DATABASE PERSISTENCE DISABLED: Writing finance data to local JSON database mock (src/lib/data/finance_db.json). Changes will NOT persist to Supabase.');
-  await writeLocalJson(DB_FILE, data);
-}
-
 const DEFAULT_INSTALLMENTS: FinanceInstallment[] = [
   { id: 'INST-01', name: 'Semester Tuition Fee - Term 1', amount: 45000, deadline: '2025-08-30', status: 'Pending', paidOn: null, receiptId: null },
   { id: 'INST-02', name: 'Campus Facilities & Lab Fee', amount: 15000, deadline: '2025-10-15', status: 'Pending', paidOn: null, receiptId: null },
@@ -172,39 +170,28 @@ const DEFAULT_SCHOLARSHIPS = [
   { id: 'SCH-SPORTS', name: 'Athletics & Sports Fellowship', amount: 8000, criteria: 'University Athlete' }
 ];
 
-const EMPTY_DUES: StudentDues = { totalTermFees: 65000, scholarshipWaiver: 0, fineLevied: 0, installments: DEFAULT_INSTALLMENTS };
+// Ephemeral in-memory store strictly for local dev/testing when Supabase is offline.
+// ZERO filesystem methods (readLocalJson, writeLocalJson, fs.writeFileSync) are ever invoked.
+const inMemoryDues = new Map<string, StudentDues>();
+const inMemoryTransactions: FinanceTransaction[] = [];
 
-function asDues(value: unknown): StudentDues | null {
-  if (!value || typeof value !== 'object') return null;
-  const dues = value as StudentDues;
-  if (!Array.isArray(dues.installments)) return null;
+function getInMemoryDues(studentId: string): StudentDues {
+  let dues = inMemoryDues.get(studentId);
+  if (!dues) {
+    dues = {
+      totalTermFees: 65000,
+      scholarshipWaiver: 0,
+      fineLevied: 0,
+      installments: DEFAULT_INSTALLMENTS.map(i => ({ ...i })),
+      appliedScholarships: []
+    };
+    inMemoryDues.set(studentId, dues);
+  }
   return dues;
 }
 
-function getDuesForStudent(db: any, studentId: string): StudentDues {
-  const mapped = asDues(db.dues?.[studentId]);
-  if (mapped && mapped.installments && mapped.installments.length > 0) return mapped;
-  const legacy = asDues(db.dues);
-  if (legacy && db.dues && typeof db.dues === 'object' && !Array.isArray(db.dues.installments) && legacy.installments && legacy.installments.length > 0) {
-    db.dues = { [studentId]: legacy };
-    return legacy;
-  }
-  return {
-    totalTermFees: 65000,
-    scholarshipWaiver: 0,
-    fineLevied: 0,
-    installments: DEFAULT_INSTALLMENTS.map(i => ({ ...i })),
-    appliedScholarships: []
-  };
-}
-
-function setDuesForStudent(db: any, studentId: string, dues: StudentDues) {
-  if (asDues(db.dues) && !db.dues[studentId]) {
-    db.dues = { [studentId]: dues };
-    return;
-  }
-  db.dues = db.dues && typeof db.dues === 'object' && !Array.isArray(db.dues.installments) ? db.dues : {};
-  db.dues[studentId] = dues;
+function setInMemoryDues(studentId: string, dues: StudentDues) {
+  inMemoryDues.set(studentId, dues);
 }
 
 function summarizeTransactions(transactions: Array<{ amount?: number; finePaid?: number; fine_paid?: number }>) {
@@ -214,27 +201,90 @@ function summarizeTransactions(transactions: Array<{ amount?: number; finePaid?:
 }
 
 export const financeService = {
-  async getStudentDues(studentId: string) {
-    const isSupabaseAvailable = await checkSupabaseAvailable('finance_dues');
+  async getStudentDues(studentId: string): Promise<StudentDues> {
+    // 1. Check relational student_fee_dues schema
+    const isRelationalAvailable = await checkSupabaseAvailable('student_fee_dues');
+    if (isRelationalAvailable) {
+      try {
+        const { data: duesRow } = await supabase
+          .from('student_fee_dues')
+          .select('*')
+          .eq('student_id', studentId)
+          .maybeSingle();
 
-    if (isSupabaseAvailable) {
+        const { data: installmentsRows } = await supabase
+          .from('fee_installments')
+          .select('*')
+          .eq('student_id', studentId)
+          .order('deadline', { ascending: true });
+
+        const { data: appliedRows } = await supabase
+          .from('applied_scholarships')
+          .select('scholarship_id')
+          .eq('student_id', studentId);
+
+        if (duesRow && installmentsRows && installmentsRows.length > 0) {
+          return {
+            totalTermFees: Number(duesRow.total_term_fees || 65000),
+            scholarshipWaiver: Number(duesRow.scholarship_waiver || 0),
+            fineLevied: Number(duesRow.fine_levied || 0),
+            installments: installmentsRows.map((inst: any) => ({
+              id: inst.installment_id,
+              name: inst.name,
+              amount: Number(inst.amount),
+              deadline: inst.deadline,
+              status: inst.status,
+              paidOn: inst.paid_on,
+              receiptId: inst.receipt_id,
+            })),
+            appliedScholarships: (appliedRows || []).map((a: any) => a.scholarship_id)
+          };
+        }
+      } catch (err) {
+        console.warn('[FinanceService] Supabase read from student_fee_dues failed:', err);
+      }
+    }
+
+    // 2. Fallback to legacy finance_dues table (for existing deployments/tests)
+    const isLegacyAvailable = await checkSupabaseAvailable('finance_dues');
+    if (isLegacyAvailable) {
       try {
         const { data: record } = await supabase.from('finance_dues').select('*').eq('student_id', studentId).maybeSingle();
         if (record) {
           return {
-            totalTermFees: record.total_term_fees,
-            scholarshipWaiver: record.scholarship_waiver,
-            fineLevied: record.fine_levied,
-            installments: record.installments || []
+            totalTermFees: Number(record.total_term_fees || 65000),
+            scholarshipWaiver: Number(record.scholarship_waiver || 0),
+            fineLevied: Number(record.fine_levied || 0),
+            installments: record.installments || [],
+            appliedScholarships: record.applied_scholarships || []
           };
         }
       } catch (err) {
-        console.warn('Supabase read failed, falling back to local database:', err);
+        console.warn('[FinanceService] Supabase read from finance_dues failed:', err);
       }
     }
 
-    const db = await readLocalDb();
-    return getDuesForStudent(db, studentId);
+    // 3. Fail closed in serverless runtimes when database is unreachable
+    if (isServerlessRuntime()) {
+      console.error('[FinanceService] Database unavailable during getDues in serverless runtime; failing closed');
+      return {
+        ok: false,
+        error: 'LIVE_DB_UNAVAILABLE',
+        message: 'Live database persistence is unavailable in serverless runtime.',
+        totalTermFees: 0,
+        scholarshipWaiver: 0,
+        fineLevied: 0,
+        installments: []
+      };
+    }
+
+    // 4. In-memory ephemeral fallback for local dev/testing without filesystem I/O
+    console.warn('⚠️ [DEV WARNING] LIVE DATABASE PERSISTENCE DISABLED: Serving dues from ephemeral in-memory state. ZERO filesystem writes performed.');
+    return getInMemoryDues(studentId);
+  },
+
+  async getDues(studentId: string): Promise<StudentDues> {
+    return this.getStudentDues(studentId);
   },
 
   async payDue(studentId: string, studentName: string, installmentId: string, studentEmail?: string) {
@@ -383,10 +433,8 @@ export const financeService = {
   },
 
   async getScholarships() {
-    const db = await readLocalDb();
-    const list = Array.isArray(db.scholarships) && db.scholarships.length > 0 ? db.scholarships : DEFAULT_SCHOLARSHIPS;
     return {
-      scholarships: list
+      scholarships: DEFAULT_SCHOLARSHIPS
     };
   },
 
@@ -398,11 +446,36 @@ export const financeService = {
     }
 
     try {
-      const db = await readLocalDb();
-      const catalogScholarship = (db.scholarships || DEFAULT_SCHOLARSHIPS).find((s: any) => s.id === scholarshipId);
+      const catalogScholarship = DEFAULT_SCHOLARSHIPS.find((s: any) => s.id === scholarshipId);
       const val = catalogScholarship ? Number(catalogScholarship.amount) : (scholarshipId === 'SCH-MERIT' ? 15000 : 8000);
-      const isSupabaseAvailable = await checkSupabaseAvailable('finance_dues');
 
+      // 1. Relational schema check (student_fee_dues / applied_scholarships)
+      const isRelationalAvailable = await checkSupabaseAvailable('student_fee_dues');
+      if (isRelationalAvailable) {
+        try {
+          const { data: rpcRes, error: rpcErr } = await supabase.rpc('apply_student_scholarship_relational', {
+            p_student_id: studentId,
+            p_scholarship_id: scholarshipId,
+            p_amount: val,
+            p_academic_cycle: '2026-2027'
+          });
+
+          if (!rpcErr && rpcRes) {
+            if (rpcRes.ok) {
+              return { ok: true, waiver: Number(rpcRes.waiver || val) };
+            }
+            if (rpcRes.already_applied) {
+              return { ok: false, waiver: Number(rpcRes.waiver || 0), alreadyApplied: true, message: rpcRes.message || 'Scholarship waiver already applied' };
+            }
+            return { ok: false, error: rpcRes.error, message: rpcRes.message };
+          }
+        } catch (relRpcErr) {
+          console.warn('[FinanceService] apply_student_scholarship_relational notice:', relRpcErr);
+        }
+      }
+
+      // 2. Legacy schema check (finance_dues / apply_student_scholarship RPC)
+      const isSupabaseAvailable = await checkSupabaseAvailable('finance_dues');
       if (isSupabaseAvailable) {
         try {
           // DEF-035 FIX: Database-enforced atomic stored procedure with FOR UPDATE row locking and UNIQUE(student_id, academic_cycle)
@@ -449,11 +522,23 @@ export const financeService = {
             return { ok: true, waiver: val };
           }
         } catch (err) {
-          console.warn('Supabase write failed, falling back to local database:', err);
+          console.warn('Supabase write failed, falling back to local memory:', err);
         }
       }
 
-      const dues = getDuesForStudent(db, studentId);
+      // 3. Fail closed in serverless runtimes
+      if (isServerlessRuntime()) {
+        console.error('[FinanceService] Database unavailable during applyScholarship in serverless runtime; failing closed');
+        return {
+          ok: false,
+          error: 'LIVE_DB_UNAVAILABLE',
+          message: 'Live database persistence is unavailable in serverless runtime.'
+        };
+      }
+
+      // 4. In-memory ephemeral fallback for offline dev/tests (zero filesystem writes)
+      console.warn('⚠️ [DEV WARNING] LIVE DATABASE PERSISTENCE DISABLED: Applying scholarship to in-memory state. ZERO filesystem writes performed.');
+      const dues = getInMemoryDues(studentId);
       const appliedList: string[] = Array.isArray(dues.appliedScholarships) ? dues.appliedScholarships : [];
       if (appliedList.includes(scholarshipId) || (dues.scholarshipWaiver && Number(dues.scholarshipWaiver) > 0)) {
         return { ok: false, waiver: Number(dues.scholarshipWaiver), alreadyApplied: true, message: 'Scholarship waiver already applied' };
@@ -468,8 +553,7 @@ export const financeService = {
         remainingWaiver -= deduction;
         return { ...inst, amount: currentAmount - deduction };
       });
-      setDuesForStudent(db, studentId, dues);
-      await writeLocalDb(db);
+      setInMemoryDues(studentId, dues);
       return { ok: true, waiver: val };
     } finally {
       await releaseDistributedLock(lockKey);
@@ -527,12 +611,23 @@ export const financeService = {
           }))
         };
       } catch (err) {
-        console.warn('Supabase read failed, falling back to local database:', err);
+        console.warn('Supabase read failed, falling back to local memory:', err);
       }
     }
 
-    const db = await readLocalDb();
-    const transactions = (db.transactions || []).slice(0, 50);
+    if (isServerlessRuntime()) {
+      return {
+        projected: 0,
+        collected: 0,
+        duesOutstanding: 0,
+        finesCollected: 0,
+        transactionCount: 0,
+        transactions: [],
+        error: 'LIVE_DB_UNAVAILABLE'
+      };
+    }
+
+    const transactions = inMemoryTransactions.slice(0, 50);
     return {
       ...summarizeTransactions(transactions),
       transactions
