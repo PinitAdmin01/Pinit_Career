@@ -11,7 +11,7 @@
 // connect-src in BOTH files, then run `npm run audit:headers` to confirm.
 const CSP = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://*.supabase.co https://checkout.razorpay.com",
+  "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' 'unsafe-eval' https://*.supabase.co https://checkout.razorpay.com",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com data:",
   "img-src 'self' data: blob: https://*.supabase.co https://api.dicebear.com https://avatars.githubusercontent.com https://images.unsplash.com",

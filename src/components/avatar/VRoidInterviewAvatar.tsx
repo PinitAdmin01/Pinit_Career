@@ -22,7 +22,12 @@ export default function VRoidInterviewAvatar({ teacherId = 'priya', animState = 
     if (!canvasRef.current) return;
     const scene = new VRoidAvatarEngine();
     sceneRef.current = scene;
+    const safetyTimer = setTimeout(() => {
+      setIsLoading(false);
+    }, 10000);
+
     scene.onReady = () => {
+      clearTimeout(safetyTimer);
       setIsLoading(false);
     };
     scene.paused = paused || !visible;
@@ -38,6 +43,7 @@ export default function VRoidInterviewAvatar({ teacherId = 'priya', animState = 
       }
     } catch (e) {
       console.warn("[VRoid Avatar] WebGL Engine initialization failed, falling back to 2D portrait:", e);
+      clearTimeout(safetyTimer);
       setHasWebGLError(true);
       setIsLoading(false);
     }
@@ -51,6 +57,7 @@ export default function VRoidInterviewAvatar({ teacherId = 'priya', animState = 
     ro.observe(canvasRef.current);
 
     return () => {
+      clearTimeout(safetyTimer);
       ro.disconnect();
       scene.dispose();
       if (typeof window !== 'undefined') {

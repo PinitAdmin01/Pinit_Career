@@ -374,10 +374,22 @@ export class VRoidAvatarEngine {
     const loadAttempt = (idx: number): Promise<void> => {
       if (idx >= paths.length) return Promise.reject(new Error("No VRMs found"));
       return new Promise<void>((resolve, reject) => {
+        let settled = false;
         const resolvedPath = paths[idx];
+        const timer = setTimeout(() => {
+          if (settled) return;
+          settled = true;
+          console.warn(`[VRoidAvatarEngine] Load timed out for "${resolvedPath}", trying next fallback.`);
+          loadAttempt(idx + 1).then(resolve).catch(reject);
+        }, 8000);
+
         console.log('[VRoidAvatarEngine] Attempting to load avatar GLB from:', resolvedPath);
-        loader.load(resolvedPath, gltf => {
-          console.log('[VRoidAvatarEngine] Successfully loaded 3D avatar:', resolvedPath);
+        try {
+          loader.load(resolvedPath, gltf => {
+            if (settled) return;
+            settled = true;
+            clearTimeout(timer);
+            console.log('[VRoidAvatarEngine] Successfully loaded 3D avatar:', resolvedPath);
           this.scene.add(gltf.scene);
           this.isVRM = true;
           this.faceMeshes = [];
@@ -554,17 +566,24 @@ export class VRoidAvatarEngine {
           this.centerCameraOnHead();
           // D-04 FIX: all bones bound and isVRM resolved — safe to animate now.
           this.markReady(resolvedPath);
-          resolve();
-        }, undefined, () => {
-          // D-01 FIX: make substitution visible instead of silent. If this
-          // warning appears with a different persona's model on the next line,
-          // that is the identity-mismatch bug happening in real time.
+        }, undefined, (err) => {
+          if (settled) return;
+          settled = true;
+          clearTimeout(timer);
+          // D-01 FIX: make substitution visible instead of silent.
           console.warn(
-            `[VRoidAvatarEngine] Failed to load "${resolvedPath}" (attempt ${idx + 1}/${paths.length}).` +
+            `[VRoidAvatarEngine] Failed to load "${resolvedPath}" (attempt ${idx + 1}/${paths.length}):`, err,
             (idx + 1 < paths.length ? ` Falling back to "${paths[idx + 1]}".` : ' No fallbacks remain.')
           );
           loadAttempt(idx + 1).then(resolve).catch(reject);
         });
+        } catch (syncErr) {
+          if (settled) return;
+          settled = true;
+          clearTimeout(timer);
+          console.warn('[VRoidAvatarEngine] Synchronous error during loader.load:', syncErr);
+          loadAttempt(idx + 1).then(resolve).catch(reject);
+        }
       });
     };
 
