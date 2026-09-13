@@ -63,12 +63,11 @@ export async function POST(req: Request) {
       );
     }
 
-    // 2. Atomically deduct pins via spend_pins RPC
+    // 2. Atomically deduct pins via spend_pins RPC (with PostgreSQL FOR UPDATE lock)
     const { data: spendRes, error: spendErr } = await admin.rpc('spend_pins', {
       p_user_id: userId,
-      p_cost: cost,
+      p_amount: cost,
       p_reason: `Extended daily AI by ${minutesToGrant} mins`,
-      p_source: 'ai_minutes_extend',
     });
 
     if (spendErr) {
