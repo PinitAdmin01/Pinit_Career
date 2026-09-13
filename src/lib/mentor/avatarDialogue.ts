@@ -22,6 +22,7 @@ export interface DialogueResponse {
   context?: Partial<StudentMentorContext>;
   suggestedPrompts?: string[];
   error?: string;
+  simulated?: boolean;
 }
 
 export function generateContextualGreeting(context: StudentMentorContext): string {
@@ -115,6 +116,7 @@ export async function askMentorAvatar(
       reply: data.reply || 'Let us explore that together.',
       context: data.context || context,
       suggestedPrompts: generateMentorQuickPrompts({ ...context, ...(data.context || {}) }),
+      simulated: data.simulated === true,
     };
   } catch (err: any) {
     // Graceful offline fallback maintaining student context
@@ -129,6 +131,7 @@ export async function askMentorAvatar(
       context,
       suggestedPrompts: generateMentorQuickPrompts(context),
       error: err?.message,
+      simulated: true,
     };
   }
 }

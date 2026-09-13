@@ -128,8 +128,10 @@ YOUR INSTRUCTIONS:
       }
     }
 
+    let isSimulated = false;
     // Dynamic contextual fallback if LLM offline / absent API keys
     if (!llmResponse) {
+      isSimulated = true;
       const gapsNotice = missingSkills.length > 0
         ? `Given your goal of becoming a ${targetRole}, I recommend tackling your gaps in ${missingSkills.slice(0, 2).join(' and ')}.`
         : `Let's keep reinforcing your core competencies for ${targetRole}.`;
@@ -151,6 +153,7 @@ YOUR INSTRUCTIONS:
     return NextResponse.json({
       ok: true,
       reply: cleanReply,
+      simulated: isSimulated,
       context: {
         studentName,
         targetRole,
