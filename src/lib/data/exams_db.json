@@ -151,6 +151,62 @@
       "score": 40,
       "passed": false,
       "timestamp": 1789229047584
+    },
+    {
+      "studentId": "usr_cd_test_1789279756759",
+      "examScheduleId": "e1",
+      "score": 45,
+      "passed": false,
+      "timestamp": 1789279756762
+    },
+    {
+      "studentId": "usr_cd_api_1789279756765",
+      "examScheduleId": "e2",
+      "score": 40,
+      "passed": false,
+      "timestamp": 1789279756765
+    },
+    {
+      "studentId": "usr_cd_test_1789283821606",
+      "examScheduleId": "e1",
+      "score": 45,
+      "passed": false,
+      "timestamp": 1789283821609
+    },
+    {
+      "studentId": "usr_cd_api_1789283821613",
+      "examScheduleId": "e2",
+      "score": 40,
+      "passed": false,
+      "timestamp": 1789283821613
+    },
+    {
+      "studentId": "usr_cd_test_1789284060362",
+      "examScheduleId": "e1",
+      "score": 45,
+      "passed": false,
+      "timestamp": 1789284060365
+    },
+    {
+      "studentId": "usr_cd_api_1789284060367",
+      "examScheduleId": "e2",
+      "score": 40,
+      "passed": false,
+      "timestamp": 1789284060367
+    },
+    {
+      "studentId": "usr_cd_test_1789284164259",
+      "examScheduleId": "e1",
+      "score": 45,
+      "passed": false,
+      "timestamp": 1789284164262
+    },
+    {
+      "studentId": "usr_cd_api_1789284164265",
+      "examScheduleId": "e2",
+      "score": 40,
+      "passed": false,
+      "timestamp": 1789284164265
     }
   ]
 }

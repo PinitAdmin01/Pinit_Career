@@ -477,11 +477,11 @@ export async function updateUserProfile(
     console.warn('Failed to load current onboarding_answers for merge:', e);
   }
 
-  const row = mapProfileToRow(data) || {};
+  let row = mapProfileToRow(data) || {};
   // Self-service / client updates must never change privilege, economy, or score fields.
   // Admin role/suspend paths pass allowPrivileged: true.
   if (!opts?.allowPrivileged) {
-    stripSelfServicePrivileges(row, false);
+    row = stripSelfServicePrivileges(row, false);
   }
   if (Object.keys(answersUpdate).length > 0) {
     row.onboarding_answers = {

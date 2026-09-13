@@ -58,6 +58,19 @@ async function persistJavaCompletionServerSide(uid: string, questId: string, xpA
   }
 }
 
+const QUEST_XP_REGISTRY: Record<string, number> = {
+  'java-basics-lecture-day-1': 100,
+  'java-control-flow-day-2': 120,
+  'java-oop-classes-day-3': 150,
+  'java-collections-day-4': 180,
+  'java-exceptions-day-5': 150,
+};
+
+export function getAuthoritativeQuestXp(questId?: string): number {
+  if (!questId) return 100;
+  return QUEST_XP_REGISTRY[questId] || 100;
+}
+
 export async function POST(req: NextRequest) {
   const startTime = Date.now();
 
@@ -252,8 +265,9 @@ export async function POST(req: NextRequest) {
       // this route, using the real compile+run result it just produced. Non-
       // blocking: never delays or fails the response to the student.
       const authenticatedUser = gated.user;
+      const authoritativeXpAwarded = passed ? getAuthoritativeQuestXp(questId) : 0;
       if (passed && typeof questId === 'string' && questId && authenticatedUser) {
-        persistJavaCompletionServerSide(authenticatedUser.id, questId, typeof xp === 'number' ? xp : 120)
+        persistJavaCompletionServerSide(authenticatedUser.id, questId, authoritativeXpAwarded)
           .catch((e) => console.warn('[run-java] completion persistence rejected:', e?.message));
       }
 
@@ -264,6 +278,7 @@ export async function POST(req: NextRequest) {
         failedTests: passed ? 0 : 1,
         allPassed: passed,
         status: passed ? 'SUCCESS' : 'RUNTIME_ERROR',
+        authoritativeXpAwarded,
         totalDurationMs: Date.now() - startTime,
         terminalLogs: logs,
         testOutcomes: [{

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
+import { checkRateLimit } from '@/lib/server/rateLimit';
 
 export const maxDuration = 30; // 30s timeout
 
@@ -134,6 +135,20 @@ export async function POST(req: NextRequest) {
   try {
     const gated = await requireUserFromRequest(req);
     if (gated.error) return gated.error;
+
+    const rateLimitKey = `stt_${gated.user?.id || req.headers.get('x-forwarded-for') || 'anon'}`;
+    const rateCheck = checkRateLimit(rateLimitKey, { limit: 4, windowMs: 60 * 1000 });
+    if (!rateCheck.allowed) {
+      return NextResponse.json(
+        { error: 'TOO_MANY_REQUESTS', message: `Rate limit exceeded. Please wait ${rateCheck.resetSec}s.` },
+        {
+          status: 429,
+          headers: {
+            'Retry-After': String(rateCheck.resetSec),
+          },
+        }
+      );
+    }
 
     const formData = await req.formData();
     const file = formData.get('file') as Blob | null;

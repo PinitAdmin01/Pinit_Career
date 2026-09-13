@@ -3,13 +3,21 @@ import crypto from 'crypto';
 import { DEMO_ROLE_BY_EMAIL } from '@/lib/demoAuth';
 import { getUserProfile } from '@/lib/supabaseService';
 
-const VAULT_SECRET = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.EXAM_SECRET || 'pinit_vault_server_signing_secret_2026';
+const devEphemeralKey = crypto.randomBytes(32).toString('hex');
+
+export function getVaultSecret(): string {
+  const secret = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.EXAM_SECRET || process.env.NEXTAUTH_SECRET;
+  if (!secret && process.env.NODE_ENV === 'production') {
+    throw new Error('[FATAL] Vault signing secret must be configured in production.');
+  }
+  return secret || devEphemeralKey;
+}
 
 function signSessionToken(payload: { uid: string; email?: string; role: string; exp: number }): string {
   const header = Buffer.from(JSON.stringify({ alg: 'HS256', typ: 'JWT' })).toString('base64url');
   const body = Buffer.from(JSON.stringify(payload)).toString('base64url');
   const signature = crypto
-    .createHmac('sha256', VAULT_SECRET)
+    .createHmac('sha256', getVaultSecret())
     .update(`${header}.${body}`)
     .digest('base64url');
   return `${header}.${body}.${signature}`;

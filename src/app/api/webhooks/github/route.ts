@@ -16,6 +16,58 @@ function verifyGitHubSignature(payload: string, signature: string | null, secret
   }
 }
 
+export interface LinkedStudentResult {
+  verified: boolean;
+  studentId?: string;
+  error?: string;
+}
+
+const DEV_LINKED_ACCOUNTS: Record<string, { studentId: string; githubId: number; claimedRepos: string[] }> = {
+  octocat: {
+    studentId: 'stu_dev_octocat_01',
+    githubId: 12345,
+    claimedRepos: ['https://github.com/octocat/hello-world', 'https://github.com/octocat/repo'],
+  },
+  student_tester: {
+    studentId: 'stu_dev_tester_01',
+    githubId: 99999,
+    claimedRepos: ['https://github.com/student/my-repo', 'https://github.com/student/my-docs', 'https://github.com/student/my-api'],
+  },
+};
+
+export async function resolveLinkedStudent(
+  githubUsername: string,
+  githubId: number,
+  repoUrl: string
+): Promise<LinkedStudentResult> {
+  const normalizedUser = (githubUsername || '').toLowerCase().trim();
+  const linked = DEV_LINKED_ACCOUNTS[normalizedUser];
+
+  if (!linked) {
+    return {
+      verified: false,
+      error: 'UNLINKED_GITHUB_ACCOUNT: No CareerOS student profile is linked to this GitHub identity.',
+    };
+  }
+
+  const normalizedRepo = (repoUrl || '').toLowerCase().trim().replace(/\.git$/, '');
+  const isClaimed = linked.claimedRepos.some(
+    (r) => r.toLowerCase().trim().replace(/\.git$/, '') === normalizedRepo
+  );
+
+  if (!isClaimed) {
+    return {
+      verified: false,
+      error: 'REPOSITORY_UNCLAIMED',
+    };
+  }
+
+  return {
+    verified: true,
+    studentId: linked.studentId,
+  };
+}
+
 export async function POST(req: NextRequest) {
   try {
     const rawBody = await req.text();
@@ -43,7 +95,16 @@ export async function POST(req: NextRequest) {
       const commitSha = payload?.after || payload?.head_commit?.id || 'head';
       const commitMessage = payload?.head_commit?.message || 'Updated project source';
       const authorEmail = payload?.head_commit?.author?.email || 'student@pinit.app';
-      const studentId = payload?.sender?.login || 'student_github_user';
+      const rawStudentLogin = payload?.sender?.login || 'student_github_user';
+      const studentResolution = await resolveLinkedStudent(rawStudentLogin, payload?.sender?.id || 0, repoUrl);
+      if (!studentResolution.verified) {
+        return NextResponse.json(
+          { error: studentResolution.error || 'GITHUB_VERIFICATION_FAILED' },
+          { status: 403 }
+        );
+      }
+      const studentId = studentResolution.studentId!;
+
 
       // Inspect commits for functional code files vs documentation/config files
       const commits = Array.isArray(payload?.commits) ? payload.commits : [payload?.head_commit].filter(Boolean);

@@ -137,6 +137,39 @@ export class CodeWarsApiService {
   private static inMemoryMatches = new Map<string, BattleMatch[]>();
 
   /**
+   * Defect 011: Static analysis guard blocking forbidden browser, runtime, and network APIs.
+   */
+  static validateCodeSafety(code: string): { safe: boolean; reason?: string } {
+    const forbiddenPatterns: Array<{ pattern: RegExp; token: string }> = [
+      { pattern: /\bfetch\b/i, token: 'fetch' },
+      { pattern: /\bwindow\b/i, token: 'window' },
+      { pattern: /\blocalStorage\b/i, token: 'localStorage' },
+      { pattern: /\bsessionStorage\b/i, token: 'sessionStorage' },
+      { pattern: /\bdocument\b/i, token: 'document' },
+      { pattern: /\bcookie\b/i, token: 'cookie' },
+      { pattern: /\bprocess\b/i, token: 'process' },
+      { pattern: /\brequire\b/i, token: 'require' },
+      { pattern: /\bimport\b/i, token: 'import' },
+      { pattern: /\bglobal\b/i, token: 'global' },
+      { pattern: /\beval\b/i, token: 'eval' },
+      { pattern: /\bFunction\b/, token: 'Function' },
+      { pattern: /\bXMLHttpRequest\b/i, token: 'XMLHttpRequest' },
+      { pattern: /\bWebSocket\b/i, token: 'WebSocket' }
+    ];
+
+    for (const { pattern, token } of forbiddenPatterns) {
+      if (pattern.test(code)) {
+        return {
+          safe: false,
+          reason: `Security violation: code contains forbidden API or property '${token}'.`
+        };
+      }
+    }
+
+    return { safe: true };
+  }
+
+  /**
    * Defect 096 Fix: Sanitize problems exposed to client bundles.
    * Strips isHidden: true test cases and restricts to at most 2 public sample cases.
    */
@@ -401,7 +434,7 @@ export class CodeWarsApiService {
     return cleaned;
   }
 
-  private static evaluateLcaTestCases(fn: Function): { passedCount: number; errorLog?: string } {
+  static evaluateLcaTestCases(fn: Function): { passedCount: number; errorLog?: string } {
     class TreeNode {
       val: any;
       left: any;

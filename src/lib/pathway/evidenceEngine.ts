@@ -60,9 +60,12 @@ export function generateEvidenceIntegrityHash(record: Omit<CompetencyEvidenceRec
     artifacts: sortedArtifacts,
   });
 
-  // DEF-065 Fix: HMAC-SHA256 with server signing secret / salt
-  const secret = process.env.EVIDENCE_SIGNING_SECRET || process.env.SUPABASE_SERVICE_ROLE_KEY || 'pinit_evidence_master_ledger_secret_v1';
-  return createHmac('sha256', secret).update(canonicalPayload).digest('hex');
+  const secret = process.env.EVIDENCE_SIGNING_SECRET || process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.EXAM_SECRET;
+  if (!secret && process.env.NODE_ENV === 'production') {
+    throw new Error('[FATAL] EVIDENCE_SIGNING_SECRET must be configured in production.');
+  }
+  const signingKey = secret || 'dev_ephemeral_evidence_signing_secret';
+  return createHmac('sha256', signingKey).update(canonicalPayload).digest('hex');
 }
 
 /**
