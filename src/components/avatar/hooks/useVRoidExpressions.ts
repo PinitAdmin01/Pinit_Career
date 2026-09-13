@@ -1,4 +1,4 @@
-// hooks/useVRoidExpressions.js
+// hooks/useVRoidExpressions.ts
 // 🎯 VROID STUDIO ANIME BLEND SHAPE OPTIMIZATION
 // ✅ VRM expression morphing
 // ✅ Anime-style blinks
@@ -7,12 +7,12 @@
 // ✅ Smooth blending
 
 import { useRef, useState, useCallback } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, FrameState } from './useFrame';
 
-const lerp = (a, b, t) => a + (b - a) * t;
+const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
 // VRM Standard Expression Names (VRoid compatible)
-const VRM_EXPRESSIONS = {
+export const VRM_EXPRESSIONS: Record<string, string> = {
   // Eye expressions
   blink: 'blink',
   blinkLeft: 'blink_left',
@@ -35,20 +35,27 @@ const VRM_EXPRESSIONS = {
 };
 
 // Anime-optimized expression settings
-const ANIME_EXPRESSION_SETTINGS = {
-  // Blink duration (shorter for anime)
+export const ANIME_EXPRESSION_SETTINGS = {
   blinkDuration: 0.12,
-  // Blink interval (more frequent in anime)
   blinkInterval: 3.5,
-  // Expression blend speed (smooth anime transitions)
   expressionBlendSpeed: 0.15,
-  // Mouth movement amplitude
   mouthAmplitude: 0.8,
 };
 
-export function useVRoidExpressions(vrmModel) {
-  const expressionManagerRef = useRef(null);
-  const expressionStateRef = useRef(new Map());
+export interface VRMExpressionManagerLike {
+  setValue?: (name: string, value: number) => void;
+  getValue?: (name: string) => number;
+  [key: string]: any;
+}
+
+export interface VRMModelWithExpressions {
+  expressionManager?: VRMExpressionManagerLike | null;
+  [key: string]: any;
+}
+
+export function useVRoidExpressions(vrmModel?: VRMModelWithExpressions | null) {
+  const expressionManagerRef = useRef<VRMExpressionManagerLike | null>(null);
+  const expressionStateRef = useRef<Map<string, number>>(new Map());
   const [vrmExpressionsReady, setVrmExpressionsReady] = useState(false);
 
   // Initialize VRM expressions
@@ -62,9 +69,7 @@ export function useVRoidExpressions(vrmModel) {
 
     // Initialize all expression states to 0
     Object.values(VRM_EXPRESSIONS).forEach((expr) => {
-      if (vrmModel.expressionManager[expr] !== undefined) {
-        expressionStateRef.current.set(expr, 0);
-      }
+      expressionStateRef.current.set(expr, 0);
     });
 
     setVrmExpressionsReady(true);
@@ -73,21 +78,23 @@ export function useVRoidExpressions(vrmModel) {
   }, [vrmModel]);
 
   // Set expression value (0-1)
-  const setExpression = useCallback((expressionName, value) => {
+  const setExpression = useCallback((expressionName: string, value: number) => {
     const manager = expressionManagerRef.current;
     if (!manager) return;
 
     const clampedValue = Math.max(0, Math.min(1, value));
     expressionStateRef.current.set(expressionName, clampedValue);
 
-    // Apply to VRM
-    if (manager[expressionName] !== undefined) {
+    // Apply to VRM expression manager (supports both @pixiv/three-vrm 0.x and 1.x)
+    if (typeof manager.setValue === 'function') {
+      manager.setValue(expressionName, clampedValue);
+    } else if (manager[expressionName] !== undefined && typeof manager[expressionName] === 'object') {
       manager[expressionName].value = clampedValue;
     }
   }, []);
 
   // Blend between two expressions smoothly
-  const blendExpressions = useCallback((expr1, expr2, blend) => {
+  const blendExpressions = useCallback((expr1: string, expr2: string, blend: number) => {
     const val1 = expressionStateRef.current.get(expr1) || 0;
     const val2 = expressionStateRef.current.get(expr2) || 0;
 
@@ -97,13 +104,12 @@ export function useVRoidExpressions(vrmModel) {
 
   // Perform blink
   const blink = useCallback((duration = ANIME_EXPRESSION_SETTINGS.blinkDuration) => {
-    // Quick blink animation
     const steps = 10;
     const stepDuration = duration / steps;
 
     for (let i = 0; i <= steps; i++) {
       const progress = i / steps;
-      const blinkAmount = Math.sin(progress * Math.PI); // Smooth curve
+      const blinkAmount = Math.sin(progress * Math.PI);
 
       setTimeout(() => {
         setExpression(VRM_EXPRESSIONS.blink, blinkAmount);
@@ -120,8 +126,8 @@ export function useVRoidExpressions(vrmModel) {
   }, [blink]);
 
   // Set facial expression (happy, sad, etc.)
-  const setFacialExpression = useCallback((expressionType, intensity = 1) => {
-    const expressionMap = {
+  const setFacialExpression = useCallback((expressionType: string, intensity = 1) => {
+    const expressionMap: Record<string, { expression: string; value: number }> = {
       happy: { expression: VRM_EXPRESSIONS.happy, value: 0.8 * intensity },
       sad: { expression: VRM_EXPRESSIONS.sad, value: 0.7 * intensity },
       angry: { expression: VRM_EXPRESSIONS.angry, value: 0.9 * intensity },
@@ -140,7 +146,7 @@ export function useVRoidExpressions(vrmModel) {
   }, [setExpression]);
 
   // Mouth shapes for lip-sync (phoneme-based)
-  const setMouthShape = useCallback((phoneme) => {
+  const setMouthShape = useCallback((phoneme: string) => {
     // Reset mouth
     Object.keys(VRM_EXPRESSIONS).forEach((key) => {
       if (key.match(/^(aa|ih|ou|ee|oh)$/)) {
@@ -148,15 +154,14 @@ export function useVRoidExpressions(vrmModel) {
       }
     });
 
-    // Apply mouth shape based on phoneme
-    const mouthMap = {
+    const mouthMap: Record<string, { expr: string; val: number }> = {
       'a': { expr: VRM_EXPRESSIONS.aa, val: 0.8 },
       'e': { expr: VRM_EXPRESSIONS.ee, val: 0.7 },
       'i': { expr: VRM_EXPRESSIONS.ih, val: 0.7 },
       'o': { expr: VRM_EXPRESSIONS.oh, val: 0.8 },
       'u': { expr: VRM_EXPRESSIONS.ou, val: 0.8 },
-      'm': { expr: VRM_EXPRESSIONS.oh, val: 0.6 }, // Closed mouth
-      'p': { expr: VRM_EXPRESSIONS.oh, val: 0.5 }, // Slightly closed
+      'm': { expr: VRM_EXPRESSIONS.oh, val: 0.6 },
+      'p': { expr: VRM_EXPRESSIONS.oh, val: 0.5 },
     };
 
     if (mouthMap[phoneme]) {
@@ -165,14 +170,12 @@ export function useVRoidExpressions(vrmModel) {
   }, [setExpression]);
 
   // Set eye look direction
-  const setEyeLook = useCallback((direction) => {
-    // Reset all look expressions
+  const setEyeLook = useCallback((direction: string) => {
     ['lookUp', 'lookDown', 'lookLeft', 'lookRight'].forEach((dir) => {
       setExpression(VRM_EXPRESSIONS[dir], 0);
     });
 
-    // Apply direction
-    const lookMap = {
+    const lookMap: Record<string, { expr: string; val: number }> = {
       up: { expr: VRM_EXPRESSIONS.lookUp, val: 0.8 },
       down: { expr: VRM_EXPRESSIONS.lookDown, val: 0.8 },
       left: { expr: VRM_EXPRESSIONS.lookLeft, val: 0.8 },
@@ -185,29 +188,24 @@ export function useVRoidExpressions(vrmModel) {
   }, [setExpression]);
 
   // Automatic blinking
-  useFrame((state) => {
-    // Auto blink every N seconds
+  useFrame((state: FrameState) => {
     const blinkCycle = ANIME_EXPRESSION_SETTINGS.blinkInterval;
     const t = state.clock.elapsedTime % blinkCycle;
     const blinkStart = blinkCycle - ANIME_EXPRESSION_SETTINGS.blinkDuration;
 
     if (t > blinkStart) {
-      // Blink phase
       const blinkPhase = (t - blinkStart) / ANIME_EXPRESSION_SETTINGS.blinkDuration;
       const blinkAmount = Math.sin(blinkPhase * Math.PI);
       setExpression(VRM_EXPRESSIONS.blink, blinkAmount);
     } else if (t < 0.05) {
-      // Open eyes
       setExpression(VRM_EXPRESSIONS.blink, 0);
     }
   });
 
-  // Get current expression value
-  const getExpressionValue = useCallback((expressionName) => {
+  const getExpressionValue = useCallback((expressionName: string) => {
     return expressionStateRef.current.get(expressionName) || 0;
   }, []);
 
-  // Get all expressions
   const getAllExpressions = useCallback(() => {
     return Object.fromEntries(expressionStateRef.current);
   }, []);
@@ -228,5 +226,3 @@ export function useVRoidExpressions(vrmModel) {
     ANIME_EXPRESSION_SETTINGS,
   };
 }
-
-export { VRM_EXPRESSIONS, ANIME_EXPRESSION_SETTINGS };

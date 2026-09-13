@@ -1,4 +1,4 @@
-// hooks/useVRoidPhysics.js
+// hooks/useVRoidPhysics.ts
 // 🎯 ADVANCED VROID PHYSICS & CLOTH SIMULATION
 // ✅ Hair physics
 // ✅ Cloth dynamics
@@ -7,47 +7,58 @@
 // ✅ Soft body simulation
 
 import { useRef, useCallback } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, FrameState } from './useFrame';
 import * as THREE from 'three';
 
-const lerp = (a, b, t) => a + (b - a) * t;
-
 // Physics settings optimized for anime
-const VROID_PHYSICS_SETTINGS = {
-  // Gravity simulation
-  gravity: -0.5, // Light gravity for anime
-  damping: 0.95, // How quickly things slow down
+export const VROID_PHYSICS_SETTINGS = {
+  gravity: -0.5,
+  damping: 0.95,
   friction: 0.98,
   
-  // Hair physics
   hairDamping: 0.92,
   hairStiffness: 0.1,
   hairGravity: -0.3,
   
-  // Cloth physics
   clothDamping: 0.90,
   clothStiffness: 0.15,
   clothGravity: -0.4,
   
-  // Wind simulation
   windStrength: 0.1,
   windVariation: 0.5,
   
-  // Collision
   collisionRadius: 0.1,
   collisionResponse: 0.8,
 };
 
+export interface PhysicsObject {
+  boneName: string;
+  bone: THREE.Object3D;
+  mass: number;
+  damping: number;
+  stiffness: number;
+  velocity: THREE.Vector3;
+  prevPosition: THREE.Vector3;
+  forces: THREE.Vector3;
+  pinned: boolean;
+  colliding: boolean;
+}
+
 export function useVRoidPhysics() {
-  // Track bone velocities for physics
-  const boneVelocityRef = useRef(new Map());
-  const bonePositionRef = useRef(new Map());
-  const physicsObjectsRef = useRef([]);
+  const boneVelocityRef = useRef<Map<string, THREE.Vector3>>(new Map());
+  const bonePositionRef = useRef<Map<string, THREE.Vector3>>(new Map());
+  const physicsObjectsRef = useRef<PhysicsObject[]>([]);
   const windStateRef = useRef({ x: 0, y: 0, z: 0 });
 
   // Initialize physics object
-  const addPhysicsObject = useCallback((boneName, bone, options = {}) => {
-    const physicsObj = {
+  const addPhysicsObject = useCallback((
+    boneName: string,
+    bone: THREE.Object3D | null | undefined,
+    options: { mass?: number; damping?: number; stiffness?: number; pinned?: boolean } = {}
+  ): PhysicsObject | null => {
+    if (!bone || !bone.position) return null;
+
+    const physicsObj: PhysicsObject = {
       boneName,
       bone,
       mass: options.mass || 1,
@@ -68,7 +79,8 @@ export function useVRoidPhysics() {
   }, []);
 
   // Track bone movement velocity
-  const updateBoneVelocity = useCallback((boneName, bone) => {
+  const updateBoneVelocity = useCallback((boneName: string, bone: THREE.Object3D | null | undefined) => {
+    if (!bone || !bone.position) return;
     const prevPos = bonePositionRef.current.get(boneName);
     if (!prevPos) return;
 
@@ -85,8 +97,7 @@ export function useVRoidPhysics() {
   }, []);
 
   // Simulate wind effect
-  const updateWind = useCallback((time) => {
-    // Perlin noise-like wind variation
+  const updateWind = useCallback((time: number) => {
     const windX = Math.sin(time * 0.5) * VROID_PHYSICS_SETTINGS.windStrength;
     const windY = Math.cos(time * 0.3) * VROID_PHYSICS_SETTINGS.windStrength * 0.5;
     const windZ = Math.sin(time * 0.7) * VROID_PHYSICS_SETTINGS.windStrength;
@@ -95,17 +106,13 @@ export function useVRoidPhysics() {
   }, []);
 
   // Hair physics simulation (Verlet integration)
-  const simulateHairPhysics = useCallback((delta) => {
+  const simulateHairPhysics = useCallback((delta: number) => {
     physicsObjectsRef.current.forEach((obj) => {
-      if (obj.pinned) return; // Pinned bones don't move
+      if (obj.pinned || !obj.bone || !obj.bone.position) return;
 
-      // Reset forces
       obj.forces.set(0, 0, 0);
-
-      // Apply gravity
       obj.forces.y += VROID_PHYSICS_SETTINGS.gravity * obj.mass;
 
-      // Apply wind force
       obj.forces.add(
         new THREE.Vector3(
           windStateRef.current.x * obj.mass,
@@ -114,14 +121,11 @@ export function useVRoidPhysics() {
         )
       );
 
-      // Apply forces to velocity (Verlet integration)
       obj.velocity.add(obj.forces.multiplyScalar(delta));
       obj.velocity.multiplyScalar(obj.damping);
 
-      // Update position
       obj.bone.position.add(obj.velocity.multiplyScalar(delta));
 
-      // Apply stiffness (return to original position)
       const diff = new THREE.Vector3().subVectors(obj.bone.position, obj.prevPosition);
       diff.multiplyScalar(1 - obj.stiffness);
       obj.bone.position.sub(diff);
@@ -129,29 +133,25 @@ export function useVRoidPhysics() {
   }, []);
 
   // Collision detection
-  const checkCollisions = useCallback((physicsObj) => {
-    // Simple sphere collision detection
+  const checkCollisions = useCallback((physicsObj: PhysicsObject) => {
+    if (!physicsObj?.bone?.position) return;
     const radius = VROID_PHYSICS_SETTINGS.collisionRadius;
 
-    // Check against other physics objects
     physicsObjectsRef.current.forEach((other) => {
-      if (other === physicsObj || other.pinned) return;
+      if (other === physicsObj || other.pinned || !other?.bone?.position) return;
 
       const distance = physicsObj.bone.position.distanceTo(other.bone.position);
 
-      if (distance < radius * 2) {
-        // Collision detected
+      if (distance < radius * 2 && distance > 0.0001) {
         const direction = new THREE.Vector3().subVectors(
           physicsObj.bone.position,
           other.bone.position
         ).normalize();
 
-        // Push apart
         const pushDistance = (radius * 2 - distance) * VROID_PHYSICS_SETTINGS.collisionResponse;
         physicsObj.bone.position.addScaledVector(direction, pushDistance * 0.5);
         other.bone.position.addScaledVector(direction, -pushDistance * 0.5);
 
-        // Dampen velocity on collision
         physicsObj.velocity.multiplyScalar(0.5);
         other.velocity.multiplyScalar(0.5);
       }
@@ -159,19 +159,18 @@ export function useVRoidPhysics() {
   }, []);
 
   // Apply physics to bone
-  const applyPhysicsToBone = useCallback((boneName, bone) => {
+  const applyPhysicsToBone = useCallback((boneName: string, bone: THREE.Object3D | null | undefined) => {
+    if (!bone) return;
     const physicsObj = physicsObjectsRef.current.find((obj) => obj.boneName === boneName);
     if (!physicsObj) return;
 
-    // Update physics
     updateBoneVelocity(boneName, bone);
-
-    // Collision detection
     checkCollisions(physicsObj);
   }, [updateBoneVelocity, checkCollisions]);
 
   // Hair jiggle effect
-  const addHairJiggle = useCallback((bone, intensity = 0.5) => {
+  const addHairJiggle = useCallback((bone: THREE.Object3D | null | undefined, intensity = 0.5) => {
+    if (!bone || !bone.position) return;
     const jiggleX = (Math.random() - 0.5) * intensity * 0.05;
     const jiggleY = (Math.random() - 0.5) * intensity * 0.05;
     const jiggleZ = (Math.random() - 0.5) * intensity * 0.05;
@@ -182,22 +181,18 @@ export function useVRoidPhysics() {
   }, []);
 
   // Main physics loop
-  useFrame((state, delta) => {
+  useFrame((state: FrameState, delta: number) => {
     const time = state.clock.elapsedTime;
-
-    // Update wind
     updateWind(time);
-
-    // Simulate hair physics
     simulateHairPhysics(delta);
 
-    // Apply physics to bones
     physicsObjectsRef.current.forEach((physicsObj) => {
-      applyPhysicsToBone(physicsObj.boneName, physicsObj.bone);
+      if (physicsObj.bone) {
+        applyPhysicsToBone(physicsObj.boneName, physicsObj.bone);
+      }
     });
   });
 
-  // Get physics stats
   const getPhysicsStats = useCallback(() => {
     return {
       activeObjects: physicsObjectsRef.current.length,
@@ -220,5 +215,3 @@ export function useVRoidPhysics() {
     VROID_PHYSICS_SETTINGS,
   };
 }
-
-export { VROID_PHYSICS_SETTINGS };

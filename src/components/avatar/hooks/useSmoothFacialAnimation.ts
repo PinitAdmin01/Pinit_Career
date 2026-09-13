@@ -1,4 +1,4 @@
-// hooks/useSmoothFacialAnimation.js
+// hooks/useSmoothFacialAnimation.ts
 // 🎯 SMOOTH FACIAL ANIMATIONS
 // ✅ Lip sync with phonemes
 // ✅ Eye blink animations
@@ -7,14 +7,19 @@
 // ✅ Natural transitions
 
 import { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
+import { useFrame, FrameState } from './useFrame';
 
-const deg = THREE.MathUtils.degToRad;
-const lerp = (a, b, t) => a + (b - a) * t;
+const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
 // ── Phoneme Shapes ──
-const PHONEME_SHAPES = {
+export const PHONEME_SHAPES: Record<string, {
+  jaw?: number;
+  lipRound?: number;
+  lipStretch?: number;
+  lipsClosed?: boolean;
+  lowerLip?: number;
+  tongue?: number;
+}> = {
   // Vowels
   'a': { jaw: 0.7, lipRound: 0.0, lipStretch: 0.6 },
   'e': { jaw: 0.5, lipRound: 0.0, lipStretch: 0.8 },
@@ -45,172 +50,107 @@ const PHONEME_SHAPES = {
   'silence': { jaw: 0.0, lipRound: 0.0, lipStretch: 0.0 },
 };
 
+export interface ExpressionKeyframe {
+  time: number;
+  blendShapes: Record<string, number>;
+}
+
+export interface FacialExpressionDef {
+  duration: number;
+  keyframes: ExpressionKeyframe[];
+}
+
 // ── Facial Expressions ──
-const FACIAL_EXPRESSIONS = {
-  // Happy expression
+export const FACIAL_EXPRESSIONS: Record<string, FacialExpressionDef> = {
   happy: {
     duration: 0.5,
     keyframes: [
       {
         time: 0,
-        blendShapes: {
-          eyeSquintLeft: 0,
-          eyeSquintRight: 0,
-          mouthSmile: 0,
-          cheekPuff: 0,
-        },
+        blendShapes: { eyeSquintLeft: 0, eyeSquintRight: 0, mouthSmile: 0, cheekPuff: 0 },
       },
       {
         time: 0.25,
-        blendShapes: {
-          eyeSquintLeft: 0.8,
-          eyeSquintRight: 0.8,
-          mouthSmile: 0.9,
-          cheekPuff: 0.7,
-        },
+        blendShapes: { eyeSquintLeft: 0.8, eyeSquintRight: 0.8, mouthSmile: 0.9, cheekPuff: 0.7 },
       },
       {
         time: 0.5,
-        blendShapes: {
-          eyeSquintLeft: 0.6,
-          eyeSquintRight: 0.6,
-          mouthSmile: 0.7,
-          cheekPuff: 0.5,
-        },
+        blendShapes: { eyeSquintLeft: 0.6, eyeSquintRight: 0.6, mouthSmile: 0.7, cheekPuff: 0.5 },
       },
     ],
   },
-
-  // Sad expression
   sad: {
     duration: 0.5,
     keyframes: [
       {
         time: 0,
-        blendShapes: {
-          eyeBrowInnerUp: 0,
-          eyeBrowDown: 0,
-          mouthFrown: 0,
-        },
+        blendShapes: { eyeBrowInnerUp: 0, eyeBrowDown: 0, mouthFrown: 0 },
       },
       {
         time: 0.25,
-        blendShapes: {
-          eyeBrowInnerUp: 0.8,
-          eyeBrowDown: 0.7,
-          mouthFrown: 0.9,
-        },
+        blendShapes: { eyeBrowInnerUp: 0.8, eyeBrowDown: 0.7, mouthFrown: 0.9 },
       },
       {
         time: 0.5,
-        blendShapes: {
-          eyeBrowInnerUp: 0.5,
-          eyeBrowDown: 0.4,
-          mouthFrown: 0.6,
-        },
+        blendShapes: { eyeBrowInnerUp: 0.5, eyeBrowDown: 0.4, mouthFrown: 0.6 },
       },
     ],
   },
-
-  // Surprised expression
   surprised: {
     duration: 0.4,
     keyframes: [
       {
         time: 0,
-        blendShapes: {
-          eyeWide: 0,
-          mouthOpen: 0,
-          eyeBrowUp: 0,
-        },
+        blendShapes: { eyeWide: 0, mouthOpen: 0, eyeBrowUp: 0 },
       },
       {
         time: 0.2,
-        blendShapes: {
-          eyeWide: 0.9,
-          mouthOpen: 0.8,
-          eyeBrowUp: 1.0,
-        },
+        blendShapes: { eyeWide: 0.9, mouthOpen: 0.8, eyeBrowUp: 1.0 },
       },
       {
         time: 0.4,
-        blendShapes: {
-          eyeWide: 0.5,
-          mouthOpen: 0.3,
-          eyeBrowUp: 0.6,
-        },
+        blendShapes: { eyeWide: 0.5, mouthOpen: 0.3, eyeBrowUp: 0.6 },
       },
     ],
   },
-
-  // Angry expression
   angry: {
     duration: 0.5,
     keyframes: [
       {
         time: 0,
-        blendShapes: {
-          eyeBrowInnerUp: 0,
-          eyeBrowDown: 0,
-          mouthFrown: 0,
-          eyeNarrow: 0,
-        },
+        blendShapes: { eyeBrowInnerUp: 0, eyeBrowDown: 0, mouthFrown: 0, eyeNarrow: 0 },
       },
       {
         time: 0.25,
-        blendShapes: {
-          eyeBrowInnerUp: 0.9,
-          eyeBrowDown: 1.0,
-          mouthFrown: 0.8,
-          eyeNarrow: 0.9,
-        },
+        blendShapes: { eyeBrowInnerUp: 0.9, eyeBrowDown: 1.0, mouthFrown: 0.8, eyeNarrow: 0.9 },
       },
       {
         time: 0.5,
-        blendShapes: {
-          eyeBrowInnerUp: 0.7,
-          eyeBrowDown: 0.8,
-          mouthFrown: 0.6,
-          eyeNarrow: 0.7,
-        },
+        blendShapes: { eyeBrowInnerUp: 0.7, eyeBrowDown: 0.8, mouthFrown: 0.6, eyeNarrow: 0.7 },
       },
     ],
   },
-
-  // Confused expression
   confused: {
     duration: 0.4,
     keyframes: [
       {
         time: 0,
-        blendShapes: {
-          eyeBrowInnerUp: 0,
-          eyeNarrow: 0,
-          mouthOpen: 0,
-        },
+        blendShapes: { eyeBrowInnerUp: 0, eyeNarrow: 0, mouthOpen: 0 },
       },
       {
         time: 0.2,
-        blendShapes: {
-          eyeBrowInnerUp: 0.7,
-          eyeNarrow: 0.6,
-          mouthOpen: 0.4,
-        },
+        blendShapes: { eyeBrowInnerUp: 0.7, eyeNarrow: 0.6, mouthOpen: 0.4 },
       },
       {
         time: 0.4,
-        blendShapes: {
-          eyeBrowInnerUp: 0.5,
-          eyeNarrow: 0.4,
-          mouthOpen: 0.2,
-        },
+        blendShapes: { eyeBrowInnerUp: 0.5, eyeNarrow: 0.4, mouthOpen: 0.2 },
       },
     ],
   },
 };
 
 // ── Eye Blink Animation ──
-const BLINK_ANIMATION = {
+export const BLINK_ANIMATION: FacialExpressionDef = {
   duration: 0.15,
   keyframes: [
     { time: 0, blendShapes: { eyeBlinkLeft: 0, eyeBlinkRight: 0 } },
@@ -220,41 +160,36 @@ const BLINK_ANIMATION = {
 };
 
 export function useSmoothFacialAnimation() {
-  const blendShapesRef = useRef({});
+  const blendShapesRef = useRef<Record<string, { value: number } | undefined>>({});
   const currentExpressionRef = useRef('neutral');
   const timeRef = useRef(0);
   const blinkTimeRef = useRef(0);
   const shouldBlinkRef = useRef(true);
-  const nextBlinkTimeRef = useRef(Math.random() * 3 + 2); // 2-5 seconds
+  const nextBlinkTimeRef = useRef(Math.random() * 3 + 2);
   const currentPhonemeRef = useRef('silence');
   const phonemeTimeRef = useRef(0);
 
-  // Interpolate between blend shape values
-  const interpolateBlendShape = (fromValue, toValue, progress) => {
+  const interpolateBlendShape = (fromValue: number, toValue: number, progress: number) => {
     return lerp(fromValue, toValue, progress);
   };
 
-  // Apply blend shape to face
-  const applyBlendShape = (name, value) => {
-    if (blendShapesRef.current[name]) {
-      blendShapesRef.current[name].value = Math.max(0, Math.min(1, value));
+  const applyBlendShape = (name: string, value: number) => {
+    const bs = blendShapesRef.current[name];
+    if (bs) {
+      bs.value = Math.max(0, Math.min(1, value));
     }
   };
 
-  // Set phoneme for lip sync
-  const setPhoneme = (phoneme) => {
+  const setPhoneme = (phoneme: string) => {
     if (PHONEME_SHAPES[phoneme]) {
       currentPhonemeRef.current = phoneme;
       phonemeTimeRef.current = 0;
 
       const shape = PHONEME_SHAPES[phoneme];
       
-      // Apply jaw movement
       if (shape.jaw !== undefined) {
         applyBlendShape('jawOpen', shape.jaw);
       }
-
-      // Apply lip shapes
       if (shape.lipRound !== undefined) {
         applyBlendShape('mouthRound', shape.lipRound);
       }
@@ -273,33 +208,28 @@ export function useSmoothFacialAnimation() {
     }
   };
 
-  // Set facial expression
-  const setExpression = (expressionName) => {
+  const setExpression = (expressionName: string) => {
     if (FACIAL_EXPRESSIONS[expressionName]) {
       currentExpressionRef.current = expressionName;
       timeRef.current = 0;
     }
   };
 
-  // Trigger blink
   const blink = () => {
     blinkTimeRef.current = 0;
   };
 
-  // Automatic blinking
-  useFrame((state, delta) => {
+  useFrame((_state: FrameState, delta: number) => {
     blinkTimeRef.current += delta;
     timeRef.current += delta;
     phonemeTimeRef.current += delta;
 
-    // Handle automatic blinking
     nextBlinkTimeRef.current -= delta;
     if (nextBlinkTimeRef.current <= 0 && shouldBlinkRef.current) {
       blink();
-      nextBlinkTimeRef.current = Math.random() * 3 + 2; // 2-5 seconds between blinks
+      nextBlinkTimeRef.current = Math.random() * 3 + 2;
     }
 
-    // Apply blink animation
     if (blinkTimeRef.current < BLINK_ANIMATION.duration) {
       const blinkProgress = blinkTimeRef.current / BLINK_ANIMATION.duration;
       for (let i = 0; i < BLINK_ANIMATION.keyframes.length - 1; i++) {
@@ -309,7 +239,7 @@ export function useSmoothFacialAnimation() {
 
         if (kfProgress >= 0 && kfProgress <= 1) {
           Object.entries(kf2.blendShapes).forEach(([name, value]) => {
-            const fromValue = kf1.blendShapes[name];
+            const fromValue = kf1.blendShapes[name] || 0;
             const interpolated = interpolateBlendShape(fromValue, value, kfProgress);
             applyBlendShape(name, interpolated);
           });
@@ -318,7 +248,6 @@ export function useSmoothFacialAnimation() {
       }
     }
 
-    // Apply expression animation
     const expression = FACIAL_EXPRESSIONS[currentExpressionRef.current];
     if (expression) {
       const exprProgress = (timeRef.current % expression.duration) / expression.duration;
@@ -330,7 +259,7 @@ export function useSmoothFacialAnimation() {
 
         if (kfProgress >= 0 && kfProgress <= 1) {
           Object.entries(kf2.blendShapes).forEach(([name, value]) => {
-            const fromValue = kf1.blendShapes[name];
+            const fromValue = kf1.blendShapes[name] || 0;
             const interpolated = interpolateBlendShape(fromValue, value, kfProgress);
             applyBlendShape(name, interpolated);
           });
@@ -351,5 +280,3 @@ export function useSmoothFacialAnimation() {
     availablePhonemes: Object.keys(PHONEME_SHAPES),
   };
 }
-
-export { PHONEME_SHAPES, FACIAL_EXPRESSIONS, BLINK_ANIMATION };

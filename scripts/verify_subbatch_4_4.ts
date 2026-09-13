@@ -96,10 +96,10 @@ async function runTests() {
     'Roadmap includes diagnostic notice citing beginner baseline of 40'
   );
 
-  const questsSource = fs.readFileSync(
-    path.join(process.cwd(), 'src/app/quests/page.tsx'),
-    'utf-8'
-  );
+  const questsFile = fs.existsSync(path.join(process.cwd(), 'src/app/quests/components/useQuestProgression.ts'))
+    ? path.join(process.cwd(), 'src/app/quests/components/useQuestProgression.ts')
+    : path.join(process.cwd(), 'src/app/quests/page.tsx');
+  const questsSource = fs.readFileSync(questsFile, 'utf-8');
   assert(
     questsSource.includes('onboardingAnswers?.qt1_score ?? 40') &&
     questsSource.includes('onboardingAnswers?.qt2_score ?? 40'),

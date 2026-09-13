@@ -1,4 +1,4 @@
-// hooks/useAdvancedBodyAnimation.js
+// hooks/useAdvancedBodyAnimation.ts
 // 🎯 ADVANCED BODY MOVEMENTS v2
 // ✅ Full skeleton control (T-pose fix)
 // ✅ 20+ realistic movements (bend, sway, clap, point, etc.)
@@ -8,15 +8,22 @@
 // ✅ Weight shifting and balance
 
 import { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, FrameState } from './useFrame';
 import * as THREE from 'three';
 
-const lerp = (a, b, t) => a + (b - a) * t;
-const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 const deg = THREE.MathUtils.degToRad;
 
+export interface BoneRotation {
+  x?: number;
+  y?: number;
+  z?: number;
+  y_pos?: number;
+}
+
+export type MovementPose = Record<string, BoneRotation>;
+
 // ── Default T-Pose (Standing Neutral) ──────────────────────────
-const REST_POSE = {
+export const REST_POSE: MovementPose = {
   // Spine & Torso
   hips: { x: 0, y: 0, z: 0 },
   spine: { x: deg(0), y: 0, z: 0 },
@@ -48,15 +55,15 @@ const REST_POSE = {
 };
 
 // ── Movement Library (20+ realistic gestures) ────────────────────
-const MOVEMENT_LIBRARY = {
+export const MOVEMENT_LIBRARY: Record<string, (t: number, progress?: number) => MovementPose> = {
   // Neutral
-  idle: (t) => ({
+  idle: (t: number) => ({
     chest: { x: deg(Math.sin(t * 0.8) * 1), y: 0, z: 0 },
     head: { x: deg(Math.sin(t * 0.5) * 2), y: deg(Math.sin(t * 0.3) * 3), z: 0 },
   }),
 
   // Bending Down
-  bend: (t, progress = Math.min(t, 1)) => ({
+  bend: (t: number, progress = Math.min(t, 1)) => ({
     spine: { x: deg(-40 * progress), y: 0, z: 0 },
     chest: { x: deg(-35 * progress), y: 0, z: 0 },
     head: { x: deg(-25 * progress), y: 0, z: 0 },
@@ -64,14 +71,14 @@ const MOVEMENT_LIBRARY = {
   }),
 
   // Side Sway (Left-Right Movement)
-  sway: (t) => ({
+  sway: (t: number) => ({
     spine: { x: 0, y: deg(Math.sin(t * 1.2) * 15), z: deg(Math.sin(t * 1.2) * 8) },
     chest: { x: 0, y: deg(Math.sin(t * 1.2) * 12), z: deg(Math.sin(t * 1.2) * 6) },
     head: { x: 0, y: deg(Math.sin(t * 1.2) * 10), z: 0 },
   }),
 
   // Clap Hands
-  clap: (t, progress = Math.min(t, 1)) => {
+  clap: (t: number, progress = Math.min(t, 1)) => {
     const clapPhase = Math.sin(t * 6) > 0 ? 1 : 0;
     return {
       leftUpperArm: { x: deg(60 * progress * clapPhase), y: deg(0), z: deg(-90 + 40 * clapPhase) },
@@ -82,7 +89,7 @@ const MOVEMENT_LIBRARY = {
   },
 
   // Pointing (Right Hand)
-  point: (t, progress = Math.min(t, 1)) => ({
+  point: (t: number, progress = Math.min(t, 1)) => ({
     rightUpperArm: { x: deg(-20 * progress), y: deg(-45 * progress), z: deg(60 * progress) },
     rightLowerArm: { x: deg(-60 * progress), y: deg(0), z: deg(0) },
     rightHand: { x: deg(-20 * progress), y: deg(0), z: deg(0) },
@@ -91,19 +98,19 @@ const MOVEMENT_LIBRARY = {
   }),
 
   // Shrug
-  shrug: (t) => {
-    const shrug = Math.sin(t * 2) * 0.5 + 0.5;
+  shrug: (t: number) => {
+    const shrugVal = Math.sin(t * 2) * 0.5 + 0.5;
     return {
-      leftShoulder: { x: deg(30 * shrug), y: 0, z: 0 },
-      rightShoulder: { x: deg(30 * shrug), y: 0, z: 0 },
-      leftUpperArm: { x: deg(0), y: 0, z: deg(-90 - 10 * shrug) },
-      rightUpperArm: { x: deg(0), y: 0, z: deg(90 + 10 * shrug) },
-      neck: { x: deg(-5 * shrug), y: 0, z: 0 },
+      leftShoulder: { x: deg(30 * shrugVal), y: 0, z: 0 },
+      rightShoulder: { x: deg(30 * shrugVal), y: 0, z: 0 },
+      leftUpperArm: { x: deg(0), y: 0, z: deg(-90 - 10 * shrugVal) },
+      rightUpperArm: { x: deg(0), y: 0, z: deg(90 + 10 * shrugVal) },
+      neck: { x: deg(-5 * shrugVal), y: 0, z: 0 },
     };
   },
 
   // Open Palms (Welcoming)
-  openPalms: (t, progress = Math.min(t, 1)) => ({
+  openPalms: (t: number, progress = Math.min(t, 1)) => ({
     leftUpperArm: { x: deg(0), y: deg(-60 * progress), z: deg(-90 + 30 * progress) },
     leftLowerArm: { x: deg(-40 * progress), y: deg(0), z: deg(0) },
     leftHand: { x: deg(45 * progress), y: deg(0), z: deg(0) },
@@ -114,19 +121,19 @@ const MOVEMENT_LIBRARY = {
   }),
 
   // Head Nod (Yes)
-  nod: (t) => ({
+  nod: (t: number) => ({
     head: { x: deg(Math.sin(t * 3) * 15), y: 0, z: 0 },
     neck: { x: deg(Math.sin(t * 3) * 8), y: 0, z: 0 },
   }),
 
   // Head Shake (No)
-  shake: (t) => ({
+  shake: (t: number) => ({
     head: { x: 0, y: deg(Math.sin(t * 3) * 20), z: 0 },
     neck: { x: 0, y: deg(Math.sin(t * 3) * 12), z: 0 },
   }),
 
   // Weight Shift (Balance)
-  weightShift: (t) => {
+  weightShift: (t: number) => {
     const shift = Math.sin(t * 1) * 0.5 + 0.5;
     return {
       hips: { x: 0, y: deg(shift * 8), z: 0 },
@@ -137,7 +144,7 @@ const MOVEMENT_LIBRARY = {
   },
 
   // Hand on Hip
-  handOnHip: (t, progress = Math.min(t, 1)) => ({
+  handOnHip: (t: number, progress = Math.min(t, 1)) => ({
     rightUpperArm: { x: deg(45 * progress), y: deg(60 * progress), z: deg(90 - 30 * progress) },
     rightLowerArm: { x: deg(90 * progress), y: deg(0), z: deg(0) },
     rightHand: { x: deg(0), y: deg(-20 * progress), z: deg(45 * progress) },
@@ -145,7 +152,7 @@ const MOVEMENT_LIBRARY = {
   }),
 
   // Thumbs Up
-  thumbsUp: (t, progress = Math.min(t, 1)) => ({
+  thumbsUp: (t: number, progress = Math.min(t, 1)) => ({
     rightUpperArm: { x: deg(-30 * progress), y: deg(-20 * progress), z: deg(90 - 20 * progress) },
     rightLowerArm: { x: deg(-90 * progress), y: deg(0), z: deg(0) },
     rightHand: { x: deg(90 * progress), y: deg(0), z: deg(0) },
@@ -153,14 +160,14 @@ const MOVEMENT_LIBRARY = {
   }),
 
   // Waving
-  wave: (t) => ({
+  wave: (t: number) => ({
     rightUpperArm: { x: deg(45), y: deg(-30), z: deg(60) },
     rightLowerArm: { x: deg(-45), y: deg(0), z: deg(0) },
     rightHand: { x: deg(Math.sin(t * 4) * 40), y: deg(0), z: deg(0) },
   }),
 
   // Excited Bounce
-  excited: (t) => {
+  excited: (t: number) => {
     const bounce = Math.max(0, Math.sin(t * 3)) * 0.3;
     return {
       hips: { x: 0, y: 0, z: 0, y_pos: bounce * 0.2 },
@@ -172,7 +179,7 @@ const MOVEMENT_LIBRARY = {
   },
 
   // Sad Posture (Closed)
-  sad: (t, progress = Math.min(t, 1)) => ({
+  sad: (t: number, progress = Math.min(t, 1)) => ({
     spine: { x: deg(20 * progress), y: 0, z: 0 },
     chest: { x: deg(15 * progress), y: 0, z: 0 },
     head: { x: deg(30 * progress), y: 0, z: 0 },
@@ -182,7 +189,7 @@ const MOVEMENT_LIBRARY = {
   }),
 
   // Happy Posture (Open)
-  happy: (t, progress = Math.min(t, 1)) => ({
+  happy: (t: number, progress = Math.min(t, 1)) => ({
     spine: { x: deg(-10 * progress), y: 0, z: 0 },
     chest: { x: deg(-5 * progress), y: 0, z: 0 },
     leftUpperArm: { x: deg(-20 * progress), y: deg(-30 * progress), z: deg(-90 + 20 * progress) },
@@ -191,20 +198,19 @@ const MOVEMENT_LIBRARY = {
   }),
 
   // Mouth Sink (Subtle)
-  mouthSink: (t) => ({
+  mouthSink: (t: number) => ({
     jaw: { x: deg(Math.sin(t * 5) * 3), y: 0, z: 0 },
   }),
 
   // Lip Sync (Phoneme-based)
-  lipSync: (t, phonemeEnergy = 0.5) => ({
+  lipSync: (_t: number, phonemeEnergy = 0.5) => ({
     jaw: { x: deg(phonemeEnergy * 12), y: 0, z: 0 },
     mouth: { x: deg(phonemeEnergy * 6), y: 0, z: 0 },
   }),
 };
 
 // ── Limbic Resonance (Emotion Mirroring) ──────────────────────────
-const LIMBIC_RESONANCE = {
-  // Mirror user's detected emotion
+export const LIMBIC_RESONANCE: Record<string, { energy: number; tension: number; posture: string }> = {
   angry: { energy: 1.2, tension: 0.8, posture: 'happy' },
   sad: { energy: 0.3, tension: 0.3, posture: 'sad' },
   happy: { energy: 0.9, tension: 0.2, posture: 'happy' },
@@ -214,10 +220,21 @@ const LIMBIC_RESONANCE = {
   fearful: { energy: 0.6, tension: 0.9, posture: 'shrug' },
 };
 
-// ── Main Hook ──────────────────────────────────────────────────────
+export interface AdvancedBodyRig {
+  bones?: Record<string, THREE.Object3D | undefined>;
+}
+
 export function useAdvancedBodyAnimation() {
-  const rigRef = useRef(null);
-  const stateRef = useRef({
+  const rigRef = useRef<AdvancedBodyRig | null>(null);
+  const stateRef = useRef<{
+    currentMovement: string;
+    movementTime: number;
+    movementDuration?: number;
+    limbicState: string;
+    emotionEnergy: number;
+    isSpeaking: boolean;
+    lipSyncPhase: number;
+  }>({
     currentMovement: 'idle',
     movementTime: 0,
     limbicState: 'neutral',
@@ -227,48 +244,49 @@ export function useAdvancedBodyAnimation() {
   });
 
   // Apply bone rotations
-  const applyRotation = (bone, rotation) => {
-    if (!bone) return;
+  const applyRotation = (bone: THREE.Object3D | null | undefined, rotation: BoneRotation) => {
+    if (!bone || !bone.rotation) return;
     if (rotation.x !== undefined) bone.rotation.x = rotation.x;
     if (rotation.y !== undefined) bone.rotation.y = rotation.y;
     if (rotation.z !== undefined) bone.rotation.z = rotation.z;
   };
 
   // Blend multiple movement states
-  const blendMovements = (movements, weights) => {
-    const blended = {};
+  const blendMovements = (movements: MovementPose[], weights: number[]): MovementPose => {
+    const blended: MovementPose = {};
     movements.forEach((mov, idx) => {
       Object.entries(mov).forEach(([bone, rot]) => {
         if (!blended[bone]) blended[bone] = { x: 0, y: 0, z: 0 };
         const w = weights[idx] || 0;
-        blended[bone].x = (blended[bone].x || 0) + (rot.x || 0) * w;
-        blended[bone].y = (blended[bone].y || 0) + (rot.y || 0) * w;
-        blended[bone].z = (blended[bone].z || 0) + (rot.z || 0) * w;
+        const cur = blended[bone];
+        cur.x = (cur.x || 0) + (rot.x || 0) * w;
+        cur.y = (cur.y || 0) + (rot.y || 0) * w;
+        cur.z = (cur.z || 0) + (rot.z || 0) * w;
       });
     });
     return blended;
   };
 
   // Set active movement
-  const setMovement = (name, duration = 2) => {
+  const setMovement = (name: string, duration = 2) => {
     stateRef.current.currentMovement = name;
     stateRef.current.movementTime = 0;
     stateRef.current.movementDuration = duration;
   };
 
   // Trigger emotion-based posture
-  const setEmotion = (emotion) => {
+  const setEmotion = (emotion: string) => {
     stateRef.current.limbicState = emotion;
     const limbic = LIMBIC_RESONANCE[emotion] || LIMBIC_RESONANCE.neutral;
     stateRef.current.emotionEnergy = limbic.energy;
   };
 
   // Start/stop speaking
-  const setSpeaking = (isSpeaking) => {
+  const setSpeaking = (isSpeaking: boolean) => {
     stateRef.current.isSpeaking = isSpeaking;
   };
 
-  useFrame((state, delta) => {
+  useFrame((state: FrameState, delta: number) => {
     if (!rigRef.current) return;
 
     const time = state.clock.getElapsedTime();
@@ -282,16 +300,17 @@ export function useAdvancedBodyAnimation() {
     const movement = moveFunc(time, st.movementTime);
 
     // Apply limbic resonance posture
-    const limbicPosture = MOVEMENT_LIBRARY[LIMBIC_RESONANCE[st.limbicState]?.posture] || MOVEMENT_LIBRARY.idle;
+    const postureKey = LIMBIC_RESONANCE[st.limbicState]?.posture || 'idle';
+    const limbicPosture = MOVEMENT_LIBRARY[postureKey] || MOVEMENT_LIBRARY.idle;
     const limbic = limbicPosture(time, 0.3);
 
     // Blend movements
     const blended = blendMovements([movement, limbic, REST_POSE], [0.7, 0.2, 0.1]);
 
-    // Apply to rig (would connect to actual VRM rig here)
+    // Apply to rig
     if (rigRef.current.bones) {
       Object.entries(blended).forEach(([boneName, rot]) => {
-        const bone = rigRef.current.bones[boneName];
+        const bone = rigRef.current?.bones?.[boneName];
         if (bone) applyRotation(bone, rot);
       });
     }
@@ -300,7 +319,7 @@ export function useAdvancedBodyAnimation() {
     if (st.isSpeaking) {
       st.lipSyncPhase += delta * 8;
       const lipSync = MOVEMENT_LIBRARY.lipSync(st.lipSyncPhase, 0.6);
-      if (rigRef.current.bones) {
+      if (rigRef.current?.bones?.jaw) {
         applyRotation(rigRef.current.bones.jaw, lipSync.jaw);
       }
     }
@@ -320,5 +339,3 @@ export function useAdvancedBodyAnimation() {
     movements: Object.keys(MOVEMENT_LIBRARY),
   };
 }
-
-export { MOVEMENT_LIBRARY, LIMBIC_RESONANCE, REST_POSE };

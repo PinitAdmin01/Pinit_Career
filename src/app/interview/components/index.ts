@@ -7,3 +7,5 @@ export { InterviewResultsView } from './InterviewResultsView';
 export { InterviewSetupView } from './InterviewSetupView';
 export { AssistModeDrawer } from './AssistModeDrawer';
 export { InterviewHistoryModal } from './InterviewHistoryModal';
+export { InterviewSessionHeader } from './InterviewSessionHeader';
+export { InterviewVoiceHud } from './InterviewVoiceHud';

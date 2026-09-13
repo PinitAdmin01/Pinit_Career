@@ -1,4 +1,4 @@
-// hooks/usePersonalAvatarMemory.js
+// hooks/usePersonalAvatarMemory.ts
 // 🧠 PERSONAL AVATAR MEMORY & PERSONA SYSTEM
 // ✅ User profile storage
 // ✅ Conversation history
@@ -6,9 +6,9 @@
 // ✅ Relationship memory
 // ✅ Emotional context
 
-import { useRef, useState, useCallback, useEffect } from 'react';
+import { useRef, useState, useCallback } from 'react';
 
-const MEMORY_TYPES = {
+export const MEMORY_TYPES = {
   PERSONAL_INFO: 'personal_info',
   PREFERENCES: 'preferences',
   CONVERSATION: 'conversation',
@@ -16,9 +16,11 @@ const MEMORY_TYPES = {
   EMOTIONAL_HISTORY: 'emotional_history',
   AVATAR_TRAITS: 'avatar_traits',
   USER_PATTERNS: 'user_patterns',
-};
+} as const;
 
-const DEFAULT_PERSONA = {
+export type MemoryType = typeof MEMORY_TYPES[keyof typeof MEMORY_TYPES];
+
+export const DEFAULT_PERSONA = {
   name: 'PersonaAI',
   personality: {
     warmth: 0.7,
@@ -42,11 +44,36 @@ const DEFAULT_PERSONA = {
   ],
 };
 
-export function usePersonalAvatarMemory(userId) {
-  const memoryRef = useRef(new Map());
-  const conversationHistoryRef = useRef([]);
+export interface MemoryRecord {
+  id: string;
+  type: string;
+  data: any;
+  metadata: Record<string, any>;
+  timestamp: number;
+  importance: number;
+}
+
+export interface ConversationTurn {
+  userMessage: string;
+  avatarResponse: string;
+  timestamp: number;
+  emotionalContext?: string;
+  userTone?: string;
+  responseStrategy?: string;
+  effectiveness?: number;
+}
+
+export function usePersonalAvatarMemory(userId?: string) {
+  const memoryRef = useRef<Map<string, MemoryRecord[]>>(new Map());
+  const conversationHistoryRef = useRef<ConversationTurn[]>([]);
   const personaRef = useRef({ ...DEFAULT_PERSONA });
-  const relationshipStateRef = useRef({
+  const relationshipStateRef = useRef<{
+    trustLevel: number;
+    connectionStrength: number;
+    interactionCount: number;
+    lastPositiveInteraction: number | null;
+    sharedInterests: string[];
+  }>({
     trustLevel: 0.5,
     connectionStrength: 0.3,
     interactionCount: 0,
@@ -54,7 +81,11 @@ export function usePersonalAvatarMemory(userId) {
     sharedInterests: [],
   });
 
-  const [memoryStats, setMemoryStats] = useState({
+  const [memoryStats, setMemoryStats] = useState<{
+    totalMemories: number;
+    conversationLength: number;
+    lastUpdate: Date | null;
+  }>({
     totalMemories: 0,
     conversationLength: 0,
     lastUpdate: null,
@@ -74,8 +105,8 @@ export function usePersonalAvatarMemory(userId) {
   }, [userId]);
 
   // Store memory
-  const storeMemory = useCallback((type, data, metadata = {}) => {
-    const memory = {
+  const storeMemory = useCallback((type: string, data: any, metadata: Record<string, any> = {}) => {
+    const memory: MemoryRecord = {
       id: Math.random().toString(36),
       type,
       data,
@@ -88,9 +119,8 @@ export function usePersonalAvatarMemory(userId) {
       memoryRef.current.set(type, []);
     }
 
-    memoryRef.current.get(type).push(memory);
+    memoryRef.current.get(type)!.push(memory);
 
-    // Update stats
     setMemoryStats({
       totalMemories: Array.from(memoryRef.current.values()).reduce((a, b) => a + b.length, 0),
       conversationLength: conversationHistoryRef.current.length,
@@ -101,7 +131,7 @@ export function usePersonalAvatarMemory(userId) {
   }, []);
 
   // Store user personal info
-  const storePersonalInfo = useCallback((info) => {
+  const storePersonalInfo = useCallback((info: Record<string, any>) => {
     return storeMemory(MEMORY_TYPES.PERSONAL_INFO, {
       name: info.name,
       age: info.age,
@@ -112,9 +142,32 @@ export function usePersonalAvatarMemory(userId) {
     }, { importance: 0.9 });
   }, [storeMemory]);
 
+  // Build relationship context
+  const updateRelationshipState = useCallback((context: any) => {
+    if (!context) return;
+
+    const rel = relationshipStateRef.current;
+    rel.interactionCount += 1;
+
+    if (context.emotion === 'happy' || context.emotion === 'satisfied') {
+      rel.trustLevel = Math.min(1, rel.trustLevel + 0.05);
+      rel.lastPositiveInteraction = Date.now();
+    }
+
+    if (context.engagement > 0.7) {
+      rel.connectionStrength = Math.min(1, rel.connectionStrength + 0.03);
+    }
+
+    if (context.sharedInterest) {
+      if (!rel.sharedInterests.includes(context.sharedInterest)) {
+        rel.sharedInterests.push(context.sharedInterest);
+      }
+    }
+  }, []);
+
   // Store conversation
-  const storeConversation = useCallback((userMessage, avatarResponse, context = {}) => {
-    const conversation = {
+  const storeConversation = useCallback((userMessage: string, avatarResponse: string, context: Record<string, any> = {}) => {
+    const conversation: ConversationTurn = {
       userMessage,
       avatarResponse,
       timestamp: Date.now(),
@@ -125,61 +178,29 @@ export function usePersonalAvatarMemory(userId) {
     };
 
     conversationHistoryRef.current.push(conversation);
-
-    // Store in memory
     storeMemory(MEMORY_TYPES.CONVERSATION, conversation);
-
-    // Update relationship
     updateRelationshipState(context);
 
     return conversation;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [storeMemory]);
+  }, [storeMemory, updateRelationshipState]);
 
   // Store user preferences
-  const storePreferences = useCallback((preferences) => {
+  const storePreferences = useCallback((preferences: Record<string, any>) => {
     return storeMemory(MEMORY_TYPES.PREFERENCES, preferences, { importance: 0.7 });
   }, [storeMemory]);
 
-  // Build relationship context
-  const updateRelationshipState = useCallback((context) => {
-    if (!context) return;
-
-    const rel = relationshipStateRef.current;
-    rel.interactionCount += 1;
-
-    // Increase trust based on positive interactions
-    if (context.emotion === 'happy' || context.emotion === 'satisfied') {
-      rel.trustLevel = Math.min(1, rel.trustLevel + 0.05);
-      rel.lastPositiveInteraction = Date.now();
-    }
-
-    // Adjust connection based on engagement
-    if (context.engagement > 0.7) {
-      rel.connectionStrength = Math.min(1, rel.connectionStrength + 0.03);
-    }
-
-    // Add shared interests
-    if (context.sharedInterest) {
-      if (!rel.sharedInterests.includes(context.sharedInterest)) {
-        rel.sharedInterests.push(context.sharedInterest);
-      }
-    }
-  }, []);
-
   // Get relevant memories for response
-  const getRelevantMemories = useCallback((query, limit = 5) => {
-    const allMemories = [];
+  const getRelevantMemories = useCallback((query: string, limit = 5) => {
+    const allMemories: MemoryRecord[] = [];
 
-    for (const [type, memories] of memoryRef.current) {
+    for (const [, memories] of memoryRef.current) {
       allMemories.push(...memories);
     }
 
-    // Sort by relevance and recency
     allMemories.sort((a, b) => {
-      const recencyScore = Math.exp(-(Date.now() - a.timestamp) / (1000 * 60 * 60 * 24)); // Decay over days
+      const recencyScore = Math.exp(-(Date.now() - a.timestamp) / (1000 * 60 * 60 * 24));
       const importanceScore = a.importance;
-      const queryMatch = a.data.toString().toLowerCase().includes(query.toLowerCase()) ? 1 : 0;
+      const queryMatch = String(a.data).toLowerCase().includes(query.toLowerCase()) ? 1 : 0;
 
       return (importanceScore * 0.4 + recencyScore * 0.3 + queryMatch * 0.3) - 
              (b.importance * 0.4 + Math.exp(-(Date.now() - b.timestamp) / (1000 * 60 * 60 * 24)) * 0.3);
@@ -194,13 +215,13 @@ export function usePersonalAvatarMemory(userId) {
   }, []);
 
   // Generate response with memory
-  const generateMemoryAwareResponse = useCallback((userInput, context = {}) => {
+  const generateMemoryAwareResponse = useCallback((userInput: string, context: Record<string, any> = {}) => {
     const relevantMemories = getRelevantMemories(userInput, 3);
     const conversationContext = getConversationContext(5);
     const persona = personaRef.current;
     const relationship = relationshipStateRef.current;
 
-    const responseContext = {
+    return {
       relevantMemories,
       conversationContext,
       persona,
@@ -208,29 +229,23 @@ export function usePersonalAvatarMemory(userId) {
       userInput,
       ...context,
     };
-
-    return responseContext;
   }, [getRelevantMemories, getConversationContext]);
 
-  // Get persona
   const getPersona = useCallback(() => personaRef.current, []);
 
-  // Update persona traits
-  const updatePersonaTraits = useCallback((traits) => {
+  const updatePersonaTraits = useCallback((traits: Record<string, any>) => {
     personaRef.current = {
       ...personaRef.current,
       ...traits,
     };
   }, []);
 
-  // Get relationship state
   const getRelationshipState = useCallback(() => ({
     ...relationshipStateRef.current,
   }), []);
 
-  // Export memory to file
   const exportMemory = useCallback(() => {
-    const exportData = {
+    return {
       userId,
       persona: personaRef.current,
       memories: Array.from(memoryRef.current.entries()).filter(([type]) => type !== 'conversation'),
@@ -238,12 +253,9 @@ export function usePersonalAvatarMemory(userId) {
       relationshipState: relationshipStateRef.current,
       exportDate: new Date(),
     };
-
-    return exportData;
   }, [userId]);
 
-  // Import memory from file
-  const importMemory = useCallback((importData) => {
+  const importMemory = useCallback((importData: any) => {
     if (importData.userId !== userId) {
       console.warn('⚠️ Memory from different user, caution advised');
     }
@@ -253,7 +265,7 @@ export function usePersonalAvatarMemory(userId) {
     }
 
     if (importData.memories) {
-      importData.memories.forEach(([type, memories]) => {
+      importData.memories.forEach(([type, memories]: [string, MemoryRecord[]]) => {
         if (type !== 'conversation') {
           memoryRef.current.set(type, memories);
         }
@@ -275,8 +287,7 @@ export function usePersonalAvatarMemory(userId) {
     });
   }, [userId]);
 
-  // Clear all memory
-  const clearMemory = useCallback((type = null) => {
+  const clearMemory = useCallback((type: string | null = null) => {
     if (type) {
       memoryRef.current.delete(type);
     } else {
@@ -299,7 +310,6 @@ export function usePersonalAvatarMemory(userId) {
   }, []);
 
   return {
-    // Memory operations
     storeMemory,
     storePersonalInfo,
     storeConversation,
@@ -307,27 +317,17 @@ export function usePersonalAvatarMemory(userId) {
     getRelevantMemories,
     getConversationContext,
     generateMemoryAwareResponse,
-
-    // Persona operations
     initializePersona,
     getPersona,
     updatePersonaTraits,
-
-    // Relationship
     getRelationshipState,
     updateRelationshipState,
-
-    // Import/Export
     exportMemory,
     importMemory,
     clearMemory,
-
-    // State
     memoryStats,
     conversationHistory: conversationHistoryRef.current,
     memoryRef,
     personaRef,
   };
 }
-
-export { MEMORY_TYPES, DEFAULT_PERSONA };

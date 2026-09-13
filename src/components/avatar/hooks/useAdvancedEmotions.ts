@@ -1,4 +1,4 @@
-// hooks/useAdvancedEmotions.js
+// hooks/useAdvancedEmotions.ts
 // 🎯 ADVANCED EMOTION & MICRO-EXPRESSION SYSTEM
 // ✅ Complex emotions
 // ✅ Emotion blending
@@ -6,13 +6,36 @@
 // ✅ Emotional transitions
 // ✅ Subtle facial signals
 
-import { useRef, useState, useCallback } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useRef, useCallback } from 'react';
+import { useFrame, FrameState } from './useFrame';
 
-const lerp = (a, b, t) => a + (b - a) * t;
+const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+
+export interface EmotionProfile {
+  expressions: Record<string, number>;
+  energy: number;
+  blinkRate: number;
+}
+
+export interface MicroExpressionDef {
+  duration: number;
+  expressions: Record<string, number>;
+}
+
+export interface ActiveMicroExpression extends MicroExpressionDef {
+  id: number;
+  startTime: number;
+  completed: boolean;
+}
+
+export interface EmotionHistoryRecord {
+  emotion: string;
+  timestamp: number;
+  strength: number;
+}
 
 // ── Emotion Definitions ──
-const EMOTIONS = {
+export const EMOTIONS: Record<string, EmotionProfile> = {
   happy: {
     expressions: { mouthSmile: 0.9, eyeSquint: 0.8, cheekPuff: 0.7 },
     energy: 0.8,
@@ -56,7 +79,7 @@ const EMOTIONS = {
 };
 
 // ── Micro-Expression Library ──
-const MICRO_EXPRESSIONS = {
+export const MICRO_EXPRESSIONS: Record<string, MicroExpressionDef> = {
   doubt: { duration: 0.5, expressions: { eyeNarrow: 0.3, browFurrow: 0.2 } },
   recognition: { duration: 0.4, expressions: { eyeWide: 0.2, browRaise: 0.15 } },
   concentration: { duration: 0.6, expressions: { eyeNarrow: 0.4, browFurrow: 0.3 } },
@@ -68,7 +91,16 @@ const MICRO_EXPRESSIONS = {
 };
 
 export function useAdvancedEmotions() {
-  const emotionStateRef = useRef({
+  const emotionStateRef = useRef<{
+    currentEmotion: string;
+    targetEmotion: string;
+    blendProgress: number;
+    blendDuration: number;
+    emotionStrength: number;
+    expressionValues: Record<string, number>;
+    microExpressions: ActiveMicroExpression[];
+    emotionHistory: EmotionHistoryRecord[];
+  }>({
     currentEmotion: 'neutral',
     targetEmotion: 'neutral',
     blendProgress: 0,
@@ -79,10 +111,10 @@ export function useAdvancedEmotions() {
     emotionHistory: [],
   });
 
-  const blendShapesRef = useRef({});
+  const blendShapesRef = useRef<Record<string, { value: number } | undefined>>({});
 
   // Set primary emotion
-  const setEmotion = useCallback((emotionName, duration = 0.5, strength = 1) => {
+  const setEmotion = useCallback((emotionName: string, duration = 0.5, strength = 1) => {
     if (EMOTIONS[emotionName]) {
       emotionStateRef.current.targetEmotion = emotionName;
       emotionStateRef.current.currentEmotion = emotionName;
@@ -100,12 +132,12 @@ export function useAdvancedEmotions() {
   }, []);
 
   // Blend two emotions
-  const blendEmotions = useCallback((emotion1, emotion2, blend = 0.5, duration = 0.5) => {
+  const blendEmotions = useCallback((emotion1: string, emotion2: string, blend = 0.5) => {
     if (EMOTIONS[emotion1] && EMOTIONS[emotion2]) {
       const e1 = EMOTIONS[emotion1].expressions;
       const e2 = EMOTIONS[emotion2].expressions;
 
-      const blended = {};
+      const blended: Record<string, number> = {};
       Object.keys(e1).forEach((key) => {
         blended[key] = lerp(e1[key] || 0, e2[key] || 0, blend);
       });
@@ -115,9 +147,9 @@ export function useAdvancedEmotions() {
   }, []);
 
   // Add micro-expression
-  const addMicroExpression = useCallback((microExprName) => {
+  const addMicroExpression = useCallback((microExprName: string) => {
     if (MICRO_EXPRESSIONS[microExprName]) {
-      const microExpr = {
+      const microExpr: ActiveMicroExpression = {
         ...MICRO_EXPRESSIONS[microExprName],
         id: Math.random(),
         startTime: 0,
@@ -147,7 +179,7 @@ export function useAdvancedEmotions() {
   }, []);
 
   // Animation loop
-  useFrame((state, delta) => {
+  useFrame((_state: FrameState, delta: number) => {
     const emotionState = emotionStateRef.current;
 
     // Blend emotion
@@ -191,8 +223,9 @@ export function useAdvancedEmotions() {
 
     // Apply expression values to blend shapes
     Object.entries(emotionState.expressionValues).forEach(([key, value]) => {
-      if (blendShapesRef.current[key]) {
-        blendShapesRef.current[key].value = Math.max(0, Math.min(1, value));
+      const bs = blendShapesRef.current[key];
+      if (bs) {
+        bs.value = Math.max(0, Math.min(1, value));
       }
     });
   });
@@ -216,5 +249,3 @@ export function useAdvancedEmotions() {
     availableMicroExpressions: Object.keys(MICRO_EXPRESSIONS),
   };
 }
-
-export { EMOTIONS, MICRO_EXPRESSIONS };

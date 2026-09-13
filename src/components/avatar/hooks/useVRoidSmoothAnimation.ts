@@ -1,4 +1,4 @@
-// hooks/useVRoidSmoothAnimation.js
+// hooks/useVRoidSmoothAnimation.ts
 // 🎯 VROID STUDIO ANIME AVATAR SMOOTH ANIMATION
 // ✅ VRM bone mapping
 // ✅ Anime character smooth movements
@@ -7,14 +7,14 @@
 // ✅ Optimized for anime style
 
 import { useRef, useState, useCallback, useEffect } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, FrameState } from './useFrame';
 import * as THREE from 'three';
 
 const deg = THREE.MathUtils.degToRad;
-const lerp = (a, b, t) => a + (b - a) * t;
+const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
 // VRM Standard Bone Names (VRoid uses these)
-const VRM_BONES = {
+export const VRM_BONES: Record<string, string> = {
   hips: 'Armature|Hips',
   spine: 'Armature|Spine',
   chest: 'Armature|Chest',
@@ -37,27 +37,31 @@ const VRM_BONES = {
 };
 
 // Anime-specific smooth settings
-const ANIME_SMOOTH_SETTINGS = {
-  // Hair physics multiplier (anime hair moves more dramatically)
+export const ANIME_SMOOTH_SETTINGS = {
   hairPhysicsAmount: 0.6,
-  // Eye blink timing for anime style
-  eyeBlinkFrequency: 0.25, // Blinks more often in anime
-  // Head tilt sensitivity (anime characters tilt head more)
+  eyeBlinkFrequency: 0.25,
   headTiltSensitivity: 1.5,
-  // Arm swing smoothness
   armSwingSmoothing: 0.15,
-  // Body sway for anime idle (more pronounced)
   bodySwyaAmount: 1.2,
-  // Interpolation speed for smooth anime movements
   boneInterpolationSpeed: 0.1,
 };
 
-export function useVRoidSmoothAnimation(vrmModel) {
-  const bonesMapRef = useRef(new Map());
-  const boneRotationRef = useRef(new Map());
-  const previousRotationRef = useRef(new Map());
+export interface VRMModelWithScene {
+  scene?: THREE.Group | THREE.Object3D;
+  [key: string]: any;
+}
+
+export function useVRoidSmoothAnimation(vrmModel?: VRMModelWithScene | null) {
+  const bonesMapRef = useRef<Map<string, THREE.Object3D>>(new Map());
+  const boneRotationRef = useRef<Map<string, { x: number; y: number; z: number }>>(new Map());
+  const previousRotationRef = useRef<Map<string, { x: number; y: number; z: number }>>(new Map());
   const [vrmReady, setVrmReady] = useState(false);
-  const animationStateRef = useRef({
+  const animationStateRef = useRef<{
+    currentAnimation: string;
+    animationProgress: number;
+    animationDuration: number;
+    isAnimating: boolean;
+  }>({
     currentAnimation: 'idle',
     animationProgress: 0,
     animationDuration: 0,
@@ -66,11 +70,10 @@ export function useVRoidSmoothAnimation(vrmModel) {
 
   // Initialize VRM bone mapping
   useEffect(() => {
-    if (!vrmModel) return;
+    if (!vrmModel?.scene) return;
 
     try {
-      // Map VRM bones
-      vrmModel.scene.traverse((node) => {
+      vrmModel.scene.traverse((node: THREE.Object3D) => {
         for (const [boneName, vrmName] of Object.entries(VRM_BONES)) {
           if (node.name === vrmName || node.name.includes(boneName)) {
             bonesMapRef.current.set(boneName, node);
@@ -88,83 +91,70 @@ export function useVRoidSmoothAnimation(vrmModel) {
   }, [vrmModel]);
 
   // Smooth bone rotation with anime-specific settings
-  const updateBoneRotation = useCallback((boneName, targetRotation, duration = 0.3) => {
+  const updateBoneRotation = useCallback((boneName: string, targetRotation: { x?: number; y?: number; z?: number }, _duration = 0.3) => {
     const bone = bonesMapRef.current.get(boneName);
-    if (!bone) return;
+    if (!bone || !bone.rotation) return;
 
-    // Store target rotation for interpolation
     const currentRotation = boneRotationRef.current.get(boneName) || { x: 0, y: 0, z: 0 };
-
-    // Smooth interpolation using anime-optimized speed
     const smoothSpeed = ANIME_SMOOTH_SETTINGS.boneInterpolationSpeed;
     const newRotation = {
-      x: lerp(currentRotation.x, targetRotation.x, smoothSpeed),
-      y: lerp(currentRotation.y, targetRotation.y, smoothSpeed),
-      z: lerp(currentRotation.z, targetRotation.z, smoothSpeed),
+      x: lerp(currentRotation.x, targetRotation.x ?? currentRotation.x, smoothSpeed),
+      y: lerp(currentRotation.y, targetRotation.y ?? currentRotation.y, smoothSpeed),
+      z: lerp(currentRotation.z, targetRotation.z ?? currentRotation.z, smoothSpeed),
     };
 
     boneRotationRef.current.set(boneName, newRotation);
 
-    // Apply to bone with easing
     bone.rotation.x = newRotation.x;
     bone.rotation.y = newRotation.y;
     bone.rotation.z = newRotation.z;
   }, []);
 
   // Anime smooth head movement
-  const updateHeadMovement = useCallback((targetX, targetY, intensity = 1) => {
+  const updateHeadMovement = useCallback((targetX: number, targetY: number, intensity = 1) => {
     const headBone = bonesMapRef.current.get('head');
     if (!headBone) return;
 
-    // Apply with anime sensitivity
     const x = deg(targetX * ANIME_SMOOTH_SETTINGS.headTiltSensitivity * intensity);
     const y = deg(targetY * ANIME_SMOOTH_SETTINGS.headTiltSensitivity * intensity);
-    const z = deg(targetY * 0.3); // Slight roll
+    const z = deg(targetY * 0.3);
 
     updateBoneRotation('head', { x, y, z }, 0.2);
   }, [updateBoneRotation]);
 
   // Anime smooth arm movement
-  const updateArmMovement = useCallback((isLeft, rotationX, rotationY, rotationZ) => {
+  const updateArmMovement = useCallback((isLeft: boolean, rotationX: number, rotationY: number, rotationZ: number) => {
     const boneName = isLeft ? 'leftUpperArm' : 'rightUpperArm';
     const targetRotation = {
       x: deg(rotationX),
-      y: deg(rotationY * (isLeft ? -1 : 1)), // Mirror for opposite arm
+      y: deg(rotationY * (isLeft ? -1 : 1)),
       z: deg(rotationZ),
     };
 
-    // Apply arm swing smoothing for anime style
     updateBoneRotation(boneName, targetRotation, 0.15);
   }, [updateBoneRotation]);
 
   // Hair physics for anime characters
   const updateHairPhysics = useCallback((swayAmount = 0.5) => {
-    // Hair bones typically follow similar pattern to head
     const headBone = bonesMapRef.current.get('head');
-    if (!headBone) return;
+    if (!headBone || !headBone.rotation) return;
 
-    // Apply slight physics to hair through bone animation
     const hairInfluence = swayAmount * ANIME_SMOOTH_SETTINGS.hairPhysicsAmount;
-
-    // Simulate hair movement with slight delay
     const headRotX = headBone.rotation.x;
     const headRotZ = headBone.rotation.z;
 
-    // Hair moves opposite to head for physics effect
     return {
       x: -headRotX * hairInfluence * 0.5,
       z: -headRotZ * hairInfluence * 0.5,
     };
   }, []);
 
-  // Smooth anime idle animation
   const playIdleAnimation = useCallback(() => {
     animationStateRef.current.currentAnimation = 'idle';
     animationStateRef.current.isAnimating = true;
   }, []);
 
-  // Smooth anime gesture
-  const playGesture = useCallback((gestureName, duration = 1.5) => {
+  const playGesture = useCallback((gestureName: string, duration = 1.5) => {
     animationStateRef.current.currentAnimation = gestureName;
     animationStateRef.current.animationDuration = duration;
     animationStateRef.current.animationProgress = 0;
@@ -172,12 +162,11 @@ export function useVRoidSmoothAnimation(vrmModel) {
   }, []);
 
   // Main animation loop for VRM
-  useFrame((state, delta) => {
+  useFrame((state: FrameState, delta: number) => {
     if (!vrmReady) return;
 
     const animState = animationStateRef.current;
 
-    // Update animation progress
     if (animState.isAnimating) {
       animState.animationProgress += delta;
       if (animState.animationProgress >= animState.animationDuration) {
@@ -186,62 +175,55 @@ export function useVRoidSmoothAnimation(vrmModel) {
       }
     }
 
-    // Handle different animations
     switch (animState.currentAnimation) {
       case 'idle':
-        // Gentle anime idle sway
-        const swayPhase = state.clock.elapsedTime * 0.5; // Slower sway for anime
+        const swayPhase = state.clock.elapsedTime * 0.5;
         const swayX = Math.sin(swayPhase) * 2;
         const swayZ = Math.cos(swayPhase * 0.7) * 1.5;
 
         updateHeadMovement(swayX * 0.3, swayZ * 0.2, 0.5);
 
-        // Subtle spine sway
         const spineBone = bonesMapRef.current.get('spine');
-        if (spineBone) {
+        if (spineBone && spineBone.rotation) {
           spineBone.rotation.z = deg(swayX * 0.5);
           spineBone.rotation.x = deg(swayZ * 0.3);
         }
 
-        // Hair physics
         updateHairPhysics(Math.sin(swayPhase) * 0.5);
         break;
 
       case 'wave':
-        const wavePhase = animState.animationProgress / animState.animationDuration;
-        const waveEase = Math.sin(wavePhase * Math.PI); // Ease in-out
+        const wavePhase = animState.animationDuration > 0 ? animState.animationProgress / animState.animationDuration : 1;
+        const waveEase = Math.sin(wavePhase * Math.PI);
 
-        // Wave animation
         updateArmMovement(false, -20 * waveEase, -30, 0);
         updateHeadMovement(0, 5 * waveEase, 0.5);
         break;
 
       case 'nod':
-        const nodPhase = animState.animationProgress / animState.animationDuration;
-        const nodEase = Math.sin(nodPhase * Math.PI * 2); // Two full nods
+        const nodPhase = animState.animationDuration > 0 ? animState.animationProgress / animState.animationDuration : 1;
+        const nodEase = Math.sin(nodPhase * Math.PI * 2);
 
         updateHeadMovement(nodEase * 15, 0, 0.3);
         break;
 
       case 'shake':
-        const shakePhase = animState.animationProgress / animState.animationDuration;
-        const shakeEase = Math.sin(shakePhase * Math.PI * 4); // Faster shakes
+        const shakePhase = animState.animationDuration > 0 ? animState.animationProgress / animState.animationDuration : 1;
+        const shakeEase = Math.sin(shakePhase * Math.PI * 4);
 
         updateHeadMovement(0, shakeEase * 20, 0.2);
         break;
 
       case 'excited':
-        const excitedPhase = animState.animationProgress / animState.animationDuration;
+        const excitedPhase = animState.animationDuration > 0 ? animState.animationProgress / animState.animationDuration : 1;
         const excitedEase = Math.sin(excitedPhase * Math.PI * 3);
 
-        // Excited movement (arms up and down)
         updateArmMovement(true, -excitedEase * 30, 0, 0);
         updateArmMovement(false, -excitedEase * 30, 0, 0);
         updateHeadMovement(excitedEase * 10, excitedEase * 5, 0.8);
 
-        // Spine bounce
         const spineBone2 = bonesMapRef.current.get('spine');
-        if (spineBone2) {
+        if (spineBone2 && spineBone2.position) {
           spineBone2.position.y = Math.abs(excitedEase) * 0.05;
         }
         break;
@@ -251,13 +233,8 @@ export function useVRoidSmoothAnimation(vrmModel) {
     }
   });
 
-  // Get VRM ready status
   const getVRMReady = useCallback(() => vrmReady, [vrmReady]);
-
-  // Get bone reference
-  const getBone = useCallback((boneName) => bonesMapRef.current.get(boneName), []);
-
-  // Get all bones
+  const getBone = useCallback((boneName: string) => bonesMapRef.current.get(boneName), []);
   const getAllBones = useCallback(() => Object.fromEntries(bonesMapRef.current), []);
 
   return {
@@ -276,5 +253,3 @@ export function useVRoidSmoothAnimation(vrmModel) {
     ANIME_SMOOTH_SETTINGS,
   };
 }
-
-export { VRM_BONES, ANIME_SMOOTH_SETTINGS };

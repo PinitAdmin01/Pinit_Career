@@ -1,18 +1,19 @@
-// hooks/useVRoidLipSync.js
+// hooks/useVRoidLipSync.ts
 // 🎯 ADVANCED VROID LIP-SYNC & SPEECH ANIMATION
 // ✅ Phoneme-based lip-sync
 // ✅ Audio-driven animation
-// ✅ Jaw movement
+// ✅ Jaw movement with null guards
 // ✅ Tongue animation
 // ✅ Emotion-based speech
 
 import { useRef, useState, useCallback, useEffect } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, FrameState } from './useFrame';
+import * as THREE from 'three';
 
-const lerp = (a, b, t) => a + (b - a) * t;
+const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
 // Phoneme definitions with mouth shapes
-const PHONEME_MOUTH_SHAPES = {
+export const PHONEME_MOUTH_SHAPES: Record<string, Record<string, number>> = {
   // Vowels - open mouth
   'a': { aa: 0.9, oh: 0.2, mouth_open: 0.8 },
   'e': { ee: 0.9, ih: 0.3, mouth_open: 0.5 },
@@ -45,44 +46,68 @@ const PHONEME_MOUTH_SHAPES = {
 };
 
 // Lip-sync timing for smooth animation
-const LIP_SYNC_SETTINGS = {
+export const LIP_SYNC_SETTINGS = {
   phonemeDuration: 0.08, // 80ms per phoneme
   transitionTime: 0.05, // 50ms blend between phonemes
   jawSensitivity: 1.2, // Jaw movement multiplier
   expressionDamping: 0.9, // Smooth expression blending
 };
 
-export function useVRoidLipSync(vrmExpressions) {
-  const [isSpeak, setIsSpeaking] = useState(false);
+export interface VRMExpressionsControllerLike {
+  setExpression?: (name: string, value: number) => void;
+  [key: string]: any;
+}
+
+export function useVRoidLipSync(vrmExpressions?: VRMExpressionsControllerLike | null) {
+  const [isSpeaking, setIsSpeaking] = useState(false);
   const [currentPhoneme, setCurrentPhoneme] = useState('silence');
-  const speechQueueRef = useRef([]);
+  const speechQueueRef = useRef<string[]>([]);
   const speechTimeRef = useRef(0);
-  const audioContextRef = useRef(null);
-  const audioAnalyzerRef = useRef(null);
-  const jawBoneRef = useRef(null);
-  const tongueBonesRef = useRef([]);
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const audioAnalyzerRef = useRef<AnalyserNode | null>(null);
+  const jawBoneRef = useRef<THREE.Object3D | null>(null);
+  const tongueBonesRef = useRef<THREE.Object3D[]>([]);
+
+  // Cleanup audio context on unmount
+  useEffect(() => {
+    return () => {
+      if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
+        try {
+          audioContextRef.current.close();
+        } catch {
+          // ignore
+        }
+      }
+    };
+  }, []);
 
   // Initialize audio analysis for real-time lip-sync
-  const initializeAudioAnalysis = useCallback((audioElement) => {
-    if (!audioElement) return;
+  const initializeAudioAnalysis = useCallback((audioElement: HTMLMediaElement | null) => {
+    if (!audioElement || typeof window === 'undefined') return;
 
-    const context = new (window.AudioContext || window.webkitAudioContext)();
-    audioContextRef.current = context;
+    try {
+      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+      const context: AudioContext = new AudioCtx();
+      audioContextRef.current = context;
 
-    const source = context.createMediaElementAudioSource(audioElement);
-    const analyzer = context.createAnalyser();
-    analyzer.fftSize = 2048;
+      const source = context.createMediaElementSource(audioElement);
+      const analyzer = context.createAnalyser();
+      analyzer.fftSize = 2048;
 
-    source.connect(analyzer);
-    analyzer.connect(context.destination);
+      source.connect(analyzer);
+      analyzer.connect(context.destination);
 
-    audioAnalyzerRef.current = analyzer;
-    return analyzer;
+      audioAnalyzerRef.current = analyzer;
+      return analyzer;
+    } catch (err) {
+      console.warn('[LipSync] Could not initialize Web Audio analyser:', err);
+      return null;
+    }
   }, []);
 
   // Extract phonemes from text
-  const extractPhonemes = useCallback((text) => {
-    const phonemeMap = {
+  const extractPhonemes = useCallback((text: string): string[] => {
+    const phonemeMap: Record<string, string> = {
       'ph': 'f',
       'gh': 'f',
       'ch': 'ch',
@@ -92,7 +117,7 @@ export function useVRoidLipSync(vrmExpressions) {
       'qu': 'kw',
     };
 
-    let phonemes = [];
+    const phonemes: string[] = [];
     let i = 0;
 
     while (i < text.length) {
@@ -116,34 +141,14 @@ export function useVRoidLipSync(vrmExpressions) {
     return phonemes;
   }, []);
 
-  // Animate phoneme sequence
-  const animatePhonemeSequence = useCallback((text) => {
-    const phonemes = extractPhonemes(text);
-    
-    setIsSpeaking(true);
-    speechQueueRef.current = phonemes;
-    speechTimeRef.current = 0;
-
-    // Calculate total speech duration
-    const speechDuration = phonemes.length * LIP_SYNC_SETTINGS.phonemeDuration;
-    
-    // Reset after speech is done
-    setTimeout(() => {
-      setIsSpeaking(false);
-      setCurrentPhoneme('silence');
-      speechQueueRef.current = [];
-    }, speechDuration * 1000);
-  }, [extractPhonemes]);
-
   // Apply mouth shape for phoneme
-  const applyPhonemeShape = useCallback((phoneme) => {
+  const applyPhonemeShape = useCallback((phoneme: string) => {
     if (!vrmExpressions) return;
 
     const shapes = PHONEME_MOUTH_SHAPES[phoneme] || PHONEME_MOUTH_SHAPES['silence'];
 
-    // Apply each mouth shape blend
     Object.entries(shapes).forEach(([shape, value]) => {
-      if (vrmExpressions.setExpression) {
+      if (typeof vrmExpressions.setExpression === 'function') {
         vrmExpressions.setExpression(shape, value);
       }
     });
@@ -151,44 +156,36 @@ export function useVRoidLipSync(vrmExpressions) {
     setCurrentPhoneme(phoneme);
   }, [vrmExpressions]);
 
-  // Animate jaw movement for mouth opening
-  const updateJawMovement = useCallback((jawBone, phoneme) => {
-    if (!jawBone) return;
+  // Animate phoneme sequence
+  const animatePhonemeSequence = useCallback((text: string) => {
+    const phonemes = extractPhonemes(text);
+    
+    setIsSpeaking(true);
+    speechQueueRef.current = phonemes;
+    speechTimeRef.current = 0;
+
+    const speechDuration = phonemes.length * LIP_SYNC_SETTINGS.phonemeDuration;
+    
+    setTimeout(() => {
+      setIsSpeaking(false);
+      setCurrentPhoneme('silence');
+      speechQueueRef.current = [];
+    }, speechDuration * 1000);
+  }, [extractPhonemes]);
+
+  // Animate jaw movement for mouth opening with strict null check
+  const updateJawMovement = useCallback((jawBone: THREE.Object3D | null | undefined, phoneme: string) => {
+    if (!jawBone || !jawBone.rotation) return;
 
     const shapes = PHONEME_MOUTH_SHAPES[phoneme] || {};
     const jawOpen = shapes.mouth_open || 0;
 
-    // Smooth jaw rotation
-    const targetRotX = jawOpen * LIP_SYNC_SETTINGS.jawSensitivity * 0.3; // Radians
+    const targetRotX = jawOpen * LIP_SYNC_SETTINGS.jawSensitivity * 0.3;
     jawBone.rotation.x = lerp(jawBone.rotation.x || 0, targetRotX, 0.1);
   }, []);
 
-  // Real-time audio-driven lip-sync
-  const updateFromAudio = useCallback(() => {
-    if (!audioAnalyzerRef.current || !isSpeak) return;
-
-    const dataArray = new Uint8Array(audioAnalyzerRef.current.frequencyBinCount);
-    audioAnalyzerRef.current.getByteFrequencyData(dataArray);
-
-    // Analyze frequency to detect speech characteristics
-    let energy = 0;
-    for (let i = 0; i < dataArray.length; i++) {
-      energy += dataArray[i];
-    }
-    energy = energy / dataArray.length / 255; // Normalize to 0-1
-
-    // Detect current phoneme based on energy and frequency
-    const dominantFreq = detectDominantFrequency(dataArray);
-    const estimatedPhoneme = estimatePhoneme(dominantFreq, energy);
-
-    if (estimatedPhoneme) {
-      applyPhonemeShape(estimatedPhoneme);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSpeak, applyPhonemeShape]);
-
   // Detect dominant frequency from audio
-  const detectDominantFrequency = useCallback((dataArray) => {
+  const detectDominantFrequency = useCallback((dataArray: Uint8Array): number => {
     let maxValue = 0;
     let maxIndex = 0;
 
@@ -199,15 +196,14 @@ export function useVRoidLipSync(vrmExpressions) {
       }
     }
 
-    const nyquist = audioContextRef.current?.sampleRate / 2 || 22050;
+    const nyquist = (audioContextRef.current?.sampleRate || 44100) / 2;
     return (maxIndex * nyquist) / dataArray.length;
   }, []);
 
   // Estimate phoneme from frequency analysis
-  const estimatePhoneme = useCallback((freq, energy) => {
+  const estimatePhoneme = useCallback((freq: number, energy: number): string => {
     if (energy < 0.1) return 'silence';
 
-    // Simple frequency-based phoneme detection
     if (freq < 300) {
       return energy > 0.4 ? 'o' : 'u';
     } else if (freq < 700) {
@@ -221,13 +217,33 @@ export function useVRoidLipSync(vrmExpressions) {
     }
   }, []);
 
+  // Real-time audio-driven lip-sync
+  const updateFromAudio = useCallback(() => {
+    if (!audioAnalyzerRef.current || !isSpeaking) return;
+
+    const dataArray = new Uint8Array(audioAnalyzerRef.current.frequencyBinCount);
+    audioAnalyzerRef.current.getByteFrequencyData(dataArray);
+
+    let energy = 0;
+    for (let i = 0; i < dataArray.length; i++) {
+      energy += dataArray[i];
+    }
+    energy = energy / dataArray.length / 255;
+
+    const dominantFreq = detectDominantFrequency(dataArray);
+    const estimatedPhoneme = estimatePhoneme(dominantFreq, energy);
+
+    if (estimatedPhoneme) {
+      applyPhonemeShape(estimatedPhoneme);
+    }
+  }, [isSpeaking, applyPhonemeShape, detectDominantFrequency, estimatePhoneme]);
+
   // Main animation loop
-  useFrame((state, delta) => {
-    if (!isSpeak) return;
+  useFrame((_state: FrameState, delta: number) => {
+    if (!isSpeaking) return;
 
     speechTimeRef.current += delta;
 
-    // Update from text-based phoneme sequence
     if (speechQueueRef.current.length > 0) {
       const phonemeIndex = Math.floor(
         speechTimeRef.current / LIP_SYNC_SETTINGS.phonemeDuration
@@ -240,31 +256,27 @@ export function useVRoidLipSync(vrmExpressions) {
       }
     }
 
-    // Also update from real-time audio if available
     updateFromAudio();
   });
 
-  // Connect jaw bone for animation
-  const setJawBone = useCallback((bone) => {
+  const setJawBone = useCallback((bone: THREE.Object3D | null) => {
     jawBoneRef.current = bone;
   }, []);
 
-  // Add tongue bones for advanced animation
-  const addTongueBone = useCallback((bone) => {
+  const addTongueBone = useCallback((bone: THREE.Object3D) => {
     tongueBonesRef.current.push(bone);
   }, []);
 
-  // Get speech info
   const getSpeechInfo = useCallback(() => {
     return {
-      isSpeaking: isSpeak,
+      isSpeaking,
       currentPhoneme,
       progress: speechQueueRef.current.length > 0 
         ? speechTimeRef.current / (speechQueueRef.current.length * LIP_SYNC_SETTINGS.phonemeDuration)
         : 0,
       queueLength: speechQueueRef.current.length,
     };
-  }, [isSpeak, currentPhoneme]);
+  }, [isSpeaking, currentPhoneme]);
 
   return {
     animatePhonemeSequence,
@@ -274,11 +286,9 @@ export function useVRoidLipSync(vrmExpressions) {
     setJawBone,
     addTongueBone,
     getSpeechInfo,
-    isSpeaking: isSpeak,
+    isSpeaking,
     currentPhoneme,
     PHONEME_MOUTH_SHAPES,
     LIP_SYNC_SETTINGS,
   };
 }
-
-export { PHONEME_MOUTH_SHAPES, LIP_SYNC_SETTINGS };

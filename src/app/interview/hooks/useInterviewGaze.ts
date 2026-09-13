@@ -116,6 +116,18 @@ export function useInterviewGaze(isInterviewActive: boolean) {
     return () => clearInterval(interval);
   }, [showCameraPreview, isInterviewActive]);
 
+  // Master unmount cleanup: stop any active webcam media tracks
+  useEffect(() => {
+    return () => {
+      if (cameraStreamRef.current) {
+        try {
+          cameraStreamRef.current.getTracks().forEach(t => t.stop());
+        } catch {}
+        cameraStreamRef.current = null;
+      }
+    };
+  }, []);
+
   return {
     showCameraPreview,
     setShowCameraPreview,

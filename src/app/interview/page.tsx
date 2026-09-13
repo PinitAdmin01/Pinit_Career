@@ -34,7 +34,9 @@ import {
   InterviewResultsView,
   InterviewSetupView,
   AssistModeDrawer,
-  InterviewHistoryModal
+  InterviewHistoryModal,
+  InterviewSessionHeader,
+  InterviewVoiceHud
 } from './components';
 import { useInterviewGaze } from './hooks/useInterviewGaze';
 import { useInterviewVoice } from './hooks/useInterviewVoice';
@@ -109,6 +111,26 @@ export default function InterviewPage() {
       if (typeof document !== 'undefined') document.body.removeAttribute('data-interview-active');
     };
   }, [isInterviewActive]);
+
+  // Master WebGL context disposal & soundscape cleanup on unmount (Task 4.4 guarantee)
+  useEffect(() => {
+    return () => {
+      stopSpeaking();
+      stopArchetypeSoundscape();
+      if (typeof document !== 'undefined') {
+        const canvases = document.querySelectorAll('canvas');
+        canvases.forEach(canvas => {
+          try {
+            const gl = canvas.getContext('webgl') || canvas.getContext('webgl2');
+            if (gl) {
+              const ext = gl.getExtension('WEBGL_lose_context');
+              if (ext) ext.loseContext();
+            }
+          } catch {}
+        });
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (messagesEndRef.current) messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -560,18 +582,10 @@ export default function InterviewPage() {
 
   const exportInterviewTranscript = (format: 'markdown' | 'json' = 'markdown') => {
     exportInterviewTranscriptFile({
-      format,
-      activeTopicName,
-      domainStream,
+      format, activeTopicName, domainStream,
       teacherName: activeTeacher.name,
-      evaluationResult,
-      eyeContactScore,
-      wpmScore,
-      fillerWordCount,
-      codeContent,
-      selectedLang,
-      latestTopology,
-      messages
+      evaluationResult, eyeContactScore, wpmScore, fillerWordCount,
+      codeContent, selectedLang, latestTopology, messages
     });
   };
 
@@ -592,171 +606,51 @@ export default function InterviewPage() {
     <div style={{ padding: isInterviewActive ? '6px 16px' : '24px 36px', maxWidth: 1400, margin: '0 auto', color: 'var(--t1)', fontFamily: 'var(--font-sans)' }}>
       {!isInterviewActive ? (
         <InterviewSetupView
-          activeSessionDraft={activeSessionDraft}
-          resumeActiveSession={resumeActiveSession}
-          discardActiveSession={discardActiveSession}
-          formatStageLabel={formatStageLabel}
-          interviewMode={interviewMode}
-          setInterviewMode={setInterviewMode}
-          domainStream={domainStream}
-          setDomainStream={setDomainStream}
-          domainSubTopic={domainSubTopic}
-          setDomainSubTopic={setDomainSubTopic}
-          customTopicInput={customTopicInput}
-          setCustomTopicInput={setCustomTopicInput}
-          difficulty={difficulty}
-          setDifficulty={setDifficulty}
-          startInterview={startInterview}
-          sessions={sessions}
-          clearSessionHistory={clearSessionHistory}
-          setSelectedHistorySession={setSelectedHistorySession}
+          activeSessionDraft={activeSessionDraft} resumeActiveSession={resumeActiveSession}
+          discardActiveSession={discardActiveSession} formatStageLabel={formatStageLabel}
+          interviewMode={interviewMode} setInterviewMode={setInterviewMode}
+          domainStream={domainStream} setDomainStream={setDomainStream}
+          domainSubTopic={domainSubTopic} setDomainSubTopic={setDomainSubTopic}
+          customTopicInput={customTopicInput} setCustomTopicInput={setCustomTopicInput}
+          difficulty={difficulty} setDifficulty={setDifficulty}
+          startInterview={startInterview} sessions={sessions}
+          clearSessionHistory={clearSessionHistory} setSelectedHistorySession={setSelectedHistorySession}
         />
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           {/* Top Session Control Header */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 18px', background: 'var(--bg2)', borderRadius: 14, border: '1px solid var(--border)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <span style={{ fontSize: 20 }}>{activeTeacher.emoji}</span>
-              <div>
-                <div style={{ fontSize: 13, fontWeight: 900, color: 'var(--t1)' }}>{activeTeacher.name} ({activeTeacher.title})</div>
-                <div style={{ fontSize: 10, color: 'var(--accent-mid)' }}>
-                  Topic: {activeTopicName} • Stage: {activeStage.replace('_', ' ').toUpperCase()} • ⏱️ {formatElapsed(elapsedSeconds)}
-                </div>
-              </div>
-            </div>
-
-            <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
-              <div style={{ position: 'relative', display: 'inline-block' }}>
-                <button
-                  disabled={isScoredStage}
-                  title={isScoredStage ? 'Assist Mode is disabled during scored rounds' : 'Practice Mode — AI Teleprompter'}
-                  onClick={() => {
-                    const next = !isAssistModeActive;
-                    setIsAssistModeActive(next);
-                    if (next) {
-                      const lastMsg = messages.filter(m => m.role === 'assistant').slice(-1)[0]?.content;
-                      if (lastMsg) fetchAssistScript(lastMsg);
-                    }
-                  }}
-                  style={{
-                    background: isScoredStage ? 'var(--bg2)' : isAssistModeActive ? 'linear-gradient(135deg, var(--brand) 0%, var(--reward) 100%)' : 'var(--bg3)',
-                    border: isScoredStage ? '1px solid var(--border)' : isAssistModeActive ? '1px solid var(--reward)' : '1px solid var(--border)',
-                    color: isScoredStage ? 'var(--t3)' : isAssistModeActive ? 'var(--text)' : 'var(--t2)',
-                    borderRadius: 8, padding: '5px 12px', fontSize: 11, fontWeight: 900,
-                    cursor: isScoredStage ? 'not-allowed' : 'pointer',
-                    opacity: isScoredStage ? 0.5 : 1
-                  }}
-                >
-                  {isScoredStage ? '🔒 Practice Only' : isAssistModeActive ? '🪄 Assist Mode ACTIVE' : '🪄 Assist Mode'}
-                </button>
-              </div>
-
-              {/* Inline Avatar Volume Slider */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'var(--bg3)', padding: '4px 10px', borderRadius: 8, border: '1px solid var(--border)' }}>
-                <span style={{ fontSize: 11 }}>🔊</span>
-                <input
-                  type="range" min="0" max="100" value={avatarVolume}
-                  onChange={(e) => handleVolumeChange(Number(e.target.value))}
-                  style={{ width: 60, cursor: 'pointer' }}
-                />
-                <span style={{ fontSize: 10, fontWeight: 800, color: 'var(--t2)', minWidth: 28 }}>{avatarVolume}%</span>
-              </div>
-
-              <button
-                onClick={toggleCameraPreview}
-                style={{
-                  background: showCameraPreview ? 'var(--accent-light)' : 'var(--bg3)',
-                  border: showCameraPreview ? '1px solid var(--accent)' : '1px solid var(--border)',
-                  color: showCameraPreview ? 'var(--accent)' : 'var(--t2)',
-                  borderRadius: 8, padding: '5px 12px', fontSize: 11, fontWeight: 800, cursor: 'pointer'
-                }}
-              >
-                {showCameraPreview ? '📷 Self-View ON' : '📷 Self-View'}
-              </button>
-
-              {isAvatarSpeaking && (
-                <button
-                  onClick={interruptSpeech}
-                  style={{
-                    background: 'var(--warning)', border: 'none', color: '#000',
-                    borderRadius: 8, padding: '5px 12px', fontSize: 11, fontWeight: 900, cursor: 'pointer'
-                  }}
-                >
-                  ✋ Interrupt &amp; Speak
-                </button>
-              )}
-
-              <button
-                onClick={() => setAutoVoiceLoop(a => !a)}
-                style={{
-                  background: autoVoiceLoop ? 'var(--green-light)' : 'var(--bg3)',
-                  border: autoVoiceLoop ? '1px solid var(--green)' : '1px solid var(--border)',
-                  color: autoVoiceLoop ? 'var(--green)' : 'var(--t2)', borderRadius: 8, padding: '5px 12px', fontSize: 11, fontWeight: 800, cursor: 'pointer'
-                }}
-              >
-                {autoVoiceLoop ? '🔄 Voice Loop ACTIVE' : '⏸️ Auto Voice Paused'}
-              </button>
-
-              <button
-                onClick={skipQuestion}
-                style={{
-                  background: 'var(--amber-light)', border: '1px solid var(--amber)',
-                  color: 'var(--amber-mid)', borderRadius: 8, padding: '5px 12px', fontSize: 11, fontWeight: 800, cursor: 'pointer'
-                }}
-              >
-                ⏩ Skip Question
-              </button>
-
-              <button onClick={exitInterview} style={{ background: 'var(--coral-light)', border: '1px solid var(--coral-mid)', color: 'var(--coral-mid)', borderRadius: 8, padding: '5px 14px', fontSize: 11, fontWeight: 800, cursor: 'pointer' }}>
-                ✕ Exit Session
-              </button>
-            </div>
-          </div>
+          <InterviewSessionHeader
+            activeTeacher={activeTeacher}
+            activeTopicName={activeTopicName}
+            activeStage={activeStage}
+            elapsedSeconds={elapsedSeconds}
+            formatElapsed={formatElapsed}
+            isScoredStage={isScoredStage}
+            isAssistModeActive={isAssistModeActive}
+            setIsAssistModeActive={setIsAssistModeActive}
+            messages={messages}
+            fetchAssistScript={fetchAssistScript}
+            avatarVolume={avatarVolume}
+            handleVolumeChange={handleVolumeChange}
+            showCameraPreview={showCameraPreview}
+            toggleCameraPreview={toggleCameraPreview}
+            isAvatarSpeaking={isAvatarSpeaking}
+            interruptSpeech={interruptSpeech}
+            autoVoiceLoop={autoVoiceLoop}
+            setAutoVoiceLoop={setAutoVoiceLoop}
+            skipQuestion={skipQuestion}
+            exitInterview={exitInterview}
+          />
 
           {/* Hands-Free Voice HUD Banner */}
-          <div style={{
-            background: isVoiceListening ? 'linear-gradient(90deg, rgba(var(--success-rgb),0.15) 0%, rgba(var(--info-rgb),0.15) 100%)' : 'var(--bg3)',
-            border: '1px solid ' + (isVoiceListening ? 'var(--success)' : 'var(--border)'),
-            borderRadius: 12, padding: '8px 16px',
-            display: 'flex', justifyContent: 'space-between', alignItems: 'center'
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <span style={{ fontSize: 16 }}>{isAvatarSpeaking ? '🗣️' : isVoiceListening ? '🎙️' : '🎤'}</span>
-              <div>
-                <div style={{ fontSize: 12, fontWeight: 900, color: 'var(--t1)' }}>
-                  {isAvatarSpeaking ? `${activeTeacher.name} is Speaking...` : isVoiceListening ? 'SPOKEN VOICE RECOGNITION ACTIVE' : 'Voice Mode Standby'}
-                </div>
-                <div style={{ fontSize: 11, color: isVoiceListening ? 'var(--success)' : 'var(--t2)', fontWeight: liveSpeechTranscript ? 800 : 600 }}>
-                  {isAvatarSpeaking
-                    ? 'Listening to avatar audio response (Speak anytime to interrupt)...'
-                    : liveSpeechTranscript
-                    ? `Hearing your voice: "${liveSpeechTranscript}"`
-                    : isVoiceListening
-                    ? '🟢 Microphone active — Speak naturally to answer'
-                    : 'Click "Speak to Avatar" or enable Auto Voice Loop.'}
-                </div>
-              </div>
-            </div>
-
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              {isVoiceListening && (
-                <button
-                  onClick={stopVoiceListening}
-                  style={{ background: 'var(--danger-light)', border: '1px solid var(--danger)', color: 'var(--danger)', borderRadius: 6, padding: '4px 10px', fontSize: 10, fontWeight: 800, cursor: 'pointer' }}
-                >
-                  🛑 Pause Mic
-                </button>
-              )}
-
-              <button
-                onClick={startVoiceListening}
-                disabled={isVoiceListening || isAvatarSpeaking}
-                style={{ background: isVoiceListening ? 'var(--success)' : 'var(--accent)', border: 'none', color: 'var(--text)', borderRadius: 8, padding: '6px 14px', fontSize: 11, fontWeight: 900, cursor: isVoiceListening ? 'default' : 'pointer' }}
-              >
-                {isVoiceListening ? '🎙️ Listening...' : '🎤 Force Mic Reactivate'}
-              </button>
-            </div>
-          </div>
+          <InterviewVoiceHud
+            isVoiceListening={isVoiceListening}
+            isAvatarSpeaking={isAvatarSpeaking}
+            activeTeacher={activeTeacher}
+            liveSpeechTranscript={liveSpeechTranscript}
+            stopVoiceListening={stopVoiceListening}
+            startVoiceListening={startVoiceListening}
+          />
 
           {/* Assist Mode Teleprompter Drawer */}
           <AssistModeDrawer

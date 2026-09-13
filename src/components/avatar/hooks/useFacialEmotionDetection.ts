@@ -1,14 +1,15 @@
-// hooks/useFacialEmotionDetection.js
+// hooks/useFacialEmotionDetection.ts
 // 👁️ FACIAL EMOTION DETECTION & LIMBIC RESONANCE
 // ✅ Face detection
 // ✅ Emotion recognition
 // ✅ Tone analysis
 // ✅ Limbic resonance
 // ✅ Emotional mirroring
+// ✅ Microphone & Camera track cleanup
 
 import { useRef, useState, useCallback, useEffect } from 'react';
 
-const EMOTION_SIGNATURES = {
+export const EMOTION_SIGNATURES: Record<string, any> = {
   happy: {
     cheekRaise: 0.8,
     eyesCrinkling: 0.8,
@@ -52,7 +53,7 @@ const EMOTION_SIGNATURES = {
 };
 
 // Tone detection keywords
-const TONE_KEYWORDS = {
+export const TONE_KEYWORDS: Record<string, string[]> = {
   positive: ['great', 'good', 'excellent', 'amazing', 'love', 'happy', 'wonderful', 'awesome'],
   negative: ['bad', 'terrible', 'hate', 'awful', 'horrible', 'sad', 'angry'],
   uncertain: ['maybe', 'perhaps', 'not sure', 'confused', 'unsure'],
@@ -62,24 +63,29 @@ const TONE_KEYWORDS = {
 };
 
 export function useFacialEmotionDetection() {
-  const [videoStream, setVideoStream] = useState(null);
+  const [videoStream, setVideoStream] = useState<MediaStream | null>(null);
   const [faceDetected, setFaceDetected] = useState(false);
   const [detectedEmotion, setDetectedEmotion] = useState('neutral');
   const [emotionConfidence, setEmotionConfidence] = useState(0);
   const [detectedTone, setDetectedTone] = useState('neutral');
-  const [faceMetrics, setFaceMetrics] = useState(null);
-  const videoRef = useRef(null);
-  const canvasRef = useRef(null);
+  const [faceMetrics, setFaceMetrics] = useState<any>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const streamRef = useRef<MediaStream | null>(null);
 
   // Initialize camera
-  const initializeCamera = useCallback(async () => {
+  const initializeCamera = useCallback(async (): Promise<MediaStream | null> => {
     try {
+      if (typeof navigator === 'undefined' || !navigator.mediaDevices?.getUserMedia) {
+        return null;
+      }
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { width: 320, height: 240 },
         audio: false,
       });
 
       setVideoStream(stream);
+      streamRef.current = stream;
 
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
@@ -95,19 +101,21 @@ export function useFacialEmotionDetection() {
 
   // Detect face using TensorFlow.js (if available)
   const detectFaceWithML = useCallback(async () => {
-    if (!videoRef.current || !window.tf || !window.coco) {
+    if (!videoRef.current || typeof window === 'undefined') {
+      return null;
+    }
+    const win = window as any;
+    if (!win.tf || !win.coco) {
       return null;
     }
 
     try {
-      // Use TensorFlow Coco-SSD for face detection
-      const predictions = await window.coco.detect(videoRef.current);
-      
-      const faces = predictions.filter(p => p.class === 'person');
+      const predictions = await win.coco.detect(videoRef.current);
+      const faces = predictions.filter((p: any) => p.class === 'person');
       
       if (faces.length > 0) {
         setFaceDetected(true);
-        return faces[0]; // Get first face
+        return faces[0];
       } else {
         setFaceDetected(false);
         return null;
@@ -119,16 +127,11 @@ export function useFacialEmotionDetection() {
   }, []);
 
   // Analyze face image for emotion (simplified)
-  const analyzeFaceEmotion = useCallback(async (imageData) => {
+  const analyzeFaceEmotion = useCallback(async (imageData: ImageData | null) => {
     try {
       if (!imageData) return null;
 
-      // Analyze pixel data for emotion indicators
       const pixels = imageData.data;
-      const width = imageData.width;
-      const height = imageData.height;
-
-      // Calculate average color (emotion indicator)
       let r = 0, g = 0, b = 0;
       for (let i = 0; i < pixels.length; i += 4) {
         r += pixels[i];
@@ -136,26 +139,20 @@ export function useFacialEmotionDetection() {
         b += pixels[i + 2];
       }
 
-      r /= pixels.length / 4;
-      g /= pixels.length / 4;
-      b /= pixels.length / 4;
+      r /= (pixels.length / 4);
+      g /= (pixels.length / 4);
+      b /= (pixels.length / 4);
 
-      // Simple emotion detection based on color
       let detectedEmo = 'neutral';
       let confidence = 0.3;
 
-      // Red tones = emotional (happy, angry)
       if (r > b && r > g) {
         detectedEmo = Math.random() > 0.5 ? 'happy' : 'angry';
         confidence = Math.min(1, (r / 255) * 0.8);
-      }
-      // Blue/cool tones = calm/sad
-      else if (b > r && b > g) {
+      } else if (b > r && b > g) {
         detectedEmo = 'sad';
         confidence = Math.min(1, (b / 255) * 0.7);
-      }
-      // Balanced = neutral/surprised
-      else if (Math.abs(r - g) < 30 && Math.abs(g - b) < 30) {
+      } else if (Math.abs(r - g) < 30 && Math.abs(g - b) < 30) {
         detectedEmo = 'surprised';
         confidence = 0.5;
       }
@@ -172,12 +169,12 @@ export function useFacialEmotionDetection() {
   }, []);
 
   // Analyze speech tone
-  const analyzeTone = useCallback((text) => {
+  const analyzeTone = useCallback((text: string | null | undefined): string => {
     if (!text) return 'neutral';
 
     const lowerText = text.toLowerCase();
     let maxScore = 0;
-    let detectedTone = 'neutral';
+    let foundTone = 'neutral';
 
     for (const [tone, keywords] of Object.entries(TONE_KEYWORDS)) {
       const matches = keywords.filter(k => lowerText.includes(k)).length;
@@ -185,44 +182,79 @@ export function useFacialEmotionDetection() {
 
       if (score > maxScore) {
         maxScore = score;
-        detectedTone = tone;
+        foundTone = tone;
       }
     }
 
-    return detectedTone;
+    return foundTone;
   }, []);
 
   // Limbic Resonance - Mirror user's emotion
-  const getLimbicResonance = useCallback((userEmotion, userTone) => {
-    // Blend user's emotion with avatar's default personality
+  const getLimbicResonance = useCallback((userEmotion: string, userTone: string) => {
+    const responses: Record<string, string> = {
+      happy: 'warmth_increased',
+      sad: 'empathy_increased',
+      angry: 'calm_increased',
+      surprised: 'curiosity_increased',
+      fearful: 'support_increased',
+      disgusted: 'understanding_increased',
+    };
+
+    const toneAdjustments: Record<string, any> = {
+      excited: { energy: 1.2, speed: 1.1 },
+      calm: { energy: 0.8, speed: 0.9 },
+      stressed: { energy: 0.9, pace: 'slower', empathy: 1.5 },
+      uncertain: { confidence: 0.8, reassurance: 1.3 },
+    };
+
     const emotionResonance = {
       emotion: userEmotion,
-      intensity: 0.6, // 60% mirror, 40% own personality
-      response: {
-        happy: 'warmth_increased',
-        sad: 'empathy_increased',
-        angry: 'calm_increased',
-        surprised: 'curiosity_increased',
-        fearful: 'support_increased',
-        disgusted: 'understanding_increased',
-      }[userEmotion] || 'attentive',
+      intensity: 0.6,
+      response: responses[userEmotion] || 'attentive',
     };
 
     const toneResonance = {
       tone: userTone,
-      matchLevel: 0.7, // Match tone at 70%
-      adjustments: {
-        excited: { energy: 1.2, speed: 1.1 },
-        calm: { energy: 0.8, speed: 0.9 },
-        stressed: { energy: 0.9, pace: 'slower', empathy: 1.5 },
-        uncertain: { confidence: 0.8, reassurance: 1.3 },
-      }[userTone] || {},
+      matchLevel: 0.7,
+      adjustments: toneAdjustments[userTone] || {},
     };
 
     return {
       emotionResonance,
       toneResonance,
       overallResonance: (emotionResonance.intensity + toneResonance.matchLevel) / 2,
+    };
+  }, []);
+
+  // Stop camera and release tracks
+  const stopCamera = useCallback(() => {
+    const stream = streamRef.current || videoStream;
+    if (stream) {
+      stream.getTracks().forEach(track => {
+        try {
+          track.stop();
+        } catch {
+          // ignore
+        }
+      });
+      streamRef.current = null;
+      setVideoStream(null);
+    }
+  }, [videoStream]);
+
+  // Clean up tracks on unmount
+  useEffect(() => {
+    return () => {
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach(track => {
+          try {
+            track.stop();
+          } catch {
+            // ignore
+          }
+        });
+        streamRef.current = null;
+      }
     };
   }, []);
 
@@ -233,31 +265,36 @@ export function useFacialEmotionDetection() {
     const interval = setInterval(async () => {
       if (videoRef.current && canvasRef.current) {
         const ctx = canvasRef.current.getContext('2d');
-        canvasRef.current.width = videoRef.current.videoWidth;
-        canvasRef.current.height = videoRef.current.videoHeight;
+        if (!ctx) return;
+
+        canvasRef.current.width = videoRef.current.videoWidth || 320;
+        canvasRef.current.height = videoRef.current.videoHeight || 240;
 
         ctx.drawImage(videoRef.current, 0, 0);
-        const imageData = ctx.getImageData(0, 0, canvasRef.current.width, canvasRef.current.height);
-
-        const analysis = await analyzeFaceEmotion(imageData);
-        if (analysis) {
-          setDetectedEmotion(analysis.emotion);
-          setEmotionConfidence(analysis.confidence);
-          setFaceMetrics(analysis);
+        try {
+          const imageData = ctx.getImageData(0, 0, canvasRef.current.width, canvasRef.current.height);
+          const analysis = await analyzeFaceEmotion(imageData);
+          if (analysis) {
+            setDetectedEmotion(analysis.emotion);
+            setEmotionConfidence(analysis.confidence);
+            setFaceMetrics(analysis);
+          }
+        } catch {
+          // Canvas read error
         }
 
-        // Check for face
         const face = await detectFaceWithML();
         setFaceDetected(!!face);
       }
-    }, 500); // Update every 500ms
+    }, 500);
 
     return () => clearInterval(interval);
   }, [videoStream, analyzeFaceEmotion, detectFaceWithML]);
 
   // Get emotional context
-  const getEmotionalContext = useCallback((userMessage) => {
+  const getEmotionalContext = useCallback((userMessage: string) => {
     const tone = analyzeTone(userMessage);
+    setDetectedTone(tone);
     
     return {
       detectedEmotion,
@@ -268,14 +305,6 @@ export function useFacialEmotionDetection() {
       faceDetected,
     };
   }, [detectedEmotion, emotionConfidence, analyzeTone, getLimbicResonance, faceMetrics, faceDetected]);
-
-  // Stop camera
-  const stopCamera = useCallback(() => {
-    if (videoStream) {
-      videoStream.getTracks().forEach(track => track.stop());
-      setVideoStream(null);
-    }
-  }, [videoStream]);
 
   return {
     initializeCamera,
@@ -295,5 +324,3 @@ export function useFacialEmotionDetection() {
     EMOTION_SIGNATURES,
   };
 }
-
-export { EMOTION_SIGNATURES, TONE_KEYWORDS };
