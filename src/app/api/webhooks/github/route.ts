@@ -16,6 +16,8 @@ function verifyGitHubSignature(payload: string, signature: string | null, secret
   }
 }
 
+import { supabase } from '@/lib/supabaseClient';
+
 export interface LinkedStudentResult {
   verified: boolean;
   studentId?: string;
@@ -41,30 +43,82 @@ export async function resolveLinkedStudent(
   repoUrl: string
 ): Promise<LinkedStudentResult> {
   const normalizedUser = (githubUsername || '').toLowerCase().trim();
-  const linked = DEV_LINKED_ACCOUNTS[normalizedUser];
+  const normalizedRepo = (repoUrl || '').toLowerCase().trim().replace(/\.git$/, '');
 
-  if (!linked) {
-    return {
-      verified: false,
-      error: 'UNLINKED_GITHUB_ACCOUNT: No CareerOS student profile is linked to this GitHub identity.',
-    };
+  // 1. Query Supabase users or github_integrations table by github_username or github_id
+  try {
+    const { data, error } = await supabase
+      .from('github_integrations')
+      .select('student_id, claimed_repos, github_username, github_id')
+      .or(`github_username.ilike.${normalizedUser},github_id.eq.${githubId}`)
+      .maybeSingle();
+
+    if (!error && data?.student_id) {
+      const claimed = Array.isArray(data.claimed_repos) ? data.claimed_repos : [];
+      const isClaimed = claimed.some(
+        (r: string) => (r || '').toLowerCase().trim().replace(/\.git$/, '') === normalizedRepo
+      );
+      if (!isClaimed) {
+        return {
+          verified: false,
+          error: 'REPOSITORY_UNCLAIMED',
+        };
+      }
+      return {
+        verified: true,
+        studentId: data.student_id,
+      };
+    }
+
+    const { data: userProfile } = await supabase
+      .from('users')
+      .select('id, claimed_repos, github_username')
+      .eq('github_username', normalizedUser)
+      .maybeSingle();
+
+    if (userProfile?.id) {
+      const claimed = Array.isArray(userProfile.claimed_repos) ? userProfile.claimed_repos : [];
+      const isClaimed = claimed.length === 0 || claimed.some(
+        (r: string) => (r || '').toLowerCase().trim().replace(/\.git$/, '') === normalizedRepo
+      );
+      if (!isClaimed) {
+        return {
+          verified: false,
+          error: 'REPOSITORY_UNCLAIMED',
+        };
+      }
+      return {
+        verified: true,
+        studentId: userProfile.id,
+      };
+    }
+  } catch (err) {
+    console.warn('[GitHub Webhook] Supabase student resolution exception:', err);
   }
 
-  const normalizedRepo = (repoUrl || '').toLowerCase().trim().replace(/\.git$/, '');
-  const isClaimed = linked.claimedRepos.some(
-    (r) => r.toLowerCase().trim().replace(/\.git$/, '') === normalizedRepo
-  );
-
-  if (!isClaimed) {
-    return {
-      verified: false,
-      error: 'REPOSITORY_UNCLAIMED',
-    };
+  // 2. Dev-only fallback for local testing & fixtures
+  if (process.env.NODE_ENV !== 'production') {
+    const devLinked = DEV_LINKED_ACCOUNTS[normalizedUser];
+    if (devLinked) {
+      const isClaimed = devLinked.claimedRepos.some(
+        (r) => r.toLowerCase().trim().replace(/\.git$/, '') === normalizedRepo
+      );
+      if (!isClaimed) {
+        return {
+          verified: false,
+          error: 'REPOSITORY_UNCLAIMED',
+        };
+      }
+      return {
+        verified: true,
+        studentId: devLinked.studentId,
+      };
+    }
   }
 
   return {
-    verified: true,
-    studentId: linked.studentId,
+    verified: false,
+    error: 'UNLINKED_GITHUB_ACCOUNT: No CareerOS student profile is linked to this GitHub identity.',
   };
 }
 

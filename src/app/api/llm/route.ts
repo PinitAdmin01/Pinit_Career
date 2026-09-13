@@ -1,14 +1,14 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { sanitizeLLMOutput } from '@/lib/sanitizeLLM';
-import { checkRateLimit } from '@/lib/server/rateLimit';
+import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 
 export async function POST(req: Request) {
   try {
     const gated = await requireUserFromRequest(req);
     if (gated.error) return gated.error;
 
-    const rateLimitKey = `llm_${gated.user?.id || req.headers.get('x-forwarded-for') || 'anon'}`;
+    const rateLimitKey = `llm_${gated.user?.id || getClientIp(req)}`;
     const rateCheck = checkRateLimit(rateLimitKey, { limit: 6, windowMs: 60 * 1000 });
     if (!rateCheck.allowed) {
       return NextResponse.json(

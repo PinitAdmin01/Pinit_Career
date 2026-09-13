@@ -221,6 +221,20 @@
       "score": 40,
       "passed": false,
       "timestamp": 1789284519708
+    },
+    {
+      "studentId": "usr_cd_test_1789287166876",
+      "examScheduleId": "e1",
+      "score": 45,
+      "passed": false,
+      "timestamp": 1789287166880
+    },
+    {
+      "studentId": "usr_cd_api_1789287166884",
+      "examScheduleId": "e2",
+      "score": 40,
+      "passed": false,
+      "timestamp": 1789287166884
     }
   ]
 }

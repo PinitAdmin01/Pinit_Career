@@ -26,7 +26,7 @@ export async function requireUserFromRequest(req: Request): Promise<
     };
   }
 
-  if (process.env.NODE_ENV !== 'production' && process.env.VERCEL !== '1' && (token === 'demo-token-bypass' || token.startsWith('test-token-'))) {
+  if (process.env.ALLOW_DEV_AUTH_BYPASS === 'true' && process.env.NODE_ENV !== 'production' && (token === 'demo-token-bypass' || token.startsWith('test-token-'))) {
     return { user: { id: 'test_user_001', email: 'student@pinit.in' }, error: null };
   }
 
@@ -98,7 +98,7 @@ export async function requireAdminUserFromRequest(req: Request): Promise<
   if (gated.error || !gated.user) return { user: null, error: gated.error! };
 
   const token = getBearerToken(req);
-  if (process.env.NODE_ENV !== 'production' && process.env.VERCEL !== '1') {
+  if (process.env.ALLOW_DEV_AUTH_BYPASS === 'true' && process.env.NODE_ENV !== 'production') {
     if (token === 'test-token-admin') {
       return { user: { ...gated.user, role: 'admin' }, error: null };
     }
@@ -154,7 +154,7 @@ export async function requireFacultyOrAdminUserFromRequest(req: Request): Promis
   if (gated.error || !gated.user) return { user: null, error: gated.error! };
 
   const token = getBearerToken(req);
-  if (process.env.NODE_ENV !== 'production' && process.env.VERCEL !== '1') {
+  if (process.env.ALLOW_DEV_AUTH_BYPASS === 'true' && process.env.NODE_ENV !== 'production') {
     if (token === 'test-token-admin') {
       return { user: { ...gated.user, role: 'admin' }, error: null };
     }

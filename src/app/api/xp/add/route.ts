@@ -2,10 +2,32 @@ import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { createClient } from '@supabase/supabase-js';
 
+// Authoritative Action Type Registry (Task 2.3)
+export const VALID_ACTION_TYPES = new Set([
+  'quest',
+  'mission',
+  'interview',
+  'gd',
+  'group_discussion',
+  'attention_game',
+  'project',
+  'study_session',
+  'exam',
+  'milestone',
+  'general',
+  'quiz',
+  'lesson',
+  'challenge',
+]);
+
+// Maximum cumulative XP a student can earn per 24-hour window to prevent runaway loops
+export const DAILY_XP_MAX_CAP = 3000;
+
 /**
- * Server-Authoritative XP Minting Endpoint (DEF-048).
+ * Server-Authoritative XP Minting Endpoint (DEF-048 & Task 2.3).
  * Prevents unverified client-side XP manipulation by strictly validating
- * progression awards and capping individual increments to a maximum of 500 XP.
+ * progression awards, capping individual increments to a maximum of 500 XP,
+ * validating action types against an authoritative registry, and enforcing a 24h daily cap.
  */
 export async function POST(req: Request) {
   try {
@@ -15,6 +37,7 @@ export async function POST(req: Request) {
     const body = await req.json().catch(() => ({}));
     const amount = Number(body?.amount);
     const reason = typeof body?.reason === 'string' ? body.reason.trim() : 'XP Award';
+    const actionType = typeof body?.actionType === 'string' ? body.actionType.trim().toLowerCase() : null;
 
     if (!Number.isInteger(amount) || amount <= 0 || amount > 500) {
       return NextResponse.json(
@@ -22,6 +45,17 @@ export async function POST(req: Request) {
           ok: false,
           error: 'INVALID_XP_AMOUNT',
           message: 'XP amount must be an integer between 1 and 500.',
+        },
+        { status: 400 }
+      );
+    }
+
+    if (actionType && !VALID_ACTION_TYPES.has(actionType)) {
+      return NextResponse.json(
+        {
+          ok: false,
+          error: 'INVALID_ACTION_TYPE',
+          message: `Action type '${actionType}' is not recognized. Allowed types: ${Array.from(VALID_ACTION_TYPES).join(', ')}`,
         },
         { status: 400 }
       );
@@ -44,10 +78,38 @@ export async function POST(req: Request) {
 
     const userId = gated.user!.id;
 
+    // Enforce 24h Daily XP Cap (Task 2.3)
+    const startOfDay = new Date();
+    startOfDay.setUTCHours(0, 0, 0, 0);
+
+    const { data: todayRecords, error: ledgerQueryErr } = await admin
+      .from('xp_ledger')
+      .select('amount')
+      .eq('user_id', userId)
+      .gte('created_at', startOfDay.toISOString());
+
+    if (!ledgerQueryErr && Array.isArray(todayRecords)) {
+      const todayTotal = todayRecords.reduce((sum, r) => sum + (Number(r.amount) || 0), 0);
+      if (todayTotal + amount > DAILY_XP_MAX_CAP) {
+        return NextResponse.json(
+          {
+            ok: false,
+            error: 'DAILY_XP_LIMIT_EXCEEDED',
+            message: `Daily XP limit of ${DAILY_XP_MAX_CAP} exceeded for user. Today earned: ${todayTotal} XP.`,
+            todayTotal,
+            dailyCap: DAILY_XP_MAX_CAP,
+          },
+          { status: 429 }
+        );
+      }
+    }
+
+    const finalReason = actionType ? `[${actionType}] ${reason}` : reason;
+
     const { data: rpcRes, error: rpcErr } = await admin.rpc('increment_xp', {
       p_user_id: userId,
       p_amount: amount,
-      p_reason: reason,
+      p_reason: finalReason,
     });
 
     if (rpcErr) {

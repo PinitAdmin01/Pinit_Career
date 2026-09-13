@@ -21,6 +21,22 @@ export function resetRateLimitStore(): void {
 }
 
 /**
+ * Safely extracts client IP from Request headers, parsing the first IP in comma-separated proxies.
+ */
+export function getClientIp(req: Request): string {
+  const forwarded = req.headers.get('x-forwarded-for');
+  if (forwarded) {
+    const firstIp = forwarded.split(',')[0].trim();
+    if (firstIp) return firstIp;
+  }
+  const realIp = req.headers.get('x-real-ip');
+  if (realIp) return realIp.trim();
+  const cfConnectingIp = req.headers.get('cf-connecting-ip');
+  if (cfConnectingIp) return cfConnectingIp.trim();
+  return 'unknown';
+}
+
+/**
  * Check rate limit for a given key using a sliding window algorithm
  */
 export function checkRateLimit(key: string, options: RateLimitOptions): RateLimitResult {

@@ -1,6 +1,7 @@
 import { supabase } from '@/lib/supabaseClient';
 import { tableExists as checkSupabaseAvailable } from '@/lib/services/supabaseTable';
 import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
+import { generateTxId } from '@/lib/utils/transactionId';
 
 const DB_FILE = 'src/lib/data/finance_db.json';
 
@@ -62,10 +63,20 @@ export async function acquireDistributedLock(lockKey: string, userId: string, tt
         activeScholarshipLocks.delete(lockKey);
         return false;
       }
+    } else if (process.env.NODE_ENV === 'production') {
+      // In production, distributed database lock is required. Fail closed.
+      activePaymentLocks.delete(lockKey);
+      activeScholarshipLocks.delete(lockKey);
+      return false;
     }
     return true;
   } catch {
-    // If Supabase table check fails, local process lock is already held
+    if (process.env.NODE_ENV === 'production') {
+      activePaymentLocks.delete(lockKey);
+      activeScholarshipLocks.delete(lockKey);
+      return false;
+    }
+    // If Supabase table check fails in non-production, local process lock is already held
     return true;
   }
 }
@@ -196,7 +207,7 @@ export const financeService = {
 
     try {
       const isSupabaseAvailable = await checkSupabaseAvailable('finance_dues');
-      const transactionId = 'RCP-' + Math.floor(10000 + Math.random() * 90000);
+      const transactionId = generateTxId('rcp');
       const email = studentEmail?.trim() || '';
 
       if (!isSupabaseAvailable) {

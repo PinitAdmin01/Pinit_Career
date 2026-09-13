@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
-import { checkRateLimit } from '@/lib/server/rateLimit';
+import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 
 export const maxDuration = 30; // 30s timeout
 
@@ -136,7 +136,7 @@ export async function POST(req: NextRequest) {
     const gated = await requireUserFromRequest(req);
     if (gated.error) return gated.error;
 
-    const rateLimitKey = `stt_${gated.user?.id || req.headers.get('x-forwarded-for') || 'anon'}`;
+    const rateLimitKey = `stt_${gated.user?.id || getClientIp(req)}`;
     const rateCheck = checkRateLimit(rateLimitKey, { limit: 4, windowMs: 60 * 1000 });
     if (!rateCheck.allowed) {
       return NextResponse.json(
