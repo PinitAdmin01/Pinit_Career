@@ -232,14 +232,17 @@ export default function InterviewPage() {
     latestTopology
   });
 
+  const handleSendMessageWithTextRef = useRef<(text: string) => Promise<void>>((async () => {}) as any);
+  const speakWithAvatarRef = useRef<(text: string, teacherId: string, onStart: () => void, onEnd: () => void) => void>(() => {});
+
   // Speech Recognition & TTS Hook
   const handleFinalSpeechTranscript = useCallback((finalText: string) => {
-    handleSendMessageWithText(finalText);
+    handleSendMessageWithTextRef.current(finalText);
   }, []);
 
   const handleSilenceNudge = useCallback((nudgeMsg: string) => {
     setMessages(prev => [...prev, { role: 'assistant', content: nudgeMsg }]);
-    speakWithAvatar(nudgeMsg, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
+    speakWithAvatarRef.current(nudgeMsg, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
   }, [activeTeacher.id]);
 
   const {
@@ -266,6 +269,7 @@ export default function InterviewPage() {
     onFinalTranscript: handleFinalSpeechTranscript,
     onSilenceNudge: handleSilenceNudge
   });
+  speakWithAvatarRef.current = speakWithAvatar;
 
   // Assist Mode State
   const [isAssistModeActive, setIsAssistModeActive] = useState(false);
@@ -425,6 +429,7 @@ export default function InterviewPage() {
       speakWithAvatar(fallback, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
     }
   };
+  handleSendMessageWithTextRef.current = handleSendMessageWithText;
 
   const runCodeAndTests = async () => {
     setIsRunning(true);

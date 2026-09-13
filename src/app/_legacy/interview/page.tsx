@@ -72,7 +72,7 @@ export default function InterviewPage() {
     setMessages([
       { role: 'assistant', content: initialGreeting }
     ]);
-  }, [javaTestPassed, teacherId]);
+  }, [javaTestPassed, teacherId, teacher.name]);
 
   // Stop speaking on unmount
   useEffect(() => {

@@ -30,7 +30,7 @@ function QRTab() {
   const isLocalhost = typeof window !== 'undefined' &&
     (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
 
-  function buildPhoneURL(qrToken: string): string {
+  const buildPhoneURL = useCallback((qrToken: string): string => {
     if (localIP.trim()) {
       // User provided their local IP — phone can reach this
       return `http://${localIP.trim()}:3000/qr-confirm?token=${qrToken}`;
@@ -41,7 +41,7 @@ function QRTab() {
     }
     // Production or LAN hostname — works directly
     return `${window.location.origin}/qr-confirm?token=${qrToken}`;
-  }
+  }, [isLocalhost, localIP]);
 
   const createQR = useCallback(async () => {
     if (unsubRef.current) {
@@ -130,7 +130,7 @@ function QRTab() {
         expiresAt: Date.now() + 300 * 1000,
       }));
     }
-  }, [localIP, login, router]);
+  }, [buildPhoneURL, login, router]);
 
   useEffect(() => {
     createQR();

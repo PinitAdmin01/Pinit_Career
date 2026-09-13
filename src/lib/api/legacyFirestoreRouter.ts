@@ -1,5 +1,6 @@
 'use client';
-// Legacy Client-Side Mock Router (Extracted from client.ts for sub-1000 line decomposition)
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// Legacy Firebase mock router — scheduled for removal. Types not enforced here.
 
 import { supabase } from '@/lib/supabaseClient';
 import * as fs from '@/lib/supabaseService';

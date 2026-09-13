@@ -2,15 +2,14 @@
 // src/app/hostel/page.tsx
 // Student Hostel Hub page containing Room Allocation picker, Daily Biometric check-in logs, Maintenance complaints desks, and Visitor Pass registries.
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { api } from '@/lib/api/client';
 import { toast } from '@/lib/store/useAppStore';
 import { useAuth } from '@/lib/context/AuthContext';
+import { supabase } from '@/lib/supabaseClient';
 
 export default function StudentHostel() {
   const { user } = useAuth();
-  const studentKey = user?.id || 'guest_student';
-  const HOSTEL_STORAGE_KEY = `pinit_hostel_data_${studentKey}`;
 
   const [rooms, setRooms] = useState<any[]>([]);
   const [allocation, setAllocation] = useState<any>({ requestedRoom: null, status: 'none' });
@@ -18,30 +17,14 @@ export default function StudentHostel() {
   const [complaints, setComplaints] = useState<any[]>([]);
   const [visitors, setVisitors] = useState<any[]>([]);
 
-  // Forms
+  const [selectedWing, setSelectedWing] = useState('Wing A (Tech Cohorts)');
+  const [activeTab, setActiveTab] = useState('overview');
   const [complaintForm, setComplaintForm] = useState({ category: 'Plumbing', title: '', description: '' });
   const [visitorForm, setVisitorForm] = useState({ name: '', relation: '', purpose: '' });
   const [submittingComplaint, setSubmittingComplaint] = useState(false);
   const [submittingVisitor, setSubmittingVisitor] = useState(false);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const cached = localStorage.getItem(HOSTEL_STORAGE_KEY);
-        if (cached) {
-          const parsed = JSON.parse(cached);
-          if (parsed.rooms) setRooms(parsed.rooms);
-          if (parsed.allocation) setAllocation(parsed.allocation);
-          if (parsed.attendance) setAttendance(parsed.attendance);
-          if (parsed.complaints) setComplaints(parsed.complaints);
-          if (parsed.visitors) setVisitors(parsed.visitors);
-        }
-      } catch {}
-    }
-    fetchHostelData();
-  }, [HOSTEL_STORAGE_KEY]);
-
-  const fetchHostelData = async () => {
+  const fetchHostelData = useCallback(async () => {
     try {
       const data = await api.get<any>('/api/hostel/stats');
       if (data) {
@@ -49,20 +32,55 @@ export default function StudentHostel() {
         setAllocation(data.allocation || { requestedRoom: null, status: 'none' });
         setAttendance(data.attendance || []);
         setComplaints(prev => {
-          const localOnly = prev.filter(c => c.id?.startsWith('HST-LOCAL-') || c.status === 'Queued');
+          const localOnly = prev.filter(c => c.id?.startsWith('HST-') || c.status === 'Queued');
           const serverList = data.complaints || [];
           const merged = [...localOnly, ...serverList.filter((s: any) => !localOnly.some(l => l.id === s.id))];
           return merged;
         });
         setVisitors(data.visitors || []);
-        if (typeof window !== 'undefined') {
-          try {
-            localStorage.setItem(HOSTEL_STORAGE_KEY, JSON.stringify(data));
-          } catch {}
+      }
+    } catch {}
+
+    // Synchronize directly from Supabase hostel_requests table
+    try {
+      const { data: dbRequests } = await supabase
+        .from('hostel_requests')
+        .select('*')
+        .eq('user_id', user?.id || 'demo-user')
+        .order('created_at', { ascending: false });
+
+      if (dbRequests && dbRequests.length > 0) {
+        const latest = dbRequests[0];
+        if (latest.room_code) {
+          setAllocation((prev: any) => prev.requestedRoom ? prev : { requestedRoom: latest.room_code, status: latest.status });
+        }
+        const dbComplaints = dbRequests.flatMap(r => Array.isArray(r.complaints) ? r.complaints : []);
+        if (dbComplaints.length > 0) {
+          setComplaints(prev => {
+            const ids = new Set(prev.map(c => c.id));
+            const newItems = dbComplaints.filter((c: any) => !ids.has(c.id));
+            return [...prev, ...newItems];
+          });
         }
       }
     } catch {}
-  };
+  }, [user?.id]);
+
+  useEffect(() => {
+    // Draft cache restore: single allowed localStorage usage for in-progress form recovery
+    if (typeof window !== 'undefined') {
+      try {
+        const draft = localStorage.getItem('hostel_complaint_draft');
+        if (draft) {
+          const parsed = JSON.parse(draft);
+          if (parsed.title || parsed.description) {
+            setComplaintForm(prev => ({ ...prev, ...parsed }));
+          }
+        }
+      } catch {}
+    }
+    fetchHostelData();
+  }, [fetchHostelData]);
 
   const handleRequestRoom = async (roomCode: string) => {
     try {
@@ -74,6 +92,16 @@ export default function StudentHostel() {
     } catch {
       toast.error('Request Failed', 'Could not request room. Please try again.');
     }
+
+    // Persist allocation request to Supabase
+    try {
+      await supabase.from('hostel_requests').insert({
+        user_id: user?.id || 'demo-user',
+        room_code: roomCode,
+        status: 'pending',
+        complaints: []
+      });
+    } catch {}
   };
 
   const handleLogAttendance = async (type: 'check-in' | 'check-out') => {
@@ -100,7 +128,7 @@ export default function StudentHostel() {
     }
     setSubmittingComplaint(true);
     const localComplaint = {
-      id: 'HST-LOCAL-' + Math.floor(100 + Math.random() * 900),
+      id: 'HST-' + crypto.randomUUID().slice(0, 8),
       category: complaintForm.category,
       title: complaintForm.title.trim(),
       description: complaintForm.description.trim(),
@@ -117,20 +145,17 @@ export default function StudentHostel() {
         return;
       }
     } catch {
-      // Fallback: save locally
-      setComplaints(prev => {
-        const updated = [localComplaint, ...prev];
-        if (typeof window !== 'undefined') {
-          try {
-            const current = localStorage.getItem(HOSTEL_STORAGE_KEY);
-            const parsed = current ? JSON.parse(current) : {};
-            parsed.complaints = updated;
-            localStorage.setItem(HOSTEL_STORAGE_KEY, JSON.stringify(parsed));
-          } catch {}
-        }
-        return updated;
-      });
-      toast.info('Complaint Saved Locally 🛠️', 'Server connection delayed. Complaint recorded in browser storage.');
+      // Fallback: save directly to Supabase hostel_requests table
+      try {
+        await supabase.from('hostel_requests').insert({
+          user_id: user?.id || 'demo-user',
+          room_code: allocation?.requestedRoom || 'General',
+          status: 'complaint_open',
+          complaints: [localComplaint]
+        });
+      } catch {}
+      setComplaints(prev => [localComplaint, ...prev]);
+      toast.info('Complaint Saved 🛠️', 'Complaint recorded and queued for warden review.');
       setComplaintForm({ category: 'Plumbing', title: '', description: '' });
     } finally {
       setSubmittingComplaint(false);

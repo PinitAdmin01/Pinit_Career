@@ -54,27 +54,52 @@ function ArenaContent() {
 
   const [recentMatches, setRecentMatches] = useState<BattleMatch[]>([]);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const activeMatchRef = useRef(activeMatch);
+  activeMatchRef.current = activeMatch;
 
   const activeProblem = problems.find(p => p.id === selectedProblemId) || problems[0];
+
+  const handleTimeout = async () => {
+    if (!activeMatchRef.current) return;
+    setIsSubmitting(true);
+    const result = await CodeWarsApiService.submitSolution({
+      matchId: activeMatchRef.current.id,
+      studentId,
+      code,
+      language,
+      timeSpentSeconds: activeProblem.timeLimitSeconds,
+    });
+    setTestResult(result);
+    setActiveMatch(prev => prev ? { ...prev, status: 'timeout' } : null);
+    setIsSubmitting(false);
+    setRecentMatches(CodeWarsApiService.getStudentMatches(studentId));
+  };
+
+  const handleTimeoutRef = useRef(handleTimeout);
+  handleTimeoutRef.current = handleTimeout;
 
   useEffect(() => {
     setRecentMatches(CodeWarsApiService.getStudentMatches(studentId));
   }, [studentId]);
 
+  const matchId = activeMatch?.id;
+  const matchStatus = activeMatch?.status;
+
   useEffect(() => {
-    if (activeMatch && activeMatch.status === 'active') {
+    if (matchStatus === 'active') {
       const interval = setInterval(() => {
         setTimeRemaining(prev => {
           if (prev <= 1) {
             clearInterval(interval);
-            handleTimeout();
+            handleTimeoutRef.current();
             return 0;
           }
           return prev - 1;
         });
 
         // Simulate Turing Benchmark AI sparring partner pace with thinking delays
-        if (activeMatch.mode === '1v1_duel' && activeMatch.opponent) {
+        const currentMatch = activeMatchRef.current;
+        if (currentMatch?.mode === '1v1_duel' && currentMatch?.opponent) {
           setActiveMatch(curr => {
             if (!curr || !curr.opponent) return curr;
             // Pacing model: pause during algorithmic thinking (40% of ticks), burst 1-3% during typing
@@ -94,7 +119,7 @@ function ArenaContent() {
       timerRef.current = interval;
       return () => clearInterval(interval);
     }
-  }, [activeMatch?.id, activeMatch?.status]);
+  }, [matchId, matchStatus]);
 
   const handleStartBattle = () => {
     const match = CodeWarsApiService.startMatch(studentId, activeProblem.id, selectedMode);
@@ -102,22 +127,6 @@ function ArenaContent() {
     setCode(activeProblem.starterCode[language] || activeProblem.starterCode.typescript);
     setTimeRemaining(activeProblem.timeLimitSeconds);
     setTestResult(null);
-  };
-
-  const handleTimeout = async () => {
-    if (!activeMatch) return;
-    setIsSubmitting(true);
-    const result = await CodeWarsApiService.submitSolution({
-      matchId: activeMatch.id,
-      studentId,
-      code,
-      language,
-      timeSpentSeconds: activeProblem.timeLimitSeconds,
-    });
-    setTestResult(result);
-    setActiveMatch(prev => prev ? { ...prev, status: 'timeout' } : null);
-    setIsSubmitting(false);
-    setRecentMatches(CodeWarsApiService.getStudentMatches(studentId));
   };
 
   const handleSubmitSolution = async () => {

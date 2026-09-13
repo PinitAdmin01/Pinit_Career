@@ -127,7 +127,7 @@ export default function StudentAttendanceView() {
         const raw = localStorage.getItem(STORAGE_KEY);
         if (raw && !cancelled) {
           const parsed = JSON.parse(raw);
-          if (parsed.subjects && subjects.length === 0) setSubjects(parsed.subjects);
+          if (parsed.subjects) setSubjects(prev => (prev.length === 0 ? parsed.subjects : prev));
           if (parsed.focusStreak !== undefined) setFocusStreak(parsed.focusStreak);
           if (parsed.lastCheckInDate) setLastCheckInDate(parsed.lastCheckInDate);
         }

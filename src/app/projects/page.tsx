@@ -245,9 +245,9 @@ function ProjectsPageContent() {
       let generated: Project[] = [];
 
       // Extract skills from onboarding answers or student profile
-      const rawSkills = onboardingAnswers?.skills;
+      const rawSkills: unknown = onboardingAnswers?.skills;
       const skillsList = typeof rawSkills === 'string'
-        ? rawSkills.split(',').map(s => s.trim()).filter(Boolean)
+        ? (rawSkills as string).split(',').map((s: string) => s.trim()).filter(Boolean)
         : Array.isArray(rawSkills) ? (rawSkills as string[]) : [];
 
       let authHeader: Record<string, string> = {};

@@ -85,17 +85,20 @@ export function ReflexRushGame({
     }
   };
 
+  const handleTapRef = useRef(handleTap);
+  handleTapRef.current = handleTap;
+
   // Spacebar desktop hotkey listener
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.code === 'Space' && (phase === 'waiting' || phase === 'active')) {
+      if (e.code === 'Space') {
         e.preventDefault();
-        handleTap();
+        handleTapRef.current();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [phase, handleTap]);
+  }, []);
 
   const avgReaction = reactionTimes.length > 0
     ? Math.round(reactionTimes.reduce((a, b) => a + b, 0) / reactionTimes.length)

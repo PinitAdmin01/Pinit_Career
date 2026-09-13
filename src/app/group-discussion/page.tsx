@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/lib/context/AuthContext';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
@@ -50,7 +50,7 @@ export default function GroupDiscussionPage() {
   const [selectedConcept, setSelectedConcept] = useState('Microservices Orchestration');
   const [invitedAvatars, setInvitedAvatars] = useState<string[]>([]);
 
-  const refreshHistoryList = async () => {
+  const refreshHistoryList = useCallback(async () => {
     if (typeof window === 'undefined') return;
     const historyKey = `pinit_gd_history_${user?.id || 'anon'}`;
     let localList: GdHistoryRecord[] = [];
@@ -81,11 +81,11 @@ export default function GroupDiscussionPage() {
         console.warn('[GD History] Remote cloud fetch error:', err);
       }
     }
-  };
+  }, [user?.id]);
 
   useEffect(() => {
     refreshHistoryList();
-  }, [user?.id]);
+  }, [refreshHistoryList]);
 
   const handleDeleteHistoryItem = (id: string) => {
     if (typeof window === 'undefined') return;

@@ -2,7 +2,7 @@
 // src/app/grievances/page.tsx
 // Student Grievance page containing complaint submission forms, anonymous toggles, and ticket tracking registers.
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { api } from '@/lib/api/client';
 import { useAuth } from '@/lib/context/AuthContext';
 import { toast } from '@/lib/store/useAppStore';
@@ -19,11 +19,7 @@ export default function StudentGrievances() {
 
   const userName = user?.displayName || user?.username || 'Student';
 
-  useEffect(() => {
-    fetchGrievances();
-  }, [user]);
-
-  const fetchGrievances = async () => {
+  const fetchGrievances = useCallback(async () => {
     try {
       const data = await api.get<any>('/api/grievances/stats');
       // For student viewing, only show tickets created by current user or marked "Anonymous"
@@ -32,7 +28,11 @@ export default function StudentGrievances() {
       );
       setGrievances(studentTickets);
     } catch {}
-  };
+  }, [userName]);
+
+  useEffect(() => {
+    fetchGrievances();
+  }, [fetchGrievances]);
 
   const handleSubmitGrievance = async (e: React.FormEvent) => {
     e.preventDefault();

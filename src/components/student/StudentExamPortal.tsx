@@ -23,32 +23,36 @@ interface AssignedExam {
   questions: Question[];
 }
 
+const DEFAULT_EXAMS: AssignedExam[] = [
+  {
+    id: 'e1',
+    title: 'Mid-Term Assessment: Algorithms & Complexity',
+    subject: 'Data Structures',
+    durationMins: 30,
+    totalQuestions: 2,
+    status: 'pending',
+    questions: [
+      { id: 'q1', questionText: 'What is the average time complexity of QuickSort?', options: ['O(N)', 'O(N log N)', 'O(N^2)', 'O(1)'], correctOptionIndex: 1 },
+      { id: 'q2', questionText: 'Which data structure is optimal for Dijkstra\'s shortest path algorithm?', options: ['Queue', 'Min-Priority Queue', 'Stack', 'Array'], correctOptionIndex: 1 }
+    ]
+  },
+  {
+    id: 'e2',
+    title: 'Practical Quiz: Neural Networks Implementation',
+    subject: 'Artificial Intelligence',
+    durationMins: 20,
+    totalQuestions: 5,
+    status: 'completed',
+    score: 90,
+    questions: []
+  }
+];
+
 export default function StudentExamPortal() {
   const { user } = useAuth();
-  const [exams, setExams] = useState<AssignedExam[]>([
-    {
-      id: 'e1',
-      title: 'Mid-Term Assessment: Algorithms & Complexity',
-      subject: 'Data Structures',
-      durationMins: 30,
-      totalQuestions: 2,
-      status: 'pending',
-      questions: [
-        { id: 'q1', questionText: 'What is the average time complexity of QuickSort?', options: ['O(N)', 'O(N log N)', 'O(N^2)', 'O(1)'], correctOptionIndex: 1 },
-        { id: 'q2', questionText: 'Which data structure is optimal for Dijkstra\'s shortest path algorithm?', options: ['Queue', 'Min-Priority Queue', 'Stack', 'Array'], correctOptionIndex: 1 }
-      ]
-    },
-    {
-      id: 'e2',
-      title: 'Practical Quiz: Neural Networks Implementation',
-      subject: 'Artificial Intelligence',
-      durationMins: 20,
-      totalQuestions: 5,
-      status: 'completed',
-      score: 90,
-      questions: []
-    }
-  ]);
+  const userId = user?.id;
+  const regNum = (user as any)?.registerNumber;
+  const [exams, setExams] = useState<AssignedExam[]>(DEFAULT_EXAMS);
 
   const [activeExam, setActiveExam] = useState<AssignedExam | null>(null);
   const [answers, setAnswers] = useState<Record<string, number>>({});
@@ -63,19 +67,18 @@ export default function StudentExamPortal() {
     let isMounted = true;
     const syncAttempts = async () => {
       try {
-        const attemptsKey = `pinit_exam_attempts_${user?.id || 'guest'}`;
+        const attemptsKey = `pinit_exam_attempts_${userId || 'guest'}`;
         const raw = localStorage.getItem(attemptsKey);
         let localAttempts: Record<string, { score: number; passed: boolean }> = {};
         if (raw) {
           try { localAttempts = JSON.parse(raw); } catch {}
         }
 
-        if (user?.id) {
+        if (userId) {
           const { examsService } = await import('@/lib/services/examsService');
-          const regNum = (user as any)?.registerNumber;
           const updated = await Promise.all(
-            exams.map(async (e) => {
-              const cooldown = await examsService.getExamCooldown(user.id, regNum, e.id);
+            DEFAULT_EXAMS.map(async (e) => {
+              const cooldown = await examsService.getExamCooldown(userId, regNum, e.id);
               if (cooldown.inCooldown || cooldown.lastAttemptTime) {
                 return {
                   ...e,
@@ -92,7 +95,7 @@ export default function StudentExamPortal() {
           );
           if (isMounted) setExams(updated);
         } else if (raw) {
-          setExams(prev => prev.map(e => localAttempts[e.id] ? { ...e, status: 'completed', score: localAttempts[e.id].score } : e));
+          setExams(DEFAULT_EXAMS.map(e => localAttempts[e.id] ? { ...e, status: 'completed', score: localAttempts[e.id].score } : e));
         }
       } catch (e) {
         console.warn('Failed to load exam attempts:', e);
@@ -100,7 +103,7 @@ export default function StudentExamPortal() {
     };
     syncAttempts();
     return () => { isMounted = false; };
-  }, [user?.id]);
+  }, [userId, regNum]);
 
   // Monitor tab switches for exam integrity & dispatch to FraudInspector bridge (DEF-020: PII sanitized)
   useEffect(() => {
@@ -127,6 +130,8 @@ export default function StudentExamPortal() {
     return () => document.removeEventListener('visibilitychange', handleVisibility);
   }, [activeExam, examSubmitted, user]);
 
+  const submitExamRef = React.useRef<() => Promise<void>>(async () => {});
+
   // Exam Countdown Timer with drift-free timestamp protection & auto-submit (DEF-019)
   useEffect(() => {
     if (!activeExam || examSubmitted) return;
@@ -142,7 +147,7 @@ export default function StudentExamPortal() {
     setSecondsRemaining(initialRemaining);
 
     if (initialRemaining <= 0) {
-      submitExam();
+      submitExamRef.current();
       return;
     }
 
@@ -152,7 +157,7 @@ export default function StudentExamPortal() {
       setSecondsRemaining(rem);
       if (rem <= 0) {
         clearInterval(interval);
-        submitExam();
+        submitExamRef.current();
       }
     }, 1000);
     return () => clearInterval(interval);

@@ -179,6 +179,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user,    setUser]    = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const channelRef = useRef<any>(null);
+  const profileCacheRef = useRef<{ [uid: string]: { data: any; ts: number } }>({});
+  const CACHE_TTL = 5 * 60 * 1000;
 
   const initializeCareerWorkspace = useCallback((userId: string, userPayload?: any, isNewUser = false) => {
     if (typeof window === 'undefined') return;
@@ -263,14 +265,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     if (typeof window !== 'undefined') {
       const sanitizedPayload = { ...authoritativeUser, role };
-      localStorage.setItem('pinit_active_uid', userPayload.id);
-      if (serverToken) {
-        localStorage.setItem('pinit_auth_token', serverToken);
-      } else {
-        localStorage.removeItem('pinit_auth_token');
-      }
-      localStorage.setItem('pinit_current_user', JSON.stringify(sanitizedPayload));
-      localStorage.setItem(`pinit_${userPayload.id}_profile`, JSON.stringify(sanitizedPayload));
+      profileCacheRef.current[userPayload.id] = { data: sanitizedPayload, ts: Date.now() };
       // Defect 003: Client document.cookie setting eradicated; HttpOnly cookies are set by /api/auth/vault-exchange
     }
 
@@ -502,17 +497,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           if (sRes && sRes.ok) {
             const sData = await sRes.json().catch(() => null);
             if (sData?.authenticated && sData?.uid) {
-              const activeUid = localStorage.getItem('pinit_active_uid');
-              if (activeUid && activeUid === sData.uid) {
-                const saved = localStorage.getItem(`pinit_${activeUid}_profile`);
-                if (saved) {
-                  const cachedProfile = JSON.parse(saved);
-                  sbUser = {
-                    id: activeUid,
-                    email: cachedProfile.email || `${cachedProfile.username || 'user'}@pinit.app`,
-                    user_metadata: { display_name: cachedProfile.displayName }
-                  } as any;
-                }
+              const cached = profileCacheRef.current[sData.uid];
+              if (cached && Date.now() - cached.ts < CACHE_TTL) {
+                const cachedProfile = cached.data;
+                sbUser = {
+                  id: sData.uid,
+                  email: cachedProfile.email || `${cachedProfile.username || 'user'}@pinit.app`,
+                  user_metadata: { display_name: cachedProfile.displayName }
+                } as any;
               }
             }
           }
@@ -541,9 +533,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       let sbUser = session?.user ?? null;
       if (!sbUser && typeof window !== 'undefined') {
         if (event === 'SIGNED_OUT') {
-          localStorage.removeItem('pinit_active_uid');
-          localStorage.removeItem('pinit_auth_token');
-          localStorage.removeItem('pinit_current_user');
+          profileCacheRef.current = {};
           setUser(null);
         } else {
           try {
@@ -552,23 +542,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           } catch {}
 
           if (!sbUser) {
-            // Defect 002: Do NOT fabricate synthetic user from orphaned localStorage; verify with server session
+            // Defect 002: Do NOT fabricate synthetic user from orphaned storage; verify with server session
             try {
               const sRes = await fetch('/api/auth/session').catch(() => null);
               if (sRes && sRes.ok) {
                 const sData = await sRes.json().catch(() => null);
                 if (sData?.authenticated && sData?.uid) {
-                  const activeUid = localStorage.getItem('pinit_active_uid');
-                  if (activeUid && activeUid === sData.uid) {
-                    const saved = localStorage.getItem(`pinit_${activeUid}_profile`);
-                    if (saved) {
-                      const cachedProfile = JSON.parse(saved);
-                      sbUser = {
-                        id: activeUid,
-                        email: cachedProfile.email || `${cachedProfile.username || 'user'}@pinit.app`,
-                        user_metadata: { display_name: cachedProfile.displayName }
-                      } as any;
-                    }
+                  const cached = profileCacheRef.current[sData.uid];
+                  if (cached && Date.now() - cached.ts < CACHE_TTL) {
+                    const cachedProfile = cached.data;
+                    sbUser = {
+                      id: sData.uid,
+                      email: cachedProfile.email || `${cachedProfile.username || 'user'}@pinit.app`,
+                      user_metadata: { display_name: cachedProfile.displayName }
+                    } as any;
                   }
                 }
               }
@@ -683,7 +670,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const appUser = sbUserToAppUser(sbUser, profile);
 
       try {
-        localStorage.setItem('pinit_active_uid', appUser.id);
+        profileCacheRef.current[appUser.id] = { data: appUser, ts: Date.now() };
       } catch {}
 
       setUser(appUser);
@@ -792,8 +779,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
 
       try {
-        localStorage.setItem(`pinit_${sbUser.id}_profile`, JSON.stringify(profile));
-        localStorage.setItem('pinit_active_uid', sbUser.id);
+        profileCacheRef.current[sbUser.id] = { data: profile, ts: Date.now() };
       } catch {}
 
       setUser(sbUserToAppUser(sbUser, profile));

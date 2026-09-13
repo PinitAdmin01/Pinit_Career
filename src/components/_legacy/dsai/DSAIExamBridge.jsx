@@ -51,8 +51,8 @@ export default function DSAIExamBridge({ userId, registerNumber, examId }) {
 
   // Pre-fill student register number if available from PinIT auth
   useEffect(() => {
-    if (registerNumber && screen === 'landing') {
-      setScreen('student-login');
+    if (registerNumber) {
+      setScreen(prev => (prev === 'landing' ? 'student-login' : prev));
     }
   }, [registerNumber]);
 
