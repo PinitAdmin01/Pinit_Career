@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef, Suspense, useCallback } from 'react';
+import { useState, useEffect, useRef, Suspense, useCallback, useMemo } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { COURSES_REGISTRY } from '@/lib/data/coursesData';
@@ -161,11 +161,11 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
   const userId = user?.id || 'guest';
   const returningRef = useRef(false);
 
-  const resolveQuestId = () => {
+  const resolveQuestId = useCallback(() => {
     if (questId) return questId;
     if (typeof window === 'undefined') return '';
     return new URLSearchParams(window.location.search).get('questId') || '';
-  };
+  }, [questId]);
 
   const finishLessonAndReturn = useCallback(() => {
     if (returningRef.current) return;
@@ -178,10 +178,12 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
     toast.success('Stage Completed!', 'Heading back to the quest roadmap.');
     stopSpeaking();
     window.location.assign('/quests/');
-  }, [questId, addCompletedQuest]);
+  }, [resolveQuestId, addCompletedQuest]);
 
   const teacher = TEACHER_METADATA[teacherId] || TEACHER_METADATA.kashyap;
-  const syllabus = (questData && Array.isArray(questData.syllabus)) ? questData.syllabus : [];
+  const syllabus = useMemo(() => {
+    return (questData && Array.isArray(questData.syllabus)) ? questData.syllabus : [];
+  }, [questData]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const currentSlideRef = useRef(currentSlide);
   currentSlideRef.current = currentSlide;
@@ -190,9 +192,15 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const codeRunIntervalsRef = useRef<{ [key: number]: NodeJS.Timeout }>({});
 
+  const getSpeakerTextRef = useRef<() => string>(() => '');
+  const teacherIdRef = useRef(teacherId);
+  teacherIdRef.current = teacherId;
   // Dynamic slides state
   const [slides, setSlides] = useState<any[]>([]);
   const [slidesLoading, setSlidesLoading] = useState(true);
+
+  const slidesLengthRef = useRef(0);
+  slidesLengthRef.current = slides.length || syllabus.length;
   
   // Understanding checkpoints per slide
   const [understandingConfirmed, setUnderstandingConfirmed] = useState<Record<number, boolean>>({});
@@ -668,7 +676,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
 
     setSlides(staticSlides);
     setSlidesLoading(false);
-  }, [questId, syllabus]);
+  }, [questId, syllabus, questData?.title]);
 
   // Client Hydration, Mobile Audio Lock, & Mindset Focus Music State
   const [isHydrated, setIsHydrated] = useState(false);
@@ -791,7 +799,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
 
   // Stop speaking, reset progress, and AUTO-PLAY when slide changes
   useEffect(() => {
-    const slidesLength = slides.length || syllabus.length;
+    const slidesLength = slidesLengthRef.current;
     if (currentSlide < slidesLength + 1) {
       setExamQuestionIndex(0);
       setSelectedMcqAnswer(null);
@@ -813,13 +821,13 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
 
     const activeSlideAtStart = currentSlide;
     const playTimer = setTimeout(() => {
-      const speakerText = getSpeakerText();
+      const speakerText = getSpeakerTextRef.current();
       setIsPlaying(true);
       setAudioProgress(0);
 
       speakWithAvatar(
         speakerText,
-        teacherId,
+        teacherIdRef.current,
         () => {
           setIsPlaying(true);
         },
@@ -849,7 +857,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
   // Animate progress bar while audio plays
   useEffect(() => {
     if (isPlaying) {
-      const textLen = getSpeakerText().length;
+      const textLen = getSpeakerTextRef.current().length;
       const estimatedDuration = Math.max(3000, textLen * 65);
       const intervalMs = 100;
       const steps = estimatedDuration / intervalMs;
@@ -985,6 +993,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
     }
     return `Let us explore today's quest together!`;
   };
+  getSpeakerTextRef.current = getSpeakerText;
 
   const sendInteractiveMessage = async (text?: string) => {
     const msg = (text || chatInput).trim();

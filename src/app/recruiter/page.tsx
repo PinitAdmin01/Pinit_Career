@@ -290,18 +290,23 @@ function RecruiterPageInner() {
   // Notifications
   const [toast, setToast] = useState<{ msg: string; type: 'success' | 'info' | 'error' } | null>(null);
 
+  const loadDataRef = useRef<() => void>(() => {});
+  loadDataRef.current = () => {
+    fetchCandidates();
+    fetchAnalytics();
+    fetchJobs();
+    fetchApplications();
+    fetchCompany();
+    loadLogs();
+  };
+
   useEffect(() => {
     if (user && !['recruiter', 'admin'].includes(user.role)) {
       router.push('/dashboard');
     } else if (user) {
-      fetchCandidates();
-      fetchAnalytics();
-      fetchJobs();
-      fetchApplications();
-      fetchCompany();
-      loadLogs();
+      loadDataRef.current();
     }
-  }, [user]);
+  }, [user, router]);
 
   // Toast helper
   const triggerToast = (msg: string, type: 'success' | 'info' | 'error' = 'success') => {

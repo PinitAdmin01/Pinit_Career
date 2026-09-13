@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, Suspense } from 'react';
+import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { useAuth } from '@/lib/context/AuthContext';
@@ -2010,7 +2011,7 @@ function ProjectsPageContent() {
                     {activeSquad.members.map((member, idx) => (
                       <div key={idx} style={{ padding: 14, borderRadius: 10, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-                          <img src={member.avatarUrl} alt={member.name} style={{ width: 36, height: 36, borderRadius: 18 }} />
+                          <Image src={member.avatarUrl} alt={member.name} width={36} height={36} style={{ borderRadius: 18 }} unoptimized />
                           <div>
                             <div style={{ fontSize: 13.5, fontWeight: 800, color: 'var(--t1)' }}>{member.name}</div>
                             <div style={{ fontSize: 10.5, color: 'var(--reward-bright)', fontWeight: 700, textTransform: 'uppercase' }}>
