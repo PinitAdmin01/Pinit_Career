@@ -111,33 +111,21 @@ export async function middleware(request: NextRequest) {
 
     // 4. Cryptographically verify JWT signature + expiry
     let isVerified = false;
-    if (token === 'dev-bypass-authorized') {
-      isVerified = true;
-    } else if (token) {
-      try {
-        const jwtSecret = process.env.SUPABASE_JWT_SECRET;
-        if (jwtSecret) {
+    if (token) {
+      const jwtSecret = process.env.SUPABASE_JWT_SECRET;
+      if (!jwtSecret) {
+        // Fail closed — never verify without the secret
+        isVerified = false;
+        console.error('[SECURITY] SUPABASE_JWT_SECRET not set. Blocking access to protected route.');
+      } else {
+        try {
           const { jwtVerify } = await import('jose');
           const secretKey = new TextEncoder().encode(jwtSecret);
           await jwtVerify(token, secretKey, { algorithms: ['HS256'] });
           isVerified = true; // Only reaches here if signature + expiry are valid
-        } else if (process.env.NODE_ENV !== 'production') {
-          // Development fallback when SUPABASE_JWT_SECRET is not yet configured locally
-          const parts = token.split('.');
-          if (parts.length === 3) {
-            const payloadBase64 = parts[1].replace(/-/g, '+').replace(/_/g, '/');
-            const payloadJson = atob(payloadBase64);
-            const payload = JSON.parse(payloadJson);
-            if (payload && typeof payload.exp === 'number') {
-              const now = Math.floor(Date.now() / 1000);
-              if (payload.exp >= now) {
-                isVerified = true;
-              }
-            }
-          }
+        } catch {
+          isVerified = false; // Expired, wrong signature, or malformed
         }
-      } catch {
-        isVerified = false; // Expired, wrong signature, or malformed
       }
     }
 
