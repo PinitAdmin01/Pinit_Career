@@ -779,10 +779,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         registerNumber:  data.registerNumber || '',
       };
 
-      // Non-blocking asynchronous database writes
-      createUserProfile(sbUser.id, profile).catch((err) => {
-        console.warn('Profile creation async notice:', err?.message);
-      });
+      // Await profile creation on signup to prevent broken state (Task 3.2)
+      try {
+        await createUserProfile(sbUser.id, profile);
+      } catch (err: any) {
+        console.error('[AuthContext] Critical failure creating user profile:', err);
+        throw new Error(`Profile initialization failed: ${err?.message || 'Database error'}`);
+      }
 
       ensureSeedData(sbUser.id, profile).catch((err) => {
         console.warn('Seed data async notice:', err?.message);
@@ -800,14 +803,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const logout = async () => {
-    try {
-      if (user?.id) {
-        await api.post('/api/admin/audit-log/add', {
-          action: 'logout',
-          meta: { userId: user.id, username: user.username, displayName: user.displayName }
-        }).catch(() => {});
-      }
-    } catch {}
+    const currentUser = user;
+    await supabase.auth.signOut().catch(() => {});
+    setUser(null);
+
+    // Non-blocking fire-and-forget audit log
+    if (currentUser?.id) {
+      api.post('/api/admin/audit-log/add', {
+        action: 'logout',
+        meta: { userId: currentUser.id, username: currentUser.username, displayName: currentUser.displayName }
+      }).catch(() => {});
+    }
 
     // Defect 004: Invalidate server session HttpOnly cookies
     try {
@@ -844,9 +850,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         } catch {}
       }
     }
-
-    await supabase.auth.signOut().catch(() => {});
-    setUser(null);
   };
 
   const refresh = async () => {

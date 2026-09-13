@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import { toast } from '@/lib/store/useAppStore';
+import { generateTxId } from '@/lib/utils/transactionId';
 
 export interface VaultItem {
   id: string;
@@ -72,7 +73,7 @@ export function useVault(options: UseVaultOptions = {}) {
     verified?: boolean;
     ai_confidence_score?: number;
   }) => {
-    const tempId = item.id || Math.random().toString(36).substring(2, 11);
+    const tempId = item.id || generateTxId('vlt');
     const newItem: VaultItem = {
       id: tempId,
       title: item.title,
