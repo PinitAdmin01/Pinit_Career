@@ -3,7 +3,7 @@
 
 import { supabase } from '@/lib/supabaseClient';
 import { sanitizeLLMOutput } from '@/lib/sanitizeLLM';
-import { firestoreRouter } from './legacyFirestoreRouter';
+// Dynamic chunking: legacyFirestoreRouter is dynamically imported on fallback (Task 3.4)
 
 // AST check preservation for test_subbatch_2_2.ts:
 // delete raw.mission_streak; delete answers.mission_streak; consecutiveCalendarStreak(
@@ -124,7 +124,10 @@ async function request<T>(method:string, path:string, body?:unknown): Promise<T>
       console.warn(`[API Client] Network failure calling ${path}. Falling back to client-side FirestoreRouter:`, err.message);
     }
   }
-  try { return await firestoreRouter(method,path,body) as T; }
+  try {
+    const { firestoreRouter } = await import('./legacyFirestoreRouter');
+    return await firestoreRouter(method, path, body) as T;
+  }
   catch(err) { if(err instanceof ApiError) throw err; throw new ApiError(500,'FIRESTORE_ERROR',(err as Error).message||'Request failed'); }
 }
 

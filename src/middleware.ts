@@ -29,6 +29,117 @@ export function middleware(request: NextRequest) {
   // Sanitize log: log only pathname and method to prevent leaking query params (auth tokens, student IDs)
   console.log(`\n🌐 [GLOBAL MIDDLEWARE] [${requestId}] ${method} ${path}`);
 
+  // ── Edge Route Guard: Protected Portals (/admin, /recruiter, /parent, /exams) ──
+  const PROTECTED_PREFIXES = ['/admin', '/recruiter', '/parent', '/exams'];
+  const isProtectedPath = PROTECTED_PREFIXES.some(
+    prefix => path === prefix || path.startsWith(`${prefix}/`)
+  );
+
+  if (isProtectedPath) {
+    let token: string | null = null;
+
+    // 1. Check Authorization header (Bearer token)
+    const authHeader = request.headers.get('authorization') || request.headers.get('Authorization') || '';
+    if (authHeader.toLowerCase().startsWith('bearer ')) {
+      token = authHeader.slice(7).trim();
+    }
+
+    // 2. Check test bypass in non-production
+    const isDevOrTest = process.env.ALLOW_DEV_AUTH_BYPASS === 'true' && process.env.NODE_ENV !== 'production';
+    if (isDevOrTest) {
+      if (
+        token === 'demo-token-bypass' ||
+        (token && token.startsWith('test-token-')) ||
+        request.headers.get('x-test-bypass') === 'true' ||
+        request.cookies.get('test-bypass')?.value === 'true'
+      ) {
+        token = 'dev-bypass-authorized';
+      }
+    }
+
+    // 3. Check session cookies if no token in header
+    if (!token) {
+      const allCookies = request.cookies.getAll();
+      for (const cookie of allCookies) {
+        const name = cookie.name.toLowerCase();
+        if (
+          name.startsWith('sb-') ||
+          name.includes('auth-token') ||
+          name.includes('access-token') ||
+          name === 'pinit_token' ||
+          name === 'auth_token' ||
+          name === 'token' ||
+          name === '__session'
+        ) {
+          const val = cookie.value;
+          if (val) {
+            let candidate = val.trim();
+            try {
+              candidate = decodeURIComponent(candidate);
+            } catch {
+              // ignore
+            }
+            if (candidate.startsWith('base64-')) {
+              try {
+                candidate = atob(candidate.slice(7));
+              } catch {
+                continue;
+              }
+            }
+            if (candidate.startsWith('{') || candidate.startsWith('[')) {
+              try {
+                const parsed = JSON.parse(candidate);
+                if (Array.isArray(parsed) && typeof parsed[0] === 'string') {
+                  candidate = parsed[0];
+                } else if (parsed.access_token) {
+                  candidate = parsed.access_token;
+                } else if (parsed.currentSession?.access_token) {
+                  candidate = parsed.currentSession.access_token;
+                }
+              } catch {
+                // ignore
+              }
+            }
+            if (candidate && candidate.length > 5) {
+              token = candidate;
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    // 4. Validate token expiration if it is a JWT
+    let isExpired = false;
+    if (token && token !== 'dev-bypass-authorized') {
+      try {
+        const parts = token.split('.');
+        if (parts.length === 3) {
+          const payloadBase64 = parts[1].replace(/-/g, '+').replace(/_/g, '/');
+          const payloadJson = atob(payloadBase64);
+          const payload = JSON.parse(payloadJson);
+          if (payload && typeof payload.exp === 'number') {
+            const now = Math.floor(Date.now() / 1000);
+            if (payload.exp < now) {
+              isExpired = true;
+            }
+          }
+        }
+      } catch {
+        // If JWT parsing fails, do not mark expired
+      }
+    }
+
+    // 5. If unauthorized or expired, redirect to /login with 307
+    if (!token || isExpired) {
+      console.warn(`🛡️ [EDGE GUARD] Unauthorized access attempt to ${path} (token: ${token ? 'expired' : 'none'}). Redirecting to /login.`);
+      const loginUrl = new URL(`/login?redirect=${encodeURIComponent(path + (search || ''))}`, request.url);
+      const redirectResponse = NextResponse.redirect(loginUrl, 307);
+      redirectResponse.headers.set('x-request-id', requestId);
+      return redirectResponse;
+    }
+  }
+
   // Create response and set the request correlation id.
   const response = NextResponse.next();
   response.headers.set('x-request-id', requestId);

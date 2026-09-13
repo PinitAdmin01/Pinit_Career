@@ -55,6 +55,27 @@ export const portalService = {
   // ── Materials ──
   async getMaterials(): Promise<CourseMaterialRecord[]> {
     try {
+      const { data, error } = await supabase
+        .from('campus_course_materials')
+        .select('*')
+        .order('uploaded_at', { ascending: false });
+      if (!error && data && data.length > 0) {
+        return data.map((r: any) => ({
+          id: r.id,
+          title: r.title,
+          subject: r.subject,
+          semester: r.semester,
+          type: r.type,
+          fileUrl: r.file_url || '',
+          uploadedAt: r.uploaded_at,
+          size: r.size || '1.0 MB',
+          downloadsCount: r.downloads_count || 0,
+          tags: r.tags || []
+        }));
+      }
+    } catch {}
+
+    try {
       if (typeof window !== 'undefined') {
         const stored = localStorage.getItem(STORAGE_KEYS.MATERIALS);
         if (stored) return JSON.parse(stored);
@@ -65,17 +86,42 @@ export const portalService = {
 
   async saveMaterial(mat: CourseMaterialRecord): Promise<void> {
     try {
+      const { error } = await supabase.from('campus_course_materials').upsert({
+        id: mat.id,
+        title: mat.title,
+        subject: mat.subject,
+        semester: mat.semester,
+        type: mat.type,
+        file_url: mat.fileUrl,
+        uploaded_at: mat.uploadedAt,
+        size: mat.size,
+        downloads_count: mat.downloadsCount,
+        tags: mat.tags
+      });
+      if (error) console.warn('Supabase course material write error:', error.message);
+    } catch (e) {
+      console.error('Failed to save material to Supabase', e);
+    }
+
+    try {
       const existing = await this.getMaterials();
-      const updated = [mat, ...existing];
+      const updated = [mat, ...existing.filter(m => m.id !== mat.id)];
       if (typeof window !== 'undefined') {
         localStorage.setItem(STORAGE_KEYS.MATERIALS, JSON.stringify(updated));
       }
     } catch (e) {
-      console.error('Failed to save material', e);
+      console.error('Failed to save material locally', e);
     }
   },
 
   async deleteMaterial(id: string): Promise<void> {
+    try {
+      const { error } = await supabase.from('campus_course_materials').delete().eq('id', id);
+      if (error) console.warn('Supabase delete material error:', error.message);
+    } catch (e) {
+      console.error('Failed to delete material from Supabase', e);
+    }
+
     try {
       if (typeof window !== 'undefined') {
         const existing = await this.getMaterials();
@@ -83,7 +129,7 @@ export const portalService = {
         localStorage.setItem(STORAGE_KEYS.MATERIALS, JSON.stringify(updated));
       }
     } catch (e) {
-      console.error('Failed to delete material', e);
+      console.error('Failed to delete material locally', e);
     }
   },
 
@@ -151,6 +197,22 @@ export const portalService = {
   // ── Fraud Event Bridge ──
   async getFraudAlerts(): Promise<FraudAlertRecord[]> {
     try {
+      const { data, error } = await supabase.from('campus_fraud_alerts').select('*').order('timestamp', { ascending: false });
+      if (!error && data && data.length > 0) {
+        return data.map((r: any) => ({
+          id: r.id,
+          studentName: r.student_name,
+          examTitle: r.exam_title,
+          tabSwitches: r.tab_switches,
+          ipAddress: r.ip_address,
+          trustScoreImpact: r.trust_score_impact,
+          severity: r.severity,
+          timestamp: r.timestamp
+        }));
+      }
+    } catch {}
+
+    try {
       if (typeof window !== 'undefined') {
         const stored = localStorage.getItem(STORAGE_KEYS.FRAUD_ALERTS);
         if (stored) return JSON.parse(stored);
@@ -160,12 +222,30 @@ export const portalService = {
   },
 
   async dispatchFraudAlert(alertData: Omit<FraudAlertRecord, 'id' | 'timestamp'>): Promise<void> {
+    const id = `fraud_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+    const timestamp = new Date().toISOString();
+    try {
+      const { error } = await supabase.from('campus_fraud_alerts').insert({
+        id,
+        student_name: alertData.studentName,
+        exam_title: alertData.examTitle,
+        tab_switches: alertData.tabSwitches,
+        ip_address: alertData.ipAddress,
+        trust_score_impact: alertData.trustScoreImpact,
+        severity: alertData.severity,
+        timestamp
+      });
+      if (error) console.warn('Supabase fraud alert insert error:', error.message);
+    } catch (e) {
+      console.error('Failed to dispatch fraud alert to Supabase', e);
+    }
+
     try {
       const existing = await this.getFraudAlerts();
       const newAlert: FraudAlertRecord = {
         ...alertData,
-        id: `fraud_${Date.now()}`,
-        timestamp: new Date().toLocaleString()
+        id,
+        timestamp
       };
       const updated = [newAlert, ...existing];
       if (typeof window !== 'undefined') {
@@ -178,6 +258,19 @@ export const portalService = {
 
   // ── Student-Teacher Grade Sync ──
   async updateExamScore(result: StudentExamResultRecord): Promise<void> {
+    try {
+      const { error } = await supabase.from('campus_exam_results').upsert({
+        exam_id: result.examId,
+        student_id: result.studentId,
+        score: result.score,
+        total_marks: result.totalMarks,
+        graded_at: result.gradedAt || new Date().toISOString()
+      }, { onConflict: 'exam_id,student_id' });
+      if (error) console.warn('Supabase exam score write error:', error.message);
+    } catch (e) {
+      console.error('Failed to save exam score to Supabase', e);
+    }
+
     try {
       if (typeof window !== 'undefined') {
         const stored = localStorage.getItem(STORAGE_KEYS.EXAM_RESULTS);
@@ -193,6 +286,23 @@ export const portalService = {
 
   async getStudentExamResults(studentId: string): Promise<StudentExamResultRecord[]> {
     try {
+      const { data, error } = await supabase
+        .from('campus_exam_results')
+        .select('*')
+        .eq('student_id', studentId)
+        .order('graded_at', { ascending: false });
+      if (!error && data && data.length > 0) {
+        return data.map((r: any) => ({
+          examId: r.exam_id,
+          studentId: r.student_id,
+          score: Number(r.score),
+          totalMarks: Number(r.total_marks),
+          gradedAt: r.graded_at
+        }));
+      }
+    } catch {}
+
+    try {
       if (typeof window !== 'undefined') {
         const stored = localStorage.getItem(STORAGE_KEYS.EXAM_RESULTS);
         if (stored) {
@@ -203,7 +313,7 @@ export const portalService = {
     } catch {}
     return [];
   },
-
+  
   // ── Dynamic Student Roster & Faculty Analytics Engine ──
   async getEnrolledStudents(): Promise<Array<{
     id: string;
