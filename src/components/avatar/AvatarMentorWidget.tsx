@@ -156,6 +156,9 @@ export default function AvatarMentorWidget({
   const voiceRegAudioCtxRef = useRef<AudioContext | null>(null);
   const voiceRegIntervalRef = useRef<any>(null);
   const voiceRegTimeoutRef = useRef<any>(null);
+  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const streamRef = useRef<MediaStream | null>(null);
+  const animFrameRef = useRef<number | null>(null);
 
   useEffect(() => {
     voiceFreqRef.current = voiceFreq;
@@ -209,6 +212,7 @@ export default function AvatarMentorWidget({
 
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      streamRef.current = stream;
       voiceRegStreamRef.current = stream;
       const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
       voiceRegAudioCtxRef.current = audioCtx;
@@ -294,6 +298,8 @@ export default function AvatarMentorWidget({
     sceneRef.current = scene;
     try {
       scene.init(canvasRef.current, teacherId);
+      rendererRef.current = scene.renderer;
+      if (scene.raf) animFrameRef.current = scene.raf;
       scene.setState('wave');
       if (typeof window !== 'undefined') {
         (window as any).mentorAvatarScene = scene;
@@ -317,20 +323,39 @@ export default function AvatarMentorWidget({
       clearTimeout(timer);
       ro.disconnect();
 
-      // 1. Dispose all scene objects (geometries + materials + textures) and WebGL renderer
+      // 1. Dispose all scene objects (geometries + materials + textures)
       if (sceneRef.current) {
-        try {
-          sceneRef.current.dispose();
-        } catch (e) {
-          console.warn('[AvatarMentorWidget] Error disposing avatar engine:', e);
-        }
-        sceneRef.current = null;
-      }
-      if (typeof window !== 'undefined' && (window as any).mentorAvatarScene === scene) {
-        (window as any).mentorAvatarScene = null;
+        sceneRef.current.traverse((object: THREE.Object3D) => {
+          const mesh = object as THREE.Mesh;
+          if (mesh.geometry) mesh.geometry.dispose();
+          if (mesh.material) {
+            const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+            materials.forEach((mat: THREE.Material) => {
+              // Dispose all texture maps on the material
+              Object.values(mat).forEach((val) => {
+                if (val && typeof (val as THREE.Texture).dispose === 'function') {
+                  (val as THREE.Texture).dispose();
+                }
+              });
+              mat.dispose();
+            });
+          }
+        });
+        sceneRef.current.dispose();
       }
 
-      // 2. Stop any active microphone tracks from voice registration
+      // 2. Dispose renderer and force WebGL context release
+      if (rendererRef.current) {
+        rendererRef.current.dispose();
+        rendererRef.current.forceContextLoss();
+        rendererRef.current.domElement?.remove();
+      }
+
+      // 3. Stop all microphone tracks
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((track: MediaStreamTrack) => track.stop());
+        streamRef.current = null;
+      }
       if (voiceRegStreamRef.current) {
         try {
           voiceRegStreamRef.current.getTracks().forEach((track: MediaStreamTrack) => track.stop());
@@ -351,6 +376,20 @@ export default function AvatarMentorWidget({
         clearTimeout(voiceRegTimeoutRef.current);
         voiceRegTimeoutRef.current = null;
       }
+
+      // 4. Cancel animation frame
+      if (animFrameRef.current) {
+        cancelAnimationFrame(animFrameRef.current);
+      }
+      if (scene.raf) {
+        cancelAnimationFrame(scene.raf);
+      }
+
+      if (typeof window !== 'undefined' && (window as any).mentorAvatarScene === scene) {
+        (window as any).mentorAvatarScene = null;
+      }
+      sceneRef.current = null;
+      rendererRef.current = null;
     };
   }, [teacherId, isMinimized]);
 

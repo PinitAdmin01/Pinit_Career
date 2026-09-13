@@ -141,7 +141,6 @@ export function useGdOrchestrator({
       if (callTimerRef.current) clearInterval(callTimerRef.current);
       if (turnTimeoutRef.current) clearInterval(turnTimeoutRef.current);
       if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
-      if (speechPauseDebounceRef.current) clearTimeout(speechPauseDebounceRef.current);
 
       if (recognitionRef.current) {
         recognitionRef.current.onresult = null;
@@ -215,7 +214,7 @@ export function useGdOrchestrator({
               const finalTranscript = currentTranscript.trim();
               if (finalTranscript) {
                 try { rec.stop(); } catch {}
-                handleSendVoiceMessage(finalTranscript);
+                handleSendVoiceMessageRef.current(finalTranscript);
               }
             }, 2500);
           }
@@ -309,7 +308,7 @@ export function useGdOrchestrator({
               }
               setMicActive(false);
               setCandidateTurnTimer(null);
-              handleUserFinishSpeaking();
+              handleUserFinishSpeakingRef.current();
             }, 3000);
             return null;
           }
@@ -319,7 +318,7 @@ export function useGdOrchestrator({
           }
           setMicActive(false);
 
-          handleUserFinishSpeaking();
+          handleUserFinishSpeakingRef.current();
           return null;
         }
         return prev - 1;
@@ -945,6 +944,8 @@ export function useGdOrchestrator({
   const handleSendVoiceMessage = (text: string) => {
     handleUserFinishSpeaking(text);
   };
+  handleUserFinishSpeakingRef.current = handleUserFinishSpeaking;
+  handleSendVoiceMessageRef.current = handleSendVoiceMessage;
 
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();

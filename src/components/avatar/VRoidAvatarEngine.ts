@@ -1440,6 +1440,12 @@ export class VRoidAvatarEngine {
     this.renderer.setSize(w, h, false);
   }
 
+  traverse(callback: (object: THREE.Object3D) => void) {
+    if (this.scene) {
+      this.scene.traverse(callback);
+    }
+  }
+
   dispose() {
     this.disposed = true;
     if (this.raf) cancelAnimationFrame(this.raf);
