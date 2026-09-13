@@ -385,7 +385,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
         try { channel.close(); } catch {}
       }
     };
-  }, [userId, keys]);
+  }, [userId, keys, setAiUseTokens, setUnlockedItems, setVaultItems]);
 
   // ── Load all state from localStorage on mount ─────────────────────────────
   useEffect(() => {
@@ -439,7 +439,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
         save(keys.pins, pinsVal);
       }
     }
-  }, [user?.pins, pins, setPins, keys.pins, save]);
+  }, [user, pins, setPins, keys.pins, save]);
 
   // Sync state from Supabase profile to context local states on load or update (One-way progression lock)
   useEffect(() => {
@@ -665,7 +665,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
         save(keys.unlockedItems, merged);
       }
     }
-  }, [user, isLoaded, save, keys, unlockedItems, setUnlockedItems]);
+  }, [user, isLoaded, save, keys, unlockedItems, setUnlockedItems, onboardingAnswers, userId]);
 
 
   // ── Theme sync ───────────────────────────────────────────────────────────
@@ -879,7 +879,7 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
       }
     }
     return null;
-  }, [userId, onboardingAnswers, keys.roadGen, keys.activeCourses, onboardingStep, setOnboardingStep, save]);
+  }, [userId, onboardingAnswers, keys.roadGen, keys.activeCourse, keys.activeCourses, keys.onboard, onboardingStep, setOnboardingStep, save]);
 
   const addCompletedQuest = useCallback((questId: string, isExam?: boolean, xpAmount?: number, courseId?: string) => {
     // Determine the courseId to associate. If not supplied, try to guess or use activeCourseId.
@@ -985,7 +985,8 @@ export function CareerOSProvider({ children }: { children: React.ReactNode }) {
         }
       }));
     }
-  }, [completedQuests, activeCourseId, keys.quests, onboardingAnswers, keys.onboard, onboardingStep, setOnboardingStep, earnPins, save, userId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [completedQuests, activeCourseId, keys.quests, onboardingAnswers, keys.onboard, keys.streak, onboardingStep, setOnboardingStep, earnPins, save, userId]);
 
   const saveQuestCode = useCallback((questId: string, code: string) => {
     const nextCodes = {
