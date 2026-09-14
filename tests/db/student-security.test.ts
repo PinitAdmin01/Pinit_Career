@@ -15,7 +15,7 @@ let teacher: string;
 before(async () => {
   ({ db } = await buildFreshDatabase());
   studentA = await createUser(db, { email: 'a@student.test' });
-  studentB = await createUser(db, { email: 'b@student.test' });
+  studentB = await createUser(db, { email: 'b@student.test', pins: 250 });
   teacher = await createUser(db, { email: 't@staff.test', role: 'teacher' });
 });
 
@@ -31,6 +31,14 @@ async function profile(id: string) {
     unlocked_items: unknown;
   }>(`select display_name, pins, xp_total, unlocked_items from public.users where id = $1`, [id]);
   return rows[0];
+}
+
+/** Number of rows a visitor who is not logged in can read; a permission error counts as none. */
+async function rowsVisibleToVisitor(sql: string) {
+  return asAnon(db, sql).then(
+    (r) => r.rows.length,
+    () => 0
+  );
 }
 
 describe('login identity', () => {
@@ -124,6 +132,10 @@ describe('exam results', () => {
     assert.deepEqual(rows.map((r) => r.student_id), [studentA]);
   });
 
+  test('a visitor who is not logged in cannot read exam results', async () => {
+    assert.equal(await rowsVisibleToVisitor(`select student_id from public.campus_exam_results`), 0);
+  });
+
   test('a teacher can record marks for a student', async () => {
     await asUser(
       db,
@@ -178,6 +190,10 @@ describe('course materials', () => {
     assert.equal(rows.length, 1);
   });
 
+  test('a visitor who is not logged in cannot read course materials', async () => {
+    assert.equal(await rowsVisibleToVisitor(`select id from public.campus_course_materials`), 0);
+  });
+
   test('a teacher can upload course materials', async () => {
     await asUser(
       db,
@@ -226,5 +242,20 @@ describe('money, XP and badge functions are server-only', () => {
   test('a visitor who is not logged in cannot read pin balances', async () => {
     const refused = await attempt(() => asAnon(db, `select public.get_pin_balance($1)`, [studentA]));
     assert.ok(refused, 'anon was able to call get_pin_balance');
+  });
+
+  test("a student cannot read another student's pin balance", async () => {
+    const refused = await attempt(() => asUser(db, studentA, `select public.get_pin_balance($1)`, [studentB]));
+    assert.ok(refused, "student A read student B's pin balance");
+  });
+
+  test('a student can read their own pin balance', async () => {
+    const { rows } = await asUser<{ balance: number }>(
+      db,
+      studentA,
+      `select public.get_pin_balance($1) as balance`,
+      [studentA]
+    );
+    assert.equal(Number(rows[0].balance), (await profile(studentA)).pins);
   });
 });
