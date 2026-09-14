@@ -185,7 +185,7 @@ export function useMissionsData({
           console.warn("Failed to write simulation record to history:", err);
         }
 
-        api.post('/api/admin/audit-log/add', {
+        api.post('/api/student/activity', {
           action: 'interview_complete',
           meta: { scenarioId: roleplayScenario?.scenarioId, qt2Delta: data.qt2_delta, newQT2 }
         }).catch(() => {});
