@@ -273,188 +273,131 @@ export const CODEWARS_PROBLEM_REGISTRY: Record<
 const EVALUATOR_WORKER_SCRIPT = `
 const { parentPort, workerData } = require('node:worker_threads');
 const vm = require('node:vm');
-
 const { cleanCode, functionName, totalTests, evaluatorCode } = workerData;
 
 try {
-  const fullCode = \`
-    (function() {
-      if (typeof TreeNode === 'undefined') {
-        function TreeNode(val, left, right) {
-          this.val = (val === undefined ? 0 : val);
-          this.left = (left === undefined ? null : left);
-          this.right = (right === undefined ? null : right);
-        }
-      }
-
-      \${cleanCode}
-
-      let __targetFn = null;
-      try {
-        if (typeof \${functionName} === 'function') {
-          __targetFn = \${functionName};
-        }
-      } catch (e) {
-        __targetFn = null;
-      }
-
-      if (typeof __targetFn !== 'function') {
-        return {
-          passed: false,
-          status: 'EXECUTION_ERROR',
-          testsPassed: 0,
-          totalTests: \${totalTests},
-          error: "Solution function '\${functionName}' was not found or not defined."
-        };
-      }
-
-      \${evaluatorCode}
-    })()
-  \`;
-
-  let script;
-  try {
-    script = new vm.Script(fullCode, { filename: 'submission.js' });
-  } catch (syntaxErr) {
-    parentPort.postMessage({
-      passed: false,
-      status: 'SYNTAX_ERROR',
-      testsPassed: 0,
-      totalTests: totalTests,
-      error: 'Invalid JavaScript syntax: ' + (syntaxErr ? syntaxErr.message : 'Syntax error')
-    });
-    process.exit(0);
-  }
-
-  // Pure null-prototype context with no host object references
   const sandbox = Object.create(null);
-  sandbox.console = Object.freeze({
-    log: () => {},
-    error: () => {},
-    warn: () => {},
-    info: () => {},
-    debug: () => {}
-  });
-
   const context = vm.createContext(sandbox);
 
-  let result;
+  // Initialize console safely inside the VM realm
+  vm.runInContext(\`
+    var console = { log: function(){}, error: function(){}, warn: function(){}, info: function(){} };
+    function TreeNode(val, left, right) {
+      this.val = (val === undefined ? 0 : val);
+      this.left = (left === undefined ? null : left);
+      this.right = (right === undefined ? null : right);
+    }
+  \`, context);
+
+  // 1. Evaluate student script in isolation
   try {
-    result = script.runInContext(context, { timeout: 2000 });
-  } catch (runErr) {
-    const isTimeout = runErr && (runErr.code === 'ERR_SCRIPT_EXECUTION_TIMEOUT' || /timed out/i.test(runErr.message));
+    const script = new vm.Script(cleanCode, { filename: 'submission.js' });
+    script.runInContext(context, { timeout: 1500 });
+  } catch (compileErr) {
     parentPort.postMessage({
       passed: false,
-      status: isTimeout ? 'TIMEOUT' : 'RUNTIME_ERROR',
+      status: compileErr && compileErr.name === 'SyntaxError' ? 'SYNTAX_ERROR' : 'EXECUTION_ERROR',
       testsPassed: 0,
       totalTests: totalTests,
-      error: isTimeout ? 'Execution timed out (2000ms limit exceeded)' : ('Runtime error: ' + (runErr ? runErr.message : 'Execution error'))
+      error: 'Syntax or execution error in submitted solution.'
     });
     process.exit(0);
   }
 
-  parentPort.postMessage(result || {
-    passed: false,
-    status: 'RUNTIME_ERROR',
-    testsPassed: 0,
+  // 2. Assert that the required function exists
+  const fnExists = vm.runInContext(\`typeof \${functionName} === 'function'\`, context);
+  if (!fnExists) {
+    parentPort.postMessage({
+      passed: false,
+      status: 'EXECUTION_ERROR',
+      testsPassed: 0,
+      totalTests: totalTests,
+      error: "Solution function '\${functionName}' was not defined."
+    });
+    process.exit(0);
+  }
+
+  // 3. Run authoritative tests in a separate step
+  const evalScript = new vm.Script(\`(function() { \${evaluatorCode} })()\`, { filename: 'evaluator.js' });
+  const result = evalScript.runInContext(context, { timeout: 1500 });
+  parentPort.postMessage({
+    passed: Boolean(result && result.passed),
+    status: result && result.status ? result.status : (result && result.passed ? 'SUCCESS' : 'FAILED'),
+    testsPassed: typeof result?.testsPassed === 'number' ? result.testsPassed : 0,
     totalTests: totalTests,
-    error: 'Evaluation produced no result'
+    error: result && result.error ? String(result.error).slice(0, 200) : undefined
   });
-} catch (fatalErr) {
+} catch (err) {
+  const isTimeout = err && (err.code === 'ERR_SCRIPT_EXECUTION_TIMEOUT' || /timed out/i.test(err.message));
   parentPort.postMessage({
     passed: false,
-    status: 'RUNTIME_ERROR',
+    status: isTimeout ? 'TIMEOUT' : 'EXECUTION_ERROR',
     testsPassed: 0,
     totalTests: totalTests,
-    error: fatalErr ? fatalErr.message : 'Fatal worker error'
+    error: isTimeout ? 'Execution timed out (1500ms limit exceeded)' : 'Evaluation runtime failure.'
   });
 }
 `;
 
 export function runEvaluationInVmDirectly(data: SandboxExecutionParams): EvaluatorResult {
-  const fullCode = `
-    (function() {
-      if (typeof TreeNode === 'undefined') {
-        function TreeNode(val, left, right) {
-          this.val = (val === undefined ? 0 : val);
-          this.left = (left === undefined ? null : left);
-          this.right = (right === undefined ? null : right);
-        }
-      }
-
-      ${data.cleanCode}
-
-      let __targetFn = null;
-      try {
-        if (typeof ${data.functionName} === 'function') {
-          __targetFn = ${data.functionName};
-        }
-      } catch (e) {
-        __targetFn = null;
-      }
-
-      if (typeof __targetFn !== 'function') {
-        return {
-          passed: false,
-          status: 'EXECUTION_ERROR',
-          testsPassed: 0,
-          totalTests: ${data.totalTests},
-          error: "Solution function '${data.functionName}' was not found or not defined."
-        };
-      }
-
-      ${data.evaluatorCode}
-    })()
-  `;
-
-  let script: vm.Script;
   try {
-    script = new vm.Script(fullCode, { filename: 'submission.js' });
-  } catch (syntaxErr: any) {
-    return {
-      passed: false,
-      status: 'SYNTAX_ERROR',
-      testsPassed: 0,
-      totalTests: data.totalTests,
-      error: `Invalid JavaScript syntax: ${syntaxErr?.message || 'Syntax error'}`,
-    };
-  }
+    const sandbox: Record<string, any> = Object.create(null);
+    const context = vm.createContext(sandbox);
 
-  // Pure null-prototype context with no host object references
-  const sandbox: Record<string, any> = Object.create(null);
-  sandbox.console = Object.freeze({
-    log: () => {},
-    error: () => {},
-    warn: () => {},
-    info: () => {},
-    debug: () => {},
-  });
+    // Initialize console safely inside the VM realm
+    vm.runInContext(`
+      var console = { log: function(){}, error: function(){}, warn: function(){}, info: function(){} };
+      function TreeNode(val, left, right) {
+        this.val = (val === undefined ? 0 : val);
+        this.left = (left === undefined ? null : left);
+        this.right = (right === undefined ? null : right);
+      }
+    `, context);
 
-  const context = vm.createContext(sandbox);
-
-  try {
-    const result = script.runInContext(context, { timeout: 2000 });
-    return (
-      result || {
+    // 1. Evaluate student script in isolation
+    try {
+      const script = new vm.Script(data.cleanCode, { filename: 'submission.js' });
+      script.runInContext(context, { timeout: 1500 });
+    } catch (compileErr: any) {
+      return {
         passed: false,
-        status: 'RUNTIME_ERROR',
+        status: compileErr && compileErr.name === 'SyntaxError' ? 'SYNTAX_ERROR' : 'EXECUTION_ERROR',
         testsPassed: 0,
         totalTests: data.totalTests,
-        error: 'Evaluation produced no result',
-      }
-    );
-  } catch (runErr: any) {
-    const isTimeout =
-      runErr &&
-      (runErr.code === 'ERR_SCRIPT_EXECUTION_TIMEOUT' || /timed out/i.test(runErr.message));
+        error: 'Syntax or execution error in submitted solution.',
+      };
+    }
+
+    // 2. Assert that the required function exists
+    const fnExists = vm.runInContext(`typeof ${data.functionName} === 'function'`, context);
+    if (!fnExists) {
+      return {
+        passed: false,
+        status: 'EXECUTION_ERROR',
+        testsPassed: 0,
+        totalTests: data.totalTests,
+        error: `Solution function '${data.functionName}' was not defined.`,
+      };
+    }
+
+    // 3. Run authoritative tests in a separate step
+    const evalScript = new vm.Script(`(function() { ${data.evaluatorCode} })()`, { filename: 'evaluator.js' });
+    const result = evalScript.runInContext(context, { timeout: 1500 });
+    return {
+      passed: Boolean(result && result.passed),
+      status: result && result.status ? result.status : (result && result.passed ? 'SUCCESS' : 'FAILED'),
+      testsPassed: typeof result?.testsPassed === 'number' ? result.testsPassed : 0,
+      totalTests: data.totalTests,
+      error: result && result.error ? String(result.error).slice(0, 200) : undefined,
+    };
+  } catch (err: any) {
+    const isTimeout = err && (err.code === 'ERR_SCRIPT_EXECUTION_TIMEOUT' || /timed out/i.test(err.message));
     return {
       passed: false,
-      status: isTimeout ? 'TIMEOUT' : 'RUNTIME_ERROR',
+      status: isTimeout ? 'TIMEOUT' : 'EXECUTION_ERROR',
       testsPassed: 0,
       totalTests: data.totalTests,
-      error: isTimeout
-        ? 'Execution timed out (2000ms limit exceeded)'
-        : `Runtime error: ${runErr?.message || 'Execution error'}`,
+      error: isTimeout ? 'Execution timed out (1500ms limit exceeded)' : 'Evaluation runtime failure.',
     };
   }
 }

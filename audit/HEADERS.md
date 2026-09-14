@@ -8,7 +8,7 @@ same symptom as a stubbed handler — the feature silently does nothing — but 
 cause is in `firebase.json`, not in `src/`.
 
 - **findings**: 0 {}
-- **connect-src**: `'self' blob: https://*.supabase.co wss://*.supabase.co https://api.razorpay.com https://openrouter.ai https://api.elevenlabs.io https://pinit-voice-service.onrender.com https://pinit-backend-v8pd.onrender.com https://api.groq.com https://api.github.com`
+- **connect-src**: `'self' blob: https://*.supabase.co wss://*.supabase.co https://api.razorpay.com https://pinit-voice-service.onrender.com https://pinit-backend-v8pd.onrender.com https://api.github.com`
 - **Permissions-Policy**: `camera=(self), microphone=(self), geolocation=(), browsing-topics=()`
 
 _No header-level defects found._

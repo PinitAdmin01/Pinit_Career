@@ -6,6 +6,8 @@ import { api } from '@/lib/api/client';
 import { syncUnlockedItemsDB, fetchServerTimeOffset } from '@/lib/supabaseService';
 import { PIN_COSTS } from '@/lib/hooks/usePinBalance';
 
+import { supabase } from '@/lib/supabaseClient';
+
 export interface UseItemLocksOptions {
   userId?: string;
   pins?: number;
@@ -18,9 +20,6 @@ export interface UseItemLocksOptions {
  */
 export function useItemLocks(options: UseItemLocksOptions = {}) {
   const { userId = 'guest', pins = 120, spendPins } = options;
-  const storageKeys = {
-    unlockedItems: `pinit_${userId}_unlocked_items`,
-  };
 
   const [unlockedItems, setUnlockedItemsState] = useState<Record<string, number>>({});
   const serverOffsetRef = useRef<number>(0);
@@ -34,23 +33,38 @@ export function useItemLocks(options: UseItemLocksOptions = {}) {
       .catch(() => {});
   }, []);
 
-  // Hydrate unlocked items from localStorage
+  // Hydrate unlocked items from user.unlocked_items in the database, not localStorage
   useEffect(() => {
-    try {
-      const rawUnlocked = localStorage.getItem(storageKeys.unlockedItems);
-      if (rawUnlocked) {
-        const parsed = JSON.parse(rawUnlocked);
-        if (typeof parsed === 'object' && parsed !== null) setUnlockedItemsState(parsed);
-      }
-    } catch {
-      // ignore
-    }
-  }, [storageKeys.unlockedItems]);
+    if (!userId || userId === 'guest') return;
+
+    (async () => {
+      try {
+        const { data, error } = await supabase
+          .from('users')
+          .select('unlocked_items')
+          .eq('id', userId)
+          .maybeSingle();
+
+        if (!error && data?.unlocked_items && typeof data.unlocked_items === 'object') {
+          setUnlockedItemsState(data.unlocked_items as Record<string, number>);
+        }
+      } catch {}
+    })();
+  }, [userId]);
 
   const saveUnlockedItems = useCallback((items: Record<string, number>) => {
     setUnlockedItemsState(items);
-    try { localStorage.setItem(storageKeys.unlockedItems, JSON.stringify(items)); } catch {}
-  }, [storageKeys.unlockedItems]);
+    if (userId && userId !== 'guest') {
+      (async () => {
+        try {
+          await supabase
+            .from('users')
+            .update({ unlocked_items: items })
+            .eq('id', userId);
+        } catch {}
+      })();
+    }
+  }, [userId]);
 
   const isItemUnlocked = useCallback((itemKey: string): boolean => {
     const expiresAt = unlockedItems[itemKey];

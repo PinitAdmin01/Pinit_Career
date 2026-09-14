@@ -49,7 +49,8 @@ function walk(dir, out = []) {
   return out;
 }
 // Course content embeds documentation links that are not runtime calls.
-const APP = walk('src').filter((f) => !f.startsWith('src/lib/data/') && !f.startsWith('src/lib/curriculum/'));
+// Server API routes run in Node.js on the backend, not in the browser.
+const APP = walk('src').filter((f) => !f.startsWith('src/lib/data/') && !f.startsWith('src/lib/curriculum/') && !f.startsWith('src/app/api/'));
 
 // Hosts configured through env vars are the ones the app calls at runtime;
 // hardcoded https:// literals in app code are mostly prose and doc links.
