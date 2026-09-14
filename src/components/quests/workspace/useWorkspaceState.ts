@@ -429,7 +429,7 @@ export function useWorkspaceState({
   const handleCompleteLecture = useCallback(() => {
     addCompletedQuest(quest?.id, false, quest?.xp || 150);
     setIsCompleteView(true);
-    api.post('/api/admin/audit-log/add', {
+    api.post('/api/student/activity', {
       action: 'quest_complete',
       meta: { questId: quest?.id, questTitle: quest?.title, isExam: false, xp: quest?.xp || 150 }
     }).catch(() => {});
