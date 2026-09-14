@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import crypto from 'crypto';
+import { financeService } from '@/lib/services/financeService';
 
 /** Server-defined catalog only — client amounts are never trusted. */
 export const PLAN_PRICES_PAISE: Record<string, number> = {
@@ -21,13 +22,56 @@ export async function POST(req: Request) {
 
     const body = await req.json().catch(() => ({}));
     const planId = String(body.planId || '').trim();
-    const orderAmount = PLAN_PRICES_PAISE[planId];
+    let orderAmount = PLAN_PRICES_PAISE[planId];
+    let installmentRecord: any = null;
+
+    if (!orderAmount && planId.startsWith('installment_')) {
+      const installmentId = planId.replace('installment_', '').trim();
+      const dues = await financeService.getStudentDues(gated.user!.id);
+      installmentRecord = (dues.installments || []).find(
+        (inst: any) => String(inst.id) === installmentId
+      );
+
+      if (!installmentRecord) {
+        return NextResponse.json(
+          {
+            error: 'INSTALLMENT_NOT_FOUND',
+            message: 'Fee installment not found for authenticated student.',
+          },
+          { status: 404 }
+        );
+      }
+
+      if (installmentRecord.status === 'Paid') {
+        return NextResponse.json(
+          {
+            error: 'INSTALLMENT_ALREADY_PAID',
+            message: 'This fee installment has already been marked as paid.',
+          },
+          { status: 400 }
+        );
+      }
+
+      const instAmount = Number(installmentRecord.amount || 0);
+      if (instAmount <= 0) {
+        return NextResponse.json(
+          {
+            error: 'INVALID_INSTALLMENT_AMOUNT',
+            message: 'Installment amount must be greater than zero.',
+          },
+          { status: 400 }
+        );
+      }
+
+      // Authoritative conversion of installment rupee amount to paise
+      orderAmount = Math.round(instAmount * 100);
+    }
 
     if (!orderAmount) {
       return NextResponse.json(
         {
           error: 'UNKNOWN_PLAN',
-          message: 'Only catalog plans can be purchased. Client-supplied amounts are rejected.',
+          message: 'Only catalog plans or valid fee installments can be purchased. Client-supplied amounts are rejected.',
         },
         { status: 400 }
       );
@@ -44,7 +88,10 @@ export async function POST(req: Request) {
           amount: orderAmount,
           currency: 'INR',
           keyId: 'rzp_test_mock',
-          isMock: true
+          isMock: true,
+          planId,
+          uid: gated.user!.id,
+          ...(installmentRecord ? { installmentId: installmentRecord.id } : {})
         });
       }
       return NextResponse.json(
@@ -54,6 +101,14 @@ export async function POST(req: Request) {
         },
         { status: 503 }
       );
+    }
+
+    const notes: Record<string, string> = {
+      uid: gated.user!.id,
+      planId,
+    };
+    if (installmentRecord) {
+      notes.installmentId = String(installmentRecord.id);
     }
 
     const auth = Buffer.from(`${keyId}:${keySecret}`).toString('base64');
@@ -67,7 +122,7 @@ export async function POST(req: Request) {
         amount: orderAmount,
         currency: 'INR',
         receipt: `pinit_${gated.user!.id.slice(0, 8)}_${Date.now()}`,
-        notes: { uid: gated.user!.id, planId },
+        notes,
       }),
     });
 

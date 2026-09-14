@@ -1,6 +1,29 @@
-import { supabase } from '@/lib/supabaseClient';
+import { supabase as defaultSupabase } from '@/lib/supabaseClient';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { tableExists as checkSupabaseAvailable } from '@/lib/services/supabaseTable';
 import { generateTxId } from '@/lib/utils/transactionId';
+
+function getFinanceDbClient(): SupabaseClient {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+  if (url && serviceKey) {
+    return createClient(url, serviceKey, {
+      auth: { persistSession: false, autoRefreshToken: false },
+    });
+  }
+  return defaultSupabase as SupabaseClient;
+}
+
+const supabase: SupabaseClient = new Proxy(defaultSupabase as any, {
+  get(target, prop, receiver) {
+    const client = getFinanceDbClient();
+    const value = Reflect.get(client, prop, receiver);
+    if (typeof value === 'function') {
+      return value.bind(client);
+    }
+    return value;
+  }
+});
 
 // Interface types
 export interface FinanceInstallment {
@@ -287,7 +310,7 @@ export const financeService = {
     return this.getStudentDues(studentId);
   },
 
-  async payDue(studentId: string, studentName: string, installmentId: string, studentEmail?: string) {
+  async payDue(studentId: string, studentName: string, installmentId: string, studentEmail?: string, paymentId?: string) {
     const lockKey = `${studentId}:${installmentId}`;
     const acquired = await acquireDistributedLock(lockKey, studentId, 30);
     if (!acquired) {
@@ -296,7 +319,7 @@ export const financeService = {
 
     try {
       const isSupabaseAvailable = await checkSupabaseAvailable('finance_dues');
-      const transactionId = generateTxId('rcp');
+      const transactionId = paymentId ? paymentId.trim() : generateTxId('rcp');
       const email = studentEmail?.trim() || '';
 
       if (!isSupabaseAvailable) {
