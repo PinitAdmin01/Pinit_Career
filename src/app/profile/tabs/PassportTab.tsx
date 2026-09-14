@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { toast } from '@/lib/store/useAppStore';
-import { api } from '@/lib/api/client';
+import { updateUserProfile } from '@/lib/supabaseService';
 import { PathwayApiService } from '@/lib/api/pathwayApi';
 import { StudentSkillProfile } from '@/lib/pathway/competencySchema';
 import { CS } from './types';
@@ -40,7 +40,11 @@ export default function PassportTab({ user, cOS }: PassportTabProps) {
           };
 
           let endorsedIds: string[] = [];
-          if (typeof window !== 'undefined') {
+          if (Array.isArray(user?.endorsed_skills) && user.endorsed_skills.length > 0) {
+            endorsedIds = user.endorsed_skills;
+          } else if (Array.isArray(user?.endorsedSkills) && user.endorsedSkills.length > 0) {
+            endorsedIds = user.endorsedSkills;
+          } else if (typeof window !== 'undefined') {
             try {
               const raw = localStorage.getItem(`pinit_${user.id}_endorsed_skills`);
               if (raw) endorsedIds = JSON.parse(raw);
@@ -141,7 +145,9 @@ export default function PassportTab({ user, cOS }: PassportTabProps) {
         try {
           const endorsedIds = updated.filter(s => s.verified).map(s => s.id);
           localStorage.setItem(`pinit_${user.id}_endorsed_skills`, JSON.stringify(endorsedIds));
-          api.patch('/api/auth/profile', { endorsed_skills: endorsedIds }).catch(() => {});
+          updateUserProfile(user.id, { endorsed_skills: endorsedIds }).catch((e) => {
+            console.warn('Failed to persist endorsed skills:', e);
+          });
         } catch (e) {
           console.warn('Failed to persist endorsed skills:', e);
         }
