@@ -485,6 +485,8 @@ begin
     with check (
       public.campus_is_staff()
       or user_key = auth.uid()::text
+      or lower(user_key) = lower(coalesce(auth.jwt()->>'email', ''))
+    );
 end $$;
 
 -- Status Immutability: prevent students from self-approving campus requests or fee dues
