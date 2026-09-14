@@ -4,13 +4,92 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { toast } from '@/lib/store/useAppStore';
-import { CS } from './types';
+import { CS, modalOverlayStyle, modalContentStyle } from './types';
 
 const FaceEnroll = dynamic(() => import('@/components/auth/FaceEnroll'), { ssr: false });
 
-function SecurityFaceLogin() {
+function BiometricHardwareModal({ onClose }: { onClose: () => void }) {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
+  return (
+    <div style={modalOverlayStyle} onClick={onClose} role="dialog" aria-modal="true">
+      <div
+        style={{ ...modalContentStyle, maxWidth: 460 }}
+        className="animate-fade-in"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <span style={{ fontSize: 22 }}>🖥️</span>
+            <h3 style={{ margin: 0, fontSize: 16, fontWeight: 800, color: 'var(--t1)', fontFamily: 'var(--font-display)' }}>
+              Biometric Hardware Enrollment
+            </h3>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close modal"
+            style={{ background: 'none', border: 'none', color: 'var(--t3)', cursor: 'pointer', fontSize: 18, padding: 4 }}
+          >
+            ✕
+          </button>
+        </div>
+
+        <div style={{
+          background: 'var(--accent-light)',
+          border: '1px solid var(--accent)',
+          borderRadius: 12,
+          padding: 14,
+          fontSize: 13,
+          color: 'var(--t1)',
+          lineHeight: 1.5,
+          fontWeight: 600,
+          display: 'flex',
+          alignItems: 'center',
+          gap: 10
+        }}>
+          <span>💡</span>
+          <span>Biometric hardware enrollment is available via campus lab workstations.</span>
+        </div>
+
+        <p style={{ fontSize: 12.5, color: 'var(--t3)', margin: 0, lineHeight: 1.6 }}>
+          To guarantee hardware-backed cryptographic attestation and eliminate spoofing risks, physical biometric hardware (IR depth cameras and fingerprint scanners) must be registered directly at authorized campus lab workstations.
+        </p>
+
+        <p style={{ fontSize: 12, color: 'var(--t3)', margin: 0, lineHeight: 1.5 }}>
+          Once enrolled on a lab workstation, your biometric identity tokens sync securely with your Career OS account for seamless passwordless authentication.
+        </p>
+
+        <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 4 }}>
+          <button
+            type="button"
+            onClick={onClose}
+            className="btn-primary btn-sm"
+            style={{ padding: '8px 20px', borderRadius: 8, fontWeight: 700, cursor: 'pointer' }}
+          >
+            Got it
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+interface SecurityFaceLoginProps {
+  onOpenBiometricInfo?: () => void;
+}
+
+function SecurityFaceLogin({ onOpenBiometricInfo }: SecurityFaceLoginProps) {
   const [faceEnrolled, setFaceEnrolled] = useState<boolean | null>(null);
   const [showEnroll,   setShowEnroll]   = useState(false);
+  const [localModal,   setLocalModal]   = useState(false);
+  const handleOpenInfo = onOpenBiometricInfo || (() => setLocalModal(true));
 
   useEffect(() => {
     const controller = new AbortController();
@@ -62,9 +141,14 @@ function SecurityFaceLogin() {
           <button onClick={() => setShowEnroll(true)} className="btn-ghost btn-sm">
             {faceEnrolled ? '↺ Re-enroll Face' : '+ Set up Face Login'}
           </button>
-          <Link href="/qr-login?tab=face" style={{ textDecoration:'none' }}>
-            <button className="btn-ghost btn-sm">Test Face Login →</button>
-          </Link>
+          <button
+            type="button"
+            onClick={handleOpenInfo}
+            className="btn-ghost btn-sm"
+            title="Biometric hardware enrollment is available via campus lab workstations."
+          >
+            Hardware Enrollment →
+          </button>
           {faceEnrolled && (
             <button onClick={removeEnrollment} className="btn-ghost btn-sm" style={{ color:'var(--coral)' }}>✕ Remove</button>
           )}
@@ -78,6 +162,9 @@ function SecurityFaceLogin() {
           />
         </div>
       )}
+      {!onOpenBiometricInfo && localModal && (
+        <BiometricHardwareModal onClose={() => setLocalModal(false)} />
+      )}
     </div>
   );
 }
@@ -88,6 +175,8 @@ interface SecurityTabProps {
 }
 
 export default function SecurityTab({ logout, router }: SecurityTabProps) {
+  const [showBiometricModal, setShowBiometricModal] = useState(false);
+
   return (
     <div style={{ display:'flex', flexDirection:'column', gap:14 }} className="animate-fade-in">
       <div style={CS.card}>
@@ -96,15 +185,38 @@ export default function SecurityTab({ logout, router }: SecurityTabProps) {
           <button className="btn-ghost btn-sm">Change Password →</button>
         </Link>
       </div>
-      <SecurityFaceLogin />
+      <SecurityFaceLogin onOpenBiometricInfo={() => setShowBiometricModal(true)} />
       <div style={CS.card}>
-        <div style={CS.cardTitle}>📱 QR Login</div>
+        <div style={CS.cardTitle}>📱 QR &amp; Hardware Biometrics</div>
         <div style={{ fontSize:12, color:'var(--t3)', marginBottom:10, lineHeight:1.5 }}>
-          Scan a QR code on another device. Confirm with your phone — no typing needed.
+          Scan a QR code on another device or authenticate via dedicated campus biometric terminals.
         </div>
-        <Link href="/qr-login" style={{ textDecoration:'none' }}>
-          <button className="btn-ghost btn-sm">Open QR Login →</button>
-        </Link>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            background: 'var(--bg3)',
+            border: '1px dashed var(--border)',
+            borderRadius: 8,
+            padding: '8px 12px',
+            marginBottom: 12,
+            fontSize: 12,
+            color: 'var(--t2)'
+          }}
+          title="Biometric hardware enrollment is available via campus lab workstations."
+        >
+          <span style={{ fontSize: 14 }}>ℹ️</span>
+          <span>Biometric hardware enrollment is available via campus lab workstations.</span>
+        </div>
+        <button
+          type="button"
+          onClick={() => setShowBiometricModal(true)}
+          className="btn-ghost btn-sm"
+          title="Biometric hardware enrollment is available via campus lab workstations."
+        >
+          Workstation Enrollment Info →
+        </button>
       </div>
       <div style={{ ...CS.card, borderColor:'rgba(var(--danger-rgb), 0.2)' }}>
         <div style={{ ...CS.cardTitle, color:'var(--coral)' }}>⚠ Danger Zone</div>
@@ -112,6 +224,10 @@ export default function SecurityTab({ logout, router }: SecurityTabProps) {
           ⏻ Sign Out of All Devices
         </button>
       </div>
+
+      {showBiometricModal && (
+        <BiometricHardwareModal onClose={() => setShowBiometricModal(false)} />
+      )}
     </div>
   );
 }
