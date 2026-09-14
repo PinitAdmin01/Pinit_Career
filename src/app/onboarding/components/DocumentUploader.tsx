@@ -823,7 +823,7 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
         {/* Footer */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 14, paddingTop: 14, borderTop: '1px solid rgba(255,255,255,0.06)', flexShrink: 0 }}>
           <div style={{ fontSize: 11, color: '#94a3b8' }}>
-            {vaultUploading ? '⏳ Encrypting and uploading to distributed vault...' : `${vaultSlots.length} credential documents securely cached in candidate profile.`}
+            {vaultUploading ? '⏳ Uploading document to secure storage...' : `${vaultSlots.length} credential documents securely cached in candidate profile.`}
           </div>
           <button
             type="button"

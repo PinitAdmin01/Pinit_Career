@@ -49,6 +49,8 @@ function liveApiPrefix(path: string): string {
  * changing this list.
  */
 const LIVE_API_PREFIXES: readonly string[] = [
+  '/api/recruiter',
+  '/api/contact',
   // ── group 1: broken in the browser, need a server secret ────────────────
   '/api/stt',
   '/api/code',                       // run-java / run-python judges

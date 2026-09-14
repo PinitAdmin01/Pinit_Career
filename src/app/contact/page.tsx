@@ -9,18 +9,34 @@ export default function ContactPage() {
   const [formData, setFormData] = useState({ name: '', email: '', subject: 'Request Campus Demo', persona: 'Placement Director', institution: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) return;
+    setErrorMsg(null);
+    if (!formData.name || !formData.email || !formData.message) {
+      setErrorMsg('Please fill in all required fields.');
+      return;
+    }
     
     setLoading(true);
-    // Simulate API request
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(data.message || 'Failed to submit message. Please try again.');
+      }
       setSubmitted(true);
       setFormData({ name: '', email: '', subject: '', persona: '', institution: '', message: '' });
-    }, 1200);
+    } catch (err: any) {
+      setErrorMsg(err.message || 'Network error occurred. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -102,7 +118,25 @@ export default function ContactPage() {
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+            <>
+              {errorMsg && (
+                <div style={{
+                  background: 'rgba(239, 68, 68, 0.1)',
+                  border: '1px solid rgba(239, 68, 68, 0.3)',
+                  color: '#f87171',
+                  padding: '12px 16px',
+                  borderRadius: '10px',
+                  fontSize: '13px',
+                  marginBottom: '20px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}>
+                  <span>⚠️</span>
+                  <span>{errorMsg}</span>
+                </div>
+              )}
+              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
               <div className="form-group">
                 <label className="form-label">Name</label>
                 <input
@@ -177,6 +211,7 @@ export default function ContactPage() {
                 {loading ? 'Sending message...' : 'Send Message →'}
               </button>
             </form>
+            </>
           )}
         </div>
       </div>
