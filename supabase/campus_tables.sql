@@ -485,9 +485,33 @@ begin
     with check (
       public.campus_is_staff()
       or user_key = auth.uid()::text
-      or lower(user_key) = lower(coalesce(auth.jwt()->>'email', ''))
-    );
 end $$;
+
+-- Status Immutability: prevent students from self-approving campus requests or fee dues
+CREATE OR REPLACE FUNCTION public.check_student_campus_status_immutable()
+RETURNS TRIGGER AS $$
+BEGIN
+  IF NOT public.campus_is_staff() THEN
+    IF (TG_OP = 'UPDATE' AND OLD.status IS DISTINCT FROM NEW.status) THEN
+      RAISE EXCEPTION 'Students cannot alter status on campus records';
+    END IF;
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DO $$
+DECLARE
+  t text;
+  tables text[] := ARRAY['services_leaves', 'document_requests', 'admissions_applications', 'grievances_tickets', 'finance_dues'];
+BEGIN
+  FOREACH t IN ARRAY tables LOOP
+    IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = t AND table_schema = 'public') THEN
+      EXECUTE format('DROP TRIGGER IF EXISTS trg_guard_status_%I ON public.%I', t, t);
+      EXECUTE format('CREATE TRIGGER trg_guard_status_%I BEFORE UPDATE ON public.%I FOR EACH ROW EXECUTE FUNCTION public.check_student_campus_status_immutable()', t, t);
+    END IF;
+  END LOOP;
+END $$;
 
 create table if not exists public.student_language_progress (
   student_id text not null,

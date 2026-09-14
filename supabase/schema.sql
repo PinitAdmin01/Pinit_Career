@@ -319,6 +319,28 @@ create policy "Users can insert their own vault items" on public.vault_items for
 create policy "Users can update their own vault items" on public.vault_items for update using (auth.uid() = user_id);
 create policy "Users can delete their own vault items" on public.vault_items for delete using (auth.uid() = user_id);
 
+create or replace function public.check_vault_verified_immutable()
+returns trigger as $$
+begin
+  if (tg_op = 'UPDATE' and old.verified is distinct from new.verified and new.verified = true) then
+    if (current_user != 'service_role' and not public.campus_is_staff()) then
+      raise exception 'Only administrative services or staff can verify vault items';
+    end if;
+  end if;
+  if (tg_op = 'INSERT' and new.verified = true) then
+    if (current_user != 'service_role' and not public.campus_is_staff()) then
+      new.verified := false;
+    end if;
+  end if;
+  return new;
+end;
+$$ language plpgsql;
+
+drop trigger if exists trg_guard_vault_verified on public.vault_items;
+create trigger trg_guard_vault_verified
+  before insert or update on public.vault_items
+  for each row execute function public.check_vault_verified_immutable();
+
 -- 3. Missions Table
 create policy "Users can view their own missions" on public.missions for select using (auth.uid() = user_id);
 create policy "Users can update their own missions" on public.missions for update using (auth.uid() = user_id);
