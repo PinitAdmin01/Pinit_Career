@@ -51,13 +51,14 @@ function LoginContent() {
         !!localStorage.getItem(`pinit_${user.id}_onboarding_answers`);
       const onboardCompleted = dbSaysComplete || localSaysComplete;
 
+      const redirectTo = searchParams.get('redirect');
       if (!onboardCompleted) {
         router.push('/onboarding');
       } else {
-        router.push('/dashboard');
+        router.push(redirectTo || '/dashboard');
       }
     }
-  }, [user, isSuccessSplash, router]);
+  }, [user, isSuccessSplash, router, searchParams]);
 
   // 2. Check Trusted Device Status on Mount
   useEffect(() => {
@@ -233,11 +234,20 @@ function LoginContent() {
     setLoading(true);
     setErrorMsg('');
     try {
-      await login(loginForm.identifier, loginForm.password);
+      const loggedInUser = await login(loginForm.identifier, loginForm.password);
       setIsSuccessSplash(true);
-      setTimeout(() => {
-        router.push('/dashboard');
-      }, 800);
+
+      const dbSaysComplete = !!(loggedInUser as any)?.roadmapGenerated;
+      const localSaysComplete = typeof window !== 'undefined' &&
+        !!localStorage.getItem(`pinit_${loggedInUser?.id}_onboarding_answers`);
+      const onboardCompleted = dbSaysComplete || localSaysComplete;
+
+      const redirectTo = searchParams.get('redirect');
+      if (!onboardCompleted) {
+        router.push('/onboarding');
+      } else {
+        router.push(redirectTo || '/dashboard');
+      }
     } catch (err: any) {
       setErrorMsg(err.message || 'Invalid credentials. Please try again.');
     } finally {

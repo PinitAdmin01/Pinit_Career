@@ -56,7 +56,6 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
       localStorage.removeItem(`pinit_${devId}_ob_step`);
       localStorage.removeItem(`pinit_${devId}_completed_quests`);
       localStorage.removeItem(`pinit_${devId}_completed_missions`);
-      localStorage.setItem('pinit_current_user', JSON.stringify(devUser));
     }
 
     await loginWithVaultSession({

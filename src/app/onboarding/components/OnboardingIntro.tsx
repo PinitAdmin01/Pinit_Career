@@ -383,34 +383,6 @@ export default function OnboardingIntro({
           🎙️ Repeat Voice
         </button>
       </div>
-
-      <button
-        type="button"
-        onClick={onSkipOnboarding}
-        style={{
-          marginTop: 16,
-          height: 40,
-          background: 'linear-gradient(135deg, rgba(var(--brand-rgb), 0.08) 0%, rgba(var(--reward-rgb), 0.08) 100%)',
-          border: '1.5px dashed rgba(var(--brand-rgb), 0.35)',
-          borderRadius: 10,
-          color: 'var(--accent)',
-          fontSize: '12px',
-          fontWeight: 800,
-          cursor: 'pointer',
-          transition: 'all 0.2s',
-          fontFamily: 'var(--font-mono)'
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.background = 'linear-gradient(135deg, rgba(var(--brand-rgb), 0.15) 0%, rgba(var(--reward-rgb), 0.15) 100%)';
-          e.currentTarget.style.borderColor = 'var(--accent)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.background = 'linear-gradient(135deg, rgba(var(--brand-rgb), 0.08) 0%, rgba(var(--reward-rgb), 0.08) 100%)';
-          e.currentTarget.style.borderColor = 'rgba(var(--brand-rgb), 0.35)';
-        }}
-      >
-        ⏩ Skip Onboarding (Complete Setup)
-      </button>
     </div>
   );
 }

@@ -29,8 +29,8 @@ export async function middleware(request: NextRequest) {
   // Sanitize log: log only pathname and method to prevent leaking query params (auth tokens, student IDs)
   console.log(`\n🌐 [GLOBAL MIDDLEWARE] [${requestId}] ${method} ${path}`);
 
-  // ── Edge Route Guard: Protected Portals (/admin, /recruiter, /parent, /exams) ──
-  const PROTECTED_PREFIXES = ['/admin', '/recruiter', '/parent', '/exams'];
+  // ── Edge Route Guard: Protected Portals (/admin, /recruiter, /parent) ──
+  const PROTECTED_PREFIXES = ['/admin', '/recruiter', '/parent'];
   const isProtectedPath = PROTECTED_PREFIXES.some(
     prefix => path === prefix || path.startsWith(`${prefix}/`)
   );

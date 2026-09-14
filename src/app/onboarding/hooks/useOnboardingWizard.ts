@@ -474,6 +474,7 @@ export function useOnboardingWizard() {
 
   // Voice Analytics States
   const [speechStartTime, setSpeechStartTime] = useState<number | null>(null);
+  const speechStartTimeRef = useRef<number | null>(null);
   const [voiceConfidence, setVoiceConfidence] = useState<number | null>(null);
   const [voiceArticulation, setVoiceArticulation] = useState<number | null>(null);
 
@@ -632,29 +633,9 @@ export function useOnboardingWizard() {
     return channelData;
   };
 
-  // Lazy-load in-browser Whisper transcriber pipeline from CDN with 4s timeout fail-safe
-  const loadInBrowserTranscriber = async () => {
-    if (transcriberRef.current) return transcriberRef.current;
-    if (typeof window !== 'undefined' && (window.location.protocol === 'https:' || process.env.NODE_ENV === 'production')) {
-      return null;
-    }
-    try {
-      const timeoutPromise = new Promise<null>((_, reject) =>
-        setTimeout(() => reject(new Error('In-browser model load timeout (4s exceeded)')), 4000)
-      );
-      const loaderPromise = (async () => {
-        const dynamicImport = new Function('url', 'return import(url)');
-        const { pipeline, env } = await dynamicImport('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2');
-        env.allowLocalModels = false;
-        const pipelineInstance = await pipeline('automatic-speech-recognition', 'Xenova/whisper-tiny.en');
-        transcriberRef.current = pipelineInstance;
-        return pipelineInstance;
-      })();
-      return await Promise.race([loaderPromise, timeoutPromise]);
-    } catch (err) {
-      console.warn("[In-Browser STT] Model load bypassed or timed out:", err);
-      return null;
-    }
+  // In-browser speech transcriber (dynamic new Function CDN eval removed for security)
+  const loadInBrowserTranscriber = async (): Promise<any | null> => {
+    return null;
   };
 
   // Voice Speech Recording using MediaRecorder & Groq Whisper
@@ -717,7 +698,7 @@ export function useOnboardingWizard() {
         if (!transcript) {
           try {
             const audioRaw = await getAudioRawData(audioBlob);
-            const transcriber = await loadInBrowserTranscriber();
+            const transcriber: any = await loadInBrowserTranscriber();
             if (transcriber) {
               const output = await transcriber(audioRaw, {
                 chunk_length_s: 30,
@@ -733,8 +714,9 @@ export function useOnboardingWizard() {
         }
           
         if (transcript) {
-          if (activeScreenRef.current === 'INTENT_SELECTION' && speechStartTime) {
-            const duration = (Date.now() - speechStartTime) / 1000;
+          const startTime = speechStartTimeRef.current || speechStartTime;
+          if (activeScreenRef.current === 'INTENT_SELECTION' && startTime) {
+            const duration = (Date.now() - startTime) / 1000;
             const words = transcript.split(/\s+/).filter(Boolean).length;
             const wpm = duration > 0 ? (words / duration) * 60 : 125;
 
@@ -837,7 +819,9 @@ export function useOnboardingWizard() {
       isListeningRef.current = true;
       setRecognizing(true);
       setAnimState('listening');
-      setSpeechStartTime(Date.now());
+      const now = Date.now();
+      speechStartTimeRef.current = now;
+      setSpeechStartTime(now);
 
       requestAnimationFrame(checkSilence);
 
@@ -849,6 +833,8 @@ export function useOnboardingWizard() {
 
   const stopVoiceListening = () => {
     isListeningRef.current = false;
+    speechStartTimeRef.current = null;
+    setSpeechStartTime(null);
     if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
       try { mediaRecorderRef.current.stop(); } catch {}
     }
@@ -998,7 +984,7 @@ export function useOnboardingWizard() {
     if (!text.trim()) return;
     stopAvatarSpeaking();
 
-    if (activeScreen === 'INTENT_SELECTION') {
+    if (activeScreenRef.current === 'INTENT_SELECTION') {
       const lower = text.toLowerCase();
       if (lower.includes('express') || lower.includes('one minute') || lower.includes('resume') || lower.includes('fast')) {
         setActiveScreen('EXPRESS_FORM');
@@ -1162,7 +1148,7 @@ export function useOnboardingWizard() {
       targetRoleLabel = 'Product & Operations Manager';
       skillsList = 'Product Strategy, Market Research, Agile Scrum, Growth Funnels, Data Analytics, Strategic Management, Negotiation';
       weakAreas = ['Product Analytics', 'A/B Testing Experiments', 'Stakeholder Alignment'];
-    } else if (goalLower.includes('design') || goalLower.includes('ux') || goalLower.includes('ui') || goalLower.includes('front') || goalLower.includes('react')) {
+    } else if (goalLower.includes('design') || /\bux\b/i.test(goalLower) || /\bui\b/i.test(goalLower) || goalLower.includes('front') || goalLower.includes('react')) {
       targetRoleLabel = 'UI/UX Designer';
       skillsList = 'React Hooks, NextJS SSR, Vanilla CSS, Zustand State, TypeScript Types';
       weakAreas = ['Webpack', 'React Performance', 'Testing Library'];
@@ -1313,11 +1299,11 @@ export function useOnboardingWizard() {
     setParserLogs(['[1/5] Establishing secure tunnel to parser gateway...', '[1/5] Ready for stream...']);
 
     const logTimeline = [
-      { progress: 20, status: 'Uploading PDF to Sentinel sandbox...', log: '[2/5] Transmitting payload bytes: ' + (uploadedFile.size / 1024).toFixed(1) + ' KB' },
-      { progress: 45, status: 'Parsing PDF text layers & structural layout...', log: '[3/5] Extracting OCR layers. Detected font maps, structural columns, and header fields.' },
-      { progress: 70, status: 'Analyzing skills and cross-checking gaps...', log: '[4/5] Extracting skill nodes. Matched: Git, SQL, Java, React. Detected gaps: Docker, CI/CD, Kubernetes.' },
-      { progress: 90, status: 'Initializing Human Graph blueprint...', log: '[5/5] Mapping credentials OCR to Sentinel registry. Security signatures generated.' },
-      { progress: 100, status: 'Finalizing setup...', log: '[5/5] Success: Profile generated with 0% Initial Trust Score.' }
+      { progress: 25, status: 'Uploading document to candidate vault...', log: '[2/5] Transmitting payload: ' + (uploadedFile.size / 1024).toFixed(1) + ' KB' },
+      { progress: 50, status: 'Parsing document structure and text layers...', log: '[3/5] Inspecting layout and text structure.' },
+      { progress: 75, status: 'Ingesting document into vault and running ATS screener...', log: '[4/5] Evaluating skills and career trajectory alignment.' },
+      { progress: 95, status: 'Configuring learning path...', log: '[5/5] Generating personalized growth roadmap.' },
+      { progress: 100, status: 'Finalizing profile setup...', log: '[5/5] Resume parsed and vault entry created successfully.' }
     ];
 
     logTimeline.forEach((t, i) => {
@@ -1325,7 +1311,7 @@ export function useOnboardingWizard() {
         setSyncProgress(t.progress);
         setSyncStatus(t.status);
         setParserLogs(prev => [...prev, t.log]);
-      }, (i + 1) * 50);
+      }, (i + 1) * 60);
     });
 
     setTimeout(async () => {
@@ -1358,13 +1344,33 @@ export function useOnboardingWizard() {
 
         const formData = new FormData();
         formData.append('file', uploadedFile);
-        formData.append('resume', uploadedFile);
-        formData.append('userId', userId);
-        formData.append('trajectory', trajectory);
-        await api.post('/api/resume/upload', formData);
+        formData.append('category', 'resume');
+        formData.append('primaryName', user?.displayName || user?.email?.split('@')[0] || 'Candidate');
 
-        const computedQT1 = (degree.includes('CS') || degree.includes('Computer')) ? 45 : 38;
-        const computedQT2 = 50;
+        let extractedSkills = skillsList;
+        let atsParsedScore = 0;
+        try {
+          const uploadRes = await api.post<{ ok: boolean; document?: any }>('/api/vault/upload', formData);
+          if (uploadRes?.document?.skills?.length) {
+            extractedSkills = uploadRes.document.skills.join(', ');
+            setParserLogs(prev => [...prev, `[4/5] Extracted ${uploadRes.document.skills.length} skills from resume: ${uploadRes.document.skills.slice(0, 5).join(', ')}...`]);
+          }
+          if (uploadRes?.document?.atsScore) {
+            atsParsedScore = uploadRes.document.atsScore;
+          }
+        } catch {
+          // Fallback if vault upload fails
+        }
+
+        const isCsDegree = degree.toLowerCase().includes('cs') || degree.toLowerCase().includes('computer');
+        const computedQT1 = atsParsedScore > 0 
+          ? Math.min(50, Math.max(25, Math.round(atsParsedScore * 0.5))) 
+          : (isCsDegree ? 42 : 35);
+        const computedQT2 = atsParsedScore > 0 
+          ? Math.min(60, Math.max(30, Math.round(atsParsedScore * 0.6))) 
+          : (isCsDegree ? 48 : 38);
+
+        const finalSkillsList = extractedSkills || skillsList;
 
         const expressGoal = `Become a successful ${trajectoryLabel} in the industry.`;
         const payload = {
@@ -1375,7 +1381,7 @@ export function useOnboardingWizard() {
             role: trajectoryLabel,
             career_goal: expressGoal,
             education: `${degree} at ${college}`,
-            skills: skillsList,
+            skills: finalSkillsList,
             experience: 'fresher',
             hasCompleted: true,
             qt1_score: computedQT1,

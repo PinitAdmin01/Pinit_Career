@@ -143,16 +143,31 @@ export async function POST(req: Request) {
 
     // STAGE 10: Multi-Factor Identity Sentinel Verification
     console.log(`🛡️ [STAGE 10/12 - Identity Sentinel]: Verifying detected identity against profile anchor...`);
-    let verificationStatus: 'verified' | 'mismatch_warning' | 'provisional' = 'verified';
+    let verificationStatus: 'verified' | 'mismatch_warning' | 'provisional' = 'provisional';
     let mismatchReason: string | undefined = undefined;
 
-    if (primaryName && primaryName !== 'Candidate' && detectedName && detectedName !== 'Candidate') {
-      const nameCheck = checkNameSimilarity(primaryName, detectedName);
+    // Use authenticated student's profile name from the database for identity checks, not client-supplied primaryName
+    let dbProfileName = '';
+    try {
+      const { data: userProfile } = await supabase
+        .from('users')
+        .select('display_name, full_name, username')
+        .eq('id', userId)
+        .maybeSingle();
+
+      dbProfileName = (userProfile?.display_name || userProfile?.full_name || userProfile?.username || '').trim();
+    } catch (profileErr) {
+      console.warn('Could not fetch user profile for identity check:', profileErr);
+    }
+
+    if (dbProfileName && dbProfileName !== 'Candidate' && detectedName && detectedName !== 'Candidate') {
+      const nameCheck = checkNameSimilarity(dbProfileName, detectedName);
       if (!nameCheck.isMatch) {
         verificationStatus = 'mismatch_warning';
         mismatchReason = nameCheck.reason;
         console.warn(`🚨 [STAGE 10/12 - Identity Mismatch]: ${nameCheck.reason}`);
       } else {
+        verificationStatus = 'verified';
         console.log(`✅ [STAGE 10/12 - Identity Confirmed]: Confidence = ${nameCheck.confidence}%`);
       }
     }
@@ -236,7 +251,7 @@ export async function POST(req: Request) {
         item_type: itemTypeMap[category] || 'other',
         organization_name: institution,
         description,
-        verified: verificationStatus === 'verified',
+        verified: (verificationStatus as string) === 'verified',
         ai_confidence_score: Math.round(validatedGraph.overallGroundedConfidence * 100),
         skill_tags: skills,
         is_public: true,

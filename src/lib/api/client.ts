@@ -83,7 +83,7 @@ const prefersLiveServer = (path: string): boolean =>
 async function request<T>(method:string, path:string, body?:unknown): Promise<T> {
   // NOTE: /api/admin intentionally omitted from live-prefer list so client RBAC (profile.role) always runs.
   const preferLive = prefersLiveServer(path);
-  if (preferLive && !liveMissPrefixes.has(liveApiPrefix(path))) {
+  if (preferLive && !liveMissPrefixes.has(path)) {
     try {
       let authHeader: Record<string, string> = {};
       try {
@@ -117,11 +117,32 @@ async function request<T>(method:string, path:string, body?:unknown): Promise<T>
         }
         return json as T;
       }
-      if (res.status === 404 || res.status === 405) liveMissPrefixes.add(liveApiPrefix(path));
-      console.warn(`[API Client] Endpoint ${path} returned status ${res.status}. Falling back to client-side FirestoreRouter.`);
+      if (res.status === 404 || res.status === 405) {
+        liveMissPrefixes.add(path);
+        console.warn(`[API Client] Endpoint ${path} returned status ${res.status}. Falling back to client-side FirestoreRouter.`);
+      } else {
+        // Strict fail-closed: 400, 401, 403, 413, 429, 500 must throw ApiError and NEVER fall back to the shim
+        let errJson: any = null;
+        try {
+          errJson = await res.json();
+        } catch {
+          try {
+            const text = await res.text();
+            errJson = { message: text };
+          } catch {}
+        }
+        const errCode = errJson?.error || errJson?.code || `HTTP_${res.status}`;
+        const errMsg = errJson?.message || (typeof errJson?.error === 'string' ? errJson.error : `Request failed with status ${res.status}`);
+        throw new ApiError(res.status, errCode, errMsg, errJson?.details);
+      }
     } catch (err: any) {
-      liveMissPrefixes.add(liveApiPrefix(path));
-      console.warn(`[API Client] Network failure calling ${path}. Falling back to client-side FirestoreRouter:`, err.message);
+      if (err instanceof ApiError) {
+        throw err;
+      }
+      if (err instanceof TypeError || err?.name === 'TypeError') {
+        throw new ApiError(0, 'NETWORK_ERROR', err.message || 'Network error occurred');
+      }
+      throw err;
     }
   }
   try {

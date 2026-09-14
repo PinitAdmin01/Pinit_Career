@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
-import { DEMO_ROLE_BY_EMAIL } from '@/lib/demoAuth';
 import { getUserProfile } from '@/lib/supabaseService';
 
 const devEphemeralKey = crypto.randomBytes(32).toString('hex');
@@ -45,20 +44,14 @@ export async function POST(req: NextRequest) {
     const emailLower = String(rawUser.email || rawUser.username || '').toLowerCase();
     let role = 'student';
 
-    // Authoritative role resolution on server
-    if (rawUser.isDevUser) {
-      role = 'student';
-    } else if (DEMO_ROLE_BY_EMAIL[emailLower]) {
-      role = DEMO_ROLE_BY_EMAIL[emailLower];
-    } else {
-      try {
-        const dbProfile = await getUserProfile(rawUser.id);
-        if (dbProfile?.role) {
-          role = dbProfile.role as string;
-        }
-      } catch {
-        role = 'student';
+    // Authoritative role resolution on server: fetch role from Supabase
+    try {
+      const dbProfile = await getUserProfile(rawUser.id);
+      if (dbProfile?.role) {
+        role = dbProfile.role as string;
       }
+    } catch {
+      role = 'student';
     }
 
     const sanitizedUser = {
