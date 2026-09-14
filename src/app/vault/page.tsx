@@ -76,16 +76,6 @@ export default function VaultPage() {
         ai_confidence_score: 0,
       });
 
-      // Also persist to Firestore
-      api.post('/api/vault', {
-        title: form.title.trim(),
-        item_type: form.itemType,
-        organization_name: form.organizationName.trim(),
-        description: form.description.trim(),
-        skill_tags: skills,
-        verified: false,
-      }).catch(() => {/* offline ok — Supabase / localStorage handles it */});
-
       setShowForm(false);
       setForm({ title: '', itemType: 'project', description: '', organizationName: '', startDate: '', endDate: '' });
     } finally {
@@ -108,7 +98,7 @@ export default function VaultPage() {
     if (!file) return;
     setUploading(true);
     try {
-      console.log(`[VAULT PAGE]: Uploading "${file.name}" to 12-stage ingestion pipeline...`);
+      console.log(`[VAULT PAGE]: Uploading "${file.name}" to ingestion pipeline...`);
       const formData = new FormData();
       formData.append('file', file);
       formData.append('primaryName', user?.displayName || 'Candidate');
@@ -117,24 +107,9 @@ export default function VaultPage() {
       const doc = res.document || res.data;
       if (doc) {
         console.log(`[VAULT PAGE]: Ingestion success: "${doc.title}", Skills: [${doc.skills?.join(', ') || ''}]`);
-        addVaultItem({
-          title: doc.title || file.name,
-          item_type: doc.category === 'resume' ? 'resume' : doc.category === 'certification' ? 'certification' : 'academic',
-          organization_name: doc.institution || 'Verified Portal',
-          description: `Uploaded file: ${doc.fileName} (${doc.fileSize}). Score/GPA: ${doc.scoreOrGpa}. Storage: ${doc.storageUrl || 'Supabase Vault'}`,
-          skill_tags: doc.skills && doc.skills.length > 0 ? doc.skills : ['Verified File'],
-        });
       }
     } catch (err) {
       console.error('[VAULT PAGE UPLOAD ERROR]:', err);
-      const titleWithoutExt = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
-      addVaultItem({
-        title: titleWithoutExt.split('-').join(' ').split('_').join(' ').replace(/\b\w/g, c => c.toUpperCase()),
-        item_type: 'other',
-        organization_name: 'Local Upload',
-        description: `Uploaded file: ${file.name} (${Math.round(file.size / 1024)} KB).`,
-        skill_tags: [file.name.split('.').pop()?.toUpperCase() || 'FILE'],
-      });
     } finally {
       setUploading(false);
     }

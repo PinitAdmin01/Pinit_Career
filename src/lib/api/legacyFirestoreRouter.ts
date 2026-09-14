@@ -1,5 +1,4 @@
 'use client';
-/* eslint-disable @typescript-eslint/no-explicit-any */
 // Legacy Firebase mock router — scheduled for removal. Types not enforced here.
 
 import { supabase } from '@/lib/supabaseClient';

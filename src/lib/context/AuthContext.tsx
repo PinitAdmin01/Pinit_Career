@@ -196,12 +196,13 @@ function sbUserToAppUser(sbUser: SbUser, profile: Record<string, unknown> | null
   };
 }
 
+const CACHE_TTL = 5 * 60 * 1000;
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user,    setUser]    = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const channelRef = useRef<any>(null);
   const profileCacheRef = useRef<{ [uid: string]: { data: any; ts: number } }>({});
-  const CACHE_TTL = 5 * 60 * 1000;
 
   const initializeCareerWorkspace = useCallback((userId: string, userPayload?: any, isNewUser = false) => {
     if (typeof window === 'undefined') return;

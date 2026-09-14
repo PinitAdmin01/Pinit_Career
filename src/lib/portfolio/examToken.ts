@@ -22,36 +22,78 @@ function getExamSigningSecret(): string {
   return (globalThis as any).__pinit_ephemeral_exam_secret;
 }
 
+function deriveAesKey(secret: string): Buffer {
+  return crypto.createHash('sha256').update(secret).digest();
+}
+
+function encryptAnswers(answers: Record<string, number>, secret: string): string {
+  const key = deriveAesKey(secret);
+  const iv = crypto.randomBytes(12);
+  const cipher = crypto.createCipheriv('aes-256-gcm', key, iv);
+  const jsonStr = JSON.stringify(answers);
+  const encrypted = Buffer.concat([cipher.update(jsonStr, 'utf8'), cipher.final()]);
+  const tag = cipher.getAuthTag();
+  return `${iv.toString('base64url')}:${tag.toString('base64url')}:${encrypted.toString('base64url')}`;
+}
+
+function decryptAnswers(encryptedStr: string, secret: string): Record<string, number> | null {
+  try {
+    const [ivStr, tagStr, encStr] = encryptedStr.split(':');
+    if (!ivStr || !tagStr || !encStr) return null;
+    const key = deriveAesKey(secret);
+    const iv = Buffer.from(ivStr, 'base64url');
+    const tag = Buffer.from(tagStr, 'base64url');
+    const enc = Buffer.from(encStr, 'base64url');
+    const decipher = crypto.createDecipheriv('aes-256-gcm', key, iv);
+    decipher.setAuthTag(tag);
+    const decrypted = Buffer.concat([decipher.update(enc), decipher.final()]);
+    return JSON.parse(decrypted.toString('utf8'));
+  } catch {
+    return null;
+  }
+}
+
 export interface ExamSessionPayload {
-  answers: Record<string, number>;
+  encryptedAnswers: string;
+  answerHashes?: Record<string, string>;
   expiresAt: number;
   nonce: string;
   studentId?: string;
 }
 
 /**
- * Signs an exam answer map into a tamper-evident session token.
- * Contains no plaintext question indices readable by clients without verification.
+ * Signs an exam answer map into an encrypted, tamper-evident session token.
+ * Contains NO plaintext answers or question indices readable by clients.
  */
 export function signExamSessionToken(
   answersMap: Record<string, number>,
   durationMinutes = 30,
   studentId?: string
 ): string {
+  const secret = getExamSigningSecret();
+  const encryptedAnswers = encryptAnswers(answersMap, secret);
+
+  // Also compute HMAC hashes per question for tamper-evident verification
+  const answerHashes: Record<string, string> = {};
+  for (const [qId, optIdx] of Object.entries(answersMap)) {
+    answerHashes[qId] = crypto.createHmac('sha256', secret).update(`${qId}:${optIdx}`).digest('hex');
+  }
+
   const payload: ExamSessionPayload = {
-    answers: answersMap,
+    encryptedAnswers,
+    answerHashes,
     expiresAt: Date.now() + durationMinutes * 60 * 1000,
     nonce: crypto.randomBytes(8).toString('hex'),
     ...(studentId ? { studentId } : {}),
   };
-  const secret = getExamSigningSecret();
+
   const data = Buffer.from(JSON.stringify(payload)).toString('base64url');
   const sig = crypto.createHmac('sha256', secret).update(data).digest('base64url');
   return `${data}.${sig}`;
 }
 
 /**
- * Validates cryptographic signature and expiration of an exam session token.
+ * Validates cryptographic HMAC signature, expiration, and decrypts answers with AES-256-GCM.
  */
 export function verifyExamSessionToken(
   token: string
@@ -69,7 +111,9 @@ export function verifyExamSessionToken(
   const secret = getExamSigningSecret();
   const expectedSig = crypto.createHmac('sha256', secret).update(data).digest('base64url');
 
-  if (sig !== expectedSig) {
+  const sigBuf = Buffer.from(sig);
+  const expectedBuf = Buffer.from(expectedSig);
+  if (sigBuf.length !== expectedBuf.length || !crypto.timingSafeEqual(sigBuf, expectedBuf)) {
     return { valid: false, error: 'Cryptographic signature mismatch. Possible tampering detected.' };
   }
 
@@ -78,10 +122,20 @@ export function verifyExamSessionToken(
     if (Date.now() > payload.expiresAt) {
       return { valid: false, error: 'Exam session expired. Please regenerate questions.' };
     }
-    if (!payload.answers || typeof payload.answers !== 'object') {
-      return { valid: false, error: 'Invalid answers envelope.' };
+
+    let answers: Record<string, number> | null = null;
+    if (payload.encryptedAnswers) {
+      answers = decryptAnswers(payload.encryptedAnswers, secret);
+    } else if ((payload as any).answers) {
+      // Backward compatibility fallback for legacy in-flight tokens
+      answers = (payload as any).answers;
     }
-    return { valid: true, answers: payload.answers, studentId: payload.studentId };
+
+    if (!answers || typeof answers !== 'object') {
+      return { valid: false, error: 'Failed to decrypt or decode answers from token.' };
+    }
+
+    return { valid: true, answers, studentId: payload.studentId };
   } catch {
     return { valid: false, error: 'Failed to decode exam token data.' };
   }

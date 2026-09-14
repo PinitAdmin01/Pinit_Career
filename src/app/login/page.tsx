@@ -16,14 +16,21 @@ import {
 } from '@/lib/services/identityGateway';
 
 function LoginContent() {
-  const { user, login, signup, loginWithVaultSession } = useAuth();
+  const { user, login, loginWithVaultSession } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Primary Navigation Tab: 'vault' (QR) vs 'password' (Email/Password Login) vs 'signup' (Create Student Account)
+  // Primary Navigation Tab: 'vault' (QR) vs 'password' (Email/Password Login)
   // Default to 'password' so single-device mobile users and standard students have immediate access
-  const initialMode = searchParams.get('mode') === 'signup' ? 'signup' : searchParams.get('mode') === 'vault' ? 'vault' : 'password';
-  const [mainTab, setMainTab] = useState<'vault' | 'password' | 'signup'>(initialMode);
+  const initialMode = searchParams.get('mode') === 'vault' ? 'vault' : 'password';
+  const [mainTab, setMainTab] = useState<'vault' | 'password'>(initialMode);
+
+  // If query specifies mode=signup, direct cleanly to /signup
+  useEffect(() => {
+    if (searchParams.get('mode') === 'signup') {
+      router.replace('/signup');
+    }
+  }, [searchParams, router]);
 
   // Vault QR & Trusted Device State
   const [isTrustedDevice, setIsTrustedDevice] = useState<boolean>(false);
@@ -34,9 +41,8 @@ function LoginContent() {
   const [secondsRemaining, setSecondsRemaining] = useState<number>(60);
   const [currentStep, setCurrentStep] = useState<number>(1);
 
-  // Password / Signup Form State
+  // Password Form State
   const [loginForm, setLoginForm] = useState({ identifier: '', password: '', role: 'student' });
-  const [signupForm, setSignupForm] = useState({ username: '', displayName: '', password: '' });
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [isSuccessSplash, setIsSuccessSplash] = useState<boolean>(false);
@@ -231,6 +237,10 @@ function LoginContent() {
       setErrorMsg('Please enter your email / username and password.');
       return;
     }
+    if (loginForm.password.length < 8) {
+      setErrorMsg('Password must be at least 8 characters long.');
+      return;
+    }
     setLoading(true);
     setErrorMsg('');
     try {
@@ -250,37 +260,6 @@ function LoginContent() {
       }
     } catch (err: any) {
       setErrorMsg(err.message || 'Invalid credentials. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Student Account Registration Handler
-  const handleSignupSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!signupForm.username || !signupForm.displayName || !signupForm.password) {
-      setErrorMsg('Please fill out all registration fields.');
-      return;
-    }
-    if (signupForm.password.length < 6) {
-      setErrorMsg('Password must be at least 6 characters long.');
-      return;
-    }
-    setLoading(true);
-    setErrorMsg('');
-    try {
-      await signup({
-        username: signupForm.username,
-        displayName: signupForm.displayName,
-        password: signupForm.password,
-        role: 'student'
-      });
-      setIsSuccessSplash(true);
-      setTimeout(() => {
-        router.replace('/onboarding');
-      }, 600);
-    } catch (err: any) {
-      setErrorMsg(err.message || 'Registration failed. Please try a different email.');
     } finally {
       setLoading(false);
     }
@@ -443,24 +422,24 @@ function LoginContent() {
           >
             🔑 Password Sign In
           </button>
-          <button
-            type="button"
-            onClick={() => { setMainTab('signup'); setErrorMsg(''); }}
+          <Link
+            href="/signup"
             style={{
               flex: 1,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
               padding: '9px 12px',
               borderRadius: 10,
               fontSize: 12.5,
               fontWeight: 750,
-              border: 'none',
-              cursor: 'pointer',
-              background: mainTab === 'signup' ? 'var(--accent, #00A3FF)' : 'transparent',
-              color: mainTab === 'signup' ? '#fff' : 'var(--text-secondary, #94A3B8)',
+              color: 'var(--text-secondary, #94A3B8)',
+              textDecoration: 'none',
               transition: 'all 0.2s'
             }}
           >
-            📝 Sign Up
-          </button>
+            📝 Sign Up →
+          </Link>
         </div>
 
         {/* Error Alert Banner */}
@@ -502,7 +481,7 @@ function LoginContent() {
               <div style={{ display: 'flex', gap: 8, marginTop: 4 }}>
                 <button
                   type="button"
-                  onClick={() => { setMainTab('signup'); setErrorMsg(''); }}
+                  onClick={() => router.push('/signup')}
                   style={{
                     flex: 1,
                     background: 'var(--accent, #00A3FF)',

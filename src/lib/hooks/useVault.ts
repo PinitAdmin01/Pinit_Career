@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import { toast } from '@/lib/store/useAppStore';
 import { generateTxId } from '@/lib/utils/transactionId';
+import { api } from '@/lib/api/client';
 
 export interface VaultItem {
   id: string;
@@ -49,6 +50,14 @@ export function useVault(options: UseVaultOptions = {}) {
     }
   }, [storageKey]);
 
+  // Hydrate from Supabase on mount
+  useEffect(() => {
+    if (!userId || userId === 'guest') return;
+    supabase.from('vault_items').select('*').eq('user_id', userId).then(({ data }) => {
+      if (data) setVaultItemsState(data);
+    });
+  }, [userId]);
+
   // Persist helper
   const saveVault = useCallback((items: VaultItem[]) => {
     setVaultItemsState(items);
@@ -91,9 +100,6 @@ export function useVault(options: UseVaultOptions = {}) {
     const updated = [newItem, ...vaultItems];
     saveVault(updated);
 
-    if (onAddXp) {
-      onAddXp(15, 'Added proof to Vault');
-    }
     toast.success('🔒 Added to Vault', `"${item.title}" saved securely.`);
 
     const isRealUserUUID = typeof userId === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(userId);
@@ -123,7 +129,7 @@ export function useVault(options: UseVaultOptions = {}) {
         console.error('Failed to sync vault item to database:', e);
       }
     }
-  }, [vaultItems, userId, onAddXp, saveVault]);
+  }, [vaultItems, userId, saveVault]);
 
   const updateVaultItem = useCallback((id: string, updates: Partial<VaultItem>) => {
     const updated = vaultItems.map(item => {
@@ -140,10 +146,30 @@ export function useVault(options: UseVaultOptions = {}) {
   }, [vaultItems, onAddXp, onEarnPins, saveVault]);
 
   const removeVaultItem = useCallback((id: string) => {
+    const itemToDelete = vaultItems.find(item => item.id === id);
     const updated = vaultItems.filter(item => item.id !== id);
     saveVault(updated);
     toast.info('Item Removed', 'Vault item deleted.');
-  }, [vaultItems, saveVault]);
+
+    if (userId && userId !== 'guest') {
+      supabase
+        .from('vault_items')
+        .delete()
+        .eq('id', id)
+        .then(({ error }) => {
+          if (error) {
+            console.error('Failed to delete vault item from Supabase:', error.message);
+          }
+        });
+
+      api.post('/api/vault/delete', {
+        documentId: id,
+        storageUrl: (itemToDelete as any)?.storage_url || (itemToDelete as any)?.storageUrl,
+      }).catch((err) => {
+        console.warn('Failed to purge vault document file via /api/vault/delete:', err);
+      });
+    }
+  }, [vaultItems, userId, saveVault]);
 
   const verifiedCount = useMemo(() => {
     return vaultItems.filter(v => v.verified).length;

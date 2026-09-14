@@ -18,7 +18,10 @@ export default function VoiceDiagnostic({
   const [speechTranscript, setSpeechTranscript] = useState('');
   const [manualInputMode, setManualInputMode] = useState(false);
   const [speechError, setSpeechError] = useState<string | null>(null);
+  const [measuredRms, setMeasuredRms] = useState<number | null>(null);
   const recognitionRef = useRef<any>(null);
+  const mediaStreamRef = useRef<MediaStream | null>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
 
   const isCommerce = studentType.includes('Commerce') || studentType.includes('B.Com');
   const isManagement = studentType.includes('Management') || studentType.includes('BBA');
@@ -47,19 +50,69 @@ export default function VoiceDiagnostic({
         "☁️ DevOps Cloud SDE: My goal is to design automated CI/CD deployment pipelines and maintain cloud infrastructure."
       ];
 
-  const handleStartCalibration = () => {
+  const handleStartCalibration = async () => {
     setSpeechState('calibrating');
+    setCalibrationProgress(0);
     setAnimState('wave');
-    let p = 0;
-    const iv = setInterval(() => {
-      p += 20;
-      setCalibrationProgress(p);
-      if (p >= 100) {
-        clearInterval(iv);
-        setSpeechState('calibrated');
-        setAnimState('idle');
-      }
-    }, 600);
+    setSpeechError(null);
+
+    try {
+      if (typeof window === 'undefined') return;
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaStreamRef.current = stream;
+
+      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+      const audioCtx = new AudioCtx();
+      audioContextRef.current = audioCtx;
+
+      const analyser = audioCtx.createAnalyser();
+      analyser.fftSize = 256;
+      const source = audioCtx.createMediaStreamSource(stream);
+      source.connect(analyser);
+
+      const bufferLength = analyser.fftSize;
+      const dataArray = new Uint8Array(bufferLength);
+
+      let samples = 0;
+      let totalRms = 0;
+      const durationMs = 2400;
+      const startTime = Date.now();
+
+      const sampleInterval = setInterval(() => {
+        analyser.getByteTimeDomainData(dataArray);
+        let sum = 0;
+        for (let i = 0; i < bufferLength; i++) {
+          const norm = (dataArray[i] - 128) / 128;
+          sum += norm * norm;
+        }
+        const rms = Math.sqrt(sum / bufferLength);
+        totalRms += rms;
+        samples++;
+
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(100, Math.round((elapsed / durationMs) * 100));
+        setCalibrationProgress(progress);
+
+        if (elapsed >= durationMs) {
+          clearInterval(sampleInterval);
+          const avgRms = samples > 0 ? totalRms / samples : 0.05;
+          setMeasuredRms(avgRms);
+
+          stream.getTracks().forEach(t => t.stop());
+          audioCtx.close().catch(() => {});
+
+          setCalibrationProgress(100);
+          setSpeechState('calibrated');
+          setAnimState('idle');
+        }
+      }, 100);
+    } catch (err) {
+      console.warn('[Microphone Calibration] Genuine AudioContext sampling unavailable:', err);
+      setSpeechState('ready');
+      setAnimState('idle');
+      setSpeechError('Microphone permission required for acoustic calibration. You can switch to typing below.');
+      setManualInputMode(true);
+    }
   };
 
   const handleToggleRecording = () => {
@@ -136,7 +189,7 @@ export default function VoiceDiagnostic({
           color: speechState === 'recording' ? 'var(--coral)' : speechState === 'calibrated' ? 'var(--green)' : 'var(--accent)',
           fontWeight: 700
         }}>
-          {speechState === 'recording' ? '● Recording Live' : speechState === 'calibrated' ? '✓ Microphone Calibrated' : 'Microphone Ready'}
+          {speechState === 'recording' ? '● Recording Live' : speechState === 'calibrated' ? (measuredRms !== null ? `✓ Microphone Calibrated (${measuredRms.toFixed(2)} RMS)` : '✓ Microphone Calibrated') : 'Microphone Ready'}
         </span>
       </div>
 

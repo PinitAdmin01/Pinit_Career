@@ -317,7 +317,7 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
                   gap: 5
                 }}>
                   <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#38bdf8', boxShadow: '0 0 6px #38bdf8' }} />
-                  AES-256 GCM SECURED
+                  SECURE VAULT
                 </span>
               </div>
               <p style={{ fontSize: 11.5, color: '#94a3b8', margin: '3px 0 0', display: 'flex', alignItems: 'center', gap: 8 }}>

@@ -19,8 +19,8 @@ export default function SignupPage() {
       setError('Please fill out all credentials.');
       return;
     }
-    if (form.password.length < 6) {
-      setError('Password must be at least 6 characters long.');
+    if (form.password.length < 8) {
+      setError('Password must be at least 8 characters long.');
       return;
     }
 
@@ -108,8 +108,9 @@ export default function SignupPage() {
               type="password"
               value={form.password}
               onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))}
-              placeholder="At least 6 characters"
+              placeholder="At least 8 characters"
               autoComplete="new-password"
+              minLength={8}
               required
             />
           </label>

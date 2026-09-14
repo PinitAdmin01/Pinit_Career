@@ -66,8 +66,31 @@ export default function SettingsTab({ soundscapeVol, setSoundscapeVol }: Setting
               </div>
             </div>
             <button
-              onClick={() => {
-                toast.info('Microphone Checked', 'Audio input level optimal (0.82 RMS). Speech recognition ready.');
+              onClick={async () => {
+                try {
+                  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                  const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+                  const ctx = new AudioCtx();
+                  const analyser = ctx.createAnalyser();
+                  analyser.fftSize = 256;
+                  const src = ctx.createMediaStreamSource(stream);
+                  src.connect(analyser);
+                  const buf = new Uint8Array(analyser.fftSize);
+                  setTimeout(() => {
+                    analyser.getByteTimeDomainData(buf);
+                    let sum = 0;
+                    for (let i = 0; i < buf.length; i++) {
+                      const n = (buf[i] - 128) / 128;
+                      sum += n * n;
+                    }
+                    const rms = Math.sqrt(sum / buf.length);
+                    stream.getTracks().forEach(t => t.stop());
+                    ctx.close().catch(() => {});
+                    toast.info('Microphone Checked', `Audio input level sampled (${rms.toFixed(2)} RMS). Speech recognition ready.`);
+                  }, 400);
+                } catch {
+                  toast.error('Microphone Inaccessible', 'Could not access audio device. Please check browser permissions.');
+                }
               }}
               style={{
                 background: 'var(--bg2)',

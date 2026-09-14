@@ -1,4 +1,4 @@
-﻿import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { validateBody } from '@/lib/server/validate';
 import { z } from 'zod';
@@ -51,8 +51,8 @@ export async function POST(req: Request) {
     });
 
     if (spendErr) {
-      console.warn('[Pin Spend] spend_pins RPC failed:', spendErr.message);
-      return NextResponse.json({ ok: true, spent: spendAmount, featureKey: item });
+      console.error('[Pin Spend] RPC Error:', spendErr.message);
+      return NextResponse.json({ ok: false, error: 'DATABASE_ERROR', message: 'Could not process pin deduction.' }, { status: 500 });
     }
 
     if (!spendRes?.ok) {

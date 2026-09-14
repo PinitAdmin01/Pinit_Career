@@ -124,7 +124,8 @@ export function CertificatesSection({
       if (result.passed) {
         setExamFeedback(`🎉 Verified! Score: ${result.score}%. Credential successfully added to portfolio.`);
         setExamDone(true);
-        const newCert: CertificateItem = { id: `c_${Date.now()}`, title: docTitle, issuer: docIssuer, verified: true };
+        const isVerified = Boolean(result.verified);
+        const newCert: CertificateItem = result.certificate || { id: `c_${Date.now()}`, title: docTitle, issuer: docIssuer, verified: isVerified };
         saveCertificates([...certificates, newCert]);
 
         const newEvt: TimelineItem = {
@@ -133,7 +134,7 @@ export function CertificatesSection({
           category: 'Certification',
           title: docTitle,
           detail: `Credential verified via Socratic Exam (${result.score}%). Issued by ${docIssuer}.`,
-          verified: true
+          verified: isVerified
         };
         saveTimeline([newEvt, ...timeline]);
 

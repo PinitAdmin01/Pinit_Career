@@ -367,38 +367,6 @@ export default function OnboardingPage() {
                 setActiveScreen('CHOOSE_GUIDE');
               }}
               onRepeatVoice={() => speakReply(intentGreeting)}
-              onSkipOnboarding={() => handleOnboardingComplete(studentType || 'Computer Science', targetGoal || 'Software Engineer', accessReason || 'To close skill gaps & earn XP')}
-            />
-          )}
-
-          {/* SCREEN 02: EVOLUTION GAP SLIDER */}
-          {activeScreen === 'SLIDER' && (
-            <CognitiveSliders
-              mode="SLIDER"
-              studentType={studentType}
-              onGoBack={() => setActiveScreen('INTENT_SELECTION')}
-              currentAbility={currentAbility}
-              setCurrentAbility={setCurrentAbility}
-              targetAmbition={targetAmbition}
-              setTargetAmbition={setTargetAmbition}
-              sliderDialogue={getSliderDialogue()}
-              onProceedFromSlider={() => {
-                clearSpeechTimers();
-                setActiveScreen('DEEP_CHAT');
-                setAnimState('nod');
-                const introText = "Welcome to your personal diagnostic assessment! To calibrate your career track, what is your primary academic domain or focus?";
-                setMessages([
-                  {
-                    id: 'welcome_deep',
-                    sender: 'ai',
-                    text: introText,
-                    timestamp: Date.now()
-                  }
-                ]);
-                scheduleSpeech(() => {
-                  speakReply(introText);
-                }, 100);
-              }}
             />
           )}
 

@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { createClient } from '@supabase/supabase-js';
 import { verifyExamSessionToken } from '@/lib/portfolio/examToken';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 
@@ -9,7 +10,10 @@ export async function POST(req: Request) {
     if (gated.error) return gated.error;
 
     const body = await req.json();
-    const { examSessionToken, selectedAnswers } = body;
+    const { examSessionToken } = body;
+    const selectedAnswers = body.selectedAnswers || body.answers;
+    const certificateTitle = (body.certificateTitle || body.title || 'Verified Certificate').trim();
+    const issuer = (body.issuer || 'PinIT Exam Engine').trim();
 
     if (!examSessionToken || typeof examSessionToken !== 'string') {
       return NextResponse.json(
@@ -66,9 +70,78 @@ export async function POST(req: Request) {
     const passThreshold = Math.ceil(total * 0.6);
     const passed = correctCount >= passThreshold;
 
+    let savedCertificate: any = null;
+    if (passed) {
+      const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+      const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+      const supabaseAdmin = createClient(url, serviceKey || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '', {
+        auth: { persistSession: false, autoRefreshToken: false },
+      });
+
+      try {
+        const { data: existingRow } = await supabaseAdmin
+          .from('portfolio_items')
+          .select('item_data')
+          .eq('user_id', gated.user!.id)
+          .eq('item_type', 'certificates')
+          .maybeSingle();
+
+        const existingItems = Array.isArray(existingRow?.item_data?.items)
+          ? existingRow.item_data.items
+          : Array.isArray(existingRow?.item_data)
+          ? existingRow.item_data
+          : [];
+
+        const certId = `c_${Date.now()}`;
+        let matched = false;
+        const updatedCerts = existingItems.map((c: any) => {
+          if (c.title && c.title.toLowerCase().trim() === certificateTitle.toLowerCase().trim()) {
+            matched = true;
+            savedCertificate = {
+              ...c,
+              verified: true,
+              score: scorePercentage,
+              verifiedAt: new Date().toISOString(),
+            };
+            return savedCertificate;
+          }
+          return c;
+        });
+
+        if (!matched) {
+          savedCertificate = {
+            id: certId,
+            title: certificateTitle,
+            issuer,
+            verified: true,
+            score: scorePercentage,
+            verifiedAt: new Date().toISOString(),
+          };
+          updatedCerts.push(savedCertificate);
+        }
+
+        const { error: upsertErr } = await supabaseAdmin
+          .from('portfolio_items')
+          .upsert({
+            user_id: gated.user!.id,
+            item_type: 'certificates',
+            item_data: { items: updatedCerts },
+            updated_at: new Date().toISOString(),
+          }, { onConflict: 'user_id,item_type' });
+
+        if (upsertErr) {
+          console.error('[VerifyExam] Failed to persist verified certificate to portfolio_items:', upsertErr.message);
+        }
+      } catch (dbErr) {
+        console.error('[VerifyExam] Error persisting to portfolio_items:', dbErr);
+      }
+    }
+
     return NextResponse.json({
       ok: true,
       passed,
+      verified: passed,
+      certificate: savedCertificate,
       score: scorePercentage,
       total,
       correctCount,
