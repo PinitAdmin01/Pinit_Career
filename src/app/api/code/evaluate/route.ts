@@ -275,24 +275,25 @@ const { parentPort, workerData } = require('node:worker_threads');
 const vm = require('node:vm');
 const { cleanCode, functionName, totalTests, evaluatorCode } = workerData;
 
+const INIT_REALM = \`
+  var console = { log: function(){}, error: function(){}, warn: function(){}, info: function(){} };
+  function TreeNode(val, left, right) {
+    this.val = (val === undefined ? 0 : val);
+    this.left = (left === undefined ? null : left);
+    this.right = (right === undefined ? null : right);
+  }
+\`;
+
 try {
-  const sandbox = Object.create(null);
-  const context = vm.createContext(sandbox);
+  // Context A: student code runs here
+  const sandboxA = Object.create(null);
+  const contextA = vm.createContext(sandboxA);
+  vm.runInContext(INIT_REALM, contextA);
 
-  // Initialize console safely inside the VM realm
-  vm.runInContext(\`
-    var console = { log: function(){}, error: function(){}, warn: function(){}, info: function(){} };
-    function TreeNode(val, left, right) {
-      this.val = (val === undefined ? 0 : val);
-      this.left = (left === undefined ? null : left);
-      this.right = (right === undefined ? null : right);
-    }
-  \`, context);
-
-  // 1. Evaluate student script in isolation
+  // 1. Evaluate student script in context A
   try {
     const script = new vm.Script(cleanCode, { filename: 'submission.js' });
-    script.runInContext(context, { timeout: 1500 });
+    script.runInContext(contextA, { timeout: 1500 });
   } catch (compileErr) {
     parentPort.postMessage({
       passed: false,
@@ -304,8 +305,8 @@ try {
     process.exit(0);
   }
 
-  // 2. Assert that the required function exists
-  const fnExists = vm.runInContext('typeof ' + functionName + " === 'function'", context);
+  // 2. Assert that the required function exists in context A
+  const fnExists = vm.runInContext('typeof ' + functionName + " === 'function'", contextA);
   if (!fnExists) {
     parentPort.postMessage({
       passed: false,
@@ -317,9 +318,17 @@ try {
     process.exit(0);
   }
 
-  // 3. Run authoritative tests in a separate step
+  // 3. Run evaluator in a FRESH context B — student code never ran here, so
+  //    JSON.stringify, String, and other intrinsics are untouched.
+  //    The student function is injected via the sandbox so contextB can call it.
+  const sandboxB = Object.create(null);
+  const contextB = vm.createContext(sandboxB);
+  vm.runInContext(INIT_REALM, contextB);
+  // Inject the student's function from A into B by reference
+  sandboxB[functionName] = sandboxA[functionName];
+
   const evalScript = new vm.Script('(function() { ' + evaluatorCode + ' })()', { filename: 'evaluator.js' });
-  const result = evalScript.runInContext(context, { timeout: 1500 });
+  const result = evalScript.runInContext(contextB, { timeout: 1500 });
   parentPort.postMessage({
     passed: Boolean(result && result.passed),
     status: result && result.status ? result.status : (result && result.passed ? 'SUCCESS' : 'FAILED'),
@@ -339,25 +348,26 @@ try {
 }
 `;
 
+const INIT_REALM_CODE = `
+  var console = { log: function(){}, error: function(){}, warn: function(){}, info: function(){} };
+  function TreeNode(val, left, right) {
+    this.val = (val === undefined ? 0 : val);
+    this.left = (left === undefined ? null : left);
+    this.right = (right === undefined ? null : right);
+  }
+`;
+
 export function runEvaluationInVmDirectly(data: SandboxExecutionParams): EvaluatorResult {
   try {
-    const sandbox: Record<string, any> = Object.create(null);
-    const context = vm.createContext(sandbox);
+    // Context A: student code
+    const sandboxA: Record<string, any> = Object.create(null);
+    const contextA = vm.createContext(sandboxA);
+    vm.runInContext(INIT_REALM_CODE, contextA);
 
-    // Initialize console safely inside the VM realm
-    vm.runInContext(`
-      var console = { log: function(){}, error: function(){}, warn: function(){}, info: function(){} };
-      function TreeNode(val, left, right) {
-        this.val = (val === undefined ? 0 : val);
-        this.left = (left === undefined ? null : left);
-        this.right = (right === undefined ? null : right);
-      }
-    `, context);
-
-    // 1. Evaluate student script in isolation
+    // 1. Evaluate student script in context A
     try {
       const script = new vm.Script(data.cleanCode, { filename: 'submission.js' });
-      script.runInContext(context, { timeout: 1500 });
+      script.runInContext(contextA, { timeout: 1500 });
     } catch (compileErr: any) {
       return {
         passed: false,
@@ -369,7 +379,7 @@ export function runEvaluationInVmDirectly(data: SandboxExecutionParams): Evaluat
     }
 
     // 2. Assert that the required function exists
-    const fnExists = vm.runInContext(`typeof ${data.functionName} === 'function'`, context);
+    const fnExists = vm.runInContext(`typeof ${data.functionName} === 'function'`, contextA);
     if (!fnExists) {
       return {
         passed: false,
@@ -380,9 +390,14 @@ export function runEvaluationInVmDirectly(data: SandboxExecutionParams): Evaluat
       };
     }
 
-    // 3. Run authoritative tests in a separate step
+    // 3. Run evaluator in a FRESH context B so student can't forge built-ins
+    const sandboxB: Record<string, any> = Object.create(null);
+    const contextB = vm.createContext(sandboxB);
+    vm.runInContext(INIT_REALM_CODE, contextB);
+    sandboxB[data.functionName] = sandboxA[data.functionName];
+
     const evalScript = new vm.Script(`(function() { ${data.evaluatorCode} })()`, { filename: 'evaluator.js' });
-    const result = evalScript.runInContext(context, { timeout: 1500 });
+    const result = evalScript.runInContext(contextB, { timeout: 1500 });
     return {
       passed: Boolean(result && result.passed),
       status: result && result.status ? result.status : (result && result.passed ? 'SUCCESS' : 'FAILED'),

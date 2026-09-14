@@ -220,8 +220,14 @@ export async function verifyPaywallAccess(
   featureKey: string
 ): Promise<NextResponse | null> {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
-  if (!url || !serviceKey) return null;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+  // Fail closed — never grant access when env is misconfigured
+  if (!url || !serviceKey) {
+    return NextResponse.json(
+      { error: 'SERVICE_UNAVAILABLE', message: 'Paywall check service not configured.' },
+      { status: 503 }
+    );
+  }
 
   const admin = createClient(url, serviceKey, {
     auth: { persistSession: false, autoRefreshToken: false },
@@ -254,20 +260,29 @@ export async function verifyPaywallAccess(
   const isNotExpired = !expiresAt || expiresAt > Date.now();
 
   if (isSubActive && isNotExpired) {
-    return null; // Access granted via active subscription
+    return null;
   }
 
-  // 2. Check users.unlocked_items[featureKey]
+  // 2. Check users.unlocked_items written server-side by /api/pins/spend
   const unlockedItems = userProfile.unlocked_items;
   if (unlockedItems && typeof unlockedItems === 'object') {
-    const featureExpiry =
-      unlockedItems[featureKey] ||
-      unlockedItems['ai'] ||
-      unlockedItems['ai_interview'] ||
-      unlockedItems['interview'];
-
-    if (typeof featureExpiry === 'number' && featureExpiry > Date.now()) {
-      return null; // Access granted via valid unlocked feature
+    const now = Date.now();
+    // Accept the exact key, any interview: prefix variant, or the broad category aliases
+    const keysToCheck: string[] = [featureKey];
+    if (featureKey.startsWith('interview:')) {
+      keysToCheck.push('interview', 'ai_interview', 'ai');
+    }
+    for (const key of keysToCheck) {
+      const expiry = (unlockedItems as Record<string, number>)[key];
+      if (typeof expiry === 'number' && expiry > now) {
+        return null;
+      }
+    }
+    // Also accept any stored key that is a prefix of the requested featureKey
+    for (const [storedKey, expiry] of Object.entries(unlockedItems as Record<string, number>)) {
+      if (featureKey.startsWith(storedKey + ':') && typeof expiry === 'number' && expiry > now) {
+        return null;
+      }
     }
   }
 

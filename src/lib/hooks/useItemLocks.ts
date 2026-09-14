@@ -52,19 +52,11 @@ export function useItemLocks(options: UseItemLocksOptions = {}) {
     })();
   }, [userId]);
 
+  // Only updates local state; the authoritative DB write is done server-side
+  // by /api/pins/spend after a successful pin deduction (B3 fix).
   const saveUnlockedItems = useCallback((items: Record<string, number>) => {
     setUnlockedItemsState(items);
-    if (userId && userId !== 'guest') {
-      (async () => {
-        try {
-          await supabase
-            .from('users')
-            .update({ unlocked_items: items })
-            .eq('id', userId);
-        } catch {}
-      })();
-    }
-  }, [userId]);
+  }, []);
 
   const isItemUnlocked = useCallback((itemKey: string): boolean => {
     const expiresAt = unlockedItems[itemKey];

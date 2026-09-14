@@ -1268,31 +1268,82 @@ BEGIN
 END $$;
 
 -- ── 14. Revoke public access on dangerous/money-moving procedures ─────────────
-REVOKE EXECUTE ON FUNCTION public.spend_pins(UUID, INTEGER, TEXT) FROM PUBLIC, anon, authenticated;
-REVOKE EXECUTE ON FUNCTION public.credit_pins(UUID, INTEGER, TEXT, TEXT) FROM PUBLIC, anon, authenticated;
-REVOKE EXECUTE ON FUNCTION public.process_fee_installment_payment(TEXT, TEXT, TEXT, TEXT, TEXT) FROM PUBLIC, anon, authenticated;
-REVOKE EXECUTE ON FUNCTION public.apply_student_scholarship(UUID, TEXT, NUMERIC, TEXT) FROM PUBLIC, anon, authenticated;
-REVOKE EXECUTE ON FUNCTION public.apply_student_scholarship_relational(UUID, TEXT, NUMERIC, TEXT) FROM PUBLIC, anon, authenticated;
-REVOKE EXECUTE ON FUNCTION public.perform_daily_pin_reset() FROM PUBLIC, anon, authenticated;
-REVOKE EXECUTE ON FUNCTION public.get_finance_dashboard_aggregates() FROM PUBLIC, anon, authenticated;
-REVOKE EXECUTE ON FUNCTION public.increment_xp(uuid, integer, text) FROM PUBLIC, anon, authenticated;
-REVOKE EXECUTE ON FUNCTION public.award_prestige_badge(uuid, text, text) FROM PUBLIC, anon, authenticated;
-REVOKE EXECUTE ON FUNCTION public.purchase_ai_minutes(uuid, integer, integer) FROM PUBLIC, anon, authenticated;
-REVOKE EXECUTE ON FUNCTION public.apply_feature_grace_extension(uuid, text, integer) FROM PUBLIC, anon, authenticated;
-REVOKE EXECUTE ON FUNCTION public.get_pin_balance(uuid) FROM PUBLIC, anon;
-
-GRANT EXECUTE ON FUNCTION public.spend_pins(UUID, INTEGER, TEXT) TO service_role;
-GRANT EXECUTE ON FUNCTION public.credit_pins(UUID, INTEGER, TEXT, TEXT) TO service_role;
-GRANT EXECUTE ON FUNCTION public.process_fee_installment_payment(TEXT, TEXT, TEXT, TEXT, TEXT) TO service_role;
-GRANT EXECUTE ON FUNCTION public.apply_student_scholarship(UUID, TEXT, NUMERIC, TEXT) TO service_role;
-GRANT EXECUTE ON FUNCTION public.apply_student_scholarship_relational(UUID, TEXT, NUMERIC, TEXT) TO service_role;
-GRANT EXECUTE ON FUNCTION public.perform_daily_pin_reset() TO service_role;
-GRANT EXECUTE ON FUNCTION public.get_finance_dashboard_aggregates() TO service_role;
-GRANT EXECUTE ON FUNCTION public.increment_xp(uuid, integer, text) TO service_role;
-GRANT EXECUTE ON FUNCTION public.award_prestige_badge(uuid, text, text) TO service_role;
-GRANT EXECUTE ON FUNCTION public.purchase_ai_minutes(uuid, integer, integer) TO service_role;
-GRANT EXECUTE ON FUNCTION public.apply_feature_grace_extension(uuid, text, integer) TO service_role;
-GRANT EXECUTE ON FUNCTION public.get_pin_balance(uuid) TO service_role;
+-- Each block is guarded with to_regprocedure so the migration never aborts on a
+-- fresh database that is missing one of these functions.
+DO $$ BEGIN
+  IF to_regprocedure('public.spend_pins(uuid,integer,text)') IS NOT NULL THEN
+    REVOKE EXECUTE ON FUNCTION public.spend_pins(UUID, INTEGER, TEXT) FROM PUBLIC, anon, authenticated;
+    GRANT  EXECUTE ON FUNCTION public.spend_pins(UUID, INTEGER, TEXT) TO service_role;
+  END IF;
+END $$;
+DO $$ BEGIN
+  IF to_regprocedure('public.credit_pins(uuid,integer,text,text)') IS NOT NULL THEN
+    REVOKE EXECUTE ON FUNCTION public.credit_pins(UUID, INTEGER, TEXT, TEXT) FROM PUBLIC, anon, authenticated;
+    GRANT  EXECUTE ON FUNCTION public.credit_pins(UUID, INTEGER, TEXT, TEXT) TO service_role;
+  END IF;
+END $$;
+DO $$ BEGIN
+  IF to_regprocedure('public.process_fee_installment_payment(text,text,text,text,text)') IS NOT NULL THEN
+    REVOKE EXECUTE ON FUNCTION public.process_fee_installment_payment(TEXT, TEXT, TEXT, TEXT, TEXT) FROM PUBLIC, anon, authenticated;
+    GRANT  EXECUTE ON FUNCTION public.process_fee_installment_payment(TEXT, TEXT, TEXT, TEXT, TEXT) TO service_role;
+  END IF;
+END $$;
+DO $$ BEGIN
+  -- Real signature uses TEXT for p_student_id (not UUID)
+  IF to_regprocedure('public.apply_student_scholarship(text,text,numeric,text)') IS NOT NULL THEN
+    REVOKE EXECUTE ON FUNCTION public.apply_student_scholarship(TEXT, TEXT, NUMERIC, TEXT) FROM PUBLIC, anon, authenticated;
+    GRANT  EXECUTE ON FUNCTION public.apply_student_scholarship(TEXT, TEXT, NUMERIC, TEXT) TO service_role;
+  END IF;
+END $$;
+DO $$ BEGIN
+  -- Real signature uses TEXT for p_student_id (not UUID)
+  IF to_regprocedure('public.apply_student_scholarship_relational(text,text,numeric,text)') IS NOT NULL THEN
+    REVOKE EXECUTE ON FUNCTION public.apply_student_scholarship_relational(TEXT, TEXT, NUMERIC, TEXT) FROM PUBLIC, anon, authenticated;
+    GRANT  EXECUTE ON FUNCTION public.apply_student_scholarship_relational(TEXT, TEXT, NUMERIC, TEXT) TO service_role;
+  END IF;
+END $$;
+DO $$ BEGIN
+  IF to_regprocedure('public.perform_daily_pin_reset()') IS NOT NULL THEN
+    REVOKE EXECUTE ON FUNCTION public.perform_daily_pin_reset() FROM PUBLIC, anon, authenticated;
+    GRANT  EXECUTE ON FUNCTION public.perform_daily_pin_reset() TO service_role;
+  END IF;
+END $$;
+DO $$ BEGIN
+  IF to_regprocedure('public.get_finance_dashboard_aggregates()') IS NOT NULL THEN
+    REVOKE EXECUTE ON FUNCTION public.get_finance_dashboard_aggregates() FROM PUBLIC, anon, authenticated;
+    GRANT  EXECUTE ON FUNCTION public.get_finance_dashboard_aggregates() TO service_role;
+  END IF;
+END $$;
+DO $$ BEGIN
+  IF to_regprocedure('public.increment_xp(uuid,integer,text)') IS NOT NULL THEN
+    REVOKE EXECUTE ON FUNCTION public.increment_xp(uuid, integer, text) FROM PUBLIC, anon, authenticated;
+    GRANT  EXECUTE ON FUNCTION public.increment_xp(uuid, integer, text) TO service_role;
+  END IF;
+END $$;
+DO $$ BEGIN
+  IF to_regprocedure('public.award_prestige_badge(uuid,text,text)') IS NOT NULL THEN
+    REVOKE EXECUTE ON FUNCTION public.award_prestige_badge(uuid, text, text) FROM PUBLIC, anon, authenticated;
+    GRANT  EXECUTE ON FUNCTION public.award_prestige_badge(uuid, text, text) TO service_role;
+  END IF;
+END $$;
+DO $$ BEGIN
+  IF to_regprocedure('public.purchase_ai_minutes(uuid,integer,integer)') IS NOT NULL THEN
+    REVOKE EXECUTE ON FUNCTION public.purchase_ai_minutes(uuid, integer, integer) FROM PUBLIC, anon, authenticated;
+    GRANT  EXECUTE ON FUNCTION public.purchase_ai_minutes(uuid, integer, integer) TO service_role;
+  END IF;
+END $$;
+DO $$ BEGIN
+  IF to_regprocedure('public.apply_feature_grace_extension(uuid,text,integer)') IS NOT NULL THEN
+    REVOKE EXECUTE ON FUNCTION public.apply_feature_grace_extension(uuid, text, integer) FROM PUBLIC, anon, authenticated;
+    GRANT  EXECUTE ON FUNCTION public.apply_feature_grace_extension(uuid, text, integer) TO service_role;
+  END IF;
+END $$;
+DO $$ BEGIN
+  IF to_regprocedure('public.get_pin_balance(uuid)') IS NOT NULL THEN
+    REVOKE EXECUTE ON FUNCTION public.get_pin_balance(uuid) FROM PUBLIC, anon;
+    GRANT  EXECUTE ON FUNCTION public.get_pin_balance(uuid) TO service_role;
+  END IF;
+END $$;
 
 -- ── 15. Fix Campus Status Trigger, Isolate Finance Dues & Restore Anti-Cheat ─
 CREATE OR REPLACE FUNCTION public.prevent_privilege_escalation()
@@ -1337,7 +1388,11 @@ BEGIN
        OR new.mission_streak IS DISTINCT FROM old.mission_streak
        OR new.missions_completed IS DISTINCT FROM old.missions_completed
        OR new.vault_count IS DISTINCT FROM old.vault_count
-       OR new.interviews_done IS DISTINCT FROM old.interviews_done THEN
+       OR new.interviews_done IS DISTINCT FROM old.interviews_done
+       OR new.unlocked_items IS DISTINCT FROM old.unlocked_items
+       OR new.badges IS DISTINCT FROM old.badges
+       OR new.endorsed_skills IS DISTINCT FROM old.endorsed_skills
+       OR new.recruiter_visible IS DISTINCT FROM old.recruiter_visible THEN
       new.xp_total := old.xp_total;
       new.xp_level := old.xp_level;
       new.completed_quests := old.completed_quests;
@@ -1358,6 +1413,10 @@ BEGIN
       new.missions_completed := old.missions_completed;
       new.vault_count := old.vault_count;
       new.interviews_done := old.interviews_done;
+      new.unlocked_items := old.unlocked_items;
+      new.badges := old.badges;
+      new.endorsed_skills := old.endorsed_skills;
+      new.recruiter_visible := old.recruiter_visible;
     END IF;
   END IF;
   RETURN new;

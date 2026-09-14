@@ -127,7 +127,11 @@ BEGIN
        OR new.mission_streak IS DISTINCT FROM old.mission_streak
        OR new.missions_completed IS DISTINCT FROM old.missions_completed
        OR new.vault_count IS DISTINCT FROM old.vault_count
-       OR new.interviews_done IS DISTINCT FROM old.interviews_done THEN
+       OR new.interviews_done IS DISTINCT FROM old.interviews_done
+       OR new.unlocked_items IS DISTINCT FROM old.unlocked_items
+       OR new.badges IS DISTINCT FROM old.badges
+       OR new.endorsed_skills IS DISTINCT FROM old.endorsed_skills
+       OR new.recruiter_visible IS DISTINCT FROM old.recruiter_visible THEN
       new.xp_total := old.xp_total;
       new.xp_level := old.xp_level;
       new.completed_quests := old.completed_quests;
@@ -148,6 +152,10 @@ BEGIN
       new.missions_completed := old.missions_completed;
       new.vault_count := old.vault_count;
       new.interviews_done := old.interviews_done;
+      new.unlocked_items := old.unlocked_items;
+      new.badges := old.badges;
+      new.endorsed_skills := old.endorsed_skills;
+      new.recruiter_visible := old.recruiter_visible;
     END IF;
   END IF;
   RETURN new;

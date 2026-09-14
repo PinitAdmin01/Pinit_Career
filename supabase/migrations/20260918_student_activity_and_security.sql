@@ -63,35 +63,6 @@ CREATE POLICY "Users can insert own audit logs" ON public.audit_logs
     )
   );
 
--- 4. Authoritative privilege escalation trigger
--- Ensures students can update their recruiter visibility and onboarding settings
-CREATE OR REPLACE FUNCTION public.prevent_privilege_escalation()
-RETURNS TRIGGER
-LANGUAGE plpgsql
-SECURITY DEFINER
-SET search_path = public
-AS $$
-BEGIN
-  IF new.role IS DISTINCT FROM old.role
-     OR new.pins IS DISTINCT FROM old.pins
-     OR coalesce(new.subscription_tier, 'free') IS DISTINCT FROM coalesce(old.subscription_tier, 'free')
-     OR new.ats_score IS DISTINCT FROM old.ats_score
-     OR new.trust_score IS DISTINCT FROM old.trust_score
-     OR new.subscription_started_at IS DISTINCT FROM old.subscription_started_at
-     OR new.subscription_expires_at IS DISTINCT FROM old.subscription_expires_at
-     OR coalesce(new.subscription_status, 'none') IS DISTINCT FROM coalesce(old.subscription_status, 'none') THEN
-    IF auth.uid() IS NOT NULL AND auth.uid() = old.id THEN
-      -- Block self-service privilege / economy / score / subscription forgery
-      new.role                    := old.role;
-      new.pins                    := old.pins;
-      new.subscription_tier       := old.subscription_tier;
-      new.ats_score               := old.ats_score;
-      new.trust_score             := old.trust_score;
-      new.subscription_started_at := old.subscription_started_at;
-      new.subscription_expires_at := old.subscription_expires_at;
-      new.subscription_status     := old.subscription_status;
-    END IF;
-  END IF;
-  RETURN new;
-END;
-$$;
+-- NOTE: prevent_privilege_escalation() is defined in 20260918_fix_campus_dues_and_anticheat.sql
+-- which sorts before this file. Do NOT redefine it here — that would overwrite the full
+-- XP/quest/score/unlocked_items guards with an incomplete version.
