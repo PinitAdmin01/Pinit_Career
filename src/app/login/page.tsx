@@ -57,11 +57,13 @@ function LoginContent() {
         !!localStorage.getItem(`pinit_${user.id}_onboarding_answers`);
       const onboardCompleted = dbSaysComplete || localSaysComplete;
 
-      const redirectTo = searchParams.get('redirect');
+      const rawRedirect = searchParams.get('redirect');
+      const isSafeRelative = rawRedirect && rawRedirect.startsWith('/') && !rawRedirect.startsWith('//');
+      const destination = isSafeRelative ? rawRedirect : '/dashboard';
       if (!onboardCompleted) {
         router.push('/onboarding');
       } else {
-        router.push(redirectTo || '/dashboard');
+        router.push(destination);
       }
     }
   }, [user, isSuccessSplash, router, searchParams]);
@@ -238,10 +240,6 @@ function LoginContent() {
       setErrorMsg('Please enter your email / username and password.');
       return;
     }
-    if (loginForm.password.length < 8) {
-      setErrorMsg('Password must be at least 8 characters long.');
-      return;
-    }
     setLoading(true);
     setErrorMsg('');
     try {
@@ -253,11 +251,13 @@ function LoginContent() {
         !!localStorage.getItem(`pinit_${loggedInUser?.id}_onboarding_answers`);
       const onboardCompleted = dbSaysComplete || localSaysComplete;
 
-      const redirectTo = searchParams.get('redirect');
+      const rawRedirect = searchParams.get('redirect');
+      const isSafeRelative = rawRedirect && rawRedirect.startsWith('/') && !rawRedirect.startsWith('//');
+      const destination = isSafeRelative ? rawRedirect : '/dashboard';
       if (!onboardCompleted) {
         router.push('/onboarding');
       } else {
-        router.push(redirectTo || '/dashboard');
+        router.push(destination);
       }
     } catch (err: any) {
       setErrorMsg(err.message || 'Invalid credentials. Please try again.');

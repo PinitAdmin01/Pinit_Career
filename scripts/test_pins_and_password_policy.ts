@@ -35,11 +35,10 @@ async function run() {
     signupCode.includes('Password must be at least 8 characters long.');
   assert(hasSignup8Chars, 'Test 2: src/app/signup/page.tsx enforces password minimum length of 8 characters');
 
-  // Test 3: Login page enforces 8 characters minimum in handlePasswordLogin
+  // Test 3: Login page allows legacy passwords without blocking valid credentials
   const loginCode = fs.readFileSync(path.join(process.cwd(), 'src/app/login/page.tsx'), 'utf-8');
-  const hasLogin8Chars = loginCode.includes('loginForm.password.length < 8') &&
-    loginCode.includes('Password must be at least 8 characters long.');
-  assert(hasLogin8Chars, 'Test 3: src/app/login/page.tsx enforces password minimum length of 8 characters');
+  const allowsLegacyLoginPasswords = !loginCode.includes('loginForm.password.length < 8');
+  assert(allowsLegacyLoginPasswords, 'Test 3: src/app/login/page.tsx allows legacy passwords at login without locking users out');
 
   // Test 4: Reset password page enforces 8 characters minimum
   const resetCode = fs.readFileSync(path.join(process.cwd(), 'src/app/reset-password/page.tsx'), 'utf-8');

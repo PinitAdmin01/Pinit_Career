@@ -54,16 +54,12 @@ function BiometricHardwareModal({ onClose }: { onClose: () => void }) {
           alignItems: 'center',
           gap: 10
         }}>
-          <span>💡</span>
-          <span>Biometric hardware enrollment is available via campus lab workstations.</span>
+          <span>ℹ️</span>
+          <span>Hardware biometric authentication is not configured for this device or browser.</span>
         </div>
 
         <p style={{ fontSize: 12.5, color: 'var(--t3)', margin: 0, lineHeight: 1.6 }}>
-          To guarantee hardware-backed cryptographic attestation and eliminate spoofing risks, physical biometric hardware (IR depth cameras and fingerprint scanners) must be registered directly at authorized campus lab workstations.
-        </p>
-
-        <p style={{ fontSize: 12, color: 'var(--t3)', margin: 0, lineHeight: 1.5 }}>
-          Once enrolled on a lab workstation, your biometric identity tokens sync securely with your Career OS account for seamless passwordless authentication.
+          Hardware biometric authentication is not configured for this device or browser. You can sign in using your account password or the PinIT Vault QR code scanner.
         </p>
 
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 4 }}>
@@ -145,9 +141,9 @@ function SecurityFaceLogin({ onOpenBiometricInfo }: SecurityFaceLoginProps) {
             type="button"
             onClick={handleOpenInfo}
             className="btn-ghost btn-sm"
-            title="Biometric hardware enrollment is available via campus lab workstations."
+            title="Hardware biometric authentication is not configured for this device or browser."
           >
-            Hardware Enrollment →
+            Biometric Hardware Info →
           </button>
           {faceEnrolled && (
             <button onClick={removeEnrollment} className="btn-ghost btn-sm" style={{ color:'var(--coral)' }}>✕ Remove</button>
@@ -189,7 +185,7 @@ export default function SecurityTab({ logout, router }: SecurityTabProps) {
       <div style={CS.card}>
         <div style={CS.cardTitle}>📱 QR &amp; Hardware Biometrics</div>
         <div style={{ fontSize:12, color:'var(--t3)', marginBottom:10, lineHeight:1.5 }}>
-          Scan a QR code on another device or authenticate via dedicated campus biometric terminals.
+          Scan a QR code on another device or authenticate with PinIT Vault.
         </div>
         <div
           style={{
@@ -204,18 +200,18 @@ export default function SecurityTab({ logout, router }: SecurityTabProps) {
             fontSize: 12,
             color: 'var(--t2)'
           }}
-          title="Biometric hardware enrollment is available via campus lab workstations."
+          title="Hardware biometric authentication is not configured for this device or browser."
         >
           <span style={{ fontSize: 14 }}>ℹ️</span>
-          <span>Biometric hardware enrollment is available via campus lab workstations.</span>
+          <span>Hardware biometric authentication is not configured for this device or browser.</span>
         </div>
         <button
           type="button"
           onClick={() => setShowBiometricModal(true)}
           className="btn-ghost btn-sm"
-          title="Biometric hardware enrollment is available via campus lab workstations."
+          title="Hardware biometric authentication is not configured for this device or browser."
         >
-          Workstation Enrollment Info →
+          Biometric Hardware Info →
         </button>
       </div>
       <div style={{ ...CS.card, borderColor:'rgba(var(--danger-rgb), 0.2)' }}>
