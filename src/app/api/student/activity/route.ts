@@ -28,12 +28,43 @@ export async function GET(req: Request) {
 
     // 1. Query audit_logs strictly for entries related to this student
     try {
-      const { data: auditLogs, error: auditErr } = await supabase
+      let auditLogs: any[] = [];
+      let auditErr: any = null;
+
+      // Primary query: check actor_id or target_id, ordered by created_at
+      const res = await supabase
         .from('audit_logs')
         .select('*')
         .or(`actor_id.eq.${studentId},target_id.eq.${studentId}`)
         .order('created_at', { ascending: false })
         .limit(50);
+
+      auditLogs = res.data || [];
+      auditErr = res.error;
+
+      // Fallback 1: If created_at column does not exist yet, order by timestamp
+      if (auditErr && auditErr.message && auditErr.message.includes('created_at')) {
+        const retry = await supabase
+          .from('audit_logs')
+          .select('*')
+          .or(`actor_id.eq.${studentId},target_id.eq.${studentId}`)
+          .order('timestamp', { ascending: false })
+          .limit(50);
+        auditLogs = retry.data || [];
+        auditErr = retry.error;
+      }
+
+      // Fallback 2: If actor_id column does not exist on legacy table, query by admin_id / target_id
+      if (auditErr && auditErr.message && auditErr.message.includes('actor_id')) {
+        const retry = await supabase
+          .from('audit_logs')
+          .select('*')
+          .or(`admin_id.eq.${studentId},target_id.eq.${studentId}`)
+          .order('timestamp', { ascending: false })
+          .limit(50);
+        auditLogs = retry.data || [];
+        auditErr = retry.error;
+      }
 
       if (!auditErr && Array.isArray(auditLogs)) {
         for (const row of auditLogs) {
@@ -42,7 +73,7 @@ export async function GET(req: Request) {
             seenIds.add(id);
             items.push({
               id,
-              actor_id: String(row.actor_id || studentId),
+              actor_id: String(row.actor_id || row.admin_id || studentId),
               action: String(row.action || 'system_event'),
               timestamp: String(row.timestamp || row.created_at || new Date().toISOString()),
               meta: row.meta || {},
@@ -113,19 +144,35 @@ export async function POST(req: Request) {
     const now = new Date().toISOString();
 
     // 1. Record student event into audit_logs (separated from admin audit trails)
+    const insertPayload: Record<string, any> = {
+      actor_id: studentId,
+      target_id: studentId,
+      action,
+      meta,
+      created_at: now,
+      timestamp: now,
+    };
+
     try {
-      const insRes = await supabase.from('audit_logs').insert({
-        actor_id: studentId,
-        target_id: studentId,
-        action,
-        meta,
-        created_at: now,
-      });
+      let insRes = await supabase.from('audit_logs').insert(insertPayload);
       if (insRes.error) {
-        console.warn('[Student Activity] audit_logs insert error:', insRes.error.message);
+        // Fallback 1: If created_at does not exist on legacy schema
+        if (insRes.error.message?.includes('created_at')) {
+          delete insertPayload.created_at;
+          insRes = await supabase.from('audit_logs').insert(insertPayload);
+        }
+        // Fallback 2: If actor_id does not exist on legacy schema, provide admin_id
+        if (insRes.error && insRes.error.message?.includes('actor_id')) {
+          delete insertPayload.actor_id;
+          insertPayload.admin_id = studentId;
+          insRes = await supabase.from('audit_logs').insert(insertPayload);
+        }
+        if (insRes.error) {
+          console.warn('[Student Activity] audit_logs insert warning:', insRes.error.message);
+        }
       }
-    } catch {
-      // Non-blocking
+    } catch (e: any) {
+      console.warn('[Student Activity] Non-blocking insert error:', e?.message || e);
     }
 
     const newLog: StudentAuditItem = {

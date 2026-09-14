@@ -562,7 +562,7 @@ export async function firestoreRouter(method:string, path:string, body?:any): Pr
     const mTitle = m?.title || 'Daily Mission';
     
     // Dispatch endpoint trigger (re-routes back into client router to fetch fresh snapshot details)
-    api.post('/api/admin/audit-log/add', {
+    api.post('/api/student/activity', {
       action: 'mission_complete',
       meta: { missionId, title: mTitle }
     }).catch(() => {});
@@ -2693,7 +2693,31 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
       }
     };
   }
-  if(cleanPath.startsWith('/api/recruiter/visibility')){ const{visible}=body as Record<string,unknown>; await fs.updateUserProfile(uid,{ recruiter_visibility:visible?80:0 }); return { ok:true }; }
+  if (cleanPath.startsWith('/api/recruiter/visibility')) {
+    const b = (body || {}) as Record<string, any>;
+    const raw = b.visibility ?? b.visible ?? b.recruiter_visibility ?? b.recruiterVisibility;
+    let score = 80;
+    if (raw === false || raw === 0 || raw === '0' || raw === 'private' || raw === 'none' || raw === 'hidden') {
+      score = 0;
+    } else if (raw === 'institution_only' || raw === 'institution' || raw === 50 || raw === '50') {
+      score = 50;
+    } else if (raw === 'public' || raw === 100 || raw === '100') {
+      score = 100;
+    } else if (raw === 'recruiters_only' || raw === true || raw === 'true' || raw === 80 || raw === '80') {
+      score = 80;
+    } else if (typeof raw === 'number' && !isNaN(raw)) {
+      score = Math.min(100, Math.max(0, Math.round(raw)));
+    } else if (typeof raw === 'string' && !isNaN(Number(raw))) {
+      score = Math.min(100, Math.max(0, Math.round(Number(raw))));
+    }
+    await fs.updateUserProfile(uid, { recruiter_visibility: score });
+    return {
+      ok: true,
+      recruiter_visibility: score,
+      visibility: score === 0 ? 'private' : score === 100 ? 'public' : score === 50 ? 'institution_only' : 'recruiters_only',
+      visible: score > 0,
+    };
+  }
   if(cleanPath.startsWith('/api/recruiter')) return { ok:true, candidates:[], requests:[], interviews:[] };
 
   if (cleanPath.startsWith('/api/attention-span/')) {
@@ -3245,6 +3269,42 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
     } catch {}
     await fs.addAuditEntry(uid, action, uid, { ...(meta || {}), metrics });
     return { ok: true };
+  }
+  if (cleanPath === '/api/student/activity') {
+    if (method === 'POST') {
+      const { action: act, meta: m } = (body || {}) as { action?: string; meta?: Record<string, any> };
+      const now = new Date().toISOString();
+      try {
+        await supabase.from('audit_logs').insert({
+          actor_id: uid,
+          target_id: uid,
+          action: act || 'user_activity',
+          meta: m || {},
+          created_at: now,
+          timestamp: now,
+        });
+      } catch {}
+      return { ok: true, entry: { id: `act-${Date.now()}`, actor_id: uid, action: act || 'user_activity', timestamp: now, meta: m || {} } };
+    } else {
+      try {
+        const { data } = await supabase
+          .from('audit_logs')
+          .select('*')
+          .or(`actor_id.eq.${uid},target_id.eq.${uid}`)
+          .order('created_at', { ascending: false })
+          .limit(50);
+        const list = (data || []).map((row: any) => ({
+          id: row.id,
+          actor_id: row.actor_id || uid,
+          action: row.action,
+          timestamp: row.timestamp || row.created_at || new Date().toISOString(),
+          meta: row.meta || {},
+        }));
+        return { log: list, activity: list, count: list.length };
+      } catch {
+        return { log: [], activity: [], count: 0 };
+      }
+    }
   }
   if(cleanPath==='/api/admin/broadcast'){
     const { title, message, type, targetRole } = body as Record<string, string>;

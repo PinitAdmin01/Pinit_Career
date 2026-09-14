@@ -203,11 +203,13 @@ create table public.sessions (
 -- 10. Create Audit Logs table
 create table public.audit_logs (
   id uuid default gen_random_uuid() primary key,
-  admin_id uuid references public.users on delete cascade not null,
+  admin_id uuid references public.users on delete cascade,
+  actor_id uuid references public.users on delete cascade,
   action text not null,
   target_id text,
   meta jsonb default '{}'::jsonb,
-  timestamp timestamp with time zone default timezone('utc'::text, now()) not null
+  timestamp timestamp with time zone default timezone('utc'::text, now()) not null,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
 
 -- 11. Create QR Login Sessions table (Realtime enabled)
@@ -349,6 +351,8 @@ create policy "Users can view their own sessions" on public.sessions for select 
 
 -- 10. Audit Logs Table
 create policy "Admins can view audit logs" on public.audit_logs for select using (exists (select 1 from public.users where id = auth.uid() and role = 'admin'));
+create policy "Users can view own audit logs" on public.audit_logs for select using (auth.uid() is not null and (actor_id = auth.uid() or target_id = auth.uid()::text));
+create policy "Users can insert own audit logs" on public.audit_logs for insert with check (auth.uid() is not null and (actor_id is null or actor_id = auth.uid()));
 
 -- 11. QR Login Sessions Table
 create policy "Authenticated users can manage own QR login sessions" on public.qr_login_sessions

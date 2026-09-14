@@ -49,6 +49,23 @@ function ProfilePageInner() {
     setSoundscapeVol(getUserSoundscapeVolume());
   }, []);
 
+  // Sync state from authoritative user profile
+  useEffect(() => {
+    if (user) {
+      if (user.selectedTeacherId) {
+        setTeacherId(user.selectedTeacherId);
+      }
+      const rVis = (user as any).recruiter_visibility ?? (user as any).recruiterVisibility;
+      if (rVis !== undefined && rVis !== null) {
+        const num = Number(rVis);
+        if (num === 0) setVisibility('private');
+        else if (num === 100) setVisibility('public');
+        else if (num === 50) setVisibility('institution_only');
+        else setVisibility('recruiters_only');
+      }
+    }
+  }, [user]);
+
   // Consolidated Tabs: 'portfolio' | 'passport' | 'career-dna' | 'analytics' | 'preferences' | 'security' | 'activity' | 'settings'
   const [tab, setTab] = useState<TabType>('portfolio');
 
@@ -97,6 +114,7 @@ function ProfilePageInner() {
     setSaving(true);
     try {
       await api.patch('/api/recruiter/visibility', { visibility });
+      qc.invalidateQueries({ queryKey: KEYS.me });
       toast.success('Saved!', 'Visibility updated.');
     } catch (err) {
       toast.error('Save failed', 'Please try again.');

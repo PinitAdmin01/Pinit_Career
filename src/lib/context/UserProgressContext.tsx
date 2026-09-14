@@ -344,6 +344,16 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
         return best;
       });
     }
+
+    // 9. Recruiter Visibility (server hydration)
+    const serverRecruiterVis = (user as any).recruiter_visibility ?? (user as any).recruiterVisibility ?? (user as any).recruiterVisible;
+    if (serverRecruiterVis !== undefined && serverRecruiterVis !== null) {
+      if (typeof serverRecruiterVis === 'boolean') {
+        setRecruiterVisible(serverRecruiterVis);
+      } else {
+        setRecruiterVisible(Number(serverRecruiterVis) > 0);
+      }
+    }
   }, [user, keys]);
 
   const addXp = useCallback(async (amount: number, reason: string) => {
@@ -577,6 +587,13 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     return Math.min(100, 70 + Math.min(30, completedMissions.length * 3));
   }, [completedMissions.length]);
 
+  const setRecruiterVisibleAuthoritative = useCallback((val: boolean) => {
+    setRecruiterVisible(val);
+    if (userId && userId !== 'guest') {
+      api.patch('/api/recruiter/visibility', { visible: val }).catch(() => {});
+    }
+  }, [userId]);
+
   const value = useMemo<UserProgressContextType>(() => ({
     onboardingAnswers,
     setOnboarding,
@@ -613,7 +630,7 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     groupPanelPassed,
     setGroupPanelPassed,
     recruiterVisible,
-    setRecruiterVisible,
+    setRecruiterVisible: setRecruiterVisibleAuthoritative,
   }), [
     onboardingAnswers,
     setOnboarding,
@@ -649,7 +666,7 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     groupPanelPassed,
     setGroupPanelPassed,
     recruiterVisible,
-    setRecruiterVisible,
+    setRecruiterVisibleAuthoritative,
   ]);
 
   return (
