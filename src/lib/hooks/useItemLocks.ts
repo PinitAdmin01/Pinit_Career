@@ -11,7 +11,7 @@ import { supabase } from '@/lib/supabaseClient';
 export interface UseItemLocksOptions {
   userId?: string;
   pins?: number;
-  spendPins?: (featureKey: string, customReason?: string) => Promise<boolean>;
+  spendPins?: (featureKey: string, itemId?: string, customReason?: string) => Promise<boolean>;
 }
 
 /**
@@ -89,7 +89,7 @@ export function useItemLocks(options: UseItemLocksOptions = {}) {
       return false;
     }
 
-    const ok = await spendPins(category, customReason ?? `${meta.label}: ${itemKey}`);
+    const ok = await spendPins(category, itemKey, customReason);
     if (!ok) return false;
 
     if (category !== 'attention_span_game') {

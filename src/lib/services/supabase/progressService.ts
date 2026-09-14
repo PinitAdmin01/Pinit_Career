@@ -311,23 +311,24 @@ export async function fetchServerTimeOffset(): Promise<number> {
 
 export async function spendPinsDB(
   uid: string,
-  cost: number,
-  reason: string
-): Promise<{ ok: boolean; newBalance?: number; reason?: string }> {
+  featureKey: string,
+  itemId?: string
+): Promise<{ ok: boolean; newBalance?: number; expiresAt?: number; reason?: string }> {
   try {
     if (!IS_VALID_UUID(uid)) {
-      return { ok: true, newBalance: Math.max(0, 120 - cost) };
+      // Guest/non-uuid path: optimistic local-only response (no server charge)
+      return { ok: true };
     }
 
     const res = await fetch('/api/pins/spend', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ cost, reason }),
+      body: JSON.stringify({ featureKey, itemId }),
     });
 
     const data = await res.json().catch(() => ({}));
     if (res.ok && data.ok) {
-      return { ok: true, newBalance: data.currentBalance };
+      return { ok: true, newBalance: data.newBalance, expiresAt: data.expiresAt };
     }
 
     return { ok: false, reason: data.error || data.message || 'SPEND_FAILED' };

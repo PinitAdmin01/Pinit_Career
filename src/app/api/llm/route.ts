@@ -24,8 +24,8 @@ export async function POST(req: Request) {
 
     const { messages, systemPrompt, skillCategory, maxTokens } = await req.json();
 
-    // Verify server-authoritative paywall access (Task 2.3)
-    const paywallErr = await verifyPaywallAccess(gated.user!.id, skillCategory || 'ai');
+    // Fixed server-side key — never trust client-supplied skillCategory for paywall
+    const paywallErr = await verifyPaywallAccess(gated.user!.id, 'ai');
     if (paywallErr) return paywallErr;
 
     const clampedMaxTokens = Math.min(Math.max(Number(maxTokens) || 300, 50), 1000);

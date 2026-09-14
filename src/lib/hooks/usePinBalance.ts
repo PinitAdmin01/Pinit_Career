@@ -275,7 +275,7 @@ export function usePinBalance(options: UsePinBalanceOptions = {}) {
     return pins >= cost;
   }, [pins]);
 
-  const spendPins = useCallback(async (featureKey: string, customReason?: string): Promise<boolean> => {
+  const spendPins = useCallback(async (featureKey: string, itemId?: string, customReason?: string): Promise<boolean> => {
     const meta = PIN_COSTS[featureKey];
     if (!meta) return true;
     if (pins < meta.cost) {
@@ -285,7 +285,7 @@ export function usePinBalance(options: UsePinBalanceOptions = {}) {
 
     if (effectiveUserId && effectiveUserId !== 'guest') {
       try {
-        const result = await spendPinsDB(effectiveUserId, meta.cost, customReason ?? meta.label);
+        const result = await spendPinsDB(effectiveUserId, featureKey, itemId);
         if (!result.ok) {
           toast.error(`Pins Out of Sync 🔄`, result.reason === 'INSUFFICIENT_PINS' ? 'Insufficient pins in authoritative balance.' : 'Failed to deduct pins on server.');
           return false;

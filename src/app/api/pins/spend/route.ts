@@ -10,6 +10,7 @@ const SERVER_PIN_COSTS: Record<string, number> = {
   mission:              20,
   group_discussion:     30,
   gd:                   30,
+  ai:                   40, // unlocks /api/llm and general AI features
   ai_interview:         40,
   interview:            40,
   attention_span_game:   5,
@@ -109,10 +110,27 @@ export async function POST(req: Request) {
         ? (profileData.unlocked_items as Record<string, number>)
         : {};
 
-    await admin
+    const { error: updateErr } = await admin
       .from('users')
       .update({ unlocked_items: { ...current, [unlockKey]: expiresAt } })
       .eq('id', userId);
+
+    if (updateErr) {
+      // Pins were deducted; refund them so the student isn't charged for nothing.
+      try {
+        await admin.rpc('credit_pins', {
+          p_user_id: userId,
+          p_amount: spendAmount,
+          p_reason: `Refund: unlock write failed for ${featureKey}`,
+          p_source: 'admin_grant',
+        });
+      } catch { /* best-effort refund */ }
+      console.error('[Pin Spend] Unlock write failed:', updateErr.message);
+      return NextResponse.json(
+        { ok: false, error: 'UNLOCK_WRITE_FAILED', message: 'Feature could not be unlocked. Pins were not charged.' },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({
       ok: true,

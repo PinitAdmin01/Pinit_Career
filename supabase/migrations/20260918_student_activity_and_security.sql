@@ -55,13 +55,10 @@ CREATE POLICY "Users can view own audit logs" ON public.audit_logs
     )
   );
 
-DROP POLICY IF EXISTS "Users can insert own audit logs" ON public.audit_logs;
-CREATE POLICY "Users can insert own audit logs" ON public.audit_logs
-  FOR INSERT WITH CHECK (
-    auth.uid() IS NOT NULL AND (
-      actor_id IS NULL OR actor_id = auth.uid()
-    )
-  );
+-- NOTE: "Users can insert own audit logs" policy is defined (with strict admin_id IS NULL check)
+-- in 20260918_fix_campus_dues_and_anticheat.sql which sorts before this file.
+-- Do NOT redefine it here — that would overwrite the strict version with a weaker one
+-- that allows actor_id IS NULL (forgeable) inserts.
 
 -- NOTE: prevent_privilege_escalation() is defined in 20260918_fix_campus_dues_and_anticheat.sql
 -- which sorts before this file. Do NOT redefine it here — that would overwrite the full

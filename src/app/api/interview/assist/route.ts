@@ -178,8 +178,8 @@ export async function POST(req: Request) {
     }
     const userId = gated.user.id;
 
-    // 2. Server-Authoritative Paywall Gate (Active Pro subscription or unlocked feature)
-    const paywallErr = await verifyPaywallAccess(userId, 'interview_assist');
+    // 2. Server-Authoritative Paywall Gate — 'interview' key covers all interview routes
+    const paywallErr = await verifyPaywallAccess(userId, 'interview');
     if (paywallErr) {
       return paywallErr;
     }

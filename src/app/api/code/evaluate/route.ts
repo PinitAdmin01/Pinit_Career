@@ -318,12 +318,14 @@ try {
     process.exit(0);
   }
 
-  // 3. Run evaluator in a FRESH context B — student code never ran here, so
-  //    JSON.stringify, String, and other intrinsics are untouched.
-  //    The student function is injected via the sandbox so contextB can call it.
+  // 3. Run evaluator in a FRESH context B — student code never ran here.
+  //    Freeze key built-ins BEFORE injecting the student function so that
+  //    student code reaching B's realm via cross-context constructor chains
+  //    cannot override JSON.stringify or String used in comparisons.
   const sandboxB = Object.create(null);
   const contextB = vm.createContext(sandboxB);
   vm.runInContext(INIT_REALM, contextB);
+  vm.runInContext('Object.freeze(JSON); Object.freeze(String); Object.freeze(Array.prototype);', contextB);
   // Inject the student's function from A into B by reference
   sandboxB[functionName] = sandboxA[functionName];
 
@@ -390,10 +392,12 @@ export function runEvaluationInVmDirectly(data: SandboxExecutionParams): Evaluat
       };
     }
 
-    // 3. Run evaluator in a FRESH context B so student can't forge built-ins
+    // 3. Run evaluator in a FRESH context B so student can't forge built-ins.
+    // Freeze key intrinsics before injecting the student function.
     const sandboxB: Record<string, any> = Object.create(null);
     const contextB = vm.createContext(sandboxB);
     vm.runInContext(INIT_REALM_CODE, contextB);
+    vm.runInContext('Object.freeze(JSON); Object.freeze(String); Object.freeze(Array.prototype);', contextB);
     sandboxB[data.functionName] = sandboxA[data.functionName];
 
     const evalScript = new vm.Script(`(function() { ${data.evaluatorCode} })()`, { filename: 'evaluator.js' });

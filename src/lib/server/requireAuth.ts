@@ -267,19 +267,24 @@ export async function verifyPaywallAccess(
   const unlockedItems = userProfile.unlocked_items;
   if (unlockedItems && typeof unlockedItems === 'object') {
     const now = Date.now();
-    // Accept the exact key, any interview: prefix variant, or the broad category aliases
-    const keysToCheck: string[] = [featureKey];
-    if (featureKey.startsWith('interview:')) {
-      keysToCheck.push('interview', 'ai_interview', 'ai');
+    const items = unlockedItems as Record<string, number>;
+
+    // 'ai' and 'ai_interview' are broad aliases that unlock every AI route
+    const AI_ALIASES = ['ai', 'ai_interview'];
+
+    // Build the list of keys that would satisfy this route
+    const keysToCheck: string[] = [featureKey, ...AI_ALIASES];
+    // interview/* routes also accept the bare 'interview' key
+    if (featureKey === 'interview_assist' || featureKey.startsWith('interview')) {
+      keysToCheck.push('interview');
     }
+
     for (const key of keysToCheck) {
-      const expiry = (unlockedItems as Record<string, number>)[key];
-      if (typeof expiry === 'number' && expiry > now) {
-        return null;
-      }
+      const expiry = items[key];
+      if (typeof expiry === 'number' && expiry > now) return null;
     }
     // Also accept any stored key that is a prefix of the requested featureKey
-    for (const [storedKey, expiry] of Object.entries(unlockedItems as Record<string, number>)) {
+    for (const [storedKey, expiry] of Object.entries(items)) {
       if (featureKey.startsWith(storedKey + ':') && typeof expiry === 'number' && expiry > now) {
         return null;
       }
