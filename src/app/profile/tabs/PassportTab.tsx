@@ -124,7 +124,7 @@ export default function PassportTab({ user, cOS }: PassportTabProps) {
     }
     fetchSkills();
     return () => { isMounted = false; };
-  }, [user?.id]);
+  }, [user?.id, user?.endorsedSkills, user?.endorsed_skills]);
 
   const toggleEndorsement = (id: string) => {
     const isPrivilegedOrPeer = Boolean(
