@@ -54,7 +54,7 @@ const PAGE_TITLES: Record<string, string> = {
   '/reset-password':'Reset Password',
 };
 
-const PUBLIC_PATHS = ['/', '/login', '/signup', '/reset-password', '/qr-login', '/qr-confirm', '/onboarding', '/privacy', '/terms', '/contact', '/admissions', '/about', '/pricing', '/problem', '/identity', '/how-it-works', '/modules', '/campus-demo', '/university', '/services'];
+const PUBLIC_PATHS = ['/', '/login', '/signup', '/reset-password', '/qr-login', '/qr-confirm', '/onboarding', '/privacy', '/terms', '/contact', '/admissions', '/about', '/pricing', '/problem', '/identity', '/how-it-works', '/modules', '/campus-demo', '/university', '/services', '/verify'];
 
 function DsaiAcademicTabWrapper({ tab, student, onStartExam, examCheckLoading }: any) {
   if (!tab) return null;
@@ -356,7 +356,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         '/alumni', '/documents', '/arena', '/leaderboard',
         // Missing tabs restored:
         '/career-twin', '/passport', '/portfolio', '/code-wars', '/teams', 
-        '/opportunities', '/applications', '/placement', '/internships'
+        '/opportunities', '/applications', '/placement', '/internships', '/verify'
       ];
       const isAllowedTab = allowedStudentTabs.some(tab => pathname === tab || pathname.startsWith(tab + '/'));
       if (!isAllowedTab) {
@@ -375,7 +375,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     }
   }, [user, loading, isPublic, pathname, router]);
 
-  const PUBLIC_SHOWCASE_PATHS = ['/', '/problem', '/identity', '/how-it-works', '/modules', '/pricing', '/campus-demo', '/about', '/contact', '/privacy', '/terms', '/university', '/admissions'];
+  const PUBLIC_SHOWCASE_PATHS = ['/', '/problem', '/identity', '/how-it-works', '/modules', '/pricing', '/campus-demo', '/about', '/contact', '/privacy', '/terms', '/university', '/admissions', '/verify'];
   const isPublicShowcase = PUBLIC_SHOWCASE_PATHS.some(p => pathname === p || (p !== '/' && pathname.startsWith(p)));
   const isLandingPage = isPublicShowcase || ['/login', '/signup', '/reset-password', '/qr-login', '/qr-confirm', '/onboarding'].some(p => pathname === p || (p !== '/' && pathname.startsWith(p)));
   if (isPublicShowcase) return <PublicEffectsShell>{children}</PublicEffectsShell>;

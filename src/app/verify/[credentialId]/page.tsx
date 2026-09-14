@@ -23,35 +23,55 @@ export default function PublicVerifyCredentialPage() {
       setLoading(true);
       setErrorMessage(null);
       try {
-        // If credentialId starts with 'ev_', load specific evidence record
+        // If credentialId starts with 'ev_' or contains '_', search for specific evidence record
         if (credentialId.startsWith('ev_') || credentialId.includes('_')) {
-          // Attempt to find evidence directly
           const studentId = credentialId.includes('demo') ? 'demo_student_user' : credentialId.split('_').slice(-1)[0] || 'demo_student_user';
           const allEv = await PathwayApiService.getAllStudentEvidence(studentId);
-          const found = allEv.find(e => e.id === credentialId) || allEv[0];
+          const found = allEv.find(e => e.id === credentialId);
 
           if (found) {
             const integrityValid = verifyEvidenceIntegrity(found);
             setEvidenceRecord(found);
+            setStudentProfile(null);
+            setRoleReadiness(null);
             setIsValid(integrityValid);
+            if (!integrityValid) {
+              setErrorMessage('Evidence cryptographic hash mismatch or tampered record.');
+            }
           } else {
-            // Fallback: verify student profile directly
-            const profile = await PathwayApiService.getStudentSkillProfile(studentId);
-            const readiness = await PathwayApiService.getRoleReadiness(studentId);
-            setStudentProfile(profile);
-            setRoleReadiness(readiness);
-            setIsValid(profile.verified.length > 0 || profile.demonstrated.length > 0);
+            setEvidenceRecord(null);
+            setStudentProfile(null);
+            setRoleReadiness(null);
+            setIsValid(false);
+            setErrorMessage('Evidence record not found in cryptographic registry.');
           }
         } else {
           // Treat credentialId as studentId
           const profile = await PathwayApiService.getStudentSkillProfile(credentialId);
           const readiness = await PathwayApiService.getRoleReadiness(credentialId);
-          setStudentProfile(profile);
-          setRoleReadiness(readiness);
-          setIsValid(true);
+          const hasVerifiedOrDemonstrated = Boolean(
+            (profile?.verified && profile.verified.length > 0) ||
+            (profile?.demonstrated && profile.demonstrated.length > 0)
+          );
+
+          if (hasVerifiedOrDemonstrated) {
+            setEvidenceRecord(null);
+            setStudentProfile(profile);
+            setRoleReadiness(readiness);
+            setIsValid(hasVerifiedOrDemonstrated);
+          } else {
+            setEvidenceRecord(null);
+            setStudentProfile(null);
+            setRoleReadiness(null);
+            setIsValid(false);
+            setErrorMessage('Student profile or credential record not found in cryptographic registry.');
+          }
         }
       } catch (err: any) {
         console.warn('Verification lookup warning:', err);
+        setEvidenceRecord(null);
+        setStudentProfile(null);
+        setRoleReadiness(null);
         setIsValid(false);
         setErrorMessage(err.message || 'Credential record not found in cryptographic registry.');
       } finally {
@@ -63,6 +83,10 @@ export default function PublicVerifyCredentialPage() {
       loadAndVerify();
     } else {
       setLoading(false);
+      setEvidenceRecord(null);
+      setStudentProfile(null);
+      setRoleReadiness(null);
+      setIsValid(false);
       setErrorMessage('No credential identifier specified. Please provide a valid credential ID in the URL.');
     }
   }, [credentialId]);

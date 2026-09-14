@@ -15,6 +15,22 @@ import {
   getDeviceName
 } from '@/lib/services/identityGateway';
 
+function getSafeRedirect(raw: string | null): string {
+  if (!raw) return '/dashboard';
+  try {
+    // Relative path must strictly start with / and not //, /\, or \
+    if (!raw.startsWith('/') || raw.startsWith('//') || raw.startsWith('/\\') || raw.startsWith('\\')) {
+      return '/dashboard';
+    }
+    // Validate that the URL resolves strictly to the same origin
+    const parsed = new URL(raw, 'http://localhost');
+    if (parsed.origin !== 'http://localhost') return '/dashboard';
+    return parsed.pathname + parsed.search;
+  } catch {
+    return '/dashboard';
+  }
+}
+
 function LoginContent() {
   const { user, login, loginWithVaultSession } = useAuth();
   const router = useRouter();
@@ -57,9 +73,7 @@ function LoginContent() {
         !!localStorage.getItem(`pinit_${user.id}_onboarding_answers`);
       const onboardCompleted = dbSaysComplete || localSaysComplete;
 
-      const rawRedirect = searchParams.get('redirect');
-      const isSafeRelative = rawRedirect && rawRedirect.startsWith('/') && !rawRedirect.startsWith('//');
-      const destination = isSafeRelative ? rawRedirect : '/dashboard';
+      const destination = getSafeRedirect(searchParams.get('redirect'));
       if (!onboardCompleted) {
         router.push('/onboarding');
       } else {
@@ -251,9 +265,7 @@ function LoginContent() {
         !!localStorage.getItem(`pinit_${loggedInUser?.id}_onboarding_answers`);
       const onboardCompleted = dbSaysComplete || localSaysComplete;
 
-      const rawRedirect = searchParams.get('redirect');
-      const isSafeRelative = rawRedirect && rawRedirect.startsWith('/') && !rawRedirect.startsWith('//');
-      const destination = isSafeRelative ? rawRedirect : '/dashboard';
+      const destination = getSafeRedirect(searchParams.get('redirect'));
       if (!onboardCompleted) {
         router.push('/onboarding');
       } else {
