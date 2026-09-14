@@ -714,22 +714,16 @@ function LoginContent() {
             }}>
               <div>
                 <span>Don&apos;t have the Vault app? </span>
-                <button
-                  type="button"
-                  onClick={() => { setMainTab('signup'); setErrorMsg(''); }}
+                <Link
+                  href="/signup"
                   style={{
-                    background: 'none',
-                    border: 'none',
                     color: 'var(--accent, #00A3FF)',
                     fontWeight: 750,
-                    cursor: 'pointer',
-                    padding: '0 2px',
-                    fontSize: 12.5,
                     textDecoration: 'underline'
                   }}
                 >
                   Create Student Account (Sign Up) →
-                </button>
+                </Link>
               </div>
               <div>
                 <span>Prefer email &amp; password? </span>
@@ -835,150 +829,42 @@ function LoginContent() {
           </form>
         )}
 
-        {/* ================================================================= */}
-        {/* TAB 3: 📝 CREATE STUDENT ACCOUNT (SCREENSHOT 2)                   */}
-        {/* ================================================================= */}
-        {mainTab === 'signup' && (
-          <form onSubmit={handleSignupSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-            <div style={{ textAlign: 'center', marginBottom: 12 }}>
-              <h2 style={{ fontSize: 19, fontWeight: 800, margin: '0 0 4px', color: 'var(--text-primary)' }}>
-                Create Student Account
-              </h2>
-              <p style={{ fontSize: 12.5, color: 'var(--text-tertiary)', margin: 0 }}>
-                Join thousands of verified students mastering industry skills
-              </p>
-            </div>
-
-            <div>
-              <label style={{ display: 'block', fontSize: 12.5, fontWeight: 650, color: 'var(--text-secondary)', marginBottom: 6 }}>
-                Email / Username
-              </label>
-              <input
-                type="text"
-                placeholder="you@college.edu"
-                value={signupForm.username}
-                onChange={(e) => setSignupForm({ ...signupForm, username: e.target.value })}
-                required
-                style={{
-                  width: '100%',
-                  padding: '11px 14px',
-                  borderRadius: 10,
-                  background: 'var(--bg-secondary)',
-                  border: '1px solid var(--border-color)',
-                  color: 'var(--text-primary)',
-                  fontSize: 13.5,
-                  outline: 'none'
-                }}
-              />
-            </div>
-
-            <div>
-              <label style={{ display: 'block', fontSize: 12.5, fontWeight: 650, color: 'var(--text-secondary)', marginBottom: 6 }}>
-                Display Name
-              </label>
-              <input
-                type="text"
-                placeholder="Your Full Name"
-                value={signupForm.displayName}
-                onChange={(e) => setSignupForm({ ...signupForm, displayName: e.target.value })}
-                required
-                style={{
-                  width: '100%',
-                  padding: '11px 14px',
-                  borderRadius: 10,
-                  background: 'var(--bg-secondary)',
-                  border: '1px solid var(--border-color)',
-                  color: 'var(--text-primary)',
-                  fontSize: 13.5,
-                  outline: 'none'
-                }}
-              />
-            </div>
-
-            <div>
-              <label style={{ display: 'block', fontSize: 12.5, fontWeight: 650, color: 'var(--text-secondary)', marginBottom: 6 }}>
-                Password
-              </label>
-              <input
-                type="password"
-                placeholder="At least 6 characters"
-                value={signupForm.password}
-                onChange={(e) => setSignupForm({ ...signupForm, password: e.target.value })}
-                required
-                style={{
-                  width: '100%',
-                  padding: '11px 14px',
-                  borderRadius: 10,
-                  background: 'var(--bg-secondary)',
-                  border: '1px solid var(--border-color)',
-                  color: 'var(--text-primary)',
-                  fontSize: 13.5,
-                  outline: 'none'
-                }}
-              />
-            </div>
-
-            <p style={{ fontSize: 11.5, color: 'var(--text-tertiary)', margin: '4px 0 0', lineHeight: 1.4 }}>
-              New accounts are registered as <strong>students</strong>. Staff and recruiter access is granted by institutional administrators.
-            </p>
-
-            <button
-              type="submit"
-              disabled={loading}
-              style={{
-                width: '100%',
-                padding: '12px 18px',
-                borderRadius: 10,
-                background: 'var(--accent)',
-                color: 'var(--text)',
-                border: 'none',
-                fontSize: 13.5,
-                fontWeight: 750,
-                cursor: 'pointer',
-                marginTop: 4,
-                boxShadow: '0 4px 14px var(--accent-glow)'
-              }}
-            >
-              {loading ? 'Creating Account...' : 'Create Student Account'}
-            </button>
-          </form>
-        )}
-
         {/* 🧭 Universal Footer Switcher */}
         <div style={{ marginTop: 22, paddingTop: 16, borderTop: '1px solid var(--border-color)', textAlign: 'center', fontSize: 12.5, color: 'var(--text-tertiary)' }}>
           {mainTab === 'vault' ? (
-            <span>
-              Prefer password login?{' '}
-              <button
-                type="button"
-                onClick={() => { setMainTab('password'); setErrorMsg(''); }}
-                style={{ background: 'none', border: 'none', color: 'var(--accent)', fontWeight: 700, cursor: 'pointer', padding: 0 }}
-              >
-                Sign In With Password
-              </button>
-            </span>
-          ) : mainTab === 'password' ? (
-            <span>
-              Don&apos;t have an account?{' '}
-              <button
-                type="button"
-                onClick={() => { setMainTab('signup'); setErrorMsg(''); }}
-                style={{ background: 'none', border: 'none', color: 'var(--accent)', fontWeight: 700, cursor: 'pointer', padding: 0 }}
-              >
-                Create Student Account
-              </button>
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, flexWrap: 'wrap' }}>
+              <span>
+                Prefer password login?{' '}
+                <button
+                  type="button"
+                  onClick={() => { setMainTab('password'); setErrorMsg(''); }}
+                  style={{ background: 'none', border: 'none', color: 'var(--accent)', fontWeight: 700, cursor: 'pointer', padding: 0 }}
+                >
+                  Sign In With Password
+                </button>
+              </span>
+              <span>•</span>
+              <Link href="/signup" style={{ color: 'var(--accent)', fontWeight: 750, textDecoration: 'none' }}>
+                Don&apos;t have an account? Sign Up →
+              </Link>
+            </div>
           ) : (
-            <span>
-              Already have an account?{' '}
-              <button
-                type="button"
-                onClick={() => { setMainTab('password'); setErrorMsg(''); }}
-                style={{ background: 'none', border: 'none', color: 'var(--accent)', fontWeight: 700, cursor: 'pointer', padding: 0 }}
-              >
-                Sign In
-              </button>
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, flexWrap: 'wrap' }}>
+              <span>
+                Prefer QR login?{' '}
+                <button
+                  type="button"
+                  onClick={() => { setMainTab('vault'); setErrorMsg(''); }}
+                  style={{ background: 'none', border: 'none', color: 'var(--accent)', fontWeight: 700, cursor: 'pointer', padding: 0 }}
+                >
+                  PinIT Vault QR
+                </button>
+              </span>
+              <span>•</span>
+              <Link href="/signup" style={{ color: 'var(--accent)', fontWeight: 750, textDecoration: 'none' }}>
+                Don&apos;t have an account? Sign Up →
+              </Link>
+            </div>
           )}
         </div>
 

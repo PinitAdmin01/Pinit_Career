@@ -101,6 +101,7 @@ export function mapRowToProfile(row: any): any {
     pins:                 typeof row.pins === 'number' ? row.pins : 120,
     pinHistory:           Array.isArray(row.pin_history) ? row.pin_history : [],
     unlockedItems:        row.unlocked_items || {},
+    endorsedSkills:       Array.isArray(row.endorsed_skills) ? row.endorsed_skills : [],
 
     // Snake_case aliases for 100% backward compatibility
     display_name:         dispName,
@@ -140,6 +141,7 @@ export function mapRowToProfile(row: any): any {
     completed_missions:   Array.isArray(row.completed_missions) ? row.completed_missions : [],
     pin_history:          Array.isArray(row.pin_history) ? row.pin_history : [],
     unlocked_items:       row.unlocked_items || {},
+    endorsed_skills:      Array.isArray(row.endorsed_skills) ? row.endorsed_skills : [],
   };
 }
 
@@ -158,7 +160,7 @@ export function mapProfileToRow(profile: any): any {
     'vault_count', 'onboarding_step', 'onboarding_answers',
     'roadmap_generated', 'resume_generated', 'completed_quests', 'phone', 'location',
     'bio', 'linkedin_url', 'github_url', 'portfolio_url', 'department',
-    'semester', 'college_name', 'pins', 'pin_history',
+    'semester', 'college_name', 'pins', 'pin_history', 'endorsed_skills',
   ];
   for (const f of directFields) {
     if (profile[f] !== undefined) row[f] = profile[f];
@@ -205,6 +207,7 @@ export function mapProfileToRow(profile: any): any {
     portfolioUrl:        'portfolio_url',
     collegeName:         'college_name',
     pinHistory:          'pin_history',
+    endorsedSkills:      'endorsed_skills',
   };
   for (const [camel, snake] of Object.entries(camelToSnake)) {
     if (profile[camel] !== undefined && row[snake] === undefined) {
