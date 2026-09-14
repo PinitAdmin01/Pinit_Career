@@ -22,9 +22,9 @@ async function handleReset(req: Request) {
     const authHeader = req.headers.get('authorization');
     const cronSecret = process.env.CRON_SECRET;
 
-    // In production or when CRON_SECRET is configured, strictly enforce bearer token
-    if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
-      return NextResponse.json({ error: 'UNAUTHORIZED', message: 'Invalid or missing cron secret' }, { status: 401 });
+    // Fail-closed authorization: strictly require valid CRON_SECRET
+    if (!cronSecret || authHeader !== `Bearer ${cronSecret}`) {
+      return NextResponse.json({ error: 'UNAUTHORIZED', message: 'Cron secret required' }, { status: 401 });
     }
 
     const client = getAdminClient();

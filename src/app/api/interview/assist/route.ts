@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { requireUserFromRequest } from '@/lib/server/requireAuth';
+import { requireUserFromRequest, verifyPaywallAccess } from '@/lib/server/requireAuth';
 import { sanitizeLLMOutput } from '@/lib/sanitizeLLM';
 import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 
@@ -177,6 +177,12 @@ export async function POST(req: Request) {
       return gated.error;
     }
     const userId = gated.user.id;
+
+    // 2. Server-Authoritative Paywall Gate (Active Pro subscription or unlocked feature)
+    const paywallErr = await verifyPaywallAccess(userId, 'interview_assist');
+    if (paywallErr) {
+      return paywallErr;
+    }
 
     const body = (await req.json()) as AssistRequest;
     const {

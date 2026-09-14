@@ -210,3 +210,74 @@ export async function requireFacultyOrAdminUserFromRequest(req: Request): Promis
   }
 }
 
+/**
+ * Verifies that the caller either has an active subscription (subscription_status = 'active')
+ * or a valid timestamp in users.unlocked_items[featureKey].
+ * Returns null if allowed, or a 402 NextResponse if access is denied.
+ */
+export async function verifyPaywallAccess(
+  userId: string,
+  featureKey: string
+): Promise<NextResponse | null> {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+  if (!url || !serviceKey) return null;
+
+  const admin = createClient(url, serviceKey, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+
+  const { data: userProfile, error } = await admin
+    .from('users')
+    .select('subscription_status, subscription_tier, subscription_expires_at, unlocked_items')
+    .eq('id', userId)
+    .maybeSingle();
+
+  if (error || !userProfile) {
+    return NextResponse.json(
+      {
+        error: 'PAYMENT_REQUIRED',
+        message: 'Active subscription or unlocked feature access required.',
+      },
+      { status: 402 }
+    );
+  }
+
+  // 1. Check active subscription
+  const isSubActive =
+    userProfile.subscription_status === 'active' ||
+    userProfile.subscription_tier === 'pro';
+
+  const expiresAt = userProfile.subscription_expires_at
+    ? new Date(userProfile.subscription_expires_at).getTime()
+    : 0;
+  const isNotExpired = !expiresAt || expiresAt > Date.now();
+
+  if (isSubActive && isNotExpired) {
+    return null; // Access granted via active subscription
+  }
+
+  // 2. Check users.unlocked_items[featureKey]
+  const unlockedItems = userProfile.unlocked_items;
+  if (unlockedItems && typeof unlockedItems === 'object') {
+    const featureExpiry =
+      unlockedItems[featureKey] ||
+      unlockedItems['ai'] ||
+      unlockedItems['ai_interview'] ||
+      unlockedItems['interview'];
+
+    if (typeof featureExpiry === 'number' && featureExpiry > Date.now()) {
+      return null; // Access granted via valid unlocked feature
+    }
+  }
+
+  return NextResponse.json(
+    {
+      error: 'PAYMENT_REQUIRED',
+      message: `Feature '${featureKey}' requires an active subscription or unlocked feature access.`,
+    },
+    { status: 402 }
+  );
+}
+
+

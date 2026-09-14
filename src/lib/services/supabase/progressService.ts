@@ -316,73 +316,21 @@ export async function spendPinsDB(
 ): Promise<{ ok: boolean; newBalance?: number; reason?: string }> {
   try {
     if (!IS_VALID_UUID(uid)) {
-      // In demo/guest mode with non-UUID, perform safe local deduction in-memory
       return { ok: true, newBalance: Math.max(0, 120 - cost) };
     }
 
-    // Attempt authoritative atomic PostgreSQL RPC with FOR UPDATE row lock
-    const { data: rpcResult, error: rpcErr } = await supabase.rpc('spend_pins', {
-      p_user_id: uid,
-      p_amount: cost,
-      p_reason: reason || 'Pin deduction',
+    const res = await fetch('/api/pins/spend', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ cost, reason }),
     });
 
-    if (!rpcErr && rpcResult) {
-      if (rpcResult.ok) {
-        return { ok: true, newBalance: rpcResult.new_balance };
-      }
-      return { ok: false, reason: rpcResult.reason || 'INSUFFICIENT_PINS' };
+    const data = await res.json().catch(() => ({}));
+    if (res.ok && data.ok) {
+      return { ok: true, newBalance: data.currentBalance };
     }
 
-    // Fallback if RPC is not deployed yet or connection degraded
-    const { data: profile, error: fetchErr } = await supabase
-      .from('users')
-      .select('pins')
-      .eq('id', uid)
-      .single();
-
-    if (fetchErr || !profile) {
-      console.warn('[spendPinsDB] Could not fetch pins:', fetchErr?.message);
-      return { ok: false, reason: 'ERROR' };
-    }
-
-    const current: number = profile.pins ?? 120;
-    if (current < cost) {
-      return { ok: false, reason: 'INSUFFICIENT_PINS' };
-    }
-
-    const newBalance = current - cost;
-    const { error: updateErr } = await supabase
-      .from('users')
-      .update({ pins: newBalance })
-      .eq('id', uid);
-
-    if (updateErr) {
-      console.warn('[spendPinsDB] Update failed:', updateErr.message);
-      return { ok: false, reason: 'ERROR' };
-    }
-
-    // Append to pin_history JSONB with unique collision-free transaction ID
-    (async () => {
-      try {
-        const { data } = await supabase.from('users').select('pin_history').eq('id', uid).single();
-        const history: Record<string, unknown>[] = (data?.pin_history as Record<string, unknown>[]) || [];
-        const newTx = {
-          id: generateTxId('tx'),
-          type: 'spend',
-          amount: cost,
-          reason,
-          source: 'spend',
-          timestamp: Date.now(),
-        };
-        const updated = [newTx, ...history].slice(0, 100);
-        await supabase.from('users').update({ pin_history: updated }).eq('id', uid);
-      } catch (err) {
-        console.warn('[spendPinsDB] History log failed:', err);
-      }
-    })();
-
-    return { ok: true, newBalance };
+    return { ok: false, reason: data.error || data.message || 'SPEND_FAILED' };
   } catch (e: any) {
     console.error('[spendPinsDB] Unexpected error:', e.message);
     return { ok: false, reason: 'ERROR' };

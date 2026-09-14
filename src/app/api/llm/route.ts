@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { requireUserFromRequest } from '@/lib/server/requireAuth';
+import { requireUserFromRequest, verifyPaywallAccess } from '@/lib/server/requireAuth';
 import { sanitizeLLMOutput } from '@/lib/sanitizeLLM';
 import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 
@@ -23,6 +23,11 @@ export async function POST(req: Request) {
     }
 
     const { messages, systemPrompt, skillCategory, maxTokens } = await req.json();
+
+    // Verify server-authoritative paywall access (Task 2.3)
+    const paywallErr = await verifyPaywallAccess(gated.user!.id, skillCategory || 'ai');
+    if (paywallErr) return paywallErr;
+
     const clampedMaxTokens = Math.min(Math.max(Number(maxTokens) || 300, 50), 1000);
 
     const openRouterKey = process.env.OPENROUTER_API_KEY;
