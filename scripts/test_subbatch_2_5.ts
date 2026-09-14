@@ -242,7 +242,8 @@ async function runSubBatch25Tests() {
   console.log('\n── TEST 3 (Defect 050): Rapid Dispatch Throttling & Cooldown Verification ──');
   try {
     const contextFile = path.join(process.cwd(), 'src', 'lib', 'context', 'CareerOSContext.tsx');
-    const contextContent = fs.readFileSync(contextFile, 'utf8');
+    const financeFile = path.join(process.cwd(), 'src', 'lib', 'context', 'FinanceContext.tsx');
+    const contextContent = fs.readFileSync(contextFile, 'utf8') + (fs.existsSync(financeFile) ? '\n' + fs.readFileSync(financeFile, 'utf8') : '');
 
     // 3.1 Verify lastRewardTimeRef exists in CareerOSContext
     const hasRewardRef = /lastRewardTimeRef\s*=\s*useRef<number>\(0\)/.test(contextContent);
@@ -296,7 +297,8 @@ async function runSubBatch25Tests() {
   console.log('\n── TEST 4 (Defect 051): recalculateCareerDna Zero Baseline Verification ──');
   try {
     const supabaseServiceFile = path.join(process.cwd(), 'src', 'lib', 'supabaseService.ts');
-    const serviceContent = fs.readFileSync(supabaseServiceFile, 'utf8');
+    const credentialServiceFile = path.join(process.cwd(), 'src', 'lib', 'services', 'supabase', 'credentialService.ts');
+    const serviceContent = fs.readFileSync(supabaseServiceFile, 'utf8') + (fs.existsSync(credentialServiceFile) ? '\n' + fs.readFileSync(credentialServiceFile, 'utf8') : '');
 
     // 4.1 Verify || 68 is completely eradicated from recalculateCareerDna
     const hasHardcoded68 = /recalculateCareerDna[\s\S]*?\|\|\s*68/.test(serviceContent);
@@ -353,7 +355,8 @@ async function runSubBatch25Tests() {
   console.log('\n── TEST 5 (Defect 052): Accurate Communication Score Initial Baseline & 70/30 Weighted Blend ──');
   try {
     const supabaseServiceFile = path.join(process.cwd(), 'src', 'lib', 'supabaseService.ts');
-    const serviceContent = fs.readFileSync(supabaseServiceFile, 'utf8');
+    const credentialServiceFile = path.join(process.cwd(), 'src', 'lib', 'services', 'supabase', 'credentialService.ts');
+    const serviceContent = fs.readFileSync(supabaseServiceFile, 'utf8') + (fs.existsSync(credentialServiceFile) ? '\n' + fs.readFileSync(credentialServiceFile, 'utf8') : '');
 
     // 5.1 Verify || 60 is completely eradicated from completeInterviewSession
     const hasHardcoded60 = /completeInterviewSession[\s\S]*?\|\|\s*60/.test(serviceContent);

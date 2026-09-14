@@ -272,19 +272,22 @@ export async function syncRewardsDB(
 
 export async function syncUnlockedItemsDB(
   uid: string,
-  unlockedItems: Record<string, number>
-): Promise<boolean> {
-  if (!uid || uid === 'guest') return true;
+  unlockedItems: Record<string, any>
+): Promise<any> {
+  if (!uid || uid === 'guest') return { ok: true };
 
   try {
     const { error } = await supabase.from('users').update({
-      unlocked_items: unlockedItems,
-      updated_at: new Date().toISOString(),
+      unlocked_items: unlockedItems
     }).eq('id', uid);
 
-    return !error;
+    if (error) {
+      console.warn('[syncUnlockedItemsDB] Failed to sync unlocked items to Supabase:', error);
+      return { ok: false };
+    }
+    return { ok: true };
   } catch {
-    return false;
+    return { ok: false };
   }
 }
 

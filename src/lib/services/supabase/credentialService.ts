@@ -2,6 +2,7 @@
 
 import { supabase } from '@/lib/supabaseClient';
 import { generateTxId } from '@/lib/utils/transactionId';
+import { getUserProfile, updateUserProfile } from './userService';
 
 export async function getVaultItems(uid: string): Promise<Record<string, unknown>[]> {
   if (!uid || uid === 'guest') return [];
@@ -127,30 +128,14 @@ export async function recalculateCareerDna(uid: string): Promise<Record<string, 
   if (!uid || uid === 'guest') return null;
 
   try {
-    const { data: user } = await supabase
-      .from('users')
-      .select('ats_score, xp_total, missions_completed, completed_quests, trust_score')
-      .eq('id', uid)
-      .maybeSingle();
-
-    if (!user) return null;
-
-    const questCount = Array.isArray(user.completed_quests) ? user.completed_quests.length : 0;
-    const missionCount = Number(user.missions_completed) || 0;
-    const atsScore = Number(user.ats_score) || 60;
-    const trustScore = Number(user.trust_score) || 50;
-
-    const dnaScore = Math.min(100, Math.round((atsScore * 0.4) + (trustScore * 0.3) + (Math.min(questCount, 20) * 1.5)));
-
-    const archetype = dnaScore > 80 ? 'Architect' : dnaScore > 65 ? 'Builder' : 'Explorer';
-
-    await supabase.from('users').update({
-      career_dna_score: dnaScore,
-      career_dna_archetype: archetype,
-      updated_at: new Date().toISOString(),
-    }).eq('id', uid);
-
-    return { dnaScore, archetype };
+    const profile = await getUserProfile(uid);
+    if (!profile) return null;
+    const { data: missions } = await supabase.from('missions').select('status').eq('user_id', uid);
+    const completed = (missions || []).filter((m: any) => m.status === 'submitted' || m.status === 'completed').length;
+    const baseDna = typeof profile.career_dna_score === 'number' ? profile.career_dna_score : 0;
+    const newDna = Math.min(100, Math.max(0, baseDna + completed * 2));
+    await updateUserProfile(uid, { career_dna_score: newDna }, { allowPrivileged: true });
+    return { ...profile, career_dna_score: newDna };
   } catch (err) {
     console.warn('[recalculateCareerDna] Error:', err);
     return null;
@@ -250,21 +235,37 @@ export async function appendInterviewTranscript(
 export async function completeInterviewSession(
   uid: string,
   sessionId: string,
-  evaluation: Record<string, unknown>
+  evaluation: Record<string, any>
 ): Promise<void> {
   try {
-    const score = Math.round(Number(evaluation.score || evaluation.overall_score || 0));
+    const telemetryData = evaluation.telemetryDiagnostics || evaluation.telemetry_diagnostics || null;
     await supabase
       .from('interview_sessions')
       .update({
         status: 'completed',
-        overall_score: score,
+        overall_score: evaluation.overall_score || evaluation.score || 0,
         evaluation,
+        telemetry_diagnostics: telemetryData,
         completed_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       })
       .eq('id', sessionId)
       .eq('user_id', uid);
+
+    const profile = await getUserProfile(uid);
+    if (profile) {
+      const currentScore = typeof evaluation.communication_score === 'number' ? evaluation.communication_score : (evaluation.overall_score || evaluation.score || 0);
+      let next: number;
+      if (profile.interviews_done === 0 || profile.communication_score == null) {
+        next = Math.min(100, Math.max(0, Math.round(currentScore)));
+      } else {
+        next = Math.min(100, Math.max(0, Math.round((profile.communication_score * 0.7) + (currentScore * 0.3))));
+      }
+      await updateUserProfile(uid, {
+        communication_score: next,
+        interviews_done: (profile.interviews_done || 0) + 1,
+      }, { allowPrivileged: true });
+    }
   } catch (err) {
     console.warn('[completeInterviewSession] Update failed:', err);
   }

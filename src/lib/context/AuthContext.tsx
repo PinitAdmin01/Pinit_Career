@@ -6,7 +6,7 @@ import { isDemoAuthEnabled, DEMO_PASSWORD, isDemoPassword, DEMO_ROLE_BY_EMAIL } 
 import { User as SbUser } from '@supabase/supabase-js';
 import {
   getUserProfile, createUserProfile, updateUserProfile,
-  ensureSeedData, EMPTY_PROFILE, mapRowToProfile
+  EMPTY_PROFILE, mapRowToProfile
 } from '@/lib/supabaseService';
 import { api } from '@/lib/api/client';
 
@@ -95,6 +95,7 @@ const COLUMN_MAP: Record<string, string> = {
   display_name: 'displayName',
   role: 'role',
   register_number: 'registerNumber',
+  roll_number: 'registerNumber',
   selected_teacher_id: 'selectedTeacherId',
   ats_score: 'atsScore',
   career_dna_score: 'careerDnaScore',
@@ -130,6 +131,7 @@ const COLUMN_MAP: Record<string, string> = {
   resume_generated: 'resumeGenerated',
   roadmap_generated: 'roadmapGenerated',
   completed_quests: 'completedQuests',
+  completed_missions: 'completedMissions',
   java_test_passed: 'javaTestPassed',
   group_panel_passed: 'groupPanelPassed',
   recruiter_visible: 'recruiterVisible',
@@ -158,20 +160,39 @@ function sbUserToAppUser(sbUser: SbUser, profile: Record<string, unknown> | null
   const emailLower = sbUser.email?.toLowerCase();
   if (emailLower && DEMO_ROLE_BY_EMAIL[emailLower]) role = DEMO_ROLE_BY_EMAIL[emailLower];
 
+  const regNo = (profile?.registerNumber as string) || (profile?.register_number as string) || (profile?.roll_number as string) || '';
+  const teacherId = (profile?.selectedTeacherId as string) || (profile?.selected_teacher_id as string) || 'priya';
+  const mentorId = (profile?.guidanceMentorId as string) || (profile?.guidance_mentor_id as string) || teacherId;
+  const dispName = (profile?.displayName as string) || (profile?.display_name as string) || sbUser.user_metadata?.display_name || sbUser.user_metadata?.full_name || 'User';
+
   return {
     ...profile,
-    id:          sbUser.id,
-    username:    (profile?.username as string) || sbUser.email?.split('@')[0] || 'user',
-    email:       sbUser.email || '',
-    displayName: (profile?.displayName as string) || sbUser.user_metadata?.display_name || 'User',
-    role:        role,
-    registerNumber:   profile?.registerNumber as string | undefined,
-    selectedTeacherId: profile?.selectedTeacherId as string | undefined,
-    guidanceMentorId: (profile?.guidanceMentorId as string | undefined) || (profile?.guidance_mentor_id as string | undefined),
-    atsScore:         profile?.ats_score as number | undefined,
-    trustScore:       profile?.trust_score as number | undefined,
-    careerDnaScore:   profile?.career_dna_score as number | undefined,
-    missionStreak:    profile?.mission_streak as number | undefined,
+    id:                sbUser.id,
+    username:          (profile?.username as string) || sbUser.email?.split('@')[0] || 'user',
+    email:             sbUser.email || '',
+    displayName:       dispName,
+    display_name:      dispName,
+    role:              role,
+    registerNumber:    regNo,
+    register_number:   regNo,
+    selectedTeacherId: teacherId,
+    selected_teacher_id: teacherId,
+    guidanceMentorId:  mentorId,
+    guidance_mentor_id: mentorId,
+    atsScore:          (profile?.atsScore as number | undefined) ?? (profile?.ats_score as number | undefined) ?? 0,
+    ats_score:         (profile?.atsScore as number | undefined) ?? (profile?.ats_score as number | undefined) ?? 0,
+    trustScore:        (profile?.trustScore as number | undefined) ?? (profile?.trust_score as number | undefined) ?? 50,
+    trust_score:       (profile?.trustScore as number | undefined) ?? (profile?.trust_score as number | undefined) ?? 50,
+    careerDnaScore:    (profile?.careerDnaScore as number | undefined) ?? (profile?.career_dna_score as number | undefined) ?? 0,
+    career_dna_score:  (profile?.careerDnaScore as number | undefined) ?? (profile?.career_dna_score as number | undefined) ?? 0,
+    missionStreak:     (profile?.missionStreak as number | undefined) ?? (profile?.mission_streak as number | undefined) ?? 0,
+    mission_streak:    (profile?.missionStreak as number | undefined) ?? (profile?.mission_streak as number | undefined) ?? 0,
+    onboardingStep:    (profile?.onboardingStep as number | undefined) ?? (profile?.onboarding_step as number | undefined) ?? 1,
+    onboarding_step:   (profile?.onboardingStep as number | undefined) ?? (profile?.onboarding_step as number | undefined) ?? 1,
+    roadmapGenerated:  Boolean(profile?.roadmapGenerated ?? profile?.roadmap_generated),
+    roadmap_generated: Boolean(profile?.roadmapGenerated ?? profile?.roadmap_generated),
+    resumeGenerated:   Boolean(profile?.resumeGenerated ?? profile?.resume_generated),
+    resume_generated:  Boolean(profile?.resumeGenerated ?? profile?.resume_generated),
   };
 }
 
@@ -403,7 +424,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           await updateUserProfile(sbUser.id, { role: expectedRole }, { allowPrivileged: true });
         }
       }
-      await ensureSeedData(sbUser.id, profile);
       try {
         localStorage.setItem(`pinit_${sbUser.id}_profile`, JSON.stringify(profile));
       } catch {}
@@ -451,7 +471,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
               
               for (const [dbCol, jsProp] of Object.entries(COLUMN_MAP)) {
                 if (updatedRow && dbCol in updatedRow) {
-                  nextUser[jsProp] = mappedNew[jsProp];
+                  const incomingVal = (mappedNew as any)[jsProp] !== undefined 
+                    ? (mappedNew as any)[jsProp] 
+                    : ((mappedNew as any)[dbCol] !== undefined ? (mappedNew as any)[dbCol] : updatedRow[dbCol]);
+
+                  if (incomingVal !== undefined) {
+                    if (jsProp === 'displayName' && (!incomingVal || typeof incomingVal !== 'string') && nextUser.displayName) {
+                      continue;
+                    }
+                    if (jsProp.toLowerCase().includes('score') && (incomingVal === null || incomingVal === undefined) && (nextUser as any)[jsProp] !== undefined) {
+                      continue;
+                    }
+                    (nextUser as any)[jsProp] = incomingVal;
+                  }
                 }
               }
               
@@ -642,7 +674,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             role,
           };
           await createUserProfile(sbUser.id, profile);
-          await ensureSeedData(sbUser.id, profile);
         } else {
           throw error;
         }
@@ -666,7 +697,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         };
         await createUserProfile(sbUser.id, profile);
       }
-      await ensureSeedData(sbUser.id, profile);
       const appUser = sbUserToAppUser(sbUser, profile);
 
       try {
@@ -773,10 +803,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         console.error('[AuthContext] Critical failure creating user profile:', err);
         throw new Error(`Profile initialization failed: ${err?.message || 'Database error'}`);
       }
-
-      ensureSeedData(sbUser.id, profile).catch((err) => {
-        console.warn('Seed data async notice:', err?.message);
-      });
 
       try {
         profileCacheRef.current[sbUser.id] = { data: profile, ts: Date.now() };

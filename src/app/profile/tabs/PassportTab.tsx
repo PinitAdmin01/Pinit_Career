@@ -95,7 +95,8 @@ export default function PassportTab({ user, cOS }: PassportTabProps) {
           });
           if (typeof window !== 'undefined') {
             try {
-              const rawInterview = localStorage.getItem('pinit_mock_interview_feedback');
+              const interviewKey = user?.id ? `pinit_${user.id}_mock_interview_feedback` : 'pinit_mock_interview_feedback';
+              const rawInterview = localStorage.getItem(interviewKey) || localStorage.getItem('pinit_mock_interview_feedback');
               if (rawInterview) {
                 const interview = JSON.parse(rawInterview);
                 if (interview && (interview.overallScore !== undefined || interview.score !== undefined)) {

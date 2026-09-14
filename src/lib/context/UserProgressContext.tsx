@@ -6,7 +6,7 @@ import { useAuth } from '@/lib/context/AuthContext';
 import { api } from '@/lib/api/client';
 import { consecutiveCalendarStreak } from '@/lib/missions/streak';
 import { supabase } from '@/lib/supabaseClient';
-import { persistQuestCompletion, syncRewardsDB } from '@/lib/supabaseService';
+import { persistQuestCompletion, syncRewardsDB, updateUserProfile } from '@/lib/supabaseService';
 import { markOnboardingStoryPending } from '@/lib/storyTour';
 import { safeLocalStorageSetItem } from '@/lib/storage/careerStorage';
 
@@ -255,18 +255,89 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     };
   }, [keys]);
 
-  // ── DEF-064 Fix: Server-first authoritative roadmap hydration (decouple stale localStorage lockout)
+  // ── DEF-064 / Task 3.2: Server-first authoritative Supabase progress hydration
   useEffect(() => {
     if (!user || user.id === 'guest') return;
-    const userAnswers = (user as any).onboarding_answers;
-    if (userAnswers && userAnswers.roadmap_modules && Array.isArray(userAnswers.roadmap_modules) && userAnswers.roadmap_modules.length > 0) {
+
+    // 1. Onboarding Answers
+    const userAnswers = (user as any).onboardingAnswers || (user as any).onboarding_answers;
+    if (userAnswers && typeof userAnswers === 'object' && Object.keys(userAnswers).length > 0) {
       setOnboardingAnswersState(prev => {
-        const merged = { ...prev, ...userAnswers, roadmap_modules: userAnswers.roadmap_modules };
+        const merged = { ...prev, ...userAnswers };
+        if (userAnswers.roadmap_modules && Array.isArray(userAnswers.roadmap_modules)) {
+          merged.roadmap_modules = userAnswers.roadmap_modules;
+        }
         try { safeLocalStorageSetItem(keys.onboard, JSON.stringify(merged)); } catch {}
         return merged;
       });
+    }
+
+    // 2. Onboarding Step (server is authoritative)
+    const serverStep = (user as any).onboardingStep ?? (user as any).onboarding_step;
+    if (typeof serverStep === 'number' && serverStep > 0) {
+      setOnboardingStepState(prev => {
+        const best = Math.max(prev, serverStep);
+        try { safeLocalStorageSetItem(keys.obStep, String(best)); } catch {}
+        return best;
+      });
+    }
+
+    // 3. Roadmap Generated (server is authoritative)
+    const serverRoadmapGen = (user as any).roadmapGenerated ?? (user as any).roadmap_generated;
+    const hasModules = Boolean(userAnswers?.roadmap_modules && Array.isArray(userAnswers.roadmap_modules) && userAnswers.roadmap_modules.length > 0);
+    if (serverRoadmapGen === true || hasModules) {
       setRoadmapGeneratedState(true);
       try { safeLocalStorageSetItem(keys.roadGen, 'true'); } catch {}
+    }
+
+    // 4. Resume Generated (server is authoritative)
+    const serverResumeGen = (user as any).resumeGenerated ?? (user as any).resume_generated;
+    if (typeof serverResumeGen === 'boolean') {
+      setResumeGeneratedState(prev => {
+        const val = prev || serverResumeGen;
+        try { safeLocalStorageSetItem(keys.resGen, String(val)); } catch {}
+        return val;
+      });
+    }
+
+    // 5. Completed Quests (CRDT union)
+    const serverQuests = (user as any).completedQuests ?? (user as any).completed_quests;
+    if (Array.isArray(serverQuests) && serverQuests.length > 0) {
+      setCompletedQuestsState(prev => {
+        const merged = Array.from(new Set([...prev, ...serverQuests]));
+        try { safeLocalStorageSetItem(keys.quests, JSON.stringify(merged)); } catch {}
+        return merged;
+      });
+    }
+
+    // 6. Completed Missions (CRDT union)
+    const serverMissions = (user as any).completedMissions ?? (user as any).completed_missions;
+    if (Array.isArray(serverMissions) && serverMissions.length > 0) {
+      setCompletedMissions(prev => {
+        const merged = Array.from(new Set([...prev, ...serverMissions]));
+        try { safeLocalStorageSetItem(keys.missions, JSON.stringify(merged)); } catch {}
+        return merged;
+      });
+    }
+
+    // 7. XP (server max)
+    const serverXp = (user as any).xp ?? (user as any).xp_total;
+    if (typeof serverXp === 'number' && serverXp > 0) {
+      setXpState(prev => {
+        const best = Math.max(prev, serverXp);
+        try { safeLocalStorageSetItem(keys.xp, String(best)); } catch {}
+        return best;
+      });
+    }
+
+    // 8. Mission Streak (server max)
+    const serverStreak = (user as any).missionStreak ?? (user as any).mission_streak;
+    if (typeof serverStreak === 'number' && serverStreak > 0) {
+      setMissionStreak(prev => {
+        const best = Math.max(prev, serverStreak);
+        try { safeLocalStorageSetItem(keys.streak, String(best)); } catch {}
+        return best;
+      });
     }
   }, [user, keys]);
 
@@ -302,6 +373,19 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     setMissionStreak(newStreak);
     save(keys.streak, newStreak);
 
+    // DEF-042 FIX: Streak milestone bonus is verified and claimed authoritatively on server
+    if (newStreak % 7 === 0 && userId && userId !== 'guest') {
+      api.post('/api/pins/claim-streak-bonus', { milestone: newStreak })
+        .then((res: any) => {
+          if (res?.ok && res?.pinsGranted) {
+            toast.success('🎉 Streak Milestone Bonus!', `+${res.pinsGranted} pins credited for your ${newStreak}-day streak!`);
+          }
+        })
+        .catch((err: any) => {
+          console.warn('[UserProgress] Streak bonus claim notice:', err?.message || err);
+        });
+    }
+
     const nextTimestamps = [...timestamps, new Date().toISOString()];
     const nextAnswers = {
       ...onboardingAnswers,
@@ -310,8 +394,15 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     };
     setOnboardingAnswersState(nextAnswers);
     save(keys.onboard, nextAnswers);
+    if (userId && userId !== 'guest') {
+      updateUserProfile(userId, {
+        completed_missions: updated,
+        mission_streak: newStreak,
+        onboarding_answers: nextAnswers,
+      }).catch(() => {});
+    }
     toast.success('Mission Complete! 🎯', 'Great progress today!');
-  }, [completedMissions, keys, missionStreak, onboardingAnswers, save]);
+  }, [completedMissions, keys, missionStreak, onboardingAnswers, save, userId]);
 
   const addCompletedQuest = useCallback((questId: string, isExam?: boolean, xpAmount?: number, courseId?: string) => {
     const timestamps = onboardingAnswers.completedQuestsTimestamps || [];
@@ -329,12 +420,9 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
 
     if (completedQuests.includes(questId)) return;
 
-    setCompletedQuestsState(prev => {
-      if (prev.includes(questId)) return prev;
-      const next = [...prev, questId];
-      save(keys.quests, next);
-      return next;
-    });
+    const next = [...completedQuests, questId];
+    setCompletedQuestsState(next);
+    save(keys.quests, next);
 
     const nextTimestamps = [...timestamps, `${new Date().toISOString()}|${courseId || 'general'}`];
     const nextAnswers = {
@@ -346,6 +434,10 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
 
     if (userId && userId !== 'guest') {
       persistQuestCompletion(userId, questId, xpAmount || 150).catch(() => {});
+      updateUserProfile(userId, {
+        completed_quests: next,
+        onboarding_answers: nextAnswers,
+      }).catch(() => {});
     }
   }, [completedQuests, keys, onboardingAnswers, save, userId]);
 
@@ -354,9 +446,12 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
       const existing = prev.questCodes || {};
       const next = { ...prev, questCodes: { ...existing, [questId]: code } };
       save(keys.onboard, next);
+      if (userId && userId !== 'guest') {
+        updateUserProfile(userId, { onboarding_answers: next }).catch(() => {});
+      }
       return next;
     });
-  }, [keys.onboard, save]);
+  }, [keys.onboard, save, userId]);
 
   const setOnboarding = useCallback((answers: Omit<OnboardingAnswers, 'hasCompleted'>, skipSync = false) => {
     const full: OnboardingAnswers = { ...answers, hasCompleted: true };
@@ -364,23 +459,36 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     save(keys.onboard, full);
     if (!skipSync && userId && userId !== 'guest') {
       api.post('/api/auth/onboarding', full).catch(() => {});
+      updateUserProfile(userId, {
+        onboarding_answers: full,
+        onboarding_step: Math.max(onboardingStep, 2),
+      }).catch(() => {});
     }
-  }, [keys.onboard, save, userId]);
+  }, [keys.onboard, onboardingStep, save, userId]);
 
   const setOnboardingStep = useCallback((step: number) => {
     setOnboardingStepState(step);
     save(keys.obStep, step);
-  }, [keys.obStep, save]);
+    if (userId && userId !== 'guest') {
+      updateUserProfile(userId, { onboarding_step: step }).catch(() => {});
+    }
+  }, [keys.obStep, save, userId]);
 
   const setResumeGenerated = useCallback((val: boolean) => {
     setResumeGeneratedState(val);
     save(keys.resGen, val);
-  }, [keys.resGen, save]);
+    if (userId && userId !== 'guest') {
+      updateUserProfile(userId, { resume_generated: val }).catch(() => {});
+    }
+  }, [keys.resGen, save, userId]);
 
   const setRoadmapGenerated = useCallback((val: boolean) => {
     setRoadmapGeneratedState(val);
     save(keys.roadGen, val);
-  }, [keys.roadGen, save]);
+    if (userId && userId !== 'guest') {
+      updateUserProfile(userId, { roadmap_generated: val }).catch(() => {});
+    }
+  }, [keys.roadGen, save, userId]);
 
   const setActiveCourseId = useCallback((val: string | null) => {
     setActiveCourseIdState(val);
@@ -402,9 +510,12 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     setOnboardingAnswersState(prev => {
       const next = { ...prev, portfolio_projects: projects };
       save(keys.onboard, next);
+      if (userId && userId !== 'guest') {
+        updateUserProfile(userId, { onboarding_answers: next }).catch(() => {});
+      }
       return next;
     });
-  }, [keys.onboard, save]);
+  }, [keys.onboard, save, userId]);
 
   const generateFusedRoadmap = useCallback(async (
     skillTags: string[],
@@ -428,19 +539,23 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
       });
 
       if (res && res.modules && Array.isArray(res.modules)) {
-        setOnboardingAnswersState(prev => {
-          const next = { ...prev, roadmap_modules: res.modules };
-          save(keys.onboard, next);
-          return next;
-        });
+        const nextAnswers = { ...onboardingAnswers, roadmap_modules: res.modules };
+        setOnboardingAnswersState(nextAnswers);
+        save(keys.onboard, nextAnswers);
         setRoadmapGenerated(true);
+        if (userId && userId !== 'guest') {
+          updateUserProfile(userId, {
+            roadmap_generated: true,
+            onboarding_answers: nextAnswers,
+          }).catch(() => {});
+        }
         return res.modules;
       }
     } catch (err) {
       console.warn('[generateFusedRoadmap] API generation failed:', err);
     }
     return null;
-  }, [keys.onboard, onboardingAnswers, save, setRoadmapGenerated]);
+  }, [keys.onboard, onboardingAnswers, save, setRoadmapGenerated, userId]);
 
   const careerScore = useMemo(() => {
     const base = 50;

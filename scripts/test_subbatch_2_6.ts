@@ -138,7 +138,8 @@ async function runSubBatch26Tests() {
   console.log('\n── TEST 2 (Defect 054): Cross-Tab Echo Elimination & Realtime Sync ──');
   try {
     const contextPath = path.join(process.cwd(), 'src', 'lib', 'context', 'CareerOSContext.tsx');
-    const contextContent = fs.readFileSync(contextPath, 'utf8');
+    const progressContextPath = path.join(process.cwd(), 'src', 'lib', 'context', 'UserProgressContext.tsx');
+    const contextContent = fs.readFileSync(contextPath, 'utf8') + (fs.existsSync(progressContextPath) ? '\n' + fs.readFileSync(progressContextPath, 'utf8') : '');
 
     // 2.1 Verify save() bypasses BroadcastChannel for pins and pin history
     const hasSaveBypass = /if\s*\(key\s*===\s*keys\.pins\s*\|\|\s*key\s*===\s*keys\.pinHist\)\s*\{\s*return;\s*\}/.test(contextContent);

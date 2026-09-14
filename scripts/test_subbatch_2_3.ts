@@ -480,10 +480,9 @@ async function runSubBatch23Tests() {
     );
 
     // 5.3 Verify CareerOSContext.tsx source code no longer calls earnPins('streak_bonus')
-    const contextSrc = fs.readFileSync(
-      path.join(process.cwd(), 'src', 'lib', 'context', 'CareerOSContext.tsx'),
-      'utf8'
-    );
+    const contextPath = path.join(process.cwd(), 'src', 'lib', 'context', 'CareerOSContext.tsx');
+    const userProgressPath = path.join(process.cwd(), 'src', 'lib', 'context', 'UserProgressContext.tsx');
+    const contextSrc = fs.readFileSync(contextPath, 'utf8') + (fs.existsSync(userProgressPath) ? '\n' + fs.readFileSync(userProgressPath, 'utf8') : '');
     const hasClientStreakBonusEarn = contextSrc.includes("earnPins('streak_bonus'");
     const callsClaimStreakBonusApi = contextSrc.includes('/api/pins/claim-streak-bonus');
 

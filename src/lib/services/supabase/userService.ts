@@ -50,11 +50,64 @@ export const EMPTY_PROFILE = {
 export function mapRowToProfile(row: any): any {
   if (!row) return null;
   const ob = (row.onboarding_answers as Record<string, unknown>) || {};
+  const regNo = row.register_number || row.roll_number || '';
+  const isRoadmapGen = Boolean(row.roadmap_generated ?? ob.hasCompleted);
+  const isResumeGen = Boolean(row.resume_generated);
+  const teacherId = row.selected_teacher_id || 'priya';
+  const mentorId = row.guidance_mentor_id || row.selected_teacher_id || 'priya';
+  const dispName = row.display_name || row.full_name || 'Student';
+  const obStep = typeof row.onboarding_step === 'number' ? row.onboarding_step : 1;
+
   return {
     ...row,
-    display_name:         row.display_name || row.full_name || 'Student',
+    id:                   row.id,
+    // Standard camelCase contract
+    displayName:          dispName,
     role:                 row.role || 'student',
-    register_number:      row.register_number || row.roll_number || '',
+    registerNumber:       regNo,
+    selectedTeacherId:    teacherId,
+    guidanceMentorId:     mentorId,
+    atsScore:             row.ats_score ?? 0,
+    careerDnaScore:       row.career_dna_score ?? 0,
+    trustScore:           row.trust_score ?? 50,
+    missionStreak:        row.mission_streak ?? 0,
+    recruiterVisibility:  row.recruiter_visibility ?? 0,
+    careerReadiness:      row.career_readiness ?? 0,
+    communicationScore:   row.communication_score ?? null,
+    executionScore:       row.execution_score ?? null,
+    leadershipScore:      row.leadership_score ?? null,
+    consistencyScore:     row.consistency_score ?? null,
+    adaptabilityScore:    row.adaptability_score ?? null,
+    confidenceScore:      row.confidence_score ?? null,
+    innovationScore:      row.innovation_score ?? null,
+    weakAreas:            Array.isArray(row.weak_areas) ? row.weak_areas : [],
+    skillTags:            Array.isArray(row.skill_tags) ? row.skill_tags : (Array.isArray(ob.skills) ? ob.skills : []),
+    certifications:       Array.isArray(row.certifications) ? row.certifications : [],
+    targetRole:           row.target_role || (ob.role as string) || 'Full Stack Engineer',
+    careerGoal:           row.career_goal || '',
+    intelligenceScore:    row.intelligence_score ?? 0,
+    careerDnaArchetype:   row.career_dna_archetype || 'builder',
+    xpTotal:              row.xp_total ?? 0,
+    xpLevel:              row.xp_level ?? 1,
+    missionsCompleted:    row.missions_completed ?? 0,
+    interviewsDone:       row.interviews_done ?? 0,
+    vaultCount:           row.vault_count ?? 0,
+    onboardingStep:       obStep,
+    onboardingAnswers:    ob,
+    roadmapGenerated:     isRoadmapGen,
+    resumeGenerated:      isResumeGen,
+    completedQuests:      Array.isArray(row.completed_quests) ? row.completed_quests : [],
+    completedMissions:    Array.isArray(row.completed_missions) ? row.completed_missions : [],
+    pins:                 typeof row.pins === 'number' ? row.pins : 120,
+    pinHistory:           Array.isArray(row.pin_history) ? row.pin_history : [],
+    unlockedItems:        row.unlocked_items || {},
+
+    // Snake_case aliases for 100% backward compatibility
+    display_name:         dispName,
+    register_number:      regNo,
+    roll_number:          regNo,
+    selected_teacher_id:  teacherId,
+    guidance_mentor_id:   mentorId,
     ats_score:            row.ats_score ?? 0,
     career_dna_score:     row.career_dna_score ?? 0,
     trust_score:          row.trust_score ?? 50,
@@ -70,7 +123,6 @@ export function mapRowToProfile(row: any): any {
     innovation_score:     row.innovation_score ?? null,
     weak_areas:           Array.isArray(row.weak_areas) ? row.weak_areas : [],
     skill_tags:           Array.isArray(row.skill_tags) ? row.skill_tags : (Array.isArray(ob.skills) ? ob.skills : []),
-    certifications:       Array.isArray(row.certifications) ? row.certifications : [],
     target_role:          row.target_role || (ob.role as string) || 'Full Stack Engineer',
     career_goal:          row.career_goal || '',
     intelligence_score:   row.intelligence_score ?? 0,
@@ -80,12 +132,14 @@ export function mapRowToProfile(row: any): any {
     missions_completed:   row.missions_completed ?? 0,
     interviews_done:      row.interviews_done ?? 0,
     vault_count:          row.vault_count ?? 0,
-    onboarding_step:      row.onboarding_step ?? 1,
+    onboarding_step:      obStep,
     onboarding_answers:   ob,
-    roadmap_generated:    row.roadmap_generated ?? Boolean(ob.hasCompleted),
+    roadmap_generated:    isRoadmapGen,
+    resume_generated:     isResumeGen,
     completed_quests:     Array.isArray(row.completed_quests) ? row.completed_quests : [],
-    pins:                 typeof row.pins === 'number' ? row.pins : 120,
+    completed_missions:   Array.isArray(row.completed_missions) ? row.completed_missions : [],
     pin_history:          Array.isArray(row.pin_history) ? row.pin_history : [],
+    unlocked_items:       row.unlocked_items || {},
   };
 }
 
@@ -93,6 +147,7 @@ export function mapProfileToRow(profile: any): any {
   const row: Record<string, unknown> = {};
   const directFields = [
     'display_name', 'full_name', 'role', 'register_number', 'roll_number',
+    'selected_teacher_id', 'guidance_mentor_id',
     'ats_score', 'career_dna_score', 'trust_score', 'mission_streak',
     'recruiter_visibility', 'career_readiness', 'communication_score',
     'execution_score', 'leadership_score', 'consistency_score',
@@ -101,7 +156,7 @@ export function mapProfileToRow(profile: any): any {
     'career_goal', 'intelligence_score', 'career_dna_archetype',
     'xp_total', 'xp_level', 'missions_completed', 'interviews_done',
     'vault_count', 'onboarding_step', 'onboarding_answers',
-    'roadmap_generated', 'completed_quests', 'phone', 'location',
+    'roadmap_generated', 'resume_generated', 'completed_quests', 'phone', 'location',
     'bio', 'linkedin_url', 'github_url', 'portfolio_url', 'department',
     'semester', 'college_name', 'pins', 'pin_history',
   ];
@@ -113,6 +168,8 @@ export function mapProfileToRow(profile: any): any {
     fullName:            'full_name',
     registerNumber:      'register_number',
     rollNumber:          'roll_number',
+    selectedTeacherId:   'selected_teacher_id',
+    guidanceMentorId:    'guidance_mentor_id',
     atsScore:            'ats_score',
     careerDnaScore:      'career_dna_score',
     trustScore:          'trust_score',
@@ -140,7 +197,9 @@ export function mapProfileToRow(profile: any): any {
     onboardingStep:      'onboarding_step',
     onboardingAnswers:   'onboarding_answers',
     roadmapGenerated:    'roadmap_generated',
+    resumeGenerated:     'resume_generated',
     completedQuests:     'completed_quests',
+    completedMissions:   'completed_missions',
     linkedinUrl:         'linkedin_url',
     githubUrl:           'github_url',
     portfolioUrl:        'portfolio_url',
@@ -205,16 +264,16 @@ const PRIVILEGED_FIELDS = new Set([
   'is_admin',
 ]);
 
-export function stripSelfServicePrivileges<T extends Record<string, any>>(row: T, opts?: { allowPrivileged?: boolean } | boolean): T {
-  const allowPrivileged = typeof opts === 'boolean' ? opts : Boolean(opts?.allowPrivileged);
-  if (allowPrivileged) return row;
+export function stripSelfServicePrivileges<T extends Record<string, any>>(row: T, allowPrivileged = false): T {
+  if (allowPrivileged || !row || typeof row !== 'object') return row;
+  delete row.mission_streak;
   const sanitized = { ...row };
   for (const key of Object.keys(sanitized)) {
     if (PRIVILEGED_FIELDS.has(key)) {
       delete sanitized[key];
     }
   }
-  return sanitized;
+  return sanitized as T;
 }
 
 export async function findUserByRegisterNumber(registerNumber: string) {

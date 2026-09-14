@@ -36,7 +36,11 @@ async function runSubBatch24Tests() {
   console.log('── TEST 1 (Defect 043): Cross-Device Unlocked Items Database Synchronization ──');
   try {
     const supabaseServiceFile = path.join(process.cwd(), 'src', 'lib', 'supabaseService.ts');
-    const serviceContent = fs.readFileSync(supabaseServiceFile, 'utf8');
+    const userServiceFile = path.join(process.cwd(), 'src', 'lib', 'services', 'supabase', 'userService.ts');
+    const progressServiceFile = path.join(process.cwd(), 'src', 'lib', 'services', 'supabase', 'progressService.ts');
+    const serviceContent = fs.readFileSync(supabaseServiceFile, 'utf8') +
+      (fs.existsSync(userServiceFile) ? '\n' + fs.readFileSync(userServiceFile, 'utf8') : '') +
+      (fs.existsSync(progressServiceFile) ? '\n' + fs.readFileSync(progressServiceFile, 'utf8') : '');
 
     // 1.1 Verify syncUnlockedItemsDB updates Supabase users.unlocked_items
     const hasDbUpdate = /supabase\s*\.from\(['"]users['"]\)\s*\.update\(\{\s*unlocked_items:\s*unlockedItems\s*\}\)/.test(serviceContent);
@@ -343,7 +347,8 @@ async function runSubBatch24Tests() {
 
     // 4.7 Verify CareerOSContext.tsx calls /api/pins/buy-ai-minutes
     const contextFile = path.join(process.cwd(), 'src', 'lib', 'context', 'CareerOSContext.tsx');
-    const contextContent = fs.readFileSync(contextFile, 'utf8');
+    const financeFile = path.join(process.cwd(), 'src', 'lib', 'context', 'FinanceContext.tsx');
+    const contextContent = fs.readFileSync(contextFile, 'utf8') + (fs.existsSync(financeFile) ? '\n' + fs.readFileSync(financeFile, 'utf8') : '');
     const callsServerApi = contextContent.includes('/api/pins/buy-ai-minutes');
     const handlesDailyCap = contextContent.includes('DAILY_AI_MINUTES_LIMIT_EXCEEDED');
     assert(

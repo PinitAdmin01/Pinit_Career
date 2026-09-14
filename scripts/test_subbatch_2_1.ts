@@ -186,7 +186,8 @@ async function runSubBatch21Tests() {
   console.log('\n── TEST 4 (Defect 031): Async Contract & Promise Evaluation in buyAiMinutes / spendPins ──');
   try {
     const contextPath = path.join(process.cwd(), 'src', 'lib', 'context', 'CareerOSContext.tsx');
-    const contextSource = fs.readFileSync(contextPath, 'utf8');
+    const financePath = path.join(process.cwd(), 'src', 'lib', 'context', 'FinanceContext.tsx');
+    const contextSource = fs.readFileSync(contextPath, 'utf8') + (fs.existsSync(financePath) ? '\n' + fs.readFileSync(financePath, 'utf8') : '');
 
     // 1. Check interface signature: spendPins returns Promise<boolean>
     const spendPinsInterfaceMatch = /spendPins:\s*\(featureKey:\s*string,\s*customReason\?:\s*string\)\s*=>\s*Promise<boolean>;/.test(contextSource);

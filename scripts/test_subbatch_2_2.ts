@@ -118,7 +118,8 @@ async function runSubBatch22Tests() {
     assert(optionsRes.status === 204 && optionsRes.headers.get('x-server-time') !== null, '/api/time OPTIONS returns 204 with x-server-time header');
 
     // 2. AST audit: fetchServerTimeOffset in supabaseService.ts
-    const supabaseServiceSrc = fs.readFileSync(path.join(process.cwd(), 'src', 'lib', 'supabaseService.ts'), 'utf8');
+    const progressServiceFile = path.join(process.cwd(), 'src', 'lib', 'services', 'supabase', 'progressService.ts');
+    const supabaseServiceSrc = fs.readFileSync(path.join(process.cwd(), 'src', 'lib', 'supabaseService.ts'), 'utf8') + (fs.existsSync(progressServiceFile) ? '\n' + fs.readFileSync(progressServiceFile, 'utf8') : '');
     assert(
       supabaseServiceSrc.includes("fetch('/api/time'"),
       'fetchServerTimeOffset queries /api/time'
@@ -349,7 +350,8 @@ async function runSubBatch22Tests() {
     );
 
     // 4. AST check: stripSelfServicePrivileges strips mission_streak
-    const supabaseServiceSrc = fs.readFileSync(path.join(process.cwd(), 'src', 'lib', 'supabaseService.ts'), 'utf8');
+    const userServiceFile = path.join(process.cwd(), 'src', 'lib', 'services', 'supabase', 'userService.ts');
+    const supabaseServiceSrc = fs.readFileSync(path.join(process.cwd(), 'src', 'lib', 'supabaseService.ts'), 'utf8') + (fs.existsSync(userServiceFile) ? '\n' + fs.readFileSync(userServiceFile, 'utf8') : '');
     assert(
       supabaseServiceSrc.includes('delete row.mission_streak;'),
       'stripSelfServicePrivileges deletes row.mission_streak from unprivileged user writes'

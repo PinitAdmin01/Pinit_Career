@@ -1,10 +1,11 @@
 'use client';
 
-import React, { createContext, useContext, useMemo, useCallback } from 'react';
+import React, { createContext, useContext, useMemo, useCallback, useRef } from 'react';
 import { useAuth } from '@/lib/context/AuthContext';
 import { usePins, PinTransaction, PinSource, PIN_COSTS, PIN_EARN } from '@/lib/hooks/usePins';
 import { useVault, VaultItem } from '@/lib/hooks/useVault';
-import { useAppStore } from '@/lib/store/useAppStore';
+import { useAppStore, toast } from '@/lib/store/useAppStore';
+import { api } from '@/lib/api/client';
 
 export interface FinanceContextType {
   vaultItems: VaultItem[];
@@ -63,11 +64,35 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
   const setAiUseTokens = useAppStore(s => s.setAiUseTokens);
   const decrementAiUseTokens = useAppStore(s => s.decrementAiUseTokens);
   const buyAiMinutes = useCallback(async () => {
-    const ok = await spendPins('ai_minutes_extend', 'Extended daily AI by 30 mins');
-    if (!ok) return false;
-    setAiUseTokens(useAppStore.getState().aiUseTokens + 30);
-    return true;
-  }, [spendPins, setAiUseTokens]);
+    if (userId && userId !== 'guest') {
+      try {
+        const res = (await api.post('/api/pins/buy-ai-minutes', {})) as any;
+        if (!res?.ok) {
+          if (res?.error === 'DAILY_AI_MINUTES_LIMIT_EXCEEDED') {
+            toast.error('Daily Limit Reached ⏳', res.message || 'Maximum 2 AI extensions (60 minutes total) allowed per day.');
+          } else if (res?.error === 'INSUFFICIENT_PINS') {
+            toast.error('Insufficient Pins 📌', 'Need 100 pins for 30 Min AI Token Extension.');
+          } else {
+            toast.error('Purchase Failed ⚠️', res?.message || 'Failed to purchase AI minutes.');
+          }
+          return false;
+        }
+        const added = res.minutesAdded || 30;
+        setAiUseTokens(useAppStore.getState().aiUseTokens + added);
+        toast.success('AI Time Extended! ⏰', `+${added} AI Minutes added to your daily balance.`);
+        return true;
+      } catch (err: any) {
+        toast.error('Purchase Error ⚠️', err?.message || 'Network error purchasing AI minutes.');
+        return false;
+      }
+    } else {
+      const ok = await spendPins('ai_minutes_extend', 'Extended daily AI by 30 mins');
+      if (!ok) return false;
+      setAiUseTokens(useAppStore.getState().aiUseTokens + 30);
+      toast.success('AI Time Extended! ⏰', '+30 AI Minutes added to your daily balance.');
+      return true;
+    }
+  }, [userId, spendPins, setAiUseTokens]);
 
   const {
     vaultItems,
@@ -80,8 +105,29 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
     onEarnPins: (source: string) => earnPins(source as PinSource),
   });
 
-  const rewardActivity = useMemo(() => {
-    return (_type: string, _title?: string) => {};
+  const lastRewardTimeRef = useRef<number>(0);
+  const rewardActivity = useCallback((
+    type: 'quest' | 'mission' | 'interview' | 'gd' | 'attention_game' | 'project',
+    title?: string
+  ) => {
+    const now = Date.now();
+    if (now - lastRewardTimeRef.current < 2000) {
+      console.warn('[rewardActivity] Throttled: Activity rewards rate limited.');
+      return;
+    }
+    lastRewardTimeRef.current = now;
+
+    const MATRIX: Record<string, { xp: number; trust: number; dna: number; label: string }> = {
+      quest:          { xp: 15, trust: 1, dna: 1, label: 'Quest Lesson Mastered' },
+      mission:        { xp: 25, trust: 2, dna: 2, label: 'Mission Challenge Cleared' },
+      gd:             { xp: 30, trust: 2, dna: 2, label: 'Group Discussion Completed' },
+      interview:      { xp: 40, trust: 3, dna: 3, label: 'AI Interview Round Completed' },
+      attention_game: { xp: 10, trust: 0, dna: 1, label: 'Focus Training Completed' },
+      project:        { xp: 50, trust: 5, dna: 5, label: 'Project Verified' },
+    };
+
+    const reward = MATRIX[type] || { xp: 15, trust: 1, dna: 1, label: 'Activity Completed' };
+    toast.success(`🏆 ${reward.label}`, `+${reward.xp} XP`);
   }, []);
 
   const value = useMemo<FinanceContextType>(() => ({
