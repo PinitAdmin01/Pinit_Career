@@ -3,6 +3,8 @@
 
 import * as dotenv from 'dotenv';
 dotenv.config();
+process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
+process.env.NODE_ENV = 'test';
 
 import fs from 'fs';
 import path from 'path';
