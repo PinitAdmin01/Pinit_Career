@@ -257,7 +257,6 @@ const PRIVILEGED_FIELDS = new Set([
   'adaptability_score',
   'confidence_score',
   'innovation_score',
-  'recruiter_visibility',
   'career_readiness',
   'xp_total',
   'xp_level',

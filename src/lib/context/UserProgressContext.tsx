@@ -285,9 +285,14 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     // 3. Roadmap Generated (server is authoritative)
     const serverRoadmapGen = (user as any).roadmapGenerated ?? (user as any).roadmap_generated;
     const hasModules = Boolean(userAnswers?.roadmap_modules && Array.isArray(userAnswers.roadmap_modules) && userAnswers.roadmap_modules.length > 0);
-    if (serverRoadmapGen === true || hasModules) {
+    const hasCompletedOnboarding = userAnswers?.hasCompleted === true;
+    if (serverRoadmapGen === true || hasModules || hasCompletedOnboarding) {
       setRoadmapGeneratedState(true);
-      try { safeLocalStorageSetItem(keys.roadGen, 'true'); } catch {}
+      setOnboardingStepState(prev => Math.max(prev, 3));
+      try {
+        safeLocalStorageSetItem(keys.roadGen, 'true');
+        safeLocalStorageSetItem(keys.obStep, '3');
+      } catch {}
     }
 
     // 4. Resume Generated (server is authoritative)
