@@ -1148,7 +1148,7 @@ export function useOnboardingWizard() {
       targetRoleLabel = 'Product & Operations Manager';
       skillsList = 'Product Strategy, Market Research, Agile Scrum, Growth Funnels, Data Analytics, Strategic Management, Negotiation';
       weakAreas = ['Product Analytics', 'A/B Testing Experiments', 'Stakeholder Alignment'];
-    } else if (goalLower.includes('design') || /\bux\b/i.test(goalLower) || /\bui\b/i.test(goalLower) || goalLower.includes('front') || goalLower.includes('react')) {
+    } else if (/\b(ui|ux|ui\/ux|web design|product design|figma)\b/i.test(goalLower) || goalLower.includes('front')) {
       targetRoleLabel = 'UI/UX Designer';
       skillsList = 'React Hooks, NextJS SSR, Vanilla CSS, Zustand State, TypeScript Types';
       weakAreas = ['Webpack', 'React Performance', 'Testing Library'];

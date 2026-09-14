@@ -72,7 +72,7 @@ const LIVE_API_PREFIXES: readonly string[] = [
   '/api/attention-span', '/api/career-twin', '/api/leaderboard', '/api/mentor', '/api/quest',
   '/api/resume', '/api/tts', '/api/interview', '/api/group-discussion', '/api/auth',
   '/api/avatar', '/api/cache', '/api/missions', '/api/passport', '/api/teacher',
-  '/api/user', '/api/webhooks',
+  '/api/user', '/api/webhooks', '/api/student',
 ];
 
 // NOTE: /api/admin is deliberately absent so client-side RBAC (profile.role)

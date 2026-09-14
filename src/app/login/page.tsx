@@ -74,7 +74,8 @@ function LoginContent() {
       const devices = JSON.parse(localStorage.getItem('pinit_trusted_devices_db') || '[]');
       if (devices.length > 0) {
         setIsTrustedDevice(true);
-        setAuthMode('trusted');
+        // Do not switch authMode to 'trusted' while trusted device login is unimplemented;
+        // keep authMode as 'qr' for Vault and default cleanly to 'password'.
       }
     }
   }, []);

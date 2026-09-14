@@ -341,19 +341,26 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (!loading && isLoaded && user && isStudent && !isPublic && pathname !== '/onboarding') {
+      if (onboardingStep < 3 && pathname !== '/onboarding') {
+        if (isRedirectingRef.current) return;
+        isRedirectingRef.current = true;
+        console.warn("[AppShell] Redirecting to /onboarding because onboardingStep is:", onboardingStep);
+        router.push('/onboarding');
+        return;
+      }
       const allowedStudentTabs = [
         '/interview', '/dashboard', '/quests', '/missions', '/learning', '/career-builder',
         '/projects', '/group-discussion', '/attention-span', '/profile', '/notifications',
         '/vault', '/library', '/hostel', '/transport', '/events', '/grievances', '/research',
         '/career-intelligence', '/finance', '/maintenance', '/advisor', '/exams', '/attendance',
-        '/alumni', '/documents', '/crm', '/integrations',
+        '/alumni', '/documents', '/arena', '/leaderboard',
       ];
       const isAllowedTab = allowedStudentTabs.some(tab => pathname === tab || pathname.startsWith(tab + '/'));
-      if (onboardingStep < 3 && !isAllowedTab) {
+      if (!isAllowedTab) {
         if (isRedirectingRef.current) return;
         isRedirectingRef.current = true;
-        console.warn("[AppShell] Redirecting to /onboarding because onboardingStep is:", onboardingStep);
-        router.push('/onboarding');
+        console.warn("[AppShell] Redirecting to /dashboard because student is not allowed on:", pathname);
+        router.push('/dashboard');
       }
     }
   }, [user, loading, isLoaded, isStudent, isPublic, onboardingStep, router, pathname]);
