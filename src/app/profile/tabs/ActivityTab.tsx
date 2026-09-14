@@ -17,9 +17,9 @@ export default function ActivityTab({ user }: ActivityTabProps) {
     let isMounted = true;
     (async () => {
       try {
-        const res = await api.get<{ log: AuditLogItem[] }>('/api/admin/audit-log');
+        const res = await api.get<{ log?: AuditLogItem[]; activity?: AuditLogItem[] }>('/api/student/activity');
         if (isMounted) {
-          const userLogs = (res.log || []).filter((l) => l.actor_id === user.id);
+          const userLogs = res.log || res.activity || [];
           setAuditLogs(userLogs);
         }
       } catch (err) {

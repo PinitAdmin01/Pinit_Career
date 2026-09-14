@@ -397,7 +397,7 @@ export function useWorkspaceState({
                 }, { onConflict: 'user_id,quest_id' })).then(() => {}).catch(() => {});
               }
               setIsCompleteView(true);
-              api.post('/api/admin/audit-log/add', {
+              api.post('/api/student/activity', {
                 action: 'quest_complete',
                 meta: { questId: quest.id, questTitle: quest.title, isExam: category === 'exam', xp: quest.xp || 150 }
               }).catch(() => {});
