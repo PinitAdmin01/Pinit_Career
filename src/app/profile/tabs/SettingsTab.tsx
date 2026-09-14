@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { toast } from '@/lib/store/useAppStore';
 import { CS } from './types';
 import { setUserSoundscapeVolume } from '@/lib/audio/soundscapes';
@@ -11,6 +11,8 @@ interface SettingsTabProps {
 }
 
 export default function SettingsTab({ soundscapeVol, setSoundscapeVol }: SettingsTabProps) {
+  const [calibratedRms, setCalibratedRms] = useState<number | null>(null);
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }} className="animate-fade-in">
       {/* Card 1: Guided Story Mode Replay */}
@@ -61,9 +63,15 @@ export default function SettingsTab({ soundscapeVol, setSoundscapeVol }: Setting
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
             <div>
               <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)' }}>Voice Biometric Status</div>
-              <div style={{ fontSize: 11, color: 'var(--green)', fontWeight: 600, marginTop: 2 }}>
-                ✓ Microphone active & STT baseline calibrated
-              </div>
+              {calibratedRms !== null ? (
+                <div style={{ fontSize: 11, color: 'var(--green)', fontWeight: 600, marginTop: 2 }}>
+                  ✓ Microphone active &amp; calibrated ({calibratedRms.toFixed(2)} RMS)
+                </div>
+              ) : (
+                <div style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 500, marginTop: 2 }}>
+                  Microphone baseline uncalibrated for current session
+                </div>
+              )}
             </div>
             <button
               onClick={async () => {
@@ -84,6 +92,7 @@ export default function SettingsTab({ soundscapeVol, setSoundscapeVol }: Setting
                       sum += n * n;
                     }
                     const rms = Math.sqrt(sum / buf.length);
+                    setCalibratedRms(rms);
                     stream.getTracks().forEach(t => t.stop());
                     ctx.close().catch(() => {});
                     toast.info('Microphone Checked', `Audio input level sampled (${rms.toFixed(2)} RMS). Speech recognition ready.`);
@@ -109,43 +118,45 @@ export default function SettingsTab({ soundscapeVol, setSoundscapeVol }: Setting
         </div>
       </div>
 
-      {/* Card 3: Celebration & Milestone Event Testing */}
-      <div style={CS.card}>
-        <div style={CS.cardTitle}>🎉 Milestone Celebration FX</div>
-        <div style={{ fontSize: 12, color: 'var(--t3)', marginBottom: 14, lineHeight: 1.5 }}>
-          Gamification events trigger celebratory confetti and encouraging mentor remarks upon completing quests, passing mock interviews, or reaching new ranks.
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'var(--bg3)', padding: '14px 18px', borderRadius: 12, border: '1px solid var(--border)' }}>
-          <div>
-            <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)' }}>Test Celebration FX</span>
-            <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>
-              Triggers confetti burst and audio celebration
-            </div>
+      {/* Card 3: Celebration & Milestone Event Testing (Dev/Staging Only) */}
+      {process.env.NODE_ENV !== 'production' && (
+        <div style={CS.card}>
+          <div style={CS.cardTitle}>🎉 Milestone Celebration FX (Dev Only)</div>
+          <div style={{ fontSize: 12, color: 'var(--t3)', marginBottom: 14, lineHeight: 1.5 }}>
+            Gamification events trigger celebratory confetti and encouraging mentor remarks upon completing quests, passing mock interviews, or reaching new ranks.
           </div>
-          <button
-            onClick={() => {
-              if (typeof window !== 'undefined') {
-                window.dispatchEvent(new CustomEvent('pinit:trigger_congrats'));
-                toast.success('Celebration Triggered', 'Milestone event executed with confetti FX.');
-              }
-            }}
-            style={{
-              background: 'linear-gradient(135deg, #10b981, #059669)',
-              color: 'var(--text)',
-              border: 'none',
-              borderRadius: 10,
-              padding: '8px 18px',
-              fontSize: 12.5,
-              fontWeight: 800,
-              cursor: 'pointer',
-              boxShadow: '0 4px 14px rgba(var(--success-rgb), 0.3)',
-              transition: 'all 0.15s'
-            }}
-          >
-            🎉 Test Celebration
-          </button>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'var(--bg3)', padding: '14px 18px', borderRadius: 12, border: '1px solid var(--border)' }}>
+            <div>
+              <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)' }}>Test Celebration FX</span>
+              <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>
+                Triggers confetti burst and audio celebration
+              </div>
+            </div>
+            <button
+              onClick={() => {
+                if (typeof window !== 'undefined') {
+                  window.dispatchEvent(new CustomEvent('pinit:trigger_congrats'));
+                  toast.success('Celebration Triggered', 'Milestone event executed with confetti FX.');
+                }
+              }}
+              style={{
+                background: 'linear-gradient(135deg, #10b981, #059669)',
+                color: 'var(--text)',
+                border: 'none',
+                borderRadius: 10,
+                padding: '8px 18px',
+                fontSize: 12.5,
+                fontWeight: 800,
+                cursor: 'pointer',
+                boxShadow: '0 4px 14px rgba(var(--success-rgb), 0.3)',
+                transition: 'all 0.15s'
+              }}
+            >
+              🎉 Test Celebration
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Card 4: Soundscape & Background Audio Volume */}
       <div style={CS.card}>

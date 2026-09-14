@@ -1132,6 +1132,12 @@ export function useOnboardingWizard() {
     let skillsList = 'Java Standard Library, OOP Principles, Spring Boot REST, SQL Databases, System Design';
     let weakAreas: string[] = ['Docker', 'System Design', 'Microservices'];
 
+    if (goalLower.includes('front') || goalLower.includes('react') || goalLower.includes('web dev')) {
+      targetRoleLabel = 'Software Engineer';
+      skillsList = 'React Hooks, Next.js SSR, Vanilla CSS, Zustand State, TypeScript Types, TailwindCSS';
+      weakAreas = ['Webpack', 'React Performance', 'Testing Library'];
+    }
+
     const isCommerce = goalLower.includes('finance') || goalLower.includes('financial') || goalLower.includes('fintech') ||
                        goalLower.includes('accounting') || goalLower.includes('risk') ||
                        profileLower.includes('commerce') || profileLower.includes('b.com');
@@ -1148,10 +1154,10 @@ export function useOnboardingWizard() {
       targetRoleLabel = 'Product & Operations Manager';
       skillsList = 'Product Strategy, Market Research, Agile Scrum, Growth Funnels, Data Analytics, Strategic Management, Negotiation';
       weakAreas = ['Product Analytics', 'A/B Testing Experiments', 'Stakeholder Alignment'];
-    } else if (/\b(ui|ux|ui\/ux|web design|product design|figma)\b/i.test(goalLower) || goalLower.includes('front')) {
+    } else if (/\b(ui|ux|ui\/ux|web design|product design|figma)\b/i.test(goalLower)) {
       targetRoleLabel = 'UI/UX Designer';
-      skillsList = 'React Hooks, NextJS SSR, Vanilla CSS, Zustand State, TypeScript Types';
-      weakAreas = ['Webpack', 'React Performance', 'Testing Library'];
+      skillsList = 'Figma Wireframing, Prototyping, Design Systems, User Research, Usability Testing';
+      weakAreas = ['Design Systems Tokens', 'Micro-interactions', 'A/B Testing'];
     } else if (goalLower.includes('devops') || goalLower.includes('cloud') || goalLower.includes('aws') || goalLower.includes('pipeline') || goalLower.includes('docker')) {
       targetRoleLabel = 'DevOps Engineer';
       skillsList = 'Docker Containers, CI/CD Pipelines, AWS Cloud Services, Prometheus & Grafana, Kubernetes Orchestration';
