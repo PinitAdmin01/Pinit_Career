@@ -1,4 +1,4 @@
-﻿-- supabase/migrations/20260914_add_performance_indexes.sql
+-- supabase/migrations/20260914_add_performance_indexes.sql
 -- Sub-Batch 3.7 / Task 3.2: Database Performance Indexes & Sequential Scan Elimination
 -- Author: Friend 3 (Principal Database Architect & Backend Lead)
 -- Purpose: Optimize queries for 10,000+ active students across user queries, vault documents, and competency ledgers.
@@ -7,7 +7,15 @@
 -- Eliminates sequential table scans during admin dashboard aggregations, role filtering, and user pagination.
 CREATE INDEX IF NOT EXISTS idx_users_role ON public.users(role);
 CREATE INDEX IF NOT EXISTS idx_users_role_created_at ON public.users(role, created_at DESC);
-CREATE INDEX IF NOT EXISTS idx_users_last_sign_in ON public.users(last_sign_in_at DESC) WHERE last_sign_in_at IS NOT NULL;
+-- public.users has no last_sign_in_at column (only auth.users does), so an unguarded index
+-- here made this whole file fail. Build it only if the column is ever added.
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'users' AND column_name = 'last_sign_in_at') THEN
+    EXECUTE 'CREATE INDEX IF NOT EXISTS idx_users_last_sign_in ON public.users(last_sign_in_at DESC) WHERE last_sign_in_at IS NOT NULL';
+  END IF;
+END;
+$$;
 
 -- 2. Performance Indexes on vault_items Table
 -- Optimizes student portfolio, credential verification, and document management queries.

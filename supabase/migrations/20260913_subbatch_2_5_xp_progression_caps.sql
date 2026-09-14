@@ -15,11 +15,9 @@ BEGIN
 END;
 $$;
 
-CREATE OR REPLACE FUNCTION auth.uid() RETURNS UUID AS $$
-BEGIN
-  RETURN NULLIF(current_setting('request.jwt.claim.sub', true), '')::UUID;
-END;
-$$ LANGUAGE plpgsql;
+-- auth.uid() belongs to Supabase and must never be redefined in a migration. The version that
+-- used to be here read request.jwt.claim.sub, which Supabase no longer sets, so every
+-- "own row" rule saw no logged-in user. Test databases get auth.uid() from tests/helpers/db.ts.
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- 1. Ensure users table and columns
@@ -132,7 +130,9 @@ CREATE TABLE IF NOT EXISTS public.user_milestones (
   user_id UUID NOT NULL,
   milestone_key TEXT NOT NULL,
   awarded_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()),
-  CONSTRAINT uq_user_milestone UNIQUE(user_id, milestone_key)
+  -- Named uq_user_milestone before; streak_claims (subbatch 2.3) already uses that name,
+  -- so this whole file failed to apply and the badges column was never created.
+  CONSTRAINT uq_user_milestones_user_key UNIQUE(user_id, milestone_key)
 );
 
 ALTER TABLE public.user_milestones ENABLE ROW LEVEL SECURITY;

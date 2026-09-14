@@ -1,4 +1,4 @@
-﻿-- supabase/migrations/20260915_campus_erp_core.sql
+-- supabase/migrations/20260915_campus_erp_core.sql
 -- Sub-Batch 3.8 / Task 3.1: Campus ERP Core Tables & LocalStorage Eradication
 -- Author: Friend 3 (Principal Database Architect & Backend Lead)
 -- Tables: campus_course_materials, campus_fraud_alerts, campus_exam_results

@@ -15,11 +15,9 @@ BEGIN
 END;
 $$;
 
-CREATE OR REPLACE FUNCTION auth.uid() RETURNS UUID AS $$
-BEGIN
-  RETURN NULLIF(current_setting('request.jwt.claim.sub', true), '')::UUID;
-END;
-$$ LANGUAGE plpgsql;
+-- auth.uid() belongs to Supabase and must never be redefined in a migration. The version that
+-- used to be here read request.jwt.claim.sub, which Supabase no longer sets, so every
+-- "own row" rule saw no logged-in user. Test databases get auth.uid() from tests/helpers/db.ts.
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- 1. DEFECT 041: Append-Only Fee Payments Ledger & student_fees Table with Non-Negative Balance Check

@@ -1,4 +1,4 @@
-﻿-- supabase/migrations/20260918_revoke_dangerous_functions.sql
+-- supabase/migrations/20260918_revoke_dangerous_functions.sql
 -- =============================================================================
 -- DEF-C1 FIX: Revoke public and authenticated execution on money-moving functions
 -- All pin transactions, fee processing, and scholarship disbursements MUST be
