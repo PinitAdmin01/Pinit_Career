@@ -158,7 +158,7 @@ export function mapProfileToRow(profile: any): any {
     'career_goal', 'intelligence_score', 'career_dna_archetype',
     'xp_total', 'xp_level', 'missions_completed', 'interviews_done',
     'vault_count', 'onboarding_step', 'onboarding_answers',
-    'roadmap_generated', 'resume_generated', 'completed_quests', 'phone', 'location',
+    'roadmap_generated', 'resume_generated', 'completed_quests', 'completed_missions', 'phone', 'location',
     'bio', 'linkedin_url', 'github_url', 'portfolio_url', 'department',
     'semester', 'college_name', 'pins', 'pin_history', 'endorsed_skills',
   ];
@@ -396,11 +396,16 @@ export async function updateUserProfile(
       .select('*')
       .maybeSingle();
 
-    if (!error && data) {
+    if (error) {
+      console.error('[updateUserProfile] Supabase update error:', error.message || error);
+      return null;
+    }
+
+    if (data) {
       return mapRowToProfile(data);
     }
   } catch (err) {
-    console.warn('[updateUserProfile] Supabase update failed:', err);
+    console.error('[updateUserProfile] Supabase update failed:', err);
   }
 
   return null;

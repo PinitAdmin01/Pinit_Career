@@ -82,9 +82,9 @@ export async function requireUserFromRequest(req: Request): Promise<
 }
 
 export function getAuthoritativeSupabaseClient(userToken: string) {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder-project.supabase.co';
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
-  const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+  const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-anon-key';
 
   if (serviceKey) {
     return createClient(url, serviceKey, {
