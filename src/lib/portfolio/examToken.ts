@@ -59,6 +59,7 @@ export interface ExamSessionPayload {
   expiresAt: number;
   nonce: string;
   studentId?: string;
+  certificateTitle?: string;
 }
 
 /**
@@ -68,7 +69,8 @@ export interface ExamSessionPayload {
 export function signExamSessionToken(
   answersMap: Record<string, number>,
   durationMinutes = 30,
-  studentId?: string
+  studentId?: string,
+  certificateTitle?: string
 ): string {
   const secret = getExamSigningSecret();
   const encryptedAnswers = encryptAnswers(answersMap, secret);
@@ -85,6 +87,7 @@ export function signExamSessionToken(
     expiresAt: Date.now() + durationMinutes * 60 * 1000,
     nonce: crypto.randomBytes(8).toString('hex'),
     ...(studentId ? { studentId } : {}),
+    ...(certificateTitle ? { certificateTitle } : {}),
   };
 
   const data = Buffer.from(JSON.stringify(payload)).toString('base64url');
@@ -97,7 +100,7 @@ export function signExamSessionToken(
  */
 export function verifyExamSessionToken(
   token: string
-): { valid: true; answers: Record<string, number>; studentId?: string } | { valid: false; error: string } {
+): { valid: true; answers: Record<string, number>; studentId?: string; certificateTitle?: string } | { valid: false; error: string } {
   if (!token || typeof token !== 'string' || !token.includes('.')) {
     return { valid: false, error: 'Invalid exam token structure.' };
   }
@@ -135,7 +138,7 @@ export function verifyExamSessionToken(
       return { valid: false, error: 'Failed to decrypt or decode answers from token.' };
     }
 
-    return { valid: true, answers, studentId: payload.studentId };
+    return { valid: true, answers, studentId: payload.studentId, certificateTitle: payload.certificateTitle };
   } catch {
     return { valid: false, error: 'Failed to decode exam token data.' };
   }

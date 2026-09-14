@@ -42,9 +42,6 @@ import {
 
 export async function POST(req: Request) {
   const startTime = Date.now();
-  const ip = getClientIp(req);
-  const rl = checkRateLimit(`vault_upload_${ip}`, { limit: 10, windowMs: 3_600_000 });
-  if (!rl.allowed) return NextResponse.json({ error: 'RATE_LIMIT' }, { status: 429 });
 
   console.log(`\n================================================================================`);
   console.log(`🚀 [VAULT UPLOAD INGESTION PIPELINE]: New document upload request received at ${new Date().toISOString()}`);
@@ -59,6 +56,10 @@ export async function POST(req: Request) {
       return gated.error;
     }
 
+    const userId = gated.user!.id;
+    const rl = checkRateLimit(`vault_upload_${userId}`, { limit: 20, windowMs: 3_600_000 });
+    if (!rl.allowed) return NextResponse.json({ error: 'RATE_LIMIT', message: 'Hourly upload quota exceeded (max 20/hr).' }, { status: 429 });
+
     const MAX_VAULT_BYTES = 10 * 1024 * 1024; // 10MB per file
     const contentLength = parseInt(req.headers.get('content-length') || '0', 10);
     if (contentLength > MAX_VAULT_BYTES) {
@@ -68,7 +69,6 @@ export async function POST(req: Request) {
       );
     }
 
-    const userId = gated.user.id;
     const token = getBearerToken(req);
     const supabase = getAuthoritativeSupabaseClient(token);
     console.log(`👤 [STAGE 1/12 - Candidate Authenticated]: User ID = "${userId}"`);

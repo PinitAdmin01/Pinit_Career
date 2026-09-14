@@ -5,6 +5,7 @@ import { useAuth } from '@/lib/context/AuthContext';
 import { api } from '@/lib/api/client';
 import { useAddVaultItem, useVault } from '@/lib/api/hooks';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
+import { supabase } from '@/lib/supabaseClient';
 
 const TYPE_CONFIG: Record<string, { icon: string; color: string; label: string }> = {
   academic:      { icon: '🎓', color: 'var(--teal)',   label: 'Academic Record' },
@@ -20,9 +21,9 @@ const TYPE_CONFIG: Record<string, { icon: string; color: string; label: string }
 
 export default function VaultPage() {
   const { user } = useAuth();
-  const { vaultItems: ctxItems, addVaultItem, updateVaultItem, earnPins } = useCareerOS();
+  const { vaultItems: ctxItems, setVaultItems, addVaultItem, updateVaultItem, earnPins } = useCareerOS();
   // Also load from Firestore (real persisted items) and merge with context items
-  const { data: fsVaultData } = useVault();
+  const { data: fsVaultData, refetch } = useVault();
   const fsItems = (fsVaultData || []) as any[];
   // Deduplicate: Firestore items take precedence, fill in with context items not yet synced
   const fsIds = new Set(fsItems.map((i: any) => i.id));
@@ -107,6 +108,13 @@ export default function VaultPage() {
       const doc = res.document || res.data;
       if (doc) {
         console.log(`[VAULT PAGE]: Ingestion success: "${doc.title}", Skills: [${doc.skills?.join(', ') || ''}]`);
+        if (user?.id) {
+          const { data: refreshed } = await supabase.from('vault_items').select('*').eq('user_id', user.id);
+          if (refreshed) {
+            setVaultItems(refreshed);
+          }
+        }
+        refetch?.();
       }
     } catch (err) {
       console.error('[VAULT PAGE UPLOAD ERROR]:', err);

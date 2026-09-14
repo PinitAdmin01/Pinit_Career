@@ -46,6 +46,15 @@ export async function POST(req: Request) {
       );
     }
 
+    // N5: Enforce certificateTitle binding
+    if (verification.certificateTitle && verification.certificateTitle.toLowerCase().trim() !== certificateTitle.toLowerCase().trim()) {
+      console.warn(`[SECURITY ALERT] Exam token title mismatch: requested=${certificateTitle} vs token=${verification.certificateTitle}`);
+      return NextResponse.json(
+        { ok: false, passed: false, error: 'FORBIDDEN: Exam token was issued for a different certificate.' },
+        { status: 403 }
+      );
+    }
+
     const correctAnswers = verification.answers;
     const questionIds = Object.keys(correctAnswers);
     const total = questionIds.length;
@@ -72,19 +81,36 @@ export async function POST(req: Request) {
 
     let savedCertificate: any = null;
     if (passed) {
-      const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+      // N6: Fail closed if SUPABASE_SERVICE_ROLE_KEY is missing (no fallback to anon key)
+      const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+      if (!serviceKey) {
+        console.error('[VerifyExam] SUPABASE_SERVICE_ROLE_KEY missing - failing closed');
+        return NextResponse.json(
+          { ok: false, passed: false, error: 'Database service role configuration missing.' },
+          { status: 500 }
+        );
+      }
+
       const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-      const supabaseAdmin = createClient(url, serviceKey || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '', {
+      const supabaseAdmin = createClient(url, serviceKey, {
         auth: { persistSession: false, autoRefreshToken: false },
       });
 
       try {
-        const { data: existingRow } = await supabaseAdmin
+        const { data: existingRow, error: fetchErr } = await supabaseAdmin
           .from('portfolio_items')
           .select('item_data')
           .eq('user_id', gated.user!.id)
           .eq('item_type', 'certificates')
           .maybeSingle();
+
+        if (fetchErr) {
+          console.error('[VerifyExam] Error fetching portfolio_items:', fetchErr.message);
+          return NextResponse.json(
+            { ok: false, passed: false, error: 'Database persistence failed' },
+            { status: 500 }
+          );
+        }
 
         const existingItems = Array.isArray(existingRow?.item_data?.items)
           ? existingRow.item_data.items
@@ -131,9 +157,17 @@ export async function POST(req: Request) {
 
         if (upsertErr) {
           console.error('[VerifyExam] Failed to persist verified certificate to portfolio_items:', upsertErr.message);
+          return NextResponse.json(
+            { ok: false, passed: false, error: 'Database persistence failed' },
+            { status: 500 }
+          );
         }
-      } catch (dbErr) {
+      } catch (dbErr: any) {
         console.error('[VerifyExam] Error persisting to portfolio_items:', dbErr);
+        return NextResponse.json(
+          { ok: false, passed: false, error: 'Database persistence failed' },
+          { status: 500 }
+        );
       }
     }
 
