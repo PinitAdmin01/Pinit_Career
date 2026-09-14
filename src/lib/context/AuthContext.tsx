@@ -707,7 +707,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(appUser);
       
       // Dispatch login audit entry (non-blocking)
-      api.post('/api/admin/audit-log/add', {
+      api.post('/api/student/activity', {
         action: 'login',
         meta: { userId: appUser.id, username: appUser.username, displayName: appUser.displayName }
       }).catch(() => {});
@@ -820,7 +820,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       // Non-blocking fire-and-forget audit log
       if (currentUser?.id) {
-        api.post('/api/admin/audit-log/add', {
+        api.post('/api/student/activity', {
           action: 'logout',
           meta: { userId: currentUser.id, username: currentUser.username, displayName: currentUser.displayName }
         }).catch(() => {});
