@@ -305,20 +305,20 @@ try {
   }
 
   // 2. Assert that the required function exists
-  const fnExists = vm.runInContext(\`typeof \${functionName} === 'function'\`, context);
+  const fnExists = vm.runInContext('typeof ' + functionName + " === 'function'", context);
   if (!fnExists) {
     parentPort.postMessage({
       passed: false,
       status: 'EXECUTION_ERROR',
       testsPassed: 0,
       totalTests: totalTests,
-      error: "Solution function '\${functionName}' was not defined."
+      error: "Solution function '" + functionName + "' was not defined."
     });
     process.exit(0);
   }
 
   // 3. Run authoritative tests in a separate step
-  const evalScript = new vm.Script(\`(function() { \${evaluatorCode} })()\`, { filename: 'evaluator.js' });
+  const evalScript = new vm.Script('(function() { ' + evaluatorCode + ' })()', { filename: 'evaluator.js' });
   const result = evalScript.runInContext(context, { timeout: 1500 });
   parentPort.postMessage({
     passed: Boolean(result && result.passed),
