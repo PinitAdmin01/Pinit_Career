@@ -51,6 +51,12 @@ export async function POST(req: Request) {
       if (planId === 'pack_50') pinsGranted = 50;
       else if (planId === 'pack_150') pinsGranted = 150;
       else if (planId === 'pack_500') pinsGranted = 500;
+      else if (planId === 'pack_1200') pinsGranted = 1200;
+      else if (planId === 'pack_custom') {
+        const customPins = Number(body.customPins);
+        pinsGranted = Number.isFinite(customPins) && customPins >= 100 && customPins <= 5000
+          ? Math.floor(customPins) : 0;
+      }
 
       const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
       const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
@@ -190,6 +196,13 @@ export async function POST(req: Request) {
     if (notesPlanId === 'pack_50') pinsGranted = 50;
     else if (notesPlanId === 'pack_150') pinsGranted = 150;
     else if (notesPlanId === 'pack_500') pinsGranted = 500;
+    else if (notesPlanId === 'pack_1200') pinsGranted = 1200;
+    else if (notesPlanId === 'pack_custom') {
+      // Re-read from server-side order notes — never from client body
+      const notesCustomPins = Number(order?.notes?.customPins);
+      pinsGranted = Number.isFinite(notesCustomPins) && notesCustomPins >= 100 && notesCustomPins <= 5000
+        ? Math.floor(notesCustomPins) : 0;
+    }
 
     const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
     const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';

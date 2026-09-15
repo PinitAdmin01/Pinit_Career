@@ -9,7 +9,15 @@ export const PLAN_PRICES_PAISE: Record<string, number> = {
   pack_50: 4900,
   pack_150: 9900,
   pack_500: 24900,
+  pack_1200: 49900,
+  // pack_custom: computed dynamically — NOT listed here; handled below
 };
+
+/** Custom pin pack: ₹1 per 3 pins, min 100, max 5000 pins */
+export function customPinsToPaise(pins: number): number {
+  const clamped = Math.max(100, Math.min(5000, Math.floor(pins)));
+  return Math.ceil(clamped / 3) * 100; // paise
+}
 
 /**
  * Create a Razorpay order server-side when keys are configured.
@@ -67,6 +75,20 @@ export async function POST(req: Request) {
       orderAmount = Math.round(instAmount * 100);
     }
 
+    if (!orderAmount && planId === 'pack_custom') {
+      const rawPins = Number(body.customPins);
+      if (!Number.isFinite(rawPins) || rawPins < 100 || rawPins > 5000) {
+        return NextResponse.json(
+          { error: 'INVALID_CUSTOM_PINS', message: 'Custom pins must be between 100 and 5,000.' },
+          { status: 400 }
+        );
+      }
+      const clampedPins = Math.floor(rawPins);
+      orderAmount = customPinsToPaise(clampedPins);
+      // Will be added to notes below so verify can re-read server-side
+      (body as any)._customPins = clampedPins;
+    }
+
     if (!orderAmount) {
       return NextResponse.json(
         {
@@ -75,6 +97,7 @@ export async function POST(req: Request) {
         },
         { status: 400 }
       );
+
     }
 
     const keyId = process.env.RAZORPAY_KEY_ID || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || '';
@@ -91,7 +114,8 @@ export async function POST(req: Request) {
           isMock: true,
           planId,
           uid: gated.user!.id,
-          ...(installmentRecord ? { installmentId: installmentRecord.id } : {})
+          ...(installmentRecord ? { installmentId: installmentRecord.id } : {}),
+          ...((body as any)._customPins ? { customPins: (body as any)._customPins } : {}),
         });
       }
       return NextResponse.json(
@@ -109,6 +133,9 @@ export async function POST(req: Request) {
     };
     if (installmentRecord) {
       notes.installmentId = String(installmentRecord.id);
+    }
+    if (planId === 'pack_custom' && (body as any)._customPins) {
+      notes.customPins = String((body as any)._customPins);
     }
 
     const auth = Buffer.from(`${keyId}:${keySecret}`).toString('base64');
