@@ -45,6 +45,7 @@ const PAGE_TITLES: Record<string, string> = {
   '/pricing':       'Pins & Plans',  '/profile':       'Profile',
   '/notifications': 'Notifications', '/leaderboard':   'Leaderboard & Leagues',
   '/applications':  'My Applications',
+  '/pins':          'Pins Wallet',
   '/quests':        'Quests & Courses',
   '/arena':         'Challenging Arena',
   '/projects':      'Projects & Squads',

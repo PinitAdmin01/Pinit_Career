@@ -140,7 +140,7 @@ export const TEACHER_NAV: NavSection[] = [
 
 export const BOTTOM_NAV: NavLeaf[] = [
   { href: '/notifications', icon: '🔔', label: 'Notifications', badge: true },
-  { href: '/pricing',       icon: '⚡', label: 'Pins & Plans'            },
+  { href: '/pins',          icon: '⚡', label: 'Pins & Wallet'              },
   { href: '/profile',       icon: '👤', label: 'Profile'                    },
 ];
 
