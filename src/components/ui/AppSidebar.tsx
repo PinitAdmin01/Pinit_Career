@@ -329,7 +329,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
         )}
 
         {!collapsed && !effectiveFocusMode && isStudent && (
-          <Link href="/pricing" style={{ textDecoration: 'none', display: 'block', marginTop: 4 }}>
+          <Link href="/pins" style={{ textDecoration: 'none', display: 'block', marginTop: 4 }}>
             <div style={{
               padding: '7px 10px', borderRadius: 9,
               background: pins < 20 ? 'rgba(220,38,38,0.08)' : 'rgba(79,70,229,0.06)',

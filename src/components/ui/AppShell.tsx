@@ -369,7 +369,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         '/alumni', '/documents', '/arena', '/leaderboard',
         // Missing tabs restored:
         '/career-twin', '/passport', '/portfolio', '/code-wars', '/teams', 
-        '/opportunities', '/applications', '/placement', '/internships', '/verify'
+        '/opportunities', '/applications', '/placement', '/internships', '/verify',
+        '/pins'
       ];
       const isAllowedTab = allowedStudentTabs.some(tab => pathname === tab || pathname.startsWith(tab + '/'));
       if (!isAllowedTab) {
