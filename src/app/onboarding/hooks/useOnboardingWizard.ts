@@ -943,12 +943,26 @@ export function useOnboardingWizard() {
       await cOS.generateFusedRoadmap(['Java', 'OOP', 'SQL'], ['Docker', 'System Design']);
       await qc.invalidateQueries({ queryKey: KEYS.me });
 
+      if (typeof window !== 'undefined' && user?.id) {
+        try {
+          localStorage.setItem(`pinit_${user.id}_ob_step`, '3');
+          localStorage.setItem(`pinit_${user.id}_road_gen`, 'true');
+        } catch {}
+      }
+      setSyncing(false);
       setSyncProgress(100);
       toast.success('Fast Onboarding Complete! ⚡', 'Software Engineering Blueprint is active.');
       markOnboardingStoryPending(user?.id);
       router.push('/dashboard');
     } catch (err) {
       console.error("Fast onboarding error", err);
+      if (typeof window !== 'undefined' && user?.id) {
+        try {
+          localStorage.setItem(`pinit_${user.id}_ob_step`, '3');
+          localStorage.setItem(`pinit_${user.id}_road_gen`, 'true');
+        } catch {}
+      }
+      setSyncing(false);
       markOnboardingStoryPending(user?.id);
       router.push('/dashboard');
     }
@@ -1255,6 +1269,13 @@ export function useOnboardingWizard() {
           console.warn('Roadmap seed failed after onboarding', err);
         }
 
+        if (typeof window !== 'undefined' && user?.id) {
+          try {
+            localStorage.setItem(`pinit_${user.id}_ob_step`, '3');
+            localStorage.setItem(`pinit_${user.id}_road_gen`, 'true');
+          } catch {}
+        }
+        setSyncing(false);
         toast.success('Onboarding Complete! 🚀', 'Your diagnostic blueprint is active.');
         markOnboardingStoryPending(user?.id);
         router.push('/dashboard');
@@ -1267,6 +1288,13 @@ export function useOnboardingWizard() {
         }
       } catch (err) {
         console.error("Onboarding sync failure", err);
+        if (typeof window !== 'undefined' && user?.id) {
+          try {
+            localStorage.setItem(`pinit_${user.id}_ob_step`, '3');
+            localStorage.setItem(`pinit_${user.id}_road_gen`, 'true');
+          } catch {}
+        }
+        setSyncing(false);
         const fallbackGoal = (speechTranscript && speechTranscript.trim().length > 5 ? speechTranscript.trim() : targetGoal) || targetRoleLabel;
         cOS.setOnboarding({
           role: targetRoleLabel,
@@ -1422,6 +1450,13 @@ export function useOnboardingWizard() {
           console.warn('Express roadmap seed failed', err);
         }
 
+        if (typeof window !== 'undefined' && user?.id) {
+          try {
+            localStorage.setItem(`pinit_${user.id}_ob_step`, '3');
+            localStorage.setItem(`pinit_${user.id}_road_gen`, 'true');
+          } catch {}
+        }
+        setSyncing(false);
         toast.success('Express Onboarding Complete! ⚡', 'Unlock your dashboard and provisional job matches.');
         markOnboardingStoryPending(user?.id);
         router.push('/dashboard');
@@ -1434,6 +1469,13 @@ export function useOnboardingWizard() {
         }
       } catch (err) {
         console.error('Express onboarding failure', err);
+        if (typeof window !== 'undefined' && user?.id) {
+          try {
+            localStorage.setItem(`pinit_${user.id}_ob_step`, '3');
+            localStorage.setItem(`pinit_${user.id}_road_gen`, 'true');
+          } catch {}
+        }
+        setSyncing(false);
         cOS.setOnboarding({
           role: trajectoryLabel || 'Software Engineer',
           education: `${degree} at ${college}`,

@@ -42,6 +42,8 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   const router = useRouter();
   const cleanPath = pathname?.replace(/\/$/, '') || '';
 
+  const isOnboardingOrAuth = cleanPath === '/onboarding' || cleanPath.startsWith('/onboarding') || cleanPath === '/login' || cleanPath === '/signup' || cleanPath === '';
+
   const {
     onboardingStep, setOnboardingStep,
     roadmapGenerated,
@@ -108,7 +110,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
 
   // ── 3. Wake word listener & Speaker Biometrics ("Hey Priya" / "Priya") ────────
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined' || isOnboardingOrAuth) return;
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (!SpeechRecognition) return;
 
@@ -189,7 +191,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
         try { recognition.stop(); } catch {}
       }
     };
-  }, [teacher.name, teacherId, user?.id, resetIdleTimer, cleanPath, router]);
+  }, [teacher.name, teacherId, user?.id, resetIdleTimer, cleanPath, router, isOnboardingOrAuth]);
 
   // ── Auto-start story tour post-onboarding ──────────────────────────────────
   useEffect(() => {
@@ -337,7 +339,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     }
   }, [pathname, onboardingStep, roadmapGenerated, setOnboardingStep]);
 
-  if (!mounted) return null;
+  if (!mounted || isOnboardingOrAuth) return null;
 
   const openVoiceSegment = () => {
     setTourActive(false);

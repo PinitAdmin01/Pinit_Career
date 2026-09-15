@@ -341,7 +341,19 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (!loading && isLoaded && user && isStudent && !isPublic && pathname !== '/onboarding') {
-      if (onboardingStep < 3 && pathname !== '/onboarding') {
+      let isCompletedLocally = false;
+      if (typeof window !== 'undefined' && user?.id) {
+        try {
+          const localStep = Number(localStorage.getItem(`pinit_${user.id}_ob_step`) || '0');
+          const localRoadGen = localStorage.getItem(`pinit_${user.id}_road_gen`) === 'true';
+          const localAnswers = JSON.parse(localStorage.getItem(`pinit_${user.id}_onboarding_answers`) || '{}');
+          if (localStep >= 3 || localRoadGen || localAnswers?.hasCompleted) {
+            isCompletedLocally = true;
+          }
+        } catch {}
+      }
+
+      if (onboardingStep < 3 && !isCompletedLocally && pathname !== '/onboarding') {
         if (isRedirectingRef.current) return;
         isRedirectingRef.current = true;
         console.warn("[AppShell] Redirecting to /onboarding because onboardingStep is:", onboardingStep);
@@ -643,7 +655,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         </aside>
       )}
 
-      {isStudent && (
+      {isStudent && !isLandingPage && (
         <GlobalAvatar
           user={user}
           profile={profile}
