@@ -67,8 +67,7 @@ export const ADMIN_NAV: NavSection[] = [
     { label: 'Faculty Studio', icon: '👨‍🏫', children: [
       { href: '/admin/teacher', icon: '👩‍🏫', label: 'Faculty Manager' },
       { href: '/admin?tab=research', icon: '🔬', label: 'Research Projects' },
-      { href: '/quests/teacher-select', icon: '🗺', label: 'Quest Selector' },
-      { href: '/admin?tab=hr', icon: '💼', label: 'HR & Clock Logs' }
+      { href: '/quests/teacher-select', icon: '🗺', label: 'Quest Selector' }
     ]},
     { label: 'Career Intelligence', icon: '🚀', children: [
       { href: '/career-dna', icon: '🧬', label: 'Career DNA' },
@@ -81,8 +80,6 @@ export const ADMIN_NAV: NavSection[] = [
     ]},
     { label: 'Campus Operations', icon: '🏢', children: [
       { href: '/admin?tab=finance', icon: '💳', label: 'Finance Console' },
-      { href: '/admin?tab=procurement', icon: '🛒', label: 'Procurement PO' },
-      { href: '/admin?tab=assets', icon: '📦', label: 'Asset Management' },
       { href: '/admin?tab=maintenance', icon: '🔧', label: 'Infrastructure Maintenance' }
     ]},
     { label: 'Administration', icon: '⚙', children: [

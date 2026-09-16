@@ -376,7 +376,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         '/projects', '/group-discussion', '/attention-span', '/profile', '/notifications',
         '/vault', '/library', '/hostel', '/transport', '/events', '/grievances', '/research',
         '/career-intelligence', '/finance', '/maintenance', '/advisor', '/exams', '/attendance',
-        '/alumni', '/documents', '/arena', '/leaderboard',
+        '/documents', '/arena', '/leaderboard',
         // Missing tabs restored:
         '/career-twin', '/passport', '/portfolio', '/code-wars', '/teams', 
         '/opportunities', '/applications', '/placement', '/internships', '/verify',

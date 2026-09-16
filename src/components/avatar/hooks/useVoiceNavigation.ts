@@ -309,14 +309,6 @@ const ROUTE_VOCABULARY: RouteEntry[] = [
     ],
   },
   {
-    path: '/alumni',
-    displayName: 'Alumni Network',
-    synonyms: [
-      'alumni', 'alumni network', 'alumni tab', 'alumni page',
-      'alumni directory', 'network'
-    ],
-  },
-  {
     path: '/applications',
     displayName: 'My Applications',
     synonyms: [

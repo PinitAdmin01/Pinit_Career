@@ -45,7 +45,6 @@ const MODULES_LIST: ModuleItem[] = [
     { id: '20', name: 'Placement Cell CRM', category: 'institution', icon: '🏛️', desc: 'End-to-end recruiter tracking, offer letter repository, and conversion metrics.', route: '/crm' },
     { id: '21', name: 'Campus-Wide Employability Index', category: 'institution', icon: '📈', desc: '0-100% real-time cohort readiness dashboard for Deans & Principals.', route: '/university' },
     { id: '22', name: 'NAAC / NBA Accreditation Audit Exporter', category: 'institution', icon: '📑', desc: 'Generate compliance reports with continuous student learning audit trails.', route: '/documents' },
-    { id: '23', name: 'Alumni Network & Mentorship', category: 'institution', icon: '🤝', desc: 'Connect graduating students with alumni in top global engineering roles.', route: '/alumni' },
     { id: '24', name: 'Parent Communication Portal', category: 'institution', icon: '👨‍👩‍👧', desc: 'Transparent view into student learning consistency and placement milestones.', route: '/parent' },
 
     // Operations & Campus Infrastructure

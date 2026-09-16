@@ -128,12 +128,21 @@ export const procurementService = {
 
     if (isSupabaseAvailable) {
       try {
+        const { data: dbReq } = await supabase.from('procurement_requests').select('*').eq('id', requestId).maybeSingle();
+        const reqItem = dbReq?.item || req.item;
+        const reqQty = dbReq?.qty ?? req.qty ?? 1;
+        const reqCost = dbReq?.cost ?? req.cost ?? 0;
+
+        if (!reqItem) {
+          throw new Error(`Procurement request ${requestId} not found`);
+        }
+
         const res1 = await supabase.from('procurement_orders').insert({
           id: poId,
           request_id: requestId,
-          item: req.item || 'Generic Item',
-          qty: req.qty || 1,
-          cost: req.cost || 0,
+          item: reqItem,
+          qty: reqQty,
+          cost: reqCost,
           vendor: vendorName,
           status: 'Issued'
         });
@@ -196,15 +205,23 @@ export const procurementService = {
 
     if (isSupabaseAvailable) {
       try {
+        const { data: dbOrder } = await supabase.from('procurement_orders').select('*').eq('id', orderId).maybeSingle();
+        const orderItem = dbOrder?.item || order.item;
+        const orderQty = dbOrder?.qty ?? order.qty ?? 0;
+
+        if (!orderItem) {
+          throw new Error(`Procurement order ${orderId} not found`);
+        }
+
         const res1 = await supabase.from('procurement_orders').update({ status: 'Delivered' }).eq('id', orderId);
         if (res1.error) throw new Error(res1.error.message);
         // Update stock
-        const { data: itemData } = await supabase.from('procurement_inventory').select('*').eq('item', order.item).maybeSingle();
+        const { data: itemData } = await supabase.from('procurement_inventory').select('*').eq('item', orderItem).maybeSingle();
         if (itemData) {
-          const res2 = await supabase.from('procurement_inventory').update({ qty: itemData.qty + order.qty }).eq('item', order.item);
+          const res2 = await supabase.from('procurement_inventory').update({ qty: (itemData.qty || 0) + orderQty }).eq('item', orderItem);
           if (res2.error) throw new Error(res2.error.message);
         } else {
-          const res3 = await supabase.from('procurement_inventory').insert({ item: order.item, qty: order.qty, dept: 'General' });
+          const res3 = await supabase.from('procurement_inventory').insert({ item: orderItem, qty: orderQty, dept: 'General' });
           if (res3.error) throw new Error(res3.error.message);
         }
         return { ok: true };

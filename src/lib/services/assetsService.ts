@@ -121,10 +121,14 @@ export const assetsService = {
 
     if (isSupabaseAvailable) {
       try {
+        const { data: dbMnt } = await supabase.from('assets_maintenance').select('*').eq('id', mntId).maybeSingle();
+        const assetCode = dbMnt?.asset_code || dbMnt?.assetCode || mnt.assetCode;
         const res1 = await supabase.from('assets_maintenance').update({ status: 'Completed' }).eq('id', mntId);
         if (res1.error) throw new Error(res1.error.message);
-        const res2 = await supabase.from('assets_list').update({ status: 'Active' }).eq('asset_code', mnt.assetCode);
-        if (res2.error) throw new Error(res2.error.message);
+        if (assetCode) {
+          const res2 = await supabase.from('assets_list').update({ status: 'Active' }).eq('asset_code', assetCode);
+          if (res2.error) throw new Error(res2.error.message);
+        }
         return { ok: true };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);

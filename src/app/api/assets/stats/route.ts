@@ -7,8 +7,10 @@ export async function GET(req: Request) {
     const denied = await requireAdminFromRequest(req);
     if (denied) return denied;
 
-    const data = await assetsService.getStats();
-    return NextResponse.json(data);
+    return NextResponse.json(
+      { error: 'MODULE_DISABLED_PENDING_INTEGRATION', message: 'Assets & Maintenance module is disabled pending hardware asset schema and physical verification integration.' },
+      { status: 503 }
+    );
   } catch (err: any) {
     return NextResponse.json({ error: err.message || 'Server error' }, { status: 500 });
   }

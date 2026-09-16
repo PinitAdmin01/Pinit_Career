@@ -8,6 +8,11 @@ import { examsService } from '../src/lib/services/examsService';
 import { grievancesService } from '../src/lib/services/grievancesService';
 import { advisorService, getDemoAdvisorStats } from '../src/lib/services/advisorService';
 import { communicationService } from '../src/lib/services/communicationService';
+import { alumniService } from '../src/lib/services/alumniService';
+import { hrService } from '../src/lib/services/hrService';
+import { procurementService } from '../src/lib/services/procurementService';
+import { assetsService } from '../src/lib/services/assetsService';
+import { tryCampusFallback } from '../src/lib/campusFallback';
 
 let totalTests = 0;
 let passedTests = 0;
@@ -210,6 +215,75 @@ async function runAllVerifications() {
     assert.ok(fs.existsSync(routeFile), '/api/communication/all/route.ts must exist');
     const content = fs.readFileSync(routeFile, 'utf8');
     assert.ok(content.includes('export async function GET'), 'Must export GET handler');
+  });
+
+  // -------------------------------------------------------------
+  // ISSUE 7: Simulation Modules Hidden & Disabled (Alumni, HR, Procurement, Assets)
+  // -------------------------------------------------------------
+  console.log('\n--- Issue 7: Simulation Modules Hidden & Protected ---');
+  await test('AppSidebar does not expose simulated tabs (hr, procurement, assets)', () => {
+    const sidebarContent = fs.readFileSync(path.join(process.cwd(), 'src/components/ui/AppSidebar.tsx'), 'utf8');
+    assert.strictEqual(sidebarContent.includes("tab=hr'"), false, 'AppSidebar must not link to tab=hr');
+    assert.strictEqual(sidebarContent.includes("tab=procurement'"), false, 'AppSidebar must not link to tab=procurement');
+    assert.strictEqual(sidebarContent.includes("tab=assets'"), false, 'AppSidebar must not link to tab=assets');
+  });
+
+  await test('AppShell does not include /alumni in allowedStudentTabs', () => {
+    const appShellContent = fs.readFileSync(path.join(process.cwd(), 'src/components/ui/AppShell.tsx'), 'utf8');
+    assert.strictEqual(appShellContent.includes("'/alumni'"), false, 'AppShell must not include /alumni in allowedStudentTabs');
+  });
+
+  await test('Modules directory does not link to active /alumni module', () => {
+    const modulesContent = fs.readFileSync(path.join(process.cwd(), 'src/app/modules/page.tsx'), 'utf8');
+    assert.strictEqual(modulesContent.includes("route: '/alumni'"), false, 'modules/page.tsx must not link to /alumni');
+  });
+
+  await test('Alumni portal page displays honest staging status and no fake donation forms', () => {
+    const alumniPageContent = fs.readFileSync(path.join(process.cwd(), 'src/app/alumni/page.tsx'), 'utf8');
+    assert.ok(alumniPageContent.includes('Module Staged for Production Integration'), 'Must display staging badge');
+    assert.strictEqual(alumniPageContent.includes('handleDonateSubmit'), false, 'Must not have simulated donation submit');
+    assert.strictEqual(alumniPageContent.includes('handleMentorshipRequest'), false, 'Must not have fake mentorship submit');
+  });
+
+  await test('alumniService rejects donations without payment gateway', async () => {
+    const res = await alumniService.donate('CAMP1', 5000, 'Student Donor');
+    assert.strictEqual(res.ok, false);
+    assert.ok(res.error?.includes('PAYMENT_GATEWAY_NOT_CONFIGURED'));
+  });
+
+  await test('alumniService rejects mentorship and referral requests without valid identity', async () => {
+    const mentorRes = await alumniService.requestMentorship('', '', 'Sunday 11 AM');
+    assert.strictEqual(mentorRes.ok, false);
+
+    const refRes = await alumniService.requestReferral('', '');
+    assert.strictEqual(refRes.ok, false);
+  });
+
+  await test('hrService rejects runPayroll without banking rails', async () => {
+    const res = await hrService.runPayroll();
+    assert.strictEqual(res.ok, false);
+    assert.ok(res.error?.includes('PAYROLL_GATEWAY_NOT_CONFIGURED'));
+  });
+
+  await test('campusFallback intercepts simulated API endpoints with 503 disabled status', async () => {
+    const dummyActor = { name: 'Tester', email: 'test@campus.edu' };
+    const params = new URLSearchParams();
+
+    const hrRes = await tryCampusFallback('GET', '/api/hr/stats', 'u1', null, params, dummyActor);
+    assert.strictEqual((hrRes as any).ok, false);
+    assert.strictEqual((hrRes as any).error, 'MODULE_DISABLED_PENDING_INTEGRATION');
+
+    const procRes = await tryCampusFallback('GET', '/api/procurement/stats', 'u1', null, params, dummyActor);
+    assert.strictEqual((procRes as any).ok, false);
+    assert.strictEqual((procRes as any).error, 'MODULE_DISABLED_PENDING_INTEGRATION');
+
+    const assetRes = await tryCampusFallback('GET', '/api/assets/stats', 'u1', null, params, dummyActor);
+    assert.strictEqual((assetRes as any).ok, false);
+    assert.strictEqual((assetRes as any).error, 'MODULE_DISABLED_PENDING_INTEGRATION');
+
+    const alumniRes = await tryCampusFallback('GET', '/api/alumni/stats', 'u1', null, params, dummyActor);
+    assert.strictEqual((alumniRes as any).ok, false);
+    assert.strictEqual((alumniRes as any).error, 'MODULE_DISABLED_PENDING_INTEGRATION');
   });
 
   console.log('\n================================================================');

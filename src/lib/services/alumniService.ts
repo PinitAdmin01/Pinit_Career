@@ -99,14 +99,23 @@ export const alumniService = {
     return { ok: true };
   },
 
-  async requestMentorship(mentorName: string, studentName: string, slot: string) {
+  async requestMentorship(mentorName: string, studentName: string, slot: string, studentId?: string, mentorId?: string) {
+    if (!mentorName || !studentName) {
+      return { ok: false, error: 'MENTORSHIP_INVALID_PARAMS: Both mentor and student identity are required.' };
+    }
     const isSupabaseAvailable = await checkSupabaseAvailable('alumni_connects');
     const id = `CON-${Date.now()}`;
-    const row = { id, mentorName, studentName, slot, status: 'Requested', date: new Date().toISOString().split('T')[0] };
+    const row = { id, mentorName, studentName, slot, status: 'Requested', date: new Date().toISOString().split('T')[0], studentId, mentorId };
     if (isSupabaseAvailable) {
       try {
         const res = await supabase.from('alumni_connects').insert({
-          id, mentor_name: mentorName, student_name: studentName, slot, status: 'Requested',
+          id,
+          mentor_name: mentorName,
+          student_name: studentName,
+          slot,
+          status: 'Requested',
+          student_id: studentId,
+          mentor_id: mentorId
         });
         if (res.error) throw new Error(res.error.message);
         return { ok: true, connect: row };
@@ -121,14 +130,21 @@ export const alumniService = {
     return { ok: true, connect: row };
   },
 
-  async requestReferral(jobId: string, studentName: string) {
+  async requestReferral(jobId: string, studentName: string, studentId?: string) {
+    if (!jobId || !studentName) {
+      return { ok: false, error: 'REFERRAL_INVALID_PARAMS: Both jobId and student identity are required.' };
+    }
     const isSupabaseAvailable = await checkSupabaseAvailable('alumni_referrals');
     const id = `REF-${Date.now()}`;
-    const row = { id, jobId, studentName, status: 'Requested', date: new Date().toISOString().split('T')[0] };
+    const row = { id, jobId, studentName, status: 'Requested', date: new Date().toISOString().split('T')[0], studentId };
     if (isSupabaseAvailable) {
       try {
         const res = await supabase.from('alumni_referrals').insert({
-          id, job_id: jobId, student_name: studentName, status: 'Requested',
+          id,
+          job_id: jobId,
+          student_name: studentName,
+          status: 'Requested',
+          student_id: studentId
         });
         if (res.error) throw new Error(res.error.message);
         return { ok: true, referral: row };
@@ -144,23 +160,9 @@ export const alumniService = {
   },
 
   async donate(campaignId: string, amount: number, contributorName: string) {
-    const db = await readLocalDb();
-    db.donations = db.donations || [];
-    const idx = db.donations.findIndex((d: any) => d.id === campaignId);
-    const gift = Number(amount) || 0;
-    if (idx === -1) {
-      db.donations.push({
-        id: campaignId || `DON-${Date.now()}`,
-        raised: gift,
-        contributors: 1,
-        lastContributor: contributorName,
-      });
-    } else {
-      db.donations[idx].raised = (Number(db.donations[idx].raised) || 0) + gift;
-      db.donations[idx].contributors = (Number(db.donations[idx].contributors) || 0) + 1;
-      db.donations[idx].lastContributor = contributorName;
-    }
-    await writeLocalDb(db);
-    return { ok: true };
+    return {
+      ok: false,
+      error: 'PAYMENT_GATEWAY_NOT_CONFIGURED: Online alumni donations require a verified payment gateway integration (Razorpay / Stripe).'
+    };
   },
 };
