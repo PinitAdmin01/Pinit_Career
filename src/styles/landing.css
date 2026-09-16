@@ -1204,3 +1204,64 @@
     transform: translateY(0) scale(1);
   }
 }
+ 
+
+/* ==========================================================================
+   BRAND PROMISE TICKER — INFINITE MARQUEE
+   Drop this into src/styles/landing.css (or import as a module).
+   The parent project's landing.css is MISSING these rules entirely, which is
+   why the "brand-promise-section" text sits static and wraps instead of
+   animating right-to-left.
+   ========================================================================== */
+
+/* --- container --- */
+.brand-promise-section {
+  width: 100%;
+  overflow: hidden;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 22px 0;
+}
+
+/* the track must be WIDER than the viewport so the translate(-50%) loop is
+   seamless.  Duplicate the item list in the markup (or use width: max-content
+   with flex children) so there is no blank gap when the loop restarts. */
+.marquee-track {
+  display: flex;
+  gap: 3rem;
+  white-space: nowrap;
+  width: max-content;
+  will-change: transform;
+  animation: marqueeScroll 28s linear infinite;
+}
+
+.marquee-item {
+  flex-shrink: 0;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+/* --- THE ANIMATION --- */
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* --- pause on hover (optional, nice UX) --- */
+.brand-promise-section:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* --- responsive: smaller on mobile --- */
+@media (max-width: 640px) {
+  .marquee-item {
+    font-size: 12px;
+  }
+  .marquee-track {
+    gap: 1.5rem;
+    animation-duration: 22s;
+  }
+}
