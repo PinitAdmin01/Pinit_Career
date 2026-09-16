@@ -118,6 +118,15 @@ export async function POST(req: Request) {
         if (planId === 'pro') {
           const nowMs = Date.now();
           const expiresAt = new Date(nowMs + 30 * 24 * 60 * 60 * 1000).toISOString();
+          const { data: current } = await admin
+            .from('users')
+            .select('pins, bonus_pins')
+            .eq('id', gated.user!.id)
+            .maybeSingle();
+
+          const currentBonus = typeof current?.bonus_pins === 'number' ? current.bonus_pins : 0;
+          const currentPins = typeof current?.pins === 'number' ? current.pins : 0;
+
           await admin
             .from('users')
             .update({
@@ -126,6 +135,8 @@ export async function POST(req: Request) {
               subscription_expires_at: expiresAt,
               subscription_status: 'active',
               has_purchased_plan: true,
+              pins: Math.max(currentPins, 120),
+              bonus_pins: currentBonus + 500,
             })
             .eq('id', gated.user!.id);
         }
@@ -309,7 +320,7 @@ export async function POST(req: Request) {
 
       const { data: current, error: userFetchErr } = await admin
         .from('users')
-        .select('subscription_expires_at')
+        .select('pins, bonus_pins, subscription_expires_at')
         .eq('id', gated.user!.id)
         .maybeSingle();
 
@@ -332,6 +343,12 @@ export async function POST(req: Request) {
         extendFromMs + PRO_PERIOD_DAYS * 24 * 60 * 60 * 1000
       ).toISOString();
 
+      const currentBonus = typeof current?.bonus_pins === 'number' ? current.bonus_pins : 0;
+      const currentPins = typeof current?.pins === 'number' ? current.pins : 0;
+      // Jio/Airtel model: Activate 120 daily pins if below 120, and deposit 500 into bonus_pins vault!
+      const nextDailyPins = Math.max(currentPins, 120);
+      const nextBonusPins = currentBonus + 500;
+
       const { error: updateErr } = await admin
         .from('users')
         .update({
@@ -340,6 +357,8 @@ export async function POST(req: Request) {
           subscription_expires_at: expiresAt,
           subscription_status: 'active',
           has_purchased_plan: true,
+          pins: nextDailyPins,
+          bonus_pins: nextBonusPins,
         })
         .eq('id', gated.user!.id);
 

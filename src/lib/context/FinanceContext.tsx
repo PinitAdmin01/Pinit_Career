@@ -22,6 +22,10 @@ export interface FinanceContextType {
   }) => void;
   updateVaultItem: (id: string, updates: Partial<VaultItem>) => void;
   pins: number;
+  setPins: (pins: number) => void;
+  bonusPins: number;
+  setBonusPins?: (pins: number) => void;
+  claimBonusPins: (amount?: number) => Promise<boolean>;
   pinHistory: PinTransaction[];
   earnPins: (source: PinSource, overrideAmount?: number, reason?: string) => void;
   spendPins: (featureKey: string, customReason?: string) => Promise<boolean>;
@@ -46,6 +50,9 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
 
   const {
     pins,
+    setPins,
+    bonusPins,
+    claimBonusPins,
     pinHistory,
     earnPins,
     spendPins,
@@ -136,6 +143,9 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
     addVaultItem,
     updateVaultItem,
     pins,
+    setPins,
+    bonusPins: bonusPins || 0,
+    claimBonusPins,
     pinHistory,
     earnPins,
     spendPins,
@@ -156,6 +166,9 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
     addVaultItem,
     updateVaultItem,
     pins,
+    setPins,
+    bonusPins,
+    claimBonusPins,
     pinHistory,
     earnPins,
     spendPins,

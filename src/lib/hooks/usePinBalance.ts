@@ -115,6 +115,7 @@ export function usePinBalance(options: UsePinBalanceOptions = {}) {
   // ── FIX: Default balance fallback changed from 120 → 50 ──
   // First-time / demo users now start with 50 demo pins.
   const [pins, setPinsState] = useState<number>(() => getCachedBalance() ?? 50);
+  const [bonusPins, setBonusPinsState] = useState<number>(0);
   const [pinHistory, setPinHistoryState] = useState<PinTransaction[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -139,10 +140,10 @@ export function usePinBalance(options: UsePinBalanceOptions = {}) {
           authoritativeBalance = rpcData;
         }
 
-        // 2. Fetch history and fallback balance from canonical users table
+        // 2. Fetch history, bonus pins, and fallback balance from canonical users table
         const { data: userData, error: userErr } = await supabase
           .from('users')
-          .select('pins, pin_history')
+          .select('pins, pin_history, bonus_pins')
           .eq('id', effectiveUserId)
           .maybeSingle();
 
@@ -158,6 +159,10 @@ export function usePinBalance(options: UsePinBalanceOptions = {}) {
               JSON.stringify({ value: authoritativeBalance, ts: Date.now() })
             );
           } catch {}
+        }
+
+        if (userData && typeof userData.bonus_pins === 'number' && isMounted) {
+          setBonusPinsState(userData.bonus_pins);
         }
 
         if (userData && Array.isArray(userData.pin_history) && isMounted) {
@@ -318,9 +323,30 @@ export function usePinBalance(options: UsePinBalanceOptions = {}) {
     return true;
   }, [pins, effectiveUserId]);
 
+  const claimBonusPins = useCallback(async (amount?: number): Promise<boolean> => {
+    try {
+      const res = await api.post<any>('/api/pins/claim-bonus', { amount });
+      if (res?.ok) {
+        if (typeof res.newPins === 'number') setPinsState(res.newPins);
+        if (typeof res.remainingBonus === 'number') setBonusPinsState(res.remainingBonus);
+        toast.success('Pins Claimed! ⚡', res.message || `+${res.claimed} pins transferred to active balance.`);
+        return true;
+      } else {
+        toast.error('Claim Failed', res?.message || 'Could not claim bonus pins.');
+        return false;
+      }
+    } catch (err: any) {
+      toast.error('Claim Error', err?.message || 'Failed to claim bonus pins.');
+      return false;
+    }
+  }, []);
+
   return {
     pins,
     setPins: savePins,
+    bonusPins,
+    setBonusPins: setBonusPinsState,
+    claimBonusPins,
     pinHistory,
     setPinsHistory: saveHistory,
     earnPins,

@@ -2,7 +2,8 @@
 
 import { useState, useMemo, useCallback } from 'react';
 import Link from 'next/link';
-import { usePinBalance, PIN_COSTS, PinTransaction } from '@/lib/hooks/usePinBalance';
+import { useCareerOS } from '@/lib/context/CareerOSContext';
+import { PIN_COSTS, PinTransaction } from '@/lib/hooks/usePinBalance';
 import { useAuth } from '@/lib/context/AuthContext';
 import { openRazorpayCheckout } from '@/lib/razorpay';
 import { api } from '@/lib/api/client';
@@ -163,7 +164,7 @@ const PAGE_SIZE = 15;
 
 export default function PinsWalletPage() {
   const { user } = useAuth();
-  const { pins, pinHistory, isLoaded, setPins } = usePinBalance({ userId: user?.id });
+  const { pins, pinHistory, isLoaded, setPins, bonusPins, claimBonusPins } = useCareerOS();
 
   const [activeTab, setActiveTab] = useState<PageTab>('buy');
   const [filter, setFilter] = useState<FilterTab>('all');
@@ -174,7 +175,7 @@ export default function PinsWalletPage() {
 
   const onPurchaseSuccess = useCallback((grantedPins?: number) => {
     if (typeof grantedPins === 'number' && grantedPins > 0) {
-      setPins(pins + grantedPins);
+      setPins?.(pins + grantedPins);
     }
   }, [pins, setPins]);
 
@@ -210,27 +211,80 @@ export default function PinsWalletPage() {
   return (
     <div style={{ maxWidth: 900, margin: '0 auto', padding: '28px 20px 60px', display: 'flex', flexDirection: 'column', gap: 20 }}>
 
-      {/* ── Header ──────────────────────────────────────────────────── */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
+      {/* ── 2-Section Header: Active Daily Pins + Bonus Pins Vault ──────────────── */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 14 }}>
         <div>
           <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 26, fontWeight: 900, color: 'var(--t1)', margin: 0, letterSpacing: '-0.02em' }}>
-            ⚡ Pins Wallet
+            ⚡ Pins & Wallet
           </h1>
           <p style={{ margin: '4px 0 0', fontSize: 13, color: 'var(--t3)' }}>
-            Buy pin packs, manage balance, and track spending history.
+            Active daily allowance & permanent Bonus Pins Vault.
           </p>
         </div>
-        {/* Current balance pill */}
-        <div style={{
-          display: 'flex', alignItems: 'center', gap: 8,
-          padding: '10px 18px', borderRadius: 14,
-          background: pins < 20 ? 'rgba(239,68,68,0.1)' : 'rgba(99,102,241,0.1)',
-          border: `1.5px solid ${pins < 20 ? 'rgba(239,68,68,0.3)' : 'rgba(99,102,241,0.25)'}`,
-        }}>
-          <span style={{ fontSize: 20 }}>⚡</span>
-          <div>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: 20, fontWeight: 900, color: balColor, lineHeight: 1 }}>{pins.toLocaleString()} pins</div>
-            <div style={{ fontSize: 10, color: 'var(--t4)' }}>Refreshes in {nextRefreshCountdown()}</div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+          {/* Section 1: Active Daily Quota (Jio/Airtel model) */}
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: 10,
+            padding: '10px 16px', borderRadius: 14,
+            background: pins < 20 ? 'rgba(239,68,68,0.1)' : 'rgba(99,102,241,0.1)',
+            border: `1.5px solid ${pins < 20 ? 'rgba(239,68,68,0.3)' : 'rgba(99,102,241,0.25)'}`,
+          }}>
+            <span style={{ fontSize: 22 }}>⚡</span>
+            <div>
+              <div style={{ fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--t3)' }}>
+                Active Daily Pins
+              </div>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 18, fontWeight: 900, color: balColor, lineHeight: 1.1 }}>
+                {pins.toLocaleString()} Pins
+              </div>
+              <div style={{ fontSize: 9.5, color: 'var(--t3)', marginTop: 2 }}>
+                1:00 AM Reset in {nextRefreshCountdown()}
+              </div>
+            </div>
+          </div>
+
+          {/* Section 2: Bonus Pins Vault (Voucher Pack - never wiped at 1AM) */}
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: 10,
+            padding: '10px 16px', borderRadius: 14,
+            background: 'linear-gradient(135deg, rgba(16,185,129,0.12) 0%, rgba(5,150,105,0.08) 100%)',
+            border: '1.5px solid rgba(16,185,129,0.3)',
+          }}>
+            <span style={{ fontSize: 22 }}>🎁</span>
+            <div>
+              <div style={{ fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#10b981' }}>
+                Bonus Pins Vault
+              </div>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 18, fontWeight: 900, color: '#10b981', lineHeight: 1.1 }}>
+                {(bonusPins || 0).toLocaleString()} Bonus Pins
+              </div>
+              <div style={{ fontSize: 9.5, color: 'var(--t3)', marginTop: 2 }}>
+                Safe from 1 AM reset
+              </div>
+            </div>
+
+            {/* Claim button */}
+            <button
+              onClick={() => claimBonusPins()}
+              disabled={!bonusPins || bonusPins <= 0}
+              style={{
+                marginLeft: 4,
+                padding: '7px 14px',
+                borderRadius: 9,
+                border: 'none',
+                background: bonusPins > 0 ? 'linear-gradient(135deg, #10b981, #059669)' : 'rgba(255,255,255,0.08)',
+                color: bonusPins > 0 ? '#fff' : 'var(--t3)',
+                fontWeight: 800,
+                fontSize: 11.5,
+                cursor: bonusPins > 0 ? 'pointer' : 'not-allowed',
+                boxShadow: bonusPins > 0 ? '0 2px 8px rgba(16,185,129,0.35)' : 'none',
+                transition: 'all 0.15s ease',
+              }}
+              title={bonusPins > 0 ? 'Transfer bonus pins to your active balance' : 'No bonus pins to claim'}
+            >
+              Claim
+            </button>
           </div>
         </div>
       </div>

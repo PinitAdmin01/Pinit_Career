@@ -53,6 +53,9 @@ export function usePins(options: UsePinsOptions = {}) {
     // Balance & History
     pins: balance.pins,
     setPins: balance.setPins,
+    bonusPins: balance.bonusPins,
+    setBonusPins: balance.setBonusPins,
+    claimBonusPins: balance.claimBonusPins,
     pinHistory: balance.pinHistory,
     setPinsHistory: balance.setPinsHistory,
     earnPins: balance.earnPins,
