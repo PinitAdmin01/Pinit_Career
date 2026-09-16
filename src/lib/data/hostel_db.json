@@ -1,7 +1,76 @@
 {
-  "rooms": [],
+  "rooms": [
+    {
+      "code": "R-CAP-1789594634035",
+      "block": "Block Test",
+      "room": "101",
+      "capacity": 1,
+      "occupied": 1,
+      "residents": [],
+      "status": "full"
+    },
+    {
+      "code": "R-CAP-1789594780778",
+      "block": "Block Test",
+      "room": "101",
+      "capacity": 1,
+      "occupied": 1,
+      "residents": [],
+      "status": "full"
+    },
+    {
+      "code": "R-CAP-1789594825005",
+      "block": "Block Test",
+      "room": "101",
+      "capacity": 1,
+      "occupied": 1,
+      "residents": [],
+      "status": "full"
+    },
+    {
+      "code": "R-CAP-1789594848964",
+      "block": "Block Test",
+      "room": "101",
+      "capacity": 1,
+      "occupied": 1,
+      "residents": [],
+      "status": "full"
+    }
+  ],
   "allocations": [],
   "attendance": [
+    {
+      "id": "ATT-1789594848977-CB9B4A",
+      "student_id": "stu_h1_1789594848964",
+      "studentName": "Student H1",
+      "room": "R-CAP-1789594848964",
+      "type": "check-in",
+      "timestamp": "2026-09-16T21:40:48.978Z"
+    },
+    {
+      "id": "ATT-1789594825021-EC79B6",
+      "student_id": "stu_h1_1789594825005",
+      "studentName": "Student H1",
+      "room": "R-CAP-1789594825005",
+      "type": "check-in",
+      "timestamp": "2026-09-16T21:40:25.021Z"
+    },
+    {
+      "id": "ATT-1789594780788-57AA82",
+      "student_id": "stu_h1_1789594780778",
+      "studentName": "Student H1",
+      "room": "R-CAP-1789594780778",
+      "type": "check-in",
+      "timestamp": "2026-09-16T21:39:40.788Z"
+    },
+    {
+      "id": "ATT-1789594634053-2A33BC",
+      "student_id": "stu_h1_1789594634035",
+      "studentName": "Student H1",
+      "room": "R-CAP-1789594634035",
+      "type": "check-in",
+      "timestamp": "2026-09-16T21:37:14.053Z"
+    },
     {
       "id": "ATT-443",
       "student_id": "test_user_001",

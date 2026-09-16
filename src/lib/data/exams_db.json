@@ -1,5 +1,118 @@
 {
-  "sheets": {},
+  "sheets": {
+    "student_alpha_1789594633996": {
+      "isPublished": false,
+      "gpa": 7,
+      "results": [
+        {
+          "code": "MATH101",
+          "course": "MATH101",
+          "internals": 0,
+          "semester": 65,
+          "grade": "B+",
+          "isAbsent": false
+        }
+      ]
+    },
+    "student_beta_1789594633996": {
+      "isPublished": false,
+      "gpa": 6,
+      "results": [
+        {
+          "code": "PHYS101",
+          "course": "PHYS101",
+          "internals": 0,
+          "semester": 52,
+          "grade": "B",
+          "isAbsent": false
+        }
+      ]
+    },
+    "student_alpha_1789594780737": {
+      "isPublished": false,
+      "gpa": 7,
+      "results": [
+        {
+          "code": "MATH101",
+          "course": "MATH101",
+          "internals": 0,
+          "semester": 65,
+          "grade": "B+",
+          "isAbsent": false
+        }
+      ]
+    },
+    "student_beta_1789594780737": {
+      "isPublished": false,
+      "gpa": 6,
+      "results": [
+        {
+          "code": "PHYS101",
+          "course": "PHYS101",
+          "internals": 0,
+          "semester": 52,
+          "grade": "B",
+          "isAbsent": false
+        }
+      ]
+    },
+    "student_alpha_1789594824911": {
+      "isPublished": false,
+      "gpa": 7,
+      "results": [
+        {
+          "code": "MATH101",
+          "course": "MATH101",
+          "internals": 0,
+          "semester": 65,
+          "grade": "B+",
+          "isAbsent": false
+        }
+      ]
+    },
+    "student_beta_1789594824911": {
+      "isPublished": false,
+      "gpa": 6,
+      "results": [
+        {
+          "code": "PHYS101",
+          "course": "PHYS101",
+          "internals": 0,
+          "semester": 52,
+          "grade": "B",
+          "isAbsent": false
+        }
+      ]
+    },
+    "student_alpha_1789594848921": {
+      "isPublished": false,
+      "gpa": 7,
+      "results": [
+        {
+          "code": "MATH101",
+          "course": "MATH101",
+          "internals": 0,
+          "semester": 65,
+          "grade": "B+",
+          "isAbsent": false
+        }
+      ]
+    },
+    "student_beta_1789594848921": {
+      "isPublished": false,
+      "gpa": 6,
+      "results": [
+        {
+          "code": "PHYS101",
+          "course": "PHYS101",
+          "internals": 0,
+          "semester": 52,
+          "grade": "B",
+          "isAbsent": false
+        }
+      ]
+    }
+  },
   "schedule": [],
   "attempts": [
     {
@@ -218,6 +331,62 @@
       "score": 40,
       "passed": false,
       "timestamp": 1789295224967
+    },
+    {
+      "studentId": "st_fail_1789594633999",
+      "examScheduleId": "EXAM_1789594633999",
+      "score": 35,
+      "passed": false,
+      "timestamp": 1789594633999
+    },
+    {
+      "studentId": "st_pass_1789594633999",
+      "examScheduleId": "EXAM_1789594633999",
+      "score": 78,
+      "passed": true,
+      "timestamp": 1789594634001
+    },
+    {
+      "studentId": "st_fail_1789594780741",
+      "examScheduleId": "EXAM_1789594780741",
+      "score": 35,
+      "passed": false,
+      "timestamp": 1789594780741
+    },
+    {
+      "studentId": "st_pass_1789594780741",
+      "examScheduleId": "EXAM_1789594780741",
+      "score": 78,
+      "passed": true,
+      "timestamp": 1789594780743
+    },
+    {
+      "studentId": "st_fail_1789594824915",
+      "examScheduleId": "EXAM_1789594824915",
+      "score": 35,
+      "passed": false,
+      "timestamp": 1789594824915
+    },
+    {
+      "studentId": "st_pass_1789594824915",
+      "examScheduleId": "EXAM_1789594824915",
+      "score": 78,
+      "passed": true,
+      "timestamp": 1789594824918
+    },
+    {
+      "studentId": "st_fail_1789594848925",
+      "examScheduleId": "EXAM_1789594848925",
+      "score": 35,
+      "passed": false,
+      "timestamp": 1789594848926
+    },
+    {
+      "studentId": "st_pass_1789594848925",
+      "examScheduleId": "EXAM_1789594848925",
+      "score": 78,
+      "passed": true,
+      "timestamp": 1789594848927
     }
   ]
 }

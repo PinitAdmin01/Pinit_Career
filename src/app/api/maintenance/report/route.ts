@@ -9,7 +9,9 @@ export async function POST(req: Request) {
 
     const { category, location, description, urgency } = await req.json();
     const validUrgency = ['Emergency', 'High', 'Normal', 'Low'].includes(urgency) ? urgency : 'Normal';
-    const result = await maintenanceService.reportTicket(category, location, description, validUrgency);
+    const studentId = gated.user.id;
+    const studentName = (gated.user as any).displayName || gated.user.email || 'Student';
+    const result = await maintenanceService.reportTicket(studentId, studentName, category, location, description, validUrgency);
     return NextResponse.json(result);
   } catch (err: any) {
     return NextResponse.json({ error: err.message || 'Server error' }, { status: 500 });

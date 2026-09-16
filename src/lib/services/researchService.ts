@@ -63,8 +63,20 @@ export const researchService = {
         const { data: patents } = await supabase.from('research_patents').select('*');
         const { data: funding } = await supabase.from('research_funding').select('*');
 
+        // Visible papers: All verified 'Published' papers PLUS student's own submissions
+        const visiblePapers = (papers || []).filter(p =>
+          p.status === 'Published' || (studentId && p.student_id === studentId)
+        );
+
         return {
-          papers: (papers || []).map(p => ({ id: p.id, title: p.title, authors: p.authors, journal: p.journal, status: p.status })),
+          papers: visiblePapers.map(p => ({
+            id: p.id,
+            title: p.title,
+            authors: p.authors,
+            journal: p.journal,
+            status: p.status,
+            studentId: p.student_id
+          })),
           projects: (projects || []).map(pr => ({ id: pr.id, title: pr.title, pi: pr.pi, coPi: pr.co_pi, fundingAgency: pr.funding_agency, duration: pr.duration, grantAmount: pr.grant_amount, progress: pr.progress })),
           patents: (patents || []).map(pat => ({ id: pat.id, title: pat.title, inventors: pat.inventors, fileNo: pat.file_no, status: pat.status, filedOn: pat.filed_on })),
           funding: (funding || []).map(f => ({ id: f.id, title: f.title, pi: f.pi, agency: f.agency, amount: f.amount, status: f.status }))
@@ -76,31 +88,52 @@ export const researchService = {
 
     // Local Database Fallback
     const db = await readLocalDb();
+    const visiblePapers = (db.papers || []).filter((p: any) =>
+      p.status === 'Published' || (studentId && (p.studentId === studentId || p.student_id === studentId))
+    );
+
     return {
-      papers: db.papers || [],
+      papers: visiblePapers,
       projects: db.projects || [],
       patents: db.patents || [],
       funding: db.funding || []
     };
   },
 
-  async publishPaper(studentId: string, studentName: string, title: string, authors: string, journal: string, status: string) {
+  async publishPaper(studentId: string, studentName: string, title: string, authors: string, journal: string, _status?: string) {
     if (!title?.trim() || !authors?.trim() || !journal?.trim()) {
       return { ok: false, error: 'All fields must be filled and cannot be empty.' };
     }
 
+    // Default status for newly submitted student papers is 'Under Review' - never allow student to self-assign 'Published'
+    const status = 'Under Review';
     const isSupabaseAvailable = await checkSupabaseAvailable('research_papers');
+    const id = `PUB-${Date.now()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
 
     if (isSupabaseAvailable) {
       try {
-        const res = await supabase.from('research_papers').insert({
-          title,
-          authors,
-          journal,
-          status
-        });
-        if (res.error) throw new Error(res.error.message);
-        return { ok: true };
+        const payload: Record<string, any> = {
+          id,
+          title: title.trim(),
+          authors: authors.trim(),
+          journal: journal.trim(),
+          status,
+          student_id: studentId,
+          submitted_by: studentName
+        };
+        const res = await supabase.from('research_papers').insert(payload);
+        if (res.error) {
+          // Schema tolerance: if column student_id does not exist, retry without student_id
+          const retryRes = await supabase.from('research_papers').insert({
+            title: title.trim(),
+            authors: authors.trim(),
+            journal: journal.trim(),
+            status
+          });
+          if (retryRes.error) throw new Error(retryRes.error.message);
+        }
+        const paperObj = { id, studentId, studentName, title: title.trim(), authors: authors.trim(), journal: journal.trim(), status };
+        return { ok: true, id, status, paper: paperObj };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
       }
@@ -108,15 +141,19 @@ export const researchService = {
 
     // Local Database Fallback
     const db = await readLocalDb();
-    db.papers.push({
-      id: `PUB-${Math.floor(100 + Math.random() * 900)}`,
-      title,
-      authors,
-      journal,
+    const paperObj = {
+      id,
+      studentId,
+      student_id: studentId,
+      submittedBy: studentName,
+      title: title.trim(),
+      authors: authors.trim(),
+      journal: journal.trim(),
       status
-    });
+    };
+    db.papers.push(paperObj);
     await writeLocalDb(db);
-    return { ok: true };
+    return { ok: true, id, status, paper: paperObj };
   },
 
   async updatePaperStatus(paperId: string, status: string) {

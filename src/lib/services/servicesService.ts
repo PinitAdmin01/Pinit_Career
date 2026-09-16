@@ -70,7 +70,18 @@ export const servicesService = {
     }
 
     // Local Database Fallback
-    return await readLocalDb();
+    const db = await readLocalDb();
+    const myLeaves = (db.leaves || []).filter((l: any) => !studentId || l.studentId === studentId || l.student_id === studentId);
+    const myRequests = (db.requests || []).filter((r: any) => !studentId || r.studentId === studentId || r.student_id === studentId);
+    const myAppointments = (db.appointments || []).filter((a: any) => !studentId || a.studentId === studentId || a.student_id === studentId);
+    const myCounselling = (db.counselling || []).filter((c: any) => !studentId || c.studentId === studentId || c.student_id === studentId);
+
+    return {
+      leaves: myLeaves,
+      requests: myRequests,
+      appointments: myAppointments,
+      counselling: myCounselling
+    };
   },
 
   async applyLeave(studentId: string, startDate: string, endDate: string, reason: string, type: string) {
@@ -96,8 +107,11 @@ export const servicesService = {
 
     // Local Database Fallback
     const db = await readLocalDb();
+    const id = `LEV-${Date.now()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
     db.leaves.unshift({
-      id: `LEV-${Math.floor(100 + Math.random() * 900)}`,
+      id,
+      studentId,
+      student_id: studentId,
       startDate,
       endDate,
       reason,
@@ -132,8 +146,11 @@ export const servicesService = {
 
     // Local Database Fallback
     const db = await readLocalDb();
+    const id = `REQ-${Date.now()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
     db.requests.unshift({
-      id: `REQ-${Math.floor(100 + Math.random() * 900)}`,
+      id,
+      studentId,
+      student_id: studentId,
       category,
       description,
       status: 'Pending'
@@ -167,8 +184,11 @@ export const servicesService = {
 
     // Local Database Fallback
     const db = await readLocalDb();
+    const id = `APT-${Date.now()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
     db.appointments.unshift({
-      id: `APT-${Math.floor(100 + Math.random() * 900)}`,
+      id,
+      studentId,
+      student_id: studentId,
       staffName,
       date,
       time,
@@ -191,15 +211,27 @@ export const servicesService = {
     if (isSupabaseAvailable) {
       try {
         const client = await getCampusSupabaseClient();
+        const { data: conflict } = await client.from('services_counselling')
+          .select('id')
+          .eq('counselor_name', counselorName)
+          .eq('date', date)
+          .eq('time', time)
+          .maybeSingle();
+
+        if (conflict) {
+          return { ok: false, error: 'COUNSELLOR_SLOT_TAKEN: This counselor already has a session booked at this date and time.' };
+        }
+
         const res = await client.from('services_counselling').insert({
           student_id: studentId,
           counselor_name: counselorName,
           date,
           time,
-          status: 'Confirmed'
+          status: 'Requested'
         });
         if (res.error) throw new Error(res.error.message);
-        return { ok: true, stored: 'db' };
+        const sessionObj = { studentId, counselorName, date, time, status: 'Requested' };
+        return { ok: true, stored: 'db', session: sessionObj };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
       }
@@ -207,18 +239,29 @@ export const servicesService = {
 
     // Local Database Fallback
     const db = await readLocalDb();
-    db.counselling.unshift({
-      id: `CNS-${Math.floor(100 + Math.random() * 900)}`,
+    const conflict = (db.counselling || []).find((c: any) =>
+      c.counselorName === counselorName && c.date === date && c.time === time
+    );
+    if (conflict) {
+      return { ok: false, error: 'COUNSELLOR_SLOT_TAKEN: This counselor already has a session booked at this date and time.' };
+    }
+
+    const id = `CNS-${Date.now()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
+    const sessionObj = {
+      id,
+      studentId,
+      student_id: studentId,
       counselorName,
       date,
       time,
-      status: 'Confirmed'
-    });
+      status: 'Requested'
+    };
+    db.counselling.unshift(sessionObj);
     const writeRes = await writeLocalDb(db);
     if (!writeRes.success) {
       return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to book counselling.', stored: 'none' };
     }
-    return { ok: true, stored: writeRes.stored };
+    return { ok: true, stored: writeRes.stored, session: sessionObj };
   },
 
   async approveLeave(leaveId: string) {

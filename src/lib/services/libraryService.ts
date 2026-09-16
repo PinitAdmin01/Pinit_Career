@@ -1,6 +1,7 @@
 import { supabase } from '@/lib/supabaseClient';
 import { tableExists as checkSupabaseAvailable, getCampusSupabaseClient } from '@/lib/services/supabaseTable';
 import { readLocalJson, writeLocalJson, StorageWriteResult } from '@/lib/services/localJsonDb';
+import crypto from 'crypto';
 
 const DB_FILE = 'src/lib/data/library_db.json';
 
@@ -144,7 +145,7 @@ export const libraryService = {
         const client = await getCampusSupabaseClient();
         const { data: book } = await client.from('library_books').select('available, title').eq('isbn', isbn).single();
         if (book && book.available > 0) {
-          const res1 = await client.from('library_books').update({ available: book.available - 1 }).eq('isbn', isbn);
+          const res1 = await client.from('library_books').update({ available: book.available - 1 }).eq('isbn', isbn).gt('available', 0);
           if (res1.error) throw new Error(res1.error.message);
           const res2 = await client.from('library_borrowings').insert({
             student_id: studentId,
@@ -166,9 +167,10 @@ export const libraryService = {
     const db = await readLocalDb();
     const book = db.books.find((b: any) => b.isbn === isbn);
     if (book && book.available > 0) {
-      book.available -= 1;
+      book.available = Math.max(0, book.available - 1);
+      const borrowId = `BOR-${Date.now()}-${crypto.randomBytes(3).toString('hex').toUpperCase()}`;
       db.borrowed.unshift({
-        id: `BOR-${Math.floor(100 + Math.random() * 900)}`,
+        id: borrowId,
         studentId,
         studentName,
         isbn,
@@ -284,7 +286,7 @@ export const libraryService = {
     if (book) {
       const queuePosition = db.reserves.filter((r: any) => r.isbn === isbn).length + 1;
       const reserve = {
-        id: `RES-${Math.floor(100 + Math.random() * 900)}`,
+        id: `RES-${Date.now()}-${crypto.randomBytes(3).toString('hex').toUpperCase()}`,
         studentId,
         studentName,
         isbn,

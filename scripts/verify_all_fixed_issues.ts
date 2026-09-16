@@ -12,6 +12,15 @@ import { alumniService } from '../src/lib/services/alumniService';
 import { hrService } from '../src/lib/services/hrService';
 import { procurementService } from '../src/lib/services/procurementService';
 import { assetsService } from '../src/lib/services/assetsService';
+import { documentsService } from '../src/lib/services/documentsService';
+import { eventsService } from '../src/lib/services/eventsService';
+import { notesService } from '../src/lib/services/notesService';
+import { researchService } from '../src/lib/services/researchService';
+import { servicesService } from '../src/lib/services/servicesService';
+import { libraryService } from '../src/lib/services/libraryService';
+import { hostelService } from '../src/lib/services/hostelService';
+import { transportService } from '../src/lib/services/transportService';
+import { maintenanceService } from '../src/lib/services/maintenanceService';
 import { tryCampusFallback } from '../src/lib/campusFallback';
 
 let totalTests = 0;
@@ -284,6 +293,232 @@ async function runAllVerifications() {
     const alumniRes = await tryCampusFallback('GET', '/api/alumni/stats', 'u1', null, params, dummyActor);
     assert.strictEqual((alumniRes as any).ok, false);
     assert.strictEqual((alumniRes as any).error, 'MODULE_DISABLED_PENDING_INTEGRATION');
+  });
+
+  // -------------------------------------------------------------
+  // ISSUE 7: Documents Vault Verification Code & Profile Details
+  // -------------------------------------------------------------
+  console.log('\n--- Issue 7: Documents Vault Verification & Profile ---');
+  await test('documentsService generates SHA-256 verifiable code and populates student major/year', async () => {
+    const studentId = `doc_stu_${Date.now()}`;
+    const docRes = await documentsService.requestDocument(studentId, 'Bonafide Certificate', 'Visa application');
+    assert.strictEqual(docRes.ok, true);
+    assert.ok(docRes.doc.verificationCode.startsWith('DOC-VER-'), `Expected DOC-VER- prefix, got ${docRes.doc.verificationCode}`);
+    assert.ok(docRes.doc.verificationCode.length >= 16, 'Verification code must be strong hash');
+    assert.notStrictEqual(docRes.doc.major, '—', 'Major must not be hardcoded dash');
+    assert.notStrictEqual(docRes.doc.year, '—', 'Year must not be hardcoded dash');
+  });
+
+  // -------------------------------------------------------------
+  // ISSUE 8: Events & Certificates Verifiable Tokens & Accurate Matching
+  // -------------------------------------------------------------
+  console.log('\n--- Issue 8: Events & Verifiable Certificates ---');
+  await test('eventsService generates collision-free certCode and matches strictly by rsvpId', async () => {
+    const studentId = `ev_stu_${Date.now()}`;
+    // Create an event first
+    await eventsService.publish('Tech', 'AI Summit', 'Annual AI Conference', '2026-11-01', '10:00 AM', 'Auditorium', 100, 'ACM');
+    const stats = await eventsService.getStats(studentId);
+    const eventId = stats.catalog[0].id;
+
+    // Register for the event
+    const rsvpRes = await eventsService.rsvp(eventId, studentId, 'Attending Student');
+    assert.strictEqual(rsvpRes.ok, true);
+    const rsvpId = rsvpRes.rsvp.id;
+
+    // Issuing cert with mismatched ID must fail
+    const wrongRes = await eventsService.issueCert('non-existent-rsvp-id-999999');
+    assert.strictEqual(wrongRes.ok, false);
+
+    // Issuing cert with exact RSVP ID succeeds and has strong token
+    const certRes = await eventsService.issueCert(rsvpId);
+    assert.strictEqual(certRes.ok, true);
+    assert.ok(certRes.certCode.startsWith('CERT-'));
+    assert.ok(certRes.certCode.length >= 16, 'Certificate code must be cryptographically collision-free');
+  });
+
+  // -------------------------------------------------------------
+  // ISSUE 9: Study Notes Batch Filtering
+  // -------------------------------------------------------------
+  console.log('\n--- Issue 9: Notes Batch Isolation ---');
+  await test('notesService strictly filters notes by batch', async () => {
+    const batch2025 = `B2025_${Date.now()}`;
+    const batch2026 = `B2026_${Date.now()}`;
+
+    await notesService.uploadNote('Math Note 2025', 'MATH', batch2025, 'Prof X', 'https://example.com/math.pdf');
+    await notesService.uploadNote('Physics Note 2026', 'PHYS', batch2026, 'Prof Y', 'https://example.com/phys.pdf');
+
+    const res2025 = await notesService.getNotes(batch2025);
+    const res2026 = await notesService.getNotes(batch2026);
+
+    assert.ok(res2025.notes.every((n: any) => n.batch === batch2025), 'Only batch 2025 notes should be returned');
+    assert.ok(res2026.notes.every((n: any) => n.batch === batch2026), 'Only batch 2026 notes should be returned');
+  });
+
+  // -------------------------------------------------------------
+  // ISSUE 10: Research Registry Ownership & Review Gate
+  // -------------------------------------------------------------
+  console.log('\n--- Issue 10: Research Ownership & Workflow ---');
+  await test('researchService forces status Under Review and isolates unpublished drafts', async () => {
+    const studentAuthor = `res_stu_${Date.now()}`;
+    const otherStudent = `other_stu_${Date.now()}`;
+
+    // Student tries to self-publish as "Published"
+    const pubRes = await researchService.publishPaper(
+      studentAuthor,
+      'John Researcher',
+      'Quantum ML Analysis',
+      'John Researcher',
+      'CS Journal',
+      'Published' // attempt to bypass review
+    );
+    assert.strictEqual(pubRes.ok, true);
+    assert.strictEqual(pubRes.paper.status, 'Under Review', 'Client must not be able to self-publish');
+    assert.strictEqual(pubRes.paper.studentId, studentAuthor);
+
+    // Other student shouldn't see John's unpublished draft
+    const otherView = await researchService.getStats(otherStudent);
+    const hasDraft = otherView.papers.some((p: any) => p.id === pubRes.paper.id);
+    assert.strictEqual(hasDraft, false, 'Unpublished draft must be hidden from other students');
+
+    // Author should see their own submission
+    const authorView = await researchService.getStats(studentAuthor);
+    const authorHasDraft = authorView.papers.some((p: any) => p.id === pubRes.paper.id);
+    assert.strictEqual(authorHasDraft, true, 'Author must see their own submission under review');
+  });
+
+  // -------------------------------------------------------------
+  // ISSUE 11: Services Leave & Counselling Isolation
+  // -------------------------------------------------------------
+  console.log('\n--- Issue 11: Services Leave & Counselling Privacy ---');
+  await test('servicesService isolates student leaves and queues counselling as Requested', async () => {
+    const student1 = `srv_stu1_${Date.now()}`;
+    const student2 = `srv_stu2_${Date.now()}`;
+    const uniqueCounselor = `Counsellor_${Date.now()}`;
+
+    // Apply leave
+    await servicesService.applyLeave(student1, '2026-10-01', '2026-10-03', 'Viral Fever', 'Medical Leave');
+    const s1Stats = await servicesService.getStats(student1);
+    const s2Stats = await servicesService.getStats(student2);
+
+    assert.strictEqual(s1Stats.leaves.length, 1, 'Student 1 must see 1 leave');
+    assert.strictEqual(s2Stats.leaves.length, 0, 'Student 2 must see 0 leaves');
+
+    // Book counselling
+    const bookRes = await servicesService.bookCounselling(student1, uniqueCounselor, '2026-10-10', '10:00 AM');
+    assert.strictEqual(bookRes.ok, true);
+    assert.strictEqual(bookRes.session.status, 'Requested', 'Initial counselling status must be Requested');
+
+    // Booking same slot again must be detected as conflict
+    const conflictRes = await servicesService.bookCounselling(student2, uniqueCounselor, '2026-10-10', '10:00 AM');
+    assert.strictEqual(conflictRes.ok, false);
+    assert.ok(conflictRes.error?.includes('already booked') || conflictRes.error?.includes('COUNSELLOR_SLOT_TAKEN'));
+  });
+
+  // -------------------------------------------------------------
+  // ISSUE 12: Library & Hostel Stock/Capacity Guards and Collision-free IDs
+  // -------------------------------------------------------------
+  console.log('\n--- Issue 12: Library & Hostel Stock/Capacity Safety ---');
+  await test('libraryService prevents negative stock and generates collision-free IDs', async () => {
+    const isbn = `ISBN-TEST-${Date.now()}`;
+    await libraryService.addBook(isbn, 'Concurrency Guide', 'Author C', 'CS', 1);
+
+    const b1 = await libraryService.borrow('stu_lib_1', 'Student One', isbn);
+    assert.strictEqual(b1.ok, true);
+
+    const stats1 = await libraryService.getStats('stu_lib_1', 'Student One');
+    const borrowedRecord = stats1.borrowed.find((b: any) => b.isbn === isbn);
+    assert.ok(borrowedRecord.id.startsWith('BOR-'));
+    assert.ok(borrowedRecord.id.length >= 14, 'Borrow ID must be collision-free');
+
+    // Second borrow must fail because available is 0
+    const b2 = await libraryService.borrow('stu_lib_2', 'Student Two', isbn);
+    assert.strictEqual(b2.ok, false);
+    assert.strictEqual(b2.message, 'Out of stock');
+  });
+
+  await test('hostelService enforces room capacity in approveAllocation and generates collision-free IDs', async () => {
+    const studentH1 = `stu_h1_${Date.now()}`;
+    const studentH2 = `stu_h2_${Date.now()}`;
+    const roomCode = `R-CAP-${Date.now()}`;
+
+    // Read local db and insert a test room with capacity 1
+    const { readLocalJson, writeLocalJson } = await import('../src/lib/services/localJsonDb');
+    const db = await readLocalJson('src/lib/data/hostel_db.json', { rooms: [], allocations: [], attendance: [], complaints: [], visitors: [] });
+    db.rooms.push({
+      code: roomCode,
+      block: 'Block Test',
+      room: '101',
+      capacity: 1,
+      occupied: 0,
+      residents: [],
+      status: 'available'
+    });
+    await writeLocalJson('src/lib/data/hostel_db.json', db);
+
+    // Approve student 1
+    const app1 = await hostelService.approveAllocation(studentH1, roomCode);
+    assert.strictEqual(app1.ok, true);
+
+    // Approve student 2 for same room must fail (capacity 1 is full)
+    const app2 = await hostelService.approveAllocation(studentH2, roomCode);
+    assert.strictEqual(app2.ok, false);
+    assert.strictEqual(app2.error, 'ROOM_FULL');
+
+    // Test visitor and attendance collision-free IDs
+    const attRes = await hostelService.logAttendance(studentH1, 'Student H1', 'check-in', roomCode);
+    assert.strictEqual(attRes.ok, true);
+
+    const hStats = await hostelService.getStats(studentH1, 'Student H1');
+    assert.ok(hStats.attendance[0].id.startsWith('ATT-'));
+    assert.ok(hStats.attendance[0].id.length >= 14, 'Attendance ID must be collision-free');
+  });
+
+  // -------------------------------------------------------------
+  // ISSUE 13: Transport Stop & Route Validation
+  // -------------------------------------------------------------
+  console.log('\n--- Issue 13: Transport Stop & Route Validation ---');
+  await test('transportService validates route existence and stop validity', async () => {
+    const studentT = `stu_trans_${Date.now()}`;
+    const routeCode = `R-VAL-${Date.now()}`;
+
+    await transportService.addRoute(routeCode, 'Metro Express', 'Driver Dave', 'KA-01-9999', ['Main Gate', 'City Center'], '08:00 AM');
+
+    // Invalid stop
+    const invalidStopRes = await transportService.register(studentT, routeCode, 'Random Unknown Stop');
+    assert.strictEqual(invalidStopRes.ok, false);
+    assert.strictEqual(invalidStopRes.error, 'Invalid boarding stop selected for this route code.');
+
+    // Non-existent route
+    const invalidRouteRes = await transportService.register(studentT, 'R-NONEXISTENT', 'Main Gate');
+    assert.strictEqual(invalidRouteRes.ok, false);
+    assert.strictEqual(invalidRouteRes.error, 'Route not found.');
+
+    // Valid stop
+    const validRes = await transportService.register(studentT, routeCode, 'Main Gate');
+    assert.strictEqual(validRes.ok, true);
+  });
+
+  // -------------------------------------------------------------
+  // ISSUE 14: Maintenance Ticket Reporter Attribution
+  // -------------------------------------------------------------
+  console.log('\n--- Issue 14: Maintenance Reporter Identity ---');
+  await test('maintenanceService attaches reporter identity and generates collision-free ID', async () => {
+    const studentM = `stu_maint_${Date.now()}`;
+    const studentName = 'Marcus Brody';
+
+    const tRes = await maintenanceService.reportTicket(
+      studentM,
+      studentName,
+      'Electrical',
+      'Lab 3',
+      'AC unit flickering',
+      'High'
+    );
+    assert.strictEqual(tRes.ok, true);
+    assert.strictEqual(tRes.ticket.studentId, studentM);
+    assert.strictEqual(tRes.ticket.reportedBy, studentName);
+    assert.ok(tRes.ticket.id.startsWith('INF-'));
+    assert.ok(tRes.ticket.id.length >= 14, 'Ticket ID must be collision-free');
   });
 
   console.log('\n================================================================');

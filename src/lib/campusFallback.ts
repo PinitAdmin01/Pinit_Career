@@ -192,7 +192,14 @@ export async function tryCampusFallback(
     case '/api/maintenance/stats':
       return maintenanceService.getTickets();
     case '/api/maintenance/report':
-      return maintenanceService.reportTicket(b.category, b.location, b.description);
+      return maintenanceService.reportTicket(
+        uid || b.studentId || 'unknown_user',
+        actor.name || b.studentName || actor.email || 'Student',
+        b.category,
+        b.location,
+        b.description,
+        b.urgency
+      );
     case '/api/maintenance/schedule':
       return maintenanceService.scheduleTicket(b.ticketId || b.id, b.technician);
     case '/api/maintenance/start':

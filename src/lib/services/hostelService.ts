@@ -1,6 +1,7 @@
 import { supabase } from '@/lib/supabaseClient';
 import { tableExists as checkSupabaseAvailable, getCampusSupabaseClient } from '@/lib/services/supabaseTable';
 import { readLocalJson, writeLocalJson, StorageWriteResult } from '@/lib/services/localJsonDb';
+import crypto from 'crypto';
 
 const DB_FILE = 'src/lib/data/hostel_db.json';
 
@@ -170,7 +171,7 @@ export const hostelService = {
     // Local Database Fallback
     const db = await readLocalDb();
     db.attendance.unshift({
-      id: `ATT-${Math.floor(100 + Math.random() * 900)}`,
+      id: `ATT-${Date.now()}-${crypto.randomBytes(3).toString('hex').toUpperCase()}`,
       student_id: studentId,
       studentName,
       room: roomCode,
@@ -208,7 +209,7 @@ export const hostelService = {
     // Local Database Fallback
     const db = await readLocalDb();
     db.complaints.unshift({
-      id: `CMP-${Math.floor(100 + Math.random() * 900)}`,
+      id: `CMP-${Date.now()}-${crypto.randomBytes(3).toString('hex').toUpperCase()}`,
       student_id: studentId,
       studentName,
       category,
@@ -247,7 +248,7 @@ export const hostelService = {
     // Local Database Fallback
     const db = await readLocalDb();
     db.visitors.unshift({
-      id: `VIS-${Math.floor(100 + Math.random() * 900)}`,
+      id: `VIS-${Date.now()}-${crypto.randomBytes(3).toString('hex').toUpperCase()}`,
       student_id: studentId,
       name,
       relation,
@@ -320,9 +321,12 @@ export const hostelService = {
     if (isSupabaseAvailable) {
       try {
         const client = await getCampusSupabaseClient();
+        const { data: room } = await client.from('hostel_rooms').select('*').eq('code', roomCode).maybeSingle();
+        if (room && (room.occupied || 0) >= (room.capacity || 1)) {
+          return { ok: false, error: 'ROOM_FULL', message: 'Room is already at full capacity.' };
+        }
         const res1 = await client.from('hostel_allocations').update({ status: 'allocated', requested_room: roomCode }).eq('student_id', studentId);
         if (res1.error) throw new Error(res1.error.message);
-        const { data: room } = await client.from('hostel_rooms').select('*').eq('code', roomCode).maybeSingle();
         if (room) {
           const res2 = await client.from('hostel_rooms').update({
             occupied: (room.occupied || 0) + 1,
@@ -336,8 +340,19 @@ export const hostelService = {
       }
     }
     const db = await readLocalDb();
+    const room = (db.rooms || []).find((r: any) => r.code === roomCode);
+    if (room && (room.occupied || 0) >= (room.capacity || 1)) {
+      return { ok: false, error: 'ROOM_FULL', message: 'Room is already at full capacity.' };
+    }
     const alloc = (db.allocations || []).find((a: any) => a.student_id === studentId);
-    if (alloc) alloc.status = 'allocated';
+    if (alloc) {
+      alloc.status = 'allocated';
+      alloc.requestedRoom = roomCode;
+    }
+    if (room) {
+      room.occupied = (room.occupied || 0) + 1;
+      room.status = room.occupied >= (room.capacity || 1) ? 'full' : 'available';
+    }
     const writeRes = await writeLocalDb(db);
     if (!writeRes.success) {
       return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to approve allocation.', stored: 'none' };

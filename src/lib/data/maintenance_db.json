@@ -1,6 +1,54 @@
 {
   "tickets": [
     {
+      "id": "INF-1789594848983-D686E3",
+      "studentId": "stu_maint_1789594848982",
+      "reportedBy": "Marcus Brody",
+      "category": "Electrical",
+      "location": "Lab 3",
+      "description": "[HIGH] AC unit flickering",
+      "status": "Reported",
+      "date": "2026-09-16",
+      "technician": "",
+      "urgency": "High"
+    },
+    {
+      "id": "INF-1789594825029-DC2C54",
+      "studentId": "stu_maint_1789594825029",
+      "reportedBy": "Marcus Brody",
+      "category": "Electrical",
+      "location": "Lab 3",
+      "description": "[HIGH] AC unit flickering",
+      "status": "Reported",
+      "date": "2026-09-16",
+      "technician": "",
+      "urgency": "High"
+    },
+    {
+      "id": "INF-1789594780794-19776C",
+      "studentId": "stu_maint_1789594780794",
+      "reportedBy": "Marcus Brody",
+      "category": "Electrical",
+      "location": "Lab 3",
+      "description": "[HIGH] AC unit flickering",
+      "status": "Reported",
+      "date": "2026-09-16",
+      "technician": "",
+      "urgency": "High"
+    },
+    {
+      "id": "INF-1789594634058-494C92",
+      "studentId": "stu_maint_1789594634058",
+      "reportedBy": "Marcus Brody",
+      "category": "Electrical",
+      "location": "Lab 3",
+      "description": "[HIGH] AC unit flickering",
+      "status": "Reported",
+      "date": "2026-09-16",
+      "technician": "",
+      "urgency": "High"
+    },
+    {
       "id": "INF-275",
       "category": "HVAC & Electrical",
       "location": "Block A Lab 101",
