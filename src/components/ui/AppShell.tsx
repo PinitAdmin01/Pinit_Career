@@ -328,6 +328,16 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     setActiveAcademicTab(null);
   }, [pathname]);
 
+  // Sync theme from localStorage on initial portal mount
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const saved = localStorage.getItem('pc_theme');
+    if (saved === 'light' || saved === 'dark') {
+      document.documentElement.setAttribute('data-theme', saved);
+      useAppStore.getState().setTheme(saved);
+    }
+  }, []);
+
   useEffect(() => {
     const fn = (e: KeyboardEvent) => {
       if (e.key === '[' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); toggleLeftSidebar(); }

@@ -65,8 +65,23 @@ export const useAppStore = create<AppState>((set) => ({
   // Global Theme & Focus Mode
   theme:          'dark',
   focusMode:      false,
-  setTheme:       (theme) => set({ theme }),
-  toggleTheme:    () => set((s) => ({ theme: s.theme === 'light' ? 'dark' : 'light' })),
+  setTheme:       (theme) => {
+    if (typeof window !== 'undefined') {
+      document.documentElement.setAttribute('data-theme', theme);
+      try { localStorage.setItem('pc_theme', theme); } catch {}
+      window.dispatchEvent(new CustomEvent('pc_theme_toggled', { detail: { theme, time: Date.now() } }));
+    }
+    set({ theme });
+  },
+  toggleTheme:    () => set((s) => {
+    const nextTheme = s.theme === 'light' ? 'dark' : 'light';
+    if (typeof window !== 'undefined') {
+      document.documentElement.setAttribute('data-theme', nextTheme);
+      try { localStorage.setItem('pc_theme', nextTheme); } catch {}
+      window.dispatchEvent(new CustomEvent('pc_theme_toggled', { detail: { theme: nextTheme, time: Date.now() } }));
+    }
+    return { theme: nextTheme };
+  }),
   setFocusMode:   (focus) => set({ focusMode: focus }),
   toggleFocusMode:() => set((s) => ({ focusMode: !s.focusMode })),
 

@@ -30,6 +30,13 @@ export function UIStateProvider({ children }: { children: React.ReactNode }) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('pc_theme');
+      if (saved === 'light' || saved === 'dark') {
+        document.documentElement.setAttribute('data-theme', saved);
+        useAppStore.getState().setTheme(saved);
+      }
+    }
     setIsLoaded(true);
   }, []);
 
