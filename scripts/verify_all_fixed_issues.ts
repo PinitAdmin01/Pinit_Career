@@ -21,6 +21,7 @@ import { libraryService } from '../src/lib/services/libraryService';
 import { hostelService } from '../src/lib/services/hostelService';
 import { transportService } from '../src/lib/services/transportService';
 import { maintenanceService } from '../src/lib/services/maintenanceService';
+import { financeService, acquireDistributedLock } from '../src/lib/services/financeService';
 import { tryCampusFallback } from '../src/lib/campusFallback';
 
 let totalTests = 0;
@@ -519,6 +520,65 @@ async function runAllVerifications() {
     assert.strictEqual(tRes.ticket.reportedBy, studentName);
     assert.ok(tRes.ticket.id.startsWith('INF-'));
     assert.ok(tRes.ticket.id.length >= 14, 'Ticket ID must be collision-free');
+  });
+
+  // -------------------------------------------------------------
+  // ISSUE 15: Fee Payment Replay Timing, Webhook & Reconciliation
+  // -------------------------------------------------------------
+  console.log('\n--- Issue 15: Fee Payment Reconciliation & Lock Safety ---');
+  await test('acquireDistributedLock does NOT fail closed when lock table is unmigrated', async () => {
+    const testKey = `lock_test_${Date.now()}`;
+    const acquired = await acquireDistributedLock(testKey, 'student_test_uid', 10);
+    assert.strictEqual(acquired, true, 'Lock must be acquired using process-level fallback when table is absent');
+  });
+
+  await test('financeService.payDue marks installment as Paid and handles idempotent retries', async () => {
+    const studentF = `stu_fin_${Date.now()}`;
+    const payId = `pay_${Date.now()}`;
+    
+    // Initial payment
+    const res1 = await financeService.payDue(studentF, 'Finance Student', 'INST-01', 'fin@campus.edu', payId);
+    assert.strictEqual(res1.ok, true);
+    assert.ok(res1.receiptId);
+
+    // Dues state must reflect Paid
+    const dues = await financeService.getStudentDues(studentF);
+    const inst = dues.installments.find((i: any) => String(i.id) === 'INST-01');
+    assert.strictEqual(inst.status, 'Paid');
+
+    // Duplicate retry must return alreadyPaid: true, NOT fail
+    const res2 = await financeService.payDue(studentF, 'Finance Student', 'INST-01', 'fin@campus.edu', payId);
+    assert.strictEqual(res2.ok, true);
+    assert.strictEqual(res2.alreadyPaid, true);
+  });
+
+  await test('financeService.reconcileFeePayments generates structured reconciliation audit report', async () => {
+    const reportRes = await financeService.reconcileFeePayments();
+    assert.strictEqual(reportRes.ok, true);
+    assert.ok(reportRes.report);
+    assert.ok(['CLEAN', 'REPAIRED_DISCREPANCIES'].includes(reportRes.report.status));
+    assert.ok(typeof reportRes.report.totalProcessed === 'number');
+    assert.ok(Array.isArray(reportRes.report.discrepancies));
+  });
+
+  await test('Webhook source code contains fee installment payment handling', () => {
+    const webhookFile = path.join(process.cwd(), 'src', 'app', 'api', 'payment', 'webhook', 'route.ts');
+    assert.ok(fs.existsSync(webhookFile));
+    const content = fs.readFileSync(webhookFile, 'utf8');
+    assert.ok(content.includes('isFeeInstallment'), 'Must contain isFeeInstallment evaluation');
+    assert.ok(content.includes('installmentId'), 'Must handle installmentId');
+    assert.ok(content.includes('financeService.payDue'), 'Must reconcile fee payment via financeService.payDue');
+  });
+
+  await test('Pay-due route code updates installment BEFORE locking processed_payments', () => {
+    const payDueFile = path.join(process.cwd(), 'src', 'app', 'api', 'finance', 'pay-due', 'route.ts');
+    assert.ok(fs.existsSync(payDueFile));
+    const content = fs.readFileSync(payDueFile, 'utf8');
+    const payDuePos = content.indexOf('financeService.payDue');
+    const upsertPos = content.indexOf('.from(\'processed_payments\').upsert');
+    assert.ok(payDuePos > 0, 'Must call financeService.payDue');
+    assert.ok(upsertPos > 0, 'Must call processed_payments.upsert');
+    assert.ok(payDuePos < upsertPos, 'financeService.payDue MUST run BEFORE processed_payments insert/upsert');
   });
 
   console.log('\n================================================================');

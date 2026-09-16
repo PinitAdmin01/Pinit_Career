@@ -73,6 +73,8 @@ export async function POST(req: Request) {
     const status = String(payment.status || '');
     const notesUid = String(payment.notes?.uid || '');
     const notesPlanId = String(payment.notes?.planId || '');
+    const notesInstallmentId = String(payment.notes?.installmentId || '');
+    const isFeeInstallment = notesPlanId.startsWith('installment_') || Boolean(notesInstallmentId);
 
     if (status !== 'captured') {
       return NextResponse.json({ ok: true, ignored: true, status }, { status: 200 });
@@ -101,13 +103,6 @@ export async function POST(req: Request) {
       auth: { persistSession: false, autoRefreshToken: false },
     });
 
-    // Determine pins to grant
-    let pinsGranted = 0;
-    if (notesPlanId === 'pack_50') pinsGranted = 50;
-    else if (notesPlanId === 'pack_150') pinsGranted = 150;
-    else if (notesPlanId === 'pack_500') pinsGranted = 500;
-    else if (notesPlanId === 'pack_1200') pinsGranted = 1200;
-
     // 1. Replay guard check
     const { data: existingPayment, error: selectErr } = await admin
       .from('processed_payments')
@@ -124,6 +119,17 @@ export async function POST(req: Request) {
     }
 
     if (existingPayment) {
+      if (isFeeInstallment) {
+        const installmentId = notesInstallmentId || notesPlanId.replace('installment_', '').trim();
+        const { financeService } = await import('@/lib/services/financeService');
+        const dues = await financeService.getStudentDues(notesUid);
+        const inst = (dues.installments || []).find((i: any) => String(i.id) === installmentId);
+        if (!inst || inst.status !== 'Paid') {
+          const studentName = payment.notes?.studentName || payment.notes?.name || payment.email || 'Student';
+          const studentEmail = payment.email || payment.notes?.email || '';
+          await financeService.payDue(notesUid, studentName, installmentId, studentEmail, paymentId);
+        }
+      }
       return NextResponse.json({
         ok: true,
         already_processed: true,
@@ -131,7 +137,55 @@ export async function POST(req: Request) {
       });
     }
 
-    // 2. Insert into processed_payments (atomic lock against concurrent processing)
+    // 2. Fee Installment handling: mark installment paid FIRST, then record processed_payments
+    if (isFeeInstallment) {
+      const installmentId = notesInstallmentId || notesPlanId.replace('installment_', '').trim();
+      const studentName = payment.notes?.studentName || payment.notes?.name || payment.email || 'Student';
+      const studentEmail = payment.email || payment.notes?.email || '';
+
+      const { financeService } = await import('@/lib/services/financeService');
+      const feeResult = await financeService.payDue(
+        notesUid,
+        studentName,
+        installmentId,
+        studentEmail,
+        paymentId
+      );
+
+      if (!feeResult || !feeResult.ok) {
+        console.error('[Razorpay Webhook] Fee installment update failed:', feeResult);
+        return NextResponse.json(
+          { ok: false, error: 'FEE_PAYMENT_RECONCILIATION_FAILED', details: feeResult },
+          { status: 500 }
+        );
+      }
+
+      await admin.from('processed_payments').upsert({
+        payment_id: paymentId,
+        order_id: orderId,
+        user_id: notesUid,
+        plan_id: `installment_${installmentId}`,
+        pins_granted: 0,
+      });
+
+      return NextResponse.json({
+        ok: true,
+        processed: true,
+        type: 'installment',
+        paymentId,
+        installmentId,
+        receiptId: feeResult.receiptId || paymentId
+      });
+    }
+
+    // Determine pins to grant
+    let pinsGranted = 0;
+    if (notesPlanId === 'pack_50') pinsGranted = 50;
+    else if (notesPlanId === 'pack_150') pinsGranted = 150;
+    else if (notesPlanId === 'pack_500') pinsGranted = 500;
+    else if (notesPlanId === 'pack_1200') pinsGranted = 1200;
+
+    // 3. Insert into processed_payments (atomic lock against concurrent processing)
     const { error: insertErr } = await admin.from('processed_payments').insert({
       payment_id: paymentId,
       order_id: orderId,

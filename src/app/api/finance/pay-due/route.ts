@@ -143,18 +143,21 @@ export async function POST(req: Request) {
       const notesInstId = String(order?.notes?.installmentId || '');
       const notesPlanId = String(order?.notes?.planId || '');
 
-      if (notesUid && notesUid !== gated.user!.id) {
+      // User binding check: NEVER allow empty notes to bypass
+      if (!notesUid || notesUid !== gated.user!.id) {
         return NextResponse.json(
           {
             ok: false,
             error: 'ORDER_USER_MISMATCH',
-            message: 'Order was created for a different user account.',
+            message: 'Order was created for a different user account or missing user attribution.',
           },
           { status: 403 }
         );
       }
 
-      if (notesInstId && notesInstId !== installmentId && notesPlanId !== `installment_${installmentId}`) {
+      // Installment binding check: NEVER allow empty installment notes to bypass
+      const orderInstId = notesInstId || (notesPlanId.startsWith('installment_') ? notesPlanId.replace('installment_', '').trim() : '');
+      if (!orderInstId || orderInstId !== installmentId) {
         return NextResponse.json(
           {
             ok: false,
@@ -192,12 +195,25 @@ export async function POST(req: Request) {
       }
     }
 
-    // Replay Protection: Lock payment ID in processed_payments
+    // Replay Protection Check
     const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
     const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 
+    if (process.env.NODE_ENV === 'production' && (!url || !serviceKey)) {
+      console.error('[Pay Due] Payment database credentials missing in production environment');
+      return NextResponse.json(
+        {
+          ok: false,
+          error: 'PAYMENTS_NOT_CONFIGURED',
+          message: 'Payment verification database credentials missing in production.',
+        },
+        { status: 503 }
+      );
+    }
+
+    let admin: any = null;
     if (url && serviceKey) {
-      const admin = createClient(url, serviceKey, {
+      admin = createClient(url, serviceKey, {
         auth: { persistSession: false, autoRefreshToken: false },
       });
 
@@ -208,17 +224,52 @@ export async function POST(req: Request) {
         .maybeSingle();
 
       if (existingPayment) {
-        return NextResponse.json(
-          {
-            ok: false,
-            error: 'PAYMENT_ALREADY_PROCESSED',
-            message: 'This payment transaction has already been verified and recorded.',
-          },
-          { status: 409 }
-        );
+        // If payment was already recorded, verify whether installment is actually marked paid
+        const dues = await financeService.getStudentDues(gated.user!.id);
+        const paidInst = (dues.installments || []).find((i: any) => String(i.id) === installmentId);
+        if (paidInst && paidInst.status === 'Paid') {
+          return NextResponse.json(
+            {
+              ok: true,
+              alreadyPaid: true,
+              receiptId: paidInst.receiptId || paymentId,
+              message: 'This payment transaction has already been verified and recorded.',
+            },
+            { status: 200 }
+          );
+        }
+        // If installment is still due, allow execution to proceed and repair installment status
+        console.warn(`[Pay Due] Payment ${paymentId} exists in processed_payments but installment ${installmentId} is still due. Reconciling...`);
       }
+    }
 
-      const { error: insertErr } = await admin.from('processed_payments').insert({
+    const studentId = gated.user!.id;
+    const studentName = gated.user!.email || 'Student';
+
+    // 1. UPDATE THE INSTALLMENT FIRST
+    const result = await financeService.payDue(
+      studentId,
+      studentName,
+      installmentId,
+      gated.user!.email,
+      paymentId
+    );
+
+    if (!result || !result.ok) {
+      // Installment update failed - DO NOT record in processed_payments!
+      return NextResponse.json(
+        result || {
+          ok: false,
+          error: 'PAYMENT_RECORDING_FAILED',
+          message: 'Failed to update installment fee state.',
+        },
+        { status: 500 }
+      );
+    }
+
+    // 2. ONLY AFTER SUCCESSFUL UPDATE: Record payment in processed_payments
+    if (admin) {
+      const { error: insertErr } = await admin.from('processed_payments').upsert({
         payment_id: paymentId,
         order_id: orderId || `order_${Date.now()}`,
         user_id: gated.user!.id,
@@ -227,38 +278,9 @@ export async function POST(req: Request) {
       });
 
       if (insertErr) {
-        if (insertErr.code === '23505') {
-          return NextResponse.json(
-            {
-              ok: false,
-              error: 'PAYMENT_ALREADY_PROCESSED',
-              message: 'This payment transaction has already been verified and recorded.',
-            },
-            { status: 409 }
-          );
-        }
-        console.error('[Pay Due] Failed to record payment in processed_payments:', insertErr);
-        return NextResponse.json(
-          {
-            ok: false,
-            error: 'REPLAY_RECORD_FAILED',
-            message: 'Failed to record payment verification state. Transaction refused.',
-          },
-          { status: 503 }
-        );
+        console.error('[Pay Due] Notice: Failed to update processed_payments after successful installment payment:', insertErr);
       }
     }
-
-    const studentId = gated.user!.id;
-    const studentName = gated.user!.email || 'Student';
-
-    const result = await financeService.payDue(
-      studentId,
-      studentName,
-      installmentId,
-      gated.user!.email,
-      paymentId
-    );
 
     return NextResponse.json(result);
   } catch (err: any) {
