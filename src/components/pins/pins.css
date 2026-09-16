@@ -215,3 +215,18 @@
 @keyframes pinCurrencyHaloSpin {
   to { transform: rotate(360deg); }
 }
+
+/* ── Arena Matchmaking Radar Animations ── */
+@keyframes ringPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes beamSweep {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.6; }
+}

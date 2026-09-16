@@ -1,80 +1,119 @@
-# Flying Pins Animation & Pin Currency System — Integration Manifest
+# Arena Polish & Combat Enhancements — Integration Manifest
 
 ## Sandbox Files
 | File | Target Destination in Parent |
-|------|------------------------------|
-| `claude_sandbox/PinCurrencyIcon.tsx` | `src/components/pins/PinCurrencyIcon.tsx` |
-| `claude_sandbox/FlyingPinsAnimation.tsx` | `src/components/pins/FlyingPinsAnimation.tsx` |
+|------|-------------------------------|
+| `claude_sandbox/ArenaMatchmakingRadar.tsx` | `src/components/pins/ArenaMatchmakingRadar.tsx` |
+| `claude_sandbox/ArenaCodeDiffViewer.tsx` | `src/components/pins/ArenaCodeDiffViewer.tsx` |
 
-## PinCurrencyIcon.tsx
+---
 
-**Props:**
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `size` | `'sm' \| 'md' \| 'lg' \| number` | `'md'` | Pin size in pixels (16 / 22 / 32) |
-| `glow` | `boolean` | `false` | Enables radiant golden halo glow |
-| `animate` | `boolean` | `false` | Enables breathing pulse animation |
-| `alt` | `string` | `'PinIT Pins'` | Accessible label |
-| `className` | `string` | `''` | Additional CSS classes |
-| `style` | `React.CSSProperties` | `{}` | Inline styles |
+## ArenaMatchmakingRadar.tsx
 
-**Usage:**
+### Props
+| Prop | Type | Required | Description |
+|------|------|----------|-------------|
+| `isQueueing` | `boolean` | Yes | Whether the student is currently in the matchmaking queue |
+| `queueSeconds` | `number` | Yes | Seconds spent in queue (for countdown timer) |
+| `onSwitchToAiSparring` | `() => void` | Yes | Called when user clicks "Spar with Turing AI" button |
+| `studentPins` | `number` | No | Current pin balance for optional display |
+
+### Features
+- Pulsing concentric radar rings (SVG)
+- Sweeping radar beam with rotating animation
+- 12 animated scanning dots representing online engineers
+- 15-second search countdown timer
+- AI Sparring CTA button after timeout (12s mark in page)
+
+### Integration (Arena page.tsx)
+Replace inline queue state with radar:
 ```tsx
-import PinCurrencyIcon from '@/components/pins/PinCurrencyIcon';
-<PinCurrencyIcon size="md" glow animate />
+import ArenaMatchmakingRadar from '@/components/pins/ArenaMatchmakingRadar';
+
+// Inside Quick Match card, replace existing queue UI:
+<ArenaMatchmakingRadar
+  isQueueing={isQueueing}
+  queueSeconds={queueSeconds}
+  onSwitchToAiSparring={handleStartSoloSparring}
+  studentPins={pins}
+/>
 ```
 
-**Replace:** Any instance of `<PinCoin .../>` used as the currency pin indicator
-(existing `PinCoin.tsx` renders the 3D coin; `PinCurrencyIcon` is the sovereign pin glyph).
-
-## FlyingPinsAnimation.tsx
-
-**Props:** None — listens for the `pinit:pin-stream` CustomEvent globally.
-
-**Triggering the stream** from purchase/claim handlers:
-```tsx
-// In src/app/pins/page.tsx — on successful purchase
-window.dispatchEvent(new CustomEvent('pinit:pin-stream', {
-  detail: {
-    sourceElement: e.currentTarget,   // the purchase/claim button
-    count: 12,                        // 8–20 pins, default 16
-    onComplete: () => { /* refresh balance */ },
-  }
-}));
-
-// Or with explicit coordinates
-window.dispatchEvent(new CustomEvent('pinit:pin-stream', {
-  detail: { sourceCoords: { x, y }, count: 14 }
-}));
+### CSS Keyframes (merge into pins.css)
+```css
+@keyframes ringPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0.3; }
+}
+@keyframes beamSweep {
+  to { transform: rotate(360deg); }
+}
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.6; }
+}
 ```
 
-**Flow:**
-1. Spawns 8–15 `PinCurrencyIcon` particles from the clicked button.
-2. Each pin follows a curved quadratic-bezier path upward to `#topbar-pins-badge`.
-3. On arrival: adds `pins-gold-impact-pulse` CSS class to the header badge (golden shockwave).
-4. Spawns landing sparkle effects around the badge.
-5. Cleans up all DOM nodes after animation completes.
+---
 
-**Mount point:** `src/components/ui/AppHeader.tsx` — add alongside the existing `<CoinStreamOverlay />`:
+## ArenaCodeDiffViewer.tsx
+
+### Props
+| Prop | Type | Required | Description |
+|------|------|----------|-------------|
+| `isOpen` | `boolean` | Yes | Whether modal is visible |
+| `onClose` | `() => void` | Yes | Called when user closes modal |
+| `myCode` | `string` | Yes | Student's submitted code |
+| `opponentCode` | `string` | Yes | Opponent's submitted code |
+| `myScore` | `{ passed, testsPassed, totalTests, score, executionTimeMs? }` | Yes | Student's test results |
+| `opponentScore` | Same shape | Yes | Opponent's test results |
+| `problemId` | `string` | Yes | CodeWars problem ID (e.g. 'war_tree_lca_01') |
+
+### Features
+- Side-by-side code panes (Your Code / Opponent's Code)
+- Score summary row showing test progress vs opponent
+- Tab switcher between panes
+- Diff legend (✓ Same / ✗ Different implementation)
+- Clean monospace rendering with scroll support
+
+### Integration (Arena page.tsx)
 ```tsx
-import FlyingPinsAnimation from '@/components/pins/FlyingPinsAnimation';
-// Inside AppHeader return:
-<>
-  <CoinStreamOverlay />
-  <FlyingPinsAnimation />
-</>
+import ArenaCodeDiffViewer from '@/components/pins/ArenaCodeDiffViewer';
+
+// Inside ArenaContent, after battle ends:
+<ArenaCodeDiffViewer
+  isOpen={showCodeInspect}
+  onClose={() => setShowCodeInspect(false)}
+  myCode={studentCode}
+  opponentCode={opponentCodeFromRoom}
+  myScore={myMatchScore}
+  opponentScore={opponentMatchScore}
+  problemId={activeProblem?.id || 'war_tree_lca_01'}
+/>
 ```
 
-**CSS Required** (add to `src/components/pins/pins.css`):
-- `pinCurrencyBreath` — breathing glow pulse for `animate` prop (see comments in PinCurrencyIcon.tsx).
-- `pinCurrencyHaloSpin` — halo spin for the glowing ring.
-- The existing `goldImpactShockwave` and `goldSparkleFade` are already defined.
+### Trigger point (existing in page.tsx)
+Add to the victory/defeat modal — add a "Compare Code" button alongside existing controls:
+```tsx
+<button
+  onClick={() => {
+    setStudentCode(code);
+    setOpponentCode(opponentCodeFromRoom);
+    setShowCodeInspect(true);
+  }}
+>
+  📊 Compare Code Solutions
+</button>
+```
+
+---
 
 ## Verification Checklist
 - [ ] `npx tsc --noEmit` — 0 errors
-- [ ] No orphaned DOM nodes after animations end (React Strict Mode)
-- [ ] `<PinCurrencyIcon>` renders crisply at sm/md/lg sizes
-- [ ] `pinit:pin-stream` event fires from purchase and claim buttons
-- [ ] `#topbar-pins-badge` gets the `pins-gold-impact-pulse` class on arrival
-- [ ] Pin balance updates correctly after purchase/claim flow
-- [ ] Clean unmount — no dangling `requestAnimationFrame` callbacks
+- [ ] Radar renders pulsing rings, beam, and 12 scanning dots
+- [ ] AI Sparring button appears at 12s queue time
+- [ ] Code diff modal opens and shows both solutions side-by-side
+- [ ] Tab switching works between Your Code / Opponent's Code
+- [ ] Score summary displays correctly with test counts
+- [ ] Modal closes cleanly on ✕ button or backdrop click
+- [ ] No orphaned animation frames after unmount

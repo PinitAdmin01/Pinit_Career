@@ -14,6 +14,8 @@ import {
 } from '@/lib/api/codeWarsApi';
 import { ArenaPvPService, ArenaRoom } from '@/lib/services/arenaPvPService';
 import { triggerPinStream } from '@/components/pins/coinAnimation';
+import ArenaMatchmakingRadar from '@/components/pins/ArenaMatchmakingRadar';
+import ArenaCodeDiffViewer from '@/components/pins/ArenaCodeDiffViewer';
 
 function ArenaContent() {
   const router = useRouter();
@@ -742,38 +744,13 @@ function ArenaContent() {
                     </p>
 
                     {isQueueing ? (
-                      <div style={{
-                        padding: 16,
-                        borderRadius: 12,
-                        background: 'rgba(99, 102, 241, 0.12)',
-                        border: '1px dashed #6366f1',
-                        textAlign: 'center',
-                        marginBottom: 16
-                      }}>
-                        <div style={{ fontSize: 24, marginBottom: 6 }} className="animate-spin">🔄</div>
-                        <div style={{ fontWeight: 700, color: '#a5b4fc', fontSize: 14 }}>Searching for opponent...</div>
-                        <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4 }}>Queue time: {queueSeconds}s</div>
-                        
-                        {queueSeconds >= 12 && (
-                          <div style={{ marginTop: 12, padding: 10, borderRadius: 8, background: 'rgba(245, 158, 11, 0.15)', border: '1px solid rgba(245, 158, 11, 0.3)' }}>
-                            <div style={{ fontSize: 12, color: '#f59e0b', marginBottom: 6 }}>No player found immediately.</div>
-                            <button
-                              onClick={handleStartSoloSparring}
-                              style={{
-                                padding: '6px 12px',
-                                borderRadius: 6,
-                                background: '#f59e0b',
-                                color: '#000',
-                                fontWeight: 700,
-                                fontSize: 12,
-                                border: 'none',
-                                cursor: 'pointer'
-                              }}
-                            >
-                              🤖 Spar with Turing AI Instead
-                            </button>
-                          </div>
-                        )}
+                      <div style={{ marginBottom: 16 }}>
+                        <ArenaMatchmakingRadar
+                          isQueueing={isQueueing}
+                          queueSeconds={queueSeconds}
+                          onSwitchToAiSparring={handleStartSoloSparring}
+                          studentPins={pins}
+                        />
                       </div>
                     ) : (
                       <div style={{ marginBottom: 16 }}>
@@ -1689,7 +1666,26 @@ function ArenaContent() {
                       </div>
                     </div>
 
-                    <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
+                    <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+                      <button
+                        onClick={() => setShowCodeInspect(true)}
+                        style={{
+                          padding: '12px 20px',
+                          borderRadius: 10,
+                          background: 'rgba(99, 102, 241, 0.18)',
+                          border: '1px solid #6366f1',
+                          color: '#c7d2fe',
+                          fontWeight: 700,
+                          fontSize: 14,
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 6
+                        }}
+                      >
+                        <span>📊</span> Compare Code Solutions
+                      </button>
+
                       <button
                         onClick={handleLeaveRoom}
                         style={{
@@ -1730,6 +1726,37 @@ function ArenaContent() {
                   </div>
                 </div>
               )}
+
+              {/* Post-Battle Side-by-Side Code Diff Viewer Modal */}
+              <ArenaCodeDiffViewer
+                isOpen={showCodeInspect}
+                onClose={() => setShowCodeInspect(false)}
+                myCode={code}
+                opponentCode={
+                  activeRoom
+                    ? (isHost ? activeRoom.guestProgress.code : activeRoom.hostProgress.code) || '// No code submitted by opponent'
+                    : '// Optimal Solution Reference\nclass Solution {\n  // Algorithmic optimal approach\n}'
+                }
+                myScore={{
+                  passed: testResult?.passed || false,
+                  testsPassed: testResult?.testsPassed || 0,
+                  totalTests: testResult?.totalTests || activeProblem.testCases.length,
+                  score: testResult?.score || 0,
+                }}
+                opponentScore={{
+                  passed: activeRoom
+                    ? (isHost ? activeRoom.guestProgress.testsPassed >= activeProblem.testCases.length : activeRoom.hostProgress.testsPassed >= activeProblem.testCases.length)
+                    : (soloMatch?.status === 'victory' ? false : true),
+                  testsPassed: activeRoom
+                    ? (isHost ? activeRoom.guestProgress.testsPassed : activeRoom.hostProgress.testsPassed)
+                    : (soloMatch?.status === 'victory' ? Math.floor(activeProblem.testCases.length * 0.6) : activeProblem.testCases.length),
+                  totalTests: activeProblem.testCases.length,
+                  score: activeRoom
+                    ? (isHost ? activeRoom.guestProgress.score : activeRoom.hostProgress.score)
+                    : (soloMatch?.status === 'victory' ? 60 : 100),
+                }}
+                problemId={activeProblem.id}
+              />
             </div>
           )}
         </div>
