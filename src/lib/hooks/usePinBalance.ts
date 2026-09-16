@@ -112,7 +112,9 @@ export function usePinBalance(options: UsePinBalanceOptions = {}) {
     }
   }, []);
 
-  const [pins, setPinsState] = useState<number>(() => getCachedBalance() ?? 120);
+  // ── FIX: Default balance fallback changed from 120 → 50 ──
+  // First-time / demo users now start with 50 demo pins.
+  const [pins, setPinsState] = useState<number>(() => getCachedBalance() ?? 50);
   const [pinHistory, setPinHistoryState] = useState<PinTransaction[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -279,7 +281,7 @@ export function usePinBalance(options: UsePinBalanceOptions = {}) {
     const meta = PIN_COSTS[featureKey];
     if (!meta) return true;
     if (pins < meta.cost) {
-      toast.error(`Insufficient Pins 📌`, `Need ${meta.cost} pins for ${meta.label}. Pins reset to 120 daily at 1:00 AM or must be purchased.`);
+      toast.error(`Insufficient Pins 📌`, `Need ${meta.cost} pins for ${meta.label}. Pins reset to 50 daily at 1:00 AM or must be purchased.`);
       return false;
     }
 

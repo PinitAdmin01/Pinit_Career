@@ -1,12 +1,8 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-import { supabase } from '@/lib/supabaseClient';
+import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 
 function getAdminClient() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
-  if (!url || !key) return supabase;
-  return createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });
+  return getSupabaseAdmin();
 }
 
 export async function GET(req: Request) {
@@ -28,34 +24,40 @@ async function handleReset(req: Request) {
     }
 
     const client = getAdminClient();
+    const now = new Date().toISOString();
 
-    // First attempt PostgreSQL RPC
-    const { data: rpcData, error: rpcError } = await client.rpc('perform_daily_pin_reset');
-    if (!rpcError && rpcData) {
-      return NextResponse.json({
-        ok: true,
-        source: 'rpc',
-        resetCount: rpcData.reset_count ?? 0,
-        timestamp: rpcData.timestamp || new Date().toISOString()
-      });
-    }
-
-    // Direct table update fallback if RPC is not yet registered
-    const { data, error } = await client
+    // 1. Paid Pro users: daily quota renewal to 120 pins (like Jio / Airtel daily reset)
+    const { data: proUpdated, error: proError } = await client
       .from('users')
-      .update({ pins: 120, last_pin_reset: new Date().toISOString() })
+      .update({ pins: 120, last_pin_reset: now })
+      .eq('subscription_tier', 'pro')
       .lt('pins', 120)
       .select('id');
 
-    if (error) {
-      return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+    if (proError) {
+      console.error('[DailyPinReset] Failed to renew pro user pins:', proError);
+      return NextResponse.json({ ok: false, error: proError.message }, { status: 500 });
+    }
+
+    // 2. Free / demo users: demo pins vanish after daily reset (reset pins to 0)
+    const { data: freeUpdated, error: freeError } = await client
+      .from('users')
+      .update({ pins: 0, last_pin_reset: now })
+      .neq('subscription_tier', 'pro')
+      .gt('pins', 0)
+      .select('id');
+
+    if (freeError) {
+      console.error('[DailyPinReset] Failed to expire free demo pins:', freeError);
+      return NextResponse.json({ ok: false, error: freeError.message }, { status: 500 });
     }
 
     return NextResponse.json({
       ok: true,
       source: 'table_update',
-      resetCount: Array.isArray(data) ? data.length : 0,
-      timestamp: new Date().toISOString()
+      proRenewedCount: Array.isArray(proUpdated) ? proUpdated.length : 0,
+      freeExpiredCount: Array.isArray(freeUpdated) ? freeUpdated.length : 0,
+      timestamp: now,
     });
   } catch (err: any) {
     return NextResponse.json({ ok: false, error: err.message || 'Daily pin reset failed' }, { status: 500 });

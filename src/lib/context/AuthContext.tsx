@@ -213,12 +213,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       obStep: `pinit_${userId}_ob_step`,
       onboard: `pinit_${userId}_onboarding_answers`
     };
-    const defaultXp = userPayload?.xp !== undefined 
-      ? String(userPayload.xp) 
+    const defaultXp = userPayload?.xp !== undefined
+      ? String(userPayload.xp)
       : (userPayload?.isDevUser ? '120' : '0');
-    const defaultPins = userPayload?.pins !== undefined 
-      ? String(userPayload.pins) 
-      : (userPayload?.isDevUser ? '120' : '0');
+
+    // ── FIX: New non-dev users default to '50' pins instead of '0' ──
+    // First-time / demo users get 50 demo pins for the initial experience.
+    const defaultPins = userPayload?.pins !== undefined
+      ? String(userPayload.pins)
+      : (userPayload?.isDevUser ? '120' : '50');
 
     if (!localStorage.getItem(keys.xp)) localStorage.setItem(keys.xp, defaultXp);
     if (!localStorage.getItem(keys.pins)) localStorage.setItem(keys.pins, defaultPins);
@@ -469,11 +472,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
               const nextUser = { ...prev };
               const mappedNew = mapRowToProfile(updatedRow);
               if (!mappedNew) return prev;
-              
+
               for (const [dbCol, jsProp] of Object.entries(COLUMN_MAP)) {
                 if (updatedRow && dbCol in updatedRow) {
-                  const incomingVal = (mappedNew as any)[jsProp] !== undefined 
-                    ? (mappedNew as any)[jsProp] 
+                  const incomingVal = (mappedNew as any)[jsProp] !== undefined
+                    ? (mappedNew as any)[jsProp]
                     : ((mappedNew as any)[dbCol] !== undefined ? (mappedNew as any)[dbCol] : updatedRow[dbCol]);
 
                   if (incomingVal !== undefined) {
@@ -487,7 +490,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                   }
                 }
               }
-              
+
               const emailLower = sbUser.email?.toLowerCase();
               let role = (nextUser.role as string) || 'student';
               if (emailLower === 'admin@pinit.in') role = 'admin';
@@ -495,12 +498,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
               else if (emailLower === 'rec@pinit.in') role = 'recruiter';
               else if (emailLower === 'con@pinit.in') role = 'consultant';
               else if (emailLower === 'parent@pinit.in') role = 'parent';
-              
+
               const finalProfile = { ...nextUser, role };
               try {
                 localStorage.setItem(`pinit_${sbUser.id}_profile`, JSON.stringify(finalProfile));
               } catch {}
-              
+
               return sbUserToAppUser(sbUser, finalProfile);
             });
           }
@@ -616,10 +619,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = async (username: string, password: string): Promise<any> => {
     const email = usernameToEmail(username);
     const emailLower = email.toLowerCase();
-    
+
     // Check if default credential attempt first
     const isDefaultUser = isDemoAuthEnabled() && isDemoEmail(emailLower) && isDemoPassword(password);
-    
+
     try {
       let sbUser;
       let { data, error } = await supabase.auth.signInWithPassword({
@@ -656,11 +659,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           if (signUpErr) {
             throw error;
           }
-          
+
           if (!signUpData.user) {
             throw new Error('Failed to create default user');
           }
-          
+
           sbUser = signUpData.user;
           const ident = demoIdentity(emailLower);
           let role = ident.role;
@@ -682,7 +685,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         sbUser = data.user;
         if (!sbUser) throw new Error('No user returned');
       }
-      
+
       let profile = await getUserProfile(sbUser.id);
       if (!profile) {
         const ident = demoIdentity(emailLower);
@@ -705,7 +708,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       } catch {}
 
       setUser(appUser);
-      
+
       // Dispatch login audit entry (non-blocking)
       api.post('/api/student/activity', {
         action: 'login',
@@ -838,7 +841,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       // Guaranteed local state reset and storage/cookie purging
       setUser(null);
 
-      // Defect 004: Invalidate server session HttpOnly cookies
+      // Defect 003: Invalidate server session HttpOnly cookies
       try {
         await fetch('/api/auth/session', { method: 'DELETE' }).catch(() => {});
       } catch {}

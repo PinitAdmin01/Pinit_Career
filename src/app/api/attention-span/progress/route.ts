@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
-import { supabase } from '@/lib/supabaseClient';
+import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 import crypto from 'crypto';
 import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 
@@ -83,6 +83,7 @@ export async function GET(req: Request) {
     // 2. Fallback to Supabase profiles metadata if not in memory
     if (!entry) {
       try {
+        const supabase = getSupabaseAdmin();
         const { data } = await supabase
           .from('users')
           .select('id, attention_stats')
@@ -171,6 +172,7 @@ export async function POST(req: Request) {
 
     // Try saving to Supabase users
     try {
+      const supabase = getSupabaseAdmin();
       await supabase
         .from('users')
         .update({

@@ -24,10 +24,16 @@ function rotateKey(reason = '') {
 }
 
 function forwardRequest(clientReq, clientRes, bodyBuffer, attempt = 0) {
+  if (clientRes.headersSent || clientRes.writableEnded) {
+    return;
+  }
+
   if (attempt >= KEYS.length) {
     console.error('[KeyRotator] All 3 keys have exceeded rate limits or failed!');
-    clientRes.writeHead(429, { 'Content-Type': 'application/json' });
-    clientRes.end(JSON.stringify({ error: { message: 'All 3 OpenRouter keys hit rate limits. Please wait or add another key.' } }));
+    if (!clientRes.headersSent) {
+      clientRes.writeHead(429, { 'Content-Type': 'application/json' });
+      clientRes.end(JSON.stringify({ error: { message: 'All 3 OpenRouter keys hit rate limits. Please wait or add another key.' } }));
+    }
     return;
   }
 
@@ -45,9 +51,14 @@ function forwardRequest(clientReq, clientRes, bodyBuffer, attempt = 0) {
     timeout: 120000
   };
 
+  let handled = false;
+
   const proxyReq = https.request(options, (proxyRes) => {
+    if (handled || clientRes.headersSent) return;
+
     // If rate limited or quota exceeded, rotate to the next key and retry automatically!
     if (proxyRes.statusCode === 429 || proxyRes.statusCode === 402) {
+      handled = true;
       console.warn(`[KeyRotator] Received HTTP ${proxyRes.statusCode} on Key #${currentKeyIndex + 1}.`);
       proxyRes.resume(); // consume stream
       rotateKey(`HTTP ${proxyRes.statusCode} rate limit reached`);
@@ -55,17 +66,22 @@ function forwardRequest(clientReq, clientRes, bodyBuffer, attempt = 0) {
     }
 
     // Otherwise stream normal response back to Claude Code
+    handled = true;
     clientRes.writeHead(proxyRes.statusCode || 200, proxyRes.headers);
     proxyRes.pipe(clientRes);
   });
 
   proxyReq.on('error', (err) => {
+    if (handled || clientRes.headersSent) return;
+    handled = true;
     console.error(`[KeyRotator] Network error on Key #${currentKeyIndex + 1}:`, err.message);
     rotateKey('Network error');
     forwardRequest(clientReq, clientRes, bodyBuffer, attempt + 1);
   });
 
   proxyReq.on('timeout', () => {
+    if (handled || clientRes.headersSent) return;
+    handled = true;
     proxyReq.destroy();
     console.warn(`[KeyRotator] Upstream timeout on Key #${currentKeyIndex + 1}.`);
     rotateKey('Timeout');

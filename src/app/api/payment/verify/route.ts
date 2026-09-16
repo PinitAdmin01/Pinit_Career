@@ -52,6 +52,7 @@ export async function POST(req: Request) {
       else if (planId === 'pack_150') pinsGranted = 150;
       else if (planId === 'pack_500') pinsGranted = 500;
       else if (planId === 'pack_1200') pinsGranted = 1200;
+      else if (planId === 'pro') pinsGranted = 500;
       else if (planId === 'pack_custom') {
         const customPins = Number(body.customPins);
         pinsGranted = Number.isFinite(customPins) && customPins >= 100 && customPins <= 5000
@@ -112,6 +113,21 @@ export async function POST(req: Request) {
             },
             { status: 503 }
           );
+        }
+
+        if (planId === 'pro') {
+          const nowMs = Date.now();
+          const expiresAt = new Date(nowMs + 30 * 24 * 60 * 60 * 1000).toISOString();
+          await admin
+            .from('users')
+            .update({
+              subscription_tier: 'pro',
+              subscription_started_at: new Date(nowMs).toISOString(),
+              subscription_expires_at: expiresAt,
+              subscription_status: 'active',
+              has_purchased_plan: true,
+            })
+            .eq('id', gated.user!.id);
         }
 
         // Atomically credit pins in DB via credit_pins RPC
@@ -197,6 +213,7 @@ export async function POST(req: Request) {
     else if (notesPlanId === 'pack_150') pinsGranted = 150;
     else if (notesPlanId === 'pack_500') pinsGranted = 500;
     else if (notesPlanId === 'pack_1200') pinsGranted = 1200;
+    else if (notesPlanId === 'pro') pinsGranted = 500;
     else if (notesPlanId === 'pack_custom') {
       // Re-read from server-side order notes — never from client body
       const notesCustomPins = Number(order?.notes?.customPins);
@@ -322,6 +339,7 @@ export async function POST(req: Request) {
           subscription_started_at: new Date(nowMs).toISOString(),
           subscription_expires_at: expiresAt,
           subscription_status: 'active',
+          has_purchased_plan: true,
         })
         .eq('id', gated.user!.id);
 

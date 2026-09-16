@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
-import { supabase } from '@/lib/supabaseClient';
+import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 
 export async function GET(req: NextRequest) {
   try {
@@ -8,6 +8,7 @@ export async function GET(req: NextRequest) {
     if (gated.error) return gated.error;
 
     const studentId = gated.user!.id;
+    const supabase = getSupabaseAdmin();
 
     // Fetch from users.onboarding_answers.codewars_history
     const { data: userRow } = await supabase
@@ -31,6 +32,7 @@ export async function POST(req: NextRequest) {
     if (gated.error) return gated.error;
 
     const studentId = gated.user!.id;
+    const supabase = getSupabaseAdmin();
     const match = await req.json();
 
     if (!match || !match.id) {

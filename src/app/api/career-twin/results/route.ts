@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
-import { supabase } from '@/lib/supabaseClient';
+import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 import { validateBody } from '@/lib/server/validate';
 import { z } from 'zod';
 
@@ -151,6 +151,7 @@ export async function GET(req: Request) {
     // Fetch user profile from Supabase
     let profileData: any = null;
     try {
+      const supabase = getSupabaseAdmin();
       // DEF-056 Fix: Query canonical 'users' table instead of non-existent 'profiles' table
       const { data } = await supabase
         .from('users')
@@ -202,6 +203,7 @@ export async function POST(req: Request) {
 
     let profileData: any = null;
     try {
+      const supabase = getSupabaseAdmin();
       // DEF-056 Fix: Query canonical 'users' table instead of non-existent 'profiles' table
       const { data } = await supabase
         .from('users')

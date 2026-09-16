@@ -16,7 +16,7 @@ function verifyGitHubSignature(payload: string, signature: string | null, secret
   }
 }
 
-import { supabase } from '@/lib/supabaseClient';
+import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 
 export interface LinkedStudentResult {
   verified: boolean;
@@ -47,6 +47,7 @@ export async function resolveLinkedStudent(
 
   // 1. Query Supabase users or github_integrations table by github_username or github_id
   try {
+    const supabase = getSupabaseAdmin();
     const { data, error } = await supabase
       .from('github_integrations')
       .select('student_id, claimed_repos, github_username, github_id')

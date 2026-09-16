@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server';
 import { requireFacultyOrAdminUserFromRequest, requireUserFromRequest } from '@/lib/server/requireAuth';
-import { supabase } from '@/lib/supabaseClient';
+import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: Request) {
   try {
+    const supabase = getSupabaseAdmin();
     const body = await req.json().catch(() => ({}));
     const { action, type, id, studentId, verified, author, role, text } = body;
 

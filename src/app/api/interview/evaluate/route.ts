@@ -30,7 +30,7 @@ import {
   MindsetArchetype,
 } from '@/lib/interview/scoringMatrix';
 import { evaluateSystemTopology } from '@/lib/interview/systemDesignEvaluator';
-import { supabase } from '@/lib/supabaseClient';
+import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 
 /**
  * Expands evaluation context to 35,000 chars while preserving both
@@ -231,6 +231,7 @@ Return ONLY valid JSON matching this schema:
     if (!rawParsedEval) {
       if (body.sessionId && gated.user?.id) {
         try {
+          const supabase = getSupabaseAdmin();
           await supabase
             .from('interview_sessions')
             .update({
@@ -307,6 +308,7 @@ Return ONLY valid JSON matching this schema:
     // Persist completed evaluation and telemetry diagnostics to database (Defect 090)
     if (body.sessionId && gated.user?.id) {
       try {
+        const supabase = getSupabaseAdmin();
         await supabase
           .from('interview_sessions')
           .update({

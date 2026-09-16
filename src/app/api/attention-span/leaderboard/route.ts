@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabaseClient';
+import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 
 export interface LeaderboardEntry {
@@ -34,6 +34,7 @@ export async function GET(req: Request) {
     const userId = searchParams.get('userId') || gated.user!.id;
 
     try {
+      const supabase = getSupabaseAdmin();
       const { data } = await supabase
         .from('users')
         .select('id, display_name, attention_accuracy, games_played')
@@ -96,6 +97,7 @@ export async function POST(req: Request) {
 
     // Try persisting to Supabase if users table supports it
     try {
+      const supabase = getSupabaseAdmin();
       await supabase
         .from('users')
         .update({

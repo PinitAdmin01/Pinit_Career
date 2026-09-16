@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
-import { supabase } from '@/lib/supabaseClient';
+import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 import { COMPETENCY_CATALOG_V1 } from '@/lib/pathway/competencyCatalog';
 import { verifyEvidenceIntegrity } from '@/lib/pathway/evidenceEngine';
 import { evaluateCompetencyMastery } from '@/lib/pathway/masteryEngine';
@@ -12,6 +12,7 @@ export async function POST(req: NextRequest) {
     if (gated.error) return gated.error;
 
     const studentId = gated.user!.id;
+    const supabase = getSupabaseAdmin();
     const body = await req.json();
     const evidenceRecord: CompetencyEvidenceRecord = body?.evidenceRecord || body;
 
@@ -80,11 +81,11 @@ export async function POST(req: NextRequest) {
         filtered.push(evidenceRecord);
         ob.evidence_records = filtered;
 
-        await supabase
+        const { error: updateErr } = await supabase
           .from('users')
           .update({ onboarding_answers: ob })
           .eq('id', studentId);
-        dbPersisted = true;
+        if (!updateErr) dbPersisted = true;
       }
     } catch (err) {
       console.warn('[Evidence Route] User profile fallback update warning:', err);

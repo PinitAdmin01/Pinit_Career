@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PathwayApiService } from '@/lib/api/pathwayApi';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
-import { supabase } from '@/lib/supabaseClient';
+import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 
 export async function GET(req: NextRequest) {
   try {
@@ -23,6 +23,7 @@ export async function GET(req: NextRequest) {
     let verifiedMasteryRecords: any[] = [];
     let serverEvidenceCount = 0;
     try {
+      const supabase = getSupabaseAdmin();
       const { data: dbMastery } = await supabase
         .from('student_competency_mastery')
         .select('*')

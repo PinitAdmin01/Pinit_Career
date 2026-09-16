@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabaseClient';
+import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 
@@ -38,6 +38,7 @@ export async function GET(req: Request) {
     let totalCount = 0;
 
     try {
+      const supabase = getSupabaseAdmin();
       // Query canonical 'users' table with exact total count and pagination range
       const { data, count, error } = await supabase
         .from('users')

@@ -93,11 +93,11 @@ function useCheckout(user: any, onSuccess: (pins: number) => void) {
           ...(extraBody?.customPins ? { customPins: extraBody.customPins } : {}),
         });
         if (verifyRes.ok) {
+          const credited = verifyRes.pinsGranted ?? (planId === 'pro' ? 500 : 0);
           if (planId === 'pro') {
-            toast.success('🎉 Pro Pass Activated!', verifyRes.message || 'Welcome to Pro!');
-            onSuccess(0);
+            toast.success('🎉 Pro Pass Activated!', verifyRes.message || 'Welcome to Pro! 500 bonus pins credited.');
+            onSuccess(credited);
           } else {
-            const credited = verifyRes.pinsGranted ?? 0;
             toast.success(`+${credited} Pins Credited ⚡`, 'Your pin balance has been updated.');
             onSuccess(credited);
           }
@@ -130,11 +130,11 @@ function useCheckout(user: any, onSuccess: (pins: number) => void) {
               ...(extraBody?.customPins ? { customPins: extraBody.customPins } : {}),
             });
             if (verifyRes.ok) {
+              const credited = verifyRes.pinsGranted ?? (planId === 'pro' ? 500 : 0);
               if (planId === 'pro') {
-                toast.success('🎉 Pro Pass Activated!', 'Welcome to Pro Career Accelerator!');
-                onSuccess(0);
+                toast.success('🎉 Pro Pass Activated!', 'Welcome to Pro Career Accelerator! 500 bonus pins credited.');
+                onSuccess(credited);
               } else {
-                const credited = verifyRes.pinsGranted ?? 0;
                 toast.success(`+${credited} Pins Credited ⚡`, 'Your pin balance has been updated.');
                 onSuccess(credited);
               }
@@ -163,7 +163,7 @@ const PAGE_SIZE = 15;
 
 export default function PinsWalletPage() {
   const { user } = useAuth();
-  const { pins, pinHistory, isLoaded } = usePinBalance({ userId: user?.id });
+  const { pins, pinHistory, isLoaded, setPins } = usePinBalance({ userId: user?.id });
 
   const [activeTab, setActiveTab] = useState<PageTab>('buy');
   const [filter, setFilter] = useState<FilterTab>('all');
@@ -172,9 +172,11 @@ export default function PinsWalletPage() {
 
   const customPrice = Math.ceil(customPins / 3);
 
-  const onPurchaseSuccess = useCallback(() => {
-    // balance auto-refreshes via Supabase Realtime in usePinBalance
-  }, []);
+  const onPurchaseSuccess = useCallback((grantedPins?: number) => {
+    if (typeof grantedPins === 'number' && grantedPins > 0) {
+      setPins(pins + grantedPins);
+    }
+  }, [pins, setPins]);
 
   const { checkout, loading } = useCheckout(user, onPurchaseSuccess);
 
@@ -361,8 +363,8 @@ export default function PinsWalletPage() {
             borderRadius: 20, padding: '28px 28px',
             position: 'relative', overflow: 'hidden',
           }}>
-            <div style={{ position: 'absolute', top: 14, right: 18, background: 'var(--accent)', color: '#fff', fontSize: 10, fontWeight: 800, padding: '4px 12px', borderRadius: 20 }}>
-              MOST POPULAR
+            <div style={{ position: 'absolute', top: 14, right: 18, background: (user?.subscription_tier === 'pro' || user?.subscription_status === 'active') ? '#10b981' : 'var(--accent)', color: '#fff', fontSize: 10, fontWeight: 800, padding: '4px 12px', borderRadius: 20 }}>
+              {(user?.subscription_tier === 'pro' || user?.subscription_status === 'active') ? 'CURRENT PLAN (ACTIVE)' : 'MOST POPULAR'}
             </div>
             <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6 }}>
               Pro Career Accelerator
@@ -387,23 +389,39 @@ export default function PinsWalletPage() {
                 </div>
               ))}
             </div>
-            <button
-              disabled={loading === 'pro'}
-              onClick={() => checkout('pro')}
-              style={{
-                padding: '14px 32px', borderRadius: 14, border: 'none',
-                background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-                color: '#fff', fontWeight: 700, fontSize: 15,
-                cursor: loading === 'pro' ? 'not-allowed' : 'pointer',
-                opacity: loading === 'pro' ? 0.7 : 1,
-                boxShadow: '0 4px 20px rgba(99,102,241,0.4)',
-                transition: 'transform 0.15s, box-shadow 0.15s',
-              }}
-              onMouseEnter={e => { if (loading !== 'pro') { (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(-2px)'; (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 8px 28px rgba(99,102,241,0.5)'; }}}
-              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(0)'; (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 4px 20px rgba(99,102,241,0.4)'; }}
-            >
-              {loading === 'pro' ? 'Initiating Checkout...' : 'Upgrade to Pro — ₹499/month →'}
-            </button>
+            {user?.subscription_tier === 'pro' || user?.subscription_status === 'active' ? (
+              <button
+                disabled
+                style={{
+                  padding: '14px 32px', borderRadius: 14,
+                  background: 'rgba(16, 185, 129, 0.15)',
+                  border: '1px solid #10b981',
+                  color: '#10b981', fontWeight: 700, fontSize: 15,
+                  cursor: 'default',
+                  display: 'inline-flex', alignItems: 'center', gap: 8
+                }}
+              >
+                <span>✓</span> Pro Plan Active
+              </button>
+            ) : (
+              <button
+                disabled={loading === 'pro'}
+                onClick={() => checkout('pro')}
+                style={{
+                  padding: '14px 32px', borderRadius: 14, border: 'none',
+                  background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                  color: '#fff', fontWeight: 700, fontSize: 15,
+                  cursor: loading === 'pro' ? 'not-allowed' : 'pointer',
+                  opacity: loading === 'pro' ? 0.7 : 1,
+                  boxShadow: '0 4px 20px rgba(99,102,241,0.4)',
+                  transition: 'transform 0.15s, box-shadow 0.15s',
+                }}
+                onMouseEnter={e => { if (loading !== 'pro') { (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(-2px)'; (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 8px 28px rgba(99,102,241,0.5)'; }}}
+                onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(0)'; (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 4px 20px rgba(99,102,241,0.4)'; }}
+              >
+                {loading === 'pro' ? 'Initiating Checkout...' : 'Upgrade to Pro — ₹499/month →'}
+              </button>
+            )}
           </div>
 
           {/* ── How Pins Work ──────────────────────────────────────── */}

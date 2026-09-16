@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
-import { supabase } from '@/lib/supabaseClient';
+import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 import { InternshipRecord } from '@/lib/pathway/competencySchema';
 
 export async function GET(req: NextRequest) {
@@ -9,6 +9,7 @@ export async function GET(req: NextRequest) {
     if (gated.error) return gated.error;
 
     const studentId = gated.user!.id;
+    const supabase = getSupabaseAdmin();
 
     // 1. Check dedicated internship_records table if exists
     try {
@@ -45,6 +46,7 @@ export async function POST(req: NextRequest) {
     if (gated.error) return gated.error;
 
     const studentId = gated.user!.id;
+    const supabase = getSupabaseAdmin();
     const body = await req.json();
     const record: InternshipRecord = {
       id: body.id || `internship_${crypto.randomUUID()}`,
