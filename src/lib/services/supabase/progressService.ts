@@ -150,6 +150,28 @@ export async function persistQuestCompletion(
   if (!uid || uid === 'guest') return { ok: true, newXp: typeof xpOrIsExam === 'number' ? xpOrIsExam : maybeXp };
   const xpAmount = typeof xpOrIsExam === 'number' ? xpOrIsExam : maybeXp;
 
+  // Prefer server-authoritative endpoint to honor anti-cheat guards
+  if (typeof window !== 'undefined') {
+    try {
+      const resp = await fetch('/api/quest/complete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          questId,
+          isExam: typeof xpOrIsExam === 'boolean' ? xpOrIsExam : false,
+          xpAmount,
+          courseId,
+        }),
+      });
+      if (resp.ok) {
+        const result = await resp.json();
+        return { ok: true, newXp: result.xpTotal };
+      }
+    } catch {
+      // Fall back to direct client write if network/fetch fails
+    }
+  }
+
   try {
     const { data: userProfile, error: fetchErr } = await supabase
       .from('users')

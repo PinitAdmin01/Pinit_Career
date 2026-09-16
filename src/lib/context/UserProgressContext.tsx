@@ -448,6 +448,7 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     save(keys.onboard, nextAnswers);
 
     if (userId && userId !== 'guest') {
+      api.post('/api/quest/complete', { questId, isExam, xpAmount, courseId }).catch(() => {});
       persistQuestCompletion(userId, questId, xpAmount || 150).catch(() => {});
       updateUserProfile(userId, {
         completed_quests: next,
