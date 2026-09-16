@@ -31,7 +31,7 @@ async function handleReset(req: Request) {
       .from('users')
       .update({ pins: 120, last_pin_reset: now })
       .eq('subscription_tier', 'pro')
-      .lt('pins', 120)
+      .eq('subscription_status', 'active')
       .select('id');
 
     if (proError) {

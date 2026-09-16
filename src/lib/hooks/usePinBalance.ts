@@ -209,6 +209,9 @@ export function usePinBalance(options: UsePinBalanceOptions = {}) {
             filter: `id=eq.${effectiveUserId}`,
           },
           (payload: any) => {
+            if (payload?.new && typeof payload.new.bonus_pins === 'number') {
+              setBonusPinsState(payload.new.bonus_pins);
+            }
             if (payload?.new && typeof payload.new.pins === 'number') {
               setPinsState(payload.new.pins);
               try {
@@ -327,7 +330,12 @@ export function usePinBalance(options: UsePinBalanceOptions = {}) {
     try {
       const res = await api.post<any>('/api/pins/claim-bonus', { amount });
       if (res?.ok) {
-        if (typeof res.newPins === 'number') setPinsState(res.newPins);
+        if (typeof res.newPins === 'number') {
+          setPinsState(res.newPins);
+          try {
+            localStorage.setItem(CACHE_KEY, JSON.stringify({ value: res.newPins, ts: Date.now() }));
+          } catch {}
+        }
         if (typeof res.remainingBonus === 'number') setBonusPinsState(res.remainingBonus);
         toast.success('Pins Claimed! ⚡', res.message || `+${res.claimed} pins transferred to active balance.`);
         return true;

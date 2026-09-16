@@ -73,7 +73,7 @@ function getSourceIcon(source: string, type: 'earn' | 'spend'): string {
 }
 
 // ── Checkout hook ────────────────────────────────────────────────────────────
-function useCheckout(user: any, onSuccess: (pins: number) => void) {
+function useCheckout(user: any, onSuccess: (pins: number, isPro?: boolean, bonusGranted?: number) => void) {
   const [loading, setLoading] = useState<string | null>(null);
 
   const checkout = useCallback(async (planId: string, extraBody?: Record<string, any>) => {
@@ -97,10 +97,10 @@ function useCheckout(user: any, onSuccess: (pins: number) => void) {
           const credited = verifyRes.pinsGranted ?? (planId === 'pro' ? 500 : 0);
           if (planId === 'pro') {
             toast.success('🎉 Pro Pass Activated!', verifyRes.message || 'Welcome to Pro! 500 bonus pins credited.');
-            onSuccess(credited);
+            onSuccess(0, true, 500);
           } else {
             toast.success(`+${credited} Pins Credited ⚡`, 'Your pin balance has been updated.');
-            onSuccess(credited);
+            onSuccess(credited, false, 0);
           }
         } else {
           toast.error('Verification Failed', verifyRes.message || 'Could not verify sandbox payment.');
@@ -131,13 +131,13 @@ function useCheckout(user: any, onSuccess: (pins: number) => void) {
               ...(extraBody?.customPins ? { customPins: extraBody.customPins } : {}),
             });
             if (verifyRes.ok) {
-              const credited = verifyRes.pinsGranted ?? (planId === 'pro' ? 500 : 0);
               if (planId === 'pro') {
-                toast.success('🎉 Pro Pass Activated!', 'Welcome to Pro Career Accelerator! 500 bonus pins credited.');
-                onSuccess(credited);
+                toast.success('🎉 Pro Pass Activated!', 'Welcome to Pro Career Accelerator! 120 Daily Pins active & 500 Bonus Pins in Vault.');
+                onSuccess(0, true, 500);
               } else {
+                const credited = verifyRes.pinsGranted ?? 0;
                 toast.success(`+${credited} Pins Credited ⚡`, 'Your pin balance has been updated.');
-                onSuccess(credited);
+                onSuccess(credited, false, 0);
               }
             } else {
               toast.error('Verification Pending', verifyRes.message || 'Payment processed. Pins will credit shortly.');
@@ -164,20 +164,27 @@ const PAGE_SIZE = 15;
 
 export default function PinsWalletPage() {
   const { user } = useAuth();
-  const { pins, pinHistory, isLoaded, setPins, bonusPins, claimBonusPins } = useCareerOS();
+  const { pins, pinHistory, isLoaded, setPins, bonusPins, setBonusPins, claimBonusPins } = useCareerOS();
 
   const [activeTab, setActiveTab] = useState<PageTab>('buy');
   const [filter, setFilter] = useState<FilterTab>('all');
   const [page, setPage] = useState(0);
   const [customPins, setCustomPins] = useState(300);
+  const [claiming, setClaiming] = useState(false);
 
   const customPrice = Math.ceil(customPins / 3);
 
-  const onPurchaseSuccess = useCallback((grantedPins?: number) => {
-    if (typeof grantedPins === 'number' && grantedPins > 0) {
+  const onPurchaseSuccess = useCallback((grantedPins?: number, isPro?: boolean, bonusGranted?: number) => {
+    if (isPro) {
+      // Jio/Airtel model: Activate 120 daily quota, deposit 500 into bonus vault
+      setPins?.(Math.max(pins, 120));
+      if (setBonusPins && typeof bonusGranted === 'number') {
+        setBonusPins((bonusPins || 0) + bonusGranted);
+      }
+    } else if (typeof grantedPins === 'number' && grantedPins > 0) {
       setPins?.(pins + grantedPins);
     }
-  }, [pins, setPins]);
+  }, [pins, setPins, bonusPins, setBonusPins]);
 
   const { checkout, loading } = useCheckout(user, onPurchaseSuccess);
 
@@ -427,7 +434,7 @@ export default function PinsWalletPage() {
               ₹499 <span style={{ fontSize: 14, color: 'var(--t3)', fontWeight: 500 }}>/ month</span>
             </div>
             <div style={{ fontSize: 13, color: 'var(--t3)', marginBottom: 20, lineHeight: 1.6 }}>
-              For ambitious students preparing for Tier-1 interviews. Includes 500 monthly bonus pins + unlimited AI avatar time.
+              For ambitious students preparing for Tier-1 interviews. Includes 120 Daily Pins refreshed every 1:00 AM IST + 500 Bonus Pins in your permanent vault.
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 10, marginBottom: 22 }}>
               {[

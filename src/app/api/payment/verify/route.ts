@@ -52,7 +52,7 @@ export async function POST(req: Request) {
       else if (planId === 'pack_150') pinsGranted = 150;
       else if (planId === 'pack_500') pinsGranted = 500;
       else if (planId === 'pack_1200') pinsGranted = 1200;
-      else if (planId === 'pro') pinsGranted = 500;
+      else if (planId === 'pro') pinsGranted = 0; // 500 bonus pins deposited into vault
       else if (planId === 'pack_custom') {
         const customPins = Number(body.customPins);
         pinsGranted = Number.isFinite(customPins) && customPins >= 100 && customPins <= 5000
@@ -91,7 +91,7 @@ export async function POST(req: Request) {
           order_id: razorpay_order_id,
           user_id: gated.user!.id,
           plan_id: planId,
-          pins_granted: pinsGranted,
+          pins_granted: planId === 'pro' ? 500 : pinsGranted,
         });
 
         if (insertErr) {
@@ -224,7 +224,7 @@ export async function POST(req: Request) {
     else if (notesPlanId === 'pack_150') pinsGranted = 150;
     else if (notesPlanId === 'pack_500') pinsGranted = 500;
     else if (notesPlanId === 'pack_1200') pinsGranted = 1200;
-    else if (notesPlanId === 'pro') pinsGranted = 500;
+    else if (notesPlanId === 'pro') pinsGranted = 0; // 500 bonus pins deposited into vault
     else if (notesPlanId === 'pack_custom') {
       // Re-read from server-side order notes — never from client body
       const notesCustomPins = Number(order?.notes?.customPins);
@@ -287,7 +287,7 @@ export async function POST(req: Request) {
       order_id: razorpay_order_id,
       user_id: gated.user!.id,
       plan_id: notesPlanId,
-      pins_granted: pinsGranted,
+      pins_granted: notesPlanId === 'pro' ? 500 : pinsGranted,
     });
 
     if (insertErr) {
@@ -312,6 +312,9 @@ export async function POST(req: Request) {
         { status: 503 }
       );
     }
+
+    let nextDailyPins = 120;
+    let nextBonusPins = 500;
 
     if (notesPlanId === 'pro') {
       // Record a REAL subscription period, not just a tier flag.
@@ -346,8 +349,8 @@ export async function POST(req: Request) {
       const currentBonus = typeof current?.bonus_pins === 'number' ? current.bonus_pins : 0;
       const currentPins = typeof current?.pins === 'number' ? current.pins : 0;
       // Jio/Airtel model: Activate 120 daily pins if below 120, and deposit 500 into bonus_pins vault!
-      const nextDailyPins = Math.max(currentPins, 120);
-      const nextBonusPins = currentBonus + 500;
+      nextDailyPins = Math.max(currentPins, 120);
+      nextBonusPins = currentBonus + 500;
 
       const { error: updateErr } = await admin
         .from('users')
@@ -374,7 +377,7 @@ export async function POST(req: Request) {
     }
 
     // Pin grants must be server-recorded; client must not mint.
-    if (pinsGranted > 0) {
+    if (pinsGranted > 0 && notesPlanId !== 'pro') {
       const { error: rpcErr } = await admin.rpc('credit_pins', {
         p_user_id: gated.user!.id,
         p_amount: pinsGranted,
@@ -413,10 +416,13 @@ export async function POST(req: Request) {
       verified: true,
       planId: notesPlanId,
       paymentId: razorpay_payment_id,
-      pinsGranted,
+      dailyPins: notesPlanId === 'pro' ? nextDailyPins : undefined,
+      bonusPinsGranted: notesPlanId === 'pro' ? 500 : 0,
+      totalBonusPins: notesPlanId === 'pro' ? nextBonusPins : undefined,
+      pinsGranted: notesPlanId === 'pro' ? 0 : pinsGranted,
       message:
         notesPlanId === 'pro'
-          ? 'Pro plan verified.'
+          ? 'Pro plan verified. 120 Daily Pins activated & 500 Bonus Pins deposited to Vault.'
           : pinsGranted
             ? `Payment verified. ${pinsGranted} pins granted.`
             : 'Payment verified.',

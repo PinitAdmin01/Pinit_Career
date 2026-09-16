@@ -39,30 +39,20 @@ async function writeLocalDb(data: any): Promise<void> {
   await writeLocalJson(DB_FILE, data);
 }
 
-function getLocalSheet(db: any): ExamResultsSheet {
-  if (db.sheet && Array.isArray(db.sheet.results) && db.sheet.results.length > 0) {
+function getLocalSheet(db: any, studentId?: string): ExamResultsSheet {
+  if (studentId && db?.sheets && db.sheets[studentId]) {
+    const s = db.sheets[studentId];
     return {
-      isPublished: Boolean(db.sheet.isPublished),
-      gpa: Number(db.sheet.gpa || 0),
-      results: db.sheet.results
+      isPublished: Boolean(s.isPublished),
+      gpa: Number(s.gpa || 0),
+      results: Array.isArray(s.results) ? s.results : []
     };
   }
-  if (Array.isArray(db.results) && db.results.length > 0) {
-    return {
-      isPublished: Boolean(db.isPublished),
-      gpa: Number(db.gpa || 0),
-      results: db.results
-    };
-  }
+  // Return empty state when no marks have been recorded for the student
   return {
-    isPublished: Boolean(db.isPublished ?? db.sheet?.isPublished),
-    gpa: Number(db.gpa ?? db.sheet?.gpa ?? 0),
-    results: [
-      { course: 'Distributed Systems', code: 'CS601', internals: 28, semester: 0, grade: 'Pending' },
-      { course: 'Compiler Design', code: 'CS602', internals: 27, semester: 0, grade: 'Pending' },
-      { course: 'Computer Networks', code: 'CS603', internals: 26, semester: 0, grade: 'Pending' },
-      { course: 'Machine Learning', code: 'CS604', internals: 29, semester: 0, grade: 'Pending' }
-    ]
+    isPublished: false,
+    gpa: 0,
+    results: []
   };
 }
 
@@ -99,6 +89,10 @@ export const examsService = {
   },
 
   async getStudentResults(studentId: string) {
+    if (!studentId || typeof studentId !== 'string') {
+      return { isPublished: false, gpa: 0, results: [] };
+    }
+
     const isSupabaseAvailable = await checkSupabaseAvailable('exam_results');
 
     if (isSupabaseAvailable) {
@@ -106,19 +100,25 @@ export const examsService = {
         const { data: record } = await supabase.from('exam_results').select('*').eq('student_id', studentId).maybeSingle();
         if (record) {
           return {
-            isPublished: record.is_published,
-            gpa: Number(record.gpa),
+            isPublished: Boolean(record.is_published),
+            gpa: Number(record.gpa || 0),
             results: record.results || []
           };
         }
+        // If Supabase is active and student has no record, return empty state
+        return {
+          isPublished: false,
+          gpa: 0,
+          results: []
+        };
       } catch (err) {
         console.warn('Supabase read failed, falling back to local database:', err);
       }
     }
 
-    // Local Database Fallback
+    // Local Database Fallback (per-student keyed)
     const db = await readLocalDb();
-    return getLocalSheet(db);
+    return getLocalSheet(db, studentId);
   },
 
   async getMarksSheet(studentId: string) {
@@ -126,65 +126,106 @@ export const examsService = {
   },
 
   async submitMarks(studentId: string, marks: Record<string, number>) {
+    if (!studentId || typeof studentId !== 'string') {
+      throw new Error('Valid studentId is required');
+    }
+
     const isSupabaseAvailable = await checkSupabaseAvailable('exam_results');
 
     if (isSupabaseAvailable) {
       try {
         const { data: record } = await supabase.from('exam_results').select('*').eq('student_id', studentId).maybeSingle();
+        const baseResults = record?.results && Array.isArray(record.results) && record.results.length > 0
+          ? record.results
+          : Object.keys(marks || {}).map(code => ({
+              code,
+              course: code,
+              internals: 0,
+              semester: 0,
+              grade: 'Pending',
+              isAbsent: false,
+            }));
+
+        let totalGPs = 0;
+        const updatedResults = baseResults.map((r: any) => {
+          const isAbsent = marks[r.code] === undefined || marks[r.code] === null;
+          const semMarkRaw = isAbsent ? 0 : Number(marks[r.code]) || 0;
+          const semMark = Math.min(70, Math.max(0, semMarkRaw));
+          const internals = Number(r.internals) || 0;
+          const total = internals + semMark;
+          let grade = 'F';
+          let gp = 0;
+          if (!isAbsent) {
+            if (total >= 90) { grade = 'O'; gp = 10; }
+            else if (total >= 80) { grade = 'A+'; gp = 9; }
+            else if (total >= 70) { grade = 'A'; gp = 8; }
+            else if (total >= 60) { grade = 'B+'; gp = 7; }
+            else if (total >= 50) { grade = 'B'; gp = 6; }
+            else if (total >= 40) { grade = 'C'; gp = 5; }
+            else { grade = 'F'; gp = 0; }
+          } else {
+            grade = 'Absent';
+            gp = 0;
+          }
+
+          totalGPs += gp;
+          return {
+            ...r,
+            internals,
+            semester: semMark,
+            grade,
+            isAbsent
+          };
+        });
+
+        const newGpa = updatedResults.length > 0 ? Number((totalGPs / updatedResults.length).toFixed(2)) : 0;
+
         if (record) {
-          let totalGPs = 0;
-          const updatedResults = (record.results || []).map((r: any) => {
-            const isAbsent = marks[r.code] === undefined || marks[r.code] === null;
-            const semMarkRaw = isAbsent ? 0 : Number(marks[r.code]) || 0;
-            const semMark = Math.min(70, Math.max(0, semMarkRaw));
-            const total = r.internals + semMark;
-            let grade = 'F';
-            let gp = 0;
-            if (!isAbsent) {
-              if (total >= 90) { grade = 'O'; gp = 10; }
-              else if (total >= 80) { grade = 'A+'; gp = 9; }
-              else if (total >= 70) { grade = 'A'; gp = 8; }
-              else if (total >= 60) { grade = 'B+'; gp = 7; }
-              else if (total >= 50) { grade = 'B'; gp = 6; }
-              else if (total >= 40) { grade = 'C'; gp = 5; }
-              else { grade = 'F'; gp = 0; }
-            } else {
-              grade = 'Absent';
-              gp = 0;
-            }
-
-            totalGPs += gp;
-            return {
-              ...r,
-              semester: semMark,
-              grade,
-              isAbsent
-            };
-          });
-
-          const newGpa = updatedResults.length > 0 ? Number((totalGPs / updatedResults.length).toFixed(2)) : 0;
           const res = await supabase.from('exam_results').update({
             results: updatedResults,
             gpa: newGpa
           }).eq('student_id', studentId);
           if (res.error) throw new Error(res.error.message);
-
-          return { ok: true, gpa: newGpa };
+        } else {
+          const res = await supabase.from('exam_results').insert({
+            student_id: studentId,
+            results: updatedResults,
+            gpa: newGpa,
+            is_published: false
+          });
+          if (res.error) throw new Error(res.error.message);
         }
+
+        return { ok: true, gpa: newGpa };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
       }
     }
 
-    // Local Database Fallback
+    // Local Database Fallback (keyed per student)
     const db = await readLocalDb();
-    const sheet = getLocalSheet(db);
+    if (!db.sheets || typeof db.sheets !== 'object') {
+      db.sheets = {};
+    }
+    const currentSheet = getLocalSheet(db, studentId);
+    const baseResults = currentSheet.results.length > 0
+      ? currentSheet.results
+      : Object.keys(marks || {}).map(code => ({
+          code,
+          course: code,
+          internals: 0,
+          semester: 0,
+          grade: 'Pending',
+          isAbsent: false,
+        }));
+
     let totalGPs = 0;
-    sheet.results = sheet.results.map((r: any) => {
+    const updatedResults = baseResults.map((r: any) => {
       const isAbsent = marks[r.code] === undefined || marks[r.code] === null;
       const semMarkRaw = isAbsent ? 0 : Number(marks[r.code]) || 0;
       const semMark = Math.min(70, Math.max(0, semMarkRaw));
-      const total = r.internals + semMark;
+      const internals = Number(r.internals) || 0;
+      const total = internals + semMark;
       let grade = 'F';
       let gp = 0;
       if (!isAbsent) {
@@ -203,21 +244,28 @@ export const examsService = {
       totalGPs += gp;
       return {
         ...r,
+        internals,
         semester: semMark,
         grade,
         isAbsent
       };
     });
 
-    sheet.gpa = sheet.results.length > 0 ? Number((totalGPs / sheet.results.length).toFixed(2)) : 0;
-    db.sheet = sheet;
-    db.results = sheet.results;
-    db.gpa = sheet.gpa;
+    const newGpa = updatedResults.length > 0 ? Number((totalGPs / updatedResults.length).toFixed(2)) : 0;
+    db.sheets[studentId] = {
+      isPublished: currentSheet.isPublished,
+      gpa: newGpa,
+      results: updatedResults
+    };
     await writeLocalDb(db);
-    return { ok: true, gpa: sheet.gpa };
+    return { ok: true, gpa: newGpa };
   },
 
   async publishResults(studentId: string, isPublished: boolean) {
+    if (!studentId || typeof studentId !== 'string') {
+      throw new Error('Valid studentId is required');
+    }
+
     const isSupabaseAvailable = await checkSupabaseAvailable('exam_results');
 
     if (isSupabaseAvailable) {
@@ -232,9 +280,16 @@ export const examsService = {
       }
     }
 
-    // Local Database Fallback
+    // Local Database Fallback (keyed per student)
     const db = await readLocalDb();
-    db.sheet.isPublished = isPublished;
+    if (!db.sheets || typeof db.sheets !== 'object') {
+      db.sheets = {};
+    }
+    const currentSheet = getLocalSheet(db, studentId);
+    db.sheets[studentId] = {
+      ...currentSheet,
+      isPublished
+    };
     await writeLocalDb(db);
     return { ok: true, isPublished };
   },
@@ -330,6 +385,10 @@ export const examsService = {
     score?: number;
     passed?: boolean;
   }): Promise<void> {
+    const rawScore = Number(params.score);
+    const score = Number.isFinite(rawScore) ? Math.min(100, Math.max(0, Math.floor(rawScore))) : 0;
+    const passed = typeof params.passed === 'boolean' ? params.passed : score >= 40;
+
     const isSupabaseAvailable = await checkSupabaseAvailable('exam_attempts');
     if (isSupabaseAvailable) {
       try {
@@ -337,8 +396,8 @@ export const examsService = {
           student_id: params.studentId,
           register_number: params.registerNumber || params.studentId,
           exam_schedule_id: params.examScheduleId,
-          score: params.score ?? 0,
-          passed: params.passed ?? true,
+          score,
+          passed,
           created_at: new Date().toISOString()
         });
         if (res.error) throw new Error(res.error.message);
@@ -352,6 +411,8 @@ export const examsService = {
       if (!Array.isArray(db.attempts)) db.attempts = [];
       db.attempts.push({
         ...params,
+        score,
+        passed,
         timestamp: Date.now()
       });
       await writeLocalDb(db);

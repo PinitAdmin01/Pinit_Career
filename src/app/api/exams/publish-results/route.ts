@@ -7,8 +7,13 @@ export async function POST(req: Request) {
     const denied = await requireAdminFromRequest(req);
     if (denied) return denied;
 
-    const { isPublished, studentId: bodyStudentId } = await req.json();
-    const studentId = bodyStudentId || 'admin';
+    const body = await req.json().catch(() => ({}));
+    const studentId = typeof body?.studentId === 'string' ? body.studentId.trim() : '';
+    if (!studentId) {
+      return NextResponse.json({ error: 'Valid studentId is required' }, { status: 400 });
+    }
+
+    const isPublished = Boolean(body?.isPublished);
     const result = await examsService.publishResults(studentId, isPublished);
     return NextResponse.json(result);
   } catch (err: any) {

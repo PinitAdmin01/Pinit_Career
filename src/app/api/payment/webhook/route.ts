@@ -106,6 +106,7 @@ export async function POST(req: Request) {
     if (notesPlanId === 'pack_50') pinsGranted = 50;
     else if (notesPlanId === 'pack_150') pinsGranted = 150;
     else if (notesPlanId === 'pack_500') pinsGranted = 500;
+    else if (notesPlanId === 'pack_1200') pinsGranted = 1200;
 
     // 1. Replay guard check
     const { data: existingPayment, error: selectErr } = await admin
@@ -136,7 +137,7 @@ export async function POST(req: Request) {
       order_id: orderId,
       user_id: notesUid,
       plan_id: notesPlanId,
-      pins_granted: pinsGranted,
+      pins_granted: notesPlanId === 'pro' ? 500 : pinsGranted,
     });
 
     if (insertErr) {
@@ -154,14 +155,14 @@ export async function POST(req: Request) {
       );
     }
 
-    // 3. Pro Subscription handling
+    // 3. Pro Subscription handling (Jio/Airtel model: 120 daily pins + 500 bonus pins vault)
     if (notesPlanId === 'pro') {
       const PRO_PERIOD_DAYS = 30;
       const nowMs = Date.now();
 
       const { data: current } = await admin
         .from('users')
-        .select('subscription_expires_at')
+        .select('pins, bonus_pins, subscription_expires_at')
         .eq('id', notesUid)
         .maybeSingle();
 
@@ -178,6 +179,11 @@ export async function POST(req: Request) {
         extendFromMs + PRO_PERIOD_DAYS * 24 * 60 * 60 * 1000
       ).toISOString();
 
+      const currentBonus = typeof current?.bonus_pins === 'number' ? current.bonus_pins : 0;
+      const currentPins = typeof current?.pins === 'number' ? current.pins : 0;
+      const nextDailyPins = Math.max(currentPins, 120);
+      const nextBonusPins = currentBonus + 500;
+
       await admin
         .from('users')
         .update({
@@ -185,12 +191,15 @@ export async function POST(req: Request) {
           subscription_started_at: new Date(nowMs).toISOString(),
           subscription_expires_at: expiresAt,
           subscription_status: 'active',
+          has_purchased_plan: true,
+          pins: nextDailyPins,
+          bonus_pins: nextBonusPins,
         })
         .eq('id', notesUid);
     }
 
     // 4. Pin credit handling via atomic credit_pins RPC
-    if (pinsGranted > 0) {
+    if (pinsGranted > 0 && notesPlanId !== 'pro') {
       const { error: rpcErr } = await admin.rpc('credit_pins', {
         p_user_id: notesUid,
         p_amount: pinsGranted,
