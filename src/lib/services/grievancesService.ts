@@ -31,12 +31,21 @@ async function writeLocalDb(data: any): Promise<StorageWriteResult> {
 }
 
 export const grievancesService = {
-  async getStats(studentId: string, studentName: string) {
+  async getStats(studentId: string, studentName: string, isStaff: boolean = false) {
     const isSupabaseAvailable = await checkSupabaseAvailable('grievances_tickets');
 
     if (isSupabaseAvailable) {
       try {
-        const { data: tickets } = await supabase.from('grievances_tickets').select('*');
+        let query = supabase.from('grievances_tickets').select('*');
+        if (!isStaff) {
+          // Privacy protection: students can only query their own filed grievances
+          query = query.eq('student_id', studentId);
+        }
+        const { data: tickets, error } = await query;
+        if (error) {
+          console.warn('[grievancesService] Error querying tickets:', error);
+          throw error;
+        }
         return {
           grievances: (tickets || []).map(t => {
             const isAnon = Boolean(t.anonymous);
@@ -61,9 +70,18 @@ export const grievancesService = {
       }
     }
 
-    // Local Database Fallback
+    // Local Database Fallback (filtered by student unless staff)
     const db = await readLocalDb();
-    const sanitized = (db.grievances || []).map((t: any) => {
+    const all = Array.isArray(db.grievances) ? db.grievances : [];
+    const filtered = isStaff
+      ? all
+      : all.filter((t: any) =>
+          t.studentId === studentId ||
+          t.reporterId === studentId ||
+          (t.reporterName && t.reporterName === studentName && !t.anonymous)
+        );
+
+    const sanitized = filtered.map((t: any) => {
       const isAnon = Boolean(t.anonymous);
       return {
         ...t,
@@ -78,7 +96,6 @@ export const grievancesService = {
 
   async submit(studentId: string, studentName: string, reporterType: string, category: string, title: string, description: string, anonymous: boolean) {
     const isSupabaseAvailable = await checkSupabaseAvailable('grievances_tickets');
-    const effectiveStudentId = anonymous ? null : studentId;
     const effectiveStudentName = anonymous ? 'Anonymous Candidate' : studentName;
     const effectiveReporterType = anonymous ? 'Anonymous Whistleblower' : reporterType;
     const receiptToken = anonymous ? `TRK-${Math.random().toString(36).substring(2, 10).toUpperCase()}` : undefined;
@@ -88,11 +105,12 @@ export const grievancesService = {
         const client = await getCampusSupabaseClient();
         // Schema tolerance: populate both student_id/student_name and reporter_id/reporter_name
         const res = await client.from('grievances_tickets').insert({
-          student_id: effectiveStudentId,
+          student_id: studentId,
           student_name: effectiveStudentName,
-          reporter_id: effectiveStudentId,
+          reporter_id: studentId,
           reporter_name: effectiveStudentName,
           reporter_type: effectiveReporterType,
+          receipt_token: receiptToken,
           category,
           title,
           description,
@@ -102,7 +120,7 @@ export const grievancesService = {
         if (res.error) {
           // Fallback schema attempt using standard fields only
           const retryRes = await client.from('grievances_tickets').insert({
-            student_id: effectiveStudentId,
+            student_id: studentId,
             student_name: effectiveStudentName,
             reporter_type: effectiveReporterType,
             category,
@@ -121,8 +139,11 @@ export const grievancesService = {
 
     // Local Database Fallback
     const db = await readLocalDb();
+    if (!Array.isArray(db.grievances)) db.grievances = [];
     db.grievances.unshift({
       id: `GRV-${Math.floor(100 + Math.random() * 900)}`,
+      studentId,
+      reporterId: studentId,
       reporterType: effectiveReporterType,
       reporterName: effectiveStudentName,
       category,

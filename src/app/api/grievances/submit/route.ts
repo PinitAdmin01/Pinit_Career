@@ -30,7 +30,11 @@ export async function POST(req: Request) {
     const { reporterType, category, title, description, anonymous } = data;
 
     const studentId = gated.user!.id;
-    const studentName = gated.user!.email || 'Student';
+    const studentName = body?.reporterName?.trim() ||
+      gated.user!.user_metadata?.display_name ||
+      gated.user!.user_metadata?.full_name ||
+      gated.user!.email?.split('@')[0] ||
+      'Student';
 
     const result = await grievancesService.submit(studentId, studentName, reporterType, category, title, description, Boolean(anonymous));
     return NextResponse.json(result);

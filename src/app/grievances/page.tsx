@@ -22,13 +22,10 @@ export default function StudentGrievances() {
   const fetchGrievances = useCallback(async () => {
     try {
       const data = await api.get<any>('/api/grievances/stats');
-      // For student viewing, only show tickets created by current user or marked "Anonymous"
-      const studentTickets = (data.grievances || []).filter((g: any) => 
-        g.reporterName === userName || (g.anonymous && g.reporterType === 'student')
-      );
-      setGrievances(studentTickets);
+      // Server authoritatively returns only this student's tickets (or all for staff)
+      setGrievances(data?.grievances || []);
     } catch {}
-  }, [userName]);
+  }, []);
 
   useEffect(() => {
     fetchGrievances();

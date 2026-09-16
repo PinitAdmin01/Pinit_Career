@@ -1,7 +1,8 @@
-import PinCoin from '@/components/pins/PinCoin';
 'use client';
 // PinsGate — wraps any feature button/action that requires pins.
 // Supports item-specific 30-minute duration unlocks and active timer indicators.
+
+import PinCoin from '@/components/pins/PinCoin';
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
