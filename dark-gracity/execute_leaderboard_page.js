@@ -1,4 +1,10 @@
-'use client';
+const fs = require('fs');
+const path = require('path');
+
+const rootDir = path.resolve(__dirname, '..');
+const pagePath = path.join(rootDir, 'src', 'app', 'leaderboard', 'page.tsx');
+
+const pageContent = `'use client';
 
 import React, { useState, useEffect, useMemo, Suspense } from 'react';
 import Link from 'next/link';
@@ -41,9 +47,9 @@ function formatCountdown(ms: number): string {
   const seconds = totalSeconds % 60;
 
   if (days > 0) {
-    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    return \`\${days}d \${hours}h \${minutes}m \${seconds}s\`;
   }
-  return `${hours}h ${minutes}m ${seconds}s`;
+  return \`\${hours}h \${minutes}m \${seconds}s\`;
 }
 
 function LeaderboardContent() {
@@ -89,7 +95,7 @@ function LeaderboardContent() {
           league: selectedLeague,
         });
 
-        const res = await fetch(`/api/leaderboard?${params.toString()}`);
+        const res = await fetch(\`/api/leaderboard?\${params.toString()}\`);
         const data = await res.json();
 
         if (data.ok && isMounted) {
@@ -150,7 +156,7 @@ function LeaderboardContent() {
           <div>
             <h1 style={{ margin: 0, fontSize: 24, fontWeight: 900, letterSpacing: '-0.5px', display: 'flex', alignItems: 'center', gap: 10 }}>
               Competency & Weekly Leagues
-              <span style={{ fontSize: 11, padding: '3px 10px', borderRadius: 20, background: userLeagueMeta.bgGradient, color: userLeagueMeta.color, border: `1px solid ${userLeagueMeta.color}40`, fontWeight: 800 }}>
+              <span style={{ fontSize: 11, padding: '3px 10px', borderRadius: 20, background: userLeagueMeta.bgGradient, color: userLeagueMeta.color, border: \`1px solid \${userLeagueMeta.color}40\`, fontWeight: 800 }}>
                 {userLeagueMeta.title}
               </span>
             </h1>
@@ -231,8 +237,8 @@ function LeaderboardContent() {
           padding: '20px 24px',
           borderRadius: 20,
           background: 'linear-gradient(135deg, rgba(15,23,42,0.85) 0%, rgba(30,41,59,0.7) 100%)',
-          border: `1.5px solid ${userLeagueMeta.color}35`,
-          boxShadow: `0 16px 40px rgba(0,0,0,0.4), inset 0 1px 0 ${userLeagueMeta.color}30`,
+          border: \`1.5px solid \${userLeagueMeta.color}35\`,
+          boxShadow: \`0 16px 40px rgba(0,0,0,0.4), inset 0 1px 0 \${userLeagueMeta.color}30\`,
           marginBottom: 24,
         }}>
           {/* Card 1: Active League & Rank Status */}
@@ -258,10 +264,10 @@ function LeaderboardContent() {
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 4 }}>
               <span style={{ fontFamily: 'var(--font-mono)', fontSize: 24, fontWeight: 900, color: '#fbbf24' }}>
-                {currentUserEntry ? `#${currentUserEntry.rank}` : 'Unranked'}
+                {currentUserEntry ? \`#\${currentUserEntry.rank}\` : 'Unranked'}
               </span>
               <span style={{ fontSize: 13, color: 'var(--t2)', fontFamily: 'var(--font-mono)' }}>
-                {currentUserEntry ? `${currentUserEntry.weeklyXp.toLocaleString()} XP this week` : 'Earn XP to rank!'}
+                {currentUserEntry ? \`\${currentUserEntry.weeklyXp.toLocaleString()} XP this week\` : 'Earn XP to rank!'}
               </span>
             </div>
 
@@ -320,9 +326,9 @@ function LeaderboardContent() {
                     gap: 12,
                     padding: '10px 14px',
                     borderRadius: 14,
-                    border: isSelected ? `2px solid ${meta.color}` : '1px solid rgba(255,255,255,0.08)',
+                    border: isSelected ? \`2px solid \${meta.color}\` : '1px solid rgba(255,255,255,0.08)',
                     background: isSelected ? meta.bgGradient : 'rgba(255,255,255,0.02)',
-                    boxShadow: isSelected ? `0 4px 20px ${meta.glowColor}` : 'none',
+                    boxShadow: isSelected ? \`0 4px 20px \${meta.glowColor}\` : 'none',
                     cursor: 'pointer',
                     textAlign: 'left',
                     transition: 'all 0.15s ease',
@@ -365,7 +371,7 @@ function LeaderboardContent() {
                 transition: 'all 0.15s ease',
               }}
             >
-              {d === 'all' ? 'All Tracks' : `${d} Domain`}
+              {d === 'all' ? 'All Tracks' : \`\${d} Domain\`}
             </button>
           ))}
         </div>
@@ -421,7 +427,7 @@ function LeaderboardContent() {
             ) : (
               filteredEntries.map((entry, idx) => {
                 const isTop3 = entry.rank <= 3;
-                const rankIcon = entry.rank === 1 ? '🥇' : entry.rank === 2 ? '🥈' : entry.rank === 3 ? '🥉' : `#${entry.rank}`;
+                const rankIcon = entry.rank === 1 ? '🥇' : entry.rank === 2 ? '🥈' : entry.rank === 3 ? '🥉' : \`#\${entry.rank}\`;
                 const isPromoting = entry.zone === 'promotion';
                 const isDemoting = entry.zone === 'demotion';
 
@@ -603,3 +609,7 @@ export default function LeaderboardPage() {
     </Suspense>
   );
 }
+`;
+
+fs.writeFileSync(pagePath, pageContent, 'utf8');
+console.log('✔ Created pristine src/app/leaderboard/page.tsx with weekly leagues, promotion/demotion cutoffs, and purged dummy data');
