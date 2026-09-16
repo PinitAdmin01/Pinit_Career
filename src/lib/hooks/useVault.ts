@@ -54,7 +54,9 @@ export function useVault(options: UseVaultOptions = {}) {
   useEffect(() => {
     if (!userId || userId === 'guest') return;
     supabase.from('vault_items').select('*').eq('user_id', userId).then(({ data }) => {
-      if (data) setVaultItemsState(data);
+      if (data) {
+        setVaultItemsState(data.filter((item: any) => item.item_type !== 'campus_kv'));
+      }
     });
   }, [userId]);
 

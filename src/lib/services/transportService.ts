@@ -1,6 +1,6 @@
 import { supabase } from '@/lib/supabaseClient';
-import { tableExists as checkSupabaseAvailable } from '@/lib/services/supabaseTable';
-import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
+import { tableExists as checkSupabaseAvailable, getCampusSupabaseClient } from '@/lib/services/supabaseTable';
+import { readLocalJson, writeLocalJson, StorageWriteResult } from '@/lib/services/localJsonDb';
 
 const DB_FILE = 'src/lib/data/transport_db.json';
 
@@ -34,8 +34,8 @@ async function readLocalDb(): Promise<any> {
 }
 
 // Write local JSON database
-async function writeLocalDb(data: any): Promise<void> {
-  await writeLocalJson(DB_FILE, data);
+async function writeLocalDb(data: any): Promise<StorageWriteResult> {
+  return await writeLocalJson(DB_FILE, data);
 }
 
 export const transportService = {
@@ -79,12 +79,13 @@ export const transportService = {
 
     if (isSupabaseAvailable) {
       try {
-        const { data: existing } = await supabase.from('transport_allocations').select('*').eq('student_id', studentId).maybeSingle();
+        const client = await getCampusSupabaseClient();
+        const { data: existing } = await client.from('transport_allocations').select('*').eq('student_id', studentId).maybeSingle();
         const res = existing
-          ? await supabase.from('transport_allocations').update({ route_code: routeCode, stop, status: 'pending' }).eq('student_id', studentId)
-          : await supabase.from('transport_allocations').insert({ student_id: studentId, route_code: routeCode, stop, status: 'pending' });
+          ? await client.from('transport_allocations').update({ route_code: routeCode, stop, status: 'pending' }).eq('student_id', studentId)
+          : await client.from('transport_allocations').insert({ student_id: studentId, route_code: routeCode, stop, status: 'pending' });
         if (res.error) throw new Error(res.error.message);
-        return { ok: true };
+        return { ok: true, stored: 'db' };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
       }
@@ -98,17 +99,21 @@ export const transportService = {
     } else {
       db.allocations.push(newAlloc);
     }
-    await writeLocalDb(db);
-    return { ok: true };
+    const writeRes = await writeLocalDb(db);
+    if (!writeRes.success) {
+      return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to save transport allocation.', stored: 'none' };
+    }
+    return { ok: true, stored: writeRes.stored };
   },
 
   async approveRegistration(studentId: string) {
     const isSupabaseAvailable = await checkSupabaseAvailable('transport_allocations');
     if (isSupabaseAvailable) {
       try {
-        const res = await supabase.from('transport_allocations').update({ status: 'allocated' }).eq('student_id', studentId);
+        const client = await getCampusSupabaseClient();
+        const res = await client.from('transport_allocations').update({ status: 'allocated' }).eq('student_id', studentId);
         if (res.error) throw new Error(res.error.message);
-        return { ok: true };
+        return { ok: true, stored: 'db' };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
       }
@@ -116,8 +121,11 @@ export const transportService = {
     const db = await readLocalDb();
     const alloc = (db.allocations || []).find((a: any) => a.student_id === studentId);
     if (alloc) alloc.status = 'allocated';
-    await writeLocalDb(db);
-    return { ok: true, allocation: alloc || { status: 'allocated' } };
+    const writeRes = await writeLocalDb(db);
+    if (!writeRes.success) {
+      return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to approve registration.', stored: 'none' };
+    }
+    return { ok: true, allocation: alloc || { status: 'allocated' }, stored: writeRes.stored };
   },
 
   async addRoute(code: string, name: string, driverName: string, vehicle: string, stops: string[], timing: string) {
@@ -132,7 +140,8 @@ export const transportService = {
     };
     if (isSupabaseAvailable) {
       try {
-        const res = await supabase.from('transport_routes').insert({
+        const client = await getCampusSupabaseClient();
+        const res = await client.from('transport_routes').insert({
           code: route.code,
           name: route.name,
           driver_name: route.driverName,
@@ -141,7 +150,7 @@ export const transportService = {
           timing: route.timing,
         });
         if (res.error) throw new Error(res.error.message);
-        return { ok: true, route };
+        return { ok: true, route, stored: 'db' };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
       }
@@ -149,7 +158,10 @@ export const transportService = {
     const db = await readLocalDb();
     db.routes = db.routes || [];
     db.routes.push(route);
-    await writeLocalDb(db);
-    return { ok: true, route };
+    const writeRes = await writeLocalDb(db);
+    if (!writeRes.success) {
+      return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to save route.', stored: 'none' };
+    }
+    return { ok: true, route, stored: writeRes.stored };
   },
 };

@@ -1,6 +1,6 @@
 import { supabase } from '@/lib/supabaseClient';
-import { tableExists as checkSupabaseAvailable } from '@/lib/services/supabaseTable';
-import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
+import { tableExists as checkSupabaseAvailable, getCampusSupabaseClient } from '@/lib/services/supabaseTable';
+import { readLocalJson, writeLocalJson, StorageWriteResult } from '@/lib/services/localJsonDb';
 
 const DB_FILE = 'src/lib/data/grievances_db.json';
 
@@ -26,8 +26,8 @@ async function readLocalDb(): Promise<any> {
 }
 
 // Write local JSON database
-async function writeLocalDb(data: any): Promise<void> {
-  await writeLocalJson(DB_FILE, data);
+async function writeLocalDb(data: any): Promise<StorageWriteResult> {
+  return await writeLocalJson(DB_FILE, data);
 }
 
 export const grievancesService = {
@@ -85,8 +85,9 @@ export const grievancesService = {
 
     if (isSupabaseAvailable) {
       try {
+        const client = await getCampusSupabaseClient();
         // Schema tolerance: populate both student_id/student_name and reporter_id/reporter_name
-        const res = await supabase.from('grievances_tickets').insert({
+        const res = await client.from('grievances_tickets').insert({
           student_id: effectiveStudentId,
           student_name: effectiveStudentName,
           reporter_id: effectiveStudentId,
@@ -100,7 +101,7 @@ export const grievancesService = {
         });
         if (res.error) {
           // Fallback schema attempt using standard fields only
-          const retryRes = await supabase.from('grievances_tickets').insert({
+          const retryRes = await client.from('grievances_tickets').insert({
             student_id: effectiveStudentId,
             student_name: effectiveStudentName,
             reporter_type: effectiveReporterType,
@@ -112,7 +113,7 @@ export const grievancesService = {
           });
           if (retryRes.error) throw new Error(retryRes.error.message);
         }
-        return { ok: true, receiptToken };
+        return { ok: true, receiptToken, stored: 'db' };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
       }
@@ -132,8 +133,11 @@ export const grievancesService = {
       filedOn: new Date().toISOString(),
       receiptToken
     });
-    await writeLocalDb(db);
-    return { ok: true, receiptToken };
+    const writeRes = await writeLocalDb(db);
+    if (!writeRes.success) {
+      return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to file grievance.', stored: 'none' };
+    }
+    return { ok: true, receiptToken, stored: writeRes.stored };
   },
 
   async investigate(ticketId: string) {
@@ -141,9 +145,10 @@ export const grievancesService = {
 
     if (isSupabaseAvailable) {
       try {
-        const res = await supabase.from('grievances_tickets').update({ status: 'Under Investigation' }).eq('id', ticketId);
+        const client = await getCampusSupabaseClient();
+        const res = await client.from('grievances_tickets').update({ status: 'Under Investigation' }).eq('id', ticketId);
         if (res.error) throw new Error(res.error.message);
-        return { ok: true };
+        return { ok: true, stored: 'db' };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
       }
@@ -154,10 +159,13 @@ export const grievancesService = {
     const idx = db.grievances.findIndex((g: any) => g.id === ticketId);
     if (idx !== -1) {
       db.grievances[idx].status = 'Under Investigation';
-      await writeLocalDb(db);
-      return { ok: true };
+      const writeRes = await writeLocalDb(db);
+      if (!writeRes.success) {
+        return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to update ticket.', stored: 'none' };
+      }
+      return { ok: true, stored: writeRes.stored };
     }
-    return { ok: false };
+    return { ok: false, error: 'NOT_FOUND', message: 'Ticket not found' };
   },
 
   async resolve(ticketId: string, resolution: string) {
@@ -165,13 +173,14 @@ export const grievancesService = {
 
     if (isSupabaseAvailable) {
       try {
-        const res = await supabase.from('grievances_tickets').update({
+        const client = await getCampusSupabaseClient();
+        const res = await client.from('grievances_tickets').update({
           status: 'Resolved',
           resolution,
           resolved_at: new Date().toISOString()
         }).eq('id', ticketId);
         if (res.error) throw new Error(res.error.message);
-        return { ok: true };
+        return { ok: true, stored: 'db' };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
       }
@@ -184,9 +193,12 @@ export const grievancesService = {
       db.grievances[idx].status = 'Resolved';
       db.grievances[idx].resolution = resolution;
       db.grievances[idx].resolvedOn = new Date().toISOString();
-      await writeLocalDb(db);
-      return { ok: true };
+      const writeRes = await writeLocalDb(db);
+      if (!writeRes.success) {
+        return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to resolve grievance.', stored: 'none' };
+      }
+      return { ok: true, stored: writeRes.stored };
     }
-    return { ok: false };
+    return { ok: false, error: 'NOT_FOUND', message: 'Ticket not found' };
   }
 };

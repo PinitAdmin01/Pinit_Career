@@ -111,7 +111,7 @@ export default function VaultPage() {
         if (user?.id) {
           const { data: refreshed } = await supabase.from('vault_items').select('*').eq('user_id', user.id);
           if (refreshed) {
-            setVaultItems(refreshed);
+            setVaultItems(refreshed.filter((item: any) => item.item_type !== 'campus_kv'));
           }
         }
         refetch?.();

@@ -1,6 +1,6 @@
 import { supabase } from '@/lib/supabaseClient';
-import { tableExists as checkSupabaseAvailable } from '@/lib/services/supabaseTable';
-import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
+import { tableExists as checkSupabaseAvailable, getCampusSupabaseClient } from '@/lib/services/supabaseTable';
+import { readLocalJson, writeLocalJson, StorageWriteResult } from '@/lib/services/localJsonDb';
 
 const DB_FILE = 'src/lib/data/library_db.json';
 
@@ -44,7 +44,7 @@ export interface LibraryBorrowing {
   dueOn: string;
   returned: boolean;
   returnedOn?: string;
-  fine: number;
+  fine?: number;
 }
 
 export interface LibraryReservation {
@@ -68,8 +68,8 @@ async function readLocalDb(): Promise<any> {
 }
 
 // Write local JSON database
-async function writeLocalDb(data: any): Promise<void> {
-  await writeLocalJson(DB_FILE, data);
+async function writeLocalDb(data: any): Promise<StorageWriteResult> {
+  return await writeLocalJson(DB_FILE, data);
 }
 
 export const libraryService = {
@@ -141,11 +141,12 @@ export const libraryService = {
 
     if (isSupabaseAvailable) {
       try {
-        const { data: book } = await supabase.from('library_books').select('available, title').eq('isbn', isbn).single();
+        const client = await getCampusSupabaseClient();
+        const { data: book } = await client.from('library_books').select('available, title').eq('isbn', isbn).single();
         if (book && book.available > 0) {
-          const res1 = await supabase.from('library_books').update({ available: book.available - 1 }).eq('isbn', isbn);
+          const res1 = await client.from('library_books').update({ available: book.available - 1 }).eq('isbn', isbn);
           if (res1.error) throw new Error(res1.error.message);
-          const res2 = await supabase.from('library_borrowings').insert({
+          const res2 = await client.from('library_borrowings').insert({
             student_id: studentId,
             student_name: studentName,
             isbn,
@@ -153,7 +154,7 @@ export const libraryService = {
             due_on: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString()
           });
           if (res2.error) throw new Error(res2.error.message);
-          return { ok: true };
+          return { ok: true, stored: 'db' };
         }
         return { ok: false, message: 'Out of stock' };
       } catch (err: any) {
@@ -177,8 +178,11 @@ export const libraryService = {
         returned: false,
         fine: 0
       });
-      await writeLocalDb(db);
-      return { ok: true };
+      const writeRes = await writeLocalDb(db);
+      if (!writeRes.success) {
+        return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to borrow book.', stored: 'none' };
+      }
+      return { ok: true, stored: writeRes.stored };
     }
     return { ok: false, message: 'Out of stock' };
   },
@@ -188,12 +192,13 @@ export const libraryService = {
 
     if (isSupabaseAvailable) {
       try {
-        const { data: borrow } = await supabase.from('library_borrowings').select('isbn, due_on, returned').eq('id', borrowId).single();
+        const client = await getCampusSupabaseClient();
+        const { data: borrow } = await client.from('library_borrowings').select('isbn, due_on, returned').eq('id', borrowId).single();
         if (borrow && !borrow.returned) {
           // Increment book available copy
-          const { data: book } = await supabase.from('library_books').select('available').eq('isbn', borrow.isbn).single();
+          const { data: book } = await client.from('library_books').select('available').eq('isbn', borrow.isbn).single();
           if (book) {
-            const res1 = await supabase.from('library_books').update({ available: book.available + 1 }).eq('isbn', borrow.isbn);
+            const res1 = await client.from('library_books').update({ available: book.available + 1 }).eq('isbn', borrow.isbn);
             if (res1.error) throw new Error(res1.error.message);
           }
 
@@ -202,14 +207,14 @@ export const libraryService = {
           const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
           const fine = diffDays > 0 ? diffDays * 10 : 0;
 
-          const res2 = await supabase.from('library_borrowings').update({
+          const res2 = await client.from('library_borrowings').update({
             returned: true,
             returned_on: new Date().toISOString(),
             fine
           }).eq('id', borrowId);
           if (res2.error) throw new Error(res2.error.message);
 
-          return { ok: true, fine };
+          return { ok: true, fine, stored: 'db' };
         }
         return { ok: false };
       } catch (err) {
@@ -236,8 +241,11 @@ export const libraryService = {
       const fine = diffDays > 0 ? diffDays * 10 : 0;
       borrow.fine = fine;
 
-      await writeLocalDb(db);
-      return { ok: true, fine };
+      const writeRes = await writeLocalDb(db);
+      if (!writeRes.success) {
+        return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to record return.', stored: 'none', fine };
+      }
+      return { ok: true, fine, stored: writeRes.stored };
     }
     return { ok: false, fine: 0 };
   },
@@ -247,12 +255,13 @@ export const libraryService = {
 
     if (isSupabaseAvailable) {
       try {
-        const { data: book } = await supabase.from('library_books').select('title').eq('isbn', isbn).single();
+        const client = await getCampusSupabaseClient();
+        const { data: book } = await client.from('library_books').select('title').eq('isbn', isbn).single();
         if (book) {
-          const { count } = await supabase.from('library_reservations').select('*', { count: 'exact', head: true }).eq('isbn', isbn);
+          const { count } = await client.from('library_reservations').select('*', { count: 'exact', head: true }).eq('isbn', isbn);
           const queuePosition = (count || 0) + 1;
 
-          const { data: reservation, error: resErr } = await supabase.from('library_reservations').insert({
+          const { data: reservation, error: resErr } = await client.from('library_reservations').insert({
             student_id: studentId,
             student_name: studentName,
             isbn,
@@ -261,7 +270,7 @@ export const libraryService = {
           }).select('*').single();
           if (resErr) throw new Error(resErr.message);
 
-          return { ok: true, reserve: { position: queuePosition } };
+          return { ok: true, reserve: { position: queuePosition }, stored: 'db' };
         }
         return { ok: false };
       } catch (err) {
@@ -284,8 +293,11 @@ export const libraryService = {
         createdAt: new Date().toISOString()
       };
       db.reserves.push(reserve);
-      await writeLocalDb(db);
-      return { ok: true, reserve };
+      const writeRes = await writeLocalDb(db);
+      if (!writeRes.success) {
+        return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to reserve book.', stored: 'none' };
+      }
+      return { ok: true, reserve, stored: writeRes.stored };
     }
     return { ok: false };
   },
@@ -303,7 +315,8 @@ export const libraryService = {
     };
     if (isSupabaseAvailable) {
       try {
-        const res = await supabase.from('library_books').insert({
+        const client = await getCampusSupabaseClient();
+        const res = await client.from('library_books').insert({
           isbn: book.isbn,
           title: book.title,
           author: book.author,
@@ -313,7 +326,7 @@ export const libraryService = {
           is_ebook: false,
         });
         if (res.error) throw new Error(res.error.message);
-        return { ok: true, book };
+        return { ok: true, book, stored: 'db' };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
       }
@@ -321,7 +334,10 @@ export const libraryService = {
     const db = await readLocalDb();
     db.books = db.books || [];
     db.books.push(book);
-    await writeLocalDb(db);
-    return { ok: true, book };
+    const writeRes = await writeLocalDb(db);
+    if (!writeRes.success) {
+      return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to add book.', stored: 'none' };
+    }
+    return { ok: true, book, stored: writeRes.stored };
   },
 };

@@ -67,18 +67,32 @@ function readBrowserStorage<T>(relativePath: string, fallback: T): T {
   }
 }
 
-function writeBrowserStorage(relativePath: string, data: unknown) {
-  if (typeof window === 'undefined') return;
+async function getDbClient() {
+  if (typeof window === 'undefined') {
+    try {
+      const { getSupabaseAdmin } = await import('@/lib/server/supabaseAdmin');
+      return getSupabaseAdmin();
+    } catch {
+      return supabase;
+    }
+  }
+  return supabase;
+}
+
+function writeBrowserStorage(relativePath: string, data: unknown): boolean {
+  if (typeof window === 'undefined') return false;
   try {
     localStorage.setItem(storageKey(relativePath), JSON.stringify(data));
+    return true;
   } catch {
-    // quota / private mode
+    return false;
   }
 }
 
 async function readCampusKv<T>(relativePath: string): Promise<T | null> {
   if (!(await tableExists('campus_kv'))) return null;
-  const { data, error } = await supabase
+  const client = await getDbClient();
+  const { data, error } = await client
     .from('campus_kv')
     .select('value')
     .eq('key', relativePath)
@@ -89,60 +103,13 @@ async function readCampusKv<T>(relativePath: string): Promise<T | null> {
 
 async function writeCampusKv(relativePath: string, data: unknown): Promise<boolean> {
   if (!(await tableExists('campus_kv'))) return false;
-  const { error } = await supabase.from('campus_kv').upsert({
+  const client = await getDbClient();
+  const { error } = await client.from('campus_kv').upsert({
     key: relativePath,
     value: data,
     updated_at: new Date().toISOString(),
   });
   return !error;
-}
-
-async function readVaultJson<T>(relativePath: string): Promise<T | null> {
-  try {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return null;
-    const { data, error } = await supabase
-      .from('vault_items')
-      .select('description')
-      .eq('user_id', user.id)
-      .eq('item_type', 'campus_kv')
-      .eq('title', campusTitle(relativePath))
-      .maybeSingle();
-    if (error || !data?.description) return null;
-    return JSON.parse(data.description) as T;
-  } catch {
-    return null;
-  }
-}
-
-async function writeVaultJson(relativePath: string, data: unknown): Promise<boolean> {
-  try {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return false;
-    const title = campusTitle(relativePath);
-    const description = JSON.stringify(data);
-    const { data: existing } = await supabase
-      .from('vault_items')
-      .select('id')
-      .eq('user_id', user.id)
-      .eq('item_type', 'campus_kv')
-      .eq('title', title)
-      .maybeSingle();
-    if (existing?.id) {
-      const { error } = await supabase.from('vault_items').update({ description }).eq('id', existing.id);
-      return !error;
-    }
-    const { error } = await supabase.from('vault_items').insert({
-      user_id: user.id,
-      title,
-      item_type: 'campus_kv',
-      description,
-      organization_name: 'campus',
-    });
-    return !error;
-  } catch {
-    return false;
-  }
 }
 
 function getScopedKey(relativePath: string, scope: 'shared' | 'personal', userId?: string): string {
@@ -212,15 +179,17 @@ export async function readLocalJson<T>(
     }
   }
 
-  const vault = await readVaultJson<T>(scopedKey);
-  if (vault != null) {
-    memSet(cacheKey, vault);
-    return vault;
-  }
-
   const local = readBrowserStorage(scopedKey, fallback);
   memSet(cacheKey, local);
   return local;
+}
+
+export type StorageTarget = 'db' | 'fs' | 'local' | 'none';
+
+export interface StorageWriteResult {
+  success: boolean;
+  stored: StorageTarget;
+  error?: string;
 }
 
 export async function writeLocalJson(
@@ -228,7 +197,7 @@ export async function writeLocalJson(
   data: unknown,
   scope: 'shared' | 'personal' = 'shared',
   userId?: string
-): Promise<boolean> {
+): Promise<StorageWriteResult> {
   const scopedKey = getScopedKey(relativePath, scope, userId);
   memSet(`${scope}:${scopedKey}`, data);
 
@@ -251,20 +220,29 @@ export async function writeLocalJson(
   }
 
   if (nodeWriteSucceeded && process.env.NODE_ENV === 'development') {
-    return true;
+    return { success: true, stored: 'fs' };
   }
 
   if (scope === 'shared') {
     const wroteShared = await writeCampusKv(relativePath, data);
-    if (wroteShared) return true;
+    if (wroteShared) return { success: true, stored: 'db' };
   } else if (scope === 'personal') {
     const wrotePersonal = await writeCampusKv(scopedKey, data);
-    if (wrotePersonal) return true;
+    if (wrotePersonal) return { success: true, stored: 'db' };
   }
 
-  const wroteVault = await writeVaultJson(scopedKey, data);
-  if (wroteVault) return true;
+  if (typeof window !== 'undefined') {
+    const wroteLocal = writeBrowserStorage(scopedKey, data);
+    if (wroteLocal) return { success: true, stored: 'local' };
+  }
 
-  writeBrowserStorage(scopedKey, data);
-  return true;
+  if (nodeWriteSucceeded) {
+    return { success: true, stored: 'fs' };
+  }
+
+  return {
+    success: false,
+    stored: 'none',
+    error: 'STORAGE_UNAVAILABLE: Filesystem is read-only, database table unavailable, and browser storage is unavailable.',
+  };
 }

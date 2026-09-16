@@ -1,6 +1,6 @@
 import { supabase } from '@/lib/supabaseClient';
-import { tableExists as checkSupabaseAvailable } from '@/lib/services/supabaseTable';
-import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
+import { tableExists as checkSupabaseAvailable, getCampusSupabaseClient } from '@/lib/services/supabaseTable';
+import { readLocalJson, writeLocalJson, StorageWriteResult } from '@/lib/services/localJsonDb';
 
 const DB_FILE = 'src/lib/data/services_db.json';
 
@@ -43,8 +43,8 @@ async function readLocalDb(): Promise<any> {
 }
 
 // Write local JSON database
-async function writeLocalDb(data: any): Promise<void> {
-  await writeLocalJson(DB_FILE, data);
+async function writeLocalDb(data: any): Promise<StorageWriteResult> {
+  return await writeLocalJson(DB_FILE, data);
 }
 
 export const servicesService = {
@@ -78,7 +78,8 @@ export const servicesService = {
 
     if (isSupabaseAvailable) {
       try {
-        const res = await supabase.from('services_leaves').insert({
+        const client = await getCampusSupabaseClient();
+        const res = await client.from('services_leaves').insert({
           student_id: studentId,
           start_date: startDate,
           end_date: endDate,
@@ -87,7 +88,7 @@ export const servicesService = {
           status: 'Pending'
         });
         if (res.error) throw new Error(res.error.message);
-        return { ok: true };
+        return { ok: true, stored: 'db' };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
       }
@@ -103,8 +104,11 @@ export const servicesService = {
       type,
       status: 'Pending'
     });
-    await writeLocalDb(db);
-    return { ok: true };
+    const writeRes = await writeLocalDb(db);
+    if (!writeRes.success) {
+      return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to submit leave request.', stored: 'none' };
+    }
+    return { ok: true, stored: writeRes.stored };
   },
 
   async fileRequest(studentId: string, category: string, description: string) {
@@ -112,14 +116,15 @@ export const servicesService = {
 
     if (isSupabaseAvailable) {
       try {
-        const res = await supabase.from('services_requests').insert({
+        const client = await getCampusSupabaseClient();
+        const res = await client.from('services_requests').insert({
           student_id: studentId,
           category,
           description,
           status: 'Pending'
         });
         if (res.error) throw new Error(res.error.message);
-        return { ok: true };
+        return { ok: true, stored: 'db' };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
       }
@@ -133,8 +138,11 @@ export const servicesService = {
       description,
       status: 'Pending'
     });
-    await writeLocalDb(db);
-    return { ok: true };
+    const writeRes = await writeLocalDb(db);
+    if (!writeRes.success) {
+      return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to file request.', stored: 'none' };
+    }
+    return { ok: true, stored: writeRes.stored };
   },
 
   async bookAppointment(studentId: string, staffName: string, date: string, time: string, purpose: string) {
@@ -142,7 +150,8 @@ export const servicesService = {
 
     if (isSupabaseAvailable) {
       try {
-        const res = await supabase.from('services_appointments').insert({
+        const client = await getCampusSupabaseClient();
+        const res = await client.from('services_appointments').insert({
           student_id: studentId,
           staff_name: staffName,
           date,
@@ -150,7 +159,7 @@ export const servicesService = {
           purpose
         });
         if (res.error) throw new Error(res.error.message);
-        return { ok: true };
+        return { ok: true, stored: 'db' };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
       }
@@ -165,8 +174,11 @@ export const servicesService = {
       time,
       purpose
     });
-    await writeLocalDb(db);
-    return { ok: true };
+    const writeRes = await writeLocalDb(db);
+    if (!writeRes.success) {
+      return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to book appointment.', stored: 'none' };
+    }
+    return { ok: true, stored: writeRes.stored };
   },
 
   async bookCounselling(studentId: string, counselorName: string, date: string, time: string) {
@@ -178,7 +190,8 @@ export const servicesService = {
 
     if (isSupabaseAvailable) {
       try {
-        const res = await supabase.from('services_counselling').insert({
+        const client = await getCampusSupabaseClient();
+        const res = await client.from('services_counselling').insert({
           student_id: studentId,
           counselor_name: counselorName,
           date,
@@ -186,7 +199,7 @@ export const servicesService = {
           status: 'Confirmed'
         });
         if (res.error) throw new Error(res.error.message);
-        return { ok: true };
+        return { ok: true, stored: 'db' };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
       }
@@ -201,8 +214,11 @@ export const servicesService = {
       time,
       status: 'Confirmed'
     });
-    await writeLocalDb(db);
-    return { ok: true };
+    const writeRes = await writeLocalDb(db);
+    if (!writeRes.success) {
+      return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to book counselling.', stored: 'none' };
+    }
+    return { ok: true, stored: writeRes.stored };
   },
 
   async approveLeave(leaveId: string) {
@@ -210,9 +226,10 @@ export const servicesService = {
 
     if (isSupabaseAvailable) {
       try {
-        const res = await supabase.from('services_leaves').update({ status: 'Approved' }).eq('id', leaveId);
+        const client = await getCampusSupabaseClient();
+        const res = await client.from('services_leaves').update({ status: 'Approved' }).eq('id', leaveId);
         if (res.error) throw new Error(res.error.message);
-        return { ok: true };
+        return { ok: true, stored: 'db' };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
       }
@@ -223,10 +240,13 @@ export const servicesService = {
     const idx = db.leaves.findIndex((l: any) => l.id === leaveId);
     if (idx !== -1) {
       db.leaves[idx].status = 'Approved';
-      await writeLocalDb(db);
-      return { ok: true };
+      const writeRes = await writeLocalDb(db);
+      if (!writeRes.success) {
+        return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to approve leave.', stored: 'none' };
+      }
+      return { ok: true, stored: writeRes.stored };
     }
-    return { ok: false };
+    return { ok: false, error: 'NOT_FOUND', message: 'Leave record not found' };
   },
 
   async approveRequest(requestId: string) {
@@ -234,9 +254,10 @@ export const servicesService = {
 
     if (isSupabaseAvailable) {
       try {
-        const res = await supabase.from('services_requests').update({ status: 'Approved' }).eq('id', requestId);
+        const client = await getCampusSupabaseClient();
+        const res = await client.from('services_requests').update({ status: 'Approved' }).eq('id', requestId);
         if (res.error) throw new Error(res.error.message);
-        return { ok: true };
+        return { ok: true, stored: 'db' };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
       }
@@ -247,9 +268,12 @@ export const servicesService = {
     const idx = db.requests.findIndex((r: any) => r.id === requestId);
     if (idx !== -1) {
       db.requests[idx].status = 'Approved';
-      await writeLocalDb(db);
-      return { ok: true };
+      const writeRes = await writeLocalDb(db);
+      if (!writeRes.success) {
+        return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to approve request.', stored: 'none' };
+      }
+      return { ok: true, stored: writeRes.stored };
     }
-    return { ok: false };
+    return { ok: false, error: 'NOT_FOUND', message: 'Request not found' };
   }
 };
