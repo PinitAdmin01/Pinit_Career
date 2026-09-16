@@ -14,6 +14,15 @@ export interface CommunicationLog {
   date: string;
 }
 
+export interface CommunicationResult {
+  ok: boolean;
+  status: 'logged' | 'delivered';
+  delivery: 'internal_notice_log' | 'external_gateway';
+  provider: 'internal_db' | 'external' | 'none';
+  noticeId: string;
+  message: string;
+}
+
 // Read local JSON database
 async function readLocalDb(): Promise<any> {
   return await readLocalJson(DB_FILE, { logs: [] });
@@ -25,9 +34,14 @@ async function writeLocalDb(data: any): Promise<void> {
 }
 
 export const communicationService = {
-  async logCommunication(type: string, subject: string | undefined, body: string, category?: string) {
+  async logCommunication(
+    type: 'email' | 'sms' | 'announcement' | string,
+    subject: string | undefined,
+    body: string,
+    category?: string
+  ): Promise<CommunicationResult> {
     const isSupabaseAvailable = await checkSupabaseAvailable('communications_log');
-    const id = `COM-${Math.floor(100 + Math.random() * 900)}`;
+    const id = `NOTICE-${Math.floor(1000 + Math.random() * 9000)}`;
 
     if (isSupabaseAvailable) {
       try {
@@ -38,7 +52,14 @@ export const communicationService = {
           category: category || 'General'
         });
         if (res.error) throw new Error(res.error.message);
-        return { ok: true };
+        return {
+          ok: true,
+          status: 'logged',
+          delivery: 'internal_notice_log',
+          provider: 'internal_db',
+          noticeId: id,
+          message: 'Notice successfully recorded to internal campus bulletin log. (External email/SMS provider is not configured).'
+        };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
       }
@@ -46,16 +67,24 @@ export const communicationService = {
 
     // Local Database Fallback
     const db = await readLocalDb();
+    db.logs = Array.isArray(db.logs) ? db.logs : [];
     db.logs.unshift({
       id,
       type,
       subject,
       body,
-      category,
+      category: category || 'General',
       date: new Date().toISOString().split('T')[0]
     });
     await writeLocalDb(db);
-    return { ok: true };
+    return {
+      ok: true,
+      status: 'logged',
+      delivery: 'internal_notice_log',
+      provider: 'internal_db',
+      noticeId: id,
+      message: 'Notice successfully recorded to internal bulletin log. (External email/SMS provider is not configured).'
+    };
   },
 
   async getAll() {
