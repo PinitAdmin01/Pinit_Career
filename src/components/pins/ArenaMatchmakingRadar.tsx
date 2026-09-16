@@ -1,385 +1,221 @@
 'use client';
 
-// ─────────────────────────────────────────────────────────────────────────────
-// ArenaMatchmakingRadar — E-Sports Radar/Scanning Widget for 1v1 Quick Match
-// ─────────────────────────────────────────────────────────────────────────────
-// Target destination: src/components/pins/ArenaMatchmakingRadar.tsx
-//
-// Animated radar/sonar widget that appears when a student queues for 1v1 Quick Match.
-// Shows pulsing concentric rings, a sweeping radar beam, and scanning dots representing
-// online engineers. Displays a countdown timer and a big button to switch to "🤖 Spar
-// with Turing Benchmark AI" after the 15-second search timeout.
-//
-// Props: None (fully self-contained, listens to global state via context or parent props).
-//
-// Usage (in ArenaContent page.tsx, inside the Quick Match lobby):
-//   <ArenaMatchmakingRadar
-//     isQueueing={isQueueing}
-//     queueSeconds={queueSeconds}
-//     onSwitchToAiSparring={handleStartSoloSparring}
-//   />
-// ─────────────────────────────────────────────────────────────────────────────
+import React, { useEffect, useState } from 'react';
 
-import React, { useEffect, useRef, useState } from 'react';
-
-/**
- * Radar scan states
- */
-type RadarState = 'scanning' | 'timeout' | 'ai_sparring';
-
-/**
- * Engineer / opponent dot with position and animation phase
- */
-interface Engineer {
-  id: number;
-  angle: number;
-  distance: number;
-  speed: number;
-}
-
-/**
- * Radar configuration
- */
-const RADAR_CONFIG = {
-  // Ring radii as percentages of the radar container width
-  ringRadii: [0.3, 0.55, 0.8] as const,
-  // Beam sweep speed in degrees per ms (slower = smoother)
-  beamSpeedDegPerMs: 0.08,
-  // Dot density (how many engineers scanning)
-  dotCount: 12,
-  // Pulse animation duration in ms
-  pulseDuration: 2000,
-  // Scan completion timeout in seconds (15s after which AI sparring appears)
-  scanTimeoutSeconds: 15,
-  // Hover pulse enlargement factor
-  hoverScale: 1.15,
-} as const;
-
-/**
- * ArenaMatchmakingRadar - Rad scanning widget
- * Shows pulsing rings, sweeping beam, and engineering dots for the Quick Match queue.
- */
 export interface ArenaMatchmakingRadarProps {
   isQueueing: boolean;
   queueSeconds: number;
-  /** Called when the AI Sparring button is clicked */
   onSwitchToAiSparring: () => void;
-  /** Optional: current student's pins display */
   studentPins?: number;
+}
+
+interface Blip {
+  id: number;
+  x: number;
+  y: number;
+  delay: number;
+  size: number;
 }
 
 export default function ArenaMatchmakingRadar({
   isQueueing,
   queueSeconds,
   onSwitchToAiSparring,
-  studentPins,
 }: ArenaMatchmakingRadarProps) {
-  const radarRef = useRef<HTMLDivElement>(null);
-  const [state, setState] = useState<RadarState>('scanning');
-  const [engineers, setEngineers] = useState<Engineer[]>([]);
-  const radarAngleRef = useRef<number>(0);
-  const pulsePhaseRef = useRef<number>(0);
+  // Static scattered blip positions
+  const [blips] = useState<Blip[]>([
+    { id: 1, x: 55, y: 65, delay: 0.2, size: 4 },
+    { id: 2, x: 120, y: 50, delay: 1.1, size: 5 },
+    { id: 3, x: 130, y: 110, delay: 1.8, size: 4 },
+    { id: 4, x: 40, y: 115, delay: 0.7, size: 3.5 },
+    { id: 5, x: 95, y: 135, delay: 2.3, size: 4.5 },
+    { id: 6, x: 75, y: 35, delay: 1.5, size: 3 },
+  ]);
 
-  // ── Initialize engineer positions on mount ─────────────────────────────
-  useEffect(() => {
-    if (!isQueueing) return;
-
-    const count = RADAR_CONFIG.dotCount;
-    const engineers: Engineer[] = [];
-    for (let i = 0; i < count; i++) {
-      const angle = (i / count) * Math.PI * 2;
-      const radiusIndex = i % 3;
-      const radius = RADAR_CONFIG.ringRadii[radiusIndex];
-      engineers.push({
-        id: i,
-        angle,
-        distance: radius,
-        speed: 0.5 + (Math.random() * 0.3),
-      });
-    }
-    setEngineers(engineers);
-  }, [isQueueing]);
-
-  // ── State transitions ─────────────────────────────────────────────────
-  useEffect(() => {
-    if (!isQueueing) {
-      setState('scanning');
-      radarAngleRef.current = 0;
-      pulsePhaseRef.current = 0;
-      return;
-    }
-
-    // If we've been queueing for >= timeout seconds, show AI sparring option
-    const timeoutMs = RADAR_CONFIG.scanTimeoutSeconds * 1000;
-    const queueStart = queueSeconds * 1000;
-
-    if (queueSeconds >= RADAR_CONFIG.scanTimeoutSeconds && state !== 'ai_sparring') {
-      setState('timeout');
-    } else if (queueSeconds < RADAR_CONFIG.scanTimeoutSeconds && state === 'timeout') {
-      // Reset back to scanning if user acts before timeout completes
-      setState('scanning');
-    } else {
-      setState('scanning');
-    }
-  }, [isQueueing, queueSeconds, state]);
-
-  // ── Radar beam sweep animation ────────────────────────────────────────
-  useEffect(() => {
-    if (state !== 'scanning') return;
-
-    const handleAnimation = () => {
-      if (state !== 'scanning') return;
-      radarAngleRef.current = (radarAngleRef.current + RADAR_CONFIG.beamSpeedDegPerMs) % 360;
-      pulsePhaseRef.current = (pulsePhaseRef.current + 16) % RADAR_CONFIG.pulseDuration;
-      requestAnimationFrame(handleAnimation);
-    };
-
-    requestAnimationFrame(handleAnimation);
-  }, [state]);
-
-  // ── Engineer positions update (rotating dots) ─────────────────────────
-  useEffect(() => {
-    if (state !== 'scanning') return;
-
-    const updateEngineers = () => {
-      if (state !== 'scanning') return;
-
-      const angleStep = (Math.PI * 2) / engineers.length;
-      const timeFactor = Date.now() / 500; // rotate every 500ms
-
-      const updated = engineers.map((eng, i) => {
-        const baseAngle = eng.angle;
-        const offset = (timeFactor * eng.speed) % (Math.PI * 2);
-        const currentAngle = (baseAngle + offset) % (Math.PI * 2);
-        const ringIdx = Math.floor(i / (engineers.length / 3));
-        const radius = RADAR_CONFIG.ringRadii[ringIdx % 3];
-        const pulse = Math.abs(Math.sin((Date.now() / 300 + i) % RADAR_CONFIG.pulseDuration)) * 0.2 + 0.8;
-        const distance = radius * pulse;
-
-        return {
-          ...eng,
-          angle: currentAngle,
-          distance,
-        };
-      });
-
-      setEngineers(updated);
-      requestAnimationFrame(updateEngineers);
-    };
-
-    updateEngineers();
-    const id = setInterval(updateEngineers, 50);
-    return () => clearInterval(id);
-  }, [engineers, state]);
-
-  // ── Countdown timer logic ─────────────────────────────────────────────
-  const remainingSeconds = Math.max(0, RADAR_CONFIG.scanTimeoutSeconds - queueSeconds);
-
-  if (!isQueueing || state === 'ai_sparring') {
-    return null;
-  }
+  if (!isQueueing) return null;
 
   return (
-    <div
-      ref={radarRef}
-      style={{
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '4px 0',
+      width: '100%',
+      maxWidth: 240,
+      margin: '0 auto',
+    }}>
+      {/* ── Radar Circle Frame ───────────────────────────────────── */}
+      <div style={{
         position: 'relative',
-        inset: 'auto',
-        margin: '0 auto',
-        width: isQueueing ? 360 : 0,
-        height: isQueueing ? 360 : 0,
-        minWidth: 300,
-        minHeight: 300,
-        // Center it in the quick-match card
+        width: 160,
+        height: 160,
+        borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(30, 27, 75, 0.95) 0%, rgba(15, 23, 42, 0.98) 75%)',
+        border: '1.5px solid rgba(99, 102, 241, 0.45)',
+        boxShadow: '0 0 20px rgba(99, 102, 241, 0.25), inset 0 0 16px rgba(79, 70, 229, 0.2)',
+        overflow: 'hidden',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-      }}
-      aria-role="status"
-      aria-label={`Matchmaking radar scanning — ${remainingSeconds}s remaining`}
-    >
-      <svg
-        width="100%"
-        height="100%"
-        viewBox="0 0 200 200"
-        style={{
-          width: '100%',
-          height: '100%',
-        }}
-      >
-        {/* ── Background concentric rings ───────────────────────────────── */}
-        <g stroke="rgba(99, 102, 241, 0.4)" strokeWidth={1} fill="none">
-          {RADAR_CONFIG.ringRadii.map((radius, i) => {
-            const percent = radius * 100;
-            return (
-              <circle
-                key={i}
-                cx={100}
-                cy={100}
-                r={percent}
-                style={{
-                  strokeDasharray: '8 8',
-                  strokeWidth: i === 2 ? 2 : 1,
-                  opacity: 0.3 + i * 0.15,
-                  animation: `ringPulse ${RADAR_CONFIG.pulseDuration}ms ease-in-out infinite`,
-                }}
-              />
-            );
-          })}
-        </g>
+        margin: '0 auto 12px',
+      }}>
+        {/* Radar Crosshairs */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          bottom: 0,
+          left: '50%',
+          width: 1,
+          background: 'rgba(99, 102, 241, 0.25)',
+        }} />
+        <div style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: '50%',
+          height: 1,
+          background: 'rgba(99, 102, 241, 0.25)',
+        }} />
 
-        {/* ── Scanning dots (engineers) ─────────────────────────────────── */}
-        {engineers.map((eng) => {
-          const x = 100 + eng.distance * 90 * Math.cos(eng.angle);
-          const y = 100 + eng.distance * 90 * Math.sin(eng.angle);
-          const size = 6 + Math.sin(pulsePhaseRef.current / 2 + eng.id) * 4;
+        {/* Concentric Rings */}
+        <div style={{
+          position: 'absolute',
+          width: 44,
+          height: 44,
+          borderRadius: '50%',
+          border: '1px dashed rgba(99, 102, 241, 0.35)',
+        }} />
+        <div style={{
+          position: 'absolute',
+          width: 88,
+          height: 88,
+          borderRadius: '50%',
+          border: '1px solid rgba(99, 102, 241, 0.3)',
+        }} />
+        <div style={{
+          position: 'absolute',
+          width: 132,
+          height: 132,
+          borderRadius: '50%',
+          border: '1px solid rgba(99, 102, 241, 0.25)',
+        }} />
 
-          return (
-            <circle
-              key={eng.id}
-              cx={x}
-              cy={y}
-              r={size}
-              fill="rgba(245, 158, 11, 0.8)"
-              style={{
-                transition: `opacity 0.2s, transform 0.2s`,
-                opacity: 0.7 + Math.random() * 0.3,
-              }}
-            />
-          );
-        })}
-
-        {/* ── Radar dish outer ring ─────────────────────────────────────── */}
-        <circle
-          cx={100}
-          cy={100}
-          r={90}
-          fill="none"
-          stroke="rgba(99, 102, 241, 0.6)"
-          strokeWidth={2}
-        />
-
-        {/* ── Rotating radar beam ───────────────────────────────────────── */}
-        <g transform-origin="100 100">
-          <line
-            x1={100}
-            y1={100}
-            x2={100 + 90 * Math.cos((radarAngleRef.current * Math.PI) / 180)}
-            y2={100 - 90 * Math.sin((radarAngleRef.current * Math.PI) / 180)}
-            stroke="rgba(245, 158, 11, 0.9)"
-            strokeWidth={3}
-            strokeLinecap="round"
-            style={{ animation: `beamSweep ${RADAR_CONFIG.pulseDuration / 2}s linear infinite` }}
-          />
-          {/* Arrowhead at beam tip */}
-          <polygon
-            points={[
-              100 + 85 * Math.cos((radarAngleRef.current * Math.PI) / 180),
-              100 - 85 * Math.sin((radarAngleRef.current * Math.PI) / 180),
-              100 + 80 * Math.cos(((radarAngleRef.current + 30) * Math.PI) / 180),
-              100 - 80 * Math.sin(((radarAngleRef.current + 30) * Math.PI) / 180),
-              100 + 80 * Math.cos(((radarAngleRef.current - 30) * Math.PI) / 180),
-              100 - 80 * Math.sin(((radarAngleRef.current - 30) * Math.PI) / 180),
-            ].join(' ')}
-            fill="rgba(245, 158, 11, 0.9)"
-          />
-        </g>
-
-        {/* ── Center glowing node ───────────────────────────────────────── */}
-        <circle
-          cx={100}
-          cy={100}
-          r={6}
-          fill="rgba(99, 102, 241, 0.8)"
-        />
-      </svg>
-
-      {/* ── Pulse glow overlay ──────────────────────────────────────────── */}
-      <div
-        style={{
+        {/* Rotating Radar Sweeping Conic Beam */}
+        <div style={{
           position: 'absolute',
           inset: 0,
           borderRadius: '50%',
-          border: `4px solid rgba(245, 158, 11, 0.4)`,
-          opacity: 0.4 + Math.sin(pulsePhaseRef.current / 2) * 0.2,
-          animation: `pulseGlow ${RADAR_CONFIG.pulseDuration / 2}ms ease-in-out infinite`,
+          background: 'conic-gradient(from 0deg, rgba(99, 102, 241, 0) 0deg, rgba(99, 102, 241, 0) 280deg, rgba(129, 140, 248, 0.15) 330deg, rgba(165, 180, 252, 0.7) 360deg)',
+          animation: 'beamSweep 2.2s linear infinite',
           pointerEvents: 'none',
-        }}
-      />
+        }} />
 
-      {/* ── Search timer & AI Sparring button ───────────────────────────── */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: -80,
-          display: 'flex',
-          flexDirection: 'column',
+        {/* Pulsing Radar Blips (Online peers) */}
+        {blips.map((blip) => (
+          <div
+            key={blip.id}
+            style={{
+              position: 'absolute',
+              left: blip.x,
+              top: blip.y,
+              width: blip.size,
+              height: blip.size,
+              borderRadius: '50%',
+              background: '#34d399',
+              boxShadow: '0 0 8px #34d399',
+              animation: 'pulseGlow 2s ease-in-out infinite',
+              animationDelay: `${blip.delay}s`,
+            }}
+          />
+        ))}
+
+        {/* Center Origin Dot */}
+        <div style={{
+          width: 8,
+          height: 8,
+          borderRadius: '50%',
+          background: '#818cf8',
+          boxShadow: '0 0 10px #818cf8',
+          zIndex: 2,
+        }} />
+      </div>
+
+      {/* ── Status Info (Normal flow, strictly inside container) ── */}
+      <div style={{ textAlign: 'center', marginBottom: 8 }}>
+        <div style={{
+          display: 'inline-flex',
           alignItems: 'center',
-          gap: 8,
-          color: 'var(--t2)',
-        }}
-      >
-        <div style={{ fontSize: 12, textTransform: 'uppercase', color: '#818cf8' }}>
-          SEARCHING FOR OPPONENT
+          gap: 6,
+          padding: '3px 10px',
+          borderRadius: 20,
+          background: 'rgba(99, 102, 241, 0.15)',
+          border: '1px solid rgba(99, 102, 241, 0.3)',
+          color: '#a5b4fc',
+          fontSize: 11,
+          fontWeight: 700,
+          textTransform: 'uppercase',
+          letterSpacing: '0.5px',
+          marginBottom: 6,
+        }}>
+          <span style={{
+            width: 6,
+            height: 6,
+            borderRadius: '50%',
+            background: '#34d399',
+            boxShadow: '0 0 6px #34d399',
+          }} />
+          Searching for Opponent
         </div>
-        <div style={{ fontSize: 36, fontWeight: 900, color: '#f59e0b' }}>
-          {remainingSeconds}
-        </div>
-        <div style={{ fontSize: 11, textTransform: 'uppercase', color: '#a5b4fc' }}>
-          {queueSeconds} / {RADAR_CONFIG.scanTimeoutSeconds}s
+
+        <div style={{
+          fontSize: 18,
+          fontWeight: 800,
+          fontFamily: 'monospace',
+          color: '#fbbf24',
+          letterSpacing: '1px',
+        }}>
+          00:{queueSeconds.toString().padStart(2, '0')} <span style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 500 }}>/ 00:15</span>
         </div>
       </div>
 
-      {/* ── AI Sparring Call-to-Action ───────────────────────────────────── */}
-      {state === 'timeout' && (
-        <div
-          style={{
-            position: 'absolute',
-            top: 10,
-            left: '50%',
-            transform: 'translateX(-50%)',
-            background: 'linear-gradient(135deg, #f59e0b 0%, #eab308 100%)',
-            border: 'none',
-            color: '#000',
-            fontWeight: 700,
-            fontSize: 12,
-            textTransform: 'uppercase',
-            padding: '8px 20px',
-            borderRadius: 20,
-            cursor: 'pointer',
-            boxShadow: '0 4px 12px rgba(245, 158, 11, 0.35)',
-            animation: 'pulse 1s ease-in-out infinite',
-            pointerEvents: 'auto',
-            zIndex: 10,
-          }}
-          onClick={onSwitchToAiSparring}
-        >
-          🤖 Spar with Turing Benchmark AI
+      {/* ── 10s+ Turing AI Sparring Fallback CTA ─────────────────── */}
+      {queueSeconds >= 10 && (
+        <div style={{
+          width: '100%',
+          marginTop: 6,
+          padding: '10px 12px',
+          borderRadius: 10,
+          background: 'rgba(245, 158, 11, 0.12)',
+          border: '1px solid rgba(245, 158, 11, 0.3)',
+          textAlign: 'center',
+          animation: 'goldImpactShockwave 0.3s ease',
+        }}>
+          <div style={{ fontSize: 11, color: '#f59e0b', fontWeight: 600, marginBottom: 6 }}>
+            No peer found yet.
+          </div>
+          <button
+            onClick={onSwitchToAiSparring}
+            style={{
+              width: '100%',
+              padding: '6px 12px',
+              borderRadius: 6,
+              background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+              color: '#000',
+              fontWeight: 800,
+              fontSize: 12,
+              border: 'none',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 6,
+            }}
+          >
+            <span>🤖</span> Spar with Turing AI Instead
+          </button>
         </div>
       )}
     </div>
   );
 }
-
-// ── Companion CSS Keyframes (merge into src/components/pins/pins.css) ─────────────
-
-/*
-@keyframes ringPulse {
-  0%, 100% { opacity: 0.3 + 0.15 * 2; }
-  50% { opacity: 0.3 + 0.15 * 0; }
-}
-
-@keyframes beamSweep {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes pulseGlow {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.6; }
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.08); }
-}
-*/
