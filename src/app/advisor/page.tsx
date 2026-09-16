@@ -29,6 +29,7 @@ interface RecommendationItem {
 }
 
 interface AdvisorStats {
+  isDemo?: boolean;
   currentCgpa: number;
   predictedCgpa: number;
   backlogRisk: number;
@@ -41,6 +42,40 @@ interface AdvisorStats {
   inputs: AdvisorInputs;
   subjects: SubjectItem[];
   recommendations: RecommendationItem[];
+}
+
+function getDemoAdvisorStats(): AdvisorStats {
+  return {
+    isDemo: true,
+    currentCgpa: 7.5,
+    predictedCgpa: 7.7,
+    backlogRisk: 25,
+    attendanceRisk: 'Medium',
+    weakestSubject: 'Operating Systems',
+    learningSpeed: 'Normal',
+    placementReadiness: 'Medium',
+    burnoutRisk: 'Low',
+    recommendedStudyHours: 2.5,
+    inputs: {
+      attendance: 75,
+      internalMarks: 20,
+      previousSemesterCgpa: 7.2,
+      codingQuestsCompleted: 4,
+      aiInterviewScore: 66,
+      lmsProgress: 85,
+      studyTime: 2.5,
+    },
+    subjects: [
+      { name: 'Data Structures & Algorithms', attendance: 82, internals: 24, minInternals: 18, risk: 'Low' },
+      { name: 'Operating Systems', attendance: 71, internals: 19, minInternals: 18, risk: 'High' },
+      { name: 'Database Management Systems', attendance: 78, internals: 22, minInternals: 18, risk: 'Medium' },
+    ],
+    recommendations: [
+      { id: 'REC-DEMO-1', text: '[Demo] Attend next 3 lectures in Operating Systems to reach 75%', completed: false, impact: 25 },
+      { id: 'REC-DEMO-2', text: '[Demo] Complete Trees & Graphs coding quest', completed: false, impact: 15 },
+      { id: 'REC-DEMO-3', text: '[Demo] Revise SQL normalization before midterms', completed: false, impact: 10 },
+    ],
+  };
 }
 
 interface AtRiskStudent {
@@ -65,6 +100,7 @@ export default function AdvisorPage() {
   const { user } = useAuth();
   const activeRole = viewFromRole(user?.role);
   const [stats, setStats] = useState<AdvisorStats | null>(null);
+  const [isDemoMode, setIsDemoMode] = useState(false);
   const [loadError, setLoadError] = useState('');
   const [loading, setLoading] = useState(true);
 
@@ -124,16 +160,17 @@ export default function AdvisorPage() {
   async function loadAdvisorData() {
     setLoading(true);
     setLoadError('');
+    setIsDemoMode(false);
     try {
       const data = await api.get<AdvisorStats>('/api/advisor/performance');
       if (data && data.inputs && Array.isArray(data.subjects) && Array.isArray(data.recommendations)) {
         setStats(data);
+        setIsDemoMode(Boolean(data.isDemo));
         setSimAttendance(data.inputs.attendance ?? 0);
         setSimQuests(data.inputs.codingQuestsCompleted ?? 0);
         setSimStudyTime(data.inputs.studyTime ?? 0);
       } else {
         setStats(null);
-        setLoadError('Advisor performance data is not available yet.');
       }
     } catch {
       setStats(null);
@@ -142,6 +179,15 @@ export default function AdvisorPage() {
       setLoading(false);
     }
   }
+
+  const handleActivateDemo = () => {
+    const demo = getDemoAdvisorStats();
+    setStats(demo);
+    setIsDemoMode(true);
+    setSimAttendance(demo.inputs.attendance ?? 0);
+    setSimQuests(demo.inputs.codingQuestsCompleted ?? 0);
+    setSimStudyTime(demo.inputs.studyTime ?? 0);
+  };
 
   const handleQuestAction = async (recId: string) => {
     try {
@@ -194,8 +240,24 @@ export default function AdvisorPage() {
   const calculatedAttendanceRisk = simAttendance >= 80 ? 'Low' : simAttendance >= 75 ? 'Medium' : 'High';
 
   const emptyState = (
-    <div style={{ ...card, textAlign: 'center', color: 'var(--t2)', fontSize: 13, padding: 32 }}>
-      {loadError || 'No advisor records yet. Data appears after campus tables are connected.'}
+    <div style={{ ...card, textAlign: 'center', color: 'var(--t2)', fontSize: 13, padding: 36 }}>
+      <div style={{ fontSize: 36, marginBottom: 12 }}>📊</div>
+      <h3 style={{ fontSize: 16, fontWeight: 700, margin: '0 0 8px 0', color: 'var(--t1)' }}>
+        No Recorded Academic Data Yet
+      </h3>
+      <p style={{ maxWidth: 480, margin: '0 auto 20px auto', lineHeight: 1.6, color: 'var(--t3)', fontSize: 13 }}>
+        {loadError || 'The AI Academic Advisor calculates predictions from your official lecture attendance and exam marks once submitted by faculty. No official records have been published yet.'}
+      </p>
+      <button
+        onClick={handleActivateDemo}
+        style={{
+          padding: '10px 20px', borderRadius: 8, fontSize: 13, fontWeight: 700,
+          background: 'var(--accent)', color: '#fff', border: 'none',
+          cursor: 'pointer', boxShadow: 'var(--shadow-sm)'
+        }}
+      >
+        Try Interactive Sandbox (Demo Preview)
+      </button>
     </div>
   );
 
@@ -233,6 +295,31 @@ export default function AdvisorPage() {
       {activeRole === 'student' && stats && (
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: 20, alignItems: 'start' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            {(isDemoMode || stats.isDemo) && (
+              <div style={{
+                background: 'var(--amber-light)',
+                border: '1px solid var(--amber)',
+                color: 'var(--amber)',
+                padding: '12px 18px',
+                borderRadius: 12,
+                fontSize: 12.5,
+                fontWeight: 700,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}>
+                <span>⚠️ DEMO / SIMULATION MODE: Displaying sample academic data for sandbox demonstration. Not official grades.</span>
+                <button
+                  onClick={() => { setStats(null); setIsDemoMode(false); }}
+                  style={{
+                    background: 'none', border: '1px solid var(--amber)', color: 'var(--amber)',
+                    borderRadius: 6, padding: '4px 10px', fontSize: 11.5, cursor: 'pointer', fontWeight: 800
+                  }}
+                >
+                  Exit Demo
+                </button>
+              </div>
+            )}
             <div style={{
               background: 'var(--accent-light)', border: '1px solid var(--accent)', borderRadius: 16,
               padding: 20, display: 'flex', gap: 16, alignItems: 'flex-start'
