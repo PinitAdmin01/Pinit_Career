@@ -72,12 +72,7 @@ async function getUid(): Promise<string> {
       const activeUid = localStorage.getItem('pinit_active_uid');
       if (activeUid && typeof activeUid === 'string') return activeUid;
 
-      let guestUid = localStorage.getItem('pinit_guest_uid');
-      if (!guestUid) {
-        guestUid = 'guest_' + Math.random().toString(36).slice(2, 11);
-        localStorage.setItem('pinit_guest_uid', guestUid);
-      }
-      return guestUid;
+      // Strict fail-closed: Do NOT fabricate guest identities. Unauthenticated callers receive 401.
     } catch {
       // ignore malformed vault payload
     }

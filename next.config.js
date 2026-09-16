@@ -11,7 +11,7 @@
 // connect-src in BOTH files, then run `npm run audit:headers` to confirm.
 const CSP = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' 'unsafe-eval' https://*.supabase.co https://checkout.razorpay.com",
+  "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' 'unsafe-eval' https://*.supabase.co https://checkout.razorpay.com https://*.razorpay.com",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com data:",
   "img-src 'self' data: blob: https://*.supabase.co https://api.dicebear.com https://avatars.githubusercontent.com https://images.unsplash.com",
@@ -32,11 +32,13 @@ const CSP = [
     'https://*.supabase.co',
     'wss://*.supabase.co',
     'https://api.razorpay.com',
+    'https://lumberjack.razorpay.com',
+    'https://*.razorpay.com',
     'https://pinit-voice-service.onrender.com',
     'https://pinit-backend-v8pd.onrender.com',
     'https://api.github.com',
   ].join(' '),
-  "frame-src 'self' https://api.razorpay.com",
+  "frame-src 'self' https://api.razorpay.com https://checkout.razorpay.com https://*.razorpay.com",
   "frame-ancestors 'self'",
   "base-uri 'self'",
   "form-action 'self'",

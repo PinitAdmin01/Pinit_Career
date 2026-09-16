@@ -77,15 +77,13 @@ const LIVE_API_PREFIXES: readonly string[] = [
   '/api/user', '/api/webhooks', '/api/student',
 ];
 
-// NOTE: /api/admin is deliberately absent so client-side RBAC (profile.role)
-// always runs for admin screens.
+// All /api/* routes are authoritative on the live server (Vercel)
 const prefersLiveServer = (path: string): boolean =>
-  LIVE_API_PREFIXES.some((p) => path === p || path.startsWith(p + '/') || path.startsWith(p + '?'));
+  path.startsWith('/api/') || LIVE_API_PREFIXES.some((p) => path === p || path.startsWith(p + '/') || path.startsWith(p + '?'));
 
 async function request<T>(method:string, path:string, body?:unknown): Promise<T> {
-  // NOTE: /api/admin intentionally omitted from live-prefer list so client RBAC (profile.role) always runs.
   const preferLive = prefersLiveServer(path);
-  if (preferLive && !liveMissPrefixes.has(path)) {
+  if (preferLive) {
     try {
       let authHeader: Record<string, string> = {};
       try {
@@ -119,24 +117,20 @@ async function request<T>(method:string, path:string, body?:unknown): Promise<T>
         }
         return json as T;
       }
-      if (res.status === 404 || res.status === 405) {
-        liveMissPrefixes.add(path);
-        console.warn(`[API Client] Endpoint ${path} returned status ${res.status}. Falling back to client-side FirestoreRouter.`);
-      } else {
-        // Strict fail-closed: 400, 401, 403, 413, 429, 500 must throw ApiError and NEVER fall back to the shim
-        let errJson: any = null;
+      
+      // Strict fail-closed: All HTTP error statuses (400, 401, 403, 404, 405, 429, 500) fail honestly
+      let errJson: any = null;
+      try {
+        errJson = await res.json();
+      } catch {
         try {
-          errJson = await res.json();
-        } catch {
-          try {
-            const text = await res.text();
-            errJson = { message: text };
-          } catch {}
-        }
-        const errCode = errJson?.error || errJson?.code || `HTTP_${res.status}`;
-        const errMsg = errJson?.message || (typeof errJson?.error === 'string' ? errJson.error : `Request failed with status ${res.status}`);
-        throw new ApiError(res.status, errCode, errMsg, errJson?.details);
+          const text = await res.text();
+          errJson = { message: text };
+        } catch {}
       }
+      const errCode = errJson?.error || errJson?.code || `HTTP_${res.status}`;
+      const errMsg = errJson?.message || (typeof errJson?.error === 'string' ? errJson.error : `Request failed with status ${res.status}`);
+      throw new ApiError(res.status, errCode, errMsg, errJson?.details);
     } catch (err: any) {
       if (err instanceof ApiError) {
         throw err;
