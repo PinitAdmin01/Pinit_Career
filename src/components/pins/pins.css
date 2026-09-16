@@ -195,3 +195,23 @@
   animation: goldImpactShockwave 0.65s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;
   color: #fbbf24 !important;
 }
+
+
+/* ── Official PinIT Currency Pin SVG Animations ── */
+.pin-currency-breathe {
+  animation: pinCurrencyBreath 2.6s ease-in-out infinite;
+}
+
+@keyframes pinCurrencyBreath {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 3px rgba(245, 158, 11, 0.55)); }
+  50%      { transform: scale(1.14); filter: drop-shadow(0 0 9px rgba(245, 158, 11, 0.95)) brightness(1.12); }
+}
+
+.pin-currency-halo {
+  animation: pinCurrencyHaloSpin 8s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes pinCurrencyHaloSpin {
+  to { transform: rotate(360deg); }
+}

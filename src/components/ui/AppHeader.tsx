@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import PinsBadge from '@/components/pins/PinsBadge';
 import CoinStreamOverlay from '@/components/pins/CoinStreamOverlay';
+import FlyingPinsAnimation from '@/components/pins/FlyingPinsAnimation';
 import GearAudioHub from '@/components/nav/GearAudioHub';
 import { toast } from '@/lib/store/useAppStore';
 
@@ -198,6 +199,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           </span>
         )}
       </Link>
+      <FlyingPinsAnimation />
     </header>
   );
 };

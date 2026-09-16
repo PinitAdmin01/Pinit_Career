@@ -10,26 +10,30 @@ export interface CoinStreamOptions {
 }
 
 /**
- * Trigger flying golden coins animation flowing from purchase/claim button to topbar pin badge
+ * Trigger flying golden pins/coins animation flowing from purchase/claim button to topbar pin badge
  */
 export function triggerCoinStream(options: CoinStreamOptions = {}) {
   if (typeof window === 'undefined') return;
 
-  const event = new CustomEvent('pinit:coin-stream', {
-    detail: {
-      sourceCoords: options.sourceCoords || (options.sourceElement ? getElementCenter(options.sourceElement) : null),
-      targetCoords: options.targetCoords || (options.targetElement ? getElementCenter(options.targetElement) : null),
-      count: options.count || 18,
-    },
-  });
+  const detail = {
+    sourceCoords: options.sourceCoords || (options.sourceElement ? getElementCenter(options.sourceElement) : null),
+    targetCoords: options.targetCoords || (options.targetElement ? getElementCenter(options.targetElement) : null),
+    sourceElement: options.sourceElement || null,
+    targetElement: options.targetElement || null,
+    count: options.count || 18,
+    onComplete: options.onComplete,
+  };
 
-  window.dispatchEvent(event);
+  // Dispatch both events for maximum interoperability across systems
+  window.dispatchEvent(new CustomEvent('pinit:coin-stream', { detail }));
+  window.dispatchEvent(new CustomEvent('pinit:pin-stream', { detail }));
 
   if (options.onComplete) {
-    // Standard stream completes in ~1400ms
     setTimeout(options.onComplete, 1400);
   }
 }
+
+export const triggerPinStream = triggerCoinStream;
 
 function getElementCenter(el: HTMLElement): { x: number; y: number } | null {
   try {
