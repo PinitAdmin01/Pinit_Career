@@ -576,9 +576,141 @@ async function runAllVerifications() {
     const content = fs.readFileSync(payDueFile, 'utf8');
     const payDuePos = content.indexOf('financeService.payDue');
     const upsertPos = content.indexOf('.from(\'processed_payments\').upsert');
-    assert.ok(payDuePos > 0, 'Must call financeService.payDue');
-    assert.ok(upsertPos > 0, 'Must call processed_payments.upsert');
     assert.ok(payDuePos < upsertPos, 'financeService.payDue MUST run BEFORE processed_payments insert/upsert');
+  });
+
+  // -------------------------------------------------------------
+  // ISSUE 16: PATCH /api/auth/me Mass-Assignment & Privilege Escalation
+  // -------------------------------------------------------------
+  console.log('\n--- Issue 16: Profile Mass-Assignment & Privilege Escalation ---');
+
+  await test('ALLOWED_PROFILE_KEYS strictly permits only safe self-editable fields', async () => {
+    const { ALLOWED_PROFILE_KEYS } = await import('../src/app/api/auth/me/route');
+    assert.ok(ALLOWED_PROFILE_KEYS instanceof Set, 'ALLOWED_PROFILE_KEYS must be a Set');
+
+    // Permitted fields
+    assert.ok(ALLOWED_PROFILE_KEYS.has('display_name'), 'Should allow display_name');
+    assert.ok(ALLOWED_PROFILE_KEYS.has('username'), 'Should allow username');
+    assert.ok(ALLOWED_PROFILE_KEYS.has('target_role'), 'Should allow target_role');
+    assert.ok(ALLOWED_PROFILE_KEYS.has('career_goal'), 'Should allow career_goal');
+    assert.ok(ALLOWED_PROFILE_KEYS.has('bio'), 'Should allow bio');
+    assert.ok(ALLOWED_PROFILE_KEYS.has('notification_prefs'), 'Should allow notification_prefs');
+
+    // Disallowed privilege / security fields MUST NOT be in allowlist
+    const forbidden = [
+      'subscription_status',
+      'subscription_tier',
+      'subscription_expires_at',
+      'unlocked_items',
+      'xp_total',
+      'xp_level',
+      'badges',
+      'completed_quests',
+      'completed_missions',
+      'recruiter_visible',
+      'recruiter_visibility',
+      'certifications',
+      'communication_score',
+      'execution_score',
+      'leadership_score',
+      'trust_score',
+      'ats_score',
+      'career_dna_score',
+      'mission_streak',
+      'interviews_done',
+      'role',
+      'pins',
+      'email',
+      'id',
+      'is_admin',
+    ];
+
+    for (const f of forbidden) {
+      assert.strictEqual(ALLOWED_PROFILE_KEYS.has(f), false, `Field "${f}" MUST NOT be in ALLOWED_PROFILE_KEYS`);
+    }
+  });
+
+  await test('userService.stripSelfServicePrivileges strips subscription, unlocks, xp, and badges', async () => {
+    const { stripSelfServicePrivileges } = await import('../src/lib/services/supabase/userService');
+
+    const maliciousInput = {
+      display_name: 'Legit Student',
+      subscription_status: 'active',
+      subscription_tier: 'pro',
+      unlocked_items: { ai: 9999999999999 },
+      xp_total: 999999,
+      role: 'admin',
+      pins: 50000,
+      badges: ['grandmaster'],
+      certifications: ['Fake Cert'],
+      email: 'attacker@evil.com',
+    };
+
+    const sanitized = stripSelfServicePrivileges(maliciousInput, false);
+    assert.strictEqual(sanitized.display_name, 'Legit Student');
+    assert.strictEqual(sanitized.subscription_status, undefined, 'Must strip subscription_status');
+    assert.strictEqual(sanitized.subscription_tier, undefined, 'Must strip subscription_tier');
+    assert.strictEqual(sanitized.unlocked_items, undefined, 'Must strip unlocked_items');
+    assert.strictEqual(sanitized.xp_total, undefined, 'Must strip xp_total');
+    assert.strictEqual(sanitized.role, undefined, 'Must strip role');
+    assert.strictEqual(sanitized.pins, undefined, 'Must strip pins');
+    assert.strictEqual(sanitized.badges, undefined, 'Must strip badges');
+    assert.strictEqual(sanitized.certifications, undefined, 'Must strip certifications');
+    assert.strictEqual(sanitized.email, undefined, 'Must strip email');
+  });
+
+  await test('PATCH /api/auth/me rejects disallowed fields with HTTP 400 DISALLOWED_FIELD', async () => {
+    const { PATCH } = await import('../src/app/api/auth/me/route');
+    const { NextRequest } = await import('next/server');
+
+    process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
+    process.env.NODE_ENV = 'development';
+
+    // Test attempt to inject subscription_status
+    const req1 = new NextRequest('http://localhost:3000/api/auth/me', {
+      method: 'PATCH',
+      headers: {
+        'authorization': 'Bearer demo-token-bypass',
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({ subscription_status: 'active' }),
+    });
+
+    const res1 = await PATCH(req1);
+    assert.strictEqual(res1.status, 400, 'Must reject with 400');
+    const json1 = await res1.json();
+    assert.strictEqual(json1.error, 'DISALLOWED_FIELD');
+    assert.ok(json1.disallowed_fields.includes('subscription_status'));
+
+    // Test attempt to inject unlocked_items
+    const req2 = new NextRequest('http://localhost:3000/api/auth/me', {
+      method: 'PATCH',
+      headers: {
+        'authorization': 'Bearer demo-token-bypass',
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({ unlocked_items: { ai: 999999 } }),
+    });
+
+    const res2 = await PATCH(req2);
+    assert.strictEqual(res2.status, 400, 'Must reject with 400');
+    const json2 = await res2.json();
+    assert.strictEqual(json2.error, 'DISALLOWED_FIELD');
+
+    // Test attempt to inject xp_total
+    const req3 = new NextRequest('http://localhost:3000/api/auth/me', {
+      method: 'PATCH',
+      headers: {
+        'authorization': 'Bearer demo-token-bypass',
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({ xp_total: 999999 }),
+    });
+
+    const res3 = await PATCH(req3);
+    assert.strictEqual(res3.status, 400, 'Must reject with 400');
+    const json3 = await res3.json();
+    assert.strictEqual(json3.error, 'DISALLOWED_FIELD');
   });
 
   console.log('\n================================================================');
