@@ -29,11 +29,12 @@ export async function POST(req: Request) {
 
     const { reporterType, category, title, description, anonymous } = data;
 
-    const studentId = gated.user!.id;
+    const user = gated.user as any;
+    const studentId = user.id;
     const studentName = body?.reporterName?.trim() ||
-      gated.user!.user_metadata?.display_name ||
-      gated.user!.user_metadata?.full_name ||
-      gated.user!.email?.split('@')[0] ||
+      user.user_metadata?.display_name ||
+      user.user_metadata?.full_name ||
+      user.email?.split('@')[0] ||
       'Student';
 
     const result = await grievancesService.submit(studentId, studentName, reporterType, category, title, description, Boolean(anonymous));

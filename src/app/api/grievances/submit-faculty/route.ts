@@ -6,15 +6,16 @@ export async function POST(req: Request) {
   try {
     const gated = await requireUserFromRequest(req);
     if (gated.error) return gated.error;
+    const user = gated.user as any;
 
     const { title, category, description, anonymous } = await req.json();
-    const facultyName = gated.user!.user_metadata?.display_name ||
-      gated.user!.user_metadata?.full_name ||
-      gated.user!.email?.split('@')[0] ||
+    const facultyName = user.user_metadata?.display_name ||
+      user.user_metadata?.full_name ||
+      user.email?.split('@')[0] ||
       'Faculty Member';
 
     const result = await grievancesService.submit(
-      gated.user!.id,
+      user.id,
       facultyName,
       'faculty',
       category,

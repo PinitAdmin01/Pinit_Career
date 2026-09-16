@@ -7,12 +7,13 @@ export async function GET(req: Request) {
     const gated = await requireUserFromRequest(req);
     if (gated.error) return gated.error;
 
-    const studentId = gated.user!.id;
-    const role = (gated.user as any).role || gated.user!.user_metadata?.role || 'student';
+    const user = gated.user as any;
+    const studentId = user.id;
+    const role = user.role || user.user_metadata?.role || 'student';
     const isStaff = role === 'admin' || role === 'teacher' || role === 'faculty';
-    const studentName = gated.user!.user_metadata?.display_name ||
-      gated.user!.user_metadata?.full_name ||
-      gated.user!.email?.split('@')[0] ||
+    const studentName = user.user_metadata?.display_name ||
+      user.user_metadata?.full_name ||
+      user.email?.split('@')[0] ||
       'Student';
 
     const stats = await grievancesService.getStats(studentId, studentName, isStaff);
