@@ -1,3 +1,4 @@
+import PinCoin from '@/components/pins/PinCoin';
 'use client';
 // PinsEarnNotice — shows how many pins a page/action earns
 // Displayed at the top of earn-eligible pages to inform users
@@ -18,7 +19,7 @@ export default function PinsEarnNotice({ earnAmount, activity, description }: Pr
       borderRadius: 10,
       marginBottom: 16,
     }}>
-      <span style={{ fontSize: 18 }}>⚡</span>
+      <PinCoin size={20} glow />
       <div>
         <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--accent)', fontFamily: 'var(--font-mono)' }}>
           +{earnAmount} pins

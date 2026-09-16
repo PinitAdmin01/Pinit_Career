@@ -4,6 +4,8 @@ import { useState, useMemo, useCallback } from 'react';
 import Link from 'next/link';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { PIN_COSTS, PinTransaction } from '@/lib/hooks/usePinBalance';
+import PinCoin from '@/components/pins/PinCoin';
+import { triggerCoinStream } from '@/components/pins/coinAnimation';
 import { useAuth } from '@/lib/context/AuthContext';
 import { openRazorpayCheckout } from '@/lib/razorpay';
 import { api } from '@/lib/api/client';
@@ -133,10 +135,12 @@ function useCheckout(user: any, onSuccess: (pins: number, isPro?: boolean, bonus
             if (verifyRes.ok) {
               if (planId === 'pro') {
                 toast.success('🎉 Pro Pass Activated!', 'Welcome to Pro Career Accelerator! 120 Daily Pins active & 500 Bonus Pins in Vault.');
+                triggerCoinStream({ count: 24 });
                 onSuccess(0, true, 500);
               } else {
                 const credited = verifyRes.pinsGranted ?? 0;
-                toast.success(`+${credited} Pins Credited ⚡`, 'Your pin balance has been updated.');
+                toast.success(`+${credited} Pins Credited!`, 'Your pin balance has been updated.');
+                triggerCoinStream({ count: 18 });
                 onSuccess(credited, false, 0);
               }
             } else {
@@ -222,7 +226,7 @@ export default function PinsWalletPage() {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 14 }}>
         <div>
           <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 26, fontWeight: 900, color: 'var(--t1)', margin: 0, letterSpacing: '-0.02em' }}>
-            ⚡ Pins & Wallet
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}><PinCoin size={26} glow animate /> Pins & Wallet</span>
           </h1>
           <p style={{ margin: '4px 0 0', fontSize: 13, color: 'var(--t3)' }}>
             Active daily allowance & permanent Bonus Pins Vault.
@@ -231,13 +235,13 @@ export default function PinsWalletPage() {
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
           {/* Section 1: Active Daily Quota (Jio/Airtel model) */}
-          <div style={{
+          <div id="active-daily-pins-badge" style={{
             display: 'flex', alignItems: 'center', gap: 10,
             padding: '10px 16px', borderRadius: 14,
             background: pins < 20 ? 'rgba(239,68,68,0.1)' : 'rgba(99,102,241,0.1)',
             border: `1.5px solid ${pins < 20 ? 'rgba(239,68,68,0.3)' : 'rgba(99,102,241,0.25)'}`,
           }}>
-            <span style={{ fontSize: 22 }}>⚡</span>
+            <PinCoin size={26} glow animate />
             <div>
               <div style={{ fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--t3)' }}>
                 Active Daily Pins
@@ -325,7 +329,7 @@ export default function PinsWalletPage() {
           {/* ── Section: Pin Packs ─────────────────────────────────── */}
           <div>
             <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)', marginBottom: 14, display: 'flex', alignItems: 'center', gap: 8 }}>
-              ⚡ Pin Packs <span style={{ fontSize: 11, color: 'var(--t4)', fontWeight: 500 }}>— one-time top-up, never expires</span>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}><PinCoin size={18} glow /> Pin Packs</span> <span style={{ fontSize: 11, color: 'var(--t4)', fontWeight: 500 }}>— one-time top-up, never expires</span>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: 14 }}>
               {PIN_PACKS.map(pack => (
@@ -351,7 +355,7 @@ export default function PinsWalletPage() {
                   )}
                   <div style={{ fontSize: 11, fontWeight: 700, color: pack.color, textTransform: 'uppercase', letterSpacing: '0.06em' }}>{pack.label} Pack</div>
                   <div style={{ fontFamily: 'var(--font-mono)', fontSize: 32, fontWeight: 900, color: 'var(--t1)', lineHeight: 1 }}>
-                    {pack.pins.toLocaleString()} <span style={{ fontSize: 16 }}>⚡</span>
+                    <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}>{pack.pins.toLocaleString()} <PinCoin size={18} glow /></span>
                   </div>
                   <div style={{ fontSize: 11, color: 'var(--t4)' }}>₹{(pack.priceRs / pack.pins).toFixed(2)} per pin</div>
                   <button
@@ -395,7 +399,7 @@ export default function PinsWalletPage() {
 
               <div style={{ textAlign: 'center', padding: '14px 20px', background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.2)', borderRadius: 14, minWidth: 130 }}>
                 <div style={{ fontFamily: 'var(--font-mono)', fontSize: 26, fontWeight: 900, color: 'var(--accent)', lineHeight: 1 }}>
-                  {customPins.toLocaleString()} ⚡
+                  <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}>{customPins.toLocaleString()} <PinCoin size={20} glow /></span>
                 </div>
                 <div style={{ fontSize: 12, color: 'var(--t4)', marginTop: 4 }}>for ₹{customPrice}</div>
               </div>
@@ -514,12 +518,12 @@ export default function PinsWalletPage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 14 }}>
             <div style={{ background: 'var(--bg2)', border: '1px solid rgba(16,185,129,0.2)', borderRadius: 16, padding: '18px 20px' }}>
               <div style={{ fontSize: 10, color: 'var(--t4)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>Total Earned</div>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 26, fontWeight: 900, color: '#10b981' }}>+{totalEarned.toLocaleString()} ⚡</div>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 26, fontWeight: 900, color: '#10b981' }}>+{totalEarned.toLocaleString()} pins</div>
               <div style={{ fontSize: 10, color: 'var(--t4)' }}>{pinHistory.filter(t => t.type === 'earn').length} earn events</div>
             </div>
             <div style={{ background: 'var(--bg2)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: 16, padding: '18px 20px' }}>
               <div style={{ fontSize: 10, color: 'var(--t4)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>Total Spent</div>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 26, fontWeight: 900, color: '#ef4444' }}>-{totalSpent.toLocaleString()} ⚡</div>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 26, fontWeight: 900, color: '#ef4444' }}>-{totalSpent.toLocaleString()} pins</div>
               <div style={{ fontSize: 10, color: 'var(--t4)' }}>{pinHistory.filter(t => t.type === 'spend').length} spend events</div>
             </div>
             <div style={{ background: 'var(--bg2)', border: `1px solid ${effColor}30`, borderRadius: 16, padding: '18px 20px' }}>
@@ -595,7 +599,7 @@ export default function PinsWalletPage() {
                       </div>
                     </div>
                     <div style={{ fontFamily: 'var(--font-mono)', fontWeight: 900, fontSize: 14, color: tx.type === 'earn' ? '#10b981' : '#ef4444', flexShrink: 0 }}>
-                      {tx.type === 'earn' ? '+' : '-'}{tx.amount} ⚡
+                      <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>{tx.type === 'earn' ? '+' : '-'}{tx.amount} <PinCoin size={14} /></span>
                     </div>
                   </div>
                 ))}

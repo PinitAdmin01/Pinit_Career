@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import PinsBadge from '@/components/pins/PinsBadge';
+import CoinStreamOverlay from '@/components/pins/CoinStreamOverlay';
 import GearAudioHub from '@/components/nav/GearAudioHub';
 import { toast } from '@/lib/store/useAppStore';
 
