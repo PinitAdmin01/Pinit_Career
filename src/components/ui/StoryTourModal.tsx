@@ -165,7 +165,7 @@ export const TOUR_STEP_ROUTES: Record<number, string> = {
   5: '/leaderboard',
   6: '/interview',
   7: '/group-discussion',
-  8: '/learning',
+  8: '/learning?tab=twin',
   9: '/attention-span',
   10: '/friends',
   11: '/pins',

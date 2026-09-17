@@ -323,11 +323,17 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   const advanceTourSlide = useCallback((_auto = false) => {
     clearTourAdvanceTimer();
     setTourStep((s) => {
-      if (s >= TOUR_SLIDES.length - 1) {
+      const next = s + 1;
+      if (next >= TOUR_SLIDES.length) {
+        console.log('[PinIT Tour] 🏆 Reached final slide (' + TOUR_SLIDES.length + ' steps completed). Transitioning to Voice Registration...');
+        if (typeof window !== 'undefined') {
+          (window as any).__PINIT_STORY_TOUR_ACTIVE = false;
+        }
         openVoiceSegment();
         return s;
       }
-      return s + 1;
+      console.log('[PinIT Tour] ⏭️ Advancing slide from Step ' + (s + 1) + ' -> Step ' + (next + 1) + ' (' + TOUR_SLIDES[next]?.title + ') [auto=' + _auto + ']');
+      return next;
     });
   }, [openVoiceSegment, clearTourAdvanceTimer]);
 
@@ -339,39 +345,46 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     }
     pendingSpeechStepRef.current = tourStep;
 
+    const slide = TOUR_SLIDES[tourStep];
     const targetRoute = TOUR_STEP_ROUTES[tourStep];
+    console.log('[PinIT Tour] 🎬 Step ' + (tourStep + 1) + '/' + TOUR_SLIDES.length + ': "' + slide.title + '" -> targetRoute: ' + targetRoute);
+
     if (targetRoute && cleanPathRef.current !== targetRoute) {
+      console.log('[PinIT Tour] 🚀 Routing to tab: ' + targetRoute);
       router.push(targetRoute);
     }
 
-    const slide = TOUR_SLIDES[tourStep];
     const speechText = slide.text.replace(/\*\*/g, '').replace(/🎉|🏠|🛠️|🗺|⚡|🎙|🧬|🔬|🎯|💬|🚀|👋|🌅|✨|💙|⚔️|🏆|📖|🧠|🔔|👤|📚/g, '');
 
-    stopSpeaking(); // cancels any prior speech
+    // Stop any prior speech (force = true)
+    stopSpeaking(true);
 
-    // The route this slide's speech is targeted at. Auto-advance is
-    // blocked if the user has navigated away (route unmount).
-    
     expectedRouteRef.current = targetRoute || cleanPathRef.current;
+
+    clearTourAdvanceTimer();
+
+    // IMMEDIATE ROBUST FALLBACK TIMER:
+    // Ensures the tour NEVER stalls even if audio playback is blocked, muted, or synthesis times out!
+    const safeDuration = Math.max(8000, Math.min(22000, speechText.length * 85 + 3500));
+    console.log('[PinIT Tour] ⏱️ Armed auto-advance fallback timer (' + safeDuration + 'ms) for Step ' + (tourStep + 1));
+    tourFallbackTimerRef.current = setTimeout(() => {
+      console.warn('[PinIT Tour] ⏩ Fallback timer fired for Step ' + (tourStep + 1) + ' ("' + slide.title + '"). Auto-shifting to next tab!');
+      advanceTourSlide(true);
+    }, safeDuration);
 
     speakWithAvatar(speechText, teacherId, () => {
       setIsSpeaking(true);
-      clearTourAdvanceTimer();
-      // Safety fallback: if speech gets stalled or browser audio muted, auto-advance after estimated duration + 3s
-      const safeDuration = Math.max(7000, Math.min(18000, speechText.length * 80 + 3000));
-      tourFallbackTimerRef.current = setTimeout(() => {
-        advanceTourSlide(true);
-      }, safeDuration);
+      console.log('[PinIT Tour] 🗣️ Mentor narration started for Step ' + (tourStep + 1));
     }, () => {
       setIsSpeaking(false);
-      // onEnd: speech explanation completed cleanly.
-      // Auto-advance to next tab after a comfortable 2.2-second pause!
+      console.log('[PinIT Tour] 🎙️ Narration completed naturally for Step ' + (tourStep + 1) + '. Auto-advancing to next tab in 2.2s...');
       clearTourAdvanceTimer();
       tourAdvanceTimerRef.current = setTimeout(() => {
+        console.log('[PinIT Tour] ⏭️ 2.2s timer elapsed. Transitioning to next tab...');
         advanceTourSlide(true);
       }, 2200);
     });
-  }, [tourActive, tourStep, teacherId, router, clearTourAdvanceTimer]);
+  }, [tourActive, tourStep, teacherId, router, clearTourAdvanceTimer, advanceTourSlide]);
 
   // Speak tour slide out loud and automatically switch pages to show corresponding tab
   // NOTE: cleanPath/intentionally excluded from deps — it changes as a side-effect of
