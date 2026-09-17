@@ -166,9 +166,10 @@ async function runJavaJudge(body, uid) {
 
     // Server-authoritative completion record (§3.5/§3.6) — written here, by
     // this service, using the real compile+run result it just produced.
-    // Non-blocking: never delays or fails the response to the student.
+    // Anti-Cheat: Never trust client-supplied arbitrary XP numbers. Clamped strictly to canonical quest bounds.
+    const safeXp = typeof xp === 'number' && Number.isFinite(xp) && xp > 0 ? Math.min(150, Math.floor(xp)) : 100;
     if (passed && typeof questId === 'string' && questId && uid) {
-      persistJavaCompletionServerSide(uid, questId, typeof xp === 'number' ? xp : 120)
+      persistJavaCompletionServerSide(uid, questId, safeXp)
         .catch((e) => console.warn('[runJavaJudge] completion persistence rejected:', e && e.message));
     }
 

@@ -1,9 +1,11 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest, getBearerToken, getAuthoritativeSupabaseClient } from '@/lib/server/requireAuth';
+import { getAuthoritativeQuest, isAuthoritativeExam } from '@/lib/quests/questRegistry';
 
 /**
  * POST /api/quest/complete
  * DEF-074: Enforces a global cap of 3 completed quests per calendar day across the entire student profile.
+ * Hardened: Quest existence, XP amount, and exam category are resolved strictly from the server registry.
  */
 export async function POST(req: Request) {
   try {
@@ -23,17 +25,24 @@ export async function POST(req: Request) {
     }
     const questId = rawQuestId;
 
-    const isExam = Boolean(body?.isExam);
+    // Fail closed: Quest ID MUST exist in authoritative server registry
+    const registeredQuest = getAuthoritativeQuest(questId);
+    if (!registeredQuest) {
+      return NextResponse.json(
+        {
+          error: 'UNREGISTERED_QUEST',
+          message: `Quest '${questId}' does not exist in the authoritative quest registry.`,
+        },
+        { status: 400 }
+      );
+    }
+
+    // Never trust client-supplied XP or exam status: resolve authoritatively from registry
+    const safeXp = registeredQuest.xp;
+    const isExam = registeredQuest.category === 'exam' || isAuthoritativeExam(questId);
     const courseId = typeof body?.courseId === 'string' && body.courseId.trim()
       ? body.courseId.trim().slice(0, 80)
       : 'default-course';
-
-    // Anti-Cheat: Never trust arbitrary client-supplied XP numbers.
-    // Bound XP strictly between 10 and 150 (maximum allowable quest reward).
-    const parsedXp = Number(body?.xpAmount);
-    const safeXp = Number.isFinite(parsedXp) && parsedXp > 0
-      ? Math.min(150, Math.max(10, Math.floor(parsedXp)))
-      : 15;
 
     // Step 1: Fetch user profile
     const { data: profile, error: fetchErr } = await supabase

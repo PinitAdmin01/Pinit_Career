@@ -48,9 +48,8 @@ export async function executeJavaJudgeSuite(
         testCases,
         timeoutMs,
         // §3.5/§3.6: lets the server record the authoritative completion for
-        // THIS specific verified run, independent of any client-side call.
+        // THIS specific verified run using server-authoritative quest registry.
         questId,
-        xp
       })
     });
 

@@ -713,6 +713,94 @@ async function runAllVerifications() {
     assert.strictEqual(json3.error, 'DISALLOWED_FIELD');
   });
 
+  // -------------------------------------------------------------
+  // ISSUE 17: Quest Registry, Server-Owned Test Suites & Authoritative XP
+  // -------------------------------------------------------------
+  console.log('\n--- Issue 17: Quest Registry & Authoritative XP Integrity ---');
+
+  await test('getAuthoritativeQuest returns registered quest metadata and fails closed on unknown quests', async () => {
+    const { getAuthoritativeQuest, getAuthoritativeQuestXp, isAuthoritativeExam } = await import('../src/lib/quests/questRegistry');
+
+    // Known quest lookup
+    const q1 = getAuthoritativeQuest('fizzbuzz');
+    assert.ok(q1, 'fizzbuzz must exist in registry');
+    assert.strictEqual(q1.id, 'fizzbuzz');
+    assert.strictEqual(typeof q1.xp, 'number');
+    assert.ok(q1.xp > 0, 'XP must be positive');
+
+    // Unknown quest MUST return null
+    const unknown = getAuthoritativeQuest('fabricated-nonexistent-quest-999');
+    assert.strictEqual(unknown, null, 'Unknown quest must return null');
+
+    const unknownXp = getAuthoritativeQuestXp('fabricated-nonexistent-quest-999');
+    assert.strictEqual(unknownXp, null, 'Unknown quest XP must be null');
+
+    const unknownExam = isAuthoritativeExam('fabricated-nonexistent-quest-999');
+    assert.strictEqual(unknownExam, false, 'Unknown quest must not be treated as exam');
+  });
+
+  await test('POST /api/quest/complete rejects unregistered quests with HTTP 400 UNREGISTERED_QUEST', async () => {
+    const { POST } = await import('../src/app/api/quest/complete/route');
+    const { NextRequest } = await import('next/server');
+
+    process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
+    process.env.NODE_ENV = 'development';
+
+    const req = new NextRequest('http://localhost:3000/api/quest/complete', {
+      method: 'POST',
+      headers: {
+        'authorization': 'Bearer demo-token-bypass',
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        questId: 'attacker-fake-quest-xyz',
+        xpAmount: 999999,
+        isExam: true,
+      }),
+    });
+
+    const res = await POST(req);
+    assert.strictEqual(res.status, 400, 'Must reject with 400');
+    const json = await res.json();
+    assert.strictEqual(json.error, 'UNREGISTERED_QUEST');
+  });
+
+  await test('POST /api/code/run-java rejects unregistered quests with HTTP 400 UNREGISTERED_QUEST', async () => {
+    const { POST } = await import('../src/app/api/code/run-java/route');
+    const { NextRequest } = await import('next/server');
+
+    process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
+    process.env.NODE_ENV = 'development';
+
+    const req = new NextRequest('http://localhost:3000/api/code/run-java', {
+      method: 'POST',
+      headers: {
+        'authorization': 'Bearer demo-token-bypass',
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        code: 'public class Solution {}',
+        testSuite: 'public class Test { public static void main(String[] a){} }',
+        questId: 'attacker-fake-quest-999',
+        xp: 999999,
+      }),
+    });
+
+    const res = await POST(req);
+    assert.strictEqual(res.status, 400, 'Must reject with 400');
+    const json = await res.json();
+    assert.strictEqual(json.error, 'UNREGISTERED_QUEST');
+  });
+
+  await test('Edge function QUEST_METADATA contains canonical xp and pinCost for quests', async () => {
+    const edgeSuitesFile = path.join(process.cwd(), 'supabase', 'functions', 'verify-quest', 'questTestSuites.generated.ts');
+    assert.ok(fs.existsSync(edgeSuitesFile), 'questTestSuites.generated.ts must exist');
+    const content = fs.readFileSync(edgeSuitesFile, 'utf8');
+    assert.ok(content.includes('export const QUEST_METADATA'), 'Must export QUEST_METADATA');
+    assert.ok(content.includes('pinCost:'), 'Must include pinCost');
+    assert.ok(content.includes('xp:'), 'Must include xp');
+  });
+
   console.log('\n================================================================');
   console.log(`📊 FINAL RESULT: ${passedTests} / ${totalTests} TESTS PASSED`);
   console.log('================================================================\n');
