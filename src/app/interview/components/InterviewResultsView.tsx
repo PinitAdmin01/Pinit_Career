@@ -81,7 +81,7 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
           {[
             { key: 'round1', def: { title: 'Round 1: Behavioral', score: 82, verdict: 'Strong Communicator', metric: 'Spoken Q&A', badge: 'Behavioral' }, icon: '🗣️', color: 'var(--accent)' },
             { key: 'round2', def: { title: 'Round 2: Technical Sandbox', score: codeSubmitted ? 90 : 65, verdict: codeSubmitted ? 'Optimal Implementation' : 'Partial Draft', metric: codeSubmitted ? 'Tests Passed' : 'Incomplete', badge: 'Coding' }, icon: '💻', color: 'var(--pink)' },
-            { key: 'round3', def: { title: 'Round 3: System Canvas', score: latestTopology?.nodes?.length ? 85 : 60, verdict: latestTopology?.nodes?.length ? 'Viable Topology' : 'Basic Tiering', metric: `${latestTopology?.nodes?.length || 0} nodes wired`, badge: 'Systems' }, icon: '🏗️', color: 'var(--teal)' },
+            { key: 'round3', def: { title: 'Round 3: System Canvas', score: latestTopology?.nodes?.length ? 75 : 0, verdict: latestTopology?.nodes?.length ? 'Evaluated Topology' : 'Needs Work', metric: `${latestTopology?.nodes?.length || 0} nodes wired`, badge: 'Systems' }, icon: '🏗️', color: 'var(--teal)' },
             { key: 'round4', def: { title: 'Round 4: STAR Defense', score: Math.min(100, 50 + starStep * 15), verdict: starStep >= 3 ? 'Exemplary STAR' : 'Developing Structure', metric: `${starStep} STAR steps`, badge: 'STAR' }, icon: '⭐', color: 'var(--amber)' }
           ].map((r, idx) => {
             const roundData = evaluationResult?.perRoundScores?.[r.key] || r.def;
