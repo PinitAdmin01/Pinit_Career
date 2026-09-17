@@ -2421,13 +2421,19 @@ Format your response as a strict JSON object with these EXACT keys:
 }
 Ensure you return ONLY the JSON object. Do not include markdown code block formatting (like \`\`\`json).`;
 
+      const candidateMessages = (Array.isArray(history) ? history : []).filter(h => (h.role === 'SDE Candidate' || h.role === 'user') && h.content?.trim());
+      if (candidateMessages.length === 0) {
+        return {
+          score: 0,
+          verdict: 'The candidate did not participate or contribute to the boardroom discussion.',
+          gapsIdentified: ['No candidate contributions recorded during this session.'],
+          keyMoments: ['Candidate observed without speaking.'],
+          evaluated: false
+        };
+      }
+
       const reply = await callExternalLLM(history.map(h => ({ role: h.role === 'SDE Candidate' ? 'user' : 'assistant', content: h.content })), sysPrompt);
-      let parsed = {
-        score: 75,
-        verdict: 'Standard architectural layout approved.',
-        gapsIdentified: ['Distributed transaction limits', 'Data safety lock bounds'],
-        keyMoments: ['Candidate proposed caching layout solutions.']
-      };
+      let parsed: any = null;
       try {
         const firstBrace = reply.indexOf('{');
         const lastBrace = reply.lastIndexOf('}');
@@ -2441,15 +2447,20 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
       } catch (jsonErr) {
         console.warn("Failed to parse evaluation response JSON:", jsonErr);
       }
-      return parsed;
+      if (!parsed || typeof parsed.score !== 'number') {
+        throw new ApiError(503, 'AI_EVALUATION_FAILED', 'AI evaluation service failed to parse response');
+      }
+      return {
+        score: Math.max(0, Math.min(100, Math.round(parsed.score))),
+        verdict: String(parsed.verdict || 'Discussion completed.'),
+        gapsIdentified: Array.isArray(parsed.gapsIdentified) ? parsed.gapsIdentified : [],
+        keyMoments: Array.isArray(parsed.keyMoments) ? parsed.keyMoments : [],
+        evaluated: true
+      };
     } catch (err) {
       console.warn("Failed to generate boardroom evaluation:", err);
-      return {
-        score: 75,
-        verdict: 'Standard architectural layout approved.',
-        gapsIdentified: ['Distributed transaction limits', 'Data safety lock bounds'],
-        keyMoments: ['Candidate proposed caching layout solutions.']
-      };
+      if (err instanceof ApiError) throw err;
+      throw new ApiError(503, 'AI_UNAVAILABLE', 'AI evaluation service is currently unavailable');
     }
   }
 

@@ -1107,6 +1107,103 @@ async function runAllVerifications() {
     assert.ok(routerCode.includes('mergedAnswers = { ...existingAnswers'), 'legacy router must perform safe merge of onboarding answers');
   });
 
+  // -------------------------------------------------------------
+  // ISSUE 22: Group Discussion LLM Evaluation & Fail-Closed Defense
+  // -------------------------------------------------------------
+  console.log('\n--- Issue 22: Group Discussion LLM Evaluation & Fail-Closed Defense ---');
+  await test('POST /api/group-discussion/evaluate returns score 0 when candidate sends 0 messages', async () => {
+    const { POST: gdEvaluatePOST } = await import('../src/app/api/group-discussion/evaluate/route');
+    const { NextRequest } = await import('next/server');
+
+    const req = new NextRequest('http://localhost:3000/api/group-discussion/evaluate', {
+      method: 'POST',
+      headers: {
+        'authorization': 'Bearer demo-token-bypass',
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        roomId: 'Distributed Architecture',
+        roomDesc: 'High-throughput system debate',
+        domain: 'technical',
+        history: [
+          { sender: 'Vikram', role: 'architect', content: 'Welcome to the debate.' },
+          { sender: 'Priya', role: 'lead', content: 'Let us discuss latency SLAs.' }
+        ]
+      })
+    });
+
+    const res = await gdEvaluatePOST(req);
+    const json = await res.json();
+    assert.strictEqual(res.status, 200);
+    assert.strictEqual(json.score, 0, 'Zero candidate contributions MUST yield score 0, never 60');
+    assert.strictEqual(json.evaluated, false, 'Candidate who did not speak must have evaluated: false');
+    assert.ok(json.verdict.includes('did not contribute'), 'Verdict must reflect non-participation');
+  });
+
+  await test('POST /api/group-discussion/evaluate does NOT award 92 on 4 messages and fails closed (HTTP 503) when LLM offline', async () => {
+    const { POST: gdEvaluatePOST } = await import('../src/app/api/group-discussion/evaluate/route');
+    const { NextRequest } = await import('next/server');
+
+    const origGroq = process.env.GROQ_API_KEYS;
+    const origGroqSingle = process.env.GROQ_API_KEY;
+    const origOpenRouter = process.env.OPENROUTER_API_KEY;
+
+    try {
+      // Force offline / invalid LLM credentials
+      delete process.env.GROQ_API_KEYS;
+      delete process.env.GROQ_API_KEY;
+      delete process.env.GROQ_API_KEYS_A;
+      delete process.env.GROQ_API_KEYS_B;
+      delete process.env.OPENROUTER_API_KEY;
+
+      const req = new NextRequest('http://localhost:3000/api/group-discussion/evaluate', {
+        method: 'POST',
+        headers: {
+          'authorization': 'Bearer demo-token-bypass',
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          roomId: 'Distributed Cache Invalidation',
+          roomDesc: 'High-throughput cache invalidation strategy debate',
+          domain: 'technical',
+          history: [
+            { sender: 'Candidate', role: 'SDE Candidate', content: 'Message 1' },
+            { sender: 'Candidate', role: 'SDE Candidate', content: 'Message 2' },
+            { sender: 'Candidate', role: 'SDE Candidate', content: 'Message 3' },
+            { sender: 'Candidate', role: 'SDE Candidate', content: 'Message 4' },
+          ]
+        })
+      });
+
+      const res = await gdEvaluatePOST(req);
+      const json = await res.json();
+      assert.strictEqual(res.status, 503, 'Must return HTTP 503 when LLM service is offline/unavailable');
+      assert.strictEqual(json.ok, false, 'Must fail closed');
+      assert.strictEqual(json.error, 'AI_EVALUATION_OFFLINE', 'Must specify AI_EVALUATION_OFFLINE error code');
+      assert.notStrictEqual(json.score, 92, 'Must NEVER award fake 92 based on message count');
+      assert.notStrictEqual(json.score, 75, 'Must NEVER award fake 75 on failure');
+    } finally {
+      if (origGroq) process.env.GROQ_API_KEYS = origGroq;
+      if (origGroqSingle) process.env.GROQ_API_KEY = origGroqSingle;
+      if (origOpenRouter) process.env.OPENROUTER_API_KEY = origOpenRouter;
+    }
+  });
+
+  await test('GD evaluate routes do not contain naive count-based scoring or static 75 fallbacks', () => {
+    const routePath = path.join(process.cwd(), 'src/app/api/group-discussion/evaluate/route.ts');
+    const routeCode = fs.readFileSync(routePath, 'utf8');
+    assert.ok(!routeCode.includes('if (msgCount >= 4) score = 92;'), 'Must not contain naive message-count scoring');
+    assert.ok(!routeCode.includes('score = 60;'), 'Must not default 0 messages to 60');
+    assert.ok(!routeCode.includes('score: 75,'), 'Must not return fake 75 on error');
+    assert.ok(routeCode.includes('AI_EVALUATION_OFFLINE'), 'Must include AI_EVALUATION_OFFLINE fail-closed error');
+    assert.ok(routeCode.includes('llama-3.3-70b-versatile'), 'Must use llama-3.3-70b-versatile for evaluation');
+
+    const routerPath = path.join(process.cwd(), 'src/lib/api/legacyFirestoreRouter.ts');
+    const routerCode = fs.readFileSync(routerPath, 'utf8');
+    assert.ok(!routerCode.includes('score: 75,\n        verdict: \'Standard architectural layout approved.\''), 'Legacy router must not default to 75');
+    assert.ok(routerCode.includes('ApiError(503'), 'Legacy router must fail closed with ApiError(503)');
+  });
+
   console.log('\n================================================================');
   console.log(`📊 FINAL RESULT: ${passedTests} / ${totalTests} TESTS PASSED`);
   console.log('================================================================\n');

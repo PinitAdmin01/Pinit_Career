@@ -35,10 +35,27 @@
       "occupied": 1,
       "residents": [],
       "status": "full"
+    },
+    {
+      "code": "R-CAP-1789647486766",
+      "block": "Block Test",
+      "room": "101",
+      "capacity": 1,
+      "occupied": 1,
+      "residents": [],
+      "status": "full"
     }
   ],
   "allocations": [],
   "attendance": [
+    {
+      "id": "ATT-1789647486783-C4780F",
+      "student_id": "stu_h1_1789647486766",
+      "studentName": "Student H1",
+      "room": "R-CAP-1789647486766",
+      "type": "check-in",
+      "timestamp": "2026-09-17T12:18:06.784Z"
+    },
     {
       "id": "ATT-1789594848977-CB9B4A",
       "student_id": "stu_h1_1789594848964",

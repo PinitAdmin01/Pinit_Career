@@ -43,6 +43,17 @@
         "City Center"
       ],
       "timing": "08:00 AM"
+    },
+    {
+      "code": "R-VAL-1789647486786",
+      "name": "Metro Express",
+      "driverName": "Driver Dave",
+      "vehicle": "KA-01-9999",
+      "stops": [
+        "Main Gate",
+        "City Center"
+      ],
+      "timing": "08:00 AM"
     }
   ],
   "drivers": [],
@@ -62,6 +73,12 @@
     {
       "student_id": "stu_trans_1789594848979",
       "route": "R-VAL-1789594848979",
+      "stop": "Main Gate",
+      "status": "pending"
+    },
+    {
+      "student_id": "stu_trans_1789647486786",
+      "route": "R-VAL-1789647486786",
       "stop": "Main Gate",
       "status": "pending"
     }

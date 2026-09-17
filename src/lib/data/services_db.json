@@ -1,6 +1,16 @@
 {
   "leaves": [
     {
+      "id": "LEV-1789647486756-WH7V4",
+      "studentId": "srv_stu1_1789647486755",
+      "student_id": "srv_stu1_1789647486755",
+      "startDate": "2026-10-01",
+      "endDate": "2026-10-03",
+      "reason": "Viral Fever",
+      "type": "Medical Leave",
+      "status": "Pending"
+    },
+    {
       "id": "LEV-1789594848957-UTHY6",
       "studentId": "srv_stu1_1789594848955",
       "student_id": "srv_stu1_1789594848955",
@@ -44,6 +54,15 @@
   "requests": [],
   "appointments": [],
   "counselling": [
+    {
+      "id": "CNS-1789647486758-NC9D7",
+      "studentId": "srv_stu1_1789647486755",
+      "student_id": "srv_stu1_1789647486755",
+      "counselorName": "Counsellor_1789647486755",
+      "date": "2026-10-10",
+      "time": "10:00 AM",
+      "status": "Requested"
+    },
     {
       "id": "CNS-1789594848958-U6HDV",
       "studentId": "srv_stu1_1789594848955",

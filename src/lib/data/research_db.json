@@ -39,6 +39,16 @@
       "authors": "John Researcher",
       "journal": "CS Journal",
       "status": "Under Review"
+    },
+    {
+      "id": "PUB-1789647486752-NB2AY",
+      "studentId": "res_stu_1789647486752",
+      "student_id": "res_stu_1789647486752",
+      "submittedBy": "John Researcher",
+      "title": "Quantum ML Analysis",
+      "authors": "John Researcher",
+      "journal": "CS Journal",
+      "status": "Under Review"
     }
   ],
   "projects": [],

@@ -111,6 +111,34 @@
           "isAbsent": false
         }
       ]
+    },
+    "student_alpha_1789647486700": {
+      "isPublished": false,
+      "gpa": 7,
+      "results": [
+        {
+          "code": "MATH101",
+          "course": "MATH101",
+          "internals": 0,
+          "semester": 65,
+          "grade": "B+",
+          "isAbsent": false
+        }
+      ]
+    },
+    "student_beta_1789647486700": {
+      "isPublished": false,
+      "gpa": 6,
+      "results": [
+        {
+          "code": "PHYS101",
+          "course": "PHYS101",
+          "internals": 0,
+          "semester": 52,
+          "grade": "B",
+          "isAbsent": false
+        }
+      ]
     }
   },
   "schedule": [],
@@ -387,6 +415,20 @@
       "score": 78,
       "passed": true,
       "timestamp": 1789594848927
+    },
+    {
+      "studentId": "st_fail_1789647486703",
+      "examScheduleId": "EXAM_1789647486703",
+      "score": 35,
+      "passed": false,
+      "timestamp": 1789647486704
+    },
+    {
+      "studentId": "st_pass_1789647486703",
+      "examScheduleId": "EXAM_1789647486703",
+      "score": 78,
+      "passed": true,
+      "timestamp": 1789647486708
     }
   ]
 }

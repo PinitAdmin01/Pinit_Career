@@ -1,6 +1,18 @@
 {
   "tickets": [
     {
+      "id": "INF-1789647486791-1348BF",
+      "studentId": "stu_maint_1789647486791",
+      "reportedBy": "Marcus Brody",
+      "category": "Electrical",
+      "location": "Lab 3",
+      "description": "[HIGH] AC unit flickering",
+      "status": "Reported",
+      "date": "2026-09-17",
+      "technician": "",
+      "urgency": "High"
+    },
+    {
       "id": "INF-1789594848983-D686E3",
       "studentId": "stu_maint_1789594848982",
       "reportedBy": "Marcus Brody",
