@@ -373,12 +373,19 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
         <div style={{
           background: identityAuditReport.overallStatus === 'SENTINEL_CLEAN'
             ? 'linear-gradient(90deg, rgba(16, 185, 129, 0.12) 0%, rgba(56, 189, 248, 0.06) 100%)'
-            : identityAuditReport.overallStatus === 'IDENTITY_MISMATCH_FLAGGED'
+            : (identityAuditReport.overallStatus === 'IDENTITY_MISMATCH_FLAGGED' || identityAuditReport.overallStatus === 'REVIEW_REQUIRED')
             ? 'linear-gradient(90deg, rgba(239, 68, 68, 0.15) 0%, rgba(245, 158, 11, 0.08) 100%)'
+            : identityAuditReport.overallStatus === 'UNREADABLE_DOCUMENTS_REJECTED'
+            ? 'linear-gradient(90deg, rgba(239, 68, 68, 0.18) 0%, rgba(185, 28, 28, 0.10) 100%)'
+            : identityAuditReport.overallStatus === 'PROVISIONAL_PENDING'
+            ? 'linear-gradient(90deg, rgba(245, 158, 11, 0.12) 0%, rgba(56, 189, 248, 0.06) 100%)'
             : 'linear-gradient(90deg, rgba(56, 189, 248, 0.08) 0%, rgba(99, 102, 241, 0.05) 100%)',
           border: `1px solid ${
             identityAuditReport.overallStatus === 'SENTINEL_CLEAN' ? 'rgba(16, 185, 129, 0.35)' :
-            identityAuditReport.overallStatus === 'IDENTITY_MISMATCH_FLAGGED' ? 'rgba(239, 68, 68, 0.45)' : 'rgba(56, 189, 248, 0.25)'
+            (identityAuditReport.overallStatus === 'IDENTITY_MISMATCH_FLAGGED' || identityAuditReport.overallStatus === 'REVIEW_REQUIRED') ? 'rgba(239, 68, 68, 0.45)' :
+            identityAuditReport.overallStatus === 'UNREADABLE_DOCUMENTS_REJECTED' ? 'rgba(239, 68, 68, 0.55)' :
+            identityAuditReport.overallStatus === 'PROVISIONAL_PENDING' ? 'rgba(245, 158, 11, 0.35)' :
+            'rgba(56, 189, 248, 0.25)'
           }`,
           borderRadius: 14,
           padding: '10px 16px',
@@ -390,7 +397,10 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <span style={{ fontSize: 20 }}>
-              {identityAuditReport.overallStatus === 'SENTINEL_CLEAN' ? '🛡️' : identityAuditReport.overallStatus === 'IDENTITY_MISMATCH_FLAGGED' ? '⚠️' : '👤'}
+              {identityAuditReport.overallStatus === 'SENTINEL_CLEAN' ? '🛡️' :
+               (identityAuditReport.overallStatus === 'IDENTITY_MISMATCH_FLAGGED' || identityAuditReport.overallStatus === 'REVIEW_REQUIRED') ? '⚠️' :
+               identityAuditReport.overallStatus === 'UNREADABLE_DOCUMENTS_REJECTED' ? '❌' :
+               identityAuditReport.overallStatus === 'PROVISIONAL_PENDING' ? '📄' : '👤'}
             </span>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -422,8 +432,12 @@ export default function DocumentUploader(props: DocumentUploaderProps) {
                 </button>
               </div>
               <div style={{ fontSize: 11, color: '#cbd5e1', marginTop: 1 }}>
-                {identityAuditReport.overallStatus === 'IDENTITY_MISMATCH_FLAGGED'
-                  ? `${identityAuditReport.mismatchCount} document(s) have detected names that conflict with profile anchor.`
+                {identityAuditReport.overallStatus === 'IDENTITY_MISMATCH_FLAGGED' || identityAuditReport.overallStatus === 'REVIEW_REQUIRED'
+                  ? `${identityAuditReport.mismatchCount} document(s) have detected names that conflict with profile anchor and require verification review.`
+                  : identityAuditReport.overallStatus === 'UNREADABLE_DOCUMENTS_REJECTED'
+                  ? 'All uploaded documents are unreadable or lack verifiable text. Please upload clear documents.'
+                  : identityAuditReport.overallStatus === 'PROVISIONAL_PENDING'
+                  ? '1 document submitted (Provisional). Upload additional academic records to elevate trust.'
                   : identityAuditReport.overallStatus === 'SENTINEL_CLEAN'
                   ? `All ${identityAuditReport.totalDocuments} document(s) consistent with profile anchor.`
                   : 'Upload documents to establish verified candidate identity.'}

@@ -267,9 +267,14 @@ export function useOnboardingWizard() {
         `⚠️ Batch Upload: ${mismatchCount} Identity Mismatch Found`,
         `Detected differing candidate names. Check the Integrity tab.`
       );
+    } else if (newUploadedDocs.length === 0) {
+      toast.error(
+        'Upload Failed',
+        'Could not ingest any of the uploaded files. Please ensure files contain readable text.'
+      );
     } else {
       toast.success(
-        `✨ Auto-Sorted ${files.length} Document${files.length > 1 ? 's' : ''}!`,
+        `✨ Auto-Sorted ${newUploadedDocs.length} Document${newUploadedDocs.length > 1 ? 's' : ''}!`,
         `Stored in Supabase and categorized into academic, resume, and certification slots.`
       );
     }
