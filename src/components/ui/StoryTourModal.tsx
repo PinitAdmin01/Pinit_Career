@@ -106,7 +106,25 @@ export const TOUR_SLIDES: TourSlide[] = [
     text: "This is Attention Span — gamified cognitive endurance exercises. Train your deep focus, reaction speed, and stamina for long software development sessions.",
   },
 
-  // ── Segment 2: Left Nav Bottom Hubs ──
+  // ── Segment 2: Left Nav Bottom Hubs (In exact ordered sequence) ──
+  {
+    emoji: '👥',
+    title: 'Friends & Collaboration Hub',
+    tabKey: 'friends',
+    route: '/friends',
+    segment: 2,
+    segmentLabel: 'SEGMENT 2/3 · ESSENTIAL UTILITIES',
+    text: "This is Friends & Student Network — discover peers, send requests, chat directly, and team up for 1-on-1 arena duels and collaborative squad projects.",
+  },
+  {
+    emoji: '⚡',
+    title: 'Pins Economy & Wallet',
+    tabKey: 'pins',
+    route: '/pins',
+    segment: 2,
+    segmentLabel: 'SEGMENT 2/3 · ESSENTIAL UTILITIES',
+    text: "This is Pins & Wallet — track your earned Pins balance, unlock advanced AI mock interviews, and access premium socratic quests.",
+  },
   {
     emoji: '🔔',
     title: 'Notifications Hub',
@@ -114,25 +132,16 @@ export const TOUR_SLIDES: TourSlide[] = [
     route: '/notifications',
     segment: 2,
     segmentLabel: 'SEGMENT 2/3 · ESSENTIAL UTILITIES',
-    text: "This is Notifications — your instant dispatch center. Receive real-time alerts for quest rewards, streak milestones, recruiter views, and daily missions.",
-  },
-  {
-    emoji: '⚡',
-    title: 'Pins Economy & Upgrades',
-    tabKey: 'pins',
-    route: '/pins',
-    segment: 2,
-    segmentLabel: 'SEGMENT 2/3 · ESSENTIAL UTILITIES',
-    text: "This is Pins & Plans — Pins are your earned currency for consistency. Spend Pins to unlock premium quests, custom skill tests, and advanced AI features.",
+    text: "This is Notifications — your instant dispatch center. Receive real-time alerts for quest rewards, streak milestones, and peer challenges.",
   },
   {
     emoji: '👤',
-    title: 'Profile & Mentor Settings',
+    title: 'Profile & Career DNA',
     tabKey: 'profile',
     route: '/profile',
     segment: 2,
     segmentLabel: 'SEGMENT 2/3 · ESSENTIAL UTILITIES',
-    text: "This is your Profile — customize career preferences, manage credentials, view your full Career DNA, and select your AI mentor like Priya or Anish.",
+    text: "This is your Profile — view your verified credentials, manage career goals, view your full Career DNA, and select your AI mentor.",
   },
 
   // ── Segment 3: Academic Right Sidebar Drawer ──
@@ -158,10 +167,11 @@ export const TOUR_STEP_ROUTES: Record<number, string> = {
   7: '/group-discussion',
   8: '/learning',
   9: '/attention-span',
-  10: '/notifications',
+  10: '/friends',
   11: '/pins',
-  12: '/profile',
-  13: '/dashboard',
+  12: '/notifications',
+  13: '/profile',
+  14: '/dashboard',
 };
 
 // ── Build congratulations message from event payload ─────────────────────────

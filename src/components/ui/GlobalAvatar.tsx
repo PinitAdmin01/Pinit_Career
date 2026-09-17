@@ -63,6 +63,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   const lastSpokenTourStepRef = useRef<number | null>(null);
   const pendingSpeechStepRef = useRef<number | null>(null);
   const tourAdvanceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const tourFallbackTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   // The route the current tour slide's speech was spoken on. Auto-advance is
   // ONLY permitted when the speech genuinely finishes while still on this
   // route — navigating away / route unmount must NOT fake a completion.
@@ -221,10 +222,11 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
 
   // ── Auto-expand appropriate sidebars per tour segment ──────────────────────
   useEffect(() => {
-    if (!tourActive) return;
-    if (tourStep < 13) {
+    if (!tourActive || !TOUR_SLIDES[tourStep]) return;
+    const seg = TOUR_SLIDES[tourStep].segment;
+    if (seg === 1 || seg === 2) {
       onExpandLeftNav?.();
-    } else if (tourStep === 13) {
+    } else if (seg === 3) {
       onOpenRightSidebar?.();
     }
   }, [tourActive, tourStep, onExpandLeftNav, onOpenRightSidebar]);
@@ -303,6 +305,10 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
       clearTimeout(tourAdvanceTimerRef.current);
       tourAdvanceTimerRef.current = null;
     }
+    if (tourFallbackTimerRef.current) {
+      clearTimeout(tourFallbackTimerRef.current);
+      tourFallbackTimerRef.current = null;
+    }
   }, []);
 
   // Stable callback for tour completion — uses refs so it never changes identity
@@ -351,11 +357,19 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     speakWithAvatar(speechText, teacherId, () => {
       setIsSpeaking(true);
       clearTourAdvanceTimer();
+      // Safety fallback: if speech gets stalled or browser audio muted, auto-advance after estimated duration + 3s
+      const safeDuration = Math.max(7000, Math.min(18000, speechText.length * 80 + 3000));
+      tourFallbackTimerRef.current = setTimeout(() => {
+        advanceTourSlide(true);
+      }, safeDuration);
     }, () => {
       setIsSpeaking(false);
       // onEnd: speech explanation completed cleanly.
-      // Card remains visible so user can explore the tab and advance via 'Next ->' without premature skipping.
+      // Auto-advance to next tab after a comfortable 2.2-second pause!
       clearTourAdvanceTimer();
+      tourAdvanceTimerRef.current = setTimeout(() => {
+        advanceTourSlide(true);
+      }, 2200);
     });
   }, [tourActive, tourStep, teacherId, router, clearTourAdvanceTimer]);
 
@@ -480,6 +494,8 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
         '/group-discussion': "💬 **GD Practice** — Engage in boardroom debates against AI avatars to build speaking confidence and argument structure.",
         '/attention-span': "🧠 **Attention Span** — Gamified cognitive focus exercises to train your endurance and stamina for long engineering sprints.",
         '/notifications': "🔔 **Notifications** — Real-time alerts for quest rewards, streak milestones, recruiter profile views, and mission assignments.",
+        '/friends': "👥 **Friends & Network** — Connect with peers, challenge friends to 1v1 Arena Duels, collaborate on Squad Projects, and build your university network.",
+        '/pins': "⚡ **Pins & Wallet** — Track your earned Pins balance, recharge, and unlock premium AI features.",
         '/profile': "👤 **Profile** — Manage settings, configure vocal biometrics, inspect your Career DNA genome, and select your AI mentor personality.",
       };
 
