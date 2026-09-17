@@ -108,7 +108,7 @@ export function useLearningData() {
   const searchParams = useSearchParams();
 
   // Page level tabs: 'mistakes' | 'roadmap' | 'twin' | 'gaps' | 'memory'
-  const [activeTab, setActiveTab] = useState<'mistakes' | 'roadmap' | 'twin' | 'gaps' | 'memory'>('mistakes');
+  const [activeTab, setActiveTab] = useState<'mistakes' | 'roadmap' | 'twin' | 'gaps' | 'memory'>('twin');
   const [activeRole, setActiveRole] = useState<'student' | 'faculty'>('student');
   const [activeStep, setActiveStep] = useState<number>(0);
 
@@ -117,7 +117,11 @@ export function useLearningData() {
     const tabParam = searchParams.get('tab') as any;
     const validTabs = ['mistakes', 'roadmap', 'twin', 'gaps', 'memory'];
     if (tabParam && validTabs.includes(tabParam)) {
+      console.log('[Learning Hub] Switching sub-tab from query param to:', tabParam);
       setActiveTab(tabParam);
+    } else if (!tabParam) {
+      console.log('[Learning Hub] Defaulting sub-tab to twin for Career Blueprint view');
+      setActiveTab('twin');
     }
   }, [searchParams]);
 

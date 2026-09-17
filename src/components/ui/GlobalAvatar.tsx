@@ -63,6 +63,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   const lastSpokenTourStepRef = useRef<number | null>(null);
   const pendingSpeechStepRef = useRef<number | null>(null);
   const tourAdvanceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const tourFallbackTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   // The route the current tour slide's speech was spoken on. Auto-advance is
   // ONLY permitted when the speech genuinely finishes while still on this
   // route — navigating away / route unmount must NOT fake a completion.
@@ -221,10 +222,11 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
 
   // ── Auto-expand appropriate sidebars per tour segment ──────────────────────
   useEffect(() => {
-    if (!tourActive) return;
-    if (tourStep < 13) {
+    if (!tourActive || !TOUR_SLIDES[tourStep]) return;
+    const seg = TOUR_SLIDES[tourStep].segment;
+    if (seg === 1 || seg === 2) {
       onExpandLeftNav?.();
-    } else if (tourStep === 13) {
+    } else if (seg === 3) {
       onOpenRightSidebar?.();
     }
   }, [tourActive, tourStep, onExpandLeftNav, onOpenRightSidebar]);
@@ -303,6 +305,10 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
       clearTimeout(tourAdvanceTimerRef.current);
       tourAdvanceTimerRef.current = null;
     }
+    if (tourFallbackTimerRef.current) {
+      clearTimeout(tourFallbackTimerRef.current);
+      tourFallbackTimerRef.current = null;
+    }
   }, []);
 
   // Stable callback for tour completion — uses refs so it never changes identity
@@ -317,11 +323,17 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   const advanceTourSlide = useCallback((_auto = false) => {
     clearTourAdvanceTimer();
     setTourStep((s) => {
-      if (s >= TOUR_SLIDES.length - 1) {
+      const next = s + 1;
+      if (next >= TOUR_SLIDES.length) {
+        console.log('[PinIT Tour] 🏆 Reached final slide (' + TOUR_SLIDES.length + ' steps completed). Transitioning to Voice Registration...');
+        if (typeof window !== 'undefined') {
+          (window as any).__PINIT_STORY_TOUR_ACTIVE = false;
+        }
         openVoiceSegment();
         return s;
       }
-      return s + 1;
+      console.log('[PinIT Tour] ⏭️ Advancing slide from Step ' + (s + 1) + ' -> Step ' + (next + 1) + ' (' + TOUR_SLIDES[next]?.title + ') [auto=' + _auto + ']');
+      return next;
     });
   }, [openVoiceSegment, clearTourAdvanceTimer]);
 
@@ -333,31 +345,46 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     }
     pendingSpeechStepRef.current = tourStep;
 
+    const slide = TOUR_SLIDES[tourStep];
     const targetRoute = TOUR_STEP_ROUTES[tourStep];
+    console.log('[PinIT Tour] 🎬 Step ' + (tourStep + 1) + '/' + TOUR_SLIDES.length + ': "' + slide.title + '" -> targetRoute: ' + targetRoute);
+
     if (targetRoute && cleanPathRef.current !== targetRoute) {
+      console.log('[PinIT Tour] 🚀 Routing to tab: ' + targetRoute);
       router.push(targetRoute);
     }
 
-    const slide = TOUR_SLIDES[tourStep];
     const speechText = slide.text.replace(/\*\*/g, '').replace(/🎉|🏠|🛠️|🗺|⚡|🎙|🧬|🔬|🎯|💬|🚀|👋|🌅|✨|💙|⚔️|🏆|📖|🧠|🔔|👤|📚/g, '');
 
-    stopSpeaking(); // cancels any prior speech
+    // Stop any prior speech (force = true)
+    stopSpeaking(true);
 
-    // The route this slide's speech is targeted at. Auto-advance is
-    // blocked if the user has navigated away (route unmount).
-    
     expectedRouteRef.current = targetRoute || cleanPathRef.current;
+
+    clearTourAdvanceTimer();
+
+    // IMMEDIATE ROBUST FALLBACK TIMER:
+    // Ensures the tour NEVER stalls even if audio playback is blocked, muted, or synthesis times out!
+    const safeDuration = Math.max(8000, Math.min(22000, speechText.length * 85 + 3500));
+    console.log('[PinIT Tour] ⏱️ Armed auto-advance fallback timer (' + safeDuration + 'ms) for Step ' + (tourStep + 1));
+    tourFallbackTimerRef.current = setTimeout(() => {
+      console.warn('[PinIT Tour] ⏩ Fallback timer fired for Step ' + (tourStep + 1) + ' ("' + slide.title + '"). Auto-shifting to next tab!');
+      advanceTourSlide(true);
+    }, safeDuration);
 
     speakWithAvatar(speechText, teacherId, () => {
       setIsSpeaking(true);
-      clearTourAdvanceTimer();
+      console.log('[PinIT Tour] 🗣️ Mentor narration started for Step ' + (tourStep + 1));
     }, () => {
       setIsSpeaking(false);
-      // onEnd: speech explanation completed cleanly.
-      // Card remains visible so user can explore the tab and advance via 'Next ->' without premature skipping.
+      console.log('[PinIT Tour] 🎙️ Narration completed naturally for Step ' + (tourStep + 1) + '. Auto-advancing to next tab in 2.2s...');
       clearTourAdvanceTimer();
+      tourAdvanceTimerRef.current = setTimeout(() => {
+        console.log('[PinIT Tour] ⏭️ 2.2s timer elapsed. Transitioning to next tab...');
+        advanceTourSlide(true);
+      }, 2200);
     });
-  }, [tourActive, tourStep, teacherId, router, clearTourAdvanceTimer]);
+  }, [tourActive, tourStep, teacherId, router, clearTourAdvanceTimer, advanceTourSlide]);
 
   // Speak tour slide out loud and automatically switch pages to show corresponding tab
   // NOTE: cleanPath/intentionally excluded from deps — it changes as a side-effect of
@@ -480,6 +507,8 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
         '/group-discussion': "💬 **GD Practice** — Engage in boardroom debates against AI avatars to build speaking confidence and argument structure.",
         '/attention-span': "🧠 **Attention Span** — Gamified cognitive focus exercises to train your endurance and stamina for long engineering sprints.",
         '/notifications': "🔔 **Notifications** — Real-time alerts for quest rewards, streak milestones, recruiter profile views, and mission assignments.",
+        '/friends': "👥 **Friends & Network** — Connect with peers, challenge friends to 1v1 Arena Duels, collaborate on Squad Projects, and build your university network.",
+        '/pins': "⚡ **Pins & Wallet** — Track your earned Pins balance, recharge, and unlock premium AI features.",
         '/profile': "👤 **Profile** — Manage settings, configure vocal biometrics, inspect your Career DNA genome, and select your AI mentor personality.",
       };
 
