@@ -146,6 +146,16 @@ export async function GET(req: NextRequest) {
       }
     }
 
+    let blockedUserIds: string[] = [];
+    if (fs.existsSync(dbPath)) {
+      try {
+        const d = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+        if (Array.isArray(d.blockedUsers)) {
+          blockedUserIds = d.blockedUsers.map((b: any) => b.studentId);
+        }
+      } catch (e) {}
+    }
+    candidates = candidates.filter(c => c.id !== 'current_user' && !blockedUserIds.includes(c.id));
     const ranked = rankAndFilterStudents(CURRENT_STUDENT_PROFILE, candidates, filter);
 
     return NextResponse.json({

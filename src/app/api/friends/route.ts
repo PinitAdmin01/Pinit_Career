@@ -120,8 +120,15 @@ export async function POST(req: Request) {
     if (!targetStudentId) {
       return NextResponse.json({ ok: false, error: 'targetStudentId is required' }, { status: 400 });
     }
-
+    if (targetStudentId === 'current_user') {
+      return NextResponse.json({ ok: false, error: 'Cannot send a friend request to yourself' }, { status: 400 });
+    }
     const localData = getLocalData();
+    const dbCheck = localData;
+    const isBlocked = (dbCheck.blockedUsers || []).some((b: any) => b.studentId === targetStudentId);
+    if (isBlocked) {
+      return NextResponse.json({ ok: false, error: 'Cannot connect with a blocked student' }, { status: 403 });
+    }
     const existing = localData.friendships.find(
       (f: any) =>
         (f.requester_id === 'current_user' && f.addressee_id === targetStudentId) ||
@@ -129,6 +136,12 @@ export async function POST(req: Request) {
     );
 
     if (existing) {
+      if (existing.status === 'pending' && existing.requester_id === targetStudentId && existing.addressee_id === 'current_user') {
+        existing.status = 'accepted';
+        existing.updated_at = new Date().toISOString();
+        saveLocalData(localData);
+        return NextResponse.json({ ok: true, status: 'accepted', friendship: existing, message: 'Mutual request accepted! Connected as friends.' });
+      }
       return NextResponse.json({ ok: true, status: existing.status, message: 'Friendship already exists' });
     }
 
@@ -169,5 +182,35 @@ export async function DELETE(req: Request) {
     return NextResponse.json({ ok: true, removed: initialLen !== localData.friendships.length });
   } catch (err: any) {
     return NextResponse.json({ ok: false, error: err?.message || 'Failed to remove friendship' }, { status: 500 });
+  }
+}
+
+
+export async function PATCH(req: Request) {
+  try {
+    const body = await req.json().catch(() => ({}));
+    const { requestId, action } = body;
+    if (!requestId || !['accept', 'decline'].includes(action)) {
+      return NextResponse.json({ ok: false, error: 'requestId and valid action (accept/decline) are required' }, { status: 400 });
+    }
+    const localData = getLocalData();
+    const fIdx = (localData.friendships || []).findIndex((fr: any) => fr.id === requestId);
+    if (fIdx === -1) {
+      return NextResponse.json({ ok: false, error: 'Friend request not found' }, { status: 404 });
+    }
+    if (localData.friendships[fIdx].status !== 'pending') {
+      return NextResponse.json({ ok: false, error: 'Friend request has already been ' + localData.friendships[fIdx].status }, { status: 400 });
+    }
+    if (action === 'accept') {
+      localData.friendships[fIdx].status = 'accepted';
+      localData.friendships[fIdx].updated_at = new Date().toISOString();
+    } else {
+      localData.friendships[fIdx].status = 'declined';
+      localData.friendships[fIdx].updated_at = new Date().toISOString();
+    }
+    saveLocalData(localData);
+    return NextResponse.json({ ok: true, friendship: localData.friendships[fIdx], action });
+  } catch (err: any) {
+    return NextResponse.json({ ok: false, error: err?.message || 'Failed to process friend request' }, { status: 500 });
   }
 }

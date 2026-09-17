@@ -86,11 +86,21 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const { studentId, studentName, studentAvatar, projectName, role, message, commitmentHours } = body;
-
     if (!studentId || !projectName) {
       return NextResponse.json({ ok: false, error: 'studentId and projectName are required' }, { status: 400 });
     }
-
+    if (studentId === 'current_user') {
+      return NextResponse.json({ ok: false, error: 'Cannot invite yourself to your own squad project' }, { status: 400 });
+    }
+    const numHours = Number(commitmentHours ?? 5);
+    if (isNaN(numHours) || numHours < 1 || numHours > 60) {
+      return NextResponse.json({ ok: false, error: 'Commitment hours must be between 1 and 60 hours per week' }, { status: 400 });
+    }
+    const dbPreCheck = readDb();
+    const isBlocked = (dbPreCheck.blockedUsers || []).some((b: any) => b.studentId === studentId);
+    if (isBlocked) {
+      return NextResponse.json({ ok: false, error: 'Cannot invite a blocked student' }, { status: 403 });
+    }
     const db = readDb();
     if (!db.invitations) db.invitations = [];
 
@@ -124,18 +134,22 @@ export async function POST(req: NextRequest) {
 // ── PATCH: Accept or Decline a squad project invitation ──────────────────────
 export async function PATCH(req: NextRequest) {
   try {
-    const { inviteId, action } = await req.json();
-    if (!inviteId || !['accept', 'decline'].includes(action)) {
+    const body = await req.json().catch(() => ({}));
+    const { inviteId, invitationId, action } = body;
+    const effectiveId = inviteId || invitationId;
+    if (!effectiveId || !['accept', 'decline'].includes(action)) {
       return NextResponse.json({ ok: false, error: 'Invalid inviteId or action' }, { status: 400 });
     }
 
     const db = readDb();
-    const invIndex = (db.invitations || []).findIndex((i: any) => i.id === inviteId);
+    const invIndex = (db.invitations || []).findIndex((i: any) => i.id === effectiveId);
 
     if (invIndex === -1) {
       return NextResponse.json({ ok: false, error: 'Invitation not found' }, { status: 404 });
     }
-
+    if (db.invitations[invIndex].status !== 'pending') {
+      return NextResponse.json({ ok: false, error: 'Invitation has already been ' + db.invitations[invIndex].status }, { status: 400 });
+    }
     db.invitations[invIndex].status = action === 'accept' ? 'accepted' : 'declined';
     db.invitations[invIndex].responded_at = new Date().toISOString();
 

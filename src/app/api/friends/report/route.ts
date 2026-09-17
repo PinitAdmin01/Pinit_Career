@@ -1,4 +1,4 @@
-﻿import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
@@ -30,8 +30,14 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { reportedStudentId, reportedStudentName, reason, details } = body;
 
-    if (!reportedStudentId || !reason) {
-      return NextResponse.json({ ok: false, error: 'Student ID and Reason are required' }, { status: 400 });
+    if (!reportedStudentId || !reason || typeof reason !== 'string' || !reason.trim()) {
+      return NextResponse.json({ ok: false, error: 'Student ID and non-empty Reason are required' }, { status: 400 });
+    }
+    if (reportedStudentId === 'current_user') {
+      return NextResponse.json({ ok: false, error: 'Cannot report yourself' }, { status: 400 });
+    }
+    if (details && typeof details === 'string' && details.length > 2000) {
+      return NextResponse.json({ ok: false, error: 'Report details exceed maximum length of 2000 characters' }, { status: 400 });
     }
 
     const db = readDb();

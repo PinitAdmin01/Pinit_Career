@@ -70,6 +70,26 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: false, error: 'studentId and topic are required' }, { status: 400 });
     }
 
+    if (studentId === 'current_user') {
+      return NextResponse.json({ ok: false, error: 'Cannot challenge yourself to an arena duel' }, { status: 400 });
+    }
+
+    const numWager = Number(wagerXP ?? 100);
+    if (isNaN(numWager) || numWager < 0 || numWager > 1000) {
+      return NextResponse.json({ ok: false, error: 'Wager XP must be a valid number between 0 and 1000 XP' }, { status: 400 });
+    }
+
+    const numTime = Number(timeLimit ?? 20);
+    if (isNaN(numTime) || numTime < 5 || numTime > 120) {
+      return NextResponse.json({ ok: false, error: 'Time limit must be between 5 and 120 minutes' }, { status: 400 });
+    }
+
+    const dbCheck = readDb();
+    const isBlocked = (dbCheck.blockedUsers || []).some((b: any) => b.studentId === studentId);
+    if (isBlocked) {
+      return NextResponse.json({ ok: false, error: 'Cannot challenge a blocked student' }, { status: 403 });
+    }
+
     const db = readDb();
     if (!db.invitations) db.invitations = [];
 
@@ -114,6 +134,10 @@ export async function PATCH(req: NextRequest) {
 
     if (invIndex === -1) {
       return NextResponse.json({ ok: false, error: 'Challenge not found' }, { status: 404 });
+    }
+
+    if (db.invitations[invIndex].status !== 'pending') {
+      return NextResponse.json({ ok: false, error: `Challenge has already been ${db.invitations[invIndex].status}` }, { status: 400 });
     }
 
     db.invitations[invIndex].status = action === 'accept' ? 'accepted' : 'declined';

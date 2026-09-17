@@ -81,6 +81,20 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: false, error: 'receiverId and non-empty message are required' }, { status: 400 });
     }
 
+    if (receiverId === 'current_user') {
+      return NextResponse.json({ ok: false, error: 'Cannot send a direct message to yourself' }, { status: 400 });
+    }
+
+    if (message.length > 2000) {
+      return NextResponse.json({ ok: false, error: 'Message exceeds maximum length of 2000 characters' }, { status: 400 });
+    }
+
+    const dbCheck = readDb();
+    const isBlocked = (dbCheck.blockedUsers || []).some((b: any) => b.studentId === receiverId);
+    if (isBlocked) {
+      return NextResponse.json({ ok: false, error: 'Cannot message a blocked student' }, { status: 403 });
+    }
+
     const db = readDb();
     if (!db.directMessages) db.directMessages = [];
 

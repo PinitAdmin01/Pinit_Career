@@ -44,14 +44,32 @@ export default function FriendsPage() {
     { id: 'req-02', studentId: 'rohan_verma', name: 'Rohan Verma', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Rohan', college: 'BMS College of Engineering', course: 'B.E. ISE', skills: ['Python', 'Docker', 'FastAPI'] }
   ]);
 
-  const handleAcceptRequest = (reqId: string, name: string) => {
+  const handleAcceptRequest = async (reqId: string, name: string) => {
     setIncomingRequestsList(prev => prev.filter(r => r.id !== reqId));
     toast.success('Friend Request Accepted', 'Connected with ' + name + '!');
+    try {
+      await fetch('/api/friends', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ requestId: reqId, action: 'accept' })
+      });
+    } catch (e) {
+      console.error('Error accepting friend request:', e);
+    }
   };
 
-  const handleDeclineRequest = (reqId: string) => {
+  const handleDeclineRequest = async (reqId: string) => {
     setIncomingRequestsList(prev => prev.filter(r => r.id !== reqId));
     toast.info('Request Dismissed', 'Friend request removed.');
+    try {
+      await fetch('/api/friends', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ requestId: reqId, action: 'decline' })
+      });
+    } catch (e) {
+      console.error('Error declining friend request:', e);
+    }
   };
 
   // ── Reference Data Matching Screenshot ──────────────────────────────────
