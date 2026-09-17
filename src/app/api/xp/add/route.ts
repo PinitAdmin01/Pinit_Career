@@ -73,6 +73,34 @@ export async function POST(req: Request) {
       );
     }
 
+    // Dedicated Authoritative Endpoints Protection:
+    // Quests, exams, and milestones MUST be awarded through their respective
+    // authoritative verification endpoints (/api/quest/complete, /api/code/run-java, /api/user/award-badge).
+    const DEDICATED_ENDPOINT_ACTIONS = new Set(['quest', 'exam', 'milestone']);
+    if (actionType && DEDICATED_ENDPOINT_ACTIONS.has(actionType)) {
+      return NextResponse.json(
+        {
+          ok: false,
+          error: 'DEDICATED_ENDPOINT_REQUIRED',
+          message: `XP for '${actionType}' cannot be directly minted via /api/xp/add. You must complete the activity through its dedicated verification endpoint.`,
+        },
+        { status: 403 }
+      );
+    }
+
+    // Unverified client micro-interactions cannot exceed 50 XP per grant
+    const isVerifiedEvent = Boolean(body?.verifiedProof || body?.proofToken);
+    if (!isVerifiedEvent && amount > 50) {
+      return NextResponse.json(
+        {
+          ok: false,
+          error: 'UNVERIFIED_XP_LIMIT_EXCEEDED',
+          message: 'Unverified client XP awards are capped at 50 XP per action to prevent runaway inflation.',
+        },
+        { status: 400 }
+      );
+    }
+
     const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
     const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 
@@ -100,7 +128,16 @@ export async function POST(req: Request) {
       .eq('user_id', userId)
       .gte('created_at', startOfDay.toISOString());
 
-    if (!ledgerQueryErr && Array.isArray(todayRecords)) {
+    // Fail-closed defense: If ledger cannot be queried, do NOT grant XP
+    if (ledgerQueryErr) {
+      console.error('[XP Add] Failed to query xp_ledger for daily cap:', ledgerQueryErr.message);
+      return NextResponse.json(
+        { ok: false, error: 'LEDGER_QUERY_FAILED', message: 'Unable to verify daily XP limits. Request refused.' },
+        { status: 503 }
+      );
+    }
+
+    if (Array.isArray(todayRecords)) {
       const todayTotal = todayRecords.reduce((sum, r) => sum + (Number(r.amount) || 0), 0);
       if (todayTotal + amount > DAILY_XP_MAX_CAP) {
         return NextResponse.json(

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { createClient } from '@supabase/supabase-js';
+import { getRegisteredMilestone } from '@/lib/badges/badgeRegistry';
 
 /**
  * Server-Authoritative Prestige Badge & Milestone Endpoint (DEF-049).
@@ -28,6 +29,19 @@ export async function POST(req: Request) {
       );
     }
 
+    // Authoritative Badge & Milestone Registry Validation
+    const registeredMilestone = getRegisteredMilestone(milestoneKey);
+    if (!registeredMilestone || registeredMilestone.badgeId !== badgeId) {
+      return NextResponse.json(
+        {
+          ok: false,
+          error: 'UNREGISTERED_BADGE',
+          message: `Badge '${badgeId}' or milestone '${milestoneKey}' is not recognized in the authoritative registry.`,
+        },
+        { status: 400 }
+      );
+    }
+
     const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
     const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 
@@ -44,6 +58,33 @@ export async function POST(req: Request) {
     });
 
     const userId = gated.user!.id;
+
+    // Verify student eligibility from actual profile state
+    const { data: userProfile, error: userErr } = await admin
+      .from('users')
+      .select('id, trust_score, mission_streak, completed_quests, interviews_done, badges')
+      .eq('id', userId)
+      .maybeSingle();
+
+    if (userErr) {
+      console.error('[Award Badge] Failed to fetch user profile:', userErr.message);
+      return NextResponse.json(
+        { ok: false, error: 'PROFILE_VERIFICATION_FAILED', message: 'Could not verify student milestone requirements.' },
+        { status: 500 }
+      );
+    }
+
+    const eligibility = registeredMilestone.verify(userProfile || {});
+    if (!eligibility.eligible) {
+      return NextResponse.json(
+        {
+          ok: false,
+          error: 'MILESTONE_REQUIREMENTS_NOT_MET',
+          message: eligibility.reason || 'Prerequisites for this prestige badge have not been met.',
+        },
+        { status: 403 }
+      );
+    }
 
     const { data: rpcRes, error: rpcErr } = await admin.rpc('award_prestige_badge', {
       p_user_id: userId,

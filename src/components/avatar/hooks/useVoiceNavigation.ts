@@ -268,6 +268,20 @@ const ROUTE_VOCABULARY: RouteEntry[] = [
 
   // ── Bottom Nav & Misc ──
   {
+    path: '/leaderboard',
+    displayName: 'Leaderboard & Leagues',
+    synonyms: [
+      'leaderboard', 'leader board', 'leagues', 'rankings', 'ranks', 'weekly league', 'leaderboard tab', 'leagues tab', 'student leaderboard'
+    ],
+  },
+  {
+    path: '/attention-span',
+    displayName: 'Attention Span',
+    synonyms: [
+      'attention span', 'attention', 'focus trainer', 'cognitive endurance', 'attention tab', 'focus tab', 'brain drills'
+    ],
+  },
+  {
     path: '/analytics',
     displayName: 'Analytics',
     synonyms: [

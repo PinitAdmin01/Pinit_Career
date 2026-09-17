@@ -801,6 +801,143 @@ async function runAllVerifications() {
     assert.ok(content.includes('xp:'), 'Must include xp');
   });
 
+  // -------------------------------------------------------------
+  // ISSUE 18: Authoritative Badge Registry & Fail-Closed XP Defense
+  // -------------------------------------------------------------
+  console.log('\n--- Issue 18: Authoritative Badge Registry & Fail-Closed XP Defense ---');
+
+  await test('BADGE_REGISTRY contains canonical badges and fails closed on unknown milestones', async () => {
+    const { getRegisteredBadge, getRegisteredMilestone, verifyMilestoneEligibility } = await import('../src/lib/badges/badgeRegistry');
+    const badge = getRegisteredBadge('trust_sentinel_99');
+    assert.ok(badge, 'trust_sentinel_99 must be registered');
+    assert.strictEqual(badge.milestoneKey, 'trust_score_99');
+    assert.strictEqual(badge.xpBonus, 500);
+
+    const unknownBadge = getRegisteredBadge('arbitrary_loop_key_123');
+    assert.strictEqual(unknownBadge, undefined, 'Unknown badge must return undefined');
+
+    const unknownMilestone = getRegisteredMilestone('arbitrary_loop_milestone_456');
+    assert.strictEqual(unknownMilestone, undefined, 'Unknown milestone must return undefined');
+
+    // Test eligibility verifier
+    const ineligible = verifyMilestoneEligibility('trust_score_99', { trust_score: 50 });
+    assert.strictEqual(ineligible.eligible, false);
+
+    const eligible = verifyMilestoneEligibility('trust_score_99', { trust_score: 100 });
+    assert.strictEqual(eligible.eligible, true);
+  });
+
+  await test('POST /api/user/award-badge rejects unregistered badges with HTTP 400 UNREGISTERED_BADGE', async () => {
+    const { POST } = await import('../src/app/api/user/award-badge/route');
+    const { NextRequest } = await import('next/server');
+
+    process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
+    process.env.NODE_ENV = 'development';
+
+    const req = new NextRequest('http://localhost:3000/api/user/award-badge', {
+      method: 'POST',
+      headers: {
+        'authorization': 'Bearer demo-token-bypass',
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        badgeId: 'forged_arbitrary_badge_loop',
+        milestoneKey: 'forged_arbitrary_milestone_loop',
+      }),
+    });
+
+    const res = await POST(req);
+    assert.strictEqual(res.status, 400, 'Must reject with 400');
+    const json = await res.json();
+    assert.strictEqual(json.error, 'UNREGISTERED_BADGE');
+  });
+
+  await test('POST /api/user/award-badge rejects unearned milestones with HTTP 403 MILESTONE_REQUIREMENTS_NOT_MET', async () => {
+    const { POST } = await import('../src/app/api/user/award-badge/route');
+    const { NextRequest } = await import('next/server');
+
+    process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
+    process.env.NODE_ENV = 'development';
+
+    // Demo user does not have trust_score >= 99 (or will be checked by verifier)
+    const req = new NextRequest('http://localhost:3000/api/user/award-badge', {
+      method: 'POST',
+      headers: {
+        'authorization': 'Bearer demo-token-bypass',
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        badgeId: 'trust_sentinel_99',
+        milestoneKey: 'trust_score_99',
+      }),
+    });
+
+    const res = await POST(req);
+    // When DB is unreachable or user has no trust score >= 99, must reject with 403 or 500, NOT grant 500 XP
+    assert.ok(res.status === 403 || res.status === 500 || res.status === 503, `Status must be 403/500/503, got ${res.status}`);
+    const json = await res.json();
+    assert.notStrictEqual(json.ok, true, 'Must not award unearned milestone');
+  });
+
+  await test('POST /api/xp/add rejects direct minting of quest / exam / milestone XP with HTTP 403', async () => {
+    const { POST } = await import('../src/app/api/xp/add/route');
+    const { NextRequest } = await import('next/server');
+
+    process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
+    process.env.NODE_ENV = 'development';
+
+    const req = new NextRequest('http://localhost:3000/api/xp/add', {
+      method: 'POST',
+      headers: {
+        'authorization': 'Bearer demo-token-bypass',
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        amount: 50,
+        actionType: 'quest',
+        reason: 'Attempt to bypass quest verification',
+      }),
+    });
+
+    const res = await POST(req);
+    assert.strictEqual(res.status, 403, 'Must reject with 403');
+    const json = await res.json();
+    assert.strictEqual(json.error, 'DEDICATED_ENDPOINT_REQUIRED');
+  });
+
+  await test('POST /api/xp/add caps unverified client awards at 50 XP', async () => {
+    const { POST } = await import('../src/app/api/xp/add/route');
+    const { NextRequest } = await import('next/server');
+
+    process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
+    process.env.NODE_ENV = 'development';
+
+    const req = new NextRequest('http://localhost:3000/api/xp/add', {
+      method: 'POST',
+      headers: {
+        'authorization': 'Bearer demo-token-bypass',
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        amount: 250,
+        actionType: 'general',
+        reason: 'Unverified client addition without proof',
+      }),
+    });
+
+    const res = await POST(req);
+    assert.strictEqual(res.status, 400, 'Must reject with 400');
+    const json = await res.json();
+    assert.strictEqual(json.error, 'UNVERIFIED_XP_LIMIT_EXCEEDED');
+  });
+
+  await test('POST /api/xp/add code enforces fail-closed handling on xp_ledger query error', async () => {
+    const routeFile = path.join(process.cwd(), 'src', 'app', 'api', 'xp', 'add', 'route.ts');
+    const code = fs.readFileSync(routeFile, 'utf8');
+    assert.ok(code.includes('if (ledgerQueryErr)'), 'Must check ledgerQueryErr');
+    assert.ok(code.includes('LEDGER_QUERY_FAILED'), 'Must return LEDGER_QUERY_FAILED on error');
+  });
+
   console.log('\n================================================================');
   console.log(`📊 FINAL RESULT: ${passedTests} / ${totalTests} TESTS PASSED`);
   console.log('================================================================\n');
