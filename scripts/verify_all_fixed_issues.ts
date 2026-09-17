@@ -1237,6 +1237,40 @@ async function runAllVerifications() {
     assert.strictEqual(normalizeRoleKey('Head of Happiness', 'non_tech'), 'general_non_tech');
   });
 
+  // -------------------------------------------------------------
+  // ISSUE 24: Telemetry Diagnostics Honest Absent Assessment
+  // -------------------------------------------------------------
+  console.log('\n--- Issue 24: Telemetry Diagnostics Honest Absent Assessment ---');
+  await test('generateTelemetryDiagnostics does NOT invent metrics when telemetry is absent', async () => {
+    const { generateTelemetryDiagnostics } = await import('../src/lib/interview/scoringMatrix');
+
+    // 1. Completely absent telemetry
+    const absentDiag = generateTelemetryDiagnostics();
+    assert.strictEqual(absentDiag.deliveryStatus, 'Not Assessed');
+    assert.ok(absentDiag.practiceAdvice[0].includes('Camera off, delivery not assessed'));
+    assert.ok(!absentDiag.signals.some(s => s.value === '125 WPM'), 'Must NOT invent 125 WPM');
+    assert.ok(!absentDiag.signals.some(s => s.value === '0 filler words'), 'Must NOT invent 0 filler words');
+    assert.ok(!absentDiag.signals.some(s => s.value === 'Centered Focus'), 'Must NOT invent Centered Focus');
+
+    // 2. Empty object telemetry
+    const emptyDiag = generateTelemetryDiagnostics({});
+    assert.strictEqual(emptyDiag.deliveryStatus, 'Not Assessed');
+
+    // 3. Audio only (no camera)
+    const audioOnlyDiag = generateTelemetryDiagnostics({ wpm: 130, fillerWords: 1 });
+    assert.strictEqual(audioOnlyDiag.deliveryStatus, 'Optimal');
+    const cameraSignal = audioOnlyDiag.signals.find(s => s.metric === 'Camera & Presence');
+    assert.ok(cameraSignal, 'Must have camera presence signal');
+    assert.strictEqual(cameraSignal?.value, 'Camera Off', 'Must indicate camera off');
+    assert.ok(cameraSignal?.diagnostic.includes('Camera off, delivery not assessed'));
+
+    // 4. Full telemetry present
+    const fullDiag = generateTelemetryDiagnostics({ eyeContact: 85, wpm: 140, fillerWords: 0 });
+    assert.strictEqual(fullDiag.deliveryStatus, 'Optimal');
+    assert.ok(fullDiag.signals.some(s => s.value === '140 WPM'));
+    assert.ok(fullDiag.signals.some(s => s.value === 'Centered Focus'));
+  });
+
   console.log('\n================================================================');
   console.log(`📊 FINAL RESULT: ${passedTests} / ${totalTests} TESTS PASSED`);
   console.log('================================================================\n');

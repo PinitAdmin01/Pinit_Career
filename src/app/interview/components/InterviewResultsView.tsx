@@ -150,9 +150,9 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
             {(evaluationResult?.telemetryDiagnostics?.signals || [
-              { metric: 'Speaking Pace', value: `${wpmScore || 125} WPM`, diagnostic: 'Natural conversational pace.', status: 'good' },
-              { metric: 'Speech Clarity', value: `${fillerWordCount} filler words`, diagnostic: 'Clean verbal articulation.', status: 'good' },
-              { metric: 'Camera Presence & Framing', value: eyeContactScore !== null ? (eyeContactScore >= 60 ? 'Centered' : 'Off-Center') : 'Not Tracked', diagnostic: eyeContactScore !== null ? (eyeContactScore >= 60 ? 'Optimal eye-level framing maintained.' : 'Slight drift detected; keep webcam level with eyes.') : 'Camera was inactive; presence was not measured.', status: eyeContactScore !== null ? (eyeContactScore >= 60 ? 'good' : 'warning') : 'neutral' }
+              { metric: 'Speaking Pace', value: wpmScore ? `${wpmScore} WPM` : 'Not Measured', diagnostic: wpmScore ? 'Cadence tracked during session.' : 'Audio pacing was not measured.', status: 'info' },
+              { metric: 'Speech Clarity', value: fillerWordCount !== undefined && fillerWordCount !== null ? `${fillerWordCount} filler words` : 'Not Measured', diagnostic: fillerWordCount !== undefined ? 'Clean verbal articulation.' : 'Speech clarity not assessed.', status: 'info' },
+              { metric: 'Camera Presence & Framing', value: eyeContactScore !== null && eyeContactScore !== undefined ? (eyeContactScore >= 60 ? 'Centered' : 'Off-Center') : 'Camera Off', diagnostic: eyeContactScore !== null && eyeContactScore !== undefined ? (eyeContactScore >= 60 ? 'Optimal eye-level framing maintained.' : 'Slight drift detected; keep webcam level with eyes.') : 'Camera off, delivery not assessed.', status: 'info' }
             ]).map((s: any, idx: number) => (
               <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 11, padding: '4px 8px', borderRadius: 6, background: 'var(--bg3)' }}>
                 <span style={{ color: 'var(--t2)', fontWeight: 600 }}>{s.metric} ({s.value})</span>

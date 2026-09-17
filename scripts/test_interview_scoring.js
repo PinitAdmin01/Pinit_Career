@@ -93,6 +93,16 @@ assert('Telemetry diagnostics identify delivery status without numerical penalty
 assert('Telemetry diagnostics identify noisy delivery without crashing', noisyTelemetryDiag.deliveryStatus === 'Good');
 assert('Telemetry diagnostics contain specific practice advice', noisyTelemetryDiag.practiceAdvice.length > 0);
 
+// 4b. Absent Telemetry: Does NOT invent fake metrics when camera/audio was not measured
+const emptyTelemetryDiag = generateTelemetryDiagnostics();
+const undefinedTelemetryDiag = generateTelemetryDiagnostics({});
+assert("Absent telemetry sets deliveryStatus to 'Not Assessed'", emptyTelemetryDiag.deliveryStatus === 'Not Assessed');
+assert("Empty telemetry sets deliveryStatus to 'Not Assessed'", undefinedTelemetryDiag.deliveryStatus === 'Not Assessed');
+assert("Absent telemetry does not invent 125 WPM", !emptyTelemetryDiag.signals.some(s => s.value === '125 WPM'));
+assert("Absent telemetry does not invent 0 filler words", !emptyTelemetryDiag.signals.some(s => s.value === '0 filler words'));
+assert("Absent telemetry states camera off, delivery not assessed", emptyTelemetryDiag.practiceAdvice[0].includes('Camera off, delivery not assessed'));
+assert("Absent telemetry signals camera off", emptyTelemetryDiag.signals.some(s => s.metric === 'Camera & Presence' && s.value === 'Camera Off'));
+
 // 5. Unknown role normalization falls back gracefully
 const unknownRole1 = normalizeRoleKey('Chief Quantum Officer', 'tech');
 const unknownRole2 = normalizeRoleKey('Head of Happiness', 'non_tech');

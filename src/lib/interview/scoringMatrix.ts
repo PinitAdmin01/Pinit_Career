@@ -413,88 +413,148 @@ export function generateTelemetryDiagnostics(telemetry?: {
   wpm?: number;
   fillerWords?: number;
 }): {
-  deliveryStatus: 'Optimal' | 'Good' | 'Needs Practice';
+  deliveryStatus: 'Optimal' | 'Good' | 'Needs Practice' | 'Not Assessed';
   signals: Array<{ metric: string; value: string; diagnostic: string; status: 'good' | 'warning' | 'info' }>;
   practiceAdvice: string[];
 } {
-  const eyeContact = telemetry?.eyeContact ?? 75;
-  const wpm = telemetry?.wpm ?? 125;
-  const fillerWords = telemetry?.fillerWords ?? 0;
+  const hasEyeContact = typeof telemetry?.eyeContact === 'number' && !isNaN(telemetry.eyeContact);
+  const hasWpm = typeof telemetry?.wpm === 'number' && !isNaN(telemetry.wpm) && telemetry.wpm > 0;
+  const hasFillerWords = typeof telemetry?.fillerWords === 'number' && !isNaN(telemetry.fillerWords);
+
+  // If no telemetry metrics were measured at all, do NOT invent fake metrics!
+  if (!hasEyeContact && !hasWpm && !hasFillerWords) {
+    return {
+      deliveryStatus: 'Not Assessed',
+      signals: [
+        {
+          metric: 'Camera & Presence',
+          value: 'Camera Off',
+          diagnostic: 'Camera off, delivery not assessed.',
+          status: 'info',
+        },
+        {
+          metric: 'Speaking Pace',
+          value: 'Not Measured',
+          diagnostic: 'Audio telemetry inactive; speaking pace not assessed.',
+          status: 'info',
+        },
+        {
+          metric: 'Speech Clarity',
+          value: 'Not Measured',
+          diagnostic: 'Audio telemetry inactive; filler words not assessed.',
+          status: 'info',
+        },
+      ],
+      practiceAdvice: [
+        'Camera off, delivery not assessed. Enable webcam and microphone telemetry in practice rounds for pacing, eye contact, and clarity diagnostics.',
+      ],
+    };
+  }
 
   const signals: Array<{ metric: string; value: string; diagnostic: string; status: 'good' | 'warning' | 'info' }> = [];
   const practiceAdvice: string[] = [];
 
   // Pacing
-  if (wpm >= 110 && wpm <= 160) {
-    signals.push({
-      metric: 'Speaking Pace',
-      value: `${wpm} WPM`,
-      diagnostic: 'Natural, articulate conversational cadence.',
-      status: 'good',
-    });
-  } else if (wpm > 160) {
-    signals.push({
-      metric: 'Speaking Pace',
-      value: `${wpm} WPM`,
-      diagnostic: 'Slightly fast cadence; consider pacing key architectural points with brief pauses.',
-      status: 'warning',
-    });
-    practiceAdvice.push('Take a 1-second breath between major STAR milestones to allow the interviewer to digest points.');
+  if (hasWpm) {
+    const wpm = telemetry!.wpm!;
+    if (wpm >= 110 && wpm <= 160) {
+      signals.push({
+        metric: 'Speaking Pace',
+        value: `${wpm} WPM`,
+        diagnostic: 'Natural, articulate conversational cadence.',
+        status: 'good',
+      });
+    } else if (wpm > 160) {
+      signals.push({
+        metric: 'Speaking Pace',
+        value: `${wpm} WPM`,
+        diagnostic: 'Slightly fast cadence; consider pacing key architectural points with brief pauses.',
+        status: 'warning',
+      });
+      practiceAdvice.push('Take a 1-second breath between major STAR milestones to allow the interviewer to digest points.');
+    } else {
+      signals.push({
+        metric: 'Speaking Pace',
+        value: `${wpm} WPM`,
+        diagnostic: 'Deliberate, slow cadence; consider increasing momentum slightly during introductions.',
+        status: 'info',
+      });
+    }
   } else {
     signals.push({
       metric: 'Speaking Pace',
-      value: `${wpm} WPM`,
-      diagnostic: 'Deliberate, slow cadence; consider increasing momentum slightly during introductions.',
+      value: 'Not Measured',
+      diagnostic: 'Pacing telemetry was not captured during this session.',
       status: 'info',
     });
   }
 
   // Filler words
-  if (fillerWords === 0) {
-    signals.push({
-      metric: 'Speech Clarity',
-      value: '0 filler words',
-      diagnostic: 'Crisp, professional vocal delivery with zero filler crutches.',
-      status: 'good',
-    });
-  } else if (fillerWords <= 3) {
-    signals.push({
-      metric: 'Speech Clarity',
-      value: `${fillerWords} filler words`,
-      diagnostic: 'Clean delivery within standard natural conversational range.',
-      status: 'good',
-    });
+  if (hasFillerWords) {
+    const fillerWords = telemetry!.fillerWords!;
+    if (fillerWords === 0) {
+      signals.push({
+        metric: 'Speech Clarity',
+        value: '0 filler words',
+        diagnostic: 'Crisp, professional vocal delivery with zero filler crutches.',
+        status: 'good',
+      });
+    } else if (fillerWords <= 3) {
+      signals.push({
+        metric: 'Speech Clarity',
+        value: `${fillerWords} filler words`,
+        diagnostic: 'Clean delivery within standard natural conversational range.',
+        status: 'good',
+      });
+    } else {
+      signals.push({
+        metric: 'Speech Clarity',
+        value: `${fillerWords} filler words detected`,
+        diagnostic: 'Minor filler word cluster (um, uh, like).',
+        status: 'warning',
+      });
+      practiceAdvice.push('Replace filler words ("um", "like") with a deliberate silent pause to project executive presence.');
+    }
   } else {
     signals.push({
       metric: 'Speech Clarity',
-      value: `${fillerWords} filler words detected`,
-      diagnostic: 'Minor filler word cluster (um, uh, like).',
-      status: 'warning',
+      value: 'Not Measured',
+      diagnostic: 'Speech clarity was not captured during this session.',
+      status: 'info',
     });
-    practiceAdvice.push('Replace filler words ("um", "like") with a deliberate silent pause to project executive presence.');
   }
 
   // Camera & Visual Diagnostics (Strictly advisory, honest presence & framing)
-  if (eyeContact <= 0) {
-    signals.push({
-      metric: 'Camera & Presence',
-      value: 'N/A (Audio Mode)',
-      diagnostic: 'Camera inactive or audio-only mode. Visual presence was cleanly excluded from evaluation.',
-      status: 'info',
-    });
-  } else if (eyeContact < 50) {
-    signals.push({
-      metric: 'Camera & Presence',
-      value: 'Off-Center / Drift',
-      diagnostic: 'Camera framing suggestion: positioning camera at eye level enhances conversational presence.',
-      status: 'info',
-    });
+  if (hasEyeContact) {
+    const eyeContact = telemetry!.eyeContact!;
+    if (eyeContact <= 0) {
+      signals.push({
+        metric: 'Camera & Presence',
+        value: 'N/A (Audio Mode)',
+        diagnostic: 'Camera inactive or audio-only mode. Visual presence was cleanly excluded from evaluation.',
+        status: 'info',
+      });
+    } else if (eyeContact < 50) {
+      signals.push({
+        metric: 'Camera & Presence',
+        value: 'Off-Center / Drift',
+        diagnostic: 'Camera framing suggestion: positioning camera at eye level enhances conversational presence.',
+        status: 'info',
+      });
+    } else {
+      signals.push({
+        metric: 'Camera & Presence',
+        value: 'Centered Focus',
+        diagnostic: 'Consistent, centered visual presence maintained throughout the session.',
+        status: 'good',
+      });
+    }
   } else {
     signals.push({
       metric: 'Camera & Presence',
-      value: 'Centered Focus',
-      diagnostic: 'Consistent, centered visual presence maintained throughout the session.',
-      status: 'good',
+      value: 'Camera Off',
+      diagnostic: 'Camera off, delivery not assessed.',
+      status: 'info',
     });
   }
 
