@@ -138,7 +138,13 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   // ── Decoupled sidebars: left and right sidebar states operate independently ──
   const toggleLeftSidebar = useCallback((forceCollapse?: boolean) => {
-    setCollapsed(prev => (typeof forceCollapse === 'boolean' ? forceCollapse : !prev));
+    setCollapsed(prev => {
+      const next = typeof forceCollapse === 'boolean' ? forceCollapse : !prev;
+      if (!next) {
+        setRightCollapsed(true);
+      }
+      return next;
+    });
   }, []);
 
   const toggleRightSidebar = useCallback((forceCollapse?: boolean) => {
@@ -146,6 +152,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       const next = typeof forceCollapse === 'boolean' ? forceCollapse : !prev;
       if (!next) {
         setActiveAcademicTab(current => current || 'home');
+        setCollapsed(true);
       }
       return next;
     });
@@ -433,8 +440,12 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
       {/* ── Left Sidebar (Decoupled Modular Component) ── */}
       <AppSidebar
-        collapsed={collapsed}
-        setCollapsed={setCollapsed}
+          collapsed={collapsed}
+          setCollapsed={(val) => {
+            const next = typeof val === 'boolean' ? val : !collapsed;
+            setCollapsed(next);
+            if (!next) setRightCollapsed(true);
+          }}
         effectiveFocusMode={effectiveFocusMode}
         focusMode={focusMode}
         pathname={pathname}
@@ -533,7 +544,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         <aside
           className={`sidebar right-sidebar${rightCollapsed ? ' collapsed' : ''}`}
           style={{
-            width: rightCollapsed ? '68px' : '215px',
+            width: rightCollapsed ? 'var(--sidebar-collapsed-w, 5vw)' : 'var(--sidebar-w, 15vw)',
             background: 'var(--bg-sidebar)',
             borderLeft: '1px solid var(--border)',
             transition: 'width 0.25s cubic-bezier(0.4, 0, 0.2, 1), border 0.25s',
@@ -610,7 +621,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                       url.searchParams.set('tab', item.id);
                       window.history.pushState({}, '', url.toString());
                     }
-                    setRightCollapsed(false);
+                    toggleRightSidebar(false);
                   }}
                   style={{
                     width: '100%',

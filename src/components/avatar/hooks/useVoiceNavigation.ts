@@ -301,8 +301,7 @@ const ROUTE_VOCABULARY: RouteEntry[] = [
     path: '/pricing',
     displayName: 'Pins & Plans',
     synonyms: [
-      'pricing', 'plans', 'pins', 'subscription', 'pricing tab',
-      'pins and plans', 'upgrade', 'premium', 'pricing page', 'my pins'
+      'pins', 'wallet', 'pins and wallet', 'pin wallet', 'pins tab', 'buy pins'
     ],
   },
   {

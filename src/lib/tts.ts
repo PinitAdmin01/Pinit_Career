@@ -43,16 +43,7 @@ export function stopSpeaking() {
   currentSpeechId++;
   console.log(`[PinIT TTS] 🛑 stopSpeaking() called. Advancing speechId to ${currentSpeechId}`);
 
-  // Guarantee that any pending onEnd callback is notified so the avatar returns cleanly to 'idle'
-  if (activeOnEndCallback) {
-    const prevEnd = activeOnEndCallback;
-    activeOnEndCallback = null;
-    try {
-      prevEnd();
-    } catch (err) {
-      console.warn('[PinIT TTS] Error executing pending onEnd during stopSpeaking:', err);
-    }
-  }
+  activeOnEndCallback = null;
 
   try {
     getGlobalAudioQueue().stopAll();

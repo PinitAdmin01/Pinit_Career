@@ -268,7 +268,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
       className={`sidebar${collapsed || effectiveFocusMode || (pathname.startsWith('/admin/teacher') || pathname.startsWith('/teacher')) ? ' collapsed' : ''}${mobileOpen ? ' open' : ''}`}
       style={{
         display: (effectiveFocusMode || pathname.startsWith('/admin/teacher') || pathname.startsWith('/teacher')) ? 'none' : 'flex',
-        width: effectiveFocusMode || (pathname.startsWith('/admin/teacher') || pathname.startsWith('/teacher')) ? 0 : (collapsed ? '68px' : 'var(--sidebar-w)'),
+        width: effectiveFocusMode || (pathname.startsWith('/admin/teacher') || pathname.startsWith('/teacher')) ? 0 : (collapsed ? 'var(--sidebar-collapsed-w, 5vw)' : 'var(--sidebar-w, 15vw)'),
         borderRight: effectiveFocusMode || (pathname.startsWith('/admin/teacher') || pathname.startsWith('/teacher')) ? 'none' : '1px solid var(--border)',
         transition: 'width 0.25s cubic-bezier(0.4, 0, 0.2, 1), border 0.25s',
         overflow: 'hidden'

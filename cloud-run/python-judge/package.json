@@ -1,0 +1,13 @@
+{
+  "name": "python-judge",
+  "version": "1.0.0",
+  "description": "Isolated Python grading judge for CareerOS on Cloud Run",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "private": true
+}

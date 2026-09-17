@@ -938,6 +938,95 @@ async function runAllVerifications() {
     assert.ok(code.includes('LEDGER_QUERY_FAILED'), 'Must return LEDGER_QUERY_FAILED on error');
   });
 
+  // -------------------------------------------------------------
+  // ISSUE 19: Python Code Execution Hardening & Isolated Judge
+  // -------------------------------------------------------------
+  console.log('\n--- Issue 19: Python Code Execution Hardening & Isolated Judge ---');
+
+  await test('POST /api/code/run-python rejects unregistered quests with HTTP 400 UNREGISTERED_QUEST', async () => {
+    const { POST } = await import('../src/app/api/code/run-python/route');
+    const { NextRequest } = await import('next/server');
+
+    process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
+    process.env.NODE_ENV = 'development';
+
+    const req = new NextRequest('http://localhost:3000/api/code/run-python', {
+      method: 'POST',
+      headers: {
+        'authorization': 'Bearer demo-token-bypass',
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        code: 'def solution(): pass',
+        questId: 'attacker-fake-python-quest',
+      }),
+    });
+
+    const res = await POST(req);
+    assert.strictEqual(res.status, 400, 'Must reject with 400');
+    const json = await res.json();
+    assert.strictEqual(json.error, 'UNREGISTERED_QUEST');
+  });
+
+  await test('POST /api/code/run-python blocks early exit() and SystemExit exploit with allPassed: false', async () => {
+    const { POST } = await import('../src/app/api/code/run-python/route');
+    const { NextRequest } = await import('next/server');
+
+    process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
+    process.env.NODE_ENV = 'development';
+
+    const req = new NextRequest('http://localhost:3000/api/code/run-python', {
+      method: 'POST',
+      headers: {
+        'authorization': 'Bearer demo-token-bypass',
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        code: 'exit(0)',
+      }),
+    });
+
+    const res = await POST(req);
+    const json = await res.json();
+    assert.strictEqual(json.allPassed, false, 'exit(0) must NEVER result in allPassed: true');
+  });
+
+  await test('POST /api/code/run-python blocks forbidden modules and dynamic escape patterns', async () => {
+    const { POST } = await import('../src/app/api/code/run-python/route');
+    const { NextRequest } = await import('next/server');
+
+    process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
+    process.env.NODE_ENV = 'development';
+
+    const req = new NextRequest('http://localhost:3000/api/code/run-python', {
+      method: 'POST',
+      headers: {
+        'authorization': 'Bearer demo-token-bypass',
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        code: 'import subprocess\nsubprocess.run(["ls"])',
+      }),
+    });
+
+    const res = await POST(req);
+    const json = await res.json();
+    assert.strictEqual(json.allPassed, false, 'Forbidden module must fail');
+    assert.strictEqual(json.status, 'RUNTIME_ERROR');
+    assert.ok(json.terminalLogs[0].includes('SECURITY GUARD'), 'Must cite security guard');
+  });
+
+  await test('cloud-run/python-judge microservice files exist and define isolated sandbox runner', async () => {
+    const judgeDir = path.join(process.cwd(), 'cloud-run', 'python-judge');
+    assert.ok(fs.existsSync(path.join(judgeDir, 'Dockerfile')), 'Dockerfile must exist');
+    assert.ok(fs.existsSync(path.join(judgeDir, 'package.json')), 'package.json must exist');
+    assert.ok(fs.existsSync(path.join(judgeDir, 'server.js')), 'server.js must exist');
+
+    const serverCode = fs.readFileSync(path.join(judgeDir, 'server.js'), 'utf8');
+    assert.ok(serverCode.includes('__PINIT_TESTS_PASSED__'), 'server.js must enforce PASS_SENTINEL');
+    assert.ok(serverCode.includes('ABNORMAL_TERMINATION'), 'server.js must catch abnormal termination');
+  });
+
   console.log('\n================================================================');
   console.log(`📊 FINAL RESULT: ${passedTests} / ${totalTests} TESTS PASSED`);
   console.log('================================================================\n');

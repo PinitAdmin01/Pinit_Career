@@ -62,6 +62,10 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   const lastSpokenTourStepRef = useRef<number | null>(null);
   const pendingSpeechStepRef = useRef<number | null>(null);
   const tourAdvanceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // The route the current tour slide's speech was spoken on. Auto-advance is
+  // ONLY permitted when the speech genuinely finishes while still on this
+  // route — navigating away / route unmount must NOT fake a completion.
+  const expectedRouteRef = useRef<string | null>(null);
   const cleanPathRef = useRef(cleanPath);
   cleanPathRef.current = cleanPath;
 
@@ -342,18 +346,33 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     const speechText = slide.text.replace(/\*\*/g, '').replace(/🎉|🏠|🛠️|🗺|⚡|🎙|🧬|🔬|🎯|💬|🚀|👋|🌅|✨|💙|⚔️|🏆|📖|🧠|🔔|👤|📚/g, '');
 
     stopSpeaking(); // cancels any prior speech
+
+    // The route this slide's speech is targeted at. Auto-advance is
+    // blocked if the user has navigated away (route unmount).
+    
+    expectedRouteRef.current = targetRoute || cleanPathRef.current;
+
     speakWithAvatar(speechText, teacherId, () => {
       // onStart: set fallback timeout in case TTS never fires onEnd
       clearTourAdvanceTimer();
       tourAdvanceTimerRef.current = setTimeout(() => {
-        if (pendingSpeechStepRef.current === tourStep && tourActive) {
+        if (
+          pendingSpeechStepRef.current === tourStep &&
+          tourActive &&
+          cleanPathRef.current === expectedRouteRef.current
+        ) {
           advanceTourSlide(true);
         }
       }, 15000);
     }, () => {
-      // onEnd: auto-advance ONLY if this is still the active slide's speech
+      // onEnd: auto-advance ONLY if speech genuinely finished while
+      // still on the route this slide was spoken for.
       clearTourAdvanceTimer();
-      if (pendingSpeechStepRef.current === tourStep && tourActive) {
+      if (
+        pendingSpeechStepRef.current === tourStep &&
+        tourActive &&
+        cleanPathRef.current === expectedRouteRef.current
+      ) {
         advanceTourSlide(true);
       }
     });
@@ -494,7 +513,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   return (
     <>
       {/* ── Floating avatar launcher button (when minimized) ── */}
-      {minimized && !shouldHideVisually && (
+      {minimized && (
         <div
           onClick={() => {
             setMinimized(false);
@@ -504,7 +523,6 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
           style={{
             position: 'fixed',
             bottom: 24,
-            right: 24,
             zIndex: 9999,
             cursor: 'pointer',
             display: 'flex',
@@ -516,10 +534,33 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
             borderRadius: 30,
             padding: '6px 14px 6px 8px',
             boxShadow: '0 8px 32px rgba(0,0,0,0.4), 0 0 20px rgba(var(--brand-rgb), 0.25)',
-            transition: 'transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s',
+            
+            opacity: 0.4,
+            transition: 'opacity 0.3s ease, transform 0.3s ease, left 0.3s ease, right 0.3s ease, box-shadow 0.2s',
+            ...(isLeftSidebarOpen && !isRightSidebarOpen
+              ? { left: 'auto', right: 24, transform: 'none' }
+              : isRightSidebarOpen && !isLeftSidebarOpen
+              ? { left: 88, right: 'auto', transform: 'none' }
+              : { left: '50%', right: 'auto', transform: 'translateX(-50%)' }),
           }}
-          onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.05)')}
-          onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
+          onMouseEnter={e => {
+            e.currentTarget.style.opacity = '1';
+            e.currentTarget.style.transform =
+              isLeftSidebarOpen && !isRightSidebarOpen
+                ? 'scale(1.05)'
+                : isRightSidebarOpen && !isLeftSidebarOpen
+                ? 'scale(1.05)'
+                : 'translateX(-50%) scale(1.05)';
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.opacity = '0.4';
+            e.currentTarget.style.transform =
+              isLeftSidebarOpen && !isRightSidebarOpen
+                ? 'none'
+                : isRightSidebarOpen && !isLeftSidebarOpen
+                ? 'none'
+                : 'translateX(-50%)';
+          }}
         >
           <div style={{
             width: 38,

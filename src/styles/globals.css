@@ -52,7 +52,8 @@
   --primary:     var(--accent);
 
   /* Layout */
-  --sidebar-w: 252px;
+  --sidebar-w: 15vw;
+  --sidebar-collapsed-w: 5vw;
   --topbar-h:  58px;
   --radius:    8px;
   --radius-lg: 12px;
@@ -155,7 +156,7 @@ body {
   transition: width 0.22s cubic-bezier(0.4,0,0.2,1);
   overflow: hidden;
 }
-.sidebar.collapsed { width: 68px; }
+.sidebar.collapsed { width: var(--sidebar-collapsed-w, 5vw); }
 .sidebar.collapsed .nav-item {
   justify-content: center;
   padding: 9px 0;
