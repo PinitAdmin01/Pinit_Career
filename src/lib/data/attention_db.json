@@ -1,0 +1,47 @@
+{
+  "progress": [
+    {
+      "user_id": "test_user_001",
+      "display_name": "Leaked.student",
+      "total_accuracy": 705,
+      "daily_logs": {
+        "2026-09-17": {
+          "date": "2026-09-17",
+          "focusMinutes": 60,
+          "gamesPlayed": 6
+        },
+        "current_stats": {
+          "date": "current_stats",
+          "stats": {
+            "focusFireBest": 300,
+            "memoryMatrixBest": 10,
+            "reflexRushBest": 80,
+            "sequenceSnapBest": 5,
+            "vortexVisionBest": 0,
+            "flashFusionBest": 0,
+            "shapeShifterBest": 0,
+            "patternForgeBest": 0,
+            "logicCircuitBest": 0,
+            "storeSimBest": 0,
+            "precisionPointerBest": 0,
+            "totalSessions": 20,
+            "streak": 2,
+            "lastPlayedDate": "2026-09-17",
+            "dailyScores": {},
+            "dailySessions": {},
+            "completedDifficulties": {}
+          },
+          "integrityHash": "81829ec3e0bc45ed",
+          "updatedAt": "2026-09-17T15:59:03.348Z"
+        }
+      },
+      "monthly_summaries": {
+        "2026-09": {
+          "month": "2026-09",
+          "totalFocusHours": 15
+        }
+      },
+      "updated_at": "2026-09-17T15:59:03.348Z"
+    }
+  ]
+}

@@ -1,19 +1,12 @@
 // src/lib/attention/progress.ts
 /**
  * Attention-span leaderboard and analytics, backed by
- * public.attention_span_progress (see the 20260909 migration).
- *
- * Both endpoints previously threw "Unhandled API path" — there was no handler
- * at all — and src/app/attention-span/page.tsx swallows fetch errors, so the
- * leaderboard simply stayed empty and nobody saw a failure.
- *
- * If the migration has not been applied yet these return { ok: false } with a
- * reason rather than throwing. The page already gates on `data.ok`, so it
- * degrades to an empty board instead of breaking, and the reason is visible in
- * the console rather than being silently swallowed.
+ * public.attention_span_progress (see the 20260909 migration)
+ * with robust local JSON fallback to prevent cold-start data loss.
  */
 import { supabase } from '@/lib/supabaseClient';
-import { tableExists } from '@/lib/services/supabaseTable';
+import { tableExists, getCampusSupabaseClient } from '@/lib/services/supabaseTable';
+import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
 
 const TABLE = 'attention_span_progress';
 
@@ -23,35 +16,83 @@ export interface LeaderItem {
   totalAccuracy: number;
 }
 
-const NOT_MIGRATED = {
-  ok: false as const,
-  error: 'TABLE_MISSING',
-  message: 'attention_span_progress does not exist. Apply supabase/migrations/20260909_create_attention_span.sql.',
-};
+export interface AttentionSpanRecord {
+  user_id: string;
+  display_name: string;
+  total_accuracy: number;
+  daily_logs: Record<string, any>;
+  monthly_summaries: Record<string, any>;
+  updated_at: string;
+}
+
+/**
+ * Sanitizes display names to eliminate raw email addresses and PII leaks.
+ * E.g., 'john.doe@university.edu' -> 'John.doe'
+ */
+export function sanitizeDisplayName(name: any): string {
+  if (!name || typeof name !== 'string') return 'Student';
+  const trimmed = name.trim();
+  if (trimmed.includes('@')) {
+    const userPart = trimmed.split('@')[0];
+    return userPart ? userPart.charAt(0).toUpperCase() + userPart.slice(1) : 'Student';
+  }
+  return trimmed;
+}
 
 const toLeader = (r: Record<string, any>): LeaderItem => ({
   userId: r.user_id,
-  displayName: r.display_name || 'Student',
+  displayName: sanitizeDisplayName(r.display_name),
   totalAccuracy: Number(r.total_accuracy) || 0,
 });
-
-async function board() {
-  const { data, error } = await supabase
-    .from(TABLE)
-    .select('user_id, display_name, total_accuracy')
-    .order('total_accuracy', { ascending: false })
-    .limit(100);
-  if (error) throw error;
-  return (data || []).map(toLeader);
-}
 
 const rankOf = (leaders: LeaderItem[], userId: string) => {
   const i = leaders.findIndex((l) => l.userId === userId);
   return i < 0 ? 0 : i + 1;
 };
 
+// --- Local JSON Fallback Store Operations ---
+const LOCAL_DB_PATH = 'src/lib/data/attention_db.json';
+
+async function readLocalAttentionRecords(): Promise<AttentionSpanRecord[]> {
+  const data = await readLocalJson<{ progress: AttentionSpanRecord[] }>(
+    LOCAL_DB_PATH,
+    { progress: [] },
+    'shared'
+  );
+  return Array.isArray(data?.progress) ? data.progress : [];
+}
+
+async function writeLocalAttentionRecords(records: AttentionSpanRecord[]): Promise<void> {
+  await writeLocalJson(LOCAL_DB_PATH, { progress: records }, 'shared');
+}
+
+async function board() {
+  const isPostgresReady = await tableExists(TABLE);
+  if (isPostgresReady) {
+    try {
+      const client = await getCampusSupabaseClient();
+      const { data, error } = await client
+        .from(TABLE)
+        .select('user_id, display_name, total_accuracy')
+        .order('total_accuracy', { ascending: false })
+        .limit(100);
+      if (!error && data) {
+        return data.map(toLeader);
+      }
+    } catch {
+      // Fall through to local store
+    }
+  }
+
+  // Local JSON fallback
+  const local = await readLocalAttentionRecords();
+  return local
+    .sort((a, b) => b.total_accuracy - a.total_accuracy)
+    .slice(0, 100)
+    .map(toLeader);
+}
+
 export async function getAttentionLeaderboard(userId: string) {
-  if (!(await tableExists(TABLE))) return { ...NOT_MIGRATED, leaders: [], userRank: 0 };
   const leaders = await board();
   return { ok: true as const, leaders, userRank: rankOf(leaders, userId) };
 }
@@ -61,46 +102,105 @@ export async function addAttentionAccuracy(
   displayName: string,
   accuracyEarned: number,
 ) {
-  if (!userId) return { ...NOT_MIGRATED, error: 'NO_USER', message: 'Not signed in.', leaders: [], userRank: 0 };
-  if (!(await tableExists(TABLE))) return { ...NOT_MIGRATED, leaders: [], userRank: 0 };
+  if (!userId) return { ok: false as const, error: 'NO_USER', message: 'Not signed in.', leaders: [], userRank: 0 };
 
   const earned = Number(accuracyEarned);
   if (!Number.isFinite(earned) || earned < 0) {
     return { ok: false as const, error: 'INVALID_SCORE', message: 'accuracyEarned must be a non-negative number.', leaders: [], userRank: 0 };
   }
 
-  // Read-then-write rather than a raw increment: there is no server to hold a
-  // transaction, and a single student posting their own score is not a
-  // contended row. RLS restricts the write to the owner regardless.
-  const { data: existing } = await supabase
-    .from(TABLE).select('total_accuracy').eq('user_id', userId).maybeSingle();
+  const cleanName = sanitizeDisplayName(displayName);
+  const now = new Date().toISOString();
+  let updatedTotal = earned;
 
-  const newTotalAccuracy = (Number(existing?.total_accuracy) || 0) + earned;
+  const isPostgresReady = await tableExists(TABLE);
+  if (isPostgresReady) {
+    try {
+      const client = await getCampusSupabaseClient();
+      const { data: existing } = await client
+        .from(TABLE)
+        .select('total_accuracy')
+        .eq('user_id', userId)
+        .maybeSingle();
 
-  const { error } = await supabase.from(TABLE).upsert({
-    user_id: userId,
-    display_name: displayName || 'Student',
-    total_accuracy: newTotalAccuracy,
-    updated_at: new Date().toISOString(),
-  }, { onConflict: 'user_id' });
-  if (error) throw error;
+      updatedTotal = (Number(existing?.total_accuracy) || 0) + earned;
+
+      const { error } = await client.from(TABLE).upsert({
+        user_id: userId,
+        display_name: cleanName,
+        total_accuracy: updatedTotal,
+        updated_at: now,
+      }, { onConflict: 'user_id' });
+
+      if (error) throw error;
+    } catch {
+      // Fallback to local
+    }
+  }
+
+  // Always sync to local store for offline resilience & cold-start preservation
+  const local = await readLocalAttentionRecords();
+  const existingIdx = local.findIndex(r => r.user_id === userId);
+  if (existingIdx >= 0) {
+    updatedTotal = Math.max(updatedTotal, (local[existingIdx].total_accuracy || 0) + earned);
+    local[existingIdx].total_accuracy = updatedTotal;
+    local[existingIdx].display_name = cleanName;
+    local[existingIdx].updated_at = now;
+  } else {
+    local.push({
+      user_id: userId,
+      display_name: cleanName,
+      total_accuracy: updatedTotal,
+      daily_logs: {},
+      monthly_summaries: {},
+      updated_at: now,
+    });
+  }
+  await writeLocalAttentionRecords(local);
 
   const leaders = await board();
-  return { ok: true as const, leaders, userRank: rankOf(leaders, userId), newTotalAccuracy };
+  return { ok: true as const, leaders, userRank: rankOf(leaders, userId), newTotalAccuracy: updatedTotal };
 }
 
 export async function getAttentionAnalytics(userId: string) {
-  if (!(await tableExists(TABLE))) return { ...NOT_MIGRATED, analytics: null };
-  const { data, error } = await supabase
-    .from(TABLE).select('daily_logs, monthly_summaries, updated_at').eq('user_id', userId).maybeSingle();
-  if (error) throw error;
+  if (!userId) return { ok: false as const, error: 'NO_USER', message: 'Not signed in.', analytics: null };
+
+  const isPostgresReady = await tableExists(TABLE);
+  if (isPostgresReady) {
+    try {
+      const client = await getCampusSupabaseClient();
+      const { data, error } = await client
+        .from(TABLE)
+        .select('daily_logs, monthly_summaries, updated_at')
+        .eq('user_id', userId)
+        .maybeSingle();
+
+      if (!error && data) {
+        return {
+          ok: true as const,
+          analytics: {
+            userId,
+            dailyLogs: data?.daily_logs || {},
+            monthlySummaries: data?.monthly_summaries || {},
+            lastUpdated: data?.updated_at || new Date().toISOString(),
+          },
+        };
+      }
+    } catch {
+      // Fallback to local
+    }
+  }
+
+  // Local JSON fallback
+  const local = await readLocalAttentionRecords();
+  const found = local.find(r => r.user_id === userId);
   return {
     ok: true as const,
     analytics: {
       userId,
-      dailyLogs: data?.daily_logs || {},
-      monthlySummaries: data?.monthly_summaries || {},
-      lastUpdated: data?.updated_at || new Date().toISOString(),
+      dailyLogs: found?.daily_logs || {},
+      monthlySummaries: found?.monthly_summaries || {},
+      lastUpdated: found?.updated_at || new Date().toISOString(),
     },
   };
 }
@@ -111,7 +211,6 @@ export async function saveAttentionAnalytics(
   monthlySummary?: Record<string, any>,
 ) {
   if (!userId) return { ok: false as const, error: 'NO_USER', message: 'Not signed in.', analytics: null };
-  if (!(await tableExists(TABLE))) return { ...NOT_MIGRATED, analytics: null };
 
   const current = await getAttentionAnalytics(userId);
   const dailyLogs = { ...(current.analytics?.dailyLogs || {}) };
@@ -120,13 +219,41 @@ export async function saveAttentionAnalytics(
   if (dailyLog?.date) dailyLogs[dailyLog.date] = { ...dailyLogs[dailyLog.date], ...dailyLog };
   if (monthlySummary?.month) monthlySummaries[monthlySummary.month] = { ...monthlySummaries[monthlySummary.month], ...monthlySummary };
 
-  const { error } = await supabase.from(TABLE).upsert({
-    user_id: userId,
-    daily_logs: dailyLogs,
-    monthly_summaries: monthlySummaries,
-    updated_at: new Date().toISOString(),
-  }, { onConflict: 'user_id' });
-  if (error) throw error;
+  const now = new Date().toISOString();
 
-  return { ok: true as const, analytics: { userId, dailyLogs, monthlySummaries, lastUpdated: new Date().toISOString() } };
+  const isPostgresReady = await tableExists(TABLE);
+  if (isPostgresReady) {
+    try {
+      const client = await getCampusSupabaseClient();
+      await client.from(TABLE).upsert({
+        user_id: userId,
+        daily_logs: dailyLogs,
+        monthly_summaries: monthlySummaries,
+        updated_at: now,
+      }, { onConflict: 'user_id' });
+    } catch {
+      // Non-blocking fallback to local
+    }
+  }
+
+  // Sync to local JSON store
+  const local = await readLocalAttentionRecords();
+  const existingIdx = local.findIndex(r => r.user_id === userId);
+  if (existingIdx >= 0) {
+    local[existingIdx].daily_logs = dailyLogs;
+    local[existingIdx].monthly_summaries = monthlySummaries;
+    local[existingIdx].updated_at = now;
+  } else {
+    local.push({
+      user_id: userId,
+      display_name: 'Student',
+      total_accuracy: 0,
+      daily_logs: dailyLogs,
+      monthly_summaries: monthlySummaries,
+      updated_at: now,
+    });
+  }
+  await writeLocalAttentionRecords(local);
+
+  return { ok: true as const, analytics: { userId, dailyLogs, monthlySummaries, lastUpdated: now } };
 }

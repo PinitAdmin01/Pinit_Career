@@ -1531,6 +1531,107 @@ async function runAllVerifications() {
     assert.ok(fullChat.reliabilityRating >= 85, 'Reliability is high with Postgres and Kafka');
   });
 
+  // =========================================================================
+  // Issue 27: Attention-Span Persistence, PII Masking, Rate Limiting & HMAC
+  // =========================================================================
+  console.log('\n--- Issue 27: Attention-Span Persistence, PII Masking, Rate Limiting & HMAC ---');
+
+  await test('Attention-Span Analytics: Persists to storage across cold starts', async () => {
+    const { GET: analyticsGET, POST: analyticsPOST } = await import('../src/app/api/attention-span/analytics/route');
+
+    const authHeaders = {
+      authorization: 'Bearer test-token-001',
+      'x-dev-user-id': 'test_user_001',
+      'content-type': 'application/json'
+    };
+
+    const postRes = await analyticsPOST(new Request('http://localhost/api/attention-span/analytics', {
+      method: 'POST',
+      headers: authHeaders,
+      body: JSON.stringify({
+        dailyLog: { date: '2026-09-17', focusMinutes: 60 },
+        monthlySummary: { month: '2026-09', totalFocusHours: 15 }
+      })
+    }));
+    const postData = await postRes.json();
+    assert.strictEqual(postData.ok, true);
+
+    const getRes = await analyticsGET(new Request('http://localhost/api/attention-span/analytics', {
+      method: 'GET',
+      headers: authHeaders
+    }));
+    const getData = await getRes.json();
+    assert.strictEqual(getData.ok, true);
+    assert.strictEqual(getData.analytics.dailyLogs['2026-09-17'].focusMinutes, 60);
+  });
+
+  await test('Attention-Span Leaderboard: Never leaks email addresses or @ domains', async () => {
+    const { sanitizeDisplayName } = await import('../src/lib/attention/progress');
+    const { POST: leaderboardPOST } = await import('../src/app/api/attention-span/leaderboard/route');
+
+    assert.strictEqual(sanitizeDisplayName('john.doe@company.com'), 'John.doe');
+    assert.strictEqual(sanitizeDisplayName('alice@college.edu'), 'Alice');
+    assert.ok(!sanitizeDisplayName('alice@college.edu').includes('@'));
+
+    const authHeaders = {
+      authorization: 'Bearer test-token-001',
+      'x-dev-user-id': 'test_user_001',
+      'content-type': 'application/json'
+    };
+
+    const submitRes = await leaderboardPOST(new Request('http://localhost/api/attention-span/leaderboard', {
+      method: 'POST',
+      headers: authHeaders,
+      body: JSON.stringify({ displayName: 'leaked.student@university.edu', accuracyEarned: 75 })
+    }));
+    const submitData = await submitRes.json();
+    assert.strictEqual(submitData.ok, true);
+    for (const leader of submitData.leaders) {
+      assert.ok(!leader.displayName.includes('@'), `Leaderboard display name leaked email: ${leader.displayName}`);
+    }
+  });
+
+  await test('Attention-Span Progress: Uses keyed HMAC integrity hash and enforces reaction floor', async () => {
+    const { computeIntegrityHash, POST: progressPOST } = await import('../src/app/api/attention-span/progress/route');
+
+    const dummyStats = {
+      focusFireBest: 300,
+      memoryMatrixBest: 10,
+      reflexRushBest: 150,
+      sequenceSnapBest: 5,
+      totalSessions: 10,
+      streak: 2,
+      lastPlayedDate: '2026-09-17',
+      dailyScores: {},
+      dailySessions: {},
+      completedDifficulties: {}
+    };
+
+    const hash = computeIntegrityHash('test_user_001', dummyStats);
+    assert.strictEqual(hash.length, 16);
+
+    const authHeaders = {
+      authorization: 'Bearer test-token-001',
+      'x-dev-user-id': 'test_user_001',
+      'content-type': 'application/json'
+    };
+
+    const progRes = await progressPOST(new Request('http://localhost/api/attention-span/progress', {
+      method: 'POST',
+      headers: authHeaders,
+      body: JSON.stringify({
+        stats: {
+          ...dummyStats,
+          reflexRushBest: 10
+        }
+      })
+    }));
+    const progData = await progRes.json();
+    assert.strictEqual(progData.ok, true);
+    assert.strictEqual(progData.stats.reflexRushBest, 80, 'Reaction time must be capped at 80ms floor');
+  });
+
+
   console.log('\n================================================================');
   console.log(`📊 FINAL RESULT: ${passedTests} / ${totalTests} TESTS PASSED`);
   console.log('================================================================\n');
