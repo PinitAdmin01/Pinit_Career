@@ -159,29 +159,74 @@ export function classifyDocumentCategory(fileName: string, textSnippet: string =
 
 /**
  * Compares candidate names to check for identity similarity and detect friend/fake uploads.
+ * Enforces given name and surname verification to prevent friend/sibling fraudulent bypass.
  */
 export function checkNameSimilarity(nameA: string, nameB: string): { isMatch: boolean; confidence: number; reason?: string } {
-  if (!nameA || !nameB) return { isMatch: true, confidence: 100 };
+  if (!nameA || !nameB) {
+    return { isMatch: false, confidence: 0, reason: 'Candidate identity name is missing.' };
+  }
 
   const clean = (s: string) => s.toLowerCase().replace(/[^a-z\s]/g, '').trim();
   const a = clean(nameA);
   const b = clean(nameB);
 
-  if (a === b || a === 'candidate' || b === 'candidate') {
+  // Reject generic placeholder "Candidate"
+  if (a === 'candidate' || b === 'candidate' || a.length < 2 || b.length < 2) {
+    return {
+      isMatch: false,
+      confidence: 0,
+      reason: 'Identity cannot be verified against generic placeholder "Candidate".'
+    };
+  }
+
+  if (a === b) {
     return { isMatch: true, confidence: 100 };
   }
 
-  const tokensA = a.split(/\s+/).filter(t => t.length > 1);
-  const tokensB = b.split(/\s+/).filter(t => t.length > 1);
+  const tokensA = a.split(/\s+/).filter(t => t.length > 0);
+  const tokensB = b.split(/\s+/).filter(t => t.length > 0);
 
   if (tokensA.length === 0 || tokensB.length === 0) {
-    return { isMatch: true, confidence: 90 };
+    return { isMatch: false, confidence: 0, reason: 'Empty name tokens after normalization.' };
   }
 
-  const common = tokensA.filter(ta => tokensB.some(tb => tb === ta || (ta.length === 1 && tb.startsWith(ta)) || (tb.length === 1 && ta.startsWith(tb))));
+  const isInitialMatch = (t1: string, t2: string) =>
+    (t1.length === 1 && t2.startsWith(t1)) || (t2.length === 1 && t1.startsWith(t2));
+
+  // Given name (first token) and Surname (last token)
+  const givenA = tokensA[0];
+  const givenB = tokensB[0];
+  const surnameA = tokensA.length > 1 ? tokensA[tokensA.length - 1] : '';
+  const surnameB = tokensB.length > 1 ? tokensB[tokensB.length - 1] : '';
+
+  // Critical Anti-Fraud check:
+  // If both names have surnames and the surnames match, but the given names are completely different
+  // and neither is an initial (e.g. "Rohan Sharma" vs "Priya Sharma"), this is a different individual!
+  if (surnameA && surnameB && surnameA === surnameB) {
+    const givenMatches = givenA === givenB || isInitialMatch(givenA, givenB);
+    if (!givenMatches) {
+      return {
+        isMatch: false,
+        confidence: 50,
+        reason: `Document belongs to a different individual with the same surname ("${nameB}" vs "${nameA}").`
+      };
+    }
+  }
+
+  // Token matching with initial support
+  const common = tokensA.filter(ta =>
+    tokensB.some(tb => tb === ta || isInitialMatch(ta, tb))
+  );
   const matchRatio = common.length / Math.min(tokensA.length, tokensB.length);
 
-  if (matchRatio >= 0.5) {
+  // Ensure given names are compatible
+  const givenCompatible =
+    givenA === givenB ||
+    isInitialMatch(givenA, givenB) ||
+    tokensB.includes(givenA) ||
+    tokensA.includes(givenB);
+
+  if (matchRatio >= 0.6 && givenCompatible) {
     return { isMatch: true, confidence: Math.round(matchRatio * 100) };
   }
 

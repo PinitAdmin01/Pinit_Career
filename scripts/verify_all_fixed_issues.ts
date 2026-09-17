@@ -216,6 +216,130 @@ async function runAllVerifications() {
     assert.ok(q2.includes('conflicting priorities') || q2.includes('stakeholders'));
   });
 
+  // =========================================================================
+  // SUBBATCH 4.6 (Issue 29): Résumé, Vault, Certificates & Document Verification Integrity
+  // =========================================================================
+  await test('Issue 29: Native PDF extraction extracts real candidate text without leaking browser metadata', async () => {
+    const { extractDocumentEvidence } = await import('../src/lib/ats/pdfTextExtractor');
+    const os = await import('os');
+    const pdfPath = path.join(os.tmpdir(), 'edge_resume.pdf');
+    if (fs.existsSync(pdfPath)) {
+      const pdfBuf = fs.readFileSync(pdfPath);
+      const res = extractDocumentEvidence(pdfBuf, 'PDF');
+      assert.ok(res.extractionConfidence >= 0.90);
+      assert.ok(res.rawText.includes('Vinay Kumar'));
+      assert.ok(res.rawText.includes('vinay@example.com'));
+      assert.ok(res.rawText.includes('B.Tech in Computer Science'));
+      assert.ok(res.rawText.includes('GPA: 8.8 CGPA'));
+      assert.ok(!res.rawText.includes('Mozilla/5.0'));
+      assert.ok(!res.rawText.includes('Skia/PDF'));
+      assert.ok(!res.rawText.includes('Adobe'));
+    }
+  });
+
+  await test('Issue 29: Pure Node.js DOCX extraction decompresses PKZip XML paragraphs and text', async () => {
+    const { extractTextFromDocxBuffer } = await import('../src/lib/ats/pdfTextExtractor');
+    const zlib = await import('zlib');
+    const xmlContent = Buffer.from('<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body><w:p><w:r><w:t>Aarav Patel</w:t></w:r></w:p><w:p><w:r><w:t>Email: aarav@example.com | Phone: +91 9988776655</w:t></w:r></w:p><w:p><w:r><w:t>Education: Indian Institute of Technology Bombay - B.Tech Computer Science</w:t></w:r></w:p><w:p><w:r><w:t>CGPA: 9.2</w:t></w:r></w:p></w:body></w:document>');
+    const compXml = zlib.deflateRawSync(xmlContent);
+    const fn = Buffer.from('word/document.xml');
+    const localH = Buffer.alloc(30 + fn.length);
+    localH.writeUInt32LE(0x04034b50, 0);
+    localH.writeUInt16LE(20, 4);
+    localH.writeUInt16LE(0, 6);
+    localH.writeUInt16LE(8, 8);
+    localH.writeUInt32LE(compXml.length, 18);
+    localH.writeUInt32LE(xmlContent.length, 22);
+    localH.writeUInt16LE(fn.length, 26);
+    fn.copy(localH, 30);
+    const cdH = Buffer.alloc(46 + fn.length);
+    cdH.writeUInt32LE(0x02014b50, 0);
+    cdH.writeUInt16LE(20, 4);
+    cdH.writeUInt16LE(20, 6);
+    cdH.writeUInt16LE(8, 10);
+    cdH.writeUInt32LE(compXml.length, 20);
+    cdH.writeUInt32LE(xmlContent.length, 24);
+    cdH.writeUInt16LE(fn.length, 28);
+    fn.copy(cdH, 46);
+    const eocd = Buffer.alloc(22);
+    eocd.writeUInt32LE(0x06054b50, 0);
+    eocd.writeUInt16LE(1, 8);
+    eocd.writeUInt16LE(1, 10);
+    eocd.writeUInt32LE(cdH.length, 12);
+    eocd.writeUInt32LE(localH.length + compXml.length, 16);
+    const docxBuf = Buffer.concat([localH, compXml, cdH, eocd]);
+
+    const res = extractTextFromDocxBuffer(docxBuf);
+    assert.ok(res.extractionConfidence >= 0.90);
+    assert.ok(res.rawText.includes('Aarav Patel'));
+    assert.ok(res.rawText.includes('aarav@example.com'));
+    assert.ok(res.rawText.includes('CGPA: 9.2'));
+  });
+
+  await test('Issue 29: Honest refusal on unreadable files and honest image OCR without ASCII scraping', async () => {
+    const { extractDocumentEvidence } = await import('../src/lib/ats/pdfTextExtractor');
+    const { extractTextFromImageBuffer } = await import('../src/lib/ats/imageOcrWorker');
+    const emptyPdfBuf = Buffer.from('%PDF-1.4\n1 0 obj\n<< >>\nendobj\nxref\n0 1\ntrailer\n<< >>\n%%EOF');
+    const pdfRes = extractDocumentEvidence(emptyPdfBuf, 'PDF');
+    assert.strictEqual(pdfRes.extractionConfidence, 0.0);
+    assert.ok(pdfRes.error?.includes('UNREADABLE_DOCUMENT'));
+
+    const pngHeader = Buffer.from([0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, 0, 0, 0, 13, 0x49, 0x48, 0x44, 0x52, 0, 0, 1, 0, 0, 0, 1, 0, 8, 2, 0, 0, 0]);
+    const imgRes = extractTextFromImageBuffer(pngHeader);
+    assert.strictEqual(imgRes.ocrConfidence, 0.0);
+    assert.strictEqual(imgRes.rawText, '');
+  });
+
+  await test('Issue 29: Anti-Fraud Identity Sentinel prevents surname vulnerability (friend/sibling match)', async () => {
+    const { checkNameSimilarity } = await import('../src/lib/ats/documentAuditEngine');
+    const friendResult = checkNameSimilarity('Rohan Sharma', 'Priya Sharma');
+    assert.strictEqual(friendResult.isMatch, false);
+    assert.ok(friendResult.reason?.includes('same surname'));
+
+    const initialResult = checkNameSimilarity('Rohan Sharma', 'R. Sharma');
+    assert.strictEqual(initialResult.isMatch, true);
+
+    const placeholderResult = checkNameSimilarity('Candidate', 'Rohan Sharma');
+    assert.strictEqual(placeholderResult.isMatch, false);
+  });
+
+  await test('Issue 29: Fact check entity grounding rejects Mozilla/5.0 as GPA and Adobe as Degree', async () => {
+    const { groundAndValidateEvidence } = await import('../src/lib/ats/factCheckValidator');
+    const fakeMetadata = 'Resume\nMozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\nSkia/PDF m153\nAdobe Systems Inc.\n';
+    const fakeGraph = groundAndValidateEvidence(fakeMetadata, 'test.pdf', 'fakehash');
+    assert.strictEqual(fakeGraph.candidateName, 'Candidate');
+    assert.strictEqual(fakeGraph.scoreOrGpa, undefined);
+    assert.strictEqual(fakeGraph.degree, undefined);
+
+    const validText = 'Rohan Sharma\nEmail: rohan@example.com\nNational Institute of Technology - B.Tech in Computer Science\nCGPA: 8.8\n';
+    const validGraph = groundAndValidateEvidence(validText, 'resume.pdf', 'validhash');
+    assert.strictEqual(validGraph.candidateName, 'Rohan Sharma');
+    assert.strictEqual(validGraph.scoreOrGpa, '8.8 GPA');
+    assert.ok(validGraph.degree?.includes('B.Tech'));
+  });
+
+  await test('Issue 29: Vault upload route returns HTTP 422 UNREADABLE_DOCUMENT on unreadable files', async () => {
+    const { POST: vaultUploadPOST } = await import('../src/app/api/vault/upload/route');
+    const unreadableFormData = new FormData();
+    const tinyBlob = new Blob(['%PDF-1.4 empty'], { type: 'application/pdf' });
+    unreadableFormData.append('file', tinyBlob, 'corrupt.pdf');
+
+    const req = new Request('http://localhost:3000/api/vault/upload', {
+      method: 'POST',
+      headers: {
+        'authorization': 'Bearer demo-token-bypass',
+        'x-mock-user-id': 'student_subbatch_test',
+        'content-length': '14'
+      },
+      body: unreadableFormData
+    });
+
+    const response = await vaultUploadPOST(req);
+    const respJson = await response.json();
+    assert.strictEqual(response.status, 422);
+    assert.strictEqual(respJson.error, 'UNREADABLE_DOCUMENT');
+  });
+
   console.log('\n================================================================');
   console.log('🧪 VERIFYING ALL 6 REPORTED & FIXED ISSUES WITH AUTOMATED TESTS');
   console.log('================================================================\n');

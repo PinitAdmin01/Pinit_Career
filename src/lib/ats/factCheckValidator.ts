@@ -116,34 +116,55 @@ export function groundAndValidateEvidence(
   let candidateName = 'Candidate';
   const headerText = sectionMap.getSectionText('HEADER_CONTACTS') || rawText.slice(0, 300);
   const nameLines = headerText.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
+
+  const isNoiseOrMetadata = (s: string) => {
+    const l = s.toLowerCase();
+    return (
+      l === 'resume' ||
+      l === 'curriculum vitae' ||
+      l === 'cv' ||
+      l === 'biodata' ||
+      l === 'candidate' ||
+      l.includes('mozilla') ||
+      l.includes('headlesschrome') ||
+      l.includes('skia') ||
+      l.includes('adobe') ||
+      l.includes('identity') ||
+      l.includes('user-agent') ||
+      /education|skills|projects|experience|academics|summary|objective/i.test(l)
+    );
+  };
   
   for (const line of nameLines) {
     if (!line.includes('@') && !/\d{5,}/.test(line) && line.length >= 2 && line.length <= 40) {
-      const clean = line.replace(/^(?:name|resume|curriculum vitae|biodata)\s*[:\-]\s*/i, '').trim();
-      if (!/education|skills|projects|experience/i.test(clean)) {
-        candidateName = clean.split(/\s+/).map(t => t.charAt(0).toUpperCase() + t.slice(1).toLowerCase()).join(' ');
-        console.log(`👤 [STAGE 7/12 - Grounded Name]: "${candidateName}" (Rule: NAME_HEADER_CONTEXT_V1, Confidence: 0.98)`);
-        provenanceRecords.push({
-          id: `prov_name_${now}`,
-          field: 'CandidateName',
-          value: candidateName,
-          sourceDocument: fileName,
-          documentHash,
-          sourcePage: 1,
-          sourceCharacterRange: [0, clean.length],
-          sourceSection: 'HEADER_CONTACTS',
-          sourceTextSnippet: line,
-          confidence: 0.98,
-          verificationLevel: 'SELF_SUBMITTED',
-          status: 'DOCUMENT_SUPPORTED',
-          groundingRule: 'NAME_HEADER_CONTEXT_V1',
-          extractionMethod,
-          extractionConfidence,
-          parserVersion: 'v2.1.0',
-          groundingVersion: 'v2.1.0',
-          modelTimestamp: now
-        });
-        break;
+      const clean = line.replace(/^(?:name|candidate name|full name)\s*[:\-]\s*/i, '').trim();
+      if (!isNoiseOrMetadata(clean)) {
+        const tokens = clean.split(/\s+/);
+        if (tokens.length >= 1 && tokens.length <= 4) {
+          candidateName = tokens.map(t => t.charAt(0).toUpperCase() + t.slice(1).toLowerCase()).join(' ');
+          console.log(`👤 [STAGE 7/12 - Grounded Name]: "${candidateName}" (Rule: NAME_HEADER_CONTEXT_V1, Confidence: 0.98)`);
+          provenanceRecords.push({
+            id: `prov_name_${now}`,
+            field: 'CandidateName',
+            value: candidateName,
+            sourceDocument: fileName,
+            documentHash,
+            sourcePage: 1,
+            sourceCharacterRange: [0, clean.length],
+            sourceSection: 'HEADER_CONTACTS',
+            sourceTextSnippet: line,
+            confidence: 0.98,
+            verificationLevel: 'SELF_SUBMITTED',
+            status: 'DOCUMENT_SUPPORTED',
+            groundingRule: 'NAME_HEADER_CONTEXT_V1',
+            extractionMethod,
+            extractionConfidence,
+            parserVersion: 'v2.1.0',
+            groundingVersion: 'v2.1.0',
+            modelTimestamp: now
+          });
+          break;
+        }
       }
     }
   }
@@ -213,59 +234,65 @@ export function groundAndValidateEvidence(
   const eduLines = eduText.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
   for (const line of eduLines) {
     if (/institute|college|university|school|management|academy|polytechnic|board/i.test(line)) {
-      institution = line.replace(/^(?:education|academics)\s*[:\-]?\s*/i, '').trim();
-      console.log(`🎓 [STAGE 7/12 - Grounded Institution]: "${institution}" (Rule: INSTITUTION_EDUCATION_CONTEXT_V2)`);
-      provenanceRecords.push({
-        id: `prov_inst_${now}`,
-        field: 'Institution',
-        value: institution,
-        sourceDocument: fileName,
-        documentHash,
-        sourcePage: 1,
-        sourceCharacterRange: [rawText.indexOf(line), rawText.indexOf(line) + line.length],
-        sourceSection: 'EDUCATION',
-        sourceTextSnippet: line,
-        confidence: 0.97,
-        verificationLevel: 'SELF_SUBMITTED',
-        status: 'DOCUMENT_SUPPORTED',
-        groundingRule: 'INSTITUTION_EDUCATION_CONTEXT_V2',
-        extractionMethod,
-        extractionConfidence,
-        parserVersion: 'v2.1.0',
-        groundingVersion: 'v2.1.0',
-        modelTimestamp: now
-      });
-      break;
+      if (!/mozilla|skia|adobe|chrome|safari/i.test(line)) {
+        institution = line.replace(/^(?:education|academics)\s*[:\-]?\s*/i, '').trim();
+        console.log(`🎓 [STAGE 7/12 - Grounded Institution]: "${institution}" (Rule: INSTITUTION_EDUCATION_CONTEXT_V2)`);
+        provenanceRecords.push({
+          id: `prov_inst_${now}`,
+          field: 'Institution',
+          value: institution,
+          sourceDocument: fileName,
+          documentHash,
+          sourcePage: 1,
+          sourceCharacterRange: [rawText.indexOf(line), rawText.indexOf(line) + line.length],
+          sourceSection: 'EDUCATION',
+          sourceTextSnippet: line,
+          confidence: 0.97,
+          verificationLevel: 'SELF_SUBMITTED',
+          status: 'DOCUMENT_SUPPORTED',
+          groundingRule: 'INSTITUTION_EDUCATION_CONTEXT_V2',
+          extractionMethod,
+          extractionConfidence,
+          parserVersion: 'v2.1.0',
+          groundingVersion: 'v2.1.0',
+          modelTimestamp: now
+        });
+        break;
+      }
     }
   }
 
   for (const line of eduLines) {
-    if (/bachelor|master|bca|b\.tech|btech|b\.e|be|mca|mtech|diploma|puc|10th|12th|computer application|engineering|science/i.test(line)) {
-      degree = line.trim();
-      console.log(`📜 [STAGE 7/12 - Grounded Degree]: "${degree}"`);
-      provenanceRecords.push({
-        id: `prov_deg_${now}`,
-        field: 'Degree',
-        value: degree,
-        sourceDocument: fileName,
-        documentHash,
-        sourcePage: 1,
-        sourceCharacterRange: [rawText.indexOf(line), rawText.indexOf(line) + line.length],
-        sourceSection: 'EDUCATION',
-        sourceTextSnippet: line,
-        confidence: 0.96,
-        verificationLevel: 'SELF_SUBMITTED',
-        status: 'DOCUMENT_SUPPORTED',
-        groundingRule: 'GPA_EDUCATION_CONTEXT_V2',
-        extractionMethod,
-        extractionConfidence,
-        parserVersion: 'v2.1.0',
-        groundingVersion: 'v2.1.0',
-        modelTimestamp: now
-      });
+    if (/\b(?:bachelor|master|bca|b\.?tech|btech|b\.?e\b|mca|mtech|diploma|puc|10th|12th|computer application|engineering|science)\b/i.test(line)) {
+      if (!/adobe|skia|mozilla|chrome|user-agent/i.test(line)) {
+        degree = line.trim();
+        console.log(`📜 [STAGE 7/12 - Grounded Degree]: "${degree}"`);
+        provenanceRecords.push({
+          id: `prov_deg_${now}`,
+          field: 'Degree',
+          value: degree,
+          sourceDocument: fileName,
+          documentHash,
+          sourcePage: 1,
+          sourceCharacterRange: [rawText.indexOf(line), rawText.indexOf(line) + line.length],
+          sourceSection: 'EDUCATION',
+          sourceTextSnippet: line,
+          confidence: 0.96,
+          verificationLevel: 'SELF_SUBMITTED',
+          status: 'DOCUMENT_SUPPORTED',
+          groundingRule: 'GPA_EDUCATION_CONTEXT_V2',
+          extractionMethod,
+          extractionConfidence,
+          parserVersion: 'v2.1.0',
+          groundingVersion: 'v2.1.0',
+          modelTimestamp: now
+        });
+      }
     }
 
-    const gpaMatch = line.match(/\b([5-9]\.\d{1,2}|10\.0)\s*(?:GPA|CGPA|SGPA|\/10)?\b/i);
+    const gpaMatch =
+      line.match(/\b(?:GPA|CGPA|SGPA|Grade Point Average)[\s:]*([0-9]\.\d{1,2}|10(?:\.0)?)\b/i) ||
+      line.match(/\b([0-9]\.\d{1,2}|10(?:\.0)?)\s*(?:GPA|CGPA|SGPA|\/\s*10)\b/i);
     if (gpaMatch && !scoreOrGpa) {
       scoreOrGpa = `${gpaMatch[1]} GPA`;
       console.log(`📊 [STAGE 7/12 - Grounded GPA]: "${scoreOrGpa}" (Context: "${line}")`);

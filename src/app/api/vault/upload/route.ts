@@ -111,6 +111,18 @@ export async function POST(req: Request) {
     const rawText = extraction.rawText || '';
     console.log(`🔑 [STAGE 4/12 - Evidence Fingerprint]: Document SHA-256 = ${extraction.documentHash} (Extracted ${rawText.length} clean characters)`);
 
+    // Honest Refusal: Immediately reject unreadable files rather than scoring phantom metadata
+    if (rawText.trim().length < 30 || extraction.extractionConfidence < 0.2 || extraction.error) {
+      console.warn(`🛑 [STAGE 4/12 - Extraction Refusal]: Document contains unreadable content (${rawText.length} chars, confidence ${extraction.extractionConfidence}).`);
+      return NextResponse.json(
+        {
+          error: 'UNREADABLE_DOCUMENT',
+          message: 'We could not read this document. Please ensure your file contains selectable text and is not an encrypted, flattened, or unreadable document.'
+        },
+        { status: 422 }
+      );
+    }
+
     // STAGE 5: Auto-Classification of Category
     const category: VaultCategory = (targetCategory as VaultCategory) || classifyDocumentCategory(fileName, rawText);
     console.log(`🏷️ [STAGE 5/12 - Category Classifier]: Classified document as category = "${category}"`);
