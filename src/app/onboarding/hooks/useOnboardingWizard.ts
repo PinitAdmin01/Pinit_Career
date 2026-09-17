@@ -926,9 +926,9 @@ export function useOnboardingWizard() {
           learningStyle: "Writing code hands-on",
           weeklyHours: "10 hours per week",
           accessReason: "To close skill gaps & earn XP",
-          qt1_score: liveQTMetrics.qt1Score || 80,
-          qt2_score: liveQTMetrics.qt2Score || 85,
-          mindset_archetype: "Pattern Hunter"
+          qt1_score: liveQTMetrics.qt1Score ?? 0,
+          qt2_score: liveQTMetrics.qt2Score ?? 0,
+          mindset_archetype: liveQTMetrics.qt2Evaluation?.dominantArchetype || "Pending Assessment"
         },
         roadmapGenerated: true
       };

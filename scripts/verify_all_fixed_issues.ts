@@ -2259,6 +2259,217 @@ TypeScript, React, Node.js
     assert.strictEqual(c2.portfolio, 'https://rohan.tech');
   });
 
+
+  // =========================================================================
+  // Issue 33: QT2 Cognitive Engine Hardening, File Name Exclusion & Trajectory Math
+  // =========================================================================
+  console.log('\n--- Issue 33: QT2 Cognitive Engine Hardening & Trajectory Math ---');
+
+  await test('Issue 33: File name "latest_resume.pdf" is ignored; does not award Stabilizer archetype', async () => {
+    const { evaluateQT2Model } = await import('../src/lib/ats/qt2AnalysisEngine');
+    const doc = {
+      id: 'doc-1',
+      fileName: 'latest_resume.pdf',
+      title: 'Resume',
+      category: 'resume',
+      fileSize: '45 KB',
+      uploadedAt: new Date().toISOString(),
+      verificationStatus: 'verified',
+      verificationLevel: 'SELF_SUBMITTED',
+      candidateName: 'Rohan Sharma',
+      skills: [],
+      provenanceRecords: [{
+        entityType: 'NAME',
+        extractedValue: 'Rohan Sharma',
+        sourceTextSnippet: 'Rohan Sharma',
+        startChar: 0,
+        endChar: 12,
+        confidence: 0.9,
+        section: 'HEADER_CONTACTS'
+      }]
+    };
+    const res = evaluateQT2Model([doc as any]);
+    assert.strictEqual(res.dimensions.stabilizer, 25);
+    const focusPillar = res.factors.find(f => f.pillar === 'Demonstrated Execution Focus');
+    assert.strictEqual(focusPillar?.score, 0);
+  });
+
+  await test('Issue 33: Substring "misleading" does not match "lead" or award Social IQ', async () => {
+    const { evaluateQT2Model } = await import('../src/lib/ats/qt2AnalysisEngine');
+    const doc = {
+      id: 'doc-2',
+      fileName: 'analysis.pdf',
+      title: 'Report',
+      category: 'resume',
+      fileSize: '45 KB',
+      uploadedAt: new Date().toISOString(),
+      verificationStatus: 'verified',
+      verificationLevel: 'SELF_SUBMITTED',
+      candidateName: 'Rohan Sharma',
+      skills: [],
+      provenanceRecords: [{
+        entityType: 'SKILL',
+        extractedValue: 'Auditing',
+        sourceTextSnippet: 'Identified misleading marketing claims in ad campaigns',
+        startChar: 0,
+        endChar: 55,
+        confidence: 0.9,
+        section: 'EXPERIENCE'
+      }]
+    };
+    const res = evaluateQT2Model([doc as any]);
+    assert.strictEqual(res.dimensions.socialIQ, 25);
+  });
+
+  await test('Issue 33: Multiple unverified self-submitted documents receive provisional integrity (<= 14), not flat 25', async () => {
+    const { evaluateQT2Model } = await import('../src/lib/ats/qt2AnalysisEngine');
+    const docA = {
+      id: 'doc-a',
+      fileName: 'res1.pdf',
+      title: 'Resume',
+      category: 'resume',
+      fileSize: '20 KB',
+      uploadedAt: new Date().toISOString(),
+      verificationStatus: 'verified',
+      verificationLevel: 'SELF_SUBMITTED',
+      candidateName: 'Rohan Sharma',
+      skills: ['Java'],
+      provenanceRecords: []
+    };
+    const docB = {
+      id: 'doc-b',
+      fileName: 'res2.pdf',
+      title: 'Resume Draft',
+      category: 'resume',
+      fileSize: '20 KB',
+      uploadedAt: new Date().toISOString(),
+      verificationStatus: 'verified',
+      verificationLevel: 'SELF_SUBMITTED',
+      candidateName: 'Rohan Sharma',
+      skills: ['Python'],
+      provenanceRecords: []
+    };
+    const res = evaluateQT2Model([docA as any, docB as any]);
+    assert.strictEqual(res.identityIntegrityScore, 14);
+  });
+
+  await test('Issue 33: Institutional credential unlocks full 25/25 integrity score', async () => {
+    const { evaluateQT2Model } = await import('../src/lib/ats/qt2AnalysisEngine');
+    const docA = {
+      id: 'doc-a',
+      fileName: 'resume.pdf',
+      title: 'Resume',
+      category: 'resume',
+      fileSize: '20 KB',
+      uploadedAt: new Date().toISOString(),
+      verificationStatus: 'verified',
+      verificationLevel: 'SELF_SUBMITTED',
+      candidateName: 'Rohan Sharma',
+      skills: ['Java'],
+      provenanceRecords: []
+    };
+    const docB = {
+      id: 'doc-b',
+      fileName: 'marksheet.pdf',
+      title: 'Semester Marksheet',
+      category: 'sem1',
+      fileSize: '50 KB',
+      uploadedAt: new Date().toISOString(),
+      verificationStatus: 'verified',
+      verificationLevel: 'STRUCTURALLY_VALIDATED',
+      candidateName: 'Rohan Sharma',
+      scoreOrGpa: '8.50 GPA',
+      skills: [],
+      provenanceRecords: []
+    };
+    const res = evaluateQT2Model([docA as any, docB as any]);
+    assert.strictEqual(res.identityIntegrityScore, 25);
+  });
+
+  await test('Issue 33: Declining GPA (9.20 -> 6.10) scores low growth (<= 4), while improving GPA scores high (>= 14)', async () => {
+    const { evaluateQT2Model } = await import('../src/lib/ats/qt2AnalysisEngine');
+    const sem1High = {
+      id: 's1',
+      fileName: 'sem1.pdf',
+      title: 'Semester 1',
+      category: 'sem1',
+      fileSize: '40 KB',
+      uploadedAt: new Date().toISOString(),
+      verificationStatus: 'verified',
+      verificationLevel: 'STRUCTURALLY_VALIDATED',
+      candidateName: 'Rohan Sharma',
+      scoreOrGpa: '9.20 GPA',
+      skills: [],
+      provenanceRecords: []
+    };
+    const sem2Low = {
+      id: 's2',
+      fileName: 'sem2.pdf',
+      title: 'Semester 2',
+      category: 'sem2',
+      fileSize: '40 KB',
+      uploadedAt: new Date().toISOString(),
+      verificationStatus: 'verified',
+      verificationLevel: 'STRUCTURALLY_VALIDATED',
+      candidateName: 'Rohan Sharma',
+      scoreOrGpa: '6.10 GPA',
+      skills: [],
+      provenanceRecords: []
+    };
+    const decliningRes = evaluateQT2Model([sem1High as any, sem2Low as any]);
+    assert(decliningRes.longitudinalGrowthScore <= 4);
+    assert(decliningRes.factors.find(f => f.pillar === 'Longitudinal Growth & Trajectory')?.details.includes('decline'));
+
+    const sem1Low = { ...sem1High, scoreOrGpa: '7.10 GPA' };
+    const sem2High = { ...sem2Low, scoreOrGpa: '8.60 GPA' };
+    const improvingRes = evaluateQT2Model([sem1Low as any, sem2High as any]);
+    assert(improvingRes.longitudinalGrowthScore >= 14);
+    assert(improvingRes.factors.find(f => f.pillar === 'Longitudinal Growth & Trajectory')?.details.includes('Upward'));
+  });
+
+  await test('Issue 33: Self-awareness index drops below 50 when stated preferences diverge completely from simulation actions', async () => {
+    const { evaluateQT2Model } = await import('../src/lib/ats/qt2AnalysisEngine');
+    const doc = {
+      id: 'd1',
+      fileName: 'resume.pdf',
+      title: 'Resume',
+      category: 'resume',
+      fileSize: '30 KB',
+      uploadedAt: new Date().toISOString(),
+      verificationStatus: 'verified',
+      verificationLevel: 'SELF_SUBMITTED',
+      candidateName: 'Rohan Sharma',
+      skills: ['TypeScript'],
+      provenanceRecords: []
+    };
+    const simScores = { PatternHunter: 5, SocialIQ: 95 };
+    const identityScores = { logic_vs_empathy: 95 };
+    const res = evaluateQT2Model([doc as any], undefined, simScores, identityScores);
+    assert(res.selfAwarenessIndex < 50);
+    assert.strictEqual(res.selfAwarenessLabel, 'Divergence Detected (Aspiration vs Action Divergence)');
+  });
+
+  await test('Issue 33: Execution Focus pillar has no artificial 10-point floor for sparse evidence', async () => {
+    const { evaluateQT2Model } = await import('../src/lib/ats/qt2AnalysisEngine');
+    const doc = {
+      id: 'd1',
+      fileName: 'resume.pdf',
+      title: 'Resume',
+      category: 'resume',
+      fileSize: '30 KB',
+      uploadedAt: new Date().toISOString(),
+      verificationStatus: 'verified',
+      verificationLevel: 'SELF_SUBMITTED',
+      candidateName: 'Rohan Sharma',
+      skills: ['Python'],
+      provenanceRecords: []
+    };
+    const res = evaluateQT2Model([doc as any]);
+    const focusFactor = res.factors.find(f => f.pillar === 'Demonstrated Execution Focus');
+    assert((focusFactor?.score || 0) < 10);
+    assert.strictEqual(focusFactor?.score, 2);
+  });
+
   console.log('\n================================================================');
   console.log(`📊 FINAL RESULT: ${passedTests} / ${totalTests} TESTS PASSED`);
   console.log('================================================================\n');
