@@ -187,16 +187,70 @@ export function normalizeRoleKey(input?: string, stream?: string): RoleKey {
     return stream === 'non_tech' ? 'general_non_tech' : 'sde';
   }
 
-  const clean = input.toLowerCase().replace(/[^a-z0-9_]/g, ' ').trim();
+  const trimmed = input.trim();
+  if (trimmed in ROLE_SCORING_MATRICES) {
+    return trimmed as RoleKey;
+  }
 
-  if (clean.includes('product') || clean.includes('pm') || clean.includes('program')) return 'pm';
-  if (clean.includes('data') || clean.includes('analytics') || clean.includes('bi') || clean.includes('sql')) return 'data_analyst';
-  if (clean.includes('devops') || clean.includes('cloud') || clean.includes('infra') || clean.includes('sre') || clean.includes('security')) return 'devops';
-  if (clean.includes('front') || clean.includes('ui') || clean.includes('ux') || clean.includes('react') || clean.includes('web')) return 'frontend';
-  if (clean.includes('back') || clean.includes('system') || clean.includes('distributed') || clean.includes('database') || clean.includes('api')) return 'backend';
-  if (clean.includes('sales') || clean.includes('market') || clean.includes('growth') || clean.includes('client')) return 'sales_marketing';
-  if (clean.includes('business') || clean.includes('operations') || clean.includes('consulting') || clean.includes('finance')) return 'business_analyst';
-  if (clean.includes('software') || clean.includes('engineer') || clean.includes('sde') || clean.includes('developer') || clean.includes('fullstack')) return 'sde';
+  const clean = trimmed.toLowerCase();
+
+  // 1. Explicit multi-word algorithmic and CS fundamentals (must not be confused with Data Analyst)
+  if (/\b(data\s+structures?|algorithms?|dsa|leetcode|competitive\s+programming)\b/i.test(clean)) {
+    return 'sde';
+  }
+
+  // 2. Build & Release / CI/CD (must not be confused with Frontend because of 'build' or 'release')
+  if (/\b(build\s*(?:&|and)?\s*release|ci\s*[\/-]?\s*cd)\b/i.test(clean)) {
+    return 'devops';
+  }
+
+  // 3. Business Development (BD/BDE/BDR must not be confused with Business Analyst)
+  if (/\b(business\s+development|\bbde\b|\bbdr\b|\bsdr\b)\b/i.test(clean)) {
+    return 'sales_marketing';
+  }
+
+  // 4. Product Management (whole-word check to avoid matching inside 'development', 'programmer', etc.)
+  if (/\b(product\s+manag(?:er|ement)|\bpm\b|\btpm\b|\bapm\b|product\s+owner|technical\s+product\s+manag(?:er|ement)|program\s+manag(?:er|ement)|project\s+manag(?:er|ement))\b/i.test(clean)) {
+    return 'pm';
+  }
+
+  // 5. DevOps, Cloud, Infrastructure, Site Reliability & Security
+  if (/\b(devops|sre|site\s+reliability|cloud|infrastructure|infra|platform\s+engineer|sysadmin|system\s+administrator|kubernetes|k8s|docker|terraform|cybersecurity|infosec|security\s+engineer)\b/i.test(clean)) {
+    return 'devops';
+  }
+
+  // 6. Data Analyst, Data Science & Business Intelligence (whole-word check so 'bi' does not match 'mobile')
+  if (
+    /\b(data\s+analyst|data\s+analytics|data\s+scientist|data\s+science|business\s+intelligence|\bbi\b|power\s+bi|tableau|sql\s+analyst|data\s+engineer|analytics\s+engineer|machine\s+learning|\bml\b|\bai\b|deep\s+learning|nlp|computer\s+vision|quantitative\s+analyst)\b/i.test(clean) ||
+    (/\b(data|analytics|sql)\b/i.test(clean) && !/\bstructures?\b/i.test(clean))
+  ) {
+    return 'data_analyst';
+  }
+
+  // 7. Frontend, UI/UX & Web Development (whole-word check so 'ui' does not match 'build' or 'fruit')
+  if (/\b(frontend|front\s+end|ui\s*[\/-]?\s*ux|\bui\b|\bux\b|react|next\.?js|vue|angular|svelte|web\s+developer|web\s+development|web\s+design|css|html)\b/i.test(clean)) {
+    return 'frontend';
+  }
+
+  // 8. Backend, Distributed Systems & Database (whole-word check so 'api' does not match 'rapid')
+  if (/\b(backend|back\s+end|distributed\s+systems?|microservices?|database\s+engineer|database\s+admin(?:istrator)?|\bdba\b|\bapi\b|server\s+engineer|systems?\s+engineer)\b/i.test(clean)) {
+    return 'backend';
+  }
+
+  // 9. Business Analyst, Operations & Finance
+  if (/\b(business\s+analyst|operations\s+analyst|bizops|business\s+operations|consulting|management\s+consultant|financial\s+analyst|finance|audit|operations\s+manager)\b/i.test(clean)) {
+    return 'business_analyst';
+  }
+
+  // 10. Sales, Marketing & Growth
+  if (/\b(sales|marketing|growth|account\s+executive|client\s+success|customer\s+success|digital\s+marketing|seo|sem)\b/i.test(clean)) {
+    return 'sales_marketing';
+  }
+
+  // 11. Software Development Engineer, General Programmer, Mobile & Full Stack
+  if (/\b(sde|software|developer|engineer|programmer|programming|coder|coding|full\s*stack|fullstack|mobile|android|ios|flutter|react\s+native|swift|kotlin|java|python|golang|rust|c\+\+|computer\s+science)\b/i.test(clean)) {
+    return 'sde';
+  }
 
   if (stream === 'non_tech') return 'general_non_tech';
   return 'general_tech';

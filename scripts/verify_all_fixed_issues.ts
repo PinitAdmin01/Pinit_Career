@@ -1204,6 +1204,39 @@ async function runAllVerifications() {
     assert.ok(routerCode.includes('ApiError(503'), 'Legacy router must fail closed with ApiError(503)');
   });
 
+  // -------------------------------------------------------------
+  // ISSUE 23: Interview Scorecard Rubric Normalization
+  // -------------------------------------------------------------
+  console.log('\n--- Issue 23: Interview Scorecard Rubric Normalization ---');
+  await test('normalizeRoleKey maps engineering and specialized roles accurately using whole-word matching', async () => {
+    const { normalizeRoleKey } = await import('../src/lib/interview/scoringMatrix');
+
+    // 1. "Software Development Engineer" must NOT match 'pm' via 'development'
+    assert.strictEqual(normalizeRoleKey('Software Development Engineer'), 'sde');
+
+    // 2. "Java Programmer" must NOT match 'pm' via 'program'
+    assert.strictEqual(normalizeRoleKey('Java Programmer'), 'sde');
+
+    // 3. "Mobile App Developer" must NOT match 'data_analyst' via 'mobile' ('bi')
+    assert.strictEqual(normalizeRoleKey('Mobile App Developer'), 'sde');
+
+    // 4. "Build & Release Engineer" must NOT match 'frontend' via 'build' ('ui')
+    assert.strictEqual(normalizeRoleKey('Build & Release Engineer'), 'devops');
+
+    // 5. "Data Structures and Algorithms" must NOT match 'data_analyst' via 'data'
+    assert.strictEqual(normalizeRoleKey('Data Structures and Algorithms'), 'sde');
+
+    // 6. Legitimate PM, Data Analyst, Sales, and DevOps roles still map accurately
+    assert.strictEqual(normalizeRoleKey('Product Manager'), 'pm');
+    assert.strictEqual(normalizeRoleKey('Associate PM'), 'pm');
+    assert.strictEqual(normalizeRoleKey('Power BI Specialist'), 'data_analyst');
+    assert.strictEqual(normalizeRoleKey('Business Development Representative'), 'sales_marketing');
+    assert.strictEqual(normalizeRoleKey('Backend Microservices Architect'), 'backend');
+    assert.strictEqual(normalizeRoleKey('React Frontend Developer'), 'frontend');
+    assert.strictEqual(normalizeRoleKey('Chief Quantum Officer', 'tech'), 'general_tech');
+    assert.strictEqual(normalizeRoleKey('Head of Happiness', 'non_tech'), 'general_non_tech');
+  });
+
   console.log('\n================================================================');
   console.log(`📊 FINAL RESULT: ${passedTests} / ${totalTests} TESTS PASSED`);
   console.log('================================================================\n');

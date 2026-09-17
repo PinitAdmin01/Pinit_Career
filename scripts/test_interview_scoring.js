@@ -99,6 +99,19 @@ const unknownRole2 = normalizeRoleKey('Head of Happiness', 'non_tech');
 assert("Unknown tech role defaults to 'general_tech'", unknownRole1 === 'general_tech');
 assert("Unknown non-tech role defaults to 'general_non_tech'", unknownRole2 === 'general_non_tech');
 
+// 5b. Probe Cases: Verify whole-word role matching prevents erroneous PM/Data Analyst/Frontend mappings
+assert("'Software Development Engineer' maps to 'sde' (not 'pm')", normalizeRoleKey('Software Development Engineer') === 'sde');
+assert("'Java Programmer' maps to 'sde' (not 'pm')", normalizeRoleKey('Java Programmer') === 'sde');
+assert("'Mobile App Developer' maps to 'sde' (not 'data_analyst')", normalizeRoleKey('Mobile App Developer') === 'sde');
+assert("'Build & Release Engineer' maps to 'devops' (not 'frontend')", normalizeRoleKey('Build & Release Engineer') === 'devops');
+assert("'Data Structures and Algorithms' maps to 'sde' (not 'data_analyst')", normalizeRoleKey('Data Structures and Algorithms') === 'sde');
+assert("'Product Manager' maps to 'pm'", normalizeRoleKey('Product Manager') === 'pm');
+assert("'Associate PM' maps to 'pm'", normalizeRoleKey('Associate PM') === 'pm');
+assert("'Power BI Specialist' maps to 'data_analyst'", normalizeRoleKey('Power BI Specialist') === 'data_analyst');
+assert("'Business Development Representative' maps to 'sales_marketing' (not 'business_analyst')", normalizeRoleKey('Business Development Representative') === 'sales_marketing');
+assert("'Backend Microservices Architect' maps to 'backend'", normalizeRoleKey('Backend Microservices Architect') === 'backend');
+assert("'React Frontend Developer' maps to 'frontend'", normalizeRoleKey('React Frontend Developer') === 'frontend');
+
 // 6. Missing dimension fail-safe defaults
 const partialResult = calculateRoleWeightedScore({ logic: 85 });
 assert('Missing dimensions default safely to 50 without crashing or NaN', !isNaN(partialResult.overallScore));
