@@ -486,11 +486,16 @@ export async function firestoreRouter(method:string, path:string, body?:any): Pr
       raw.qt2_score = sanitizeScore(raw.qt2_score, 60);
     }
 
+    const p = await fs.getUserProfile(uid);
+    const existingAnswers = (((p as any)?.onboardingAnswers || (p as any)?.onboarding_answers) || {}) as Record<string, any>;
     const answers = (raw.onboardingAnswers || raw.onboarding_answers) as Record<string, any> | undefined;
     if (answers && typeof answers === 'object') {
       delete answers.role;
       delete answers.subscription_tier;
       delete answers.mission_streak;
+      delete answers.streak;
+      delete answers.completedQuestsTimestamps;
+      delete answers.completedMissionsTimestamps;
       if (answers.qt1_score !== undefined) {
         answers.qt1_score = sanitizeScore(answers.qt1_score, 50);
       }
@@ -498,6 +503,9 @@ export async function firestoreRouter(method:string, path:string, body?:any): Pr
         answers.qt2_score = sanitizeScore(answers.qt2_score, 60);
       }
     }
+    const mergedAnswers = { ...existingAnswers, ...(answers || {}) };
+    raw.onboardingAnswers = mergedAnswers;
+    raw.onboarding_answers = mergedAnswers;
 
     try {
       await fs.updateUserProfile(uid, raw);
@@ -507,9 +515,9 @@ export async function firestoreRouter(method:string, path:string, body?:any): Pr
     }
     return {
       ok: true,
-      onboardingStep: raw.onboardingStep,
-      onboardingAnswers: raw.onboardingAnswers || raw.onboarding_answers,
-      roadmapGenerated: raw.roadmapGenerated,
+      onboardingStep: raw.onboardingStep ?? (p as any)?.onboardingStep ?? 0,
+      onboardingAnswers: mergedAnswers,
+      roadmapGenerated: raw.roadmapGenerated ?? (p as any)?.roadmapGenerated ?? false,
     };
   }
   if(cleanPath==='/api/auth/forgot-password'){

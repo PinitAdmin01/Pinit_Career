@@ -1082,6 +1082,31 @@ async function runAllVerifications() {
     assert.ok(aiRouteCode.includes("ai: newAiExpiry"), 'Must write server-side unlocked_items for paywall check');
   });
 
+  // -------------------------------------------------------------
+  // ISSUE 21: Story Tour & Partial Settings Wipe Prevention (JSONB Merge)
+  // -------------------------------------------------------------
+  console.log('\n--- Issue 21: Onboarding Answers Wipe Prevention (JSONB Merge) ---');
+  await test('POST /api/auth/onboarding merges partial settings rather than wiping onboarding answers', async () => {
+    const onboardingPath = path.join(process.cwd(), 'src/app/api/auth/onboarding/route.ts');
+    const code = fs.readFileSync(onboardingPath, 'utf8');
+
+    // Verify server fetches existingUser before updating
+    assert.ok(code.includes('existingUser'), 'Must fetch existingUser before updating');
+    // Verify JSONB merge logic
+    assert.ok(code.includes('mergedAnswers'), 'Must perform mergedAnswers merge');
+    assert.ok(code.includes('...existingAnswers'), 'Must spread existingAnswers');
+    assert.ok(code.includes('...incomingAnswers'), 'Must spread incomingAnswers');
+    // Verify step 3 is not unconditionally forced
+    assert.ok(!code.includes('const step = 3;'), 'Must NOT unconditionally force const step = 3;');
+    assert.ok(!code.includes('const roadmapGen = true;'), 'Must NOT unconditionally force const roadmapGen = true;');
+  });
+
+  await test('legacyFirestoreRouter merges partial onboarding answers', async () => {
+    const routerPath = path.join(process.cwd(), 'src/lib/api/legacyFirestoreRouter.ts');
+    const routerCode = fs.readFileSync(routerPath, 'utf8');
+    assert.ok(routerCode.includes('mergedAnswers = { ...existingAnswers'), 'legacy router must perform safe merge of onboarding answers');
+  });
+
   console.log('\n================================================================');
   console.log(`📊 FINAL RESULT: ${passedTests} / ${totalTests} TESTS PASSED`);
   console.log('================================================================\n');

@@ -82,23 +82,120 @@ export async function POST(req: NextRequest) {
     delete raw.career_dna_score;
     delete raw.mission_streak;
 
-    const answers = typeof raw.onboardingAnswers === 'object' && raw.onboardingAnswers !== null
-      ? { ...raw.onboardingAnswers }
-      : (typeof raw.onboarding_answers === 'object' && raw.onboarding_answers !== null ? { ...raw.onboarding_answers } : {});
+    // Fetch existing user record to perform safe server-side merge
+    const { data: existingUser } = await db
+      .from('users')
+      .select('*')
+      .eq('id', userId)
+      .maybeSingle();
 
-    delete answers.role;
-    delete answers.subscription_tier;
-    delete answers.mission_streak;
-    delete answers.streak;
-    delete answers.completedQuestsTimestamps;
-    delete answers.completedMissionsTimestamps;
-    answers.hasCompleted = true;
+    // 1. Extract incoming answers (supports onboardingAnswers, onboarding_answers, or root-level payload)
+    let incomingAnswers: Record<string, any> = {};
+    if (typeof raw.onboardingAnswers === 'object' && raw.onboardingAnswers !== null) {
+      incomingAnswers = { ...raw.onboardingAnswers };
+    } else if (typeof raw.onboarding_answers === 'object' && raw.onboarding_answers !== null) {
+      incomingAnswers = { ...raw.onboarding_answers };
+    } else {
+      // Caller passed answers at root of request body (e.g. UserProgressContext:477)
+      const nonAnswerKeys = new Set([
+        'onboarding_step', 'onboardingStep', 'step',
+        'roadmap_generated', 'roadmapGenerated',
+        'target_role', 'targetRole',
+        'career_goal', 'careerGoal',
+        'guidance_mentor_id', 'guidanceMentorId',
+        'completed_quests', 'completedQuests',
+        'completed_missions', 'completedMissions',
+      ]);
+      const rootAnswers: Record<string, any> = {};
+      for (const [k, v] of Object.entries(raw)) {
+        if (!nonAnswerKeys.has(k)) {
+          rootAnswers[k] = v;
+        }
+      }
+      if (Object.keys(rootAnswers).length > 0) {
+        incomingAnswers = rootAnswers;
+      }
+    }
 
-    const targetRole = raw.target_role || answers.role || answers.target_role || 'Software Engineer';
-    const careerGoal = raw.career_goal || answers.career_goal || answers.target_goal || '';
-    const mentorId = raw.guidanceMentorId || raw.guidance_mentor_id || 'priya';
-    const step = 3;
-    const roadmapGen = true;
+    // 2. SERVER-SIDE MERGE: Never replace onboarding_answers wholesale
+    const existingAnswers: Record<string, any> =
+      existingUser?.onboarding_answers && typeof existingUser.onboarding_answers === 'object'
+        ? { ...existingUser.onboarding_answers }
+        : {};
+
+    const mergedAnswers: Record<string, any> = {
+      ...existingAnswers,
+      ...incomingAnswers,
+    };
+
+    // Sanitize privileged and non-tamperable fields
+    delete mergedAnswers.role;
+    delete mergedAnswers.subscription_tier;
+    delete mergedAnswers.mission_streak;
+    delete mergedAnswers.streak;
+    delete mergedAnswers.completedQuestsTimestamps;
+    delete mergedAnswers.completedMissionsTimestamps;
+    delete mergedAnswers.ats_score;
+    delete mergedAnswers.trust_score;
+    delete mergedAnswers.career_dna_score;
+
+    // 3. Completion & Step Determination (Do NOT overwrite step: 3 unless genuine completion)
+    const wasCompleted = Boolean(existingAnswers.hasCompleted || (existingUser?.onboarding_step ?? 0) >= 3);
+    const explicitlyCompleted = Boolean(
+      raw.hasCompleted === true ||
+      incomingAnswers.hasCompleted === true ||
+      (typeof raw.onboarding_step === 'number' && raw.onboarding_step >= 3) ||
+      (typeof raw.onboardingStep === 'number' && raw.onboardingStep >= 3)
+    );
+    const isCompleted = wasCompleted || explicitlyCompleted;
+    if (isCompleted) {
+      mergedAnswers.hasCompleted = true;
+    }
+
+    const explicitStep = raw.onboarding_step ?? raw.onboardingStep ?? raw.step;
+    const step = explicitStep !== undefined
+      ? Math.max(1, Math.min(3, Number(explicitStep) || 1))
+      : (existingUser?.onboarding_step ?? (isCompleted ? 3 : 1));
+
+    const explicitRoadmap = raw.roadmap_generated ?? raw.roadmapGenerated;
+    const roadmapGen = explicitRoadmap !== undefined
+      ? Boolean(explicitRoadmap)
+      : Boolean(existingUser?.roadmap_generated ?? isCompleted);
+
+    const targetRole =
+      raw.target_role ||
+      raw.targetRole ||
+      mergedAnswers.target_role ||
+      mergedAnswers.role ||
+      existingUser?.target_role ||
+      'Software Engineer';
+
+    const careerGoal =
+      raw.career_goal ||
+      raw.careerGoal ||
+      mergedAnswers.career_goal ||
+      mergedAnswers.target_goal ||
+      existingUser?.career_goal ||
+      '';
+
+    const mentorId =
+      raw.guidance_mentor_id ||
+      raw.guidanceMentorId ||
+      mergedAnswers.guidance_mentor_id ||
+      existingUser?.guidance_mentor_id ||
+      'priya';
+
+    const rawQuests = raw.completed_quests || raw.completedQuests;
+    const existingQuests = Array.isArray(existingUser?.completed_quests) ? existingUser.completed_quests : [];
+    const completedQuests = Array.isArray(rawQuests)
+      ? Array.from(new Set([...existingQuests, ...rawQuests]))
+      : existingQuests;
+
+    const rawMissions = raw.completed_missions || raw.completedMissions;
+    const existingMissions = Array.isArray(existingUser?.completed_missions) ? existingUser.completed_missions : [];
+    const completedMissions = Array.isArray(rawMissions)
+      ? Array.from(new Set([...existingMissions, ...rawMissions]))
+      : existingMissions;
 
     const updatePayload: Record<string, any> = {
       onboarding_step: step,
@@ -106,7 +203,9 @@ export async function POST(req: NextRequest) {
       target_role: targetRole,
       career_goal: careerGoal,
       guidance_mentor_id: mentorId,
-      onboarding_answers: answers,
+      onboarding_answers: mergedAnswers,
+      completed_quests: completedQuests,
+      completed_missions: completedMissions,
       updated_at: new Date().toISOString(),
     };
 
@@ -146,7 +245,9 @@ export async function POST(req: NextRequest) {
       target_role: targetRole,
       career_goal: careerGoal,
       guidanceMentorId: mentorId,
-      onboardingAnswers: answers,
+      onboardingAnswers: mergedAnswers,
+      completedQuests,
+      completedMissions,
     });
   } catch (err: any) {
     console.error('[api/auth/onboarding] POST exception:', err);
