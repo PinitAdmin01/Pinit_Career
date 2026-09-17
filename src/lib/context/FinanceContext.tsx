@@ -87,6 +87,9 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
         }
         const added = res.minutesAdded || 30;
         setAiUseTokens(useAppStore.getState().aiUseTokens + added);
+        if (typeof res.newBalance === 'number') {
+          setPins(res.newBalance);
+        }
         toast.success('AI Time Extended! ⏰', `+${added} AI Minutes added to your daily balance.`);
         return true;
       } catch (err: any) {

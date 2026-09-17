@@ -89,6 +89,9 @@ export async function POST(req: NextRequest) {
     delete answers.role;
     delete answers.subscription_tier;
     delete answers.mission_streak;
+    delete answers.streak;
+    delete answers.completedQuestsTimestamps;
+    delete answers.completedMissionsTimestamps;
     answers.hasCompleted = true;
 
     const targetRole = raw.target_role || answers.role || answers.target_role || 'Software Engineer';

@@ -1680,7 +1680,7 @@ Ensure the JSON output is strictly valid and contains no extra text or markdown 
   // ── Pins API ──────────────────────────────────────────────────────────────
   if(cleanPath==='/api/pins/balance'){
     const p=await fs.getUserProfile(uid);
-    return { pins:(p as any)?.pins||100, transactions:[] };
+    return { pins: typeof (p as any)?.pins === 'number' ? (p as any).pins : 50, transactions:[] };
   }
   if(cleanPath==='/api/pins/earn'&&method==='POST'){
     const{amount}=body as Record<string,unknown>;
@@ -1689,7 +1689,7 @@ Ensure the JSON output is strictly valid and contains no extra text or markdown 
       throw new ApiError(400, 'INVALID_AMOUNT', 'Pin earn amount must be a positive integer ≤ 50');
     }
     const p=await fs.getUserProfile(uid);
-    const current=(p as any)?.pins||100;
+    const current=typeof (p as any)?.pins === 'number' ? (p as any).pins : 0;
     const newBal=current+n;
     await fs.updateUserProfile(uid,{ pins:newBal });
     return { ok:true, pins:newBal, earned:n };
@@ -1699,7 +1699,7 @@ Ensure the JSON output is strictly valid and contains no extra text or markdown 
     if (method==='POST') {
       const{featureKey,cost}=body as Record<string,unknown>;
       const p=await fs.getUserProfile(uid);
-      const current=(p as any)?.pins||100;
+      const current=typeof (p as any)?.pins === 'number' ? (p as any).pins : 0;
       if(current<(cost as number||0)) throw new ApiError(402,'INSUFFICIENT_PINS',`Need ${cost} pins, have ${current}`);
       const newBal=current-(cost as number||0);
       await fs.updateUserProfile(uid,{ pins:newBal });
@@ -3186,7 +3186,7 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
       trust_score: (u as any).trust_score || 50,
       career_dna_score: (u as any).career_dna_score || 50,
       mission_streak: (u as any).mission_streak || 0,
-      pins: (u as any).pins || 100,
+      pins: typeof (u as any).pins === 'number' ? (u as any).pins : 0,
       subscription_tier: (u as any).subscription_tier || 'free',
       register_number: (u as any).registerNumber || null
     }));

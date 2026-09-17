@@ -59,18 +59,9 @@ export async function POST(req: Request) {
       );
     }
 
-    const answers = (userRecord.onboarding_answers || {}) as Record<string, any>;
-    const qTimestamps: string[] = Array.isArray(answers.completedQuestsTimestamps)
-      ? answers.completedQuestsTimestamps
-      : [];
-    const mTimestamps: string[] = Array.isArray(answers.completedMissionsTimestamps)
-      ? answers.completedMissionsTimestamps
-      : [];
-    const allTimestamps = [...qTimestamps, ...mTimestamps];
-
-    const computedStreak = allTimestamps.length > 0
-      ? consecutiveCalendarStreak(allTimestamps)
-      : (userRecord.mission_streak ?? 0);
+    // Authoritative streak verification: read strictly from server-authoritative users.mission_streak
+    // Client-supplied onboarding_answers timestamps can be spoofed by browser and must NEVER be trusted.
+    const computedStreak = typeof userRecord.mission_streak === 'number' ? userRecord.mission_streak : 0;
 
     if (computedStreak < milestone) {
       return NextResponse.json(
@@ -125,6 +116,15 @@ export async function POST(req: Request) {
         );
       }
       console.error('[Streak Bonus] Failed to record claim in streak_claims:', insertClaimErr);
+      // FAIL-CLOSED: NEVER credit pins if claim insertion failed, otherwise loops can mint infinite pins
+      return NextResponse.json(
+        {
+          ok: false,
+          error: 'CLAIM_RECORD_FAILED',
+          message: 'Could not record claim. Pins were not credited.',
+        },
+        { status: 500 }
+      );
     }
 
     // 4. Atomically credit 50 pins via credit_pins stored procedure

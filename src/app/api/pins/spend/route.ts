@@ -39,16 +39,6 @@ export async function POST(req: Request) {
     const gated = await requireUserFromRequest(req);
     if (gated.error) return gated.error;
 
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-    const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
-    if (!url || !serviceKey) {
-      // Fail closed — never grant access when env is misconfigured
-      return NextResponse.json(
-        { ok: false, error: 'SERVICE_UNAVAILABLE', message: 'Payment service not configured.' },
-        { status: 503 }
-      );
-    }
-
     let body: any;
     try {
       body = await req.json();
@@ -68,6 +58,71 @@ export async function POST(req: Request) {
       return NextResponse.json(
         { ok: false, error: 'UNKNOWN_FEATURE', message: `Unknown feature key: ${featureKey}` },
         { status: 400 }
+      );
+    }
+
+    // SPEND LOOPHOLE DEFENSE:
+    // Ensure client cannot spend 5 pins on a cheap feature (e.g. attention_span_game)
+    // while passing itemId: 'ai' to unlock expensive AI paywalled routes.
+    let unlockKey = featureKey;
+    if (itemId) {
+      // 1. itemId cannot be another top-level root feature key
+      if (SERVER_PIN_COSTS[itemId] !== undefined && itemId !== featureKey) {
+        // Special case: aliased feature families (e.g., gd <-> group_discussion, interview <-> ai_interview)
+        const isAllowedAlias =
+          (featureKey === 'group_discussion' && itemId === 'gd') ||
+          (featureKey === 'gd' && itemId === 'group_discussion') ||
+          (featureKey === 'interview' && itemId === 'ai_interview') ||
+          (featureKey === 'ai_interview' && itemId === 'interview');
+
+        if (!isAllowedAlias) {
+          return NextResponse.json(
+            {
+              ok: false,
+              error: 'INVALID_ITEM_ID',
+              message: `Cannot use itemId '${itemId}' with feature '${featureKey}'.`,
+            },
+            { status: 400 }
+          );
+        }
+      }
+
+      // 2. Disallow broad AI or Interview master aliases if purchased feature is not AI or Interview
+      const BROAD_PROTECTED_KEYS = new Set(['ai', 'ai_interview', 'interview', 'group_discussion', 'gd']);
+      if (BROAD_PROTECTED_KEYS.has(itemId) && !BROAD_PROTECTED_KEYS.has(featureKey)) {
+        return NextResponse.json(
+          {
+            ok: false,
+            error: 'INVALID_ITEM_ID',
+            message: `Feature '${featureKey}' cannot unlock protected item '${itemId}'.`,
+          },
+          { status: 400 }
+        );
+      }
+
+      // 3. Namespace unlockKey so sub-items are strictly rooted under featureKey
+      if (itemId.startsWith(`${featureKey}:`)) {
+        unlockKey = itemId;
+      } else if (featureKey === 'group_discussion' && itemId.startsWith('gd:')) {
+        unlockKey = itemId;
+      } else if (featureKey === 'gd' && itemId.startsWith('gd:')) {
+        unlockKey = itemId;
+      } else if ((featureKey === 'interview' || featureKey === 'ai_interview') && (itemId.startsWith('interview:') || itemId.startsWith('ai_interview:'))) {
+        unlockKey = itemId;
+      } else if (itemId === featureKey) {
+        unlockKey = featureKey;
+      } else {
+        unlockKey = `${featureKey}:${itemId}`;
+      }
+    }
+
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+    const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+    if (!url || !serviceKey) {
+      // Fail closed — never grant access when env is misconfigured
+      return NextResponse.json(
+        { ok: false, error: 'SERVICE_UNAVAILABLE', message: 'Payment service not configured.' },
+        { status: 503 }
       );
     }
 
@@ -97,7 +152,6 @@ export async function POST(req: Request) {
     }
 
     // Write unlocked_items server-side — the browser is never allowed to write this column
-    const unlockKey = itemId || featureKey;
     const expiresAt = Date.now() + UNLOCK_DURATION_MS;
     const { data: profileData } = await admin
       .from('users')

@@ -1027,6 +1027,61 @@ async function runAllVerifications() {
     assert.ok(serverCode.includes('ABNORMAL_TERMINATION'), 'server.js must catch abnormal termination');
   });
 
+  // -------------------------------------------------------------
+  // ISSUE 20: Pins Economy Leaks (Balance, Spend, Streak, AI Minutes)
+  // -------------------------------------------------------------
+  console.log('\n--- Issue 20: Pins Economy Leaks Defense ---');
+  await test('legacyFirestoreRouter preserves 0 pins balance and does not fallback to 100 or 50', async () => {
+    const routerPath = path.join(process.cwd(), 'src/lib/api/legacyFirestoreRouter.ts');
+    const routerCode = fs.readFileSync(routerPath, 'utf8');
+    assert.ok(!routerCode.includes('pins||100'), 'legacyFirestoreRouter must not contain pins||100');
+    assert.ok(!routerCode.includes('pins || 100'), 'legacyFirestoreRouter must not contain pins || 100');
+    assert.ok(routerCode.includes("typeof (p as any)?.pins === 'number' ? (p as any).pins : 50"), 'Balance route must preserve exact number');
+  });
+
+  await test('/api/pins/spend blocks spend loophole: 5-pin attention game cannot unlock itemId ai', async () => {
+    const { POST } = await import('../src/app/api/pins/spend/route');
+    const { NextRequest } = await import('next/server');
+
+    process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
+    process.env.NODE_ENV = 'development';
+
+    const req = new NextRequest('http://localhost:3000/api/pins/spend', {
+      method: 'POST',
+      headers: {
+        'authorization': 'Bearer demo-token-bypass',
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        featureKey: 'attention_span_game',
+        itemId: 'ai',
+      }),
+    });
+
+    const res = await POST(req);
+    const json = await res.json();
+    assert.strictEqual(res.status, 400, 'Must return 400 Bad Request');
+    assert.strictEqual(json.ok, false, 'Exploit attempt must be rejected');
+    assert.strictEqual(json.error, 'INVALID_ITEM_ID', 'Must cite INVALID_ITEM_ID');
+  });
+
+  await test('/api/pins/claim-streak-bonus computes streak from authoritative mission_streak and fails closed', async () => {
+    const streakRoutePath = path.join(process.cwd(), 'src/app/api/pins/claim-streak-bonus/route.ts');
+    const streakCode = fs.readFileSync(streakRoutePath, 'utf8');
+    assert.ok(!streakCode.includes('answers.completedQuestsTimestamps'), 'Must not trust onboarding answers timestamps');
+    assert.ok(streakCode.includes("typeof userRecord.mission_streak === 'number' ? userRecord.mission_streak : 0"), 'Must read authoritative mission_streak');
+    assert.ok(streakCode.includes("error: 'CLAIM_RECORD_FAILED'"), 'Must fail closed with CLAIM_RECORD_FAILED if claim insert fails');
+  });
+
+  await test('/api/pins/buy-ai-minutes enforces concurrency defense, daily caps, and writes unlocked_items', async () => {
+    const aiRoutePath = path.join(process.cwd(), 'src/app/api/pins/buy-ai-minutes/route.ts');
+    const aiRouteCode = fs.readFileSync(aiRoutePath, 'utf8');
+    assert.ok(aiRouteCode.includes('activeUserPurchases'), 'Must maintain activeUserPurchases concurrency mutex');
+    assert.ok(aiRouteCode.includes('CONCURRENT_PURCHASE_IN_PROGRESS'), 'Must return 429 on concurrent parallel purchase');
+    assert.ok(aiRouteCode.includes('purchase_ai_minutes'), 'Must invoke atomic purchase_ai_minutes RPC');
+    assert.ok(aiRouteCode.includes("ai: newAiExpiry"), 'Must write server-side unlocked_items for paywall check');
+  });
+
   console.log('\n================================================================');
   console.log(`📊 FINAL RESULT: ${passedTests} / ${totalTests} TESTS PASSED`);
   console.log('================================================================\n');
