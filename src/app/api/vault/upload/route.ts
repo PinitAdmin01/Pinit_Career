@@ -297,7 +297,7 @@ export async function POST(req: Request) {
       scoreOrGpa,
       skills,
       verificationStatus,
-      verificationLevel: category === 'resume' ? 'SELF_SUBMITTED' : 'STRUCTURALLY_VALIDATED',
+      verificationLevel: category === 'resume' ? 'SELF_SUBMITTED' : category === 'certification' ? 'THIRD_PARTY_VERIFIED' : 'STRUCTURALLY_VALIDATED',
       mismatchReason,
       documentHash: extraction.documentHash,
       provenanceRecords: validatedGraph.provenanceRecords,

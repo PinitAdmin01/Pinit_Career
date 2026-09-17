@@ -94,6 +94,8 @@ export interface LiveQTCalibration {
   growthMomentum: 'Upward Trajectory (+Growth)' | 'High Distinction (Steady)' | 'Baseline Calibration';
   evaluatedDataPoints: number;
   qt2Evaluation?: QT2ModelEvaluation;
+  contradictions?: any[];
+  authoritativeFacts?: Record<string, any>;
 }
 
 /**
@@ -510,6 +512,20 @@ export function calculateLiveQTMetrics(
 
   const evidenceTrustScore = Math.min(100, identityComponent + integrityComponent + provenanceComponent + crossRecordComponent + longitudinalComponent);
 
+  // 3b. Evaluate Cross-Document Contradictions & Apply Authoritative Precedence
+  const allProvenanceRecords: GroundedProvenanceRecord[] = [];
+  readableDocs.forEach(d => {
+    if (Array.isArray(d.provenanceRecords) && d.provenanceRecords.length > 0) {
+      allProvenanceRecords.push(...d.provenanceRecords);
+    }
+  });
+
+  const contradictionResult = evaluateDocumentContradictions(allProvenanceRecords);
+  let adjustedTrustScore = evidenceTrustScore;
+  if (contradictionResult.hasConflicts) {
+    adjustedTrustScore = Math.max(0, adjustedTrustScore - (contradictionResult.contradictions.length * 15));
+  }
+
   // 4. ATS Presentation Score (0-100)
   // Only scored if master resume has actual extracted content / provenance
   const atsPresentationScore = masterResume && (masterResume.provenanceRecords?.length || 0) > 0
@@ -519,6 +535,8 @@ export function calculateLiveQTMetrics(
   let integrityLevel = '🛡️ Sentinel Clean (100% Consistent)';
   if (auditReport.mismatchCount > 0) {
     integrityLevel = `⚠️ Identity Review Required (${auditReport.mismatchCount} Conflicting Document${auditReport.mismatchCount > 1 ? 's' : ''})`;
+  } else if (contradictionResult.hasConflicts) {
+    integrityLevel = `⚠️ Fact Contradiction Detected (${contradictionResult.contradictions.length} Conflict${contradictionResult.contradictions.length > 1 ? 's' : ''} Overruled by Verified Proofs)`;
   } else if (readableDocs.length < 2) {
     integrityLevel = '📄 Self-Attested Baseline (Upload Academic Proofs to Elevate Trust)';
   }
@@ -535,7 +553,7 @@ export function calculateLiveQTMetrics(
   return {
     qt1Score,
     qt2Score,
-    evidenceTrustScore,
+    evidenceTrustScore: adjustedTrustScore,
     atsPresentationScore,
     academicTrajectory,
     extractedSkills: Array.from(allSkills),
@@ -544,7 +562,9 @@ export function calculateLiveQTMetrics(
     academicAverageGpa: averageGpa,
     growthMomentum,
     evaluatedDataPoints,
-    qt2Evaluation: qt2Eval
+    qt2Evaluation: qt2Eval,
+    contradictions: contradictionResult.contradictions,
+    authoritativeFacts: Object.fromEntries(contradictionResult.authoritativeFacts)
   };
 }
 

@@ -1047,7 +1047,9 @@ Return ONLY JSON. Do not write any markdown formatting, code block ticks, or ext
       scoreOrGpa,
       skills,
       verificationStatus,
+      verificationLevel: category === 'resume' ? 'SELF_SUBMITTED' : category === 'certification' ? 'THIRD_PARTY_VERIFIED' : 'STRUCTURALLY_VALIDATED',
       mismatchReason,
+      provenanceRecords: validatedGraph.provenanceRecords,
       uploadedAt: Date.now()
     };
 
