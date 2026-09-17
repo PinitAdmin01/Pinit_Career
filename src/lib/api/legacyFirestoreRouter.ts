@@ -970,7 +970,7 @@ Return ONLY JSON. Do not write any markdown formatting, code block ticks, or ext
     const profile = await fs.getUserProfile(uid) as any;
     const finalPrimaryName = primaryName || profile?.displayName || 'Candidate';
 
-    const validatedGraph = groundAndValidateEvidence(rawText, fileName, 'mock_client_hash');
+    const validatedGraph = groundAndValidateEvidence(rawText, fileName, 'mock_client_hash', 'PLAIN_TEXT', 0.95, category);
     const detectedName = validatedGraph.candidateName || finalPrimaryName;
     const institution = validatedGraph.institution || 'Academic Institution';
     const scoreOrGpa = validatedGraph.scoreOrGpa || (category === '10th' ? '10th Marksheet' : category === '12th_puc' ? '12th/PUC Certificate' : 'Academic Credential');

@@ -2102,6 +2102,102 @@ async function runAllVerifications() {
     assert.strictEqual(audit.mismatchCount, 1);
   });
 
+  // =========================================================================
+  // Issue 31: Deterministic Fact Grounding, Name/Degree Provenance, Dynamic Confidence & Precedence
+  // =========================================================================
+  console.log('\n--- Issue 31: Deterministic Fact Grounding & Location Provenance ---');
+
+  await test('Issue 31: University header is never extracted as candidate name; explicit student names are grounded', async () => {
+    const { groundAndValidateEvidence } = await import('../src/lib/ats/factCheckValidator');
+    const vtuText = `
+VISVESVARAYA TECHNOLOGICAL UNIVERSITY
+BELAGAVI, KARNATAKA, INDIA
+GRADE CARD / MARKS CARD
+Student Name: Rahul Sharma
+SGPA: 8.50
+CGPA: 8.25
+`;
+    const graph = groundAndValidateEvidence(vtuText, 'vtu_marksheet.pdf', 'hash_vtu', 'NATIVE_PDF', 0.95, 'sem6');
+    assert.strictEqual(graph.candidateName, 'Rahul Sharma');
+    assert.ok(!graph.candidateName.toLowerCase().includes('university'));
+
+    const anonText = `
+VISVESVARAYA TECHNOLOGICAL UNIVERSITY
+BELAGAVI, KARNATAKA
+PROVISIONAL MARKS CARD
+SGPA: 7.80
+CGPA: 7.60
+`;
+    const anonGraph = groundAndValidateEvidence(anonText, 'vtu_anon.pdf', 'hash_anon', 'NATIVE_PDF', 0.95, 'sem8');
+    assert.strictEqual(anonGraph.candidateName, 'Candidate');
+  });
+
+  await test('Issue 31: Degree extractor rejects club activities, cities, and dates', async () => {
+    const { groundAndValidateEvidence } = await import('../src/lib/ats/factCheckValidator');
+    const resumeNoise = `
+Rohan Mehta
+rohan.mehta@example.com
+Member of coding club since December 2023
+Software Developer Intern in Bengaluru, December 2023
+
+EDUCATION
+Bachelor of Engineering in Computer Science and Engineering
+CGPA: 8.40
+`;
+    const graph = groundAndValidateEvidence(resumeNoise, 'resume.pdf', 'hash_res', 'NATIVE_PDF', 0.95, 'resume');
+    assert.ok(graph.degree !== undefined);
+    assert.ok(!graph.degree.includes('Member of coding club'));
+    assert.ok(!graph.degree.includes('Bengaluru'));
+    assert.ok(graph.degree.toLowerCase().includes('bachelor of engineering'));
+  });
+
+  await test('Issue 31: Provenance records contain non-zero character offsets and dynamic confidence', async () => {
+    const { groundAndValidateEvidence } = await import('../src/lib/ats/factCheckValidator');
+    const rawResume = `
+Rohan Mehta
+rohan.mehta@example.com
+EDUCATION
+Bachelor of Engineering in Computer Science
+CGPA: 8.40
+SKILLS
+TypeScript, React, Python
+PROJECTS
+1. Cloud Sentinel
+Distributed event pipeline using TypeScript
+`;
+    const graph = groundAndValidateEvidence(rawResume, 'res.pdf', 'hash_res2', 'OCR_VISION', 0.75, 'resume');
+    const skillRecords = graph.provenanceRecords.filter(r => r.field === 'Skill');
+    assert.ok(skillRecords.length > 0);
+    for (const r of skillRecords) {
+      const [start, end] = r.sourceCharacterRange;
+      assert.ok(start >= 0 && end > start);
+      assert.strictEqual(rawResume.slice(start, end).toLowerCase(), r.sourceTextSnippet.toLowerCase());
+    }
+    const nameRecord = graph.provenanceRecords.find(r => r.field === 'CandidateName');
+    assert.ok(nameRecord !== undefined);
+    assert.ok(nameRecord.confidence < 0.80);
+  });
+
+  await test('Issue 31: Precedence routing resolves conflicting facts and corroborates identical facts', async () => {
+    const { groundAndValidateEvidence } = await import('../src/lib/ats/factCheckValidator');
+    const { evaluateDocumentContradictions } = await import('../src/lib/ats/contradictionEngine');
+
+    const marksheet = groundAndValidateEvidence('CGPA: 8.25', 'marksheet.pdf', 'h1', 'NATIVE_PDF', 0.95, 'sem8');
+    const resume = groundAndValidateEvidence('CGPA: 9.50', 'resume.pdf', 'h2', 'NATIVE_PDF', 0.95, 'resume');
+
+    const result = evaluateDocumentContradictions([...marksheet.provenanceRecords, ...resume.provenanceRecords]);
+    assert.ok(result.hasConflicts);
+    assert.strictEqual(result.authoritativeFacts.get('GPA'), '8.25 GPA');
+    const sub = resume.provenanceRecords.find(r => r.field === 'GPA');
+    assert.strictEqual(sub?.status, 'CONFLICTING_EVIDENCE');
+
+    const doc1 = groundAndValidateEvidence('SKILLS\nTypeScript', 'doc1.pdf', 'h3', 'NATIVE_PDF', 0.95, 'resume');
+    const doc2 = groundAndValidateEvidence('SKILLS\nTypeScript', 'doc2.pdf', 'h4', 'NATIVE_PDF', 0.95, 'cert');
+    const combined = [...doc1.provenanceRecords.filter(r => r.field === 'Skill'), ...doc2.provenanceRecords.filter(r => r.field === 'Skill')];
+    evaluateDocumentContradictions(combined);
+    assert.ok(combined.every(r => r.verificationLevel === 'CROSS_VALIDATED'));
+  });
+
   console.log('\n================================================================');
   console.log(`📊 FINAL RESULT: ${passedTests} / ${totalTests} TESTS PASSED`);
   console.log('================================================================\n');

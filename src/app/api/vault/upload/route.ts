@@ -134,7 +134,8 @@ export async function POST(req: Request) {
       fileName,
       extraction.documentHash,
       extraction.extractionMethod,
-      extraction.extractionConfidence
+      extraction.extractionConfidence,
+      category
     );
 
     const detectedName = validatedGraph.candidateName;
