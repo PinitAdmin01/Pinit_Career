@@ -4,6 +4,9 @@ import React from 'react';
 import type { CareerTrajectory } from '@/lib/data/careerTrajectories';
 import type { Course } from '@/lib/data/coursesData';
 import { EnglishDashboard } from '@/components/language/EnglishDashboard';
+import { CrashCoursePlanCards } from './CrashCoursePlanCards';
+import { InternshipTimelineTracker } from './InternshipTimelineTracker';
+import { PracticeTestReportModal } from './PracticeTestReportModal';
 import CareerPathwayTimeline from '@/components/pathway/CareerPathwayTimeline';
 import CompetencyRadarView from '@/components/pathway/CompetencyRadarView';
 import {
@@ -53,6 +56,7 @@ export interface TrackSelectorDrawerProps {
 }
 
 export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
+
   activeSubTab,
   handleSubTabChange,
   selectedCertTrackId,
@@ -86,6 +90,20 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
   handleSelectCourseFromLibrary,
   setNotesModalState
 }) => {
+  const [activeCrashPlanId, setActiveCrashPlanId] = React.useState<string>('plan-3m-accelerator');
+  const [showPracticeTestModal, setShowPracticeTestModal] = React.useState<boolean>(false);
+  const [practiceTestTitle, setPracticeTestTitle] = React.useState<string>('Full-Stack Architecture & API Practice Test');
+
+  const handleSelectCrashPlan = (planId: string, track: 'web_fullstack' | 'python_ai', courseIdToActivate: string) => {
+    setActiveCrashPlanId(planId);
+    setActiveCourseId(courseIdToActivate);
+  };
+
+  const handleOpenPracticeReport = (title: string) => {
+    setPracticeTestTitle(title);
+    setShowPracticeTestModal(true);
+  };
+
   return (
     <>
       {/* ── 🌟 4 PRIMARY SUB-TABS ───────────────────────────── */}
@@ -240,90 +258,50 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
           flexDirection: 'column',
           gap: 16
         }}>
-          {/* Top Row: Track Title + Selector + Quick QR Share */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 14 }}>
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ fontSize: 24 }}>🏆</span>
-                <h3 style={{ fontSize: 17, fontWeight: 900, color: 'var(--t1)', margin: 0, fontFamily: 'var(--font-display)' }}>
-                  Industrial Certification & Verifiable Skill Passport
-                </h3>
-              </div>
-              <p style={{ fontSize: 12.5, color: 'var(--t3)', margin: '4px 0 0 0' }}>
-                Enterprise-accredited curriculum with real-time SHA-256 evidence logging and live role hireability analytics.
-              </p>
-            </div>
-
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--t2)' }}>Track:</span>
-                <select
-                  value={selectedCertTrackId}
-                  onChange={(e) => {
-                    const trk = CERTIFICATION_TRACKS.find(t => t.id === e.target.value);
-                    if (trk) {
-                      setSelectedCertTrackId(trk.id);
-                      setActiveCourseId(trk.courseId);
-                    }
-                  }}
-                  style={{
-                    padding: '8px 14px',
-                    borderRadius: 10,
-                    border: '1.5px solid var(--accent)',
-                    background: '#090d16',
-                    color: 'var(--text)',
-                    fontSize: 12.5,
-                    fontWeight: 800,
-                    cursor: 'pointer',
-                    outline: 'none',
-                    boxShadow: '0 4px 12px rgba(var(--brand-rgb),0.2)'
-                  }}
-                >
-                  {CERTIFICATION_TRACKS.map(t => (
-                    <option key={t.id} value={t.id}>
-                      {t.icon} {t.title} ({t.duration})
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <button
-                onClick={() => setShowQrModal(true)}
-                style={{
-                  fontSize: 12,
-                  color: 'var(--text)',
-                  fontWeight: 800,
-                  padding: '8px 16px',
-                  borderRadius: 10,
-                  background: 'linear-gradient(135deg, var(--success), var(--success-deep))',
-                  border: 'none',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 6,
-                  boxShadow: '0 4px 14px rgba(var(--success-rgb),0.3)'
-                }}
-              >
-                <span>📲</span> Share & Verify (QR)
-              </button>
-            </div>
+          {/* Top Row: Quick QR Share */}
+          <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+            <button
+              onClick={() => setShowQrModal(true)}
+              style={{
+                fontSize: 12,
+                color: 'var(--text)',
+                fontWeight: 800,
+                padding: '8px 16px',
+                borderRadius: 10,
+                background: 'linear-gradient(135deg, var(--success), var(--success-deep))',
+                border: 'none',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6,
+                boxShadow: '0 4px 14px rgba(var(--success-rgb),0.3)'
+              }}
+            >
+              <span>📲</span> Share & Verify Skill Passport (QR)
+            </button>
           </div>
 
-          {/* Quarters breakdown */}
-          {(() => {
-            const curTrack = CERTIFICATION_TRACKS.find(t => t.id === selectedCertTrackId) || CERTIFICATION_TRACKS[0];
-            return (
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 10 }}>
-                {curTrack.quarters.map((q) => (
-                  <div key={q.q} style={{ padding: '10px 12px', borderRadius: 10, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
-                    <div style={{ fontSize: 10, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase' }}>{q.q}</div>
-                    <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--t1)', marginTop: 2 }}>{q.name}</div>
-                    <div style={{ fontSize: 10.5, color: 'var(--t3)', marginTop: 2 }}>{q.quests}</div>
-                  </div>
-                ))}
-              </div>
-            );
-          })()}
+          {/* ── 1. CRASH COURSE PLAN CARDS (1M, 3M, 6M, 9M) ── */}
+          <CrashCoursePlanCards
+            currentPlanId={activeCrashPlanId}
+            onSelectPlan={handleSelectCrashPlan}
+            onOpenStandaloneCatalog={() => handleSubTabChange('standalone')}
+            onOpenPracticeReport={handleOpenPracticeReport}
+          />
+
+          {/* ── 2. ACTIVE INTERNSHIP & PROGRAM TIMELINE TRACKER ── */}
+          <InternshipTimelineTracker
+            planId={activeCrashPlanId}
+            completedQuestsCount={completedQuests.length}
+            onOpenPracticeTest={() => handleOpenPracticeReport('Weekly Milestone Practice Test')}
+          />
+
+          {/* ── 3. PRACTICE TEST DIAGNOSTIC REPORT MODAL ── */}
+          <PracticeTestReportModal
+            isOpen={showPracticeTestModal}
+            onClose={() => setShowPracticeTestModal(false)}
+            testTitle={practiceTestTitle}
+          />
 
           {/* Live Passport HUD & Expand/Collapse Toggle */}
           {roleReadiness && (
