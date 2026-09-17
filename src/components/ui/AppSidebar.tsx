@@ -139,6 +139,7 @@ export const BOTTOM_NAV: NavLeaf[] = [
   { href: '/notifications', icon: '🔔', label: 'Notifications', badge: true },
   { href: '/pins',          icon: '⚡', label: 'Pins & Wallet'              },
   { href: '/profile',       icon: '👤', label: 'Profile'                    },
+  { href: '/friends',       icon: '👥', label: 'Friends'                    },
 ];
 
 export function getNav(role: string): NavSection[] {

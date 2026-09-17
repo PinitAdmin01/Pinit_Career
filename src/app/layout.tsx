@@ -8,6 +8,7 @@ import '../styles/globals.css';
 import '../styles/tokens.css';
 import '../styles/portal-pages.css';
 import '../styles/landing.css';
+import '../styles/friends.css';
 import type { Metadata, Viewport } from 'next';
 import { Bricolage_Grotesque, Inter, JetBrains_Mono } from 'next/font/google';
 import Script                            from 'next/script';
