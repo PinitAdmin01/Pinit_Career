@@ -1631,6 +1631,80 @@ async function runAllVerifications() {
     assert.strictEqual(progData.stats.reflexRushBest, 80, 'Reaction time must be capped at 80ms floor');
   });
 
+  // =========================================================================
+  // ISSUE 28: AI Projects Generator Integrity & Honest Blueprints
+  // =========================================================================
+  console.log('\n--- Issue 28: AI Projects Generator Integrity & Honest Blueprints ---');
+
+  await test('AI Projects Generator: Raises LLM timeout to 25s (>=20,000ms)', async () => {
+    const { LLM_GENERATION_TIMEOUT_MS } = await import('../src/app/api/projects/generate/route');
+    assert.ok(
+      typeof LLM_GENERATION_TIMEOUT_MS === 'number' && LLM_GENERATION_TIMEOUT_MS >= 20000,
+      `Expected LLM_GENERATION_TIMEOUT_MS >= 20000ms, got ${LLM_GENERATION_TIMEOUT_MS}ms`
+    );
+  });
+
+  await test('AI Projects Generator: Blocks unauthenticated requests from spending LLM tokens', async () => {
+    const { POST: projectsPOST } = await import('../src/app/api/projects/generate/route');
+    const res = await projectsPOST(new Request('http://localhost/api/projects/generate', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'x-forwarded-for': '198.51.100.11'
+      },
+      body: JSON.stringify({ goal: 'AI Engineer' })
+    }));
+    assert.strictEqual(res.status, 401, 'Unauthenticated request must return 401');
+    const json = await res.json();
+    assert.strictEqual(json.error, 'UNAUTHORIZED');
+  });
+
+  await test('AI Projects Generator: Allows zero-cost blueprint preview with honest isTemplate labeling', async () => {
+    const { POST: projectsPOST } = await import('../src/app/api/projects/generate/route');
+    const res = await projectsPOST(new Request('http://localhost/api/projects/generate?preview=true', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'x-forwarded-for': '198.51.100.12'
+      },
+      body: JSON.stringify({ goal: 'AI Engineer', skills: ['PyTorch'] })
+    }));
+    assert.strictEqual(res.status, 200);
+    const json = await res.json();
+    assert.strictEqual(json.isTemplate, true, 'Must declare isTemplate: true');
+    assert.strictEqual(json.source, 'curated_template', 'Must declare source: curated_template');
+    assert.ok(Array.isArray(json.projects) && json.projects.length === 5);
+    assert.ok(json.projects[0].isTemplate === true);
+  });
+
+  await test('AI Projects Generator: Dynamic Domain Fallback covers AI, Mobile, Cyber, and injects skills', async () => {
+    const { getDomainFallback } = await import('../src/app/api/projects/generate/route');
+    const ai = getDomainFallback('AI / Machine Learning Engineer', ['PyTorch', 'LangChain']);
+    assert.ok(ai.some(p => p.name.includes('RAG') || p.name.includes('Agent')));
+    assert.ok(ai[0].techStack.includes('PyTorch'));
+
+    const mobile = getDomainFallback('Mobile Developer', ['Flutter']);
+    assert.ok(mobile.some(p => p.name.includes('Offline') || p.name.includes('GPS')));
+    assert.ok(mobile[0].techStack.includes('Flutter'));
+  });
+
+  await test('AI Projects Generator: Streams SSE responses with structured events and [DONE]', async () => {
+    const { POST: projectsPOST } = await import('../src/app/api/projects/generate/route');
+    const res = await projectsPOST(new Request('http://localhost/api/projects/generate?preview=true&stream=true', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'text/event-stream',
+        'x-forwarded-for': '198.51.100.13'
+      },
+      body: JSON.stringify({ goal: 'Frontend Developer', stream: true, preview: true })
+    }));
+    assert.strictEqual(res.status, 200);
+    const text = await res.text();
+    assert.ok(text.includes('data: {"type":"start"'));
+    assert.ok(text.includes('data: {"type":"complete"'));
+    assert.ok(text.includes('data: [DONE]'));
+  });
 
   console.log('\n================================================================');
   console.log(`📊 FINAL RESULT: ${passedTests} / ${totalTests} TESTS PASSED`);

@@ -260,17 +260,20 @@ function ProjectsPageContent() {
       } catch { /* ignore auth session extraction */ }
 
       try {
+        const isAuth = Boolean(authHeader.Authorization);
         const res = await fetch('/api/projects/generate', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            ...authHeader
+            ...authHeader,
+            ...(!isAuth ? { 'x-preview': 'true' } : {})
           },
           body: JSON.stringify({
             goal,
             skills: skillsList,
             education: degree,
             experienceLevel: (onboardingAnswers as any)?.experience || (onboardingAnswers as any)?.codingExperience || 'Undergraduate',
+            preview: !isAuth
           })
         });
 
@@ -653,7 +656,9 @@ function ProjectsPageContent() {
           guideSteps: guides.steps,
           tips: guides.tips,
           verificationReqs: guides.reqs,
-          minScore: guides.minScore
+          minScore: guides.minScore,
+          isTemplate: p.isTemplate ?? true,
+          source: p.source || 'curated_template'
         };
       });
 
@@ -1134,6 +1139,15 @@ function ProjectsPageContent() {
                           {p.level === 'Advanced' && (
                             <span style={{ fontSize: 8.5, fontFamily: 'var(--font-mono)', background: 'rgba(var(--danger-rgb), 0.15)', color: 'var(--danger)', padding: '1px 5px', borderRadius: 4, fontWeight: 800 }}>
                               INTERVIEW GATE
+                            </span>
+                          )}
+                          {p.isTemplate ? (
+                            <span title="Curated industry blueprint" style={{ fontSize: 8.5, fontFamily: 'var(--font-mono)', background: 'rgba(var(--teal-rgb, 13,148,136), 0.12)', color: 'var(--teal, #0d9488)', padding: '1px 5px', borderRadius: 4, fontWeight: 700, border: '1px solid rgba(var(--teal-rgb, 13,148,136), 0.25)' }}>
+                              📐 BLUEPRINT
+                            </span>
+                          ) : (
+                            <span title="AI synthesized for your profile" style={{ fontSize: 8.5, fontFamily: 'var(--font-mono)', background: 'rgba(var(--purple-rgb, 147,51,234), 0.15)', color: 'var(--purple, #9333ea)', padding: '1px 5px', borderRadius: 4, fontWeight: 700, border: '1px solid rgba(var(--purple-rgb, 147,51,234), 0.25)' }}>
+                              🤖 AI TAILORED
                             </span>
                           )}
                           <strong style={{ fontSize: 13.5, color: 'var(--t1)' }}>{p.name}</strong>
