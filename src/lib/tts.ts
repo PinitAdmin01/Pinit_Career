@@ -380,7 +380,21 @@ export async function speakWithAvatar(
         });
         if (streamSucceeded) return;
       } catch (streamErr) {
-        console.warn('[PinIT Voice] Streaming audio queue error, falling back to WebSpeech:', streamErr);
+        console.warn('[PinIT Voice] Streaming audio queue error, falling back directly to WebSpeech:', streamErr);
+        if (mySpeechId === currentSpeechId) {
+          fallbackWebSpeech(
+            cleanSpeechText,
+            teacherId,
+            onStart,
+            () => finishAfterFloor(Date.now()),
+            detectVibe(cleanSpeechText),
+            mySpeechId,
+            difficulty,
+            speedMultiplier,
+            dynamicMaxDurationMs
+          );
+        }
+        return;
       }
     }
 

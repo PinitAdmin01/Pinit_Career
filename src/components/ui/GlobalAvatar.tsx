@@ -54,6 +54,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   const [minimized, setMinimized] = useState(true);
   const [isEnlarged, setIsEnlarged] = useState(false);
   const [showVoiceRegModal, setShowVoiceRegModal] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
 
   // ── Tour state ─────────────────────────────────────────────────────────────
   const [tourActive, setTourActive] = useState(false);
@@ -348,8 +349,10 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     expectedRouteRef.current = targetRoute || cleanPathRef.current;
 
     speakWithAvatar(speechText, teacherId, () => {
+      setIsSpeaking(true);
       clearTourAdvanceTimer();
     }, () => {
+      setIsSpeaking(false);
       // onEnd: speech explanation completed cleanly.
       // Card remains visible so user can explore the tab and advance via 'Next ->' without premature skipping.
       clearTourAdvanceTimer();
@@ -397,6 +400,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     setTourActive(false);
     setStoryLocked(false);
     stopSpeaking();
+    setIsSpeaking(false);
     completeStoryTour(user?.id);
     if (cleanPath !== '/dashboard') {
       router.push('/dashboard');
@@ -621,6 +625,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
                     onEnlarge={(val) => setIsEnlarged(val)}
                     onlyAvatar={true}
                     gazeTracking={false}
+                    speaking={isSpeaking}
                   />
                 </Suspense>
               </div>
@@ -705,6 +710,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
                     onEnlarge={(val) => setIsEnlarged(val)}
                     onlyAvatar={true}
                     gazeTracking={!pathname.startsWith('/quests/')}
+                    speaking={isSpeaking}
                   />
                 </Suspense>
               </div>
