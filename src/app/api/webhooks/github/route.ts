@@ -56,6 +56,12 @@ export async function resolveLinkedStudent(
 
     if (!error && data?.student_id) {
       const claimed = Array.isArray(data.claimed_repos) ? data.claimed_repos : [];
+      if (claimed.length === 0) {
+        return {
+          verified: false,
+          error: 'REPOSITORY_UNCLAIMED',
+        };
+      }
       const isClaimed = claimed.some(
         (r: string) => (r || '').toLowerCase().trim().replace(/\.git$/, '') === normalizedRepo
       );
@@ -79,7 +85,13 @@ export async function resolveLinkedStudent(
 
     if (userProfile?.id) {
       const claimed = Array.isArray(userProfile.claimed_repos) ? userProfile.claimed_repos : [];
-      const isClaimed = claimed.length === 0 || claimed.some(
+      if (claimed.length === 0) {
+        return {
+          verified: false,
+          error: 'REPOSITORY_UNCLAIMED',
+        };
+      }
+      const isClaimed = claimed.some(
         (r: string) => (r || '').toLowerCase().trim().replace(/\.git$/, '') === normalizedRepo
       );
       if (!isClaimed) {
@@ -180,21 +192,40 @@ export async function POST(req: NextRequest) {
         /(test|spec|\.test\.|\.spec\.)/i.test(f)
       );
 
-      // Defect 095: Reject docs-only commits from production engineering competency
+      // Defect 095: Reject docs-only commits from engineering competency
       if (isDocsOnly || (!hasFunctionalCode && allFiles.length > 0)) {
         return NextResponse.json({
           success: true,
-          message: 'Documentation-only or non-functional commit ignored for production competency evidence.',
+          message: 'Documentation-only or non-functional commit ignored for competency evidence.',
           score: 0,
         });
       }
 
-      // Calculate dynamic score based on commit file breadth and test presence
-      let calculatedScore = 70;
-      if (hasTests) calculatedScore += 15;
-      if (allFiles.length >= 3) calculatedScore += 5;
-      if (commits.length >= 2) calculatedScore += 5;
-      const dynamicScore = Math.min(95, Math.max(65, calculatedScore));
+      // Calculate dynamic score based on commit file breadth, test presence, and multi-commit structure
+      // Honest baseline: single unreviewed commit starts at 35 (never artificial 70-95 floor)
+      let calculatedScore = 35;
+      if (allFiles.length >= 5) {
+        calculatedScore += 15;
+      } else if (allFiles.length >= 2) {
+        calculatedScore += 10;
+      }
+
+      if (hasTests) {
+        calculatedScore += 20;
+      }
+
+      if (commits.length >= 4) {
+        calculatedScore += 10;
+      } else if (commits.length >= 2) {
+        calculatedScore += 5;
+      }
+
+      if (commitMessage && commitMessage.trim().length >= 15 && !/^(wip|fix|test|update|chore)$/i.test(commitMessage.trim())) {
+        calculatedScore += 5;
+      }
+
+      // Automated unreviewed push webhooks are capped at 75 (never 95 "advanced production" without mentor review)
+      const dynamicScore = Math.min(75, Math.max(35, calculatedScore));
 
       // Infer target competency based on repo name or message
       let targetCompId = 'comp_git_version_control_l1';
@@ -206,15 +237,19 @@ export async function POST(req: NextRequest) {
         targetCompId = 'comp_database_sql_internals_l3';
       }
 
+      // Determine difficulty honestly: basic unless multi-file with verified test suites
+      const assessedDifficulty = (hasTests && allFiles.length >= 5) ? 'intermediate' : 'basic';
+
       // Record authentic project evidence with genuine GitHub commit SHA & dynamic score
+      // Single commits represent 'application' competency, never 'production' (which requires live deployment/infrastructure)
       const evidence = await PathwayApiService.recordEvidence({
         id: `ev_github_${commitSha.slice(0, 12)}_${Date.now()}`,
         competencyId: targetCompId,
         competencyVersion: '1.0.0',
         studentId,
         programId: 'prog_swe_accelerated_9m',
-        evidenceClass: 'production',
-        difficulty: 'advanced',
+        evidenceClass: 'application',
+        difficulty: assessedDifficulty,
         evidenceFamilyId: `github_${repoName}`,
         sourceType: 'project',
         sourceId: `repo_${repoName}`,

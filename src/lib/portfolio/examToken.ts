@@ -95,12 +95,35 @@ export function signExamSessionToken(
   return `${data}.${sig}`;
 }
 
+// Global runtime consumed nonces store with automatic TTL expiration
+const CONSUMED_NONCES_TTL_MS = 35 * 60 * 1000; // 35 minutes (tokens expire in 30 min)
+const consumedNoncesMap: Map<string, number> = ((globalThis as any).__pinit_consumed_exam_nonces ??= new Map<string, number>());
+
+function purgeExpiredNonces(): void {
+  const cutoff = Date.now() - CONSUMED_NONCES_TTL_MS;
+  for (const [nonce, timestamp] of consumedNoncesMap.entries()) {
+    if (timestamp < cutoff) {
+      consumedNoncesMap.delete(nonce);
+    }
+  }
+}
+
+export function isNonceConsumed(nonce: string): boolean {
+  purgeExpiredNonces();
+  return consumedNoncesMap.has(nonce);
+}
+
+export function markNonceConsumed(nonce: string): void {
+  purgeExpiredNonces();
+  consumedNoncesMap.set(nonce, Date.now());
+}
+
 /**
  * Validates cryptographic HMAC signature, expiration, and decrypts answers with AES-256-GCM.
  */
 export function verifyExamSessionToken(
   token: string
-): { valid: true; answers: Record<string, number>; studentId?: string; certificateTitle?: string } | { valid: false; error: string } {
+): { valid: true; answers: Record<string, number>; studentId?: string; certificateTitle?: string; nonce?: string } | { valid: false; error: string; code?: string } {
   if (!token || typeof token !== 'string' || !token.includes('.')) {
     return { valid: false, error: 'Invalid exam token structure.' };
   }
@@ -138,8 +161,45 @@ export function verifyExamSessionToken(
       return { valid: false, error: 'Failed to decrypt or decode answers from token.' };
     }
 
-    return { valid: true, answers, studentId: payload.studentId, certificateTitle: payload.certificateTitle };
+    return { valid: true, answers, studentId: payload.studentId, certificateTitle: payload.certificateTitle, nonce: payload.nonce };
   } catch {
     return { valid: false, error: 'Failed to decode exam token data.' };
   }
+}
+
+/**
+ * Verifies token cryptographically AND atomically consumes the single-use nonce.
+ * Defends against replay and oracle attacks: a token can only be submitted once.
+ */
+export function verifyAndConsumeExamSessionToken(
+  token: string
+): { valid: true; answers: Record<string, number>; studentId?: string; certificateTitle?: string; nonce: string } | { valid: false; error: string; code?: string } {
+  const result = verifyExamSessionToken(token);
+  if (!result.valid) {
+    return result;
+  }
+
+  const nonce = result.nonce;
+  if (!nonce) {
+    return { valid: false, error: 'Session token lacks security nonce.', code: 'MISSING_NONCE' };
+  }
+
+  if (isNonceConsumed(nonce)) {
+    return {
+      valid: false,
+      error: 'NONCE_REPLAY_DETECTED: This exam session token has already been evaluated and cannot be reused.',
+      code: 'NONCE_REPLAY'
+    };
+  }
+
+  // Atomically mark nonce as consumed
+  markNonceConsumed(nonce);
+
+  return {
+    valid: true,
+    answers: result.answers,
+    studentId: result.studentId,
+    certificateTitle: result.certificateTitle,
+    nonce
+  };
 }

@@ -72,34 +72,12 @@ export function generateEvidenceIntegrityHash(record: Omit<CompetencyEvidenceRec
 
 /**
  * Verifies if an existing evidence record's HMAC-SHA256 integrity hash is valid and untampered.
+ * Strictly requires keyed HMAC-SHA256. Legacy unkeyed SHA-256 is rejected to prevent evidence forgery.
  */
 export function verifyEvidenceIntegrity(record: CompetencyEvidenceRecord): boolean {
   if (!record.integrityHash) return false;
   const computed = generateEvidenceIntegrityHash(record);
-  if (computed === record.integrityHash) return true;
-
-  // Additive backward-compatibility: Also accept legacy unkeyed SHA-256
-  const sortedArtifacts = record.artifacts ? canonicalSort(record.artifacts) : {};
-  const canonicalPayload = JSON.stringify({
-    competencyId: record.competencyId,
-    competencyVersion: record.competencyVersion,
-    studentId: record.studentId,
-    programId: record.programId,
-    evidenceClass: record.evidenceClass,
-    difficulty: record.difficulty,
-    evidenceFamilyId: record.evidenceFamilyId || '',
-    sourceType: record.sourceType,
-    sourceId: record.sourceId,
-    attemptId: record.attemptId,
-    score: record.score,
-    evaluatorType: record.evaluatorType,
-    evaluatorVersion: record.evaluatorVersion,
-    rubricVersion: record.rubricVersion,
-    timestamp: record.timestamp,
-    artifacts: sortedArtifacts,
-  });
-  const legacyHash = createHash('sha256').update(canonicalPayload).digest('hex');
-  return legacyHash === record.integrityHash;
+  return computed === record.integrityHash;
 }
 
 /**

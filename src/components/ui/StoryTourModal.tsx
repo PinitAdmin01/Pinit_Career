@@ -91,7 +91,7 @@ export const TOUR_SLIDES: TourSlide[] = [
     emoji: '📖',
     title: 'Learning & Career Twin',
     tabKey: 'learning',
-    route: '/learning',
+    route: '/learning?tab=twin',
     segment: 1,
     segmentLabel: 'SEGMENT 1/3 · MAIN HUBS',
     text: "This is Learning & Career Twin — compare your skills against dream engineering tracks. Our AI diagnoses your gaps and generates customized learning roadmaps.",

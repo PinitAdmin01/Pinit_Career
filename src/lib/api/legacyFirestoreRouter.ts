@@ -55,6 +55,10 @@ const INTERVIEWERS_MAP: Record<string, { name: string; role: string; nature: str
 };
 
 async function getUid(): Promise<string> {
+  if (process.env.ALLOW_DEV_AUTH_BYPASS === 'true' && process.env.NODE_ENV !== 'production') {
+    return (globalThis as any).__devAuthUid || 'test_user_001';
+  }
+
   try {
     const { data: { session } } = await supabase.auth.getSession();
     if (session?.user?.id) return session.user.id;
@@ -2908,12 +2912,35 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
       return rest;
     });
 
+    const BROWSER_EXAM_SECRET = ((globalThis as any).__pinit_browser_exam_secret ??=
+      Math.random().toString(36).substring(2) + Date.now().toString(36));
+    const browserConsumedNonces = ((globalThis as any).__pinit_browser_consumed_nonces ??= new Set<string>());
+
+    function hashBrowserAnswer(qId: string, optIdx: number, nonce: string): string {
+      const str = `${BROWSER_EXAM_SECRET}:${qId}:${optIdx}:${nonce}`;
+      let h1 = 0x811c9dc5, h2 = 0x9e3779b9;
+      for (let i = 0; i < str.length; i++) {
+        const c = str.charCodeAt(i);
+        h1 = Math.imul(h1 ^ c, 16777619);
+        h2 = Math.imul(h2 ^ c, 2246822519);
+      }
+      return `${(h1 >>> 0).toString(16)}-${(h2 >>> 0).toString(16)}`;
+    }
+
+    const nonce = Math.random().toString(36).substring(2, 12);
+    const answerHashes: Record<string, string> = {};
+    for (const [qId, idx] of Object.entries(answersMap)) {
+      answerHashes[qId] = hashBrowserAnswer(qId, idx, nonce);
+    }
+
     const sessionPayload = {
-      answers: answersMap,
+      answerHashes,
       expiresAt: Date.now() + 30 * 60 * 1000,
-      nonce: Math.random().toString(36).substring(2, 10)
+      nonce
     };
-    const b64 = typeof btoa !== 'undefined' ? btoa(JSON.stringify(sessionPayload)) : Buffer.from(JSON.stringify(sessionPayload)).toString('base64');
+    const b64 = typeof btoa !== 'undefined'
+      ? btoa(JSON.stringify(sessionPayload))
+      : Buffer.from(JSON.stringify(sessionPayload)).toString('base64');
     const examSessionToken = `token_${b64}`;
 
     return {
@@ -2933,54 +2960,82 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
       throw new ApiError(400, 'BAD_REQUEST', 'Candidate selected answers required.');
     }
 
-    let answers: Record<string, number> = {};
+    const BROWSER_EXAM_SECRET = ((globalThis as any).__pinit_browser_exam_secret ??=
+      Math.random().toString(36).substring(2) + Date.now().toString(36));
+    const browserConsumedNonces = ((globalThis as any).__pinit_browser_consumed_nonces ??= new Set<string>());
+
+    function hashBrowserAnswer(qId: string, optIdx: number, nonce: string): string {
+      const str = `${BROWSER_EXAM_SECRET}:${qId}:${optIdx}:${nonce}`;
+      let h1 = 0x811c9dc5, h2 = 0x9e3779b9;
+      for (let i = 0; i < str.length; i++) {
+        const c = str.charCodeAt(i);
+        h1 = Math.imul(h1 ^ c, 16777619);
+        h2 = Math.imul(h2 ^ c, 2246822519);
+      }
+      return `${(h1 >>> 0).toString(16)}-${(h2 >>> 0).toString(16)}`;
+    }
+
+    let payload: any = null;
     try {
       const rawB64 = examSessionToken.replace(/^token_/, '');
       const jsonStr = typeof atob !== 'undefined' ? atob(rawB64) : Buffer.from(rawB64, 'base64').toString('utf-8');
-      const payload = JSON.parse(jsonStr);
+      payload = JSON.parse(jsonStr);
       if (Date.now() > payload.expiresAt) {
         throw new ApiError(403, 'EXPIRED', 'Exam session expired. Please retake the evaluation.');
       }
-      answers = payload.answers || {};
     } catch (err: any) {
       if (err instanceof ApiError) throw err;
       throw new ApiError(403, 'INVALID_TOKEN', 'Malformed or invalid exam session token.');
     }
 
-    const questionIds = Object.keys(answers);
+    const nonce = payload.nonce;
+    if (!nonce) {
+      throw new ApiError(403, 'INVALID_TOKEN', 'Session token lacks security nonce.');
+    }
+    if (browserConsumedNonces.has(nonce)) {
+      throw new ApiError(409, 'NONCE_REPLAY', 'NONCE_REPLAY_DETECTED: This exam session token has already been evaluated.');
+    }
+    // Atomically consume nonce
+    browserConsumedNonces.add(nonce);
+
+    const answerHashes = payload.answerHashes || {};
+    const questionIds = Object.keys(answerHashes);
     const total = questionIds.length;
+    if (total === 0) {
+      throw new ApiError(400, 'BAD_REQUEST', 'No questions associated with this session token.');
+    }
+
     let correctCount = 0;
     for (const qId of questionIds) {
       const selected = Number(selectedAnswers[qId]);
-      const actual = Number(answers[qId]);
-      if (!isNaN(selected) && selected === actual) {
-        correctCount++;
+      if (!isNaN(selected)) {
+        const expectedHash = hashBrowserAnswer(qId, selected, nonce);
+        if (expectedHash === answerHashes[qId]) {
+          correctCount++;
+        }
       }
     }
 
-    const score = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+    const score = Math.round((correctCount / total) * 100);
     const passed = correctCount >= Math.ceil(total * 0.6);
 
-    // Save evidence of verified credential to student profile in Supabase
-    if (uid && passed) {
-      try {
-        const profile = await fs.getUserProfile(uid) as any;
-        const currentTrust = Number(profile?.trust_score || 70);
-        const currentDna = Number(profile?.career_dna_score || 65);
-        await fs.updateUserProfile(uid, {
-          trust_score: Math.min(99, currentTrust + 10),
-          career_dna_score: Math.min(99, currentDna + 5)
-        });
-      } catch {}
+    if (!passed) {
+      // Oracle defense: Do NOT return correctCount on failure
+      return {
+        ok: true,
+        passed: false,
+        verified: false,
+        message: 'Assessment passing threshold was not achieved. This session token has been consumed. Please review course materials and request a new exam.'
+      };
     }
 
     return {
       ok: true,
-      passed,
+      passed: true,
+      verified: false, // 3-MCQ quiz demonstrates subject knowledge, not official issuer certificate
+      assessmentPassed: true,
       score,
-      total,
-      correctCount,
-      message: passed ? 'Exam Passed! Certificate authenticated and portfolio credibility boosted.' : 'Exam did not meet 60% passing threshold.'
+      message: 'Exam Passed! Subject knowledge assessed (pending official faculty review).'
     };
   }
 

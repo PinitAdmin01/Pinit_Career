@@ -117,7 +117,11 @@ export function useLearningData() {
     const tabParam = searchParams.get('tab') as any;
     const validTabs = ['mistakes', 'roadmap', 'twin', 'gaps', 'memory'];
     if (tabParam && validTabs.includes(tabParam)) {
+      console.log('[Learning Hub] Switching sub-tab from query param to:', tabParam);
       setActiveTab(tabParam);
+    } else if (!tabParam) {
+      console.log('[Learning Hub] Defaulting sub-tab to twin for Career Blueprint view');
+      setActiveTab('twin');
     }
   }, [searchParams]);
 

@@ -1,5 +1,6 @@
 process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
 process.env.NODE_ENV = 'test';
+process.env.EXAM_SECRET = 'test_exam_secret_32_bytes_long_key_pinit!!';
 import assert from 'assert';
 import fs from 'fs';
 import path from 'path';
@@ -2625,6 +2626,239 @@ TypeScript, React, Node.js
       : attackerStorageUrl.split('?')[0];
     const isAttackerAuthorized = cleanAttackerPath.startsWith(`vault/${authenticatedUserId}/`);
     assert.strictEqual(isAttackerAuthorized, false);
+  });
+
+  // =========================================================================
+  // Issue 35: Certificate Analysis & Exam Token Oracle Hardening (Subbatch 4.12)
+  // =========================================================================
+  console.log('\n--- Issue 35: Certificate Analysis & Exam Token Oracle Hardening ---');
+
+  await test('Issue 35: Single-use nonce prevents exam session token replay', async () => {
+    const {
+      signExamSessionToken,
+      verifyAndConsumeExamSessionToken,
+      isNonceConsumed
+    } = await import('../src/lib/portfolio/examToken');
+
+    const answers = { q1: 1, q2: 2, q3: 0 };
+    const token = signExamSessionToken(answers, 30, 'student_123', 'AWS Certified Developer');
+
+    const firstEval = verifyAndConsumeExamSessionToken(token);
+    assert.strictEqual(firstEval.valid, true);
+    if (firstEval.valid) {
+      assert.strictEqual(firstEval.nonce.length >= 8, true);
+      assert.strictEqual(isNonceConsumed(firstEval.nonce), true);
+    }
+
+    const replayEval = verifyAndConsumeExamSessionToken(token);
+    assert.strictEqual(replayEval.valid, false);
+    if (!replayEval.valid) {
+      assert.strictEqual(replayEval.code, 'NONCE_REPLAY');
+      assert.ok(replayEval.error.includes('NONCE_REPLAY_DETECTED'));
+    }
+  });
+
+  await test('Issue 35: Oracle defense - Failed verify-exam does NOT leak correctCount, score, or total', async () => {
+    const { NextRequest } = await import('next/server');
+    const { signExamSessionToken } = await import('../src/lib/portfolio/examToken');
+    const { POST: verifyExamPOST } = await import('../src/app/api/portfolio/verify-exam/route');
+
+    const answers = { q1: 1, q2: 2, q3: 0 };
+    const token = signExamSessionToken(answers, 30, 'test_user_001', 'Docker Deep Dive');
+
+    const req = new NextRequest('http://localhost:3000/api/portfolio/verify-exam', {
+      method: 'POST',
+      headers: {
+        'authorization': 'Bearer test-token-001',
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        examSessionToken: token,
+        selectedAnswers: { q1: 3, q2: 3, q3: 3 }, // all incorrect
+        certificateTitle: 'Docker Deep Dive'
+      })
+    });
+
+    const res = await verifyExamPOST(req);
+    assert.strictEqual(res.status, 200);
+    const json = await res.json();
+
+    assert.strictEqual(json.ok, true);
+    assert.strictEqual(json.passed, false);
+    assert.strictEqual(json.verified, false);
+    assert.strictEqual(json.correctCount, undefined);
+    assert.strictEqual(json.total, undefined);
+    assert.strictEqual(json.score, undefined);
+    assert.ok(json.message?.includes('threshold was not achieved'));
+  });
+
+  await test('Issue 35: Token replay defense - Submitting same token 2nd time fails with HTTP 409 NONCE_REPLAY', async () => {
+    const { NextRequest } = await import('next/server');
+    const { signExamSessionToken } = await import('../src/lib/portfolio/examToken');
+    const { POST: verifyExamPOST } = await import('../src/app/api/portfolio/verify-exam/route');
+
+    const answers = { q1: 1, q2: 2, q3: 0 };
+    const token = signExamSessionToken(answers, 30, 'test_user_001', 'Cloud Architecture');
+
+    const makeReq = () => new NextRequest('http://localhost:3000/api/portfolio/verify-exam', {
+      method: 'POST',
+      headers: {
+        'authorization': 'Bearer test-token-001',
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        examSessionToken: token,
+        selectedAnswers: { q1: 0, q2: 0, q3: 0 },
+        certificateTitle: 'Cloud Architecture'
+      })
+    });
+
+    const firstRes = await verifyExamPOST(makeReq());
+    assert.strictEqual(firstRes.status, 200);
+
+    const replayRes = await verifyExamPOST(makeReq());
+    assert.strictEqual(replayRes.status, 409);
+    const replayJson = await replayRes.json();
+    assert.strictEqual(replayJson.code, 'NONCE_REPLAY');
+    assert.ok(replayJson.error?.includes('NONCE_REPLAY_DETECTED'));
+  });
+
+  await test('Issue 35: Legacy router security - examSessionToken does NOT contain plaintext answers', async () => {
+    const { firestoreRouter } = await import('../src/lib/api/legacyFirestoreRouter');
+
+    const res = await firestoreRouter('POST', '/api/portfolio/analyze-certificate', {
+      title: 'Python for Data Science',
+      issuer: 'University'
+    }) as any;
+
+    assert.strictEqual(res.ok, true);
+    assert.ok(res.examSessionToken?.startsWith('token_'));
+
+    const b64 = res.examSessionToken.replace(/^token_/, '');
+    const decodedStr = Buffer.from(b64, 'base64').toString('utf-8');
+    const payload = JSON.parse(decodedStr);
+
+    assert.strictEqual(payload.answers, undefined);
+    assert.ok(payload.answerHashes);
+    assert.ok(payload.nonce);
+  });
+
+  await test('Issue 35: Legacy router replay rejection - Replay throws 409 and failure does not leak correctCount', async () => {
+    const { firestoreRouter } = await import('../src/lib/api/legacyFirestoreRouter');
+
+    const analyzeRes = await firestoreRouter('POST', '/api/portfolio/analyze-certificate', {
+      title: 'React Fundamentals',
+      issuer: 'Frontend Masters'
+    }) as any;
+
+    const token = analyzeRes.examSessionToken;
+
+    const verifyRes = await firestoreRouter('POST', '/api/portfolio/verify-exam', {
+      examSessionToken: token,
+      selectedAnswers: { q1: 99, q2: 99, q3: 99 }
+    }) as any;
+
+    assert.strictEqual(verifyRes.passed, false);
+    assert.strictEqual(verifyRes.correctCount, undefined);
+
+    let threwReplay = false;
+    try {
+      await firestoreRouter('POST', '/api/portfolio/verify-exam', {
+        examSessionToken: token,
+        selectedAnswers: { q1: 99, q2: 99, q3: 99 }
+      });
+    } catch (err: any) {
+      if (err.status === 409 && err.code === 'NONCE_REPLAY') {
+        threwReplay = true;
+      }
+    }
+    assert.strictEqual(threwReplay, true);
+  });
+
+  await test('Issue 35: Honest credential status - Passing quiz awards KNOWLEDGE_ASSESSED, keeps verified: false', async () => {
+    const { NextRequest } = await import('next/server');
+    const { signExamSessionToken } = await import('../src/lib/portfolio/examToken');
+    const { POST: verifyExamPOST } = await import('../src/app/api/portfolio/verify-exam/route');
+
+    const answers = { q1: 1, q2: 2, q3: 0 };
+    const token = signExamSessionToken(answers, 30, 'test_user_001', 'AWS Solutions Architect');
+
+    const origFetch = globalThis.fetch;
+    globalThis.fetch = async (input, init) => {
+      const urlStr = String(input);
+      if (urlStr.includes('supabase.co') || urlStr.includes('portfolio_items')) {
+        const method = init?.method || 'GET';
+        if (method === 'GET') {
+          return new Response(JSON.stringify({ item_data: { items: [] } }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' }
+          });
+        }
+        return new Response(JSON.stringify([]), {
+          status: 201,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
+      return origFetch(input, init);
+    };
+
+    try {
+      process.env.SUPABASE_SERVICE_ROLE_KEY = 'mock_service_key_for_test';
+      const req = new NextRequest('http://localhost:3000/api/portfolio/verify-exam', {
+        method: 'POST',
+        headers: {
+          'authorization': 'Bearer test-token-001',
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          examSessionToken: token,
+          selectedAnswers: { q1: 1, q2: 2, q3: 0 },
+          certificateTitle: 'AWS Solutions Architect'
+        })
+      });
+
+      const res = await verifyExamPOST(req);
+      assert.strictEqual(res.status, 200);
+      const json = await res.json();
+
+      assert.strictEqual(json.passed, true);
+      assert.strictEqual(json.assessmentPassed, true);
+      assert.strictEqual(json.verified, false);
+      assert.strictEqual(json.certificate?.verificationStatus, 'KNOWLEDGE_ASSESSED');
+      assert.strictEqual(json.certificate?.auditStatus, 'PENDING_FACULTY_AUDIT');
+      assert.strictEqual(json.correctCount, undefined);
+    } finally {
+      globalThis.fetch = origFetch;
+      delete process.env.SUPABASE_SERVICE_ROLE_KEY;
+    }
+  });
+
+  await test('Issue 35: analyze-certificate produces dynamic questions with randomized option orders', async () => {
+    const { NextRequest } = await import('next/server');
+    const { POST: analyzeCertPOST } = await import('../src/app/api/portfolio/analyze-certificate/route');
+
+    const req = new NextRequest('http://localhost:3000/api/portfolio/analyze-certificate', {
+      method: 'POST',
+      headers: {
+        'authorization': 'Bearer test-token-001',
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        title: 'React.js & Modern Web',
+        issuer: 'Meta'
+      })
+    });
+
+    const res = await analyzeCertPOST(req);
+    assert.strictEqual(res.status, 200);
+    const json = await res.json();
+
+    assert.strictEqual(json.questions.length, 3);
+    for (const q of json.questions) {
+      assert.strictEqual(q.options.length, 4);
+      assert.strictEqual(q.correctIdx, undefined);
+    }
+    assert.ok(json.examSessionToken.length > 20);
   });
 
   console.log('\n================================================================');

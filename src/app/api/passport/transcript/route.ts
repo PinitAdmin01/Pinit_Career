@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
+import crypto from 'crypto';
 import { PathwayApiService } from '@/lib/api/pathwayApi';
-import { requireUserFromRequest } from '@/lib/server/requireAuth';
-import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
+import { getBearerToken, requireUserFromRequest } from '@/lib/server/requireAuth';
+import { getSupabaseAdmin, getSupabaseUserClient } from '@/lib/server/supabaseAdmin';
+import { verifyEvidenceIntegrity } from '@/lib/pathway/evidenceEngine';
 
 export async function GET(req: NextRequest) {
   try {
@@ -21,9 +23,13 @@ export async function GET(req: NextRequest) {
 
     // DEF-063 Fix: Authoritative server database verification of student competency evidence
     let verifiedMasteryRecords: any[] = [];
-    let serverEvidenceCount = 0;
+    let serverEvidenceRecords: any[] = [];
     try {
-      const supabase = getSupabaseAdmin();
+      const bearerToken = getBearerToken(req);
+      const supabase = process.env.SUPABASE_SERVICE_ROLE_KEY
+        ? getSupabaseAdmin()
+        : getSupabaseUserClient(bearerToken);
+
       const { data: dbMastery } = await supabase
         .from('student_competency_mastery')
         .select('*')
@@ -31,17 +37,78 @@ export async function GET(req: NextRequest) {
         .eq('state', 'verified');
       if (dbMastery) verifiedMasteryRecords = dbMastery;
 
-      const { count } = await supabase
+      const { data: dbEvidence } = await supabase
         .from('competency_evidence_records')
-        .select('*', { count: 'exact', head: true })
+        .select('*')
         .eq('student_id', studentId);
-      serverEvidenceCount = count || 0;
-    } catch {}
+      if (dbEvidence) serverEvidenceRecords = dbEvidence;
+    } catch {
+      // Fallback
+    }
 
-    const isShaVerified = (profile.verified.length > 0 || verifiedMasteryRecords.length > 0) && (evidenceList.length > 0 || serverEvidenceCount > 0);
-    const badgeText = isShaVerified ? '✓ SHA-256 Verified' : 'Provisional / Unverified';
+    const allEvidenceToCheck = [
+      ...evidenceList,
+      ...serverEvidenceRecords.map((r: any) => ({
+        id: r.id,
+        competencyId: r.competency_id,
+        competencyVersion: r.competency_version,
+        studentId: r.student_id,
+        programId: r.program_id,
+        evidenceClass: r.evidence_class,
+        difficulty: r.difficulty,
+        evidenceFamilyId: r.evidence_family_id,
+        sourceType: r.source_type,
+        sourceId: r.source_id,
+        attemptId: r.attempt_id,
+        score: r.score,
+        evaluatorType: r.evaluator_type,
+        evaluatorVersion: r.evaluator_version,
+        rubricVersion: r.rubric_version,
+        timestamp: r.timestamp,
+        integrityHash: r.integrity_hash,
+        artifacts: r.artifacts || {},
+        criticalFailuresDetected: r.critical_failures_detected || [],
+      }))
+    ];
+
+    const uniqueEvidence = Array.from(new Map(allEvidenceToCheck.map(e => [e.id, e])).values());
+
+    let verifiedEvidenceCount = 0;
+    for (const ev of uniqueEvidence) {
+      if (ev.integrityHash && verifyEvidenceIntegrity(ev)) {
+        verifiedEvidenceCount++;
+      }
+    }
+
+    const hasVerifiedCompetencies = (profile.verified.length > 0 || verifiedMasteryRecords.length > 0);
+    const isShaVerified = hasVerifiedCompetencies && verifiedEvidenceCount > 0 && (verifiedEvidenceCount === uniqueEvidence.length);
+
+    const secret = process.env.EVIDENCE_SIGNING_SECRET || process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.EXAM_SECRET || 'dev_transcript_secret';
+    const issueDate = new Date().toISOString().slice(0, 10);
+    const transcriptDigest = crypto.createHmac('sha256', secret)
+      .update(`${studentId}:${profile.verified.map(s => `${s.id}:${s.score}`).join(';')}:${verifiedEvidenceCount}:${issueDate}`)
+      .digest('hex');
+
+    const badgeText = isShaVerified ? '✓ HMAC-SHA256 Verified' : 'Provisional / Unverified';
     const badgeBg = isShaVerified ? '#10b981' : '#f59e0b';
-    const sealText = isShaVerified ? 'Tamper-Evident Ledger Seal: SHA-256 Verified' : 'Ledger Status: Evidence Pending Verification';
+    const sealText = isShaVerified
+      ? `Tamper-Evident Ledger Seal: ${transcriptDigest.slice(0, 16)}...`
+      : 'Ledger Status: Evidence Pending Verification';
+
+    const defenseScore = Number(readiness.capstoneDefenseScore || 0);
+    const defenseEvaluator = readiness.capstoneDefenseEvaluator || 'AI/Mentor Panel';
+    let defenseCopy = '';
+    let defenseColor = '';
+    if (defenseScore >= 70) {
+      defenseCopy = `Passed rigorous multi-stage architectural defense verifying independent problem solving and code provenance (${defenseScore}/100).`;
+      defenseColor = '#166534';
+    } else if (defenseScore > 0) {
+      defenseCopy = `Capstone oral defense completed with score ${defenseScore}/100 (Passing threshold: 70/100). Re-evaluation required.`;
+      defenseColor = '#b45309';
+    } else {
+      defenseCopy = 'Capstone oral defense pending evaluation. Architectural viva defense not yet completed.';
+      defenseColor = '#64748b';
+    }
 
     const htmlContent = `<!DOCTYPE html>
 <html lang="en">
@@ -104,8 +171,8 @@ export async function GET(req: NextRequest) {
   </table>
 
   <div class="defense-card">
-    <strong>Capstone Oral Defense & Viva Score:</strong> ${readiness.capstoneDefenseScore || 0}/100 (Evaluator: ${readiness.capstoneDefenseEvaluator || 'AI/Mentor Panel'})
-    <p style="margin: 4px 0 0 0; color: #4338ca;">Passed rigorous multi-stage architectural defense verifying independent problem solving and code provenance.</p>
+    <strong>Capstone Oral Defense & Viva Score:</strong> ${defenseScore}/100 (Evaluator: ${defenseEvaluator})
+    <p style="margin: 4px 0 0 0; color: ${defenseColor};">${defenseCopy}</p>
   </div>
 
   <div class="footer">
