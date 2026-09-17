@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
     const { roomId, roomDesc, domain, history } = body;
 
     const candidateMessages = (Array.isArray(history) ? history : []).filter((h: any) =>
-      (h.role === 'SDE Candidate' || h.role === 'user') &&
+      (h.role === 'SDE Candidate' || h.role === 'Candidate' || h.role === 'user' || h.sender === 'Candidate' || h.sender === 'user') &&
       typeof h.content === 'string' &&
       h.content.trim().length > 0
     );
