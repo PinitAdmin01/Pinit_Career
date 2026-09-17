@@ -1,3 +1,5 @@
+process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
+process.env.NODE_ENV = 'test';
 import assert from 'assert';
 import fs from 'fs';
 import path from 'path';
@@ -42,6 +44,178 @@ function test(name: string, fn: () => void | Promise<void>) {
 }
 
 async function runAllVerifications() {
+
+  // =========================================================================
+  // Issue 26: Interview Questions, Problems, Assist Anti-Cheat, History HMAC & Chat Fallback
+  // =========================================================================
+  console.log('\n--- Issue 26: Interview Questions, Problems, Assist, History & Chat ---');
+
+  await test('Question Generator: No Leaked Solutions & Difficulty Respected', async () => {
+    const { POST: generateQuestionsRoute } = await import('../src/app/api/interview/generate-questions/route');
+
+    const authHeaders = {
+      authorization: 'Bearer test-token-001',
+      'x-dev-user-id': 'test_user_001'
+    };
+
+    // Easy
+    const reqEasy = new Request('http://localhost/api/interview/generate-questions', {
+      method: 'POST',
+      headers: authHeaders,
+      body: JSON.stringify({ domainStream: 'tech', difficulty: 'easy' })
+    });
+    const resEasy = await generateQuestionsRoute(reqEasy);
+    const dataEasy = await resEasy.json();
+    assert.strictEqual(resEasy.status, 200);
+    assert.strictEqual(dataEasy.difficulty, 'easy');
+
+    for (const q of dataEasy.questions) {
+      assert.ok(!q.defaultCode.includes('new StringBuilder(s).reverse()'), 'Easy starter code leaked reverse solution!');
+      assert.ok(!q.defaultCode.includes('for(int val : arr) if(val > max)'), 'Easy starter code leaked findMax solution!');
+      assert.ok(q.defaultCode.includes('// TODO: Implement your solution here'), 'Missing TODO stub in starter code');
+    }
+
+    // Hard
+    const reqHard = new Request('http://localhost/api/interview/generate-questions', {
+      method: 'POST',
+      headers: authHeaders,
+      body: JSON.stringify({ domainStream: 'tech', difficulty: 'hard' })
+    });
+    const resHard = await generateQuestionsRoute(reqHard);
+    const dataHard = await resHard.json();
+    assert.strictEqual(dataHard.difficulty, 'hard');
+    assert.notStrictEqual(dataEasy.questions[0].title, dataHard.questions[0].title);
+  });
+
+  await test('Dynamic Problem Fallback: Stubbed Starter Code & Machine-Checkable Test Cases', async () => {
+    const { POST: generateProblemRoute } = await import('../src/app/api/interview/generate-problem/route');
+
+    const reqProb = new Request('http://localhost/api/interview/generate-problem', {
+      method: 'POST',
+      headers: {
+        authorization: 'Bearer test-token-001',
+        'x-dev-user-id': 'test_user_001'
+      },
+      body: JSON.stringify({ topic: 'Distributed Architecture', domainStream: 'tech', difficulty: 'normal' })
+    });
+    const resProb = await generateProblemRoute(reqProb);
+    const probData = await resProb.json();
+
+    const pythonCode = probData.starterCode?.python || '';
+    const jsCode = probData.starterCode?.javascript || '';
+
+    assert.ok(!pythonCode.includes('valid_records = [x for x in items if x >= threshold]'), 'Leaked Python solution in starter code!');
+    assert.ok(!jsCode.includes('items.filter(x => x >= threshold)'), 'Leaked JS solution in starter code!');
+    assert.ok(pythonCode.includes('TODO') || pythonCode.includes('pass') || pythonCode.includes('return 0'), 'Python code missing clean stub');
+
+    for (const tc of probData.testCases) {
+      assert.ok(tc.input.startsWith('(') && tc.input.endsWith(')'), `Input '${tc.input}' is not an argument tuple`);
+      assert.ok(!tc.expectedOutput.includes('count='), `Expected output '${tc.expectedOutput}' is prose`);
+    }
+  });
+
+  await test('Assist Panel Gate: Blocks Live Interview Cheating Even With isPractice: true', async () => {
+    const {
+      recordActiveLiveInterview,
+      completeActiveLiveInterview,
+      clearAllActiveSessionsForTesting
+    } = await import('../src/lib/interview/activeSessionRegistry');
+    const { POST: assistRoute } = await import('../src/app/api/interview/assist/route');
+
+    clearAllActiveSessionsForTesting();
+    const testUserId = 'test_user_001';
+
+    recordActiveLiveInterview(testUserId, 'Distributed Systems', 'round1_behavioral');
+
+    const cheatReq = new Request('http://localhost/api/interview/assist', {
+      method: 'POST',
+      headers: {
+        authorization: 'Bearer test-token-001',
+        'x-dev-user-id': testUserId
+      },
+      body: JSON.stringify({
+        question: 'How to bypass distributed locks?',
+        stage: 'round1_behavioral',
+        topic: 'Distributed Systems',
+        isPractice: true
+      })
+    });
+
+    const cheatRes = await assistRoute(cheatReq);
+    const cheatData = await cheatRes.json();
+    assert.strictEqual(cheatRes.status, 403);
+    assert.strictEqual(cheatData.code, 'ACTIVE_LIVE_INTERVIEW_IN_PROGRESS');
+
+    completeActiveLiveInterview(testUserId);
+  });
+
+  await test('Interview History: Verifies HMAC Signature & Recomputes Unsigned Spoofed Scores', async () => {
+    const {
+      createEvaluationSignature,
+      verifyEvaluationSignature
+    } = await import('../src/lib/interview/evaluationSignature');
+    const { POST: historyRoute } = await import('../src/app/api/interview/history/route');
+
+    const studentId = 'test_user_001';
+    const validSig = createEvaluationSignature(studentId, 88, 'Hire');
+    assert.strictEqual(verifyEvaluationSignature(studentId, 88, 'Hire', validSig), true);
+    assert.strictEqual(verifyEvaluationSignature(studentId, 99, 'Hire', validSig), false);
+
+    // Empty transcript non-zero score rejected
+    const emptyReq = new Request('http://localhost/api/interview/history', {
+      method: 'POST',
+      headers: { authorization: 'Bearer test-token-001', 'x-dev-user-id': studentId },
+      body: JSON.stringify({ score: 95, verdict: 'Exemplary', messages: [] })
+    });
+    const emptyRes = await historyRoute(emptyReq);
+    assert.strictEqual(emptyRes.status, 400);
+
+    // Spoofed 100 recalculates to real score 40
+    const spoofReq = new Request('http://localhost/api/interview/history', {
+      method: 'POST',
+      headers: { authorization: 'Bearer test-token-001', 'x-dev-user-id': studentId },
+      body: JSON.stringify({
+        score: 100,
+        verdict: 'Hire',
+        radar: { logic: 40, systems: 40, comms: 40, solving: 40, star: 40 },
+        messages: [{ role: 'user', content: 'Here is my technical response.' }]
+      })
+    });
+    const spoofRes = await historyRoute(spoofReq);
+    const spoofData = await spoofRes.json();
+    assert.strictEqual(spoofRes.status, 200);
+    assert.strictEqual(spoofData.score, 40);
+    assert.strictEqual(spoofData.verified, false);
+  });
+
+  await test('Chat Route: Progressive Fallback Conversation Engine Without Repetition', async () => {
+    const { generateProgressiveFallbackQuestion } = await import('../src/app/api/interview/chat/route');
+
+    const q1 = generateProgressiveFallbackQuestion({
+      stage: 'round1_behavioral',
+      subTopic: 'Distributed Systems',
+      history: [{ role: 'user', content: 'I am ready.' }],
+      difficulty: 'normal',
+      interviewerName: 'Marcus Brody'
+    });
+
+    const q2 = generateProgressiveFallbackQuestion({
+      stage: 'round1_behavioral',
+      subTopic: 'Distributed Systems',
+      history: [
+        { role: 'user', content: 'I am ready.' },
+        { role: 'assistant', content: q1 },
+        { role: 'user', content: 'My primary challenge was database replication lag.' }
+      ],
+      difficulty: 'normal',
+      interviewerName: 'Marcus Brody'
+    });
+
+    assert.notStrictEqual(q1, q2);
+    assert.ok(q1.includes('demanding challenge') || q1.includes('background'));
+    assert.ok(q2.includes('conflicting priorities') || q2.includes('stakeholders'));
+  });
+
   console.log('\n================================================================');
   console.log('🧪 VERIFYING ALL 6 REPORTED & FIXED ISSUES WITH AUTOMATED TESTS');
   console.log('================================================================\n');

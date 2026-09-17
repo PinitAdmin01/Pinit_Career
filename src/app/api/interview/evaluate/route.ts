@@ -4,6 +4,8 @@ import { sanitizeLLMOutput, sanitizeEvaluationResult } from '@/lib/sanitizeLLM';
 import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 import { validateBody } from '@/lib/server/validate';
 import { z } from 'zod';
+import { createEvaluationSignature } from '@/lib/interview/evaluationSignature';
+import { completeActiveLiveInterview } from '@/lib/interview/activeSessionRegistry';
 
 const InterviewEvaluateSchema = z.object({
   type: z.string().optional(),
@@ -355,8 +357,17 @@ Return ONLY valid JSON matching this schema:
       }
     }
 
+    if (gated.user?.id) {
+      completeActiveLiveInterview(gated.user.id);
+    }
+
+    const evaluationToken = gated.user?.id
+      ? createEvaluationSignature(gated.user.id, finalEvaluation.score, finalEvaluation.verdict)
+      : undefined;
+
     return NextResponse.json({
       evaluation: finalEvaluation,
+      evaluationToken,
       success: true,
     });
   } catch (err: any) {
