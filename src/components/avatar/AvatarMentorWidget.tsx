@@ -798,12 +798,16 @@ export default function AvatarMentorWidget({
               const buf = new Float32Array(analyser.fftSize);
               const freqData = new Float32Array(analyser.frequencyBinCount);
               pitchInterval = setInterval(() => {
+                if (!pitchAudioCtx || pitchAudioCtx.state === 'closed') {
+                  if (pitchInterval) clearInterval(pitchInterval);
+                  return;
+                }
                 if (speakingRef.current || loadingRef.current) return; // Echo gate
                 analyser.getFloatTimeDomainData(buf);
                 analyser.getFloatFrequencyData(freqData);
-                const pitch = detectPitch(buf, pitchAudioCtx!.sampleRate);
-                const { centroid, rolloff } = calculateSpectralFeatures(freqData, pitchAudioCtx!.sampleRate);
-                const mfccVector = extractMelFilterbank(freqData, pitchAudioCtx!.sampleRate);
+                const pitch = detectPitch(buf, pitchAudioCtx.sampleRate);
+                const { centroid, rolloff } = calculateSpectralFeatures(freqData, pitchAudioCtx.sampleRate);
+                const mfccVector = extractMelFilterbank(freqData, pitchAudioCtx.sampleRate);
 
                 if (pitch > 0) {
                   pitchHistoryRef.current.push(pitch);
@@ -900,14 +904,14 @@ export default function AvatarMentorWidget({
 
             // Strip fuzzy wake word prefixes cleanly from query
             const cleaned = transcript
-              .replace(/\b(hey|hi|hello)\b/gi, '')
+              .replace(/\b(hey|hay|hi|hello)\b/gi, '')
               .replace(new RegExp(`\\b(${matchedTeacherKey}|priya|preya|pria|prea|freeya|freya|riya|kashyap|kash|cash\\s*up|catch\\s*up|ketchup|karthic|karthik|kartik|nega|negga|maya|maia|mya|divya|divia)\\b`, 'gi'), '')
               .trim();
 
             if (cleaned.length > 0) {
               // ── Try Voice Navigation Engine first (multi-alternative scoring) ──
               const cleanedAlts = allAlternatives.map(alt =>
-                alt.replace(/\b(hey|hi|hello)\b/gi, '')
+                alt.replace(/\b(hey|hay|hi|hello)\b/gi, '')
                    .replace(new RegExp(`\\b(${matchedTeacherKey}|priya|preya|pria|prea|freeya|freya|riya|kashyap|kash|cash\\s*up|catch\\s*up|ketchup|karthic|karthik|kartik|nega|negga|maya|maia|mya|divya|divia)\\b`, 'gi'), '')
                    .trim()
               ).filter(a => a.length > 0);

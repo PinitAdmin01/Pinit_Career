@@ -208,9 +208,17 @@ export class SentenceAudioQueuePlayer {
     const checkAllDone = () => {
       if (this.isCancelled || playId !== this.currentPlayId) return;
       const allFetched = nextChunkToFetch >= sentences.length && inFlightCount === 0;
-      if (allFetched && completedSentencesCount >= totalScheduled) {
-        this.isPlaying = false;
-        callbacks?.onEnd?.();
+      if (allFetched) {
+        if (totalScheduled === 0) {
+          // Zero sentences were successfully decoded or scheduled
+          this.isPlaying = false;
+          callbacks?.onError?.(new Error('No sentence chunks successfully synthesized or decoded'));
+          return;
+        }
+        if (completedSentencesCount >= totalScheduled) {
+          this.isPlaying = false;
+          callbacks?.onEnd?.();
+        }
       }
     };
 
@@ -229,6 +237,10 @@ export class SentenceAudioQueuePlayer {
         });
 
         if (this.isCancelled || playId !== this.currentPlayId) return;
+
+        if (!res.audioBuffer || res.audioBuffer.byteLength < 100) {
+          throw new Error('Audio buffer too small or empty');
+        }
 
         const audioBuf = await ctx.decodeAudioData(res.audioBuffer.slice(0));
         decodedBuffers[index] = audioBuf;

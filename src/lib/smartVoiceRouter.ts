@@ -181,34 +181,8 @@ export async function synthesizeVoice(
       engine: cloudResult.engine,
     };
   } catch (renderError) {
-    console.warn('[SmartVoiceRouter] Render TTS failed, falling back to WebSpeech', renderError);
-    // WebSpeech API fallback (browser-native, free, always available)
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      await new Promise<void>((resolve) => {
-        const utter = new SpeechSynthesisUtterance(text);
-        utter.lang = 'en-IN';
-        utter.rate = 0.95;
-        utter.pitch = 1.0;
-        // Prefer a female Indian English voice if available
-        const voices = window.speechSynthesis.getVoices();
-        const preferred = voices.find(v =>
-          v.lang.startsWith('en-IN') || v.name.includes('India')
-        );
-        if (preferred) utter.voice = preferred;
-        utter.onend = () => resolve();
-        utter.onerror = () => resolve(); // Resolve anyway — silence is ok
-        window.speechSynthesis.speak(utter);
-      });
-    }
-    // If no browser TTS at all (server context) or completed, return graceful fallback result
-    return {
-      audioBuffer: new ArrayBuffer(0),
-      source: "CLOUD_FASTAPI",
-      latencyMs: Math.round(performance.now() - startTime),
-      durationSec: estimateDuration(text, speed),
-      cacheKey,
-      engine: "webspeech_fallback",
-    };
+    console.warn('[SmartVoiceRouter] Render Cloud TTS failed:', renderError);
+    throw renderError;
   }
 }
 

@@ -135,12 +135,12 @@ function fallbackWebSpeech(
   speechId = currentSpeechId,
   difficulty?: 'easy' | 'normal' | 'hard',
   speedMultiplier = 1.0,
-  maxDurationMs = 6800
+  maxDurationMs = 25000
 ) {
   if (speechId !== currentSpeechId) return;
   if (typeof window === 'undefined' || !window.speechSynthesis) {
     if (speechId === currentSpeechId) onStart();
-    const estimatedDuration = Math.min(maxDurationMs, Math.max(1800, cleanText.length * 35));
+    const estimatedDuration = Math.min(maxDurationMs, Math.max(2500, cleanText.length * 80));
     setTimeout(() => {
       if (speechId === currentSpeechId) onEnd();
     }, estimatedDuration);
@@ -168,7 +168,7 @@ function fallbackWebSpeech(
       onStart();
       maxDurationTimer = setTimeout(() => {
         cleanupAndEnd();
-      }, maxDurationMs);
+      }, Math.max(maxDurationMs, cleanText.length * 120));
     }
   };
   utterance.onend = () => {
@@ -354,24 +354,33 @@ export async function speakWithAvatar(
 
     if (sentences.length > 1) {
       const startedAt = Date.now();
+      let streamSucceeded = false;
       try {
-        await getGlobalAudioQueue().playSentenceStream(
-          sentences,
-          {
-            voice,
-            speed: speedMultiplier,
-            bypassCache: options?.bypassCache,
-            minDurationMs
-          },
-          {
-            onStart,
-            onEnd: () => finishAfterFloor(startedAt),
-            onError: () => finishAfterFloor(startedAt)
-          }
-        );
-        return;
+        await new Promise<void>((resolve, reject) => {
+          getGlobalAudioQueue().playSentenceStream(
+            sentences,
+            {
+              voice,
+              speed: speedMultiplier,
+              bypassCache: options?.bypassCache,
+              minDurationMs
+            },
+            {
+              onStart,
+              onEnd: () => {
+                streamSucceeded = true;
+                finishAfterFloor(startedAt);
+                resolve();
+              },
+              onError: (err) => {
+                reject(err);
+              }
+            }
+          ).catch(reject);
+        });
+        if (streamSucceeded) return;
       } catch (streamErr) {
-        console.warn('[PinIT Voice] Streaming audio queue error, falling back to single buffer:', streamErr);
+        console.warn('[PinIT Voice] Streaming audio queue error, falling back to WebSpeech:', streamErr);
       }
     }
 

@@ -136,13 +136,8 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
           .toLowerCase();
 
         const mentorName = teacher.name.split(' ')[1]?.toLowerCase() || teacher.name.toLowerCase();
-        const hasWakeWord = transcript.includes('hey priya') ||
-                            transcript.includes('priya') ||
-                            transcript.includes('hey anish') ||
-                            transcript.includes('anish') ||
-                            transcript.includes('hey vikram') ||
-                            transcript.includes('vikram') ||
-                            transcript.includes(`hey ${mentorName}`) ||
+        const hasWakeWord = /\b(hey|hay|hi|hello)\b/i.test(transcript) ||
+                            /\b(priya|preya|pria|freya|riya|anish|vikram|kashyap|karthic|maya|divya)\b/i.test(transcript) ||
                             transcript.includes(mentorName);
 
         if (!hasWakeWord) return;
@@ -353,30 +348,13 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     expectedRouteRef.current = targetRoute || cleanPathRef.current;
 
     speakWithAvatar(speechText, teacherId, () => {
-      // onStart: set fallback timeout in case TTS never fires onEnd
       clearTourAdvanceTimer();
-      tourAdvanceTimerRef.current = setTimeout(() => {
-        if (
-          pendingSpeechStepRef.current === tourStep &&
-          tourActive &&
-          cleanPathRef.current === expectedRouteRef.current
-        ) {
-          advanceTourSlide(true);
-        }
-      }, 15000);
     }, () => {
-      // onEnd: auto-advance ONLY if speech genuinely finished while
-      // still on the route this slide was spoken for.
+      // onEnd: speech explanation completed cleanly.
+      // Card remains visible so user can explore the tab and advance via 'Next ->' without premature skipping.
       clearTourAdvanceTimer();
-      if (
-        pendingSpeechStepRef.current === tourStep &&
-        tourActive &&
-        cleanPathRef.current === expectedRouteRef.current
-      ) {
-        advanceTourSlide(true);
-      }
     });
-  }, [tourActive, tourStep, teacherId, router, advanceTourSlide, clearTourAdvanceTimer]);
+  }, [tourActive, tourStep, teacherId, router, clearTourAdvanceTimer]);
 
   // Speak tour slide out loud and automatically switch pages to show corresponding tab
   // NOTE: cleanPath/intentionally excluded from deps — it changes as a side-effect of
@@ -536,30 +514,18 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
             boxShadow: '0 8px 32px rgba(0,0,0,0.4), 0 0 20px rgba(var(--brand-rgb), 0.25)',
             
             opacity: 0.4,
-            transition: 'opacity 0.3s ease, transform 0.3s ease, left 0.3s ease, right 0.3s ease, box-shadow 0.2s',
-            ...(isLeftSidebarOpen && !isRightSidebarOpen
-              ? { left: 'auto', right: 24, transform: 'none' }
-              : isRightSidebarOpen && !isLeftSidebarOpen
-              ? { left: 88, right: 'auto', transform: 'none' }
-              : { left: '50%', right: 'auto', transform: 'translateX(-50%)' }),
+            transition: 'opacity 0.3s ease, transform 0.3s ease, box-shadow 0.2s',
+            left: '50%',
+            right: 'auto',
+            transform: 'translateX(-50%)',
           }}
           onMouseEnter={e => {
             e.currentTarget.style.opacity = '1';
-            e.currentTarget.style.transform =
-              isLeftSidebarOpen && !isRightSidebarOpen
-                ? 'scale(1.05)'
-                : isRightSidebarOpen && !isLeftSidebarOpen
-                ? 'scale(1.05)'
-                : 'translateX(-50%) scale(1.05)';
+            e.currentTarget.style.transform = 'translateX(-50%) scale(1.05)';
           }}
           onMouseLeave={e => {
             e.currentTarget.style.opacity = '0.4';
-            e.currentTarget.style.transform =
-              isLeftSidebarOpen && !isRightSidebarOpen
-                ? 'none'
-                : isRightSidebarOpen && !isLeftSidebarOpen
-                ? 'none'
-                : 'translateX(-50%)';
+            e.currentTarget.style.transform = 'translateX(-50%)';
           }}
         >
           <div style={{
@@ -602,9 +568,13 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
         <div style={{
           position: 'fixed',
           bottom: isCentered ? 'auto' : 24,
-          right: isCentered ? 'auto' : 24,
           top: isCentered ? '50%' : 'auto',
-          left: isCentered ? '50%' : 'auto',
+          left: isCentered
+            ? '50%'
+            : (isRightSidebarOpen && !isLeftSidebarOpen ? 88 : 'auto'),
+          right: isCentered
+            ? 'auto'
+            : (isRightSidebarOpen && !isLeftSidebarOpen ? 'auto' : 24),
           transform: isCentered ? 'translate(-50%, -50%)' : 'none',
           zIndex: 9999,
           width: tourActive ? 560 : (isEnlarged ? 380 : 280),
