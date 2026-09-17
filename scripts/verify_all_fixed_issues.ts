@@ -1271,6 +1271,92 @@ async function runAllVerifications() {
     assert.ok(fullDiag.signals.some(s => s.value === 'Centered Focus'));
   });
 
+  // -------------------------------------------------------------
+  // ISSUE 25: System Design Whiteboard & Problem-Specific Scoring
+  // -------------------------------------------------------------
+  console.log('\n--- Issue 25: System Design Whiteboard & Problem-Specific Scoring ---');
+  await test('evaluateSystemTopology awards 0 for blank canvas and evaluates problem-specific requirements', async () => {
+    const { evaluateSystemTopology } = await import('../src/lib/interview/systemDesignEvaluator');
+
+    // 1. Blank whiteboard receives 0, 'Needs Work'
+    const blankEval = evaluateSystemTopology({
+      nodeCount: 0,
+      linkCount: 0,
+      nodes: [],
+      links: [],
+      hasLoadBalancer: false,
+      hasCachingLayer: false,
+      hasDatabase: false,
+      hasQueue: false,
+      isFullyConnected: false
+    }, 'Distributed Architecture', 'tech');
+
+    assert.strictEqual(blankEval.score, 0, 'Blank whiteboard must receive score 0');
+    assert.strictEqual(blankEval.grade, 'Needs Work', 'Blank whiteboard must receive Needs Work');
+    assert.strictEqual(blankEval.scalabilityRating, 0, 'Scalability must be 0 for empty canvas');
+    assert.strictEqual(blankEval.reliabilityRating, 0, 'Reliability must be 0 for empty canvas');
+    assert.ok(blankEval.bottlenecks[0].includes('Blank Whiteboard'), 'Bottleneck must indicate blank whiteboard');
+
+    // 2. Chat architecture missing message broker / queue
+    const chatWithoutQueue = evaluateSystemTopology({
+      nodeCount: 4,
+      linkCount: 3,
+      nodes: [
+        { id: '1', type: 'Client App', label: 'Web Client', category: 'client' },
+        { id: '2', type: 'Load Balancer', label: 'ALB', category: 'gateway' },
+        { id: '3', type: 'Microservice', label: 'Chat Server', category: 'compute' },
+        { id: '4', type: 'Postgres DB', label: 'Chat DB', category: 'storage' }
+      ],
+      links: [
+        { fromType: 'Client App', toType: 'Load Balancer', protocol: 'HTTPS' },
+        { fromType: 'Load Balancer', toType: 'Microservice', protocol: 'HTTP' },
+        { fromType: 'Microservice', toType: 'Postgres DB', protocol: 'SQL' }
+      ],
+      hasLoadBalancer: true,
+      hasCachingLayer: false,
+      hasDatabase: true,
+      hasQueue: false,
+      isFullyConnected: true
+    }, 'Real-Time Chat Application', 'tech');
+
+    assert.ok(
+      chatWithoutQueue.bottlenecks.some(b => b.toLowerCase().includes('message broker') || b.toLowerCase().includes('queue')),
+      'Must flag missing queue for Real-Time Chat'
+    );
+    assert.ok(chatWithoutQueue.score < 85, `Chat without broker must not receive automatic A+ (Score: ${chatWithoutQueue.score})`);
+
+    // 3. Full chat architecture with Kafka & Redis
+    const fullChat = evaluateSystemTopology({
+      nodeCount: 6,
+      linkCount: 5,
+      nodes: [
+        { id: '1', type: 'Client App', label: 'Web Client', category: 'client' },
+        { id: '2', type: 'API Gateway', label: 'WebSocket Gateway', category: 'gateway' },
+        { id: '3', type: 'Microservice', label: 'Chat Service', category: 'compute' },
+        { id: '4', type: 'Kafka / Queue', label: 'Kafka Stream', category: 'queue' },
+        { id: '5', type: 'Redis Cache', label: 'Presence Cache', category: 'storage' },
+        { id: '6', type: 'Postgres DB', label: 'Archive DB', category: 'storage' }
+      ],
+      links: [
+        { fromType: 'Client App', toType: 'API Gateway', protocol: 'WSS' },
+        { fromType: 'API Gateway', toType: 'Microservice', protocol: 'gRPC' },
+        { fromType: 'Microservice', toType: 'Kafka / Queue', protocol: 'PubSub' },
+        { fromType: 'Microservice', toType: 'Redis Cache', protocol: 'Cache' },
+        { fromType: 'Microservice', toType: 'Postgres DB', protocol: 'SQL' }
+      ],
+      hasLoadBalancer: true,
+      hasCachingLayer: true,
+      hasDatabase: true,
+      hasQueue: true,
+      isFullyConnected: true
+    }, 'Real-Time Chat Application', 'tech');
+
+    assert.ok(fullChat.score >= 88, `Full chat architecture scores A+ (Score: ${fullChat.score})`);
+    assert.strictEqual(fullChat.grade, 'A+');
+    assert.ok(fullChat.scalabilityRating >= 85, 'Scalability is high with Kafka and Redis');
+    assert.ok(fullChat.reliabilityRating >= 85, 'Reliability is high with Postgres and Kafka');
+  });
+
   console.log('\n================================================================');
   console.log(`📊 FINAL RESULT: ${passedTests} / ${totalTests} TESTS PASSED`);
   console.log('================================================================\n');

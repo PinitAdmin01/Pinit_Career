@@ -76,15 +76,45 @@ export async function POST(req: Request) {
       console.log(`[Interview Evaluate] Evaluating System Architecture Topology for: ${domainSubTopic || 'Distributed Architecture'}`);
       const sysEval = evaluateSystemTopology(topology, domainSubTopic || 'System Architecture', domainStream === 'non_tech' ? 'non_tech' : 'tech');
       
-      // Defect 091 Fix: Extract comms rating dynamically rather than hardcoding to 80
+      // Substantive Architectural Defense Communication Evaluator
       let dynamicComms = sysEval.score;
       const oralDefense = body.explanation || body.transcript || (Array.isArray(history) ? history.map((h: any) => h.content).join(' ') : '');
       if (typeof oralDefense === 'string' && oralDefense.trim().length > 0) {
-        const lowerDefense = oralDefense.toLowerCase();
-        const tradeOffKeywords = ['tradeoff', 'trade-off', 'bottleneck', 'latency', 'scale', 'redundancy', 'failover', 'throughput', 'consistency', 'cache'];
-        const matched = tradeOffKeywords.filter(k => lowerDefense.includes(k)).length;
-        const lengthBonus = Math.min(20, Math.floor(oralDefense.length / 50));
-        dynamicComms = Math.min(95, Math.max(40, 50 + matched * 6 + lengthBonus));
+        const trimmed = oralDefense.trim();
+        const lowerDefense = trimmed.toLowerCase();
+        const words = trimmed.split(/\s+/).filter(Boolean);
+        const sentences = trimmed.split(/[.!?]+/).map(s => s.trim()).filter(s => s.length > 8);
+
+        // 1. Contextual alignment with components actually placed on whiteboard
+        const nodes = Array.isArray(topology?.nodes) ? topology.nodes : [];
+        const nodeTerms = nodes.flatMap((n: any) => {
+          const raw = `${n.type || ''} ${n.label || ''}`.toLowerCase();
+          return raw.split(/[\s/()]+/).filter(w => w.length > 3);
+        });
+        const uniqueNodeTerms: string[] = Array.from(new Set(nodeTerms));
+        const matchedComponents = uniqueNodeTerms.filter(term => lowerDefense.includes(term));
+        const componentCoverage = uniqueNodeTerms.length > 0
+          ? Math.min(1.0, matchedComponents.length / Math.min(4, uniqueNodeTerms.length))
+          : 0.6;
+
+        // 2. Architectural reasoning and causal justification clauses
+        const justificationPhrases = [
+          'because', 'in order to', 'trade-off', 'tradeoff', 'mitigate',
+          'alleviate', 'bottleneck', 'redundancy', 'failover', 'throughput',
+          'consistency', 'latency', 'decouple', 'prevent', 'handles'
+        ];
+        const matchedJustifications = justificationPhrases.filter(p => lowerDefense.includes(p));
+
+        // 3. Structural articulation: multi-sentence coherence & word count
+        const lengthFactor = Math.min(1.0, words.length / 30);
+        const sentenceFactor = Math.min(1.0, sentences.length / 2);
+
+        // Calculate score: Base 50 + Up to 18 (Reasoning) + Up to 16 (Component alignment) + Up to 14 (Coherence)
+        const reasoningScore = Math.min(18, matchedJustifications.length * 4);
+        const alignmentScore = Math.round(componentCoverage * 16);
+        const articulationScore = Math.round((lengthFactor * 0.6 + sentenceFactor * 0.4) * 14);
+
+        dynamicComms = Math.min(95, Math.max(45, 50 + reasoningScore + alignmentScore + articulationScore));
       }
 
       return NextResponse.json({

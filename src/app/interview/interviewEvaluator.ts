@@ -5,6 +5,7 @@ import {
   generateTelemetryDiagnostics,
   MindsetArchetype
 } from '@/lib/interview/scoringMatrix';
+import { evaluateSystemTopology } from '@/lib/interview/systemDesignEvaluator';
 import { toast } from '@/lib/store/useAppStore';
 import { Message } from './interviewTypes';
 
@@ -37,12 +38,15 @@ export function computeDeterministicEvaluation({
   const roleKey = normalizeRoleKey(activeTopicName, domainStream);
 
   const verbalContribution = Math.min(88, Math.max(45, userMsgCount * 9));
-  const architectureBonus = latestTopology?.nodes?.length ? Math.min(95, 60 + latestTopology.nodes.length * 5) : 60;
+  const topologyEvaluation = latestTopology?.nodes?.length
+    ? evaluateSystemTopology(latestTopology, activeTopicName, domainStream)
+    : null;
+  const architectureScore = topologyEvaluation ? topologyEvaluation.score : 0;
   const solvingScore = codeSubmitted ? 90 : (verbalContribution > 65 ? 65 : 50);
 
   const rawDimensions = {
-    logic: Math.max(35, Math.min(95, solvingScore * 0.95 + (architectureBonus > 70 ? 5 : 0))),
-    systems: Math.max(35, Math.min(95, architectureBonus)),
+    logic: Math.max(35, Math.min(95, solvingScore * 0.95 + (architectureScore > 70 ? 5 : 0))),
+    systems: Math.max(35, Math.min(95, architectureScore > 0 ? architectureScore : 40)),
     comms: Math.max(40, Math.min(95, 45 + userMsgCount * 8 - Math.min(15, fillerWordCount * 2))),
     solving: solvingScore,
     star: Math.max(35, Math.min(95, 40 + starStep * 15))
@@ -73,9 +77,11 @@ export function computeDeterministicEvaluation({
     },
     round3: {
       title: 'Round 3: System Architecture',
-      score: Math.min(100, Math.max(50, architectureBonus)),
-      verdict: architectureBonus >= 80 ? 'Production Ready' : architectureBonus >= 65 ? 'Viable Topology' : 'Basic Tiering',
-      metric: latestTopology?.nodes?.length ? `${latestTopology.nodes.length} nodes connected` : 'Baseline architecture',
+      score: architectureScore,
+      verdict: topologyEvaluation ? topologyEvaluation.grade : 'Needs Work',
+      metric: topologyEvaluation
+        ? `${latestTopology?.nodes?.length || 0} nodes placed, Grade: ${topologyEvaluation.grade}`
+        : 'Whiteboard canvas was blank',
       badge: 'System Design'
     },
     round4: {

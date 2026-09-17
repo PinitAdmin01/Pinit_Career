@@ -70,20 +70,8 @@ export default function SystemDesignWhiteboard({
   onAnalyze,
   isAnalyzing = false
 }: Props) {
-  const [nodes, setNodes] = useState<BoardNode[]>([
-    { id: 'node_1', type: 'Client App', label: 'Web/Mobile Client', x: 40, y: 160, category: 'client', color: 'var(--info)' },
-    { id: 'node_2', type: 'Load Balancer', label: 'ALB / Nginx', x: 230, y: 160, category: 'gateway', color: 'var(--reward)' },
-    { id: 'node_3', type: 'Microservice', label: 'Core App Server', x: 430, y: 160, category: 'compute', color: 'var(--success)' },
-    { id: 'node_4', type: 'Postgres DB', label: 'Primary Relational DB', x: 640, y: 240, category: 'storage', color: '#0ea5e9' },
-    { id: 'node_5', type: 'Redis Cache', label: 'Session / Cache Layer', x: 640, y: 80, category: 'storage', color: 'var(--danger)' }
-  ]);
-
-  const [links, setLinks] = useState<BoardLink[]>([
-    { id: 'link_1', from: 'node_1', to: 'node_2', protocol: 'HTTPS/REST' },
-    { id: 'link_2', from: 'node_2', to: 'node_3', protocol: 'gRPC' },
-    { id: 'link_3', from: 'node_3', to: 'node_5', protocol: 'Cache Read' },
-    { id: 'link_4', from: 'node_3', to: 'node_4', protocol: 'SQL Read/Write' }
-  ]);
+  const [nodes, setNodes] = useState<BoardNode[]>([]);
+  const [links, setLinks] = useState<BoardLink[]>([]);
 
   const [isConnectMode, setIsConnectMode] = useState(false);
   const [selectedSourceId, setSelectedSourceId] = useState<string | null>(null);
@@ -96,36 +84,12 @@ export default function SystemDesignWhiteboard({
 
   const palette = domainStream === 'non_tech' ? NON_TECH_COMPONENTS : TECH_COMPONENTS;
 
-  // Reset topology whenever domain stream changes (prevents diagram leaking across streams)
+  // Reset topology whenever domain stream or topic changes to ensure candidate starts from an empty canvas
   useEffect(() => {
-    console.log(`[Whiteboard] 🔄 Resetting topology for stream: ${domainStream} | Topic: ${activeTopic}`);
-    if (domainStream === 'non_tech') {
-      setNodes([
-        { id: 'node_1', type: 'Target Audience', label: 'Customer Cohort', x: 40, y: 160, category: 'business', color: 'var(--info)' },
-        { id: 'node_2', type: 'Ad Campaign', label: 'Paid Marketing (Meta/Google)', x: 230, y: 160, category: 'business', color: 'var(--warning)' },
-        { id: 'node_3', type: 'Landing Page', label: 'Conversion Funnel', x: 430, y: 160, category: 'business', color: 'var(--reward)' },
-        { id: 'node_4', type: 'Checkout Engine', label: 'Payment & Fulfillment', x: 640, y: 160, category: 'business', color: 'var(--success)' }
-      ]);
-      setLinks([
-        { id: 'link_1', from: 'node_1', to: 'node_2', protocol: 'Targeting' },
-        { id: 'link_2', from: 'node_2', to: 'node_3', protocol: 'Inbound Traffic' },
-        { id: 'link_3', from: 'node_3', to: 'node_4', protocol: 'Lead Conversion' }
-      ]);
-    } else {
-      setNodes([
-        { id: 'node_1', type: 'Client App', label: 'Web/Mobile Client', x: 40, y: 160, category: 'client', color: 'var(--info)' },
-        { id: 'node_2', type: 'Load Balancer', label: 'ALB / Nginx', x: 230, y: 160, category: 'gateway', color: 'var(--reward)' },
-        { id: 'node_3', type: 'Microservice', label: 'Core App Server', x: 430, y: 160, category: 'compute', color: 'var(--success)' },
-        { id: 'node_4', type: 'Postgres DB', label: 'Primary Relational DB', x: 640, y: 240, category: 'storage', color: '#0ea5e9' },
-        { id: 'node_5', type: 'Redis Cache', label: 'Session / Cache Layer', x: 640, y: 80, category: 'storage', color: 'var(--danger)' }
-      ]);
-      setLinks([
-        { id: 'link_1', from: 'node_1', to: 'node_2', protocol: 'HTTPS/REST' },
-        { id: 'link_2', from: 'node_2', to: 'node_3', protocol: 'gRPC' },
-        { id: 'link_3', from: 'node_3', to: 'node_5', protocol: 'Cache Read' },
-        { id: 'link_4', from: 'node_3', to: 'node_4', protocol: 'SQL Read/Write' }
-      ]);
-    }
+    console.log(`[Whiteboard] 🔄 Resetting to blank canvas for stream: ${domainStream} | Topic: ${activeTopic}`);
+    setNodes([]);
+    setLinks([]);
+    setSelectedSourceId(null);
   }, [domainStream, activeTopic]);
 
   // ─── Generate & Propagate Topology Snapshot ──────────────────────────────
@@ -376,6 +340,18 @@ export default function SystemDesignWhiteboard({
             ⚙️ Microservices Bus
           </button>
 
+          <button
+            onClick={() => {
+              setNodes([]);
+              setLinks([]);
+              setSelectedSourceId(null);
+            }}
+            style={{ background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--danger-bright, #ef4444)', borderRadius: 8, padding: '6px 10px', fontSize: 10.5, fontWeight: 800, cursor: 'pointer' }}
+            title="Reset canvas to blank"
+          >
+            🗑️ Clear Canvas
+          </button>
+
           {onAnalyze && (
             <button
               onClick={onAnalyze}
@@ -493,6 +469,22 @@ export default function SystemDesignWhiteboard({
             );
           })}
         </svg>
+
+        {nodes.length === 0 && (
+          <div style={{
+            position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center', pointerEvents: 'none',
+            color: 'var(--t3)', textAlign: 'center', padding: 20
+          }}>
+            <div style={{ fontSize: 32, marginBottom: 8, opacity: 0.6 }}>📐</div>
+            <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--t2)', marginBottom: 4 }}>
+              Empty Architecture Whiteboard
+            </div>
+            <div style={{ fontSize: 11, maxWidth: 360, lineHeight: 1.4, color: 'var(--t3)' }}>
+              Click components from the palette above to place nodes, then toggle <strong>🔗 Connect Nodes</strong> to draw data flow arrows.
+            </div>
+          </div>
+        )}
 
         {nodes.map(n => {
           const isSelected = selectedSourceId === n.id;

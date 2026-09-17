@@ -3,6 +3,8 @@ import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 
+export const dynamic = 'force-dynamic';
+
 export type LeagueTier = 'browns' | 'silver' | 'gold' | 'platinum' | 'ruby';
 
 export interface LeaderboardEntry {
