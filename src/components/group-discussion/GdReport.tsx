@@ -8,6 +8,7 @@ interface GdReportProps {
     verdict: string;
     gapsIdentified: string[];
     keyMoments: string[];
+    evaluated?: boolean;
   };
   transcript: { sender: string; role: string; content: string; emoji: string }[];
   onRestart: () => void;
@@ -68,8 +69,18 @@ export default function GdReport({ report, transcript, onRestart }: GdReportProp
             </button>
           </div>
 
-          <div style={{ background: 'rgba(20,184,166,0.1)', border: '1.5px solid var(--teal)', borderRadius: 12, padding: '8px 16px', color: 'var(--teal)', fontSize: 18, fontWeight: 900 }}>
-            Score: {report.score}%
+          <div style={{
+            background: report.evaluated === false ? 'rgba(239,68,68,0.1)' : 'rgba(20,184,166,0.1)',
+            border: report.evaluated === false ? '1.5px solid var(--red, #ef4444)' : '1.5px solid var(--teal)',
+            borderRadius: 12,
+            padding: '8px 16px',
+            color: report.evaluated === false ? 'var(--red, #ef4444)' : 'var(--teal)',
+            fontSize: 18,
+            fontWeight: 900
+          }}>
+            {report.evaluated === false
+              ? (report.score === 0 && !report.verdict.toLowerCase().includes('unavailable') ? 'Score: 0%' : 'Evaluation Offline')
+              : `Score: ${report.score}%`}
           </div>
         </div>
       </div>

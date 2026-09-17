@@ -1053,7 +1053,7 @@ export function useGdOrchestrator({
       if (res.ok) {
         const reportData = await res.json();
         if (typeof reportData.score === 'number') {
-          finalReport = { ...reportData, evaluated: true };
+          finalReport = { ...reportData, evaluated: reportData.evaluated !== undefined ? Boolean(reportData.evaluated) : true };
         }
       }
     } catch (err) {
