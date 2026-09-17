@@ -7,6 +7,8 @@ import { FriendProfileDrawer } from '@/components/friends/FriendProfileDrawer';
 import { ArenaChallengeModal } from '@/components/friends/ArenaChallengeModal';
 import { ProjectInviteModal } from '@/components/friends/ProjectInviteModal';
 import { SquadProjectsView } from '@/components/friends/SquadProjectsView';
+import { SmartMatchModal } from '@/components/friends/SmartMatchModal';
+import { computeStudentMatch, CURRENT_STUDENT_PROFILE, MatchStudentProfile, MatchBreakdown } from '@/lib/friends/matching';
 
 export default function FriendsPage() {
   // Navigation Tabs
@@ -23,12 +25,14 @@ export default function FriendsPage() {
   const [challengeStudent, setChallengeStudent] = useState<StudentProfile | null>(null);
   const [projectStudent, setProjectStudent] = useState<StudentProfile | null>(null);
   const [selectedProjectTitle, setSelectedProjectTitle] = useState<string | undefined>(undefined);
+  const [smartMatchStudent, setSmartMatchStudent] = useState<MatchStudentProfile | null>(null);
+  const [smartMatchBreakdown, setSmartMatchBreakdown] = useState<MatchBreakdown | null>(null);
 
   // Friend Request States
   const [sentRequests, setSentRequests] = useState<Record<string, boolean>>({});
 
   // ── Reference Data Matching Screenshot ──────────────────────────────────
-  const suggestedStudents: Array<StudentProfile & { matchPct: number; matchDetails: string }> = [
+  const baseSuggestedStudents: Array<StudentProfile & { matchPct: number; matchDetails: string }> = [
     {
       id: 'aishwarya_rao',
       name: 'Aishwarya Rao',
@@ -99,6 +103,17 @@ export default function FriendsPage() {
     }
   ];
 
+  const suggestedStudents = React.useMemo(() => {
+    return baseSuggestedStudents.filter(s => {
+      if (activeFilter === 'college') return Boolean(s.college && (s.college.includes('Bangalore') || s.college.includes('RVCE')));
+      if (activeFilter === 'skills') return s.skills.some(sk => ['React', 'TypeScript', 'Node.js', 'UI/UX'].includes(sk));
+      if (activeFilter === 'course') return s.course === 'BCA';
+      if (activeFilter === 'nearby') return Boolean(s.college && (s.college.includes('Bangalore') || s.college.includes('Christ')));
+      if (activeFilter === 'goals') return s.careerGoal?.toLowerCase().includes('architect') || s.careerGoal?.toLowerCase().includes('lead') || s.careerGoal?.toLowerCase().includes('developer');
+      return true;
+    });
+  }, [activeFilter, baseSuggestedStudents]);
+
   const allStudentsList: StudentProfile[] = [
     {
       id: 'karan_singh',
@@ -163,6 +178,27 @@ export default function FriendsPage() {
   ];
 
   // ── Actions ──────────────────────────────────────────────────────────────
+  const handleOpenSmartMatch = (student: StudentProfile) => {
+    const candidate: MatchStudentProfile = {
+      id: student.id,
+      name: student.name,
+      headline: student.headline,
+      avatar: student.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150',
+      college: student.college || 'Campus',
+      course: student.course || 'Undergraduate',
+      skills: student.skills || [],
+      careerGoal: student.careerGoal || 'Software Engineer',
+      online: student.online,
+      careerScore: student.careerScore,
+      xp: student.xp,
+      arenaWins: student.arenaWins,
+      projectsCount: student.projectsCount
+    };
+    const breakdown = computeStudentMatch(CURRENT_STUDENT_PROFILE, candidate);
+    setSmartMatchStudent(candidate);
+    setSmartMatchBreakdown(breakdown);
+  };
+
   const handleAddFriend = (id: string, name: string) => {
     setSentRequests(prev => ({ ...prev, [id]: true }));
     toast.success('Friend Request Sent', `Connection request dispatched to ${name}.`);
@@ -299,7 +335,7 @@ export default function FriendsPage() {
                 <h2 className="section-heading-title">Suggested for you</h2>
                 <div className="section-heading-sub">Students you may want to connect with</div>
               </div>
-              <div className="see-all-link" onClick={() => toast.info('Suggestions', 'Viewing top AI-ranked student matches.')}>
+              <div className="see-all-link" onClick={() => { if (suggestedStudents[0]) handleOpenSmartMatch(suggestedStudents[0]); }}>
                 See all →
               </div>
             </div>
@@ -312,7 +348,7 @@ export default function FriendsPage() {
                       <img src={peer.avatar} alt={peer.name} />
                       <span className="online-beacon" />
                     </div>
-                    <div className="match-percentage-badge">
+                    <div className="match-percentage-badge" style={{ cursor: "pointer" }} title="Click for AI Affinity Breakdown" onClick={() => handleOpenSmartMatch(peer)}>
                       <span className="match-percentage-val">{peer.matchPct}%</span>
                       <span className="match-percentage-label">Match</span>
                     </div>
@@ -577,6 +613,24 @@ export default function FriendsPage() {
         student={challengeStudent}
         onClose={() => setChallengeStudent(null)}
         onSendChallenge={handleSendChallenge}
+      />
+
+      {/* ── Smart Match Breakdown Modal (V5) ── */}
+      <SmartMatchModal
+        student={smartMatchStudent}
+        match={smartMatchBreakdown}
+        onClose={() => { setSmartMatchStudent(null); setSmartMatchBreakdown(null); }}
+        onAddFriend={handleAddFriend}
+        onOpenChallenge={(s) => {
+          setSmartMatchStudent(null);
+          setSmartMatchBreakdown(null);
+          setChallengeStudent(suggestedStudents.find(p => p.id === s.id) || null);
+        }}
+        onOpenProjectInvite={(s) => {
+          setSmartMatchStudent(null);
+          setSmartMatchBreakdown(null);
+          setProjectStudent(suggestedStudents.find(p => p.id === s.id) || null);
+        }}
       />
 
       {/* ── Project Invite Modal (V4) ── */}
