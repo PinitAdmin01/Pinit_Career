@@ -16,7 +16,6 @@ export const STUDENT_NAV: NavSection[] = [
     { href: '/dashboard', icon: '🏠', label: 'Dashboard' },
     { href: '/quests', icon: '🗺', label: 'Quests & Courses' },
     { href: '/missions', icon: '⚡', label: 'Daily Missions' },
-    { href: '/friends', icon: '👥', label: 'Friends & Network' },
     { href: '/arena', icon: '⚔️', label: 'Challenging Arena' },
     { href: '/projects', icon: '🚀', label: 'Projects & Squads' },
     { href: '/leaderboard', icon: '🏆', label: 'Leaderboard & Leagues' },
@@ -138,10 +137,10 @@ export const TEACHER_NAV: NavSection[] = [
 ];
 
 export const BOTTOM_NAV: NavLeaf[] = [
-  { href: '/notifications', icon: '🔔', label: 'Notifications', badge: true },
-  { href: '/pins',          icon: '⚡', label: 'Pins & Wallet'              },
-  { href: '/profile',       icon: '👤', label: 'Profile'                    },
   { href: '/friends',       icon: '👥', label: 'Friends'                    },
+  { href: '/pins',          icon: '⚡', label: 'Pins & Wallet'              },
+  { href: '/notifications', icon: '🔔', label: 'Notifications', badge: true },
+  { href: '/profile',       icon: '👤', label: 'Profile'                    },
 ];
 
 export function getNav(role: string): NavSection[] {
@@ -318,61 +317,177 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
         })}
       </nav>
 
-      {/* Sidebar Footer */}
+      {/* Sidebar Footer - Merged Navigation */}
       <div className="sidebar-footer">
-        {BOTTOM_NAV.map(it => <NavLink key={it.href} {...it} />)}
+        {/* 1. Friends */}
+        <NavLink href="/friends" icon="👥" label="Friends" />
 
-        {collapsed && !effectiveFocusMode && (
-          <button onClick={() => setCollapsed(false)} className="nav-item" style={{ justifyContent:'center', marginTop:6 }} title="Expand (⌘[)">
-            <span className="nav-icon">›</span>
-          </button>
-        )}
-
-        {!collapsed && !effectiveFocusMode && isStudent && (
-          <Link href="/pins" style={{ textDecoration: 'none', display: 'block', marginTop: 4 }}>
+        {/* 2. Pins & Wallet (Merged Concept with Live Balance) */}
+        {collapsed ? (
+          <Link
+            href="/pins"
+            title={`Pins & Wallet (${pins.toLocaleString()} pins)`}
+            onClick={() => setActiveAcademicTab(null)}
+            className={`nav-item${isPathActive(pathname, '/pins') ? ' active' : ''}`}
+            style={{ position: 'relative' }}
+          >
+            <span className="nav-icon">⚡</span>
+            {pins < 20 && (
+              <span style={{ position: 'absolute', top: 5, right: 5, width: 7, height: 7, borderRadius: '50%', background: 'var(--coral)' }} />
+            )}
+          </Link>
+        ) : (
+          <Link
+            href="/pins"
+            onClick={() => setActiveAcademicTab(null)}
+            className={`nav-item${isPathActive(pathname, '/pins') ? ' active' : ''}`}
+            style={{
+              textDecoration: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: 8,
+              padding: '7px 10px',
+              borderRadius: 9,
+              background: isPathActive(pathname, '/pins') ? 'rgba(99, 102, 241, 0.18)' : (pins < 20 ? 'rgba(220,38,38,0.08)' : 'rgba(255,255,255,0.03)'),
+              border: `1px solid ${isPathActive(pathname, '/pins') ? 'var(--accent)' : (pins < 20 ? 'rgba(220,38,38,0.25)' : 'rgba(255,255,255,0.07)')}`,
+              transition: 'all 0.2s ease',
+              marginBottom: 4,
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
+              <span className="nav-icon" style={{ fontSize: 15 }}>⚡</span>
+              <span style={{ fontSize: 12.5, fontWeight: 600, color: 'var(--t1)', whiteSpace: 'nowrap' }}>Pins & Wallet</span>
+            </div>
             <div style={{
-              padding: '7px 10px', borderRadius: 9,
-              background: pins < 20 ? 'rgba(220,38,38,0.08)' : 'rgba(79,70,229,0.06)',
-              border: `1px solid ${pins < 20 ? 'rgba(220,38,38,0.2)' : 'rgba(79,70,229,0.15)'}`,
-              display: 'flex', alignItems: 'center', gap: 8,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 3,
+              padding: '2px 7px',
+              borderRadius: 10,
+              background: pins < 20 ? 'rgba(220,38,38,0.2)' : 'rgba(99, 102, 241, 0.2)',
+              border: `1px solid ${pins < 20 ? 'var(--coral)' : 'rgba(99, 102, 241, 0.4)'}`,
+              fontSize: 11,
+              fontWeight: 800,
+              color: pins < 20 ? 'var(--coral)' : 'var(--accent)',
+              fontFamily: 'var(--font-mono)',
+              lineHeight: 1.2
             }}>
-              <span style={{ fontSize: 14 }}>⚡</span>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 800, color: pins < 20 ? 'var(--coral)' : 'var(--accent)', lineHeight: 1 }}>{pins.toLocaleString()} pins</div>
-                <div style={{ fontSize: 9, color: 'var(--t4)', marginTop: 1 }}>{pins < 20 ? '⚠ Low — tap to buy' : 'Click to buy more'}</div>
-              </div>
-              <span style={{ fontSize: 10, color: 'var(--accent)', fontWeight: 700 }}>+</span>
+              <span>{pins.toLocaleString()}</span>
+              <span style={{ fontSize: 10, opacity: 0.85 }}>+</span>
             </div>
           </Link>
         )}
 
-        {!collapsed && !effectiveFocusMode && (
-          <div style={{
-            display:'flex', alignItems:'center', gap:9, padding:'9px 10px', marginTop:6,
-            borderRadius:9, border:'1px solid var(--border)', background:'var(--bg3)',
-          }}>
+        {/* 3. Notifications */}
+        <NavLink href="/notifications" icon="🔔" label="Notifications" badge={true} />
+
+        {/* 4. Profile (Merged with User Card) */}
+        {collapsed ? (
+          <Link
+            href="/profile"
+            title={`${user?.displayName || 'Profile'} (${user?.role || 'Guest'})`}
+            onClick={() => setActiveAcademicTab(null)}
+            className={`nav-item${isPathActive(pathname, '/profile') ? ' active' : ''}`}
+            style={{ justifyContent: 'center', marginTop: 4, padding: 0 }}
+          >
             <div style={{
-              width:30, height:30, borderRadius:'50%', flexShrink:0,
-              background:'linear-gradient(135deg,var(--accent),var(--purple))',
-              display:'flex', alignItems:'center', justifyContent:'center',
-              fontSize:12, fontWeight:800, color: 'var(--text)',
+              width: 32,
+              height: 32,
+              borderRadius: '50%',
+              background: isPathActive(pathname, '/profile') ? 'linear-gradient(135deg, var(--accent), var(--purple))' : 'rgba(255,255,255,0.1)',
+              border: `1.5px solid ${isPathActive(pathname, '/profile') ? 'var(--accent)' : 'var(--border)'}`,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: 13,
+              fontWeight: 800,
+              color: 'var(--text)'
             }}>
               {user?.displayName?.[0]?.toUpperCase() || 'U'}
             </div>
-            <div style={{ flex:1, minWidth:0 }}>
-              <div style={{ fontSize:12, fontWeight:600, color:'var(--t1)', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>
-                {user?.displayName || 'Faculty / Visitor'}
+          </Link>
+        ) : (
+          <div
+            className={`nav-item${isPathActive(pathname, '/profile') ? ' active' : ''}`}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              padding: '7px 9px',
+              marginTop: 4,
+              borderRadius: 9,
+              border: `1px solid ${isPathActive(pathname, '/profile') ? 'var(--accent)' : 'var(--border)'}`,
+              background: isPathActive(pathname, '/profile') ? 'rgba(99, 102, 241, 0.15)' : 'var(--bg3)',
+              transition: 'all 0.2s ease',
+            }}
+          >
+            <Link
+              href="/profile"
+              onClick={() => setActiveAcademicTab(null)}
+              style={{
+                textDecoration: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+                flex: 1,
+                minWidth: 0,
+                color: 'inherit'
+              }}
+              title="View Profile"
+            >
+              <div style={{
+                width: 30,
+                height: 30,
+                borderRadius: '50%',
+                flexShrink: 0,
+                background: 'linear-gradient(135deg,var(--accent),var(--purple))',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 12,
+                fontWeight: 800,
+                color: 'var(--text)',
+                boxShadow: '0 0 10px rgba(99, 102, 241, 0.3)'
+              }}>
+                {user?.displayName?.[0]?.toUpperCase() || 'U'}
               </div>
-              <div style={{ fontSize:10, color:'var(--t3)', fontFamily:'var(--font-mono)', textTransform:'capitalize' }}>
-                {user?.role || 'Guest'}
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--t1)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  {user?.displayName || 'Faculty / Visitor'}
+                </div>
+                <div style={{ fontSize: 9.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)', textTransform: 'capitalize' }}>
+                  {user?.role || 'Guest'} • Profile
+                </div>
               </div>
-            </div>
-            <button onClick={() => logout().then(() => router.push('/'))}
+            </Link>
+            <button
+              onClick={() => logout().then(() => router.push('/'))}
               title="Logout"
-              style={{ background:'none', border:'none', cursor:'pointer', color:'var(--t4)', fontSize:14, padding:4, borderRadius:6, flexShrink:0 }}>
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                color: 'var(--t4)',
+                fontSize: 14,
+                padding: '4px 6px',
+                borderRadius: 6,
+                flexShrink: 0,
+                transition: 'color 0.2s'
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--coral)')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--t4)')}
+            >
               ⏻
             </button>
           </div>
+        )}
+
+        {/* Expand toggle when collapsed */}
+        {collapsed && !effectiveFocusMode && (
+          <button onClick={() => setCollapsed(false)} className="nav-item" style={{ justifyContent:'center', marginTop:6 }} title="Expand (⌘[)">
+            <span className="nav-icon">›</span>
+          </button>
         )}
       </div>
     </aside>
