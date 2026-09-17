@@ -39,7 +39,11 @@ function getAudioContext(): AudioContext {
   return win._sharedAudioCtx;
 }
 
-export function stopSpeaking() {
+export function stopSpeaking(force = false) {
+  if (typeof window !== 'undefined' && (window as any).__PINIT_STORY_TOUR_ACTIVE && !force) {
+    console.log('[PinIT TTS] 🛡️ stopSpeaking() ignored: Story Tour narration is active, protecting playback');
+    return;
+  }
   currentSpeechId++;
   console.log(`[PinIT TTS] 🛑 stopSpeaking() called. Advancing speechId to ${currentSpeechId}`);
 

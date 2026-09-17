@@ -108,7 +108,7 @@ export function useLearningData() {
   const searchParams = useSearchParams();
 
   // Page level tabs: 'mistakes' | 'roadmap' | 'twin' | 'gaps' | 'memory'
-  const [activeTab, setActiveTab] = useState<'mistakes' | 'roadmap' | 'twin' | 'gaps' | 'memory'>('mistakes');
+  const [activeTab, setActiveTab] = useState<'mistakes' | 'roadmap' | 'twin' | 'gaps' | 'memory'>('twin');
   const [activeRole, setActiveRole] = useState<'student' | 'faculty'>('student');
   const [activeStep, setActiveStep] = useState<number>(0);
 
