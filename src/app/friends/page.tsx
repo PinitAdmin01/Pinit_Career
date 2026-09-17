@@ -7,6 +7,8 @@ import { FriendProfileDrawer } from '@/components/friends/FriendProfileDrawer';
 import { ArenaChallengeModal } from '@/components/friends/ArenaChallengeModal';
 import { ProjectInviteModal } from '@/components/friends/ProjectInviteModal';
 import { SquadProjectsView } from '@/components/friends/SquadProjectsView';
+import { FriendChatView } from '@/components/friends/FriendChatView';
+import { ArenaChallengesView } from '@/components/friends/ArenaChallengesView';
 import { SmartMatchModal } from '@/components/friends/SmartMatchModal';
 import { PrivacySettingsModal } from '@/components/friends/PrivacySettingsModal';
 import { ReportStudentModal } from '@/components/friends/ReportStudentModal';
@@ -32,6 +34,7 @@ export default function FriendsPage() {
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   const [reportTargetStudent, setReportTargetStudent] = useState<StudentProfile | null>(null);
   const [blockedIds, setBlockedIds] = useState<string[]>([]);
+  const [activeChatFriendId, setActiveChatFriendId] = useState<string | undefined>(undefined);
 
   // Friend Request States
   const [sentRequests, setSentRequests] = useState<Record<string, boolean>>({});
@@ -545,14 +548,18 @@ export default function FriendsPage() {
           <div className="ref-sidebar-card">
             <div className="ref-sidebar-header">
               <span>Recent Messages</span>
-              <span className="see-all-link" style={{ fontSize: 11.5 }} onClick={() => toast.info('Messages', 'Opening realtime chat thread.')}>
+              <span className="see-all-link" style={{ fontSize: 11.5 }} onClick={() => setActiveTab('messages')}>
                 View all →
               </span>
             </div>
 
             <div className="recent-messages-list">
               {recentMessages.map((msg, idx) => (
-                <div key={idx} className="recent-msg-item" onClick={() => toast.info(`Chat with ${msg.name}`, msg.text)}>
+                <div key={idx} className="recent-msg-item" onClick={() => {
+                  const target = baseSuggestedStudents.find(s => s.name.toLowerCase().includes(msg.name.toLowerCase().split(' ')[0]));
+                  if (target) setActiveChatFriendId(target.id);
+                  setActiveTab('messages');
+                }}>
                   <div className="recent-msg-avatar-wrap">
                     <img src={msg.avatar} alt={msg.name} />
                     <span className="online-beacon" />
@@ -640,6 +647,11 @@ export default function FriendsPage() {
         onOpenChallenge={(s) => {
           setSelectedStudent(null);
           setChallengeStudent(s);
+        }}
+        onOpenMessage={(s) => {
+          setSelectedStudent(null);
+          setActiveChatFriendId(s.id);
+          setActiveTab('messages');
         }}
         onOpenProjectInvite={(s) => {
           setSelectedStudent(null);
