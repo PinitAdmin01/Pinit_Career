@@ -61,6 +61,27 @@ export async function POST(req: Request) {
     }
 
     if (!vaultDoc) {
+      // If client supplied storageUrl, verify that it strictly belongs to this authenticated user
+      if (storageUrl) {
+        const candidatePath = storageUrl.includes('resumes/')
+          ? storageUrl.split('resumes/')[1]?.split('?')[0]
+          : storageUrl.split('?')[0];
+
+        const userPrefix = `vault/${userId}/`;
+        if (!candidatePath.startsWith(userPrefix)) {
+          console.error(`🚨 [STAGE 2/3 - Security Violation]: IDOR attempt blocked on orphan file deletion.`);
+          return NextResponse.json({ error: 'FORBIDDEN', message: 'Unauthorized storage path deletion attempt.' }, { status: 403 });
+        }
+
+        console.log(`☁️ [STAGE 2/3 - Storage Orphan Cleanup]: DB row already deleted, purging verified user storage file "${candidatePath}"...`);
+        try {
+          await supabase.storage.from('resumes').remove([candidatePath]);
+        } catch (storageErr) {
+          console.warn('Storage orphan cleanup warning:', storageErr);
+        }
+        return NextResponse.json({ ok: true, message: 'Storage file purged.' });
+      }
+
       console.warn(`⚠️ [STAGE 2/3 - Security/Not Found]: Document "${documentId}" not found or not owned by user "${userId}".`);
       return NextResponse.json({ error: 'DOCUMENT_NOT_FOUND', message: 'Vault document not found or access denied.' }, { status: 404 });
     }

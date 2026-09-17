@@ -154,21 +154,20 @@ export function useVault(options: UseVaultOptions = {}) {
     toast.info('Item Removed', 'Vault item deleted.');
 
     if (userId && userId !== 'guest') {
-      supabase
-        .from('vault_items')
-        .delete()
-        .eq('id', id)
-        .then(({ error }) => {
-          if (error) {
-            console.error('Failed to delete vault item from Supabase:', error.message);
-          }
-        });
-
       api.post('/api/vault/delete', {
         documentId: id,
         storageUrl: (itemToDelete as any)?.storage_url || (itemToDelete as any)?.storageUrl,
       }).catch((err) => {
-        console.warn('Failed to purge vault document file via /api/vault/delete:', err);
+        console.warn('Failed to purge vault document file via /api/vault/delete, attempting fallback delete:', err);
+        supabase
+          .from('vault_items')
+          .delete()
+          .eq('id', id)
+          .then(({ error }) => {
+            if (error) {
+              console.error('Failed to delete vault item from Supabase:', error.message);
+            }
+          });
       });
     }
   }, [vaultItems, userId, saveVault]);

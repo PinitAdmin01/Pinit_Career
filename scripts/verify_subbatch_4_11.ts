@@ -174,6 +174,28 @@ async function runTests() {
     assert.strictEqual(responseError, 'STORAGE_UPLOAD_FAILED');
   });
 
+  // 9. Storage Orphan Cleanup when DB Row Already Purged
+  test('Issue 34: Orphaned file cleanup permits deletion if storageUrl belongs to user, rejects if IDOR', () => {
+    const authenticatedUserId = 'user_student_123';
+    const vaultDoc = null; // Row was already deleted
+
+    // Authorized orphan cleanup
+    const userStorageUrl = 'vault/user_student_123/sem2/marksheet.pdf';
+    const cleanUserPath = userStorageUrl.includes('resumes/')
+      ? userStorageUrl.split('resumes/')[1]?.split('?')[0]
+      : userStorageUrl.split('?')[0];
+    const isUserAuthorized = cleanUserPath.startsWith(`vault/${authenticatedUserId}/`);
+    assert.strictEqual(isUserAuthorized, true);
+
+    // Malicious orphan deletion attempt
+    const attackerStorageUrl = 'vault/victim_student_999/sem2/marksheet.pdf';
+    const cleanAttackerPath = attackerStorageUrl.includes('resumes/')
+      ? attackerStorageUrl.split('resumes/')[1]?.split('?')[0]
+      : attackerStorageUrl.split('?')[0];
+    const isAttackerAuthorized = cleanAttackerPath.startsWith(`vault/${authenticatedUserId}/`);
+    assert.strictEqual(isAttackerAuthorized, false);
+  });
+
   console.log(`\n================================================================`);
   console.log(`📊 RESULT: ${passed} / ${passed + failed} TESTS PASSED`);
   console.log(`================================================================\n`);
