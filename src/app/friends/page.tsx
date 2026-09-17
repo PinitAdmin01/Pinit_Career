@@ -38,6 +38,21 @@ export default function FriendsPage() {
 
   // Friend Request States
   const [sentRequests, setSentRequests] = useState<Record<string, boolean>>({});
+  const [friendsNetwork, setFriendsNetwork] = useState<StudentProfile[]>([]);
+  const [incomingRequestsList, setIncomingRequestsList] = useState<any[]>([
+    { id: 'req-01', studentId: 'priya_sharma', name: 'Priya Sharma', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Priya', college: 'BGS Institute of Technology', course: 'B.Tech CS', skills: ['React', 'TypeScript', 'Node.js'] },
+    { id: 'req-02', studentId: 'rohan_verma', name: 'Rohan Verma', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Rohan', college: 'BMS College of Engineering', course: 'B.E. ISE', skills: ['Python', 'Docker', 'FastAPI'] }
+  ]);
+
+  const handleAcceptRequest = (reqId: string, name: string) => {
+    setIncomingRequestsList(prev => prev.filter(r => r.id !== reqId));
+    toast.success('Friend Request Accepted', 'Connected with ' + name + '!');
+  };
+
+  const handleDeclineRequest = (reqId: string) => {
+    setIncomingRequestsList(prev => prev.filter(r => r.id !== reqId));
+    toast.info('Request Dismissed', 'Friend request removed.');
+  };
 
   // ── Reference Data Matching Screenshot ──────────────────────────────────
   const baseSuggestedStudents: Array<StudentProfile & { matchPct: number; matchDetails: string }> = [
@@ -222,6 +237,7 @@ export default function FriendsPage() {
 
   useEffect(() => {
     fetchBlockedUsers();
+    setFriendsNetwork(baseSuggestedStudents);
   }, []);
 
   const handleBlockStudent = async (studentId: string, studentName: string, studentAvatar?: string) => {
@@ -324,7 +340,9 @@ export default function FriendsPage() {
             </button>
           </div>
 
-          {/* Filter Chips Row */}
+          {activeTab === 'discover' && (
+            <>
+              {/* Filter Chips Row */}
           <div className="friends-filters-row">
             <div className="filter-chips-left">
               <button
@@ -512,7 +530,120 @@ export default function FriendsPage() {
               ))}
             </div>
           </div>
+            </>
+          )}
 
+          {/* ── TAB 2: MY FRIENDS (V1) ── */}
+          {activeTab === 'network' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', background: 'rgba(15, 23, 42, 0.7)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 14 }}>
+                <div>
+                  <h2 style={{ fontSize: 18, fontWeight: 800, color: '#ffffff', margin: 0 }}>My Friends ({friendsNetwork.length})</h2>
+                  <p style={{ fontSize: 12, color: '#94a3b8', margin: '4px 0 0' }}>Active campus connections for collaboration, practice duels, and squad builds.</p>
+                </div>
+                <button className="friends-btn friends-btn-primary" onClick={() => setActiveTab('discover')}>+ Find More Friends</button>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
+                {friendsNetwork.map((friend) => (
+                  <div key={friend.id} style={{ padding: 16, background: 'rgba(15, 23, 42, 0.8)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 14, display: 'flex', flexDirection: 'column', gap: 12 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                      <div style={{ position: 'relative', width: 44, height: 44, flexShrink: 0 }}>
+                        <img src={friend.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100'} alt={friend.name} style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} />
+                        {friend.online && <span className="online-beacon" />}
+                      </div>
+                      <div style={{ minWidth: 0, flex: 1 }}>
+                        <div style={{ fontSize: 14, fontWeight: 700, color: '#ffffff' }}>{friend.name}</div>
+                        <div style={{ fontSize: 11.5, color: '#94a3b8' }}>{friend.course} • {friend.college}</div>
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                      {friend.skills.slice(0, 3).map((sk, idx) => (
+                        <span key={idx} className="mini-skill-pill">{sk}</span>
+                      ))}
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, paddingTop: 4 }}>
+                      <button className="friends-btn friends-btn-secondary" style={{ fontSize: 11.5, padding: '6px' }} onClick={() => { setActiveChatFriendId(friend.id); setActiveTab('messages'); }}>💬 Chat</button>
+                      <button className="friends-btn friends-btn-secondary" style={{ fontSize: 11.5, padding: '6px' }} onClick={() => setChallengeStudent(friend)}>⚔️ Duel</button>
+                      <button className="friends-btn friends-btn-secondary" style={{ fontSize: 11.5, padding: '6px' }} onClick={() => setProjectStudent(friend)}>👥 Project</button>
+                      <button className="friends-btn friends-btn-secondary" style={{ fontSize: 11.5, padding: '6px' }} onClick={() => setSelectedStudent(friend)}>Profile</button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* ── TAB 3: REQUESTS (V1) ── */}
+          {activeTab === 'requests' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+              <div>
+                <h3 style={{ fontSize: 16, fontWeight: 700, color: '#ffffff', marginBottom: 12 }}>Incoming Friend Requests ({incomingRequestsList.length})</h3>
+                {incomingRequestsList.length === 0 ? (
+                  <div style={{ padding: '30px', textAlign: 'center', background: 'rgba(15, 23, 42, 0.4)', borderRadius: 12 }}>
+                    <span style={{ fontSize: 24 }}>📫</span>
+                    <div style={{ fontSize: 14, color: '#94a3b8', marginTop: 8 }}>No pending requests right now</div>
+                  </div>
+                ) : (
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 14 }}>
+                    {incomingRequestsList.map((req) => (
+                      <div key={req.id} style={{ padding: 16, background: 'rgba(15, 23, 42, 0.8)', border: '1px solid rgba(99, 102, 241, 0.3)', borderRadius: 14, display: 'flex', flexDirection: 'column', gap: 12 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                          <img src={req.avatar} alt={req.name} style={{ width: 40, height: 40, borderRadius: '50%' }} />
+                          <div>
+                            <div style={{ fontSize: 14, fontWeight: 700, color: '#ffffff' }}>{req.name}</div>
+                            <div style={{ fontSize: 11.5, color: '#94a3b8' }}>{req.course} • {req.college}</div>
+                          </div>
+                        </div>
+
+                        <div style={{ display: 'flex', gap: 6 }}>
+                          {req.skills.map((s: string, i: number) => (
+                            <span key={i} className="mini-skill-pill">{s}</span>
+                          ))}
+                        </div>
+
+                        <div style={{ display: 'flex', gap: 8 }}>
+                          <button className="friends-btn friends-btn-primary" style={{ flex: 1, fontSize: 12, padding: '7px' }} onClick={() => handleAcceptRequest(req.id, req.name)}>✓ Accept</button>
+                          <button className="friends-btn friends-btn-secondary" style={{ flex: 1, fontSize: 12, padding: '7px' }} onClick={() => handleDeclineRequest(req.id)}>Decline</button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* ── TAB 4: MESSAGES (V2) ── */}
+          {activeTab === 'messages' && (
+            <FriendChatView
+              initialFriendId={activeChatFriendId}
+              friends={baseSuggestedStudents}
+              onOpenProfile={(s) => setSelectedStudent(s)}
+              onOpenChallenge={(s) => setChallengeStudent(s)}
+              onOpenProjectInvite={(s) => setProjectStudent(s)}
+            />
+          )}
+
+          {/* ── TAB 5: CHALLENGES (V3) ── */}
+          {activeTab === 'challenges' && (
+            <ArenaChallengesView
+              onOpenChallengeModal={(s) => setChallengeStudent(s || suggestedStudents[0])}
+            />
+          )}
+
+          {/* ── TAB 6: GROUP PROJECTS (V4) ── */}
+          {activeTab === 'projects' && (
+            <SquadProjectsView
+              onOpenInviteModal={(projTitle) => {
+                setSelectedProjectTitle(projTitle);
+                setProjectStudent(suggestedStudents[0]);
+              }}
+            />
+          )}
+          
         </div>
 
         {/* ── RIGHT COLUMN: NETWORK SUMMARY & WIDGETS ── */}
