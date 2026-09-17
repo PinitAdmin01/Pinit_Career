@@ -45,21 +45,32 @@ export async function POST(req: Request) {
     let authoritativeRadar = sessionData?.radar || {};
 
     if (!isSignatureValid) {
-      console.warn(`[Interview History API] Unsigned or invalid evaluationToken for user: ${userId}. Re-evaluating authoritatively.`);
+      if (token && typeof token === 'string' && token.trim().length > 0) {
+        console.warn(`[Interview History API] Tampered or forged evaluation token for user: ${userId}`);
+        return NextResponse.json(
+          {
+            error: 'Evaluation signature verification failed. The score or verdict does not match server evaluation.',
+            code: 'TAMPERED_EVALUATION_TOKEN'
+          },
+          { status: 403 }
+        );
+      }
+
+      console.warn(`[Interview History API] Unsigned evaluation for user: ${userId}. Re-evaluating authoritatively.`);
       const roleKey = normalizeRoleKey(sessionData?.domainSubTopic || sessionData?.domainStream || 'general_tech');
 
       const rawRadar = sessionData?.radar || {};
       const sanitizedDimensions: InterviewDimensions = {
-        logic: userMessageCount === 0 ? 0 : clampScore(rawRadar.logic, 50),
-        systems: userMessageCount === 0 ? 0 : clampScore(rawRadar.systems, 50),
-        comms: userMessageCount === 0 ? 0 : clampScore(rawRadar.comms, 50),
-        solving: userMessageCount === 0 ? 0 : clampScore(rawRadar.solving, 50),
-        star: userMessageCount === 0 ? 0 : clampScore(rawRadar.star, 50)
+        logic: userMessageCount === 0 ? 0 : Math.min(60, clampScore(rawRadar.logic, 50)),
+        systems: userMessageCount === 0 ? 0 : Math.min(60, clampScore(rawRadar.systems, 50)),
+        comms: userMessageCount === 0 ? 0 : Math.min(60, clampScore(rawRadar.comms, 50)),
+        solving: userMessageCount === 0 ? 0 : Math.min(60, clampScore(rawRadar.solving, 50)),
+        star: userMessageCount === 0 ? 0 : Math.min(60, clampScore(rawRadar.star, 50))
       };
 
       const recalc = calculateRoleWeightedScore(sanitizedDimensions, roleKey);
-      authoritativeScore = recalc.overallScore;
-      authoritativeVerdict = recalc.verdict;
+      authoritativeScore = Math.min(60, recalc.overallScore);
+      authoritativeVerdict = 'Unverified - Needs Evaluation';
       authoritativeRadar = recalc.sanitizedDimensions;
     }
 
@@ -130,7 +141,7 @@ export async function POST(req: Request) {
 
     const { data: inserted, error: insertError } = await supabase
       .from('interview_sessions')
-      .insert([insertPayload])
+      .upsert([insertPayload], { onConflict: 'id' })
       .select('id, created_at')
       .single();
 

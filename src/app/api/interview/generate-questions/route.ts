@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
+import { recordActiveLiveInterview } from '@/lib/interview/activeSessionRegistry';
 
 interface QuestionRequest {
   domainStream?: 'tech' | 'non_tech';
@@ -288,6 +289,8 @@ export async function POST(req: Request) {
     const { domainStream, domainSubTopic, difficulty } = (await req.json().catch(() => ({}))) as QuestionRequest;
     const diff: DifficultyLevel = difficulty === 'easy' || difficulty === 'hard' ? difficulty : 'normal';
     console.log(`[Question Generator API] User: ${gated.user.id} | Stream: ${domainStream} | SubTopic: ${domainSubTopic} | Difficulty: ${diff}`);
+
+    recordActiveLiveInterview(gated.user.id, domainSubTopic || 'Technical Interview', 'round2_coding');
 
     if (domainStream === 'non_tech') {
       const topicKey = (domainSubTopic || 'finance').toLowerCase();

@@ -350,6 +350,17 @@ export default function InterviewPage() {
     const greeting = `Welcome to your ${topic} Corporate Interview! I am ${sessionTeacher.name}, ${sessionTeacher.title}. To kick things off, please introduce yourself, tell me a bit about your academic background, and share your experience with ${topic}.`;
     setMessages([{ role: 'assistant', content: greeting }]);
     speakWithAvatar(greeting, sessionTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
+
+    // Server-Authoritative anti-cheat session registration
+    try {
+      getAuthHeaders().then(headers => {
+        fetch('/api/interview/start', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({ action: 'start', topic, stage: 'round1_behavioral' })
+        }).catch(() => {});
+      }).catch(() => {});
+    } catch {}
   };
 
   const exitInterview = () => {
@@ -362,6 +373,17 @@ export default function InterviewPage() {
     setAssistData(null);
     setIsAssistModeActive(false);
     clearDraft();
+
+    // Notify server of session conclusion / cancellation
+    try {
+      getAuthHeaders().then(headers => {
+        fetch('/api/interview/start', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({ action: 'cancel' })
+        }).catch(() => {});
+      }).catch(() => {});
+    } catch {}
   };
 
   const proceedToNextStage = (next: Stage) => {
@@ -513,7 +535,7 @@ export default function InterviewPage() {
       archetype
     });
 
-    let resultObj = evalResult;
+    let resultObj: any = evalResult;
     try {
       const headers = await getAuthHeaders();
       const res = await fetch('/api/interview/evaluate', {
@@ -535,7 +557,12 @@ export default function InterviewPage() {
       });
       const data = await res.json();
       if (data?.evaluation) {
-        resultObj = { ...evalResult, ...data.evaluation, perRoundScores: data.evaluation.perRoundScores || evalResult.perRoundScores };
+        resultObj = {
+          ...evalResult,
+          ...data.evaluation,
+          evaluationToken: data.evaluationToken,
+          perRoundScores: data.evaluation.perRoundScores || evalResult.perRoundScores
+        };
       }
     } catch {}
 
@@ -549,6 +576,7 @@ export default function InterviewPage() {
     const { dateStr, isoStr } = safeFormatDate();
     const sessionRecord: InterviewSessionRecord = {
       id: `sess-${Date.now()}`,
+      evaluationToken: resultObj.evaluationToken,
       date: dateStr,
       timestamp: isoStr,
       type: `${domainStream === 'non_tech' ? 'Non-Tech' : 'Tech'}: ${activeTopicName}`,

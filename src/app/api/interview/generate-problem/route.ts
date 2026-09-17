@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { sanitizeLLMOutput } from '@/lib/sanitizeLLM';
 import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
+import { recordActiveLiveInterview } from '@/lib/interview/activeSessionRegistry';
 
 export interface DynamicProblemRequest {
   topic: string;
@@ -158,6 +159,8 @@ export async function POST(req: Request) {
       difficulty = 'normal',
       projectContext = ''
     } = body;
+
+    recordActiveLiveInterview(userId, topic, 'round2_coding');
 
     console.log(`[Dynamic Problem API] Generating dynamic challenge for: "${topic}" | Stream: ${domainStream} | Language: ${language} | User: ${userId}`);
 

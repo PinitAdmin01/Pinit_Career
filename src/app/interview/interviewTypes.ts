@@ -40,6 +40,7 @@ export interface InterviewSessionRecord {
   strengths: string[];
   improvements: string;
   topology?: any;
+  evaluationToken?: string;
 }
 
 export interface ActiveInterviewDraft {
