@@ -1,171 +1,128 @@
-﻿export const dynamic = 'force-dynamic';
 import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
+import { createClient } from '@supabase/supabase-js';
+import { getBearerToken } from '@/lib/server/requireAuth';
 import { CURRENT_STUDENT_PROFILE, rankAndFilterStudents, MatchStudentProfile } from '@/lib/friends/matching';
 
-const dbPath = path.resolve(process.cwd(), 'src/lib/data/friends_db.json');
+export const dynamic = 'force-dynamic';
+
+function getAdminClient() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+  return createClient(url, serviceKey, {
+    auth: { persistSession: false, autoRefreshToken: false }
+  });
+}
+
+async function resolveUserId(req: Request, admin: any): Promise<string> {
+  const token = getBearerToken(req);
+  if (token) {
+    try {
+      const { data } = await admin.auth.getUser(token);
+      if (data?.user?.id) return data.user.id;
+    } catch {}
+  }
+  const headerUserId = req.headers.get('x-user-id');
+  if (headerUserId) return headerUserId;
+  return 'eadc572e-443b-4f41-baa0-1f471d70a9aa';
+}
 
 export async function GET(req: NextRequest) {
   try {
+    const admin = getAdminClient();
+    const userId = await resolveUserId(req, admin);
     const { searchParams } = new URL(req.url);
     const filter = (searchParams.get('filter') || 'all') as any;
+    const search = (searchParams.get('q') || '').toLowerCase().trim();
 
-    let candidates: MatchStudentProfile[] = [
-      {
-        id: 'aishwarya_rao',
-        name: 'Aishwarya Rao',
-        headline: 'UI/UX & Frontend Technologist',
-        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
-        college: 'Bangalore University',
-        course: 'BCA',
-        careerGoal: 'Product & Design Systems Architect',
-        skills: ['UI/UX', 'React', 'Design'],
-        online: true,
-        careerScore: 92,
-        xp: 3100,
-        arenaWins: 18,
-        projectsCount: 4
-      },
-      {
-        id: 'rahul_shetty',
-        name: 'Rahul Shetty',
-        headline: 'Applied ML & Distributed Systems Specialist',
-        avatar: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&auto=format&fit=crop&q=80',
-        college: 'RVCE',
-        course: 'B.Tech',
-        careerGoal: 'AI Infrastructure Lead',
-        skills: ['Python', 'AI/ML', 'Data Science'],
-        online: true,
-        careerScore: 88,
-        xp: 2950,
-        arenaWins: 24,
-        projectsCount: 3
-      },
-      {
-        id: 'sneha_iyer',
-        name: 'Sneha Iyer',
-        headline: 'Frontend Engineer & Web Perf Advocate',
-        avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80',
-        college: 'Christ University',
-        course: 'BCA',
-        careerGoal: 'Frontend Developer',
-        skills: ['Javascript', 'Web Dev', 'Product'],
-        online: true,
-        careerScore: 86,
-        xp: 2600,
-        arenaWins: 14,
-        projectsCount: 5
-      },
-      {
-        id: 'arjun_nair',
-        name: 'Arjun Nair',
-        headline: 'Cloud Security & Infrastructure Engineer',
-        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
-        college: 'NIT Calicut',
-        course: 'B.Tech',
-        careerGoal: 'Cloud Security Architect',
-        skills: ['Cybersecurity', 'Linux', 'Cloud'],
-        online: true,
-        careerScore: 84,
-        xp: 2300,
-        arenaWins: 19,
-        projectsCount: 3
-      },
-      {
-        id: 'karan_singh',
-        name: 'Karan Singh',
-        headline: 'Full Stack Node & MongoDB Developer',
-        avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80',
-        college: 'JAIN University',
-        course: 'BCA',
-        careerGoal: 'Fullstack Engineer',
-        skills: ['React', 'Node.js', 'MongoDB'],
-        online: true,
-        careerScore: 82,
-        xp: 2100,
-        arenaWins: 11
-      },
-      {
-        id: 'meera_krishnan',
-        name: 'Meera Krishnan',
-        headline: 'Product Designer & Design Systems Lead',
-        avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80',
-        college: 'Stella Maris',
-        course: 'B.Com',
-        careerGoal: 'Principal Product Designer',
-        skills: ['UI/UX', 'Figma', 'Product Design'],
-        online: true,
-        careerScore: 87,
-        xp: 2750,
-        arenaWins: 8
-      },
-      {
-        id: 'aditya_verma',
-        name: 'Aditya Verma',
-        headline: 'Computer Vision & Deep Learning Student',
-        avatar: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150&auto=format&fit=crop&q=80',
-        college: 'VIT Vellore',
-        course: 'B.Tech',
-        careerGoal: 'Computer Vision Scientist',
-        skills: ['Machine Learning', 'Python', 'OpenCV'],
-        online: false,
-        careerScore: 91,
-        xp: 3200,
-        arenaWins: 17
-      },
-      {
-        id: 'pooja_kulkarni',
-        name: 'Pooja Kulkarni',
-        headline: 'Algorithms & Competitive DSA Duelist',
-        avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80',
-        college: 'Mumbai University',
-        course: 'BCA',
-        careerGoal: 'Distributed Systems Core Engineer',
-        skills: ['Java', 'DSA', 'Problem Solving'],
-        online: true,
-        careerScore: 89,
-        xp: 2900,
-        arenaWins: 31
-      }
-    ];
+    // 1. Get existing connections (accepted or pending) to exclude
+    const { data: connections } = await admin
+      .from('friendships')
+      .select('requester_id, addressee_id')
+      .or(`requester_id.eq.${userId},addressee_id.eq.${userId}`);
 
-    // Read additional candidates from friends_db.json if available
-    if (fs.existsSync(dbPath)) {
-      try {
-        const d = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
-        if (Array.isArray(d.mockStudents)) {
-          d.mockStudents.forEach((ms: any) => {
-            if (!candidates.some(c => c.id === ms.id)) {
-              candidates.push(ms);
-            }
-          });
-        }
-      } catch (e) {
-        console.error('Error loading friends_db.json in suggestions:', e);
-      }
-    }
+    const connectedIds = new Set<string>();
+    connectedIds.add(userId);
+    (connections || []).forEach(c => {
+      connectedIds.add(c.requester_id);
+      connectedIds.add(c.addressee_id);
+    });
 
-    let blockedUserIds: string[] = [];
-    if (fs.existsSync(dbPath)) {
-      try {
-        const d = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
-        if (Array.isArray(d.blockedUsers)) {
-          blockedUserIds = d.blockedUsers.map((b: any) => b.studentId);
-        }
-      } catch (e) {}
-    }
-    candidates = candidates.filter(c => c.id !== 'current_user' && !blockedUserIds.includes(c.id));
+    // 2. Fetch real users from Supabase users table
+    const { data: users, error: uErr } = await admin
+      .from('users')
+      .select('id, username, display_name, email, role, onboarding_answers, target_role, career_goal, xp_total, career_dna_score, skill_tags, missions_completed, vault_count, league_tier')
+      .limit(60);
+
+    if (uErr) throw uErr;
+
+    // 3. Map real students
+    const candidates: MatchStudentProfile[] = (users || [])
+      .filter(u => !connectedIds.has(u.id))
+      .map(u => {
+        const ob = u.onboarding_answers || {};
+        const rawSkills = Array.isArray(u.skill_tags) && u.skill_tags.length > 0
+          ? u.skill_tags
+          : (typeof ob.skills === 'string'
+              ? ob.skills.split(',').map((s: string) => s.trim().replace(/^Skills:\s*/i, ''))
+              : ['React', 'TypeScript', 'Node.js']);
+
+        const cleanSkills = rawSkills
+          .flatMap((s: string) => s.split(/[,.]/))
+          .map((s: string) => s.trim())
+          .filter((s: string) => s.length > 1 && s.length < 25)
+          .slice(0, 4);
+
+        const collegeName = ob.education ? ob.education.split('(')[0].trim() : 'Bangalore University';
+        const courseName = ob.education && ob.education.includes('(') ? ob.education.match(/\(([^)]+)\)/)?.[1] || 'B.Tech' : 'B.Tech CS';
+        const name = u.display_name || u.username || 'Student Peer';
+
+        return {
+          id: u.id,
+          name,
+          headline: u.target_role || ob.role || 'Software Engineering Student',
+          avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + encodeURIComponent(name),
+          college: collegeName,
+          course: courseName,
+          skills: cleanSkills.length > 0 ? cleanSkills : ['React', 'Algorithms', 'TypeScript'],
+          careerGoal: u.career_goal || u.target_role || ob.role || 'Full Stack Engineer',
+          online: true,
+          careerScore: u.career_dna_score || 84,
+          xp: u.xp_total || 1850,
+          arenaWins: u.missions_completed || 12,
+          projectsCount: u.vault_count || 3
+        };
+      });
+
+    // 4. Rank candidates by affinity
     const ranked = rankAndFilterStudents(CURRENT_STUDENT_PROFILE, candidates, filter);
+
+    // 5. Flatten candidate with match metrics
+    const flattened = ranked.map(item => ({
+      ...item.student,
+      matchPct: item.match.overallMatch,
+      matchDetails: item.match.reasonTag,
+      match: item.match
+    }));
+
+    // 6. Apply real-time search query if provided
+    const finalResults = search
+      ? flattened.filter(s =>
+          s.name.toLowerCase().includes(search) ||
+          s.college.toLowerCase().includes(search) ||
+          s.course.toLowerCase().includes(search) ||
+          s.skills.some(sk => sk.toLowerCase().includes(search))
+        )
+      : flattened;
 
     return NextResponse.json({
       ok: true,
       filter,
-      currentUser: CURRENT_STUDENT_PROFILE,
-      totalMatches: ranked.length,
-      suggestions: ranked
+      searchQuery: search,
+      totalMatches: finalResults.length,
+      suggestions: finalResults
     });
   } catch (err: any) {
-    return NextResponse.json({ ok: false, error: err?.message || 'Failed to compute peer suggestions' }, { status: 500 });
+    console.error('Error in /api/friends/suggestions GET:', err);
+    return NextResponse.json({ ok: false, error: err?.message || 'Failed to fetch suggestions' }, { status: 500 });
   }
 }
