@@ -99,29 +99,36 @@ export function evaluateQT2Model(
     totalDocuments: 0,
     verifiedCount: 0,
     mismatchCount: 0,
-    overallStatus: 'SENTINEL_CLEAN',
-    trustScore: 100,
+    overallStatus: 'AWAITING_UPLOADS',
+    trustScore: 0,
     conflictingDocuments: [],
-    identityConsistencyPercentage: 100
+    identityConsistencyPercentage: 0
   },
   simulationScores?: Record<string, number>,
   identityScores?: Record<string, number>,
   voiceArchetype?: string | null
 ): QT2ModelEvaluation {
-  const docCount = documents.length;
-  const hasDocs = docCount > 0;
+  // Only count content-bearing readable documents
+  const readableDocs = documents.filter(d =>
+    (Array.isArray(d.provenanceRecords) && d.provenanceRecords.length > 0) ||
+    (Array.isArray(d.skills) && d.skills.length > 0) ||
+    (!!d.candidateName && d.candidateName.toLowerCase() !== 'candidate') ||
+    (!!d.scoreOrGpa && !d.scoreOrGpa.includes('Credential') && !d.scoreOrGpa.includes('Marksheet'))
+  );
+  const docCount = readableDocs.length;
+  const hasRealDocs = docCount > 0;
 
   // Check if candidate has actually completed simulation questions with positive choices
   const hasSimulations = !!simulationScores && Object.values(simulationScores).some(score => (score || 0) > 0);
 
-  // RULE 1: STRICT ZERO BASELINE IF NO EVIDENCE AND NO SIMULATIONS COMPLETED
-  if (!hasDocs && !hasSimulations) {
+  // RULE 1: STRICT ZERO BASELINE IF NO GENUINE EVIDENCE AND NO SIMULATIONS COMPLETED
+  if (!hasRealDocs && !hasSimulations) {
     return {
       compositeScore: 0,
       dimensions: { patternHunter: 0, stabilizer: 0, socialIQ: 0, explorer: 0 },
       dominantArchetype: 'Pending Evidence',
       archetypeBlendTitle: 'Awaiting Diagnostic Calibration',
-      archetypeDescription: 'No documents uploaded or simulation quests passed yet. Upload a resume, marksheet, or certification to calibrate your live QT2 score.',
+      archetypeDescription: 'No verified documents uploaded or simulation quests passed yet. Upload a readable resume, marksheet, or certification to calibrate your live QT2 score.',
       selfAwarenessIndex: 0,
       selfAwarenessLabel: 'Pending Assessment',
       executionRigorScore: 0,
@@ -130,8 +137,8 @@ export function evaluateQT2Model(
       evaluatedDataPoints: 0,
       factors: [
         { pillar: 'Cognitive Mindset Disposition', weight: 35, score: 0, maxScore: 35, details: '0 simulation quests completed; 0 document signals.' },
-        { pillar: 'Execution Rigor & Impact', weight: 25, score: 0, maxScore: 25, details: '0 documents uploaded for action verb & project depth analysis.' },
-        { pillar: 'Identity & Sentinel Integrity', weight: 25, score: 0, maxScore: 25, details: '0 credential files submitted for anti-fraud name validation.' },
+        { pillar: 'Execution Rigor & Impact', weight: 25, score: 0, maxScore: 25, details: '0 readable documents uploaded for action verb & project depth analysis.' },
+        { pillar: 'Identity & Sentinel Integrity', weight: 25, score: 0, maxScore: 25, details: '0 verified credential files submitted for anti-fraud name validation.' },
         { pillar: 'Longitudinal Growth & Trajectory', weight: 15, score: 0, maxScore: 15, details: '0 academic marksheet records provided.' }
       ],
       behavioralSignals: { algorithmicDepth: 0, reliabilityStandards: 0, collaborationLeadership: 0, experimentationVelocity: 0 }
@@ -147,7 +154,7 @@ export function evaluateQT2Model(
   let allExtractedSkillsCount = 0;
   let projectDepthCount = 0;
 
-  documents.forEach(doc => {
+  readableDocs.forEach(doc => {
     allExtractedSkillsCount += doc.skills?.length || 0;
     const corpus = `${doc.title} ${doc.fileName} ${doc.institution || ''} ${doc.scoreOrGpa || ''} ${(doc.skills || []).join(' ')}`.toLowerCase();
     const provSnippets = (doc.provenanceRecords || []).map(p => p.sourceTextSnippet.toLowerCase()).join(' ');
@@ -231,68 +238,68 @@ export function evaluateQT2Model(
   // --- 2. EVALUATE 4 PILLARS (STRICT CEILINGS) ---
 
   // PILLAR 1: Mindset Disposition (0 - 35 pts)
-  // Evaluates the breadth and richness of demonstrated behavioral signals
   let scoreMindset = 0;
   if (totalWeight > 0) {
     const signalRichness = Math.min(20, totalWeight * 2);
-    const balanceBonus = (primaryTrait.score < 60) ? 12 : 8; // Reward versatile balanced engineering
+    const balanceBonus = (primaryTrait.score < 60) ? 12 : 8;
     scoreMindset = Math.min(35, Math.max(10, signalRichness + balanceBonus));
   }
 
   // PILLAR 2: Execution Rigor & Impact (0 - 25 pts)
-  // Evaluates action verbs, skills, and grounded projects
   let scoreRigor = 0;
-  if (hasDocs) {
+  if (hasRealDocs) {
     const verbPts = Math.min(10, impactVerbCount * 2);
     const skillPts = Math.min(10, allExtractedSkillsCount * 1.5);
     const projectPts = Math.min(5, projectDepthCount * 2.5);
-    scoreRigor = Math.min(25, Math.max(5, Math.round(verbPts + skillPts + projectPts)));
+    scoreRigor = Math.min(25, Math.round(verbPts + skillPts + projectPts));
   }
 
   // PILLAR 3: Sentinel Identity & Authenticity (0 - 25 pts)
-  // Cross-validates detected names against authenticated profile anchor
   let scoreIntegrity = 0;
-  if (hasDocs) {
+  if (hasRealDocs) {
     if (auditReport.mismatchCount > 0) {
-      scoreIntegrity = Math.max(5, 25 - (auditReport.mismatchCount * 12));
+      scoreIntegrity = Math.max(0, 25 - (auditReport.mismatchCount * 12));
     } else {
-      scoreIntegrity = docCount >= 2 ? 25 : 18; // 1 doc = 18 baseline, 2+ docs = 25 verified
+      scoreIntegrity = readableDocs.length >= 2 ? 25 : 12;
     }
   }
 
   // PILLAR 4: Longitudinal Growth & Trajectory (0 - 15 pts)
-  // Tracks academic marksheet GPA curve and verified credentials
   let scoreGrowth = 0;
-  if (hasDocs) {
-    const semDocs = documents.filter(d => d.category.startsWith('sem'));
+  if (hasRealDocs) {
+    const semDocs = readableDocs.filter(d => d.category.startsWith('sem') && d.scoreOrGpa && /\d+\.\d+/.test(d.scoreOrGpa));
     if (semDocs.length >= 2) {
       scoreGrowth = 15;
-    } else if (documents.some(d => d.category === 'certification' || d.category === 'achievement')) {
+    } else if (readableDocs.some(d => d.category === 'certification' || d.category === 'achievement')) {
       scoreGrowth = 12;
-    } else {
-      scoreGrowth = 8; // Base single-resume trajectory
+    } else if (readableDocs.some(d => d.category === 'resume')) {
+      scoreGrowth = 5;
     }
   }
 
   // COMPOSITE QT2 SCORE (0 - 100)
   let compositeScore = Math.min(100, Math.round(scoreMindset + scoreRigor + scoreIntegrity + scoreGrowth));
 
-  // If there's an identity mismatch flag, strictly cap overall score
   if (auditReport.mismatchCount > 0) {
     compositeScore = Math.min(58, compositeScore);
   }
 
-  // Self-Awareness Index
-  let selfAwarenessIndex = 85;
+  // Self-Awareness Index (Requires actual completed simulation questions)
+  let selfAwarenessIndex = 0;
+  let selfAwarenessLabel = 'Pending Assessment';
+
   if (identityScores && hasSimulations) {
     const statedLogic = identityScores['logic_vs_empathy'] ?? 50;
     const actionLogic = dimensions.patternHunter;
     const diff = Math.abs(statedLogic - actionLogic);
-    selfAwarenessIndex = Math.max(60, Math.min(99, Math.round(100 - (diff * 0.5))));
+    selfAwarenessIndex = Math.max(50, Math.min(99, Math.round(100 - (diff * 0.5))));
+    selfAwarenessLabel = selfAwarenessIndex >= 80
+      ? 'High Cognitive Self-Awareness'
+      : 'Calibrating Self-Perception Alignment';
+  } else if (hasRealDocs && hasSimulations) {
+    selfAwarenessIndex = 70;
+    selfAwarenessLabel = 'Calibrating Self-Perception Alignment';
   }
-  const selfAwarenessLabel = selfAwarenessIndex >= 80
-    ? 'High Cognitive Self-Awareness'
-    : 'Calibrating Self-Perception Alignment';
 
   // Count strictly real validated data points
   const evaluatedDataPoints =
@@ -308,30 +315,30 @@ export function evaluateQT2Model(
       weight: 35,
       score: scoreMindset,
       maxScore: 35,
-      details: `${primaryTrait.key} dominant (${primaryTrait.score}%) backed by ${secondaryTrait.key} (${secondaryTrait.score}%).`
+      details: `${totalWeight} validated signals (${rawPH} PH, ${rawST} ST, ${rawSQ} SQ, ${rawEX} EX).`
     },
     {
       pillar: 'Execution Rigor & Impact',
       weight: 25,
       score: scoreRigor,
       maxScore: 25,
-      details: `${allExtractedSkillsCount} validated skills grounded with ${impactVerbCount} active impact outcomes.`
+      details: `${impactVerbCount} action verbs, ${allExtractedSkillsCount} skills, ${projectDepthCount} project anchors.`
     },
     {
       pillar: 'Identity & Sentinel Integrity',
       weight: 25,
       score: scoreIntegrity,
       maxScore: 25,
-      details: auditReport.mismatchCount === 0
-        ? `Clean sentinel verification across ${auditReport.verifiedCount} records.`
-        : `Flagged ${auditReport.mismatchCount} conflicting identity record(s).`
+      details: auditReport.mismatchCount > 0
+        ? `${auditReport.mismatchCount} identity conflicts flagged.`
+        : `Cross-document identity consistency at ${auditReport.identityConsistencyPercentage}%.`
     },
     {
       pillar: 'Longitudinal Growth & Trajectory',
       weight: 15,
       score: scoreGrowth,
       maxScore: 15,
-      details: `Academic and credential velocity tracked across ${docCount} portfolio asset(s).`
+      details: `${readableDocs.filter(d => d.category.startsWith('sem')).length} academic semester records verified.`
     }
   ];
 
@@ -343,16 +350,16 @@ export function evaluateQT2Model(
     archetypeDescription: blendDescription,
     selfAwarenessIndex,
     selfAwarenessLabel,
-    executionRigorScore: Math.round((scoreRigor / 25) * 100),
-    identityIntegrityScore: Math.round((scoreIntegrity / 25) * 100),
-    longitudinalGrowthScore: Math.round((scoreGrowth / 15) * 100),
+    executionRigorScore: scoreRigor,
+    identityIntegrityScore: scoreIntegrity,
+    longitudinalGrowthScore: scoreGrowth,
     evaluatedDataPoints,
     factors,
     behavioralSignals: {
-      algorithmicDepth: rawPH,
-      reliabilityStandards: rawST,
-      collaborationLeadership: rawSQ,
-      experimentationVelocity: rawEX
+      algorithmicDepth: Math.min(100, rawPH * 12),
+      reliabilityStandards: Math.min(100, rawST * 12),
+      collaborationLeadership: Math.min(100, rawSQ * 12),
+      experimentationVelocity: Math.min(100, rawEX * 12)
     }
   };
 }
