@@ -8,6 +8,8 @@ import { ArenaChallengeModal } from '@/components/friends/ArenaChallengeModal';
 import { ProjectInviteModal } from '@/components/friends/ProjectInviteModal';
 import { SquadProjectsView } from '@/components/friends/SquadProjectsView';
 import { SmartMatchModal } from '@/components/friends/SmartMatchModal';
+import { PrivacySettingsModal } from '@/components/friends/PrivacySettingsModal';
+import { ReportStudentModal } from '@/components/friends/ReportStudentModal';
 import { computeStudentMatch, CURRENT_STUDENT_PROFILE, MatchStudentProfile, MatchBreakdown } from '@/lib/friends/matching';
 
 export default function FriendsPage() {
@@ -27,6 +29,9 @@ export default function FriendsPage() {
   const [selectedProjectTitle, setSelectedProjectTitle] = useState<string | undefined>(undefined);
   const [smartMatchStudent, setSmartMatchStudent] = useState<MatchStudentProfile | null>(null);
   const [smartMatchBreakdown, setSmartMatchBreakdown] = useState<MatchBreakdown | null>(null);
+  const [showPrivacyModal, setShowPrivacyModal] = useState(false);
+  const [reportTargetStudent, setReportTargetStudent] = useState<StudentProfile | null>(null);
+  const [blockedIds, setBlockedIds] = useState<string[]>([]);
 
   // Friend Request States
   const [sentRequests, setSentRequests] = useState<Record<string, boolean>>({});
@@ -105,6 +110,7 @@ export default function FriendsPage() {
 
   const suggestedStudents = React.useMemo(() => {
     return baseSuggestedStudents.filter(s => {
+      if (blockedIds.includes(s.id)) return false;
       if (activeFilter === 'college') return Boolean(s.college && (s.college.includes('Bangalore') || s.college.includes('RVCE')));
       if (activeFilter === 'skills') return s.skills.some(sk => ['React', 'TypeScript', 'Node.js', 'UI/UX'].includes(sk));
       if (activeFilter === 'course') return s.course === 'BCA';
@@ -197,6 +203,39 @@ export default function FriendsPage() {
     const breakdown = computeStudentMatch(CURRENT_STUDENT_PROFILE, candidate);
     setSmartMatchStudent(candidate);
     setSmartMatchBreakdown(breakdown);
+  };
+
+  const fetchBlockedUsers = async () => {
+    try {
+      const res = await fetch('/api/friends/privacy');
+      const data = await res.json();
+      if (data.ok && Array.isArray(data.blockedUsers)) {
+        setBlockedIds(data.blockedUsers.map((b: any) => b.studentId));
+      }
+    } catch (err) {
+      console.error('Error fetching blocked users:', err);
+    }
+  };
+
+  useEffect(() => {
+    fetchBlockedUsers();
+  }, []);
+
+  const handleBlockStudent = async (studentId: string, studentName: string, studentAvatar?: string) => {
+    try {
+      const res = await fetch('/api/friends/privacy', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'block', studentId, studentName, studentAvatar })
+      });
+      const data = await res.json();
+      if (data.ok) {
+        toast.info('Student Blocked', `${studentName} has been blocked and removed from your network.`);
+        setBlockedIds(prev => [...prev, studentId]);
+      }
+    } catch (e) {
+      toast.error('Error', 'Failed to block student');
+    }
   };
 
   const handleAddFriend = (id: string, name: string) => {
