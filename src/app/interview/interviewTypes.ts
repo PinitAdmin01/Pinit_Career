@@ -29,11 +29,11 @@ export interface InterviewSessionRecord {
     solving: number;
     star: number;
   };
-  telemetry: {
-    eyeContact: number;
-    wpm: number;
-    fillerWords: number;
-    tabSwitches: number;
+  telemetry?: {
+    eyeContact?: number | null;
+    wpm?: number | null;
+    fillerWords?: number | null;
+    tabSwitches?: number;
   };
   messages: Message[];
   summary: string;

@@ -155,8 +155,13 @@ export async function POST(req: Request) {
 
     // 5. Telemetry Context (Advisory)
     let telemetryContext = '';
-    if (telemetry) {
-      telemetryContext = `[Diagnostic Signal: WPM: ${telemetry.wpm || 125}, Filler Words: ${telemetry.fillerWords || 0}]. Maintain crisp verbal engagement.`;
+    const hasWpm = typeof telemetry?.wpm === 'number' && !isNaN(telemetry.wpm) && telemetry.wpm > 0;
+    const hasFillerWords = typeof telemetry?.fillerWords === 'number' && !isNaN(telemetry.fillerWords);
+    if (hasWpm || hasFillerWords) {
+      const parts: string[] = [];
+      if (hasWpm) parts.push(`WPM: ${telemetry.wpm}`);
+      if (hasFillerWords) parts.push(`Filler Words: ${telemetry.fillerWords}`);
+      telemetryContext = `[Diagnostic Signal: ${parts.join(', ')}]. Maintain crisp verbal engagement.`;
     }
 
     const systemPrompt = `You are ${selectedInterviewer.name}, ${selectedInterviewer.role}. ${selectedInterviewer.nature}.

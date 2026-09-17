@@ -15,7 +15,7 @@ export interface EvaluationInput {
   starStep: number;
   fillerWordCount: number;
   eyeContactScore: number | null;
-  wpmScore: number;
+  wpmScore: number | null;
   activeTopicName: string;
   domainStream: 'tech' | 'non_tech';
   archetype: MindsetArchetype;
@@ -51,9 +51,9 @@ export function computeDeterministicEvaluation({
   const scoringResult = calculateRoleWeightedScore(rawDimensions, roleKey);
   const coaching = generatePersonaCoaching(archetype, scoringResult.sanitizedDimensions, roleKey);
   const telemetryDiagnostics = generateTelemetryDiagnostics({
-    eyeContact: eyeContactScore ?? 0,
-    wpm: wpmScore,
-    fillerWords: fillerWordCount
+    eyeContact: typeof eyeContactScore === 'number' ? eyeContactScore : undefined,
+    wpm: typeof wpmScore === 'number' ? wpmScore : undefined,
+    fillerWords: typeof wpmScore === 'number' ? fillerWordCount : undefined
   });
 
   const perRoundScores = {
@@ -125,7 +125,7 @@ export function exportInterviewTranscriptFile({
   teacherName: string;
   evaluationResult: any;
   eyeContactScore: number | null;
-  wpmScore: number;
+  wpmScore: number | null;
   fillerWordCount: number;
   codeContent: string;
   selectedLang: string;
@@ -142,9 +142,9 @@ export function exportInterviewTranscriptFile({
       verdict: evaluationResult?.verdict || 'Recorded',
       perRoundScores: evaluationResult?.perRoundScores,
       telemetry: {
-        eyeContact: eyeContactScore,
-        wpm: wpmScore,
-        fillerWords: fillerWordCount
+        eyeContact: typeof eyeContactScore === 'number' ? eyeContactScore : null,
+        wpm: typeof wpmScore === 'number' ? wpmScore : null,
+        fillerWords: typeof wpmScore === 'number' ? fillerWordCount : null
       },
       codeSolution: codeContent,
       architectureTopology: latestTopology,
@@ -173,9 +173,9 @@ export function exportInterviewTranscriptFile({
       `- **Round 3 (Systems):** ${evaluationResult?.perRoundScores?.round3?.score || 80}% — ${evaluationResult?.perRoundScores?.round3?.verdict || 'Viable'} (${evaluationResult?.perRoundScores?.round3?.metric || 'Canvas topology'})`,
       `- **Round 4 (STAR):** ${evaluationResult?.perRoundScores?.round4?.score || 85}% — ${evaluationResult?.perRoundScores?.round4?.verdict || 'Structured'} (${evaluationResult?.perRoundScores?.round4?.metric || 'STAR criteria'})`,
       `\n## 2. Telemetry & Delivery Diagnostics`,
-      `- **Average Eye Contact:** ${eyeContactScore !== null ? `${eyeContactScore}%` : 'Not Tracked'}`,
-      `- **Speaking Pace:** ${wpmScore} Words Per Minute`,
-      `- **Filler Words Count:** ${fillerWordCount}`,
+      `- **Average Eye Contact:** ${typeof eyeContactScore === 'number' ? `${eyeContactScore}%` : 'Not Tracked'}`,
+      `- **Speaking Pace:** ${typeof wpmScore === 'number' ? `${wpmScore} Words Per Minute` : 'Not Measured'}`,
+      `- **Filler Words Count:** ${typeof wpmScore === 'number' ? fillerWordCount : 'Not Measured'}`,
       `\n## 3. Candidate Code Submission (${selectedLang})`,
       '```' + selectedLang,
       codeContent || '// No code submitted',

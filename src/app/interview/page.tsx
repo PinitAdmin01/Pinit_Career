@@ -414,7 +414,11 @@ export default function InterviewPage() {
           customTopic: activeTopicName,
           domainStream,
           domainSubTopic: activeTopicName,
-          telemetry: { eyeContact: eyeContactScore ?? 0, wpm: wpmScore, fillerWords: fillerWordCount }
+          telemetry: {
+            eyeContact: typeof eyeContactScore === 'number' ? eyeContactScore : undefined,
+            wpm: typeof wpmScore === 'number' ? wpmScore : undefined,
+            fillerWords: typeof wpmScore === 'number' ? fillerWordCount : undefined
+          }
         })
       });
       const data = await res.json();
@@ -522,7 +526,11 @@ export default function InterviewPage() {
           domainSubTopic: activeTopicName,
           roleKey: activeTopicName,
           archetype,
-          telemetry: { eyeContact: eyeContactScore ?? 0, wpm: wpmScore, fillerWords: fillerWordCount }
+          telemetry: {
+            eyeContact: typeof eyeContactScore === 'number' ? eyeContactScore : undefined,
+            wpm: typeof wpmScore === 'number' ? wpmScore : undefined,
+            fillerWords: typeof wpmScore === 'number' ? fillerWordCount : undefined
+          }
         })
       });
       const data = await res.json();
@@ -550,7 +558,12 @@ export default function InterviewPage() {
       verdict: resultObj.verdict,
       score: resultObj.score,
       radar: resultObj.radar,
-      telemetry: { eyeContact: eyeContactScore ?? 0, wpm: wpmScore, fillerWords: fillerWordCount, tabSwitches: 0 },
+      telemetry: {
+        eyeContact: typeof eyeContactScore === 'number' ? eyeContactScore : null,
+        wpm: typeof wpmScore === 'number' ? wpmScore : null,
+        fillerWords: typeof wpmScore === 'number' ? fillerWordCount : null,
+        tabSwitches: 0
+      },
       messages,
       summary: resultObj.summary || '',
       strengths: Array.isArray(resultObj.strengths) ? resultObj.strengths : [resultObj.strengths || 'Good effort'],

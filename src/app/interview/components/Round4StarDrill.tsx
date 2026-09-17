@@ -15,7 +15,7 @@ export interface Round4StarDrillProps {
   showCameraPreview: boolean;
   videoPreviewRef: React.RefObject<HTMLVideoElement>;
   eyeContactScore: number | null;
-  wpmScore: number;
+  wpmScore: number | null;
   lastInterviewerSpeech: string;
   isVoiceListening: boolean;
   startVoiceListening: () => void;
@@ -62,7 +62,7 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
               <span style={{ color: eyeContactScore !== null ? (eyeContactScore >= 60 ? 'var(--success-bright)' : 'var(--warning-bright)') : 'var(--text-muted)' }}>
                 📷 {eyeContactScore !== null ? (eyeContactScore >= 60 ? 'Presence: Centered' : 'Presence: Adjust Angle') : 'Detecting...'}
               </span>
-              <span style={{ color: 'var(--info-bright)' }}>⚡ {wpmScore} WPM</span>
+              <span style={{ color: 'var(--info-bright)' }}>⚡ {wpmScore !== null ? `${wpmScore} WPM` : 'Mic Inactive'}</span>
             </div>
           </div>
         )}

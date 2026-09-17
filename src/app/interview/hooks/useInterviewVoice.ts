@@ -39,7 +39,7 @@ export function useInterviewVoice({
   const isMountedRef = useRef<boolean>(true);
   const isInterviewActiveRef = useRef<boolean>(false);
 
-  const [wpmScore, setWpmScore] = useState(128);
+  const [wpmScore, setWpmScore] = useState<number | null>(null);
   const [fillerWordCount, setFillerWordCount] = useState(0);
 
   // Audio Volume Control State (0-100)
@@ -158,7 +158,7 @@ export function useInterviewVoice({
           const durationSec = Math.max(1.0, (Date.now() - speechStartTimeRef.current) / 1000);
           const rawWpm = Math.round((words.length / durationSec) * 60);
           const boundedWpm = Math.min(220, Math.max(60, rawWpm));
-          setWpmScore(prev => prev === 128 ? boundedWpm : Math.round(prev * 0.45 + boundedWpm * 0.55));
+          setWpmScore(prev => prev === null ? boundedWpm : Math.round(prev * 0.45 + boundedWpm * 0.55));
         }
 
         const fillers = final.trim().match(/\b(um|uh|like|you know|basically|actually|sort of|kind of)\b/gi);

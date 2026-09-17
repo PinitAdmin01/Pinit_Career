@@ -11,7 +11,7 @@ export interface InterviewResultsViewProps {
   codeSubmitted: boolean;
   latestTopology: any;
   starStep: number;
-  wpmScore: number;
+  wpmScore: number | null;
   fillerWordCount: number;
   eyeContactScore: number | null;
   startInterview: () => void;

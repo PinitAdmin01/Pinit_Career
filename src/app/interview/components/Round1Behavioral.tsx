@@ -20,7 +20,7 @@ export interface Round1BehavioralProps {
   showCameraPreview: boolean;
   videoPreviewRef: React.RefObject<HTMLVideoElement>;
   eyeContactScore: number | null;
-  wpmScore: number;
+  wpmScore: number | null;
   isAvatarSpeaking: boolean;
   isVoiceListening: boolean;
   lastInterviewerSpeech: string;
@@ -76,7 +76,7 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
               <span style={{ color: eyeContactScore !== null ? (eyeContactScore >= 60 ? 'var(--success-bright)' : 'var(--warning-bright)') : 'var(--text-muted)' }}>
                 📷 {eyeContactScore !== null ? (eyeContactScore >= 60 ? 'Presence: Centered' : 'Presence: Adjust Angle') : 'Detecting...'}
               </span>
-              <span style={{ color: 'var(--info-bright)' }}>⚡ {wpmScore} WPM</span>
+              <span style={{ color: 'var(--info-bright)' }}>⚡ {wpmScore !== null ? `${wpmScore} WPM` : 'Mic Inactive'}</span>
             </div>
           </div>
         )}
@@ -117,8 +117,8 @@ export const Round1Behavioral: React.FC<Round1BehavioralProps> = ({
         {/* Telemetry Bar */}
         <div style={{ background: 'var(--bg3)', borderRadius: 10, padding: '8px 12px', border: '1px solid var(--border)', marginBottom: 10, display: 'flex', justifyContent: 'space-between', fontSize: 11 }}>
           <div>👀 Eye Contact: <strong style={{ color: eyeContactScore !== null ? 'var(--green-mid)' : 'var(--t3)' }}>{eyeContactScore !== null ? `${eyeContactScore}%` : 'Cam Off'}</strong></div>
-          <div>⚡ Pace: <strong style={{ color: 'var(--accent-mid)' }}>{wpmScore} WPM</strong></div>
-          <div>💬 Fillers: <strong style={{ color: 'var(--green-mid)' }}>{fillerWordCount}</strong></div>
+          <div>⚡ Pace: <strong style={{ color: 'var(--accent-mid)' }}>{wpmScore !== null ? `${wpmScore} WPM` : 'Mic Off'}</strong></div>
+          <div>💬 Fillers: <strong style={{ color: 'var(--green-mid)' }}>{wpmScore !== null ? fillerWordCount : 'N/A'}</strong></div>
         </div>
 
         {/* Transcript Stream */}
