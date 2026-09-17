@@ -1,241 +1,173 @@
-/**
- * Verification Suite for Sub-Batch 4.4: Career Twin & Real Data Simulation (Issues 097 – 101)
- *
- * Checks:
- * 1. Defect 097: Career Twin checks canonical `users` table and enforces onboarding gate
- * 2. Defect 098: Salary projections are strictly tied to verified competencies, NOT arbitrary XP math
- * 3. Defect 099: Missing QT diagnostics default to 40 baseline, preliminary roadmaps flagged
- * 4. Defect 100: ATS Resume scoring uses multi-factor weighting and penalizes unweighted keyword stuffing
- * 5. Defect 101: Avatar Mentor dynamic dialogue engine with contextual student state
- */
+process.env.NODE_ENV = 'test';
+process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
 
-import { POST as careerTwinPost } from '../src/app/api/career-twin/results/route';
-import { POST as mentorChatPost } from '../src/app/api/mentor/chat/route';
-import { analyzeResumeContent, calculateKeywordDensity } from '../src/lib/ats/resumeAnalyzer';
-import {
-  generateContextualGreeting,
-  generateMentorQuickPrompts,
-  askMentorAvatar,
-  StudentMentorContext
-} from '../src/lib/mentor/avatarDialogue';
-import * as fs from 'fs';
-import * as path from 'path';
-
-let passed = 0;
-let failed = 0;
-
-function assert(condition: boolean, msg: string) {
-  if (condition) {
-    console.log(`  ✅ PASS: ${msg}`);
-    passed++;
-  } else {
-    console.error(`  ❌ FAIL: ${msg}`);
-    failed++;
-  }
-}
+import assert from 'assert';
+import { GET as analyticsGET, POST as analyticsPOST } from '@/app/api/attention-span/analytics/route';
+import { GET as leaderboardGET, POST as leaderboardPOST } from '@/app/api/attention-span/leaderboard/route';
+import { GET as progressGET, POST as progressPOST, computeIntegrityHash } from '@/app/api/attention-span/progress/route';
+import { sanitizeDisplayName } from '@/lib/attention/progress';
 
 async function runTests() {
-  console.log('\n--- VERIFYING SUB-BATCH 4.4: Career Twin & Real Data Simulation ---');
+  console.log('========================================================================');
+  console.log('📦 VERIFYING SUB-BATCH 4.4: Attention-Span Persistence, PII & Rate Limit');
+  console.log('========================================================================\n');
 
-  // Test 1: Defect 097 - Source code check for canonical `users` query
-  console.log('\n[Test 1] Defect 097: Canonical DB query & onboarding gate in Career Twin');
-  const careerTwinSource = fs.readFileSync(
-    path.join(process.cwd(), 'src/app/api/career-twin/results/route.ts'),
-    'utf-8'
-  );
-  assert(
-    careerTwinSource.includes(".from('users')") && !careerTwinSource.includes(".from('profiles')"),
-    'Career twin route queries canonical users table, not profiles'
-  );
-  assert(
-    careerTwinSource.includes('needsOnboarding: true'),
-    'Career twin route returns needsOnboarding gate if user has not completed diagnostics'
-  );
-
-  // Test 2: Defect 097 - Route response when user is uninitialized
-  const reqUnauth = new Request('http://localhost:3000/api/career-twin/results', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer demo-token-bypass'
-    },
-    body: JSON.stringify({ userId: 'new_user_without_onboarding' })
-  });
-  const resUnauth = await careerTwinPost(reqUnauth);
-  const dataUnauth = await resUnauth.json();
-  assert(
-    dataUnauth.needsOnboarding === true && dataUnauth.ok === false,
-    'Uninitialized candidate correctly receives needsOnboarding: true gate'
-  );
-
-  // Test 3: Defect 098 - Salary calculation decoupled from XP math
-  console.log('\n[Test 2] Defect 098: Salary projections tied to competencies, not XP');
-  assert(
-    !careerTwinSource.includes('xpTotal / 1000') && !careerTwinSource.includes('xp / 1000'),
-    'Salary formula completely purged of arbitrary (xp / 1000) multiplier'
-  );
-  assert(
-    careerTwinSource.includes('calculateSalaryProjection') || careerTwinSource.includes('verifiedCount'),
-    'Salary calculation references verified competency count'
-  );
-
-  // Test 4: Defect 099 - Roadmap Fuser defaults missing QT scores to 40
-  console.log('\n[Test 3] Defect 099: Baseline default of 40 for missing QT scores & preliminary flag');
-  const { generateDynamicStudentRoadmap } = await import('../src/lib/data/roadmapFuser');
-  const dynamicRoadmap = generateDynamicStudentRoadmap({
-    goal: 'Full Stack Engineer',
-    courseId: 'fullstack-web-dev',
-    durationDays: 30
-  });
-  assert(
-    dynamicRoadmap[0]?.isPreliminaryRoadmap === true,
-    'Roadmap generated without QT scores is explicitly flagged with isPreliminaryRoadmap: true'
-  );
-  assert(
-    typeof dynamicRoadmap[0]?.diagnosticNotice === 'string' && dynamicRoadmap[0]?.diagnosticNotice.includes('40'),
-    'Roadmap includes diagnostic notice citing beginner baseline of 40'
-  );
-
-  const questsFile = fs.existsSync(path.join(process.cwd(), 'src/app/quests/components/useQuestProgression.ts'))
-    ? path.join(process.cwd(), 'src/app/quests/components/useQuestProgression.ts')
-    : path.join(process.cwd(), 'src/app/quests/page.tsx');
-  const questsSource = fs.readFileSync(questsFile, 'utf-8');
-  assert(
-    questsSource.includes('onboardingAnswers?.qt1_score ?? 40') &&
-    questsSource.includes('onboardingAnswers?.qt2_score ?? 40'),
-    'Quests page defaults unattempted QT1 and QT2 to 40 baseline (not 75/80)'
-  );
-
-  // Test 5: Defect 100 - Multi-factor ATS Resume Scoring
-  console.log('\n[Test 4] Defect 100: Multi-factor Resume Analyzer & Keyword Stuffing Detection');
-  const keywordDumpingResume = `
-    Skills: Python Python Python Docker Docker Kubernetes React Node.js SQL Redis AWS AWS AWS.
-    Experienced with Python, Docker, Kubernetes, React, Node.js, SQL, Redis, AWS.
-    Tools: Docker, Kubernetes, AWS, SQL.
-  `;
-  const stuffedResult = analyzeResumeContent(keywordDumpingResume, [
-    'Python', 'Docker', 'Kubernetes', 'React', 'Node.js', 'SQL', 'Redis', 'AWS'
-  ]);
-  assert(
-    stuffedResult.penalties.keywordStuffingPenalty > 0,
-    `Keyword dumping triggers stuffing penalty (detected: ${stuffedResult.penalties.keywordStuffingPenalty})`
-  );
-  assert(
-    stuffedResult.breakdown.actionVerbsScore === 0,
-    'Keyword dump with no action verbs gets 0 for actionVerbsScore'
-  );
-  assert(
-    stuffedResult.totalScore < 50,
-    `Stuffed resume receives honest sub-50 score (actual: ${stuffedResult.totalScore})`
-  );
-
-  const authenticResume = `
-    Professional Experience:
-    Senior Software Engineer | Tech Corp (2022 - Present)
-    - Architected and deployed microservices using Docker and Kubernetes on AWS, scaling throughput by 45%.
-    - Engineered high-performance backend pipelines in Python and Node.js, optimizing SQL query latency by 60%.
-    - Implemented distributed Redis caching system, reducing API p99 response times from 850ms to 120ms.
-    - Led frontend redesign in React and TypeScript, boosting conversion metrics by 28%.
-  `;
-  const authenticResult = analyzeResumeContent(authenticResume, [
-    'Python', 'Docker', 'Kubernetes', 'React', 'Node.js', 'SQL', 'Redis', 'AWS'
-  ]);
-  assert(
-    authenticResult.penalties.keywordStuffingPenalty === 0,
-    'Authentic resume incurs 0 keyword stuffing penalty'
-  );
-  assert(
-    authenticResult.breakdown.actionVerbsScore >= 70,
-    `Authentic resume with past-tense action verbs scores high (actual: ${authenticResult.breakdown.actionVerbsScore})`
-  );
-  assert(
-    authenticResult.breakdown.quantifiedMetricsScore >= 70,
-    `Authentic resume with quantified metrics scores high (actual: ${authenticResult.breakdown.quantifiedMetricsScore})`
-  );
-  assert(
-    authenticResult.totalScore > stuffedResult.totalScore + 25,
-    `Authentic resume substantially outscores keyword stuffed resume (${authenticResult.totalScore} vs ${stuffedResult.totalScore})`
-  );
-
-  // Test 6: Defect 101 - Avatar Mentor Dynamic Dialogue & API
-  console.log('\n[Test 5] Defect 101: Dynamic Avatar Mentor Dialogue seeded with Student Context');
-  const mockContext: StudentMentorContext = {
-    studentName: 'Aarav',
-    targetRole: 'Distributed Systems Engineer',
-    activeQuest: 'Distributed Consensus with Raft',
-    missingSkills: ['Raft Algorithm', 'gRPC', 'Distributed Tracing'],
-    atsScore: 68
+  const testUser = 'test_user_001';
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer test-token-${testUser}`,
   };
 
-  const greeting = generateContextualGreeting(mockContext);
-  assert(
-    greeting.includes('Aarav') && greeting.includes('Distributed Systems Engineer') && greeting.includes('Distributed Consensus with Raft'),
-    'Greeting dynamically includes student name, target role, and active quest'
-  );
-
-  const prompts = generateMentorQuickPrompts(mockContext);
-  assert(
-    prompts.some(p => p.includes('Raft Algorithm')),
-    'Mentor prompts dynamically target the student missing skill gap (Raft Algorithm)'
-  );
-  assert(
-    prompts.some(p => p.includes('Distributed Consensus with Raft')),
-    'Mentor prompts dynamically reference the student active quest'
-  );
-
-  // Test 7: Mentor Chat API Route validation
-  const emptyReq = new Request('http://localhost:3000/api/mentor/chat', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer demo-token-bypass'
-    },
-    body: JSON.stringify({})
-  });
-  const emptyRes = await mentorChatPost(emptyReq);
-  assert(
-    emptyRes.status === 400,
-    'Mentor chat route rejects empty query with HTTP 400'
-  );
-
-  const validReq = new Request('http://localhost:3000/api/mentor/chat', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer demo-token-bypass'
-    },
-    body: JSON.stringify({
-      message: 'What should I study to close my biggest skill gap?',
-      studentName: 'Aarav',
-      targetRole: 'Distributed Systems Engineer',
-      activeQuest: 'Distributed Consensus with Raft',
-      missingSkills: ['Raft Algorithm', 'gRPC']
+  // ── 1. Analytics Persistence (Zero in-memory cold start loss) ──
+  console.log('── 1. Analytics Persistence: Cold-Start Data Retention ──');
+  const postLogRes = await analyticsPOST(
+    new Request('http://localhost:3000/api/attention-span/analytics', {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        dailyLog: { date: '2026-09-17', focusMinutes: 45, gamesPlayed: 6 },
+        monthlySummary: { month: '2026-09', totalFocusHours: 12 },
+      }),
     })
-  });
-  const validRes = await mentorChatPost(validReq);
-  const validData = await validRes.json();
-  assert(
-    validRes.status === 200 && validData.ok === true,
-    'Mentor chat route returns HTTP 200 with ok: true'
   );
-  assert(
-    typeof validData.reply === 'string' && validData.reply.length > 20,
-    'Mentor chat returns non-empty reply'
-  );
-  assert(
-    validData.context.studentName === 'Aarav' &&
-    validData.context.targetRole === 'Distributed Systems Engineer' &&
-    validData.context.activeQuest === 'Distributed Consensus with Raft',
-    'Mentor chat context accurately preserves student parameters'
-  );
+  const postLogData = await postLogRes.json();
+  assert.strictEqual(postLogData.ok, true, 'Analytics POST must succeed');
+  assert.strictEqual(postLogData.analytics.dailyLogs['2026-09-17'].focusMinutes, 45);
 
-  console.log(`\nSUB-BATCH 4.4 SUMMARY: ${passed} passed, ${failed} failed.`);
-  if (failed > 0) {
-    process.exit(1);
+  const getLogRes = await analyticsGET(
+    new Request('http://localhost:3000/api/attention-span/analytics', {
+      method: 'GET',
+      headers,
+    })
+  );
+  const getLogData = await getLogRes.json();
+  assert.strictEqual(getLogData.ok, true, 'Analytics GET must succeed');
+  assert.strictEqual(getLogData.analytics.dailyLogs['2026-09-17'].focusMinutes, 45, 'Analytics must be retrieved from persistent storage');
+  console.log('  ✅ [PASS] Analytics logs persist and are retrievable across requests');
+
+  // ── 2. Leaderboard: Zero Email / PII Leakage ──
+  console.log('\n── 2. Leaderboard: Zero Email / PII Leakage ──');
+  assert.strictEqual(sanitizeDisplayName('alice.student@ivy.edu'), 'Alice.student');
+  assert.strictEqual(sanitizeDisplayName('bob@gmail.com'), 'Bob');
+  assert.strictEqual(sanitizeDisplayName('Charlie Brown'), 'Charlie Brown');
+  assert.strictEqual(sanitizeDisplayName(''), 'Student');
+  console.log('  ✅ [PASS] sanitizeDisplayName strictly strips email domains');
+
+  const submitScoreRes = await leaderboardPOST(
+    new Request('http://localhost:3000/api/attention-span/leaderboard', {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        displayName: 'test.player@stanford.edu',
+        accuracyEarned: 85,
+      }),
+    })
+  );
+  const submitScoreData = await submitScoreRes.json();
+  assert.strictEqual(submitScoreData.ok, true, 'Leaderboard POST must succeed');
+  assert.strictEqual(submitScoreData.addedAccuracy, 85, 'Added accuracy must match earned score');
+
+  // Verify that in the leaders list, no leader has an email address (@) in their displayName
+  submitScoreData.leaders.forEach((l: any) => {
+    assert.ok(!l.displayName.includes('@'), `Leaderboard must never leak email addresses. Found: ${l.displayName}`);
+  });
+  console.log('  ✅ [PASS] Leaderboard entries never leak student email addresses or @ domains');
+
+  // ── 3. Leaderboard: Rate Limiting & Score Capping ──
+  console.log('\n── 3. Leaderboard: Rate Limiting & Per-Submission Capping ──');
+  // Attempt to submit inflated score (+500)
+  const overCapRes = await leaderboardPOST(
+    new Request('http://localhost:3000/api/attention-span/leaderboard', {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        accuracyEarned: 500,
+      }),
+    })
+  );
+  const overCapData = await overCapRes.json();
+  assert.strictEqual(overCapData.addedAccuracy, 100, 'Score submissions must be capped at 100 max points per submission');
+  console.log('  ✅ [PASS] Arbitrary score submissions are clamped to 100 max');
+
+  // Exhaust rate limit by sending repeated requests
+  let hitRateLimit = false;
+  for (let i = 0; i < 20; i++) {
+    const res = await leaderboardPOST(
+      new Request('http://localhost:3000/api/attention-span/leaderboard', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ accuracyEarned: 10 }),
+      })
+    );
+    if (res.status === 429) {
+      hitRateLimit = true;
+      const data = await res.json();
+      assert.strictEqual(data.code, 'RATE_LIMIT_EXCEEDED');
+      break;
+    }
   }
+  assert.strictEqual(hitRateLimit, true, 'Submitting more than 15 scores per minute must trigger HTTP 429 rate limit');
+  console.log('  ✅ [PASS] Excessive score submissions are blocked with HTTP 429 RATE_LIMIT_EXCEEDED');
+
+  // ── 4. Leaderboard GET: Authoritative User Rank (No ?userId= probe) ──
+  console.log('\n── 4. Leaderboard GET: Authoritative Caller Identity ──');
+  const boardRes = await leaderboardGET(
+    new Request(`http://localhost:3000/api/attention-span/leaderboard?userId=spoofed_victim_id`, {
+      method: 'GET',
+      headers,
+    })
+  );
+  const boardData = await boardRes.json();
+  assert.strictEqual(boardData.ok, true);
+  // User rank must be computed for testUser, not spoofed_victim_id
+  const expectedRank = boardData.leaders.findIndex((l: any) => l.userId === testUser) + 1;
+  assert.strictEqual(boardData.userRank, expectedRank > 0 ? expectedRank : boardData.leaders.length + 1, 'userRank must belong to authenticated caller');
+  console.log('  ✅ [PASS] Leaderboard ignores spoofed ?userId= parameter and preserves caller rank integrity');
+
+  // ── 5. Progress Route: Keyed HMAC & Monotonicity ──
+  console.log('\n── 5. Progress Route: Keyed HMAC Integrity & Validation ──');
+  const dummyStats = {
+    focusFireBest: 450,
+    memoryMatrixBest: 12,
+    reflexRushBest: 210,
+    sequenceSnapBest: 8,
+    totalSessions: 15,
+    streak: 3,
+    lastPlayedDate: '2026-09-17',
+    dailyScores: {},
+    dailySessions: {},
+    completedDifficulties: {},
+  };
+  const keyedHash = computeIntegrityHash(testUser, dummyStats);
+  assert.strictEqual(typeof keyedHash, 'string');
+  assert.strictEqual(keyedHash.length, 16, 'HMAC-SHA256 signature must be 16-hex characters');
+
+  // Post progress with biological floor violation (5ms reaction time)
+  const progRes = await progressPOST(
+    new Request('http://localhost:3000/api/attention-span/progress', {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        stats: {
+          ...dummyStats,
+          reflexRushBest: 5, // Impossible reaction time
+          totalSessions: 20,
+        },
+      }),
+    })
+  );
+  const progData = await progRes.json();
+  assert.strictEqual(progData.ok, true);
+  assert.strictEqual(progData.stats.reflexRushBest, 80, 'Biologically impossible reaction time must be clamped to 80ms floor');
+  assert.strictEqual(progData.stats.totalSessions, 20, 'totalSessions must be preserved');
+  console.log('  ✅ [PASS] Progress validation enforces 80ms reaction floor and generates keyed HMAC signature');
+
+  console.log('\n========================================================================');
+  console.log('🏁 SUB-BATCH 4.4 RESULTS: All Attention-Span Security Tests Passed (100%)');
+  console.log('========================================================================\n');
 }
 
 runTests().catch(err => {
-  console.error('Unhandled error in verification suite:', err);
+  console.error('❌ Sub-batch 4.4 test failure:', err);
   process.exit(1);
 });

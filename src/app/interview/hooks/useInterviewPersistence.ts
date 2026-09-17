@@ -182,35 +182,22 @@ export function useInterviewPersistence({
     // 1. Optimistic UI update
     setSessions(prev => [newSession, ...prev.filter(s => s.id !== newSession.id)].slice(0, 20));
 
-    // 2. Persist directly to Supabase
+    // 2. Persist authoritatively through server-side history API with cryptographic signature verification
     if (userId && userId !== 'guest') {
       try {
-        const { supabase } = await import('@/lib/supabaseClient');
-        await supabase.from('interview_sessions').upsert({
-          id: newSession.id,
-          user_id: userId,
-          mode: newSession.type || 'technical',
-          domain: newSession.domainSubTopic || newSession.domainStream || 'general',
-          pressure_mode: newSession.difficulty || 'normal',
-          status: 'completed',
-          overall_score: Math.round(Number(newSession.score) || 0),
-          evaluation: newSession,
-          session_data: newSession,
-          completed_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
-        }, { onConflict: 'id' });
-      } catch (err) {
-        console.warn('[Interview History] Direct Supabase upsert error:', err);
-      }
-
-      // Also dispatch to API endpoint for server-side audit
-      try {
         const headers = await getAuthHeaders();
-        await fetch('/api/interview/history', {
+        const res = await fetch('/api/interview/history', {
           method: 'POST',
           headers,
-          body: JSON.stringify(newSession)
+          body: JSON.stringify({
+            ...newSession,
+            overallScore: Math.round(Number(newSession.score) || 0),
+            evaluationToken: newSession.evaluationToken
+          })
         });
+        if (!res.ok) {
+          console.warn('[Interview History] Server rejected history sync:', res.status);
+        }
       } catch (e) {
         console.warn('[Interview History] Remote sync failed:', e);
       }

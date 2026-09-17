@@ -966,17 +966,22 @@ Return ONLY JSON. Do not write any markdown formatting, code block ticks, or ext
       } catch {}
     }
 
-    const category: VaultCategory = (targetCat as VaultCategory) || classifyDocumentCategory(fileName, rawText);
+    const VALID_CATEGORIES: Set<string> = new Set([
+      '10th', '12th_puc', 'sem1', 'sem2', 'sem3', 'sem4', 'sem5', 'sem6', 'sem7', 'sem8',
+      'resume', 'achievement', 'certification', 'internship', 'other'
+    ]);
+    const validCat = VALID_CATEGORIES.has(targetCat) ? (targetCat as VaultCategory) : null;
+    const category: VaultCategory = validCat || classifyDocumentCategory(fileName, rawText);
     const profile = await fs.getUserProfile(uid) as any;
     const finalPrimaryName = primaryName || profile?.displayName || 'Candidate';
 
-    const validatedGraph = groundAndValidateEvidence(rawText, fileName, 'mock_client_hash');
+    const validatedGraph = groundAndValidateEvidence(rawText, fileName, 'mock_client_hash', 'PLAIN_TEXT', 0.95, category);
     const detectedName = validatedGraph.candidateName || finalPrimaryName;
     const institution = validatedGraph.institution || 'Academic Institution';
     const scoreOrGpa = validatedGraph.scoreOrGpa || (category === '10th' ? '10th Marksheet' : category === '12th_puc' ? '12th/PUC Certificate' : 'Academic Credential');
     const skills = validatedGraph.documentSupportedSkills;
 
-    let verificationStatus: 'verified' | 'mismatch_warning' | 'provisional' = 'verified';
+    let verificationStatus: 'verified' | 'mismatch_warning' | 'provisional' = 'provisional';
     let mismatchReason: string | undefined = undefined;
 
     if (finalPrimaryName && finalPrimaryName !== 'Candidate') {
@@ -984,6 +989,8 @@ Return ONLY JSON. Do not write any markdown formatting, code block ticks, or ext
       if (!check.isMatch) {
         verificationStatus = 'mismatch_warning';
         mismatchReason = check.reason;
+      } else {
+        verificationStatus = 'provisional';
       }
     }
 
@@ -1008,9 +1015,9 @@ Return ONLY JSON. Do not write any markdown formatting, code block ticks, or ext
       'sem8': '8th Semester University Marksheet',
       'resume': 'Primary Candidate Master Resume',
       'achievement': 'Certificate of Achievement / Contest Win',
-      'certification': 'Verified Technical / Cloud Certification',
+      'certification': 'Technical / Professional Certification',
       'internship': 'Internship Experience Letter',
-      'other': 'Verified Supporting Document'
+      'other': 'Supporting Document'
     };
 
     const title = categoryTitles[category] || `${fileName} (${category})`;
@@ -1023,10 +1030,10 @@ Return ONLY JSON. Do not write any markdown formatting, code block ticks, or ext
         item_type: itemTypeMap[category] || 'other',
         organization_name: institution,
         description: `Uploaded to Candidate Secure Vault (${scoreOrGpa}). Organization: ${institution}. Storage: ${storagePath}`,
-        verified: verificationStatus === 'verified',
-        ai_confidence_score: verificationStatus === 'verified' ? 95 : 45,
+        verified: false,
+        ai_confidence_score: Math.round(validatedGraph.overallGroundedConfidence * 100),
         skill_tags: skills,
-        is_public: true,
+        is_public: false,
         used_in_resume: true,
         used_in_portfolio: category === 'achievement' || category === 'certification'
       });
@@ -1047,7 +1054,9 @@ Return ONLY JSON. Do not write any markdown formatting, code block ticks, or ext
       scoreOrGpa,
       skills,
       verificationStatus,
+      verificationLevel: category === 'resume' ? 'SELF_SUBMITTED' : category === 'certification' ? 'THIRD_PARTY_VERIFIED' : 'STRUCTURALLY_VALIDATED',
       mismatchReason,
+      provenanceRecords: validatedGraph.provenanceRecords,
       uploadedAt: Date.now()
     };
 
@@ -1059,8 +1068,16 @@ Return ONLY JSON. Do not write any markdown formatting, code block ticks, or ext
     };
   }
   if((cleanPath==='/api/vault/delete' && (method==='POST'||method==='DELETE')) || (cleanPath==='/api/vault' && method==='DELETE')){
-    const { documentId, id } = (body || {}) as { documentId?: string; id?: string };
+    const { documentId, id, storageUrl } = (body || {}) as { documentId?: string; id?: string; storageUrl?: string };
     const targetId = documentId || id;
+    if (storageUrl) {
+      const candidatePath = storageUrl.includes('resumes/')
+        ? storageUrl.split('resumes/')[1]?.split('?')[0]
+        : storageUrl.split('?')[0];
+      if (!candidatePath.startsWith(`vault/${uid}/`)) {
+        return { ok: false, error: 'Unauthorized storage path' };
+      }
+    }
     try {
       if (targetId) {
         await fs.deleteVaultItem(uid, targetId);

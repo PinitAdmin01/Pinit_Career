@@ -213,8 +213,9 @@ export function extractContacts(text: string): ExtractedContacts {
   const emailMatch = text.match(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/);
   if (emailMatch) contacts.email = emailMatch[0];
 
-  const phoneMatch = text.match(/(?:\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b/);
-  if (phoneMatch) contacts.phone = phoneMatch[0];
+  // Support Indian mobile formats (+91 98765 43210, 98765 43210, 9876543210) and international/US formats
+  const phoneMatch = text.match(/(?:(?:\+?91[\-\s]?)?[6-9]\d{4}[\-\s]?\d{5}|(?:\+?\d{1,3}[\-\s]?)?\(?\d{3}\)?[\-\s]?\d{3}[\-\s]?\d{4}|\b[6-9]\d{9}\b)/);
+  if (phoneMatch) contacts.phone = phoneMatch[0].trim();
 
   const linkedinMatch = text.match(/(?:https?:\/\/)?(?:www\.)?linkedin\.com\/(?:in|profile)\/[A-Za-z0-9_-]+/i);
   if (linkedinMatch) contacts.linkedin = linkedinMatch[0];
@@ -222,9 +223,22 @@ export function extractContacts(text: string): ExtractedContacts {
   const githubMatch = text.match(/(?:https?:\/\/)?(?:www\.)?github\.com\/[A-Za-z0-9_-]+/i);
   if (githubMatch) contacts.github = githubMatch[0];
 
-  const portfolioMatch = text.match(/(?:https?:\/\/)?(?:www\.)?[A-Za-z0-9_-]+\.(?:dev|io|tech|me|com)\b/i);
-  if (portfolioMatch && !portfolioMatch[0].includes('linkedin') && !portfolioMatch[0].includes('github')) {
-    contacts.portfolio = portfolioMatch[0];
+  // Portfolio link: Strip email addresses first so email domains cannot match
+  const EMAIL_PROVIDER_DOMAINS = new Set([
+    'gmail.com', 'yahoo.com', 'outlook.com', 'hotmail.com',
+    'icloud.com', 'proton.me', 'protonmail.com', 'mail.com',
+    'zoho.com', 'aol.com', 'yandex.com', 'live.com'
+  ]);
+
+  const textWithoutEmails = text.replace(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/g, ' ');
+  const portfolioMatches = textWithoutEmails.matchAll(/\b(?:https?:\/\/)?(?:www\.)?([A-Za-z0-9_-]+\.(?:dev|io|tech|me|com|org|net)(?:\/[^\s,;)]*)?)\b/gi);
+  for (const m of portfolioMatches) {
+    const full = m[0].trim();
+    const domain = m[1].toLowerCase().split('/')[0];
+    if (!EMAIL_PROVIDER_DOMAINS.has(domain) && !domain.includes('linkedin') && !domain.includes('github')) {
+      contacts.portfolio = full;
+      break;
+    }
   }
 
   return contacts;

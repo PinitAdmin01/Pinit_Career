@@ -6,6 +6,7 @@ import { api } from '@/lib/api/client';
 import { useAddVaultItem, useVault } from '@/lib/api/hooks';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { supabase } from '@/lib/supabaseClient';
+import { toast } from '@/lib/store/useAppStore';
 
 const TYPE_CONFIG: Record<string, { icon: string; color: string; label: string }> = {
   academic:      { icon: '🎓', color: 'var(--teal)',   label: 'Academic Record' },
@@ -108,6 +109,7 @@ export default function VaultPage() {
       const doc = res.document || res.data;
       if (doc) {
         console.log(`[VAULT PAGE]: Ingestion success: "${doc.title}", Skills: [${doc.skills?.join(', ') || ''}]`);
+        toast.success('Document Ingested', `Successfully uploaded "${doc.title || file.name}" to Proof Vault.`);
         if (user?.id) {
           const { data: refreshed } = await supabase.from('vault_items').select('*').eq('user_id', user.id);
           if (refreshed) {
@@ -116,8 +118,9 @@ export default function VaultPage() {
         }
         refetch?.();
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('[VAULT PAGE UPLOAD ERROR]:', err);
+      toast.error('Upload Refused', err?.message || 'We could not read this document. Please ensure it contains selectable text.');
     } finally {
       setUploading(false);
     }

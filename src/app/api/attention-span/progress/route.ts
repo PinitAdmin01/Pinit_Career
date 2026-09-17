@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
-import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 import crypto from 'crypto';
 import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
+import { getAttentionAnalytics, saveAttentionAnalytics } from '@/lib/attention/progress';
 
-interface AttentionStats {
+export interface AttentionStats {
   focusFireBest: number;
   memoryMatrixBest: number;
   reflexRushBest: number;
@@ -24,12 +24,14 @@ interface AttentionStats {
   completedDifficulties: Record<string, string[]>;
 }
 
-// Global in-memory cache for fast session retrieval and offline/local fallback
-const serverProgressStore: Record<string, { stats: AttentionStats; hash: string; lastUpdated: string }> = {};
-
-function computeIntegrityHash(userId: string, stats: AttentionStats): string {
+/**
+ * Keyed HMAC-SHA256 integrity signature.
+ * Prevents client-side forgery of integrity tokens.
+ */
+export function computeIntegrityHash(userId: string, stats: AttentionStats): string {
+  const secret = process.env.NEXTAUTH_SECRET || 'pinit-attention-integrity-secret-fallback-key';
   const payload = `${userId}:${stats.totalSessions}:${stats.streak}:${stats.reflexRushBest}:${stats.focusFireBest}:${stats.memoryMatrixBest}`;
-  return crypto.createHash('sha256').update(payload).digest('hex').substring(0, 16);
+  return crypto.createHmac('sha256', secret).update(payload).digest('hex').substring(0, 16);
 }
 
 function sanitizeAndValidateStats(raw: Partial<AttentionStats>): AttentionStats {
@@ -43,11 +45,11 @@ function sanitizeAndValidateStats(raw: Partial<AttentionStats>): AttentionStats 
   // Reflex rush reaction time: 0 means unplayed; valid reaction range is 80ms - 10000ms
   let reflexBest = sanitizeNum(raw.reflexRushBest, 0, 10000);
   if (reflexBest > 0 && reflexBest < 80) {
-    // Biologically impossible human reaction time; cap at realistic floor
+    // Biologically impossible human reaction time floor
     reflexBest = 80;
   }
 
-  const sanitized: AttentionStats = {
+  return {
     focusFireBest: sanitizeNum(raw.focusFireBest, 0, 50000),
     memoryMatrixBest: sanitizeNum(raw.memoryMatrixBest, 0, 100),
     reflexRushBest: reflexBest,
@@ -66,9 +68,27 @@ function sanitizeAndValidateStats(raw: Partial<AttentionStats>): AttentionStats 
     dailySessions: typeof raw.dailySessions === 'object' && raw.dailySessions !== null ? raw.dailySessions : {},
     completedDifficulties: typeof raw.completedDifficulties === 'object' && raw.completedDifficulties !== null ? raw.completedDifficulties : {},
   };
-
-  return sanitized;
 }
+
+const DEFAULT_STATS: AttentionStats = {
+  focusFireBest: 0,
+  memoryMatrixBest: 0,
+  reflexRushBest: 0,
+  sequenceSnapBest: 0,
+  vortexVisionBest: 0,
+  flashFusionBest: 0,
+  shapeShifterBest: 0,
+  patternForgeBest: 0,
+  logicCircuitBest: 0,
+  storeSimBest: 0,
+  precisionPointerBest: 0,
+  totalSessions: 0,
+  streak: 0,
+  lastPlayedDate: '',
+  dailyScores: {},
+  dailySessions: {},
+  completedDifficulties: {},
+};
 
 export async function GET(req: Request) {
   try {
@@ -76,70 +96,21 @@ export async function GET(req: Request) {
     if (gated.error) return gated.error;
 
     const userId = gated.user!.id;
+    const analyticsRes = await getAttentionAnalytics(userId);
 
-    // 1. Check in-memory store
-    let entry = serverProgressStore[userId];
-
-    // 2. Fallback to Supabase profiles metadata if not in memory
-    if (!entry) {
-      try {
-        const supabase = getSupabaseAdmin();
-        const { data } = await supabase
-          .from('users')
-          .select('id, attention_stats')
-          .eq('id', userId)
-          .single();
-
-        if (data && (data as any).attention_stats) {
-          const stats = sanitizeAndValidateStats((data as any).attention_stats);
-          entry = {
-            stats,
-            hash: computeIntegrityHash(userId, stats),
-            lastUpdated: new Date().toISOString(),
-          };
-          serverProgressStore[userId] = entry;
-        }
-      } catch {
-        // Fall through to empty default
-      }
-    }
-
-    if (!entry) {
-      const defaultStats: AttentionStats = {
-        focusFireBest: 0,
-        memoryMatrixBest: 0,
-        reflexRushBest: 0,
-        sequenceSnapBest: 0,
-        vortexVisionBest: 0,
-        flashFusionBest: 0,
-        shapeShifterBest: 0,
-        patternForgeBest: 0,
-        logicCircuitBest: 0,
-        storeSimBest: 0,
-        precisionPointerBest: 0,
-        totalSessions: 0,
-        streak: 0,
-        lastPlayedDate: '',
-        dailyScores: {},
-        dailySessions: {},
-        completedDifficulties: {},
-      };
-      entry = {
-        stats: defaultStats,
-        hash: computeIntegrityHash(userId, defaultStats),
-        lastUpdated: new Date().toISOString(),
-      };
-      serverProgressStore[userId] = entry;
-    }
+    const storedStats = analyticsRes.analytics?.dailyLogs?.current_stats?.stats;
+    const stats = storedStats ? sanitizeAndValidateStats(storedStats) : DEFAULT_STATS;
+    const hash = computeIntegrityHash(userId, stats);
+    const lastUpdated = analyticsRes.analytics?.lastUpdated || new Date().toISOString();
 
     return NextResponse.json({
       ok: true,
-      stats: entry.stats,
-      integrityHash: entry.hash,
-      lastUpdated: entry.lastUpdated,
+      stats,
+      integrityHash: hash,
+      lastUpdated,
     });
   } catch (error: any) {
-    return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+    return NextResponse.json({ ok: false, error: error.message || 'Failed to fetch progress' }, { status: 500 });
   }
 }
 
@@ -153,7 +124,7 @@ export async function POST(req: Request) {
     if (gated.error) return gated.error;
 
     const userId = gated.user!.id;
-    const body = await req.json();
+    const body = await req.json().catch(() => ({}));
     const rawStats = body?.stats;
 
     if (!rawStats || typeof rawStats !== 'object') {
@@ -161,28 +132,28 @@ export async function POST(req: Request) {
     }
 
     const validatedStats = sanitizeAndValidateStats(rawStats);
+
+    // Monotonicity defense: totalSessions cannot decrease
+    const existingRes = await getAttentionAnalytics(userId);
+    const prevStats = existingRes.analytics?.dailyLogs?.current_stats?.stats;
+    if (prevStats && typeof prevStats.totalSessions === 'number') {
+      validatedStats.totalSessions = Math.max(validatedStats.totalSessions, prevStats.totalSessions);
+    }
+
     const hash = computeIntegrityHash(userId, validatedStats);
     const now = new Date().toISOString();
 
-    serverProgressStore[userId] = {
-      stats: validatedStats,
-      hash,
-      lastUpdated: now,
-    };
-
-    // Try saving to Supabase users
-    try {
-      const supabase = getSupabaseAdmin();
-      await supabase
-        .from('users')
-        .update({
-          attention_stats: validatedStats,
-          updated_at: now,
-        })
-        .eq('id', userId);
-    } catch {
-      // Non-blocking in local mode
-    }
+    // Persist to attention_span_progress (and persistent local fallback)
+    await saveAttentionAnalytics(
+      userId,
+      {
+        date: 'current_stats',
+        stats: validatedStats,
+        integrityHash: hash,
+        updatedAt: now,
+      },
+      undefined
+    );
 
     return NextResponse.json({
       ok: true,
@@ -191,6 +162,6 @@ export async function POST(req: Request) {
       lastUpdated: now,
     });
   } catch (error: any) {
-    return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+    return NextResponse.json({ ok: false, error: error.message || 'Failed to save progress' }, { status: 500 });
   }
 }

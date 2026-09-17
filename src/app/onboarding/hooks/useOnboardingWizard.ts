@@ -267,9 +267,14 @@ export function useOnboardingWizard() {
         `⚠️ Batch Upload: ${mismatchCount} Identity Mismatch Found`,
         `Detected differing candidate names. Check the Integrity tab.`
       );
+    } else if (newUploadedDocs.length === 0) {
+      toast.error(
+        'Upload Failed',
+        'Could not ingest any of the uploaded files. Please ensure files contain readable text.'
+      );
     } else {
       toast.success(
-        `✨ Auto-Sorted ${files.length} Document${files.length > 1 ? 's' : ''}!`,
+        `✨ Auto-Sorted ${newUploadedDocs.length} Document${newUploadedDocs.length > 1 ? 's' : ''}!`,
         `Stored in Supabase and categorized into academic, resume, and certification slots.`
       );
     }
@@ -921,9 +926,9 @@ export function useOnboardingWizard() {
           learningStyle: "Writing code hands-on",
           weeklyHours: "10 hours per week",
           accessReason: "To close skill gaps & earn XP",
-          qt1_score: liveQTMetrics.qt1Score || 80,
-          qt2_score: liveQTMetrics.qt2Score || 85,
-          mindset_archetype: "Pattern Hunter"
+          qt1_score: liveQTMetrics.qt1Score ?? 0,
+          qt2_score: liveQTMetrics.qt2Score ?? 0,
+          mindset_archetype: liveQTMetrics.qt2Evaluation?.dominantArchetype || "Pending Assessment"
         },
         roadmapGenerated: true
       };

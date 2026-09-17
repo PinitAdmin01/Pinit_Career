@@ -54,19 +54,19 @@ export const CANONICAL_SKILL_LEXICON: CanonicalSkillDefinition[] = [
 
   // Frameworks & Libraries (Distinct Entities)
   { canonical: 'React', category: 'frameworks', aliases: ['react', 'reactjs', 'react.js'] },
-  { canonical: 'Next.js', category: 'frameworks', aliases: ['nextjs', 'next.js', 'next'] },
-  { canonical: 'Node.js', category: 'frameworks', aliases: ['nodejs', 'node.js', 'node'] },
-  { canonical: 'Express', category: 'frameworks', aliases: ['express', 'expressjs', 'express.js'] },
+  { canonical: 'Next.js', category: 'frameworks', aliases: ['nextjs', 'next.js', 'next js'] },
+  { canonical: 'Node.js', category: 'frameworks', aliases: ['nodejs', 'node.js', 'node js'] },
+  { canonical: 'Express', category: 'frameworks', aliases: ['expressjs', 'express.js', 'express js', 'express framework'] },
   { canonical: 'Django', category: 'frameworks', aliases: ['django'] },
-  { canonical: 'FastAPI', category: 'frameworks', aliases: ['fastapi', 'fast-api'] },
+  { canonical: 'FastAPI', category: 'frameworks', aliases: ['fastapi', 'fast-api', 'fast api'] },
   { canonical: 'Flask', category: 'frameworks', aliases: ['flask'] },
-  { canonical: 'Spring Boot', category: 'frameworks', aliases: ['springboot', 'spring-boot', 'spring framework'] },
-  { canonical: 'Tailwind CSS', category: 'frameworks', aliases: ['tailwind', 'tailwindcss'] },
+  { canonical: 'Spring Boot', category: 'frameworks', aliases: ['springboot', 'spring-boot', 'spring framework', 'spring boot'] },
+  { canonical: 'Tailwind CSS', category: 'frameworks', aliases: ['tailwind', 'tailwindcss', 'tailwind css'] },
 
   // Databases & Storage
   { canonical: 'PostgreSQL', category: 'databases', aliases: ['postgresql', 'postgres', 'psql'] },
   { canonical: 'MySQL', category: 'databases', aliases: ['mysql'] },
-  { canonical: 'MongoDB', category: 'databases', aliases: ['mongodb', 'mongo'] },
+  { canonical: 'MongoDB', category: 'databases', aliases: ['mongodb', 'mongo db'] },
   { canonical: 'Redis', category: 'databases', aliases: ['redis'] },
   { canonical: 'Supabase', category: 'databases', aliases: ['supabase'] },
 
@@ -74,7 +74,7 @@ export const CANONICAL_SKILL_LEXICON: CanonicalSkillDefinition[] = [
   { canonical: 'AWS Cloud', category: 'cloud_devops', aliases: ['aws', 'amazon web services', 'ec2', 's3 bucket', 'aws lambda'] },
   { canonical: 'Docker', category: 'cloud_devops', aliases: ['docker', 'containerization'] },
   { canonical: 'Kubernetes', category: 'cloud_devops', aliases: ['kubernetes', 'k8s'] },
-  { canonical: 'CI/CD', category: 'cloud_devops', aliases: ['ci/cd', 'github actions', 'jenkins', 'pipeline'] },
+  { canonical: 'CI/CD', category: 'cloud_devops', aliases: ['ci/cd', 'ci cd', 'github actions', 'jenkins', 'ci/cd pipeline', 'continuous integration', 'continuous deployment'] },
   { canonical: 'Git & GitHub', category: 'tools', aliases: ['git', 'github', 'gitlab', 'version control'] },
 
   // Core Computer Science
@@ -111,6 +111,11 @@ export function extractCanonicalSkillsWithPolarity(
       for (const alias of def.aliases) {
         const escaped = alias.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
         const regex = new RegExp(`(?:^|[^a-zA-Z0-9_#+-])${escaped}(?:$|[^a-zA-Z0-9_#+-])`, 'i');
+
+        // Guard against English verb usage like "react to", "react with"
+        if (alias === 'react' && /\breact\s+(?:to|with|against|promptly|faster|well|poorly|on|upon)\b/i.test(lowerLine)) {
+          continue;
+        }
 
         if (regex.test(lowerLine)) {
           if (!foundCanonical.has(def.canonical)) {

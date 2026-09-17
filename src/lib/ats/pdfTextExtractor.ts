@@ -6,7 +6,9 @@
  * 
  * Purpose:
  * Implements deterministic byte-level stream decompression and ToUnicode CMap
- * font translation for binary PDF, DOCX, and plain-text files.
+ * font translation for binary PDF, DOCX (PKZip/XML), and plain-text files.
+ * Provides honest refusal with UNREADABLE_DOCUMENT when files contain insufficient
+ * extractable text, eliminating phantom scoring on raw binary or leaked metadata.
  */
 
 import * as zlib from 'zlib';
@@ -27,7 +29,7 @@ export function computeDocumentHash(buffer: Buffer | Uint8Array): string {
   return crypto.createHash('sha256').update(buffer).digest('hex');
 }
 
-function decodePdfLiteralString(str: string): string {
+export function decodePdfLiteralString(str: string): string {
   return str
     .replace(/\\([0-7]{1,3})/g, (_, oct) => String.fromCharCode(parseInt(oct, 8)))
     .replace(/\\n/g, '\n')
@@ -38,20 +40,86 @@ function decodePdfLiteralString(str: string): string {
     .replace(/\\\\/g, '\\');
 }
 
-function parseCMap(text: string): Map<number, string> {
+/**
+ * Parses Adobe ToUnicode CMaps, supporting both beginbfchar and beginbfrange
+ * (both 3-argument <start> <end> <destStart> and bracketed list formats).
+ */
+export function parseCMap(text: string): Map<number, string> {
   const cmap = new Map<number, string>();
-  const arrayRangeRegex = /<([0-9a-fA-F]+)>\s*<([0-9a-fA-F]+)>\s*\[\s*([\s\S]*?)\s*\]/g;
-  let arMatch: RegExpExecArray | null;
-  while ((arMatch = arrayRangeRegex.exec(text)) !== null) {
-    const start = parseInt(arMatch[1], 16);
-    const hexItems = arMatch[3].match(/<([0-9a-fA-F]+)>/g) || [];
-    hexItems.forEach((item, idx) => {
-      const hex = item.replace(/[<>]/g, '');
-      const uniCode = parseInt(hex, 16);
-      if (uniCode > 0) cmap.set(start + idx, String.fromCodePoint(uniCode));
-    });
+
+  // 1. Parse beginbfchar: <sourceCode> <unicodeHex>
+  const bfcharRegex = /(\d+)\s+beginbfchar([\s\S]*?)endbfchar/g;
+  let m: RegExpExecArray | null;
+  while ((m = bfcharRegex.exec(text)) !== null) {
+    const lines = m[2].trim().split(/\r?\n/);
+    for (const line of lines) {
+      const pair = line.match(/<([0-9a-fA-F]+)>\s*<([0-9a-fA-F]+)>/);
+      if (pair) {
+        const src = parseInt(pair[1], 16);
+        const dst = parseInt(pair[2], 16);
+        if (dst > 0) {
+          cmap.set(src, String.fromCodePoint(dst));
+        }
+      }
+    }
   }
+
+  // 2. Parse beginbfrange
+  const bfrangeRegex = /(\d+)\s+beginbfrange([\s\S]*?)endbfrange/g;
+  while ((m = bfrangeRegex.exec(text)) !== null) {
+    const lines = m[2].trim().split(/\r?\n/);
+    for (const line of lines) {
+      // Format A: <start> <end> <destStart>
+      const rangeMatch = line.match(/<([0-9a-fA-F]+)>\s*<([0-9a-fA-F]+)>\s*<([0-9a-fA-F]+)>/);
+      if (rangeMatch) {
+        const start = parseInt(rangeMatch[1], 16);
+        const end = parseInt(rangeMatch[2], 16);
+        let dest = parseInt(rangeMatch[3], 16);
+        for (let c = start; c <= end; c++) {
+          if (dest > 0) {
+            cmap.set(c, String.fromCodePoint(dest));
+          }
+          dest++;
+        }
+        continue;
+      }
+
+      // Format B: <start> <end> [ <dest1> <dest2> ... ]
+      const arrayMatch = line.match(/<([0-9a-fA-F]+)>\s*<([0-9a-fA-F]+)>\s*\[\s*([\s\S]*?)\s*\]/);
+      if (arrayMatch) {
+        const start = parseInt(arrayMatch[1], 16);
+        const hexItems = arrayMatch[3].match(/<([0-9a-fA-F]+)>/g) || [];
+        hexItems.forEach((item, idx) => {
+          const uni = parseInt(item.replace(/[<>]/g, ''), 16);
+          if (uni > 0) {
+            cmap.set(start + idx, String.fromCodePoint(uni));
+          }
+        });
+      }
+    }
+  }
+
   return cmap;
+}
+
+function decodeHexWithCMap(hex: string, cmap?: Map<number, string>): string {
+  let res = '';
+  // Try 4-digit (16-bit) chunking first if applicable
+  if (hex.length >= 4 && hex.length % 4 === 0) {
+    for (let i = 0; i < hex.length; i += 4) {
+      const code = parseInt(hex.substring(i, i + 4), 16);
+      const ch = cmap ? cmap.get(code) : (code >= 32 && code <= 126 ? String.fromCharCode(code) : undefined);
+      if (ch) res += ch;
+    }
+    return res;
+  }
+  // Otherwise 2-digit (8-bit) chunking
+  for (let i = 0; i < hex.length; i += 2) {
+    const code = parseInt(hex.substring(i, i + 2), 16);
+    const ch = cmap ? cmap.get(code) : (code >= 32 && code <= 126 ? String.fromCharCode(code) : undefined);
+    if (ch) res += ch;
+  }
+  return res;
 }
 
 export function extractTextFromPdfBuffer(buffer: Buffer): ExtractionResult {
@@ -62,7 +130,7 @@ export function extractTextFromPdfBuffer(buffer: Buffer): ExtractionResult {
   const bufferStr = buffer.toString('binary');
 
   // Step 1: Index all objects
-  const objRegex = /(\d+)\s+0\s+obj([\s\S]*?)endobj/g;
+  const objRegex = /(?:^|\r?\n)(\d+)\s+0\s+obj([\s\S]*?)endobj/g;
   let m: RegExpExecArray | null;
   const objects = new Map<number, string>();
   while ((m = objRegex.exec(bufferStr)) !== null) {
@@ -74,11 +142,21 @@ export function extractTextFromPdfBuffer(buffer: Buffer): ExtractionResult {
     if (!body) return null;
     const streamMatch = body.match(/stream\r?\n([\s\S]*?)\r?\nendstream/);
     if (!streamMatch) return null;
-    try {
-      return zlib.inflateSync(Buffer.from(streamMatch[1], 'binary')).toString('utf-8');
-    } catch {
-      return null;
+    const rawData = Buffer.from(streamMatch[1], 'binary');
+
+    if (body.includes('/FlateDecode')) {
+      try {
+        return zlib.inflateSync(rawData).toString('utf-8');
+      } catch {
+        try {
+          return zlib.inflateRawSync(rawData).toString('utf-8');
+        } catch {
+          return null;
+        }
+      }
     }
+
+    return rawData.toString('utf-8');
   }
 
   // Step 2: Map Font Object IDs to ToUnicode CMap objects
@@ -127,60 +205,97 @@ export function extractTextFromPdfBuffer(buffer: Buffer): ExtractionResult {
     }
   }
 
-  // Step 4: Decode text from content objects
+  // Fallback: If page objects lacked /Contents explicit links, search for streams containing BT/ET
+  if (contentObjIds.size === 0) {
+    for (const [objNum, body] of objects.entries()) {
+      if (body.includes('stream') && (body.includes('BT') || body.includes('Tj') || body.includes('TJ'))) {
+        contentObjIds.add(objNum);
+      }
+    }
+  }
+
+  // Step 4: Decode text operations from content objects
   const decodedLines: string[] = [];
 
   for (const objNum of contentObjIds) {
     const streamText = getStream(objNum);
-    if (streamText) {
-      let currentFont = 'F1';
-      const tokens = streamText.split(/(?=\/[A-Za-z0-9]+\s+[\d.]+\s+Tf|\[[\s\S]*?\]\s*TJ)/);
-      for (const token of tokens) {
-        const fontMatch = token.match(/\/([A-Za-z0-9]+)\s+[\d.]+\s+Tf/);
-        if (fontMatch) {
-          currentFont = fontMatch[1];
-        }
+    if (!streamText) continue;
 
-        const cmap = fontCMaps.get(currentFont) || new Map();
-        const tjMatch = token.match(/\[([\s\S]*?)\]\s*TJ/);
-        if (tjMatch) {
-          let line = '';
-          const hexMatches = tjMatch[1].match(/<([0-9a-fA-F]+)>/g) || [];
-          for (const hx of hexMatches) {
-            const hex = hx.replace(/[<>]/g, '');
-            for (let i = 0; i < hex.length; i += 4) {
-              const code = parseInt(hex.substr(i, 4), 16);
-              const ch = cmap.get(code);
-              if (ch) line += ch;
-            }
+    let currentFontCMap: Map<number, string> | undefined = undefined;
+    let currentLine = '';
+
+    // Regex matching font selection, text operators (Tj, TJ), and positioning (Td, TD, T*, ET)
+    const opRegex = /(?:\/([A-Za-z0-9]+)\s+[\d.]+\s+Tf)|(?:<([0-9a-fA-F]+)>\s*Tj)|(?:\(((?:\\.|[^()\\])*)\)\s*Tj)|(?:\[([\s\S]*?)\]\s*TJ)|(?:([-\d.]+)\s+([-\d.]+)\s+T[dD])|(?:T\*)|(?:ET)/g;
+    let token: RegExpExecArray | null;
+
+    while ((token = opRegex.exec(streamText)) !== null) {
+      if (token[1]) {
+        // Font switch: /F4 32 Tf
+        currentFontCMap = fontCMaps.get(token[1]) || currentFontCMap;
+      } else if (token[2]) {
+        // <hex> Tj
+        currentLine += decodeHexWithCMap(token[2], currentFontCMap);
+      } else if (token[3]) {
+        // (literal) Tj
+        currentLine += decodePdfLiteralString(token[3]);
+      } else if (token[4]) {
+        // [ ... ] TJ
+        const inner = token[4];
+        const itemRegex = /<([0-9a-fA-F]+)>|\(((?:\\.|[^()\\])*)\)/g;
+        let item: RegExpExecArray | null;
+        while ((item = itemRegex.exec(inner)) !== null) {
+          if (item[1]) {
+            currentLine += decodeHexWithCMap(item[1], currentFontCMap);
+          } else if (item[2]) {
+            currentLine += decodePdfLiteralString(item[2]);
           }
-          if (line.trim()) decodedLines.push(line.trim());
+        }
+      } else if (token[5] && token[6]) {
+        // tx ty Td / TD: vertical shift signifies new line
+        const ty = parseFloat(token[6]);
+        if (Math.abs(ty) > 0.01) {
+          if (currentLine.trim()) {
+            decodedLines.push(currentLine.trim());
+            currentLine = '';
+          }
+        }
+      } else if (token[0] === 'T*' || token[0] === 'ET') {
+        if (currentLine.trim()) {
+          decodedLines.push(currentLine.trim());
+          currentLine = '';
         }
       }
     }
-  }
 
-  // Fallback: If dictionary parsing extracted few characters, scan for raw uncompressed literals
-  if (decodedLines.length === 0 || decodedLines.join(' ').length < 20) {
-    console.log(`🔍 [STAGE 3/12 - Fallback Literal Scanner]: Scanning raw text literals...`);
-    const textLiteralRegex = /\(((?:\\.|[^()\\]){3,200})\)/g;
-    let litMatch: RegExpExecArray | null;
-    while ((litMatch = textLiteralRegex.exec(bufferStr)) !== null) {
-      const clean = decodePdfLiteralString(litMatch[1]).trim();
-      if (clean.length > 2 && /^[a-zA-Z0-9\s@.,:;/\-–+*#()&_]+$/.test(clean) && !clean.startsWith('Font') && !clean.startsWith('CID')) {
-        decodedLines.push(clean);
-      }
+    if (currentLine.trim()) {
+      decodedLines.push(currentLine.trim());
     }
   }
 
   const rawText = decodedLines.join('\n').trim();
+
+  // Honest Refusal: if less than 30 readable characters were extracted,
+  // do NOT fall back to scanning raw file binary literals (which leaks user agents and metadata).
+  if (rawText.length < 30) {
+    console.warn(`⚠️ [STAGE 3/12 - Native PDF]: Extracted fewer than 30 readable characters (${rawText.length}). Refusing unreadable PDF.`);
+    return {
+      rawText: '',
+      documentHash,
+      pageCount: 1,
+      extractionMethod: 'NATIVE_PDF',
+      extractionConfidence: 0.0,
+      textLines: [],
+      error: 'UNREADABLE_DOCUMENT: Extracted content has fewer than 30 readable characters.'
+    };
+  }
+
   const textLines = decodedLines.map((line, idx) => ({
     line,
     pageNumber: 1,
     charOffset: idx * 25
   }));
 
-  const confidence = rawText.length > 100 ? 0.98 : rawText.length > 30 ? 0.90 : 0.40;
+  const confidence = rawText.length > 100 ? 0.98 : 0.90;
   console.log(`✅ [STAGE 4/12 - Evidence Extracted]: Decoded ${rawText.length} characters (Confidence: ${confidence}).`);
 
   return {
@@ -193,25 +308,127 @@ export function extractTextFromPdfBuffer(buffer: Buffer): ExtractionResult {
   };
 }
 
-export function extractTextFromDocxBuffer(buffer: Buffer): ExtractionResult {
-  console.log(`\n📝 [STAGE 3/12 - DOCX Parser]: Extracting XML paragraphs from word/document.xml...`);
-  const documentHash = computeDocumentHash(buffer);
-  const rawStr = buffer.toString('utf-8');
+/**
+ * Pure Node.js PKZip reader that locates and decompresses word/document.xml
+ * from .docx files using built-in zlib.inflateRawSync.
+ */
+function extractDocxXml(buffer: Buffer): string | null {
+  if (buffer.length < 30 || buffer[0] !== 0x50 || buffer[1] !== 0x4B) {
+    return null;
+  }
 
-  const wtRegex = /<w:t[^>]*>(.*?)<\/w:t>/g;
-  const lines: string[] = [];
-  let match: RegExpExecArray | null;
-
-  let currentLine = '';
-  while ((match = wtRegex.exec(rawStr)) !== null) {
-    const text = match[1];
-    currentLine += ' ' + text;
-    if (text.endsWith('.') || text.endsWith(':') || currentLine.length > 80) {
-      lines.push(currentLine.trim());
-      currentLine = '';
+  // 1. Search for End of Central Directory (EOCD)
+  let eocdOffset = -1;
+  for (let i = buffer.length - 22; i >= Math.max(0, buffer.length - 65557); i--) {
+    if (buffer.readUInt32LE(i) === 0x06054b50) {
+      eocdOffset = i;
+      break;
     }
   }
-  if (currentLine.trim()) lines.push(currentLine.trim());
+
+  if (eocdOffset !== -1) {
+    const totalEntries = buffer.readUInt16LE(eocdOffset + 10);
+    const cdOffset = buffer.readUInt32LE(eocdOffset + 16);
+
+    let currentOffset = cdOffset;
+    for (let i = 0; i < totalEntries; i++) {
+      if (currentOffset + 46 > buffer.length) break;
+      const sig = buffer.readUInt32LE(currentOffset);
+      if (sig !== 0x02014b50) break;
+
+      const method = buffer.readUInt16LE(currentOffset + 10);
+      const compSize = buffer.readUInt32LE(currentOffset + 20);
+      const nameLen = buffer.readUInt16LE(currentOffset + 28);
+      const extraLen = buffer.readUInt16LE(currentOffset + 30);
+      const commentLen = buffer.readUInt16LE(currentOffset + 32);
+      const localHeaderOffset = buffer.readUInt32LE(currentOffset + 42);
+
+      const fileName = buffer.toString('utf8', currentOffset + 46, currentOffset + 46 + nameLen);
+      currentOffset += 46 + nameLen + extraLen + commentLen;
+
+      if (fileName === 'word/document.xml') {
+        if (localHeaderOffset + 30 > buffer.length) break;
+        const localNameLen = buffer.readUInt16LE(localHeaderOffset + 26);
+        const localExtraLen = buffer.readUInt16LE(localHeaderOffset + 28);
+        const dataStart = localHeaderOffset + 30 + localNameLen + localExtraLen;
+        const compData = buffer.subarray(dataStart, dataStart + compSize);
+        if (method === 8) {
+          return zlib.inflateRawSync(compData).toString('utf-8');
+        } else if (method === 0) {
+          return compData.toString('utf-8');
+        }
+      }
+    }
+  }
+
+  // 2. Fallback: Scan local headers directly if EOCD was truncated
+  let offset = 0;
+  while (offset + 30 < buffer.length) {
+    if (buffer.readUInt32LE(offset) !== 0x04034b50) {
+      offset++;
+      continue;
+    }
+    const method = buffer.readUInt16LE(offset + 8);
+    const compSize = buffer.readUInt32LE(offset + 18);
+    const nameLen = buffer.readUInt16LE(offset + 26);
+    const extraLen = buffer.readUInt16LE(offset + 28);
+    const fileName = buffer.toString('utf8', offset + 30, offset + 30 + nameLen);
+    const dataStart = offset + 30 + nameLen + extraLen;
+
+    if (fileName === 'word/document.xml' && compSize > 0 && dataStart + compSize <= buffer.length) {
+      const compData = buffer.subarray(dataStart, dataStart + compSize);
+      if (method === 8) {
+        return zlib.inflateRawSync(compData).toString('utf-8');
+      } else if (method === 0) {
+        return compData.toString('utf-8');
+      }
+    }
+    offset = dataStart + (compSize > 0 ? compSize : 1);
+  }
+
+  return null;
+}
+
+export function extractTextFromDocxBuffer(buffer: Buffer): ExtractionResult {
+  console.log(`\n📝 [STAGE 3/12 - DOCX Parser]: Decompressing PKZip archive to read word/document.xml...`);
+  const documentHash = computeDocumentHash(buffer);
+
+  const xmlStr = extractDocxXml(buffer);
+  if (!xmlStr) {
+    console.warn(`⚠️ [STAGE 3/12 - DOCX Error]: Failed to extract word/document.xml from PKZip buffer.`);
+    return {
+      rawText: '',
+      documentHash,
+      pageCount: 1,
+      extractionMethod: 'DOCX_XML',
+      extractionConfidence: 0.0,
+      textLines: [],
+      error: 'UNREADABLE_DOCUMENT: Could not decompress word/document.xml from DOCX file.'
+    };
+  }
+
+  const decodeXmlEntities = (s: string) =>
+    s
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&apos;/g, "'");
+
+  const lines: string[] = [];
+  const paragraphs = xmlStr.split(/<\/w:p>/);
+  for (const p of paragraphs) {
+    const textPieces: string[] = [];
+    const wtRegex = /<w:t[^>]*>([\s\S]*?)<\/w:t>/g;
+    let m: RegExpExecArray | null;
+    while ((m = wtRegex.exec(p)) !== null) {
+      textPieces.push(decodeXmlEntities(m[1]));
+    }
+    const line = textPieces.join('').trim();
+    if (line.length > 0) {
+      lines.push(line);
+    }
+  }
 
   const rawText = lines.join('\n').trim();
   const textLines = lines.map((line, idx) => ({
@@ -220,7 +437,20 @@ export function extractTextFromDocxBuffer(buffer: Buffer): ExtractionResult {
     charOffset: idx * 30
   }));
 
-  const confidence = rawText.length > 50 ? 0.95 : 0.40;
+  if (rawText.length < 30) {
+    console.warn(`⚠️ [STAGE 3/12 - DOCX Warning]: DOCX extracted fewer than 30 characters (${rawText.length}). Refusing unreadable DOCX.`);
+    return {
+      rawText: '',
+      documentHash,
+      pageCount: 1,
+      extractionMethod: 'DOCX_XML',
+      extractionConfidence: 0.0,
+      textLines: [],
+      error: 'UNREADABLE_DOCUMENT: DOCX file contains insufficient text.'
+    };
+  }
+
+  const confidence = rawText.length > 100 ? 0.98 : 0.90;
   console.log(`✅ [STAGE 4/12 - Evidence Extracted]: DOCX Extracted ${rawText.length} chars (Confidence: ${confidence}).`);
 
   return {
@@ -248,6 +478,19 @@ export function extractDocumentEvidence(
     const rawText = buffer.toString('utf-8').trim();
     const documentHash = computeDocumentHash(buffer);
     const lines = rawText.split(/\r?\n/).filter(l => l.trim().length > 0);
+
+    if (rawText.length < 30) {
+      return {
+        rawText: '',
+        documentHash,
+        pageCount: 1,
+        extractionMethod: 'PLAIN_TEXT',
+        extractionConfidence: 0.0,
+        textLines: [],
+        error: 'UNREADABLE_DOCUMENT: Text file contains fewer than 30 characters.'
+      };
+    }
+
     console.log(`✅ [STAGE 4/12 - Text Extracted]: Plain text file read directly (${rawText.length} chars).`);
     return {
       rawText,
@@ -268,7 +511,8 @@ export function extractDocumentEvidence(
       pageCount: 1,
       extractionMethod: 'OCR_VISION',
       extractionConfidence: ocrResult.ocrConfidence,
-      textLines: ocrResult.lines.map((l, idx) => ({ line: l.text, pageNumber: 1, charOffset: idx * 25 }))
+      textLines: ocrResult.lines.map((l, idx) => ({ line: l.text, pageNumber: 1, charOffset: idx * 25 })),
+      error: ocrResult.ocrConfidence === 0 ? 'IMAGE_OCR_UNAVAILABLE: Image text extraction requires selectable text or a configured OCR service. Please upload a PDF with selectable text or a DOCX document.' : undefined
     };
   }
 
@@ -280,6 +524,6 @@ export function extractDocumentEvidence(
     extractionMethod: 'OCR_VISION',
     extractionConfidence: 0.0,
     textLines: [],
-    error: 'Unsupported document format.'
+    error: 'UNREADABLE_DOCUMENT: Unsupported document format.'
   };
 }
