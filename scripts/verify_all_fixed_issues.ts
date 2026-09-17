@@ -2198,6 +2198,67 @@ Distributed event pipeline using TypeScript
     assert.ok(combined.every(r => r.verificationLevel === 'CROSS_VALIDATED'));
   });
 
+  // =========================================================================
+  // Issue 32: Word-Boundary Skill Matching, Indian Phone Support & Contact Parsing
+  // =========================================================================
+  console.log('\n--- Issue 32: Word-Boundary Skill Matching & Contact Parsing ---');
+
+  await test('Issue 32: English prose does not match Next.js, Node.js, Express, or CI/CD', async () => {
+    const { extractCanonicalSkillsWithPolarity } = await import('../src/lib/ats/skillOntology');
+    const prose = "Our next goal is to express ideas clearly. Each tree node stores a value. The sales pipeline grew.";
+    const skills = extractCanonicalSkillsWithPolarity(prose, 'GENERAL_BODY');
+    assert.strictEqual(skills.length, 0);
+  });
+
+  await test('Issue 32: extractDocumentSkills avoids substring traps (git/digital, excel/excellent, java/javascript, sql/mysql)', async () => {
+    const { extractDocumentSkills } = await import('../src/lib/ats/documentAuditEngine');
+    const sample = "digital transformation with excellent javascript and mysql database engineering";
+    const skills = extractDocumentSkills('resume', 'resume.pdf', sample);
+    assert.ok(!skills.includes('Git'));
+    assert.ok(!skills.includes('Excel'));
+    assert.ok(!skills.includes('Java'));
+    assert.ok(!skills.includes('SQL'));
+    assert.ok(skills.includes('JavaScript'));
+    assert.ok(skills.includes('MySQL'));
+  });
+
+  await test('Issue 32: Indian mobile formats are parsed without parseability penalties', async () => {
+    const { extractContacts, auditResumeATS } = await import('../src/lib/ats/atsScreener');
+    const c1 = extractContacts('Phone: 98765 43210');
+    assert.ok(c1.phone?.includes('98765'));
+
+    const c2 = extractContacts('Phone: +91 98765 43210');
+    assert.ok(c2.phone?.includes('98765'));
+
+    const resume = `
+Rohan Sharma
+rohan.sharma@example.com
++91 98765 43210
+https://linkedin.com/in/rohan
+https://github.com/rohan
+https://rohan.dev
+EDUCATION
+B.E. Computer Science
+EXPERIENCE
+Software Engineer
+Developed microservices with TypeScript.
+SKILLS
+TypeScript, React, Node.js
+`;
+    const report = auditResumeATS(resume, { targetRole: 'sde' });
+    assert.ok(report.extractedProfile.contacts.phone !== undefined);
+    assert.ok(report.compatibilityScores.parseabilityScore >= 90);
+  });
+
+  await test('Issue 32: Portfolio extraction does not extract email domains (gmail.com)', async () => {
+    const { extractContacts } = await import('../src/lib/ats/atsScreener');
+    const c1 = extractContacts('Email: rohan@gmail.com');
+    assert.strictEqual(c1.portfolio, undefined);
+
+    const c2 = extractContacts('Email: rohan@outlook.com\nWebsite: https://rohan.tech');
+    assert.strictEqual(c2.portfolio, 'https://rohan.tech');
+  });
+
   console.log('\n================================================================');
   console.log(`📊 FINAL RESULT: ${passedTests} / ${totalTests} TESTS PASSED`);
   console.log('================================================================\n');

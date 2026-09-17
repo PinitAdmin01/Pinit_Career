@@ -252,7 +252,7 @@ export function groundAndValidateEvidence(
   }
 
   let phone: string | undefined = undefined;
-  const phoneMatch = rawText.match(/(?:\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b/);
+  const phoneMatch = rawText.match(/(?:(?:\+?91[\-\s]?)?[6-9]\d{4}[\-\s]?\d{5}|(?:\+?\d{1,3}[\-\s]?)?\(?\d{3}\)?[\-\s]?\d{3}[\-\s]?\d{4}|\b[6-9]\d{9}\b)/);
   if (phoneMatch) {
     phone = phoneMatch[0].trim();
     const phoneConfidence = Math.min(1.0, Math.round((extractionConfidence * 0.98) * 100) / 100);
@@ -428,6 +428,7 @@ export function groundAndValidateEvidence(
   // 4. Ground Skills with Polarity and Context Boundaries
   const skillsText = sectionMap.getSectionText('SKILLS') || '';
   const projectsText = sectionMap.getSectionText('PROJECTS') || '';
+  const experienceText = sectionMap.getSectionText('EXPERIENCE') || '';
   const aspirationsText = sectionMap.getSectionText('ASPIRATIONS_FUTURE') || '';
   const generalText = rawText;
 
@@ -436,10 +437,12 @@ export function groundAndValidateEvidence(
 
   const sectionSkills = extractCanonicalSkillsWithPolarity(skillsText, 'SKILLS');
   const projectSkills = extractCanonicalSkillsWithPolarity(projectsText, 'PROJECTS');
+  const experienceSkills = extractCanonicalSkillsWithPolarity(experienceText, 'EXPERIENCE');
   const aspirationalSkills = extractCanonicalSkillsWithPolarity(aspirationsText, 'ASPIRATIONS_FUTURE');
-  const fallbackSkills = sectionSkills.length === 0 ? extractCanonicalSkillsWithPolarity(generalText, 'GENERAL_BODY') : [];
+  const hasDedicatedSections = sectionSkills.length > 0 || projectSkills.length > 0 || experienceSkills.length > 0;
+  const fallbackSkills = !hasDedicatedSections ? extractCanonicalSkillsWithPolarity(generalText, 'GENERAL_BODY') : [];
 
-  for (const s of [...sectionSkills, ...projectSkills, ...fallbackSkills]) {
+  for (const s of [...sectionSkills, ...projectSkills, ...experienceSkills, ...fallbackSkills]) {
     if (s.polarity === 'CURRENT') {
       currentSkillsSet.add(s.canonicalName);
       const skillRange = findCharRange(rawText, s.matchedSurfaceForm);

@@ -632,18 +632,32 @@ export function extractScoreOrGpa(category: VaultCategory, fileName: string, raw
  */
 export function extractDocumentSkills(category: VaultCategory, fileName: string, rawText: string = ''): string[] {
   const skills = new Set<string>();
-  const combined = (fileName + ' ' + rawText).toLowerCase();
+  const combined = `${fileName}\n${rawText}`;
   const skillKeywords = [
     'Python', 'Java', 'JavaScript', 'TypeScript', 'React', 'Next.js', 'Node.js',
-    'SQL', 'PostgreSQL', 'MongoDB', 'AWS', 'Docker', 'Kubernetes', 'Git',
+    'SQL', 'PostgreSQL', 'MySQL', 'MongoDB', 'AWS', 'Docker', 'Kubernetes', 'Git',
     'Machine Learning', 'Data Analysis', 'Algorithms', 'Data Structures',
     'Financial Accounting', 'Taxation', 'Corporate Finance', 'Excel',
     'Business Communication', 'Project Management', 'UI/UX Design', 'Figma'
   ];
-  skillKeywords.forEach(k => {
-    if (combined.includes(k.toLowerCase())) {
+
+  for (const k of skillKeywords) {
+    const escaped = k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    let pattern = `\\b${escaped}\\b`;
+    if (k.toLowerCase() === 'java') {
+      pattern = `\\bjava\\b(?!script)`;
+    } else if (k.toLowerCase() === 'excel') {
+      pattern = `\\bexcel\\b(?!lent|lence)`;
+    } else if (k.toLowerCase() === 'git') {
+      pattern = `\\bgit\\b(?!hub|lab)`;
+    } else if (k.toLowerCase() === 'sql') {
+      pattern = `(?<!my|postgre|p)\\bsql\\b`;
+    }
+
+    const regex = new RegExp(pattern, 'i');
+    if (regex.test(combined)) {
       skills.add(k);
     }
-  });
+  }
   return Array.from(skills);
 }
