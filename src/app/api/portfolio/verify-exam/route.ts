@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
-import { verifyExamSessionToken } from '@/lib/portfolio/examToken';
+import { verifyAndConsumeExamSessionToken } from '@/lib/portfolio/examToken';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 
 export async function POST(req: Request) {
@@ -29,11 +29,17 @@ export async function POST(req: Request) {
       );
     }
 
-    const verification = verifyExamSessionToken(examSessionToken);
+    // Atomically verify cryptographic authenticity AND consume single-use nonce
+    const verification = verifyAndConsumeExamSessionToken(examSessionToken);
     if (!verification.valid) {
       return NextResponse.json(
-        { ok: false, passed: false, error: verification.error },
-        { status: 403 }
+        {
+          ok: false,
+          passed: false,
+          error: verification.error,
+          code: verification.code || 'INVALID_EXAM_TOKEN'
+        },
+        { status: verification.code === 'NONCE_REPLAY' ? 409 : 403 }
       );
     }
 
@@ -91,7 +97,7 @@ export async function POST(req: Request) {
         );
       }
 
-      const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+      const url = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder-project.supabase.co';
       const supabaseAdmin = createClient(url, serviceKey, {
         auth: { persistSession: false, autoRefreshToken: false },
       });
@@ -125,9 +131,12 @@ export async function POST(req: Request) {
             matched = true;
             savedCertificate = {
               ...c,
-              verified: true,
-              score: scorePercentage,
-              verifiedAt: new Date().toISOString(),
+              verified: Boolean(c.verified), // Preserve existing verified status if previously audited by faculty, else false
+              assessmentPassed: true,
+              assessmentScore: scorePercentage,
+              verificationStatus: c.verified ? 'VERIFIED' : 'KNOWLEDGE_ASSESSED',
+              auditStatus: c.verified ? 'VERIFIED' : 'PENDING_FACULTY_AUDIT',
+              assessedAt: new Date().toISOString(),
             };
             return savedCertificate;
           }
@@ -139,9 +148,12 @@ export async function POST(req: Request) {
             id: certId,
             title: certificateTitle,
             issuer,
-            verified: true,
-            score: scorePercentage,
-            verifiedAt: new Date().toISOString(),
+            verified: false, // 3-MCQ quiz demonstrates subject understanding, not official institution certificate issuance
+            assessmentPassed: true,
+            assessmentScore: scorePercentage,
+            verificationStatus: 'KNOWLEDGE_ASSESSED',
+            auditStatus: 'PENDING_FACULTY_AUDIT',
+            assessedAt: new Date().toISOString(),
           };
           updatedCerts.push(savedCertificate);
         }
@@ -169,17 +181,25 @@ export async function POST(req: Request) {
           { status: 500 }
         );
       }
+    } else {
+      // Oracle defense: Do not return correctCount, total, passThreshold, or answer hints on failure
+      return NextResponse.json({
+        ok: true,
+        passed: false,
+        verified: false,
+        message: 'Assessment passing threshold was not achieved. This session token has been consumed. Please review course materials and request a new evaluation.',
+        certificate: null
+      });
     }
 
     return NextResponse.json({
       ok: true,
-      passed,
-      verified: passed,
+      passed: true,
+      verified: Boolean(savedCertificate?.verified),
+      assessmentPassed: true,
       certificate: savedCertificate,
       score: scorePercentage,
-      total,
-      correctCount,
-      passThreshold,
+      message: 'Subject knowledge assessment passed! Credential recorded as Knowledge Assessed (pending faculty or issuer audit).'
     });
   } catch (err: any) {
     console.error('[VerifyExam] Error processing exam verification:', err);

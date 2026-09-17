@@ -122,10 +122,18 @@ export function CertificatesSection({
       const result = await res.json();
 
       if (result.passed) {
-        setExamFeedback(`🎉 Verified! Score: ${result.score}%. Credential successfully added to portfolio.`);
+        setExamFeedback(`🎉 Assessment Passed! Score: ${result.score}%. Credential recorded as Knowledge Assessed (pending faculty or issuer review).`);
         setExamDone(true);
         const isVerified = Boolean(result.verified);
-        const newCert: CertificateItem = result.certificate || { id: `c_${Date.now()}`, title: docTitle, issuer: docIssuer, verified: isVerified };
+        const newCert: CertificateItem = result.certificate || {
+          id: `c_${Date.now()}`,
+          title: docTitle,
+          issuer: docIssuer,
+          verified: isVerified,
+          assessmentPassed: true,
+          assessmentScore: result.score,
+          verificationStatus: isVerified ? 'VERIFIED' : 'KNOWLEDGE_ASSESSED',
+        };
         saveCertificates([...certificates, newCert]);
 
         const newEvt: TimelineItem = {
@@ -133,23 +141,16 @@ export function CertificatesSection({
           year: '2026',
           category: 'Certification',
           title: docTitle,
-          detail: `Credential verified via Socratic Exam (${result.score}%). Issued by ${docIssuer}.`,
+          detail: `Credential subject knowledge assessed via Socratic Exam (${result.score}%). Issued by ${docIssuer}. Status: Pending faculty audit.`,
           verified: isVerified
         };
         saveTimeline([newEvt, ...timeline]);
 
-        toast.success('Credential Verified', `Congratulations! "${docTitle}" is now verified.`);
+        toast.success('Assessment Passed', `Great work! Subject knowledge for "${docTitle}" has been assessed.`);
       } else {
-        const nextAttempts = attempts - 1;
-        setAttempts(nextAttempts);
-        if (nextAttempts <= 0) {
-          setExamFeedback(`❌ Verification failed. Score: ${result.score}%. No attempts remaining for this session.`);
-          setExamDone(true);
-          toast.error('Exam Failed', 'You did not pass the verification exam. Please re-study the material and try again later.');
-        } else {
-          setExamFeedback(`⚠️ Score: ${result.score}%. Passing threshold is 70%. You have ${nextAttempts} attempt(s) remaining.`);
-          setSelectedAnswers({});
-        }
+        setExamFeedback(`❌ Assessment not passed. Passing threshold (60%) was not met. This single-use session token has been consumed.`);
+        setExamDone(true);
+        toast.error('Assessment Incomplete', 'Passing threshold was not met. Please review the material and launch a new assessment when ready.');
       }
     } catch {
       toast.error('Submission Error', 'Failed to submit exam. Please try again.');
@@ -172,7 +173,23 @@ export function CertificatesSection({
                   <h4 style={{ margin: 0, fontSize: 13, fontWeight: 800 }}>{c.title}</h4>
                   <span style={{ fontSize: 11.5, color: 'var(--t3)' }}>Issuer: {c.issuer}</span>
                 </div>
-                <span style={{ fontSize: 11, fontWeight: 700, color: c.verified ? 'var(--green)' : 'var(--amber)' }}>{c.verified ? '✓ Verified' : 'Awaiting Audit'}</span>
+                <span
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color: c.verified
+                      ? 'var(--green)'
+                      : c.assessmentPassed || c.verificationStatus === 'KNOWLEDGE_ASSESSED'
+                      ? 'var(--blue, #3b82f6)'
+                      : 'var(--amber)'
+                  }}
+                >
+                  {c.verified
+                    ? '✓ Verified'
+                    : c.assessmentPassed || c.verificationStatus === 'KNOWLEDGE_ASSESSED'
+                    ? '⚡ Knowledge Assessed (Pending Audit)'
+                    : 'Awaiting Audit'}
+                </span>
               </div>
             ))
           )}

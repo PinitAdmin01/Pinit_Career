@@ -4,6 +4,7 @@ import { NextRequest } from 'next/server';
 // Configure test environment bypass flags
 process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
 process.env.NODE_ENV = 'test';
+process.env.EXAM_SECRET = 'test_exam_secret_32_bytes_long_key_pinit!!';
 
 import { groundAndValidateEvidence } from '../src/lib/ats/factCheckValidator';
 import { evaluateDocumentContradictions } from '../src/lib/ats/contradictionEngine';
@@ -13,6 +14,9 @@ import { auditResumeATS } from '../src/lib/ats/atsScreener';
 import { evaluateSystemTopology } from '../src/lib/interview/systemDesignEvaluator';
 import { POST as vaultDeletePOST } from '../src/app/api/vault/delete/route';
 import { POST as gdEvaluatePOST } from '../src/app/api/group-discussion/evaluate/route';
+import { POST as verifyExamPOST } from '../src/app/api/portfolio/verify-exam/route';
+import { POST as analyzeCertPOST } from '../src/app/api/portfolio/analyze-certificate/route';
+import { signExamSessionToken } from '../src/lib/portfolio/examToken';
 
 console.log('========================================================================');
 console.log('🏗️  END-TO-END SYSTEM INTEGRATION TEST FOR ALL FIXED ISSUES');
@@ -315,6 +319,126 @@ async function runSystemTests() {
 
     assert.ok(fullChat.score >= 88);
     assert.strictEqual(fullChat.grade, 'A+');
+  });
+
+  // --- SYSTEM TEST 10: End-to-End Certificate Assessment, Nonce Enforcement & Oracle Defense ---
+  await systemTest('System Pipeline: Certificate assessment generation, oracle defense, replay prevention & honest status', async () => {
+    // 1. Ingest certificate title & request assessment
+    const analyzeReq = new NextRequest('http://localhost:3000/api/portfolio/analyze-certificate', {
+      method: 'POST',
+      headers: {
+        'authorization': 'Bearer test-token-001',
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        title: 'AWS Certified Solutions Architect',
+        issuer: 'Amazon Web Services'
+      })
+    });
+
+    const analyzeRes = await analyzeCertPOST(analyzeReq);
+    assert.strictEqual(analyzeRes.status, 200);
+    const analyzeData = await analyzeRes.json();
+    assert.strictEqual(analyzeData.questions.length, 3);
+    assert.ok(analyzeData.examSessionToken.length > 30);
+    for (const q of analyzeData.questions) {
+      assert.strictEqual(q.correctIdx, undefined, 'Client question options MUST NOT contain correctIdx');
+      assert.strictEqual(q.options.length, 4);
+    }
+
+    // 2. Oracle defense verification: Failed exam returns NO correctCount, score, or total
+    const failedAnswersToken = signExamSessionToken({ q1: 1, q2: 2, q3: 0 }, 30, 'test_user_001', 'AWS Certified Solutions Architect');
+    const wrongSubmitReq = new NextRequest('http://localhost:3000/api/portfolio/verify-exam', {
+      method: 'POST',
+      headers: {
+        'authorization': 'Bearer test-token-001',
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        examSessionToken: failedAnswersToken,
+        selectedAnswers: { q1: 3, q2: 3, q3: 3 }, // deliberate wrong answers
+        certificateTitle: 'AWS Certified Solutions Architect'
+      })
+    });
+
+    const wrongRes = await verifyExamPOST(wrongSubmitReq);
+    assert.strictEqual(wrongRes.status, 200);
+    const wrongData = await wrongRes.json();
+    assert.strictEqual(wrongData.ok, true);
+    assert.strictEqual(wrongData.passed, false);
+    assert.strictEqual(wrongData.verified, false);
+    assert.strictEqual(wrongData.correctCount, undefined, 'Oracle defense: correctCount must NOT be leaked');
+    assert.strictEqual(wrongData.total, undefined, 'Oracle defense: total must NOT be leaked');
+    assert.strictEqual(wrongData.score, undefined, 'Oracle defense: score must NOT be leaked');
+
+    // 3. Replay prevention verification: Resubmitting consumed token rejected with HTTP 409
+    const replayReq = new NextRequest('http://localhost:3000/api/portfolio/verify-exam', {
+      method: 'POST',
+      headers: {
+        'authorization': 'Bearer test-token-001',
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        examSessionToken: failedAnswersToken,
+        selectedAnswers: { q1: 1, q2: 3, q3: 3 }, // attacker testing 1 answer variation
+        certificateTitle: 'AWS Certified Solutions Architect'
+      })
+    });
+
+    const replayRes = await verifyExamPOST(replayReq);
+    assert.strictEqual(replayRes.status, 409, 'Replay of consumed session token MUST return HTTP 409');
+    const replayData = await replayRes.json();
+    assert.strictEqual(replayData.code, 'NONCE_REPLAY');
+
+    // 4. Passing exam verification: Honest status KNOWLEDGE_ASSESSED, verified: false
+    const origFetch = globalThis.fetch;
+    globalThis.fetch = async (input, init) => {
+      const urlStr = String(input);
+      if (urlStr.includes('supabase.co') || urlStr.includes('portfolio_items')) {
+        const method = init?.method || 'GET';
+        if (method === 'GET') {
+          return new Response(JSON.stringify({ item_data: { items: [] } }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' }
+          });
+        }
+        return new Response(JSON.stringify([]), {
+          status: 201,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
+      return origFetch(input, init);
+    };
+
+    try {
+      process.env.SUPABASE_SERVICE_ROLE_KEY = 'mock_service_key_for_test';
+      const passToken = signExamSessionToken({ q1: 1, q2: 2, q3: 0 }, 30, 'test_user_001', 'AWS Certified Solutions Architect');
+      const passReq = new NextRequest('http://localhost:3000/api/portfolio/verify-exam', {
+        method: 'POST',
+        headers: {
+          'authorization': 'Bearer test-token-001',
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          examSessionToken: passToken,
+          selectedAnswers: { q1: 1, q2: 2, q3: 0 },
+          certificateTitle: 'AWS Certified Solutions Architect'
+        })
+      });
+
+      const passRes = await verifyExamPOST(passReq);
+      assert.strictEqual(passRes.status, 200);
+      const passData = await passRes.json();
+      assert.strictEqual(passData.passed, true);
+      assert.strictEqual(passData.assessmentPassed, true);
+      assert.strictEqual(passData.verified, false, '3-MCQ quiz cannot grant verified: true');
+      assert.strictEqual(passData.certificate?.verificationStatus, 'KNOWLEDGE_ASSESSED');
+      assert.strictEqual(passData.certificate?.auditStatus, 'PENDING_FACULTY_AUDIT');
+      assert.strictEqual(passData.correctCount, undefined, 'correctCount is not returned');
+    } finally {
+      globalThis.fetch = origFetch;
+      delete process.env.SUPABASE_SERVICE_ROLE_KEY;
+    }
   });
 
   console.log('========================================================================');

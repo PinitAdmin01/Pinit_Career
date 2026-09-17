@@ -19,6 +19,13 @@ export interface CertificateItem {
   title: string;
   issuer: string;
   verified: boolean;
+  score?: number;
+  assessmentPassed?: boolean;
+  assessmentScore?: number;
+  verificationStatus?: string;
+  auditStatus?: string;
+  verifiedAt?: string;
+  assessedAt?: string;
 }
 
 export interface TimelineItem {
