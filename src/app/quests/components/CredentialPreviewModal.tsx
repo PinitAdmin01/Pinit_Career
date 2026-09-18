@@ -12,13 +12,14 @@ const CredentialPreviewModal: React.FC<CredentialPreviewModalProps> = ({
   isOpen, onClose, planTitle = 'Crash Course & Internship',
   trackTitle = 'Full-Stack Software Architecture', onProceedToEnroll,
 }) => {
-  if (!isOpen) return null;
-
   useEffect(() => {
+    if (!isOpen) return;
     const h = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
     window.addEventListener('keydown', h);
     return () => window.removeEventListener('keydown', h);
-  }, [onClose]);
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
 
   const track = trackTitle;
   const ig = 'linear-gradient(135deg, #6366f1, #8b5cf6)';
