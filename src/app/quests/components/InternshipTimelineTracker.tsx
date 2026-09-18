@@ -22,7 +22,7 @@ export const InternshipTimelineTracker: React.FC<InternshipTimelineTrackerProps>
   const trainingProgressPct = Math.min(100, Math.round((completedQuestsCount / totalTrainingDays) * 100));
 
   return (
-    <div style={{
+    <div id="internship-timeline-section" style={{
       borderRadius: 18,
       padding: '20px 22px',
       background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(9, 13, 22, 0.95) 100%)',
