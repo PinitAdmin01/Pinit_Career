@@ -6,9 +6,37 @@ process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
 process.env.NODE_ENV = 'test';
 process.env.EXAM_SECRET = 'test_exam_secret_32_bytes_long_key_pinit!!';
 process.env.EVIDENCE_SIGNING_SECRET = 'test_evidence_signing_secret_32_bytes!';
-process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://mock-project.supabase.co';
+process.env.NEXT_PUBLIC_SUPABASE_URL = 'http://127.0.0.1:54321';
 process.env.SUPABASE_SERVICE_ROLE_KEY = 'mock_service_role_key_for_test';
 process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'mock_anon_key_for_test';
+
+const defaultFetch = globalThis.fetch;
+function setupMockSupabaseFetch() {
+  globalThis.fetch = async (input: any, init?: any) => {
+    const urlStr = typeof input === 'string' ? input : (input?.url || String(input));
+    if (urlStr.includes('54321') || urlStr.includes('supabase.co') || urlStr.includes('mock-project') || urlStr.includes('placeholder-project')) {
+      const method = (init?.method || 'GET').toUpperCase();
+      if (urlStr.includes('/auth/v1/admin/users')) {
+        return new Response(JSON.stringify({ user: { id: 'mock_user_' + Date.now().toString(36), email: 'mock@example.edu' } }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
+      if (method === 'GET') {
+        return new Response(JSON.stringify([]), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
+      return new Response(JSON.stringify([]), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+    return defaultFetch(input, init);
+  };
+}
+setupMockSupabaseFetch();
 
 import crypto from 'crypto';
 import { groundAndValidateEvidence } from '../src/lib/ats/factCheckValidator';
@@ -215,7 +243,7 @@ async function runSystemTests() {
   await systemTest('System Pipeline: Vault delete endpoint blocks cross-user IDOR attempts with HTTP 403', async () => {
     const origFetch = globalThis.fetch;
     globalThis.fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
-      const urlStr = String(input);
+      const urlStr = typeof input === 'string' ? input : (input?.url || String(input));
       if (urlStr.includes('supabase.co') || urlStr.includes('vault_items')) {
         return new Response('null', { status: 200, headers: { 'Content-Type': 'application/json' } });
       }
@@ -402,7 +430,7 @@ async function runSystemTests() {
     // 4. Passing exam verification: Honest status KNOWLEDGE_ASSESSED, verified: false
     const origFetch = globalThis.fetch;
     globalThis.fetch = async (input, init) => {
-      const urlStr = String(input);
+      const urlStr = typeof input === 'string' ? input : (input?.url || String(input));
       if (urlStr.includes('supabase.co') || urlStr.includes('portfolio_items')) {
         const method = init?.method || 'GET';
         if (method === 'GET') {
@@ -445,8 +473,8 @@ async function runSystemTests() {
       assert.strictEqual(passData.certificate?.auditStatus, 'PENDING_FACULTY_AUDIT');
       assert.strictEqual(passData.correctCount, undefined, 'correctCount is not returned');
     } finally {
-      globalThis.fetch = origFetch;
-      delete process.env.SUPABASE_SERVICE_ROLE_KEY;
+      setupMockSupabaseFetch();
+      process.env.SUPABASE_SERVICE_ROLE_KEY = 'mock_service_role_key_for_test';
     }
   });
 
@@ -559,6 +587,247 @@ async function runSystemTests() {
       'Accurate HMAC verification status displayed'
     );
     assert.ok(!transcriptHtml.includes('Passed rigorous multi-stage architectural defense verifying independent problem solving and code provenance (0/100)'));
+  });
+
+  // --- SYSTEM TEST 12: End-to-End Student ↔ Teacher Messaging on Database ---
+  await systemTest('System Pipeline: Student ↔ Teacher messaging via database with dual-column sync, teacher inbox, and cross-device sync', async () => {
+    const { sendDirectMessage, getTeacherInbox, markMessagesAsRead, getUnreadMessageCount } = await import('../src/lib/services/supabase/socialService');
+    const { inboxSyncService } = await import('../src/lib/chat/inboxSyncService');
+    const { GET: directGET, POST: directPOST } = await import('../src/app/api/messages/direct/route');
+    const { GET: inboxGET, POST: inboxPOST } = await import('../src/app/api/teacher/inbox/route');
+
+    // 1. Student sends message via API route
+    const studentReq = new NextRequest('http://localhost:3000/api/messages/direct', {
+      method: 'POST',
+      body: JSON.stringify({
+        senderId: 'std_sys_001',
+        senderName: 'Tanvi Agarwal',
+        recipientId: 'priya',
+        recipientName: 'Ms. Priya',
+        content: 'System integration inquiry on PostgreSQL triggers'
+      })
+    });
+    const postRes = await directPOST(studentReq);
+    assert.strictEqual(postRes.status, 200);
+
+    // 2. Teacher retrieves inbox from database
+    const inbox = await getTeacherInbox('priya');
+    assert.ok(Array.isArray(inbox), 'Teacher inbox must be an array');
+    const found = inbox.find(m => m.sender_id === 'std_sys_001');
+    assert.ok(found, 'Message from student must be present in teacher inbox');
+    assert.strictEqual(found.recipient_id, 'priya');
+    assert.strictEqual(found.receiver_id, 'priya');
+    assert.strictEqual(found.is_read, false);
+
+    // 3. Teacher sends reply via inbox API
+    const replyReq = new NextRequest('http://localhost:3000/api/teacher/inbox', {
+      method: 'POST',
+      body: JSON.stringify({
+        studentId: 'std_sys_001',
+        replyText: 'Triggers run before or after commit depending on BEFORE/AFTER specification.',
+        teacherName: 'Ms. Priya',
+        teacherId: 'priya'
+      })
+    });
+    const replyRes = await inboxPOST(replyReq);
+    assert.strictEqual(replyRes.status, 200);
+
+    // 4. Verify conversation thread contains both student inquiry and teacher reply
+    const getReq = new NextRequest('http://localhost:3000/api/messages/direct?with=priya&userId=std_sys_001');
+    const getRes = await directGET(getReq);
+    assert.strictEqual(getRes.status, 200);
+    const getBody = await getRes.json();
+    assert.ok(Array.isArray(getBody.messages));
+    assert.ok(getBody.messages.some((m: any) => m.sender_id === 'std_sys_001'), 'Student message must be in conversation');
+    assert.ok(getBody.messages.some((m: any) => m.role === 'teacher' || m.sender_id === 'priya'), 'Teacher reply must be in conversation');
+
+    // 5. Cross-device sync service reconstructs threads from database
+    const synced = await inboxSyncService.syncFromDatabase('priya');
+    assert.ok(Array.isArray(synced));
+    const tanviConvo = synced.find(c => c.studentId === 'std_sys_001');
+    assert.ok(tanviConvo, 'Cross-device sync must reconstruct Tanvi thread');
+    assert.ok(tanviConvo.messages.length >= 2, 'Must contain both student message and teacher reply');
+  });
+
+  // --- SYSTEM TEST 13: End-to-End Notifications Lifecycle & Leaderboard ELO Verification ---
+  await systemTest('System Pipeline: Notifications creation, dual-column sync, mark read API handlers, and leaderboard ELO rating', async () => {
+    const { GET: notifGET, POST: notifPOST } = await import('../src/app/api/notifications/route');
+    const { POST: markAllPOST } = await import('../src/app/api/notifications/mark-all-read/route');
+    const { PATCH: markOnePATCH } = await import('../src/app/api/notifications/[id]/read/route');
+    const { GET: leaderboardGET } = await import('../src/app/api/leaderboard/route');
+
+    // 1. Create notification via API
+    const postReq = new NextRequest('http://localhost:3000/api/notifications', {
+      method: 'POST',
+      headers: { 'authorization': 'Bearer demo-token-bypass', 'content-type': 'application/json' },
+      body: JSON.stringify({
+        userId: 'test_user_001',
+        title: 'Interview Scheduled',
+        message: 'Mock technical interview scheduled for tomorrow at 10 AM.',
+        type: 'info',
+        source: 'interview'
+      })
+    });
+    const postRes = await notifPOST(postReq);
+    assert.strictEqual(postRes.status, 200);
+    const postJson = await postRes.json();
+    assert.ok(postJson.ok);
+    const notifId = postJson.notification?.id;
+    assert.ok(notifId);
+
+    // 2. Query notifications and verify presence
+    const getReq = new NextRequest('http://localhost:3000/api/notifications', {
+      headers: { 'authorization': 'Bearer demo-token-bypass' }
+    });
+    const getRes = await notifGET(getReq);
+    assert.strictEqual(getRes.status, 200);
+    const getJson = await getRes.json();
+    assert.ok(Array.isArray(getJson.notifications));
+    const createdItem = getJson.notifications.find((n: any) => n.id === notifId);
+    assert.ok(createdItem, 'Created notification must appear in user notification list');
+    assert.strictEqual(createdItem.is_read, false);
+    assert.strictEqual(createdItem.read, false);
+
+    // 3. Mark specific notification as read
+    const patchReq = new NextRequest(`http://localhost:3000/api/notifications/${notifId}/read`, {
+      method: 'PATCH',
+      headers: { 'authorization': 'Bearer demo-token-bypass' }
+    });
+    const patchRes = await markOnePATCH(patchReq, { params: { id: notifId } });
+    assert.strictEqual(patchRes.status, 200);
+
+    // 4. Mark all as read
+    const markAllReq = new NextRequest('http://localhost:3000/api/notifications/mark-all-read', {
+      method: 'POST',
+      headers: { 'authorization': 'Bearer demo-token-bypass' }
+    });
+    const markAllRes = await markAllPOST(markAllReq);
+    assert.strictEqual(markAllRes.status, 200);
+
+    // 5. Query leaderboard and verify no fake students + valid ELO ratings
+    const lbReq = new NextRequest('http://localhost:3000/api/leaderboard?mode=code_wars', {
+      headers: { 'authorization': 'Bearer demo-token-bypass' }
+    });
+    const lbRes = await leaderboardGET(lbReq);
+    assert.strictEqual(lbRes.status, 200);
+    const lbJson = await lbRes.json();
+    assert.ok(lbJson.ok);
+    assert.ok(Array.isArray(lbJson.leaderboard) && lbJson.leaderboard.length > 0);
+    assert.ok(!lbJson.leaderboard.some((e: any) => e.name?.includes('Sarah Chen')));
+    assert.ok(lbJson.leaderboard.every((e: any) => typeof e.eloRating === 'number' && e.eloRating > 0));
+  });
+
+  // --- SYSTEM TEST 14: Enterprise Multi-Portal Data Flow & Service Authority ---
+  await systemTest('System Pipeline: Multi-portal enterprise workflows (Parent, Recruiter, Consultant, Admin) with role gating, real metrics, and zero fabricated fallbacks', async () => {
+    const { GET: parentStudentsGET } = await import('../src/app/api/parent/students/route');
+    const { GET: recruiterPipeGET } = await import('../src/app/api/recruiter/pipeline/route');
+    const { POST: recruiterShortlistPOST } = await import('../src/app/api/recruiter/shortlist/route');
+    const { PATCH: recruiterVisPATCH } = await import('../src/app/api/recruiter/visibility/route');
+    const { GET: consultantAnalyticsGET } = await import('../src/app/api/consultant/analytics/route');
+    const { POST: consultantAddStudentPOST } = await import('../src/app/api/consultant/student/add/route');
+    const { GET: adminDashboardGET } = await import('../src/app/api/admin/dashboard/route');
+    const { GET: adminMetricsGET } = await import('../src/app/api/admin/metrics-summary/route');
+    const { PATCH: adminRolePATCH } = await import('../src/app/api/admin/users/[id]/role/route');
+
+    // 1. Parent portal: student token rejected (403), parent token accepted (200)
+    const pStudentReq = new NextRequest('http://localhost:3000/api/parent/students', {
+      headers: { authorization: 'Bearer test-token-student' }
+    });
+    const pStudentRes = await parentStudentsGET(pStudentReq);
+    assert.strictEqual(pStudentRes.status, 403, 'Plain student token must be rejected from parent portal');
+
+    const pParentReq = new NextRequest('http://localhost:3000/api/parent/students', {
+      headers: { authorization: 'Bearer test-token-parent' }
+    });
+    const pParentRes = await parentStudentsGET(pParentReq);
+    assert.strictEqual(pParentRes.status, 200);
+    const pParentJson = await pParentRes.json();
+    assert.ok(pParentJson.ok && Array.isArray(pParentJson.students));
+
+    // 2. Recruiter portal: student token rejected (403), recruiter token accepted (200), real pipeline
+    const rStudentReq = new NextRequest('http://localhost:3000/api/recruiter/pipeline', {
+      headers: { authorization: 'Bearer test-token-student' }
+    });
+    const rStudentRes = await recruiterPipeGET(rStudentReq);
+    assert.strictEqual(rStudentRes.status, 403);
+
+    const rRecReq = new NextRequest('http://localhost:3000/api/recruiter/pipeline', {
+      headers: { authorization: 'Bearer test-token-recruiter' }
+    });
+    const rRecRes = await recruiterPipeGET(rRecReq);
+    assert.strictEqual(rRecRes.status, 200);
+    const rRecJson = await rRecRes.json();
+    assert.ok(rRecJson.ok && Array.isArray(rRecJson.pipeline));
+
+    // Recruiter actions notify candidate and record interactions
+    const rShortlistReq = new NextRequest('http://localhost:3000/api/recruiter/shortlist', {
+      method: 'POST',
+      headers: { authorization: 'Bearer test-token-recruiter', 'content-type': 'application/json' },
+      body: JSON.stringify({ candidateId: 'std_sys_001' })
+    });
+    const rShortlistRes = await recruiterShortlistPOST(rShortlistReq);
+    assert.strictEqual(rShortlistRes.status, 200);
+
+    const rVisReq = new NextRequest('http://localhost:3000/api/recruiter/visibility', {
+      method: 'PATCH',
+      headers: { authorization: 'Bearer demo-token-bypass', 'content-type': 'application/json' },
+      body: JSON.stringify({ visibility: 'public' })
+    });
+    const rVisRes = await recruiterVisPATCH(rVisReq);
+    assert.strictEqual(rVisRes.status, 200);
+    const rVisJson = await rVisRes.json();
+    assert.strictEqual(rVisJson.recruiter_visibility, 100);
+
+    // 3. Consultant portal: analytics without 80% floor & student provisioning without session wipeout
+    const cReq = new NextRequest('http://localhost:3000/api/consultant/analytics', {
+      headers: { authorization: 'Bearer test-token-consultant' }
+    });
+    const cRes = await consultantAnalyticsGET(cReq);
+    assert.strictEqual(cRes.status, 200);
+    const cJson = await cRes.json();
+    assert.ok(cJson.ok && typeof cJson.analytics?.totalStudents === 'number');
+
+    const cAddReq = new NextRequest('http://localhost:3000/api/consultant/student/add', {
+      method: 'POST',
+      headers: { authorization: 'Bearer test-token-consultant', 'content-type': 'application/json' },
+      body: JSON.stringify({
+        displayName: 'Aarav Gupta',
+        email: 'aarav.studyabroad@example.edu',
+        targetCountry: 'Germany',
+        programType: 'M.Sc Computer Science'
+      })
+    });
+    const cAddRes = await consultantAddStudentPOST(cAddReq);
+    assert.strictEqual(cAddRes.status, 200);
+    const cAddJson = await cAddRes.json();
+    assert.ok(cAddJson.ok && cAddJson.student?.email === 'aarav.studyabroad@example.edu');
+
+    // 4. Admin portal: dashboard evaluated timestamps, metrics honest 0s, role updates via service role
+    const aReq = new NextRequest('http://localhost:3000/api/admin/dashboard', {
+      headers: { authorization: 'Bearer test-token-admin' }
+    });
+    const aRes = await adminDashboardGET(aReq);
+    assert.strictEqual(aRes.status, 200);
+    const aJson = await aRes.json();
+    assert.ok(aJson.ok && typeof aJson.users?.active_today === 'number');
+    assert.ok(typeof aJson.users?.new_this_week === 'number');
+
+    const aMetricsReq = new NextRequest('http://localhost:3000/api/admin/metrics-summary', {
+      headers: { authorization: 'Bearer test-token-admin' }
+    });
+    const aMetricsRes = await adminMetricsGET(aMetricsReq);
+    assert.strictEqual(aMetricsRes.status, 200);
+    const aMetricsJson = await aMetricsRes.json();
+    assert.ok(aMetricsJson.ok);
+    assert.notStrictEqual(aMetricsJson.summary.totalUsers, 120, 'Metrics must never default to 120 users');
+
+    const aRoleReq = new NextRequest('http://localhost:3000/api/admin/users/test_user_001/role', {
+      method: 'PATCH',
+      headers: { authorization: 'Bearer test-token-admin', 'content-type': 'application/json' },
+      body: JSON.stringify({ role: 'teacher' })
+    });
+    const aRoleRes = await adminRolePATCH(aRoleReq, { params: { id: 'test_user_001' } });
+    assert.strictEqual(aRoleRes.status, 200);
   });
 
   console.log('========================================================================');

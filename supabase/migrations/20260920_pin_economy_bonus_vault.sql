@@ -68,6 +68,57 @@ BEGIN
       new.subscription_expires_at := old.subscription_expires_at;
       new.subscription_status := old.subscription_status;
     END IF;
+
+    -- XP, Quests, Scores, Certifications, and Recruiter Ranking
+    IF new.xp_total IS DISTINCT FROM old.xp_total
+       OR new.xp_level IS DISTINCT FROM old.xp_level
+       OR new.completed_quests IS DISTINCT FROM old.completed_quests
+       OR new.java_test_passed IS DISTINCT FROM old.java_test_passed
+       OR new.career_dna_score IS DISTINCT FROM old.career_dna_score
+       OR new.career_readiness IS DISTINCT FROM old.career_readiness
+       OR new.certifications IS DISTINCT FROM old.certifications
+       OR new.recruiter_visibility IS DISTINCT FROM old.recruiter_visibility
+       OR new.intelligence_score IS DISTINCT FROM old.intelligence_score
+       OR new.communication_score IS DISTINCT FROM old.communication_score
+       OR new.execution_score IS DISTINCT FROM old.execution_score
+       OR new.leadership_score IS DISTINCT FROM old.leadership_score
+       OR new.consistency_score IS DISTINCT FROM old.consistency_score
+       OR new.adaptability_score IS DISTINCT FROM old.adaptability_score
+       OR new.confidence_score IS DISTINCT FROM old.confidence_score
+       OR new.innovation_score IS DISTINCT FROM old.innovation_score
+       OR new.mission_streak IS DISTINCT FROM old.mission_streak
+       OR new.missions_completed IS DISTINCT FROM old.missions_completed
+       OR new.vault_count IS DISTINCT FROM old.vault_count
+       OR new.interviews_done IS DISTINCT FROM old.interviews_done
+       OR new.unlocked_items IS DISTINCT FROM old.unlocked_items
+       OR new.badges IS DISTINCT FROM old.badges
+       OR new.endorsed_skills IS DISTINCT FROM old.endorsed_skills
+       OR new.recruiter_visible IS DISTINCT FROM old.recruiter_visible THEN
+      new.xp_total := old.xp_total;
+      new.xp_level := old.xp_level;
+      new.completed_quests := old.completed_quests;
+      new.java_test_passed := old.java_test_passed;
+      new.career_dna_score := old.career_dna_score;
+      new.career_readiness := old.career_readiness;
+      new.certifications := old.certifications;
+      new.recruiter_visibility := old.recruiter_visibility;
+      new.intelligence_score := old.intelligence_score;
+      new.communication_score := old.communication_score;
+      new.execution_score := old.execution_score;
+      new.leadership_score := old.leadership_score;
+      new.consistency_score := old.consistency_score;
+      new.adaptability_score := old.adaptability_score;
+      new.confidence_score := old.confidence_score;
+      new.innovation_score := old.innovation_score;
+      new.mission_streak := old.mission_streak;
+      new.missions_completed := old.missions_completed;
+      new.vault_count := old.vault_count;
+      new.interviews_done := old.interviews_done;
+      new.unlocked_items := old.unlocked_items;
+      new.badges := old.badges;
+      new.endorsed_skills := old.endorsed_skills;
+      new.recruiter_visible := old.recruiter_visible;
+    END IF;
   END IF;
   RETURN new;
 END;

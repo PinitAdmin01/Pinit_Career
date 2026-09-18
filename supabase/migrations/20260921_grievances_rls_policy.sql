@@ -1,4 +1,4 @@
-﻿-- Migration: 20260921_grievances_rls_policy.sql
+-- Migration: 20260921_grievances_rls_policy.sql
 -- Enforce strict RLS policies on public.grievances_tickets:
 -- 1. Students can ONLY select their own tickets (matching student_id or reporter_id).
 -- 2. Staff/faculty can select and manage all tickets.

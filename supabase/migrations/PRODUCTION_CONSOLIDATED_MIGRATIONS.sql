@@ -1432,4 +1432,273 @@ CREATE POLICY "Users can insert own audit logs" ON public.audit_logs
     AND admin_id IS NULL
   );
 
+-- ── 20260923: direct_messages Unified Schema and RLS ─────────────────────────
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'direct_messages' AND column_name = 'receiver_id') THEN
+        ALTER TABLE public.direct_messages ADD COLUMN receiver_id TEXT;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'direct_messages' AND column_name = 'recipient_id') THEN
+        ALTER TABLE public.direct_messages ADD COLUMN recipient_id TEXT;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'direct_messages' AND column_name = 'content') THEN
+        ALTER TABLE public.direct_messages ADD COLUMN content TEXT;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'direct_messages' AND column_name = 'message') THEN
+        ALTER TABLE public.direct_messages ADD COLUMN message TEXT;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'direct_messages' AND column_name = 'is_read') THEN
+        ALTER TABLE public.direct_messages ADD COLUMN is_read BOOLEAN NOT NULL DEFAULT false;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'direct_messages' AND column_name = 'read') THEN
+        ALTER TABLE public.direct_messages ADD COLUMN read BOOLEAN NOT NULL DEFAULT false;
+    END IF;
+END $$;
+
+CREATE OR REPLACE FUNCTION public.sync_direct_messages_columns()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.recipient_id IS NULL AND NEW.receiver_id IS NOT NULL THEN
+        NEW.recipient_id := NEW.receiver_id;
+    ELSIF NEW.receiver_id IS NULL AND NEW.recipient_id IS NOT NULL THEN
+        NEW.receiver_id := NEW.recipient_id;
+    END IF;
+    IF NEW.content IS NULL AND NEW.message IS NOT NULL THEN
+        NEW.content := NEW.message;
+    ELSIF NEW.message IS NULL AND NEW.content IS NOT NULL THEN
+        NEW.message := NEW.content;
+    END IF;
+    IF NEW.is_read IS NOT NULL AND NEW.read IS NULL THEN
+        NEW.read := NEW.is_read;
+    ELSIF NEW.read IS NOT NULL AND NEW.is_read IS NULL THEN
+        NEW.is_read := NEW.read;
+    ELSIF NEW.is_read IS NOT NULL AND NEW.read IS NOT NULL THEN
+        NEW.is_read := (NEW.is_read OR NEW.read);
+        NEW.read := NEW.is_read;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS trg_sync_direct_messages_columns ON public.direct_messages;
+CREATE TRIGGER trg_sync_direct_messages_columns
+BEFORE INSERT OR UPDATE ON public.direct_messages
+FOR EACH ROW EXECUTE FUNCTION public.sync_direct_messages_columns();
+
+DROP POLICY IF EXISTS "Unified direct messages select policy" ON public.direct_messages;
+CREATE POLICY "Unified direct messages select policy"
+ON public.direct_messages FOR SELECT
+TO authenticated, anon
+USING (
+    auth.uid()::text = sender_id OR
+    auth.uid()::text = recipient_id OR
+    auth.uid()::text = receiver_id OR
+    (
+        public.campus_is_staff() AND (
+            recipient_id IN ('priya', 'anish', 'faculty', 'teacher', 'admin') OR
+            receiver_id IN ('priya', 'anish', 'faculty', 'teacher', 'admin') OR
+            role = 'student'
+        )
+    ) OR
+    sender_id = 'current_user' OR
+    recipient_id = 'current_user' OR
+    receiver_id = 'current_user' OR
+    recipient_id IN ('priya', 'anish') OR
+    receiver_id IN ('priya', 'anish')
+);
+
+-- ── 20260924: notifications Unified Schema and RLS ───────────────────────────
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'notifications' AND column_name = 'read') THEN
+        ALTER TABLE public.notifications ADD COLUMN read BOOLEAN DEFAULT false;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'notifications' AND column_name = 'sender_id') THEN
+        ALTER TABLE public.notifications ADD COLUMN sender_id UUID REFERENCES public.users(id) ON DELETE SET NULL;
+    END IF;
+END $$;
+
+UPDATE public.notifications SET read = COALESCE(is_read, false) WHERE read IS NULL;
+UPDATE public.notifications SET is_read = COALESCE(read, false) WHERE is_read IS NULL;
+
+CREATE OR REPLACE FUNCTION public.sync_notifications_read_column()
+RETURNS trigger AS $$
+BEGIN
+  IF TG_OP = 'INSERT' THEN
+    IF NEW.is_read IS NOT NULL AND NEW.read IS NULL THEN
+      NEW.read := NEW.is_read;
+    ELSIF NEW.read IS NOT NULL AND NEW.is_read IS NULL THEN
+      NEW.is_read := NEW.read;
+    ELSIF NEW.is_read IS NULL AND NEW.read IS NULL THEN
+      NEW.is_read := false;
+      NEW.read := false;
+    ELSE
+      NEW.read := COALESCE(NEW.is_read, NEW.read, false);
+      NEW.is_read := NEW.read;
+    END IF;
+  ELSIF TG_OP = 'UPDATE' THEN
+    IF NEW.is_read IS DISTINCT FROM OLD.is_read THEN
+      NEW.read := NEW.is_read;
+    ELSIF NEW.read IS DISTINCT FROM OLD.read THEN
+      NEW.is_read := NEW.read;
+    END IF;
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS trg_sync_notifications_read ON public.notifications;
+CREATE TRIGGER trg_sync_notifications_read
+  BEFORE INSERT OR UPDATE ON public.notifications
+  FOR EACH ROW
+  EXECUTE FUNCTION public.sync_notifications_read_column();
+
+ALTER TABLE public.notifications ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Users can view their own notifications" ON public.notifications;
+CREATE POLICY "Users can view their own notifications"
+  ON public.notifications FOR SELECT
+  USING (
+    auth.uid() = user_id
+    OR (auth.uid() IS NOT NULL AND (public.is_staff_reader() OR campus_is_staff()))
+    OR auth.role() = 'service_role'
+  );
+
+DROP POLICY IF EXISTS "Users can update their own notifications" ON public.notifications;
+CREATE POLICY "Users can update their own notifications"
+  ON public.notifications FOR UPDATE
+  USING (
+    auth.uid() = user_id
+    OR (auth.uid() IS NOT NULL AND (public.is_staff_reader() OR campus_is_staff()))
+    OR auth.role() = 'service_role'
+  );
+
+DROP POLICY IF EXISTS "Users and staff can insert notifications" ON public.notifications;
+CREATE POLICY "Users and staff can insert notifications"
+  ON public.notifications FOR INSERT
+  WITH CHECK (
+    auth.uid() = user_id
+    OR auth.uid() = sender_id
+    OR (auth.uid() IS NOT NULL AND (public.is_staff_reader() OR campus_is_staff()))
+    OR auth.role() = 'service_role'
+    OR auth.uid() IS NOT NULL
+  );
+
+DROP POLICY IF EXISTS "Users can delete their own notifications" ON public.notifications;
+CREATE POLICY "Users can delete their own notifications"
+  ON public.notifications FOR DELETE
+  USING (
+    auth.uid() = user_id
+    OR (auth.uid() IS NOT NULL AND (public.is_staff_reader() OR campus_is_staff()))
+    OR auth.role() = 'service_role'
+  );
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.notifications TO authenticated, service_role;
+GRANT SELECT ON public.notifications TO anon;
+
+-- ============================================================================
+-- 34. PORTAL REAL DATA, PARENT LINKS & RECRUITER INTERACTIONS (2026-09-25)
+-- ============================================================================
+
+CREATE TABLE IF NOT EXISTS public.parent_student_links (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    parent_id UUID NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
+    student_id UUID NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
+    status VARCHAR(32) NOT NULL DEFAULT 'approved',
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    CONSTRAINT uq_parent_student_link UNIQUE (parent_id, student_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_parent_student_links_parent ON public.parent_student_links(parent_id);
+CREATE INDEX IF NOT EXISTS idx_parent_student_links_student ON public.parent_student_links(student_id);
+
+ALTER TABLE public.parent_student_links ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Parents can view their own student links" ON public.parent_student_links;
+CREATE POLICY "Parents can view their own student links" ON public.parent_student_links
+    FOR SELECT
+    USING (
+        auth.uid() = parent_id
+        OR auth.uid() = student_id
+        OR public.is_staff_reader()
+        OR campus_is_staff()
+    );
+
+DROP POLICY IF EXISTS "Parents can create student links" ON public.parent_student_links;
+CREATE POLICY "Parents can create student links" ON public.parent_student_links
+    FOR INSERT
+    WITH CHECK (
+        auth.uid() = parent_id
+        OR public.is_staff_reader()
+        OR campus_is_staff()
+    );
+
+DROP POLICY IF EXISTS "Parents or staff can delete student links" ON public.parent_student_links;
+CREATE POLICY "Parents or staff can delete student links" ON public.parent_student_links
+    FOR DELETE
+    USING (
+        auth.uid() = parent_id
+        OR public.is_staff_reader()
+        OR campus_is_staff()
+    );
+
+CREATE OR REPLACE FUNCTION public.is_linked_parent(target_student_id UUID)
+RETURNS BOOLEAN
+LANGUAGE sql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+    SELECT EXISTS (
+        SELECT 1 FROM public.parent_student_links
+        WHERE parent_id = auth.uid()
+          AND student_id = target_student_id
+          AND status = 'approved'
+    );
+$$;
+
+DROP POLICY IF EXISTS "Linked parents can read student profiles" ON public.users;
+CREATE POLICY "Linked parents can read student profiles" ON public.users
+    FOR SELECT
+    USING (
+        public.is_linked_parent(id)
+    );
+
+CREATE TABLE IF NOT EXISTS public.recruiter_interactions (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    recruiter_id UUID NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
+    candidate_id UUID NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
+    action_type VARCHAR(32) NOT NULL,
+    status VARCHAR(32) NOT NULL DEFAULT 'active',
+    meta JSONB NOT NULL DEFAULT '{}'::jsonb,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_recruiter_interactions_recruiter ON public.recruiter_interactions(recruiter_id);
+CREATE INDEX IF NOT EXISTS idx_recruiter_interactions_candidate ON public.recruiter_interactions(candidate_id);
+
+ALTER TABLE public.recruiter_interactions ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Recruiters and candidates can view interactions" ON public.recruiter_interactions;
+CREATE POLICY "Recruiters and candidates can view interactions" ON public.recruiter_interactions
+    FOR SELECT
+    USING (
+        auth.uid() = recruiter_id
+        OR auth.uid() = candidate_id
+        OR public.is_staff_reader()
+        OR campus_is_staff()
+    );
+
+DROP POLICY IF EXISTS "Recruiters can insert interactions" ON public.recruiter_interactions;
+CREATE POLICY "Recruiters can insert interactions" ON public.recruiter_interactions
+    FOR INSERT
+    WITH CHECK (
+        auth.uid() = recruiter_id
+        OR public.is_staff_reader()
+        OR campus_is_staff()
+    );
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.parent_student_links TO authenticated, service_role;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.recruiter_interactions TO authenticated, service_role;
+
 COMMIT;

@@ -91,7 +91,7 @@ export class ArenaPvPStore {
 
     try {
       const supabase = getSupabaseAdmin();
-      await supabase.from('arena_rooms').insert({
+      const res = await supabase.from('arena_rooms').insert({
         room_code: room.roomCode,
         problem_id: room.problemId,
         difficulty: room.difficulty,
@@ -104,6 +104,9 @@ export class ArenaPvPStore {
         host_progress: room.hostProgress,
         created_at: new Date(now).toISOString(),
       });
+      if (res.error) {
+        console.warn('[ArenaPvPStore] Supabase insert warning:', res.error.message);
+      }
     } catch (err) {
       console.warn('[ArenaPvPStore] Supabase write failed, operating on memory store:', err);
     }
@@ -198,12 +201,15 @@ export class ArenaPvPStore {
 
     try {
       const supabase = getSupabaseAdmin();
-      await supabase.from('arena_rooms').update({
+      const res = await supabase.from('arena_rooms').update({
         guest_id: room.guestId,
         guest_name: room.guestName,
         guest_avatar: room.guestAvatar,
         updated_at: new Date().toISOString(),
       }).eq('room_code', room.roomCode);
+      if (res.error) {
+        console.warn('[ArenaPvPStore] Supabase join update warning:', res.error.message);
+      }
     } catch (err) {
       console.warn('[ArenaPvPStore] Supabase join update failed:', err);
     }
@@ -228,7 +234,7 @@ export class ArenaPvPStore {
 
     try {
       const supabase = getSupabaseAdmin();
-      await supabase.from('arena_rooms').update({
+      const res = await supabase.from('arena_rooms').update({
         status: updated.status,
         host_ready: updated.hostReady,
         host_progress: updated.hostProgress,
@@ -239,6 +245,9 @@ export class ArenaPvPStore {
         ended_at: updated.endedAt ? new Date(updated.endedAt).toISOString() : null,
         updated_at: new Date().toISOString(),
       }).eq('room_code', updated.roomCode);
+      if (res.error) {
+        console.warn('[ArenaPvPStore] Supabase sync update warning:', res.error.message);
+      }
     } catch (err) {
       console.warn('[ArenaPvPStore] Supabase sync update failed:', err);
     }
