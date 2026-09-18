@@ -70,6 +70,7 @@ function getBreakdown(history: PinTransaction[]) {
 }
 
 function getSourceIcon(source: string, type: 'earn' | 'spend'): string {
+  if (source === 'course_enrollment') return '🎓';
   if (type === 'earn') return '⚡';
   return PIN_COSTS[source]?.icon ?? '🔓';
 }

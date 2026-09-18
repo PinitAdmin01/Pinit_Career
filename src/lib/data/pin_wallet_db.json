@@ -1,0 +1,21 @@
+{
+  "balance": 1350,
+  "transactions": [
+    {
+      "id": "tx-course-1789730619134-r3n7",
+      "type": "spend",
+      "amount": 500,
+      "reason": "Course Enrollment: 1-Month Fast-Track Sprint",
+      "source": "course_enrollment",
+      "timestamp": 1789730619134
+    },
+    {
+      "id": "tx-reward-1789730574599-un6i",
+      "type": "earn",
+      "amount": 350,
+      "reason": "Scholar Reward Pins: 3-Month Career Accelerator",
+      "source": "purchase",
+      "timestamp": 1789730574599
+    }
+  ]
+}
