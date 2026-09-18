@@ -9,6 +9,7 @@ interface CrashCoursePlanCardsProps {
   onSelectPlan: (planId: string, track: 'web_fullstack' | 'python_ai', courseIdToActivate: string) => void;
   onOpenStandaloneCatalog: () => void;
   onOpenPracticeReport?: (testTitle: string) => void;
+  onOpenCheckout?: (plan: CrashPlan, track: 'web_fullstack' | 'python_ai') => void;
   userPins?: number;
 }
 
@@ -17,6 +18,7 @@ export const CrashCoursePlanCards: React.FC<CrashCoursePlanCardsProps> = ({
   onSelectPlan,
   onOpenStandaloneCatalog,
   onOpenPracticeReport,
+  onOpenCheckout,
   userPins = 100
 }) => {
   const [activeTrack, setActiveTrack] = useState<'web_fullstack' | 'python_ai'>('web_fullstack');
@@ -28,7 +30,11 @@ export const CrashCoursePlanCards: React.FC<CrashCoursePlanCardsProps> = ({
     const firstCourseId = modules[0]?.courseId || 'course-react-web';
     
     onSelectPlan(plan.id, activeTrack, firstCourseId);
-    toast.success('Plan Activated!', `Enrolled in ${plan.title} (${activeTrack === 'web_fullstack' ? 'Full-Stack Web' : 'Python & AI'}). All roadmap nodes and internship timeline unlocked!`);
+    if (onOpenCheckout) {
+      onOpenCheckout(plan, activeTrack);
+    } else {
+      toast.success('Plan Activated!', `Enrolled in ${plan.title} (${activeTrack === 'web_fullstack' ? 'Full-Stack Web' : 'Python & AI'}). All roadmap nodes and internship timeline unlocked!`);
+    }
   };
 
   return (
