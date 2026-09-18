@@ -32,6 +32,7 @@ import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 import { validateDocumentSecurity } from '@/lib/ats/documentGateway';
 import { extractDocumentEvidence } from '@/lib/ats/pdfTextExtractor';
 import { groundAndValidateEvidence } from '@/lib/ats/factCheckValidator';
+import { bridgeAtsToCompetencyGraph } from '@/lib/pathway/atsCompetencyBridge';
 import { auditResumeATS } from '@/lib/ats/atsScreener';
 import {
   classifyDocumentCategory,
