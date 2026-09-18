@@ -1,5 +1,3 @@
-'use client';
-
 import { supabase } from '@/lib/supabaseClient';
 import { generateTxId } from '@/lib/utils/transactionId';
 

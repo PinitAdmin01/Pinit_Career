@@ -129,6 +129,24 @@ async function runLiveBuildTests() {
     assert.strictEqual(res.status, 401, `Expected 401, got ${res.status}`);
   });
 
+  // Test 11: Teacher Inbox Live Route
+  await checkRoute('GET /api/teacher/inbox (Returns 200 with database messages)', async () => {
+    const res = await fetch(`${BASE_URL}/api/teacher/inbox?teacherId=priya`);
+    assert.strictEqual(res.status, 200, `Expected 200, got ${res.status}`);
+    const data = await res.json();
+    assert.strictEqual(data.ok, true);
+    assert.ok(Array.isArray(data.messages));
+  });
+
+  // Test 12: Direct Messages Live Route
+  await checkRoute('GET /api/messages/direct (Returns 200 with conversation history)', async () => {
+    const res = await fetch(`${BASE_URL}/api/messages/direct?with=priya`);
+    assert.strictEqual(res.status, 200, `Expected 200, got ${res.status}`);
+    const data = await res.json();
+    assert.strictEqual(data.ok, true);
+    assert.ok(Array.isArray(data.messages));
+  });
+
   console.log('\n========================================================================');
   console.log(`📊 LIVE PRODUCTION BUILD TEST: ${passed} / ${passed + failed} ROUTES PASSED`);
   console.log('========================================================================\n');
