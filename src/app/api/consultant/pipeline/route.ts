@@ -24,7 +24,7 @@ export async function GET(req: Request) {
     };
 
     if (error || !users) {
-      return NextResponse.json({ pipeline, stats: { total: 0, active: 0 } });
+      return NextResponse.json({ ok: true, pipeline, stats: { total: 0, active: 0 } });
     }
 
     for (const s of users) {
@@ -54,10 +54,11 @@ export async function GET(req: Request) {
     const total = users.length;
     const active = users.filter((u: any) => u.study_abroad_status !== 'completed').length;
 
-    return NextResponse.json({ pipeline, stats: { total, active } });
+    return NextResponse.json({ ok: true, pipeline, stats: { total, active } });
   } catch (err: any) {
     console.error('[Consultant Pipeline Exception]:', err?.message);
     return NextResponse.json({
+      ok: false,
       pipeline: { onboarding: [], document_collection: [], application: [], visa: [], pre_departure: [], completed: [] },
       stats: { total: 0, active: 0 },
     });
