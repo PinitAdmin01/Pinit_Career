@@ -6,6 +6,9 @@ process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
 process.env.NODE_ENV = 'test';
 process.env.EVIDENCE_SIGNING_SECRET = 'test_evidence_signing_secret_32_bytes!';
 process.env.EXAM_SECRET = 'test_exam_secret_32_bytes_long_key_pinit!!';
+process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://mock-project.supabase.co';
+process.env.SUPABASE_SERVICE_ROLE_KEY = 'mock_service_role_key_for_test';
+process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'mock_anon_key_for_test';
 
 import {
   generateEvidenceIntegrityHash,
@@ -225,13 +228,18 @@ async function runTests() {
       const urlStr = String(input);
       if (urlStr.includes('supabase.co')) {
         if (urlStr.includes('github_integrations')) {
-          return new Response(JSON.stringify(null), { status: 200, headers: { 'Content-Type': 'application/json' } });
+          return new Response(JSON.stringify({
+            student_id: 'stu_unclaimed_99',
+            claimed_repos: [],
+            github_username: 'unclaimeddev',
+            github_id: 99999
+          }), { status: 200, headers: { 'Content-Type': 'application/json' } });
         }
         if (urlStr.includes('users')) {
           return new Response(JSON.stringify({
-            id: 'student_unclaimed_99',
+            id: 'stu_unclaimed_99',
             github_username: 'unclaimeddev',
-            claimed_repos: [] // Empty claimed repos!
+            claimed_repos: []
           }), { status: 200, headers: { 'Content-Type': 'application/json' } });
         }
       }
@@ -254,12 +262,12 @@ async function runTests() {
 
     const payload = {
       repository: {
-        name: 'web-api-service',
-        html_url: 'https://github.com/octocat/web-api-service',
+        name: 'hello-world',
+        html_url: 'https://github.com/octocat/hello-world',
       },
       sender: {
         login: 'octocat',
-        id: 583231,
+        id: 12345,
       },
       head_commit: {
         id: 'c0ffee1234567890abcdef1234567890abcdef12',
@@ -303,7 +311,7 @@ async function runTests() {
     assert.ok(json.integrityHash);
 
     // Retrieve the recorded evidence record
-    const allStudentEv = await PathwayApiService.getAllStudentEvidence('student_dev_octocat');
+    const allStudentEv = await PathwayApiService.getAllStudentEvidence('stu_dev_octocat_01');
     const recorded = allStudentEv.find(e => e.id === json.evidenceRecordId);
     assert.ok(recorded, 'Recorded evidence must exist');
     assert.strictEqual(recorded.evidenceClass, 'application', 'Commit must be application class, never production');

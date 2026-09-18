@@ -4,6 +4,12 @@ import React from 'react';
 import type { CareerTrajectory } from '@/lib/data/careerTrajectories';
 import type { Course } from '@/lib/data/coursesData';
 import { EnglishDashboard } from '@/components/language/EnglishDashboard';
+import { CrashCoursePlanCards } from './CrashCoursePlanCards';
+import { InternshipTimelineTracker } from './InternshipTimelineTracker';
+import { PracticeTestReportModal } from './PracticeTestReportModal';
+import PracticeTestQuizRunner from './PracticeTestQuizRunner';
+import CapstoneInternshipPortal from './CapstoneInternshipPortal';
+import CareerGrowthGraph from './CareerGrowthGraph';
 import CareerPathwayTimeline from '@/components/pathway/CareerPathwayTimeline';
 import CompetencyRadarView from '@/components/pathway/CompetencyRadarView';
 import {
@@ -86,6 +92,29 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
   handleSelectCourseFromLibrary,
   setNotesModalState
 }) => {
+  const [activeCrashPlanId, setActiveCrashPlanId] = React.useState<string>('plan-3m-accelerator');
+  const [activeTrack, setActiveTrack] = React.useState<'web_fullstack' | 'python_ai'>('web_fullstack');
+  const [showPracticeQuiz, setShowPracticeQuiz] = React.useState<boolean>(false);
+  const [showPracticeTestModal, setShowPracticeTestModal] = React.useState<boolean>(false);
+  const [practiceTestTitle, setPracticeTestTitle] = React.useState<string>('Full-Stack Architecture & API Practice Test');
+  const [showCapstonePortal, setShowCapstonePortal] = React.useState<boolean>(false);
+
+  const handleSelectCrashPlan = (planId: string, track: 'web_fullstack' | 'python_ai', courseIdToActivate: string) => {
+    setActiveCrashPlanId(planId);
+    setActiveTrack(track);
+    setActiveCourseId(courseIdToActivate);
+  };
+
+  const handleOpenPracticeQuiz = (title: string) => {
+    setPracticeTestTitle(title);
+    setShowPracticeQuiz(true);
+  };
+
+  const handleCompletePracticeQuiz = (result: any) => {
+    setShowPracticeQuiz(false)
+    setShowPracticeTestModal(true);
+  };
+
   return (
     <>
       {/* ── 🌟 4 PRIMARY SUB-TABS ───────────────────────────── */}
@@ -240,7 +269,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
           flexDirection: 'column',
           gap: 16
         }}>
-          {/* Top Row: Track Title + Selector + Quick QR Share */}
+          {/* Top Row: Track Title + Quick QR Share + Internship Portal */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 14 }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -250,42 +279,30 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                 </h3>
               </div>
               <p style={{ fontSize: 12.5, color: 'var(--t3)', margin: '4px 0 0 0' }}>
-                Enterprise-accredited curriculum with real-time SHA-256 evidence logging and live role hireability analytics.
+                Enterprise-accredited crash curriculum: Daily 1Hr Learning • 1-Month Capstone • 2-3 Months Real-Time Internship • Dual Verifiable Credentials.
               </p>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--t2)' }}>Track:</span>
-                <select
-                  value={selectedCertTrackId}
-                  onChange={(e) => {
-                    const trk = CERTIFICATION_TRACKS.find(t => t.id === e.target.value);
-                    if (trk) {
-                      setSelectedCertTrackId(trk.id);
-                      setActiveCourseId(trk.courseId);
-                    }
-                  }}
-                  style={{
-                    padding: '8px 14px',
-                    borderRadius: 10,
-                    border: '1.5px solid var(--accent)',
-                    background: '#090d16',
-                    color: 'var(--text)',
-                    fontSize: 12.5,
-                    fontWeight: 800,
-                    cursor: 'pointer',
-                    outline: 'none',
-                    boxShadow: '0 4px 12px rgba(var(--brand-rgb),0.2)'
-                  }}
-                >
-                  {CERTIFICATION_TRACKS.map(t => (
-                    <option key={t.id} value={t.id}>
-                      {t.icon} {t.title} ({t.duration})
-                    </option>
-                  ))}
-                </select>
-              </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+              <button
+                onClick={() => setShowCapstonePortal(true)}
+                style={{
+                  fontSize: 12,
+                  fontWeight: 800,
+                  padding: '8px 16px',
+                  borderRadius: 10,
+                  background: 'rgba(99, 102, 241, 0.15)',
+                  border: '1.5px solid #6366f1',
+                  color: '#ffffff',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  boxShadow: '0 4px 14px rgba(99, 102, 241, 0.25)'
+                }}
+              >
+                <span>🏢</span> Internship Portal
+              </button>
 
               <button
                 onClick={() => setShowQrModal(true)}
@@ -309,21 +326,56 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
             </div>
           </div>
 
-          {/* Quarters breakdown */}
-          {(() => {
-            const curTrack = CERTIFICATION_TRACKS.find(t => t.id === selectedCertTrackId) || CERTIFICATION_TRACKS[0];
-            return (
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 10 }}>
-                {curTrack.quarters.map((q) => (
-                  <div key={q.q} style={{ padding: '10px 12px', borderRadius: 10, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
-                    <div style={{ fontSize: 10, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase' }}>{q.q}</div>
-                    <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--t1)', marginTop: 2 }}>{q.name}</div>
-                    <div style={{ fontSize: 10.5, color: 'var(--t3)', marginTop: 2 }}>{q.quests}</div>
-                  </div>
-                ))}
-              </div>
-            );
-          })()}
+          {/* ── 1. CRASH COURSE PLAN CARDS (1M, 3M, 6M, 9M) ── */}
+          <CrashCoursePlanCards
+            currentPlanId={activeCrashPlanId}
+            onSelectPlan={handleSelectCrashPlan}
+            onOpenStandaloneCatalog={() => handleSubTabChange('standalone')}
+            onOpenPracticeReport={handleOpenPracticeQuiz}
+          />
+
+          {/* ── 2. ACTIVE INTERNSHIP & PROGRAM TIMELINE TRACKER ── */}
+          <InternshipTimelineTracker
+            planId={activeCrashPlanId}
+            completedQuestsCount={completedQuests.length}
+            onOpenPracticeTest={() => handleOpenPracticeQuiz('Weekly Milestone Diagnostic Assessment')}
+            onOpenProjectWorkspace={() => setShowCapstonePortal(true)}
+          />
+
+          {/* ── 3. CAREER GROWTH GRAPH ── */}
+          <div style={{ marginTop: 6 }}>
+            <CareerGrowthGraph
+              monthsCount={activeCrashPlanId === 'plan-1m-sprint' ? 1 : activeCrashPlanId === 'plan-3m-accelerator' ? 3 : activeCrashPlanId === 'plan-6m-pro' ? 6 : 9}
+            />
+          </div>
+
+          {/* ── 4. PRACTICE TEST QUIZ RUNNER MODAL ── */}
+          {showPracticeQuiz && (
+            <PracticeTestQuizRunner
+              testTitle={practiceTestTitle}
+              track={activeTrack}
+              planTier={activeCrashPlanId === 'plan-1m-sprint' ? '1m' : activeCrashPlanId === 'plan-3m-accelerator' ? '3m' : activeCrashPlanId === 'plan-6m-pro' ? '6m' : '9m'}
+              onClose={() => setShowPracticeQuiz(false)}
+              onCompleteTest={handleCompletePracticeQuiz}
+            />
+          )}
+
+          {/* ── 5. PRACTICE TEST DIAGNOSTIC REPORT MODAL ── */}
+          <PracticeTestReportModal
+            isOpen={showPracticeTestModal}
+            onClose={() => setShowPracticeTestModal(false)}
+            testTitle={practiceTestTitle}
+          />
+
+          {/* ── 6. CAPSTONE INTERNSHIP PORTAL MODAL ── */}
+          {showCapstonePortal && (
+            <CapstoneInternshipPortal
+              planId={activeCrashPlanId}
+              planTitle={activeCrashPlanId === 'plan-1m-sprint' ? '1-Month Sprint' : activeCrashPlanId === 'plan-3m-accelerator' ? '3-Month Accelerator' : activeCrashPlanId === 'plan-6m-pro' ? '6-Month Professional' : '9-Month Master'}
+              studentName="PinIT Engineering Fellow"
+              onClose={() => setShowCapstonePortal(false)}
+            />
+          )}
 
           {/* Live Passport HUD & Expand/Collapse Toggle */}
           {roleReadiness && (

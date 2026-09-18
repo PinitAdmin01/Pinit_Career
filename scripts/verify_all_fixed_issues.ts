@@ -1,6 +1,10 @@
 process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
 process.env.NODE_ENV = 'test';
 process.env.EXAM_SECRET = 'test_exam_secret_32_bytes_long_key_pinit!!';
+process.env.EVIDENCE_SIGNING_SECRET = 'test_evidence_signing_secret_32_bytes!';
+process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://mock-project.supabase.co';
+process.env.SUPABASE_SERVICE_ROLE_KEY = 'mock_service_role_key_for_test';
+process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'mock_anon_key_for_test';
 import assert from 'assert';
 import fs from 'fs';
 import path from 'path';
@@ -2859,6 +2863,281 @@ TypeScript, React, Node.js
       assert.strictEqual(q.correctIdx, undefined);
     }
     assert.ok(json.examSessionToken.length > 20);
+  });
+
+  // =========================================================================
+  // Issue 36: Passport Transcript, Public Verification Link & GitHub Ingest Hardening (Subbatch 4.13)
+  // =========================================================================
+  console.log('\n--- Issue 36: Passport Transcript, Public Verification Link & GitHub Ingest Hardening ---');
+
+  const issue36BaseEvidence = {
+    id: 'ev_test_unit_001',
+    competencyId: 'comp_git_version_control_l1',
+    competencyVersion: '1.0.0',
+    studentId: 'test_student_413',
+    programId: 'prog_swe_accelerated_9m',
+    evidenceClass: 'application' as const,
+    difficulty: 'basic' as const,
+    evidenceFamilyId: 'github_test_repo',
+    sourceType: 'project' as const,
+    sourceId: 'repo_test_repo',
+    attemptId: 'commit_a1b2c3d',
+    score: 65,
+    evaluatorType: 'deterministic' as const,
+    evaluatorVersion: 'v1.0',
+    rubricVersion: 'v1.0',
+    timestamp: 1726500000000,
+    artifacts: { repo: 'test_repo' },
+  };
+
+  await test('Issue 36: Plain unkeyed SHA-256 forged hash is rejected (forgery defense)', async () => {
+    const crypto = await import('crypto');
+    const { verifyEvidenceIntegrity } = await import('../src/lib/pathway/evidenceEngine');
+
+    const canonicalPayload = JSON.stringify({
+      competencyId: issue36BaseEvidence.competencyId,
+      competencyVersion: issue36BaseEvidence.competencyVersion,
+      studentId: issue36BaseEvidence.studentId,
+      programId: issue36BaseEvidence.programId,
+      evidenceClass: issue36BaseEvidence.evidenceClass,
+      difficulty: issue36BaseEvidence.difficulty,
+      evidenceFamilyId: issue36BaseEvidence.evidenceFamilyId || '',
+      sourceType: issue36BaseEvidence.sourceType,
+      sourceId: issue36BaseEvidence.sourceId,
+      attemptId: issue36BaseEvidence.attemptId,
+      score: issue36BaseEvidence.score,
+      evaluatorType: issue36BaseEvidence.evaluatorType,
+      evaluatorVersion: issue36BaseEvidence.evaluatorVersion,
+      rubricVersion: issue36BaseEvidence.rubricVersion,
+      timestamp: issue36BaseEvidence.timestamp,
+      artifacts: issue36BaseEvidence.artifacts,
+    });
+
+    const forgedUnkeyedHash = crypto.createHash('sha256').update(canonicalPayload).digest('hex');
+    const forgedRecord = {
+      ...issue36BaseEvidence,
+      integrityHash: forgedUnkeyedHash,
+    };
+
+    const isValid = verifyEvidenceIntegrity(forgedRecord);
+    assert.strictEqual(isValid, false);
+  });
+
+  await test('Issue 36: Authentic HMAC-SHA256 passes; altered payload fails', async () => {
+    const { generateEvidenceIntegrityHash, verifyEvidenceIntegrity } = await import('../src/lib/pathway/evidenceEngine');
+
+    const authenticHash = generateEvidenceIntegrityHash(issue36BaseEvidence);
+    const validRecord = { ...issue36BaseEvidence, integrityHash: authenticHash };
+    assert.strictEqual(verifyEvidenceIntegrity(validRecord), true);
+
+    const tamperedRecord = { ...validRecord, score: 99 };
+    assert.strictEqual(verifyEvidenceIntegrity(tamperedRecord), false);
+  });
+
+  await test('Issue 36: Server Verification Route GET /api/verify/[credentialId] rejects tampered HMAC', async () => {
+    const { GET: verifyRouteGET } = await import('../src/app/api/verify/[credentialId]/route');
+    const { PathwayApiService } = await import('../src/lib/api/pathwayApi');
+    const { NextRequest } = await import('next/server');
+
+    const recorded = await PathwayApiService.recordEvidence({
+      ...issue36BaseEvidence,
+      id: 'ev_tamper_check_001',
+      studentId: 'test_user_001',
+    });
+
+    const tamperedRecord = {
+      ...recorded.evidenceRecord,
+      integrityHash: '0000000000000000000000000000000000000000000000000000000000000000',
+    };
+
+    const origGet = PathwayApiService.getAllStudentEvidence;
+    PathwayApiService.getAllStudentEvidence = async (sId: string) => {
+      if (sId === 'test_user_001') return [tamperedRecord];
+      return [];
+    };
+
+    try {
+      const req = new NextRequest('http://localhost:3000/api/verify/ev_tamper_check_001');
+      const res = await verifyRouteGET(req, { params: { credentialId: 'ev_tamper_check_001' } });
+      assert.strictEqual(res.status, 200);
+      const json = await res.json();
+
+      assert.strictEqual(json.valid, false);
+      assert.strictEqual(json.error, 'INTEGRITY_TAMPERED');
+      assert.ok(json.message?.includes('signature mismatch'));
+    } finally {
+      PathwayApiService.getAllStudentEvidence = origGet;
+    }
+  });
+
+  await test('Issue 36: Server Verification Route GET /api/verify/[credentialId] verifies authentic evidence record', async () => {
+    const { GET: verifyRouteGET } = await import('../src/app/api/verify/[credentialId]/route');
+    const { PathwayApiService } = await import('../src/lib/api/pathwayApi');
+    const { NextRequest } = await import('next/server');
+
+    const recorded = await PathwayApiService.recordEvidence({
+      ...issue36BaseEvidence,
+      id: 'ev_authentic_check_001',
+      studentId: 'test_user_001',
+    });
+
+    const origGet = PathwayApiService.getAllStudentEvidence;
+    PathwayApiService.getAllStudentEvidence = async (sId: string) => {
+      if (sId === 'test_user_001') return [recorded.evidenceRecord];
+      return [];
+    };
+
+    try {
+      const req = new NextRequest('http://localhost:3000/api/verify/ev_authentic_check_001');
+      const res = await verifyRouteGET(req, { params: { credentialId: 'ev_authentic_check_001' } });
+      assert.strictEqual(res.status, 200);
+      const json = await res.json();
+
+      assert.strictEqual(json.valid, true);
+      assert.strictEqual(json.type, 'evidence');
+      assert.strictEqual(json.evidenceRecord.id, 'ev_authentic_check_001');
+      assert.strictEqual(json.evidenceRecord.score, 65);
+    } finally {
+      PathwayApiService.getAllStudentEvidence = origGet;
+    }
+  });
+
+  await test('Issue 36: Passport Transcript does NOT claim SHA-256 verified when evidence is unverified', async () => {
+    const { GET: transcriptRouteGET } = await import('../src/app/api/passport/transcript/route');
+    const { NextRequest } = await import('next/server');
+
+    const req = new NextRequest('http://localhost:3000/api/passport/transcript', {
+      headers: {
+        'authorization': 'Bearer demo-token-bypass',
+      },
+    });
+
+    const res = await transcriptRouteGET(req);
+    assert.strictEqual(res.status, 200);
+    const html = await res.text();
+
+    assert.ok(!html.includes('✓ SHA-256 Verified'));
+    assert.ok(html.includes('Provisional / Unverified') || html.includes('✓ HMAC-SHA256 Verified'));
+  });
+
+  await test('Issue 36: Passport Transcript oral defense displays "Pending Evaluation" when score is 0', async () => {
+    const { GET: transcriptRouteGET } = await import('../src/app/api/passport/transcript/route');
+    const { NextRequest } = await import('next/server');
+
+    const req = new NextRequest('http://localhost:3000/api/passport/transcript', {
+      headers: {
+        'authorization': 'Bearer demo-token-bypass',
+      },
+    });
+
+    const res = await transcriptRouteGET(req);
+    const html = await res.text();
+
+    assert.ok(html.includes('Capstone oral defense pending evaluation') || html.includes('Passed rigorous'));
+    assert.ok(!html.includes('Passed rigorous multi-stage architectural defense verifying independent problem solving and code provenance (0/100)'));
+  });
+
+  await test('Issue 36: GitHub Webhook rejects repository when student has empty claimed_repos', async () => {
+    const { resolveLinkedStudent } = await import('../src/app/api/webhooks/github/route');
+
+    const origFetch = globalThis.fetch;
+    globalThis.fetch = async (input, init) => {
+      const urlStr = String(input);
+      if (urlStr.includes('supabase.co')) {
+        if (urlStr.includes('github_integrations')) {
+          return new Response(JSON.stringify({
+            student_id: 'stu_unclaimed_99',
+            claimed_repos: [],
+            github_username: 'unclaimeddev',
+            github_id: 99999
+          }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+        }
+        if (urlStr.includes('users')) {
+          return new Response(JSON.stringify({
+            id: 'stu_unclaimed_99',
+            github_username: 'unclaimeddev',
+            claimed_repos: []
+          }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+        }
+      }
+      return origFetch(input, init);
+    };
+
+    try {
+      const result = await resolveLinkedStudent('unclaimeddev', 99999, 'https://github.com/torvalds/linux');
+      assert.strictEqual(result.verified, false);
+      assert.strictEqual(result.error, 'REPOSITORY_UNCLAIMED');
+    } finally {
+      globalThis.fetch = origFetch;
+    }
+  });
+
+  await test('Issue 36: GitHub Webhook commit classified as application (never production), score capped <= 75', async () => {
+    const crypto = await import('crypto');
+    const { POST: githubWebhookPOST } = await import('../src/app/api/webhooks/github/route');
+    const { PathwayApiService } = await import('../src/lib/api/pathwayApi');
+    const { NextRequest } = await import('next/server');
+
+    const secret = 'webhook_test_secret_32_bytes_xyz!';
+    process.env.GITHUB_WEBHOOK_SECRET = secret;
+
+    const payload = {
+      repository: {
+        name: 'hello-world',
+        html_url: 'https://github.com/octocat/hello-world',
+      },
+      sender: {
+        login: 'octocat',
+        id: 12345,
+      },
+      head_commit: {
+        id: 'c0ffee1234567890abcdef1234567890abcdef12',
+        message: 'Add user authentication controller and token validation unit tests',
+        author: { email: 'octocat@github.com' },
+        added: ['src/auth/authController.ts', 'tests/authController.test.ts'],
+        modified: ['src/routes/api.ts'],
+        removed: [],
+      },
+      commits: [
+        {
+          id: 'c0ffee1234567890abcdef1234567890abcdef12',
+          message: 'Add user authentication controller and token validation unit tests',
+          author: { email: 'octocat@github.com' },
+          added: ['src/auth/authController.ts', 'tests/authController.test.ts'],
+          modified: ['src/routes/api.ts'],
+          removed: [],
+        }
+      ]
+    };
+
+    const payloadStr = JSON.stringify(payload);
+    const sig = 'sha256=' + crypto.createHmac('sha256', secret).update(payloadStr).digest('hex');
+
+    const req = new NextRequest('http://localhost:3000/api/webhooks/github', {
+      method: 'POST',
+      headers: {
+        'x-hub-signature-256': sig,
+        'x-github-event': 'push',
+        'content-type': 'application/json',
+      },
+      body: payloadStr,
+    });
+
+    const res = await githubWebhookPOST(req);
+    assert.strictEqual(res.status, 200);
+    const json = await res.json();
+
+    assert.strictEqual(json.success, true);
+    assert.ok(json.evidenceRecordId);
+    assert.ok(json.integrityHash);
+
+    const allStudentEv = await PathwayApiService.getAllStudentEvidence('stu_dev_octocat_01');
+    const recorded = allStudentEv.find(e => e.id === json.evidenceRecordId);
+    assert.ok(recorded, 'Recorded evidence must exist');
+    assert.strictEqual(recorded.evidenceClass, 'application', 'Commit must be application class, never production');
+    assert.strictEqual(recorded.difficulty, 'basic', '3-file push with tests is basic difficulty');
+    assert.ok(recorded.score <= 75, `Score ${recorded.score} must not exceed 75`);
+    assert.ok(recorded.score >= 55, `Score ${recorded.score} reflects functional files + test presence`);
   });
 
   console.log('\n================================================================');

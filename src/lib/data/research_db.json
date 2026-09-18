@@ -49,6 +49,36 @@
       "authors": "John Researcher",
       "journal": "CS Journal",
       "status": "Under Review"
+    },
+    {
+      "id": "PUB-1789725160238-HJ6BW",
+      "studentId": "res_stu_1789725153182",
+      "student_id": "res_stu_1789725153182",
+      "submittedBy": "John Researcher",
+      "title": "Quantum ML Analysis",
+      "authors": "John Researcher",
+      "journal": "CS Journal",
+      "status": "Under Review"
+    },
+    {
+      "id": "PUB-1789725549503-8XCC3",
+      "studentId": "res_stu_1789725542404",
+      "student_id": "res_stu_1789725542404",
+      "submittedBy": "John Researcher",
+      "title": "Quantum ML Analysis",
+      "authors": "John Researcher",
+      "journal": "CS Journal",
+      "status": "Under Review"
+    },
+    {
+      "id": "PUB-1789725951417-PV3IJ",
+      "studentId": "res_stu_1789725944312",
+      "student_id": "res_stu_1789725944312",
+      "submittedBy": "John Researcher",
+      "title": "Quantum ML Analysis",
+      "authors": "John Researcher",
+      "journal": "CS Journal",
+      "status": "Under Review"
     }
   ],
   "projects": [],
