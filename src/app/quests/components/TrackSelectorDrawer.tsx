@@ -14,6 +14,7 @@ import CrashCourseCheckoutModal from './CrashCourseCheckoutModal';
 import { ActiveEnrollmentBanner } from './ActiveEnrollmentBanner';
 import { crashCourseEnrollmentService, CrashCourseEnrollment } from '@/lib/services/crashCourseEnrollmentService';
 import { CRASH_COURSE_PLANS, CrashPlan } from '@/lib/data/crashPlansData';
+import { usePins } from '@/lib/hooks/usePins';
 import CareerPathwayTimeline from '@/components/pathway/CareerPathwayTimeline';
 import CompetencyRadarView from '@/components/pathway/CompetencyRadarView';
 import {
@@ -96,6 +97,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
   handleSelectCourseFromLibrary,
   setNotesModalState
 }) => {
+  const { pins, spendPins, earnPins } = usePins();
   const [activeCrashPlanId, setActiveCrashPlanId] = React.useState<string>('plan-3m-accelerator');
   const [activeTrack, setActiveTrack] = React.useState<'web_fullstack' | 'python_ai'>('web_fullstack');
   const [showPracticeQuiz, setShowPracticeQuiz] = React.useState<boolean>(false);
@@ -127,6 +129,11 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
     setActiveCrashPlanId(enrollment.planId);
     setActiveTrack(enrollment.track);
     await crashCourseEnrollmentService.saveEnrollment(enrollment);
+    if (enrollment.paymentMethod === 'pins' && enrollment.pinsDeducted) {
+      spendPins('course_plan_' + (enrollment.planId === 'plan-1m-sprint' ? '1m' : enrollment.planId === 'plan-3m-accelerator' ? '3m' : enrollment.planId === 'plan-6m-pro' ? '6m' : '9m'), undefined, `Course Purchase: ${enrollment.planId}`);
+    } else if (enrollment.rewardPinsCredited) {
+      earnPins('purchase', enrollment.rewardPinsCredited, `Scholar Reward Pins: ${enrollment.planId}`);
+    }
     setCheckoutModalOpen(false);
   };
 
@@ -377,6 +384,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
             onOpenStandaloneCatalog={() => handleSubTabChange('standalone')}
             onOpenPracticeReport={handleOpenPracticeQuiz}
             onOpenCheckout={handleOpenCheckout}
+            userPins={pins}
           />
 
           {/* ── 2. ACTIVE INTERNSHIP & PROGRAM TIMELINE TRACKER ── */}
@@ -430,6 +438,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
             activeTrack={activeTrack}
             onSuccessEnrollment={handleSuccessEnrollment}
             studentName="PinIT Engineering Fellow"
+            userPins={pins}
           />
 
           {/* Live Passport HUD & Expand/Collapse Toggle */}

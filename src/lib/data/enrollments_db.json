@@ -1,0 +1,65 @@
+{
+  "enrollments": [
+    {
+      "enrollmentId": "enr-1789730619135",
+      "userId": "student-demo",
+      "planId": "plan-1m-sprint",
+      "track": "web_fullstack",
+      "amountPaid": 500,
+      "paymentId": "PINS-500",
+      "orderId": "",
+      "paymentMethod": "pins",
+      "status": "active",
+      "enrolledAt": "2026-09-18T11:23:39.135Z",
+      "currentSprint": 1,
+      "dailyLearningHoursTarget": 1,
+      "rewardPinsCredited": 0,
+      "pinsDeducted": 500,
+      "milestoneProgress": {
+        "sprint1Approved": false,
+        "sprint2Approved": false
+      },
+      "certificatesIssued": {}
+    },
+    {
+      "enrollmentId": "enr-1789730575320",
+      "userId": "student-demo",
+      "planId": "plan-3m-accelerator",
+      "track": "web_fullstack",
+      "amountPaid": 6999,
+      "paymentId": "sandbox_payment",
+      "orderId": "",
+      "paymentMethod": "sandbox",
+      "status": "completed",
+      "enrolledAt": "2026-09-18T11:22:55.320Z",
+      "currentSprint": 1,
+      "dailyLearningHoursTarget": 1,
+      "rewardPinsCredited": 350,
+      "pinsDeducted": 0,
+      "milestoneProgress": {
+        "sprint1Approved": false,
+        "sprint2Approved": false
+      },
+      "certificatesIssued": {}
+    },
+    {
+      "enrollmentId": "enr-1789729191274",
+      "userId": "student-demo",
+      "planId": "plan-3m-accelerator",
+      "track": "web_fullstack",
+      "amountPaid": 6999,
+      "paymentId": "TEST-TXN-12345",
+      "orderId": "",
+      "paymentMethod": "sandbox",
+      "status": "completed",
+      "enrolledAt": "2026-09-18T10:59:51.274Z",
+      "currentSprint": 1,
+      "dailyLearningHoursTarget": 1,
+      "milestoneProgress": {
+        "sprint1Approved": false,
+        "sprint2Approved": false
+      },
+      "certificatesIssued": {}
+    }
+  ]
+}

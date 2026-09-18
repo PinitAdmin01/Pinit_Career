@@ -109,6 +109,7 @@ export default function CrashCourseCheckoutModal({
   const [processingMessage, setProcessingMessage] = useState('');
   const [transactionId, setTransactionId] = useState('');
   const [orderId, setOrderId] = useState('');
+  const [walletInfo, setWalletInfo] = useState<any>(null);
   const [isLaunchingWorkspace, setIsLaunchingWorkspace] = useState(false);
 
   if (!isOpen || !plan) return null;
@@ -184,12 +185,19 @@ Thank you for enrolling with PinIT Career OS!
     setTimeout(() => setIsLaunchingWorkspace(false), 1200);
   };
 
-  const completeEnrollment = (paymentId: string, orderReference: string) => {
+  const completeEnrollment = (paymentId: string, orderReference: string, walletData?: any) => {
     setTransactionId(paymentId);
     setOrderId(orderReference);
+    if (walletData) setWalletInfo(walletData);
     setPaymentState('success');
     setProcessingMessage('');
-    toast.success('Enrollment Confirmed!', `Welcome to ${plan.title}. Your journey begins now.`);
+    if (walletData?.rewardPinsCredited) {
+      toast.success('Reward Pins Credited! ⚡', `+${walletData.rewardPinsCredited} PinIT Coins added to your wallet!`);
+    } else if (walletData?.pinsDeducted) {
+      toast.success('Pins Deducted 🪙', `-${walletData.pinsDeducted} Pins debited from your wallet for enrollment.`);
+    } else {
+      toast.success('Enrollment Confirmed!', `Welcome to ${plan.title}. Your journey begins now.`);
+    }
   };
 
   const handleRazorpayPayment = async () => {
@@ -247,26 +255,62 @@ Thank you for enrolling with PinIT Career OS!
     }
   };
 
-  const handlePinsPayment = () => {
+  const handlePinsPayment = async () => {
     if (!canPayWithPins) {
       toast.error('Insufficient Pins', `You need ${plan.pinsPrice} Pins. Current balance: ${userPins}.`);
       return;
     }
     setPaymentState('processing');
-    setProcessingMessage('Processing your PinIT Vault Coins...');
-    setTimeout(() => {
-      const mockTransactionId = generateMockTransactionId();
-      completeEnrollment(mockTransactionId, `PIN-ORDER-${Date.now()}`);
-    }, 1200);
+    setProcessingMessage('Authorizing & deducting PinIT Vault Coins...');
+    try {
+      const res = await fetch('/api/quests/enrollment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          planId: plan.id,
+          track: activeTrack,
+          paymentMethod: 'pins',
+          amountPaid: plan.pinsPrice,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        throw new Error(data.message || data.error || 'Failed to process pin payment.');
+      }
+      const txnId = data.wallet?.transaction?.id || `TXN-PIN-${Date.now()}`;
+      completeEnrollment(txnId, `PIN-ORDER-${Date.now()}`, data.wallet);
+    } catch (err: any) {
+      toast.error('Pin Payment Failed', err.message || 'Could not deduct pins.');
+      setPaymentState('idle');
+      setProcessingMessage('');
+    }
   };
 
-  const handleSandboxPayment = () => {
+  const handleSandboxPayment = async () => {
     setPaymentState('processing');
-    setProcessingMessage('Simulating verified transaction in sandbox...');
-    setTimeout(() => {
-      const mockTransactionId = generateMockTransactionId();
-      completeEnrollment(mockTransactionId, `SANDBOX-${Date.now()}`);
-    }, 800);
+    setProcessingMessage('Simulating verified transaction & crediting reward pins...');
+    try {
+      const res = await fetch('/api/quests/enrollment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          planId: plan.id,
+          track: activeTrack,
+          paymentMethod: 'sandbox',
+          amountPaid: finalPayable,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        throw new Error(data.message || data.error || 'Failed to process sandbox transaction.');
+      }
+      const txnId = data.wallet?.transaction?.id || `TXN-SBOX-${Date.now()}`;
+      completeEnrollment(txnId, `SANDBOX-${Date.now()}`, data.wallet);
+    } catch (err: any) {
+      toast.error('Sandbox Transaction Error', err.message || 'Error processing transaction.');
+      setPaymentState('idle');
+      setProcessingMessage('');
+    }
   };
 
   const handlePayment = () => {

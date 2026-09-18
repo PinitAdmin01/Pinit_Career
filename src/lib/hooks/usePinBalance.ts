@@ -37,7 +37,8 @@ export type PinSource =
   | 'communication_session'
   | 'career_assets'
   | 'career_dna_calc'
-  | 'admin_grant';
+  | 'admin_grant'
+  | 'course_enrollment';
 
 // Pin costs per feature — single source of truth
 export const PIN_COSTS: Record<string, { cost: number; label: string; icon: string }> = {
@@ -58,6 +59,10 @@ export const PIN_COSTS: Record<string, { cost: number; label: string; icon: stri
   career_dna_calc:       { cost: 10, label: 'Career DNA Recalculate',       icon: '🧬' },
   jd_match:              { cost: 5,  label: 'JD Match Analysis',            icon: '🎯' },
   ai_minutes_extend:     { cost: 100, label: '30 Min AI Token Extension',    icon: '⏰' },
+  course_plan_1m:        { cost: 500, label: '1-Month Fast-Track Sprint',      icon: '🎓' },
+  course_plan_3m:        { cost: 1200, label: '3-Month Career Accelerator',    icon: '🎓' },
+  course_plan_6m:        { cost: 2000, label: '6-Month Professional Program',  icon: '🎓' },
+  course_plan_9m:        { cost: 3000, label: '9-Month Master Program',        icon: '🎓' },
 };
 
 export const PIN_EARN: Record<PinSource, number> = {
@@ -69,6 +74,7 @@ export const PIN_EARN: Record<PinSource, number> = {
   vault_verify:         0,
   daily_login:          0,
   streak_bonus:         50,
+  course_enrollment:    0,
   purchase:             100,
   ai_interview:         0,
   resume_enhance:       0,
