@@ -60,10 +60,17 @@ export const hrService = {
 
         return {
           faculty: (faculty || []).map(f => ({ id: f.id, name: f.name, dept: f.dept, designation: f.designation, salary: f.salary, doj: f.doj })),
-          leaves: (leaves || []).map(l => ({ id: l.id, facultyName: l.faculty_name, startDate: l.startDate, endDate: l.endDate, reason: l.reason, status: l.status })),
+          leaves: (leaves || []).map(l => ({
+            id: l.id,
+            facultyName: l.faculty_name || l.facultyName,
+            startDate: l.start_date ?? l.startDate ?? null,
+            endDate: l.end_date ?? l.endDate ?? null,
+            reason: l.reason,
+            status: l.status
+          })),
           recruitment: (recruitment || []).map(r => ({ id: r.id, title: r.title, dept: r.dept, status: r.status })),
           attendance: (attendance || []).map(a => ({ id: a.id, facultyName: a.faculty_name, status: a.status, date: a.date })),
-          payroll: { status: 'Processing', runDate: null }
+          payroll: { status: 'Disabled (Pending Banking Rails)', runDate: null }
         };
       } catch (err) {
         console.warn('Supabase read failed, falling back to local database:', err);
@@ -130,12 +137,9 @@ export const hrService = {
   },
 
   async runPayroll() {
-    const db = await readLocalDb();
-    db.payroll = {
-      status: 'Paid',
-      runDate: new Date().toISOString().split('T')[0]
+    return {
+      ok: false,
+      error: 'PAYROLL_GATEWAY_NOT_CONFIGURED: Direct salary disbursement and payroll processing require banking rails integration.'
     };
-    await writeLocalDb(db);
-    return { ok: true };
   }
 };

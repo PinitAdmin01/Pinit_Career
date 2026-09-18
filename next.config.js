@@ -11,10 +11,10 @@
 // connect-src in BOTH files, then run `npm run audit:headers` to confirm.
 const CSP = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.supabase.co https://checkout.razorpay.com",
+  "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' 'unsafe-eval' https://*.supabase.co https://checkout.razorpay.com https://*.razorpay.com",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com data:",
-  "img-src 'self' data: blob: https://*.supabase.co https://api.dicebear.com https://avatars.githubusercontent.com",
+  "img-src 'self' data: blob: https://*.supabase.co https://api.dicebear.com https://avatars.githubusercontent.com https://images.unsplash.com",
   // Three.js GLTFLoader unpacks the textures inside each .glb into blob: URLs
   // and then FETCHES them, so blob: has to be allowed in connect-src as well as
   // img-src. Without it every texture fails with "THREE.GLTFLoader: Couldn't
@@ -32,14 +32,13 @@ const CSP = [
     'https://*.supabase.co',
     'wss://*.supabase.co',
     'https://api.razorpay.com',
-    'https://openrouter.ai',
-    'https://api.elevenlabs.io',
+    'https://lumberjack.razorpay.com',
+    'https://*.razorpay.com',
     'https://pinit-voice-service.onrender.com',
     'https://pinit-backend-v8pd.onrender.com',
-    'https://api.groq.com',
     'https://api.github.com',
   ].join(' '),
-  "frame-src 'self' https://api.razorpay.com",
+  "frame-src 'self' https://api.razorpay.com https://checkout.razorpay.com https://*.razorpay.com",
   "frame-ancestors 'self'",
   "base-uri 'self'",
   "form-action 'self'",
@@ -88,6 +87,10 @@ const nextConfig = {
   typescript: { ignoreBuildErrors: false },
   // Also fail the build on ESLint errors — consistent with TS strictness.
   eslint:     { ignoreDuringBuilds: false },
+  // Strip console logs in production builds to prevent leaking PII and telemetry (DEF-043)
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error', 'warn'] } : false,
+  },
 
   // NOTE: experimental.cpus was briefly set to 4 while investigating an
   // intermittent build failure. The real cause turned out to be a Windows
@@ -106,6 +109,19 @@ const nextConfig = {
         'onnxruntime-node$':  false,
         fs: false,
         path: false,
+      };
+      config.optimization.splitChunks = {
+        ...config.optimization.splitChunks,
+        cacheGroups: {
+          ...(config.optimization.splitChunks?.cacheGroups || {}),
+          legacyFirestore: {
+            test: /legacyFirestoreRouter/,
+            name: 'legacy-firestore',
+            chunks: 'async',
+            priority: 100,
+            enforce: true,
+          },
+        },
       };
     }
     return config;

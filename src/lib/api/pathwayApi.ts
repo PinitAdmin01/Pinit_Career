@@ -57,6 +57,26 @@ export class PathwayApiService {
     const studentId = evidenceRecord.studentId;
     const competencyId = evidenceRecord.competencyId;
 
+    // DEF-060 Fix: Authoritative server POST /api/pathway/evidence when running in browser
+    let serverMastery: CompetencyMasteryStatus | null = null;
+    if (typeof window !== 'undefined') {
+      try {
+        const res = await fetch('/api/pathway/evidence', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ evidenceRecord }),
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.updatedMastery) {
+            serverMastery = data.updatedMastery;
+          }
+        }
+      } catch (err) {
+        console.warn('[PathwayApi] Server evidence sync notice:', err);
+      }
+    }
+
     const existingEvidence = this.getLocalEvidenceRecords(studentId, competencyId);
     existingEvidence.push(evidenceRecord);
     this.saveLocalEvidenceRecords(studentId, competencyId, existingEvidence);
@@ -74,7 +94,7 @@ export class PathwayApiService {
     }
 
     // 5. Evaluate Mastery State Machine
-    const updatedMastery = evaluateCompetencyMastery({
+    const updatedMastery = serverMastery || evaluateCompetencyMastery({
       competency: compDef,
       rawEvidenceRecords: existingEvidence,
       prerequisiteMasteryStates: prereqStates,
@@ -84,10 +104,10 @@ export class PathwayApiService {
     currentMasteryMap.set(competencyId, updatedMastery);
     this.saveLocalMasteryMap(studentId, currentMasteryMap);
 
-    // 7. Fire-and-forget sync to Supabase if connected
+    // 7. Authoritative sync to Supabase if connected
     if (supabase) {
       try {
-        await supabase.from('competency_evidence_records').upsert({
+        const { error: insErr } = await supabase.from('competency_evidence_records').upsert({
           id: evidenceRecord.id,
           student_id: studentId,
           competency_id: competencyId,
@@ -109,7 +129,11 @@ export class PathwayApiService {
           critical_failures_detected: evidenceRecord.criticalFailuresDetected || [],
         });
 
-        await supabase.from('student_competency_mastery').upsert({
+        if (insErr) {
+          console.warn('[PathwayApi] Evidence DB insert warning:', insErr.message);
+        }
+
+        const { error: masteryErr } = await supabase.from('student_competency_mastery').upsert({
           student_id: studentId,
           competency_id: competencyId,
           competency_version: updatedMastery.competencyVersion,
@@ -127,8 +151,12 @@ export class PathwayApiService {
           blocked_by: updatedMastery.blockedBy || [],
           last_updated: updatedMastery.lastUpdated,
         });
-      } catch (err) {
-        console.warn('Supabase sync background notice:', err);
+
+        if (masteryErr) {
+          console.warn('[PathwayApi] Mastery DB sync warning:', masteryErr.message);
+        }
+      } catch (err: any) {
+        console.warn('[PathwayApi] Authoritative sync caught error:', err?.message || err);
       }
     }
 
@@ -217,6 +245,41 @@ export class PathwayApiService {
       const records = this.getLocalEvidenceRecords(studentId, comp.id);
       allEvidence.push(...records);
     }
+
+    // DEF-068 Fix: Query Supabase when local memory is unpopulated or on serverless routes
+    if (allEvidence.length === 0 && supabase) {
+      try {
+        const { data: dbRecords } = await supabase
+          .from('competency_evidence_records')
+          .select('*')
+          .eq('student_id', studentId);
+        if (dbRecords && dbRecords.length > 0) {
+          const mapped: CompetencyEvidenceRecord[] = dbRecords.map((r: any) => ({
+            id: r.id,
+            competencyId: r.competency_id,
+            competencyVersion: r.competency_version,
+            studentId: r.student_id,
+            programId: r.program_id,
+            evidenceClass: r.evidence_class,
+            difficulty: r.difficulty,
+            evidenceFamilyId: r.evidence_family_id,
+            sourceType: r.source_type,
+            sourceId: r.source_id,
+            attemptId: r.attempt_id,
+            score: r.score,
+            evaluatorType: r.evaluator_type,
+            evaluatorVersion: r.evaluator_version,
+            rubricVersion: r.rubric_version,
+            timestamp: r.timestamp,
+            integrityHash: r.integrity_hash,
+            artifacts: r.artifacts || {},
+            criticalFailuresDetected: r.critical_failures_detected || [],
+          }));
+          return mapped;
+        }
+      } catch {}
+    }
+
     return allEvidence;
   }
 
@@ -408,6 +471,19 @@ export class PathwayApiService {
     existing.push(fullRecord);
     this.saveLocalInternshipRecords(studentId, existing);
 
+    // DEF-061 Fix: Synchronize internship record to server / Supabase
+    if (typeof window !== 'undefined') {
+      try {
+        await fetch('/api/internships', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(fullRecord),
+        });
+      } catch (err) {
+        console.warn('[PathwayApi] Internship server sync notice:', err);
+      }
+    }
+
     return fullRecord;
   }
 
@@ -415,6 +491,18 @@ export class PathwayApiService {
    * Retrieves all logged external internship records for a student.
    */
   static async getInternshipRecords(studentId: string): Promise<InternshipRecord[]> {
+    if (typeof window !== 'undefined') {
+      try {
+        const res = await fetch('/api/internships');
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data.internships) && data.internships.length > 0) {
+            this.saveLocalInternshipRecords(studentId, data.internships);
+            return data.internships;
+          }
+        }
+      } catch {}
+    }
     return this.getLocalInternshipRecords(studentId);
   }
 

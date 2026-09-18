@@ -213,8 +213,9 @@ export function extractContacts(text: string): ExtractedContacts {
   const emailMatch = text.match(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/);
   if (emailMatch) contacts.email = emailMatch[0];
 
-  const phoneMatch = text.match(/(?:\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b/);
-  if (phoneMatch) contacts.phone = phoneMatch[0];
+  // Support Indian mobile formats (+91 98765 43210, 98765 43210, 9876543210) and international/US formats
+  const phoneMatch = text.match(/(?:(?:\+?91[\-\s]?)?[6-9]\d{4}[\-\s]?\d{5}|(?:\+?\d{1,3}[\-\s]?)?\(?\d{3}\)?[\-\s]?\d{3}[\-\s]?\d{4}|\b[6-9]\d{9}\b)/);
+  if (phoneMatch) contacts.phone = phoneMatch[0].trim();
 
   const linkedinMatch = text.match(/(?:https?:\/\/)?(?:www\.)?linkedin\.com\/(?:in|profile)\/[A-Za-z0-9_-]+/i);
   if (linkedinMatch) contacts.linkedin = linkedinMatch[0];
@@ -222,9 +223,22 @@ export function extractContacts(text: string): ExtractedContacts {
   const githubMatch = text.match(/(?:https?:\/\/)?(?:www\.)?github\.com\/[A-Za-z0-9_-]+/i);
   if (githubMatch) contacts.github = githubMatch[0];
 
-  const portfolioMatch = text.match(/(?:https?:\/\/)?(?:www\.)?[A-Za-z0-9_-]+\.(?:dev|io|tech|me|com)\b/i);
-  if (portfolioMatch && !portfolioMatch[0].includes('linkedin') && !portfolioMatch[0].includes('github')) {
-    contacts.portfolio = portfolioMatch[0];
+  // Portfolio link: Strip email addresses first so email domains cannot match
+  const EMAIL_PROVIDER_DOMAINS = new Set([
+    'gmail.com', 'yahoo.com', 'outlook.com', 'hotmail.com',
+    'icloud.com', 'proton.me', 'protonmail.com', 'mail.com',
+    'zoho.com', 'aol.com', 'yandex.com', 'live.com'
+  ]);
+
+  const textWithoutEmails = text.replace(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/g, ' ');
+  const portfolioMatches = textWithoutEmails.matchAll(/\b(?:https?:\/\/)?(?:www\.)?([A-Za-z0-9_-]+\.(?:dev|io|tech|me|com|org|net)(?:\/[^\s,;)]*)?)\b/gi);
+  for (const m of portfolioMatches) {
+    const full = m[0].trim();
+    const domain = m[1].toLowerCase().split('/')[0];
+    if (!EMAIL_PROVIDER_DOMAINS.has(domain) && !domain.includes('linkedin') && !domain.includes('github')) {
+      contacts.portfolio = full;
+      break;
+    }
   }
 
   return contacts;
@@ -249,6 +263,41 @@ export function extractSections(text: string): { detected: string[]; missing: st
 }
 
 /**
+ * Context-aware skill matcher to prevent homonym false positives (e.g. English verb "express", "go", "react")
+ */
+function isSkillPresentInText(skill: string, lowerText: string): boolean {
+  if (skill === 'Express') {
+    // Avoid false positives from English expressions like "express ideas clearly", "express gratitude"
+    const isEnglishVerb = /\bexpress\s+(?:ideas|thoughts|concerns|opinions|feelings|gratitude|interest|themselves|myself|yourself|clearly|freely|openly)\b/i.test(lowerText);
+    const isExplicitTech = /\b(?:express\.?js|expressjs|express\s+framework)\b/i.test(lowerText) ||
+      /(?:skills|technologies|frameworks|stack|node|mongo|react|rest|api|backend)[^.\n]*?\bexpress\b/i.test(lowerText) ||
+      /\bexpress\b(?=[^.\n]*?(?:node|mongo|react|rest|api|backend))/i.test(lowerText) ||
+      /(?:^|[,|/•\-])\s*express\s*(?:$|[,|/•\-])/i.test(lowerText);
+    return isExplicitTech && !isEnglishVerb;
+  }
+
+  if (skill === 'Go') {
+    // Avoid false positives from English verbs like "go to", "let's go"
+    const isExplicitGo = /\b(?:golang|go\s+lang(?:uage)?)\b/i.test(lowerText) ||
+      /(?:languages|technologies|skills|stack)[^.\n]*?\bgo\b/i.test(lowerText) ||
+      /\bgo\b(?=[^.\n]*?(?:python|java|c\+\+|rust|docker|kubernetes|microservices))/i.test(lowerText) ||
+      /(?:^|[,|/•\-])\s*go\s*(?:$|[,|/•\-])/i.test(lowerText);
+    const isEnglishGo = /\b(?:to|will|can|must|should|let's|lets)\s+go\b|\bgo\s+(?:to|for|through|ahead|back|on|above|beyond|into)\b/i.test(lowerText);
+    return isExplicitGo && !isEnglishGo;
+  }
+
+  if (skill === 'React') {
+    // Guard against English verb "react to", "react with"
+    const isEnglishReact = /\breact\s+(?:to|with|against|promptly|faster|well|poorly|on|upon)\b/i.test(lowerText);
+    const hasReact = /\b(?:react|react\.?js|reactjs)\b/i.test(lowerText);
+    return hasReact && !isEnglishReact;
+  }
+
+  const escaped = skill.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1');
+  return new RegExp(`\\b${escaped}\\b`, 'i').test(lowerText);
+}
+
+/**
  * Extracts all matched skills from the role taxonomy and job description
  */
 export function extractSkills(
@@ -270,9 +319,7 @@ export function extractSkills(
   const detectedSkills: string[] = [];
 
   allRoleSkills.forEach(skill => {
-    const escaped = skill.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1');
-    const regex = new RegExp(`\\b${escaped}\\b`, 'i');
-    if (regex.test(lowerText) && !detectedSkills.includes(skill)) {
+    if (isSkillPresentInText(skill, lowerText) && !detectedSkills.includes(skill)) {
       detectedSkills.push(skill);
     }
   });
@@ -281,10 +328,7 @@ export function extractSkills(
   let targetRequiredSkills = allRoleSkills.slice(0, 10);
   if (jobDescription) {
     const lowerJd = jobDescription.toLowerCase();
-    const jdSkills = allRoleSkills.filter(skill => {
-      const escaped = skill.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1');
-      return new RegExp(`\\b${escaped}\\b`, 'i').test(lowerJd);
-    });
+    const jdSkills = allRoleSkills.filter(skill => isSkillPresentInText(skill, lowerJd));
     if (jdSkills.length > 0) {
       targetRequiredSkills = jdSkills;
     }
@@ -642,7 +686,7 @@ export function auditResumeATS(
   let parseability = 40;
   if (contacts.email) parseability += 15;
   if (contacts.phone) parseability += 10;
-  if (contacts.linkedin || contacts.github) parseability += 10;
+  if (contacts.linkedin || contacts.github || contacts.portfolio) parseability += 10;
   parseability += Math.min(sections.detected.length * 5, 25);
   if (datesMatched >= 2) parseability += 10;
   if (layout.layoutRisk === 'High') parseability -= 20;

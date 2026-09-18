@@ -1,3 +1,94 @@
 {
-  "tickets": []
+  "tickets": [
+    {
+      "id": "INF-1789647486791-1348BF",
+      "studentId": "stu_maint_1789647486791",
+      "reportedBy": "Marcus Brody",
+      "category": "Electrical",
+      "location": "Lab 3",
+      "description": "[HIGH] AC unit flickering",
+      "status": "Reported",
+      "date": "2026-09-17",
+      "technician": "",
+      "urgency": "High"
+    },
+    {
+      "id": "INF-1789594848983-D686E3",
+      "studentId": "stu_maint_1789594848982",
+      "reportedBy": "Marcus Brody",
+      "category": "Electrical",
+      "location": "Lab 3",
+      "description": "[HIGH] AC unit flickering",
+      "status": "Reported",
+      "date": "2026-09-16",
+      "technician": "",
+      "urgency": "High"
+    },
+    {
+      "id": "INF-1789594825029-DC2C54",
+      "studentId": "stu_maint_1789594825029",
+      "reportedBy": "Marcus Brody",
+      "category": "Electrical",
+      "location": "Lab 3",
+      "description": "[HIGH] AC unit flickering",
+      "status": "Reported",
+      "date": "2026-09-16",
+      "technician": "",
+      "urgency": "High"
+    },
+    {
+      "id": "INF-1789594780794-19776C",
+      "studentId": "stu_maint_1789594780794",
+      "reportedBy": "Marcus Brody",
+      "category": "Electrical",
+      "location": "Lab 3",
+      "description": "[HIGH] AC unit flickering",
+      "status": "Reported",
+      "date": "2026-09-16",
+      "technician": "",
+      "urgency": "High"
+    },
+    {
+      "id": "INF-1789594634058-494C92",
+      "studentId": "stu_maint_1789594634058",
+      "reportedBy": "Marcus Brody",
+      "category": "Electrical",
+      "location": "Lab 3",
+      "description": "[HIGH] AC unit flickering",
+      "status": "Reported",
+      "date": "2026-09-16",
+      "technician": "",
+      "urgency": "High"
+    },
+    {
+      "id": "INF-275",
+      "category": "HVAC & Electrical",
+      "location": "Block A Lab 101",
+      "description": "[EMERGENCY] Exposed sparking conduit wire near main server rack",
+      "status": "Reported",
+      "date": "2026-09-12",
+      "technician": "",
+      "urgency": "Emergency"
+    },
+    {
+      "id": "INF-768",
+      "category": "HVAC & Electrical",
+      "location": "Block A Lab 101",
+      "description": "[EMERGENCY] Exposed sparking conduit wire near main server rack",
+      "status": "Reported",
+      "date": "2026-09-12",
+      "technician": "",
+      "urgency": "Emergency"
+    },
+    {
+      "id": "INF-621",
+      "category": "HVAC & Electrical",
+      "location": "Block A Lab 101",
+      "description": "[EMERGENCY] Exposed sparking conduit wire near main server rack",
+      "status": "Reported",
+      "date": "2026-09-12",
+      "technician": "",
+      "urgency": "Emergency"
+    }
+  ]
 }

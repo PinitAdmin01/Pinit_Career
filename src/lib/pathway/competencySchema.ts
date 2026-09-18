@@ -137,6 +137,7 @@ export interface CompetencyMasteryStatus {
   independentEvidenceCount: number; // Count of distinct sourceIds evaluated
   distinctFamilyCount: number;      // Count of distinct evidenceFamilyIds
   latestQualifiedEvidenceAt: number;
+  lastEvaluatedAt?: number;
   nextReviewAt?: number;
   
   classBreakdown: Record<EvidenceClass, {
@@ -319,11 +320,15 @@ export interface InternshipRecord {
   endDate?: string;
   skillsUsed: string[];
   projectDescription: string;
+  description?: string;
   mentorName?: string;
   mentorContact?: string;
   performanceRating?: string;
   certificateUrl?: string;
   isVerified: boolean;
+  verified?: boolean;
+  verifiedBy?: string;
+  deliverables?: string[];
   type: 'external_employment' | 'campus_internship';
   createdAt: number;
 }

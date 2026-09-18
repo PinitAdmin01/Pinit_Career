@@ -185,26 +185,62 @@ export default function DocumentVaultPage() {
             margin-top: 4px;
           }
           
-          /* Certificate print CSS styles */
+          /* Certificate print CSS styles (DEF-037) */
           @media print {
-            body * {
-              visibility: hidden;
+            @page {
+              size: A4 portrait;
+              margin: 12mm;
             }
-            .printable-cert-area, .printable-cert-area * {
-              visibility: visible;
+            html, body {
+              background: #ffffff !important;
+              color: #0f172a !important;
+              margin: 0 !important;
+              padding: 0 !important;
+              height: auto !important;
+              overflow: visible !important;
+            }
+            .portal-page {
+              display: block !important;
+              padding: 0 !important;
+              margin: 0 !important;
+              max-width: 100% !important;
+            }
+            .docs-grid,
+            .portal-page > div:not(.cert-modal-backdrop-print),
+            .cert-controls-bar,
+            .cert-print-btn,
+            .modal-dismiss-btn {
+              display: none !important;
+            }
+            .cert-modal-backdrop-print {
+              position: static !important;
+              display: block !important;
+              background: transparent !important;
+              padding: 0 !important;
+              margin: 0 !important;
+              backdrop-filter: none !important;
+            }
+            .cert-modal-box {
+              max-width: 100% !important;
+              width: 100% !important;
+              padding: 0 !important;
+              margin: 0 !important;
+              border: none !important;
+              box-shadow: none !important;
+              background: transparent !important;
             }
             .printable-cert-area {
-              position: absolute;
-              left: 0;
-              top: 0;
-              width: 100%;
-              height: 100%;
-              z-index: 9999;
-              background: white !important;
-              color: black !important;
-            }
-            .cert-print-btn, .modal-dismiss-btn {
-              display: none !important;
+              position: relative !important;
+              width: 100% !important;
+              max-width: 800px !important;
+              margin: 0 auto !important;
+              border: 6px double #4338ca !important;
+              padding: 40px !important;
+              background: #ffffff !important;
+              color: #0f172a !important;
+              -webkit-print-color-adjust: exact !important;
+              print-color-adjust: exact !important;
+              page-break-inside: avoid !important;
             }
           }
         `}</style>
@@ -326,19 +362,19 @@ export default function DocumentVaultPage() {
 
         {/* Certificate lightbox Overlay */}
         {selectedDoc && (
-          <div style={{
+          <div className="cert-modal-backdrop-print" style={{
             position: 'fixed', inset: 0, zIndex: 1000, background: 'color-mix(in srgb, var(--bg) 55%, transparent)',
             display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20,
             backdropFilter: 'blur(4px)'
           }}>
-            <div style={{
+            <div className="cert-modal-box" style={{
               width: '100%', maxWidth: 800, background: 'var(--card)', borderRadius: 20,
               padding: 24, boxShadow: 'var(--shadow-xl)', border: '1px solid var(--border)',
               display: 'flex', flexDirection: 'column', gap: 16, color: 'var(--t1)'
             }}>
               
               {/* Controls bar */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border)', paddingBottom: 12 }}>
+              <div className="cert-controls-bar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border)', paddingBottom: 12 }}>
                 <span style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)' }}>
                   Verification Frame: {selectedDoc.id}
                 </span>

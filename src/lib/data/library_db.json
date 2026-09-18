@@ -1,5 +1,116 @@
 {
-  "books": [],
-  "borrowed": [],
+  "books": [
+    {
+      "isbn": "978-0134685991",
+      "title": "Effective Java",
+      "author": "Joshua Bloch",
+      "genre": "Computer Science",
+      "copies": 3,
+      "available": 3,
+      "isEbook": false
+    },
+    {
+      "isbn": "ISBN-TEST-1789594634032",
+      "title": "Concurrency Guide",
+      "author": "Author C",
+      "genre": "CS",
+      "copies": 1,
+      "available": 0,
+      "isEbook": false
+    },
+    {
+      "isbn": "ISBN-TEST-1789594780773",
+      "title": "Concurrency Guide",
+      "author": "Author C",
+      "genre": "CS",
+      "copies": 1,
+      "available": 0,
+      "isEbook": false
+    },
+    {
+      "isbn": "ISBN-TEST-1789594824997",
+      "title": "Concurrency Guide",
+      "author": "Author C",
+      "genre": "CS",
+      "copies": 1,
+      "available": 0,
+      "isEbook": false
+    },
+    {
+      "isbn": "ISBN-TEST-1789594848960",
+      "title": "Concurrency Guide",
+      "author": "Author C",
+      "genre": "CS",
+      "copies": 1,
+      "available": 0,
+      "isEbook": false
+    },
+    {
+      "isbn": "ISBN-TEST-1789647486760",
+      "title": "Concurrency Guide",
+      "author": "Author C",
+      "genre": "CS",
+      "copies": 1,
+      "available": 0,
+      "isEbook": false
+    }
+  ],
+  "borrowed": [
+    {
+      "id": "BOR-1789647486763-8C66D6",
+      "studentId": "stu_lib_1",
+      "studentName": "Student One",
+      "isbn": "ISBN-TEST-1789647486760",
+      "title": "Concurrency Guide",
+      "borrowedOn": "2026-09-17T12:18:06.763Z",
+      "dueOn": "2026-10-01T12:18:06.763Z",
+      "returned": false,
+      "fine": 0
+    },
+    {
+      "id": "BOR-1789594848962-2F07D2",
+      "studentId": "stu_lib_1",
+      "studentName": "Student One",
+      "isbn": "ISBN-TEST-1789594848960",
+      "title": "Concurrency Guide",
+      "borrowedOn": "2026-09-16T21:40:48.962Z",
+      "dueOn": "2026-09-30T21:40:48.962Z",
+      "returned": false,
+      "fine": 0
+    },
+    {
+      "id": "BOR-1789594825001-6ABADC",
+      "studentId": "stu_lib_1",
+      "studentName": "Student One",
+      "isbn": "ISBN-TEST-1789594824997",
+      "title": "Concurrency Guide",
+      "borrowedOn": "2026-09-16T21:40:25.002Z",
+      "dueOn": "2026-09-30T21:40:25.002Z",
+      "returned": false,
+      "fine": 0
+    },
+    {
+      "id": "BOR-1789594780776-07F84B",
+      "studentId": "stu_lib_1",
+      "studentName": "Student One",
+      "isbn": "ISBN-TEST-1789594780773",
+      "title": "Concurrency Guide",
+      "borrowedOn": "2026-09-16T21:39:40.776Z",
+      "dueOn": "2026-09-30T21:39:40.776Z",
+      "returned": false,
+      "fine": 0
+    },
+    {
+      "id": "BOR-1789594634033-B6FDCC",
+      "studentId": "stu_lib_1",
+      "studentName": "Student One",
+      "isbn": "ISBN-TEST-1789594634032",
+      "title": "Concurrency Guide",
+      "borrowedOn": "2026-09-16T21:37:14.033Z",
+      "dueOn": "2026-09-30T21:37:14.033Z",
+      "returned": false,
+      "fine": 0
+    }
+  ],
   "reserves": []
 }

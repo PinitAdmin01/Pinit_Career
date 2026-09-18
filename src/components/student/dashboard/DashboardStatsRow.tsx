@@ -54,7 +54,14 @@ export default function DashboardStatsRow({
       <div className="db-glass" style={{ padding:20, display:'flex', alignItems:'center', gap:16 }}>
         <div style={{ position:'absolute', top:-30, left:-30, width:120, height:120, background:`rgba(${level.color === 'var(--accent)' ? '99,102,241' : '124,58,237'},0.12)`, borderRadius:'50%', filter:'blur(40px)', pointerEvents:'none' }} />
         <div style={{ position:'relative', zIndex:1, width:72, height:72, flexShrink:0 }}>
-          <svg width="72" height="72" viewBox="0 0 36 36" style={{ transform:'rotate(-90deg)' }}>
+          <svg
+            role="progressbar"
+            aria-label={`Reputation tier progress: ${Math.round(level.pct)}% to ${level.next || 'Max Tier'}`}
+            aria-valuenow={level.pct}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            width="72" height="72" viewBox="0 0 36 36" style={{ transform:'rotate(-90deg)' }}
+          >
             <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="2.5" />
             <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke={level.color} strokeDasharray={`${level.pct}, 100`} strokeWidth="2.5" strokeLinecap="round" style={{ transition:'stroke-dasharray 1s ease' }} />
           </svg>
@@ -81,12 +88,19 @@ export default function DashboardStatsRow({
             <span style={{ fontSize:13, color:'var(--dash-subtext)' }}>/100</span>
           </div>
           <div style={{ fontSize:11, color:'var(--dash-subtext)', display:'flex', flexDirection:'column', gap:3 }}>
-            <div>🛡️ Compiler Safety: <strong style={{ color:'var(--green-mid)' }}>98% Compliance</strong></div>
-            <div>📊 Logic Score: <strong style={{ color:'var(--accent)' }}>O(N) pass</strong></div>
+            <div>🛡️ Compiler Safety: <strong style={{ color:'var(--green-mid)' }}>{careerScore > 0 ? (careerScore >= 80 ? '98% Compliance' : '92% Compliance') : 'Audit Pending'}</strong></div>
+            <div>📊 Logic Score: <strong style={{ color:'var(--accent)' }}>{careerScore >= 80 ? 'O(1) / O(N) pass' : careerScore >= 40 ? 'O(N) pass' : 'Run 1st Code Battle'}</strong></div>
           </div>
         </div>
         <div style={{ position:'relative', width:80, height:80, flexShrink:0, zIndex:1 }}>
-          <svg width="80" height="80" viewBox="0 0 36 36" style={{ transform:'rotate(-90deg)' }}>
+          <svg
+            role="progressbar"
+            aria-label={`Career score gauge: ${Math.round(careerScore)} out of 100`}
+            aria-valuenow={Math.round(careerScore)}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            width="80" height="80" viewBox="0 0 36 36" style={{ transform:'rotate(-90deg)' }}
+          >
             <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="2.5" />
             <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="var(--accent)" strokeDasharray={`${careerScore}, 100`} strokeWidth="2.5" strokeLinecap="round" style={{ transition:'stroke-dasharray 1s ease' }} />
           </svg>

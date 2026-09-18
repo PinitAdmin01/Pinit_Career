@@ -151,6 +151,14 @@ export default function AvatarMentorWidget({
   const acousticFramesRef = useRef<AcousticFrame[]>([]);
   const voiceFreqRef = useRef<number | null>(null);
   const voicePrintRef = useRef<VoicePrint | null>(null);
+  const micDeniedRef = useRef<boolean>(false);
+  const voiceRegStreamRef = useRef<MediaStream | null>(null);
+  const voiceRegAudioCtxRef = useRef<AudioContext | null>(null);
+  const voiceRegIntervalRef = useRef<any>(null);
+  const voiceRegTimeoutRef = useRef<any>(null);
+  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const streamRef = useRef<MediaStream | null>(null);
+  const animFrameRef = useRef<number | null>(null);
 
   useEffect(() => {
     voiceFreqRef.current = voiceFreq;
@@ -204,7 +212,10 @@ export default function AvatarMentorWidget({
 
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      streamRef.current = stream;
+      voiceRegStreamRef.current = stream;
       const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+      voiceRegAudioCtxRef.current = audioCtx;
       const source = audioCtx.createMediaStreamSource(stream);
       const analyser = audioCtx.createAnalyser();
       analyser.fftSize = 2048;
@@ -231,11 +242,16 @@ export default function AvatarMentorWidget({
           });
         }
       }, 70);
+      voiceRegIntervalRef.current = interval;
 
-      setTimeout(async () => {
+      const timeout = setTimeout(async () => {
         clearInterval(interval);
+        voiceRegIntervalRef.current = null;
         stream.getTracks().forEach(t => t.stop());
-        audioCtx.close();
+        voiceRegStreamRef.current = null;
+        try { audioCtx.close(); } catch {}
+        voiceRegAudioCtxRef.current = null;
+        voiceRegTimeoutRef.current = null;
         setIsRecordingVoice(false);
 
         const analyzedPrint = analyzeVoiceFrames(frames);
@@ -256,6 +272,7 @@ export default function AvatarMentorWidget({
           toast.error("Registration Failed", "Could not analyze clear voice biometrics. Please speak clearly in a quiet room.");
         }
       }, 3500);
+      voiceRegTimeoutRef.current = timeout;
 
     } catch (err) {
       console.warn("Failed voice registration:", err);
@@ -281,6 +298,8 @@ export default function AvatarMentorWidget({
     sceneRef.current = scene;
     try {
       scene.init(canvasRef.current, teacherId);
+      rendererRef.current = scene.renderer;
+      if (scene.raf) animFrameRef.current = scene.raf;
       scene.setState('wave');
       if (typeof window !== 'undefined') {
         (window as any).mentorAvatarScene = scene;
@@ -303,7 +322,74 @@ export default function AvatarMentorWidget({
     return () => {
       clearTimeout(timer);
       ro.disconnect();
-      scene.dispose();
+
+      // 1. Dispose all scene objects (geometries + materials + textures)
+      if (sceneRef.current) {
+        sceneRef.current.traverse((object: THREE.Object3D) => {
+          const mesh = object as THREE.Mesh;
+          if (mesh.geometry) mesh.geometry.dispose();
+          if (mesh.material) {
+            const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+            materials.forEach((mat: THREE.Material) => {
+              // Dispose all texture maps on the material
+              Object.values(mat).forEach((val) => {
+                if (val && typeof (val as THREE.Texture).dispose === 'function') {
+                  (val as THREE.Texture).dispose();
+                }
+              });
+              mat.dispose();
+            });
+          }
+        });
+        sceneRef.current.dispose();
+      }
+
+      // 2. Dispose renderer and force WebGL context release
+      if (rendererRef.current) {
+        rendererRef.current.dispose();
+        rendererRef.current.forceContextLoss();
+        rendererRef.current.domElement?.remove();
+      }
+
+      // 3. Stop all microphone tracks
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((track: MediaStreamTrack) => track.stop());
+        streamRef.current = null;
+      }
+      if (voiceRegStreamRef.current) {
+        try {
+          voiceRegStreamRef.current.getTracks().forEach((track: MediaStreamTrack) => track.stop());
+        } catch {}
+        voiceRegStreamRef.current = null;
+      }
+      if (voiceRegAudioCtxRef.current && voiceRegAudioCtxRef.current.state !== 'closed') {
+        try {
+          voiceRegAudioCtxRef.current.close().catch(() => {});
+        } catch {}
+        voiceRegAudioCtxRef.current = null;
+      }
+      if (voiceRegIntervalRef.current) {
+        clearInterval(voiceRegIntervalRef.current);
+        voiceRegIntervalRef.current = null;
+      }
+      if (voiceRegTimeoutRef.current) {
+        clearTimeout(voiceRegTimeoutRef.current);
+        voiceRegTimeoutRef.current = null;
+      }
+
+      // 4. Cancel animation frame
+      if (animFrameRef.current) {
+        cancelAnimationFrame(animFrameRef.current);
+      }
+      if (scene.raf) {
+        cancelAnimationFrame(scene.raf);
+      }
+
+      if (typeof window !== 'undefined' && (window as any).mentorAvatarScene === scene) {
+        (window as any).mentorAvatarScene = null;
+      }
+      sceneRef.current = null;
+      rendererRef.current = null;
     };
   }, [teacherId, isMinimized]);
 
@@ -344,8 +430,15 @@ export default function AvatarMentorWidget({
   }, [isMinimized]);
 
   const memory    = usePersonalAvatarMemory(userId);
+  const memoryRef = useRef(memory);
+  memoryRef.current = memory;
+
   const emotionAI = useFacialEmotionDetection();
+  const emotionAIRef = useRef(emotionAI);
+  emotionAIRef.current = emotionAI;
+
   const teacher   = TEACHER_CONFIG[teacherId] || TEACHER_CONFIG.priya;
+  const hasGreetedRef = useRef(false);
 
   // Load avatar context + ML recommendations on mount
   useEffect(() => {
@@ -356,7 +449,7 @@ export default function AvatarMentorWidget({
         // Gate on what is actually persisted. exportMemory deliberately sends
         // conversationHistory as [] (transcripts are not stored), so keying the
         // restore off its length meant memory was never restored at all.
-        if (avatarMemory?.memories?.length || avatarMemory?.persona) memory.importMemory(avatarMemory);
+        if (avatarMemory?.memories?.length || avatarMemory?.persona) memoryRef.current.importMemory(avatarMemory);
         if (mlRecommendations?.length) setMlRecs(mlRecommendations);
       })
       .catch(() => {});
@@ -365,30 +458,51 @@ export default function AvatarMentorWidget({
   // Sync career profile to avatar memory
   useEffect(() => {
     if (!careerProfile || userId === 'guest') return;
-    memory.storePersonalInfo({
+    memoryRef.current.storePersonalInfo({
       name: userId, goals: [`Improve Career Score from ${careerProfile.ats_score||0} to 80+`],
       occupation: 'student', interests: careerProfile.weak_areas||[],
       preferences: { atsScore: careerProfile.ats_score, trustScore: careerProfile.trust_score, dnaScore: careerProfile.career_dna_score, streak: careerProfile.mission_streak, teacherId },
     });
     fetch('/api/avatar/memory', {
       method: 'PATCH', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(memory.exportMemory()), credentials: 'include',
+      body: JSON.stringify(memoryRef.current.exportMemory()), credentials: 'include',
     }).catch(() => {});
   }, [careerProfile, userId, teacherId]);
 
-  // Stop speaking on unmount
+  // Stop speaking and release voice media resources on unmount
   useEffect(() => {
     return () => {
       stopSpeaking();
+      if (voiceRegStreamRef.current) {
+        try {
+          voiceRegStreamRef.current.getTracks().forEach((track: MediaStreamTrack) => track.stop());
+        } catch {}
+        voiceRegStreamRef.current = null;
+      }
+      if (voiceRegAudioCtxRef.current && voiceRegAudioCtxRef.current.state !== 'closed') {
+        try {
+          voiceRegAudioCtxRef.current.close().catch(() => {});
+        } catch {}
+        voiceRegAudioCtxRef.current = null;
+      }
+      if (voiceRegIntervalRef.current) {
+        clearInterval(voiceRegIntervalRef.current);
+        voiceRegIntervalRef.current = null;
+      }
+      if (voiceRegTimeoutRef.current) {
+        clearTimeout(voiceRegTimeoutRef.current);
+        voiceRegTimeoutRef.current = null;
+      }
     };
   }, []);
 
   // Greeting on mount
   useEffect(() => {
-    if (messages.length > 0) return;
+    if (hasGreetedRef.current || messages.length > 0) return;
     if (activeQuest) {
       const g = `Hello! I am ${teacher.name}, your mentor for this quest: "${activeQuest.title}". We will cover: ${activeQuest.desc}. What questions do you have about this topic?`;
       setMessages([{ role: 'assistant', content: g }]);
+      hasGreetedRef.current = true;
     } else if (careerProfile) {
       const score  = careerProfile?.ats_score||0;
       const streak = careerProfile?.mission_streak||0;
@@ -396,8 +510,9 @@ export default function AvatarMentorWidget({
         ? `Hi! I'm ${teacher.name}. Your Career Score is ${score}/100 — let's build it together. What shall we work on?`
         : `Welcome back! Score ${score}/100 · 🔥 ${streak}-day streak. How can I help today?`;
       setMessages([{ role: 'assistant', content: g }]);
+      hasGreetedRef.current = true;
     }
-  }, [careerProfile, activeQuest, teacher.name]);
+  }, [careerProfile, activeQuest, teacher.name, messages.length]);
 
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages, loading]);
 
@@ -409,6 +524,17 @@ export default function AvatarMentorWidget({
     '💼 Am I ready for job interviews?',
     ...mlRecs.slice(0,2).map(r => `${r.icon} Show me ${r.label.toLowerCase()} options`),
   ].slice(0, 5);
+
+  const speakReply = useCallback(async (text: string) => {
+    setSubtitle(text);
+    setSubtitleRole('assistant');
+    speakWithAvatar(
+      text,
+      teacherId,
+      () => setSpeaking(true),
+      () => setSpeaking(false)
+    );
+  }, [teacherId]);
 
   const sendMessage = useCallback(async (text?: string) => {
     const msg = (text || input).trim();
@@ -550,8 +676,8 @@ export default function AvatarMentorWidget({
 
     setLoading(true);
 
-    const emotionalCtx = emotionAI.getEmotionalContext(msg);
-    const historyForAPI = memory.getConversationContext(10)
+    const emotionalCtx = emotionAIRef.current.getEmotionalContext(msg);
+    const historyForAPI = memoryRef.current.getConversationContext(10)
       .map((c: { userMessage?: string; avatarResponse?: string; role?: string; content?: string }) =>
         c.userMessage
           ? [{ role:'user', content:c.userMessage }, { role:'assistant', content:c.avatarResponse }]
@@ -572,31 +698,23 @@ export default function AvatarMentorWidget({
       const { reply } = await res.json();
       const cleanReply = sanitizeLLMOutput(reply);
       setMessages(prev => [...prev, { role: 'assistant', content: cleanReply }]);
-      memory.storeConversation(msg, cleanReply, { emotion: emotionalCtx.detectedEmotion, engagement: 0.8 });
+      memoryRef.current.storeConversation(msg, cleanReply, { emotion: emotionalCtx.detectedEmotion, engagement: 0.8 });
       await speakReply(cleanReply);
     } catch {
       setMessages(prev => [...prev, { role: 'assistant', content: 'Connection issue. Please try again.' }]);
     } finally {
       setLoading(false);
     }
-  }, [input, loading, careerProfile, teacherId, memory, emotionAI, onTabShift]);
-
-
-  async function speakReply(text: string) {
-    setSubtitle(text);
-    setSubtitleRole('assistant');
-    speakWithAvatar(
-      text,
-      teacherId,
-      () => setSpeaking(true),
-      () => setSpeaking(false)
-    );
-  }
+  }, [input, loading, isConversing, onEnlarge, careerProfile, onTabShift, teacherId, activeQuest, speakReply]);
 
   // Keep track of latest speaking/loading states in refs to avoid stale closures in SpeechRecognition handlers
   const speakingRef = useRef(speaking);
   const loadingRef = useRef(loading);
   const conversingRef = useRef(isConversing);
+  const sendMessageRef = useRef(sendMessage);
+  const speakReplyRef = useRef(speakReply);
+  const onTabShiftRef = useRef(onTabShift);
+
   useEffect(() => {
     speakingRef.current = speaking;
   }, [speaking]);
@@ -606,11 +724,21 @@ export default function AvatarMentorWidget({
   useEffect(() => {
     conversingRef.current = isConversing;
   }, [isConversing]);
+  useEffect(() => {
+    sendMessageRef.current = sendMessage;
+  }, [sendMessage]);
+  useEffect(() => {
+    speakReplyRef.current = speakReply;
+  }, [speakReply]);
+  useEffect(() => {
+    onTabShiftRef.current = onTabShift;
+  }, [onTabShift]);
 
 
   // Background Speech Recognition for Wake Words with Echo Gate
   useEffect(() => {
     if (typeof window === 'undefined') return;
+    if (micDeniedRef.current) return;
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (!SpeechRecognition) return;
 
@@ -670,12 +798,16 @@ export default function AvatarMentorWidget({
               const buf = new Float32Array(analyser.fftSize);
               const freqData = new Float32Array(analyser.frequencyBinCount);
               pitchInterval = setInterval(() => {
+                if (!pitchAudioCtx || pitchAudioCtx.state === 'closed') {
+                  if (pitchInterval) clearInterval(pitchInterval);
+                  return;
+                }
                 if (speakingRef.current || loadingRef.current) return; // Echo gate
                 analyser.getFloatTimeDomainData(buf);
                 analyser.getFloatFrequencyData(freqData);
-                const pitch = detectPitch(buf, pitchAudioCtx!.sampleRate);
-                const { centroid, rolloff } = calculateSpectralFeatures(freqData, pitchAudioCtx!.sampleRate);
-                const mfccVector = extractMelFilterbank(freqData, pitchAudioCtx!.sampleRate);
+                const pitch = detectPitch(buf, pitchAudioCtx.sampleRate);
+                const { centroid, rolloff } = calculateSpectralFeatures(freqData, pitchAudioCtx.sampleRate);
+                const mfccVector = extractMelFilterbank(freqData, pitchAudioCtx.sampleRate);
 
                 if (pitch > 0) {
                   pitchHistoryRef.current.push(pitch);
@@ -723,7 +855,7 @@ export default function AvatarMentorWidget({
             if (!result.verified) {
               console.warn("[Voice Lock] Speaker identity mismatch:", result.reason);
               toast.error("Speaker Signature Mismatch 🔐", result.reason);
-              speakReply("Voice signature mismatch. Speaker identity does not match the registered owner.");
+              speakReplyRef.current("Voice signature mismatch. Speaker identity does not match the registered owner.");
               return;
             }
           }
@@ -734,7 +866,7 @@ export default function AvatarMentorWidget({
           // If we are in active conversation mode, send everything directly without requiring the wake word
           if (conversingRef.current) {
             console.log("[Conversing] Direct speech parsed:", transcript);
-            sendMessage(transcript);
+            sendMessageRef.current(transcript);
             return;
           }
 
@@ -772,14 +904,14 @@ export default function AvatarMentorWidget({
 
             // Strip fuzzy wake word prefixes cleanly from query
             const cleaned = transcript
-              .replace(/\b(hey|hi|hello)\b/gi, '')
+              .replace(/\b(hey|hay|hi|hello)\b/gi, '')
               .replace(new RegExp(`\\b(${matchedTeacherKey}|priya|preya|pria|prea|freeya|freya|riya|kashyap|kash|cash\\s*up|catch\\s*up|ketchup|karthic|karthik|kartik|nega|negga|maya|maia|mya|divya|divia)\\b`, 'gi'), '')
               .trim();
 
             if (cleaned.length > 0) {
               // ── Try Voice Navigation Engine first (multi-alternative scoring) ──
               const cleanedAlts = allAlternatives.map(alt =>
-                alt.replace(/\b(hey|hi|hello)\b/gi, '')
+                alt.replace(/\b(hey|hay|hi|hello)\b/gi, '')
                    .replace(new RegExp(`\\b(${matchedTeacherKey}|priya|preya|pria|prea|freeya|freya|riya|kashyap|kash|cash\\s*up|catch\\s*up|ketchup|karthic|karthik|kartik|nega|negga|maya|maia|mya|divya|divia)\\b`, 'gi'), '')
                    .trim()
               ).filter(a => a.length > 0);
@@ -792,9 +924,10 @@ export default function AvatarMentorWidget({
                 const confirmation = `Sure! Taking you to ${navResult.displayName} now.`;
                 setMessages(prev => [...prev, { role: 'user', content: cleaned }]);
                 setMessages(prev => [...prev, { role: 'assistant', content: confirmation }]);
-                speakReply(confirmation);
-                if (onTabShift) {
-                  setTimeout(() => { onTabShift(navResult.path); }, 800);
+                speakReplyRef.current(confirmation);
+                if (onTabShiftRef.current) {
+                  const navTarget = onTabShiftRef.current;
+                  setTimeout(() => { navTarget(navResult.path); }, 800);
                 }
               } else if (navResult.matched && navResult.confidence >= 0.4) {
                 // Medium confidence → ask for clarification
@@ -805,15 +938,15 @@ export default function AvatarMentorWidget({
                   : `I heard "${cleaned}". Did you mean ${top2[0].displayName}?`;
                 setMessages(prev => [...prev, { role: 'user', content: cleaned }]);
                 setMessages(prev => [...prev, { role: 'assistant', content: clarification }]);
-                speakReply(clarification);
+                speakReplyRef.current(clarification);
               } else {
                 // No navigation match → send to AI chat
-                sendMessage(cleaned);
+                sendMessageRef.current(cleaned);
               }
             } else {
               const greeting = `Yes, I am listening! How can I help you today?`;
               setMessages(prev => [...prev, { role: 'assistant', content: greeting }]);
-              speakReply(greeting);
+              speakReplyRef.current(greeting);
             }
           }
         };
@@ -822,6 +955,7 @@ export default function AvatarMentorWidget({
           if (err.error === 'not-allowed') {
             console.warn("Speech recognition access denied.");
             shouldListen = false;
+            micDeniedRef.current = true;
           }
         };
 
@@ -850,7 +984,7 @@ export default function AvatarMentorWidget({
       // Clean up pitch monitoring
       try { cleanupPitch(); } catch {}
     };
-  }, [teacherId, setIsMinimized, sendMessage, speaking, loading]);
+  }, [teacherId, setIsMinimized, speaking, loading]);
 
   // Auto-close (minimize) timer when not responding/speaking
   useEffect(() => {
@@ -875,7 +1009,7 @@ export default function AvatarMentorWidget({
     return () => {
       clearTimeout(timer);
     };
-  }, [loading, speaking, isMinimized, input, setIsMinimized, onlyAvatar]);
+  }, [loading, speaking, isMinimized, input, setIsMinimized, onlyAvatar, minimized]);
 
   if (isMinimized && !onlyAvatar) {
     return (

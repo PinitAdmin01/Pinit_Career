@@ -7,8 +7,17 @@ export async function POST(req: Request) {
     const denied = await requireAdminFromRequest(req);
     if (denied) return denied;
 
-    const { marks, studentId: bodyStudentId } = await req.json();
-    const studentId = bodyStudentId || 'admin';
+    const body = await req.json().catch(() => ({}));
+    const studentId = typeof body?.studentId === 'string' ? body.studentId.trim() : '';
+    if (!studentId) {
+      return NextResponse.json({ error: 'Valid studentId is required' }, { status: 400 });
+    }
+
+    const marks = body?.marks;
+    if (!marks || typeof marks !== 'object') {
+      return NextResponse.json({ error: 'Valid marks object is required' }, { status: 400 });
+    }
+
     const result = await examsService.submitMarks(studentId, marks);
     return NextResponse.json(result);
   } catch (err: any) {

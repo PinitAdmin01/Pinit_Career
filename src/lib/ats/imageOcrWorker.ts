@@ -59,37 +59,17 @@ export function extractTextFromImageBuffer(buffer: Buffer, fileName: string = 's
   const header = inspectImageHeader(buffer);
   console.log(`📸 [STAGE 3/12 - Image Geometry]: Format = ${header.format}${header.width ? `, Dimensions = ${header.width}x${header.height}` : ''}`);
 
-  // Extract embedded textual strings/metadata from image chunks (e.g. tEXt / zTXt in PNG, EXIF in JPEG)
-  const extractedLines: { text: string; confidence: number }[] = [];
-  const bufferAscii = buffer.toString('latin1');
-  const textPatternRegex = /[\x20-\x7E]{5,200}/g;
-  let match: RegExpExecArray | null;
-
-  while ((match = textPatternRegex.exec(bufferAscii)) !== null) {
-    const candidate = match[0].trim();
-    // Filter meaningful words (exclude binary entropy noise)
-    if (
-      /^[a-zA-Z0-9\s@.,:;/\-–+*#()&_]+$/.test(candidate) &&
-      candidate.split(' ').length >= 2 &&
-      !candidate.startsWith('Photoshop') &&
-      !candidate.startsWith('XML:') &&
-      !candidate.startsWith('Adobe')
-    ) {
-      extractedLines.push({ text: candidate, confidence: 0.90 });
-    }
-  }
-
-  const rawText = extractedLines.map(l => l.text).join('\n').trim();
-  const ocrConfidence = rawText.length > 50 ? 0.85 : rawText.length > 10 ? 0.60 : 0.30;
-  console.log(`✅ [STAGE 4/12 - Vision OCR Complete]: Decoded ${rawText.length} text chars (Confidence: ${ocrConfidence}).`);
+  // When no real Cloud Vision or local OCR engine is configured, return honest 0.0 confidence and empty text.
+  // Never scan raw binary bytes for printable ASCII characters.
+  console.warn(`⚠️ [STAGE 3/12 - Vision OCR]: Scanned/flat image requires OCR bridge (Cloud Vision / Tesseract) or a selectable text document.`);
 
   return {
-    rawText,
+    rawText: '',
     documentHash,
     imageFormat: header.format,
     width: header.width,
     height: header.height,
-    ocrConfidence,
-    lines: extractedLines
+    ocrConfidence: 0.0,
+    lines: []
   };
 }

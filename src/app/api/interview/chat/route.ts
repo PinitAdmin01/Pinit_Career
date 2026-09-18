@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { sanitizeLLMOutput } from '@/lib/sanitizeLLM';
+import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
+import { recordActiveLiveInterview } from '@/lib/interview/activeSessionRegistry';
 
 // Comprehensive Interviewer Persona Roster matching all frontend 3D VRoid Avatars
 const INTERVIEWERS_MAP: Record<string, { name: string; role: string; nature: string }> = {
@@ -76,10 +78,80 @@ const INTERVIEWERS_MAP: Record<string, { name: string; role: string; nature: str
   }
 };
 
+
+interface FallbackContext {
+  stage: string;
+  subTopic: string;
+  history: Array<{ role: string; content: string }>;
+  difficulty: string;
+  interviewerName: string;
+}
+
+export function generateProgressiveFallbackQuestion(ctx: FallbackContext): string {
+  const { stage, subTopic, history, difficulty, interviewerName } = ctx;
+
+  const pastAssistantMsgs = (history || [])
+    .filter(m => m.role === 'assistant')
+    .map(m => (m.content || '').toLowerCase());
+  const userTurns = (history || []).filter(m => m.role === 'user').length;
+
+  const STAGE_QUESTIONS: Record<string, string[]> = {
+    round1_behavioral: [
+      `Thank you for sharing your background. In your experience with ${subTopic}, could you tell me about the most demanding challenge you tackled and how you approached resolving it?`,
+      `Understood. When collaborating with stakeholders or cross-functional team members on ${subTopic}, how do you resolve conflicting priorities or technical disagreements?`,
+      `That provides good context. Could you describe a time when an initial plan or implementation in ${subTopic} did not go as expected, and what actionable lessons you took away?`,
+      `Great reflection. In high-pressure situations with tight deadlines, how do you balance technical excellence against shipping speed in ${subTopic}?`,
+      `To wrap up our behavioral discussion: Looking forward, what is an area within ${subTopic} where you are actively expanding your skills or pushing deeper expertise?`
+    ],
+    round2_coding: [
+      `Thank you for walking through that. Looking at your approach for ${subTopic}, what is the time and space complexity of your implementation, and could we optimize either?`,
+      `How would your solution behave on extreme edge cases, such as null/empty inputs, integer overflow, or massive dataset scale?`,
+      `If this code were executed concurrently by thousands of simultaneous threads, what concurrency issues or race conditions might arise, and how would you safeguard against them?`,
+      `How would you structure comprehensive unit and integration tests to verify this logic before deploying to production?`
+    ],
+    round3_systems: [
+      `Thank you. Let's analyze your architecture for ${subTopic}. Walk me through your data flow from the client edge gateway down to the persistent data store.`,
+      `Where do you foresee the primary throughput or storage bottlenecks under 10x traffic surge, and how does your caching and indexing strategy mitigate them?`,
+      `If your primary database or worker instance experiences an unrecoverable failure during peak hours, how does your system handle failover and data consistency?`,
+      `How do you monitor system health, latency SLAs, and error budgets across these distributed components in production?`
+    ],
+    round4_star: [
+      `Thank you. In this STAR defense round, let's establish the exact Situation and Task: What specific business objective or critical problem were you assigned in ${subTopic}?`,
+      `Now let's drill into the Action: What specific technical decisions and implementation steps did you personally drive, and what trade-offs did you accept?`,
+      `What were the quantifiable Results? What measurable metrics, business impact, or post-launch performance indicators demonstrated success?`,
+      `Looking back with 20/20 hindsight, what is one major decision in that project that you would execute differently today?`
+    ]
+  };
+
+  const candidates = STAGE_QUESTIONS[stage] || STAGE_QUESTIONS.round1_behavioral;
+
+  let selected = candidates[Math.min(userTurns, candidates.length - 1)];
+
+  for (const q of candidates) {
+    const snippet = q.slice(0, 35).toLowerCase();
+    const alreadyAsked = pastAssistantMsgs.some(past => past.includes(snippet));
+    if (!alreadyAsked) {
+      selected = q;
+      break;
+    }
+  }
+
+  return `${selected} — ${interviewerName}`;
+}
+
 export async function POST(req: Request) {
   console.log('[Interview Chat API] Incoming request received at /api/interview/chat');
   
   try {
+    const ip = getClientIp(req);
+    const rl = checkRateLimit(`llm_${ip}`, { limit: 30, windowMs: 60_000 });
+    if (!rl.allowed) {
+      return NextResponse.json(
+        { error: 'RATE_LIMIT', message: 'Too many requests. Wait a moment.' },
+        { status: 429, headers: { 'Retry-After': String(rl.resetSec) } }
+      );
+    }
+
     // 1. Authenticate Request via Bearer Token
     const gated = await requireUserFromRequest(req);
     if (gated.error) {
@@ -104,7 +176,10 @@ export async function POST(req: Request) {
     const stream = domainStream === 'non_tech' ? 'non_tech' : 'tech';
     const subTopic = (customTopic || domainSubTopic || (stream === 'non_tech' ? 'Finance & Strategy' : 'Software Engineering')).toUpperCase();
 
-    console.log(`[Interview Chat API] Authenticated User: ${gated.user.id} | Interviewer: ${selectedInterviewer.name} (${interviewerId}) | Stage: ${stage} | Topic: ${subTopic}`);
+        console.log(`[Interview Chat API] Authenticated User: ${gated.user.id} | Interviewer: ${selectedInterviewer.name} (${interviewerId}) | Stage: ${stage} | Topic: ${subTopic}`);
+    if (gated.user?.id) {
+      recordActiveLiveInterview(gated.user.id, subTopic, stage || 'round1_behavioral');
+    }
 
     // 2. Build Difficulty Context
     let difficultyPrompt = '';
@@ -145,8 +220,13 @@ export async function POST(req: Request) {
 
     // 5. Telemetry Context (Advisory)
     let telemetryContext = '';
-    if (telemetry) {
-      telemetryContext = `[Diagnostic Signal: WPM: ${telemetry.wpm || 125}, Filler Words: ${telemetry.fillerWords || 0}]. Maintain crisp verbal engagement.`;
+    const hasWpm = typeof telemetry?.wpm === 'number' && !isNaN(telemetry.wpm) && telemetry.wpm > 0;
+    const hasFillerWords = typeof telemetry?.fillerWords === 'number' && !isNaN(telemetry.fillerWords);
+    if (hasWpm || hasFillerWords) {
+      const parts: string[] = [];
+      if (hasWpm) parts.push(`WPM: ${telemetry.wpm}`);
+      if (hasFillerWords) parts.push(`Filler Words: ${telemetry.fillerWords}`);
+      telemetryContext = `[Diagnostic Signal: ${parts.join(', ')}]. Maintain crisp verbal engagement.`;
     }
 
     const systemPrompt = `You are ${selectedInterviewer.name}, ${selectedInterviewer.role}. ${selectedInterviewer.nature}.
@@ -174,7 +254,112 @@ RULES:
       ? history.map((h: any) => ({ role: h.role === 'assistant' ? 'assistant' : 'user', content: String(h.content || '') }))
       : [];
 
-    // Attempt Groq Multi-Key Pool
+    const wantsStream = Boolean(body.stream) || Boolean(body.streaming) || Boolean(req.headers.get('accept')?.includes('text/event-stream'));
+
+    // 7. If client requested SSE streaming, attempt streaming Groq inference
+    if (wantsStream) {
+      for (const key of groqKeys) {
+        try {
+          console.log(`[Interview Chat API] Attempting streaming Groq inference with key ending in ...${key.slice(-4)}`);
+          const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${key}`
+            },
+            body: JSON.stringify({
+              model: 'llama-3.1-8b-instant',
+              messages: [
+                { role: 'system', content: systemPrompt },
+                ...formattedHistory
+              ],
+              max_tokens: 280,
+              temperature: 0.7,
+              stream: true
+            }),
+            signal: AbortSignal.timeout(3500)
+          });
+
+          if (res.ok && res.body) {
+            console.log('[Interview Chat API] Streaming Groq connection established');
+            const encoder = new TextEncoder();
+            const decoder = new TextDecoder();
+            const groqReader = res.body.getReader();
+
+            const streamResponse = new ReadableStream({
+              async start(controller) {
+                let buffer = '';
+                try {
+                  while (true) {
+                    const { done, value } = await groqReader.read();
+                    if (done) break;
+                    buffer += decoder.decode(value, { stream: true });
+                    const lines = buffer.split('\n');
+                    buffer = lines.pop() || '';
+
+                    for (const line of lines) {
+                      const trimmed = line.trim();
+                      if (!trimmed || trimmed.startsWith(':')) continue;
+                      if (trimmed === 'data: [DONE]') {
+                        controller.enqueue(encoder.encode('data: [DONE]\n\n'));
+                        controller.close();
+                        return;
+                      }
+                      if (trimmed.startsWith('data: ')) {
+                        try {
+                          const json = JSON.parse(trimmed.slice(6));
+                          const token = json.choices?.[0]?.delta?.content;
+                          if (token) {
+                            controller.enqueue(encoder.encode(`data: ${JSON.stringify({ token })}\n\n`));
+                          }
+                        } catch {
+                          // Ignore parse error on partial chunks
+                        }
+                      }
+                    }
+                  }
+                  controller.enqueue(encoder.encode('data: [DONE]\n\n'));
+                  controller.close();
+                } catch (streamErr) {
+                  controller.error(streamErr);
+                }
+              }
+            });
+
+            return new Response(streamResponse, {
+              headers: {
+                'Content-Type': 'text/event-stream; charset=utf-8',
+                'Cache-Control': 'no-cache, no-transform',
+                'Connection': 'keep-alive',
+                'X-Accel-Buffering': 'no'
+              }
+            });
+          }
+        } catch (streamAttemptErr: any) {
+          console.warn('[Interview Chat API] Groq streaming key failed:', streamAttemptErr?.message);
+        }
+      }
+
+      // If streaming Groq was offline, stream the deterministic fallback
+      const fallback = generateProgressiveFallbackQuestion({ stage: stage || 'round1_behavioral', subTopic, history: formattedHistory, difficulty: difficulty || 'normal', interviewerName: selectedInterviewer.name });
+      const encoder = new TextEncoder();
+      const fallbackStream = new ReadableStream({
+        start(controller) {
+          controller.enqueue(encoder.encode(`data: ${JSON.stringify({ token: fallback })}\n\n`));
+          controller.enqueue(encoder.encode('data: [DONE]\n\n'));
+          controller.close();
+        }
+      });
+      return new Response(fallbackStream, {
+        headers: {
+          'Content-Type': 'text/event-stream; charset=utf-8',
+          'Cache-Control': 'no-cache, no-transform',
+          'Connection': 'keep-alive'
+        }
+      });
+    }
+
+    // Attempt Groq Multi-Key Pool with ultra-fast 8B conversational model and 3.5s timeout (Non-Streaming JSON)
     for (const key of groqKeys) {
       try {
         console.log(`[Interview Chat API] Attempting Groq inference with key ending in ...${key.slice(-4)}`);
@@ -185,14 +370,15 @@ RULES:
             'Authorization': `Bearer ${key}`
           },
           body: JSON.stringify({
-            model: 'llama-3.3-70b-versatile',
+            model: 'llama-3.1-8b-instant',
             messages: [
               { role: 'system', content: systemPrompt },
               ...formattedHistory
             ],
             max_tokens: 280,
             temperature: 0.7
-          })
+          }),
+          signal: AbortSignal.timeout(3500)
         });
 
         if (res.ok) {
@@ -230,7 +416,8 @@ RULES:
             ],
             max_tokens: 280,
             temperature: 0.7
-          })
+          }),
+          signal: AbortSignal.timeout(4000)
         });
 
         if (res.ok) {
@@ -246,7 +433,7 @@ RULES:
     // Deterministic fallback if all external LLMs are offline
     if (!reply) {
       console.warn('[Interview Chat API] External LLMs unavailable, using contextual deterministic fallback');
-      reply = `Thank you for sharing that. As we look at ${subTopic}, could you walk me through your technical approach and how you handle unexpected production trade-offs? — ${selectedInterviewer.name}`;
+      reply = generateProgressiveFallbackQuestion({ stage: stage || 'round1_behavioral', subTopic, history: formattedHistory, difficulty: difficulty || 'normal', interviewerName: selectedInterviewer.name });
     }
 
     const sanitizedReply = sanitizeLLMOutput(reply);

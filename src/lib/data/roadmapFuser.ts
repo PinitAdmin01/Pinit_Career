@@ -25,6 +25,8 @@ export interface DynamicRoadmapModule {
   personalizedPaceTag: string;
   knowledgeAdaptationTag: string;
   associatedCompetencyIds?: string[];
+  isPreliminaryRoadmap?: boolean;
+  diagnosticNotice?: string;
   quests: (CourseQuest & {
     fastTracked?: boolean;
     reinforcementNeeded?: boolean;
@@ -43,9 +45,16 @@ export interface DynamicRoadmapModule {
  * Formula: Roadmap = QT1 (Knowledge) + QT2 (Mindset) + Goal + Academic Course
  */
 export function generateDynamicStudentRoadmap(params: DynamicRoadmapParams): DynamicRoadmapModule[] {
+  const isDefaultQT1 = params.qt1 === undefined || params.qt1 === null;
+  const isDefaultQT2 = params.qt2 === undefined || params.qt2 === null;
+  const isPreliminaryRoadmap = isDefaultQT1 || isDefaultQT2;
+  const diagnosticNotice = isPreliminaryRoadmap
+    ? '⚠️ Missing diagnostic assessment scores: calibrated to beginner baseline (40/100). Take diagnostic assessment to personalize.'
+    : undefined;
+
   const {
-    qt1 = 75,
-    qt2 = 80,
+    qt1 = 40,
+    qt2 = 40,
     archetype = 'Pattern Hunter',
     goal = '',
     courseId,
@@ -160,6 +169,8 @@ export function generateDynamicStudentRoadmap(params: DynamicRoadmapParams): Dyn
       estimatedWeeks: Math.ceil((moduleDaysEnd - moduleDaysStart + 1) / 7),
       personalizedPaceTag: isMixedGoal ? `🎯 Target Goal: ${targetRole}` : mindsetTag,
       knowledgeAdaptationTag: knowledgeTag,
+      isPreliminaryRoadmap,
+      diagnosticNotice,
       quests: chunk
     });
 

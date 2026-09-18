@@ -1,24 +1,31 @@
 // src/lib/ats/qt2AnalysisEngine.ts
 /**
  * ============================================================================
- * QT2 COGNITIVE ARCHITECTURE, BEHAVIORAL MINDSET & INTEGRITY ANALYSIS ENGINE
+ * QT2 VERIFIED EXECUTION & EVIDENCE PROFILE ENGINE
  * ============================================================================
  * 
- * Purpose:
- * Evaluates candidate QT2 (System-2 Cognitive & Behavioral Quotient, 0-100)
- * using deterministic mathematical modeling and semantic evidence grounding.
+ * METHODOLOGICAL TRANSPARENCY NOTICE:
+ * Document analysis evaluates DEMONSTRATED TECHNICAL FOCUS & VERIFIED EVIDENCE
+ * (e.g. Systems Architecture, Quality & Reliability, Team Collaboration, 
+ * Product & Prototyping) based on verified skills, projects, and academic records.
+ * 
+ * It is NOT an innate psychological or psychometric personality instrument.
+ * Genuine psychometric evaluation requires standardized behavioral assessments;
+ * document vault analysis measures verified professional artifacts and academic trajectory.
  * 
  * CORE LAWS:
  * 1. ZERO EVIDENCE = ZERO SCORE: If a user has uploaded 0 documents and answered
  *    0 diagnostic simulation quests, QT2 is strictly 0/100. Never invent numbers.
- * 2. DIMENSIONS SUM TO 100%: The 4 archetypes (Pattern Hunter, Stabilizer, Social IQ, Explorer)
+ * 2. DIMENSIONS SUM TO 100%: The 4 dimensions (Pattern Hunter, Stabilizer, Social IQ, Explorer)
  *    represent a percentage distribution and must sum to exactly 100% when data exists, or all 0% when uncalibrated.
  * 3. FACTOR SCORES NEVER EXCEED WEIGHTS: Each pillar score cannot exceed its defined max weight:
- *    - Mindset Disposition: 0 - 35 pts
+ *    - Demonstrated Execution Focus: 0 - 35 pts
  *    - Execution Rigor & Impact: 0 - 25 pts
  *    - Sentinel Identity & Authenticity: 0 - 25 pts
  *    - Longitudinal Growth & Trajectory: 0 - 15 pts
  *    - Total Max: 100 pts
+ * 4. STRICT CONTENT BOUNDARIES: File names (e.g. 'latest.pdf', 'test.pdf') are NEVER
+ *    scanned for behavioral signals. Only extracted document text and provenance snippets count.
  */
 
 import { VaultDocumentSlot, IdentityAuditReport } from './documentAuditEngine';
@@ -59,34 +66,114 @@ export interface QT2ModelEvaluation {
   };
 }
 
-const BEHAVIORAL_LEXICONS = {
+/**
+ * Strict regex patterns with word boundaries (\b) and negative lookaround assertions
+ * to prevent substring false positives ('test' in 'latest', 'lead' in 'misleading', 'sql' in 'mysql').
+ */
+const BEHAVIORAL_PATTERNS = {
   patternHunter: [
-    'algorithm', 'optimization', 'complexity', 'data structure', 'system architecture',
-    'database', 'query', 'latency', 'throughput', 'distributed', 'scalable', 'concurrency',
-    'machine learning', 'analytics', 'benchmark', 'c++', 'python', 'sql', 'postgresql',
-    'backend', 'data pipeline', 'mathematics', 'modeling', 'profiling', 'reduced latency'
+    /\balgorithms?\b/i,
+    /\boptimiz(?:ation|e|ing|ed)\b/i,
+    /\bcomplexity\b/i,
+    /\bdata\s+structures?\b/i,
+    /\bsystem\s+architectures?\b/i,
+    /\bdatabases?\b/i,
+    /\bquer(?:y|ies)\b/i,
+    /\blatenc(?:y|ies)\b/i,
+    /\bthroughput\b/i,
+    /\bdistributed\s+(?:systems?|computing|architecture|storage)?\b/i,
+    /\bscalab(?:le|ility)\b/i,
+    /\bconcurren(?:t|cy)\b/i,
+    /\bmachine\s+learning\b|\bml\b/i,
+    /\banalytics?\b/i,
+    /\bbenchmark(?:s|ing)?\b/i,
+    /(?:\b|\s)c\+\+(?:[\s,.]|$)/i,
+    /\bpython\b/i,
+    /(?<!my|postgre|p)\bsql\b/i,
+    /\bpostgres(?:ql)?\b/i,
+    /\bbackend\b/i,
+    /\bdata\s+pipelines?\b/i,
+    /\bmathematic(?:s|al)?\b/i,
+    /\bmodeling\b/i,
+    /\bprofiling\b/i,
+    /\breduced\s+latency\b/i
   ],
   stabilizer: [
-    'test', 'unit test', 'integration test', 'jest', 'cypress', 'docker', 'ci/cd',
-    'kubernetes', 'devops', 'security', 'auth', 'compliance', 'monitoring', 'reliability',
-    'fault-tolerant', 'refactor', 'documentation', 'governance', 'lint', 'production ready',
-    'defensive', 'error handling', 'sanity check', 'infrastructure', 'audit'
+    /\b(?:unit\s+tests?|integration\s+tests?|automated\s+tests?|test\s+suites?|test\s+automation|tdd|e2e\s+testing|testing|tested)\b|\btests?\b(?![\w])/i,
+    /\bunit\s+tests?\b/i,
+    /\bintegration\s+tests?\b/i,
+    /\bjest\b/i,
+    /\bcypress\b/i,
+    /\bdocker\b/i,
+    /\bci\s*\/\s*cd\b/i,
+    /\bkubernetes\b|\bk8s\b/i,
+    /\bdevops\b/i,
+    /\bsecurity\b/i,
+    /\b(?:auth|authentication|authorization|oauth2?|jwt)\b/i,
+    /\bcompliance\b/i,
+    /\bmonitoring\b/i,
+    /\breliabilit(?:y|ies)\b/i,
+    /\bfault[\s\-]tolerant\b/i,
+    /\brefactor(?:ing|ed|s)?\b/i,
+    /\bdocumentation\b/i,
+    /\bgovernance\b/i,
+    /\blint(?:ing|er|ers)?\b/i,
+    /\bproduction[\s\-]ready\b/i,
+    /\bdefensive\b/i,
+    /\berror\s+handling\b/i,
+    /\bsanity\s+checks?\b/i,
+    /\binfrastructure\b/i,
+    /\baudit(?:s|ing|ed)?\b/i
   ],
   socialIQ: [
-    'lead', 'leader', 'mentored', 'collaborated', 'cross-functional', 'stakeholder',
-    'presentation', 'client', 'agile', 'scrum', 'code review', 'negotiation', 'communication',
-    'partnered', 'team', 'organized', 'workshop', 'facilitated', 'empathy', 'product manager'
+    /\b(?:lead|leader|leaders|leadership|led|team\s+lead)\b/i,
+    /\bmentor(?:ed|ing|s)?\b/i,
+    /\bcollaborat(?:ed|ing|ion|ive|es)?\b/i,
+    /\bcross[\s\-]functional\b/i,
+    /\bstakeholders?\b/i,
+    /\bpresentations?\b/i,
+    /\bclients?\b/i,
+    /\bagile\b/i,
+    /\bscrum\b/i,
+    /\bcode\s+reviews?\b/i,
+    /\bnegotiat(?:ion|ing|ed)?\b/i,
+    /\bcommunication\b/i,
+    /\bpartnered\b/i,
+    /\bteams?\b/i,
+    /\borganiz(?:ed|ing|ation)\b/i,
+    /\bworkshops?\b/i,
+    /\bfacilitat(?:ed|ing|or)?\b/i,
+    /\bempath(?:y|etic)\b/i,
+    /\bproduct\s+managers?\b|\bpm\b/i
   ],
   explorer: [
-    'hackathon', 'winner', 'prototype', 'mvp', 'experiment', 'open-source', 'founder',
-    'startup', 'novel', 'research', 'innovation', 'cutting-edge', 'llm', 'generative ai',
-    'agent', 'side project', 'shipped', 'rapid', 'built from scratch', 'zero to one'
+    /\bhackathons?\b/i,
+    /\bwinners?\b/i,
+    /\bprototypes?\b/i,
+    /\bmvp\b/i,
+    /\bexperiment(?:s|al|ing|ed)?\b/i,
+    /\bopen[\s\-]source\b/i,
+    /\bfounders?\b/i,
+    /\bstartups?\b/i,
+    /\bnovel\b/i,
+    /\bresearch(?:er|ing)?\b/i,
+    /\binnovat(?:ion|ive|or)?\b/i,
+    /\bcutting[\s\-]edge\b/i,
+    /\bllms?\b/i,
+    /\bgenerative\s+ai\b|\bgenai\b/i,
+    /\bagents?\b/i,
+    /\bside\s+projects?\b/i,
+    /\bshipped\b/i,
+    /\brapid(?:ly)?\b/i,
+    /\bbuilt\s+from\s+scratch\b/i,
+    /\bzero\s+to\s+one\b/i
   ]
 };
 
 const HIGH_IMPACT_VERBS = [
-  'architected', 'spearheaded', 'engineered', 'optimized', 'deployed', 'scaled',
-  'automated', 'built', 'reduced', 'increased', 'developed', 'designed', 'orchestrated'
+  /\barchitected\b/i, /\bspearheaded\b/i, /\bengineered\b/i, /\boptimized\b/i,
+  /\bdeployed\b/i, /\bscaled\b/i, /\bautomated\b/i, /\bbuilt\b/i, /\breduced\b/i,
+  /\bincreased\b/i, /\bdeveloped\b/i, /\bdesigned\b/i, /\borchestrated\b/i
 ];
 
 /**
@@ -99,29 +186,36 @@ export function evaluateQT2Model(
     totalDocuments: 0,
     verifiedCount: 0,
     mismatchCount: 0,
-    overallStatus: 'SENTINEL_CLEAN',
-    trustScore: 100,
+    overallStatus: 'AWAITING_UPLOADS',
+    trustScore: 0,
     conflictingDocuments: [],
-    identityConsistencyPercentage: 100
+    identityConsistencyPercentage: 0
   },
   simulationScores?: Record<string, number>,
   identityScores?: Record<string, number>,
   voiceArchetype?: string | null
 ): QT2ModelEvaluation {
-  const docCount = documents.length;
-  const hasDocs = docCount > 0;
+  // Only count content-bearing readable documents
+  const readableDocs = documents.filter(d =>
+    (Array.isArray(d.provenanceRecords) && d.provenanceRecords.length > 0) ||
+    (Array.isArray(d.skills) && d.skills.length > 0) ||
+    (!!d.candidateName && d.candidateName.toLowerCase() !== 'candidate') ||
+    (!!d.scoreOrGpa && !d.scoreOrGpa.includes('Credential') && !d.scoreOrGpa.includes('Marksheet'))
+  );
+  const docCount = readableDocs.length;
+  const hasRealDocs = docCount > 0;
 
   // Check if candidate has actually completed simulation questions with positive choices
   const hasSimulations = !!simulationScores && Object.values(simulationScores).some(score => (score || 0) > 0);
 
-  // RULE 1: STRICT ZERO BASELINE IF NO EVIDENCE AND NO SIMULATIONS COMPLETED
-  if (!hasDocs && !hasSimulations) {
+  // RULE 1: STRICT ZERO BASELINE IF NO GENUINE EVIDENCE AND NO SIMULATIONS COMPLETED
+  if (!hasRealDocs && !hasSimulations) {
     return {
       compositeScore: 0,
       dimensions: { patternHunter: 0, stabilizer: 0, socialIQ: 0, explorer: 0 },
       dominantArchetype: 'Pending Evidence',
       archetypeBlendTitle: 'Awaiting Diagnostic Calibration',
-      archetypeDescription: 'No documents uploaded or simulation quests passed yet. Upload a resume, marksheet, or certification to calibrate your live QT2 score.',
+      archetypeDescription: 'No verified documents uploaded or simulation quests passed yet. Upload a readable resume, marksheet, or certification to calibrate your live QT2 score.',
       selfAwarenessIndex: 0,
       selfAwarenessLabel: 'Pending Assessment',
       executionRigorScore: 0,
@@ -129,16 +223,16 @@ export function evaluateQT2Model(
       longitudinalGrowthScore: 0,
       evaluatedDataPoints: 0,
       factors: [
-        { pillar: 'Cognitive Mindset Disposition', weight: 35, score: 0, maxScore: 35, details: '0 simulation quests completed; 0 document signals.' },
-        { pillar: 'Execution Rigor & Impact', weight: 25, score: 0, maxScore: 25, details: '0 documents uploaded for action verb & project depth analysis.' },
-        { pillar: 'Identity & Sentinel Integrity', weight: 25, score: 0, maxScore: 25, details: '0 credential files submitted for anti-fraud name validation.' },
+        { pillar: 'Demonstrated Execution Focus', weight: 35, score: 0, maxScore: 35, details: '0 simulation quests completed; 0 document signals.' },
+        { pillar: 'Execution Rigor & Impact', weight: 25, score: 0, maxScore: 25, details: '0 readable documents uploaded for action verb & project depth analysis.' },
+        { pillar: 'Identity & Sentinel Integrity', weight: 25, score: 0, maxScore: 25, details: '0 verified credential files submitted for anti-fraud name validation.' },
         { pillar: 'Longitudinal Growth & Trajectory', weight: 15, score: 0, maxScore: 15, details: '0 academic marksheet records provided.' }
       ],
       behavioralSignals: { algorithmicDepth: 0, reliabilityStandards: 0, collaborationLeadership: 0, experimentationVelocity: 0 }
     };
   }
 
-  // --- 1. EXTRACT BEHAVIORAL SEMANTIC SIGNALS ---
+  // --- 1. EXTRACT DEMONSTRATED TECHNICAL & EXECUTION SIGNALS ---
   let rawPH = 0;
   let rawST = 0;
   let rawSQ = 0;
@@ -147,34 +241,47 @@ export function evaluateQT2Model(
   let allExtractedSkillsCount = 0;
   let projectDepthCount = 0;
 
-  documents.forEach(doc => {
+  readableDocs.forEach(doc => {
     allExtractedSkillsCount += doc.skills?.length || 0;
-    const corpus = `${doc.title} ${doc.fileName} ${doc.institution || ''} ${doc.scoreOrGpa || ''} ${(doc.skills || []).join(' ')}`.toLowerCase();
-    const provSnippets = (doc.provenanceRecords || []).map(p => p.sourceTextSnippet.toLowerCase()).join(' ');
-    const combinedText = `${corpus} ${provSnippets}`;
 
-    BEHAVIORAL_LEXICONS.patternHunter.forEach(term => {
-      if (combinedText.includes(term)) rawPH += 1;
-    });
-    BEHAVIORAL_LEXICONS.stabilizer.forEach(term => {
-      if (combinedText.includes(term)) rawST += 1;
-    });
-    BEHAVIORAL_LEXICONS.socialIQ.forEach(term => {
-      if (combinedText.includes(term)) rawSQ += 1;
-    });
-    BEHAVIORAL_LEXICONS.explorer.forEach(term => {
-      if (combinedText.includes(term)) rawEX += 1;
-    });
-
-    HIGH_IMPACT_VERBS.forEach(verb => {
-      if (combinedText.includes(verb)) impactVerbCount += 1;
-    });
-
-    if (doc.category === 'resume' || doc.category === 'achievement') {
-      projectDepthCount += 2;
-    } else {
-      projectDepthCount += 1;
+    // CRITICAL: NEVER include doc.fileName! File names are not student skills or behavioral evidence.
+    const contentParts: string[] = [];
+    if (doc.title && !['resume', 'document', 'marksheet', 'certificate', 'file'].includes(doc.title.toLowerCase().trim())) {
+      contentParts.push(doc.title);
     }
+    if (doc.institution) {
+      contentParts.push(doc.institution);
+    }
+    if (Array.isArray(doc.skills) && doc.skills.length > 0) {
+      contentParts.push(doc.skills.join(' '));
+    }
+    if (Array.isArray(doc.provenanceRecords)) {
+      doc.provenanceRecords.forEach(p => {
+        if (p.sourceTextSnippet) contentParts.push(p.sourceTextSnippet);
+        if ((p as any).field === 'Project' || (p as any).field === 'PROJECT' || p.sourceSection === 'PROJECTS' || (p as any).entityType === 'PROJECT') {
+          projectDepthCount += 1;
+        }
+      });
+    }
+    const combinedText = contentParts.join(' ').toLowerCase();
+
+    // Match distinct indicators using word-boundary regexes
+    BEHAVIORAL_PATTERNS.patternHunter.forEach(regex => {
+      if (regex.test(combinedText)) rawPH += 1;
+    });
+    BEHAVIORAL_PATTERNS.stabilizer.forEach(regex => {
+      if (regex.test(combinedText)) rawST += 1;
+    });
+    BEHAVIORAL_PATTERNS.socialIQ.forEach(regex => {
+      if (regex.test(combinedText)) rawSQ += 1;
+    });
+    BEHAVIORAL_PATTERNS.explorer.forEach(regex => {
+      if (regex.test(combinedText)) rawEX += 1;
+    });
+
+    HIGH_IMPACT_VERBS.forEach(regex => {
+      if (regex.test(combinedText)) impactVerbCount += 1;
+    });
   });
 
   // Blend in live simulation scores if completed
@@ -226,73 +333,141 @@ export function evaluateQT2Model(
   if (primaryTrait.score >= 50) {
     blendTitle = `Dominant ${primaryTrait.key} (${primaryTrait.score}%)`;
   }
-  const blendDescription = `Demonstrates primary cognitive affinity for ${primaryTrait.key} methodologies supported by ${secondaryTrait.key} execution across verified evidence.`;
+  const blendDescription = `Demonstrates primary demonstrated execution focus on ${primaryTrait.key} supported by ${secondaryTrait.key} capabilities across verified evidence.`;
 
-  // --- 2. EVALUATE 4 PILLARS (STRICT CEILINGS) ---
+  // --- 2. EVALUATE 4 PILLARS (STRICT CEILINGS & REAL EVIDENCE GROUNDING) ---
 
-  // PILLAR 1: Mindset Disposition (0 - 35 pts)
-  // Evaluates the breadth and richness of demonstrated behavioral signals
+  // PILLAR 1: Demonstrated Execution Focus (0 - 35 pts)
+  // No artificial floor! Score scales proportionally with verified evidence density and simulation completion.
   let scoreMindset = 0;
   if (totalWeight > 0) {
     const signalRichness = Math.min(20, totalWeight * 2);
-    const balanceBonus = (primaryTrait.score < 60) ? 12 : 8; // Reward versatile balanced engineering
-    scoreMindset = Math.min(35, Math.max(10, signalRichness + balanceBonus));
+    const simBonus = hasSimulations ? Math.min(10, Object.keys(simulationScores || {}).length * 2.5) : 0;
+    const balanceBonus = totalWeight >= 4 ? ((primaryTrait.score < 60) ? 5 : 3) : 0;
+    scoreMindset = Math.min(35, Math.round(signalRichness + simBonus + balanceBonus));
   }
 
   // PILLAR 2: Execution Rigor & Impact (0 - 25 pts)
-  // Evaluates action verbs, skills, and grounded projects
   let scoreRigor = 0;
-  if (hasDocs) {
+  if (hasRealDocs) {
     const verbPts = Math.min(10, impactVerbCount * 2);
     const skillPts = Math.min(10, allExtractedSkillsCount * 1.5);
     const projectPts = Math.min(5, projectDepthCount * 2.5);
-    scoreRigor = Math.min(25, Math.max(5, Math.round(verbPts + skillPts + projectPts)));
+    scoreRigor = Math.min(25, Math.round(verbPts + skillPts + projectPts));
   }
 
   // PILLAR 3: Sentinel Identity & Authenticity (0 - 25 pts)
-  // Cross-validates detected names against authenticated profile anchor
+  // Replaces flat 25/25 with verification-level based integrity:
+  // Requires institutional credentials (STRUCTURALLY_VALIDATED, THIRD_PARTY_VERIFIED, CROSS_VALIDATED) for full points.
   let scoreIntegrity = 0;
-  if (hasDocs) {
+  if (hasRealDocs) {
     if (auditReport.mismatchCount > 0) {
-      scoreIntegrity = Math.max(5, 25 - (auditReport.mismatchCount * 12));
+      scoreIntegrity = Math.max(0, 25 - (auditReport.mismatchCount * 12));
     } else {
-      scoreIntegrity = docCount >= 2 ? 25 : 18; // 1 doc = 18 baseline, 2+ docs = 25 verified
+      const hasInstitutional = readableDocs.some(d =>
+        d.verificationLevel === 'STRUCTURALLY_VALIDATED' ||
+        d.verificationLevel === 'THIRD_PARTY_VERIFIED' ||
+        d.verificationLevel === 'CROSS_VALIDATED' ||
+        d.verificationLevel === 'INSTITUTION_VERIFIED'
+      );
+      if (readableDocs.length >= 2 && hasInstitutional) {
+        scoreIntegrity = 25;
+      } else if (readableDocs.length >= 2) {
+        scoreIntegrity = 14; // Provisional baseline for multiple self-submitted unverified documents
+      } else {
+        scoreIntegrity = hasInstitutional ? 15 : 10;
+      }
     }
   }
 
   // PILLAR 4: Longitudinal Growth & Trajectory (0 - 15 pts)
-  // Tracks academic marksheet GPA curve and verified credentials
+  // Calculates REAL GPA DELTA across chronological semester marksheets.
   let scoreGrowth = 0;
-  if (hasDocs) {
-    const semDocs = documents.filter(d => d.category.startsWith('sem'));
-    if (semDocs.length >= 2) {
-      scoreGrowth = 15;
-    } else if (documents.some(d => d.category === 'certification' || d.category === 'achievement')) {
-      scoreGrowth = 12;
-    } else {
-      scoreGrowth = 8; // Base single-resume trajectory
+  let growthDetails = '0 academic marksheet records provided.';
+
+  if (hasRealDocs) {
+    const semRecords: { semNum: number; gpa: number; category: string }[] = [];
+
+    readableDocs.forEach(d => {
+      const isSem = d.category.startsWith('sem') || /semester\s*(\d+)/i.test(d.title);
+      if (isSem && d.scoreOrGpa) {
+        const gpaMatch = d.scoreOrGpa.match(/(\d+(?:\.\d+)?)/);
+        if (gpaMatch) {
+          const num = parseFloat(gpaMatch[1]);
+          if (!isNaN(num) && num > 0 && num <= 10.0) {
+            const semNumMatch = d.category.match(/sem(\d+)/i) || d.title.match(/semester\s*(\d+)/i);
+            const semNum = semNumMatch ? parseInt(semNumMatch[1], 10) : semRecords.length + 1;
+            semRecords.push({ semNum, gpa: num, category: d.category });
+          }
+        }
+      }
+    });
+
+    semRecords.sort((a, b) => a.semNum - b.semNum);
+
+    if (semRecords.length >= 2) {
+      const earliest = semRecords[0].gpa;
+      const latest = semRecords[semRecords.length - 1].gpa;
+      const delta = Math.round((latest - earliest) * 100) / 100;
+
+      if (delta >= 0.3) {
+        // Significant upward academic trajectory
+        scoreGrowth = Math.min(15, 12 + Math.round(delta * 2));
+        growthDetails = `Upward academic trajectory verified (+${delta.toFixed(2)} GPA delta across ${semRecords.length} semesters).`;
+      } else if (delta >= -0.2 && latest >= 8.5) {
+        // Sustained high academic excellence
+        scoreGrowth = 14;
+        growthDetails = `Sustained academic excellence verified (${latest.toFixed(2)} GPA across ${semRecords.length} semesters).`;
+      } else if (delta >= -0.3) {
+        // Stable academic performance
+        scoreGrowth = 9;
+        growthDetails = `Stable academic trajectory verified (${delta >= 0 ? '+' : ''}${delta.toFixed(2)} GPA delta across ${semRecords.length} semesters).`;
+      } else {
+        // Academic decline (e.g. 9.20 -> 6.10: delta = -3.10)
+        scoreGrowth = Math.max(2, Math.min(5, 5 + Math.round(delta)));
+        growthDetails = `Academic trajectory shows significant decline (${delta.toFixed(2)} GPA delta from Sem ${semRecords[0].semNum} to Sem ${semRecords[semRecords.length - 1].semNum}).`;
+      }
+    } else if (semRecords.length === 1) {
+      scoreGrowth = semRecords[0].gpa >= 8.0 ? 7 : 5;
+      growthDetails = `1 academic semester record verified (${semRecords[0].gpa.toFixed(2)} GPA). Upload additional semesters for trajectory analysis.`;
+    } else if (readableDocs.some(d => d.category === 'certification' || d.category === 'achievement')) {
+      scoreGrowth = 8;
+      growthDetails = 'Verified professional certification / upskilling credentials grounded.';
+    } else if (readableDocs.some(d => d.category === 'resume')) {
+      scoreGrowth = 3;
+      growthDetails = 'Single resume provided; upload academic marksheets for longitudinal trajectory analysis.';
     }
   }
 
   // COMPOSITE QT2 SCORE (0 - 100)
   let compositeScore = Math.min(100, Math.round(scoreMindset + scoreRigor + scoreIntegrity + scoreGrowth));
 
-  // If there's an identity mismatch flag, strictly cap overall score
   if (auditReport.mismatchCount > 0) {
     compositeScore = Math.min(58, compositeScore);
   }
 
-  // Self-Awareness Index
-  let selfAwarenessIndex = 85;
-  if (identityScores && hasSimulations) {
+  // Self-Awareness Index: Requires actual simulation assessments, with real divergence math and no artificial 50% floor
+  let selfAwarenessIndex = 0;
+  let selfAwarenessLabel = 'Pending Assessment';
+
+  if (hasSimulations && identityScores) {
     const statedLogic = identityScores['logic_vs_empathy'] ?? 50;
-    const actionLogic = dimensions.patternHunter;
+    const simPatternHunter = simulationScores?.['PatternHunter'] || 0;
+    const simTotal = (simulationScores?.['PatternHunter'] || 0) + (simulationScores?.['SocialIQ'] || 0) || 1;
+    const actionLogic = Math.round((simPatternHunter / simTotal) * 100);
     const diff = Math.abs(statedLogic - actionLogic);
-    selfAwarenessIndex = Math.max(60, Math.min(99, Math.round(100 - (diff * 0.5))));
+    selfAwarenessIndex = Math.max(10, Math.min(99, Math.round(100 - (diff * 0.8))));
+    if (selfAwarenessIndex >= 80) {
+      selfAwarenessLabel = 'High Cognitive Self-Awareness (Realistic Self-Perception)';
+    } else if (selfAwarenessIndex >= 50) {
+      selfAwarenessLabel = 'Calibrating Self-Perception Alignment';
+    } else {
+      selfAwarenessLabel = 'Divergence Detected (Aspiration vs Action Divergence)';
+    }
+  } else if (hasSimulations) {
+    selfAwarenessIndex = 60;
+    selfAwarenessLabel = 'Simulation Quests Completed (Awaiting Preference Survey)';
   }
-  const selfAwarenessLabel = selfAwarenessIndex >= 80
-    ? 'High Cognitive Self-Awareness'
-    : 'Calibrating Self-Perception Alignment';
 
   // Count strictly real validated data points
   const evaluatedDataPoints =
@@ -300,38 +475,39 @@ export function evaluateQT2Model(
     docCount +
     (hasSimulations ? Object.keys(simulationScores!).length * 2 : 0) +
     (auditReport.verifiedCount * 2) +
-    impactVerbCount;
+    impactVerbCount +
+    projectDepthCount;
 
   const factors: QT2BreakdownFactor[] = [
     {
-      pillar: 'Cognitive Mindset Disposition',
+      pillar: 'Demonstrated Execution Focus',
       weight: 35,
       score: scoreMindset,
       maxScore: 35,
-      details: `${primaryTrait.key} dominant (${primaryTrait.score}%) backed by ${secondaryTrait.key} (${secondaryTrait.score}%).`
+      details: `${totalWeight} validated signals (${rawPH} Systems, ${rawST} Reliability, ${rawSQ} Leadership, ${rawEX} Innovation).`
     },
     {
       pillar: 'Execution Rigor & Impact',
       weight: 25,
       score: scoreRigor,
       maxScore: 25,
-      details: `${allExtractedSkillsCount} validated skills grounded with ${impactVerbCount} active impact outcomes.`
+      details: `${impactVerbCount} action verbs, ${allExtractedSkillsCount} skills, ${projectDepthCount} project anchors.`
     },
     {
       pillar: 'Identity & Sentinel Integrity',
       weight: 25,
       score: scoreIntegrity,
       maxScore: 25,
-      details: auditReport.mismatchCount === 0
-        ? `Clean sentinel verification across ${auditReport.verifiedCount} records.`
-        : `Flagged ${auditReport.mismatchCount} conflicting identity record(s).`
+      details: auditReport.mismatchCount > 0
+        ? `${auditReport.mismatchCount} identity conflicts flagged.`
+        : `Cross-document identity consistency at ${auditReport.identityConsistencyPercentage}%.`
     },
     {
       pillar: 'Longitudinal Growth & Trajectory',
       weight: 15,
       score: scoreGrowth,
       maxScore: 15,
-      details: `Academic and credential velocity tracked across ${docCount} portfolio asset(s).`
+      details: growthDetails
     }
   ];
 
@@ -343,16 +519,16 @@ export function evaluateQT2Model(
     archetypeDescription: blendDescription,
     selfAwarenessIndex,
     selfAwarenessLabel,
-    executionRigorScore: Math.round((scoreRigor / 25) * 100),
-    identityIntegrityScore: Math.round((scoreIntegrity / 25) * 100),
-    longitudinalGrowthScore: Math.round((scoreGrowth / 15) * 100),
+    executionRigorScore: scoreRigor,
+    identityIntegrityScore: scoreIntegrity,
+    longitudinalGrowthScore: scoreGrowth,
     evaluatedDataPoints,
     factors,
     behavioralSignals: {
-      algorithmicDepth: rawPH,
-      reliabilityStandards: rawST,
-      collaborationLeadership: rawSQ,
-      experimentationVelocity: rawEX
+      algorithmicDepth: Math.min(100, rawPH * 12),
+      reliabilityStandards: Math.min(100, rawST * 12),
+      collaborationLeadership: Math.min(100, rawSQ * 12),
+      experimentationVelocity: Math.min(100, rawEX * 12)
     }
   };
 }

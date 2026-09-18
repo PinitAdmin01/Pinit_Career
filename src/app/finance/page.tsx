@@ -91,7 +91,10 @@ function StudentFinanceInner() {
         handler: async (response) => {
           const res = await api.post<{ ok: boolean; receiptId: string }>('/api/finance/pay-due', {
             installmentId: activeCheckoutInst.id,
-            paymentId: response.razorpay_payment_id
+            paymentId: response.razorpay_payment_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_signature: response.razorpay_signature,
           });
           if (res && res.ok) {
             setSuccess(true);

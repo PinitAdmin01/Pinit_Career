@@ -203,11 +203,13 @@ create table public.sessions (
 -- 10. Create Audit Logs table
 create table public.audit_logs (
   id uuid default gen_random_uuid() primary key,
-  admin_id uuid references public.users on delete cascade not null,
+  admin_id uuid references public.users on delete cascade,
+  actor_id uuid references public.users on delete cascade,
   action text not null,
   target_id text,
   meta jsonb default '{}'::jsonb,
-  timestamp timestamp with time zone default timezone('utc'::text, now()) not null
+  timestamp timestamp with time zone default timezone('utc'::text, now()) not null,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
 
 -- 11. Create QR Login Sessions table (Realtime enabled)
@@ -279,19 +281,16 @@ security definer
 set search_path = public
 as $$
 begin
-  if new.role is distinct from old.role
-     or new.pins is distinct from old.pins
-     or coalesce(new.subscription_tier, 'free') is distinct from coalesce(old.subscription_tier, 'free')
-     or new.ats_score is distinct from old.ats_score
-     or new.trust_score is distinct from old.trust_score
-     -- added 2026-09-07: the subscription period is server-owned. Without
-     -- these, a user could UPDATE their own row and push the expiry years
-     -- forward, granting themselves a free subscription.
-     or new.subscription_started_at is distinct from old.subscription_started_at
-     or new.subscription_expires_at is distinct from old.subscription_expires_at
-     or coalesce(new.subscription_status, 'none') is distinct from coalesce(old.subscription_status, 'none') then
-    if auth.uid() is not null and auth.uid() = old.id then
-      -- Block self-service privilege / economy / score / subscription forgery
+  if auth.uid() is not null and auth.uid() = old.id then
+    -- Economy / Roles / Subscriptions
+    if new.role is distinct from old.role
+       or new.pins is distinct from old.pins
+       or coalesce(new.subscription_tier, 'free') is distinct from coalesce(old.subscription_tier, 'free')
+       or new.ats_score is distinct from old.ats_score
+       or new.trust_score is distinct from old.trust_score
+       or new.subscription_started_at is distinct from old.subscription_started_at
+       or new.subscription_expires_at is distinct from old.subscription_expires_at
+       or coalesce(new.subscription_status, 'none') is distinct from coalesce(old.subscription_status, 'none') then
       new.role := old.role;
       new.pins := old.pins;
       new.subscription_tier := old.subscription_tier;
@@ -300,6 +299,48 @@ begin
       new.subscription_started_at := old.subscription_started_at;
       new.subscription_expires_at := old.subscription_expires_at;
       new.subscription_status := old.subscription_status;
+    end if;
+    -- XP, Quests, Scores, Certifications, and Recruiter Ranking
+    if new.xp_total is distinct from old.xp_total
+       or new.xp_level is distinct from old.xp_level
+       or new.completed_quests is distinct from old.completed_quests
+       or new.java_test_passed is distinct from old.java_test_passed
+       or new.career_dna_score is distinct from old.career_dna_score
+       or new.career_readiness is distinct from old.career_readiness
+       or new.certifications is distinct from old.certifications
+       or new.recruiter_visibility is distinct from old.recruiter_visibility
+       or new.intelligence_score is distinct from old.intelligence_score
+       or new.communication_score is distinct from old.communication_score
+       or new.execution_score is distinct from old.execution_score
+       or new.leadership_score is distinct from old.leadership_score
+       or new.consistency_score is distinct from old.consistency_score
+       or new.adaptability_score is distinct from old.adaptability_score
+       or new.confidence_score is distinct from old.confidence_score
+       or new.innovation_score is distinct from old.innovation_score
+       or new.mission_streak is distinct from old.mission_streak
+       or new.missions_completed is distinct from old.missions_completed
+       or new.vault_count is distinct from old.vault_count
+       or new.interviews_done is distinct from old.interviews_done then
+      new.xp_total := old.xp_total;
+      new.xp_level := old.xp_level;
+      new.completed_quests := old.completed_quests;
+      new.java_test_passed := old.java_test_passed;
+      new.career_dna_score := old.career_dna_score;
+      new.career_readiness := old.career_readiness;
+      new.certifications := old.certifications;
+      new.recruiter_visibility := old.recruiter_visibility;
+      new.intelligence_score := old.intelligence_score;
+      new.communication_score := old.communication_score;
+      new.execution_score := old.execution_score;
+      new.leadership_score := old.leadership_score;
+      new.consistency_score := old.consistency_score;
+      new.adaptability_score := old.adaptability_score;
+      new.confidence_score := old.confidence_score;
+      new.innovation_score := old.innovation_score;
+      new.mission_streak := old.mission_streak;
+      new.missions_completed := old.missions_completed;
+      new.vault_count := old.vault_count;
+      new.interviews_done := old.interviews_done;
     end if;
   end if;
   return new;
@@ -316,6 +357,28 @@ create policy "Users can view their own vault items" on public.vault_items for s
 create policy "Users can insert their own vault items" on public.vault_items for insert with check (auth.uid() = user_id);
 create policy "Users can update their own vault items" on public.vault_items for update using (auth.uid() = user_id);
 create policy "Users can delete their own vault items" on public.vault_items for delete using (auth.uid() = user_id);
+
+create or replace function public.check_vault_verified_immutable()
+returns trigger as $$
+begin
+  if (tg_op = 'UPDATE' and old.verified is distinct from new.verified and new.verified = true) then
+    if (current_user != 'service_role' and not public.campus_is_staff()) then
+      raise exception 'Only administrative services or staff can verify vault items';
+    end if;
+  end if;
+  if (tg_op = 'INSERT' and new.verified = true) then
+    if (current_user != 'service_role' and not public.campus_is_staff()) then
+      new.verified := false;
+    end if;
+  end if;
+  return new;
+end;
+$$ language plpgsql;
+
+drop trigger if exists trg_guard_vault_verified on public.vault_items;
+create trigger trg_guard_vault_verified
+  before insert or update on public.vault_items
+  for each row execute function public.check_vault_verified_immutable();
 
 -- 3. Missions Table
 create policy "Users can view their own missions" on public.missions for select using (auth.uid() = user_id);
@@ -349,6 +412,14 @@ create policy "Users can view their own sessions" on public.sessions for select 
 
 -- 10. Audit Logs Table
 create policy "Admins can view audit logs" on public.audit_logs for select using (exists (select 1 from public.users where id = auth.uid() and role = 'admin'));
+create policy "Users can view own audit logs" on public.audit_logs for select using (auth.uid() is not null and (actor_id = auth.uid() or target_id = auth.uid()::text));
+create policy "Users can insert own audit logs" on public.audit_logs
+  for insert with check (
+    auth.uid() is not null
+    and actor_id = auth.uid()
+    and (target_id is null or target_id = auth.uid()::text)
+    and admin_id is null
+  );
 
 -- 11. QR Login Sessions Table
 create policy "Authenticated users can manage own QR login sessions" on public.qr_login_sessions

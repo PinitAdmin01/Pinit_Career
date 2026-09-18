@@ -31,7 +31,7 @@ const EARN_WAYS = [
 
 export default function PricingPage() {
   const { data: user }   = useMe();
-  const { pins, pinHistory, addPurchasedPins } = useCareerOS();
+  const { pins, pinHistory } = useCareerOS();
 
   const { data: status } = useQuery({
     queryKey: ['payment', 'status'],
@@ -72,15 +72,15 @@ export default function PricingPage() {
       api.post<{ orderId:string; amount:number; keyId:string; devMode?:boolean }>('/api/payment/create-order', { planId: pack.id, amount: pack.priceNum }),
     onSuccess: (data, pack) => {
       if (data.devMode) {
-        // Instant pin grant in dev mode
-        addPurchasedPins(pack.pins, pack.name);
+        toast.info('Dev Mode', 'Simulating pin purchase verification...');
+        setTimeout(() => verifyMutation.mutate({ razorpay_order_id: data.orderId, razorpay_payment_id: `dev_pay_${Date.now()}`, razorpay_signature: 'dev_signature', planId: pack.id }), 1000);
         return;
       }
       const options = {
         key: data.keyId, amount: pack.priceNum, currency: 'INR',
         name: 'PinIT Pins', description: `${pack.pins} Pins — ${pack.name} Pack`,
         order_id: data.orderId,
-        handler: () => addPurchasedPins(pack.pins, pack.name),
+        handler: (response: any) => verifyMutation.mutate({ ...response, planId: pack.id }),
         prefill: { name: user?.displayName },
         theme: { color: '#4f46e5' },
       };

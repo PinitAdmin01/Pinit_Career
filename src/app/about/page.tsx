@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, Suspense } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 function AboutPageContent() {
@@ -28,7 +29,7 @@ function AboutPageContent() {
         <div className="container nav-content">
           <Link href="/" className="brand-logo lp-brand" aria-label="PINIT CAREER home">
             <span className="lp-brand-lockup">
-              <img src="/brand/pinit-career-logo-clear.png" alt="PINIT CAREER" className="lp-brand-logo" />
+              <Image src="/brand/pinit-career-logo-clear.png" alt="PINIT CAREER" width={140} height={36} className="lp-brand-logo" style={{ height: '36px', width: 'auto', objectFit: 'contain' }} priority />
             </span>
           </Link>
 
@@ -401,7 +402,7 @@ function AboutPageContent() {
           <div className="footer-left">
             <div className="brand-logo mb-2">
               <span className="lp-brand-lockup">
-                <img src="/brand/pinit-career-logo-clear.png" alt="PINIT CAREER" className="lp-brand-logo" />
+                <Image src="/brand/pinit-career-logo-clear.png" alt="PINIT CAREER" width={140} height={36} className="lp-brand-logo" style={{ height: '36px', width: 'auto', objectFit: 'contain' }} />
               </span>
             </div>
             <p className="footer-sub">© 2026 PinitCareer Technologies. All 54 Ecosystem Modules Active.</p>

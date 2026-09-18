@@ -93,11 +93,34 @@ assert('Telemetry diagnostics identify delivery status without numerical penalty
 assert('Telemetry diagnostics identify noisy delivery without crashing', noisyTelemetryDiag.deliveryStatus === 'Good');
 assert('Telemetry diagnostics contain specific practice advice', noisyTelemetryDiag.practiceAdvice.length > 0);
 
+// 4b. Absent Telemetry: Does NOT invent fake metrics when camera/audio was not measured
+const emptyTelemetryDiag = generateTelemetryDiagnostics();
+const undefinedTelemetryDiag = generateTelemetryDiagnostics({});
+assert("Absent telemetry sets deliveryStatus to 'Not Assessed'", emptyTelemetryDiag.deliveryStatus === 'Not Assessed');
+assert("Empty telemetry sets deliveryStatus to 'Not Assessed'", undefinedTelemetryDiag.deliveryStatus === 'Not Assessed');
+assert("Absent telemetry does not invent 125 WPM", !emptyTelemetryDiag.signals.some(s => s.value === '125 WPM'));
+assert("Absent telemetry does not invent 0 filler words", !emptyTelemetryDiag.signals.some(s => s.value === '0 filler words'));
+assert("Absent telemetry states camera off, delivery not assessed", emptyTelemetryDiag.practiceAdvice[0].includes('Camera off, delivery not assessed'));
+assert("Absent telemetry signals camera off", emptyTelemetryDiag.signals.some(s => s.metric === 'Camera & Presence' && s.value === 'Camera Off'));
+
 // 5. Unknown role normalization falls back gracefully
 const unknownRole1 = normalizeRoleKey('Chief Quantum Officer', 'tech');
 const unknownRole2 = normalizeRoleKey('Head of Happiness', 'non_tech');
 assert("Unknown tech role defaults to 'general_tech'", unknownRole1 === 'general_tech');
 assert("Unknown non-tech role defaults to 'general_non_tech'", unknownRole2 === 'general_non_tech');
+
+// 5b. Probe Cases: Verify whole-word role matching prevents erroneous PM/Data Analyst/Frontend mappings
+assert("'Software Development Engineer' maps to 'sde' (not 'pm')", normalizeRoleKey('Software Development Engineer') === 'sde');
+assert("'Java Programmer' maps to 'sde' (not 'pm')", normalizeRoleKey('Java Programmer') === 'sde');
+assert("'Mobile App Developer' maps to 'sde' (not 'data_analyst')", normalizeRoleKey('Mobile App Developer') === 'sde');
+assert("'Build & Release Engineer' maps to 'devops' (not 'frontend')", normalizeRoleKey('Build & Release Engineer') === 'devops');
+assert("'Data Structures and Algorithms' maps to 'sde' (not 'data_analyst')", normalizeRoleKey('Data Structures and Algorithms') === 'sde');
+assert("'Product Manager' maps to 'pm'", normalizeRoleKey('Product Manager') === 'pm');
+assert("'Associate PM' maps to 'pm'", normalizeRoleKey('Associate PM') === 'pm');
+assert("'Power BI Specialist' maps to 'data_analyst'", normalizeRoleKey('Power BI Specialist') === 'data_analyst');
+assert("'Business Development Representative' maps to 'sales_marketing' (not 'business_analyst')", normalizeRoleKey('Business Development Representative') === 'sales_marketing');
+assert("'Backend Microservices Architect' maps to 'backend'", normalizeRoleKey('Backend Microservices Architect') === 'backend');
+assert("'React Frontend Developer' maps to 'frontend'", normalizeRoleKey('React Frontend Developer') === 'frontend');
 
 // 6. Missing dimension fail-safe defaults
 const partialResult = calculateRoleWeightedScore({ logic: 85 });

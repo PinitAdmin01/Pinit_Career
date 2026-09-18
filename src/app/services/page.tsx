@@ -237,7 +237,7 @@ export default function StudentServicesPortal() {
 
   return (
     <div className="portal-page">
-      <style dangerouslySetInnerHTML={{ __html: cssStyle }} />
+      <style>{cssStyle}</style>
 
       <div className="srv-wrapper">
         <h1 className="page-title">💼 Student Services Desk</h1>

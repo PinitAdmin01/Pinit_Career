@@ -1,4 +1,61 @@
 {
-  "catalog": [],
-  "rsvps": []
+  "catalog": [
+    {
+      "id": "EVT-1789647486737-BCD6BD",
+      "category": "Tech",
+      "title": "AI Summit",
+      "description": "Annual AI Conference",
+      "date": "2026-11-01",
+      "time": "10:00 AM",
+      "venue": "Auditorium",
+      "capacity": 100,
+      "rsvpCount": 1,
+      "host": "ACM",
+      "completed": false
+    },
+    {
+      "id": "EVT-1789594848945-AE97BB",
+      "category": "Tech",
+      "title": "AI Summit",
+      "description": "Annual AI Conference",
+      "date": "2026-11-01",
+      "time": "10:00 AM",
+      "venue": "Auditorium",
+      "capacity": 100,
+      "rsvpCount": 1,
+      "host": "ACM",
+      "completed": false
+    },
+    {
+      "id": "EVT-1789594824958-96BCB3",
+      "category": "Tech",
+      "title": "AI Summit",
+      "description": "Annual AI Conference",
+      "date": "2026-11-01",
+      "time": "10:00 AM",
+      "venue": "Auditorium",
+      "capacity": 100,
+      "rsvpCount": 0,
+      "host": "ACM",
+      "completed": false
+    }
+  ],
+  "rsvps": [
+    {
+      "id": "RSVP-1789594848948-770170",
+      "eventId": "EVT-1789594848945-AE97BB",
+      "studentId": "ev_stu_1789594848945",
+      "studentName": "Attending Student",
+      "hasCertificate": true,
+      "certificateCode": "CERT-6533B0B6-MU4MKEYD"
+    },
+    {
+      "id": "RSVP-1789647486741-D894F3",
+      "eventId": "EVT-1789647486737-BCD6BD",
+      "studentId": "ev_stu_1789647486737",
+      "studentName": "Attending Student",
+      "hasCertificate": true,
+      "certificateCode": "CERT-39BC00EB-MU5HWMJC"
+    }
+  ]
 }

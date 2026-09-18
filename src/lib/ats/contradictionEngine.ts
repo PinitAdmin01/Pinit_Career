@@ -66,10 +66,32 @@ export function evaluateDocumentContradictions(
       continue;
     }
 
+    // Corroboration logic: When two or more distinct documents report the exact same fact value,
+    // elevate verificationLevel to CROSS_VALIDATED if previously at a lower level (e.g. SELF_SUBMITTED)
+    const docOccurrencesByVal = new Map<string, Set<string>>();
+    for (const r of group) {
+      const normVal = String(r.value).trim().toLowerCase();
+      const docSet = docOccurrencesByVal.get(normVal) || new Set<string>();
+      docSet.add(r.sourceDocument);
+      docOccurrencesByVal.set(normVal, docSet);
+    }
+
+    for (const r of group) {
+      const normVal = String(r.value).trim().toLowerCase();
+      const docSet = docOccurrencesByVal.get(normVal);
+      if (docSet && docSet.size >= 2) {
+        const currRank = PRECEDENCE_HIERARCHY[r.verificationLevel] || 1;
+        if (currRank < PRECEDENCE_HIERARCHY['CROSS_VALIDATED']) {
+          r.verificationLevel = 'CROSS_VALIDATED';
+        }
+      }
+    }
+
     const sorted = [...group].sort((a, b) => {
       const pA = PRECEDENCE_HIERARCHY[a.verificationLevel] || 1;
       const pB = PRECEDENCE_HIERARCHY[b.verificationLevel] || 1;
-      return pB - pA;
+      if (pB !== pA) return pB - pA;
+      return (b.confidence || 0) - (a.confidence || 0);
     });
 
     const top = sorted[0];
@@ -77,7 +99,7 @@ export function evaluateDocumentContradictions(
 
     for (let i = 1; i < sorted.length; i++) {
       const other = sorted[i];
-      if (String(top.value).toLowerCase() !== String(other.value).toLowerCase()) {
+      if (String(top.value).toLowerCase().trim() !== String(other.value).toLowerCase().trim()) {
         const rationale = `Higher authority source "${top.sourceDocument}" (${top.verificationLevel}) takes precedence over "${other.sourceDocument}" (${other.verificationLevel}) for derived academic metrics.`;
         
         console.warn(`⚠️ [STAGE 9/12 - Conflict Detected on Field "${field}"]:\n   - Authority Fact: "${top.value}" in ${top.sourceDocument}\n   - Subordinate Fact: "${other.value}" in ${other.sourceDocument}\n   - Rationale: ${rationale}`);
@@ -99,7 +121,6 @@ export function evaluateDocumentContradictions(
         });
 
         other.status = 'CONFLICTING_EVIDENCE';
-        top.status = 'CONFLICTING_EVIDENCE';
       }
     }
   }

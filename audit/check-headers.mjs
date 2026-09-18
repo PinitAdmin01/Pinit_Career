@@ -49,7 +49,8 @@ function walk(dir, out = []) {
   return out;
 }
 // Course content embeds documentation links that are not runtime calls.
-const APP = walk('src').filter((f) => !f.startsWith('src/lib/data/') && !f.startsWith('src/lib/curriculum/'));
+// Server API routes run in Node.js on the backend, not in the browser.
+const APP = walk('src').filter((f) => !f.startsWith('src/lib/data/') && !f.startsWith('src/lib/curriculum/') && !f.startsWith('src/app/api/'));
 
 // Hosts configured through env vars are the ones the app calls at runtime;
 // hardcoded https:// literals in app code are mostly prose and doc links.
@@ -156,6 +157,29 @@ for (const m of envText.matchAll(/^(NEXT_PUBLIC_[A-Z0-9_]*(?:API_KEY|SECRET|TOKE
   });
 }
 
+// Check WebAssembly and script-src requirements for Three.js Draco decoding (Task 1.1)
+const scriptSrc = directive('script-src') || [];
+if (!scriptSrc.includes("'wasm-unsafe-eval'") || !scriptSrc.includes("'unsafe-eval'")) {
+  findings.push({
+    severity: 'BROKEN',
+    area: 'csp',
+    subject: 'script-src wasm/eval in firebase.json',
+    detail: "firebase.json script-src must include 'wasm-unsafe-eval' and 'unsafe-eval' for Three.js Draco WebAssembly decoding.",
+    fix: "Add 'wasm-unsafe-eval' 'unsafe-eval' to script-src in firebase.json",
+  });
+}
+
+const nextConfigText = read('next.config.js');
+if (!nextConfigText.includes("'wasm-unsafe-eval'") || !nextConfigText.includes("'unsafe-eval'")) {
+  findings.push({
+    severity: 'BROKEN',
+    area: 'csp',
+    subject: 'script-src wasm/eval in next.config.js',
+    detail: "next.config.js script-src must include 'wasm-unsafe-eval' and 'unsafe-eval' for Three.js Draco WebAssembly decoding.",
+    fix: "Add 'wasm-unsafe-eval' 'unsafe-eval' to script-src in next.config.js",
+  });
+}
+
 const bySeverity = findings.reduce((a, f) => { a[f.severity] = (a[f.severity] || 0) + 1; return a; }, {});
 fs.writeFileSync(path.join(ROOT, 'audit/HEADERS.md'), [
   '# Hosting headers vs. what the app does — generated, do not hand-edit',
@@ -184,3 +208,7 @@ fs.writeFileSync(path.join(ROOT, 'audit/HEADERS.md'), [
 console.log('findings: ' + findings.length + ' ' + JSON.stringify(bySeverity));
 for (const f of findings) console.log('  [' + f.severity + '] ' + f.area + ' — ' + f.subject);
 console.log('\nwrote audit/HEADERS.md');
+
+if (findings.some((f) => f.severity === 'BROKEN')) {
+  process.exit(1);
+}

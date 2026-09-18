@@ -69,7 +69,7 @@ export interface IdentityAuditReport {
   totalDocuments: number;
   verifiedCount: number;
   mismatchCount: number;
-  overallStatus: 'SENTINEL_CLEAN' | 'IDENTITY_MISMATCH_FLAGGED' | 'PROVISIONAL_PENDING';
+  overallStatus: 'SENTINEL_CLEAN' | 'IDENTITY_MISMATCH_FLAGGED' | 'PROVISIONAL_PENDING' | 'REVIEW_REQUIRED' | 'AWAITING_UPLOADS' | 'UNREADABLE_DOCUMENTS_REJECTED';
   trustScore: number; // Evidence Trust Index (0-100)
   conflictingDocuments: {
     slotId: string;
@@ -94,6 +94,8 @@ export interface LiveQTCalibration {
   growthMomentum: 'Upward Trajectory (+Growth)' | 'High Distinction (Steady)' | 'Baseline Calibration';
   evaluatedDataPoints: number;
   qt2Evaluation?: QT2ModelEvaluation;
+  contradictions?: any[];
+  authoritativeFacts?: Record<string, any>;
 }
 
 /**
@@ -159,36 +161,101 @@ export function classifyDocumentCategory(fileName: string, textSnippet: string =
 
 /**
  * Compares candidate names to check for identity similarity and detect friend/fake uploads.
+ * Enforces given name and surname verification to prevent friend/sibling fraudulent bypass.
  */
+
+/**
+ * Verifies if a vault document contains genuine extracted text and grounded provenance.
+ * Empty or unreadable files return false and are never awarded trust or capability points.
+ */
+export function isContentBearingDocument(doc: VaultDocumentSlot): boolean {
+  if (!doc) return false;
+  if (doc.verificationStatus === ('unreadable' as any)) return false;
+
+  const hasProvenance = Array.isArray(doc.provenanceRecords) && doc.provenanceRecords.length > 0;
+  const hasSkills = Array.isArray(doc.skills) && doc.skills.length > 0;
+  const hasRealName = !!doc.candidateName && doc.candidateName.toLowerCase() !== 'candidate' && doc.candidateName.trim().length > 1;
+  const hasValidScore = !!doc.scoreOrGpa &&
+    !doc.scoreOrGpa.includes('Credential') &&
+    !doc.scoreOrGpa.includes('Marksheet') &&
+    !doc.scoreOrGpa.includes('Certificate');
+
+  return hasProvenance || hasSkills || (hasRealName && hasValidScore);
+}
+
 export function checkNameSimilarity(nameA: string, nameB: string): { isMatch: boolean; confidence: number; reason?: string } {
-  if (!nameA || !nameB) return { isMatch: true, confidence: 100 };
+  if (!nameA || !nameB) {
+    return { isMatch: false, confidence: 0, reason: 'Candidate identity name is missing.' };
+  }
 
   const clean = (s: string) => s.toLowerCase().replace(/[^a-z\s]/g, '').trim();
   const a = clean(nameA);
   const b = clean(nameB);
 
-  if (a === b || a === 'candidate' || b === 'candidate') {
+  // Reject generic placeholder "Candidate"
+  if (a === 'candidate' || b === 'candidate' || a.length < 2 || b.length < 2) {
+    return {
+      isMatch: false,
+      confidence: 0,
+      reason: 'Identity cannot be verified against generic placeholder "Candidate".'
+    };
+  }
+
+  if (a === b) {
     return { isMatch: true, confidence: 100 };
   }
 
-  const tokensA = a.split(/\s+/).filter(t => t.length > 1);
-  const tokensB = b.split(/\s+/).filter(t => t.length > 1);
+  const tokensA = a.split(/\s+/).filter(t => t.length > 0);
+  const tokensB = b.split(/\s+/).filter(t => t.length > 0);
 
   if (tokensA.length === 0 || tokensB.length === 0) {
-    return { isMatch: true, confidence: 90 };
+    return { isMatch: false, confidence: 0, reason: 'Empty name tokens after normalization.' };
   }
 
-  const common = tokensA.filter(ta => tokensB.some(tb => tb === ta || (ta.length === 1 && tb.startsWith(ta)) || (tb.length === 1 && ta.startsWith(tb))));
+  const isInitialMatch = (t1: string, t2: string) =>
+    (t1.length === 1 && t2.startsWith(t1)) || (t2.length === 1 && t1.startsWith(t2));
+
+  // Given name (first token) and Surname (last token)
+  const givenA = tokensA[0];
+  const givenB = tokensB[0];
+  const surnameA = tokensA.length > 1 ? tokensA[tokensA.length - 1] : '';
+  const surnameB = tokensB.length > 1 ? tokensB[tokensB.length - 1] : '';
+
+  // Critical Anti-Fraud check:
+  // If both names have surnames and the surnames match, but the given names are completely different
+  // and neither is an initial (e.g. "Rohan Sharma" vs "Priya Sharma"), this is a different individual!
+  if (surnameA && surnameB && surnameA === surnameB) {
+    const givenMatches = givenA === givenB || isInitialMatch(givenA, givenB);
+    if (!givenMatches) {
+      return {
+        isMatch: false,
+        confidence: 50,
+        reason: `Document belongs to a different individual with the same surname ("${nameB}" vs "${nameA}") and requires verification review.`
+      };
+    }
+  }
+
+  // Token matching with initial support
+  const common = tokensA.filter(ta =>
+    tokensB.some(tb => tb === ta || isInitialMatch(ta, tb))
+  );
   const matchRatio = common.length / Math.min(tokensA.length, tokensB.length);
 
-  if (matchRatio >= 0.5) {
+  // Ensure given names are compatible
+  const givenCompatible =
+    givenA === givenB ||
+    isInitialMatch(givenA, givenB) ||
+    tokensB.includes(givenA) ||
+    tokensA.includes(givenB);
+
+  if (matchRatio >= 0.6 && givenCompatible) {
     return { isMatch: true, confidence: Math.round(matchRatio * 100) };
   }
 
   return {
     isMatch: false,
     confidence: Math.round(matchRatio * 100),
-    reason: `Document name "${nameB}" does not match primary profile identity "${nameA}".`
+    reason: `Document name "${nameB}" does not match primary profile identity "${nameA}" and requires verification review.`
   };
 }
 
@@ -199,17 +266,34 @@ export function auditDocumentCollection(
   primaryCandidateName: string,
   documents: VaultDocumentSlot[]
 ): IdentityAuditReport {
-  console.log(`\n🛡️ [STAGE 10/12 - Identity Sentinel]: Cross-auditing ${documents.length} vault documents against primary identity "${primaryCandidateName}"...`);
+  console.log(`\n🛡️ [STAGE 10/12 - Identity Sentinel]: Cross-auditing ${documents?.length || 0} vault documents against primary identity "${primaryCandidateName}"...`);
+
   if (!documents || documents.length === 0) {
     return {
-      primaryName: primaryCandidateName || 'Candidate',
+      primaryName: primaryCandidateName && primaryCandidateName.toLowerCase() !== 'candidate' ? primaryCandidateName : 'Awaiting Profile',
       totalDocuments: 0,
       verifiedCount: 0,
       mismatchCount: 0,
-      overallStatus: 'SENTINEL_CLEAN',
-      trustScore: 100,
+      overallStatus: 'AWAITING_UPLOADS',
+      trustScore: 0, // Zero documents = 0 trust. Never 100!
       conflictingDocuments: [],
-      identityConsistencyPercentage: 100
+      identityConsistencyPercentage: 0
+    };
+  }
+
+  const readableDocs = documents.filter(isContentBearingDocument);
+
+  // If all submitted files are empty or unreadable, refuse to award trust
+  if (readableDocs.length === 0) {
+    return {
+      primaryName: primaryCandidateName && primaryCandidateName.toLowerCase() !== 'candidate' ? primaryCandidateName : 'Unknown',
+      totalDocuments: documents.length,
+      verifiedCount: 0,
+      mismatchCount: 0,
+      overallStatus: 'UNREADABLE_DOCUMENTS_REJECTED',
+      trustScore: 0, // Unreadable files = 0 trust. Never 84 or 100!
+      conflictingDocuments: [],
+      identityConsistencyPercentage: 0
     };
   }
 
@@ -217,35 +301,38 @@ export function auditDocumentCollection(
   let mismatchCount = 0;
   const conflictingDocuments: IdentityAuditReport['conflictingDocuments'] = [];
 
-  // Establish authoritative anchor name:
-  // 1. Master resume detected name takes precedence if valid
-  // 2. primaryCandidateName if not generic 'Candidate'
-  // 3. Any credential document with a detected name
-  const resumeDoc = documents.find(d => d.category === 'resume' && d.candidateName && d.candidateName.toLowerCase() !== 'candidate');
+  // Establish authoritative anchor name from readable documents or profile
+  const resumeDoc = readableDocs.find(d => d.category === 'resume' && d.candidateName && d.candidateName.toLowerCase() !== 'candidate');
   const anchorName = resumeDoc?.candidateName ||
     (primaryCandidateName && primaryCandidateName.toLowerCase() !== 'candidate'
       ? primaryCandidateName
-      : documents.find(d => d.candidateName && d.candidateName.toLowerCase() !== 'candidate')?.candidateName || 'Candidate');
+      : readableDocs.find(d => d.candidateName && d.candidateName.toLowerCase() !== 'candidate')?.candidateName || 'Candidate');
 
-  // Single document establishes baseline identity without false mismatch
+  // Single document baseline:
   if (documents.length === 1) {
     const singleDoc = documents[0];
+    const isReadable = isContentBearingDocument(singleDoc);
     const resolvedName = singleDoc.candidateName && singleDoc.candidateName.toLowerCase() !== 'candidate'
       ? singleDoc.candidateName
       : anchorName;
     return {
       primaryName: resolvedName,
       totalDocuments: 1,
-      verifiedCount: 1,
+      verifiedCount: isReadable ? 1 : 0,
       mismatchCount: 0,
-      overallStatus: 'SENTINEL_CLEAN',
-      trustScore: 100,
+      overallStatus: isReadable ? 'PROVISIONAL_PENDING' : 'UNREADABLE_DOCUMENTS_REJECTED',
+      trustScore: isReadable ? 40 : 0, // Single document gets baseline 40, NOT 100!
       conflictingDocuments: [],
-      identityConsistencyPercentage: 100
+      identityConsistencyPercentage: isReadable ? 100 : 0
     };
   }
 
+  // Cross-audit all documents against anchor name
   documents.forEach(doc => {
+    if (!isContentBearingDocument(doc)) {
+      return; // Unreadable file does not count as verified
+    }
+
     if (doc.candidateName && doc.candidateName.toLowerCase() !== 'candidate') {
       const check = checkNameSimilarity(anchorName, doc.candidateName);
       if (!check.isMatch) {
@@ -255,7 +342,7 @@ export function auditDocumentCollection(
           fileName: doc.fileName,
           detectedName: doc.candidateName,
           expectedName: anchorName,
-          reason: check.reason || `Name mismatch detected on ${doc.fileName}`
+          reason: check.reason || `Identity on document "${doc.fileName}" differs from profile and requires verification review.`
         });
         console.warn(`🚨 [STAGE 10/12 - Identity Mismatch]: Document "${doc.fileName}" has detected name "${doc.candidateName}" which conflicts with "${anchorName}".`);
       } else {
@@ -266,13 +353,20 @@ export function auditDocumentCollection(
     }
   });
 
-  const identityConsistencyPercentage = Math.round((verifiedCount / documents.length) * 100);
-  const trustScore = Math.max(20, Math.min(100, Math.round(100 - (mismatchCount * 35))));
+  const identityConsistencyPercentage = documents.length > 0
+    ? Math.round((verifiedCount / documents.length) * 100)
+    : 0;
+
+  // Trust score reflects readability and identity consistency
+  const readabilityFactor = readableDocs.length / documents.length;
+  const consistencyFactor = verifiedCount / Math.max(1, readableDocs.length);
+  const baseTrust = Math.round((readabilityFactor * 0.4 + consistencyFactor * 0.6) * 100);
+  const trustScore = Math.max(0, Math.min(100, baseTrust - (mismatchCount * 30)));
 
   let overallStatus: IdentityAuditReport['overallStatus'] = 'SENTINEL_CLEAN';
   if (mismatchCount > 0) {
-    overallStatus = 'IDENTITY_MISMATCH_FLAGGED';
-  } else if (documents.length < 2) {
+    overallStatus = 'REVIEW_REQUIRED';
+  } else if (readableDocs.length < 2) {
     overallStatus = 'PROVISIONAL_PENDING';
   }
 
@@ -296,7 +390,7 @@ export function auditDocumentCollection(
  */
 export function calculateLiveQTMetrics(
   documents: VaultDocumentSlot[] = [],
-  auditReport: IdentityAuditReport = { primaryName: 'Candidate', totalDocuments: 0, verifiedCount: 0, mismatchCount: 0, overallStatus: 'SENTINEL_CLEAN', trustScore: 100, conflictingDocuments: [], identityConsistencyPercentage: 100 },
+  auditReport: IdentityAuditReport = { primaryName: 'Candidate', totalDocuments: 0, verifiedCount: 0, mismatchCount: 0, overallStatus: 'AWAITING_UPLOADS', trustScore: 0, conflictingDocuments: [], identityConsistencyPercentage: 0 },
   demonstratedCompetencyCount: number = 0,
   demonstratedProjectCount: number = 0,
   assessmentAveragePct: number = 0,
@@ -323,12 +417,33 @@ export function calculateLiveQTMetrics(
     };
   }
 
+  const readableDocs = documents.filter(isContentBearingDocument);
+
+  // If all uploaded files are empty or unreadable, award zero trust, zero ATS, and zero QT2
+  if (readableDocs.length === 0) {
+    const baselineEval = evaluateQT2Model([], auditReport, simulationScores, identityScores, voiceArchetype);
+    return {
+      qt1Score: 0,
+      qt2Score: 0,
+      evidenceTrustScore: 0,
+      atsPresentationScore: 0,
+      academicTrajectory: [],
+      extractedSkills: [],
+      weakAreas: [],
+      integrityLevel: '⚠️ Unreadable Files (No Valid Evidence Grounded)',
+      academicAverageGpa: 0,
+      growthMomentum: 'Baseline Calibration',
+      evaluatedDataPoints: 0,
+      qt2Evaluation: baselineEval
+    };
+  }
+
   const allSkills = new Set<string>();
   const semesterDataMap = new Map<number, { gpa: number; institution?: string; verified: boolean }>();
-  const masterResume: VaultDocumentSlot | undefined = documents.find(d => d.category === 'resume');
+  const masterResume: VaultDocumentSlot | undefined = readableDocs.find(d => d.category === 'resume');
 
-  documents.forEach(doc => {
-    doc.skills.forEach(s => allSkills.add(s));
+  readableDocs.forEach(doc => {
+    (doc.skills || []).forEach(s => allSkills.add(s));
 
     if (doc.category.startsWith('sem')) {
       const semNum = parseInt(doc.category.replace('sem', ''), 10);
@@ -377,27 +492,52 @@ export function calculateLiveQTMetrics(
   }
 
   // 2. Pure QT1 Capability Formulation:
-  // QT1 = Competency Mastery (0–55) + Project Execution (0–25) + Assessment Performance (0–20)
   const competencyPoints = Math.min(55, demonstratedCompetencyCount * 8.0);
   const projectPoints = Math.min(25, demonstratedProjectCount * 12.5);
   const assessmentPoints = Math.min(20, Math.round((assessmentAveragePct / 100) * 20));
-  const qt1Score = competencyPoints + projectPoints + assessmentPoints; // 0 on initial upload until quests are passed!
+  const qt1Score = competencyPoints + projectPoints + assessmentPoints;
 
   // 3. Evidence Trust Index (0–100)
-  const identityComponent = auditReport.mismatchCount === 0 ? 25 : Math.max(5, 25 - auditReport.mismatchCount * 10);
-  const integrityComponent = 20;
-  const provenanceComponent = Math.min(25, documents.length * 8);
-  const crossRecordComponent = academicTrajectory.length >= 2 ? 15 : 8;
-  const longitudinalComponent = growthMomentum !== 'Baseline Calibration' ? 15 : 7;
+  // Scored strictly on verified grounded provenance and multi-document consistency
+  const totalProvenanceRecords = readableDocs.reduce((acc, d) => acc + (d.provenanceRecords?.length || 0), 0);
+  const provenanceComponent = Math.min(30, Math.round(totalProvenanceRecords * 2.5));
+
+  const identityComponent = auditReport.mismatchCount === 0
+    ? (readableDocs.length >= 2 ? 25 : 12)
+    : Math.max(0, 25 - auditReport.mismatchCount * 12);
+
+  const integrityComponent = readableDocs.length >= 2 && auditReport.mismatchCount === 0 ? 20 : (readableDocs.length === 1 ? 10 : 0);
+  const crossRecordComponent = academicTrajectory.length >= 2 ? 15 : (academicTrajectory.length === 1 ? 10 : 0);
+  const longitudinalComponent = growthMomentum !== 'Baseline Calibration' ? 10 : 0;
+
   const evidenceTrustScore = Math.min(100, identityComponent + integrityComponent + provenanceComponent + crossRecordComponent + longitudinalComponent);
 
+  // 3b. Evaluate Cross-Document Contradictions & Apply Authoritative Precedence
+  const allProvenanceRecords: GroundedProvenanceRecord[] = [];
+  readableDocs.forEach(d => {
+    if (Array.isArray(d.provenanceRecords) && d.provenanceRecords.length > 0) {
+      allProvenanceRecords.push(...d.provenanceRecords);
+    }
+  });
+
+  const contradictionResult = evaluateDocumentContradictions(allProvenanceRecords);
+  let adjustedTrustScore = evidenceTrustScore;
+  if (contradictionResult.hasConflicts) {
+    adjustedTrustScore = Math.max(0, adjustedTrustScore - (contradictionResult.contradictions.length * 15));
+  }
+
   // 4. ATS Presentation Score (0-100)
-  const atsPresentationScore = masterResume?.atsScore || (masterResume ? 72 : 0);
+  // Only scored if master resume has actual extracted content / provenance
+  const atsPresentationScore = masterResume && (masterResume.provenanceRecords?.length || 0) > 0
+    ? (masterResume.atsScore || 70)
+    : 0;
 
   let integrityLevel = '🛡️ Sentinel Clean (100% Consistent)';
   if (auditReport.mismatchCount > 0) {
-    integrityLevel = `⚠️ Identity Conflict Flagged (${auditReport.mismatchCount} Conflicting Document${auditReport.mismatchCount > 1 ? 's' : ''})`;
-  } else if (documents.length < 2) {
+    integrityLevel = `⚠️ Identity Review Required (${auditReport.mismatchCount} Conflicting Document${auditReport.mismatchCount > 1 ? 's' : ''})`;
+  } else if (contradictionResult.hasConflicts) {
+    integrityLevel = `⚠️ Fact Contradiction Detected (${contradictionResult.contradictions.length} Conflict${contradictionResult.contradictions.length > 1 ? 's' : ''} Overruled by Verified Proofs)`;
+  } else if (readableDocs.length < 2) {
     integrityLevel = '📄 Self-Attested Baseline (Upload Academic Proofs to Elevate Trust)';
   }
 
@@ -405,17 +545,15 @@ export function calculateLiveQTMetrics(
     w => !Array.from(allSkills).some(s => s.toLowerCase().includes(w.toLowerCase().split(' ')[0]))
   );
 
-  // 5. Dynamic QT2 Cognitive Mindset & Integrity Evaluation
-  const qt2Eval = evaluateQT2Model(documents, auditReport, simulationScores, identityScores, voiceArchetype);
+  // 5. Dynamic QT2 Evaluation
+  const qt2Eval = evaluateQT2Model(readableDocs, auditReport, simulationScores, identityScores, voiceArchetype);
   const qt2Score = qt2Eval.compositeScore;
   const evaluatedDataPoints = qt2Eval.evaluatedDataPoints;
-
-  console.log(`📊 [STAGE 11/12 - Calibration Result]:\n   - QT1 Capability = ${qt1Score}/100 (Upload Baseline: 0)\n   - QT2 Cognitive Mindset = ${qt2Score}/100 (${evaluatedDataPoints} validated points)\n   - Evidence Trust = ${evidenceTrustScore}/100\n   - ATS Presentation = ${atsPresentationScore}/100\n   - Trajectory = ${growthMomentum} (Avg GPA: ${averageGpa})`);
 
   return {
     qt1Score,
     qt2Score,
-    evidenceTrustScore,
+    evidenceTrustScore: adjustedTrustScore,
     atsPresentationScore,
     academicTrajectory,
     extractedSkills: Array.from(allSkills),
@@ -424,7 +562,9 @@ export function calculateLiveQTMetrics(
     academicAverageGpa: averageGpa,
     growthMomentum,
     evaluatedDataPoints,
-    qt2Evaluation: qt2Eval
+    qt2Evaluation: qt2Eval,
+    contradictions: contradictionResult.contradictions,
+    authoritativeFacts: Object.fromEntries(contradictionResult.authoritativeFacts)
   };
 }
 
@@ -492,18 +632,32 @@ export function extractScoreOrGpa(category: VaultCategory, fileName: string, raw
  */
 export function extractDocumentSkills(category: VaultCategory, fileName: string, rawText: string = ''): string[] {
   const skills = new Set<string>();
-  const combined = (fileName + ' ' + rawText).toLowerCase();
+  const combined = `${fileName}\n${rawText}`;
   const skillKeywords = [
     'Python', 'Java', 'JavaScript', 'TypeScript', 'React', 'Next.js', 'Node.js',
-    'SQL', 'PostgreSQL', 'MongoDB', 'AWS', 'Docker', 'Kubernetes', 'Git',
+    'SQL', 'PostgreSQL', 'MySQL', 'MongoDB', 'AWS', 'Docker', 'Kubernetes', 'Git',
     'Machine Learning', 'Data Analysis', 'Algorithms', 'Data Structures',
     'Financial Accounting', 'Taxation', 'Corporate Finance', 'Excel',
     'Business Communication', 'Project Management', 'UI/UX Design', 'Figma'
   ];
-  skillKeywords.forEach(k => {
-    if (combined.includes(k.toLowerCase())) {
+
+  for (const k of skillKeywords) {
+    const escaped = k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    let pattern = `\\b${escaped}\\b`;
+    if (k.toLowerCase() === 'java') {
+      pattern = `\\bjava\\b(?!script)`;
+    } else if (k.toLowerCase() === 'excel') {
+      pattern = `\\bexcel\\b(?!lent|lence)`;
+    } else if (k.toLowerCase() === 'git') {
+      pattern = `\\bgit\\b(?!hub|lab)`;
+    } else if (k.toLowerCase() === 'sql') {
+      pattern = `(?<!my|postgre|p)\\bsql\\b`;
+    }
+
+    const regex = new RegExp(pattern, 'i');
+    if (regex.test(combined)) {
       skills.add(k);
     }
-  });
+  }
   return Array.from(skills);
 }

@@ -1,6 +1,1485 @@
 {
-  "dueInvoices": [],
+  "dues": {
+    "STU-FIN-TEST-01": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 15000,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 30000,
+          "deadline": "2025-08-30",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 15000,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": [
+        "SCH-MERIT"
+      ]
+    },
+    "STU-FIN-TEST-02": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 0,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 45000,
+          "deadline": "2025-08-30",
+          "status": "Paid",
+          "paidOn": "2026-09-11T20:45:02.731Z",
+          "receiptId": "RCP-39766"
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 15000,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": []
+    },
+    "test-stu-1789159801642": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 15000,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 45000,
+          "deadline": "2025-08-30",
+          "status": "Paid",
+          "paidOn": "2026-09-11T20:50:08.995Z",
+          "receiptId": "RCP-41715"
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 0,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": [
+        "SCH-MERIT"
+      ]
+    },
+    "test-stu-1789159863630": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 15000,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 45000,
+          "deadline": "2025-08-30",
+          "status": "Paid",
+          "paidOn": "2026-09-11T20:51:11.019Z",
+          "receiptId": "RCP-48340"
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 0,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": [
+        "SCH-MERIT"
+      ]
+    },
+    "test-stu-1789159911236": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 15000,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 45000,
+          "deadline": "2025-08-30",
+          "status": "Paid",
+          "paidOn": "2026-09-11T20:51:58.740Z",
+          "receiptId": "RCP-15845"
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 0,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": [
+        "SCH-MERIT"
+      ]
+    },
+    "test-stu-1789159966896": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 15000,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 45000,
+          "deadline": "2025-08-30",
+          "status": "Paid",
+          "paidOn": "2026-09-11T20:52:54.463Z",
+          "receiptId": "RCP-39966"
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 0,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": [
+        "SCH-MERIT"
+      ]
+    },
+    "STU-FIN-TEST-01-1789160795445": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 15000,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 30000,
+          "deadline": "2025-08-30",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 15000,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": [
+        "SCH-MERIT"
+      ]
+    },
+    "STU-FIN-TEST-02-1789160795452": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 0,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 45000,
+          "deadline": "2025-08-30",
+          "status": "Paid",
+          "paidOn": "2026-09-11T21:06:35.453Z",
+          "receiptId": "RCP-49664"
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 15000,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": []
+    },
+    "test-stu-1789161498746": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 15000,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 45000,
+          "deadline": "2025-08-30",
+          "status": "Paid",
+          "paidOn": "2026-09-11T21:18:26.036Z",
+          "receiptId": "RCP-86586"
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 0,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": [
+        "SCH-MERIT"
+      ]
+    },
+    "STU-FIN-TEST-01-1789162154035": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 15000,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 30000,
+          "deadline": "2025-08-30",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 15000,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": [
+        "SCH-MERIT"
+      ]
+    },
+    "STU-FIN-TEST-02-1789162154103": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 0,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 45000,
+          "deadline": "2025-08-30",
+          "status": "Paid",
+          "paidOn": "2026-09-11T21:29:14.104Z",
+          "receiptId": "RCP-67235"
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 15000,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": []
+    },
+    "STU-FIN-TEST-01-1789162250620": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 15000,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 30000,
+          "deadline": "2025-08-30",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 15000,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": [
+        "SCH-MERIT"
+      ]
+    },
+    "STU-FIN-TEST-02-1789162250625": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 0,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 45000,
+          "deadline": "2025-08-30",
+          "status": "Paid",
+          "paidOn": "2026-09-11T21:30:50.626Z",
+          "receiptId": "RCP-97443"
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 15000,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": []
+    },
+    "STU-FIN-TEST-01-1789162390359": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 15000,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 30000,
+          "deadline": "2025-08-30",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 15000,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": [
+        "SCH-MERIT"
+      ]
+    },
+    "STU-FIN-TEST-02-1789162390366": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 0,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 45000,
+          "deadline": "2025-08-30",
+          "status": "Paid",
+          "paidOn": "2026-09-11T21:33:10.367Z",
+          "receiptId": "RCP-91680"
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 15000,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": []
+    },
+    "test-stu-1789163222130": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 15000,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 45000,
+          "deadline": "2025-08-30",
+          "status": "Paid",
+          "paidOn": "2026-09-11T21:47:09.960Z",
+          "receiptId": "RCP-65140"
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 0,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": [
+        "SCH-MERIT"
+      ]
+    },
+    "STU-FIN-TEST-01-1789205035435": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 15000,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 30000,
+          "deadline": "2025-08-30",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 15000,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": [
+        "SCH-MERIT"
+      ]
+    },
+    "STU-FIN-TEST-02-1789205035440": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 0,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 45000,
+          "deadline": "2025-08-30",
+          "status": "Paid",
+          "paidOn": "2026-09-12T09:23:55.440Z",
+          "receiptId": "RCP-27349"
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 15000,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": []
+    },
+    "STU-FIN-TEST-01-1789206239792": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 15000,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 30000,
+          "deadline": "2025-08-30",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 15000,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": [
+        "SCH-MERIT"
+      ]
+    },
+    "STU-FIN-TEST-02-1789206239799": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 0,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 45000,
+          "deadline": "2025-08-30",
+          "status": "Paid",
+          "paidOn": "2026-09-12T09:43:59.799Z",
+          "receiptId": "RCP-77785"
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 15000,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": []
+    },
+    "test-stu-1789207085547": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 15000,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 45000,
+          "deadline": "2025-08-30",
+          "status": "Paid",
+          "paidOn": "2026-09-12T09:58:14.145Z",
+          "receiptId": "RCP-26776"
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 0,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": [
+        "SCH-MERIT"
+      ]
+    },
+    "STU-FIN-TEST-01-1789207956650": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 15000,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 30000,
+          "deadline": "2025-08-30",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 15000,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": [
+        "SCH-MERIT"
+      ]
+    },
+    "STU-FIN-TEST-02-1789207956653": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 0,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 45000,
+          "deadline": "2025-08-30",
+          "status": "Paid",
+          "paidOn": "2026-09-12T10:12:36.654Z",
+          "receiptId": "RCP-86808"
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 15000,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": []
+    },
+    "test-stu-1789208060170": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 15000,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 45000,
+          "deadline": "2025-08-30",
+          "status": "Paid",
+          "paidOn": "2026-09-12T10:14:27.591Z",
+          "receiptId": "RCP-14979"
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 0,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": [
+        "SCH-MERIT"
+      ]
+    },
+    "STU-FIN-TEST-01-1789210334667": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 15000,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 30000,
+          "deadline": "2025-08-30",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 15000,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": [
+        "SCH-MERIT"
+      ]
+    },
+    "STU-FIN-TEST-02-1789210334675": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 0,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 45000,
+          "deadline": "2025-08-30",
+          "status": "Paid",
+          "paidOn": "2026-09-12T10:52:14.677Z",
+          "receiptId": "RCP-35949"
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 15000,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": []
+    },
+    "test-stu-1789210888947": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 15000,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 45000,
+          "deadline": "2025-08-30",
+          "status": "Paid",
+          "paidOn": "2026-09-12T11:01:36.324Z",
+          "receiptId": "RCP-31846"
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 0,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": [
+        "SCH-MERIT"
+      ]
+    },
+    "test-stu-1789210961431": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 15000,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 45000,
+          "deadline": "2025-08-30",
+          "status": "Paid",
+          "paidOn": "2026-09-12T11:02:48.659Z",
+          "receiptId": "RCP-21519"
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 0,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": [
+        "SCH-MERIT"
+      ]
+    },
+    "test-stu-1789211071355": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 15000,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 45000,
+          "deadline": "2025-08-30",
+          "status": "Paid",
+          "paidOn": "2026-09-12T11:04:38.558Z",
+          "receiptId": "RCP-65743"
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 0,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": [
+        "SCH-MERIT"
+      ]
+    },
+    "test-stu-1789225580859": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 15000,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 45000,
+          "deadline": "2025-08-30",
+          "status": "Paid",
+          "paidOn": "2026-09-12T15:06:28.955Z",
+          "receiptId": "RCP-53099"
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 0,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": [
+        "SCH-MERIT"
+      ]
+    },
+    "stu-mutex-1789226194565": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 0,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 45000,
+          "deadline": "2025-08-30",
+          "status": "Paid",
+          "paidOn": "2026-09-12T15:16:50.126Z",
+          "receiptId": "RCP-31358"
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 15000,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": []
+    },
+    "stu-mutex-1789226320305": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 0,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 45000,
+          "deadline": "2025-08-30",
+          "status": "Paid",
+          "paidOn": "2026-09-12T15:18:57.396Z",
+          "receiptId": "RCP-20866"
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 15000,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": []
+    },
+    "stu-mutex-1789228274241": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 0,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 45000,
+          "deadline": "2025-08-30",
+          "status": "Paid",
+          "paidOn": "2026-09-12T15:51:29.848Z",
+          "receiptId": "RCP-29958"
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 15000,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": []
+    },
+    "stu-mutex-1789228347331": {
+      "totalTermFees": 65000,
+      "scholarshipWaiver": 0,
+      "fineLevied": 0,
+      "installments": [
+        {
+          "id": "INST-01",
+          "name": "Semester Tuition Fee - Term 1",
+          "amount": 45000,
+          "deadline": "2025-08-30",
+          "status": "Paid",
+          "paidOn": "2026-09-12T15:52:43.640Z",
+          "receiptId": "RCP-82751"
+        },
+        {
+          "id": "INST-02",
+          "name": "Campus Facilities & Lab Fee",
+          "amount": 15000,
+          "deadline": "2025-10-15",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        },
+        {
+          "id": "INST-03",
+          "name": "Examination & Assessment Fee",
+          "amount": 5000,
+          "deadline": "2025-12-01",
+          "status": "Pending",
+          "paidOn": null,
+          "receiptId": null
+        }
+      ],
+      "appliedScholarships": []
+    }
+  },
   "scholarships": [],
-  "collectedAmount": 0,
-  "pendingAmount": 0
+  "transactions": [
+    {
+      "id": "RCP-82751",
+      "studentName": "Mutex Student",
+      "studentEmail": "mutex@pinit.in",
+      "amount": 45000,
+      "finePaid": 0,
+      "type": "Semester Tuition Fee - Term 1",
+      "timestamp": "2026-09-12T15:52:43.640Z"
+    },
+    {
+      "id": "RCP-29958",
+      "studentName": "Mutex Student",
+      "studentEmail": "mutex@pinit.in",
+      "amount": 45000,
+      "finePaid": 0,
+      "type": "Semester Tuition Fee - Term 1",
+      "timestamp": "2026-09-12T15:51:29.848Z"
+    },
+    {
+      "id": "RCP-20866",
+      "studentName": "Mutex Student",
+      "studentEmail": "mutex@pinit.in",
+      "amount": 45000,
+      "finePaid": 0,
+      "type": "Semester Tuition Fee - Term 1",
+      "timestamp": "2026-09-12T15:18:57.397Z"
+    },
+    {
+      "id": "RCP-31358",
+      "studentName": "Mutex Student",
+      "studentEmail": "mutex@pinit.in",
+      "amount": 45000,
+      "finePaid": 0,
+      "type": "Semester Tuition Fee - Term 1",
+      "timestamp": "2026-09-12T15:16:50.127Z"
+    },
+    {
+      "id": "RCP-53099",
+      "studentId": "test-stu-1789225580859",
+      "studentName": "Test Student",
+      "studentEmail": "student@pinit.in",
+      "amount": 45000,
+      "finePaid": 0,
+      "type": "Semester Tuition Fee - Term 1",
+      "timestamp": "2026-09-12T15:06:28.957Z"
+    },
+    {
+      "id": "RCP-65743",
+      "studentId": "test-stu-1789211071355",
+      "studentName": "Test Student",
+      "studentEmail": "student@pinit.in",
+      "amount": 45000,
+      "finePaid": 0,
+      "type": "Semester Tuition Fee - Term 1",
+      "timestamp": "2026-09-12T11:04:38.560Z"
+    },
+    {
+      "id": "RCP-21519",
+      "studentId": "test-stu-1789210961431",
+      "studentName": "Test Student",
+      "studentEmail": "student@pinit.in",
+      "amount": 45000,
+      "finePaid": 0,
+      "type": "Semester Tuition Fee - Term 1",
+      "timestamp": "2026-09-12T11:02:48.660Z"
+    },
+    {
+      "id": "RCP-31846",
+      "studentId": "test-stu-1789210888947",
+      "studentName": "Test Student",
+      "studentEmail": "student@pinit.in",
+      "amount": 45000,
+      "finePaid": 0,
+      "type": "Semester Tuition Fee - Term 1",
+      "timestamp": "2026-09-12T11:01:36.325Z"
+    },
+    {
+      "id": "RCP-35949",
+      "studentId": "STU-FIN-TEST-02-1789210334675",
+      "studentName": "Test Student",
+      "studentEmail": "test@university.edu",
+      "amount": 45000,
+      "finePaid": 0,
+      "type": "Semester Tuition Fee - Term 1",
+      "timestamp": "2026-09-12T10:52:14.679Z"
+    },
+    {
+      "id": "RCP-14979",
+      "studentId": "test-stu-1789208060170",
+      "studentName": "Test Student",
+      "studentEmail": "student@pinit.in",
+      "amount": 45000,
+      "finePaid": 0,
+      "type": "Semester Tuition Fee - Term 1",
+      "timestamp": "2026-09-12T10:14:27.593Z"
+    },
+    {
+      "id": "RCP-86808",
+      "studentId": "STU-FIN-TEST-02-1789207956653",
+      "studentName": "Test Student",
+      "studentEmail": "test@university.edu",
+      "amount": 45000,
+      "finePaid": 0,
+      "type": "Semester Tuition Fee - Term 1",
+      "timestamp": "2026-09-12T10:12:36.655Z"
+    },
+    {
+      "id": "RCP-26776",
+      "studentId": "test-stu-1789207085547",
+      "studentName": "Test Student",
+      "studentEmail": "student@pinit.in",
+      "amount": 45000,
+      "finePaid": 0,
+      "type": "Semester Tuition Fee - Term 1",
+      "timestamp": "2026-09-12T09:58:14.148Z"
+    },
+    {
+      "id": "RCP-77785",
+      "studentId": "STU-FIN-TEST-02-1789206239799",
+      "studentName": "Test Student",
+      "studentEmail": "test@university.edu",
+      "amount": 45000,
+      "finePaid": 0,
+      "type": "Semester Tuition Fee - Term 1",
+      "timestamp": "2026-09-12T09:43:59.801Z"
+    },
+    {
+      "id": "RCP-27349",
+      "studentId": "STU-FIN-TEST-02-1789205035440",
+      "studentName": "Test Student",
+      "studentEmail": "test@university.edu",
+      "amount": 45000,
+      "finePaid": 0,
+      "type": "Semester Tuition Fee - Term 1",
+      "timestamp": "2026-09-12T09:23:55.442Z"
+    },
+    {
+      "id": "RCP-65140",
+      "studentId": "test-stu-1789163222130",
+      "studentName": "Test Student",
+      "studentEmail": "student@pinit.in",
+      "amount": 45000,
+      "finePaid": 0,
+      "type": "Semester Tuition Fee - Term 1",
+      "timestamp": "2026-09-11T21:47:09.961Z"
+    },
+    {
+      "id": "RCP-91680",
+      "studentId": "STU-FIN-TEST-02-1789162390366",
+      "studentName": "Test Student",
+      "studentEmail": "test@university.edu",
+      "amount": 45000,
+      "finePaid": 0,
+      "type": "Semester Tuition Fee - Term 1",
+      "timestamp": "2026-09-11T21:33:10.370Z"
+    },
+    {
+      "id": "RCP-97443",
+      "studentId": "STU-FIN-TEST-02-1789162250625",
+      "studentName": "Test Student",
+      "studentEmail": "test@university.edu",
+      "amount": 45000,
+      "finePaid": 0,
+      "type": "Semester Tuition Fee - Term 1",
+      "timestamp": "2026-09-11T21:30:50.628Z"
+    },
+    {
+      "id": "RCP-67235",
+      "studentId": "STU-FIN-TEST-02-1789162154103",
+      "studentName": "Test Student",
+      "studentEmail": "test@university.edu",
+      "amount": 45000,
+      "finePaid": 0,
+      "type": "Semester Tuition Fee - Term 1",
+      "timestamp": "2026-09-11T21:29:14.108Z"
+    },
+    {
+      "id": "RCP-86586",
+      "studentId": "test-stu-1789161498746",
+      "studentName": "Test Student",
+      "studentEmail": "student@pinit.in",
+      "amount": 45000,
+      "finePaid": 0,
+      "type": "Semester Tuition Fee - Term 1",
+      "timestamp": "2026-09-11T21:18:26.038Z"
+    },
+    {
+      "id": "RCP-49664",
+      "studentId": "STU-FIN-TEST-02-1789160795452",
+      "studentName": "Test Student",
+      "studentEmail": "test@university.edu",
+      "amount": 45000,
+      "finePaid": 0,
+      "type": "Semester Tuition Fee - Term 1",
+      "timestamp": "2026-09-11T21:06:35.457Z"
+    },
+    {
+      "id": "RCP-39966",
+      "studentId": "test-stu-1789159966896",
+      "studentName": "Test Student",
+      "studentEmail": "student@pinit.in",
+      "amount": 45000,
+      "finePaid": 0,
+      "type": "Semester Tuition Fee - Term 1",
+      "timestamp": "2026-09-11T20:52:54.465Z"
+    },
+    {
+      "id": "RCP-15845",
+      "studentId": "test-stu-1789159911236",
+      "studentName": "Test Student",
+      "studentEmail": "student@pinit.in",
+      "amount": 45000,
+      "finePaid": 0,
+      "type": "Semester Tuition Fee - Term 1",
+      "timestamp": "2026-09-11T20:51:58.743Z"
+    },
+    {
+      "id": "RCP-48340",
+      "studentId": "test-stu-1789159863630",
+      "studentName": "Test Student",
+      "studentEmail": "student@pinit.in",
+      "amount": 45000,
+      "finePaid": 0,
+      "type": "Semester Tuition Fee - Term 1",
+      "timestamp": "2026-09-11T20:51:11.022Z"
+    },
+    {
+      "id": "RCP-41715",
+      "studentId": "test-stu-1789159801642",
+      "studentName": "Test Student",
+      "studentEmail": "student@pinit.in",
+      "amount": 45000,
+      "finePaid": 0,
+      "type": "Semester Tuition Fee - Term 1",
+      "timestamp": "2026-09-11T20:50:08.997Z"
+    },
+    {
+      "id": "RCP-39766",
+      "studentId": "STU-FIN-TEST-02",
+      "studentName": "Test Student",
+      "studentEmail": "test@university.edu",
+      "amount": 45000,
+      "finePaid": 0,
+      "type": "Semester Tuition Fee - Term 1",
+      "timestamp": "2026-09-11T20:45:02.734Z"
+    }
+  ]
 }

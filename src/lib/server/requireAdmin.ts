@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { requireAdminUserFromRequest } from '@/lib/server/requireAuth';
 
+export { requireAdminUserFromRequest };
+
 /**
  * @deprecated Prefer requireAdminUserFromRequest (JWT + DB role).
  * Kept for temporary compatibility; now delegates to JWT verification
@@ -10,3 +12,8 @@ export async function requireAdminFromRequest(req: Request): Promise<NextRespons
   const result = await requireAdminUserFromRequest(req);
   return result.error;
 }
+
+export async function requireAdmin(req: Request) {
+  return requireAdminUserFromRequest(req);
+}
+

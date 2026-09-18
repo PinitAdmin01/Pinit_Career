@@ -69,6 +69,8 @@ export interface GithubEvidenceReport {
   proofRecord: AuditRecord;
   diagnostics: string[];
   disclaimer: string;
+  authorshipStatus?: 'VERIFIED_AUTHOR' | 'CONTRIBUTOR' | 'UNVERIFIED_EXTERNAL';
+  isAuthoredByStudent?: boolean;
 }
 
 export const GITHUB_EVIDENCE_DISCLAIMER =
@@ -259,7 +261,9 @@ export function evaluateRepositoryTree(filePaths: string[]): {
 export function analyzeRepositoryEvidence(
   metadata: RepositoryMetadata,
   languages: Record<string, number>,
-  fileTree: string[] = []
+  fileTree: string[] = [],
+  studentUsername?: string,
+  isContributor?: boolean
 ): GithubEvidenceReport {
   const treeAnalysis = evaluateRepositoryTree(fileTree);
 
@@ -310,10 +314,28 @@ export function analyzeRepositoryEvidence(
     evidenceHash: generateEvidenceHash(metadata.owner, metadata.repo, treeAnalysis.keyFilesFound, overallEvidenceScore)
   };
 
+  let authorshipStatus: 'VERIFIED_AUTHOR' | 'CONTRIBUTOR' | 'UNVERIFIED_EXTERNAL' = 'UNVERIFIED_EXTERNAL';
+  let isAuthoredByStudent = false;
+
+  if (studentUsername && typeof studentUsername === 'string' && studentUsername.trim()) {
+    const cleanStudent = studentUsername.trim().toLowerCase();
+    const repoOwner = metadata.owner.trim().toLowerCase();
+    if (cleanStudent === repoOwner) {
+      authorshipStatus = 'VERIFIED_AUTHOR';
+      isAuthoredByStudent = true;
+    } else if (isContributor) {
+      authorshipStatus = 'CONTRIBUTOR';
+      isAuthoredByStudent = true;
+    }
+  }
+
   const diagnostics = [
     `Verified ${fileTree.length} repository path entries across branch '${metadata.defaultBranch}'.`,
     `Identified ${treeAnalysis.detectedSkills.length} evidence-backed skill signals.`,
-    `Project complexity classified as ${complexityTier} (Score: ${overallEvidenceScore}/100).`
+    `Project complexity classified as ${complexityTier} (Score: ${overallEvidenceScore}/100).`,
+    isAuthoredByStudent
+      ? `Authorship Confirmed: Repository is confirmed authored by or contributed to by student account ('${studentUsername}').`
+      : `External Reference Notice: Repository author ('${metadata.owner}') does not match student account. Categorized as External Reference.`
   ];
 
   return {
@@ -328,7 +350,9 @@ export function analyzeRepositoryEvidence(
     keyFilesFound: treeAnalysis.keyFilesFound,
     proofRecord,
     diagnostics,
-    disclaimer: GITHUB_EVIDENCE_DISCLAIMER
+    disclaimer: GITHUB_EVIDENCE_DISCLAIMER,
+    authorshipStatus,
+    isAuthoredByStudent
   };
 }
 
@@ -337,7 +361,8 @@ export function analyzeRepositoryEvidence(
  */
 export async function ingestGithubRepository(
   rawUrl: string,
-  githubToken?: string
+  githubToken?: string,
+  studentUsername?: string
 ): Promise<GithubEvidenceReport> {
   const urlCheck = parseAndValidateGithubUrl(rawUrl);
   if (!urlCheck.valid || !urlCheck.owner || !urlCheck.repo) {
@@ -414,7 +439,26 @@ export async function ingestGithubRepository(
       // Tree fetch optional fallback
     }
 
-    return analyzeRepositoryEvidence(metadata, languages, fileTree);
+    // 4. Check contributor status if studentUsername provided and does not match owner
+    let isContributor = false;
+    if (studentUsername && typeof studentUsername === 'string' && studentUsername.trim()) {
+      const cleanStudent = studentUsername.trim().toLowerCase();
+      if (cleanStudent !== owner.toLowerCase()) {
+        try {
+          const contribRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contributors?per_page=30`, { headers });
+          if (contribRes.ok) {
+            const contribData = await contribRes.json();
+            if (Array.isArray(contribData) && contribData.some((c: any) => c.login?.toLowerCase() === cleanStudent)) {
+              isContributor = true;
+            }
+          }
+        } catch {
+          // contributor check optional fallback
+        }
+      }
+    }
+
+    return analyzeRepositoryEvidence(metadata, languages, fileTree, studentUsername, isContributor);
   } catch (err: any) {
     return createErrorReport('NETWORK_ERROR', err?.message || 'Failed to connect to GitHub API');
   }

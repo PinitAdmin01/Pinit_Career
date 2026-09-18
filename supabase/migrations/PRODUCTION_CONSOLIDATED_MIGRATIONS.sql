@@ -1094,4 +1094,342 @@ BEGIN
     END IF;
 END $$;
 
+-- ── 10. User profile array columns (endorsed_skills, completed_missions) ─────
+ALTER TABLE public.users 
+  ADD COLUMN IF NOT EXISTS endorsed_skills text[] DEFAULT '{}',
+  ADD COLUMN IF NOT EXISTS completed_missions text[] DEFAULT '{}';
+
+-- Backfill onboarding_step = 3 for existing students who already completed onboarding
+UPDATE public.users 
+SET onboarding_step = 3 
+WHERE (roadmap_generated = true OR onboarding_answers->>'hasCompleted' = 'true') 
+  AND (onboarding_step IS NULL OR onboarding_step < 3);
+
+-- ── 11. Student Activity and Audit Logs RLS ─────────────────────────────────
+CREATE TABLE IF NOT EXISTS public.audit_logs (
+  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  admin_id uuid REFERENCES public.users(id) ON DELETE CASCADE,
+  actor_id uuid REFERENCES public.users(id) ON DELETE CASCADE,
+  action text NOT NULL,
+  target_id text,
+  meta jsonb DEFAULT '{}'::jsonb,
+  timestamp timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL,
+  created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+ALTER TABLE public.audit_logs 
+  ALTER COLUMN admin_id DROP NOT NULL;
+
+ALTER TABLE public.audit_logs 
+  ADD COLUMN IF NOT EXISTS actor_id uuid REFERENCES public.users(id) ON DELETE CASCADE,
+  ADD COLUMN IF NOT EXISTS created_at timestamptz DEFAULT timezone('utc'::text, now());
+
+UPDATE public.audit_logs 
+SET created_at = timestamp 
+WHERE created_at IS NULL AND timestamp IS NOT NULL;
+
+UPDATE public.audit_logs 
+SET actor_id = admin_id 
+WHERE actor_id IS NULL AND admin_id IS NOT NULL;
+
+CREATE INDEX IF NOT EXISTS idx_audit_logs_actor_id ON public.audit_logs(actor_id);
+CREATE INDEX IF NOT EXISTS idx_audit_logs_target_id ON public.audit_logs(target_id);
+CREATE INDEX IF NOT EXISTS idx_audit_logs_created_at ON public.audit_logs(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_audit_logs_timestamp ON public.audit_logs(timestamp DESC);
+
+ALTER TABLE public.audit_logs ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Admins can view audit logs" ON public.audit_logs;
+DROP POLICY IF EXISTS "Admins can view all audit logs" ON public.audit_logs;
+CREATE POLICY "Admins can view all audit logs" ON public.audit_logs
+  FOR SELECT USING (
+    EXISTS (SELECT 1 FROM public.users WHERE id = auth.uid() AND role = 'admin')
+  );
+
+DROP POLICY IF EXISTS "Users can view own audit logs" ON public.audit_logs;
+CREATE POLICY "Users can view own audit logs" ON public.audit_logs
+  FOR SELECT USING (
+    auth.uid() IS NOT NULL AND (
+      actor_id = auth.uid()
+      OR target_id = auth.uid()::text
+    )
+  );
+
+DROP POLICY IF EXISTS "Users can insert own audit logs" ON public.audit_logs;
+CREATE POLICY "Users can insert own audit logs" ON public.audit_logs
+  FOR INSERT WITH CHECK (
+    auth.uid() IS NOT NULL AND (
+      actor_id IS NULL OR actor_id = auth.uid()
+    )
+  );
+
+-- ── 12. Campus Status & Vault Verified Immutability Guards ───────────────────
+CREATE OR REPLACE FUNCTION public.campus_is_staff()
+RETURNS boolean
+LANGUAGE sql
+STABLE
+SECURITY DEFINER
+SET search_path = public
+AS $$
+  SELECT 
+    current_user = 'service_role'
+    OR (auth.jwt() ->> 'role') = 'service_role'
+    OR EXISTS (
+      SELECT 1 FROM public.users u
+      WHERE u.id = auth.uid()
+        AND u.role IN ('admin', 'superadmin', 'teacher', 'faculty')
+    );
+$$;
+
+GRANT EXECUTE ON FUNCTION public.campus_is_staff() TO authenticated, service_role;
+
+CREATE OR REPLACE FUNCTION public.check_student_campus_status_immutable()
+RETURNS TRIGGER AS $$
+BEGIN
+  IF NOT public.campus_is_staff() THEN
+    IF TG_OP = 'INSERT' THEN
+      NEW.status := 'pending';
+    END IF;
+    IF (TG_OP = 'UPDATE' AND OLD.status IS DISTINCT FROM NEW.status) THEN
+      RAISE EXCEPTION 'Students cannot alter status on campus records';
+    END IF;
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DO $$
+DECLARE
+  t text;
+  tables text[] := ARRAY['services_leaves', 'document_requests', 'admissions_applications', 'grievances_tickets', 'services_requests'];
+BEGIN
+  DROP TRIGGER IF EXISTS trg_guard_status_finance_dues ON public.finance_dues;
+
+  FOREACH t IN ARRAY tables LOOP
+    IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = t AND table_schema = 'public') THEN
+      EXECUTE format('DROP TRIGGER IF EXISTS trg_guard_status_%I ON public.%I', t, t);
+      EXECUTE format('CREATE TRIGGER trg_guard_status_%I BEFORE INSERT OR UPDATE ON public.%I FOR EACH ROW EXECUTE FUNCTION public.check_student_campus_status_immutable()', t, t);
+    END IF;
+  END LOOP;
+END $$;
+
+CREATE OR REPLACE FUNCTION public.check_finance_dues_immutable()
+RETURNS TRIGGER AS $$
+BEGIN
+  IF NOT public.campus_is_staff() THEN
+    RAISE EXCEPTION 'Students cannot modify or delete finance dues records';
+  END IF;
+  IF TG_OP = 'DELETE' THEN RETURN OLD; END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS trg_guard_finance_dues ON public.finance_dues;
+CREATE TRIGGER trg_guard_finance_dues
+  BEFORE UPDATE OR DELETE ON public.finance_dues
+  FOR EACH ROW EXECUTE FUNCTION public.check_finance_dues_immutable();
+
+ALTER TABLE public.finance_dues ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "campus_dues_own" ON public.finance_dues;
+DROP POLICY IF EXISTS "campus_own_or_staff" ON public.finance_dues;
+DROP POLICY IF EXISTS "campus_dues_select_own" ON public.finance_dues;
+CREATE POLICY "campus_dues_select_own" ON public.finance_dues
+  FOR SELECT USING (student_id = auth.uid()::text OR public.campus_is_staff());
+
+DROP POLICY IF EXISTS "campus_dues_staff_all" ON public.finance_dues;
+CREATE POLICY "campus_dues_staff_all" ON public.finance_dues
+  FOR ALL USING (public.campus_is_staff()) WITH CHECK (public.campus_is_staff());
+
+CREATE OR REPLACE FUNCTION public.check_vault_verified_immutable()
+RETURNS TRIGGER AS $$
+BEGIN
+  IF (TG_OP = 'UPDATE' AND OLD.verified IS DISTINCT FROM NEW.verified AND NEW.verified = true) THEN
+    IF (current_user != 'service_role' AND NOT public.campus_is_staff()) THEN
+      RAISE EXCEPTION 'Only administrative services or staff can verify vault items';
+    END IF;
+  END IF;
+  IF (TG_OP = 'INSERT' AND NEW.verified = true) THEN
+    IF (current_user != 'service_role' AND NOT public.campus_is_staff()) THEN
+      NEW.verified := false;
+    END IF;
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'vault_items' AND table_schema = 'public') THEN
+    DROP TRIGGER IF EXISTS trg_guard_vault_verified ON public.vault_items;
+    CREATE TRIGGER trg_guard_vault_verified 
+      BEFORE INSERT OR UPDATE ON public.vault_items 
+      FOR EACH ROW EXECUTE FUNCTION public.check_vault_verified_immutable();
+  END IF;
+END $$;
+
+-- ── 14. Revoke public access on dangerous/money-moving procedures ─────────────
+-- Each block is guarded with to_regprocedure so the migration never aborts on a
+-- fresh database that is missing one of these functions.
+DO $$ BEGIN
+  IF to_regprocedure('public.spend_pins(uuid,integer,text)') IS NOT NULL THEN
+    REVOKE EXECUTE ON FUNCTION public.spend_pins(UUID, INTEGER, TEXT) FROM PUBLIC, anon, authenticated;
+    GRANT  EXECUTE ON FUNCTION public.spend_pins(UUID, INTEGER, TEXT) TO service_role;
+  END IF;
+END $$;
+DO $$ BEGIN
+  IF to_regprocedure('public.credit_pins(uuid,integer,text,text)') IS NOT NULL THEN
+    REVOKE EXECUTE ON FUNCTION public.credit_pins(UUID, INTEGER, TEXT, TEXT) FROM PUBLIC, anon, authenticated;
+    GRANT  EXECUTE ON FUNCTION public.credit_pins(UUID, INTEGER, TEXT, TEXT) TO service_role;
+  END IF;
+END $$;
+DO $$ BEGIN
+  IF to_regprocedure('public.process_fee_installment_payment(text,text,text,text,text)') IS NOT NULL THEN
+    REVOKE EXECUTE ON FUNCTION public.process_fee_installment_payment(TEXT, TEXT, TEXT, TEXT, TEXT) FROM PUBLIC, anon, authenticated;
+    GRANT  EXECUTE ON FUNCTION public.process_fee_installment_payment(TEXT, TEXT, TEXT, TEXT, TEXT) TO service_role;
+  END IF;
+END $$;
+DO $$ BEGIN
+  -- Real signature uses TEXT for p_student_id (not UUID)
+  IF to_regprocedure('public.apply_student_scholarship(text,text,numeric,text)') IS NOT NULL THEN
+    REVOKE EXECUTE ON FUNCTION public.apply_student_scholarship(TEXT, TEXT, NUMERIC, TEXT) FROM PUBLIC, anon, authenticated;
+    GRANT  EXECUTE ON FUNCTION public.apply_student_scholarship(TEXT, TEXT, NUMERIC, TEXT) TO service_role;
+  END IF;
+END $$;
+DO $$ BEGIN
+  -- Real signature uses TEXT for p_student_id (not UUID)
+  IF to_regprocedure('public.apply_student_scholarship_relational(text,text,numeric,text)') IS NOT NULL THEN
+    REVOKE EXECUTE ON FUNCTION public.apply_student_scholarship_relational(TEXT, TEXT, NUMERIC, TEXT) FROM PUBLIC, anon, authenticated;
+    GRANT  EXECUTE ON FUNCTION public.apply_student_scholarship_relational(TEXT, TEXT, NUMERIC, TEXT) TO service_role;
+  END IF;
+END $$;
+DO $$ BEGIN
+  IF to_regprocedure('public.perform_daily_pin_reset()') IS NOT NULL THEN
+    REVOKE EXECUTE ON FUNCTION public.perform_daily_pin_reset() FROM PUBLIC, anon, authenticated;
+    GRANT  EXECUTE ON FUNCTION public.perform_daily_pin_reset() TO service_role;
+  END IF;
+END $$;
+DO $$ BEGIN
+  IF to_regprocedure('public.get_finance_dashboard_aggregates()') IS NOT NULL THEN
+    REVOKE EXECUTE ON FUNCTION public.get_finance_dashboard_aggregates() FROM PUBLIC, anon, authenticated;
+    GRANT  EXECUTE ON FUNCTION public.get_finance_dashboard_aggregates() TO service_role;
+  END IF;
+END $$;
+DO $$ BEGIN
+  IF to_regprocedure('public.increment_xp(uuid,integer,text)') IS NOT NULL THEN
+    REVOKE EXECUTE ON FUNCTION public.increment_xp(uuid, integer, text) FROM PUBLIC, anon, authenticated;
+    GRANT  EXECUTE ON FUNCTION public.increment_xp(uuid, integer, text) TO service_role;
+  END IF;
+END $$;
+DO $$ BEGIN
+  IF to_regprocedure('public.award_prestige_badge(uuid,text,text)') IS NOT NULL THEN
+    REVOKE EXECUTE ON FUNCTION public.award_prestige_badge(uuid, text, text) FROM PUBLIC, anon, authenticated;
+    GRANT  EXECUTE ON FUNCTION public.award_prestige_badge(uuid, text, text) TO service_role;
+  END IF;
+END $$;
+DO $$ BEGIN
+  IF to_regprocedure('public.purchase_ai_minutes(uuid,integer,integer)') IS NOT NULL THEN
+    REVOKE EXECUTE ON FUNCTION public.purchase_ai_minutes(uuid, integer, integer) FROM PUBLIC, anon, authenticated;
+    GRANT  EXECUTE ON FUNCTION public.purchase_ai_minutes(uuid, integer, integer) TO service_role;
+  END IF;
+END $$;
+DO $$ BEGIN
+  IF to_regprocedure('public.apply_feature_grace_extension(uuid,text,integer)') IS NOT NULL THEN
+    REVOKE EXECUTE ON FUNCTION public.apply_feature_grace_extension(uuid, text, integer) FROM PUBLIC, anon, authenticated;
+    GRANT  EXECUTE ON FUNCTION public.apply_feature_grace_extension(uuid, text, integer) TO service_role;
+  END IF;
+END $$;
+DO $$ BEGIN
+  IF to_regprocedure('public.get_pin_balance(uuid)') IS NOT NULL THEN
+    REVOKE EXECUTE ON FUNCTION public.get_pin_balance(uuid) FROM PUBLIC, anon;
+    GRANT  EXECUTE ON FUNCTION public.get_pin_balance(uuid) TO service_role;
+  END IF;
+END $$;
+
+-- ── 15. Fix Campus Status Trigger, Isolate Finance Dues & Restore Anti-Cheat ─
+CREATE OR REPLACE FUNCTION public.prevent_privilege_escalation()
+RETURNS TRIGGER LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$
+BEGIN
+  IF auth.uid() IS NOT NULL AND auth.uid() = old.id THEN
+    -- Economy / Roles / Subscriptions
+    IF new.role IS DISTINCT FROM old.role
+       OR new.pins IS DISTINCT FROM old.pins
+       OR coalesce(new.subscription_tier, 'free') IS DISTINCT FROM coalesce(old.subscription_tier, 'free')
+       OR new.ats_score IS DISTINCT FROM old.ats_score
+       OR new.trust_score IS DISTINCT FROM old.trust_score
+       OR new.subscription_started_at IS DISTINCT FROM old.subscription_started_at
+       OR new.subscription_expires_at IS DISTINCT FROM old.subscription_expires_at
+       OR coalesce(new.subscription_status, 'none') IS DISTINCT FROM coalesce(old.subscription_status, 'none') THEN
+      new.role := old.role;
+      new.pins := old.pins;
+      new.subscription_tier := old.subscription_tier;
+      new.ats_score := old.ats_score;
+      new.trust_score := old.trust_score;
+      new.subscription_started_at := old.subscription_started_at;
+      new.subscription_expires_at := old.subscription_expires_at;
+      new.subscription_status := old.subscription_status;
+    END IF;
+    -- XP, Quests, Scores, Certifications, and Recruiter Ranking
+    IF new.xp_total IS DISTINCT FROM old.xp_total
+       OR new.xp_level IS DISTINCT FROM old.xp_level
+       OR new.completed_quests IS DISTINCT FROM old.completed_quests
+       OR new.java_test_passed IS DISTINCT FROM old.java_test_passed
+       OR new.career_dna_score IS DISTINCT FROM old.career_dna_score
+       OR new.career_readiness IS DISTINCT FROM old.career_readiness
+       OR new.certifications IS DISTINCT FROM old.certifications
+       OR new.recruiter_visibility IS DISTINCT FROM old.recruiter_visibility
+       OR new.intelligence_score IS DISTINCT FROM old.intelligence_score
+       OR new.communication_score IS DISTINCT FROM old.communication_score
+       OR new.execution_score IS DISTINCT FROM old.execution_score
+       OR new.leadership_score IS DISTINCT FROM old.leadership_score
+       OR new.consistency_score IS DISTINCT FROM old.consistency_score
+       OR new.adaptability_score IS DISTINCT FROM old.adaptability_score
+       OR new.confidence_score IS DISTINCT FROM old.confidence_score
+       OR new.innovation_score IS DISTINCT FROM old.innovation_score
+       OR new.mission_streak IS DISTINCT FROM old.mission_streak
+       OR new.missions_completed IS DISTINCT FROM old.missions_completed
+       OR new.vault_count IS DISTINCT FROM old.vault_count
+       OR new.interviews_done IS DISTINCT FROM old.interviews_done
+       OR new.unlocked_items IS DISTINCT FROM old.unlocked_items
+       OR new.badges IS DISTINCT FROM old.badges
+       OR new.endorsed_skills IS DISTINCT FROM old.endorsed_skills
+       OR new.recruiter_visible IS DISTINCT FROM old.recruiter_visible THEN
+      new.xp_total := old.xp_total;
+      new.xp_level := old.xp_level;
+      new.completed_quests := old.completed_quests;
+      new.java_test_passed := old.java_test_passed;
+      new.career_dna_score := old.career_dna_score;
+      new.career_readiness := old.career_readiness;
+      new.certifications := old.certifications;
+      new.recruiter_visibility := old.recruiter_visibility;
+      new.intelligence_score := old.intelligence_score;
+      new.communication_score := old.communication_score;
+      new.execution_score := old.execution_score;
+      new.leadership_score := old.leadership_score;
+      new.consistency_score := old.consistency_score;
+      new.adaptability_score := old.adaptability_score;
+      new.confidence_score := old.confidence_score;
+      new.innovation_score := old.innovation_score;
+      new.mission_streak := old.mission_streak;
+      new.missions_completed := old.missions_completed;
+      new.vault_count := old.vault_count;
+      new.interviews_done := old.interviews_done;
+      new.unlocked_items := old.unlocked_items;
+      new.badges := old.badges;
+      new.endorsed_skills := old.endorsed_skills;
+      new.recruiter_visible := old.recruiter_visible;
+    END IF;
+  END IF;
+  RETURN new;
+END;
+$$;
+
+DROP POLICY IF EXISTS "Users can insert own audit logs" ON public.audit_logs;
+CREATE POLICY "Users can insert own audit logs" ON public.audit_logs
+  FOR INSERT WITH CHECK (
+    auth.uid() IS NOT NULL
+    AND actor_id = auth.uid()
+    AND (target_id IS NULL OR target_id = auth.uid()::text)
+    AND admin_id IS NULL
+  );
+
 COMMIT;

@@ -2,7 +2,7 @@ name: PinIT AI Voice System CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, master, develop ]
+    branches: [ '**' ]
   pull_request:
     branches: [ main, master ]
 
@@ -60,3 +60,23 @@ jobs:
 
       - name: Build Docker Container
         run: docker build -t pinit-voice-service:latest voice-service/
+
+  web-tests:
+    name: Web app tests (database rules and API behaviour)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install Node Dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test

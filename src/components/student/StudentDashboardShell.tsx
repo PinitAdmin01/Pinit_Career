@@ -50,11 +50,11 @@ export default function StudentDashboardShell({ student }: StudentDashboardShell
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <div style={{ background: '#eff6ff', border: '1px solid #bfdbfe', padding: '4px 12px', borderRadius: 20, fontSize: 12, fontWeight: 700, color: '#1d4ed8' }}>
-            🎯 ATS Readiness: {atsScore}/100
+          <div role="meter" aria-label={`ATS Readiness: ${atsScore} out of 100`} aria-valuenow={atsScore} aria-valuemin={0} aria-valuemax={100} style={{ background: '#eff6ff', border: '1px solid #bfdbfe', padding: '4px 12px', borderRadius: 20, fontSize: 12, fontWeight: 700, color: '#1d4ed8' }}>
+            <span aria-hidden="true">🎯</span> ATS Readiness: {atsScore}/100
           </div>
-          <div style={{ background: '#fef3c7', border: '1px solid #fde68a', padding: '4px 12px', borderRadius: 20, fontSize: 12, fontWeight: 700, color: '#92400e' }}>
-            📍 Pins: {pinsBalance}
+          <div role="status" aria-label={`Pins Balance: ${pinsBalance}`} style={{ background: '#fef3c7', border: '1px solid #fde68a', padding: '4px 12px', borderRadius: 20, fontSize: 12, fontWeight: 700, color: '#92400e' }}>
+            <span aria-hidden="true">📍</span> Pins: {pinsBalance}
           </div>
           <div style={{ fontSize: 14, fontWeight: 600 }}>{displayName}</div>
         </div>

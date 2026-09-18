@@ -4,6 +4,7 @@
 
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import Link from 'next/link';
+import PinCurrencyIcon from '@/components/pins/PinCurrencyIcon';
 import './pins.css';
 
 interface Props {
@@ -19,14 +20,16 @@ export default function PinsBadge({ size = 'md', showLink = false, className }: 
   const very_low = pins < 5;
 
   const sizes = {
-    sm: { font: 11, pad: '3px 10px', iconSize: 12, borderRadius: 12 },
-    md: { font: 12.5, pad: '5px 14px', iconSize: 14, borderRadius: 16 },
-    lg: { font: 14.5, pad: '8px 18px', iconSize: 16, borderRadius: 18 },
+    sm: { font: 11, pad: '3px 10px', iconSize: 15, borderRadius: 12 },
+    md: { font: 12.5, pad: '5px 14px', iconSize: 18, borderRadius: 16 },
+    lg: { font: 14.5, pad: '8px 18px', iconSize: 22, borderRadius: 18 },
   };
   const s = sizes[size];
 
   const badge = (
     <div
+      id="topbar-pins-badge"
+      data-pins-badge="true"
       className={`${className || ''} ${!very_low && !low ? 'pins-badge-glow' : ''}`}
       style={{
         display: 'inline-flex',
@@ -38,15 +41,15 @@ export default function PinsBadge({ size = 'md', showLink = false, className }: 
           ? 'rgba(239, 68, 68, 0.15)'
           : low
           ? 'rgba(245, 158, 11, 0.15)'
-          : 'rgba(99, 102, 241, 0.15)',
+          : 'linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(217, 119, 6, 0.08) 100%)',
         border: `1px solid ${
           very_low
             ? 'rgba(239, 68, 68, 0.3)'
             : low
             ? 'rgba(245, 158, 11, 0.3)'
-            : 'rgba(99, 102, 241, 0.3)'
+            : 'rgba(245, 158, 11, 0.35)'
         }`,
-        color: very_low ? '#ef4444' : low ? '#f59e0b' : '#818cf8',
+        color: very_low ? '#ef4444' : low ? '#f59e0b' : '#fbbf24',
         fontSize: s.font,
         fontWeight: 800,
         fontFamily: 'var(--font-mono)',
@@ -56,7 +59,7 @@ export default function PinsBadge({ size = 'md', showLink = false, className }: 
         transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
       }}
     >
-      <span className="pins-icon-energy" style={{ fontSize: s.iconSize }}>⚡</span>
+      <PinCurrencyIcon size={s.iconSize} glow={!very_low} animate={!very_low && !low} />
       <span>{pins.toLocaleString()} Pins</span>
       {very_low && size !== 'sm' && <span style={{ fontSize: s.font - 1, marginLeft: 2 }}>⚠ Low</span>}
     </div>
@@ -64,7 +67,7 @@ export default function PinsBadge({ size = 'md', showLink = false, className }: 
 
   if (showLink) {
     return (
-      <Link href="/pricing" style={{ textDecoration: 'none' }}>
+      <Link href="/pins" style={{ textDecoration: 'none' }}>
         {badge}
       </Link>
     );

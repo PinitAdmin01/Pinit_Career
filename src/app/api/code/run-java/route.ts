@@ -6,6 +6,8 @@ import os from 'os';
 import crypto from 'crypto';
 import { createClient } from '@supabase/supabase-js';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
+import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
+import { getAuthoritativeQuest } from '@/lib/quests/questRegistry';
 
 // STAGE 1 FIX (§3.5 / §3.6 — Java completion authority):
 // Previously, after this route returned `allPassed: true`, the ONLY completion
@@ -17,13 +19,6 @@ import { requireUserFromRequest } from '@/lib/server/requireAuth';
 // check). This gives Java the same guarantee: when THIS route's own real
 // javac/java judge says a submission passed, THIS route — not the browser —
 // writes the authoritative completion record, using the service-role key.
-//
-// This is additive: the client's existing `addCompletedQuest(...)` call is
-// left untouched (it still drives local UI/XP/streak state), so no existing
-// behavior changes if this write fails or is never reached. Follows the exact
-// env-var + graceful-degradation pattern already used by src/lib/faceStore.ts
-// (getSupabaseAdmin) — if Supabase isn't configured (e.g. demo mode), this
-// silently no-ops rather than breaking the response.
 function getSupabaseAdmin() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
@@ -58,7 +53,17 @@ async function persistJavaCompletionServerSide(uid: string, questId: string, xpA
   }
 }
 
+export function getAuthoritativeQuestXp(questId?: string): number {
+  if (!questId) return 0;
+  const quest = getAuthoritativeQuest(questId);
+  return quest ? quest.xp : 0;
+}
+
 export async function POST(req: NextRequest) {
+  const ip = getClientIp(req);
+  const rl = checkRateLimit(`code_run_java_${ip}`, { limit: 15, windowMs: 60_000 });
+  if (!rl.allowed) return NextResponse.json({ error: 'RATE_LIMIT' }, { status: 429 });
+
   const startTime = Date.now();
 
   try {
@@ -67,13 +72,41 @@ export async function POST(req: NextRequest) {
     if (gated.error) return gated.error;
 
     const body = await req.json();
-    const { code, testSuite, stdin, timeoutMs = 3000, questId, xp } = body;
+    const { code, testSuite, stdin, timeoutMs = 3000, questId } = body;
 
     if (!code || typeof code !== 'string') {
       return NextResponse.json({ error: 'Missing Java source code' }, { status: 400 });
     }
 
-    if (code.length > 50000 || (testSuite && typeof testSuite === 'string' && testSuite.length > 50000)) {
+    let effectiveTestSuite = '';
+    let authoritativeXpAwarded = 0;
+
+    // Strict Server-Authoritative Quest & Test Suite Resolution
+    if (questId && typeof questId === 'string' && questId.trim()) {
+      const cleanQuestId = questId.trim();
+      const registeredQuest = getAuthoritativeQuest(cleanQuestId);
+      if (!registeredQuest) {
+        return NextResponse.json({
+          error: 'UNREGISTERED_QUEST',
+          message: `Quest '${cleanQuestId}' is not registered in the authoritative quest registry.`
+        }, { status: 400 });
+      }
+      if (!registeredQuest.testSuite || !registeredQuest.testSuite.trim()) {
+        return NextResponse.json({
+          error: 'NO_TEST_SUITE',
+          message: `Quest '${cleanQuestId}' does not have an authoritative server test suite.`
+        }, { status: 400 });
+      }
+      // Never use client-supplied test suites or XP for registered quests!
+      effectiveTestSuite = registeredQuest.testSuite;
+      authoritativeXpAwarded = registeredQuest.xp;
+    } else {
+      // Ad-hoc playground execution only: untracked, zero XP awarded
+      effectiveTestSuite = typeof testSuite === 'string' ? testSuite : '';
+      authoritativeXpAwarded = 0;
+    }
+
+    if (code.length > 50000 || effectiveTestSuite.length > 50000) {
       return NextResponse.json({ error: 'Source code or test suite exceeds size limit (50KB max)' }, { status: 400 });
     }
 
@@ -105,7 +138,7 @@ export async function POST(req: NextRequest) {
       /System\.setSecurityManager/,   // Remove sandbox manager
     ];
 
-    const combinedSource = `${code}\n${typeof testSuite === 'string' ? testSuite : ''}`;
+    const combinedSource = `${code}\n${effectiveTestSuite}`;
 
     for (const pattern of forbiddenPatterns) {
       if (pattern.test(combinedSource)) {
@@ -150,8 +183,8 @@ export async function POST(req: NextRequest) {
     try {
       fs.writeFileSync(path.join(tempDir, 'Solution.java'), code, 'utf8');
 
-      const testCode = testSuite && typeof testSuite === 'string' && testSuite.trim()
-        ? testSuite
+      const testCode = effectiveTestSuite.trim()
+        ? effectiveTestSuite
         : `public class Test { public static void main(String[] args) { Solution.main(new String[]{}); } }`;
       fs.writeFileSync(path.join(tempDir, 'Test.java'), testCode, 'utf8');
 
@@ -252,8 +285,9 @@ export async function POST(req: NextRequest) {
       // this route, using the real compile+run result it just produced. Non-
       // blocking: never delays or fails the response to the student.
       const authenticatedUser = gated.user;
-      if (passed && typeof questId === 'string' && questId && authenticatedUser) {
-        persistJavaCompletionServerSide(authenticatedUser.id, questId, typeof xp === 'number' ? xp : 120)
+      const finalXpAwarded = passed ? authoritativeXpAwarded : 0;
+      if (passed && typeof questId === 'string' && questId.trim() && authenticatedUser && finalXpAwarded > 0) {
+        persistJavaCompletionServerSide(authenticatedUser.id, questId.trim(), finalXpAwarded)
           .catch((e) => console.warn('[run-java] completion persistence rejected:', e?.message));
       }
 
@@ -264,6 +298,7 @@ export async function POST(req: NextRequest) {
         failedTests: passed ? 0 : 1,
         allPassed: passed,
         status: passed ? 'SUCCESS' : 'RUNTIME_ERROR',
+        authoritativeXpAwarded,
         totalDurationMs: Date.now() - startTime,
         terminalLogs: logs,
         testOutcomes: [{

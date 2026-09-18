@@ -1,13 +1,33 @@
 import { NextResponse } from 'next/server';
-import { requireUserFromRequest } from '@/lib/server/requireAuth';
+import { requireUserFromRequest, verifyPaywallAccess } from '@/lib/server/requireAuth';
 import { sanitizeLLMOutput } from '@/lib/sanitizeLLM';
+import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 
 export async function POST(req: Request) {
   try {
     const gated = await requireUserFromRequest(req);
     if (gated.error) return gated.error;
 
+    const rateLimitKey = `llm_${gated.user?.id || getClientIp(req)}`;
+    const rateCheck = checkRateLimit(rateLimitKey, { limit: 6, windowMs: 60 * 1000 });
+    if (!rateCheck.allowed) {
+      return NextResponse.json(
+        { error: 'TOO_MANY_REQUESTS', message: `Rate limit exceeded. Please wait ${rateCheck.resetSec}s.` },
+        {
+          status: 429,
+          headers: {
+            'Retry-After': String(rateCheck.resetSec),
+          },
+        }
+      );
+    }
+
     const { messages, systemPrompt, skillCategory, maxTokens } = await req.json();
+
+    // Fixed server-side key — never trust client-supplied skillCategory for paywall
+    const paywallErr = await verifyPaywallAccess(gated.user!.id, 'ai');
+    if (paywallErr) return paywallErr;
+
     const clampedMaxTokens = Math.min(Math.max(Number(maxTokens) || 300, 50), 1000);
 
     const openRouterKey = process.env.OPENROUTER_API_KEY;

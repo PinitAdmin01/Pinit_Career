@@ -7,6 +7,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/api/client';
 import { useNotifications, useMarkRead, KEYS } from '@/lib/api/hooks';
 import { toast } from '@/lib/store/useAppStore';
+import { sanitizeHtml } from '@/lib/sanitize';
 
 type CommTab = 'announcements' | 'notifications' | 'emails' | 'sms' | 'tester';
 
@@ -252,7 +253,7 @@ export default function CampusCommunicationHub() {
 
   return (
     <div className="portal-page">
-      <style dangerouslySetInnerHTML={{ __html: cssStyle }} />
+      <style dangerouslySetInnerHTML={{ __html: sanitizeHtml(cssStyle) }} />
 
       {/* Push Notification Overlay Simulator */}
       {activePush && (
@@ -267,16 +268,32 @@ export default function CampusCommunicationHub() {
       )}
 
       <div className="comm-wrapper">
-        <h1 className="page-title">📢 Campus Communication Hub</h1>
+        <h1 className="page-title">📢 Campus Communication & Notice Hub</h1>
+
+        <div style={{
+          background: 'var(--bg3)',
+          border: '1px solid var(--border)',
+          padding: '10px 16px',
+          borderRadius: 12,
+          fontSize: 12.5,
+          color: 'var(--t2)',
+          marginBottom: 20,
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8
+        }}>
+          <span>ℹ️</span>
+          <span><strong>Internal Notice & Bulletin Log:</strong> Announcements, circulars, and notifications are archived in the campus internal portal. No external email or telecom SMS gateway is connected.</span>
+        </div>
 
         {/* Tab Selection */}
         <div className="tab-bar">
           {[
-            { id: 'announcements', label: 'Announcement Board' },
+            { id: 'announcements', label: 'Announcement Bulletins' },
             { id: 'notifications', label: 'System Alerts', count: unreadCount },
-            { id: 'emails', label: 'Email Box' },
-            { id: 'sms', label: 'SMS Feed' },
-            { id: 'tester', label: 'Push Notifications' }
+            { id: 'emails', label: 'Internal Notice Log (Email Format)' },
+            { id: 'sms', label: 'Internal SMS Log' },
+            { id: 'tester', label: 'Push Notifications Sandbox' }
           ].map(tab => (
             <button
               key={tab.id}
@@ -370,46 +387,54 @@ export default function CampusCommunicationHub() {
 
         {/* TAB: EMAIL BOX */}
         {activeTab === 'emails' && (
-          <div className="card-box email-inbox-grid">
-            {/* Left lists */}
-            <div style={{ borderRight: '1px solid var(--border)', overflowY: 'auto', maxHeight: 420 }}>
-              {emails.length === 0 ? (
-                <div style={{ padding: 20, textAlign: 'center', color: 'var(--t2)' }}>No emails.</div>
-              ) : (
-                emails.map(e => (
-                  <div
-                    key={e.id}
-                    className={`email-item ${selectedEmail?.id === e.id ? 'selected' : ''}`}
-                    onClick={() => setSelectedEmail(e)}
-                  >
-                    <div style={{ fontSize: 10, color: 'var(--t2)', marginBottom: 2 }}>{e.sender}</div>
-                    <strong style={{ display: 'block', fontSize: 12.5, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{e.subject}</strong>
-                    <span style={{ fontSize: 9.5, color: 'var(--t3)' }}>{e.date}</span>
-                  </div>
-                ))
-              )}
+          <div className="card-box">
+            <div style={{ marginBottom: 16 }}>
+              <h3 className="card-title" style={{ margin: '0 0 4px 0' }}>📨 Internal Notice Archive (Email Format)</h3>
+              <p style={{ margin: 0, fontSize: 12.5, color: 'var(--t2)' }}>
+                Official campus circulars and notices recorded in email format. Sourced from internal communications log.
+              </p>
             </div>
-
-            {/* Right Reader */}
-            <div style={{ padding: '0 10px', display: 'flex', flexDirection: 'column' }}>
-              {selectedEmail ? (
-                <div>
-                  <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: 14, marginBottom: 14 }}>
-                    <h3 style={{ margin: '0 0 6px 0', fontSize: 16, fontWeight: 800 }}>{selectedEmail.subject}</h3>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--t2)' }}>
-                      <span>From: <strong>{selectedEmail.sender}</strong></span>
-                      <span>{selectedEmail.date}</span>
+            <div className="email-inbox-grid">
+              {/* Left lists */}
+              <div style={{ borderRight: '1px solid var(--border)', overflowY: 'auto', maxHeight: 420 }}>
+                {emails.length === 0 ? (
+                  <div style={{ padding: 20, textAlign: 'center', color: 'var(--t2)' }}>No circular notices logged.</div>
+                ) : (
+                  emails.map(e => (
+                    <div
+                      key={e.id}
+                      className={`email-item ${selectedEmail?.id === e.id ? 'selected' : ''}`}
+                      onClick={() => setSelectedEmail(e)}
+                    >
+                      <div style={{ fontSize: 10, color: 'var(--t2)', marginBottom: 2 }}>{e.sender}</div>
+                      <strong style={{ display: 'block', fontSize: 12.5, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{e.subject}</strong>
+                      <span style={{ fontSize: 9.5, color: 'var(--t3)' }}>{e.date}</span>
                     </div>
+                  ))
+                )}
+              </div>
+
+              {/* Right Reader */}
+              <div style={{ padding: '0 10px', display: 'flex', flexDirection: 'column' }}>
+                {selectedEmail ? (
+                  <div>
+                    <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: 14, marginBottom: 14 }}>
+                      <h3 style={{ margin: '0 0 6px 0', fontSize: 16, fontWeight: 800 }}>{selectedEmail.subject}</h3>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--t2)' }}>
+                        <span>From: <strong>{selectedEmail.sender}</strong></span>
+                        <span>{selectedEmail.date}</span>
+                      </div>
+                    </div>
+                    <p style={{ fontSize: 13.5, color: 'var(--t1)', lineHeight: 1.6, whiteSpace: 'pre-line' }}>
+                      {selectedEmail.body}
+                    </p>
                   </div>
-                  <p style={{ fontSize: 13.5, color: 'var(--t1)', lineHeight: 1.6, whiteSpace: 'pre-line' }}>
-                    {selectedEmail.body}
-                  </p>
-                </div>
-              ) : (
-                <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--t2)', fontSize: 13 }}>
-                  Select an email to read its contents.
-                </div>
-              )}
+                ) : (
+                  <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--t2)', fontSize: 13 }}>
+                    Select an archived notice to read its contents.
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         )}
@@ -417,7 +442,10 @@ export default function CampusCommunicationHub() {
         {/* TAB: SMS FEED */}
         {activeTab === 'sms' && (
           <div className="card-box">
-            <h3 className="card-title" style={{ textAlign: 'center', marginBottom: 18 }}>📱 Mock mobile Phone SMS Screen</h3>
+            <h3 className="card-title" style={{ textAlign: 'center', marginBottom: 6 }}>📱 Internal SMS Broadcast Log</h3>
+            <p style={{ textAlign: 'center', fontSize: 12.5, color: 'var(--t2)', margin: '0 0 18px 0' }}>
+              Urgent short notifications and alert logs published to student dashboard accounts.
+            </p>
             <div className="phone-screen">
               <div className="phone-header">
                 <span>CAMPUS-OS NETWORK</span>

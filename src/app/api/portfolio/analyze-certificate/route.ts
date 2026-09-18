@@ -1,9 +1,14 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { signExamSessionToken } from '@/lib/portfolio/examToken';
+import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 
 export async function POST(req: Request) {
   try {
+    const ip = getClientIp(req);
+    const rl = checkRateLimit(`analyze_cert_${ip}`, { limit: 20, windowMs: 3_600_000 });
+    if (!rl.allowed) return NextResponse.json({ error: 'RATE_LIMIT' }, { status: 429 });
+
     const gated = await requireUserFromRequest(req);
     if (gated.error) return gated.error;
 
@@ -130,7 +135,7 @@ Return ONLY a valid JSON object matching this structure (do not wrap in markdown
             const { correctIdx, ...rest } = q;
             return rest;
           });
-          const examSessionToken = signExamSessionToken(answersMap);
+          const examSessionToken = signExamSessionToken(answersMap, 30, gated.user!.id, title);
           return NextResponse.json({
             subject: parsed.subject || 'Technical Specialization',
             questions: sanitizedQuestions,
@@ -142,202 +147,232 @@ Return ONLY a valid JSON object matching this structure (do not wrap in markdown
       }
     }
 
-    // Heuristic Fallback with diversified correctIdx distribution
+    // Dynamic Randomized Fallback Engine with option shuffling to prevent answer memorization
+    function shuffleAndBuild(
+      id: string,
+      question: string,
+      correctOption: string,
+      distractors: string[]
+    ): { id: string; question: string; options: string[]; correctIdx: number } {
+      const options = [correctOption, ...distractors];
+      for (let i = options.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = options[i];
+        options[i] = options[j];
+        options[j] = temp;
+      }
+      const correctIdx = options.indexOf(correctOption);
+      return { id, question, options, correctIdx };
+    }
+
     const titleLower = title.toLowerCase();
     let subject = 'General Computer Science';
-    let questions = [
+    let questionPool: Array<{ q: string; correct: string; distractors: string[] }> = [
       {
-        id: 'q1',
-        question: 'Which of the following describes a key element of secure, scalable software design?',
-        options: [
+        q: 'Which of the following describes a key element of secure, scalable software design?',
+        correct: 'Applying cryptographic hashing on sensitive fields and caching frequent queries',
+        distractors: [
           'Minimizing validation checks to increase response times',
-          'Applying cryptographic hashing on sensitive fields and caching frequent queries',
           'Storing state in global variables to allow rapid component updates',
           'Disabling CORS rules to simplify cross-origin developer staging integrations'
-        ],
-        correctIdx: 1
+        ]
       },
       {
-        id: 'q2',
-        question: 'What is a primary advantage of utilizing standard APIs over duplicate custom connections?',
-        options: [
+        q: 'What is a primary advantage of utilizing standard APIs over duplicate custom connections?',
+        correct: 'They reduce operational friction and sync data automatically across platform portals',
+        distractors: [
           'They allow faster local debugging by bypassing credential tokens',
           'They increase database size by duplicating log tables',
-          'They reduce operational friction and sync data automatically across platform portals',
           'They require manual proctor validation for every user click'
-        ],
-        correctIdx: 2
+        ]
       },
       {
-        id: 'q3',
-        question: 'Why are proctored exams and trust telemetry metrics used inside modern learning portfolios?',
-        options: [
-          'To audit authentic skill attainment and verify credentials with evidence logs',
+        q: 'Why are proctored exams and trust telemetry metrics used inside modern learning portfolios?',
+        correct: 'To audit authentic skill attainment and verify credentials with evidence logs',
+        distractors: [
           'To slow down student progression timelines',
           'To generate random negative penalties on low-latency interfaces',
           'To automatically approve applications without teacher review'
-        ],
-        correctIdx: 0
+        ]
+      },
+      {
+        q: 'In distributed computing, what does the CAP theorem state regarding consistency, availability, and partition tolerance?',
+        correct: 'A distributed data store can simultaneously provide at most two out of the three guarantees',
+        distractors: [
+          'All three guarantees can be achieved if SSDs are used',
+          'Availability and Consistency are mutually exclusive in single-node systems',
+          'Partition tolerance can be eliminated by using fiber-optic cables'
+        ]
       }
     ];
 
-    if (titleLower.includes('react') || titleLower.includes('frontend')) {
-      subject = 'React.js & Frontend';
-      questions = [
+    if (titleLower.includes('react') || titleLower.includes('frontend') || titleLower.includes('web')) {
+      subject = 'React.js & Frontend Architecture';
+      questionPool = [
         {
-          id: 'q1',
-          question: 'What does the React hook useMemo do?',
-          options: [
+          q: 'What does the React hook useMemo do?',
+          correct: 'It memoizes a computed value to prevent redundant recalculations on every render',
+          distractors: [
             'It triggers a component re-render when a reference changes',
-            'It memoizes a computed value to prevent redundant recalculations on every render',
             'It automatically subscribes a component to global context values',
             'It performs DOM mutations synchronously after layout paint'
-          ],
-          correctIdx: 1
+          ]
         },
         {
-          id: 'q2',
-          question: 'Which of the following is true about React state updates?',
-          options: [
+          q: 'Which of the following is true about React state updates in modern React?',
+          correct: 'They are batched and processed asynchronously for performance optimization',
+          distractors: [
             'They directly mutate the component state variable synchronously',
             'They bypass the virtual DOM comparison checking loop',
-            'They are batched and processed asynchronously for performance optimization',
             'They can only be triggered inside lifecycle hooks'
-          ],
-          correctIdx: 2
+          ]
         },
         {
-          id: 'q3',
-          question: 'What is a key difference between useEffect and useLayoutEffect?',
-          options: [
-            'useEffect is executed after paint, whereas useLayoutEffect runs before browser paint',
+          q: 'What is a key difference between useEffect and useLayoutEffect?',
+          correct: 'useEffect is executed after paint, whereas useLayoutEffect runs before browser paint',
+          distractors: [
             'useEffect fires synchronously, while useLayoutEffect is asynchronous',
             'useEffect can trigger state updates but useLayoutEffect cannot',
             'useEffect does not support cleaning up effect subscriptions'
-          ],
-          correctIdx: 0
-        }
-      ];
-    } else if (titleLower.includes('python') || titleLower.includes('django')) {
-      subject = 'Python Programming';
-      questions = [
-        {
-          id: 'q1',
-          question: 'Which of the following is true about lists and tuples in Python?',
-          options: [
-            'Lists are immutable, while tuples can be modified at runtime',
-            'Lists are mutable, while tuples are immutable',
-            'Both support append() and extend() operations',
-            'Tuples execute slower than lists during item lookup'
-          ],
-          correctIdx: 1
+          ]
         },
         {
-          id: 'q2',
-          question: 'What does a Python generator function do?',
-          options: [
-            'It returns an iterator that yields values one-at-a-time using the yield keyword',
+          q: 'Why should keys in React lists be stable and unique identifiers instead of array indices?',
+          correct: 'Array indices can cause state bugs and incorrect component re-renders when list items are reordered',
+          distractors: [
+            'React throws a compilation error if an index is used',
+            'Using indices disables all CSS animations in the DOM',
+            'Indices increase memory overhead by 400%'
+          ]
+        }
+      ];
+    } else if (titleLower.includes('python') || titleLower.includes('django') || titleLower.includes('ai') || titleLower.includes('ml')) {
+      subject = 'Python Programming & Applied Computing';
+      questionPool = [
+        {
+          q: 'Which of the following is true about lists and tuples in Python?',
+          correct: 'Lists are mutable, while tuples are immutable',
+          distractors: [
+            'Lists are immutable, while tuples can be modified at runtime',
+            'Both support append() and extend() operations',
+            'Tuples execute slower than lists during item lookup'
+          ]
+        },
+        {
+          q: 'What does a Python generator function do?',
+          correct: 'It returns an iterator that yields values one-at-a-time using the yield keyword',
+          distractors: [
             'It compiles Python code into native low-latency bytecode',
             'It automatically profiles memory heap allocation parameters',
             'It generates proctoring questions for exam cells'
-          ],
-          correctIdx: 0
+          ]
         },
         {
-          id: 'q3',
-          question: 'How does Python handle memory management?',
-          options: [
+          q: 'How does Python handle primary memory management?',
+          correct: 'It uses reference counting and an automatic garbage collector to reclaim heap memory',
+          distractors: [
             'It requires manual malloc and free calls in the code',
             'It runs on a virtual sandbox with fixed allocations that cannot exceed 2GB',
-            'It uses reference counting and an automatic garbage collector to reclaim heap memory',
             'It relies entirely on operating system paging caches'
-          ],
-          correctIdx: 2
+          ]
+        },
+        {
+          q: 'Which built-in Python data structure offers O(1) average time complexity for key lookups?',
+          correct: 'dict (dictionary / hash table)',
+          distractors: [
+            'list (dynamic array)',
+            'tuple (immutable sequence)',
+            'linked list'
+          ]
         }
       ];
-    } else if (titleLower.includes('aws') || titleLower.includes('cloud') || titleLower.includes('docker')) {
+    } else if (titleLower.includes('aws') || titleLower.includes('cloud') || titleLower.includes('docker') || titleLower.includes('devops')) {
       subject = 'Cloud & DevOps Architecture';
-      questions = [
+      questionPool = [
         {
-          id: 'q1',
-          question: 'What is the primary benefit of multi-stage Docker builds?',
-          options: [
+          q: 'What is the primary benefit of multi-stage Docker builds?',
+          correct: 'They minimize final image size by discarding build-time dependencies',
+          distractors: [
             'They compile code concurrently across multiple hosts',
-            'They minimize final image size by discarding build-time dependencies',
             'They automatically proctor container runtime ports',
             'They bypass container isolation rules for debug logins'
-          ],
-          correctIdx: 1
+          ]
         },
         {
-          id: 'q2',
-          question: 'What does AWS Auto Scaling do?',
-          options: [
+          q: 'What does AWS Auto Scaling do?',
+          correct: 'It dynamically scales server instances up or down based on traffic load metrics',
+          distractors: [
             'It increases database volume sizes when log directories fill up',
             'It automatically updates API tokens and certificates',
-            'It dynamically scales server instances up or down based on traffic load metrics',
             'It schedules database backups during off-peak hours'
-          ],
-          correctIdx: 2
+          ]
         },
         {
-          id: 'q3',
-          question: 'What is the function of a Load Balancer in system design?',
-          options: [
-            'It distributes client requests evenly across target healthy servers',
+          q: 'What is the primary function of a reverse proxy or Load Balancer in system architecture?',
+          correct: 'It distributes client requests evenly across target healthy backend servers',
+          distractors: [
             'It encrypts incoming traffic with zero-knowledge protocols',
             'It decreases page load latency by caching database queries locally',
             'It limits CPU clock logs to prevent hardware overheat'
-          ],
-          correctIdx: 0
+          ]
+        },
+        {
+          q: 'In Kubernetes, what is the role of an Ingress Controller?',
+          correct: 'It manages external HTTP/HTTPS access and routing to services within the cluster',
+          distractors: [
+            'It compiles container binaries inside Pod worker nodes',
+            'It replaces the kube-scheduler by selecting hardware nodes',
+            'It decrypts local hard drives on physical servers'
+          ]
         }
       ];
     } else if (titleLower.includes('java') || titleLower.includes('spring')) {
       subject = 'Java & Enterprise Systems';
-      questions = [
+      questionPool = [
         {
-          id: 'q1',
-          question: 'What is the purpose of the Garbage Collector in Java?',
-          options: [
+          q: 'What is the purpose of the Garbage Collector in Java?',
+          correct: 'To automatically reclaim memory occupied by objects that are no longer referenced',
+          distractors: [
             'To format code and remove unused imports dynamically',
-            'To automatically reclaim memory occupied by objects that are no longer referenced',
             'To check for security vulnerability tags in dependencies',
             'To synchronize thread execution context across cores'
-          ],
-          correctIdx: 1
+          ]
         },
         {
-          id: 'q2',
-          question: 'What is the primary feature of Spring Boot?',
-          options: [
-            'It provides starter templates and auto-configuration to bootstrap web servers quickly',
+          q: 'What is the primary architectural feature of Spring Boot?',
+          correct: 'It provides starter templates and auto-configuration to bootstrap web services rapidly',
+          distractors: [
             'It compiles Java source files directly into machine instructions',
             'It proctors Socratic exams via websocket telemetry channels',
             'It implements zero-knowledge billing ledgers out-of-the-box'
-          ],
-          correctIdx: 0
+          ]
         },
         {
-          id: 'q3',
-          question: 'What does the volatile keyword do in Java?',
-          options: [
+          q: 'What does the volatile keyword do in Java?',
+          correct: 'It forces threads to read and write the variable directly from main memory rather than thread cache',
+          distractors: [
             'It indicates that a variable is stored on the GPU cache',
             'It marks a method to be executed asynchronously on background pools',
-            'It forces threads to read and write the variable directly from main memory rather than cache',
             'It throws a compile-time exception if a reference is null'
-          ],
-          correctIdx: 2
+          ]
         }
       ];
     }
 
+    // Pick 3 questions and randomize their option order
+    const selectedDefs = questionPool.slice(0, 3);
+    const randomizedQuestions = selectedDefs.map((def, idx) =>
+      shuffleAndBuild(`q${idx + 1}`, def.q, def.correct, def.distractors)
+    );
+
     const answersMap: Record<string, number> = {};
-    const sanitizedQuestions = questions.map((q: any) => {
-      answersMap[q.id] = Number(q.correctIdx);
+    const sanitizedQuestions = randomizedQuestions.map(q => {
+      answersMap[q.id] = q.correctIdx;
       const { correctIdx, ...rest } = q;
       return rest;
     });
-    const examSessionToken = signExamSessionToken(answersMap);
+
+    const examSessionToken = signExamSessionToken(answersMap, 30, gated.user!.id, title);
 
     return NextResponse.json({
       subject,

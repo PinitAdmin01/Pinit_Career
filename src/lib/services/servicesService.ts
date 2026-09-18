@@ -1,6 +1,6 @@
 import { supabase } from '@/lib/supabaseClient';
-import { tableExists as checkSupabaseAvailable } from '@/lib/services/supabaseTable';
-import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
+import { tableExists as checkSupabaseAvailable, getCampusSupabaseClient } from '@/lib/services/supabaseTable';
+import { readLocalJson, writeLocalJson, StorageWriteResult } from '@/lib/services/localJsonDb';
 
 const DB_FILE = 'src/lib/data/services_db.json';
 
@@ -43,8 +43,8 @@ async function readLocalDb(): Promise<any> {
 }
 
 // Write local JSON database
-async function writeLocalDb(data: any): Promise<void> {
-  await writeLocalJson(DB_FILE, data);
+async function writeLocalDb(data: any): Promise<StorageWriteResult> {
+  return await writeLocalJson(DB_FILE, data);
 }
 
 export const servicesService = {
@@ -70,7 +70,18 @@ export const servicesService = {
     }
 
     // Local Database Fallback
-    return await readLocalDb();
+    const db = await readLocalDb();
+    const myLeaves = (db.leaves || []).filter((l: any) => !studentId || l.studentId === studentId || l.student_id === studentId);
+    const myRequests = (db.requests || []).filter((r: any) => !studentId || r.studentId === studentId || r.student_id === studentId);
+    const myAppointments = (db.appointments || []).filter((a: any) => !studentId || a.studentId === studentId || a.student_id === studentId);
+    const myCounselling = (db.counselling || []).filter((c: any) => !studentId || c.studentId === studentId || c.student_id === studentId);
+
+    return {
+      leaves: myLeaves,
+      requests: myRequests,
+      appointments: myAppointments,
+      counselling: myCounselling
+    };
   },
 
   async applyLeave(studentId: string, startDate: string, endDate: string, reason: string, type: string) {
@@ -78,7 +89,8 @@ export const servicesService = {
 
     if (isSupabaseAvailable) {
       try {
-        const res = await supabase.from('services_leaves').insert({
+        const client = await getCampusSupabaseClient();
+        const res = await client.from('services_leaves').insert({
           student_id: studentId,
           start_date: startDate,
           end_date: endDate,
@@ -87,7 +99,7 @@ export const servicesService = {
           status: 'Pending'
         });
         if (res.error) throw new Error(res.error.message);
-        return { ok: true };
+        return { ok: true, stored: 'db' };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
       }
@@ -95,16 +107,22 @@ export const servicesService = {
 
     // Local Database Fallback
     const db = await readLocalDb();
+    const id = `LEV-${Date.now()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
     db.leaves.unshift({
-      id: `LEV-${Math.floor(100 + Math.random() * 900)}`,
+      id,
+      studentId,
+      student_id: studentId,
       startDate,
       endDate,
       reason,
       type,
       status: 'Pending'
     });
-    await writeLocalDb(db);
-    return { ok: true };
+    const writeRes = await writeLocalDb(db);
+    if (!writeRes.success) {
+      return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to submit leave request.', stored: 'none' };
+    }
+    return { ok: true, stored: writeRes.stored };
   },
 
   async fileRequest(studentId: string, category: string, description: string) {
@@ -112,14 +130,15 @@ export const servicesService = {
 
     if (isSupabaseAvailable) {
       try {
-        const res = await supabase.from('services_requests').insert({
+        const client = await getCampusSupabaseClient();
+        const res = await client.from('services_requests').insert({
           student_id: studentId,
           category,
           description,
           status: 'Pending'
         });
         if (res.error) throw new Error(res.error.message);
-        return { ok: true };
+        return { ok: true, stored: 'db' };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
       }
@@ -127,14 +146,20 @@ export const servicesService = {
 
     // Local Database Fallback
     const db = await readLocalDb();
+    const id = `REQ-${Date.now()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
     db.requests.unshift({
-      id: `REQ-${Math.floor(100 + Math.random() * 900)}`,
+      id,
+      studentId,
+      student_id: studentId,
       category,
       description,
       status: 'Pending'
     });
-    await writeLocalDb(db);
-    return { ok: true };
+    const writeRes = await writeLocalDb(db);
+    if (!writeRes.success) {
+      return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to file request.', stored: 'none' };
+    }
+    return { ok: true, stored: writeRes.stored };
   },
 
   async bookAppointment(studentId: string, staffName: string, date: string, time: string, purpose: string) {
@@ -142,7 +167,8 @@ export const servicesService = {
 
     if (isSupabaseAvailable) {
       try {
-        const res = await supabase.from('services_appointments').insert({
+        const client = await getCampusSupabaseClient();
+        const res = await client.from('services_appointments').insert({
           student_id: studentId,
           staff_name: staffName,
           date,
@@ -150,7 +176,7 @@ export const servicesService = {
           purpose
         });
         if (res.error) throw new Error(res.error.message);
-        return { ok: true };
+        return { ok: true, stored: 'db' };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
       }
@@ -158,15 +184,21 @@ export const servicesService = {
 
     // Local Database Fallback
     const db = await readLocalDb();
+    const id = `APT-${Date.now()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
     db.appointments.unshift({
-      id: `APT-${Math.floor(100 + Math.random() * 900)}`,
+      id,
+      studentId,
+      student_id: studentId,
       staffName,
       date,
       time,
       purpose
     });
-    await writeLocalDb(db);
-    return { ok: true };
+    const writeRes = await writeLocalDb(db);
+    if (!writeRes.success) {
+      return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to book appointment.', stored: 'none' };
+    }
+    return { ok: true, stored: writeRes.stored };
   },
 
   async bookCounselling(studentId: string, counselorName: string, date: string, time: string) {
@@ -178,15 +210,28 @@ export const servicesService = {
 
     if (isSupabaseAvailable) {
       try {
-        const res = await supabase.from('services_counselling').insert({
+        const client = await getCampusSupabaseClient();
+        const { data: conflict } = await client.from('services_counselling')
+          .select('id')
+          .eq('counselor_name', counselorName)
+          .eq('date', date)
+          .eq('time', time)
+          .maybeSingle();
+
+        if (conflict) {
+          return { ok: false, error: 'COUNSELLOR_SLOT_TAKEN: This counselor already has a session booked at this date and time.' };
+        }
+
+        const res = await client.from('services_counselling').insert({
           student_id: studentId,
           counselor_name: counselorName,
           date,
           time,
-          status: 'Confirmed'
+          status: 'Requested'
         });
         if (res.error) throw new Error(res.error.message);
-        return { ok: true };
+        const sessionObj = { studentId, counselorName, date, time, status: 'Requested' };
+        return { ok: true, stored: 'db', session: sessionObj };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
       }
@@ -194,15 +239,29 @@ export const servicesService = {
 
     // Local Database Fallback
     const db = await readLocalDb();
-    db.counselling.unshift({
-      id: `CNS-${Math.floor(100 + Math.random() * 900)}`,
+    const conflict = (db.counselling || []).find((c: any) =>
+      c.counselorName === counselorName && c.date === date && c.time === time
+    );
+    if (conflict) {
+      return { ok: false, error: 'COUNSELLOR_SLOT_TAKEN: This counselor already has a session booked at this date and time.' };
+    }
+
+    const id = `CNS-${Date.now()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
+    const sessionObj = {
+      id,
+      studentId,
+      student_id: studentId,
       counselorName,
       date,
       time,
-      status: 'Confirmed'
-    });
-    await writeLocalDb(db);
-    return { ok: true };
+      status: 'Requested'
+    };
+    db.counselling.unshift(sessionObj);
+    const writeRes = await writeLocalDb(db);
+    if (!writeRes.success) {
+      return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to book counselling.', stored: 'none' };
+    }
+    return { ok: true, stored: writeRes.stored, session: sessionObj };
   },
 
   async approveLeave(leaveId: string) {
@@ -210,9 +269,10 @@ export const servicesService = {
 
     if (isSupabaseAvailable) {
       try {
-        const res = await supabase.from('services_leaves').update({ status: 'Approved' }).eq('id', leaveId);
+        const client = await getCampusSupabaseClient();
+        const res = await client.from('services_leaves').update({ status: 'Approved' }).eq('id', leaveId);
         if (res.error) throw new Error(res.error.message);
-        return { ok: true };
+        return { ok: true, stored: 'db' };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
       }
@@ -223,10 +283,13 @@ export const servicesService = {
     const idx = db.leaves.findIndex((l: any) => l.id === leaveId);
     if (idx !== -1) {
       db.leaves[idx].status = 'Approved';
-      await writeLocalDb(db);
-      return { ok: true };
+      const writeRes = await writeLocalDb(db);
+      if (!writeRes.success) {
+        return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to approve leave.', stored: 'none' };
+      }
+      return { ok: true, stored: writeRes.stored };
     }
-    return { ok: false };
+    return { ok: false, error: 'NOT_FOUND', message: 'Leave record not found' };
   },
 
   async approveRequest(requestId: string) {
@@ -234,9 +297,10 @@ export const servicesService = {
 
     if (isSupabaseAvailable) {
       try {
-        const res = await supabase.from('services_requests').update({ status: 'Approved' }).eq('id', requestId);
+        const client = await getCampusSupabaseClient();
+        const res = await client.from('services_requests').update({ status: 'Approved' }).eq('id', requestId);
         if (res.error) throw new Error(res.error.message);
-        return { ok: true };
+        return { ok: true, stored: 'db' };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
       }
@@ -247,9 +311,12 @@ export const servicesService = {
     const idx = db.requests.findIndex((r: any) => r.id === requestId);
     if (idx !== -1) {
       db.requests[idx].status = 'Approved';
-      await writeLocalDb(db);
-      return { ok: true };
+      const writeRes = await writeLocalDb(db);
+      if (!writeRes.success) {
+        return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to approve request.', stored: 'none' };
+      }
+      return { ok: true, stored: writeRes.stored };
     }
-    return { ok: false };
+    return { ok: false, error: 'NOT_FOUND', message: 'Request not found' };
   }
 };

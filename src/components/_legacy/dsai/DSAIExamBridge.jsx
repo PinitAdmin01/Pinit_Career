@@ -51,8 +51,8 @@ export default function DSAIExamBridge({ userId, registerNumber, examId }) {
 
   // Pre-fill student register number if available from PinIT auth
   useEffect(() => {
-    if (registerNumber && screen === 'landing') {
-      setScreen('student-login');
+    if (registerNumber) {
+      setScreen(prev => (prev === 'landing' ? 'student-login' : prev));
     }
   }, [registerNumber]);
 
@@ -69,7 +69,7 @@ export default function DSAIExamBridge({ userId, registerNumber, examId }) {
 
   async function handleStartExamRequest(examSchedule) {
     setExamCheckLoading(true);
-    const { DB } = await import('@/lib/firebase');
+    const { DB } = await import('@/lib/dsaiFirebase');
     try {
       const results    = await DB.getAll('exam_results');
       const alreadyDone = results.find(

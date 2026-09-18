@@ -1,3 +1,40 @@
 {
-  "atRiskStudents": []
+  "atRiskStudents": [],
+  "students": {
+    "advisor_x_1789594634008": {
+      "attendance": 80,
+      "cgpa": 7,
+      "assignmentsCompleted": 1,
+      "assignmentsPending": 0,
+      "warningLevel": "Low"
+    },
+    "advisor_x_1789594780751": {
+      "attendance": 80,
+      "cgpa": 7,
+      "assignmentsCompleted": 1,
+      "assignmentsPending": 0,
+      "warningLevel": "Low"
+    },
+    "advisor_x_1789594824932": {
+      "attendance": 80,
+      "cgpa": 7,
+      "assignmentsCompleted": 1,
+      "assignmentsPending": 0,
+      "warningLevel": "Low"
+    },
+    "advisor_x_1789594848935": {
+      "attendance": 80,
+      "cgpa": 7,
+      "assignmentsCompleted": 1,
+      "assignmentsPending": 0,
+      "warningLevel": "Low"
+    },
+    "advisor_x_1789647486720": {
+      "attendance": 80,
+      "cgpa": 7,
+      "assignmentsCompleted": 1,
+      "assignmentsPending": 0,
+      "warningLevel": "Low"
+    }
+  }
 }

@@ -364,11 +364,14 @@ stable
 security definer
 set search_path = public
 as $$
-  select exists (
-    select 1 from public.users u
-    where u.id = auth.uid()
-      and u.role in ('admin', 'superadmin', 'teacher', 'faculty')
-  );
+  select 
+    current_user = 'service_role'
+    or (auth.jwt() ->> 'role') = 'service_role'
+    or exists (
+      select 1 from public.users u
+      where u.id = auth.uid()
+        and u.role in ('admin', 'superadmin', 'teacher', 'faculty')
+    );
 $$;
 
 create or replace function public.campus_is_self(student_id text)
@@ -386,7 +389,7 @@ as $$
     );
 $$;
 
-grant execute on function public.campus_is_staff() to authenticated;
+grant execute on function public.campus_is_staff() to authenticated, service_role;
 grant execute on function public.campus_is_self(text) to authenticated;
 
 do $$
@@ -408,7 +411,7 @@ declare
   ];
   personal text[] := array[
     'hostel_allocations','hostel_attendance','hostel_complaints','hostel_visitors',
-    'finance_dues','finance_transactions','library_borrowings','library_reservations',
+    'finance_transactions','library_borrowings','library_reservations',
     'transport_allocations','document_requests',
     'events_rsvps','grievances_tickets','research_papers',
     'advisor_performance','admissions_applications',
@@ -487,7 +490,69 @@ begin
       or user_key = auth.uid()::text
       or lower(user_key) = lower(coalesce(auth.jwt()->>'email', ''))
     );
+  -- Dedicated finance_dues policy: students can only select own dues, staff can do all
+  alter table public.finance_dues enable row level security;
+  drop policy if exists campus_auth_all on public.finance_dues;
+  drop policy if exists campus_own_or_staff on public.finance_dues;
+  drop policy if exists campus_dues_own on public.finance_dues;
+  drop policy if exists campus_dues_select_own on public.finance_dues;
+  drop policy if exists campus_dues_staff_all on public.finance_dues;
+  create policy campus_dues_select_own on public.finance_dues
+    for select to authenticated
+    using (student_id = auth.uid()::text or public.campus_is_staff());
+  create policy campus_dues_staff_all on public.finance_dues
+    for all to authenticated
+    using (public.campus_is_staff())
+    with check (public.campus_is_staff());
 end $$;
+
+-- Status Immutability: prevent students from self-approving campus requests
+CREATE OR REPLACE FUNCTION public.check_student_campus_status_immutable()
+RETURNS TRIGGER AS $$
+BEGIN
+  IF NOT public.campus_is_staff() THEN
+    IF TG_OP = 'INSERT' THEN
+      NEW.status := 'pending';
+    END IF;
+    IF TG_OP = 'UPDATE' AND OLD.status IS DISTINCT FROM NEW.status THEN
+      RAISE EXCEPTION 'Students cannot alter status on campus records';
+    END IF;
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DO $$
+DECLARE
+  t text;
+  tables text[] := ARRAY['services_leaves', 'document_requests', 'admissions_applications', 'grievances_tickets', 'services_requests'];
+BEGIN
+  DROP TRIGGER IF EXISTS trg_guard_status_finance_dues ON public.finance_dues;
+
+  FOREACH t IN ARRAY tables LOOP
+    IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = t AND table_schema = 'public') THEN
+      EXECUTE format('DROP TRIGGER IF EXISTS trg_guard_status_%I ON public.%I', t, t);
+      EXECUTE format('CREATE TRIGGER trg_guard_status_%I BEFORE INSERT OR UPDATE ON public.%I FOR EACH ROW EXECUTE FUNCTION public.check_student_campus_status_immutable()', t, t);
+    END IF;
+  END LOOP;
+END $$;
+
+-- Dedicated Finance Dues Guard: Protect term fees, waivers, fines, and installments
+CREATE OR REPLACE FUNCTION public.check_finance_dues_immutable()
+RETURNS TRIGGER AS $$
+BEGIN
+  IF NOT public.campus_is_staff() THEN
+    RAISE EXCEPTION 'Students cannot modify or delete finance dues records';
+  END IF;
+  IF TG_OP = 'DELETE' THEN RETURN OLD; END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS trg_guard_finance_dues ON public.finance_dues;
+CREATE TRIGGER trg_guard_finance_dues
+  BEFORE UPDATE OR DELETE ON public.finance_dues
+  FOR EACH ROW EXECUTE FUNCTION public.check_finance_dues_immutable();
 
 create table if not exists public.student_language_progress (
   student_id text not null,

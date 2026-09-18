@@ -5,6 +5,8 @@ import { useAuth } from '@/lib/context/AuthContext';
 import { api } from '@/lib/api/client';
 import { useAddVaultItem, useVault } from '@/lib/api/hooks';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
+import { supabase } from '@/lib/supabaseClient';
+import { toast } from '@/lib/store/useAppStore';
 
 const TYPE_CONFIG: Record<string, { icon: string; color: string; label: string }> = {
   academic:      { icon: '🎓', color: 'var(--teal)',   label: 'Academic Record' },
@@ -20,9 +22,9 @@ const TYPE_CONFIG: Record<string, { icon: string; color: string; label: string }
 
 export default function VaultPage() {
   const { user } = useAuth();
-  const { vaultItems: ctxItems, addVaultItem, updateVaultItem, earnPins } = useCareerOS();
+  const { vaultItems: ctxItems, setVaultItems, addVaultItem, updateVaultItem, earnPins } = useCareerOS();
   // Also load from Firestore (real persisted items) and merge with context items
-  const { data: fsVaultData } = useVault();
+  const { data: fsVaultData, refetch } = useVault();
   const fsItems = (fsVaultData || []) as any[];
   // Deduplicate: Firestore items take precedence, fill in with context items not yet synced
   const fsIds = new Set(fsItems.map((i: any) => i.id));
@@ -76,16 +78,6 @@ export default function VaultPage() {
         ai_confidence_score: 0,
       });
 
-      // Also persist to Firestore
-      api.post('/api/vault', {
-        title: form.title.trim(),
-        item_type: form.itemType,
-        organization_name: form.organizationName.trim(),
-        description: form.description.trim(),
-        skill_tags: skills,
-        verified: false,
-      }).catch(() => {/* offline ok — Supabase / localStorage handles it */});
-
       setShowForm(false);
       setForm({ title: '', itemType: 'project', description: '', organizationName: '', startDate: '', endDate: '' });
     } finally {
@@ -108,7 +100,7 @@ export default function VaultPage() {
     if (!file) return;
     setUploading(true);
     try {
-      console.log(`[VAULT PAGE]: Uploading "${file.name}" to 12-stage ingestion pipeline...`);
+      console.log(`[VAULT PAGE]: Uploading "${file.name}" to ingestion pipeline...`);
       const formData = new FormData();
       formData.append('file', file);
       formData.append('primaryName', user?.displayName || 'Candidate');
@@ -117,24 +109,18 @@ export default function VaultPage() {
       const doc = res.document || res.data;
       if (doc) {
         console.log(`[VAULT PAGE]: Ingestion success: "${doc.title}", Skills: [${doc.skills?.join(', ') || ''}]`);
-        addVaultItem({
-          title: doc.title || file.name,
-          item_type: doc.category === 'resume' ? 'resume' : doc.category === 'certification' ? 'certification' : 'academic',
-          organization_name: doc.institution || 'Verified Portal',
-          description: `Uploaded file: ${doc.fileName} (${doc.fileSize}). Score/GPA: ${doc.scoreOrGpa}. Storage: ${doc.storageUrl || 'Supabase Vault'}`,
-          skill_tags: doc.skills && doc.skills.length > 0 ? doc.skills : ['Verified File'],
-        });
+        toast.success('Document Ingested', `Successfully uploaded "${doc.title || file.name}" to Proof Vault.`);
+        if (user?.id) {
+          const { data: refreshed } = await supabase.from('vault_items').select('*').eq('user_id', user.id);
+          if (refreshed) {
+            setVaultItems(refreshed.filter((item: any) => item.item_type !== 'campus_kv'));
+          }
+        }
+        refetch?.();
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('[VAULT PAGE UPLOAD ERROR]:', err);
-      const titleWithoutExt = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
-      addVaultItem({
-        title: titleWithoutExt.split('-').join(' ').split('_').join(' ').replace(/\b\w/g, c => c.toUpperCase()),
-        item_type: 'other',
-        organization_name: 'Local Upload',
-        description: `Uploaded file: ${file.name} (${Math.round(file.size / 1024)} KB).`,
-        skill_tags: [file.name.split('.').pop()?.toUpperCase() || 'FILE'],
-      });
+      toast.error('Upload Refused', err?.message || 'We could not read this document. Please ensure it contains selectable text.');
     } finally {
       setUploading(false);
     }
@@ -181,8 +167,8 @@ export default function VaultPage() {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 24 }}>
         {[
           { label: 'Total Vault Assets',  value: total,          color: 'var(--accent)' },
-          { label: 'AI Auto-Verified',    value: verified_total, color: 'var(--green)'  },
-          { label: 'Confidence Quotient', value: `${avg_score}%`, color: 'var(--teal)' },
+          { label: 'Verified Proofs',    value: verified_total, color: 'var(--green)'  },
+          { label: 'Verified Trust Quotient', value: verified_total > 0 ? `${avg_score}%` : 'Pending Verification', color: 'var(--teal)' },
         ].map(s => (
           <div key={s.label} style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 16, padding: '16px 20px', borderTop: `3px solid ${s.color}` }}>
             <div style={{ fontSize: 10, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--t3)', fontFamily: 'var(--font-mono)', marginBottom: 6 }}>{s.label}</div>
@@ -378,7 +364,7 @@ export default function VaultPage() {
                       letterSpacing: '0.5px',
                       textTransform: 'uppercase'
                     }}>
-                      ⏳ Pending
+                      ⏳ Pending Verification
                     </div>
                   )}
 
@@ -400,13 +386,13 @@ export default function VaultPage() {
                     fontWeight: 700,
                     color: 'var(--t2)'
                   }}>
-                    {score > 0 ? (
+                    {item.verified && score > 0 ? (
                       <>
                         <span style={{ width: 6, height: 6, borderRadius: '50%', background: gaugeColor, boxShadow: `0 0 6px ${gaugeColor}` }} />
                         AI Trust: {score}%
                       </>
                     ) : (
-                      <span style={{ color: 'var(--t3)', fontSize: 9.5 }}>Manual Entry</span>
+                      <span style={{ color: 'var(--amber)', fontSize: 9.5 }}>Pending Audit</span>
                     )}
                   </div>
                 </div>

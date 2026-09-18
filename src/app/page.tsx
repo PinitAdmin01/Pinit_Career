@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useCallback, Suspense, type MouseEvent } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import PublicNavbar from '@/components/nav/PublicNavbar';
 import PublicFooter from '@/components/landing/PublicFooter';
@@ -161,7 +162,7 @@ function LandingContent() {
                     style={{ cursor: 'pointer' }}
                   >
                     <div className="lp-badge-official">
-                      <img src="/brand/pinit-career-logo-clear.png" alt="PINIT CAREER" />
+                      <Image src="/brand/pinit-career-logo-clear.png" alt="PINIT CAREER" width={140} height={36} priority />
                     </div>
                   </div>
 

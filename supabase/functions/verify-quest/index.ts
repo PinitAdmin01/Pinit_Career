@@ -35,7 +35,7 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { createHmac } from "https://deno.land/std@0.168.0/node/crypto.ts";
-import { QUEST_TEST_SUITES } from "./questTestSuites.generated.ts";
+import { QUEST_TEST_SUITES, QUEST_METADATA } from "./questTestSuites.generated.ts";
 import { gradeSubmission } from "./grading.ts";
 
 // ── CORS ─────────────────────────────────────────────────────────────────────
@@ -208,10 +208,13 @@ serve(async (req: Request) => {
     action = body.action ?? "verify";
     questId = body.questId;
     code = body.code ?? "";
-    questXp = typeof body.xp === "number" ? body.xp : 150;
-    pinCost = typeof body.pinCost === "number" ? body.pinCost : 5;
     if (!questId) throw new Error("questId is required");
     if (code.length > 50000) throw new Error("Source code exceeds size limit (50KB max)");
+
+    // Anti-Cheat: Never trust client-supplied XP or pinCost. Resolve strictly from server registry.
+    const questMeta = (QUEST_METADATA as any)?.[questId];
+    questXp = typeof questMeta?.xp === "number" ? questMeta.xp : 100;
+    pinCost = typeof questMeta?.pinCost === "number" ? questMeta.pinCost : 5;
   } catch (err) {
     return new Response(
       JSON.stringify({ error: "Invalid body", detail: (err as Error).message }),

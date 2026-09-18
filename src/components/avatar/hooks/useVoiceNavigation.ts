@@ -40,8 +40,8 @@ const ROUTE_VOCABULARY: RouteEntry[] = [
     displayName: 'Missions',
     synonyms: [
       'missions', 'mission', 'daily missions', 'daily', 'daily mission',
-      'mission tab', 'missions tab', 'challenges', 'daily challenges',
-      'coding missions', 'my missions', 'today missions', 'mission page'
+      'mission tab', 'missions tab', 'coding missions', 'my missions',
+      'today missions', 'mission page', 'daily tasks'
     ],
   },
   {
@@ -50,7 +50,7 @@ const ROUTE_VOCABULARY: RouteEntry[] = [
     synonyms: [
       'arena', 'challenging arena', 'code wars', '1v1 duel', 'battle arena',
       'pvp coding', 'timed duel', 'arena tab', 'code wars arena', 'multiplayer coding',
-      'speedrun', 'algorithm battle'
+      'speedrun', 'algorithm battle', 'arena challenges', 'coding challenges'
     ],
   },
   {
@@ -268,6 +268,20 @@ const ROUTE_VOCABULARY: RouteEntry[] = [
 
   // ── Bottom Nav & Misc ──
   {
+    path: '/leaderboard',
+    displayName: 'Leaderboard & Leagues',
+    synonyms: [
+      'leaderboard', 'leader board', 'leagues', 'rankings', 'ranks', 'weekly league', 'leaderboard tab', 'leagues tab', 'student leaderboard'
+    ],
+  },
+  {
+    path: '/attention-span',
+    displayName: 'Attention Span',
+    synonyms: [
+      'attention span', 'attention', 'focus trainer', 'cognitive endurance', 'attention tab', 'focus tab', 'brain drills'
+    ],
+  },
+  {
     path: '/analytics',
     displayName: 'Analytics',
     synonyms: [
@@ -287,8 +301,7 @@ const ROUTE_VOCABULARY: RouteEntry[] = [
     path: '/pricing',
     displayName: 'Pins & Plans',
     synonyms: [
-      'pricing', 'plans', 'pins', 'subscription', 'pricing tab',
-      'pins and plans', 'upgrade', 'premium', 'pricing page', 'my pins'
+      'pins', 'wallet', 'pins and wallet', 'pin wallet', 'pins tab', 'buy pins'
     ],
   },
   {
@@ -306,14 +319,6 @@ const ROUTE_VOCABULARY: RouteEntry[] = [
     synonyms: [
       'attendance', 'my attendance', 'attendance tab', 'attendance page',
       'attendance record', 'check attendance'
-    ],
-  },
-  {
-    path: '/alumni',
-    displayName: 'Alumni Network',
-    synonyms: [
-      'alumni', 'alumni network', 'alumni tab', 'alumni page',
-      'alumni directory', 'network'
     ],
   },
   {
@@ -448,7 +453,7 @@ function stripNavVerbs(text: string): string {
   let cleaned = text;
 
   // 1. Strip wake word prefixes
-  cleaned = cleaned.replace(/\b(hey|hi|hello)\b/gi, '')
+  cleaned = cleaned.replace(/\b(hey|hay|hi|hello)\b/gi, '')
                    .replace(/\b(priya|preya|pria|freeya|freya|riya|kashyap|kash|karthic|karthik|kartik|maya|maia|mya|divya|divia|anish|sentinel|pinit)\b/gi, '')
                    .trim();
 
@@ -487,6 +492,27 @@ export function matchNavigationIntent(rawTranscript: string): NavMatchResult {
 
   const text = rawTranscript.toLowerCase().replace(/[.,!?;:'"]/g, '').trim();
 
+  // 1. High-priority deterministic matching for core hubs
+  if (/\b(missions?)\b/i.test(text)) {
+    return {
+      matched: true,
+      path: '/missions',
+      displayName: 'Missions',
+      confidence: 1.0,
+      candidates: [{ path: '/missions', displayName: 'Missions', confidence: 1.0 }],
+    };
+  }
+
+  if (/\b(arena|code wars|1v1|algorithm battle)\b/i.test(text)) {
+    return {
+      matched: true,
+      path: '/arena',
+      displayName: 'Challenging Arena',
+      confidence: 1.0,
+      candidates: [{ path: '/arena', displayName: 'Challenging Arena', confidence: 1.0 }],
+    };
+  }
+
   // Check if this looks like a navigation command
   const isNavCommand = hasNavIntent(text);
 
@@ -499,7 +525,7 @@ export function matchNavigationIntent(rawTranscript: string): NavMatchResult {
   // Also filter out filler words & wake words
   const fillers = new Set([
     'the', 'a', 'an', 'my', 'me', 'to', 'for', 'of', 'in', 'on', 'at', 'up',
-    'please', 'can', 'you', 'i', 'want', 'need', 'let', 'see', 'hey', 'hi', 'hello',
+    'please', 'can', 'you', 'i', 'want', 'need', 'let', 'see', 'hey', 'hay', 'hi', 'hello',
     'priya', 'kashyap', 'karthic', 'maya', 'divya', 'anish', 'tab', 'page', 'section'
   ]);
   const meaningfulWords = spokenWords.filter(w => !fillers.has(w));

@@ -1,10 +1,12 @@
 import { NextResponse } from 'next/server';
 import { requireFacultyOrAdminUserFromRequest, requireUserFromRequest } from '@/lib/server/requireAuth';
+import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: Request) {
   try {
+    const supabase = getSupabaseAdmin();
     const body = await req.json().catch(() => ({}));
     const { action, type, id, studentId, verified, author, role, text } = body;
 
@@ -25,14 +27,73 @@ export async function POST(req: Request) {
         return auth.error; // 403 Forbidden or 401 Unauthorized
       }
 
+      const isVerified = verified !== undefined ? Boolean(verified) : true;
+      const nowIso = new Date().toISOString();
+
+      // DEF-058 Fix: Persist verification status directly to database
+      try {
+        if (type === 'vault' || (id && String(id).startsWith('vault_'))) {
+          await supabase
+            .from('vault_items')
+            .update({
+              verified: isVerified,
+              verified_by: auth.user.id,
+              verified_at: nowIso,
+            })
+            .eq('id', id);
+        } else if (studentId) {
+          const { data: userRow } = await supabase
+            .from('users')
+            .select('onboarding_answers')
+            .eq('id', studentId)
+            .maybeSingle();
+
+          if (userRow?.onboarding_answers) {
+            const ob = { ...userRow.onboarding_answers };
+            const portfolioKeys = [
+              'portfolio_projects',
+              'portfolio_timeline',
+              'portfolio_recommendations',
+              'portfolio_achievements',
+              'portfolio_certificates',
+            ];
+            let modified = false;
+            for (const pKey of portfolioKeys) {
+              if (Array.isArray(ob[pKey])) {
+                ob[pKey] = ob[pKey].map((item: any) => {
+                  if (item && item.id === id) {
+                    modified = true;
+                    return {
+                      ...item,
+                      verified: isVerified,
+                      verifiedBy: auth.user.id,
+                      verifiedAt: nowIso,
+                    };
+                  }
+                  return item;
+                });
+              }
+            }
+            if (modified) {
+              await supabase
+                .from('users')
+                .update({ onboarding_answers: ob })
+                .eq('id', studentId);
+            }
+          }
+        }
+      } catch (dbErr) {
+        console.warn('[Portfolio Verification] DB persistence warning:', dbErr);
+      }
+
       return NextResponse.json({
         success: true,
         type,
         id,
-        verified: verified !== undefined ? Boolean(verified) : true,
+        verified: isVerified,
         verifiedBy: auth.user.id,
         verifierRole: auth.user.role,
-        verifiedAt: new Date().toISOString(),
+        verifiedAt: nowIso,
       });
     }
 

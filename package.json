@@ -10,13 +10,14 @@
     "// build:static": "Legacy Firebase Hosting only. build.js copies .next/server/app into out/ so the app can be served as files, which disables every /api/* route and makes the browser shim the backend. Server hosts (Vercel, App Hosting, Render) must use `build`.",
     "build:static": "node build.js",
     "deploy:static": "npm run build:static && firebase deploy --only hosting",
-    "lint": "next lint",
-    "audit:contracts": "node audit/extract-contracts.mjs",
+    "lint": "node scripts/check_eslint_comments.js && next lint",
+    "audit:contracts": "node audit/extract-contracts.mjs && npx tsx scripts/verify_api_parity.ts",
     "audit:headers": "node audit/check-headers.mjs",
     "audit:runtime": "node audit/walk-routes.mjs",
     "audit": "npm run audit:contracts && npm run audit:headers",
     "audit:test": "npx tsx audit/jdMatch.test.ts && npx tsx audit/logic.test.ts && npx tsx audit/university.test.ts",
-    "test:security": "npx tsx scripts/test_p0_security_remediations.ts && npx tsx scripts/test_student_privilege_rls.ts && node scripts/check_bare_writes.js"
+    "test:security": "npx tsx scripts/test_p0_security_remediations.ts && npx tsx scripts/test_student_privilege_rls.ts && node scripts/check_bare_writes.js",
+    "test": "tsx --test --test-reporter=spec \"tests/**/*.test.ts\""
   },
   "dependencies": {
     "@monaco-editor/react": "^4.7.0",
@@ -25,6 +26,7 @@
     "@tanstack/react-query": "^5.28.0",
     "bullmq": "6.3.4",
     "firebase": "^10.9.0",
+    "jose": "^6.2.12",
     "next": "14.2.29",
     "qrcode.react": "^3.1.0",
     "react": "^18.3.0",
@@ -60,6 +62,7 @@
     "testcontainers": "12.1.0",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
+    "tsx": "4.23.13",
     "typescript": "^5.4.3"
   }
 }

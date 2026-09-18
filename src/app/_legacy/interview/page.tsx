@@ -72,7 +72,7 @@ export default function InterviewPage() {
     setMessages([
       { role: 'assistant', content: initialGreeting }
     ]);
-  }, [javaTestPassed, teacherId]);
+  }, [javaTestPassed, teacherId, teacher.name]);
 
   // Stop speaking on unmount
   useEffect(() => {
@@ -170,20 +170,19 @@ export default function InterviewPage() {
           { role: 'user', content: userMsg }
         ];
 
-        const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        const res = await fetch('/api/llm', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${key}` },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            model: 'llama-3.1-8b-instant',
-            max_tokens: 220,
-            temperature: 0.7,
-            messages: apiMessages
+            messages: apiMessages,
+            systemPrompt,
+            maxTokens: 220
           })
         });
 
         if (res.ok) {
           const data = await res.json();
-          return data.choices?.[0]?.message?.content || '';
+          return data.reply || data.choices?.[0]?.message?.content || '';
         }
       } catch (e) {
         console.warn("Groq fetch failed, falling back to rule-based engine", e);

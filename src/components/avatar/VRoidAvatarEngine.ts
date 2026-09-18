@@ -14,6 +14,7 @@ export interface PersonaConfig {
   headTiltAmp: number;
   gestureSpeed: number;
   warmth?: number; // subtle smile/warmth morph target [0, 1]
+  baseHeadPitch?: number; // baseline forward eye-contact pitch offset in radians [0, 0.15]
   /**
    * D-01 FIX: Presented gender for this persona.
    *
@@ -31,8 +32,8 @@ export interface PersonaConfig {
 }
 
 export const PERSONA_CONFIGS: Record<string, PersonaConfig> = {
-  priya:    { name: 'Ms. Priya',          domain: 'Full-Stack & Career Growth',   expressiveness: 0.88, blinkInterval: 3.4, swayAmp: 1.00, headTiltAmp: 1.05, gestureSpeed: 1.05, warmth: 0.22, gender: 'female' },
-  anish:    { name: 'Mr. Anish',          domain: 'Systems & Backend Scale',      expressiveness: 0.72, blinkInterval: 4.4, swayAmp: 0.75, headTiltAmp: 0.80, gestureSpeed: 0.90, warmth: 0.12, gender: 'male' },
+  priya:    { name: 'Ms. Priya',          domain: 'Full-Stack & Career Growth',   expressiveness: 0.88, blinkInterval: 3.4, swayAmp: 1.00, headTiltAmp: 1.05, gestureSpeed: 1.05, warmth: 0.22, baseHeadPitch: 0.122, gender: 'female' },
+  anish:    { name: 'Mr. Anish',          domain: 'Systems & Backend Scale',      expressiveness: 0.72, blinkInterval: 4.4, swayAmp: 0.75, headTiltAmp: 0.80, gestureSpeed: 0.90, warmth: 0.12, baseHeadPitch: 0.07, gender: 'male' },
   aisha:    { name: 'Ms. Aisha',          domain: 'Data Science & AI/ML',         expressiveness: 0.82, blinkInterval: 3.8, swayAmp: 0.85, headTiltAmp: 1.00, gestureSpeed: 0.95, warmth: 0.18, gender: 'female' },
   vikram:   { name: 'Mr. Vikram',         domain: 'Finance, Commerce & Ethics',   expressiveness: 0.65, blinkInterval: 5.0, swayAmp: 0.50, headTiltAmp: 0.65, gestureSpeed: 0.75, warmth: 0.15, gender: 'male' },
   kashyap:  { name: 'Kashyap Sir',        domain: 'DSA & Mathematical Reasoning', expressiveness: 0.68, blinkInterval: 4.8, swayAmp: 0.60, headTiltAmp: 0.85, gestureSpeed: 0.80, warmth: 0.14, gender: 'male' },
@@ -82,6 +83,7 @@ export class VRoidAvatarEngine {
     const wasPaused = this._paused;
     this._paused = v;
     if (wasPaused && !v) {
+      this.lastRenderTimestamp = 0;
       this.clock.getDelta();
       this.loop();
     }
@@ -90,6 +92,7 @@ export class VRoidAvatarEngine {
   raf?: number;
   clock = new THREE.Clock();
   disposed = false;
+  private onVisibilityChange?: () => void;
 
   // ── D-04 FIX: Load gating ────────────────────────────────────────────────
   // init() starts the render loop immediately while tryLoadVRM() is still
@@ -102,6 +105,8 @@ export class VRoidAvatarEngine {
   // complete, on both the GLB path and the procedural fallback path.
   private ready = false;
   private restPoseApplied = false;
+  onReady?: () => void;
+  get isReady(): boolean { return this.ready; }
 
   // ── C-02 & T6: adaptive performance state ────────────────────────────────
   // Set during init() from device detection, then adjusted at runtime by the
@@ -113,6 +118,10 @@ export class VRoidAvatarEngine {
   private frameTimeAccumulator = 0;
   private frameTimeSamples = 0;
   private hasDownscaledForPerf = false;
+
+  // ── Task 1.2: Idle render throttling state ──
+  private lastRenderTimestamp = 0;
+  private lastUserInteractionTimestamp = typeof performance !== 'undefined' ? performance.now() : 0;
 
   isVRM = false;
   faceMeshes: THREE.Mesh[] = [];
@@ -148,6 +157,15 @@ export class VRoidAvatarEngine {
   mouseNormalized = new THREE.Vector2(0, 0);
   mouseTargetOffset = new THREE.Vector2(0, 0);
   private onMouseMoveHandler?: (e: MouseEvent) => void;
+  private onScrollHandler?: () => void;
+  private cachedCanvasRect: { left: number; top: number; width: number; height: number } | null = null;
+
+  updateCanvasBounds() {
+    if (this.canvas && typeof this.canvas.getBoundingClientRect === 'function') {
+      const r = this.canvas.getBoundingClientRect();
+      this.cachedCanvasRect = { left: r.left, top: r.top, width: r.width, height: r.height };
+    }
+  }
 
   canvas?: HTMLCanvasElement;
   private onContextLost?: (e: Event) => void;
@@ -175,17 +193,33 @@ export class VRoidAvatarEngine {
     const w = canvas.clientWidth || 280;
     const h = canvas.clientHeight || 360;
 
+    this.updateCanvasBounds();
+
     // Attach global mousemove listener for subtle natural eye and head gaze parallax
     this.onMouseMoveHandler = (e: MouseEvent) => {
+      this.lastUserInteractionTimestamp = typeof performance !== 'undefined' ? performance.now() : Date.now();
       if (!this.gazeTrackingEnabled || this.disposed) return;
-      // Calculate normalized device coordinates [-1, 1] relative to window viewport
-      const nx = (e.clientX / window.innerWidth) * 2 - 1;
-      const ny = -((e.clientY / window.innerHeight) * 2 - 1);
+      let nx = (e.clientX / window.innerWidth) * 2 - 1;
+      let ny = -((e.clientY / window.innerHeight) * 2 - 1);
+
+      if (this.cachedCanvasRect && this.cachedCanvasRect.width > 0 && this.cachedCanvasRect.height > 0) {
+        const rect = this.cachedCanvasRect;
+        // Anchor tracking to avatar's face level (approx 50% across, 35% down canvas)
+        const faceX = rect.left + rect.width * 0.5;
+        const faceY = rect.top + rect.height * 0.35;
+        const spanX = Math.max(faceX, window.innerWidth - faceX) || 1;
+        const spanY = Math.max(faceY, window.innerHeight - faceY) || 1;
+
+        nx = THREE.MathUtils.clamp((e.clientX - faceX) / spanX, -1, 1);
+        ny = THREE.MathUtils.clamp(-(e.clientY - faceY) / spanY, -1, 1);
+      }
       this.mouseNormalized.set(nx, ny);
     };
 
     if (typeof window !== 'undefined') {
       window.addEventListener('mousemove', this.onMouseMoveHandler, { passive: true });
+      this.onScrollHandler = () => this.updateCanvasBounds();
+      window.addEventListener('scroll', this.onScrollHandler, { passive: true });
       console.log('[VRoidAvatarEngine] Gaze tracking mouse listener initialized successfully.');
     }
 
@@ -194,13 +228,40 @@ export class VRoidAvatarEngine {
       e.preventDefault();
       console.warn('[VRoidAvatarEngine] WebGL context lost. Pausing avatar rendering loop.');
       this.paused = true;
+      if (this.raf) {
+        cancelAnimationFrame(this.raf);
+        this.raf = undefined;
+      }
     };
     this.onContextRestored = () => {
       console.log('[VRoidAvatarEngine] WebGL context restored. Resuming avatar rendering loop.');
       this.paused = false;
+      this.lastRenderTimestamp = 0;
+      this.clock.getDelta();
+      this.loop();
     };
     canvas.addEventListener('webglcontextlost', this.onContextLost, false);
     canvas.addEventListener('webglcontextrestored', this.onContextRestored, false);
+
+    // VisibilityChange listener: pause animation loop when tab is hidden to prevent GPU memory spikes & battery drain (DEF-003)
+    this.onVisibilityChange = () => {
+      if (typeof document === 'undefined') return;
+      if (document.visibilityState === 'hidden') {
+        this.paused = true;
+        if (this.raf) {
+          cancelAnimationFrame(this.raf);
+          this.raf = undefined;
+        }
+      } else if (document.visibilityState === 'visible' && !this.disposed) {
+        this.paused = false;
+        this.lastRenderTimestamp = 0;
+        this.clock.getDelta();
+        this.loop();
+      }
+    };
+    if (typeof document !== 'undefined') {
+      document.addEventListener('visibilitychange', this.onVisibilityChange);
+    }
 
     // ── C-02 FIX: device-aware renderer settings ───────────────────────────
     // Fragment shading cost scales with the AREA of rendered pixels, so pixel
@@ -233,10 +294,9 @@ export class VRoidAvatarEngine {
       }
     }
 
-    // 1.5 on mobile is a 44% reduction in fragment work versus the old cap of
-    // 2, for a difference that is not perceptible on a ~6 inch screen.
-    this.maxPixelRatio = isMobileDevice ? 1.5 : 2;
-    this.currentPixelRatio = Math.min(window.devicePixelRatio, this.maxPixelRatio);
+    // Clamp pixel ratio to 1.5 so high-DPI (Retina/4K) screens do not render 4× pixels unnecessarily
+    this.maxPixelRatio = 1.5;
+    this.currentPixelRatio = Math.min(window.devicePixelRatio, 1.5);
     this.renderer.setPixelRatio(this.currentPixelRatio);
     console.log(
       `[VRoidAvatarEngine] Renderer configured — mobile: ${isMobileDevice}, ` +
@@ -245,6 +305,7 @@ export class VRoidAvatarEngine {
     );
     this.renderer.setSize(w, h, false);
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    this.renderer.toneMappingExposure = 0.88;
     this.renderer.setClearColor(0x000000, 0);
 
     this.scene = new THREE.Scene();
@@ -254,12 +315,12 @@ export class VRoidAvatarEngine {
     this.camera.position.set(0, 1.38, 1.45);
     this.camera.lookAt(0, 1.44, 0);
 
-    this.scene.add(new THREE.AmbientLight(0xffffff, 1.2));
-    const key = new THREE.DirectionalLight(0xffffff, 1.6);
+    this.scene.add(new THREE.AmbientLight(0xffffff, 0.72));
+    const key = new THREE.DirectionalLight(0xffffff, 1.05);
     key.position.set(0, 2.5, 2.5);
     this.scene.add(key);
 
-    const fill = new THREE.DirectionalLight(0x90c0ff, 0.8);
+    const fill = new THREE.DirectionalLight(0x90c0ff, 0.45);
     fill.position.set(-1.5, 1.5, 2);
     this.scene.add(fill);
 
@@ -321,10 +382,43 @@ export class VRoidAvatarEngine {
     const loadAttempt = (idx: number): Promise<void> => {
       if (idx >= paths.length) return Promise.reject(new Error("No VRMs found"));
       return new Promise<void>((resolve, reject) => {
+        let settled = false;
         const resolvedPath = paths[idx];
+        const timer = setTimeout(() => {
+          if (settled) return;
+          settled = true;
+          console.warn(`[VRoidAvatarEngine] Load timed out for "${resolvedPath}", trying next fallback.`);
+          loadAttempt(idx + 1).then(resolve).catch(reject);
+        }, 8000);
+
         console.log('[VRoidAvatarEngine] Attempting to load avatar GLB from:', resolvedPath);
-        loader.load(resolvedPath, gltf => {
-          console.log('[VRoidAvatarEngine] Successfully loaded 3D avatar:', resolvedPath);
+        try {
+          loader.load(resolvedPath, gltf => {
+            if (settled) return;
+            settled = true;
+            clearTimeout(timer);
+            if (this.disposed) {
+              if (gltf?.scene) {
+                gltf.scene.traverse((obj: any) => {
+                  if (obj.geometry) obj.geometry.dispose();
+                  if (obj.material) {
+                    const mats = Array.isArray(obj.material) ? obj.material : [obj.material];
+                    mats.forEach((m: any) => {
+                      if (m) {
+                        Object.values(m).forEach((v: any) => {
+                          if (v && typeof v.dispose === 'function') {
+                            try { v.dispose(); } catch {}
+                          }
+                        });
+                        try { m.dispose(); } catch {}
+                      }
+                    });
+                  }
+                });
+              }
+              return;
+            }
+            console.log('[VRoidAvatarEngine] Successfully loaded 3D avatar:', resolvedPath);
           this.scene.add(gltf.scene);
           this.isVRM = true;
           this.faceMeshes = [];
@@ -501,17 +595,24 @@ export class VRoidAvatarEngine {
           this.centerCameraOnHead();
           // D-04 FIX: all bones bound and isVRM resolved — safe to animate now.
           this.markReady(resolvedPath);
-          resolve();
-        }, undefined, () => {
-          // D-01 FIX: make substitution visible instead of silent. If this
-          // warning appears with a different persona's model on the next line,
-          // that is the identity-mismatch bug happening in real time.
+        }, undefined, (err) => {
+          if (settled) return;
+          settled = true;
+          clearTimeout(timer);
+          // D-01 FIX: make substitution visible instead of silent.
           console.warn(
-            `[VRoidAvatarEngine] Failed to load "${resolvedPath}" (attempt ${idx + 1}/${paths.length}).` +
+            `[VRoidAvatarEngine] Failed to load "${resolvedPath}" (attempt ${idx + 1}/${paths.length}):`, err,
             (idx + 1 < paths.length ? ` Falling back to "${paths[idx + 1]}".` : ' No fallbacks remain.')
           );
           loadAttempt(idx + 1).then(resolve).catch(reject);
         });
+        } catch (syncErr) {
+          if (settled) return;
+          settled = true;
+          clearTimeout(timer);
+          console.warn('[VRoidAvatarEngine] Synchronous error during loader.load:', syncErr);
+          loadAttempt(idx + 1).then(resolve).catch(reject);
+        }
       });
     };
 
@@ -540,21 +641,23 @@ export class VRoidAvatarEngine {
     }
 
     const aspect = this.camera.aspect || 1.0;
+    // Level camera optical trajectory horizontally to eliminate low-angle chin tilt
+    const targetLookY = headY - 0.04;
     if (aspect < 0.95) {
       // Portrait / compact container (e.g. floating avatar 160px x 210px)
       this.camera.fov = 30;
-      this.camera.position.set(headX, headY - 0.07, headZ + 1.40);
-      this.camera.lookAt(headX, headY - 0.03, headZ);
+      this.camera.position.set(headX, targetLookY, headZ + 1.40);
+      this.camera.lookAt(headX, targetLookY, headZ);
     } else if (aspect > 1.6) {
       // Wide / landscape container (e.g. Story Mode right pane)
       this.camera.fov = 30;
-      this.camera.position.set(headX, headY - 0.06, headZ + 1.50);
-      this.camera.lookAt(headX, headY - 0.03, headZ);
+      this.camera.position.set(headX, targetLookY, headZ + 1.50);
+      this.camera.lookAt(headX, targetLookY, headZ);
     } else {
       // Standard medium container
       this.camera.fov = 28;
-      this.camera.position.set(headX, headY - 0.06, headZ + 1.45);
-      this.camera.lookAt(headX, headY - 0.03, headZ);
+      this.camera.position.set(headX, targetLookY, headZ + 1.45);
+      this.camera.lookAt(headX, targetLookY, headZ);
     }
     this.camera.updateProjectionMatrix();
   }
@@ -727,17 +830,42 @@ export class VRoidAvatarEngine {
     if (this.ready) return;
     this.ready = true;
     console.log(`[VRoidAvatarEngine] Avatar ready (source: ${source}). Bones bound, isVRM=${this.isVRM}.`);
+    if (this.onReady) {
+      try {
+        this.onReady();
+      } catch (err) {
+        console.error('[VRoidAvatarEngine] Error in onReady callback:', err);
+      }
+    }
   }
 
   setState(s: AnimState) {
     if (this.animState === s) return;
     this.animState = s;
     this.animT = 0;
+    if (s === 'idle') {
+      this.talkPhase = 0;
+    }
   }
 
   loop() {
-    if (this.disposed || this._paused) return;
+    if (this.disposed || this.paused) return;
     this.raf = requestAnimationFrame(() => this.loop());
+
+    // ── Task 1.2: Adaptive FPS Throttling on Idle (Fix GPU Lag) ───────────
+    // When the avatar is idle and no user mouse interaction has occurred within 2.0s,
+    // throttle rendering to 20 FPS (50ms interval) to drop GPU load by up to 66%.
+    // Ramp up to 60 FPS (16.6ms) only when talking, gesturing, or interacting.
+    const now = typeof performance !== 'undefined' ? performance.now() : Date.now();
+    const isInteracting = (now - this.lastUserInteractionTimestamp) < 2000;
+    const isTalkingOrAnimating = this.animState !== 'idle';
+    const targetFps = (isTalkingOrAnimating || isInteracting) ? 60 : 20;
+    const minFrameIntervalMs = 1000 / targetFps;
+
+    if (this.lastRenderTimestamp > 0 && (now - this.lastRenderTimestamp) < (minFrameIntervalMs - 1.5)) {
+      return;
+    }
+    this.lastRenderTimestamp = now;
 
     // ── D-04 FIX ───────────────────────────────────────────────────────────
     // Do not drive any bone until loading and bone binding are complete.
@@ -803,12 +931,11 @@ export class VRoidAvatarEngine {
     const express = persona.expressiveness;
 
     // 1. Natural Breathing & Body Swaying (Persona-Driven)
+    // Breathing elevation is on shoulders; keep spine & chest X pitch locked to eliminate leaning zoom
     const breath = Math.sin(et * 1.5 * speed);
-    const breathingSpineX = breath * 0.01 * express;
     const breathingShoulderZ = breath * 0.005 * express;
 
-    // Body sway frequencies (using sine so at et=0 sway is 0, exactly matching rest pose)
-    const swayX = Math.sin(et * 0.4 * speed) * 0.008 * persona.swayAmp;
+    // Lateral body sway (Y / Z roll) — zero forward/backward X-axis pitch to keep distance from camera locked
     const swayY = Math.sin(et * 0.25 * speed) * 0.012 * persona.swayAmp;
     const swayZ = Math.sin(et * 0.3 * speed) * 0.006 * persona.swayAmp;
 
@@ -817,12 +944,11 @@ export class VRoidAvatarEngine {
     if (this.hips) {
       if (!this.isLowPowerDevice) {
         // Slow natural weight shift between legs (10-14s period)
-        const contraX = Math.sin(et * 0.2 * speed) * 0.012 * persona.swayAmp;
-        contraRoll = Math.sin(et * 0.2 * speed) * 0.015 * persona.swayAmp;
-        const breathHipsY = Math.sin(et * 1.5 * speed) * 0.003 * express;
+        const contraX = Math.sin(et * 0.2 * speed) * 0.010 * persona.swayAmp;
+        contraRoll = Math.sin(et * 0.2 * speed) * 0.012 * persona.swayAmp;
 
         this.hips.position.x = THREE.MathUtils.damp(this.hips.position.x, this.hipsRestPosition.x + contraX, 4, dt);
-        this.hips.position.y = THREE.MathUtils.damp(this.hips.position.y, this.hipsRestPosition.y + breathHipsY, 4, dt);
+        this.hips.position.y = THREE.MathUtils.damp(this.hips.position.y, this.hipsRestPosition.y, 4, dt);
         this.hips.position.z = THREE.MathUtils.damp(this.hips.position.z, this.hipsRestPosition.z, 4, dt);
         this.hips.rotation.z = THREE.MathUtils.damp(this.hips.rotation.z, contraRoll, 4, dt);
         this.hips.rotation.x = THREE.MathUtils.damp(this.hips.rotation.x, 0, 4, dt);
@@ -839,15 +965,13 @@ export class VRoidAvatarEngine {
     if (this.spine) {
       // Spine counter-rotates contrapposto tilt to keep head and torso upright
       const spineCounterRoll = -contraRoll * 0.85;
-      const targetSpineX = breathingSpineX + swayX;
       const targetSpineZ = spineCounterRoll + swayZ;
-      this.spine.rotation.x = THREE.MathUtils.damp(this.spine.rotation.x, targetSpineX, 5, dt);
+      this.spine.rotation.x = THREE.MathUtils.damp(this.spine.rotation.x, 0, 5, dt);
       this.spine.rotation.z = THREE.MathUtils.damp(this.spine.rotation.z, targetSpineZ, 5, dt);
       this.spine.rotation.y = THREE.MathUtils.damp(this.spine.rotation.y, 0, 5, dt);
     }
     if (this.chest) {
-      const targetChestX = breathingSpineX * 0.5;
-      this.chest.rotation.x = THREE.MathUtils.damp(this.chest.rotation.x, targetChestX, 5, dt);
+      this.chest.rotation.x = THREE.MathUtils.damp(this.chest.rotation.x, 0, 5, dt);
     }
 
     // Clavicle elevation coupling with arm lift + shrug state + breathing
@@ -884,62 +1008,63 @@ export class VRoidAvatarEngine {
     if (this.head) {
       const s = this.animState;
       const tiltAmp = persona.headTiltAmp;
+      const basePitch = persona.baseHeadPitch ?? (persona.gender === 'female' ? 0.122 : 0.08);
 
-      let targetHeadX = 0;
+      let targetHeadX = basePitch;
       let targetHeadY = 0;
       let targetHeadZ = 0;
       let targetNeckY = 0;
 
-      if (s === 'idle') {
+      if (s === 'idle' || s === 'talking') {
         if (this.gazeTrackingEnabled) {
           // Smoothly interpolate mouse target offset with organic damping
           this.mouseTargetOffset.x = THREE.MathUtils.damp(this.mouseTargetOffset.x, this.mouseNormalized.x, 6, dt);
           this.mouseTargetOffset.y = THREE.MathUtils.damp(this.mouseTargetOffset.y, this.mouseNormalized.y, 6, dt);
 
           // Subtle natural head gaze yaw and pitch towards cursor
-          const gazeYaw = this.mouseTargetOffset.x * 0.20 * tiltAmp;
-          const gazePitch = -this.mouseTargetOffset.y * 0.12 * tiltAmp;
+          const gazeYaw = this.mouseTargetOffset.x * 0.18 * tiltAmp;
+          const gazePitch = -this.mouseTargetOffset.y * 0.06 * tiltAmp;
 
           targetHeadY = swayY + gazeYaw + Math.sin(et * 0.13) * 0.02 * tiltAmp;
-          targetHeadX = Math.sin(et * 0.11) * 0.012 * tiltAmp + gazePitch;
+          targetHeadX = basePitch + Math.sin(et * 0.11) * 0.012 * tiltAmp + gazePitch;
           targetHeadZ = Math.sin(et * 0.08) * 0.006 * tiltAmp;
           targetNeckY = gazeYaw * 0.35 + Math.sin(et * 0.13) * 0.008;
         } else {
           targetHeadY = swayY + Math.sin(et * 0.13) * 0.035 * tiltAmp;
-          targetHeadX = Math.sin(et * 0.11) * 0.018 * tiltAmp;
+          targetHeadX = basePitch + Math.sin(et * 0.11) * 0.018 * tiltAmp;
           targetHeadZ = Math.sin(et * 0.08) * 0.008 * tiltAmp;
           targetNeckY = Math.sin(et * 0.13) * 0.01;
         }
       } else if (s === 'listening') {
         const listenTilt = 0.04 * tiltAmp;
-        targetHeadX = 0.03;
+        targetHeadX = basePitch + 0.02;
         targetHeadY = listenTilt;
         targetHeadZ = -listenTilt;
       } else if (s === 'nod') {
         const nodFreq = 6.0 * speed;
         // Smoothly blend in nod over first 0.15s to eliminate rotational pops
         const nodEnvelope = Math.min(1, this.animT / 0.15);
-        targetHeadX = Math.sin(this.animT * nodFreq) * 0.16 * express * nodEnvelope + 0.02;
+        targetHeadX = basePitch + Math.sin(this.animT * nodFreq) * 0.16 * express * nodEnvelope;
         targetHeadY = 0;
         targetHeadZ = 0;
       } else if (s === 'thinking') {
-        targetHeadX = 0.06 * tiltAmp + Math.sin(et * 0.6) * 0.01;
+        targetHeadX = basePitch + 0.04 * tiltAmp + Math.sin(et * 0.6) * 0.01;
         targetHeadY = 0.14 * tiltAmp + Math.sin(et * 0.5) * 0.015;
         targetHeadZ = 0.06 * tiltAmp;
       } else if (s === 'shrug') {
-        targetHeadX = -0.05;
+        targetHeadX = basePitch - 0.04;
         targetHeadY = 0;
         targetHeadZ = 0;
       } else {
-        targetHeadX = 0.02;
+        targetHeadX = basePitch;
         targetHeadY = 0;
         targetHeadZ = 0;
       }
 
       if (s === 'talking') {
         this.talkPhase += 0.18 * speed;
-        targetHeadX += Math.sin(this.talkPhase) * 0.015 * express;
-        targetHeadY += Math.sin(this.talkPhase * 0.5) * 0.01 * express;
+        targetHeadX += Math.sin(this.talkPhase) * 0.012 * express;
+        targetHeadY += Math.sin(this.talkPhase * 0.5) * 0.008 * express;
       }
 
       const headDampLambda = (s === 'nod') ? 12 : 5;
@@ -949,7 +1074,7 @@ export class VRoidAvatarEngine {
 
       if (this.neck) {
         this.neck.rotation.y = THREE.MathUtils.damp(this.neck.rotation.y, targetNeckY, 5, dt);
-        this.neck.rotation.x = THREE.MathUtils.damp(this.neck.rotation.x, targetHeadX * 0.2, 5, dt);
+        this.neck.rotation.x = THREE.MathUtils.damp(this.neck.rotation.x, 0.018 + (targetHeadX - basePitch) * 0.2, 5, dt);
       }
     }
 
@@ -974,7 +1099,7 @@ export class VRoidAvatarEngine {
     }
 
     // Saccadic eye movement + gaze tracking when active
-    if (this.gazeTrackingEnabled && this.animState === 'idle') {
+    if (this.gazeTrackingEnabled && (this.animState === 'idle' || this.animState === 'talking')) {
       this.eyeTargetOffset.set(
         this.mouseTargetOffset.x * 0.38,
         this.mouseTargetOffset.y * 0.28
@@ -1158,23 +1283,87 @@ export class VRoidAvatarEngine {
     }
 
     // Audio-driven lip sync if Web Audio API Analyser is connected
-    if (isTalking && this.audioAnalyser && this.audioDataArray) {
+    if (isTalking && this.audioAnalyser) {
+      const binCount = this.audioAnalyser.frequencyBinCount;
+      if (!this.audioDataArray || this.audioDataArray.length !== binCount) {
+        this.audioDataArray = new Float32Array(binCount);
+      }
       this.audioAnalyser.getFloatFrequencyData(this.audioDataArray as any);
-      let sum = 0;
-      for (let i = 0; i < this.audioDataArray.length; i++) {
-        if (this.audioDataArray[i] > -100) {
-          sum += Math.pow(10, this.audioDataArray[i] / 20);
+
+      // Hardware-dynamic sample rate & FFT bin width
+      const sampleRate = this.audioAnalyser.context?.sampleRate || 44100;
+      const fftSize = this.audioAnalyser.fftSize || 256;
+      const binHz = sampleRate / fftSize;
+
+      // Integrate energy in specified frequency band [fMin, fMax]
+      const getBandEnergy = (fMin: number, fMax: number): number => {
+        const startBin = Math.max(0, Math.min(binCount - 1, Math.floor(fMin / binHz)));
+        const endBin = Math.max(startBin, Math.min(binCount - 1, Math.ceil(fMax / binHz)));
+        if (startBin >= endBin) return 0;
+        let bandEnergy = 0;
+        let validSamples = 0;
+        for (let b = startBin; b <= endBin; b++) {
+          const db = this.audioDataArray![b];
+          if (db > -75 && isFinite(db)) {
+            bandEnergy += Math.pow(10, db / 20);
+            validSamples++;
+          }
+        }
+        return validSamples > 0 ? bandEnergy / validSamples : 0;
+      };
+
+      // 5 Physiological Acoustic Formant Bands:
+      // U: 200-450Hz (pursed lips)
+      // O: 450-850Hz (open rounded)
+      // A: 850-1400Hz (jaw drop)
+      // E: 1400-2400Hz (spread lips)
+      // I: 2400-4500Hz (wide smile, teeth)
+      const rawU = getBandEnergy(200, 450);
+      const rawO = getBandEnergy(450, 850);
+      const rawA = getBandEnergy(850, 1400);
+      const rawE = getBandEnergy(1400, 2400);
+      const rawI = getBandEnergy(2400, 4500);
+      const totalBandEnergy = rawU + rawO + rawA + rawE + rawI;
+
+      const NOISE_GATE = 0.003; // ~ -50 dBFS threshold for silence / pause
+
+      let targetU = 0;
+      let targetO = 0;
+      let targetA = 0;
+      let targetE = 0;
+      let targetI = 0;
+
+      if (totalBandEnergy > NOISE_GATE) {
+        // Winner-take-dominant contrast enhancement with gamma = 1.35
+        const gamma = 1.35;
+        const wU = Math.pow(rawU, gamma);
+        const wO = Math.pow(rawO, gamma);
+        const wA = Math.pow(rawA, gamma);
+        const wE = Math.pow(rawE, gamma);
+        const wI = Math.pow(rawI, gamma);
+        const wSum = wU + wO + wA + wE + wI;
+
+        if (wSum > 1e-6) {
+          const overallVolume = THREE.MathUtils.clamp(totalBandEnergy * 18.0, 0, 1.0);
+          const maxCap = 0.85 * (persona.expressiveness ?? 0.88);
+          const targetIntensity = Math.min(maxCap, overallVolume * maxCap * 1.2);
+
+          targetU = (wU / wSum) * targetIntensity;
+          targetO = (wO / wSum) * targetIntensity;
+          targetA = (wA / wSum) * targetIntensity;
+          targetE = (wE / wSum) * targetIntensity;
+          targetI = (wI / wSum) * targetIntensity;
         }
       }
-      const audioAmp = Math.min(1.0, sum * 15.0);
-      const targetA = audioAmp * 0.85;
-      const targetO = audioAmp * 0.40;
 
-      // Asymmetric muscle attack (~35ms, lambda=28) vs decay (~110ms, lambda=9)
-      const lambdaA = targetA > (this.currentInfluences['A'] || 0) ? 28 : 9;
-      const lambdaO = targetO > (this.currentInfluences['O'] || 0) ? 28 : 9;
-      this.currentInfluences['A'] = THREE.MathUtils.damp(this.currentInfluences['A'] || 0, targetA, lambdaA, dt);
-      this.currentInfluences['O'] = THREE.MathUtils.damp(this.currentInfluences['O'] || 0, targetO, lambdaO, dt);
+      // Asymmetric muscle attack (~35ms, lambda=26) vs decay (~100ms, lambda=10)
+      const targets: Record<string, number> = { A: targetA, I: targetI, U: targetU, E: targetE, O: targetO };
+      ['A', 'I', 'U', 'E', 'O'].forEach(v => {
+        const tgt = targets[v] || 0;
+        const cur = this.currentInfluences[v] || 0;
+        const lambda = tgt > cur ? 26 : 10;
+        this.currentInfluences[v] = THREE.MathUtils.damp(cur, tgt, lambda, dt);
+      });
     } else if (isTalking) {
       this.vowelTimer += dt;
       if (this.vowelTimer > this.nextVowelTime) {
@@ -1215,9 +1404,12 @@ export class VRoidAvatarEngine {
     }
 
     if (this.proceduralMouth) {
-      const targetScaleY = isTalking ? (0.6 + Math.abs(Math.sin(et * 7 * speed)) * 1.0 + Math.sin(et * 13) * 0.3) : 0.1;
-      const mouthLambda = targetScaleY > this.proceduralMouth.scale.y ? 25 : 10;
-      this.proceduralMouth.scale.y = THREE.MathUtils.damp(this.proceduralMouth.scale.y, targetScaleY, mouthLambda, dt);
+      const jawOpen = (this.currentInfluences['A'] || 0) * 1.2 + (this.currentInfluences['O'] || 0) * 0.8;
+      const targetScaleY = isTalking ? Math.max(0.1, jawOpen * 2.2) : 0.1;
+      const spread = (this.currentInfluences['I'] || 0) * 0.4 + (this.currentInfluences['E'] || 0) * 0.2 - (this.currentInfluences['U'] || 0) * 0.3;
+      const targetScaleX = isTalking ? Math.max(0.6, 1.0 + spread) : 1.0;
+      this.proceduralMouth.scale.y = THREE.MathUtils.damp(this.proceduralMouth.scale.y, targetScaleY, targetScaleY > this.proceduralMouth.scale.y ? 25 : 10, dt);
+      this.proceduralMouth.scale.x = THREE.MathUtils.damp(this.proceduralMouth.scale.x, targetScaleX, 15, dt);
     }
 
     if (this.renderer && this.scene && this.camera) {
@@ -1229,6 +1421,7 @@ export class VRoidAvatarEngine {
     if (!this.camera || !this.renderer || !w || !h || w <= 0 || h <= 0) return;
     this.camera.aspect = w / h;
     this.centerCameraOnHead();
+    this.updateCanvasBounds();
 
     // C-02 FIX: re-clamp pixel ratio on resize. devicePixelRatio can change
     // at runtime — browser zoom, or dragging the window between a retina and
@@ -1247,6 +1440,12 @@ export class VRoidAvatarEngine {
     this.renderer.setSize(w, h, false);
   }
 
+  traverse(callback: (object: THREE.Object3D) => void) {
+    if (this.scene) {
+      this.scene.traverse(callback);
+    }
+  }
+
   dispose() {
     this.disposed = true;
     if (this.raf) cancelAnimationFrame(this.raf);
@@ -1256,6 +1455,14 @@ export class VRoidAvatarEngine {
       console.log('[VRoidAvatarEngine] Gaze tracking mouse listener detached on engine disposal.');
     }
 
+    if (this.onScrollHandler && typeof window !== 'undefined') {
+      window.removeEventListener('scroll', this.onScrollHandler);
+    }
+
+    if (this.onVisibilityChange && typeof document !== 'undefined') {
+      document.removeEventListener('visibilitychange', this.onVisibilityChange);
+    }
+
     if (this.canvas) {
       if (this.onContextLost) this.canvas.removeEventListener('webglcontextlost', this.onContextLost);
       if (this.onContextRestored) this.canvas.removeEventListener('webglcontextrestored', this.onContextRestored);
@@ -1263,22 +1470,27 @@ export class VRoidAvatarEngine {
 
     if (this.scene) {
       this.scene.traverse((obj) => {
-        if ((obj as THREE.Mesh).geometry) {
-          (obj as THREE.Mesh).geometry.dispose();
+        const mesh = obj as THREE.Mesh;
+        if (mesh.geometry) {
+          try { mesh.geometry.dispose(); } catch {}
         }
-        if ((obj as THREE.Mesh).material) {
-          const mat = (obj as THREE.Mesh).material;
-          if (Array.isArray(mat)) {
-            mat.forEach(m => {
-              if ((m as any)?.map) (m as any).map.dispose();
-              m.dispose();
+        if (mesh.material) {
+          const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+          mats.forEach((m: any) => {
+            if (!m) return;
+            // Dispose all texture maps attached to the material
+            Object.values(m).forEach((val: any) => {
+              if (val && typeof val.dispose === 'function') {
+                try { val.dispose(); } catch {}
+              }
             });
-          } else {
-            if ((mat as any)?.map) (mat as any).map.dispose();
-            mat.dispose();
-          }
+            try { m.dispose(); } catch {}
+          });
         }
       });
+      while (this.scene.children.length > 0) {
+        this.scene.remove(this.scene.children[0]);
+      }
     }
 
     this.faceMeshes = [];
@@ -1291,6 +1503,9 @@ export class VRoidAvatarEngine {
         this.renderer.forceContextLoss();
       } catch {}
       this.renderer.dispose();
+      if (this.renderer.domElement) {
+        try { this.renderer.domElement.remove(); } catch {}
+      }
     }
     console.log('[VRoidAvatarEngine] Successfully disposed 3D avatar scene and freed WebGL GPU memory.');
   }

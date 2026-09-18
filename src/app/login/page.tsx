@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useAuth } from '@/lib/context/AuthContext';
 import { isDemoAuthEnabled, DEMO_PASSWORD } from '@/lib/demoAuth';
 import { QRCodeSVG } from 'qrcode.react';
@@ -14,14 +15,38 @@ import {
   getDeviceName
 } from '@/lib/services/identityGateway';
 
+function getSafeRedirect(raw: string | null): string {
+  if (!raw) return '/dashboard';
+  try {
+    // Relative path must strictly start with / and not //, /\, or \
+    if (!raw.startsWith('/') || raw.startsWith('//') || raw.startsWith('/\\') || raw.startsWith('\\')) {
+      return '/dashboard';
+    }
+    // Validate that the URL resolves strictly to the same origin
+    const parsed = new URL(raw, 'http://localhost');
+    if (parsed.origin !== 'http://localhost') return '/dashboard';
+    return parsed.pathname + parsed.search;
+  } catch {
+    return '/dashboard';
+  }
+}
+
 function LoginContent() {
-  const { user, login, signup, loginWithVaultSession } = useAuth();
+  const { user, login, loginWithVaultSession } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Primary Navigation Tab: 'vault' (QR) vs 'password' (Email/Password Login) vs 'signup' (Create Student Account)
-  const initialMode = searchParams.get('mode') === 'signup' ? 'signup' : searchParams.get('mode') === 'password' ? 'password' : 'vault';
-  const [mainTab, setMainTab] = useState<'vault' | 'password' | 'signup'>(initialMode);
+  // Primary Navigation Tab: 'vault' (QR) vs 'password' (Email/Password Login)
+  // Default to 'password' so single-device mobile users and standard students have immediate access
+  const initialMode = searchParams.get('mode') === 'vault' ? 'vault' : 'password';
+  const [mainTab, setMainTab] = useState<'vault' | 'password'>(initialMode);
+
+  // If query specifies mode=signup, direct cleanly to /signup
+  useEffect(() => {
+    if (searchParams.get('mode') === 'signup') {
+      router.replace('/signup');
+    }
+  }, [searchParams, router]);
 
   // Vault QR & Trusted Device State
   const [isTrustedDevice, setIsTrustedDevice] = useState<boolean>(false);
@@ -32,9 +57,8 @@ function LoginContent() {
   const [secondsRemaining, setSecondsRemaining] = useState<number>(60);
   const [currentStep, setCurrentStep] = useState<number>(1);
 
-  // Password / Signup Form State
+  // Password Form State
   const [loginForm, setLoginForm] = useState({ identifier: '', password: '', role: 'student' });
-  const [signupForm, setSignupForm] = useState({ username: '', displayName: '', password: '' });
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [isSuccessSplash, setIsSuccessSplash] = useState<boolean>(false);
@@ -49,13 +73,14 @@ function LoginContent() {
         !!localStorage.getItem(`pinit_${user.id}_onboarding_answers`);
       const onboardCompleted = dbSaysComplete || localSaysComplete;
 
-      if (!onboardCompleted || (user as any).isDevUser) {
+      const destination = getSafeRedirect(searchParams.get('redirect'));
+      if (!onboardCompleted) {
         router.push('/onboarding');
       } else {
-        router.push('/dashboard');
+        router.push(destination);
       }
     }
-  }, [user, isSuccessSplash, router]);
+  }, [user, isSuccessSplash, router, searchParams]);
 
   // 2. Check Trusted Device Status on Mount
   useEffect(() => {
@@ -65,7 +90,8 @@ function LoginContent() {
       const devices = JSON.parse(localStorage.getItem('pinit_trusted_devices_db') || '[]');
       if (devices.length > 0) {
         setIsTrustedDevice(true);
-        setAuthMode('trusted');
+        // Do not switch authMode to 'trusted' while trusted device login is unimplemented;
+        // keep authMode as 'qr' for Vault and default cleanly to 'password'.
       }
     }
   }, []);
@@ -231,44 +257,22 @@ function LoginContent() {
     setLoading(true);
     setErrorMsg('');
     try {
-      await login(loginForm.identifier, loginForm.password);
+      const loggedInUser = await login(loginForm.identifier, loginForm.password);
       setIsSuccessSplash(true);
-      setTimeout(() => {
-        router.push('/dashboard');
-      }, 800);
+
+      const dbSaysComplete = !!(loggedInUser as any)?.roadmapGenerated;
+      const localSaysComplete = typeof window !== 'undefined' &&
+        !!localStorage.getItem(`pinit_${loggedInUser?.id}_onboarding_answers`);
+      const onboardCompleted = dbSaysComplete || localSaysComplete;
+
+      const destination = getSafeRedirect(searchParams.get('redirect'));
+      if (!onboardCompleted) {
+        router.push('/onboarding');
+      } else {
+        router.push(destination);
+      }
     } catch (err: any) {
       setErrorMsg(err.message || 'Invalid credentials. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Student Account Registration Handler
-  const handleSignupSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!signupForm.username || !signupForm.displayName || !signupForm.password) {
-      setErrorMsg('Please fill out all registration fields.');
-      return;
-    }
-    if (signupForm.password.length < 6) {
-      setErrorMsg('Password must be at least 6 characters long.');
-      return;
-    }
-    setLoading(true);
-    setErrorMsg('');
-    try {
-      await signup({
-        username: signupForm.username,
-        displayName: signupForm.displayName,
-        password: signupForm.password,
-        role: 'student'
-      });
-      setIsSuccessSplash(true);
-      setTimeout(() => {
-        router.replace('/onboarding');
-      }, 600);
-    } catch (err: any) {
-      setErrorMsg(err.message || 'Registration failed. Please try a different email.');
     } finally {
       setLoading(false);
     }
@@ -372,7 +376,15 @@ function LoginContent() {
           <Link href="/" style={{ textDecoration: 'none', display: 'inline-block' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginBottom: 12 }}>
               <span className="lp-brand-lockup" style={{ height: 56, padding: '4px 10px' }}>
-                <img src="/brand/pinit-career-logo.png" alt="PINIT CAREER" className="lp-brand-logo" style={{ height: 48, maxWidth: 200 }} />
+                <Image
+                  src="/brand/pinit-career-logo.png"
+                  alt="PINIT CAREER"
+                  width={200}
+                  height={48}
+                  priority
+                  className="lp-brand-logo"
+                  style={{ height: 48, width: 'auto', maxWidth: 200, objectFit: 'contain' }}
+                />
               </span>
             </div>
           </Link>
@@ -423,24 +435,24 @@ function LoginContent() {
           >
             🔑 Password Sign In
           </button>
-          <button
-            type="button"
-            onClick={() => { setMainTab('signup'); setErrorMsg(''); }}
+          <Link
+            href="/signup"
             style={{
               flex: 1,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
               padding: '9px 12px',
               borderRadius: 10,
               fontSize: 12.5,
               fontWeight: 750,
-              border: 'none',
-              cursor: 'pointer',
-              background: mainTab === 'signup' ? 'var(--accent, #00A3FF)' : 'transparent',
-              color: mainTab === 'signup' ? '#fff' : 'var(--text-secondary, #94A3B8)',
+              color: 'var(--text-secondary, #94A3B8)',
+              textDecoration: 'none',
               transition: 'all 0.2s'
             }}
           >
-            📝 Sign Up
-          </button>
+            📝 Sign Up →
+          </Link>
         </div>
 
         {/* Error Alert Banner */}
@@ -482,7 +494,7 @@ function LoginContent() {
               <div style={{ display: 'flex', gap: 8, marginTop: 4 }}>
                 <button
                   type="button"
-                  onClick={() => { setMainTab('signup'); setErrorMsg(''); }}
+                  onClick={() => router.push('/signup')}
                   style={{
                     flex: 1,
                     background: 'var(--accent, #00A3FF)',
@@ -715,22 +727,16 @@ function LoginContent() {
             }}>
               <div>
                 <span>Don&apos;t have the Vault app? </span>
-                <button
-                  type="button"
-                  onClick={() => { setMainTab('signup'); setErrorMsg(''); }}
+                <Link
+                  href="/signup"
                   style={{
-                    background: 'none',
-                    border: 'none',
                     color: 'var(--accent, #00A3FF)',
                     fontWeight: 750,
-                    cursor: 'pointer',
-                    padding: '0 2px',
-                    fontSize: 12.5,
                     textDecoration: 'underline'
                   }}
                 >
                   Create Student Account (Sign Up) →
-                </button>
+                </Link>
               </div>
               <div>
                 <span>Prefer email &amp; password? </span>
@@ -836,150 +842,42 @@ function LoginContent() {
           </form>
         )}
 
-        {/* ================================================================= */}
-        {/* TAB 3: 📝 CREATE STUDENT ACCOUNT (SCREENSHOT 2)                   */}
-        {/* ================================================================= */}
-        {mainTab === 'signup' && (
-          <form onSubmit={handleSignupSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-            <div style={{ textAlign: 'center', marginBottom: 12 }}>
-              <h2 style={{ fontSize: 19, fontWeight: 800, margin: '0 0 4px', color: 'var(--text-primary)' }}>
-                Create Student Account
-              </h2>
-              <p style={{ fontSize: 12.5, color: 'var(--text-tertiary)', margin: 0 }}>
-                Join thousands of verified students mastering industry skills
-              </p>
-            </div>
-
-            <div>
-              <label style={{ display: 'block', fontSize: 12.5, fontWeight: 650, color: 'var(--text-secondary)', marginBottom: 6 }}>
-                Email / Username
-              </label>
-              <input
-                type="text"
-                placeholder="you@college.edu"
-                value={signupForm.username}
-                onChange={(e) => setSignupForm({ ...signupForm, username: e.target.value })}
-                required
-                style={{
-                  width: '100%',
-                  padding: '11px 14px',
-                  borderRadius: 10,
-                  background: 'var(--bg-secondary)',
-                  border: '1px solid var(--border-color)',
-                  color: 'var(--text-primary)',
-                  fontSize: 13.5,
-                  outline: 'none'
-                }}
-              />
-            </div>
-
-            <div>
-              <label style={{ display: 'block', fontSize: 12.5, fontWeight: 650, color: 'var(--text-secondary)', marginBottom: 6 }}>
-                Display Name
-              </label>
-              <input
-                type="text"
-                placeholder="Your Full Name"
-                value={signupForm.displayName}
-                onChange={(e) => setSignupForm({ ...signupForm, displayName: e.target.value })}
-                required
-                style={{
-                  width: '100%',
-                  padding: '11px 14px',
-                  borderRadius: 10,
-                  background: 'var(--bg-secondary)',
-                  border: '1px solid var(--border-color)',
-                  color: 'var(--text-primary)',
-                  fontSize: 13.5,
-                  outline: 'none'
-                }}
-              />
-            </div>
-
-            <div>
-              <label style={{ display: 'block', fontSize: 12.5, fontWeight: 650, color: 'var(--text-secondary)', marginBottom: 6 }}>
-                Password
-              </label>
-              <input
-                type="password"
-                placeholder="At least 6 characters"
-                value={signupForm.password}
-                onChange={(e) => setSignupForm({ ...signupForm, password: e.target.value })}
-                required
-                style={{
-                  width: '100%',
-                  padding: '11px 14px',
-                  borderRadius: 10,
-                  background: 'var(--bg-secondary)',
-                  border: '1px solid var(--border-color)',
-                  color: 'var(--text-primary)',
-                  fontSize: 13.5,
-                  outline: 'none'
-                }}
-              />
-            </div>
-
-            <p style={{ fontSize: 11.5, color: 'var(--text-tertiary)', margin: '4px 0 0', lineHeight: 1.4 }}>
-              New accounts are registered as <strong>students</strong>. Staff and recruiter access is granted by institutional administrators.
-            </p>
-
-            <button
-              type="submit"
-              disabled={loading}
-              style={{
-                width: '100%',
-                padding: '12px 18px',
-                borderRadius: 10,
-                background: 'var(--accent)',
-                color: 'var(--text)',
-                border: 'none',
-                fontSize: 13.5,
-                fontWeight: 750,
-                cursor: 'pointer',
-                marginTop: 4,
-                boxShadow: '0 4px 14px var(--accent-glow)'
-              }}
-            >
-              {loading ? 'Creating Account...' : 'Create Student Account'}
-            </button>
-          </form>
-        )}
-
         {/* 🧭 Universal Footer Switcher */}
         <div style={{ marginTop: 22, paddingTop: 16, borderTop: '1px solid var(--border-color)', textAlign: 'center', fontSize: 12.5, color: 'var(--text-tertiary)' }}>
           {mainTab === 'vault' ? (
-            <span>
-              Prefer password login?{' '}
-              <button
-                type="button"
-                onClick={() => { setMainTab('password'); setErrorMsg(''); }}
-                style={{ background: 'none', border: 'none', color: 'var(--accent)', fontWeight: 700, cursor: 'pointer', padding: 0 }}
-              >
-                Sign In With Password
-              </button>
-            </span>
-          ) : mainTab === 'password' ? (
-            <span>
-              Don&apos;t have an account?{' '}
-              <button
-                type="button"
-                onClick={() => { setMainTab('signup'); setErrorMsg(''); }}
-                style={{ background: 'none', border: 'none', color: 'var(--accent)', fontWeight: 700, cursor: 'pointer', padding: 0 }}
-              >
-                Create Student Account
-              </button>
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, flexWrap: 'wrap' }}>
+              <span>
+                Prefer password login?{' '}
+                <button
+                  type="button"
+                  onClick={() => { setMainTab('password'); setErrorMsg(''); }}
+                  style={{ background: 'none', border: 'none', color: 'var(--accent)', fontWeight: 700, cursor: 'pointer', padding: 0 }}
+                >
+                  Sign In With Password
+                </button>
+              </span>
+              <span>•</span>
+              <Link href="/signup" style={{ color: 'var(--accent)', fontWeight: 750, textDecoration: 'none' }}>
+                Don&apos;t have an account? Sign Up →
+              </Link>
+            </div>
           ) : (
-            <span>
-              Already have an account?{' '}
-              <button
-                type="button"
-                onClick={() => { setMainTab('password'); setErrorMsg(''); }}
-                style={{ background: 'none', border: 'none', color: 'var(--accent)', fontWeight: 700, cursor: 'pointer', padding: 0 }}
-              >
-                Sign In
-              </button>
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, flexWrap: 'wrap' }}>
+              <span>
+                Prefer QR login?{' '}
+                <button
+                  type="button"
+                  onClick={() => { setMainTab('vault'); setErrorMsg(''); }}
+                  style={{ background: 'none', border: 'none', color: 'var(--accent)', fontWeight: 700, cursor: 'pointer', padding: 0 }}
+                >
+                  PinIT Vault QR
+                </button>
+              </span>
+              <span>•</span>
+              <Link href="/signup" style={{ color: 'var(--accent)', fontWeight: 750, textDecoration: 'none' }}>
+                Don&apos;t have an account? Sign Up →
+              </Link>
+            </div>
           )}
         </div>
 

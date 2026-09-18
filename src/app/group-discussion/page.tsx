@@ -1,77 +1,24 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/context/AuthContext';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { toast } from '@/lib/store/useAppStore';
-import MeetCallGrid from '@/components/group-discussion/MeetCallGrid';
 import GdReport from '@/components/group-discussion/GdReport';
 import { speakWithAvatar, stopSpeaking } from '@/lib/tts';
 import PinsGate from '@/components/pins/PinsGate';
-import {
-  GD_MAX_SPEAK_MS,
-  GD_SPEAK_MS,
-  gdDisplayName,
-  hostEndScript,
-  hostFiveMinuteScript,
-  hostIntroScript,
-  hostThirtySecondScript,
-  pickRandomSpeakerPair,
-  resolveFloatingMentorId,
-  resolveGdHostId,
-} from '@/lib/group-discussion/gdTurnEngine';
+import { resolveFloatingMentorId, resolveGdHostId } from '@/lib/group-discussion/gdTurnEngine';
 import '@/styles/group-discussion.css';
 
-interface Avatar {
-  id: string;
-  name: string;
-  emoji: string;
-  role: string;
-  color: string;
-  trait: 'proactive' | 'reactive' | 'silent' | 'aggressive';
-  description: string;
-  voiceName: string;
-}
-
-const AVATARS: Avatar[] = [
-  { id: 'priya', name: 'Ms. Priya', emoji: '👩‍💼', role: 'Friendly & encouraging Mentor', color: 'var(--purple)', trait: 'reactive', description: 'Warm, encouraging mentor guiding general career pathways.', voiceName: 'af_heart' },
-  { id: 'anish', name: 'Mr. Akash', emoji: '👨‍💼', role: 'Casual, friendly Mentor', color: '#0891b2', trait: 'proactive', description: 'Approachable, friendly mentor guiding team workflows.', voiceName: 'am_liam' },
-  { id: 'aisha', name: 'Ms. Aisha', emoji: '👩‍💼', role: 'Structured & methodical Teacher', color: 'var(--brand)', trait: 'reactive', description: 'Structured, logical teacher focusing on systematic SDE steps.', voiceName: 'af_sky' },
-  { id: 'rohan', name: 'Mr. Rohan', emoji: '👨‍💻', role: 'Energetic & tech-focused Teacher', color: 'var(--danger)', trait: 'aggressive', description: 'Energetic, code-focused teacher drilling compiler concepts.', voiceName: 'am_fenrir' },
-  { id: 'kashyap', name: 'Mr. Kashyap', emoji: '👨‍🔧', role: 'Systems Architect Teacher', color: 'var(--warning)', trait: 'aggressive', description: 'Demands deep technical details and low-level JVM models.', voiceName: 'am_fenrir' },
-  { id: 'karthic', name: 'Mr. Karthic', emoji: '👨‍💻', role: 'Algorithmic Lead Teacher', color: 'var(--info)', trait: 'proactive', description: 'Focuses on database design, SOLID code, and algorithms.', voiceName: 'am_liam' },
-  { id: 'maya', name: 'Ms. Maya', emoji: '👩‍⚕️', role: 'Security Auditor Teacher', color: '#2563eb', trait: 'silent', description: 'Quiet, warning about cloud budgets and networking security.', voiceName: 'bf_emma' },
-  { id: 'divya', name: 'Ms. Divya', emoji: '👩‍🏫', role: 'UX Expert Teacher', color: 'var(--success-deep)', trait: 'proactive', description: 'Active, pushes accessible frontend components and user experiences.', voiceName: 'af_nicole' },
-  { id: 'vikram', name: 'Mr. Vikram', emoji: '👨‍💼', role: 'Serious, strict UK Interviewer', color: 'var(--danger-deep)', trait: 'aggressive', description: 'Authoritative, challenges timing delays and technical debt.', voiceName: 'bm_lewis' },
-  { id: 'shalini', name: 'Ms. Shalini', emoji: '👩‍💼', role: 'Silent UK observer Interviewer', color: '#ec4899', trait: 'reactive', description: 'Silent observer focusing on soft skills and team behavior.', voiceName: 'bf_isabella' },
-  { id: 'aditya', name: 'Mr. Aditya', emoji: '👨‍🎨', role: 'Wise System Design Purist', color: 'var(--warning)', trait: 'proactive', description: 'Drives high-level scaling, sharding, and consensus rules.', voiceName: 'am_adam' },
-  { id: 'neha', name: 'Ms. Neha', emoji: '👩‍💻', role: 'High-Stress Driller Interviewer', color: 'var(--success)', trait: 'aggressive', description: 'Grills validation edges, load testing, and compiler check rules.', voiceName: 'af_bella' },
-  { id: 'rajesh', name: 'Mr. Rajesh', emoji: '👨‍💼', role: 'Friendly Legacy Defender', color: 'var(--brand)', trait: 'reactive', description: 'Focuses on legacy code wraps and clean codebase dependencies.', voiceName: 'am_liam' },
-  { id: 'sneha', name: 'Ms. Sneha', emoji: '👩‍💼', role: 'Empathy-First Socratic Interviewer', color: '#db2777', trait: 'proactive', description: 'Focuses on clean hooks, empathetic cooperation, and socratic tips.', voiceName: 'af_sarah' },
-  { id: 'abhijit', name: 'Mr. Abhijit', emoji: '👨‍💼', role: 'Bored Executive Interviewer', color: 'var(--text-dim)', trait: 'silent', description: 'Silent executive caring about commercial impact and metrics.', voiceName: 'bm_george' }
-];
-
-// Helper to securely attach Supabase JWT Session Token
-async function getAuthHeaders(): Promise<Record<string, string>> {
-  try {
-    const { supabase } = await import('@/lib/supabaseClient');
-    const { data: { session } } = await supabase.auth.getSession();
-    if (session?.access_token) {
-      return {
-        'Authorization': `Bearer ${session.access_token}`,
-        'Content-Type': 'application/json'
-      };
-    }
-  } catch (err) {
-    console.warn('[GD Auth] Could not retrieve Supabase session token:', err);
-  }
-  return { 'Content-Type': 'application/json' };
-}
+import { AVATARS, SUGGESTED_TOPICS, getAuthHeaders } from './constants';
+import { useGdOrchestrator } from './hooks/useGdOrchestrator';
+import GdMeetGrid from './components/GdMeetGrid';
+import GdTranscriptDrawer from './components/GdTranscriptDrawer';
+import GdAvatarGuideModal from './components/GdAvatarGuideModal';
+import GdHistoryModal, { GdHistoryRecord } from './components/GdHistoryModal';
 
 export default function GroupDiscussionPage() {
-  const router = useRouter();
   const { user } = useAuth();
   const cOS = useCareerOS();
   const currentMentorId = resolveFloatingMentorId({
@@ -88,22 +35,25 @@ export default function GroupDiscussionPage() {
 
   // Difficulty & Custom Avatar Guide & History Modal States
   const [difficulty, setDifficulty] = useState<'easy' | 'medium' | 'hard'>('medium');
+  const [domain, setDomain] = useState<'technical' | 'sales' | 'business'>('technical');
+  const [sessionDurationMinutes, setSessionDurationMinutes] = useState<number>(10);
   const [avatarGuideOpen, setAvatarGuideOpen] = useState(false);
   const [historyModalOpen, setHistoryModalOpen] = useState(false);
-  const [selectedHistoryItem, setSelectedHistoryItem] = useState<any | null>(null);
+  const [selectedHistoryItem, setSelectedHistoryItem] = useState<GdHistoryRecord | null>(null);
   const [historySearchQuery, setHistorySearchQuery] = useState('');
   const [historyDomainFilter, setHistoryDomainFilter] = useState<'all' | 'technical' | 'sales' | 'business'>('all');
-  const [historyListState, setHistoryListState] = useState<any[]>([]);
+  const [historyListState, setHistoryListState] = useState<GdHistoryRecord[]>([]);
 
   // Room details
   const [roomName, setRoomName] = useState('');
   const [roomDesc, setRoomDesc] = useState('');
   const [selectedConcept, setSelectedConcept] = useState('Microservices Orchestration');
+  const [invitedAvatars, setInvitedAvatars] = useState<string[]>([]);
 
-  const refreshHistoryList = async () => {
+  const refreshHistoryList = useCallback(async () => {
     if (typeof window === 'undefined') return;
     const historyKey = `pinit_gd_history_${user?.id || 'anon'}`;
-    let localList: any[] = [];
+    let localList: GdHistoryRecord[] = [];
     try {
       const stored = localStorage.getItem(historyKey);
       localList = stored ? JSON.parse(stored) : [];
@@ -112,7 +62,6 @@ export default function GroupDiscussionPage() {
       console.warn('Failed to load local GD history:', e);
     }
 
-    // GD-07 FIX: Fetch history from /api/gd/history so records persist across devices
     if (user?.id) {
       try {
         const headers = await getAuthHeaders();
@@ -120,7 +69,7 @@ export default function GroupDiscussionPage() {
         if (res.ok) {
           const data = await res.json();
           if (Array.isArray(data.sessions) && data.sessions.length > 0) {
-            const map = new Map<string, any>();
+            const map = new Map<string, GdHistoryRecord>();
             localList.forEach(item => map.set(item.id, item));
             data.sessions.forEach((item: any) => map.set(item.id, item));
             const merged = Array.from(map.values()).slice(0, 25);
@@ -132,26 +81,26 @@ export default function GroupDiscussionPage() {
         console.warn('[GD History] Remote cloud fetch error:', err);
       }
     }
-  };
+  }, [user?.id]);
 
   useEffect(() => {
     refreshHistoryList();
-  }, [user?.id]);
+  }, [refreshHistoryList]);
 
   const handleDeleteHistoryItem = (id: string) => {
     if (typeof window === 'undefined') return;
     try {
-      const stored = localStorage.getItem(`pinit_gd_history_${user?.id || 'anon'}`);
+      const historyKey = `pinit_gd_history_${user?.id || 'anon'}`;
+      const stored = localStorage.getItem(historyKey);
       const list = stored ? JSON.parse(stored) : [];
       const updated = list.filter((item: any) => item.id !== id);
-      localStorage.setItem(`pinit_gd_history_${user?.id || 'anon'}`, JSON.stringify(updated));
+      localStorage.setItem(historyKey, JSON.stringify(updated));
       setHistoryListState(updated);
       if (selectedHistoryItem?.id === id) {
         setSelectedHistoryItem(null);
       }
       toast.success('Record Deleted', 'Past boardroom history item removed.');
 
-      // GD-07 FIX: Delete from /api/gd/history endpoint
       if (user?.id) {
         getAuthHeaders().then(async headers => {
           try {
@@ -169,7 +118,7 @@ export default function GroupDiscussionPage() {
     }
   };
 
-  const handleExportHistoryJSON = (record: any) => {
+  const handleExportHistoryJSON = (record: GdHistoryRecord) => {
     try {
       const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(record, null, 2));
       const downloadAnchor = document.createElement('a');
@@ -183,161 +132,27 @@ export default function GroupDiscussionPage() {
       toast.error('Export Failed', 'Unable to download JSON file.');
     }
   };
-  
-  // Invites & Speaking state
-  const [invitedAvatars, setInvitedAvatars] = useState<string[]>([]);
-  const [activeSpeakingAvatar, setActiveSpeakingAvatar] = useState<string | null>(null);
 
-  // Call states
-  const [callActive, setCallActive] = useState(false);
-  const [messages, setMessages] = useState<{ sender: string; role: string; content: string; emoji: string }[]>([]);
-  const [turnCount, setTurnCount] = useState(0);
-  // GD-03 FIX: Was useState — setter was never called, avatars could run unlimited pairs.
-  // Converted to ref (no re-render needed). Reset when candidate speaks. After 2
-  // consecutive avatar-only exchanges with no candidate turn, force floor to candidate.
-  const consecutiveAvatarTurnsRef = useRef(0);
-  const [handRaised, setHandRaised] = useState(false);
-  const [suggestedHelperText, setSuggestedHelperText] = useState('');
-  const [inputText, setInputText] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [gdReport, setGdReport] = useState<{ score: number; verdict: string; gapsIdentified: string[]; keyMoments: string[] } | null>(null);
-  const [callDuration, setCallDuration] = useState(0);
-  const callTimerRef = useRef<any>(null);
-  const [domain, setDomain] = useState<'technical' | 'sales' | 'business'>('technical');
-  // GD-08 FIX: Dynamic configurable session duration (5, 10, or 15 minutes)
-  const [sessionDurationMinutes, setSessionDurationMinutes] = useState<number>(10);
-  const reportRef = useRef<HTMLDivElement>(null);
-
-  // Speech Recognition & Hands-free Turn-taking state
-  const [micActive, setMicActive] = useState(false);
-  const [candidateTurnTimer, setCandidateTurnTimer] = useState<number | null>(null);
-  const recognitionRef = useRef<any>(null);
-  const silenceTimerRef = useRef<any>(null);
-  const speechTranscriptAccumulatorRef = useRef('');
-  const turnTimeoutRef = useRef<any>(null);
-  const bottomRef = useRef<HTMLDivElement>(null);
-  const turnSequenceRef = useRef<'user' | 'avatar_first' | 'avatar_second'>('user');
-  const nextScheduledSpeakerRef = useRef<string | null>(null);
-  const isCallActiveRef = useRef(false);
-  const handRaisedRef = useRef(false);
-  const preloadedAvatarBDataRef = useRef<{ avatarB_Id: string; cleanReply: string; nextMessages: any[] } | null>(null);
-  const avatarBPromiseRef = useRef<Promise<any> | null>(null);
-  const consecutiveSilenceCountRef = useRef<number>(0);
-  const speechPauseDebounceRef = useRef<any>(null);
-  const hostIdRef = useRef<string>(gdHostId);
-  const speakerPairRef = useRef<{ a: string; b: string } | null>(null);
-  const lastPairRef = useRef<{ a?: string; b?: string } | null>(null);
-
-  // Pre-warm browser speech synthesis voices immediately on load (pls preload communication)
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.speechSynthesis) {
-      window.speechSynthesis.getVoices();
-      if (window.speechSynthesis.onvoiceschanged !== undefined) {
-        window.speechSynthesis.onvoiceschanged = () => {
-          window.speechSynthesis.getVoices();
-        };
-      }
+  // Wire Orchestrator Hook
+  const orch = useGdOrchestrator({
+    user,
+    cOS,
+    roomName,
+    roomDesc,
+    selectedConcept,
+    domain,
+    difficulty,
+    sessionDurationMinutes,
+    invitedAvatars,
+    setInvitedAvatars,
+    currentMentorId,
+    gdHostId,
+    filteredAvatars,
+    setStep,
+    onRecordSaved: (record) => {
+      setHistoryListState(prev => [record, ...prev.filter(r => r.id !== record.id)].slice(0, 25));
     }
-  }, []);
-
-  // Master Unmount Cleanup Effect: Stop all background timers, mic, and TTS on component unmount
-  useEffect(() => {
-    return () => {
-      if (callTimerRef.current) clearInterval(callTimerRef.current);
-      if (turnTimeoutRef.current) clearInterval(turnTimeoutRef.current);
-      if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
-      if (speechPauseDebounceRef.current) clearTimeout(speechPauseDebounceRef.current);
-      if (recognitionRef.current) {
-        try { recognitionRef.current.stop(); } catch {}
-      }
-      stopSpeaking();
-    };
-  }, []);
-
-  useEffect(() => {
-    isCallActiveRef.current = callActive;
-  }, [callActive]);
-
-  useEffect(() => {
-    handRaisedRef.current = handRaised;
-  }, [handRaised]);
-
-  // Scroll messages
-  useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
-
-  // Smooth scroll to report on completion
-  useEffect(() => {
-    if (gdReport) {
-      setTimeout(() => {
-        reportRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 200);
-    }
-  }, [gdReport]);
-
-
-
-  // Initialize Speech Recognition API
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-      if (SpeechRecognition) {
-        const rec = new SpeechRecognition();
-        rec.continuous = true;
-        rec.interimResults = true;
-        rec.lang = 'en-US';
-        
-        rec.onresult = (event: any) => {
-          let currentTranscript = '';
-          for (let i = event.resultIndex; i < event.results.length; i++) {
-            currentTranscript += event.results[i][0].transcript;
-          }
-          
-          if (currentTranscript.trim() && isCallActiveRef.current) {
-            // Reset the silence timer — do NOT touch candidateTurnTimer visual countdown (GD-04 fix)
-            if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
-            silenceTimerRef.current = setTimeout(() => {
-              const finalTranscript = currentTranscript.trim();
-              if (finalTranscript) {
-                try { rec.stop(); } catch {}
-                handleSendVoiceMessage(finalTranscript);
-              }
-            }, 2500); // 2.5 seconds of silence before auto-submitting!
-          }
-        };
-        
-        rec.onerror = (e: any) => {
-          console.warn('[SpeechRec] error:', e.error);
-          if (e.error === 'no-speech') return;
-          setMicActive(false);
-        };
-        
-        rec.onend = () => {
-          if (isCallActiveRef.current && turnSequenceRef.current === 'user') {
-            try { rec.start(); } catch {}
-          } else {
-            setMicActive(false);
-          }
-        };
-        
-        recognitionRef.current = rec;
-      }
-    }
-
-    // GD-02 FIX: Cleanup — nullify all handlers on unmount to kill ghost listeners.
-    // Without this return, rec.onresult / onerror / onend remain live closures after
-    // unmount and fire setState on a dead component tree.
-    return () => {
-      if (recognitionRef.current) {
-        recognitionRef.current.onresult = null;
-        recognitionRef.current.onerror = null;
-        recognitionRef.current.onend = null;
-        try { recognitionRef.current.stop(); } catch {}
-        recognitionRef.current = null;
-      }
-    };
-  }, []);
+  });
 
   const handleCreateRoom = (e: React.FormEvent) => {
     e.preventDefault();
@@ -347,944 +162,6 @@ export default function GroupDiscussionPage() {
     }
     setStep('invite_concept');
   };
-
-  // Active Avatar A / B role tracking
-  const [currentAvatarARoleId, setCurrentAvatarARoleId] = useState<string | null>(null);
-  const [currentAvatarBRoleId, setCurrentAvatarBRoleId] = useState<string | null>(null);
-  const [isUserTurn, setIsUserTurn] = useState(false);
-  const [activeHostId, setActiveHostId] = useState(gdHostId);
-
-  const handleStartCall = () => {
-    if (!cOS.isItemUnlocked(`gd:${roomName}`)) {
-      const ok = cOS.unlockItem(`gd:${roomName}`, 'gd', `Group Discussion: ${roomName}`);
-      if (!ok) return;
-    }
-
-    // Host is always the opposite of the floating mentor (Priya <-> Akash).
-    const hostId = gdHostId;
-    hostIdRef.current = hostId;
-    setActiveHostId(hostId);
-    let activePanel = [...invitedAvatars].filter(id => id !== currentMentorId);
-    if (!activePanel.includes(hostId)) {
-      activePanel = [hostId, ...activePanel];
-    }
-    if (activePanel.filter(id => id !== hostId).length < 2) {
-      const remainingPool = filteredAvatars.map(a => a.id).filter(id => !activePanel.includes(id) && id !== currentMentorId);
-      activePanel = [...activePanel, ...remainingPool.slice(0, 2)];
-    }
-    setInvitedAvatars(activePanel);
-
-    setGdReport(null);
-    setHandRaised(false);
-    setStep('call_grid');
-    setCallActive(true);
-    setCallDuration(0);
-    setIsUserTurn(false);
-
-    if (callTimerRef.current) clearInterval(callTimerRef.current);
-    const totalTargetSeconds = sessionDurationMinutes * 60;
-    const midSummarySec = Math.round(totalTargetSeconds * 0.5);
-    const warningSec = Math.max(totalTargetSeconds - 30, midSummarySec + 30);
-
-    callTimerRef.current = setInterval(() => {
-      setCallDuration(prev => {
-        const nextSec = prev + 1;
-        // GD-08 FIX: Dynamic time-based Host interventions according to selected session duration:
-        if (nextSec === midSummarySec) {
-          triggerHostMidSummary();
-        } else if (nextSec === warningSec) {
-          triggerHostTimeWarning();
-        } else if (nextSec >= totalTargetSeconds) {
-          triggerHostEndSummary();
-        }
-        return nextSec;
-      });
-    }, 1000);
-
-    setMessages([
-      {
-        sender: 'System Facilitator',
-        role: 'Facilitator',
-        content: `Welcome to the boardroom: "${roomName}". Host: ${gdDisplayName(hostId)}. Total GD Time: ${sessionDurationMinutes}:00 Minutes.`,
-        emoji: '🏛️'
-      }
-    ]);
-
-    if (typeof window !== 'undefined') {
-      try {
-        router.push('/group-discussion?call=true');
-      } catch {}
-    }
-
-    const hostAvatar = AVATARS.find(a => a.id === hostId) || AVATARS[0];
-    const hostName = gdDisplayName(hostId);
-    const introText = hostIntroScript(hostName, roomName, roomDesc || selectedConcept);
-
-    setTimeout(() => {
-      speakWithAvatar(introText, hostId,
-        () => {
-          if (recognitionRef.current) {
-            try { recognitionRef.current.stop(); } catch {}
-          }
-          setMicActive(false);
-          setActiveSpeakingAvatar(hostName);
-        },
-        () => {
-          setActiveSpeakingAvatar(null);
-          setMessages(prev => {
-            if (prev.some(m => m.content === introText)) return prev;
-            return [...prev, {
-              sender: hostName,
-              role: 'Host / Facilitator',
-              content: introText,
-              emoji: hostAvatar.emoji
-            }];
-          });
-          turnSequenceRef.current = 'user';
-          startCandidateTurnPrompt();
-        },
-        false,
-        false,
-        undefined,
-        1.0,
-        18000 // Host intro max duration: 18.0 seconds (35 words)
-      );
-    }, 1000);
-  };
-
-  const passFloorToCandidateAfterAvatarB = () => {
-    lastPairRef.current = speakerPairRef.current;
-    setCurrentAvatarARoleId(null);
-    setCurrentAvatarBRoleId(null);
-    turnSequenceRef.current = 'user';
-
-    // GD-03 enforcement: increment counter here — unified for both preloaded and fallback avatar B
-    consecutiveAvatarTurnsRef.current += 1;
-    if (consecutiveAvatarTurnsRef.current >= 3) {
-      consecutiveAvatarTurnsRef.current = 0;
-      const hostId = hostIdRef.current;
-      const hostAvatar = AVATARS.find(a => a.id === hostId) || AVATARS[0];
-      const forceText = `${user?.displayName || 'Candidate'}, we need to hear your perspective on ${roomName}. You have 40 seconds — please share your view now.`;
-      setMessages(prev => [...prev, {
-        sender: gdDisplayName(hostId),
-        role: `${hostAvatar.role} (Mandatory Turn)`,
-        content: forceText,
-        emoji: hostAvatar.emoji
-      }]);
-      speakWithAvatar(forceText, hostId,
-        () => setActiveSpeakingAvatar(gdDisplayName(hostId)),
-        () => {
-          setActiveSpeakingAvatar(null);
-          setCandidateTurnTimer(40); // extended window for forced turn
-          startCandidateTurnPrompt();
-        },
-        false, false
-      );
-    } else {
-      startCandidateTurnPrompt();
-    }
-  };
-
-  const triggerPreloadedAvatarBReply = (
-    avatarId: string,
-    cleanReply: string,
-    historyMessages: { sender: string; role: string; content: string; emoji: string }[]
-  ) => {
-    if (!isCallActiveRef.current) return;
-    const nextSpeaker = AVATARS.find(a => a.id === avatarId);
-    if (!nextSpeaker) return;
-
-    const newMsg = {
-      sender: nextSpeaker.name,
-      role: `${nextSpeaker.role} (Avatar B)`,
-      content: cleanReply,
-      emoji: nextSpeaker.emoji
-    };
-    const nextMessages = [...historyMessages, newMsg];
-    setMessages(nextMessages);
-
-    speakWithAvatar(cleanReply, avatarId,
-      () => {
-        if (recognitionRef.current) {
-          try { recognitionRef.current.stop(); } catch {}
-        }
-        setMicActive(false);
-        setActiveSpeakingAvatar(nextSpeaker.name);
-      },
-      () => {
-        setActiveSpeakingAvatar(null);
-
-        // Interruption Handler: If Candidate raised hand during avatar speech, pass floor immediately to Candidate!
-        if (handRaisedRef.current) {
-          handRaisedRef.current = false;
-          setHandRaised(false);
-          avatarBPromiseRef.current = null;
-          preloadedAvatarBDataRef.current = null;
-          setCurrentAvatarARoleId(null);
-          setCurrentAvatarBRoleId(null);
-          turnSequenceRef.current = 'user';
-          toast.success("Hand Interruption", "Floor passed immediately to Candidate!");
-          startCandidateTurnPrompt();
-          return;
-        }
-
-        // Avatar B finished -> Hand over to Candidate (User) with GD-03 turn throttling
-        passFloorToCandidateAfterAvatarB();
-      },
-      false,
-      false,
-      undefined,
-      1.0,
-      GD_MAX_SPEAK_MS,
-      { minDurationMs: GD_SPEAK_MS }
-    );
-  };
-
-  const triggerAvatarReply = async (
-    avatarId: string,
-    roleType: 'avatar_a' | 'avatar_b',
-    targetSpeakerName: string,
-    updatedMessages?: { sender: string; role: string; content: string; emoji: string }[]
-  ) => {
-    if (!isCallActiveRef.current) return;
-    const nextSpeaker = AVATARS.find(a => a.id === avatarId);
-    if (!nextSpeaker) return;
-
-    setLoading(true);
-
-    try {
-      const messageHistory = updatedMessages || messages;
-      const response = await fetch('/api/group-discussion/bot-reply', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          roomId: roomName,
-          roomDesc,
-          objective: roomDesc || selectedConcept,
-          activeMentors: [avatarId],
-          domain,
-          roleType,
-          nextSpeakerName: targetSpeakerName,
-          candidateName: user?.displayName || 'Candidate',
-          history: messageHistory.slice(-8).map(m => ({ role: m.role === 'SDE Candidate' ? 'user' : 'assistant', content: m.content, sender: m.sender }))
-        })
-      });
-
-      if (response.ok && isCallActiveRef.current) {
-        const data = await response.json();
-        if (data.reply) {
-          const cleanReply = data.reply.replace(/\[.*?\]:\s?/, '');
-
-          const newMsg = {
-            sender: nextSpeaker.name,
-            role: roleType === 'avatar_a' ? `${nextSpeaker.role} (Avatar A)` : `${nextSpeaker.role} (Avatar B)`,
-            content: cleanReply,
-            emoji: nextSpeaker.emoji
-          };
-          const nextMessages = [...messageHistory, newMsg];
-          setMessages(nextMessages);
-
-          speakWithAvatar(cleanReply, avatarId,
-            () => {
-              if (recognitionRef.current) {
-                try { recognitionRef.current.stop(); } catch {}
-              }
-              setMicActive(false);
-              setActiveSpeakingAvatar(nextSpeaker.name);
-
-              // Preload Communication: Store an awaitable Promise ref for Avatar B reply!
-              if (roleType === 'avatar_a') {
-                const avatarB_Id = speakerPairRef.current?.b || invitedAvatars.find(id => id !== avatarId && id !== hostIdRef.current) || 'kashyap';
-
-                avatarBPromiseRef.current = fetch('/api/group-discussion/bot-reply', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({
-                    roomId: roomName,
-                    roomDesc,
-                    objective: roomDesc || selectedConcept,
-                    activeMentors: [avatarB_Id],
-                    domain,
-                    roleType: 'avatar_b',
-                    nextSpeakerName: user?.displayName || 'Candidate',
-                    candidateName: user?.displayName || 'Candidate',
-                    history: nextMessages.slice(-8).map(m => ({ role: m.role === 'SDE Candidate' ? 'user' : 'assistant', content: m.content, sender: m.sender }))
-                  })
-                }).then(async (res) => {
-                  if (res.ok) {
-                    const bData = await res.json();
-                    if (bData.reply) {
-                      return {
-                        avatarB_Id,
-                        cleanReply: bData.reply.replace(/\[.*?\]:\s?/, ''),
-                        nextMessages
-                      };
-                    }
-                  }
-                  return null;
-                }).catch(() => null);
-              }
-            },
-            async () => {
-              setActiveSpeakingAvatar(null);
-
-              // Interruption Handler: If Candidate raised hand during avatar speech, pass floor immediately to Candidate!
-              if (handRaisedRef.current) {
-                handRaisedRef.current = false;
-                setHandRaised(false);
-                avatarBPromiseRef.current = null;
-                preloadedAvatarBDataRef.current = null;
-                setCurrentAvatarARoleId(null);
-                setCurrentAvatarBRoleId(null);
-                turnSequenceRef.current = 'user';
-                toast.success("Hand Interruption", "Floor passed immediately to Candidate!");
-                startCandidateTurnPrompt();
-                return;
-              }
-              
-              if (roleType === 'avatar_a') {
-                const avatarB_Id = speakerPairRef.current?.b || invitedAvatars.find(id => id !== avatarId && id !== hostIdRef.current) || 'kashyap';
-                setCurrentAvatarBRoleId(avatarB_Id);
-                turnSequenceRef.current = 'avatar_second';
-
-                let preloaded = null;
-                if (avatarBPromiseRef.current) {
-                  const p = avatarBPromiseRef.current;
-                  avatarBPromiseRef.current = null;
-                  preloaded = await p;
-                } else if (preloadedAvatarBDataRef.current) {
-                  preloaded = preloadedAvatarBDataRef.current;
-                  preloadedAvatarBDataRef.current = null;
-                }
-
-                if (preloaded && preloaded.avatarB_Id === avatarB_Id) {
-                  triggerPreloadedAvatarBReply(preloaded.avatarB_Id, preloaded.cleanReply, preloaded.nextMessages);
-                } else {
-                  triggerAvatarReply(avatarB_Id, 'avatar_b', user?.displayName || 'Candidate', nextMessages);
-                }
-              } else {
-                // Avatar B finished → hand floor to candidate with GD-03 turn throttling
-                passFloorToCandidateAfterAvatarB();
-              }
-            },
-            false,
-            false,
-            undefined,
-            1.0,
-            GD_MAX_SPEAK_MS,
-            { minDurationMs: GD_SPEAK_MS }
-          );
-        } else {
-          setActiveSpeakingAvatar(null);
-          startCandidateTurnPrompt();
-        }
-      } else {
-        setActiveSpeakingAvatar(null);
-        startCandidateTurnPrompt();
-      }
-    } catch (err) {
-      console.warn('Bot speaker reply failure:', err);
-      setActiveSpeakingAvatar(null);
-      startCandidateTurnPrompt();
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleCandidateSilenceTimeout = () => {
-    if (!isCallActiveRef.current) return;
-    if (turnTimeoutRef.current) clearInterval(turnTimeoutRef.current);
-    setCandidateTurnTimer(null);
-    setIsUserTurn(false);
-
-    if (recognitionRef.current) {
-      try { recognitionRef.current.stop(); } catch {}
-    }
-    setMicActive(false);
-
-    consecutiveSilenceCountRef.current += 1;
-    const hostId = hostIdRef.current;
-    const hostAvatar = AVATARS.find(a => a.id === hostId) || AVATARS[0];
-    const calloutText = `Candidate, we haven't heard your pitch on ${roomName || 'this topic'} yet. Please share your view in simple words.`;
-
-    setMessages(prev => [...prev, {
-      sender: gdDisplayName(hostId),
-      role: `${hostAvatar.role} (Call Out)`,
-      content: calloutText,
-      emoji: hostAvatar.emoji
-    }]);
-
-    toast.warning("Candidate Prompted", "The host is waiting for your input!");
-
-    speakWithAvatar(calloutText, hostId,
-      () => {
-        setMicActive(false);
-        setActiveSpeakingAvatar(gdDisplayName(hostId));
-      },
-      () => {
-        setActiveSpeakingAvatar(null);
-        turnSequenceRef.current = 'user';
-        startCandidateTurnPrompt();
-      },
-      false,
-      false
-    );
-  };
-
-  const handleUserFinishSpeaking = (userText?: string) => {
-    if (!isCallActiveRef.current) return;
-    if (turnTimeoutRef.current) clearInterval(turnTimeoutRef.current);
-    setCandidateTurnTimer(null);
-    setIsUserTurn(false);
-
-    if (recognitionRef.current) {
-      try { recognitionRef.current.stop(); } catch {}
-    }
-    setMicActive(false);
-
-    avatarBPromiseRef.current = null;
-    preloadedAvatarBDataRef.current = null;
-
-    const spokenContent = userText || inputText.trim();
-    setInputText('');
-
-    // If Candidate did not speak or type anything, call out candidate without dummy text!
-    if (!spokenContent) {
-      handleCandidateSilenceTimeout();
-      return;
-    }
-
-    const updated = [...messages, {
-      sender: user?.displayName || 'Candidate',
-      role: 'SDE Candidate',
-      content: spokenContent,
-      emoji: '🎓'
-    }];
-    setMessages(updated);
-
-    consecutiveSilenceCountRef.current = 0;
-    // GD-03: Candidate just contributed — reset the consecutive avatar domination counter.
-    // The counter is incremented in the avatar-B completion callback and enforced there.
-    consecutiveAvatarTurnsRef.current = 0;
-
-    // Fresh random Avatar 1 / Avatar 2 each round. Host and floating mentor stay out of the pair.
-    const speakerPool = invitedAvatars.filter(id => id !== hostIdRef.current && id !== currentMentorId);
-    const pair = pickRandomSpeakerPair(speakerPool, [hostIdRef.current, currentMentorId], lastPairRef.current);
-    speakerPairRef.current = pair;
-    const avatarA_Id = pair.a;
-    const avatarB_Id = pair.b;
-    const avatarB_Obj = AVATARS.find(a => a.id === avatarB_Id) || AVATARS[0];
-
-    setCurrentAvatarARoleId(avatarA_Id);
-    setCurrentAvatarBRoleId(avatarB_Id);
-    turnSequenceRef.current = 'avatar_first';
-
-    toast.success("Turn Passed", `${gdDisplayName(avatarA_Id)} will respond, then ${gdDisplayName(avatarB_Id)}.`);
-
-    setTimeout(() => {
-      triggerAvatarReply(avatarA_Id, 'avatar_a', avatarB_Obj.name, updated);
-    }, 400);
-  };
-
-  const triggerHostMidSummary = async () => {
-    if (!isCallActiveRef.current) return;
-    const hostId = hostIdRef.current;
-    const hostAvatar = AVATARS.find(a => a.id === hostId) || AVATARS[0];
-    const hostName = gdDisplayName(hostId);
-    setLoading(true);
-
-    try {
-      stopSpeaking();
-      const midText = hostFiveMinuteScript(hostName, roomName);
-      
-      speakWithAvatar(midText, hostId,
-        () => {
-          if (recognitionRef.current) {
-            try { recognitionRef.current.stop(); } catch {}
-          }
-          setMicActive(false);
-          setActiveSpeakingAvatar(hostName);
-        },
-        () => {
-          setActiveSpeakingAvatar(null);
-          setMessages(prev => [...prev, {
-            sender: hostName,
-            role: 'Host (5 minutes over)',
-            content: midText,
-            emoji: hostAvatar.emoji
-          }]);
-          startCandidateTurnPrompt();
-        },
-        false,
-        false,
-        undefined,
-        1.0,
-        18000
-      );
-    } catch (err) {
-      startCandidateTurnPrompt();
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const triggerHostTimeWarning = async () => {
-    if (!isCallActiveRef.current) return;
-    const hostId = hostIdRef.current;
-    const hostAvatar = AVATARS.find(a => a.id === hostId) || AVATARS[0];
-    const hostName = gdDisplayName(hostId);
-    setLoading(true);
-
-    try {
-      stopSpeaking();
-      const warningText = hostThirtySecondScript(hostName, roomName);
-      
-      speakWithAvatar(warningText, hostId,
-        () => {
-          if (recognitionRef.current) {
-            try { recognitionRef.current.stop(); } catch {}
-          }
-          setMicActive(false);
-          setActiveSpeakingAvatar(hostName);
-        },
-        () => {
-          setActiveSpeakingAvatar(null);
-          setMessages(prev => [...prev, {
-            sender: hostName,
-            role: 'Host (30 seconds left)',
-            content: warningText,
-            emoji: hostAvatar.emoji
-          }]);
-          startCandidateTurnPrompt();
-        },
-        false,
-        false,
-        undefined,
-        1.0,
-        15000
-      );
-    } catch (err) {
-      startCandidateTurnPrompt();
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const triggerHostEndSummary = async () => {
-    if (!isCallActiveRef.current) return;
-    const hostId = hostIdRef.current;
-    const hostAvatar = AVATARS.find(a => a.id === hostId) || AVATARS[0];
-    const hostName = gdDisplayName(hostId);
-    setLoading(true);
-
-    try {
-      stopSpeaking();
-      const endText = hostEndScript(hostName, roomName);
-      
-      speakWithAvatar(endText, hostId,
-        () => {
-          if (recognitionRef.current) {
-            try { recognitionRef.current.stop(); } catch {}
-          }
-          setMicActive(false);
-          setActiveSpeakingAvatar(hostName);
-        },
-        () => {
-          setActiveSpeakingAvatar(null);
-          executeReportGeneration();
-        },
-        false,
-        false,
-        undefined,
-        1.0,
-        18000
-      );
-    } catch (err) {
-      executeReportGeneration();
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const startCandidateTurnPrompt = () => {
-    if (!isCallActiveRef.current) return;
-    if (turnTimeoutRef.current) clearInterval(turnTimeoutRef.current);
-    setSuggestedHelperText('');
-    setIsUserTurn(true);
-
-    if (handRaisedRef.current) {
-      handRaisedRef.current = false;
-      setHandRaised(false);
-    }
-
-    // Set 25s turn duration for candidate
-    setCandidateTurnTimer(25);
-
-    // Auto start microphone capture for candidate turn
-    if (recognitionRef.current && !micActive) {
-      try {
-        recognitionRef.current.start();
-        setMicActive(true);
-      } catch (err) {
-        console.warn('Auto Speech recognition start error:', err);
-      }
-    }
-
-    turnTimeoutRef.current = setInterval(() => {
-      setCandidateTurnTimer(prev => {
-        if (prev === null || prev <= 1) {
-          clearInterval(turnTimeoutRef.current);
-          setCandidateTurnTimer(null);
-
-          // GD-05 FIX: If silence debounce is still pending, the candidate is mid-sentence.
-          // Grant a 3-second grace extension instead of hard-cutting their words.
-          if (silenceTimerRef.current) {
-            setCandidateTurnTimer(3);
-            turnTimeoutRef.current = setTimeout(() => {
-              if (recognitionRef.current) {
-                try { recognitionRef.current.stop(); } catch {}
-              }
-              setMicActive(false);
-              setCandidateTurnTimer(null);
-              handleUserFinishSpeaking();
-            }, 3000);
-            return null;
-          }
-
-          if (recognitionRef.current) {
-            try { recognitionRef.current.stop(); } catch {}
-          }
-          setMicActive(false);
-
-          handleUserFinishSpeaking();
-          return null;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-  };
-
-  // GD-UX-01 FIX: Manual Interjection Mechanism — cleanly cuts active avatar speech & immediately seizes the floor
-  const handleInterjectImmediately = () => {
-    if (!isCallActiveRef.current) return;
-    console.log('[GD Engine] ⚡ Immediate Candidate Interjection triggered!');
-    
-    // 1. Cut avatar voice synthesis cleanly
-    stopSpeaking();
-    
-    // 2. Clear any pending avatar speech or timer loops
-    setActiveSpeakingAvatar(null);
-    setCurrentAvatarARoleId(null);
-    setCurrentAvatarBRoleId(null);
-    turnSequenceRef.current = 'user';
-    consecutiveAvatarTurnsRef.current = 0;
-    
-    // 3. Increment candidate turns in telemetry
-    setTurnCount(prev => prev + 1);
-    
-    // 4. Immediately prompt candidate turn & activate microphone
-    toast.success("Floor Seized ⚡", "You cut in! Microphone is active — state your argument.");
-    startCandidateTurnPrompt();
-  };
-
-  // GD-UX-02 FIX: Export discussion minutes / transcript (Markdown or JSON)
-  const exportGdTranscript = (format: 'markdown' | 'json' = 'markdown') => {
-    if (format === 'json') {
-      const data = {
-        roomTopic: selectedConcept,
-        domain,
-        sessionDurationMinutes,
-        date: new Date().toISOString(),
-        hostId: activeHostId,
-        participants: invitedAvatars.map(id => {
-          const a = AVATARS.find(av => av.id === id);
-          return { id, name: a?.name, role: a?.role, trait: a?.trait };
-        }),
-        messages
-      };
-      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `GD_${selectedConcept.replace(/[^a-zA-Z0-9]/g, '_')}_Transcript.json`;
-      a.click();
-      URL.revokeObjectURL(url);
-      toast.success('Transcript Exported', 'Saved complete GD debate as JSON.');
-    } else {
-      const lines = [
-        `# Boardroom Group Discussion Minutes`,
-        `**Objective / Topic:** ${selectedConcept}  `,
-        `**Domain:** ${domain.toUpperCase()}  `,
-        `**Scheduled Duration:** ${sessionDurationMinutes} Minutes  `,
-        `**Session Time Elapsed:** ${Math.floor(callDuration / 60)}m ${callDuration % 60}s  `,
-        `**Date:** ${new Date().toLocaleDateString('en-US', { dateStyle: 'full' })}  `,
-        `\n---\n`,
-        `## Participants`,
-        `- **Candidate (You)** — SDE Candidate`,
-        ...invitedAvatars.map(id => {
-          const a = AVATARS.find(av => av.id === id);
-          return `- **${a?.name || id}** (${a?.role || 'Panelist'}) — *${a?.trait || 'Participant'} mode*`;
-        }),
-        `\n## Discussion Transcript\n`
-      ];
-
-      messages.forEach(m => {
-        lines.push(`**${m.emoji} ${m.sender} (${m.role}):**\n${m.content}\n`);
-      });
-
-      const blob = new Blob([lines.join('\n')], { type: 'text/markdown' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `GD_${selectedConcept.replace(/[^a-zA-Z0-9]/g, '_')}_Transcript.md`;
-      a.click();
-      URL.revokeObjectURL(url);
-      toast.success('Minutes Exported', 'Saved complete GD discussion transcript as Markdown.');
-    }
-  };
-
-  const triggerNextAvatarSilenceReact = () => {
-    handleUserFinishSpeaking();
-  };
-
-  const handleSendVoiceMessage = (text: string) => {
-    handleUserFinishSpeaking(text);
-  };
-
-  const handleSuggestArgument = () => {
-    const lowerTopic = roomName.toLowerCase();
-    let suggestions = [
-      "We need to evaluate the thread-safety locks and JVM memory boundaries before scaling this layout.",
-      "Our AWS Cloud Budget is going to spike. Let's keep our networking traffic strictly isolated.",
-      "Let's check the CAP theorem trade-offs here. We might need a Paxos consensus engine to prevent transactional drift.",
-      "What is our chaos engineering recovery plan if the primary node goes offline under stress?"
-    ];
-
-    if (lowerTopic.includes('database') || lowerTopic.includes('black friday') || lowerTopic.includes('spike')) {
-      suggestions = [
-        "We should implement a Redis write-behind cache buffer to absorb the transactional write spike and prevent database lock contention.",
-        "Let's enforce database connection pooling limits and spin up read-replicas dynamically during peak traffic.",
-        "I suggest query rate-limiting at the gateway level. If CPU hits 90%, we should gracefully degrade non-critical services.",
-        "We need to audit our indexes and rewrite the heavy aggregate queries to use a pre-calculated cache ledger."
-      ];
-    } else if (lowerTopic.includes('payment') || lowerTopic.includes('charging') || lowerTopic.includes('race')) {
-      suggestions = [
-        "We must use distributed locks (Redlock via Redis) mapped to the customer session ID to guarantee transaction idempotency.",
-        "Let's introduce a double-entry ledger database pattern with unique transaction hashes to block duplicate requests.",
-        "We should queue all payment transactions in RabbitMQ and process them sequentially to eliminate race conditions.",
-        "Let's implement a transactional outbox pattern to decouple payment gateway webhooks from the main database writes."
-      ];
-    } else if (lowerTopic.includes('cache') || lowerTopic.includes('stampede')) {
-      suggestions = [
-        "We should use mutual exclusion locks (single-flight pattern) so only one thread fetches from the database.",
-        "Let's add random jitter/entropy to our cache TTLs to ensure keys do not expire simultaneously.",
-        "I suggest pre-heating the cache in a background cron job before the keys hit their expiration threshold.",
-        "We need a circuit breaker that returns cached stale data if the primary database queries begin queueing."
-      ];
-    } else if (lowerTopic.includes('websocket') || lowerTopic.includes('leak') || lowerTopic.includes('connections')) {
-      suggestions = [
-        "We should configure a WebSocket connection timeout heartbeat and aggressively prune inactive sockets.",
-        "Let's delegate the connection state to an external broker (Redis Pub/Sub) and scale horizontally.",
-        "We must run heap snapshots and profile the GC behavior to identify where reference leaks occur.",
-        "I recommend implementing backpressure controls at the server level to reject messages when event loop lag exceeds 100ms."
-      ];
-    } else if (lowerTopic.includes('firmware') || lowerTopic.includes('bricking') || lowerTopic.includes('iot')) {
-      suggestions = [
-        "We must establish an A/B partition bootloader system so the device rolls back to the previous stable build on failure.",
-        "Let's halt all active OTA deployments immediately and run hardware-in-the-loop diagnostic tests.",
-        "We should decouple the network stack from the application partition so we don't lose remote access to bricked devices.",
-        "I suggest rolling out a canary deployment restricted to 0.1% of active devices with strict telemetry metrics first."
-      ];
-    }
-
-    const randomSuggestion = suggestions[Math.floor(Math.random() * suggestions.length)];
-    setSuggestedHelperText(randomSuggestion);
-    toast.success('SDE Suggestion Generated', 'Read this point aloud into your microphone!');
-  };
-
-  const handleSendMessage = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!inputText.trim() || loading) return;
-
-    const userText = inputText.trim();
-    handleUserFinishSpeaking(userText);
-  };
-
-  const toggleMic = () => {
-    if (!recognitionRef.current) {
-      toast.error("Speech Recognition Unsupported", "This browser does not support the webkitSpeechRecognition API.");
-      return;
-    }
-    if (micActive) {
-      if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
-      recognitionRef.current.stop();
-      setMicActive(false);
-    } else {
-      stopSpeaking();
-      if (turnTimeoutRef.current) clearInterval(turnTimeoutRef.current);
-      setCandidateTurnTimer(null);
-      
-      try {
-        recognitionRef.current.start();
-        setMicActive(true);
-        toast.success("Microphone Active", "Start speaking to debate...");
-      } catch (err) {
-        console.warn("Manual microphone start failure:", err);
-      }
-    }
-  };
-
-  const handleForceExitCall = () => {
-    stopSpeaking();
-    if (turnTimeoutRef.current) clearInterval(turnTimeoutRef.current);
-    if (callTimerRef.current) clearInterval(callTimerRef.current);
-    if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
-    setCandidateTurnTimer(null);
-    if (recognitionRef.current) {
-      try { recognitionRef.current.stop(); } catch {}
-    }
-    setMicActive(false);
-    setCallActive(false);
-
-    if (typeof window !== 'undefined') {
-      window.history.pushState(null, '', `/group-discussion/`);
-      window.dispatchEvent(new Event('popstate'));
-    }
-
-    setStep('create_room');
-    toast.success('Meeting Left', 'Boardroom call was forcibly ended and reset.');
-  };
-
-  const handleEndCall = () => {
-    if (callActive) {
-      triggerHostEndSummary();
-    } else {
-      executeReportGeneration();
-    }
-  };
-
-  const executeReportGeneration = async () => {
-    stopSpeaking();
-    if (turnTimeoutRef.current) clearInterval(turnTimeoutRef.current);
-    if (callTimerRef.current) clearInterval(callTimerRef.current);
-    if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
-    setCandidateTurnTimer(null);
-    setHandRaised(false);
-    if (recognitionRef.current) {
-      try { recognitionRef.current.stop(); } catch {}
-    }
-    setMicActive(false);
-    setCallActive(false);
-
-    // Clear ?call=true in URL to exit full screen mode
-    if (typeof window !== 'undefined') {
-      window.history.pushState(null, '', `/group-discussion/`);
-      window.dispatchEvent(new Event('popstate'));
-    }
-
-    setLoading(true);
-    toast.success('Analyzing Debate...', 'Generating detailed candidate performance report...');
-
-    let finalReport: {
-      score: number;
-      verdict: string;
-      gapsIdentified: string[];
-      keyMoments: string[];
-      evaluated: boolean;
-    } = {
-      score: 0,
-      verdict: 'Evaluation unavailable — could not score this boardroom session.',
-      gapsIdentified: ['Complete a fuller discussion so an AI evaluation can be generated.'],
-      keyMoments: [],
-      evaluated: false,
-    };
-
-    try {
-      const res = await fetch('/api/group-discussion/evaluate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          roomId: roomName,
-          roomDesc: roomDesc || 'General debate',
-          domain,
-          history: messages
-        })
-      });
-      if (res.ok) {
-        const reportData = await res.json();
-        if (typeof reportData.score === 'number') {
-          finalReport = { ...reportData, evaluated: true };
-        }
-      }
-    } catch (err) {
-      console.warn("Failed to generate AI evaluation report:", err);
-    } finally {
-      setLoading(false);
-    }
-
-    setGdReport(finalReport);
-    // Only reward when a real evaluation score exists — never default-pass at 75.
-    if (finalReport.evaluated && finalReport.score >= 70) {
-      cOS.rewardActivity('gd', roomName || 'Group Discussion');
-    }
-
-    // Save SDE Boardroom record to localStorage and remote API (GD-07 FIX)
-    if (typeof window !== 'undefined') {
-      try {
-        const historyKey = `pinit_gd_history_${user?.id || 'anon'}`;
-        const stored = localStorage.getItem(historyKey);
-        let historyList: any[] = [];
-        try { historyList = stored ? JSON.parse(stored) : []; } catch { historyList = []; }
-        const newRecord = {
-          id: `gd_${Date.now()}`,
-          topic: roomName,
-          objective: roomDesc || 'General architectural debate',
-          date: new Date().toLocaleDateString(),
-          difficulty,
-          domain,
-          durationMinutes: sessionDurationMinutes,
-          report: finalReport,
-          transcript: messages
-        };
-        historyList.unshift(newRecord);
-        const trimmed = historyList.slice(0, 25);
-        localStorage.setItem(historyKey, JSON.stringify(trimmed));
-        setHistoryListState(trimmed);
-
-        // GD-07 FIX: Asynchronously sync to /api/gd/history endpoint
-        if (user?.id) {
-          getAuthHeaders().then(async headers => {
-            try {
-              await fetch('/api/gd/history', {
-                method: 'POST',
-                headers,
-                body: JSON.stringify(newRecord)
-              });
-            } catch (err) {
-              console.warn('[GD History] Remote sync POST failed:', err);
-            }
-          }).catch(() => {});
-        }
-      } catch (e) {
-        console.warn('Failed to store boardroom conclusion in database:', e);
-      }
-    }
-
-    // Notify GlobalAvatar mentor with GD completion event
-    if (typeof window !== 'undefined') {
-      window.dispatchEvent(new CustomEvent('pinit:activity_complete', {
-        detail: {
-          type: 'gd',
-          title: 'Group Discussion Boardroom',
-          score: Math.min(100, finalReport.score || 0),
-          passed: !!(finalReport.evaluated && (finalReport.score || 0) >= 70),
-          strengths: finalReport.keyMoments || [],
-          improvements: finalReport.gapsIdentified || [],
-        }
-      }));
-    }
-  };
-
 
   // Demo audio play for Avatar Guide
   const handlePlayDemo = (avatarId: string, name: string) => {
@@ -1296,206 +173,6 @@ export default function GroupDiscussionPage() {
 
   return (
     <div className="gd-boardroom-container animate-fade-in">
-      <style>{`
-        .gd-boardroom-container {
-          width: 100%;
-          max-width: 100%;
-          margin: 0;
-          padding: 10px 16px;
-          box-sizing: border-box;
-          min-height: 100vh;
-        }
-        .gd-header-banner {
-          background: var(--bg2);
-          border: 1px solid var(--border);
-          border-radius: 20px;
-          padding: 12px 20px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 16px;
-        }
-        .gd-setup-column-grid {
-          display: grid;
-          grid-template-columns: 1.2fr 1fr;
-          gap: 24px;
-        }
-        .gd-setup-card {
-          background: var(--bg2);
-          border: 1px solid var(--border);
-          border-radius: 24px;
-          padding: 24px;
-          box-shadow: var(--shadow-md);
-        }
-        .gd-form-label {
-          font-size: 11px;
-          font-weight: 700;
-          color: var(--t3);
-          display: block;
-          margin-bottom: 6px;
-          text-transform: uppercase;
-        }
-        .gd-form-input {
-          width: 100%;
-          padding: 10px 14px;
-          background: var(--bg3);
-          border: 1.5px solid var(--border);
-          border-radius: 10px;
-          color: var(--t1);
-          font-size: 13px;
-          outline: none;
-          transition: border-color 0.2s;
-        }
-        .gd-form-input:focus {
-          border-color: var(--teal);
-        }
-        .gd-domain-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr 1fr;
-          gap: 10px;
-        }
-        .gd-select-btn {
-          padding: 10px;
-          border-radius: 10px;
-          font-weight: 800;
-          font-size: 12px;
-          cursor: pointer;
-          transition: all 0.15s ease;
-        }
-        .gd-chat-panel {
-          background: var(--bg2);
-          border: 1px solid var(--border);
-          border-radius: 24px;
-          display: flex;
-          flex-direction: column;
-          overflow: hidden;
-          height: calc(100vh - 180px);
-          min-height: 560px;
-        }
-        .gd-suggest-box {
-          background: rgba(var(--accent-teal-rgb),  0.05);
-          border: 1.5px dashed var(--teal);
-          border-radius: 12px;
-          padding: 10px 14px;
-          margin-bottom: 8px;
-          position: relative;
-        }
-        .gd-avatar-card {
-          border-radius: 12px;
-          padding: 12px 14px;
-          cursor: pointer;
-          transition: all 0.15s ease;
-          display: flex;
-          flex-direction: column;
-          gap: 6px;
-        }
-        .gd-avatar-demo-btn {
-          background: none;
-          border: 1px solid var(--teal);
-          border-radius: 6px;
-          padding: 2px 6px;
-          color: var(--teal);
-          font-size: 9px;
-          font-weight: 800;
-          cursor: pointer;
-        }
-        .gd-call-layout {
-          display: grid;
-          grid-template-columns: 7fr 3fr;
-          gap: 16px;
-          width: 100%;
-          min-height: calc(100vh - 160px);
-        }
-        .gd-chat-window-header {
-          padding: 10px 14px;
-          border-bottom: 1px solid var(--border);
-          background: var(--bg3);
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-        .gd-timer-badge-active {
-          background: rgba(var(--accent-teal-rgb),  0.08);
-          border: 1px solid var(--teal);
-          border-radius: 6px;
-          padding: 1px 6px;
-          font-size: 9px;
-          font-weight: 800;
-          color: var(--teal);
-          font-family: var(--font-mono);
-          white-space: nowrap;
-          display: flex;
-          align-items: center;
-          gap: 3px;
-        }
-        .gd-user-turn-badge {
-          background: rgba(var(--danger-rgb),  0.1);
-          border: 1px solid var(--coral);
-          border-radius: 8px;
-          padding: 2px 8px;
-          font-size: 10px;
-          font-weight: 800;
-          color: var(--coral);
-          animation: pulse 1.5s infinite;
-        }
-        .gd-bubble-container {
-          display: flex;
-          flex-direction: column;
-        }
-        .gd-bubble-meta {
-          display: flex;
-          gap: 4px;
-          font-size: 8.5px;
-          color: var(--t3);
-          margin-bottom: 2px;
-        }
-        .gd-chat-bubble {
-          padding: 8px 12px;
-          border-radius: 10px;
-          font-size: 11.5px;
-          max-width: 85%;
-          word-break: break-word;
-        }
-        .gd-history-panel {
-          background: var(--bg2);
-          border: 1px solid var(--border);
-          border-radius: 24px;
-          padding: 24px;
-          box-shadow: var(--shadow-md);
-          display: flex;
-          flex-direction: column;
-          max-height: 520px;
-        }
-        .gd-history-card {
-          background: var(--bg3);
-          border: 1.5px solid var(--border);
-          border-radius: 12px;
-          padding: 12px;
-          display: flex;
-          flex-direction: column;
-          gap: 6px;
-        }
-        .gd-review-btn {
-          background: none;
-          border: 1px solid var(--teal);
-          border-radius: 6px;
-          padding: 2px 8px;
-          color: var(--teal);
-          font-size: 9px;
-          font-weight: 800;
-          cursor: pointer;
-        }
-        .gd-invite-panel {
-          max-width: 760px;
-          margin: 20px auto;
-          background: var(--bg2);
-          border: 1px solid var(--border);
-          border-radius: 24px;
-          padding: 24px;
-          box-shadow: var(--shadow-md);
-        }
-      `}</style>
-      
       {/* Header banner */}
       <div className="gd-header-banner">
         <div>
@@ -1506,7 +183,6 @@ export default function GroupDiscussionPage() {
         </div>
         {step !== 'call_grid' && (
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            {/* History Modal Toggle Button */}
             <button
               onClick={() => {
                 refreshHistoryList();
@@ -1530,7 +206,6 @@ export default function GroupDiscussionPage() {
               📜 Past History ({historyListState.length})
             </button>
 
-            {/* Avatar Guide Toggle Button */}
             <button
               onClick={() => setAvatarGuideOpen(true)}
               className="btn-primary"
@@ -1550,7 +225,7 @@ export default function GroupDiscussionPage() {
             >
               📖 Open Avatar Guide
             </button>
-            
+
             <button
               onClick={() => {
                 if (typeof window !== 'undefined') {
@@ -1586,53 +261,20 @@ export default function GroupDiscussionPage() {
       {step === 'create_room' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 24, maxWidth: 1000, margin: '20px auto' }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 24 }}>
-            
             {/* Left Column: Boardroom Setup Form */}
-            <div style={{
-              background: 'var(--bg2)',
-              border: '1px solid var(--border)',
-              borderRadius: 24,
-              padding: 24,
-              boxShadow: 'var(--shadow-md)'
-            }} className="animate-fade-in">
+            <div className="gd-setup-card animate-fade-in">
               <h2 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', textAlign: 'center', marginBottom: 20 }}>
                 Step 1: Setup Boardroom Metadata
               </h2>
               <form onSubmit={handleCreateRoom} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                {/* Dynamic SDE Topic Suggestion Button */}
                 <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 4 }}>
                   <button
                     type="button"
                     onClick={() => {
-                      const topics = [
-                        {
-                          name: 'Black Friday Production Database CPU Spike Outage',
-                          desc: 'Triage a sudden database thread lock congestion during peak shopping minutes while avoiding data inconsistencies.'
-                        },
-                        {
-                          name: 'Payment Gateway Double-Charging API Race Condition',
-                          desc: 'Debug and resolve a distributed database double-charging bug under heavy connection drop rates and customer complaints.'
-                        },
-                        {
-                          name: 'Distributed Cache Eviction Stampede Emergency',
-                          desc: 'Mitigate massive database queue overloads after a primary cache node failure triggers thousands of concurrent write-backs.'
-                        },
-                        {
-                          name: 'OAuth2 Token Hijack Security Compromise',
-                          desc: 'Draft a hotfix to safely invalidate leaked JWT signing keys on active apps without triggering widespread forced user logouts.'
-                        },
-                        {
-                          name: 'WebSocket Connection Leak Memory Depletion Outage',
-                          desc: 'Resolve heap memory leaks in the real-time chat gateway after reaching 100K active concurrent connections.'
-                        },
-                        {
-                          name: 'IoT Device Remote Firmware Bricking Crisis',
-                          desc: 'Mitigate a broken OTA firmware update that is currently causing 5% of active field devices to enter bootloops.'
-                        }
-                      ];
-                      const randomTopic = topics[Math.floor(Math.random() * topics.length)];
+                      const randomTopic = SUGGESTED_TOPICS[Math.floor(Math.random() * SUGGESTED_TOPICS.length)];
                       setRoomName(randomTopic.name);
                       setRoomDesc(randomTopic.desc);
+                      setSelectedConcept(randomTopic.name);
                       toast.success('Random Topic Loaded', `Configured debate around "${randomTopic.name}".`);
                     }}
                     style={{
@@ -1659,7 +301,10 @@ export default function GroupDiscussionPage() {
                     type="text"
                     placeholder="e.g. AWS Multi-Region Hydration Sync"
                     value={roomName}
-                    onChange={(e) => setRoomName(e.target.value)}
+                    onChange={(e) => {
+                      setRoomName(e.target.value);
+                      setSelectedConcept(e.target.value);
+                    }}
                     className="gd-form-input"
                   />
                 </div>
@@ -1709,7 +354,7 @@ export default function GroupDiscussionPage() {
                   </p>
                 </div>
 
-                {/* 1st Button Target: Difficulty Selector in Setup Panel */}
+                {/* Difficulty Selector */}
                 <div>
                   <label className="gd-form-label" style={{ marginBottom: 8 }}>BOARDROOM DEBATE DIFFICULTY</label>
                   <div className="gd-domain-grid">
@@ -1740,7 +385,7 @@ export default function GroupDiscussionPage() {
                   </p>
                 </div>
 
-                {/* GD-08 FIX: Session Duration Selector */}
+                {/* Session Duration Selector */}
                 <div>
                   <label className="gd-form-label" style={{ marginBottom: 8 }}>SESSION LENGTH</label>
                   <div className="gd-domain-grid">
@@ -1776,65 +421,53 @@ export default function GroupDiscussionPage() {
               </form>
             </div>
 
-            {/* Right Column: Previous Boardroom Sessions History Log */}
+            {/* Right Column: Previous Boardroom Sessions */}
             <div className="gd-history-panel animate-fade-in">
               <h2 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', textAlign: 'center', marginBottom: 16 }}>
                 📜 Previous Boardrooms
               </h2>
-              {(() => {
-                if (typeof window === 'undefined') return null;
-                const stored = localStorage.getItem(`pinit_gd_history_${user?.id || 'anon'}`);
-                let historyList: any[] = [];
-                try { historyList = stored ? JSON.parse(stored) : []; } catch { historyList = []; }
-                if (historyList.length === 0) {
-                  return (
-                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'var(--t4)', gap: 8 }}>
-                      <span style={{ fontSize: 32 }}>📜</span>
-                      <span style={{ fontSize: 11, fontWeight: 700 }}>No previous boardroom sessions found.</span>
-                    </div>
-                  );
-                }
-                return (
-                  <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 10, paddingRight: 4 }}>
-                    {historyList.map((past: any) => (
-                      <div key={past.id} className="gd-history-card">
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <span style={{ fontSize: 10, color: 'var(--t3)', fontWeight: 700 }}>{past.date}</span>
-                          <span style={{ fontSize: 10, color: 'var(--teal)', fontWeight: 800 }}>Score: {past.report.score}%</span>
-                        </div>
-                        <h4 style={{ fontSize: 12, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>{past.topic}</h4>
-                        <p style={{ fontSize: 9.5, color: 'var(--t3)', margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{past.objective}</p>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 4 }}>
-                          <div style={{ display: 'flex', gap: 6 }}>
-                            <span style={{ fontSize: 8.5, background: 'var(--bg2)', padding: '2px 6px', borderRadius: 4, color: 'var(--t4)', fontFamily: 'var(--font-mono)', textTransform: 'uppercase' }}>
-                              {past.difficulty}
-                            </span>
-                            {past.domain && (
-                              <span style={{ fontSize: 8.5, background: 'var(--bg2)', padding: '2px 6px', borderRadius: 4, color: 'var(--teal)', fontFamily: 'var(--font-mono)', textTransform: 'uppercase' }}>
-                                {past.domain}
-                              </span>
-                            )}
-                          </div>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setRoomName(past.topic);
-                              setRoomDesc(past.objective);
-                              setMessages(past.transcript);
-                              setGdReport(past.report);
-                            }}
-                            className="gd-review-btn"
-                          >
-                            🔍 Review Recap
-                          </button>
-                        </div>
+              {historyListState.length === 0 ? (
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'var(--t4)', gap: 8 }}>
+                  <span style={{ fontSize: 32 }}>📜</span>
+                  <span style={{ fontSize: 11, fontWeight: 700 }}>No previous boardroom sessions found.</span>
+                </div>
+              ) : (
+                <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 10, paddingRight: 4 }}>
+                  {historyListState.map((past: GdHistoryRecord) => (
+                    <div key={past.id} className="gd-history-card">
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <span style={{ fontSize: 10, color: 'var(--t3)', fontWeight: 700 }}>{past.date}</span>
+                        <span style={{ fontSize: 10, color: 'var(--teal)', fontWeight: 800 }}>Score: {past.report?.score || 75}%</span>
                       </div>
-                    ))}
-                  </div>
-                );
-              })()}
+                      <h4 style={{ fontSize: 12, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>{past.topic}</h4>
+                      <p style={{ fontSize: 9.5, color: 'var(--t3)', margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{past.objective}</p>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 4 }}>
+                        <div style={{ display: 'flex', gap: 6 }}>
+                          {past.domain && (
+                            <span style={{ fontSize: 8.5, background: 'var(--bg2)', padding: '2px 6px', borderRadius: 4, color: 'var(--teal)', fontFamily: 'var(--font-mono)', textTransform: 'uppercase' }}>
+                              {past.domain}
+                            </span>
+                          )}
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setRoomName(past.topic);
+                            setRoomDesc(past.objective || '');
+                            setSelectedConcept(past.topic);
+                            orch.setMessages((past.transcript as any) || []);
+                            orch.setGdReport(past.report || null);
+                          }}
+                          className="gd-review-btn"
+                        >
+                          🔍 Review Recap
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-
           </div>
         </div>
       )}
@@ -1868,7 +501,6 @@ export default function GroupDiscussionPage() {
                 }}
               />
             </div>
-
 
             <div>
               <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t3)', display: 'block', marginBottom: 8 }}>SELECT INVITE PARTICIPANTS</label>
@@ -1922,7 +554,7 @@ export default function GroupDiscussionPage() {
               <button onClick={() => setStep('create_room')} className="btn-ghost" style={{ flex: 1, padding: 12 }}>
                 ⇠ Back to Step 1
               </button>
-              <PinsGate itemKey={`gd:${roomName || 'default-room'}`} category="gd" onUnlocked={handleStartCall}>
+              <PinsGate itemKey={`gd:${roomName || 'default-room'}`} category="gd" onUnlocked={orch.handleStartCall}>
                 <button className="btn-primary" style={{ width: '100%', padding: 12, justifyContent: 'center' }}>
                   ➔ Open Group Call Workspace
                 </button>
@@ -1934,661 +566,85 @@ export default function GroupDiscussionPage() {
 
       {step === 'call_grid' && (
         <div className="gd-call-layout">
-          
-          {/* Active Video Call Emulation Grid Component */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            <MeetCallGrid
-              invitedAvatars={invitedAvatars}
-              avatarsList={AVATARS}
-              activeSpeakingAvatar={activeSpeakingAvatar}
-              currentAvatarARoleId={currentAvatarARoleId}
-              currentAvatarBRoleId={currentAvatarBRoleId}
-              isUserTurn={isUserTurn}
-              onUserFinishSpeaking={() => handleUserFinishSpeaking()}
-              onToggleRaiseHand={() => {
-                const nextState = !handRaised;
-                setHandRaised(nextState);
-                handRaisedRef.current = nextState;
-                if (nextState) {
-                  toast.success("Hand Raised", "You will get the floor immediately after the current avatar finishes!");
-                } else {
-                  toast.info("Hand Lowered", "Interruption cancelled.");
-                }
-              }}
-              onInterjectImmediately={handleInterjectImmediately}
-              onEndCall={handleEndCall}
-              onForceExit={handleForceExitCall}
-              hostId={activeHostId}
-              handRaised={handRaised}
-              micActive={micActive}
-              callDurationSeconds={callDuration}
-            />
-          </div>
+          {/* Active Video Call Emulation Grid */}
+          <GdMeetGrid
+            invitedAvatars={invitedAvatars}
+            avatarsList={AVATARS}
+            activeSpeakingAvatar={orch.activeSpeakingAvatar}
+            currentAvatarARoleId={orch.currentAvatarARoleId}
+            currentAvatarBRoleId={orch.currentAvatarBRoleId}
+            isUserTurn={orch.isUserTurn}
+            onUserFinishSpeaking={() => orch.handleUserFinishSpeaking()}
+            onToggleRaiseHand={orch.toggleRaiseHand}
+            onInterjectImmediately={orch.handleInterjectImmediately}
+            onEndCall={orch.handleEndCall}
+            onForceExit={orch.handleForceExitCall}
+            hostId={orch.activeHostId}
+            handRaised={orch.handRaised}
+            micActive={orch.micActive}
+            callDurationSeconds={orch.callDuration}
+          />
 
-          {/* Right Panel: Socratic board presentation chat log */}
-          <div className="gd-chat-panel">
-            <div className="gd-chat-window-header">
-              <div>
-                <span style={{ fontSize: 9, fontFamily: 'var(--font-mono)', color: 'var(--t3)' }}>BOARD OBJECTIVE</span>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <div style={{ fontSize: 11.5, fontWeight: 900, color: 'var(--t1)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: 140 }}>{selectedConcept}</div>
-                  <div className="gd-timer-badge-active">
-                    <span>⏱️</span>
-                    <span>{Math.floor(callDuration / 60).toString().padStart(2, '0')}:{(callDuration % 60).toString().padStart(2, '0')}</span>
-                  </div>
-                </div>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                {candidateTurnTimer !== null && (
-                  <div className="gd-user-turn-badge">
-                    🎙️ USER TURN: {candidateTurnTimer}s
-                  </div>
-                )}
-                {/* GD-UX-02: Export Boardroom Minutes */}
-                <button
-                  onClick={() => exportGdTranscript('markdown')}
-                  style={{
-                    background: 'rgba(var(--accent-teal-rgb),  0.1)',
-                    border: '1px solid var(--teal)',
-                    borderRadius: 6,
-                    padding: '3px 8px',
-                    fontSize: 10,
-                    fontWeight: 800,
-                    color: 'var(--teal)',
-                    cursor: 'pointer'
-                  }}
-                  title="Export discussion transcript as Markdown minutes"
-                >
-                  📥 Minutes
-                </button>
-              </div>
-            </div>
-
-            {/* Message window */}
-            <div style={{ flex: 1, overflowY: 'auto', padding: 12, display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {messages.map((m, idx) => (
-                <div key={idx} className="gd-bubble-container" style={{ alignItems: m.role === 'SDE Candidate' ? 'flex-end' : 'flex-start' }}>
-                  <div className="gd-bubble-meta">
-                    <span>{m.emoji}</span>
-                    <strong>{m.sender}</strong>
-                    <span>({m.role})</span>
-                  </div>
-                  <div 
-                    className="gd-chat-bubble"
-                    style={{
-                      background: m.role === 'SDE Candidate' ? 'var(--accent)' : 'var(--bg3)',
-                      color: m.role === 'SDE Candidate' ? 'white' : 'var(--t1)'
-                    }}
-                  >
-                    {m.content}
-                  </div>
-                </div>
-              ))}
-              {loading && (
-                <div style={{ display: 'flex', gap: 4, alignItems: 'center', padding: 4 }}>
-                  <span style={{ fontSize: 10, color: 'var(--t3)' }}>⚡ Avatars thinking...</span>
-                </div>
-              )}
-              <div ref={bottomRef} />
-            </div>
-
-            {/* Input & Microphone bar (Strict Voice-to-Voice) */}
-            <div style={{ borderTop: '1px solid var(--border)', background: 'var(--bg3)', padding: 10 }}>
-              
-              {/* Reading script prompt card */}
-              {suggestedHelperText && (
-                <div style={{
-                  background: 'rgba(var(--accent-teal-rgb),  0.05)',
-                  border: '1.5px dashed var(--teal)',
-                  borderRadius: 12,
-                  padding: '10px 14px',
-                  marginBottom: 8,
-                  position: 'relative'
-                }} className="animate-fade-in">
-                  <div style={{ fontSize: 9, fontWeight: 900, color: 'var(--teal)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                    <span>📖 SUGGESTED ARGUMENT (READ THIS ALOUD)</span>
-                    <button
-                      onClick={() => setSuggestedHelperText('')}
-                      style={{ background: 'none', border: 'none', color: 'var(--t4)', cursor: 'pointer', fontSize: 11, fontWeight: 900 }}
-                    >
-                      ✕
-                    </button>
-                  </div>
-                  <p style={{ margin: 0, fontSize: 11, color: 'var(--t1)', lineHeight: 1.4 }}>
-                    "{suggestedHelperText}"
-                  </p>
-                </div>
-              )}
-
-              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                <button
-                  type="button"
-                  onClick={toggleMic}
-                  style={{
-                    background: micActive ? 'rgba(var(--danger-rgb),  0.2)' : 'rgba(var(--accent-teal-rgb),  0.1)',
-                    border: `1.5px solid ${micActive ? 'var(--coral)' : 'var(--teal)'}`,
-                    borderRadius: '50%',
-                    width: 34,
-                    height: 34,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    cursor: 'pointer',
-                    fontSize: 14,
-                    transition: 'all 0.2s',
-                    outline: 'none'
-                  }}
-                  title={micActive ? 'Mute Microphone' : 'Unmute Microphone (Speak to Boardroom)'}
-                >
-                  {micActive ? '🎙️' : '🔇'}
-                </button>
-                
-                <div style={{
-                  flex: 1,
-                  padding: '8px 12px',
-                  borderRadius: 16,
-                  border: '1px solid var(--border)',
-                  background: 'var(--bg2)',
-                  color: micActive ? 'var(--teal)' : 'var(--t3)',
-                  fontSize: 10.5,
-                  fontWeight: 800,
-                  fontFamily: 'var(--font-mono)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 6
-                }}>
-                  <span style={{ animation: micActive ? 'pulse 1.5s infinite' : 'none' }}>
-                    {micActive ? '🟢' : '🔴'}
-                  </span>
-                  {micActive ? "LIVE CAPTURE: Speak into your microphone..." : "VOICE TRANSMISSION MUTED"}
-                </div>
-
-                <button
-                  type="button"
-                  onClick={handleSuggestArgument}
-                  style={{
-                    background: 'rgba(var(--accent-teal-rgb),  0.1)',
-                    border: '1.5px solid var(--teal)',
-                    borderRadius: 12,
-                    padding: '8px 12px',
-                    color: 'var(--teal)',
-                    fontSize: 10,
-                    fontWeight: 800,
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    whiteSpace: 'nowrap'
-                  }}
-                  title="Generate a technical talking point helper"
-                >
-                  🎲 Suggest Point
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    const updated = !handRaised;
-                    setHandRaised(updated);
-                    toast.success(
-                      updated ? 'Hand Raised' : 'Hand Lowered',
-                      updated ? 'You will be called to speak next!' : 'Hand speaking request cancelled.'
-                    );
-                  }}
-                  style={{
-                    background: handRaised ? 'rgba(249, 115, 22, 0.15)' : 'rgba(255, 255, 255, 0.05)',
-                    border: `1.5px solid ${handRaised ? 'var(--orange)' : 'var(--border)'}`,
-                    borderRadius: 12,
-                    padding: '8px 12px',
-                    color: handRaised ? 'var(--orange)' : 'var(--t2)',
-                    fontSize: 10,
-                    fontWeight: 800,
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    whiteSpace: 'nowrap'
-                  }}
-                  title="Raise hand to request speaking in the next turn chance"
-                >
-                  {handRaised ? '🙋 Hand Raised' : '🙋 Raise Hand'}
-                </button>
-              </div>
-              {micActive && (
-                <div style={{ fontSize: 8.5, color: 'var(--coral)', textAlign: 'center', marginTop: 4, fontFamily: 'var(--font-mono)' }}>
-                  🔴 MICROPHONE IS RECORDING IN REAL-TIME
-                </div>
-              )}
-            </div>
-          </div>
-
+          {/* Socratic Board Presentation Chat Log & Controls */}
+          <GdTranscriptDrawer
+            selectedConcept={selectedConcept}
+            callDuration={orch.callDuration}
+            candidateTurnTimer={orch.candidateTurnTimer}
+            messages={orch.messages}
+            loading={orch.loading}
+            suggestedHelperText={orch.suggestedHelperText}
+            micActive={orch.micActive}
+            handRaised={orch.handRaised}
+            onClearHelperText={() => orch.setSuggestedHelperText('')}
+            onToggleMic={orch.toggleMic}
+            onSuggestArgument={orch.handleSuggestArgument}
+            onToggleRaiseHand={orch.toggleRaiseHand}
+            onExportTranscript={orch.exportGdTranscript}
+            bottomRef={orch.bottomRef}
+          />
         </div>
       )}
 
-      {/* Avatar Voice & Cast Guide Modal (2nd Button Target) */}
-      {avatarGuideOpen && (
-        <div style={{
-          position: 'fixed',
-          inset: 0,
-          background: 'rgba(0,0,0,0.7)',
-          backdropFilter: 'blur(4px)',
-          zIndex: 99999,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: 20
-        }}>
-          <div style={{
-            background: 'var(--bg2)',
-            border: '1.5px solid var(--border)',
-            borderRadius: 24,
-            width: '100%',
-            maxWidth: 960,
-            maxHeight: '90vh',
-            display: 'flex',
-            flexDirection: 'column',
-            overflow: 'hidden',
-            boxShadow: '0 12px 36px rgba(0,0,0,0.4)',
-            animation: 'fade-in 0.2s'
-          }}>
-            <div style={{
-              padding: '16px 24px',
-              borderBottom: '1px solid var(--border)',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              background: 'var(--bg3)'
-            }}>
-              <div>
-                <h3 style={{ margin: 0, fontSize: 16, fontWeight: 900, color: 'var(--t1)' }}>🤖 Multi-Agent Avatar & Voice Cast Guide</h3>
-                <p style={{ margin: '2px 0 0', fontSize: 11, color: 'var(--t3)' }}>Preview visual profiles, behavioral traits, and listen to neural Kokoro/Kitten voice samples.</p>
-              </div>
-              <button
-                onClick={() => { stopSpeaking(); setAvatarGuideOpen(false); }}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: 'var(--t2)',
-                  fontSize: 20,
-                  cursor: 'pointer',
-                  fontWeight: 'bold'
-                }}
-              >
-                ✕
-              </button>
-            </div>
+      {/* Avatar Voice & Cast Guide Modal */}
+      <GdAvatarGuideModal
+        isOpen={avatarGuideOpen}
+        avatars={AVATARS}
+        currentMentorId={currentMentorId}
+        onClose={() => { stopSpeaking(); setAvatarGuideOpen(false); }}
+        onPlayDemo={handlePlayDemo}
+      />
 
-            <div style={{ flex: 1, overflowY: 'auto', padding: 24, display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 16 }}>
-              {AVATARS.map(avatar => {
-                const isUserActiveMentor = avatar.id === currentMentorId;
-                return (
-                  <div
-                    key={avatar.id}
-                    style={{
-                      background: 'var(--bg3)',
-                      border: '1px solid var(--border)',
-                      borderRadius: 16,
-                      padding: 16,
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: 8,
-                      opacity: isUserActiveMentor ? 0.6 : 1,
-                      position: 'relative'
-                    }}
-                  >
-                    {isUserActiveMentor && (
-                      <span style={{
-                        position: 'absolute',
-                        top: 10,
-                        right: 10,
-                        background: 'var(--accent)',
-                        color: 'white',
-                        fontSize: 8.5,
-                        fontWeight: 900,
-                        padding: '2px 6px',
-                        borderRadius: 6,
-                        fontFamily: 'var(--font-mono)'
-                      }}>
-                        ACTIVE MENTOR
-                      </span>
-                    )}
+      {/* Boardroom History & Analytics Modal */}
+      <GdHistoryModal
+        isOpen={historyModalOpen}
+        historyList={historyListState}
+        selectedItem={selectedHistoryItem}
+        searchQuery={historySearchQuery}
+        domainFilter={historyDomainFilter}
+        onClose={() => { setHistoryModalOpen(false); setSelectedHistoryItem(null); }}
+        onSelectItem={(item) => setSelectedHistoryItem(item)}
+        onSearchChange={(q) => setHistorySearchQuery(q)}
+        onDomainFilterChange={(d) => setHistoryDomainFilter(d)}
+        onExportJSON={handleExportHistoryJSON}
+        onDeleteItem={handleDeleteHistoryItem}
+      />
 
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                      <span style={{ fontSize: 26 }}>{avatar.emoji}</span>
-                      <div>
-                        <h4 style={{ margin: 0, fontSize: 13, fontWeight: 900, color: 'var(--t1)' }}>{avatar.name}</h4>
-                        <span style={{ fontSize: 9.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>{avatar.role}</span>
-                      </div>
-                    </div>
-
-                    <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                      <span style={{
-                        fontSize: 8.5,
-                        background: 'rgba(var(--accent-teal-rgb), 0.1)',
-                        border: '1px solid var(--teal)',
-                        color: 'var(--teal)',
-                        padding: '2px 6px',
-                        borderRadius: 6,
-                        fontWeight: 800,
-                        textTransform: 'uppercase'
-                      }}>
-                        Trait: {avatar.trait}
-                      </span>
-                      <span style={{
-                        fontSize: 8.5,
-                        background: 'rgba(79,70,229,0.1)',
-                        border: '1px solid #4f46e5',
-                        color: '#818cf8',
-                        padding: '2px 6px',
-                        borderRadius: 6,
-                        fontWeight: 800,
-                        fontFamily: 'var(--font-mono)'
-                      }}>
-                        Voice: {avatar.voiceName}
-                      </span>
-                    </div>
-
-                    <p style={{ margin: 0, fontSize: 11, color: 'var(--t2)', flex: 1 }}>{avatar.description}</p>
-
-                    <button
-                      onClick={() => handlePlayDemo(avatar.id, avatar.name)}
-                      className="btn-ghost"
-                      style={{
-                        width: '100%',
-                        padding: '6px',
-                        fontSize: 10.5,
-                        borderRadius: 8,
-                        background: 'var(--bg2)',
-                        border: '1.5px solid var(--border)',
-                        color: 'var(--teal)',
-                        fontWeight: 800,
-                        cursor: 'pointer',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: 6
-                      }}
-                    >
-                      🎙️ Play Neural Voice Sample
-                    </button>
-                  </div>
-                );
-              })}
-            </div>
-
-            <div style={{ padding: '12px 24px', borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'flex-end', background: 'var(--bg3)' }}>
-              <button
-                onClick={() => { stopSpeaking(); setAvatarGuideOpen(false); }}
-                className="btn-primary"
-                style={{ padding: '8px 16px', fontSize: 12, cursor: 'pointer' }}
-              >
-                Close Cast Guide
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* 📜 Boardroom History & Analytics Modal */}
-      {historyModalOpen && (
-        <div className="gd-modal-backdrop animate-fade-in" onClick={(e) => { if (e.target === e.currentTarget) setHistoryModalOpen(false); }}>
-          <div className="gd-modal-content">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border)', paddingBottom: 16 }}>
-              <div>
-                <h3 style={{ margin: 0, fontSize: 18, fontWeight: 900, color: 'var(--t1)', display: 'flex', alignItems: 'center', gap: 8 }}>
-                  📜 Boardroom Discussion History & Analytics
-                </h3>
-                <p style={{ margin: '2px 0 0', fontSize: 11, color: 'var(--t3)' }}>
-                  Review past debate transcripts, performance scores, and identified architectural gaps.
-                </p>
-              </div>
-              <button
-                onClick={() => { setHistoryModalOpen(false); setSelectedHistoryItem(null); }}
-                className="btn-ghost"
-                style={{ padding: '6px 12px', fontSize: 13, border: '1px solid var(--border)', borderRadius: 8, cursor: 'pointer' }}
-              >
-                ✕ Close
-              </button>
-            </div>
-
-            {/* Aggregate Stats Bar */}
-            {historyListState.length > 0 && (
-              <div style={{ display: 'flex', gap: 12 }}>
-                <div className="gd-stat-card">
-                  <span className="gd-stat-value">{historyListState.length}</span>
-                  <span className="gd-stat-label">Total Boardrooms</span>
-                </div>
-                <div className="gd-stat-card">
-                  <span className="gd-stat-value" style={{ color: 'var(--teal)' }}>
-                    {/* Guard against division by zero: a student with no completed
-                        boardrooms previously saw "NaN%" here, because
-                        reduce(...) / 0 evaluates to NaN. Show a neutral dash
-                        until there is at least one session to average. */}
-                    {historyListState.length > 0
-                      ? `${Math.round(historyListState.reduce((acc, curr) => acc + (curr.report?.score || 75), 0) / historyListState.length)}%`
-                      : '—'}
-                  </span>
-                  <span className="gd-stat-label">Avg Performance Score</span>
-                </div>
-                <div className="gd-stat-card">
-                  <span className="gd-stat-value" style={{ color: 'var(--accent)', fontSize: 15, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                    {historyListState[0]?.report?.gapsIdentified?.[0] || 'Lock Contention'}
-                  </span>
-                  <span className="gd-stat-label">Primary Focus Area</span>
-                </div>
-              </div>
-            )}
-
-            {/* Search & Domain Filter Bar */}
-            <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-              <input
-                type="text"
-                placeholder="🔍 Search past topics..."
-                value={historySearchQuery}
-                onChange={(e) => setHistorySearchQuery(e.target.value)}
-                className="gd-form-input"
-                style={{ flex: 2 }}
-              />
-              <select
-                value={historyDomainFilter}
-                onChange={(e) => setHistoryDomainFilter(e.target.value as any)}
-                className="gd-form-input"
-                style={{ flex: 1, padding: '10px 14px' }}
-              >
-                <option value="all">🌐 All Domains</option>
-                <option value="technical">💻 Technical</option>
-                <option value="sales">📈 Sales</option>
-                <option value="business">💼 Business</option>
-              </select>
-            </div>
-
-            {/* History List or Selected Detail View */}
-            {selectedHistoryItem ? (
-              /* Selected Session Detail View */
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 16, background: 'var(--bg3)', border: '1.5px solid var(--border)', borderRadius: 16, padding: 20 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                  <div>
-                    <button
-                      onClick={() => setSelectedHistoryItem(null)}
-                      className="btn-ghost"
-                      style={{ padding: '4px 10px', fontSize: 11, border: '1px solid var(--border)', borderRadius: 6, cursor: 'pointer', marginBottom: 8, fontWeight: 700 }}
-                    >
-                      ← Back to History List
-                    </button>
-                    <h4 style={{ margin: 0, fontSize: 16, fontWeight: 900, color: 'var(--t1)' }}>
-                      {selectedHistoryItem.topic}
-                    </h4>
-                    <p style={{ margin: '4px 0 0', fontSize: 11.5, color: 'var(--t3)' }}>
-                      {selectedHistoryItem.objective} | Date: {selectedHistoryItem.date}
-                    </p>
-                  </div>
-                  <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-                    <div style={{
-                      background: 'rgba(var(--accent-teal-rgb), 0.15)',
-                      border: '1.5px solid var(--teal)',
-                      borderRadius: 12,
-                      padding: '8px 16px',
-                      color: 'var(--teal)',
-                      fontSize: 16,
-                      fontWeight: 900
-                    }}>
-                      Score: {selectedHistoryItem.report?.score || 75}%
-                    </div>
-                    <button
-                      onClick={() => handleExportHistoryJSON(selectedHistoryItem)}
-                      className="btn-ghost"
-                      style={{ padding: '8px 12px', fontSize: 11, border: '1px solid var(--teal)', color: 'var(--teal)', borderRadius: 8, cursor: 'pointer', fontWeight: 800 }}
-                    >
-                      📥 Export JSON
-                    </button>
-                    <button
-                      onClick={() => handleDeleteHistoryItem(selectedHistoryItem.id)}
-                      className="btn-ghost"
-                      style={{ padding: '8px 12px', fontSize: 11, border: '1px solid var(--red)', color: 'var(--red)', borderRadius: 8, cursor: 'pointer', fontWeight: 800 }}
-                    >
-                      🗑️ Delete
-                    </button>
-                  </div>
-                </div>
-
-                {/* Verdict & Highlights */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginTop: 4 }}>
-                  <div style={{ background: 'var(--bg2)', padding: 14, borderRadius: 12, border: '1px solid var(--border)' }}>
-                    <h5 style={{ margin: '0 0 6px', fontSize: 12, fontWeight: 800, color: 'var(--t1)' }}>Evaluation Verdict</h5>
-                    <p style={{ margin: 0, fontSize: 11.5, color: 'var(--t2)', lineHeight: 1.5 }}>
-                      {selectedHistoryItem.report?.verdict}
-                    </p>
-                  </div>
-                  <div style={{ background: 'var(--bg2)', padding: 14, borderRadius: 12, border: '1px solid var(--border)' }}>
-                    <h5 style={{ margin: '0 0 6px', fontSize: 12, fontWeight: 800, color: 'var(--t1)' }}>Identified Gaps</h5>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                      {(selectedHistoryItem.report?.gapsIdentified || []).map((gap: string, idx: number) => (
-                        <span key={idx} style={{ fontSize: 11, color: 'var(--coral)', fontWeight: 700 }}>
-                          🚨 {gap}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Searchable Transcript Log */}
-                <div>
-                  <h5 style={{ margin: '8px 0 8px', fontSize: 12, fontWeight: 800, color: 'var(--t1)' }}>📜 Session Transcript</h5>
-                  <div style={{
-                    maxHeight: 260,
-                    overflowY: 'auto',
-                    background: '#090d16',
-                    border: '1px solid var(--border)',
-                    borderRadius: 12,
-                    padding: 14,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: 10
-                  }}>
-                    {(selectedHistoryItem.transcript || []).map((msg: any, idx: number) => (
-                      <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: msg.role === 'SDE Candidate' ? 'flex-end' : 'flex-start' }}>
-                        <div style={{ display: 'flex', gap: 4, fontSize: 8.5, color: 'var(--t3)', marginBottom: 2 }}>
-                          <span>{msg.emoji || '💬'}</span>
-                          <strong>{msg.sender}</strong>
-                          <span>({msg.role})</span>
-                        </div>
-                        <div style={{
-                          padding: '8px 12px',
-                          borderRadius: 10,
-                          fontSize: 11.5,
-                          background: msg.role === 'SDE Candidate' ? 'var(--accent)' : 'var(--bg2)',
-                          color: msg.role === 'SDE Candidate' ? 'white' : 'var(--t1)',
-                          maxWidth: '85%',
-                          wordBreak: 'break-word'
-                        }}>
-                          {msg.content}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ) : (
-              /* History Records List */
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10, maxHeight: 380, overflowY: 'auto' }}>
-                {(() => {
-                  const filtered = historyListState.filter(item => {
-                    const matchesSearch = !historySearchQuery.trim() || item.topic.toLowerCase().includes(historySearchQuery.toLowerCase()) || (item.objective || '').toLowerCase().includes(historySearchQuery.toLowerCase());
-                    const matchesDomain = historyDomainFilter === 'all' || item.domain === historyDomainFilter;
-                    return matchesSearch && matchesDomain;
-                  });
-
-                  if (filtered.length === 0) {
-                    return (
-                      <div style={{ padding: 30, textAlign: 'center', color: 'var(--t3)', fontSize: 12 }}>
-                        No boardroom history records found matching your filters.
-                      </div>
-                    );
-                  }
-
-                  return filtered.map((record) => (
-                    <div
-                      key={record.id}
-                      onClick={() => setSelectedHistoryItem(record)}
-                      className="gd-history-card"
-                    >
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                          <span style={{ fontSize: 13, fontWeight: 900, color: 'var(--t1)' }}>
-                            {record.topic}
-                          </span>
-                          {record.domain && (
-                            <span style={{ fontSize: 8.5, background: 'rgba(var(--accent-teal-rgb), 0.1)', border: '1px solid var(--teal)', padding: '2px 6px', borderRadius: 4, color: 'var(--teal)', fontFamily: 'var(--font-mono)', textTransform: 'uppercase', fontWeight: 800 }}>
-                              {record.domain}
-                            </span>
-                          )}
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                          <span style={{ fontSize: 12, fontWeight: 900, color: (record.report?.score || 75) >= 80 ? 'var(--green)' : 'var(--orange)' }}>
-                            {record.report?.score || 75}%
-                          </span>
-                          <button
-                            type="button"
-                            onClick={(e) => { e.stopPropagation(); setSelectedHistoryItem(record); }}
-                            className="gd-review-btn"
-                          >
-                            🔍 View Recap
-                          </button>
-                          <button
-                            type="button"
-                            onClick={(e) => { e.stopPropagation(); handleDeleteHistoryItem(record.id); }}
-                            style={{ background: 'none', border: 'none', color: 'var(--red)', fontSize: 12, cursor: 'pointer', opacity: 0.7 }}
-                          >
-                            🗑️
-                          </button>
-                        </div>
-                      </div>
-                      <p style={{ margin: 0, fontSize: 11, color: 'var(--t3)' }}>
-                        {record.objective || 'General architectural debate'} | Date: {record.date}
-                      </p>
-                    </div>
-                  ));
-                })()}
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
-      {gdReport && (
-        <div ref={reportRef}>
+      {/* Report Generation View */}
+      {orch.gdReport && (
+        <div ref={orch.reportRef}>
           <GdReport
-            report={gdReport}
-            transcript={messages}
+            report={orch.gdReport}
+            transcript={orch.messages}
             onRestart={() => {
               setStep('create_room');
-              setGdReport(null);
+              orch.setGdReport(null);
               setInvitedAvatars([]);
-              setMessages([]);
+              orch.setMessages([]);
               setDomain('technical');
             }}
           />
         </div>
       )}
-
     </div>
   );
 }

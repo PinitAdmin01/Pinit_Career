@@ -1,6 +1,6 @@
 /**
  * PinIT Careers AI Voice System - Smart Hybrid Voice Router
- * IndexedDB cache → Render FastAPI neural TTS (edge-tts / ONNX). No WebSpeech.
+ * IndexedDB cache → Render FastAPI neural TTS (edge-tts / ONNX) → WebSpeech fallback.
  */
 
 import { voiceCacheDB, computeVoiceCacheKey } from "./voiceCacheDB";
@@ -38,19 +38,21 @@ function healthUrlFromTts(endpoint: string): string {
 
 let isServerWarming = false;
 let isServerWarm = false;
+let isCloudDisabled = false;
 let lastWarmAt = 0;
 let activeWakePromise: Promise<boolean> | null = null;
 const inFlightCloudRequests = new Map<string, Promise<{ audioBuffer: ArrayBuffer; durationSec: number; engine?: string }>>();
 
-/** Free-tier Render sleeps ~15m — keep a generous client timeout. */
-const FREE_TIER_TIMEOUT_MS = 90_000;
-const PREMIUM_TIMEOUT_MS = 25_000;
+/** Free-tier Render sleeps ~15m — keep a fast failover timeout so the UI never freezes. */
+const FREE_TIER_TIMEOUT_MS = 2_000;
+const PREMIUM_TIMEOUT_MS = 10_000;
 
 /**
  * Non-blocking / blocking wake-up ping for Render Free Tier.
  * Uses silent mode to prevent Chrome CORS red errors during container boot.
  */
 export async function pingRenderServer(waitForWarm = false): Promise<boolean> {
+  if (isCloudDisabled) return false;
   if (isServerWarm && Date.now() - lastWarmAt < 10 * 60 * 1000) return true;
   if (activeWakePromise) return activeWakePromise;
 
@@ -58,7 +60,7 @@ export async function pingRenderServer(waitForWarm = false): Promise<boolean> {
     isServerWarming = true;
     const endpoint = DEFAULT_CLOUD_ENDPOINT;
     const health = healthUrlFromTts(endpoint);
-    const timeoutMs = waitForWarm ? FREE_TIER_TIMEOUT_MS : 8_000;
+    const timeoutMs = Math.min(FREE_TIER_TIMEOUT_MS, 2_000);
 
     const tryPing = async (mode: "cors" | "no-cors") => {
       const controller = new AbortController();
@@ -66,6 +68,11 @@ export async function pingRenderServer(waitForWarm = false): Promise<boolean> {
       try {
         const res = await fetch(health, { method: "GET", mode, signal: controller.signal });
         clearTimeout(timer);
+        if (res.status === 404) {
+          isCloudDisabled = true;
+          console.warn("[SmartVoiceRouter] Voice service health returned 404. Disabling cloud voice for this session.");
+          return false;
+        }
         if (mode === "no-cors" || res.ok) {
           isServerWarm = true;
           lastWarmAt = Date.now();
@@ -80,7 +87,7 @@ export async function pingRenderServer(waitForWarm = false): Promise<boolean> {
 
     // Try standard CORS ping first, silent no-cors fallback if container is booting
     let ok = await tryPing("cors");
-    if (!ok) {
+    if (!ok && !isCloudDisabled) {
       ok = await tryPing("no-cors");
     }
 
@@ -154,24 +161,29 @@ export async function synthesizeVoice(
     void pingRenderServer(false);
   }
 
-  const cloudResult = await fetchCloudFastAPI(endpoint, text, voice, speed, options.bypassCache);
-  const latencyMs = Math.round(performance.now() - startTime);
+  try {
+    const cloudResult = await fetchCloudFastAPI(endpoint, text, voice, speed, options.bypassCache);
+    const latencyMs = Math.round(performance.now() - startTime);
 
-  if (!options.bypassCache && cloudResult.audioBuffer && cloudResult.audioBuffer.byteLength > 800) {
-    await voiceCacheDB.saveAudio(cacheKey, text, voice, speed, cloudResult.audioBuffer);
+    if (!options.bypassCache && cloudResult.audioBuffer && cloudResult.audioBuffer.byteLength > 800) {
+      await voiceCacheDB.saveAudio(cacheKey, text, voice, speed, cloudResult.audioBuffer);
+    }
+
+    console.log(
+      `[SmartVoiceRouter] Cloud TTS ok (${latencyMs}ms, engine=${cloudResult.engine || "unknown"})`
+    );
+    return {
+      audioBuffer: cloudResult.audioBuffer,
+      source: "CLOUD_FASTAPI",
+      latencyMs,
+      durationSec: cloudResult.durationSec,
+      cacheKey,
+      engine: cloudResult.engine,
+    };
+  } catch (renderError) {
+    console.warn('[SmartVoiceRouter] Render Cloud TTS failed:', renderError);
+    throw renderError;
   }
-
-  console.log(
-    `[SmartVoiceRouter] Cloud TTS ok (${latencyMs}ms, engine=${cloudResult.engine || "unknown"})`
-  );
-  return {
-    audioBuffer: cloudResult.audioBuffer,
-    source: "CLOUD_FASTAPI",
-    latencyMs,
-    durationSec: cloudResult.durationSec,
-    cacheKey,
-    engine: cloudResult.engine,
-  };
 }
 
 function estimateDuration(text: string, speed: number): number {
@@ -242,11 +254,21 @@ async function fetchCloudFastAPI(
       }
     };
 
+    if (isCloudDisabled) {
+      throw new Error("Cloud TTS disabled for session (health check unavailable)");
+    }
+
     try {
       return await attempt(targetUrl);
     } catch (primaryErr: any) {
+      if (isCloudDisabled) {
+        throw primaryErr;
+      }
       console.warn("[SmartVoiceRouter] Primary TTS attempt failed:", primaryErr?.message || primaryErr, "Retrying with warm ping...");
-      await pingRenderServer(true);
+      const warm = await pingRenderServer(true);
+      if (!warm || isCloudDisabled) {
+        throw primaryErr;
+      }
       return await attempt(DEFAULT_CLOUD_ENDPOINT);
     } finally {
       inFlightCloudRequests.delete(requestKey);

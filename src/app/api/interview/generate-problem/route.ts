@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { sanitizeLLMOutput } from '@/lib/sanitizeLLM';
+import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
+import { recordActiveLiveInterview } from '@/lib/interview/activeSessionRegistry';
 
 export interface DynamicProblemRequest {
   topic: string;
@@ -23,6 +25,7 @@ export interface DynamicProblemResponse {
   testCases: Array<{
     input: string;
     expectedOutput: string;
+    output?: string;
     name: string;
   }>;
   suggestedWhiteboardNodes: Array<{
@@ -54,28 +57,31 @@ function generateSemanticProblemFallback(
   if (isNonTech) {
     return {
       title: `${cleanTopic} Quantitative Metric & Feasibility Evaluator`,
-      description: `Write a business calculation function '${safeFnName}(primary_metric, secondary_metric, volume)' to analyze operational throughput and return a feasibility ratio.`,
+      description: `Write a business calculation function '${safeFnName}(primary_metric, secondary_metric)' that evaluates whether the efficiency ratio meets or exceeds 1.25 without dividing by zero. Return boolean true if viable, false otherwise.`,
       functionName: safeFnName,
       starterCode: {
-        python: `def ${safeFnName}(primary_metric, secondary_metric, volume):\n    # Calculate domain efficiency ratio\n    ratio = (primary_metric / secondary_metric) if secondary_metric > 0 else 0\n    is_viable = ratio >= 1.25 and volume > 0\n    return {\n        "ratio": round(ratio, 2),\n        "volume": volume,\n        "status": "Viable" if is_viable else "Review Required"\n    }`,
-        javascript: `function ${jsFnName}(primaryMetric, secondaryMetric, volume) {\n    const ratio = secondaryMetric > 0 ? (primaryMetric / secondaryMetric) : 0;\n    const isViable = ratio >= 1.25 && volume > 0;\n    return {\n        ratio: Number(ratio.toFixed(2)),\n        volume,\n        status: isViable ? "Viable" : "Review Required"\n    };\n}`,
-        java: `public class Solution {\n    public String ${jsFnName}(double primary, double secondary, int volume) {\n        double ratio = secondary > 0 ? (primary / secondary) : 0;\n        return (ratio >= 1.25 && volume > 0) ? "Viable" : "Review Required";\n    }\n}`,
-        sql: `SELECT item_name, SUM(primary_metric) as total_metric, AVG(secondary_metric) as avg_secondary,\n (SUM(primary_metric) / NULLIF(AVG(secondary_metric),0)) as efficiency_ratio\nFROM domain_records GROUP BY item_name;`
+        python: `def ${safeFnName}(primary_metric, secondary_metric):\n    # TODO: Return True if primary / secondary >= 1.25, handling zero division\n    return False`,
+        javascript: `function ${jsFnName}(primaryMetric, secondaryMetric) {\n    // TODO: Return true if primary / secondary >= 1.25, handling zero division\n    return false;\n}`,
+        java: `public class Solution {\n    public boolean ${jsFnName}(double primary, double secondary) {\n        // TODO: Return true if primary / secondary >= 1.25\n        return false;\n    }\n}`,
+        sql: `SELECT CASE WHEN secondary_metric > 0 AND (primary_metric / secondary_metric) >= 1.25 THEN 1 ELSE 0 END as is_viable FROM metrics;`
       },
       testCases: [
         {
-          input: 'primary_metric=150, secondary_metric=100, volume=50',
-          expectedOutput: 'Viable (Ratio: 1.50)',
+          input: '(150, 100)',
+          expectedOutput: 'true',
+          output: 'true',
           name: 'Standard Efficiency Threshold Check'
         },
         {
-          input: 'primary_metric=80, secondary_metric=100, volume=20',
-          expectedOutput: 'Review Required (Ratio: 0.80)',
+          input: '(80, 100)',
+          expectedOutput: 'false',
+          output: 'false',
           name: 'Sub-Optimal Ratio Check'
         },
         {
-          input: 'primary_metric=0, secondary_metric=0, volume=0',
-          expectedOutput: 'Handled Zero Division Safe Check',
+          input: '(0, 0)',
+          expectedOutput: 'false',
+          output: 'false',
           name: 'Zero Boundary Case'
         }
       ],
@@ -92,28 +98,31 @@ function generateSemanticProblemFallback(
   // Technical Domain Problem Generator
   return {
     title: `${cleanTopic} Algorithmic Pipeline & Data Optimizer`,
-    description: `Implement an optimized function '${safeFnName}(items, threshold)' that filters, processes, and evaluates dataset constraints in linear O(N) time complexity.`,
+    description: `Implement an optimized function '${safeFnName}(items, threshold)' that returns the count of items meeting or exceeding the given threshold in linear O(N) time.`,
     functionName: safeFnName,
     starterCode: {
-      python: `def ${safeFnName}(items, threshold):\n    # Process items matching domain constraints in O(N)\n    valid_records = [x for x in items if x >= threshold]\n    total_sum = sum(valid_records)\n    avg_val = (total_sum / len(valid_records)) if valid_records else 0\n    return {\n        "count": len(valid_records),\n        "average": round(avg_val, 2),\n        "is_optimal": len(valid_records) > 0\n    }`,
-      javascript: `function ${jsFnName}(items, threshold) {\n    const valid = items.filter(x => x >= threshold);\n    const sum = valid.reduce((acc, curr) => acc + curr, 0);\n    const avg = valid.length > 0 ? (sum / valid.length) : 0;\n    return {\n        count: valid.length,\n        average: Number(avg.toFixed(2)),\n        isOptimal: valid.length > 0\n    };\n}`,
-      java: `import java.util.*;\npublic class Solution {\n    public boolean ${jsFnName}(int[] items, int threshold) {\n        for (int item : items) {\n            if (item >= threshold) return true;\n        }\n        return false;\n    }\n}`,
-      sql: `SELECT entity_id, COUNT(*) as valid_records, AVG(metric_val) as avg_metric\nFROM performance_logs WHERE metric_val >= 50 GROUP BY entity_id;`
+      python: `def ${safeFnName}(items, threshold):\n    # TODO: Return count of items >= threshold\n    return 0`,
+      javascript: `function ${jsFnName}(items, threshold) {\n    // TODO: Return count of items >= threshold\n    return 0;\n}`,
+      java: `import java.util.*;\npublic class Solution {\n    public int ${jsFnName}(int[] items, int threshold) {\n        // TODO: Return count of items >= threshold\n        return 0;\n    }\n}`,
+      sql: `SELECT COUNT(*) as valid_count FROM domain_records WHERE metric_val >= 50;`
     },
     testCases: [
       {
-        input: 'items=[10, 50, 75, 100], threshold=50',
-        expectedOutput: 'count=3, average=75.0, is_optimal=True',
+        input: '([10, 50, 75, 100], 50)',
+        expectedOutput: '3',
+        output: '3',
         name: 'Standard Filtering Test'
       },
       {
-        input: 'items=[10, 20, 30], threshold=100',
-        expectedOutput: 'count=0, average=0.0, is_optimal=False',
+        input: '([10, 20, 30], 100)',
+        expectedOutput: '0',
+        output: '0',
         name: 'Empty Matches Boundary Test'
       },
       {
-        input: 'items=[], threshold=10',
-        expectedOutput: 'count=0, average=0.0, is_optimal=False',
+        input: '([], 10)',
+        expectedOutput: '0',
+        output: '0',
         name: 'Empty Input Dataset Test'
       }
     ],
@@ -128,6 +137,10 @@ function generateSemanticProblemFallback(
 }
 
 export async function POST(req: Request) {
+  const ip = getClientIp(req);
+  const rl = checkRateLimit(`interview_gen_problem_${ip}`, { limit: 10, windowMs: 3_600_000 });
+  if (!rl.allowed) return NextResponse.json({ error: 'RATE_LIMIT' }, { status: 429 });
+
   console.log('[Dynamic Problem API] Incoming problem generation request received');
 
   try {
@@ -147,6 +160,8 @@ export async function POST(req: Request) {
       projectContext = ''
     } = body;
 
+    recordActiveLiveInterview(userId, topic, 'round2_coding');
+
     console.log(`[Dynamic Problem API] Generating dynamic challenge for: "${topic}" | Stream: ${domainStream} | Language: ${language} | User: ${userId}`);
 
     const stream = domainStream === 'non_tech' ? 'non_tech' : 'tech';
@@ -160,8 +175,8 @@ Generate:
 1. Title: Professional challenge title specific to ${topic}.
 2. Description: Real-world problem statement with constraints and expected return format.
 3. functionName: Pythonic snake_case function identifier (e.g. "calculate_latency", "evaluate_portfolio").
-4. starterCode: Complete boilerplate implementations in python, javascript, java, and sql.
-5. testCases: Exactly 3 deterministic unit test cases (Standard, Edge/Boundary, Zero/Empty).
+4. starterCode: Empty function signatures/stubs with parameter comments and a TODO placeholder. Strictly DO NOT implement or leak the solution algorithm.
+5. testCases: Exactly 3 deterministic unit test cases (Standard, Edge/Boundary, Zero/Empty). "input" MUST be a valid function argument tuple e.g. "([1, 2, 3], 5)" and "expectedOutput" MUST be a machine-parsable literal (e.g. "3", "true", "42") without descriptive prose.
 6. suggestedWhiteboardNodes: 4 recommended architecture/workflow nodes for this topic.
 
 Return ONLY valid JSON matching this schema:

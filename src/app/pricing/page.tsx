@@ -1,12 +1,20 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import PublicNavbar from '@/components/nav/PublicNavbar';
 import PublicFooter from '@/components/landing/PublicFooter';
 import '@/styles/landing.css';
+import { api } from '@/lib/api/client';
+import { useAuth } from '@/lib/context/AuthContext';
+import { toast } from '@/lib/store/useAppStore';
+import { openRazorpayCheckout } from '@/lib/razorpay';
 
 export default function PublicPricingPage() {
+  const router = useRouter();
+  const { user } = useAuth();
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const faqs = [
@@ -27,6 +35,83 @@ export default function PublicPricingPage() {
       a: 'Yes! Recruiters access pre-assessed talent portfolios verified by automated AST code audits, Elo rating in Code Wars, and SHA-256 signed skill credentials with a 95%+ AI match precision.'
     }
   ];
+
+  const handleProCheckout = async () => {
+    if (!user) {
+      toast.info('Authentication Required', 'Please log in to upgrade to Pro Career Accelerator.');
+      router.push('/login?redirect=/pricing');
+      return;
+    }
+
+    setCheckoutLoading(true);
+    try {
+      const orderRes = await api.post<{
+        orderId: string;
+        amount: number;
+        currency: string;
+        keyId: string;
+        isMock?: boolean;
+      }>('/api/payment/create-order', {
+        planId: 'pro',
+      });
+
+      if (orderRes.isMock) {
+        toast.info('Sandbox Checkout', 'Simulating developer mode order completion for ₹499...');
+        try {
+          const verifyRes = await api.post<{ ok: boolean; message?: string }>('/api/payment/verify', {
+            razorpay_order_id: orderRes.orderId,
+            razorpay_payment_id: `pay_mock_${Date.now()}`,
+            razorpay_signature: 'sig_mock_dev',
+            planId: 'pro',
+          });
+          if (verifyRes.ok) {
+            toast.success('🎉 Pro Pass Activated!', verifyRes.message || 'Welcome to Pro Career Accelerator!');
+            router.push('/dashboard');
+          }
+        } catch (vErr: any) {
+          toast.error('Simulation Failed', vErr.message || 'Could not verify sandbox order.');
+        }
+        return;
+      }
+
+      await openRazorpayCheckout({
+        key: orderRes.keyId,
+        amount: orderRes.amount || 49900,
+        currency: orderRes.currency || 'INR',
+        name: 'PinIT Career OS',
+        description: 'PRO Career Accelerator — ₹499/mo',
+        order_id: orderRes.orderId,
+        prefill: {
+          name: user.displayName || undefined,
+          email: user.email || undefined,
+        },
+        handler: async (response) => {
+          try {
+            const verifyRes = await api.post<{ ok: boolean; message?: string }>('/api/payment/verify', {
+              ...response,
+              planId: 'pro',
+            });
+            if (verifyRes.ok) {
+              toast.success('🎉 Pro Pass Activated!', verifyRes.message || 'Welcome to Pro Career Accelerator!');
+              router.push('/dashboard');
+            } else {
+              toast.error('Verification Pending', 'Payment processed. Finalizing Pro Pass activation.');
+            }
+          } catch (err: any) {
+            toast.error('Verification Error', err.message || 'Could not verify transaction with server.');
+          }
+        },
+        theme: {
+          color: '#6366f1',
+        },
+      });
+    } catch (err: any) {
+      console.error('Pro checkout error:', err);
+      toast.error('Checkout Failed', err.message || 'Could not initiate ₹499 order. Please try again.');
+    } finally {
+      setCheckoutLoading(false);
+    }
+  };
 
   return (
     <div className="landing-page" style={{ position: 'relative', overflowX: 'hidden' }}>
@@ -127,9 +212,24 @@ export default function PublicPricingPage() {
                 </ul>
               </div>
 
-              <Link href="/onboarding" className="pc-btn-primary" style={{ width: '100%', justifyContent: 'center', textAlign: 'center' }}>
-                Unlock Pro Pass →
-              </Link>
+              <button
+                type="button"
+                onClick={handleProCheckout}
+                disabled={checkoutLoading}
+                className="pc-btn-primary"
+                style={{
+                  width: '100%',
+                  justifyContent: 'center',
+                  textAlign: 'center',
+                  cursor: checkoutLoading ? 'not-allowed' : 'pointer',
+                  opacity: checkoutLoading ? 0.7 : 1,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                }}
+              >
+                {checkoutLoading ? 'Initiating Checkout...' : 'Unlock Pro Pass (₹499) →'}
+              </button>
             </div>
 
             {/* Tier 3: Institutional Campus Pass */}

@@ -2,6 +2,8 @@ import { supabase } from '@/lib/supabaseClient';
 import { tableExists as checkSupabaseAvailable } from '@/lib/services/supabaseTable';
 import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
 
+import crypto from 'crypto';
+
 const DB_FILE = 'src/lib/data/documents_db.json';
 
 export interface DocumentRequest {
@@ -11,10 +13,20 @@ export interface DocumentRequest {
   description: string;
   status: string;
   date: string;
+  major?: string;
+  year?: string;
+  verificationCode?: string;
 }
 
-function mapRequestToDocument(r: DocumentRequest) {
+function generateVerificationCode(id: string, studentId: string): string {
+  const hash = crypto.createHash('sha256').update(`${id}:${studentId}`).digest('hex').slice(0, 10).toUpperCase();
+  return `DOC-VER-${hash}`;
+}
+
+function mapRequestToDocument(r: DocumentRequest, studentInfo?: { major?: string; year?: string }) {
   const issued = r.status === 'Approved' || r.status === 'issued' || r.status === 'Issued';
+  const major = r.major || studentInfo?.major || 'Computer Science & Engineering';
+  const year = r.year || studentInfo?.year || 'Class of 2026';
   return {
     id: r.id,
     type: r.category,
@@ -22,9 +34,9 @@ function mapRequestToDocument(r: DocumentRequest) {
     status: issued ? 'Issued' as const : 'Pending Approval' as const,
     dateRequested: r.date,
     dateIssued: issued ? r.date : '',
-    verificationCode: issued ? `V-${r.id.slice(-4)}` : '',
-    major: '—',
-    year: '—',
+    verificationCode: r.verificationCode || generateVerificationCode(r.id, r.studentId),
+    major,
+    year,
   };
 }
 
@@ -72,8 +84,19 @@ export const documentsService = {
   async getStudentDocuments(studentId: string) {
     const isSupabaseAvailable = await checkSupabaseAvailable('document_requests');
     let requests: DocumentRequest[] = [];
+    let studentInfo = { major: 'Computer Science & Engineering', year: 'Class of 2026' };
 
     if (isSupabaseAvailable) {
+      try {
+        const { data: user } = await supabase.from('users').select('department, branch, batch_year, semester').eq('id', studentId).maybeSingle();
+        if (user) {
+          studentInfo = {
+            major: user.department || user.branch || 'Computer Science & Engineering',
+            year: user.batch_year ? `Batch of ${user.batch_year}` : (user.semester ? `Semester ${user.semester}` : 'Class of 2026')
+          };
+        }
+      } catch {}
+
       try {
         const { data } = await supabase.from('document_requests').select('*').eq('student_id', studentId);
         requests = (data || []).map(r => ({
@@ -83,6 +106,9 @@ export const documentsService = {
           description: r.description,
           status: r.status,
           date: r.created_at?.split('T')[0] || new Date().toISOString().split('T')[0],
+          major: r.major,
+          year: r.year,
+          verificationCode: r.verification_code
         }));
       } catch (err) {
         console.warn('Supabase read failed, falling back to local database:', err);
@@ -94,7 +120,7 @@ export const documentsService = {
       requests = (db.requests || []).filter((r: DocumentRequest) => r.studentId === studentId);
     }
 
-    const documents = requests.map(mapRequestToDocument);
+    const documents = requests.map(r => mapRequestToDocument(r, studentInfo));
     return { documents, stats: summarizeDocuments(documents) };
   },
 
@@ -121,16 +147,20 @@ export const documentsService = {
     return { ok: false };
   },
 
-  async requestDoc(studentId: string, type: string, purpose: string) {
+  async requestDoc(studentId: string, type: string, purpose: string, major?: string, year?: string) {
     const isSupabaseAvailable = await checkSupabaseAvailable('document_requests');
-    const id = `DOC-${Date.now()}`;
-    const row = {
+    const id = `DOC-${Date.now()}-${crypto.randomBytes(3).toString('hex').toUpperCase()}`;
+    const studentMajor = major || 'Computer Science & Engineering';
+    const studentYear = year || 'Class of 2026';
+    const row: DocumentRequest = {
       id,
       studentId,
-      category: type || 'Bonafide',
+      category: type || 'Bonafide Certificate',
       description: purpose || 'Verification',
       status: 'pending',
       date: new Date().toISOString().split('T')[0],
+      major: studentMajor,
+      year: studentYear
     };
     if (isSupabaseAvailable) {
       try {
@@ -153,6 +183,10 @@ export const documentsService = {
     db.requests.unshift(row);
     await writeLocalDb(db);
     const document = mapRequestToDocument(row);
-    return { ok: true, request: row, document };
+    return { ok: true, request: row, document, doc: document };
+  },
+
+  async requestDocument(studentId: string, type: string, purpose: string, major?: string, year?: string) {
+    return this.requestDoc(studentId, type, purpose, major, year);
   },
 };

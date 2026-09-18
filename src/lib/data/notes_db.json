@@ -1,3 +1,125 @@
 {
-  "notes": []
+  "notes": [
+    {
+      "id": "NOTE-1789647486749-F6BF5B",
+      "title": "Physics Note 2026",
+      "subject": "PHYS",
+      "semester": "1",
+      "batch": "B2026_1789647486746",
+      "description": "Author: Prof Y",
+      "fileName": "Physics_Note_2026.pdf",
+      "fileSize": 1048576,
+      "fileUrl": "https://example.com/phys.pdf"
+    },
+    {
+      "id": "NOTE-1789647486746-4C548F",
+      "title": "Math Note 2025",
+      "subject": "MATH",
+      "semester": "1",
+      "batch": "B2025_1789647486746",
+      "description": "Author: Prof X",
+      "fileName": "Math_Note_2025.pdf",
+      "fileSize": 1048576,
+      "fileUrl": "https://example.com/math.pdf"
+    },
+    {
+      "id": "NOTE-1789594848951-A10DC2",
+      "title": "Physics Note 2026",
+      "subject": "PHYS",
+      "semester": "1",
+      "batch": "B2026_1789594848949",
+      "description": "Author: Prof Y",
+      "fileName": "Physics_Note_2026.pdf",
+      "fileSize": 1048576,
+      "fileUrl": "https://example.com/phys.pdf"
+    },
+    {
+      "id": "NOTE-1789594848950-2CCA35",
+      "title": "Math Note 2025",
+      "subject": "MATH",
+      "semester": "1",
+      "batch": "B2025_1789594848949",
+      "description": "Author: Prof X",
+      "fileName": "Math_Note_2025.pdf",
+      "fileSize": 1048576,
+      "fileUrl": "https://example.com/math.pdf"
+    },
+    {
+      "id": "NOTE-1789594824979-D60CDA",
+      "title": "Physics Note 2026",
+      "subject": "PHYS",
+      "semester": "1",
+      "batch": "B2026_1789594824973",
+      "description": "Author: Prof Y",
+      "fileName": "Physics_Note_2026.pdf",
+      "fileSize": 1048576,
+      "fileUrl": "https://example.com/phys.pdf"
+    },
+    {
+      "id": "NOTE-1789594824974-2BDD09",
+      "title": "Math Note 2025",
+      "subject": "MATH",
+      "semester": "1",
+      "batch": "B2025_1789594824973",
+      "description": "Author: Prof X",
+      "fileName": "Math_Note_2025.pdf",
+      "fileSize": 1048576,
+      "fileUrl": "https://example.com/math.pdf"
+    },
+    {
+      "id": "NOTE-1789594780766-6130B2",
+      "title": "Physics Note 2026",
+      "subject": "PHYS",
+      "semester": "1",
+      "batch": "B2026_1789594780764",
+      "description": "Author: Prof Y",
+      "fileName": "Physics_Note_2026.pdf",
+      "fileSize": 1048576,
+      "fileUrl": "https://example.com/phys.pdf"
+    },
+    {
+      "id": "NOTE-1789594780764-4A3F23",
+      "title": "Math Note 2025",
+      "subject": "MATH",
+      "semester": "1",
+      "batch": "B2025_1789594780764",
+      "description": "Author: Prof X",
+      "fileName": "Math_Note_2025.pdf",
+      "fileSize": 1048576,
+      "fileUrl": "https://example.com/math.pdf"
+    },
+    {
+      "id": "NOTE-001",
+      "title": "Data Structures & Algorithms - Module 1 Notes",
+      "subject": "Data Structures",
+      "semester": "Semester 3",
+      "batch": "Batch 2024-A",
+      "description": "Prof. Priya",
+      "fileName": "dsa_module1_notes.pdf",
+      "fileSize": 2516582,
+      "fileUrl": "/notes/dsa_module1_notes.pdf"
+    },
+    {
+      "id": "NOTE-002",
+      "title": "Neural Networks & Deep Learning Slides",
+      "subject": "Artificial Intelligence",
+      "semester": "Semester 5",
+      "batch": "Batch 2024-A",
+      "description": "Dr. Meera Sen",
+      "fileName": "neural_networks_slides.pptx",
+      "fileSize": 5347737,
+      "fileUrl": "/notes/neural_networks_slides.pptx"
+    },
+    {
+      "id": "NOTE-003",
+      "title": "Database Systems & SQL Lab Manual",
+      "subject": "DBMS",
+      "semester": "Semester 4",
+      "batch": "Batch 2024-A",
+      "description": "Mr. Rohan",
+      "fileName": "dbms_sql_lab_manual.docx",
+      "fileSize": 1887436,
+      "fileUrl": "/notes/dbms_sql_lab_manual.docx"
+    }
+  ]
 }

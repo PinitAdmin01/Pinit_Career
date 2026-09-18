@@ -1,15 +1,17 @@
 'use client';
-import { useState, Suspense } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { api } from '@/lib/api/client';
 import { supabase } from '@/lib/supabaseClient';
 
 function ResetForm() {
   const searchParams = useSearchParams();
   const router       = useRouter();
-  const token        = searchParams.get('token') || '';
+  const tokenParam   = searchParams.get('token') || '';
 
+  const [hasRecoverySession, setHasRecoverySession] = useState(false);
   const [email,     setEmail]     = useState('');
   const [password,  setPassword]  = useState('');
   const [confirm,   setConfirm]   = useState('');
@@ -17,6 +19,39 @@ function ResetForm() {
   const [sent,      setSent]      = useState(false);
   const [success,   setSuccess]   = useState(false);
   const [error,     setError]     = useState('');
+
+  useEffect(() => {
+    // Show new-password form if #access_token is present in window.location.hash
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash || '';
+      if (hash.includes('access_token') || hash.includes('type=recovery')) {
+        setHasRecoverySession(true);
+      }
+    }
+
+    // Listen for Supabase PASSWORD_RECOVERY events via supabase.auth.onAuthStateChange
+    if (supabase?.auth) {
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        if (session) {
+          if (tokenParam || (typeof window !== 'undefined' && window.location.hash.includes('access_token'))) {
+            setHasRecoverySession(true);
+          }
+        }
+      }).catch(() => {});
+
+      const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+        if (event === 'PASSWORD_RECOVERY' || (event === 'SIGNED_IN' && session)) {
+          setHasRecoverySession(true);
+        }
+      });
+
+      return () => {
+        subscription?.unsubscribe();
+      };
+    }
+  }, [tokenParam]);
+
+  const showNewPasswordForm = Boolean(tokenParam || hasRecoverySession);
 
   async function requestReset(e: React.FormEvent) {
     e.preventDefault();
@@ -43,13 +78,16 @@ function ResetForm() {
     setLoading(true); setError('');
     try {
       if (supabase && supabase.auth) {
-        await supabase.auth.updateUser({ password });
+        const { error: updateError } = await supabase.auth.updateUser({ password });
+        if (updateError) {
+          setError(updateError.message);
+          return;
+        }
       }
       setSuccess(true);
       setTimeout(() => router.push('/login'), 2500);
     } catch (err: any) {
-      setSuccess(true);
-      setTimeout(() => router.push('/login'), 2500);
+      setError(err?.message || 'Failed to update password');
     } finally {
       setLoading(false);
     }
@@ -61,11 +99,11 @@ function ResetForm() {
         <div className="auth-logo">
           <div style={{ display:'flex', alignItems:'center', justifyContent:'center', gap:10, marginBottom:10 }}>
             <span className="lp-brand-lockup" style={{ height: 56, padding: '4px 10px' }}>
-              <img src="/brand/pinit-career-logo.png" alt="PINIT CAREER" className="lp-brand-logo" style={{ height: 48, maxWidth: 200 }} />
+              <Image src="/brand/pinit-career-logo.png" alt="PINIT CAREER" width={200} height={48} className="lp-brand-logo" style={{ height: 48, maxWidth: 200, width: 'auto' }} priority />
             </span>
           </div>
-          <div className="auth-title">{token ? 'Set New Password' : 'Reset Password'}</div>
-          <div className="auth-sub">{token ? 'Enter your new password below' : 'We\'ll send you a reset link'}</div>
+          <div className="auth-title">{showNewPasswordForm ? 'Set New Password' : 'Reset Password'}</div>
+          <div className="auth-sub">{showNewPasswordForm ? 'Enter your new password below' : 'We\'ll send you a reset link'}</div>
         </div>
 
         {success && (
@@ -74,7 +112,7 @@ function ResetForm() {
           </div>
         )}
 
-        {sent && !token && (
+        {sent && !showNewPasswordForm && (
           <div className="alert alert-success" style={{ marginBottom:16 }}>
             <span>✓</span> If that account exists, a reset link has been sent to {email}. Check your inbox.
           </div>
@@ -87,7 +125,7 @@ function ResetForm() {
         )}
 
         {/* Request reset form */}
-        {!token && !sent && (
+        {!showNewPasswordForm && !sent && (
           <form onSubmit={requestReset}>
             <div className="form-group">
               <label className="form-label">Email Address</label>
@@ -103,7 +141,7 @@ function ResetForm() {
         )}
 
         {/* New password form */}
-        {token && !success && (
+        {showNewPasswordForm && !success && (
           <form onSubmit={doReset}>
             <div className="form-group">
               <label className="form-label">New Password</label>

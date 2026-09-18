@@ -165,48 +165,41 @@ export async function tryCampusFallback(
       return admissionsService.getSeatMatrix();
 
     case '/api/hr/stats':
-      return hrService.getStats();
     case '/api/hr/approve-leave':
-      return hrService.approveLeave(b.leaveId || b.id);
     case '/api/hr/create-job':
-      return hrService.createJob(b.title, b.dept);
     case '/api/hr/run-payroll':
-      return hrService.runPayroll();
+      return { ok: false, error: 'MODULE_DISABLED_PENDING_INTEGRATION', message: 'HR & Payroll module is disabled pending institutional HRMS and banking rails integration.' };
 
     case '/api/procurement/stats':
-      return procurementService.getStats();
     case '/api/procurement/create-request':
-      return procurementService.createRequest(b.item, Number(b.qty) || 1, b.dept, Number(b.cost) || 0);
     case '/api/procurement/approve-request':
-      return procurementService.approveRequest(b.requestId || b.id);
     case '/api/procurement/issue-po':
-      return procurementService.issuePo(b.requestId || b.id, b.vendorName);
     case '/api/procurement/dispatch-po':
-      return procurementService.dispatchPo(b.orderId || b.id);
     case '/api/procurement/deliver-po':
-      return procurementService.deliverPo(b.orderId || b.id);
     case '/api/procurement/clear-invoice':
-      return procurementService.clearInvoice(b.orderId || b.id);
     case '/api/procurement/create-vendor':
-      return procurementService.createVendor(b.name, b.email, b.category);
+      return { ok: false, error: 'MODULE_DISABLED_PENDING_INTEGRATION', message: 'Procurement module is disabled pending production inventory schema and vendor dispatch contracts.' };
 
     case '/api/assets/stats':
-      return assetsService.getStats();
     case '/api/assets/create':
-      return assetsService.create(b.name, b.category, b.location);
     case '/api/assets/schedule-maintenance':
     case '/api/assets/schedule-mnt':
-      return assetsService.scheduleMnt(b.assetCode, b.issue, b.staff, b.scheduledDate);
     case '/api/assets/complete-maintenance':
     case '/api/assets/complete-mnt':
-      return assetsService.completeMnt(b.mntId || b.id);
     case '/api/assets/renew-amc':
-      return assetsService.renewAmc(b.amcId || b.id, b.expiryDate);
+      return { ok: false, error: 'MODULE_DISABLED_PENDING_INTEGRATION', message: 'Assets & Maintenance module is disabled pending hardware asset schema and physical verification integration.' };
 
     case '/api/maintenance/stats':
       return maintenanceService.getTickets();
     case '/api/maintenance/report':
-      return maintenanceService.reportTicket(b.category, b.location, b.description);
+      return maintenanceService.reportTicket(
+        uid || b.studentId || 'unknown_user',
+        actor.name || b.studentName || actor.email || 'Student',
+        b.category,
+        b.location,
+        b.description,
+        b.urgency
+      );
     case '/api/maintenance/schedule':
       return maintenanceService.scheduleTicket(b.ticketId || b.id, b.technician);
     case '/api/maintenance/start':
@@ -279,26 +272,13 @@ export async function tryCampusFallback(
     case '/api/research/approve-funding':
       return researchService.approveFunding(b.fundingId || b.id);
 
-    case '/api/alumni/stats': {
-      const stats = await alumniService.getStats() as any;
-      return {
-        directory: stats.alumni || stats.directory || [],
-        jobs: stats.jobs || [],
-        donations: stats.donations || [],
-        events: stats.events || [],
-        connects: stats.connects || [],
-        referrals: stats.referrals || [],
-      };
-    }
+    case '/api/alumni/stats':
     case '/api/alumni/add-job':
     case '/api/alumni/post-job':
-      return alumniService.addJob(b.title, b.company, b.location, b.salary, b.postedBy || studentName);
     case '/api/alumni/mentorship-request':
-      return alumniService.requestMentorship(b.mentorName, b.studentName || studentName, b.slot);
     case '/api/alumni/referral-request':
-      return alumniService.requestReferral(b.jobId, b.studentName || studentName);
     case '/api/alumni/donate':
-      return alumniService.donate(b.campaignId || b.id, Number(b.amount) || 0, b.contributorName || studentName);
+      return { ok: false, error: 'MODULE_DISABLED_PENDING_INTEGRATION', message: 'Alumni module is disabled pending payment gateway and live notification integration.' };
 
     case '/api/notes/stats':
       return notesService.getNotes(params.get('batch') || b.batch || 'CSE-2026');

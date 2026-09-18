@@ -3,8 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { PathwayApiService } from '@/lib/api/pathwayApi';
-import { verifyEvidenceIntegrity } from '@/lib/pathway/evidenceEngine';
 import { CompetencyEvidenceRecord, StudentSkillProfile, DynamicRoleReadiness } from '@/lib/pathway/competencySchema';
 
 export default function PublicVerifyCredentialPage() {
@@ -23,37 +21,26 @@ export default function PublicVerifyCredentialPage() {
       setLoading(true);
       setErrorMessage(null);
       try {
-        // If credentialId starts with 'ev_', load specific evidence record
-        if (credentialId.startsWith('ev_') || credentialId.includes('_')) {
-          // Attempt to find evidence directly
-          const studentId = credentialId.includes('demo') ? 'demo_student_user' : credentialId.split('_').slice(-1)[0] || 'demo_student_user';
-          const allEv = await PathwayApiService.getAllStudentEvidence(studentId);
-          const found = allEv.find(e => e.id === credentialId) || allEv[0];
-
-          if (found) {
-            const integrityValid = verifyEvidenceIntegrity(found);
-            setEvidenceRecord(found);
-            setIsValid(integrityValid);
-          } else {
-            // Fallback: verify student profile directly
-            const profile = await PathwayApiService.getStudentSkillProfile(studentId);
-            const readiness = await PathwayApiService.getRoleReadiness(studentId);
-            setStudentProfile(profile);
-            setRoleReadiness(readiness);
-            setIsValid(profile.verified.length > 0 || profile.demonstrated.length > 0);
-          }
-        } else {
-          // Treat credentialId as studentId
-          const profile = await PathwayApiService.getStudentSkillProfile(credentialId);
-          const readiness = await PathwayApiService.getRoleReadiness(credentialId);
-          setStudentProfile(profile);
-          setRoleReadiness(readiness);
+        const res = await fetch(`/api/verify/${encodeURIComponent(credentialId)}`);
+        const data = await res.json();
+        if (res.ok && data.valid) {
           setIsValid(true);
+          setEvidenceRecord(data.evidenceRecord || null);
+          setStudentProfile(data.studentProfile || null);
+          setRoleReadiness(data.roleReadiness || null);
+        } else {
+          setIsValid(false);
+          setEvidenceRecord(null);
+          setStudentProfile(null);
+          setRoleReadiness(null);
+          setErrorMessage(data.message || data.error || 'Verification failed: Credential not recognized or signature invalid.');
         }
       } catch (err: any) {
-        console.warn('Verification lookup warning:', err);
         setIsValid(false);
-        setErrorMessage(err.message || 'Credential record not found in cryptographic registry.');
+        setEvidenceRecord(null);
+        setStudentProfile(null);
+        setRoleReadiness(null);
+        setErrorMessage(err?.message || 'Network error connecting to verification gateway.');
       } finally {
         setLoading(false);
       }
@@ -63,6 +50,10 @@ export default function PublicVerifyCredentialPage() {
       loadAndVerify();
     } else {
       setLoading(false);
+      setEvidenceRecord(null);
+      setStudentProfile(null);
+      setRoleReadiness(null);
+      setIsValid(false);
       setErrorMessage('No credential identifier specified. Please provide a valid credential ID in the URL.');
     }
   }, [credentialId]);
@@ -75,21 +66,21 @@ export default function PublicVerifyCredentialPage() {
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 14px', borderRadius: 20, background: 'rgba(var(--brand-rgb),  0.1)', border: '1px solid rgba(var(--brand-rgb),  0.2)', marginBottom: 12 }}>
             <span style={{ fontSize: 16 }}>🛡️</span>
             <span style={{ fontSize: 12, fontWeight: 800, color: '#a5b4fc', letterSpacing: '0.5px', textTransform: 'uppercase' }}>
-              PinIT Cryptographic Verification Gateway
+              PinIT Competency Verification Gateway
             </span>
           </div>
           <h1 style={{ fontSize: 28, fontWeight: 900, margin: '0 0 8px 0', letterSpacing: '-0.5px' }}>
             Official Competency Transcript Verification
           </h1>
           <p style={{ fontSize: 13, color: 'var(--text-muted)', margin: 0 }}>
-            Zero-knowledge, tamper-evident cryptographic validation of student skills and oral viva defenses.
+            Server-authoritative HMAC-SHA256 signature and evidence ledger verification.
           </p>
         </div>
 
         {loading ? (
           <div style={{ padding: 48, textAlign: 'center', background: 'rgba(255,255,255,0.02)', borderRadius: 16, border: '1px solid rgba(255,255,255,0.08)' }}>
             <div style={{ fontSize: 24, marginBottom: 12 }}>⏳</div>
-            <div style={{ fontSize: 15, fontWeight: 700 }}>Verifying SHA-256 Ledger Signatures...</div>
+            <div style={{ fontSize: 15, fontWeight: 700 }}>Verifying Credential with Evidence Gateway...</div>
           </div>
         ) : (
           <div style={{ background: 'rgba(255,255,255,0.02)', borderRadius: 16, border: '1px solid rgba(255,255,255,0.08)', overflow: 'hidden' }}>
@@ -109,7 +100,7 @@ export default function PublicVerifyCredentialPage() {
                     {isValid ? 'AUTHENTIC VERIFIED CREDENTIAL' : 'VERIFICATION FAILED'}
                   </div>
                   <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>
-                    {isValid ? 'Cryptographic SHA-256 hash matches immutable evidence ledger record.' : (errorMessage || 'Hash mismatch or record not found.')}
+                    {isValid ? 'Server-validated HMAC-SHA256 signature matches authoritative evidence ledger.' : (errorMessage || 'Hash mismatch or record not found.')}
                   </div>
                 </div>
               </div>
@@ -154,7 +145,7 @@ export default function PublicVerifyCredentialPage() {
                   </div>
 
                   <div style={{ marginTop: 12, paddingTop: 12, borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-                    <div style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 4 }}>SHA-256 INTEGRITY HASH</div>
+                    <div style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 4 }}>HMAC-SHA256 SIGNATURE / INTEGRITY HASH</div>
                     <code style={{ fontSize: 11, color: '#38bdf8', wordBreak: 'break-all' }}>
                       {evidenceRecord.integrityHash}
                     </code>

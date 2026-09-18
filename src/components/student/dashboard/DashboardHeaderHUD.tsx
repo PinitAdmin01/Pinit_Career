@@ -1,13 +1,12 @@
 'use client';
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 
-// ── Dynamic job match companies ──────────────────────────────────────────────
-// Bug 3 Fix: match % is now derived from careerScore + trustScore, not hardcoded
+// ── Dynamic job match companies with authentic required skills ───────────────
 const COMPANY_SEEDS = [
-  { company: 'Swiggy',   role: 'Backend SDE',      path: '/vault',   offset: 0  },
-  { company: 'Razorpay', role: 'Frontend Developer', path: '/quests', offset: -5 },
-  { company: 'Zomato',   role: 'DevOps Engineer',    path: '/vault',  offset: +5 },
-  { company: 'Flipkart', role: 'Software Engineer',  path: '/quests', offset: +2 },
+  { company: 'Swiggy',   role: 'Backend SDE',        path: '/vault',   requiredSkills: ['Go', 'Java', 'SQL', 'Distributed Systems', 'Redis'] },
+  { company: 'Razorpay', role: 'Frontend Developer',   path: '/quests', requiredSkills: ['React', 'TypeScript', 'Next.js', 'WebSockets', 'Tailwind'] },
+  { company: 'Zomato',   role: 'DevOps Engineer',      path: '/vault',  requiredSkills: ['Docker', 'Kubernetes', 'CI/CD', 'AWS', 'Linux'] },
+  { company: 'Flipkart', role: 'Software Engineer',    path: '/quests', requiredSkills: ['Data Structures', 'Algorithms', 'Java', 'System Design', 'OOP'] },
 ];
 
 // ── Canvas Hologram ──────────────────────────────────────────────────────────
@@ -138,7 +137,14 @@ function CareerTwinHologram({ track }: { track: 'sde' | 'iot' }) {
 
   return (
     <div style={{ position: 'relative', width: 120, height: 160, flexShrink: 0 }}>
-      <canvas ref={canvasRef} style={{ display: 'block', width: '100%', height: '100%' }} />
+      <canvas
+        ref={canvasRef}
+        role="img"
+        aria-label="3D Career Twin DNA holographic visualization"
+        style={{ display: 'block', width: '100%', height: '100%' }}
+      >
+        3D Career Twin DNA holographic visualization
+      </canvas>
     </div>
   );
 }
@@ -158,19 +164,56 @@ export default function DashboardHeaderHUD({
   user, careerScore, trustScore, onboardingAnswers, activeTrack, onTrackChange,
 }: DashboardHeaderHUDProps) {
   const [hookIdx, setHookIdx] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
-  // Bug 3 Fix: dynamic match % driven by live scores + company-specific offset
-  const getDynamicMatch = useCallback((offset: number) =>
-    Math.max(40, Math.min(99, Math.round(careerScore * 0.8 + trustScore * 0.2) + offset)),
-  [careerScore, trustScore]);
+  // DEF-005: Extract candidate skill tokens from onboarding & context
+  const candidateSkills = useMemo(() => {
+    const raw = (onboardingAnswers as any)?.skills;
+    const tokens = new Set<string>();
+    if (typeof raw === 'string') {
+      raw.split(/[,;\n]+/).forEach(s => {
+        const clean = s.trim().toLowerCase();
+        if (clean) tokens.add(clean);
+      });
+    } else if (Array.isArray(raw)) {
+      raw.forEach(s => {
+        if (typeof s === 'string') tokens.add(s.trim().toLowerCase());
+      });
+    }
+    return tokens;
+  }, [onboardingAnswers]);
 
+  // DEF-005: Authentic JD skill-token match engine
+  const calculateCompanyMatch = useCallback((requiredSkills: string[]) => {
+    if (!requiredSkills || requiredSkills.length === 0) {
+      return Math.min(98, Math.max(45, Math.round(careerScore * 0.75 + trustScore * 0.25)));
+    }
+    let matched = 0;
+    requiredSkills.forEach(req => {
+      const lower = req.toLowerCase();
+      for (const cs of candidateSkills) {
+        if (cs.includes(lower) || lower.includes(cs)) {
+          matched++;
+          break;
+        }
+      }
+    });
+
+    const tokenOverlapPct = Math.round((matched / requiredSkills.length) * 100);
+    const baselineReadiness = Math.round(careerScore * 0.75 + trustScore * 0.25);
+    const combined = Math.round((baselineReadiness * 0.6) + (tokenOverlapPct * 0.4));
+    return Math.min(98, Math.max(40, combined));
+  }, [candidateSkills, careerScore, trustScore]);
+
+  // DEF-004: WCAG 2.2.2 carousel pause on hover, focus, and toggle button
   useEffect(() => {
+    if (isPaused) return;
     const t = setInterval(() => setHookIdx(i => (i + 1) % COMPANY_SEEDS.length), 4500);
     return () => clearInterval(t);
-  }, []);
+  }, [isPaused]);
 
   const hook = COMPANY_SEEDS[hookIdx];
-  const matchPct = getDynamicMatch(hook.offset);
+  const matchPct = calculateCompanyMatch(hook.requiredSkills);
   const firstName = user?.displayName?.split(' ')[0] || 'Candidate';
   const trajectory = (onboardingAnswers as any)?.role || 'Unconfigured';
 
@@ -209,15 +252,42 @@ export default function DashboardHeaderHUD({
             Target Trajectory &middot; <strong style={{ color:'var(--dash-text)' }}>{trajectory}</strong>
           </p>
 
-          {/* Dynamic job match progress */}
-          <div style={{ background:'rgba(255,255,255,0.02)', border:'1px solid var(--dash-border)', borderRadius:10, padding:'8px 12px', maxWidth:420 }}>
+          {/* DEF-004 & DEF-005: Dynamic job match progress with pause controls */}
+          <div
+            tabIndex={0}
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+            onFocus={() => setIsPaused(true)}
+            onBlur={() => setIsPaused(false)}
+            aria-label={`Job match spotlight: ${hook.company} ${hook.role} with ${matchPct}% skill match. Carousel is ${isPaused ? 'paused' : 'playing'}.`}
+            style={{ background:'rgba(255,255,255,0.02)', border:'1px solid var(--dash-border)', borderRadius:10, padding:'8px 12px', maxWidth:420, outline: 'none' }}
+          >
             <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', fontSize:11, marginBottom:5 }}>
               <span style={{ color:'var(--dash-subtext)' }}>
                 🎯 <strong>{hook.company}</strong> &middot; {hook.role}
               </span>
-              <span style={{ color: matchPct >= 75 ? 'var(--teal-mid)' : 'var(--accent-mid)', fontWeight:800, fontFamily:'var(--font-mono)' }}>
-                {matchPct}% Match
-              </span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ color: matchPct >= 75 ? 'var(--teal-mid)' : 'var(--accent-mid)', fontWeight:800, fontFamily:'var(--font-mono)' }}>
+                  {matchPct}% Match
+                </span>
+                <button
+                  onClick={() => setIsPaused(p => !p)}
+                  aria-label={isPaused ? "Play company match rotation" : "Pause company match rotation"}
+                  title={isPaused ? "Play company rotation" : "Pause company rotation"}
+                  style={{
+                    background: 'none',
+                    border: '1px solid var(--dash-border)',
+                    borderRadius: 4,
+                    color: 'var(--dash-subtext)',
+                    fontSize: 9,
+                    cursor: 'pointer',
+                    padding: '1px 5px',
+                    lineHeight: 1
+                  }}
+                >
+                  {isPaused ? '▶' : '⏸'}
+                </button>
+              </div>
             </div>
             <div style={{ height:4, background:'rgba(255,255,255,0.04)', borderRadius:2, overflow:'hidden' }}>
               <div style={{ height:'100%', width:`${matchPct}%`, background:`linear-gradient(90deg, var(--accent), ${matchPct >= 75 ? 'var(--teal)' : 'var(--purple)'})`, borderRadius:2, transition:'width 0.6s cubic-bezier(0.4,0,0.2,1)' }} />
@@ -228,17 +298,34 @@ export default function DashboardHeaderHUD({
 
       {/* Right: Track toggle */}
       <div style={{ position:'relative', zIndex:1, display:'flex', flexDirection:'column', alignItems:'flex-end', gap:10 }}>
-        <div style={{ display:'flex', background:'rgba(255,255,255,0.02)', borderRadius:10, padding:3, border:'1px solid var(--dash-border)' }}>
+        <div 
+          role="radiogroup" 
+          aria-label="Engineering Career Trajectory Track"
+          style={{ display:'flex', background:'rgba(255,255,255,0.02)', borderRadius:10, padding:3, border:'1px solid var(--dash-border)' }}
+        >
           {(['sde','iot'] as const).map(t => (
             <button
               key={t}
+              role="radio"
+              aria-checked={activeTrack === t}
+              tabIndex={activeTrack === t ? 0 : -1}
               onClick={() => onTrackChange(t)}
+              onKeyDown={(e) => {
+                if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                  e.preventDefault();
+                  onTrackChange(t === 'sde' ? 'iot' : 'sde');
+                } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                  e.preventDefault();
+                  onTrackChange(t === 'iot' ? 'sde' : 'iot');
+                }
+              }}
               style={{
                 padding:'5px 14px', borderRadius:8, border:'none',
                 background: activeTrack === t ? 'var(--bg3)' : 'none',
                 color: activeTrack === t ? (t==='sde' ? 'var(--accent)' : 'var(--teal-mid)') : 'var(--t2)',
                 fontSize:10.5, fontWeight:700, cursor:'pointer', transition:'all 0.15s',
                 fontFamily:'var(--font-mono)',
+                outline: 'none',
               }}
             >
               {t === 'sde' ? '💻 SDE Software' : '🔌 IoT Hardware'}

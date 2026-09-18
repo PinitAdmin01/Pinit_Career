@@ -28,6 +28,7 @@
 
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest, getBearerToken, getAuthoritativeSupabaseClient } from '@/lib/server/requireAuth';
+import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 import { validateDocumentSecurity } from '@/lib/ats/documentGateway';
 import { extractDocumentEvidence } from '@/lib/ats/pdfTextExtractor';
 import { groundAndValidateEvidence } from '@/lib/ats/factCheckValidator';
@@ -41,6 +42,7 @@ import {
 
 export async function POST(req: Request) {
   const startTime = Date.now();
+
   console.log(`\n================================================================================`);
   console.log(`🚀 [VAULT UPLOAD INGESTION PIPELINE]: New document upload request received at ${new Date().toISOString()}`);
   console.log(`================================================================================`);
@@ -54,13 +56,34 @@ export async function POST(req: Request) {
       return gated.error;
     }
 
-    const userId = gated.user.id;
+    const userId = gated.user!.id;
+    const rl = checkRateLimit(`vault_upload_${userId}`, { limit: 20, windowMs: 3_600_000 });
+    if (!rl.allowed) return NextResponse.json({ error: 'RATE_LIMIT', message: 'Hourly upload quota exceeded (max 20/hr).' }, { status: 429 });
+
+    const MAX_VAULT_BYTES = 10 * 1024 * 1024; // 10MB per file
+    const contentLength = parseInt(req.headers.get('content-length') || '0', 10);
+    if (contentLength > MAX_VAULT_BYTES) {
+      return NextResponse.json(
+        { error: 'FILE_TOO_LARGE', message: 'Max file size is 10MB per upload.' },
+        { status: 413 }
+      );
+    }
+
     const token = getBearerToken(req);
     const supabase = getAuthoritativeSupabaseClient(token);
     console.log(`👤 [STAGE 1/12 - Candidate Authenticated]: User ID = "${userId}"`);
 
     const formData = await req.formData();
     const file = formData.get('file') as File | null;
+    if (!file) {
+      return NextResponse.json({ error: 'FILE_MISSING', message: 'No file provided in form-data' }, { status: 400 });
+    }
+    if (file.size > MAX_VAULT_BYTES) {
+      return NextResponse.json(
+        { error: 'FILE_TOO_LARGE', message: 'Max file size is 10MB per upload.' },
+        { status: 413 }
+      );
+    }
     const targetCategory = (formData.get('category') as string) || '';
     const primaryName = (formData.get('primaryName') as string) || '';
 
@@ -88,8 +111,25 @@ export async function POST(req: Request) {
     const rawText = extraction.rawText || '';
     console.log(`🔑 [STAGE 4/12 - Evidence Fingerprint]: Document SHA-256 = ${extraction.documentHash} (Extracted ${rawText.length} clean characters)`);
 
-    // STAGE 5: Auto-Classification of Category
-    const category: VaultCategory = (targetCategory as VaultCategory) || classifyDocumentCategory(fileName, rawText);
+    // Honest Refusal: Immediately reject unreadable files rather than scoring phantom metadata
+    if (rawText.trim().length < 30 || extraction.extractionConfidence < 0.2 || extraction.error) {
+      console.warn(`🛑 [STAGE 4/12 - Extraction Refusal]: Document contains unreadable content (${rawText.length} chars, confidence ${extraction.extractionConfidence}).`);
+      return NextResponse.json(
+        {
+          error: 'UNREADABLE_DOCUMENT',
+          message: 'We could not read this document. Please ensure your file contains selectable text and is not an encrypted, flattened, or unreadable document.'
+        },
+        { status: 422 }
+      );
+    }
+
+    // STAGE 5: Auto-Classification of Category with strict allowed-set validation
+    const VALID_CATEGORIES: Set<string> = new Set([
+      '10th', '12th_puc', 'sem1', 'sem2', 'sem3', 'sem4', 'sem5', 'sem6', 'sem7', 'sem8',
+      'resume', 'achievement', 'certification', 'internship', 'other'
+    ]);
+    const validTargetCat = VALID_CATEGORIES.has(targetCategory) ? (targetCategory as VaultCategory) : null;
+    const category: VaultCategory = validTargetCat || classifyDocumentCategory(fileName, rawText);
     console.log(`🏷️ [STAGE 5/12 - Category Classifier]: Classified document as category = "${category}"`);
 
     // STAGE 6, 7 & 8: Contextual Grounding & Deterministic Fact Validation
@@ -99,7 +139,8 @@ export async function POST(req: Request) {
       fileName,
       extraction.documentHash,
       extraction.extractionMethod,
-      extraction.extractionConfidence
+      extraction.extractionConfidence,
+      category
     );
 
     const detectedName = validatedGraph.candidateName;
@@ -109,8 +150,8 @@ export async function POST(req: Request) {
 
     console.log(`📊 [STAGE 8/12 - Grounded Entity Summary]:\n   - Name: "${detectedName}"\n   - Institution: "${institution}"\n   - Score/Grade: "${scoreOrGpa}"\n   - Document-Supported Skills (${skills.length}): [${skills.join(', ')}]\n   - Projects Grounded (${validatedGraph.projects.length}): [${validatedGraph.projects.map(p => p.title).join(', ')}]`);
 
-    // STAGE 9: Dynamic ATS Screener Simulation
-    let atsScore = 72;
+    // STAGE 9: Dynamic ATS Screener Simulation (resumes only!)
+    let atsScore: number | undefined = undefined;
     if (category === 'resume' && rawText.length > 50) {
       console.log(`🎯 [STAGE 9/12 - ATS Screener]: Simulating 6 vendor ATS parsers for SDE role...`);
       const atsReport = auditResumeATS(rawText, { targetRole: 'sde' });
@@ -120,17 +161,33 @@ export async function POST(req: Request) {
 
     // STAGE 10: Multi-Factor Identity Sentinel Verification
     console.log(`🛡️ [STAGE 10/12 - Identity Sentinel]: Verifying detected identity against profile anchor...`);
-    let verificationStatus: 'verified' | 'mismatch_warning' | 'provisional' = 'verified';
+    let verificationStatus: 'verified' | 'mismatch_warning' | 'provisional' = 'provisional';
     let mismatchReason: string | undefined = undefined;
 
-    if (primaryName && primaryName !== 'Candidate' && detectedName && detectedName !== 'Candidate') {
-      const nameCheck = checkNameSimilarity(primaryName, detectedName);
+    // Use authenticated student's profile name from the database for identity checks, not client-supplied primaryName
+    let dbProfileName = '';
+    try {
+      const { data: userProfile } = await supabase
+        .from('users')
+        .select('display_name, full_name, username')
+        .eq('id', userId)
+        .maybeSingle();
+
+      dbProfileName = (userProfile?.display_name || userProfile?.full_name || userProfile?.username || '').trim();
+    } catch (profileErr) {
+      console.warn('Could not fetch user profile for identity check:', profileErr);
+    }
+
+    if (dbProfileName && dbProfileName !== 'Candidate' && detectedName && detectedName !== 'Candidate') {
+      const nameCheck = checkNameSimilarity(dbProfileName, detectedName);
       if (!nameCheck.isMatch) {
         verificationStatus = 'mismatch_warning';
         mismatchReason = nameCheck.reason;
         console.warn(`🚨 [STAGE 10/12 - Identity Mismatch]: ${nameCheck.reason}`);
       } else {
-        console.log(`✅ [STAGE 10/12 - Identity Confirmed]: Confidence = ${nameCheck.confidence}%`);
+        // Name matches profile: Identity consistency noted, but official verification requires an issuer/institutional check
+        verificationStatus = 'provisional';
+        console.log(`✅ [STAGE 10/12 - Identity Consistent]: Confidence = ${nameCheck.confidence}%`);
       }
     }
 
@@ -148,19 +205,27 @@ export async function POST(req: Request) {
           upsert: true
         });
 
-      if (!uploadError && uploadData) {
-        const { data: urlData } = supabase.storage
-          .from('resumes')
-          .getPublicUrl(storagePath);
-        storageUrl = urlData?.publicUrl || storagePath;
-        console.log(`✅ [STAGE 11/12 - Storage URL Generated]: ${storageUrl}`);
-      } else {
-        console.warn(`⚠️ [STAGE 11/12 - Storage Upload Non-Fatal Warning]:`, uploadError);
-        storageUrl = storagePath;
+      if (uploadError || !uploadData) {
+        console.error(`❌ [STAGE 11/12 - Storage Upload Failed]:`, uploadError);
+        return NextResponse.json(
+          { error: 'STORAGE_UPLOAD_FAILED', message: uploadError?.message || 'Failed to upload binary file to secure storage.' },
+          { status: 500 }
+        );
       }
-    } catch (storageErr) {
-      console.warn(`⚠️ [STAGE 11/12 - Storage Upload Exception Handled]:`, storageErr);
-      storageUrl = storagePath;
+
+      // Private bucket: create a signed URL (7 days) rather than an unauthenticated 403 public URL
+      const { data: signedData } = await supabase.storage
+        .from('resumes')
+        .createSignedUrl(storagePath, 60 * 60 * 24 * 7);
+
+      storageUrl = signedData?.signedUrl || storagePath;
+      console.log(`✅ [STAGE 11/12 - Storage Signed URL Generated]: ${storagePath}`);
+    } catch (storageErr: any) {
+      console.error(`❌ [STAGE 11/12 - Storage Upload Exception]:`, storageErr);
+      return NextResponse.json(
+        { error: 'STORAGE_UPLOAD_FAILED', message: storageErr?.message || 'Exception uploading file to secure storage.' },
+        { status: 500 }
+      );
     }
 
     // STAGE 12: Persist into Supabase public.vault_items Table
@@ -196,13 +261,13 @@ export async function POST(req: Request) {
       'sem8': '8th Semester University Marksheet',
       'resume': 'Primary Candidate Master Resume',
       'achievement': 'Certificate of Achievement / Contest Win',
-      'certification': 'Verified Technical / Cloud Certification',
+      'certification': 'Technical / Professional Certification',
       'internship': 'Internship Experience Letter',
-      'other': 'Verified Supporting Document'
+      'other': 'Supporting Document'
     };
 
     const title = categoryTitles[category] || `${fileName} (${category})`;
-    const description = `Uploaded to Candidate Secure Vault (${scoreOrGpa}). Organization: ${institution}. Storage: ${storageUrl}`;
+    const description = `Uploaded to Candidate Secure Vault (${scoreOrGpa}). Organization: ${institution}. Storage: ${storagePath}`;
 
     let dbId = `vault_${Date.now()}`;
     const { data: dbResult, error: dbError } = await supabase
@@ -213,10 +278,10 @@ export async function POST(req: Request) {
         item_type: itemTypeMap[category] || 'other',
         organization_name: institution,
         description,
-        verified: verificationStatus === 'verified',
+        verified: false, // Strict requirement: Official verification requires an issuer, institution, or staff check
         ai_confidence_score: Math.round(validatedGraph.overallGroundedConfidence * 100),
         skill_tags: skills,
-        is_public: true,
+        is_public: false, // Default all vault items to private to safeguard sensitive marksheets and personal data
         used_in_resume: true,
         used_in_portfolio: category === 'achievement' || category === 'certification'
       }])
@@ -246,7 +311,7 @@ export async function POST(req: Request) {
       scoreOrGpa,
       skills,
       verificationStatus,
-      verificationLevel: category === 'resume' ? 'SELF_SUBMITTED' : 'STRUCTURALLY_VALIDATED',
+      verificationLevel: category === 'resume' ? 'SELF_SUBMITTED' : category === 'certification' ? 'THIRD_PARTY_VERIFIED' : 'STRUCTURALLY_VALIDATED',
       mismatchReason,
       documentHash: extraction.documentHash,
       provenanceRecords: validatedGraph.provenanceRecords,

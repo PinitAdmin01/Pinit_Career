@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import { useAppStore } from '@/lib/store/useAppStore';
 import { ambientAudio } from '@/lib/audio/ambientAudioEngine';
 import { getAvatarVoiceVolume, setAvatarVoiceVolume } from '@/lib/tts';
 
@@ -23,6 +24,10 @@ export default function GearAudioHub({
   const [isMuted, setIsMuted] = useState(false);
   const [animationsEnabled, setAnimationsEnabled] = useState(true);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  // Access theme toggle from global store
+  const toggleTheme = useAppStore((s) => s.toggleTheme);
+  const storeTheme = useAppStore((s) => s.theme);
 
   useEffect(() => {
     // Initial values
@@ -253,7 +258,7 @@ export default function GearAudioHub({
                 color: isDark ? '#FFFFFF' : '#0F172A',
                 letterSpacing: '0.02em'
               }}>
-                Audio & Environment
+                Settings
               </span>
             </div>
             <span style={{
@@ -268,6 +273,45 @@ export default function GearAudioHub({
               {isMuted ? 'MUTED' : 'AUDIO LIVE'}
             </span>
           </div>
+
+          {/* 0. 🌓 LIGHT / DARK MODE TOGGLE */}
+          <button
+            type="button"
+            onClick={() => toggleTheme()}
+            title={storeTheme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            aria-label={storeTheme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              width: '100%',
+              padding: '10px 14px',
+              borderRadius: '12px',
+              background: isDark ? 'rgba(255, 255, 255, 0.04)' : 'rgba(0, 0, 0, 0.03)',
+              border: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(0, 0, 0, 0.06)',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ fontSize: '14px' }}>{storeTheme === 'dark' ? '🌙' : '☀️'}</span>
+              <span style={{
+                fontSize: '12px',
+                fontWeight: 750,
+                color: isDark ? '#FFFFFF' : '#0F172A'
+              }}>
+                {storeTheme === 'dark' ? 'Dark Mode' : 'Light Mode'}
+              </span>
+            </div>
+            <span style={{
+              fontSize: '11px',
+              fontWeight: 800,
+              fontFamily: 'var(--font-mono)',
+              color: isDark ? 'var(--accent, #00A3FF)' : '#0284c7'
+            }}>
+              {storeTheme === 'dark' ? '🌙' : '☀️'}
+            </span>
+          </button>
 
           {/* 1. 🗣️ AVATAR MENTOR VOICE VOLUME */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>

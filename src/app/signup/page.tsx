@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useAuth } from '@/lib/context/AuthContext';
 
 export default function SignupPage() {
@@ -18,8 +19,8 @@ export default function SignupPage() {
       setError('Please fill out all credentials.');
       return;
     }
-    if (form.password.length < 6) {
-      setError('Password must be at least 6 characters long.');
+    if (form.password.length < 8) {
+      setError('Password must be at least 8 characters long.');
       return;
     }
 
@@ -48,7 +49,15 @@ export default function SignupPage() {
         <div className="auth-logo">
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginBottom: 8 }}>
             <span className="lp-brand-lockup" style={{ height: 56, padding: '4px 10px' }}>
-              <img src="/brand/pinit-career-logo.png" alt="PINIT CAREER" className="lp-brand-logo" style={{ height: 48, maxWidth: 200 }} />
+              <Image
+                src="/brand/pinit-career-logo.png"
+                alt="PINIT CAREER"
+                width={200}
+                height={48}
+                className="lp-brand-logo"
+                style={{ height: 48, maxWidth: 200, width: 'auto', objectFit: 'contain' }}
+                priority
+              />
             </span>
           </div>
           <div className="auth-sub">Create your student account</div>
@@ -99,8 +108,9 @@ export default function SignupPage() {
               type="password"
               value={form.password}
               onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))}
-              placeholder="At least 6 characters"
+              placeholder="At least 8 characters"
               autoComplete="new-password"
+              minLength={8}
               required
             />
           </label>

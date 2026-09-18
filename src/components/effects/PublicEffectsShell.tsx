@@ -38,6 +38,9 @@ export default function PublicEffectsShell({ children }: PublicEffectsShellProps
 
     // User interaction audio unlock listener for browser autoplay policies
     const handleFirstGesture = () => {
+      if (typeof window !== 'undefined' && window.location.pathname.startsWith('/onboarding')) {
+        return;
+      }
       if (!ambientAudio.isMuted()) {
         ambientAudio.play(saved, 3000);
       }

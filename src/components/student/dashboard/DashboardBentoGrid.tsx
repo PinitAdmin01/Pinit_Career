@@ -1,5 +1,8 @@
 'use client';
 
+import { useMemo } from 'react';
+import { useCareerOS } from '@/lib/context/CareerOSContext';
+
 const EVO_STAGES = [
   { stage:1, name:'🌱 Primitive Coder',       minScore:0,  desc:'Syntax primitives & variable scopes' },
   { stage:2, name:'🔨 Toolmaker Builder',      minScore:21, desc:'Class structure & verified certifications' },
@@ -23,8 +26,46 @@ export default function DashboardBentoGrid({
   contributionDates, getContributionsForDate,
   activeStageIndex, learningMistakes = [],
 }: Props) {
+  const cOS = useCareerOS();
   const accentRgb = activeTrack === 'iot' ? '20,184,166' : '99,102,241';
   const accentVar = activeTrack === 'iot' ? 'var(--teal-mid)' : 'var(--accent)';
+
+  // DEF-008: Dynamic trigonometric radar polygon calculation (Center 60,60, R=48)
+  const radarPoints = useMemo(() => {
+    const ob = cOS?.onboardingAnswers;
+    const arch = ob?.mindset_archetype || ob?.voice_archetype || '';
+    const completedCount = cOS?.completedQuests?.length || 0;
+    const vaultCount = cOS?.vaultItems?.length || 0;
+
+    let codingScore = careerScore > 0 ? careerScore : 55;
+    if (arch.includes('Pattern Hunter')) codingScore += 10;
+    codingScore += Math.min(15, completedCount * 2);
+
+    let archScore = Math.round((careerScore * 0.7) + (dnaScore * 0.3));
+    if (arch.includes('Explorer')) archScore += 10;
+    archScore += Math.min(12, vaultCount * 3);
+
+    let dataScore = dnaScore > 0 ? dnaScore : 50;
+    if (arch.includes('Stabilizer')) dataScore += 10;
+
+    const trust = cOS?.trustScore ?? 50;
+    let socraticScore = trust > 0 ? trust : 60;
+    if (arch.includes('Social IQ')) socraticScore += 10;
+
+    let iotScore = activeTrack === 'iot' ? Math.max(78, careerScore + 8) : Math.round(careerScore * 0.55 + 20);
+
+    const scores = [codingScore, archScore, dataScore, socraticScore, iotScore];
+    const angles = [0, 72, 144, 216, 288];
+
+    return scores.map((score, i) => {
+      const clamped = Math.max(20, Math.min(95, score || 50));
+      const r = (clamped / 100) * 46;
+      const rad = angles[i] * (Math.PI / 180);
+      const x = +(60 + r * Math.sin(rad)).toFixed(1);
+      const y = +(60 - r * Math.cos(rad)).toFixed(1);
+      return `${x},${y}`;
+    }).join(' ');
+  }, [careerScore, dnaScore, activeTrack, cOS?.onboardingAnswers, cOS?.completedQuests?.length, cOS?.vaultItems?.length, cOS?.trustScore]);
 
   return (
     <div style={{ display:'flex', flexDirection:'column', gap:16 }}>
@@ -79,6 +120,8 @@ export default function DashboardBentoGrid({
           <div style={{ display:'flex', justifyContent:'center', alignItems:'center' }}>
             {/* Bug 5 Fix: width=100% + viewBox ensures no label clipping on small screens */}
             <svg
+              role="img"
+              aria-label="Multi-dimensional Socratic competencies radar chart"
               width="100%"
               viewBox="0 0 120 120"
               preserveAspectRatio="xMidYMid meet"
@@ -101,12 +144,14 @@ export default function DashboardBentoGrid({
                 const x=60+48*Math.sin(a*Math.PI/180), y=60-48*Math.cos(a*Math.PI/180);
                 return <line key={a} x1="60" y1="60" x2={x} y2={y} stroke="rgba(255,255,255,0.05)" strokeWidth="0.6" />;
               })}
-              {/* Data polygon */}
-              {activeTrack === 'sde' ? (
-                <polygon points="60,17 81,36 77,82 30,72 42,44" fill={`rgba(${accentRgb},0.15)`} stroke={accentVar} strokeWidth="1.5" />
-              ) : (
-                <polygon points="60,24 88,33 72,80 30,68 14,20" fill="rgba(20,184,166,0.15)" stroke="var(--teal-mid)" strokeWidth="1.5" />
-              )}
+              {/* DEF-008: Dynamic Data polygon with fluid transition */}
+              <polygon
+                points={radarPoints}
+                fill={activeTrack === 'sde' ? `rgba(${accentRgb},0.18)` : 'rgba(20,184,166,0.18)'}
+                stroke={accentVar}
+                strokeWidth="1.5"
+                style={{ transition: 'points 0.6s cubic-bezier(0.4, 0, 0.2, 1)' }}
+              />
               {/* Labels — relative to viewBox center (60,60), won't clip at any size */}
               <text x="60" y="9"  fontSize="5.5" textAnchor="middle" fill="var(--t3)" fontWeight="700">CODING</text>
               <text x="113" y="42" fontSize="5.5" textAnchor="start"  fill="var(--t3)" fontWeight="700">ARCH</text>
@@ -126,7 +171,8 @@ export default function DashboardBentoGrid({
           <h3 style={{ fontSize:13, fontWeight:800, color:'var(--t1)', margin:'2px 0 14px' }}>Learning Activity Heatmap</h3>
           <style>{`
             .db-hcell { position: relative; }
-            .db-hcell:hover::after { content: attr(data-tip); position:absolute; bottom:140%; left:50%; transform:translateX(-50%); background:#111827; color:#f3f4f6; border:1px solid rgba(255,255,255,0.08); padding:3px 7px; border-radius:4px; font-size:9px; font-family:var(--font-mono); white-space:nowrap; z-index:9999; pointer-events:none; }
+            .db-hcell:hover::after, .db-hcell:focus-visible::after { content: attr(data-tip); position:absolute; bottom:140%; left:50%; transform:translateX(-50%); background:#111827; color:#f3f4f6; border:1px solid rgba(255,255,255,0.08); padding:3px 7px; border-radius:4px; font-size:9px; font-family:var(--font-mono); white-space:nowrap; z-index:9999; pointer-events:none; }
+            .db-hcell:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; z-index: 10; }
           `}</style>
           <div style={{ display:'flex', flexDirection:'column', gap:5 }}>
             {/* Month row */}
@@ -143,14 +189,25 @@ export default function DashboardBentoGrid({
                 <span>Sun</span><span>Tue</span><span>Thu</span><span>Sat</span>
               </div>
               {/* Grid */}
-              <div style={{ display:'grid', gridTemplateRows:'repeat(7,1fr)', gridAutoFlow:'column', gap:3.5, flex:1, height:104 }}>
+              <div role="grid" aria-label="Learning Activity Contribution Heatmap" style={{ display:'grid', gridTemplateRows:'repeat(7,1fr)', gridAutoFlow:'column', gap:3.5, flex:1, height:104 }}>
                 {contributionDates.map((date, idx) => {
                   const cnt = getContributionsForDate(date);
                   const lv = cnt===0?0:cnt===1?1:cnt===2?2:3;
                   const fut = date > new Date();
                   let bg = fut ? 'rgba(255,255,255,0.01)' : lv===0 ? 'rgba(255,255,255,0.03)' : lv===1 ? `rgba(${accentRgb},0.15)` : lv===2 ? `rgba(${accentRgb},0.45)` : accentVar;
                   const tip = fut ? 'Future' : `${cnt} contribution${cnt!==1?'s':''} on ${date.toLocaleDateString('default',{month:'short',day:'numeric',year:'numeric'})}`;
-                  return <div key={idx} data-tip={tip} className="db-hcell" style={{ aspectRatio:'1', background:bg, border:'1px solid var(--border)', borderRadius:2, cursor: fut?'default':'pointer' }} />;
+                  return (
+                    <div 
+                      key={idx} 
+                      role="gridcell"
+                      tabIndex={fut ? -1 : 0}
+                      aria-label={tip}
+                      title={tip}
+                      data-tip={tip} 
+                      className="db-hcell" 
+                      style={{ aspectRatio:'1', background:bg, border:'1px solid var(--border)', borderRadius:2, cursor: fut?'default':'pointer' }} 
+                    />
+                  );
                 })}
               </div>
             </div>

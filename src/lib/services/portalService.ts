@@ -55,6 +55,27 @@ export const portalService = {
   // ── Materials ──
   async getMaterials(): Promise<CourseMaterialRecord[]> {
     try {
+      const { data, error } = await supabase
+        .from('campus_course_materials')
+        .select('*')
+        .order('uploaded_at', { ascending: false });
+      if (!error && data && data.length > 0) {
+        return data.map((r: any) => ({
+          id: r.id,
+          title: r.title,
+          subject: r.subject,
+          semester: r.semester,
+          type: r.type,
+          fileUrl: r.file_url || '',
+          uploadedAt: r.uploaded_at,
+          size: r.size || '1.0 MB',
+          downloadsCount: r.downloads_count || 0,
+          tags: r.tags || []
+        }));
+      }
+    } catch {}
+
+    try {
       if (typeof window !== 'undefined') {
         const stored = localStorage.getItem(STORAGE_KEYS.MATERIALS);
         if (stored) return JSON.parse(stored);
@@ -65,17 +86,42 @@ export const portalService = {
 
   async saveMaterial(mat: CourseMaterialRecord): Promise<void> {
     try {
+      const { error } = await supabase.from('campus_course_materials').upsert({
+        id: mat.id,
+        title: mat.title,
+        subject: mat.subject,
+        semester: mat.semester,
+        type: mat.type,
+        file_url: mat.fileUrl,
+        uploaded_at: mat.uploadedAt,
+        size: mat.size,
+        downloads_count: mat.downloadsCount,
+        tags: mat.tags
+      });
+      if (error) console.warn('Supabase course material write error:', error.message);
+    } catch (e) {
+      console.error('Failed to save material to Supabase', e);
+    }
+
+    try {
       const existing = await this.getMaterials();
-      const updated = [mat, ...existing];
+      const updated = [mat, ...existing.filter(m => m.id !== mat.id)];
       if (typeof window !== 'undefined') {
         localStorage.setItem(STORAGE_KEYS.MATERIALS, JSON.stringify(updated));
       }
     } catch (e) {
-      console.error('Failed to save material', e);
+      console.error('Failed to save material locally', e);
     }
   },
 
   async deleteMaterial(id: string): Promise<void> {
+    try {
+      const { error } = await supabase.from('campus_course_materials').delete().eq('id', id);
+      if (error) console.warn('Supabase delete material error:', error.message);
+    } catch (e) {
+      console.error('Failed to delete material from Supabase', e);
+    }
+
     try {
       if (typeof window !== 'undefined') {
         const existing = await this.getMaterials();
@@ -83,7 +129,7 @@ export const portalService = {
         localStorage.setItem(STORAGE_KEYS.MATERIALS, JSON.stringify(updated));
       }
     } catch (e) {
-      console.error('Failed to delete material', e);
+      console.error('Failed to delete material locally', e);
     }
   },
 
@@ -151,6 +197,22 @@ export const portalService = {
   // ── Fraud Event Bridge ──
   async getFraudAlerts(): Promise<FraudAlertRecord[]> {
     try {
+      const { data, error } = await supabase.from('campus_fraud_alerts').select('*').order('timestamp', { ascending: false });
+      if (!error && data && data.length > 0) {
+        return data.map((r: any) => ({
+          id: r.id,
+          studentName: r.student_name,
+          examTitle: r.exam_title,
+          tabSwitches: r.tab_switches,
+          ipAddress: r.ip_address,
+          trustScoreImpact: r.trust_score_impact,
+          severity: r.severity,
+          timestamp: r.timestamp
+        }));
+      }
+    } catch {}
+
+    try {
       if (typeof window !== 'undefined') {
         const stored = localStorage.getItem(STORAGE_KEYS.FRAUD_ALERTS);
         if (stored) return JSON.parse(stored);
@@ -160,12 +222,30 @@ export const portalService = {
   },
 
   async dispatchFraudAlert(alertData: Omit<FraudAlertRecord, 'id' | 'timestamp'>): Promise<void> {
+    const id = `fraud_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+    const timestamp = new Date().toISOString();
+    try {
+      const { error } = await supabase.from('campus_fraud_alerts').insert({
+        id,
+        student_name: alertData.studentName,
+        exam_title: alertData.examTitle,
+        tab_switches: alertData.tabSwitches,
+        ip_address: alertData.ipAddress,
+        trust_score_impact: alertData.trustScoreImpact,
+        severity: alertData.severity,
+        timestamp
+      });
+      if (error) console.warn('Supabase fraud alert insert error:', error.message);
+    } catch (e) {
+      console.error('Failed to dispatch fraud alert to Supabase', e);
+    }
+
     try {
       const existing = await this.getFraudAlerts();
       const newAlert: FraudAlertRecord = {
         ...alertData,
-        id: `fraud_${Date.now()}`,
-        timestamp: new Date().toLocaleString()
+        id,
+        timestamp
       };
       const updated = [newAlert, ...existing];
       if (typeof window !== 'undefined') {
@@ -178,6 +258,19 @@ export const portalService = {
 
   // ── Student-Teacher Grade Sync ──
   async updateExamScore(result: StudentExamResultRecord): Promise<void> {
+    try {
+      const { error } = await supabase.from('campus_exam_results').upsert({
+        exam_id: result.examId,
+        student_id: result.studentId,
+        score: result.score,
+        total_marks: result.totalMarks,
+        graded_at: result.gradedAt || new Date().toISOString()
+      }, { onConflict: 'exam_id,student_id' });
+      if (error) console.warn('Supabase exam score write error:', error.message);
+    } catch (e) {
+      console.error('Failed to save exam score to Supabase', e);
+    }
+
     try {
       if (typeof window !== 'undefined') {
         const stored = localStorage.getItem(STORAGE_KEYS.EXAM_RESULTS);
@@ -193,6 +286,23 @@ export const portalService = {
 
   async getStudentExamResults(studentId: string): Promise<StudentExamResultRecord[]> {
     try {
+      const { data, error } = await supabase
+        .from('campus_exam_results')
+        .select('*')
+        .eq('student_id', studentId)
+        .order('graded_at', { ascending: false });
+      if (!error && data && data.length > 0) {
+        return data.map((r: any) => ({
+          examId: r.exam_id,
+          studentId: r.student_id,
+          score: Number(r.score),
+          totalMarks: Number(r.total_marks),
+          gradedAt: r.graded_at
+        }));
+      }
+    } catch {}
+
+    try {
       if (typeof window !== 'undefined') {
         const stored = localStorage.getItem(STORAGE_KEYS.EXAM_RESULTS);
         if (stored) {
@@ -203,7 +313,7 @@ export const portalService = {
     } catch {}
     return [];
   },
-
+  
   // ── Dynamic Student Roster & Faculty Analytics Engine ──
   async getEnrolledStudents(): Promise<Array<{
     id: string;
@@ -220,13 +330,29 @@ export const portalService = {
     attendancePct: number;
     status: 'active' | 'probation' | 'placed';
   }>> {
-    const defaultStudents = [
-      { id: 'std_vinay', name: 'Vinay Kumar', email: 'vinayrocker2002@gmail.com', rollNo: 'CS-2024-001', batch: 'Batch 2024-A', department: 'Computer Science', courseTrack: 'Full Stack Python & AI', completedQuestsCount: 8, xp: 1450, pins: 60, atsScore: 88, attendancePct: 94, status: 'active' as const },
-      { id: 'std_ashwanth', name: 'Ashwanth Kumar', email: 'student@pinit.in', rollNo: 'CS-2024-002', batch: 'Batch 2024-A', department: 'Computer Science', courseTrack: 'Full Stack Engineering', completedQuestsCount: 12, xp: 2100, pins: 95, atsScore: 92, attendancePct: 96, status: 'active' as const },
-      { id: 'std_priya_s', name: 'Priya Sharma', email: 'priya.s@campus.edu', rollNo: 'CS-2024-003', batch: 'Batch 2024-A', department: 'Information Tech', courseTrack: 'AI & Data Engineering', completedQuestsCount: 6, xp: 980, pins: 40, atsScore: 84, attendancePct: 89, status: 'active' as const },
-      { id: 'std_rohan_v', name: 'Rohan Verma', email: 'rohan.v@campus.edu', rollNo: 'CS-2024-014', batch: 'Batch 2024-A', department: 'Computer Science', courseTrack: 'Cloud & DevOps Systems', completedQuestsCount: 4, xp: 620, pins: 25, atsScore: 78, attendancePct: 82, status: 'active' as const },
-      { id: 'std_ananya_m', name: 'Ananya Mishra', email: 'ananya.m@campus.edu', rollNo: 'CS-2024-019', batch: 'Batch 2024-B', department: 'Computer Science', courseTrack: 'Frontend Engineering & UI/UX', completedQuestsCount: 14, xp: 2450, pins: 110, atsScore: 95, attendancePct: 98, status: 'placed' as const }
-    ];
+    try {
+      const { data, error } = await supabase
+        .from('users')
+        .select('id, full_name, email, roll_no, batch, department, course_track, completed_quests_count, xp, pins, ats_score, attendance_pct, status')
+        .eq('role', 'student');
+      if (!error && data && data.length > 0) {
+        return data.map((u: any) => ({
+          id: u.id,
+          name: u.full_name || 'Student',
+          email: u.email || '',
+          rollNo: u.roll_no || `STD-${u.id.substring(0, 6).toUpperCase()}`,
+          batch: u.batch || 'Batch 2024-A',
+          department: u.department || 'Computer Science',
+          courseTrack: u.course_track || 'Full Stack Engineering',
+          completedQuestsCount: u.completed_quests_count || 0,
+          xp: u.xp || 0,
+          pins: u.pins || 0,
+          atsScore: u.ats_score || 0,
+          attendancePct: u.attendance_pct || 100,
+          status: (u.status as any) || 'active'
+        }));
+      }
+    } catch {}
 
     try {
       if (typeof window !== 'undefined') {
@@ -235,10 +361,9 @@ export const portalService = {
           const parsed = JSON.parse(stored);
           if (Array.isArray(parsed) && parsed.length > 0) return parsed;
         }
-        localStorage.setItem('campus_enrolled_students', JSON.stringify(defaultStudents));
       }
     } catch {}
-    return defaultStudents;
+    return [];
   },
 
   // ── Dynamic Recruiter Talent Pipeline ──
@@ -254,12 +379,26 @@ export const portalService = {
     appliedDate: string;
     avatarUrl?: string;
   }>> {
-    const defaultCandidates = [
-      { id: 'cand_1', name: 'Vinay Kumar', email: 'vinayrocker2002@gmail.com', roleTarget: 'Frontend Engineer', atsScore: 92, codeWarsElo: 1420, verifiedSkills: ['React 18', 'TypeScript', 'Next.js', 'Tailwind', 'WebSockets'], stage: 'shortlisted' as const, appliedDate: '2026-08-20' },
-      { id: 'cand_2', name: 'Ashwanth Kumar', email: 'student@pinit.in', roleTarget: 'Full Stack Engineer', atsScore: 94, codeWarsElo: 1580, verifiedSkills: ['Python FastAPI', 'PostgreSQL', 'Docker', 'React', 'Redis'], stage: 'interview_scheduled' as const, appliedDate: '2026-08-18' },
-      { id: 'cand_3', name: 'Ananya Mishra', email: 'ananya.m@campus.edu', roleTarget: 'UI/UX & Frontend Lead', atsScore: 96, codeWarsElo: 1640, verifiedSkills: ['Next.js 14', 'Figma Tokens', 'State Machines', 'CSS Architecture'], stage: 'offered' as const, appliedDate: '2026-08-15' },
-      { id: 'cand_4', name: 'Priya Sharma', email: 'priya.s@campus.edu', roleTarget: 'AI & Data Engineer', atsScore: 88, codeWarsElo: 1390, verifiedSkills: ['PyTorch', 'LangChain', 'Vector DBs', 'Python'], stage: 'discovered' as const, appliedDate: '2026-08-22' }
-    ];
+    try {
+      const { data, error } = await supabase
+        .from('users')
+        .select('id, full_name, email, role_target, ats_score, codewars_elo, skills, recruiter_stage, created_at, avatar_url')
+        .gt('recruiter_visibility', 0);
+      if (!error && data && data.length > 0) {
+        return data.map((u: any) => ({
+          id: u.id,
+          name: u.full_name || 'Candidate',
+          email: u.email || '',
+          roleTarget: u.role_target || 'Software Engineer',
+          atsScore: u.ats_score || 0,
+          codeWarsElo: u.codewars_elo || 1200,
+          verifiedSkills: Array.isArray(u.skills) ? u.skills : [],
+          stage: (u.recruiter_stage as any) || 'discovered',
+          appliedDate: u.created_at ? u.created_at.split('T')[0] : new Date().toISOString().split('T')[0],
+          avatarUrl: u.avatar_url
+        }));
+      }
+    } catch {}
 
     try {
       if (typeof window !== 'undefined') {
@@ -268,10 +407,9 @@ export const portalService = {
           const parsed = JSON.parse(stored);
           if (Array.isArray(parsed) && parsed.length > 0) return parsed;
         }
-        localStorage.setItem('campus_recruiter_candidates', JSON.stringify(defaultCandidates));
       }
     } catch {}
-    return defaultCandidates;
+    return [];
   },
 
   async updateCandidateStage(candidateId: string, newStage: 'discovered' | 'shortlisted' | 'interview_scheduled' | 'offered'): Promise<void> {
@@ -297,12 +435,6 @@ export const portalService = {
     submittedAt: string;
     status: 'pending' | 'in_review' | 'resolved';
   }>> {
-    const defaultTickets = [
-      { id: 'TKT-1042', studentName: 'Vinay Kumar', rollNo: 'CS-2024-001', category: 'Leave Approval', subject: 'Medical leave certificate submission', details: 'Hospital prescription attached for 3 days absence due to flu', submittedAt: '2026-08-22', status: 'pending' as const },
-      { id: 'TKT-1039', studentName: 'Ashwanth Kumar', rollNo: 'CS-2024-002', category: 'Bonafide Certificate', subject: 'Passport and internship verification bonafide', details: 'Required for corporate off-campus internship onboarding', submittedAt: '2026-08-21', status: 'resolved' as const },
-      { id: 'TKT-1035', studentName: 'Rohan Verma', rollNo: 'CS-2024-014', category: 'Hostel Re-allocation', subject: 'Room change request to North Wing', details: 'Closer proximity to computer vision laboratory', submittedAt: '2026-08-19', status: 'in_review' as const }
-    ];
-
     try {
       if (typeof window !== 'undefined') {
         const stored = localStorage.getItem('campus_service_tickets');
@@ -310,10 +442,9 @@ export const portalService = {
           const parsed = JSON.parse(stored);
           if (Array.isArray(parsed) && parsed.length > 0) return parsed;
         }
-        localStorage.setItem('campus_service_tickets', JSON.stringify(defaultTickets));
       }
     } catch {}
-    return defaultTickets;
+    return [];
   },
 
   async updateTicketStatus(ticketId: string, status: 'pending' | 'in_review' | 'resolved'): Promise<void> {

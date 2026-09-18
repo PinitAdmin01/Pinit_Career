@@ -19,6 +19,19 @@ interface AppState {
   setSidebarOpen: (open: boolean) => void;
   setActiveTab:   (tab: string)   => void;
 
+  // Global Theme & Focus Mode
+  theme:          'light' | 'dark';
+  focusMode:      boolean;
+  setTheme:       (theme: 'light' | 'dark') => void;
+  toggleTheme:    () => void;
+  setFocusMode:   (focus: boolean) => void;
+  toggleFocusMode:() => void;
+
+  // AI Usage Tokens
+  aiUseTokens:    number;
+  setAiUseTokens: (tokens: number) => void;
+  decrementAiUseTokens: (amount: number) => void;
+
   // Toasts
   toasts:     Toast[];
   addToast:   (toast: Omit<Toast, 'id'>) => void;
@@ -49,10 +62,38 @@ export const useAppStore = create<AppState>((set) => ({
   setSidebarOpen: (open)   => set({ sidebarOpen: open }),
   setActiveTab:   (tab)    => set({ activeTab: tab }),
 
+  // Global Theme & Focus Mode
+  theme:          'dark',
+  focusMode:      false,
+  setTheme:       (theme) => {
+    if (typeof window !== 'undefined') {
+      document.documentElement.setAttribute('data-theme', theme);
+      try { localStorage.setItem('pc_theme', theme); } catch {}
+      window.dispatchEvent(new CustomEvent('pc_theme_toggled', { detail: { theme, time: Date.now() } }));
+    }
+    set({ theme });
+  },
+  toggleTheme:    () => set((s) => {
+    const nextTheme = s.theme === 'light' ? 'dark' : 'light';
+    if (typeof window !== 'undefined') {
+      document.documentElement.setAttribute('data-theme', nextTheme);
+      try { localStorage.setItem('pc_theme', nextTheme); } catch {}
+      window.dispatchEvent(new CustomEvent('pc_theme_toggled', { detail: { theme: nextTheme, time: Date.now() } }));
+    }
+    return { theme: nextTheme };
+  }),
+  setFocusMode:   (focus) => set({ focusMode: focus }),
+  toggleFocusMode:() => set((s) => ({ focusMode: !s.focusMode })),
+
+  // AI Usage Tokens
+  aiUseTokens:    120,
+  setAiUseTokens: (tokens) => set({ aiUseTokens: tokens }),
+  decrementAiUseTokens: (amount) => set((s) => ({ aiUseTokens: Math.max(0, s.aiUseTokens - amount) })),
+
   // Toasts
   toasts: [],
   addToast: (toast) => set((s) => ({
-    toasts: [...s.toasts, { ...toast, id: Date.now().toString() }],
+    toasts: [...s.toasts, { ...toast, id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}` }],
   })),
   removeToast: (id) => set((s) => ({
     toasts: s.toasts.filter(t => t.id !== id),

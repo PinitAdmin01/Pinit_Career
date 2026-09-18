@@ -20,6 +20,11 @@ coverage/
 *.docx
 scratch/
 tmp/
+.cache/
 CampusOS_Client_Presentation.html
 # Allow product audio and media assets inside public/
 
+
+claude_sandbox/
+
+dark-gracity/

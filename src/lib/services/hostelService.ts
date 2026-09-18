@@ -1,6 +1,7 @@
 import { supabase } from '@/lib/supabaseClient';
-import { tableExists as checkSupabaseAvailable } from '@/lib/services/supabaseTable';
-import { readLocalJson, writeLocalJson } from '@/lib/services/localJsonDb';
+import { tableExists as checkSupabaseAvailable, getCampusSupabaseClient } from '@/lib/services/supabaseTable';
+import { readLocalJson, writeLocalJson, StorageWriteResult } from '@/lib/services/localJsonDb';
+import crypto from 'crypto';
 
 const DB_FILE = 'src/lib/data/hostel_db.json';
 
@@ -62,8 +63,8 @@ async function readLocalDb(): Promise<any> {
 }
 
 // Write local JSON file database
-async function writeLocalDb(data: any): Promise<void> {
-  await writeLocalJson(DB_FILE, data);
+async function writeLocalDb(data: any): Promise<StorageWriteResult> {
+  return await writeLocalJson(DB_FILE, data);
 }
 
 export const hostelService = {
@@ -119,12 +120,13 @@ export const hostelService = {
 
     if (isSupabaseAvailable) {
       try {
-        const { data: existing } = await supabase.from('hostel_allocations').select('*').eq('student_id', studentId).maybeSingle();
+        const client = await getCampusSupabaseClient();
+        const { data: existing } = await client.from('hostel_allocations').select('*').eq('student_id', studentId).maybeSingle();
         const res = existing
-          ? await supabase.from('hostel_allocations').update({ requested_room: roomCode, status: 'pending' }).eq('student_id', studentId)
-          : await supabase.from('hostel_allocations').insert({ student_id: studentId, student_name: studentName, requested_room: roomCode, status: 'pending' });
+          ? await client.from('hostel_allocations').update({ requested_room: roomCode, status: 'pending' }).eq('student_id', studentId)
+          : await client.from('hostel_allocations').insert({ student_id: studentId, student_name: studentName, requested_room: roomCode, status: 'pending' });
         if (res.error) throw new Error(res.error.message);
-        return { ok: true };
+        return { ok: true, stored: 'db' };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local database:', err);
       }
@@ -139,8 +141,11 @@ export const hostelService = {
     } else {
       db.allocations.push(newAlloc);
     }
-    await writeLocalDb(db);
-    return { ok: true };
+    const writeRes = await writeLocalDb(db);
+    if (!writeRes.success) {
+      return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to save room request.', stored: 'none' };
+    }
+    return { ok: true, stored: writeRes.stored };
   },
 
   async logAttendance(studentId: string, studentName: string, type: 'check-in' | 'check-out', roomCode: string) {
@@ -148,7 +153,8 @@ export const hostelService = {
 
     if (isSupabaseAvailable) {
       try {
-        const res = await supabase.from('hostel_attendance').insert({
+        const client = await getCampusSupabaseClient();
+        const res = await client.from('hostel_attendance').insert({
           student_id: studentId,
           student_name: studentName,
           type,
@@ -156,7 +162,7 @@ export const hostelService = {
           timestamp: new Date().toISOString()
         });
         if (res.error) throw new Error(res.error.message);
-        return { ok: true };
+        return { ok: true, stored: 'db' };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local db:', err);
       }
@@ -165,15 +171,18 @@ export const hostelService = {
     // Local Database Fallback
     const db = await readLocalDb();
     db.attendance.unshift({
-      id: `ATT-${Math.floor(100 + Math.random() * 900)}`,
+      id: `ATT-${Date.now()}-${crypto.randomBytes(3).toString('hex').toUpperCase()}`,
       student_id: studentId,
       studentName,
       room: roomCode,
       type,
       timestamp: new Date().toISOString()
     });
-    await writeLocalDb(db);
-    return { ok: true };
+    const writeRes = await writeLocalDb(db);
+    if (!writeRes.success) {
+      return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to record attendance.', stored: 'none' };
+    }
+    return { ok: true, stored: writeRes.stored };
   },
 
   async raiseComplaint(studentId: string, studentName: string, category: string, title: string, description: string) {
@@ -181,7 +190,8 @@ export const hostelService = {
 
     if (isSupabaseAvailable) {
       try {
-        const res = await supabase.from('hostel_complaints').insert({
+        const client = await getCampusSupabaseClient();
+        const res = await client.from('hostel_complaints').insert({
           student_id: studentId,
           student_name: studentName,
           category,
@@ -190,7 +200,7 @@ export const hostelService = {
           status: 'Pending'
         });
         if (res.error) throw new Error(res.error.message);
-        return { ok: true };
+        return { ok: true, stored: 'db' };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local db:', err);
       }
@@ -199,7 +209,7 @@ export const hostelService = {
     // Local Database Fallback
     const db = await readLocalDb();
     db.complaints.unshift({
-      id: `CMP-${Math.floor(100 + Math.random() * 900)}`,
+      id: `CMP-${Date.now()}-${crypto.randomBytes(3).toString('hex').toUpperCase()}`,
       student_id: studentId,
       studentName,
       category,
@@ -208,8 +218,11 @@ export const hostelService = {
       status: 'Pending',
       timestamp: new Date().toISOString()
     });
-    await writeLocalDb(db);
-    return { ok: true };
+    const writeRes = await writeLocalDb(db);
+    if (!writeRes.success) {
+      return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to submit complaint.', stored: 'none' };
+    }
+    return { ok: true, stored: writeRes.stored };
   },
 
   async registerVisitor(studentId: string, name: string, relation: string, purpose: string) {
@@ -217,7 +230,8 @@ export const hostelService = {
 
     if (isSupabaseAvailable) {
       try {
-        const res = await supabase.from('hostel_visitors').insert({
+        const client = await getCampusSupabaseClient();
+        const res = await client.from('hostel_visitors').insert({
           student_id: studentId,
           name,
           relation,
@@ -225,7 +239,7 @@ export const hostelService = {
           status: 'checked-in'
         });
         if (res.error) throw new Error(res.error.message);
-        return { ok: true };
+        return { ok: true, stored: 'db' };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local db:', err);
       }
@@ -234,7 +248,7 @@ export const hostelService = {
     // Local Database Fallback
     const db = await readLocalDb();
     db.visitors.unshift({
-      id: `VIS-${Math.floor(100 + Math.random() * 900)}`,
+      id: `VIS-${Date.now()}-${crypto.randomBytes(3).toString('hex').toUpperCase()}`,
       student_id: studentId,
       name,
       relation,
@@ -242,8 +256,11 @@ export const hostelService = {
       status: 'checked-in',
       timestamp: new Date().toISOString()
     });
-    await writeLocalDb(db);
-    return { ok: true };
+    const writeRes = await writeLocalDb(db);
+    if (!writeRes.success) {
+      return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to register visitor.', stored: 'none' };
+    }
+    return { ok: true, stored: writeRes.stored };
   },
 
   async checkoutVisitor(studentId: string, visitorId: string) {
@@ -251,9 +268,10 @@ export const hostelService = {
 
     if (isSupabaseAvailable) {
       try {
-        const res = await supabase.from('hostel_visitors').update({ status: 'checked-out' }).eq('id', visitorId);
+        const client = await getCampusSupabaseClient();
+        const res = await client.from('hostel_visitors').update({ status: 'checked-out' }).eq('id', visitorId);
         if (res.error) throw new Error(res.error.message);
-        return { ok: true };
+        return { ok: true, stored: 'db' };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local db:', err);
       }
@@ -264,18 +282,23 @@ export const hostelService = {
     const visitor = db.visitors.find((v: any) => v.id === visitorId);
     if (visitor) {
       visitor.status = 'checked-out';
-      await writeLocalDb(db);
+      const writeRes = await writeLocalDb(db);
+      if (!writeRes.success) {
+        return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to checkout visitor.', stored: 'none' };
+      }
+      return { ok: true, stored: writeRes.stored };
     }
-    return { ok: true };
+    return { ok: true, stored: 'local' };
   },
 
   async resolveComplaint(complaintId: string) {
     const isSupabaseAvailable = await checkSupabaseAvailable('hostel_complaints');
     if (isSupabaseAvailable) {
       try {
-        const res = await supabase.from('hostel_complaints').update({ status: 'Resolved' }).eq('id', complaintId);
+        const client = await getCampusSupabaseClient();
+        const res = await client.from('hostel_complaints').update({ status: 'Resolved' }).eq('id', complaintId);
         if (res.error) throw new Error(res.error.message);
-        return { ok: true };
+        return { ok: true, stored: 'db' };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local db:', err);
       }
@@ -284,34 +307,56 @@ export const hostelService = {
     const row = (db.complaints || []).find((c: any) => c.id === complaintId);
     if (row) {
       row.status = 'Resolved';
-      await writeLocalDb(db);
+      const writeRes = await writeLocalDb(db);
+      if (!writeRes.success) {
+        return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to resolve complaint.', stored: 'none' };
+      }
+      return { ok: true, stored: writeRes.stored };
     }
-    return { ok: true };
+    return { ok: true, stored: 'local' };
   },
 
   async approveAllocation(studentId: string, roomCode: string) {
     const isSupabaseAvailable = await checkSupabaseAvailable('hostel_allocations');
     if (isSupabaseAvailable) {
       try {
-        const res1 = await supabase.from('hostel_allocations').update({ status: 'allocated', requested_room: roomCode }).eq('student_id', studentId);
+        const client = await getCampusSupabaseClient();
+        const { data: room } = await client.from('hostel_rooms').select('*').eq('code', roomCode).maybeSingle();
+        if (room && (room.occupied || 0) >= (room.capacity || 1)) {
+          return { ok: false, error: 'ROOM_FULL', message: 'Room is already at full capacity.' };
+        }
+        const res1 = await client.from('hostel_allocations').update({ status: 'allocated', requested_room: roomCode }).eq('student_id', studentId);
         if (res1.error) throw new Error(res1.error.message);
-        const { data: room } = await supabase.from('hostel_rooms').select('*').eq('code', roomCode).maybeSingle();
         if (room) {
-          const res2 = await supabase.from('hostel_rooms').update({
+          const res2 = await client.from('hostel_rooms').update({
             occupied: (room.occupied || 0) + 1,
             status: (room.occupied || 0) + 1 >= (room.capacity || 1) ? 'full' : 'available',
           }).eq('code', roomCode);
           if (res2.error) throw new Error(res2.error.message);
         }
-        return { ok: true };
+        return { ok: true, stored: 'db' };
       } catch (err) {
         console.warn('Supabase write failed, falling back to local db:', err);
       }
     }
     const db = await readLocalDb();
+    const room = (db.rooms || []).find((r: any) => r.code === roomCode);
+    if (room && (room.occupied || 0) >= (room.capacity || 1)) {
+      return { ok: false, error: 'ROOM_FULL', message: 'Room is already at full capacity.' };
+    }
     const alloc = (db.allocations || []).find((a: any) => a.student_id === studentId);
-    if (alloc) alloc.status = 'allocated';
-    await writeLocalDb(db);
-    return { ok: true };
+    if (alloc) {
+      alloc.status = 'allocated';
+      alloc.requestedRoom = roomCode;
+    }
+    if (room) {
+      room.occupied = (room.occupied || 0) + 1;
+      room.status = room.occupied >= (room.capacity || 1) ? 'full' : 'available';
+    }
+    const writeRes = await writeLocalDb(db);
+    if (!writeRes.success) {
+      return { ok: false, error: 'NOT_SAVED', message: writeRes.error || 'Failed to approve allocation.', stored: 'none' };
+    }
+    return { ok: true, stored: writeRes.stored };
   },
 };

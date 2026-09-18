@@ -17,12 +17,57 @@ function getDiskCachePath(): string {
   }
 }
 
-function readDiskCache(): Record<string, number[]> {
+function getPersistentDbPath(): string {
   try {
+    const dir = path.join(process.cwd(), 'src', 'lib', 'data');
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    return path.join(dir, 'face_biometrics_db.json');
+  } catch {
+    return '';
+  }
+}
+
+interface FaceDiskRecord {
+  vector: number[];
+  updatedAt: number;
+}
+
+// Task 3.2: Bound disk and memory cache with LRU eviction policy
+export const MAX_DISK_TEMPLATES = 500;
+export const MAX_DISK_BYTES = 10 * 1024 * 1024; // 10MB limit
+
+function parseDiskRecords(data: Record<string, any>): Record<string, FaceDiskRecord> {
+  const records: Record<string, FaceDiskRecord> = {};
+  if (!data || typeof data !== 'object') return records;
+  for (const [k, v] of Object.entries(data)) {
+    const cleanKey = k.trim().toLowerCase();
+    if (Array.isArray(v)) {
+      records[cleanKey] = { vector: v, updatedAt: Date.now() };
+    } else if (v && typeof v === 'object' && Array.isArray((v as any).vector)) {
+      records[cleanKey] = {
+        vector: (v as any).vector,
+        updatedAt: typeof (v as any).updatedAt === 'number' ? (v as any).updatedAt : Date.now(),
+      };
+    }
+  }
+  return records;
+}
+
+function readRawDiskCache(): Record<string, FaceDiskRecord> {
+  try {
+    const persistentPath = getPersistentDbPath();
+    if (persistentPath && fs.existsSync(persistentPath)) {
+      const raw = fs.readFileSync(persistentPath, 'utf-8');
+      const data = JSON.parse(raw);
+      if (typeof data === 'object' && data !== null) return parseDiskRecords(data);
+    }
     const filePath = getDiskCachePath();
     if (filePath && fs.existsSync(filePath)) {
       const raw = fs.readFileSync(filePath, 'utf-8');
-      return JSON.parse(raw);
+      const data = JSON.parse(raw);
+      if (typeof data === 'object' && data !== null) return parseDiskRecords(data);
     }
   } catch {
     // Disk read failed gracefully
@@ -30,15 +75,58 @@ function readDiskCache(): Record<string, number[]> {
   return {};
 }
 
+function readDiskCache(): Record<string, number[]> {
+  const raw = readRawDiskCache();
+  const result: Record<string, number[]> = {};
+  for (const [k, v] of Object.entries(raw)) {
+    result[k] = v.vector;
+  }
+  return result;
+}
+
 function writeDiskCache(key: string, vector: number[]) {
   try {
+    const records = readRawDiskCache();
+    const cleanKey = key.trim().toLowerCase();
+    records[cleanKey] = { vector, updatedAt: Date.now() };
+
+    // Task 3.2: LRU Eviction on entry capacity breach (> 500 templates)
+    const entries = Object.entries(records);
+    if (entries.length > MAX_DISK_TEMPLATES) {
+      // Sort ascending by updatedAt: oldest accessed/updated first
+      entries.sort((a, b) => a[1].updatedAt - b[1].updatedAt);
+      const toRemove = entries.length - MAX_DISK_TEMPLATES;
+      for (let i = 0; i < toRemove; i++) {
+        delete records[entries[i][0]];
+        memoryCache.delete(entries[i][0]);
+      }
+    }
+
+    // Task 3.2: LRU Eviction on byte threshold breach (> 10MB)
+    let jsonStr = JSON.stringify(records, null, 2);
+    if (Buffer.byteLength(jsonStr, 'utf-8') > MAX_DISK_BYTES) {
+      const sorted = Object.entries(records).sort((a, b) => a[1].updatedAt - b[1].updatedAt);
+      while (sorted.length > 0 && Buffer.byteLength(jsonStr, 'utf-8') > MAX_DISK_BYTES) {
+        const oldest = sorted.shift();
+        if (oldest) {
+          delete records[oldest[0]];
+          memoryCache.delete(oldest[0]);
+          jsonStr = JSON.stringify(records, null, 2);
+        }
+      }
+    }
+
+    const persistentPath = getPersistentDbPath();
+    if (persistentPath) {
+      fs.writeFileSync(persistentPath, jsonStr, 'utf-8');
+    }
+
     const filePath = getDiskCachePath();
-    if (!filePath) return;
-    const current = readDiskCache();
-    current[key] = vector;
-    fs.writeFileSync(filePath, JSON.stringify(current), 'utf-8');
-  } catch {
-    // Disk write failed gracefully
+    if (filePath) {
+      fs.writeFileSync(filePath, jsonStr, 'utf-8');
+    }
+  } catch (err) {
+    console.warn('[FaceStore] Disk cache write failed gracefully:', err);
   }
 }
 
@@ -73,16 +161,26 @@ export async function getFaceTemplate(userKey: string): Promise<number[] | null>
   const cleanKey = String(userKey).trim().toLowerCase();
   if (!cleanKey) return null;
 
-  // 1. Check L1 Memory Cache
+  // 1. Check L1 Memory Cache (touch for LRU order)
   if (memoryCache.has(cleanKey)) {
-    return memoryCache.get(cleanKey) || null;
+    const cached = memoryCache.get(cleanKey) || null;
+    if (cached) {
+      memoryCache.delete(cleanKey);
+      memoryCache.set(cleanKey, cached);
+    }
+    return cached;
   }
 
   // 2. Check L2 Disk Cache
   const diskData = readDiskCache();
   if (diskData[cleanKey] && Array.isArray(diskData[cleanKey])) {
-    memoryCache.set(cleanKey, diskData[cleanKey]);
-    return diskData[cleanKey];
+    const descriptor = diskData[cleanKey];
+    if (memoryCache.size >= MAX_DISK_TEMPLATES) {
+      const oldest = memoryCache.keys().next().value;
+      if (oldest) memoryCache.delete(oldest);
+    }
+    memoryCache.set(cleanKey, descriptor);
+    return descriptor;
   }
 
   // 3. Query Supabase `face_templates` table
@@ -124,7 +222,13 @@ export async function setFaceTemplate(userKey: string, vector: number[]): Promis
   const cleanKey = String(userKey).trim().toLowerCase();
   if (!cleanKey || !Array.isArray(vector)) return false;
 
-  // 1. Set L1 Memory Cache
+  // 1. Set L1 Memory Cache (bounded LRU)
+  if (memoryCache.has(cleanKey)) {
+    memoryCache.delete(cleanKey);
+  } else if (memoryCache.size >= MAX_DISK_TEMPLATES) {
+    const oldest = memoryCache.keys().next().value;
+    if (oldest) memoryCache.delete(oldest);
+  }
   memoryCache.set(cleanKey, vector);
 
   // 2. Persist to L2 Disk Cache

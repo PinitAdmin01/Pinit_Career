@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
+import crypto from 'crypto';
 import { PathwayApiService } from '@/lib/api/pathwayApi';
-import { requireUserFromRequest } from '@/lib/server/requireAuth';
+import { getBearerToken, requireUserFromRequest } from '@/lib/server/requireAuth';
+import { getSupabaseAdmin, getSupabaseUserClient } from '@/lib/server/supabaseAdmin';
+import { verifyEvidenceIntegrity } from '@/lib/pathway/evidenceEngine';
 
 export async function GET(req: NextRequest) {
   try {
@@ -18,6 +21,95 @@ export async function GET(req: NextRequest) {
     const readiness = await PathwayApiService.getRoleReadiness(studentId, programId);
     const evidenceList = await PathwayApiService.getAllStudentEvidence(studentId);
 
+    // DEF-063 Fix: Authoritative server database verification of student competency evidence
+    let verifiedMasteryRecords: any[] = [];
+    let serverEvidenceRecords: any[] = [];
+    try {
+      const bearerToken = getBearerToken(req);
+      const supabase = process.env.SUPABASE_SERVICE_ROLE_KEY
+        ? getSupabaseAdmin()
+        : getSupabaseUserClient(bearerToken);
+
+      const { data: dbMastery } = await supabase
+        .from('student_competency_mastery')
+        .select('*')
+        .eq('student_id', studentId)
+        .eq('state', 'verified');
+      if (dbMastery) verifiedMasteryRecords = dbMastery;
+
+      const { data: dbEvidence } = await supabase
+        .from('competency_evidence_records')
+        .select('*')
+        .eq('student_id', studentId);
+      if (dbEvidence) serverEvidenceRecords = dbEvidence;
+    } catch {
+      // Fallback
+    }
+
+    const allEvidenceToCheck = [
+      ...evidenceList,
+      ...serverEvidenceRecords.map((r: any) => ({
+        id: r.id,
+        competencyId: r.competency_id,
+        competencyVersion: r.competency_version,
+        studentId: r.student_id,
+        programId: r.program_id,
+        evidenceClass: r.evidence_class,
+        difficulty: r.difficulty,
+        evidenceFamilyId: r.evidence_family_id,
+        sourceType: r.source_type,
+        sourceId: r.source_id,
+        attemptId: r.attempt_id,
+        score: r.score,
+        evaluatorType: r.evaluator_type,
+        evaluatorVersion: r.evaluator_version,
+        rubricVersion: r.rubric_version,
+        timestamp: r.timestamp,
+        integrityHash: r.integrity_hash,
+        artifacts: r.artifacts || {},
+        criticalFailuresDetected: r.critical_failures_detected || [],
+      }))
+    ];
+
+    const uniqueEvidence = Array.from(new Map(allEvidenceToCheck.map(e => [e.id, e])).values());
+
+    let verifiedEvidenceCount = 0;
+    for (const ev of uniqueEvidence) {
+      if (ev.integrityHash && verifyEvidenceIntegrity(ev)) {
+        verifiedEvidenceCount++;
+      }
+    }
+
+    const hasVerifiedCompetencies = (profile.verified.length > 0 || verifiedMasteryRecords.length > 0);
+    const isShaVerified = hasVerifiedCompetencies && verifiedEvidenceCount > 0 && (verifiedEvidenceCount === uniqueEvidence.length);
+
+    const secret = process.env.EVIDENCE_SIGNING_SECRET || process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.EXAM_SECRET || 'dev_transcript_secret';
+    const issueDate = new Date().toISOString().slice(0, 10);
+    const transcriptDigest = crypto.createHmac('sha256', secret)
+      .update(`${studentId}:${profile.verified.map(s => `${s.id}:${s.score}`).join(';')}:${verifiedEvidenceCount}:${issueDate}`)
+      .digest('hex');
+
+    const badgeText = isShaVerified ? '✓ HMAC-SHA256 Verified' : 'Provisional / Unverified';
+    const badgeBg = isShaVerified ? '#10b981' : '#f59e0b';
+    const sealText = isShaVerified
+      ? `Tamper-Evident Ledger Seal: ${transcriptDigest.slice(0, 16)}...`
+      : 'Ledger Status: Evidence Pending Verification';
+
+    const defenseScore = Number(readiness.capstoneDefenseScore || 0);
+    const defenseEvaluator = readiness.capstoneDefenseEvaluator || 'AI/Mentor Panel';
+    let defenseCopy = '';
+    let defenseColor = '';
+    if (defenseScore >= 70) {
+      defenseCopy = `Passed rigorous multi-stage architectural defense verifying independent problem solving and code provenance (${defenseScore}/100).`;
+      defenseColor = '#166534';
+    } else if (defenseScore > 0) {
+      defenseCopy = `Capstone oral defense completed with score ${defenseScore}/100 (Passing threshold: 70/100). Re-evaluation required.`;
+      defenseColor = '#b45309';
+    } else {
+      defenseCopy = 'Capstone oral defense pending evaluation. Architectural viva defense not yet completed.';
+      defenseColor = '#64748b';
+    }
+
     const htmlContent = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +120,7 @@ export async function GET(req: NextRequest) {
     .header { border-bottom: 2px solid #4f46e5; padding-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-start; }
     .brand { font-size: 24px; font-weight: 900; color: #4f46e5; }
     .subtitle { font-size: 13px; color: #64748b; margin-top: 4px; }
-    .badge { background: #10b981; color: #fff; padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 800; text-transform: uppercase; }
+    .badge { background: ${badgeBg}; color: #fff; padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 800; text-transform: uppercase; }
     .student-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; padding: 16px; background: #f8fafc; border-radius: 8px; font-size: 13px; }
     table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 13px; }
     th { text-align: left; padding: 10px; background: #f1f5f9; color: #475569; text-transform: uppercase; font-size: 11px; border-bottom: 1px solid #cbd5e1; }
@@ -45,7 +137,7 @@ export async function GET(req: NextRequest) {
       <div class="subtitle">Official Evidence-Backed Verifiable Transcript & Residency Record</div>
     </div>
     <div>
-      <span class="badge">✓ SHA-256 Verified</span>
+      <span class="badge">${badgeText}</span>
     </div>
   </div>
 
@@ -79,13 +171,13 @@ export async function GET(req: NextRequest) {
   </table>
 
   <div class="defense-card">
-    <strong>Capstone Oral Defense & Viva Score:</strong> ${readiness.capstoneDefenseScore || 0}/100 (Evaluator: ${readiness.capstoneDefenseEvaluator || 'AI/Mentor Panel'})
-    <p style="margin: 4px 0 0 0; color: #4338ca;">Passed rigorous multi-stage architectural defense verifying independent problem solving and code provenance.</p>
+    <strong>Capstone Oral Defense & Viva Score:</strong> ${defenseScore}/100 (Evaluator: ${defenseEvaluator})
+    <p style="margin: 4px 0 0 0; color: ${defenseColor};">${defenseCopy}</p>
   </div>
 
   <div class="footer">
     <div>Cryptographic Proof: https://pinit.app/verify/${studentId}</div>
-    <div>Tamper-Evident Ledger Seal: SHA-256 Verified</div>
+    <div>${sealText}</div>
   </div>
 </body>
 </html>`;

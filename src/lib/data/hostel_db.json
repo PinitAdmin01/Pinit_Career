@@ -1,6 +1,275 @@
 {
-  "rooms": [],
-  "attendance": [],
-  "complaints": [],
+  "rooms": [
+    {
+      "code": "R-CAP-1789594634035",
+      "block": "Block Test",
+      "room": "101",
+      "capacity": 1,
+      "occupied": 1,
+      "residents": [],
+      "status": "full"
+    },
+    {
+      "code": "R-CAP-1789594780778",
+      "block": "Block Test",
+      "room": "101",
+      "capacity": 1,
+      "occupied": 1,
+      "residents": [],
+      "status": "full"
+    },
+    {
+      "code": "R-CAP-1789594825005",
+      "block": "Block Test",
+      "room": "101",
+      "capacity": 1,
+      "occupied": 1,
+      "residents": [],
+      "status": "full"
+    },
+    {
+      "code": "R-CAP-1789594848964",
+      "block": "Block Test",
+      "room": "101",
+      "capacity": 1,
+      "occupied": 1,
+      "residents": [],
+      "status": "full"
+    },
+    {
+      "code": "R-CAP-1789647486766",
+      "block": "Block Test",
+      "room": "101",
+      "capacity": 1,
+      "occupied": 1,
+      "residents": [],
+      "status": "full"
+    }
+  ],
+  "allocations": [],
+  "attendance": [
+    {
+      "id": "ATT-1789647486783-C4780F",
+      "student_id": "stu_h1_1789647486766",
+      "studentName": "Student H1",
+      "room": "R-CAP-1789647486766",
+      "type": "check-in",
+      "timestamp": "2026-09-17T12:18:06.784Z"
+    },
+    {
+      "id": "ATT-1789594848977-CB9B4A",
+      "student_id": "stu_h1_1789594848964",
+      "studentName": "Student H1",
+      "room": "R-CAP-1789594848964",
+      "type": "check-in",
+      "timestamp": "2026-09-16T21:40:48.978Z"
+    },
+    {
+      "id": "ATT-1789594825021-EC79B6",
+      "student_id": "stu_h1_1789594825005",
+      "studentName": "Student H1",
+      "room": "R-CAP-1789594825005",
+      "type": "check-in",
+      "timestamp": "2026-09-16T21:40:25.021Z"
+    },
+    {
+      "id": "ATT-1789594780788-57AA82",
+      "student_id": "stu_h1_1789594780778",
+      "studentName": "Student H1",
+      "room": "R-CAP-1789594780778",
+      "type": "check-in",
+      "timestamp": "2026-09-16T21:39:40.788Z"
+    },
+    {
+      "id": "ATT-1789594634053-2A33BC",
+      "student_id": "stu_h1_1789594634035",
+      "studentName": "Student H1",
+      "room": "R-CAP-1789594634035",
+      "type": "check-in",
+      "timestamp": "2026-09-16T21:37:14.053Z"
+    },
+    {
+      "id": "ATT-443",
+      "student_id": "test_user_001",
+      "studentName": "student@pinit.in",
+      "room": "B-204",
+      "type": "checkin",
+      "timestamp": "2026-09-13T10:28:19.824Z"
+    },
+    {
+      "id": "ATT-535",
+      "student_id": "test_user_001",
+      "studentName": "student@pinit.in",
+      "room": "B-204",
+      "type": "checkin",
+      "timestamp": "2026-09-13T10:22:29.723Z"
+    },
+    {
+      "id": "ATT-709",
+      "student_id": "test_user_001",
+      "studentName": "student@pinit.in",
+      "room": "B-204",
+      "type": "checkin",
+      "timestamp": "2026-09-13T10:20:22.705Z"
+    },
+    {
+      "id": "ATT-920",
+      "student_id": "test_user_001",
+      "studentName": "student@pinit.in",
+      "room": "B-204",
+      "type": "checkin",
+      "timestamp": "2026-09-13T08:29:13.992Z"
+    },
+    {
+      "id": "ATT-494",
+      "student_id": "test_user_001",
+      "studentName": "student@pinit.in",
+      "room": "B-204",
+      "type": "checkin",
+      "timestamp": "2026-09-13T08:14:06.039Z"
+    },
+    {
+      "id": "ATT-998",
+      "student_id": "test_user_001",
+      "studentName": "student@pinit.in",
+      "room": "B-204",
+      "type": "checkin",
+      "timestamp": "2026-09-13T07:29:19.546Z"
+    },
+    {
+      "id": "ATT-149",
+      "student_id": "test_user_001",
+      "studentName": "student@pinit.in",
+      "room": "B-204",
+      "type": "checkin",
+      "timestamp": "2026-09-13T07:24:03.076Z"
+    },
+    {
+      "id": "ATT-704",
+      "student_id": "test_user_001",
+      "studentName": "student@pinit.in",
+      "room": "B-204",
+      "type": "checkin",
+      "timestamp": "2026-09-13T07:23:21.195Z"
+    },
+    {
+      "id": "ATT-818",
+      "student_id": "test_user_001",
+      "studentName": "student@pinit.in",
+      "room": "B-204",
+      "type": "checkin",
+      "timestamp": "2026-09-13T06:09:44.924Z"
+    },
+    {
+      "id": "ATT-873",
+      "student_id": "test_user_001",
+      "studentName": "student@pinit.in",
+      "room": "B-204",
+      "type": "checkin",
+      "timestamp": "2026-09-13T06:06:14.823Z"
+    }
+  ],
+  "complaints": [
+    {
+      "id": "CMP-522",
+      "student_id": "test_user_001",
+      "studentName": "student@pinit.in",
+      "category": "maintenance",
+      "title": "Water leakage",
+      "description": "Pipe leaking in bathroom",
+      "status": "Pending",
+      "timestamp": "2026-09-13T10:28:19.840Z"
+    },
+    {
+      "id": "CMP-438",
+      "student_id": "test_user_001",
+      "studentName": "student@pinit.in",
+      "category": "maintenance",
+      "title": "Water leakage",
+      "description": "Pipe leaking in bathroom",
+      "status": "Pending",
+      "timestamp": "2026-09-13T10:22:29.731Z"
+    },
+    {
+      "id": "CMP-916",
+      "student_id": "test_user_001",
+      "studentName": "student@pinit.in",
+      "category": "maintenance",
+      "title": "Water leakage",
+      "description": "Pipe leaking in bathroom",
+      "status": "Pending",
+      "timestamp": "2026-09-13T10:20:22.715Z"
+    },
+    {
+      "id": "CMP-476",
+      "student_id": "test_user_001",
+      "studentName": "student@pinit.in",
+      "category": "maintenance",
+      "title": "Water leakage",
+      "description": "Pipe leaking in bathroom",
+      "status": "Pending",
+      "timestamp": "2026-09-13T08:29:14.002Z"
+    },
+    {
+      "id": "CMP-449",
+      "student_id": "test_user_001",
+      "studentName": "student@pinit.in",
+      "category": "maintenance",
+      "title": "Water leakage",
+      "description": "Pipe leaking in bathroom",
+      "status": "Pending",
+      "timestamp": "2026-09-13T08:14:06.052Z"
+    },
+    {
+      "id": "CMP-915",
+      "student_id": "test_user_001",
+      "studentName": "student@pinit.in",
+      "category": "maintenance",
+      "title": "Water leakage",
+      "description": "Pipe leaking in bathroom",
+      "status": "Pending",
+      "timestamp": "2026-09-13T07:29:19.561Z"
+    },
+    {
+      "id": "CMP-671",
+      "student_id": "test_user_001",
+      "studentName": "student@pinit.in",
+      "category": "maintenance",
+      "title": "Water leakage",
+      "description": "Pipe leaking in bathroom",
+      "status": "Pending",
+      "timestamp": "2026-09-13T07:24:03.085Z"
+    },
+    {
+      "id": "CMP-425",
+      "student_id": "test_user_001",
+      "studentName": "student@pinit.in",
+      "category": "maintenance",
+      "title": "Water leakage",
+      "description": "Pipe leaking in bathroom",
+      "status": "Pending",
+      "timestamp": "2026-09-13T07:23:21.206Z"
+    },
+    {
+      "id": "CMP-450",
+      "student_id": "test_user_001",
+      "studentName": "student@pinit.in",
+      "category": "maintenance",
+      "title": "Water leakage",
+      "description": "Pipe leaking in bathroom",
+      "status": "Pending",
+      "timestamp": "2026-09-13T06:09:44.932Z"
+    },
+    {
+      "id": "CMP-578",
+      "student_id": "test_user_001",
+      "studentName": "student@pinit.in",
+      "category": "maintenance",
+      "title": "Water leakage",
+      "description": "Pipe leaking in bathroom",
+      "status": "Pending",
+      "timestamp": "2026-09-13T06:06:14.830Z"
+    }
+  ],
   "visitors": []
 }

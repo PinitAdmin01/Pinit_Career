@@ -1,5 +1,47 @@
 {
   "announcements": [],
   "emails": [],
-  "sms": []
+  "sms": [],
+  "logs": [
+    {
+      "id": "NOTICE-1348",
+      "type": "email",
+      "subject": "Exam Schedule Published",
+      "body": "Final exam dates are live.",
+      "category": "Academics",
+      "date": "2026-09-17"
+    },
+    {
+      "id": "NOTICE-7257",
+      "type": "email",
+      "subject": "Exam Schedule Published",
+      "body": "Final exam dates are live.",
+      "category": "Academics",
+      "date": "2026-09-16"
+    },
+    {
+      "id": "NOTICE-3012",
+      "type": "email",
+      "subject": "Exam Schedule Published",
+      "body": "Final exam dates are live.",
+      "category": "Academics",
+      "date": "2026-09-16"
+    },
+    {
+      "id": "NOTICE-4941",
+      "type": "email",
+      "subject": "Exam Schedule Published",
+      "body": "Final exam dates are live.",
+      "category": "Academics",
+      "date": "2026-09-16"
+    },
+    {
+      "id": "NOTICE-9444",
+      "type": "email",
+      "subject": "Exam Schedule Published",
+      "body": "Final exam dates are live.",
+      "category": "Academics",
+      "date": "2026-09-16"
+    }
+  ]
 }

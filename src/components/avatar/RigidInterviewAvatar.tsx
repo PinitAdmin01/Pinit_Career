@@ -44,6 +44,7 @@ export default function RigidInterviewAvatar({ teacherId = 'priya', animState = 
       ro.disconnect();
       scene.dispose();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [teacherId]);
 
   useEffect(() => {

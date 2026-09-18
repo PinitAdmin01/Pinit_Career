@@ -53,7 +53,7 @@ export default function ChatInterface({ sessionId, teacherId, mode, noteIds, car
         }
       })
       .catch(() => {});
-  }, [sessionId]);
+  }, [sessionId, teacherId, mode, noteIds.length]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior:'smooth' });
@@ -105,7 +105,7 @@ export default function ChatInterface({ sessionId, teacherId, mode, noteIds, car
     } finally {
       setLoading(false);
     }
-  }, [input, loading, messages, teacherId, mode, noteIds, sessionId, careerContext]);
+  }, [input, loading, teacherId, mode, noteIds, sessionId, careerContext]);
 
   return (
     <div style={{ display:'flex', flexDirection:'column', height:'calc(100vh - 180px)', background:'var(--card)', border:'1px solid var(--border)', borderRadius:14, overflow:'hidden' }}>

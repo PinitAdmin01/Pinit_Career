@@ -1,7 +1,9 @@
 // apps/web/src/lib/pathway/evidenceEngine.ts
 // Strict Evidence Ledger Engine: Provenance, Canonical SHA-256 Hashing & Anti-Gaming Deduplication
 
-import { createHash } from 'crypto';
+import { createHash, createHmac, randomBytes } from 'crypto';
+
+const devEphemeralEvidenceKey = randomBytes(32).toString('hex');
 import {
   CompetencyDefinition,
   CompetencyEvidenceRecord,
@@ -36,7 +38,7 @@ function canonicalSort(val: any): any {
 }
 
 /**
- * Computes a deterministic canonical SHA-256 integrity hash for an evidence record.
+ * Computes a deterministic HMAC-SHA256 integrity hash for an evidence record using server secret.
  */
 export function generateEvidenceIntegrityHash(record: Omit<CompetencyEvidenceRecord, 'integrityHash'>): string {
   const sortedArtifacts = record.artifacts ? canonicalSort(record.artifacts) : {};
@@ -60,11 +62,17 @@ export function generateEvidenceIntegrityHash(record: Omit<CompetencyEvidenceRec
     artifacts: sortedArtifacts,
   });
 
-  return createHash('sha256').update(canonicalPayload).digest('hex');
+  const secret = process.env.EVIDENCE_SIGNING_SECRET || process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.EXAM_SECRET;
+  if (!secret && process.env.NODE_ENV === 'production') {
+    throw new Error('[FATAL] EVIDENCE_SIGNING_SECRET must be configured in production.');
+  }
+  const signingKey = secret || devEphemeralEvidenceKey;
+  return createHmac('sha256', signingKey).update(canonicalPayload).digest('hex');
 }
 
 /**
- * Verifies if an existing evidence record's SHA-256 integrity hash is valid and untampered.
+ * Verifies if an existing evidence record's HMAC-SHA256 integrity hash is valid and untampered.
+ * Strictly requires keyed HMAC-SHA256. Legacy unkeyed SHA-256 is rejected to prevent evidence forgery.
  */
 export function verifyEvidenceIntegrity(record: CompetencyEvidenceRecord): boolean {
   if (!record.integrityHash) return false;

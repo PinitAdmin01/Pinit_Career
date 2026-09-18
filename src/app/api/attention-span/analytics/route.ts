@@ -1,71 +1,47 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
+import { getAttentionAnalytics, saveAttentionAnalytics } from '@/lib/attention/progress';
+import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 
-interface UserAnalyticsRecord {
-  userId: string;
-  dailyLogs: Record<string, any>;
-  monthlySummaries: Record<string, any>;
-  lastUpdated: string;
-}
-
-// In-memory store fallback for long-term analytics logs across sessions
-let globalAnalyticsStore: Record<string, UserAnalyticsRecord> = {};
-
+/**
+ * GET /api/attention-span/analytics
+ * Retrieves user attention analytics backed by persistent attention_span_progress store.
+ * Zero in-memory loss across cold starts.
+ */
 export async function GET(req: Request) {
   try {
     const gated = await requireUserFromRequest(req);
     if (gated.error) return gated.error;
 
     const userId = gated.user!.id;
+    const result = await getAttentionAnalytics(userId);
 
-    const record = globalAnalyticsStore[userId] || {
-      userId,
-      dailyLogs: {},
-      monthlySummaries: {},
-      lastUpdated: new Date().toISOString(),
-    };
-
-    return NextResponse.json({ ok: true, analytics: record });
+    return NextResponse.json(result);
   } catch (error: any) {
-    return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+    return NextResponse.json({ ok: false, error: error.message || 'Failed to fetch analytics' }, { status: 500 });
   }
 }
 
+/**
+ * POST /api/attention-span/analytics
+ * Persists daily logs and monthly summaries to attention_span_progress.
+ */
 export async function POST(req: Request) {
   try {
+    const ip = getClientIp(req);
+    const rl = checkRateLimit(`attention_analytics_${ip}`, { limit: 30, windowMs: 60_000 });
+    if (!rl.allowed) return NextResponse.json({ ok: false, error: 'RATE_LIMIT' }, { status: 429 });
+
     const gated = await requireUserFromRequest(req);
     if (gated.error) return gated.error;
 
     const userId = gated.user!.id;
-    const body = await req.json();
+    const body = await req.json().catch(() => ({}));
     const { dailyLog, monthlySummary } = body;
 
-    const existing = globalAnalyticsStore[userId] || {
-      userId,
-      dailyLogs: {},
-      monthlySummaries: {},
-      lastUpdated: new Date().toISOString(),
-    };
-
-    if (dailyLog && dailyLog.date) {
-      existing.dailyLogs[dailyLog.date] = {
-        ...existing.dailyLogs[dailyLog.date],
-        ...dailyLog,
-      };
-    }
-
-    if (monthlySummary && monthlySummary.month) {
-      existing.monthlySummaries[monthlySummary.month] = {
-        ...existing.monthlySummaries[monthlySummary.month],
-        ...monthlySummary,
-      };
-    }
-
-    existing.lastUpdated = new Date().toISOString();
-    globalAnalyticsStore[userId] = existing;
-
-    return NextResponse.json({ ok: true, analytics: existing });
+    const result = await saveAttentionAnalytics(userId, dailyLog, monthlySummary);
+    return NextResponse.json(result);
   } catch (error: any) {
-    return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+    return NextResponse.json({ ok: false, error: error.message || 'Failed to save analytics' }, { status: 500 });
   }
 }

@@ -1,6 +1,94 @@
 {
-  "leaves": [],
+  "leaves": [
+    {
+      "id": "LEV-1789647486756-WH7V4",
+      "studentId": "srv_stu1_1789647486755",
+      "student_id": "srv_stu1_1789647486755",
+      "startDate": "2026-10-01",
+      "endDate": "2026-10-03",
+      "reason": "Viral Fever",
+      "type": "Medical Leave",
+      "status": "Pending"
+    },
+    {
+      "id": "LEV-1789594848957-UTHY6",
+      "studentId": "srv_stu1_1789594848955",
+      "student_id": "srv_stu1_1789594848955",
+      "startDate": "2026-10-01",
+      "endDate": "2026-10-03",
+      "reason": "Viral Fever",
+      "type": "Medical Leave",
+      "status": "Pending"
+    },
+    {
+      "id": "LEV-1789594824991-9ZKJS",
+      "studentId": "srv_stu1_1789594824990",
+      "student_id": "srv_stu1_1789594824990",
+      "startDate": "2026-10-01",
+      "endDate": "2026-10-03",
+      "reason": "Viral Fever",
+      "type": "Medical Leave",
+      "status": "Pending"
+    },
+    {
+      "id": "LEV-1789594780771-7GJY4",
+      "studentId": "srv_stu1_1789594780770",
+      "student_id": "srv_stu1_1789594780770",
+      "startDate": "Sick Leave",
+      "endDate": "2026-10-01",
+      "reason": "2026-10-03",
+      "type": "Viral Fever",
+      "status": "Pending"
+    },
+    {
+      "id": "LEV-1789594634028-SINFK",
+      "studentId": "srv_stu1_1789594634026",
+      "student_id": "srv_stu1_1789594634026",
+      "startDate": "Sick Leave",
+      "endDate": "2026-10-01",
+      "reason": "2026-10-03",
+      "type": "Viral Fever",
+      "status": "Pending"
+    }
+  ],
   "requests": [],
   "appointments": [],
-  "counselling": []
+  "counselling": [
+    {
+      "id": "CNS-1789647486758-NC9D7",
+      "studentId": "srv_stu1_1789647486755",
+      "student_id": "srv_stu1_1789647486755",
+      "counselorName": "Counsellor_1789647486755",
+      "date": "2026-10-10",
+      "time": "10:00 AM",
+      "status": "Requested"
+    },
+    {
+      "id": "CNS-1789594848958-U6HDV",
+      "studentId": "srv_stu1_1789594848955",
+      "student_id": "srv_stu1_1789594848955",
+      "counselorName": "Counsellor_1789594848955",
+      "date": "2026-10-10",
+      "time": "10:00 AM",
+      "status": "Requested"
+    },
+    {
+      "id": "CNS-1789594824994-8FHQ0",
+      "studentId": "srv_stu1_1789594824990",
+      "student_id": "srv_stu1_1789594824990",
+      "counselorName": "Counsellor_1789594824990",
+      "date": "2026-10-10",
+      "time": "10:00 AM",
+      "status": "Requested"
+    },
+    {
+      "id": "CNS-1789594634030-LX7QU",
+      "studentId": "srv_stu1_1789594634026",
+      "student_id": "srv_stu1_1789594634026",
+      "counselorName": "Counsellor A",
+      "date": "2026-10-10",
+      "time": "10:00 AM",
+      "status": "Requested"
+    }
+  ]
 }

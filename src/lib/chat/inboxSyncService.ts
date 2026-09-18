@@ -24,87 +24,6 @@ export interface StudentConversation {
 const STORAGE_KEY = 'pinit_mentor_inbox_conversations';
 const CHANNEL_NAME = 'pinit_chat_sync_channel';
 
-const DEFAULT_CONVERSATIONS: StudentConversation[] = [
-  {
-    studentId: 'std_101',
-    studentName: 'Aarav Sharma',
-    studentEmail: 'aarav.sharma@campus.edu',
-    course: 'Full-Stack React Web Development',
-    lastMessage: 'Professor, I had a doubt regarding Server Components vs Client Components in Next.js 14.',
-    lastTimestamp: Date.now() - 1000 * 60 * 25,
-    unreadCount: 1,
-    messages: [
-      {
-        id: 'm1',
-        sender: 'student',
-        senderName: 'Aarav Sharma',
-        studentId: 'std_101',
-        text: 'Hello Professor! Completed Day 12 of the React curriculum.',
-        timestamp: Date.now() - 1000 * 60 * 120,
-        topic: 'React 14 SSR'
-      },
-      {
-        id: 'm2',
-        sender: 'teacher',
-        senderName: 'Faculty Mentor',
-        studentId: 'std_101',
-        text: 'Great progress Aarav! Remember to keep stateful event listeners strictly in client components.',
-        timestamp: Date.now() - 1000 * 60 * 60,
-        topic: 'React 14 SSR'
-      },
-      {
-        id: 'm3',
-        sender: 'student',
-        senderName: 'Aarav Sharma',
-        studentId: 'std_101',
-        text: 'Professor, I had a doubt regarding Server Components vs Client Components in Next.js 14.',
-        timestamp: Date.now() - 1000 * 60 * 25,
-        topic: 'React 14 SSR'
-      }
-    ]
-  },
-  {
-    studentId: 'std_102',
-    studentName: 'Sneha Patel',
-    studentEmail: 'sneha.patel@campus.edu',
-    course: 'Java Fundamentals & Core Logic',
-    lastMessage: 'Thank you for reviewing my Day 8 exam code! The recursion tree explanation helped a lot.',
-    lastTimestamp: Date.now() - 1000 * 60 * 180,
-    unreadCount: 0,
-    messages: [
-      {
-        id: 'm4',
-        sender: 'student',
-        senderName: 'Sneha Patel',
-        studentId: 'std_102',
-        text: 'Thank you for reviewing my Day 8 exam code! The recursion tree explanation helped a lot.',
-        timestamp: Date.now() - 1000 * 60 * 180,
-        topic: 'Java Recursion'
-      }
-    ]
-  },
-  {
-    studentId: 'std_103',
-    studentName: 'Rohan Verma',
-    studentEmail: 'rohan.verma@campus.edu',
-    course: 'Digital Accounting & Taxation',
-    lastMessage: 'Sir, how do we adjust GST credit across state borders in Tally Prime?',
-    lastTimestamp: Date.now() - 1000 * 60 * 300,
-    unreadCount: 1,
-    messages: [
-      {
-        id: 'm5',
-        sender: 'student',
-        senderName: 'Rohan Verma',
-        studentId: 'std_103',
-        text: 'Sir, how do we adjust GST credit across state borders in Tally Prime?',
-        timestamp: Date.now() - 1000 * 60 * 300,
-        topic: 'GST Input Tax Credit'
-      }
-    ]
-  }
-];
-
 class InboxSyncService {
   private channel: BroadcastChannel | null = null;
   private listeners: ((conversations: StudentConversation[]) => void)[] = [];
@@ -125,21 +44,19 @@ class InboxSyncService {
   }
 
   public getConversations(): StudentConversation[] {
-    if (typeof window === 'undefined') return DEFAULT_CONVERSATIONS;
+    if (typeof window === 'undefined') return [];
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed) && parsed.length > 0) {
+        if (Array.isArray(parsed)) {
           return parsed;
         }
       }
     } catch (e) {
       console.warn('[InboxSyncService] Error reading conversations from storage:', e);
     }
-    // Initialize with default demo conversations
-    this.saveConversations(DEFAULT_CONVERSATIONS);
-    return DEFAULT_CONVERSATIONS;
+    return [];
   }
 
   private saveConversations(convs: StudentConversation[]): void {

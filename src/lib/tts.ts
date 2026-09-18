@@ -12,6 +12,7 @@ export { getAvatarVoiceVolume, setAvatarVoiceVolume };
 let currentSpeechId = 0;
 let activeSource: AudioBufferSourceNode | null = null;
 let isNeuralReady = true;
+let activeOnEndCallback: (() => void) | null = null;
 
 const preloadedAudioCacheMap = new Map<string, { buffer: Float32Array; sampleRate: number; teacherId: string }>();
 
@@ -38,9 +39,16 @@ function getAudioContext(): AudioContext {
   return win._sharedAudioCtx;
 }
 
-export function stopSpeaking() {
+export function stopSpeaking(force = false) {
+  if (typeof window !== 'undefined' && (window as any).__PINIT_STORY_TOUR_ACTIVE && !force) {
+    console.log('[PinIT TTS] 🛡️ stopSpeaking() ignored: Story Tour narration is active, protecting playback');
+    return;
+  }
   currentSpeechId++;
   console.log(`[PinIT TTS] 🛑 stopSpeaking() called. Advancing speechId to ${currentSpeechId}`);
+
+  activeOnEndCallback = null;
+
   try {
     getGlobalAudioQueue().stopAll();
   } catch (err) {
@@ -131,12 +139,12 @@ function fallbackWebSpeech(
   speechId = currentSpeechId,
   difficulty?: 'easy' | 'normal' | 'hard',
   speedMultiplier = 1.0,
-  maxDurationMs = 6800
+  maxDurationMs = 25000
 ) {
   if (speechId !== currentSpeechId) return;
   if (typeof window === 'undefined' || !window.speechSynthesis) {
     if (speechId === currentSpeechId) onStart();
-    const estimatedDuration = Math.min(maxDurationMs, Math.max(1800, cleanText.length * 35));
+    const estimatedDuration = Math.min(maxDurationMs, Math.max(2500, cleanText.length * 80));
     setTimeout(() => {
       if (speechId === currentSpeechId) onEnd();
     }, estimatedDuration);
@@ -149,13 +157,14 @@ function fallbackWebSpeech(
 
   const utterance = new SpeechSynthesisUtterance(cleanText);
   let maxDurationTimer: any = null;
+  let ended = false;
 
   const cleanupAndEnd = () => {
+    if (ended) return;
+    ended = true;
     if (maxDurationTimer) clearTimeout(maxDurationTimer);
-    if (speechId === currentSpeechId) {
-      try { window.speechSynthesis.cancel(); } catch {}
-      onEnd();
-    }
+    try { window.speechSynthesis.cancel(); } catch {}
+    onEnd();
   };
 
   utterance.onstart = () => {
@@ -163,7 +172,7 @@ function fallbackWebSpeech(
       onStart();
       maxDurationTimer = setTimeout(() => {
         cleanupAndEnd();
-      }, maxDurationMs);
+      }, Math.max(maxDurationMs, cleanText.length * 120));
     }
   };
   utterance.onend = () => {
@@ -307,21 +316,39 @@ export async function speakWithAvatar(
   const cleanSpeechText = sanitizeForSpeech(text);
   if (!cleanSpeechText) return;
 
+  let ended = false;
+  const safeOnEnd = () => {
+    if (ended) return;
+    ended = true;
+    if (activeOnEndCallback === safeOnEnd) {
+      activeOnEndCallback = null;
+    }
+    try {
+      onEnd();
+    } catch (err) {
+      console.warn('[PinIT TTS] onEnd callback error:', err);
+    }
+  };
+  activeOnEndCallback = safeOnEnd;
+
   const spokenText = enhanceTextIntonation(cleanSpeechText);
   const minDurationMs = Math.max(0, options?.minDurationMs || 0);
   const dynamicMaxDurationMs = Math.max(maxDurationMs, minDurationMs, Math.max(12000, cleanSpeechText.length * 150));
 
   const finishAfterFloor = (startedAt: number) => {
-    if (mySpeechId !== currentSpeechId) return;
+    if (mySpeechId !== currentSpeechId) {
+      safeOnEnd();
+      return;
+    }
     const elapsed = Date.now() - startedAt;
     const remaining = minDurationMs - elapsed;
     if (remaining > 50) {
       setTimeout(() => {
-        if (mySpeechId === currentSpeechId) onEnd();
+        safeOnEnd();
       }, remaining);
       return;
     }
-    onEnd();
+    safeOnEnd();
   };
 
   // Attempt Smart Hybrid Voice Router with Sentence Streaming for multi-sentence paragraphs
@@ -331,24 +358,47 @@ export async function speakWithAvatar(
 
     if (sentences.length > 1) {
       const startedAt = Date.now();
+      let streamSucceeded = false;
       try {
-        await getGlobalAudioQueue().playSentenceStream(
-          sentences,
-          {
-            voice,
-            speed: speedMultiplier,
-            bypassCache: options?.bypassCache,
-            minDurationMs
-          },
-          {
-            onStart,
-            onEnd: () => finishAfterFloor(startedAt),
-            onError: () => finishAfterFloor(startedAt)
-          }
-        );
-        return;
+        await new Promise<void>((resolve, reject) => {
+          getGlobalAudioQueue().playSentenceStream(
+            sentences,
+            {
+              voice,
+              speed: speedMultiplier,
+              bypassCache: options?.bypassCache,
+              minDurationMs
+            },
+            {
+              onStart,
+              onEnd: () => {
+                streamSucceeded = true;
+                finishAfterFloor(startedAt);
+                resolve();
+              },
+              onError: (err) => {
+                reject(err);
+              }
+            }
+          ).catch(reject);
+        });
+        if (streamSucceeded) return;
       } catch (streamErr) {
-        console.warn('[PinIT Voice] Streaming audio queue error, falling back to single buffer:', streamErr);
+        console.warn('[PinIT Voice] Streaming audio queue error, falling back directly to WebSpeech:', streamErr);
+        if (mySpeechId === currentSpeechId) {
+          fallbackWebSpeech(
+            cleanSpeechText,
+            teacherId,
+            onStart,
+            () => finishAfterFloor(Date.now()),
+            detectVibe(cleanSpeechText),
+            mySpeechId,
+            difficulty,
+            speedMultiplier,
+            dynamicMaxDurationMs
+          );
+        }
+        return;
       }
     }
 
@@ -395,23 +445,37 @@ export async function speakWithAvatar(
         return;
       }
     } catch (err) {
-      console.error('[PinIT Voice] Neural TTS failed (WebSpeech disabled):', err);
-      // Hold the floor for minDuration so GD turns stay 10s even if audio fails
+      console.warn('[PinIT Voice] Neural TTS unavailable, executing instant WebSpeech fallback:', err);
       if (mySpeechId === currentSpeechId) {
-        const startedAt = Date.now();
-        onStart();
-        finishAfterFloor(startedAt);
+        fallbackWebSpeech(
+          cleanSpeechText,
+          teacherId,
+          onStart,
+          () => finishAfterFloor(Date.now()),
+          detectVibe(cleanSpeechText),
+          mySpeechId,
+          difficulty,
+          speedMultiplier,
+          dynamicMaxDurationMs
+        );
       }
       return;
     }
   }
 
-  // WebSpeech browser voices are intentionally disabled.
-  console.warn('[PinIT Voice] Neural TTS required — browser WebSpeech fallback is disabled.');
+  // Fallback to WebSpeech if neural synthesis was bypassed or disabled
   if (mySpeechId === currentSpeechId) {
-    const startedAt = Date.now();
-    onStart();
-    finishAfterFloor(startedAt);
+    fallbackWebSpeech(
+      cleanSpeechText,
+      teacherId,
+      onStart,
+      () => finishAfterFloor(Date.now()),
+      detectVibe(cleanSpeechText),
+      mySpeechId,
+      difficulty,
+      speedMultiplier,
+      dynamicMaxDurationMs
+    );
   }
 }
 

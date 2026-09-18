@@ -3,12 +3,29 @@ import { supabase } from '@/lib/supabaseClient';
 const cache = new Map<string, { ok: boolean; at: number }>();
 const TTL_MS = 60_000;
 
+export async function getCampusSupabaseClient() {
+  if (typeof window === 'undefined') {
+    try {
+      const { getSupabaseAdmin } = await import('@/lib/server/supabaseAdmin');
+      return getSupabaseAdmin();
+    } catch {
+      return supabase;
+    }
+  }
+  return supabase;
+}
+
 /** Cached PostgREST probe so missing campus tables do not 404 on every click. */
 export async function tableExists(tableName: string): Promise<boolean> {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key || url.includes('placeholder-project')) return false;
+
   const hit = cache.get(tableName);
   if (hit && Date.now() - hit.at < TTL_MS) return hit.ok;
   try {
-    const { error } = await supabase.from(tableName).select('count', { count: 'exact', head: true });
+    const client = await getCampusSupabaseClient();
+    const { error } = await client.from(tableName).select('count', { count: 'exact', head: true });
     const ok = !error;
     cache.set(tableName, { ok, at: Date.now() });
     return ok;

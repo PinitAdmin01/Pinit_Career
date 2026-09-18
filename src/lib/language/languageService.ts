@@ -28,7 +28,7 @@ export async function loadLanguageProgress(studentId: string, languageCode: Lang
         .select('*')
         .eq('student_id', studentId)
         .eq('language_code', languageCode)
-        .single();
+        .maybeSingle();
 
       if (data && !error) {
         const remoteProgress: StudentLanguageProgress = {
@@ -102,7 +102,7 @@ export async function loadLanguageMastery(studentId: string, languageCode: Langu
         .select('*')
         .eq('student_id', studentId)
         .eq('language_code', languageCode)
-        .single();
+        .maybeSingle();
 
       if (data && !error) {
         const remoteMastery: StudentLanguageMastery = {

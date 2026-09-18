@@ -280,9 +280,10 @@ export function VortexVisionGame({ gameId, difficulty, onDifficultyChange, compl
   );
 }
 
+const FLASH_FUSION_SYMBOLS = ['⚡', '🧠', '🎯', '🔥', '💎', '🌀'];
+
 /* ⚡ GAME 7: FLASH FUSION */
 export function FlashFusionGame({ gameId, difficulty, onDifficultyChange, completedDifficulties, soundMuted, onComplete, onExit }: { gameId: GameId; difficulty: Difficulty; onDifficultyChange: (d: Difficulty) => void; completedDifficulties?: Record<string, Difficulty[]>; soundMuted: boolean; onComplete: (score: number, accuracyEarned: number) => void; onExit: () => void }) {
-  const SYMBOLS = ['⚡', '🧠', '🎯', '🔥', '💎', '🌀'];
   const [phase, setPhase] = useState<'ready' | 'countdown' | 'playing' | 'done'>('ready');
   const [currentSymbol, setCurrentSymbol] = useState('⚡');
   const [prevSymbol, setPrevSymbol] = useState('');
@@ -294,7 +295,7 @@ export function FlashFusionGame({ gameId, difficulty, onDifficultyChange, comple
     const interval = setInterval(() => {
       setPrevSymbol(currentSymbol);
       const isRepeat = Math.random() < 0.35;
-      const next = isRepeat ? currentSymbol : SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)];
+      const next = isRepeat ? currentSymbol : FLASH_FUSION_SYMBOLS[Math.floor(Math.random() * FLASH_FUSION_SYMBOLS.length)];
       setCurrentSymbol(next);
     }, speed);
     return () => clearInterval(interval);
@@ -354,6 +355,9 @@ export function FlashFusionGame({ gameId, difficulty, onDifficultyChange, comple
   );
 }
 
+const SHAPE_SHIFTER_COLORS = ['#ef4444', '#3b82f6', '#10b981', '#f59e0b'];
+const SHAPE_SHIFTER_SHAPES = ['🔴', '🔵', '🟢', '🟡'];
+
 /* 🧩 GAME 8: SHAPE SHIFTER (WITH DUAL STIMULUS CARDS & STROOP CHOICE BUTTONS) */
 export function ShapeShifterGame({ gameId, difficulty, onDifficultyChange, completedDifficulties, soundMuted, onComplete, onExit }: { gameId: GameId; difficulty: Difficulty; onDifficultyChange: (d: Difficulty) => void; completedDifficulties?: Record<string, Difficulty[]>; soundMuted: boolean; onComplete: (score: number, accuracyEarned: number) => void; onExit: () => void }) {
   const [phase, setPhase] = useState<'ready' | 'countdown' | 'playing' | 'done'>('ready');
@@ -362,20 +366,17 @@ export function ShapeShifterGame({ gameId, difficulty, onDifficultyChange, compl
   const [cardB, setCardB] = useState({ color: '#ef4444', shape: '🔵' });
   const [score, setScore] = useState(0);
 
-  const colors = ['#ef4444', '#3b82f6', '#10b981', '#f59e0b'];
-  const shapes = ['🔴', '🔵', '🟢', '🟡'];
-
   const spawnCards = useCallback(() => {
-    const colorA = colors[Math.floor(Math.random() * colors.length)];
-    const shapeA = shapes[Math.floor(Math.random() * shapes.length)];
+    const colorA = SHAPE_SHIFTER_COLORS[Math.floor(Math.random() * SHAPE_SHIFTER_COLORS.length)];
+    const shapeA = SHAPE_SHIFTER_SHAPES[Math.floor(Math.random() * SHAPE_SHIFTER_SHAPES.length)];
 
     const isMatch = Math.random() < 0.5;
     let colorB = colorA;
     let shapeB = shapeA;
 
     if (!isMatch) {
-      colorB = colors[Math.floor(Math.random() * colors.length)];
-      shapeB = shapes[Math.floor(Math.random() * shapes.length)];
+      colorB = SHAPE_SHIFTER_COLORS[Math.floor(Math.random() * SHAPE_SHIFTER_COLORS.length)];
+      shapeB = SHAPE_SHIFTER_SHAPES[Math.floor(Math.random() * SHAPE_SHIFTER_SHAPES.length)];
     }
 
     setCardA({ color: colorA, shape: shapeA });

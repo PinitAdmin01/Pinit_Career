@@ -16,9 +16,12 @@ export interface Project {
   minScore?: number;
   verificationScore?: number;
   vivaPassed?: boolean;
-  certificateType?: 'standard' | 'excellence';
+  certificateType?: 'standard' | 'excellence' | 'reference';
+  authorshipVerified?: boolean;
   certificateId?: string;
   issueDate?: string;
+  isTemplate?: boolean;
+  source?: 'llm' | 'curated_template' | 'custom';
 }
 
 export const GITHUB_REPO_REGEX = /^https?:\/\/(www\.)?github\.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+\/?$/;

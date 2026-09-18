@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function PublicFooter() {
   return (
@@ -12,10 +13,13 @@ export default function PublicFooter() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <Link href="/" className="lp-brand" aria-label="PINIT CAREER home">
               <span className="lp-brand-lockup">
-                <img
+                <Image
                   src="/brand/pinit-career-logo-clear.png"
                   alt="PINIT CAREER"
+                  width={160}
+                  height={36}
                   className="lp-brand-logo"
+                  style={{ height: 36, width: 'auto', objectFit: 'contain' }}
                 />
               </span>
             </Link>

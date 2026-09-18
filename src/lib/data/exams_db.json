@@ -1,5 +1,434 @@
 {
-  "results": [],
+  "sheets": {
+    "student_alpha_1789594633996": {
+      "isPublished": false,
+      "gpa": 7,
+      "results": [
+        {
+          "code": "MATH101",
+          "course": "MATH101",
+          "internals": 0,
+          "semester": 65,
+          "grade": "B+",
+          "isAbsent": false
+        }
+      ]
+    },
+    "student_beta_1789594633996": {
+      "isPublished": false,
+      "gpa": 6,
+      "results": [
+        {
+          "code": "PHYS101",
+          "course": "PHYS101",
+          "internals": 0,
+          "semester": 52,
+          "grade": "B",
+          "isAbsent": false
+        }
+      ]
+    },
+    "student_alpha_1789594780737": {
+      "isPublished": false,
+      "gpa": 7,
+      "results": [
+        {
+          "code": "MATH101",
+          "course": "MATH101",
+          "internals": 0,
+          "semester": 65,
+          "grade": "B+",
+          "isAbsent": false
+        }
+      ]
+    },
+    "student_beta_1789594780737": {
+      "isPublished": false,
+      "gpa": 6,
+      "results": [
+        {
+          "code": "PHYS101",
+          "course": "PHYS101",
+          "internals": 0,
+          "semester": 52,
+          "grade": "B",
+          "isAbsent": false
+        }
+      ]
+    },
+    "student_alpha_1789594824911": {
+      "isPublished": false,
+      "gpa": 7,
+      "results": [
+        {
+          "code": "MATH101",
+          "course": "MATH101",
+          "internals": 0,
+          "semester": 65,
+          "grade": "B+",
+          "isAbsent": false
+        }
+      ]
+    },
+    "student_beta_1789594824911": {
+      "isPublished": false,
+      "gpa": 6,
+      "results": [
+        {
+          "code": "PHYS101",
+          "course": "PHYS101",
+          "internals": 0,
+          "semester": 52,
+          "grade": "B",
+          "isAbsent": false
+        }
+      ]
+    },
+    "student_alpha_1789594848921": {
+      "isPublished": false,
+      "gpa": 7,
+      "results": [
+        {
+          "code": "MATH101",
+          "course": "MATH101",
+          "internals": 0,
+          "semester": 65,
+          "grade": "B+",
+          "isAbsent": false
+        }
+      ]
+    },
+    "student_beta_1789594848921": {
+      "isPublished": false,
+      "gpa": 6,
+      "results": [
+        {
+          "code": "PHYS101",
+          "course": "PHYS101",
+          "internals": 0,
+          "semester": 52,
+          "grade": "B",
+          "isAbsent": false
+        }
+      ]
+    },
+    "student_alpha_1789647486700": {
+      "isPublished": false,
+      "gpa": 7,
+      "results": [
+        {
+          "code": "MATH101",
+          "course": "MATH101",
+          "internals": 0,
+          "semester": 65,
+          "grade": "B+",
+          "isAbsent": false
+        }
+      ]
+    },
+    "student_beta_1789647486700": {
+      "isPublished": false,
+      "gpa": 6,
+      "results": [
+        {
+          "code": "PHYS101",
+          "course": "PHYS101",
+          "internals": 0,
+          "semester": 52,
+          "grade": "B",
+          "isAbsent": false
+        }
+      ]
+    }
+  },
   "schedule": [],
-  "isPublished": false
+  "attempts": [
+    {
+      "studentId": "STU-EXAM-TEST-18",
+      "examScheduleId": "EXAM-SCHED-999",
+      "score": 92,
+      "passed": true,
+      "timestamp": 1789160183206
+    },
+    {
+      "studentId": "STU-EXAM-TEST-18-1789160803310",
+      "examScheduleId": "EXAM-SCHED-1789160803310",
+      "score": 92,
+      "passed": true,
+      "timestamp": 1789160803315
+    },
+    {
+      "studentId": "STU-EXAM-TEST-18-1789162168928",
+      "examScheduleId": "EXAM-SCHED-1789162168928",
+      "score": 92,
+      "passed": true,
+      "timestamp": 1789162168931
+    },
+    {
+      "studentId": "STU-EXAM-TEST-18-1789162257553",
+      "examScheduleId": "EXAM-SCHED-1789162257553",
+      "score": 92,
+      "passed": true,
+      "timestamp": 1789162257562
+    },
+    {
+      "studentId": "STU-EXAM-TEST-18-1789162396696",
+      "examScheduleId": "EXAM-SCHED-1789162396696",
+      "score": 92,
+      "passed": true,
+      "timestamp": 1789162396700
+    },
+    {
+      "studentId": "STU-EXAM-TEST-18-1789205044449",
+      "examScheduleId": "EXAM-SCHED-1789205044449",
+      "score": 92,
+      "passed": true,
+      "timestamp": 1789205044452
+    },
+    {
+      "studentId": "STU-EXAM-TEST-18-1789206247367",
+      "examScheduleId": "EXAM-SCHED-1789206247367",
+      "score": 92,
+      "passed": true,
+      "timestamp": 1789206247370
+    },
+    {
+      "studentId": "STU-EXAM-TEST-18-1789207965860",
+      "examScheduleId": "EXAM-SCHED-1789207965860",
+      "score": 92,
+      "passed": true,
+      "timestamp": 1789207965863
+    },
+    {
+      "studentId": "STU-EXAM-TEST-18-1789210343530",
+      "examScheduleId": "EXAM-SCHED-1789210343530",
+      "score": 92,
+      "passed": true,
+      "timestamp": 1789210343536
+    },
+    {
+      "studentId": "usr_cd_test_1789229047577",
+      "examScheduleId": "e1",
+      "score": 45,
+      "passed": false,
+      "timestamp": 1789229047580
+    },
+    {
+      "studentId": "usr_cd_api_1789229047584",
+      "examScheduleId": "e2",
+      "score": 40,
+      "passed": false,
+      "timestamp": 1789229047584
+    },
+    {
+      "studentId": "usr_cd_test_1789279756759",
+      "examScheduleId": "e1",
+      "score": 45,
+      "passed": false,
+      "timestamp": 1789279756762
+    },
+    {
+      "studentId": "usr_cd_api_1789279756765",
+      "examScheduleId": "e2",
+      "score": 40,
+      "passed": false,
+      "timestamp": 1789279756765
+    },
+    {
+      "studentId": "usr_cd_test_1789283821606",
+      "examScheduleId": "e1",
+      "score": 45,
+      "passed": false,
+      "timestamp": 1789283821609
+    },
+    {
+      "studentId": "usr_cd_api_1789283821613",
+      "examScheduleId": "e2",
+      "score": 40,
+      "passed": false,
+      "timestamp": 1789283821613
+    },
+    {
+      "studentId": "usr_cd_test_1789284060362",
+      "examScheduleId": "e1",
+      "score": 45,
+      "passed": false,
+      "timestamp": 1789284060365
+    },
+    {
+      "studentId": "usr_cd_api_1789284060367",
+      "examScheduleId": "e2",
+      "score": 40,
+      "passed": false,
+      "timestamp": 1789284060367
+    },
+    {
+      "studentId": "usr_cd_test_1789284164259",
+      "examScheduleId": "e1",
+      "score": 45,
+      "passed": false,
+      "timestamp": 1789284164262
+    },
+    {
+      "studentId": "usr_cd_api_1789284164265",
+      "examScheduleId": "e2",
+      "score": 40,
+      "passed": false,
+      "timestamp": 1789284164265
+    },
+    {
+      "studentId": "usr_cd_test_1789284519698",
+      "examScheduleId": "e1",
+      "score": 45,
+      "passed": false,
+      "timestamp": 1789284519703
+    },
+    {
+      "studentId": "usr_cd_api_1789284519708",
+      "examScheduleId": "e2",
+      "score": 40,
+      "passed": false,
+      "timestamp": 1789284519708
+    },
+    {
+      "studentId": "usr_cd_test_1789287166876",
+      "examScheduleId": "e1",
+      "score": 45,
+      "passed": false,
+      "timestamp": 1789287166880
+    },
+    {
+      "studentId": "usr_cd_api_1789287166884",
+      "examScheduleId": "e2",
+      "score": 40,
+      "passed": false,
+      "timestamp": 1789287166884
+    },
+    {
+      "studentId": "usr_cd_test_1789288032530",
+      "examScheduleId": "e1",
+      "score": 45,
+      "passed": false,
+      "timestamp": 1789288032534
+    },
+    {
+      "studentId": "usr_cd_api_1789288032538",
+      "examScheduleId": "e2",
+      "score": 40,
+      "passed": false,
+      "timestamp": 1789288032539
+    },
+    {
+      "studentId": "usr_cd_test_1789294742254",
+      "examScheduleId": "e1",
+      "score": 45,
+      "passed": false,
+      "timestamp": 1789294742256
+    },
+    {
+      "studentId": "usr_cd_api_1789294742259",
+      "examScheduleId": "e2",
+      "score": 40,
+      "passed": false,
+      "timestamp": 1789294742259
+    },
+    {
+      "studentId": "usr_cd_test_1789294883979",
+      "examScheduleId": "e1",
+      "score": 45,
+      "passed": false,
+      "timestamp": 1789294883984
+    },
+    {
+      "studentId": "usr_cd_api_1789294883986",
+      "examScheduleId": "e2",
+      "score": 40,
+      "passed": false,
+      "timestamp": 1789294883986
+    },
+    {
+      "studentId": "usr_cd_test_1789295224960",
+      "examScheduleId": "e1",
+      "score": 45,
+      "passed": false,
+      "timestamp": 1789295224964
+    },
+    {
+      "studentId": "usr_cd_api_1789295224967",
+      "examScheduleId": "e2",
+      "score": 40,
+      "passed": false,
+      "timestamp": 1789295224967
+    },
+    {
+      "studentId": "st_fail_1789594633999",
+      "examScheduleId": "EXAM_1789594633999",
+      "score": 35,
+      "passed": false,
+      "timestamp": 1789594633999
+    },
+    {
+      "studentId": "st_pass_1789594633999",
+      "examScheduleId": "EXAM_1789594633999",
+      "score": 78,
+      "passed": true,
+      "timestamp": 1789594634001
+    },
+    {
+      "studentId": "st_fail_1789594780741",
+      "examScheduleId": "EXAM_1789594780741",
+      "score": 35,
+      "passed": false,
+      "timestamp": 1789594780741
+    },
+    {
+      "studentId": "st_pass_1789594780741",
+      "examScheduleId": "EXAM_1789594780741",
+      "score": 78,
+      "passed": true,
+      "timestamp": 1789594780743
+    },
+    {
+      "studentId": "st_fail_1789594824915",
+      "examScheduleId": "EXAM_1789594824915",
+      "score": 35,
+      "passed": false,
+      "timestamp": 1789594824915
+    },
+    {
+      "studentId": "st_pass_1789594824915",
+      "examScheduleId": "EXAM_1789594824915",
+      "score": 78,
+      "passed": true,
+      "timestamp": 1789594824918
+    },
+    {
+      "studentId": "st_fail_1789594848925",
+      "examScheduleId": "EXAM_1789594848925",
+      "score": 35,
+      "passed": false,
+      "timestamp": 1789594848926
+    },
+    {
+      "studentId": "st_pass_1789594848925",
+      "examScheduleId": "EXAM_1789594848925",
+      "score": 78,
+      "passed": true,
+      "timestamp": 1789594848927
+    },
+    {
+      "studentId": "st_fail_1789647486703",
+      "examScheduleId": "EXAM_1789647486703",
+      "score": 35,
+      "passed": false,
+      "timestamp": 1789647486704
+    },
+    {
+      "studentId": "st_pass_1789647486703",
+      "examScheduleId": "EXAM_1789647486703",
+      "score": 78,
+      "passed": true,
+      "timestamp": 1789647486708
+    }
+  ]
 }

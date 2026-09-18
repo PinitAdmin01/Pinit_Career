@@ -7,7 +7,8 @@ export async function POST(req: Request) {
     const gated = await requireUserFromRequest(req);
     if (gated.error) return gated.error;
 
-    const { repoUrl } = await req.json();
+    const body = await req.json();
+    const { repoUrl, studentUsername } = body || {};
 
     const validation = parseAndValidateGithubUrl(repoUrl);
     if (!validation.valid) {
@@ -15,7 +16,10 @@ export async function POST(req: Request) {
     }
 
     const token = process.env.GITHUB_TOKEN || undefined;
-    const report = await ingestGithubRepository(repoUrl, token);
+    // DEF-040 Hardening: Prioritize authenticated user identity over client-supplied body parameters
+    const authenticatedUsername = (gated.user as any)?.githubUsername || (gated.user as any)?.username || (gated.user as any)?.email?.split('@')[0];
+    const resolvedUsername = authenticatedUsername || studentUsername;
+    const report = await ingestGithubRepository(repoUrl, token, resolvedUsername);
 
     if (report.status === 'RATE_LIMITED') {
       return NextResponse.json({

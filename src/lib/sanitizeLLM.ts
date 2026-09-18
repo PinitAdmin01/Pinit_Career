@@ -299,3 +299,40 @@ export class StreamingTextSanitizer {
     this.currentTag = '';
   }
 }
+
+/**
+ * Defect 014: Neutralizes adversarial prompt injection attacks by stripping known jailbreak keywords
+ * and replacing them with [REDACTED_INJECTION_ATTEMPT].
+ */
+export function sanitizeRawPromptText(rawInput: string | null | undefined): string {
+  if (!rawInput || typeof rawInput !== 'string') return '';
+
+  const injectionPatterns = [
+    /ignore\s+(?:all\s+)?(?:previous|prior)\s+instructions/gi,
+    /override\s+(?:all\s+)?(?:rules|instructions|system)/gi,
+    /assign\s+a\s+score\s+of\s+100/gi,
+    /you\s+are\s+now\s+(?:a|an)\s+[a-z0-9_\s-]+/gi,
+    /disregard\s+(?:all\s+)?instructions/gi,
+    /bypass\s+(?:all\s+)?filters/gi,
+    /system\s*:\s*override/gi,
+  ];
+
+  let sanitized = rawInput;
+  for (const pattern of injectionPatterns) {
+    if (pattern.test(sanitized)) {
+      sanitized = sanitized.replace(pattern, '[REDACTED_INJECTION_ATTEMPT]');
+    }
+  }
+
+  return sanitized;
+}
+
+/**
+ * Defect 014: Encapsulates user candidate inputs within strict multi-line boundary delimiters
+ * preventing instructions escape into the system prompt context.
+ */
+export function sanitizePromptInput(candidateInput: string | null | undefined): string {
+  const safeText = sanitizeRawPromptText(candidateInput || '');
+  return `"""CANDIDATE_INPUT_START\n${safeText}\nCANDIDATE_INPUT_END"""`;
+}
+

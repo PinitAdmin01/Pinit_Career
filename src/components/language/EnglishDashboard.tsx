@@ -43,12 +43,17 @@ export const EnglishDashboard: React.FC<EnglishDashboardProps> = ({ onBackToQues
     // Load progress for all 5 languages
     const codes: LanguageCode[] = ['en', 'fr', 'es', 'de', 'ja'];
     Promise.all(codes.map(c => loadLanguageProgress(userId, c))).then(results => {
-      const map = { ...allProgress };
-      results.forEach((p, idx) => {
-        map[codes[idx]] = p;
+      setAllProgress(prev => {
+        const map = { ...prev };
+        results.forEach((p, idx) => {
+          map[codes[idx]] = p;
+        });
+        return map;
       });
-      setAllProgress(map);
-      setViewLevel(map[activeLanguage]?.currentLevel || 'PRE_A1');
+      const activeIdx = codes.indexOf(activeLanguage);
+      if (activeIdx >= 0 && results[activeIdx]) {
+        setViewLevel(results[activeIdx].currentLevel || 'PRE_A1');
+      }
     });
   }, [userId, activeLanguage]);
 

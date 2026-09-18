@@ -22,6 +22,7 @@ export default function StudentAttendanceView() {
   const router = useRouter();
   const { user } = useAuth();
   const { addXp, earnPins } = useCareerOS();
+  const isFacultyOrAdmin = Boolean(user?.role && ['admin', 'superadmin', 'teacher', 'faculty'].includes(user.role));
 
   const [subjects, setSubjects] = useState<SubjectAttendance[]>([]);
   const [focusStreak, setFocusStreak] = useState<number>(0);
@@ -44,7 +45,7 @@ export default function StudentAttendanceView() {
   const [leaveEndDate, setLeaveEndDate] = useState<string>('');
   const [submittedLeaves, setSubmittedLeaves] = useState<Array<{ id: string; category: string; reason: string; dates: string; status: string }>>([]);
 
-  const handleApplyLeave = (e: React.FormEvent) => {
+  const handleApplyLeave = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!leaveReason || !leaveStartDate) return;
     const newLeave = {
@@ -54,16 +55,48 @@ export default function StudentAttendanceView() {
       dates: `${leaveStartDate} to ${leaveEndDate || leaveStartDate}`,
       status: 'Pending Teacher Approval'
     };
-    setSubmittedLeaves(prev => [newLeave, ...prev]);
+    const nextLeaves = [newLeave, ...submittedLeaves];
+    setSubmittedLeaves(nextLeaves);
     setShowLeaveModal(false);
     setLeaveReason('');
+
+    const leavesKey = `pinit_leaves_${user?.id || 'guest'}`;
+    try {
+      localStorage.setItem(leavesKey, JSON.stringify(nextLeaves));
+    } catch {}
+
+    if (user?.id) {
+      try {
+        await supabase.from('leave_applications').insert({
+          id: newLeave.id,
+          student_id: user.id,
+          student_name: user.displayName || user.email || 'Student',
+          category: newLeave.category,
+          reason: newLeave.reason,
+          start_date: leaveStartDate,
+          end_date: leaveEndDate || leaveStartDate,
+          status: 'pending',
+          created_at: new Date().toISOString()
+        });
+        await supabase.from('notifications').insert({
+          user_id: user.id,
+          type: 'info',
+          title: 'Leave Application Filed',
+          message: `Leave application ${newLeave.id} submitted for ${newLeave.dates}. Faculty advisor notified.`,
+          source: 'attendance',
+          is_read: false
+        });
+      } catch (err) {
+        console.warn('Failed to sync leave application to remote database:', err);
+      }
+    }
     alert(`Leave application ${newLeave.id} submitted successfully! Your faculty advisor has been notified.`);
   };
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const mediaStreamRef = useRef<MediaStream | null>(null);
 
-  // ── Load attendance from Supabase, then this-device cache ──
+  // ── Load attendance and leaves from Supabase, then this-device cache ──
   useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -74,17 +107,37 @@ export default function StudentAttendanceView() {
             if (Array.isArray(data.subjects)) setSubjects(data.subjects);
             if (typeof data.focus_streak === 'number') setFocusStreak(data.focus_streak);
             if (data.last_check_in) setLastCheckInDate(data.last_check_in);
-            return;
           }
         } catch { /* table may not exist yet */ }
+
+        try {
+          const { data: leavesData } = await supabase.from('leave_applications').select('*').eq('student_id', user.id);
+          if (leavesData && leavesData.length > 0 && !cancelled) {
+            setSubmittedLeaves(leavesData.map((l: any) => ({
+              id: l.id || `LEAVE-${Math.floor(1000 + Math.random() * 9000)}`,
+              category: l.category || 'Medical',
+              reason: l.reason || '',
+              dates: l.dates || `${l.start_date || ''} to ${l.end_date || l.start_date || ''}`,
+              status: l.status === 'approved' ? 'Approved by Faculty' : l.status === 'rejected' ? 'Rejected' : 'Pending Teacher Approval'
+            })));
+          }
+        } catch { /* optional table */ }
       }
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
         if (raw && !cancelled) {
           const parsed = JSON.parse(raw);
-          if (parsed.subjects) setSubjects(parsed.subjects);
+          if (parsed.subjects) setSubjects(prev => (prev.length === 0 ? parsed.subjects : prev));
           if (parsed.focusStreak !== undefined) setFocusStreak(parsed.focusStreak);
           if (parsed.lastCheckInDate) setLastCheckInDate(parsed.lastCheckInDate);
+        }
+        const leavesKey = `pinit_leaves_${user?.id || 'guest'}`;
+        const rawLeaves = localStorage.getItem(leavesKey);
+        if (rawLeaves && !cancelled) {
+          const parsedLeaves = JSON.parse(rawLeaves);
+          if (Array.isArray(parsedLeaves) && parsedLeaves.length > 0) {
+            setSubmittedLeaves(prev => prev.length > 0 ? prev : parsedLeaves);
+          }
         }
       } catch {}
     })();
@@ -216,12 +269,47 @@ export default function StudentAttendanceView() {
         setWatchdogWarning("💡 Low light or camera angle detected. Look directly at the lens or click 'Confirm Attendance Manually' below.");
       }, 4500);
 
-      // Simulate AI Liveness & Face Verification
+      // Active Camera Feed & Liveness Verification
       setTimeout(() => {
         setScanStatus('verifying');
+
+        // Check real video frame dimensions and illumination
+        const video = videoRef.current;
+        let isLightingValid = true;
+        if (video && video.videoWidth > 0 && video.videoHeight > 0) {
+          try {
+            const canvas = document.createElement('canvas');
+            canvas.width = 160;
+            canvas.height = 120;
+            const ctx = canvas.getContext('2d');
+            if (ctx) {
+              ctx.drawImage(video, 0, 0, 160, 120);
+              const imgData = ctx.getImageData(0, 0, 160, 120);
+              let totalBrightness = 0;
+              const sampleStep = 40;
+              let sampledCount = 0;
+              for (let i = 0; i < imgData.data.length; i += sampleStep) {
+                totalBrightness += (imgData.data[i] + imgData.data[i + 1] + imgData.data[i + 2]) / 3;
+                sampledCount++;
+              }
+              const avgBrightness = totalBrightness / (sampledCount || 1);
+              if (avgBrightness < 8) {
+                isLightingValid = false;
+              }
+            }
+          } catch {
+            // Graceful fallback if canvas read is blocked
+          }
+        }
+
         setTimeout(() => {
           clearTimeout(watchdogTimer);
-          completeAttendanceCheckIn();
+          if (!isLightingValid) {
+            setWatchdogWarning("⚠️ Video feed is too dark or camera is covered. Please face a light source or click 'Confirm Attendance Manually' below.");
+            setScanStatus('capturing');
+          } else {
+            completeAttendanceCheckIn();
+          }
         }, 1200);
       }, 1500);
 
@@ -238,8 +326,13 @@ export default function StudentAttendanceView() {
     }
   };
 
-  // ── Manual Lecture Log Handler ──
+  // ── Lecture Attendance Log Handler (Strictly Role-Gated for DEF-023) ──
   const handleMarkClassAttended = (subId: string, didAttend: boolean) => {
+    const isFacultyOrAdmin = Boolean(user?.role && ['admin', 'superadmin', 'teacher', 'faculty'].includes(user.role));
+    if (!isFacultyOrAdmin) {
+      alert('Permission Denied: Official subject attendance records can only be updated by faculty mentors or campus administrators.');
+      return;
+    }
     const updated = subjects.map(s => {
       if (s.id !== subId) return s;
       const nextAtt = didAttend ? s.attended + 1 : s.attended;
@@ -335,7 +428,7 @@ export default function StudentAttendanceView() {
               boxShadow: '0 0 16px rgba(var(--success-rgb), 0.3)',
             }}
           >
-            <span>📸</span> AI Biometric Face Check-In
+            <span>📸</span> Camera Presence Check-In
           </button>
         </div>
       </div>
@@ -393,8 +486,8 @@ export default function StudentAttendanceView() {
         </div>
       )}
 
-      {/* Overall Attendance Stat Cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
+      {/* Overall Attendance Stat Cards (DEF-025 Responsive Auto-Fit Grid) */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 14 }}>
         <div style={{ background: 'var(--card, #fff)', border: '1px solid var(--border, var(--border))', borderRadius: 14, padding: 18 }}>
           <div style={{ fontSize: 12, color: 'var(--t3, #64748b)' }}>Cumulative Attendance</div>
           <div style={{ fontSize: 32, fontWeight: 900, color: Number(overallPercentage) >= 85 ? '#16a34a' : Number(overallPercentage) >= 75 ? '#d97706' : 'var(--danger-deep)', margin: '4px 0 0' }}>
@@ -448,7 +541,7 @@ export default function StudentAttendanceView() {
         </div>
 
         {/* Calculator Form Controls */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14, background: 'var(--bg3, var(--bg3))', padding: 16, borderRadius: 14, border: '1px solid var(--border, var(--border))', marginBottom: 18 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 14, background: 'var(--bg3, var(--bg3))', padding: 16, borderRadius: 14, border: '1px solid var(--border, var(--border))', marginBottom: 18 }}>
           <div>
             <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--t2, #475569)', display: 'block', marginBottom: 6 }}>Select Subject:</label>
             <select value={calcSubjectId} onChange={(e) => setCalcSubjectId(e.target.value)} style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border, #cbd5e1)', background: 'var(--card, #fff)', color: 'var(--t1, #0f172a)', fontSize: 13, fontWeight: 600, outline: 'none' }}>
@@ -475,7 +568,7 @@ export default function StudentAttendanceView() {
         </div>
 
         {/* Calculator Output Cards */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 14 }}>
           <div style={{ background: 'rgba(var(--success-rgb), 0.08)', border: '1px solid rgba(var(--success-rgb), 0.3)', borderRadius: 12, padding: 14 }}>
             <div style={{ fontSize: 11, color: '#15803d', fontWeight: 700 }}>Safe Skip Buffer Margin</div>
             <div style={{ fontSize: 24, fontWeight: 900, color: '#16a34a', margin: '4px 0 0' }}>
@@ -507,7 +600,11 @@ export default function StudentAttendanceView() {
         <div style={{ padding: '18px 24px', borderBottom: '1px solid var(--border, var(--border))', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div>
             <h2 style={{ fontSize: 16, fontWeight: 800, margin: 0 }}>Subject Compliance & Attendance Registry</h2>
-            <div style={{ fontSize: 12, color: 'var(--t3, #64748b)', marginTop: 2 }}>Click "+ Attend" or "+ Miss" to manually log today's class status.</div>
+            <div style={{ fontSize: 12, color: 'var(--t3, #64748b)', marginTop: 2 }}>
+              {isFacultyOrAdmin
+                ? "Faculty Mode: Use '+ Attend' or '+ Miss' to record official academic registry updates."
+                : "Personal Study Log: Self-study sessions are saved locally. Official records are verified via classroom biometric check-in."}
+            </div>
           </div>
           <span style={{ fontSize: 12, color: '#16a34a', fontWeight: 700 }}>✓ Auto-Saved to Local & Career OS</span>
         </div>
@@ -520,7 +617,9 @@ export default function StudentAttendanceView() {
               <th style={{ padding: 14, fontSize: 13, color: 'var(--t2, #475569)' }}>Attended</th>
               <th style={{ padding: 14, fontSize: 13, color: 'var(--t2, #475569)' }}>Percentage</th>
               <th style={{ padding: 14, fontSize: 13, color: 'var(--t2, #475569)' }}>Compliance Status</th>
-              <th style={{ padding: 14, fontSize: 13, color: 'var(--t2, #475569)', textAlign: 'right' }}>Log Attendance</th>
+              <th style={{ padding: 14, fontSize: 13, color: 'var(--t2, #475569)', textAlign: 'right' }}>
+                {isFacultyOrAdmin ? 'Faculty Override' : 'Study Log'}
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -541,33 +640,81 @@ export default function StudentAttendanceView() {
                   </div>
                 </td>
                 <td style={{ padding: 14 }}>
-                  <span style={{
-                    padding: '3px 10px',
-                    borderRadius: 6,
-                    fontSize: 12,
-                    fontWeight: 800,
-                    background: row.percentage >= 90 ? 'rgba(var(--success-rgb), 0.15)' : row.percentage >= 75 ? 'rgba(var(--warning-rgb), 0.15)' : 'rgba(var(--danger-rgb), 0.15)',
-                    color: row.percentage >= 90 ? '#15803d' : row.percentage >= 75 ? '#b45309' : '#b91c1c',
-                    border: `1px solid ${row.percentage >= 90 ? 'rgba(var(--success-rgb), 0.3)' : row.percentage >= 75 ? 'rgba(var(--warning-rgb), 0.3)' : 'rgba(var(--danger-rgb), 0.3)'}`,
-                  }}>
-                    {row.status}
+                  <span
+                    aria-label={`Attendance compliance: ${row.status}, ${row.percentage}% attended`}
+                    style={{
+                      padding: '4px 10px',
+                      borderRadius: 6,
+                      fontSize: 12,
+                      fontWeight: 800,
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 5,
+                      background: row.percentage >= 90 ? 'rgba(var(--success-rgb), 0.15)' : row.percentage >= 75 ? 'rgba(var(--warning-rgb), 0.15)' : 'rgba(var(--danger-rgb), 0.15)',
+                      color: row.percentage >= 90 ? '#15803d' : row.percentage >= 75 ? '#b45309' : '#b91c1c',
+                      border: `1px solid ${row.percentage >= 90 ? 'rgba(var(--success-rgb), 0.3)' : row.percentage >= 75 ? 'rgba(var(--warning-rgb), 0.3)' : 'rgba(var(--danger-rgb), 0.3)'}`,
+                    }}
+                  >
+                    <span>{row.percentage >= 90 ? '✓' : row.percentage >= 75 ? '⚡' : '⛔'}</span>
+                    <span>{row.percentage >= 90 ? 'Safe: Excellent' : row.percentage >= 75 ? (row.status === 'Good' ? 'Safe: Good' : 'Warning: Low Margin') : 'Critical Shortage'}</span>
                   </span>
                 </td>
                 <td style={{ padding: 14, textAlign: 'right' }}>
-                  <div style={{ display: 'flex', gap: 6, justifyContent: 'flex-end' }}>
-                    <button onClick={() => handleMarkClassAttended(row.id, true)} style={{ background: 'rgba(var(--success-rgb), 0.15)', border: '1px solid #10b981', color: '#15803d', padding: '4px 10px', borderRadius: 6, fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>
-                      + Attend
-                    </button>
-                    <button onClick={() => handleMarkClassAttended(row.id, false)} style={{ background: 'rgba(var(--danger-rgb), 0.15)', border: '1px solid #ef4444', color: '#b91c1c', padding: '4px 10px', borderRadius: 6, fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>
-                      + Miss
-                    </button>
-                  </div>
+                  {isFacultyOrAdmin ? (
+                    <div style={{ display: 'flex', gap: 6, justifyContent: 'flex-end' }}>
+                      <button onClick={() => handleMarkClassAttended(row.id, true)} style={{ background: 'rgba(var(--success-rgb), 0.15)', border: '1px solid #10b981', color: '#15803d', padding: '4px 10px', borderRadius: 6, fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>
+                        + Attend
+                      </button>
+                      <button onClick={() => handleMarkClassAttended(row.id, false)} style={{ background: 'rgba(var(--danger-rgb), 0.15)', border: '1px solid #ef4444', color: '#b91c1c', padding: '4px 10px', borderRadius: 6, fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>
+                        + Miss
+                      </button>
+                    </div>
+                  ) : (
+                    <div style={{ display: 'flex', gap: 6, justifyContent: 'flex-end', alignItems: 'center' }}>
+                      <span style={{ fontSize: 11, color: 'var(--t3, #64748b)', fontWeight: 700, padding: '4px 10px', borderRadius: 6, background: 'var(--bg3, #f1f5f9)', border: '1px solid var(--border, #e2e8f0)', display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                        🔒 Faculty Verified
+                      </span>
+                    </div>
+                  )}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
+      {/* ── 📄 SUBMITTED LEAVE APPLICATIONS (Frappe Education Inspired) ── */}
+      {submittedLeaves.length > 0 && (
+        <div style={{ background: 'var(--card, #fff)', border: '1px solid var(--border, var(--border))', borderRadius: 16, overflow: 'hidden', boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.05))', marginTop: 24 }}>
+          <div style={{ padding: '18px 24px', borderBottom: '1px solid var(--border, var(--border))', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div>
+              <h2 style={{ fontSize: 16, fontWeight: 800, margin: 0 }}>Submitted Leave Applications</h2>
+              <div style={{ fontSize: 12, color: 'var(--t3, #64748b)', marginTop: 2 }}>Official record of leave submissions awaiting faculty mentor review.</div>
+            </div>
+            <span style={{ fontSize: 12, color: '#3b82f6', fontWeight: 700 }}>{submittedLeaves.length} Application{submittedLeaves.length !== 1 ? 's' : ''}</span>
+          </div>
+
+          <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {submittedLeaves.map(leave => (
+              <div key={leave.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', borderRadius: 10, background: 'var(--bg3, var(--bg3))', border: '1px solid var(--border, var(--border))' }}>
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <span style={{ fontWeight: 800, fontSize: 13, color: 'var(--t1, #0f172a)' }}>{leave.id}</span>
+                    <span style={{ fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 4, background: 'rgba(59, 130, 246, 0.1)', color: '#2563eb' }}>{leave.category}</span>
+                    <span style={{ fontSize: 12, color: 'var(--t2, #475569)', fontWeight: 600 }}>• {leave.dates}</span>
+                  </div>
+                  <div style={{ fontSize: 12, color: 'var(--t3, #64748b)', marginTop: 4 }}>Reason: {leave.reason}</div>
+                </div>
+                <div>
+                  <span style={{ fontSize: 11, fontWeight: 700, padding: '4px 10px', borderRadius: 6, background: 'rgba(234, 179, 8, 0.12)', color: '#b45309', border: '1px solid rgba(234, 179, 8, 0.3)' }}>
+                    ⏳ {leave.status}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* ── 📸 BIOMETRIC FACE SCAN CHECK-IN MODAL (WITH SAFE CAMERA CLEANUP) ── */}
       {showFaceScanModal && (
@@ -577,8 +724,8 @@ export default function StudentAttendanceView() {
             <button onClick={() => { stopCameraStream(); setShowFaceScanModal(false); }} style={{ position: 'absolute', top: 16, right: 18, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(0,0,0,0.1)', color: 'var(--t1, #0f172a)', padding: '6px 12px', borderRadius: 8, cursor: 'pointer', fontSize: 12, fontWeight: 700 }}>✕ Close</button>
 
             <div style={{ fontSize: 36, marginBottom: 8 }}>📸</div>
-            <h3 style={{ fontSize: 20, fontWeight: 800, margin: '0 0 6px' }}>AI Face Check-In</h3>
-            <p style={{ color: 'var(--t3, #64748b)', fontSize: 13, margin: '0 0 16px' }}>Look directly at the camera to verify identity and activate your daily Focus Streak Multiplier.</p>
+            <h3 style={{ fontSize: 20, fontWeight: 800, margin: '0 0 6px' }}>Camera Presence Check-In</h3>
+            <p style={{ color: 'var(--t3, #64748b)', fontSize: 13, margin: '0 0 16px' }}>Verify camera presence & illumination to confirm live attendance and activate your daily Focus Streak Multiplier.</p>
 
             {/* Video Feed Box */}
             <div style={{ width: '100%', height: 260, borderRadius: 16, background: '#0a0a0f', overflow: 'hidden', position: 'relative', border: '2px solid #10b981', margin: '0 auto 16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -590,7 +737,7 @@ export default function StudentAttendanceView() {
               {scanStatus === 'verifying' && (
                 <div style={{ position: 'absolute', inset: 0, background: 'rgba(10,10,15,0.75)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'var(--success)', fontWeight: 800, fontSize: 15 }}>
                   <div style={{ width: 32, height: 32, border: '3px solid #10b981', borderTopColor: 'transparent', borderRadius: '50%', animation: 'attSpin 1s linear infinite', marginBottom: 10 }} />
-                  Verifying AI Liveness...
+                  Verifying Camera Stream & Lighting...
                 </div>
               )}
 
@@ -611,8 +758,8 @@ export default function StudentAttendanceView() {
             </div>
 
             <div style={{ fontSize: 12, color: 'var(--t3, #64748b)', fontWeight: 600 }}>
-              {scanStatus === 'capturing' && 'Scanning face geometry...'}
-              {scanStatus === 'verifying' && 'Comparing biometric signature...'}
+              {scanStatus === 'capturing' && 'Checking camera stream & illumination...'}
+              {scanStatus === 'verifying' && 'Verifying camera presence...'}
               {scanStatus === 'idle' && 'Initializing camera feed...'}
             </div>
 

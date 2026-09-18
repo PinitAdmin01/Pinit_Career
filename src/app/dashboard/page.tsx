@@ -188,6 +188,8 @@ export default function DashboardPage() {
   }, [user, router]);
 
   // ── Load roadmap modules from localStorage with remote database fallback ──
+  const answersRoadmap = (onboardingAnswers as any)?.roadmap;
+
   useEffect(() => {
     if (typeof window !== 'undefined' && user?.id) {
       const key   = `pinit_${user.id}_roadmap_modules`;
@@ -202,17 +204,16 @@ export default function DashboardPage() {
         } catch { /* ignore */ }
       }
       // Remote DB fallback if localStorage was cleared or user switched devices
-      const remoteRoadmap = (onboardingAnswers as any)?.roadmap;
-      if (remoteRoadmap && Array.isArray(remoteRoadmap) && remoteRoadmap.length > 0) {
-        setRoadmapModules(remoteRoadmap);
+      if (answersRoadmap && Array.isArray(answersRoadmap) && answersRoadmap.length > 0) {
+        setRoadmapModules(answersRoadmap);
         try {
-          localStorage.setItem(key, JSON.stringify(remoteRoadmap));
+          localStorage.setItem(key, JSON.stringify(answersRoadmap));
         } catch {}
         return;
       }
       setRoadmapModules([]);
     }
-  }, [user?.id, completedQuests, roadmapGenerated, (onboardingAnswers as any)?.roadmap]);
+  }, [user?.id, completedQuests, roadmapGenerated, answersRoadmap]);
 
   // ── 84-day contribution dates (Sun-anchored, 12 weeks) ────────────────────
   const contributionDates = useMemo(() => {

@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { NextResponse } from 'next/server';
 import { admissionsService } from '@/lib/services/admissionsService';
 
@@ -44,7 +46,22 @@ import { admissionsService } from '@/lib/services/admissionsService';
 // so it can ship now rather than waiting on infrastructure.
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const MAX_ATTEMPTS_PER_WINDOW = 8;
+const RETENTION_MS = 15 * 60 * 1000; // 15 minutes
+const PRUNE_INTERVAL = 500;
+let requestCount = 0;
 const attemptLog = new Map<string, number[]>();
+
+function pruneOldAttempts() {
+  const now = Date.now();
+  for (const [key, times] of attemptLog.entries()) {
+    const fresh = times.filter(t => now - t < RETENTION_MS);
+    if (fresh.length === 0) {
+      attemptLog.delete(key);
+    } else {
+      attemptLog.set(key, fresh);
+    }
+  }
+}
 
 function getClientKey(req: Request): string {
   // x-forwarded-for is client-supplied and therefore spoofable. It is used here
@@ -57,17 +74,15 @@ function getClientKey(req: Request): string {
 
 function isRateLimited(key: string): boolean {
   const now = Date.now();
+  requestCount++;
+  if (requestCount % PRUNE_INTERVAL === 0 || attemptLog.size > 2000) {
+    pruneOldAttempts();
+  }
+
   const recent = (attemptLog.get(key) || []).filter(t => now - t < RATE_LIMIT_WINDOW_MS);
   recent.push(now);
   attemptLog.set(key, recent);
 
-  // Opportunistic cleanup so the map cannot grow without bound on a
-  // long-lived instance.
-  if (attemptLog.size > 5000) {
-    for (const [k, times] of attemptLog) {
-      if (!times.some(t => now - t < RATE_LIMIT_WINDOW_MS)) attemptLog.delete(k);
-    }
-  }
   return recent.length > MAX_ATTEMPTS_PER_WINDOW;
 }
 

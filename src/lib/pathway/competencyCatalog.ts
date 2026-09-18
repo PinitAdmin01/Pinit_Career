@@ -14,7 +14,8 @@ export const COMPETENCY_CATALOG_V1: CompetencyDefinition[] = [
     description: 'Understands CPU registers, RAM memory hierarchy, kernel space vs user space, and basic process lifecycles.',
     prerequisites: [],
     evidenceRequirements: [
-      { evidenceClass: 'knowledge', minScore: 70, minCount: 1, minimumDifficulty: 'basic', requiredSourceTypes: ['quest'] },
+      // DEF-067 Fix: Anti-gaming foundational gate (min 2 distinct evidence families, minScore 75)
+      { evidenceClass: 'knowledge', minScore: 75, minCount: 2, minDistinctFamilies: 2, minimumDifficulty: 'basic', requiredSourceTypes: ['quest'] },
     ],
     classWeights: { knowledge: 1.0 },
   },

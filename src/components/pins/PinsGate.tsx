@@ -2,6 +2,8 @@
 // PinsGate — wraps any feature button/action that requires pins.
 // Supports item-specific 30-minute duration unlocks and active timer indicators.
 
+import PinCoin from '@/components/pins/PinCoin';
+
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useCareerOS, PIN_COSTS } from '@/lib/context/CareerOSContext';
@@ -64,13 +66,13 @@ export default function PinsGate({
     setShowConfirm(true);
   }
 
-  function handleConfirm() {
+  async function handleConfirm() {
     setShowConfirm(false);
     if (targetKey && targetCategory) {
-      const ok = unlockItem(targetKey, targetCategory as any);
+      const ok = await unlockItem(targetKey, targetCategory as any);
       if (ok) onUnlocked();
     } else {
-      const ok = spendPins(targetCategory);
+      const ok = await spendPins(targetCategory);
       if (ok) onUnlocked();
     }
   }
@@ -102,7 +104,7 @@ export default function PinsGate({
             transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
           }}
         >
-          <span className="pins-icon-energy">⚡</span>
+          <PinCoin size={15} glow />
           {active ? (
             <span>Unlocked ({formatMinSec(remainingSec)})</span>
           ) : (
@@ -165,7 +167,7 @@ export default function PinsGate({
             }}>
               <span style={{ fontSize: 13, color: 'var(--t2)', fontWeight: 500 }}>Current Student Balance</span>
               <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 800, fontSize: 15, color: affordable ? '#818cf8' : '#ef4444' }}>
-                ⚡ {pins} pins
+                <PinCoin size={14} /> {pins} pins
               </span>
             </div>
 

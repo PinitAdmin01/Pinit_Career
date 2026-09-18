@@ -15,11 +15,7 @@ interface ModuleItem {
   route: string;
 }
 
-export default function ModulesDirectoryPage() {
-  const [activeCat, setActiveCat] = useState<'all' | 'student' | 'faculty' | 'recruiter' | 'institution' | 'operations'>('all');
-  const [search, setSearch] = useState('');
-
-  const modulesList: ModuleItem[] = [
+const MODULES_LIST: ModuleItem[] = [
     // Student & Learning
     { id: '1', name: '36-Course S-Curve Curriculum', category: 'student', icon: '📚', desc: '1,080 handcrafted days across Software, Cloud, IoT, and B.Com tracks.', route: '/learning' },
     { id: '2', name: 'AI Socratic Voice Mentor', category: 'student', icon: '👩‍🏫', desc: '24/7 spoken tutoring with 0 jargon and empathetic recovery ladders.', route: '/quests/lesson' },
@@ -49,7 +45,6 @@ export default function ModulesDirectoryPage() {
     { id: '20', name: 'Placement Cell CRM', category: 'institution', icon: '🏛️', desc: 'End-to-end recruiter tracking, offer letter repository, and conversion metrics.', route: '/crm' },
     { id: '21', name: 'Campus-Wide Employability Index', category: 'institution', icon: '📈', desc: '0-100% real-time cohort readiness dashboard for Deans & Principals.', route: '/university' },
     { id: '22', name: 'NAAC / NBA Accreditation Audit Exporter', category: 'institution', icon: '📑', desc: 'Generate compliance reports with continuous student learning audit trails.', route: '/documents' },
-    { id: '23', name: 'Alumni Network & Mentorship', category: 'institution', icon: '🤝', desc: 'Connect graduating students with alumni in top global engineering roles.', route: '/alumni' },
     { id: '24', name: 'Parent Communication Portal', category: 'institution', icon: '👨‍👩‍👧', desc: 'Transparent view into student learning consistency and placement milestones.', route: '/parent' },
 
     // Operations & Campus Infrastructure
@@ -57,18 +52,21 @@ export default function ModulesDirectoryPage() {
     { id: '26', name: 'Library Resource & Book Engine', category: 'operations', icon: '📖', desc: 'Digital library cataloging, RFID book checkout, and overdue alerts.', route: '/library' },
     { id: '27', name: 'Transport & Fleet Tracker', category: 'operations', icon: '🚌', desc: 'Campus bus routes, student passes, and GPS fleet monitoring.', route: '/transport' },
     { id: '28', name: 'Maintenance & Facility Ticket Desk', category: 'operations', icon: '🔧', desc: 'Lodge and resolve campus infrastructure maintenance work orders.', route: '/maintenance' },
-    { id: '29', name: 'Finance & Fee Billing Ledger', category: 'operations', icon: '💳', desc: 'Tuition fees, scholarship disbursement, and automated payment receipts.', route: '/finance' },
   ];
 
+export default function ModulesDirectoryPage() {
+  const [activeCat, setActiveCat] = useState<'all' | 'student' | 'faculty' | 'recruiter' | 'institution' | 'operations'>('all');
+  const [search, setSearch] = useState('');
+
   const filtered = useMemo(() => {
-    return modulesList.filter((m) => {
+    return MODULES_LIST.filter((m) => {
       const matchCat = activeCat === 'all' || m.category === activeCat;
       const matchSearch =
         m.name.toLowerCase().includes(search.toLowerCase()) ||
         m.desc.toLowerCase().includes(search.toLowerCase());
       return matchCat && matchSearch;
     });
-  }, [activeCat, search, modulesList]);
+  }, [activeCat, search]);
 
   return (
     <div className="landing-page" style={{ position: 'relative', overflowX: 'hidden' }}>

@@ -539,6 +539,7 @@ export function ExamEngine({ exam, student, onFinish }) {
         onFinishRef.current();
       }
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // intentional: exam/student props are stable for the lifetime of ExamEngine
 
   /* ── Timer ── */

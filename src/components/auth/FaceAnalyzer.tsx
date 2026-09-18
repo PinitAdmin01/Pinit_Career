@@ -69,6 +69,8 @@ export default function FaceAnalyzer({
     }
   }, []);
 
+  const startWebcamRef = useRef<(fapi: any) => Promise<void>>(async () => {});
+
   const loadFaceApiModels = useCallback(async () => {
     setState('loading_model');
     setStatusMessage('Loading high-precision neural face detection models...');
@@ -85,7 +87,7 @@ export default function FaceAnalyzer({
       ]);
 
       setModelLoaded(true);
-      startWebcam(fapi);
+      startWebcamRef.current(fapi);
     } catch (err: any) {
       console.warn('Face API fallback mode:', err);
       // If CDN script loading fails or is delayed, enable demo analyzer readiness
@@ -114,6 +116,7 @@ export default function FaceAnalyzer({
       startWebcamFallback();
     }
   }
+  startWebcamRef.current = startWebcam;
 
   function startWebcamFallback() {
     setState('ready');

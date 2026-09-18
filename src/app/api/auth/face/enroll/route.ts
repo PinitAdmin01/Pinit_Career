@@ -56,14 +56,14 @@ export async function POST(req: NextRequest) {
       message: 'Face biometric profile enrolled successfully.',
       vectorDimensions: dim,
       user: targetUser,
+      enrolledAt: new Date().toISOString(),
     });
 
-    res.cookies.set(`pinit_face_vec_${targetUser.replace(/[^a-z0-9]/g, '')}`, JSON.stringify(normalizedVector), {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 30 * 24 * 3600,
+    // Defect 009: Zero-Cookie Biometrics. Facial vectors are persisted exclusively in server storage, never client cookies.
+    res.cookies.set(`pinit_face_vec_${targetUser.replace(/[^a-z0-9]/g, '')}`, '', {
       path: '/',
+      maxAge: 0,
+      expires: new Date(0),
     });
     // Consume nonce after successful enroll
     res.cookies.set('pinit_face_nonce', '', { path: '/', maxAge: 0 });
