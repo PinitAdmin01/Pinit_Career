@@ -3140,6 +3140,98 @@ TypeScript, React, Node.js
     assert.ok(recorded.score >= 55, `Score ${recorded.score} reflects functional files + test presence`);
   });
 
+  // =========================================================================
+  // Issue 37: Student ↔ Teacher Messaging on Database (Subbatch 4.14)
+  // =========================================================================
+  console.log('\n--- Issue 37: Student ↔ Teacher Messaging on Database ---');
+
+  await test('Issue 37: direct_messages migration defines dual columns, sync trigger, and staff RLS', async () => {
+    const fs = await import('fs');
+    const path = await import('path');
+    const migrationPath = path.join(process.cwd(), 'supabase', 'migrations', '20260923_direct_messages_unified_schema_and_rls.sql');
+    assert.ok(fs.existsSync(migrationPath), 'Migration file must exist');
+    const sql = fs.readFileSync(migrationPath, 'utf-8');
+    assert.ok(sql.includes('sync_direct_messages_columns'), 'Must define sync trigger');
+    assert.ok(sql.includes('recipient_id') && sql.includes('receiver_id'), 'Must declare dual recipient/receiver columns');
+    assert.ok(sql.includes('is_read') && sql.includes('read'), 'Must declare dual is_read/read columns');
+    assert.ok(sql.includes('Unified direct messages select policy'), 'Must declare unified select policy');
+  });
+
+  await test('Issue 37: sendDirectMessage populates dual recipient/receiver and is_read false', async () => {
+    const { sendDirectMessage } = await import('../src/lib/services/supabase/socialService');
+    const result = await sendDirectMessage({
+      sender_id: 'std_auto_test_37',
+      sender_name: 'Ananya Verma',
+      recipient_id: 'priya',
+      recipient_name: 'Ms. Priya',
+      content: 'Inquiry regarding Capstone project requirements',
+      role: 'student'
+    });
+    assert.strictEqual(result.ok, true);
+    assert.strictEqual(result.sender_id, 'std_auto_test_37');
+    assert.strictEqual(result.recipient_id, 'priya');
+    assert.strictEqual(result.receiver_id, 'priya');
+    assert.strictEqual(result.content, 'Inquiry regarding Capstone project requirements');
+    assert.strictEqual(result.is_read, false);
+  });
+
+  await test('Issue 37: getTeacherInbox, markMessagesAsRead and getUnreadMessageCount operate on is_read without column errors', async () => {
+    const { getTeacherInbox, markMessagesAsRead, getUnreadMessageCount } = await import('../src/lib/services/supabase/socialService');
+    const inbox = await getTeacherInbox('priya');
+    assert.ok(Array.isArray(inbox), 'Inbox must be array');
+    const markRes = await markMessagesAsRead('priya', 'std_auto_test_37');
+    assert.strictEqual(typeof markRes, 'boolean');
+    const unread = await getUnreadMessageCount('priya');
+    assert.strictEqual(typeof unread, 'number');
+  });
+
+  await test('Issue 37: inboxSyncService syncFromDatabase reconciles multi-device message threads', async () => {
+    const { inboxSyncService } = await import('../src/lib/chat/inboxSyncService');
+    inboxSyncService.sendStudentMessage({
+      studentId: 'std_multi_37',
+      studentName: 'Sanjay Dutt',
+      studentEmail: 'sanjay@campus.edu',
+      course: 'AI Systems',
+      topic: 'Vector Search',
+      text: 'How to benchmark HNSW index vs IVFFlat?'
+    });
+
+    const synced = await inboxSyncService.syncFromDatabase('priya');
+    assert.ok(Array.isArray(synced));
+    const conv = synced.find(c => c.studentId === 'std_multi_37');
+    assert.ok(conv, 'Conversation must exist in synced state');
+
+    const reply = inboxSyncService.sendTeacherReply(
+      'std_multi_37',
+      'HNSW provides higher recall at the expense of memory; use IVFFlat for memory-constrained deployments.',
+      'Ms. Priya',
+      'priya'
+    );
+    assert.ok(reply);
+    assert.strictEqual(reply?.sender, 'teacher');
+  });
+
+  await test('Issue 37: /api/messages/direct and /api/teacher/inbox HTTP handlers succeed', async () => {
+    const { GET: getDirect, POST: postDirect } = await import('../src/app/api/messages/direct/route');
+    const { GET: getInbox, POST: postInbox } = await import('../src/app/api/teacher/inbox/route');
+    const { NextRequest } = await import('next/server');
+
+    const pReq = new NextRequest('http://localhost:3000/api/messages/direct', {
+      method: 'POST',
+      body: JSON.stringify({
+        senderId: 'std_api_route_test',
+        recipientId: 'priya',
+        content: 'Hello mentor from API route'
+      })
+    });
+    const pRes = await postDirect(pReq);
+    assert.strictEqual(pRes.status, 200);
+
+    const gReq = new NextRequest('http://localhost:3000/api/teacher/inbox?teacherId=priya');
+    const gRes = await getInbox(gReq);
+    assert.strictEqual(gRes.status, 200);
+  });
+
   console.log('\n================================================================');
   console.log(`📊 FINAL RESULT: ${passedTests} / ${totalTests} TESTS PASSED`);
   console.log('================================================================\n');

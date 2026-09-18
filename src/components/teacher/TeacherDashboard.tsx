@@ -171,7 +171,7 @@ export default function TeacherDashboard({ teacher, onLogout }: TeacherDashboard
             </div>
           )}
 
-          {activeNav === 'inbox' && <TeacherInboxManager />}
+          {activeNav === 'inbox' && <TeacherInboxManager teacherId={teacher?.id || 'priya'} teacherName={displayName} />}
           {activeNav === 'courses' && <CourseManager />}
           {activeNav === 'exams' && <ExamGradingManager />}
           {activeNav === 'attendance' && <AttendanceTracker />}

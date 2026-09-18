@@ -1432,4 +1432,82 @@ CREATE POLICY "Users can insert own audit logs" ON public.audit_logs
     AND admin_id IS NULL
   );
 
+-- ── 20260923: direct_messages Unified Schema and RLS ─────────────────────────
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'direct_messages' AND column_name = 'receiver_id') THEN
+        ALTER TABLE public.direct_messages ADD COLUMN receiver_id TEXT;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'direct_messages' AND column_name = 'recipient_id') THEN
+        ALTER TABLE public.direct_messages ADD COLUMN recipient_id TEXT;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'direct_messages' AND column_name = 'content') THEN
+        ALTER TABLE public.direct_messages ADD COLUMN content TEXT;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'direct_messages' AND column_name = 'message') THEN
+        ALTER TABLE public.direct_messages ADD COLUMN message TEXT;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'direct_messages' AND column_name = 'is_read') THEN
+        ALTER TABLE public.direct_messages ADD COLUMN is_read BOOLEAN NOT NULL DEFAULT false;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'direct_messages' AND column_name = 'read') THEN
+        ALTER TABLE public.direct_messages ADD COLUMN read BOOLEAN NOT NULL DEFAULT false;
+    END IF;
+END $$;
+
+CREATE OR REPLACE FUNCTION public.sync_direct_messages_columns()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.recipient_id IS NULL AND NEW.receiver_id IS NOT NULL THEN
+        NEW.recipient_id := NEW.receiver_id;
+    ELSIF NEW.receiver_id IS NULL AND NEW.recipient_id IS NOT NULL THEN
+        NEW.receiver_id := NEW.recipient_id;
+    END IF;
+    IF NEW.content IS NULL AND NEW.message IS NOT NULL THEN
+        NEW.content := NEW.message;
+    ELSIF NEW.message IS NULL AND NEW.content IS NOT NULL THEN
+        NEW.message := NEW.content;
+    END IF;
+    IF NEW.is_read IS NOT NULL AND NEW.read IS NULL THEN
+        NEW.read := NEW.is_read;
+    ELSIF NEW.read IS NOT NULL AND NEW.is_read IS NULL THEN
+        NEW.is_read := NEW.read;
+    ELSIF NEW.is_read IS NOT NULL AND NEW.read IS NOT NULL THEN
+        NEW.is_read := (NEW.is_read OR NEW.read);
+        NEW.read := NEW.is_read;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS trg_sync_direct_messages_columns ON public.direct_messages;
+CREATE TRIGGER trg_sync_direct_messages_columns
+BEFORE INSERT OR UPDATE ON public.direct_messages
+FOR EACH ROW EXECUTE FUNCTION public.sync_direct_messages_columns();
+
+DROP POLICY IF EXISTS "Unified direct messages select policy" ON public.direct_messages;
+CREATE POLICY "Unified direct messages select policy"
+ON public.direct_messages FOR SELECT
+TO authenticated, anon
+USING (
+    auth.uid()::text = sender_id OR
+    auth.uid()::text = recipient_id OR
+    auth.uid()::text = receiver_id OR
+    (
+        public.campus_is_staff() AND (
+            recipient_id IN ('priya', 'anish', 'faculty', 'teacher', 'admin') OR
+            receiver_id IN ('priya', 'anish', 'faculty', 'teacher', 'admin') OR
+            role = 'student'
+        )
+    ) OR
+    sender_id = 'current_user' OR
+    recipient_id = 'current_user' OR
+    receiver_id = 'current_user' OR
+    recipient_id IN ('priya', 'anish') OR
+    receiver_id IN ('priya', 'anish')
+);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.direct_messages TO authenticated, anon, service_role;
+
 COMMIT;
+

@@ -561,6 +561,66 @@ async function runSystemTests() {
     assert.ok(!transcriptHtml.includes('Passed rigorous multi-stage architectural defense verifying independent problem solving and code provenance (0/100)'));
   });
 
+  // --- SYSTEM TEST 12: End-to-End Student ↔ Teacher Messaging on Database ---
+  await systemTest('System Pipeline: Student ↔ Teacher messaging via database with dual-column sync, teacher inbox, and cross-device sync', async () => {
+    const { sendDirectMessage, getTeacherInbox, markMessagesAsRead, getUnreadMessageCount } = await import('../src/lib/services/supabase/socialService');
+    const { inboxSyncService } = await import('../src/lib/chat/inboxSyncService');
+    const { GET: directGET, POST: directPOST } = await import('../src/app/api/messages/direct/route');
+    const { GET: inboxGET, POST: inboxPOST } = await import('../src/app/api/teacher/inbox/route');
+
+    // 1. Student sends message via API route
+    const studentReq = new NextRequest('http://localhost:3000/api/messages/direct', {
+      method: 'POST',
+      body: JSON.stringify({
+        senderId: 'std_sys_001',
+        senderName: 'Tanvi Agarwal',
+        recipientId: 'priya',
+        recipientName: 'Ms. Priya',
+        content: 'System integration inquiry on PostgreSQL triggers'
+      })
+    });
+    const postRes = await directPOST(studentReq);
+    assert.strictEqual(postRes.status, 200);
+
+    // 2. Teacher retrieves inbox from database
+    const inbox = await getTeacherInbox('priya');
+    assert.ok(Array.isArray(inbox), 'Teacher inbox must be an array');
+    const found = inbox.find(m => m.sender_id === 'std_sys_001');
+    assert.ok(found, 'Message from student must be present in teacher inbox');
+    assert.strictEqual(found.recipient_id, 'priya');
+    assert.strictEqual(found.receiver_id, 'priya');
+    assert.strictEqual(found.is_read, false);
+
+    // 3. Teacher sends reply via inbox API
+    const replyReq = new NextRequest('http://localhost:3000/api/teacher/inbox', {
+      method: 'POST',
+      body: JSON.stringify({
+        studentId: 'std_sys_001',
+        replyText: 'Triggers run before or after commit depending on BEFORE/AFTER specification.',
+        teacherName: 'Ms. Priya',
+        teacherId: 'priya'
+      })
+    });
+    const replyRes = await inboxPOST(replyReq);
+    assert.strictEqual(replyRes.status, 200);
+
+    // 4. Verify conversation thread contains both student inquiry and teacher reply
+    const getReq = new NextRequest('http://localhost:3000/api/messages/direct?with=priya&userId=std_sys_001');
+    const getRes = await directGET(getReq);
+    assert.strictEqual(getRes.status, 200);
+    const getBody = await getRes.json();
+    assert.ok(Array.isArray(getBody.messages));
+    assert.ok(getBody.messages.some((m: any) => m.sender_id === 'std_sys_001'), 'Student message must be in conversation');
+    assert.ok(getBody.messages.some((m: any) => m.role === 'teacher' || m.sender_id === 'priya'), 'Teacher reply must be in conversation');
+
+    // 5. Cross-device sync service reconstructs threads from database
+    const synced = await inboxSyncService.syncFromDatabase('priya');
+    assert.ok(Array.isArray(synced));
+    const tanviConvo = synced.find(c => c.studentId === 'std_sys_001');
+    assert.ok(tanviConvo, 'Cross-device sync must reconstruct Tanvi thread');
+    assert.ok(tanviConvo.messages.length >= 2, 'Must contain both student message and teacher reply');
+  });
+
   console.log('========================================================================');
   console.log(`📊 SYSTEM INTEGRATION RESULT: ${passed} / ${passed + failed} TESTS PASSED`);
   console.log('========================================================================');

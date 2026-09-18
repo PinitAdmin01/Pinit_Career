@@ -527,18 +527,21 @@ export function ContactTab({ student }: any) {
       };
       await DB.save('student_messages', msgObj);
       
-      // Real-time broadcast to teacher inbox
+      // Real-time broadcast and database persistence to teacher inbox
       inboxSyncService.sendStudentMessage({
         studentId: student.registerNumber || 'std_101',
         studentName: student.name || 'Student',
         studentEmail: student.email || `${student.registerNumber || 'student'}@campus.edu`,
         course: student.course || 'Academic Batch',
         topic: subj.trim(),
-        text: msg.trim()
+        text: msg.trim(),
+        recipientId: recipient,
+        recipientName: recipientName
       });
 
       await api.post('/api/messages/direct', {
         recipientId: recipient,
+        receiverId: recipient,
         recipientName: recipientName,
         senderName: student.name || 'Student',
         content: `[${subj.trim()}]: ${msg.trim()}`
