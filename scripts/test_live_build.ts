@@ -147,6 +147,34 @@ async function runLiveBuildTests() {
     assert.ok(Array.isArray(data.messages));
   });
 
+  // Test 13: Notifications Live Route
+  await checkRoute('GET /api/notifications (Returns 200 with notifications array)', async () => {
+    const res = await fetch(`${BASE_URL}/api/notifications`);
+    assert.strictEqual(res.status, 200, `Expected 200, got ${res.status}`);
+    const data = await res.json();
+    assert.ok(Array.isArray(data.notifications));
+  });
+
+  // Test 14: Notifications Mark All Read Gate
+  await checkRoute('POST /api/notifications/mark-all-read (Requires authentication -> 401)', async () => {
+    const res = await fetch(`${BASE_URL}/api/notifications/mark-all-read`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({}),
+    });
+    assert.strictEqual(res.status, 401, `Expected 401, got ${res.status}`);
+  });
+
+  // Test 15: Leaderboard Live Route
+  await checkRoute('GET /api/leaderboard (Returns 200 with leaderboard cohort and ELO ratings)', async () => {
+    const res = await fetch(`${BASE_URL}/api/leaderboard?mode=code_wars`);
+    assert.strictEqual(res.status, 200, `Expected 200, got ${res.status}`);
+    const data = await res.json();
+    assert.strictEqual(data.ok, true);
+    assert.ok(Array.isArray(data.leaderboard));
+    assert.ok(data.leaderboard.length > 0);
+  });
+
   console.log('\n========================================================================');
   console.log(`📊 LIVE PRODUCTION BUILD TEST: ${passed} / ${passed + failed} ROUTES PASSED`);
   console.log('========================================================================\n');

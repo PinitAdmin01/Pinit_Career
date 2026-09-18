@@ -621,6 +621,74 @@ async function runSystemTests() {
     assert.ok(tanviConvo.messages.length >= 2, 'Must contain both student message and teacher reply');
   });
 
+  // --- SYSTEM TEST 13: End-to-End Notifications Lifecycle & Leaderboard ELO Verification ---
+  await systemTest('System Pipeline: Notifications creation, dual-column sync, mark read API handlers, and leaderboard ELO rating', async () => {
+    const { GET: notifGET, POST: notifPOST } = await import('../src/app/api/notifications/route');
+    const { POST: markAllPOST } = await import('../src/app/api/notifications/mark-all-read/route');
+    const { PATCH: markOnePATCH } = await import('../src/app/api/notifications/[id]/read/route');
+    const { GET: leaderboardGET } = await import('../src/app/api/leaderboard/route');
+
+    // 1. Create notification via API
+    const postReq = new NextRequest('http://localhost:3000/api/notifications', {
+      method: 'POST',
+      headers: { 'authorization': 'Bearer demo-token-bypass', 'content-type': 'application/json' },
+      body: JSON.stringify({
+        userId: 'test_user_001',
+        title: 'Interview Scheduled',
+        message: 'Mock technical interview scheduled for tomorrow at 10 AM.',
+        type: 'info',
+        source: 'interview'
+      })
+    });
+    const postRes = await notifPOST(postReq);
+    assert.strictEqual(postRes.status, 200);
+    const postJson = await postRes.json();
+    assert.ok(postJson.ok);
+    const notifId = postJson.notification?.id;
+    assert.ok(notifId);
+
+    // 2. Query notifications and verify presence
+    const getReq = new NextRequest('http://localhost:3000/api/notifications', {
+      headers: { 'authorization': 'Bearer demo-token-bypass' }
+    });
+    const getRes = await notifGET(getReq);
+    assert.strictEqual(getRes.status, 200);
+    const getJson = await getRes.json();
+    assert.ok(Array.isArray(getJson.notifications));
+    const createdItem = getJson.notifications.find((n: any) => n.id === notifId);
+    assert.ok(createdItem, 'Created notification must appear in user notification list');
+    assert.strictEqual(createdItem.is_read, false);
+    assert.strictEqual(createdItem.read, false);
+
+    // 3. Mark specific notification as read
+    const patchReq = new NextRequest(`http://localhost:3000/api/notifications/${notifId}/read`, {
+      method: 'PATCH',
+      headers: { 'authorization': 'Bearer demo-token-bypass' }
+    });
+    const patchRes = await markOnePATCH(patchReq, { params: { id: notifId } });
+    assert.strictEqual(patchRes.status, 200);
+
+    // 4. Mark all as read
+    const markAllReq = new NextRequest('http://localhost:3000/api/notifications/mark-all-read', {
+      method: 'POST',
+      headers: { 'authorization': 'Bearer demo-token-bypass' }
+    });
+    const markAllRes = await markAllPOST(markAllReq);
+    assert.strictEqual(markAllRes.status, 200);
+
+    // 5. Query leaderboard and verify no fake students + valid ELO ratings
+    const lbReq = new NextRequest('http://localhost:3000/api/leaderboard?mode=code_wars', {
+      headers: { 'authorization': 'Bearer demo-token-bypass' }
+    });
+    const lbRes = await leaderboardGET(lbReq);
+    assert.strictEqual(lbRes.status, 200);
+    const lbJson = await lbRes.json();
+    assert.ok(lbJson.ok);
+    assert.ok(Array.isArray(lbJson.leaderboard) && lbJson.leaderboard.length > 0);
+    assert.ok(!lbJson.leaderboard.some((e: any) => e.name?.includes('Sarah Chen')));
+    assert.ok(lbJson.leaderboard.every((e: any) => typeof e.eloRating === 'number' && e.eloRating > 0));
+  });
+
   console.log('========================================================================');
   console.log(`📊 SYSTEM INTEGRATION RESULT: ${passed} / ${passed + failed} TESTS PASSED`);
   console.log('========================================================================');

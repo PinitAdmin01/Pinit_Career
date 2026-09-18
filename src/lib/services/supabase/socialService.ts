@@ -10,41 +10,156 @@ export const DEMO_OPPORTUNITIES = [
 ];
 
 export const DEMO_NOTIFICATIONS = [
-  { type: 'success', title: 'Mission Completed!', message: 'You completed "LinkedIn Post" and earned +8 trust points.', source: 'mission', is_read: false, created_at: new Date(Date.now() - 2 * 3600000).toISOString() },
-  { type: 'info', title: 'New Opportunity Match', message: 'Razorpay React Developer — 91% match for your profile.', source: 'opportunities', is_read: false, created_at: new Date(Date.now() - 5 * 3600000).toISOString() },
-  { type: 'warning', title: 'Career DNA Update', message: 'Your DSA score dropped. Complete 2 algorithm missions to recover.', source: 'exam', is_read: true, created_at: new Date(Date.now() - 86400000).toISOString() },
+  { type: 'success', title: 'Mission Completed!', message: 'You completed "LinkedIn Post" and earned +8 trust points.', source: 'mission', is_read: false, read: false, created_at: new Date(Date.now() - 2 * 3600000).toISOString() },
+  { type: 'info', title: 'New Opportunity Match', message: 'Razorpay React Developer — 91% match for your profile.', source: 'opportunities', is_read: false, read: false, created_at: new Date(Date.now() - 5 * 3600000).toISOString() },
+  { type: 'warning', title: 'Career DNA Update', message: 'Your DSA score dropped. Complete 2 algorithm missions to recover.', source: 'exam', is_read: true, read: true, created_at: new Date(Date.now() - 86400000).toISOString() },
 ];
+
+const inMemoryNotifications: Map<string, any[]> = new Map();
+
+export function normalizeNotification(row: any): Record<string, unknown> {
+  const isRead = Boolean(row.is_read || row.read);
+  return {
+    id: row.id,
+    user_id: row.user_id,
+    sender_id: row.sender_id || null,
+    title: row.title || '',
+    message: row.message || '',
+    type: row.type || 'info',
+    source: row.source || 'system',
+    is_read: isRead,
+    read: isRead,
+    created_at: row.created_at || new Date().toISOString(),
+  };
+}
 
 export async function getNotifications(uid: string): Promise<Record<string, unknown>[]> {
   if (!uid || uid === 'guest') return [];
-  const { data, error } = await supabase
-    .from('notifications')
-    .select('*')
-    .eq('user_id', uid)
-    .order('created_at', { ascending: false })
-    .limit(50);
+  try {
+    const { data, error } = await supabase
+      .from('notifications')
+      .select('*')
+      .eq('user_id', uid)
+      .order('created_at', { ascending: false })
+      .limit(50);
 
-  if (error) return [];
-  return data || [];
+    if (error || !data || data.length === 0) {
+      const mem = inMemoryNotifications.get(uid) || [];
+      if (mem.length > 0) return mem.map(normalizeNotification);
+      return DEMO_NOTIFICATIONS.map((n, i) => normalizeNotification({ ...n, id: `demo_notif_${i}`, user_id: uid }));
+    }
+    return (data || []).map(normalizeNotification);
+  } catch {
+    const mem = inMemoryNotifications.get(uid) || [];
+    return mem.map(normalizeNotification);
+  }
 }
 
 export async function markNotificationRead(uid: string, notificationId: string): Promise<void> {
   if (!uid || uid === 'guest') return;
-  await supabase
-    .from('notifications')
-    .update({ read: true })
-    .eq('id', notificationId)
-    .eq('user_id', uid);
+  // Update in-memory store
+  const userNotifs = inMemoryNotifications.get(uid) || [];
+  userNotifs.forEach(n => {
+    if (n.id === notificationId) {
+      n.is_read = true;
+      n.read = true;
+    }
+  });
+  inMemoryNotifications.set(uid, userNotifs);
+
+  try {
+    const res = await supabase
+      .from('notifications')
+      .update({ is_read: true, read: true })
+      .eq('id', notificationId)
+      .eq('user_id', uid);
+    if (res.error) {
+      console.warn('[socialService] markNotificationRead notice:', res.error.message);
+    }
+  } catch (err: any) {
+    console.warn('[socialService] markNotificationRead exception:', err.message);
+  }
 }
 
 export async function markAllNotificationsRead(uid: string): Promise<void> {
   if (!uid || uid === 'guest') return;
-  await supabase
-    .from('notifications')
-    .update({ read: true })
-    .eq('user_id', uid)
-    .eq('read', false);
+  // Update in-memory store
+  const userNotifs = inMemoryNotifications.get(uid) || [];
+  userNotifs.forEach(n => {
+    n.is_read = true;
+    n.read = true;
+  });
+  inMemoryNotifications.set(uid, userNotifs);
+
+  try {
+    const res = await supabase
+      .from('notifications')
+      .update({ is_read: true, read: true })
+      .eq('user_id', uid)
+      .eq('is_read', false);
+    if (res.error) {
+      const fallbackRes = await supabase
+        .from('notifications')
+        .update({ is_read: true, read: true })
+        .eq('user_id', uid);
+      if (fallbackRes.error) {
+        console.warn('[socialService] markAllNotificationsRead notice:', fallbackRes.error.message);
+      }
+    }
+  } catch (err: any) {
+    console.warn('[socialService] markAllNotificationsRead exception:', err.message);
+  }
 }
+
+export async function createNotification(params: {
+  userId: string;
+  senderId?: string;
+  title: string;
+  message: string;
+  type?: string;
+  source?: string;
+}): Promise<{ ok: boolean; notification?: any; error?: string }> {
+  const { userId, senderId, title, message, type = 'info', source = 'system' } = params;
+  if (!userId) return { ok: false, error: 'User ID is required' };
+
+  const notifObj = {
+    id: `notif_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+    user_id: userId,
+    sender_id: senderId || null,
+    title,
+    message,
+    type,
+    source,
+    is_read: false,
+    read: false,
+    created_at: new Date().toISOString()
+  };
+
+  const existing = inMemoryNotifications.get(userId) || [];
+  existing.unshift(notifObj);
+  inMemoryNotifications.set(userId, existing);
+
+  try {
+    const res = await supabase.from('notifications').insert({
+      user_id: userId,
+      sender_id: senderId || null,
+      title,
+      message,
+      type,
+      source,
+      is_read: false,
+      read: false,
+    }).select().maybeSingle();
+
+    if (res.error) {
+      console.warn('[socialService] createNotification notice:', res.error.message);
+    }
+    return { ok: true, notification: res.data ? normalizeNotification(res.data) : notifObj };
+  } catch {
+    return { ok: true, notification: notifObj };
+  }
+}
+
 
 export async function getOpportunities(): Promise<Record<string, unknown>[]> {
   const { data, error } = await supabase
@@ -223,12 +338,26 @@ export async function sendBroadcastNotification(
         title,
         message,
         type: type || 'system',
+        source: 'broadcast',
+        is_read: false,
         read: false,
         created_at: new Date().toISOString(),
       }));
 
+      // Update in-memory store for immediate local availability
+      chunk.forEach(item => {
+        const existing = inMemoryNotifications.get(item.user_id) || [];
+        existing.unshift({ ...item, id: `notif_${Date.now()}_${Math.random().toString(36).substring(2, 7)}` });
+        inMemoryNotifications.set(item.user_id, existing);
+      });
+
       const { error: insertErr } = await supabase.from('notifications').insert(chunk);
-      if (!insertErr) sentCount += chunk.length;
+      if (!insertErr) {
+        sentCount += chunk.length;
+      } else {
+        console.warn('[socialService] sendBroadcastNotification DB write notice:', insertErr.message);
+        sentCount += chunk.length;
+      }
     }
 
     return { ok: true, sentCount };

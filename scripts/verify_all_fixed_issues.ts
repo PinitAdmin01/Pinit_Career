@@ -3232,6 +3232,137 @@ TypeScript, React, Node.js
     assert.strictEqual(gRes.status, 200);
   });
 
+  // =========================================================================
+  // Issue 38: Notifications Unified Schema & Leaderboard ELO Audit
+  // =========================================================================
+  console.log('\n--- Issue 38: Notifications Unified Schema & Leaderboard ELO ---');
+
+  await test('Issue 38: notifications migration defines dual columns, sync trigger, and complete RLS', async () => {
+    const fs = await import('fs');
+    const path = await import('path');
+    const migPath = path.join(process.cwd(), 'supabase', 'migrations', '20260924_notifications_unified_schema_and_rls.sql');
+    assert.ok(fs.existsSync(migPath), 'Migration file must exist');
+    const sql = fs.readFileSync(migPath, 'utf8');
+    assert.ok(sql.includes('read BOOLEAN DEFAULT false'), 'Must add column read');
+    assert.ok(sql.includes('sender_id UUID'), 'Must add column sender_id');
+    assert.ok(sql.includes('CREATE TRIGGER trg_sync_notifications_read'), 'Must create sync trigger');
+    assert.ok(sql.includes('CREATE POLICY "Users and staff can insert notifications"'), 'Must define INSERT policy');
+  });
+
+  await test('Issue 38: normalizeNotification synchronizes is_read and read consistently', async () => {
+    const { normalizeNotification } = await import('../src/lib/services/supabase/socialService');
+    const n1 = normalizeNotification({ id: 'n1', user_id: 'u1', is_read: true });
+    assert.strictEqual(n1.is_read, true);
+    assert.strictEqual(n1.read, true);
+
+    const n2 = normalizeNotification({ id: 'n2', user_id: 'u2', read: true });
+    assert.strictEqual(n2.is_read, true);
+    assert.strictEqual(n2.read, true);
+  });
+
+  await test('Issue 38: createNotification, markNotificationRead and markAllNotificationsRead operate without column errors', async () => {
+    const {
+      createNotification,
+      getNotifications,
+      markNotificationRead,
+      markAllNotificationsRead
+    } = await import('../src/lib/services/supabase/socialService');
+
+    const uid = 'stu_test_issue38_' + Date.now();
+    const created = await createNotification({
+      userId: uid,
+      senderId: 'faculty_anish',
+      title: 'Review Complete',
+      message: 'Your thesis chapter has been approved.',
+      type: 'success'
+    });
+    assert.ok(created.ok);
+    assert.strictEqual(created.notification?.is_read, false);
+    assert.strictEqual(created.notification?.read, false);
+    assert.strictEqual(created.notification?.sender_id, 'faculty_anish');
+
+    const notifId = created.notification?.id;
+    await markNotificationRead(uid, notifId);
+    const list = await getNotifications(uid);
+    const item = list.find((n: any) => n.id === notifId);
+    assert.ok(item);
+    assert.strictEqual(item?.is_read, true);
+    assert.strictEqual(item?.read, true);
+
+    await createNotification({ userId: uid, title: 'Notice 2', message: 'Exam on Friday' });
+    await markAllNotificationsRead(uid);
+    const afterAll = await getNotifications(uid);
+    assert.ok(afterAll.every((n: any) => n.is_read === true && n.read === true));
+  });
+
+  await test('Issue 38: sendBroadcastNotification creates notifications with sender_id and is_read false', async () => {
+    const { sendBroadcastNotification } = await import('../src/lib/services/supabase/socialService');
+    const bRes = await sendBroadcastNotification('admin_user', 'System Upgrade', 'Maintenance scheduled.', 'warning', 'all');
+    assert.ok(bRes.ok);
+  });
+
+  await test('Issue 38: Dedicated notification API routes (GET, POST, mark-all-read, [id]/read) succeed', async () => {
+    const { GET: nGET, POST: nPOST } = await import('../src/app/api/notifications/route');
+    const { POST: markAllPOST } = await import('../src/app/api/notifications/mark-all-read/route');
+    const { PATCH: markOnePATCH } = await import('../src/app/api/notifications/[id]/read/route');
+    const { NextRequest } = await import('next/server');
+
+    const gReq = new NextRequest('http://localhost:3000/api/notifications', {
+      headers: { 'authorization': 'Bearer demo-token-bypass' }
+    });
+    const gRes = await nGET(gReq);
+    assert.strictEqual(gRes.status, 200);
+
+    const pReq = new NextRequest('http://localhost:3000/api/notifications', {
+      method: 'POST',
+      headers: { 'authorization': 'Bearer demo-token-bypass', 'content-type': 'application/json' },
+      body: JSON.stringify({ title: 'Welcome', message: 'Welcome to PinIT.' })
+    });
+    const pRes = await nPOST(pReq);
+    assert.strictEqual(pRes.status, 200);
+
+    const patchReq = new NextRequest('http://localhost:3000/api/notifications/notif_unit_test/read', {
+      method: 'PATCH',
+      headers: { 'authorization': 'Bearer demo-token-bypass' }
+    });
+    const patchRes = await markOnePATCH(patchReq, { params: { id: 'notif_unit_test' } });
+    assert.strictEqual(patchRes.status, 200);
+
+    const mReq = new NextRequest('http://localhost:3000/api/notifications/mark-all-read', {
+      method: 'POST',
+      headers: { 'authorization': 'Bearer demo-token-bypass' }
+    });
+    const mRes = await markAllPOST(mReq);
+    assert.strictEqual(mRes.status, 200);
+  });
+
+  await test('Issue 38: Leaderboard route queries arena_elo, contains 0 invented students, and legacyFirestoreRouter returns multi-peer cohort', async () => {
+    const { GET: lbGET } = await import('../src/app/api/leaderboard/route');
+    const { firestoreRouter } = await import('../src/lib/api/legacyFirestoreRouter');
+    const { NextRequest } = await import('next/server');
+
+    const req = new NextRequest('http://localhost:3000/api/leaderboard?mode=code_wars', {
+      headers: { 'authorization': 'Bearer demo-token-bypass' }
+    });
+    const res = await lbGET(req);
+    assert.strictEqual(res.status, 200);
+    const json = await res.json();
+    assert.ok(json.ok);
+    assert.ok(Array.isArray(json.leaderboard) && json.leaderboard.length > 0);
+
+    // Verify no Sarah Chen
+    assert.ok(!json.leaderboard.some((e: any) => e.name?.includes('Sarah Chen')));
+
+    // Verify elo rating is numeric
+    assert.ok(typeof json.leaderboard[0].eloRating === 'number');
+
+    // Test legacyFirestoreRouter shim
+    const shim = await firestoreRouter('GET', '/api/leaderboard', undefined) as any;
+    assert.ok(shim.ok);
+    assert.ok(Array.isArray(shim.leaderboard) && shim.leaderboard.length >= 2, 'Must return multi-peer cohort');
+    assert.ok(shim.leaderboard.every((e: any) => typeof e.eloRating === 'number'));
+  });
+
   console.log('\n================================================================');
   console.log(`📊 FINAL RESULT: ${passedTests} / ${totalTests} TESTS PASSED`);
   console.log('================================================================\n');
