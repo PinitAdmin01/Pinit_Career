@@ -5,7 +5,12 @@ import { NextRequest } from 'next/server';
 process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
 process.env.NODE_ENV = 'test';
 process.env.EXAM_SECRET = 'test_exam_secret_32_bytes_long_key_pinit!!';
+process.env.EVIDENCE_SIGNING_SECRET = 'test_evidence_signing_secret_32_bytes!';
+process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://mock-project.supabase.co';
+process.env.SUPABASE_SERVICE_ROLE_KEY = 'mock_service_role_key_for_test';
+process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'mock_anon_key_for_test';
 
+import crypto from 'crypto';
 import { groundAndValidateEvidence } from '../src/lib/ats/factCheckValidator';
 import { evaluateDocumentContradictions } from '../src/lib/ats/contradictionEngine';
 import { auditDocumentCollection, checkNameSimilarity } from '../src/lib/ats/documentAuditEngine';
@@ -17,6 +22,10 @@ import { POST as gdEvaluatePOST } from '../src/app/api/group-discussion/evaluate
 import { POST as verifyExamPOST } from '../src/app/api/portfolio/verify-exam/route';
 import { POST as analyzeCertPOST } from '../src/app/api/portfolio/analyze-certificate/route';
 import { signExamSessionToken } from '../src/lib/portfolio/examToken';
+import { GET as verifyRouteGET } from '../src/app/api/verify/[credentialId]/route';
+import { GET as transcriptRouteGET } from '../src/app/api/passport/transcript/route';
+import { POST as githubWebhookPOST } from '../src/app/api/webhooks/github/route';
+import { PathwayApiService } from '../src/lib/api/pathwayApi';
 
 console.log('========================================================================');
 console.log('🏗️  END-TO-END SYSTEM INTEGRATION TEST FOR ALL FIXED ISSUES');
@@ -439,6 +448,117 @@ async function runSystemTests() {
       globalThis.fetch = origFetch;
       delete process.env.SUPABASE_SERVICE_ROLE_KEY;
     }
+  });
+
+  // --- SYSTEM TEST 11: End-to-End Cryptographic Passport, Server Verification & GitHub Ingest ---
+  await systemTest('System Pipeline: GitHub push ingest with HMAC signing, server-side public verification, and authentic passport ledger seal', async () => {
+    const secret = 'webhook_test_secret_32_bytes_xyz!';
+    process.env.GITHUB_WEBHOOK_SECRET = secret;
+
+    // 1. Ingest push webhook from student octocat
+    const payload = {
+      repository: {
+        name: 'hello-world',
+        html_url: 'https://github.com/octocat/hello-world',
+      },
+      sender: {
+        login: 'octocat',
+        id: 12345,
+      },
+      head_commit: {
+        id: 'commit_sys_test_11_abcdef1234567890',
+        message: 'Implement distributed consensus mechanism and comprehensive automated integration tests',
+        author: { email: 'octocat@github.com' },
+        added: ['src/consensus/raft.ts', 'tests/consensus.test.ts'],
+        modified: ['src/index.ts', 'src/config.ts'],
+        removed: [],
+      },
+      commits: [
+        {
+          id: 'commit_sys_test_11_abcdef1234567890',
+          message: 'Implement distributed consensus mechanism and comprehensive automated integration tests',
+          author: { email: 'octocat@github.com' },
+          added: ['src/consensus/raft.ts', 'tests/consensus.test.ts'],
+          modified: ['src/index.ts', 'src/config.ts'],
+          removed: [],
+        }
+      ]
+    };
+
+    const payloadStr = JSON.stringify(payload);
+    const sig = 'sha256=' + crypto.createHmac('sha256', secret).update(payloadStr).digest('hex');
+
+    const webhookReq = new NextRequest('http://localhost:3000/api/webhooks/github', {
+      method: 'POST',
+      headers: {
+        'x-hub-signature-256': sig,
+        'x-github-event': 'push',
+        'content-type': 'application/json',
+      },
+      body: payloadStr,
+    });
+
+    const webhookRes = await githubWebhookPOST(webhookReq);
+    assert.strictEqual(webhookRes.status, 200, 'Webhook must accept verified push');
+    const webhookData = await webhookRes.json();
+    assert.strictEqual(webhookData.success, true);
+    assert.ok(webhookData.evidenceRecordId, 'Evidence record ID must be generated');
+
+    const evRecordId = webhookData.evidenceRecordId;
+
+    // 2. Authoritative Server Verification Endpoint validates evidence
+    const verifyReq = new NextRequest(`http://localhost:3000/api/verify/${evRecordId}`);
+    const verifyRes = await verifyRouteGET(verifyReq, { params: { credentialId: evRecordId } });
+    assert.strictEqual(verifyRes.status, 200);
+    const verifyData = await verifyRes.json();
+    assert.strictEqual(verifyData.valid, true, 'Server verification must report valid');
+    assert.strictEqual(verifyData.status, 'VERIFIED');
+    assert.strictEqual(verifyData.evidenceRecord.evidenceClass, 'application', 'Evidence class must be application, not production');
+    assert.ok(verifyData.evidenceRecord.score <= 75, 'Score must be honest (<= 75)');
+
+    // 3. Tampered evidence verification failure
+    const origGet = PathwayApiService.getAllStudentEvidence.bind(PathwayApiService);
+    const studentId = 'stu_dev_octocat_01';
+    const allEvidence = await PathwayApiService.getAllStudentEvidence(studentId);
+    PathwayApiService.getAllStudentEvidence = async (sId: string) => {
+      if (sId === studentId) {
+        return allEvidence.map(e => {
+          if (e.id === evRecordId) {
+            return { ...e, score: 100 }; // Tampered score without new signature
+          }
+          return e;
+        });
+      }
+      return origGet(sId);
+    };
+
+    try {
+      const tamperedVerifyReq = new NextRequest(`http://localhost:3000/api/verify/${evRecordId}`);
+      const tamperedVerifyRes = await verifyRouteGET(tamperedVerifyReq, { params: { credentialId: evRecordId } });
+      const tamperedData = await tamperedVerifyRes.json();
+      assert.strictEqual(tamperedData.valid, false, 'Tampered evidence must fail verification');
+      assert.strictEqual(tamperedData.error, 'INTEGRITY_TAMPERED');
+    } finally {
+      PathwayApiService.getAllStudentEvidence = origGet;
+    }
+
+    // 4. Passport Transcript route computes genuine seal and accurate defense copy
+    const transcriptReq = new NextRequest('http://localhost:3000/api/passport/transcript', {
+      headers: {
+        'authorization': 'Bearer demo-token-bypass',
+      },
+    });
+
+    const transcriptRes = await transcriptRouteGET(transcriptReq);
+    assert.strictEqual(transcriptRes.status, 200);
+    const transcriptHtml = await transcriptRes.text();
+
+    assert.ok(!transcriptHtml.includes('✓ SHA-256 Verified'), 'Deceptive unkeyed SHA-256 label removed');
+    assert.ok(
+      transcriptHtml.includes('✓ HMAC-SHA256 Verified') || transcriptHtml.includes('Provisional / Unverified'),
+      'Accurate HMAC verification status displayed'
+    );
+    assert.ok(!transcriptHtml.includes('Passed rigorous multi-stage architectural defense verifying independent problem solving and code provenance (0/100)'));
   });
 
   console.log('========================================================================');

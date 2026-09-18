@@ -1,6 +1,36 @@
 {
   "leaves": [
     {
+      "id": "LEV-1789725958472-S77VU",
+      "studentId": "srv_stu1_1789725951426",
+      "student_id": "srv_stu1_1789725951426",
+      "startDate": "2026-10-01",
+      "endDate": "2026-10-03",
+      "reason": "Viral Fever",
+      "type": "Medical Leave",
+      "status": "Pending"
+    },
+    {
+      "id": "LEV-1789725556596-YPK10",
+      "studentId": "srv_stu1_1789725549512",
+      "student_id": "srv_stu1_1789725549512",
+      "startDate": "2026-10-01",
+      "endDate": "2026-10-03",
+      "reason": "Viral Fever",
+      "type": "Medical Leave",
+      "status": "Pending"
+    },
+    {
+      "id": "LEV-1789725167418-4S1PF",
+      "studentId": "srv_stu1_1789725160242",
+      "student_id": "srv_stu1_1789725160242",
+      "startDate": "2026-10-01",
+      "endDate": "2026-10-03",
+      "reason": "Viral Fever",
+      "type": "Medical Leave",
+      "status": "Pending"
+    },
+    {
       "id": "LEV-1789647486756-WH7V4",
       "studentId": "srv_stu1_1789647486755",
       "student_id": "srv_stu1_1789647486755",
@@ -54,6 +84,33 @@
   "requests": [],
   "appointments": [],
   "counselling": [
+    {
+      "id": "CNS-1789725965587-2MB1X",
+      "studentId": "srv_stu1_1789725951426",
+      "student_id": "srv_stu1_1789725951426",
+      "counselorName": "Counsellor_1789725951426",
+      "date": "2026-10-10",
+      "time": "10:00 AM",
+      "status": "Requested"
+    },
+    {
+      "id": "CNS-1789725563704-WP0OP",
+      "studentId": "srv_stu1_1789725549512",
+      "student_id": "srv_stu1_1789725549512",
+      "counselorName": "Counsellor_1789725549512",
+      "date": "2026-10-10",
+      "time": "10:00 AM",
+      "status": "Requested"
+    },
+    {
+      "id": "CNS-1789725174460-RRBLN",
+      "studentId": "srv_stu1_1789725160242",
+      "student_id": "srv_stu1_1789725160242",
+      "counselorName": "Counsellor_1789725160242",
+      "date": "2026-10-10",
+      "time": "10:00 AM",
+      "status": "Requested"
+    },
     {
       "id": "CNS-1789647486758-NC9D7",
       "studentId": "srv_stu1_1789647486755",

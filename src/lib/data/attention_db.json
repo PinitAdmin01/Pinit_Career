@@ -3,7 +3,7 @@
     {
       "user_id": "test_user_001",
       "display_name": "Leaked.student",
-      "total_accuracy": 705,
+      "total_accuracy": 930,
       "daily_logs": {
         "2026-09-17": {
           "date": "2026-09-17",
@@ -32,7 +32,7 @@
             "completedDifficulties": {}
           },
           "integrityHash": "81829ec3e0bc45ed",
-          "updatedAt": "2026-09-17T15:59:03.348Z"
+          "updatedAt": "2026-09-18T10:07:49.569Z"
         }
       },
       "monthly_summaries": {
@@ -41,7 +41,7 @@
           "totalFocusHours": 15
         }
       },
-      "updated_at": "2026-09-17T15:59:03.348Z"
+      "updated_at": "2026-09-18T10:07:49.570Z"
     }
   ]
 }

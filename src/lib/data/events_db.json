@@ -1,6 +1,45 @@
 {
   "catalog": [
     {
+      "id": "EVT-1789725922969-E9CB6E",
+      "category": "Tech",
+      "title": "AI Summit",
+      "description": "Annual AI Conference",
+      "date": "2026-11-01",
+      "time": "10:00 AM",
+      "venue": "Auditorium",
+      "capacity": 100,
+      "rsvpCount": 1,
+      "host": "ACM",
+      "completed": false
+    },
+    {
+      "id": "EVT-1789725520930-2861C1",
+      "category": "Tech",
+      "title": "AI Summit",
+      "description": "Annual AI Conference",
+      "date": "2026-11-01",
+      "time": "10:00 AM",
+      "venue": "Auditorium",
+      "capacity": 100,
+      "rsvpCount": 1,
+      "host": "ACM",
+      "completed": false
+    },
+    {
+      "id": "EVT-1789725131846-0508BA",
+      "category": "Tech",
+      "title": "AI Summit",
+      "description": "Annual AI Conference",
+      "date": "2026-11-01",
+      "time": "10:00 AM",
+      "venue": "Auditorium",
+      "capacity": 100,
+      "rsvpCount": 1,
+      "host": "ACM",
+      "completed": false
+    },
+    {
       "id": "EVT-1789647486737-BCD6BD",
       "category": "Tech",
       "title": "AI Summit",
@@ -56,6 +95,30 @@
       "studentName": "Attending Student",
       "hasCertificate": true,
       "certificateCode": "CERT-39BC00EB-MU5HWMJC"
+    },
+    {
+      "id": "RSVP-1789725138958-04AB80",
+      "eventId": "EVT-1789725131846-0508BA",
+      "studentId": "ev_stu_1789725124776",
+      "studentName": "Attending Student",
+      "hasCertificate": true,
+      "certificateCode": "CERT-9AED3CCB-MU6S54VS"
+    },
+    {
+      "id": "RSVP-1789725528069-F6AFDE",
+      "eventId": "EVT-1789725520930-2861C1",
+      "studentId": "ev_stu_1789725513789",
+      "studentName": "Attending Student",
+      "hasCertificate": true,
+      "certificateCode": "CERT-057B4D5A-MU6SDH4I"
+    },
+    {
+      "id": "RSVP-1789725930112-794AE9",
+      "eventId": "EVT-1789725922969-E9CB6E",
+      "studentId": "ev_stu_1789725915865",
+      "studentName": "Attending Student",
+      "hasCertificate": true,
+      "certificateCode": "CERT-ACC80699-MU6SM3AO"
     }
   ]
 }

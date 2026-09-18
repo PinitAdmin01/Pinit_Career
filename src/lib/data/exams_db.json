@@ -139,6 +139,90 @@
           "isAbsent": false
         }
       ]
+    },
+    "student_alpha_1789725082250": {
+      "isPublished": false,
+      "gpa": 7,
+      "results": [
+        {
+          "code": "MATH101",
+          "course": "MATH101",
+          "internals": 0,
+          "semester": 65,
+          "grade": "B+",
+          "isAbsent": false
+        }
+      ]
+    },
+    "student_beta_1789725082250": {
+      "isPublished": false,
+      "gpa": 6,
+      "results": [
+        {
+          "code": "PHYS101",
+          "course": "PHYS101",
+          "internals": 0,
+          "semester": 52,
+          "grade": "B",
+          "isAbsent": false
+        }
+      ]
+    },
+    "student_alpha_1789725471057": {
+      "isPublished": false,
+      "gpa": 7,
+      "results": [
+        {
+          "code": "MATH101",
+          "course": "MATH101",
+          "internals": 0,
+          "semester": 65,
+          "grade": "B+",
+          "isAbsent": false
+        }
+      ]
+    },
+    "student_beta_1789725471057": {
+      "isPublished": false,
+      "gpa": 6,
+      "results": [
+        {
+          "code": "PHYS101",
+          "course": "PHYS101",
+          "internals": 0,
+          "semester": 52,
+          "grade": "B",
+          "isAbsent": false
+        }
+      ]
+    },
+    "student_alpha_1789725871597": {
+      "isPublished": false,
+      "gpa": 7,
+      "results": [
+        {
+          "code": "MATH101",
+          "course": "MATH101",
+          "internals": 0,
+          "semester": 65,
+          "grade": "B+",
+          "isAbsent": false
+        }
+      ]
+    },
+    "student_beta_1789725871597": {
+      "isPublished": false,
+      "gpa": 6,
+      "results": [
+        {
+          "code": "PHYS101",
+          "course": "PHYS101",
+          "internals": 0,
+          "semester": 52,
+          "grade": "B",
+          "isAbsent": false
+        }
+      ]
     }
   },
   "schedule": [],
@@ -429,6 +513,48 @@
       "score": 78,
       "passed": true,
       "timestamp": 1789647486708
+    },
+    {
+      "studentId": "st_fail_1789725082258",
+      "examScheduleId": "EXAM_1789725082258",
+      "score": 35,
+      "passed": false,
+      "timestamp": 1789725089323
+    },
+    {
+      "studentId": "st_pass_1789725082258",
+      "examScheduleId": "EXAM_1789725082258",
+      "score": 78,
+      "passed": true,
+      "timestamp": 1789725089327
+    },
+    {
+      "studentId": "st_fail_1789725471067",
+      "examScheduleId": "EXAM_1789725471067",
+      "score": 35,
+      "passed": false,
+      "timestamp": 1789725478188
+    },
+    {
+      "studentId": "st_pass_1789725471067",
+      "examScheduleId": "EXAM_1789725471067",
+      "score": 78,
+      "passed": true,
+      "timestamp": 1789725478194
+    },
+    {
+      "studentId": "st_fail_1789725871611",
+      "examScheduleId": "EXAM_1789725871611",
+      "score": 35,
+      "passed": false,
+      "timestamp": 1789725878743
+    },
+    {
+      "studentId": "st_pass_1789725871611",
+      "examScheduleId": "EXAM_1789725871611",
+      "score": 78,
+      "passed": true,
+      "timestamp": 1789725878776
     }
   ]
 }

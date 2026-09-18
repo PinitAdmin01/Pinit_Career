@@ -4,6 +4,30 @@
   "sms": [],
   "logs": [
     {
+      "id": "NOTICE-1936",
+      "type": "email",
+      "subject": "Exam Schedule Published",
+      "body": "Final exam dates are live.",
+      "category": "Academics",
+      "date": "2026-09-18"
+    },
+    {
+      "id": "NOTICE-4139",
+      "type": "email",
+      "subject": "Exam Schedule Published",
+      "body": "Final exam dates are live.",
+      "category": "Academics",
+      "date": "2026-09-18"
+    },
+    {
+      "id": "NOTICE-9265",
+      "type": "email",
+      "subject": "Exam Schedule Published",
+      "body": "Final exam dates are live.",
+      "category": "Academics",
+      "date": "2026-09-18"
+    },
+    {
       "id": "NOTICE-1348",
       "type": "email",
       "subject": "Exam Schedule Published",

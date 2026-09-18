@@ -53,9 +53,69 @@
       "copies": 1,
       "available": 0,
       "isEbook": false
+    },
+    {
+      "isbn": "ISBN-TEST-1789725174463",
+      "title": "Concurrency Guide",
+      "author": "Author C",
+      "genre": "CS",
+      "copies": 1,
+      "available": 0,
+      "isEbook": false
+    },
+    {
+      "isbn": "ISBN-TEST-1789725563708",
+      "title": "Concurrency Guide",
+      "author": "Author C",
+      "genre": "CS",
+      "copies": 1,
+      "available": 0,
+      "isEbook": false
+    },
+    {
+      "isbn": "ISBN-TEST-1789725965593",
+      "title": "Concurrency Guide",
+      "author": "Author C",
+      "genre": "CS",
+      "copies": 1,
+      "available": 0,
+      "isEbook": false
     }
   ],
   "borrowed": [
+    {
+      "id": "BOR-1789725979840-12DBB6",
+      "studentId": "stu_lib_1",
+      "studentName": "Student One",
+      "isbn": "ISBN-TEST-1789725965593",
+      "title": "Concurrency Guide",
+      "borrowedOn": "2026-09-18T10:06:19.840Z",
+      "dueOn": "2026-10-02T10:06:19.840Z",
+      "returned": false,
+      "fine": 0
+    },
+    {
+      "id": "BOR-1789725577938-84A313",
+      "studentId": "stu_lib_1",
+      "studentName": "Student One",
+      "isbn": "ISBN-TEST-1789725563708",
+      "title": "Concurrency Guide",
+      "borrowedOn": "2026-09-18T09:59:37.938Z",
+      "dueOn": "2026-10-02T09:59:37.938Z",
+      "returned": false,
+      "fine": 0
+    },
+    {
+      "id": "BOR-1789725188561-F4F3D1",
+      "studentId": "stu_lib_1",
+      "studentName": "Student One",
+      "isbn": "ISBN-TEST-1789725174463",
+      "title": "Concurrency Guide",
+      "borrowedOn": "2026-09-18T09:53:08.561Z",
+      "dueOn": "2026-10-02T09:53:08.561Z",
+      "returned": false,
+      "fine": 0
+    },
     {
       "id": "BOR-1789647486763-8C66D6",
       "studentId": "stu_lib_1",

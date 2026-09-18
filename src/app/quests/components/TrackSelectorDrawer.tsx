@@ -7,6 +7,9 @@ import { EnglishDashboard } from '@/components/language/EnglishDashboard';
 import { CrashCoursePlanCards } from './CrashCoursePlanCards';
 import { InternshipTimelineTracker } from './InternshipTimelineTracker';
 import { PracticeTestReportModal } from './PracticeTestReportModal';
+import PracticeTestQuizRunner from './PracticeTestQuizRunner';
+import CapstoneInternshipPortal from './CapstoneInternshipPortal';
+import CareerGrowthGraph from './CareerGrowthGraph';
 import CareerPathwayTimeline from '@/components/pathway/CareerPathwayTimeline';
 import CompetencyRadarView from '@/components/pathway/CompetencyRadarView';
 import {
@@ -56,7 +59,6 @@ export interface TrackSelectorDrawerProps {
 }
 
 export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
-
   activeSubTab,
   handleSubTabChange,
   selectedCertTrackId,
@@ -91,16 +93,25 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
   setNotesModalState
 }) => {
   const [activeCrashPlanId, setActiveCrashPlanId] = React.useState<string>('plan-3m-accelerator');
+  const [activeTrack, setActiveTrack] = React.useState<'web_fullstack' | 'python_ai'>('web_fullstack');
+  const [showPracticeQuiz, setShowPracticeQuiz] = React.useState<boolean>(false);
   const [showPracticeTestModal, setShowPracticeTestModal] = React.useState<boolean>(false);
   const [practiceTestTitle, setPracticeTestTitle] = React.useState<string>('Full-Stack Architecture & API Practice Test');
+  const [showCapstonePortal, setShowCapstonePortal] = React.useState<boolean>(false);
 
   const handleSelectCrashPlan = (planId: string, track: 'web_fullstack' | 'python_ai', courseIdToActivate: string) => {
     setActiveCrashPlanId(planId);
+    setActiveTrack(track);
     setActiveCourseId(courseIdToActivate);
   };
 
-  const handleOpenPracticeReport = (title: string) => {
+  const handleOpenPracticeQuiz = (title: string) => {
     setPracticeTestTitle(title);
+    setShowPracticeQuiz(true);
+  };
+
+  const handleCompletePracticeQuiz = (result: any) => {
+    setShowPracticeQuiz(false)
     setShowPracticeTestModal(true);
   };
 
@@ -258,27 +269,61 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
           flexDirection: 'column',
           gap: 16
         }}>
-          {/* Top Row: Quick QR Share */}
-          <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-            <button
-              onClick={() => setShowQrModal(true)}
-              style={{
-                fontSize: 12,
-                color: 'var(--text)',
-                fontWeight: 800,
-                padding: '8px 16px',
-                borderRadius: 10,
-                background: 'linear-gradient(135deg, var(--success), var(--success-deep))',
-                border: 'none',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 6,
-                boxShadow: '0 4px 14px rgba(var(--success-rgb),0.3)'
-              }}
-            >
-              <span>📲</span> Share & Verify Skill Passport (QR)
-            </button>
+          {/* Top Row: Track Title + Quick QR Share + Internship Portal */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 14 }}>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ fontSize: 24 }}>🏆</span>
+                <h3 style={{ fontSize: 17, fontWeight: 900, color: 'var(--t1)', margin: 0, fontFamily: 'var(--font-display)' }}>
+                  Industrial Certification & Verifiable Skill Passport
+                </h3>
+              </div>
+              <p style={{ fontSize: 12.5, color: 'var(--t3)', margin: '4px 0 0 0' }}>
+                Enterprise-accredited crash curriculum: Daily 1Hr Learning • 1-Month Capstone • 2-3 Months Real-Time Internship • Dual Verifiable Credentials.
+              </p>
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+              <button
+                onClick={() => setShowCapstonePortal(true)}
+                style={{
+                  fontSize: 12,
+                  fontWeight: 800,
+                  padding: '8px 16px',
+                  borderRadius: 10,
+                  background: 'rgba(99, 102, 241, 0.15)',
+                  border: '1.5px solid #6366f1',
+                  color: '#ffffff',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  boxShadow: '0 4px 14px rgba(99, 102, 241, 0.25)'
+                }}
+              >
+                <span>🏢</span> Internship Portal
+              </button>
+
+              <button
+                onClick={() => setShowQrModal(true)}
+                style={{
+                  fontSize: 12,
+                  color: 'var(--text)',
+                  fontWeight: 800,
+                  padding: '8px 16px',
+                  borderRadius: 10,
+                  background: 'linear-gradient(135deg, var(--success), var(--success-deep))',
+                  border: 'none',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  boxShadow: '0 4px 14px rgba(var(--success-rgb),0.3)'
+                }}
+              >
+                <span>📲</span> Share & Verify (QR)
+              </button>
+            </div>
           </div>
 
           {/* ── 1. CRASH COURSE PLAN CARDS (1M, 3M, 6M, 9M) ── */}
@@ -286,22 +331,51 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
             currentPlanId={activeCrashPlanId}
             onSelectPlan={handleSelectCrashPlan}
             onOpenStandaloneCatalog={() => handleSubTabChange('standalone')}
-            onOpenPracticeReport={handleOpenPracticeReport}
+            onOpenPracticeReport={handleOpenPracticeQuiz}
           />
 
           {/* ── 2. ACTIVE INTERNSHIP & PROGRAM TIMELINE TRACKER ── */}
           <InternshipTimelineTracker
             planId={activeCrashPlanId}
             completedQuestsCount={completedQuests.length}
-            onOpenPracticeTest={() => handleOpenPracticeReport('Weekly Milestone Practice Test')}
+            onOpenPracticeTest={() => handleOpenPracticeQuiz('Weekly Milestone Diagnostic Assessment')}
+            onOpenProjectWorkspace={() => setShowCapstonePortal(true)}
           />
 
-          {/* ── 3. PRACTICE TEST DIAGNOSTIC REPORT MODAL ── */}
+          {/* ── 3. CAREER GROWTH GRAPH ── */}
+          <div style={{ marginTop: 6 }}>
+            <CareerGrowthGraph
+              monthsCount={activeCrashPlanId === 'plan-1m-sprint' ? 1 : activeCrashPlanId === 'plan-3m-accelerator' ? 3 : activeCrashPlanId === 'plan-6m-pro' ? 6 : 9}
+            />
+          </div>
+
+          {/* ── 4. PRACTICE TEST QUIZ RUNNER MODAL ── */}
+          {showPracticeQuiz && (
+            <PracticeTestQuizRunner
+              testTitle={practiceTestTitle}
+              track={activeTrack}
+              planTier={activeCrashPlanId === 'plan-1m-sprint' ? '1m' : activeCrashPlanId === 'plan-3m-accelerator' ? '3m' : activeCrashPlanId === 'plan-6m-pro' ? '6m' : '9m'}
+              onClose={() => setShowPracticeQuiz(false)}
+              onCompleteTest={handleCompletePracticeQuiz}
+            />
+          )}
+
+          {/* ── 5. PRACTICE TEST DIAGNOSTIC REPORT MODAL ── */}
           <PracticeTestReportModal
             isOpen={showPracticeTestModal}
             onClose={() => setShowPracticeTestModal(false)}
             testTitle={practiceTestTitle}
           />
+
+          {/* ── 6. CAPSTONE INTERNSHIP PORTAL MODAL ── */}
+          {showCapstonePortal && (
+            <CapstoneInternshipPortal
+              planId={activeCrashPlanId}
+              planTitle={activeCrashPlanId === 'plan-1m-sprint' ? '1-Month Sprint' : activeCrashPlanId === 'plan-3m-accelerator' ? '3-Month Accelerator' : activeCrashPlanId === 'plan-6m-pro' ? '6-Month Professional' : '9-Month Master'}
+              studentName="PinIT Engineering Fellow"
+              onClose={() => setShowCapstonePortal(false)}
+            />
+          )}
 
           {/* Live Passport HUD & Expand/Collapse Toggle */}
           {roleReadiness && (

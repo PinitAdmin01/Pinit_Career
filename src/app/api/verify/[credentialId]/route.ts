@@ -61,7 +61,7 @@ export async function GET(
 
       // Check PathwayApiService local/in-memory records for dev/fixtures
       if (!foundRecord) {
-        const studentCandidates = ['demo_student_user', 'test_user_001'];
+        const studentCandidates = ['demo_student_user', 'test_user_001', 'stu_dev_octocat_01', 'stu_dev_tester_01'];
         for (const sId of studentCandidates) {
           const records = await PathwayApiService.getAllStudentEvidence(sId);
           const match = records.find(r => r.id === credentialId);
@@ -77,6 +77,7 @@ export async function GET(
         if (!isIntegrityValid) {
           return NextResponse.json({
             valid: false,
+            status: 'INTEGRITY_TAMPERED',
             type: 'evidence',
             error: 'INTEGRITY_TAMPERED',
             message: 'Cryptographic HMAC-SHA256 signature mismatch: evidence payload has been altered or forged.'
@@ -85,6 +86,7 @@ export async function GET(
 
         return NextResponse.json({
           valid: true,
+          status: 'VERIFIED',
           type: 'evidence',
           evidenceRecord: {
             id: foundRecord.id,

@@ -35,6 +35,27 @@
       "assignmentsCompleted": 1,
       "assignmentsPending": 0,
       "warningLevel": "Low"
+    },
+    "advisor_x_1789725110541": {
+      "attendance": 80,
+      "cgpa": 7,
+      "assignmentsCompleted": 1,
+      "assignmentsPending": 0,
+      "warningLevel": "Low"
+    },
+    "advisor_x_1789725499571": {
+      "attendance": 80,
+      "cgpa": 7,
+      "assignmentsCompleted": 1,
+      "assignmentsPending": 0,
+      "warningLevel": "Low"
+    },
+    "advisor_x_1789725901509": {
+      "attendance": 80,
+      "cgpa": 7,
+      "assignmentsCompleted": 1,
+      "assignmentsPending": 0,
+      "warningLevel": "Low"
     }
   }
 }
