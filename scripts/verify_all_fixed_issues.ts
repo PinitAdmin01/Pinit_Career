@@ -2,37 +2,10 @@ process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
 process.env.NODE_ENV = 'test';
 process.env.EXAM_SECRET = 'test_exam_secret_32_bytes_long_key_pinit!!';
 process.env.EVIDENCE_SIGNING_SECRET = 'test_evidence_signing_secret_32_bytes!';
-process.env.NEXT_PUBLIC_SUPABASE_URL = 'http://127.0.0.1:54321';
+process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://mock-project.supabase.co';
 process.env.SUPABASE_SERVICE_ROLE_KEY = 'mock_service_role_key_for_test';
 process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'mock_anon_key_for_test';
 
-const defaultFetch = globalThis.fetch;
-function setupMockSupabaseFetch() {
-  globalThis.fetch = async (input: any, init?: any) => {
-    const urlStr = typeof input === 'string' ? input : (input?.url || String(input));
-    if (urlStr.includes('54321') || urlStr.includes('supabase.co') || urlStr.includes('mock-project') || urlStr.includes('placeholder-project')) {
-      const method = (init?.method || 'GET').toUpperCase();
-      if (urlStr.includes('/auth/v1/admin/users')) {
-        return new Response(JSON.stringify({ user: { id: 'mock_user_' + Date.now().toString(36), email: 'mock@example.edu' } }), {
-          status: 200,
-          headers: { 'Content-Type': 'application/json' }
-        });
-      }
-      if (method === 'GET') {
-        return new Response(JSON.stringify([]), {
-          status: 200,
-          headers: { 'Content-Type': 'application/json' }
-        });
-      }
-      return new Response(JSON.stringify([]), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' }
-      });
-    }
-    return defaultFetch(input, init);
-  };
-}
-setupMockSupabaseFetch();
 import assert from 'assert';
 import fs from 'fs';
 import path from 'path';
@@ -3069,23 +3042,23 @@ TypeScript, React, Node.js
     const { resolveLinkedStudent } = await import('../src/app/api/webhooks/github/route');
 
     const origFetch = globalThis.fetch;
-    globalThis.fetch = async (input, init) => {
-      const urlStr = String(input);
-      if (urlStr.includes('supabase.co')) {
+    globalThis.fetch = async (input: any, init?: any) => {
+      const urlStr = typeof input === 'string' ? input : (input?.url || String(input));
+      if (urlStr.includes('supabase.co') || urlStr.includes('127.0.0.1') || urlStr.includes('localhost') || urlStr.includes('rest/v1')) {
         if (urlStr.includes('github_integrations')) {
-          return new Response(JSON.stringify({
+          return new Response(JSON.stringify([{
             student_id: 'stu_unclaimed_99',
             claimed_repos: [],
             github_username: 'unclaimeddev',
             github_id: 99999
-          }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+          }]), { status: 200, headers: { 'Content-Type': 'application/json' } });
         }
         if (urlStr.includes('users')) {
-          return new Response(JSON.stringify({
+          return new Response(JSON.stringify([{
             id: 'stu_unclaimed_99',
             github_username: 'unclaimeddev',
             claimed_repos: []
-          }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+          }]), { status: 200, headers: { 'Content-Type': 'application/json' } });
         }
       }
       return origFetch(input, init);
