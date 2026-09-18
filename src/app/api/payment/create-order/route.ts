@@ -10,6 +10,11 @@ export const PLAN_PRICES_PAISE: Record<string, number> = {
   pack_150: 9900,
   pack_500: 24900,
   pack_1200: 49900,
+  // Crash Course Programs with Real-Time Internships (Boss Specs)
+  "plan-1m-sprint": 299900,       // ₹2,999 (1M + 1M Proj + 2M Intern = 3-4M)
+  "plan-3m-accelerator": 699900,  // ₹6,999 (3M + 1M Proj + 2M Intern = 5-6M)
+  "plan-6m-pro": 1199900,        // ₹11,999 (6M + 1M Proj + 2M Intern = 8-9M)
+  "plan-9m-master": 1599900,     // ₹15,999 (9M + 1M Proj + 2M Intern = 1 Year)
   // pack_custom: computed dynamically — NOT listed here; handled below
 };
 
