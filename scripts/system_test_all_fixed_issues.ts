@@ -6,9 +6,37 @@ process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
 process.env.NODE_ENV = 'test';
 process.env.EXAM_SECRET = 'test_exam_secret_32_bytes_long_key_pinit!!';
 process.env.EVIDENCE_SIGNING_SECRET = 'test_evidence_signing_secret_32_bytes!';
-process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://mock-project.supabase.co';
+process.env.NEXT_PUBLIC_SUPABASE_URL = 'http://127.0.0.1:54321';
 process.env.SUPABASE_SERVICE_ROLE_KEY = 'mock_service_role_key_for_test';
 process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'mock_anon_key_for_test';
+
+const defaultFetch = globalThis.fetch;
+function setupMockSupabaseFetch() {
+  globalThis.fetch = async (input: any, init?: any) => {
+    const urlStr = typeof input === 'string' ? input : (input?.url || String(input));
+    if (urlStr.includes('54321') || urlStr.includes('supabase.co') || urlStr.includes('mock-project') || urlStr.includes('placeholder-project')) {
+      const method = (init?.method || 'GET').toUpperCase();
+      if (urlStr.includes('/auth/v1/admin/users')) {
+        return new Response(JSON.stringify({ user: { id: 'mock_user_' + Date.now().toString(36), email: 'mock@example.edu' } }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
+      if (method === 'GET') {
+        return new Response(JSON.stringify([]), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
+      return new Response(JSON.stringify([]), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+    return defaultFetch(input, init);
+  };
+}
+setupMockSupabaseFetch();
 
 import crypto from 'crypto';
 import { groundAndValidateEvidence } from '../src/lib/ats/factCheckValidator';
@@ -215,7 +243,7 @@ async function runSystemTests() {
   await systemTest('System Pipeline: Vault delete endpoint blocks cross-user IDOR attempts with HTTP 403', async () => {
     const origFetch = globalThis.fetch;
     globalThis.fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
-      const urlStr = String(input);
+      const urlStr = typeof input === 'string' ? input : (input?.url || String(input));
       if (urlStr.includes('supabase.co') || urlStr.includes('vault_items')) {
         return new Response('null', { status: 200, headers: { 'Content-Type': 'application/json' } });
       }
@@ -402,7 +430,7 @@ async function runSystemTests() {
     // 4. Passing exam verification: Honest status KNOWLEDGE_ASSESSED, verified: false
     const origFetch = globalThis.fetch;
     globalThis.fetch = async (input, init) => {
-      const urlStr = String(input);
+      const urlStr = typeof input === 'string' ? input : (input?.url || String(input));
       if (urlStr.includes('supabase.co') || urlStr.includes('portfolio_items')) {
         const method = init?.method || 'GET';
         if (method === 'GET') {
@@ -445,8 +473,8 @@ async function runSystemTests() {
       assert.strictEqual(passData.certificate?.auditStatus, 'PENDING_FACULTY_AUDIT');
       assert.strictEqual(passData.correctCount, undefined, 'correctCount is not returned');
     } finally {
-      globalThis.fetch = origFetch;
-      delete process.env.SUPABASE_SERVICE_ROLE_KEY;
+      setupMockSupabaseFetch();
+      process.env.SUPABASE_SERVICE_ROLE_KEY = 'mock_service_role_key_for_test';
     }
   });
 
@@ -687,6 +715,119 @@ async function runSystemTests() {
     assert.ok(Array.isArray(lbJson.leaderboard) && lbJson.leaderboard.length > 0);
     assert.ok(!lbJson.leaderboard.some((e: any) => e.name?.includes('Sarah Chen')));
     assert.ok(lbJson.leaderboard.every((e: any) => typeof e.eloRating === 'number' && e.eloRating > 0));
+  });
+
+  // --- SYSTEM TEST 14: Enterprise Multi-Portal Data Flow & Service Authority ---
+  await systemTest('System Pipeline: Multi-portal enterprise workflows (Parent, Recruiter, Consultant, Admin) with role gating, real metrics, and zero fabricated fallbacks', async () => {
+    const { GET: parentStudentsGET } = await import('../src/app/api/parent/students/route');
+    const { GET: recruiterPipeGET } = await import('../src/app/api/recruiter/pipeline/route');
+    const { POST: recruiterShortlistPOST } = await import('../src/app/api/recruiter/shortlist/route');
+    const { PATCH: recruiterVisPATCH } = await import('../src/app/api/recruiter/visibility/route');
+    const { GET: consultantAnalyticsGET } = await import('../src/app/api/consultant/analytics/route');
+    const { POST: consultantAddStudentPOST } = await import('../src/app/api/consultant/student/add/route');
+    const { GET: adminDashboardGET } = await import('../src/app/api/admin/dashboard/route');
+    const { GET: adminMetricsGET } = await import('../src/app/api/admin/metrics-summary/route');
+    const { PATCH: adminRolePATCH } = await import('../src/app/api/admin/users/[id]/role/route');
+
+    // 1. Parent portal: student token rejected (403), parent token accepted (200)
+    const pStudentReq = new NextRequest('http://localhost:3000/api/parent/students', {
+      headers: { authorization: 'Bearer test-token-student' }
+    });
+    const pStudentRes = await parentStudentsGET(pStudentReq);
+    assert.strictEqual(pStudentRes.status, 403, 'Plain student token must be rejected from parent portal');
+
+    const pParentReq = new NextRequest('http://localhost:3000/api/parent/students', {
+      headers: { authorization: 'Bearer test-token-parent' }
+    });
+    const pParentRes = await parentStudentsGET(pParentReq);
+    assert.strictEqual(pParentRes.status, 200);
+    const pParentJson = await pParentRes.json();
+    assert.ok(pParentJson.ok && Array.isArray(pParentJson.students));
+
+    // 2. Recruiter portal: student token rejected (403), recruiter token accepted (200), real pipeline
+    const rStudentReq = new NextRequest('http://localhost:3000/api/recruiter/pipeline', {
+      headers: { authorization: 'Bearer test-token-student' }
+    });
+    const rStudentRes = await recruiterPipeGET(rStudentReq);
+    assert.strictEqual(rStudentRes.status, 403);
+
+    const rRecReq = new NextRequest('http://localhost:3000/api/recruiter/pipeline', {
+      headers: { authorization: 'Bearer test-token-recruiter' }
+    });
+    const rRecRes = await recruiterPipeGET(rRecReq);
+    assert.strictEqual(rRecRes.status, 200);
+    const rRecJson = await rRecRes.json();
+    assert.ok(rRecJson.ok && Array.isArray(rRecJson.pipeline));
+
+    // Recruiter actions notify candidate and record interactions
+    const rShortlistReq = new NextRequest('http://localhost:3000/api/recruiter/shortlist', {
+      method: 'POST',
+      headers: { authorization: 'Bearer test-token-recruiter', 'content-type': 'application/json' },
+      body: JSON.stringify({ candidateId: 'std_sys_001' })
+    });
+    const rShortlistRes = await recruiterShortlistPOST(rShortlistReq);
+    assert.strictEqual(rShortlistRes.status, 200);
+
+    const rVisReq = new NextRequest('http://localhost:3000/api/recruiter/visibility', {
+      method: 'PATCH',
+      headers: { authorization: 'Bearer demo-token-bypass', 'content-type': 'application/json' },
+      body: JSON.stringify({ visibility: 'public' })
+    });
+    const rVisRes = await recruiterVisPATCH(rVisReq);
+    assert.strictEqual(rVisRes.status, 200);
+    const rVisJson = await rVisRes.json();
+    assert.strictEqual(rVisJson.recruiter_visibility, 100);
+
+    // 3. Consultant portal: analytics without 80% floor & student provisioning without session wipeout
+    const cReq = new NextRequest('http://localhost:3000/api/consultant/analytics', {
+      headers: { authorization: 'Bearer test-token-consultant' }
+    });
+    const cRes = await consultantAnalyticsGET(cReq);
+    assert.strictEqual(cRes.status, 200);
+    const cJson = await cRes.json();
+    assert.ok(cJson.ok && typeof cJson.analytics?.totalStudents === 'number');
+
+    const cAddReq = new NextRequest('http://localhost:3000/api/consultant/student/add', {
+      method: 'POST',
+      headers: { authorization: 'Bearer test-token-consultant', 'content-type': 'application/json' },
+      body: JSON.stringify({
+        displayName: 'Aarav Gupta',
+        email: 'aarav.studyabroad@example.edu',
+        targetCountry: 'Germany',
+        programType: 'M.Sc Computer Science'
+      })
+    });
+    const cAddRes = await consultantAddStudentPOST(cAddReq);
+    assert.strictEqual(cAddRes.status, 200);
+    const cAddJson = await cAddRes.json();
+    assert.ok(cAddJson.ok && cAddJson.student?.email === 'aarav.studyabroad@example.edu');
+
+    // 4. Admin portal: dashboard evaluated timestamps, metrics honest 0s, role updates via service role
+    const aReq = new NextRequest('http://localhost:3000/api/admin/dashboard', {
+      headers: { authorization: 'Bearer test-token-admin' }
+    });
+    const aRes = await adminDashboardGET(aReq);
+    assert.strictEqual(aRes.status, 200);
+    const aJson = await aRes.json();
+    assert.ok(aJson.ok && typeof aJson.users?.active_today === 'number');
+    assert.ok(typeof aJson.users?.new_this_week === 'number');
+
+    const aMetricsReq = new NextRequest('http://localhost:3000/api/admin/metrics-summary', {
+      headers: { authorization: 'Bearer test-token-admin' }
+    });
+    const aMetricsRes = await adminMetricsGET(aMetricsReq);
+    assert.strictEqual(aMetricsRes.status, 200);
+    const aMetricsJson = await aMetricsRes.json();
+    assert.ok(aMetricsJson.ok);
+    assert.notStrictEqual(aMetricsJson.summary.totalUsers, 120, 'Metrics must never default to 120 users');
+
+    const aRoleReq = new NextRequest('http://localhost:3000/api/admin/users/test_user_001/role', {
+      method: 'PATCH',
+      headers: { authorization: 'Bearer test-token-admin', 'content-type': 'application/json' },
+      body: JSON.stringify({ role: 'teacher' })
+    });
+    const aRoleRes = await adminRolePATCH(aRoleReq, { params: { id: 'test_user_001' } });
+    assert.strictEqual(aRoleRes.status, 200);
   });
 
   console.log('========================================================================');

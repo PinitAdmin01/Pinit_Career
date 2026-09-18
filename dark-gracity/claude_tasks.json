@@ -4,23 +4,22 @@
   "tasks": [
     {
       "id": "task-001",
-      "title": "Verify Friends Hub Link in Navigation",
-      "prompt": "Inspect the navigation sidebar in src/components/layout/AppSidebar.tsx to ensure the Friends link correctly points to /friends and has matching iconography. Run node claude_self_validate.js to verify zero errors.",
-      "status": "in_progress",
+      "title": "Build CredentialPreviewModal.tsx",
+      "status": "completed",
       "attempts": 1,
       "maxAttempts": 3,
-      "lastRunAt": "2026-09-17T18:49:46.294Z",
-      "result": null
+      "lastRunAt": "2026-09-18T18:45:00.000Z",
+      "result": "Passed 0 errors"
     },
     {
       "id": "task-002",
-      "title": "Audit Accessibility Labels in Claude Sandbox",
-      "prompt": "Inspect components inside claude_sandbox/ and make sure every interactive button and link has an aria-label or accessible text description. Run node claude_self_validate.js to confirm zero TypeScript errors.",
-      "status": "pending",
-      "attempts": 0,
+      "title": "Build EnhancedCrashCoursePlanCard.tsx (Journey Pipeline, Flagship Build, In-Card Tabs)",
+      "prompt": "Read CLAUDE_TASK_PROMPT.md. Build EnhancedCrashCoursePlanCard.tsx inside claude_sandbox/ rendering a single ultra-premium plan card with the Journey Pipeline Bar, Flagship Build highlight, In-Card Tabs (Curriculum, Capstone Build, Fellowship), Scholar Cashback, and Credential Preview trigger. Run node claude_self_validate.js to confirm zero errors.",
+      "status": "completed",
+      "attempts": 2,
       "maxAttempts": 3,
-      "lastRunAt": null,
-      "result": null
+      "lastRunAt": "2026-09-18T18:52:00.000Z",
+      "result": "Passed with 0 errors. Fully validated."
     }
   ]
 }

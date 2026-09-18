@@ -210,6 +210,171 @@ export async function requireFacultyOrAdminUserFromRequest(req: Request): Promis
   }
 }
 
+const PARENT_ROLES = new Set(['parent', 'admin', 'superadmin']);
+
+/** Parent / Admin gate: verified JWT + authoritative parent/admin role. */
+export async function requireParentUserFromRequest(req: Request): Promise<
+  | { user: { id: string; email?: string; role: string }; error: null }
+  | { user: null; error: NextResponse }
+> {
+  const gated = await requireUserFromRequest(req);
+  if (gated.error || !gated.user) return { user: null, error: gated.error! };
+
+  const token = getBearerToken(req);
+  if (process.env.ALLOW_DEV_AUTH_BYPASS === 'true' && process.env.NODE_ENV !== 'production') {
+    if (token === 'test-token-admin') return { user: { ...gated.user, role: 'admin' }, error: null };
+    if (token === 'test-token-parent') return { user: { ...gated.user, role: 'parent' }, error: null };
+    if (token === 'test-token-student') {
+      return {
+        user: null,
+        error: NextResponse.json(
+          { error: 'FORBIDDEN', message: 'Parent or administrator authorization required.' },
+          { status: 403 }
+        ),
+      };
+    }
+  }
+
+  try {
+    const supabase = getAuthoritativeSupabaseClient(token);
+    const { data: profile } = await supabase
+      .from('users')
+      .select('role')
+      .eq('id', gated.user.id)
+      .maybeSingle();
+
+    const role = String(profile?.role || '');
+    if (!PARENT_ROLES.has(role)) {
+      return {
+        user: null,
+        error: NextResponse.json(
+          { error: 'FORBIDDEN', message: 'Parent or administrator authorization required.' },
+          { status: 403 }
+        ),
+      };
+    }
+    return { user: { ...gated.user, role }, error: null };
+  } catch {
+    return {
+      user: null,
+      error: NextResponse.json(
+        { error: 'FORBIDDEN', message: 'Role authorization check failed.' },
+        { status: 403 }
+      ),
+    };
+  }
+}
+
+const RECRUITER_ROLES = new Set(['recruiter', 'admin', 'superadmin']);
+
+/** Recruiter / Admin gate: verified JWT + authoritative recruiter/admin role. */
+export async function requireRecruiterUserFromRequest(req: Request): Promise<
+  | { user: { id: string; email?: string; role: string }; error: null }
+  | { user: null; error: NextResponse }
+> {
+  const gated = await requireUserFromRequest(req);
+  if (gated.error || !gated.user) return { user: null, error: gated.error! };
+
+  const token = getBearerToken(req);
+  if (process.env.ALLOW_DEV_AUTH_BYPASS === 'true' && process.env.NODE_ENV !== 'production') {
+    if (token === 'test-token-admin') return { user: { ...gated.user, role: 'admin' }, error: null };
+    if (token === 'test-token-recruiter') return { user: { ...gated.user, role: 'recruiter' }, error: null };
+    if (token === 'test-token-student') {
+      return {
+        user: null,
+        error: NextResponse.json(
+          { error: 'FORBIDDEN', message: 'Recruiter or administrator authorization required.' },
+          { status: 403 }
+        ),
+      };
+    }
+  }
+
+  try {
+    const supabase = getAuthoritativeSupabaseClient(token);
+    const { data: profile } = await supabase
+      .from('users')
+      .select('role')
+      .eq('id', gated.user.id)
+      .maybeSingle();
+
+    const role = String(profile?.role || '');
+    if (!RECRUITER_ROLES.has(role)) {
+      return {
+        user: null,
+        error: NextResponse.json(
+          { error: 'FORBIDDEN', message: 'Recruiter or administrator authorization required.' },
+          { status: 403 }
+        ),
+      };
+    }
+    return { user: { ...gated.user, role }, error: null };
+  } catch {
+    return {
+      user: null,
+      error: NextResponse.json(
+        { error: 'FORBIDDEN', message: 'Role authorization check failed.' },
+        { status: 403 }
+      ),
+    };
+  }
+}
+
+const CONSULTANT_ROLES = new Set(['consultant', 'admin', 'superadmin']);
+
+/** Consultant / Admin gate: verified JWT + authoritative consultant/admin role. */
+export async function requireConsultantUserFromRequest(req: Request): Promise<
+  | { user: { id: string; email?: string; role: string }; error: null }
+  | { user: null; error: NextResponse }
+> {
+  const gated = await requireUserFromRequest(req);
+  if (gated.error || !gated.user) return { user: null, error: gated.error! };
+
+  const token = getBearerToken(req);
+  if (process.env.ALLOW_DEV_AUTH_BYPASS === 'true' && process.env.NODE_ENV !== 'production') {
+    if (token === 'test-token-admin') return { user: { ...gated.user, role: 'admin' }, error: null };
+    if (token === 'test-token-consultant') return { user: { ...gated.user, role: 'consultant' }, error: null };
+    if (token === 'test-token-student') {
+      return {
+        user: null,
+        error: NextResponse.json(
+          { error: 'FORBIDDEN', message: 'Study abroad consultant or administrator authorization required.' },
+          { status: 403 }
+        ),
+      };
+    }
+  }
+
+  try {
+    const supabase = getAuthoritativeSupabaseClient(token);
+    const { data: profile } = await supabase
+      .from('users')
+      .select('role')
+      .eq('id', gated.user.id)
+      .maybeSingle();
+
+    const role = String(profile?.role || '');
+    if (!CONSULTANT_ROLES.has(role)) {
+      return {
+        user: null,
+        error: NextResponse.json(
+          { error: 'FORBIDDEN', message: 'Study abroad consultant or administrator authorization required.' },
+          { status: 403 }
+        ),
+      };
+    }
+    return { user: { ...gated.user, role }, error: null };
+  } catch {
+    return {
+      user: null,
+      error: NextResponse.json(
+        { error: 'FORBIDDEN', message: 'Role authorization check failed.' },
+        { status: 403 }
+      ),
+    };
+  }
+}
+
 /**
  * Verifies that the caller either has an active subscription (subscription_status = 'active')
  * or a valid timestamp in users.unlocked_items[featureKey].

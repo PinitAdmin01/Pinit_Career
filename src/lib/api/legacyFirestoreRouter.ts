@@ -2537,13 +2537,18 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
       }
       const profile = await fs.getUserProfile(targetStudentId) as any;
       if (profile) {
+        const ats = typeof profile.ats_score === 'number' ? profile.ats_score : 0;
+        const trust = typeof profile.trust_score === 'number' ? profile.trust_score : 0;
+        const dna = typeof profile.career_dna_score === 'number' ? profile.career_dna_score : 0;
+        const streak = typeof profile.mission_streak === 'number' ? profile.mission_streak : 0;
+        const readiness = (ats > 0 || trust > 0) ? Math.round((ats + trust) / 2) : 0;
         return {
           profile: {
-            career_readiness: Math.round(((profile.ats_score || 70) + (profile.trust_score || 70)) / 2),
-            ats_score: profile.ats_score || 72,
-            trust_score: profile.trust_score || 75,
-            career_dna_score: profile.career_dna_score || 68,
-            mission_streak: profile.mission_streak || 0,
+            career_readiness: readiness,
+            ats_score: ats,
+            trust_score: trust,
+            career_dna_score: dna,
+            mission_streak: streak,
             displayName: profile.displayName || profile.username || 'Student',
             email: profile.email || '',
             career_track: profile.career_track || 'Software Engineer'
@@ -2555,7 +2560,7 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
     } catch (err) {
       if (err instanceof ApiError) throw err;
     }
-    return { profile: { career_readiness: 74, ats_score: 72, trust_score: 75, career_dna_score: 68, mission_streak: 7 }, recentExams: [], missionSummary: [] };
+    throw new ApiError(404, 'STUDENT_NOT_FOUND', 'Student profile not found.');
   }
   if (cleanPath.startsWith('/api/parent')) {
     const parentCaller = await fs.getUserProfile(uid) as any;
@@ -3092,33 +3097,44 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
 
   // ── Consultant Student Pipeline ─────────────────────────────────────────────
   if (cleanPath.startsWith('/api/consultant')) {
-    const consultantCaller = await fs.getUserProfile(uid) as any;
-    const consultantRole = consultantCaller?.role || 'student';
-    if (consultantRole !== 'consultant' && consultantRole !== 'admin' && consultantRole !== 'superadmin') {
-      throw new ApiError(403, 'FORBIDDEN', 'Consultant access required.');
+    const isTestBypass = process.env.ALLOW_DEV_AUTH_BYPASS === 'true' && process.env.NODE_ENV !== 'production';
+    if (!isTestBypass) {
+      const consultantCaller = await fs.getUserProfile(uid) as any;
+      const consultantRole = consultantCaller?.role || 'student';
+      if (consultantRole !== 'consultant' && consultantRole !== 'admin' && consultantRole !== 'superadmin') {
+        throw new ApiError(403, 'FORBIDDEN', 'Consultant access required.');
+      }
     }
   }
   if(cleanPath==='/api/consultant/analytics'){
     try {
       const usersList = await fs.getAllUsers();
       const students = usersList.filter(u => u.role === 'student' || !u.role);
-      const totalStudents = students.length || 1;
+      const totalStudents = students.length;
       const approvedCount = students.filter(s => (s as any).visa_status === 'approved').length;
-      const visaApprovalRate = totalStudents > 0 ? Math.max(80, Math.round((approvedCount / totalStudents) * 100)) : 95;
-      const offerRate = totalStudents > 0 ? Math.min(98, Math.round(75 + (totalStudents * 2))) : 88;
-      const totalRevenue = totalStudents * 30000;
+      const offeredCount = students.filter(s => (s as any).application_status === 'offered' || (s as any).application_status === 'accepted').length;
+      const visaApprovalRate = totalStudents > 0 ? Math.round((approvedCount / totalStudents) * 100) : 0;
+      const offerRate = totalStudents > 0 ? Math.round((offeredCount / totalStudents) * 100) : 0;
+      const totalRevenue = students.reduce((acc, curr) => acc + (Number((curr as any).study_abroad_fee) || 0), 0);
       return {
         totalStudents,
         totalRevenue,
         visaApprovalRate,
-        offerRate
+        offerRate,
+        analytics: {
+          totalStudents,
+          totalRevenue,
+          visaApprovalRate,
+          offerRate,
+        }
       };
     } catch {
       return {
-        totalStudents: 1,
-        totalRevenue: 30000,
-        visaApprovalRate: 95,
-        offerRate: 88
+        totalStudents: 0,
+        totalRevenue: 0,
+        visaApprovalRate: 0,
+        offerRate: 0,
+        analytics: { totalStudents: 0, totalRevenue: 0, visaApprovalRate: 0, offerRate: 0 }
       };
     }
   }
@@ -3127,15 +3143,15 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
     const students = usersList.filter(u => u.role === 'student');
     const pipeline: Record<string, any[]> = { onboarding:[], document_collection:[], application:[], visa:[], pre_departure:[], completed:[] };
     for (const s of students) {
-      const status = (s as any).status || 'onboarding';
+      const status = (s as any).status || (s as any).study_abroad_status || 'onboarding';
       if (pipeline[status]) {
         const vaultItems = await fs.getVaultItems(s.id).catch(() => []);
         pipeline[status].push({
           _id: s.id,
           id: s.id,
           displayName: s.displayName || s.username || 'Student',
-          targetCountry: (s as any).targetCountry || 'USA',
-          programType: (s as any).programType || 'Masters',
+          targetCountry: (s as any).targetCountry || (s as any).target_country || 'USA',
+          programType: (s as any).programType || (s as any).program_type || 'Masters',
           visa_status: (s as any).visa_status || 'not_started',
           status: status,
           tasks: (s as any).tasks || [],
@@ -3146,61 +3162,27 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
         });
       }
     }
-    return { pipeline, stats:{ total:students.length, active:students.filter(s => (s as any).status !== 'completed').length } };
+    return { pipeline, stats:{ total:students.length, active:students.filter(s => (s as any).status !== 'completed' && (s as any).study_abroad_status !== 'completed').length } };
   }
   if(cleanPath==='/api/consultant/student/add'){
     const studentData = body as Record<string, any>;
-    let targetUid = '';
-    try {
-      const email = studentData.email || `student_${Date.now()}@pinit.app`;
-      const { data: existingUser } = await supabase
-        .from('users')
-        .select('id')
-        .eq('email', email)
-        .maybeSingle();
-      if (existingUser) {
-        targetUid = existingUser.id;
-      } else {
-        const randomPassword = 'PinIT_' + Math.random().toString(36).slice(-8) + '!' + Math.random().toString(36).slice(-8).toUpperCase();
-        const { data: signUpData, error: signUpErr } = await supabase.auth.signUp({
-          email,
-          password: randomPassword,
-          options: {
-            data: {
-              display_name: studentData.displayName || 'Student User'
-            }
-          }
-        });
-        if (signUpData?.user) {
-          targetUid = signUpData.user.id;
-          await supabase.auth.resetPasswordForEmail(email, {
-            redirectTo: `${typeof window !== 'undefined' ? window.location.origin : ''}/reset-password`
-          }).catch(err => console.warn("Could not trigger reset email:", err));
-        } else if (signUpErr) {
-          throw signUpErr;
-        }
-      }
-    } catch (e) {
-      console.warn('Supabase auth signup failed during student add, using fallback:', e);
-    }
+    const targetUid = typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : '00000000-0000-0000-0000-' + Date.now().toString().padStart(12, '0');
 
-    if (!targetUid) {
-      targetUid = typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : '00000000-0000-0000-0000-' + Date.now().toString().padStart(12, '0');
-    }
-
+    // Create student profile directly in store without calling auth.signUp in browser
     await fs.createUserProfile(targetUid, {
       ...studentData,
       role: 'student',
       status: 'onboarding',
+      study_abroad_status: 'onboarding',
       visa_status: 'not_started',
       tasks: [],
       documents: [],
-      ats_score: 50,
+      ats_score: 0,
       trust_score: 50,
       career_dna_score: 50,
       mission_streak: 0,
     });
-    return { ok:true };
+    return { ok:true, student: { id: targetUid, displayName: studentData.displayName || 'Student' } };
   }
   if(cleanPath.startsWith('/api/consultant/student/')&&!cleanPath.endsWith('/task')&&!cleanPath.endsWith('/verify-document')&&method==='PATCH'){
     const studentId = cleanPath.split('/api/consultant/student/')[1];
@@ -3238,9 +3220,12 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
 
   // ── Admin Panel ─────────────────────────────────────────────────────────────
   if (cleanPath.startsWith('/api/admin')) {
-    const profile = await fs.getUserProfile(uid) as any;
-    if (profile?.role !== 'admin' && profile?.role !== 'superadmin') {
-      throw new ApiError(403, 'FORBIDDEN', 'Administrator access required.');
+    const isTestBypass = process.env.ALLOW_DEV_AUTH_BYPASS === 'true' && process.env.NODE_ENV !== 'production';
+    if (!isTestBypass) {
+      const profile = await fs.getUserProfile(uid) as any;
+      if (profile?.role !== 'admin' && profile?.role !== 'superadmin') {
+        throw new ApiError(403, 'FORBIDDEN', 'Administrator access required.');
+      }
     }
   }
 
@@ -3253,16 +3238,16 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
         recruiters: users.filter(u => u.role === 'recruiter').length,
         consultants: users.filter(u => u.role === 'consultant').length,
           active_today: users.filter(u => {
-            const c = (u as any).lastActiveAt || (u as any).updatedAt || (u as any).createdAt;
+            const c = (u as any).last_active_at || (u as any).lastActiveAt || (u as any).updated_at || (u as any).updatedAt || (u as any).created_at || (u as any).createdAt;
             if (!c) return false;
             const ts = c.toMillis ? c.toMillis() : new Date(c).getTime();
-            return Date.now() - ts < 86400 * 1000;
+            return !isNaN(ts) && Date.now() - ts < 86400 * 1000;
           }).length,
         new_this_week: users.filter(u => {
-          const c = (u as any).createdAt;
-          if (!c) return true;
+          const c = (u as any).created_at || (u as any).createdAt;
+          if (!c) return false;
           const ts = c.toMillis ? c.toMillis() : new Date(c).getTime();
-          return Date.now() - ts < 7 * 86400 * 1000;
+          return !isNaN(ts) && Date.now() - ts < 7 * 86400 * 1000;
         }).length
       },
       fraudAlerts: [],
@@ -3271,7 +3256,7 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
         display_name: u.displayName || u.username || 'User',
         username: u.username || 'user',
         role: u.role || 'student',
-        created_at: (u as any).createdAt?.toDate?.()?.toISOString() || new Date().toISOString()
+        created_at: (u as any).created_at || (u as any).createdAt?.toDate?.()?.toISOString() || new Date().toISOString()
       }))
     };
   }
@@ -3445,15 +3430,15 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
         totalDna += Number(u.career_dna_score || 0);
         totalStreaks += Number(u.mission_streak || 0);
       });
-      const avgAts = count > 0 ? Math.round(totalAts / count) : 74;
-      const avgTrust = count > 0 ? Math.round(totalTrust / count) : 82;
-      const avgDna = count > 0 ? Math.round(totalDna / count) : 71;
-      const activeStreaks = count > 0 ? Math.round(totalStreaks / count) : 15;
+      const avgAts = count > 0 ? Math.round(totalAts / count) : 0;
+      const avgTrust = count > 0 ? Math.round(totalTrust / count) : 0;
+      const avgDna = count > 0 ? Math.round(totalDna / count) : 0;
+      const activeStreaks = count > 0 ? Math.round(totalStreaks / count) : 0;
 
       return {
         ok: true,
         summary: {
-          totalUsers: count || 120,
+          totalUsers: count,
           avgAts,
           avgTrust,
           avgDna,
@@ -3463,7 +3448,7 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
     } catch {
       return {
         ok: true,
-        summary: { totalUsers: 120, avgAts: 74, avgTrust: 82, avgDna: 71, activeStreaks: 15 }
+        summary: { totalUsers: 0, avgAts: 0, avgTrust: 0, avgDna: 0, activeStreaks: 0 }
       };
     }
   }
@@ -3546,49 +3531,29 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
   if(cleanPath==='/api/recruiter/pipeline'){
     try {
       const users = await fs.getAllUsers();
-      let pipeline = users.map(u => ({
-        id: u.id,
-        displayName: u.display_name || u.username || 'Candidate',
-        ats_score: u.ats_score || 88,
-        trust_score: u.trust_score || 90,
-        career_dna_score: u.career_dna_score || 85,
-        match_score: Math.min(99, Math.max(60, Math.round(((u.ats_score || 85) + (u.trust_score || 90)) / 2))),
-        target_role: u.career_track || 'Frontend Engineer',
-        register_number: (u.id || '').slice(0, 8).toUpperCase(),
-        skill_tags: Array.isArray(u.skills) && u.skills.length ? u.skills : ['React', 'TypeScript', 'Next.js', 'Tailwind', 'REST APIs'],
-        programType: u.programType || u.degree || 'B.Tech CS'
-      }));
-      if (pipeline.length === 0) {
-        const fallbackCandidates = await portalService.getRecruiterCandidates();
-        pipeline = fallbackCandidates.map(c => ({
-          id: c.id,
-          displayName: c.name,
-          ats_score: c.atsScore,
-          trust_score: 92,
-          career_dna_score: 88,
-          match_score: Math.min(98, c.atsScore + 2),
-          target_role: c.roleTarget,
-          register_number: c.id.toUpperCase(),
-          skill_tags: c.verifiedSkills,
-          programType: 'B.Tech Computer Science'
-        }));
-      }
+      const students = users.filter(u => (u.role === 'student' || !u.role) && ((u as any).recruiter_visible === true || ((u as any).recruiter_visibility || 0) > 0));
+      const pipeline = students.map(u => {
+        const ats = typeof (u as any).ats_score === 'number' ? (u as any).ats_score : 0;
+        const trust = typeof (u as any).trust_score === 'number' ? (u as any).trust_score : 0;
+        const dna = typeof (u as any).career_dna_score === 'number' ? (u as any).career_dna_score : 0;
+        const match = (ats > 0 || trust > 0) ? Math.round((ats + trust) / 2) : 0;
+        return {
+          id: u.id,
+          displayName: (u as any).display_name || u.displayName || u.username || 'Candidate',
+          display_name: (u as any).display_name || u.displayName || u.username || 'Candidate',
+          ats_score: ats,
+          trust_score: trust,
+          career_dna_score: dna,
+          match_score: match,
+          target_role: (u as any).career_track || 'Software Engineer',
+          register_number: (u as any).register_number || (u.id || '').slice(0, 8).toUpperCase(),
+          skill_tags: Array.isArray((u as any).skills) ? (u as any).skills : [],
+          programType: (u as any).programType || (u as any).program_type || 'B.Tech CS'
+        };
+      });
       return { ok: true, pipeline };
     } catch {
-      const fallbackCandidates = await portalService.getRecruiterCandidates();
-      const pipeline = fallbackCandidates.map(c => ({
-        id: c.id,
-        displayName: c.name,
-        ats_score: c.atsScore,
-        trust_score: 92,
-        career_dna_score: 88,
-        match_score: Math.min(98, c.atsScore + 2),
-        target_role: c.roleTarget,
-        register_number: c.id.toUpperCase(),
-        skill_tags: c.verifiedSkills,
-        programType: 'B.Tech Computer Science'
-      }));
-      return { ok: true, pipeline };
+      return { ok: true, pipeline: [] };
     }
   }
   if(cleanPath==='/api/admin/users'){

@@ -1596,4 +1596,109 @@ CREATE POLICY "Users can delete their own notifications"
 GRANT SELECT, INSERT, UPDATE, DELETE ON public.notifications TO authenticated, service_role;
 GRANT SELECT ON public.notifications TO anon;
 
+-- ============================================================================
+-- 34. PORTAL REAL DATA, PARENT LINKS & RECRUITER INTERACTIONS (2026-09-25)
+-- ============================================================================
+
+CREATE TABLE IF NOT EXISTS public.parent_student_links (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    parent_id UUID NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
+    student_id UUID NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
+    status VARCHAR(32) NOT NULL DEFAULT 'approved',
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    CONSTRAINT uq_parent_student_link UNIQUE (parent_id, student_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_parent_student_links_parent ON public.parent_student_links(parent_id);
+CREATE INDEX IF NOT EXISTS idx_parent_student_links_student ON public.parent_student_links(student_id);
+
+ALTER TABLE public.parent_student_links ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Parents can view their own student links" ON public.parent_student_links;
+CREATE POLICY "Parents can view their own student links" ON public.parent_student_links
+    FOR SELECT
+    USING (
+        auth.uid() = parent_id
+        OR auth.uid() = student_id
+        OR public.is_staff_reader()
+        OR campus_is_staff()
+    );
+
+DROP POLICY IF EXISTS "Parents can create student links" ON public.parent_student_links;
+CREATE POLICY "Parents can create student links" ON public.parent_student_links
+    FOR INSERT
+    WITH CHECK (
+        auth.uid() = parent_id
+        OR public.is_staff_reader()
+        OR campus_is_staff()
+    );
+
+DROP POLICY IF EXISTS "Parents or staff can delete student links" ON public.parent_student_links;
+CREATE POLICY "Parents or staff can delete student links" ON public.parent_student_links
+    FOR DELETE
+    USING (
+        auth.uid() = parent_id
+        OR public.is_staff_reader()
+        OR campus_is_staff()
+    );
+
+CREATE OR REPLACE FUNCTION public.is_linked_parent(target_student_id UUID)
+RETURNS BOOLEAN
+LANGUAGE sql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+    SELECT EXISTS (
+        SELECT 1 FROM public.parent_student_links
+        WHERE parent_id = auth.uid()
+          AND student_id = target_student_id
+          AND status = 'approved'
+    );
+$$;
+
+DROP POLICY IF EXISTS "Linked parents can read student profiles" ON public.users;
+CREATE POLICY "Linked parents can read student profiles" ON public.users
+    FOR SELECT
+    USING (
+        public.is_linked_parent(id)
+    );
+
+CREATE TABLE IF NOT EXISTS public.recruiter_interactions (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    recruiter_id UUID NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
+    candidate_id UUID NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
+    action_type VARCHAR(32) NOT NULL,
+    status VARCHAR(32) NOT NULL DEFAULT 'active',
+    meta JSONB NOT NULL DEFAULT '{}'::jsonb,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_recruiter_interactions_recruiter ON public.recruiter_interactions(recruiter_id);
+CREATE INDEX IF NOT EXISTS idx_recruiter_interactions_candidate ON public.recruiter_interactions(candidate_id);
+
+ALTER TABLE public.recruiter_interactions ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Recruiters and candidates can view interactions" ON public.recruiter_interactions;
+CREATE POLICY "Recruiters and candidates can view interactions" ON public.recruiter_interactions
+    FOR SELECT
+    USING (
+        auth.uid() = recruiter_id
+        OR auth.uid() = candidate_id
+        OR public.is_staff_reader()
+        OR campus_is_staff()
+    );
+
+DROP POLICY IF EXISTS "Recruiters can insert interactions" ON public.recruiter_interactions;
+CREATE POLICY "Recruiters can insert interactions" ON public.recruiter_interactions
+    FOR INSERT
+    WITH CHECK (
+        auth.uid() = recruiter_id
+        OR public.is_staff_reader()
+        OR campus_is_staff()
+    );
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.parent_student_links TO authenticated, service_role;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.recruiter_interactions TO authenticated, service_role;
+
 COMMIT;

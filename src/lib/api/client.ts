@@ -75,6 +75,7 @@ const LIVE_API_PREFIXES: readonly string[] = [
   '/api/resume', '/api/tts', '/api/interview', '/api/group-discussion', '/api/auth',
   '/api/avatar', '/api/cache', '/api/missions', '/api/passport', '/api/teacher',
   '/api/notifications', '/api/messages',
+  '/api/parent', '/api/consultant', '/api/admin',
   '/api/user', '/api/webhooks', '/api/student',
 ];
 

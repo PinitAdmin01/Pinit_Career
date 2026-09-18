@@ -22,6 +22,31 @@ export interface CrashPlan {
   totalProgramDuration: string;
   pinsPrice: number;
   inrPrice: number;
+  scholarCashbackPins: number;
+  targetRole: string;
+  hireabilityBoost: string;
+  competitorSavings: string;
+  flagshipBuildByTrack: {
+    web_fullstack: {
+      title: string;
+      desc: string;
+      tech: string[];
+      icon: string;
+    };
+    python_ai: {
+      title: string;
+      desc: string;
+      tech: string[];
+      icon: string;
+    };
+  };
+  journeySteps: Array<{
+    step: number;
+    title: string;
+    subtitle: string;
+    duration: string;
+    icon: string;
+  }>;
   features: string[];
   deliverables: {
     projectCertificate: boolean;
@@ -55,6 +80,29 @@ export const CRASH_COURSE_PLANS: CrashPlan[] = [
     totalProgramDuration: '3-4 Months Total',
     pinsPrice: 500,
     inrPrice: 4999,
+    scholarCashbackPins: 150,
+    targetRole: 'Junior Frontend / React Engineer',
+    hireabilityBoost: '+25% Hireability Jump',
+    competitorSavings: 'Save ₹45,000 vs short-term bootcamps with zero debt',
+    flagshipBuildByTrack: {
+      web_fullstack: {
+        title: 'Distributed Real-Time Chat & Presence Engine',
+        desc: 'Production WebSocket/Redis engine with channels, user presence indicators, and message persistence.',
+        tech: ['Next.js 14', 'TypeScript', 'Redis', 'Tailwind'],
+        icon: '💬'
+      },
+      python_ai: {
+        title: 'High-Concurrency Async REST API & Ingestion Engine',
+        desc: 'FastAPI asynchronous microservice processing batch data feeds with rate limiting and Redis cache.',
+        tech: ['Python 3.12', 'FastAPI', 'Redis', 'Pydantic'],
+        icon: '⚡'
+      }
+    },
+    journeySteps: [
+      { step: 1, title: 'Daily 1-Hr Quests', subtitle: 'Core React/Python Foundation', duration: 'Month 1', icon: '⚡' },
+      { step: 2, title: '1-Month Live Capstone', subtitle: 'Ship Production Chat/API', duration: 'Month 2', icon: '🚀' },
+      { step: 3, title: 'PinIT Labs Fellowship', subtitle: 'Code Review & SHA-256 Pass', duration: 'Months 3–4', icon: '🏢' }
+    ],
     features: [
       'Daily 1-Hour Micro-Learning & Hands-on Quests',
       '1-Month Production Capstone Project',
@@ -114,6 +162,29 @@ export const CRASH_COURSE_PLANS: CrashPlan[] = [
     totalProgramDuration: '5-6 Months Total',
     pinsPrice: 1200,
     inrPrice: 9999,
+    scholarCashbackPins: 350,
+    targetRole: 'Associate Full-Stack Engineer (SDE-1)',
+    hireabilityBoost: '+45% Hireability Jump',
+    competitorSavings: 'Save ₹2,45,000 vs Scaler/Masai (Zero ISA Debt)',
+    flagshipBuildByTrack: {
+      web_fullstack: {
+        title: 'Multi-Tenant SaaS Engine with Webhooks & RBAC',
+        desc: 'Complete commercial SaaS platform with workspace isolation, Razorpay subscription webhooks, and audit logs.',
+        tech: ['Next.js 14', 'PostgreSQL', 'Supabase', 'Razorpay', 'RBAC'],
+        icon: '💼'
+      },
+      python_ai: {
+        title: 'RAG Knowledge Graph Search & Document Retrieval Engine',
+        desc: 'Vector similarity search engine with chunking, pgvector indexing, and semantic hybrid retrieval API.',
+        tech: ['Python', 'FastAPI', 'pgvector', 'LangChain', 'PostgreSQL'],
+        icon: '🧠'
+      }
+    },
+    journeySteps: [
+      { step: 1, title: 'Daily 1-Hr Quests', subtitle: 'Frontend, APIs & Databases', duration: 'Months 1–3', icon: '📚' },
+      { step: 2, title: '1-Month Live Capstone', subtitle: 'Build Multi-Tenant Platform', duration: 'Month 4', icon: '🚀' },
+      { step: 3, title: 'PinIT Labs Fellowship', subtitle: 'Sprint Audits & Experience Letter', duration: 'Months 5–6', icon: '🏢' }
+    ],
     features: [
       '90 Days of Structured Daily 1-Hour Curriculum',
       '1-Month End-to-End Capstone Project with Code Review',
@@ -205,6 +276,29 @@ export const CRASH_COURSE_PLANS: CrashPlan[] = [
     totalProgramDuration: '8-9 Months Total',
     pinsPrice: 2200,
     inrPrice: 17999,
+    scholarCashbackPins: 700,
+    targetRole: 'Full-Stack Systems Engineer / DevOps SDE',
+    hireabilityBoost: '+70% Hireability Jump',
+    competitorSavings: 'Save ₹2,80,000 vs full-time bootcamp with flexible pacing',
+    flagshipBuildByTrack: {
+      web_fullstack: {
+        title: 'Enterprise Microservices & Event-Driven Cloud Platform',
+        desc: 'Decoupled service architecture with Kafka/RabbitMQ events, Docker orchestration, and CI/CD automated testing.',
+        tech: ['Node.js', 'Docker', 'Kubernetes', 'Kafka', 'PostgreSQL', 'AWS'],
+        icon: '🌐'
+      },
+      python_ai: {
+        title: 'Distributed Autonomous Agent Orchestration Pipeline',
+        desc: 'Multi-agent decision framework with tool execution, memory state persistence, and streaming telemetry.',
+        tech: ['Python', 'FastAPI', 'Celery', 'Docker', 'Redis', 'OpenAI'],
+        icon: '🤖'
+      }
+    },
+    journeySteps: [
+      { step: 1, title: 'Daily 1-Hr Quests', subtitle: 'Full-Stack, Cloud & DevOps', duration: 'Months 1–6', icon: '⚙️' },
+      { step: 2, title: '1-Month Live Capstone', subtitle: 'Enterprise Distributed System', duration: 'Month 7', icon: '🚀' },
+      { step: 3, title: 'PinIT Labs Fellowship', subtitle: 'Senior Code Defense & Letters', duration: 'Months 8–9', icon: '🏢' }
+    ],
     features: [
       '180 Days of Advanced Multi-Tier Software Engineering',
       '1-Month Production Enterprise Capstone Project',
@@ -260,6 +354,29 @@ export const CRASH_COURSE_PLANS: CrashPlan[] = [
     totalProgramDuration: '1 Year Total Immersion',
     pinsPrice: 3500,
     inrPrice: 24999,
+    scholarCashbackPins: 1200,
+    targetRole: 'Lead Full-Stack AI Engineer / Systems Architect',
+    hireabilityBoost: '+90% Hireability Jump',
+    competitorSavings: 'Save ₹3,25,000 vs university postgraduate diploma',
+    flagshipBuildByTrack: {
+      web_fullstack: {
+        title: 'Autonomous Multi-Agent Copilot Platform with Vector Search',
+        desc: 'End-to-end AI-first operating system with real-time audio streaming, sandboxed code runner, and enterprise security.',
+        tech: ['Next.js 14', 'TypeScript', 'pgvector', 'Docker', 'OAuth2', 'WebSockets'],
+        icon: '🏆'
+      },
+      python_ai: {
+        title: 'Enterprise Production MLOps & Real-Time Inference Gateway',
+        desc: 'High-throughput LLM gateway with model fallback routing, token bucket rate limits, and latency telemetry.',
+        tech: ['Python 3.12', 'Torch', 'FastAPI', 'Triton', 'PostgreSQL', 'Grafana'],
+        icon: '🔮'
+      }
+    },
+    journeySteps: [
+      { step: 1, title: 'Daily 1-Hr Quests', subtitle: 'Full Software Lifecycle & AI', duration: 'Months 1–9', icon: '🎓' },
+      { step: 2, title: '1-Month Live Capstone', subtitle: 'Flagship Autonomous Platform', duration: 'Month 10', icon: '🚀' },
+      { step: 3, title: 'PinIT Labs Fellowship', subtitle: 'Venture Studio Apprenticeship', duration: 'Months 11–12', icon: '🏢' }
+    ],
     features: [
       '270 Days of Rigorous Full-Lifecycle Software Engineering',
       '1-Month Enterprise Scaled Capstone (Multi-service Production)',
