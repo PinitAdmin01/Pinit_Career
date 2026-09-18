@@ -555,6 +555,20 @@
       "score": 78,
       "passed": true,
       "timestamp": 1789725878776
+    },
+    {
+      "studentId": "st_fail_1789759457613",
+      "examScheduleId": "EXAM_1789759457613",
+      "score": 35,
+      "passed": false,
+      "timestamp": 1789759457630
+    },
+    {
+      "studentId": "st_pass_1789759457613",
+      "examScheduleId": "EXAM_1789759457613",
+      "score": 78,
+      "passed": true,
+      "timestamp": 1789759457666
     }
   ]
 }

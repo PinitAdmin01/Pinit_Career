@@ -71,6 +71,15 @@
       "occupied": 1,
       "residents": [],
       "status": "full"
+    },
+    {
+      "code": "R-CAP-1789759458323",
+      "block": "Block Test",
+      "room": "101",
+      "capacity": 1,
+      "occupied": 0,
+      "residents": [],
+      "status": "available"
     }
   ],
   "allocations": [],

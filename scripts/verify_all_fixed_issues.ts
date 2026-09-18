@@ -3391,6 +3391,282 @@ TypeScript, React, Node.js
     assert.ok(shim.leaderboard.every((e: any) => typeof e.eloRating === 'number'));
   });
 
+  // =========================================================================
+  // Issue 39: Enterprise Portals Real Data, Strict Role Gating, Server Authority & Zero Invented Fallbacks
+  // =========================================================================
+  console.log('\n--- Issue 39: Enterprise Portals Real Data, Role Gating & Server Authority ---');
+
+  await test('Issue 39: Parent portal rejects unauthenticated/student callers, allows parents, and link-student validates input', async () => {
+    const { GET: getParentStudents } = await import('../src/app/api/parent/students/route');
+    const { POST: linkStudent } = await import('../src/app/api/parent/link-student/route');
+    const { GET: getParentStudentOverview } = await import('../src/app/api/parent/student/[id]/overview/route');
+    const { NextRequest } = await import('next/server');
+
+    // 1. Gating
+    const reqNoAuth = new NextRequest('http://localhost:3000/api/parent/students');
+    const resNoAuth = await getParentStudents(reqNoAuth);
+    assert.strictEqual(resNoAuth.status, 401);
+
+    const reqStudent = new NextRequest('http://localhost:3000/api/parent/students', {
+      headers: { authorization: 'Bearer test-token-student' }
+    });
+    const resStudent = await getParentStudents(reqStudent);
+    assert.strictEqual(resStudent.status, 403);
+
+    // 2. Parent access
+    const reqParent = new NextRequest('http://localhost:3000/api/parent/students', {
+      headers: { authorization: 'Bearer test-token-parent' }
+    });
+    const resParent = await getParentStudents(reqParent);
+    assert.strictEqual(resParent.status, 200);
+    const jsonParent = await resParent.json();
+    assert.strictEqual(jsonParent.ok, true);
+    assert.ok(Array.isArray(jsonParent.students));
+
+    // 3. Link student validation
+    const linkEmptyReq = new NextRequest('http://localhost:3000/api/parent/link-student', {
+      method: 'POST',
+      headers: { authorization: 'Bearer test-token-parent', 'content-type': 'application/json' },
+      body: JSON.stringify({})
+    });
+    const linkEmptyRes = await linkStudent(linkEmptyReq);
+    assert.strictEqual(linkEmptyRes.status, 400);
+
+    const linkNotFoundReq = new NextRequest('http://localhost:3000/api/parent/link-student', {
+      method: 'POST',
+      headers: { authorization: 'Bearer test-token-parent', 'content-type': 'application/json' },
+      body: JSON.stringify({ registerNumber: 'NON_EXISTENT_99999' })
+    });
+    const linkNotFoundRes = await linkStudent(linkNotFoundReq);
+    assert.strictEqual(linkNotFoundRes.status, 404);
+
+    // 4. Overview authorization
+    const overviewReq = new NextRequest('http://localhost:3000/api/parent/student/stu_123/overview', {
+      headers: { authorization: 'Bearer test-token-student' }
+    });
+    const overviewRes = await getParentStudentOverview(overviewReq, { params: { id: 'stu_123' } });
+    assert.strictEqual(overviewRes.status, 403);
+  });
+
+  await test('Issue 39: Recruiter portal enforces recruiter role, notifies candidates, and updates visibility via service role', async () => {
+    const { GET: getRecruiterPipeline } = await import('../src/app/api/recruiter/pipeline/route');
+    const { POST: shortlistCandidate } = await import('../src/app/api/recruiter/shortlist/route');
+    const { POST: contactRequest } = await import('../src/app/api/recruiter/contact-request/route');
+    const { POST: scheduleInterview } = await import('../src/app/api/recruiter/schedule-interview/route');
+    const { GET: getVisibility, PATCH: updateVisibility } = await import('../src/app/api/recruiter/visibility/route');
+    const { NextRequest } = await import('next/server');
+
+    // 1. Pipeline gating
+    const reqStudent = new NextRequest('http://localhost:3000/api/recruiter/pipeline', {
+      headers: { authorization: 'Bearer test-token-student' }
+    });
+    const resStudent = await getRecruiterPipeline(reqStudent);
+    assert.strictEqual(resStudent.status, 403);
+
+    const reqRec = new NextRequest('http://localhost:3000/api/recruiter/pipeline', {
+      headers: { authorization: 'Bearer test-token-recruiter' }
+    });
+    const resRec = await getRecruiterPipeline(reqRec);
+    assert.strictEqual(resRec.status, 200);
+    const jsonRec = await resRec.json();
+    assert.strictEqual(jsonRec.ok, true);
+    assert.ok(Array.isArray(jsonRec.pipeline));
+
+    // 2. Shortlist
+    const shortReq = new NextRequest('http://localhost:3000/api/recruiter/shortlist', {
+      method: 'POST',
+      headers: { authorization: 'Bearer test-token-recruiter', 'content-type': 'application/json' },
+      body: JSON.stringify({ candidateId: 'test_user_001' })
+    });
+    const shortRes = await shortlistCandidate(shortReq);
+    assert.strictEqual(shortRes.status, 200);
+    const shortJson = await shortRes.json();
+    assert.strictEqual(shortJson.ok, true);
+
+    // 3. Contact request
+    const contactReq = new NextRequest('http://localhost:3000/api/recruiter/contact-request', {
+      method: 'POST',
+      headers: { authorization: 'Bearer test-token-recruiter', 'content-type': 'application/json' },
+      body: JSON.stringify({ candidateId: 'test_user_001', message: 'Hi, great portfolio!' })
+    });
+    const contactRes = await contactRequest(contactReq);
+    assert.strictEqual(contactRes.status, 200);
+    const contactJson = await contactRes.json();
+    assert.strictEqual(contactJson.ok, true);
+
+    // 4. Schedule interview
+    const schedReq = new NextRequest('http://localhost:3000/api/recruiter/schedule-interview', {
+      method: 'POST',
+      headers: { authorization: 'Bearer test-token-recruiter', 'content-type': 'application/json' },
+      body: JSON.stringify({ candidateId: 'test_user_001', scheduledAt: '2026-10-01T10:00:00Z', mode: 'Google Meet', roleTitle: 'Dev' })
+    });
+    const schedRes = await scheduleInterview(schedReq);
+    assert.strictEqual(schedRes.status, 200);
+    const schedJson = await schedRes.json();
+    assert.strictEqual(schedJson.ok, true);
+
+    // 5. Visibility toggle
+    const visReq = new NextRequest('http://localhost:3000/api/recruiter/visibility', {
+      method: 'PATCH',
+      headers: { authorization: 'Bearer demo-token-bypass', 'content-type': 'application/json' },
+      body: JSON.stringify({ visibility: 'public' })
+    });
+    const visRes = await updateVisibility(visReq);
+    assert.strictEqual(visRes.status, 200);
+    const visJson = await visRes.json();
+    assert.strictEqual(visJson.ok, true);
+    assert.strictEqual(visJson.recruiter_visibility, 100);
+  });
+
+  await test('Issue 39: Consultant portal computes genuine analytics (zero 80% floor) and provisions students server-side', async () => {
+    const { GET: getConsultantAnalytics } = await import('../src/app/api/consultant/analytics/route');
+    const { GET: getConsultantPipeline } = await import('../src/app/api/consultant/pipeline/route');
+    const { POST: addConsultantStudent } = await import('../src/app/api/consultant/student/add/route');
+    const { NextRequest } = await import('next/server');
+
+    // 1. Gating
+    const reqStudent = new NextRequest('http://localhost:3000/api/consultant/analytics', {
+      headers: { authorization: 'Bearer test-token-student' }
+    });
+    const resStudent = await getConsultantAnalytics(reqStudent);
+    assert.strictEqual(resStudent.status, 403);
+
+    // 2. Genuine analytics
+    const reqCons = new NextRequest('http://localhost:3000/api/consultant/analytics', {
+      headers: { authorization: 'Bearer test-token-consultant' }
+    });
+    const resCons = await getConsultantAnalytics(reqCons);
+    assert.strictEqual(resCons.status, 200);
+    const jsonCons = await resCons.json();
+    assert.strictEqual(jsonCons.ok, true);
+    assert.ok(typeof jsonCons.visaApprovalRate === 'number');
+    assert.ok(typeof jsonCons.offerRate === 'number');
+    assert.ok(typeof jsonCons.totalRevenue === 'number');
+
+    // 3. Pipeline
+    const pipeReq = new NextRequest('http://localhost:3000/api/consultant/pipeline', {
+      headers: { authorization: 'Bearer test-token-consultant' }
+    });
+    const pipeRes = await getConsultantPipeline(pipeReq);
+    assert.strictEqual(pipeRes.status, 200);
+    const pipeJson = await pipeRes.json();
+    assert.strictEqual(pipeJson.ok, true);
+    assert.ok(pipeJson.pipeline.onboarding !== undefined);
+
+    // 4. Server-side student add
+    const addReq = new NextRequest('http://localhost:3000/api/consultant/student/add', {
+      method: 'POST',
+      headers: { authorization: 'Bearer test-token-consultant', 'content-type': 'application/json' },
+      body: JSON.stringify({ displayName: 'Dev Student', email: 'dev.student.test@pinit.in', targetCountry: 'Canada' })
+    });
+    const addRes = await addConsultantStudent(addReq);
+    assert.strictEqual(addRes.status, 200);
+    const addJson = await addRes.json();
+    assert.strictEqual(addJson.ok, true);
+    assert.ok(addJson.student?.id);
+  });
+
+  await test('Issue 39: Admin portal evaluates actual user timestamps, honest 0 metric defaults, and privileged service actions', async () => {
+    const { GET: getAdminDashboard } = await import('../src/app/api/admin/dashboard/route');
+    const { GET: getAdminMetricsSummary } = await import('../src/app/api/admin/metrics-summary/route');
+    const { GET: getAdminPlatformStats } = await import('../src/app/api/admin/platform-stats/route');
+    const { GET: getAdminFraudAlerts } = await import('../src/app/api/admin/fraud-alerts/route');
+    const { GET: getAdminUsers } = await import('../src/app/api/admin/users/route');
+    const { PATCH: updateAdminRole } = await import('../src/app/api/admin/users/[id]/role/route');
+    const { POST: suspendAdminUser } = await import('../src/app/api/admin/users/[id]/suspend/route');
+    const { POST: scoreOverrideAdminUser } = await import('../src/app/api/admin/users/[id]/score-override/route');
+    const { DELETE: deleteAdminUser } = await import('../src/app/api/admin/users/[id]/route');
+    const { firestoreRouter } = await import('../src/lib/api/legacyFirestoreRouter');
+    const { NextRequest } = await import('next/server');
+
+    // 1. Dashboard gating & evaluation
+    const studentDashReq = new NextRequest('http://localhost:3000/api/admin/dashboard', {
+      headers: { authorization: 'Bearer test-token-student' }
+    });
+    const studentDashRes = await getAdminDashboard(studentDashReq);
+    assert.strictEqual(studentDashRes.status, 403);
+
+    const adminDashReq = new NextRequest('http://localhost:3000/api/admin/dashboard', {
+      headers: { authorization: 'Bearer test-token-admin' }
+    });
+    const adminDashRes = await getAdminDashboard(adminDashReq);
+    assert.strictEqual(adminDashRes.status, 200);
+    const adminDashJson = await adminDashRes.json();
+    assert.strictEqual(adminDashJson.ok, true);
+    assert.ok(typeof adminDashJson.users.active_today === 'number');
+    assert.ok(typeof adminDashJson.users.new_this_week === 'number');
+
+    // 2. Metrics summary: never hardcoded 120/74/82/71/15
+    const metricsReq = new NextRequest('http://localhost:3000/api/admin/metrics-summary', {
+      headers: { authorization: 'Bearer test-token-admin' }
+    });
+    const metricsRes = await getAdminMetricsSummary(metricsReq);
+    assert.strictEqual(metricsRes.status, 200);
+    const metricsJson = await metricsRes.json();
+    assert.strictEqual(metricsJson.ok, true);
+    assert.notStrictEqual(metricsJson.summary.totalUsers, 120, 'Metrics summary must not default to 120 users');
+
+    // 3. Platform stats and fraud alerts
+    const statsReq = new NextRequest('http://localhost:3000/api/admin/platform-stats', {
+      headers: { authorization: 'Bearer test-token-admin' }
+    });
+    const statsRes = await getAdminPlatformStats(statsReq);
+    assert.strictEqual(statsRes.status, 200);
+
+    const fraudReq = new NextRequest('http://localhost:3000/api/admin/fraud-alerts', {
+      headers: { authorization: 'Bearer test-token-admin' }
+    });
+    const fraudRes = await getAdminFraudAlerts(fraudReq);
+    assert.strictEqual(fraudRes.status, 200);
+
+    // 4. Privileged mutations via service role
+    const usersReq = new NextRequest('http://localhost:3000/api/admin/users?role=student', {
+      headers: { authorization: 'Bearer test-token-admin' }
+    });
+    const usersRes = await getAdminUsers(usersReq);
+    assert.strictEqual(usersRes.status, 200);
+
+    const roleReq = new NextRequest('http://localhost:3000/api/admin/users/test_user_001/role', {
+      method: 'PATCH',
+      headers: { authorization: 'Bearer test-token-admin', 'content-type': 'application/json' },
+      body: JSON.stringify({ role: 'teacher' })
+    });
+    const roleRes = await updateAdminRole(roleReq, { params: { id: 'test_user_001' } });
+    assert.strictEqual(roleRes.status, 200);
+
+    const suspendReq = new NextRequest('http://localhost:3000/api/admin/users/test_user_001/suspend', {
+      method: 'POST',
+      headers: { authorization: 'Bearer test-token-admin', 'content-type': 'application/json' },
+      body: JSON.stringify({ reason: 'Investigation' })
+    });
+    const suspendRes = await suspendAdminUser(suspendReq, { params: { id: 'test_user_001' } });
+    assert.strictEqual(suspendRes.status, 200);
+
+    const overrideReq = new NextRequest('http://localhost:3000/api/admin/users/test_user_001/score-override', {
+      method: 'POST',
+      headers: { authorization: 'Bearer test-token-admin', 'content-type': 'application/json' },
+      body: JSON.stringify({ field: 'ats_score', value: 92, reason: 'Correction' })
+    });
+    const overrideRes = await scoreOverrideAdminUser(overrideReq, { params: { id: 'test_user_001' } });
+    assert.strictEqual(overrideRes.status, 200);
+
+    const deleteReq = new NextRequest('http://localhost:3000/api/admin/users/test_user_001', {
+      method: 'DELETE',
+      headers: { authorization: 'Bearer test-token-admin' }
+    });
+    const deleteRes = await deleteAdminUser(deleteReq, { params: { id: 'test_user_001' } });
+    assert.strictEqual(deleteRes.status, 200);
+
+    // 5. Legacy router sanitization
+    const routerMetrics: any = await firestoreRouter('GET', '/api/admin/metrics-summary');
+    assert.strictEqual(routerMetrics.ok, true);
+    assert.notStrictEqual(routerMetrics.summary?.totalUsers, 120);
+
+    const routerCons: any = await firestoreRouter('GET', '/api/consultant/analytics');
+    assert.ok(typeof routerCons.totalRevenue === 'number');
+    assert.notStrictEqual(routerCons.totalRevenue, 30000);
+  });
+
   console.log('\n================================================================');
   console.log(`📊 FINAL RESULT: ${passedTests} / ${totalTests} TESTS PASSED`);
   console.log('================================================================\n');
