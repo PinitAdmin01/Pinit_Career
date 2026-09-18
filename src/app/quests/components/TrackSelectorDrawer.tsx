@@ -10,6 +10,10 @@ import { PracticeTestReportModal } from './PracticeTestReportModal';
 import PracticeTestQuizRunner from './PracticeTestQuizRunner';
 import CapstoneInternshipPortal from './CapstoneInternshipPortal';
 import CareerGrowthGraph from './CareerGrowthGraph';
+import CrashCourseCheckoutModal from './CrashCourseCheckoutModal';
+import { ActiveEnrollmentBanner } from './ActiveEnrollmentBanner';
+import { crashCourseEnrollmentService, CrashCourseEnrollment } from '@/lib/services/crashCourseEnrollmentService';
+import { CRASH_COURSE_PLANS, CrashPlan } from '@/lib/data/crashPlansData';
 import CareerPathwayTimeline from '@/components/pathway/CareerPathwayTimeline';
 import CompetencyRadarView from '@/components/pathway/CompetencyRadarView';
 import {
@@ -98,6 +102,33 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
   const [showPracticeTestModal, setShowPracticeTestModal] = React.useState<boolean>(false);
   const [practiceTestTitle, setPracticeTestTitle] = React.useState<string>('Full-Stack Architecture & API Practice Test');
   const [showCapstonePortal, setShowCapstonePortal] = React.useState<boolean>(false);
+  const [activeEnrollment, setActiveEnrollment] = React.useState<CrashCourseEnrollment | null>(null);
+  const [checkoutModalOpen, setCheckoutModalOpen] = React.useState<boolean>(false);
+  const [checkoutPlan, setCheckoutPlan] = React.useState<CrashPlan | null>(null);
+
+  React.useEffect(() => {
+    crashCourseEnrollmentService.getActiveEnrollment().then((enr) => {
+      if (enr) {
+        setActiveEnrollment(enr);
+        setActiveCrashPlanId(enr.planId);
+        setActiveTrack(enr.track);
+      }
+    });
+  }, []);
+
+  const handleOpenCheckout = (plan: CrashPlan, track: 'web_fullstack' | 'python_ai') => {
+    setCheckoutPlan(plan);
+    setActiveTrack(track);
+    setCheckoutModalOpen(true);
+  };
+
+  const handleSuccessEnrollment = async (enrollment: any) => {
+    setActiveEnrollment(enrollment);
+    setActiveCrashPlanId(enrollment.planId);
+    setActiveTrack(enrollment.track);
+    await crashCourseEnrollmentService.saveEnrollment(enrollment);
+    setCheckoutModalOpen(false);
+  };
 
   const handleSelectCrashPlan = (planId: string, track: 'web_fullstack' | 'python_ai', courseIdToActivate: string) => {
     setActiveCrashPlanId(planId);
@@ -326,12 +357,26 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
             </div>
           </div>
 
+          {/* ── 0. ACTIVE ENROLLMENT HUD (If enrolled) ── */}
+          {activeEnrollment && (
+            <ActiveEnrollmentBanner
+              enrollment={activeEnrollment}
+              onOpenTimeline={() => {
+                const el = document.getElementById('internship-timeline-section');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+              onOpenCapstonePortal={() => setShowCapstonePortal(true)}
+              onChangePlan={() => setActiveEnrollment(null)}
+            />
+          )}
+
           {/* ── 1. CRASH COURSE PLAN CARDS (1M, 3M, 6M, 9M) ── */}
           <CrashCoursePlanCards
             currentPlanId={activeCrashPlanId}
             onSelectPlan={handleSelectCrashPlan}
             onOpenStandaloneCatalog={() => handleSubTabChange('standalone')}
             onOpenPracticeReport={handleOpenPracticeQuiz}
+            onOpenCheckout={handleOpenCheckout}
           />
 
           {/* ── 2. ACTIVE INTERNSHIP & PROGRAM TIMELINE TRACKER ── */}
@@ -376,6 +421,16 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
               onClose={() => setShowCapstonePortal(false)}
             />
           )}
+
+          {/* ── 7. CRASH COURSE CHECKOUT MODAL ── */}
+          <CrashCourseCheckoutModal
+            isOpen={checkoutModalOpen}
+            onClose={() => setCheckoutModalOpen(false)}
+            plan={checkoutPlan || CRASH_COURSE_PLANS.find(p => p.id === activeCrashPlanId) || CRASH_COURSE_PLANS[1]}
+            activeTrack={activeTrack}
+            onSuccessEnrollment={handleSuccessEnrollment}
+            studentName="PinIT Engineering Fellow"
+          />
 
           {/* Live Passport HUD & Expand/Collapse Toggle */}
           {roleReadiness && (
