@@ -12,7 +12,7 @@ export async function GET(req: Request) {
     // Query genuine students who have opted into recruiter visibility
     const { data: users, error } = await admin
       .from('users')
-      .select('id, display_name, username, email, ats_score, trust_score, career_dna_score, career_track, register_number, skills, program_type, recruiter_visibility, recruiter_visible')
+      .select('id, display_name, username, email, ats_score, trust_score, career_dna_score, target_role, register_number, skill_tags, recruiter_visibility, recruiter_visible')
       .or('recruiter_visible.eq.true,recruiter_visibility.gt.0');
 
     if (error) {
@@ -35,10 +35,13 @@ export async function GET(req: Request) {
         trust_score: trustScore,
         career_dna_score: dnaScore,
         match_score: matchScore,
-        target_role: u.career_track || 'Software Engineer',
+        matchScore,
+        target_role: u.target_role || 'Engineering',
+        track: u.target_role || 'Engineering',
         register_number: u.register_number || (u.id ? u.id.slice(0, 8).toUpperCase() : 'CANDIDATE'),
-        skill_tags: Array.isArray(u.skills) ? u.skills : [],
-        programType: u.program_type || 'Computer Science',
+        skill_tags: Array.isArray(u.skill_tags) ? u.skill_tags : ['Problem Solving', 'Engineering'],
+        skills: Array.isArray(u.skill_tags) ? u.skill_tags : ['Problem Solving', 'Engineering'],
+        pipeline_status: 'discovered',
         recruiter_visibility: u.recruiter_visibility ?? 80,
       };
     });

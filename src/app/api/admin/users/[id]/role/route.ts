@@ -38,7 +38,6 @@ export async function PATCH(
       .from('users')
       .update({
         role,
-        updated_at: new Date().toISOString(),
       })
       .eq('id', targetUserId);
 
