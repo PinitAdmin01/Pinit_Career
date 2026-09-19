@@ -61,6 +61,16 @@ function pruneOldAttempts() {
       attemptLog.set(key, fresh);
     }
   }
+
+  // Hard cap to prevent OOM under distributed port scan / IP spoofing attacks
+  if (attemptLog.size > 2000) {
+    let toDrop = attemptLog.size - 1800;
+    for (const k of attemptLog.keys()) {
+      attemptLog.delete(k);
+      toDrop--;
+      if (toDrop <= 0) break;
+    }
+  }
 }
 
 function getClientKey(req: Request): string {

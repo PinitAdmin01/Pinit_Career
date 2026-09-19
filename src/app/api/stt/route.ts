@@ -4,7 +4,7 @@ import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 
 export const maxDuration = 30; // 30s timeout
 
-export const MAX_STT_BYTES = 10 * 1024 * 1024; // 10MB — sufficient for 10-min audio
+export const MAX_STT_BYTES = 25 * 1024 * 1024; // 25MB — matches Groq Whisper limits
 export const MIN_STT_BYTES = 1024; // 1KB
 
 export const ALLOWED_MIME_PREFIXES = [

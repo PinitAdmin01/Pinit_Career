@@ -300,7 +300,7 @@ try {
       status: compileErr && compileErr.name === 'SyntaxError' ? 'SYNTAX_ERROR' : 'EXECUTION_ERROR',
       testsPassed: 0,
       totalTests: totalTests,
-      error: 'Syntax or execution error in submitted solution.'
+      error: 'syntax or execution error in submitted solution.'
     });
     process.exit(0);
   }
@@ -376,7 +376,7 @@ export function runEvaluationInVmDirectly(data: SandboxExecutionParams): Evaluat
         status: compileErr && compileErr.name === 'SyntaxError' ? 'SYNTAX_ERROR' : 'EXECUTION_ERROR',
         testsPassed: 0,
         totalTests: data.totalTests,
-        error: 'Syntax or execution error in submitted solution.',
+        error: 'syntax or execution error in submitted solution.',
       };
     }
 

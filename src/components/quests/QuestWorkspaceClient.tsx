@@ -64,7 +64,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
   });
 
   const currentTeacher = TEACHERS.find(t => t.id === state.questTeacher) || TEACHERS[0];
-  const langInfo = getLangInfo(questId || '');
+  const langInfo = getLangInfo(questId || '', quest);
   const isHardwareQuest = Boolean(quest?.id && (quest.id.includes('embedded') || quest.id.includes('network') || quest.id.includes('edge') || quest.id.includes('iotsec')));
 
   if (!quest) {

@@ -45,6 +45,16 @@
       "id": "task-005",
       "title": "Build UniversityPlacementRoster.tsx (TPO Verified Student Pipeline & Corporate Drive Shortlist)",
       "prompt": "Read CLAUDE_TASK_PROMPT.md. Build UniversityPlacementRoster.tsx inside claude_sandbox/. Renders the University Training & Placement Officer (TPO) roster: filter verified students by Role and Readiness (>75%), view cryptographic Pin badges, and generate Corporate Drive Shortlists. Run node claude_self_validate.js to confirm zero errors.",
+      "status": "completed",
+      "attempts": 1,
+      "maxAttempts": 3,
+      "lastRunAt": "2026-09-19T09:43:00.000Z",
+      "result": "Passed with 0 errors. Deployed to src/components/university/ and wired into src/app/university/page.tsx."
+    },
+    {
+      "id": "task-006",
+      "title": "Eliminate Fake Data: Wire UniversityPlacementRoster to live API with real loading and empty states",
+      "prompt": "Read CLAUDE_TASK_PROMPT.md. Update UniversityPlacementRoster.tsx in claude_sandbox/ to remove all hardcoded SAMPLE_ROSTER data. Connect to live GET /api/university/placement-roster, handling genuine loading, error, and honest empty states. Run node claude_self_validate.js to confirm zero errors.",
       "status": "queued",
       "attempts": 0,
       "maxAttempts": 3,

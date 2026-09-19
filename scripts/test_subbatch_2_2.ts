@@ -39,6 +39,7 @@ async function runSubBatch22Tests() {
     await db.exec(`
       CREATE SCHEMA IF NOT EXISTS auth;
       CREATE TABLE IF NOT EXISTS auth.users (id UUID PRIMARY KEY, email TEXT);
+      CREATE OR REPLACE FUNCTION auth.uid() RETURNS UUID AS $$ BEGIN RETURN NULLIF(current_setting('request.jwt.claim.sub', true), '')::UUID; END; $$ LANGUAGE plpgsql;
       CREATE TABLE IF NOT EXISTS public.users (
         id UUID PRIMARY KEY,
         email TEXT,
@@ -143,6 +144,7 @@ async function runSubBatch22Tests() {
     await db.exec(`
       CREATE SCHEMA IF NOT EXISTS auth;
       CREATE TABLE IF NOT EXISTS auth.users (id UUID PRIMARY KEY, email TEXT);
+      CREATE OR REPLACE FUNCTION auth.uid() RETURNS UUID AS $$ BEGIN RETURN NULLIF(current_setting('request.jwt.claim.sub', true), '')::UUID; END; $$ LANGUAGE plpgsql;
       CREATE TABLE IF NOT EXISTS public.finance_dues (
         student_id TEXT PRIMARY KEY,
         total_term_fees NUMERIC DEFAULT 65000,
@@ -227,6 +229,7 @@ async function runSubBatch22Tests() {
     // 1. Setup base schema
     await db.exec(`
       CREATE SCHEMA IF NOT EXISTS auth;
+      CREATE OR REPLACE FUNCTION auth.uid() RETURNS UUID AS $$ BEGIN RETURN NULLIF(current_setting('request.jwt.claim.sub', true), '')::UUID; END; $$ LANGUAGE plpgsql;
       CREATE TABLE IF NOT EXISTS public.finance_dues (
         student_id TEXT PRIMARY KEY,
         total_term_fees NUMERIC DEFAULT 0,

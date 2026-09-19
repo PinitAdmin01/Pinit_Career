@@ -265,10 +265,14 @@ const campusCases = new Map(); // path -> {line, verdict, delegate}
 }
 
 // ── 6. layer 4: firestoreRouter guards ──────────────────────────────────────
-const routerStart = clientSrc.search(/(async\s+)?function\s+firestoreRouter/);
-if (routerStart < 0) throw new Error('firestoreRouter not found in ' + CLIENT);
-const routerBodyOpen = clientSrc.indexOf('{', routerStart);
-const routerEnd = matchPair(clientSrc, routerBodyOpen, '{', '}');
+const ROUTER_FILE = fs.existsSync(path.join(ROOT, 'src/lib/api/legacyFirestoreRouter.ts'))
+  ? 'src/lib/api/legacyFirestoreRouter.ts'
+  : CLIENT;
+const routerSrc = read(ROUTER_FILE);
+const routerStart = routerSrc.search(/(async\s+)?function\s+firestoreRouter/);
+if (routerStart < 0) throw new Error('firestoreRouter not found in ' + ROUTER_FILE);
+const routerBodyOpen = routerSrc.indexOf('{', routerStart);
+const routerEnd = matchPair(routerSrc, routerBodyOpen, '{', '}');
 
 function compileCondition(cond) {
   let fn;
@@ -303,8 +307,9 @@ const dbBackedSymbols = new Set();
     moduleTouches.set(file, hit);
     return hit;
   };
-  for (const m of clientSrc.matchAll(/import\s*\{([^}]+)\}\s*from\s*['"]([^'"]+)['"]/g)) {
-    const dep = resolveImport(m[2], CLIENT);
+  const allImportsSrc = clientSrc + '\n' + routerSrc;
+  for (const m of allImportsSrc.matchAll(/import\s*\{([^}]+)\}\s*from\s*['"]([^'"]+)['"]/g)) {
+    const dep = resolveImport(m[2], ROUTER_FILE) || resolveImport(m[2], CLIENT);
     if (!dep || !touches(dep)) continue;
     for (const raw of m[1].split(',')) {
       const name = raw.trim().split(/\s+as\s+/).pop().trim();
@@ -322,20 +327,20 @@ const guards = [];
   const seen = [];
   const re = /\bif\s*\(/g;
   let m;
-  while ((m = re.exec(clientSrc))) {
+  while ((m = re.exec(routerSrc))) {
     if (m.index < routerBodyOpen) continue;
     if (m.index > routerEnd) break;
     if (seen.some(([a, b]) => m.index > a && m.index < b)) continue;
     const parenOpen = m.index + m[0].length - 1;
-    const parenClose = matchPair(clientSrc, parenOpen, '(', ')');
+    const parenClose = matchPair(routerSrc, parenOpen, '(', ')');
     if (parenClose < 0) continue;
-    const cond = clientSrc.slice(parenOpen + 1, parenClose);
+    const cond = routerSrc.slice(parenOpen + 1, parenClose);
     if (!cond.includes('cleanPath')) continue;
 
     let i = parenClose + 1;
-    while (i < routerEnd && /\s/.test(clientSrc[i])) i++;
-    const bodyEnd = clientSrc[i] === '{' ? matchPair(clientSrc, i, '{', '}') + 1 : statementEnd(clientSrc, i);
-    const body = clientSrc.slice(i, bodyEnd);
+    while (i < routerEnd && /\s/.test(routerSrc[i])) i++;
+    const bodyEnd = routerSrc[i] === '{' ? matchPair(routerSrc, i, '{', '}') + 1 : statementEnd(routerSrc, i);
+    const body = routerSrc.slice(i, bodyEnd);
     seen.push([m.index, bodyEnd]);
 
     const touchesDB = reachesDb(body);
@@ -350,7 +355,7 @@ const guards = [];
 
     guards.push({
       idx: guards.length,
-      line: lineOf(clientSrc, m.index),
+      line: lineOf(routerSrc, m.index),
       cond: cond.replace(/\s+/g, ' ').slice(0, 200),
       verdict,
       bodyLines: body.split('\n').length,

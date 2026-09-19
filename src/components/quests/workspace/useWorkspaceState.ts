@@ -57,11 +57,62 @@ export const TEACHERS: Teacher[] = [
   }
 ];
 
-export function getLangInfo(qId: string): { file: string; label: string; native: boolean } {
-  if (qId.startsWith('py') || qId.includes('python') || qId.includes('ai')) return { file: 'solution.py', label: 'Python editor (no CPython runtime)', native: false };
-  if (qId.startsWith('database') || qId.includes('sql')) return { file: 'query.sql', label: 'SQL editor (no DB engine)', native: false };
-  if (qId.startsWith('react') || qId.includes('fullstack') || qId.includes('javascript') || qId.includes('js')) return { file: 'App.jsx', label: 'JS/JSX sandbox', native: true };
-  return { file: 'Solution.java', label: 'Java compiler judge', native: true };
+export function resolveQuestLanguage(quest: any, qId: string = ''): 'java' | 'python' | 'sql' | 'javascript' {
+  if (quest?.language) {
+    const l = String(quest.language).toLowerCase();
+    if (l === 'py' || l === 'python') return 'python';
+    if (l === 'sql' || l === 'sqlite') return 'sql';
+    if (l === 'java') return 'java';
+    if (l === 'javascript' || l === 'js' || l === 'react' || l === 'typescript' || l === 'ts') return 'javascript';
+  }
+
+  const starter = String(quest?.starterCode || '');
+  const testSuite = String(quest?.testSuite || '');
+  const cleanId = (qId || quest?.id || '').toLowerCase();
+
+  if (starter.includes('public class') || starter.includes('class Solution') || testSuite.includes('public class')) {
+    return 'java';
+  }
+  if (starter.includes('def ') || testSuite.includes('def ') || testSuite.includes('assert ')) {
+    return 'python';
+  }
+  if (starter.toUpperCase().includes('CREATE TABLE') || starter.toUpperCase().includes('SELECT ') || testSuite.toUpperCase().includes('PRAGMA') || testSuite.toUpperCase().includes('SELECT sql FROM')) {
+    return 'sql';
+  }
+
+  const prefixMatch = cleanId.match(/^([a-z0-9_]+)-/);
+  const prefix = prefixMatch ? prefixMatch[1] : '';
+
+  const PYTHON_PREFIXES = new Set(['python', 'py', 'nlp', 'quant', 'iot_edge', 'ai']);
+  const SQL_PREFIXES = new Set(['sql', 'sql-mastery', 'database']);
+  const JS_PREFIXES = new Set(['react', 'react-basics', 'fullstack', 'fullstack-js', 'mobile', 'graphics3d', 'g3d', 'blockchain', 'javascript', 'js']);
+  const JAVA_PREFIXES = new Set(['java', 'java-basics', 'dsa', 'dsa-optim', 'distributed', 'dist', 'cloud', 'cloud-native', 'devops', 'cyber', 'iot_sec', 'iot_net', 'iot_emb']);
+
+  if (PYTHON_PREFIXES.has(prefix) || cleanId.startsWith('python-') || cleanId.startsWith('py-')) return 'python';
+  if (SQL_PREFIXES.has(prefix) || cleanId.startsWith('database-') || cleanId.startsWith('sql-')) return 'sql';
+  if (JS_PREFIXES.has(prefix) || cleanId.startsWith('react-') || cleanId.startsWith('fullstack-') || cleanId.startsWith('js-')) return 'javascript';
+  if (JAVA_PREFIXES.has(prefix) || cleanId.startsWith('java-') || cleanId.startsWith('dsa-')) return 'java';
+
+  if (/\b(python|py)\b/i.test(cleanId)) return 'python';
+  if (/\b(sql|database)\b/i.test(cleanId)) return 'sql';
+  if (/\b(react|javascript|js|frontend)\b/i.test(cleanId)) return 'javascript';
+
+  return 'java';
+}
+
+export function getLangInfo(qId: string, quest?: any): { file: string; label: string; native: boolean; language: 'java' | 'python' | 'sql' | 'javascript' } {
+  const language = resolveQuestLanguage(quest, qId);
+  switch (language) {
+    case 'python':
+      return { file: 'solution.py', label: 'Python runtime (Pyodide WASM)', native: true, language };
+    case 'sql':
+      return { file: 'query.sql', label: 'SQL engine (In-Memory SQLite)', native: true, language };
+    case 'javascript':
+      return { file: 'App.jsx', label: 'JS/JSX sandbox', native: true, language };
+    case 'java':
+    default:
+      return { file: 'Solution.java', label: 'Java compiler judge', native: true, language: 'java' };
+  }
 }
 
 export function multiLangTranspiler(inputCode: string, qId: string): string {
@@ -268,163 +319,76 @@ export function useWorkspaceState({
       return;
     }
 
-    const isJava = (questId || '').includes('java') ||
-      (quest?.id || '').includes('java') ||
-      (quest?.starterCode || '').includes('class Solution') ||
-      (quest?.starterCode || '').includes('public class') ||
-      (quest?.desc || '').toLowerCase().includes('java') ||
-      ['fizzbuzz', 'reverser', 'arraysum', 'palindrome', 'twosum'].some(id => (questId || '').includes(id));
-
-    if (isJava) {
-      setOutput(null);
-      setTerminalLogs(['⚙️ Dispatching Java submission to isolated compiler judge...']);
-      
-      import('@/lib/code/codeRunner').then(({ runTestSuite }) => {
-        runTestSuite(code, 'java', { testSuite: quest.testSuite, questId: quest.id, xp: quest.xp })
-          .then((result) => {
-            setTerminalLogs(result.terminalLogs || []);
-            if (result.allPassed) {
-              setOutput({
-                success: true,
-                message: 'Verification Passed! All automated Java test assertions cleared.'
-              });
-              if (!isCompleted) {
-                addCompletedQuest(questId, true, quest.xp || 120, 'course-java-logic');
-                toast.success('Exam Passed! 🎉', 'Earned ' + (quest.xp || 120) + ' XP & ' + (quest.pins || 6) + ' Pins.');
-                try { sessionStorage.removeItem(examStartKey); } catch {}
-              }
-            } else {
-              const errMsg = result.testOutcomes?.[0]?.error || result.terminalLogs?.[result.terminalLogs.length - 1] || 'Automated test assertion failed.';
-              setOutput({ success: false, message: errMsg });
-            }
-          })
-          .catch((err) => {
-            setOutput({ success: false, message: 'Execution judge error: ' + err.message });
-          });
-      });
-      return;
-    }
-
-    const langInfo = getLangInfo(questId || '');
-    if (!langInfo.native) {
-      setOutput({
-        success: false,
-        message: `Verification unavailable: ${langInfo.label}. Client keyword/transpile checks are not accepted as a pass. Configure a server-side judge for this language.`
-      });
-      setTerminalLogs([`[BLOCKED] No native runtime for ${langInfo.file}. Fail-closed — not marked verified.`]);
-      return;
-    }
-
+    const resolvedLanguage = resolveQuestLanguage(quest, questId || '');
     setOutput(null);
-    setTerminalLogs([]);
-    try {
-      const jsCode = multiLangTranspiler(code, questId || '');
-      const workerCode = `
-        self.onmessage = function(e) {
-          const js = e.data.js;
-          const tests = e.data.tests;
-          const logs = [];
-          const customConsole = {
-            log: function(...args) { logs.push(args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ')); },
-            error: function(...args) { logs.push("[ERROR] " + args.map(a => String(a)).join(' ')); },
-            warn: function(...args) { logs.push("[WARN] " + args.map(a => String(a)).join(' ')); }
-          };
-          try {
-            const evaluator = new Function('console', \`
-              \${js}
-              try {
-                \${tests}
-                return { success: true, message: "Verification Passed! All test cases cleared." };
-              } catch (e) {
-                return { success: false, message: e.message };
+    setTerminalLogs([`⚙️ Dispatching ${resolvedLanguage.toUpperCase()} submission to isolated compiler judge...`]);
+
+    import('@/lib/code/codeRunner').then(({ runTestSuite }) => {
+      runTestSuite(code, resolvedLanguage, {
+        testSuite: quest.testSuite,
+        questId: quest.id,
+        xp: quest.xp
+      })
+        .then((result) => {
+          setTerminalLogs(result.terminalLogs || []);
+          if (result.allPassed) {
+            api.post<{ success: boolean; message?: string }>('/api/quests/verify', {
+              questId: quest.id,
+              code,
+              language: resolvedLanguage,
+              isExam: category === 'exam',
+              elapsedSeconds: category === 'exam'
+                ? Math.floor((Date.now() - getOrCreateExamStart()) / 1000)
+                : null,
+              allowedSeconds: category === 'exam' ? EXAM_DURATION_SEC : null
+            })
+            .then(data => {
+              if (data.success) {
+                setOutput({
+                  success: true,
+                  message: `Verification Passed! All automated ${resolvedLanguage.toUpperCase()} test assertions cleared.`
+                });
+                saveQuestCode(quest.id, code);
+                if (typeof window !== 'undefined') {
+                  localStorage.setItem(`pinit_code_${userId}_${quest.id}`, code);
+                }
+                const xpReward = quest.xp || (category === 'exam' ? 120 : 150);
+                const pinsReward = quest.pins || (category === 'exam' ? 6 : 5);
+                addCompletedQuest(quest.id, category === 'exam', xpReward);
+                toast.success(category === 'exam' ? 'Exam Passed! 🎉' : 'Quest Completed! 🎉', `Earned +${xpReward} XP & +${pinsReward} Pins.`);
+                if (typeof cOS?.earnPins === 'function') {
+                  cOS.earnPins(category === 'exam' ? 'exam_pass' : 'mission_complete', pinsReward, `Completed quest: ${quest.title}`);
+                }
+                if (userId && userId !== 'guest') {
+                  Promise.resolve(supabase.from('quest_completions').upsert({
+                    user_id: userId,
+                    quest_id: quest.id,
+                    completed_at: new Date().toISOString(),
+                  }, { onConflict: 'user_id,quest_id' })).then(() => {}).catch(() => {});
+                }
+                setIsCompleteView(true);
+                api.post('/api/student/activity', {
+                  action: 'quest_complete',
+                  meta: { questId: quest.id, questTitle: quest.title, isExam: category === 'exam', xp: xpReward }
+                }).catch(() => {});
+                try { sessionStorage.removeItem(examStartKey); } catch {}
+              } else {
+                setOutput({ success: false, message: "Security Validation Failed: " + data.message });
               }
-            \`);
-            const res = evaluator(customConsole) || {};
-            res.logs = logs;
-            self.postMessage(res);
-          } catch (err) {
-            self.postMessage({ success: false, message: "Syntax or execution error: " + err.message, logs: logs });
+            })
+            .catch(err => {
+              setOutput({ success: false, message: "Server validation connection failed: " + err.message });
+            });
+          } else {
+            const errMsg = result.testOutcomes?.[0]?.error || result.terminalLogs?.[result.terminalLogs.length - 1] || 'Automated test assertion failed.';
+            setOutput({ success: false, message: errMsg });
           }
-        };
-      `;
-
-      const blob = new Blob([workerCode], { type: 'application/javascript' });
-      const workerUrl = URL.createObjectURL(blob);
-      const worker = new Worker(workerUrl);
-
-      const timeout = setTimeout(() => {
-        worker.terminate();
-        URL.revokeObjectURL(workerUrl);
-        setOutput({ 
-          success: false, 
-          message: "Execution Timeout: Code execution exceeded the 3000ms sandbox limit (infinite loop detected)." 
+        })
+        .catch((err) => {
+          setOutput({ success: false, message: 'Execution judge error: ' + err.message });
         });
-      }, 3000);
-
-      worker.onmessage = (e) => {
-        clearTimeout(timeout);
-        worker.terminate();
-        URL.revokeObjectURL(workerUrl);
-        const res = e.data;
-        if (res.logs && Array.isArray(res.logs)) {
-          setTerminalLogs(res.logs);
-        }
-
-        if (res.success) {
-          api.post<{ success: boolean; message?: string }>('/api/quests/verify', {
-            questId: quest.id,
-            code,
-            language: 'javascript',
-            isExam: category === 'exam',
-            elapsedSeconds: category === 'exam'
-              ? Math.floor((Date.now() - getOrCreateExamStart()) / 1000)
-              : null,
-            allowedSeconds: category === 'exam' ? EXAM_DURATION_SEC : null
-          })
-          .then(data => {
-            if (data.success) {
-              setOutput({ success: true, message: "Verification Passed! All test cases validated on secure compiler." });
-              saveQuestCode(quest.id, code);
-              if (typeof window !== 'undefined') {
-                localStorage.setItem(`pinit_code_${userId}_${quest.id}`, code);
-              }
-              addCompletedQuest(quest.id, category === 'exam', quest.xp || 150);
-              if (userId && userId !== 'guest') {
-                Promise.resolve(supabase.from('quest_completions').upsert({
-                  user_id: userId,
-                  quest_id: quest.id,
-                  completed_at: new Date().toISOString(),
-                }, { onConflict: 'user_id,quest_id' })).then(() => {}).catch(() => {});
-              }
-              setIsCompleteView(true);
-              api.post('/api/student/activity', {
-                action: 'quest_complete',
-                meta: { questId: quest.id, questTitle: quest.title, isExam: category === 'exam', xp: quest.xp || 150 }
-              }).catch(() => {});
-            } else {
-              setOutput({ success: false, message: "Security Validation Failed: " + data.message });
-            }
-          })
-          .catch(err => {
-            setOutput({ success: false, message: "Server validation connection failed: " + err.message });
-          });
-        } else {
-          setOutput(res);
-        }
-      };
-
-      worker.onerror = (err) => {
-        clearTimeout(timeout);
-        worker.terminate();
-        URL.revokeObjectURL(workerUrl);
-        setOutput({ success: false, message: "Sandbox Error: " + err.message });
-      };
-
-      worker.postMessage({ js: jsCode, tests: quest.testSuite });
-    } catch (err: any) {
-      setOutput({ success: false, message: 'Syntax or sandbox error: ' + err.message });
-    }
-  }, [examTimedOut, quest, questId, code, isCompleted, addCompletedQuest, examStartKey, category, getOrCreateExamStart, saveQuestCode, userId]);
+    });
+  }, [examTimedOut, quest, questId, code, category, getOrCreateExamStart, saveQuestCode, userId, addCompletedQuest, cOS, examStartKey]);
 
   const handleCompleteLecture = useCallback(() => {
     addCompletedQuest(quest?.id, false, quest?.xp || 150);

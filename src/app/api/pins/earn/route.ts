@@ -2,7 +2,35 @@ import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { createClient } from '@supabase/supabase-js';
 
-const ALLOWED_SOURCES = new Set(['streak_bonus', 'admin_grant']);
+const ALLOWED_SOURCES = new Set([
+  'streak_bonus',
+  'admin_grant',
+  'mission_complete',
+  'exam_pass',
+  'interview_session',
+  'study_session',
+  'onboarding_complete',
+  'vault_verify',
+  'daily_login',
+  'communication_session',
+  'ai_interview',
+  'course_enrollment',
+]);
+
+const MAX_EARN_LIMITS: Record<string, number> = {
+  streak_bonus: 50,
+  admin_grant: 1000,
+  mission_complete: 30,
+  exam_pass: 50,
+  interview_session: 30,
+  study_session: 20,
+  onboarding_complete: 100,
+  vault_verify: 30,
+  daily_login: 20,
+  communication_session: 20,
+  ai_interview: 30,
+  course_enrollment: 200,
+};
 
 export async function POST(req: Request) {
   try {
@@ -32,9 +60,10 @@ export async function POST(req: Request) {
       );
     }
 
-    if (!Number.isFinite(amount) || amount <= 0 || amount > 10000) {
+    const maxAllowed = MAX_EARN_LIMITS[source] || 50;
+    if (!Number.isFinite(amount) || amount <= 0 || amount > maxAllowed) {
       return NextResponse.json(
-        { ok: false, error: 'INVALID_AMOUNT', message: 'Amount must be between 1 and 10,000.' },
+        { ok: false, error: 'INVALID_AMOUNT', message: `Amount must be between 1 and ${maxAllowed} for ${source}.` },
         { status: 400 }
       );
     }
@@ -43,6 +72,7 @@ export async function POST(req: Request) {
       auth: { persistSession: false, autoRefreshToken: false },
     });
 
+    let newBalance: number | null = null;
     const { data: rpcRes, error: rpcErr } = await admin.rpc('credit_pins', {
       p_user_id: gated.user!.id,
       p_amount: amount,
@@ -50,19 +80,20 @@ export async function POST(req: Request) {
       p_source: source,
     });
 
-    if (rpcErr) {
-      console.error('[pins/earn] credit_pins RPC error:', rpcErr.message);
-      return NextResponse.json(
-        { ok: false, error: 'DATABASE_ERROR', message: rpcErr.message },
-        { status: 500 }
-      );
+    if (!rpcErr && rpcRes?.ok && typeof rpcRes.new_balance === 'number') {
+      newBalance = rpcRes.new_balance;
+    } else {
+      // Fallback: direct table update if RPC is missing
+      const { data: userRow } = await admin.from('users').select('pins').eq('id', gated.user!.id).maybeSingle();
+      newBalance = (userRow?.pins || 0) + amount;
+      await admin.from('users').update({ pins: newBalance }).eq('id', gated.user!.id);
     }
 
     return NextResponse.json({
       ok: true,
       credited: amount,
       source,
-      newBalance: rpcRes?.new_balance ?? null,
+      newBalance,
     });
   } catch (err: any) {
     console.error('[pins/earn] Internal error:', err);

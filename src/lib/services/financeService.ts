@@ -130,12 +130,30 @@ export async function acquireDistributedLock(lockKey: string, userId: string, tt
           }
         } catch { /* ignore fallback query errors */ }
 
+        // If in production mode or serverless, strictly fail closed when the table is unreachable or lock is held
+        if (process.env.NODE_ENV === 'production' || isServerlessRuntime()) {
+          activePaymentLocks.delete(lockKey);
+          activeScholarshipLocks.delete(lockKey);
+          return false;
+        }
+
+        // In non-production testing with offline database, fallback to in-memory lock
+        if (error.code === 'PGRST205' || error.message?.includes('fetch failed') || error.message?.includes('ECONNREFUSED')) {
+          console.warn('⚠️ [CONCURRENCY NOTICE] `payment_idempotency_keys` table is unreachable. Operating under in-memory process-level idempotency lock.');
+          return true;
+        }
+
         // Another container holds an active unexpired lock
         activePaymentLocks.delete(lockKey);
         activeScholarshipLocks.delete(lockKey);
         return false;
       }
     } else {
+      if (process.env.NODE_ENV === 'production' || isServerlessRuntime()) {
+        activePaymentLocks.delete(lockKey);
+        activeScholarshipLocks.delete(lockKey);
+        return false;
+      }
       console.warn('⚠️ [CONCURRENCY NOTICE] `payment_idempotency_keys` table is unavailable. Operating under in-memory process-level idempotency lock.');
       return true;
     }
@@ -309,7 +327,7 @@ export const financeService = {
 
     try {
       const isSupabaseAvailable = await checkSupabaseAvailable('finance_dues');
-      const transactionId = paymentId ? paymentId.trim() : generateTxId('rcp');
+      const transactionId = generateTxId('rcp');
       const email = studentEmail?.trim() || '';
 
       if (!isSupabaseAvailable) {
@@ -596,9 +614,30 @@ export const financeService = {
   },
 
   async applyScholarship(studentId: string, scholarshipId: string) {
+    if (isServerlessRuntime()) {
+      const isRelational = await checkSupabaseAvailable('student_fee_dues');
+      const isLegacy = await checkSupabaseAvailable('finance_dues');
+      if (!isRelational && !isLegacy) {
+        console.error('[FinanceService] Database unavailable during applyScholarship in serverless runtime; failing closed');
+        return {
+          ok: false,
+          error: 'LIVE_DB_UNAVAILABLE',
+          message: 'Live database persistence is unavailable in serverless runtime.'
+        };
+      }
+    }
+
     const lockKey = `schol:${studentId}`;
     const acquired = await acquireDistributedLock(lockKey, studentId, 30);
     if (!acquired) {
+      if (isServerlessRuntime()) {
+        console.error('[FinanceService] Database unavailable during applyScholarship in serverless runtime; failing closed');
+        return {
+          ok: false,
+          error: 'LIVE_DB_UNAVAILABLE',
+          message: 'Live database persistence is unavailable in serverless runtime.'
+        };
+      }
       return { ok: false, error: 'SCHOLARSHIP_IN_PROGRESS', message: 'Scholarship application is currently processing across server clusters' };
     }
 

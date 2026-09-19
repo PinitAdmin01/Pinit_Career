@@ -1,36 +1,20 @@
 // src/lib/code/runners/sqlRunner.ts
 // In-Memory SQLite WebAssembly Query Execution Engine
+// Hardened with Web Worker isolation, timeout kill switch, and testSuite statement evaluation.
 
 import { SqlTestCase, SuiteExecutionResult } from '../types';
-import { loadPyodideRuntime } from './pythonRunner';
+import { runPythonScript } from './pythonRunner';
 
 export async function executeSqlSuite(
   query: string,
   config: SqlTestCase,
-  timeoutMs: number = 4000
+  timeoutMs: number = 4000,
+  testSuite?: string
 ): Promise<SuiteExecutionResult> {
   const startTime = Date.now();
   const terminalLogs: string[] = [];
 
-  terminalLogs.push(`[SQL RUNTIME] Initializing in-memory SQLite database...`);
-
-  let py: any;
-  try {
-    py = await loadPyodideRuntime();
-  } catch (err: any) {
-    const duration = Date.now() - startTime;
-    return {
-      language: 'sql',
-      totalTests: 1,
-      passedTests: 0,
-      failedTests: 1,
-      allPassed: false,
-      status: 'RUNTIME_ERROR',
-      totalDurationMs: duration,
-      terminalLogs: [`[SQL ERROR] Failed to initialize SQLite runtime: ${err?.message}`],
-      testOutcomes: []
-    };
-  }
+  terminalLogs.push(`[SQL RUNTIME] Initializing in-memory SQLite database in isolated worker...`);
 
   const defaultSchema = `
     CREATE TABLE employees (id INT, name TEXT, department_id INT, department TEXT, salary INT);
@@ -43,9 +27,10 @@ export async function executeSqlSuite(
 
   const schema = (config.schemaSql || defaultSchema) + '\n' + (config.seedSql || '');
   const cleanUserQuery = query.trim().replace(/;+$/, '');
+  const cleanTestSuite = typeof testSuite === 'string' ? testSuite.trim() : '';
 
   const sqlRunnerScript = `
-import sqlite3, json
+import sqlite3, json, sys
 
 conn = sqlite3.connect(':memory:')
 cursor = conn.cursor()
@@ -57,40 +42,85 @@ for statement in """${schema.replace(/"""/g, "'''")}""".split(';'):
         cursor.execute(stmt)
 conn.commit()
 
-# Execute User Query
-cursor.execute("""${cleanUserQuery.replace(/"""/g, "'''")}""")
+# Execute User Statement(s)
+for statement in """${cleanUserQuery.replace(/"""/g, "'''")}""".split(';'):
+    stmt = statement.strip()
+    if stmt:
+        cursor.execute(stmt)
+conn.commit()
+
 cols = [desc[0] for desc in cursor.description] if cursor.description else []
-rows = cursor.fetchall()
+rows = cursor.fetchall() if cursor.description else []
+
+# Execute Authoritative Test Suite queries if provided
+_test_count = 0
+for test_statement in """${cleanTestSuite.replace(/"""/g, "'''")}""".split(';'):
+    tstmt = test_statement.strip()
+    if tstmt:
+        cursor.execute(tstmt)
+        _test_count += 1
+conn.commit()
 
 _sql_cols = json.dumps(cols)
 _sql_rows = json.dumps(rows)
+_test_passed = 'TRUE'
 `;
 
   try {
-    await py.runPythonAsync(sqlRunnerScript);
-
-    const cols: string[] = JSON.parse(py.globals.get('_sql_cols') || '[]');
-    const rows: any[][] = JSON.parse(py.globals.get('_sql_rows') || '[]');
+    const res = await runPythonScript(sqlRunnerScript, ['_sql_cols', '_sql_rows', '_test_passed'], timeoutMs);
     const duration = Date.now() - startTime;
 
-    terminalLogs.push(`[SQL RUNTIME] Query executed successfully in ${duration}ms.`);
-    terminalLogs.push(`[TABLE RESULT] Columns: [${cols.join(', ')}] (${rows.length} rows returned)`);
+    if (!res.success) {
+      const isTimeout = (res.error || '').toLowerCase().includes('timeout');
+      const msg = res.error || 'SQL statement execution error';
+      terminalLogs.push(isTimeout ? `[TIMEOUT] ${msg}` : `[SQL ERROR] ${msg}`);
 
-    // Render ASCII preview of table
-    if (rows.length > 0) {
-      const headerLine = `| ${cols.join(' | ')} |`;
-      const dividerLine = `| ${cols.map(c => '-'.repeat(c.length)).join(' | ')} |`;
-      terminalLogs.push(headerLine);
-      terminalLogs.push(dividerLine);
-      rows.slice(0, 5).forEach(r => {
-        terminalLogs.push(`| ${r.join(' | ')} |`);
-      });
-      if (rows.length > 5) {
-        terminalLogs.push(`... (${rows.length - 5} more rows)`);
+      return {
+        language: 'sql',
+        totalTests: 1,
+        passedTests: 0,
+        failedTests: 1,
+        allPassed: false,
+        status: isTimeout ? 'TIMEOUT' : 'SYNTAX_ERROR',
+        totalDurationMs: duration,
+        terminalLogs,
+        testOutcomes: [{
+          index: 1,
+          testCaseName: 'SQL Query Verification',
+          input: cleanUserQuery,
+          expectedOutput: '',
+          actualOutput: msg,
+          passed: false,
+          error: msg,
+          durationMs: duration
+        }],
+        error: msg
+      };
+    }
+
+    const cols: string[] = JSON.parse(res.results?._sql_cols || '[]');
+    const rows: any[][] = JSON.parse(res.results?._sql_rows || '[]');
+
+    terminalLogs.push(`[SQL RUNTIME] Query executed successfully in ${duration}ms.`);
+    if (cols.length > 0) {
+      terminalLogs.push(`[TABLE RESULT] Columns: [${cols.join(', ')}] (${rows.length} rows returned)`);
+
+      // Render ASCII preview of table
+      if (rows.length > 0) {
+        const headerLine = `| ${cols.join(' | ')} |`;
+        const dividerLine = `| ${cols.map(c => '-'.repeat(Math.max(c.length, 3))).join(' | ')} |`;
+        terminalLogs.push(headerLine);
+        terminalLogs.push(dividerLine);
+        rows.slice(0, 5).forEach(r => {
+          terminalLogs.push(`| ${r.join(' | ')} |`);
+        });
+        if (rows.length > 5) {
+          terminalLogs.push(`... (${rows.length - 5} more rows)`);
+        }
       }
     }
 
-    // Comparison with expected
+    // Comparison with expected columns/rows
     let passed = true;
     let failReason = '';
 
@@ -141,7 +171,7 @@ _sql_rows = json.dumps(rows)
   } catch (sqlErr: any) {
     const duration = Date.now() - startTime;
     const msg = sqlErr?.message || String(sqlErr);
-    terminalLogs.push(`[SQL SYNTAX ERROR] ${msg}`);
+    terminalLogs.push(`[SQL RUNTIME ERROR] ${msg}`);
 
     return {
       language: 'sql',

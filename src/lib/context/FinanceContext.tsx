@@ -103,7 +103,7 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
       toast.success('AI Time Extended! ⏰', '+30 AI Minutes added to your daily balance.');
       return true;
     }
-  }, [userId, spendPins, setAiUseTokens]);
+  }, [userId, spendPins, setAiUseTokens, setPins]);
 
   const {
     vaultItems,

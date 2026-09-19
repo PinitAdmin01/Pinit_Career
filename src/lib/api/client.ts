@@ -77,6 +77,7 @@ const LIVE_API_PREFIXES: readonly string[] = [
   '/api/notifications', '/api/messages',
   '/api/parent', '/api/consultant', '/api/admin',
   '/api/user', '/api/webhooks', '/api/student',
+  '/api/arena', '/api/friends', '/api/quests', '/api/verify', '/api/university',
 ];
 
 // All /api/* routes are authoritative on the live server (Vercel)

@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { Teacher, TEACHERS } from './useWorkspaceState';
+import { PIN_COSTS } from '@/lib/hooks/usePinBalance';
+import { getAuthoritativeQuest } from '@/lib/quests/questRegistry';
 
 interface TeacherSelectScreenProps {
   quest: any;
@@ -109,7 +111,7 @@ export function TeacherSelectScreen({
             Quest Startup Gate
           </div>
           <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)', marginTop: 4 }}>
-            Cost: <span style={{ color: 'var(--accent)' }}>⚡ 5 Pins</span> · Current Balance: <span style={{ color: 'var(--green)' }}>⚡ {pins} Pins</span>
+            Cost: <span style={{ color: 'var(--accent)' }}>⚡ {PIN_COSTS.quest?.cost ?? 20} Pins</span> · Current Balance: <span style={{ color: 'var(--green)' }}>⚡ {pins} Pins</span>
           </div>
         </div>
         <button
@@ -118,7 +120,7 @@ export function TeacherSelectScreen({
           style={{ padding: '12px 32px', fontSize: 14 }}
           id="btn-start-quest"
         >
-          Start Quest & Spend 5 Pins ➔
+          Start Quest & Spend {PIN_COSTS.quest?.cost ?? 20} Pins ➔
         </button>
       </div>
     </div>
@@ -132,6 +134,10 @@ interface CompletionScreenProps {
 }
 
 export function CompletionScreen({ quest, currentTeacher, category }: CompletionScreenProps) {
+  const authQuest = getAuthoritativeQuest(quest?.id);
+  const xpReward = authQuest?.xp ?? quest?.xp ?? (category === 'exam' ? 120 : 150);
+  const pinsReward = authQuest?.pins ?? quest?.pins ?? (category === 'exam' ? 6 : 5);
+
   return (
     <div style={{ maxWidth: 600, margin: '60px auto', padding: '40px 24px', textAlign: 'center' }} className="animate-fade-in">
       <div style={{
@@ -146,7 +152,7 @@ export function CompletionScreen({ quest, currentTeacher, category }: Completion
           Quest Completed!
         </h2>
         <p style={{ color: 'var(--t2)', fontSize: 14, lineHeight: 1.6, marginBottom: 28 }}>
-          Congratulations! You have completed the quest <strong style={{ color: 'var(--t1)' }}>"{quest.title}"</strong> under the guidance of <strong style={{ color: currentTeacher.color }}>{currentTeacher.name}</strong>.
+          Congratulations! You have completed the quest <strong style={{ color: 'var(--t1)' }}>"{quest?.title}"</strong> under the guidance of <strong style={{ color: currentTeacher.color }}>{currentTeacher.name}</strong>.
         </p>
 
         <div style={{
@@ -161,8 +167,8 @@ export function CompletionScreen({ quest, currentTeacher, category }: Completion
           fontSize: 13,
           fontWeight: 700
         }}>
-          <span style={{ color: 'var(--accent)' }}>⚡ +{category === 'exam' ? 50 : 30} XP</span>
-          <span style={{ color: 'var(--green)' }}>📌 +{category === 'exam' ? 25 : 10} Pins</span>
+          <span style={{ color: 'var(--accent)' }}>⚡ +{xpReward} XP</span>
+          <span style={{ color: 'var(--green)' }}>📌 +{pinsReward} Pins</span>
         </div>
 
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>

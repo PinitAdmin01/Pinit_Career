@@ -328,6 +328,11 @@ export default function PracticeTestQuizRunner({
   const [submitted, setSubmitted] = useState(false);
   const [showResults, setShowResults] = useState(false);
 
+  const handleAutoSubmit = useCallback(() => {
+    setSubmitted(true);
+    setShowResults(true);
+  }, []);
+
   // Countdown timer (20 minutes)
   useEffect(() => {
     if (submitted) return;
@@ -342,12 +347,7 @@ export default function PracticeTestQuizRunner({
       });
     }, 1000);
     return () => clearInterval(timer);
-  }, [submitted]);
-
-  const handleAutoSubmit = useCallback(() => {
-    setSubmitted(true);
-    setShowResults(true);
-  }, []);
+  }, [submitted, handleAutoSubmit]);
 
   const currentQuestion = questions[currentIndex];
   const currentAnswer = answers[currentQuestion.id] ?? null;

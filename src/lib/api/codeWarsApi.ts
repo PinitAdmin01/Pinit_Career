@@ -470,12 +470,14 @@ export class CodeWarsApiService {
     const { problemId, code } = params;
 
     let vmModule: any = null;
-    if (typeof process !== 'undefined' && process.versions?.node) {
+    if (typeof window === 'undefined' && typeof process !== 'undefined' && process.versions?.node) {
       try {
-        vmModule = (new Function('return require'))()('node:vm');
+        vmModule = await import('node:vm');
       } catch {
         try {
-          vmModule = (new Function('return require'))()('vm');
+          const { createRequire } = await import('node:module');
+          const req = createRequire(process.cwd() + '/package.json');
+          vmModule = req('node:vm');
         } catch {
           vmModule = null;
         }
@@ -653,12 +655,14 @@ export class CodeWarsApiService {
 
   static extractFunctionFromSandbox(jsCode: string, fnNames: string[]): Function | null {
     let vmModule: any = null;
-    if (typeof process !== 'undefined' && process.versions?.node) {
+    if (typeof window === 'undefined' && typeof process !== 'undefined' && process.versions?.node) {
       try {
-        vmModule = (new Function('return require'))()('node:vm');
+        const { createRequire } = require('node:module');
+        const req = createRequire(process.cwd() + '/package.json');
+        vmModule = req('node:vm');
       } catch {
         try {
-          vmModule = (new Function('return require'))()('vm');
+          vmModule = require('node:vm');
         } catch {
           vmModule = null;
         }
