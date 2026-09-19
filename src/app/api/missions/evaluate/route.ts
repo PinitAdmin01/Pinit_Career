@@ -1,15 +1,14 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
-import { MissionEvaluator, MissionSubmissionInput } from '@/lib/missions/missionEvaluator';
+import { MissionEvaluator } from '@/lib/missions/missionEvaluator';
 import { AiArchitectReviewer } from '@/lib/missions/aiArchitectReviewer';
 import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 
 export async function POST(req: Request) {
   try {
     const gated = await requireUserFromRequest(req);
-    if (gated.error) return gated.error;
-
-    const studentId = gated.user!.id;
+    const isGuest = Boolean(gated.error);
+    const studentId = gated.user?.id || 'guest_student';
     const body = await req.json().catch(() => ({}));
 
     const {
@@ -57,9 +56,9 @@ export async function POST(req: Request) {
       });
     }
 
-    // 3. Persist evidence record into Supabase if passed
-    const admin = getSupabaseAdmin();
-    if (evaluation.isPassed && evaluation.evidenceRecord) {
+    // 3. Persist evidence record into Supabase if passed and authenticated
+    if (evaluation.isPassed && evaluation.evidenceRecord && !isGuest) {
+      const admin = getSupabaseAdmin();
       const r = evaluation.evidenceRecord;
       try {
         await admin.from('competency_evidence_records').upsert({
@@ -89,9 +88,16 @@ export async function POST(req: Request) {
 
     return NextResponse.json({
       ok: true,
+      passed: evaluation.isPassed,
+      pinsAwarded: evaluation.isPassed ? (isGuest ? 0 : evaluation.pinsAwarded) : 0,
+      integrityHash: evaluation.evidenceRecord?.integrityHash,
       evaluation,
       architectReview,
-      message: evaluation.isPassed ? 'Mission passed and evidence verified.' : 'Mission needs revision.',
+      review: architectReview,
+      isGuest,
+      message: evaluation.isPassed
+        ? (isGuest ? 'Mission passed in sandbox! Sign in to claim your Pins and record verified evidence in your Vault.' : 'Mission passed and evidence verified.')
+        : 'Mission needs revision.',
     });
   } catch (err: any) {
     console.error('[Mission Evaluate Route Error]:', err);

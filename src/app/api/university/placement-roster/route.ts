@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
     // Query genuine students from users table
     const { data: users, error: usersError } = await admin
       .from('users')
-      .select('id, display_name, username, email, ats_score, trust_score, career_dna_score, target_role, register_number, college, recruiter_visibility, recruiter_visible');
+      .select('id, display_name, username, email, ats_score, trust_score, career_dna_score, target_role, register_number, recruiter_visibility, recruiter_visible');
 
     if (usersError) {
       console.error('[Placement Roster API] Supabase users query notice:', usersError.message);
