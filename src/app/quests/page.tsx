@@ -86,6 +86,8 @@ function QuestsPageContent() {
         <CareerGateModal
           node={prog.activeGateModalNode}
           onClose={() => prog.setActiveGateModalNode(null)}
+          completedQuests={prog.completedQuests}
+          COURSES_REGISTRY={prog.COURSES_REGISTRY}
         />
       )}
 

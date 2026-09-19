@@ -18,6 +18,26 @@ export interface CourseCompetencyMapping {
   }[];
 }
 
+export const COURSE_ID_ALIASES: Record<string, string> = {
+  'course-java': 'course-java-logic',
+  'course-python': 'course-python-backend',
+  'course-dsa': 'course-dsa-optim',
+  'course-database': 'course-database-eng',
+  'course-fullstack': 'course-fullstack-js',
+  'course-distributed': 'course-distributed-sys',
+  'course-devops': 'course-devops-cicd',
+  'course-ai': 'course-ai-eng',
+  'course-soft-skills': 'course-softskills-communication',
+  'course-fullstack-dev': 'course-fullstack-js',
+  'course-cloud-devops': 'course-cloud-native',
+  'course-data-science': 'course-database-eng',
+};
+
+export function normalizeCourseId(courseId: string): string {
+  if (!courseId) return courseId;
+  return COURSE_ID_ALIASES[courseId] || courseId;
+}
+
 export const COURSE_COMPETENCY_MATRIX: CourseCompetencyMapping[] = [
   {
     courseId: 'course-computer-fundamentals',
@@ -37,8 +57,8 @@ export const COURSE_COMPETENCY_MATRIX: CourseCompetencyMapping[] = [
     ],
   },
   {
-    courseId: 'course-java',
-    courseTitle: 'Java Master Course',
+    courseId: 'course-java-logic',
+    courseTitle: 'Java Fundamentals & Core Logic',
     primaryCompetencies: ['comp_java_syntax_oop_l1', 'comp_concurrency_threads_l2'],
     dayRangeToCompetency: [
       { startDay: 1, endDay: 15, competencyId: 'comp_java_syntax_oop_l1', evidenceClass: 'knowledge', difficulty: 'basic', familyPrefix: 'java_basics' },
@@ -47,8 +67,8 @@ export const COURSE_COMPETENCY_MATRIX: CourseCompetencyMapping[] = [
     ],
   },
   {
-    courseId: 'course-python',
-    courseTitle: 'Python Data & Scripting',
+    courseId: 'course-python-backend',
+    courseTitle: 'Python Programming & Backend Systems',
     primaryCompetencies: ['comp_python_syntax_data_l1'],
     dayRangeToCompetency: [
       { startDay: 1, endDay: 15, competencyId: 'comp_python_syntax_data_l1', evidenceClass: 'knowledge', difficulty: 'basic', familyPrefix: 'py_syntax' },
@@ -56,8 +76,8 @@ export const COURSE_COMPETENCY_MATRIX: CourseCompetencyMapping[] = [
     ],
   },
   {
-    courseId: 'course-dsa',
-    courseTitle: 'Data Structures & Algorithms',
+    courseId: 'course-dsa-optim',
+    courseTitle: 'Data Structures & Algorithmic Optimizations',
     primaryCompetencies: ['comp_dsa_linear_trees_l2'],
     dayRangeToCompetency: [
       { startDay: 1, endDay: 10, competencyId: 'comp_dsa_linear_trees_l2', evidenceClass: 'knowledge', difficulty: 'intermediate', familyPrefix: 'dsa_complexity' },
@@ -66,8 +86,8 @@ export const COURSE_COMPETENCY_MATRIX: CourseCompetencyMapping[] = [
     ],
   },
   {
-    courseId: 'course-database',
-    courseTitle: 'Database Systems & SQL',
+    courseId: 'course-database-eng',
+    courseTitle: 'Database Engineering & Query Performance',
     primaryCompetencies: ['comp_database_sql_internals_l3', 'comp_data_sql_analytics_l2'],
     dayRangeToCompetency: [
       { startDay: 1, endDay: 15, competencyId: 'comp_data_sql_analytics_l2', evidenceClass: 'application', difficulty: 'intermediate', familyPrefix: 'sql_queries' },
@@ -75,8 +95,8 @@ export const COURSE_COMPETENCY_MATRIX: CourseCompetencyMapping[] = [
     ],
   },
   {
-    courseId: 'course-fullstack',
-    courseTitle: 'Full-Stack Web Development',
+    courseId: 'course-fullstack-js',
+    courseTitle: 'Full-Stack JavaScript Engineering',
     primaryCompetencies: ['comp_backend_apis_frameworks_l3'],
     dayRangeToCompetency: [
       { startDay: 1, endDay: 15, competencyId: 'comp_backend_apis_frameworks_l3', evidenceClass: 'application', difficulty: 'advanced', familyPrefix: 'api_routes' },
@@ -84,8 +104,17 @@ export const COURSE_COMPETENCY_MATRIX: CourseCompetencyMapping[] = [
     ],
   },
   {
-    courseId: 'course-distributed',
-    courseTitle: 'Distributed Systems & Scalability',
+    courseId: 'course-react-web',
+    courseTitle: 'Full-Stack React Web Development',
+    primaryCompetencies: ['comp_backend_apis_frameworks_l3'],
+    dayRangeToCompetency: [
+      { startDay: 1, endDay: 15, competencyId: 'comp_backend_apis_frameworks_l3', evidenceClass: 'application', difficulty: 'intermediate', familyPrefix: 'react_state' },
+      { startDay: 16, endDay: 30, competencyId: 'comp_backend_apis_frameworks_l3', evidenceClass: 'production', difficulty: 'advanced', familyPrefix: 'react_saas' },
+    ],
+  },
+  {
+    courseId: 'course-distributed-sys',
+    courseTitle: 'High-Scale Distributed System Design',
     primaryCompetencies: ['comp_distributed_systems_caching_l4'],
     dayRangeToCompetency: [
       { startDay: 1, endDay: 15, competencyId: 'comp_distributed_systems_caching_l4', evidenceClass: 'architecture', difficulty: 'advanced', familyPrefix: 'dist_cache' },
@@ -93,12 +122,21 @@ export const COURSE_COMPETENCY_MATRIX: CourseCompetencyMapping[] = [
     ],
   },
   {
-    courseId: 'course-devops',
-    courseTitle: 'Cloud & DevOps Engineering',
+    courseId: 'course-devops-cicd',
+    courseTitle: 'DevOps & CI/CD Pipeline Automation',
     primaryCompetencies: ['comp_cicd_cloud_devops_l4'],
     dayRangeToCompetency: [
       { startDay: 1, endDay: 15, competencyId: 'comp_cicd_cloud_devops_l4', evidenceClass: 'application', difficulty: 'advanced', familyPrefix: 'docker_builds' },
       { startDay: 16, endDay: 30, competencyId: 'comp_cicd_cloud_devops_l4', evidenceClass: 'production', difficulty: 'advanced', familyPrefix: 'github_actions' },
+    ],
+  },
+  {
+    courseId: 'course-cloud-native',
+    courseTitle: 'Cloud Native Architectures (AWS)',
+    primaryCompetencies: ['comp_cicd_cloud_devops_l4'],
+    dayRangeToCompetency: [
+      { startDay: 1, endDay: 15, competencyId: 'comp_cicd_cloud_devops_l4', evidenceClass: 'application', difficulty: 'advanced', familyPrefix: 'aws_cloud' },
+      { startDay: 16, endDay: 30, competencyId: 'comp_cicd_cloud_devops_l4', evidenceClass: 'production', difficulty: 'advanced', familyPrefix: 'aws_deploy' },
     ],
   },
   {
@@ -118,8 +156,8 @@ export const COURSE_COMPETENCY_MATRIX: CourseCompetencyMapping[] = [
     ],
   },
   {
-    courseId: 'course-ai',
-    courseTitle: 'Artificial Intelligence & Neural Systems',
+    courseId: 'course-ai-eng',
+    courseTitle: 'AI Engineering & LLM Integration',
     primaryCompetencies: ['comp_ai_rag_vector_search_l3'],
     dayRangeToCompetency: [
       { startDay: 1, endDay: 15, competencyId: 'comp_ai_rag_vector_search_l3', evidenceClass: 'application', difficulty: 'advanced', familyPrefix: 'vector_indexing' },
@@ -127,11 +165,20 @@ export const COURSE_COMPETENCY_MATRIX: CourseCompetencyMapping[] = [
     ],
   },
   {
-    courseId: 'course-soft-skills',
+    courseId: 'course-softskills-communication',
     courseTitle: 'Executive Communication & Soft Skills',
     primaryCompetencies: ['comp_comm_star_interview_l2'],
     dayRangeToCompetency: [
       { startDay: 1, endDay: 30, competencyId: 'comp_comm_star_interview_l2', evidenceClass: 'defense', difficulty: 'intermediate', familyPrefix: 'star_behavioral' },
+    ],
+  },
+  {
+    courseId: 'course-business-analytics',
+    courseTitle: 'Business Analytics & Decision Intelligence',
+    primaryCompetencies: ['comp_data_sql_analytics_l2', 'comp_data_bi_dashboards_l3'],
+    dayRangeToCompetency: [
+      { startDay: 1, endDay: 15, competencyId: 'comp_data_sql_analytics_l2', evidenceClass: 'application', difficulty: 'intermediate', familyPrefix: 'biz_sql' },
+      { startDay: 16, endDay: 30, competencyId: 'comp_data_bi_dashboards_l3', evidenceClass: 'production', difficulty: 'advanced', familyPrefix: 'biz_bi' },
     ],
   },
 ];
@@ -140,7 +187,8 @@ export const COURSE_COMPETENCY_MATRIX: CourseCompetencyMapping[] = [
  * Resolves all competency IDs associated with a given course ID.
  */
 export function getCompetenciesForCourse(courseId: string): string[] {
-  const mapping = COURSE_COMPETENCY_MATRIX.find(m => m.courseId === courseId);
+  const normalizedId = normalizeCourseId(courseId);
+  const mapping = COURSE_COMPETENCY_MATRIX.find(m => m.courseId === normalizedId || m.courseId === courseId);
   if (!mapping) return [];
   const comps = new Set<string>([...mapping.primaryCompetencies, ...(mapping.secondaryCompetencies || [])]);
   return Array.from(comps);
@@ -164,7 +212,8 @@ export function mapQuestToCompetencyEvidence(courseId: string, dayNumber: number
   difficulty: EvidenceDifficulty;
   evidenceFamilyId: string;
 } | null {
-  const mapping = COURSE_COMPETENCY_MATRIX.find(m => m.courseId === courseId);
+  const normalizedId = normalizeCourseId(courseId);
+  const mapping = COURSE_COMPETENCY_MATRIX.find(m => m.courseId === normalizedId || m.courseId === courseId);
   if (!mapping) return null;
 
   const range = mapping.dayRangeToCompetency.find(r => dayNumber >= r.startDay && dayNumber <= r.endDay);
@@ -173,7 +222,7 @@ export function mapQuestToCompetencyEvidence(courseId: string, dayNumber: number
       competencyId: mapping.primaryCompetencies[0],
       evidenceClass: 'application',
       difficulty: 'basic',
-      evidenceFamilyId: `${courseId}_day_${dayNumber}`,
+      evidenceFamilyId: `${mapping.courseId}_day_${dayNumber}`,
     };
   }
 

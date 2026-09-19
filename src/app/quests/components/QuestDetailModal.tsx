@@ -3,16 +3,57 @@
 import React from 'react';
 import type { TrajectoryNode, CareerTrajectory } from '@/lib/data/careerTrajectories';
 import type { Course } from '@/lib/data/coursesData';
+import { COURSES_REGISTRY as DEFAULT_COURSES } from '@/lib/data/coursesData';
+import { useCareerOS } from '@/lib/context/CareerOSContext';
+import { QRCodeSVG } from 'qrcode.react';
 import { CourseNotesModal } from '@/components/CourseNotesModal';
 import { nextRoadmapNumber } from '@/lib/quests/extraRoadmaps';
 
 export interface CareerGateModalProps {
   node: TrajectoryNode | null;
   onClose: () => void;
+  completedQuests?: string[];
+  COURSES_REGISTRY?: Course[];
+  commScore?: number;
+  atsScore?: number;
+  isProjectVerified?: boolean;
 }
 
-export const CareerGateModal: React.FC<CareerGateModalProps> = ({ node, onClose }) => {
+export const CareerGateModal: React.FC<CareerGateModalProps> = ({
+  node,
+  onClose,
+  completedQuests,
+  COURSES_REGISTRY,
+  commScore,
+  atsScore,
+  isProjectVerified
+}) => {
+  const cOS = useCareerOS();
   if (!node) return null;
+
+  const effectiveCompletedQuests = completedQuests || cOS.completedQuests || [];
+  const courses = COURSES_REGISTRY || DEFAULT_COURSES;
+  const course = courses.find(c => c.id === node.courseId);
+  const totalQuests = course?.quests?.length || 0;
+  const clearedQuests = course?.quests?.filter(q => effectiveCompletedQuests.includes(q.id)).length || 0;
+  const actualCompletionPct = totalQuests > 0 ? Math.round((clearedQuests / totalQuests) * 100) : 0;
+  const requiredCompletionPct = node.gate?.minCourseCompletionPct ?? 100;
+  const isTechPassed = actualCompletionPct >= requiredCompletionPct;
+
+  const requiredCommScore = node.gate?.minCommunicationScore ?? 70;
+  const actualComm = commScore ?? (cOS.groupPanelPassed ? 85 : 0);
+  const isCommPassed = actualComm >= requiredCommScore;
+
+  const requiredAtsScore = node.gate?.minAtsScore ?? 80;
+  const actualAts = atsScore ?? (cOS.onboardingAnswers?.atsScore || cOS.onboardingAnswers?.ats_score || (cOS.resumeGenerated ? 75 : 0));
+  const isAtsPassed = actualAts >= requiredAtsScore;
+
+  const requiredCapstone = node.gate?.requireProjectVerification !== false;
+  const hasCapstonePassed = isProjectVerified ?? (cOS.javaTestPassed || (totalQuests > 0 && clearedQuests === totalQuests));
+  const isCapstonePassed = !requiredCapstone || hasCapstonePassed;
+
+  const isGateCleared = isTechPassed && isCommPassed && isAtsPassed && isCapstonePassed;
+
   return (
     <div style={{
       position: 'fixed', inset: 0, zIndex: 1000,
@@ -20,13 +61,19 @@ export const CareerGateModal: React.FC<CareerGateModalProps> = ({ node, onClose 
       display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24
     }}>
       <div style={{
-        maxWidth: 480, width: '100%', background: 'var(--bg2)',
-        border: '1px solid rgba(var(--warning-rgb),0.3)', borderRadius: 24, padding: 32,
+        maxWidth: 500, width: '100%', background: 'var(--bg2)',
+        border: `1px solid ${isGateCleared ? 'rgba(var(--success-rgb), 0.4)' : 'rgba(var(--warning-rgb), 0.4)'}`,
+        borderRadius: 24, padding: 32,
         boxShadow: '0 20px 50px rgba(0,0,0,0.5)'
       }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-          <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--amber)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-            🔒 Career Gate Audit Checkpoint
+          <span style={{
+            fontSize: 11, fontWeight: 800,
+            color: isGateCleared ? 'var(--green)' : 'var(--amber)',
+            textTransform: 'uppercase', letterSpacing: '0.5px',
+            display: 'flex', alignItems: 'center', gap: 6
+          }}>
+            {isGateCleared ? '✓ Career Gate Cleared' : '🔒 Career Gate Audit Checkpoint'}
           </span>
           <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 18, cursor: 'pointer' }}>✕</button>
         </div>
@@ -35,40 +82,75 @@ export const CareerGateModal: React.FC<CareerGateModalProps> = ({ node, onClose 
           {node.title} Readiness
         </h3>
         <p style={{ fontSize: 12.5, color: 'var(--t3)', lineHeight: 1.5, marginBottom: 20 }}>
-          Multi-dimensional gate check ensuring student possesses technical, soft skills, resume ATS, and code verification capabilities.
+          {isGateCleared
+            ? 'All prerequisite competency thresholds and project requirements have been verified.'
+            : 'Multi-dimensional gate check evaluating technical completion, communication lab, ATS score, and project verification against required standards.'}
         </p>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
+          {/* 1. Technical Quests */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', background: 'var(--bg3)', borderRadius: 12, fontSize: 13 }}>
-            <span>📚 Technical Quests Completion</span>
-            <span style={{ color: 'var(--green)', fontWeight: 800 }}>✓ 100% Passed</span>
+            <div>
+              <div style={{ fontWeight: 700, color: 'var(--t1)' }}>📚 Technical Quests Completion</div>
+              <div style={{ fontSize: 11, color: 'var(--t3)' }}>
+                {clearedQuests} of {totalQuests} quests completed (Required: {requiredCompletionPct}%)
+              </div>
+            </div>
+            <span style={{ color: isTechPassed ? 'var(--green)' : 'var(--danger)', fontWeight: 800 }}>
+              {isTechPassed ? `✓ ${actualCompletionPct}% Cleared` : `✗ ${actualCompletionPct}% (Pending)`}
+            </span>
           </div>
 
+          {/* 2. Soft Skills */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', background: 'var(--bg3)', borderRadius: 12, fontSize: 13 }}>
-            <span>🗣️ Soft Skills / Communication Lab</span>
-            <span style={{ color: 'var(--green)', fontWeight: 800 }}>✓ {node.gate?.minCommunicationScore || 70}% Cleared</span>
+            <div>
+              <div style={{ fontWeight: 700, color: 'var(--t1)' }}>🗣️ Soft Skills / Communication Lab</div>
+              <div style={{ fontSize: 11, color: 'var(--t3)' }}>
+                Required score: ≥ {requiredCommScore}%
+              </div>
+            </div>
+            <span style={{ color: isCommPassed ? 'var(--green)' : 'var(--danger)', fontWeight: 800 }}>
+              {isCommPassed ? `✓ ${actualComm}% Cleared` : (actualComm > 0 ? `✗ ${actualComm}% (Below ${requiredCommScore}%)` : `✗ Not Attempted`)}
+            </span>
           </div>
 
+          {/* 3. ATS Resume */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', background: 'var(--bg3)', borderRadius: 12, fontSize: 13 }}>
-            <span>📄 ATS Resume Match Score</span>
-            <span style={{ color: 'var(--green)', fontWeight: 800 }}>✓ {node.gate?.minAtsScore || 80}% Cleared</span>
+            <div>
+              <div style={{ fontWeight: 700, color: 'var(--t1)' }}>📄 ATS Resume Match Score</div>
+              <div style={{ fontSize: 11, color: 'var(--t3)' }}>
+                Target role threshold: ≥ {requiredAtsScore}%
+              </div>
+            </div>
+            <span style={{ color: isAtsPassed ? 'var(--green)' : 'var(--danger)', fontWeight: 800 }}>
+              {isAtsPassed ? `✓ ${actualAts}% Cleared` : (actualAts > 0 ? `✗ ${actualAts}% (Below ${requiredAtsScore}%)` : `✗ Resume Not Analyzed`)}
+            </span>
           </div>
 
+          {/* 4. Capstone */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', background: 'var(--bg3)', borderRadius: 12, fontSize: 13 }}>
-            <span>💻 Verified Capstone Project</span>
-            <span style={{ color: 'var(--green)', fontWeight: 800 }}>✓ Code Verified</span>
+            <div>
+              <div style={{ fontWeight: 700, color: 'var(--t1)' }}>💻 Verified Capstone Project</div>
+              <div style={{ fontSize: 11, color: 'var(--t3)' }}>
+                {requiredCapstone ? 'Requires automated code and integrity audit' : 'Optional for this stage'}
+              </div>
+            </div>
+            <span style={{ color: isCapstonePassed ? 'var(--green)' : 'var(--amber)', fontWeight: 800 }}>
+              {isCapstonePassed ? '✓ Code Verified' : '⏳ Verification Pending'}
+            </span>
           </div>
         </div>
 
         <button
           onClick={onClose}
           style={{
-            width: '100%', padding: '12px', background: 'var(--accent)',
+            width: '100%', padding: '12px',
+            background: isGateCleared ? 'var(--green)' : 'var(--accent)',
             border: 'none', borderRadius: 12, color: 'var(--text)', fontWeight: 800,
             fontSize: 13, cursor: 'pointer'
           }}
         >
-          Close Readiness Audit ➔
+          {isGateCleared ? 'Continue Journey ➔' : 'Close Readiness Audit ➔'}
         </button>
       </div>
     </div>
@@ -239,38 +321,21 @@ export const QrModal: React.FC<QrModalProps> = ({
           Recruiters and universities can scan this code to independently verify your SHA-256 evidence chain and oral viva defense.
         </p>
 
-        <div style={{ width: 180, height: 180, margin: '0 auto 20px auto', background: 'var(--text)', padding: 12, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 20px rgba(0,0,0,0.5)' }}>
-          <svg viewBox="0 0 100 100" style={{ width: '100%', height: '100%' }}>
-            <rect width="100" height="100" fill="#fff" />
-            <rect x="10" y="10" width="24" height="24" fill="#0f172a" />
-            <rect x="14" y="14" width="16" height="16" fill="#fff" />
-            <rect x="18" y="18" width="8" height="8" fill="#0f172a" />
-
-            <rect x="66" y="10" width="24" height="24" fill="#0f172a" />
-            <rect x="70" y="14" width="16" height="16" fill="#fff" />
-            <rect x="74" y="18" width="8" height="8" fill="#0f172a" />
-
-            <rect x="10" y="66" width="24" height="24" fill="#0f172a" />
-            <rect x="14" y="70" width="16" height="16" fill="#fff" />
-            <rect x="18" y="74" width="8" height="8" fill="#0f172a" />
-
-            <rect x="42" y="14" width="6" height="6" fill="#0f172a" />
-            <rect x="52" y="14" width="6" height="6" fill="#0f172a" />
-            <rect x="42" y="24" width="6" height="6" fill="#0f172a" />
-            <rect x="48" y="34" width="6" height="6" fill="#0f172a" />
-            <rect x="14" y="44" width="6" height="6" fill="#0f172a" />
-            <rect x="24" y="44" width="6" height="6" fill="#0f172a" />
-            <rect x="34" y="44" width="6" height="6" fill="#0f172a" />
-            <rect x="44" y="44" width="12" height="12" fill="var(--brand)" />
-            <rect x="64" y="44" width="6" height="6" fill="#0f172a" />
-            <rect x="74" y="44" width="6" height="6" fill="#0f172a" />
-            <rect x="42" y="64" width="6" height="6" fill="#0f172a" />
-            <rect x="52" y="64" width="6" height="6" fill="#0f172a" />
-            <rect x="64" y="74" width="6" height="6" fill="#0f172a" />
-            <rect x="74" y="74" width="6" height="6" fill="#0f172a" />
-            <rect x="80" y="80" width="6" height="6" fill="#0f172a" />
-          </svg>
-        </div>
+        {(() => {
+          const verifyUrl = typeof window !== 'undefined'
+            ? `${window.location.origin}/verify/${userId}`
+            : `https://careeros.pinit.in/verify/${userId}`;
+          return (
+            <div style={{ width: 180, height: 180, margin: '0 auto 20px auto', background: '#ffffff', padding: 12, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 20px rgba(0,0,0,0.5)' }}>
+              <QRCodeSVG
+                value={verifyUrl}
+                size={156}
+                level="H"
+                includeMargin={false}
+              />
+            </div>
+          );
+        })()}
 
         <div style={{ background: 'rgba(0,0,0,0.3)', padding: '8px 12px', borderRadius: 8, fontSize: 11, fontFamily: 'monospace', color: 'var(--info-bright)', wordBreak: 'break-all', marginBottom: 16 }}>
           {typeof window !== 'undefined' ? `${window.location.origin}/verify/${userId}` : `/verify/${userId}`}

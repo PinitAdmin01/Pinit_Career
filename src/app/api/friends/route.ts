@@ -1,3 +1,4 @@
+import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { getBearerToken } from '@/lib/server/requireAuth';
@@ -12,7 +13,7 @@ function getAdminClient() {
   });
 }
 
-async function resolveUserId(req: Request, admin: any): Promise<string> {
+async function resolveUserId(req: Request, admin: any): Promise<string | null> {
   const token = getBearerToken(req);
   if (token) {
     try {
@@ -20,12 +21,9 @@ async function resolveUserId(req: Request, admin: any): Promise<string> {
       if (data?.user?.id) return data.user.id;
     } catch {}
   }
-  // If no auth token, check if header has x-user-id or fallback to demo/first user
   const headerUserId = req.headers.get('x-user-id');
   if (headerUserId) return headerUserId;
-
-  const { data: firstUser } = await admin.from('users').select('id').limit(1).maybeSingle();
-  return firstUser?.id || 'eadc572e-443b-4f41-baa0-1f471d70a9aa';
+  return null;
 }
 
 export async function GET(req: NextRequest) {

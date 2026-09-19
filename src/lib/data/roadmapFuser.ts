@@ -2,6 +2,7 @@ import { COURSES_REGISTRY, CourseQuest } from './coursesData';
 import { recommendCareerTrajectory } from './careerTrajectories';
 import { mapQuestToCompetencyEvidence } from '../pathway/competencyMatrix';
 import { MasteryState } from '../pathway/competencySchema';
+import { parseQuestId } from './curriculumEnricher';
 
 export interface DynamicRoadmapParams {
   qt1?: number; // Technical Knowledge Score (0-100)
@@ -99,8 +100,9 @@ export function generateDynamicStudentRoadmap(params: DynamicRoadmapParams): Dyn
       personalizedHint = `🏆 Advanced Fast-Paced Mastery Check — ${q.hint || ''}`;
     }
 
-    // Attach Competency Mapping
-    const dayNumber = Math.floor(idx / 5) + 1;
+    // Attach Competency Mapping (authoritative day resolution: 3 quests per day)
+    const parsedDay = parseQuestId(q.id)?.dayNum;
+    const dayNumber = parsedDay ?? (Math.floor(idx / 3) + 1);
     const compMapping = mapQuestToCompetencyEvidence(courseId, dayNumber, q.id);
     const compTag = compMapping ? {
       competencyId: compMapping.competencyId,

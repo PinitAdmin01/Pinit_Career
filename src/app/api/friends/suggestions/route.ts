@@ -13,7 +13,7 @@ function getAdminClient() {
   });
 }
 
-async function resolveUserId(req: Request, admin: any): Promise<string> {
+async function resolveUserId(req: Request, admin: any): Promise<string | null> {
   const token = getBearerToken(req);
   if (token) {
     try {
@@ -23,7 +23,7 @@ async function resolveUserId(req: Request, admin: any): Promise<string> {
   }
   const headerUserId = req.headers.get('x-user-id');
   if (headerUserId) return headerUserId;
-  return 'eadc572e-443b-4f41-baa0-1f471d70a9aa';
+  return null;
 }
 
 export async function GET(req: NextRequest) {
@@ -35,17 +35,18 @@ export async function GET(req: NextRequest) {
     const search = (searchParams.get('q') || '').toLowerCase().trim();
 
     // 1. Get existing connections (accepted or pending) to exclude
-    const { data: connections } = await admin
-      .from('friendships')
-      .select('requester_id, addressee_id')
-      .or(`requester_id.eq.${userId},addressee_id.eq.${userId}`);
-
     const connectedIds = new Set<string>();
-    connectedIds.add(userId);
-    (connections || []).forEach(c => {
-      connectedIds.add(c.requester_id);
-      connectedIds.add(c.addressee_id);
-    });
+    if (userId) {
+      connectedIds.add(userId);
+      const { data: connections } = await admin
+        .from('friendships')
+        .select('requester_id, addressee_id')
+        .or('requester_id.eq.' + userId + ',addressee_id.eq.' + userId);
+      (connections || []).forEach((c: any) => {
+        if (c.requester_id) connectedIds.add(c.requester_id);
+        if (c.addressee_id) connectedIds.add(c.addressee_id);
+      });
+    }
 
     // 2. Fetch real users from Supabase users table
     const { data: users, error: uErr } = await admin

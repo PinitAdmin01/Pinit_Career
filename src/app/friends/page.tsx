@@ -362,28 +362,38 @@ export default function FriendsPage() {
             <>
               {/* Live Search Bar */}
               <div className="friends-live-search-box">
-                <span className="search-icon">🔍</span>
+                <svg className="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ position: 'absolute', left: 16, color: '#64748b', pointerEvents: 'none', zIndex: 2 }}>
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
                 <input
                   ref={searchInputRef}
                   type="text"
+                  className="friends-live-search-input"
                   placeholder="Find friends by name, college, skills (e.g. React, Python, UI/UX)..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
                 {searchQuery && (
                   <button
-                    className="clear-search-btn"
+                    className="friends-live-search-clear"
                     onClick={() => {
                       setSearchQuery('');
                       searchInputRef.current?.focus();
                     }}
                     title="Clear search"
                   >
-                    ✕
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="18" y1="6" x2="6" y2="18" />
+                      <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
                   </button>
                 )}
                 {isSearching && (
-                  <span style={{ fontSize: 12, color: '#818cf8', fontWeight: 600 }}>Searching...</span>
+                  <div style={{ position: 'absolute', right: searchQuery ? 46 : 16, display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <div style={{ width: 14, height: 14, border: '2px solid rgba(99, 102, 241, 0.25)', borderTopColor: '#818cf8', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
+                    <span style={{ fontSize: 11.5, color: '#818cf8', fontWeight: 600 }}>Searching...</span>
+                  </div>
                 )}
               </div>
 

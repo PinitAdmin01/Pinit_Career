@@ -122,7 +122,7 @@ export const CERTIFICATION_TRACKS = [
     duration: '9 Months (3 Quarters)',
     icon: '🚀',
     desc: 'Modern web architecture with React, Next.js, Node.js, and Cloud Deployment.',
-    courseId: 'course-fullstack-dev',
+    courseId: 'course-fullstack-js',
     quarters: [
       { q: 'Quarter 1', name: 'Frontend Engineering & React', quests: '90 Quests' },
       { q: 'Quarter 2', name: 'Backend Services & Databases', quests: '90 Quests' },
@@ -135,7 +135,7 @@ export const CERTIFICATION_TRACKS = [
     duration: '24 Months (8 Quarters)',
     icon: '☁️',
     desc: 'Advanced distributed systems, Kubernetes orchestration, LLM engineering, and SRE operations.',
-    courseId: 'course-cloud-devops',
+    courseId: 'course-cloud-native',
     quarters: [
       { q: 'Year 1', name: 'Cloud Infrastructure & Microservices', quests: '180 Quests' },
       { q: 'Year 2', name: 'Distributed Systems & Applied AI', quests: '180 Quests' }
@@ -147,7 +147,7 @@ export const CERTIFICATION_TRACKS = [
     duration: '6 Months (2 Quarters)',
     icon: '📊',
     desc: 'Data pipelines, Apache Spark, SQL optimization, and feature stores.',
-    courseId: 'course-data-science',
+    courseId: 'course-database-eng',
     quarters: [
       { q: 'Quarter 1', name: 'Data Pipelines & Warehousing', quests: '90 Quests' },
       { q: 'Quarter 2', name: 'Real-time Streaming & ML Ops', quests: '90 Quests' }
@@ -662,40 +662,31 @@ export function useQuestProgression() {
       const directCourse = COURSES_REGISTRY.find(c => c.id === targetCourseId) || COURSES_REGISTRY[0];
       if (directCourse && directCourse.quests && directCourse.quests.length > 0) {
         const questsPerModule = Math.ceil(directCourse.quests.length / 4);
-        const directModules: Module[] = [
-          {
-            id: `${directCourse.id}-mod-1`,
-            title: `${directCourse.title} — Stage 1: Zero Basics & Syntax`,
-            desc: `Fundamental syntax, variables, terminal I/O, and control flow for ${directCourse.title}.`,
-            difficulty: 'Beginner',
-            estimatedWeeks: 1,
-            quests: directCourse.quests.slice(0, questsPerModule) as Quest[]
-          },
-          {
-            id: `${directCourse.id}-mod-2`,
-            title: `${directCourse.title} — Stage 2: Methods & Data Structures`,
-            desc: `Methods, 1D & 2D arrays, string immutability, and algorithmic search.`,
-            difficulty: 'Intermediate',
-            estimatedWeeks: 1,
-            quests: directCourse.quests.slice(questsPerModule, questsPerModule * 2) as Quest[]
-          },
-          {
-            id: `${directCourse.id}-mod-3`,
-            title: `${directCourse.title} — Stage 3: Object-Oriented Architecture`,
-            desc: `Classes, constructors, encapsulation, inheritance, polymorphism, and interfaces.`,
-            difficulty: 'Intermediate',
-            estimatedWeeks: 1,
-            quests: directCourse.quests.slice(questsPerModule * 2, questsPerModule * 3) as Quest[]
-          },
-          {
-            id: `${directCourse.id}-mod-4`,
-            title: `${directCourse.title} — Stage 4: Enterprise Systems & Capstone`,
-            desc: `Exceptions, collections framework, multi-threading, file persistence, and capstone project.`,
-            difficulty: 'Advanced',
-            estimatedWeeks: 1,
-            quests: directCourse.quests.slice(questsPerModule * 3) as Quest[]
-          }
+        const stageThemes = [
+          { name: 'Core Foundations & Syntax', diff: 'Beginner' as const },
+          { name: 'Application & Core Workflows', diff: 'Intermediate' as const },
+          { name: 'Advanced Systems & Architecture', diff: 'Intermediate' as const },
+          { name: 'Production Mastery & Capstone', diff: 'Advanced' as const },
         ];
+        const directModules: Module[] = [0, 1, 2, 3].map(stageIdx => {
+          const start = stageIdx * questsPerModule;
+          const end = Math.min((stageIdx + 1) * questsPerModule, directCourse.quests.length);
+          const stageQuests = directCourse.quests.slice(start, end) as Quest[];
+          const cleanTopics = stageQuests
+            .map(q => q.title.replace(/^Day \d+[:\s-]*/i, '').replace(/Challenge:?\s*/i, '').replace(/Assignment:?\s*/i, '').trim())
+            .filter((t, i, arr) => t.length > 0 && arr.indexOf(t) === i)
+            .slice(0, 3);
+          const topicStr = cleanTopics.length > 0 ? cleanTopics.join(', ') : (directCourse.desc || directCourse.title);
+          const theme = stageThemes[stageIdx];
+          return {
+            id: `${directCourse.id}-mod-${stageIdx + 1}`,
+            title: `${directCourse.title} — Stage ${stageIdx + 1}: ${theme.name}`,
+            desc: `Master ${directCourse.title} concepts for Stage ${stageIdx + 1}: ${topicStr}. Practical hands-on challenges and rigorous test suites.`,
+            difficulty: theme.diff,
+            estimatedWeeks: 1,
+            quests: stageQuests
+          };
+        });
         setModules(directModules);
         if (!roadmapGenerated) setRoadmapGenerated(true);
         return;

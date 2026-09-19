@@ -72,7 +72,7 @@ export const CAREER_PROGRAMS_CATALOG: CareerProgram[] = [
         title: 'Semester 1 (Months 1-6): Core Full-Stack Systems, Concurrency & DSA Progression',
         durationMonths: 6,
         stageLevel: 'L3',
-        courseModuleIds: ['course-java', 'course-dsa', 'course-database', 'course-fullstack'],
+        courseModuleIds: ['course-java-logic', 'course-dsa-optim', 'course-database-eng', 'course-fullstack-js'],
         milestoneCredentialId: 'cert_swe_fasttrack_core_l3',
         problemSolvingThread: {
           topic: 'Applied Algorithmic Complexity & Data Structures',
@@ -92,7 +92,7 @@ export const CAREER_PROGRAMS_CATALOG: CareerProgram[] = [
         title: 'Semester 2 (Months 7-9 / 12 Weeks): Industry Simulation Residency & Oral Capstone',
         durationMonths: 3,
         stageLevel: 'L5',
-        courseModuleIds: ['course-distributed', 'course-devops', 'course-soft-skills'],
+        courseModuleIds: ['course-distributed-sys', 'course-devops-cicd', 'course-softskills-communication'],
         milestoneCredentialId: 'cert_swe_certified_professional_l5',
         residencyConfig: {
           durationWeeks: 12,
@@ -136,7 +136,7 @@ export const CAREER_PROGRAMS_CATALOG: CareerProgram[] = [
         title: 'Semester 1 (Months 1-5): Universal Foundations, DSA & Concurrency',
         durationMonths: 5,
         stageLevel: 'L2',
-        courseModuleIds: ['course-1', 'course-2', 'course-3', 'course-4'],
+        courseModuleIds: ['course-computer-fundamentals', 'course-git-version-control', 'course-java-logic', 'course-dsa-optim'],
         milestoneCredentialId: 'cert_swe_foundations_l2',
         requiredCompetencies: [
           { competencyId: 'comp_comp_fundamentals_l0', requiredState: 'demonstrated', minScore: 70 },
@@ -150,7 +150,7 @@ export const CAREER_PROGRAMS_CATALOG: CareerProgram[] = [
         title: 'Semester 2 (Months 6-9): Backend Frameworks, SQL Internals & CI/CD',
         durationMonths: 4,
         stageLevel: 'L4',
-        courseModuleIds: ['course-5', 'course-6', 'course-7'],
+        courseModuleIds: ['course-database-eng', 'course-fullstack-js', 'course-devops-cicd'],
         milestoneCredentialId: 'cert_swe_specialization_l3',
         requiredCompetencies: [
           { competencyId: 'comp_concurrency_threads_l2', requiredState: 'demonstrated', minScore: 75 },
@@ -164,7 +164,7 @@ export const CAREER_PROGRAMS_CATALOG: CareerProgram[] = [
         title: 'Semester 3 (Months 10-12 / 12 Weeks): 12-Week Industry Simulation Residency & Capstone',
         durationMonths: 3,
         stageLevel: 'L5',
-        courseModuleIds: ['course-8', 'course-9'],
+        courseModuleIds: ['course-distributed-sys', 'course-softskills-communication'],
         milestoneCredentialId: 'cert_swe_certified_professional_l5',
         requiredCompetencies: [
           { competencyId: 'comp_production_engineering_residency_l5', requiredState: 'verified', minScore: 80 },
@@ -199,7 +199,7 @@ export const CAREER_PROGRAMS_CATALOG: CareerProgram[] = [
         title: 'Semester 1: Universal Foundations & Core Syntax',
         durationMonths: 4,
         stageLevel: 'L1',
-        courseModuleIds: ['course-1', 'course-2', 'course-3'],
+        courseModuleIds: ['course-computer-fundamentals', 'course-git-version-control', 'course-java-logic'],
         milestoneCredentialId: 'cert_swe_foundations_l1',
         requiredCompetencies: [
           { competencyId: 'comp_comp_fundamentals_l0', requiredState: 'demonstrated', minScore: 70 },
@@ -212,7 +212,7 @@ export const CAREER_PROGRAMS_CATALOG: CareerProgram[] = [
         title: 'Semester 2: Data Structures, Concurrency & Backend Services',
         durationMonths: 5,
         stageLevel: 'L2',
-        courseModuleIds: ['course-4', 'course-5', 'course-6'],
+        courseModuleIds: ['course-dsa-optim', 'course-database-eng', 'course-fullstack-js'],
         milestoneCredentialId: 'cert_swe_core_readiness_l2',
         requiredCompetencies: [
           { competencyId: 'comp_dsa_linear_trees_l2', requiredState: 'demonstrated', minScore: 75 },
@@ -226,7 +226,7 @@ export const CAREER_PROGRAMS_CATALOG: CareerProgram[] = [
         title: 'Semester 3: Distributed Architecture, Cloud & CI/CD',
         durationMonths: 5,
         stageLevel: 'L3',
-        courseModuleIds: ['course-7', 'course-8', 'course-9'],
+        courseModuleIds: ['course-distributed-sys', 'course-devops-cicd', 'course-softskills-communication'],
         milestoneCredentialId: 'cert_swe_specialization_l3',
         requiredCompetencies: [
           { competencyId: 'comp_distributed_systems_caching_l4', requiredState: 'verified', minScore: 75 },
@@ -239,7 +239,7 @@ export const CAREER_PROGRAMS_CATALOG: CareerProgram[] = [
         title: 'Semester 4: 12-Week Industry Residency, Advanced Specialization & Junior Mentoring',
         durationMonths: 6,
         stageLevel: 'L5',
-        courseModuleIds: ['course-10', 'course-11'],
+        courseModuleIds: ['course-ai-eng', 'course-cloud-native'],
         milestoneCredentialId: 'cert_swe_certified_professional_l5',
         requiredCompetencies: [
           { competencyId: 'comp_production_engineering_residency_l5', requiredState: 'verified', minScore: 80 },
@@ -273,7 +273,7 @@ export const CAREER_PROGRAMS_CATALOG: CareerProgram[] = [
         title: 'Semester 1: Quantitative Logic & Spreadsheet Modeling',
         durationMonths: 4,
         stageLevel: 'L1',
-        courseModuleIds: ['course-12', 'course-13'],
+        courseModuleIds: ['course-computer-fundamentals', 'course-excel-data-viz'],
         milestoneCredentialId: 'cert_data_foundations_l1',
         requiredCompetencies: [
           { competencyId: 'comp_comp_fundamentals_l0', requiredState: 'demonstrated', minScore: 70 },
@@ -285,7 +285,7 @@ export const CAREER_PROGRAMS_CATALOG: CareerProgram[] = [
         title: 'Semester 2: SQL Window Functions & Statistical Analytics',
         durationMonths: 4,
         stageLevel: 'L2',
-        courseModuleIds: ['course-14', 'course-15'],
+        courseModuleIds: ['course-database-eng', 'course-python-backend'],
         milestoneCredentialId: 'cert_data_analyst_l2',
         requiredCompetencies: [
           { competencyId: 'comp_data_sql_analytics_l2', requiredState: 'demonstrated', minScore: 80 },
@@ -297,7 +297,7 @@ export const CAREER_PROGRAMS_CATALOG: CareerProgram[] = [
         title: 'Semester 3: BI Dashboards & Enterprise Analytics Residency',
         durationMonths: 4,
         stageLevel: 'L3',
-        courseModuleIds: ['course-16'],
+        courseModuleIds: ['course-business-analytics', 'course-softskills-communication'],
         milestoneCredentialId: 'cert_data_bi_pro_l3',
         requiredCompetencies: [
           { competencyId: 'comp_data_bi_dashboards_l3', requiredState: 'verified', minScore: 80 },
