@@ -12,7 +12,7 @@ export async function executePythonJudgeSuite(
   // 1. In browser environments: prioritize Pyodide WebAssembly for zero server footprint & complete isolation
   if (typeof window !== 'undefined') {
     try {
-      return await executePythonSuite(code, 'solution', testCases, timeoutMs);
+      return await executePythonSuite(code, 'solution', testCases, timeoutMs, testSuite);
     } catch (e: any) {
       return {
         language: 'python',

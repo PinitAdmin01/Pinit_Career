@@ -11,7 +11,7 @@
 // connect-src in BOTH files, then run `npm run audit:headers` to confirm.
 const CSP = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' 'unsafe-eval' https://*.supabase.co https://checkout.razorpay.com https://*.razorpay.com",
+  "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' 'unsafe-eval' https://*.supabase.co https://checkout.razorpay.com https://*.razorpay.com https://cdn.jsdelivr.net",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com data:",
   "img-src 'self' data: blob: https://*.supabase.co https://api.dicebear.com https://avatars.githubusercontent.com https://images.unsplash.com",
@@ -37,6 +37,7 @@ const CSP = [
     'https://pinit-voice-service.onrender.com',
     'https://pinit-backend-v8pd.onrender.com',
     'https://api.github.com',
+    'https://cdn.jsdelivr.net',
   ].join(' '),
   "frame-src 'self' https://api.razorpay.com https://checkout.razorpay.com https://*.razorpay.com",
   "frame-ancestors 'self'",
@@ -109,6 +110,8 @@ const nextConfig = {
         'onnxruntime-node$':  false,
         fs: false,
         path: false,
+        child_process: false,
+        os: false,
       };
       config.optimization.splitChunks = {
         ...config.optimization.splitChunks,

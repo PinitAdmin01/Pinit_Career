@@ -25,7 +25,7 @@ export interface MissionSubmissionInput {
   programId?: string;
   competencyId: string;
   codeSubmission: string;
-  unitTestResults?: UnitTestSummary;
+  unitTestResults?: UnitTestSummary | any[];
   attemptCount: number;
   githubRepoUrl?: string;
   commitSha?: string;
@@ -70,6 +70,17 @@ export class MissionEvaluator {
     const failingStackTraces: string[] = [];
     const now = Date.now();
 
+    const summary: UnitTestSummary | null = Array.isArray(unitTestResults)
+      ? {
+          totalTests: unitTestResults.length,
+          passedTests: unitTestResults.filter((t: any) => t.passed === true).length,
+          failedTests: unitTestResults.filter((t: any) => t.passed === false).length,
+          failureOutputs: unitTestResults
+            .filter((t: any) => !t.passed && (t.error || t.actualOutput))
+            .map((t: any) => t.error || `Expected: ${t.expectedOutput}, Actual: ${t.actualOutput}`),
+        }
+      : (unitTestResults || null);
+
     // 1. Basic Static Sanity & Anti-Empty Submission Check
     if (!codeSubmission || codeSubmission.trim().length < 20) {
       return {
@@ -77,7 +88,7 @@ export class MissionEvaluator {
         isPassed: false,
         score: 0,
         passedTests: 0,
-        totalTests: unitTestResults?.totalTests || 1,
+        totalTests: summary?.totalTests || 1,
         pinsAwarded: 0,
         failingStackTraces: ['Empty or stub submission: submission must contain valid source code.'],
         evaluationSummary: 'Mission rejected: Code payload is too short or empty.',
@@ -95,13 +106,13 @@ export class MissionEvaluator {
     let totalCount = 1;
     let isPassed = false;
 
-    if (unitTestResults) {
-      totalCount = Math.max(1, unitTestResults.totalTests);
-      passedCount = unitTestResults.passedTests || 0;
-      const failedCount = unitTestResults.failedTests || 0;
+    if (summary) {
+      totalCount = Math.max(1, summary.totalTests);
+      passedCount = summary.passedTests || 0;
+      const failedCount = summary.failedTests || 0;
 
-      if (unitTestResults.failureOutputs && unitTestResults.failureOutputs.length > 0) {
-        failingStackTraces.push(...unitTestResults.failureOutputs);
+      if (summary.failureOutputs && summary.failureOutputs.length > 0) {
+        failingStackTraces.push(...summary.failureOutputs);
       }
 
       isPassed = failedCount === 0 && passedCount === totalCount && totalCount > 0;

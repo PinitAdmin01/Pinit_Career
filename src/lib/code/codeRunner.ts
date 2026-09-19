@@ -56,7 +56,7 @@ export async function runTestSuite(
       return executePythonJudgeSuite(code, (options as any)?.testSuite, testCases, timeoutMs);
 
     case 'sql':
-      return executeSqlSuite(code, options?.sqlConfig || { query: code }, timeoutMs);
+      return executeSqlSuite(code, options?.sqlConfig || { query: code }, timeoutMs, (options as any)?.testSuite);
 
     case 'java':
       return executeJavaJudgeSuite(code, (options as any)?.testSuite, testCases, timeoutMs, options?.questId, options?.xp);

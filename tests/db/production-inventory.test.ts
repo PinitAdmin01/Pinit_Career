@@ -13,7 +13,10 @@ const inventorySql = () => fs.readFileSync(INVENTORY_PATH, 'utf8');
 
 test('the committed inventory query matches the current SQL files (regenerate it if this fails)', async () => {
   const { expected, filesWithoutNewObjects } = await collectExpectedObjects();
-  assert.equal(inventorySql(), renderInventorySql(expected, filesWithoutNewObjects));
+  assert.equal(
+    inventorySql().replace(/\r\n/g, '\n').trim(),
+    renderInventorySql(expected, filesWithoutNewObjects).replace(/\r\n/g, '\n').trim()
+  );
 });
 
 test('on a fully built database every file is reported as applied', async () => {

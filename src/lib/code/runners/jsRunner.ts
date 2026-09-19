@@ -58,9 +58,21 @@ function executeNodeVmSuite(
   timeoutMs: number = 3000
 ): SuiteExecutionResult {
   const startTime = Date.now();
-  const casesToRun: TestCase[] = testCases.length > 0
-    ? testCases
-    : [{ input: '[]', output: 'true', name: 'Default Verification' }];
+  if (!testCases || testCases.length === 0) {
+    return {
+      language: 'javascript',
+      totalTests: 1,
+      passedTests: 0,
+      failedTests: 1,
+      allPassed: false,
+      status: 'RUNTIME_ERROR',
+      totalDurationMs: 0,
+      terminalLogs: ['[ERROR] No test cases provided for JavaScript verification. Fail-closed.'],
+      testOutcomes: [],
+      error: 'No test cases provided for JavaScript verification.'
+    };
+  }
+  const casesToRun: TestCase[] = testCases;
 
   let vmModule: any = null;
   if (typeof window === 'undefined') {
@@ -241,9 +253,21 @@ export async function executeJavaScriptSuite(
   testCases: TestCase[] = [],
   timeoutMs: number = 4000
 ): Promise<SuiteExecutionResult> {
-  const casesToRun: TestCase[] = testCases.length > 0
-    ? testCases
-    : [{ input: '[]', output: 'true', name: 'Default Verification' }];
+  if (!testCases || testCases.length === 0) {
+    return {
+      language: 'javascript',
+      totalTests: 1,
+      passedTests: 0,
+      failedTests: 1,
+      allPassed: false,
+      status: 'RUNTIME_ERROR',
+      totalDurationMs: 0,
+      terminalLogs: ['[ERROR] No test cases provided for JavaScript verification. Fail-closed.'],
+      testOutcomes: [],
+      error: 'No test cases provided for JavaScript verification.'
+    };
+  }
+  const casesToRun: TestCase[] = testCases;
 
   // 1. Browser DOM environment: use two-layer sandbox (Opaque iframe + Dedicated Web Worker)
   if (typeof window !== 'undefined' && typeof document !== 'undefined') {

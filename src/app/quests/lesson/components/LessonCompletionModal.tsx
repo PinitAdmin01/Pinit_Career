@@ -1,17 +1,27 @@
 import React from 'react';
 import { ConfettiParticle } from '../hooks/useLessonState';
+import { getAuthoritativeQuest } from '@/lib/quests/questRegistry';
 
 interface LessonCompletionModalProps {
   examPassed: boolean;
   confettiParticles: ConfettiParticle[];
   finishLessonAndReturn: () => void;
+  questId?: string;
+  xp?: number;
+  pins?: number;
 }
 
 export function LessonCompletionModal({
   examPassed,
   confettiParticles,
   finishLessonAndReturn,
+  questId,
+  xp,
+  pins,
 }: LessonCompletionModalProps) {
+  const authQuest = questId ? getAuthoritativeQuest(questId) : null;
+  const displayXp = xp ?? authQuest?.xp ?? 150;
+  const displayPins = pins ?? authQuest?.pins ?? 5;
   return (
     <>
       {/* Confetti Visual overlay */}
@@ -92,7 +102,7 @@ export function LessonCompletionModal({
                 textAlign: 'center'
               }}>
                 <div style={{ fontSize: 10, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>XP Earned</div>
-                <div style={{ fontSize: 18, fontWeight: 900, color: 'var(--green)', marginTop: 2 }}>+150 XP</div>
+                <div style={{ fontSize: 18, fontWeight: 900, color: 'var(--green)', marginTop: 2 }}>+{displayXp} XP</div>
               </div>
               <div style={{
                 flex: 1,
@@ -103,7 +113,7 @@ export function LessonCompletionModal({
                 textAlign: 'center'
               }}>
                 <div style={{ fontSize: 10, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>Pins Bonus</div>
-                <div style={{ fontSize: 18, fontWeight: 900, color: '#eab308', marginTop: 2 }}>+5 Pins</div>
+                <div style={{ fontSize: 18, fontWeight: 900, color: '#eab308', marginTop: 2 }}>+{displayPins} Pins</div>
               </div>
             </div>
 

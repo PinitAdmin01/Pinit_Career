@@ -103,6 +103,7 @@ async function runSubBatch23Tests() {
     const db = new PGlite();
     await db.exec(`
       CREATE SCHEMA IF NOT EXISTS auth;
+      CREATE OR REPLACE FUNCTION auth.uid() RETURNS UUID AS $$ BEGIN RETURN NULLIF(current_setting('request.jwt.claim.sub', true), '')::UUID; END; $$ LANGUAGE plpgsql;
       CREATE TABLE IF NOT EXISTS public.users (
         id UUID PRIMARY KEY,
         email TEXT,
@@ -307,6 +308,7 @@ async function runSubBatch23Tests() {
     // 1. Setup tables
     await db.exec(`
       CREATE SCHEMA IF NOT EXISTS auth;
+      CREATE OR REPLACE FUNCTION auth.uid() RETURNS UUID AS $$ BEGIN RETURN NULLIF(current_setting('request.jwt.claim.sub', true), '')::UUID; END; $$ LANGUAGE plpgsql;
       CREATE TABLE IF NOT EXISTS public.users (
         id UUID PRIMARY KEY,
         pins INTEGER DEFAULT 120
@@ -498,6 +500,7 @@ async function runSubBatch23Tests() {
     const db = new PGlite();
     await db.exec(`
       CREATE SCHEMA IF NOT EXISTS auth;
+      CREATE OR REPLACE FUNCTION auth.uid() RETURNS UUID AS $$ BEGIN RETURN NULLIF(current_setting('request.jwt.claim.sub', true), '')::UUID; END; $$ LANGUAGE plpgsql;
       CREATE TABLE IF NOT EXISTS public.users (
         id UUID PRIMARY KEY,
         pins INTEGER DEFAULT 120

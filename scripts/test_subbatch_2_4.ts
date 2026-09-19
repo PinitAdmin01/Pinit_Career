@@ -108,6 +108,10 @@ async function runSubBatch24Tests() {
 
     // 2.3 Verify database procedure and anti-replay in PGlite
     const db = new PGlite();
+    await db.exec(`
+      CREATE SCHEMA IF NOT EXISTS auth;
+      CREATE OR REPLACE FUNCTION auth.uid() RETURNS UUID AS $$ BEGIN RETURN NULLIF(current_setting('request.jwt.claim.sub', true), '')::UUID; END; $$ LANGUAGE plpgsql;
+    `);
     const migrationFile = path.join(
       process.cwd(),
       'supabase',
@@ -269,6 +273,10 @@ async function runSubBatch24Tests() {
 
     // 4.2 Verify database procedure and daily cap in PGlite
     const db = new PGlite();
+    await db.exec(`
+      CREATE SCHEMA IF NOT EXISTS auth;
+      CREATE OR REPLACE FUNCTION auth.uid() RETURNS UUID AS $$ BEGIN RETURN NULLIF(current_setting('request.jwt.claim.sub', true), '')::UUID; END; $$ LANGUAGE plpgsql;
+    `);
     const migrationFile = path.join(
       process.cwd(),
       'supabase',

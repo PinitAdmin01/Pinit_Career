@@ -221,7 +221,19 @@ with expected(ord, file, kind, name) as (
     (31, 'supabase/migrations/20260922_arena_pvp_rooms.sql', 'table', 'public.arena_rooms'),
     (31, 'supabase/migrations/20260922_arena_pvp_rooms.sql', 'column', 'public.users.arena_elo'),
     (31, 'supabase/migrations/20260922_arena_pvp_rooms.sql', 'column', 'public.users.arena_losses'),
-    (31, 'supabase/migrations/20260922_arena_pvp_rooms.sql', 'column', 'public.users.arena_wins')
+    (31, 'supabase/migrations/20260922_arena_pvp_rooms.sql', 'column', 'public.users.arena_wins'),
+    (32, 'supabase/migrations/20260923_direct_messages_unified_schema_and_rls.sql', 'column', 'public.direct_messages.read'),
+    (32, 'supabase/migrations/20260923_direct_messages_unified_schema_and_rls.sql', 'column', 'public.direct_messages.receiver_name'),
+    (32, 'supabase/migrations/20260923_direct_messages_unified_schema_and_rls.sql', 'function', 'public.sync_direct_messages_columns'),
+    (33, 'supabase/migrations/20260924_notifications_unified_schema_and_rls.sql', 'column', 'public.notifications.read'),
+    (33, 'supabase/migrations/20260924_notifications_unified_schema_and_rls.sql', 'column', 'public.notifications.sender_id'),
+    (33, 'supabase/migrations/20260924_notifications_unified_schema_and_rls.sql', 'function', 'public.sync_notifications_read_column'),
+    (34, 'supabase/migrations/20260924_user_crash_enrollments_and_wallet_schema.sql', 'function', 'public.get_student_pin_wallet'),
+    (34, 'supabase/migrations/20260924_user_crash_enrollments_and_wallet_schema.sql', 'function', 'public.set_updated_at_timestamp'),
+    (34, 'supabase/migrations/20260924_user_crash_enrollments_and_wallet_schema.sql', 'table', 'public.user_crash_enrollments'),
+    (35, 'supabase/migrations/20260925_portal_real_data_and_permissions.sql', 'function', 'public.is_linked_parent'),
+    (35, 'supabase/migrations/20260925_portal_real_data_and_permissions.sql', 'table', 'public.parent_student_links'),
+    (35, 'supabase/migrations/20260925_portal_real_data_and_permissions.sql', 'table', 'public.recruiter_interactions')
 ),
 checked as (
   select e.ord, e.file, e.name,

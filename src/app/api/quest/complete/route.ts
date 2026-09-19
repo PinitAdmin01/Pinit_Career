@@ -47,7 +47,7 @@ export async function POST(req: Request) {
     // Step 1: Fetch user profile
     const { data: profile, error: fetchErr } = await supabase
       .from('users')
-      .select('id, completed_quests, xp_total, onboarding_answers')
+      .select('id, completed_quests, xp_total, onboarding_answers, pins')
       .eq('id', userId)
       .single();
 
@@ -62,6 +62,7 @@ export async function POST(req: Request) {
         alreadyCompleted: true,
         completedQuests: currentCompleted,
         xpTotal: profile.xp_total || 0,
+        pinsTotal: profile.pins || 0,
       });
     }
 
@@ -91,8 +92,10 @@ export async function POST(req: Request) {
       );
     }
 
-    // Step 3: Atomic write with clamped XP
+    // Step 3: Atomic write with clamped XP and Pins
+    const safePins = registeredQuest.pins || (isExam ? 6 : 5);
     let nextXp = (profile.xp_total || 0) + safeXp;
+    let nextPins = (profile.pins || 0) + safePins;
 
     // Try authoritative increment_xp RPC first if available
     try {
@@ -103,6 +106,21 @@ export async function POST(req: Request) {
       });
       if (!rpcErr && rpcRes?.ok && typeof rpcRes.new_xp === 'number') {
         nextXp = rpcRes.new_xp;
+      }
+    } catch {
+      // Graceful fallback to direct calculation
+    }
+
+    // Try authoritative credit_pins RPC if available
+    try {
+      const { data: rpcPins, error: rpcPinsErr } = await supabase.rpc('credit_pins', {
+        p_user_id: userId,
+        p_amount: safePins,
+        p_reason: `quest:${questId}`,
+        p_source: isExam ? 'exam_pass' : 'mission_complete',
+      });
+      if (!rpcPinsErr && rpcPins?.ok && typeof rpcPins.new_balance === 'number') {
+        nextPins = rpcPins.new_balance;
       }
     } catch {
       // Graceful fallback to direct calculation
@@ -121,6 +139,7 @@ export async function POST(req: Request) {
       .update({
         completed_quests: nextCompleted,
         xp_total: nextXp,
+        pins: nextPins,
         onboarding_answers: nextAnswers,
       })
       .eq('id', userId);
@@ -133,6 +152,8 @@ export async function POST(req: Request) {
       ok: true,
       completedQuests: nextCompleted,
       xpTotal: nextXp,
+      pinsTotal: nextPins,
+      pinsAwarded: safePins,
       dailyCompletionsCount: todayCompletions.length + 1,
     });
   } catch (err: any) {

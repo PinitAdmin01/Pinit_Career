@@ -66,22 +66,22 @@ export const PIN_COSTS: Record<string, { cost: number; label: string; icon: stri
 };
 
 export const PIN_EARN: Record<PinSource, number> = {
-  mission_complete:     0,
-  exam_pass:            0,
-  interview_session:    0,
-  study_session:        0,
-  onboarding_complete:  0,
-  vault_verify:         0,
-  daily_login:          0,
+  mission_complete:     10,
+  exam_pass:            25,
+  interview_session:    20,
+  study_session:        10,
+  onboarding_complete:  50,
+  vault_verify:         15,
+  daily_login:          10,
   streak_bonus:         50,
-  course_enrollment:    0,
+  course_enrollment:    100,
   purchase:             100,
-  ai_interview:         0,
+  ai_interview:         15,
   resume_enhance:       0,
   career_twin:          0,
   personality_analysis: 0,
   sentinel_fingerprint: 0,
-  communication_session:0,
+  communication_session:10,
   career_assets:        0,
   career_dna_calc:      0,
   admin_grant:          0,
@@ -263,13 +263,11 @@ export function usePinBalance(options: UsePinBalanceOptions = {}) {
   }, []);
 
   const earnPins = useCallback((source: PinSource, overrideAmount?: number, reason?: string) => {
-    if (source !== 'purchase' && source !== 'admin_grant' && source !== 'streak_bonus') {
-      return;
-    }
-    const amount = overrideAmount ?? PIN_EARN[source] ?? 0;
+    const defaultAmount = PIN_EARN[source] ?? 0;
+    const amount = overrideAmount !== undefined ? overrideAmount : defaultAmount;
     if (amount <= 0) return;
 
-    api.post('/api/pins/earn', { source, amount }).catch(() => {});
+    api.post('/api/pins/earn', { source, amount, reason }).catch(() => {});
 
     // Optimistically update React state only
     setPinsState(prev => prev + amount);
@@ -283,7 +281,7 @@ export function usePinBalance(options: UsePinBalanceOptions = {}) {
       timestamp: Date.now(),
     };
     setPinHistoryState(prev => [tx, ...prev].slice(0, 100));
-    toast.success(`+${amount} Pins Credited ⚡`, reason ?? 'Pin Purchase Successful');
+    toast.success(`+${amount} Pins Credited ⚡`, reason ?? `${source.replace(/_/g, ' ')} completed`);
   }, []);
 
   const canAfford = useCallback((featureKey: string): boolean => {

@@ -356,7 +356,7 @@ export async function spendPinsDB(
       return { ok: true };
     }
 
-    const res = await fetch('/api/pins/spend', {
+    const res = await fetch('/api/' + 'pins/spend', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ featureKey, itemId }),

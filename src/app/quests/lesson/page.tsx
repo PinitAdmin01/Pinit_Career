@@ -525,6 +525,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
         examPassed={state.examPassed}
         confettiParticles={state.confettiParticles}
         finishLessonAndReturn={finishLessonAndReturn}
+        questId={questId}
       />
     </div>
   );

@@ -35,6 +35,11 @@ async function runSubBatch25Tests() {
   // ───────────────────────────────────────────────────────────────────────────
   console.log('── Setting up in-memory PostgreSQL instance for Sub-Batch 2.5 schema... ──');
   const db = new PGlite();
+  await db.exec(`
+    CREATE SCHEMA IF NOT EXISTS auth;
+    CREATE TABLE IF NOT EXISTS auth.users (id UUID PRIMARY KEY, email TEXT);
+    CREATE OR REPLACE FUNCTION auth.uid() RETURNS UUID AS $$ BEGIN RETURN NULLIF(current_setting('request.jwt.claim.sub', true), '')::UUID; END; $$ LANGUAGE plpgsql;
+  `);
   const migrationPath = path.join(
     process.cwd(),
     'supabase',

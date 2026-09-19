@@ -1,6 +1,9 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
 
+process.env.ALLOW_DEV_AUTH_BYPASS = 'true';
+process.env.NODE_ENV = 'test';
+
 import {
   POST,
   validateAudioMagicBytes,

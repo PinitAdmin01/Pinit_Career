@@ -22,8 +22,8 @@ export default function TeacherInboxManager({
     // 1. Initial sync from local storage
     const initial = inboxSyncService.getConversations();
     setConversations(initial);
-    if (initial.length > 0 && !selectedStudentId) {
-      setSelectedStudentId(initial[0].studentId);
+    if (initial.length > 0) {
+      setSelectedStudentId(prev => prev || initial[0].studentId);
     }
 
     // 2. Load from database so student messages sent from another computer arrive

@@ -3,6 +3,7 @@
 import React from 'react';
 import type { CareerTrajectory, TrajectoryNode } from '@/lib/data/careerTrajectories';
 import type { Course } from '@/lib/data/coursesData';
+import { getAuthoritativeQuest } from '@/lib/quests/questRegistry';
 import { toast } from '@/lib/store/useAppStore';
 import {
   ExtraRoadmap,
@@ -835,17 +836,28 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
             </div>
 
             {/* Metric Summary Badges */}
-            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-              <div style={{ padding: '8px 14px', borderRadius: 12, background: 'rgba(var(--success-rgb),0.1)', border: '1px solid rgba(var(--success-rgb),0.25)', fontSize: 12, fontWeight: 800, color: 'var(--success-bright)' }}>
-                ✓ {completedQuests.length} Quests Cleared
-              </div>
-              <div style={{ padding: '8px 14px', borderRadius: 12, background: 'rgba(var(--brand-rgb),0.1)', border: '1px solid rgba(var(--brand-rgb),0.25)', fontSize: 12, fontWeight: 800, color: 'var(--brand-bright)' }}>
-                ⚡ +{completedQuests.length * 150} XP Accumulated
-              </div>
-              <div style={{ padding: '8px 14px', borderRadius: 12, background: 'rgba(var(--warning-rgb),0.1)', border: '1px solid rgba(var(--warning-rgb),0.25)', fontSize: 12, fontWeight: 800, color: 'var(--warning-bright)' }}>
-                🪙 +{completedQuests.length * 5} Pins Bonus
-              </div>
-            </div>
+            {(() => {
+              let totalXp = 0;
+              let totalPins = 0;
+              for (const qId of completedQuests) {
+                const aq = getAuthoritativeQuest(qId);
+                totalXp += aq?.xp ?? 150;
+                totalPins += aq?.pins ?? 5;
+              }
+              return (
+                <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+                  <div style={{ padding: '8px 14px', borderRadius: 12, background: 'rgba(var(--success-rgb),0.1)', border: '1px solid rgba(var(--success-rgb),0.25)', fontSize: 12, fontWeight: 800, color: 'var(--success-bright)' }}>
+                    ✓ {completedQuests.length} Quests Cleared
+                  </div>
+                  <div style={{ padding: '8px 14px', borderRadius: 12, background: 'rgba(var(--brand-rgb),0.1)', border: '1px solid rgba(var(--brand-rgb),0.25)', fontSize: 12, fontWeight: 800, color: 'var(--brand-bright)' }}>
+                    ⚡ +{totalXp} XP Accumulated
+                  </div>
+                  <div style={{ padding: '8px 14px', borderRadius: 12, background: 'rgba(var(--warning-rgb),0.1)', border: '1px solid rgba(var(--warning-rgb),0.25)', fontSize: 12, fontWeight: 800, color: 'var(--warning-bright)' }}>
+                    🪙 +{totalPins} Pins Bonus
+                  </div>
+                </div>
+              );
+            })()}
           </div>
 
           {/* Filter Navigation Tabs */}
@@ -881,6 +893,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
             const questHistoryItems = completedQuests.map((qId, idx) => {
               let foundQuest: any = null;
               let foundCourseTitle = 'Career Trajectory';
+              const authQuest = getAuthoritativeQuest(qId);
               
               for (const c of COURSES_REGISTRY) {
                 const q = (c.quests || []).find(item => item.id === qId);
@@ -906,14 +919,14 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
               return {
                 id: `history_quest_${qId}_${idx}`,
                 type: 'quest',
-                title: foundQuest?.title || qId.replace(/-/g, ' ').toUpperCase(),
+                title: authQuest?.title || foundQuest?.title || qId.replace(/-/g, ' ').toUpperCase(),
                 courseTitle: foundCourseTitle,
-                desc: foundQuest?.desc || 'Successfully cleared syllabus lecture & technical evaluation.',
+                desc: authQuest?.desc || foundQuest?.desc || 'Successfully cleared syllabus lecture & technical evaluation.',
                 date: displayDate,
-                xp: 150,
-                pins: 5,
+                xp: authQuest?.xp ?? foundQuest?.xp ?? 150,
+                pins: authQuest?.pins ?? foundQuest?.pins ?? 5,
                 questId: qId,
-                icon: qId.includes('exam') ? '🏆' : '🎓'
+                icon: (authQuest?.category === 'exam' || qId.includes('exam')) ? '🏆' : '🎓'
               };
             });
 
