@@ -4,6 +4,7 @@ import { Suspense, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { COURSES_REGISTRY } from '@/lib/data/coursesData';
+import { getAuthoritativeQuest, isAuthoritativeExam } from '@/lib/quests/questRegistry';
 import { stopSpeaking } from '@/lib/tts';
 import { useAuth } from '@/lib/context/AuthContext';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
@@ -282,18 +283,50 @@ function LessonPageRouter() {
     }
   }
 
-  // Final fallback if not found anywhere
+  // Check authoritative quest registry
+  if (!questData && questId) {
+    const authQuest = getAuthoritativeQuest(questId);
+    if (authQuest) {
+      questData = authQuest;
+    }
+  }
+
+  // Fail closed on unregistered quest IDs to prevent fake XP generation
   if (!questData) {
-    questData = {
-      id: questId || 'java-basics-lecture',
-      title: 'Quest Class Lesson',
-      desc: 'Review core concepts and syllabus requirements with your digital teacher.',
-      syllabus: [
-        'Understand foundational syntax structures',
-        'Verify edge case conditions and loops',
-        'Review architecture patterns and optimizations'
-      ]
-    };
+    return (
+      <div style={{
+        width: '100vw',
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'var(--bg)',
+        color: 'var(--t1)',
+        gap: 16,
+        padding: 24,
+        textAlign: 'center'
+      }}>
+        <div style={{ fontSize: 48 }}>🛡️</div>
+        <h2 style={{ fontSize: 20, fontWeight: 900 }}>Unregistered Quest Lesson</h2>
+        <p style={{ fontSize: 13, color: 'var(--t2)', maxWidth: 460, lineHeight: 1.5 }}>
+          The requested lesson ID <code style={{ color: 'var(--accent)', background: 'var(--bg2)', padding: '2px 6px', borderRadius: 4 }}>{questId || 'unknown'}</code> does not exist in any registered course or curriculum.
+        </p>
+        <button
+          onClick={() => window.location.assign('/quests')}
+          className="btn-primary"
+          style={{
+            padding: '10px 20px',
+            borderRadius: 10,
+            cursor: 'pointer',
+            fontSize: 12,
+            fontWeight: 800
+          }}
+        >
+          Return to Quests Roadmap
+        </button>
+      </div>
+    );
   }
 
   if (questData?.type === 'coding' || (questId && (questId.includes('-exam-') || questId.includes('-assign-')))) {
@@ -323,8 +356,13 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
     state.returningRef.current = true;
     const id = resolveQuestId();
     if (id) {
+      const authQuest = getAuthoritativeQuest(id);
       const course = COURSES_REGISTRY.find(c => (c.quests || []).some(q => q.id === id));
-      addCompletedQuest(id, true, 150, course?.id);
+      if (authQuest || course) {
+        const isExam = isAuthoritativeExam(id);
+        const xp = authQuest?.xp || 150;
+        addCompletedQuest(id, isExam, xp, course?.id);
+      }
     }
     toast.success('Stage Completed!', 'Heading back to the quest roadmap.');
     stopSpeaking();
@@ -410,6 +448,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
             totalSlides={totalSlides}
             isInteractive={state.isInteractive}
             examPassed={state.examPassed}
+            maxUnlockedSlide={state.maxUnlockedSlide}
           />
 
           <LessonContentRenderer
@@ -443,8 +482,14 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
             codeRunning={state.codeRunning}
             codeOutputs={state.codeOutputs}
             simulateCodeRun={engine.simulateCodeRun}
+            runSlideCode={engine.runSlideCode}
             isLastSlide={isLastSlide}
             examPassed={state.examPassed}
+            examFailed={state.examFailed}
+            setExamFailed={state.setExamFailed}
+            examCorrectCount={state.examCorrectCount}
+            setExamCorrectCount={state.setExamCorrectCount}
+            onReviewLesson={engine.onReviewLesson}
             examQuestionIndex={state.examQuestionIndex}
             setExamQuestionIndex={state.setExamQuestionIndex}
             selectedMcqAnswer={state.selectedMcqAnswer}

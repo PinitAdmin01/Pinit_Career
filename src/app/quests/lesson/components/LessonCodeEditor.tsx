@@ -46,22 +46,23 @@ export function LessonCodeEditor({
         <button
           data-testid="btn-run-code"
           onClick={onRunCode}
+          disabled={codeRunning}
           style={{
-            background: 'var(--success)',
+            background: codeRunning ? 'rgba(255,255,255,0.1)' : 'var(--success)',
             border: 'none',
             color: 'var(--text)',
             fontSize: 9.5,
             fontWeight: 700,
             padding: '3px 8px',
             borderRadius: 6,
-            cursor: 'pointer',
+            cursor: codeRunning ? 'wait' : 'pointer',
             display: 'flex',
             alignItems: 'center',
             gap: 4,
             transition: 'background 0.2s'
           }}
         >
-          {codeRunning ? '⏳ Compiling...' : '▶ Run Code'}
+          {codeRunning ? '⏳ Executing...' : '▶ Run Code'}
         </button>
       </div>
       <pre style={{
@@ -92,8 +93,17 @@ export function LessonCodeEditor({
           fontSize: 10,
           color: '#a7f3d0'
         }}>
-          <div style={{ color: 'var(--text-dim)', marginBottom: 4 }}>
-            $ javac Solution.java && java Solution
+          <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-dim)', marginBottom: 6, fontSize: 9.5 }}>
+            <span>
+              {fileName.endsWith('.java')
+                ? '$ javac Solution.java && java Solution'
+                : fileName.endsWith('.py')
+                ? '$ python3 main.py'
+                : fileName.endsWith('.sql')
+                ? '$ sqlite3 < query.sql'
+                : `$ node ${fileName}`}
+            </span>
+            <span style={{ color: 'var(--success)', fontWeight: 600 }}>● Sandbox Isolated</span>
           </div>
           <div style={{ whiteSpace: 'pre-line' }}>{codeOutput}</div>
         </div>
