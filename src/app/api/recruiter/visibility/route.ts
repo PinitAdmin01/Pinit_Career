@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
-import { updateUserProfile } from '@/lib/services/supabase/userService';
 
 export function normalizeVisibility(raw: any): { score: number; label: string } {
   if (raw === false || raw === 0 || raw === '0' || raw === 'private' || raw === 'none' || raw === 'hidden') {
@@ -93,15 +92,13 @@ async function handleVisibilityUpdate(req: Request) {
       .update({
         recruiter_visibility: score,
         recruiter_visible: isVisible,
-        updated_at: new Date().toISOString(),
       })
       .eq('id', studentId)
       .select('id, recruiter_visibility, recruiter_visible')
       .maybeSingle();
 
     if (error) {
-      console.warn('[Recruiter Visibility Route] Admin Supabase update warning, falling back to service:', error.message);
-      await updateUserProfile(studentId, { recruiter_visibility: score, recruiter_visible: isVisible } as any);
+      console.warn('[Recruiter Visibility Route] Admin Supabase update notice:', error.message);
     }
 
     return NextResponse.json({

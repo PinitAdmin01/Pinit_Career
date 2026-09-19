@@ -12,14 +12,14 @@ export async function GET(req: Request) {
     // Query real users from the database
     const { data: users, error: usersErr } = await admin
       .from('users')
-      .select('id, display_name, username, role, created_at, updated_at, last_active_at');
+      .select('id, display_name, username, role, created_at');
 
     const usersList = users || [];
     const now = Date.now();
 
-    // Correct column evaluation: last_active_at, updated_at, created_at
+    // Evaluate active / recent activity via created_at timestamp
     const activeToday = usersList.filter((u: any) => {
-      const activeStamp = u.last_active_at || u.updated_at;
+      const activeStamp = u.created_at;
       if (!activeStamp) return false;
       const ts = new Date(activeStamp).getTime();
       return !isNaN(ts) && now - ts < 86400 * 1000;

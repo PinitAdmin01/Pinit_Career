@@ -14,7 +14,7 @@ export async function GET(req: Request) {
 
     let query = admin
       .from('users')
-      .select('id, display_name, username, email, role, created_at, last_active_at, ats_score, trust_score, career_dna_score, mission_streak, pins, subscription_tier, register_number, suspended');
+      .select('id, display_name, username, email, role, created_at, ats_score, trust_score, career_dna_score, mission_streak, pins, subscription_tier, register_number');
 
     if (role && role !== 'all') {
       query = query.eq('role', role);
@@ -44,7 +44,7 @@ export async function GET(req: Request) {
       email: u.email || '',
       role: u.role || 'student',
       created_at: u.created_at,
-      last_active_at: u.last_active_at || u.created_at,
+      last_active_at: u.created_at,
       atsScore: typeof u.ats_score === 'number' ? u.ats_score : 0,
       ats_score: typeof u.ats_score === 'number' ? u.ats_score : 0,
       trustScore: typeof u.trust_score === 'number' ? u.trust_score : 0,
@@ -54,7 +54,7 @@ export async function GET(req: Request) {
       pins: typeof u.pins === 'number' ? u.pins : 0,
       subscription_tier: u.subscription_tier || 'free',
       register_number: u.register_number || null,
-      status: u.suspended ? 'suspended' : 'active',
+      status: u.role === 'suspended' ? 'suspended' : 'active',
     }));
 
     return NextResponse.json({ ok: true, users: formatted, total: formatted.length });

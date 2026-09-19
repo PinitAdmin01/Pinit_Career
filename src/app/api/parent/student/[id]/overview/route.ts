@@ -56,7 +56,7 @@ export async function GET(
     // 2. Query student profile with service key
     const { data: student, error: studentErr } = await admin
       .from('users')
-      .select('id, display_name, username, email, career_track, ats_score, trust_score, career_dna_score, mission_streak, career_readiness, completed_quests')
+      .select('id, display_name, username, email, target_role, ats_score, trust_score, career_dna_score, mission_streak, career_readiness, completed_quests')
       .eq('id', targetStudentId)
       .maybeSingle();
 
@@ -105,7 +105,7 @@ export async function GET(
         id: student.id,
         displayName: student.display_name || student.username || 'Student',
         email: student.email || '',
-        career_track: student.career_track || 'Software Engineer',
+        career_track: student.target_role || 'Software Engineer',
         ats_score: atsScore,
         trust_score: trustScore,
         career_dna_score: careerDnaScore,

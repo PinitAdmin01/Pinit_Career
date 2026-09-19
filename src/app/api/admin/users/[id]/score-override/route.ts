@@ -53,7 +53,6 @@ export async function POST(
       .from('users')
       .update({
         [field]: Math.round(value),
-        updated_at: new Date().toISOString(),
       })
       .eq('id', targetUserId);
 

@@ -67,7 +67,6 @@ export async function POST(req: Request) {
               ...answers,
               linked_students: currentLinks,
             },
-            updated_at: new Date().toISOString(),
           })
           .eq('id', parentId);
       }
