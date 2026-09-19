@@ -1,7 +1,14 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
-import { TEACHERS, Teacher } from '@/components/quests/workspace/useWorkspaceState';
+import { TEACHERS } from '@/lib/teachers';
+
+interface Teacher {
+  id: string;
+  name: string;
+  emoji: string;
+  title?: string;
+}
 
 interface DebugTutorRequest {
   code?: string;
@@ -107,7 +114,7 @@ export async function POST(req: Request) {
       teacherId = 'kashyap',
     } = body;
 
-    const teacher = TEACHERS.find((t: Teacher) => t.id === teacherId) || TEACHERS[0];
+    const teacher: any = TEACHERS.find((t: any) => t.id === teacherId) || TEACHERS[0];
     const errorMsg = output?.message || (terminalLogs.length > 0 ? terminalLogs[terminalLogs.length - 1] : '');
 
     const groqKeysStr = process.env.GROQ_API_KEYS || '';
@@ -119,7 +126,7 @@ export async function POST(req: Request) {
     if (groqKeys.length > 0 && code.trim()) {
       for (const key of groqKeys) {
         try {
-          const prompt = `You are ${teacher.name} (${(teacher.nature || 'Lead Instructor')}), an expert computer science teacher at PinIT Career OS.
+          const prompt = `You are ${teacher.name} (${teacher.type || teacher.desc || 'Lead Instructor'}), an expert computer science teacher at PinIT Career OS.
 The student is solving the coding quest: "${questTitle}" in ${language}.
 STUDENT'S SUBMITTED CODE:
 \`\`\`${language}

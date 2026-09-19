@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { toast } from '@/lib/store/useAppStore';
 import { api } from '@/lib/api/client';
@@ -285,7 +287,7 @@ export function useWorkspaceState({
     if (isUnlockedInLocks || isPaid || isAlreadyCompleted) {
       setIsUnlocked(true);
     }
-  }, [questId, completedQuests, cOS.onboardingAnswers, cOS.isItemUnlocked, unlockedItems]);
+  }, [questId, completedQuests, cOS, unlockedItems]);
 
   useEffect(() => {
     if (!quest) return;
