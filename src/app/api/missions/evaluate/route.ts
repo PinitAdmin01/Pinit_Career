@@ -56,7 +56,7 @@ export async function POST(req: Request) {
       });
     }
 
-    // 3. Persist evidence record into Supabase if passed and authenticated
+    // 3. Persist evidence record and credit Pins into Supabase if passed and authenticated
     if (evaluation.isPassed && evaluation.evidenceRecord && !isGuest) {
       const admin = getSupabaseAdmin();
       const r = evaluation.evidenceRecord;
@@ -81,6 +81,21 @@ export async function POST(req: Request) {
           integrity_hash: r.integrityHash,
           artifacts: r.artifacts || {},
         }, { onConflict: 'id' });
+
+        // Authoritatively credit student's Pin balance
+        if (evaluation.pinsAwarded > 0) {
+          const { data: rpcRes, error: rpcErr } = await admin.rpc('credit_pins', {
+            p_user_id: studentId,
+            p_amount: evaluation.pinsAwarded,
+            p_reason: `Mission completed: ${missionTitle}`,
+            p_source: 'mission_complete',
+          });
+          if (rpcErr || !rpcRes?.ok) {
+            const { data: userRow } = await admin.from('users').select('pins').eq('id', studentId).maybeSingle();
+            const newBalance = (userRow?.pins || 0) + evaluation.pinsAwarded;
+            await admin.from('users').update({ pins: newBalance }).eq('id', studentId);
+          }
+        }
       } catch (dbErr: any) {
         console.warn('[Mission Evaluate DB Upsert Notice]:', dbErr?.message);
       }
