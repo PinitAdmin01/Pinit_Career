@@ -42,6 +42,11 @@ export function useLessonState(teacherId: string = 'kashyap') {
   const [mcqChecked, setMcqChecked] = useState(false);
   const [mcqIsCorrect, setMcqIsCorrect] = useState(false);
   const [examPassed, setExamPassed] = useState(false);
+  const [examFailed, setExamFailed] = useState(false);
+  const [examCorrectCount, setExamCorrectCount] = useState(0);
+
+  // Sequential progression lock
+  const [maxUnlockedSlide, setMaxUnlockedSlide] = useState(0);
 
   const [isRecording, setIsRecording] = useState(false);
   const [confettiParticles, setConfettiParticles] = useState<ConfettiParticle[]>([]);
@@ -78,6 +83,9 @@ export function useLessonState(teacherId: string = 'kashyap') {
     mcqChecked, setMcqChecked,
     mcqIsCorrect, setMcqIsCorrect,
     examPassed, setExamPassed,
+    examFailed, setExamFailed,
+    examCorrectCount, setExamCorrectCount,
+    maxUnlockedSlide, setMaxUnlockedSlide,
     isRecording, setIsRecording,
     confettiParticles, setConfettiParticles,
     codeRunning, setCodeRunning,

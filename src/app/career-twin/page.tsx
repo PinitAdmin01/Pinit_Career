@@ -1,11 +1,19 @@
 'use client';
-import { useEffect } from 'react';
+import React from 'react';
+import CareerTwinCockpit from '@/components/career-twin/CareerTwinCockpit';
 import { useRouter } from 'next/navigation';
 
-export default function CareerTwinRedirectPage() {
+export default function CareerTwinPage() {
   const router = useRouter();
-  useEffect(() => {
-    router.replace('/learning?tab=twin');
-  }, [router]);
-  return <div style={{ padding: 40, color: 'var(--t3)', fontSize: 13 }}>Redirecting to Learning & Twin Hub...</div>;
+
+  const handleLaunchMission = (mission: any) => {
+    console.log('[CareerTwin] Launching mission:', mission.title);
+    router.push('/missions');
+  };
+
+  return (
+    <main className="min-h-screen bg-slate-950 text-slate-100 py-10 px-4 sm:px-6 lg:px-8 flex justify-center items-start">
+      <CareerTwinCockpit onLaunchMission={handleLaunchMission} />
+    </main>
+  );
 }

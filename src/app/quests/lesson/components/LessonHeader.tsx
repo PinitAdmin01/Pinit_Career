@@ -19,6 +19,7 @@ interface LessonHeaderProps {
   totalSlides: number;
   isInteractive: boolean;
   examPassed: boolean;
+  maxUnlockedSlide?: number;
 }
 
 export function LessonHeader({
@@ -38,6 +39,7 @@ export function LessonHeader({
   totalSlides,
   isInteractive,
   examPassed,
+  maxUnlockedSlide = 0,
 }: LessonHeaderProps) {
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexShrink: 0 }}>
@@ -168,28 +170,40 @@ export function LessonHeader({
             const isCurrent = currentSlide === idx;
             const isCompleted = currentSlide > idx;
             const isExam = idx === totalSlides - 1;
+            const isLocked = idx > maxUnlockedSlide;
 
             let bg = 'rgba(255,255,255,0.06)';
             let border = '1px solid rgba(255,255,255,0.1)';
             let content = '';
 
             if (isExam) {
-              bg = examPassed ? 'var(--green)' : 'rgba(234,179,8,0.1)';
-              border = examPassed ? '1px solid var(--green)' : '1px solid rgba(234,179,8,0.4)';
-              content = '⭐';
+              bg = examPassed ? 'var(--green)' : isLocked ? 'rgba(255,255,255,0.03)' : 'rgba(234,179,8,0.1)';
+              border = examPassed ? '1px solid var(--green)' : isLocked ? '1px solid rgba(255,255,255,0.06)' : '1px solid rgba(234,179,8,0.4)';
+              content = isLocked ? '🔒' : '⭐';
             } else if (isCompleted) {
               bg = 'var(--success)';
               border = '1px solid #10b981';
             } else if (isCurrent) {
               bg = isInteractive ? 'var(--warning)' : 'var(--accent)';
               border = isInteractive ? '1px solid #f59e0b' : '1px solid var(--accent)';
+            } else if (isLocked) {
+              bg = 'rgba(255,255,255,0.02)';
+              border = '1px solid rgba(255,255,255,0.04)';
             }
 
             return (
               <div
                 key={idx}
-                title={isExam ? 'Exam Stage' : `Slide ${idx + 1}`}
+                title={isExam ? (isLocked ? 'Exam Locked (Complete earlier slides)' : 'Exam Stage') : isLocked ? `Slide ${idx + 1} (Locked)` : `Slide ${idx + 1}`}
                 onClick={() => {
+                  if (isLocked) {
+                    if (isExam) {
+                      toast.warning("Exam Locked 🔒", "Complete all lesson slides and concept checks before taking the final exam.");
+                    } else {
+                      toast.info("Slide Locked 🔒", "Complete earlier slides before advancing to this stage.");
+                    }
+                    return;
+                  }
                   stopSpeaking();
                   setIsPlaying(false);
                   setCurrentSlide(idx);
@@ -204,7 +218,8 @@ export function LessonHeader({
                   alignItems: 'center',
                   justifyContent: 'center',
                   fontSize: 8,
-                  cursor: 'pointer',
+                  cursor: isLocked ? 'not-allowed' : 'pointer',
+                  opacity: isLocked ? 0.35 : 1,
                   transition: 'all 0.3s ease'
                 }}
               >

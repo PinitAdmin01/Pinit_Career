@@ -41,6 +41,8 @@ export interface SuiteExecutionResult {
   totalDurationMs: number;
   terminalLogs: string[];
   testOutcomes: SingleTestOutcome[];
+  stdout?: string;
+  stderr?: string;
   error?: string;
 }
 

@@ -41,6 +41,12 @@ interface LessonContentRendererProps {
   simulateCodeRun: (slideIdx: number, mockOutput?: string) => void;
   isLastSlide: boolean;
   examPassed: boolean;
+  examFailed: boolean;
+  setExamFailed: (val: boolean) => void;
+  examCorrectCount: number;
+  setExamCorrectCount: React.Dispatch<React.SetStateAction<number>>;
+  onReviewLesson: () => void;
+  runSlideCode?: (slideIdx: number, rawCode?: string) => void;
   examQuestionIndex: number;
   setExamQuestionIndex: React.Dispatch<React.SetStateAction<number>>;
   selectedMcqAnswer: number | null;
@@ -87,6 +93,12 @@ export function LessonContentRenderer({
   simulateCodeRun,
   isLastSlide,
   examPassed,
+  examFailed,
+  setExamFailed,
+  examCorrectCount,
+  setExamCorrectCount,
+  onReviewLesson,
+  runSlideCode,
   examQuestionIndex,
   setExamQuestionIndex,
   selectedMcqAnswer,
@@ -432,7 +444,13 @@ export function LessonContentRenderer({
                       mockOutput={slide.mockOutput}
                       codeRunning={codeRunning[currentSlide - 1]}
                       codeOutput={codeOutputs[currentSlide - 1]}
-                      onRunCode={() => simulateCodeRun(currentSlide - 1, slide.mockOutput)}
+                      onRunCode={() => {
+                        if (runSlideCode) {
+                          runSlideCode(currentSlide - 1, slide.codeExample);
+                        } else {
+                          simulateCodeRun(currentSlide - 1, slide.mockOutput);
+                        }
+                      }}
                     />
                   )}
 
@@ -517,6 +535,11 @@ export function LessonContentRenderer({
               <LessonQuizBlock
                 teacherAccent={teacher.accent}
                 examPassed={examPassed}
+                examFailed={examFailed}
+                setExamFailed={setExamFailed}
+                examCorrectCount={examCorrectCount}
+                setExamCorrectCount={setExamCorrectCount}
+                onReviewLesson={onReviewLesson}
                 examQuestionIndex={examQuestionIndex}
                 setExamQuestionIndex={setExamQuestionIndex}
                 selectedMcqAnswer={selectedMcqAnswer}
