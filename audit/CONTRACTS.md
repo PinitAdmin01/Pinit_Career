@@ -2,28 +2,28 @@
 
 Regenerate: `node audit/extract-contracts.mjs`
 
-- **generated**: 2026-09-19T10:37:11.944Z
+- **generated**: 2026-09-19T11:07:23.659Z
 - **appCodeFiles**: 590
 - **verticals**: 72
-- **verticalsWithDefects**: 32
-- **clientCalledPaths**: 263
-- **reachablePaths**: 244
-- **brokenOnEveryMethod**: 54
+- **verticalsWithDefects**: 33
+- **clientCalledPaths**: 265
+- **reachablePaths**: 253
+- **brokenOnEveryMethod**: 63
 - **brokenOnSomeMethods**: 10
-- **defectsInDeadCode**: 18
-- **unbuiltPages**: 18
-- **reachableSourceFiles**: 520
+- **defectsInDeadCode**: 11
+- **unbuiltPages**: 15
+- **reachableSourceFiles**: 534
 - **guardBranches**: 182
 - **unreachableOrDynamicGuards**: 43
 - **campusSwitchCases**: 102
 - **campusPrefixes**: 19
-- **deadRouteFiles**: 205
+- **deadRouteFiles**: 207
 - **interceptorBypasses**: []
 - **preferLivePrefixes**: 71
 - **needsManualCheck**: 0
-- **byWorst**: {"REAL":171,"STUB":48,"UNHANDLED-404":32,"COMPUTE":1,"CAMPUS-404":2,"DECLINED":4,"LOCAL-STORE":5}
-- **byBucket**: {"OK":171,"A":74,"B":17,"C":1}
-- **byLayer**: {"firestoreRouter":186,"campusFallback":45,"none":32}
+- **byWorst**: {"REAL":171,"STUB":48,"UNHANDLED-404":34,"COMPUTE":1,"CAMPUS-404":2,"DECLINED":4,"LOCAL-STORE":5}
+- **byBucket**: {"OK":171,"A":74,"B":19,"C":1}
+- **byLayer**: {"firestoreRouter":186,"campusFallback":45,"none":34}
 - **guardsByVerdict**: {"REAL":139,"LOCAL-STORE":5,"STUB":38}
 
 **Verdict** — `REAL` reaches a datastore · `STUB` returns a literal · `THROWS` raises ApiError
@@ -33,7 +33,7 @@ Regenerate: `node audit/extract-contracts.mjs`
 
 **Bucket** — `A` port to client · `B` needs a trusted server · `C` genuinely stateless · `OK` already real.
 
-## Broken no matter how they are called (54)
+## Broken no matter how they are called (63)
 
 | path | verdict | bucket | layer | handler | spec route | direct/total |
 |---|---|---|---|---|---|---|
@@ -54,6 +54,7 @@ Regenerate: `node audit/extract-contracts.mjs`
 | `/api/career-twin/simulate` | STUB | A | firestoreRouter | client.ts:736 | — | 0/1 |
 | `/api/chat/history` | STUB | A | firestoreRouter | client.ts:2265 | — | 0/1 |
 | `/api/chat/session` | STUB | A | firestoreRouter | client.ts:2263 | — | 1/3 |
+| `/api/code/debug-tutor` | UNHANDLED-404 | B | none | client.ts throws Unhandled API path | /api/code/debug-tutor/route.ts | 1/2 |
 | `/api/code/evaluate` | UNHANDLED-404 | B | none | client.ts throws Unhandled API path | /api/code/evaluate/route.ts | 1/2 |
 | `/api/codewars/matches` | UNHANDLED-404 | A | none | client.ts throws Unhandled API path | /api/codewars/matches/route.ts | 2/4 |
 | `/api/contact` | UNHANDLED-404 | B | none | client.ts throws Unhandled API path | /api/contact/route.ts | 1/2 |
@@ -61,6 +62,13 @@ Regenerate: `node audit/extract-contracts.mjs`
 | `/api/exam/available` | STUB | A | firestoreRouter | client.ts:2008 | — | 0/2 |
 | `/api/exam/results` | STUB | A | firestoreRouter | client.ts:2011 | — | 0/3 |
 | `/api/exam/sync-result` | STUB | A | firestoreRouter | client.ts:2010 | — | 1/3 |
+| `/api/friends` | UNHANDLED-404 | B | none | client.ts throws Unhandled API path | /api/friends/route.ts | 5/10 |
+| `/api/friends/:param` | UNHANDLED-404 | A | none | client.ts throws Unhandled API path | — | 1/1 |
+| `/api/friends/challenges` | UNHANDLED-404 | A | none | client.ts throws Unhandled API path | /api/friends/challenges/route.ts | 3/6 |
+| `/api/friends/messages` | UNHANDLED-404 | A | none | client.ts throws Unhandled API path | /api/friends/messages/route.ts | 2/3 |
+| `/api/friends/privacy` | UNHANDLED-404 | A | none | client.ts throws Unhandled API path | /api/friends/privacy/route.ts | 5/10 |
+| `/api/friends/projects` | UNHANDLED-404 | A | none | client.ts throws Unhandled API path | /api/friends/projects/route.ts | 3/6 |
+| `/api/friends/report` | UNHANDLED-404 | A | none | client.ts throws Unhandled API path | /api/friends/report/route.ts | 1/2 |
 | `/api/github/ingest` | UNHANDLED-404 | B | none | client.ts throws Unhandled API path | /api/github/ingest/route.ts | 2/4 |
 | `/api/internships` | UNHANDLED-404 | A | none | client.ts throws Unhandled API path | /api/internships/route.ts | 2/4 |
 | `/api/interview` | STUB | A | firestoreRouter | client.ts:1999 | — | 0/1 |
@@ -79,6 +87,7 @@ Regenerate: `node audit/extract-contracts.mjs`
 | `/api/pins/extend-grace` | UNHANDLED-404 | B | none | client.ts throws Unhandled API path | /api/pins/extend-grace/route.ts | 1/2 |
 | `/api/quest/complete` | UNHANDLED-404 | A | none | client.ts throws Unhandled API path | /api/quest/complete/route.ts | 2/4 |
 | `/api/quests/enrollment` | UNHANDLED-404 | B | none | client.ts throws Unhandled API path | /api/quests/enrollment/route.ts | 5/10 |
+| `/api/quests/roadmap/generate` | UNHANDLED-404 | B | none | client.ts throws Unhandled API path | /api/quests/roadmap/generate/route.ts | 1/2 |
 | `/api/resume` | STUB | A | firestoreRouter | client.ts:1283 | — | 0/1 |
 | `/api/resume/analyze` | STUB | B | firestoreRouter | client.ts:1283 | /api/resume/analyze/route.ts | 0/1 |
 | `/api/sentinel` | STUB | A | firestoreRouter | client.ts:2042 | — | 0/1 |
@@ -108,7 +117,7 @@ method the call site actually uses before treating one as a defect.
 - `/api/resume/structured` — broken on GET, PUT, PATCH, DELETE; works on POST
 - `/api/vault/items` — broken on POST, PUT, PATCH, DELETE; works on GET
 
-## All paths (263)
+## All paths (265)
 
 | path | verdict | bucket | layer | handler | spec route | direct/total |
 |---|---|---|---|---|---|---|
@@ -181,6 +190,7 @@ method the call site actually uses before treating one as a defect.
 | `/api/chat/history` | STUB | A | firestoreRouter | client.ts:2265 | — | 0/1 |
 | `/api/chat/history/:param` | STUB | A | firestoreRouter | client.ts:2264 | — | 1/2 |
 | `/api/chat/session` | STUB | A | firestoreRouter | client.ts:2263 | — | 1/3 |
+| `/api/code/debug-tutor` | UNHANDLED-404 | B | none | client.ts throws Unhandled API path | /api/code/debug-tutor/route.ts | 1/2 |
 | `/api/code/evaluate` | UNHANDLED-404 | B | none | client.ts throws Unhandled API path | /api/code/evaluate/route.ts | 1/2 |
 | `/api/code/run-java` | REAL | OK | firestoreRouter | client.ts:2111 | /api/code/run-java/route.ts | 1/3 |
 | `/api/code/run-python` | REAL | OK | firestoreRouter | client.ts:2044 | /api/code/run-python/route.ts | 1/3 |
@@ -301,6 +311,7 @@ method the call site actually uses before treating one as a defect.
 | `/api/quest/complete` | UNHANDLED-404 | A | none | client.ts throws Unhandled API path | /api/quest/complete/route.ts | 2/4 |
 | `/api/quests/enrollment` | UNHANDLED-404 | B | none | client.ts throws Unhandled API path | /api/quests/enrollment/route.ts | 5/10 |
 | `/api/quests/generate-slides` | REAL | OK | firestoreRouter | client.ts:3789 | — | 0/1 |
+| `/api/quests/roadmap/generate` | UNHANDLED-404 | B | none | client.ts throws Unhandled API path | /api/quests/roadmap/generate/route.ts | 1/2 |
 | `/api/quests/verify` | REAL | OK | firestoreRouter | client.ts:3587 | /api/quests/verify/route.ts | 0/2 |
 | `/api/recruiter` | REAL | OK | firestoreRouter | client.ts:2638 | — | 0/2 |
 | `/api/recruiter/activity-log` | REAL | OK | firestoreRouter | client.ts:2638 | — | 1/2 |

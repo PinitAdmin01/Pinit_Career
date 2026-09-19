@@ -342,7 +342,7 @@ export function useMissionsData({
     setRoleplayLoading(true);
 
     try {
-      const ok = cOS.unlockItem('mission:roleplay', 'mission', 'Mindset Roleplay Outage Simulation');
+      const ok = await cOS.unlockItem('mission:roleplay', 'mission', 'Mindset Roleplay Outage Simulation');
       if (!ok) {
         setRoleplayLoading(false);
         setIsUnlocking(false);

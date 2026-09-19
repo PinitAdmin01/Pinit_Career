@@ -6,7 +6,7 @@ interface WorkspaceTestResultsProps {
   terminalLogs: string[];
   langFile: string;
   onAskAiTutor: () => void;
-  isHardwareQuest: boolean;
+  isHardwareQuest?: boolean;
   isCompleted: boolean;
 }
 
@@ -15,7 +15,6 @@ export function WorkspaceTestResults({
   terminalLogs,
   langFile,
   onAskAiTutor,
-  isHardwareQuest,
   isCompleted,
 }: WorkspaceTestResultsProps) {
   return (
@@ -105,80 +104,6 @@ export function WorkspaceTestResults({
         }}>
           {output.success ? '🟢 ' : '🔴 '}
           {output.message}
-        </div>
-      )}
-
-      {/* Bynik Hardware Flashing Tool */}
-      {isHardwareQuest && (
-        <div style={{
-          marginTop: 12,
-          padding: 16,
-          background: 'rgba(var(--purple-rgb, 124, 58, 237), 0.06)',
-          border: '1px solid rgba(var(--purple-rgb, 124, 58, 237), 0.2)',
-          borderRadius: 16,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 12
-        }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h4 style={{ fontSize: 12, fontWeight: 900, color: 'var(--reward-bright)', display: 'flex', alignItems: 'center', gap: 6, margin: 0 }}>
-              🔌 Bynik Hardware Flashing Tool
-            </h4>
-            <span style={{ fontSize: 9.5, background: 'rgba(var(--purple-rgb, 124, 58, 237), 0.15)', color: 'var(--reward-bright)', padding: '2px 6px', borderRadius: 4, fontFamily: 'var(--font-mono)' }}>
-              v1.0.4 Connected
-            </span>
-          </div>
-          <p style={{ fontSize: 11, color: 'var(--t2)', lineHeight: 1.45, margin: 0 }}>
-            Deploy your compiled firmware solution directly to the target microcontroller core using the Bynik USB bridge.
-          </p>
-          <div style={{ display: 'flex', gap: 8 }}>
-            <button
-              onClick={() => {
-                if (isCompleted) return;
-                toast.info('Bynik: Compiling...', 'Translating code to binary hex payload...');
-                setTimeout(() => {
-                  toast.success('Bynik: Flash Completed! ⚡', 'Firmware successfully written to CPU address 0x08000000.');
-                }, 1800);
-              }}
-              disabled={isCompleted}
-              style={{
-                flex: 1,
-                padding: '8px 12px',
-                background: isCompleted ? 'var(--bg3)' : 'linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%)',
-                border: isCompleted ? '1px solid var(--border)' : 'none',
-                color: isCompleted ? 'var(--t3)' : 'var(--text)',
-                fontWeight: 700,
-                fontSize: 11.5,
-                borderRadius: 8,
-                cursor: isCompleted ? 'not-allowed' : 'pointer',
-                boxShadow: isCompleted ? 'none' : '0 4px 10px rgba(var(--purple-rgb, 124, 58, 237), 0.2)'
-              }}
-            >
-              Deploy to CPU (Bynik)
-            </button>
-            <button
-              onClick={() => {
-                if (isCompleted) return;
-                toast.info('Bynik: Resetting CPU...', 'Sending hardware restart signal...');
-                setTimeout(() => {
-                  toast.success('Bynik: CPU Restarted 🔄', 'Microcontroller core bootloader initialized.');
-                }, 1000);
-              }}
-              disabled={isCompleted}
-              style={{
-                padding: '8px 12px',
-                background: 'var(--bg3)',
-                border: '1px solid var(--border)',
-                color: isCompleted ? 'var(--t3)' : 'var(--t1)',
-                fontWeight: 700,
-                fontSize: 11.5,
-                borderRadius: 8,
-                cursor: isCompleted ? 'not-allowed' : 'pointer'
-              }}
-            >
-              Reset CPU
-            </button>
-          </div>
         </div>
       )}
     </div>

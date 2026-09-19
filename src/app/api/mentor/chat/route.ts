@@ -8,6 +8,8 @@ interface MentorChatRequest {
   query?: string;
   studentName?: string;
   targetRole?: string;
+  teacherId?: string;
+  currentSlide?: { title?: string; points?: string[]; codeSnippet?: string };
   activeQuest?: string | { title?: string; id?: string; progress?: number };
   missingSkills?: string[];
   weakAreas?: string[];
@@ -53,12 +55,20 @@ export async function POST(req: Request) {
     const atsScore = body.careerContext?.ats_score ?? body.careerContext?.atsScore ?? 65;
     const history = Array.isArray(body.history) ? body.history.slice(-10) : [];
 
-    const systemPrompt = `You are an elite, empathetic Technical Career Mentor at PinIT Career OS.
+    const slideContextPrompt = body.currentSlide
+      ? `\nCURRENT LESSON SLIDE BEING VIEWED BY STUDENT:
+- Slide Title: "${body.currentSlide.title || 'Introduction'}"
+- Slide Key Points: ${Array.isArray(body.currentSlide.points) ? body.currentSlide.points.join('; ') : 'General overview'}
+${body.currentSlide.codeSnippet ? `- Slide Code Snippet:\n\`\`\`\n${body.currentSlide.codeSnippet}\n\`\`\`` : ''}
+IMPORTANT: The student's question is about this specific slide! Explain the concepts directly referencing this slide's title and key takeaways.`
+      : '';
+
+    const systemPrompt = `You are an elite, empathetic Technical Career Mentor at PinIT Career OS${body.teacherId ? ` (Persona: ${body.teacherId})` : ''}.
 You are directly mentoring ${studentName}, who is aiming for the role of "${targetRole}".
 CURRENT STUDENT CONTEXT:
 - Active Learning Quest: "${questTitle}"
 - Critical Skill Gaps to close: ${missingSkills.length > 0 ? missingSkills.join(', ') : 'No critical gaps flagged yet'}
-- Current ATS Resume Score: ${atsScore}/100
+- Current ATS Resume Score: ${atsScore}/100${slideContextPrompt}
 
 YOUR INSTRUCTIONS:
 1. Provide actionable, concise, pragmatic advice tailored to their role and active quest.
@@ -257,7 +267,17 @@ YOUR INSTRUCTIONS:
         : `Let's keep reinforcing your core competencies for ${targetRole}.`;
       
       const lower = userMessage.toLowerCase();
-      if (lower.includes('skill') || lower.includes('gap') || lower.includes('learn') || lower.includes('study')) {
+      if (body.currentSlide?.title) {
+        const slideTitle = body.currentSlide.title;
+        const keyPoints = Array.isArray(body.currentSlide.points) && body.currentSlide.points.length > 0
+          ? body.currentSlide.points.join('; ')
+          : '';
+        if (lower.includes('first principle') || lower.includes('analogy') || lower.includes('tricky') || lower.includes('explain') || lower.includes('what is') || lower.includes('how')) {
+          llmResponse = `${studentName}, let's unpack "${slideTitle}" from first principles:\n\n1. Concept Core: ${keyPoints || 'Every computing abstraction exists to make complex transformations predictable'}.\n2. Real-World Analogy: Think of this like a verifiable pipeline where each stage guarantees its invariants before proceeding to the next.\n3. Takeaway: Keep inputs constrained and verify outputs at each step.`;
+        } else {
+          llmResponse = `${studentName}, on this topic of "${slideTitle}": ${keyPoints || 'focus on the core code patterns presented'}. How can I clarify this further for you?`;
+        }
+      } else if (lower.includes('skill') || lower.includes('gap') || lower.includes('learn') || lower.includes('study')) {
         llmResponse = `Hey ${studentName}! ${gapsNotice} In your active quest "${questTitle}", focus on practical implementation projects and unit tests rather than passive reading.`;
       } else if (lower.includes('interview') || lower.includes('ready') || lower.includes('mock')) {
         llmResponse = `${studentName}, to ace ${targetRole} interviews, simulate real technical trade-offs. Your current ATS score is ${atsScore}/100; sharpening ${missingSkills[0] || 'system design'} will significantly elevate your profile score.`;

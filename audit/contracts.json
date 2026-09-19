@@ -1,28 +1,28 @@
 {
   "summary": {
-    "generated": "2026-09-19T10:37:11.944Z",
+    "generated": "2026-09-19T11:07:23.659Z",
     "appCodeFiles": 590,
     "verticals": 72,
-    "verticalsWithDefects": 32,
-    "clientCalledPaths": 263,
-    "reachablePaths": 244,
-    "brokenOnEveryMethod": 54,
+    "verticalsWithDefects": 33,
+    "clientCalledPaths": 265,
+    "reachablePaths": 253,
+    "brokenOnEveryMethod": 63,
     "brokenOnSomeMethods": 10,
-    "defectsInDeadCode": 18,
-    "unbuiltPages": 18,
-    "reachableSourceFiles": 520,
+    "defectsInDeadCode": 11,
+    "unbuiltPages": 15,
+    "reachableSourceFiles": 534,
     "guardBranches": 182,
     "unreachableOrDynamicGuards": 43,
     "campusSwitchCases": 102,
     "campusPrefixes": 19,
-    "deadRouteFiles": 205,
+    "deadRouteFiles": 207,
     "interceptorBypasses": [],
     "preferLivePrefixes": 71,
     "needsManualCheck": 0,
     "byWorst": {
       "REAL": 171,
       "STUB": 48,
-      "UNHANDLED-404": 32,
+      "UNHANDLED-404": 34,
       "COMPUTE": 1,
       "CAMPUS-404": 2,
       "DECLINED": 4,
@@ -31,13 +31,13 @@
     "byBucket": {
       "OK": 171,
       "A": 74,
-      "B": 17,
+      "B": 19,
       "C": 1
     },
     "byLayer": {
       "firestoreRouter": 186,
       "campusFallback": 45,
-      "none": 32
+      "none": 34
     },
     "guardsByVerdict": {
       "REAL": 139,
@@ -46,6 +46,69 @@
     }
   },
   "verticals": [
+    {
+      "name": "friends",
+      "total": 7,
+      "broken": 7,
+      "partial": 0,
+      "ok": 0,
+      "dead": 0,
+      "buckets": {
+        "B": 1,
+        "A": 6
+      },
+      "paths": [
+        {
+          "path": "/api/friends",
+          "severity": "BROKEN",
+          "worst": "UNHANDLED-404",
+          "bucket": "B",
+          "handler": "client.ts throws Unhandled API path"
+        },
+        {
+          "path": "/api/friends/:param",
+          "severity": "BROKEN",
+          "worst": "UNHANDLED-404",
+          "bucket": "A",
+          "handler": "client.ts throws Unhandled API path"
+        },
+        {
+          "path": "/api/friends/challenges",
+          "severity": "BROKEN",
+          "worst": "UNHANDLED-404",
+          "bucket": "A",
+          "handler": "client.ts throws Unhandled API path"
+        },
+        {
+          "path": "/api/friends/messages",
+          "severity": "BROKEN",
+          "worst": "UNHANDLED-404",
+          "bucket": "A",
+          "handler": "client.ts throws Unhandled API path"
+        },
+        {
+          "path": "/api/friends/privacy",
+          "severity": "BROKEN",
+          "worst": "UNHANDLED-404",
+          "bucket": "A",
+          "handler": "client.ts throws Unhandled API path"
+        },
+        {
+          "path": "/api/friends/projects",
+          "severity": "BROKEN",
+          "worst": "UNHANDLED-404",
+          "bucket": "A",
+          "handler": "client.ts throws Unhandled API path"
+        },
+        {
+          "path": "/api/friends/report",
+          "severity": "BROKEN",
+          "worst": "UNHANDLED-404",
+          "bucket": "A",
+          "handler": "client.ts throws Unhandled API path"
+        }
+      ]
+    },
     {
       "name": "interview",
       "total": 8,
@@ -515,6 +578,60 @@
       ]
     },
     {
+      "name": "code",
+      "total": 4,
+      "broken": 2,
+      "partial": 0,
+      "ok": 2,
+      "dead": 0,
+      "buckets": {
+        "B": 2
+      },
+      "paths": [
+        {
+          "path": "/api/code/debug-tutor",
+          "severity": "BROKEN",
+          "worst": "UNHANDLED-404",
+          "bucket": "B",
+          "handler": "client.ts throws Unhandled API path"
+        },
+        {
+          "path": "/api/code/evaluate",
+          "severity": "BROKEN",
+          "worst": "UNHANDLED-404",
+          "bucket": "B",
+          "handler": "client.ts throws Unhandled API path"
+        }
+      ]
+    },
+    {
+      "name": "quests",
+      "total": 4,
+      "broken": 2,
+      "partial": 0,
+      "ok": 2,
+      "dead": 0,
+      "buckets": {
+        "B": 2
+      },
+      "paths": [
+        {
+          "path": "/api/quests/enrollment",
+          "severity": "BROKEN",
+          "worst": "UNHANDLED-404",
+          "bucket": "B",
+          "handler": "client.ts throws Unhandled API path"
+        },
+        {
+          "path": "/api/quests/roadmap/generate",
+          "severity": "BROKEN",
+          "worst": "UNHANDLED-404",
+          "bucket": "B",
+          "handler": "client.ts throws Unhandled API path"
+        }
+      ]
+    },
+    {
       "name": "attention-span",
       "total": 3,
       "broken": 1,
@@ -530,26 +647,6 @@
           "severity": "BROKEN",
           "worst": "UNHANDLED-404",
           "bucket": "A",
-          "handler": "client.ts throws Unhandled API path"
-        }
-      ]
-    },
-    {
-      "name": "code",
-      "total": 3,
-      "broken": 1,
-      "partial": 0,
-      "ok": 2,
-      "dead": 0,
-      "buckets": {
-        "B": 1
-      },
-      "paths": [
-        {
-          "path": "/api/code/evaluate",
-          "severity": "BROKEN",
-          "worst": "UNHANDLED-404",
-          "bucket": "B",
           "handler": "client.ts throws Unhandled API path"
         }
       ]
@@ -730,26 +827,6 @@
           "severity": "BROKEN",
           "worst": "UNHANDLED-404",
           "bucket": "A",
-          "handler": "client.ts throws Unhandled API path"
-        }
-      ]
-    },
-    {
-      "name": "quests",
-      "total": 3,
-      "broken": 1,
-      "partial": 0,
-      "ok": 2,
-      "dead": 0,
-      "buckets": {
-        "B": 1
-      },
-      "paths": [
-        {
-          "path": "/api/quests/enrollment",
-          "severity": "BROKEN",
-          "worst": "UNHANDLED-404",
-          "bucket": "B",
           "handler": "client.ts throws Unhandled API path"
         }
       ]
@@ -1041,16 +1118,6 @@
       "partial": 0,
       "ok": 4,
       "dead": 0,
-      "buckets": {},
-      "paths": []
-    },
-    {
-      "name": "friends",
-      "total": 7,
-      "broken": 0,
-      "partial": 0,
-      "ok": 0,
-      "dead": 7,
       "buckets": {},
       "paths": []
     },
@@ -5202,7 +5269,7 @@
         },
         {
           "file": "src/app/quests/lesson/hooks/useLessonEngine.ts",
-          "line": 830,
+          "line": 818,
           "live": true
         },
         {
@@ -6707,6 +6774,85 @@
       ],
       "directCalls": 1,
       "spec": null,
+      "brokenOn": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "okOn": [],
+      "severity": "BROKEN"
+    },
+    {
+      "path": "/api/code/debug-tutor",
+      "reachable": true,
+      "liveCallSites": 2,
+      "status": "UNHANDLED-404",
+      "worst": "UNHANDLED-404",
+      "bucket": "B",
+      "layer": "none",
+      "handler": "client.ts throws Unhandled API path",
+      "handledMethods": [],
+      "undecidable": false,
+      "preferLive": true,
+      "perMethod": {
+        "GET": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "POST": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "PUT": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "PATCH": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "DELETE": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        }
+      },
+      "callSites": [
+        {
+          "file": "src/components/quests/QuestWorkspaceClient.tsx",
+          "line": 261,
+          "live": true
+        },
+        {
+          "file": "src/components/quests/QuestWorkspaceClient.tsx",
+          "line": 261,
+          "live": true
+        }
+      ],
+      "directCalls": 1,
+      "spec": {
+        "file": "src/app/api/code/debug-tutor/route.ts",
+        "lines": 198,
+        "methods": [
+          "POST"
+        ],
+        "usesSecret": true,
+        "secrets": [
+          "GROQ_API_KEYS",
+          "GROQ_API_KEY",
+          "SUPABASE_SERVICE_ROLE_KEY"
+        ],
+        "secretVia": {
+          "SUPABASE_SERVICE_ROLE_KEY": "src/lib/services/financeService.ts"
+        },
+        "authGated": true
+      },
       "brokenOn": [
         "GET",
         "POST",
@@ -9207,8 +9353,8 @@
     },
     {
       "path": "/api/friends",
-      "reachable": false,
-      "liveCallSites": 0,
+      "reachable": true,
+      "liveCallSites": 10,
       "status": "UNHANDLED-404",
       "worst": "UNHANDLED-404",
       "bucket": "B",
@@ -9248,52 +9394,52 @@
         {
           "file": "src/app/friends/page.tsx",
           "line": 70,
-          "live": false
+          "live": true
         },
         {
           "file": "src/app/friends/page.tsx",
           "line": 163,
-          "live": false
+          "live": true
         },
         {
           "file": "src/app/friends/page.tsx",
           "line": 196,
-          "live": false
+          "live": true
         },
         {
           "file": "src/app/friends/page.tsx",
           "line": 216,
-          "live": false
+          "live": true
         },
         {
           "file": "src/app/friends/[id]/page.tsx",
           "line": 60,
-          "live": false
+          "live": true
         },
         {
           "file": "src/app/friends/page.tsx",
           "line": 70,
-          "live": false
+          "live": true
         },
         {
           "file": "src/app/friends/page.tsx",
           "line": 163,
-          "live": false
+          "live": true
         },
         {
           "file": "src/app/friends/page.tsx",
           "line": 196,
-          "live": false
+          "live": true
         },
         {
           "file": "src/app/friends/page.tsx",
           "line": 216,
-          "live": false
+          "live": true
         },
         {
           "file": "src/app/friends/[id]/page.tsx",
           "line": 60,
-          "live": false
+          "live": true
         }
       ],
       "directCalls": 5,
@@ -9325,8 +9471,8 @@
     },
     {
       "path": "/api/friends/:param",
-      "reachable": false,
-      "liveCallSites": 0,
+      "reachable": true,
+      "liveCallSites": 1,
       "status": "UNHANDLED-404",
       "worst": "UNHANDLED-404",
       "bucket": "A",
@@ -9366,7 +9512,7 @@
         {
           "file": "src/app/friends/[id]/page.tsx",
           "line": 39,
-          "live": false
+          "live": true
         }
       ],
       "directCalls": 1,
@@ -9383,8 +9529,8 @@
     },
     {
       "path": "/api/friends/challenges",
-      "reachable": false,
-      "liveCallSites": 0,
+      "reachable": true,
+      "liveCallSites": 6,
       "status": "UNHANDLED-404",
       "worst": "UNHANDLED-404",
       "bucket": "A",
@@ -9424,32 +9570,32 @@
         {
           "file": "src/components/friends/ArenaChallengeModal.tsx",
           "line": 31,
-          "live": false
+          "live": true
         },
         {
           "file": "src/components/friends/ArenaChallengesView.tsx",
           "line": 55,
-          "live": false
+          "live": true
         },
         {
           "file": "src/components/friends/ArenaChallengesView.tsx",
           "line": 76,
-          "live": false
+          "live": true
         },
         {
           "file": "src/components/friends/ArenaChallengeModal.tsx",
           "line": 31,
-          "live": false
+          "live": true
         },
         {
           "file": "src/components/friends/ArenaChallengesView.tsx",
           "line": 55,
-          "live": false
+          "live": true
         },
         {
           "file": "src/components/friends/ArenaChallengesView.tsx",
           "line": 76,
-          "live": false
+          "live": true
         }
       ],
       "directCalls": 3,
@@ -9478,8 +9624,8 @@
     },
     {
       "path": "/api/friends/messages",
-      "reachable": false,
-      "liveCallSites": 0,
+      "reachable": true,
+      "liveCallSites": 3,
       "status": "UNHANDLED-404",
       "worst": "UNHANDLED-404",
       "bucket": "A",
@@ -9519,17 +9665,17 @@
         {
           "file": "src/components/friends/FriendChatView.tsx",
           "line": 73,
-          "live": false
+          "live": true
         },
         {
           "file": "src/components/friends/FriendChatView.tsx",
           "line": 124,
-          "live": false
+          "live": true
         },
         {
           "file": "src/components/friends/FriendChatView.tsx",
           "line": 124,
-          "live": false
+          "live": true
         }
       ],
       "directCalls": 2,
@@ -9558,8 +9704,8 @@
     },
     {
       "path": "/api/friends/privacy",
-      "reachable": false,
-      "liveCallSites": 0,
+      "reachable": true,
+      "liveCallSites": 10,
       "status": "UNHANDLED-404",
       "worst": "UNHANDLED-404",
       "bucket": "A",
@@ -9599,52 +9745,52 @@
         {
           "file": "src/app/friends/page.tsx",
           "line": 136,
-          "live": false
+          "live": true
         },
         {
           "file": "src/components/friends/PrivacySettingsModal.tsx",
           "line": 47,
-          "live": false
+          "live": true
         },
         {
           "file": "src/components/friends/PrivacySettingsModal.tsx",
           "line": 63,
-          "live": false
+          "live": true
         },
         {
           "file": "src/components/friends/PrivacySettingsModal.tsx",
           "line": 84,
-          "live": false
+          "live": true
         },
         {
           "file": "src/components/friends/ReportStudentModal.tsx",
           "line": 44,
-          "live": false
+          "live": true
         },
         {
           "file": "src/app/friends/page.tsx",
           "line": 136,
-          "live": false
+          "live": true
         },
         {
           "file": "src/components/friends/PrivacySettingsModal.tsx",
           "line": 47,
-          "live": false
+          "live": true
         },
         {
           "file": "src/components/friends/PrivacySettingsModal.tsx",
           "line": 63,
-          "live": false
+          "live": true
         },
         {
           "file": "src/components/friends/PrivacySettingsModal.tsx",
           "line": 84,
-          "live": false
+          "live": true
         },
         {
           "file": "src/components/friends/ReportStudentModal.tsx",
           "line": 44,
-          "live": false
+          "live": true
         }
       ],
       "directCalls": 5,
@@ -9673,8 +9819,8 @@
     },
     {
       "path": "/api/friends/projects",
-      "reachable": false,
-      "liveCallSites": 0,
+      "reachable": true,
+      "liveCallSites": 6,
       "status": "UNHANDLED-404",
       "worst": "UNHANDLED-404",
       "bucket": "A",
@@ -9714,32 +9860,32 @@
         {
           "file": "src/components/friends/ProjectInviteModal.tsx",
           "line": 38,
-          "live": false
+          "live": true
         },
         {
           "file": "src/components/friends/SquadProjectsView.tsx",
           "line": 56,
-          "live": false
+          "live": true
         },
         {
           "file": "src/components/friends/SquadProjectsView.tsx",
           "line": 77,
-          "live": false
+          "live": true
         },
         {
           "file": "src/components/friends/ProjectInviteModal.tsx",
           "line": 38,
-          "live": false
+          "live": true
         },
         {
           "file": "src/components/friends/SquadProjectsView.tsx",
           "line": 56,
-          "live": false
+          "live": true
         },
         {
           "file": "src/components/friends/SquadProjectsView.tsx",
           "line": 77,
-          "live": false
+          "live": true
         }
       ],
       "directCalls": 3,
@@ -9768,8 +9914,8 @@
     },
     {
       "path": "/api/friends/report",
-      "reachable": false,
-      "liveCallSites": 0,
+      "reachable": true,
+      "liveCallSites": 2,
       "status": "UNHANDLED-404",
       "worst": "UNHANDLED-404",
       "bucket": "A",
@@ -9809,12 +9955,12 @@
         {
           "file": "src/components/friends/ReportStudentModal.tsx",
           "line": 30,
-          "live": false
+          "live": true
         },
         {
           "file": "src/components/friends/ReportStudentModal.tsx",
           "line": 30,
-          "live": false
+          "live": true
         }
       ],
       "directCalls": 1,
@@ -9887,7 +10033,7 @@
       "callSites": [
         {
           "file": "src/app/group-discussion/hooks/useGdOrchestrator.ts",
-          "line": 1094,
+          "line": 1097,
           "live": true
         },
         {
@@ -9902,7 +10048,7 @@
         },
         {
           "file": "src/app/group-discussion/hooks/useGdOrchestrator.ts",
-          "line": 1094,
+          "line": 1097,
           "live": true
         },
         {
@@ -10327,12 +10473,12 @@
       "callSites": [
         {
           "file": "src/app/group-discussion/hooks/useGdOrchestrator.ts",
-          "line": 1043,
+          "line": 1046,
           "live": true
         },
         {
           "file": "src/app/group-discussion/hooks/useGdOrchestrator.ts",
-          "line": 1043,
+          "line": 1046,
           "live": true
         },
         {
@@ -11200,12 +11346,12 @@
       "callSites": [
         {
           "file": "src/app/interview/page.tsx",
-          "line": 427,
+          "line": 431,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 427,
+          "line": 431,
           "live": true
         },
         {
@@ -11294,22 +11440,22 @@
       "callSites": [
         {
           "file": "src/app/interview/page.tsx",
-          "line": 501,
+          "line": 505,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 541,
+          "line": 545,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 501,
+          "line": 505,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 541,
+          "line": 545,
           "live": true
         },
         {
@@ -11660,22 +11806,22 @@
       "callSites": [
         {
           "file": "src/app/interview/page.tsx",
-          "line": 357,
+          "line": 361,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 380,
+          "line": 384,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 357,
+          "line": 361,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 380,
+          "line": 384,
           "live": true
         },
         {
@@ -12484,7 +12630,7 @@
       "directCalls": 1,
       "spec": {
         "file": "src/app/api/mentor/chat/route.ts",
-        "lines": 292,
+        "lines": 312,
         "methods": [
           "POST"
         ],
@@ -14416,7 +14562,7 @@
     {
       "path": "/api/payment/create-order",
       "reachable": true,
-      "liveCallSites": 5,
+      "liveCallSites": 6,
       "status": "REAL",
       "worst": "REAL",
       "bucket": "OK",
@@ -14472,7 +14618,7 @@
         {
           "file": "src/app/pins/page.tsx",
           "line": 89,
-          "live": false
+          "live": true
         },
         {
           "file": "src/app/pricing/page.tsx",
@@ -14685,7 +14831,7 @@
     {
       "path": "/api/payment/verify",
       "reachable": true,
-      "liveCallSites": 5,
+      "liveCallSites": 7,
       "status": "REAL",
       "worst": "REAL",
       "bucket": "OK",
@@ -14741,12 +14887,12 @@
         {
           "file": "src/app/pins/page.tsx",
           "line": 92,
-          "live": false
+          "live": true
         },
         {
           "file": "src/app/pins/page.tsx",
           "line": 131,
-          "live": false
+          "live": true
         },
         {
           "file": "src/app/pricing/page.tsx",
@@ -16341,6 +16487,82 @@
       "severity": "OK"
     },
     {
+      "path": "/api/quests/roadmap/generate",
+      "reachable": true,
+      "liveCallSites": 2,
+      "status": "UNHANDLED-404",
+      "worst": "UNHANDLED-404",
+      "bucket": "B",
+      "layer": "none",
+      "handler": "client.ts throws Unhandled API path",
+      "handledMethods": [],
+      "undecidable": false,
+      "preferLive": true,
+      "perMethod": {
+        "GET": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "POST": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "PUT": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "PATCH": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        },
+        "DELETE": {
+          "layer": "none",
+          "verdict": "UNHANDLED-404",
+          "where": "client.ts throws Unhandled API path"
+        }
+      },
+      "callSites": [
+        {
+          "file": "src/app/quests/components/useQuestProgression.ts",
+          "line": 486,
+          "live": true
+        },
+        {
+          "file": "src/app/quests/components/useQuestProgression.ts",
+          "line": 486,
+          "live": true
+        }
+      ],
+      "directCalls": 1,
+      "spec": {
+        "file": "src/app/api/quests/roadmap/generate/route.ts",
+        "lines": 130,
+        "methods": [
+          "POST"
+        ],
+        "usesSecret": true,
+        "secrets": [
+          "GROQ_API_KEYS",
+          "GROQ_API_KEY"
+        ],
+        "secretVia": {},
+        "authGated": true
+      },
+      "brokenOn": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ],
+      "okOn": [],
+      "severity": "BROKEN"
+    },
+    {
       "path": "/api/quests/verify",
       "reachable": true,
       "liveCallSites": 2,
@@ -16384,7 +16606,7 @@
       "callSites": [
         {
           "file": "src/components/quests/workspace/useWorkspaceState.ts",
-          "line": 335,
+          "line": 342,
           "live": true
         },
         {
@@ -19532,12 +19754,12 @@
         },
         {
           "file": "src/components/quests/workspace/useWorkspaceState.ts",
-          "line": 370,
+          "line": 377,
           "live": true
         },
         {
           "file": "src/components/quests/workspace/useWorkspaceState.ts",
-          "line": 396,
+          "line": 403,
           "live": true
         },
         {
@@ -19567,12 +19789,12 @@
         },
         {
           "file": "src/components/quests/workspace/useWorkspaceState.ts",
-          "line": 370,
+          "line": 377,
           "live": true
         },
         {
           "file": "src/components/quests/workspace/useWorkspaceState.ts",
-          "line": 396,
+          "line": 403,
           "live": true
         },
         {

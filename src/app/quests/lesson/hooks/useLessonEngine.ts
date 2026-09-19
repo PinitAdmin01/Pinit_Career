@@ -795,26 +795,10 @@ export function useLessonEngine({
     setChatLoading(true);
 
     const nextDoubtCount = doubtCount + 1;
-    setDoubtCount(nextDoubtCount);
-
-    if (nextDoubtCount >= 3) {
+    const isFirstPrinciples = nextDoubtCount >= 3;
+    if (isFirstPrinciples) {
       toast.info("Classroom Adaptation", "Simplifying explanations to first principles.");
-      const resetMsg = `${studentName}, it seems this topic is a bit tricky — let me step back and explain it from absolute first principles using a simple real-world analogy.`;
-      setChatMessages(prev => [
-        ...prev,
-        { role: 'user' as const, content: msg },
-        { role: 'assistant' as const, content: resetMsg }
-      ]);
-      setLatestAIResponse(resetMsg);
-      speakWithAvatar(
-        resetMsg,
-        teacherIdRef.current,
-        () => setIsPlaying(true),
-        () => setIsPlaying(false)
-      );
       setDoubtCount(0);
-      setChatLoading(false);
-      return;
     }
 
     const newMessages = [...chatMessages, { role: 'user' as const, content: msg }];
@@ -827,9 +811,13 @@ export function useLessonEngine({
       }));
 
       const activeSlide = slides[currentSlide - 1];
+      const promptMsg = isFirstPrinciples
+        ? `${msg}\n[Instruction: The student has asked multiple doubts on this topic. Explain ${activeSlide?.title ? `"${activeSlide.title}"` : 'this concept'} from absolute first principles using an intuitive real-world analogy.]`
+        : msg;
+
       const data = await api.post<{ reply: string }>('/api/avatar/chat', {
         teacherId: teacherIdRef.current,
-        message: msg,
+        message: promptMsg,
         history,
         currentSlide: activeSlide ? { title: activeSlide.title, points: activeSlide.bulletPoints } : null,
       });

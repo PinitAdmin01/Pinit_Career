@@ -778,10 +778,13 @@ export function useGdOrchestrator({
     }
   };
 
-  const handleStartCall = () => {
+  const handleStartCall = async () => {
     if (!cOS.isItemUnlocked(`gd:${roomName}`)) {
-      const ok = cOS.unlockItem(`gd:${roomName}`, 'gd', `Group Discussion: ${roomName}`);
-      if (!ok) return;
+      const ok = await cOS.unlockItem(`gd:${roomName}`, 'gd', `Group Discussion: ${roomName}`);
+      if (!ok) {
+        toast.error('Insufficient Pins 🔒', 'You need Pins to enter this corporate Group Discussion.');
+        return;
+      }
     }
 
     const hostId = gdHostId;

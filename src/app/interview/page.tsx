@@ -330,7 +330,11 @@ export default function InterviewPage() {
 
     const itemKey = `interview:${domainStream}:${topic.toLowerCase().replace(/\s+/g, '_')}`;
     if (!cOS.isItemUnlocked(itemKey)) {
-      cOS.unlockItem(itemKey, 'interview', `AI Interview: ${topic}`);
+      const unlocked = await cOS.unlockItem(itemKey, 'interview', `AI Interview: ${topic}`);
+      if (!unlocked) {
+        toast.error('Insufficient Pins 🔒', 'You need Pins to start this corporate interview session. Complete quests to earn Pins!');
+        return;
+      }
     }
 
     const sessionTeacher = selectRandomTeacherForSession();

@@ -191,13 +191,13 @@ export function useWorkspaceState({
   const getOrCreateExamStart = useCallback((): number => {
     if (typeof window === 'undefined') return Date.now();
     try {
-      const stored = sessionStorage.getItem(examStartKey);
+      const stored = localStorage.getItem(examStartKey);
       const parsed = stored ? Number(stored) : NaN;
       if (Number.isFinite(parsed) && parsed > 0 && parsed <= Date.now()) {
         return parsed;
       }
       const now = Date.now();
-      sessionStorage.setItem(examStartKey, String(now));
+      localStorage.setItem(examStartKey, String(now));
       return now;
     } catch (err) {
       console.warn('[QuestWorkspace] Could not persist exam start time:', err);
@@ -271,14 +271,21 @@ export function useWorkspaceState({
 
   useEffect(() => {
     if (!questId) return;
-    const teacherStored = typeof window !== 'undefined' ? sessionStorage.getItem(`pinit_quest_teacher_${questId}`) : null;
+    const teacherStored = typeof window !== 'undefined'
+      ? (localStorage.getItem(`pinit_quest_teacher_${questId}`) || sessionStorage.getItem(`pinit_quest_teacher_${questId}`))
+      : null;
     const isPaid = (cOS.onboardingAnswers?.initiatedQuests || []).includes(questId);
-    if (teacherStored || isPaid || completedQuests.includes(questId)) {
-      const selectedTeacher = cOS.onboardingAnswers?.selectedTeacherId || teacherStored || 'kashyap';
-      setQuestTeacher(selectedTeacher);
+    const isUnlockedInLocks = typeof cOS.isItemUnlocked === 'function' ? cOS.isItemUnlocked(`quest:${questId}`) : false;
+    const isAlreadyCompleted = completedQuests.includes(questId);
+
+    const selectedTeacher = cOS.onboardingAnswers?.selectedTeacherId || teacherStored || 'kashyap';
+    setQuestTeacher(selectedTeacher);
+
+    // Authoritative unlock check: never grant unlock solely based on stored teacher key
+    if (isUnlockedInLocks || isPaid || isAlreadyCompleted) {
       setIsUnlocked(true);
     }
-  }, [questId, completedQuests, cOS.onboardingAnswers]);
+  }, [questId, completedQuests, cOS.onboardingAnswers, cOS.isItemUnlocked, unlockedItems]);
 
   useEffect(() => {
     if (!quest) return;
@@ -295,7 +302,7 @@ export function useWorkspaceState({
     const ok = await unlockItem(`quest:${questId}`, 'quest', `Unlock Quest: ${(quest?.title || '').split(':')[1]?.trim() || quest?.title}`);
     if (ok) {
       if (typeof window !== 'undefined') {
-        sessionStorage.setItem(`pinit_quest_teacher_${questId}`, selectedTeacherId);
+        localStorage.setItem(`pinit_quest_teacher_${questId}`, selectedTeacherId);
       }
       setQuestTeacher(selectedTeacherId);
       setIsUnlocked(true);

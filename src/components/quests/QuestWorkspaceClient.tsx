@@ -65,7 +65,6 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
 
   const currentTeacher = TEACHERS.find(t => t.id === state.questTeacher) || TEACHERS[0];
   const langInfo = getLangInfo(questId || '', quest);
-  const isHardwareQuest = Boolean(quest?.id && (quest.id.includes('embedded') || quest.id.includes('network') || quest.id.includes('edge') || quest.id.includes('iotsec')));
 
   if (!quest) {
     return (
@@ -255,15 +254,34 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
               output={state.output}
               terminalLogs={state.terminalLogs}
               langFile={langInfo.file}
-              onAskAiTutor={() => {
+              onAskAiTutor={async () => {
                 state.setShowAiTutorModal(true);
                 state.setLoadingAiTutor(true);
-                setTimeout(() => {
+                try {
+                  const res = await fetch('/api/code/debug-tutor', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      code: state.code,
+                      language: langInfo.language,
+                      output: state.output,
+                      terminalLogs: state.terminalLogs,
+                      questTitle: quest?.title || 'Coding Challenge',
+                      teacherId: state.questTeacher || currentTeacher.id,
+                    }),
+                  });
+                  if (res.ok) {
+                    const data = await res.json();
+                    state.setAiTutorHint(data.hint);
+                  } else {
+                    state.setAiTutorHint(`🤖 ${currentTeacher.name} (${currentTeacher.emoji}) Socratic Debug Hint:\n\n"Examine your code logic and boundary cases for ${quest?.title || 'this challenge'}. Trace inputs carefully."`);
+                  }
+                } catch {
+                  state.setAiTutorHint(`🤖 ${currentTeacher.name} (${currentTeacher.emoji}) Socratic Debug Hint:\n\n"Double-check your loop bounds, syntax parameters, and return statement types before re-running."`);
+                } finally {
                   state.setLoadingAiTutor(false);
-                  state.setAiTutorHint(`🤖 ${currentTeacher.name} (${currentTeacher.emoji}) Socratic Debug Hint:\n\n"I analyzed your code execution logic for ${quest?.title || 'this quest'}.\n\nCompiler Output: '${state.output?.message}'.\n\n💡 Guidance: Check your loop bounds, syntax parameters, and return statement types before executing!"`);
-                }, 500);
+                }
               }}
-              isHardwareQuest={isHardwareQuest}
               isCompleted={isCompleted}
             />
 

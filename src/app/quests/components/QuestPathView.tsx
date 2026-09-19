@@ -557,52 +557,39 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
           {/* ── RIGHT COLUMN (60% Width): Detailed Quest Stage Execution Cards ── */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
 
-            {/* ⚡ Placement Prep Fast-Track Toggle Banner */}
+            {/* 🎓 Authoritative Curriculum Progression Banner */}
             <div style={{
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              background: isPlacementPrepFastTrack ? 'rgba(var(--warning-rgb), 0.08)' : 'rgba(255,255,255,0.03)',
-              border: isPlacementPrepFastTrack ? '1px solid rgba(var(--warning-rgb), 0.35)' : '1px solid var(--border)',
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid var(--border)',
               borderRadius: 14,
               padding: '10px 16px',
               marginBottom: -6
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ fontSize: 16 }}>⚡</span>
+                <span style={{ fontSize: 16 }}>🔒</span>
                 <div>
-                  <div style={{ fontSize: 11.5, fontWeight: 800, color: isPlacementPrepFastTrack ? 'var(--warning)' : 'var(--t1)' }}>
-                    Placement Prep Fast-Track Mode
+                  <div style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--t1)' }}>
+                    Authoritative Curriculum Progression
                   </div>
                   <div style={{ fontSize: 10, color: 'var(--t3)' }}>
-                    {isPlacementPrepFastTrack ? 'All stages unlocked for urgent interview & campus preparation.' : 'Stages unlock sequentially as you complete prerequisites.'}
+                    Stages unlock sequentially as you complete and verify prerequisite quests.
                   </div>
                 </div>
               </div>
-              <button
-                onClick={() => {
-                  const nextVal = !isPlacementPrepFastTrack;
-                  setIsPlacementPrepFastTrack(nextVal);
-                  if (nextVal) {
-                    toast.success('⚡ Placement Fast-Track Enabled', 'All stages are now unlocked for immediate review!');
-                  } else {
-                    toast.info('Standard Progression Restored', 'Prerequisite stage locks have been re-enabled.');
-                  }
-                }}
-                style={{
-                  padding: '6px 14px',
-                  fontSize: 11,
-                  fontWeight: 800,
-                  borderRadius: 8,
-                  background: isPlacementPrepFastTrack ? 'var(--warning)' : 'var(--bg3)',
-                  color: isPlacementPrepFastTrack ? '#000000' : 'var(--t2)',
-                  border: isPlacementPrepFastTrack ? '1px solid var(--warning)' : '1px solid var(--border)',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease'
-                }}
-              >
-                {isPlacementPrepFastTrack ? '⚡ Fast-Track Active' : '🔓 Unlock Fast-Track'}
-              </button>
+              <span style={{
+                fontSize: 10.5,
+                fontWeight: 800,
+                padding: '4px 10px',
+                borderRadius: 8,
+                background: 'rgba(var(--accent-rgb, 99, 102, 241), 0.1)',
+                border: '1px solid rgba(var(--accent-rgb, 99, 102, 241), 0.25)',
+                color: 'var(--accent)',
+              }}>
+                Prerequisites Enforced
+              </span>
             </div>
             
             {trajectory.nodes.map((node, idx) => {
@@ -612,7 +599,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
               const nodeProgressPct = Math.min(100, Math.round((nodeCompletedCount / Math.max(1, nodeQuests.length)) * 100));
               const isNodeCompleted = nodeProgressPct === 100;
               const isCurrentActiveNode = node.courseId === activeCourseId;
-              const isLocked = !isPlacementPrepFastTrack && idx > 0 && (
+              const isLocked = idx > 0 && (
                 (() => {
                   const prevNode = trajectory.nodes[idx - 1];
                   const prevCourse = COURSES_REGISTRY.find(c => c.id === prevNode.courseId);
@@ -694,7 +681,11 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                     {/* Main Interactive Stage Card */}
                     <div
                       onClick={() => {
-                        if (!isLocked && nextQuestInNode) {
+                        if (isLocked) {
+                          toast.warning('Prerequisite Stage Locked 🔒', 'Please complete the previous stage quests before advancing to this stage.');
+                          return;
+                        }
+                        if (nextQuestInNode) {
                           handleLaunchQuest(nextQuestInNode, node.courseId);
                         }
                       }}

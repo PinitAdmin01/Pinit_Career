@@ -476,26 +476,51 @@ export function useQuestProgression() {
     setIsGeneratingRoadmap(true);
     setGenerationStep(1);
 
-    await new Promise(r => setTimeout(r, 500));
-    setGenerationStep(2);
-
-    await new Promise(r => setTimeout(r, 500));
-    setGenerationStep(3);
-
     const config = TRACK_CONFIG[selectedTrack] || TRACK_CONFIG.ai;
 
     try {
       const finalGoal = customGoal ? customGoal.trim() : config.role;
-      const { generateDynamicStudentRoadmap } = await import('@/lib/data/roadmapFuser');
-      const dynamicModules = generateDynamicStudentRoadmap({
-        qt1: onboardingAnswers?.qt1_score ?? 40,
-        qt2: onboardingAnswers?.qt2_score ?? 40,
-        archetype: onboardingAnswers?.mindset_archetype || 'Pattern Hunter',
-        goal: finalGoal,
-        courseId: config.courseId,
-        durationDays: selectedDuration,
-        dailyPace: selectedPace
-      });
+
+      let dynamicModules;
+      try {
+        const res = await fetch('/api/quests/roadmap/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            goal: finalGoal,
+            courseId: config.courseId,
+            durationDays: selectedDuration,
+            dailyPace: selectedPace,
+            archetype: onboardingAnswers?.mindset_archetype || 'Pattern Hunter',
+            qt1: onboardingAnswers?.qt1_score ?? 40,
+            qt2: onboardingAnswers?.qt2_score ?? 40,
+          }),
+        });
+
+        setGenerationStep(2);
+
+        if (res.ok) {
+          const data = await res.json();
+          dynamicModules = data.modules;
+        }
+      } catch {
+        // Fall back to local synthesis
+      }
+
+      if (!dynamicModules || !Array.isArray(dynamicModules)) {
+        const { generateDynamicStudentRoadmap } = await import('@/lib/data/roadmapFuser');
+        dynamicModules = generateDynamicStudentRoadmap({
+          qt1: onboardingAnswers?.qt1_score ?? 40,
+          qt2: onboardingAnswers?.qt2_score ?? 40,
+          archetype: onboardingAnswers?.mindset_archetype || 'Pattern Hunter',
+          goal: finalGoal,
+          courseId: config.courseId,
+          durationDays: selectedDuration,
+          dailyPace: selectedPace
+        });
+      }
+
+      setGenerationStep(3);
 
       const extraId = createExtraId();
       const extra: ExtraRoadmap = {
@@ -803,8 +828,11 @@ export function useQuestProgression() {
         return;
       }
 
-      const success = unlockItem(`quest:${quest.id}`, 'quest', `Initiated Quest: ${quest.title}`);
-      if (!success) return;
+      const success = await unlockItem(`quest:${quest.id}`, 'quest', `Initiated Quest: ${quest.title}`);
+      if (!success) {
+        toast.error('Unlock Failed 🔒', 'Insufficient Pins or unable to start quest. Earn Pins by solving practice challenges or checking in daily!');
+        return;
+      }
 
       const nextInitiated = [...initiated, quest.id];
       const nextAnswers = {
