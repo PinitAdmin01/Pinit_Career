@@ -1,3 +1,4 @@
+import UniversityPlacementRoster from '@/components/university/UniversityPlacementRoster';
 'use client';
 // apps/web/src/app/university/page.tsx
 // Institution Dashboard — TPO / placement officer view.
@@ -29,7 +30,7 @@ interface SkillGap {
   skill_gap: string; frequency: number;
 }
 
-type Tab = 'overview' | 'students' | 'skills' | 'report';
+type Tab = 'overview' | 'students' | 'skills' | 'report' | 'roster';
 
 // ── Reusable components ───────────────────────────────────────────────────────
 function KpiCard({ label, value, sub, color, icon }: { label:string; value:string|number; sub?:string; color:string; icon:string }) {
@@ -135,6 +136,7 @@ export default function UniversityPage() {
     { id:'students', label:'Top Students',  icon:'🏆' },
     { id:'skills',   label:'Skill Gaps',    icon:'📉' },
     { id:'report',   label:'Placement Report', icon:'📋' },
+    { id:'roster',   label:'Verified Roster', icon:'🎓' },
   ];
 
   return (
