@@ -55,6 +55,16 @@
       "id": "task-006",
       "title": "Eliminate Fake Data: Wire UniversityPlacementRoster to live API with real loading and empty states",
       "prompt": "Read CLAUDE_TASK_PROMPT.md. Update UniversityPlacementRoster.tsx in claude_sandbox/ to remove all hardcoded SAMPLE_ROSTER data. Connect to live GET /api/university/placement-roster, handling genuine loading, error, and honest empty states. Run node claude_self_validate.js to confirm zero errors.",
+      "status": "completed",
+      "attempts": 1,
+      "maxAttempts": 3,
+      "lastRunAt": "2026-09-19T10:30:00.000Z",
+      "result": "Completed and validated."
+    },
+    {
+      "id": "task-007",
+      "title": "Friends Tab CSS Overhaul & Production Account Middleware/Endpoint Hardening",
+      "prompt": "Read CLAUDE_TASK_PROMPT.md. Revamp Friends Tab UI/CSS in src/app/friends/page.tsx & src/styles/friends.css (fix unstyled search bar, replace emojis with sleek SVGs, modern glassmorphic filter chips and student cards). In src/app/api/friends/route.ts, eliminate insecure fallbacks (hardcoded UUID / firstUser) and enforce proper authentication and rate limiting. Validate with npx tsc --noEmit.",
       "status": "queued",
       "attempts": 0,
       "maxAttempts": 3,
