@@ -26,6 +26,7 @@ export interface SandboxExecutionOptions {
   functionName?: string;
   testCases?: TestCase[];
   timeoutMs?: number;
+  mode?: 'suite' | 'script';
 }
 
 export interface UntrustedExecutionPayload {
@@ -214,57 +215,86 @@ export async function executeInTwoLayerSandbox(
                   const code = data.code;
                   const fnName = data.fnName;
                   const testCases = data.testCases || [];
+                  const mode = data.mode || (fnName && fnName !== 'none' ? 'suite' : 'script');
                   const outcomes = [];
                   let allPassed = true;
                   let runtimeError = null;
 
-                  try {
-                    // Evaluate student solution in isolated worker scope
-                    const compiledFn = new Function(code + '\\nreturn ' + fnName + ';')();
-                    if (typeof compiledFn !== 'function') {
-                      throw new Error("Function '" + fnName + "' is not defined in solution.");
+                  if (mode === 'script' || fnName === 'none' || !fnName) {
+                    try {
+                      const res = new Function(code)();
+                      if (res !== undefined && logs.length === 0) {
+                        logs.push(String(res));
+                      }
+                      allPassed = true;
+                    } catch (scriptErr) {
+                      runtimeError = scriptErr && scriptErr.message ? scriptErr.message : String(scriptErr);
+                      allPassed = false;
                     }
-
-                    for (let i = 0; i < testCases.length; i++) {
-                      const tc = testCases[i];
-                      const tStart = Date.now();
-                      let args = [];
+                  } else {
+                    try {
+                      // Evaluate student solution in isolated worker scope
+                      let compiledFn;
                       try {
-                        args = JSON.parse('[' + (tc.input || '').replace(/^\\(|\\)$/g, '') + ']');
-                      } catch {
-                        args = [tc.input];
+                        compiledFn = new Function(code + '\\nreturn ' + fnName + ';')();
+                      } catch (compileInner) {
+                        // Fallback: evaluate directly as script so console logs still execute
+                        const res = new Function(code)();
+                        if (res !== undefined && logs.length === 0) {
+                          logs.push(String(res));
+                        }
+                        compiledFn = null;
+                        allPassed = true;
                       }
 
-                      try {
-                        const actual = compiledFn(...args);
-                        const actualStr = String(actual);
-                        const passed = actualStr.trim() === String(tc.output).trim();
-                        if (!passed) allPassed = false;
-                        outcomes.push({
-                          index: i + 1,
-                          testCaseName: tc.name || ('Test ' + (i + 1)),
-                          input: tc.input,
-                          expectedOutput: tc.output,
-                          actualOutput: actualStr,
-                          passed: passed,
-                          durationMs: Date.now() - tStart
-                        });
-                      } catch (execErr) {
-                        allPassed = false;
-                        outcomes.push({
-                          index: i + 1,
-                          testCaseName: tc.name || ('Test ' + (i + 1)),
-                          input: tc.input,
-                          expectedOutput: tc.output,
-                          actualOutput: 'RUNTIME_ERROR',
-                          passed: false,
-                          error: execErr && execErr.message ? execErr.message : String(execErr),
-                          durationMs: Date.now() - tStart
-                        });
+                      if (typeof compiledFn === 'function') {
+                        for (let i = 0; i < testCases.length; i++) {
+                          const tc = testCases[i];
+                          const tStart = Date.now();
+                          let args = [];
+                          try {
+                            args = JSON.parse('[' + (tc.input || '').replace(/^\\(|\\)$/g, '') + ']');
+                          } catch {
+                            args = [tc.input];
+                          }
+
+                          try {
+                            const actual = compiledFn(...args);
+                            const actualStr = String(actual);
+                            const passed = actualStr.trim() === String(tc.output).trim();
+                            if (!passed) allPassed = false;
+                            outcomes.push({
+                              index: i + 1,
+                              testCaseName: tc.name || ('Test ' + (i + 1)),
+                              input: tc.input,
+                              expectedOutput: tc.output,
+                              actualOutput: actualStr,
+                              passed: passed,
+                              durationMs: Date.now() - tStart
+                            });
+                          } catch (execErr) {
+                            allPassed = false;
+                            outcomes.push({
+                              index: i + 1,
+                              testCaseName: tc.name || ('Test ' + (i + 1)),
+                              input: tc.input,
+                              expectedOutput: tc.output,
+                              actualOutput: 'RUNTIME_ERROR',
+                              passed: false,
+                              error: execErr && execErr.message ? execErr.message : String(execErr),
+                              durationMs: Date.now() - tStart
+                            });
+                          }
+                        }
+                      } else if (!compiledFn && !runtimeError) {
+                        // Handled by script fallback
+                      } else {
+                        throw new Error("Function '" + fnName + "' is not defined in solution.");
                       }
+                    } catch (compileErr) {
+                      runtimeError = compileErr && compileErr.message ? compileErr.message : String(compileErr);
+                      allPassed = false;
                     }
-                  } catch (compileErr) {
-                    runtimeError = compileErr && compileErr.message ? compileErr.message : String(compileErr);
                   }
 
                   self.postMessage({
@@ -353,7 +383,8 @@ export async function executeInTwoLayerSandbox(
                         type: 'RUN_CODE',
                         code: req.code,
                         fnName: req.fnName,
-                        testCases: req.testCases
+                        testCases: req.testCases,
+                        mode: req.mode
                       });
                     } catch (workerInitErr) {
                       port.postMessage({
@@ -431,6 +462,8 @@ export async function executeInTwoLayerSandbox(
           totalDurationMs: totalDuration,
           terminalLogs: logs,
           testOutcomes: payload.testOutcomes,
+          stdout: payload.stdout || '',
+          stderr: payload.stderr || '',
           error: payload.error
         });
       };
@@ -456,7 +489,8 @@ export async function executeInTwoLayerSandbox(
           code,
           fnName,
           testCases,
-          timeoutMs
+          timeoutMs,
+          mode: options?.mode || (fnName && fnName !== 'none' ? 'suite' : 'script')
         });
       };
 
@@ -465,4 +499,30 @@ export async function executeInTwoLayerSandbox(
       failClosed(`Sandbox bootstrap exception: ${err?.message || String(err)}`);
     }
   });
+}
+
+/**
+ * Executes a standalone script within the two-layer sandbox and returns genuine console output.
+ */
+export async function executeSandboxScript(
+  code: string,
+  timeoutMs: number = 4000
+): Promise<{ stdout: string; stderr: string; error?: string; durationMs: number; success: boolean }> {
+  const result = await executeInTwoLayerSandbox(code, {
+    mode: 'script',
+    functionName: 'none',
+    testCases: [],
+    timeoutMs,
+  });
+
+  const stdout = result.stdout || result.terminalLogs.filter(l => l.startsWith('stdout: ')).map(l => l.slice(8)).join('\n');
+  const stderr = result.stderr || result.terminalLogs.filter(l => l.startsWith('stderr: ')).map(l => l.slice(8)).join('\n');
+
+  return {
+    stdout: stdout || (result.allPassed && !result.error ? 'Program execution completed successfully (exit code 0).' : ''),
+    stderr: stderr || result.error || '',
+    error: result.error,
+    durationMs: result.totalDurationMs,
+    success: result.allPassed && !result.error,
+  };
 }

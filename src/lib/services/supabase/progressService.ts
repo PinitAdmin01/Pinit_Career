@@ -2,6 +2,7 @@
 
 import { supabase } from '@/lib/supabaseClient';
 import { generateTxId } from '@/lib/utils/transactionId';
+import { getAuthoritativeQuest } from '@/lib/quests/questRegistry';
 
 const IS_VALID_UUID = (id?: string | null): boolean =>
   !!id && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id);
@@ -166,10 +167,23 @@ export async function persistQuestCompletion(
       if (resp.ok) {
         const result = await resp.json();
         return { ok: true, newXp: result.xpTotal };
+      } else {
+        // Fail closed if server explicitly rejected (e.g. 400 unregistered quest, 429 daily cap)
+        const errJson = await resp.json().catch(() => ({}));
+        return {
+          ok: false,
+          error: errJson.error || errJson.message || `Quest completion rejected by server (HTTP ${resp.status})`,
+        };
       }
     } catch {
-      // Fall back to direct client write if network/fetch fails
+      // Fall back to direct client write ONLY if network/fetch throws (e.g. offline)
     }
+  }
+
+  // Fail closed on unregistered quests even in fallback write
+  const authQuest = getAuthoritativeQuest(questId);
+  if (!authQuest) {
+    return { ok: false, error: `Cannot complete unregistered quest '${questId}'.` };
   }
 
   try {

@@ -449,7 +449,7 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
 
     if (userId && userId !== 'guest') {
       api.post('/api/quest/complete', { questId, isExam, xpAmount, courseId }).catch(() => {});
-      persistQuestCompletion(userId, questId, xpAmount || 150).catch(() => {});
+      persistQuestCompletion(userId, questId, isExam, xpAmount || 150, courseId).catch(() => {});
       updateUserProfile(userId, {
         completed_quests: next,
         onboarding_answers: nextAnswers,
