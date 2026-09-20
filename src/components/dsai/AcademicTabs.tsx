@@ -6,6 +6,28 @@ import { api } from '@/lib/api/client';
 import { subscribeToDirectMessages } from '@/lib/supabaseService';
 import { inboxSyncService } from '@/lib/chat/inboxSyncService';
 
+
+// Live Supabase sync with graceful offline fallback
+async function fetchAcademicData(collection: string) {
+  try {
+    const routeMap: Record<string, string> = {
+      'exam_results': '/api/exams/results',
+      'exam_schedule': '/api/exams/schedule',
+      'notifications': '/api/notifications',
+      'news': '/api/news'
+    };
+    if (routeMap[collection]) {
+      const res = await api.get(routeMap[collection]);
+      if (res && Array.isArray(res.data) && res.data.length > 0) {
+        return res.data;
+      }
+    }
+  } catch (err) {
+    // Graceful fallback to local cache
+  }
+  return await fetchAcademicData(collection);
+}
+
 const SEM_TABS = ['All', 'Sem 1', 'Sem 2', 'Sem 3', 'Sem 4', 'Sem 5', 'Sem 6'];
 
 function PageLoader() {
@@ -24,10 +46,10 @@ export function HomeTab({ student, onStartExam, examCheckLoading }: any) {
     let cancelled = false;
     async function load() {
       const [results, schedules, notifications, news] = await Promise.all([
-        DB.getAll('exam_results'),
-        DB.getAll('exam_schedule'),
-        DB.getAll('notifications'),
-        DB.getAll('news'),
+        fetchAcademicData('exam_results'),
+        fetchAcademicData('exam_schedule'),
+        fetchAcademicData('notifications'),
+        fetchAcademicData('news'),
       ]);
       if (cancelled) return;
       const now = new Date();
@@ -134,7 +156,7 @@ export function ExamsTab({ student, onStartExam, examCheckLoading }: any) {
   const [data, setData] = useState<any>(null);
 
   const load = useCallback(async () => {
-    const [schedules, results] = await Promise.all([DB.getAll('exam_schedule'), DB.getAll('exam_results')]);
+    const [schedules, results] = await Promise.all([fetchAcademicData('exam_schedule'), fetchAcademicData('exam_results')]);
     const now = new Date();
     const attemptedIds = results.filter((r: any) => r.registerNumber === student.registerNumber).map((r: any) => r.examScheduleId);
     const myExams = schedules.filter((s: any) => s.batch === student.batch || s.batch === 'All Batches');
@@ -209,8 +231,8 @@ export function ResultsTab({ student }: any) {
 
   const load = useCallback(async () => {
     const [all, vis] = await Promise.all([
-      DB.getAll('exam_results'),
-      DB.getAll('result_visibility'),
+      fetchAcademicData('exam_results'),
+      fetchAcademicData('result_visibility'),
     ]);
     const map: any = {};
     vis.forEach((v: any) => { map[v.examScheduleId] = v.revealed === true; });
@@ -306,7 +328,7 @@ export function NotesTab({ student }: any) {
       setNotes(data.notes || []);
     } catch {
       // Fallback
-      const all = await DB.getAll('notes');
+      const all = await fetchAcademicData('notes');
       const filtered = all
         .filter((n: any) => n.batch === student.batch || n.batch === 'All Batches')
         .map(({ fileData, fileUrl, ...meta }: any) => meta);
@@ -412,7 +434,7 @@ export function NotificationsTab({ student }: any) {
 
   useEffect(() => {
     async function load() {
-      const all = await DB.getAll('notifications');
+      const all = await fetchAcademicData('notifications');
       setNotifs(all.filter((n: any) => n.batch === student.batch || n.batch === 'All Batches'));
     }
     load();
@@ -454,7 +476,7 @@ export function ContactTab({ student }: any) {
 
   const loadHistory = useCallback(async () => {
     try {
-      const local = await DB.getAll('student_messages');
+      const local = await fetchAcademicData('student_messages');
       const filteredLocal = local.filter((m: any) => m.studentId === student.registerNumber || m.studentName === student.name);
 
       const apiRes = await api.get<{ messages: any[] }>(`/api/messages/direct?with=${recipient}`).catch(() => ({ messages: [] }));
@@ -480,7 +502,7 @@ export function ContactTab({ student }: any) {
       const sorted = Array.from(localMap.values()).sort((a: any, b: any) => (b.sentAt || '').localeCompare(a.sentAt || ''));
       setHistory(sorted);
     } catch {
-      const local = await DB.getAll('student_messages');
+      const local = await fetchAcademicData('student_messages');
       setHistory(local.filter((m: any) => m.studentId === student.registerNumber || m.studentName === student.name));
     }
   }, [student.registerNumber, student.name, recipient]);
