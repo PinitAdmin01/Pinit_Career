@@ -16,6 +16,7 @@ export default function StudentMaintenancePortal() {
   const [tickets, setTickets] = useState<any[]>([]);
   const [categoryFilter, setCategoryFilter] = useState('All');
   const [statusFilter, setStatusFilter] = useState('All');
+  const [scopeFilter, setScopeFilter] = useState<'all' | 'my'>('all');
 
   // Form states
   const [category, setCategory] = useState('Electricity');
@@ -64,7 +65,8 @@ export default function StudentMaintenancePortal() {
       category,
       location: location.trim(),
       description: description.trim(),
-      status: 'Open',
+      status: 'Reported',
+      reportedBy: user?.id || 'me',
       date: new Date().toISOString().split('T')[0],
       technician: 'Pending Assignment',
       urgency
@@ -106,7 +108,9 @@ export default function StudentMaintenancePortal() {
   const filteredTickets = tickets.filter(t => {
     const matchCat = categoryFilter === 'All' || t.category === categoryFilter;
     const matchStatus = statusFilter === 'All' || t.status === statusFilter;
-    return matchCat && matchStatus;
+    const matchScope = scopeFilter === 'all' || 
+      (scopeFilter === 'my' && (t.reportedBy === user?.id || t.reportedBy === 'me' || t.id?.startsWith('INF-') || t.isLocal));
+    return matchCat && matchStatus && matchScope;
   }).sort((a, b) => {
     if (a.urgency === 'Emergency' && b.urgency !== 'Emergency') return -1;
     if (b.urgency === 'Emergency' && a.urgency !== 'Emergency') return 1;
@@ -205,7 +209,7 @@ export default function StudentMaintenancePortal() {
         {/* Diagnostic Metrics */}
         <div className="metric-grid">
           {[
-            { label: 'Reported Issues', value: `${tickets.filter(t => t.status === 'Reported').length} Pending`, color: 'var(--amber)' },
+            { label: 'Reported Issues', value: `${tickets.filter(t => t.status === 'Reported' || t.status === 'Open').length} Pending`, color: 'var(--amber)' },
             { label: 'Scheduled Visits', value: `${tickets.filter(t => t.status === 'Scheduled').length} Assigned`, color: 'var(--accent)' },
             { label: 'Work In Progress', value: `${tickets.filter(t => t.status === 'In Progress').length} Active`, color: 'var(--purple)' },
             { label: 'Issues Resolved', value: `${tickets.filter(t => t.status === 'Resolved').length} Succeeded`, color: 'var(--green)' }
@@ -288,10 +292,45 @@ export default function StudentMaintenancePortal() {
 
           {/* Right Block: Tickets Progression tracker */}
           <div className="card-box">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16, flexWrap: 'wrap', gap: 10 }}>
               <h3 className="card-title" style={{ margin: 0 }}>📋 Campus Infrastructure Tickets</h3>
               
-              <div style={{ display: 'flex', gap: 8 }}>
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', borderRadius: 8, background: 'var(--bg3)', padding: 2, border: '1px solid var(--border)' }}>
+                  <button
+                    type="button"
+                    onClick={() => setScopeFilter('all')}
+                    style={{
+                      padding: '4px 8px',
+                      fontSize: 11,
+                      fontWeight: scopeFilter === 'all' ? 800 : 600,
+                      background: scopeFilter === 'all' ? 'var(--card)' : 'transparent',
+                      border: 'none',
+                      borderRadius: 6,
+                      cursor: 'pointer',
+                      color: scopeFilter === 'all' ? 'var(--accent)' : 'var(--t3)'
+                    }}
+                  >
+                    Campus Board
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setScopeFilter('my')}
+                    style={{
+                      padding: '4px 8px',
+                      fontSize: 11,
+                      fontWeight: scopeFilter === 'my' ? 800 : 600,
+                      background: scopeFilter === 'my' ? 'var(--card)' : 'transparent',
+                      border: 'none',
+                      borderRadius: 6,
+                      cursor: 'pointer',
+                      color: scopeFilter === 'my' ? 'var(--accent)' : 'var(--t3)'
+                    }}
+                  >
+                    My Tickets
+                  </button>
+                </div>
+
                 <select
                   className="form-input"
                   style={{ fontSize: 11, padding: '4px 8px', width: 110 }}

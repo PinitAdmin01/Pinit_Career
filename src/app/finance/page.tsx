@@ -16,13 +16,12 @@ function StudentFinanceInner() {
   const [activeCheckoutInst, setActiveCheckoutInst] = useState<any | null>(null);
   const [activeReceipt, setActiveReceipt] = useState<any | null>(null);
   
-  // Checkout form states
-  const [paymentMethod, setPaymentMethod] = useState<'card' | 'upi'>('card');
-  const [cardDetails, setCardDetails] = useState({ number: '', expiry: '', cvc: '' });
-  const [upiVpa, setUpiVpa] = useState('');
   const [processing, setProcessing] = useState(false);
   const [success, setSuccess] = useState(false);
   
+  const ob = (user?.onboardingAnswers || {}) as Record<string, any>;
+  const institutionName = ob.college || ob.university || ob.institution || 'PinIT Institute of Technology';
+
   // Scholarship applying states
   const [applyingSch, setApplyingSch] = useState(false);
 
@@ -65,9 +64,81 @@ function StudentFinanceInner() {
   const razorpayKey = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || '';
   const paymentsLive = Boolean(razorpayKey);
 
-  const handleProcessPayment = async (e?: React.FormEvent) => {
-    if (e) e.preventDefault();
-    if (!activeCheckoutInst) return;
+  const handleDownloadFeeVoucher = (receipt: any) => {
+    if (!receipt) return;
+    const voucherRef = receipt.receiptId || `VOUCHER-${receipt.id}-${Date.now().toString().slice(-6)}`;
+    const paidDate = receipt.paidOn ? new Date(receipt.paidOn).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    const regNo = user?.registerNumber && user.registerNumber !== 'Not available' ? user.registerNumber : (user?.id ? `REG-${user.id.slice(0, 8).toUpperCase()}` : 'REG-2026-001');
+    const totPaid = (receipt.amount || 0) + (receipt.fineLevied || 0);
+
+    const voucherHtml = `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Official Fee Voucher - ${voucherRef}</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 40px; color: #0f172a; max-width: 640px; margin: 0 auto; background: #fff; }
+    .header { text-align: center; border-bottom: 2px solid #0f172a; padding-bottom: 16px; margin-bottom: 24px; }
+    .header h1 { margin: 0; font-size: 18px; font-weight: 900; text-transform: uppercase; color: #1e3a8a; }
+    .header p { margin: 4px 0 0; font-size: 11px; color: #64748b; font-family: monospace; letter-spacing: 0.5px; }
+    .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; font-size: 13px; background: #f8fafc; padding: 14px; border-radius: 8px; border: 1px solid #e2e8f0; }
+    .table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+    .table th, .table td { padding: 10px; border-bottom: 1px solid #e2e8f0; font-size: 13px; }
+    .table th { text-align: left; background: #f1f5f9; font-size: 11px; text-transform: uppercase; color: #475569; }
+    .total-row { font-size: 15px; font-weight: 800; display: flex; justify-content: space-between; border-top: 2px solid #0f172a; padding-top: 12px; margin-bottom: 30px; }
+    .footer { display: flex; justify-content: space-between; align-items: flex-end; font-size: 11px; color: #64748b; border-top: 1px dashed #cbd5e1; padding-top: 16px; }
+    .seal { border: 2px solid #16a34a; color: #16a34a; padding: 6px 12px; border-radius: 6px; font-weight: 800; text-transform: uppercase; font-family: monospace; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>${institutionName}</h1>
+    <p>OFFICE OF THE COMPTROLLER & BURSAR · OFFICIAL TUITION FEE VOUCHER</p>
+  </div>
+  <div class="details-grid">
+    <div><strong>Voucher Ref:</strong> ${voucherRef}</div>
+    <div><strong>Payment Date:</strong> ${paidDate}</div>
+    <div><strong>Student Name:</strong> ${user?.displayName || 'Registered Student'}</div>
+    <div><strong>Registration No:</strong> ${regNo}</div>
+  </div>
+  <table class="table">
+    <thead>
+      <tr><th>Payment Item</th><th style="text-align: right;">Amount (INR)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>${receipt.name || 'Tuition Fee Installment'}</td><td style="text-align: right;">₹${(receipt.amount || 0).toLocaleString()}</td></tr>
+      ${receipt.fineLevied ? `<tr><td style="color: #dc2626;">Late Payment Penalty Fee</td><td style="text-align: right; color: #dc2626;">₹${receipt.fineLevied.toLocaleString()}</td></tr>` : ''}
+    </tbody>
+  </table>
+  <div class="total-row">
+    <span>Total Settled Amount:</span>
+    <span>₹${totPaid.toLocaleString()}</span>
+  </div>
+  <div class="footer">
+    <div>
+      <div>Verified by Campus Comptroller Accounts</div>
+      <div style="font-family: monospace; font-size: 9px; margin-top: 3px; color: #94a3b8;">TRANSACTION REF: ${voucherRef}</div>
+    </div>
+    <div class="seal">✓ PAID & CLEARED</div>
+  </div>
+</body>
+</html>`;
+
+    const blob = new Blob([voucherHtml], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `Fee_Voucher_${voucherRef}.html`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    toast.success('Fee Voucher Downloaded! 📄', `Official fee voucher ${voucherRef} downloaded.`);
+  };
+
+  const handleProcessPayment = async (instParam?: any) => {
+    const inst = instParam || activeCheckoutInst;
+    if (!inst) return;
 
     if (!paymentsLive) {
       toast.error('Payments unavailable', 'Fees are recorded only after a verified Razorpay payment or an admin update. Online checkout is not configured.');
@@ -75,22 +146,32 @@ function StudentFinanceInner() {
     }
 
     setProcessing(true);
+    setActiveCheckoutInst(inst);
     try {
+      const isOverdue = inst.status?.toLowerCase() === 'overdue' || (inst.dueDate && new Date(inst.dueDate).getTime() < Date.now());
+      const payAmount = (isOverdue && dues?.fineLevied > 0)
+        ? (inst.amount || 10000) + (dues.fineLevied || 0)
+        : (inst.amount || 10000);
+
       const orderRes = await api.post<{ orderId: string; amount: number; keyId: string }>('/api/payment/create-order', {
-        planId: `installment_${activeCheckoutInst.id}`,
-        amount: (activeCheckoutInst.amount || 10000) * 100
+        planId: `installment_${inst.id}`,
+        amount: payAmount * 100
       });
 
       await openRazorpayCheckout({
         key: orderRes.keyId || razorpayKey,
-        amount: orderRes.amount || (activeCheckoutInst.amount * 100),
+        amount: orderRes.amount || (payAmount * 100),
         currency: 'INR',
-        name: 'PinIT Campus Fee Payment',
-        description: `Installment ${activeCheckoutInst.installmentNo} — ${activeCheckoutInst.title || 'Tuition Fee'}`,
+        name: institutionName,
+        description: `Installment ${inst.installmentNo || inst.name} — Tuition Fee`,
         order_id: orderRes.orderId,
+        prefill: {
+          name: user?.displayName,
+          email: user?.email
+        },
         handler: async (response) => {
           const res = await api.post<{ ok: boolean; receiptId: string }>('/api/finance/pay-due', {
-            installmentId: activeCheckoutInst.id,
+            installmentId: inst.id,
             paymentId: response.razorpay_payment_id,
             razorpay_payment_id: response.razorpay_payment_id,
             razorpay_order_id: response.razorpay_order_id,
@@ -292,17 +373,25 @@ function StudentFinanceInner() {
         <h1 className="section-title">💳 Finance & Fee Desk</h1>
 
         {/* Reminders / Overdue Alerts */}
-        {dues.fineLevied > 0 && (
-          <div className="alert-banner">
-            <span style={{ fontSize: 20 }}>⚠️</span>
-            <div>
-              <div style={{ fontSize: 13.5, fontWeight: 800, color: 'var(--amber)' }}>Installment Overdue Alert</div>
-              <p style={{ fontSize: 12, color: 'var(--t2)', marginTop: 3 }}>
-                Your Final Installment deadline was <strong>July 10, 2026</strong>. A late payment fine of <strong>₹1,500</strong> has been applied to your outstanding balance. Please clear dues online to remove late restrictions.
-              </p>
+        {dues.fineLevied > 0 && (() => {
+          const overdueInst = (dues.installments || []).find(
+            (i: any) => i.status?.toLowerCase() === 'overdue' || (i.dueDate && new Date(i.dueDate).getTime() < Date.now() && i.status?.toLowerCase() !== 'paid' && i.status?.toLowerCase() !== 'waived')
+          );
+          const deadlineStr = overdueInst?.dueDate ? new Date(overdueInst.dueDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'recently';
+          const instTitle = overdueInst?.name || 'Tuition Fee';
+
+          return (
+            <div className="alert-banner">
+              <span style={{ fontSize: 20 }}>⚠️</span>
+              <div>
+                <div style={{ fontSize: 13.5, fontWeight: 800, color: 'var(--amber)' }}>Installment Overdue Alert</div>
+                <p style={{ fontSize: 12, color: 'var(--t2)', marginTop: 3 }}>
+                  Your {instTitle} deadline was <strong>{deadlineStr}</strong>. A late payment fine of <strong>₹{dues.fineLevied.toLocaleString('en-IN')}</strong> has been applied to your outstanding balance. Please clear dues online to remove late restrictions.
+                </p>
+              </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
 
         {!paymentsLive && (
           <div className="alert-banner" style={{ marginBottom: 20 }}>
@@ -384,11 +473,12 @@ function StudentFinanceInner() {
                         </button>
                       ) : paymentsLive ? (
                         <button
-                          onClick={() => setActiveCheckoutInst(inst)}
+                          onClick={() => handleProcessPayment(inst)}
+                          disabled={processing}
                           className="btn-primary"
-                          style={{ fontSize: 11, padding: '6px 12px', background: 'var(--accent)' }}
+                          style={{ fontSize: 11, padding: '6px 12px', background: 'var(--accent)', opacity: processing && activeCheckoutInst?.id === inst.id ? 0.7 : 1 }}
                         >
-                          Pay Online
+                          {processing && activeCheckoutInst?.id === inst.id ? 'Opening Razorpay...' : 'Pay Online'}
                         </button>
                       ) : (
                         <span style={{ fontSize: 11, color: 'var(--t3)', fontWeight: 700 }}>
@@ -451,7 +541,7 @@ function StudentFinanceInner() {
         </div>
       </div>
 
-      {/* Online Checkout Simulator Drawer Modal */}
+      {/* Online Checkout Confirmation Drawer Modal */}
       {activeCheckoutInst && (
         <div className="checkout-overlay">
           <div className="checkout-modal">
@@ -464,50 +554,51 @@ function StudentFinanceInner() {
               <div style={{ textAlign: 'center', padding: '20px 0' }}>
                 <div style={{ fontSize: 40, marginBottom: 10 }}>🎉</div>
                 <h4 style={{ fontSize: 16, fontWeight: 800, color: 'var(--green)' }}>Payment Confirmed!</h4>
-                <p style={{ fontSize: 12, color: 'var(--t2)', marginTop: 4 }}>Your transaction was logged and receipt generated.</p>
+                <p style={{ fontSize: 12, color: 'var(--t2)', marginTop: 4 }}>Your transaction was verified and recorded in the campus accounts ledger.</p>
               </div>
             ) : (
-              <form onSubmit={handleProcessPayment} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                <div style={{ background: 'var(--bg3)', padding: 12, borderRadius: 10, border: '1px solid var(--border)', fontSize: 13 }}>
-                  <div style={{ color: 'var(--t2)' }}>Paying: {activeCheckoutInst.name}</div>
-                  <div style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', marginTop: 4 }}>
-                    ₹{(activeCheckoutInst.id === 'Inst-3' && dues.fineLevied > 0 ? (activeCheckoutInst.amount || 0) + (dues.fineLevied || 0) : (activeCheckoutInst.amount || 0)).toLocaleString()}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                <div style={{ background: 'var(--bg3)', padding: 16, borderRadius: 12, border: '1px solid var(--border)', fontSize: 13 }}>
+                  <div style={{ color: 'var(--t2)', fontSize: 12, fontWeight: 700, textTransform: 'uppercase' }}>Installment Fee Head</div>
+                  <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)', marginTop: 2 }}>{activeCheckoutInst.name}</div>
+                  
+                  <div style={{ borderTop: '1px solid var(--border)', marginTop: 12, paddingTop: 10, display: 'flex', flexDirection: 'column', gap: 6 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--t2)' }}>
+                      <span>Base Tuition Amount:</span>
+                      <span>₹{(activeCheckoutInst.amount || 0).toLocaleString()}</span>
+                    </div>
+                    {activeCheckoutInst.status?.toLowerCase() === 'overdue' && dues?.fineLevied > 0 && (
+                      <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--coral)' }}>
+                        <span>Late Payment Penalty:</span>
+                        <span>₹{dues.fineLevied.toLocaleString()}</span>
+                      </div>
+                    )}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 900, fontSize: 16, color: 'var(--t1)', borderTop: '1px dashed var(--border2)', paddingTop: 8, marginTop: 4 }}>
+                      <span>Total Payable Amount:</span>
+                      <span>
+                        ₹{(
+                          (activeCheckoutInst.amount || 0) +
+                          (activeCheckoutInst.status?.toLowerCase() === 'overdue' && dues?.fineLevied > 0 ? dues.fineLevied : 0)
+                        ).toLocaleString()}
+                      </span>
+                    </div>
                   </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, background: 'var(--bg3)', padding: 4, borderRadius: 10 }}>
-                  <button type="button" onClick={() => setPaymentMethod('card')} style={{ padding: '8px', border: 'none', borderRadius: 8, fontSize: 12, fontWeight: 700, background: paymentMethod === 'card' ? 'var(--card)' : 'transparent', color: paymentMethod === 'card' ? 'var(--t1)' : 'var(--t2)', cursor: 'pointer' }}>Credit / Debit Card</button>
-                  <button type="button" onClick={() => setPaymentMethod('upi')} style={{ padding: '8px', border: 'none', borderRadius: 8, fontSize: 12, fontWeight: 700, background: paymentMethod === 'upi' ? 'var(--card)' : 'transparent', color: paymentMethod === 'upi' ? 'var(--t1)' : 'var(--t2)', cursor: 'pointer' }}>UPI Payment</button>
+                <div style={{ background: 'rgba(37, 99, 235, 0.06)', border: '1px solid rgba(37, 99, 235, 0.2)', padding: 12, borderRadius: 10, fontSize: 11.5, color: 'var(--t2)', lineHeight: 1.5 }}>
+                  🛡️ <strong>PCI-DSS Certified Gateway:</strong> Payments are processed directly through Razorpay Level-1 PCI-DSS compliant checkout. PinIT never captures or stores your card numbers, CVVs, or banking credentials.
                 </div>
 
-                {paymentMethod === 'card' ? (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                    <div>
-                      <label style={{ fontSize: 11, fontWeight: 800, color: 'var(--t2)' }}>CARD NUMBER</label>
-                      <input type="text" className="form-input" style={{ marginTop: 4 }} placeholder="4111 2222 3333 4444" value={cardDetails.number} onChange={e => setCardDetails(prev => ({ ...prev, number: e.target.value }))} required />
-                    </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-                      <div>
-                        <label style={{ fontSize: 11, fontWeight: 800, color: 'var(--t2)' }}>EXPIRY DATE</label>
-                        <input type="text" className="form-input" style={{ marginTop: 4 }} placeholder="MM/YY" value={cardDetails.expiry} onChange={e => setCardDetails(prev => ({ ...prev, expiry: e.target.value }))} required />
-                      </div>
-                      <div>
-                        <label style={{ fontSize: 11, fontWeight: 800, color: 'var(--t2)' }}>CVC CODE</label>
-                        <input type="text" className="form-input" style={{ marginTop: 4 }} placeholder="123" value={cardDetails.cvc} onChange={e => setCardDetails(prev => ({ ...prev, cvc: e.target.value }))} required />
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div>
-                    <label style={{ fontSize: 11, fontWeight: 800, color: 'var(--t2)' }}>UPI VIRTUAL PAYMENT ADDRESS (VPA)</label>
-                    <input type="text" className="form-input" style={{ marginTop: 4 }} placeholder="yourname@upi" value={upiVpa} onChange={e => setUpiVpa(e.target.value)} required />
-                  </div>
-                )}
-
-                <button type="submit" className="btn-pay" disabled={processing}>
-                  {processing ? 'Processing Securely...' : `✓ Complete Payment Gateway`}
+                <button
+                  type="button"
+                  onClick={() => handleProcessPayment(activeCheckoutInst)}
+                  className="btn-pay"
+                  disabled={processing}
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}
+                >
+                  {processing ? 'Connecting to Razorpay...' : '🔒 Launch Secure Razorpay Checkout →'}
                 </button>
-              </form>
+              </div>
             )}
           </div>
         </div>
@@ -519,8 +610,8 @@ function StudentFinanceInner() {
           <div className="checkout-modal" style={{ maxWidth: 500, padding: 36, position: 'relative' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '2px solid var(--t1)', paddingBottom: 16, marginBottom: 20 }}>
               <div>
-                <h4 style={{ fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 900 }}>BGS INSTITUTE OF MANAGEMENT</h4>
-                <div style={{ fontSize: 10, color: 'var(--t2)', fontFamily: 'var(--font-mono)' }}>AFFILIATED TO CAMPUS CORE OS</div>
+                <h4 style={{ fontFamily: 'var(--font-display)', fontSize: 15, fontWeight: 900, margin: 0 }}>{institutionName.toUpperCase()}</h4>
+                <div style={{ fontSize: 10, color: 'var(--t2)', fontFamily: 'var(--font-mono)', marginTop: 2 }}>CAMPUS ACCOUNTS & COMPTROLLER BURSAR OFFICE</div>
               </div>
               <button onClick={() => setActiveReceipt(null)} style={{ border: 'none', background: 'none', fontSize: 18, cursor: 'pointer', color: 'var(--t2)' }}>✕</button>
             </div>
@@ -548,26 +639,24 @@ function StudentFinanceInner() {
                   <span>{activeReceipt.name}</span>
                   <span>₹{(activeReceipt.amount ?? 0).toLocaleString()}</span>
                 </div>
-                {activeReceipt.id === 'Inst-3' && (
+                {activeReceipt.fineLevied > 0 && (
                   <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--coral)', fontSize: 12.5, marginTop: 4 }}>
                     <span>Late Payment Penalty Fee</span>
-                    <span>₹1,500</span>
+                    <span>₹{activeReceipt.fineLevied.toLocaleString()}</span>
                   </div>
                 )}
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 16, fontWeight: 900, marginBottom: 20 }}>
                 <span>Total Amount Paid:</span>
-                <span>₹{(activeReceipt.id === 'Inst-3' ? (activeReceipt.amount || 0) + 1500 : (activeReceipt.amount || 0)).toLocaleString()}</span>
+                <span>₹{((activeReceipt.amount || 0) + (activeReceipt.fineLevied || 0)).toLocaleString()}</span>
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
                 <div className="receipt-seal">Secured Paid</div>
                 <div style={{ display: 'flex', gap: 8 }}>
                   <button
-                    onClick={() => {
-                      toast.success('Fee Voucher Generated! 📄', `Official Voucher PIN-FEE-2026-${Math.floor(1000 + Math.random() * 9000)} generated and ready to print.`);
-                    }}
+                    onClick={() => handleDownloadFeeVoucher(activeReceipt)}
                     className="btn-primary"
                     style={{ fontSize: 12, padding: '6px 12px', background: 'var(--accent)' }}
                   >

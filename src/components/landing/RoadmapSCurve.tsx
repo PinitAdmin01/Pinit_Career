@@ -12,7 +12,7 @@ interface StageInfo {
   icon: string;
 }
 
-export default function RoadmapSCurve() {
+export default function RoadmapSCurveRevamp() {
   const [selectedStage, setSelectedStage] = useState<number>(0);
 
   const stages: StageInfo[] = [
@@ -59,7 +59,7 @@ export default function RoadmapSCurve() {
   return (
     <section id="s-curve-roadmap" className="lp-section">
       <div className="lp-container">
-        
+
         <div className="lp-section-header">
           <div className="lp-badge-tag cyan">METHODICAL PROGRESSION</div>
           <h2 className="lp-section-title">
@@ -67,7 +67,7 @@ export default function RoadmapSCurve() {
             <span className="lp-gradient-text">Zero Guesswork.</span>
           </h2>
           <p className="lp-section-subtitle">
-            A continuous, 4-stage pedagogical trajectory designed for zero student dropout and guaranteed placement readiness.
+            A continuous, 4-stage pedagogical trajectory aligned with industry skill standards and real-world project milestones.
           </p>
         </div>
 
@@ -104,7 +104,7 @@ export default function RoadmapSCurve() {
         {/* Stage Details Box */}
         <div className="glass-card" style={{ padding: '36px', borderRadius: '24px' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '32px', alignItems: 'center' }}>
-            
+
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <span className="lp-badge-tag cyan" style={{ margin: 0 }}>
@@ -140,11 +140,11 @@ export default function RoadmapSCurve() {
               </div>
             </div>
 
-            {/* Right Stage Verify Mock */}
+            {/* Right Stage Verify Mock — honest, no fake certification */}
             <div style={{ padding: 22, borderRadius: 18, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column', gap: 12, fontSize: 11.5, fontFamily: 'var(--font-mono)', color: 'var(--text-secondary)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-color)', paddingBottom: 10 }}>
                 <span style={{ color: 'var(--accent)', fontWeight: 700 }}>Stage Verification Suite</span>
-                <span style={{ color: 'var(--accent-green)', fontWeight: 700 }}>PASS 100%</span>
+                <span style={{ color: 'var(--accent)', fontWeight: 700 }}>Auto-Evaluated</span>
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -157,11 +157,11 @@ export default function RoadmapSCurve() {
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span>Assertions Checked:</span>
-                <span style={{ color: 'var(--accent-green)' }}>Multi-Case Hardened</span>
+                <span style={{ color: 'var(--accent)' }}>Multi-Case Hardened</span>
               </div>
 
               <div style={{ padding: 10, borderRadius: 10, background: 'var(--bg-card)', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }}>
-                <span style={{ color: 'var(--accent-amber)', fontWeight: 700 }}>[CERTIFIED]</span> Completed {current.days} proctored milestone challenges with 0 runtime errors.
+                <span style={{ color: 'var(--accent-amber)', fontWeight: 700 }}>Proctored Milestone:</span> Completed {current.days} capstone challenges evaluated by automated test suite.
               </div>
             </div>
 

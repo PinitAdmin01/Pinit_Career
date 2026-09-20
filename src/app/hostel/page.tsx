@@ -41,29 +41,31 @@ export default function StudentHostel() {
       }
     } catch {}
 
-    // Synchronize directly from Supabase hostel_requests table
-    try {
-      const { data: dbRequests } = await supabase
-        .from('hostel_requests')
-        .select('*')
-        .eq('user_id', user?.id || 'demo-user')
-        .order('created_at', { ascending: false });
+    // Synchronize directly from Supabase hostel_requests table for authenticated student
+    if (user?.id) {
+      try {
+        const { data: dbRequests } = await supabase
+          .from('hostel_requests')
+          .select('*')
+          .eq('user_id', user.id)
+          .order('created_at', { ascending: false });
 
-      if (dbRequests && dbRequests.length > 0) {
-        const latest = dbRequests[0];
-        if (latest.room_code) {
-          setAllocation((prev: any) => prev.requestedRoom ? prev : { requestedRoom: latest.room_code, status: latest.status });
+        if (dbRequests && dbRequests.length > 0) {
+          const latest = dbRequests[0];
+          if (latest.room_code) {
+            setAllocation((prev: any) => prev.requestedRoom ? prev : { requestedRoom: latest.room_code, status: latest.status });
+          }
+          const dbComplaints = dbRequests.flatMap(r => Array.isArray(r.complaints) ? r.complaints : []);
+          if (dbComplaints.length > 0) {
+            setComplaints(prev => {
+              const ids = new Set(prev.map(c => c.id));
+              const newItems = dbComplaints.filter((c: any) => !ids.has(c.id));
+              return [...prev, ...newItems];
+            });
+          }
         }
-        const dbComplaints = dbRequests.flatMap(r => Array.isArray(r.complaints) ? r.complaints : []);
-        if (dbComplaints.length > 0) {
-          setComplaints(prev => {
-            const ids = new Set(prev.map(c => c.id));
-            const newItems = dbComplaints.filter((c: any) => !ids.has(c.id));
-            return [...prev, ...newItems];
-          });
-        }
-      }
-    } catch {}
+      } catch {}
+    }
   }, [user?.id]);
 
   useEffect(() => {
@@ -88,20 +90,12 @@ export default function StudentHostel() {
       if (res && res.ok) {
         toast.success('Room Requested! 🛏️', `Room allocation requested for ${roomCode}. Awaiting warden approval.`);
         fetchHostelData();
+      } else {
+        toast.error('Request Failed', 'Could not request room. Please try again.');
       }
     } catch {
       toast.error('Request Failed', 'Could not request room. Please try again.');
     }
-
-    // Persist allocation request to Supabase
-    try {
-      await supabase.from('hostel_requests').insert({
-        user_id: user?.id || 'demo-user',
-        room_code: roomCode,
-        status: 'pending',
-        complaints: []
-      });
-    } catch {}
   };
 
   const handleLogAttendance = async (type: 'check-in' | 'check-out') => {
@@ -109,11 +103,24 @@ export default function StudentHostel() {
       toast.warning('Not Allocated', 'Roll-call checks are only available for allocated residents.');
       return;
     }
+
+    const currentHour = new Date().getHours();
+    // Nightly biometric scanner station active 8:00 PM - 10:00 PM (20:00 - 22:00)
+    const isWindowActive = currentHour >= 20 && currentHour < 22;
+    if (!isWindowActive) {
+      toast.info(
+        'Scanner Standby ⏱️',
+        'Biometric roll-call scanner is active from 8:00 PM to 10:00 PM. For off-hours entry, please record check-in at the Warden Security Kiosk.'
+      );
+    }
+
     try {
       const res = await api.post<{ ok: boolean }>('/api/hostel/log-attendance', { type, roomCode: allocation.requestedRoom });
       if (res && res.ok) {
         toast.success('Attendance Logged! ⏱️', `Biometric ${type} logged successfully! Nightly roll-call verified.`);
         fetchHostelData();
+      } else {
+        toast.error('Verification Failed', 'Roll-call verification was not acknowledged by the server.');
       }
     } catch {
       toast.error('Biometric Log Failed', 'Error logging biometric attendance.');
@@ -144,18 +151,10 @@ export default function StudentHostel() {
         fetchHostelData();
         return;
       }
+      toast.error('Submission Failed', 'Failed to register maintenance ticket.');
     } catch {
-      // Fallback: save directly to Supabase hostel_requests table
-      try {
-        await supabase.from('hostel_requests').insert({
-          user_id: user?.id || 'demo-user',
-          room_code: allocation?.requestedRoom || 'General',
-          status: 'complaint_open',
-          complaints: [localComplaint]
-        });
-      } catch {}
       setComplaints(prev => [localComplaint, ...prev]);
-      toast.info('Complaint Saved 🛠️', 'Complaint recorded and queued for warden review.');
+      toast.info('Complaint Queued 🛠️', 'Server connection offline. Complaint queued locally.');
       setComplaintForm({ category: 'Plumbing', title: '', description: '' });
     } finally {
       setSubmittingComplaint(false);
@@ -315,7 +314,12 @@ export default function StudentHostel() {
           <div className="status-alert" style={{ background: 'var(--green-light)', borderColor: 'var(--green-light)', color: 'var(--green)' }}>
             <div>
               <strong style={{ fontSize: 14 }}>✓ Accommodation Allocated</strong>
-              <div style={{ fontSize: 12, marginTop: 2 }}>Room Code: <strong>{allocation.requestedRoom}</strong> | Block B. All facilities activated.</div>
+              <div style={{ fontSize: 12, marginTop: 2 }}>
+                Room Code: <strong>{allocation.requestedRoom}</strong> | Block {(() => {
+                  const r = String(allocation.requestedRoom || '');
+                  return r.includes('-') ? r.split('-')[0].trim() : (r[0] || 'A');
+                })()}. All facilities activated.
+              </div>
             </div>
             <span style={{ fontSize: 11, fontWeight: 700, padding: '4px 10px', background: 'var(--card)', color: 'var(--green)', borderRadius: 20 }}>Resident Profile Active</span>
           </div>
@@ -433,24 +437,49 @@ export default function StudentHostel() {
             
             {/* Biometric Attendance card */}
             <div className="card-box" style={{ textAlign: 'center' }}>
-              <h3 className="card-title" style={{ justifyContent: 'center' }}>📸 Room Biometric Roll-Call</h3>
-              <p style={{ fontSize: 12, color: 'var(--t2)' }}>
-                Verify nightly roll-call logs via biometric check-in. Scanner active from 8:00 PM to 10:00 PM.
+              <h3 className="card-title" style={{ justifyContent: 'center' }}>📸 Resident Roll-Call Station</h3>
+              <p style={{ fontSize: 12, color: 'var(--t2)', marginBottom: 8 }}>
+                Official resident roll-call punch log. Biometric kiosk window: 8:00 PM – 10:00 PM nightly.
               </p>
+              
+              {(() => {
+                const hour = new Date().getHours();
+                const isRollCallWindowActive = hour >= 20 && hour < 22;
+                return (
+                  <div style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    fontSize: 11,
+                    fontWeight: 700,
+                    padding: '4px 10px',
+                    borderRadius: 20,
+                    background: isRollCallWindowActive ? 'rgba(var(--success-rgb), 0.1)' : 'var(--bg3)',
+                    color: isRollCallWindowActive ? 'var(--success)' : 'var(--t3)',
+                    marginBottom: 12,
+                    border: `1px solid ${isRollCallWindowActive ? 'var(--success)' : 'var(--border)'}`
+                  }}>
+                    <span>{isRollCallWindowActive ? '●' : '○'}</span>
+                    <span>{isRollCallWindowActive ? 'Kiosk Scanner Online (Active Window)' : 'Kiosk Standby (8–10 PM · Security Kiosk for Off-Hours)'}</span>
+                  </div>
+                );
+              })()}
 
               <div
                 className="attendance-fingerprint"
                 onClick={() => handleLogAttendance('check-in')}
+                style={{ cursor: 'pointer' }}
+                title="Verify attendance at biometric kiosk"
               >
-                👆
+                🔐
               </div>
 
-              <div style={{ display: 'flex', gap: 6, justifyContent: 'center', marginTop: 10 }}>
-                <button onClick={() => handleLogAttendance('check-in')} className="btn-ghost btn-sm" style={{ border: '1px solid var(--border)', fontSize: 11 }}>
-                  Log check-in
+              <div style={{ display: 'flex', gap: 8, justifyContent: 'center', marginTop: 10 }}>
+                <button onClick={() => handleLogAttendance('check-in')} className="btn-ghost btn-sm" style={{ border: '1px solid var(--border)', fontSize: 11.5, fontWeight: 700 }}>
+                  Punch Check-In
                 </button>
-                <button onClick={() => handleLogAttendance('check-out')} className="btn-ghost btn-sm" style={{ border: '1px solid var(--border)', fontSize: 11 }}>
-                  Log check-out
+                <button onClick={() => handleLogAttendance('check-out')} className="btn-ghost btn-sm" style={{ border: '1px solid var(--border)', fontSize: 11.5, fontWeight: 700 }}>
+                  Punch Check-Out
                 </button>
               </div>
 

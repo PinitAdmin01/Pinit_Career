@@ -2,7 +2,7 @@ export function Btn({children,onClick,className,disabled,type}){return(<button t
 export function Card({children,className}){return <div className={className}>{children}</div>}
 export function Input({value,onChange,placeholder,type,className}){return <input value={value} onChange={onChange} placeholder={placeholder} type={type||'text'} className={className}/>}
 export function Select({value,onChange,children,className}){return <select value={value} onChange={onChange} className={className}>{children}</select>}
-export function Modal({children,show}){return show?<div>{children}</div>:null}
+export function Modal({children,show,open}){return (show||open)?<div>{children}</div>:null}
 export function Spinner(){return <div>Loading...</div>}
 export function EmptyState({title,desc}){return <div><div>{title}</div><div>{desc}</div></div>}
 export function Badge({children}){return <span>{children}</span>}

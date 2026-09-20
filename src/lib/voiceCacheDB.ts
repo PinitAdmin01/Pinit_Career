@@ -175,7 +175,8 @@ class VoiceCacheDB {
 
         const entry: CachedAudioEntry = {
           cacheKey,
-          text,
+          // Privacy preservation: store sanitized truncated snippet rather than raw full prompt text
+          text: text.length > 16 ? text.slice(0, 16) + '...' : text,
           voice,
           speed,
           audioBuffer,

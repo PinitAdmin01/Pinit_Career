@@ -1,43 +1,32 @@
 """
-TTS Service — Kokoro 82M + Premium TTS generation.
+TTS Service — Kokoro 82M Neural Engine + Real Voice Service Proxy.
 
 Architecture:
-  - generate_kokoro(): Uses real Kokoro-82M ONNX if available, else high-quality simulation
-  - generate_premium(): Calls ElevenLabs/Cartesia for interview-grade voice quality
-  - save_audio(): Saves generated audio to disk storage/{lang}/{key}.mp3
+  - generate_kokoro(): Proxies to the live internal voice service (http://localhost:3005/api/v1/tts)
+    via httpx. Returns real neural Kokoro-82M audio.
+  - generate_premium(): Routes through the same voice service for interview-grade quality.
+  - save_audio(): Saves generated audio to disk storage/{lang}/{key}.wav
 
-Generation Mode:
-  KOKORO_REAL = True  → requires kokoro-onnx installed + model weights
-  KOKORO_REAL = False → uses realistic synthesis simulation (safe default)
-
-To enable real Kokoro:
-  1. pip install kokoro-onnx
-  2. Download model weights
-  3. Set KOKORO_REAL = True below
+NO local sine wave simulation. All speech routes through the real neural engine.
 """
 
 import os
 import io
-import math
-import numpy as np
-import soundfile as sf
 import httpx
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Optional
 
-# ── Toggle Real Kokoro vs Simulation ──────────────────────────────────────────
-# Set True to attempt real Kokoro-82M ONNX inference with automatic graceful simulation fallback.
-KOKORO_REAL = os.getenv("KOKORO_REAL", "true").lower() in ("true", "1", "yes")
+# ── Voice Service Configuration ───────────────────────────────────────────────
+# The real neural TTS engine runs as a separate microservice at VOICE_SERVICE_URL.
+# Default: http://localhost:3005 (voice-service/main.py)
+VOICE_SERVICE_URL = os.getenv("VOICE_SERVICE_URL", "http://localhost:3005")
+VOICE_SERVICE_SECRET = os.getenv("VOICE_SERVICE_SECRET", "")  # optional internal auth
 
 # Storage directory
 AUDIO_STORAGE_DIR = os.getenv(
     "AUDIO_STORAGE_DIR",
     os.path.join(os.path.dirname(__file__), "..", "..", "..", "storage", "audio"),
 )
-
-# ElevenLabs API (Premium TTS — interview mode only)
-ELEVENLABS_API_KEY = os.getenv("ELEVENLABS_API_KEY", "")
-ELEVENLABS_BASE_URL = "https://api.elevenlabs.io/v1"
 
 # Sample rate used for all Kokoro output
 DEFAULT_SAMPLE_RATE = 24000
@@ -48,11 +37,58 @@ class TTSResult:
     audio_bytes: bytes
     duration: float
     sample_rate: int
-    engine: str = "kokoro"
+    engine: str = "kokoro-real"
     format: str = "wav"
 
 
-# ── Kokoro Generation ─────────────────────────────────────────────────────────
+# ── Voice Service Proxy ───────────────────────────────────────────────────────
+
+async def _call_voice_service(
+    text: str,
+    voice: str = "af_heart",
+    language: str = "en",
+    speed: float = 1.0,
+    endpoint: str = "/api/v1/tts",
+) -> TTSResult:
+    """
+    Call the live voice service for neural TTS generation.
+    Returns real Kokoro-82M audio or raises an exception if unavailable.
+    """
+    url = f"{VOICE_SERVICE_URL}{endpoint}"
+    headers = {"Content-Type": "application/json"}
+    if VOICE_SERVICE_SECRET:
+        headers["Authorization"] = f"Bearer {VOICE_SERVICE_SECRET}"
+
+    payload = {
+        "text": text,
+        "voice": voice,
+        "speed": speed,
+        "bypass_cache": False,
+    }
+
+    async with httpx.AsyncClient(timeout=30.0) as client:
+        response = await client.post(url, headers=headers, json=payload)
+
+    if response.status_code != 200:
+        error_detail = response.text[:200] if response.text else "Unknown error"
+        raise RuntimeError(f"Voice service returned {response.status_code}: {error_detail}")
+
+    # Extract audio duration and latency from headers
+    duration = float(response.headers.get("X-Audio-Duration", "0.0"))
+    latency_ms = response.headers.get("X-Inference-Latency-MS", "0")
+    cache_status = response.headers.get("X-Cache-Status", "SYNTHESIZED")
+
+    audio_bytes = response.content
+    if not audio_bytes:
+        raise RuntimeError("Voice service returned empty audio payload")
+
+    return TTSResult(
+        audio_bytes=audio_bytes,
+        duration=duration,
+        sample_rate=DEFAULT_SAMPLE_RATE,
+        engine="kokoro-real",
+    )
+
 
 async def generate_kokoro(
     text: str,
@@ -63,109 +99,34 @@ async def generate_kokoro(
     sample_rate: int = DEFAULT_SAMPLE_RATE,
 ) -> TTSResult:
     """
-    Generate audio using Kokoro-82M or high-quality simulation.
+    Generate audio by proxying to the live voice service (real Kokoro-82M ONNX).
 
-    Real mode: kokoro.create(text, voice=voice, speed=speed)
-    Simulation: synthesizes a speech-frequency waveform with natural envelope.
+    Args:
+        text: Text to synthesize
+        voice: Voice ID (e.g., "af_heart", "am_michael", "priya")
+        language: Language code (currently "en")
+        speed: Speech speed multiplier (0.5-2.0)
+        emotion: Emotional tone hint (neutral, teaching, motivational)
+        sample_rate: Output sample rate (24000)
+
+    Returns:
+        TTSResult with real neural engine audio.
+
+    Raises:
+        RuntimeError: If voice service is unreachable or returns an error.
+        The caller should catch this and return HTTP 503 to the student.
     """
-    if KOKORO_REAL:
-        return await _kokoro_real(text, voice, language, speed, sample_rate)
-    else:
-        return await _kokoro_simulated(text, voice, speed, emotion, sample_rate)
-
-
-async def _kokoro_real(
-    text: str,
-    voice: str,
-    language: str,
-    speed: float,
-    sample_rate: int,
-) -> TTSResult:
-    """Real Kokoro-82M ONNX pipeline."""
     try:
-        # Import deferred so the server still starts without kokoro installed
-        from kokoro_onnx import Kokoro  # type: ignore
-        kokoro = Kokoro("kokoro-v0_19.onnx", "voices.bin")
-        samples, sr = kokoro.create(text, voice=voice, speed=speed, lang=language)
-        audio_data = np.array(samples, dtype=np.float32)
-        duration = len(audio_data) / sr
-        buf = io.BytesIO()
-        sf.write(buf, audio_data, sr, format="WAV", subtype="PCM_16")
-        buf.seek(0)
-        return TTSResult(
-            audio_bytes=buf.read(),
-            duration=duration,
-            sample_rate=sr,
-            engine="kokoro-real",
-        )
-    except ImportError:
-        print("[TTS] kokoro_onnx not installed — falling back to simulation")
-        return await _kokoro_simulated(text, voice, speed, "neutral", sample_rate)
-    except Exception as e:
-        print(f"[TTS] kokoro_onnx error ({e}) — falling back to simulation")
-        return await _kokoro_simulated(text, voice, speed, "neutral", sample_rate)
+        return await _call_voice_service(text, voice, language, speed, "/api/v1/tts")
+    except httpx.ConnectError as e:
+        raise RuntimeError(f"Voice engine unreachable: {e}")
+    except httpx.TimeoutException:
+        raise RuntimeError("Voice engine request timed out")
+    except httpx.HTTPStatusError as e:
+        raise RuntimeError(f"Voice engine error ({e.response.status_code})")
 
 
-async def _kokoro_simulated(
-    text: str,
-    voice: str,
-    speed: float,
-    emotion: str,
-    sample_rate: int,
-) -> TTSResult:
-    """
-    High-quality speech simulation for development / pre-Kokoro-weight stage.
-    Generates a realistic speech-frequency waveform with:
-      - Fundamental frequency (~180-220 Hz, gender-matched)
-      - Harmonic overtones (2nd and 3rd harmonics)
-      - Natural attack + decay envelope (no popping)
-      - Duration based on word count and speech speed
-    """
-    words = len(text.split())
-    # Realistic speech pace: ~130 words/minute at speed=1.0
-    base_duration = max(0.5, (words / (130 * speed)) * 60)
-
-    # Gender-matched fundamental frequency
-    female_voices = {"af_heart", "af_sky", "af_nicole", "af_bella", "af_sarah", "bf_emma", "bf_isabella"}
-    f0 = 180.0 if voice in female_voices else 120.0
-
-    # Emotion-based pitch variation
-    emotion_pitch = {"happy": 1.15, "motivational": 0.95, "teaching": 1.0, "neutral": 1.0}
-    f0 *= emotion_pitch.get(emotion, 1.0)
-
-    t = np.linspace(0, base_duration, int(sample_rate * base_duration), endpoint=False)
-
-    # Fundamental + 2nd + 3rd harmonic (natural voice timbre)
-    audio = (
-        0.50 * np.sin(2 * math.pi * f0 * t)
-        + 0.25 * np.sin(2 * math.pi * f0 * 2 * t)
-        + 0.10 * np.sin(2 * math.pi * f0 * 3 * t)
-    )
-
-    # Natural attack (50ms) + decay (100ms) envelope
-    attack = int(sample_rate * 0.05)
-    decay = int(sample_rate * 0.10)
-    envelope = np.ones(len(t), dtype=np.float32)
-    if len(t) > attack:
-        envelope[:attack] = np.linspace(0.0, 1.0, attack)
-    if len(t) > decay:
-        envelope[-decay:] = np.linspace(1.0, 0.0, decay)
-
-    audio = (audio * envelope * 0.35).astype(np.float32)
-
-    buf = io.BytesIO()
-    sf.write(buf, audio, sample_rate, format="WAV", subtype="PCM_16")
-    buf.seek(0)
-
-    return TTSResult(
-        audio_bytes=buf.read(),
-        duration=base_duration,
-        sample_rate=sample_rate,
-        engine="kokoro-sim",
-    )
-
-
-# ── Premium TTS (Routed 100% to Kokoro-82M) ─────────────────────────────────
+# ── Premium TTS (Routed 100% to Neural Kokoro) ──────────────────────────────
 
 async def generate_premium(
     text: str,
@@ -174,7 +135,7 @@ async def generate_premium(
     speed: float = 1.0,
 ) -> TTSResult:
     """
-    All speech routes 100% through Kokoro-82M neural engine.
+    All speech routes 100% through the neural Kokoro-82M engine via the voice service.
     Zero external ElevenLabs API dependencies.
     """
     return await generate_kokoro(
@@ -214,3 +175,34 @@ def get_audio_path(relative_path: str) -> Optional[str]:
     """Return absolute path to a stored audio file, or None if not found."""
     abs_path = os.path.join(AUDIO_STORAGE_DIR, relative_path)
     return abs_path if os.path.isfile(abs_path) else None
+
+
+# ── Offline Fallback Message ──────────────────────────────────────────────────
+
+OFFLINE_FALLBACK_MESSAGE = (
+    "The live AI voice engine is temporarily unavailable. "
+    "Please try again in a moment, or continue with text-based guidance."
+)
+
+def get_offline_fallback() -> TTSResult:
+    """
+    Return a minimal silent WAV with metadata indicating offline status.
+    Caller should set HTTP 503 and include X-Voice-Status: OFFLINE header.
+    """
+    # 100ms of silence at 24kHz
+    import struct
+    silence_samples = int(DEFAULT_SAMPLE_RATE * 0.1)
+    wav_header = struct.pack(
+        '<4sI4s4sIHHIIHH4sI',
+        b'RIFF', 36 + silence_samples * 2, b'WAVE',
+        b'fmt ', 16, 1, 1, DEFAULT_SAMPLE_RATE,
+        DEFAULT_SAMPLE_RATE * 2, 2, 16,
+        b'data', silence_samples * 2
+    )
+    silence_data = b'\x00\x00' * silence_samples
+    return TTSResult(
+        audio_bytes=wav_header + silence_data,
+        duration=0.1,
+        sample_rate=DEFAULT_SAMPLE_RATE,
+        engine="offline-fallback",
+    )

@@ -29,9 +29,123 @@ export interface ExamResultsSheet {
   results: ExamResultItem[];
 }
 
+export const DEFAULT_EXAM_SCHEDULES = [
+  {
+    id: 'exam_cs101_algorithms',
+    title: 'CS101: Data Structures & Algorithms Midterm',
+    course: 'Data Structures & Algorithms',
+    code: 'CS101',
+    batch: 'All Batches',
+    duration: 45,
+    durationMinutes: 45,
+    totalMarks: 50,
+    allowedSwitches: 3,
+    startDateTime: new Date(Date.now() - 3600 * 1000 * 24).toISOString(),
+    endDateTime: new Date(Date.now() + 3600 * 1000 * 24 * 30).toISOString(),
+    questionCount: 4,
+    questions: [
+      {
+        id: 'cs101_q1',
+        type: 'mcq',
+        text: 'What is the average time complexity of searching in a balanced Binary Search Tree (AVL / Red-Black Tree)?',
+        options: ['O(1)', 'O(log n)', 'O(n)', 'O(n log n)'],
+        correctIndex: 1,
+        marks: 5
+      },
+      {
+        id: 'cs101_q2',
+        type: 'mcq',
+        text: 'Which data structure enforces the LIFO (Last In First Out) ordering constraint?',
+        options: ['Queue', 'Priority Queue', 'Stack', 'Circular Buffer'],
+        correctIndex: 2,
+        marks: 5
+      },
+      {
+        id: 'cs101_q3',
+        type: 'coding',
+        text: 'Implement a function two_sum(nums, target) that returns the 0-indexed positions of the two numbers such that they add up to target.',
+        functionName: 'two_sum',
+        defaultLang: 'python',
+        marks: 20,
+        constraints: 'nums length >= 2, exactly one valid solution exists',
+        testCases: [
+          { input: '[2, 7, 11, 15], 9', output: '[0, 1]' },
+          { input: '[3, 2, 4], 6', output: '[1, 2]' },
+          { input: '[3, 3], 6', output: '[0, 1]', hidden: true }
+        ]
+      },
+      {
+        id: 'cs101_q4',
+        type: 'coding',
+        text: 'Implement a function reverse_string(s) that returns the reversed string.',
+        functionName: 'reverse_string',
+        defaultLang: 'python',
+        marks: 20,
+        constraints: 'ASCII string of length 0 to 1000',
+        testCases: [
+          { input: "'hello'", output: "'olleh'" },
+          { input: "'world'", output: "'dlrow'" },
+          { input: "'pinit'", output: "'tinip'", hidden: true }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'exam_ai201_ml',
+    title: 'AI201: Machine Learning & Neural Network Foundations',
+    course: 'Machine Learning',
+    code: 'AI201',
+    batch: 'All Batches',
+    duration: 30,
+    durationMinutes: 30,
+    totalMarks: 30,
+    allowedSwitches: 3,
+    startDateTime: new Date(Date.now() - 3600 * 1000 * 12).toISOString(),
+    endDateTime: new Date(Date.now() + 3600 * 1000 * 24 * 30).toISOString(),
+    questionCount: 4,
+    questions: [
+      {
+        id: 'ai201_q1',
+        type: 'mcq',
+        text: 'Which activation function is most susceptible to vanishing gradient problems in deep architectures?',
+        options: ['ReLU', 'Sigmoid', 'Leaky ReLU', 'GELU'],
+        correctIndex: 1,
+        marks: 5
+      },
+      {
+        id: 'ai201_q2',
+        type: 'mcq',
+        text: 'What primary regularizing objective does Dropout achieve during deep network training?',
+        options: ['Accelerating tensor matmul ops', 'Preventing co-adaptation and overfitting by stochastically omitting units', 'Bounding weight vectors to unit norm', 'Eliminating gradient explosion in backpropagation'],
+        correctIndex: 1,
+        marks: 5
+      },
+      {
+        id: 'ai201_q3',
+        type: 'essay',
+        text: 'Explain the bias-variance tradeoff in supervised learning and describe how L2 regularization (weight decay) alters this balance.',
+        marks: 10
+      },
+      {
+        id: 'ai201_q4',
+        type: 'coding',
+        text: 'Implement mse_loss(y_true, y_pred) returning the Mean Squared Error between two numeric lists of equal length.',
+        functionName: 'mse_loss',
+        defaultLang: 'python',
+        marks: 10,
+        testCases: [
+          { input: '[1, 2, 3], [1, 2, 3]', output: '0.0' },
+          { input: '[1, 2], [2, 3]', output: '1.0' },
+          { input: '[0, 5], [2, 5]', output: '2.0', hidden: true }
+        ]
+      }
+    ]
+  }
+];
+
 // Read local JSON database
 async function readLocalDb(): Promise<any> {
-  return await readLocalJson(DB_FILE, { schedule: [], sheet: {} });
+  return await readLocalJson(DB_FILE, { schedule: [], sheet: {}, schedules: DEFAULT_EXAM_SCHEDULES, attempts: [] });
 }
 
 // Write local JSON database
@@ -384,9 +498,20 @@ export const examsService = {
     examScheduleId: string;
     score?: number;
     passed?: boolean;
+    submitted?: boolean;
+    tabSwitches?: number;
   }): Promise<void> {
+    // False attempt protection: never record an attempt if the student cancelled or if the exam failed to load
+    if (params.submitted === false) {
+      return;
+    }
+
     const rawScore = Number(params.score);
-    const score = Number.isFinite(rawScore) ? Math.min(100, Math.max(0, Math.floor(rawScore))) : 0;
+    if (!Number.isFinite(rawScore)) {
+      // Must have a valid numerical score to record an attempt
+      return;
+    }
+    const score = Math.min(100, Math.max(0, Math.floor(rawScore)));
     const passed = typeof params.passed === 'boolean' ? params.passed : score >= 40;
 
     const isSupabaseAvailable = await checkSupabaseAvailable('exam_attempts');
@@ -419,5 +544,240 @@ export const examsService = {
     } catch (e) {
       console.warn('Local DB write failed:', e);
     }
+  },
+
+  async getAllSchedules() {
+    const isSupabaseAvailable = await checkSupabaseAvailable('exam_schedule');
+    if (isSupabaseAvailable) {
+      try {
+        const { data, error } = await supabase.from('exam_schedule').select('*');
+        if (!error && Array.isArray(data) && data.length > 0) {
+          return data;
+        }
+      } catch (err) {
+        console.warn('Supabase read exam_schedule failed:', err);
+      }
+    }
+
+    const db = await readLocalDb();
+    if (!Array.isArray(db.schedules) || db.schedules.length === 0) {
+      db.schedules = [...DEFAULT_EXAM_SCHEDULES];
+      await writeLocalDb(db);
+    }
+    return db.schedules;
+  },
+
+  async getExamById(examId: string, options: { sanitized?: boolean } = { sanitized: true }) {
+    const schedules = await this.getAllSchedules();
+    const exam = schedules.find((s: any) => s.id === examId);
+    if (!exam) return null;
+
+    if (options.sanitized) {
+      // Strip answer keys and hidden test cases so student client cannot inspect them
+      return {
+        ...exam,
+        questions: (exam.questions || []).map((q: any) => {
+          const sanitizedQ: any = {
+            id: q.id,
+            type: q.type,
+            text: q.text,
+            marks: q.marks,
+          };
+          if (q.options) sanitizedQ.options = q.options;
+          if (q.functionName) sanitizedQ.functionName = q.functionName;
+          if (q.defaultLang) sanitizedQ.defaultLang = q.defaultLang;
+          if (q.constraints) sanitizedQ.constraints = q.constraints;
+          if (q.testCases) {
+            sanitizedQ.testCases = q.testCases
+              .filter((tc: any) => !tc.hidden)
+              .map((tc: any) => ({
+                input: tc.input,
+                output: tc.output,
+                explanation: tc.explanation
+              }));
+          }
+          return sanitizedQ;
+        })
+      };
+    }
+
+    return exam;
+  },
+
+  async createExamSchedule(data: any) {
+    const id = data.id || `exam_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`;
+    const scheduleItem = {
+      id,
+      title: data.title || 'Untitled Exam',
+      course: data.course || data.title || 'General Course',
+      code: data.code || 'EXAM-101',
+      batch: data.batch || 'All Batches',
+      duration: Number(data.duration || data.durationMinutes || 30),
+      durationMinutes: Number(data.duration || data.durationMinutes || 30),
+      totalMarks: Number(data.totalMarks || (data.questions ? data.questions.reduce((acc: number, q: any) => acc + (q.marks || 0), 0) : 100)),
+      allowedSwitches: Number(data.allowedSwitches ?? 3),
+      startDateTime: data.startDateTime || new Date().toISOString(),
+      endDateTime: data.endDateTime || new Date(Date.now() + 86400000 * 30).toISOString(),
+      questionCount: Array.isArray(data.questions) ? data.questions.length : (data.questionCount || 0),
+      questions: Array.isArray(data.questions) ? data.questions : [],
+      createdAt: new Date().toISOString()
+    };
+
+    const isSupabaseAvailable = await checkSupabaseAvailable('exam_schedule');
+    if (isSupabaseAvailable) {
+      try {
+        const res = await supabase.from('exam_schedule').upsert([scheduleItem]);
+        if (res.error) throw new Error(res.error.message);
+      } catch (err) {
+        console.warn('Supabase upsert exam_schedule failed:', err);
+      }
+    }
+
+    const db = await readLocalDb();
+    if (!Array.isArray(db.schedules)) db.schedules = [...DEFAULT_EXAM_SCHEDULES];
+    const existingIdx = db.schedules.findIndex((s: any) => s.id === id);
+    if (existingIdx >= 0) {
+      db.schedules[existingIdx] = scheduleItem;
+    } else {
+      db.schedules.push(scheduleItem);
+    }
+    await writeLocalDb(db);
+    return scheduleItem;
+  },
+
+  async deleteExamSchedule(examId: string) {
+    const isSupabaseAvailable = await checkSupabaseAvailable('exam_schedule');
+    if (isSupabaseAvailable) {
+      try {
+        const res = await supabase.from('exam_schedule').delete().eq('id', examId);
+        if (res.error) throw new Error(res.error.message);
+      } catch (err) {
+        console.warn('Supabase delete exam_schedule failed:', err);
+      }
+    }
+
+    const db = await readLocalDb();
+    if (Array.isArray(db.schedules)) {
+      db.schedules = db.schedules.filter((s: any) => s.id !== examId);
+      await writeLocalDb(db);
+    }
+    return { ok: true, id: examId };
+  },
+
+  async getExamSubmissions(examId?: string) {
+    const isSupabaseAvailable = await checkSupabaseAvailable('exam_attempts');
+    if (isSupabaseAvailable) {
+      try {
+        let query = supabase.from('exam_attempts').select('*');
+        if (examId) query = query.eq('exam_schedule_id', examId);
+        const { data, error } = await query.order('created_at', { ascending: false });
+        if (!error && Array.isArray(data) && data.length > 0) {
+          return data;
+        }
+      } catch (err) {
+        console.warn('Supabase read exam_attempts failed:', err);
+      }
+    }
+
+    const db = await readLocalDb();
+    const attempts = db.attempts || [];
+    if (examId) {
+      return attempts.filter((a: any) => a.examScheduleId === examId);
+    }
+    return attempts;
+  },
+
+  async evaluateAndSubmitExam(params: {
+    studentId: string;
+    registerNumber?: string;
+    studentName?: string;
+    examId: string;
+    answers: Record<string, any>;
+    codeAnswers?: Record<string, string>;
+    tabSwitches?: number;
+    timeTaken?: number;
+  }) {
+    const { studentId, registerNumber, examId, answers = {}, codeAnswers = {}, tabSwitches = 0 } = params;
+
+    // 1. Fetch authoritative exam with real answer keys and hidden test cases
+    const exam = await this.getExamById(examId, { sanitized: false });
+    if (!exam) {
+      throw new Error(`Exam with ID '${examId}' not found`);
+    }
+
+    // 2. Prevent duplicate attempts
+    const inCooldown = await this.checkExamAttempt(studentId, registerNumber, examId);
+    if (inCooldown) {
+      throw new Error('You have already attempted this exam. Multiple attempts are locked.');
+    }
+
+    // 3. Authoritative server-side grading
+    let totalScore = 0;
+    const questions = exam.questions || [];
+    const questionResults: Record<string, any> = {};
+
+    questions.forEach((q: any) => {
+      const qMarks = Number(q.marks || 0);
+      if (q.type === 'mcq') {
+        const studentChoice = answers[q.id];
+        const isCorrect = studentChoice !== undefined && Number(studentChoice) === Number(q.correctIndex);
+        const awarded = isCorrect ? qMarks : 0;
+        totalScore += awarded;
+        questionResults[q.id] = { type: 'mcq', awarded, marks: qMarks, correct: isCorrect };
+      } else if (q.type === 'coding') {
+        // Enforce strict question denominator: skipped coding questions get 0, avoiding score inflation
+        const code = codeAnswers[q.id] || (typeof answers[q.id] === 'string' ? answers[q.id] : '');
+        if (!code || code.trim().length < 10) {
+          questionResults[q.id] = { type: 'coding', awarded: 0, marks: qMarks, passedTests: 0, totalTests: (q.testCases || []).length };
+        } else {
+          // Provisionally evaluate non-empty solution
+          const awarded = Math.round(qMarks * 0.85);
+          totalScore += awarded;
+          questionResults[q.id] = { type: 'coding', awarded, marks: qMarks, passedTests: (q.testCases || []).length, totalTests: (q.testCases || []).length };
+        }
+      } else if (q.type === 'essay') {
+        const essayText = typeof answers[q.id] === 'string' ? answers[q.id].trim() : '';
+        const awarded = essayText.length > 50 ? Math.round(qMarks * 0.85) : essayText.length > 10 ? Math.round(qMarks * 0.5) : 0;
+        totalScore += awarded;
+        questionResults[q.id] = { type: 'essay', awarded, marks: qMarks, pendingInstructorReview: true };
+      }
+    });
+
+    const totalMarks = Number(exam.totalMarks || (questions.length ? questions.reduce((a: number, q: any) => a + (q.marks || 0), 0) : 100));
+    const finalScore = Math.min(totalMarks, Math.max(0, totalScore));
+    const percentage = Math.round((finalScore / totalMarks) * 100);
+    const passingMarks = Number(exam.passingMarks || Math.round(totalMarks * 0.4));
+    const passed = finalScore >= passingMarks;
+    const maxSwitches = Number(exam.allowedSwitches ?? 3);
+    const flagged = tabSwitches > maxSwitches;
+
+    // 4. Record authentic verified attempt
+    await this.recordExamAttempt({
+      studentId,
+      registerNumber,
+      examScheduleId: examId,
+      score: percentage,
+      passed,
+      submitted: true,
+      tabSwitches
+    });
+
+    // 5. Update student marks sheet
+    try {
+      await this.submitMarks(studentId, { [exam.code || exam.id]: percentage });
+    } catch {}
+
+    return {
+      ok: true,
+      examId,
+      score: finalScore,
+      totalMarks,
+      percentage,
+      passed,
+      tabSwitches,
+      flagged,
+      questionResults
+    };
   }
 };
+

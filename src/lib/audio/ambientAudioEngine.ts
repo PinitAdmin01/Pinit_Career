@@ -6,7 +6,7 @@ class AmbientAudioEngine {
   private currentAudioElement: HTMLAudioElement | null = null;
   private masterGain: GainNode | null = null;
   private activeNodes: (AudioNode | number)[] = [];
-  private isAudioMuted: boolean = false;
+  private isAudioMuted: boolean = true;
   private timerId: NodeJS.Timeout | null = null;
   private chimeIntervalId: NodeJS.Timeout | null = null;
   private fadeIntervalId: NodeJS.Timeout | null = null;
@@ -16,7 +16,8 @@ class AmbientAudioEngine {
   constructor() {
     if (typeof window !== 'undefined') {
       const savedMute = localStorage.getItem('pc_ambient_muted');
-      this.isAudioMuted = savedMute === 'true';
+      // Strictly opt-in: default to muted (true) unless explicitly unmuted
+      this.isAudioMuted = savedMute !== null ? savedMute === 'true' : true;
       const savedVol = localStorage.getItem('pc_ambient_volume');
       if (savedVol !== null) {
         const parsed = parseFloat(savedVol);
@@ -175,15 +176,15 @@ class AmbientAudioEngine {
     this.masterGain = master;
 
     if (theme === 'dark') {
-      // 🌌 432Hz DEEP MEDITATIVE COSMIC CALM
+      // Low-frequency harmonic focus drone (432Hz root)
       const root = 432;
       const freqs = [
-        root / 8, // 54Hz Deep Earth Sub
-        root / 4, // 108Hz Warm Bass
-        root / 2.666, // 162Hz Fifth
-        root / 2, // 216Hz Mid Body
-        root * 0.75, // 324Hz Soft Fifth
-        root // 432Hz Pure Harmonic
+        root / 8, // 54Hz Sub bass
+        root / 4, // 108Hz Bass
+        root / 2.666, // 162Hz Low-mid harmonic
+        root / 2, // 216Hz Mid harmonic
+        root * 0.75, // 324Hz Upper-mid harmonic
+        root // 432Hz Fundamental
       ];
 
       const filter = ctx.createBiquadFilter();
@@ -243,15 +244,15 @@ class AmbientAudioEngine {
       }, 4200);
 
     } else {
-      // ☀️ WARM 528Hz GOLDEN SOLAR VIBRATION
+      // Mid-frequency harmonic focus drone (528Hz root)
       const root = 528;
       const freqs = [
-        root / 8, // 66Hz Warm Ground
-        root / 4, // 132Hz Solar Center
-        root / 2, // 264Hz Mid Heart
-        root * 0.75, // 396Hz Liberation
-        root, // 528Hz Transformation / Miracles
-        root * 1.25 // 660Hz Bright Halo
+        root / 8, // 66Hz Low bass
+        root / 4, // 132Hz Bass
+        root / 2, // 264Hz Mid
+        root * 0.75, // 396Hz Upper-mid
+        root, // 528Hz Fundamental
+        root * 1.25 // 660Hz Harmonic overtone
       ];
 
       const filter = ctx.createBiquadFilter();

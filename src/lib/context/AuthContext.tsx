@@ -9,6 +9,7 @@ import {
   EMPTY_PROFILE, mapRowToProfile
 } from '@/lib/supabaseService';
 import { api } from '@/lib/api/client';
+import { voiceCacheDB } from '@/lib/voiceCacheDB';
 
 interface User {
   id:               string;
@@ -73,17 +74,6 @@ function usernameToEmail(username: string): string {
   const base = clean || 'user';
   const hashSuffix = getUsernameHash(raw);
   return `usr_${base}_${hashSuffix}@student.pinit.internal`;
-}
-
-// Fallback for accounts created prior to namespaced domain enforcement
-function legacyUsernameToEmail(username: string): string {
-  const raw = (username || '').trim().toLowerCase();
-  if (raw.includes('@')) return raw;
-  let clean = raw
-    .replace(/\s+/g, '.')
-    .replace(/[^a-z0-9._-]/g, '');
-  clean = clean.replace(/\.{2,}/g, '.').replace(/^[-._]+|[-._]+$/g, '');
-  return `${clean || 'user'}@pinit.app`;
 }
 
 function isDemoEmail(email: string): boolean {
@@ -390,43 +380,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     try {
       let profile = await getUserProfile(sbUser.id);
-      const emailLower = sbUser.email?.toLowerCase() || '';
-      const isPrivilegedDemo = ['admin@pinit.in', 'teacher@pinit.in', 'rec@pinit.in', 'con@pinit.in', 'parent@pinit.in'].includes(emailLower);
 
       if (!profile) {
-        // New user — create profile with demo data
-        let role = 'student';
-        let displayName = 'User';
-        if (emailLower === 'admin@pinit.in') { role = 'admin'; displayName = 'System Admin'; }
-        else if (emailLower === 'teacher@pinit.in') { role = 'teacher'; displayName = 'Faculty Member'; }
-        else if (emailLower === 'rec@pinit.in') { role = 'recruiter'; displayName = 'Lead Recruiter'; }
-        else if (emailLower === 'con@pinit.in') { role = 'consultant'; displayName = 'Career Consultant'; }
-        else if (emailLower === 'parent@pinit.in') { role = 'parent'; displayName = 'Parent Guardian'; }
-
+        // New user — always created with 'student' role.
+        // Role is NEVER inferred from email address.
+        // Privileged roles must be assigned by an administrator through the Supabase admin panel or a secure server action.
+        const defaultDisplayName = sbUser.user_metadata?.display_name || sbUser.email?.split('@')[0] || 'User';
         profile = {
           ...EMPTY_PROFILE,
           uid:         sbUser.id,
           email:       sbUser.email || '',
           username:    sbUser.email?.split('@')[0] || 'user',
-          displayName: sbUser.user_metadata?.display_name || displayName,
-          role,
+          displayName: defaultDisplayName,
+          role:        'student',
         };
-        console.log(`[AuthContext] Creating new user profile for ${emailLower} with role=${role}`);
-        await createUserProfile(sbUser.id, profile, { allowPrivileged: isPrivilegedDemo });
-      } else {
-        // Self-healing check for existing profiles of default accounts
-        let expectedRole = null;
-        if (emailLower === 'admin@pinit.in' && profile.role !== 'admin') expectedRole = 'admin';
-        else if (emailLower === 'teacher@pinit.in' && profile.role !== 'teacher') expectedRole = 'teacher';
-        else if (emailLower === 'rec@pinit.in' && profile.role !== 'recruiter') expectedRole = 'recruiter';
-        else if (emailLower === 'con@pinit.in' && profile.role !== 'consultant') expectedRole = 'consultant';
-        else if (emailLower === 'parent@pinit.in' && profile.role !== 'parent') expectedRole = 'parent';
-
-        if (expectedRole) {
-          console.log(`[AuthContext] Self-healing profile role for ${emailLower} from ${profile.role} -> ${expectedRole}`);
-          profile.role = expectedRole;
-          await updateUserProfile(sbUser.id, { role: expectedRole }, { allowPrivileged: true });
-        }
+        await createUserProfile(sbUser.id, profile);
       }
       try {
         localStorage.setItem(`pinit_${sbUser.id}_profile`, JSON.stringify(profile));
@@ -629,19 +597,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         email,
         password,
       });
-
-      // If sign-in failed and input was a username (not an explicit email), attempt legacy email format
-      if (error && !username.includes('@')) {
-        const legacyEmail = legacyUsernameToEmail(username);
-        const legacyRes = await supabase.auth.signInWithPassword({
-          email: legacyEmail,
-          password,
-        });
-        if (!legacyRes.error && legacyRes.data?.user) {
-          data = legacyRes.data;
-          error = null;
-        }
-      }
 
       if (error) {
         // If Supabase Auth fails with default demo account credentials, we try to create them
@@ -858,6 +813,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           }
           keysToRemove.forEach(k => localStorage.removeItem(k));
           sessionStorage.clear();
+        } catch {}
+
+        // Purge IndexedDB voice cache for campus shared machine privacy
+        try {
+          await voiceCacheDB.clearCache();
         } catch {}
 
         // Clear legacy client-side cookies

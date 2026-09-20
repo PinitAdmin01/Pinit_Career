@@ -74,7 +74,7 @@ export default function InternshipsPage() {
         endDate: isCurrentlyActive ? undefined : endDate,
         mentorName: mentorName.trim() || undefined,
         mentorContact: mentorContact.trim() || undefined,
-        performanceRating: 'Exceeds Expectations',
+        performanceRating: 'Pending Evaluation',
         projectDescription: projectDescription.trim(),
         skillsUsed: skillsArray,
         certificateUrl: certificateUrl.trim() || undefined,
@@ -82,8 +82,10 @@ export default function InternshipsPage() {
       });
 
       setRecords(prev => [saved, ...prev]);
-      cOS.addXp(500, `Logged Internship at ${companyName}`);
-      toast.success('Internship Record Submitted! 💼', `Logged ${companyName} experience into your career record (pending verification).`);
+      toast.success(
+        'Internship Record Submitted! 💼',
+        `Logged ${companyName} experience into your career record (queued for coordinator review and academic XP audit).`
+      );
       
       // Reset
       setCompanyName('');

@@ -186,7 +186,7 @@ export default function DashboardHeaderHUD({
   // DEF-005: Authentic JD skill-token match engine
   const calculateCompanyMatch = useCallback((requiredSkills: string[]) => {
     if (!requiredSkills || requiredSkills.length === 0) {
-      return Math.min(98, Math.max(45, Math.round(careerScore * 0.75 + trustScore * 0.25)));
+      return Math.min(100, Math.max(0, Math.round(careerScore * 0.75 + trustScore * 0.25)));
     }
     let matched = 0;
     requiredSkills.forEach(req => {
@@ -201,8 +201,10 @@ export default function DashboardHeaderHUD({
 
     const tokenOverlapPct = Math.round((matched / requiredSkills.length) * 100);
     const baselineReadiness = Math.round(careerScore * 0.75 + trustScore * 0.25);
-    const combined = Math.round((baselineReadiness * 0.6) + (tokenOverlapPct * 0.4));
-    return Math.min(98, Math.max(40, combined));
+    const combined = candidateSkills.size > 0
+      ? Math.round((tokenOverlapPct * 0.6) + (baselineReadiness * 0.4))
+      : Math.round(baselineReadiness * 0.4);
+    return Math.min(100, Math.max(0, combined));
   }, [candidateSkills, careerScore, trustScore]);
 
   // DEF-004: WCAG 2.2.2 carousel pause on hover, focus, and toggle button

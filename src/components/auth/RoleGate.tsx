@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, useState } from 'react';
+import { ReactNode } from 'react';
 import { useAuth } from '@/lib/context/AuthContext';
 
 type RoleGateProps = {
@@ -9,11 +9,9 @@ type RoleGateProps = {
   label?: string;
 };
 
-/** Client-side role gate for portal pages with instant tester bypass */
+/** Client-side role gate for portal pages. Access is denied unless the authenticated user holds an allowed role. */
 export function RoleGate({ allow, children, label }: RoleGateProps) {
-  const { user, loading, login } = useAuth();
-  const [isTesterBypass, setIsTesterBypass] = useState(false);
-  const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const { user, loading } = useAuth();
 
   if (loading) {
     return (
@@ -23,35 +21,10 @@ export function RoleGate({ allow, children, label }: RoleGateProps) {
     );
   }
 
-  const role = user?.role || 'student';
-  if (!isTesterBypass && (!user || !allow.includes(role))) {
-    const primaryRole = allow[0] || 'admin';
-    const emailMap: Record<string, string> = {
-      admin: 'admin@pinit.in',
-      superadmin: 'admin@pinit.in',
-      teacher: 'teacher@pinit.in',
-      recruiter: 'rec@pinit.in',
-      consultant: 'con@pinit.in',
-      parent: 'parent@pinit.in',
-      student: 'student@pinit.in'
-    };
-    const targetEmail = emailMap[primaryRole] || 'admin@pinit.in';
+  const role = user?.role || null;
+  const isAuthorized = user !== null && role !== null && allow.includes(role);
 
-    const handleQuickLogin = async () => {
-      setIsLoggingIn(true);
-      try {
-        if (login) {
-          await login(targetEmail, '111111');
-        } else {
-          setIsTesterBypass(true);
-        }
-      } catch {
-        setIsTesterBypass(true);
-      } finally {
-        setIsLoggingIn(false);
-      }
-    };
-
+  if (!isAuthorized) {
     return (
       <div style={{
         minHeight: '75vh',
@@ -75,8 +48,8 @@ export function RoleGate({ allow, children, label }: RoleGateProps) {
             width: '52px',
             height: '52px',
             borderRadius: '12px',
-            background: 'rgba(59, 130, 246, 0.1)',
-            color: '#3b82f6',
+            background: 'rgba(239, 68, 68, 0.1)',
+            color: '#ef4444',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -89,13 +62,15 @@ export function RoleGate({ allow, children, label }: RoleGateProps) {
             {label ? `${label} Access Required` : 'Restricted Portal Access'}
           </h2>
           <p style={{ fontSize: '13px', color: '#94a3b8', marginBottom: '20px', lineHeight: 1.5 }}>
-            This section is restricted to authorized <strong>{allow.join(' / ')}</strong> roles.
+            This section is restricted to authorized <strong>{allow.join(' / ')}</strong> role{allow.length > 1 ? 's' : ''}.
+            {user === null
+              ? ' Please sign in with a verified institutional account.'
+              : ` Your current role (${role || 'unknown'}) does not have permission to access this portal.`}
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            <button
-              onClick={handleQuickLogin}
-              disabled={isLoggingIn}
+            <a
+              href="/login"
               style={{
                 width: '100%',
                 padding: '12px 20px',
@@ -104,39 +79,18 @@ export function RoleGate({ allow, children, label }: RoleGateProps) {
                 color: '#ffffff',
                 fontWeight: 600,
                 fontSize: '13px',
-                border: 'none',
-                cursor: 'pointer',
-                transition: 'all 0.2s',
+                textDecoration: 'none',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 gap: '8px'
               }}
             >
-              {isLoggingIn ? 'Authenticating...' : `🚀 Enter as Demo ${primaryRole.toUpperCase()} (Tester)`}
-            </button>
-
-            {process.env.NODE_ENV !== 'production' && (
-              <button
-                onClick={() => setIsTesterBypass(true)}
-                style={{
-                  width: '100%',
-                  padding: '10px 16px',
-                  borderRadius: '10px',
-                  background: 'transparent',
-                  color: '#cbd5e1',
-                  fontWeight: 500,
-                  fontSize: '12px',
-                  border: '1px solid #334155',
-                  cursor: 'pointer'
-                }}
-              >
-                Preview Portal (Tester Bypass - Dev Only)
-              </button>
-            )}
+              🔑 Sign In with Institutional Account
+            </a>
 
             <a
-              href="/login"
+              href="/"
               style={{
                 fontSize: '12px',
                 color: '#64748b',
@@ -144,7 +98,7 @@ export function RoleGate({ allow, children, label }: RoleGateProps) {
                 marginTop: '6px'
               }}
             >
-              Sign in on Main Login Page
+              Return to Home
             </a>
           </div>
         </div>

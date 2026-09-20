@@ -3,6 +3,7 @@
 import React from 'react';
 import { Candidate, PIPELINE_STAGES } from '../hooks/useRecruiterData';
 import { ResumeFormData } from '@/components/career/ResumeForm.types';
+import { api } from '@/lib/api/client';
 
 interface CandidateSearchPanelProps {
   analytics: Record<string, number>;
@@ -385,7 +386,7 @@ export default function CandidateSearchPanel({
                     fontWeight: 700,
                   }}
                 >
-                  Key Verified Skills
+                  Candidate Skill Profile
                 </div>
                 <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
                   {selectedCandidate.skill_tags.map((skill) => (
@@ -459,7 +460,7 @@ export default function CandidateSearchPanel({
                   fontWeight: 700,
                 }}
               >
-                Verified Proof Vault
+                Candidate Document & Proof Vault
               </div>
               {!selectedCandidate.vaultItems || selectedCandidate.vaultItems.length === 0 ? (
                 <div style={{ fontSize: 11, color: 'var(--t3)', fontStyle: 'italic' }}>
@@ -467,43 +468,46 @@ export default function CandidateSearchPanel({
                 </div>
               ) : (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                  {selectedCandidate.vaultItems.map((item: any) => (
-                    <div
-                      key={item.id}
-                      style={{
-                        background: 'var(--bg3)',
-                        border: '1px solid var(--border)',
-                        borderRadius: 8,
-                        padding: '8px 10px',
-                        fontSize: 11,
-                      }}
-                    >
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span style={{ fontWeight: 600 }}>📄 {item.label || item.type}</span>
-                        <span
-                          className={`badge ${item.status === 'verified' ? 'badge-green' : 'badge-coral'}`}
-                          style={{ fontSize: 9, padding: '1px 5px' }}
-                        >
-                          {item.status || 'pending'}
-                        </span>
+                  {selectedCandidate.vaultItems.map((item: any) => {
+                    const isItemVerified = item.verified === true || item.status === 'verified';
+                    return (
+                      <div
+                        key={item.id}
+                        style={{
+                          background: 'var(--bg3)',
+                          border: '1px solid var(--border)',
+                          borderRadius: 8,
+                          padding: '8px 10px',
+                          fontSize: 11,
+                        }}
+                      >
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <span style={{ fontWeight: 600 }}>📄 {item.label || item.type || item.title}</span>
+                          <span
+                            className={`badge ${isItemVerified ? 'badge-green' : 'badge-amber'}`}
+                            style={{ fontSize: 9, padding: '1px 5px' }}
+                          >
+                            {isItemVerified ? '✅ Verified by Campus' : '⏳ Self-Uploaded / Pending Review'}
+                          </span>
+                        </div>
+                        {item.fileUrl && (
+                          <a
+                            href={item.fileUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            style={{
+                              display: 'inline-block',
+                              marginTop: 4,
+                              color: 'var(--accent)',
+                              textDecoration: 'underline',
+                            }}
+                          >
+                            View Document
+                          </a>
+                        )}
                       </div>
-                      {item.fileUrl && (
-                        <a
-                          href={item.fileUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          style={{
-                            display: 'inline-block',
-                            marginTop: 4,
-                            color: 'var(--accent)',
-                            textDecoration: 'underline',
-                          }}
-                        >
-                          View Document
-                        </a>
-                      )}
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               )}
             </div>
@@ -620,15 +624,24 @@ export default function CandidateSearchPanel({
                 </button>
               )}
               <button
-                onClick={() => {
-                  // Replaced Math.random with crypto.randomUUID()
-                  const refId = `REF-INV-2026-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
-                  logActivity('INTERVIEW_DISPATCH', {
-                    candidateId: selectedCandidate.id,
-                    candidateName: selectedCandidate.display_name,
-                    refId,
-                  });
-                  triggerToast(`Sent formal interview invitation to ${selectedCandidate.display_name} (Ref #${refId})`, 'success');
+                onClick={async () => {
+                  try {
+                    const refId = `REF-INV-2026-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
+                    await api.post('/api/recruiter/schedule-interview', {
+                      candidateId: selectedCandidate.id,
+                      mode: 'AI Technical Interview (Autonomous Evaluation)',
+                      roleTitle: 'Campus Placement AI Screening',
+                      scheduledAt: new Date().toISOString(),
+                    });
+                    logActivity('INTERVIEW_DISPATCH', {
+                      candidateId: selectedCandidate.id,
+                      candidateName: selectedCandidate.display_name,
+                      refId,
+                    });
+                    triggerToast(`Sent formal AI interview invitation to ${selectedCandidate.display_name} (Ref #${refId})`, 'success');
+                  } catch {
+                    triggerToast('Failed to dispatch interview invitation', 'error');
+                  }
                 }}
                 className="btn-primary"
                 style={{

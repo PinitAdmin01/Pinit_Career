@@ -1,19 +1,11 @@
 'use client';
 
-import { useState, useEffect, useCallback, Suspense } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useAuth } from '@/lib/context/AuthContext';
-import { isDemoAuthEnabled, DEMO_PASSWORD } from '@/lib/demoAuth';
-import { QRCodeSVG } from 'qrcode.react';
-import {
-  identityGateway,
-  AuthenticationMethod,
-  VaultChallenge,
-  ChallengeStatus,
-  getDeviceName
-} from '@/lib/services/identityGateway';
+import { isDemoAuthEnabled } from '@/lib/demoAuth';
 
 function getSafeRedirect(raw: string | null): string {
   if (!raw) return '/dashboard';
@@ -48,15 +40,6 @@ function LoginContent() {
     }
   }, [searchParams, router]);
 
-  // Vault QR & Trusted Device State
-  const [isTrustedDevice, setIsTrustedDevice] = useState<boolean>(false);
-  const [trustedDeviceName, setTrustedDeviceName] = useState<string>('');
-  const [authMode, setAuthMode] = useState<'qr' | 'trusted' | 'face' | 'biometric'>('qr');
-  const [challenge, setChallenge] = useState<VaultChallenge | null>(null);
-  const [challengeStatus, setChallengeStatus] = useState<ChallengeStatus>('PENDING');
-  const [secondsRemaining, setSecondsRemaining] = useState<number>(60);
-  const [currentStep, setCurrentStep] = useState<number>(1);
-
   // Password Form State
   const [loginForm, setLoginForm] = useState({ identifier: '', password: '', role: 'student' });
   const [errorMsg, setErrorMsg] = useState<string>('');
@@ -81,127 +64,6 @@ function LoginContent() {
       }
     }
   }, [user, isSuccessSplash, router, searchParams]);
-
-  // 2. Check Trusted Device Status on Mount
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const devName = getDeviceName();
-      setTrustedDeviceName(devName);
-      const devices = JSON.parse(localStorage.getItem('pinit_trusted_devices_db') || '[]');
-      if (devices.length > 0) {
-        setIsTrustedDevice(true);
-        // Do not switch authMode to 'trusted' while trusted device login is unimplemented;
-        // keep authMode as 'qr' for Vault and default cleanly to 'password'.
-      }
-    }
-  }, []);
-
-  // 3. Challenge Generation Callback
-  const requestNewChallenge = useCallback(async () => {
-    setErrorMsg('');
-    setCurrentStep(1);
-    setChallengeStatus('PENDING');
-    setSecondsRemaining(60);
-    try {
-      const newCh = await identityGateway.generateLoginChallenge('careers', 'login');
-      setChallenge(newCh);
-      setCurrentStep(2);
-    } catch (err: any) {
-      setErrorMsg(err.message || 'Failed to generate authentication QR code');
-    }
-  }, []);
-
-  // Initialize Challenge when entering QR mode
-  useEffect(() => {
-    if (mainTab === 'vault' && authMode === 'qr' && !challenge && !user) {
-      requestNewChallenge();
-    }
-  }, [mainTab, authMode, challenge, user, requestNewChallenge]);
-
-  // 4. 60-Second Countdown Timer
-  useEffect(() => {
-    if (mainTab !== 'vault' || authMode !== 'qr' || !challenge || isSuccessSplash) return;
-    const timer = setInterval(() => {
-      setSecondsRemaining(prev => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          requestNewChallenge();
-          return 60;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-    return () => clearInterval(timer);
-  }, [mainTab, authMode, challenge, isSuccessSplash, requestNewChallenge]);
-
-  // 5. Subscribe to Status Stream
-  useEffect(() => {
-    if (mainTab !== 'vault' || !challenge || authMode !== 'qr' || isSuccessSplash) return;
-
-    const unsubscribe = identityGateway.subscribeStatusStream(challenge.challengeId, async (status) => {
-      setChallengeStatus(status);
-
-      if (status === 'SCANNING') {
-        setCurrentStep(2);
-      } else if (status === 'EXPIRED') {
-        setErrorMsg('QR Challenge expired. Generating a new QR code...');
-        requestNewChallenge();
-      } else if (status === 'REJECTED') {
-        setErrorMsg('Authentication rejected by PinIT Vault.');
-        requestNewChallenge();
-      } else if (status === 'APPROVED') {
-        setCurrentStep(3);
-        try {
-          const sessionData = await identityGateway.exchangeSession(
-            challenge.challengeId,
-            AuthenticationMethod.QR_SCAN
-          );
-          setCurrentStep(4);
-          setIsSuccessSplash(true);
-
-          setTimeout(() => {
-            loginWithVaultSession(sessionData).then(() => {
-              router.push('/dashboard');
-            });
-          }, 1000);
-        } catch (err: any) {
-          setErrorMsg(err.message || 'Session exchange failed');
-          setCurrentStep(2);
-        }
-      }
-    });
-
-    return () => unsubscribe();
-  }, [mainTab, challenge, authMode, isSuccessSplash, requestNewChallenge, loginWithVaultSession, router]);
-
-  // Helper: Simulate Vault Mobile Scan & Approval for testing (Demo Mode Only)
-  const handleSimulateVaultApproval = async () => {
-    if (!isDemoAuthEnabled() || !challenge) return;
-    setLoading(true);
-    try {
-      await identityGateway.approveChallengeFromVault(challenge.challengeId);
-    } catch (err) {
-      console.error('Simulation failed:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Trusted Device Authentication Handler
-  const handleTrustedDeviceLogin = async (method: AuthenticationMethod) => {
-    setLoading(true);
-    setErrorMsg('');
-    try {
-      // Trusted device / biometric auth requires server-side verification which is not yet implemented.
-      // Do NOT log users in with a hardcoded mock identity — that is a security hole.
-      // TODO: implement real device attestation via /api/v1/auth/trusted-device
-      throw new Error('Trusted device login is not yet available. Please use your password or QR code to sign in.');
-    } catch (err: any) {
-      setErrorMsg(err.message || 'Trusted device authentication failed');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   // Developer Mode Login
   const handleDevModeLogin = async () => {
@@ -278,17 +140,6 @@ function LoginContent() {
     }
   };
 
-  // QR Payload String for SVG generator
-  const qrPayloadString = challenge ? JSON.stringify({
-    challengeId: challenge.challengeId,
-    app: challenge.app,
-    purpose: challenge.purpose,
-    identityVersion: challenge.identityVersion,
-    nonce: challenge.nonce,
-    exp: challenge.exp,
-    v: challenge.v,
-    sig: challenge.sig
-  }) : 'pinit-vault://auth/pending';
 
   // ── 1.0-Second Splash Screen Rendering ──────────────────────────────────
   if (isSuccessSplash) {
@@ -464,75 +315,14 @@ function LoginContent() {
             padding: '12px 16px',
             borderRadius: 14,
             fontSize: 13,
-            marginBottom: 20,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 10
+            marginBottom: 20
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
-              <span>⚠️ {errorMsg}</span>
-              {mainTab === 'vault' && (
-                <button
-                  type="button"
-                  onClick={() => requestNewChallenge()}
-                  style={{
-                    background: 'var(--danger)',
-                    color: 'var(--text)',
-                    border: 'none',
-                    padding: '4px 10px',
-                    borderRadius: 6,
-                    fontSize: 11,
-                    fontWeight: 700,
-                    cursor: 'pointer'
-                  }}
-                >
-                  Retry QR
-                </button>
-              )}
-            </div>
-            {mainTab === 'vault' && (
-              <div style={{ display: 'flex', gap: 8, marginTop: 4 }}>
-                <button
-                  type="button"
-                  onClick={() => router.push('/signup')}
-                  style={{
-                    flex: 1,
-                    background: 'var(--accent, #00A3FF)',
-                    color: 'var(--text)',
-                    border: 'none',
-                    padding: '7px 12px',
-                    borderRadius: 8,
-                    fontSize: 12,
-                    fontWeight: 750,
-                    cursor: 'pointer'
-                  }}
-                >
-                  📝 Create Account (Sign Up)
-                </button>
-                <button
-                  type="button"
-                  onClick={() => { setMainTab('password'); setErrorMsg(''); }}
-                  style={{
-                    flex: 1,
-                    background: 'rgba(255,255,255,0.1)',
-                    color: 'var(--text)',
-                    border: '1px solid rgba(255,255,255,0.2)',
-                    padding: '7px 12px',
-                    borderRadius: 8,
-                    fontSize: 12,
-                    fontWeight: 750,
-                    cursor: 'pointer'
-                  }}
-                >
-                  🔑 Password Login
-                </button>
-              </div>
-            )}
+            ⚠️ {errorMsg}
           </div>
         )}
 
         {/* ================================================================= */}
-        {/* TAB 1: 📱 PINIT VAULT QR LOGIN (SCREENSHOT 1)                     */}
+        {/* TAB 1: 📱 PINIT VAULT QR — COMING SOON                            */}
         {/* ================================================================= */}
         {mainTab === 'vault' && (
           <div>
@@ -541,15 +331,15 @@ function LoginContent() {
                 PinIT Vault Login
               </h2>
               <p style={{ fontSize: 12.5, color: 'var(--text-tertiary)', margin: 0 }}>
-                Secure identity verification powered by PinIT Vault
+                Secure cross-device QR authentication
               </p>
             </div>
 
-            {/* Developer Mode Banner */}
+            {/* Developer Mode Banner — gated, does not use QR flow */}
             {isDemoAuthEnabled() && (
               <div style={{
-                background: 'linear-gradient(135deg, rgba(var(--warning-rgb),  0.12) 0%, rgba(217, 119, 6, 0.12) 100%)',
-                border: '1px solid rgba(var(--warning-rgb),  0.35)',
+                background: 'linear-gradient(135deg, rgba(var(--warning-rgb), 0.12) 0%, rgba(217, 119, 6, 0.12) 100%)',
+                border: '1px solid rgba(var(--warning-rgb), 0.35)',
                 borderRadius: 14,
                 padding: '12px 14px',
                 marginBottom: 18,
@@ -563,7 +353,7 @@ function LoginContent() {
                     ⚡ Developer Mode Enabled
                   </div>
                   <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginTop: 2 }}>
-                    Skip Vault & create a fresh unique user to test Onboarding.
+                    Skip Vault &amp; create a fresh unique user to test Onboarding.
                   </div>
                 </div>
                 <button
@@ -580,7 +370,7 @@ function LoginContent() {
                     fontWeight: 800,
                     cursor: 'pointer',
                     whiteSpace: 'nowrap',
-                    boxShadow: '0 4px 12px rgba(var(--warning-rgb),  0.3)'
+                    boxShadow: '0 4px 12px rgba(var(--warning-rgb), 0.3)'
                   }}
                 >
                   {loading ? 'Creating...' : 'Test Onboarding'}
@@ -588,173 +378,67 @@ function LoginContent() {
               </div>
             )}
 
-            {/* 4-Step Progress UI Header */}
+            {/* Coming Soon Panel */}
             <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(4, 1fr)',
-              gap: 4,
-              marginBottom: 16
-            }}>
-              {[
-                { step: 1, title: 'QR Gen', icon: '✓' },
-                { step: 2, title: 'Vault', icon: currentStep >= 2 ? '⏳' : '2' },
-                { step: 3, title: 'AuthN', icon: currentStep >= 3 ? '...' : '3' },
-                { step: 4, title: 'Ready', icon: '4' }
-              ].map(s => (
-                <div key={s.step} style={{
-                  padding: '6px 4px',
-                  borderRadius: 8,
-                  textAlign: 'center',
-                  background: currentStep >= s.step ? 'rgba(0, 163, 255, 0.15)' : 'var(--bg-secondary)',
-                  border: `1px solid ${currentStep >= s.step ? 'var(--accent)' : 'var(--border-color)'}`,
-                  fontSize: 11,
-                  fontWeight: 650,
-                  color: currentStep >= s.step ? 'var(--accent)' : 'var(--text-tertiary)'
-                }}>
-                  {s.step < currentStep ? '✓' : s.icon} {s.title}
-                </div>
-              ))}
-            </div>
-
-            {/* QR Canvas Display */}
-            <div style={{
-              background: '#ffffff',
-              padding: 18,
+              background: 'var(--bg-secondary)',
+              border: '1px dashed rgba(255,255,255,0.15)',
               borderRadius: 20,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: '0 10px 25px rgba(0,0,0,0.4)',
-              margin: '0 auto 16px',
-              maxWidth: 230,
-              width: '100%',
-              position: 'relative'
+              padding: '32px 24px',
+              textAlign: 'center',
+              marginBottom: 18
             }}>
-              <QRCodeSVG
-                value={qrPayloadString}
-                size={190}
-                level="M"
-                includeMargin={false}
-              />
-            </div>
-
-            {/* Countdown Bar & Timer */}
-            <div style={{ textAlign: 'center', marginBottom: 16 }}>
               <div style={{
+                width: 64,
+                height: 64,
+                background: 'rgba(var(--accent-rgb, 0,163,255), 0.12)',
+                border: '2px solid rgba(var(--accent-rgb, 0,163,255), 0.35)',
+                borderRadius: '50%',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'space-between',
-                fontSize: 12,
-                color: 'var(--text-tertiary)',
-                marginBottom: 6
-              }}>
-                <span>QR Expiry Timer</span>
-                <span style={{ fontWeight: 700, color: secondsRemaining < 10 ? 'var(--danger-bright)' : 'var(--accent)' }}>
-                  {secondsRemaining}s remaining
-                </span>
+                justifyContent: 'center',
+                fontSize: 28,
+                margin: '0 auto 16px'
+              }}>📱</div>
+              <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 8 }}>
+                PinIT Vault App Required
               </div>
-              <div style={{
-                height: 4,
-                background: 'var(--bg-secondary)',
-                borderRadius: 2,
-                overflow: 'hidden'
-              }}>
-                <div style={{
-                  height: '100%',
-                  background: secondsRemaining < 10 ? 'var(--danger)' : 'var(--accent)',
-                  width: `${(secondsRemaining / 60) * 100}%`,
-                  transition: 'width 1s linear'
-                }} />
+              <div style={{ fontSize: 12.5, color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: 20 }}>
+                QR login requires the <strong>PinIT Vault</strong> mobile app to scan and approve the challenge on a second device.
+                The app is not yet available — this feature is coming soon.
               </div>
-            </div>
-
-            {/* Status Indicator Message */}
-            <div style={{
-              textAlign: 'center',
-              fontSize: 12.5,
-              color: 'var(--text-secondary)',
-              marginBottom: 16,
-              padding: '10px 14px',
-              background: 'var(--bg-secondary)',
-              borderRadius: 12,
-              border: '1px solid var(--border-color)'
-            }}>
-              {challengeStatus === 'SCANNING' ? (
-                <span style={{ color: 'var(--warning)', fontWeight: 600 }}>
-                  📱 QR Scanned! Completing Vault biometric verification...
-                </span>
-              ) : (
-                <span>
-                  Waiting for approval... Please scan this QR using <strong>PinIT Vault</strong> app.
-                </span>
-              )}
-            </div>
-
-            {/* Local Simulator Button for Testing (Demo Mode Only) */}
-            {isDemoAuthEnabled() && (
               <button
                 type="button"
-                onClick={handleSimulateVaultApproval}
-                disabled={loading || !challenge}
+                onClick={() => { setMainTab('password'); setErrorMsg(''); }}
                 style={{
-                  width: '100%',
-                  padding: '10px 14px',
-                  borderRadius: 12,
-                  background: 'linear-gradient(135deg, var(--success-deep) 0%, var(--success) 100%)',
-                  color: 'var(--text)',
+                  padding: '10px 20px',
+                  borderRadius: 10,
+                  background: 'var(--accent)',
+                  color: '#fff',
                   border: 'none',
                   fontSize: 13,
                   fontWeight: 750,
-                  cursor: 'pointer',
-                  boxShadow: '0 4px 12px rgba(var(--success-rgb), 0.3)'
+                  cursor: 'pointer'
                 }}
               >
-                {loading ? 'Approving...' : '📲 Simulate PinIT Vault App Scan & Approval (Demo Only)'}
+                🔑 Sign In With Password Instead
               </button>
-            )}
+            </div>
 
-            {/* Quick Switch Alternative Actions */}
             <div style={{
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
               gap: 8,
-              marginTop: 18,
               paddingTop: 14,
               borderTop: '1px solid var(--border-color)',
               fontSize: 12.5,
               color: 'var(--text-tertiary)'
             }}>
               <div>
-                <span>Don&apos;t have the Vault app? </span>
-                <Link
-                  href="/signup"
-                  style={{
-                    color: 'var(--accent, #00A3FF)',
-                    fontWeight: 750,
-                    textDecoration: 'underline'
-                  }}
-                >
+                <span>Don&apos;t have an account? </span>
+                <Link href="/signup" style={{ color: 'var(--accent, #00A3FF)', fontWeight: 750, textDecoration: 'underline' }}>
                   Create Student Account (Sign Up) →
                 </Link>
-              </div>
-              <div>
-                <span>Prefer email &amp; password? </span>
-                <button
-                  type="button"
-                  onClick={() => { setMainTab('password'); setErrorMsg(''); }}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    color: 'var(--text-secondary, #94A3B8)',
-                    fontWeight: 700,
-                    cursor: 'pointer',
-                    padding: '0 2px',
-                    fontSize: 12
-                  }}
-                >
-                  Password Sign In →
-                </button>
               </div>
             </div>
           </div>

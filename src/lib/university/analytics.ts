@@ -82,32 +82,47 @@ const avg = (rows: Row[], key: string) =>
   rows.length === 0 ? 0 : Math.round(rows.reduce((a, r) => a + num(r[key]), 0) / rows.length);
 
 /** studentId -> cohort metadata, empty when the cohort tables are absent or unused. */
-async function cohortIndex(): Promise<Map<string, { department: string; college: string; batchYear: number }>> {
+async function cohortIndex(client: any = supabase): Promise<Map<string, { department: string; college: string; batchYear: number }>> {
   const index = new Map<string, { department: string; college: string; batchYear: number }>();
-  if (!(await tableExists('student_cohort_enrollments')) || !(await tableExists('college_cohorts'))) return index;
-
-  const [{ data: enrollments }, { data: cohorts }] = await Promise.all([
-    supabase.from('student_cohort_enrollments').select('cohort_id, student_id'),
-    supabase.from('college_cohorts').select('id, college_name, department, batch_year'),
-  ]);
-  const byId = new Map((cohorts || []).map((c: Row) => [c.id, c]));
-  for (const e of enrollments || []) {
-    const c = byId.get(e.cohort_id);
-    if (!c) continue;
-    index.set(e.student_id, {
-      department: c.department || 'Unspecified',
-      college: c.college_name || 'Unspecified',
-      batchYear: c.batch_year,
-    });
+  try {
+    if ((await tableExists('student_cohort_enrollments')) && (await tableExists('college_cohorts'))) {
+      const [{ data: enrollments }, { data: cohorts }] = await Promise.all([
+        client.from('student_cohort_enrollments').select('cohort_id, student_id'),
+        client.from('college_cohorts').select('id, college_name, department, batch_year'),
+      ]);
+      const byId = new Map<string, Row>(((cohorts || []) as Row[]).map((c: Row) => [c.id, c]));
+      for (const e of (enrollments || []) as Row[]) {
+        const c = byId.get(e.cohort_id);
+        if (!c) continue;
+        index.set(e.student_id, {
+          department: c.department || 'Unspecified',
+          college: c.college_name || 'Unspecified',
+          batchYear: c.batch_year || 2026,
+        });
+      }
+    }
+  } catch (err) {
+    console.warn('[University Analytics] Cohort index notice:', err);
   }
   return index;
 }
 
-async function scopedStudents(filters: UniversityFilters) {
-  const { data, error } = await supabase.from('users').select('*').eq('role', 'student');
+async function scopedStudents(filters: UniversityFilters, client: any = supabase) {
+  const { data, error } = await client.from('users').select('*').eq('role', 'student');
   if (error) throw error;
   const students = data || [];
-  const cohorts = await cohortIndex();
+  const cohorts = await cohortIndex(client);
+
+  // Fallback: Populate cohort metadata from student onboarding_answers when explicit enrollments are missing
+  for (const s of students) {
+    if (!cohorts.has(s.id)) {
+      const ob = (s.onboarding_answers as Record<string, any>) || {};
+      const college = ob.college || ob.university || ob.institution || 'PinIT Campus Academy';
+      const department = ob.department || ob.branch || ob.courseTrack || 'Computer Science & Engineering';
+      const batchYear = Number(ob.batch || ob.batchYear) || 2026;
+      cohorts.set(s.id, { department, college, batchYear });
+    }
+  }
 
   return {
     students: applyFilters(students, cohorts, filters),
@@ -126,14 +141,31 @@ export type CohortIndex = Map<string, { department: string; college: string; bat
  * impossible to test without signing in against production data.
  */
 export function applyFilters(students: Row[], cohorts: CohortIndex, filters: UniversityFilters): Row[] {
-  const wantsGrouping = !!(filters.college || filters.department || filters.batchYear);
+  const isUniversal = (v?: string | number) =>
+    !v || v === 'all' || v === 'All' || (typeof v === 'string' && v.toLowerCase().startsWith('all'));
+
+  const collegeFilter = isUniversal(filters.college) ? undefined : filters.college;
+  const deptFilter = isUniversal(filters.department) ? undefined : filters.department;
+  const batchFilter = filters.batchYear && !isNaN(filters.batchYear) ? filters.batchYear : undefined;
+
+  const wantsGrouping = !!(collegeFilter || deptFilter || batchFilter);
   if (!wantsGrouping) return students;
+
   return students.filter((s: Row) => {
     const c = cohorts.get(s.id);
-    if (!c) return false;                                              // unenrolled cannot match a cohort filter
-    if (filters.college && c.college !== filters.college) return false;
-    if (filters.department && c.department !== filters.department) return false;
-    if (filters.batchYear && c.batchYear !== filters.batchYear) return false;
+    if (!c) return false; // unenrolled cannot match a cohort filter
+    
+    if (collegeFilter) {
+      const matchCollege = c.college.toLowerCase().includes(collegeFilter.toLowerCase()) ||
+        collegeFilter.toLowerCase().includes(c.college.toLowerCase());
+      if (!matchCollege) return false;
+    }
+    if (deptFilter) {
+      const matchDept = c.department.toLowerCase().includes(deptFilter.toLowerCase()) ||
+        deptFilter.toLowerCase().includes(c.department.toLowerCase());
+      if (!matchDept) return false;
+    }
+    if (batchFilter && c.batchYear !== batchFilter) return false;
     return true;
   });
 }
@@ -199,13 +231,13 @@ export function computeDashboard(students: Row[], cohorts: CohortIndex, cohortDa
   };
 }
 
-export async function getUniversityDashboard(filters: UniversityFilters = {}) {
-  const { students, cohorts, cohortDataAvailable } = await scopedStudents(filters);
+export async function getUniversityDashboard(filters: UniversityFilters = {}, client: any = supabase) {
+  const { students, cohorts, cohortDataAvailable } = await scopedStudents(filters, client);
   return computeDashboard(students, cohorts, cohortDataAvailable);
 }
 
-export async function getEmployabilityReport(filters: UniversityFilters = {}) {
-  const { students } = await scopedStudents(filters);
+export async function getEmployabilityReport(filters: UniversityFilters = {}, client: any = supabase) {
+  const { students } = await scopedStudents(filters, client);
   return computeEmployability(students);
 }
 
@@ -231,18 +263,22 @@ export function computeEmployability(students: Row[]) {
   };
 }
 
-export async function getSkillGaps(filters: UniversityFilters = {}) {
-  const { students } = await scopedStudents(filters);
+export async function getSkillGaps(filters: UniversityFilters = {}, client: any = supabase) {
+  const { students } = await scopedStudents(filters, client);
   const inScope = new Set(students.map((s: Row) => s.id));
   const counts = new Map<string, number>();
 
   // Preferred source: gaps the ATS engine actually detected per student.
-  if (await tableExists('ats_skill_gaps')) {
-    const { data } = await supabase.from('ats_skill_gaps').select('student_id, competency_id');
-    for (const row of data || []) {
-      if (!inScope.has(row.student_id) || !row.competency_id) continue;
-      counts.set(row.competency_id, (counts.get(row.competency_id) || 0) + 1);
+  try {
+    if (await tableExists('ats_skill_gaps')) {
+      const { data } = await client.from('ats_skill_gaps').select('student_id, competency_id');
+      for (const row of data || []) {
+        if (!inScope.has(row.student_id) || !row.competency_id) continue;
+        counts.set(row.competency_id, (counts.get(row.competency_id) || 0) + 1);
+      }
     }
+  } catch (err) {
+    console.warn('[University Analytics] Skill gaps query notice:', err);
   }
 
   // Fallback: weak areas recorded on the profile itself.

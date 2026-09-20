@@ -19,6 +19,7 @@ export interface FinanceContextType {
     skill_tags?: string[];
     verified?: boolean;
     ai_confidence_score?: number;
+    proof_url?: string;
   }) => void;
   updateVaultItem: (id: string, updates: Partial<VaultItem>) => void;
   pins: number;

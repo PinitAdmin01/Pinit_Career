@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-export default function ComparisonSplit() {
+export default function ComparisonSplitRevamp() {
   const comparisons = [
     {
       dimension: 'Proof of Competence',
@@ -12,13 +12,13 @@ export default function ComparisonSplit() {
     },
     {
       dimension: 'Learning & Mastery',
-      oldWay: 'Passive 50-hour video courses with 92% student dropout rates.',
+      oldWay: 'Passive video courses with high student dropout rates.',
       pinitWay: 'Active Socratic AI voice mentors with 0 jargon and empathetic 3-step recovery ladders.',
       icon: '🧠'
     },
     {
       dimension: 'Recruiter Screening',
-      oldWay: 'Black-box ATS algorithms discarding 95% of candidates based on keywords.',
+      oldWay: 'Black-box ATS algorithms discarding candidates based on keywords.',
       pinitWay: 'Direct candidate-to-job matching based on actual code execution benchmarks & Elo rank.',
       icon: '⚡'
     },
@@ -58,7 +58,7 @@ export default function ComparisonSplit() {
                 </div>
               </div>
               <span style={{ padding: '4px 10px', borderRadius: 999, background: 'rgba(244,63,94,0.15)', border: '1px solid rgba(244,63,94,0.3)', color: '#f43f5e', fontSize: 11, fontWeight: 700 }}>
-                95% Rejection
+                High Dropout
               </span>
             </div>
 
@@ -75,7 +75,7 @@ export default function ComparisonSplit() {
             </div>
 
             <div style={{ padding: 12, borderRadius: 12, background: 'rgba(244,63,94,0.06)', border: '1px solid rgba(244,63,94,0.15)', textAlign: 'center', fontSize: 12, color: '#f43f5e', fontStyle: 'italic' }}>
-              &ldquo;Spent 6 months sending 400 resumes, received 3 automated rejection emails.&rdquo;
+              &ldquo;Traditional resume-based hiring has high friction and low transparency.&rdquo;
             </div>
           </div>
 
@@ -90,7 +90,7 @@ export default function ComparisonSplit() {
                 </div>
               </div>
               <span style={{ padding: '4px 10px', borderRadius: 999, background: 'rgba(0,163,255,0.15)', border: '1px solid rgba(0,163,255,0.4)', color: 'var(--accent)', fontSize: 11, fontWeight: 700 }}>
-                Top 5% Placement
+                Industry-Aligned
               </span>
             </div>
 
@@ -107,7 +107,7 @@ export default function ComparisonSplit() {
             </div>
 
             <div style={{ padding: 12, borderRadius: 12, background: 'var(--bg-secondary)', border: '1px solid var(--accent)', textAlign: 'center', fontSize: 12, color: 'var(--text-primary)', fontWeight: 600 }}>
-              ⚡ Recruiter Match: &ldquo;Candidate completed 30-Day Java & Distributed Systems Capstone with 100% test assertions passed.&rdquo;
+              ⚡ Recruiter Match: &ldquo;Candidate completed 30-Day Java & Distributed Systems Capstone with full test assertion coverage.&rdquo;
             </div>
           </div>
 

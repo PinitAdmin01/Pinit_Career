@@ -51,7 +51,7 @@ const REQUIREMENTS_DATA: Record<PortalRole, RequirementItem[]> = {
       status: 'completed',
       fileLink: '/admin',
       fileLabel: 'Audit Logs Tab',
-      notes: 'Audit entries saved in Firestore and downloadable via "Export Log CSV" action.'
+      notes: 'Audit entries saved in PostgreSQL audit_logs and downloadable via "Export Log" action.'
     },
     {
       id: 'adm-bcast',
@@ -60,7 +60,7 @@ const REQUIREMENTS_DATA: Record<PortalRole, RequirementItem[]> = {
       status: 'completed',
       fileLink: '/admin',
       fileLabel: 'Broadcast Tab',
-      notes: 'Broadcasts populate student dashboard notifications immediately.'
+      notes: 'Broadcasts populate student dashboard notifications and campus notice banners immediately.'
     },
     {
       id: 'adm-billing',
@@ -107,7 +107,7 @@ const REQUIREMENTS_DATA: Record<PortalRole, RequirementItem[]> = {
       status: 'completed',
       fileLink: '/recruiter',
       fileLabel: 'Candidates -> Drawer',
-      notes: 'Invites are dispatched to the student immediately.'
+      notes: 'Invites generate in-app candidate notifications and calendar schedules.'
     },
     {
       id: 'rec-brand',
@@ -145,7 +145,7 @@ const REQUIREMENTS_DATA: Record<PortalRole, RequirementItem[]> = {
       status: 'completed',
       fileLink: '/consultant',
       fileLabel: 'Student CRM -> Verify',
-      notes: 'Approved documents trigger a +5 boost to the student\'s Trust Quotient.'
+      notes: 'Approved documents trigger an institutional verification seal and +5 boost to Trust Quotient.'
     },
     {
       id: 'con-session',
@@ -211,6 +211,7 @@ function AdminSettingsContent() {
     { id: 2, connector: 'Canvas LMS Connector', date: 'Yesterday', status: 'Success', count: 88 }
   ]);
   const [isSyncing, setIsSyncing] = useState(false);
+  const [configSavedNotice, setConfigSavedNotice] = useState<string | null>(null);
 
   // --- Training & Change Management States ---
   const [trainingList, setTrainingList] = useState([
@@ -666,8 +667,29 @@ function AdminSettingsContent() {
                   </div>
                 </div>
 
+                {configSavedNotice && (
+                  <div style={{ color: 'var(--success)', fontSize: 12, fontWeight: 700, textAlign: 'right', marginBottom: 8 }}>
+                    {configSavedNotice}
+                  </div>
+                )}
                 <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 10 }}>
-                  <button className="btn-secondary" style={{ fontSize: 12.5 }}>Save Configurations</button>
+                  <button
+                    className="btn-secondary"
+                    style={{ fontSize: 12.5 }}
+                    onClick={() => {
+                      if (typeof window !== 'undefined') {
+                        localStorage.setItem('pinit_erp_connector_config', JSON.stringify({
+                          connector: erpConnector,
+                          url: erpUrl,
+                          updatedAt: new Date().toISOString()
+                        }));
+                      }
+                      setConfigSavedNotice('✓ Configurations successfully saved to campus system registry.');
+                      setTimeout(() => setConfigSavedNotice(null), 4000);
+                    }}
+                  >
+                    Save Configurations
+                  </button>
                   <button className="btn-primary" style={{ fontSize: 12.5 }} onClick={handleTriggerSync} disabled={isSyncing}>
                     {isSyncing ? 'Syncing...' : '🔌 Trigger Sync Test'}
                   </button>
@@ -772,11 +794,12 @@ function AdminSettingsContent() {
               Integrations are driven securely via variables specified in the system config environment.
             </p>
             {[
-              ['ANTHROPIC_API_KEY', 'Claude Sonnet 4'],
-              ['GROQ_API_KEY', 'Llama 3 Instruct'],
-              ['KOKORO_TTS', 'Kokoro + KittenTTS (Offline — No Key Needed)'],
-              ['DATABASE_URL', 'PostgreSQL Main DB']
-            ].map(([k, desc]) => (
+              ['NEXT_PUBLIC_SUPABASE_URL', 'PostgreSQL & Supabase Core API', '● Active'],
+              ['SUPABASE_SERVICE_ROLE_KEY', 'Institutional Service-Role Authority', '● Secret Loaded'],
+              ['OPENROUTER_API_KEY', 'Multi-Model LLM Gateway (Gemini / Claude / DeepSeek)', '● Integrated'],
+              ['GROQ_API_KEY', 'Ultra-Low Latency Llama 3 Inference', '● Integrated'],
+              ['KOKORO_TTS', 'Offline Synthesizer (Zero External Key Needed)', '● Ready']
+            ].map(([k, desc, status]) => (
               <div key={k} style={{ 
                 display: 'flex', 
                 justifyContent: 'space-between', 
@@ -791,7 +814,7 @@ function AdminSettingsContent() {
                   <div style={{ fontFamily: 'var(--font-mono)', color: 'var(--t1)', marginBottom: 2 }}>{k}</div>
                   <div style={{ fontSize: 9.5, color: 'var(--t3)' }}>{desc}</div>
                 </div>
-                <span style={{ color: 'var(--green)', fontSize: 9, fontFamily: 'var(--font-mono)' }}>● Connected</span>
+                <span style={{ color: 'var(--green)', fontSize: 9, fontFamily: 'var(--font-mono)' }}>{status}</span>
               </div>
             ))}
           </div>

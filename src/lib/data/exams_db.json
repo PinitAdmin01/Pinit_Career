@@ -223,6 +223,34 @@
           "isAbsent": false
         }
       ]
+    },
+    "test_student_1789928081183": {
+      "isPublished": false,
+      "gpa": 5,
+      "results": [
+        {
+          "code": "CS101",
+          "course": "CS101",
+          "internals": 0,
+          "semester": 44,
+          "grade": "C",
+          "isAbsent": false
+        }
+      ]
+    },
+    "test_student_1789928281655": {
+      "isPublished": false,
+      "gpa": 5,
+      "results": [
+        {
+          "code": "CS101",
+          "course": "CS101",
+          "internals": 0,
+          "semester": 44,
+          "grade": "C",
+          "isAbsent": false
+        }
+      ]
     }
   },
   "schedule": [],
@@ -569,6 +597,189 @@
       "score": 78,
       "passed": true,
       "timestamp": 1789759457666
+    },
+    {
+      "studentId": "test_student_1789928081183",
+      "registerNumber": "REG_1789928081183",
+      "examScheduleId": "exam_cs101_algorithms",
+      "score": 44,
+      "passed": true,
+      "submitted": true,
+      "tabSwitches": 1,
+      "timestamp": 1789928081184
+    },
+    {
+      "studentId": "test_student_1789928281655",
+      "registerNumber": "REG_1789928281655",
+      "examScheduleId": "exam_cs101_algorithms",
+      "score": 44,
+      "passed": true,
+      "submitted": true,
+      "tabSwitches": 1,
+      "timestamp": 1789928281656
+    }
+  ],
+  "schedules": [
+    {
+      "id": "exam_cs101_algorithms",
+      "title": "CS101: Data Structures & Algorithms Midterm",
+      "course": "Data Structures & Algorithms",
+      "code": "CS101",
+      "batch": "All Batches",
+      "duration": 45,
+      "durationMinutes": 45,
+      "totalMarks": 50,
+      "allowedSwitches": 3,
+      "startDateTime": "2026-09-19T18:14:41.169Z",
+      "endDateTime": "2026-10-20T18:14:41.171Z",
+      "questionCount": 4,
+      "questions": [
+        {
+          "id": "cs101_q1",
+          "type": "mcq",
+          "text": "What is the average time complexity of searching in a balanced Binary Search Tree (AVL / Red-Black Tree)?",
+          "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n log n)"
+          ],
+          "correctIndex": 1,
+          "marks": 5
+        },
+        {
+          "id": "cs101_q2",
+          "type": "mcq",
+          "text": "Which data structure enforces the LIFO (Last In First Out) ordering constraint?",
+          "options": [
+            "Queue",
+            "Priority Queue",
+            "Stack",
+            "Circular Buffer"
+          ],
+          "correctIndex": 2,
+          "marks": 5
+        },
+        {
+          "id": "cs101_q3",
+          "type": "coding",
+          "text": "Implement a function two_sum(nums, target) that returns the 0-indexed positions of the two numbers such that they add up to target.",
+          "functionName": "two_sum",
+          "defaultLang": "python",
+          "marks": 20,
+          "constraints": "nums length >= 2, exactly one valid solution exists",
+          "testCases": [
+            {
+              "input": "[2, 7, 11, 15], 9",
+              "output": "[0, 1]"
+            },
+            {
+              "input": "[3, 2, 4], 6",
+              "output": "[1, 2]"
+            },
+            {
+              "input": "[3, 3], 6",
+              "output": "[0, 1]",
+              "hidden": true
+            }
+          ]
+        },
+        {
+          "id": "cs101_q4",
+          "type": "coding",
+          "text": "Implement a function reverse_string(s) that returns the reversed string.",
+          "functionName": "reverse_string",
+          "defaultLang": "python",
+          "marks": 20,
+          "constraints": "ASCII string of length 0 to 1000",
+          "testCases": [
+            {
+              "input": "'hello'",
+              "output": "'olleh'"
+            },
+            {
+              "input": "'world'",
+              "output": "'dlrow'"
+            },
+            {
+              "input": "'pinit'",
+              "output": "'tinip'",
+              "hidden": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exam_ai201_ml",
+      "title": "AI201: Machine Learning & Neural Network Foundations",
+      "course": "Machine Learning",
+      "code": "AI201",
+      "batch": "All Batches",
+      "duration": 30,
+      "durationMinutes": 30,
+      "totalMarks": 30,
+      "allowedSwitches": 3,
+      "startDateTime": "2026-09-20T06:14:41.171Z",
+      "endDateTime": "2026-10-20T18:14:41.172Z",
+      "questionCount": 4,
+      "questions": [
+        {
+          "id": "ai201_q1",
+          "type": "mcq",
+          "text": "Which activation function is most susceptible to vanishing gradient problems in deep architectures?",
+          "options": [
+            "ReLU",
+            "Sigmoid",
+            "Leaky ReLU",
+            "GELU"
+          ],
+          "correctIndex": 1,
+          "marks": 5
+        },
+        {
+          "id": "ai201_q2",
+          "type": "mcq",
+          "text": "What primary regularizing objective does Dropout achieve during deep network training?",
+          "options": [
+            "Accelerating tensor matmul ops",
+            "Preventing co-adaptation and overfitting by stochastically omitting units",
+            "Bounding weight vectors to unit norm",
+            "Eliminating gradient explosion in backpropagation"
+          ],
+          "correctIndex": 1,
+          "marks": 5
+        },
+        {
+          "id": "ai201_q3",
+          "type": "essay",
+          "text": "Explain the bias-variance tradeoff in supervised learning and describe how L2 regularization (weight decay) alters this balance.",
+          "marks": 10
+        },
+        {
+          "id": "ai201_q4",
+          "type": "coding",
+          "text": "Implement mse_loss(y_true, y_pred) returning the Mean Squared Error between two numeric lists of equal length.",
+          "functionName": "mse_loss",
+          "defaultLang": "python",
+          "marks": 10,
+          "testCases": [
+            {
+              "input": "[1, 2, 3], [1, 2, 3]",
+              "output": "0.0"
+            },
+            {
+              "input": "[1, 2], [2, 3]",
+              "output": "1.0"
+            },
+            {
+              "input": "[0, 5], [2, 5]",
+              "output": "2.0",
+              "hidden": true
+            }
+          ]
+        }
+      ]
     }
   ]
 }

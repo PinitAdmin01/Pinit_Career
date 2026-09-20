@@ -28,3 +28,10 @@ CampusOS_Client_Presentation.html
 claude_sandbox/
 
 dark-gracity/
+
+# Biometric face templates — sensitive personal data (India DPDP Act)
+src/lib/data/face_biometrics_db.json
+
+# Quarantined legacy files and build artifacts
+attic/
+dist-test/

@@ -58,14 +58,22 @@ function ResetForm() {
     setLoading(true); setError('');
     try {
       if (supabase && supabase.auth) {
-        await supabase.auth.resetPasswordForEmail(email, {
+        const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
           redirectTo: typeof window !== 'undefined' ? `${window.location.origin}/reset-password` : undefined,
         });
+        if (resetError) {
+          // Surface real Supabase errors (rate limit, invalid domain, etc.)
+          // but use a neutral message to avoid account enumeration: if an account
+          // doesn't exist Supabase already silently sends nothing; any error here
+          // is a service-level problem (rate limit, misconfiguration, etc.)
+          setError('Unable to send reset email. Please try again later or contact support.');
+          return;
+        }
       }
       setSent(true);
     } catch {
-      // Fallback display if Supabase is offline
-      setSent(true);
+      // Network / offline error — show a clear message, do NOT claim success
+      setError('Unable to connect. Please check your network and try again.');
     } finally {
       setLoading(false);
     }

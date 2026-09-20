@@ -42,12 +42,14 @@ export default function CampusCommunicationHub() {
   // Selected email for reader drawer
   const [selectedEmail, setSelectedEmail] = useState<any>(null);
 
-  // Push notification simulator state
-  const [pushTitle, setPushTitle] = useState('New Job Referral Match');
-  const [pushMsg, setPushMsg] = useState('Rahul Varma has approved your referral request for NVIDIA.');
+  // Push notification preview state
+  const [pushTitle, setPushTitle] = useState('Campus Academic Notice');
+  const [pushMsg, setPushMsg] = useState('End-term course registration deadline is approaching. Please verify enrolled courses.');
   const [activePush, setActivePush] = useState<any>(null);
+  const [currentTime, setCurrentTime] = useState('');
 
   useEffect(() => {
+    setCurrentTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
     fetchCommData();
   }, []);
 
@@ -449,7 +451,7 @@ export default function CampusCommunicationHub() {
             <div className="phone-screen">
               <div className="phone-header">
                 <span>CAMPUS-OS NETWORK</span>
-                <span>10:42 AM</span>
+                <span>{currentTime || '10:00 AM'}</span>
               </div>
               <div className="phone-body">
                 {smsList.map(s => (

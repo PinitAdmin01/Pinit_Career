@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useAppStore } from '@/lib/store/useAppStore';
 import { ambientAudio } from '@/lib/audio/ambientAudioEngine';
 import { getAvatarVoiceVolume, setAvatarVoiceVolume } from '@/lib/tts';
+import { voiceCacheDB } from '@/lib/voiceCacheDB';
 
 interface GearAudioHubProps {
   theme?: 'dark' | 'light';
@@ -23,6 +24,8 @@ export default function GearAudioHub({
   const [avatarVolume, setAvatarVolume] = useState(85);   // 0 to 100
   const [isMuted, setIsMuted] = useState(false);
   const [animationsEnabled, setAnimationsEnabled] = useState(true);
+  const [cacheStats, setCacheStats] = useState<{ count: number; totalSizeBytes: number }>({ count: 0, totalSizeBytes: 0 });
+  const [cacheCleared, setCacheCleared] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   // Access theme toggle from global store
@@ -125,6 +128,19 @@ export default function GearAudioHub({
       localStorage.setItem('pc_animations_enabled', String(nextState));
       window.dispatchEvent(new CustomEvent('pc_animation_toggle', { detail: { enabled: nextState } }));
     }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      voiceCacheDB.getCacheStats().then(setCacheStats).catch(() => {});
+    }
+  }, [isOpen]);
+
+  const handleClearCache = async () => {
+    await voiceCacheDB.clearCache();
+    setCacheStats({ count: 0, totalSizeBytes: 0 });
+    setCacheCleared(true);
+    setTimeout(() => setCacheCleared(false), 2500);
   };
 
   const isDark = theme === 'dark';
@@ -489,25 +505,56 @@ export default function GearAudioHub({
             <span>{isMuted ? '🔊 Unmute All Audio' : '🔇 Mute All Audio'}</span>
           </button>
 
-          {/* 5. 🌌 HARMONIC FREQUENCY BADGE */}
+          {/* 5. 🔊 AMBIENT FOCUS SOUNDSCAPE */}
           <div style={{
             fontSize: '11px',
             color: isDark ? 'var(--text-muted)' : 'var(--text-dim)',
-            background: isDark ? 'rgba(0, 163, 255, 0.08)' : 'rgba(var(--warning-rgb),  0.08)',
-            border: isDark ? '1px solid rgba(0, 163, 255, 0.2)' : '1px solid rgba(var(--warning-rgb),  0.25)',
+            background: isDark ? 'rgba(0, 163, 255, 0.08)' : 'rgba(2, 132, 199, 0.08)',
+            border: isDark ? '1px solid rgba(0, 163, 255, 0.2)' : '1px solid rgba(2, 132, 199, 0.25)',
             borderRadius: '10px',
             padding: '8px 10px',
             lineHeight: 1.4
           }}>
             <span style={{
               fontWeight: 700,
-              color: isDark ? '#00A3FF' : '#D97706'
+              color: isDark ? '#00A3FF' : '#0284c7'
             }}>
-              {isDark ? '🌌 Dark Cosmos: ' : '☀️ Solar Light: '}
+              {isDark ? '🌌 Focus Mode (Dark): ' : '☀️ Focus Mode (Light): '}
             </span>
             <span>
-              {isDark ? '432Hz deep meditative cosmic frequency' : '528Hz vibrant golden sunlight harmonics'}
+              {isDark ? 'Low-frequency harmonic ambient drone (432Hz)' : 'Mid-frequency focus ambient drone (528Hz)'}
             </span>
+          </div>
+
+          {/* 6. 🧹 VOICE CACHE PURGE (SHARED LAB PRIVACY) */}
+          <div style={{
+            marginTop: '8px',
+            paddingTop: '8px',
+            borderTop: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(0,0,0,0.06)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            fontSize: '11px',
+          }}>
+            <span style={{ color: isDark ? 'var(--text-muted)' : 'var(--text-dim)' }}>
+              Voice Cache: {cacheStats.count} {cacheStats.count === 1 ? 'clip' : 'clips'} ({(cacheStats.totalSizeBytes / 1024).toFixed(0)} KB)
+            </span>
+            <button
+              type="button"
+              onClick={handleClearCache}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: cacheCleared ? '#10B981' : (isDark ? '#00A3FF' : '#0284c7'),
+                fontSize: '11px',
+                fontWeight: 700,
+                cursor: 'pointer',
+                padding: '2px 6px',
+                borderRadius: '4px',
+              }}
+            >
+              {cacheCleared ? 'Cleared!' : 'Clear Cache'}
+            </button>
           </div>
         </div>
       )}

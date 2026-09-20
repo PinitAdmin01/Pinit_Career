@@ -288,12 +288,12 @@ export async function firestoreRouter(method:string, path:string, body?:any): Pr
         return { success: false, reason: 'INVALID_OR_EXPIRED_CHALLENGE' };
       }
 
-      // Never accept privileged roles from approve payload — force student.
+      // Never accept privileged roles or arbitrary user IDs from approve payload.
       const incoming = reqBody.userPayload && typeof reqBody.userPayload === 'object' ? reqBody.userPayload : {};
       item.status = 'APPROVED';
       item.approvedAt = Date.now();
       item.userPayload = {
-        id: String(incoming.id || `usr_vault_${Date.now()}`),
+        id: `usr_vault_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
         name: String(incoming.name || incoming.displayName || 'Vault User'),
         email: String(incoming.email || 'vault.user@pinit.in'),
         role: 'student',
@@ -351,10 +351,11 @@ export async function firestoreRouter(method:string, path:string, body?:any): Pr
           name: deviceName || 'Chrome Browser (Windows)',
           trustLevel: 'TRUSTED',
           lastUsedAt: new Date().toISOString(),
-          location: 'Bangalore, IN',
+          location: 'Location not determined',
           browser: deviceName || 'Chrome',
           fingerprintHash: fingerprintHash || 'fp_default'
         };
+
         devices.push(existingDev);
       } else {
         existingDev.lastUsedAt = new Date().toISOString();
@@ -369,7 +370,7 @@ export async function firestoreRouter(method:string, path:string, body?:any): Pr
         userId: userObj.id,
         timestamp: new Date().toISOString(),
         deviceName: deviceName || 'Browser',
-        location: 'Bangalore, IN',
+        location: 'Location not determined',
         app: 'careers',
         method: authMethod || 'QR_SCAN',
         result: 'SUCCESS',
@@ -389,7 +390,7 @@ export async function firestoreRouter(method:string, path:string, body?:any): Pr
       }));
 
       // Issue Access Token + Refresh Token
-      const token = `jwt_access_${Date.now()}_${Math.random().toString(36).substring(2, 10)}`;
+      const token = `vault_session_ticket_${Date.now()}_${Math.random().toString(36).substring(2, 10)}`;
       return {
         user: userObj,
         token,
@@ -2736,6 +2737,66 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
       return { ok: true };
     }
   }
+  if (cleanPath === '/api/recruiter/shortlist' && method === 'POST') {
+    const { candidateId } = (body || {}) as { candidateId: string };
+    if (candidateId) {
+      await fs.addAuditEntry(uid, 'shortlist_candidate', candidateId, { timestamp: new Date().toISOString() }).catch(() => {});
+      try {
+        await supabase.from('notifications').insert({
+          user_id: candidateId,
+          sender_id: uid,
+          title: 'Profile Shortlisted',
+          message: 'A verified recruiter has shortlisted your profile for technical review.',
+          type: 'recruiter_shortlist',
+          is_read: false,
+          read: false,
+          created_at: new Date().toISOString(),
+        });
+      } catch {}
+    }
+    return { ok: true, message: 'Candidate successfully shortlisted and notified.' };
+  }
+  if (cleanPath === '/api/recruiter/contact-request' && method === 'POST') {
+    const { candidateId, message } = (body || {}) as { candidateId: string; message?: string };
+    if (candidateId) {
+      await fs.addAuditEntry(uid, 'contact_request', candidateId, { message, timestamp: new Date().toISOString() }).catch(() => {});
+      try {
+        await supabase.from('notifications').insert({
+          user_id: candidateId,
+          sender_id: uid,
+          title: 'Recruiter Contact Request',
+          message: message || 'A recruiter has expressed interest in your profile and requested contact.',
+          type: 'recruiter_contact',
+          is_read: false,
+          read: false,
+          created_at: new Date().toISOString(),
+        });
+      } catch {}
+    }
+    return { ok: true, message: 'Contact request sent to candidate.' };
+  }
+  if (cleanPath === '/api/recruiter/schedule-interview' && method === 'POST') {
+    const { candidateId, scheduledAt, mode, roleTitle } = (body || {}) as { candidateId: string; scheduledAt?: string; mode?: string; roleTitle?: string };
+    if (candidateId) {
+      const dt = scheduledAt || new Date().toISOString();
+      const m = mode || 'Virtual / Video Call';
+      const role = roleTitle || 'Campus Placement Technical Interview';
+      await fs.addAuditEntry(uid, 'schedule_interview', candidateId, { scheduledAt: dt, mode: m, roleTitle: role }).catch(() => {});
+      try {
+        await supabase.from('notifications').insert({
+          user_id: candidateId,
+          sender_id: uid,
+          title: 'Interview Invitation Scheduled',
+          message: `You have an interview scheduled for ${role} on ${new Date(dt).toLocaleString()} (${m}).`,
+          type: 'recruiter_interview',
+          is_read: false,
+          read: false,
+          created_at: new Date().toISOString(),
+        });
+      } catch {}
+    }
+    return { ok: true, message: 'Interview successfully scheduled and candidate notified.' };
+  }
   if(cleanPath.startsWith('/api/recruiter/candidate/')){
     const candidateId=cleanPath.split('/api/recruiter/candidate/')[1];
     const profile = await fs.getUserProfile(candidateId) as any;
@@ -3194,8 +3255,8 @@ Ensure you return ONLY the JSON object. Do not include markdown code block forma
     const parts = cleanPath.split('/api/consultant/student/')[1].split('/');
     const studentId = parts[0];
     const { itemId, status } = body as { itemId: string, status: 'verified' | 'rejected' };
-    await fs.verifyVaultItem(studentId, itemId, status);
-    return { ok: true };
+    await fs.verifyVaultItem(uid, itemId, status);
+    return { ok: true, status, verified: status === 'verified' };
   }
   if(cleanPath.startsWith('/api/consultant/student/')&&cleanPath.endsWith('/task')&&method==='POST'){
     const studentId = cleanPath.split('/api/consultant/student/')[1].split('/')[0];

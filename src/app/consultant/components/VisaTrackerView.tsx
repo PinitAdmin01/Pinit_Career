@@ -251,25 +251,116 @@ export default function VisaTrackerView({
           ))}
         </div>
 
-        {studyAbroadSubTab === 'visa' && (
-          <div
-            style={{
-              padding: 28,
-              textAlign: 'center',
-              color: 'var(--t3)',
-              fontSize: 13,
-              border: '1px solid var(--border)',
-              borderRadius: 12,
-            }}
-            className="fade-in"
-          >
-            {allStudents.length === 0
-              ? 'No pipeline-linked data'
-              : selectedVisaStudent
-              ? `Displaying Visa Dossier details for ${selectedVisaStudent}`
-              : 'Select a candidate to view visa dossier status.'}
-          </div>
-        )}
+        {studyAbroadSubTab === 'visa' && (() => {
+          const activeStudent = allStudents.find(
+            (s: any) => (s.displayName || s.name || s.id) === selectedVisaStudent
+          ) || allStudents[0] || null;
+
+          if (!activeStudent) {
+            return (
+              <div
+                style={{
+                  padding: 28,
+                  textAlign: 'center',
+                  color: 'var(--t3)',
+                  fontSize: 13,
+                  border: '1px solid var(--border)',
+                  borderRadius: 12,
+                }}
+                className="fade-in"
+              >
+                No candidate selected. Choose a candidate from the left to view visa dossier status.
+              </div>
+            );
+          }
+
+          const currentVisaStatus = activeStudent.visa_status || 'not_started';
+          const targetCountry = activeStudent.targetCountry || 'USA';
+          const benchmark = COUNTRY_DATA[targetCountry] || COUNTRY_DATA['USA'];
+
+          return (
+            <div
+              style={{
+                background: 'var(--bg3)',
+                border: '1px solid var(--border)',
+                borderRadius: 14,
+                padding: 18,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 14,
+              }}
+              className="fade-in"
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div>
+                  <h4 style={{ margin: 0, fontSize: 14, fontWeight: 900, color: 'var(--t1)' }}>
+                    Visa Dossier: {activeStudent.displayName || activeStudent.name}
+                  </h4>
+                  <span style={{ fontSize: 11, color: 'var(--t3)' }}>
+                    Destination: {targetCountry} · {activeStudent.programType || 'Masters Degree'}
+                  </span>
+                </div>
+                <span
+                  style={{
+                    fontSize: 10.5,
+                    padding: '3px 8px',
+                    borderRadius: 6,
+                    fontWeight: 800,
+                    textTransform: 'uppercase',
+                    background: currentVisaStatus === 'approved' ? 'rgba(var(--success-rgb), 0.1)' : 'rgba(var(--warning-rgb), 0.1)',
+                    color: currentVisaStatus === 'approved' ? 'var(--success)' : 'var(--amber)',
+                    border: `1px solid ${currentVisaStatus === 'approved' ? 'var(--success)' : 'var(--amber)'}30`,
+                  }}
+                >
+                  Status: {currentVisaStatus.replace('_', ' ')}
+                </span>
+              </div>
+
+              {/* Visa Milestones Progress */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8 }}>
+                {[
+                  { label: 'Documents', done: true },
+                  { label: 'Application Filed', done: currentVisaStatus !== 'not_started' },
+                  { label: 'Interview Scheduled', done: currentVisaStatus === 'submitted' || currentVisaStatus === 'approved' },
+                  { label: 'Visa Approved', done: currentVisaStatus === 'approved' },
+                ].map((step, idx) => (
+                  <div
+                    key={step.label}
+                    style={{
+                      background: 'var(--card)',
+                      border: `1px solid ${step.done ? 'var(--accent)' : 'var(--border)'}`,
+                      borderRadius: 8,
+                      padding: 8,
+                      textAlign: 'center',
+                    }}
+                  >
+                    <div style={{ fontSize: 10, fontWeight: 800, color: step.done ? 'var(--accent)' : 'var(--t3)' }}>
+                      Step {idx + 1}
+                    </div>
+                    <div style={{ fontSize: 11, fontWeight: 700, color: step.done ? 'var(--t1)' : 'var(--t3)', marginTop: 2 }}>
+                      {step.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Destination Benchmark Context */}
+              <div
+                style={{
+                  background: 'var(--card)',
+                  border: '1px solid var(--border)',
+                  borderRadius: 10,
+                  padding: 12,
+                  fontSize: 11.5,
+                  color: 'var(--t2)',
+                  lineHeight: 1.5,
+                }}
+              >
+                <strong>Destination Reference ({targetCountry}):</strong> Historic benchmark visa approval rate is ~{benchmark.visaRate}. Post-study work eligibility: {benchmark.postStudyWork}. Expected living expense: {benchmark.livingCost}.
+              </div>
+            </div>
+          );
+        })()}
 
         {studyAbroadSubTab === 'country' && (
           <div

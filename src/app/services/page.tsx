@@ -4,10 +4,31 @@
 
 import { useState, useEffect } from 'react';
 import { api } from '@/lib/api/client';
+import { useAuth } from '@/lib/context/AuthContext';
+import { toast } from '@/lib/store/useAppStore';
 
 type ServiceCategory = 'leave' | 'certificate' | 'general' | 'appointment' | 'counselling';
 
 export default function StudentServicesPortal() {
+  const { user } = useAuth();
+  const ob = (user?.onboardingAnswers || {}) as Record<string, any>;
+  const dept = ob.department || ob.branch || user?.department || 'Computer Science & Engineering';
+  const institution = ob.college || ob.university || user?.institutionName || 'Campus Faculty';
+  const isPrivilegedStaff = user?.role === 'teacher' || user?.role === 'admin' || user?.role === 'superadmin';
+
+  const facultyStaffList = [
+    `Prof. Department Academic Mentor (${dept})`,
+    `Dr. Head of Department (${dept})`,
+    `Faculty Placement Coordinator (${institution})`,
+    `Office of Academic Dean (${institution})`
+  ];
+
+  const counselorsList = [
+    `Student Mental Health & Wellness Cell (${institution})`,
+    `Career & Higher Studies Advisor (${dept})`,
+    `Campus Psychological Support Counsellor`
+  ];
+
   const [activeCat, setActiveCat] = useState<ServiceCategory>('leave');
   const [data, setData] = useState<{ leaves: any[]; requests: any[]; appointments: any[]; counselling: any[] }>({
     leaves: [],
@@ -32,13 +53,13 @@ export default function StudentServicesPortal() {
   const [reqDesc, setReqDesc] = useState('');
 
   // Appointment Form
-  const [apptStaff, setApptStaff] = useState('Dr. Priya Sharma (CSE Professor)');
+  const [apptStaff, setApptStaff] = useState(facultyStaffList[0]);
   const [apptDate, setApptDate] = useState('');
   const [apptTime, setApptTime] = useState('10:00 AM');
   const [apptPurpose, setApptPurpose] = useState('');
 
   // Counselling Form
-  const [counsName, setCounsName] = useState('Dr. Evelyn (Mental Health Advisor)');
+  const [counsName, setCounsName] = useState(counselorsList[0]);
   const [counsDate, setCounsDate] = useState('');
   const [counsTime, setCounsTime] = useState('02:00 PM');
 
@@ -57,19 +78,23 @@ export default function StudentServicesPortal() {
     e.preventDefault();
     setSubmitting(true);
     try {
-      await api.post('/api/services/apply-leave', {
+      const res: any = await api.post('/api/services/apply-leave', {
         startDate: leaveStart,
         endDate: leaveEnd,
         reason: leaveReason,
         type: leaveType
       });
-      alert('Leave application submitted successfully! Coordinator notified ✓');
-      setLeaveStart('');
-      setLeaveEnd('');
-      setLeaveReason('');
-      fetchServicesData();
-    } catch {
-      alert('Action failed');
+      if (res && res.ok !== false) {
+        toast.success('Leave Submitted! 📝', 'Leave application submitted successfully! Coordinator notified.');
+        setLeaveStart('');
+        setLeaveEnd('');
+        setLeaveReason('');
+        fetchServicesData();
+      } else {
+        toast.error('Submission Failed', res?.error || 'Could not submit leave request.');
+      }
+    } catch (err: any) {
+      toast.error('Action Failed', err?.message || 'Network error filing leave.');
     } finally {
       setSubmitting(false);
     }
@@ -79,15 +104,19 @@ export default function StudentServicesPortal() {
     e.preventDefault();
     setSubmitting(true);
     try {
-      await api.post('/api/services/file-request', {
+      const res: any = await api.post('/api/services/file-request', {
         category: certType,
         description: `Purpose: ${certPurpose}`
       });
-      alert(`Certificate request for '${certType}' registered ✓`);
-      setCertPurpose('');
-      fetchServicesData();
-    } catch {
-      alert('Action failed');
+      if (res && res.ok !== false) {
+        toast.success('Certificate Registered! 📜', `Certificate request for '${certType}' registered.`);
+        setCertPurpose('');
+        fetchServicesData();
+      } else {
+        toast.error('Request Failed', res?.error || 'Could not register certificate request.');
+      }
+    } catch (err: any) {
+      toast.error('Action Failed', err?.message || 'Error submitting certificate request.');
     } finally {
       setSubmitting(false);
     }
@@ -97,15 +126,19 @@ export default function StudentServicesPortal() {
     e.preventDefault();
     setSubmitting(true);
     try {
-      await api.post('/api/services/file-request', {
+      const res: any = await api.post('/api/services/file-request', {
         category: reqCategory,
         description: reqDesc
       });
-      alert(`Service Request for '${reqCategory}' logged successfully ✓`);
-      setReqDesc('');
-      fetchServicesData();
-    } catch {
-      alert('Action failed');
+      if (res && res.ok !== false) {
+        toast.success('Request Logged! 📋', `Service Request for '${reqCategory}' logged successfully.`);
+        setReqDesc('');
+        fetchServicesData();
+      } else {
+        toast.error('Request Failed', res?.error || 'Could not file service request.');
+      }
+    } catch (err: any) {
+      toast.error('Action Failed', err?.message || 'Error logging service request.');
     } finally {
       setSubmitting(false);
     }
@@ -115,18 +148,22 @@ export default function StudentServicesPortal() {
     e.preventDefault();
     setSubmitting(true);
     try {
-      await api.post('/api/services/book-appointment', {
+      const res: any = await api.post('/api/services/book-appointment', {
         staffName: apptStaff,
         date: apptDate,
         time: apptTime,
         purpose: apptPurpose
       });
-      alert('Appointment slot booked and confirmed ✓');
-      setApptDate('');
-      setApptPurpose('');
-      fetchServicesData();
-    } catch {
-      alert('Action failed');
+      if (res && res.ok !== false) {
+        toast.success('Appointment Confirmed! 📅', `Appointment booked with ${apptStaff}.`);
+        setApptDate('');
+        setApptPurpose('');
+        fetchServicesData();
+      } else {
+        toast.error('Booking Failed', res?.error || 'Could not confirm appointment slot.');
+      }
+    } catch (err: any) {
+      toast.error('Booking Failed', err?.message || 'Error booking faculty appointment.');
     } finally {
       setSubmitting(false);
     }
@@ -136,16 +173,20 @@ export default function StudentServicesPortal() {
     e.preventDefault();
     setSubmitting(true);
     try {
-      await api.post('/api/services/book-counselling', {
+      const res: any = await api.post('/api/services/book-counselling', {
         counselorName: counsName,
         date: counsDate,
         time: counsTime
       });
-      alert('Wellness counselling session booked successfully ✓');
-      setCounsDate('');
-      fetchServicesData();
-    } catch {
-      alert('Action failed');
+      if (res && res.ok !== false) {
+        toast.success('Session Scheduled! 🧠', `Wellness counselling session booked with ${counsName}.`);
+        setCounsDate('');
+        fetchServicesData();
+      } else {
+        toast.error('Booking Failed', res?.error || 'Could not schedule counselling session.');
+      }
+    } catch (err: any) {
+      toast.error('Booking Failed', err?.message || 'Error scheduling counselling session.');
     } finally {
       setSubmitting(false);
     }
@@ -242,64 +283,66 @@ export default function StudentServicesPortal() {
       <div className="srv-wrapper">
         <h1 className="page-title">💼 Student Services Desk</h1>
 
-        {/* Faculty & Admin Portal Quick Navigation Banner */}
-        <div style={{
-          background: 'linear-gradient(135deg, rgba(79,70,229,0.1), rgba(124,58,237,0.1))',
-          border: '1px solid rgba(79,70,229,0.25)',
-          borderRadius: 14,
-          padding: '14px 20px',
-          marginBottom: 20,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-          gap: 12
-        }}>
-          <div>
-            <div style={{ fontWeight: 800, fontSize: 14, color: 'var(--t1, #1e293b)', display: 'flex', alignItems: 'center', gap: 6 }}>
-              <span>👩‍🏫</span> Looking for Staff & Admin Portals?
+        {/* Faculty & Admin Portal Quick Navigation Banner (Privileged Staff Only) */}
+        {isPrivilegedStaff && (
+          <div style={{
+            background: 'linear-gradient(135deg, rgba(79,70,229,0.1), rgba(124,58,237,0.1))',
+            border: '1px solid rgba(79,70,229,0.25)',
+            borderRadius: 14,
+            padding: '14px 20px',
+            marginBottom: 20,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: 12
+          }}>
+            <div>
+              <div style={{ fontWeight: 800, fontSize: 14, color: 'var(--t1, #1e293b)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span>👩‍🏫</span> Looking for Staff & Admin Portals?
+              </div>
+              <div style={{ fontSize: 12, color: 'var(--t3, #64748b)', marginTop: 2 }}>
+                Student Services is shown below. Use the quick buttons to open the Faculty or Admin Management Consoles.
+              </div>
             </div>
-            <div style={{ fontSize: 12, color: 'var(--t3, #64748b)', marginTop: 2 }}>
-              Student Services is shown below. Use the quick buttons to open the Faculty or Admin Management Consoles.
+            <div style={{ display: 'flex', gap: 10 }}>
+              <a
+                href="/teacher"
+                style={{
+                  padding: '8px 14px',
+                  borderRadius: 10,
+                  background: 'var(--accent, #4f46e5)',
+                  color: '#fff',
+                  fontWeight: 700,
+                  fontSize: 12,
+                  textDecoration: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6
+                }}
+              >
+                👩‍🏫 Launch Teacher Portal
+              </a>
+              <a
+                href="/admin"
+                style={{
+                  padding: '8px 14px',
+                  borderRadius: 10,
+                  background: 'rgba(51, 65, 85, 0.8)',
+                  color: '#fff',
+                  fontWeight: 700,
+                  fontSize: 12,
+                  textDecoration: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6
+                }}
+              >
+                🏬 Launch Admin Console
+              </a>
             </div>
           </div>
-          <div style={{ display: 'flex', gap: 10 }}>
-            <a
-              href="/teacher"
-              style={{
-                padding: '8px 14px',
-                borderRadius: 10,
-                background: 'var(--accent, #4f46e5)',
-                color: '#fff',
-                fontWeight: 700,
-                fontSize: 12,
-                textDecoration: 'none',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 6
-              }}
-            >
-              👩‍🏫 Launch Teacher Portal
-            </a>
-            <a
-              href="/admin"
-              style={{
-                padding: '8px 14px',
-                borderRadius: 10,
-                background: 'rgba(51, 65, 85, 0.8)',
-                color: '#fff',
-                fontWeight: 700,
-                fontSize: 12,
-                textDecoration: 'none',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 6
-              }}
-            >
-              🏬 Launch Admin Console
-            </a>
-          </div>
-        </div>
+        )}
 
         <div className="grid-split">
           {/* Left Block: Services Selector & Form */}
@@ -420,9 +463,9 @@ export default function StudentServicesPortal() {
                   <div>
                     <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Select Staff / Faculty Member</label>
                     <select className="form-input" value={apptStaff} onChange={e => setApptStaff(e.target.value)}>
-                      <option value="Dr. Priya Sharma (CSE Professor)">Dr. Priya Sharma (CSE Professor)</option>
-                      <option value="Dr. Ananya Rao (Electronics HOD)">Dr. Ananya Rao (Electronics HOD)</option>
-                      <option value="Academics Dean Office">Academics Dean Office</option>
+                      {facultyStaffList.map(s => (
+                        <option key={s} value={s}>{s}</option>
+                      ))}
                     </select>
                   </div>
 
@@ -459,8 +502,9 @@ export default function StudentServicesPortal() {
                   <div>
                     <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)' }}>Counselor Specialist</label>
                     <select className="form-input" value={counsName} onChange={e => setCounsName(e.target.value)}>
-                      <option value="Dr. Evelyn (Mental Health Advisor)">Dr. Evelyn (Mental Health & Wellness)</option>
-                      <option value="Mr. Vikram (Career Alignment Lead)">Mr. Vikram (Career Guidance counselor)</option>
+                      {counselorsList.map(c => (
+                        <option key={c} value={c}>{c}</option>
+                      ))}
                     </select>
                   </div>
 

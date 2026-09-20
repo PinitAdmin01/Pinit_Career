@@ -66,7 +66,7 @@ export async function deleteVaultItem(uid: string, itemId: string): Promise<{ ok
 export async function verifyVaultItem(
   adminId: string,
   itemId: string,
-  endorsementNote?: string
+  statusOrNote?: string | boolean
 ): Promise<{ ok: boolean; error?: string }> {
   try {
     const { data: item, error: fetchErr } = await supabase
@@ -79,11 +79,21 @@ export async function verifyVaultItem(
       return { ok: false, error: fetchErr?.message || 'Vault item not found' };
     }
 
+    const isRejected = statusOrNote === 'rejected' || statusOrNote === false;
+    const isVerified = !isRejected;
+
+    let noteText = 'Verified by institution admin';
+    if (isRejected) {
+      noteText = 'Rejected by academic reviewer';
+    } else if (typeof statusOrNote === 'string' && statusOrNote !== 'verified') {
+      noteText = statusOrNote;
+    }
+
     const { error: updateErr } = await supabase
       .from('vault_items')
       .update({
-        verified: true,
-        endorsement_note: endorsementNote || 'Verified by institution admin',
+        verified: isVerified,
+        endorsement_note: noteText,
         verified_by: adminId,
         verified_at: new Date().toISOString(),
       })
@@ -91,12 +101,33 @@ export async function verifyVaultItem(
 
     if (updateErr) return { ok: false, error: updateErr.message };
 
+    // Increment student trust score strictly on genuine verification
+    if (isVerified && item.user_id) {
+      try {
+        const { data: userProfile } = await supabase
+          .from('users')
+          .select('trust_score')
+          .eq('id', item.user_id)
+          .maybeSingle();
+
+        const currentTrust = Number(userProfile?.trust_score) || 40;
+        const newTrust = Math.min(100, currentTrust + 5);
+
+        await supabase
+          .from('users')
+          .update({ trust_score: newTrust })
+          .eq('id', item.user_id);
+      } catch (trustErr) {
+        console.warn('Trust boost calculation warning:', trustErr);
+      }
+    }
+
     // Record in audit log
     await supabase.from('audit_logs').insert({
       admin_id: adminId,
-      action: 'VAULT_ITEM_VERIFIED',
+      action: isVerified ? 'VAULT_ITEM_VERIFIED' : 'VAULT_ITEM_REJECTED',
       target_id: itemId,
-      meta: { student_id: item.user_id, item_type: item.item_type, title: item.title },
+      meta: { student_id: item.user_id, item_type: item.item_type, title: item.title, status: isVerified ? 'verified' : 'rejected' },
       created_at: new Date().toISOString(),
     });
 

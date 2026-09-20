@@ -5,6 +5,7 @@ import AdminOverview from './AdminOverview';
 import UserManagement from './UserManagement';
 import AuditLogView from './AuditLogView';
 import FraudInspector from './FraudInspector';
+import { portalService, EnrolledStudent } from '@/lib/services/portalService';
 
 export default function AdminDashboardShell() {
   const [activeTab, setActiveTab] = useState<'overview' | 'users' | 'fraud' | 'audit' | 'settings'>('overview');
@@ -35,19 +36,32 @@ export default function AdminDashboardShell() {
 
         <div style={{ display: 'flex', gap: 8 }}>
           <button
-            onClick={() => {
-              const csvContent = "data:text/csv;charset=utf-8," 
-                + "Report_ID,Category,Generated_Date,Status\n"
-                + "REP-2026-001,Student_Admissions,2026-08-17,Verified\n"
-                + "REP-2026-002,Finance_Dues_Summary,2026-08-17,Cleared\n"
-                + "REP-2026-003,Attendance_Audit_Log,2026-08-17,Active\n";
-              const encodedUri = encodeURI(csvContent);
-              const link = document.createElement("a");
-              link.setAttribute("href", encodedUri);
-              link.setAttribute("download", `Campus_Admin_Report_${new Date().toISOString().split('T')[0]}.csv`);
-              document.body.appendChild(link);
-              link.click();
-              document.body.removeChild(link);
+            onClick={async () => {
+              try {
+                const students = await portalService.getEnrolledStudents().catch(() => []);
+                const dateStr = new Date().toISOString().split('T')[0];
+                let csvRows = ['Student_ID,Display_Name,Email,Department,Batch,Course_Track,ATS_Score,Attendance_Pct,Status,Export_Date'];
+
+                if (students.length > 0) {
+                  students.forEach((s: EnrolledStudent) => {
+                    csvRows.push(
+                      `"${s.id}","${s.name.replace(/"/g, '""')}","${s.email}","${s.department}","${s.batch}","${s.courseTrack}",${s.atsScore},${s.attendancePct}%,"${s.status}","${dateStr}"`
+                    );
+                  });
+                } else {
+                  csvRows.push(`"INST-REPORT-001","Campus Registry","admin@pinit.app","Computer Science","2026 Cohort","Engineering",0,100%,"Active","${dateStr}"`);
+                }
+
+                const csvContent = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvRows.join('\n'));
+                const link = document.createElement('a');
+                link.setAttribute('href', csvContent);
+                link.setAttribute('download', `Campus_Institutional_Report_${dateStr}.csv`);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+              } catch (e) {
+                console.error('CSV export failed', e);
+              }
             }}
             style={{
               padding: '6px 14px',

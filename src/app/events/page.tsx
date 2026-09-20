@@ -33,8 +33,7 @@ export default function StudentEvents() {
   const isCurrentUserRsvp = (r: any) => {
     if (!user) return false;
     if (r.studentId && user.id && r.studentId === user.id) return true;
-    if (r.studentEmail && studentEmail && r.studentEmail === studentEmail) return true;
-    if (r.studentName && user.displayName && r.studentName === user.displayName) return true;
+    if (r.studentEmail && studentEmail && r.studentEmail.toLowerCase() === studentEmail.toLowerCase()) return true;
     return false;
   };
 
@@ -46,6 +45,7 @@ export default function StudentEvents() {
     try {
       const res = await api.post<{ ok: boolean; error?: string }>('/api/events/rsvp', {
         eventId,
+        studentId: user.id,
         studentName,
         studentEmail,
       });
@@ -360,8 +360,12 @@ export default function StudentEvents() {
 
               <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', marginTop: 40 }}>
                 <div>
-                  <div style={{ fontSize: 13, fontWeight: 700, borderBottom: '1px solid var(--t3)', width: 140, margin: '0 auto 4px auto', paddingBottom: 6 }}>
-                    PinIT Dean
+                  <div style={{ fontSize: 13, fontWeight: 700, borderBottom: '1px solid var(--t3)', minWidth: 160, margin: '0 auto 4px auto', paddingBottom: 6 }}>
+                    {(() => {
+                      const ob = (user?.onboardingAnswers || {}) as Record<string, any>;
+                      const inst = ob.college || ob.university || user?.institutionName || 'Campus';
+                      return `Dean of Affairs · ${inst}`;
+                    })()}
                   </div>
                   <div style={{ fontSize: 10, color: 'var(--t2)' }}>Authorized Signatory</div>
                 </div>

@@ -60,12 +60,17 @@ async function persistJavaCompletionServerSide(uid, questId, xpAmount) {
   }
 }
 
+// ── Security Hardening: expanded forbidden API denylist ───────────────────
+// Blocks process spawning, reflection, Unsafe, class loaders, networking, and
+// file-system mutation APIs that could escape the sandbox or tamper with
+// the judge's own files.
 const FORBIDDEN_PATTERNS = [
   /Runtime\.getRuntime/, /ProcessBuilder/, /Process\s*\(/, /System\.exit/,
-  /java\.lang\.reflect/, /Class\.forName/, /ClassLoader/, /java\.io\.File/,
-  /Files\.delete/, /Files\.write/, /new\s+File\s*\(/, /Thread\.sleep/,
-  /new\s+Thread\s*\(/, /Executors\./, /java\.net\./, /Socket\s*\(/,
-  /System\.setSecurityManager/,
+  /java\.lang\.reflect/, /MethodHandles?/, /Unsafe/, /ClassLoader/,
+  /Class\.forName/, /java\.io\.File/, /Files\.delete/, /Files\.write/,
+  /new\s+File\s*\(/, /Thread\.sleep/, /new\s+Thread\s*\(/, /Executors\./,
+  /java\.net\./, /Socket\s*\(/, /ServerSocket\s*\(/, /System\.setSecurityManager/,
+  /ProcessImpl/, /Runtime\.getRuntime\(\)\.exec/, /\.exec\s*\(/,
 ];
 
 function sh(cmd, opts) {
@@ -129,7 +134,10 @@ async function runJavaJudge(body, uid) {
     const testCode = testSuite && testSuite.trim() ? testSuite : `public class Test { public static void main(String[] args) { Solution.main(new String[]{}); } }`;
     fs.writeFileSync(path.join(tempDir, 'Test.java'), testCode, 'utf8');
 
-    const compile = await sh('javac -encoding UTF-8 Solution.java Test.java', { cwd: tempDir, timeout: 5000 });
+    // ── Empty environment: strip ALL secrets and service keys from child processes ──
+    const childEnv = { PATH: process.env.PATH || '' };
+
+    const compile = await sh('javac -encoding UTF-8 Solution.java Test.java', { cwd: tempDir, timeout: 5000, env: childEnv });
     if (compile.error || compile.stderr) {
       return {
         status: 200,
@@ -144,8 +152,17 @@ async function runJavaJudge(body, uid) {
 
     const maxExecTime = Math.min(Math.max(timeoutMs, 1000), 4000);
     const run = await new Promise((resolve) => {
-      const child = exec('java -Xmx128m -Dfile.encoding=UTF-8 Test', { cwd: tempDir, timeout: maxExecTime, maxBuffer: 64 * 1024 }, (error, stdout, stderr) => {
-        resolve({ timedOut: Boolean(error && error.killed), success: !error && !stderr.includes('AssertionError') && !stderr.includes('Exception'), stdout: stdout || '', stderr: stderr || (error ? error.message : '') });
+      const child = exec('java -Xmx128m -Dfile.encoding=UTF-8 Test', {
+        cwd: tempDir,
+        timeout: maxExecTime,
+        maxBuffer: 64 * 1024,
+        env: childEnv,
+      }, (error, stdout, stderr) => {
+        // ── Strict pass/fail: exit code must be 0 and NO failure markers ──
+        const output = (stdout || '') + '\n' + (stderr || '');
+        const failureMarkers = /\b(FAIL|FAILED|Error:|AssertionError|Exception)\b/i;
+        const success = !error && output !== '\n' && !failureMarkers.test(output);
+        resolve({ timedOut: Boolean(error && error.killed), success, stdout: stdout || '', stderr: stderr || (error ? error.message : '') });
       });
       if (stdin && child.stdin) { child.stdin.write(stdin); child.stdin.end(); }
     });

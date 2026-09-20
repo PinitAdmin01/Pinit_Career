@@ -1,7 +1,7 @@
 import React, {
   useState, useEffect, useRef, useCallback, useMemo, memo,
 } from 'react';
-import { DB } from '../firebase.js';
+import { DB } from '@/lib/dsaiFirebase';
 import { Btn, Modal, Spinner, Badge } from '../components/UI.jsx';
 import { useToast } from '../contexts/ToastContext.jsx';
 import { useIsMobile } from '../utils/hooks.js';
@@ -949,7 +949,7 @@ const TopBar = memo(({ exam, mins, secs, timerColor, isMobile, tabViolations, ch
       )}
       <div style={{ minWidth: 0 }}>
         <div style={{ fontWeight: 800, fontSize: isMobile ? 11 : 13, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-          BGS Institute of Management
+          {student?.institution || exam?.institution || 'PinIT Institute of Technology'}
         </div>
         <div style={{ fontSize: 10, color: 'var(--text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: isMobile ? 140 : 320 }}>
           {exam.title}

@@ -30,35 +30,39 @@ export default function DashboardBentoGrid({
   const accentRgb = activeTrack === 'iot' ? '20,184,166' : '99,102,241';
   const accentVar = activeTrack === 'iot' ? 'var(--teal-mid)' : 'var(--accent)';
 
-  // DEF-008: Dynamic trigonometric radar polygon calculation (Center 60,60, R=48)
+  // Authentic trigonometric radar polygon calculation (Center 60,60, R=48)
   const radarPoints = useMemo(() => {
     const ob = cOS?.onboardingAnswers;
     const arch = ob?.mindset_archetype || ob?.voice_archetype || '';
     const completedCount = cOS?.completedQuests?.length || 0;
     const vaultCount = cOS?.vaultItems?.length || 0;
 
-    let codingScore = careerScore > 0 ? careerScore : 55;
-    if (arch.includes('Pattern Hunter')) codingScore += 10;
-    codingScore += Math.min(15, completedCount * 2);
+    // Direct authentic scoring without artificial 55/50/60 base floors
+    let codingScore = careerScore > 0 ? careerScore : (completedCount > 0 ? Math.min(100, completedCount * 15) : 0);
+    if (codingScore > 0 && arch.includes('Pattern Hunter')) codingScore = Math.min(100, codingScore + 5);
 
-    let archScore = Math.round((careerScore * 0.7) + (dnaScore * 0.3));
-    if (arch.includes('Explorer')) archScore += 10;
-    archScore += Math.min(12, vaultCount * 3);
+    let archScore = (careerScore > 0 || dnaScore > 0)
+      ? Math.round((careerScore * 0.7) + (dnaScore * 0.3))
+      : (vaultCount > 0 ? Math.min(100, vaultCount * 15) : 0);
+    if (archScore > 0 && arch.includes('Explorer')) archScore = Math.min(100, archScore + 5);
 
-    let dataScore = dnaScore > 0 ? dnaScore : 50;
-    if (arch.includes('Stabilizer')) dataScore += 10;
+    let dataScore = dnaScore > 0 ? dnaScore : (completedCount > 0 ? Math.min(100, completedCount * 10) : 0);
+    if (dataScore > 0 && arch.includes('Stabilizer')) dataScore = Math.min(100, dataScore + 5);
 
-    const trust = cOS?.trustScore ?? 50;
-    let socraticScore = trust > 0 ? trust : 60;
-    if (arch.includes('Social IQ')) socraticScore += 10;
+    const trust = cOS?.trustScore ?? 0;
+    let socraticScore = trust > 0 ? trust : 0;
+    if (socraticScore > 0 && arch.includes('Social IQ')) socraticScore = Math.min(100, socraticScore + 5);
 
-    let iotScore = activeTrack === 'iot' ? Math.max(78, careerScore + 8) : Math.round(careerScore * 0.55 + 20);
+    let iotScore = activeTrack === 'iot'
+      ? (careerScore > 0 ? careerScore : 0)
+      : Math.round(careerScore * 0.5);
 
     const scores = [codingScore, archScore, dataScore, socraticScore, iotScore];
     const angles = [0, 72, 144, 216, 288];
 
     return scores.map((score, i) => {
-      const clamped = Math.max(20, Math.min(95, score || 50));
+      // Clamped truthfully between 0 and 100 without artificial 20% floor
+      const clamped = Math.max(0, Math.min(100, score || 0));
       const r = (clamped / 100) * 46;
       const rad = angles[i] * (Math.PI / 180);
       const x = +(60 + r * Math.sin(rad)).toFixed(1);

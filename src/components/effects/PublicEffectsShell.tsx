@@ -32,30 +32,16 @@ export default function PublicEffectsShell({ children }: PublicEffectsShellProps
           theme: nextTheme,
           lastToggleTime: toggleTime
         });
-        ambientAudio.play(nextTheme, 3000);
-      }
-    };
-
-    // User interaction audio unlock listener for browser autoplay policies
-    const handleFirstGesture = () => {
-      if (typeof window !== 'undefined' && window.location.pathname.startsWith('/onboarding')) {
-        return;
-      }
-      if (!ambientAudio.isMuted()) {
-        ambientAudio.play(saved, 3000);
+        if (!ambientAudio.isMuted()) {
+          ambientAudio.play(nextTheme, 3000);
+        }
       }
     };
 
     window.addEventListener('pc_theme_toggled', handleThemeToggle);
-    window.addEventListener('click', handleFirstGesture, { once: true });
-    window.addEventListener('keydown', handleFirstGesture, { once: true });
-    window.addEventListener('touchstart', handleFirstGesture, { once: true });
 
     return () => {
       window.removeEventListener('pc_theme_toggled', handleThemeToggle);
-      window.removeEventListener('click', handleFirstGesture);
-      window.removeEventListener('keydown', handleFirstGesture);
-      window.removeEventListener('touchstart', handleFirstGesture);
       ambientAudio.stopImmediate();
     };
   }, []);

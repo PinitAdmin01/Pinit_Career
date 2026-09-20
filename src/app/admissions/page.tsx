@@ -11,7 +11,7 @@ import { toast } from '@/lib/store/useAppStore';
 export default function AdmissionsPortal() {
   // Form states
   const [form, setForm] = useState({ name: '', email: '', gpa: '', course: 'Computer Science' });
-  const [fileSimulated, setFileSimulated] = useState(false);
+  const [marksheetFileName, setMarksheetFileName] = useState('');
   const [applying, setApplying] = useState(false);
   const [applyResult, setApplyResult] = useState<any>(null);
 
@@ -26,18 +26,23 @@ export default function AdmissionsPortal() {
 
   const handleApply = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!fileSimulated) {
-      toast.warning('Mark Sheet Required', 'Please upload or simulate your 12th Grade Mark Sheet PDF first.');
+    if (!marksheetFileName) {
+      toast.warning('Mark Sheet Required', 'Please upload your 12th Grade Mark Sheet PDF document.');
       return;
     }
     setApplying(true);
     try {
-      const res: any = await api.post('/api/admissions/apply', form);
+      const res: any = await api.post('/api/admissions/apply', {
+        ...form,
+        marksheetFileName
+      });
       if (res && res.ok) {
         toast.success('Application Submitted! 🎓', `Reference ID: ${res.application?.id || 'Registered'}`);
         setApplyResult(res.application);
         setForm({ name: '', email: '', gpa: '', course: 'Computer Science' });
-        setFileSimulated(false);
+        setMarksheetFileName('');
+      } else {
+        toast.error('Submission Failed', res?.error || 'Failed to submit application.');
       }
     } catch {
       toast.error('Submission Failed', 'Failed to submit application. Please try again.');
@@ -396,23 +401,47 @@ export default function AdmissionsPortal() {
                 </div>
 
                 <div>
-                  <label className="form-label">12th Grade Mark Sheet PDF</label>
-                  <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                    <button
-                      type="button"
-                      onClick={() => setFileSimulated(true)}
+                  <label className="form-label">12th Grade Mark Sheet PDF *</label>
+                  <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+                    <label
                       style={{
-                        padding: '10px 14px', borderRadius: 10, border: '1.5px dashed var(--border2)', cursor: 'pointer',
-                        fontSize: 12.5, fontWeight: 700, background: fileSimulated ? 'var(--green-light)' : 'var(--card)',
-                        color: fileSimulated ? 'var(--green)' : 'var(--t2)',
-                        borderColor: fileSimulated ? 'color-mix(in srgb, var(--green) 30%, transparent)' : 'var(--border2)',
-                        flexGrow: 1
+                        padding: '10px 14px',
+                        borderRadius: 10,
+                        border: '1.5px dashed var(--border2)',
+                        cursor: 'pointer',
+                        fontSize: 12.5,
+                        fontWeight: 700,
+                        background: marksheetFileName ? 'var(--green-light)' : 'var(--card)',
+                        color: marksheetFileName ? 'var(--green)' : 'var(--t2)',
+                        borderColor: marksheetFileName ? 'color-mix(in srgb, var(--green) 30%, transparent)' : 'var(--border2)',
+                        flexGrow: 1,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: 6
                       }}
                     >
-                      {fileSimulated ? '✓ 12th_marksheet.pdf Attached' : '📁 Attach Simulated Marksheet PDF'}
-                    </button>
-                    {fileSimulated && (
-                      <button type="button" onClick={() => setFileSimulated(false)} style={{ color: 'var(--coral)', border: 'none', background: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 700 }}>Remove</button>
+                      <input
+                        type="file"
+                        accept=".pdf"
+                        style={{ display: 'none' }}
+                        onChange={e => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            setMarksheetFileName(file.name);
+                          }
+                        }}
+                      />
+                      {marksheetFileName ? `✓ ${marksheetFileName} Attached` : '📁 Select & Attach Marksheet PDF'}
+                    </label>
+                    {marksheetFileName && (
+                      <button
+                        type="button"
+                        onClick={() => setMarksheetFileName('')}
+                        style={{ color: 'var(--coral)', border: 'none', background: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 700 }}
+                      >
+                        Remove
+                      </button>
                     )}
                   </div>
                 </div>

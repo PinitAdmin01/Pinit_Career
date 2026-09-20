@@ -96,15 +96,32 @@ class NeuralTTSEngine:
         """Synthesizes speech using Kokoro ONNX Neural Engine with automatic speed boost."""
         t_start = time.time()
 
-        # Voice mapping for Kokoro ONNX style vectors
-        kokoro_voice = "af_bella"
-        lang = "en-us"
-        if voice in ["priya", "mentor_female"]:
-            kokoro_voice = "af_sarah"
-        elif voice in ["am_adam", "mentor_male"]:
-            kokoro_voice = "am_adam"
-        elif voice == "af_bella":
-            kokoro_voice = "af_bella"
+        # Comprehensive voice mapping for Kokoro ONNX style vectors
+        # Maps persona IDs and voice aliases to actual Kokoro ONNX voice keys
+        PERSONA_TO_KOKORO = {
+            # Female Mentors & Interviewers
+            "priya": "af_sarah",
+            "mentor_female": "af_sarah",
+            "maya": "bf_emma",
+            "divya": "af_nicole",
+            "neha": "af_bella",
+            "shalini": "bf_isabella",
+            "sneha": "af_sarah",
+            "aisha": "af_sky",
+            # Male Mentors & Interviewers
+            "anish": "am_liam",
+            "mentor_male": "am_adam",
+            "kashyap": "am_fenrir",
+            "karthic": "am_adam",
+            "vikram": "bm_lewis",
+            "aditya": "am_adam",
+            "rajesh": "am_liam",
+            "rohan": "am_fenrir",
+            "abhijit": "bm_george",
+        }
+
+        kokoro_voice = PERSONA_TO_KOKORO.get(voice, voice if voice.startswith(("af_", "am_", "bf_", "bm_")) else "af_bella")
+        lang = "en-gb" if kokoro_voice.startswith("b") else "en-us"
 
         if self.kokoro is not None:
             try:
@@ -126,9 +143,34 @@ class NeuralTTSEngine:
             except Exception as e:
                 logger.error(f"Kokoro ONNX synthesis error: {e}")
 
-        # Edge-TTS fallback if Kokoro model fails
+        # Edge-TTS fallback with gender- and locale-appropriate neural voices
+        EDGE_TTS_VOICE_MAP = {
+            "priya": "en-IN-NeerjaNeural",
+            "mentor_female": "en-IN-NeerjaNeural",
+            "sneha": "en-IN-NeerjaNeural",
+            "divya": "en-IN-NeerjaNeural",
+            "anish": "en-IN-PrabhatNeural",
+            "mentor_male": "en-IN-PrabhatNeural",
+            "karthic": "en-IN-PrabhatNeural",
+            "kashyap": "en-IN-PrabhatNeural",
+            "rajesh": "en-IN-PrabhatNeural",
+            "maya": "en-GB-SoniaNeural",
+            "shalini": "en-GB-SoniaNeural",
+            "vikram": "en-GB-RyanNeural",
+            "abhijit": "en-GB-RyanNeural",
+            "am_adam": "en-US-AndrewNeural",
+            "af_bella": "en-US-AvaNeural",
+            "af_sarah": "en-US-EmmaNeural",
+        }
+        edge_voice = EDGE_TTS_VOICE_MAP.get(voice)
+        if not edge_voice:
+            if voice.startswith("am_") or voice.startswith("bm_") or voice in ["mentor_male"]:
+                edge_voice = "en-IN-PrabhatNeural"
+            else:
+                edge_voice = "en-IN-NeerjaNeural"
+
         import edge_tts
-        communicate = edge_tts.Communicate(text, "en-IN-NeerjaNeural", rate="+12%")
+        communicate = edge_tts.Communicate(text, edge_voice, rate="+12%")
         buffer = io.BytesIO()
         async for chunk in communicate.stream():
             if chunk["type"] == "audio":

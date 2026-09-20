@@ -5,11 +5,13 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { CohortsApiService, CollegeOverviewStats } from '@/lib/api/cohortsApi';
 import { useAuth } from '@/lib/context/AuthContext';
+import { portalService } from '@/lib/services/portalService';
 
 export default function CollegeCohortsAdminPage() {
   const { user, loading } = useAuth();
   const router = useRouter();
   const [stats, setStats] = useState<CollegeOverviewStats | null>(null);
+  const [isLoadingStats, setIsLoadingStats] = useState<boolean>(true);
   const [selectedDept, setSelectedDept] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
@@ -27,7 +29,28 @@ export default function CollegeCohortsAdminPage() {
   }, [user, loading, router]);
 
   useEffect(() => {
-    setStats(CohortsApiService.getCollegeOverview());
+    let isMounted = true;
+    async function loadCohortData() {
+      setIsLoadingStats(true);
+      try {
+        const enrolled = await portalService.getEnrolledStudents();
+        if (isMounted) {
+          setStats(CohortsApiService.getCollegeOverview('PinIT Career OS / Campus Academy', enrolled));
+        }
+      } catch {
+        if (isMounted) {
+          setStats(CohortsApiService.getCollegeOverview());
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoadingStats(false);
+        }
+      }
+    }
+    loadCohortData();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   if (loading || !user || !['admin', 'teacher', 'counsellor'].includes(user.role)) {
@@ -122,20 +145,28 @@ export default function CollegeCohortsAdminPage() {
               </tr>
             </thead>
             <tbody>
-              {stats.departments.map(dept => (
-                <tr key={dept.department} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
-                  <td style={{ padding: '14px 16px', fontWeight: 700, color: 'var(--text)' }}>{dept.department}</td>
-                  <td style={{ padding: '14px 16px', color: 'var(--text-muted)' }}>{dept.totalStudents}</td>
-                  <td style={{ padding: '14px 16px', color: 'var(--success-bright)', fontWeight: 700 }}>{dept.interviewReadyCount} ({dept.placementReadyPct}%)</td>
-                  <td style={{ padding: '14px 16px', color: 'var(--info-bright)' }}>{dept.internshipReadyCount}</td>
-                  <td style={{ padding: '14px 16px', color: '#facc15', fontWeight: 700 }}>{dept.avgDefenseScore > 0 ? `${dept.avgDefenseScore}/100` : '—'}</td>
-                  <td style={{ padding: '14px 16px', width: 200 }}>
-                    <div style={{ width: '100%', height: 6, background: 'rgba(255,255,255,0.08)', borderRadius: 3, overflow: 'hidden' }}>
-                      <div style={{ width: `${dept.placementReadyPct}%`, height: '100%', background: 'var(--success)' }} />
-                    </div>
+              {stats.departments.length === 0 ? (
+                <tr>
+                  <td colSpan={6} style={{ padding: '28px 16px', textAlign: 'center', color: 'var(--text-muted)' }}>
+                    No departmental cohort telemetry found. Enroll students to track readiness breakdown.
                   </td>
                 </tr>
-              ))}
+              ) : (
+                stats.departments.map(dept => (
+                  <tr key={dept.department} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+                    <td style={{ padding: '14px 16px', fontWeight: 700, color: 'var(--text)' }}>{dept.department}</td>
+                    <td style={{ padding: '14px 16px', color: 'var(--text-muted)' }}>{dept.totalStudents}</td>
+                    <td style={{ padding: '14px 16px', color: 'var(--success-bright)', fontWeight: 700 }}>{dept.interviewReadyCount} ({dept.placementReadyPct}%)</td>
+                    <td style={{ padding: '14px 16px', color: 'var(--info-bright)' }}>{dept.internshipReadyCount}</td>
+                    <td style={{ padding: '14px 16px', color: '#facc15', fontWeight: 700 }}>{dept.avgDefenseScore > 0 ? `${dept.avgDefenseScore}/100` : '—'}</td>
+                    <td style={{ padding: '14px 16px', width: 200 }}>
+                      <div style={{ width: '100%', height: 6, background: 'rgba(255,255,255,0.08)', borderRadius: 3, overflow: 'hidden' }}>
+                        <div style={{ width: `${dept.placementReadyPct}%`, height: '100%', background: 'var(--success)' }} />
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
@@ -181,48 +212,56 @@ export default function CollegeCohortsAdminPage() {
               </tr>
             </thead>
             <tbody>
-              {filteredStudents.map(student => (
-                <tr key={student.studentId} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
-                  <td style={{ padding: '14px 16px' }}>
-                    <div style={{ fontWeight: 700, color: 'var(--text)' }}>{student.name}</div>
-                    <div style={{ fontSize: 11, color: 'var(--text-dim)' }}>Batch of {student.batchYear}</div>
-                  </td>
-                  <td style={{ padding: '14px 16px', color: 'var(--text-muted)' }}>{student.department}</td>
-                  <td style={{ padding: '14px 16px' }}>
-                    <span style={{ padding: '3px 8px', borderRadius: 4, background: 'rgba(var(--success-rgb),  0.12)', color: 'var(--success-bright)', fontWeight: 700, fontSize: 11 }}>
-                      🛡️ {student.verifiedCount} Verified
-                    </span>
-                  </td>
-                  <td style={{ padding: '14px 16px' }}>
-                    {student.defenseScore > 0 ? (
-                      <span style={{ color: 'var(--success-bright)', fontWeight: 700 }}>🎙️ {student.defenseScore}/100</span>
-                    ) : (
-                      <span style={{ color: 'var(--text-dim)', fontSize: 12 }}>Pending</span>
-                    )}
-                  </td>
-                  <td style={{ padding: '14px 16px' }}>
-                    <span style={{
-                      padding: '3px 8px',
-                      borderRadius: 4,
-                      fontSize: 10,
-                      fontWeight: 700,
-                      textTransform: 'uppercase',
-                      background: student.readinessStatus === 'ready_for_interview' ? 'rgba(var(--success-rgb),  0.15)' : 'rgba(var(--info-rgb),  0.15)',
-                      color: student.readinessStatus === 'ready_for_interview' ? 'var(--success-bright)' : 'var(--info-bright)'
-                    }}>
-                      {student.readinessStatus.replace(/_/g, ' ')}
-                    </span>
-                  </td>
-                  <td style={{ padding: '14px 16px' }}>
-                    <Link
-                      href={`/verify/${student.studentId}`}
-                      style={{ fontSize: 12, color: '#38bdf8', textDecoration: 'none', fontWeight: 600 }}
-                    >
-                      Audit Proof ↗
-                    </Link>
+              {filteredStudents.length === 0 ? (
+                <tr>
+                  <td colSpan={6} style={{ padding: '32px 16px', textAlign: 'center', color: 'var(--text-muted)' }}>
+                    No student placement or evidence dossiers found matching the selected filter.
                   </td>
                 </tr>
-              ))}
+              ) : (
+                filteredStudents.map(student => (
+                  <tr key={student.studentId} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+                    <td style={{ padding: '14px 16px' }}>
+                      <div style={{ fontWeight: 700, color: 'var(--text)' }}>{student.name}</div>
+                      <div style={{ fontSize: 11, color: 'var(--text-dim)' }}>Batch of {student.batchYear}</div>
+                    </td>
+                    <td style={{ padding: '14px 16px', color: 'var(--text-muted)' }}>{student.department}</td>
+                    <td style={{ padding: '14px 16px' }}>
+                      <span style={{ padding: '3px 8px', borderRadius: 4, background: 'rgba(var(--success-rgb),  0.12)', color: 'var(--success-bright)', fontWeight: 700, fontSize: 11 }}>
+                        🛡️ {student.verifiedCount} Verified
+                      </span>
+                    </td>
+                    <td style={{ padding: '14px 16px' }}>
+                      {student.defenseScore > 0 ? (
+                        <span style={{ color: 'var(--success-bright)', fontWeight: 700 }}>🎙️ {student.defenseScore}/100</span>
+                      ) : (
+                        <span style={{ color: 'var(--text-dim)', fontSize: 12 }}>Pending</span>
+                      )}
+                    </td>
+                    <td style={{ padding: '14px 16px' }}>
+                      <span style={{
+                        padding: '3px 8px',
+                        borderRadius: 4,
+                        fontSize: 10,
+                        fontWeight: 700,
+                        textTransform: 'uppercase',
+                        background: student.readinessStatus === 'ready_for_interview' ? 'rgba(var(--success-rgb),  0.15)' : 'rgba(var(--info-rgb),  0.15)',
+                        color: student.readinessStatus === 'ready_for_interview' ? 'var(--success-bright)' : 'var(--info-bright)'
+                      }}>
+                        {student.readinessStatus.replace(/_/g, ' ')}
+                      </span>
+                    </td>
+                    <td style={{ padding: '14px 16px' }}>
+                      <Link
+                        href={`/verify/${student.studentId}`}
+                        style={{ fontSize: 12, color: '#38bdf8', textDecoration: 'none', fontWeight: 600 }}
+                      >
+                        Audit Proof ↗
+                      </Link>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>

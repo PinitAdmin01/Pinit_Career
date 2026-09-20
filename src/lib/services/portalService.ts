@@ -44,6 +44,22 @@ export interface StudentExamResultRecord {
   gradedAt: string;
 }
 
+export interface EnrolledStudent {
+  id: string;
+  name: string;
+  email: string;
+  rollNo: string;
+  batch: string;
+  department: string;
+  courseTrack: string;
+  completedQuestsCount: number;
+  xp: number;
+  pins: number;
+  atsScore: number;
+  attendancePct: number;
+  status: 'active' | 'probation' | 'placed';
+}
+
 const STORAGE_KEYS = {
   MATERIALS: 'campus_portal_materials',
   ATTENDANCE: 'campus_portal_attendance',
@@ -135,6 +151,30 @@ export const portalService = {
   },
 
   // ── Attendance ──
+  async getAttendance(): Promise<AttendanceRecord[]> {
+    try {
+      const { data, error } = await supabase.from('campus_attendance').select('*').order('date', { ascending: false });
+      if (!error && data && data.length > 0) {
+        return data.map((r: any) => ({
+          id: r.id,
+          date: r.date,
+          batch: r.batch,
+          studentId: r.student_id,
+          studentName: r.student_name,
+          rollNo: r.roll_no,
+          status: r.status,
+        }));
+      }
+    } catch {}
+    try {
+      if (typeof window !== 'undefined') {
+        const stored = localStorage.getItem(STORAGE_KEYS.ATTENDANCE);
+        if (stored) return JSON.parse(stored);
+      }
+    } catch {}
+    return [];
+  },
+
   async getAttendanceByDateAndBatch(date: string, batch: string): Promise<AttendanceRecord[]> {
     try {
       const { data, error } = await supabase.from('campus_attendance').select('*').eq('date', date).eq('batch', batch);
@@ -374,21 +414,7 @@ export const portalService = {
   },
   
   // ── Dynamic Student Roster & Faculty Analytics Engine ──
-  async getEnrolledStudents(): Promise<Array<{
-    id: string;
-    name: string;
-    email: string;
-    rollNo: string;
-    batch: string;
-    department: string;
-    courseTrack: string;
-    completedQuestsCount: number;
-    xp: number;
-    pins: number;
-    atsScore: number;
-    attendancePct: number;
-    status: 'active' | 'probation' | 'placed';
-  }>> {
+  async getEnrolledStudents(): Promise<EnrolledStudent[]> {
     try {
       const { data, error } = await supabase
         .from('users')

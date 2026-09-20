@@ -18,6 +18,7 @@ export interface VaultItem {
   is_public: boolean;
   used_in_resume?: boolean;
   used_in_portfolio?: boolean;
+  proof_url?: string;
 }
 
 export interface UseVaultOptions {
@@ -83,6 +84,7 @@ export function useVault(options: UseVaultOptions = {}) {
     skill_tags?: string[];
     verified?: boolean;
     ai_confidence_score?: number;
+    proof_url?: string;
   }) => {
     const tempId = item.id || generateTxId('vlt');
     const newItem: VaultItem = {
@@ -97,6 +99,7 @@ export function useVault(options: UseVaultOptions = {}) {
       is_public: false,
       used_in_resume: false,
       used_in_portfolio: false,
+      proof_url: item.proof_url || '',
     };
 
     const updated = [newItem, ...vaultItems];
@@ -119,6 +122,7 @@ export function useVault(options: UseVaultOptions = {}) {
             ai_confidence_score: newItem.ai_confidence_score,
             skill_tags: item.skill_tags || [],
             is_public: false,
+            proof_url: item.proof_url || '',
           }])
           .select();
 

@@ -289,6 +289,91 @@ function RecruiterPageInner() {
         jobSuggestions={recruiter.jobSuggestions}
         postJob={recruiter.postJob}
       />
+
+      {/* Structured Interview Schedule Modal */}
+      {recruiter.schedulingCandidate && (
+        <div style={{
+          position: 'fixed', inset: 0, zIndex: 1000,
+          background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20
+        }}>
+          <div style={{
+            background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 16,
+            width: '100%', maxWidth: 440, padding: 24, boxShadow: '0 20px 40px rgba(0,0,0,0.4)'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+              <div style={{ fontWeight: 800, fontSize: 16 }}>🗓️ Schedule Candidate Interview</div>
+              <button
+                onClick={() => recruiter.setSchedulingCandidate(null)}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--t3)', fontSize: 18 }}
+              >
+                ✕
+              </button>
+            </div>
+
+            <p style={{ fontSize: 12.5, color: 'var(--t2)', margin: '0 0 16px 0' }}>
+              Dispatching formal calendar invitation and student dashboard notification to <strong>{recruiter.schedulingCandidate.name}</strong>.
+            </p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 20 }}>
+              <div>
+                <label style={{ fontSize: 11, fontWeight: 700, display: 'block', marginBottom: 4 }}>Date & Time</label>
+                <input
+                  type="datetime-local"
+                  className="form-input"
+                  value={recruiter.scheduleDate}
+                  onChange={e => recruiter.setScheduleDate(e.target.value)}
+                  style={{ width: '100%', fontSize: 12 }}
+                />
+              </div>
+
+              <div>
+                <label style={{ fontSize: 11, fontWeight: 700, display: 'block', marginBottom: 4 }}>Interview Mode</label>
+                <select
+                  className="form-input"
+                  value={recruiter.scheduleMode}
+                  onChange={e => recruiter.setScheduleMode(e.target.value)}
+                  style={{ width: '100%', fontSize: 12 }}
+                >
+                  <option value="Virtual Video Call">Virtual Video Call (Platform / WebRTC)</option>
+                  <option value="AI Technical Interview (Autonomous Evaluation)">AI Technical Interview (Autonomous Evaluation)</option>
+                  <option value="Telephone Screening">Telephone Screening</option>
+                  <option value="Campus In-Person">Campus In-Person (Placement Cell)</option>
+                </select>
+              </div>
+
+              <div>
+                <label style={{ fontSize: 11, fontWeight: 700, display: 'block', marginBottom: 4 }}>Target Role / Topic</label>
+                <input
+                  type="text"
+                  className="form-input"
+                  value={recruiter.scheduleRole}
+                  onChange={e => recruiter.setScheduleRole(e.target.value)}
+                  placeholder="e.g. Software Engineering Role"
+                  style={{ width: '100%', fontSize: 12 }}
+                />
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
+              <button
+                onClick={() => recruiter.setSchedulingCandidate(null)}
+                className="btn-ghost"
+                style={{ fontSize: 12, padding: '8px 16px' }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={recruiter.confirmScheduleInterview}
+                className="btn-primary"
+                style={{ fontSize: 12, padding: '8px 16px', background: 'var(--accent)' }}
+              >
+                Confirm & Dispatch
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

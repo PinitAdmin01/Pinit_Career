@@ -76,7 +76,7 @@ const KOKORO_VOICE_MAP: Record<string, string> = {
   anish:    'am_liam',
   // Teachers
   kashyap:  'am_fenrir',
-  karthic:  'am_karthic',
+  karthic:  'am_adam',
   maya:     'bf_emma',
   divya:    'af_nicole',
   // Legacy

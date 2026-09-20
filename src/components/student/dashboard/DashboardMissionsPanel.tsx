@@ -75,8 +75,27 @@ export default function DashboardMissionsPanel({ nextStep, userId }: Props) {
     return () => { isMounted = false; };
   }, [userId, workloadBand]);
 
+function getMissionHref(m: DailyMissionSlot): string {
+  if (m.sourceId && m.sourceId.startsWith('/')) return m.sourceId;
+  switch (m.category) {
+    case 'practice':
+    case 'debug':
+      return '/challenges';
+    case 'build':
+    case 'career':
+      return '/vault';
+    case 'communication':
+      return '/interview-prep';
+    case 'review':
+      return '/exams';
+    case 'learn':
+    default:
+      return '/quests';
+  }
+}
+
   const toggleComplete = (id: string) => {
-    // DEF-010: Validate that the mission ID is an authentic catalog mission slot
+    // Validate that the mission ID is an authentic catalog mission slot
     const allKnown = [...coreMissions, ...optionalMissions];
     const isRecognized = allKnown.length === 0 || allKnown.some(m => m.id === id) || id.startsWith('msn_') || id.startsWith('core_') || id.startsWith('opt_');
     if (!isRecognized) {
@@ -94,26 +113,14 @@ export default function DashboardMissionsPanel({ nextStep, userId }: Props) {
     setCompletedIds(next);
 
     const arr = Array.from(next);
-    // 1. Persist to user-scoped localStorage
+    // Persist to user-scoped localStorage as student's personal daily checklist
     if (typeof window !== 'undefined') {
       try {
         localStorage.setItem(`pinit_${userId || 'anon'}_daily_missions_completed`, JSON.stringify(arr));
       } catch {}
     }
-
-    // 2. Register completion in CareerOSContext (awards streak, pins, XP, avatar activity event)
-    if (!isCurrentlyDone) {
-      try {
-        cOS?.completeMission?.(id, true);
-      } catch {}
-    }
-
-    // 3. Sync to cloud database profile / onboarding API if session authenticated
-    if (userId) {
-      api.post('/api/auth/onboarding', {
-        completedMissions: arr,
-      }).catch(() => {});
-    }
+    // Security & Integrity: Personal checklist marks do NOT grant unearned XP or streak bonuses.
+    // Official XP & rewards are authoritatively verified when completing the action via "Start ➔".
   };
 
   return (
@@ -232,7 +239,7 @@ export default function DashboardMissionsPanel({ nextStep, userId }: Props) {
                       </div>
                     </div>
                     <Link
-                      href="/quests"
+                      href={getMissionHref(m)}
                       style={{
                         fontSize:10.5,
                         fontFamily:'var(--font-mono)',
@@ -300,6 +307,22 @@ export default function DashboardMissionsPanel({ nextStep, userId }: Props) {
                             </div>
                           </div>
                           <span style={{ fontSize:9.5, color:'var(--accent)', fontFamily:'var(--font-mono)' }}>+{m.xpReward} XP</span>
+                          <Link
+                            href={getMissionHref(m)}
+                            style={{
+                              fontSize:9.5,
+                              fontFamily:'var(--font-mono)',
+                              fontWeight:700,
+                              color: meta.color,
+                              textDecoration:'none',
+                              padding:'3px 6px',
+                              borderRadius:4,
+                              background:`${meta.color}15`,
+                              border:`1px solid ${meta.color}30`,
+                            }}
+                          >
+                            Start ➔
+                          </Link>
                         </div>
                       );
                     })}

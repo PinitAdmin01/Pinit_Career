@@ -13,6 +13,20 @@ interface ApplicationsPanelProps {
   setViewResumeData: (data: { name: string; resume: ResumeFormData } | null) => void;
 }
 
+function maskEmail(email?: string): string {
+  if (!email || !email.includes('@')) return 'Contact Protected';
+  const [local, domain] = email.split('@');
+  if (local.length <= 2) return `${local}***@${domain}`;
+  return `${local.slice(0, 2)}***${local.slice(-1)}@${domain}`;
+}
+
+function maskPhone(phone?: string): string {
+  if (!phone) return 'Protected';
+  const digits = phone.replace(/\s+/g, '');
+  if (digits.length <= 4) return 'Protected';
+  return `${digits.slice(0, 3)} **** ${digits.slice(-4)}`;
+}
+
 export default function ApplicationsPanel({
   applications,
   appReviewing,
@@ -50,8 +64,12 @@ export default function ApplicationsPanel({
                     <div style={{ fontWeight: 600 }}>{app.jobTitle}</div>
                     <div style={{ fontSize: 10, color: 'var(--t3)' }}>{app.jobCompany}</div>
                   </td>
-                  <td style={{ color: 'var(--teal)', fontWeight: 700 }}>{app.user?.ats_score || 50}</td>
-                  <td style={{ color: 'var(--green)', fontWeight: 700 }}>{app.user?.trust_score || 50}</td>
+                  <td style={{ color: 'var(--teal)', fontWeight: 700 }}>
+                    {typeof app.user?.ats_score === 'number' && app.user.ats_score > 0 ? `${app.user.ats_score}/100` : '—'}
+                  </td>
+                  <td style={{ color: 'var(--green)', fontWeight: 700 }}>
+                    {typeof app.user?.trust_score === 'number' && app.user.trust_score > 0 ? `${app.user.trust_score}/100` : '—'}
+                  </td>
                   <td>
                     <span
                       className={`badge ${
@@ -108,8 +126,20 @@ export default function ApplicationsPanel({
 
           <div style={{ background: 'var(--bg3)', borderRadius: 10, padding: 12, marginBottom: 16 }}>
             <div style={{ fontWeight: 700, fontSize: 13 }}>{appReviewing.user?.full_name}</div>
-            <div style={{ fontSize: 11, color: 'var(--t2)', marginTop: 2 }}>
-              {appReviewing.user?.email} · {appReviewing.user?.phone}
+            <div style={{ fontSize: 11, color: 'var(--t2)', marginTop: 4, display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+              <span style={{ fontFamily: 'var(--font-mono)' }}>{maskEmail(appReviewing.user?.email)}</span>
+              <span>·</span>
+              <span style={{ fontFamily: 'var(--font-mono)' }}>{maskPhone(appReviewing.user?.phone)}</span>
+              <span style={{
+                fontSize: 10,
+                padding: '2px 6px',
+                borderRadius: 4,
+                background: 'rgba(56, 189, 248, 0.1)',
+                color: '#38bdf8',
+                fontWeight: 600,
+              }}>
+                🛡️ Privacy Shielded
+              </span>
             </div>
             <div style={{ marginTop: 8, fontSize: 11 }}>
               Applied For: <strong>{appReviewing.jobTitle}</strong>

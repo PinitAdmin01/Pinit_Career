@@ -38,6 +38,7 @@ export default function VaultPage() {
   const fileRef = useRef<HTMLInputElement>(null);
 
   const [dragActive, setDragActive] = useState(false);
+  const [formEvidenceFile, setFormEvidenceFile] = useState<File | null>(null);
 
   const [form, setForm] = useState({
     title: '', itemType: 'project', description: '',
@@ -68,6 +69,23 @@ export default function VaultPage() {
       else if (form.itemType === 'internship') skills = ['Work Experience'];
       else if (form.itemType === 'hackathon') skills = ['Hackathon Project'];
 
+      let proofFileUrl: string | undefined = undefined;
+      if (formEvidenceFile) {
+        try {
+          const formData = new FormData();
+          formData.append('file', formEvidenceFile);
+          formData.append('primaryName', user?.displayName || 'Candidate');
+          const res = await api.post<any>('/api/vault/upload', formData).catch(() => null);
+          if (res?.document?.proof_url || res?.data?.proof_url) {
+            proofFileUrl = res?.document?.proof_url || res?.data?.proof_url;
+          } else {
+            proofFileUrl = formEvidenceFile.name;
+          }
+        } catch {
+          proofFileUrl = formEvidenceFile.name;
+        }
+      }
+
       addVaultItem({
         title: form.title.trim(),
         item_type: form.itemType,
@@ -76,10 +94,13 @@ export default function VaultPage() {
         skill_tags: skills,
         verified: false,
         ai_confidence_score: 0,
+        proof_url: proofFileUrl,
       });
 
+      toast.success('Proof Asset Logged 🗄️', 'Asset submitted to your evidence locker (pending institutional / mentor verification).');
       setShowForm(false);
       setForm({ title: '', itemType: 'project', description: '', organizationName: '', startDate: '', endDate: '' });
+      setFormEvidenceFile(null);
     } finally {
       setUploading(false);
     }
@@ -209,7 +230,7 @@ export default function VaultPage() {
         <div style={{ fontSize: 32, marginBottom: 8 }}>📤</div>
         <h3 style={{ fontSize: 14, fontWeight: 700, marginBottom: 4 }}>Drag & Drop Proof-of-Work</h3>
         <p style={{ fontSize: 11.5, color: 'var(--t3)', maxWidth: 420, margin: '0 auto' }}>
-          Supports PDFs, GitHub ZIPs, certificates, and images. PinIT AI automatically runs secure verification checking metadata.
+          Supports PDFs, GitHub ZIPs, certificates, and images. PinIT document analyzer inspects metadata and extracts skills upon upload.
         </p>
       </div>
 
@@ -248,14 +269,43 @@ export default function VaultPage() {
                 <input type="date" className="form-input" value={form.endDate} onChange={e => setForm(f => ({...f, endDate:e.target.value}))} />
               </div>
               <div className="form-group">
-                <label className="form-label">Proof / Certificate File</label>
-                <button type="button" className="btn-ghost" style={{ width: '100%', height: 38 }} onClick={() => fileRef.current?.click()}>
-                  📎 Attach Proof Evidence
-                </button>
+                <label className="form-label">Proof / Certificate Document</label>
+                <input
+                  type="file"
+                  id="vault-form-file-input"
+                  accept=".pdf,.docx,.jpg,.png,.zip"
+                  style={{ display: 'none' }}
+                  onChange={e => {
+                    if (e.target.files && e.target.files[0]) {
+                      setFormEvidenceFile(e.target.files[0]);
+                    }
+                  }}
+                />
+                <label
+                  htmlFor="vault-form-file-input"
+                  className="btn-ghost"
+                  style={{
+                    width: '100%',
+                    height: 38,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    fontSize: 12,
+                    border: '1px dashed var(--border2)',
+                    borderRadius: 8,
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    padding: '0 8px'
+                  }}
+                >
+                  {formEvidenceFile ? `📎 ${formEvidenceFile.name}` : '📎 Attach Proof Document'}
+                </label>
               </div>
             </div>
             <button type="submit" className="btn-primary" style={{ alignSelf: 'flex-end' }} disabled={uploading}>
-              {uploading ? 'Processing AI Verification...' : '➔ Submit & Run Auto-Verification'}
+              {uploading ? 'Processing AI Verification...' : '➔ Submit for Verification Review'}
             </button>
           </form>
         </div>

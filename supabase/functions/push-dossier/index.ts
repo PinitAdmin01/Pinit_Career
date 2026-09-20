@@ -29,6 +29,45 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type",
 };
 
+// ── Outbox table: durable retry queue for failed dossier deliveries ────────
+const OUTBOX_TABLE = "dossier_delivery_outbox";
+
+/**
+ * Persist a failed dossier delivery to the outbox so it can be retried by a
+ * scheduled retry worker. Returns true if persisted, false if storage failed.
+ */
+async function persistOutboxRecord(
+  client: ReturnType<typeof createClient>,
+  studentId: string,
+  dossier: Record<string, unknown>,
+  reason: string,
+  attempt: number
+): Promise<boolean> {
+  try {
+    const { error } = await client
+      .from(OUTBOX_TABLE)
+      .insert({
+        studentId,
+        dossier,
+        status: "QUEUED_FOR_RETRY",
+        reason,
+        attempt,
+        createdAt: new Date().toISOString(),
+      })
+      .select("id")
+      .single();
+
+    if (error) {
+      console.warn(`[push-dossier] Outbox persist failed: ${error.message}`);
+      return false;
+    }
+    return true;
+  } catch (err) {
+    console.warn(`[push-dossier] Outbox persist threw: ${(err as Error).message}`);
+    return false;
+  }
+}
+
 serve(async (req: Request) => {
   // Handle OPTIONS pre-flight from the browser
   if (req.method === "OPTIONS") {
@@ -99,22 +138,6 @@ serve(async (req: Request) => {
     );
   }
 
-  // ── Pull the secret from Deno env (NEVER exposed to browser) ─────────────
-  const webhookSecret = Deno.env.get("RECRUITER_WEBHOOK_SECRET");
-  if (!webhookSecret) {
-    console.error("[push-dossier] RECRUITER_WEBHOOK_SECRET env var is not set!");
-    // Fail gracefully — log locally but don't expose secret absence to caller
-    return new Response(
-      JSON.stringify({
-        ok: true,
-        status: "PUSHED_LOCAL_QUEUE",
-        warning: "Webhook target not configured — dossier queued locally",
-        dossier,
-      }),
-      { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
-  }
-
   // ── Push dossier to recruiter portal ─────────────────────────────────────
   try {
     const pushRes = await fetch(
@@ -123,7 +146,7 @@ serve(async (req: Request) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${webhookSecret}`,
+          Authorization: `Bearer ${Deno.env.get("RECRUITER_WEBHOOK_SECRET") ?? ""}`,
         },
         body: JSON.stringify({ ...dossier, pushedAt: new Date().toISOString() }),
       }
@@ -137,29 +160,64 @@ serve(async (req: Request) => {
       );
     }
 
-    // Recruiter portal returned an error HTTP code
+    // Recruiter portal returned an error HTTP code → persist to outbox, then report honestly
     const errBody = await pushRes.text();
     console.warn(`[push-dossier] Recruiter portal responded ${pushRes.status}: ${errBody}`);
+    const persisted = await persistOutboxRecord(
+      supabaseClient,
+      studentId,
+      dossier,
+      `RECRUITER_PORTAL_HTTP_${pushRes.status}`,
+      1
+    );
+    if (persisted) {
+      return new Response(
+        JSON.stringify({
+          ok: false,
+          status: "DELIVERY_QUEUED_FOR_RETRY",
+          error: "RECRUITER_PORTAL_HTTP_ERROR",
+          message: `Recruiter portal returned HTTP ${pushRes.status}. Dossier queued for retry.`,
+        }),
+        { status: 502, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
     return new Response(
       JSON.stringify({
-        ok: true,
-        status: "PUSHED_LOCAL_QUEUE",
-        warning: `Recruiter portal returned ${pushRes.status}`,
-        dossier,
+        ok: false,
+        status: "DELIVERY_FAILED",
+        error: "OUTBOX_UNAVAILABLE",
+        message: "Recruiter portal returned HTTP " + pushRes.status + " and the retry outbox is unavailable.",
       }),
-      { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      { status: 503, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (err) {
     console.warn("[push-dossier] Recruiter portal unreachable:", (err as Error).message);
-    // Graceful fallback: dossier is saved on caller's side, we acknowledge
+    const persisted = await persistOutboxRecord(
+      supabaseClient,
+      studentId,
+      dossier,
+      "RECRUITER_PORTAL_UNREACHABLE",
+      1
+    );
+    if (persisted) {
+      return new Response(
+        JSON.stringify({
+          ok: false,
+          status: "DELIVERY_QUEUED_FOR_RETRY",
+          error: "RECRUITER_PORTAL_UNREACHABLE",
+          message: "Recruiter portal unreachable. Dossier queued for retry.",
+        }),
+        { status: 502, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
     return new Response(
       JSON.stringify({
-        ok: true,
-        status: "PUSHED_LOCAL_QUEUE",
-        warning: "Recruiter portal unreachable — dossier queued locally",
-        dossier,
+        ok: false,
+        status: "DELIVERY_FAILED",
+        error: "RECRUITER_PORTAL_UNREACHABLE",
+        message: "Recruiter portal unreachable and the retry outbox is unavailable.",
       }),
-      { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      { status: 503, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
 });

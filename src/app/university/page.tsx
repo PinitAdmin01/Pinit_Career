@@ -82,17 +82,21 @@ export default function UniversityPage() {
   const [gaps,    setGaps]     = useState<SkillGap[]>([]);
   const [loading, setLoading]  = useState(true);
 
-  // Hierarchical Campus selectors states
-  const [selectedUniv, setSelectedUniv] = useState('Visvesvaraya Technological University (VTU)');
-  const [selectedColl, setSelectedColl] = useState('RV College of Engineering (RVCE)');
-  const [selectedCamp, setSelectedCamp] = useState('Main Campus (Mysore Road)');
-  const [selectedDept, setSelectedDept] = useState('Computer Science & Eng (CSE)');
-  const [selectedBranch, setSelectedBranch] = useState('B.E. Computer Science');
-  const [selectedSect, setSelectedSect] = useState('Section A');
+  // Hierarchical Campus selectors states - default to 'all' so dashboard is never prematurely emptied
+  const [selectedUniv, setSelectedUniv] = useState('all');
+  const [selectedColl, setSelectedColl] = useState('all');
+  const [selectedCamp, setSelectedCamp] = useState('all');
+  const [selectedDept, setSelectedDept] = useState('all');
+  const [selectedBranch, setSelectedBranch] = useState('all');
+  const [selectedSect, setSelectedSect] = useState('all');
 
   useEffect(() => {
     if (!user) return;
-    if (!['admin','institution'].includes(user.role)) { router.push('/dashboard'); return; }
+    const allowedRoles = ['admin', 'superadmin', 'teacher', 'faculty', 'counsellor', 'institution'];
+    if (!allowedRoles.includes(user.role)) {
+      router.push('/dashboard');
+      return;
+    }
     loadAll();
   }, [user, selectedUniv, selectedColl, selectedCamp, selectedDept, selectedBranch, selectedSect]); // eslint-disable-line
 
@@ -104,7 +108,14 @@ export default function UniversityPage() {
 
   async function loadDashboard() {
     try {
-      const q = `?university=${encodeURIComponent(selectedUniv)}&college=${encodeURIComponent(selectedColl)}&campus=${encodeURIComponent(selectedCamp)}&department=${encodeURIComponent(selectedDept)}&branch=${encodeURIComponent(selectedBranch)}&section=${encodeURIComponent(selectedSect)}`;
+      const params = new URLSearchParams();
+      if (selectedUniv && selectedUniv !== 'all') params.set('university', selectedUniv);
+      if (selectedColl && selectedColl !== 'all') params.set('college', selectedColl);
+      if (selectedCamp && selectedCamp !== 'all') params.set('campus', selectedCamp);
+      if (selectedDept && selectedDept !== 'all') params.set('department', selectedDept);
+      if (selectedBranch && selectedBranch !== 'all') params.set('branch', selectedBranch);
+      if (selectedSect && selectedSect !== 'all') params.set('section', selectedSect);
+      const q = params.toString() ? `?${params.toString()}` : '';
       const d = await api.get<{ placementStats: PlacementStats; topStudents: TopStudent[]; deptStats: DeptStat[] }>(`/api/university/dashboard${q}`);
       setStats(d.placementStats);
       setTop(d.topStudents || []);
@@ -114,14 +125,22 @@ export default function UniversityPage() {
 
   async function loadEmployability() {
     try {
-      const d = await api.get<{ report: EmployabilityReport }>('/api/university/employability-report');
+      const params = new URLSearchParams();
+      if (selectedColl && selectedColl !== 'all') params.set('college', selectedColl);
+      if (selectedDept && selectedDept !== 'all') params.set('department', selectedDept);
+      const q = params.toString() ? `?${params.toString()}` : '';
+      const d = await api.get<{ report: EmployabilityReport }>(`/api/university/employability-report${q}`);
       setEmploy(d.report);
     } catch {}
   }
 
   async function loadSkillGaps() {
     try {
-      const d = await api.get<{ gaps: SkillGap[] }>('/api/university/skill-gaps');
+      const params = new URLSearchParams();
+      if (selectedColl && selectedColl !== 'all') params.set('college', selectedColl);
+      if (selectedDept && selectedDept !== 'all') params.set('department', selectedDept);
+      const q = params.toString() ? `?${params.toString()}` : '';
+      const d = await api.get<{ gaps: SkillGap[] }>(`/api/university/skill-gaps${q}`);
       setGaps(d.gaps || []);
     } catch {}
   }
@@ -161,6 +180,7 @@ export default function UniversityPage() {
           <div>
             <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>University</label>
             <select className="form-input" style={{ width: '100%', fontSize: 12 }} value={selectedUniv} onChange={e => setSelectedUniv(e.target.value)}>
+              <option value="all">All Universities / Autonomous Institutions</option>
               <option value="Visvesvaraya Technological University (VTU)">VTU (State Tech)</option>
               <option value="Bangalore University (BU)">Bangalore University (BU)</option>
             </select>
@@ -170,14 +190,10 @@ export default function UniversityPage() {
           <div>
             <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>College</label>
             <select className="form-input" style={{ width: '100%', fontSize: 12 }} value={selectedColl} onChange={e => setSelectedColl(e.target.value)}>
-              {selectedUniv.includes('VTU') ? (
-                <>
-                  <option value="RV College of Engineering (RVCE)">RV College of Engineering (RVCE)</option>
-                  <option value="BMS College of Engineering (BMSCE)">BMS College of Engineering (BMSCE)</option>
-                </>
-              ) : (
-                <option value="St. Joseph's University (SJU)">St. Joseph's University (SJU)</option>
-              )}
+              <option value="all">All Colleges / Constituent Campuses</option>
+              <option value="RV College of Engineering (RVCE)">RV College of Engineering (RVCE)</option>
+              <option value="BMS College of Engineering (BMSCE)">BMS College of Engineering (BMSCE)</option>
+              <option value="St. Joseph's University (SJU)">St. Joseph's University (SJU)</option>
             </select>
           </div>
 
@@ -185,6 +201,7 @@ export default function UniversityPage() {
           <div>
             <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Campus</label>
             <select className="form-input" style={{ width: '100%', fontSize: 12 }} value={selectedCamp} onChange={e => setSelectedCamp(e.target.value)}>
+              <option value="all">All Campuses</option>
               <option value="Main Campus (Mysore Road)">Main Campus (Mysore Road)</option>
               <option value="Extension Campus (Kanakapura Road)">Extension Campus (Kanakapura Road)</option>
               <option value="City Campus">City Campus</option>
@@ -195,6 +212,7 @@ export default function UniversityPage() {
           <div>
             <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Department</label>
             <select className="form-input" style={{ width: '100%', fontSize: 12 }} value={selectedDept} onChange={e => setSelectedDept(e.target.value)}>
+              <option value="all">All Departments</option>
               <option value="Computer Science & Eng (CSE)">Computer Science & Eng (CSE)</option>
               <option value="Electronics & Comm (ECE)">Electronics & Comm (ECE)</option>
               <option value="Mechanical Eng (ME)">Mechanical Eng (ME)</option>
@@ -205,15 +223,11 @@ export default function UniversityPage() {
           <div>
             <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Branch / Course</label>
             <select className="form-input" style={{ width: '100%', fontSize: 12 }} value={selectedBranch} onChange={e => setSelectedBranch(e.target.value)}>
-              {selectedDept.includes('CSE') ? (
-                <>
-                  <option value="B.E. Computer Science">B.E. Computer Science</option>
-                  <option value="B.E. Information Science">B.E. Information Science</option>
-                  <option value="M.Tech Data Science">M.Tech Data Science</option>
-                </>
-              ) : (
-                <option value="B.E. Engineering Core">B.E. Engineering Core</option>
-              )}
+              <option value="all">All Branches</option>
+              <option value="B.E. Computer Science">B.E. Computer Science</option>
+              <option value="B.E. Information Science">B.E. Information Science</option>
+              <option value="M.Tech Data Science">M.Tech Data Science</option>
+              <option value="B.E. Engineering Core">B.E. Engineering Core</option>
             </select>
           </div>
 
@@ -221,6 +235,7 @@ export default function UniversityPage() {
           <div>
             <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>Section</label>
             <select className="form-input" style={{ width: '100%', fontSize: 12 }} value={selectedSect} onChange={e => setSelectedSect(e.target.value)}>
+              <option value="all">All Sections</option>
               <option value="Section A">Section A</option>
               <option value="Section B">Section B</option>
               <option value="Section C">Section C</option>
@@ -235,7 +250,7 @@ export default function UniversityPage() {
         }}>
           <span style={{ fontWeight: 700, color: 'var(--accent)' }}>Selected Node Path:</span>
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11 }}>
-            🏛️ {selectedUniv} ➔ 🏢 {selectedColl} ➔ 📍 {selectedCamp} ➔ 🏫 {selectedDept} ➔ 🎓 {selectedBranch} ➔ 🔢 {selectedSect}
+            🏛️ {selectedUniv === 'all' ? 'All Universities' : selectedUniv} ➔ 🏢 {selectedColl === 'all' ? 'All Colleges' : selectedColl} ➔ 📍 {selectedCamp === 'all' ? 'All Campuses' : selectedCamp} ➔ 🏫 {selectedDept === 'all' ? 'All Departments' : selectedDept} ➔ 🎓 {selectedBranch === 'all' ? 'All Branches' : selectedBranch} ➔ 🔢 {selectedSect === 'all' ? 'All Sections' : selectedSect}
           </span>
         </div>
       </div>
@@ -252,7 +267,7 @@ export default function UniversityPage() {
           <KpiCard label="ATS Qualified 70+" value={`${atsPct}%`}                         sub={`${stats?.ats_qualified || 0} students`}   color="var(--teal)"   icon="📄" />
           <KpiCard label="Avg ATS Score"     value={`${stats?.avg_ats || 0}/100`}         sub="Platform average"      color="var(--blue)"   icon="🏅" />
           <KpiCard label="Avg Trust Score"   value={`${stats?.avg_trust || 0}/100`}       sub="Verified behaviour"    color="var(--purple)" icon="🛡" />
-          <KpiCard label="Actively Engaged"  value={`${engagePct}%`}                      sub="3+ day mission streak" color="var(--amber)"  icon="🔥" />
+          <KpiCard label="Actively Engaged"  value={`${engagePct}%`}                      sub="Missions Completed or Active XP" color="var(--amber)"  icon="🔥" />
         </div>
       )}
 
@@ -282,12 +297,12 @@ export default function UniversityPage() {
             <div style={cardLabel}>Employability Funnel</div>
             {loading || !employ ? <>{[...Array(4)].map((_,i) => <Skeleton key={i} h={30} />)}</> : (
               <>
-                <Bar label={`Highly Employable (ATS 80+)`} value={employ.highly_employable} max={stats?.total_students||1} color="var(--green)" />
-                <Bar label={`Employable (ATS 60–79)`}       value={employ.employable}         max={stats?.total_students||1} color="var(--teal)"  />
-                <Bar label={`Needs Development (<60)`}      value={employ.needs_development}  max={stats?.total_students||1} color="var(--coral)" />
-                <Bar label={`High Trust Score (70+)`}       value={employ.high_trust}         max={stats?.total_students||1} color="var(--purple)" />
-                <Bar label={`Certified (any cert)`}         value={employ.certified}           max={stats?.total_students||1} color="var(--blue)"  />
-                <Bar label={`Highly Engaged (30d streak)`}  value={employ.highly_engaged}     max={stats?.total_students||1} color="var(--amber)" />
+                <Bar label={`Highly Employable (Readiness Index ≥75)`} value={employ.highly_employable} max={stats?.total_students||1} color="var(--green)" />
+                <Bar label={`Employable (Readiness Index 50–74)`}       value={employ.employable}         max={stats?.total_students||1} color="var(--teal)"  />
+                <Bar label={`Needs Development (Readiness Index <50)`}  value={employ.needs_development}  max={stats?.total_students||1} color="var(--coral)" />
+                <Bar label={`High Trust Quotient (Trust ≥75)`}         value={employ.high_trust}         max={stats?.total_students||1} color="var(--purple)" />
+                <Bar label={`Certified & Verified Credentials`}         value={employ.certified}           max={stats?.total_students||1} color="var(--blue)"  />
+                <Bar label={`Highly Engaged (5+ Missions)`}             value={employ.highly_engaged}     max={stats?.total_students||1} color="var(--amber)" />
               </>
             )}
           </div>

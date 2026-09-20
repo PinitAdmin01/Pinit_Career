@@ -4,7 +4,7 @@ import Link from 'next/link';
 import PublicNavbar from '@/components/nav/PublicNavbar';
 import PublicFooter from '@/components/nav/PublicFooter';
 
-export default function TermsPage() {
+export default function TermsPageRevamp() {
   return (
     <main style={{
       minHeight: '100vh',
@@ -46,7 +46,7 @@ export default function TermsPage() {
             fontFamily: 'var(--font-display)'
           }}>📜 Terms of Service</h1>
           <p style={{ fontSize: '12.5px', color: 'var(--t4)', fontFamily: 'var(--font-mono)', marginBottom: '32px' }}>
-            Last Updated: June 12, 2026
+            Last Updated: September 20, 2026
           </p>
 
           <section style={{ display: 'flex', flexDirection: 'column', gap: '24px', fontSize: '14px', lineHeight: '1.6', color: 'var(--t2)' }}>
@@ -60,7 +60,7 @@ export default function TermsPage() {
             <div>
               <h2 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--t1)', marginBottom: '8px' }}>2. Account Responsibility &amp; Academic Integrity</h2>
               <p>
-                You are responsible for maintaining the confidentiality of your credentials. You agree that all socratic coding quests, exams, and diagnostic assessments will be completed by you personally. Attempting to bypass exam tab-switching checks or upload fabricated validation proofs will result in immediate Trust Score deductions or account suspension.
+                You are responsible for maintaining the confidentiality of your credentials. You agree that all socratic coding quests, exams, and diagnostic assessments will be completed by you personally. Attempting to bypass anti-cheat measures, submitting fabricated validation proofs, or sharing verification artifacts will result in Trust Score deductions or account suspension.
               </p>
             </div>
 
@@ -72,14 +72,21 @@ export default function TermsPage() {
             </div>
 
             <div>
-              <h2 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--t1)', marginBottom: '8px' }}>4. Premium Services</h2>
+              <h2 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--t1)', marginBottom: '8px' }}>4. Premium Services &amp; Consent</h2>
               <p>
-                Access to certain socratic quests, live mock assessment interviews, and specialized recruiter filters may require purchase. All payments processed via Razorpay are subject to their respective terms and conditions.
+                Access to certain socratic quests, live mock assessment interviews, and specialized recruiter filters may require purchase. All payments processed via Razorpay are subject to their respective terms and conditions. By purchasing premium features, you consent to camera and microphone access for the duration of the session, as described in our Privacy Policy.
               </p>
             </div>
 
             <div>
-              <h2 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--t1)', marginBottom: '8px' }}>5. Modifications &amp; Contact</h2>
+              <h2 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--t1)', marginBottom: '8px' }}>5. Institutional Licensing</h2>
+              <p>
+                Institutional partners (colleges and universities) agree to fair academic usage guidelines. Data shared with institutional admin accounts is limited to the placement cell and is not shared with third parties without explicit consent from individual students.
+              </p>
+            </div>
+
+            <div>
+              <h2 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--t1)', marginBottom: '8px' }}>6. Modifications &amp; Contact</h2>
               <p>
                 We reserve the right to modify these terms at any time. Continued use of the platform constitutes agreement to the updated terms. If you have questions about these terms, please contact us at our <Link href="/contact" style={{ color: 'var(--accent)', textDecoration: 'none' }}>Contact Page</Link>.
               </p>

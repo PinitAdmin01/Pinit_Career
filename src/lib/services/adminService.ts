@@ -287,6 +287,34 @@ export const adminService = {
   async broadcast(adminId: string, title: string, message: string, type: string, targetRole: string): Promise<{ sent: number }> {
     await this.logAction(adminId, 'Broadcasting Announcement', targetRole || 'All Users', { title, message, type });
     const count = await adminDataAccess.fetchRawRoleUserCount(targetRole);
+
+    // Populate student and faculty notifications table immediately
+    try {
+      let query = supabase.from('users').select('id');
+      if (targetRole && targetRole !== 'all') {
+        query = query.eq('role', targetRole);
+      }
+      const { data: recipients } = await query;
+      if (Array.isArray(recipients) && recipients.length > 0) {
+        const notifs = recipients.map(r => ({
+          user_id: r.id,
+          sender_id: adminId,
+          type: type || 'campus_broadcast',
+          title: title || 'Campus Broadcast Announcement',
+          message: message,
+          read: false,
+          is_read: false,
+          created_at: new Date().toISOString(),
+        }));
+        const { error: notifErr } = await supabase.from('notifications').insert(notifs);
+        if (notifErr) {
+          console.warn('Broadcast notification insertion error:', notifErr.message);
+        }
+      }
+    } catch (e) {
+      console.warn('Broadcast notification insertion warning:', e);
+    }
+
     return { sent: count };
   }
 };

@@ -63,6 +63,17 @@ export const DB = {
       } catch {}
     }
 
+    // Special mapping for exam schedules -> query from examsService
+    if (col === 'exam_schedule') {
+      try {
+        const { examsService } = await import('@/lib/services/examsService');
+        const schedules = await examsService.getAllSchedules();
+        if (Array.isArray(schedules) && schedules.length > 0) {
+          return schedules;
+        }
+      } catch {}
+    }
+
     if (SUPABASE_TABLES.has(col)) {
       try {
         const { data, error } = await supabase.from(col).select('*');
@@ -86,6 +97,14 @@ export const DB = {
   async getOne(path: string) {
     const { col, id } = parsePath(path);
     if (!id) return null;
+    if (col === 'exam_schedule' && id) {
+      try {
+        const { examsService } = await import('@/lib/services/examsService');
+        const exam = await examsService.getExamById(id, { sanitized: true });
+        if (exam) return exam;
+      } catch {}
+    }
+
     if (SUPABASE_TABLES.has(col)) {
       try {
         const { data, error } = await supabase.from(col).select('*').eq('id', id).single();

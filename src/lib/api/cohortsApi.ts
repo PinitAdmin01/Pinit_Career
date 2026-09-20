@@ -40,81 +40,63 @@ export interface CollegeOverviewStats {
   students: StudentCohortRecord[];
 }
 
-export const INITIAL_COHORT_STUDENTS: StudentCohortRecord[] = [
-  {
-    studentId: 'stud_cs_01',
-    name: 'Aarav Patel',
-    department: 'Computer Science & Engineering',
-    batchYear: 2026,
-    programId: 'prog_swe_accelerated_9m',
-    verifiedCount: 8,
-    readinessStatus: 'ready_for_interview',
-    defenseScore: 92,
-    lastActiveDaysAgo: 0,
-  },
-  {
-    studentId: 'stud_cs_02',
-    name: 'Devin Vance',
-    department: 'Computer Science & Engineering',
-    batchYear: 2026,
-    programId: 'prog_swe_accelerated_9m',
-    verifiedCount: 8,
-    readinessStatus: 'ready_for_interview',
-    defenseScore: 90,
-    lastActiveDaysAgo: 1,
-  },
-  {
-    studentId: 'stud_ds_01',
-    name: 'Priya Sharma',
-    department: 'Data Science & AI',
-    batchYear: 2026,
-    programId: 'prog_data_analytics',
-    verifiedCount: 7,
-    readinessStatus: 'ready_for_internship',
-    defenseScore: 88,
-    lastActiveDaysAgo: 0,
-  },
-  {
-    studentId: 'stud_it_01',
-    name: 'Marcus Brody',
-    department: 'Information Technology',
-    batchYear: 2026,
-    programId: 'prog_swe_standard_12m',
-    verifiedCount: 6,
-    readinessStatus: 'ready_for_internship',
-    defenseScore: 82,
-    lastActiveDaysAgo: 2,
-  },
-  {
-    studentId: 'stud_it_02',
-    name: 'Maya Lin',
-    department: 'Information Technology',
-    batchYear: 2027,
-    programId: 'prog_software_engineering',
-    verifiedCount: 3,
-    readinessStatus: 'developing',
-    defenseScore: 0,
-    lastActiveDaysAgo: 4,
-    remediationFlag: true,
-  },
-];
-
 export class CohortsApiService {
   private static localKey = 'pinit_cohort_analytics_store';
-  private static inMemoryStudents: StudentCohortRecord[] = [...INITIAL_COHORT_STUDENTS];
 
-  static getStudents(): StudentCohortRecord[] {
-    if (typeof window === 'undefined') return this.inMemoryStudents;
-    try {
-      const raw = localStorage.getItem(this.localKey);
-      return raw ? JSON.parse(raw) : this.inMemoryStudents;
-    } catch {
-      return this.inMemoryStudents;
-    }
+  static mapEnrolledToCohort(enrolled: any[]): StudentCohortRecord[] {
+    return enrolled.map((s, idx) => {
+      const ats = typeof s.atsScore === 'number' ? s.atsScore : (typeof s.ats_score === 'number' ? s.ats_score : 0);
+      let readinessStatus: RoleReadinessStage = 'developing';
+      if (ats >= 80) readinessStatus = 'placement_ready';
+      else if (ats >= 65) readinessStatus = 'ready_for_interview';
+      else if (ats >= 45) readinessStatus = 'ready_for_internship';
+      else if (ats >= 20) readinessStatus = 'exploring';
+
+      return {
+        studentId: s.id || s.rollNo || `stud_${idx + 1}`,
+        name: s.name || s.displayName || s.username || 'Student',
+        department: s.department || 'Computer Science & Engineering',
+        batchYear: 2026,
+        programId: s.courseTrack || 'Standard Engineering',
+        verifiedCount: s.completedQuestsCount || 0,
+        readinessStatus,
+        defenseScore: ats,
+        lastActiveDaysAgo: 0,
+        remediationFlag: ats > 0 && ats < 45,
+      };
+    });
   }
 
-  static getCollegeOverview(collegeName = 'MIT / PinIT Academy'): CollegeOverviewStats {
-    const students = this.getStudents();
+  static getStudents(rawStudents?: any[]): StudentCohortRecord[] {
+    if (Array.isArray(rawStudents) && rawStudents.length > 0) {
+      return this.mapEnrolledToCohort(rawStudents);
+    }
+    if (typeof window === 'undefined') return [];
+
+    try {
+      const customStore = localStorage.getItem(this.localKey);
+      if (customStore) {
+        const parsed = JSON.parse(customStore);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+
+      const enrolledStore = localStorage.getItem('campus_enrolled_students');
+      if (enrolledStore) {
+        const parsed = JSON.parse(enrolledStore);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return this.mapEnrolledToCohort(parsed);
+        }
+      }
+    } catch {}
+
+    return [];
+  }
+
+  static getCollegeOverview(
+    collegeName = 'PinIT Career OS / Campus Academy',
+    rawStudents?: any[]
+  ): CollegeOverviewStats {
+    const students = this.getStudents(rawStudents);
     const deptMap = new Map<string, StudentCohortRecord[]>();
 
     students.forEach(s => {
@@ -127,7 +109,9 @@ export class CohortsApiService {
 
     deptMap.forEach((deptStudents, deptName) => {
       const total = deptStudents.length;
-      const interviewReady = deptStudents.filter(s => s.readinessStatus === 'ready_for_interview' || s.readinessStatus === 'placement_ready').length;
+      const interviewReady = deptStudents.filter(
+        s => s.readinessStatus === 'ready_for_interview' || s.readinessStatus === 'placement_ready'
+      ).length;
       const internshipReady = deptStudents.filter(s => s.readinessStatus === 'ready_for_internship').length;
       const inProgress = deptStudents.filter(s => s.readinessStatus === 'developing' || s.readinessStatus === 'exploring').length;
       const remediation = deptStudents.filter(s => !!s.remediationFlag).length;
@@ -152,7 +136,9 @@ export class CohortsApiService {
     });
 
     const totalStudents = students.length;
-    const totalReady = students.filter(s => s.readinessStatus === 'ready_for_interview' || s.readinessStatus === 'placement_ready').length;
+    const totalReady = students.filter(
+      s => s.readinessStatus === 'ready_for_interview' || s.readinessStatus === 'placement_ready'
+    ).length;
     const overallPlacementReadyPct = totalStudents > 0 ? Math.round((totalReady / totalStudents) * 100) : 0;
     const totalVerified = students.reduce((acc, s) => acc + s.verifiedCount, 0);
 

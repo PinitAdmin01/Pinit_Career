@@ -18,14 +18,14 @@ import { AppSidebar, RIGHT_NAV, isPathActive } from '@/components/ui/AppSidebar'
 import { AppHeader } from '@/components/ui/AppHeader';
 import { GlobalAvatar } from '@/components/ui/GlobalAvatar';
 
-// ── Dynamic Code Splitting for heavy legacy Exam Engine ─────────────────────
+// ── Native Exam Engine & Start Modal ──────────────────────────────────────────
 const ExamEngine = dynamic(
-  () => import('@/components/_legacy/dsai/ExamEngine.jsx').then((m: any) => m.ExamEngine),
+  () => import('@/components/exam/PinITExamEngine').then((m: any) => m.ExamEngine || m.PinITExamEngine || m.default),
   { ssr: false, loading: () => <div style={{ padding: 40, color: 'var(--t3)', textAlign: 'center' }}>Loading Exam Engine...</div> }
 ) as any;
 
 const ExamStartModal = dynamic(
-  () => import('@/components/_legacy/dsai/ExamEngine.jsx').then((m: any) => m.ExamStartModal),
+  () => import('@/components/exam/PinITExamEngine').then((m: any) => m.ExamStartModal),
   { ssr: false }
 ) as any;
 
@@ -183,9 +183,24 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       const studentId = user.id || 'student';
       const localAttemptKey = `pinit_exam_attempt_${studentId}_${examSchedule.id}`;
       const regAttemptKey = user.registerNumber ? `pinit_exam_attempt_${user.registerNumber}_${examSchedule.id}` : null;
-      if (typeof window !== 'undefined' && (localStorage.getItem(localAttemptKey) || (regAttemptKey && localStorage.getItem(regAttemptKey)))) {
-        toast.warning('Attempt Blocked', 'You have already attempted this exam.');
-        return;
+      if (typeof window !== 'undefined') {
+        const rawLocal = localStorage.getItem(localAttemptKey) || (regAttemptKey ? localStorage.getItem(regAttemptKey) : null);
+        if (rawLocal) {
+          try {
+            const parsed = JSON.parse(rawLocal);
+            // Only block if a valid score exists (legitimate attempt); clear invalid/aborted markers
+            if (typeof parsed?.score === 'number') {
+              toast.warning('Attempt Blocked', 'You have already attempted this exam.');
+              return;
+            } else {
+              localStorage.removeItem(localAttemptKey);
+              if (regAttemptKey) localStorage.removeItem(regAttemptKey);
+            }
+          } catch {
+            localStorage.removeItem(localAttemptKey);
+            if (regAttemptKey) localStorage.removeItem(regAttemptKey);
+          }
+        }
       }
 
       const { examsService } = await import('@/lib/services/examsService');
@@ -223,15 +238,16 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     setPendingExam(null);
     setExamScreen('dashboard');
 
-    if (finishedExam && user) {
+    // Strictly guard attempt recording: only record if legitimately submitted with a numeric score
+    if (finishedExam && user && result && result.submitted === true && typeof result.score === 'number') {
       try {
         const studentId = user.id || 'student';
         const localAttemptKey = `pinit_exam_attempt_${studentId}_${finishedExam.id}`;
         const regAttemptKey = user.registerNumber ? `pinit_exam_attempt_${user.registerNumber}_${finishedExam.id}` : null;
         if (typeof window !== 'undefined') {
-          localStorage.setItem(localAttemptKey, JSON.stringify({ timestamp: Date.now(), score: result?.score }));
+          localStorage.setItem(localAttemptKey, JSON.stringify({ timestamp: Date.now(), score: result.score, percentage: result.percentage }));
           if (regAttemptKey) {
-            localStorage.setItem(regAttemptKey, JSON.stringify({ timestamp: Date.now(), score: result?.score }));
+            localStorage.setItem(regAttemptKey, JSON.stringify({ timestamp: Date.now(), score: result.score, percentage: result.percentage }));
           }
         }
 
@@ -240,8 +256,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           studentId,
           registerNumber: user.registerNumber,
           examScheduleId: finishedExam.id,
-          score: result?.score,
-          passed: result?.passed !== false
+          score: result.score,
+          passed: result.passed !== false,
+          submitted: true
         });
         toast.success('Exam Completed! 📝', 'Your exam answers and submission record have been saved.');
       } catch (err) {
@@ -400,8 +417,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   }, [user, loading, isLoaded, isStudent, isPublic, onboardingStep, router, pathname]);
 
   useEffect(() => {
-    const isStaffPortal = ['/teacher', '/admin', '/recruiter', '/consultant', '/parent', '/finance', '/services'].some(p => pathname.startsWith(p));
-    if (!loading && user === null && !isPublic && !isStaffPortal) {
+    if (!loading && user === null && !isPublic) {
       router.push('/?login=true');
     }
   }, [user, loading, isPublic, pathname, router]);
@@ -421,8 +437,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     </div>
   );
 
-  const isStaffPortal = ['/teacher', '/admin', '/recruiter', '/consultant', '/parent', '/finance', '/services'].some(p => pathname.startsWith(p));
-  if (user === null && !isStaffPortal) {
+  if (user === null) {
     return null;
   }
 

@@ -156,7 +156,15 @@ export async function tryCampusFallback(
       return { application: found };
     }
     case '/api/admissions/apply':
-      return admissionsService.apply(studentId || `anon-${Date.now()}`, studentName, b.course, Number(b.rank) || 0);
+      return admissionsService.apply(
+        studentId || `anon-${Date.now()}`,
+        b.name || studentName,
+        b.course,
+        Number(b.rank) || 0,
+        b.email,
+        b.gpa,
+        b.marksheetFileName
+      );
     case '/api/admissions/verify-doc':
       return admissionsService.verifyDoc(b.appId || b.id, b.action === 'reject' ? 'reject' : 'approve');
     case '/api/admissions/allocate-seats':

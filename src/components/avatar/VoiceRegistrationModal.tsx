@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { speakWithAvatar, stopSpeaking } from '@/lib/tts';
 import { saveVoicePrintToSupabase } from '@/lib/supabaseService';
-import { calculateSpectralFeatures, extractMelFilterbank, AcousticFrame, VoicePrint } from './hooks/useVoiceBiometrics';
+import { calculateSpectralFeatures, extractMelFilterbank, detectPitch, AcousticFrame, VoicePrint } from './hooks/useVoiceBiometrics';
 import { completeStoryTour } from '@/lib/storyTour';
 
 interface VoiceRegistrationModalProps {
@@ -26,6 +26,7 @@ export default function VoiceRegistrationModal({
   const [audioLevel, setAudioLevel] = useState(0);
   const [speechCount, setSpeechCount] = useState(0);
   const [isDoneSpeakingIntro, setIsDoneSpeakingIntro] = useState(false);
+  const [micError, setMicError] = useState<string | null>(null);
 
   const audioCtxRef = useRef<AudioContext | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
@@ -42,9 +43,10 @@ export default function VoiceRegistrationModal({
       setAudioLevel(0);
       setSpeechCount(0);
       setIsDoneSpeakingIntro(false);
+      setMicError(null);
       acousticFramesRef.current = [];
 
-      const promptText = `Now let's register your unique voice signature! Please click Start 15 Second Calibration and speak continuously for 15 seconds so I can calibrate your vocal tract acoustics.`;
+      const promptText = `Now let's calibrate your voice profile! Please click Start 15 Second Calibration and speak naturally so I can calibrate your voice acoustics.`;
       stopSpeaking();
       speakWithAvatar(promptText, teacherId, () => {}, () => {});
     } else {
@@ -66,8 +68,20 @@ export default function VoiceRegistrationModal({
     }
   };
 
+  const skipRegistration = () => {
+    cleanupAudio();
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem(`pinit_${userId}_voice_print_data`);
+      localStorage.removeItem(`pinit_${userId}_voiceprint`);
+      localStorage.setItem(`pinit_${userId}_voice_registered`, 'skipped');
+      completeStoryTour(userId);
+    }
+    onClose();
+  };
+
   const startRecording = async () => {
     stopSpeaking();
+    setMicError(null);
     try {
       if (typeof navigator !== 'undefined' && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true }).catch(() => null);
@@ -78,14 +92,21 @@ export default function VoiceRegistrationModal({
 
           const source = audioCtx.createMediaStreamSource(stream);
           const analyser = audioCtx.createAnalyser();
-          analyser.fftSize = 512;
+          analyser.fftSize = 1024;
           analyser.smoothingTimeConstant = 0.8;
           source.connect(analyser);
           analyserRef.current = analyser;
+        } else {
+          setMicError('Microphone permission was denied. Please allow microphone access or skip calibration.');
+          return;
         }
+      } else {
+        setMicError('Audio recording is not supported in this browser environment.');
+        return;
       }
-    } catch (err) {
-      console.warn('Microphone permission bypassed with simulated acoustic calibration:', err);
+    } catch (err: any) {
+      setMicError(err?.message || 'Unable to access microphone.');
+      return;
     }
 
     setStage('recording');
@@ -104,16 +125,16 @@ export default function VoiceRegistrationModal({
       });
     }, 1000);
 
-    // Analyze audio frames or simulate waveform if mic blocked
-    const sampleBuffer = new Float32Array(512);
-    const freqBuffer = new Float32Array(256);
+    // Analyze authentic audio frames using autocorrelation pitch detection
+    const sampleBuffer = new Float32Array(1024);
+    const freqBuffer = new Float32Array(512);
 
     const processFrame = () => {
-      if (analyserRef.current) {
+      if (analyserRef.current && audioCtxRef.current) {
         analyserRef.current.getFloatTimeDomainData(sampleBuffer);
         analyserRef.current.getFloatFrequencyData(freqBuffer);
 
-        // Compute RMS volume level
+        // Compute RMS volume level for UI visualizer
         let sumSq = 0;
         for (let i = 0; i < sampleBuffer.length; i++) {
           sumSq += sampleBuffer[i] * sampleBuffer[i];
@@ -123,29 +144,20 @@ export default function VoiceRegistrationModal({
         setAudioLevel(level);
 
         if (rms > 0.015) {
-          setSpeechCount(c => c + 1);
-          const audioCtx = audioCtxRef.current;
-          const sampleRate = audioCtx ? audioCtx.sampleRate : 44100;
-          const features = calculateSpectralFeatures(freqBuffer, sampleRate);
-          const mfcc = extractMelFilterbank(freqBuffer, sampleRate);
-          acousticFramesRef.current.push({
-            pitch: 150 + (level % 80),
-            spectralCentroid: features.centroid,
-            spectralRolloff: features.rolloff,
-            mfccVector: mfcc,
-          });
+          const sampleRate = audioCtxRef.current.sampleRate || 44100;
+          const pitch = detectPitch(sampleBuffer, sampleRate);
+          if (pitch > 70 && pitch < 400) {
+            setSpeechCount(c => c + 1);
+            const features = calculateSpectralFeatures(freqBuffer, sampleRate);
+            const mfcc = extractMelFilterbank(freqBuffer, sampleRate);
+            acousticFramesRef.current.push({
+              pitch: Math.round(pitch),
+              spectralCentroid: features.centroid,
+              spectralRolloff: features.rolloff,
+              mfccVector: mfcc,
+            });
+          }
         }
-      } else {
-        // Fallback simulation wave
-        const simLevel = Math.floor(Math.random() * 60) + 20;
-        setAudioLevel(simLevel);
-        setSpeechCount(c => c + 1);
-        acousticFramesRef.current.push({
-          pitch: 140 + Math.random() * 40,
-          spectralCentroid: 2200 + Math.random() * 500,
-          spectralRolloff: 3500 + Math.random() * 800,
-          mfccVector: Array.from({ length: 13 }, () => Math.random() * 2 - 1),
-        });
       }
 
       animFrameRef.current = requestAnimationFrame(processFrame);
@@ -156,23 +168,40 @@ export default function VoiceRegistrationModal({
 
   const finishRegistration = async () => {
     cleanupAudio();
+
+    const frames = acousticFramesRef.current;
+    if (frames.length < 5) {
+      setMicError('Not enough clear speech frames captured. Please try speaking closer to the mic, or skip calibration.');
+      setStage('prompt');
+      return;
+    }
+
     setStage('completed');
 
-    // Build voiceprint signature
-    const frames = acousticFramesRef.current;
+    // Build genuine voiceprint signature from measured frames
+    const pitches = frames.map(f => f.pitch);
+    const avgPitch = Math.round(pitches.reduce((s, p) => s + p, 0) / pitches.length);
+    const minPitch = Math.round(Math.min(...pitches));
+    const maxPitch = Math.round(Math.max(...pitches));
+    const variance = pitches.reduce((acc, p) => acc + Math.pow(p - avgPitch, 2), 0) / pitches.length;
+    const pitchStdDev = Math.round(Math.sqrt(variance) * 10) / 10;
+
     const voicePrint: VoicePrint = {
-      avgPitch: frames.length > 0 ? Math.round(frames.reduce((s, f) => s + f.pitch, 0) / frames.length) : 165,
-      minPitch: 110,
-      maxPitch: 220,
-      pitchStdDev: 14.5,
-      spectralCentroid: frames.length > 0 ? Math.round(frames.reduce((s, f) => s + f.spectralCentroid, 0) / frames.length) : 2400,
+      avgPitch,
+      minPitch,
+      maxPitch,
+      pitchStdDev: pitchStdDev || 14.5,
+      spectralCentroid: Math.round(frames.reduce((s, f) => s + f.spectralCentroid, 0) / frames.length),
       spectralRolloff: 4800,
-      mfccVector: frames.length > 0 ? frames[0].mfccVector : new Array(12).fill(0.08),
-      sampleCount: frames.length || 120,
+      mfccVector: frames[0].mfccVector || new Array(12).fill(0.08),
+      sampleCount: frames.length,
       registeredAt: new Date().toISOString(),
     };
 
     if (typeof window !== 'undefined') {
+      // Synchronize storage keys so all reader components receive the authentic calibration
+      localStorage.setItem(`pinit_${userId}_voice_print_data`, JSON.stringify(voicePrint));
+      localStorage.setItem(`pinit_${userId}_voice_print_freq`, avgPitch.toString());
       localStorage.setItem(`pinit_${userId}_voiceprint`, JSON.stringify(voicePrint));
       localStorage.setItem(`pinit_${userId}_voice_registered`, 'true');
       completeStoryTour(userId);
@@ -182,10 +211,10 @@ export default function VoiceRegistrationModal({
       await saveVoicePrintToSupabase(userId, voicePrint);
     } catch {}
 
-    // Avatar speaks 3-line voice navigation intro
-    const line1 = `Your voice signature is now registered. You can move between tabs hands-free with short spoken commands.`;
+    // Avatar speaks intro
+    const line1 = `Your voice profile is now calibrated. You can move between workspaces hands-free with short spoken commands.`;
     const line2 = `Try saying Hey Priya go to Quest tab, or Start Quest, and I will open that workspace for you.`;
-    const line3 = `We use this voice print to recognize you, so commands like Hey Priya stay locked to your account.`;
+    const line3 = `Voice listening is opt-in and can be toggled on or off anytime with the microphone control.`;
 
     const fullIntro = `${line1} ${line2} ${line3}`;
 
@@ -260,8 +289,25 @@ export default function VoiceRegistrationModal({
         {stage === 'prompt' && (
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14, width: '100%' }}>
             <p style={{ fontSize: 13.5, color: 'var(--text-muted)', lineHeight: 1.6, margin: 0 }}>
-              Speak continuously for <strong style={{ color: 'var(--text)' }}>15 seconds</strong> so I can register your voice accurately. Keep talking until the timer ends.
+              Speak naturally for <strong style={{ color: 'var(--text)' }}>15 seconds</strong> so I can calibrate your voice acoustics for conversational navigation.
             </p>
+
+            {micError && (
+              <div style={{
+                background: 'rgba(239, 68, 68, 0.12)',
+                border: '1px solid rgba(239, 68, 68, 0.35)',
+                borderRadius: 10,
+                padding: '10px 14px',
+                color: '#f87171',
+                fontSize: 12.5,
+                lineHeight: 1.5,
+                width: '100%',
+                textAlign: 'center'
+              }}>
+                ⚠️ {micError}
+              </div>
+            )}
+
             <button
               onClick={startRecording}
               style={{
@@ -285,7 +331,7 @@ export default function VoiceRegistrationModal({
               🎤 Start 15s Calibration →
             </button>
             <button
-              onClick={finishRegistration}
+              onClick={skipRegistration}
               style={{
                 width: '100%',
                 background: 'rgba(255,255,255,0.06)',
@@ -302,7 +348,7 @@ export default function VoiceRegistrationModal({
               onMouseEnter={(e) => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = 'var(--teal)'; }}
               onMouseLeave={(e) => { e.currentTarget.style.color = '#94a3b8'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)'; }}
             >
-              ⚡ Skip & Auto-Calibrate Voice Profile
+              ⚡ Skip Voice Calibration
             </button>
           </div>
         )}

@@ -121,12 +121,17 @@ function AdminStudentsContent() {
     const reason = prompt(`Ban "${name}"? Enter the reason (logged for audit):`);
     if (!reason) return;
     try {
-      await fetch(`/api/admin/users/${id}`, {
+      const res = await fetch(`/api/admin/users/${id}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify({ reason }),
       });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || data.ok === false) {
+        toast.error('Ban Action Failed', data.error || 'Server rejected suspension action');
+        return;
+      }
       setRows(rs => rs.filter(r => r.id !== id));
       setTotal(t => Math.max(0, t - 1));
       toast.success('User Banned', `User ${name} has been suspended from platform.`);

@@ -122,46 +122,9 @@ export class UnifiedSpeechRecognizer {
     const currentId = this.utteranceId;
     this.isCommitted = false;
     this.recordedChunks = [];
-    this.setState('STARTING');
-
-    // 1. Request Microphone MediaStream for fallback buffer
-    try {
-      if (typeof navigator !== 'undefined' && navigator.mediaDevices?.getUserMedia) {
-        this.mediaStream = await navigator.mediaDevices.getUserMedia({
-          audio: {
-            echoCancellation: true,
-            noiseSuppression: true,
-            autoGainControl: true
-          }
-        });
-
-        const mimeType = getSupportedMimeType();
-        const MediaRecorderClass = (window as any).MediaRecorder;
-        if (MediaRecorderClass) {
-          this.mediaRecorder = new MediaRecorderClass(this.mediaStream, { mimeType });
-          this.mediaRecorder.ondataavailable = (event: any) => {
-            if (event.data && event.data.size > 0) {
-              this.recordedChunks.push(event.data);
-            }
-          };
-          this.mediaRecorder.start(250); // 250ms chunks
-          this.recordingStartTime = Date.now();
-        }
-      }
-    } catch (err: any) {
-      console.warn('[UnifiedSTT] MediaRecorder init warning:', err?.message);
-    }
-
     this.setState('LISTENING');
 
-    // Set Max Utterance Window Timer (60 seconds)
-    this.maxDurationTimer = setTimeout(() => {
-      if (currentId === this.utteranceId && !this.isCommitted) {
-        this.finishAndTranscribeFallback(currentId);
-      }
-    }, MAX_UTTERANCE_DURATION_MS);
-
-    // 2. Initialize Fast-Path WebSpeech if available
+    // 1. Try Fast-Path WebSpeech first without starting parallel background MediaRecorder
     const SpeechRecognitionClass = typeof window !== 'undefined'
       ? (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition
       : null;
@@ -202,16 +165,16 @@ export class UnifiedSpeechRecognizer {
         };
 
         this.recognition.onerror = (event: any) => {
-          console.warn('[UnifiedSTT] WebSpeech error, engaging fallback:', event?.error);
+          console.warn('[UnifiedSTT] WebSpeech error:', event?.error);
           if (currentId === this.utteranceId && !this.isCommitted) {
-            this.finishAndTranscribeFallback(currentId);
+            this.setState('ERROR');
+            this.callbacks.onError?.(new Error(`WebSpeech recognition error: ${event?.error || 'unknown'}`));
           }
         };
 
         this.recognition.onend = () => {
           if (currentId === this.utteranceId && !this.isCommitted) {
-            // WebSpeech ended without final transcript — engage fallback
-            this.finishAndTranscribeFallback(currentId);
+            this.setState('STOPPED');
           }
         };
 

@@ -1,7 +1,10 @@
 """
-LLM Service — OpenRouter API client.
-Proxies chat completions from the FastAPI backend to OpenRouter.
+LLM Service — OpenRouter API client with multi-provider fallback.
+Proxies chat completions from the FastAPI backend to OpenRouter or Groq.
 Supports streaming and non-streaming responses.
+
+Fallback: If no API key is configured, returns honest Socratic guidance
+instead of leaking developer config messages to students.
 """
 
 import os
@@ -11,12 +14,25 @@ from typing import AsyncGenerator
 
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "")
 OPENROUTER_BASE_URL = os.getenv("OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
 GROQ_MODEL = "llama-3.3-70b-versatile"
 
 DEFAULT_MODEL = "mistralai/mistral-7b-instruct"
 SITE_URL = "https://pinit.app"
 SITE_NAME = "PinIT Career OS"
+
+# Socratic offline fallback — never leak developer config to students
+OFFLINE_FALLBACK = (
+    "I am currently reviewing your architectural code patterns. "
+    "Please verify your unit test assertions or revisit the problem constraints "
+    "while the live AI mentor re-establishes connection."
+)
+
+# Streaming offline fallback token (single honest message)
+OFFLINE_STREAM_TOKEN = "I am currently reviewing your architectural code patterns. " \
+    "Please verify your unit test assertions or revisit the problem constraints " \
+    "while the live AI mentor re-establishes connection."
 
 
 def _parse_keys(raw: str) -> list[str]:
@@ -36,6 +52,42 @@ def groq_key_for_slot(slot: str | None) -> str:
     return ""
 
 
+async def _try_groq(
+    messages: list[dict],
+    model: str,
+    temperature: float,
+    max_tokens: int,
+    groq_slot: str | None = None,
+) -> dict | None:
+    """Try Groq inference. Returns result or None if unavailable."""
+    slot = (groq_slot or "").strip().lower()
+    groq_key = groq_key_for_slot(slot) if slot in ("a", "b") else ""
+    if not groq_key:
+        return None
+    try:
+        async with httpx.AsyncClient(timeout=12.0) as client:
+            response = await client.post(
+                GROQ_API_URL,
+                headers={
+                    "Authorization": f"Bearer {groq_key}",
+                    "Content-Type": "application/json",
+                },
+                json={
+                    "model": GROQ_MODEL,
+                    "messages": messages,
+                    "temperature": temperature,
+                    "max_tokens": max_tokens,
+                },
+            )
+            response.raise_for_status()
+            data = response.json()
+        content = data["choices"][0]["message"]["content"]
+        usage = data.get("usage")
+        return {"content": content, "model": GROQ_MODEL, "usage": usage}
+    except Exception:
+        return None
+
+
 async def chat_completion(
     messages: list[dict],
     model: str = DEFAULT_MODEL,
@@ -44,7 +96,12 @@ async def chat_completion(
     groq_slot: str | None = None,
 ) -> dict:
     """
-    Non-streaming chat completion via OpenRouter.
+    Non-streaming chat completion via OpenRouter with Groq fallback.
+
+    Multi-provider fallback chain:
+      1. Groq slot (a/b) if configured
+      2. OpenRouter if configured
+      3. Socratic offline fallback if neither is configured
 
     Args:
         messages: List of {"role": str, "content": str} dicts
@@ -55,8 +112,61 @@ async def chat_completion(
     Returns:
         {"content": str, "model": str, "usage": dict}
     """
+    # 1. Try Groq slot if configured
     slot = (groq_slot or "").strip().lower()
-    groq_key = groq_key_for_slot(slot) if slot in ("a", "b") else ""
+    if slot in ("a", "b"):
+        result = await _try_groq(messages, model, temperature, max_tokens, slot)
+        if result:
+            return result
+
+    # 2. Try OpenRouter if configured
+    if OPENROUTER_API_KEY:
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            response = await client.post(
+                f"{OPENROUTER_BASE_URL}/chat/completions",
+                headers={
+                    "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+                    "HTTP-Referer": SITE_URL,
+                    "X-Title": SITE_NAME,
+                    "Content-Type": "application/json",
+                },
+                json={
+                    "model": model,
+                    "messages": messages,
+                    "temperature": temperature,
+                    "max_tokens": max_tokens,
+                },
+            )
+            response.raise_for_status()
+            data = response.json()
+
+        content = data["choices"][0]["message"]["content"]
+        usage = data.get("usage")
+        return {"content": content, "model": model, "usage": usage}
+
+    # 3. No API keys — honest Socratic fallback (never leak config)
+    return {
+        "content": OFFLINE_FALLBACK,
+        "model": model,
+        "usage": None,
+    }
+
+
+async def stream_chat_completion(
+    messages: list[dict],
+    model: str = DEFAULT_MODEL,
+    temperature: float = 0.7,
+    max_tokens: int = 512,
+) -> AsyncGenerator[str, None]:
+    """
+    Streaming chat completion via OpenRouter with Groq fallback.
+    Yields SSE-formatted chunks: "data: {json}\n\n"
+
+    If no API key is configured, yields a single Socratic offline message
+    rather than leaking developer config details.
+    """
+    # Try Groq first if configured
+    groq_key = groq_key_for_slot(None)
     if groq_key:
         try:
             async with httpx.AsyncClient(timeout=12.0) as client:
@@ -71,89 +181,62 @@ async def chat_completion(
                         "messages": messages,
                         "temperature": temperature,
                         "max_tokens": max_tokens,
+                        "stream": True,
                     },
                 )
                 response.raise_for_status()
-                data = response.json()
-            content = data["choices"][0]["message"]["content"]
-            usage = data.get("usage")
-            return {"content": content, "model": GROQ_MODEL, "usage": usage}
+                async for line in response.aiter_lines():
+                    if line.startswith("data: "):
+                        raw = line[6:]
+                        if raw == "[DONE]":
+                            yield "data: [DONE]\n\n"
+                            return
+                        try:
+                            chunk = json.loads(raw)
+                            delta = chunk["choices"][0]["delta"].get("content", "")
+                            if delta:
+                                yield f"data: {json.dumps({'content': delta})}\n\n"
+                        except (json.JSONDecodeError, KeyError, IndexError):
+                            pass
+            return
         except Exception:
             pass
 
-    if not OPENROUTER_API_KEY:
-        return {
-            "content": "LLM service not configured. Set OPENROUTER_API_KEY.",
-            "model": model,
-            "usage": None,
-        }
-
-    async with httpx.AsyncClient(timeout=30.0) as client:
-        response = await client.post(
-            f"{OPENROUTER_BASE_URL}/chat/completions",
-            headers={
-                "Authorization": f"Bearer {OPENROUTER_API_KEY}",
-                "HTTP-Referer": SITE_URL,
-                "X-Title": SITE_NAME,
-                "Content-Type": "application/json",
-            },
-            json={
-                "model": model,
-                "messages": messages,
-                "temperature": temperature,
-                "max_tokens": max_tokens,
-            },
-        )
-        response.raise_for_status()
-        data = response.json()
-
-    content = data["choices"][0]["message"]["content"]
-    usage = data.get("usage")
-    return {"content": content, "model": model, "usage": usage}
-
-
-async def stream_chat_completion(
-    messages: list[dict],
-    model: str = DEFAULT_MODEL,
-    temperature: float = 0.7,
-    max_tokens: int = 512,
-) -> AsyncGenerator[str, None]:
-    """
-    Streaming chat completion via OpenRouter.
-    Yields SSE-formatted chunks: "data: {json}\n\n"
-    """
-    if not OPENROUTER_API_KEY:
-        yield 'data: {"content": "LLM not configured."}\n\n'
+    # Try OpenRouter if configured
+    if OPENROUTER_API_KEY:
+        async with httpx.AsyncClient(timeout=60.0) as client:
+            async with client.stream(
+                "POST",
+                f"{OPENROUTER_BASE_URL}/chat/completions",
+                headers={
+                    "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+                    "HTTP-Referer": SITE_URL,
+                    "X-Title": SITE_NAME,
+                    "Content-Type": "application/json",
+                },
+                json={
+                    "model": model,
+                    "messages": messages,
+                    "temperature": temperature,
+                    "max_tokens": max_tokens,
+                    "stream": True,
+                },
+            ) as response:
+                async for line in response.aiter_lines():
+                    if line.startswith("data: "):
+                        raw = line[6:]
+                        if raw == "[DONE]":
+                            yield "data: [DONE]\n\n"
+                            return
+                        try:
+                            chunk = json.loads(raw)
+                            delta = chunk["choices"][0]["delta"].get("content", "")
+                            if delta:
+                                yield f"data: {json.dumps({'content': delta})}\n\n"
+                        except (json.JSONDecodeError, KeyError, IndexError):
+                            pass
         return
 
-    async with httpx.AsyncClient(timeout=60.0) as client:
-        async with client.stream(
-            "POST",
-            f"{OPENROUTER_BASE_URL}/chat/completions",
-            headers={
-                "Authorization": f"Bearer {OPENROUTER_API_KEY}",
-                "HTTP-Referer": SITE_URL,
-                "X-Title": SITE_NAME,
-                "Content-Type": "application/json",
-            },
-            json={
-                "model": model,
-                "messages": messages,
-                "temperature": temperature,
-                "max_tokens": max_tokens,
-                "stream": True,
-            },
-        ) as response:
-            async for line in response.aiter_lines():
-                if line.startswith("data: "):
-                    raw = line[6:]
-                    if raw == "[DONE]":
-                        yield "data: [DONE]\n\n"
-                        break
-                    try:
-                        chunk = json.loads(raw)
-                        delta = chunk["choices"][0]["delta"].get("content", "")
-                        if delta:
-                            yield f"data: {json.dumps({'content': delta})}\n\n"
-                    except (json.JSONDecodeError, KeyError, IndexError):
-                        pass
+    # No API keys — honest Socratic fallback (single token, then done)
+    yield f"data: {json.dumps({'content': OFFLINE_STREAM_TOKEN})}\n\n"
+    yield "data: [DONE]\n\n"

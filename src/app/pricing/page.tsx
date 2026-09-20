@@ -11,7 +11,55 @@ import { useAuth } from '@/lib/context/AuthContext';
 import { toast } from '@/lib/store/useAppStore';
 import { openRazorpayCheckout } from '@/lib/razorpay';
 
-export default function PublicPricingPage() {
+const ROADMAP_BADGE = (
+  <span
+    style={{
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: 4,
+      marginLeft: 8,
+      padding: '2px 8px',
+      borderRadius: 999,
+      fontSize: 10,
+      fontWeight: 800,
+      color: '#F59E0B',
+      background: 'rgba(245, 158, 11, 0.12)',
+      border: '1px solid rgba(245, 158, 11, 0.25)',
+      whiteSpace: 'nowrap',
+      verticalAlign: 'middle',
+      lineHeight: 1,
+    }}
+    title="Planned for Q3 2026 — not yet available"
+  >
+    🛣️ Roadmap
+  </span>
+);
+
+const Q3_PILOT_BADGE = (
+  <span
+    style={{
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: 4,
+      marginLeft: 8,
+      padding: '2px 8px',
+      borderRadius: 999,
+      fontSize: 10,
+      fontWeight: 800,
+      color: '#F59E0B',
+      background: 'rgba(245, 158, 11, 0.12)',
+      border: '1px solid rgba(245, 158, 11, 0.25)',
+      whiteSpace: 'nowrap',
+      verticalAlign: 'middle',
+      lineHeight: 1,
+    }}
+    title="Q3 2026 Pilot Access — contact us to join"
+  >
+    🛣️ Q3 Pilot
+  </span>
+);
+
+export default function PublicPricingPageRevamp() {
   const router = useRouter();
   const { user } = useAuth();
   const [checkoutLoading, setCheckoutLoading] = useState(false);
@@ -20,7 +68,7 @@ export default function PublicPricingPage() {
   const faqs = [
     {
       q: 'Is PinIT Career OS truly free for students?',
-      a: 'Yes! The foundational Career OS, all 36 foundation roadmaps, 1,080 handcrafted daily quests, peer Code Wars, and daily missions are 100% free forever. Students earn Pins through active learning and completing daily challenges without ever having to enter a credit card.'
+      a: 'Yes! The foundational Career OS, all 36 foundation roadmaps, 1,080 handcrafted daily quests, peer Code Wars (async leaderboard), and daily missions are 100% free forever. Students earn Pins through active learning and completing daily challenges without ever having to enter a credit card.'
     },
     {
       q: 'What are Pins and how do I earn them?',
@@ -28,11 +76,11 @@ export default function PublicPricingPage() {
     },
     {
       q: 'How does campus institutional licensing work?',
-      a: 'For universities and colleges, our Institutional Campus Pass equips your entire placement cell with cohort employability heatmaps, skill gap diagnostics, automated 1-click NAAC Grade A+ / NIRF exports, and direct corporate recruitment pipelines.'
+      a: 'For universities and colleges, our Institutional Campus Pass equips your entire placement cell with cohort employability heatmaps, skill gap diagnostics, and direct corporate recruitment pipelines. NAAC/NIRF automated exports are on our Q3 2026 roadmap — contact our Institutional Partnerships team for pilot access.'
     },
     {
       q: 'Can enterprise recruiters hire directly from PinIT?',
-      a: 'Yes! Recruiters access pre-assessed talent portfolios verified by automated AST code audits, Elo rating in Code Wars, and SHA-256 signed skill credentials with a 95%+ AI match precision.'
+      a: 'Yes! Recruiters access pre-assessed talent portfolios verified by automated AST code audits and Elo rating in Code Wars. SHA-256 signed skill credentials and AI match precision metrics are on our Q3 2026 roadmap.'
     }
   ];
 
@@ -119,7 +167,7 @@ export default function PublicPricingPage() {
 
       <main style={{ padding: '60px 0 100px', position: 'relative', zIndex: 1 }}>
         <div className="container">
-          
+
           {/* Breadcrumb back to landing */}
           <div style={{ marginBottom: 32 }}>
             <Link href="/" style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
@@ -129,7 +177,7 @@ export default function PublicPricingPage() {
 
           {/* Section Header */}
           <div style={{ textAlign: 'center', maxWidth: 840, margin: '0 auto 60px' }}>
-            <div className="badge-pill">TRANSPARENT PLANS &amp; PIN ECONOMY</div>
+            <div className="badge-pill">TRANSPARENT PLANS & PIN ECONOMY</div>
             <h1 className="hero-title">
               Predictable Pricing for <span className="text-gradient">Every Ambition.</span>
             </h1>
@@ -140,7 +188,7 @@ export default function PublicPricingPage() {
 
           {/* 3 Pricing Cards Grid */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 28, marginBottom: 70 }}>
-            
+
             {/* Tier 1: Student Free */}
             <div className="glass-card" style={{ padding: '36px 30px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderRadius: 24 }}>
               <div>
@@ -164,11 +212,16 @@ export default function PublicPricingPage() {
                     'Cryptographic Proof-of-Work Vault',
                     'Empathetic 3-Step Socratic Recovery Tutors',
                     'Day 30 Capstone Project Verification'
-                  ].map((feat) => (
-                    <li key={feat} style={{ fontSize: 13.5, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: 10 }}>
-                      <span style={{ color: 'var(--accent)', fontWeight: 800 }}>✓</span> {feat}
-                    </li>
-                  ))}
+                  ].map((feat) => {
+                    const isRoadmap = ['Multiplayer Code Wars Arena (Elo Duels)', 'Cryptographic Proof-of-Work Vault'].includes(feat);
+                    return (
+                      <li key={feat} style={{ fontSize: 13.5, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: 10 }}>
+                        <span style={{ color: 'var(--accent)', fontWeight: 800 }}>✓</span>
+                        {feat}
+                        {isRoadmap && ROADMAP_BADGE}
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
 
@@ -204,11 +257,16 @@ export default function PublicPricingPage() {
                     'BLUF & Executive Communication Diagnostics',
                     'Recruiter Priority Invariant Showcase',
                     'Live AST Code Performance Benchmarks'
-                  ].map((feat) => (
-                    <li key={feat} style={{ fontSize: 13.5, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: 10 }}>
-                      <span style={{ color: 'var(--accent)', fontWeight: 800 }}>✓</span> {feat}
-                    </li>
-                  ))}
+                  ].map((feat) => {
+                    const isRoadmap = ['24/7 Voice AI Avatar Mock Interviews'].includes(feat);
+                    return (
+                      <li key={feat} style={{ fontSize: 13.5, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: 10 }}>
+                        <span style={{ color: 'var(--accent)', fontWeight: 800 }}>✓</span>
+                        {feat}
+                        {isRoadmap && ROADMAP_BADGE}
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
 
@@ -235,17 +293,19 @@ export default function PublicPricingPage() {
             {/* Tier 3: Institutional Campus Pass */}
             <div className="glass-card" style={{ padding: '36px 30px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderRadius: 24 }}>
               <div>
-                <span style={{ fontSize: 12, fontWeight: 800, color: '#F59E0B', textTransform: 'uppercase' }}>COLLEGE &amp; INSTITUTION</span>
+                <span style={{ fontSize: 12, fontWeight: 800, color: '#F59E0B', textTransform: 'uppercase' }}>COLLEGE & INSTITUTION</span>
                 <div style={{ fontSize: 40, fontWeight: 900, color: 'var(--text-primary)', margin: '10px 0 14px' }}>
                   Custom <span style={{ fontSize: 14, color: 'var(--text-secondary)' }}>/ campus</span>
                 </div>
                 <p style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 24, lineHeight: 1.6 }}>
-                  Full campus placement cell command center, NAAC audit reports, and batch heatmaps.
+                  Full campus placement cell command center, cohort heatmaps, and batch analytics.
                 </p>
 
                 <div style={{ padding: '14px 18px', borderRadius: 14, background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.3)', marginBottom: 24 }}>
-                  <div style={{ fontSize: 12, fontWeight: 800, color: '#F59E0B', marginBottom: 4 }}>🏛️ 1-CLICK NAAC / NIRF EXPORTS</div>
-                  <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Automated accreditation documentation ready.</div>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: '#F59E0B', marginBottom: 4 }}>
+                    1-CLICK NAAC / NIRF EXPORTS {Q3_PILOT_BADGE}
+                  </div>
+                  <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Automated accreditation exports — Q3 2026 Pilot. Contact us for early access.</div>
                 </div>
 
                 <ul style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 32 }}>
@@ -255,11 +315,16 @@ export default function PublicPricingPage() {
                     'Automated Multi-Round Campus Drives',
                     'Verified AST Code Integrity Audits',
                     'Dedicated Institutional Support & Training'
-                  ].map((feat) => (
-                    <li key={feat} style={{ fontSize: 13.5, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: 10 }}>
-                      <span style={{ color: '#F59E0B', fontWeight: 800 }}>✓</span> {feat}
-                    </li>
-                  ))}
+                  ].map((feat) => {
+                    const isRoadmap = ['Automated Multi-Round Campus Drives'].includes(feat);
+                    return (
+                      <li key={feat} style={{ fontSize: 13.5, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: 10 }}>
+                        <span style={{ color: '#F59E0B', fontWeight: 800 }}>✓</span>
+                        {feat}
+                        {isRoadmap && Q3_PILOT_BADGE}
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
 
@@ -302,7 +367,7 @@ export default function PublicPricingPage() {
               <div style={{ padding: 20, borderRadius: 16, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}>
                 <div style={{ fontSize: 22, fontWeight: 900, color: 'var(--accent)', marginBottom: 6 }}>+30 Pins / Win</div>
                 <strong style={{ fontSize: 14, color: 'var(--text-primary)', display: 'block', marginBottom: 4 }}>Code Wars Arena Victory</strong>
-                <span style={{ fontSize: 12.5, color: 'var(--text-secondary)' }}>Defeat peers in real-time algorithmic speed &amp; memory duels.</span>
+                <span style={{ fontSize: 12.5, color: 'var(--text-secondary)' }}>Defeat peers in async algorithmic speed & memory duels.</span>
               </div>
             </div>
           </div>

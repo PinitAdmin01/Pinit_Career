@@ -55,6 +55,24 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   const [isEnlarged, setIsEnlarged] = useState(false);
   const [showVoiceRegModal, setShowVoiceRegModal] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const [voiceListeningActive, setVoiceListeningActive] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setVoiceListeningActive(localStorage.getItem('pinit_voice_wake_active') === 'true');
+    }
+  }, []);
+
+  const toggleVoiceListening = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    setVoiceListeningActive(prev => {
+      const next = !prev;
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('pinit_voice_wake_active', next ? 'true' : 'false');
+      }
+      return next;
+    });
+  };
 
   // ── Tour state ─────────────────────────────────────────────────────────────
   const [tourActive, setTourActive] = useState(false);
@@ -118,13 +136,14 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     };
   }, [resetIdleTimer]);
 
-  // ── 3. Wake word listener & Speaker Biometrics ("Hey Priya" / "Priya") ────────
+  // ── 3. Wake word listener (Strictly Opt-In & Transparent) ─────────────────
   useEffect(() => {
-    if (typeof window === 'undefined' || isOnboardingOrAuth) return;
+    if (typeof window === 'undefined' || isOnboardingOrAuth || !voiceListeningActive) return;
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (!SpeechRecognition) return;
 
     let recognition: any = null;
+    let isMounted = true;
     try {
       recognition = new SpeechRecognition();
       recognition.continuous = true;
@@ -132,14 +151,16 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
       recognition.lang = 'en-US';
 
       recognition.onresult = (event: any) => {
+        if (!isMounted) return;
         const transcript = Array.from(event.results)
           .map((r: any) => r[0].transcript)
           .join(' ')
           .toLowerCase();
 
         const mentorName = teacher.name.split(' ')[1]?.toLowerCase() || teacher.name.toLowerCase();
+        // Clean wake words (removed false triggers: freya, riya)
         const hasWakeWord = /\b(hey|hay|hi|hello)\b/i.test(transcript) ||
-                            /\b(priya|preya|pria|freya|riya|anish|vikram|kashyap|karthic|maya|divya)\b/i.test(transcript) ||
+                            /\b(priya|anish|vikram|kashyap|karthic|maya|divya|aisha|rohan|shalini)\b/i.test(transcript) ||
                             transcript.includes(mentorName);
 
         if (!hasWakeWord) return;
@@ -186,17 +207,28 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
         speakWithAvatar(`Yes! I am here. Say "go to missions" or ask "what should I do now?"`, teacherId, () => {}, () => {});
       };
 
+      recognition.onerror = (err: any) => {
+        if (err.error === 'not-allowed') {
+          console.warn('Speech recognition permission denied.');
+          setVoiceListeningActive(false);
+          if (typeof window !== 'undefined') {
+            localStorage.setItem('pinit_voice_wake_active', 'false');
+          }
+        }
+      };
+
       recognition.start();
     } catch (err) {
       console.error('Speech recognition listener error:', err);
     }
 
     return () => {
+      isMounted = false;
       if (recognition) {
         try { recognition.stop(); } catch {}
       }
     };
-  }, [teacher.name, teacherId, user?.id, resetIdleTimer, cleanPath, router, isOnboardingOrAuth]);
+  }, [teacher.name, teacherId, user?.id, resetIdleTimer, cleanPath, router, isOnboardingOrAuth, voiceListeningActive]);
 
   // ── Auto-start story tour post-onboarding ──────────────────────────────────
   useEffect(() => {
@@ -589,10 +621,37 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
             <div style={{ fontFamily: 'var(--font-display)', fontSize: 12, fontWeight: 800, color: 'var(--text)' }}>
               {teacher.name}
             </div>
-            <div style={{ fontSize: 9.5, color: '#a5b4fc', fontFamily: 'var(--font-mono)' }}>
-              AI Mentor · Click to Chat
+            <div style={{ fontSize: 9.5, color: voiceListeningActive ? '#34d399' : '#a5b4fc', fontFamily: 'var(--font-mono)', display: 'flex', alignItems: 'center', gap: 4 }}>
+              {voiceListeningActive ? (
+                <>
+                  <span style={{ color: '#ef4444' }}>🎙️</span> Listening
+                </>
+              ) : (
+                <>AI Mentor · Muted</>
+              )}
             </div>
           </div>
+          <button
+            type="button"
+            onClick={toggleVoiceListening}
+            title={voiceListeningActive ? 'Microphone listening active. Click to mute.' : 'Microphone muted. Click to enable voice wake word.'}
+            style={{
+              background: voiceListeningActive ? 'rgba(239, 68, 68, 0.2)' : 'rgba(255, 255, 255, 0.08)',
+              border: `1px solid ${voiceListeningActive ? 'rgba(239, 68, 68, 0.5)' : 'rgba(255, 255, 255, 0.15)'}`,
+              borderRadius: '50%',
+              width: 26,
+              height: 26,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: 12,
+              cursor: 'pointer',
+              marginLeft: 4,
+              color: voiceListeningActive ? '#ef4444' : '#94a3b8'
+            }}
+          >
+            {voiceListeningActive ? '🎙️' : '🔇'}
+          </button>
         </div>
       )}
 

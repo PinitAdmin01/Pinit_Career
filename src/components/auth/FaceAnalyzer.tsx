@@ -176,7 +176,7 @@ export default function FaceAnalyzer({
             }
             lastEarRef.current = avgEar;
 
-            const isLivenessPassed = blinkCountRef.current >= 1 || descriptorsRef.current.length >= 3;
+            const isLivenessPassed = blinkCountRef.current >= 1;
 
             // Face Box metrics
             const box = detection.detection.box;
@@ -227,28 +227,27 @@ export default function FaceAnalyzer({
     stopCamera();
 
     try {
-      const fapi = (window as any).faceapi;
-      let liveDescriptor: number[] = [];
-
-      if (descriptorsRef.current.length > 0) {
-        // Average captured vectors
-        const dim = descriptorsRef.current[0].length;
-        liveDescriptor = new Array(dim).fill(0);
-        descriptorsRef.current.forEach((vec) => {
-          vec.forEach((val, idx) => (liveDescriptor[idx] += val));
-        });
-        liveDescriptor = liveDescriptor.map((val) => val / descriptorsRef.current.length);
-      } else {
-        // Fallback synthetic vector for demo authorization
-        liveDescriptor = Array.from({ length: 128 }, () => (Math.random() - 0.5) * 0.1);
+      if (descriptorsRef.current.length === 0) {
+        // No face data captured — abort immediately. Never send a synthetic or random vector.
+        setState('error');
+        setStatusMessage('No face captured. Position your face clearly in the frame and try again.');
+        return;
       }
+
+      // Average all captured descriptor vectors for a robust final embedding
+      const dim = descriptorsRef.current[0].length;
+      const liveDescriptor: number[] = new Array(dim).fill(0);
+      descriptorsRef.current.forEach((vec) => {
+        vec.forEach((val, idx) => (liveDescriptor[idx] += val));
+      });
+      const averaged = liveDescriptor.map((val) => val / descriptorsRef.current.length);
 
       if (mode === 'enroll') {
         // Submit enrollment descriptors
         const res = await fetch('/api/auth/face/enroll', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ descriptors: [liveDescriptor], username }),
+          body: JSON.stringify({ descriptors: [averaged], username }),
         });
         const data = await res.json();
         if (data.ok || data.success) {
@@ -259,17 +258,26 @@ export default function FaceAnalyzer({
           throw new Error(data.error || 'Enrollment failed.');
         }
       } else {
-        // Verify login descriptor
-        if (!username?.trim()) {
-          throw new Error('Username required for face verification.');
+        // Verify mode — requires an authenticated session and a valid challenge nonce.
+        // Note: face verification adds a second-factor liveness check for already-logged-in users.
+        // It cannot log someone in — requireUserFromRequest on the server enforces this.
+
+        // Step 1: Obtain a one-time challenge nonce (sets HttpOnly cookie + returns nonce in body)
+        const nonceRes = await fetch('/api/auth/face/nonce', { method: 'GET' });
+        if (!nonceRes.ok) {
+          const nonceErr = await nonceRes.json().catch(() => ({}));
+          throw new Error(nonceErr.error || 'Session required for face verification. Please log in first.');
         }
+        const { nonce } = await nonceRes.json();
+
+        // Step 2: Submit descriptor + nonce for server-side verification
         const res = await fetch('/api/auth/face/verify', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            descriptor: liveDescriptor,
-            username: username.trim(),
-            livenessVerified: metrics.livenessVerified,
+            descriptor: averaged,
+            nonce, // Must match the HttpOnly cookie set by /api/auth/face/nonce
+            // livenessVerified is intentionally omitted — the server never trusts client-supplied liveness
           }),
         });
 
@@ -277,8 +285,8 @@ export default function FaceAnalyzer({
 
         if (data.success && data.match) {
           setState('success');
-          setMetrics((prev) => ({ ...prev, matchConfidence: data.confidence || 98 }));
-          setStatusMessage(`Match Verified (${data.confidence || 98}% Confidence). Redirecting...`);
+          setMetrics((prev) => ({ ...prev, matchConfidence: data.confidence || 0 }));
+          setStatusMessage(`Biometric Match Verified (${data.confidence}% Confidence).`);
           setTimeout(() => {
             onSuccess?.(data.user);
           }, 800);
@@ -416,7 +424,9 @@ export default function FaceAnalyzer({
               <div style={{ fontSize: 48, color: 'var(--success)', marginBottom: 6 }}>✓</div>
               <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--success)' }}>Authenticated</div>
               <div style={{ fontSize: 12, color: '#a7f3d0', marginTop: 4 }}>
-                100% Accuracy Verified ({metrics.matchConfidence || 99}% Match)
+                {metrics.matchConfidence > 0
+                  ? `Biometric Match (${metrics.matchConfidence}% Confidence)`
+                  : 'Biometric enrollment recorded'}
               </div>
             </div>
           )}
@@ -468,7 +478,8 @@ export default function FaceAnalyzer({
 
         {/* Action Controls */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10, width: '100%', maxWidth: 360 }}>
-          {state === 'analyzing' && (
+          {/* Instant Verify only available in verify mode after liveness is confirmed */}
+          {state === 'analyzing' && mode !== 'enroll' && metrics.livenessVerified && metrics.capturedFrames >= 3 && (
             <button
               onClick={() => triggerVerification()}
               className="btn-primary"
@@ -485,7 +496,7 @@ export default function FaceAnalyzer({
                 boxShadow: '0 4px 14px rgba(79, 70, 229, 0.4)',
               }}
             >
-              ⚡ Instant Verify &amp; Sign In
+              ⚡ Verify Biometrics
             </button>
           )}
 

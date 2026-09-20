@@ -29,11 +29,11 @@ export const CURRENT_RENDER_TIER: RenderTier =
 
 const DEFAULT_CLOUD_ENDPOINT =
   process.env.NEXT_PUBLIC_TTS_API_URL ||
-  "https://pinit-voice-service.onrender.com/api/tts";
+  "https://pinit-voice-service.onrender.com/api/v1/tts";
 
 function healthUrlFromTts(endpoint: string): string {
   const base = (endpoint || "https://pinit-voice-service.onrender.com").replace(/\/api(\/v\d+)?\/tts\/?$/i, '');
-  return `${base}/health`;
+  return `${base}/api/v1/health`;
 }
 
 let isServerWarming = false;
@@ -43,9 +43,15 @@ let lastWarmAt = 0;
 let activeWakePromise: Promise<boolean> | null = null;
 const inFlightCloudRequests = new Map<string, Promise<{ audioBuffer: ArrayBuffer; durationSec: number; engine?: string }>>();
 
-/** Free-tier Render sleeps ~15m — keep a fast failover timeout so the UI never freezes. */
-const FREE_TIER_TIMEOUT_MS = 2_000;
+/** Free-tier Render sleeps after ~15m inactivity — cold instance boot takes 15-25s. */
+const FREE_TIER_TIMEOUT_MS = 25_000;
 const PREMIUM_TIMEOUT_MS = 10_000;
+
+export function notifyVoiceStatus(status: 'warming' | 'neural_ready' | 'fallback') {
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('pc_voice_status_changed', { detail: { status } }));
+  }
+}
 
 /**
  * Non-blocking / blocking wake-up ping for Render Free Tier.
@@ -58,9 +64,10 @@ export async function pingRenderServer(waitForWarm = false): Promise<boolean> {
 
   activeWakePromise = (async () => {
     isServerWarming = true;
+    notifyVoiceStatus('warming');
     const endpoint = DEFAULT_CLOUD_ENDPOINT;
     const health = healthUrlFromTts(endpoint);
-    const timeoutMs = Math.min(FREE_TIER_TIMEOUT_MS, 2_000);
+    const timeoutMs = waitForWarm ? FREE_TIER_TIMEOUT_MS : 4_000;
 
     const tryPing = async (mode: "cors" | "no-cors") => {
       const controller = new AbortController();
@@ -68,15 +75,11 @@ export async function pingRenderServer(waitForWarm = false): Promise<boolean> {
       try {
         const res = await fetch(health, { method: "GET", mode, signal: controller.signal });
         clearTimeout(timer);
-        if (res.status === 404) {
-          isCloudDisabled = true;
-          console.warn("[SmartVoiceRouter] Voice service health returned 404. Disabling cloud voice for this session.");
-          return false;
-        }
         if (mode === "no-cors" || res.ok) {
           isServerWarm = true;
           lastWarmAt = Date.now();
           console.log("[SmartVoiceRouter] Render voice service is warm.");
+          notifyVoiceStatus('neural_ready');
           return true;
         }
       } catch {
@@ -89,6 +92,10 @@ export async function pingRenderServer(waitForWarm = false): Promise<boolean> {
     let ok = await tryPing("cors");
     if (!ok && !isCloudDisabled) {
       ok = await tryPing("no-cors");
+    }
+
+    if (!ok) {
+      notifyVoiceStatus('fallback');
     }
 
     isServerWarming = false;

@@ -17,17 +17,6 @@ function getDiskCachePath(): string {
   }
 }
 
-function getPersistentDbPath(): string {
-  try {
-    const dir = path.join(process.cwd(), 'src', 'lib', 'data');
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-    return path.join(dir, 'face_biometrics_db.json');
-  } catch {
-    return '';
-  }
-}
 
 interface FaceDiskRecord {
   vector: number[];
@@ -57,12 +46,6 @@ function parseDiskRecords(data: Record<string, any>): Record<string, FaceDiskRec
 
 function readRawDiskCache(): Record<string, FaceDiskRecord> {
   try {
-    const persistentPath = getPersistentDbPath();
-    if (persistentPath && fs.existsSync(persistentPath)) {
-      const raw = fs.readFileSync(persistentPath, 'utf-8');
-      const data = JSON.parse(raw);
-      if (typeof data === 'object' && data !== null) return parseDiskRecords(data);
-    }
     const filePath = getDiskCachePath();
     if (filePath && fs.existsSync(filePath)) {
       const raw = fs.readFileSync(filePath, 'utf-8');
@@ -114,11 +97,6 @@ function writeDiskCache(key: string, vector: number[]) {
           jsonStr = JSON.stringify(records, null, 2);
         }
       }
-    }
-
-    const persistentPath = getPersistentDbPath();
-    if (persistentPath) {
-      fs.writeFileSync(persistentPath, jsonStr, 'utf-8');
     }
 
     const filePath = getDiskCachePath();

@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import PublicNavbar from '@/components/nav/PublicNavbar';
 import PublicFooter from '@/components/landing/PublicFooter';
 import '@/styles/landing.css';
 
-export default function CampusDemoPage() {
+export default function CampusDemoPageRevamp() {
   const [demoForm, setDemoForm] = useState({
     name: '',
     email: '',
@@ -18,15 +18,56 @@ export default function CampusDemoPage() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
+
     if (!demoForm.name || !demoForm.email || !demoForm.institution) return;
+
     setLoading(true);
-    setTimeout(() => {
+
+    const fallbackMessage = `Requesting institutional campus demo for ${demoForm.institution} (${demoForm.studentCount}). Phone: ${demoForm.phone || 'N/A'}, Role: ${demoForm.role}`;
+
+    const payload = {
+      name: demoForm.name,
+      email: demoForm.email,
+      persona: demoForm.role,
+      institution: demoForm.institution,
+      subject: `Institutional Demo Request: ${demoForm.institution}`,
+      message: demoForm.message.trim().length >= 5
+        ? demoForm.message.trim()
+        : fallbackMessage
+    };
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.message || 'Submission failed. Please try again.');
+        setLoading(false);
+        return;
+      }
+
       setLoading(false);
       setSubmitted(true);
-    }, 700);
+    } catch (err) {
+      setLoading(false);
+      setError('Network error. Please check your connection and try again.');
+    }
+  };
+
+  const handleReset = () => {
+    setSubmitted(false);
+    setError(null);
+    setDemoForm({ name: '', email: '', phone: '', role: 'Placement Director / Head of Placements', institution: '', studentCount: '1,000 - 5,000 students', message: '' });
   };
 
   return (
@@ -35,7 +76,7 @@ export default function CampusDemoPage() {
 
       <main style={{ padding: '60px 0 100px', position: 'relative', zIndex: 1 }}>
         <div className="container">
-          
+
           {/* Breadcrumb back to landing */}
           <div style={{ marginBottom: 32 }}>
             <Link href="/" style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
@@ -84,7 +125,7 @@ export default function CampusDemoPage() {
 
           {/* Form & Consultation Grid */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: 40, alignItems: 'start' }}>
-            
+
             {/* Left Column: Context & Guarantees */}
             <div>
               <span className="tag-pill-sub">INSTITUTIONAL PILOT PROGRAM</span>
@@ -119,14 +160,11 @@ export default function CampusDemoPage() {
                   <div style={{ fontSize: 48, marginBottom: 16 }}>🎉</div>
                   <h3 style={{ fontSize: 22, fontWeight: 900, color: 'var(--text-primary)', marginBottom: 8 }}>Demo Request Received!</h3>
                   <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: 24 }}>
-                    Thank you, {demoForm.name}. Our Institutional Partnerships Director will contact you at <strong>{demoForm.email}</strong> within 4 business hours to schedule your walkthrough.
+                    Thank you, {demoForm.name}. Your request has been officially registered in our institutional inquiry queue. Our Institutional Partnerships Director will contact you at <strong>{demoForm.email}</strong> within 4 business hours to schedule your walkthrough.
                   </p>
                   <button
                     type="button"
-                    onClick={() => {
-                      setSubmitted(false);
-                      setDemoForm({ name: '', email: '', phone: '', role: 'Placement Director / Head of Placements', institution: '', studentCount: '1,000 - 5,000 students', message: '' });
-                    }}
+                    onClick={handleReset}
                     className="pc-btn-outline"
                   >
                     Submit Another Request
@@ -135,7 +173,43 @@ export default function CampusDemoPage() {
               ) : (
                 <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                   <h3 style={{ fontSize: 20, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 4 }}>Institutional Request Form</h3>
-                  
+
+                  {/* Error Banner */}
+                  {error && (
+                    <div
+                      style={{
+                        background: 'rgba(244, 63, 94, 0.12)',
+                        border: '1px solid rgba(244, 63, 94, 0.35)',
+                        borderRadius: 12,
+                        padding: '12px 16px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        gap: 12,
+                        marginBottom: 4
+                      }}
+                    >
+                      <span style={{ fontSize: 13, color: '#f43f5e', fontWeight: 600, lineHeight: 1.4 }}>{error}</span>
+                      <button
+                        type="button"
+                        onClick={() => setError(null)}
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          color: '#f43f5e',
+                          fontSize: 16,
+                          cursor: 'pointer',
+                          padding: '0 4px',
+                          lineHeight: 1,
+                          flexShrink: 0
+                        }}
+                        aria-label="Dismiss error"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  )}
+
                   <div>
                     <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>Full Name *</label>
                     <input
@@ -144,6 +218,7 @@ export default function CampusDemoPage() {
                       placeholder="Dr. Rajesh Sharma"
                       value={demoForm.name}
                       onChange={(e) => setDemoForm(prev => ({ ...prev, name: e.target.value }))}
+                      disabled={loading}
                       style={{ width: '100%', padding: '11px 14px', borderRadius: 10, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontSize: 13, outline: 'none' }}
                     />
                   </div>
@@ -157,6 +232,7 @@ export default function CampusDemoPage() {
                         placeholder="placement@college.edu.in"
                         value={demoForm.email}
                         onChange={(e) => setDemoForm(prev => ({ ...prev, email: e.target.value }))}
+                        disabled={loading}
                         style={{ width: '100%', padding: '11px 14px', borderRadius: 10, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontSize: 13, outline: 'none' }}
                       />
                     </div>
@@ -167,6 +243,7 @@ export default function CampusDemoPage() {
                         placeholder="+91 98765 43210"
                         value={demoForm.phone}
                         onChange={(e) => setDemoForm(prev => ({ ...prev, phone: e.target.value }))}
+                        disabled={loading}
                         style={{ width: '100%', padding: '11px 14px', borderRadius: 10, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontSize: 13, outline: 'none' }}
                       />
                     </div>
@@ -180,6 +257,7 @@ export default function CampusDemoPage() {
                       placeholder="National Institute of Technology"
                       value={demoForm.institution}
                       onChange={(e) => setDemoForm(prev => ({ ...prev, institution: e.target.value }))}
+                      disabled={loading}
                       style={{ width: '100%', padding: '11px 14px', borderRadius: 10, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontSize: 13, outline: 'none' }}
                     />
                   </div>
@@ -190,6 +268,7 @@ export default function CampusDemoPage() {
                       <select
                         value={demoForm.role}
                         onChange={(e) => setDemoForm(prev => ({ ...prev, role: e.target.value }))}
+                        disabled={loading}
                         style={{ width: '100%', padding: '11px 14px', borderRadius: 10, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontSize: 13, outline: 'none' }}
                       >
                         <option>Placement Director / TPO</option>
@@ -205,6 +284,7 @@ export default function CampusDemoPage() {
                       <select
                         value={demoForm.studentCount}
                         onChange={(e) => setDemoForm(prev => ({ ...prev, studentCount: e.target.value }))}
+                        disabled={loading}
                         style={{ width: '100%', padding: '11px 14px', borderRadius: 10, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontSize: 13, outline: 'none' }}
                       >
                         <option>Under 1,000 students</option>
@@ -222,6 +302,7 @@ export default function CampusDemoPage() {
                       placeholder="We are looking to improve our 2026 CS & ECE placement rate and automate NAAC Criterion 5 metrics..."
                       value={demoForm.message}
                       onChange={(e) => setDemoForm(prev => ({ ...prev, message: e.target.value }))}
+                      disabled={loading}
                       style={{ width: '100%', padding: '11px 14px', borderRadius: 10, background: 'var(--bg-secondary)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', fontSize: 13, outline: 'none', resize: 'vertical' }}
                     />
                   </div>
@@ -230,9 +311,22 @@ export default function CampusDemoPage() {
                     type="submit"
                     className="pc-btn-primary"
                     disabled={loading}
-                    style={{ width: '100%', justifyContent: 'center', padding: '14px', fontSize: 14, marginTop: 6 }}
+                    style={{ width: '100%', justifyContent: 'center', padding: '14px', fontSize: 14, marginTop: 6, opacity: loading ? 0.7 : 1, cursor: loading ? 'wait' : 'pointer' }}
                   >
-                    {loading ? 'Submitting Request...' : 'Schedule Campus Walkthrough →'}
+                    {loading ? (
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                        <span style={{
+                          display: 'inline-block',
+                          width: 14,
+                          height: 14,
+                          border: '2px solid rgba(255,255,255,0.3)',
+                          borderTopColor: '#fff',
+                          borderRadius: '50%',
+                          animation: 'spin 0.8s linear infinite'
+                        }} />
+                        Submitting Request...
+                      </span>
+                    ) : 'Schedule Campus Walkthrough →'}
                   </button>
                 </form>
               )}
@@ -244,6 +338,12 @@ export default function CampusDemoPage() {
       </main>
 
       <PublicFooter />
+
+      <style>{`
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </div>
   );
 }

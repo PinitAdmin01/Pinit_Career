@@ -1,10 +1,11 @@
 /**
- * useVoiceBiometrics — Advanced Speaker Identification & Biometric Verification Engine
+ * useVoiceBiometrics — Client-Side Acoustic Feature Extraction & Voice Interaction Helper
  * 
- * Extracts multi-dimensional acoustic features (Fundamental Pitch F0, Pitch Standard Deviation,
- * Spectral Centroid Fc, Spectral Rolloff, and 12-bin Mel-Frequency Filterbank Energy Ratios / MFCC)
- * to construct a unique vocal tract biometric signature that accurately distinguishes between different speakers
- * (even friends with similar voice pitches), synced persistently with Supabase.
+ * Provides acoustic feature extraction (Fundamental Pitch F0 via autocorrelation,
+ * Spectral Centroid Fc, Spectral Rolloff, and Mel-Filterbank energy approximations)
+ * for conversational voice guidance and adaptive voice UI feedback.
+ * Note: Browser audio extraction is subject to ambient noise, hardware gain, and room
+ * acoustics, and serves as an advisory assistant feature rather than an access-control boundary.
  */
 
 export interface VoicePrint {
@@ -42,6 +43,65 @@ function hzToMel(hz: number): number {
 
 function melToHz(mel: number): number {
   return 700 * (Math.pow(10, mel / 2595) - 1);
+}
+
+// ── Autocorrelation Pitch Detector (YIN / AMDF approach) ───────────────────
+export function detectPitch(buffer: Float32Array, sampleRate: number): number {
+  const SIZE = buffer.length;
+  let rms = 0;
+
+  for (let i = 0; i < SIZE; i++) {
+    const val = buffer[i];
+    rms += val * val;
+  }
+  rms = Math.sqrt(rms / SIZE);
+  if (rms < 0.008) return -1; // Silent frame
+
+  // Trim silent ends of the frame
+  let r1 = 0;
+  let r2 = SIZE - 1;
+  const thres = 0.002;
+  for (let i = 0; i < SIZE / 2; i++) {
+    if (Math.abs(buffer[i]) > thres) { r1 = i; break; }
+  }
+  for (let i = SIZE - 1; i >= SIZE / 2; i--) {
+    if (Math.abs(buffer[i]) > thres) { r2 = i; break; }
+  }
+
+  const buf = buffer.subarray(r1, r2);
+  const len = buf.length;
+  if (len < 256) return -1; // Not enough samples
+
+  // Autocorrelation calculation
+  const c = new Float32Array(len);
+  for (let i = 0; i < len; i++) {
+    for (let j = 0; j < len - i; j++) {
+      c[i] += buf[j] * buf[j + i];
+    }
+  }
+
+  // Find peak
+  let d = 0;
+  while (d < len - 1 && c[d] > c[d + 1]) d++;
+
+  let maxval = -1;
+  let maxpos = -1;
+  for (let i = d; i < len; i++) {
+    if (c[i] > maxval) {
+      maxval = c[i];
+      maxpos = i;
+    }
+  }
+
+  if (maxpos <= 0) return -1;
+
+  const T0 = maxpos;
+  const pitch = sampleRate / T0;
+
+  if (pitch >= 75 && pitch <= 350) {
+    return pitch;
+  }
+  return -1;
 }
 
 // ── Extract 12-Bin Mel Filterbank Energies from FFT Magnitude Data ─────────
@@ -301,23 +361,23 @@ export function verifyVoiceSignature(
   }
 
   // ── Calculate Multi-Feature Biometric Distance ──
-  // A. Fundamental Pitch Difference (Strict 18% bound for individual identity)
+  // A. Fundamental Pitch Difference (Adaptive tolerance: 35% to account for microphone variances)
   const pitchDiffRatio = Math.abs(sampleAvgPitch - targetPrint.avgPitch) / Math.max(1, targetPrint.avgPitch);
-  const pitchScore = Math.max(0, 1.0 - (pitchDiffRatio / 0.18)); // 0 at 18% diff
+  const pitchScore = Math.max(0, 1.0 - (pitchDiffRatio / 0.35));
 
   // B. Spectral Centroid / Timbre Difference — ignore when centroid was not measured
   const hasCentroid = centroids.length > 0;
   const centroidDiffRatio = hasCentroid
     ? Math.abs(sampleAvgCentroid - targetPrint.spectralCentroid) / Math.max(100, targetPrint.spectralCentroid)
     : 1;
-  const centroidScore = hasCentroid ? Math.max(0, 1.0 - (centroidDiffRatio / 0.22)) : 0;
+  const centroidScore = hasCentroid ? Math.max(0, 1.0 - (centroidDiffRatio / 0.35)) : 0;
 
   // C. MFCC Filterbank Cosine Similarity
   const mfccSim = hasRealMfcc
     ? cosineSimilarity(avgSampleMfcc, targetPrint.mfccVector || avgSampleMfcc)
     : 0;
 
-  // Weight only features that were actually measured (avoid fake 100% MFCC matches).
+  // Weight only features that were actually measured
   let combinedMatchScore: number;
   if (hasRealMfcc && hasCentroid) {
     combinedMatchScore = (mfccSim * 0.40) + (pitchScore * 0.35) + (centroidScore * 0.25);
@@ -328,12 +388,11 @@ export function verifyVoiceSignature(
   }
   const confidence = Math.round(combinedMatchScore * 100) / 100;
 
-  // Strict Threshold for Speaker Verification
+  // Adaptive Threshold for Speaker Verification (avoids locking real users out due to mic variations)
   const verified =
-    pitchDiffRatio <= 0.18 &&
-    (!hasCentroid || centroidDiffRatio <= 0.22) &&
-    (!hasRealMfcc || mfccSim >= 0.70) &&
-    combinedMatchScore >= 0.72;
+    pitchDiffRatio <= 0.35 &&
+    (!hasCentroid || centroidDiffRatio <= 0.35) &&
+    combinedMatchScore >= 0.50;
 
   if (verified) {
     return {
@@ -342,18 +401,15 @@ export function verifyVoiceSignature(
       measuredPitch: Math.round(sampleAvgPitch),
       measuredCentroid: Math.round(sampleAvgCentroid),
       cosineSimilarity: Math.round(mfccSim * 100) / 100,
-      reason: `Owner voice biometrics verified (Pitch: ${Math.round(sampleAvgPitch)}Hz, Timbre Match: ${(mfccSim * 100).toFixed(0)}%).`
+      reason: `Speaker voice profile matched (Pitch: ${Math.round(sampleAvgPitch)}Hz, Confidence: ${(confidence * 100).toFixed(0)}%).`
     };
   } else {
-    let failReason = `Speaker identity mismatch. `;
-    if (pitchDiffRatio > 0.18) {
-      failReason += `Pitch delta ${Math.round(sampleAvgPitch)}Hz vs registered ${targetPrint.avgPitch}Hz (${(pitchDiffRatio * 100).toFixed(1)}% diff). `;
+    let failReason = `Speaker voice profile variance detected. `;
+    if (pitchDiffRatio > 0.35) {
+      failReason += `Pitch difference ${Math.round(sampleAvgPitch)}Hz vs registered ${targetPrint.avgPitch}Hz (${(pitchDiffRatio * 100).toFixed(1)}%). `;
     }
-    if (centroidDiffRatio > 0.22) {
-      failReason += `Vocal timbre delta (${(centroidDiffRatio * 100).toFixed(1)}% diff). `;
-    }
-    if (mfccSim < 0.70) {
-      failReason += `Vocal tract fingerprint similarity low (${(mfccSim * 100).toFixed(0)}%).`;
+    if (centroidDiffRatio > 0.35) {
+      failReason += `Timbre difference (${(centroidDiffRatio * 100).toFixed(1)}%). `;
     }
 
     return {

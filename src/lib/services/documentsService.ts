@@ -86,20 +86,36 @@ export const documentsService = {
     let requests: DocumentRequest[] = [];
     let studentInfo = { major: 'Computer Science & Engineering', year: 'Class of 2026' };
 
+    let dbClient: any = supabase;
+    if (typeof window === 'undefined') {
+      try {
+        const { getSupabaseAdmin } = await import('@/lib/server/supabaseAdmin');
+        dbClient = getSupabaseAdmin();
+      } catch {}
+    }
+
     if (isSupabaseAvailable) {
       try {
-        const { data: user } = await supabase.from('users').select('department, branch, batch_year, semester').eq('id', studentId).maybeSingle();
+        const { data: user } = await dbClient
+          .from('users')
+          .select('department, branch, batch_year, semester, onboarding_answers')
+          .eq('id', studentId)
+          .maybeSingle();
+
         if (user) {
+          const ob = (user.onboarding_answers || {}) as Record<string, any>;
+          const resolvedMajor = user.department || user.branch || ob.courseTrack || ob.branch || ob.department || 'Computer Science & Engineering';
+          const resolvedYear = user.batch_year ? `Batch of ${user.batch_year}` : (ob.batch_year ? `Batch of ${ob.batch_year}` : (user.semester ? `Semester ${user.semester}` : 'Class of 2026'));
           studentInfo = {
-            major: user.department || user.branch || 'Computer Science & Engineering',
-            year: user.batch_year ? `Batch of ${user.batch_year}` : (user.semester ? `Semester ${user.semester}` : 'Class of 2026')
+            major: resolvedMajor,
+            year: resolvedYear
           };
         }
       } catch {}
 
       try {
-        const { data } = await supabase.from('document_requests').select('*').eq('student_id', studentId);
-        requests = (data || []).map(r => ({
+        const { data } = await dbClient.from('document_requests').select('*').eq('student_id', studentId);
+        requests = (data || []).map((r: any) => ({
           id: r.id,
           studentId: r.student_id,
           category: r.category,

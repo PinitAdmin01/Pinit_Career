@@ -18,9 +18,7 @@ export async function DELETE(
     const { error: updateErr } = await admin
       .from('users')
       .update({
-        suspended: true,
         role: 'suspended',
-        updated_at: new Date().toISOString(),
       })
       .eq('id', targetUserId);
 

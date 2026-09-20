@@ -259,3 +259,79 @@ describe('money, XP and badge functions are server-only', () => {
     assert.equal(Number(rows[0].balance), (await profile(studentA)).pins);
   });
 });
+
+describe('attendance records are staff-write and self-read', () => {
+  before(async () => {
+    await asUser(
+      db,
+      teacher,
+      `insert into public.student_attendance (student_id, subjects, focus_streak)
+       values ($1, '[{"code":"CS101","percentage":85}]'::jsonb, 5)`,
+      [studentA]
+    );
+  });
+
+  test('a student cannot insert into student_attendance', async () => {
+    await attempt(() =>
+      asUser(
+        db,
+        studentB,
+        `insert into public.student_attendance (student_id, subjects, focus_streak) values ($1, '[]'::jsonb, 10)`,
+        [studentB]
+      )
+    );
+    const { rows } = await db.query(`select student_id from public.student_attendance where student_id = $1`, [studentB]);
+    assert.equal(rows.length, 0);
+  });
+
+  test('a student cannot update their own attendance', async () => {
+    await attempt(() =>
+      asUser(
+        db,
+        studentA,
+        `update public.student_attendance set focus_streak = 999 where student_id = $1`,
+        [studentA]
+      )
+    );
+    const { rows } = await db.query<{ focus_streak: number }>(
+      `select focus_streak from public.student_attendance where student_id = $1`,
+      [studentA]
+    );
+    assert.equal(rows[0].focus_streak, 5);
+  });
+
+  test('a student cannot read another student attendance', async () => {
+    const { rows } = await asUser(
+      db,
+      studentB,
+      `select * from public.student_attendance where student_id = $1`,
+      [studentA]
+    );
+    assert.equal(rows.length, 0);
+  });
+
+  test('a student can read their own attendance', async () => {
+    const { rows } = await asUser(
+      db,
+      studentA,
+      `select student_id from public.student_attendance where student_id = $1`,
+      [studentA]
+    );
+    assert.equal(rows.length, 1);
+  });
+
+  test('a teacher can record attendance for any student', async () => {
+    await asUser(
+      db,
+      teacher,
+      `insert into public.student_attendance (student_id, subjects, focus_streak) values ($1, '[]'::jsonb, 2)`,
+      [studentB]
+    );
+    const { rows } = await db.query<{ focus_streak: number }>(
+      `select focus_streak from public.student_attendance where student_id = $1`,
+      [studentB]
+    );
+    assert.equal(rows[0].focus_streak, 2);
+  });
+});
+

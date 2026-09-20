@@ -261,24 +261,46 @@ export const admissionsService = {
     return { ok: true };
   },
 
-  async apply(studentId: string, studentName: string, course: string, rank: number) {
+  async apply(
+    studentId: string,
+    studentName: string,
+    course: string,
+    rank?: number,
+    email?: string,
+    gpa?: string | number,
+    marksheetFile?: string
+  ) {
     const isSupabaseAvailable = await checkSupabaseAvailable('admissions_applications');
     const id = generateApplicationId();
+
+    // Dynamically calculate merit rank based on GPA if rank not explicitly provided
+    let computedRank = Number(rank) || 0;
+    if (!computedRank && gpa) {
+      const gpaNum = Math.min(10, Math.max(1, Number(gpa) || 7));
+      computedRank = Math.max(1, Math.round((10 - gpaNum) * 120) + 1);
+    }
+    if (!computedRank) {
+      computedRank = Math.floor(50 + Math.random() * 200);
+    }
+
     const row = {
       id,
-      studentId,
-      studentName,
+      studentId: studentId || `applicant_${Date.now()}`,
+      studentName: studentName || 'Applicant Scholar',
+      email: email || '',
+      gpa: gpa ? String(gpa) : 'N/A',
       course: course || 'Computer Science',
-      rank: rank || 0,
+      rank: computedRank,
       status: 'Submitted',
       docVerified: false,
+      marksheetFile: marksheetFile || '12th_marksheet.pdf',
     };
     if (isSupabaseAvailable) {
       try {
         const res = await supabase.from('admissions_applications').insert({
           id,
-          student_id: studentId,
-          student_name: studentName,
+          student_id: row.studentId,
+          student_name: row.studentName,
           course: row.course,
           rank: row.rank,
           status: row.status,

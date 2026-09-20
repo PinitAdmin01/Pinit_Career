@@ -88,8 +88,8 @@ export default function DashboardStatsRow({
             <span style={{ fontSize:13, color:'var(--dash-subtext)' }}>/100</span>
           </div>
           <div style={{ fontSize:11, color:'var(--dash-subtext)', display:'flex', flexDirection:'column', gap:3 }}>
-            <div>🛡️ Compiler Safety: <strong style={{ color:'var(--green-mid)' }}>{careerScore > 0 ? (careerScore >= 80 ? '98% Compliance' : '92% Compliance') : 'Audit Pending'}</strong></div>
-            <div>📊 Logic Score: <strong style={{ color:'var(--accent)' }}>{careerScore >= 80 ? 'O(1) / O(N) pass' : careerScore >= 40 ? 'O(N) pass' : 'Run 1st Code Battle'}</strong></div>
+            <div>🛡️ Verified Records: <strong style={{ color:'var(--green-mid)' }}>{vaultItemsCount > 0 ? `${Math.max(0, vaultItemsCount - unverifiedCount)} / ${vaultItemsCount} Verified` : 'No Credentials in Vault'}</strong></div>
+            <div>📊 Industry Readiness: <strong style={{ color:'var(--accent)' }}>{careerScore >= 75 ? 'Industry Benchmark Ready' : careerScore >= 40 ? 'Developing Competency' : 'Foundational Progress'}</strong></div>
           </div>
         </div>
         <div style={{ position:'relative', width:80, height:80, flexShrink:0, zIndex:1 }}>

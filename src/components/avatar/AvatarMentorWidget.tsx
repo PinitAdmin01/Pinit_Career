@@ -104,7 +104,7 @@ const TEACHER_CONFIG: Record<string, { name: string; color: string; emoji: strin
   aisha:   { name: 'Ms. Aisha',          color: 'var(--purple)', emoji: '👩‍🏫', domain: 'Data Science & AI/ML' },
   vikram:  { name: 'Mr. Vikram',         color: 'var(--success-deep)', emoji: '👨‍⚖️', domain: 'Finance, Commerce & Ethics' },
   kashyap: { name: 'Kashyap Sir',        color: 'var(--warning)', emoji: '👨‍🏫', domain: 'DSA & Mathematical Reasoning' },
-  karthic: { name: 'Karthic Sir "Nega"', color: '#e11d48', emoji: '⚔️', domain: 'Competitive Arena & Speedrun' },
+  karthic: { name: 'Karthic Sir',        color: '#e11d48', emoji: '⚔️', domain: 'Competitive Arena & Speedrun' },
   maya:    { name: 'Ms. Maya',           color: '#ec4899', emoji: '🎨', domain: 'UI/UX & Product Design' },
   divya:   { name: 'Ms. Divya',          color: 'var(--accent-cyan)', emoji: '☁️', domain: 'Cloud & DevOps' },
   rohan:   { name: 'Mr. Rohan',          color: '#0891b2', emoji: '🛡️', domain: 'Cybersecurity & Networks' },
@@ -735,10 +735,16 @@ export default function AvatarMentorWidget({
   }, [onTabShift]);
 
 
-  // Background Speech Recognition for Wake Words with Echo Gate
+  // Opt-in Conversational Speech Recognition with Echo Gate
   useEffect(() => {
     if (typeof window === 'undefined') return;
     if (micDeniedRef.current) return;
+    // Only listen when active conversational mode is enabled by the user
+    if (!isConversing) {
+      setRecognizing(false);
+      return;
+    }
+
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (!SpeechRecognition) return;
 
@@ -751,29 +757,17 @@ export default function AvatarMentorWidget({
     let recognition: any = null;
     let shouldListen = true;
 
-    // Pitch monitoring state (hoisted to effect scope for cleanup access)
-    let pitchStream: MediaStream | null = null;
-    let pitchAudioCtx: AudioContext | null = null;
-    let pitchInterval: ReturnType<typeof setInterval> | null = null;
-
-    const cleanupPitch = () => {
-      if (pitchInterval) { clearInterval(pitchInterval); pitchInterval = null; }
-      if (pitchStream) { pitchStream.getTracks().forEach(t => t.stop()); pitchStream = null; }
-      if (pitchAudioCtx) { pitchAudioCtx.close().catch(() => {}); pitchAudioCtx = null; }
-    };
-
     const startListening = () => {
-      if (!shouldListen) return;
+      if (!shouldListen || !conversingRef.current) return;
       try {
         recognition = new SpeechRecognition();
         recognition.continuous = false;
         recognition.interimResults = false;
-        recognition.maxAlternatives = 5; // Score all 5 alternatives for best navigation match
+        recognition.maxAlternatives = 5;
         
-        // Auto-match browser locale for native accent accuracy (e.g., en-IN, en-US, en-GB)
+        // Auto-match browser locale for native accent accuracy
         recognition.lang = navigator.language || 'en-US';
 
-        // Grammar List: expanded vocabulary covering all portal routes + wake words + nav verbs
         const SpeechGrammarList = (window as any).SpeechGrammarList || (window as any).webkitSpeechGrammarList;
         if (SpeechGrammarList) {
           const speechRecognitionList = new SpeechGrammarList();
@@ -781,49 +775,6 @@ export default function AvatarMentorWidget({
           const grammar = '#JSGF V1.0; grammar vocab; public <word> = ' + vocab.join(' | ') + ' ;';
           speechRecognitionList.addFromString(grammar, 1);
           recognition.grammars = speechRecognitionList;
-        }
-
-        // ── Continuous Acoustic Feature Monitoring via parallel Web Audio AnalyserNode ──
-        // Feeds real-time pitch, spectral centroid, and MFCC vectors into acousticFramesRef for biometric identification
-        if (!pitchStream) {
-          try {
-            navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
-              if (!shouldListen) { stream.getTracks().forEach(t => t.stop()); return; }
-              pitchStream = stream;
-              pitchAudioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
-              const src = pitchAudioCtx.createMediaStreamSource(stream);
-              const analyser = pitchAudioCtx.createAnalyser();
-              analyser.fftSize = 2048;
-              src.connect(analyser);
-              const buf = new Float32Array(analyser.fftSize);
-              const freqData = new Float32Array(analyser.frequencyBinCount);
-              pitchInterval = setInterval(() => {
-                if (!pitchAudioCtx || pitchAudioCtx.state === 'closed') {
-                  if (pitchInterval) clearInterval(pitchInterval);
-                  return;
-                }
-                if (speakingRef.current || loadingRef.current) return; // Echo gate
-                analyser.getFloatTimeDomainData(buf);
-                analyser.getFloatFrequencyData(freqData);
-                const pitch = detectPitch(buf, pitchAudioCtx.sampleRate);
-                const { centroid, rolloff } = calculateSpectralFeatures(freqData, pitchAudioCtx.sampleRate);
-                const mfccVector = extractMelFilterbank(freqData, pitchAudioCtx.sampleRate);
-
-                if (pitch > 0) {
-                  pitchHistoryRef.current.push(pitch);
-                  acousticFramesRef.current.push({
-                    pitch,
-                    spectralCentroid: centroid,
-                    spectralRolloff: rolloff,
-                    mfccVector
-                  });
-                  // Keep last 30 samples to avoid memory growth
-                  if (pitchHistoryRef.current.length > 30) pitchHistoryRef.current.shift();
-                  if (acousticFramesRef.current.length > 30) acousticFramesRef.current.shift();
-                }
-              }, 120);
-            }).catch(() => {}); // Mic already granted from STT, but silently fail if not
-          } catch {}
         }
 
         recognition.onstart = () => {
@@ -834,7 +785,6 @@ export default function AvatarMentorWidget({
           // Double guard against AI voice capture
           if (speakingRef.current || loadingRef.current) return;
 
-          // Extract all alternatives for multi-scoring
           const allAlternatives: string[] = [];
           const resultCount = e.results[0]?.length || 0;
           for (let a = 0; a < resultCount; a++) {
@@ -845,37 +795,31 @@ export default function AvatarMentorWidget({
           const transcript = allAlternatives[0];
           if (!transcript) return;
 
-          // ── Owner Speaker Biometric Identification Verification Check ──
+          // Advisory speaker verification (non-blocking)
           if (voicePrintRef.current || voiceFreqRef.current) {
             const target = voicePrintRef.current || voiceFreqRef.current;
             const inputFrames = acousticFramesRef.current.length > 0 ? acousticFramesRef.current : pitchHistoryRef.current;
-            const result = verifyVoiceSignature(inputFrames, target);
-            console.log(`[Speaker Biometrics] Verification result:`, result);
-
-            if (!result.verified) {
-              console.warn("[Voice Lock] Speaker identity mismatch:", result.reason);
-              toast.error("Speaker Signature Mismatch 🔐", result.reason);
-              speakReplyRef.current("Voice signature mismatch. Speaker identity does not match the registered owner.");
-              return;
+            if (inputFrames.length > 0) {
+              const result = verifyVoiceSignature(inputFrames, target);
+              console.log(`[Speaker Biometrics] Verification result:`, result);
             }
           }
 
           const text = transcript.trim().toLowerCase();
-          const activeTeacherKey = teacherId.toLowerCase();
-          
-          // If we are in active conversation mode, send everything directly without requiring the wake word
+
+          // In active conversation mode, dispatch speech directly to AI mentor
           if (conversingRef.current) {
             console.log("[Conversing] Direct speech parsed:", transcript);
             sendMessageRef.current(transcript);
             return;
           }
 
-          // Fuzzy phoneme matching for teacher names and default wake word (Priya)
+          // Clean phoneme matching for teacher names (accidental words & offensive terms removed)
           const cleanText = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "").trim();
-          const fuzzyMatchPriya = /\b(priya|preya|pria|prea|freeya|freya|riya)\b/i.test(cleanText);
-          const fuzzyMatchKashyap = /\b(kashyap|kash|cash\s*up|catch\s*up|ketchup)\b/i.test(cleanText);
-          const fuzzyMatchKarthic = /\b(karthic|karthik|kartik|nega|negga)\b/i.test(cleanText);
-          const fuzzyMatchMaya = /\b(maya|maia|mya)\b/i.test(cleanText);
+          const fuzzyMatchPriya = /\b(priya|preya|pria)\b/i.test(cleanText);
+          const fuzzyMatchKashyap = /\b(kashyap|kash)\b/i.test(cleanText);
+          const fuzzyMatchKarthic = /\b(karthic|karthik|kartik)\b/i.test(cleanText);
+          const fuzzyMatchMaya = /\b(maya|maia)\b/i.test(cleanText);
           const fuzzyMatchDivya = /\b(divya|divia)\b/i.test(cleanText);
 
           let matchedWakeWord = false;
@@ -899,28 +843,25 @@ export default function AvatarMentorWidget({
           }
 
           if (matchedWakeWord) {
-            console.log("Fuzzy wake word detected:", transcript, "Matched teacher:", matchedTeacherKey);
+            console.log("Wake word detected:", transcript, "Matched teacher:", matchedTeacherKey);
             setIsMinimized(false);
 
-            // Strip fuzzy wake word prefixes cleanly from query
+            // Strip wake word prefixes cleanly from query (clean keywords only)
             const cleaned = transcript
               .replace(/\b(hey|hay|hi|hello)\b/gi, '')
-              .replace(new RegExp(`\\b(${matchedTeacherKey}|priya|preya|pria|prea|freeya|freya|riya|kashyap|kash|cash\\s*up|catch\\s*up|ketchup|karthic|karthik|kartik|nega|negga|maya|maia|mya|divya|divia)\\b`, 'gi'), '')
+              .replace(new RegExp(`\\b(${matchedTeacherKey}|priya|preya|pria|kashyap|kash|karthic|karthik|kartik|maya|maia|divya|divia)\\b`, 'gi'), '')
               .trim();
 
             if (cleaned.length > 0) {
-              // ── Try Voice Navigation Engine first (multi-alternative scoring) ──
               const cleanedAlts = allAlternatives.map(alt =>
                 alt.replace(/\b(hey|hay|hi|hello)\b/gi, '')
-                   .replace(new RegExp(`\\b(${matchedTeacherKey}|priya|preya|pria|prea|freeya|freya|riya|kashyap|kash|cash\\s*up|catch\\s*up|ketchup|karthic|karthik|kartik|nega|negga|maya|maia|mya|divya|divia)\\b`, 'gi'), '')
+                   .replace(new RegExp(`\\b(${matchedTeacherKey}|priya|preya|pria|kashyap|kash|karthic|karthik|kartik|maya|maia|divya|divia)\\b`, 'gi'), '')
                    .trim()
               ).filter(a => a.length > 0);
 
               const navResult = matchBestAlternative(cleanedAlts.length > 0 ? cleanedAlts : [cleaned]);
 
               if (navResult.matched && navResult.confidence >= 0.7) {
-                // High confidence → navigate immediately with voice confirmation
-                console.log(`[VoiceNav] HIGH confidence (${(navResult.confidence * 100).toFixed(0)}%) → ${navResult.path} (${navResult.displayName})`);
                 const confirmation = `Sure! Taking you to ${navResult.displayName} now.`;
                 setMessages(prev => [...prev, { role: 'user', content: cleaned }]);
                 setMessages(prev => [...prev, { role: 'assistant', content: confirmation }]);
@@ -930,8 +871,6 @@ export default function AvatarMentorWidget({
                   setTimeout(() => { navTarget(navResult.path); }, 800);
                 }
               } else if (navResult.matched && navResult.confidence >= 0.4) {
-                // Medium confidence → ask for clarification
-                console.log(`[VoiceNav] MEDIUM confidence (${(navResult.confidence * 100).toFixed(0)}%) → asking clarification`);
                 const top2 = navResult.candidates.slice(0, 2);
                 const clarification = top2.length >= 2
                   ? `I heard "${cleaned}". Did you mean ${top2[0].displayName} or ${top2[1].displayName}?`
@@ -940,7 +879,6 @@ export default function AvatarMentorWidget({
                 setMessages(prev => [...prev, { role: 'assistant', content: clarification }]);
                 speakReplyRef.current(clarification);
               } else {
-                // No navigation match → send to AI chat
                 sendMessageRef.current(cleaned);
               }
             } else {
@@ -956,12 +894,14 @@ export default function AvatarMentorWidget({
             console.warn("Speech recognition access denied.");
             shouldListen = false;
             micDeniedRef.current = true;
+            setIsConversing(false);
           }
         };
 
         recognition.onend = () => {
           setRecognizing(false);
-          if (shouldListen) {
+          // Only restart if active conversing mode is still explicitly enabled
+          if (shouldListen && conversingRef.current) {
             setTimeout(startListening, 300);
           }
         };
@@ -981,10 +921,8 @@ export default function AvatarMentorWidget({
           recognition.stop();
         } catch {}
       }
-      // Clean up pitch monitoring
-      try { cleanupPitch(); } catch {}
     };
-  }, [teacherId, setIsMinimized, speaking, loading]);
+  }, [teacherId, setIsMinimized, speaking, loading, isConversing]);
 
   // Auto-close (minimize) timer when not responding/speaking
   useEffect(() => {
@@ -1157,6 +1095,27 @@ export default function AvatarMentorWidget({
           }}
           disabled={loading}
         />
+        <button
+          type="button"
+          onClick={() => setIsConversing(prev => !prev)}
+          title={isConversing ? 'Mute voice conversation' : 'Start voice conversation'}
+          style={{
+            background: isConversing ? 'rgba(239, 68, 68, 0.2)' : 'var(--bg3)',
+            color: isConversing ? '#ef4444' : 'var(--t2)',
+            border: `1px solid ${isConversing ? 'rgba(239, 68, 68, 0.5)' : 'var(--border)'}`,
+            borderRadius: '50%',
+            width: 34,
+            height: 34,
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: 14,
+            transition: 'all 0.15s',
+          }}
+        >
+          {isConversing ? '🎙️' : '🎤'}
+        </button>
         <button
           type="submit"
           disabled={!input.trim() || loading}

@@ -202,12 +202,34 @@ export function useRecruiterData(user: any) {
   // Resume full-view modal state
   const [viewResumeData, setViewResumeData] = useState<{ name: string; resume: ResumeFormData } | null>(null);
 
-  // 6-Stage Candidate Pipeline State
-  const [candidateStages, setCandidateStages] = useState<Record<string, string>>({});
+  // 6-Stage Candidate Pipeline State (persisted across sessions)
+  const [candidateStages, setCandidateStages] = useState<Record<string, string>>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem('pinit_recruiter_candidate_stages');
+        if (saved) return JSON.parse(saved);
+      } catch {}
+    }
+    return {};
+  });
 
-  // Recruiter Notes Drawer State
-  const [candidateNotesMap, setCandidateNotesMap] = useState<Record<string, Array<{ text: string; date: string; author: string }>>>({});
+  // Recruiter Notes Drawer State (persisted across sessions)
+  const [candidateNotesMap, setCandidateNotesMap] = useState<Record<string, Array<{ text: string; date: string; author: string }>>>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem('pinit_recruiter_candidate_notes');
+        if (saved) return JSON.parse(saved);
+      } catch {}
+    }
+    return {};
+  });
   const [newNoteText, setNewNoteText] = useState('');
+
+  // Structured Interview Scheduling Modal State
+  const [schedulingCandidate, setSchedulingCandidate] = useState<{ id: string; name: string } | null>(null);
+  const [scheduleDate, setScheduleDate] = useState('');
+  const [scheduleMode, setScheduleMode] = useState('Virtual Video Call');
+  const [scheduleRole, setScheduleRole] = useState('Software Engineering Role');
 
   // Activity Logs (Enterprise Supabase Storage - zero localStorage)
   const [logs, setLogs] = useState<ActivityLog[]>([]);
@@ -389,11 +411,17 @@ export function useRecruiterData(user: any) {
   }, [user]);
 
   const getCandidateStage = (candidateId: string) => {
-    return candidateStages[candidateId] || 'ATS Screened';
+    return candidateStages[candidateId] || 'Sourced';
   };
 
   const handleUpdateStage = (candidateId: string, stage: string, candidateName: string) => {
-    setCandidateStages((prev) => ({ ...prev, [candidateId]: stage }));
+    setCandidateStages((prev) => {
+      const updated = { ...prev, [candidateId]: stage };
+      if (typeof window !== 'undefined') {
+        try { localStorage.setItem('pinit_recruiter_candidate_stages', JSON.stringify(updated)); } catch {}
+      }
+      return updated;
+    });
     logActivity('STAGE_CHANGE', { candidateId, stage, candidateName });
     triggerToast(`Updated ${candidateName}'s status to ${stage}`, 'success');
   };
@@ -410,10 +438,16 @@ export function useRecruiterData(user: any) {
       }),
       author: (user?.displayName || user?.username || 'Lead Recruiter') as string,
     };
-    setCandidateNotesMap((prev) => ({
-      ...prev,
-      [candidateId]: [noteObj, ...(prev[candidateId] || [])],
-    }));
+    setCandidateNotesMap((prev) => {
+      const updated = {
+        ...prev,
+        [candidateId]: [noteObj, ...(prev[candidateId] || [])],
+      };
+      if (typeof window !== 'undefined') {
+        try { localStorage.setItem('pinit_recruiter_candidate_notes', JSON.stringify(updated)); } catch {}
+      }
+      return updated;
+    });
     logActivity('NOTE_ADDED', { candidateId, text: newNoteText.trim() });
     setNewNoteText('');
     triggerToast('Recruiter note recorded successfully', 'success');
@@ -515,7 +549,13 @@ export function useRecruiterData(user: any) {
       triggerToast('Candidate shortlisted for review');
       const cand = candidates.find((c) => c.id === id);
       logActivity('shortlist_candidate', { candidateId: id, name: cand?.display_name || '' });
-      setCandidateStages((prev) => ({ ...prev, [id]: 'Shortlisted' }));
+      setCandidateStages((prev) => {
+        const updated = { ...prev, [id]: 'Shortlisted' };
+        if (typeof window !== 'undefined') {
+          try { localStorage.setItem('pinit_recruiter_candidate_stages', JSON.stringify(updated)); } catch {}
+        }
+        return updated;
+      });
     } catch {
       triggerToast('Failed to shortlist candidate', 'error');
     }
@@ -532,30 +572,73 @@ export function useRecruiterData(user: any) {
     }
   }
 
-  async function scheduleInterview(candidateId: string) {
-    const dt = prompt('Schedule interview date & time (e.g. YYYY-MM-DD HH:MM):');
-    if (!dt) return;
-
-    const parsedDate = new Date(dt);
-    if (isNaN(parsedDate.getTime())) {
-      triggerToast('Invalid date format. Please enter a valid date/time.', 'error');
-      return;
-    }
-
-    const mode = prompt('Interview mode (video / phone / in-person):') || 'video';
-    try {
-      await api.post('/api/recruiter/schedule-interview', {
+  const scheduleInterview = (candidateId: string, options?: { scheduledAt?: string; mode?: string; roleTitle?: string }) => {
+    const cand = candidates.find((c) => c.id === candidateId);
+    const candidateName = cand?.display_name || 'Candidate';
+    
+    // If options are directly provided, execute scheduling directly without modal
+    if (options && options.scheduledAt) {
+      const parsedDate = new Date(options.scheduledAt);
+      const mode = options.mode || 'Virtual Video Call';
+      const roleTitle = options.roleTitle || 'Software Engineering Role';
+      api.post('/api/recruiter/schedule-interview', {
         candidateId,
         scheduledAt: parsedDate.toISOString(),
         mode,
+        roleTitle,
+      }).then(() => {
+        triggerToast(`Interview invitation dispatched to ${candidateName}`);
+        logActivity('schedule_interview', { candidateId, name: candidateName, mode, dt: options.scheduledAt });
+        setCandidateStages((prev) => {
+          const updated = { ...prev, [candidateId]: 'Interviewing' };
+          if (typeof window !== 'undefined') {
+            try { localStorage.setItem('pinit_recruiter_candidate_stages', JSON.stringify(updated)); } catch {}
+          }
+          return updated;
+        });
+      }).catch(() => {
+        triggerToast('Failed to schedule interview', 'error');
       });
-      triggerToast('Interview invitation dispatched');
-      const cand = candidates.find((c) => c.id === candidateId);
-      logActivity('schedule_interview', { candidateId, name: cand?.display_name || '', mode, dt });
+      return;
+    }
+
+    // Otherwise, open the structured scheduling modal
+    setSchedulingCandidate({ id: candidateId, name: candidateName });
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(10, 0, 0, 0);
+    setScheduleDate(tomorrow.toISOString().slice(0, 16));
+  };
+
+  const confirmScheduleInterview = async () => {
+    if (!schedulingCandidate || !scheduleDate) return;
+    try {
+      const parsedDate = new Date(scheduleDate);
+      await api.post('/api/recruiter/schedule-interview', {
+        candidateId: schedulingCandidate.id,
+        scheduledAt: parsedDate.toISOString(),
+        mode: scheduleMode,
+        roleTitle: scheduleRole,
+      });
+      triggerToast(`Interview invitation dispatched to ${schedulingCandidate.name}`);
+      logActivity('schedule_interview', {
+        candidateId: schedulingCandidate.id,
+        name: schedulingCandidate.name,
+        mode: scheduleMode,
+        dt: scheduleDate,
+      });
+      setCandidateStages((prev) => {
+        const updated = { ...prev, [schedulingCandidate.id]: 'Interviewing' };
+        if (typeof window !== 'undefined') {
+          try { localStorage.setItem('pinit_recruiter_candidate_stages', JSON.stringify(updated)); } catch {}
+        }
+        return updated;
+      });
+      setSchedulingCandidate(null);
     } catch {
       triggerToast('Failed to schedule interview', 'error');
     }
-  }
+  };
 
   const exportActivityToCSV = () => {
     if (logs.length === 0) return;
@@ -667,6 +750,15 @@ export function useRecruiterData(user: any) {
     shortlist,
     sendContactRequest,
     scheduleInterview,
+    schedulingCandidate,
+    setSchedulingCandidate,
+    scheduleDate,
+    setScheduleDate,
+    scheduleMode,
+    setScheduleMode,
+    scheduleRole,
+    setScheduleRole,
+    confirmScheduleInterview,
     toast,
     triggerToast,
   };

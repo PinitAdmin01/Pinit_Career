@@ -42,8 +42,8 @@ export default function IntegrationsPage() {
   ]);
 
   const [biometrics] = useState([
-    { name: 'Main Campus RFID Card Readers', status: 'Active', rate: '240 logs/min', deviceCount: 42 },
-    { name: 'Block-A Biometric Fingerprint Syncer', status: 'Active', rate: '18 logs/min', deviceCount: 8 }
+    { name: 'Main Campus RFID Card Readers', status: 'Standby Adapter', rate: 'Hardware Bridge Ready', deviceCount: 42 },
+    { name: 'Block-A Biometric Fingerprint Syncer', status: 'Standby Adapter', rate: 'Hardware Bridge Ready', deviceCount: 8 }
   ]);
 
   const [gateways] = useState([
@@ -57,8 +57,8 @@ export default function IntegrationsPage() {
   ]);
 
   const [emailSms] = useState([
-    { name: 'SendGrid Email SMTP Relay', status: 'Connected', quota: '98,000 / 100,000' },
-    { name: 'Twilio Campus SMS Gateway', status: 'Connected', quota: 'Unlimited (Enterprise)' }
+    { name: 'SendGrid Email SMTP Relay', status: 'Configured', quota: 'Institutional Gateway Standard Tier' },
+    { name: 'Twilio Campus SMS Gateway', status: 'Standby', quota: 'Configured via Campus Twilio Secret' }
   ]);
 
   const [webhooks, setWebhooks] = useState<Webhook[]>([
@@ -67,34 +67,36 @@ export default function IntegrationsPage() {
   ]);
 
   const [apiKeys, setApiKeys] = useState<ApiKey[]>([
-    { id: 'key1', name: 'LMS Sync Daemon Key', prefix: 'pk_preview_51P...', created: 'Jul 12, 2026' },
-    { id: 'key2', name: 'Biometric Gate Gateway Token', prefix: 'pk_preview_90A...', created: 'Jun 18, 2026' }
+    { id: 'key1', name: 'LMS Sync Daemon Key', prefix: 'pk_live_51P89a2b••••••••••••••••', created: 'Jul 12, 2026' },
+    { id: 'key2', name: 'Biometric Gate Gateway Token', prefix: 'pk_live_90Af12c••••••••••••••••', created: 'Jun 18, 2026' }
   ]);
 
   const [syncLogs, setSyncLogs] = useState([
-    { id: 'log1', timestamp: '17:50:02', source: 'Biometric Gateway', event: 'Synced 1,240 clock attendance rows.', status: 'Success' },
-    { id: 'log2', timestamp: '17:45:12', source: 'Canvas LMS', event: 'Imported 12 student course grades.', status: 'Success' },
-    { id: 'log3', timestamp: '17:30:00', source: 'SAP SLM ERP', event: 'Failed handshakes: Connection timed out.', status: 'Warning' }
+    { id: 'log1', timestamp: 'System Init', source: 'Core ERP Bus', event: 'Adapter gateway initialized for institutional environment.', status: 'Success' }
   ]);
 
   const runSync = (connectorId: string) => {
     setErpConnectors(erpConnectors.map(c => c.id === connectorId ? { ...c, lastSynced: 'Just now' } : c));
-    setSyncLogs([
-      { id: `log_${Date.now()}`, timestamp: 'Just now', source: 'Manual Trigger', event: 'Initiated SAP SLM sync pipeline successfully.', status: 'Success' },
-      ...syncLogs
+    setSyncLogs(prev => [
+      { id: `log_${Date.now()}`, timestamp: new Date().toLocaleTimeString(), source: 'Manual Trigger', event: `Triggered sync pipeline for connector: ${connectorId}.`, status: 'Success' },
+      ...prev
     ]);
     toast.success('Sync Triggered', 'Manual sync sequence initiated. Synchronization logs updated.');
   };
 
   const createApiKey = () => {
+    const rawEntropy = typeof window !== 'undefined' && window.crypto?.randomUUID 
+      ? window.crypto.randomUUID().replace(/-/g, '') 
+      : Math.random().toString(36).substring(2) + Date.now().toString(36);
+    const rawKey = `pk_live_${rawEntropy}`;
     const newKey: ApiKey = {
       id: `key_${Date.now()}`,
-      name: 'Dynamic Ad-hoc Token',
-      prefix: `pk_preview_${Math.random().toString(36).substring(2, 8).toUpperCase()}...`,
-      created: 'Today'
+      name: 'Dynamic Integration Token',
+      prefix: `${rawKey.substring(0, 12)}••••••••••••••••`,
+      created: 'Just now'
     };
-    setApiKeys([...apiKeys, newKey]);
-    toast.success('API Key Generated', 'Store this credential securely. It will not be shown again.');
+    setApiKeys(prev => [...prev, newKey]);
+    toast.success('API Key Generated', `Key ID ${newKey.id} registered. Store token: ${rawKey}`);
   };
 
   return (

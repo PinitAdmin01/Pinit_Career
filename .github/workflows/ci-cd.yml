@@ -8,12 +8,11 @@ on:
 
 jobs:
   test-and-build:
-    name: Build, Test & Lint Voice Microservice
+    name: Build, Test & Lint
     runs-on: ubuntu-latest
 
     env:
-      # Prevent kokoro-onnx from downloading 300MB model weights on CI runners.
-      # Edge-TTS fallback is used instead — this is safe and fast.
+      # Edge-TTS fallback is safe, fast, and avoids downloading 300MB model weights
       KOKORO_REAL: "false"
 
     steps:
@@ -36,15 +35,15 @@ jobs:
 
       - name: Run TTS Engine Unit Tests
         working-directory: voice-service
-        run: python -c "from test_tts import test_kokoro_service; test_kokoro_service()"
+        run: pytest voice-service/tests -v
 
       - name: Run Security & Middleware Tests
         working-directory: voice-service
-        run: python -c "from test_middleware import test_security_and_compression_middleware; test_security_and_compression_middleware()"
+        run: pytest voice-service/tests/test_middleware -v
 
       - name: Run Real-Time Streaming Tests
         working-directory: voice-service
-        run: python -c "from test_stream import test_realtime_audio_streaming; test_realtime_audio_streaming()"
+        run: pytest voice-service/tests/test_stream -v
 
       - name: Set up Node.js for Frontend
         uses: actions/setup-node@v4
@@ -57,6 +56,12 @@ jobs:
 
       - name: Run TypeScript Typecheck
         run: npx tsc --noEmit
+
+      - name: Run Production Build
+        run: npx next build
+
+      - name: Run Lint
+        run: npm run lint
 
       - name: Build Docker Container
         run: docker build -t pinit-voice-service:latest voice-service/
@@ -80,3 +85,6 @@ jobs:
 
       - name: Run tests
         run: npm test
+
+      - name: Verify Production Build
+        run: npx next build && echo "Build successful" || (echo "Build FAILED" && exit 1)
