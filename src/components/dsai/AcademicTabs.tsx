@@ -17,7 +17,7 @@ async function fetchAcademicData(collection: string) {
       'news': '/api/news'
     };
     if (routeMap[collection]) {
-      const res = await api.get(routeMap[collection]);
+      const res: any = await api.get(routeMap[collection]);
       if (res && Array.isArray(res.data) && res.data.length > 0) {
         return res.data;
       }
