@@ -5,19 +5,58 @@ import { portalService, AttendanceRecord } from '@/lib/services/portalService';
 
 export default function AttendanceTracker() {
   const [date, setDate] = useState<string>(new Date().toISOString().split('T')[0]);
+  const [batches, setBatches] = useState<string[]>(['Batch 2024-A', 'Batch 2025-B', 'Batch 2026-C']);
   const [batch, setBatch] = useState<string>('Batch 2024-A');
   const [students, setStudents] = useState<AttendanceRecord[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [saved, setSaved] = useState<boolean>(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
   const [isDirty, setIsDirty] = useState<boolean>(false);
   const savedTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const loadAttendance = useCallback(async () => {
     setLoading(true);
-    const records = await portalService.getAttendanceByDateAndBatch(date, batch);
-    setStudents(Array.isArray(records) ? records : []);
-    setLoading(false);
-    setIsDirty(false);
+    setSaveError(null);
+    try {
+      // 1. Check existing saved records for this date and batch
+      const records = await portalService.getAttendanceByDateAndBatch(date, batch);
+      if (Array.isArray(records) && records.length > 0) {
+        setStudents(records);
+      } else {
+        // 2. If no attendance recorded yet for this date, load student roster for this batch
+        const enrolled = await portalService.getEnrolledStudents();
+        const batchStudents = enrolled.filter(s => s.batch === batch);
+        const candidates = batchStudents.length > 0 ? batchStudents : enrolled;
+
+        if (candidates.length > 0) {
+          const initialized: AttendanceRecord[] = candidates.map(s => ({
+            id: `att_${s.id}_${date}`,
+            date,
+            batch,
+            studentId: s.id,
+            studentName: s.name,
+            rollNo: s.rollNo,
+            status: 'present',
+          }));
+          setStudents(initialized);
+        } else {
+          setStudents([]);
+        }
+
+        // Dynamically update batches list if new ones exist
+        if (enrolled.length > 0) {
+          const uniqueBatches = Array.from(new Set(enrolled.map(s => s.batch).filter(Boolean)));
+          if (uniqueBatches.length > 0) {
+            setBatches(prev => Array.from(new Set([...prev, ...uniqueBatches])));
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('Failed to load attendance:', e);
+    } finally {
+      setLoading(false);
+      setIsDirty(false);
+    }
   }, [date, batch]);
 
   useEffect(() => {
@@ -54,19 +93,26 @@ export default function AttendanceTracker() {
   }
 
   async function handleSave() {
-    await portalService.saveAttendance(students);
-    setSaved(true);
-    setIsDirty(false);
-    if (savedTimerRef.current) clearTimeout(savedTimerRef.current);
-    savedTimerRef.current = setTimeout(() => setSaved(false), 3000);
+    setSaveError(null);
+    try {
+      const ok = await portalService.saveAttendance(students);
+      if (ok) {
+        setSaved(true);
+        setIsDirty(false);
+        if (savedTimerRef.current) clearTimeout(savedTimerRef.current);
+        savedTimerRef.current = setTimeout(() => setSaved(false), 3000);
+      } else {
+        setSaveError('Failed to save attendance to records. Please try again.');
+      }
+    } catch (err: any) {
+      setSaveError(err?.message || 'Failed to save attendance');
+    }
   }
 
   const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid');
 
-  // Pending Student Leave Applications State (Frappe Education inspired)
-  const [pendingLeaveRequests, setPendingLeaveRequests] = useState<Array<{ id: string; studentName: string; rollNo: string; category: string; reason: string; dates: string; status: string }>>([
-    { id: 'LEAVE-9012', studentName: 'Rohan Verma', rollNo: 'CS-014', category: 'Medical', reason: 'Fever & viral infection prescribed rest', dates: '2026-08-16 to 2026-08-18', status: 'Pending' }
-  ]);
+  // Pending Student Leave Applications State
+  const [pendingLeaveRequests, setPendingLeaveRequests] = useState<Array<{ id: string; studentName: string; rollNo: string; category: string; reason: string; dates: string; status: string }>>([]);
 
   const handleReviewLeave = (leaveId: string, status: 'Approved' | 'Rejected') => {
     setPendingLeaveRequests(prev => prev.map(l => l.id === leaveId ? { ...l, status } : l));
@@ -161,8 +207,9 @@ export default function AttendanceTracker() {
             onChange={e => handleBatchChange(e.target.value)}
             style={{ padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border, #cbd5e1)' }}
           >
-            <option value="Batch 2024-A">Batch 2024-A (CS & AI)</option>
-            <option value="Batch 2025-B">Batch 2025-B (Data Science)</option>
+            {batches.map(b => (
+              <option key={b} value={b}>{b}</option>
+            ))}
           </select>
         </div>
       </div>
@@ -332,6 +379,7 @@ export default function AttendanceTracker() {
           💾 Save Attendance Record
         </button>
         {saved && <span style={{ color: 'var(--success)', fontWeight: 600, fontSize: 14 }}>✓ Saved permanently for {date}!</span>}
+        {saveError && <span style={{ color: 'var(--danger-deep)', fontWeight: 600, fontSize: 14 }}>⚠️ {saveError}</span>}
       </div>
     </div>
   );

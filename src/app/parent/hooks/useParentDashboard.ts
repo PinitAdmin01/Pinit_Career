@@ -17,8 +17,10 @@ export interface Student {
 
 export interface StudentOverview {
   profile: Record<string, any>;
-  recentExams: Array<{ exam_name: string; pct: string }>;
+  recentExams: Array<{ exam_name: string; pct: string; score?: number; totalMarks?: number }>;
   missionSummary: any[];
+  finance?: { dues: number; waiver: number; fine: number; installments: any[] };
+  notifications?: Array<{ id: string; title: string; message: string; type: string; created_at: string; read: boolean }>;
 }
 
 export const PARENT_TABS = [
@@ -77,8 +79,8 @@ export function useParentDashboard() {
 
   const linkMutation = useMutation({
     mutationFn: (rn: string) => api.post('/api/parent/link-student', { registerNumber: rn }),
-    onSuccess: () => {
-      toast.success('Request Sent', 'Student will be notified to approve your request');
+    onSuccess: (res: any) => {
+      toast.success('Student Linked', res?.message || 'Successfully linked student to Parent Portal!');
       setRegisterNumber('');
       qc.invalidateQueries({ queryKey: ['parent'] });
     },

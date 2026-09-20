@@ -31,6 +31,14 @@
       "status": "pending",
       "created_at": "2026-09-17T03:53:32.905Z",
       "updated_at": "2026-09-17T15:53:32.905Z"
+    },
+    {
+      "id": "f-1789887777511",
+      "requester_id": "current_user",
+      "addressee_id": "peer_target_99",
+      "status": "pending",
+      "created_at": "2026-09-20T07:02:57.511Z",
+      "updated_at": "2026-09-20T07:02:57.513Z"
     }
   ],
   "mockStudents": [
@@ -169,6 +177,76 @@
   ],
   "invitations": [
     {
+      "id": "proj-inv-1789887938986",
+      "type": "project",
+      "title": "Campus Transit Telemetry Desk",
+      "sender": {
+        "id": "current_user",
+        "name": "Vinay N",
+        "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100"
+      },
+      "receiverId": "peer_target_99",
+      "receiverName": "Student",
+      "role": "Fullstack Architect",
+      "details": "Role: Fullstack Architect • 10 hrs/week • \"Join our squad\"",
+      "status": "accepted",
+      "created_at": "2026-09-20T07:05:38.986Z",
+      "responded_at": "2026-09-20T07:05:38.990Z"
+    },
+    {
+      "id": "arena-duel-1789887938966",
+      "type": "arena",
+      "title": "1v1 Arena Duel: React Hooks & Virtual DOM",
+      "sender": {
+        "id": "current_user",
+        "name": "Vinay N",
+        "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100"
+      },
+      "receiverId": "peer_target_99",
+      "receiverName": "Student",
+      "details": "Topic: React Hooks & Virtual DOM (Medium) • 25 mins • Wager: 150 XP",
+      "message": "I challenge you to a 1v1 battle in the Challenging Arena!",
+      "status": "accepted",
+      "battleUrl": "/arena?duel_id=arena-duel-1789887938966",
+      "created_at": "2026-09-20T07:05:38.966Z",
+      "responded_at": "2026-09-20T07:05:38.972Z"
+    },
+    {
+      "id": "proj-inv-1789887777597",
+      "type": "project",
+      "title": "Campus Transit Telemetry Desk",
+      "sender": {
+        "id": "current_user",
+        "name": "Vinay N",
+        "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100"
+      },
+      "receiverId": "peer_target_99",
+      "receiverName": "Student",
+      "role": "Fullstack Architect",
+      "details": "Role: Fullstack Architect • 10 hrs/week • \"Join our squad\"",
+      "status": "accepted",
+      "created_at": "2026-09-20T07:02:57.597Z",
+      "responded_at": "2026-09-20T07:02:57.603Z"
+    },
+    {
+      "id": "arena-duel-1789887777572",
+      "type": "arena",
+      "title": "1v1 Arena Duel: React Hooks & Virtual DOM",
+      "sender": {
+        "id": "current_user",
+        "name": "Vinay N",
+        "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100"
+      },
+      "receiverId": "peer_target_99",
+      "receiverName": "Student",
+      "details": "Topic: React Hooks & Virtual DOM (Medium) • 25 mins • Wager: 150 XP",
+      "message": "I challenge you to a 1v1 battle in the Challenging Arena!",
+      "status": "accepted",
+      "battleUrl": "/arena?duel_id=arena-duel-1789887777572",
+      "created_at": "2026-09-20T07:02:57.572Z",
+      "responded_at": "2026-09-20T07:02:57.580Z"
+    },
+    {
       "id": "inv-01",
       "type": "arena",
       "title": "Challenging Arena 1v1 Battle",
@@ -211,6 +289,22 @@
       "message": "Yes absolutely! Let's do the AI Resume Analyzer frontend.",
       "created_at": "2026-09-17T14:53:32.905Z",
       "is_read": true
+    },
+    {
+      "id": "msg-1789887777550",
+      "sender_id": "current_user",
+      "receiver_id": "peer_target_99",
+      "message": "<script>alert(\"hack\")</script> & \"quotes\" / <b>bold</b>",
+      "created_at": "2026-09-20T07:02:57.550Z",
+      "is_read": false
+    },
+    {
+      "id": "msg-1789887938944",
+      "sender_id": "current_user",
+      "receiver_id": "peer_target_99",
+      "message": "<script>alert(\"hack\")</script> & \"quotes\" / <b>bold</b>",
+      "created_at": "2026-09-20T07:05:38.944Z",
+      "is_read": false
     }
   ],
   "privacySettings": {
@@ -220,5 +314,26 @@
     "showInSuggestions": true
   },
   "blockedUsers": [],
-  "moderationReports": []
+  "moderationReports": [
+    {
+      "id": "report-1789887939024",
+      "reporterId": "current_user",
+      "reportedStudentId": "toxic_spammer_007",
+      "reportedStudentName": "Spam Bot",
+      "reason": "Harassment or Inappropriate Messages",
+      "details": "Unsolicited spamming of duplicate project requests",
+      "status": "pending_review",
+      "createdAt": "2026-09-20T07:05:39.024Z"
+    },
+    {
+      "id": "report-1789887777650",
+      "reporterId": "current_user",
+      "reportedStudentId": "toxic_spammer_007",
+      "reportedStudentName": "Spam Bot",
+      "reason": "Harassment or Inappropriate Messages",
+      "details": "Unsolicited spamming of duplicate project requests",
+      "status": "pending_review",
+      "createdAt": "2026-09-20T07:02:57.650Z"
+    }
+  ]
 }

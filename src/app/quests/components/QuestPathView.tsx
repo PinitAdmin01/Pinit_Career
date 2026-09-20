@@ -12,6 +12,7 @@ import {
 } from '@/lib/quests/extraRoadmaps';
 import {
   Quest,
+  Module,
   QUEST_S_CURVE_PATH,
   playPopSound
 } from './useQuestProgression';
@@ -22,6 +23,7 @@ export interface QuestPathViewProps {
   trajectory: CareerTrajectory;
   COURSES_REGISTRY: Course[];
   completedQuests: string[];
+  modules?: Module[];
   setShowFullJourneyModal: (show: boolean) => void;
   learningPathMode: LearningPathMode;
   setLearningPathMode: (mode: LearningPathMode) => void;
@@ -47,6 +49,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
   trajectory,
   COURSES_REGISTRY,
   completedQuests,
+  modules = [],
   setShowFullJourneyModal,
   learningPathMode,
   setLearningPathMode,
@@ -345,9 +348,9 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                 </span>
               </div>
 
-              {/* 🏃‍♂️ ANIMATED AVATAR TRACK RUNNER GLIDING ALONG THE S-CURVE ROAD */}
+              {/* 🏃‍♂️ ANIMATED AVATAR TRACK RUNNER & ROAD NODES */}
               {(() => {
-                const steps = [
+                const WAYPOINTS = [
                   { step: 1, top: 95, alignRight: true, color: 'var(--danger)' },
                   { step: 2, top: 175, alignRight: false, color: 'var(--warning)' },
                   { step: 3, top: 255, alignRight: true, color: 'var(--success)' },
@@ -357,178 +360,192 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                   { step: 7, top: 575, alignRight: true, color: '#ec4899' },
                   { step: 8, top: 655, alignRight: false, color: 'var(--warning)' },
                 ];
-                const activeStepIdx = steps.findIndex((s, idx) => {
-                  const node = trajectory.nodes[idx];
-                  return node && node.courseId === activeCourseId;
+
+                const activeCourseObj = COURSES_REGISTRY.find(c => c.id === activeCourseId) || COURSES_REGISTRY[0];
+                const displayNodes: TrajectoryNode[] = (trajectory?.nodes && trajectory.nodes.length > 1)
+                  ? trajectory.nodes.slice(0, 8)
+                  : (modules && modules.length > 0
+                      ? modules.slice(0, 8).map((m: Module, i: number) => ({
+                          nodeId: m.id,
+                          courseId: activeCourseId || activeCourseObj.id,
+                          title: m.title.replace(/^.*—\s*Stage\s*\d+:\s*/i, '').trim() || m.title,
+                          shortDesc: m.desc,
+                          icon: i === 0 ? '🌱' : i === 1 ? '⚡' : i === 2 ? '🚀' : '🏆',
+                          skillsLearned: [],
+                          careerImpact: '+15% Mastery',
+                          estimatedDays: (m.estimatedWeeks || 1) * 7,
+                        }))
+                      : [activeCourseObj].map((c) => ({
+                          nodeId: c.id,
+                          courseId: c.id,
+                          title: c.title,
+                          shortDesc: c.desc,
+                          icon: c.icon || '🎯',
+                          skillsLearned: [],
+                          careerImpact: '+25% Career Impact',
+                          estimatedDays: 30,
+                        }))
+                    );
+
+                const activeStepIdx = displayNodes.findIndex((node) => {
+                  return node.courseId === activeCourseId || (node.nodeId && node.nodeId.includes(activeCourseId || ''));
                 });
-                const currentStep = steps[activeStepIdx >= 0 ? activeStepIdx : 0];
-                const posX = currentStep.alignRight ? 270 : 60;
-                const posY = currentStep.top - 20;
+                const currentIdx = activeStepIdx >= 0 ? activeStepIdx : 0;
+                const currentWaypoint = WAYPOINTS[Math.min(currentIdx, WAYPOINTS.length - 1)];
+                const posX = currentWaypoint.alignRight ? 270 : 60;
+                const posY = currentWaypoint.top - 20;
 
                 return (
-                  <div style={{
-                    position: 'absolute',
-                    left: posX - 18,
-                    top: posY - 28,
-                    zIndex: 10,
-                    pointerEvents: 'none',
-                    transition: 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center'
-                  }}>
+                  <>
                     <div style={{
-                      fontSize: 8.5,
-                      fontWeight: 900,
-                      background: currentStep.color,
-                      color: 'var(--text)',
-                      padding: '2px 7px',
-                      borderRadius: 10,
-                      boxShadow: `0 4px 12px ${currentStep.color}66`,
-                      whiteSpace: 'nowrap',
-                      marginBottom: 2
-                    }}>
-                      YOU ARE HERE 📍
-                    </div>
-                    <div style={{
-                      width: 36,
-                      height: 36,
-                      borderRadius: '50%',
-                      background: 'var(--text)',
-                      border: `3px solid ${currentStep.color}`,
-                      boxShadow: `0 0 0 4px ${currentStep.color}33, 0 6px 16px ${currentStep.color}88`,
+                      position: 'absolute',
+                      left: posX - 18,
+                      top: posY - 28,
+                      zIndex: 10,
+                      pointerEvents: 'none',
+                      transition: 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)',
                       display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: 16
+                      flexDirection: 'column',
+                      alignItems: 'center'
                     }}>
-                      🧑‍💻
+                      <div style={{
+                        fontSize: 8.5,
+                        fontWeight: 900,
+                        background: currentWaypoint.color,
+                        color: 'var(--text)',
+                        padding: '2px 7px',
+                        borderRadius: 10,
+                        boxShadow: `0 4px 12px ${currentWaypoint.color}66`,
+                        whiteSpace: 'nowrap',
+                        marginBottom: 2
+                      }}>
+                        YOU ARE HERE 📍
+                      </div>
+                      <div style={{
+                        width: 36,
+                        height: 36,
+                        borderRadius: '50%',
+                        background: 'var(--text)',
+                        border: `3px solid ${currentWaypoint.color}`,
+                        boxShadow: `0 0 0 4px ${currentWaypoint.color}33, 0 6px 16px ${currentWaypoint.color}88`,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: 16
+                      }}>
+                        🧑‍💻
+                      </div>
                     </div>
-                  </div>
+
+                    {/* 🛣️ DYNAMIC NODES ON S-CURVE */}
+                    {displayNodes.map((node, idx) => {
+                      const waypoint = WAYPOINTS[Math.min(idx, WAYPOINTS.length - 1)];
+                      const itemColor = waypoint.color;
+                      const nodeCourse = COURSES_REGISTRY.find(c => c.id === node.courseId);
+                      const nodeQuests = nodeCourse?.quests || [];
+                      const clearedCount = nodeQuests.filter(q => completedQuests.includes(q.id)).length;
+                      const isFullyCompleted = nodeQuests.length > 0 && clearedCount === nodeQuests.length;
+                      const isCurrentStep = idx === currentIdx;
+
+                      return (
+                        <div
+                          key={node.nodeId || `step-${idx}`}
+                          onClick={() => {
+                            playPopSound();
+                            if (node.courseId) {
+                              setActiveCourseId(node.courseId);
+                            }
+                            const el = document.getElementById(`node-card-${node.nodeId}`) || document.getElementById(`module-${node.nodeId}`);
+                            if (el) {
+                              el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                              el.style.transition = 'all 0.3s ease';
+                              el.style.boxShadow = `0 0 25px ${itemColor}88`;
+                              setTimeout(() => {
+                                el.style.boxShadow = '';
+                              }, 1200);
+                            }
+                          }}
+                          className="card-hover"
+                          style={{
+                            position: 'absolute',
+                            top: waypoint.top,
+                            left: waypoint.alignRight ? undefined : 30,
+                            right: waypoint.alignRight ? 30 : undefined,
+                            display: 'flex',
+                            flexDirection: waypoint.alignRight ? 'row' : 'row-reverse',
+                            alignItems: 'center',
+                            gap: 12,
+                            zIndex: isCurrentStep ? 5 : 3,
+                            cursor: 'pointer',
+                            transition: 'all 0.3s ease'
+                          }}
+                        >
+                          {/* Circle Step Badge ON Road Curve */}
+                          <div style={{
+                            width: 48,
+                            height: 48,
+                            borderRadius: '50%',
+                            background: isFullyCompleted ? 'linear-gradient(135deg, var(--success), var(--success-deep))' : 'var(--text)',
+                            border: `4px solid ${isFullyCompleted ? 'var(--success-bright)' : itemColor}`,
+                            boxShadow: isCurrentStep
+                              ? `0 0 0 6px ${itemColor}33, 0 0 24px ${itemColor}aa`
+                              : isFullyCompleted
+                              ? '0 0 16px rgba(var(--success-rgb),0.5)'
+                              : `0 4px 14px ${itemColor}55`,
+                            transform: isCurrentStep ? 'scale(1.12)' : 'scale(1)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: isFullyCompleted ? '#ffffff' : '#1e293b',
+                            fontWeight: 900,
+                            fontSize: isFullyCompleted ? 20 : 19,
+                            flexShrink: 0,
+                            transition: 'all 0.3s ease'
+                          }}>
+                            {isFullyCompleted ? '✓' : (node.icon || '🎯')}
+                          </div>
+
+                          {/* Crisp Horizontal White Pill Card */}
+                          <div style={{
+                            background: 'rgba(255,255,255,0.95)',
+                            padding: '8px 14px',
+                            borderRadius: waypoint.alignRight ? '0 12px 12px 0' : '12px 0 0 12px',
+                            boxShadow: isCurrentStep
+                              ? `0 0 16px ${itemColor}44, 0 4px 14px rgba(0,0,0,0.12)`
+                              : '0 4px 14px rgba(0,0,0,0.08)',
+                            borderTop: isCurrentStep ? `1px solid ${itemColor}44` : 'none',
+                            borderRight: isCurrentStep ? `1px solid ${itemColor}44` : 'none',
+                            borderBottom: isCurrentStep ? `1px solid ${itemColor}44` : 'none',
+                            borderLeft: `4px solid ${isFullyCompleted ? 'var(--success)' : itemColor}`,
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 8,
+                            maxWidth: 220,
+                            transition: 'all 0.3s ease'
+                          }}>
+                            <span style={{ fontSize: 10, fontWeight: 900, color: isFullyCompleted ? 'var(--success)' : itemColor, textTransform: 'uppercase', flexShrink: 0 }}>
+                              Step {idx + 1}
+                            </span>
+                            <span style={{ fontSize: 11.5, fontWeight: 800, color: '#1e293b', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                              {node.title}
+                            </span>
+                            {isCurrentStep && (
+                              <span style={{ fontSize: 8.5, fontWeight: 900, background: `${itemColor}22`, color: itemColor, padding: '2px 5px', borderRadius: 4, textTransform: 'uppercase', flexShrink: 0 }}>
+                                ACTIVE
+                              </span>
+                            )}
+                            {isFullyCompleted && (
+                              <span style={{ fontSize: 8.5, fontWeight: 900, background: 'rgba(var(--success-rgb),0.2)', color: 'var(--success)', padding: '2px 5px', borderRadius: 4, textTransform: 'uppercase', flexShrink: 0 }}>
+                                CLEARED
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </>
                 );
               })()}
-
-              {/* 🛣️ 8 STEP NODES & HORIZONTAL WHITE CARDS */}
-              {[
-                { step: 1, title: 'Sharpen Basics', icon: '📋', color: 'var(--danger)', top: 95, alignRight: true },
-                { step: 2, title: 'Learn HTML, CSS', icon: '🎨', color: 'var(--warning)', top: 175, alignRight: false },
-                { step: 3, title: 'Learn Javascript - ES6/7/8', icon: '⚡', color: 'var(--success)', top: 255, alignRight: true },
-                { step: 4, title: 'Learn basic Nodejs and npm', icon: '🚀', color: 'var(--accent-cyan)', top: 335, alignRight: false },
-                { step: 5, title: 'Learn basic React', icon: '⚛️', color: 'var(--info)', top: 415, alignRight: true },
-                { step: 6, title: 'Learn Redux', icon: '🔄', color: 'var(--reward)', top: 495, alignRight: false },
-                { step: 7, title: 'Dive into React Native', icon: '📱', color: '#ec4899', top: 575, alignRight: true },
-                { step: 8, title: 'Learn React Navigation', icon: '🧭', color: 'var(--warning)', top: 655, alignRight: false },
-              ].map((item, idx) => {
-                const targetIdx = Math.min(idx, trajectory.nodes.length - 1);
-                const targetNode = trajectory.nodes[targetIdx];
-                const directNode = trajectory.nodes[idx];
-                const dynamicTitle = directNode ? directNode.title : item.title;
-                
-                // Calculate live quest metrics for this step
-                const nodeCourse = directNode ? COURSES_REGISTRY.find(c => c.id === directNode.courseId) : undefined;
-                const nodeQuests = nodeCourse?.quests || [];
-                const clearedCount = nodeQuests.filter(q => completedQuests.includes(q.id)).length;
-                const isFullyCompleted = nodeQuests.length > 0 && clearedCount === nodeQuests.length;
-                const isCurrentStep = (targetNode && targetNode.courseId === activeCourseId) || (idx === 0 && !trajectory.nodes.some(n => n.courseId === activeCourseId));
-
-                return (
-                  <div
-                    key={item.step}
-                    onClick={() => {
-                      playPopSound();
-                      if (targetNode) {
-                        if (targetNode.courseId) {
-                          setActiveCourseId(targetNode.courseId);
-                        }
-                        const el = document.getElementById(`node-card-${targetNode.nodeId}`);
-                        if (el) {
-                          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                          el.style.transition = 'all 0.3s ease';
-                          el.style.boxShadow = `0 0 25px ${item.color}88`;
-                          setTimeout(() => {
-                            el.style.boxShadow = '';
-                          }, 1200);
-                        }
-                      }
-                    }}
-                    className="card-hover"
-                    style={{
-                      position: 'absolute',
-                      top: item.top,
-                      left: item.alignRight ? undefined : 30,
-                      right: item.alignRight ? 30 : undefined,
-                      display: 'flex',
-                      flexDirection: item.alignRight ? 'row' : 'row-reverse',
-                      alignItems: 'center',
-                      gap: 12,
-                      zIndex: isCurrentStep ? 5 : 3,
-                      cursor: 'pointer',
-                      transition: 'all 0.3s ease'
-                    }}
-                  >
-                    {/* Circle Step Badge ON Road Curve */}
-                    <div style={{
-                      width: 48,
-                      height: 48,
-                      borderRadius: '50%',
-                      background: isFullyCompleted ? 'linear-gradient(135deg, var(--success), var(--success-deep))' : 'var(--text)',
-                      border: `4px solid ${isFullyCompleted ? 'var(--success-bright)' : item.color}`,
-                      boxShadow: isCurrentStep
-                        ? `0 0 0 6px ${item.color}33, 0 0 24px ${item.color}aa`
-                        : isFullyCompleted
-                        ? '0 0 16px rgba(var(--success-rgb),0.5)'
-                        : `0 4px 14px ${item.color}55`,
-                      transform: isCurrentStep ? 'scale(1.12)' : 'scale(1)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: isFullyCompleted ? '#ffffff' : '#1e293b',
-                      fontWeight: 900,
-                      fontSize: isFullyCompleted ? 20 : 19,
-                      flexShrink: 0,
-                      transition: 'all 0.3s ease'
-                    }}>
-                      {isFullyCompleted ? '✓' : item.icon}
-                    </div>
-
-                    {/* Crisp Horizontal White Pill Card */}
-                    <div style={{
-                      background: 'rgba(255,255,255,0.95)',
-                      padding: '8px 14px',
-                      borderRadius: '0 12px 12px 0',
-                      boxShadow: isCurrentStep
-                        ? `0 0 16px ${item.color}44, 0 4px 14px rgba(0,0,0,0.12)`
-                        : '0 4px 14px rgba(0,0,0,0.08)',
-                      borderTop: isCurrentStep ? `1px solid ${item.color}44` : 'none',
-                      borderRight: isCurrentStep ? `1px solid ${item.color}44` : 'none',
-                      borderBottom: isCurrentStep ? `1px solid ${item.color}44` : 'none',
-                      borderLeft: `4px solid ${isFullyCompleted ? 'var(--success)' : item.color}`,
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 8,
-                      maxWidth: 220,
-                      transition: 'all 0.3s ease'
-                    }}>
-                      <span style={{ fontSize: 10, fontWeight: 900, color: isFullyCompleted ? 'var(--success)' : item.color, textTransform: 'uppercase', flexShrink: 0 }}>
-                        Step {item.step}
-                      </span>
-                      <span style={{ fontSize: 11.5, fontWeight: 800, color: '#1e293b', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                        {dynamicTitle}
-                      </span>
-                      {isCurrentStep && (
-                        <span style={{ fontSize: 8.5, fontWeight: 900, background: `${item.color}22`, color: item.color, padding: '2px 5px', borderRadius: 4, textTransform: 'uppercase', flexShrink: 0 }}>
-                          ACTIVE
-                        </span>
-                      )}
-                      {isFullyCompleted && (
-                        <span style={{ fontSize: 8.5, fontWeight: 900, background: 'rgba(var(--success-rgb),0.2)', color: 'var(--success)', padding: '2px 5px', borderRadius: 4, textTransform: 'uppercase', flexShrink: 0 }}>
-                          CLEARED
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
 
               {/* 🏆 BOTTOM-RIGHT CELEBRATION GOAL NODE */}
               <div style={{ position: 'absolute', bottom: 10, right: 20, zIndex: 4, display: 'flex', alignItems: 'center', gap: 8 }}>

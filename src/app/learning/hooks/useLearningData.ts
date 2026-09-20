@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { useAuth } from '@/lib/context/AuthContext';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { toast } from '@/lib/store/useAppStore';
@@ -92,14 +92,21 @@ export const getOnboardingQuestions = (teacherName: string) => [
   { id: 'experience', q: "Any notable certificates, personal projects, or internships you have worked on?", placeholder: "e.g. Built a basic portfolio website, AWS certificate..." }
 ];
 
-export const ROADMAP_STEPS = [
-  { label: '1. Missing Skills', desc: 'Identify gaps using Career DNA assessments.', details: 'Dynamic Programming, Secure WebSockets, Event-Driven Architectures.' },
-  { label: '2. Recommended Quests', desc: 'Acquire syntax and theoretical skills.', details: 'Quest 19: Matrix Chain Multiplication, Quest 24: WS Handshakes.' },
-  { label: '3. Mock Interviews', desc: 'Practice communicating your ideas.', details: 'AI Interview: Systems Design Round 3 (Event-Driven preset).' },
-  { label: '4. Practice Projects', desc: 'Build and verify real-world systems.', details: 'Sponsored Project: Zero-Knowledge database connector.' },
-  { label: '5. Industry Certifications', desc: 'Earn verified industry credentials.', details: 'AWS Certified Solutions Architect, Google Advanced DSA.' },
-  { label: '6. Corporate Placement', desc: 'Submit profile directly to matching jobs.', details: 'SDE position matching at Stripe, Datadog.' }
-];
+export const getRoadmapSteps = (targetRole: string = 'Software Engineer', weakAreas: string[] = []) => {
+  const missingText = weakAreas.length > 0
+    ? weakAreas.slice(0, 3).join(', ')
+    : 'No critical gaps detected; core competencies verified';
+  return [
+    { label: '1. Skill Gap Analysis', desc: 'Identify target competencies based on Career DNA assessments.', details: `Target Focus: ${targetRole}. Focus areas: ${missingText}.` },
+    { label: '2. Recommended Quests', desc: 'Acquire core theoretical concepts and applied syntax.', details: `Targeted practice modules matched to ${targetRole} curriculum.` },
+    { label: '3. Mock Interviews', desc: 'Practice communicating technical and behavioral solutions.', details: `AI Mock Interview rounds tailored to ${targetRole} evaluation rubrics.` },
+    { label: '4. Practice Projects', desc: 'Build and verify real-world systems for your portfolio.', details: `Portfolio-grade capstone projects demonstrating verified skill tags.` },
+    { label: '5. Industry Certifications', desc: 'Earn verified credentials and benchmark evaluations.', details: `Skill-based certificates and AI-verified portfolio credentials.` },
+    { label: '6. Career Placement', desc: 'Connect your verified credentials with matching opportunities.', details: `Direct placement matching based on your verified Career DNA score.` },
+  ];
+};
+
+export const ROADMAP_STEPS = getRoadmapSteps();
 
 export function useLearningData() {
   const { user } = useAuth();
@@ -153,13 +160,16 @@ export function useLearningData() {
     }
   }, [onboardingAnswers]);
 
-  // Dynamic missing skills calculated from the actual database weak_areas
-  const weakAreas = Array.isArray(user?.weak_areas) ? user.weak_areas : ['System Design', 'DSA - Trees', 'Behavioral STAR'];
-  const missingSkills = (weakAreas as string[]).map((area, idx) => ({
+  // Dynamic missing skills calculated from the actual database weak_areas - no fabricated defaults
+  const weakAreas: string[] = Array.isArray(user?.weak_areas) ? user.weak_areas : [];
+  const missingSkills = weakAreas.map((area, idx) => ({
     name: area,
-    reason: `Assessed as weak in compiler testing or mock interview case verification.`,
+    reason: `Identified as growth opportunity in your skill assessment history.`,
     severity: idx === 0 ? 'High' as const : 'Medium' as const
   }));
+
+  const targetRole = user?.target_role || onboardingAnswers?.role || (cOS as any)?.targetRole || 'Software Engineer';
+  const roadmapSteps = useMemo(() => getRoadmapSteps(targetRole, weakAreas), [targetRole, weakAreas]);
 
   // Fetch Career Twin projections from supabased endpoint
   const { data: twinData } = useQuery({
@@ -279,13 +289,15 @@ export function useLearningData() {
   const clearMistake = (id: string) => {
     const nextMistakes = mistakes.filter(m => m.id !== id);
     setMistakes(nextMistakes);
-    const nextAnswers = {
-      ...onboardingAnswers,
-      learning_mistakes: nextMistakes
-    };
-    api.post('/api/auth/onboarding', { onboardingAnswers: nextAnswers })
+    if (onboardingAnswers) {
+      setOnboarding({
+        ...onboardingAnswers,
+        learning_mistakes: nextMistakes,
+      });
+    }
+    api.post('/api/auth/onboarding', { learning_mistakes: nextMistakes })
       .then(() => {
-        toast.success('Remedial Action Started', 'Compiling customized sandbox test cases to resolve this knowledge gap.');
+        toast.success('Knowledge Gap Resolved', 'Mistake record marked as resolved. Spaced repetition queue refreshed.');
       })
       .catch(() => {
         toast.error('Failed to sync changes.');
@@ -324,7 +336,7 @@ export function useLearningData() {
     selectedTwinPath,
     setSelectedTwinPath,
     handleSendAnswer,
-    roadmapSteps: ROADMAP_STEPS,
+    roadmapSteps,
     quests: QUESTS,
     onboardingAnswers
   };

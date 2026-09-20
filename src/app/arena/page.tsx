@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, Suspense, useCallback } from 'react';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -16,6 +17,18 @@ import { ArenaPvPService, ArenaRoom } from '@/lib/services/arenaPvPService';
 import { triggerPinStream } from '@/components/pins/coinAnimation';
 import ArenaMatchmakingRadar from '@/components/pins/ArenaMatchmakingRadar';
 import ArenaCodeDiffViewer from '@/components/pins/ArenaCodeDiffViewer';
+
+const MonacoEditor = dynamic(
+  () => import('@monaco-editor/react').then(mod => mod.default),
+  {
+    ssr: false,
+    loading: () => (
+      <div style={{ height: 360, background: '#0d1117', color: 'var(--t3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'monospace', fontSize: 13 }}>
+        Loading Monaco Code Arena Engine...
+      </div>
+    )
+  }
+);
 
 function ArenaContent() {
   const router = useRouter();
@@ -46,6 +59,17 @@ function ArenaContent() {
   const [selectedProblemId, setSelectedProblemId] = useState<string>(problems[0].id);
   const [selectedDifficulty, setSelectedDifficulty] = useState<'basic' | 'intermediate' | 'advanced' | 'production'>('intermediate');
   const [selectedTimeLimit, setSelectedTimeLimit] = useState<number>(600); // 10 minutes
+
+  // Track solved problems in localStorage to prevent repeatable XP farming
+  const [solvedProblemIds, setSolvedProblemIds] = useState<Set<string>>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const stored = localStorage.getItem(`pinit_arena_solved_${studentId}`);
+        if (stored) return new Set(JSON.parse(stored));
+      } catch {}
+    }
+    return new Set();
+  });
 
   // Active PvP Room
   const [activeRoom, setActiveRoom] = useState<ArenaRoom | null>(null);
@@ -136,18 +160,22 @@ function ArenaContent() {
           return prev - 1;
         });
 
-        // AI opponent simulation for solo mode
-        if (soloMatch && soloMatch.status === 'active' && soloMatch.opponent) {
+        // Turing Benchmark AI opponent pacing simulation for solo mode
+        if (soloMatch && soloMatch.status === 'active' && soloMatch.opponent && !soloMatch.opponent.completed) {
           setSoloMatch(curr => {
-            if (!curr || !curr.opponent) return curr;
-            const burst = Math.random() > 0.4 ? Math.floor(Math.random() * 3) + 1 : 0;
-            const nextPct = Math.min(96, curr.opponent.progressPct + burst);
+            if (!curr || !curr.opponent || curr.status !== 'active') return curr;
+            const elapsed = (curr.opponent.timeElapsedSeconds || 0) + 1;
+            const targetSeconds = activeProblem.difficulty === 'basic' ? 120 : activeProblem.difficulty === 'advanced' ? 240 : 180;
+            const progress = Math.min(100, Math.round((elapsed / targetSeconds) * 100));
+            const botFinished = progress >= 100;
             return {
               ...curr,
+              status: botFinished ? 'defeat' : 'active',
               opponent: {
                 ...curr.opponent,
-                progressPct: nextPct,
-                timeElapsedSeconds: curr.opponent.timeElapsedSeconds + 1,
+                progressPct: progress,
+                completed: botFinished,
+                timeElapsedSeconds: elapsed,
               }
             };
           });
@@ -316,16 +344,36 @@ function ArenaContent() {
         });
         setActiveRoom(updated);
 
-        // If victorious, grant reward and trigger flying pins
+        // If victorious, grant reward and trigger flying pins (deduplicated by problem ID)
         if (result.passed) {
-          triggerPinStream({ count: 20 });
-          if (cOS?.addXp) cOS.addXp(activeProblem.xpReward || 200, '1v1 Arena Duel Victory');
+          const isFirstClear = !solvedProblemIds.has(activeProblem.id);
+          if (isFirstClear) {
+            triggerPinStream({ count: 20 });
+            if (cOS?.addXp) cOS.addXp(activeProblem.xpReward || 200, '1v1 Arena Duel Victory (First Clear)');
+            setSolvedProblemIds(prev => {
+              const next = new Set(prev).add(activeProblem.id);
+              try {
+                localStorage.setItem(`pinit_arena_solved_${studentId}`, JSON.stringify(Array.from(next)));
+              } catch {}
+              return next;
+            });
+          }
         }
       } else if (soloMatch) {
         setSoloMatch(prev => prev ? { ...prev, status: result.passed ? 'victory' : 'defeat' } : null);
         if (result.passed) {
-          triggerPinStream({ count: 12 });
-          if (cOS?.addXp) cOS.addXp(activeProblem.xpReward || 150, 'Code Wars Victory');
+          const isFirstClear = !solvedProblemIds.has(activeProblem.id);
+          if (isFirstClear) {
+            triggerPinStream({ count: 12 });
+            if (cOS?.addXp) cOS.addXp(activeProblem.xpReward || 150, 'Code Wars Victory (First Clear)');
+            setSolvedProblemIds(prev => {
+              const next = new Set(prev).add(activeProblem.id);
+              try {
+                localStorage.setItem(`pinit_arena_solved_${studentId}`, JSON.stringify(Array.from(next)));
+              } catch {}
+              return next;
+            });
+          }
         }
       }
     } catch (err: any) {
@@ -566,14 +614,14 @@ function ArenaContent() {
                 Algorithmic Code Wars
               </h3>
               <p style={{ color: 'var(--t2)', fontSize: 14, lineHeight: 1.5, marginBottom: 20 }}>
-                Compete against rival engineers in real-time matchmaking or invite your friends to a private duel room.
-                Solve complex algorithmic challenges, optimize time complexity, and climb the global ELO ladder.
+                Challenge fellow engineers in private 1v1 duel rooms or spar against the Turing Benchmark AI.
+                Solve deterministic algorithmic challenges, optimize time complexity, and earn verified skill evidence.
               </p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 24 }}>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 12, color: 'var(--t2)' }}>✔ Real 1v1 PvP</span>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 12, color: 'var(--t2)' }}>✔ Create Room & Invite</span>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 12, color: 'var(--t2)' }}>✔ Elo Ratings</span>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 12, color: 'var(--t2)' }}>✔ Live Code Runner</span>
+                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 12, color: 'var(--t2)' }}>✔ 1v1 Room Battles</span>
+                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 12, color: 'var(--t2)' }}>✔ Turing AI Sparring</span>
+                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 12, color: 'var(--t2)' }}>✔ SHA-256 Ledger Evidence</span>
+                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 12, color: 'var(--t2)' }}>✔ Monaco Code Runner</span>
               </div>
             </div>
             <button
@@ -617,16 +665,16 @@ function ArenaContent() {
                 </span>
               </div>
               <h3 style={{ fontSize: 20, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>
-                Hackathon Squads & Team Hub
+                Squad Collaboration & Projects
               </h3>
               <p style={{ color: 'var(--t2)', fontSize: 14, lineHeight: 1.5, marginBottom: 20 }}>
-                Assemble high-performance 3-person squads with Frontend, Backend, and AI Lead roles. Build production-grade capstone products and submit to corporate bounties.
+                Collaborate on production-grade capstone products in the Projects hub. Form multi-disciplinary teams with Frontend, Backend, and AI roles to build portfolio-grade software.
               </p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 24 }}>
                 <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 12, color: 'var(--t2)' }}>✔ Role Slot Allocation</span>
                 <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 12, color: 'var(--t2)' }}>✔ Milestone Tracker</span>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 12, color: 'var(--t2)' }}>✔ Team Chat</span>
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 12, color: 'var(--t2)' }}>✔ Industry Bounties</span>
+                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 12, color: 'var(--t2)' }}>✔ GitHub Workspaces</span>
+                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', fontSize: 12, color: 'var(--t2)' }}>✔ Portfolio Capstones</span>
               </div>
             </div>
             <Link
@@ -733,14 +781,14 @@ function ArenaContent() {
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
                       <span style={{ fontSize: 28 }}>⚡</span>
                       <span style={{ fontSize: 12, fontWeight: 700, color: '#818cf8', background: 'rgba(99, 102, 241, 0.15)', padding: '4px 10px', borderRadius: 20 }}>
-                        REAL-TIME MATCHMAKING
+                        TURING AI SPARRING & DUELS
                       </span>
                     </div>
                     <h3 style={{ fontSize: 18, fontWeight: 700, color: 'var(--t1)', marginBottom: 8 }}>
-                      1v1 Quick Match
+                      1v1 Algorithmic Duel
                     </h3>
                     <p style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.5, marginBottom: 16 }}>
-                      Queue up to battle a live engineer on campus or globally. Tests run concurrently in real-time.
+                      Queue up to spar against the Turing Benchmark AI or share room links for live peer battles.
                     </p>
 
                     {isQueueing ? (
@@ -1417,7 +1465,9 @@ function ArenaContent() {
                     }}>
                       {activeProblem.difficulty}
                     </span>
-                    <span style={{ fontSize: 12, color: 'var(--t3)' }}>XP Reward: +{activeProblem.xpReward}</span>
+                    <span style={{ fontSize: 12, color: solvedProblemIds.has(activeProblem.id) ? '#34d399' : 'var(--t3)' }}>
+                      {solvedProblemIds.has(activeProblem.id) ? '✓ Cleared (+0 Practice XP)' : `XP Reward: +${activeProblem.xpReward}`}
+                    </span>
                   </div>
 
                   <h2 style={{ fontSize: 20, fontWeight: 800, color: 'var(--t1)', margin: '0 0 12px' }}>
@@ -1490,26 +1540,22 @@ function ArenaContent() {
                     </button>
                   </div>
 
-                  {/* Code Textarea */}
-                  <div style={{ position: 'relative', height: '360px' }}>
-                    <textarea
+                  {/* Monaco Code Editor */}
+                  <div style={{ position: 'relative', height: '360px', borderRadius: 12, overflow: 'hidden', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
+                    <MonacoEditor
+                      height="100%"
+                      language={language === 'python' ? 'python' : language === 'java' ? 'java' : 'typescript'}
+                      theme="vs-dark"
                       value={code}
-                      onChange={e => setCode(e.target.value)}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        padding: 16,
-                        borderRadius: 12,
-                        background: '#0d1117',
-                        border: '1px solid rgba(255, 255, 255, 0.1)',
-                        color: '#c9d1d9',
+                      onChange={(val) => setCode(val || '')}
+                      options={{
+                        fontSize: 13.5,
+                        minimap: { enabled: false },
+                        scrollBeyondLastLine: false,
+                        tabSize: 2,
+                        automaticLayout: true,
                         fontFamily: 'Consolas, Monaco, "Courier New", monospace',
-                        fontSize: 14,
-                        lineHeight: 1.5,
-                        resize: 'none',
-                        outline: 'none',
                       }}
-                      placeholder="// Write your solution here..."
                     />
                   </div>
 

@@ -2,21 +2,21 @@
   "progress": [
     {
       "user_id": "test_user_001",
-      "display_name": "Leaked.student",
-      "total_accuracy": 1005,
+      "display_name": "student",
+      "total_accuracy": 1320,
       "daily_logs": {
         "2026-09-17": {
           "date": "2026-09-17",
-          "focusMinutes": 60,
+          "focusMinutes": 45,
           "gamesPlayed": 6
         },
         "current_stats": {
           "date": "current_stats",
           "stats": {
-            "focusFireBest": 300,
-            "memoryMatrixBest": 10,
+            "focusFireBest": 450,
+            "memoryMatrixBest": 12,
             "reflexRushBest": 80,
-            "sequenceSnapBest": 5,
+            "sequenceSnapBest": 8,
             "vortexVisionBest": 0,
             "flashFusionBest": 0,
             "shapeShifterBest": 0,
@@ -25,23 +25,23 @@
             "storeSimBest": 0,
             "precisionPointerBest": 0,
             "totalSessions": 20,
-            "streak": 2,
+            "streak": 3,
             "lastPlayedDate": "2026-09-17",
             "dailyScores": {},
             "dailySessions": {},
             "completedDifficulties": {}
           },
-          "integrityHash": "81829ec3e0bc45ed",
-          "updatedAt": "2026-09-18T19:24:30.504Z"
+          "integrityHash": "762fcdbe8386e88c",
+          "updatedAt": "2026-09-20T06:55:31.533Z"
         }
       },
       "monthly_summaries": {
         "2026-09": {
           "month": "2026-09",
-          "totalFocusHours": 15
+          "totalFocusHours": 12
         }
       },
-      "updated_at": "2026-09-18T19:24:30.511Z"
+      "updated_at": "2026-09-20T06:55:31.533Z"
     }
   ]
 }

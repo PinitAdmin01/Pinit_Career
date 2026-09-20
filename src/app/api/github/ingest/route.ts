@@ -16,10 +16,10 @@ export async function POST(req: Request) {
     }
 
     const token = process.env.GITHUB_TOKEN || undefined;
-    // DEF-040 Hardening: Prioritize authenticated user identity over client-supplied body parameters
-    const authenticatedUsername = (gated.user as any)?.githubUsername || (gated.user as any)?.username || (gated.user as any)?.email?.split('@')[0];
-    const resolvedUsername = authenticatedUsername || studentUsername;
-    const report = await ingestGithubRepository(repoUrl, token, resolvedUsername);
+    // DEF-040 Hardening: Require verified GitHub username from authenticated session; strictly forbid guessing from email prefix or untrusted body parameters
+    const userMeta = (gated.user as any)?.user_metadata || {};
+    const authenticatedUsername = (gated.user as any)?.githubUsername || userMeta.github_username || userMeta.user_name || (gated.user as any)?.username || undefined;
+    const report = await ingestGithubRepository(repoUrl, token, authenticatedUsername);
 
     if (report.status === 'RATE_LIMITED') {
       return NextResponse.json({

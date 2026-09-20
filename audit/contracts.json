@@ -1,6 +1,6 @@
 {
   "summary": {
-    "generated": "2026-09-19T11:07:23.659Z",
+    "generated": "2026-09-20T06:33:12.097Z",
     "appCodeFiles": 590,
     "verticals": 72,
     "verticalsWithDefects": 33,
@@ -6838,19 +6838,16 @@
       "directCalls": 1,
       "spec": {
         "file": "src/app/api/code/debug-tutor/route.ts",
-        "lines": 198,
+        "lines": 205,
         "methods": [
           "POST"
         ],
         "usesSecret": true,
         "secrets": [
           "GROQ_API_KEYS",
-          "GROQ_API_KEY",
-          "SUPABASE_SERVICE_ROLE_KEY"
+          "GROQ_API_KEY"
         ],
-        "secretVia": {
-          "SUPABASE_SERVICE_ROLE_KEY": "src/lib/services/financeService.ts"
-        },
+        "secretVia": {},
         "authGated": true
       },
       "brokenOn": [
@@ -9445,7 +9442,7 @@
       "directCalls": 5,
       "spec": {
         "file": "src/app/api/friends/route.ts",
-        "lines": 244,
+        "lines": 386,
         "methods": [
           "GET",
           "POST",
@@ -16606,7 +16603,7 @@
       "callSites": [
         {
           "file": "src/components/quests/workspace/useWorkspaceState.ts",
-          "line": 342,
+          "line": 344,
           "live": true
         },
         {
@@ -19754,12 +19751,12 @@
         },
         {
           "file": "src/components/quests/workspace/useWorkspaceState.ts",
-          "line": 377,
+          "line": 379,
           "live": true
         },
         {
           "file": "src/components/quests/workspace/useWorkspaceState.ts",
-          "line": 403,
+          "line": 405,
           "live": true
         },
         {
@@ -19789,12 +19786,12 @@
         },
         {
           "file": "src/components/quests/workspace/useWorkspaceState.ts",
-          "line": 377,
+          "line": 379,
           "live": true
         },
         {
           "file": "src/components/quests/workspace/useWorkspaceState.ts",
-          "line": 403,
+          "line": 405,
           "live": true
         },
         {

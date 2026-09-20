@@ -48,7 +48,8 @@ const STORAGE_KEYS = {
   MATERIALS: 'campus_portal_materials',
   ATTENDANCE: 'campus_portal_attendance',
   FRAUD_ALERTS: 'campus_portal_fraud_alerts',
-  EXAM_RESULTS: 'campus_portal_exam_results'
+  EXAM_RESULTS: 'campus_portal_exam_results',
+  EXAMS: 'campus_portal_exams'
 };
 
 export const portalService = {
@@ -161,7 +162,8 @@ export const portalService = {
     return [];
   },
 
-  async saveAttendance(records: AttendanceRecord[]): Promise<void> {
+  async saveAttendance(records: AttendanceRecord[]): Promise<boolean> {
+    let success = false;
     try {
       if (records.length) {
         const res = await supabase.from('campus_attendance').upsert(records.map(r => ({
@@ -173,7 +175,11 @@ export const portalService = {
           roll_no: r.rollNo,
           status: r.status,
         })));
-        if (res.error) throw new Error(res.error.message);
+        if (res.error) {
+          console.warn('Supabase attendance write notice:', res.error.message);
+        } else {
+          success = true;
+        }
       }
     } catch (err) {
       console.warn('Supabase attendance write failed, falling back to local storage:', err);
@@ -188,10 +194,12 @@ export const portalService = {
           all = all.filter(r => !(r.date === date && r.batch === batch));
         }
         localStorage.setItem(STORAGE_KEYS.ATTENDANCE, JSON.stringify([...records, ...all]));
+        success = true;
       }
     } catch (e) {
       console.error('Failed to save attendance', e);
     }
+    return success;
   },
 
   // ── Fraud Event Bridge ──
@@ -313,6 +321,57 @@ export const portalService = {
     } catch {}
     return [];
   },
+
+  async getAllExamResults(): Promise<StudentExamResultRecord[]> {
+    try {
+      const { data, error } = await supabase
+        .from('campus_exam_results')
+        .select('*')
+        .order('graded_at', { ascending: false });
+      if (!error && data && data.length > 0) {
+        return data.map((r: any) => ({
+          examId: r.exam_id,
+          studentId: r.student_id,
+          score: Number(r.score),
+          totalMarks: Number(r.total_marks),
+          gradedAt: r.graded_at
+        }));
+      }
+    } catch {}
+
+    try {
+      if (typeof window !== 'undefined') {
+        const stored = localStorage.getItem(STORAGE_KEYS.EXAM_RESULTS);
+        if (stored) return JSON.parse(stored);
+      }
+    } catch {}
+    return [];
+  },
+
+  async getExams(): Promise<any[]> {
+    try {
+      if (typeof window !== 'undefined') {
+        const stored = localStorage.getItem(STORAGE_KEYS.EXAMS);
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+      }
+    } catch {}
+    return [];
+  },
+
+  async saveExam(exam: any): Promise<void> {
+    try {
+      if (typeof window !== 'undefined') {
+        const existing = await this.getExams();
+        const updated = [exam, ...existing.filter((e: any) => e.id !== exam.id)];
+        localStorage.setItem(STORAGE_KEYS.EXAMS, JSON.stringify(updated));
+      }
+    } catch (e) {
+      console.error('Failed to save exam locally', e);
+    }
+  },
   
   // ── Dynamic Student Roster & Faculty Analytics Engine ──
   async getEnrolledStudents(): Promise<Array<{
@@ -333,26 +392,31 @@ export const portalService = {
     try {
       const { data, error } = await supabase
         .from('users')
-        .select('id, full_name, email, roll_no, batch, department, course_track, completed_quests_count, xp, pins, ats_score, attendance_pct, status')
+        .select('id, display_name, username, email, target_role, ats_score, xp_total, pins, onboarding_answers, register_number')
         .eq('role', 'student');
       if (!error && data && data.length > 0) {
-        return data.map((u: any) => ({
-          id: u.id,
-          name: u.full_name || 'Student',
-          email: u.email || '',
-          rollNo: u.roll_no || `STD-${u.id.substring(0, 6).toUpperCase()}`,
-          batch: u.batch || 'Batch 2024-A',
-          department: u.department || 'Computer Science',
-          courseTrack: u.course_track || 'Full Stack Engineering',
-          completedQuestsCount: u.completed_quests_count || 0,
-          xp: u.xp || 0,
-          pins: u.pins || 0,
-          atsScore: u.ats_score || 0,
-          attendancePct: u.attendance_pct || 100,
-          status: (u.status as any) || 'active'
-        }));
+        return data.map((u: any) => {
+          const ob = (u.onboarding_answers as Record<string, any>) || {};
+          return {
+            id: u.id,
+            name: u.display_name || u.username || 'Student',
+            email: u.email || '',
+            rollNo: u.register_number || ob.rollNo || ob.roll_no || `CS-2024-${u.id.substring(0, 4).toUpperCase()}`,
+            batch: ob.batch || 'Batch 2024-A',
+            department: ob.department || ob.dept || 'Computer Science',
+            courseTrack: u.target_role || ob.targetRole || ob.course_track || 'Full Stack Engineering',
+            completedQuestsCount: Array.isArray(ob.completedQuests) ? ob.completedQuests.length : 0,
+            xp: u.xp_total || 0,
+            pins: u.pins || 0,
+            atsScore: typeof u.ats_score === 'number' ? u.ats_score : 0,
+            attendancePct: typeof ob.attendancePct === 'number' ? ob.attendancePct : 100,
+            status: (ob.status as any) || 'active'
+          };
+        });
       }
-    } catch {}
+    } catch (err) {
+      console.warn('Supabase getEnrolledStudents query error:', err);
+    }
 
     try {
       if (typeof window !== 'undefined') {

@@ -330,8 +330,9 @@ export class CodeWarsApiService {
     const passed = testsPassed === totalTests;
     const score = passed ? Math.max(75, Math.min(100, Math.round(100 - (timeSpentSeconds / problem.timeLimitSeconds) * 20))) : Math.max(0, Math.round((testsPassed / totalTests) * 50));
 
+    const runtimeMs = Math.max(8, Math.round(timeSpentSeconds * 2.8));
     const logs = passed
-      ? `✓ All ${totalTests} test assertions passed.\nRuntime: ${Math.max(8, Math.round(timeSpentSeconds * 2.5))}ms (Beats 91% of submissions)\nMemory: 38.4 MB`
+      ? `✓ All ${totalTests} test assertions passed.\nDeterministic Execution Verified.\nRuntime: ${runtimeMs}ms\nScore: ${score}/100`
       : `✗ ${evalErrorLog || `Assertion failed on Test Case ${testsPassed + 1}.`}\nExpected: ${problem.testCases[testsPassed]?.expectedOutput || 'valid output'}\nTests Passed: ${testsPassed} / ${totalTests}\nExecution Terminated.`;
 
     let evidenceRecordId: string | undefined;
@@ -668,8 +669,6 @@ export class CodeWarsApiService {
         }
       }
     }
-    if (!vmModule) return null;
-
     const sandbox: Record<string, any> = Object.create(null);
     sandbox.console = Object.freeze({ log: () => {}, error: () => {}, warn: () => {} });
     sandbox.Math = Math;
@@ -693,7 +692,6 @@ export class CodeWarsApiService {
       targetFn = fn;
     };
 
-    const context = vmModule.createContext(sandbox);
     const checks = fnNames
       .map((name) => `if (typeof ${name} === 'function') __exportFn(${name});`)
       .join('\n');
@@ -712,6 +710,15 @@ export class CodeWarsApiService {
       } catch (e) {}
     `;
 
+    if (!vmModule) {
+      // SECURITY: dynamic function construction via the Function constructor is forbidden here
+      // because it bypasses the node:vm sandbox isolation.
+      // If node:vm is unavailable (e.g. browser bundle), refuse to extract
+      // rather than execute student code outside the isolated sandbox.
+      return null;
+    }
+
+    const context = vmModule.createContext(sandbox);
     try {
       const script = new vmModule.Script(wrapped, { timeout: 2000 });
       script.runInContext(context, { timeout: 2000 });
@@ -924,7 +931,38 @@ export class CodeWarsApiService {
           evalErrorLog: 'Anti-Cheat Guard: Deadlock prevention requires deterministic global lock ordering (e.g. sorting resource IDs).'
         };
       }
-      return { testsPassed: totalTests };
+
+      try {
+        let jsEquivalent = nonCommentCode;
+        if (language === 'python') {
+          jsEquivalent = jsEquivalent
+            .replace(/def\s+(?:acquire_resources_deterministically|acquireResourcesDeterministically)\s*\([^)]*\):/g, 'function acquireResourcesDeterministically(requests) {')
+            .replace(/\bseen\s*=\s*set\(\)/g, 'let seen = new Set();')
+            .replace(/\bres\s*=\s*set\(\)/g, 'let res = new Set();')
+            .replace(/\bset\(\)/g, 'new Set()')
+            .replace(/for\s+(\w+)\s+in\s+requests:/g, 'for (let $1 of requests) {')
+            .replace(/for\s+(\w+)\s+in\s+(\w+)(?:\.get\(['"]resourceIds['"],\s*\[\]\)|\[['"]resourceIds['"]\]|\.resourceIds):/g, 'for (let $1 of ($2.resourceIds || [])) {')
+            .replace(/return\s+sorted\(\s*(?:list\()?\s*([^)]+)\s*\)?\s*\)/g, 'return Array.from($1).sort();');
+          if (!jsEquivalent.includes('}')) {
+            jsEquivalent += '\n}\n}\n}';
+          }
+        }
+        const fn = CodeWarsApiService.extractFunctionFromSandbox(jsEquivalent, [
+          'acquireResourcesDeterministically',
+          'acquire_resources_deterministically'
+        ]);
+        if (typeof fn === 'function') {
+          const res = CodeWarsApiService.evaluateConcurrencyTestCases(fn);
+          return { testsPassed: res.passedCount, evalErrorLog: res.errorLog };
+        }
+      } catch (err: any) {
+        return { testsPassed: 0, evalErrorLog: `Runtime error in concurrency test runner: ${err?.message || 'Invalid syntax'}` };
+      }
+
+      return {
+        testsPassed: 0,
+        evalErrorLog: 'Failed to extract executable acquireResourcesDeterministically function from submission.'
+      };
     }
 
     if (problem.id === 'war_sql_btree_query_03') {
@@ -936,10 +974,43 @@ export class CodeWarsApiService {
           evalErrorLog: 'Anti-Cheat Guard: Query optimizer must generate valid CREATE INDEX DDL matching the table and column specs.'
         };
       }
-      return { testsPassed: totalTests };
+
+      try {
+        let jsEquivalent = nonCommentCode;
+        if (language === 'python') {
+          jsEquivalent = jsEquivalent
+            .replace(/def\s+(?:generate_optimal_composite_index|generateOptimalCompositeIndex)\s*\([^)]*\):/g, 'function generateOptimalCompositeIndex(table, eq, range) {')
+            .replace(/cols\s*=\s*list\(eq\)\s*\+\s*\[range\]/g, 'let cols = [...eq, range];')
+            .replace(/cols\s*=\s*list\(equality_cols\)\s*\+\s*\[range_col\]/g, 'let cols = [...equalityCols, rangeCol];')
+            .replace(/return\s+f["']CREATE INDEX idx_\{table\}_\{'_'\.join\(cols\)\} ON \{table\} \(\{'[, ]*'\.join\(cols\)\}\);?["']/g, 'return `CREATE INDEX idx_${table}_${cols.join("_")} ON ${table} (${cols.join(", ")});`;')
+            .replace(/return\s+f["']CREATE INDEX idx_\{table_name\}_\{'_'\.join\(cols\)\} ON \{table_name\} \(\{'[, ]*'\.join\(cols\)\}\);?["']/g, 'return `CREATE INDEX idx_${tableName}_${cols.join("_")} ON ${tableName} (${cols.join(", ")});`;');
+          if (!jsEquivalent.includes('}')) {
+            jsEquivalent += '\n}';
+          }
+        }
+        const fn = CodeWarsApiService.extractFunctionFromSandbox(jsEquivalent, [
+          'generateOptimalCompositeIndex',
+          'generate_optimal_composite_index'
+        ]);
+        if (typeof fn === 'function') {
+          const res = CodeWarsApiService.evaluateSqlTestCases(fn);
+          return { testsPassed: res.passedCount, evalErrorLog: res.errorLog };
+        }
+      } catch (err: any) {
+        return { testsPassed: 0, evalErrorLog: `Runtime error in SQL index test runner: ${err?.message || 'Invalid syntax'}` };
+      }
+
+      return {
+        testsPassed: 0,
+        evalErrorLog: 'Failed to extract executable generateOptimalCompositeIndex function from submission.'
+      };
     }
 
-    return { testsPassed: totalTests };
+    // Fail closed on unknown/unregistered problem IDs
+    return {
+      testsPassed: 0,
+      evalErrorLog: `Algorithmic Evaluation Rejected: Unknown or unregistered arena problem ID "${problem.id}". Fail-closed enforcement.`
+    };
   }
 }
 

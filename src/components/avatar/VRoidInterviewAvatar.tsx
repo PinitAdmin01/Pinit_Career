@@ -24,8 +24,12 @@ export default function VRoidInterviewAvatar({ teacherId = 'priya', animState = 
     const scene = new VRoidAvatarEngine();
     sceneRef.current = scene;
 
-    // 8-second safety timeout: degrades smoothly to 2D fallback if network is slow
+    // 8-second safety timeout: degrades to 2D portrait fallback if GLB load stalls
     const safetyTimer = setTimeout(() => {
+      // CRITICAL FIX: must trigger hasWebGLError=true so the 2D fallback renders.
+      // Previously only setIsLoading(false) was called here — that hid the spinner
+      // but left a dead, black, empty canvas instead of the 2D mentor portrait.
+      setHasWebGLError(true);
       setIsLoading(false);
     }, 8000);
 

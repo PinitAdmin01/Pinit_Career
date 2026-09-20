@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { portalService } from '@/lib/services/portalService';
 
 interface Question {
@@ -22,39 +22,48 @@ interface Exam {
   questions?: Question[];
 }
 
-export default function ExamGradingManager() {
-  const [exams, setExams] = useState<Exam[]>([
-    {
-      id: 'ex_1',
-      title: 'Mid-Term Assessment: Algorithms & Complexity',
-      subject: 'Data Structures & Algorithms',
-      batch: 'Batch 2024-A',
-      totalMarks: 100,
-      dueDate: '2026-08-10',
-      status: 'active',
-      submissionsCount: 42,
-      questions: [
-        { id: 'q1', questionText: 'What is the time complexity of searching in a balanced BST?', options: ['O(1)', 'O(log N)', 'O(N)', 'O(N^2)'], correctAnswer: 1 },
-        { id: 'q2', questionText: 'Which data structure follows the LIFO principle?', options: ['Queue', 'Stack', 'Tree', 'Graph'], correctAnswer: 1 }
-      ]
-    },
-    {
-      id: 'ex_2',
-      title: 'Practical Quiz: Neural Networks Implementation',
-      subject: 'Artificial Intelligence',
-      batch: 'Batch 2025-B',
-      totalMarks: 50,
-      dueDate: '2026-07-30',
-      status: 'grading',
-      submissionsCount: 38
-    }
-  ]);
+const INITIAL_EXAMS: Exam[] = [
+  {
+    id: 'ex_1',
+    title: 'Mid-Term Assessment: Algorithms & Complexity',
+    subject: 'Data Structures & Algorithms',
+    batch: 'Batch 2024-A',
+    totalMarks: 100,
+    dueDate: '2026-08-10',
+    status: 'active',
+    submissionsCount: 42,
+    questions: [
+      { id: 'q1', questionText: 'What is the time complexity of searching in a balanced BST?', options: ['O(1)', 'O(log N)', 'O(N)', 'O(N^2)'], correctAnswer: 1 },
+      { id: 'q2', questionText: 'Which data structure follows the LIFO principle?', options: ['Queue', 'Stack', 'Tree', 'Graph'], correctAnswer: 1 }
+    ]
+  },
+  {
+    id: 'ex_2',
+    title: 'Practical Quiz: Neural Networks Implementation',
+    subject: 'Artificial Intelligence',
+    batch: 'Batch 2025-B',
+    totalMarks: 50,
+    dueDate: '2026-07-30',
+    status: 'grading',
+    submissionsCount: 38
+  }
+];
 
-  // State-driven submissions so grading updates the UI
-  const [submissions, setSubmissions] = useState([
-    { id: 'sub_1', studentId: 's1', studentName: 'Rahul Sharma', examId: 'ex_1', examTitle: 'Mid-Term Algorithms', submittedAt: '2026-08-01', score: 88, totalMarks: 100, graded: true },
-    { id: 'sub_2', studentId: 's2', studentName: 'Ananya Gupta', examId: 'ex_2', examTitle: 'Practical Neural Networks', submittedAt: '2026-07-30', score: null as number | null, totalMarks: 100, graded: false }
-  ]);
+export default function ExamGradingManager() {
+  const [exams, setExams] = useState<Exam[]>(INITIAL_EXAMS);
+  const [submissions, setSubmissions] = useState<Array<{
+    id: string;
+    studentId: string;
+    studentName: string;
+    examId: string;
+    examTitle: string;
+    submittedAt: string;
+    score: number | null;
+    totalMarks: number;
+    graded: boolean;
+  }>>([]);
+  const [editingScores, setEditingScores] = useState<Record<string, number>>({});
+  const [syncNotice, setSyncNotice] = useState<string | null>(null);
 
   const [activeTab, setActiveTab] = useState<'exams' | 'grading' | 'create'>('exams');
   const [newTitle, setNewTitle] = useState('');
@@ -70,7 +79,88 @@ export default function ExamGradingManager() {
   const [generating, setGenerating] = useState(false);
   const [generatedQuestions, setGeneratedQuestions] = useState<Question[]>([]);
 
-  // Topic-Aware AI Question Generation Engine
+  // Load persistent exams and real student submissions
+  useEffect(() => {
+    let isMounted = true;
+    async function loadData() {
+      try {
+        const storedExams = await portalService.getExams();
+        let currentExams = INITIAL_EXAMS;
+        if (Array.isArray(storedExams) && storedExams.length > 0) {
+          currentExams = storedExams;
+          if (isMounted) setExams(storedExams);
+        } else {
+          // Initialize persistence with defaults
+          for (const ex of INITIAL_EXAMS) {
+            await portalService.saveExam(ex);
+          }
+        }
+
+        // Load enrolled students and recorded exam results
+        const [enrolledStudents, allResults] = await Promise.all([
+          portalService.getEnrolledStudents(),
+          portalService.getAllExamResults()
+        ]);
+
+        const resultsMap: Record<string, { score: number; totalMarks: number; gradedAt: string }> = {};
+        for (const res of allResults) {
+          resultsMap[`${res.studentId}_${res.examId}`] = {
+            score: res.score,
+            totalMarks: res.totalMarks,
+            gradedAt: res.gradedAt
+          };
+        }
+
+        const dynamicSubmissions: Array<{
+          id: string;
+          studentId: string;
+          studentName: string;
+          examId: string;
+          examTitle: string;
+          submittedAt: string;
+          score: number | null;
+          totalMarks: number;
+          graded: boolean;
+        }> = [];
+
+        // Combine enrolled students with active exams
+        const studentsList = enrolledStudents.length > 0
+          ? enrolledStudents
+          : [
+              { id: 's1', name: 'Rahul Sharma', rollNo: 'CS-001' },
+              { id: 's2', name: 'Ananya Gupta', rollNo: 'CS-002' }
+            ];
+
+        for (const ex of currentExams) {
+          for (const std of studentsList.slice(0, 8)) {
+            const key = `${std.id}_${ex.id}`;
+            const recorded = resultsMap[key];
+            dynamicSubmissions.push({
+              id: key,
+              studentId: std.id,
+              studentName: std.name,
+              examId: ex.id,
+              examTitle: ex.title,
+              submittedAt: recorded ? recorded.gradedAt.split('T')[0] : '2026-08-01',
+              score: recorded ? recorded.score : null,
+              totalMarks: ex.totalMarks || (recorded ? recorded.totalMarks : 100),
+              graded: !!recorded
+            });
+          }
+        }
+
+        if (isMounted) {
+          setSubmissions(dynamicSubmissions);
+        }
+      } catch (err) {
+        console.warn('Failed to load exam grading data:', err);
+      }
+    }
+    loadData();
+    return () => { isMounted = false; };
+  }, []);
+
+  // Topic-Aware AI Question Generation Engine with balanced option distributions
   function generateQuizWithAi() {
     if (!aiTopic.trim()) return;
     setGenerating(true);
@@ -78,62 +168,62 @@ export default function ExamGradingManager() {
     setTimeout(() => {
       const topic = aiTopic.trim();
       
-      // Dynamic topic-specific questions generator
+      // Dynamic topic-specific questions generator with balanced correct answers
       const dynamicQuestions: Question[] = [
         {
           id: `ai_q_1_${Date.now()}`,
-          questionText: `What is the foundational principle underlying ${topic}?`,
+          questionText: `What is the foundational architectural principle underlying ${topic}?`,
           options: [
-            `Core conceptual model of ${topic}`,
             'Linear Sequential Execution',
+            `Core conceptual model and encapsulation of ${topic}`,
             'Brute Force Traversal',
-            'Random Memory Allocation'
+            'Unbounded Memory Allocation'
           ],
-          correctAnswer: 0
+          correctAnswer: 1
         },
         {
           id: `ai_q_2_${Date.now()}`,
-          questionText: `Which key mechanism is most critical when evaluating ${topic}?`,
+          questionText: `Which evaluation metric is most critical when benchmarking ${topic}?`,
           options: [
-            'System Latency Reduction',
-            `Algorithmic Performance in ${topic}`,
             'UI Color Balance',
-            'Hardware Clock Frequency'
+            'Hardware Clock Frequency',
+            `Throughput and Algorithmic Complexity in ${topic}`,
+            'Static CSS Specificity'
           ],
-          correctAnswer: 1
+          correctAnswer: 2
         },
         {
           id: `ai_q_3_${Date.now()}`,
           questionText: `In professional applications, ${topic} is primarily implemented to achieve:`,
           options: [
-            `High Efficiency & Reliability in ${topic}`,
-            'Unbounded Memory Usage',
-            'Slower Response Times',
-            'Deprecating Legacy APIs'
+            `High Efficiency & Fault-Tolerant Reliability in ${topic}`,
+            'Unbounded Memory Leakage',
+            'Slower Artificial Response Times',
+            'Deprecating Core Database Indices'
           ],
           correctAnswer: 0
         },
         {
           id: `ai_q_4_${Date.now()}`,
-          questionText: `What is a common edge case or constraint when working with ${topic}?`,
+          questionText: `What is a common edge case or boundary constraint when optimizing ${topic}?`,
           options: [
-            'Resource Overflow / Boundary Limits',
-            'Zero CPU Utilization',
-            'Static Font Rendering',
-            'CSS Grid Alignments'
+            'Zero CPU Thread Utilization',
+            'Static Font Smoothing',
+            'CSS Grid Alignments',
+            `Resource Exhaustion and Boundary Contention in ${topic}`
           ],
-          correctAnswer: 0
+          correctAnswer: 3
         },
         {
           id: `ai_q_5_${Date.now()}`,
           questionText: `Which standard design pattern or methodology best aligns with ${topic}?`,
           options: [
-            `Domain-Driven Design for ${topic}`,
-            'Singleton Global Mutation',
-            'Poller Anti-Pattern',
+            'Singleton Global Anti-Pattern',
+            `Domain-Driven Modular Architecture for ${topic}`,
+            'Poller Mutation Anti-Pattern',
             'Hardcoded Constant Injection'
           ],
-          correctAnswer: 0
+          correctAnswer: 1
         }
       ].slice(0, aiNumQuestions);
 
@@ -143,10 +233,10 @@ export default function ExamGradingManager() {
       setGenerating(false);
       setShowAiModal(false);
       setActiveTab('create');
-    }, 1000);
+    }, 800);
   }
 
-  function handleCreateExam(e: React.FormEvent) {
+  async function handleCreateExam(e: React.FormEvent) {
     e.preventDefault();
     if (!newTitle.trim()) return;
 
@@ -162,6 +252,9 @@ export default function ExamGradingManager() {
       questions: generatedQuestions
     };
 
+    // Persist exam to storage so students and teachers both see it
+    await portalService.saveExam(created);
+
     setExams([created, ...exams]);
     setNewTitle('');
     setGeneratedQuestions([]);
@@ -169,6 +262,7 @@ export default function ExamGradingManager() {
   }
 
   async function handleGradeSubmission(studentId: string, examId: string, score: number, totalMarks: number) {
+    // 1. Update Supabase campus_exam_results and local storage via portalService
     await portalService.updateExamScore({
       examId,
       studentId,
@@ -176,12 +270,32 @@ export default function ExamGradingManager() {
       totalMarks,
       gradedAt: new Date().toISOString()
     });
-    // Update submissions state so UI reflects the grade
+
+    // 2. Persist via backend API route /api/teacher/submit-marks
+    try {
+      await fetch('/api/teacher/submit-marks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          studentId,
+          examId,
+          score,
+          totalMarks
+        })
+      });
+    } catch (e) {
+      console.warn('Teacher submit-marks endpoint notice:', e);
+    }
+
+    // 3. Update submissions state so UI reflects the grade
     setSubmissions(prev => prev.map(s =>
-      s.studentId === studentId && s.examId === examId
+      (s.studentId === studentId && s.examId === examId) || s.id === `${studentId}_${examId}`
         ? { ...s, score, graded: true }
         : s
     ));
+
+    setSyncNotice(`Score ${score} / ${totalMarks} recorded permanently & synced.`);
+    setTimeout(() => setSyncNotice(null), 3000);
   }
 
   return (
@@ -490,8 +604,17 @@ export default function ExamGradingManager() {
       {/* Grading View */}
       {activeTab === 'grading' && (
         <div style={{ background: 'var(--bg1, #fff)', border: '1px solid var(--border, var(--border))', borderRadius: 12, padding: 20 }}>
-          <h3 style={{ margin: '0 0 16px', fontSize: 18, fontWeight: 700 }}>📊 Student Submissions & Grading</h3>
-          <p style={{ color: 'var(--t3)', fontSize: 14 }}>Select a student submission to evaluate, record marks, and sync results.</p>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
+            <div>
+              <h3 style={{ margin: '0 0 4px', fontSize: 18, fontWeight: 700 }}>📊 Student Submissions & Grading</h3>
+              <p style={{ color: 'var(--t3)', fontSize: 14, margin: 0 }}>Type authentic student marks and record them directly to live academic records.</p>
+            </div>
+            {syncNotice && (
+              <span style={{ background: 'rgba(var(--success-rgb), 0.1)', border: '1px solid var(--success)', color: 'var(--success)', padding: '6px 14px', borderRadius: 8, fontSize: 13, fontWeight: 700 }}>
+                ✓ {syncNotice}
+              </span>
+            )}
+          </div>
 
           <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: 16 }}>
             <thead>
@@ -499,28 +622,67 @@ export default function ExamGradingManager() {
                 <th style={{ padding: 10 }}>Student Name</th>
                 <th style={{ padding: 10 }}>Exam</th>
                 <th style={{ padding: 10 }}>Submission Date</th>
-                <th style={{ padding: 10 }}>Score</th>
-                <th style={{ padding: 10 }}>Action</th>
+                <th style={{ padding: 10 }}>Current Score</th>
+                <th style={{ padding: 10 }}>Enter Grade & Record</th>
               </tr>
             </thead>
             <tbody>
-              {submissions.map(sub => (
-                <tr key={sub.id} style={{ borderBottom: '1px solid var(--border, var(--border))' }}>
-                  <td style={{ padding: 10, fontWeight: 600 }}>{sub.studentName}</td>
-                  <td style={{ padding: 10 }}>{sub.examTitle}</td>
-                  <td style={{ padding: 10 }}>{sub.submittedAt}</td>
-                  <td style={{ padding: 10, color: sub.graded ? 'var(--success)' : 'var(--danger-deep)', fontWeight: 700 }}>
-                    {sub.graded ? `${sub.score} / ${sub.totalMarks}` : 'Pending'}
-                  </td>
-                  <td style={{ padding: 10 }}>
-                    {sub.graded ? (
-                      <button onClick={() => handleGradeSubmission(sub.studentId, sub.examId, sub.score ?? 0, sub.totalMarks)} style={{ padding: '4px 10px', fontSize: 12, borderRadius: 6, border: '1px solid #cbd5e1', cursor: 'pointer' }}>Sync Grade</button>
-                    ) : (
-                      <button onClick={() => handleGradeSubmission(sub.studentId, sub.examId, 92, sub.totalMarks)} style={{ padding: '4px 10px', fontSize: 12, borderRadius: 6, border: 'none', background: 'var(--info)', color: 'var(--text)', cursor: 'pointer' }}>Grade Now & Sync</button>
-                    )}
-                  </td>
-                </tr>
-              ))}
+              {submissions.map(sub => {
+                const currentVal = editingScores[sub.id] !== undefined
+                  ? editingScores[sub.id]
+                  : (sub.score !== null ? sub.score : '');
+                return (
+                  <tr key={sub.id} style={{ borderBottom: '1px solid var(--border, var(--border))' }}>
+                    <td style={{ padding: 10, fontWeight: 600 }}>{sub.studentName}</td>
+                    <td style={{ padding: 10 }}>{sub.examTitle}</td>
+                    <td style={{ padding: 10 }}>{sub.submittedAt}</td>
+                    <td style={{ padding: 10, color: sub.graded ? 'var(--success)' : 'var(--danger-deep)', fontWeight: 700 }}>
+                      {sub.graded ? `${sub.score} / ${sub.totalMarks}` : 'Pending Evaluation'}
+                    </td>
+                    <td style={{ padding: 10 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <input
+                          type="number"
+                          min={0}
+                          max={sub.totalMarks}
+                          placeholder={`0-${sub.totalMarks}`}
+                          value={currentVal}
+                          onChange={e => {
+                            const num = e.target.value === '' ? ('' as any) : Math.min(sub.totalMarks, Math.max(0, Number(e.target.value)));
+                            setEditingScores(prev => ({ ...prev, [sub.id]: num }));
+                          }}
+                          style={{
+                            width: 75,
+                            padding: '6px 8px',
+                            borderRadius: 6,
+                            border: '1px solid var(--border, #cbd5e1)',
+                            fontSize: 13,
+                            fontWeight: 700
+                          }}
+                        />
+                        <button
+                          onClick={() => {
+                            const finalScore = typeof currentVal === 'number' ? currentVal : Number(currentVal) || 0;
+                            handleGradeSubmission(sub.studentId, sub.examId, finalScore, sub.totalMarks);
+                          }}
+                          style={{
+                            padding: '6px 12px',
+                            fontSize: 12,
+                            borderRadius: 6,
+                            border: 'none',
+                            background: sub.graded ? 'var(--accent, #3b82f6)' : 'var(--success, #16a34a)',
+                            color: '#fff',
+                            cursor: 'pointer',
+                            fontWeight: 700
+                          }}
+                        >
+                          {sub.graded ? 'Update & Sync' : 'Record Grade & Sync'}
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

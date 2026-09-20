@@ -119,68 +119,11 @@ export function useCareerIntelligenceData() {
     else if (user?.role === 'admin') setActiveRole('placement');
   }, [user]);
 
-  // 1. Internship Tracker Dataset
+  // 1. Internship Tracker Dataset (Honest, authenticated records only)
   const [trackerSubTab, setTrackerSubTab] = useState<'current' | 'completed'>('current');
-  const [internships, setInternships] = useState<Internship[]>([
-    {
-      id: 'int1',
-      studentName: 'You',
-      company: 'Stripe Security',
-      role: 'Software Engineering Intern',
-      tasks: [
-        { id: 't1', name: 'Complete security onboarding and SSH setup', status: 'Approved' },
-        { id: 't2', name: 'Optimize concurrent billing ledger database queues', status: 'Review' },
-        { id: 't3', name: 'Refactor multi-currency indexing tables in schema', status: 'Pending' }
-      ],
-      reviews: [
-        { week: 1, text: 'Adapted very quickly to the Stripe codebase and met all requirements.', status: 'Approved' },
-        { week: 2, text: 'Completed queue performance benchmarks with 14% latency reductions.', status: 'Pending' }
-      ],
-      performance: 92,
-      offerStatus: 'Eligible for Pre-Placement Offer (PPO) review in Week 8',
-      completed: false
-    },
-    {
-      id: 'int2',
-      studentName: 'You',
-      company: 'Hana Web Agency',
-      role: 'Frontend Developer Intern',
-      tasks: [],
-      reviews: [],
-      performance: 88,
-      offerStatus: 'No conversion review (Stipend internship)',
-      completed: true
-    }
-  ]);
+  const [internships, setInternships] = useState<Internship[]>([]);
 
-  const [mentees, setMentees] = useState<Internship[]>([
-    {
-      id: 'int_m1',
-      studentName: 'Rajesh Kumar',
-      company: 'Infosys Labs',
-      role: 'SDE Intern',
-      tasks: [
-        { id: 'm_t1', name: 'Implement REST APIs for inventory modules', status: 'Review' }
-      ],
-      reviews: [
-        { week: 1, text: 'Weekly logs submitted for inventory routes.', status: 'Pending' }
-      ],
-      performance: 78,
-      offerStatus: 'Eligible for conversion review',
-      completed: false
-    },
-    {
-      id: 'int_m2',
-      studentName: 'Aisha Khan',
-      company: 'Amazon Cloud',
-      role: 'Cloud Engineering Intern',
-      tasks: [],
-      reviews: [],
-      performance: 85,
-      offerStatus: 'Pending final evaluation',
-      completed: false
-    }
-  ]);
+  const [mentees, setMentees] = useState<Internship[]>([]);
 
   const approveWeekLog = (menteeId: string, weekNum: number) => {
     setMentees(mentees.map(m => {
@@ -195,23 +138,11 @@ export function useCareerIntelligenceData() {
     toast.success('Log Approved', 'Successfully verified student weekly log deliverables.');
   };
 
-  const probabilities: CompanyProbability[] = [
-    { company: 'Infosys', pct: 94, color: 'var(--green)', reasons: ['Excellent Socratic communication index', '12-day coding quest streak is active', 'AWS Developer certification verified'] },
-    { company: 'Stripe Security', pct: 45, color: 'var(--amber)', reasons: ['Requires Stripe cryptography project verification from faculty', 'Assessed dynamic programming speed is low'] },
-    { company: 'Amazon', pct: 32, color: 'var(--coral)', reasons: ['Improve Dynamic Programming quest scores', 'Increase Round 2 coding test case accuracy above 50%'] },
-    { company: 'Google Labs', pct: 18, color: 'var(--coral)', reasons: ['Enhance system scaling knowledge', 'Practice event-driven whiteboard layout nodes'] }
-  ];
+  const probabilities: CompanyProbability[] = [];
 
-  const topCandidates: TopCandidate[] = [
-    { name: 'Vikram Rao', reg: 'PIN-2026-4402', cgpa: 8.5, matchPct: 96, skills: ['Next.js', 'Go Lang', 'Docker', 'WebCrypto'] },
-    { name: 'Neha Patel', reg: 'PIN-2026-9041', cgpa: 7.3, matchPct: 88, skills: ['TypeScript', 'React', 'Python', 'Algorithms'] },
-    { name: 'Abhijit Sen', reg: 'PIN-2026-3024', cgpa: 7.1, matchPct: 81, skills: ['Next.js', 'REST APIs', 'SQL'] }
-  ];
+  const topCandidates: TopCandidate[] = [];
 
-  const riskStudents: RiskStudent[] = [
-    { name: 'Rajesh Kumar', reg: 'PIN-2026-1049', cgpa: 6.2, riskReasons: ['Low lecture attendance (64%)', 'Failing grades in data structures mock tests'] },
-    { name: 'Aisha Khan', reg: 'PIN-2026-2184', cgpa: 6.8, riskReasons: ['Struggling with system scaling concepts', 'Round 2 compiler accuracy under 40%'] }
-  ];
+  const riskStudents: RiskStudent[] = [];
 
   // 2. Opportunities Dataset
   const [opps, setOpps] = useState<Record<string, any>[]>([]);
@@ -302,9 +233,9 @@ export function useCareerIntelligenceData() {
   const [projectsTab, setProjectsTab] = useState<'browse' | 'track'>('browse');
   const [projects, setProjects] = useState<Project[]>([
     { id: 'proj1', title: 'Zero-Knowledge Database Adapter', company: 'Stripe Security', budget: 2500, duration: '4 Weeks', tech: ['Next.js', 'WebCrypto API', 'SQL'], status: 'approved', applied: false },
-    { id: 'proj2', title: 'Distributed Log Telemetry Aggregator', company: 'Datadog Core', budget: 4000, duration: '6 Weeks', tech: ['Go Lang', 'gRPC', 'Docker'], status: 'approved', applied: true, studentName: 'You' },
+    { id: 'proj2', title: 'Distributed Log Telemetry Aggregator', company: 'Datadog Core', budget: 4000, duration: '6 Weeks', tech: ['Go Lang', 'gRPC', 'Docker'], status: 'approved', applied: false },
     { id: 'proj3', title: 'Socratic Dialogue Finetuner Module', company: 'OpenAI Labs', budget: 3500, duration: '5 Weeks', tech: ['Python', 'PyTorch', 'HuggingFace'], status: 'pending', applied: false },
-    { id: 'proj4', title: 'Real-time Canvas Whiteboard Engine', company: 'Figma Dev', budget: 3000, duration: '4 Weeks', tech: ['React', 'WebSockets', 'Canvas API'], status: 'completed', applied: true, studentName: 'You', creditsAwarded: 4, grade: 'A+' }
+    { id: 'proj4', title: 'Real-time Canvas Whiteboard Engine', company: 'Figma Dev', budget: 3000, duration: '4 Weeks', tech: ['React', 'WebSockets', 'Canvas API'], status: 'approved', applied: false }
   ]);
 
   const [newTitle, setNewTitle] = useState('');
@@ -324,7 +255,7 @@ export function useCareerIntelligenceData() {
     const newProj: Project = {
       id: `proj-${Date.now()}`,
       title: newTitle,
-      company: user?.displayName || 'Stripe Security',
+      company: user?.displayName || 'Partner Organization',
       budget: 2500,
       duration: '4 Weeks',
       tech: newTech.split(',').map(s => s.trim()).filter(Boolean),

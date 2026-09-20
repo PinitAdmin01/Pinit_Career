@@ -61,6 +61,7 @@ function QuestsPageContent() {
           trajectory={prog.trajectory}
           COURSES_REGISTRY={prog.COURSES_REGISTRY}
           completedQuests={prog.completedQuests}
+          modules={prog.modules}
           setShowFullJourneyModal={prog.setShowFullJourneyModal}
           learningPathMode={prog.learningPathMode}
           setLearningPathMode={prog.setLearningPathMode}

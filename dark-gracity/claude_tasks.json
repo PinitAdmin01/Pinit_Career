@@ -64,7 +64,7 @@
     {
       "id": "task-007",
       "title": "Friends Tab CSS Overhaul & Production Account Middleware/Endpoint Hardening",
-      "prompt": "Read CLAUDE_TASK_PROMPT.md. Revamp Friends Tab UI/CSS in src/app/friends/page.tsx & src/styles/friends.css (fix unstyled search bar, replace emojis with sleek SVGs, modern glassmorphic filter chips and student cards). In src/app/api/friends/route.ts, eliminate insecure fallbacks (hardcoded UUID / firstUser) and enforce proper authentication and rate limiting. Validate with npx tsc --noEmit.",
+      "prompt": "Read CLAUDE_TASK_PROMPT.md. Read reference files from parent directory, but build all deliverables strictly inside claude_sandbox/ (FriendsPageRevamp.tsx, friends_revamp.css, friends_route.ts, friends_suggestions_route.ts). Run node claude_self_validate.js to confirm zero errors.",
       "status": "queued",
       "attempts": 0,
       "maxAttempts": 3,

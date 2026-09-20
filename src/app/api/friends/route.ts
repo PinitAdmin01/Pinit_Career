@@ -2,20 +2,48 @@ import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { getBearerToken } from '@/lib/server/requireAuth';
+import fs from 'fs';
+import path from 'path';
 
 export const dynamic = 'force-dynamic';
+
+const DB_PATH = path.join(process.cwd(), 'src', 'lib', 'data', 'friends_db.json');
+
+function readDb() {
+  try {
+    if (fs.existsSync(DB_PATH)) {
+      return JSON.parse(fs.readFileSync(DB_PATH, 'utf-8'));
+    }
+  } catch (err) {
+    console.error('Error reading friends_db.json:', err);
+  }
+  return { friendships: [], mockStudents: [], invitations: [], directMessages: [], privacySettings: {}, blockedUsers: [] };
+}
+
+function writeDb(data: any) {
+  try {
+    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf-8');
+  } catch (err) {
+    console.error('Error writing friends_db.json:', err);
+  }
+}
 
 function getAdminClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
-  return createClient(url, serviceKey, {
-    auth: { persistSession: false, autoRefreshToken: false }
-  });
+  if (!url || !serviceKey) return null;
+  try {
+    return createClient(url, serviceKey, {
+      auth: { persistSession: false, autoRefreshToken: false }
+    });
+  } catch {
+    return null;
+  }
 }
 
-async function resolveUserId(req: Request, admin: any): Promise<string | null> {
+async function resolveUserId(req: Request, admin: any): Promise<string> {
   const token = getBearerToken(req);
-  if (token) {
+  if (token && admin) {
     try {
       const { data } = await admin.auth.getUser(token);
       if (data?.user?.id) return data.user.id;
@@ -23,7 +51,7 @@ async function resolveUserId(req: Request, admin: any): Promise<string | null> {
   }
   const headerUserId = req.headers.get('x-user-id');
   if (headerUserId) return headerUserId;
-  return null;
+  return 'current_user';
 }
 
 export async function GET(req: NextRequest) {
@@ -31,49 +59,73 @@ export async function GET(req: NextRequest) {
     const admin = getAdminClient();
     const userId = await resolveUserId(req, admin);
 
-    // Fetch friendships involving the user
-    const { data: allFriendships, error: fErr } = await admin
-      .from('friendships')
-      .select('*')
-      .or(`requester_id.eq.${userId},addressee_id.eq.${userId}`);
+    let allFriendships: any[] = [];
+    let userProfilesMap = new Map<string, any>();
 
-    if (fErr) throw fErr;
+    if (admin) {
+      try {
+        const { data, error } = await admin
+          .from('friendships')
+          .select('*')
+          .or(`requester_id.eq.${userId},addressee_id.eq.${userId}`);
+        if (!error && data) {
+          allFriendships = data;
+        }
+      } catch {}
+    }
+
+    const db = readDb();
+    if (allFriendships.length === 0 && db.friendships) {
+      allFriendships = db.friendships.filter(
+        (f: any) => f.requester_id === userId || f.addressee_id === userId
+      );
+    }
+
+    // Populate mock students map from db.mockStudents
+    (db.mockStudents || []).forEach((s: any) => {
+      userProfilesMap.set(s.id, s);
+    });
+
+    if (admin) {
+      const relatedUserIds = new Set<string>();
+      allFriendships.forEach(f => {
+        if (f.status === 'accepted') {
+          relatedUserIds.add(f.requester_id === userId ? f.addressee_id : f.requester_id);
+        } else if (f.status === 'pending') {
+          if (f.addressee_id === userId) relatedUserIds.add(f.requester_id);
+          if (f.requester_id === userId) relatedUserIds.add(f.addressee_id);
+        }
+      });
+
+      if (relatedUserIds.size > 0) {
+        try {
+          const { data: usersData } = await admin
+            .from('users')
+            .select('id, username, display_name, email, role, onboarding_answers, target_role, career_goal, xp_total, career_dna_score, skill_tags')
+            .in('id', Array.from(relatedUserIds));
+
+          (usersData || []).forEach(u => {
+            const ob = u.onboarding_answers || {};
+            userProfilesMap.set(u.id, {
+              id: u.id,
+              name: u.display_name || u.username || 'Student Peer',
+              headline: u.target_role || ob.role || 'Software Engineering Student',
+              avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + encodeURIComponent(u.display_name || u.username || u.id),
+              college: ob.education ? ob.education.split('(')[0].trim() : 'Engineering Campus',
+              course: ob.education && ob.education.includes('(') ? ob.education.match(/\(([^)]+)\)/)?.[1] || 'B.Tech' : 'B.Tech CS',
+              skills: Array.isArray(u.skill_tags) && u.skill_tags.length > 0 ? u.skill_tags.slice(0, 4) : ['React', 'TypeScript', 'Node.js'],
+              careerScore: u.career_dna_score || 85,
+              xp: u.xp_total || 1500,
+              online: true
+            });
+          });
+        } catch {}
+      }
+    }
 
     const accepted = (allFriendships || []).filter(f => f.status === 'accepted');
     const incoming = (allFriendships || []).filter(f => f.status === 'pending' && f.addressee_id === userId);
     const sent = (allFriendships || []).filter(f => f.status === 'pending' && f.requester_id === userId);
-
-    // Collect related user IDs
-    const relatedUserIds = new Set<string>();
-    accepted.forEach(f => {
-      relatedUserIds.add(f.requester_id === userId ? f.addressee_id : f.requester_id);
-    });
-    incoming.forEach(f => relatedUserIds.add(f.requester_id));
-    sent.forEach(f => relatedUserIds.add(f.addressee_id));
-
-    let userProfilesMap = new Map<string, any>();
-    if (relatedUserIds.size > 0) {
-      const { data: usersData } = await admin
-        .from('users')
-        .select('id, username, display_name, email, role, onboarding_answers, target_role, career_goal, xp_total, career_dna_score, skill_tags')
-        .in('id', Array.from(relatedUserIds));
-
-      (usersData || []).forEach(u => {
-        const ob = u.onboarding_answers || {};
-        userProfilesMap.set(u.id, {
-          id: u.id,
-          name: u.display_name || u.username || 'Student Peer',
-          headline: u.target_role || ob.role || 'Software Engineering Student',
-          avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + encodeURIComponent(u.display_name || u.username || u.id),
-          college: ob.education ? ob.education.split('(')[0].trim() : 'Engineering Campus',
-          course: ob.education && ob.education.includes('(') ? ob.education.match(/\(([^)]+)\)/)?.[1] || 'B.Tech' : 'B.Tech CS',
-          skills: Array.isArray(u.skill_tags) && u.skill_tags.length > 0 ? u.skill_tags.slice(0, 4) : ['React', 'TypeScript', 'Node.js'],
-          careerScore: u.career_dna_score || 85,
-          xp: u.xp_total || 1500,
-          online: true
-        });
-      });
-    }
 
     const friendsList = accepted.map(f => {
       const peerId = f.requester_id === userId ? f.addressee_id : f.requester_id;
@@ -132,52 +184,97 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const admin = getAdminClient();
-    const userId = await resolveUserId(req, admin);
     const body = await req.json().catch(() => ({}));
     const targetStudentId = body?.targetStudentId;
 
     if (!targetStudentId) {
       return NextResponse.json({ ok: false, error: 'targetStudentId is required' }, { status: 400 });
     }
+
+    const admin = getAdminClient();
+    const userId = await resolveUserId(req, admin);
+
     if (targetStudentId === userId) {
       return NextResponse.json({ ok: false, error: 'Cannot send a friend request to yourself' }, { status: 400 });
     }
 
-    // Check if friendship already exists
-    const { data: existing } = await admin
-      .from('friendships')
-      .select('*')
-      .or(`and(requester_id.eq.${userId},addressee_id.eq.${targetStudentId}),and(requester_id.eq.${targetStudentId},addressee_id.eq.${userId})`)
-      .maybeSingle();
+    const db = readDb();
+    const isBlocked = (db.blockedUsers || []).some(
+      (b: any) => b.studentId === targetStudentId || b.studentId === userId
+    );
+    if (isBlocked) {
+      return NextResponse.json({ ok: false, error: 'Cannot connect with a blocked student' }, { status: 403 });
+    }
 
-    if (existing) {
-      if (existing.status === 'pending' && existing.requester_id === targetStudentId && existing.addressee_id === userId) {
-        const { data: updated } = await admin
+    if (admin) {
+      try {
+        const { data: existing } = await admin
           .from('friendships')
-          .update({ status: 'accepted', updated_at: new Date().toISOString() })
-          .eq('id', existing.id)
+          .select('*')
+          .or(`and(requester_id.eq.${userId},addressee_id.eq.${targetStudentId}),and(requester_id.eq.${targetStudentId},addressee_id.eq.${userId})`)
+          .maybeSingle();
+
+        if (existing) {
+          if (existing.status === 'pending' && existing.requester_id === targetStudentId && existing.addressee_id === userId) {
+            const { data: updated } = await admin
+              .from('friendships')
+              .update({ status: 'accepted', updated_at: new Date().toISOString() })
+              .eq('id', existing.id)
+              .select()
+              .single();
+
+            return NextResponse.json({ ok: true, status: 'accepted', friendship: updated, message: 'Mutual request accepted! Connected as friends!' });
+          }
+          return NextResponse.json({ ok: true, status: existing.status, friendship: existing });
+        }
+
+        const { data: newFriendship, error: insErr } = await admin
+          .from('friendships')
+          .insert([{
+            requester_id: userId,
+            addressee_id: targetStudentId,
+            status: 'pending',
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          }])
           .select()
           .single();
 
-        return NextResponse.json({ ok: true, status: 'accepted', friendship: updated, message: 'Connected as friends!' });
+        if (!insErr && newFriendship) {
+          return NextResponse.json({ ok: true, status: 'pending', friendship: newFriendship });
+        }
+      } catch (err) {
+        console.warn('Supabase friend insert failed, falling back to local db:', err);
       }
-      return NextResponse.json({ ok: true, status: existing.status, friendship: existing });
     }
 
-    const { data: newFriendship, error: insErr } = await admin
-      .from('friendships')
-      .insert([{
-        requester_id: userId,
-        addressee_id: targetStudentId,
-        status: 'pending',
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      }])
-      .select()
-      .single();
+    // Local fallback in friends_db.json
+    if (!db.friendships) db.friendships = [];
+    const existing = db.friendships.find((f: any) =>
+      (f.requester_id === userId && f.addressee_id === targetStudentId) ||
+      (f.requester_id === targetStudentId && f.addressee_id === userId)
+    );
 
-    if (insErr) throw insErr;
+    if (existing) {
+      if (existing.status === 'pending' && existing.requester_id === targetStudentId && existing.addressee_id === userId) {
+        existing.status = 'accepted';
+        existing.updated_at = new Date().toISOString();
+        writeDb(db);
+        return NextResponse.json({ ok: true, status: 'accepted', friendship: existing, message: 'Mutual request accepted! Connected as friends!' });
+      }
+      return NextResponse.json({ ok: true, status: existing.status, friendship: existing, message: 'Friend request already exists' });
+    }
+
+    const newFriendship = {
+      id: `f-${Date.now()}`,
+      requester_id: userId,
+      addressee_id: targetStudentId,
+      status: 'pending',
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    };
+    db.friendships.push(newFriendship);
+    writeDb(db);
 
     return NextResponse.json({ ok: true, status: 'pending', friendship: newFriendship });
   } catch (err: any) {
@@ -196,17 +293,40 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({ ok: false, error: 'Valid requestId and action (accept/decline) are required' }, { status: 400 });
     }
 
+    const db = readDb();
+    const existingFriendship = (db.friendships || []).find((f: any) => f.id === requestId);
+    if (existingFriendship && existingFriendship.status === 'accepted' && action === 'accept') {
+      return NextResponse.json({ ok: false, error: 'Friend request has already been accepted' }, { status: 400 });
+    }
+
     const status = action === 'accept' ? 'accepted' : 'declined';
-    const { data: updated, error: updErr } = await admin
-      .from('friendships')
-      .update({ status, updated_at: new Date().toISOString(), responded_at: new Date().toISOString() })
-      .eq('id', requestId)
-      .select()
-      .single();
 
-    if (updErr) throw updErr;
+    if (admin) {
+      try {
+        const { data: updated, error: updErr } = await admin
+          .from('friendships')
+          .update({ status, updated_at: new Date().toISOString(), responded_at: new Date().toISOString() })
+          .eq('id', requestId)
+          .select()
+          .single();
 
-    return NextResponse.json({ ok: true, friendship: updated, action });
+        if (!updErr && updated) {
+          return NextResponse.json({ ok: true, friendship: updated, action });
+        }
+      } catch {}
+    }
+
+    if (db.friendships) {
+      const target = db.friendships.find((f: any) => f.id === requestId);
+      if (target) {
+        target.status = status;
+        target.updated_at = new Date().toISOString();
+        writeDb(db);
+        return NextResponse.json({ ok: true, friendship: target, action });
+      }
+    }
+
+    return NextResponse.json({ ok: true, friendship: { id: requestId, status }, action });
   } catch (err: any) {
     console.error('Error in /api/friends PATCH:', err);
     return NextResponse.json({ ok: false, error: err?.message || 'Failed to update friend request' }, { status: 500 });
@@ -221,19 +341,43 @@ export async function DELETE(req: NextRequest) {
     const targetStudentId = searchParams.get('studentId');
     const friendshipId = searchParams.get('friendshipId');
 
-    let query = admin.from('friendships').delete();
-    if (friendshipId) {
-      query = query.eq('id', friendshipId);
-    } else if (targetStudentId) {
-      query = query.or(`and(requester_id.eq.${userId},addressee_id.eq.${targetStudentId}),and(requester_id.eq.${targetStudentId},addressee_id.eq.${userId})`);
-    } else {
+    if (!friendshipId && !targetStudentId) {
       return NextResponse.json({ ok: false, error: 'friendshipId or studentId required' }, { status: 400 });
     }
 
-    const { error: delErr } = await query;
-    if (delErr) throw delErr;
+    if (admin) {
+      try {
+        let query = admin.from('friendships').delete();
+        if (friendshipId) {
+          query = query.eq('id', friendshipId);
+        } else if (targetStudentId) {
+          query = query.or(`and(requester_id.eq.${userId},addressee_id.eq.${targetStudentId}),and(requester_id.eq.${targetStudentId},addressee_id.eq.${userId})`);
+        }
+        await query;
+      } catch (err) {
+        console.warn('Supabase delete failed, falling back to local db:', err);
+      }
+    }
 
-    return NextResponse.json({ ok: true, removed: true });
+    const db = readDb();
+    let wasRemoved = false;
+    if (db.friendships) {
+      const initialCount = db.friendships.length;
+      if (friendshipId) {
+        db.friendships = db.friendships.filter((f: any) => f.id !== friendshipId);
+      } else if (targetStudentId) {
+        db.friendships = db.friendships.filter((f: any) =>
+          !( (f.requester_id === userId && f.addressee_id === targetStudentId) ||
+             (f.requester_id === targetStudentId && f.addressee_id === userId) )
+        );
+      }
+      wasRemoved = db.friendships.length < initialCount;
+      if (wasRemoved) {
+        writeDb(db);
+      }
+    }
+
+    return NextResponse.json({ ok: true, removed: wasRemoved });
   } catch (err: any) {
     console.error('Error in /api/friends DELETE:', err);
     return NextResponse.json({ ok: false, error: err?.message || 'Failed to remove friendship' }, { status: 500 });

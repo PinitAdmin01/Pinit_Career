@@ -1,4 +1,4 @@
-﻿export interface MatchStudentProfile {
+export interface MatchStudentProfile {
   id: string;
   name: string;
   headline?: string;
@@ -92,9 +92,11 @@ export function computeStudentMatch(
     current.college.toLowerCase().includes('bangalore') ||
     target.college.toLowerCase().includes('bangalore') ||
     target.college.toLowerCase().includes('rvce') ||
-    target.college.toLowerCase().includes('christ')
+    target.college.toLowerCase().includes('christ') ||
+    target.college.toLowerCase().includes('bgs') ||
+    target.college.toLowerCase().includes('technology')
   ) {
-    collegeScore = 80; // Nearby regional campus
+    collegeScore = 85; // Nearby regional campus
   }
 
   // 4. Course Match Score

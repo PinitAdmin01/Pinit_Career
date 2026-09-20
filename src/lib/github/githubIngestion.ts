@@ -129,33 +129,47 @@ export function evaluateRepositoryTree(filePaths: string[]): {
   keyFilesFound: string[];
   detectedSkills: DetectedSkillSignal[];
 } {
+  if (filePaths.length === 0) {
+    return {
+      evidence: {
+        architectureScore: 0,
+        testingScore: 0,
+        devopsScore: 0,
+        documentationScore: 0,
+        activityScore: 0
+      },
+      keyFilesFound: [],
+      detectedSkills: []
+    };
+  }
+
   const lowerPaths = filePaths.map(p => p.toLowerCase());
   const keyFilesFound: string[] = [];
   const detectedSkills: DetectedSkillSignal[] = [];
 
   // 1. Documentation Score (0-100)
-  let docScore = 20;
+  let docScore = 0;
   if (lowerPaths.some(p => p.includes('readme'))) {
-    docScore += 50;
+    docScore += 60;
     keyFilesFound.push('README.md');
   }
   if (lowerPaths.some(p => p.includes('license'))) {
-    docScore += 20;
+    docScore += 25;
     keyFilesFound.push('LICENSE');
   }
   if (lowerPaths.some(p => p.includes('contributing') || p.includes('docs/'))) {
-    docScore += 10;
+    docScore += 15;
   }
 
   // 2. Testing Score (0-100)
-  let testScore = 15;
+  let testScore = 0;
   const testFiles = lowerPaths.filter(p => p.includes('.test.') || p.includes('.spec.') || p.includes('__tests__') || p.includes('test_') || p.includes('/tests/'));
   if (testFiles.length > 0) {
-    testScore += Math.min(testFiles.length * 15, 65);
+    testScore += Math.min(testFiles.length * 20, 75);
     keyFilesFound.push(`${testFiles.length} test files`);
   }
   if (lowerPaths.some(p => p.includes('jest.config') || p.includes('pytest.ini') || p.includes('vitest.config') || p.includes('cypress'))) {
-    testScore += 20;
+    testScore += 25;
     detectedSkills.push({
       skill: 'Automated Testing',
       category: 'Testing',
@@ -165,9 +179,9 @@ export function evaluateRepositoryTree(filePaths: string[]): {
   }
 
   // 3. DevOps & Cloud Score (0-100)
-  let devopsScore = 10;
+  let devopsScore = 0;
   if (lowerPaths.some(p => p.includes('.github/workflows'))) {
-    devopsScore += 40;
+    devopsScore += 45;
     keyFilesFound.push('GitHub Actions CI/CD');
     detectedSkills.push({
       skill: 'CI/CD & GitHub Actions',
@@ -177,7 +191,7 @@ export function evaluateRepositoryTree(filePaths: string[]): {
     });
   }
   if (lowerPaths.some(p => p.endsWith('dockerfile') || p.includes('dockerfile'))) {
-    devopsScore += 30;
+    devopsScore += 35;
     keyFilesFound.push('Dockerfile');
     detectedSkills.push({
       skill: 'Docker Containerization',
@@ -187,11 +201,11 @@ export function evaluateRepositoryTree(filePaths: string[]): {
     });
   }
   if (lowerPaths.some(p => p.includes('docker-compose'))) {
-    devopsScore += 15;
+    devopsScore += 20;
     keyFilesFound.push('docker-compose.yml');
   }
   if (lowerPaths.some(p => p.includes('k8s') || p.includes('helm') || p.includes('terraform'))) {
-    devopsScore += 15;
+    devopsScore += 20;
     detectedSkills.push({
       skill: 'Infrastructure as Code / K8s',
       category: 'Cloud/DevOps',
@@ -201,7 +215,8 @@ export function evaluateRepositoryTree(filePaths: string[]): {
   }
 
   // 4. Architecture & Modularity Score (0-100)
-  let archScore = 30;
+  let archScore = 0;
+  if (lowerPaths.length > 5) archScore += 10;
   const hasSrc = lowerPaths.some(p => p.startsWith('src/') || p.includes('/src/'));
   const hasComponents = lowerPaths.some(p => p.includes('components/'));
   const hasLibOrUtils = lowerPaths.some(p => p.includes('lib/') || p.includes('utils/') || p.includes('services/'));
@@ -221,7 +236,7 @@ export function evaluateRepositoryTree(filePaths: string[]): {
     });
   }
   if (hasModelsOrDb) {
-    archScore += 10;
+    archScore += 15;
     detectedSkills.push({
       skill: 'Database Modeling & Schema Design',
       category: 'Database',
@@ -245,10 +260,10 @@ export function evaluateRepositoryTree(filePaths: string[]): {
   }
 
   const evidence: ArchitectureEvidence = {
-    architectureScore: Math.min(100, Math.max(20, archScore)),
-    testingScore: Math.min(100, Math.max(10, testScore)),
-    devopsScore: Math.min(100, Math.max(10, devopsScore)),
-    documentationScore: Math.min(100, Math.max(20, docScore)),
+    architectureScore: Math.min(100, Math.max(0, archScore)),
+    testingScore: Math.min(100, Math.max(0, testScore)),
+    devopsScore: Math.min(100, Math.max(0, devopsScore)),
+    documentationScore: Math.min(100, Math.max(0, docScore)),
     activityScore: 80 // Default baseline for parsed tree
   };
 
@@ -268,8 +283,8 @@ export function analyzeRepositoryEvidence(
   const treeAnalysis = evaluateRepositoryTree(fileTree);
 
   // Recency check (pushed_at within 90 days)
-  let activityScore = 60;
-  if (metadata.pushedAt) {
+  let activityScore = fileTree.length > 0 ? 60 : 0;
+  if (fileTree.length > 0 && metadata.pushedAt) {
     const daysSincePush = Math.max(0, (Date.now() - new Date(metadata.pushedAt).getTime()) / (1000 * 60 * 60 * 24));
     if (daysSincePush <= 30) activityScore = 95;
     else if (daysSincePush <= 90) activityScore = 80;
@@ -341,7 +356,7 @@ export function analyzeRepositoryEvidence(
   return {
     engineVersion: GITHUB_INGESTION_VERSION,
     status: 'VERIFIED',
-    overallEvidenceScore: Math.min(100, Math.max(20, overallEvidenceScore)),
+    overallEvidenceScore: Math.min(100, Math.max(0, overallEvidenceScore)),
     projectComplexityTier: complexityTier,
     metadata,
     languageBreakdown: languages,

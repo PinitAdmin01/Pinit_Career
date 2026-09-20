@@ -41,6 +41,20 @@ export function useAttentionSpanData(user: any) {
   const [userTotalAccuracy, setUserTotalAccuracy] = useState<number>(0);
   const [syncing, setSyncing] = useState<boolean>(false);
 
+  // Synchronous cache hydration from localStorage to prevent flash of reset state
+  useEffect(() => {
+    if (!user?.id || typeof window === 'undefined') return;
+    try {
+      const cached = localStorage.getItem(`pinit_attention_stats_${user.id}`);
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        if (parsed && typeof parsed === 'object') {
+          setStats(prev => ({ ...prev, ...parsed }));
+        }
+      }
+    } catch {}
+  }, [user?.id]);
+
   // Fetch Leaderboard API
   const fetchLeaderboard = useCallback(async (uid?: string) => {
     try {
@@ -57,7 +71,7 @@ export function useAttentionSpanData(user: any) {
     setSyncing(false);
   }, [user?.id]);
 
-  // Load progress and history from Supabase (Zero localStorage)
+  // Load progress and history from backend API and Supabase
   useEffect(() => {
     let cancelled = false;
 
@@ -68,7 +82,44 @@ export function useAttentionSpanData(user: any) {
       }
 
       try {
-        // 1. Fetch user progress from Supabase attention_span_progress
+        // 1. Fetch user progress stats from backend API
+        try {
+          const progRes = await fetch('/api/attention-span/progress');
+          const progJson = await progRes.json();
+          if (progJson?.ok && progJson.stats && !cancelled) {
+            setStats(prev => {
+              const merged: AttentionStats = {
+                ...defaultStats,
+                ...prev,
+                ...progJson.stats,
+              };
+              if (typeof window !== 'undefined') {
+                try {
+                  localStorage.setItem(`pinit_attention_stats_${user.id}`, JSON.stringify(merged));
+                } catch {}
+              }
+              return merged;
+            });
+          }
+        } catch (err) {
+          console.warn('[AttentionSpan] Error fetching /api/attention-span/progress:', err);
+        }
+
+        // 2. Fetch analytics logs from /api/attention-span/analytics
+        try {
+          const anaRes = await fetch('/api/attention-span/analytics');
+          const anaJson = await anaRes.json();
+          if (anaJson?.ok && anaJson.analytics && !cancelled) {
+            setAnalytics({
+              dailyLogs: anaJson.analytics.dailyLogs || {},
+              monthlySummaries: anaJson.analytics.monthlySummaries || {},
+            });
+          }
+        } catch (err) {
+          console.warn('[AttentionSpan] Error fetching /api/attention-span/analytics:', err);
+        }
+
+        // 3. Fallback check on Supabase attention_span_progress
         const { data: progressData } = await supabase
           .from('attention_span_progress')
           .select('*')
@@ -77,14 +128,14 @@ export function useAttentionSpanData(user: any) {
 
         if (progressData && !cancelled) {
           if (progressData.daily_logs || progressData.monthly_summaries) {
-            setAnalytics({
-              dailyLogs: progressData.daily_logs || {},
-              monthlySummaries: progressData.monthly_summaries || {},
-            });
+            setAnalytics(prev => ({
+              dailyLogs: { ...progressData.daily_logs, ...prev.dailyLogs },
+              monthlySummaries: { ...progressData.monthly_summaries, ...prev.monthlySummaries },
+            }));
           }
         }
 
-        // 2. Fetch past sessions from Supabase attention_span_sessions
+        // 4. Fetch past sessions from Supabase attention_span_sessions
         const { data: sessionRows } = await supabase
           .from('attention_span_sessions')
           .select('*')
@@ -112,7 +163,7 @@ export function useAttentionSpanData(user: any) {
           setHistory(mappedHistory);
         }
 
-        // 3. Fetch remote leaderboard
+        // 5. Fetch remote leaderboard
         await fetchLeaderboard(user.id);
       } catch (err) {
         console.warn('[AttentionSpan] Error loading remote data:', err);
@@ -148,10 +199,26 @@ export function useAttentionSpanData(user: any) {
     } catch {}
   }, [user, fetchLeaderboard]);
 
-  // Save stats to Supabase attention_span_progress
+  // Save stats to both localStorage and /api/attention-span/progress + Supabase
   const saveStats = useCallback(async (newStats: AttentionStats) => {
     setStats(newStats);
     if (!user?.id) return;
+
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem(`pinit_attention_stats_${user.id}`, JSON.stringify(newStats));
+      } catch {}
+    }
+
+    try {
+      await fetch('/api/attention-span/progress', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ stats: newStats }),
+      });
+    } catch (err) {
+      console.warn('[AttentionSpan] Error persisting stats to API:', err);
+    }
 
     try {
       await supabase

@@ -423,13 +423,14 @@ export const advisorService = {
 
         if (studentIds.length > 0) {
           try {
-            const { data: profiles } = await supabase
-              .from('profiles')
-              .select('id, display_name')
+            const { data: users } = await supabase
+              .from('users')
+              .select('id, display_name, name')
               .in('id', studentIds);
-            if (profiles) {
-              profiles.forEach((p: any) => {
-                if (p.display_name) nameMap[p.id] = p.display_name;
+            if (users) {
+              users.forEach((u: any) => {
+                const resolvedName = u.display_name || u.name;
+                if (resolvedName) nameMap[u.id] = resolvedName;
               });
             }
           } catch {}

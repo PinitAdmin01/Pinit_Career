@@ -9,6 +9,7 @@ import { COURSES_CATALOG } from '@/lib/data/coursesCatalog';
 import { toast } from '@/lib/store/useAppStore';
 import { Project, GITHUB_REPO_REGEX, SWAP_POOLS, getGuideStepsForProject } from '@/lib/data/projectData';
 import { parseAndValidateGithubUrl, GithubEvidenceReport } from '@/lib/github/githubIngestion';
+import { getDomainFallback } from '@/lib/projects/projectCatalog';
 import { PathwayApiService } from '@/lib/api/pathwayApi';
 import {
   TeamsApiService,
@@ -202,6 +203,8 @@ function ProjectsPageContent() {
   const [githubUrl, setGithubUrl] = useState<string>('');
   const [liveDemoUrl, setLiveDemoUrl] = useState<string>('');
   const [zipFileSelected, setZipFileSelected] = useState<boolean>(false);
+  const [uploadedZipFile, setUploadedZipFile] = useState<{ name: string; size: number } | null>(null);
+  const zipInputRef = useRef<HTMLInputElement | null>(null);
 
   // Certificate Modal View
   const [activeCertificate, setActiveCertificate] = useState<Project | null>(null);
@@ -288,355 +291,15 @@ function ProjectsPageContent() {
       }
 
       if (generated.length === 0) {
-        if (goal.includes('AI') || goal.toLowerCase().includes('data')) {
-          generated = [
-            {
-              id: 'proj-1',
-              name: 'AI Resume Analyzer',
-              level: 'Beginner',
-              description: 'Extract skills and match keywords against JDs to compute real-time ATS grades.',
-              techStack: 'Python, PyPDF2, TF-IDF, Regex',
-              problem: 'Simple text parsing often misses SDE skills and miscalculates ATS matching logic.',
-              deliverable: 'Parse uploaded PDF resume files, scan against input job descriptions, and output score metrics.',
-              xpReward: 250,
-              status: 'Not Started'
-            },
-            {
-              id: 'proj-2',
-              name: 'RAG Knowledge-Base Chatbot',
-              level: 'Intermediate',
-              description: 'Vector-embedded PDF querying interface using LangChain and vector indexes.',
-              techStack: 'React, LangChain, Pinecone, OpenAI API',
-              problem: 'Standard AI models hallucinate when answering questions from proprietary PDF manuals.',
-              deliverable: 'Complete web chatbot interface executing similarity search on semantic chunks.',
-              xpReward: 500,
-              status: 'Not Started'
-            },
-            {
-              id: 'proj-3',
-              name: 'Multi-Agent Code Reviewer Coordinator',
-              level: 'Advanced',
-              description: 'Decentralized AI agent loop simulating technical architect and QA developer debating code quality.',
-              techStack: 'CrewAI, Python, FastAPI, Gradio',
-              problem: 'Single-prompt code reviews fail to enforce complex linting and design pattern guidelines.',
-              deliverable: 'Autonomous agent coordinator console returning detailed architectural reports.',
-              xpReward: 750,
-              status: 'Not Started'
-            },
-            {
-              id: 'proj-4',
-              name: 'Neural Network Ops Dashboard',
-              level: 'Enterprise',
-              description: 'High-throughput system monitoring tensor weights and GPU performance metrics during model fine-tuning.',
-              techStack: 'PyTorch, Prometheus, Grafana, Docker',
-              problem: 'Unmonitored long-running training loops freeze or crash without warning due to vanishing gradients.',
-              deliverable: 'Dashboard rendering real-time validation curves and resource saturation stats.',
-              xpReward: 1000,
-              status: 'Not Started'
-            },
-            {
-              id: 'proj-5',
-              name: 'Zero-Knowledge Homomorphic Inference Engine',
-              level: 'Future-Tech',
-              description: 'Cryptographic inference proxy evaluating regression models directly on encrypted customer inputs.',
-              techStack: 'TenSEAL, Rust, WebAssembly',
-              problem: 'Cloud-hosted AI models expose sensitive patient/financial inputs during standard decryption steps.',
-              deliverable: 'WASM-compiled library performing dot product additions on encrypted arrays.',
-              xpReward: 1500,
-              status: 'Not Started'
-            }
-          ];
-        } else if (goal.includes('Cyber') || goal.toLowerCase().includes('security')) {
-          generated = [
-            {
-              id: 'proj-1',
-              name: 'Argon2 Authentication Portal',
-              level: 'Beginner',
-              description: 'Highly secure user registry hashing credentials with salt/pepper algorithms and rate limits.',
-              techStack: 'Node.js, Express, Argon2, Redis',
-              problem: 'Brute-force credential stuffing easily compromises default bcrypt hashes.',
-              deliverable: 'Authentication API rate-limiting brute force attempts and enforcing complex password salts.',
-              xpReward: 250,
-              status: 'Not Started'
-            },
-            {
-              id: 'proj-2',
-              name: 'JWT Identity Provider Server',
-              level: 'Intermediate',
-              description: 'Custom authentication provider issuing asymmetric key-signed rotation tokens.',
-              techStack: 'Jose, TypeScript, PostgreSQL',
-              problem: 'Symmetric JWT key leaks compromise authorization across whole microservice fleets.',
-              deliverable: 'Token issuance service supporting key rotation and real-time blacklists.',
-              xpReward: 500,
-              status: 'Not Started'
-            },
-            {
-              id: 'proj-3',
-              name: 'Zero-Trust Reputational Gateway',
-              level: 'Advanced',
-              description: 'Reverse proxy filtering requests by scanning caller IP address and authorization headers.',
-              techStack: 'Nginx, Lua, Redis, Scapy',
-              problem: 'WAF rules fail to identify credentialed threat actors executing low-and-slow port scans.',
-              deliverable: 'API Gateway returning active blocks for clients displaying bad reputations.',
-              xpReward: 750,
-              status: 'Not Started'
-            },
-            {
-              id: 'proj-4',
-              name: 'Real-time Intrusion System (IDS)',
-              level: 'Enterprise',
-              description: 'Network packet inspector mapping flow patterns to alert administrators of anomalous traffic.',
-              techStack: 'Go, Scapy, ClickHouse',
-              problem: 'Standard firewalls ignore malicious activity once inside the private network boundary.',
-              deliverable: 'Dashboard tracking active flows, anomalies, and triggering alerts.',
-              xpReward: 1000,
-              status: 'Not Started'
-            },
-            {
-              id: 'proj-5',
-              name: 'Homomorphic Cryptographic Vault',
-              level: 'Future-Tech',
-              description: 'Secured database vault running searches on encrypted fields without decrypting the data.',
-              techStack: 'Rust, Concrete-ML, WebAssembly',
-              problem: 'Decrypting databases to run search queries exposes client data to server administrators.',
-              deliverable: 'WASM microservice performing arithmetic searches on encrypted numbers.',
-              xpReward: 1500,
-              status: 'Not Started'
-            }
-          ];
-        } else if (goal.includes('Frontend') || goal.toLowerCase().includes('react') || goal.toLowerCase().includes('web') || goal.toLowerCase().includes('ui')) {
-          generated = [
-            {
-              id: 'proj-1',
-              name: 'Design System & Component Kit',
-              level: 'Beginner',
-              description: 'Accessible, themeable UI design system with documentation, ARIA controls, and Storybook.',
-              techStack: 'React, TypeScript, Tailwind CSS, Storybook',
-              problem: 'Inconsistent component styling across product teams leads to accessibility regressions.',
-              deliverable: 'Publishable NPM component library featuring theme tokens and WCAG compliance.',
-              xpReward: 250,
-              status: 'Not Started'
-            },
-            {
-              id: 'proj-2',
-              name: 'Collaborative Multi-User Whiteboard',
-              level: 'Intermediate',
-              description: 'Real-time multi-cursor spatial canvas with stroke smoothing and presence indicators.',
-              techStack: 'Next.js, Canvas API, WebSockets, Zustand',
-              problem: 'Multiplayer diagramming apps suffer from state conflicts and desynchronized canvas layers.',
-              deliverable: 'Interactive multiplayer whiteboard with real-time room synchronization.',
-              xpReward: 500,
-              status: 'Not Started'
-            },
-            {
-              id: 'proj-3',
-              name: 'Enterprise FinTech SaaS Dashboard',
-              level: 'Advanced',
-              description: 'High-density financial charting platform with virtualized tables and real-time tickers.',
-              techStack: 'Next.js, TanStack Table, Recharts, Server Components',
-              problem: 'Rendering tens of thousands of stock order records causes UI frame drops and input lag.',
-              deliverable: 'Virtualized data grid streaming price updates without frame rate degradation.',
-              xpReward: 750,
-              status: 'Not Started'
-            },
-            {
-              id: 'proj-4',
-              name: 'Micro-Frontend Modular Portal',
-              level: 'Enterprise',
-              description: 'Decoupled web shell loading independent child apps dynamically at runtime via Module Federation.',
-              techStack: 'Webpack 5, Module Federation, React 18, Docker',
-              problem: 'Monolithic web apps slow down large engineering teams due to coupled deployment pipelines.',
-              deliverable: 'Micro-frontend shell coordinating isolated remote applications.',
-              xpReward: 1000,
-              status: 'Not Started'
-            },
-            {
-              id: 'proj-5',
-              name: 'WebAssembly Client Video Studio',
-              level: 'Future-Tech',
-              description: 'In-browser video trimmer, filter applicator, and audio visualizer running purely client-side.',
-              techStack: 'React, WebAssembly, FFmpeg-wasm, Web Workers',
-              problem: 'Server-side video transcoding incurs immense cloud compute costs for simple clips.',
-              deliverable: 'Client-side studio rendering video edits locally via WebAssembly.',
-              xpReward: 1500,
-              status: 'Not Started'
-            }
-          ];
-        } else if (goal.includes('DevOps') || goal.toLowerCase().includes('cloud') || goal.toLowerCase().includes('sre')) {
-          generated = [
-            {
-              id: 'proj-1',
-              name: 'Multi-Stage Docker CI/CD Pipeline',
-              level: 'Beginner',
-              description: 'Automated GitHub Actions workflow building optimized container images with vulnerability scanning.',
-              techStack: 'Docker, GitHub Actions, Trivy, Bash',
-              problem: 'Unoptimized bloated images slow deployments and introduce unpatched CVE vulnerabilities.',
-              deliverable: 'Hardened multi-stage Docker build pipeline reporting automated security scans.',
-              xpReward: 250,
-              status: 'Not Started'
-            },
-            {
-              id: 'proj-2',
-              name: 'Kubernetes Multi-Tier Cluster with Helm',
-              level: 'Intermediate',
-              description: 'Declarative cluster deployment configuring Ingress-NGINX, cert-manager TLS, and horizontal autoscaling.',
-              techStack: 'Kubernetes, Helm, NGINX Ingress, Cert-Manager',
-              problem: 'Manual container management fails to handle unexpected traffic spikes and SSL renewals.',
-              deliverable: 'Parameterized Helm charts deploying self-healing clusters with autoscalers.',
-              xpReward: 500,
-              status: 'Not Started'
-            },
-            {
-              id: 'proj-3',
-              name: 'Infrastructure-as-Code Cloud Foundation',
-              level: 'Advanced',
-              description: 'Modular Terraform templates provisioning VPC networks, RDS failover databases, and IAM policies.',
-              techStack: 'Terraform, AWS, LocalStack, GitHub Actions',
-              problem: 'ClickOps infrastructure creation produces configuration drift and unrepeatable environments.',
-              deliverable: 'Automated Terraform pipeline enforcing security policies and state locking.',
-              xpReward: 750,
-              status: 'Not Started'
-            },
-            {
-              id: 'proj-4',
-              name: 'Observability & APM Telemetry Mesh',
-              level: 'Enterprise',
-              description: 'Distributed tracing and metrics collection pipeline monitoring service latencies and error budgets.',
-              techStack: 'Prometheus, Grafana, OpenTelemetry, Jaeger',
-              problem: 'Debugging microservice errors is impossible without correlated logs, metrics, and traces.',
-              deliverable: 'Unified observability platform tracking SLA burn rates and distributed trace spans.',
-              xpReward: 1000,
-              status: 'Not Started'
-            },
-            {
-              id: 'proj-5',
-              name: 'GitOps Zero-Downtime Canary Deployer',
-              level: 'Future-Tech',
-              description: 'Automated progressive delivery controller routing traffic shifts based on live Prometheus error rates.',
-              techStack: 'ArgoCD, Flagger, Istio Service Mesh, Kubernetes',
-              problem: 'Big-bang software releases take down critical production APIs when silent bugs escape staging.',
-              deliverable: 'Automated canary release engine executing automated rollbacks on latency spikes.',
-              xpReward: 1500,
-              status: 'Not Started'
-            }
-          ];
-        } else if (goal.includes('Mobile') || goal.toLowerCase().includes('android') || goal.toLowerCase().includes('flutter') || goal.toLowerCase().includes('ios')) {
-          generated = [
-            {
-              id: 'proj-1',
-              name: 'Offline-First Expense Tracker',
-              level: 'Beginner',
-              description: 'Local-first financial budget manager caching transactions locally with background cloud synchronization.',
-              techStack: 'React Native, SQLite, MMKV, TypeScript',
-              problem: 'Mobile apps that depend on continuous internet fail when commuters enter low-signal transit areas.',
-              deliverable: 'Instantaneous local CRUD interface syncing to remote storage on reconnect.',
-              xpReward: 250,
-              status: 'Not Started'
-            },
-            {
-              id: 'proj-2',
-              name: 'Live GPS Fleet & Courier Tracker',
-              level: 'Intermediate',
-              description: 'Real-time location stream mapping delivery couriers with path interpolation and geofence alerts.',
-              techStack: 'Flutter / React Native, Mapbox, WebSockets, Background Geolocation',
-              problem: 'Continuous GPS polling drains mobile battery rapidly if position updates are not throttled.',
-              deliverable: 'Battery-optimized courier navigation app with real-time driver breadcrumbs.',
-              xpReward: 500,
-              status: 'Not Started'
-            },
-            {
-              id: 'proj-3',
-              name: 'End-to-End Encrypted Secure Chat',
-              level: 'Advanced',
-              description: 'Privacy-focused messaging app implementing cryptographic key exchange and ephemeral self-destructing texts.',
-              techStack: 'React Native, Libsodium, WebSockets, Secure Storage',
-              problem: 'Standard chat platforms store plaintext message payloads susceptible to server leaks.',
-              deliverable: 'Zero-knowledge chat application guaranteeing end-to-end payload encryption.',
-              xpReward: 750,
-              status: 'Not Started'
-            },
-            {
-              id: 'proj-4',
-              name: 'Bluetooth Low-Energy Telemetry Monitor',
-              level: 'Enterprise',
-              description: 'Hardware communication client pairing with BLE peripheral sensors to plot real-time biometrics.',
-              techStack: 'Flutter, BLE Protocol, SQLite, Background Services',
-              problem: 'BLE packet drops during background execution cause gaps in critical continuous telemetry.',
-              deliverable: 'Resilient Bluetooth client handling background reconnections and packet parsing.',
-              xpReward: 1000,
-              status: 'Not Started'
-            },
-            {
-              id: 'proj-5',
-              name: 'On-Device Computer Vision Scanner',
-              level: 'Future-Tech',
-              description: 'Real-time edge neural inference app classifying documents and identifying barcodes with zero cloud latency.',
-              techStack: 'React Native, TensorFlow Lite, CameraX, WebAssembly',
-              problem: 'Sending camera video frames to cloud vision APIs violates user privacy and creates lag.',
-              deliverable: 'Real-time 60fps edge inference mobile scanner running purely on device NPU.',
-              xpReward: 1500,
-              status: 'Not Started'
-            }
-          ];
-        } else {
-          generated = [
-            {
-              id: 'proj-1',
-              name: 'Payment Webhook Broker',
-              level: 'Beginner',
-              description: 'REST API validating webhook signatures and updating checkout database states.',
-              techStack: 'Go, PostgreSQL, Stripe CLI',
-              problem: 'Fake webhook requests can trick databases into approving orders without payment.',
-              deliverable: 'API verifying cryptographic signatures and writing transaction logs.',
-              xpReward: 250,
-              status: 'Not Started'
-            },
-            {
-              id: 'proj-2',
-              name: 'Concurrency-Locked Inventory',
-              level: 'Intermediate',
-              description: 'Inventory management system database with pessimistic locking to prevent race conditions.',
-              techStack: 'Go, Redis, PostgreSQL',
-              problem: 'High-concurrency traffic causes double-purchasing and incorrect stock numbers.',
-              deliverable: 'Inventory service with transactional locking and validation.',
-              xpReward: 500,
-              status: 'Not Started'
-            },
-            {
-              id: 'proj-3',
-              name: 'Event-Driven Microservices ERP',
-              level: 'Advanced',
-              description: 'Logistics microservices coordinating via RabbitMQ event buses with backpressure.',
-              techStack: 'Spring Boot, RabbitMQ, Docker',
-              problem: 'Synchronous REST calls create latency cascades when backend modules fail.',
-              deliverable: 'Docker-compose fleet of event-driven messaging microservices.',
-              xpReward: 750,
-              status: 'Not Started'
-            },
-            {
-              id: 'proj-4',
-              name: 'CQRS Ledger Analytics Pipeline',
-              level: 'Enterprise',
-              description: 'Pipeline splitting ledger commands from query views using Kafka and Elasticsearch.',
-              techStack: 'Kafka, Go, Elasticsearch',
-              problem: 'Running analytics queries on active transactional databases locks rows and slows checkouts.',
-              deliverable: 'Kafka pipeline replicating data to query databases.',
-              xpReward: 1000,
-              status: 'Not Started'
-            },
-            {
-              id: 'proj-5',
-              name: 'Edge CDN Cache Router',
-              level: 'Future-Tech',
-              description: 'Edge middleware proxy routing user sessions to the nearest database replica.',
-              techStack: 'Cloudflare Workers, Rust, WASM',
-              problem: 'Global users experience lag when fetching sessions from single centralized databases.',
-              deliverable: 'Rust-WASM middleware script running routing calculations at the edge.',
-              xpReward: 1500,
-              status: 'Not Started'
-            }
-          ];
-        }
+        generated = getDomainFallback(
+          goal,
+          skillsList,
+          (onboardingAnswers as any)?.experience || (onboardingAnswers as any)?.codingExperience || 'Undergraduate'
+        );
+        toast.info(
+          'Curated Track Portfolio Loaded 📚',
+          `Using curated industry track portfolio blueprints for ${goal} (AI generation offline or timed out).`
+        );
       }
 
       const goalKey = goal.toLowerCase().replace(/[^a-z0-9]/g, '_');
@@ -778,20 +441,33 @@ function ProjectsPageContent() {
 
   const handleIssueStandardCertificate = () => {
     if (selectedGuideProject && user?.id) {
-      // PR-02 FIX: Require actual verification before certificate issuance — do NOT issue with fake score 88
+      // Require actual verification before certificate issuance
       if (!auditReport || typeof auditReport.overallEvidenceScore !== 'number') {
         toast.error('Verification Required', 'You must verify your repository before an official certificate can be issued.');
         return;
       }
       const score = auditReport.overallEvidenceScore;
 
-      // DEF-040: Verify student authorship vs external reference
-      const isAuthored = auditReport.isAuthoredByStudent !== false && auditReport.authorshipStatus !== 'UNVERIFIED_EXTERNAL';
-      const certType = isAuthored ? ('standard' as const) : ('reference' as const);
-      const earnedXp = isAuthored ? 1000 : 250;
-      const earnedPins = isAuthored ? 20 : 5;
+      // Enforce Minimum Pass Threshold (Default 80%)
+      const minThreshold = selectedGuideProject.minScore || 80;
+      if (score < minThreshold) {
+        toast.error(
+          'Verification Failed: Pass Threshold Not Met ❌',
+          `Your repository achieved an Evidence Score of ${score}%, which is below the required pass threshold of ${minThreshold}%. Review audit feedback and improve your code structure before certification.`
+        );
+        return;
+      }
 
-      // PR-04 FIX: Cryptographically collision-safe Certificate ID
+      // DEF-040: Verify authentic student authorship (strict boolean check)
+      const isAuthored = auditReport.isAuthoredByStudent === true && (auditReport.authorshipStatus === 'VERIFIED_AUTHOR' || auditReport.authorshipStatus === 'CONTRIBUTOR');
+      const certType = isAuthored ? ('standard' as const) : ('reference' as const);
+
+      // Anti-Farm Protection: Deduplicate rewards on repeat completions
+      const isAlreadyCompleted = selectedGuideProject.status === 'Completed';
+      const earnedXp = isAlreadyCompleted ? 0 : (isAuthored ? 1000 : 250);
+      const earnedPins = isAlreadyCompleted ? 0 : (isAuthored ? 20 : 5);
+
+      // Cryptographically collision-safe Certificate ID
       const randHex = typeof crypto !== 'undefined' && crypto.randomUUID
         ? crypto.randomUUID().replace(/-/g, '').substring(0, 8).toUpperCase()
         : `${Date.now().toString(36).toUpperCase()}`;
@@ -819,9 +495,13 @@ function ProjectsPageContent() {
       const updatedProj = updated.find(p => p.id === selectedGuideProject.id);
       if (updatedProj) setSelectedGuideProject(updatedProj);
       
-      // Perform automated synchronization updates
-      addXp(earnedXp, `${isAuthored ? 'Completed Project' : 'Linked Reference Project'}: ${selectedGuideProject.name}`);
-      earnPins('vault_verify', earnedPins, `${isAuthored ? 'Completed Project' : 'Linked Reference Project'}: ${selectedGuideProject.name}`);
+      // Perform automated synchronization updates only for non-farmed rewards
+      if (earnedXp > 0) {
+        addXp(earnedXp, `${isAuthored ? 'Completed Project' : 'Linked Reference Project'}: ${selectedGuideProject.name}`);
+      }
+      if (earnedPins > 0) {
+        earnPins('vault_verify', earnedPins, `${isAuthored ? 'Completed Project' : 'Linked Reference Project'}: ${selectedGuideProject.name}`);
+      }
 
       // Record in authoritative pathway evidence engine
       const competencyMap: Record<string, string> = {
@@ -857,7 +537,14 @@ function ProjectsPageContent() {
       }).catch((err: unknown) => console.warn('Failed to record standard project evidence:', err));
       
       setShowReport(false);
-      if (isAuthored) {
+      setActiveWorkspaceTab('overview');
+
+      if (isAlreadyCompleted) {
+        toast.info(
+          'Re-Verification Recorded 🔄',
+          `Project re-verified for practice (Score: ${score}%). Your updated metrics were saved (+0 XP repeat completion).`
+        );
+      } else if (isAuthored) {
         toast.success('Project Completed! 🏅', `Issued AI Evidence Certificate (${score}%) with hash ${certId}.`);
       } else {
         toast.info(
@@ -1390,6 +1077,35 @@ function ProjectsPageContent() {
                       {/* Submission Tab */}
                       {activeWorkspaceTab === 'submit' && (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                          {selectedGuideProject.status === 'Completed' && (
+                            <div style={{
+                              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                              padding: '12px 16px', borderRadius: 10,
+                              background: 'rgba(var(--success-rgb), 0.08)',
+                              border: '1px solid rgba(var(--success-rgb), 0.25)',
+                              marginBottom: 4
+                            }}>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                                <span style={{ fontSize: 20 }}>✅</span>
+                                <div>
+                                  <div style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--success)' }}>
+                                    Project Previously Verified & Completed ({selectedGuideProject.verificationScore || 80}%)
+                                  </div>
+                                  <div style={{ fontSize: 11, color: 'var(--t3)' }}>
+                                    Certificate ID: <code style={{ fontFamily: 'var(--font-mono)' }}>{selectedGuideProject.certificateId}</code> · Re-verification will update audit metrics (+0 XP repeat completion).
+                                  </div>
+                                </div>
+                              </div>
+                              <button
+                                onClick={() => setActiveCertificate(selectedGuideProject)}
+                                className="btn-secondary"
+                                style={{ padding: '6px 12px', fontSize: 11, fontWeight: 700 }}
+                              >
+                                View Certificate
+                              </button>
+                            </div>
+                          )}
+
                           <div>
                             <label style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>GitHub Repository URL *</label>
                             <input
@@ -1414,25 +1130,69 @@ function ProjectsPageContent() {
                             />
                           </div>
 
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 14px', background: 'var(--bg3)', borderRadius: 8, border: '1px solid var(--border)' }}>
-                            <span style={{ fontSize: 11.5, color: 'var(--t2)' }}>ZIP Upload Backup (Optional)</span>
-                            <button
-                              onClick={() => setZipFileSelected(prev => !prev)}
-                              style={{
-                                padding: '4px 10px', fontSize: 10, borderRadius: 6, cursor: 'pointer',
-                                background: zipFileSelected ? 'rgba(var(--success-rgb),0.08)' : 'rgba(255,255,255,0.05)',
-                                color: zipFileSelected ? 'var(--success)' : 'var(--t2)',
-                                border: '1px solid var(--border)'
-                              }}
-                            >
-                              {zipFileSelected ? '✓ File Attached' : 'Attach ZIP'}
-                            </button>
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: 6, padding: '10px 14px', background: 'var(--bg3)', borderRadius: 8, border: '1px solid var(--border)' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                              <span style={{ fontSize: 11.5, color: 'var(--t2)' }}>ZIP Upload Backup (Optional)</span>
+                              <input
+                                ref={zipInputRef}
+                                type="file"
+                                accept=".zip"
+                                onChange={(e) => {
+                                  const file = e.target.files?.[0] || null;
+                                  setUploadedZipFile(file ? { name: file.name, size: file.size } : null);
+                                  setZipFileSelected(!!file);
+                                  if (file) {
+                                    toast.success('ZIP Archive Attached', `${file.name} (${(file.size / (1024 * 1024)).toFixed(2)} MB) staged for verification.`);
+                                  }
+                                }}
+                                style={{ display: 'none' }}
+                              />
+                              {uploadedZipFile ? (
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                  <span style={{ fontSize: 11, color: 'var(--success)', fontWeight: 700 }}>
+                                    ✓ {uploadedZipFile.name} ({(uploadedZipFile.size / (1024 * 1024)).toFixed(1)} MB)
+                                  </span>
+                                  <button
+                                    onClick={() => {
+                                      setUploadedZipFile(null);
+                                      setZipFileSelected(false);
+                                      if (zipInputRef.current) zipInputRef.current.value = '';
+                                    }}
+                                    style={{ background: 'transparent', border: 'none', color: 'var(--t3)', cursor: 'pointer', fontSize: 12 }}
+                                    title="Remove ZIP file"
+                                  >
+                                    ✕
+                                  </button>
+                                </div>
+                              ) : (
+                                <button
+                                  onClick={() => zipInputRef.current?.click()}
+                                  style={{
+                                    padding: '4px 10px', fontSize: 10, borderRadius: 6, cursor: 'pointer',
+                                    background: 'rgba(255,255,255,0.05)',
+                                    color: 'var(--t2)',
+                                    border: '1px solid var(--border)'
+                                  }}
+                                >
+                                  Attach ZIP
+                                </button>
+                              )}
+                            </div>
                           </div>
 
-                          <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 11, color: 'var(--success)', background: 'rgba(var(--success-rgb),0.04)', padding: 8, borderRadius: 6 }}>
-                            <span>✓</span>
-                            <span>Auto-detected: <strong>README.md</strong> file exists in repository root directory.</span>
-                          </div>
+                          {auditReport && (
+                            auditReport.keyFilesFound?.some(f => f.toLowerCase().includes('readme.md')) ? (
+                              <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 11, color: 'var(--success)', background: 'rgba(var(--success-rgb),0.04)', padding: 8, borderRadius: 6 }}>
+                                <span>✓</span>
+                                <span>Auto-detected: <strong>README.md</strong> file confirmed in repository structure.</span>
+                              </div>
+                            ) : (
+                              <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 11, color: 'var(--amber)', background: 'rgba(245, 158, 11, 0.08)', padding: 8, borderRadius: 6 }}>
+                                <span>⚠️</span>
+                                <span>Notice: No <strong>README.md</strong> file detected in repository root. Adding documentation improves evidence score.</span>
+                              </div>
+                            )
+                          )}
 
                           <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
                             <button
@@ -1441,7 +1201,7 @@ function ProjectsPageContent() {
                               className="btn-primary"
                               style={{ width: '100%', padding: '12px 0', fontSize: 13, fontWeight: 800, justifyContent: 'center' }}
                             >
-                              {verifying ? '🤖 Connecting to Verification Pipeline...' : 'Submit and Verify Project'}
+                              {verifying ? '🤖 Connecting to Verification Pipeline...' : (selectedGuideProject.status === 'Completed' ? 'Re-Verify Project' : 'Submit and Verify Project')}
                             </button>
                           </div>
                         </div>
@@ -1683,7 +1443,7 @@ function ProjectsPageContent() {
               }}>
                 <div>
                   <span style={{ fontSize: 9, color: '#8e701d', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 800 }}>Date</span>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--text)', marginTop: 4 }}>{activeCertificate.issueDate || '18 May 2025'}</div>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--text)', marginTop: 4 }}>{activeCertificate.issueDate || new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
                 </div>
                 
                 <div>
@@ -1693,7 +1453,7 @@ function ProjectsPageContent() {
 
                 <div>
                   <span style={{ fontSize: 9, color: '#8e701d', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 800 }}>Verification Score</span>
-                  <div style={{ fontSize: 16, fontWeight: 900, color: '#D4AF37', marginTop: 4 }}>{activeCertificate.verificationScore || 91}%</div>
+                  <div style={{ fontSize: 16, fontWeight: 900, color: '#D4AF37', marginTop: 4 }}>{activeCertificate.verificationScore ?? 80}%</div>
                 </div>
               </div>
 
@@ -1735,7 +1495,7 @@ function ProjectsPageContent() {
                   fontFamily: 'Georgia, serif', fontSize: 40, fontStyle: 'italic', color: '#D4AF37',
                   margin: '4px 0 12px 0', letterSpacing: 1, textShadow: '0 2px 4px rgba(0,0,0,0.5)'
                 }}>
-                  {user?.displayName || (onboardingAnswers as any)?.displayName || 'Arjun Sharma'}
+                  {user?.displayName || (onboardingAnswers as any)?.displayName || user?.name || 'Verified Student'}
                 </h1>
 
                 <p style={{ fontSize: 11, color: 'var(--text-muted)', margin: '0 0 12px 0' }}>
@@ -1778,26 +1538,26 @@ function ProjectsPageContent() {
                   </div>
                   
                   <div style={{ display: 'flex', gap: 24 }}>
-                    <div style={{ textAlign: 'center', width: 130 }}>
-                      <div style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic', fontSize: 13, color: 'var(--text)' }}>Rohit Sharma</div>
+                    <div style={{ textAlign: 'center', width: 140 }}>
+                      <div style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic', fontSize: 12, color: 'var(--text)' }}>PinIT Evaluation Authority</div>
                       <div style={{ height: 1, background: '#8e701d', margin: '4px 0' }} />
-                      <div style={{ fontSize: 8, color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700 }}>Rohit Sharma</div>
-                      <div style={{ fontSize: 7, color: '#8e701d', textTransform: 'uppercase' }}>Co-founder & CTO</div>
+                      <div style={{ fontSize: 8, color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700 }}>Autonomous Audit Engine</div>
+                      <div style={{ fontSize: 7, color: '#8e701d', textTransform: 'uppercase' }}>Platform Certification Authority</div>
                     </div>
 
                     {activeCertificate.vivaPassed && (
-                      <div style={{ textAlign: 'center', width: 130 }}>
-                        <div style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic', fontSize: 13, color: '#D4AF37' }}>Prof. Rajesh Kumar</div>
+                      <div style={{ textAlign: 'center', width: 140 }}>
+                        <div style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic', fontSize: 12, color: '#D4AF37' }}>Academic Evaluation Board</div>
                         <div style={{ height: 1, background: '#8e701d', margin: '4px 0' }} />
-                        <div style={{ fontSize: 8, color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700 }}>Mentor Co-signed</div>
-                        <div style={{ fontSize: 7, color: '#8e701d', textTransform: 'uppercase' }}>University Lead</div>
+                        <div style={{ fontSize: 8, color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700 }}>Faculty Review Panel</div>
+                        <div style={{ fontSize: 7, color: '#8e701d', textTransform: 'uppercase' }}>Verified Viva Assessor</div>
                       </div>
                     )}
                   </div>
 
                   <div style={{ textAlign: 'right', fontSize: 9 }}>
                     <div style={{ color: 'var(--text-muted)', fontSize: 8 }}>CERTIFICATE ID</div>
-                    <div style={{ color: 'var(--text-muted)', marginTop: 2, fontFamily: 'var(--font-mono)' }}>{activeCertificate.certificateId || 'PIN-25PJ-7X2Q-09191'}</div>
+                    <div style={{ color: 'var(--text-muted)', marginTop: 2, fontFamily: 'var(--font-mono)' }}>{activeCertificate.certificateId || 'PIN-CREDENTIAL-VERIFIED'}</div>
                   </div>
                 </div>
 
@@ -1811,7 +1571,7 @@ function ProjectsPageContent() {
                 onClick={() => {
                   if (typeof window !== 'undefined') {
                     const certId = activeCertificate.certificateId || 'PIN-VERIFIED';
-                    const verifyUrl = `${window.location.origin}/verify?certId=${encodeURIComponent(certId)}&score=${activeCertificate.verificationScore || 90}`;
+                    const verifyUrl = `${window.location.origin}/verify/${encodeURIComponent(certId)}`;
                     navigator.clipboard.writeText(verifyUrl).then(() => {
                       toast.success('Verification Proof Copied! 📋', 'Public verification link copied to clipboard.');
                     });

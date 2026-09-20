@@ -19,17 +19,17 @@ export async function GET(
 
     const credentialId = decodeURIComponent(rawId).trim();
 
-    // 1. Evidence Record Verification (IDs starting with 'ev_' or containing '_')
-    if (credentialId.startsWith('ev_') || credentialId.includes('_')) {
+    // 1. Evidence Record & Certificate Verification (IDs starting with 'ev_', 'PIN-', or containing '_' or '-')
+    if (credentialId.startsWith('ev_') || credentialId.startsWith('PIN-') || credentialId.includes('_') || credentialId.includes('-')) {
       let foundRecord: CompetencyEvidenceRecord | null = null;
 
-      // Query Supabase competency_evidence_records table
+      // Query Supabase competency_evidence_records table by id or attempt_id / certificate hash
       try {
         const supabase = getSupabaseAdmin();
         const { data: dbRecord, error } = await supabase
           .from('competency_evidence_records')
           .select('*')
-          .eq('id', credentialId)
+          .or(`id.eq.${credentialId},attempt_id.eq.${credentialId}`)
           .maybeSingle();
 
         if (!error && dbRecord) {
@@ -64,7 +64,7 @@ export async function GET(
         const studentCandidates = ['demo_student_user', 'test_user_001', 'stu_dev_octocat_01', 'stu_dev_tester_01'];
         for (const sId of studentCandidates) {
           const records = await PathwayApiService.getAllStudentEvidence(sId);
-          const match = records.find(r => r.id === credentialId);
+          const match = records.find(r => r.id === credentialId || r.attemptId === credentialId);
           if (match) {
             foundRecord = match;
             break;

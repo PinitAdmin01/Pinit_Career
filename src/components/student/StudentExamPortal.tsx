@@ -74,10 +74,33 @@ export default function StudentExamPortal() {
           try { localAttempts = JSON.parse(raw); } catch {}
         }
 
+        const published = await portalService.getExams();
+        const baseExams: AssignedExam[] = [...DEFAULT_EXAMS];
+        if (Array.isArray(published) && published.length > 0) {
+          for (const p of published) {
+            if (!baseExams.some(e => e.id === p.id)) {
+              baseExams.push({
+                id: p.id,
+                title: p.title,
+                subject: p.subject,
+                durationMins: 30,
+                totalQuestions: p.questions?.length || 5,
+                status: 'pending',
+                questions: (p.questions || []).map((q: any) => ({
+                  id: q.id,
+                  questionText: q.questionText,
+                  options: q.options,
+                  correctOptionIndex: q.correctAnswer ?? 0,
+                }))
+              });
+            }
+          }
+        }
+
         if (userId) {
           const { examsService } = await import('@/lib/services/examsService');
           const updated = await Promise.all(
-            DEFAULT_EXAMS.map(async (e) => {
+            baseExams.map(async (e) => {
               const cooldown = await examsService.getExamCooldown(userId, regNum, e.id);
               if (cooldown.inCooldown || cooldown.lastAttemptTime) {
                 return {
@@ -95,7 +118,9 @@ export default function StudentExamPortal() {
           );
           if (isMounted) setExams(updated);
         } else if (raw) {
-          setExams(DEFAULT_EXAMS.map(e => localAttempts[e.id] ? { ...e, status: 'completed', score: localAttempts[e.id].score } : e));
+          setExams(baseExams.map(e => localAttempts[e.id] ? { ...e, status: 'completed', score: localAttempts[e.id].score } : e));
+        } else {
+          if (isMounted) setExams(baseExams);
         }
       } catch (e) {
         console.warn('Failed to load exam attempts:', e);

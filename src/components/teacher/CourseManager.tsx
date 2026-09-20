@@ -12,6 +12,8 @@ export default function CourseManager() {
   const [semester, setSemester] = useState('Sem 3');
   const [type, setType] = useState<'pdf' | 'pptx' | 'docx' | 'link'>('pdf');
   const [tagInput, setTagInput] = useState('');
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [linkUrl, setLinkUrl] = useState('');
   const [search, setSearch] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [previewMaterial, setPreviewMaterial] = useState<CourseMaterialRecord | null>(null);
@@ -35,9 +37,33 @@ export default function CourseManager() {
     e.preventDefault();
     if (!title.trim()) return;
 
-    // Create valid Data URL content blob for real downloading
-    const sampleContent = `Document: ${title}\nSubject: ${subject}\nSemester: ${semester}\nPublished via Campus OS.`;
-    const encodedDataUrl = `data:text/plain;charset=utf-8,${encodeURIComponent(sampleContent)}`;
+    let finalFileUrl = '';
+    let finalSize = '1.0 KB';
+
+    if (type === 'link') {
+      finalFileUrl = linkUrl.trim() || 'https://campus.institution.edu/resource';
+      finalSize = 'Web Link';
+    } else if (selectedFile) {
+      // Read authentic file as Data URL
+      finalFileUrl = await new Promise<string>((resolve) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = () => resolve('');
+        reader.readAsDataURL(selectedFile);
+      });
+      // Authentic size computation
+      if (selectedFile.size > 1048576) {
+        finalSize = `${(selectedFile.size / 1048576).toFixed(1)} MB`;
+      } else {
+        finalSize = `${Math.max(1, Math.round(selectedFile.size / 1024))} KB`;
+      }
+    } else {
+      // Create valid text blob if no local file was selected
+      const sampleContent = `Document: ${title}\nSubject: ${subject}\nSemester: ${semester}\nFormat: ${type.toUpperCase()}\nPublished via Campus OS.`;
+      finalFileUrl = `data:text/plain;charset=utf-8,${encodeURIComponent(sampleContent)}`;
+      const byteSize = new Blob([sampleContent]).size;
+      finalSize = `${Math.max(1, Math.round(byteSize / 1024))} KB`;
+    }
 
     const newMaterial: CourseMaterialRecord = {
       id: String(Date.now()),
@@ -45,9 +71,9 @@ export default function CourseManager() {
       subject,
       semester,
       type,
-      fileUrl: encodedDataUrl,
+      fileUrl: finalFileUrl,
       uploadedAt: new Date().toISOString().split('T')[0],
-      size: '1.5 MB',
+      size: finalSize,
       downloadsCount: 0,
       tags: tagInput ? tagInput.split(',').map(t => t.trim()).filter(Boolean) : [subject]
     };
@@ -56,6 +82,8 @@ export default function CourseManager() {
     setMaterials([newMaterial, ...materials]);
     setTitle('');
     setTagInput('');
+    setSelectedFile(null);
+    setLinkUrl('');
   }
 
   function handleDownload(mat: CourseMaterialRecord) {
@@ -154,6 +182,43 @@ export default function CourseManager() {
             </select>
           </div>
         </div>
+
+        {type === 'link' ? (
+          <div>
+            <label style={{ display: 'block', fontSize: 12, fontWeight: 600, marginBottom: 4 }}>Resource Web Link (URL) *</label>
+            <input
+              type="url"
+              value={linkUrl}
+              onChange={e => setLinkUrl(e.target.value)}
+              placeholder="https://drive.institution.edu/course-notes.pdf"
+              style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border)' }}
+              required
+            />
+          </div>
+        ) : (
+          <div>
+            <label style={{ display: 'block', fontSize: 12, fontWeight: 600, marginBottom: 4 }}>
+              Choose Document File ({type.toUpperCase()})
+            </label>
+            <input
+              type="file"
+              accept={type === 'pdf' ? '.pdf' : type === 'pptx' ? '.pptx' : type === 'docx' ? '.docx' : '.pdf,.docx,.pptx,.txt'}
+              onChange={e => {
+                const file = e.target.files?.[0] || null;
+                setSelectedFile(file);
+                if (file && !title) {
+                  setTitle(file.name.replace(/\.[^/.]+$/, ''));
+                }
+              }}
+              style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border)', background: 'var(--bg3)' }}
+            />
+            {selectedFile && (
+              <span style={{ fontSize: 11, color: 'var(--success)', fontWeight: 700, marginTop: 4, display: 'inline-block' }}>
+                ✓ Selected: {selectedFile.name} ({(selectedFile.size / 1024).toFixed(1)} KB)
+              </span>
+            )}
+          </div>
+        )}
 
         <div>
           <label style={{ display: 'block', fontSize: 12, fontWeight: 600, marginBottom: 4 }}>Tags (comma-separated)</label>

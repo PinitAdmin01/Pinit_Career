@@ -68,6 +68,7 @@ function LearningPageInner() {
           clearMistake={clearMistake}
           studentsList={studentsList}
           prescribeQuest={prescribeQuest}
+          missingSkills={missingSkills}
         />
       ) : (
         <div>
@@ -78,6 +79,7 @@ function LearningPageInner() {
               clearMistake={clearMistake}
               studentsList={studentsList}
               prescribeQuest={prescribeQuest}
+              missingSkills={missingSkills}
             />
           )}
 

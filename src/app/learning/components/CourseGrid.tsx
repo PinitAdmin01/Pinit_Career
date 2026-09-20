@@ -29,20 +29,26 @@ export function CourseGrid({
             Dynamic assessments have identified the following missing skills in your portfolio matches:
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-            {missingSkills.map(skill => (
-              <div key={skill.name} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 10, padding: 12 }}>
-                <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                  <span style={{ fontSize: 13, fontWeight: 700 }}>{skill.name}</span>
-                  <span style={{
-                    fontSize: 9.5, fontWeight: 800,
-                    background: skill.severity === 'High' ? 'var(--coral-light)' : 'var(--amber-light)',
-                    color: skill.severity === 'High' ? 'var(--coral)' : 'var(--amber)',
-                    padding: '2px 6px', borderRadius: 4
-                  }}>{skill.severity} Priority</span>
-                </div>
-                <p style={{ fontSize: 11.5, color: 'var(--t3)', margin: 0 }}>{skill.reason}</p>
+            {missingSkills.length === 0 ? (
+              <div style={{ padding: 18, textAlign: 'center', color: 'var(--t3)', fontSize: 12, background: 'var(--bg3)', borderRadius: 10, border: '1px dashed var(--border)' }}>
+                ✓ No critical skill gaps identified. All assessed competencies are currently in good standing!
               </div>
-            ))}
+            ) : (
+              missingSkills.map(skill => (
+                <div key={skill.name} style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 10, padding: 12 }}>
+                  <div style={{ display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+                    <span style={{ fontSize: 13, fontWeight: 700 }}>{skill.name}</span>
+                    <span style={{
+                      fontSize: 9.5, fontWeight: 800,
+                      background: skill.severity === 'High' ? 'var(--coral-light)' : 'var(--amber-light)',
+                      color: skill.severity === 'High' ? 'var(--coral)' : 'var(--amber)',
+                      padding: '2px 6px', borderRadius: 4
+                    }}>{skill.severity} Priority</span>
+                  </div>
+                  <p style={{ fontSize: 11.5, color: 'var(--t3)', margin: 0 }}>{skill.reason}</p>
+                </div>
+              ))
+            )}
           </div>
         </div>
 

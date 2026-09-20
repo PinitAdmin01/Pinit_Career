@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { requireUserFromRequest, getBearerToken } from '@/lib/server/requireAuth';
+import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 
 export async function GET(
@@ -56,7 +56,7 @@ export async function GET(
     // 2. Query student profile with service key
     const { data: student, error: studentErr } = await admin
       .from('users')
-      .select('id, display_name, username, email, target_role, ats_score, trust_score, career_dna_score, mission_streak, career_readiness, completed_quests')
+      .select('id, display_name, username, email, target_role, ats_score, trust_score, career_dna_score, mission_streak, career_readiness, completed_quests, onboarding_answers, register_number')
       .eq('id', targetStudentId)
       .maybeSingle();
 
@@ -66,6 +66,8 @@ export async function GET(
         { status: 404 }
       );
     }
+
+    const ob = (student.onboarding_answers as Record<string, any>) || {};
 
     // Authentic scores - NO fabricated defaults (72/75/68)
     const atsScore = typeof student.ats_score === 'number' ? student.ats_score : 0;
@@ -84,14 +86,14 @@ export async function GET(
         .select('exam_id, score, total_marks, graded_at')
         .eq('student_id', targetStudentId)
         .order('graded_at', { ascending: false })
-        .limit(5);
+        .limit(10);
 
       if (Array.isArray(examsData) && examsData.length > 0) {
         recentExams = examsData.map((e: any) => ({
           exam_name: e.exam_id,
           pct: e.total_marks > 0 ? `${Math.round((e.score / e.total_marks) * 100)}%` : `${e.score}%`,
-          score: e.score,
-          totalMarks: e.total_marks,
+          score: Number(e.score),
+          totalMarks: Number(e.total_marks),
         }));
       }
     } catch {}
@@ -99,13 +101,63 @@ export async function GET(
     // 4. Mission summary
     const missionSummary = Array.isArray(student.completed_quests) ? student.completed_quests : [];
 
+    // 5. Authentic institutional finance dues
+    let finance: { dues: number; waiver: number; fine: number; installments: any[] } = {
+      dues: 0,
+      waiver: 0,
+      fine: 0,
+      installments: [],
+    };
+    try {
+      const { data: duesData } = await admin
+        .from('finance_dues')
+        .select('*')
+        .eq('student_id', targetStudentId)
+        .maybeSingle();
+
+      if (duesData) {
+        finance = {
+          dues: Number(duesData.total_term_fees || 0),
+          waiver: Number(duesData.scholarship_waiver || 0),
+          fine: Number(duesData.fine_levied || 0),
+          installments: Array.isArray(duesData.installments) ? duesData.installments : [],
+        };
+      }
+    } catch {}
+
+    // 6. Notifications and advisories
+    let notifications: any[] = [];
+    try {
+      const { data: notifData } = await admin
+        .from('notifications')
+        .select('id, title, message, type, created_at, read')
+        .eq('user_id', targetStudentId)
+        .order('created_at', { ascending: false })
+        .limit(10);
+
+      if (Array.isArray(notifData)) {
+        notifications = notifData;
+      }
+    } catch {}
+
     return NextResponse.json({
       ok: true,
       profile: {
         id: student.id,
         displayName: student.display_name || student.username || 'Student',
         email: student.email || '',
-        career_track: student.target_role || 'Software Engineer',
+        registerNumber: student.register_number || `STD-${student.id.substring(0, 6).toUpperCase()}`,
+        rollNo: student.register_number || ob.rollNo || ob.roll_no || `CS-2024-${student.id.substring(0, 4).toUpperCase()}`,
+        department: ob.department || ob.dept || 'Computer Science & Engineering',
+        semester: ob.semester || 'Semester 4',
+        batch: ob.batch || 'Batch of 2026',
+        emergencyContact: ob.emergencyContact || ob.parentPhone || ob.phone || 'Not Specified',
+        parentDetails: {
+          fatherName: ob.fatherName || ob.father_name || '',
+          motherName: ob.motherName || ob.mother_name || '',
+          parentEmail: ob.parentEmail || ob.parent_email || '',
+        },
+        career_track: student.target_role || ob.targetRole || 'Software Engineer',
         ats_score: atsScore,
         trust_score: trustScore,
         career_dna_score: careerDnaScore,
@@ -114,6 +166,8 @@ export async function GET(
       },
       recentExams,
       missionSummary,
+      finance,
+      notifications,
     });
   } catch (err: any) {
     console.error('[Parent Student Overview Exception]:', err?.message);

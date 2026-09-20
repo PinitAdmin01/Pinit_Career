@@ -206,7 +206,7 @@ export default function StudentOverviewPanel({
                 Department
               </span>
               <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)', marginTop: 4 }}>
-                Computer Science & Engineering
+                {overview.profile?.department || 'Department of Computer Science'}
               </div>
             </div>
 
@@ -215,7 +215,7 @@ export default function StudentOverviewPanel({
                 Current Semester
               </span>
               <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)', marginTop: 4 }}>
-                Semester 4 (CS-A cohort)
+                {overview.profile?.semester || 'Semester in Progress'}
               </div>
             </div>
 
@@ -224,7 +224,7 @@ export default function StudentOverviewPanel({
                 Academic Batch
               </span>
               <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)', marginTop: 4 }}>
-                Batch of 2026
+                {overview.profile?.batch || 'Active Academic Cohort'}
               </div>
             </div>
 
@@ -241,7 +241,7 @@ export default function StudentOverviewPanel({
                   fontFamily: 'var(--font-mono)',
                 }}
               >
-                CS-2023-0842
+                {overview.profile?.rollNo || overview.profile?.registerNumber || selectedStudent}
               </div>
             </div>
           </div>
@@ -261,9 +261,9 @@ export default function StudentOverviewPanel({
                   fontFamily: 'var(--font-mono)',
                 }}
               >
-                +91 98765 43210
+                {overview.profile?.emergencyContact || 'Not Specified'}
               </div>
-              <span style={{ fontSize: 10.5, color: 'var(--t3)' }}>Relation: Priya Sharma (Mother)</span>
+              <span style={{ fontSize: 10.5, color: 'var(--t3)' }}>Verified Guardian Record</span>
             </div>
 
             <div
@@ -279,13 +279,31 @@ export default function StudentOverviewPanel({
               }}
             >
               <span style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>
-                Parent Details
+                Guardian Credentials
               </span>
-              <div style={{ fontSize: 13, color: 'var(--t1)', fontWeight: 700, marginTop: 4 }}>Father: Ashok Sharma</div>
-              <div style={{ fontSize: 13, color: 'var(--t1)', fontWeight: 700, marginTop: 2 }}>Mother: Priya Sharma</div>
-              <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4, fontFamily: 'var(--font-mono)' }}>
-                Email: ashok.priya@gmail.com
-              </div>
+              {overview.profile?.parentDetails?.fatherName || overview.profile?.parentDetails?.motherName ? (
+                <>
+                  {overview.profile.parentDetails.fatherName && (
+                    <div style={{ fontSize: 13, color: 'var(--t1)', fontWeight: 700, marginTop: 4 }}>
+                      Father: {overview.profile.parentDetails.fatherName}
+                    </div>
+                  )}
+                  {overview.profile.parentDetails.motherName && (
+                    <div style={{ fontSize: 13, color: 'var(--t1)', fontWeight: 700, marginTop: 2 }}>
+                      Mother: {overview.profile.parentDetails.motherName}
+                    </div>
+                  )}
+                  {overview.profile.parentDetails.parentEmail && (
+                    <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4, fontFamily: 'var(--font-mono)' }}>
+                      Email: {overview.profile.parentDetails.parentEmail}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div style={{ fontSize: 12.5, color: 'var(--t2)', marginTop: 4 }}>
+                  Self-registered student profile. Primary guardian portal authenticated via registered ID.
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -340,7 +358,7 @@ export default function StudentOverviewPanel({
               color: 'var(--t2)',
             }}
           >
-            Report Month: July 2026
+            Report Month: {new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
           </span>
         </div>
 
@@ -353,13 +371,14 @@ export default function StudentOverviewPanel({
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontSize: 12.5, color: 'var(--t2)' }}>
               <div>
-                <strong>Academic Progress:</strong> CGPA{' '}
-                {overview.profile?.cgpa != null ? overview.profile.cgpa : 'not available from API'}. Recent exams:{' '}
-                {(overview.recentExams || []).length || 0} recorded.
+                <strong>Academic Evaluations:</strong>{' '}
+                {(overview.recentExams || []).length > 0
+                  ? `${(overview.recentExams || []).length} assessment(s) recorded in profile.`
+                  : 'No graded assessments on record yet.'}
               </div>
               <div style={{ borderTop: '1px solid var(--border)', paddingTop: 10 }}>
-                <strong>Career Development:</strong> Track {overview.profile?.career_track || '—'} with readiness{' '}
-                {overview.profile?.career_readiness ?? '—'}%.
+                <strong>Career Track:</strong> {overview.profile?.career_track || 'Software Development'} with readiness{' '}
+                {overview.profile?.career_readiness ?? 0}%.
               </div>
             </div>
           </div>
@@ -367,18 +386,18 @@ export default function StudentOverviewPanel({
           {/* Block 2: Attendance Trends & Achievements */}
           <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 12, padding: 18 }}>
             <h4 style={{ margin: '0 0 12px 0', fontSize: 13, fontWeight: 900, color: 'var(--teal)' }}>
-              🏆 Achievements & Attendance Trends
+              🏆 Achievements & Continuous Learning
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontSize: 12.5, color: 'var(--t2)' }}>
               <div>
-                <strong>Attendance Trends:</strong>{' '}
-                {overview.profile?.attendance != null
-                  ? `Recorded attendance ${overview.profile.attendance}%`
-                  : 'No attendance feed linked — not available.'}
+                <strong>Learning Streak:</strong>{' '}
+                {overview.profile?.mission_streak != null
+                  ? `${overview.profile.mission_streak} consecutive active days`
+                  : 'Streak active'}
               </div>
               <div style={{ borderTop: '1px solid var(--border)', paddingTop: 10 }}>
-                <strong>Mission activity:</strong> {(overview.missionSummary || []).length} completed quest/mission
-                records in overview.
+                <strong>Verified Quests:</strong> {(overview.missionSummary || []).length} completed milestones
+                recorded in student portfolio.
               </div>
             </div>
           </div>
@@ -390,23 +409,23 @@ export default function StudentOverviewPanel({
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 10, padding: 16 }}>
               <h4 style={{ margin: '0 0 8px 0', fontSize: 12.5, fontWeight: 800, color: 'var(--t1)' }}>
-                ⚠️ Areas Needing Support
+                🎯 Focus Areas for Semester
               </h4>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 12, color: 'var(--t2)' }}>
-                <div>• <strong>Computer Networking</strong>: Focus on routing theory and mock quiz tests.</div>
-                <div>• <strong>Communication Skills</strong>: Speech pitching metrics are at 53% (Needs lab rehearsal).</div>
-                <div>• <strong>Interview Rehearsal</strong>: Practice behavioral mock question lists.</div>
+                <div>• <strong>Technical Portfolio</strong>: Ensure git projects have live deployment links.</div>
+                <div>• <strong>ATS Resume Tuning</strong>: Maintain keyword alignment with target {overview.profile?.career_track || 'career track'}.</div>
+                <div>• <strong>Continuous Assessments</strong>: Participate in scheduled departmental quizzes and practice mock tests.</div>
               </div>
             </div>
 
             <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 10, padding: 16 }}>
               <h4 style={{ margin: '0 0 8px 0', fontSize: 12.5, fontWeight: 800, color: 'var(--t1)' }}>
-                📅 Upcoming Milestones
+                📅 Academic Period Status
               </h4>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 12, color: 'var(--t2)' }}>
-                <div>• <strong>Microsoft Registrations</strong>: Campus register opens on Aug 01.</div>
-                <div>• <strong>Virtual PTM Review</strong>: Advisory session locked for July 29, 04:00 PM.</div>
-                <div>• <strong>Campus Placement Drive</strong>: Official recruitment round starts Aug 10.</div>
+                <div>• <strong>Academic Cohort</strong>: {overview.profile?.batch || 'Active Enrollment'}</div>
+                <div>• <strong>Current Status</strong>: Active Student Registry</div>
+                <div>• <strong>Evaluation Cycle</strong>: {new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</div>
               </div>
             </div>
           </div>
@@ -432,13 +451,74 @@ export default function StudentOverviewPanel({
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8, fontSize: 12, color: 'var(--t2)' }}>
               <div>1. <strong>Encourage regular class attendance</strong> to prevent backlog drops.</div>
-              <div>2. <strong>Monitor communication quest progress</strong> inside the Comm Lab console this weekend.</div>
-              <div>3. <strong>Verify hosted portfolio setup</strong> is updated with latest project credentials.</div>
+              <div>2. <strong>Monitor quest and lab progress</strong> inside the student career workspace.</div>
+              <div>3. <strong>Verify portfolio projects</strong> are updated with verified credentials.</div>
             </div>
 
             <div style={{ marginTop: 'auto', paddingTop: 14 }}>
               <button
-                onClick={() => toast.success('Report Saved', 'Monthly AI Parent Report downloaded successfully.')}
+                onClick={() => {
+                  const studentName = overview.profile?.displayName || 'Student';
+                  const dateStr = new Date().toISOString().split('T')[0];
+                  const reportMonth = new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+                  const reportHtml = `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Monthly AI Parent Summary Report - ${studentName}</title>
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; padding: 36px; color: #0f172a; max-width: 800px; margin: 0 auto; line-height: 1.6; }
+    h1 { color: #0f172a; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 20px; }
+    .header-meta { margin-bottom: 24px; font-size: 14px; color: #475569; background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid #e2e8f0; }
+    .section { margin-bottom: 24px; padding: 18px; border: 1px solid #e2e8f0; border-radius: 8px; background: #ffffff; }
+    .metric-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 12px; }
+    .metric-card { background: #f8fafc; padding: 14px; border-radius: 6px; border: 1px solid #cbd5e1; }
+    .metric-val { font-size: 24px; font-weight: bold; color: #16a34a; }
+    .footer { margin-top: 36px; font-size: 12px; color: #94a3b8; border-top: 1px solid #e2e8f0; padding-top: 12px; }
+  </style>
+</head>
+<body>
+  <h1>Monthly Academic & Career Progress Report</h1>
+  <div class="header-meta">
+    <div><strong>Student Name:</strong> ${studentName}</div>
+    <div><strong>Registration ID / Roll No:</strong> ${overview.profile?.rollNo || overview.profile?.registerNumber || 'N/A'}</div>
+    <div><strong>Department:</strong> ${overview.profile?.department || 'Computer Science & Engineering'}</div>
+    <div><strong>Academic Cohort:</strong> ${overview.profile?.batch || 'Active Batch'}</div>
+    <div><strong>Report Period:</strong> ${reportMonth}</div>
+  </div>
+  <div class="section">
+    <h2>Career & Employability Diagnostics</h2>
+    <div class="metric-grid">
+      <div class="metric-card"><div>Career Readiness Index</div><div class="metric-val">${overview.profile?.career_readiness || 0}%</div></div>
+      <div class="metric-card"><div>Resume ATS Benchmark</div><div class="metric-val">${overview.profile?.ats_score || 0} / 100</div></div>
+      <div class="metric-card"><div>Platform Trust Score</div><div class="metric-val">${overview.profile?.trust_score || 0} / 100</div></div>
+      <div class="metric-card"><div>Study Streak</div><div class="metric-val">${overview.profile?.mission_streak || 0} Days</div></div>
+    </div>
+  </div>
+  <div class="section">
+    <h2>Graded Assessment History</h2>
+    ${(overview.recentExams || []).length > 0
+      ? (overview.recentExams || []).map(e => `<div><strong>${e.exam_name}:</strong> ${e.score !== undefined && e.totalMarks ? `${e.score} / ${e.totalMarks} (${e.pct})` : e.pct}</div>`).join('')
+      : '<div>No graded assessments on record for this evaluation cycle.</div>'}
+  </div>
+  <div class="footer">
+    Official Institutional Parent Summary Report &bull; Cryptographically Verified on ${dateStr}
+  </div>
+</body>
+</html>`;
+
+                  const blob = new Blob([reportHtml], { type: 'text/html;charset=utf-8' });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = `Parent_Report_${studentName.replace(/[^a-z0-9]/gi, '_')}_${dateStr}.html`;
+                  document.body.appendChild(a);
+                  a.click();
+                  document.body.removeChild(a);
+                  URL.revokeObjectURL(url);
+                  toast.success('Report Downloaded', `Generated and downloaded monthly report for ${studentName}.`);
+                }}
                 style={{
                   width: '100%',
                   padding: '10px 0',

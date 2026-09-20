@@ -58,129 +58,108 @@ export default function AttendanceView({
 
         {/* Notifications stream */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          {[
-            {
-              type: 'Attendance Alert',
-              title: 'Unexcused Absence Recorded',
-              desc: 'Absent on July 14 without prior leave submission. Please verify and submit excuse note.',
-              color: 'var(--danger)',
-              bg: 'rgba(var(--danger-rgb), 0.03)',
-              border: 'rgba(var(--danger-rgb), 0.15)',
-              time: '1 day ago',
-            },
-            {
-              type: 'Exam Alert',
-              title: 'Midterm Theory Examination Schedule',
-              desc: 'Mathematics Midterm exam is locked for July 25, 09:30 AM in Examination Hall-C.',
-              color: 'var(--success)',
-              bg: 'rgba(var(--success-rgb), 0.03)',
-              border: 'rgba(var(--success-rgb), 0.15)',
-              time: '2 days ago',
-            },
-            {
-              type: 'Assignment Reminder',
-              title: 'Programming Foundations Submission',
-              desc: 'Assignment 3: Recursion and DSA structures due tomorrow at 11:59 PM. Current status: Unsubmitted.',
-              color: 'var(--amber)',
-              bg: 'rgba(var(--warning-rgb), 0.03)',
-              border: 'rgba(var(--warning-rgb), 0.15)',
-              time: '3 hours ago',
-            },
-            {
-              type: 'Placement News',
-              title: 'Microsoft Campus Recruitment Registrations',
-              desc: 'Microsoft placement register window opens on Aug 01. Mapped matching profiles (AI Engineers) are eligible.',
-              color: 'var(--accent)',
-              bg: 'rgba(var(--info-rgb), 0.03)',
-              border: 'rgba(var(--info-rgb), 0.15)',
-              time: '3 days ago',
-            },
-            {
-              type: 'Holiday Notice',
-              title: 'Independence Day Campus Closure',
-              desc: 'The institute and hostel administrative blocks will remain closed on Aug 15 for Independence Day.',
-              color: 'var(--t2)',
-              bg: 'var(--bg3)',
-              border: 'var(--border)',
-              time: '4 days ago',
-            },
-            {
-              type: 'Meeting Reminder',
-              title: 'Virtual Parent-Teacher Meeting (PTM)',
-              desc: 'Virtual advising slot with Prof Vikram Sen scheduled for July 29, 04:00 PM. Launch links available in Communication.',
-              color: 'var(--teal)',
-              bg: 'rgba(var(--accent-teal-rgb), 0.03)',
-              border: 'rgba(var(--accent-teal-rgb), 0.15)',
-              time: '5 days ago',
-            },
-          ].map((n, idx) => (
-            <div
-              key={idx}
-              style={{
-                background: n.bg,
-                border: `1.5px solid ${n.border}`,
-                borderRadius: 10,
-                padding: 16,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 6,
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span
-                  style={{
-                    fontSize: 10,
-                    fontWeight: 900,
-                    color: n.color,
-                    textTransform: 'uppercase',
-                    background: 'var(--card)',
-                    padding: '2px 8px',
-                    borderRadius: 4,
-                    border: `1px solid ${n.border}`,
-                  }}
-                >
-                  {n.type}
-                </span>
-                <span style={{ fontSize: 10.5, color: 'var(--t3)' }}>{n.time}</span>
-              </div>
-              <h4 style={{ margin: '4px 0 0 0', fontSize: 13, fontWeight: 800, color: 'var(--t1)' }}>{n.title}</h4>
-              <p style={{ margin: 0, fontSize: 12, color: 'var(--t2)', lineHeight: 1.45 }}>{n.desc}</p>
-              <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 6 }}>
-                {acknowledgedAlerts[n.title] ? (
+          {(() => {
+            const rawNotifs = overview?.notifications || [];
+            const alertsList = rawNotifs.length > 0
+              ? rawNotifs.map(n => ({
+                  type: n.type ? `${n.type.toUpperCase()} NOTICE` : 'INSTITUTIONAL ALERT',
+                  title: n.title,
+                  desc: n.message,
+                  color: 'var(--accent)',
+                  bg: 'rgba(var(--accent-rgb, 59, 130, 246), 0.04)',
+                  border: 'rgba(var(--accent-rgb, 59, 130, 246), 0.2)',
+                  time: new Date(n.created_at).toLocaleDateString([], { month: 'short', day: 'numeric' }),
+                }))
+              : [
+                  {
+                    type: 'Academic Milestone',
+                    title: 'Current Term Progress Sync',
+                    desc: `Academic assessments and progress trackers are active for ${overview.profile?.displayName || 'student'}. Check Academic tab for updated grades.`,
+                    color: 'var(--success)',
+                    bg: 'rgba(var(--success-rgb), 0.03)',
+                    border: 'rgba(var(--success-rgb), 0.15)',
+                    time: 'Recent',
+                  },
+                  {
+                    type: 'Career Preparation',
+                    title: 'Placement DNA Alignment',
+                    desc: `Career track configured as "${overview.profile?.career_track || 'Software Engineering'}". Ongoing practice recommended.`,
+                    color: 'var(--accent)',
+                    bg: 'rgba(var(--info-rgb, 59, 130, 246), 0.03)',
+                    border: 'rgba(var(--info-rgb, 59, 130, 246), 0.15)',
+                    time: 'Active',
+                  },
+                ];
+
+            return alertsList.map((n, idx) => (
+              <div
+                key={idx}
+                style={{
+                  background: n.bg,
+                  border: `1.5px solid ${n.border}`,
+                  borderRadius: 10,
+                  padding: 16,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 6,
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <span
                     style={{
-                      fontSize: 11,
-                      fontWeight: 700,
-                      color: 'var(--success)',
-                      background: 'rgba(var(--success-rgb), 0.1)',
-                      padding: '4px 10px',
-                      borderRadius: 6,
-                      border: '1px solid rgba(var(--success-rgb), 0.2)',
-                    }}
-                  >
-                    ✓ Acknowledged at {acknowledgedAlerts[n.title]}
-                  </span>
-                ) : (
-                  <button
-                    onClick={() => handleAcknowledgeAlert(n.title)}
-                    style={{
-                      fontSize: 11.5,
-                      fontWeight: 700,
-                      padding: '5px 12px',
-                      borderRadius: 6,
+                      fontSize: 10,
+                      fontWeight: 900,
+                      color: n.color,
+                      textTransform: 'uppercase',
                       background: 'var(--card)',
-                      color: 'var(--t1)',
-                      border: '1px solid var(--border)',
-                      cursor: 'pointer',
-                      transition: 'all 0.15s ease',
+                      padding: '2px 8px',
+                      borderRadius: 4,
+                      border: `1px solid ${n.border}`,
                     }}
                   >
-                    ✔ Acknowledge Alert
-                  </button>
-                )}
+                    {n.type}
+                  </span>
+                  <span style={{ fontSize: 10.5, color: 'var(--t3)' }}>{n.time}</span>
+                </div>
+                <h4 style={{ margin: '4px 0 0 0', fontSize: 13, fontWeight: 800, color: 'var(--t1)' }}>{n.title}</h4>
+                <p style={{ margin: 0, fontSize: 12, color: 'var(--t2)', lineHeight: 1.45 }}>{n.desc}</p>
+                <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 6 }}>
+                  {acknowledgedAlerts[n.title] ? (
+                    <span
+                      style={{
+                        fontSize: 11,
+                        fontWeight: 700,
+                        color: 'var(--success)',
+                        background: 'rgba(var(--success-rgb), 0.1)',
+                        padding: '4px 10px',
+                        borderRadius: 6,
+                        border: '1px solid rgba(var(--success-rgb), 0.2)',
+                      }}
+                    >
+                      ✓ Acknowledged at {acknowledgedAlerts[n.title]}
+                    </span>
+                  ) : (
+                    <button
+                      onClick={() => handleAcknowledgeAlert(n.title)}
+                      style={{
+                        fontSize: 11.5,
+                        fontWeight: 700,
+                        padding: '5px 12px',
+                        borderRadius: 6,
+                        background: 'var(--card)',
+                        color: 'var(--t1)',
+                        border: '1px solid var(--border)',
+                        cursor: 'pointer',
+                        transition: 'all 0.15s ease',
+                      }}
+                    >
+                      ✔ Acknowledge Alert
+                    </button>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            ));
+          })()}
         </div>
       </div>
     );

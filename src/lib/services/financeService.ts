@@ -159,7 +159,16 @@ export async function acquireDistributedLock(lockKey: string, userId: string, tt
     }
     return true;
   } catch (err) {
-    console.warn('⚠️ [CONCURRENCY NOTICE] Exception during distributed lock check, falling back to in-memory lock:', err);
+    console.error('[CONCURRENCY ERROR] Unexpected exception during distributed lock acquisition:', err);
+    // FAIL CLOSED: purge optimistic memory reservations and deny the lock
+    // so concurrent containers do NOT all believe they hold the lock.
+    activePaymentLocks.delete(lockKey);
+    activeScholarshipLocks.delete(lockKey);
+    if (process.env.NODE_ENV === 'production' || isServerlessRuntime()) {
+      return false;
+    }
+    // Non-production only: permit in-memory fallback for offline development
+    console.warn('⚠️ [DEV FALLBACK] Allowing in-memory lock in non-production after exception.');
     return true;
   }
 }

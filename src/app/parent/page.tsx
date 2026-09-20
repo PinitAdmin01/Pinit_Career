@@ -267,7 +267,7 @@ function ParentPageInner() {
                   )}
 
                   {(activeTab === 'documents' || activeTab === 'finance') && (
-                    <FeePaymentPanel activeTab={activeTab} />
+                    <FeePaymentPanel activeTab={activeTab} overview={overview} />
                   )}
                 </div>
               </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import { toast } from '@/lib/store/useAppStore';
 import { speakWithAvatar } from '@/lib/tts';
-import { CONCEPT_ANALOGIES_REGISTRY } from '@/lib/data/conceptAnalogies';
+import { CONCEPT_ANALOGIES_REGISTRY, findConceptAnalogy } from '@/lib/data/conceptAnalogies';
 import { LessonCodeEditor } from './LessonCodeEditor';
 import { LessonQuizBlock } from './LessonQuizBlock';
 
@@ -385,13 +385,7 @@ export function LessonContentRenderer({
                       realWorldStory = desc;
                     }
 
-                    const currentTopicKey = (slide.title || '').toLowerCase();
-                    let matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['python-functions'];
-                    if (currentTopicKey.includes('loop') || currentTopicKey.includes('iterat')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['python-loops'];
-                    else if (currentTopicKey.includes('dict') || currentTopicKey.includes('hash') || currentTopicKey.includes('map')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['python-dicts'];
-                    else if (currentTopicKey.includes('class') || currentTopicKey.includes('oop') || currentTopicKey.includes('object')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['python-classes'];
-                    else if (currentTopicKey.includes('react') || currentTopicKey.includes('component')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['react-components'];
-                    else if (currentTopicKey.includes('hook') || currentTopicKey.includes('state')) matchedAnalogy = CONCEPT_ANALOGIES_REGISTRY['react-hooks'];
+                    const matchedAnalogy = findConceptAnalogy(slide.title || '', questId);
 
                     return (
                       <div style={{

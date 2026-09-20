@@ -22,6 +22,7 @@ export interface AttentionStats {
   dailyScores: Record<string, number>;
   dailySessions: Record<string, number>;
   completedDifficulties: Record<string, string[]>;
+  questClaimedDate?: string;
 }
 
 /**
@@ -64,6 +65,7 @@ function sanitizeAndValidateStats(raw: Partial<AttentionStats>): AttentionStats 
     totalSessions: sanitizeNum(raw.totalSessions, 0, 100000),
     streak: sanitizeNum(raw.streak, 0, 3650),
     lastPlayedDate: typeof raw.lastPlayedDate === 'string' ? raw.lastPlayedDate.slice(0, 10) : '',
+    questClaimedDate: typeof raw.questClaimedDate === 'string' ? raw.questClaimedDate.slice(0, 10) : '',
     dailyScores: typeof raw.dailyScores === 'object' && raw.dailyScores !== null ? raw.dailyScores : {},
     dailySessions: typeof raw.dailySessions === 'object' && raw.dailySessions !== null ? raw.dailySessions : {},
     completedDifficulties: typeof raw.completedDifficulties === 'object' && raw.completedDifficulties !== null ? raw.completedDifficulties : {},
@@ -85,6 +87,7 @@ const DEFAULT_STATS: AttentionStats = {
   totalSessions: 0,
   streak: 0,
   lastPlayedDate: '',
+  questClaimedDate: '',
   dailyScores: {},
   dailySessions: {},
   completedDifficulties: {},

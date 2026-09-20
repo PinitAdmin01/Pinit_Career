@@ -321,6 +321,144 @@ async function runTests() {
     );
   });
 
+  console.log('\n8. Curriculum Alignment, Scannable QR & Honest Career Gate Audits');
+
+  const questDetailModalSrc = fs.readFileSync(
+    path.join(ROOT, 'src/app/quests/components/QuestDetailModal.tsx'),
+    'utf-8'
+  );
+  const questPathViewSrc = fs.readFileSync(
+    path.join(ROOT, 'src/app/quests/components/QuestPathView.tsx'),
+    'utf-8'
+  );
+  const compMatrixSrc = fs.readFileSync(
+    path.join(ROOT, 'src/lib/pathway/competencyMatrix.ts'),
+    'utf-8'
+  );
+
+  it('CareerGateModal evaluates actual student metrics and does NOT hardcode 100% checkmarks', () => {
+    assert.doesNotMatch(
+      questDetailModalSrc,
+      /<span>📚 Technical Quests Completion<\/span>\s*<span[^>]*>✓ 100% Passed<\/span>/,
+      'Hardcoded 100% passed technical quest checkmark must be removed'
+    );
+    assert.match(
+      questDetailModalSrc,
+      /actualCompletionPct\s*>=/i,
+      'CareerGateModal must evaluate actual course completion percentage against requirements'
+    );
+    assert.match(
+      questDetailModalSrc,
+      /isGateCleared\s*\?\s*['"]✓ Career Gate Cleared['"]\s*:\s*['"]🔒 Career Gate Audit Checkpoint['"]/,
+      'Gate modal must reflect real gate cleared or locked status'
+    );
+  });
+
+  it('QrModal renders authentic scannable QRCodeSVG instead of hand-drawn SVG rectangles', () => {
+    assert.match(
+      questDetailModalSrc,
+      /<QRCodeSVG\s+value=\{verifyUrl\}\s+size=\{156\}/,
+      'QrModal must render QRCodeSVG component'
+    );
+    assert.doesNotMatch(
+      questDetailModalSrc,
+      /<rect\s+x="10"\s+y="10"\s+width="24"\s+height="24"/,
+      'Fake hand-drawn SVG rectangles must be eliminated'
+    );
+  });
+
+  it('QuestPathView roadmap does not fall back to hardcoded React Native steps', () => {
+    assert.doesNotMatch(
+      questPathViewSrc,
+      /title:\s*'Learn Redux'/,
+      'Hardcoded "Learn Redux" step must be removed'
+    );
+    assert.doesNotMatch(
+      questPathViewSrc,
+      /title:\s*'Dive into React Native'/,
+      'Hardcoded "Dive into React Native" step must be removed'
+    );
+    assert.match(
+      questPathViewSrc,
+      /displayNodes\.map/,
+      'Roadmap nodes must be dynamically derived from trajectory or course modules'
+    );
+  });
+
+  it('Standalone stages derive course-specific topics rather than Java-specific strings', () => {
+    assert.doesNotMatch(
+      questProgSrc,
+      /desc:\s*`Methods,\s*1D & 2D arrays,\s*string immutability/,
+      'Hardcoded Java array description must not be hardcoded for all courses'
+    );
+    assert.match(
+      questProgSrc,
+      /const\s+topicStr\s*=\s*cleanTopics\.length\s*>\s*0/,
+      'Stage descriptions must be derived from actual course quest topics'
+    );
+  });
+
+  it('Certification tracks only point to valid registered course IDs', () => {
+    assert.doesNotMatch(
+      questProgSrc,
+      /courseId:\s*'course-fullstack-dev'/,
+      'Invalid course-fullstack-dev courseId must be fixed'
+    );
+    assert.doesNotMatch(
+      questProgSrc,
+      /courseId:\s*'course-cloud-devops'/,
+      'Invalid course-cloud-devops courseId must be fixed'
+    );
+    assert.doesNotMatch(
+      questProgSrc,
+      /courseId:\s*'course-data-science'/,
+      'Invalid course-data-science courseId must be fixed'
+    );
+    assert.match(
+      questProgSrc,
+      /courseId:\s*'course-fullstack-js'/,
+      'Fullstack certification track must point to course-fullstack-js'
+    );
+    assert.match(
+      questProgSrc,
+      /courseId:\s*'course-cloud-native'/,
+      'Cloud certification track must point to course-cloud-native'
+    );
+    assert.match(
+      questProgSrc,
+      /courseId:\s*'course-database-eng'/,
+      'Data certification track must point to course-database-eng'
+    );
+  });
+
+  it('Competency matrix references canonical registered course IDs with alias normalization', () => {
+    assert.match(
+      compMatrixSrc,
+      /courseId:\s*'course-java-logic'/,
+      'Competency matrix must map canonical course-java-logic'
+    );
+    assert.match(
+      compMatrixSrc,
+      /courseId:\s*'course-python-backend'/,
+      'Competency matrix must map canonical course-python-backend'
+    );
+    assert.match(
+      compMatrixSrc,
+      /courseId:\s*'course-dsa-optim'/,
+      'Competency matrix must map canonical course-dsa-optim'
+    );
+    assert.match(
+      compMatrixSrc,
+      /courseId:\s*'course-database-eng'/,
+      'Competency matrix must map canonical course-database-eng'
+    );
+    assert.match(
+      compMatrixSrc,
+      /export function normalizeCourseId/,
+      'Must export normalizeCourseId with alias fallback support'
+    );
+  });
+
   console.log('\n========================================================================');
   console.log(`🏁 VERIFICATION SUITE RESULTS: ${passCount} Passed, ${failCount} Failed`);
   console.log('========================================================================\n');

@@ -61,8 +61,15 @@ export function MemoryMatrixGame({ gameId, difficulty, onDifficultyChange, compl
     }
   };
 
-  const finalLevel = Math.max(1, level - 1);
-  const accuracyEarned = Math.min(100, finalLevel * 20);
+  const finalLevel = Math.max(0, level - 1);
+  const accuracyEarned = finalLevel === 0 ? 0 : Math.min(100, finalLevel * 20);
+  const hasReportedRef = useRef(false);
+
+  const reportResult = useCallback(() => {
+    if (hasReportedRef.current) return;
+    hasReportedRef.current = true;
+    onComplete(finalLevel, accuracyEarned);
+  }, [onComplete, finalLevel, accuracyEarned]);
 
   return (
     <GameShell
@@ -72,15 +79,15 @@ export function MemoryMatrixGame({ gameId, difficulty, onDifficultyChange, compl
       description="Hold the lit tiles, then tap them back from memory."
       phase={phase === 'memorizing' || phase === 'input' ? 'playing' : phase}
       onExit={onExit}
-      countdown={phase === 'countdown' ? <CountdownOverlay soundMuted={soundMuted} onComplete={() => startLevel(1)} /> : null}
+      countdown={phase === 'countdown' ? <CountdownOverlay soundMuted={soundMuted} onComplete={() => { hasReportedRef.current = false; startLevel(1); }} /> : null}
       readyExtra={<DifficultyPicker gameId={gameId} difficulty={difficulty} onChange={onDifficultyChange} completedDifficulties={completedDifficulties} />}
       onStart={() => setPhase('countdown')}
-      doneTitle="Pattern broken"
+      doneTitle={finalLevel === 0 ? "Matrix incomplete" : "Pattern broken"}
       doneScore={`Level ${finalLevel}`}
-      doneHint="Highest complete matrix"
-      doneExtra={<CompletionBanner difficulty={difficulty} onNextChallenge={(nextD) => { onComplete(finalLevel + 1, accuracyEarned); onDifficultyChange(nextD); setPhase('ready'); }} />}
-      onClaim={() => { onComplete(finalLevel + 1, accuracyEarned); onExit(); }}
-      onReplay={() => setPhase('ready')}
+      doneHint={finalLevel === 0 ? "Try again to clear Level 1" : "Highest complete matrix"}
+      doneExtra={<CompletionBanner difficulty={difficulty} onNextChallenge={(nextD) => { reportResult(); onDifficultyChange(nextD); setPhase('ready'); }} />}
+      onClaim={() => { reportResult(); onExit(); }}
+      onReplay={() => { hasReportedRef.current = false; setPhase('ready'); }}
     >
       {(phase === 'memorizing' || phase === 'input') && (
         <>
@@ -208,8 +215,12 @@ export function SequenceSnapGame({ gameId, difficulty, onDifficultyChange, compl
 export function VortexVisionGame({ gameId, difficulty, onDifficultyChange, completedDifficulties, soundMuted, onComplete, onExit }: { gameId: GameId; difficulty: Difficulty; onDifficultyChange: (d: Difficulty) => void; completedDifficulties?: Record<string, Difficulty[]>; soundMuted: boolean; onComplete: (score: number, accuracyEarned: number) => void; onExit: () => void }) {
   const [phase, setPhase] = useState<'ready' | 'countdown' | 'playing' | 'done'>('ready');
   const [score, setScore] = useState(0);
+  const [misses, setMisses] = useState(0);
+  const [strikes, setStrikes] = useState(0);
   const [targetPos, setTargetPos] = useState({ r: 100, a: 0 });
   const [debrisAngle, setDebrisAngle] = useState(0);
+  const timerRef = useRef<any>(null);
+  const hasReportedRef = useRef(false);
 
   useEffect(() => {
     if (phase !== 'playing') return;
@@ -226,38 +237,72 @@ export function VortexVisionGame({ gameId, difficulty, onDifficultyChange, compl
     });
   }, []);
 
-  const handleTargetClick = () => {
+  const handleTargetClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (phase !== 'playing') return;
     playSound('correct', soundMuted);
     setScore(prev => prev + 1);
     spawnTarget();
   };
 
-  const accuracyEarned = Math.min(100, score * 8);
+  const handleMiss = () => {
+    if (phase !== 'playing') return;
+    playSound('wrong', soundMuted);
+    setMisses(m => m + 1);
+    setStrikes(s => {
+      const next = s + 1;
+      if (next >= 3) {
+        if (timerRef.current) clearTimeout(timerRef.current);
+        setPhase('done');
+      }
+      return next;
+    });
+  };
+
+  const accuracyEarned = Math.max(0, Math.round((score / Math.max(1, score + misses)) * 100));
+
+  const reportResult = useCallback(() => {
+    if (hasReportedRef.current) return;
+    hasReportedRef.current = true;
+    onComplete(score, accuracyEarned);
+  }, [onComplete, score, accuracyEarned]);
 
   return (
     <GameShell
       accent="pink"
       mark="vortex"
       title="Vortex Vision"
-      description="Track the gold mark in a slow orbit. Ignore the rest."
+      description="Track the gold mark in a slow orbit. Ignore the rest. 3 misses terminate the orbit."
       phase={phase}
       onExit={onExit}
-      countdown={phase === 'countdown' ? <CountdownOverlay soundMuted={soundMuted} onComplete={() => { setScore(0); spawnTarget(); setPhase('playing'); setTimeout(() => setPhase('done'), 20000); }} /> : null}
+      countdown={phase === 'countdown' ? <CountdownOverlay soundMuted={soundMuted} onComplete={() => {
+        setScore(0);
+        setMisses(0);
+        setStrikes(0);
+        hasReportedRef.current = false;
+        spawnTarget();
+        setPhase('playing');
+        if (timerRef.current) clearTimeout(timerRef.current);
+        timerRef.current = setTimeout(() => setPhase('done'), 20000);
+      }} /> : null}
       readyExtra={<DifficultyPicker gameId={gameId} difficulty={difficulty} onChange={onDifficultyChange} completedDifficulties={completedDifficulties} />}
       onStart={() => setPhase('countdown')}
-      doneTitle="Orbit closed"
-      doneScore={`${score} hits`}
-      doneExtra={<CompletionBanner difficulty={difficulty} onNextChallenge={(nextD) => { onComplete(score, accuracyEarned); onDifficultyChange(nextD); setPhase('ready'); }} />}
-      onClaim={() => { onComplete(score, accuracyEarned); onExit(); }}
-      onReplay={() => setPhase('ready')}
+      doneTitle={strikes >= 3 ? "Orbit Lost (3 Strikes)" : "Orbit closed"}
+      doneScore={`${score} hits (${accuracyEarned}% acc)`}
+      doneHint={strikes >= 3 ? "Tapped off-target 3 times" : "Target tracking run completed"}
+      doneExtra={<CompletionBanner difficulty={difficulty} onNextChallenge={(nextD) => { reportResult(); onDifficultyChange(nextD); setPhase('ready'); }} />}
+      onClaim={() => { reportResult(); onExit(); }}
+      onReplay={() => { hasReportedRef.current = false; setPhase('ready'); }}
     >
       {phase === 'playing' && (
         <>
           <div className="att-hud">
             <div className="att-hud-key"><span>Hits</span><b>{score}</b></div>
+            <div className="att-hud-key" style={{ color: strikes > 0 ? 'var(--coral, #f87171)' : 'var(--t2)' }}>
+              <span>Strikes</span><b>{strikes}/3</b>
+            </div>
           </div>
-          <div className="att-well">
+          <div className="att-well" onClick={handleMiss} style={{ cursor: 'crosshair' }}>
             <div className="att-orbit" style={{ position: 'absolute', inset: 0, transform: `rotate(${debrisAngle}deg)`, pointerEvents: 'none' }}>
               <span style={{ top: 40, left: 146 }} />
               <span style={{ top: 220, left: 80 }} />
@@ -288,6 +333,10 @@ export function FlashFusionGame({ gameId, difficulty, onDifficultyChange, comple
   const [currentSymbol, setCurrentSymbol] = useState('⚡');
   const [prevSymbol, setPrevSymbol] = useState('');
   const [score, setScore] = useState(0);
+  const [strikes, setStrikes] = useState(0);
+  const [attempts, setAttempts] = useState(0);
+  const timerRef = useRef<any>(null);
+  const hasReportedRef = useRef(false);
 
   useEffect(() => {
     if (phase !== 'playing') return;
@@ -303,11 +352,21 @@ export function FlashFusionGame({ gameId, difficulty, onDifficultyChange, comple
 
   const handleTap = useCallback(() => {
     if (phase !== 'playing') return;
+    setAttempts(a => a + 1);
     if (currentSymbol === prevSymbol && prevSymbol !== '') {
       playSound('correct', soundMuted);
       setScore(s => s + 1);
     } else {
       playSound('wrong', soundMuted);
+      setScore(s => Math.max(0, s - 1));
+      setStrikes(st => {
+        const next = st + 1;
+        if (next >= 3) {
+          if (timerRef.current) clearTimeout(timerRef.current);
+          setPhase('done');
+        }
+        return next;
+      });
     }
   }, [phase, currentSymbol, prevSymbol, soundMuted]);
 
@@ -322,33 +381,51 @@ export function FlashFusionGame({ gameId, difficulty, onDifficultyChange, comple
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [phase, currentSymbol, prevSymbol, soundMuted, handleTap]);
 
-  const accuracyEarned = Math.min(100, score * 12);
+  const accuracyEarned = Math.max(0, Math.round((score / Math.max(1, attempts)) * 100));
+
+  const reportResult = useCallback(() => {
+    if (hasReportedRef.current) return;
+    hasReportedRef.current = true;
+    onComplete(score, accuracyEarned);
+  }, [onComplete, score, accuracyEarned]);
 
   return (
     <GameShell
       accent="indigo"
       mark="flash"
       title="Flash Fusion"
-      description="Tap only when the current symbol matches the last one."
+      description="Tap only when the current symbol matches the last one. 3 wrong taps terminate the stream."
       phase={phase}
       onExit={onExit}
-      countdown={phase === 'countdown' ? <CountdownOverlay soundMuted={soundMuted} onComplete={() => { setScore(0); setPhase('playing'); setTimeout(() => setPhase('done'), 20000); }} /> : null}
+      countdown={phase === 'countdown' ? <CountdownOverlay soundMuted={soundMuted} onComplete={() => {
+        setScore(0);
+        setStrikes(0);
+        setAttempts(0);
+        hasReportedRef.current = false;
+        setPhase('playing');
+        if (timerRef.current) clearTimeout(timerRef.current);
+        timerRef.current = setTimeout(() => setPhase('done'), 20000);
+      }} /> : null}
       readyExtra={<DifficultyPicker gameId={gameId} difficulty={difficulty} onChange={onDifficultyChange} completedDifficulties={completedDifficulties} />}
       onStart={() => setPhase('countdown')}
-      doneTitle="Stream closed"
-      doneScore={`${score} matches`}
-      doneExtra={<CompletionBanner difficulty={difficulty} onNextChallenge={(nextD) => { onComplete(score, accuracyEarned); onDifficultyChange(nextD); setPhase('ready'); }} />}
-      onClaim={() => { onComplete(score, accuracyEarned); onExit(); }}
-      onReplay={() => setPhase('ready')}
+      doneTitle={strikes >= 3 ? "Stream Terminated (3 Strikes)" : "Stream closed"}
+      doneScore={`${score} matches (${accuracyEarned}% acc)`}
+      doneHint={strikes >= 3 ? "Tapped 3 times when symbols did not match" : "Run completed"}
+      doneExtra={<CompletionBanner difficulty={difficulty} onNextChallenge={(nextD) => { reportResult(); onDifficultyChange(nextD); setPhase('ready'); }} />}
+      onClaim={() => { reportResult(); onExit(); }}
+      onReplay={() => { hasReportedRef.current = false; setPhase('ready'); }}
     >
       {phase === 'playing' && (
         <>
           <div className="att-hud">
             <div className="att-hud-key"><span>Matches</span><b>{score}</b></div>
+            <div className="att-hud-key" style={{ color: strikes > 0 ? 'var(--coral, #f87171)' : 'var(--t2)' }}>
+              <span>Strikes</span><b>{strikes}/3</b>
+            </div>
             <div className="att-phase">Space</div>
           </div>
           <button type="button" className="att-flash" onClick={handleTap}>{currentSymbol}</button>
-          <p className="att-sub" style={{ marginTop: 14 }}>Tap on a repeat</p>
+          <p className="att-sub" style={{ marginTop: 14 }}>Tap on a repeat (3 strikes = fail)</p>
         </>
       )}
     </GameShell>
@@ -365,6 +442,10 @@ export function ShapeShifterGame({ gameId, difficulty, onDifficultyChange, compl
   const [cardA, setCardA] = useState({ color: '#ef4444', shape: '🔴' });
   const [cardB, setCardB] = useState({ color: '#ef4444', shape: '🔵' });
   const [score, setScore] = useState(0);
+  const [strikes, setStrikes] = useState(0);
+  const [attempts, setAttempts] = useState(0);
+  const timerRef = useRef<any>(null);
+  const hasReportedRef = useRef(false);
 
   const spawnCards = useCallback(() => {
     const colorA = SHAPE_SHIFTER_COLORS[Math.floor(Math.random() * SHAPE_SHIFTER_COLORS.length)];
@@ -396,12 +477,22 @@ export function ShapeShifterGame({ gameId, difficulty, onDifficultyChange, compl
 
   const handleChoice = useCallback((choice: 'MATCH' | 'DIFFER') => {
     if (phase !== 'playing') return;
+    setAttempts(a => a + 1);
     const isMatch = rule === 'COLOR' ? cardA.color === cardB.color : cardA.shape === cardB.shape;
     if ((choice === 'MATCH' && isMatch) || (choice === 'DIFFER' && !isMatch)) {
       playSound('correct', soundMuted);
       setScore(s => s + 1);
     } else {
       playSound('wrong', soundMuted);
+      setScore(s => Math.max(0, s - 1));
+      setStrikes(st => {
+        const next = st + 1;
+        if (next >= 3) {
+          if (timerRef.current) clearTimeout(timerRef.current);
+          setPhase('done');
+        }
+        return next;
+      });
     }
     spawnCards();
   }, [phase, rule, cardA, cardB, soundMuted, spawnCards]);
@@ -421,28 +512,49 @@ export function ShapeShifterGame({ gameId, difficulty, onDifficultyChange, compl
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [phase, cardA, cardB, rule, soundMuted, handleChoice]);
 
-  const accuracyEarned = Math.min(100, score * 10);
+  const accuracyEarned = Math.max(0, Math.round((score / Math.max(1, attempts)) * 100));
+
+  const reportResult = useCallback(() => {
+    if (hasReportedRef.current) return;
+    hasReportedRef.current = true;
+    onComplete(score, accuracyEarned);
+  }, [onComplete, score, accuracyEarned]);
 
   return (
     <GameShell
       accent="amber"
       mark="shape"
       title="Shape Shifter"
-      description="The rule flips between color and shape. Switch with it."
+      description="The rule flips between color and shape. Switch with it. 3 incorrect choices terminate the run."
       phase={phase}
       onExit={onExit}
-      countdown={phase === 'countdown' ? <CountdownOverlay soundMuted={soundMuted} onComplete={() => { setScore(0); setPhase('playing'); setTimeout(() => setPhase('done'), 20000); }} /> : null}
+      countdown={phase === 'countdown' ? <CountdownOverlay soundMuted={soundMuted} onComplete={() => {
+        setScore(0);
+        setStrikes(0);
+        setAttempts(0);
+        hasReportedRef.current = false;
+        setPhase('playing');
+        if (timerRef.current) clearTimeout(timerRef.current);
+        timerRef.current = setTimeout(() => setPhase('done'), 20000);
+      }} /> : null}
       readyExtra={<DifficultyPicker gameId={gameId} difficulty={difficulty} onChange={onDifficultyChange} completedDifficulties={completedDifficulties} />}
       onStart={() => setPhase('countdown')}
-      doneTitle="Switching closed"
-      doneScore={`${score} flips`}
-      doneExtra={<CompletionBanner difficulty={difficulty} onNextChallenge={(nextD) => { onComplete(score, accuracyEarned); onDifficultyChange(nextD); setPhase('ready'); }} />}
-      onClaim={() => { onComplete(score, accuracyEarned); onExit(); }}
-      onReplay={() => setPhase('ready')}
+      doneTitle={strikes >= 3 ? "Switching Failed (3 Strikes)" : "Switching closed"}
+      doneScore={`${score} flips (${accuracyEarned}% acc)`}
+      doneHint={strikes >= 3 ? "Made 3 rule mismatches" : "Rule switching run complete"}
+      doneExtra={<CompletionBanner difficulty={difficulty} onNextChallenge={(nextD) => { reportResult(); onDifficultyChange(nextD); setPhase('ready'); }} />}
+      onClaim={() => { reportResult(); onExit(); }}
+      onReplay={() => { hasReportedRef.current = false; setPhase('ready'); }}
     >
       {phase === 'playing' && (
         <>
-          <div className="att-phase" style={{ marginBottom: 16 }}>Match {rule.toLowerCase()}</div>
+          <div className="att-hud">
+            <div className="att-hud-key"><span>Flips</span><b>{score}</b></div>
+            <div className="att-hud-key" style={{ color: strikes > 0 ? 'var(--coral, #f87171)' : 'var(--t2)' }}>
+              <span>Strikes</span><b>{strikes}/3</b>
+            </div>
+            <div className="att-phase">Match {rule.toLowerCase()}</div>
+          </div>
           <div className="att-pair">
             {[cardA, cardB].map((card, i) => {
               const form =

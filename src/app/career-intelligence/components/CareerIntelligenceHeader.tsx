@@ -28,32 +28,14 @@ export function CareerIntelligenceHeader({
           </p>
         </div>
 
-        {/* Demo Switcher */}
-        <div style={{ display: 'flex', gap: 6, background: 'var(--bg3)', padding: 4, borderRadius: 10, border: '1px solid var(--border)' }}>
-          {[
-            { id: 'student', label: '🧑‍🎓 Student' },
-            { id: 'recruiter', label: '🏢 Recruiter' },
-            { id: 'placement', label: '🎓 Placement' },
-            { id: 'faculty', label: '👩‍🏫 Faculty' }
-          ].map(role => (
-            <button
-              key={role.id}
-              onClick={() => setActiveRole(role.id as any)}
-              style={{
-                padding: '6px 12px',
-                borderRadius: 8,
-                border: 'none',
-                background: activeRole === role.id ? 'var(--accent)' : 'transparent',
-                color: activeRole === role.id ? '#fff' : 'var(--t2)',
-                fontSize: 11.5,
-                fontWeight: 800,
-                cursor: 'pointer',
-                transition: 'all 0.2s'
-              }}
-            >
-              {role.label}
-            </button>
-          ))}
+        {/* Verified User Role Badge */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'var(--bg3)', padding: '6px 14px', borderRadius: 10, border: '1px solid var(--border)' }}>
+          <span style={{ fontSize: 14 }}>
+            {activeRole === 'recruiter' ? '🏢' : activeRole === 'faculty' ? '👩‍🏫' : activeRole === 'placement' ? '🎓' : '🧑‍🎓'}
+          </span>
+          <span style={{ fontSize: 12, fontWeight: 800, color: 'var(--t1)' }}>
+            {activeRole === 'recruiter' ? 'Corporate Recruiter' : activeRole === 'faculty' ? 'Faculty Mentor' : activeRole === 'placement' ? 'Placement Officer' : 'Verified Student'}
+          </span>
         </div>
       </div>
 
