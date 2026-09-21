@@ -100,8 +100,7 @@
       "maxAttempts": 3,
       "lastRunAt": "2026-09-20T19:35:00.000Z",
       "result": "Passed 0 errors. Fully validated. 4 deliverables in claude_sandbox/: ThreeWorldsPortalRevamp.tsx, ArenaAndVoiceShowcaseRevamp.tsx, RoadmapSCurveRevamp.tsx, ComparisonSplitRevamp.tsx"
-    }
-  },
+    },
     {
       "id": "task-011",
       "title": "Privacy Policy & Terms of Service DPDP Act 2023 Compliance",
@@ -151,8 +150,7 @@
       "maxAttempts": 3,
       "lastRunAt": "2026-09-20T20:55:00.000Z",
       "result": "Passed 0 errors. Fully validated. 2 deliverables in claude_sandbox/: tts_service.py, llm_service.py"
-    }
-  ],
+    },
     {
       "id": "task-017",
       "title": "Database Schema Alignment & Missing Tables (Codewars, Leaves, Internships)",

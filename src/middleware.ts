@@ -104,7 +104,7 @@ export async function middleware(request: NextRequest) {
   console.log(`\n🌐 [CSP-FIX MIDDLEWARE] [${requestId}] ${method} ${path}`);
 
   // ── Edge Route Guard: Protected Portals (/admin, /recruiter, /parent) ──
-  const PROTECTED_PREFIXES = ['/admin', '/recruiter', '/parent'];
+  const PROTECTED_PREFIXES = ['/admin', '/recruiter', '/parent', '/teacher', '/consultant', '/advisor', '/crm', '/admissions', '/finance', '/placement', '/university'];
   const isProtectedPath = PROTECTED_PREFIXES.some(
     prefix => path === prefix || path.startsWith(`${prefix}/`)
   );
