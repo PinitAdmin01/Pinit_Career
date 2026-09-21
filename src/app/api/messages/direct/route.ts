@@ -4,14 +4,21 @@ import {
   sendDirectMessage,
   markMessagesAsRead
 } from '@/lib/services/supabase/socialService';
+import { requireUserFromRequest } from '@/lib/server/requireAuth';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest) {
   try {
+    const gated = await requireUserFromRequest(req);
+    if (gated.error) return gated.error;
+    const currentUser = gated.user!.id;
+
     const { searchParams } = new URL(req.url);
-    const withUser = searchParams.get('with') || 'priya';
-    const currentUser = searchParams.get('userId') || 'current_user';
+    const withUser = searchParams.get('with');
+    if (!withUser) {
+      return NextResponse.json({ ok: false, error: 'Recipient ID is required' }, { status: 400 });
+    }
 
     const messages = await getDirectMessages(currentUser, withUser);
     await markMessagesAsRead(currentUser, withUser).catch(() => {});
@@ -24,38 +31,31 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
+    const gated = await requireUserFromRequest(req);
+    if (gated.error) return gated.error;
+    const senderId = gated.user!.id;
+
     const body = await req.json();
-    const {
-      senderId = 'current_user',
-      recipientId = 'priya',
-      receiverId = 'priya',
-      senderName = 'Student',
-      recipientName = 'Faculty Mentor',
-      content = '',
-      message = '',
-      role = 'student'
-    } = body || {};
+    const recipientId = body.recipientId || body.receiverId;
+    if (!recipientId) {
+      return NextResponse.json({ ok: false, error: 'Recipient ID is required' }, { status: 400 });
+    }
 
-    const targetRecipient = recipientId || receiverId;
-    const text = content || message || '';
-
-    if (!text.trim()) {
+    const content = String(body.content || '').trim();
+    if (!content) {
       return NextResponse.json({ ok: false, error: 'Message content cannot be empty' }, { status: 400 });
     }
 
-    const res = await sendDirectMessage({
-      sender_id: senderId,
-      sender_name: senderName,
-      recipient_id: targetRecipient,
-      receiver_id: targetRecipient,
-      recipient_name: recipientName,
-      receiver_name: recipientName,
-      content: text.trim(),
-      message: text.trim(),
-      role
+    const senderName = (gated.user as any)?.display_name || (gated.user as any)?.name || 'Student';
+
+    const message = await sendDirectMessage({
+      senderId,
+      recipientId,
+      content,
+      senderName
     });
 
-    return NextResponse.json({ ok: true, message: res.message || res });
+    return NextResponse.json({ ok: true, message });
   } catch (err: any) {
     return NextResponse.json({ ok: false, error: err.message }, { status: 500 });
   }
