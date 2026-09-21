@@ -52,6 +52,14 @@ export async function POST(req: Request) {
     const source = String(body.source || '').trim();
     const amount = Number(body.amount);
 
+    // Strict role check: admin_grant requires genuine admin role
+    if (source === 'admin_grant' && (gated.user as any)?.role !== 'admin' && (gated.user as any)?.role !== 'superadmin') {
+      return NextResponse.json(
+        { ok: false, error: 'FORBIDDEN', message: 'Only administrators can issue admin pin grants.' },
+        { status: 403 }
+      );
+    }
+
     // Block: 'purchase' is handled exclusively by /api/payment/verify (anti self-credit)
     if (!ALLOWED_SOURCES.has(source)) {
       return NextResponse.json(

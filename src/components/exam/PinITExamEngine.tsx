@@ -1,3 +1,4 @@
+import { toast } from '@/lib/store/useAppStore';
 'use client';
 // apps/web/src/components/exam/PinITExamEngine.tsx
 // Native exam engine — replaces legacy _legacy/dsai/ExamEngine.jsx.
@@ -288,20 +289,9 @@ export function PinITExamEngine({ exam: initialExam, student, studentId, onFinis
         passed: data.passed
       });
     } catch (e: any) {
-      console.warn('[ExamEngine] Server evaluation sync failed, using fallback:', e);
-      // Even in offline fallback, grade objectively and do not crash
-      const fallbackScore = 75;
-      const data = { score: fallbackScore, totalMarks: exam.totalMarks || 100, percentage: fallbackScore, passed: true };
-      setFinalResult(data);
-      setSubmitted(true);
-      onFinish({
-        score: data.score,
-        totalMarks: data.totalMarks,
-        percentage: data.percentage,
-        tabSwitches: tabCount,
-        submitted: true,
-        passed: true
-      });
+      console.error('[ExamEngine] Server evaluation sync failed:', e);
+      // Honest failure: never award a fake 75% pass when submission fails or is blocked
+      toast.error('Submission Error', e?.message || 'Network error: could not submit exam for authoritative grading. Answers remain saved. Please check your connection and retry.');
     } finally {
       setSubmitting(false);
     }

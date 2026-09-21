@@ -62,6 +62,10 @@ BEGIN
        OR NEW.missions_completed IS DISTINCT FROM OLD.missions_completed
        OR NEW.vault_count     IS DISTINCT FROM OLD.vault_count
        OR NEW.interviews_done IS DISTINCT FROM OLD.interviews_done
+       OR NEW.unlocked_items  IS DISTINCT FROM OLD.unlocked_items
+       OR NEW.bonus_pins      IS DISTINCT FROM OLD.bonus_pins
+       OR NEW.badges          IS DISTINCT FROM OLD.badges
+       OR NEW.endorsed_skills IS DISTINCT FROM OLD.endorsed_skills
     THEN
       NEW.xp_total           := OLD.xp_total;
       NEW.xp_level           := OLD.xp_level;
@@ -84,6 +88,10 @@ BEGIN
       NEW.missions_completed := OLD.missions_completed;
       NEW.vault_count        := OLD.vault_count;
       NEW.interviews_done    := OLD.interviews_done;
+      NEW.unlocked_items     := OLD.unlocked_items;
+      NEW.bonus_pins         := OLD.bonus_pins;
+      NEW.badges             := OLD.badges;
+      NEW.endorsed_skills    := OLD.endorsed_skills;
     END IF;
 
   END IF;
@@ -143,8 +151,7 @@ CREATE POLICY "Anon credential lookup by exact credential_id or hash"
   USING (
     state IN ('verified', 'verified_needs_review')
     AND (
-      credential_id = CAST(NULLIF(current_setting('request.jwt.claim.sub', true), '') AS UUID)
-      OR hash = current_setting('request.jwt.claim.hash', true)
+      student_id = CAST(NULLIF(current_setting('request.jwt.claim.sub', true), '') AS UUID)
     )
   );
 

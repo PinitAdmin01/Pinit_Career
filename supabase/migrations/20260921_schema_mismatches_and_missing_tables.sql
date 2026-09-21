@@ -1,75 +1,62 @@
--- ═══════════════════════════════════════════════════════════════════════
--- 2026-09-21 Schema Alignment & Missing Tables Migration
--- ═══════════════════════════════════════════════════════════════════════
--- Aligns schema across codewars_matches, leave_applications,
--- internship_records, and quest_completions tables.
--- Idempotent — safe to re-run.
--- ═══════════════════════════════════════════════════════════════════════
 
--- ──────────────────────────────────────────────────────────────────────
--- 1. CREATE TABLE: codewars_matches
--- ──────────────────────────────────────────────────────────────────────
--- The API routes write player_id, opponent_name, outcome, mode, duration_sec,
--- problem_title.  The migration must ensure these columns exist alongside
--- any legacy student_id mapping.
+-- Align codewars_matches columns for backward/forward compatibility
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'codewars_matches') THEN
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'codewars_matches' AND column_name = 'player_id') THEN
+      ALTER TABLE public.codewars_matches ADD COLUMN player_id UUID REFERENCES auth.users(id) ON DELETE CASCADE;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'codewars_matches' AND column_name = 'outcome') THEN
+      ALTER TABLE public.codewars_matches ADD COLUMN outcome TEXT;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'codewars_matches' AND column_name = 'duration_sec') THEN
+      ALTER TABLE public.codewars_matches ADD COLUMN duration_sec INTEGER DEFAULT 0;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'codewars_matches' AND column_name = 'problem_title') THEN
+      ALTER TABLE public.codewars_matches ADD COLUMN problem_title TEXT;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'codewars_matches' AND column_name = 'xp_earned') THEN
+      ALTER TABLE public.codewars_matches ADD COLUMN xp_earned INTEGER DEFAULT 0;
+    END IF;
+
+    -- Map existing rows
+    IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'codewars_matches' AND column_name = 'student_id') THEN
+      UPDATE public.codewars_matches SET player_id = student_id WHERE player_id IS NULL;
+    END IF;
+    IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'codewars_matches' AND column_name = 'status') THEN
+      UPDATE public.codewars_matches SET outcome = status WHERE outcome IS NULL;
+    END IF;
+  END IF;
+END $$;
+
 --
--- If the table already exists from a previous partial migration, ALTER adds
--- missing columns.  If it does not exist, CREATE TABLE sets up the full schema
--- with RLS.
--- ──────────────────────────────────────────────────────────────────────
-
-DO $$
-BEGIN
-  IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'codewars_matches' AND table_schema = 'public') THEN
-    EXECUTE '
-      CREATE TABLE public.codewars_matches (
-        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-        player_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
-        opponent_name TEXT NOT NULL,
-        outcome TEXT NOT NULL CHECK (outcome IN (''victory'', ''defeat'', ''draw'')),
-        mode TEXT NOT NULL CHECK (mode IN (''friendly'', ''ranked'', ''tournament'', ''sparring'')),
-        duration_sec INTEGER NOT NULL DEFAULT 0,
-        problem_title TEXT,
-        xp_earned INTEGER NOT NULL DEFAULT 0 CHECK (xp_earned >= 0),
-        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-      )
-    ';
-    RAISE NOTICE 'Created codewars_matches table.';
+-- Ensure player_id column exists on codewars_matches before any policy or index is created
+--
+DO $$ BEGIN
+  IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'codewars_matches') THEN
+    CREATE TABLE public.codewars_matches (
+      id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      player_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+      opponent_name TEXT NOT NULL,
+      outcome TEXT NOT NULL CHECK (outcome IN ('victory', 'defeat', 'draw')),
+      mode TEXT NOT NULL CHECK (mode IN ('friendly', 'ranked', 'tournament', 'sparring')),
+      duration_sec INTEGER NOT NULL DEFAULT 0,
+      problem_title TEXT,
+      xp_earned INTEGER NOT NULL DEFAULT 0 CHECK (xp_earned >= 0),
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
   ELSE
-    RAISE NOTICE 'codewars_matches table already exists; aligned columns.';
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'codewars_matches' AND column_name = 'player_id') THEN
+      ALTER TABLE public.codewars_matches ADD COLUMN player_id UUID REFERENCES auth.users(id) ON DELETE CASCADE;
+    END IF;
   END IF;
-END
-$$;
+END $$;
 
--- Attach RLS: students can SELECT/INSERT their own matches; staff/admins can review/update
-DO $$
-BEGIN
-  IF NOT EXISTS (SELECT 1 FROM pg_trigger WHERE tgrelid = 'public.codewars_matches'::regclass AND tgname = 'trg_codewars_matches_rls') THEN
-    EXECUTE '
-      ALTER TABLE public.codewars_matches ENABLE ROW LEVEL SECURITY;
-
-      CREATE POLICY "Students can view own codewars matches"
-        ON public.codewars_matches FOR SELECT
-        USING (auth.uid() = player_id);
-
-      CREATE POLICY "Students can insert own codewars matches"
-        ON public.codewars_matches FOR INSERT
-        WITH CHECK (auth.uid() = player_id);
-
-      CREATE POLICY "Staff can review and update codewars matches"
-        ON public.codewars_matches FOR ALL
-        TO authenticated
-        USING (auth.role() = ''staff'' OR auth.role() = ''admin'')
-        WITH CHECK (auth.role() = ''staff'' OR auth.role() = ''admin'');
-    ';
-    RAISE NOTICE 'Applied codewars_matches RLS policies.';
-  ELSE
-    RAISE NOTICE 'codewars_matches RLS policies already applied.';
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'codewars_matches' AND column_name = 'student_id') THEN
+    UPDATE public.codewars_matches SET player_id = student_id WHERE player_id IS NULL;
   END IF;
-END
-$$;
+END $$;
 
--- ──────────────────────────────────────────────────────────────────────
 -- 2. CREATE TABLE: leave_applications
 -- ──────────────────────────────────────────────────────────────────────
 -- The student leave request API (apply-leave/route.ts) and HR approval routes
