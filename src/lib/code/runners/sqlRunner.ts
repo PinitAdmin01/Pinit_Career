@@ -121,8 +121,14 @@ _test_passed = 'TRUE'
     }
 
     // Comparison with expected columns/rows
-    let passed = true;
-    let failReason = '';
+    const hasExpectations = Boolean(
+      (config.expectedColumns && config.expectedColumns.length > 0) ||
+      (config.expectedRows && config.expectedRows.length > 0) ||
+      cleanTestSuite
+    );
+
+    let passed = hasExpectations;
+    let failReason = hasExpectations ? '' : 'No test suite or expected output criteria specified to evaluate query';
 
     if (config.expectedColumns && config.expectedColumns.length > 0) {
       const actualLower = cols.map(c => c.toLowerCase());
