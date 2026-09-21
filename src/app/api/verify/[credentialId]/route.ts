@@ -31,14 +31,30 @@ export async function GET(
         .or(`id.ilike.${lookupKey}%,register_number.ilike.${lookupKey}%`)
         .maybeSingle();
 
-      const studentId = userRow?.id || lookupKey;
+      if (!userRow) {
+        return NextResponse.json({
+          valid: false,
+          error: 'NOT_FOUND',
+          message: 'Student record not found for transcript identifier.'
+        }, { status: 404 });
+      }
+
+      const studentId = userRow.id;
       const { examsService } = await import('@/lib/services/examsService');
       const resultsSheet = await examsService.getStudentResults(studentId);
 
+      if (!resultsSheet || !resultsSheet.results || resultsSheet.results.length === 0) {
+        return NextResponse.json({
+          valid: false,
+          error: 'NO_EXAM_RECORDS',
+          message: 'No authoritative academic results recorded for this student.'
+        }, { status: 404 });
+      }
+
       const ob = (userRow?.onboarding_answers || {}) as Record<string, any>;
-      const institutionName = ob.college || ob.university || ob.institution || 'PinIT Institute of Technology';
-      const program = ob.degree || ob.program || 'B.Tech';
-      const major = ob.courseTrack || ob.branch || ob.department || 'Computer Science & Engineering';
+      const institutionName = ob.college || ob.university || ob.institution || 'PinIT Partner Institution';
+      const program = ob.degree || ob.program || 'Undergraduate Degree';
+      const major = ob.courseTrack || ob.branch || ob.department || 'Engineering';
 
       return NextResponse.json({
         valid: true,
@@ -46,16 +62,12 @@ export async function GET(
         type: 'academic_transcript',
         transcript: {
           verificationId: credentialId,
-          studentName: userRow?.display_name || 'Verified Student',
-          registerNumber: userRow?.register_number || (parts[1] && parts[1] !== 'REG' ? parts[1] : '1RV22CS045'),
+          studentName: userRow.display_name || 'Enrolled Student',
+          registerNumber: userRow.register_number || 'UNASSIGNED',
           institution: institutionName,
           program: `${program} (${major})`,
-          cgpa: resultsSheet.gpa || 8.4,
-          results: (resultsSheet.results && resultsSheet.results.length > 0) ? resultsSheet.results : [
-            { code: 'CS501', course: 'Database Management Systems', internals: 28, semester: 62, grade: 'A+', credits: 4.0 },
-            { code: 'CS502', course: 'Computer Networks', internals: 26, semester: 58, grade: 'A', credits: 4.0 },
-            { code: 'CS503', course: 'Operating Systems Laboratory', internals: 29, semester: 65, grade: 'O', credits: 2.0 }
-          ],
+          cgpa: resultsSheet.gpa || 0,
+          results: resultsSheet.results,
           isPublished: resultsSheet.isPublished !== false,
           issuedAt: new Date().toISOString(),
           sealed: true
@@ -110,12 +122,20 @@ export async function GET(
         } catch {}
       }
 
+      if (!docRecord) {
+        return NextResponse.json({
+          valid: false,
+          error: 'NOT_FOUND',
+          message: 'Official document request not found in authoritative records.'
+        }, { status: 404 });
+      }
+
       const ob = (userRecord?.onboarding_answers || {}) as Record<string, any>;
-      const institutionName = ob.college || ob.university || ob.institution || 'PinIT Institute of Technology';
-      const major = userRecord?.department || userRecord?.branch || ob.courseTrack || ob.branch || ob.department || docRecord?.major || 'Computer Science & Engineering';
-      const year = userRecord?.batch_year ? `Batch of ${userRecord.batch_year}` : (ob.batch_year ? `Batch of ${ob.batch_year}` : (userRecord?.semester ? `Semester ${userRecord.semester}` : docRecord?.year || 'Class of 2026'));
+      const institutionName = ob.college || ob.university || ob.institution || 'PinIT Partner Institution';
+      const major = userRecord?.department || userRecord?.branch || ob.courseTrack || ob.branch || ob.department || docRecord?.major || 'General Studies';
+      const year = userRecord?.batch_year ? `Batch of ${userRecord.batch_year}` : (ob.batch_year ? `Batch of ${ob.batch_year}` : (userRecord?.semester ? `Semester ${userRecord.semester}` : docRecord?.year || 'Current'));
       const studentName = userRecord?.display_name || 'Enrolled Student';
-      const registerNumber = userRecord?.register_number || (userRecord?.id ? `REG-${userRecord.id.slice(0, 8).toUpperCase()}` : '1RV22CS045');
+      const registerNumber = userRecord?.register_number || 'UNASSIGNED';
 
       return NextResponse.json({
         valid: true,
@@ -123,7 +143,7 @@ export async function GET(
         type: 'official_document',
         document: {
           verificationId: credentialId,
-          documentType: docRecord?.category || 'Bonafide Certificate',
+          documentType: docRecord?.category || 'Official Certificate',
           studentName,
           registerNumber,
           institution: institutionName,

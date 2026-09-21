@@ -1,7 +1,7 @@
 import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
-import { getBearerToken } from '@/lib/server/requireAuth';
+import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import fs from 'fs';
 import path from 'path';
 
@@ -41,23 +41,23 @@ function getAdminClient() {
   }
 }
 
-async function resolveUserId(req: Request, admin: any): Promise<string> {
-  const token = getBearerToken(req);
-  if (token && admin) {
-    try {
-      const { data } = await admin.auth.getUser(token);
-      if (data?.user?.id) return data.user.id;
-    } catch {}
+async function resolveUserId(req: Request): Promise<{ userId: string | null; errorResponse?: NextResponse }> {
+  const gated = await requireUserFromRequest(req);
+  if (gated.error || !gated.user?.id) {
+    return {
+      userId: null,
+      errorResponse: NextResponse.json({ ok: false, error: 'UNAUTHORIZED', message: 'Authentication required' }, { status: 401 }),
+    };
   }
-  const headerUserId = req.headers.get('x-user-id');
-  if (headerUserId) return headerUserId;
-  return 'current_user';
+  return { userId: gated.user.id };
 }
 
 export async function GET(req: NextRequest) {
   try {
+    const auth = await resolveUserId(req);
+    if (auth.errorResponse || !auth.userId) return auth.errorResponse!;
+    const userId = auth.userId;
     const admin = getAdminClient();
-    const userId = await resolveUserId(req, admin);
 
     let allFriendships: any[] = [];
     let userProfilesMap = new Map<string, any>();
@@ -191,8 +191,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: false, error: 'targetStudentId is required' }, { status: 400 });
     }
 
+    const auth = await resolveUserId(req);
+    if (auth.errorResponse || !auth.userId) return auth.errorResponse!;
+    const userId = auth.userId;
     const admin = getAdminClient();
-    const userId = await resolveUserId(req, admin);
 
     if (targetStudentId === userId) {
       return NextResponse.json({ ok: false, error: 'Cannot send a friend request to yourself' }, { status: 400 });
@@ -285,6 +287,9 @@ export async function POST(req: NextRequest) {
 
 export async function PATCH(req: NextRequest) {
   try {
+    const auth = await resolveUserId(req);
+    if (auth.errorResponse || !auth.userId) return auth.errorResponse!;
+    const userId = auth.userId;
     const admin = getAdminClient();
     const body = await req.json().catch(() => ({}));
     const { requestId, action } = body;
@@ -335,8 +340,10 @@ export async function PATCH(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   try {
+    const auth = await resolveUserId(req);
+    if (auth.errorResponse || !auth.userId) return auth.errorResponse!;
+    const userId = auth.userId;
     const admin = getAdminClient();
-    const userId = await resolveUserId(req, admin);
     const { searchParams } = new URL(req.url);
     const targetStudentId = searchParams.get('studentId');
     const friendshipId = searchParams.get('friendshipId');

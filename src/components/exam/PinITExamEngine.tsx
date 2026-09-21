@@ -1,5 +1,5 @@
-import { toast } from '@/lib/store/useAppStore';
 'use client';
+import { toast } from '@/lib/store/useAppStore';
 // apps/web/src/components/exam/PinITExamEngine.tsx
 // Native exam engine — replaces legacy _legacy/dsai/ExamEngine.jsx.
 // Features:

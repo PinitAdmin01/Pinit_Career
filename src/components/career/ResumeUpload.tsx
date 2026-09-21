@@ -96,28 +96,7 @@ export default function ResumeUpload() {
     const form = new FormData();
     form.append('resume', file);
     try {
-      let data: any;
-      try {
-        data = await api.post('/api/resume/upload', form);
-      } catch (apiErr) {
-        // High-fidelity client fallback if API route is absent during static export
-        data = {
-          resumeId: `resume-${Date.now()}`,
-          message: 'Analyzed resume successfully',
-          analysis: {
-            ats_score: 84,
-            format_quality: 90,
-            skill_tags: ['React', 'Node.js', 'Python', 'TypeScript', 'Java', 'SQL'],
-            weak_areas: ['System Design', 'Docker', 'CI/CD'],
-            keyword_gaps: ['Docker', 'CI/CD', 'System Design'],
-            strengths: ['Strong React/Node.js experience', 'Clean component hierarchy', 'Good project descriptions'],
-            improvement_suggestions: ['Add Docker containerization to projects', 'Configure automated CI/CD workflows'],
-            certifications_detected: ['AWS Cloud Practitioner'],
-            experience_level: 'Intermediate (1-2 yrs)',
-            domain: 'Full Stack Web Development'
-          }
-        };
-      }
+      const data: any = await api.post('/api/resume/upload', form);
       setResult(data);
       setResumeGenerated(true);
       if (data?.analysis) {
@@ -127,7 +106,9 @@ export default function ResumeUpload() {
         toast.success('Resume Uploaded & Analyzed!', 'Computed ATS scores, extracted skill gaps, and updated roadmap.');
       }
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : 'Upload failed');
+      const errMsg = e instanceof Error ? e.message : 'Failed to parse resume with AI service. Please retry.';
+      setError(errMsg);
+      toast.error('Resume Analysis Error', errMsg);
     } finally {
       setUploading(false);
     }

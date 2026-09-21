@@ -914,12 +914,11 @@ export class CodeWarsApiService {
         }
       } catch {}
 
-      const hasCorrectConditions = (code.includes('p <') || code.includes('p >') || code.includes('q <') || code.includes('q >'))
-        && (code.includes('left') && code.includes('right'));
-      if (hasCorrectConditions) {
-        return { testsPassed: totalTests };
-      }
-      return { testsPassed: 1, evalErrorLog: 'LCA traversal incomplete: failed edge cases on boundary node descendants.' };
+      // Fail closed: Never grant pass on substring presence without genuine sandbox execution
+      return {
+        testsPassed: 0,
+        evalErrorLog: 'Algorithmic Evaluation Incomplete: LCA test cases could not be verified in sandbox execution runtime.'
+      };
     }
 
     if (problem.id === 'war_concurrency_deadlock_02') {
