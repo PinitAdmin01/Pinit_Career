@@ -117,11 +117,11 @@ export class MissionEvaluator {
 
       isPassed = failedCount === 0 && passedCount === totalCount && totalCount > 0;
     } else {
-      // Fallback: If no external runner provided, run deterministic regex/heuristic checks
-      const hasMeaningfulCode = codeSubmission.length > 50 && !codeSubmission.includes('// TODO');
-      isPassed = hasMeaningfulCode;
-      passedCount = hasMeaningfulCode ? 1 : 0;
+      // Fail closed: Never grant automated pass without concrete test assertion execution
+      isPassed = false;
+      passedCount = 0;
       totalCount = 1;
+      failingStackTraces.push('ExecutionError: No automated test results provided or test runner unavailable. Submissions require verified test case execution.');
     }
 
     // 4. Score Calculation

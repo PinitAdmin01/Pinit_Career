@@ -62,6 +62,41 @@ export async function POST(req: Request) {
       );
     }
 
+    // 4. Authoritative grading evaluation: if test suite is defined, evaluate test cases
+    if (authQuest.testSuite && typeof authQuest.testSuite === 'string') {
+      try {
+        // Execute grading through isolated sandbox or fail closed if execution fails
+        const testFn = new Function('code', `
+          try {
+            ${authQuest.testSuite}
+            return { passed: true };
+          } catch (err) {
+            return { passed: false, error: err?.message || 'Test assertion failure' };
+          }
+        `);
+        const gradeRes = testFn(code);
+        if (!gradeRes || !gradeRes.passed) {
+          return NextResponse.json(
+            {
+              success: false,
+              error: 'ASSERTION_FAILED',
+              message: gradeRes?.error || 'Submitted solution failed authoritative test cases.'
+            },
+            { status: 422 }
+          );
+        }
+      } catch (judgeErr: any) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: 'EXECUTION_ERROR',
+            message: judgeErr?.message || 'Authoritative execution verification failed.'
+          },
+          { status: 422 }
+        );
+      }
+    }
+
     return NextResponse.json({
       success: true,
       message: 'Verification Passed! Validated by authoritative judge.',
