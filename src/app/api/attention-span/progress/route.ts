@@ -30,7 +30,18 @@ export interface AttentionStats {
  * Prevents client-side forgery of integrity tokens.
  */
 export function computeIntegrityHash(userId: string, stats: AttentionStats): string {
-  const secret = process.env.NEXTAUTH_SECRET || 'pinit-attention-integrity-secret-fallback-key';
+  function getAttentionSigningSecret(): string {
+  const secret = process.env.NEXTAUTH_SECRET || process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (secret && secret.trim().length > 0) return secret;
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('[FATAL] NEXTAUTH_SECRET or SUPABASE_SERVICE_ROLE_KEY must be configured in production for attention integrity signing.');
+  }
+  if (!(globalThis as any).__pinit_ephemeral_attention_secret) {
+    (globalThis as any).__pinit_ephemeral_attention_secret = require('crypto').randomBytes(32).toString('hex');
+  }
+  return (globalThis as any).__pinit_ephemeral_attention_secret;
+}
+const secret = getAttentionSigningSecret();
   const payload = `${userId}:${stats.totalSessions}:${stats.streak}:${stats.reflexRushBest}:${stats.focusFireBest}:${stats.memoryMatrixBest}`;
   return crypto.createHmac('sha256', secret).update(payload).digest('hex').substring(0, 16);
 }

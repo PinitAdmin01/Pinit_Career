@@ -118,12 +118,12 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json().catch(() => ({}));
-    let userId = body.userId || 'student-demo';
-    const gated = await requireUserFromRequest(req).catch(() => null);
-    if (gated && !gated.error && gated.user) {
-      userId = gated.user.id;
+    const gated = await requireUserFromRequest(req);
+    if (gated.error || !gated.user) {
+      return NextResponse.json({ ok: false, error: 'UNAUTHORIZED' }, { status: 401 });
     }
+    const userId = gated.user.id;
+    const body = await req.json().catch(() => ({}));
 
     const planId = String(body.planId || 'plan-3m-accelerator');
     const paymentMethod = body.paymentMethod || 'sandbox';
@@ -200,6 +200,12 @@ export async function POST(req: Request) {
     }
 
     // ── CASE B: PAYMENT VIA MONEY (RAZORPAY OR SANDBOX) ──
+    if (paymentMethod === 'sandbox' && process.env.NODE_ENV === 'production') {
+      return NextResponse.json(
+        { ok: false, error: 'SANDBOX_PAYMENT_DISABLED', message: 'Sandbox payment is disabled in production.' },
+        { status: 400 }
+      );
+    }
     if (paymentMethod === 'razorpay' || paymentMethod === 'sandbox') {
       if (hasSupabase) {
         try {
@@ -315,6 +321,10 @@ export async function POST(req: Request) {
 
 export async function PATCH(req: Request) {
   try {
+    const gated = await requireUserFromRequest(req);
+    if (gated.error || !gated.user) {
+      return NextResponse.json({ ok: false, error: 'UNAUTHORIZED' }, { status: 401 });
+    }
     const body = await req.json().catch(() => ({}));
     const { enrollmentId, milestoneProgress, currentSprint } = body;
     if (!enrollmentId) {

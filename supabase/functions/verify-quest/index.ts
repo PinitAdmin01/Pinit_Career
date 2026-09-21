@@ -279,7 +279,10 @@ serve(async (req: Request) => {
 
   // ── If passed, persist completion + generate signed verification token ────
   if (success) {
-    const signingSecret = Deno.env.get("QUEST_SIGNING_SECRET") ?? "dev_signing_secret_fallback";
+    const signingSecret = Deno.env.get("QUEST_SIGNING_SECRET") ?? Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+if (!signingSecret) {
+  throw new Error("[FATAL] QUEST_SIGNING_SECRET or SUPABASE_SERVICE_ROLE_KEY must be configured for quest verification.");
+}
     const verificationToken = signVerificationToken(user.id, questId, signingSecret);
 
     // Q-C2: Atomically persist to Supabase (non-blocking on token response)
