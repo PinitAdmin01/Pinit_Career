@@ -574,18 +574,21 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
   }, [keys.onboard, onboardingAnswers, save, setRoadmapGenerated, userId]);
 
   const careerScore = useMemo(() => {
-    const base = 50;
-    const questBonus = Math.min(30, completedQuests.length * 3);
-    const missionBonus = Math.min(20, completedMissions.length * 2);
-    return Math.min(100, base + questBonus + missionBonus);
+    // Derive transparently from real verified student progress; start at 0 for fresh accounts
+    if (completedQuests.length === 0 && completedMissions.length === 0) return 0;
+    const questPoints = Math.min(50, completedQuests.length * 5);
+    const missionPoints = Math.min(50, completedMissions.length * 10);
+    return Math.min(100, questPoints + missionPoints);
   }, [completedQuests.length, completedMissions.length]);
 
   const dnaScore = useMemo(() => {
-    return Math.min(100, 60 + Math.min(25, completedQuests.length * 2) + Math.min(15, missionStreak));
+    if (completedQuests.length === 0 && missionStreak === 0) return 0;
+    return Math.min(100, Math.min(70, completedQuests.length * 5) + Math.min(30, missionStreak * 5));
   }, [completedQuests.length, missionStreak]);
 
   const trustScore = useMemo(() => {
-    return Math.min(100, 70 + Math.min(30, completedMissions.length * 3));
+    if (completedMissions.length === 0) return 0;
+    return Math.min(100, Math.min(100, completedMissions.length * 20));
   }, [completedMissions.length]);
 
   const setRecruiterVisibleAuthoritative = useCallback((val: boolean) => {
