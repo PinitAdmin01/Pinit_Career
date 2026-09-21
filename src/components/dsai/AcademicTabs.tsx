@@ -25,7 +25,7 @@ async function fetchAcademicData(collection: string) {
   } catch (err) {
     // Graceful fallback to local cache
   }
-  return await fetchAcademicData(collection);
+  return await DB.getAll(collection);
 }
 
 const SEM_TABS = ['All', 'Sem 1', 'Sem 2', 'Sem 3', 'Sem 4', 'Sem 5', 'Sem 6'];
