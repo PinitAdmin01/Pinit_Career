@@ -1026,7 +1026,11 @@ export const GATE_2_ASSESSMENT: Assessment = {
   items: [
     {
       id: 'item-g2-d122-01',
+      itemType: 'PROJECT',
       type: 'PROJECT',
+      points: 100,
+      order: 1,
+      timeEstimateMinutes: 90,
       title: 'Gate 2 Comprehensive Web Foundations & Client-Server Integration Engine',
       description: 'Construct a complete client-server communications engine integrating resilient fetch networking, in-flight coalescing, cache TTL, memory-safe DOM rendering, WCAG AA accessibility, and backend telemetry processing.',
       prompt: 'Implement the UnifiedTelemetryConsole component system satisfying the Part A Web Foundations specifications (80%) and pass the cumulative Part B Python & DSA spiral probes (20%).',

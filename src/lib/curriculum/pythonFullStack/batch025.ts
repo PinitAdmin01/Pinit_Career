@@ -15,7 +15,7 @@ import {
   ReflectionBlock,
   ReferenceBlock,
 } from '../contentTypes';
-import { Assessment } from '../assessmentTypes';
+import { Assessment, CurriculumAssessment } from '../assessmentTypes';
 
 export const COMPETENCY_ID_DJANGO_FOUNDATIONS = 'comp-pfs-m7-025';
 
@@ -881,7 +881,7 @@ STORAGES = {
 };
 
 // ── DAY 127: TRANSFER — Formative Assessment: Secure Stateless Web Gateway & Dynamic Template Portal ──
-export const DAY_127_ASSESSMENT: Assessment = {
+export const DAY_127_ASSESSMENT: CurriculumAssessment | Assessment = {
   id: 'asm-pfs-m7-w25-025',
   title: 'Formative Assessment: Secure Stateless Web Gateway & Dynamic Template Portal',
   type: 'FORMATIVE',

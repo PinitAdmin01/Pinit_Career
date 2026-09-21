@@ -14,7 +14,7 @@ import {
   ReflectionBlock,
   ReferenceBlock,
 } from '../contentTypes';
-import { Assessment } from '../assessmentTypes';
+import { Assessment, CurriculumAssessment } from '../assessmentTypes';
 
 export const COMPETENCY_ID_USER_AUTH_AND_SECURITY = 'comp-pfs-m7-028';
 
@@ -874,7 +874,7 @@ export const DAY_142_MANIFEST: DayContentManifest = {
 };
 
 // ── BATCH 028 FORMATIVE ASSESSMENT (DAY 142) ──
-export const DAY_142_ASSESSMENT: Assessment = {
+export const DAY_142_ASSESSMENT: CurriculumAssessment | Assessment = {
   id: 'asm-pfs-m7-w28-028',
   moduleId: 'module-pfs-m7',
   courseId: 'course-python-fullstack',

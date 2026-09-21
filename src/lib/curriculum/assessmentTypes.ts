@@ -11,12 +11,16 @@ export type AssessmentType =
   | 'PROJECT'
   | 'SECURITY'
   | 'ARCHITECTURE'
-  | 'VIVA';
+  | 'VIVA'
+  | 'FORMATIVE'
+  | string;
 
 export type AssessmentMode = 
   | 'FORMATIVE'        // Learning mode: hints allowed, multiple retries, solutions on completion
   | 'SUMMATIVE'        // Competency check: limited retries, hidden tests, strict timing
-  | 'CERTIFICATION';   // Final high-stakes gate: audit trail, no hints, strict identity
+  | 'CERTIFICATION'   // Final high-stakes gate: audit trail, no hints, strict identity
+  | 'GATEWAY'
+  | string;
 
 export type AssessmentStatus = 'DRAFT' | 'REVIEW' | 'PUBLISHED' | 'ARCHIVED';
 
@@ -51,6 +55,7 @@ export type AssessmentItemType =
   | 'VIVA';
 
 export type RubricDimensionType = 
+  | string
   | 'Correctness'
   | 'Architecture'
   | 'Security'
@@ -98,36 +103,46 @@ export type RubricDimensionType =
 
 // ── Test Case Definition with 3-Tier Visibility ──────────────────────────────
 export interface TestCase {
-  id: string;
+  id?: string;
   name: string;
-  input: string;                   // Serialized input args e.g. '[10, 20]'
-  expectedOutput: string;          // Serialized expected output e.g. '30'
-  tier: 'VISIBLE' | 'PRIVATE' | 'ADVERSARIAL' | 'INTEGRITY'; // VISIBLE (student sees), ADVERSARIAL/PRIVATE (grading fixtures), INTEGRITY (anti-cheat)
+  input?: string;
+  expectedOutput?: string;
+  tier?: 'VISIBLE' | 'PRIVATE' | 'ADVERSARIAL' | 'INTEGRITY' | string;
   weight?: number;                 // Relative weight (default: 1)
   description?: string;
+  assertion?: string;
+  points?: number;
+  [key: string]: any;
 }
 
 // ── Weighted Rubric Dimension Definition ─────────────────────────────────────
 export interface RubricDimension {
   id: string;
   name: RubricDimensionType;
-  description: string;
-  weight: number;                  // 0.0 to 1.0 (Must sum to 1.0 across all dimensions)
+  title?: string;
+  description?: string;
+  weight: number;
   maxPoints: number;
   minimumPassingScore?: number;    // Mandatory threshold for this specific dimension
   isMandatory?: boolean;           // If true, failing this dimension fails the entire assessment
+  criteria?: string;
+  assertion?: string;
+  [key: string]: any;
 }
 
 // ── Assessment Item Definition ────────────────────────────────────────────────
 export interface AssessmentItem {
   id: string;                      // Stable ID e.g. 'item-py-001'
-  assessmentId: string;
-  version: string;                 // SemVer e.g. '1.0.0'
+  assessmentId?: string;
+  type?: string;
+  title?: string;
+  description?: string;
+  version?: string;
   itemType: AssessmentItemType;
   prompt: string;
-  points: number;                  // Points allocated for this item
-  order: number;                   // 1, 2, 3...
-  timeEstimateMinutes: number;
+  points: number;
+  order: number;
+  timeEstimateMinutes?: number;
   
   // MCQ specific
   options?: string[];
@@ -145,6 +160,7 @@ export interface AssessmentItem {
   // Rubric for Projects / Architecture / Security / Viva
   rubricDimensions?: RubricDimension[];
   rubric?: RubricDimension[];
+  testCases?: TestCase[];
 
   // Critical Invariants
   isMandatory?: boolean;           // Failing this item fails the whole assessment
@@ -156,14 +172,18 @@ export interface Assessment {
   id: string;                      // Stable ID e.g. 'asm-p1-m1-w1-001'
   assessmentCode: string;          // Stable Code e.g. 'ASM-P1-001'
   title: string;
-  description: string;
+  description?: string;
+  summary?: string;
+  moduleId?: string;
+  courseId?: string;
+  rubric?: any[];
   type: AssessmentType;
   mode: AssessmentMode;
   version: string;                 // SemVer e.g. '1.0.0'
   status: AssessmentStatus;
   difficulty: DifficultyLevel;
   timeLimitMinutes: number;        // 0 for untimed
-  attemptPolicy: AttemptPolicy;
+  attemptPolicy: AttemptPolicy | any;
   maxAttempts: number;             // e.g. 3 (or 0 for unlimited)
   passingScore: number;            // 0 - 100 (e.g. 75)
   targetCompetencyId: string;      // References Competency.id
@@ -173,7 +193,10 @@ export interface Assessment {
   criticalFailureCodes?: string[]; // Codes that trigger immediate failure
   createdAt: string;
   updatedAt: string;
+  [key: string]: any;
 }
+
+export type CurriculumAssessment = Partial<Assessment> & { id: string; title: string; };
 
 // ── Student Attempt Definition (Immutable History) ────────────────────────────
 export interface AssessmentAttempt {

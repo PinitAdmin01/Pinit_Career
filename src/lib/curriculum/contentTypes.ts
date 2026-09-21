@@ -67,14 +67,16 @@ export interface GuidedPracticeBlock extends ContentBlockBase {
   type: 'GUIDED_PRACTICE';
   instructions?: string[];
   instruction?: string;
+  taskDescription?: string;
   starterCode?: string;
   starterArtifact?: string;
-  hints: string[];
+  hints?: string[];
   expectedOutcome?: string;
   validationCriteria?: string[];
   solutionCode?: string;
   solutionReference?: string;      // Hidden during active student attempts
   targetCompetencyId?: string;
+  [key: string]: any;
 }
 
 // ── 4. Knowledge Check Block (Diagnostic Misconception Detection) ─────────────
@@ -189,8 +191,10 @@ export interface DayContentManifest {
   blocks: ContentBlock[];
   version: string;
   status: ContentStatus;
+  assessmentId?: string;
   createdAt?: string;
   updatedAt?: string;
+  [key: string]: any;
 }
 
 // ── Three-Day Packet Content Manifest (Legacy / Specialized) ──────────────────

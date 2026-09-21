@@ -4,6 +4,7 @@
 // Pedagogical Flow: UNDERSTAND (Semantic DOM Trees & Parser) -> APPLY (Forms, Encodings & Validation) -> BUILD (Declarative WCAG 2.2 AA Components) -> DEBUG (A11y Antipatterns & DevTools CLS)
 // NOTE: Day 112 (TRANSFER / Assessment) is deferred to the subsequent planning horizon.
 
+import { Assessment, CurriculumAssessment } from '../assessmentTypes';
 import {
   BatchContentManifest,
   DayContentManifest,
@@ -12,6 +13,7 @@ import {
   GuidedPracticeBlock,
   KnowledgeCheckBlock,
   DebuggingChallengeBlock,
+  TransferChallengeBlock,
   ReflectionBlock,
   ReferenceBlock,
 } from '../contentTypes';
@@ -930,7 +932,7 @@ export const DAY_111_MANIFEST: DayContentManifest = {
 // ═══════════════════════════════════════════════════════════════════════════════
 // DAY 112: FORMATIVE ASSESSMENT — Declarative Accessible Web Component & Layout Stability Engine
 // ═══════════════════════════════════════════════════════════════════════════════
-export const DAY_112_ASSESSMENT: Assessment = {
+export const DAY_112_ASSESSMENT: CurriculumAssessment | Assessment = {
   id: 'asm-pfs-m6-w22-022',
   assessmentCode: 'ASM-PFS-M6-W22-022',
   title: 'Formative Assessment: Declarative Accessible Web Component & Layout Stability Engine',
@@ -1008,7 +1010,11 @@ export const DAY_112_ASSESSMENT: Assessment = {
   items: [
     {
       id: 'item-b22-d112-01',
+      itemType: 'PROJECT',
       type: 'PROJECT',
+      points: 100,
+      order: 1,
+      timeEstimateMinutes: 60,
       title: 'Declarative Accessible Web Component & Layout Stability Engine',
       description: 'Construct a complete, zero-JavaScript semantic web portal with accessible forms, native disclosure components, WCAG 2.2 AA compliant CSS styling, and zero layout shift.',
       prompt: 'Refactor and complete the provided web portal markup and stylesheet according to the strict declarative accessibility specification. Your implementation must execute entirely without JavaScript.',

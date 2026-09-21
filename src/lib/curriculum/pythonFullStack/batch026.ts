@@ -14,7 +14,7 @@ import {
   ReflectionBlock,
   ReferenceBlock,
 } from '../contentTypes';
-import { Assessment } from '../assessmentTypes';
+import { Assessment, CurriculumAssessment } from '../assessmentTypes';
 
 export const COMPETENCY_ID_DJANGO_ORM_AND_MIGRATIONS = 'comp-pfs-m7-026';
 
@@ -863,7 +863,7 @@ def get_optimized_patient_charts():
 };
 
 // ── DAY 132: TRANSFER — Formative Assessment: Enterprise Clinical Data Warehouse ──
-export const DAY_132_ASSESSMENT: Assessment = {
+export const DAY_132_ASSESSMENT: CurriculumAssessment | Assessment = {
   id: 'asm-pfs-m7-w26-026',
   title: 'Formative Assessment: Enterprise Clinical Data Warehouse: Relational Persistence, Reversible Schema Evolution & Profiled Query Optimization',
   type: 'FORMATIVE',

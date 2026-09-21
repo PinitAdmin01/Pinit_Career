@@ -14,7 +14,7 @@ import {
   ReflectionBlock,
   ReferenceBlock,
 } from '../contentTypes';
-import { Assessment } from '../assessmentTypes';
+import { Assessment, CurriculumAssessment } from '../assessmentTypes';
 
 export const COMPETENCY_ID_DJANGO_FULLSTACK_HTMX = 'comp-pfs-m9-033';
 
@@ -646,7 +646,7 @@ export const DAY_167_MANIFEST: DayContentManifest = {
 };
 
 // ── BATCH 033 FORMATIVE ASSESSMENT (DAY 167) ──
-export const DAY_167_ASSESSMENT: Assessment = {
+export const DAY_167_ASSESSMENT: CurriculumAssessment | Assessment = {
   id: 'asm-pfs-m9-w33-033',
   moduleId: 'module-pfs-m9',
   courseId: 'course-python-fullstack',

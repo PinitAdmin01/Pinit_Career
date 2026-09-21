@@ -41,7 +41,6 @@
     "out",
     ".next",
     "backend",
-    "voice-service",
-    "src/lib/curriculum"
+    "voice-service"
   ]
 }

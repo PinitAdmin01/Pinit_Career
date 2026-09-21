@@ -147,9 +147,9 @@ export class AssessmentEngine {
 
     return {
       id: assessment.id,
-      assessmentCode: assessment.assessmentCode,
+      assessmentCode: assessment.assessmentCode || assessment.id,
       title: assessment.title,
-      description: assessment.description,
+      description: assessment.description || '',
       type: assessment.type,
       mode: assessment.mode,
       version: assessment.version,
@@ -168,13 +168,13 @@ export class AssessmentEngine {
         starterCode: item.starterCode,
         visibleTests: item.visibleTests?.map(t => ({
           name: t.name,
-          input: t.input,
-          expectedOutput: t.expectedOutput,
+          input: t.input || '',
+          expectedOutput: t.expectedOutput || '',
           description: t.description,
         })),
         rubricDimensions: item.rubricDimensions?.map(r => ({
           name: r.name,
-          description: r.description,
+          description: r.description || '',
           weight: r.weight,
           maxPoints: r.maxPoints,
         })),

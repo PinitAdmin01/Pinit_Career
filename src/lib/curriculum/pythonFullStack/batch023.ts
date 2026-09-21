@@ -976,7 +976,11 @@ export const DAY_117_ASSESSMENT: Assessment = {
   items: [
     {
       id: 'item-b23-d117-01',
+      itemType: 'PROJECT',
       type: 'PROJECT',
+      points: 100,
+      order: 1,
+      timeEstimateMinutes: 60,
       title: 'Memory-Safe Accessible Interactive Component Engine',
       description: 'Construct a production-grade vanilla JavaScript component engine managing interactive datatables and modals with zero memory leaks and complete accessibility conformance.',
       prompt: 'Implement the InteractiveDataEngine class according to the technical specifications. The engine must support batched rendering with DocumentFragment, delegated event handling with AbortController, WeakMap metadata caching, and focus-restoring native dialogs.',

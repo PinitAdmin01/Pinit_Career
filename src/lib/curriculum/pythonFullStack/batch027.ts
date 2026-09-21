@@ -14,7 +14,7 @@ import {
   ReflectionBlock,
   ReferenceBlock,
 } from '../contentTypes';
-import { Assessment } from '../assessmentTypes';
+import { Assessment, CurriculumAssessment } from '../assessmentTypes';
 
 export const COMPETENCY_ID_DJANGO_FORMS_AND_CBVS = 'comp-pfs-m7-027';
 
@@ -803,7 +803,7 @@ class FixedOrderView(SecurityCheckMixin, CreateView):
 };
 
 // ── DAY 137: TRANSFER — Formative Assessment: Enterprise Patient Intake Portal ──
-export const DAY_137_ASSESSMENT: Assessment = {
+export const DAY_137_ASSESSMENT: CurriculumAssessment | Assessment = {
   id: 'asm-pfs-m7-w27-027',
   title: 'Formative Assessment: Enterprise Patient Admission & Clinical Trial Intake Portal',
   type: 'FORMATIVE',
