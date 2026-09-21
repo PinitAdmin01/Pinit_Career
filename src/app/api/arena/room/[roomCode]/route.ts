@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ArenaPvPStore } from '@/lib/services/arenaPvPStore';
+import { requireUserFromRequest } from '@/lib/server/requireAuth';
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ roomCode: string }> }) {
   try {
@@ -18,9 +19,16 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ room
 
 export async function POST(req: NextRequest, { params }: { params: Promise<{ roomCode: string }> }) {
   try {
+    const auth = await requireUserFromRequest(req);
+    const authenticatedId = auth.user?.id;
     const { roomCode } = await params;
     const body = await req.json();
-    const { action, playerId, testsPassed, totalTests, score, code, logs, passed } = body;
+    const { action, testsPassed, totalTests, score, code, logs, passed } = body;
+    // Derive playerId strictly from session if authenticated, otherwise use body playerId for guest mode
+    const playerId = authenticatedId || body.playerId;
+    if (!playerId) {
+      return NextResponse.json({ error: 'Player identity required' }, { status: 400 });
+    }
 
     const updated = await ArenaPvPStore.updateRoom(roomCode, (room) => {
       const isHost = room.hostId === playerId;

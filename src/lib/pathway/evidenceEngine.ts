@@ -1,9 +1,11 @@
 // apps/web/src/lib/pathway/evidenceEngine.ts
 // Strict Evidence Ledger Engine: Provenance, Canonical SHA-256 Hashing & Anti-Gaming Deduplication
 
-import { createHash, createHmac, randomBytes } from 'crypto';
+import * as crypto from 'crypto';
 
-const devEphemeralEvidenceKey = randomBytes(32).toString('hex');
+const devEphemeralEvidenceKey = typeof crypto.randomBytes === 'function' 
+  ? crypto.randomBytes(32).toString('hex') 
+  : 'dev-ephemeral-key-browser-safe';
 import {
   CompetencyDefinition,
   CompetencyEvidenceRecord,
@@ -62,12 +64,16 @@ export function generateEvidenceIntegrityHash(record: Omit<CompetencyEvidenceRec
     artifacts: sortedArtifacts,
   });
 
+  if (typeof window !== 'undefined') {
+    // Client-side execution protection: never throw or leak server secrets in browser chunks
+    return 'client-observation-unverified';
+  }
   const secret = process.env.EVIDENCE_SIGNING_SECRET || process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.EXAM_SECRET;
   if (!secret && process.env.NODE_ENV === 'production') {
     throw new Error('[FATAL] EVIDENCE_SIGNING_SECRET must be configured in production.');
   }
   const signingKey = secret || devEphemeralEvidenceKey;
-  return createHmac('sha256', signingKey).update(canonicalPayload).digest('hex');
+  return crypto.createHmac('sha256', signingKey).update(canonicalPayload).digest('hex');
 }
 
 /**
