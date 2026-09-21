@@ -1,9 +1,19 @@
 import { NextResponse } from 'next/server';
 import { admissionsService } from '@/lib/services/admissionsService';
+import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
+    const ip = getClientIp(req);
+    const rl = checkRateLimit(`admissions_apply_${ip}`, { limit: 10, windowMs: 60_000 });
+    if (!rl.allowed) {
+      return NextResponse.json(
+        { ok: false, error: 'RATE_LIMIT_EXCEEDED', message: 'Too many applications submitted from this IP. Please try again shortly.' },
+        { status: 429 }
+      );
+    }
+
+    const body = await req.json().catch(() => ({}));
     const { name, email, gpa, course, marksheetFileName, rank } = body || {};
 
     if (!name || !name.trim()) {
