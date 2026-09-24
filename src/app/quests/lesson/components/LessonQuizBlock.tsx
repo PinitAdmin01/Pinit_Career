@@ -1,6 +1,22 @@
 import React from 'react';
 import { toast } from '@/lib/store/useAppStore';
 
+function getExplanationText(explanation: any): string {
+  if (!explanation) return '';
+  if (typeof explanation === 'string') return explanation;
+  if (typeof explanation === 'object') {
+    return (
+      explanation.errorExplanation ||
+      explanation.recoveryPath?.simplerExplanation ||
+      explanation.recoveryPath?.guidedFixPrompt ||
+      explanation.explanation ||
+      explanation.message ||
+      ''
+    );
+  }
+  return String(explanation);
+}
+
 interface LessonQuizBlockProps {
   teacherAccent: string;
   examPassed: boolean;
@@ -140,6 +156,15 @@ export function LessonQuizBlock({
     );
   }
 
+  const explanationText = getExplanationText(question?.explanation);
+  let targetedErrorText = '';
+  if (question?.diagnosisMap && selectedMcqAnswer !== null) {
+    const candidate = question.diagnosisMap[String(selectedMcqAnswer)] ||
+      question.diagnosisMap[question.options?.[selectedMcqAnswer]] ||
+      Object.values(question.diagnosisMap)[0];
+    targetedErrorText = getExplanationText(candidate);
+  }
+
   const isLastQuestion = examQuestionIndex + 1 === hybridExamQuestions.length;
 
   const handleNextOrSubmit = () => {
@@ -263,7 +288,7 @@ export function LessonQuizBlock({
                     <span>Concept Mastery & Optimal Principle:</span>
                   </div>
                   <div style={{ color: 'var(--t2)', fontSize: 11 }}>
-                    {question.explanation || "This solution directly satisfies the architectural requirement and prevents runtime degradation."}
+                    {explanationText || "This solution directly satisfies the architectural requirement and prevents runtime degradation."}
                   </div>
                 </div>
                 <button
@@ -297,11 +322,11 @@ export function LessonQuizBlock({
                     <span>Suboptimal Selection:</span>
                   </div>
                   <div style={{ color: 'var(--t2)', fontSize: 11, marginBottom: 6 }}>
-                    The selected option fails to enforce safety invariants or violates optimal system constraints for this topic.
+                    {targetedErrorText || "The selected option fails to enforce safety invariants or violates optimal system constraints for this topic."}
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontWeight: 700, color: 'var(--warning)', fontSize: 10.5 }}>
                     <span>💡 Principle:</span>
-                    <span>{question.explanation || 'System integrity requires explicit boundary validation and clean resource deallocation.'}</span>
+                    <span>{explanationText || 'System integrity requires explicit boundary validation and clean resource deallocation.'}</span>
                   </div>
                 </div>
                 <button

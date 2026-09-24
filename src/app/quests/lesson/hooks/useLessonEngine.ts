@@ -394,7 +394,12 @@ export function useLessonEngine({
         const diag = block.diagnosticCheck;
         const options = diag?.options || (diag?.expectedStringOutput ? [diag.expectedStringOutput, 'null', 'undefined'] : ['Optimal design', 'Suboptimal design', 'Syntax Error']);
         const answerIndex = diag?.correctIndex !== undefined ? diag.correctIndex : 0;
-        const explanation = (Object.values(diag?.diagnosisMap || {})[0] as any) || 'Verified optimal industry pattern.';
+        const firstDiagnosis = Object.values(diag?.diagnosisMap || {})[0] as any;
+        const explanation = (typeof diag?.explanation === 'string' && diag.explanation.trim().length > 0)
+          ? diag.explanation
+          : (typeof firstDiagnosis === 'string'
+              ? firstDiagnosis
+              : (firstDiagnosis?.errorExplanation || firstDiagnosis?.recoveryPath?.simplerExplanation || 'Verified optimal industry pattern.'));
 
         return {
           title: block.title,
@@ -405,7 +410,8 @@ export function useLessonEngine({
             question: diag?.questionPrompt || `What is the core takeaway for ${block.title}?`,
             options,
             answerIndex,
-            explanation
+            explanation,
+            diagnosisMap: diag?.diagnosisMap
           }
         };
       });
