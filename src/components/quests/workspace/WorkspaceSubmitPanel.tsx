@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Teacher, TEACHERS } from './useWorkspaceState';
-import { PIN_COSTS } from '@/lib/hooks/usePinBalance';
+import { PIN_COSTS } from '@/hooks/usePinBalance';
 import { getAuthoritativeQuest } from '@/lib/quests/questRegistry';
 
 interface TeacherSelectScreenProps {
@@ -172,7 +172,7 @@ export function CompletionScreen({ quest, currentTeacher, category }: Completion
         </div>
 
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
-          <Link href="/quests" className="btn-primary" style={{ padding: '10px 24px' }}>
+          <Link href="/quests?tab=custom_roadmap" className="btn-primary" style={{ padding: '10px 24px' }}>
             Return to Quests Tab
           </Link>
           <Link href="/career-builder" className="btn-ghost" style={{ padding: '10px 24px' }}>

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { COURSES_REGISTRY } from '@/lib/data/coursesData';
 import { QUESTS_REGISTRY } from '@/lib/data/questsData';
+import { getAuthoritativeQuest } from '@/lib/quests/questRegistry';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { useAuth } from '@/lib/context/AuthContext';
 
@@ -39,6 +40,31 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
         if (q) return q;
       }
     }
+
+    // Inspect localStorage candidate keys
+    if (typeof window !== 'undefined') {
+      try {
+        const allKeys = Object.keys(localStorage).filter(k => k.includes('roadmap_modules'));
+        for (const k of allKeys) {
+          const raw = localStorage.getItem(k);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            const mods = Array.isArray(parsed) ? parsed : parsed?.roadmap_modules || [];
+            if (Array.isArray(mods)) {
+              for (const m of mods) {
+                const found = m.quests?.find((qi: any) => qi.id === questId);
+                if (found) return found;
+              }
+            }
+          }
+        }
+      } catch {}
+    }
+
+    // Inspect server/client authoritative quest registry (with dynamic fallback)
+    const authQuest = getAuthoritativeQuest(questId);
+    if (authQuest) return authQuest;
+
     return null;
   }, [questId, cOS.onboardingAnswers]);
 
@@ -75,7 +101,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
           <p style={{ fontSize: 13, color: 'var(--t3)', lineHeight: 1.6, marginBottom: 24 }}>
             This quest may have been removed or your roadmap has changed. Return to the Quests Hub to continue.
           </p>
-          <Link href="/quests" className="btn-primary">← Back to Quests Hub</Link>
+          <Link href="/quests?tab=custom_roadmap" className="btn-primary">← Back to Quests Hub</Link>
         </div>
       </div>
     );
@@ -109,7 +135,7 @@ export default function QuestWorkspaceClient({ questId }: { questId: string }) {
     <div style={{ maxWidth: 1200, margin: '0 auto', paddingBottom: 60 }} className="animate-fade-in">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
         <div>
-          <Link href="/quests" style={{ textDecoration: 'none', color: 'var(--t3)', fontSize: 13, display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+          <Link href="/quests?tab=custom_roadmap" style={{ textDecoration: 'none', color: 'var(--t3)', fontSize: 13, display: 'inline-flex', alignItems: 'center', gap: 6 }}>
             ← Return to Quests Tab
           </Link>
           <h2 style={{ margin: '8px 0 0', fontSize: 22, display: 'flex', alignItems: 'center', gap: 10 }}>

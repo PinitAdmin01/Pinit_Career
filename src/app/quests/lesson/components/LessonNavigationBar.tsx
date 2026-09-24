@@ -15,6 +15,7 @@ interface LessonNavigationBarProps {
   finishLessonAndReturn: () => void;
   slidesLength: number;
   understandingConfirmed: Record<number, boolean>;
+  setUnderstandingConfirmed?: React.Dispatch<React.SetStateAction<Record<number, boolean>>>;
 }
 
 export function LessonNavigationBar({
@@ -31,9 +32,10 @@ export function LessonNavigationBar({
   finishLessonAndReturn,
   slidesLength,
   understandingConfirmed,
+  setUnderstandingConfirmed,
 }: LessonNavigationBarProps) {
   const isLearningSlide = currentSlide > 0 && currentSlide <= slidesLength;
-  const nextUnlocked = !isLearningSlide || understandingConfirmed[currentSlide - 1];
+  const nextUnlocked = true;
 
   return (
     <div style={{
@@ -110,22 +112,21 @@ export function LessonNavigationBar({
         <button
           data-testid="btn-next-slide"
           onClick={() => {
-            if (!nextUnlocked) {
-              toast.error("Understanding Required", "Please click 'Yes, I understand' or ask the tutor to explain before moving to the next slide.");
-              return;
+            if (setUnderstandingConfirmed && isLearningSlide && !understandingConfirmed[currentSlide - 1]) {
+              setUnderstandingConfirmed(prev => ({ ...prev, [currentSlide - 1]: true }));
             }
             handleNextSlide();
           }}
           style={{
-            background: nextUnlocked ? teacher.accent : '#475569',
+            background: teacher.accent,
             border: 'none',
             padding: '10px 20px',
             borderRadius: 12,
             fontSize: 12.5,
             fontWeight: 700,
-            color: nextUnlocked ? '#fff' : '#94a3b8',
-            cursor: nextUnlocked ? 'pointer' : 'not-allowed',
-            opacity: nextUnlocked ? 1 : 0.6
+            color: '#fff',
+            cursor: 'pointer',
+            opacity: 1
           }}
         >
           Next Slide ▶

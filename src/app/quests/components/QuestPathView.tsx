@@ -609,213 +609,426 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
               </span>
             </div>
             
-            {trajectory.nodes.map((node, idx) => {
-              const nodeCourse = COURSES_REGISTRY.find(c => c.id === node.courseId) || COURSES_REGISTRY[0];
-              const nodeQuests = nodeCourse?.quests || [];
-              const nodeCompletedCount = nodeQuests.filter(q => completedQuests.includes(q.id)).length;
-              const nodeProgressPct = Math.min(100, Math.round((nodeCompletedCount / Math.max(1, nodeQuests.length)) * 100));
-              const isNodeCompleted = nodeProgressPct === 100;
-              const isCurrentActiveNode = node.courseId === activeCourseId;
-              const isLocked = idx > 0 && (
-                (() => {
-                  const prevNode = trajectory.nodes[idx - 1];
-                  const prevCourse = COURSES_REGISTRY.find(c => c.id === prevNode.courseId);
-                  const prevQuests = prevCourse?.quests || [];
+            {activeSubTab === 'custom_roadmap' ? (
+              modules && modules.length > 0 ? (
+                modules.map((mod, idx) => {
+                const stageQuests = mod.quests || [];
+                const stageCompletedCount = stageQuests.filter(q => completedQuests.includes(q.id)).length;
+                const stageProgressPct = Math.min(100, Math.round((stageCompletedCount / Math.max(1, stageQuests.length)) * 100));
+                const isStageCompleted = stageCompletedCount === stageQuests.length && stageQuests.length > 0;
+                const isLocked = idx > 0 && (() => {
+                  const prevMod = modules[idx - 1];
+                  const prevQuests = prevMod?.quests || [];
                   const prevCleared = prevQuests.filter(q => completedQuests.includes(q.id)).length;
                   return prevCleared < prevQuests.length && prevQuests.length > 0;
-                })()
-              );
+                })();
+                const nextQuestInStage = stageQuests.find(q => !completedQuests.includes(q.id)) || stageQuests[0];
+                const stepColors = ['var(--danger)', 'var(--warning)', 'var(--success)', 'var(--accent-cyan)', '#0d9488', 'var(--reward)', '#ec4899', 'var(--warning)'];
+                const currentColor = stepColors[idx % stepColors.length];
 
-              const nextQuestInNode = nodeQuests.find(q => !completedQuests.includes(q.id)) || nodeQuests[0];
-              const stepColors = ['var(--danger)', 'var(--warning)', 'var(--success)', 'var(--accent-cyan)', '#0d9488', 'var(--reward)', '#ec4899', 'var(--warning)'];
-              const currentColor = stepColors[idx % stepColors.length];
-
-              return (
-                <div id={`node-card-${node.nodeId}`} key={node.nodeId} style={{ position: 'relative' }}>
-                  
-                  {/* Readiness Gate Checkpoint Banner before Node */}
-                  {node.gate && (
-                    <div
-                      onClick={() => setActiveGateModalNode(node)}
-                      style={{
-                        marginBottom: 12,
-                        display: 'flex',
-                        justifyContent: 'flex-end'
-                      }}
-                    >
+                return (
+                  <div id={`stage-card-${mod.id}`} key={mod.id} style={{ position: 'relative' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 16, position: 'relative' }}>
+                      {/* Step Circle Badge */}
                       <div style={{
-                        padding: '7px 14px',
-                        background: 'rgba(var(--warning-rgb),0.08)',
-                        border: '1px solid rgba(var(--warning-rgb),0.3)',
-                        borderRadius: 12,
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: 8,
-                        fontSize: 11,
-                        fontWeight: 700,
-                        color: 'var(--amber)',
-                        cursor: 'pointer'
-                      }} className="card-hover">
-                        <span>🔒 Career Gate Checkpoint (Click to Audit):</span>
-                        <span style={{ color: 'var(--t2)' }}>
-                          {node.gate.minDsaScore ? `✓ DSA ≥ ${node.gate.minDsaScore}% ` : ''}
-                          {node.gate.minCommunicationScore ? `✓ Soft Skills ≥ ${node.gate.minCommunicationScore}% ` : ''}
-                          {node.gate.minAtsScore ? `✓ ATS Resume ≥ ${node.gate.minAtsScore}% ` : ''}
-                          {node.gate.requireProjectVerification ? `✓ Capstone Verified` : ''}
-                        </span>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Detailed Stage Execution Card */}
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 16,
-                    position: 'relative'
-                  }}>
-                    {/* Step Circle Badge on Card */}
-                    <div style={{
-                      width: 64,
-                      height: 64,
-                      borderRadius: '50%',
-                      background: `linear-gradient(135deg, ${currentColor}, #090d16)`,
-                      border: `3px solid ${currentColor}`,
-                      boxShadow: `0 0 20px ${currentColor}55`,
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: 'var(--text)',
-                      fontWeight: 900,
-                      flexShrink: 0,
-                      zIndex: 2
-                    }}>
-                      <span style={{ fontSize: 8.5, textTransform: 'uppercase', opacity: 0.9 }}>Step</span>
-                      <span style={{ fontSize: 18, lineHeight: 1.1 }}>{idx + 1}</span>
-                    </div>
-
-                    {/* Main Interactive Stage Card */}
-                    <div
-                      onClick={() => {
-                        if (isLocked) {
-                          toast.warning('Prerequisite Stage Locked 🔒', 'Please complete the previous stage quests before advancing to this stage.');
-                          return;
-                        }
-                        if (nextQuestInNode) {
-                          handleLaunchQuest(nextQuestInNode, node.courseId);
-                        }
-                      }}
-                      className={`glass-card-premium ${isLocked ? '' : 'card-hover'}`}
-                      style={{
-                        flex: 1,
+                        width: 64,
+                        height: 64,
+                        borderRadius: '50%',
+                        background: `linear-gradient(135deg, ${currentColor}, #090d16)`,
+                        border: `3px solid ${currentColor}`,
+                        boxShadow: `0 0 20px ${currentColor}55`,
                         display: 'flex',
-                        alignItems: 'center',
-                        gap: 18,
-                        padding: '20px 24px',
-                        borderRadius: 22,
-                        border: isCurrentActiveNode 
-                          ? `2px solid ${currentColor}` 
-                          : isNodeCompleted 
-                          ? '1px solid var(--green)' 
-                          : '1px solid var(--border)',
-                        background: isCurrentActiveNode 
-                          ? `linear-gradient(135deg, ${currentColor}15, var(--bg2))` 
-                          : 'var(--bg2)',
-                        boxShadow: isCurrentActiveNode ? `0 0 24px ${currentColor}33` : 'none',
-                        cursor: isLocked ? 'not-allowed' : 'pointer',
-                        opacity: isLocked ? 0.6 : 1
-                      }}
-                    >
-                      {/* Icon Avatar */}
-                      <div style={{
-                        width: 48,
-                        height: 48,
-                        borderRadius: 14,
-                        background: isNodeCompleted ? 'rgba(var(--success-deep-rgb),0.15)' : `${currentColor}22`,
-                        border: `1px solid ${isNodeCompleted ? 'var(--green)' : currentColor}`,
-                        display: 'flex',
+                        flexDirection: 'column',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        fontSize: 22,
-                        flexShrink: 0
+                        color: 'var(--text)',
+                        fontWeight: 900,
+                        flexShrink: 0,
+                        zIndex: 2
                       }}>
-                        {isNodeCompleted ? '✓' : isLocked ? '🔒' : node.icon}
+                        <span style={{ fontSize: 8.5, textTransform: 'uppercase', opacity: 0.9 }}>Stage</span>
+                        <span style={{ fontSize: 18, lineHeight: 1.1 }}>{idx + 1}</span>
                       </div>
 
-                      {/* Info Text */}
-                      <div style={{ flex: 1 }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-                          <span style={{ fontSize: 9.5, fontWeight: 800, background: `${currentColor}22`, color: currentColor, padding: '2px 7px', borderRadius: 5, border: `1px solid ${currentColor}44` }}>
-                            STAGE {idx + 1}
-                          </span>
-                          {(() => {
-                            const getLevelBadge = (i: number) => {
-                              if (i === 0) return { label: '🌱 Level 0: Zero Basics', color: 'var(--success)' };
-                              if (i === 1) return { label: '🌱 Level 1: Foundations', color: 'var(--accent-cyan)' };
-                              if (i === 2) return { label: '⚡ Level 2: Core Engineering', color: 'var(--info)' };
-                              return { label: '🔥 Level 3: Pro Mastery', color: '#ec4899' };
-                            };
-                            const badge = getLevelBadge(idx);
-                            return (
-                              <span style={{ fontSize: 9.5, fontWeight: 900, background: `${badge.color}15`, color: badge.color, padding: '2px 7px', borderRadius: 5, border: `1px solid ${badge.color}33` }}>
-                                {badge.label}
-                              </span>
-                            );
-                          })()}
-                          <h3 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>{node.title}</h3>
-                          <span style={{ fontSize: 9.5, fontWeight: 800, background: 'rgba(var(--success-deep-rgb),0.1)', color: 'var(--green)', padding: '2px 7px', borderRadius: 5 }}>
-                            {node.careerImpact}
-                          </span>
+                      {/* Main Stage Card */}
+                      <div
+                        onClick={() => {
+                          if (isLocked) {
+                            toast.warning('Prerequisite Stage Locked 🔒', 'Please complete the previous stage quests before advancing to this stage.');
+                            return;
+                          }
+                          if (nextQuestInStage) {
+                            handleLaunchQuest(nextQuestInStage, activeCourseId || 'course-java-logic');
+                          }
+                        }}
+                        className={`glass-card-premium ${isLocked ? '' : 'card-hover'}`}
+                        style={{
+                          flex: 1,
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: 14,
+                          padding: '20px 24px',
+                          borderRadius: 22,
+                          border: isStageCompleted 
+                            ? '1px solid var(--green)' 
+                            : !isLocked 
+                            ? `2px solid ${currentColor}` 
+                            : '1px solid var(--border)',
+                          background: !isLocked 
+                            ? `linear-gradient(135deg, ${currentColor}10, var(--bg2))` 
+                            : 'var(--bg2)',
+                          boxShadow: !isLocked ? `0 0 24px ${currentColor}22` : 'none',
+                          cursor: isLocked ? 'not-allowed' : 'pointer',
+                          opacity: isLocked ? 0.6 : 1
+                        }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                            <div style={{
+                              width: 44,
+                              height: 44,
+                              borderRadius: 14,
+                              background: isStageCompleted ? 'rgba(var(--success-deep-rgb),0.15)' : `${currentColor}22`,
+                              border: `1px solid ${isStageCompleted ? 'var(--green)' : currentColor}`,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontSize: 20,
+                              flexShrink: 0
+                            }}>
+                              {isStageCompleted ? '✓' : isLocked ? '🔒' : (idx === 0 ? '🌱' : idx === 1 ? '⚡' : idx === 2 ? '🚀' : '🏆')}
+                            </div>
+                            <div>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                                <span style={{ fontSize: 9.5, fontWeight: 800, background: `${currentColor}22`, color: currentColor, padding: '2px 7px', borderRadius: 5, border: `1px solid ${currentColor}44` }}>
+                                  STAGE {idx + 1}
+                                </span>
+                                <span style={{ fontSize: 9.5, fontWeight: 900, background: 'rgba(255,255,255,0.06)', color: 'var(--t2)', padding: '2px 7px', borderRadius: 5, border: '1px solid var(--border)' }}>
+                                  {mod.difficulty || 'Beginner'} · ~{mod.estimatedWeeks || 1}w
+                                </span>
+                                <h3 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
+                                  {mod.title.replace(/^.*—\s*Stage\s*\d+:\s*/i, '').trim() || mod.title}
+                                </h3>
+                              </div>
+                              <p style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4, marginBottom: 0, lineHeight: 1.35 }}>
+                                {mod.desc}
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* Action Gauge & Button */}
+                          <div style={{ minWidth: 140, textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 6, marginLeft: 'auto' }}>
+                            <div style={{ fontSize: 11.5, fontWeight: 800, color: isStageCompleted ? 'var(--green)' : currentColor, fontFamily: 'var(--font-mono)' }}>
+                              {stageCompletedCount} / {stageQuests.length} Cleared ({stageProgressPct}%)
+                            </div>
+                            <div style={{ width: 120, height: 5, background: 'var(--bg3)', borderRadius: 3, overflow: 'hidden', border: '1px solid var(--border)' }}>
+                              <div style={{ width: `${stageProgressPct}%`, height: '100%', background: isStageCompleted ? 'var(--green)' : currentColor }} />
+                            </div>
+                            <button
+                              style={{
+                                marginTop: 4,
+                                background: isStageCompleted ? 'rgba(var(--success-deep-rgb),0.1)' : isLocked ? 'var(--bg3)' : `linear-gradient(135deg, ${currentColor}, var(--success-deep))`,
+                                border: isStageCompleted ? '1px solid var(--green)' : 'none',
+                                color: isStageCompleted ? 'var(--green)' : isLocked ? 'var(--t4)' : 'var(--text)',
+                                padding: '6px 14px',
+                                borderRadius: 9,
+                                fontSize: 11,
+                                fontWeight: 800,
+                                cursor: isLocked ? 'not-allowed' : 'pointer'
+                              }}
+                            >
+                              {isStageCompleted ? 'Completed ✓' : isLocked ? 'Locked 🔒' : 'Continue Stage ➔'}
+                            </button>
+                          </div>
                         </div>
 
-                        <p style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4, marginBottom: 6, lineHeight: 1.35 }}>
-                          {node.shortDesc}
-                        </p>
-
-                        {/* Skills Learned Badges */}
-                        <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
-                          {node.skillsLearned.map(skill => (
-                            <span key={skill} style={{ fontSize: 10, background: 'var(--bg3)', border: '1px solid var(--border)', padding: '2px 7px', borderRadius: 5, color: 'var(--t2)', fontWeight: 600 }}>
-                              ✓ {skill}
-                            </span>
-                          ))}
-                        </div>
+                        {/* Quests Pill Chips */}
+                        {stageQuests.length > 0 && (
+                          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', paddingTop: 6, borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                            {stageQuests.map((q) => {
+                              const isQDone = completedQuests.includes(q.id);
+                              const isExam = q.category === 'exam' || q.type === 'interactive' || q.id.includes('exam');
+                              const isCode = q.type === 'coding';
+                              const catIcon = isExam ? '📝' : isCode ? '💻' : '🎓';
+                              const catLabel = isExam ? 'Exam' : isCode ? 'Coding' : 'Learn';
+                              return (
+                                <button
+                                  key={q.id}
+                                  type="button"
+                                  disabled={isLocked}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    if (isLocked) {
+                                      toast.warning('Prerequisite Stage Locked 🔒', 'Complete previous stage quests first.');
+                                      return;
+                                    }
+                                    handleLaunchQuest(q, activeCourseId || 'course-java-logic');
+                                  }}
+                                  style={{
+                                    fontSize: 11,
+                                    fontWeight: 700,
+                                    background: isQDone ? 'rgba(var(--success-rgb), 0.15)' : 'var(--bg3)',
+                                    border: `1px solid ${isQDone ? 'var(--green)' : 'var(--border)'}`,
+                                    color: isQDone ? 'var(--green)' : 'var(--t1)',
+                                    padding: '5px 12px',
+                                    borderRadius: 10,
+                                    cursor: isLocked ? 'not-allowed' : 'pointer',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: 6,
+                                    transition: 'all 0.15s ease'
+                                  }}
+                                  className={isLocked ? '' : 'card-hover'}
+                                >
+                                  <span>{isQDone ? '✓' : catIcon}</span>
+                                  <span style={{ fontSize: 10, opacity: 0.8, textTransform: 'uppercase' }}>[{catLabel}]</span>
+                                  <span>{q.title.replace(/^Day \d+[:\s-]*/i, '').replace(/Challenge:?\s*/i, '').replace(/Assignment:?\s*/i, '').slice(0, 36)}</span>
+                                </button>
+                              );
+                            })}
+                          </div>
+                        )}
                       </div>
-
-                      {/* Action Gauge & Button */}
-                      <div style={{ minWidth: 140, textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 6 }}>
-                        <div style={{ fontSize: 11.5, fontWeight: 800, color: isNodeCompleted ? 'var(--green)' : currentColor, fontFamily: 'var(--font-mono)' }}>
-                          {nodeCompletedCount} / {nodeQuests.length || 30} Cleared ({nodeProgressPct}%)
-                        </div>
-
-                        <div style={{ width: 120, height: 5, background: 'var(--bg3)', borderRadius: 3, overflow: 'hidden', border: '1px solid var(--border)' }}>
-                          <div style={{ width: `${nodeProgressPct}%`, height: '100%', background: isNodeCompleted ? 'var(--green)' : currentColor }} />
-                        </div>
-
-                        <button
-                          style={{
-                            marginTop: 4,
-                            background: isNodeCompleted ? 'rgba(var(--success-deep-rgb),0.1)' : isLocked ? 'var(--bg3)' : `linear-gradient(135deg, ${currentColor}, var(--success-deep))`,
-                            border: isNodeCompleted ? '1px solid var(--green)' : 'none',
-                            color: isNodeCompleted ? 'var(--green)' : isLocked ? 'var(--t4)' : 'var(--text)',
-                            padding: '6px 14px',
-                            borderRadius: 9,
-                            fontSize: 11,
-                            fontWeight: 800,
-                            cursor: isLocked ? 'not-allowed' : 'pointer'
-                          }}
-                        >
-                          {isNodeCompleted ? 'Completed ✓' : isLocked ? 'Locked 🔒' : 'Continue Quest ➔'}
-                        </button>
-                      </div>
-
                     </div>
                   </div>
+                );
+              })
+            ) : (
+              <div style={{
+                textAlign: 'center',
+                padding: '48px 24px',
+                background: 'rgba(255, 255, 255, 0.02)',
+                border: '1.5px dashed var(--border)',
+                borderRadius: 20,
+                margin: '20px 0'
+              }}>
+                <div style={{ fontSize: 40, marginBottom: 12 }}>🧭</div>
+                <h3 style={{ fontSize: 18, fontWeight: 800, color: 'var(--t1)' }}>Personalized Roadmap Initializing</h3>
+                <p style={{ fontSize: 13, color: 'var(--t3)', maxWidth: 440, margin: '8px auto 20px', lineHeight: 1.5 }}>
+                  We are crafting your stage-by-stage learning path tailored to your archetype and career goals.
+                </p>
+                <button
+                  onClick={() => {
+                    if (typeof window !== 'undefined') {
+                      window.location.reload();
+                    }
+                  }}
+                  className="btn-primary"
+                  style={{ padding: '10px 20px', borderRadius: 10, fontSize: 12, fontWeight: 700 }}
+                >
+                  ⚡ Synchronize Roadmap
+                </button>
+              </div>
+            )) : (
+              trajectory.nodes.map((node, idx) => {
+                const nodeCourse = COURSES_REGISTRY.find(c => c.id === node.courseId) || COURSES_REGISTRY[0];
+                const nodeQuests = nodeCourse?.quests || [];
+                const nodeCompletedCount = nodeQuests.filter(q => completedQuests.includes(q.id)).length;
+                const nodeProgressPct = Math.min(100, Math.round((nodeCompletedCount / Math.max(1, nodeQuests.length)) * 100));
+                const isNodeCompleted = nodeProgressPct === 100;
+                const isCurrentActiveNode = node.courseId === activeCourseId;
+                const isLocked = idx > 0 && (
+                  (() => {
+                    const prevNode = trajectory.nodes[idx - 1];
+                    const prevCourse = COURSES_REGISTRY.find(c => c.id === prevNode.courseId);
+                    const prevQuests = prevCourse?.quests || [];
+                    const prevCleared = prevQuests.filter(q => completedQuests.includes(q.id)).length;
+                    return prevCleared < prevQuests.length && prevQuests.length > 0;
+                  })()
+                );
 
-                </div>
-              );
-            })}
+                const nextQuestInNode = nodeQuests.find(q => !completedQuests.includes(q.id)) || nodeQuests[0];
+                const stepColors = ['var(--danger)', 'var(--warning)', 'var(--success)', 'var(--accent-cyan)', '#0d9488', 'var(--reward)', '#ec4899', 'var(--warning)'];
+                const currentColor = stepColors[idx % stepColors.length];
+
+                return (
+                  <div id={`node-card-${node.nodeId}`} key={node.nodeId} style={{ position: 'relative' }}>
+                    
+                    {/* Readiness Gate Checkpoint Banner before Node */}
+                    {node.gate && (
+                      <div
+                        onClick={() => setActiveGateModalNode(node)}
+                        style={{
+                          marginBottom: 12,
+                          display: 'flex',
+                          justifyContent: 'flex-end'
+                        }}
+                      >
+                        <div style={{
+                          padding: '7px 14px',
+                          background: 'rgba(var(--warning-rgb),0.08)',
+                          border: '1px solid rgba(var(--warning-rgb),0.3)',
+                          borderRadius: 12,
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: 8,
+                          fontSize: 11,
+                          fontWeight: 700,
+                          color: 'var(--amber)',
+                          cursor: 'pointer'
+                        }} className="card-hover">
+                          <span>🔒 Career Gate Checkpoint (Click to Audit):</span>
+                          <span style={{ color: 'var(--t2)' }}>
+                            {node.gate.minDsaScore ? `✓ DSA ≥ ${node.gate.minDsaScore}% ` : ''}
+                            {node.gate.minCommunicationScore ? `✓ Soft Skills ≥ ${node.gate.minCommunicationScore}% ` : ''}
+                            {node.gate.minAtsScore ? `✓ ATS Resume ≥ ${node.gate.minAtsScore}% ` : ''}
+                            {node.gate.requireProjectVerification ? `✓ Capstone Verified` : ''}
+                          </span>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Detailed Stage Execution Card */}
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 16,
+                      position: 'relative'
+                    }}>
+                      {/* Step Circle Badge on Card */}
+                      <div style={{
+                        width: 64,
+                        height: 64,
+                        borderRadius: '50%',
+                        background: `linear-gradient(135deg, ${currentColor}, #090d16)`,
+                        border: `3px solid ${currentColor}`,
+                        boxShadow: `0 0 20px ${currentColor}55`,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: 'var(--text)',
+                        fontWeight: 900,
+                        flexShrink: 0,
+                        zIndex: 2
+                      }}>
+                        <span style={{ fontSize: 8.5, textTransform: 'uppercase', opacity: 0.9 }}>Step</span>
+                        <span style={{ fontSize: 18, lineHeight: 1.1 }}>{idx + 1}</span>
+                      </div>
+
+                      {/* Main Interactive Stage Card */}
+                      <div
+                        onClick={() => {
+                          if (isLocked) {
+                            toast.warning('Prerequisite Stage Locked 🔒', 'Please complete the previous stage quests before advancing to this stage.');
+                            return;
+                          }
+                          if (nextQuestInNode) {
+                            handleLaunchQuest(nextQuestInNode, node.courseId);
+                          }
+                        }}
+                        className={`glass-card-premium ${isLocked ? '' : 'card-hover'}`}
+                        style={{
+                          flex: 1,
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 18,
+                          padding: '20px 24px',
+                          borderRadius: 22,
+                          border: isCurrentActiveNode 
+                            ? `2px solid ${currentColor}` 
+                            : isNodeCompleted 
+                            ? '1px solid var(--green)' 
+                            : '1px solid var(--border)',
+                          background: isCurrentActiveNode 
+                            ? `linear-gradient(135deg, ${currentColor}15, var(--bg2))` 
+                            : 'var(--bg2)',
+                          boxShadow: isCurrentActiveNode ? `0 0 24px ${currentColor}33` : 'none',
+                          cursor: isLocked ? 'not-allowed' : 'pointer',
+                          opacity: isLocked ? 0.6 : 1
+                        }}
+                      >
+                        {/* Icon Avatar */}
+                        <div style={{
+                          width: 48,
+                          height: 48,
+                          borderRadius: 14,
+                          background: isNodeCompleted ? 'rgba(var(--success-deep-rgb),0.15)' : `${currentColor}22`,
+                          border: `1px solid ${isNodeCompleted ? 'var(--green)' : currentColor}`,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: 22,
+                          flexShrink: 0
+                        }}>
+                          {isNodeCompleted ? '✓' : isLocked ? '🔒' : node.icon}
+                        </div>
+
+                        {/* Info Text */}
+                        <div style={{ flex: 1 }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                            <span style={{ fontSize: 9.5, fontWeight: 800, background: `${currentColor}22`, color: currentColor, padding: '2px 7px', borderRadius: 5, border: `1px solid ${currentColor}44` }}>
+                              STAGE {idx + 1}
+                            </span>
+                            {(() => {
+                              const getLevelBadge = (i: number) => {
+                                if (i === 0) return { label: '🌱 Level 0: Zero Basics', color: 'var(--success)' };
+                                if (i === 1) return { label: '🌱 Level 1: Foundations', color: 'var(--accent-cyan)' };
+                                if (i === 2) return { label: '⚡ Level 2: Core Engineering', color: 'var(--info)' };
+                                return { label: '🔥 Level 3: Pro Mastery', color: '#ec4899' };
+                              };
+                              const badge = getLevelBadge(idx);
+                              return (
+                                <span style={{ fontSize: 9.5, fontWeight: 900, background: `${badge.color}15`, color: badge.color, padding: '2px 7px', borderRadius: 5, border: `1px solid ${badge.color}33` }}>
+                                  {badge.label}
+                                </span>
+                              );
+                            })()}
+                            <h3 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>{node.title}</h3>
+                            <span style={{ fontSize: 9.5, fontWeight: 800, background: 'rgba(var(--success-deep-rgb),0.1)', color: 'var(--green)', padding: '2px 7px', borderRadius: 5 }}>
+                              {node.careerImpact}
+                            </span>
+                          </div>
+
+                          <p style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4, marginBottom: 6, lineHeight: 1.35 }}>
+                            {node.shortDesc}
+                          </p>
+
+                          {/* Skills Learned Badges */}
+                          <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
+                            {node.skillsLearned.map(skill => (
+                              <span key={skill} style={{ fontSize: 10, background: 'var(--bg3)', border: '1px solid var(--border)', padding: '2px 7px', borderRadius: 5, color: 'var(--t2)', fontWeight: 600 }}>
+                                ✓ {skill}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Action Gauge & Button */}
+                        <div style={{ minWidth: 140, textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 6 }}>
+                          <div style={{ fontSize: 11.5, fontWeight: 800, color: isNodeCompleted ? 'var(--green)' : currentColor, fontFamily: 'var(--font-mono)' }}>
+                            {nodeCompletedCount} / {nodeQuests.length || 30} Cleared ({nodeProgressPct}%)
+                          </div>
+
+                          <div style={{ width: 120, height: 5, background: 'var(--bg3)', borderRadius: 3, overflow: 'hidden', border: '1px solid var(--border)' }}>
+                            <div style={{ width: `${nodeProgressPct}%`, height: '100%', background: isNodeCompleted ? 'var(--green)' : currentColor }} />
+                          </div>
+
+                          <button
+                            style={{
+                              marginTop: 4,
+                              background: isNodeCompleted ? 'rgba(var(--success-deep-rgb),0.1)' : isLocked ? 'var(--bg3)' : `linear-gradient(135deg, ${currentColor}, var(--success-deep))`,
+                              border: isNodeCompleted ? '1px solid var(--green)' : 'none',
+                              color: isNodeCompleted ? 'var(--green)' : isLocked ? 'var(--t4)' : 'var(--text)',
+                              padding: '6px 14px',
+                              borderRadius: 9,
+                              fontSize: 11,
+                              fontWeight: 800,
+                              cursor: isLocked ? 'not-allowed' : 'pointer'
+                            }}
+                          >
+                            {isNodeCompleted ? 'Completed ✓' : isLocked ? 'Locked 🔒' : 'Continue Quest ➔'}
+                          </button>
+                        </div>
+
+                      </div>
+                    </div>
+
+                  </div>
+                );
+              })
+            )}
+
 
           </div>
 
@@ -1036,7 +1249,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
 
                       {item.questId && (
                         <button
-                          onClick={() => router.push(`/quests/lesson?questId=${item.questId}`)}
+                          onClick={() => router.push(`/quests/teacher-select?questId=${item.questId}`)}
                           style={{
                             padding: '6px 12px',
                             borderRadius: 8,

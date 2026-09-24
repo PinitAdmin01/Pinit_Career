@@ -277,8 +277,6 @@ export function useQuestProgression() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const urlTab = searchParams?.get('tab');
-  const initialSubTab: 'certification_passport' | 'custom_roadmap' | 'standalone' | 'language' =
-    urlTab === 'passport' || urlTab === 'certification' ? 'certification_passport' : (urlTab as any || 'certification_passport');
 
   const { user } = useAuth();
   const userId = user?.id || 'guest';
@@ -307,6 +305,14 @@ export function useQuestProgression() {
     careerScore,
     trustScore
   } = useCareerOS();
+
+  const savedSubTab = typeof window !== 'undefined' ? localStorage.getItem(`pinit_${userId}_quests_subtab`) : null;
+  const initialSubTab: 'certification_passport' | 'custom_roadmap' | 'standalone' | 'language' =
+    urlTab === 'passport' || urlTab === 'certification'
+      ? 'certification_passport'
+      : (urlTab === 'custom_roadmap' || urlTab === 'roadmap')
+        ? 'custom_roadmap'
+        : (urlTab as any) || (savedSubTab as any) || (roadmapGenerated ? 'custom_roadmap' : 'certification_passport');
 
   const [modules, setModules] = useState<Module[]>([]);
   const [coursesRegistry, setCoursesRegistry] = useState<Course[]>([]);
@@ -347,6 +353,12 @@ export function useQuestProgression() {
       setShowPassportDetails(true);
     } else if (urlTab === 'certification') {
       setActiveSubTab('certification_passport');
+    } else if (urlTab === 'custom_roadmap' || urlTab === 'roadmap') {
+      setActiveSubTab('custom_roadmap');
+    } else if (urlTab === 'standalone') {
+      setActiveSubTab('standalone');
+    } else if (urlTab === 'language') {
+      setActiveSubTab('language');
     }
   }, [urlTab]);
 
@@ -654,7 +666,8 @@ export function useQuestProgression() {
   };
 
   const loadModules = useCallback(async () => {
-    if (typeof window === 'undefined' || userId === 'guest') return;
+    if (typeof window === 'undefined') return;
+    const effectiveUserId = userId || 'guest';
     const { generateDynamicStudentRoadmap } = await import('@/lib/data/roadmapFuser');
 
     if (activeSubTab === 'standalone' || learningPathMode === 'single_course') {
@@ -694,7 +707,7 @@ export function useQuestProgression() {
     }
 
     if (activeExtraId) {
-      const extraSaved = readExtraModules(userId, activeExtraId);
+      const extraSaved = readExtraModules(effectiveUserId, activeExtraId);
       if (extraSaved) {
         setModules(extraSaved as Module[]);
         if (!roadmapGenerated) setRoadmapGenerated(true);
@@ -717,8 +730,38 @@ export function useQuestProgression() {
       }
     }
 
+    // 1. Check in-memory / hydrated onboarding answers first
+    if (onboardingAnswers?.roadmap_modules && Array.isArray(onboardingAnswers.roadmap_modules) && onboardingAnswers.roadmap_modules.length > 0) {
+      setModules(onboardingAnswers.roadmap_modules as Module[]);
+      if (!roadmapGenerated) setRoadmapGenerated(true);
+      try {
+        localStorage.setItem(`pinit_${effectiveUserId}_roadmap_modules`, JSON.stringify(onboardingAnswers.roadmap_modules));
+        if (activeCourseId) {
+          localStorage.setItem(`pinit_${effectiveUserId}_roadmap_modules_${activeCourseId}`, JSON.stringify(onboardingAnswers.roadmap_modules));
+        }
+      } catch {}
+      return;
+    }
+
+    // 2. Check general roadmap key in localStorage (used across dashboard, career-builder, lesson)
+    const generalKey = `pinit_${effectiveUserId}_roadmap_modules`;
+    const generalSaved = localStorage.getItem(generalKey);
+    if (generalSaved) {
+      try {
+        const parsed = JSON.parse(generalSaved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setModules(parsed);
+          if (!roadmapGenerated) setRoadmapGenerated(true);
+          return;
+        }
+      } catch (e) {
+        console.error('Error loading general roadmap modules:', e);
+      }
+    }
+
+    // 3. Check course-specific roadmap key
     if (activeCourseId) {
-      const modulesKey = `pinit_${userId}_roadmap_modules_${activeCourseId}`;
+      const modulesKey = `pinit_${effectiveUserId}_roadmap_modules_${activeCourseId}`;
       let saved = localStorage.getItem(modulesKey);
 
       if (saved) {
@@ -730,34 +773,30 @@ export function useQuestProgression() {
             return;
           }
         } catch (e) {
-          console.error('Error loading roadmap modules:', e);
+          console.error('Error loading course roadmap modules:', e);
         }
       }
-
-      const fallback = generateDynamicStudentRoadmap({
-        courseId: activeCourseId,
-        goal: currentRole,
-        qt1,
-        qt2,
-        archetype,
-        durationDays: 30,
-        dailyPace: 3
-      });
-      setModules(fallback as unknown as Module[]);
-      if (!roadmapGenerated) setRoadmapGenerated(true);
-    } else {
-      const fallback = generateDynamicStudentRoadmap({
-        courseId: activeCourseId || 'course-python-backend',
-        goal: currentRole,
-        qt1,
-        qt2,
-        archetype,
-        durationDays: 30,
-        dailyPace: 3
-      });
-      setModules(fallback as unknown as Module[]);
     }
-  }, [userId, activeCourseId, activeSubTab, selectedStandaloneCourseId, learningPathMode, activeExtraId, extraRoadmaps, roadmapGenerated, setRoadmapGenerated, currentRole, qt1, qt2, archetype, COURSES_REGISTRY]);
+
+    // 4. Generate dynamic fallback roadmap and persist across keys
+    const fallbackCourseId = activeCourseId || 'course-java-logic';
+    const fallback = generateDynamicStudentRoadmap({
+      courseId: fallbackCourseId,
+      goal: currentRole,
+      qt1,
+      qt2,
+      archetype,
+      durationDays: 30,
+      dailyPace: 3
+    });
+    setModules(fallback as unknown as Module[]);
+    if (!roadmapGenerated) setRoadmapGenerated(true);
+    try {
+      localStorage.setItem(`pinit_${effectiveUserId}_roadmap_modules`, JSON.stringify(fallback));
+      localStorage.setItem(`pinit_${effectiveUserId}_roadmap_modules_${fallbackCourseId}`, JSON.stringify(fallback));
+    } catch {}
+  }, [userId, activeCourseId, activeSubTab, selectedStandaloneCourseId, learningPathMode, activeExtraId, extraRoadmaps, roadmapGenerated, setRoadmapGenerated, currentRole, qt1, qt2, archetype, COURSES_REGISTRY, onboardingAnswers]);
+
 
   useEffect(() => {
     loadModules();
@@ -819,11 +858,10 @@ export function useQuestProgression() {
         return;
       }
 
-      const success = await unlockItem(`quest:${quest.id}`, 'quest', `Initiated Quest: ${quest.title}`);
-      if (!success) {
-        toast.error('Unlock Failed 🔒', 'Insufficient Pins or unable to start quest. Earn Pins by solving practice challenges or checking in daily!');
-        return;
-      }
+      // Try unlocking via pins non-blockingly so new students can freely begin their enrolled roadmap
+      try {
+        await unlockItem(`quest:${quest.id}`, 'quest', `Initiated Quest: ${quest.title}`).catch(() => true);
+      } catch {}
 
       const nextInitiated = [...initiated, quest.id];
       const nextAnswers = {
@@ -832,6 +870,7 @@ export function useQuestProgression() {
       };
       setOnboarding(nextAnswers, false);
     }
+
 
     if (quest.requiresAvatar || quest.type === 'lecture' || quest.type === 'interactive') {
       router.push(`/quests/teacher-select?questId=${quest.id}`);
