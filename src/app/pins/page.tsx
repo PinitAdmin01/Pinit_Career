@@ -15,12 +15,12 @@ import { toast } from '@/lib/store/useAppStore';
 type PageTab = 'buy' | 'wallet';
 type FilterTab = 'all' | 'earned' | 'spent';
 
-// ── Pin Pack Catalog (mirrors server PLAN_PRICES_PAISE) ────────────────────
+// ── Pin Pack Catalog (1 Rs = 10 Pins Rate — mirrors server PLAN_PRICES_PAISE) ──
 const PIN_PACKS = [
-  { id: 'pack_50',   pins: 50,   priceRs: 49,  label: 'Starter',   badge: '',            color: '#6366f1' },
-  { id: 'pack_150',  pins: 150,  priceRs: 99,  label: 'Regular',   badge: 'Popular',     color: '#8b5cf6' },
-  { id: 'pack_500',  pins: 500,  priceRs: 249, label: 'Power',     badge: '⭐ Best Rate', color: '#10b981' },
-  { id: 'pack_1200', pins: 1200, priceRs: 499, label: 'Mega',      badge: '🔥 Best Value',color: '#f59e0b' },
+  { id: 'pack_100',  pins: 100,  priceRs: 10,  label: 'Starter',   badge: 'Quick Top-Up', color: '#6366f1' },
+  { id: 'pack_300',  pins: 300,  priceRs: 30,  label: 'Sprint',    badge: 'Popular',      color: '#8b5cf6' },
+  { id: 'pack_500',  pins: 500,  priceRs: 50,  label: 'Power',     badge: '⭐ Best Rate',  color: '#10b981' },
+  { id: 'pack_1000', pins: 1000, priceRs: 99,  label: 'Mega',      badge: '🔥 Extra Value',color: '#f59e0b' },
 ] as const;
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
@@ -97,10 +97,14 @@ function useCheckout(user: any, onSuccess: (pins: number, isPro?: boolean, bonus
           ...(extraBody?.customPins ? { customPins: extraBody.customPins } : {}),
         });
         if (verifyRes.ok) {
+          const isSub = planId === 'pro' || planId === 'basic_student' || planId === 'student_99';
           const credited = verifyRes.pinsGranted ?? (planId === 'pro' ? 500 : 0);
-          if (planId === 'pro') {
-            toast.success('🎉 Pro Pass Activated!', verifyRes.message || 'Welcome to Pro! 500 bonus pins credited.');
-            onSuccess(0, true, 500);
+          if (isSub) {
+            toast.success(
+              planId === 'pro' ? '🎉 Pro Pass Activated!' : '🎉 Student Daily Pass Activated!',
+              verifyRes.message || (planId === 'pro' ? 'Welcome to Pro! 120 Daily Pins + 500 Bonus Pins.' : 'Welcome to Basic Student Pass! 120 Daily Pins reset at 1:00 AM IST.')
+            );
+            onSuccess(0, true, planId === 'pro' ? 500 : 0);
           } else {
             toast.success(`+${credited} Pins Credited ⚡`, 'Your pin balance has been updated.');
             onSuccess(credited, false, 0);
@@ -116,7 +120,7 @@ function useCheckout(user: any, onSuccess: (pins: number, isPro?: boolean, bonus
         amount: orderRes.amount,
         currency: orderRes.currency || 'INR',
         name: 'PinIT Career OS',
-        description: planId === 'pro' ? 'PRO Career Accelerator — ₹499/mo' : 'Pin Pack Top-Up',
+        description: planId === 'pro' ? 'PRO Career Accelerator — ₹499/mo' : (planId === 'basic_student' || planId === 'student_99') ? 'Basic Student Pass (120 Daily Pins) — ₹99/mo' : 'Pin Pack Top-Up',
         order_id: orderRes.orderId,
         prefill: {
           name: user.displayName || undefined,
@@ -134,10 +138,14 @@ function useCheckout(user: any, onSuccess: (pins: number, isPro?: boolean, bonus
               ...(extraBody?.customPins ? { customPins: extraBody.customPins } : {}),
             });
             if (verifyRes.ok) {
-              if (planId === 'pro') {
-                toast.success('🎉 Pro Pass Activated!', 'Welcome to Pro Career Accelerator! 120 Daily Pins active & 500 Bonus Pins in Vault.');
+              const isSub = planId === 'pro' || planId === 'basic_student' || planId === 'student_99';
+              if (isSub) {
+                toast.success(
+                  planId === 'pro' ? '🎉 Pro Pass Activated!' : '🎉 Basic Student Pass Activated!',
+                  planId === 'pro' ? 'Welcome to Pro! 120 Daily Pins active & 500 Bonus Pins in Vault.' : 'Welcome to Basic Student Pass! 120 Daily Pins active (1:00 AM IST reset).'
+                );
                 triggerCoinStream({ count: 24 });
-                onSuccess(0, true, 500);
+                onSuccess(0, true, planId === 'pro' ? 500 : 0);
               } else {
                 const credited = verifyRes.pinsGranted ?? 0;
                 toast.success(`+${credited} Pins Credited!`, 'Your pin balance has been updated.');
@@ -177,7 +185,7 @@ export default function PinsWalletPage() {
   const [customPins, setCustomPins] = useState(300);
   const [claiming, setClaiming] = useState(false);
 
-  const customPrice = Math.ceil(customPins / 3);
+  const customPrice = Math.ceil(customPins / 10);
 
   const onPurchaseSuccess = useCallback((grantedPins?: number, isPro?: boolean, bonusGranted?: number) => {
     if (isPro) {
@@ -383,18 +391,18 @@ export default function PinsWalletPage() {
           {/* ── Section: Custom Pins ───────────────────────────────── */}
           <div style={{ background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: 18, padding: '22px 24px' }}>
             <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--t1)', marginBottom: 4 }}>🎛️ Custom Pin Pack</div>
-            <div style={{ fontSize: 12, color: 'var(--t4)', marginBottom: 18 }}>Choose exactly how many pins you want (100–5,000). Rate: ₹1 per 3 pins.</div>
+            <div style={{ fontSize: 12, color: 'var(--t4)', marginBottom: 18 }}>Choose exactly how many pins you want (100–10,000). Official Rate: ₹1 = 10 Pins (Purchased pins stored in permanent vault, never wiped at 1 AM).</div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
               <div style={{ flex: 1, minWidth: 200 }}>
                 <input
-                  type="range" min={100} max={5000} step={50}
+                  type="range" min={100} max={10000} step={50}
                   value={customPins}
                   onChange={e => setCustomPins(Number(e.target.value))}
                   style={{ width: '100%', accentColor: 'var(--accent)', cursor: 'pointer' }}
                 />
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, color: 'var(--t4)', marginTop: 4 }}>
-                  <span>100 pins</span><span>5,000 pins</span>
+                  <span>100 pins (₹10)</span><span>10,000 pins (₹1,000)</span>
                 </div>
               </div>
 
@@ -417,91 +425,165 @@ export default function PinsWalletPage() {
                   whiteSpace: 'nowrap', transition: 'opacity 0.15s',
                 }}
               >
-                {loading === 'pack_custom' ? 'Opening...' : `Buy ${customPins} Pins — ₹${customPrice}`}
+                {loading === 'pack_custom' ? 'Opening...' : `Buy ${customPins.toLocaleString()} Pins — ₹${customPrice}`}
               </button>
             </div>
           </div>
 
-          {/* ── Section: Pro Subscription ─────────────────────────── */}
-          <div style={{
-            background: 'linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.08) 100%)',
-            border: '2px solid rgba(99,102,241,0.3)',
-            borderRadius: 20, padding: '28px 28px',
-            position: 'relative', overflow: 'hidden',
-          }}>
-            <div style={{ position: 'absolute', top: 14, right: 18, background: (user?.subscription_tier === 'pro' || user?.subscription_status === 'active') ? '#10b981' : 'var(--accent)', color: '#fff', fontSize: 10, fontWeight: 800, padding: '4px 12px', borderRadius: 20 }}>
-              {(user?.subscription_tier === 'pro' || user?.subscription_status === 'active') ? 'CURRENT PLAN (ACTIVE)' : 'MOST POPULAR'}
-            </div>
-            <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6 }}>
-              Pro Career Accelerator
-            </div>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: 36, fontWeight: 900, color: 'var(--t1)', lineHeight: 1, marginBottom: 4 }}>
-              ₹499 <span style={{ fontSize: 14, color: 'var(--t3)', fontWeight: 500 }}>/ month</span>
-            </div>
-            <div style={{ fontSize: 13, color: 'var(--t3)', marginBottom: 20, lineHeight: 1.6 }}>
-              For ambitious students preparing for Tier-1 interviews. Includes 120 Daily Pins refreshed every 1:00 AM IST + 500 Bonus Pins in your permanent vault.
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 10, marginBottom: 22 }}>
-              {[
-                '✓ 24/7 Voice AI Avatar Mock Interviews',
-                '✓ 500 monthly bonus Pins',
-                '✓ Recruiter Priority Showcase',
-                '✓ BLUF Communication Diagnostics',
-                '✓ Live AST Code Benchmarks',
-                '✓ Everything in Student Free Pass',
-              ].map(feat => (
-                <div key={feat} style={{ fontSize: 13, color: 'var(--t2)', display: 'flex', alignItems: 'flex-start', gap: 6 }}>
-                  {feat}
+          {/* ── Section: Subscriptions (Basic Student Plan ₹99 & Pro Accelerator ₹499) ── */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 20 }}>
+            {/* Plan 1: Basic Student Pass (₹99 / mo) */}
+            <div style={{
+              background: 'linear-gradient(135deg, rgba(16,185,129,0.08) 0%, rgba(5,150,105,0.05) 100%)',
+              border: '2px solid rgba(16,185,129,0.35)',
+              borderRadius: 20, padding: '26px 26px',
+              position: 'relative', overflow: 'hidden',
+              display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+            }}>
+              <div style={{ position: 'absolute', top: 14, right: 18, background: '#10b981', color: '#fff', fontSize: 10, fontWeight: 800, padding: '4px 12px', borderRadius: 20 }}>
+                {user?.subscription_tier === 'basic' ? 'CURRENT PLAN (ACTIVE)' : 'STUDENT BESTSELLER'}
+              </div>
+              <div>
+                <div style={{ fontSize: 12, fontWeight: 800, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6 }}>
+                  Basic Student Pass
                 </div>
-              ))}
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: 36, fontWeight: 900, color: 'var(--t1)', lineHeight: 1, marginBottom: 4 }}>
+                  ₹99 <span style={{ fontSize: 14, color: 'var(--t3)', fontWeight: 500 }}>/ month</span>
+                </div>
+                <div style={{ fontSize: 13, color: 'var(--t3)', marginBottom: 20, lineHeight: 1.6 }}>
+                  Students receive <strong>120 Pins every day</strong> refreshed at 1:00 AM IST (like Airtel daily data). Ideal for active daily study.
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 22 }}>
+                  {[
+                    '✓ 120 Pins renewed every morning at 1:00 AM IST',
+                    '✓ Quests (20 pins) & Daily Missions (20 pins)',
+                    '✓ AI Avatar Mock Interviews & GDs (35 pins)',
+                    '✓ Code Arena Battles & Project Reviews (10 pins)',
+                    '✓ Permanent Vault for extra top-ups (₹1 = 10 pins)',
+                  ].map(feat => (
+                    <div key={feat} style={{ fontSize: 13, color: 'var(--t2)', display: 'flex', alignItems: 'flex-start', gap: 6 }}>
+                      {feat}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {user?.subscription_tier === 'basic' && user?.subscription_status === 'active' ? (
+                <button
+                  disabled
+                  style={{
+                    padding: '13px 24px', borderRadius: 14,
+                    background: 'rgba(16, 185, 129, 0.15)',
+                    border: '1px solid #10b981',
+                    color: '#10b981', fontWeight: 700, fontSize: 14,
+                    cursor: 'default',
+                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8
+                  }}
+                >
+                  <span>✓</span> Basic Student Plan Active
+                </button>
+              ) : (
+                <button
+                  disabled={loading === 'basic_student'}
+                  onClick={() => checkout('basic_student')}
+                  style={{
+                    padding: '13px 24px', borderRadius: 14, border: 'none',
+                    background: 'linear-gradient(135deg, #10b981, #059669)',
+                    color: '#fff', fontWeight: 700, fontSize: 14,
+                    cursor: loading === 'basic_student' ? 'not-allowed' : 'pointer',
+                    opacity: loading === 'basic_student' ? 0.7 : 1,
+                    boxShadow: '0 4px 16px rgba(16,185,129,0.35)',
+                    transition: 'all 0.15s ease',
+                  }}
+                >
+                  {loading === 'basic_student' ? 'Initiating Checkout...' : 'Get Basic Pass — ₹99/month →'}
+                </button>
+              )}
             </div>
-            {user?.subscription_tier === 'pro' || user?.subscription_status === 'active' ? (
-              <button
-                disabled
-                style={{
-                  padding: '14px 32px', borderRadius: 14,
-                  background: 'rgba(16, 185, 129, 0.15)',
-                  border: '1px solid #10b981',
-                  color: '#10b981', fontWeight: 700, fontSize: 15,
-                  cursor: 'default',
-                  display: 'inline-flex', alignItems: 'center', gap: 8
-                }}
-              >
-                <span>✓</span> Pro Plan Active
-              </button>
-            ) : (
-              <button
-                disabled={loading === 'pro'}
-                onClick={() => checkout('pro')}
-                style={{
-                  padding: '14px 32px', borderRadius: 14, border: 'none',
-                  background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-                  color: '#fff', fontWeight: 700, fontSize: 15,
-                  cursor: loading === 'pro' ? 'not-allowed' : 'pointer',
-                  opacity: loading === 'pro' ? 0.7 : 1,
-                  boxShadow: '0 4px 20px rgba(99,102,241,0.4)',
-                  transition: 'transform 0.15s, box-shadow 0.15s',
-                }}
-                onMouseEnter={e => { if (loading !== 'pro') { (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(-2px)'; (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 8px 28px rgba(99,102,241,0.5)'; }}}
-                onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(0)'; (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 4px 20px rgba(99,102,241,0.4)'; }}
-              >
-                {loading === 'pro' ? 'Initiating Checkout...' : 'Upgrade to Pro — ₹499/month →'}
-              </button>
-            )}
+
+            {/* Plan 2: Pro Career Accelerator (₹499 / mo) */}
+            <div style={{
+              background: 'linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.08) 100%)',
+              border: '2px solid rgba(99,102,241,0.3)',
+              borderRadius: 20, padding: '26px 26px',
+              position: 'relative', overflow: 'hidden',
+              display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+            }}>
+              <div style={{ position: 'absolute', top: 14, right: 18, background: (user?.subscription_tier === 'pro' && user?.subscription_status === 'active') ? '#10b981' : 'var(--accent)', color: '#fff', fontSize: 10, fontWeight: 800, padding: '4px 12px', borderRadius: 20 }}>
+                {(user?.subscription_tier === 'pro' && user?.subscription_status === 'active') ? 'CURRENT PLAN (ACTIVE)' : 'EXECUTIVE ACCELERATOR'}
+              </div>
+              <div>
+                <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6 }}>
+                  Pro Career Accelerator
+                </div>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: 36, fontWeight: 900, color: 'var(--t1)', lineHeight: 1, marginBottom: 4 }}>
+                  ₹499 <span style={{ fontSize: 14, color: 'var(--t3)', fontWeight: 500 }}>/ month</span>
+                </div>
+                <div style={{ fontSize: 13, color: 'var(--t3)', marginBottom: 20, lineHeight: 1.6 }}>
+                  For ambitious graduates preparing for Tier-1 placements. Includes 120 Daily Pins + <strong>500 Bonus Pins</strong> in permanent vault.
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 22 }}>
+                  {[
+                    '✓ Everything in Basic Student Pass',
+                    '✓ 500 Bonus Pins monthly in permanent vault',
+                    '✓ 24/7 Voice AI Avatar Mock Interviews',
+                    '✓ Recruiter Priority Talent Showcase',
+                    '✓ BLUF & AST Code Performance Diagnostics',
+                  ].map(feat => (
+                    <div key={feat} style={{ fontSize: 13, color: 'var(--t2)', display: 'flex', alignItems: 'flex-start', gap: 6 }}>
+                      {feat}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {user?.subscription_tier === 'pro' && user?.subscription_status === 'active' ? (
+                <button
+                  disabled
+                  style={{
+                    padding: '13px 24px', borderRadius: 14,
+                    background: 'rgba(16, 185, 129, 0.15)',
+                    border: '1px solid #10b981',
+                    color: '#10b981', fontWeight: 700, fontSize: 14,
+                    cursor: 'default',
+                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8
+                  }}
+                >
+                  <span>✓</span> Pro Plan Active
+                </button>
+              ) : (
+                <button
+                  disabled={loading === 'pro'}
+                  onClick={() => checkout('pro')}
+                  style={{
+                    padding: '13px 24px', borderRadius: 14, border: 'none',
+                    background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                    color: '#fff', fontWeight: 700, fontSize: 14,
+                    cursor: loading === 'pro' ? 'not-allowed' : 'pointer',
+                    opacity: loading === 'pro' ? 0.7 : 1,
+                    boxShadow: '0 4px 20px rgba(99,102,241,0.4)',
+                    transition: 'all 0.15s ease',
+                  }}
+                >
+                  {loading === 'pro' ? 'Initiating Checkout...' : 'Upgrade to Pro — ₹499/month →'}
+                </button>
+              )}
+            </div>
           </div>
 
           {/* ── How Pins Work ──────────────────────────────────────── */}
           <div style={{ background: 'rgba(99,102,241,0.05)', border: '1px solid rgba(99,102,241,0.15)', borderRadius: 16, padding: '18px 22px' }}>
-            <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', marginBottom: 12 }}>💡 How Pins Work</div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 10 }}>
+            <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--accent)', marginBottom: 12 }}>💡 Pin Economy & Pricing Rules</div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 12 }}>
               {[
-                { icon: '⏰', text: 'Free 120 pins arrive every night at 1:00 AM' },
-                { icon: '🗺', text: 'Quest unlock = 20 pins (30 min access)' },
-                { icon: '🎙', text: 'AI Interview = 40 pins (30 min session)' },
-                { icon: '💳', text: 'Purchased pins never expire' },
+                { icon: '⏰', text: 'Daily Refresh: 120 pins arrive every night at 1:00 AM IST for ₹99 Basic Plan students (Airtel model)' },
+                { icon: '🗺', text: 'Quests & Missions: 20 pins each (full 30 min duration access)' },
+                { icon: '🎙', text: 'AI Interview & GD: 35 pins each (voice avatar evaluation & transcript grading)' },
+                { icon: '⚔️', text: 'Code Arena & Projects: 10 pins each (1v1 duels & repository audits)' },
+                { icon: '💳', text: 'Top-Up Rate: ₹1 = 10 pins for individual purchase (stored in permanent vault, never wiped)' },
               ].map((t, i) => (
-                <div key={i} style={{ display: 'flex', gap: 10, fontSize: 12, color: 'var(--t2)', alignItems: 'flex-start' }}>
-                  <span style={{ fontSize: 14, flexShrink: 0 }}>{t.icon}</span><span>{t.text}</span>
+                <div key={i} style={{ display: 'flex', gap: 10, fontSize: 12.5, color: 'var(--t2)', alignItems: 'flex-start' }}>
+                  <span style={{ fontSize: 16, flexShrink: 0 }}>{t.icon}</span><span>{t.text}</span>
                 </div>
               ))}
             </div>

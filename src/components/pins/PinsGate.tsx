@@ -12,7 +12,7 @@ import './pins.css';
 interface Props {
   featureKey?: string;
   itemKey?: string;
-  category?: 'quest' | 'mission' | 'interview' | 'ai_interview' | 'gd' | 'group_discussion' | 'attention_span_game';
+  category?: 'quest' | 'mission' | 'interview' | 'ai_interview' | 'gd' | 'group_discussion' | 'attention_span_game' | 'code_arena' | 'arena' | 'project' | 'group_project';
   onUnlocked: () => void;
   children: React.ReactNode;
   mode?: 'wrap' | 'button';

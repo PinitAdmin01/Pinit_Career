@@ -4,15 +4,19 @@ import { validateBody } from '@/lib/server/validate';
 import { z } from 'zod';
 import { createClient } from '@supabase/supabase-js';
 
-// Server-authoritative cost table — client cannot override these
+// Server-authoritative cost table — client cannot override these (1 Rs = 10 Pins Economy)
 const SERVER_PIN_COSTS: Record<string, number> = {
   quest:                20,
   mission:              20,
-  group_discussion:     30,
-  gd:                   30,
-  ai:                   40, // unlocks /api/llm and general AI features
-  ai_interview:         40,
-  interview:            40,
+  group_discussion:     35,
+  gd:                   35,
+  ai:                   35, // unlocks /api/llm and general AI features
+  ai_interview:         35,
+  interview:            35,
+  code_arena:           10,
+  arena:                10,
+  project:              10,
+  group_project:        10,
   attention_span_game:   5,
   quest_start:          20,
   resume_enhance:       15,
@@ -23,6 +27,12 @@ const SERVER_PIN_COSTS: Record<string, number> = {
   career_dna_calc:      10,
   jd_match:              5,
   ai_minutes_extend:   100,
+  course_plan_1m:       500,
+  course_plan_3m:      1200,
+  course_plan_6m:      2200,
+  course_plan_9m:      3500,
+  course_plan_12m:     4500,
+  course_plan_24m:     7500,
 };
 
 // Unlock duration in milliseconds
@@ -68,12 +78,16 @@ export async function POST(req: Request) {
     if (itemId) {
       // 1. itemId cannot be another top-level root feature key
       if (SERVER_PIN_COSTS[itemId] !== undefined && itemId !== featureKey) {
-        // Special case: aliased feature families (e.g., gd <-> group_discussion, interview <-> ai_interview)
+        // Special case: aliased feature families (e.g., gd <-> group_discussion, interview <-> ai_interview, arena <-> code_arena, project <-> group_project)
         const isAllowedAlias =
           (featureKey === 'group_discussion' && itemId === 'gd') ||
           (featureKey === 'gd' && itemId === 'group_discussion') ||
           (featureKey === 'interview' && itemId === 'ai_interview') ||
-          (featureKey === 'ai_interview' && itemId === 'interview');
+          (featureKey === 'ai_interview' && itemId === 'interview') ||
+          (featureKey === 'arena' && itemId === 'code_arena') ||
+          (featureKey === 'code_arena' && itemId === 'arena') ||
+          (featureKey === 'project' && itemId === 'group_project') ||
+          (featureKey === 'group_project' && itemId === 'project');
 
         if (!isAllowedAlias) {
           return NextResponse.json(

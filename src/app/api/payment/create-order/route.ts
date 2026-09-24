@@ -5,23 +5,33 @@ import { financeService } from '@/lib/services/financeService';
 
 /** Server-defined catalog only — client amounts are never trusted. */
 export const PLAN_PRICES_PAISE: Record<string, number> = {
-  pro: 49900,
-  pack_50: 4900,
-  pack_150: 9900,
-  pack_500: 24900,
-  pack_1200: 49900,
+  // Subscriptions
+  basic_student: 9900,            // ₹99 Basic Student Plan (120 pins daily refreshed at 1:00 AM)
+  student_99: 9900,               // Alias for basic_student
+  pro: 49900,                     // ₹499 Pro Career Accelerator
+  // Top-Up Pin Packs (1 Rs = 10 Pins)
+  pack_100: 1000,                 // ₹10 = 100 Pins
+  pack_300: 3000,                 // ₹30 = 300 Pins
+  pack_500: 5000,                 // ₹50 = 500 Pins
+  pack_1000: 9900,                // ₹99 = 1,000 Pins (Bonus value)
+  // Legacy Pin Packs (Mapped to fair 1 Rs = 10 Pins pricing)
+  pack_50: 500,                   // ₹5 = 50 Pins
+  pack_150: 1500,                 // ₹15 = 150 Pins
+  pack_1200: 11900,               // ₹119 = 1,200 Pins
   // Crash Course Programs with Real-Time Internships (Boss Specs)
-  "plan-1m-sprint": 299900,       // ₹2,999 (1M + 1M Proj + 2M Intern = 3-4M)
-  "plan-3m-accelerator": 699900,  // ₹6,999 (3M + 1M Proj + 2M Intern = 5-6M)
-  "plan-6m-pro": 1199900,        // ₹11,999 (6M + 1M Proj + 2M Intern = 8-9M)
-  "plan-9m-master": 1599900,     // ₹15,999 (9M + 1M Proj + 2M Intern = 1 Year)
+  "plan-1m-sprint": 499900,       // ₹4,999 (1M + 1M Proj + 2M Intern = 3-4M)
+  "plan-3m-accelerator": 999900,  // ₹9,999 (3M + 1M Proj + 2M Intern = 5-6M)
+  "plan-6m-pro": 1799900,        // ₹17,999 (6M + 1M Proj + 2M Intern = 8-9M)
+  "plan-9m-master": 2499900,     // ₹24,999 (9M + 1M Proj + 2M Intern = 1 Year)
+  "plan-12m-fellow": 3499900,    // ₹34,999 (12M Advanced Industry Fellowship)
+  "plan-24m-master": 5999900,    // ₹59,999 (24M Master Engineering & Degree Track)
   // pack_custom: computed dynamically — NOT listed here; handled below
 };
 
-/** Custom pin pack: ₹1 per 3 pins, min 100, max 5000 pins */
+/** Custom pin pack: 1 Rs = 10 pins (₹1 per 10 pins, min 100, max 10000 pins) */
 export function customPinsToPaise(pins: number): number {
-  const clamped = Math.max(100, Math.min(5000, Math.floor(pins)));
-  return Math.ceil(clamped / 3) * 100; // paise
+  const clamped = Math.max(100, Math.min(10000, Math.floor(pins)));
+  return Math.ceil(clamped / 10) * 100; // 1 Rs = 10 pins -> paise
 }
 
 /**
@@ -82,9 +92,9 @@ export async function POST(req: Request) {
 
     if (!orderAmount && planId === 'pack_custom') {
       const rawPins = Number(body.customPins);
-      if (!Number.isFinite(rawPins) || rawPins < 100 || rawPins > 5000) {
+      if (!Number.isFinite(rawPins) || rawPins < 100 || rawPins > 10000) {
         return NextResponse.json(
-          { error: 'INVALID_CUSTOM_PINS', message: 'Custom pins must be between 100 and 5,000.' },
+          { error: 'INVALID_CUSTOM_PINS', message: 'Custom pins must be between 100 and 10,000.' },
           { status: 400 }
         );
       }

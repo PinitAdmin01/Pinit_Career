@@ -225,6 +225,10 @@ function ArenaContent() {
   // Handle Create Room
   const handleCreateRoom = async () => {
     try {
+      if (cOS?.spendPins) {
+        const ok = await cOS.spendPins('code_arena', undefined, 'Create Battle Room');
+        if (!ok) return;
+      }
       setIsCreatingRoom(true);
       setRoomError(null);
       const room = await ArenaPvPService.createRoom({
@@ -849,7 +853,11 @@ function ArenaContent() {
                     </button>
                   ) : (
                     <button
-                      onClick={() => {
+                      onClick={async () => {
+                        if (cOS?.spendPins) {
+                          const ok = await cOS.spendPins('code_arena', undefined, 'Code Arena 1v1 Battle');
+                          if (!ok) return;
+                        }
                         setIsQueueing(true);
                         setQueueSeconds(0);
                       }}
@@ -870,7 +878,7 @@ function ArenaContent() {
                         boxShadow: '0 4px 12px rgba(79, 70, 229, 0.35)'
                       }}
                     >
-                      <span>⚡</span> Find 1v1 Opponent
+                      <span>⚔️</span> Find 1v1 Opponent (10 Pins)
                     </button>
                   )}
                 </div>

@@ -180,10 +180,18 @@ export async function POST(req: Request) {
 
     // Determine pins to grant
     let pinsGranted = 0;
-    if (notesPlanId === 'pack_50') pinsGranted = 50;
-    else if (notesPlanId === 'pack_150') pinsGranted = 150;
+    const isSubscriptionPlan = notesPlanId === 'pro' || notesPlanId === 'basic_student' || notesPlanId === 'student_99';
+    if (notesPlanId === 'pack_100') pinsGranted = 100;
+    else if (notesPlanId === 'pack_300') pinsGranted = 300;
     else if (notesPlanId === 'pack_500') pinsGranted = 500;
+    else if (notesPlanId === 'pack_1000') pinsGranted = 1000;
+    else if (notesPlanId === 'pack_50') pinsGranted = 50;
+    else if (notesPlanId === 'pack_150') pinsGranted = 150;
     else if (notesPlanId === 'pack_1200') pinsGranted = 1200;
+    else if (notesPlanId === 'pack_custom') {
+      const customVal = Number(order?.notes?.customPins);
+      pinsGranted = Number.isFinite(customVal) && customVal >= 100 && customVal <= 10000 ? Math.floor(customVal) : 0;
+    }
 
     // 3. Insert into processed_payments (atomic lock against concurrent processing)
     const { error: insertErr } = await admin.from('processed_payments').insert({
@@ -209,10 +217,11 @@ export async function POST(req: Request) {
       );
     }
 
-    // 3. Pro Subscription handling (Jio/Airtel model: 120 daily pins + 500 bonus pins vault)
-    if (notesPlanId === 'pro') {
-      const PRO_PERIOD_DAYS = 30;
+    // 3. Subscription handling (Airtel/Jio daily reset model: 120 daily pins + permanent vault)
+    if (isSubscriptionPlan) {
+      const SUB_PERIOD_DAYS = 30;
       const nowMs = Date.now();
+      const subTier = notesPlanId === 'pro' ? 'pro' : 'basic';
 
       const { data: current } = await admin
         .from('users')
@@ -230,18 +239,18 @@ export async function POST(req: Request) {
           : nowMs;
 
       const expiresAt = new Date(
-        extendFromMs + PRO_PERIOD_DAYS * 24 * 60 * 60 * 1000
+        extendFromMs + SUB_PERIOD_DAYS * 24 * 60 * 60 * 1000
       ).toISOString();
 
       const currentBonus = typeof current?.bonus_pins === 'number' ? current.bonus_pins : 0;
       const currentPins = typeof current?.pins === 'number' ? current.pins : 0;
       const nextDailyPins = Math.max(currentPins, 120);
-      const nextBonusPins = currentBonus + 500;
+      const nextBonusPins = notesPlanId === 'pro' ? currentBonus + 500 : currentBonus;
 
       await admin
         .from('users')
         .update({
-          subscription_tier: 'pro',
+          subscription_tier: subTier,
           subscription_started_at: new Date(nowMs).toISOString(),
           subscription_expires_at: expiresAt,
           subscription_status: 'active',
@@ -253,7 +262,7 @@ export async function POST(req: Request) {
     }
 
     // 4. Pin credit handling via atomic credit_pins RPC
-    if (pinsGranted > 0 && notesPlanId !== 'pro') {
+    if (pinsGranted > 0 && !isSubscriptionPlan) {
       const { error: rpcErr } = await admin.rpc('credit_pins', {
         p_user_id: notesUid,
         p_amount: pinsGranted,

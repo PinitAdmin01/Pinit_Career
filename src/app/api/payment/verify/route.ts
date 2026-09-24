@@ -46,16 +46,20 @@ export async function POST(req: Request) {
         );
       }
 
-      const planId = clientPlanId || 'pack_150';
+      const planId = clientPlanId || 'pack_100';
       let pinsGranted = 0;
-      if (planId === 'pack_50') pinsGranted = 50;
-      else if (planId === 'pack_150') pinsGranted = 150;
+      const isSubscriptionPlan = planId === 'pro' || planId === 'basic_student' || planId === 'student_99';
+      if (planId === 'pack_100') pinsGranted = 100;
+      else if (planId === 'pack_300') pinsGranted = 300;
       else if (planId === 'pack_500') pinsGranted = 500;
+      else if (planId === 'pack_1000') pinsGranted = 1000;
+      else if (planId === 'pack_50') pinsGranted = 50;
+      else if (planId === 'pack_150') pinsGranted = 150;
       else if (planId === 'pack_1200') pinsGranted = 1200;
-      else if (planId === 'pro') pinsGranted = 0; // 500 bonus pins deposited into vault
+      else if (isSubscriptionPlan) pinsGranted = 0; // Subscriptions get daily 120 quota renewal
       else if (planId === 'pack_custom') {
         const customPins = Number(body.customPins);
-        pinsGranted = Number.isFinite(customPins) && customPins >= 100 && customPins <= 5000
+        pinsGranted = Number.isFinite(customPins) && customPins >= 100 && customPins <= 10000
           ? Math.floor(customPins) : 0;
       }
 
@@ -115,9 +119,10 @@ export async function POST(req: Request) {
           );
         }
 
-        if (planId === 'pro') {
+        if (planId === 'pro' || planId === 'basic_student' || planId === 'student_99') {
           const nowMs = Date.now();
           const expiresAt = new Date(nowMs + 30 * 24 * 60 * 60 * 1000).toISOString();
+          const tier = planId === 'pro' ? 'pro' : 'basic';
           const { data: current } = await admin
             .from('users')
             .select('pins, bonus_pins')
@@ -126,17 +131,18 @@ export async function POST(req: Request) {
 
           const currentBonus = typeof current?.bonus_pins === 'number' ? current.bonus_pins : 0;
           const currentPins = typeof current?.pins === 'number' ? current.pins : 0;
+          const bonusToAdd = planId === 'pro' ? 500 : 0;
 
           await admin
             .from('users')
             .update({
-              subscription_tier: 'pro',
+              subscription_tier: tier,
               subscription_started_at: new Date(nowMs).toISOString(),
               subscription_expires_at: expiresAt,
               subscription_status: 'active',
               has_purchased_plan: true,
               pins: Math.max(currentPins, 120),
-              bonus_pins: currentBonus + 500,
+              bonus_pins: currentBonus + bonusToAdd,
             })
             .eq('id', gated.user!.id);
         }
@@ -220,15 +226,19 @@ export async function POST(req: Request) {
     }
 
     let pinsGranted = 0;
-    if (notesPlanId === 'pack_50') pinsGranted = 50;
-    else if (notesPlanId === 'pack_150') pinsGranted = 150;
+    const isSubscriptionPlan = notesPlanId === 'pro' || notesPlanId === 'basic_student' || notesPlanId === 'student_99';
+    if (notesPlanId === 'pack_100') pinsGranted = 100;
+    else if (notesPlanId === 'pack_300') pinsGranted = 300;
     else if (notesPlanId === 'pack_500') pinsGranted = 500;
+    else if (notesPlanId === 'pack_1000') pinsGranted = 1000;
+    else if (notesPlanId === 'pack_50') pinsGranted = 50;
+    else if (notesPlanId === 'pack_150') pinsGranted = 150;
     else if (notesPlanId === 'pack_1200') pinsGranted = 1200;
-    else if (notesPlanId === 'pro') pinsGranted = 0; // 500 bonus pins deposited into vault
+    else if (isSubscriptionPlan) pinsGranted = 0; // Subscriptions get daily 120 quota renewal
     else if (notesPlanId === 'pack_custom') {
       // Re-read from server-side order notes — never from client body
       const notesCustomPins = Number(order?.notes?.customPins);
-      pinsGranted = Number.isFinite(notesCustomPins) && notesCustomPins >= 100 && notesCustomPins <= 5000
+      pinsGranted = Number.isFinite(notesCustomPins) && notesCustomPins >= 100 && notesCustomPins <= 10000
         ? Math.floor(notesCustomPins) : 0;
     }
 
@@ -316,10 +326,12 @@ export async function POST(req: Request) {
     let nextDailyPins = 120;
     let nextBonusPins = 500;
 
-    if (notesPlanId === 'pro') {
+    const isSub = notesPlanId === 'pro' || notesPlanId === 'basic_student' || notesPlanId === 'student_99';
+    if (isSub) {
       // Record a REAL subscription period, not just a tier flag.
-      const PRO_PERIOD_DAYS = 30;
+      const SUB_PERIOD_DAYS = 30;
       const nowMs = Date.now();
+      const subTier = notesPlanId === 'pro' ? 'pro' : 'basic';
 
       const { data: current, error: userFetchErr } = await admin
         .from('users')
@@ -343,19 +355,19 @@ export async function POST(req: Request) {
           : nowMs;
 
       const expiresAt = new Date(
-        extendFromMs + PRO_PERIOD_DAYS * 24 * 60 * 60 * 1000
+        extendFromMs + SUB_PERIOD_DAYS * 24 * 60 * 60 * 1000
       ).toISOString();
 
       const currentBonus = typeof current?.bonus_pins === 'number' ? current.bonus_pins : 0;
       const currentPins = typeof current?.pins === 'number' ? current.pins : 0;
-      // Jio/Airtel model: Activate 120 daily pins if below 120, and deposit 500 into bonus_pins vault!
+      // Airtel/Jio model: Activate 120 daily pins if below 120; deposit 500 into bonus vault for pro
       nextDailyPins = Math.max(currentPins, 120);
-      nextBonusPins = currentBonus + 500;
+      nextBonusPins = notesPlanId === 'pro' ? currentBonus + 500 : currentBonus;
 
       const { error: updateErr } = await admin
         .from('users')
         .update({
-          subscription_tier: 'pro',
+          subscription_tier: subTier,
           subscription_started_at: new Date(nowMs).toISOString(),
           subscription_expires_at: expiresAt,
           subscription_status: 'active',
@@ -366,12 +378,12 @@ export async function POST(req: Request) {
         .eq('id', gated.user!.id);
 
       if (updateErr) {
-        console.error('[Payment] Failed to update user pro status:', updateErr);
+        console.error(`[Payment] Failed to update user ${subTier} status:`, updateErr);
         return NextResponse.json({ ok: false, error: 'SUBSCRIPTION_UPDATE_FAILED' }, { status: 500 });
       }
 
       console.log(
-        `[Payment] Pro period recorded for user ${gated.user!.id} — expires ${expiresAt}` +
+        `[Payment] Subscription (${subTier}) period recorded for user ${gated.user!.id} — expires ${expiresAt}` +
         (existingExpiryMs > nowMs ? ' (extended from existing period)' : ' (new period)')
       );
     }
