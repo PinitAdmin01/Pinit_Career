@@ -52,7 +52,7 @@ function ProjectsPageContent() {
   const studentName = (user && typeof (user as any).name === 'string') ? (user as any).name : 'Current Student';
   const cOS = useCareerOS();
 
-  const { completedQuests, onboardingAnswers, addXp, earnPins, saveCareerProjects } = cOS;
+  const { completedQuests, onboardingAnswers, addXp, earnPins, saveCareerProjects, spendPins, pins } = cOS;
 
   const educationStr = String(user?.education || (onboardingAnswers as any)?.education || 'B.Tech in Computer Science');
   const degree = educationStr.split(' at ')[0] || 'B.Tech';
@@ -111,7 +111,7 @@ function ProjectsPageContent() {
 
   const activeSquad = squads.find(s => s.id === selectedSquadId) || squads[0];
 
-  const handleCreateSquad = (e: React.FormEvent) => {
+  const handleCreateSquad = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newSquadName.trim()) {
       toast.error('Squad Name Required', 'Please enter a name for your hackathon squad.');
@@ -127,6 +127,11 @@ function ProjectsPageContent() {
     if (!check.valid) {
       toast.error('Invalid Repository URL', check.error || 'Please enter a valid GitHub repository URL.');
       return;
+    }
+
+    if (spendPins) {
+      const ok = await spendPins('group_project', undefined, 'Team Project Squad Creation');
+      if (!ok) return;
     }
 
     const created = TeamsApiService.createSquad({
@@ -348,7 +353,14 @@ function ProjectsPageContent() {
     }
   };
 
-  const handleStart = (id: string) => {
+  const handleStart = async (id: string) => {
+    const existing = projects.find(p => p.id === id);
+    const alreadyStarted = existing && (existing.status === 'In Progress' || existing.status === 'Completed');
+
+    if (!alreadyStarted && spendPins) {
+      const ok = await spendPins('project', id, 'Project Workspace Unlock');
+      if (!ok) return;
+    }
     const updated = projects.map(p => {
       if (p.id === id) {
         return { ...p, status: 'In Progress' as const };
@@ -361,7 +373,9 @@ function ProjectsPageContent() {
       setSelectedGuideProject(startProj);
       setActiveWorkspaceTab('overview');
     }
-    toast.success('Project Workspace Unlocked! 🚀', 'Guide Book and Submission portals are now active.');
+    if (!alreadyStarted) {
+      toast.success('Project Workspace Unlocked! 🚀', 'Guide Book and Submission portals are now active (10 Pins spent).');
+    }
   };
 
   const handleVerifyProject = async () => {

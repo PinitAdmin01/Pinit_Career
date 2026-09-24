@@ -71,8 +71,12 @@ export default function PublicPricingPageRevamp() {
       a: 'Yes! The foundational Career OS, all 36 foundation roadmaps, 1,080 handcrafted daily quests, peer Code Wars (async leaderboard), and daily missions are 100% free forever. Students earn Pins through active learning and completing daily challenges without ever having to enter a credit card.'
     },
     {
-      q: 'What are Pins and how do I earn them?',
-      a: 'Pins are the gamified utility currency powering heavy AI speech avatar coaching, deep mock interview grading, and crisis incident rollouts. You earn Pins for free by maintaining daily streaks (+15), passing verified quest exams (+25), completing crisis roleplay missions (+10), and verifying GitHub repository commits (+20).'
+      q: 'What are Pins and how do I earn or buy them?',
+      a: 'Pins are the gamified utility currency powering AI speech avatar coaching, deep mock interview grading, and crisis incident rollouts. Students earn Pins for free by maintaining daily streaks (+15) and passing quest exams (+25). Top-ups are available at ₹1 = 10 Pins, which are stored in your permanent vault and never expire.'
+    },
+    {
+      q: 'How does the ₹99 Basic Student Plan work?',
+      a: 'Like an Airtel daily data recharge, students on the ₹99/month Basic Student Plan receive 120 Pins every single day refreshed at 1:00 AM IST. Quests & Missions cost 20 pins, AI Mock Interviews & GDs cost 35 pins, and Code Arena duels & Project reviews cost 10 pins. Any purchased top-up pins are saved in your permanent vault and never wiped.'
     },
     {
       q: 'How does campus institutional licensing work?',
@@ -83,6 +87,83 @@ export default function PublicPricingPageRevamp() {
       a: 'Yes! Recruiters access pre-assessed talent portfolios verified by automated AST code audits and Elo rating in Code Wars. SHA-256 signed skill credentials and AI match precision metrics are on our Q3 2026 roadmap.'
     }
   ];
+
+  const handleBasicCheckout = async () => {
+    if (!user) {
+      toast.info('Authentication Required', 'Please log in to unlock Basic Student Pass.');
+      router.push('/login?redirect=/pricing');
+      return;
+    }
+
+    setCheckoutLoading(true);
+    try {
+      const orderRes = await api.post<{
+        orderId: string;
+        amount: number;
+        currency: string;
+        keyId: string;
+        isMock?: boolean;
+      }>('/api/payment/create-order', {
+        planId: 'basic_student',
+      });
+
+      if (orderRes.isMock) {
+        toast.info('Sandbox Checkout', 'Simulating developer mode order completion for ₹99...');
+        try {
+          const verifyRes = await api.post<{ ok: boolean; message?: string }>('/api/payment/verify', {
+            razorpay_order_id: orderRes.orderId,
+            razorpay_payment_id: `pay_mock_${Date.now()}`,
+            razorpay_signature: 'sig_mock_dev',
+            planId: 'basic_student',
+          });
+          if (verifyRes.ok) {
+            toast.success('🎉 Student Daily Pass Activated!', verifyRes.message || '120 Daily Pins active!');
+            router.push('/dashboard');
+          }
+        } catch (vErr: any) {
+          toast.error('Simulation Failed', vErr.message || 'Could not verify sandbox order.');
+        }
+        return;
+      }
+
+      await openRazorpayCheckout({
+        key: orderRes.keyId,
+        amount: orderRes.amount || 9900,
+        currency: orderRes.currency || 'INR',
+        name: 'PinIT Career OS',
+        description: 'Basic Student Pass (120 Daily Pins) — ₹99/mo',
+        order_id: orderRes.orderId,
+        prefill: {
+          name: user.displayName || undefined,
+          email: user.email || undefined,
+        },
+        handler: async (response) => {
+          try {
+            const verifyRes = await api.post<{ ok: boolean; message?: string }>('/api/payment/verify', {
+              ...response,
+              planId: 'basic_student',
+            });
+            if (verifyRes.ok) {
+              toast.success('🎉 Student Daily Pass Activated!', '120 Daily Pins active (refreshed daily at 1:00 AM IST).');
+              router.push('/dashboard');
+            } else {
+              toast.error('Verification Pending', 'Payment processed. Finalizing Student Pass activation.');
+            }
+          } catch (err: any) {
+            toast.error('Verification Error', err.message || 'Could not verify transaction with server.');
+          }
+        },
+        theme: {
+          color: '#10b981',
+        },
+      });
+    } catch (err: any) {
+      console.error('Basic checkout error:', err);
+      toast.error('Checkout Failed', err.message || 'Could not initiate ₹99 order. Please try again.');
+    } finally {
+      setCheckoutLoading(false);
+    }
+  };
 
   const handleProCheckout = async () => {
     if (!user) {
@@ -223,7 +304,67 @@ export default function PublicPricingPageRevamp() {
               </Link>
             </div>
 
-            {/* Tier 2: Pro Career Pass */}
+            {/* Tier 2: Basic Student Pass (₹99 / mo) */}
+            <div className="glass-card" style={{ padding: '36px 30px', border: '2px solid #10b981', boxShadow: '0 16px 40px rgba(16,185,129,0.2)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderRadius: 24, position: 'relative' }}>
+              <div style={{ position: 'absolute', top: -14, right: 28, background: '#10b981', color: '#FFFFFF', fontSize: 11, fontWeight: 800, padding: '4px 14px', borderRadius: 999, letterSpacing: '0.05em' }}>
+                BEST VALUE FOR STUDENTS
+              </div>
+
+              <div>
+                <span style={{ fontSize: 12, fontWeight: 800, color: '#10b981', textTransform: 'uppercase' }}>BASIC STUDENT PASS</span>
+                <div style={{ fontSize: 40, fontWeight: 900, color: 'var(--text-primary)', margin: '10px 0 14px' }}>
+                  ₹99 <span style={{ fontSize: 14, color: 'var(--text-secondary)' }}>/ month</span>
+                </div>
+                <p style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 24, lineHeight: 1.6 }}>
+                  Receive <strong>120 Pins every single day</strong> refreshed at 1:00 AM IST (like Airtel daily data). Ideal for active daily study.
+                </p>
+
+                <div style={{ padding: '14px 18px', borderRadius: 14, background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.25)', marginBottom: 24 }}>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: '#10b981', marginBottom: 4 }}>⚡ 120 PINS EVERY SINGLE DAY</div>
+                  <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Refreshes at 1:00 AM IST. Top up extra pins at ₹1 = 10 pins.</div>
+                </div>
+
+                <ul style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 32 }}>
+                  {[
+                    '120 Daily Pins arriving every night at 1:00 AM IST',
+                    'All 36 Career Roadmaps (20 pins / quest)',
+                    'Daily Socratic Crisis Missions (20 pins / mission)',
+                    'AI Avatar Mock Interviews & GDs (35 pins / session)',
+                    'Multiplayer Code Arena Duels (10 pins / duel)',
+                    'Project Milestones & Vault Verification (10 pins)',
+                    'Permanent Vault for Addon Top-Ups (₹1 = 10 pins)'
+                  ].map((feat) => (
+                    <li key={feat} style={{ fontSize: 13.5, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: 10 }}>
+                      <span style={{ color: '#10b981', fontWeight: 800 }}>✓</span>
+                      {feat}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleBasicCheckout}
+                disabled={checkoutLoading}
+                className="pc-btn-primary"
+                style={{
+                  width: '100%',
+                  justifyContent: 'center',
+                  textAlign: 'center',
+                  cursor: checkoutLoading ? 'not-allowed' : 'pointer',
+                  opacity: checkoutLoading ? 0.7 : 1,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                  boxShadow: '0 4px 18px rgba(16,185,129,0.35)',
+                }}
+              >
+                {checkoutLoading ? 'Initiating Checkout...' : 'Unlock Student Pass (₹99) →'}
+              </button>
+            </div>
+
+            {/* Tier 3: Pro Career Pass */}
             <div className="glass-card" style={{ padding: '36px 30px', border: '2px solid var(--accent)', boxShadow: '0 16px 40px var(--accent-glow)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderRadius: 24, position: 'relative' }}>
               <div style={{ position: 'absolute', top: -14, right: 28, background: 'var(--accent)', color: '#FFFFFF', fontSize: 11, fontWeight: 800, padding: '4px 14px', borderRadius: 999, letterSpacing: '0.05em' }}>
                 MOST POPULAR

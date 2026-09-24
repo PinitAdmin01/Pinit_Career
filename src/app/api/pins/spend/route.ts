@@ -4,15 +4,19 @@ import { validateBody } from '@/lib/server/validate';
 import { z } from 'zod';
 import { createClient } from '@supabase/supabase-js';
 
-// Server-authoritative cost table — client cannot override these
+// Server-authoritative cost table — client cannot override these (1 Rs = 10 Pins Economy)
 const SERVER_PIN_COSTS: Record<string, number> = {
   quest:                20,
   mission:              20,
-  group_discussion:     30,
-  gd:                   30,
-  ai:                   40, // unlocks /api/llm and general AI features
-  ai_interview:         40,
-  interview:            40,
+  group_discussion:     35,
+  gd:                   35,
+  ai:                   35, // unlocks /api/llm and general AI features
+  ai_interview:         35,
+  interview:            35,
+  code_arena:           10,
+  arena:                10,
+  project:              10,
+  group_project:        10,
   attention_span_game:   5,
   quest_start:          20,
   resume_enhance:       15,
@@ -23,6 +27,12 @@ const SERVER_PIN_COSTS: Record<string, number> = {
   career_dna_calc:      10,
   jd_match:              5,
   ai_minutes_extend:   100,
+  course_plan_1m:       500,
+  course_plan_3m:      1200,
+  course_plan_6m:      2200,
+  course_plan_9m:      3500,
+  course_plan_12m:     4500,
+  course_plan_24m:     7500,
 };
 
 // Unlock duration in milliseconds
@@ -68,12 +78,16 @@ export async function POST(req: Request) {
     if (itemId) {
       // 1. itemId cannot be another top-level root feature key
       if (SERVER_PIN_COSTS[itemId] !== undefined && itemId !== featureKey) {
-        // Special case: aliased feature families (e.g., gd <-> group_discussion, interview <-> ai_interview)
+        // Special case: aliased feature families (e.g., gd <-> group_discussion, interview <-> ai_interview, arena <-> code_arena, project <-> group_project)
         const isAllowedAlias =
           (featureKey === 'group_discussion' && itemId === 'gd') ||
           (featureKey === 'gd' && itemId === 'group_discussion') ||
           (featureKey === 'interview' && itemId === 'ai_interview') ||
-          (featureKey === 'ai_interview' && itemId === 'interview');
+          (featureKey === 'ai_interview' && itemId === 'interview') ||
+          (featureKey === 'arena' && itemId === 'code_arena') ||
+          (featureKey === 'code_arena' && itemId === 'arena') ||
+          (featureKey === 'project' && itemId === 'group_project') ||
+          (featureKey === 'group_project' && itemId === 'project');
 
         if (!isAllowedAlias) {
           return NextResponse.json(
@@ -130,38 +144,102 @@ export async function POST(req: Request) {
       auth: { persistSession: false, autoRefreshToken: false },
     });
 
-    const { data: spendRes, error: spendErr } = await admin.rpc('spend_pins', {
-      p_user_id: userId,
-      p_amount: spendAmount,
-      p_reason: `Spend on ${featureKey}`,
-    });
+    // 1. Fetch user profile with both daily pins and permanent vault bonus_pins
+    const { data: userProfile, error: profileErr } = await admin
+      .from('users')
+      .select('pins, bonus_pins, pin_history, unlocked_items')
+      .eq('id', userId)
+      .maybeSingle();
 
-    if (spendErr) {
-      console.error('[Pin Spend] RPC Error:', spendErr.message);
+    if (profileErr || !userProfile) {
       return NextResponse.json(
-        { ok: false, error: 'DATABASE_ERROR', message: 'Could not process pin deduction.' },
-        { status: 500 }
+        { ok: false, error: 'USER_NOT_FOUND', message: 'User profile not found.' },
+        { status: 404 }
       );
     }
 
-    if (!spendRes?.ok) {
+    const currentDaily = typeof userProfile.pins === 'number' ? userProfile.pins : 0;
+    const currentBonus = typeof userProfile.bonus_pins === 'number' ? userProfile.bonus_pins : 0;
+    const totalAvailable = currentDaily + currentBonus;
+
+    if (totalAvailable < spendAmount) {
       return NextResponse.json(
-        { ok: false, error: spendRes?.reason || 'INSUFFICIENT_PINS', currentBalance: spendRes?.current_balance ?? 0 },
+        {
+          ok: false,
+          error: 'INSUFFICIENT_PINS',
+          message: `Need ${spendAmount} pins. You have ${totalAvailable} pins (${currentDaily} daily + ${currentBonus} vault).`,
+          currentBalance: totalAvailable,
+        },
         { status: 402 }
       );
     }
 
+    let newDaily = currentDaily;
+    let newBonus = currentBonus;
+
+    if (currentDaily >= spendAmount) {
+      // Case A: 100% covered by daily pins — use atomic spend_pins RPC or direct fallback
+      const { data: spendRes, error: spendErr } = await admin.rpc('spend_pins', {
+        p_user_id: userId,
+        p_amount: spendAmount,
+        p_reason: `Spend on ${featureKey}`,
+      });
+
+      if (spendErr) {
+        console.error('[Pin Spend] RPC Error:', spendErr.message);
+        return NextResponse.json(
+          { ok: false, error: 'DATABASE_ERROR', message: 'Could not process pin deduction.' },
+          { status: 500 }
+        );
+      }
+
+      if (spendRes?.ok) {
+        newDaily = spendRes.new_balance;
+      } else {
+        return NextResponse.json(
+          { ok: false, error: spendRes?.reason || 'INSUFFICIENT_PINS', currentBalance: spendRes?.current_balance ?? currentDaily },
+          { status: 402 }
+        );
+      }
+    } else {
+      // Case B: Daily pins exhausted/insufficient, draw remainder from permanent bonus vault
+      const fromBonus = spendAmount - currentDaily;
+      newDaily = 0;
+      newBonus = currentBonus - fromBonus;
+
+      const txId = 'tx_spend_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8);
+      const newTx = {
+        id: txId,
+        type: 'spend',
+        amount: spendAmount,
+        reason: `Spend on ${featureKey} (${currentDaily} daily + ${fromBonus} vault)`,
+        source: featureKey,
+        timestamp: Date.now(),
+      };
+      const currentHist = Array.isArray(userProfile.pin_history) ? userProfile.pin_history : [];
+      const { error: updatePinErr } = await admin
+        .from('users')
+        .update({
+          pins: 0,
+          bonus_pins: newBonus,
+          pin_history: [newTx, ...currentHist].slice(0, 100),
+        })
+        .eq('id', userId);
+
+      if (updatePinErr) {
+        console.error('[Pin Spend] Dual-wallet deduction failed:', updatePinErr);
+        return NextResponse.json(
+          { ok: false, error: 'DATABASE_ERROR', message: 'Could not process pin deduction.' },
+          { status: 500 }
+        );
+      }
+    }
+
     // Write unlocked_items server-side — the browser is never allowed to write this column
     const expiresAt = Date.now() + UNLOCK_DURATION_MS;
-    const { data: profileData } = await admin
-      .from('users')
-      .select('unlocked_items')
-      .eq('id', userId)
-      .maybeSingle();
-
     const current: Record<string, number> =
-      profileData?.unlocked_items && typeof profileData.unlocked_items === 'object'
-        ? (profileData.unlocked_items as Record<string, number>)
+      userProfile?.unlocked_items && typeof userProfile.unlocked_items === 'object'
+        ? (userProfile.unlocked_items as Record<string, number>)
         : {};
 
     const { error: updateErr } = await admin
@@ -170,14 +248,12 @@ export async function POST(req: Request) {
       .eq('id', userId);
 
     if (updateErr) {
-      // Pins were deducted; refund them so the student isn't charged for nothing.
+      // Best-effort refund to restore balance
       try {
-        await admin.rpc('credit_pins', {
-          p_user_id: userId,
-          p_amount: spendAmount,
-          p_reason: `Refund: unlock write failed for ${featureKey}`,
-          p_source: 'admin_grant',
-        });
+        await admin
+          .from('users')
+          .update({ pins: currentDaily, bonus_pins: currentBonus })
+          .eq('id', userId);
       } catch { /* best-effort refund */ }
       console.error('[Pin Spend] Unlock write failed:', updateErr.message);
       return NextResponse.json(
@@ -189,7 +265,9 @@ export async function POST(req: Request) {
     return NextResponse.json({
       ok: true,
       spent: spendAmount,
-      newBalance: spendRes.new_balance,
+      newBalance: newDaily,
+      newBonusBalance: newBonus,
+      totalBalance: newDaily + newBonus,
       featureKey,
       unlockKey,
       expiresAt,

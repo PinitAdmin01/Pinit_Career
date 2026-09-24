@@ -40,14 +40,18 @@ export type PinSource =
   | 'admin_grant'
   | 'course_enrollment';
 
-// Pin costs per feature — single source of truth
+// Pin costs per feature — single source of truth (1 Rs = 10 Pins Economy)
 export const PIN_COSTS: Record<string, { cost: number; label: string; icon: string }> = {
   quest:                 { cost: 20, label: 'Quest (30 Min Access)',        icon: '🗺' },
   mission:               { cost: 20, label: 'Mission (30 Min Access)',      icon: '⚡' },
-  group_discussion:      { cost: 30, label: 'GD Practice (30 Min Access)',  icon: '💬' },
-  gd:                    { cost: 30, label: 'GD Practice (30 Min Access)',  icon: '💬' },
-  ai_interview:          { cost: 40, label: 'AI Interview (30 Min Access)', icon: '🎙' },
-  interview:             { cost: 40, label: 'AI Interview (30 Min Access)', icon: '🎙' },
+  group_discussion:      { cost: 35, label: 'GD Practice (30 Min Access)',  icon: '💬' },
+  gd:                    { cost: 35, label: 'GD Practice (30 Min Access)',  icon: '💬' },
+  ai_interview:          { cost: 35, label: 'AI Interview (30 Min Access)', icon: '🎙' },
+  interview:             { cost: 35, label: 'AI Interview (30 Min Access)', icon: '🎙' },
+  code_arena:            { cost: 10, label: 'Code Arena 1v1 Battle',        icon: '⚔️' },
+  arena:                 { cost: 10, label: 'Code Arena 1v1 Battle',        icon: '⚔️' },
+  project:               { cost: 10, label: 'Project Verification & Review',icon: '📁' },
+  group_project:         { cost: 10, label: 'Group Project Collaboration',  icon: '👥' },
   attention_span_game:   { cost: 5,  label: 'Attention Span Game Play',     icon: '🧠' },
   // Legacy aliases
   quest_start:           { cost: 20, label: 'Quest (30 Min Access)',        icon: '🗺' },
@@ -61,8 +65,10 @@ export const PIN_COSTS: Record<string, { cost: number; label: string; icon: stri
   ai_minutes_extend:     { cost: 100, label: '30 Min AI Token Extension',    icon: '⏰' },
   course_plan_1m:        { cost: 500, label: '1-Month Fast-Track Sprint',      icon: '🎓' },
   course_plan_3m:        { cost: 1200, label: '3-Month Career Accelerator',    icon: '🎓' },
-  course_plan_6m:        { cost: 2000, label: '6-Month Professional Program',  icon: '🎓' },
-  course_plan_9m:        { cost: 3000, label: '9-Month Master Program',        icon: '🎓' },
+  course_plan_6m:        { cost: 2200, label: '6-Month Professional Program',  icon: '🎓' },
+  course_plan_9m:        { cost: 3500, label: '9-Month Master Program',        icon: '🎓' },
+  course_plan_12m:       { cost: 4500, label: '12-Month Advanced Industry Fellowship', icon: '🚀' },
+  course_plan_24m:       { cost: 7500, label: '24-Month Master Engineering & Degree Track', icon: '👑' },
 };
 
 export const PIN_EARN: Record<PinSource, number> = {
@@ -286,14 +292,15 @@ export function usePinBalance(options: UsePinBalanceOptions = {}) {
 
   const canAfford = useCallback((featureKey: string): boolean => {
     const cost = PIN_COSTS[featureKey]?.cost ?? 0;
-    return pins >= cost;
-  }, [pins]);
+    return (pins + bonusPins) >= cost;
+  }, [pins, bonusPins]);
 
   const spendPins = useCallback(async (featureKey: string, itemId?: string, customReason?: string): Promise<boolean> => {
     const meta = PIN_COSTS[featureKey];
     if (!meta) return true;
-    if (pins < meta.cost) {
-      toast.error(`Insufficient Pins 📌`, `Need ${meta.cost} pins for ${meta.label}. Pins reset to 50 daily at 1:00 AM or must be purchased.`);
+    const totalAvailable = pins + bonusPins;
+    if (totalAvailable < meta.cost) {
+      toast.error(`Insufficient Pins 📌`, `Need ${meta.cost} pins for ${meta.label}. Basic plan students receive 120 pins daily at 1:00 AM IST, or top up at ₹1 = 10 pins.`);
       return false;
     }
 
@@ -310,12 +317,22 @@ export function usePinBalance(options: UsePinBalanceOptions = {}) {
             localStorage.setItem(CACHE_KEY, JSON.stringify({ value: result.newBalance, ts: Date.now() }));
           } catch {}
         }
+        if (typeof result.newBonusBalance === 'number') {
+          setBonusPinsState(result.newBonusBalance);
+        }
       } catch {
         toast.error(`Pins Spend Error ⚠️`, 'Network error verifying pin deduction.');
         return false;
       }
     } else {
-      setPinsState(prev => Math.max(0, prev - meta.cost));
+      if (pins >= meta.cost) {
+        setPinsState(prev => Math.max(0, prev - meta.cost));
+      } else {
+        const fromDaily = pins;
+        const fromBonus = meta.cost - fromDaily;
+        setPinsState(0);
+        setBonusPinsState(prev => Math.max(0, prev - fromBonus));
+      }
     }
 
     const tx: PinTransaction = {
@@ -328,7 +345,7 @@ export function usePinBalance(options: UsePinBalanceOptions = {}) {
     };
     setPinHistoryState(prev => [tx, ...prev].slice(0, 100));
     return true;
-  }, [pins, effectiveUserId]);
+  }, [pins, bonusPins, effectiveUserId]);
 
   const claimBonusPins = useCallback(async (amount?: number): Promise<boolean> => {
     try {

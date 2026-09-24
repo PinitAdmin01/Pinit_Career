@@ -349,7 +349,7 @@ export async function spendPinsDB(
   uid: string,
   featureKey: string,
   itemId?: string
-): Promise<{ ok: boolean; newBalance?: number; expiresAt?: number; reason?: string }> {
+): Promise<{ ok: boolean; newBalance?: number; newBonusBalance?: number; expiresAt?: number; reason?: string }> {
   try {
     if (!IS_VALID_UUID(uid)) {
       // Guest/non-uuid path: optimistic local-only response (no server charge)
@@ -364,7 +364,7 @@ export async function spendPinsDB(
 
     const data = await res.json().catch(() => ({}));
     if (res.ok && data.ok) {
-      return { ok: true, newBalance: data.newBalance, expiresAt: data.expiresAt };
+      return { ok: true, newBalance: data.newBalance, newBonusBalance: data.newBonusBalance, expiresAt: data.expiresAt };
     }
 
     return { ok: false, reason: data.error || data.message || 'SPEND_FAILED' };

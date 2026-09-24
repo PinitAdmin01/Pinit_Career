@@ -115,21 +115,74 @@ export default function CapstoneInternshipPortal({
   const [activeSprint, setActiveSprint] = useState(1);
   const [certificateTab, setCertificateTab] = useState<'project' | 'internship'>('project');
   const [showCertificate, setShowCertificate] = useState(false);
+  const [urlError, setUrlError] = useState<string | null>(null);
+
+  // Load persistent submission
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem(`pinit_capstone_${planId}`);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (parsed.s3RepoUrl) setS3RepoUrl(parsed.s3RepoUrl);
+          if (parsed.s3LiveUrl) setS3LiveUrl(parsed.s3LiveUrl);
+          if (parsed.s3Submitted !== undefined) setS3Submitted(parsed.s3Submitted);
+          if (parsed.milestones && Array.isArray(parsed.milestones)) setMilestones(parsed.milestones);
+        }
+      } catch (err) {
+        console.error('Failed to load capstone submission', err);
+      }
+    }
+  }, [planId]);
 
   const certificateHash = useMemo(() => generateHash(), []);
 
   const updateMilestoneStatus = (id: string, newStatus: Milestone['status']) => {
-    setMilestones(prev => prev.map(m => m.id === id ? { ...m, status: newStatus } : m));
+    setMilestones(prev => {
+      const updated = prev.map(m => m.id === id ? { ...m, status: newStatus } : m);
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.setItem(`pinit_capstone_${planId}`, JSON.stringify({
+            s3RepoUrl,
+            s3LiveUrl,
+            s3Submitted,
+            milestones: updated
+          }));
+        } catch {}
+      }
+      return updated;
+    });
   };
 
   const handleSubmitS3 = async () => {
-    if (!s3RepoUrl.trim() || !s3LiveUrl.trim()) return;
+    setUrlError(null);
+    if (!s3RepoUrl.trim() || !s3LiveUrl.trim()) {
+      setUrlError('Both GitHub Repository URL and Live Deployed URL are required.');
+      return;
+    }
+    if (!s3RepoUrl.toLowerCase().includes('github.com/')) {
+      setUrlError('Please enter a valid GitHub repository URL (e.g. https://github.com/username/project).');
+      return;
+    }
     setS3Submitting(true);
-    // Simulate async submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise(resolve => setTimeout(resolve, 800));
     setS3Submitting(false);
     setS3Submitted(true);
-    updateMilestoneStatus('s3', 'complete');
+    
+    setMilestones(prev => {
+      const updated = prev.map(m => m.id === 's3' ? { ...m, status: 'complete' as const } : m);
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.setItem(`pinit_capstone_${planId}`, JSON.stringify({
+            s3RepoUrl,
+            s3LiveUrl,
+            s3Submitted: true,
+            milestones: updated
+          }));
+        } catch {}
+      }
+      return updated;
+    });
   };
 
   const milestonesCompleted = milestones.filter(m => m.status === 'approved' || m.status === 'complete').length;
@@ -250,6 +303,14 @@ export default function CapstoneInternshipPortal({
                           }}
                           aria-label="Live URL"
                         />
+                        {urlError && (
+                          <div style={{
+                            padding: '8px 12px', borderRadius: 8, background: 'rgba(239, 68, 68, 0.15)',
+                            border: '1px solid rgba(239, 68, 68, 0.3)', color: '#f87171', fontSize: 11.5, fontWeight: 700
+                          }}>
+                            ⚠️ {urlError}
+                          </div>
+                        )}
                         <button
                           onClick={handleSubmitS3} disabled={!s3RepoUrl.trim() || !s3LiveUrl.trim() || s3Submitting}
                           style={{

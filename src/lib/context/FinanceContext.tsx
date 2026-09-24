@@ -35,7 +35,7 @@ export interface FinanceContextType {
   isItemUnlocked: (itemKey: string) => boolean;
   getItemRemainingSeconds: (itemKey: string) => number;
   extendItemGrace?: (itemKey: string, minutes?: number) => Promise<{ success: boolean; newRemainingSec: number; message: string }> | { success: boolean; newRemainingSec: number; message: string };
-  unlockItem: (itemKey: string, category: 'quest' | 'mission' | 'interview' | 'ai_interview' | 'gd' | 'group_discussion' | 'attention_span_game', customReason?: string) => Promise<boolean>;
+  unlockItem: (itemKey: string, category: 'quest' | 'mission' | 'interview' | 'ai_interview' | 'gd' | 'group_discussion' | 'attention_span_game' | 'code_arena' | 'arena' | 'project' | 'group_project', customReason?: string) => Promise<boolean>;
   rewardActivity: (type: 'quest' | 'mission' | 'interview' | 'gd' | 'attention_game' | 'project', title?: string) => void;
   aiUseTokens: number;
   setAiUseTokens: (val: number) => void;

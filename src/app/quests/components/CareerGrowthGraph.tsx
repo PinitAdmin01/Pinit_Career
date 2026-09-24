@@ -172,11 +172,17 @@ export default function CareerGrowthGraph({
           ))}
 
           {/* X-axis labels */}
-          {Array.from({ length: monthsCount }, (_, i) => (
-            <text key={i} x={getX(i, monthsCount)} y={height - 10} textAnchor="middle" fill="var(--t3)" fontSize="11" fontFamily="var(--font-display)">
-              M{i + 1}
-            </text>
-          ))}
+          {Array.from({ length: monthsCount }, (_, i) => {
+            // For longer durations (12m/24m), skip odd intermediary labels to avoid overlap
+            if (monthsCount > 12 && i !== 0 && (i + 1) % 2 !== 0 && i !== monthsCount - 1) {
+              return null;
+            }
+            return (
+              <text key={i} x={getX(i, monthsCount)} y={height - 10} textAnchor="middle" fill="var(--t3)" fontSize="10.5" fontFamily="var(--font-display)">
+                M{i + 1}
+              </text>
+            );
+          })}
 
           {/* Target area (filled) */}
           {targetPoints.length > 1 && (

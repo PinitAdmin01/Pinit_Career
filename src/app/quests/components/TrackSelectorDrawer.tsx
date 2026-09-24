@@ -6,14 +6,16 @@ import type { Course } from '@/lib/data/coursesData';
 import { EnglishDashboard } from '@/components/language/EnglishDashboard';
 import { CrashCoursePlanCards } from './CrashCoursePlanCards';
 import { InternshipTimelineTracker } from './InternshipTimelineTracker';
+import { VerticalCheckpointStepper } from './VerticalCheckpointStepper';
 import { PracticeTestReportModal } from './PracticeTestReportModal';
 import PracticeTestQuizRunner from './PracticeTestQuizRunner';
 import CapstoneInternshipPortal from './CapstoneInternshipPortal';
 import CareerGrowthGraph from './CareerGrowthGraph';
 import CrashCourseCheckoutModal from './CrashCourseCheckoutModal';
+import CredentialPreviewModal from './CredentialPreviewModal';
 import { ActiveEnrollmentBanner } from './ActiveEnrollmentBanner';
 import { crashCourseEnrollmentService, CrashCourseEnrollment } from '@/lib/services/crashCourseEnrollmentService';
-import { CRASH_COURSE_PLANS, CrashPlan } from '@/lib/data/crashPlansData';
+import { CRASH_COURSE_PLANS, CrashPlan, getCrashPlanById } from '@/lib/data/crashPlansData';
 import { usePins } from '@/hooks/usePins';
 import CareerPathwayTimeline from '@/components/pathway/CareerPathwayTimeline';
 import CompetencyRadarView from '@/components/pathway/CompetencyRadarView';
@@ -103,10 +105,13 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
   const [showPracticeQuiz, setShowPracticeQuiz] = React.useState<boolean>(false);
   const [showPracticeTestModal, setShowPracticeTestModal] = React.useState<boolean>(false);
   const [practiceTestTitle, setPracticeTestTitle] = React.useState<string>('Full-Stack Architecture & API Practice Test');
+  const [practiceTestResult, setPracticeTestResult] = React.useState<any>(null);
   const [showCapstonePortal, setShowCapstonePortal] = React.useState<boolean>(false);
   const [activeEnrollment, setActiveEnrollment] = React.useState<CrashCourseEnrollment | null>(null);
   const [checkoutModalOpen, setCheckoutModalOpen] = React.useState<boolean>(false);
   const [checkoutPlan, setCheckoutPlan] = React.useState<CrashPlan | null>(null);
+  const [previewModalOpen, setPreviewModalOpen] = React.useState<boolean>(false);
+  const [previewPlan, setPreviewPlan] = React.useState<CrashPlan | null>(null);
 
   React.useEffect(() => {
     crashCourseEnrollmentService.getActiveEnrollment().then((enr) => {
@@ -130,7 +135,14 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
     setActiveTrack(enrollment.track);
     await crashCourseEnrollmentService.saveEnrollment(enrollment);
     if (enrollment.paymentMethod === 'pins' && enrollment.pinsDeducted) {
-      spendPins('course_plan_' + (enrollment.planId === 'plan-1m-sprint' ? '1m' : enrollment.planId === 'plan-3m-accelerator' ? '3m' : enrollment.planId === 'plan-6m-pro' ? '6m' : '9m'), undefined, `Course Purchase: ${enrollment.planId}`);
+      const planTier =
+        enrollment.planId === 'plan-1m-sprint' ? '1m'
+        : enrollment.planId === 'plan-3m-accelerator' ? '3m'
+        : enrollment.planId === 'plan-6m-pro' ? '6m'
+        : enrollment.planId === 'plan-9m-master' ? '9m'
+        : enrollment.planId === 'plan-12m-fellow' ? '12m'
+        : '24m';
+      spendPins('course_plan_' + planTier, undefined, `Course Purchase: ${enrollment.planId}`);
     } else if (enrollment.rewardPinsCredited) {
       earnPins('purchase', enrollment.rewardPinsCredited, `Scholar Reward Pins: ${enrollment.planId}`);
     }
@@ -149,7 +161,8 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
   };
 
   const handleCompletePracticeQuiz = (result: any) => {
-    setShowPracticeQuiz(false)
+    setPracticeTestResult(result);
+    setShowPracticeQuiz(false);
     setShowPracticeTestModal(true);
   };
 
@@ -322,115 +335,375 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-              <button
-                onClick={() => setShowCapstonePortal(true)}
-                style={{
-                  fontSize: 12,
-                  fontWeight: 800,
-                  padding: '8px 16px',
-                  borderRadius: 10,
-                  background: 'rgba(99, 102, 241, 0.15)',
-                  border: '1.5px solid #6366f1',
-                  color: '#ffffff',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 6,
-                  boxShadow: '0 4px 14px rgba(99, 102, 241, 0.25)'
-                }}
-              >
-                <span>🏢</span> Internship Portal
-              </button>
+              {activeEnrollment ? (
+                <>
+                  <button
+                    onClick={() => setShowCapstonePortal(true)}
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 800,
+                      padding: '8px 16px',
+                      borderRadius: 10,
+                      background: 'rgba(99, 102, 241, 0.15)',
+                      border: '1.5px solid #6366f1',
+                      color: '#ffffff',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 6,
+                      boxShadow: '0 4px 14px rgba(99, 102, 241, 0.25)'
+                    }}
+                  >
+                    <span>🏢</span> Internship Portal
+                  </button>
 
-              <button
-                onClick={() => setShowQrModal(true)}
-                style={{
-                  fontSize: 12,
-                  color: 'var(--text)',
-                  fontWeight: 800,
-                  padding: '8px 16px',
-                  borderRadius: 10,
-                  background: 'linear-gradient(135deg, var(--success), var(--success-deep))',
-                  border: 'none',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 6,
-                  boxShadow: '0 4px 14px rgba(var(--success-rgb),0.3)'
-                }}
-              >
-                <span>📲</span> Share & Verify (QR)
-              </button>
+                  <button
+                    onClick={() => setShowQrModal(true)}
+                    style={{
+                      fontSize: 12,
+                      color: 'var(--text)',
+                      fontWeight: 800,
+                      padding: '8px 16px',
+                      borderRadius: 10,
+                      background: 'linear-gradient(135deg, var(--success), var(--success-deep))',
+                      border: 'none',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 6,
+                      boxShadow: '0 4px 14px rgba(var(--success-rgb),0.3)'
+                    }}
+                  >
+                    <span>📲</span> Share & Verify (QR)
+                  </button>
+                </>
+              ) : (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+                  <span style={{
+                    fontSize: 11,
+                    fontWeight: 800,
+                    padding: '4px 10px',
+                    borderRadius: 20,
+                    background: 'rgba(99, 102, 241, 0.12)',
+                    border: '1px solid rgba(99, 102, 241, 0.25)',
+                    color: '#818cf8'
+                  }}>
+                    🛡️ NASSCOM Aligned
+                  </span>
+                  <span style={{
+                    fontSize: 11,
+                    fontWeight: 800,
+                    padding: '4px 10px',
+                    borderRadius: 20,
+                    background: 'rgba(16, 185, 129, 0.12)',
+                    border: '1px solid rgba(16, 185, 129, 0.25)',
+                    color: '#10b981'
+                  }}>
+                    📜 Dual Verifiable Credentials
+                  </span>
+                </div>
+              )}
             </div>
           </div>
 
-          {/* ── 0. ACTIVE ENROLLMENT HUD (If enrolled) ── */}
-          {activeEnrollment && (
-            <ActiveEnrollmentBanner
-              enrollment={activeEnrollment}
-              onOpenTimeline={() => {
-                const el = document.getElementById('internship-timeline-section');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              }}
-              onOpenCapstonePortal={() => setShowCapstonePortal(true)}
-              onChangePlan={() => setActiveEnrollment(null)}
-            />
+          {/* ══════════════════════════════════════════════════════════════
+              BRANCH 1: ACTIVE STUDENT MODE (Post-Purchase Workspace)
+             ══════════════════════════════════════════════════════════════ */}
+          {activeEnrollment ? (
+            <>
+              {/* Active Program Locked Banner & Details */}
+              <ActiveEnrollmentBanner
+                enrollment={activeEnrollment}
+                onOpenTimeline={() => {
+                  const el = document.getElementById('vertical-stepper-section');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+                onOpenCapstonePortal={() => setShowCapstonePortal(true)}
+                onChangePlan={() => {
+                  if (typeof window !== 'undefined' && window.confirm('Are you sure you want to view the course catalog and switch programs?')) {
+                    crashCourseEnrollmentService.clearEnrollment();
+                    setActiveEnrollment(null);
+                  }
+                }}
+              />
+
+              {/* Vertical Checkpoint Stepper (Replacing clumsy horizontal cards & S-curve) */}
+              <div id="vertical-stepper-section">
+                <VerticalCheckpointStepper
+                  planId={activeCrashPlanId}
+                  activeTrack={activeTrack}
+                  completedQuestsCount={completedQuests.length}
+                  onOpenPracticeTest={handleOpenPracticeQuiz}
+                  onOpenCapstoneDesk={() => setShowCapstonePortal(true)}
+                  onOpenQrModal={() => setShowQrModal(true)}
+                  onOpenPreviewCredentials={() => {
+                    const p = getCrashPlanById(activeCrashPlanId) || CRASH_COURSE_PLANS[1];
+                    setPreviewPlan(p);
+                    setPreviewModalOpen(true);
+                  }}
+                  onContinueTodayQuest={() => {
+                    handleSubTabChange('custom_roadmap');
+                  }}
+                />
+              </div>
+
+              {/* Live Passport HUD & Expand/Collapse Toggle */}
+              {roleReadiness && (
+                <div style={{
+                  background: 'var(--bg2)',
+                  border: '1px solid var(--border)',
+                  borderRadius: 'var(--radius-lg)',
+                  padding: '16px 20px',
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                  gap: 14,
+                }}>
+                  {/* Target Role & Readiness */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                    <span style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>
+                      Target Role & Readiness
+                    </span>
+                    <div style={{ fontSize: 14.5, fontWeight: 900, color: 'var(--t1)' }}>
+                      {roleReadiness.targetRole}
+                    </div>
+                    {(() => {
+                      const badge = getPassportStatusBadge(roleReadiness.status);
+                      return (
+                        <div style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          width: 'fit-content',
+                          padding: '3px 8px',
+                          borderRadius: 6,
+                          fontSize: 10.5,
+                          fontWeight: 800,
+                          background: badge.bg,
+                          border: `1px solid ${badge.border}`,
+                          color: badge.color,
+                        }}>
+                          {badge.text}
+                        </div>
+                      );
+                    })()}
+                  </div>
+
+                  {/* Verified Gates & Freshness */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                    <span style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>
+                      Verified Gates & Freshness
+                    </span>
+                    <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)' }}>
+                      {roleReadiness.verifiedCompetenciesCount} / {roleReadiness.totalRequiredCompetenciesCount} Verified
+                    </div>
+                    <span style={{ fontSize: 11.5, color: 'var(--t3)' }}>
+                      Freshness: <strong>{roleReadiness.assessmentFreshnessDays === 0 ? 'Active (Today)' : `${roleReadiness.assessmentFreshnessDays}d ago`}</strong>
+                    </span>
+                  </div>
+
+                  {/* Demonstrated Learning Gain */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                    <span style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>
+                      Learning Gain
+                    </span>
+                    <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)' }}>
+                      {roleReadiness.learningGain.currentCompositeScore}/100 Composite
+                    </div>
+                    <span style={{ fontSize: 11.5, color: 'var(--success)' }}>
+                      {roleReadiness.learningGain.pointsGained !== undefined && roleReadiness.learningGain.pointsGained > 0
+                        ? `Gain: +${roleReadiness.learningGain.pointsGained} Points`
+                        : 'Diagnostic Baseline: Ready'}
+                    </span>
+                  </div>
+
+                  {/* Capstone Oral Defense Review */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                    <span style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>
+                      Oral Capstone Defense
+                    </span>
+                    <div style={{ fontSize: 14.5, fontWeight: 800, color: roleReadiness.capstoneDefenseScore ? 'var(--success)' : 'var(--t3)' }}>
+                      {roleReadiness.capstoneDefenseScore !== undefined
+                        ? `Passed (${roleReadiness.capstoneDefenseScore}/100)`
+                        : 'Pending Oral Defense'}
+                    </div>
+                    <span style={{ fontSize: 11.5, color: 'var(--t3)' }}>
+                      Evaluator: {roleReadiness.capstoneDefenseEvaluator || 'Senior Engineer Board'}
+                    </span>
+                  </div>
+                </div>
+              )}
+
+              {/* Expandable Full Evidence Transcript Toggle */}
+              <div style={{
+                padding: '10px 14px',
+                borderRadius: 12,
+                background: 'rgba(var(--success-rgb), 0.06)',
+                border: '1px solid rgba(var(--success-rgb), 0.2)',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                gap: 10
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <span style={{ fontSize: 18 }}>🎓</span>
+                  <div>
+                    <span style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--success)' }}>
+                      {showPassportDetails ? 'Hide Competency Evidence Matrix' : 'Full Multi-Semester Competency Matrix & Evidence Transcript'}
+                    </span>
+                    <span style={{ fontSize: 11, color: 'var(--t3)', marginLeft: 8 }}>
+                      (SHA-256 Verified Ledger)
+                    </span>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setShowPassportDetails(prev => !prev)}
+                  style={{
+                    padding: '6px 14px',
+                    borderRadius: 8,
+                    background: showPassportDetails ? 'var(--bg3)' : 'linear-gradient(135deg, var(--success), var(--success-deep))',
+                    color: 'var(--text)',
+                    fontSize: 11.5,
+                    fontWeight: 800,
+                    border: 'none',
+                    cursor: 'pointer',
+                    boxShadow: showPassportDetails ? 'none' : '0 2px 8px rgba(var(--success-rgb),0.3)'
+                  }}
+                >
+                  {showPassportDetails ? '▲ Collapse Matrix' : '▼ Expand Full Matrix & Radar'}
+                </button>
+              </div>
+
+              {/* Expanded Passport Details (Timeline vs Matrix) */}
+              {showPassportDetails && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 18, marginTop: 6 }} className="fade-in">
+                  <div style={{ display: 'flex', gap: 10, borderBottom: '1px solid var(--border)', paddingBottom: 10 }}>
+                    <button
+                      onClick={() => setPassportView('timeline')}
+                      style={{
+                        padding: '6px 14px',
+                        borderRadius: 8,
+                        border: 'none',
+                        background: passportView === 'timeline' ? 'var(--accent)' : 'transparent',
+                        color: passportView === 'timeline' ? '#fff' : 'var(--t3)',
+                        fontSize: 12,
+                        fontWeight: 800,
+                        cursor: 'pointer',
+                        transition: 'all 0.15s ease',
+                      }}
+                    >
+                      📅 Multi-Semester Timeline
+                    </button>
+                    <button
+                      onClick={() => setPassportView('matrix')}
+                      style={{
+                        padding: '6px 14px',
+                        borderRadius: 8,
+                        border: 'none',
+                        background: passportView === 'matrix' ? 'var(--accent)' : 'transparent',
+                        color: passportView === 'matrix' ? '#fff' : 'var(--t3)',
+                        fontSize: 12,
+                        fontWeight: 800,
+                        cursor: 'pointer',
+                        transition: 'all 0.15s ease',
+                      }}
+                    >
+                      📊 Full Competency Evidence Matrix
+                    </button>
+                  </div>
+
+                  {passportView === 'timeline' ? (
+                    <CareerPathwayTimeline
+                      activeProgramId={passportSelectedProgramId}
+                      masteryMap={masteryMap}
+                      onSelectCompetency={id => {
+                        setPassportSelectedCompId(id);
+                        setPassportView('matrix');
+                      }}
+                    />
+                  ) : (
+                    <CompetencyRadarView
+                      masteryMap={masteryMap}
+                      selectedCompetencyId={passportSelectedCompId}
+                      onSelectCompetency={setPassportSelectedCompId}
+                    />
+                  )}
+                </div>
+              )}
+            </>
+          ) : (
+            /* ══════════════════════════════════════════════════════════════
+                BRANCH 2: DISCOVERY MODE (Pre-Purchase Clean Catalog)
+               ══════════════════════════════════════════════════════════════ */
+            <>
+              {/* 6 Crash Course Plan Cards (1M, 3M, 6M, 9M, 12M, 24M) with Domain Switcher */}
+              <CrashCoursePlanCards
+                currentPlanId={activeCrashPlanId}
+                onSelectPlan={handleSelectCrashPlan}
+                onOpenStandaloneCatalog={() => handleSubTabChange('standalone')}
+                onOpenPracticeReport={handleOpenPracticeQuiz}
+                onOpenCheckout={handleOpenCheckout}
+                userPins={pins}
+              />
+            </>
           )}
 
-          {/* ── 1. CRASH COURSE PLAN CARDS (1M, 3M, 6M, 9M) ── */}
-          <CrashCoursePlanCards
-            currentPlanId={activeCrashPlanId}
-            onSelectPlan={handleSelectCrashPlan}
-            onOpenStandaloneCatalog={() => handleSubTabChange('standalone')}
-            onOpenPracticeReport={handleOpenPracticeQuiz}
-            onOpenCheckout={handleOpenCheckout}
-            userPins={pins}
-          />
-
-          {/* ── 2. ACTIVE INTERNSHIP & PROGRAM TIMELINE TRACKER ── */}
-          <InternshipTimelineTracker
-            planId={activeCrashPlanId}
-            completedQuestsCount={completedQuests.length}
-            onOpenPracticeTest={() => handleOpenPracticeQuiz('Weekly Milestone Diagnostic Assessment')}
-            onOpenProjectWorkspace={() => setShowCapstonePortal(true)}
-          />
-
-          {/* ── 3. CAREER GROWTH GRAPH ── */}
-          <div style={{ marginTop: 6 }}>
+          {/* ══════════════════════════════════════════════════════════════
+              CAREER GROWTH & SALARY TRAJECTORY GRAPH (SHIFTED TO VERY LAST)
+             ══════════════════════════════════════════════════════════════ */}
+          <div style={{ marginTop: 8 }}>
             <CareerGrowthGraph
-              monthsCount={activeCrashPlanId === 'plan-1m-sprint' ? 1 : activeCrashPlanId === 'plan-3m-accelerator' ? 3 : activeCrashPlanId === 'plan-6m-pro' ? 6 : 9}
+              monthsCount={
+                activeCrashPlanId === 'plan-1m-sprint' ? 1
+                : activeCrashPlanId === 'plan-3m-accelerator' ? 3
+                : activeCrashPlanId === 'plan-6m-pro' ? 6
+                : activeCrashPlanId === 'plan-9m-master' ? 9
+                : activeCrashPlanId === 'plan-12m-fellow' ? 12
+                : 24
+              }
             />
           </div>
 
-          {/* ── 4. PRACTICE TEST QUIZ RUNNER MODAL ── */}
+          {/* Modals & Overlays */}
           {showPracticeQuiz && (
             <PracticeTestQuizRunner
               testTitle={practiceTestTitle}
               track={activeTrack}
-              planTier={activeCrashPlanId === 'plan-1m-sprint' ? '1m' : activeCrashPlanId === 'plan-3m-accelerator' ? '3m' : activeCrashPlanId === 'plan-6m-pro' ? '6m' : '9m'}
+              planTier={
+                activeCrashPlanId === 'plan-1m-sprint' ? '1m'
+                : activeCrashPlanId === 'plan-3m-accelerator' ? '3m'
+                : activeCrashPlanId === 'plan-6m-pro' ? '6m'
+                : activeCrashPlanId === 'plan-9m-master' ? '9m'
+                : activeCrashPlanId === 'plan-12m-fellow' ? '12m'
+                : '24m'
+              }
               onClose={() => setShowPracticeQuiz(false)}
               onCompleteTest={handleCompletePracticeQuiz}
             />
           )}
 
-          {/* ── 5. PRACTICE TEST DIAGNOSTIC REPORT MODAL ── */}
           <PracticeTestReportModal
             isOpen={showPracticeTestModal}
             onClose={() => setShowPracticeTestModal(false)}
             testTitle={practiceTestTitle}
+            result={practiceTestResult}
           />
 
-          {/* ── 6. CAPSTONE INTERNSHIP PORTAL MODAL ── */}
           {showCapstonePortal && (
             <CapstoneInternshipPortal
               planId={activeCrashPlanId}
-              planTitle={activeCrashPlanId === 'plan-1m-sprint' ? '1-Month Sprint' : activeCrashPlanId === 'plan-3m-accelerator' ? '3-Month Accelerator' : activeCrashPlanId === 'plan-6m-pro' ? '6-Month Professional' : '9-Month Master'}
+              planTitle={
+                activeCrashPlanId === 'plan-1m-sprint' ? '1-Month Sprint'
+                : activeCrashPlanId === 'plan-3m-accelerator' ? '3-Month Accelerator'
+                : activeCrashPlanId === 'plan-6m-pro' ? '6-Month Professional'
+                : activeCrashPlanId === 'plan-9m-master' ? '9-Month Master'
+                : activeCrashPlanId === 'plan-12m-fellow' ? '12-Month Fellowship'
+                : '24-Month Master Degree Track'
+              }
               studentName="PinIT Engineering Fellow"
               onClose={() => setShowCapstonePortal(false)}
             />
           )}
 
-          {/* ── 7. CRASH COURSE CHECKOUT MODAL ── */}
           <CrashCourseCheckoutModal
             isOpen={checkoutModalOpen}
             onClose={() => setCheckoutModalOpen(false)}
@@ -441,188 +714,15 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
             userPins={pins}
           />
 
-          {/* Live Passport HUD & Expand/Collapse Toggle */}
-          {roleReadiness && (
-            <div style={{
-              background: 'var(--bg2)',
-              border: '1px solid var(--border)',
-              borderRadius: 'var(--radius-lg)',
-              padding: '16px 20px',
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-              gap: 14,
-            }}>
-              {/* Target Role & Readiness */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                <span style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>
-                  Target Role & Readiness
-                </span>
-                <div style={{ fontSize: 14.5, fontWeight: 900, color: 'var(--t1)' }}>
-                  {roleReadiness.targetRole}
-                </div>
-                {(() => {
-                  const badge = getPassportStatusBadge(roleReadiness.status);
-                  return (
-                    <div style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      width: 'fit-content',
-                      padding: '3px 8px',
-                      borderRadius: 6,
-                      fontSize: 10.5,
-                      fontWeight: 800,
-                      background: badge.bg,
-                      border: `1px solid ${badge.border}`,
-                      color: badge.color,
-                    }}>
-                      {badge.text}
-                    </div>
-                  );
-                })()}
-              </div>
-
-              {/* Verified Gates & Freshness */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                <span style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>
-                  Verified Gates & Freshness
-                </span>
-                <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)' }}>
-                  {roleReadiness.verifiedCompetenciesCount} / {roleReadiness.totalRequiredCompetenciesCount} Verified
-                </div>
-                <span style={{ fontSize: 11.5, color: 'var(--t3)' }}>
-                  Freshness: <strong>{roleReadiness.assessmentFreshnessDays === 0 ? 'Active (Today)' : `${roleReadiness.assessmentFreshnessDays}d ago`}</strong>
-                </span>
-              </div>
-
-              {/* Demonstrated Learning Gain */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                <span style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>
-                  Learning Gain
-                </span>
-                <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)' }}>
-                  {roleReadiness.learningGain.currentCompositeScore}/100 Composite
-                </div>
-                <span style={{ fontSize: 11.5, color: 'var(--success)' }}>
-                  {roleReadiness.learningGain.pointsGained !== undefined && roleReadiness.learningGain.pointsGained > 0
-                    ? `Gain: +${roleReadiness.learningGain.pointsGained} Points`
-                    : 'Diagnostic Baseline: Ready'}
-                </span>
-              </div>
-
-              {/* Capstone Oral Defense Review */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                <span style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>
-                  Oral Capstone Defense
-                </span>
-                <div style={{ fontSize: 14.5, fontWeight: 800, color: roleReadiness.capstoneDefenseScore ? 'var(--success)' : 'var(--t3)' }}>
-                  {roleReadiness.capstoneDefenseScore !== undefined
-                    ? `Passed (${roleReadiness.capstoneDefenseScore}/100)`
-                    : 'Pending Oral Defense'}
-                </div>
-                <span style={{ fontSize: 11.5, color: 'var(--t3)' }}>
-                  Evaluator: {roleReadiness.capstoneDefenseEvaluator || 'Senior Engineer Board'}
-                </span>
-              </div>
-            </div>
-          )}
-
-          {/* Expandable Full Evidence Transcript Toggle */}
-          <div style={{
-            padding: '10px 14px',
-            borderRadius: 12,
-            background: 'rgba(var(--success-rgb), 0.06)',
-            border: '1px solid rgba(var(--success-rgb), 0.2)',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: 10
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <span style={{ fontSize: 18 }}>🎓</span>
-              <div>
-                <span style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--success)' }}>
-                  {showPassportDetails ? 'Hide Competency Evidence Matrix' : 'Full Multi-Semester Competency Matrix & Evidence Transcript'}
-                </span>
-                <span style={{ fontSize: 11, color: 'var(--t3)', marginLeft: 8 }}>
-                  (SHA-256 Verified Ledger)
-                </span>
-              </div>
-            </div>
-            <button
-              onClick={() => setShowPassportDetails(prev => !prev)}
-              style={{
-                padding: '6px 14px',
-                borderRadius: 8,
-                background: showPassportDetails ? 'var(--bg3)' : 'linear-gradient(135deg, var(--success), var(--success-deep))',
-                color: 'var(--text)',
-                fontSize: 11.5,
-                fontWeight: 800,
-                border: 'none',
-                cursor: 'pointer',
-                boxShadow: showPassportDetails ? 'none' : '0 2px 8px rgba(var(--success-rgb),0.3)'
-              }}
-            >
-              {showPassportDetails ? '▲ Collapse Matrix' : '▼ Expand Full Matrix & Radar'}
-            </button>
-          </div>
-
-          {/* Expanded Passport Details (Timeline vs Matrix) */}
-          {showPassportDetails && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 18, marginTop: 6 }} className="fade-in">
-              <div style={{ display: 'flex', gap: 10, borderBottom: '1px solid var(--border)', paddingBottom: 10 }}>
-                <button
-                  onClick={() => setPassportView('timeline')}
-                  style={{
-                    padding: '6px 14px',
-                    borderRadius: 8,
-                    border: 'none',
-                    background: passportView === 'timeline' ? 'var(--accent)' : 'transparent',
-                    color: passportView === 'timeline' ? '#fff' : 'var(--t3)',
-                    fontSize: 12,
-                    fontWeight: 800,
-                    cursor: 'pointer',
-                    transition: 'all 0.15s ease',
-                  }}
-                >
-                  📅 Multi-Semester Timeline
-                </button>
-                <button
-                  onClick={() => setPassportView('matrix')}
-                  style={{
-                    padding: '6px 14px',
-                    borderRadius: 8,
-                    border: 'none',
-                    background: passportView === 'matrix' ? 'var(--accent)' : 'transparent',
-                    color: passportView === 'matrix' ? '#fff' : 'var(--t3)',
-                    fontSize: 12,
-                    fontWeight: 800,
-                    cursor: 'pointer',
-                    transition: 'all 0.15s ease',
-                  }}
-                >
-                  📊 Full Competency Evidence Matrix
-                </button>
-              </div>
-
-              {passportView === 'timeline' ? (
-                <CareerPathwayTimeline
-                  activeProgramId={passportSelectedProgramId}
-                  masteryMap={masteryMap}
-                  onSelectCompetency={id => {
-                    setPassportSelectedCompId(id);
-                    setPassportView('matrix');
-                  }}
-                />
-              ) : (
-                <CompetencyRadarView
-                  masteryMap={masteryMap}
-                  selectedCompetencyId={passportSelectedCompId}
-                  onSelectCompetency={setPassportSelectedCompId}
-                />
-              )}
-            </div>
-          )}
+          <CredentialPreviewModal
+            isOpen={previewModalOpen}
+            onClose={() => setPreviewModalOpen(false)}
+            planTitle={previewPlan?.title}
+            trackTitle={
+              previewPlan?.flagshipBuildByTrack?.[activeTrack]?.title ||
+              (activeTrack === 'web_fullstack' ? 'Full-Stack Software Architecture' : 'Python & AI Engineering')
+            }
+          />
         </div>
       )}
 

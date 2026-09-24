@@ -12,7 +12,7 @@ import './pins.css';
 interface Props {
   featureKey?: string;
   itemKey?: string;
-  category?: 'quest' | 'mission' | 'interview' | 'ai_interview' | 'gd' | 'group_discussion' | 'attention_span_game';
+  category?: 'quest' | 'mission' | 'interview' | 'ai_interview' | 'gd' | 'group_discussion' | 'attention_span_game' | 'code_arena' | 'arena' | 'project' | 'group_project';
   onUnlocked: () => void;
   children: React.ReactNode;
   mode?: 'wrap' | 'button';
@@ -32,7 +32,7 @@ export default function PinsGate({
   buttonClass,
   disabled
 }: Props) {
-  const { pins, spendPins, canAfford, isItemUnlocked, getItemRemainingSeconds, unlockItem } = useCareerOS();
+  const { pins, bonusPins, spendPins, canAfford, isItemUnlocked, getItemRemainingSeconds, unlockItem } = useCareerOS();
   const [showConfirm, setShowConfirm] = useState(false);
 
   // Inferred category key for PIN_COSTS
@@ -54,7 +54,8 @@ export default function PinsGate({
     return () => clearInterval(interval);
   }, [active, targetKey, getItemRemainingSeconds]);
 
-  const affordable = pins >= meta.cost;
+  const totalPins = pins + (bonusPins || 0);
+  const affordable = totalPins >= meta.cost;
 
   function handleClick() {
     if (disabled) return;
@@ -110,7 +111,7 @@ export default function PinsGate({
           ) : (
             <span>{meta.cost} pins{targetCategory !== 'attention_span_game' ? ' · 30m access' : ''}</span>
           )}
-          {!active && !affordable && <span style={{ opacity: 0.8, fontSize: 9.5 }}>· Need {meta.cost - pins} more</span>}
+          {!active && !affordable && <span style={{ opacity: 0.8, fontSize: 9.5 }}>· Need {meta.cost - totalPins} more</span>}
         </div>
 
         {/* Action Trigger */}
@@ -152,9 +153,9 @@ export default function PinsGate({
               <p style={{ fontSize: 13.5, color: 'var(--t2)', lineHeight: 1.6 }}>
                 {affordable
                   ? targetCategory === 'attention_span_game'
-                    ? `Use ${meta.cost} of your ${pins} pins to launch a focus training game.`
-                    : `Use ${meta.cost} of your ${pins} pins to unlock 30 minutes of duration access to this ${meta.label}.`
-                  : `You need ${meta.cost} pins for ${meta.label}. You currently have ${pins} pins. Pins refresh to 120 every day at 1:00 AM.`
+                    ? `Use ${meta.cost} of your ${totalPins} pins to launch a focus training game.`
+                    : `Use ${meta.cost} of your ${totalPins} pins to unlock 30 minutes of duration access to this ${meta.label}.`
+                  : `You need ${meta.cost} pins for ${meta.label}. You currently have ${totalPins} pins${bonusPins > 0 ? ` (${pins} daily + ${bonusPins} vault)` : ''}. Daily pins refresh to 120 every day at 1:00 AM IST.`
                 }
               </p>
             </div>
@@ -167,7 +168,7 @@ export default function PinsGate({
             }}>
               <span style={{ fontSize: 13, color: 'var(--t2)', fontWeight: 500 }}>Current Student Balance</span>
               <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 800, fontSize: 15, color: affordable ? '#818cf8' : '#ef4444' }}>
-                <PinCoin size={14} /> {pins} pins
+                <PinCoin size={14} /> {totalPins} pins {bonusPins > 0 ? `(${pins} daily + ${bonusPins} vault)` : ''}
               </span>
             </div>
 

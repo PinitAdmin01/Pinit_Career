@@ -73,7 +73,7 @@ export function useItemLocks(options: UseItemLocksOptions = {}) {
 
   const unlockItem = useCallback(async (
     itemKey: string,
-    category: 'quest' | 'mission' | 'interview' | 'ai_interview' | 'gd' | 'group_discussion' | 'attention_span_game',
+    category: 'quest' | 'mission' | 'interview' | 'ai_interview' | 'gd' | 'group_discussion' | 'attention_span_game' | 'code_arena' | 'arena' | 'project' | 'group_project',
     customReason?: string
   ): Promise<boolean> => {
     if (isItemUnlocked(itemKey)) return true;

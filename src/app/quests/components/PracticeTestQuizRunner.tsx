@@ -6,7 +6,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 // Types
 // ─────────────────────────────────────────────────────────────────────
 export type TrackType = 'web_fullstack' | 'python_ai';
-export type PlanTier = '1m' | '3m' | '6m' | '9m';
+export type PlanTier = '1m' | '3m' | '6m' | '9m' | '12m' | '24m';
 
 export interface PracticeTestResult {
   score: number;
@@ -330,8 +330,23 @@ export default function PracticeTestQuizRunner({
 
   const handleAutoSubmit = useCallback(() => {
     setSubmitted(true);
-    setShowResults(true);
-  }, []);
+    let correct = 0;
+    questions.forEach(q => {
+      if (answers[q.id] && q.options.find(o => o.id === answers[q.id])?.isCorrect) {
+        correct += 1;
+      }
+    });
+    const acc = totalQuestions > 0 ? Math.round((correct / totalQuestions) * 100) : 0;
+    const result: PracticeTestResult = {
+      score: correct,
+      totalQuestions,
+      accuracyPercent: acc,
+      timeTakenSeconds: 20 * 60,
+      topicBreakdown,
+      skillGaps,
+    };
+    onCompleteTest(result);
+  }, [answers, questions, totalQuestions, topicBreakdown, skillGaps, onCompleteTest]);
 
   // Countdown timer (20 minutes)
   useEffect(() => {
