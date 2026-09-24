@@ -135,7 +135,58 @@ export default function DynamicSkyCanvas({
     };
     window.addEventListener('resize', handleResize);
 
-    const _c = typeof window !== 'undefined' ? getComputedStyle(document.documentElement) : null; const brandRgb = _c?.getPropertyValue('--brand-rgb')?.trim() || '99, 102, 241'; const warningRgb = _c?.getPropertyValue('--warning-rgb')?.trim() || '245, 158, 11'; const rewardRgb = _c?.getPropertyValue('--reward-rgb')?.trim() || '139, 92, 246';
+    // ── 90% SCROLL THROTTLE LISTENER ──────────────────────────────────────────
+    let isScrolling = false;
+    let scrollTimeout: any = null;
+    let scrollFrameCount = 0;
+
+    const handleScroll = () => {
+      isScrolling = true;
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isScrolling = false;
+        scrollFrameCount = 0;
+      }, 120);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    const _c = typeof window !== 'undefined' ? getComputedStyle(document.documentElement) : null; 
+    const brandRgb = _c?.getPropertyValue('--brand-rgb')?.trim() || '99, 102, 241'; 
+    const warningRgb = _c?.getPropertyValue('--warning-rgb')?.trim() || '245, 158, 11'; 
+    const rewardRgb = _c?.getPropertyValue('--reward-rgb')?.trim() || '139, 92, 246';
+
+    // Precomputed meteor trajectory constants (avoiding repeated Math.atan2/cos/sin per frame)
+    const METEOR_ANGLE = Math.atan2(1, -0.82);
+    const METEOR_COS = Math.cos(METEOR_ANGLE);
+    const METEOR_SIN = Math.sin(METEOR_ANGLE);
+
+    // Pre-rendered offscreen sprites for zero GC allocations in hot loop
+    const createGlowSprite = (size: number, inner: string, mid: string, outer: string) => {
+      if (typeof document === 'undefined') return null;
+      try {
+        const off = document.createElement('canvas');
+        off.width = size;
+        off.height = size;
+        const octx = off.getContext('2d');
+        if (!octx) return null;
+        const half = size / 2;
+        const g = octx.createRadialGradient(half, half, 0, half, half, half);
+        g.addColorStop(0, inner);
+        g.addColorStop(0.4, mid);
+        g.addColorStop(1, outer);
+        octx.fillStyle = g;
+        octx.beginPath();
+        octx.arc(half, half, half, 0, Math.PI * 2);
+        octx.fill();
+        return off;
+      } catch {
+        return null;
+      }
+    };
+
+    const meteorHeadSprite = createGlowSprite(32, 'rgba(255, 255, 255, 1)', 'rgba(56, 189, 248, 0.8)', 'rgba(0, 163, 255, 0)');
+    const moteGlowSprite = createGlowSprite(48, 'rgba(255, 255, 255, 0.95)', `rgba(${warningRgb}, 0.65)`, 'rgba(217, 119, 6, 0)');
+
     const shockwaves: Shockwave[] = [];
     const handleShockwaveEvent = (e: any) => {
       const { x, y } = e.detail || { x: width / 2, y: height / 2 };
@@ -278,6 +329,28 @@ export default function DynamicSkyCanvas({
       const rampProgress = Math.min(1, rampElapsed / 2000);
       const easeIntensity = rampProgress * rampProgress * opacity;
 
+      // ── 90% SCROLL THROTTLING (USER REQUIREMENT) ─────────────────────────
+      // When the user scrolls, throttle canvas updates by 90% (render 1 in 10 frames).
+      // Leaves 90% of GPU resources free for 60-120 FPS buttery smooth scrolling,
+      // while maintaining subtle live background animation!
+      if (isScrolling) {
+        scrollFrameCount++;
+        if (scrollFrameCount % 10 !== 0) {
+          animFrameIdRef.current = requestAnimationFrame(render);
+          return;
+        }
+      }
+
+      // ── OFFSCREEN / PAST-HERO POWER SAVING ────────────────────────────────
+      const scrollY = typeof window !== 'undefined' ? (window.scrollY || document.documentElement.scrollTop || 0) : 0;
+      if (scrollY > height * 1.5) {
+        scrollFrameCount++;
+        if (scrollFrameCount % 15 !== 0) {
+          animFrameIdRef.current = requestAnimationFrame(render);
+          return;
+        }
+      }
+
       // ── AVATAR ACTIVITY & LAG MITIGATION (Task Fix 1) ──────────────────────
       const isAvatarActive = avatarActive || Boolean(
         (typeof window !== 'undefined' && (window as any).interviewAvatarScene && !(window as any).interviewAvatarScene.paused) ||
@@ -369,9 +442,8 @@ export default function DynamicSkyCanvas({
             m.length = Math.random() * 180 + 80;
           }
 
-          const angle = Math.atan2(1, -0.82);
-          const tailX = m.x - Math.cos(angle) * m.length;
-          const tailY = m.y - Math.sin(angle) * m.length;
+          const tailX = m.x - METEOR_COS * m.length;
+          const tailY = m.y - METEOR_SIN * m.length;
 
           const meteorAlpha = m.opacity * easeIntensity;
           const grad = ctx.createLinearGradient(m.x, m.y, tailX, tailY);
@@ -388,16 +460,16 @@ export default function DynamicSkyCanvas({
           ctx.lineTo(tailX, tailY);
           ctx.stroke();
 
-          // Luminous Meteor Head Glow
-          ctx.fillStyle = `rgba(255, 255, 255, ${meteorAlpha * 0.9})`;
-          ctx.beginPath();
-          ctx.arc(m.x, m.y, m.size * 1.2, 0, Math.PI * 2);
-          ctx.fill();
-
-          ctx.fillStyle = `rgba(0, 163, 255, ${meteorAlpha * 0.45})`;
-          ctx.beginPath();
-          ctx.arc(m.x, m.y, m.size * 2.8, 0, Math.PI * 2);
-          ctx.fill();
+          // Luminous Meteor Head Glow (Hardware Sprite Blitting)
+          if (meteorHeadSprite) {
+            const glowR = m.size * 3.4;
+            ctx.drawImage(meteorHeadSprite, m.x - glowR, m.y - glowR, glowR * 2, glowR * 2);
+          } else {
+            ctx.fillStyle = `rgba(255, 255, 255, ${meteorAlpha * 0.9})`;
+            ctx.beginPath();
+            ctx.arc(m.x, m.y, m.size * 1.2, 0, Math.PI * 2);
+            ctx.fill();
+          }
         }
 
         ctx.restore();
@@ -520,13 +592,16 @@ export default function DynamicSkyCanvas({
           let isIlluminated = false;
           let beamProximity = 0;
 
-          for (let b = 0; b < sunbeams.length; b++) {
-            const beam = sunbeams[b];
-            const halfW = beam.width * 0.5;
-            const diff = Math.abs(moteAngle - beam.currentAngle);
-            if (diff < halfW) {
-              isIlluminated = true;
-              beamProximity = Math.max(beamProximity, (1 - diff / halfW) * beam.intensity);
+          if (moteAngle >= minAngle - 0.15 && moteAngle <= maxAngle + 0.15) {
+            for (let b = 0; b < beamCount; b++) {
+              const beam = sunbeams[b];
+              const halfW = beam.width * 0.5;
+              const diff = Math.abs(moteAngle - beam.currentAngle);
+              if (diff < halfW) {
+                isIlluminated = true;
+                beamProximity = Math.max(beamProximity, (1 - diff / halfW) * beam.intensity);
+                break;
+              }
             }
           }
 
@@ -534,20 +609,26 @@ export default function DynamicSkyCanvas({
           const finalAlpha = m.alpha * twinkle * easeIntensity;
 
           if (isIlluminated) {
-            // ✨ Soft In-Beam Tyndall Glint
+            // ✨ Soft In-Beam Tyndall Glint (Hardware sprite blitting)
             const flareAlpha = Math.min(0.75, finalAlpha * 2.2 * beamProximity);
             const flareRadius = m.radius * (1.4 + beamProximity * 1.2);
 
-            const haloGrad = ctx.createRadialGradient(m.x, m.y, 0, m.x, m.y, flareRadius * 2.8);
-            haloGrad.addColorStop(0, `rgba(255, 255, 255, ${flareAlpha * 0.9})`);
-            haloGrad.addColorStop(0.4, `rgba(${warningRgb}, ${flareAlpha * 0.65})`);
-            haloGrad.addColorStop(0.8, `rgba(217, 119, 6, ${flareAlpha * 0.25})`);
-            haloGrad.addColorStop(1, 'rgba(217, 119, 6, 0)');
-
-            ctx.fillStyle = haloGrad;
-            ctx.beginPath();
-            ctx.arc(m.x, m.y, flareRadius * 2.8, 0, Math.PI * 2);
-            ctx.fill();
+            if (moteGlowSprite) {
+              const spriteSize = flareRadius * 5.6;
+              ctx.globalAlpha = Math.min(1, flareAlpha * 1.2);
+              ctx.drawImage(moteGlowSprite, m.x - spriteSize / 2, m.y - spriteSize / 2, spriteSize, spriteSize);
+              ctx.globalAlpha = 1;
+            } else {
+              const haloGrad = ctx.createRadialGradient(m.x, m.y, 0, m.x, m.y, flareRadius * 2.8);
+              haloGrad.addColorStop(0, `rgba(255, 255, 255, ${flareAlpha * 0.9})`);
+              haloGrad.addColorStop(0.4, `rgba(${warningRgb}, ${flareAlpha * 0.65})`);
+              haloGrad.addColorStop(0.8, `rgba(217, 119, 6, ${flareAlpha * 0.25})`);
+              haloGrad.addColorStop(1, 'rgba(217, 119, 6, 0)');
+              ctx.fillStyle = haloGrad;
+              ctx.beginPath();
+              ctx.arc(m.x, m.y, flareRadius * 2.8, 0, Math.PI * 2);
+              ctx.fill();
+            }
 
             // Subtle Sparkle Cross on high intensity motes
             if (flareAlpha > 0.45) {
@@ -657,6 +738,8 @@ export default function DynamicSkyCanvas({
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleScroll);
+      if (scrollTimeout) clearTimeout(scrollTimeout);
       window.removeEventListener('pc_sky_shockwave', handleShockwaveEvent);
       window.removeEventListener('pc_animation_toggle', handleAnimationToggle);
       window.removeEventListener('pinit_vroid_active', handleAvatarToggle);

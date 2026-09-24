@@ -242,14 +242,18 @@
    5. GLASS CARDS & CONTAINERS
    -------------------------------------------------------------------------- */
 .landing-page .glass-card {
-  background: var(--bg-card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(15, 23, 42, 0.88) 100%);
   border: 1px solid var(--border-color);
   border-radius: 20px;
-  box-shadow: var(--card-shadow);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   color: var(--text-primary);
   transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  will-change: transform;
+}
+
+[data-theme='light'] .landing-page .glass-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .landing-page .glass-card:hover {
@@ -443,30 +447,30 @@
 /* 🪐 DUAL-THEME METALLIC LOGO BREATHING GLOW KEYFRAMES */
 @keyframes metallicDarkBreathingGlow {
   0% {
-    filter: drop-shadow(0 0 14px rgba(0, 163, 255, 0.45)) drop-shadow(0 0 28px rgba(147, 197, 253, 0.25)) drop-shadow(0 0 44px rgba(255, 255, 255, 0.15));
+    filter: drop-shadow(0 0 16px rgba(0, 163, 255, 0.45));
     transform: scale(1);
   }
   50% {
-    filter: drop-shadow(0 0 24px rgba(0, 163, 255, 0.7)) drop-shadow(0 0 46px rgba(56, 189, 248, 0.4)) drop-shadow(0 0 68px rgba(255, 255, 255, 0.28));
+    filter: drop-shadow(0 0 28px rgba(0, 163, 255, 0.75));
     transform: scale(1.025);
   }
   100% {
-    filter: drop-shadow(0 0 14px rgba(0, 163, 255, 0.45)) drop-shadow(0 0 28px rgba(147, 197, 253, 0.25)) drop-shadow(0 0 44px rgba(255, 255, 255, 0.15));
+    filter: drop-shadow(0 0 16px rgba(0, 163, 255, 0.45));
     transform: scale(1);
   }
 }
 
 @keyframes metallicLightBreathingGlow {
   0% {
-    filter: drop-shadow(0 0 14px rgba(245, 158, 11, 0.45)) drop-shadow(0 0 28px rgba(251, 146, 60, 0.28)) drop-shadow(0 0 44px rgba(217, 119, 6, 0.18));
+    filter: drop-shadow(0 0 16px rgba(245, 158, 11, 0.45));
     transform: scale(1);
   }
   50% {
-    filter: drop-shadow(0 0 24px rgba(245, 158, 11, 0.72)) drop-shadow(0 0 46px rgba(251, 146, 60, 0.44)) drop-shadow(0 0 68px rgba(217, 119, 6, 0.3));
+    filter: drop-shadow(0 0 28px rgba(245, 158, 11, 0.75));
     transform: scale(1.025);
   }
   100% {
-    filter: drop-shadow(0 0 14px rgba(245, 158, 11, 0.45)) drop-shadow(0 0 28px rgba(251, 146, 60, 0.28)) drop-shadow(0 0 44px rgba(217, 119, 6, 0.18));
+    filter: drop-shadow(0 0 16px rgba(245, 158, 11, 0.45));
     transform: scale(1);
   }
 }
@@ -513,7 +517,7 @@
 .landing-page .lp-terms li {
   position: absolute;
   pointer-events: auto;
-  background: var(--bg-card);
+  background: rgba(15, 23, 42, 0.92);
   border: 1px solid var(--border-color);
   color: var(--text-primary);
   padding: 8px 16px;
@@ -523,13 +527,16 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  box-shadow: var(--card-shadow);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.12);
   transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   white-space: nowrap;
   transform: translateZ(40px);
   cursor: pointer;
+}
+
+[data-theme='light'] .landing-page .lp-terms li {
+  background: #FFFFFF;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .landing-page .lp-terms li:hover {
