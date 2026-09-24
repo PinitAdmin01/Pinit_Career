@@ -45,13 +45,6 @@ export default function ProblemPage() {
       <main style={{ padding: '60px 0 100px', position: 'relative', zIndex: 1 }}>
         <div className="container">
           
-          {/* Breadcrumb back to landing */}
-          <div style={{ marginBottom: 32 }}>
-            <Link href="/" style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-              <span>←</span> Back to Home
-            </Link>
-          </div>
-
           <div style={{ maxWidth: 840, marginBottom: 56 }}>
             <div style={{ display: 'inline-block', padding: '6px 14px', borderRadius: 999, background: 'rgba(244,63,94,0.12)', border: '1px solid rgba(244,63,94,0.3)', color: '#f43f5e', fontSize: 12, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 16 }}>
               Systemic Problem Statement

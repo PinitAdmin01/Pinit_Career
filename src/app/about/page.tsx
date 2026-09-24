@@ -44,7 +44,6 @@ function AboutPageContent() {
             <button onClick={toggleTheme} className="theme-toggle-btn" title="Toggle Theme">
               {theme === 'dark' ? '☀️' : '🌙'}
             </button>
-            <Link href="/" className="pc-btn-outline btn-sm">← Back to Home</Link>
             <Link href="/dashboard" className="pc-btn-primary btn-sm">Go to Workspace →</Link>
           </div>
         </div>

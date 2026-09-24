@@ -339,13 +339,6 @@ export default function AdmissionsPortal() {
       </header>
 
       <div className="admissions-container">
-        {/* Navigation link back to Home */}
-        <div style={{ marginBottom: 24 }}>
-          <Link href="/" style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-            ← Back to Campus Portal Home
-          </Link>
-        </div>
-
         <div className="header-section">
           <h1 className="header-title">Admissions <span>Portal</span></h1>
           <p className="header-desc">

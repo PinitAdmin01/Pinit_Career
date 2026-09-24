@@ -77,13 +77,6 @@ export default function CampusDemoPageRevamp() {
       <main style={{ padding: '60px 0 100px', position: 'relative', zIndex: 1 }}>
         <div className="container">
 
-          {/* Breadcrumb back to landing */}
-          <div style={{ marginBottom: 32 }}>
-            <Link href="/" style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-              <span>←</span> Back to Home
-            </Link>
-          </div>
-
           {/* Section Header */}
           <div style={{ textAlign: 'center', maxWidth: 840, margin: '0 auto 60px' }}>
             <div className="badge-pill">INSTITUTIONAL PLACEMENT OS</div>
