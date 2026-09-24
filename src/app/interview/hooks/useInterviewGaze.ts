@@ -41,6 +41,16 @@ export function useInterviewGaze(isInterviewActive: boolean) {
     setShowCameraPreview(false);
   };
 
+  // Re-bind camera stream to video element across round transitions (e.g. Round 1 to Round 4)
+  useEffect(() => {
+    if (showCameraPreview && cameraStreamRef.current && videoPreviewRef.current) {
+      if (videoPreviewRef.current.srcObject !== cameraStreamRef.current) {
+        videoPreviewRef.current.srcObject = cameraStreamRef.current;
+        videoPreviewRef.current.play().catch(() => {});
+      }
+    }
+  });
+
   useEffect(() => {
     if (!showCameraPreview || !isInterviewActive) return;
 

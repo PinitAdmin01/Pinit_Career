@@ -1,4 +1,4 @@
-import { SystemTopologySnapshot } from '@/components/interview/SystemDesignWhiteboard';
+import type { SystemTopologySnapshot } from '../../components/interview/SystemDesignWhiteboard.js';
 
 export interface ArchitectureEvaluationResult {
   score: number;

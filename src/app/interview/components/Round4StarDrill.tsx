@@ -23,6 +23,18 @@ export interface Round4StarDrillProps {
   manualTextInput: string;
   setManualTextInput: (val: string) => void;
   onSendMessage: (text: string) => void;
+  starStep?: number;
+  messages?: any[];
+  isAssistModeActive?: boolean;
+  setIsAssistModeActive?: (val: boolean) => void;
+  assistData?: any;
+  isFetchingAssist?: boolean;
+  assistTab?: 'script' | 'bullets' | 'delivery';
+  setAssistTab?: (tab: 'script' | 'bullets' | 'delivery') => void;
+  assistScriptLevel?: 'standard' | 'advanced';
+  setAssistScriptLevel?: (lvl: 'standard' | 'advanced') => void;
+  fetchAssistScript?: (q: string, lvl?: 'standard' | 'advanced') => void;
+  liveSpeechTranscript?: string;
 }
 
 export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
@@ -39,7 +51,22 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
   manualTextInput,
   setManualTextInput,
   onSendMessage,
+  starStep = 0,
+  messages = [],
+  isAssistModeActive = false,
+  setIsAssistModeActive,
+  assistData,
+  isFetchingAssist = false,
+  assistTab = 'script',
+  setAssistTab,
+  assistScriptLevel = 'standard',
+  setAssistScriptLevel,
+  fetchAssistScript,
+  liveSpeechTranscript = '',
 }) => {
+  const spokenWordSet = React.useMemo(() => {
+    return new Set(liveSpeechTranscript.toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(Boolean));
+  }, [liveSpeechTranscript]);
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'center' }}>
       <div style={{ width: '85%', height: 480, background: 'var(--bg3)', borderRadius: 20, border: '1px solid var(--border)', overflow: 'hidden', position: 'relative', boxShadow: 'var(--shadow-lg)' }}>
@@ -73,6 +100,46 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
       </div>
 
       <div style={{ width: '85%', display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {/* 🌟 S-T-A-R Assessment Progression Stepper */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(4, 1fr)',
+          gap: 8,
+          background: 'var(--bg3)',
+          padding: '8px 12px',
+          borderRadius: 12,
+          border: '1px solid var(--border)'
+        }}>
+          {[
+            { key: 'S', label: 'Situation', desc: 'Context & Challenge' },
+            { key: 'T', label: 'Task', desc: 'Your Role / Target' },
+            { key: 'A', label: 'Action', desc: 'Execution & Decisions' },
+            { key: 'R', label: 'Result', desc: 'Quantifiable Impact' },
+          ].map((step, idx) => {
+            const isCurrent = (starStep % 4) === idx;
+            const isCompleted = (starStep % 4) > idx || starStep >= 4;
+            return (
+              <div
+                key={step.key}
+                style={{
+                  padding: '6px 8px',
+                  borderRadius: 8,
+                  background: isCurrent ? 'var(--accent-light)' : isCompleted ? 'rgba(var(--success-rgb), 0.12)' : 'transparent',
+                  border: isCurrent ? '1.5px solid var(--accent)' : isCompleted ? '1px solid var(--success)' : '1px solid transparent',
+                  textAlign: 'center'
+                }}
+              >
+                <div style={{ fontSize: 11, fontWeight: 900, color: isCurrent ? 'var(--accent)' : isCompleted ? 'var(--success-bright)' : 'var(--t3)' }}>
+                  {step.key} — {step.label}
+                </div>
+                <div style={{ fontSize: 9.5, color: isCurrent ? 'var(--t1)' : 'var(--t3)', marginTop: 2 }}>
+                  {step.desc}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
         <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
           <button
             onClick={startVoiceListening}
@@ -135,6 +202,200 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
             Send ➔
           </button>
         </form>
+
+        {/* 🎯 Assist Mode AI Teleprompter Card (Placed Directly Below Response Input for Round 4) */}
+        {isAssistModeActive && (
+          <div style={{
+            marginTop: 4,
+            padding: '12px 14px',
+            borderRadius: 14,
+            background: 'linear-gradient(135deg, rgba(30, 27, 75, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%)',
+            border: '1.5px solid var(--reward)',
+            boxShadow: '0 4px 16px rgba(var(--reward-rgb), 0.25)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 8
+          }}>
+            {/* Header with Title & Level Selector */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span style={{ fontSize: 14 }}>🎯</span>
+                <span style={{ fontSize: 11.5, fontWeight: 900, color: 'var(--reward-bright)' }}>AI Teleprompter Script (STAR Answer)</span>
+                <span style={{
+                  fontSize: 9,
+                  padding: '1px 5px',
+                  borderRadius: 4,
+                  background: 'rgba(var(--reward-rgb), 0.2)',
+                  color: 'var(--reward-bright)',
+                  fontWeight: 800
+                }}>
+                  🔒 Avatar cannot see this
+                </span>
+              </div>
+
+              <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+                {setAssistScriptLevel && (
+                  <button
+                    onClick={() => {
+                      const nextLvl = assistScriptLevel === 'standard' ? 'advanced' : 'standard';
+                      setAssistScriptLevel(nextLvl);
+                      if (fetchAssistScript) fetchAssistScript(lastInterviewerSpeech, nextLvl);
+                    }}
+                    style={{
+                      background: 'rgba(var(--reward-rgb),0.15)',
+                      border: '1px solid var(--reward)',
+                      color: 'var(--reward-bright)',
+                      borderRadius: 6,
+                      padding: '2px 6px',
+                      fontSize: 9.5,
+                      fontWeight: 800,
+                      cursor: 'pointer'
+                    }}
+                  >
+                    {assistScriptLevel === 'standard' ? '⚡ Beginner' : '🔥 Executive'}
+                  </button>
+                )}
+                {assistData?.script && (
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText(assistData.script);
+                    }}
+                    style={{
+                      background: 'rgba(255,255,255,0.1)',
+                      border: 'none',
+                      color: 'var(--text)',
+                      borderRadius: 6,
+                      padding: '2px 6px',
+                      fontSize: 9.5,
+                      fontWeight: 800,
+                      cursor: 'pointer'
+                    }}
+                  >
+                    📋 Copy
+                  </button>
+                )}
+                {setIsAssistModeActive && (
+                  <button
+                    onClick={() => setIsAssistModeActive(false)}
+                    style={{ background: 'none', border: 'none', color: 'var(--text-muted)', fontSize: 11, cursor: 'pointer', padding: '0 2px' }}
+                    title="Close Assist Mode"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Tab Selectors */}
+            {setAssistTab && (
+              <div style={{ display: 'flex', gap: 4 }}>
+                {(['script', 'bullets', 'delivery'] as const).map(tabKey => (
+                  <button
+                    key={tabKey}
+                    onClick={() => setAssistTab(tabKey)}
+                    style={{
+                      flex: 1,
+                      padding: '3px 6px',
+                      borderRadius: 5,
+                      fontSize: 10,
+                      fontWeight: 800,
+                      background: assistTab === tabKey ? 'var(--reward)' : 'rgba(255,255,255,0.06)',
+                      color: assistTab === tabKey ? '#000' : 'var(--text-muted)',
+                      border: 'none',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    {tabKey === 'script' ? '📝 Read Aloud' : tabKey === 'bullets' ? '🎯 Key Points' : '🗣️ Pacing'}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {/* Tab Body */}
+            {isFetchingAssist ? (
+              <div style={{ padding: '8px 0', textAlign: 'center', color: 'var(--reward-bright)', fontSize: 11, fontStyle: 'italic' }}>
+                ✨ Crafting spoken STAR answer for this question...
+              </div>
+            ) : assistData ? (
+              <div>
+                {assistTab === 'script' && (
+                  <div style={{ background: 'rgba(0,0,0,0.45)', borderRadius: 8, padding: '8px 10px', border: '1px solid rgba(var(--reward-rgb),0.2)' }}>
+                    <div style={{ fontSize: 12, lineHeight: 1.5, color: 'var(--text)', maxHeight: 120, overflowY: 'auto' }}>
+                      &ldquo;
+                      {(assistData.script || '').split(' ').map((word: string, wIdx: number) => {
+                        const clean = word.toLowerCase().replace(/[^a-z0-9]/g, '');
+                        const isMatched = clean.length > 0 && spokenWordSet.has(clean);
+                        return (
+                          <span
+                            key={wIdx}
+                            style={{
+                              color: isMatched ? 'var(--success-bright)' : 'var(--text)',
+                              fontWeight: isMatched ? 800 : 400,
+                              textShadow: isMatched ? '0 0 8px rgba(var(--success-rgb),0.8)' : 'none',
+                              transition: 'all 0.15s ease'
+                            }}
+                          >
+                            {word}{' '}
+                          </span>
+                        );
+                      })}
+                      &rdquo;
+                    </div>
+                    <div style={{ marginTop: 6, display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 9.5, color: 'var(--reward-bright)' }}>
+                      <span>🎙️ {liveSpeechTranscript ? '🟢 Spoken words glow green in real time' : 'Read aloud into mic to answer'}</span>
+                      <span>{assistData.deliveryGuide?.pacing || '~125 WPM'}</span>
+                    </div>
+                  </div>
+                )}
+
+                {assistTab === 'bullets' && (
+                  <div style={{ background: 'rgba(0,0,0,0.45)', borderRadius: 8, padding: '8px 10px', maxHeight: 110, overflowY: 'auto' }}>
+                    <ul style={{ margin: 0, paddingLeft: 14, fontSize: 11, lineHeight: 1.5, color: 'var(--text)' }}>
+                      {(assistData.bulletPoints || []).map((pt: string, idx: number) => (
+                        <li key={idx} style={{ marginBottom: 2 }}>{pt}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {assistTab === 'delivery' && (
+                  <div style={{ background: 'rgba(0,0,0,0.45)', borderRadius: 8, padding: '8px 10px', fontSize: 11, display: 'flex', flexDirection: 'column', gap: 4 }}>
+                    <div><strong>Tone:</strong> {assistData.deliveryGuide?.tone || 'Confident and structured'}</div>
+                    <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', alignItems: 'center' }}>
+                      <strong>Key words:</strong>
+                      {(assistData.deliveryGuide?.emphasisWords || []).map((w: string, i: number) => (
+                        <span key={i} style={{ background: 'rgba(var(--reward-rgb),0.3)', color: '#e9d5ff', padding: '1px 5px', borderRadius: 4, fontSize: 9.5 }}>
+                          {w}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '4px 0' }}>
+                <span style={{ fontSize: 11, color: 'var(--t3)' }}>No STAR script generated yet.</span>
+                {fetchAssistScript && (
+                  <button
+                    onClick={() => fetchAssistScript(lastInterviewerSpeech, assistScriptLevel)}
+                    style={{
+                      background: 'var(--reward)',
+                      border: 'none',
+                      color: '#000',
+                      borderRadius: 6,
+                      padding: '4px 10px',
+                      fontSize: 10,
+                      fontWeight: 800,
+                      cursor: 'pointer'
+                    }}
+                  >
+                    ✨ Generate STAR Script ➔
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

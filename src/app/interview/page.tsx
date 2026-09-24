@@ -112,16 +112,16 @@ export default function InterviewPage() {
     };
   }, [isInterviewActive]);
 
-  // Master WebGL context disposal & soundscape cleanup on unmount (Task 4.4 guarantee)
+  // WebGL context disposal & soundscape cleanup on unmount
   useEffect(() => {
     return () => {
       stopSpeaking();
       stopArchetypeSoundscape();
       if (typeof document !== 'undefined') {
-        const canvases = document.querySelectorAll('canvas');
+        const canvases = document.querySelectorAll('.vroid-canvas, [data-avatar-canvas="true"]');
         canvases.forEach(canvas => {
           try {
-            const gl = canvas.getContext('webgl') || canvas.getContext('webgl2');
+            const gl = (canvas as HTMLCanvasElement).getContext('webgl') || (canvas as HTMLCanvasElement).getContext('webgl2');
             if (gl) {
               const ext = gl.getExtension('WEBGL_lose_context');
               if (ext) ext.loseContext();
@@ -185,6 +185,8 @@ export default function InterviewPage() {
 
   // Round 2 Code Workspace State
   const codeModifiedRef = useRef(false);
+  const codePerLangRef = useRef<Record<string, string>>({});
+  const prevLangRef = useRef<'java' | 'python' | 'javascript' | 'sql'>('python');
   const [showHint, setShowHint] = useState(false);
   const [selectedLang, setSelectedLang] = useState<'java' | 'python' | 'javascript' | 'sql'>('python');
   const [codeContent, setCodeContent] = useState('');
@@ -193,14 +195,29 @@ export default function InterviewPage() {
   const [codeSubmitted, setCodeSubmitted] = useState(false);
 
   useEffect(() => {
-    if (codeModifiedRef.current) return;
+    // When switching languages, save current buffer and restore or load new starter
+    const prevLang = prevLangRef.current;
+    if (prevLang !== selectedLang) {
+      if (codeContent) codePerLangRef.current[prevLang] = codeContent;
+      prevLangRef.current = selectedLang;
+      if (codePerLangRef.current[selectedLang]) {
+        setCodeContent(codePerLangRef.current[selectedLang]);
+        return;
+      }
+    } else if (codeModifiedRef.current) {
+      return;
+    }
+
     const dynamicProb = getDynamicCodingProblem(activeTopicName, selectedLang);
-    if (dynamicProb.starterCode) setCodeContent(dynamicProb.starterCode);
-  }, [activeTopicName, selectedLang, getDynamicCodingProblem]);
+    if (dynamicProb.starterCode) {
+      setCodeContent(dynamicProb.starterCode);
+    }
+  }, [activeTopicName, selectedLang, getDynamicCodingProblem, codeContent]);
 
   // Round 3 Whiteboard Topology State
   const [latestTopology, setLatestTopology] = useState<any>(null);
   const [isAnalyzingArchitecture, setIsAnalyzingArchitecture] = useState(false);
+  const [architectureEvaluation, setArchitectureEvaluation] = useState<any>(null);
   const [evaluationResult, setEvaluationResult] = useState<any>(null);
 
   // Persistence Hook
@@ -259,7 +276,9 @@ export default function InterviewPage() {
     startVoiceListening,
     stopVoiceListening,
     speakWithAvatar,
-    interruptSpeech
+    interruptSpeech,
+    isSpeechSupported,
+    flushAndSubmitTranscript
   } = useInterviewVoice({
     isInterviewActive,
     activeStage,
@@ -279,7 +298,6 @@ export default function InterviewPage() {
   const [assistTab, setAssistTab] = useState<'script' | 'bullets' | 'delivery'>('script');
 
   const fetchAssistScript = useCallback(async (questionText: string, level?: 'standard' | 'advanced') => {
-    if (isScoredStage) return;
     setIsFetchingAssist(true);
     try {
       const headers = await getAuthHeaders();
@@ -341,19 +359,22 @@ export default function InterviewPage() {
     setActiveTopicName(topic);
     setIsInterviewActive(true);
     setActiveStage('round1_behavioral');
-    setIsAssistModeActive(false);
-    setAssistData(null);
     setShowHint(false);
     setCodeSubmitted(false);
     setTerminalLogs([]);
     setElapsedSeconds(0);
     setStarStep(0);
     setEvaluationResult(null);
+    setArchitectureEvaluation(null);
     codeModifiedRef.current = false;
 
     const greeting = `Welcome to your ${topic} Corporate Interview! I am ${sessionTeacher.name}, ${sessionTeacher.title}. To kick things off, please introduce yourself, tell me a bit about your academic background, and share your experience with ${topic}.`;
     setMessages([{ role: 'assistant', content: greeting }]);
     speakWithAvatar(greeting, sessionTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
+
+    if (isAssistModeActive) {
+      fetchAssistScript(greeting, assistScriptLevel);
+    }
 
     // Server-Authoritative anti-cheat session registration
     try {
@@ -375,7 +396,6 @@ export default function InterviewPage() {
     setIsInterviewActive(false);
     setActiveStage('round1_behavioral');
     setAssistData(null);
-    setIsAssistModeActive(false);
     clearDraft();
 
     // Notify server of session conclusion / cancellation
@@ -393,7 +413,7 @@ export default function InterviewPage() {
   const proceedToNextStage = (next: Stage) => {
     setActiveStage(next);
     setShowHint(false);
-    if (['round2_coding', 'round3_systems', 'round4_star', 'results'].includes(next)) {
+    if (next === 'results') {
       setIsAssistModeActive(false);
       setAssistData(null);
     }
@@ -410,6 +430,9 @@ export default function InterviewPage() {
     if (stagePrompt) {
       setMessages(prev => [...prev, { role: 'assistant', content: stagePrompt }]);
       speakWithAvatar(stagePrompt, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
+      if (isAssistModeActive) {
+        fetchAssistScript(stagePrompt, assistScriptLevel);
+      }
     }
   };
 
@@ -452,11 +475,17 @@ export default function InterviewPage() {
       if (cleanReply) {
         setMessages([...newMsgs, { role: 'assistant', content: cleanReply }]);
         speakWithAvatar(cleanReply, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
+        if (isAssistModeActive) {
+          fetchAssistScript(cleanReply, assistScriptLevel);
+        }
       }
     } catch {
       const fallback = `Thank you for sharing! In your work with ${activeTopicName}, how do you evaluate production trade-offs?`;
       setMessages([...newMsgs, { role: 'assistant', content: fallback }]);
       speakWithAvatar(fallback, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
+      if (isAssistModeActive) {
+        fetchAssistScript(fallback, assistScriptLevel);
+      }
     }
   };
   handleSendMessageWithTextRef.current = handleSendMessageWithText;
@@ -468,6 +497,8 @@ export default function InterviewPage() {
       let fnName = dynamicProblemData?.functionName ||
                    /def\s+([a-zA-Z0-9_]+)/.exec(codeContent)?.[1] ||
                    /function\s+([a-zA-Z0-9_]+)/.exec(codeContent)?.[1] ||
+                   /(?:const|let|var)\s+([a-zA-Z0-9_]+)\s*=/.exec(codeContent)?.[1] ||
+                   /(?:public|private|static)?\s*(?:[\w<>\[\]]+\s+)+([a-zA-Z0-9_]+)\s*\(/.exec(codeContent)?.[1] ||
                    'evaluateSolution';
       if (selectedLang === 'javascript' && fnName.includes('_')) {
         fnName = fnName.replace(/_([a-z0-9])/g, (_: string, c: string) => c.toUpperCase());
@@ -509,14 +540,23 @@ export default function InterviewPage() {
       });
       if (res.ok) {
         const data = await res.json();
+        if (data?.evaluation) {
+          setArchitectureEvaluation(data.evaluation);
+        }
         const spoken = data.evaluation?.spokenFeedback || `Architecture review complete. Grade: ${data.evaluation?.verdict || 'A'}.`;
         setMessages(prev => [...prev, { role: 'assistant', content: spoken }]);
         speakWithAvatar(spoken, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
+        if (isAssistModeActive) {
+          fetchAssistScript(spoken, assistScriptLevel);
+        }
       }
     } catch {
       const fallback = `Architecture evaluated. To optimize ${activeTopicName}, consider adding async messaging and caching layers.`;
       setMessages(prev => [...prev, { role: 'assistant', content: fallback }]);
       speakWithAvatar(fallback, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
+      if (isAssistModeActive) {
+        fetchAssistScript(fallback, assistScriptLevel);
+      }
     } finally {
       setIsAnalyzingArchitecture(false);
     }
@@ -552,6 +592,7 @@ export default function InterviewPage() {
           domainSubTopic: activeTopicName,
           roleKey: activeTopicName,
           archetype,
+          topology: latestTopology,
           telemetry: {
             eyeContact: typeof eyeContactScore === 'number' ? eyeContactScore : undefined,
             wpm: typeof wpmScore === 'number' ? wpmScore : undefined,
@@ -579,7 +620,7 @@ export default function InterviewPage() {
 
     const { dateStr, isoStr } = safeFormatDate();
     const sessionRecord: InterviewSessionRecord = {
-      id: `sess-${Date.now()}`,
+      id: typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : `sess-${Date.now()}`,
       evaluationToken: resultObj.evaluationToken,
       date: dateStr,
       timestamp: isoStr,
@@ -663,6 +704,7 @@ export default function InterviewPage() {
           domainSubTopic={domainSubTopic} setDomainSubTopic={setDomainSubTopic}
           customTopicInput={customTopicInput} setCustomTopicInput={setCustomTopicInput}
           difficulty={difficulty} setDifficulty={setDifficulty}
+          isAssistModeActive={isAssistModeActive} setIsAssistModeActive={setIsAssistModeActive}
           startInterview={startInterview} sessions={sessions}
           clearSessionHistory={clearSessionHistory} setSelectedHistorySession={setSelectedHistorySession}
         />
@@ -700,27 +742,31 @@ export default function InterviewPage() {
             liveSpeechTranscript={liveSpeechTranscript}
             stopVoiceListening={stopVoiceListening}
             startVoiceListening={startVoiceListening}
+            isSpeechSupported={isSpeechSupported}
+            onDoneSpeaking={flushAndSubmitTranscript}
           />
 
-          {/* Assist Mode Teleprompter Drawer */}
-          <AssistModeDrawer
-            isScoredStage={isScoredStage}
-            isAssistModeActive={isAssistModeActive}
-            setIsAssistModeActive={setIsAssistModeActive}
-            assistScriptLevel={assistScriptLevel}
-            setAssistScriptLevel={setAssistScriptLevel}
-            assistTab={assistTab}
-            setAssistTab={setAssistTab}
-            isFetchingAssist={isFetchingAssist}
-            assistData={assistData}
-            liveSpeechTranscript={liveSpeechTranscript}
-            messages={messages}
-            activeTeacher={activeTeacher}
-            difficulty={difficulty}
-            fetchAssistScript={fetchAssistScript}
-            speakWithAvatarRaw={speakWithAvatar}
-            setAnimState={setAnimState}
-          />
+          {/* Assist Mode Floating Teleprompter Drawer (Scoped to Round 2 Coding where there is no vertical chat column) */}
+          {activeStage === 'round2_coding' && isAssistModeActive && (
+            <AssistModeDrawer
+              isScoredStage={false}
+              isAssistModeActive={isAssistModeActive}
+              setIsAssistModeActive={setIsAssistModeActive}
+              assistScriptLevel={assistScriptLevel}
+              setAssistScriptLevel={setAssistScriptLevel}
+              assistTab={assistTab}
+              setAssistTab={setAssistTab}
+              isFetchingAssist={isFetchingAssist}
+              assistData={assistData}
+              liveSpeechTranscript={liveSpeechTranscript}
+              messages={messages}
+              activeTeacher={activeTeacher}
+              difficulty={difficulty}
+              fetchAssistScript={fetchAssistScript}
+              speakWithAvatarRaw={speakWithAvatar}
+              setAnimState={setAnimState}
+            />
+          )}
 
           {/* Round 1: Behavioral */}
           {activeStage === 'round1_behavioral' && (
@@ -742,6 +788,16 @@ export default function InterviewPage() {
               manualTextInput={manualTextInput}
               setManualTextInput={setManualTextInput}
               onSendMessage={handleSendMessageWithText}
+              isAssistModeActive={isAssistModeActive}
+              setIsAssistModeActive={setIsAssistModeActive}
+              assistData={assistData}
+              isFetchingAssist={isFetchingAssist}
+              assistTab={assistTab}
+              setAssistTab={setAssistTab}
+              assistScriptLevel={assistScriptLevel}
+              setAssistScriptLevel={setAssistScriptLevel}
+              fetchAssistScript={fetchAssistScript}
+              liveSpeechTranscript={liveSpeechTranscript}
             />
           )}
 
@@ -783,6 +839,20 @@ export default function InterviewPage() {
               isVoiceListening={isVoiceListening}
               startVoiceListening={startVoiceListening}
               lastInterviewerSpeech={lastInterviewerSpeech}
+              architectureEvaluation={architectureEvaluation}
+              manualTextInput={manualTextInput}
+              setManualTextInput={setManualTextInput}
+              onSendMessage={handleSendMessageWithText}
+              isAssistModeActive={isAssistModeActive}
+              setIsAssistModeActive={setIsAssistModeActive}
+              assistData={assistData}
+              isFetchingAssist={isFetchingAssist}
+              assistTab={assistTab}
+              setAssistTab={setAssistTab}
+              assistScriptLevel={assistScriptLevel}
+              setAssistScriptLevel={setAssistScriptLevel}
+              fetchAssistScript={fetchAssistScript}
+              liveSpeechTranscript={liveSpeechTranscript}
             />
           )}
 
@@ -802,6 +872,18 @@ export default function InterviewPage() {
               manualTextInput={manualTextInput}
               setManualTextInput={setManualTextInput}
               onSendMessage={handleSendMessageWithText}
+              starStep={starStep}
+              messages={messages}
+              isAssistModeActive={isAssistModeActive}
+              setIsAssistModeActive={setIsAssistModeActive}
+              assistData={assistData}
+              isFetchingAssist={isFetchingAssist}
+              assistTab={assistTab}
+              setAssistTab={setAssistTab}
+              assistScriptLevel={assistScriptLevel}
+              setAssistScriptLevel={setAssistScriptLevel}
+              fetchAssistScript={fetchAssistScript}
+              liveSpeechTranscript={liveSpeechTranscript}
             />
           )}
 

@@ -59,7 +59,11 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
   speakWithAvatarRaw,
   setAnimState
 }) => {
-  if (isScoredStage || !isAssistModeActive) return null;
+  const spokenWordSet = React.useMemo(() => {
+    return new Set(liveSpeechTranscript.toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(Boolean));
+  }, [liveSpeechTranscript]);
+
+  if (!isAssistModeActive) return null;
 
   return (
     <div
@@ -88,26 +92,6 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
         </div>
 
         <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap' }}>
-          <button
-            onClick={() => {
-              if (assistData?.script) {
-                speakWithAvatarRaw(assistData.script, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'), false, true, difficulty);
-              }
-            }}
-            style={{
-              background: 'rgba(var(--reward-rgb),0.2)',
-              border: '1px solid var(--reward)',
-              color: 'var(--reward-bright)',
-              borderRadius: 6,
-              padding: '3px 8px',
-              fontSize: 10,
-              fontWeight: 800,
-              cursor: 'pointer'
-            }}
-          >
-            🔊 Listen Sample Voice
-          </button>
-
           <button
             onClick={() => {
               const nextLvl = assistScriptLevel === 'standard' ? 'advanced' : 'standard';
@@ -215,7 +199,7 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
                 &ldquo;
                 {assistData.script.split(' ').map((word: string, wIdx: number) => {
                   const clean = word.toLowerCase().replace(/[^a-z0-9]/g, '');
-                  const isMatched = clean.length > 2 && liveSpeechTranscript.toLowerCase().includes(clean);
+                  const isMatched = clean.length > 0 && spokenWordSet.has(clean);
                   return (
                     <span
                       key={wIdx}
