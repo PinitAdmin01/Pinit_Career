@@ -135,21 +135,6 @@ export default function DynamicSkyCanvas({
     };
     window.addEventListener('resize', handleResize);
 
-    // ── 90% SCROLL THROTTLE LISTENER ──────────────────────────────────────────
-    let isScrolling = false;
-    let scrollTimeout: any = null;
-    let scrollFrameCount = 0;
-
-    const handleScroll = () => {
-      isScrolling = true;
-      if (scrollTimeout) clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isScrolling = false;
-        scrollFrameCount = 0;
-      }, 120);
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
     const _c = typeof window !== 'undefined' ? getComputedStyle(document.documentElement) : null; 
     const brandRgb = _c?.getPropertyValue('--brand-rgb')?.trim() || '99, 102, 241'; 
     const warningRgb = _c?.getPropertyValue('--warning-rgb')?.trim() || '245, 158, 11'; 
@@ -329,29 +314,7 @@ export default function DynamicSkyCanvas({
       const rampProgress = Math.min(1, rampElapsed / 2000);
       const easeIntensity = rampProgress * rampProgress * opacity;
 
-      // ── 90% SCROLL THROTTLING (USER REQUIREMENT) ─────────────────────────
-      // When the user scrolls, throttle canvas updates by 90% (render 1 in 10 frames).
-      // Leaves 90% of GPU resources free for 60-120 FPS buttery smooth scrolling,
-      // while maintaining subtle live background animation!
-      if (isScrolling) {
-        scrollFrameCount++;
-        if (scrollFrameCount % 10 !== 0) {
-          animFrameIdRef.current = requestAnimationFrame(render);
-          return;
-        }
-      }
-
-      // ── OFFSCREEN / PAST-HERO POWER SAVING ────────────────────────────────
-      const scrollY = typeof window !== 'undefined' ? (window.scrollY || document.documentElement.scrollTop || 0) : 0;
-      if (scrollY > height * 1.5) {
-        scrollFrameCount++;
-        if (scrollFrameCount % 15 !== 0) {
-          animFrameIdRef.current = requestAnimationFrame(render);
-          return;
-        }
-      }
-
-      // ── AVATAR ACTIVITY & LAG MITIGATION (Task Fix 1) ──────────────────────
+      // ── AVATAR ACTIVITY & LAG MITIGATION ──────────────────────────────────
       const isAvatarActive = avatarActive || Boolean(
         (typeof window !== 'undefined' && (window as any).interviewAvatarScene && !(window as any).interviewAvatarScene.paused) ||
         (typeof document !== 'undefined' && document.querySelector('canvas[data-vroid-canvas]'))
@@ -407,28 +370,28 @@ export default function DynamicSkyCanvas({
       // ── THEME RENDERING ─────────────────────────────────────────────────────
       if (theme === 'dark') {
         // ======================================================================
-        // 🌌 DARK MODE: DEEP COSMOS, TWINKLING STARS & FAST METEORS
+        // 🌌 DARK MODE: DEEP COSMOS, TWINKLING STARS & FAST METEORS (60-120 FPS)
         // ======================================================================
         ctx.save();
 
-        // 1. Render Stars (scaled when 3D avatar active)
+        // 1. Render Stars (Batched single draw call for zero CPU-GPU draw call stalls)
         const visibleStarsCount = Math.max(12, Math.round(stars.length * particleScale));
+        ctx.fillStyle = `rgba(224, 242, 254, ${0.72 * easeIntensity})`;
+        ctx.beginPath();
         for (let i = 0; i < visibleStarsCount; i++) {
           const s = stars[i];
           s.alpha += s.twinkleSpeed * (dt * 60);
           if (s.alpha > s.baseAlpha + 0.35 || s.alpha < s.baseAlpha - 0.25) {
             s.twinkleSpeed = -s.twinkleSpeed;
           }
-          const finalAlpha = Math.max(0.04, Math.min(1, s.alpha)) * easeIntensity;
-
-          ctx.fillStyle = `${s.color} ${finalAlpha})`;
-          ctx.beginPath();
+          ctx.moveTo(s.x + s.radius, s.y);
           ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
-          ctx.fill();
         }
+        ctx.fill();
 
-        // 2. Render Fast Meteors (scaled when 3D avatar active)
+        // 2. Render Fast Meteors (Zero-GC, 3-Stage Hardware Line Rasterization)
         ctx.globalCompositeOperation = 'lighter';
+        ctx.lineCap = 'round';
         const visibleMeteorsCount = Math.max(4, Math.round(meteors.length * particleScale));
         for (let i = 0; i < visibleMeteorsCount; i++) {
           const m = meteors[i];
@@ -444,23 +407,38 @@ export default function DynamicSkyCanvas({
 
           const tailX = m.x - METEOR_COS * m.length;
           const tailY = m.y - METEOR_SIN * m.length;
+          const midX = m.x - METEOR_COS * (m.length * 0.45);
+          const midY = m.y - METEOR_SIN * (m.length * 0.45);
+          const coreX = m.x - METEOR_COS * (m.length * 0.2);
+          const coreY = m.y - METEOR_SIN * (m.length * 0.2);
 
           const meteorAlpha = m.opacity * easeIntensity;
-          const grad = ctx.createLinearGradient(m.x, m.y, tailX, tailY);
-          grad.addColorStop(0, `rgba(255, 255, 255, ${meteorAlpha})`);
-          grad.addColorStop(0.2, `rgba(56, 189, 248, ${meteorAlpha * 0.8})`);
-          grad.addColorStop(0.65, `rgba(${brandRgb}, ${meteorAlpha * 0.35})`);
-          grad.addColorStop(1, `rgba(${brandRgb}, 0)`);
 
-          ctx.strokeStyle = grad;
-          ctx.lineWidth = m.size;
-          ctx.lineCap = 'round';
+          // Stage 1: Soft atmospheric ionization trail (cyan/blue outer envelope)
+          ctx.strokeStyle = `rgba(0, 163, 255, ${meteorAlpha * 0.32})`;
+          ctx.lineWidth = m.size * 1.6;
           ctx.beginPath();
           ctx.moveTo(m.x, m.y);
           ctx.lineTo(tailX, tailY);
           ctx.stroke();
 
-          // Luminous Meteor Head Glow (Hardware Sprite Blitting)
+          // Stage 2: Energetic plasma mid-trail (bright cyan)
+          ctx.strokeStyle = `rgba(56, 189, 248, ${meteorAlpha * 0.72})`;
+          ctx.lineWidth = m.size * 1.0;
+          ctx.beginPath();
+          ctx.moveTo(m.x, m.y);
+          ctx.lineTo(midX, midY);
+          ctx.stroke();
+
+          // Stage 3: Incandescent burning core (pure white)
+          ctx.strokeStyle = `rgba(255, 255, 255, ${meteorAlpha * 0.95})`;
+          ctx.lineWidth = m.size * 0.6;
+          ctx.beginPath();
+          ctx.moveTo(m.x, m.y);
+          ctx.lineTo(coreX, coreY);
+          ctx.stroke();
+
+          // Luminous Meteor Head Glow (Pre-rendered Hardware Sprite)
           if (meteorHeadSprite) {
             const glowR = m.size * 3.4;
             ctx.drawImage(meteorHeadSprite, m.x - glowR, m.y - glowR, glowR * 2, glowR * 2);
@@ -738,8 +716,6 @@ export default function DynamicSkyCanvas({
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      window.removeEventListener('scroll', handleScroll);
-      if (scrollTimeout) clearTimeout(scrollTimeout);
       window.removeEventListener('pc_sky_shockwave', handleShockwaveEvent);
       window.removeEventListener('pc_animation_toggle', handleAnimationToggle);
       window.removeEventListener('pinit_vroid_active', handleAvatarToggle);
@@ -757,7 +733,10 @@ export default function DynamicSkyCanvas({
         width: '100vw',
         height: '100vh',
         pointerEvents: 'none',
-        zIndex: 0
+        zIndex: 0,
+        transform: 'translateZ(0)',
+        willChange: 'transform',
+        contain: 'strict'
       }}
       aria-hidden="true"
     />
