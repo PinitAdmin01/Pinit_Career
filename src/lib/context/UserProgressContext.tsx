@@ -9,6 +9,7 @@ import { supabase } from '@/lib/supabaseClient';
 import { persistQuestCompletion, syncRewardsDB, updateUserProfile } from '@/lib/supabaseService';
 import { markOnboardingStoryPending } from '@/lib/storyTour';
 import { safeLocalStorageSetItem } from '@/lib/storage/careerStorage';
+import { generateDynamicStudentRoadmap } from '@/lib/data/roadmapFuser';
 
 export interface OnboardingAnswers {
   role?: string;
@@ -356,6 +357,42 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     }
   }, [user, keys]);
 
+  // Offline sync queue processor: drains pending quest completions whenever connection returns
+  useEffect(() => {
+    if (typeof window === 'undefined' || !userId || userId === 'guest') return;
+
+    const flushPending = async () => {
+      try {
+        const queueKey = `pinit_${userId}_pending_quest_completions`;
+        const raw = localStorage.getItem(queueKey);
+        if (!raw) return;
+        const pending = JSON.parse(raw);
+        if (!Array.isArray(pending) || pending.length === 0) return;
+
+        const remaining: any[] = [];
+        for (const item of pending) {
+          try {
+            await api.post('/api/quest/complete', item);
+            await persistQuestCompletion(userId, item.questId, item.isExam, item.xpAmount || 150, item.courseId);
+          } catch {
+            remaining.push(item);
+          }
+        }
+        if (remaining.length > 0) {
+          localStorage.setItem(queueKey, JSON.stringify(remaining));
+        } else {
+          localStorage.removeItem(queueKey);
+        }
+      } catch {}
+    };
+
+    flushPending();
+    window.addEventListener('online', flushPending);
+    return () => {
+      window.removeEventListener('online', flushPending);
+    };
+  }, [userId]);
+
   const addXp = useCallback(async (amount: number, reason: string) => {
     setXpState(prev => {
       const next = prev + amount;
@@ -448,7 +485,18 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     save(keys.onboard, nextAnswers);
 
     if (userId && userId !== 'guest') {
-      api.post('/api/quest/complete', { questId, isExam, xpAmount, courseId }).catch(() => {});
+      const payload = { questId, isExam, xpAmount, courseId, timestamp: new Date().toISOString() };
+      api.post('/api/quest/complete', payload).catch(() => {
+        try {
+          const queueKey = `pinit_${userId}_pending_quest_completions`;
+          const raw = localStorage.getItem(queueKey);
+          const existing = raw ? JSON.parse(raw) : [];
+          if (!existing.some((item: any) => item.questId === questId)) {
+            existing.push(payload);
+            localStorage.setItem(queueKey, JSON.stringify(existing));
+          }
+        } catch {}
+      });
       persistQuestCompletion(userId, questId, isExam, xpAmount || 150, courseId).catch(() => {});
       updateUserProfile(userId, {
         completed_quests: next,
@@ -542,6 +590,29 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
   ): Promise<any[] | null> => {
     const targetRole = onboardingAnswers.role || 'Full Stack Engineer';
     const experienceLevel = onboardingAnswers.experience || 'beginner';
+    const effectiveCourseId = courseId || 'course-java-logic';
+
+    const persistRoadmapModules = (mods: any[]) => {
+      const nextAnswers = { ...onboardingAnswers, roadmap_modules: mods };
+      setOnboardingAnswersState(nextAnswers);
+      save(keys.onboard, nextAnswers);
+      setRoadmapGenerated(true);
+
+      if (typeof window !== 'undefined') {
+        try {
+          safeLocalStorageSetItem(`pinit_${userId}_roadmap_modules`, JSON.stringify(mods));
+          safeLocalStorageSetItem(`pinit_${userId}_roadmap_modules_${effectiveCourseId}`, JSON.stringify(mods));
+          safeLocalStorageSetItem(keys.roadGen, 'true');
+        } catch {}
+      }
+
+      if (userId && userId !== 'guest') {
+        updateUserProfile(userId, {
+          roadmap_generated: true,
+          onboarding_answers: nextAnswers,
+        }).catch(() => {});
+      }
+    };
 
     try {
       const res = await api.post<{ ok: boolean; modules: any[] }>('/api/career-builder/generate', {
@@ -549,29 +620,42 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
         skillTags,
         weakAreas,
         experienceLevel,
-        courseId,
+        courseId: effectiveCourseId,
         durationDays,
         dailyPace,
       });
 
-      if (res && res.modules && Array.isArray(res.modules)) {
-        const nextAnswers = { ...onboardingAnswers, roadmap_modules: res.modules };
-        setOnboardingAnswersState(nextAnswers);
-        save(keys.onboard, nextAnswers);
-        setRoadmapGenerated(true);
-        if (userId && userId !== 'guest') {
-          updateUserProfile(userId, {
-            roadmap_generated: true,
-            onboarding_answers: nextAnswers,
-          }).catch(() => {});
-        }
+      if (res && res.modules && Array.isArray(res.modules) && res.modules.length > 0) {
+        persistRoadmapModules(res.modules);
         return res.modules;
       }
     } catch (err) {
-      console.warn('[generateFusedRoadmap] API generation failed:', err);
+      console.warn('[generateFusedRoadmap] API generation failed, falling back to local fuser:', err);
     }
+
+    // Client-side fallback fuser
+    try {
+      const fallbackModules = generateDynamicStudentRoadmap({
+        courseId: effectiveCourseId,
+        goal: targetRole,
+        qt1: (onboardingAnswers as any).qt1_score ?? 45,
+        qt2: (onboardingAnswers as any).qt2_score ?? 50,
+        archetype: (onboardingAnswers as any).mindset_archetype || 'Pattern Hunter',
+        durationDays,
+        dailyPace,
+      });
+
+      if (fallbackModules && fallbackModules.length > 0) {
+        persistRoadmapModules(fallbackModules);
+        return fallbackModules;
+      }
+    } catch (fallbackErr) {
+      console.error('[generateFusedRoadmap] Local roadmap fallback failed:', fallbackErr);
+    }
+
     return null;
-  }, [keys.onboard, onboardingAnswers, save, setRoadmapGenerated, userId]);
+  }, [keys.onboard, keys.roadGen, onboardingAnswers, save, setRoadmapGenerated, userId]);
+
 
   const careerScore = useMemo(() => {
     // Derive transparently from real verified student progress; start at 0 for fresh accounts

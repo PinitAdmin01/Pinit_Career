@@ -295,10 +295,10 @@ export default function DashboardPage() {
 
   // Next step logic
   let nextStep = { title:'Setup Your Career OS Profile', desc:'Take the 2-min assessment to map your strengths.', href:'/career-twin', icon:'🧬', color:'var(--accent)' };
-  if (vaultItems.length === 0)          nextStep = { title:'Upload to Evidence Vault', desc:'Certifications and project docs boost your Trust Score.', href:'/vault',        icon:'🗂️', color:'var(--purple)' };
-  if (completedMissions.length === 0)   nextStep = { title:'Solve Your First Mission',  desc:'5 personalised missions generated daily to close skill gaps.',  href:'/missions',    icon:'⚡', color:'var(--amber)' };
   if (!roadmapGenerated)                nextStep = { title:'Choose Career Trajectory',   desc:'Select a target track to build your custom quest roadmap.',     href:'#trajectory-selector', icon:'🛠️', color:'var(--teal)' };
-  if (roadmapGenerated && completedMissions.length > 0) nextStep = { title:'Launch Your Next Quest', desc:'Start coding in our simulated SDE workspace.', href:'/quests', icon:'🗺️', color:'var(--blue)' };
+  if (roadmapGenerated)                 nextStep = { title:'Launch Your Next Quest', desc:'Start learning in your customized roadmap.', href:'/quests?tab=custom_roadmap', icon:'🗺️', color:'var(--blue)' };
+  if (completedQuests.length > 0 && vaultItems.length === 0) nextStep = { title:'Upload to Evidence Vault', desc:'Certifications and project docs boost your Trust Score.', href:'/vault', icon:'🗂️', color:'var(--purple)' };
+  if (completedQuests.length > 0 && completedMissions.length === 0) nextStep = { title:'Solve Your First Mission',  desc:'5 personalised missions generated daily to close skill gaps.',  href:'/missions',    icon:'⚡', color:'var(--amber)' };
 
   // Profile for WhatToDoToday
   function profileForActions() {

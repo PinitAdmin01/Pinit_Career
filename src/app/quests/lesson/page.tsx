@@ -1,7 +1,7 @@
 'use client';
 
 import { Suspense, useCallback } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { COURSES_REGISTRY } from '@/lib/data/coursesData';
 import { getAuthoritativeQuest, isAuthoritativeExam } from '@/lib/quests/questRegistry';
@@ -247,8 +247,9 @@ function LessonPageRouter() {
   const questId = searchParams.get('questId') || '';
   const { user } = useAuth();
   const userId = user?.id || 'guest';
+  const { onboardingAnswers } = useCareerOS();
 
-  // Check COURSES_REGISTRY first for authoritative course curriculum
+  // 1. Check COURSES_REGISTRY first for authoritative course curriculum
   let questData: any = null;
   for (const course of COURSES_REGISTRY) {
     const found = (course.quests || []).find(q => q.id === questId);
@@ -258,16 +259,28 @@ function LessonPageRouter() {
     }
   }
 
-  // Fallback to custom AI-generated roadmap modules in localStorage if not in standard registry
-  if (!questData && typeof window !== 'undefined' && userId) {
+  // 2. Check in-memory onboardingAnswers roadmap_modules
+  if (!questData && onboardingAnswers?.roadmap_modules && Array.isArray(onboardingAnswers.roadmap_modules)) {
+    for (const mod of onboardingAnswers.roadmap_modules) {
+      const found = (mod.quests || []).find((q: any) => q.id === questId);
+      if (found) {
+        questData = found;
+        break;
+      }
+    }
+  }
+
+  // 3. Fallback to custom roadmap modules across all localStorage candidate keys
+  if (!questData && typeof window !== 'undefined') {
     try {
-      const moduleKeys = Object.keys(localStorage).filter(k => k.startsWith(`pinit_${userId}_roadmap_modules`));
-      for (const key of moduleKeys) {
+      const allKeys = Object.keys(localStorage).filter(k => k.includes('roadmap_modules') || k.includes('onboarding_answers'));
+      for (const key of allKeys) {
         const saved = localStorage.getItem(key);
         if (saved) {
-          const mods = JSON.parse(saved);
-          if (Array.isArray(mods)) {
-            for (const mod of mods) {
+          const parsed = JSON.parse(saved);
+          const candidateModules = Array.isArray(parsed) ? parsed : (parsed?.roadmap_modules || []);
+          if (Array.isArray(candidateModules)) {
+            for (const mod of candidateModules) {
               const found = (mod.quests || []).find((q: any) => q.id === questId);
               if (found) {
                 questData = found;
@@ -279,11 +292,11 @@ function LessonPageRouter() {
         if (questData) break;
       }
     } catch (e) {
-      console.error('Failed to load quest from roadmap modules:', e);
+      console.error('Failed to load quest from roadmap storage:', e);
     }
   }
 
-  // Check authoritative quest registry
+  // 4. Check authoritative quest registry (now supports dynamic roadmap quests)
   if (!questData && questId) {
     const authQuest = getAuthoritativeQuest(questId);
     if (authQuest) {
@@ -291,7 +304,31 @@ function LessonPageRouter() {
     }
   }
 
-  // Fail closed on unregistered quest IDs to prevent fake XP generation
+  // 5. Dynamic fallback synthesis for custom learning tracks
+  if (!questData && questId && questId.length > 2) {
+    const isCoding = questId.includes('-assign-') || questId.includes('-code-') || questId.endsWith('-q2');
+    const isExam = questId.includes('-exam-') || questId.includes('-test-') || questId.endsWith('-q3') || questId.includes('exam');
+    const type = isCoding ? 'coding' : isExam ? 'interactive' : 'lecture';
+    const category = isCoding ? 'assignment' : isExam ? 'exam' : 'learning';
+
+    questData = {
+      id: questId,
+      title: `Quest Lesson: ${questId.replace(/[-_]+/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}`,
+      desc: `Interactive learning module and mastery verification for ${questId}.`,
+      type,
+      category,
+      requiresAvatar: type !== 'coding',
+      syllabus: [
+        'Core architectural principles & fundamentals',
+        'Practical implementation & real-world workflows',
+        'System invariants, error handling & performance benchmarking'
+      ],
+      xp: isExam ? 200 : 150,
+      pins: isExam ? 10 : 5
+    };
+  }
+
+  // Guard only on completely missing questId
   if (!questData) {
     return (
       <div style={{
@@ -313,7 +350,11 @@ function LessonPageRouter() {
           The requested lesson ID <code style={{ color: 'var(--accent)', background: 'var(--bg2)', padding: '2px 6px', borderRadius: 4 }}>{questId || 'unknown'}</code> does not exist in any registered course or curriculum.
         </p>
         <button
-          onClick={() => window.location.assign('/quests')}
+          onClick={() => {
+            if (typeof window !== 'undefined') {
+              window.location.assign('/quests?tab=custom_roadmap');
+            }
+          }}
           className="btn-primary"
           style={{
             padding: '10px 20px',
@@ -329,6 +370,7 @@ function LessonPageRouter() {
     );
   }
 
+
   if (questData?.type === 'coding' || (questId && (questId.includes('-exam-') || questId.includes('-assign-')))) {
     return <QuestWorkspaceClient questId={questId} />;
   }
@@ -337,6 +379,7 @@ function LessonPageRouter() {
 }
 
 function LessonPageContent({ questId, questData }: { questId: string; questData: any }) {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const teacherId = searchParams.get('teacherId') || 'kashyap';
   const { user } = useAuth();
@@ -358,16 +401,19 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
     if (id) {
       const authQuest = getAuthoritativeQuest(id);
       const course = COURSES_REGISTRY.find(c => (c.quests || []).some(q => q.id === id));
-      if (authQuest || course) {
-        const isExam = isAuthoritativeExam(id);
-        const xp = authQuest?.xp || 150;
-        addCompletedQuest(id, isExam, xp, course?.id);
-      }
+      const isExam = isAuthoritativeExam(id);
+      const xp = authQuest?.xp || 150;
+      addCompletedQuest(id, isExam, xp, course?.id);
     }
     toast.success('Stage Completed!', 'Heading back to the quest roadmap.');
     stopSpeaking();
-    window.location.assign('/quests/');
-  }, [resolveQuestId, addCompletedQuest, state.returningRef]);
+    const targetUrl = '/quests?tab=custom_roadmap';
+    if (router && typeof router.push === 'function') {
+      router.push(targetUrl);
+    } else {
+      window.location.assign(targetUrl);
+    }
+  }, [resolveQuestId, addCompletedQuest, state.returningRef, router]);
 
   const engine = useLessonEngine({
     questId,
@@ -401,7 +447,14 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
 
       {/* Return Button */}
       <button
-        onClick={() => window.location.assign('/quests/')}
+        onClick={() => {
+          stopSpeaking();
+          if (router && typeof router.push === 'function') {
+            router.push('/quests?tab=custom_roadmap');
+          } else {
+            window.location.assign('/quests?tab=custom_roadmap');
+          }
+        }}
         style={{
           position: 'absolute',
           top: 24,
@@ -517,6 +570,7 @@ function LessonPageContent({ questId, questData }: { questId: string; questData:
             finishLessonAndReturn={finishLessonAndReturn}
             slidesLength={state.slides.length || syllabus.length}
             understandingConfirmed={state.understandingConfirmed}
+            setUnderstandingConfirmed={state.setUnderstandingConfirmed}
           />
         </div>
       )}

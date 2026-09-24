@@ -54,7 +54,7 @@ function QuestsPageContent() {
       />
 
       {/* ── DYNAMIC GOAL ROADMAP & PROGRESSION PATH ───────────────── */}
-      {!prog.showCourseLibrary && prog.modules.length > 0 && (
+      {!prog.showCourseLibrary && (
         <QuestPathView
           activeCourseId={prog.activeCourseId}
           setActiveCourseId={prog.setActiveCourseId}
