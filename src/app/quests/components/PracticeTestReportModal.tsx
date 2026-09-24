@@ -1,17 +1,20 @@
 'use client';
 
 import React from 'react';
+import type { PracticeTestResult } from './PracticeTestQuizRunner';
 
 interface PracticeTestReportModalProps {
   isOpen: boolean;
   onClose: () => void;
   testTitle?: string;
+  result?: PracticeTestResult | null;
 }
 
 export const PracticeTestReportModal: React.FC<PracticeTestReportModalProps> = ({
   isOpen,
   onClose,
-  testTitle = 'Comprehensive Industry Practice Assessment'
+  testTitle = 'Comprehensive Industry Practice Assessment',
+  result
 }) => {
   if (!isOpen) return null;
 
@@ -89,19 +92,30 @@ export const PracticeTestReportModal: React.FC<PracticeTestReportModalProps> = (
         }}>
           <div>
             <div style={{ fontSize: 10, color: '#64748b', textTransform: 'uppercase', fontWeight: 800 }}>Overall Score</div>
-            <div style={{ fontSize: 22, fontWeight: 900, color: '#10b981', marginTop: 2 }}>88 / 100</div>
+            <div style={{ fontSize: 22, fontWeight: 900, color: '#10b981', marginTop: 2 }}>
+              {result ? `${result.score} / ${result.totalQuestions}` : '88 / 100'}
+            </div>
           </div>
           <div>
-            <div style={{ fontSize: 10, color: '#64748b', textTransform: 'uppercase', fontWeight: 800 }}>Percentile</div>
-            <div style={{ fontSize: 22, fontWeight: 900, color: '#38bdf8', marginTop: 2 }}>Top 8%</div>
+            <div style={{ fontSize: 10, color: '#64748b', textTransform: 'uppercase', fontWeight: 800 }}>Accuracy</div>
+            <div style={{ fontSize: 22, fontWeight: 900, color: '#38bdf8', marginTop: 2 }}>
+              {result ? `${result.accuracyPercent}%` : '88%'}
+            </div>
           </div>
           <div>
-            <div style={{ fontSize: 10, color: '#64748b', textTransform: 'uppercase', fontWeight: 800 }}>Speed / Accuracy</div>
-            <div style={{ fontSize: 22, fontWeight: 900, color: '#818cf8', marginTop: 2 }}>94%</div>
+            <div style={{ fontSize: 10, color: '#64748b', textTransform: 'uppercase', fontWeight: 800 }}>Time Taken</div>
+            <div style={{ fontSize: 22, fontWeight: 900, color: '#818cf8', marginTop: 2 }}>
+              {(() => {
+                const s = typeof result?.timeTakenSeconds === 'number' ? Math.max(0, result.timeTakenSeconds) : 225;
+                return `${Math.floor(s / 60)}m ${s % 60}s`;
+              })()}
+            </div>
           </div>
           <div>
             <div style={{ fontSize: 10, color: '#64748b', textTransform: 'uppercase', fontWeight: 800 }}>Readiness</div>
-            <div style={{ fontSize: 13, fontWeight: 900, color: '#f59e0b', marginTop: 6 }}>Placement Ready</div>
+            <div style={{ fontSize: 13, fontWeight: 900, color: '#f59e0b', marginTop: 6 }}>
+              {(result?.accuracyPercent ?? 88) >= 80 ? 'Placement Ready' : (result?.accuracyPercent ?? 88) >= 60 ? 'Progressing Well' : 'Needs Practice'}
+            </div>
           </div>
         </div>
 
@@ -111,12 +125,20 @@ export const PracticeTestReportModal: React.FC<PracticeTestReportModalProps> = (
             Topic Competency Breakdown
           </h4>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-            {[
-              { topic: 'Core Logic & Algorithmic Problem Solving', score: 95, color: '#10b981' },
-              { topic: 'RESTful API Construction & JWT Security', score: 88, color: '#38bdf8' },
-              { topic: 'Database Schema Modeling & Query Optimization', score: 78, color: '#f59e0b' },
-              { topic: 'Cloud Deployment, Docker & DevOps Automation', score: 85, color: '#6366f1' }
-            ].map((t, idx) => (
+            {(result && Object.keys(result.topicBreakdown).length > 0
+              ? Object.entries(result.topicBreakdown).map(([topic, data], idx) => {
+                  const pct = Math.round((data.correct / (data.total || 1)) * 100);
+                  const colors = ['#10b981', '#38bdf8', '#f59e0b', '#6366f1', '#ec4899'];
+                  const color = colors[idx % colors.length];
+                  return { topic, score: pct, color };
+                })
+              : [
+                  { topic: 'Core Logic & Algorithmic Problem Solving', score: 95, color: '#10b981' },
+                  { topic: 'RESTful API Construction & JWT Security', score: 88, color: '#38bdf8' },
+                  { topic: 'Database Schema Modeling & Query Optimization', score: 78, color: '#f59e0b' },
+                  { topic: 'Cloud Deployment, Docker & DevOps Automation', score: 85, color: '#6366f1' }
+                ]
+            ).map((t, idx) => (
               <div key={idx}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5, marginBottom: 4 }}>
                   <span style={{ color: '#cbd5e1' }}>{t.topic}</span>
@@ -141,10 +163,12 @@ export const PracticeTestReportModal: React.FC<PracticeTestReportModalProps> = (
           gap: 6
         }}>
           <div style={{ fontSize: 11, fontWeight: 900, color: '#f59e0b', textTransform: 'uppercase' }}>
-            ⚡ Detected Skill Gap & Recommended Quests:
+            ⚡ Detected Skill Gap & Diagnostic Feedback:
           </div>
           <p style={{ fontSize: 11.5, color: '#cbd5e1', margin: 0, lineHeight: 1.4 }}>
-            Your database query indexing accuracy is at 78%. We recommend completing <strong>"Quest 18: Index Tuning & B-Tree Explain Plans"</strong> to reach 90%+ readiness.
+            {result && result.skillGaps && result.skillGaps.length > 0
+              ? `Identified focus areas: ${result.skillGaps.join(', ')}. Complete corresponding practice labs to solidify your retention.`
+              : 'Excellent foundation! Your core competency marks you as interview-ready for the current milestone.'}
           </p>
         </div>
 

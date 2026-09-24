@@ -10,8 +10,10 @@ const WALLET_FILE = path.join(process.cwd(), 'src', 'lib', 'data', 'pin_wallet_d
 const PLAN_PIN_COSTS: Record<string, number> = {
   'plan-1m-sprint': 500,
   'plan-3m-accelerator': 1200,
-  'plan-6m-pro': 2000,
-  'plan-9m-master': 3000,
+  'plan-6m-pro': 2200,
+  'plan-9m-master': 3500,
+  'plan-12m-fellow': 4500,
+  'plan-24m-master': 7500,
 };
 
 const PLAN_REWARD_PINS: Record<string, number> = {
@@ -19,6 +21,8 @@ const PLAN_REWARD_PINS: Record<string, number> = {
   'plan-3m-accelerator': 350,
   'plan-6m-pro': 700,
   'plan-9m-master': 1200,
+  'plan-12m-fellow': 1500,
+  'plan-24m-master': 2500,
 };
 
 const PLAN_TITLES: Record<string, string> = {
@@ -26,6 +30,8 @@ const PLAN_TITLES: Record<string, string> = {
   'plan-3m-accelerator': '3-Month Career Accelerator',
   'plan-6m-pro': '6-Month Professional Program',
   'plan-9m-master': '9-Month Master Program',
+  'plan-12m-fellow': '12-Month Advanced Industry Fellowship',
+  'plan-24m-master': '24-Month Master Engineering & Degree Track',
 };
 
 function readLocalDb(): Record<string, any[]> {

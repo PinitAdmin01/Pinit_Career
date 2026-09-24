@@ -250,20 +250,29 @@ export default function PublicVerifyCredentialPage() {
                 </div>
               )}
 
-              {/* Student Profile Overview (if full transcript) */}
+              {/* Student Profile Overview (if full transcript or candidate in training) */}
               {studentProfile && (
                 <div>
+                  {studentProfile.studentName && (
+                    <div style={{ marginBottom: 16, padding: '12px 16px', borderRadius: 10, background: 'rgba(99, 102, 241, 0.1)', border: '1px solid rgba(99, 102, 241, 0.25)' }}>
+                      <div style={{ fontSize: 11, color: '#818cf8', fontWeight: 800, textTransform: 'uppercase' }}>CANDIDATE IN TRAINING</div>
+                      <div style={{ fontSize: 16, fontWeight: 900, color: '#ffffff', marginTop: 2 }}>{studentProfile.studentName}</div>
+                      <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{studentProfile.institution} • {studentProfile.targetRole}</div>
+                    </div>
+                  )}
                   <h3 style={{ margin: '0 0 12px 0', fontSize: 15, fontWeight: 700 }}>
-                    📜 Verified Skills Transcript ({studentProfile.verified.length} Verified)
+                    📜 Verified Skills Transcript ({(studentProfile.verified || []).length} Verified)
                   </h3>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                    {studentProfile.verified.map(s => (
+                    {(studentProfile.verified || []).map((s: any) => (
                       <span key={s.id} style={{ padding: '6px 12px', borderRadius: 6, background: 'rgba(var(--success-rgb),  0.12)', border: '1px solid rgba(var(--success-rgb),  0.25)', color: 'var(--success-bright)', fontSize: 12, fontWeight: 700 }}>
                         ✓ {s.name} ({s.score} pts)
                       </span>
                     ))}
-                    {studentProfile.verified.length === 0 && (
-                      <span style={{ fontSize: 13, color: 'var(--text-muted)' }}>Student is in progress with foundational milestones.</span>
+                    {(!studentProfile.verified || studentProfile.verified.length === 0) && (
+                      <span style={{ fontSize: 13, color: 'var(--text-muted)' }}>
+                        Candidate is actively enrolled in good standing. Foundational checkpoints in progress.
+                      </span>
                     )}
                   </div>
 

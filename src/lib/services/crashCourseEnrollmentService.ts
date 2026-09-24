@@ -122,5 +122,16 @@ export const crashCourseEnrollmentService = {
       console.warn('[crashCourseEnrollmentService] Error updating milestone:', err);
       return false;
     }
+  },
+
+  /**
+   * Clear active enrollment from client cache
+   */
+  clearEnrollment(): void {
+    try {
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem(STORAGE_KEY);
+      }
+    } catch {}
   }
 };

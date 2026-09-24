@@ -974,7 +974,7 @@ function ArenaContent() {
                       boxShadow: '0 4px 12px rgba(16, 185, 129, 0.35)'
                     }}
                   >
-                    <span>➕</span> {isCreatingRoom ? 'Generating Room...' : 'Create Room & Invite'}
+                    <span>➕</span> {isCreatingRoom ? 'Generating Room...' : 'Create Room & Invite (10 Pins)'}
                   </button>
                 </div>
 

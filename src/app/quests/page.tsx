@@ -53,8 +53,8 @@ function QuestsPageContent() {
         setNotesModalState={prog.setNotesModalState}
       />
 
-      {/* ── DYNAMIC GOAL ROADMAP & PROGRESSION PATH ───────────────── */}
-      {!prog.showCourseLibrary && (
+      {/* ── DYNAMIC GOAL ROADMAP & PROGRESSION PATH (Tab 1 uses Vertical Checkpoint Stepper) ── */}
+      {!prog.showCourseLibrary && prog.activeSubTab !== 'certification_passport' && (
         <QuestPathView
           activeCourseId={prog.activeCourseId}
           setActiveCourseId={prog.setActiveCourseId}

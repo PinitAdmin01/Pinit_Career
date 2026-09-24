@@ -26,6 +26,15 @@ async function handleReset(req: Request) {
     const client = getAdminClient();
     const now = new Date().toISOString();
 
+    // 0. Auto-expire subscriptions that have passed their expiration date
+    const { data: expiredSubs } = await client
+      .from('users')
+      .update({ subscription_status: 'expired' })
+      .eq('subscription_status', 'active')
+      .not('subscription_expires_at', 'is', null)
+      .lt('subscription_expires_at', now)
+      .select('id');
+
     // 1. Subscribed students (Basic Plan ₹99 / Pro): daily quota renewal to 120 pins (like Airtel / Jio daily reset at 1:00 AM)
     const { data: subUpdated, error: subError } = await client
       .from('users')
@@ -39,12 +48,12 @@ async function handleReset(req: Request) {
       return NextResponse.json({ ok: false, error: subError.message }, { status: 500 });
     }
 
-    // 2. Free / un-subscribed users: daily demo pins expire at 1:00 AM reset (reset pins to 0)
+    // 2. Free / un-subscribed / expired users: daily active allowance expires at 1:00 AM reset (reset pins to 0)
     // Permanent vault / top-up bonus pins (bonus_pins) are safely preserved and never wiped!
     const { data: freeUpdated, error: freeError } = await client
       .from('users')
       .update({ pins: 0, last_pin_reset: now })
-      .not('subscription_tier', 'in', '("pro","basic","basic_student","student")')
+      .or('subscription_status.neq.active,subscription_tier.not.in.("pro","basic","basic_student","student")')
       .gt('pins', 0)
       .select('id');
 
@@ -56,6 +65,7 @@ async function handleReset(req: Request) {
     return NextResponse.json({
       ok: true,
       source: 'table_update',
+      expiredSubsCount: Array.isArray(expiredSubs) ? expiredSubs.length : 0,
       subRenewedCount: Array.isArray(subUpdated) ? subUpdated.length : 0,
       freeExpiredCount: Array.isArray(freeUpdated) ? freeUpdated.length : 0,
       timestamp: now,

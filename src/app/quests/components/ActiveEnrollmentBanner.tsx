@@ -59,7 +59,7 @@ export const ActiveEnrollmentBanner: React.FC<ActiveEnrollmentBannerProps> = ({
       />
 
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
           <span
             style={{
               display: 'inline-flex',
@@ -85,7 +85,36 @@ export const ActiveEnrollmentBanner: React.FC<ActiveEnrollmentBannerProps> = ({
                 boxShadow: '0 0 8px #10b981'
               }}
             />
-            Active Enrolled Track
+            Active Fellowship Track
+          </span>
+          <span
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
+              fontSize: 11,
+              fontWeight: 800,
+              padding: '4px 10px',
+              borderRadius: 20,
+              background: 'rgba(99, 102, 241, 0.18)',
+              border: '1px solid rgba(99, 102, 241, 0.35)',
+              color: '#a5b4fc'
+            }}
+          >
+            🔒 {trackLabel} (Locked)
+          </span>
+          <span
+            style={{
+              fontSize: 11,
+              fontWeight: 800,
+              padding: '4px 10px',
+              borderRadius: 20,
+              background: 'rgba(16, 185, 129, 0.15)',
+              color: '#10b981',
+              border: '1px solid rgba(16, 185, 129, 0.3)'
+            }}
+          >
+            ✓ Accredited Fellowship Seat
           </span>
           <span style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>
             Ref #{enrollment.enrollmentId.slice(-8).toUpperCase()}
