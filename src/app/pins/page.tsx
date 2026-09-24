@@ -187,15 +187,20 @@ export default function PinsWalletPage() {
 
   const customPrice = Math.ceil(customPins / 10);
 
-  const onPurchaseSuccess = useCallback((grantedPins?: number, isPro?: boolean, bonusGranted?: number) => {
-    if (isPro) {
-      // Jio/Airtel model: Activate 120 daily quota, deposit 500 into bonus vault
+  const onPurchaseSuccess = useCallback((grantedPins?: number, isSub?: boolean, bonusGranted?: number) => {
+    if (isSub) {
+      // Jio/Airtel model: Activate 120 daily quota, deposit 500 into bonus vault if pro
       setPins?.(Math.max(pins, 120));
-      if (setBonusPins && typeof bonusGranted === 'number') {
+      if (setBonusPins && typeof bonusGranted === 'number' && bonusGranted > 0) {
         setBonusPins((bonusPins || 0) + bonusGranted);
       }
     } else if (typeof grantedPins === 'number' && grantedPins > 0) {
-      setPins?.(pins + grantedPins);
+      // Individual top-ups (₹1 = 10 pins) deposit into Permanent Bonus Vault
+      if (setBonusPins) {
+        setBonusPins((bonusPins || 0) + grantedPins);
+      } else {
+        setPins?.(pins + grantedPins);
+      }
     }
   }, [pins, setPins, bonusPins, setBonusPins]);
 
@@ -243,6 +248,27 @@ export default function PinsWalletPage() {
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+          {/* Section 0: Total Spendable Balance */}
+          <div id="total-spendable-pins-badge" style={{
+            display: 'flex', alignItems: 'center', gap: 10,
+            padding: '10px 16px', borderRadius: 14,
+            background: 'linear-gradient(135deg, rgba(99,102,241,0.12) 0%, rgba(139,92,246,0.08) 100%)',
+            border: '1.5px solid rgba(99,102,241,0.3)',
+          }}>
+            <PinCoin size={26} glow animate />
+            <div>
+              <div style={{ fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--accent)' }}>
+                Total Spendable
+              </div>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 18, fontWeight: 900, color: 'var(--t1)', lineHeight: 1.1 }}>
+                {(pins + (bonusPins || 0)).toLocaleString()} Pins
+              </div>
+              <div style={{ fontSize: 9.5, color: 'var(--t3)', marginTop: 2 }}>
+                {pins} daily + {(bonusPins || 0)} vault
+              </div>
+            </div>
+          </div>
+
           {/* Section 1: Active Daily Quota (Jio/Airtel model) */}
           <div id="active-daily-pins-badge" style={{
             display: 'flex', alignItems: 'center', gap: 10,
