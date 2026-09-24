@@ -144,38 +144,102 @@ export async function POST(req: Request) {
       auth: { persistSession: false, autoRefreshToken: false },
     });
 
-    const { data: spendRes, error: spendErr } = await admin.rpc('spend_pins', {
-      p_user_id: userId,
-      p_amount: spendAmount,
-      p_reason: `Spend on ${featureKey}`,
-    });
+    // 1. Fetch user profile with both daily pins and permanent vault bonus_pins
+    const { data: userProfile, error: profileErr } = await admin
+      .from('users')
+      .select('pins, bonus_pins, pin_history, unlocked_items')
+      .eq('id', userId)
+      .maybeSingle();
 
-    if (spendErr) {
-      console.error('[Pin Spend] RPC Error:', spendErr.message);
+    if (profileErr || !userProfile) {
       return NextResponse.json(
-        { ok: false, error: 'DATABASE_ERROR', message: 'Could not process pin deduction.' },
-        { status: 500 }
+        { ok: false, error: 'USER_NOT_FOUND', message: 'User profile not found.' },
+        { status: 404 }
       );
     }
 
-    if (!spendRes?.ok) {
+    const currentDaily = typeof userProfile.pins === 'number' ? userProfile.pins : 0;
+    const currentBonus = typeof userProfile.bonus_pins === 'number' ? userProfile.bonus_pins : 0;
+    const totalAvailable = currentDaily + currentBonus;
+
+    if (totalAvailable < spendAmount) {
       return NextResponse.json(
-        { ok: false, error: spendRes?.reason || 'INSUFFICIENT_PINS', currentBalance: spendRes?.current_balance ?? 0 },
+        {
+          ok: false,
+          error: 'INSUFFICIENT_PINS',
+          message: `Need ${spendAmount} pins. You have ${totalAvailable} pins (${currentDaily} daily + ${currentBonus} vault).`,
+          currentBalance: totalAvailable,
+        },
         { status: 402 }
       );
     }
 
+    let newDaily = currentDaily;
+    let newBonus = currentBonus;
+
+    if (currentDaily >= spendAmount) {
+      // Case A: 100% covered by daily pins — use atomic spend_pins RPC or direct fallback
+      const { data: spendRes, error: spendErr } = await admin.rpc('spend_pins', {
+        p_user_id: userId,
+        p_amount: spendAmount,
+        p_reason: `Spend on ${featureKey}`,
+      });
+
+      if (spendErr) {
+        console.error('[Pin Spend] RPC Error:', spendErr.message);
+        return NextResponse.json(
+          { ok: false, error: 'DATABASE_ERROR', message: 'Could not process pin deduction.' },
+          { status: 500 }
+        );
+      }
+
+      if (spendRes?.ok) {
+        newDaily = spendRes.new_balance;
+      } else {
+        return NextResponse.json(
+          { ok: false, error: spendRes?.reason || 'INSUFFICIENT_PINS', currentBalance: spendRes?.current_balance ?? currentDaily },
+          { status: 402 }
+        );
+      }
+    } else {
+      // Case B: Daily pins exhausted/insufficient, draw remainder from permanent bonus vault
+      const fromBonus = spendAmount - currentDaily;
+      newDaily = 0;
+      newBonus = currentBonus - fromBonus;
+
+      const txId = 'tx_spend_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8);
+      const newTx = {
+        id: txId,
+        type: 'spend',
+        amount: spendAmount,
+        reason: `Spend on ${featureKey} (${currentDaily} daily + ${fromBonus} vault)`,
+        source: featureKey,
+        timestamp: Date.now(),
+      };
+      const currentHist = Array.isArray(userProfile.pin_history) ? userProfile.pin_history : [];
+      const { error: updatePinErr } = await admin
+        .from('users')
+        .update({
+          pins: 0,
+          bonus_pins: newBonus,
+          pin_history: [newTx, ...currentHist].slice(0, 100),
+        })
+        .eq('id', userId);
+
+      if (updatePinErr) {
+        console.error('[Pin Spend] Dual-wallet deduction failed:', updatePinErr);
+        return NextResponse.json(
+          { ok: false, error: 'DATABASE_ERROR', message: 'Could not process pin deduction.' },
+          { status: 500 }
+        );
+      }
+    }
+
     // Write unlocked_items server-side — the browser is never allowed to write this column
     const expiresAt = Date.now() + UNLOCK_DURATION_MS;
-    const { data: profileData } = await admin
-      .from('users')
-      .select('unlocked_items')
-      .eq('id', userId)
-      .maybeSingle();
-
     const current: Record<string, number> =
-      profileData?.unlocked_items && typeof profileData.unlocked_items === 'object'
-        ? (profileData.unlocked_items as Record<string, number>)
+      userProfile?.unlocked_items && typeof userProfile.unlocked_items === 'object'
+        ? (userProfile.unlocked_items as Record<string, number>)
         : {};
 
     const { error: updateErr } = await admin
@@ -184,14 +248,12 @@ export async function POST(req: Request) {
       .eq('id', userId);
 
     if (updateErr) {
-      // Pins were deducted; refund them so the student isn't charged for nothing.
+      // Best-effort refund to restore balance
       try {
-        await admin.rpc('credit_pins', {
-          p_user_id: userId,
-          p_amount: spendAmount,
-          p_reason: `Refund: unlock write failed for ${featureKey}`,
-          p_source: 'admin_grant',
-        });
+        await admin
+          .from('users')
+          .update({ pins: currentDaily, bonus_pins: currentBonus })
+          .eq('id', userId);
       } catch { /* best-effort refund */ }
       console.error('[Pin Spend] Unlock write failed:', updateErr.message);
       return NextResponse.json(
@@ -203,7 +265,9 @@ export async function POST(req: Request) {
     return NextResponse.json({
       ok: true,
       spent: spendAmount,
-      newBalance: spendRes.new_balance,
+      newBalance: newDaily,
+      newBonusBalance: newBonus,
+      totalBalance: newDaily + newBonus,
       featureKey,
       unlockKey,
       expiresAt,

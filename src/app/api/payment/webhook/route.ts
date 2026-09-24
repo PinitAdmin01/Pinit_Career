@@ -261,27 +261,35 @@ export async function POST(req: Request) {
         .eq('id', notesUid);
     }
 
-    // 4. Pin credit handling via atomic credit_pins RPC
+    // 4. Pin credit handling: deposit individual purchases into Permanent Vault (bonus_pins)
+    // so Airtel-style 1:00 AM daily reset (which renews daily quota) never touches or expires them!
     if (pinsGranted > 0 && !isSubscriptionPlan) {
-      const { error: rpcErr } = await admin.rpc('credit_pins', {
-        p_user_id: notesUid,
-        p_amount: pinsGranted,
-        p_reason: `Webhook credit plan ${notesPlanId} (${paymentId})`,
-        p_source: 'purchase',
-      });
+      const { data: profile, error: profileErr } = await admin
+        .from('users')
+        .select('bonus_pins, pin_history')
+        .eq('id', notesUid)
+        .maybeSingle();
 
-      if (rpcErr) {
-        console.warn('[Razorpay Webhook] credit_pins RPC failed, falling back to direct update:', rpcErr);
-        const { data: profile } = await admin
-          .from('users')
-          .select('pins')
-          .eq('id', notesUid)
-          .maybeSingle();
+      if (!profileErr && profile) {
+        const currentBonus = typeof profile.bonus_pins === 'number' ? profile.bonus_pins : 0;
+        const nextBonus = currentBonus + pinsGranted;
+        const txId = 'tx_buy_webhook_' + Date.now();
+        const newTx = {
+          id: txId,
+          type: 'earn',
+          amount: pinsGranted,
+          reason: `Webhook credit ${notesPlanId} (${paymentId})`,
+          source: 'purchase',
+          timestamp: Date.now(),
+        };
+        const currentHist = Array.isArray(profile.pin_history) ? profile.pin_history : [];
 
-        const current = typeof profile?.pins === 'number' ? profile.pins : 0;
         await admin
           .from('users')
-          .update({ pins: current + pinsGranted })
+          .update({
+            bonus_pins: nextBonus,
+            pin_history: [newTx, ...currentHist].slice(0, 100),
+          })
           .eq('id', notesUid);
       }
     }

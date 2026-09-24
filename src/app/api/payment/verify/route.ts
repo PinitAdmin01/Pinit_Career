@@ -147,29 +147,35 @@ export async function POST(req: Request) {
             .eq('id', gated.user!.id);
         }
 
-        // Atomically credit pins in DB via credit_pins RPC
-        if (pinsGranted > 0) {
-          const { error: rpcErr } = await admin.rpc('credit_pins', {
-            p_user_id: gated.user!.id,
-            p_amount: pinsGranted,
-            p_reason: `Sandbox payment credit (${planId})`,
-            p_source: 'purchase',
-          });
+        // Deposit individual pin purchases into bonus_pins (Permanent Vault)
+        // so Airtel-style 1:00 AM daily reset never wipes individual purchases!
+        if (pinsGranted > 0 && !isSub) {
+          const { data: profile } = await admin
+            .from('users')
+            .select('bonus_pins, pin_history')
+            .eq('id', gated.user!.id)
+            .maybeSingle();
 
-          if (rpcErr) {
-            console.warn('[Payment] credit_pins RPC failed during sandbox verify, fallback update:', rpcErr);
-            const { data: profile } = await admin
-              .from('users')
-              .select('pins')
-              .eq('id', gated.user!.id)
-              .maybeSingle();
+          const currentBonus = typeof profile?.bonus_pins === 'number' ? profile.bonus_pins : 0;
+          const nextBonus = currentBonus + pinsGranted;
+          const txId = 'tx_buy_sandbox_' + Date.now();
+          const newTx = {
+            id: txId,
+            type: 'earn',
+            amount: pinsGranted,
+            reason: `Sandbox purchase (${planId})`,
+            source: 'purchase',
+            timestamp: Date.now(),
+          };
+          const currentHist = Array.isArray(profile?.pin_history) ? profile.pin_history : [];
 
-            const current = typeof profile?.pins === 'number' ? profile.pins : 0;
-            await admin
-              .from('users')
-              .update({ pins: current + pinsGranted })
-              .eq('id', gated.user!.id);
-          }
+          await admin
+            .from('users')
+            .update({
+              bonus_pins: nextBonus,
+              pin_history: [newTx, ...currentHist].slice(0, 100),
+            })
+            .eq('id', gated.user!.id);
         }
       }
 
@@ -388,56 +394,66 @@ export async function POST(req: Request) {
       );
     }
 
-    // Pin grants must be server-recorded; client must not mint.
-    if (pinsGranted > 0 && notesPlanId !== 'pro') {
-      const { error: rpcErr } = await admin.rpc('credit_pins', {
-        p_user_id: gated.user!.id,
-        p_amount: pinsGranted,
-        p_reason: `Purchase plan ${notesPlanId} (${razorpay_payment_id})`,
-        p_source: 'purchase',
-      });
+    // Individual pin purchases (1 Rs = 10 pins) are deposited into the Permanent Vault (bonus_pins)
+    // so Airtel-style 1:00 AM daily reset (which renews daily quota) never touches or expires them!
+    if (pinsGranted > 0 && !isSub) {
+      const { data: profile, error: profileErr } = await admin
+        .from('users')
+        .select('bonus_pins, pin_history')
+        .eq('id', gated.user!.id)
+        .maybeSingle();
 
-      if (rpcErr) {
-        console.warn('[Payment] credit_pins RPC failed, falling back to direct update:', rpcErr);
-        const { data: profile, error: profileErr } = await admin
-          .from('users')
-          .select('pins')
-          .eq('id', gated.user!.id)
-          .maybeSingle();
+      if (profileErr) {
+        console.error('[Payment] Failed to query user profile for bonus pins:', profileErr);
+        return NextResponse.json({ ok: false, error: 'USER_LOOKUP_FAILED' }, { status: 500 });
+      }
 
-        if (profileErr) {
-          console.error('[Payment] Failed to query user pins:', profileErr);
-          return NextResponse.json({ ok: false, error: 'USER_LOOKUP_FAILED' }, { status: 500 });
-        }
+      const currentBonus = typeof profile?.bonus_pins === 'number' ? profile.bonus_pins : 0;
+      const nextBonus = currentBonus + pinsGranted;
+      const txId = 'tx_buy_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8);
+      const newTx = {
+        id: txId,
+        type: 'earn',
+        amount: pinsGranted,
+        reason: `Purchase plan ${notesPlanId} (${razorpay_payment_id})`,
+        source: 'purchase',
+        timestamp: Date.now(),
+      };
+      const currentHist = Array.isArray(profile?.pin_history) ? profile.pin_history : [];
 
-        const current = typeof profile?.pins === 'number' ? profile.pins : 0;
-        const { error: pinErr } = await admin
-          .from('users')
-          .update({ pins: current + pinsGranted })
-          .eq('id', gated.user!.id);
+      const { error: pinErr } = await admin
+        .from('users')
+        .update({
+          bonus_pins: nextBonus,
+          pin_history: [newTx, ...currentHist].slice(0, 100),
+        })
+        .eq('id', gated.user!.id);
 
-        if (pinErr) {
-          console.error('[Payment] Failed to credit pins:', pinErr);
-          return NextResponse.json({ ok: false, error: 'PIN_CREDIT_FAILED' }, { status: 500 });
-        }
+      if (pinErr) {
+        console.error('[Payment] Failed to credit bonus pins:', pinErr);
+        return NextResponse.json({ ok: false, error: 'PIN_CREDIT_FAILED' }, { status: 500 });
       }
     }
+
+    const isBasicStudent = notesPlanId === 'basic_student' || notesPlanId === 'student_99';
+    const isPro = notesPlanId === 'pro';
 
     return NextResponse.json({
       ok: true,
       verified: true,
       planId: notesPlanId,
       paymentId: razorpay_payment_id,
-      dailyPins: notesPlanId === 'pro' ? nextDailyPins : undefined,
-      bonusPinsGranted: notesPlanId === 'pro' ? 500 : 0,
-      totalBonusPins: notesPlanId === 'pro' ? nextBonusPins : undefined,
-      pinsGranted: notesPlanId === 'pro' ? 0 : pinsGranted,
-      message:
-        notesPlanId === 'pro'
-          ? 'Pro plan verified. 120 Daily Pins activated & 500 Bonus Pins deposited to Vault.'
+      dailyPins: isSub ? nextDailyPins : undefined,
+      bonusPinsGranted: isPro ? 500 : (!isSub ? pinsGranted : 0),
+      totalBonusPins: isSub ? nextBonusPins : undefined,
+      pinsGranted: !isSub ? pinsGranted : 0,
+      message: isPro
+        ? 'Pro Pass verified! 120 Daily Pins activated & 500 Bonus Pins deposited to Permanent Vault.'
+        : isBasicStudent
+          ? 'Basic Student Pass verified! 120 Daily Pins activated (resets daily at 1:00 AM IST).'
           : pinsGranted
-            ? `Payment verified. ${pinsGranted} pins granted.`
-            : 'Payment verified.',
+            ? `Top-up verified! +${pinsGranted} Pins added to your Permanent Vault (never expires).`
+            : 'Payment verified successfully.',
     });
   } catch (err: any) {
     return NextResponse.json({ ok: false, error: err.message || 'Server error' }, { status: 500 });

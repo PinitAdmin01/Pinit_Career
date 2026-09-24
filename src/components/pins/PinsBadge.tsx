@@ -14,10 +14,11 @@ interface Props {
 }
 
 export default function PinsBadge({ size = 'md', showLink = false, className }: Props) {
-  const { pins } = useCareerOS();
+  const { pins, bonusPins } = useCareerOS();
+  const totalPins = pins + (bonusPins || 0);
 
-  const low = pins < 20;
-  const very_low = pins < 5;
+  const low = totalPins < 20;
+  const very_low = totalPins < 5;
 
   const sizes = {
     sm: { font: 11, pad: '3px 10px', iconSize: 15, borderRadius: 12 },
@@ -60,7 +61,7 @@ export default function PinsBadge({ size = 'md', showLink = false, className }: 
       }}
     >
       <PinCurrencyIcon size={s.iconSize} glow={!very_low} animate={!very_low && !low} />
-      <span>{pins.toLocaleString()} Pins</span>
+      <span>{totalPins.toLocaleString()} Pins</span>
       {very_low && size !== 'sm' && <span style={{ fontSize: s.font - 1, marginLeft: 2 }}>⚠ Low</span>}
     </div>
   );

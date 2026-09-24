@@ -113,6 +113,26 @@ async function run() {
   assert(dailyCurriculumCost === 95, '7.1 Daily full curriculum (Quest 20 + Mission 20 + Interview 35 + Arena 10 + Project 10) = 95 pins');
   assert(dailyCurriculumCost <= 120, '7.2 95 pins cost is within 120 daily student allowance (25 pins surplus buffer)');
 
+  // Test 8: Dual-Wallet (Daily Pins + Permanent Bonus Vault) Invariants
+  console.log('\n--- Suite 8: Dual-Wallet & Permanent Bonus Vault Invariants ---');
+  assert(spendCode.includes('totalAvailable = currentDaily + currentBonus'),
+    '8.1 /api/pins/spend evaluates combined total of daily pins + bonus vault');
+  assert(spendCode.includes('fromBonus = spendAmount - currentDaily'),
+    '8.2 /api/pins/spend seamlessly draws remainder from permanent bonus vault when daily pins are exhausted');
+  assert(verifyCode.includes('bonus_pins: nextBonus'),
+    '8.3 /api/payment/verify credits individual purchases to bonus_pins (Permanent Vault)');
+  const webhookRouteCode = fs.readFileSync(path.join(process.cwd(), 'src/app/api/payment/webhook/route.ts'), 'utf-8');
+  assert(webhookRouteCode.includes('bonus_pins: nextBonus'),
+    '8.4 /api/payment/webhook credits individual purchases to bonus_pins (Permanent Vault)');
+  assert(balanceHookCode.includes('(pins + bonusPins) >= cost'),
+    '8.5 usePinBalance canAfford checks combined balance (pins + bonusPins)');
+  const pinsGateCode = fs.readFileSync(path.join(process.cwd(), 'src/components/pins/PinsGate.tsx'), 'utf-8');
+  assert(pinsGateCode.includes('totalPins = pins + (bonusPins || 0)'),
+    '8.6 PinsGate calculates affordability from combined total pins');
+  const pinsBadgeCode = fs.readFileSync(path.join(process.cwd(), 'src/components/pins/PinsBadge.tsx'), 'utf-8');
+  assert(pinsBadgeCode.includes('totalPins = pins + (bonusPins || 0)'),
+    '8.7 PinsBadge displays combined total pins to student');
+
   console.log('\n========================================================================');
   console.log(`⚡ PINS ECONOMY VERIFICATION: ${passed} Passed, ${failed} Failed`);
   console.log('========================================================================');

@@ -292,13 +292,14 @@ export function usePinBalance(options: UsePinBalanceOptions = {}) {
 
   const canAfford = useCallback((featureKey: string): boolean => {
     const cost = PIN_COSTS[featureKey]?.cost ?? 0;
-    return pins >= cost;
-  }, [pins]);
+    return (pins + bonusPins) >= cost;
+  }, [pins, bonusPins]);
 
   const spendPins = useCallback(async (featureKey: string, itemId?: string, customReason?: string): Promise<boolean> => {
     const meta = PIN_COSTS[featureKey];
     if (!meta) return true;
-    if (pins < meta.cost) {
+    const totalAvailable = pins + bonusPins;
+    if (totalAvailable < meta.cost) {
       toast.error(`Insufficient Pins 📌`, `Need ${meta.cost} pins for ${meta.label}. Basic plan students receive 120 pins daily at 1:00 AM IST, or top up at ₹1 = 10 pins.`);
       return false;
     }
@@ -316,12 +317,22 @@ export function usePinBalance(options: UsePinBalanceOptions = {}) {
             localStorage.setItem(CACHE_KEY, JSON.stringify({ value: result.newBalance, ts: Date.now() }));
           } catch {}
         }
+        if (typeof result.newBonusBalance === 'number') {
+          setBonusPinsState(result.newBonusBalance);
+        }
       } catch {
         toast.error(`Pins Spend Error ⚠️`, 'Network error verifying pin deduction.');
         return false;
       }
     } else {
-      setPinsState(prev => Math.max(0, prev - meta.cost));
+      if (pins >= meta.cost) {
+        setPinsState(prev => Math.max(0, prev - meta.cost));
+      } else {
+        const fromDaily = pins;
+        const fromBonus = meta.cost - fromDaily;
+        setPinsState(0);
+        setBonusPinsState(prev => Math.max(0, prev - fromBonus));
+      }
     }
 
     const tx: PinTransaction = {
@@ -334,7 +345,7 @@ export function usePinBalance(options: UsePinBalanceOptions = {}) {
     };
     setPinHistoryState(prev => [tx, ...prev].slice(0, 100));
     return true;
-  }, [pins, effectiveUserId]);
+  }, [pins, bonusPins, effectiveUserId]);
 
   const claimBonusPins = useCallback(async (amount?: number): Promise<boolean> => {
     try {
