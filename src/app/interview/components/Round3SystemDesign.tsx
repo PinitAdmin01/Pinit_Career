@@ -26,6 +26,10 @@ export interface Round3SystemDesignProps {
   isVoiceListening: boolean;
   startVoiceListening: () => void;
   lastInterviewerSpeech: string;
+  architectureEvaluation?: any;
+  manualTextInput?: string;
+  setManualTextInput?: (val: string) => void;
+  onSendMessage?: (text: string) => void;
 }
 
 export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
@@ -40,9 +44,13 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
   isVoiceListening,
   startVoiceListening,
   lastInterviewerSpeech,
+  architectureEvaluation,
+  manualTextInput = '',
+  setManualTextInput,
+  onSendMessage,
 }) => {
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '7.5fr 2.5fr', gap: 16, alignItems: 'stretch' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: '7.2fr 2.8fr', gap: 16, alignItems: 'stretch' }}>
       <div className="iv-panel" style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
         <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: 8, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
@@ -63,9 +71,66 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
           onAnalyze={analyzeSystemArchitecture}
           isAnalyzing={isAnalyzingArchitecture}
         />
+
+        {/* 📊 Architecture Evaluation Scorecard (Renders when analysis completes) */}
+        {architectureEvaluation && (
+          <div style={{
+            marginTop: 8,
+            padding: '14px 16px',
+            borderRadius: 12,
+            background: 'linear-gradient(135deg, rgba(20, 24, 39, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%)',
+            border: '1.5px solid var(--accent)',
+            boxShadow: '0 4px 18px rgba(var(--brand-rgb), 0.2)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 10
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ fontSize: 18 }}>🏛️</span>
+                <div>
+                  <h4 style={{ margin: 0, fontSize: 13, fontWeight: 900, color: 'var(--t1)' }}>Architecture Evaluation Report</h4>
+                  <span style={{ fontSize: 11, color: 'var(--t3)' }}>{architectureEvaluation.summary || 'Architecture verified.'}</span>
+                </div>
+              </div>
+              <div style={{
+                padding: '4px 12px',
+                borderRadius: 8,
+                background: 'var(--accent-light)',
+                color: 'var(--accent)',
+                fontWeight: 900,
+                fontSize: 14
+              }}>
+                Grade: {architectureEvaluation.verdict || 'A'} ({architectureEvaluation.score ?? 85}/100)
+              </div>
+            </div>
+
+            {/* Radar / Metrics Bar */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 8, fontSize: 11 }}>
+              {architectureEvaluation.radar && Object.entries(architectureEvaluation.radar).map(([metric, val]: any) => (
+                <div key={metric} style={{ background: 'rgba(255,255,255,0.04)', padding: '6px 10px', borderRadius: 6, border: '1px solid var(--border)' }}>
+                  <div style={{ color: 'var(--t3)', textTransform: 'uppercase', fontSize: 9.5, fontWeight: 700 }}>{metric}</div>
+                  <div style={{ fontWeight: 800, color: 'var(--t1)', marginTop: 2 }}>{val} / 100</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Weaknesses / Bottlenecks & Recommendations */}
+            {architectureEvaluation.weaknesses && (
+              <div style={{ fontSize: 11, color: 'var(--coral-mid)', lineHeight: 1.4 }}>
+                <strong>Bottlenecks identified:</strong> {Array.isArray(architectureEvaluation.weaknesses) ? architectureEvaluation.weaknesses.join('; ') : architectureEvaluation.weaknesses}
+              </div>
+            )}
+            {architectureEvaluation.improvements && (
+              <div style={{ fontSize: 11, color: 'var(--teal-mid)', lineHeight: 1.4 }}>
+                <strong>Recommendations:</strong> {architectureEvaluation.improvements}
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
-      {/* Right 25%: Avatar Viewport & Review Comments */}
+      {/* Right 28%: Avatar Viewport, Review Comments & Defense Input */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <div style={{ height: 190, background: 'var(--bg3)', borderRadius: 16, border: '1px solid var(--border)', overflow: 'hidden', position: 'relative' }}>
           <VRoidInterviewAvatar teacherId={activeTeacher.id} animState={animState} zoom={1.6} />
@@ -83,14 +148,60 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
             boxShadow: isVoiceListening ? '0 0 12px rgba(var(--danger-rgb),0.7)' : 'var(--shadow-sm)'
           }}
         >
-          {isVoiceListening ? '🎙️ Listening... (Speak Now)' : '🎤 Speak to Interviewer'}
+          {isVoiceListening ? '🎙️ Listening... (Speak Now)' : '🎤 Speak Architecture Defense'}
         </button>
 
-        <div className="iv-panel" style={{ flex: 1, padding: 12, display: 'flex', flexDirection: 'column', gap: 6 }}>
-          <div style={{ fontSize: 10, fontWeight: 800, color: 'var(--t3)' }}>INTERVIEWER FEEDBACK</div>
-          <div style={{ fontSize: 11.5, color: 'var(--t1)', lineHeight: 1.4, overflowY: 'auto', maxHeight: 160 }}>
+        <div className="iv-panel" style={{ flex: 1, padding: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <div style={{ fontSize: 10, fontWeight: 800, color: 'var(--t3)' }}>INTERVIEWER FEEDBACK & QUESTIONS</div>
+          <div style={{ fontSize: 11.5, color: 'var(--t1)', lineHeight: 1.4, overflowY: 'auto', maxHeight: 150 }}>
             <strong>{activeTeacher.name}:</strong> {lastInterviewerSpeech}
           </div>
+
+          {/* ⌨️ Architectural Defense Typed Input Fallback */}
+          {setManualTextInput && onSendMessage && (
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (!manualTextInput.trim()) return;
+                const textToSend = manualTextInput.trim();
+                setManualTextInput('');
+                onSendMessage(textToSend);
+              }}
+              style={{ marginTop: 'auto', display: 'flex', gap: 6 }}
+            >
+              <input
+                type="text"
+                value={manualTextInput}
+                onChange={(e) => setManualTextInput(e.target.value)}
+                placeholder="Type your architecture defense..."
+                style={{
+                  flex: 1,
+                  padding: '7px 10px',
+                  borderRadius: 6,
+                  border: '1px solid var(--border)',
+                  background: 'var(--bg3)',
+                  color: 'var(--t1)',
+                  fontSize: 11
+                }}
+              />
+              <button
+                type="submit"
+                disabled={!manualTextInput.trim()}
+                style={{
+                  padding: '7px 12px',
+                  borderRadius: 6,
+                  border: 'none',
+                  background: manualTextInput.trim() ? 'var(--accent)' : 'var(--bg2)',
+                  color: manualTextInput.trim() ? 'var(--text)' : 'var(--t3)',
+                  fontSize: 11,
+                  fontWeight: 800,
+                  cursor: manualTextInput.trim() ? 'pointer' : 'default'
+                }}
+              >
+                Send ➔
+              </button>
+            </form>
+          )}
         </div>
       </div>
     </div>

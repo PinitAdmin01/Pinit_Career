@@ -28,7 +28,7 @@ interface UseInterviewPersistenceProps {
   latestTopology: any;
 }
 
-const DRAFT_CACHE_TTL_MS = 30_000; // 30-second TTL for mid-answer autosave
+const DRAFT_CACHE_TTL_MS = 7_200_000; // 2-hour TTL for session recovery buffer
 
 export function useInterviewPersistence({
   userId,

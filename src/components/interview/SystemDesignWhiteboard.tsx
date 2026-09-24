@@ -84,12 +84,19 @@ export default function SystemDesignWhiteboard({
 
   const palette = domainStream === 'non_tech' ? NON_TECH_COMPONENTS : TECH_COMPONENTS;
 
-  // Reset topology whenever domain stream or topic changes to ensure candidate starts from an empty canvas
+  const prevTopicRef = useRef(activeTopic);
+  const prevStreamRef = useRef(domainStream);
+
+  // Reset topology ONLY when domain stream or topic actually changes to a different one
   useEffect(() => {
-    console.log(`[Whiteboard] 🔄 Resetting to blank canvas for stream: ${domainStream} | Topic: ${activeTopic}`);
-    setNodes([]);
-    setLinks([]);
-    setSelectedSourceId(null);
+    if (prevTopicRef.current !== activeTopic || prevStreamRef.current !== domainStream) {
+      console.log(`[Whiteboard] 🔄 Resetting to blank canvas for new stream: ${domainStream} | Topic: ${activeTopic}`);
+      prevTopicRef.current = activeTopic;
+      prevStreamRef.current = domainStream;
+      setNodes([]);
+      setLinks([]);
+      setSelectedSourceId(null);
+    }
   }, [domainStream, activeTopic]);
 
   // ─── Generate & Propagate Topology Snapshot ──────────────────────────────

@@ -23,6 +23,8 @@ export interface Round4StarDrillProps {
   manualTextInput: string;
   setManualTextInput: (val: string) => void;
   onSendMessage: (text: string) => void;
+  starStep?: number;
+  messages?: any[];
 }
 
 export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
@@ -39,6 +41,8 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
   manualTextInput,
   setManualTextInput,
   onSendMessage,
+  starStep = 0,
+  messages = [],
 }) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'center' }}>
@@ -73,6 +77,46 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
       </div>
 
       <div style={{ width: '85%', display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {/* 🌟 S-T-A-R Assessment Progression Stepper */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(4, 1fr)',
+          gap: 8,
+          background: 'var(--bg3)',
+          padding: '8px 12px',
+          borderRadius: 12,
+          border: '1px solid var(--border)'
+        }}>
+          {[
+            { key: 'S', label: 'Situation', desc: 'Context & Challenge' },
+            { key: 'T', label: 'Task', desc: 'Your Role / Target' },
+            { key: 'A', label: 'Action', desc: 'Execution & Decisions' },
+            { key: 'R', label: 'Result', desc: 'Quantifiable Impact' },
+          ].map((step, idx) => {
+            const isCurrent = (starStep % 4) === idx;
+            const isCompleted = (starStep % 4) > idx || starStep >= 4;
+            return (
+              <div
+                key={step.key}
+                style={{
+                  padding: '6px 8px',
+                  borderRadius: 8,
+                  background: isCurrent ? 'var(--accent-light)' : isCompleted ? 'rgba(var(--success-rgb), 0.12)' : 'transparent',
+                  border: isCurrent ? '1.5px solid var(--accent)' : isCompleted ? '1px solid var(--success)' : '1px solid transparent',
+                  textAlign: 'center'
+                }}
+              >
+                <div style={{ fontSize: 11, fontWeight: 900, color: isCurrent ? 'var(--accent)' : isCompleted ? 'var(--success-bright)' : 'var(--t3)' }}>
+                  {step.key} — {step.label}
+                </div>
+                <div style={{ fontSize: 9.5, color: isCurrent ? 'var(--t1)' : 'var(--t3)', marginTop: 2 }}>
+                  {step.desc}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
         <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
           <button
             onClick={startVoiceListening}

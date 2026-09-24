@@ -59,7 +59,11 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
   speakWithAvatarRaw,
   setAnimState
 }) => {
-  if (isScoredStage || !isAssistModeActive) return null;
+  const spokenWordSet = React.useMemo(() => {
+    return new Set(liveSpeechTranscript.toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(Boolean));
+  }, [liveSpeechTranscript]);
+
+  if (!isAssistModeActive) return null;
 
   return (
     <div
@@ -215,7 +219,7 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
                 &ldquo;
                 {assistData.script.split(' ').map((word: string, wIdx: number) => {
                   const clean = word.toLowerCase().replace(/[^a-z0-9]/g, '');
-                  const isMatched = clean.length > 2 && liveSpeechTranscript.toLowerCase().includes(clean);
+                  const isMatched = clean.length > 0 && spokenWordSet.has(clean);
                   return (
                     <span
                       key={wIdx}

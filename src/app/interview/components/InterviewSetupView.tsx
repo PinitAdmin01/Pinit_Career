@@ -17,6 +17,8 @@ export interface InterviewSetupViewProps {
   setCustomTopicInput: (val: string) => void;
   difficulty: 'easy' | 'normal' | 'hard';
   setDifficulty: (diff: 'easy' | 'normal' | 'hard') => void;
+  isAssistModeActive?: boolean;
+  setIsAssistModeActive?: (val: boolean) => void;
   startInterview: () => void;
   sessions: any[];
   clearSessionHistory: () => void;
@@ -38,6 +40,8 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
   setCustomTopicInput,
   difficulty,
   setDifficulty,
+  isAssistModeActive = false,
+  setIsAssistModeActive,
   startInterview,
   sessions,
   clearSessionHistory,
@@ -198,6 +202,74 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
               </button>
             ))}
           </div>
+        </div>
+
+        {/* Assist Mode (AI Teleprompter) Toggle Button */}
+        <div
+          onClick={() => setIsAssistModeActive && setIsAssistModeActive(!isAssistModeActive)}
+          style={{
+            marginBottom: 20,
+            padding: '12px 14px',
+            borderRadius: 12,
+            border: isAssistModeActive ? '1.5px solid var(--reward)' : '1px solid var(--border)',
+            background: isAssistModeActive ? 'rgba(var(--reward-rgb), 0.08)' : 'var(--bg3)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease'
+          }}
+        >
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span style={{ fontSize: 14 }}>🎯</span>
+              <span style={{ fontSize: 12, fontWeight: 800, color: isAssistModeActive ? 'var(--reward)' : 'var(--t1)' }}>
+                Assist Mode (AI Spoken Teleprompter)
+              </span>
+              <span style={{
+                fontSize: 9.5,
+                padding: '2px 7px',
+                borderRadius: 6,
+                background: isAssistModeActive ? 'var(--reward)' : 'var(--border)',
+                color: isAssistModeActive ? '#000' : 'var(--t3)',
+                fontWeight: 800
+              }}>
+                {isAssistModeActive ? 'ACTIVE' : 'OFF'}
+              </span>
+            </div>
+            <p style={{ margin: '4px 0 0 0', fontSize: 11, color: 'var(--t3)', lineHeight: 1.3 }}>
+              Provides a real-time spoken answer script below chat to read aloud. The avatar interviewer cannot see your script!
+            </p>
+          </div>
+          <button
+            type="button"
+            aria-label="Toggle Assist Mode"
+            style={{
+              width: 44,
+              height: 24,
+              borderRadius: 12,
+              background: isAssistModeActive ? 'var(--reward)' : 'var(--border)',
+              position: 'relative',
+              border: 'none',
+              cursor: 'pointer',
+              flexShrink: 0,
+              transition: 'background 0.2s'
+            }}
+          >
+            <div
+              style={{
+                width: 18,
+                height: 18,
+                borderRadius: '50%',
+                background: '#fff',
+                position: 'absolute',
+                top: 3,
+                left: isAssistModeActive ? 23 : 3,
+                transition: 'left 0.2s',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.3)'
+              }}
+            />
+          </button>
         </div>
 
         <button

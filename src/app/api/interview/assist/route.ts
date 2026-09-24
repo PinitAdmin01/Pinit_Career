@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server';
-import { requireUserFromRequest, verifyPaywallAccess } from '@/lib/server/requireAuth';
+import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { sanitizeLLMOutput } from '@/lib/sanitizeLLM';
 import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
-import { isUserInActiveLiveInterview } from '@/lib/interview/activeSessionRegistry';
 
 export interface AssistRequest {
   question: string;
@@ -178,27 +177,7 @@ export async function POST(req: Request) {
       return gated.error;
     }
     const userId = gated.user.id;
-
-    // 1. Authoritative check: If user currently has an active live interview in progress,
-    // teleprompter assistance is strictly prohibited, regardless of client-sent flags or payment status.
-    if (isUserInActiveLiveInterview(userId)) {
-      return NextResponse.json(
-        {
-          error: 'Assist Mode teleprompter is strictly prohibited while an active live interview is in progress.',
-          code: 'ACTIVE_LIVE_INTERVIEW_IN_PROGRESS',
-          success: false
-        },
-        { status: 403 }
-      );
-    }
-
-    // 2. Server-Authoritative Paywall Gate — 'interview' key covers all interview routes
-    const paywallErr = await verifyPaywallAccess(userId, 'interview');
-    if (paywallErr) {
-      return paywallErr;
-    }
-
-    const body = (await req.json()) as AssistRequest;
+    const body = (await req.json().catch(() => ({}))) as AssistRequest;
     const {
       question,
       stage = 'round1_behavioral',
@@ -206,21 +185,9 @@ export async function POST(req: Request) {
       domainStream = 'tech',
       difficulty = 'normal',
       scriptLevel = 'standard',
-      isPractice = false
     } = body;
 
-    // Also reject cheat scripts if not explicitly in standalone practice mode
-    if (!isPractice) {
-      return NextResponse.json(
-        {
-          error: 'Assist Mode teleprompter is strictly prohibited during live graded interviews to preserve evaluation integrity.',
-          code: 'GRADED_INTERVIEW_RESTRICTION',
-          success: false
-        },
-        { status: 403 }
-      );
-    }
-
+    // Allow Assist Mode teleprompter whenever requested by candidate for guided vocal practice
     console.log(`[Interview Assist API] User: ${userId} | Stage: ${stage} | Topic: ${topic} | Level: ${scriptLevel}`);
 
     const stream = domainStream === 'non_tech' ? 'non_tech' : 'tech';
