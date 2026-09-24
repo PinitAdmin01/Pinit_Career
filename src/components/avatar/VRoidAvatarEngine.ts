@@ -350,6 +350,7 @@ export class VRoidAvatarEngine {
     loader.setDRACOLoader(dracoLoader);
 
     const id = teacherId.toLowerCase().trim();
+    const personaForModel = PERSONA_CONFIGS[id] || PERSONA_CONFIGS.default;
 
     // ── D-01 FIX: gender-matched fallback chain ────────────────────────────
     // The old chain was [own, kashyap, priya, hana]. kashyap.glb is a MALE
