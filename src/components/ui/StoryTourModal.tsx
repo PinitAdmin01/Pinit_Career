@@ -31,7 +31,7 @@ export const TOUR_SLIDES: TourSlide[] = [
     route: '/quests',
     segment: 1,
     segmentLabel: 'SEGMENT 1/3 · MAIN HUBS',
-    text: "This is Quests & Courses — structured engineering paths. Complete socratic theory lessons and coding challenges to earn Pins and raise verified skill metrics.",
+    text: "This is Quests & Courses — structured learning paths. Complete socratic theory lessons and interactive challenges to earn Pins and raise verified skill metrics.",
   },
   {
     emoji: '⚡',
@@ -49,7 +49,7 @@ export const TOUR_SLIDES: TourSlide[] = [
     route: '/arena',
     segment: 1,
     segmentLabel: 'SEGMENT 1/3 · MAIN HUBS',
-    text: "This is Challenging Arena — step into live 1-on-1 coding battles and DSA showdowns! Test your algorithmic speed, outcode opponents, and climb the battle rankings.",
+    text: "This is Challenging Arena — step into live 1-on-1 speedrun battles and timed duels! Test your analytical speed, outsolve opponents, and climb the battle rankings.",
   },
   {
     emoji: '🚀',
@@ -58,7 +58,7 @@ export const TOUR_SLIDES: TourSlide[] = [
     route: '/projects',
     segment: 1,
     segmentLabel: 'SEGMENT 1/3 · MAIN HUBS',
-    text: "This is Projects & Squads — collaborate on production-ready software systems with peers. Everything you build provides verifiable proof-of-work for recruiters.",
+    text: "This is Projects & Squads — collaborate on real-world projects and case studies with peers. Everything you build provides verifiable proof-of-work for recruiters.",
   },
   {
     emoji: '🏆',
@@ -76,7 +76,7 @@ export const TOUR_SLIDES: TourSlide[] = [
     route: '/interview',
     segment: 1,
     segmentLabel: 'SEGMENT 1/3 · MAIN HUBS',
-    text: "This is AI Interview — live 1-on-1 technical and behavioral mock interviews with instant feedback on algorithm efficiency, code structure, and STAR responses.",
+    text: "This is AI Interview — live 1-on-1 behavioral, HR, and domain mock interviews with instant feedback on clarity, problem-solving structure, and STAR responses.",
   },
   {
     emoji: '💬',
@@ -94,7 +94,7 @@ export const TOUR_SLIDES: TourSlide[] = [
     route: '/learning?tab=twin',
     segment: 1,
     segmentLabel: 'SEGMENT 1/3 · MAIN HUBS',
-    text: "This is Learning & Career Twin — compare your skills against dream engineering tracks. Our AI diagnoses your gaps and generates customized learning roadmaps.",
+    text: "This is Learning & Career Twin — compare your competencies against dream career tracks. Our AI diagnoses your gaps and generates customized study roadmaps.",
   },
   {
     emoji: '🧠',
@@ -103,7 +103,7 @@ export const TOUR_SLIDES: TourSlide[] = [
     route: '/attention-span',
     segment: 1,
     segmentLabel: 'SEGMENT 1/3 · MAIN HUBS',
-    text: "This is Attention Span — gamified cognitive endurance exercises. Train your deep focus, reaction speed, and stamina for long software development sessions.",
+    text: "This is Attention Span — gamified cognitive endurance exercises. Train your deep focus, reaction speed, and stamina for high-stakes assessments.",
   },
 
   // ── Segment 2: Left Nav Bottom Hubs (In exact ordered sequence) ──

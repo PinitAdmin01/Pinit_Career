@@ -27,7 +27,7 @@ export interface DialogueResponse {
 
 export function generateContextualGreeting(context: StudentMentorContext): string {
   const name = context.studentName || 'there';
-  const role = context.targetRole || 'Software Engineer';
+  const role = context.targetRole || 'your career path';
   const questTitle = typeof context.activeQuest === 'object' && context.activeQuest !== null
     ? context.activeQuest.title
     : context.activeQuest;
@@ -39,18 +39,18 @@ export function generateContextualGreeting(context: StudentMentorContext): strin
   }
 
   if (questTitle) {
-    return `Hi ${name}! Ready to make progress on "${questTitle}" towards your ${role} career path?`;
+    return `Hi ${name}! Ready to make progress on "${questTitle}" towards ${role}?`;
   }
 
   if (gaps.length > 0) {
     return `Hi ${name}! Working on closing your gaps in ${gaps.slice(0, 2).join(' and ')} will boost your ${role} readiness.`;
   }
 
-  return `Hello ${name}! I am your AI career mentor for ${role}. What technical challenge or interview topic are we working on?`;
+  return `Hello ${name}! I am your AI career mentor for ${role}. What topic or interview challenge are we working on today?`;
 }
 
 export function generateMentorQuickPrompts(context: StudentMentorContext): string[] {
-  const role = context.targetRole || 'Software Engineer';
+  const role = context.targetRole || 'my target role';
   const questTitle = typeof context.activeQuest === 'object' && context.activeQuest !== null
     ? context.activeQuest.title
     : context.activeQuest;
@@ -63,10 +63,10 @@ export function generateMentorQuickPrompts(context: StudentMentorContext): strin
     prompts.push(`How do I practice and close my gap in ${gaps[0]}?`);
   }
   if (questTitle) {
-    prompts.push(`What key trade-offs should I understand in "${questTitle}"?`);
+    prompts.push(`What key principles should I understand in "${questTitle}"?`);
   }
   prompts.push(`How can I raise my profile score from ${score}/100?`);
-  prompts.push(`What system design questions are most common for ${role}?`);
+  prompts.push(`What core interview questions and case topics are most common for ${role}?`);
 
   return prompts.slice(0, 4);
 }

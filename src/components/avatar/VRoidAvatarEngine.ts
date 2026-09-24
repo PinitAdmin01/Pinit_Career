@@ -32,22 +32,22 @@ export interface PersonaConfig {
 }
 
 export const PERSONA_CONFIGS: Record<string, PersonaConfig> = {
-  priya:    { name: 'Ms. Priya',          domain: 'Full-Stack & Career Growth',   expressiveness: 0.88, blinkInterval: 3.4, swayAmp: 1.00, headTiltAmp: 1.05, gestureSpeed: 1.05, warmth: 0.22, baseHeadPitch: 0.122, gender: 'female' },
-  anish:    { name: 'Mr. Anish',          domain: 'Systems & Backend Scale',      expressiveness: 0.72, blinkInterval: 4.4, swayAmp: 0.75, headTiltAmp: 0.80, gestureSpeed: 0.90, warmth: 0.12, baseHeadPitch: 0.07, gender: 'male' },
-  aisha:    { name: 'Ms. Aisha',          domain: 'Data Science & AI/ML',         expressiveness: 0.82, blinkInterval: 3.8, swayAmp: 0.85, headTiltAmp: 1.00, gestureSpeed: 0.95, warmth: 0.18, gender: 'female' },
-  vikram:   { name: 'Mr. Vikram',         domain: 'Finance, Commerce & Ethics',   expressiveness: 0.65, blinkInterval: 5.0, swayAmp: 0.50, headTiltAmp: 0.65, gestureSpeed: 0.75, warmth: 0.15, gender: 'male' },
-  kashyap:  { name: 'Kashyap Sir',        domain: 'DSA & Mathematical Reasoning', expressiveness: 0.68, blinkInterval: 4.8, swayAmp: 0.60, headTiltAmp: 0.85, gestureSpeed: 0.80, warmth: 0.14, gender: 'male' },
-  karthic:  { name: 'Karthic Sir "Nega"', domain: 'Competitive Arena & Speedrun', expressiveness: 0.95, blinkInterval: 2.8, swayAmp: 1.25, headTiltAmp: 1.10, gestureSpeed: 1.30, warmth: 0.08, gender: 'male' },
-  maya:     { name: 'Ms. Maya',           domain: 'UI/UX & Product Design',       expressiveness: 0.75, blinkInterval: 4.0, swayAmp: 0.75, headTiltAmp: 0.90, gestureSpeed: 0.95, warmth: 0.20, gender: 'female' },
-  divya:    { name: 'Ms. Divya',          domain: 'Cloud Infrastructure & DevOps', expressiveness: 0.90, blinkInterval: 3.2, swayAmp: 1.10, headTiltAmp: 1.15, gestureSpeed: 1.10, warmth: 0.16, gender: 'female' },
-  rohan:    { name: 'Mr. Rohan',          domain: 'Cybersecurity & Networks',     expressiveness: 0.92, blinkInterval: 3.1, swayAmp: 1.15, headTiltAmp: 1.20, gestureSpeed: 1.20, warmth: 0.15, gender: 'male' },
-  shalini:  { name: 'Ms. Shalini',        domain: 'Soft Skills & Communication',  expressiveness: 0.80, blinkInterval: 3.6, swayAmp: 0.90, headTiltAmp: 0.95, gestureSpeed: 1.00, warmth: 0.20, gender: 'female' },
-  aditya:   { name: 'Mr. Aditya',         domain: 'IoT & Embedded Systems',       expressiveness: 0.74, blinkInterval: 4.1, swayAmp: 0.80, headTiltAmp: 1.00, gestureSpeed: 0.92, warmth: 0.14, gender: 'male' },
-  neha:     { name: 'Ms. Neha',           domain: 'Product Strategy & Marketing', expressiveness: 0.82, blinkInterval: 3.5, swayAmp: 0.95, headTiltAmp: 1.00, gestureSpeed: 1.05, warmth: 0.22, gender: 'female' },
-  rajesh:   { name: 'Mr. Rajesh',         domain: 'Operations & Supply Chain',    expressiveness: 0.68, blinkInterval: 4.6, swayAmp: 0.70, headTiltAmp: 0.75, gestureSpeed: 0.85, warmth: 0.12, gender: 'male' },
-  sneha:    { name: 'Ms. Sneha',          domain: 'Human Resources & Talent',     expressiveness: 0.88, blinkInterval: 3.3, swayAmp: 1.05, headTiltAmp: 1.10, gestureSpeed: 1.10, warmth: 0.24, gender: 'female' },
-  abhijit:  { name: 'Mr. Abhijit',        domain: 'Economics & Quantitative Data', expressiveness: 0.62, blinkInterval: 4.9, swayAmp: 0.55, headTiltAmp: 0.70, gestureSpeed: 0.78, warmth: 0.12, gender: 'male' },
-  default:  { name: 'Mentor',             domain: 'Multidisciplinary Career OS',  expressiveness: 0.75, blinkInterval: 3.8, swayAmp: 0.90, headTiltAmp: 0.90, gestureSpeed: 1.00, warmth: 0.16, gender: 'neutral' }
+  priya:    { name: 'Ms. Priya',          domain: 'Career & Professional Growth', expressiveness: 0.88, blinkInterval: 3.4, swayAmp: 1.00, headTiltAmp: 1.05, gestureSpeed: 1.05, warmth: 0.22, baseHeadPitch: 0.122, gender: 'female' },
+  anish:    { name: 'Mr. Anish',          domain: 'Applied Systems & Strategy',   expressiveness: 0.72, blinkInterval: 4.4, swayAmp: 0.75, headTiltAmp: 0.80, gestureSpeed: 0.90, warmth: 0.12, baseHeadPitch: 0.07, gender: 'male' },
+  aisha:    { name: 'Ms. Aisha',          domain: 'Analytics & Strategic Reasoning', expressiveness: 0.82, blinkInterval: 3.8, swayAmp: 0.85, headTiltAmp: 1.00, gestureSpeed: 0.95, warmth: 0.18, gender: 'female' },
+  vikram:   { name: 'Mr. Vikram',         domain: 'Finance, Commerce & Corporate Ethics', expressiveness: 0.65, blinkInterval: 5.0, swayAmp: 0.50, headTiltAmp: 0.65, gestureSpeed: 0.75, warmth: 0.15, gender: 'male' },
+  kashyap:  { name: 'Kashyap Sir',        domain: 'Logical & Systems Foundations', expressiveness: 0.68, blinkInterval: 4.8, swayAmp: 0.60, headTiltAmp: 0.85, gestureSpeed: 0.80, warmth: 0.14, gender: 'male' },
+  karthic:  { name: 'Karthic Sir "Nega"', domain: 'Competitive Arena, Speedrun & 1v1 Duels', expressiveness: 0.95, blinkInterval: 2.8, swayAmp: 1.25, headTiltAmp: 1.10, gestureSpeed: 1.30, warmth: 0.08, gender: 'male' },
+  maya:     { name: 'Ms. Maya',           domain: 'Design Systems & Quality Assurance', expressiveness: 0.75, blinkInterval: 4.0, swayAmp: 0.75, headTiltAmp: 0.90, gestureSpeed: 0.95, warmth: 0.20, gender: 'female' },
+  divya:    { name: 'Ms. Divya',          domain: 'Cloud Architecture & Operations', expressiveness: 0.90, blinkInterval: 3.2, swayAmp: 1.10, headTiltAmp: 1.15, gestureSpeed: 1.10, warmth: 0.16, gender: 'female' },
+  rohan:    { name: 'Mr. Rohan',          domain: 'Security & Enterprise Architecture', expressiveness: 0.92, blinkInterval: 3.1, swayAmp: 1.15, headTiltAmp: 1.20, gestureSpeed: 1.20, warmth: 0.15, gender: 'male' },
+  shalini:  { name: 'Ms. Shalini',        domain: 'Soft Skills, Articulation & Communication', expressiveness: 0.80, blinkInterval: 3.6, swayAmp: 0.90, headTiltAmp: 0.95, gestureSpeed: 1.00, warmth: 0.20, gender: 'female' },
+  aditya:   { name: 'Mr. Aditya',         domain: 'Applied Tech & Engineering',   expressiveness: 0.74, blinkInterval: 4.1, swayAmp: 0.80, headTiltAmp: 1.00, gestureSpeed: 0.92, warmth: 0.14, gender: 'male' },
+  neha:     { name: 'Ms. Neha',           domain: 'Business Strategy & Talent Leadership', expressiveness: 0.82, blinkInterval: 3.5, swayAmp: 0.95, headTiltAmp: 1.00, gestureSpeed: 1.05, warmth: 0.22, gender: 'female' },
+  rajesh:   { name: 'Mr. Rajesh',         domain: 'Operations, Finance & Quantitative Logistics', expressiveness: 0.68, blinkInterval: 4.6, swayAmp: 0.70, headTiltAmp: 0.75, gestureSpeed: 0.85, warmth: 0.12, gender: 'male' },
+  sneha:    { name: 'Ms. Sneha',          domain: 'People Operations & Organization Design', expressiveness: 0.88, blinkInterval: 3.3, swayAmp: 1.05, headTiltAmp: 1.10, gestureSpeed: 1.10, warmth: 0.24, gender: 'female' },
+  abhijit:  { name: 'Mr. Abhijit',        domain: 'Economics, Quantitative Analytics & Market Data', expressiveness: 0.62, blinkInterval: 4.9, swayAmp: 0.55, headTiltAmp: 0.70, gestureSpeed: 0.78, warmth: 0.12, gender: 'male' },
+  default:  { name: 'Mentor',             domain: 'Multidisciplinary Career Mentor', expressiveness: 0.75, blinkInterval: 3.8, swayAmp: 0.90, headTiltAmp: 0.90, gestureSpeed: 1.00, warmth: 0.16, gender: 'neutral' }
 };
 
 export class VRoidAvatarEngine {
@@ -269,12 +269,14 @@ export class VRoidAvatarEngine {
     // The previous cap of 2 meant a DPR-3 phone rendered 4x its CSS pixel
     // count every frame, with MSAA on top, on an integrated mobile GPU.
     // That is a large part of the reported lag on mid-range Android.
+    const hasLowCpu = typeof navigator !== 'undefined' && Boolean(navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4);
+    const hasLowRam = typeof navigator !== 'undefined' && Boolean((navigator as any).deviceMemory && (navigator as any).deviceMemory < 4);
     const isMobileDevice =
       typeof navigator !== 'undefined' &&
       (/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) ||
         (typeof window !== 'undefined' && window.innerWidth < 768));
 
-    this.isLowPowerDevice = isMobileDevice;
+    this.isLowPowerDevice = isMobileDevice || hasLowCpu || hasLowRam;
 
     try {
       this.renderer = new THREE.WebGLRenderer({
@@ -356,26 +358,46 @@ export class VRoidAvatarEngine {
     // a male body under a female name, speaking with her correct female neural
     // voice. The bug looked random; it actually correlates with network speed.
     //
-    // Now: retry the persona's own model once, then substitute only a model of
-    // the same presented gender.
-    const personaForModel = PERSONA_CONFIGS[id] || PERSONA_CONFIGS.default;
-    const primaryPath = `/avatar/${id}.glb`;
+    // Adaptive Quality Selection: HD (2048x2048 WebP) vs Lite (1024x1024 WebP)
+    const navConn =
+      typeof navigator !== 'undefined'
+        ? (navigator as any).connection || (navigator as any).mozConnection || (navigator as any).webkitConnection
+        : null;
+    const isSlowNetwork = Boolean(
+      navConn && (
+        navConn.saveData ||
+        navConn.effectiveType === 'slow-2g' ||
+        navConn.effectiveType === '2g' ||
+        navConn.effectiveType === '3g' ||
+        (typeof navConn.downlink === 'number' && navConn.downlink < 2.0) ||
+        (typeof navConn.rtt === 'number' && navConn.rtt > 600)
+      )
+    );
+    const prefersHD = !this.isLowPowerDevice && !isSlowNetwork && (typeof window !== 'undefined' && window.innerWidth >= 1024);
 
-    const FEMALE_FALLBACK_MODELS = ['/avatar/priya.glb', '/avatar/aisha.glb'];
-    const MALE_FALLBACK_MODELS = ['/avatar/kashyap.glb', '/avatar/rohan.glb'];
+    const hdPath = `/avatar/hd/${id}.glb`;
+    const litePath = `/avatar/${id}.glb`;
+
+    const FEMALE_FALLBACK_MODELS = prefersHD
+      ? ['/avatar/hd/priya.glb', '/avatar/priya.glb', '/avatar/aisha.glb']
+      : ['/avatar/priya.glb', '/avatar/aisha.glb'];
+
+    const MALE_FALLBACK_MODELS = prefersHD
+      ? ['/avatar/hd/kashyap.glb', '/avatar/kashyap.glb', '/avatar/rohan.glb']
+      : ['/avatar/kashyap.glb', '/avatar/rohan.glb'];
 
     const genderMatchedFallbacks =
       personaForModel.gender === 'female' ? FEMALE_FALLBACK_MODELS
       : personaForModel.gender === 'male' ? MALE_FALLBACK_MODELS
       : ['/avatar/mentor.glb'];
 
-    // First entry is retried once: a transient network timeout is the most
-    // common failure mode, and a second attempt often succeeds where
-    // substituting a different person never recovers the right identity.
-    const paths = [primaryPath, primaryPath, ...genderMatchedFallbacks];
+    // If prefersHD is true, try hdPath first, then seamlessly fall back to litePath if HD fails
+    const paths = prefersHD
+      ? [hdPath, litePath, ...genderMatchedFallbacks]
+      : [litePath, litePath, ...genderMatchedFallbacks];
 
     console.log(
-      `[VRoidAvatarEngine] Model chain for "${id}" (gender: ${personaForModel.gender}):`,
+      `[VRoidAvatarEngine] Model chain for "${id}" (gender: ${personaForModel.gender}, mode: ${prefersHD ? 'HD-Adaptive' : 'Lite-Optimized'}):`,
       paths.join(' -> ')
     );
 
