@@ -45,3 +45,6 @@ tsconfig.tsbuildinfo
 
 # Batch files may contain credentials
 start_backend.bat
+
+# Local pristine avatar source backups
+raw_avatars_source/
