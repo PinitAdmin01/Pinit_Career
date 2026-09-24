@@ -217,8 +217,8 @@ create table public.qr_login_sessions (
   id uuid default gen_random_uuid() primary key,
   status text default 'ready',
   email text,
-  password text,
   display_name text,
+  creator_id uuid references auth.users(id) on delete cascade,
   created_at timestamp with time zone default timezone('utc'::text, now()) not null,
   expires_at timestamp with time zone not null
 );
@@ -421,9 +421,9 @@ create policy "Users can insert own audit logs" on public.audit_logs
     and admin_id is null
   );
 
--- 11. QR Login Sessions Table
-create policy "Authenticated users can manage own QR login sessions" on public.qr_login_sessions
-  for all using (auth.uid() is not null) with check (auth.uid() is not null);
+-- 11. QR Login Sessions Table — scoped to creator only
+create policy "Users can manage own QR login sessions" on public.qr_login_sessions
+  for all using (creator_id = auth.uid()) with check (creator_id = auth.uid());
 
 -- Enable Supabase Realtime for QR Login
 alter publication supabase_realtime add table public.qr_login_sessions;

@@ -83,7 +83,10 @@ export async function GET(req: NextRequest) {
     const hasVerifiedCompetencies = (profile.verified.length > 0 || verifiedMasteryRecords.length > 0);
     const isShaVerified = hasVerifiedCompetencies && verifiedEvidenceCount > 0 && (verifiedEvidenceCount === uniqueEvidence.length);
 
-    const secret = process.env.EVIDENCE_SIGNING_SECRET || process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.EXAM_SECRET || 'dev_transcript_secret';
+    const secret = process.env.EVIDENCE_SIGNING_SECRET || process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.EXAM_SECRET;
+    if (!secret) {
+      throw new Error('Transcript signing secret not configured. Set EVIDENCE_SIGNING_SECRET env var.');
+    }
     const issueDate = new Date().toISOString().slice(0, 10);
     const transcriptDigest = crypto.createHmac('sha256', secret)
       .update(`${studentId}:${profile.verified.map(s => `${s.id}:${s.score}`).join(';')}:${verifiedEvidenceCount}:${issueDate}`)

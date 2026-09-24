@@ -2,7 +2,7 @@
 // Fix: wrapped in React.memo to prevent re-render on every parent state change
 import { memo } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { getTeacher } from '../utils/teachers';
+import { getTeacher } from '@/lib/teachers';
 
 const ChatMessage = memo(function ChatMessage({ role, content, teacherId }) {
   const teacher   = getTeacher(teacherId);

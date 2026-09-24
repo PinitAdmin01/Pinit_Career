@@ -3,7 +3,7 @@
 import { useState, useMemo, useCallback } from 'react';
 import Link from 'next/link';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
-import { PIN_COSTS, PinTransaction } from '@/lib/hooks/usePinBalance';
+import { PIN_COSTS, PinTransaction } from '@/hooks/usePinBalance';
 import PinCoin from '@/components/pins/PinCoin';
 import { triggerCoinStream } from '@/components/pins/coinAnimation';
 import { useAuth } from '@/lib/context/AuthContext';

@@ -8,7 +8,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabaseClient';
 import { getUserProfile } from '@/lib/supabaseService';
-import { useAuth } from '@/lib/hooks/useAuth';
+import { useAuth } from '@/hooks/useAuth';
 
 type State = 'loading' | 'ready' | 'authed' | 'confirming' | 'success' | 'error';
 

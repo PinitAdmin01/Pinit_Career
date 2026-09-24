@@ -4,8 +4,8 @@ import React, { useMemo } from 'react';
 import { UIStateProvider, useUIState, UIStateContextType } from '@/lib/context/UIStateContext';
 import { FinanceProvider, useFinance, FinanceContextType } from '@/lib/context/FinanceContext';
 import { UserProgressProvider, useUserProgress, UserProgressContextType, OnboardingAnswers } from '@/lib/context/UserProgressContext';
-import { useVault, VaultItem } from '@/lib/hooks/useVault';
-import { usePins, PinTransaction, PinSource, PIN_COSTS, PIN_EARN } from '@/lib/hooks/usePins';
+import { useVault, VaultItem } from '@/hooks/useVault';
+import { usePins, PinTransaction, PinSource, PIN_COSTS, PIN_EARN } from '@/hooks/usePins';
 import { useAppStore } from '@/lib/store/useAppStore';
 
 // Re-export decomposed domain hooks, types and constants for full backward compatibility

@@ -2,8 +2,8 @@
 
 import React, { createContext, useContext, useMemo, useCallback, useRef } from 'react';
 import { useAuth } from '@/lib/context/AuthContext';
-import { usePins, PinTransaction, PinSource, PIN_COSTS, PIN_EARN } from '@/lib/hooks/usePins';
-import { useVault, VaultItem } from '@/lib/hooks/useVault';
+import { usePins, PinTransaction, PinSource, PIN_COSTS, PIN_EARN } from '@/hooks/usePins';
+import { useVault, VaultItem } from '@/hooks/useVault';
 import { useAppStore, toast } from '@/lib/store/useAppStore';
 import { api } from '@/lib/api/client';
 

@@ -68,6 +68,7 @@ const CSP = [
     'https://pinit-voice-service.onrender.com',
     'https://pinit-backend-v8pd.onrender.com',
     'https://api.github.com',
+    'https://cdn.jsdelivr.net',
   ].join(' '),
 
   // ── UPDATED frame-src ──────────────────────────────────────────

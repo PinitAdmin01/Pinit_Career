@@ -2,7 +2,7 @@
 'use client';
 import { createContext, useContext, useState, useEffect, useCallback, useRef, ReactNode } from 'react';
 import { supabase } from '@/lib/supabaseClient';
-import { isDemoAuthEnabled, DEMO_PASSWORD, isDemoPassword, DEMO_ROLE_BY_EMAIL } from '@/lib/demoAuth';
+import { isDemoAuthEnabled, DEMO_ROLE_BY_EMAIL } from '@/lib/demoAuth';
 import { User as SbUser } from '@supabase/supabase-js';
 import {
   getUserProfile, createUserProfile, updateUserProfile,
@@ -588,8 +588,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const email = usernameToEmail(username);
     const emailLower = email.toLowerCase();
 
-    // Check if default credential attempt first
-    const isDefaultUser = isDemoAuthEnabled() && isDemoEmail(emailLower) && isDemoPassword(password);
+    // In demo mode, auto-create missing demo accounts (password validated by Supabase)
+    const isDefaultUser = isDemoAuthEnabled() && isDemoEmail(emailLower);
 
     try {
       let sbUser;

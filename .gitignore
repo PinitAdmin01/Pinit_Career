@@ -1,4 +1,5 @@
 
+__pycache__/
 node_modules/
 .next/
 out/
@@ -29,9 +30,18 @@ claude_sandbox/
 
 dark-gracity/
 
-# Biometric face templates — sensitive personal data (India DPDP Act)
+# Biometric face templates ï¿½ sensitive personal data (India DPDP Act)
 src/lib/data/face_biometrics_db.json
 
 # Quarantined legacy files and build artifacts
 attic/
 dist-test/
+
+# Redis dump file - should never be committed
+dump.rdb
+
+# TypeScript incremental build cache
+tsconfig.tsbuildinfo
+
+# Batch files may contain credentials
+start_backend.bat

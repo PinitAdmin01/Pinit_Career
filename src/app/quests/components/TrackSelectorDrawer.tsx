@@ -14,7 +14,7 @@ import CrashCourseCheckoutModal from './CrashCourseCheckoutModal';
 import { ActiveEnrollmentBanner } from './ActiveEnrollmentBanner';
 import { crashCourseEnrollmentService, CrashCourseEnrollment } from '@/lib/services/crashCourseEnrollmentService';
 import { CRASH_COURSE_PLANS, CrashPlan } from '@/lib/data/crashPlansData';
-import { usePins } from '@/lib/hooks/usePins';
+import { usePins } from '@/hooks/usePins';
 import CareerPathwayTimeline from '@/components/pathway/CareerPathwayTimeline';
 import CompetencyRadarView from '@/components/pathway/CompetencyRadarView';
 import {

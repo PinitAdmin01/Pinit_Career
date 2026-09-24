@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/lib/context/AuthContext';
-import { useCareerProfile } from '@/lib/hooks/useCareerProfile';
+import { useCareerProfile } from '@/hooks/useCareerProfile';
 import { useNotifications } from '@/lib/api/hooks';
 import { useAppStore, toast } from '@/lib/store/useAppStore';
 import { useCareerOS } from '@/lib/context/CareerOSContext';

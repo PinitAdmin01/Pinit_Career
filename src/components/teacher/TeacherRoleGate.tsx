@@ -4,7 +4,8 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/context/AuthContext';
 import TeacherDashboard from '@/components/teacher/TeacherDashboard';
-import { isDemoAuthEnabled, DEMO_PASSWORD } from '@/lib/demoAuth';
+import { isDemoAuthEnabled } from '@/lib/demoAuth';
+import { supabase } from '@/lib/supabaseClient';
 
 const ALLOWED_ROLES = ['teacher', 'admin', 'superadmin', 'faculty'];
 
@@ -42,9 +43,18 @@ export default function TeacherRoleGate() {
       setIsLoggingIn(true);
       setLoginError(null);
       try {
-        if (login) {
-          await login('teacher@pinit.in', DEMO_PASSWORD);
-        }
+        const res = await fetch('/api/auth/demo', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: 'teacher@pinit.in' }),
+        });
+        const json = await res.json();
+        if (!res.ok) throw new Error(json.error || 'Demo login failed');
+        await supabase.auth.setSession({
+          access_token: json.access_token,
+          refresh_token: json.refresh_token,
+        });
+        window.location.reload();
       } catch (err: any) {
         setLoginError(err?.message || 'Demo authentication failed');
       } finally {

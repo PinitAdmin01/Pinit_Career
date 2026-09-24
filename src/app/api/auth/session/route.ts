@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
       // Demo session authorization
       role = DEMO_ROLE_BY_EMAIL[body.email.toLowerCase()];
       userId = body.id || body.uid || `usr_demo_${Date.now()}`;
-    } else if (body.isDevUser) {
+    } else if (process.env.NODE_ENV !== 'production' && body.isDevUser) {
       role = 'student';
       userId = body.id || body.uid || `usr_dev_${Date.now()}`;
     } else {

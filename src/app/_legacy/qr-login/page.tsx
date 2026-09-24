@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Script from 'next/script';
 import { supabase } from '@/lib/supabaseClient';
-import { useAuth } from '@/lib/hooks/useAuth';
+import { useAuth } from '@/hooks/useAuth';
 
 type QRStatus = 'loading' | 'ready' | 'scanned' | 'confirmed' | 'expired';
 
