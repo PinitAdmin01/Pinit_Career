@@ -746,25 +746,27 @@ export default function InterviewPage() {
             onDoneSpeaking={flushAndSubmitTranscript}
           />
 
-          {/* Assist Mode Floating Teleprompter Drawer (Active for any round when enabled) */}
-          <AssistModeDrawer
-            isScoredStage={false}
-            isAssistModeActive={isAssistModeActive}
-            setIsAssistModeActive={setIsAssistModeActive}
-            assistScriptLevel={assistScriptLevel}
-            setAssistScriptLevel={setAssistScriptLevel}
-            assistTab={assistTab}
-            setAssistTab={setAssistTab}
-            isFetchingAssist={isFetchingAssist}
-            assistData={assistData}
-            liveSpeechTranscript={liveSpeechTranscript}
-            messages={messages}
-            activeTeacher={activeTeacher}
-            difficulty={difficulty}
-            fetchAssistScript={fetchAssistScript}
-            speakWithAvatarRaw={speakWithAvatar}
-            setAnimState={setAnimState}
-          />
+          {/* Assist Mode Floating Teleprompter Drawer (Scoped to Round 2 Coding where there is no vertical chat column) */}
+          {activeStage === 'round2_coding' && isAssistModeActive && (
+            <AssistModeDrawer
+              isScoredStage={false}
+              isAssistModeActive={isAssistModeActive}
+              setIsAssistModeActive={setIsAssistModeActive}
+              assistScriptLevel={assistScriptLevel}
+              setAssistScriptLevel={setAssistScriptLevel}
+              assistTab={assistTab}
+              setAssistTab={setAssistTab}
+              isFetchingAssist={isFetchingAssist}
+              assistData={assistData}
+              liveSpeechTranscript={liveSpeechTranscript}
+              messages={messages}
+              activeTeacher={activeTeacher}
+              difficulty={difficulty}
+              fetchAssistScript={fetchAssistScript}
+              speakWithAvatarRaw={speakWithAvatar}
+              setAnimState={setAnimState}
+            />
+          )}
 
           {/* Round 1: Behavioral */}
           {activeStage === 'round1_behavioral' && (
@@ -841,6 +843,16 @@ export default function InterviewPage() {
               manualTextInput={manualTextInput}
               setManualTextInput={setManualTextInput}
               onSendMessage={handleSendMessageWithText}
+              isAssistModeActive={isAssistModeActive}
+              setIsAssistModeActive={setIsAssistModeActive}
+              assistData={assistData}
+              isFetchingAssist={isFetchingAssist}
+              assistTab={assistTab}
+              setAssistTab={setAssistTab}
+              assistScriptLevel={assistScriptLevel}
+              setAssistScriptLevel={setAssistScriptLevel}
+              fetchAssistScript={fetchAssistScript}
+              liveSpeechTranscript={liveSpeechTranscript}
             />
           )}
 
@@ -862,6 +874,16 @@ export default function InterviewPage() {
               onSendMessage={handleSendMessageWithText}
               starStep={starStep}
               messages={messages}
+              isAssistModeActive={isAssistModeActive}
+              setIsAssistModeActive={setIsAssistModeActive}
+              assistData={assistData}
+              isFetchingAssist={isFetchingAssist}
+              assistTab={assistTab}
+              setAssistTab={setAssistTab}
+              assistScriptLevel={assistScriptLevel}
+              setAssistScriptLevel={setAssistScriptLevel}
+              fetchAssistScript={fetchAssistScript}
+              liveSpeechTranscript={liveSpeechTranscript}
             />
           )}
 

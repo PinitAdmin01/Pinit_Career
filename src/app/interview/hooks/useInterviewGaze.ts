@@ -46,6 +46,7 @@ export function useInterviewGaze(isInterviewActive: boolean) {
     if (showCameraPreview && cameraStreamRef.current && videoPreviewRef.current) {
       if (videoPreviewRef.current.srcObject !== cameraStreamRef.current) {
         videoPreviewRef.current.srcObject = cameraStreamRef.current;
+        videoPreviewRef.current.play().catch(() => {});
       }
     }
   });

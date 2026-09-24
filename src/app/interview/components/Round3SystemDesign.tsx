@@ -30,6 +30,16 @@ export interface Round3SystemDesignProps {
   manualTextInput?: string;
   setManualTextInput?: (val: string) => void;
   onSendMessage?: (text: string) => void;
+  isAssistModeActive?: boolean;
+  setIsAssistModeActive?: (val: boolean) => void;
+  assistData?: any;
+  isFetchingAssist?: boolean;
+  assistTab?: 'script' | 'bullets' | 'delivery';
+  setAssistTab?: (tab: 'script' | 'bullets' | 'delivery') => void;
+  assistScriptLevel?: 'standard' | 'advanced';
+  setAssistScriptLevel?: (lvl: 'standard' | 'advanced') => void;
+  fetchAssistScript?: (q: string, lvl?: 'standard' | 'advanced') => void;
+  liveSpeechTranscript?: string;
 }
 
 export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
@@ -48,7 +58,20 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
   manualTextInput = '',
   setManualTextInput,
   onSendMessage,
+  isAssistModeActive = false,
+  setIsAssistModeActive,
+  assistData,
+  isFetchingAssist = false,
+  assistTab = 'script',
+  setAssistTab,
+  assistScriptLevel = 'standard',
+  setAssistScriptLevel,
+  fetchAssistScript,
+  liveSpeechTranscript = '',
 }) => {
+  const spokenWordSet = React.useMemo(() => {
+    return new Set(liveSpeechTranscript.toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(Boolean));
+  }, [liveSpeechTranscript]);
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '7.2fr 2.8fr', gap: 16, alignItems: 'stretch' }}>
       <div className="iv-panel" style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -156,6 +179,87 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
           <div style={{ fontSize: 11.5, color: 'var(--t1)', lineHeight: 1.4, overflowY: 'auto', maxHeight: 150 }}>
             <strong>{activeTeacher.name}:</strong> {lastInterviewerSpeech}
           </div>
+
+          {/* 🎯 Assist Mode AI Teleprompter Card for Round 3 (Architectural Defense Script) */}
+          {isAssistModeActive && (
+            <div style={{
+              padding: '8px 10px',
+              borderRadius: 10,
+              background: 'linear-gradient(135deg, rgba(30, 27, 75, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%)',
+              border: '1.5px solid var(--reward)',
+              boxShadow: '0 4px 14px rgba(var(--reward-rgb), 0.2)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 6
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                  <span style={{ fontSize: 12 }}>🎯</span>
+                  <span style={{ fontSize: 10.5, fontWeight: 900, color: 'var(--reward-bright)' }}>Defense Teleprompter</span>
+                </div>
+                <div style={{ display: 'flex', gap: 3, alignItems: 'center' }}>
+                  {assistData?.script && (
+                    <button
+                      onClick={() => navigator.clipboard.writeText(assistData.script)}
+                      style={{ background: 'rgba(255,255,255,0.1)', border: 'none', color: 'var(--text)', borderRadius: 4, padding: '2px 5px', fontSize: 9, fontWeight: 800, cursor: 'pointer' }}
+                    >
+                      📋 Copy
+                    </button>
+                  )}
+                  {setIsAssistModeActive && (
+                    <button
+                      onClick={() => setIsAssistModeActive(false)}
+                      style={{ background: 'none', border: 'none', color: 'var(--text-muted)', fontSize: 10, cursor: 'pointer', padding: '0 2px' }}
+                      title="Close"
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {isFetchingAssist ? (
+                <div style={{ padding: '6px 0', textAlign: 'center', color: 'var(--reward-bright)', fontSize: 10, fontStyle: 'italic' }}>
+                  ✨ Crafting defense script...
+                </div>
+              ) : assistData?.script ? (
+                <div style={{ background: 'rgba(0,0,0,0.45)', borderRadius: 6, padding: '6px 8px' }}>
+                  <div style={{ fontSize: 11, lineHeight: 1.4, color: 'var(--text)', maxHeight: 100, overflowY: 'auto' }}>
+                    &ldquo;
+                    {assistData.script.split(' ').map((word: string, wIdx: number) => {
+                      const clean = word.toLowerCase().replace(/[^a-z0-9]/g, '');
+                      const isMatched = clean.length > 0 && spokenWordSet.has(clean);
+                      return (
+                        <span
+                          key={wIdx}
+                          style={{
+                            color: isMatched ? 'var(--success-bright)' : 'var(--text)',
+                            fontWeight: isMatched ? 800 : 400,
+                            textShadow: isMatched ? '0 0 6px rgba(var(--success-rgb),0.8)' : 'none'
+                          }}
+                        >
+                          {word}{' '}
+                        </span>
+                      );
+                    })}
+                    &rdquo;
+                  </div>
+                </div>
+              ) : (
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontSize: 10, color: 'var(--t3)' }}>No defense script ready.</span>
+                  {fetchAssistScript && (
+                    <button
+                      onClick={() => fetchAssistScript(lastInterviewerSpeech, assistScriptLevel)}
+                      style={{ background: 'var(--reward)', border: 'none', color: '#000', borderRadius: 4, padding: '2px 8px', fontSize: 9.5, fontWeight: 800, cursor: 'pointer' }}
+                    >
+                      ✨ Generate Script
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
 
           {/* ⌨️ Architectural Defense Typed Input Fallback */}
           {setManualTextInput && onSendMessage && (

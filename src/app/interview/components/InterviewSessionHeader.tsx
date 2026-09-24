@@ -73,8 +73,7 @@ export function InterviewSessionHeader({
       <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
         <div style={{ position: 'relative', display: 'inline-block' }}>
           <button
-            disabled={isScoredStage}
-            title={isScoredStage ? 'Assist Mode is disabled during scored rounds' : 'Practice Mode — AI Teleprompter'}
+            title="Toggle AI Spoken Teleprompter Assist Mode"
             onClick={() => {
               const next = !isAssistModeActive;
               setIsAssistModeActive(next);
@@ -84,18 +83,18 @@ export function InterviewSessionHeader({
               }
             }}
             style={{
-              background: isScoredStage ? 'var(--bg2)' : isAssistModeActive ? 'linear-gradient(135deg, var(--brand) 0%, var(--reward) 100%)' : 'var(--bg3)',
-              border: isScoredStage ? '1px solid var(--border)' : isAssistModeActive ? '1px solid var(--reward)' : '1px solid var(--border)',
-              color: isScoredStage ? 'var(--t3)' : isAssistModeActive ? 'var(--text)' : 'var(--t2)',
+              background: isAssistModeActive ? 'linear-gradient(135deg, var(--reward) 0%, var(--purple) 100%)' : 'var(--bg3)',
+              border: isAssistModeActive ? '1.5px solid var(--reward)' : '1px solid var(--border)',
+              color: isAssistModeActive ? '#ffffff' : 'var(--t2)',
               borderRadius: 8,
               padding: '5px 12px',
               fontSize: 11,
               fontWeight: 900,
-              cursor: isScoredStage ? 'not-allowed' : 'pointer',
-              opacity: isScoredStage ? 0.5 : 1
+              cursor: 'pointer',
+              boxShadow: isAssistModeActive ? '0 0 10px rgba(var(--reward-rgb),0.5)' : 'none'
             }}
           >
-            {isScoredStage ? '🔒 Practice Only' : isAssistModeActive ? '🪄 Assist Mode ACTIVE' : '🪄 Assist Mode'}
+            {isAssistModeActive ? '🎯 Assist Mode: ON' : '🎯 Assist Mode: OFF'}
           </button>
         </div>
 

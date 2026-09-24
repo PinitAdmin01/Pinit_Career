@@ -94,26 +94,6 @@ export const AssistModeDrawer: React.FC<AssistModeDrawerProps> = ({
         <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap' }}>
           <button
             onClick={() => {
-              if (assistData?.script) {
-                speakWithAvatarRaw(assistData.script, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'), false, true, difficulty);
-              }
-            }}
-            style={{
-              background: 'rgba(var(--reward-rgb),0.2)',
-              border: '1px solid var(--reward)',
-              color: 'var(--reward-bright)',
-              borderRadius: 6,
-              padding: '3px 8px',
-              fontSize: 10,
-              fontWeight: 800,
-              cursor: 'pointer'
-            }}
-          >
-            🔊 Listen Sample Voice
-          </button>
-
-          <button
-            onClick={() => {
               const nextLvl = assistScriptLevel === 'standard' ? 'advanced' : 'standard';
               setAssistScriptLevel(nextLvl);
               const lastAssistantMsg = messages.filter(m => m.role === 'assistant').slice(-1)[0]?.content;

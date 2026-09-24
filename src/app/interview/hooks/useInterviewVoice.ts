@@ -63,6 +63,16 @@ export function useInterviewVoice({
     autoVoiceLoopRef.current = autoVoiceLoop;
   }, [autoVoiceLoop]);
 
+  // Cleanly clear unsubmitted utterances on round transitions
+  useEffect(() => {
+    if (utteranceDebounceTimerRef.current) {
+      clearTimeout(utteranceDebounceTimerRef.current);
+      utteranceDebounceTimerRef.current = null;
+    }
+    accumulatedTranscriptRef.current = '';
+    setLiveSpeechTranscript('');
+  }, [activeStage]);
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const hasSpeech = Boolean((window as any).SpeechRecognition || (window as any).webkitSpeechRecognition);
@@ -225,14 +235,15 @@ export function useInterviewVoice({
           setLiveSpeechTranscript(currentDisplay);
         }
 
-        // Debounce before auto-submitting on natural speech completion (1.8s of silence after final word)
+        // Debounce before auto-submitting on natural speech completion (3.2s of silence after final word)
+        // Gives the candidate natural breathing time between sentences while reading the teleprompter
         if (accumulatedTranscriptRef.current.trim().length > 3) {
           if (utteranceDebounceTimerRef.current) clearTimeout(utteranceDebounceTimerRef.current);
           utteranceDebounceTimerRef.current = setTimeout(() => {
             if (!isAvatarSpeakingRef.current && accumulatedTranscriptRef.current.trim()) {
               flushAndSubmitTranscript();
             }
-          }, 1800);
+          }, 3200);
         }
       };
 

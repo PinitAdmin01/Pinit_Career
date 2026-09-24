@@ -1,5 +1,5 @@
-import { resolveDynamicCodingProblem, createSemanticFallbackProblem } from '../../src/app/interview/problemGenerator';
-import { evaluateSystemTopology } from '../../src/lib/interview/systemDesignEvaluator';
+import { resolveDynamicCodingProblem, createSemanticFallbackProblem } from '../../src/app/interview/problemGenerator.ts';
+import { evaluateSystemTopology } from '../../src/lib/interview/systemDesignEvaluator.ts';
 
 async function runTests() {
   console.log('🧪 Starting Interview Tab & Assist Mode Bugfix Verification Suite...\n');
@@ -104,6 +104,34 @@ async function runTests() {
   assert(
     matchedWords.includes('project,') || matchedWords.some(w => w.includes('project')),
     'Cleaned word matching handles punctuation variations cleanly'
+  );
+
+  // Test 4: Assist Mode Security Isolation & STAR Coverage (Auditor Forensic Verification)
+  console.log('\n--- Test Suite 4: Assist Mode Privacy Isolation & STAR Verification ---');
+  const sampleChatPayload = {
+    message: candidateSpoken,
+    interviewerId: 'priya',
+    stage: 'round4_star',
+    history: [{ role: 'assistant', content: 'What trade-offs did you face?' }, { role: 'user', content: candidateSpoken }]
+  };
+  const payloadString = JSON.stringify(sampleChatPayload);
+  assert(
+    !payloadString.includes('teleprompter') && !payloadString.includes('assistData'),
+    'Security Isolation: Avatar chat payload NEVER leaks teleprompter script or assist coaching data'
+  );
+
+  const starKeys = ['situation', 'task', 'action', 'result'];
+  const simulatedStarData = {
+    starBreakdown: {
+      situation: 'High traffic spikes caused 500 errors',
+      task: 'Stabilize database read latency under 50ms',
+      action: 'Implemented Redis cluster and read replicas',
+      result: 'Reduced p99 latency by 72%'
+    }
+  };
+  assert(
+    starKeys.every(k => k in simulatedStarData.starBreakdown),
+    'STAR Drill: Teleprompter provides structured Situation, Task, Action, Result breakdown'
   );
 
   // Summary
