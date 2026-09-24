@@ -306,8 +306,10 @@ export class VRoidAvatarEngine {
       `(device DPR ${window.devicePixelRatio}).`
     );
     this.renderer.setSize(w, h, false);
-    this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    this.renderer.toneMappingExposure = 0.88;
+    // VRoid textures are authored in sRGB. ACESFilmic washes out anime skin and compresses colors;
+    // NoToneMapping + SRGBColorSpace delivers exact, vibrant, pixel-perfect fidelity from VRoid Studio.
+    this.renderer.toneMapping = THREE.NoToneMapping;
+    this.renderer.outputColorSpace = THREE.SRGBColorSpace;
     this.renderer.setClearColor(0x000000, 0);
 
     this.scene = new THREE.Scene();
@@ -467,15 +469,21 @@ export class VRoidAvatarEngine {
               obj.castShadow = true;
               obj.receiveShadow = true;
               if (obj.material) {
-                if (Array.isArray(obj.material)) {
-                  obj.material.forEach((m: any) => {
-                    m.side = THREE.DoubleSide;
-                    m.needsUpdate = true;
-                  });
-                } else {
-                  obj.material.side = THREE.DoubleSide;
-                  obj.material.needsUpdate = true;
-                }
+                const mats = Array.isArray(obj.material) ? obj.material : [obj.material];
+                mats.forEach((m: any) => {
+                  if (m.map) {
+                    m.map.colorSpace = THREE.SRGBColorSpace;
+                    m.map.needsUpdate = true;
+                  }
+                  // Avoid internal back-face bleed-through on face & skin meshes
+                  const isSkinOrFace = obj.name.toLowerCase().includes('face') ||
+                                       obj.name.toLowerCase().includes('head') ||
+                                       obj.name.toLowerCase().includes('body') ||
+                                       (m.name && (m.name.includes('SKIN') || m.name.includes('FACE')));
+                  m.side = isSkinOrFace ? THREE.FrontSide : THREE.DoubleSide;
+                  m.depthWrite = true;
+                  m.needsUpdate = true;
+                });
               }
               if (obj.morphTargetDictionary) {
                 const keys = Object.keys(obj.morphTargetDictionary);
