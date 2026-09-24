@@ -103,6 +103,11 @@ const nextConfig = {
   //   experimental: { cpus: 4 }
 
   webpack: (config, { isServer }) => {
+    const path = require('path');
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': path.resolve(__dirname, 'src'),
+    };
     if (!isServer) {
       config.resolve.alias = {
         ...config.resolve.alias,
