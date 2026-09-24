@@ -99,17 +99,17 @@ function detectPitch(buffer: Float32Array, sampleRate: number): number {
 }
 
 const TEACHER_CONFIG: Record<string, { name: string; color: string; emoji: string; domain?: string }> = {
-  priya:   { name: 'Ms. Priya',          color: '#4f46e5', emoji: '👩‍💼', domain: 'Full-Stack & Career Growth' },
-  anish:   { name: 'Mr. Anish',          color: '#0284c7', emoji: '👨‍💻', domain: 'Systems & Backend Scale' },
-  aisha:   { name: 'Ms. Aisha',          color: 'var(--purple)', emoji: '👩‍🏫', domain: 'Data Science & AI/ML' },
-  vikram:  { name: 'Mr. Vikram',         color: 'var(--success-deep)', emoji: '👨‍⚖️', domain: 'Finance, Commerce & Ethics' },
-  kashyap: { name: 'Kashyap Sir',        color: 'var(--warning)', emoji: '👨‍🏫', domain: 'DSA & Mathematical Reasoning' },
-  karthic: { name: 'Karthic Sir',        color: '#e11d48', emoji: '⚔️', domain: 'Competitive Arena & Speedrun' },
-  maya:    { name: 'Ms. Maya',           color: '#ec4899', emoji: '🎨', domain: 'UI/UX & Product Design' },
-  divya:   { name: 'Ms. Divya',          color: 'var(--accent-cyan)', emoji: '☁️', domain: 'Cloud & DevOps' },
-  rohan:   { name: 'Mr. Rohan',          color: '#0891b2', emoji: '🛡️', domain: 'Cybersecurity & Networks' },
-  shalini: { name: 'Ms. Shalini',        color: 'var(--reward)', emoji: '🗣️', domain: 'Soft Skills & Communication' },
-  default: { name: 'Mentor',             color: 'var(--brand)', emoji: '🎓', domain: 'Multidisciplinary Career OS' },
+  priya:   { name: 'Ms. Priya',          color: '#4f46e5', emoji: '👩‍💼', domain: 'Career & Professional Growth' },
+  anish:   { name: 'Mr. Anish',          color: '#0284c7', emoji: '👨‍💻', domain: 'Applied Systems & Strategy' },
+  aisha:   { name: 'Ms. Aisha',          color: 'var(--purple)', emoji: '👩‍🏫', domain: 'Analytics & Strategic Reasoning' },
+  vikram:  { name: 'Mr. Vikram',         color: 'var(--success-deep)', emoji: '👨‍⚖️', domain: 'Finance, Commerce & Corporate Ethics' },
+  kashyap: { name: 'Kashyap Sir',        color: 'var(--warning)', emoji: '👨‍🏫', domain: 'Logical & Systems Foundations' },
+  karthic: { name: 'Karthic Sir',        color: '#e11d48', emoji: '⚔️', domain: 'Competitive Arena, Speedrun & 1v1 Duels' },
+  maya:    { name: 'Ms. Maya',           color: '#ec4899', emoji: '🎨', domain: 'Design Systems & Quality Assurance' },
+  divya:   { name: 'Ms. Divya',          color: 'var(--accent-cyan)', emoji: '☁️', domain: 'Cloud Architecture & Operations' },
+  rohan:   { name: 'Mr. Rohan',          color: '#0891b2', emoji: '🛡️', domain: 'Security & Enterprise Architecture' },
+  shalini: { name: 'Ms. Shalini',        color: 'var(--reward)', emoji: '🗣️', domain: 'Soft Skills, Articulation & Communication' },
+  default: { name: 'Mentor',             color: 'var(--brand)', emoji: '🎓', domain: 'Multidisciplinary Career Mentor' },
 };
 
 export default function AvatarMentorWidget({
