@@ -328,6 +328,47 @@ export default function PracticeTestQuizRunner({
   const [submitted, setSubmitted] = useState(false);
   const [showResults, setShowResults] = useState(false);
 
+  const currentQuestion = questions[currentIndex];
+  const currentAnswer = answers[currentQuestion.id] ?? null;
+
+  // Topic breakdown — declared before handleAutoSubmit to avoid used-before-declaration TS error
+  const topicBreakdown = useMemo(() => {
+    const breakdown: Record<string, { correct: number; total: number }> = {};
+    questions.forEach(q => {
+      if (!breakdown[q.topic]) breakdown[q.topic] = { correct: 0, total: 0 };
+      breakdown[q.topic].total += 1;
+      if (answers[q.id] && q.options.find(o => o.id === answers[q.id])?.isCorrect) {
+        breakdown[q.topic].correct += 1;
+      }
+    });
+    return breakdown;
+  }, [answers, questions]);
+
+  // Skill gaps detection — declared before handleAutoSubmit
+  const skillGaps = useMemo(() => {
+    const gaps: string[] = [];
+    Object.entries(topicBreakdown).forEach(([topic, data]) => {
+      if (data.total > 0 && data.correct / data.total < 0.5) {
+        gaps.push(`${topic} (${data.correct}/${data.total})`);
+      }
+    });
+    return gaps.length > 0 ? gaps : ['None detected — excellent performance!'];
+  }, [topicBreakdown]);
+
+  // Score calculation
+  const score = useMemo(() => {
+    let correct = 0;
+    questions.forEach(q => {
+      if (answers[q.id] && q.options.find(o => o.id === answers[q.id])?.isCorrect) {
+        correct += 1;
+      }
+    });
+    return correct;
+  }, [answers, questions]);
+
+  const accuracyPercent = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0;
+  const timeTakenSeconds = (20 * 60) - timeLeft;
+
   const handleAutoSubmit = useCallback(() => {
     setSubmitted(true);
     let correct = 0;
@@ -363,47 +404,6 @@ export default function PracticeTestQuizRunner({
     }, 1000);
     return () => clearInterval(timer);
   }, [submitted, handleAutoSubmit]);
-
-  const currentQuestion = questions[currentIndex];
-  const currentAnswer = answers[currentQuestion.id] ?? null;
-
-  // Topic breakdown
-  const topicBreakdown = useMemo(() => {
-    const breakdown: Record<string, { correct: number; total: number }> = {};
-    questions.forEach(q => {
-      if (!breakdown[q.topic]) breakdown[q.topic] = { correct: 0, total: 0 };
-      breakdown[q.topic].total += 1;
-      if (answers[q.id] && q.options.find(o => o.id === answers[q.id])?.isCorrect) {
-        breakdown[q.topic].correct += 1;
-      }
-    });
-    return breakdown;
-  }, [answers, questions]);
-
-  // Score calculation
-  const score = useMemo(() => {
-    let correct = 0;
-    questions.forEach(q => {
-      if (answers[q.id] && q.options.find(o => o.id === answers[q.id])?.isCorrect) {
-        correct += 1;
-      }
-    });
-    return correct;
-  }, [answers, questions]);
-
-  const accuracyPercent = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0;
-  const timeTakenSeconds = (20 * 60) - timeLeft;
-
-  // Skill gaps detection
-  const skillGaps = useMemo(() => {
-    const gaps: string[] = [];
-    Object.entries(topicBreakdown).forEach(([topic, data]) => {
-      if (data.total > 0 && data.correct / data.total < 0.5) {
-        gaps.push(`${topic} (${data.correct}/${data.total})`);
-      }
-    });
-    return gaps.length > 0 ? gaps : ['None detected — excellent performance!'];
-  }, [topicBreakdown]);
 
   // Handle answer selection
   const handleAnswer = (optionId: string) => {
