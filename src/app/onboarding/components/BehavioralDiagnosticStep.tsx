@@ -47,10 +47,16 @@ export default function BehavioralDiagnosticStep({
   const [matrixResponses, setMatrixResponses] = useState<RawMatrixResponse[]>([]);
   const [tradeoffResponses, setTradeoffResponses] = useState<RawDiagnosticResponse[]>([]);
 
+  // Tactile selection and debounce state
+  const [selectedOptId, setSelectedOptId] = useState<string | null>(null);
+  const [isAdvancing, setIsAdvancing] = useState<boolean>(false);
+
   // Latency timer
   const questionStartTimeRef = useRef<number>(Date.now());
   useEffect(() => {
     questionStartTimeRef.current = Date.now();
+    setSelectedOptId(null);
+    setIsAdvancing(false);
   }, [phase, sjtIndex, matrixIndex, tradeoffIndex]);
 
   // Shuffled options for current SJT to avoid position bias
@@ -69,8 +75,12 @@ export default function BehavioralDiagnosticStep({
     }
   }, [sjtIndex]);
 
-  // Handle SJT choice
+  // Handle SJT choice with tactile feedback
   const handleSelectSjtOption = (optId: string) => {
+    if (isAdvancing) return;
+    setSelectedOptId(optId);
+    setIsAdvancing(true);
+
     const latency = Date.now() - questionStartTimeRef.current;
     const newRecord: RawDiagnosticResponse = {
       questionId: currentSjt.id,
@@ -79,16 +89,18 @@ export default function BehavioralDiagnosticStep({
       timestamp: Date.now()
     };
 
-    const updated = [...sjtResponses.filter(r => r.questionId !== currentSjt.id), newRecord];
-    setSjtResponses(updated);
+    setTimeout(() => {
+      const updated = [...sjtResponses.filter(r => r.questionId !== currentSjt.id), newRecord];
+      setSjtResponses(updated);
 
-    if (sjtIndex < SJT_QUESTIONS.length - 1) {
-      setSjtIndex(prev => prev + 1);
-    } else {
-      // Move to Matrix phase
-      setPhase('MATRIX');
-      setMatrixIndex(0);
-    }
+      if (sjtIndex < SJT_QUESTIONS.length - 1) {
+        setSjtIndex(prev => prev + 1);
+      } else {
+        // Move to Matrix phase
+        setPhase('MATRIX');
+        setMatrixIndex(0);
+      }
+    }, 160);
   };
 
   // Matrix State for current Scenario
@@ -136,10 +148,14 @@ export default function BehavioralDiagnosticStep({
     }
   };
 
-  // Handle Trade-Off Probe
+  // Handle Trade-Off Probe with tactile feedback
   const currentTradeoff: TradeoffProbe = TRADEOFF_PROBES[tradeoffIndex];
 
   const handleSelectTradeoffOption = (optId: string) => {
+    if (isAdvancing) return;
+    setSelectedOptId(optId);
+    setIsAdvancing(true);
+
     const latency = Date.now() - questionStartTimeRef.current;
     const newRecord: RawDiagnosticResponse = {
       questionId: currentTradeoff.id,
@@ -148,20 +164,54 @@ export default function BehavioralDiagnosticStep({
       timestamp: Date.now()
     };
 
-    const updated = [...tradeoffResponses.filter(r => r.questionId !== currentTradeoff.id), newRecord];
-    setTradeoffResponses(updated);
+    setTimeout(() => {
+      const updated = [...tradeoffResponses.filter(r => r.questionId !== currentTradeoff.id), newRecord];
+      setTradeoffResponses(updated);
 
-    if (tradeoffIndex < TRADEOFF_PROBES.length - 1) {
-      setTradeoffIndex(prev => prev + 1);
-    } else {
-      // Completed all 3 behavioral phases!
-      onComplete({
-        sjtResponses,
-        matrixResponses,
-        tradeoffResponses: updated
-      });
-    }
+      if (tradeoffIndex < TRADEOFF_PROBES.length - 1) {
+        setTradeoffIndex(prev => prev + 1);
+      } else {
+        // Completed all 3 behavioral phases!
+        onComplete({
+          sjtResponses,
+          matrixResponses,
+          tradeoffResponses: updated
+        });
+      }
+    }, 160);
   };
+
+  // Keyboard accessibility listeners (1-4, a-d, Enter)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement || isAdvancing) return;
+
+      const key = e.key.toLowerCase();
+      if (phase === 'SJT') {
+        const keyIndexMap: Record<string, number> = { '1': 0, 'a': 0, '2': 1, 'b': 1, '3': 2, 'c': 2, '4': 3, 'd': 3 };
+        const idx = keyIndexMap[key];
+        if (typeof idx === 'number' && shuffledSjtOptions[idx]) {
+          e.preventDefault();
+          handleSelectSjtOption(shuffledSjtOptions[idx].id);
+        }
+      } else if (phase === 'MATRIX') {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          handleNextMatrixScenario();
+        }
+      } else if (phase === 'TRADEOFF') {
+        const keyIndexMap: Record<string, number> = { '1': 0, 'a': 0, '2': 1, 'b': 1 };
+        const idx = keyIndexMap[key];
+        if (typeof idx === 'number' && currentTradeoff?.options[idx]) {
+          e.preventDefault();
+          handleSelectTradeoffOption(currentTradeoff.options[idx].id);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [phase, sjtIndex, matrixIndex, tradeoffIndex, shuffledSjtOptions, currentTradeoff, isAdvancing, currentMatrixRatings]);
 
   return (
     <div style={{ flex: 1, padding: '24px 32px', display: 'flex', flexDirection: 'column', height: '100%', overflowY: 'auto' }}>
@@ -243,38 +293,60 @@ export default function BehavioralDiagnosticStep({
           </div>
 
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 12, justifyContent: 'center' }}>
-            {shuffledSjtOptions.map((opt) => (
-              <button
-                key={opt.id}
-                type="button"
-                onClick={() => handleSelectSjtOption(opt.id)}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '16px 20px',
-                  borderRadius: 14,
-                  background: 'rgba(255, 255, 255, 0.02)',
-                  border: '1.5px solid rgba(255, 255, 255, 0.06)',
-                  textAlign: 'left',
-                  cursor: 'pointer',
-                  color: 'var(--t1)',
-                  fontSize: 13.5,
-                  fontWeight: 600,
-                  lineHeight: 1.5,
-                  transition: 'all 0.15s ease'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(var(--brand-rgb), 0.14)';
-                  e.currentTarget.style.borderColor = 'var(--brand-bright)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.02)';
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.06)';
-                }}
-              >
-                {opt.text}
-              </button>
-            ))}
+            {shuffledSjtOptions.map((opt, oIdx) => {
+              const isSelected = opt.id === selectedOptId;
+              return (
+                <button
+                  key={opt.id}
+                  type="button"
+                  disabled={isAdvancing}
+                  onClick={() => handleSelectSjtOption(opt.id)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 12,
+                    padding: '16px 20px',
+                    borderRadius: 14,
+                    background: isSelected ? 'rgba(var(--brand-rgb), 0.25)' : 'rgba(255, 255, 255, 0.02)',
+                    border: `1.5px solid ${isSelected ? 'var(--brand-bright)' : 'rgba(255, 255, 255, 0.06)'}`,
+                    boxShadow: isSelected ? '0 0 18px rgba(var(--brand-rgb), 0.4)' : 'none',
+                    textAlign: 'left',
+                    cursor: isAdvancing ? 'default' : 'pointer',
+                    color: 'var(--t1)',
+                    fontSize: 13.5,
+                    fontWeight: isSelected ? 700 : 600,
+                    lineHeight: 1.5,
+                    transition: 'all 0.15s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isAdvancing) {
+                      e.currentTarget.style.background = 'rgba(var(--brand-rgb), 0.14)';
+                      e.currentTarget.style.borderColor = 'var(--brand-bright)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isAdvancing && !isSelected) {
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.02)';
+                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.06)';
+                    }
+                  }}
+                >
+                  <span style={{
+                    fontSize: 11,
+                    fontFamily: 'var(--font-mono)',
+                    padding: '2px 7px',
+                    borderRadius: 6,
+                    background: isSelected ? 'var(--brand-bright)' : 'rgba(255,255,255,0.06)',
+                    color: isSelected ? '#030508' : 'var(--t3)',
+                    fontWeight: 800
+                  }}>
+                    {oIdx + 1}
+                  </span>
+                  <span style={{ flex: 1 }}>{opt.text}</span>
+                  {isSelected && <span style={{ color: 'var(--brand-bright)', fontSize: 16 }}>✓</span>}
+                </button>
+              );
+            })}
           </div>
         </div>
       )}
@@ -385,43 +457,63 @@ export default function BehavioralDiagnosticStep({
           </div>
 
           <div style={{ flex: 1, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 14, alignItems: 'center' }}>
-            {currentTradeoff.options.map((opt) => (
-              <button
-                key={opt.id}
-                type="button"
-                onClick={() => handleSelectTradeoffOption(opt.id)}
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  padding: '24px 20px',
-                  borderRadius: 16,
-                  background: 'rgba(255, 255, 255, 0.02)',
-                  border: '1.5px solid rgba(255, 255, 255, 0.08)',
-                  textAlign: 'left',
-                  cursor: 'pointer',
-                  color: 'var(--t1)',
-                  fontSize: 14,
-                  fontWeight: 650,
-                  lineHeight: 1.5,
-                  minHeight: 140,
-                  transition: 'all 0.15s ease'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(var(--coral-rgb, 244, 63, 94), 0.14)';
-                  e.currentTarget.style.borderColor = 'var(--coral)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.02)';
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-                }}
-              >
-                <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--coral)', textTransform: 'uppercase', marginBottom: 8, fontWeight: 800 }}>
-                  Option {opt.id.slice(-1).toUpperCase()}
-                </div>
-                <div>{opt.text}</div>
-              </button>
-            ))}
+            {currentTradeoff.options.map((opt, oIdx) => {
+              const isSelected = opt.id === selectedOptId;
+              return (
+                <button
+                  key={opt.id}
+                  type="button"
+                  disabled={isAdvancing}
+                  onClick={() => handleSelectTradeoffOption(opt.id)}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    padding: '24px 20px',
+                    borderRadius: 16,
+                    background: isSelected ? 'rgba(var(--coral-rgb, 244, 63, 94), 0.25)' : 'rgba(255, 255, 255, 0.02)',
+                    border: `1.5px solid ${isSelected ? 'var(--coral)' : 'rgba(255, 255, 255, 0.08)'}`,
+                    boxShadow: isSelected ? '0 0 18px rgba(var(--coral-rgb, 244, 63, 94), 0.4)' : 'none',
+                    textAlign: 'left',
+                    cursor: isAdvancing ? 'default' : 'pointer',
+                    color: 'var(--t1)',
+                    fontSize: 14,
+                    fontWeight: isSelected ? 700 : 650,
+                    lineHeight: 1.5,
+                    minHeight: 140,
+                    transition: 'all 0.15s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isAdvancing) {
+                      e.currentTarget.style.background = 'rgba(var(--coral-rgb, 244, 63, 94), 0.14)';
+                      e.currentTarget.style.borderColor = 'var(--coral)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isAdvancing && !isSelected) {
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.02)';
+                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                    }
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--coral)', textTransform: 'uppercase', fontWeight: 800, display: 'flex', alignItems: 'center', gap: 6 }}>
+                      <span style={{
+                        padding: '1px 6px',
+                        borderRadius: 4,
+                        background: isSelected ? 'var(--coral)' : 'rgba(255,255,255,0.08)',
+                        color: isSelected ? '#030508' : 'var(--coral)'
+                      }}>
+                        {oIdx + 1}
+                      </span>
+                      Option {opt.id.slice(-1).toUpperCase()}
+                    </div>
+                    {isSelected && <span style={{ color: 'var(--coral)', fontSize: 16 }}>✓</span>}
+                  </div>
+                  <div>{opt.text}</div>
+                </button>
+              );
+            })}
           </div>
         </div>
       )}

@@ -202,6 +202,21 @@ export default function RoadmapPreview({
               <span style={{ color: 'var(--teal)', fontWeight: 800 }}>PINIT ROADMAP STRATEGY:</span>
               <span>{tradeoffs[0].roadmapRecommendation}</span>
             </div>
+
+            {/* Secondary Identified Working Dynamics */}
+            {tradeoffs.length > 1 && (
+              <div style={{ marginTop: 12, paddingTop: 10, borderTop: '1px dashed rgba(var(--coral-rgb, 244, 63, 94), 0.25)' }}>
+                <div style={{ fontSize: 10.5, fontFamily: 'var(--font-mono)', fontWeight: 800, color: 'var(--t2)', textTransform: 'uppercase', marginBottom: 6 }}>
+                  Secondary Working Dynamic:
+                </div>
+                {tradeoffs.slice(1).map((sec, sIdx) => (
+                  <div key={sec.id || sIdx} style={{ fontSize: 12, color: 'var(--t3)', lineHeight: 1.5, marginBottom: 4 }}>
+                    • <strong style={{ color: 'var(--t1)' }}>{sec.label}:</strong> {sec.description}{' '}
+                    <span style={{ color: 'var(--teal)', fontStyle: 'italic' }}>({sec.roadmapRecommendation})</span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
 

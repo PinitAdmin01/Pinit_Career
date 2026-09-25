@@ -65,6 +65,18 @@ export default function GoalDiscoveryStep({
     }
   };
 
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        handleNext();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [currentIdx, outcome, role, secondaryRoles, horizonMonths, motivation, exposureLevels, capabilitySelfRating, dailyMinutes, primaryConstraints]);
+
   const handlePrev = () => {
     if (currentIdx > 0) {
       setCurrentIdx(prev => prev - 1);

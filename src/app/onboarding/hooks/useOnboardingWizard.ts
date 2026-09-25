@@ -1199,50 +1199,152 @@ export function useOnboardingWizard() {
     }, 1000);
   };
 
+  // Helper to resolve accurate role label, courseId, skills, and technical weak areas
+  const resolveTrackFromGoal = (goalRole?: string, profileType?: string) => {
+    const goal = (goalRole || '').toLowerCase();
+    const profile = (profileType || '').toLowerCase();
+
+    // 1. AI & LLM Systems Engineer
+    if (goal.includes('ai') || goal.includes('ml') || goal.includes('machine learning') || goal.includes('llm') || goal.includes('deep learning')) {
+      return {
+        targetRoleLabel: 'AI & LLM Systems Engineer',
+        courseId: 'course-ai-eng',
+        skillsList: 'Python 3.12, PyTorch, LangChain, Vector Databases (pgvector/Pinecone), RAG Architecture, LLM Prompt Engineering',
+        weakAreas: ['Vector Index Tuning', 'Model Evaluation & Grounding', 'Async Agent Pipelines']
+      };
+    }
+
+    // 2. Data & Business Analytics
+    if (goal.includes('data') || goal.includes('analytics') || goal.includes('business_analytics')) {
+      return {
+        targetRoleLabel: 'Data & Business Analytics Specialist',
+        courseId: 'course-bcom-analytics',
+        skillsList: 'SQL Analytics, Advanced Excel, Python Data Science, Pandas, PowerBI Dashboarding, Statistical Modeling',
+        weakAreas: ['A/B Test Design', 'Data Pipeline ETL', 'Predictive Modeling']
+      };
+    }
+
+    // 3. Cybersecurity Analyst
+    if (goal.includes('cyber') || goal.includes('security') || goal.includes('infosec')) {
+      return {
+        targetRoleLabel: 'Cybersecurity Analyst',
+        courseId: 'course-cybersecurity',
+        skillsList: 'Network Defense, OWASP Top 10, Penetration Testing, SIEM Log Analysis, Cryptography, Vulnerability Assessment',
+        weakAreas: ['Zero Trust Architecture', 'Cloud Security Posture', 'Incident Response Playbooks']
+      };
+    }
+
+    // 4. React Frontend Engineer
+    if (goal.includes('front') || goal.includes('react') || goal.includes('web dev') || goal.includes('next')) {
+      return {
+        targetRoleLabel: 'React Frontend Web SDE',
+        courseId: 'course-react-web',
+        skillsList: 'React 18, Next.js SSR, TypeScript, TailwindCSS, CSS Architecture, State Management (Zustand), Web Performance',
+        weakAreas: ['Webpack / Vite Bundling', 'Core Web Vitals Optimization', 'React Testing Library']
+      };
+    }
+
+    // 5. Cloud & DevOps Engineer
+    if (goal.includes('devops') || goal.includes('cloud') || goal.includes('aws') || goal.includes('docker') || goal.includes('kubernetes')) {
+      return {
+        targetRoleLabel: 'Cloud & DevOps Engineer',
+        courseId: 'course-devops-cicd',
+        skillsList: 'Docker Containers, Kubernetes, CI/CD GitHub Actions, AWS Cloud Infrastructure, Terraform IaC, Prometheus Monitoring',
+        weakAreas: ['Kubernetes Security Policies', 'Terraform State Management', 'Multi-Region High Availability']
+      };
+    }
+
+    // 6. UI/UX Designer
+    if (goal.includes('ui') || goal.includes('ux') || goal.includes('design') || goal.includes('figma')) {
+      return {
+        targetRoleLabel: 'UI/UX Product Designer',
+        courseId: 'course-design-systems',
+        skillsList: 'Figma Wireframing & Prototyping, Design Systems & Tokens, User Research, Usability Testing, Micro-interactions',
+        weakAreas: ['Design System Tokens Architecture', 'Accessibility (WCAG 2.1 AA)', 'A/B Testing Experiments']
+      };
+    }
+
+    // 7. Full-Stack Developer
+    if (goal.includes('full') || goal.includes('stack')) {
+      return {
+        targetRoleLabel: 'Full-Stack Software Developer',
+        courseId: 'course-fullstack-js',
+        skillsList: 'JavaScript ES6+, TypeScript, Next.js, Node.js REST APIs, PostgreSQL, Prisma/Drizzle, Docker Basics',
+        weakAreas: ['Database Indexing & Transactions', 'Serverless Cold Starts', 'Authentication Security']
+      };
+    }
+
+    // 8. Financial & FinTech Analyst
+    if (goal.includes('finance') || goal.includes('financial') || goal.includes('fintech') || goal.includes('accounting') ||
+        profile.includes('commerce') || profile.includes('b.com')) {
+      return {
+        targetRoleLabel: 'Financial & FinTech Analyst',
+        courseId: 'course-finance-investment',
+        skillsList: 'Financial Modeling, Corporate Valuation, Excel Analysis, SQL, Financial Statement Analysis, Auditing & Compliance',
+        weakAreas: ['Derivatives Valuation', 'Regulatory Tech (RegTech)', 'Corporate Restructuring Modeling']
+      };
+    }
+
+    // 9. Product & Operations Manager
+    if (goal.includes('product') || goal.includes('business') || goal.includes('consult') || goal.includes('operations') ||
+        profile.includes('management') || profile.includes('bba') || profile.includes('mba')) {
+      return {
+        targetRoleLabel: 'Product & Operations Manager',
+        courseId: 'course-bcom-operations',
+        skillsList: 'Product Strategy, PRD Writing, Agile Scrum, User Journey Mapping, Growth Funnels, Data Analytics, Stakeholder Alignment',
+        weakAreas: ['Cohort Retention Analysis', 'North Star Metric Decomposition', 'Experimentation Frameworks']
+      };
+    }
+
+    // 10. Digital Growth & Marketing Lead
+    if (goal.includes('market') || goal.includes('growth')) {
+      return {
+        targetRoleLabel: 'Digital Growth & Marketing Lead',
+        courseId: 'course-bcom-digital-marketing',
+        skillsList: 'Growth Marketing Funnels, SEO & Search Strategy, Conversion Rate Optimization (CRO), Google Analytics 4, Content Strategy',
+        weakAreas: ['Attribution Modeling', 'Paid Acquisition Unit Economics', 'Lifecycle Marketing Automation']
+      };
+    }
+
+    // 11. IoT & Embedded Systems
+    if (goal.includes('iot') || goal.includes('embedded')) {
+      return {
+        targetRoleLabel: 'IoT & Embedded Systems Engineer',
+        courseId: 'course-iot-embedded',
+        skillsList: 'Embedded C/C++, ESP32/Arduino, GPIO Sensor Interfacing, MQTT & Wireless Protocols, TinyML, Hardware Security',
+        weakAreas: ['Low-Power Duty Cycling', 'Secure Boot & Co-Processors', 'Firmware Over-The-Air (FOTA) Updates']
+      };
+    }
+
+    // 12. QA & Test Automation
+    if (goal.includes('qa') || goal.includes('test')) {
+      return {
+        targetRoleLabel: 'QA & Test Automation Engineer',
+        courseId: 'course-fullstack-js',
+        skillsList: 'Jest Unit Testing, Playwright E2E, Cypress, API Integration Testing, CI/CD Test Automation, Performance Testing',
+        weakAreas: ['Flaky Test Isolation', 'Contract Testing', 'Load & Stress Testing']
+      };
+    }
+
+    // 13. Default: Java Backend SDE
+    return {
+      targetRoleLabel: 'Java Backend SDE',
+      courseId: 'course-java-logic',
+      skillsList: 'Java Standard Library, OOP Principles, Spring Boot REST, SQL Databases, System Design',
+      weakAreas: ['Docker Containers', 'System Design', 'Microservices Architecture']
+    };
+  };
+
   // Complete Onboarding: Sync to database & generate dynamic quest roadmap
   const handleOnboardingComplete = async (profileType: string, goalRole: string, reason: string, finalArch?: string) => {
     setSyncing(true);
     setSyncProgress(10);
     setSyncStatus('Registering student trajectory...');
 
-    const goalLower = (goalRole || '').toLowerCase();
-    const profileLower = (profileType || '').toLowerCase();
-
-    let targetRoleLabel = 'Software Engineer';
-    let skillsList = 'Java Standard Library, OOP Principles, Spring Boot REST, SQL Databases, System Design';
-    let weakAreas: string[] = ['Docker', 'System Design', 'Microservices'];
-
-    if (goalLower.includes('front') || goalLower.includes('react') || goalLower.includes('web dev')) {
-      targetRoleLabel = 'Software Engineer';
-      skillsList = 'React Hooks, Next.js SSR, Vanilla CSS, Zustand State, TypeScript Types, TailwindCSS';
-      weakAreas = ['Webpack', 'React Performance', 'Testing Library'];
-    }
-
-    const isCommerce = goalLower.includes('finance') || goalLower.includes('financial') || goalLower.includes('fintech') ||
-                       goalLower.includes('accounting') || goalLower.includes('risk') ||
-                       profileLower.includes('commerce') || profileLower.includes('b.com');
-
-    const isManagement = goalLower.includes('product') || goalLower.includes('business') || goalLower.includes('consult') ||
-                         goalLower.includes('operations') || goalLower.includes('growth') ||
-                         profileLower.includes('management') || profileLower.includes('bba') || profileLower.includes('mba');
-
-    if (isCommerce) {
-      targetRoleLabel = 'Financial & FinTech Analyst';
-      skillsList = 'Financial Modeling, Corporate Valuation, Excel Analysis, SQL, Tally Prime, Financial Accounting, Auditing, Tax Compliance';
-      weakAreas = ['Derivatives Trading', 'Regulatory Tech', 'Corporate Restructuring'];
-    } else if (isManagement) {
-      targetRoleLabel = 'Product & Operations Manager';
-      skillsList = 'Product Strategy, Market Research, Agile Scrum, Growth Funnels, Data Analytics, Strategic Management, Negotiation';
-      weakAreas = ['Product Analytics', 'A/B Testing Experiments', 'Stakeholder Alignment'];
-    } else if (/\b(ui|ux|ui\/ux|web design|product design|figma)\b/i.test(goalLower)) {
-      targetRoleLabel = 'UI/UX Designer';
-      skillsList = 'Figma Wireframing, Prototyping, Design Systems, User Research, Usability Testing';
-      weakAreas = ['Design Systems Tokens', 'Micro-interactions', 'A/B Testing'];
-    } else if (goalLower.includes('devops') || goalLower.includes('cloud') || goalLower.includes('aws') || goalLower.includes('pipeline') || goalLower.includes('docker')) {
-      targetRoleLabel = 'DevOps Engineer';
-      skillsList = 'Docker Containers, CI/CD Pipelines, AWS Cloud Services, Prometheus & Grafana, Kubernetes Orchestration';
-      weakAreas = ['Kubernetes Security', 'Terraform IaC', 'Linux Scripting'];
-    }
+    const targetTrack = resolveTrackFromGoal(goalRole, profileType);
+    const targetRoleLabel = targetTrack.targetRoleLabel;
+    const skillsList = targetTrack.skillsList;
+    const weakAreas = targetTrack.weakAreas;
 
     setTimeout(() => {
       setSyncProgress(40);
@@ -1270,9 +1372,8 @@ export function useOnboardingWizard() {
         const computedQT2 = Math.min(60, Math.round((styleScore + (isAdvanced ? 8 : 4)) * (identityAuditReport.trustScore / 100)));
 
         const finalUserGoal = (speechTranscript && speechTranscript.trim().length > 5 ? speechTranscript.trim() : targetGoal) || targetRoleLabel;
-        const effectiveWeakAreas = (diagnosticProfile?.tradeoffs && diagnosticProfile.tradeoffs.length > 0)
-          ? diagnosticProfile.tradeoffs.map(t => t.id)
-          : weakAreas;
+        const tradeoffBottlenecks = (diagnosticProfile?.tradeoffs || []).map(t => t.label || t.id);
+        const effectiveWeakAreas = Array.from(new Set([...weakAreas, ...tradeoffBottlenecks]));
 
         const payload = {
           guidanceMentorId: selectedMentor,
@@ -1344,7 +1445,7 @@ export function useOnboardingWizard() {
         
         try {
           const skillsArray = skillsList.split(',').map(s => s.trim());
-          await cOS.generateFusedRoadmap(skillsArray, effectiveWeakAreas);
+          await cOS.generateFusedRoadmap(skillsArray, effectiveWeakAreas, targetTrack.courseId);
           await qc.invalidateQueries({ queryKey: KEYS.me });
         } catch (err) {
           console.warn('Roadmap seed failed after onboarding', err);
@@ -1530,8 +1631,9 @@ export function useOnboardingWizard() {
         cOS.setResumeGenerated(true);
         
         try {
+          const expressTrack = resolveTrackFromGoal(trajectory, degree);
           const skillsArray = skillsList.split(',').map(s => s.trim());
-          await cOS.generateFusedRoadmap(skillsArray, weakAreas);
+          await cOS.generateFusedRoadmap(skillsArray, weakAreas, expressTrack.courseId);
           await qc.invalidateQueries({ queryKey: KEYS.me });
         } catch (err) {
           console.warn('Express roadmap seed failed', err);
