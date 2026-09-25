@@ -1402,7 +1402,7 @@ export function useOnboardingWizard() {
             accessReason: reason,
             qt1_score: computedQT1,
             qt2_score: computedQT2,
-            mindset_archetype: diagnosticProfile?.behaviorProfile?.dominantDimensions?.[0] || finalArch || 'Pattern Hunter',
+            mindset_archetype: diagnosticProfile?.behaviorProfile?.dominantArchetype || finalArch || 'Pattern Hunter',
             voice_transcript: speechTranscript || '',
             voice_confidence: voiceConfidence ?? 0,
             voice_articulation: voiceArticulation ?? 0,
