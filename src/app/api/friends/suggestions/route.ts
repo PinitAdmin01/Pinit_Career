@@ -33,7 +33,7 @@ function getAdminClient() {
   }
 }
 
-async function resolveUserId(req: Request, admin: any): Promise<string> {
+async function resolveUserId(req: Request, admin: any): Promise<string | null> {
   const token = getBearerToken(req);
   if (token && admin) {
     try {
@@ -43,7 +43,7 @@ async function resolveUserId(req: Request, admin: any): Promise<string> {
   }
   const headerUserId = req.headers.get('x-user-id');
   if (headerUserId) return headerUserId;
-  return 'current_user';
+  return null;
 }
 
 export async function GET(req: NextRequest) {
@@ -153,10 +153,10 @@ export async function GET(req: NextRequest) {
     // 6. Apply real-time search query if provided
     const finalResults = search
       ? flattened.filter(s =>
-          s.name.toLowerCase().includes(search) ||
-          s.college.toLowerCase().includes(search) ||
-          s.course.toLowerCase().includes(search) ||
-          s.skills.some(sk => sk.toLowerCase().includes(search))
+          (s.name || '').toLowerCase().includes(search) ||
+          (s.college || '').toLowerCase().includes(search) ||
+          (s.course || '').toLowerCase().includes(search) ||
+          (Array.isArray(s.skills) && s.skills.some(sk => typeof sk === 'string' && sk.toLowerCase().includes(search)))
         )
       : flattened;
 

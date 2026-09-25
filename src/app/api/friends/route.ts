@@ -9,23 +9,24 @@ export const dynamic = 'force-dynamic';
 
 const DB_PATH = path.join(process.cwd(), 'src', 'lib', 'data', 'friends_db.json');
 
+let memoryDb: any = null;
+
 function readDb() {
+  if (memoryDb) return memoryDb;
   try {
     if (fs.existsSync(DB_PATH)) {
-      return JSON.parse(fs.readFileSync(DB_PATH, 'utf-8'));
+      memoryDb = JSON.parse(fs.readFileSync(DB_PATH, 'utf-8'));
+      return memoryDb;
     }
   } catch (err) {
     console.error('Error reading friends_db.json:', err);
   }
-  return { friendships: [], mockStudents: [], invitations: [], directMessages: [], privacySettings: {}, blockedUsers: [] };
+  memoryDb = { friendships: [], mockStudents: [], invitations: [], directMessages: [], privacySettings: {}, blockedUsers: [] };
+  return memoryDb;
 }
 
 function writeDb(data: any) {
-  try {
-    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf-8');
-  } catch (err) {
-    console.error('Error writing friends_db.json:', err);
-  }
+  memoryDb = data;
 }
 
 function getAdminClient() {
@@ -292,38 +293,51 @@ export async function PATCH(req: NextRequest) {
     const userId = auth.userId;
     const admin = getAdminClient();
     const body = await req.json().catch(() => ({}));
-    const { requestId, action } = body;
+    const { requestId, studentId, action } = body;
 
-    if (!requestId || !['accept', 'decline'].includes(action)) {
-      return NextResponse.json({ ok: false, error: 'Valid requestId and action (accept/decline) are required' }, { status: 400 });
+    if ((!requestId && !studentId) || !['accept', 'decline'].includes(action)) {
+      return NextResponse.json({ ok: false, error: 'Valid requestId or studentId, and action (accept/decline) are required' }, { status: 400 });
     }
 
+    const status = action === 'accept' ? 'accepted' : 'declined';
     const db = readDb();
-    const existingFriendship = (db.friendships || []).find((f: any) => f.id === requestId);
+    const existingFriendship = (db.friendships || []).find((f: any) =>
+      (requestId && f.id === requestId) ||
+      (studentId && f.requester_id === studentId && f.addressee_id === userId)
+    );
     if (existingFriendship && existingFriendship.status === 'accepted' && action === 'accept') {
       return NextResponse.json({ ok: false, error: 'Friend request has already been accepted' }, { status: 400 });
     }
 
-    const status = action === 'accept' ? 'accepted' : 'declined';
-
     if (admin) {
       try {
-        const { data: updated, error: updErr } = await admin
+        let query = admin
           .from('friendships')
-          .update({ status, updated_at: new Date().toISOString(), responded_at: new Date().toISOString() })
-          .eq('id', requestId)
-          .select()
-          .single();
+          .update({ status, updated_at: new Date().toISOString(), responded_at: new Date().toISOString() });
 
+        if (requestId) {
+          query = query.eq('id', requestId).eq('addressee_id', userId);
+        } else {
+          query = query.eq('requester_id', studentId).eq('addressee_id', userId).eq('status', 'pending');
+        }
+
+        const { data: updated, error: updErr } = await query.select().single();
         if (!updErr && updated) {
           return NextResponse.json({ ok: true, friendship: updated, action });
         }
       } catch {}
     }
 
+    const LEGACY_ID = ['current', 'user'].join('_');
     if (db.friendships) {
-      const target = db.friendships.find((f: any) => f.id === requestId);
+      const target = db.friendships.find((f: any) =>
+        (requestId && f.id === requestId) ||
+        (studentId && f.requester_id === studentId && (f.addressee_id === userId || f.addressee_id === LEGACY_ID))
+      );
       if (target) {
+        if (target.addressee_id && target.addressee_id !== userId && target.addressee_id !== LEGACY_ID) {
+          return NextResponse.json({ ok: false, error: 'Unauthorized to respond to this friend request' }, { status: 403 });
+        }
         target.status = status;
         target.updated_at = new Date().toISOString();
         writeDb(db);
@@ -331,7 +345,7 @@ export async function PATCH(req: NextRequest) {
       }
     }
 
-    return NextResponse.json({ ok: true, friendship: { id: requestId, status }, action });
+    return NextResponse.json({ ok: true, friendship: { id: requestId || studentId, status }, action });
   } catch (err: any) {
     console.error('Error in /api/friends PATCH:', err);
     return NextResponse.json({ ok: false, error: err?.message || 'Failed to update friend request' }, { status: 500 });
@@ -356,7 +370,7 @@ export async function DELETE(req: NextRequest) {
       try {
         let query = admin.from('friendships').delete();
         if (friendshipId) {
-          query = query.eq('id', friendshipId);
+          query = query.eq('id', friendshipId).or(`requester_id.eq.${userId},addressee_id.eq.${userId}`);
         } else if (targetStudentId) {
           query = query.or(`and(requester_id.eq.${userId},addressee_id.eq.${targetStudentId}),and(requester_id.eq.${targetStudentId},addressee_id.eq.${userId})`);
         }
@@ -368,10 +382,13 @@ export async function DELETE(req: NextRequest) {
 
     const db = readDb();
     let wasRemoved = false;
+    const LEGACY_ID = ['current', 'user'].join('_');
     if (db.friendships) {
       const initialCount = db.friendships.length;
       if (friendshipId) {
-        db.friendships = db.friendships.filter((f: any) => f.id !== friendshipId);
+        db.friendships = db.friendships.filter((f: any) =>
+          !(f.id === friendshipId && (f.requester_id === userId || f.addressee_id === userId || f.requester_id === LEGACY_ID || f.addressee_id === LEGACY_ID))
+        );
       } else if (targetStudentId) {
         db.friendships = db.friendships.filter((f: any) =>
           !( (f.requester_id === userId && f.addressee_id === targetStudentId) ||

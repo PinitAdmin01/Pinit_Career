@@ -1,11 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { StudentProfile } from './StudentCard';
 
 interface FriendProfileDrawerProps {
   student: StudentProfile | null;
   onClose: () => void;
+  onAcceptRequest?: (studentId: string) => void;
   onSendRequest?: (studentId: string) => void;
   onRemoveFriend?: (studentId: string) => void;
   onOpenMessage?: (student: StudentProfile) => void;
@@ -16,13 +18,28 @@ interface FriendProfileDrawerProps {
 export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
   student,
   onClose,
+  onAcceptRequest,
   onSendRequest,
   onRemoveFriend,
   onOpenMessage,
   onOpenChallenge,
   onOpenProjectInvite,
 }) => {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<'overview' | 'skills' | 'portfolio' | 'arena'>('overview');
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [onClose]);
 
   if (!student) return null;
 
@@ -84,23 +101,73 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
                       📁 Invite to Squad
                     </button>
                     <button
+                      className="friends-btn friends-btn-secondary"
+                      onClick={() => {
+                        onClose();
+                        router.push(`/friends/${student.id}`);
+                      }}
+                    >
+                      🔗 Full Profile
+                    </button>
+                    <button
                       className="friends-btn friends-btn-danger"
                       onClick={() => onRemoveFriend?.(student.id)}
                     >
                       Unfriend
                     </button>
                   </>
+                ) : student.relationship === 'received' ? (
+                  <>
+                    <button
+                      className="friends-btn friends-btn-primary"
+                      onClick={() => onAcceptRequest?.(student.id)}
+                      style={{ background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)' }}
+                    >
+                      ✓ Accept Request
+                    </button>
+                    <button
+                      className="friends-btn friends-btn-secondary"
+                      onClick={() => {
+                        onClose();
+                        router.push(`/friends/${student.id}`);
+                      }}
+                    >
+                      🔗 Full Profile
+                    </button>
+                  </>
                 ) : isSent ? (
-                  <button className="friends-btn friends-btn-pending" disabled>
-                    ⏳ Request Pending
-                  </button>
+                  <>
+                    <button className="friends-btn friends-btn-pending" disabled>
+                      ⏳ Request Pending
+                    </button>
+                    <button
+                      className="friends-btn friends-btn-secondary"
+                      onClick={() => {
+                        onClose();
+                        router.push(`/friends/${student.id}`);
+                      }}
+                    >
+                      🔗 Full Profile
+                    </button>
+                  </>
                 ) : (
-                  <button
-                    className="friends-btn friends-btn-primary"
-                    onClick={() => onSendRequest?.(student.id)}
-                  >
-                    + Add to Network
-                  </button>
+                  <>
+                    <button
+                      className="friends-btn friends-btn-primary"
+                      onClick={() => onSendRequest?.(student.id)}
+                    >
+                      + Add to Network
+                    </button>
+                    <button
+                      className="friends-btn friends-btn-secondary"
+                      onClick={() => {
+                        onClose();
+                        router.push(`/friends/${student.id}`);
+                      }}
+                    >
+                      🔗 Full Profile
+                    </button>
+                  </>
                 )}
               </div>
             </div>
@@ -167,7 +234,7 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
               <div className="drawer-section">
                 <div className="drawer-section-heading">⚡ Verified Skill Badges</div>
                 <div className="drawer-section-card" style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                  {student.skills.map((skill, idx) => (
+                  {(student.skills || []).map((skill, idx) => (
                     <span key={idx} className="friends-skill-pill match-highlight" style={{ fontSize: 11, padding: '5px 10px' }}>
                       ✦ {skill}
                     </span>
@@ -181,7 +248,7 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
             <div className="drawer-section">
               <div className="drawer-section-heading">📊 Skill Mastery Ledger</div>
               <div className="drawer-section-card" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                {student.skills.map((skill, idx) => (
+                {(student.skills || []).map((skill, idx) => (
                   <div key={idx} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <span style={{ fontSize: 13, fontWeight: 600, color: '#ffffff' }}>{skill}</span>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -250,7 +317,7 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
                   onClick={() => onOpenChallenge?.(student)}
                   style={{ width: '100%', padding: '10px' }}
                 >
-                  ⚔️ Challenge {student.name.split(' ')[0]} to a 1v1 DSA Duel
+                  ⚔️ Challenge {(student.name || 'Student').split(' ')[0]} to a 1v1 DSA Duel
                 </button>
               </div>
             </div>

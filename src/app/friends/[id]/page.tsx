@@ -20,6 +20,8 @@ interface StudentDetail {
   projectsCount: number;
   leagueTier: string;
   online: boolean;
+  relationship?: 'friends' | 'sent' | 'received' | 'none';
+  isSelf?: boolean;
   memberSince: string;
 }
 
@@ -65,6 +67,55 @@ export default function StudentProfilePage() {
     } catch (err) {
       console.error('Failed to dispatch friend request:', err);
     }
+  };
+
+  const handleAcceptIncoming = async () => {
+    if (!student) return;
+    toast.success('Connected!', `You and ${student.name} are now friends!`);
+    setStudent(prev => prev ? { ...prev, relationship: 'friends' } : null);
+    try {
+      await fetch('/api/friends', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ studentId: student.id, action: 'accept' })
+      });
+    } catch (err) {
+      console.error('Failed to accept incoming friend request:', err);
+    }
+  };
+
+  const handleArenaDuel = async () => {
+    if (!student) return;
+    try {
+      const res = await fetch('/api/friends/challenges', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          studentId: student.id,
+          studentName: student.name,
+          studentAvatar: student.avatar,
+          topic: 'JavaScript DSA',
+          difficulty: 'Medium',
+          timeLimit: 20,
+          wagerXP: 100,
+          message: "I challenge you to a 1v1 battle in the Challenging Arena!"
+        })
+      });
+      const data = await res.json();
+      if (data.ok) {
+        toast.success('Arena Duel Dispatched', `Invited ${student.name} to a 1v1 Algorithm face-off!`);
+        router.push('/friends?tab=challenges');
+      } else {
+        toast.error('Duel Failed', data.error || 'Could not send challenge');
+      }
+    } catch {
+      toast.error('Network Error', 'Failed to dispatch arena challenge');
+    }
+  };
+
+  const handleOpenChat = () => {
+    if (!student) return;
+    router.push(`/friends?tab=messages&friendId=${encodeURIComponent(student.id)}`);
   };
 
   if (loading) {
@@ -138,38 +189,53 @@ export default function StudentProfilePage() {
 
             {/* Action Buttons */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              {requestSent ? (
-                <button className="friends-btn friends-btn-pending" style={{ padding: '9px 20px', fontSize: 13 }} disabled>
-                  ✓ Request Sent
-                </button>
+              {student.isSelf ? (
+                <span style={{ fontSize: 13, fontWeight: 700, color: '#38bdf8', background: 'rgba(56, 189, 248, 0.15)', padding: '6px 14px', borderRadius: 8, border: '1px solid rgba(56, 189, 248, 0.3)' }}>
+                  👤 Your Public Profile
+                </span>
               ) : (
-                <button
-                  className="friends-btn friends-btn-primary"
-                  onClick={handleAddFriend}
-                  style={{ padding: '9px 20px', fontSize: 13 }}
-                >
-                  + Add Friend
-                </button>
+                <>
+                  {student.relationship === 'friends' ? (
+                    <button className="friends-btn friends-btn-secondary" style={{ padding: '9px 18px', fontSize: 13, borderColor: '#22c55e', color: '#22c55e' }} disabled>
+                      ✓ Connected Friend
+                    </button>
+                  ) : student.relationship === 'received' ? (
+                    <button
+                      className="friends-btn friends-btn-primary"
+                      onClick={handleAcceptIncoming}
+                      style={{ padding: '9px 20px', fontSize: 13, background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)' }}
+                    >
+                      ✓ Accept Friend Request
+                    </button>
+                  ) : requestSent || student.relationship === 'sent' ? (
+                    <button className="friends-btn friends-btn-pending" style={{ padding: '9px 20px', fontSize: 13 }} disabled>
+                      ✓ Request Sent
+                    </button>
+                  ) : (
+                    <button
+                      className="friends-btn friends-btn-primary"
+                      onClick={handleAddFriend}
+                      style={{ padding: '9px 20px', fontSize: 13 }}
+                    >
+                      + Add Friend
+                    </button>
+                  )}
+                  <button
+                    className="friends-btn friends-btn-secondary"
+                    onClick={handleArenaDuel}
+                    style={{ padding: '9px 18px', fontSize: 13 }}
+                  >
+                    ⚔️ Arena Duel
+                  </button>
+                  <button
+                    className="friends-btn friends-btn-secondary"
+                    onClick={handleOpenChat}
+                    style={{ padding: '9px 18px', fontSize: 13 }}
+                  >
+                    💬 Message
+                  </button>
+                </>
               )}
-              <button
-                className="friends-btn friends-btn-secondary"
-                onClick={() => {
-                  toast.success('Arena Duel Dispatched', `Invited ${student.name} to a 1v1 Algorithm face-off!`);
-                  router.push('/arena');
-                }}
-                style={{ padding: '9px 18px', fontSize: 13 }}
-              >
-                ⚔️ Arena Duel
-              </button>
-              <button
-                className="friends-btn friends-btn-secondary"
-                onClick={() => {
-                  router.push('/friends?tab=messages');
-                }}
-                style={{ padding: '9px 18px', fontSize: 13 }}
-              >
-                💬 Message
-              </button>
             </div>
           </div>
 
@@ -195,7 +261,7 @@ export default function StudentProfilePage() {
       </div>
 
       {/* ── Stats Quad Cards ── */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, marginBottom: 28 }}>
+      <div className="profile-stats-grid">
         {[
           { icon: '🧬', label: 'Career Score', value: `${student.careerScore}/100`, color: '#38bdf8' },
           { icon: '⚡', label: 'Verified XP', value: `${student.xp.toLocaleString()} XP`, color: '#a855f7' },
@@ -242,7 +308,7 @@ export default function StudentProfilePage() {
 
       {/* ── Tab Content ── */}
       {activeTab === 'overview' && (
-        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 20 }}>
+        <div className="profile-overview-grid">
           <div style={{ background: 'rgba(15, 23, 42, 0.75)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 16, padding: 24 }}>
             <h3 style={{ fontSize: 15, fontWeight: 800, color: '#f8fafc', margin: '0 0 12px' }}>Career Target & Vision</h3>
             <p style={{ fontSize: 13.5, color: '#cbd5e1', lineHeight: 1.6, margin: '0 0 16px' }}>
@@ -287,7 +353,7 @@ export default function StudentProfilePage() {
       )}
 
       {activeTab === 'projects' && (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+        <div className="profile-projects-grid">
           {[
             { title: 'Fullstack Microservices Platform', desc: 'Collaborative cloud architecture with automated CI/CD and Redis caching.', stack: 'React • Node.js • PostgreSQL' },
             { title: 'Real-Time WebSocket Arena Engine', desc: 'Low-latency multiplayer code duel server with socket state management.', stack: 'TypeScript • WebSockets • Docker' }
