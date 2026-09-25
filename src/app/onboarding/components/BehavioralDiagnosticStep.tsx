@@ -56,13 +56,21 @@ export default function BehavioralDiagnosticStep({
     if (COMMERCE_SPECIALIZATION_QUESTIONS[roleKey]) {
       return COMMERCE_SPECIALIZATION_QUESTIONS[roleKey];
     }
+    // 1. Audit & Taxation
     if (roleKey.includes('audit') || roleKey.includes('tax')) return COMMERCE_SPECIALIZATION_QUESTIONS.audit_taxation;
-    if (roleKey.includes('bank') || roleKey.includes('invest') || roleKey.includes('market')) return COMMERCE_SPECIALIZATION_QUESTIONS.banking_services;
+    // 2. Marketing & Sales (check before banking or general terms)
+    if (roleKey.includes('marketing') || roleKey.includes('sales') || roleKey.includes('growth') || roleKey.includes('brand')) return COMMERCE_SPECIALIZATION_QUESTIONS.marketing_sales;
+    // 3. Business Analytics
     if (roleKey.includes('analyt') || roleKey.includes('data')) return COMMERCE_SPECIALIZATION_QUESTIONS.business_analytics;
-    if (roleKey.includes('corp') || roleKey.includes('mgmt') || roleKey.includes('operations')) return COMMERCE_SPECIALIZATION_QUESTIONS.corporate_management;
-    if (roleKey.includes('hr') || roleKey.includes('human')) return COMMERCE_SPECIALIZATION_QUESTIONS.human_resources;
-    if (roleKey.includes('market') || roleKey.includes('sale')) return COMMERCE_SPECIALIZATION_QUESTIONS.marketing_sales;
-    if (roleKey.includes('entrepreneur') || roleKey.includes('business')) return COMMERCE_SPECIALIZATION_QUESTIONS.entrepreneurship;
+    // 4. Banking & Financial Services
+    if (roleKey.includes('bank') || roleKey.includes('invest') || roleKey.includes('equity') || roleKey.includes('wealth') || roleKey.includes('capital market') || roleKey.includes('financial market')) return COMMERCE_SPECIALIZATION_QUESTIONS.banking_services;
+    // 5. Human Resources
+    if (roleKey.includes('hr') || roleKey.includes('human') || roleKey.includes('people')) return COMMERCE_SPECIALIZATION_QUESTIONS.human_resources;
+    // 6. Corporate Management & Operations
+    if (roleKey.includes('corp') || roleKey.includes('mgmt') || roleKey.includes('operation') || roleKey.includes('supply chain')) return COMMERCE_SPECIALIZATION_QUESTIONS.corporate_management;
+    // 7. Entrepreneurship
+    if (roleKey.includes('entrepreneur') || roleKey.includes('family business') || roleKey.includes('startup') || roleKey.includes('venture')) return COMMERCE_SPECIALIZATION_QUESTIONS.entrepreneurship;
+    // 8. Default: Accounting & Finance
     return COMMERCE_SPECIALIZATION_QUESTIONS.accounting_finance;
   };
   const activeSpecializationQ = getSpecializationQuestion();

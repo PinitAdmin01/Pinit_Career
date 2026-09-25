@@ -19,8 +19,17 @@ const TRACKS = [
   { title:'Edge AI & TinyML',                          icon:'🧠', color:'var(--purple)' },
   { title:'Industrial IoT Security',                   icon:'🔒', color:'var(--accent)' },
   { title:'3D Graphics & Avatar Animation',            icon:'🔮', color:'var(--accent)' },
-  { title:'Blockchain, Web3 & Smart Contracts',        icon:'🪙', color:'var(--amber)' },
   { title:'Fullstack Generalist',                      icon:'💻', color:'var(--green)' },
+  { title:'Digital Accountant & Taxation Specialist', icon:'📊', color:'var(--green)' },
+  { title:'Financial Analyst & Investment Specialist', icon:'📈', color:'var(--blue)' },
+  { title:'Business Analytics & Decision Intelligence Specialist', icon:'📊', color:'var(--purple)' },
+  { title:'Marketing & Brand Manager', icon:'🎯', color:'var(--amber)' },
+  { title:'Digital Marketing & Growth Strategist', icon:'🚀', color:'var(--teal)' },
+  { title:'E-Commerce & Digital Business Specialist', icon:'🛒', color:'var(--accent)' },
+  { title:'Entrepreneur & Business Manager', icon:'💡', color:'var(--amber)' },
+  { title:'Sales, Customer Success & CRM Specialist', icon:'🤝', color:'var(--green)' },
+  { title:'Operations, Supply Chain & Compliance Specialist', icon:'⚙️', color:'var(--blue)' },
+  { title:'AI & Digital Transformation Business Specialist', icon:'🤖', color:'var(--purple)' },
 ];
 
 interface Props {

@@ -752,8 +752,17 @@ export function recommendCareerTrajectory(
     };
   }
 
+  if (goalClean.includes('transformation') || goalClean.includes('rpa') || (goalClean.includes('business') && goalClean.includes('ai '))) {
+    return {
+      ...CANONICAL_TRAJECTORIES['ai-digital-transformation-leader'],
+      recommendationReason: `Matched goal "${userGoal}": Production-grade 30-Day AI & Digital Transformation Business Leadership Curriculum.`
+    };
+  }
+
+  const hasAiMatch = /\bai\b/.test(goalClean) || goalClean.includes('artificial intelligence') || goalClean.includes('genai');
+
   if (
-    goalClean.includes('ai') || 
+    hasAiMatch || 
     goalClean.includes('llm') || 
     goalClean.includes('deep learning') || 
     goalClean.includes('neural') || 
@@ -763,7 +772,7 @@ export function recommendCareerTrajectory(
   }
 
   // Fused Goals (e.g. "python+business" or "ai+business")
-  if ((goalClean.includes('python') || goalClean.includes('ai') || goalClean.includes('ml')) && (goalClean.includes('business') || goalClean.includes('analytics') || goalClean.includes('management'))) {
+  if ((goalClean.includes('python') || hasAiMatch || goalClean.includes('ml')) && (goalClean.includes('business') || goalClean.includes('analytics') || goalClean.includes('management'))) {
     return {
       roleId: 'fused-python-business-leader',
       roleTitle: 'Python AI & Business Intelligence Strategist',
@@ -856,7 +865,78 @@ export function recommendCareerTrajectory(
     };
   }
 
-  // ── 5. UNIVERSAL ZERO-TO-PRO DYNAMIC GENERATOR FOR ANY OTHER INPUT ──
+  // ── 5. COMMERCE & MANAGEMENT CANONICAL TRAJECTORIES ──
+  if (goalClean.includes('account') || goalClean.includes('tax') || goalClean.includes('audit') || goalClean.includes('gst') || goalClean.includes('tally') || goalClean.includes('bookkeep')) {
+    return {
+      ...CANONICAL_TRAJECTORIES['digital-accountant'],
+      recommendationReason: `Matched goal "${userGoal}": Production-grade 30-Day Digital Accounting, GST, and Taxation Curriculum.`
+    };
+  }
+
+  if (goalClean.includes('bank') || goalClean.includes('financ') || goalClean.includes('invest') || goalClean.includes('wealth') || goalClean.includes('equity') || goalClean.includes('credit') || goalClean.includes('lending')) {
+    return {
+      ...CANONICAL_TRAJECTORIES['financial-analyst'],
+      recommendationReason: `Matched goal "${userGoal}": Production-grade 30-Day Business Finance, Valuation & Capital Markets Curriculum.`
+    };
+  }
+
+  if (goalClean.includes('analytic') || goalClean.includes('business analytics') || goalClean.includes('data-driven') || goalClean.includes('power bi') || goalClean.includes('bi ')) {
+    return {
+      ...CANONICAL_TRAJECTORIES['business-analytics-specialist'],
+      recommendationReason: `Matched goal "${userGoal}": Production-grade 30-Day Business Analytics, SQL & Decision Intelligence Curriculum.`
+    };
+  }
+
+  if (goalClean.includes('digital market') || goalClean.includes('growth') || goalClean.includes('seo') || goalClean.includes('performance market') || goalClean.includes('cro')) {
+    return {
+      ...CANONICAL_TRAJECTORIES['digital-growth-marketer'],
+      recommendationReason: `Matched goal "${userGoal}": Production-grade 30-Day Digital Marketing & Growth Strategy Curriculum.`
+    };
+  }
+
+  if (goalClean.includes('market') || goalClean.includes('brand')) {
+    return {
+      ...CANONICAL_TRAJECTORIES['marketing-brand-manager'],
+      recommendationReason: `Matched goal "${userGoal}": Production-grade 30-Day Marketing & Brand Management Curriculum.`
+    };
+  }
+
+  if (goalClean.includes('ecommerce') || goalClean.includes('e-commerce') || goalClean.includes('online store')) {
+    return {
+      ...CANONICAL_TRAJECTORIES['ecommerce-growth-manager'],
+      recommendationReason: `Matched goal "${userGoal}": Production-grade 30-Day E-Commerce & Digital Business Curriculum.`
+    };
+  }
+
+  if (goalClean.includes('entrepreneur') || goalClean.includes('startup') || goalClean.includes('family business') || goalClean.includes('venture')) {
+    return {
+      ...CANONICAL_TRAJECTORIES['entrepreneur-business-manager'],
+      recommendationReason: `Matched goal "${userGoal}": Production-grade 30-Day Entrepreneurship & Small Business Management Curriculum.`
+    };
+  }
+
+  if (goalClean.includes('sale') || goalClean.includes('crm') || goalClean.includes('customer success') || goalClean.includes('client relations')) {
+    return {
+      ...CANONICAL_TRAJECTORIES['sales-customer-success-manager'],
+      recommendationReason: `Matched goal "${userGoal}": Production-grade 30-Day Sales, CRM & Customer Success Curriculum.`
+    };
+  }
+
+  if (goalClean.includes('operation') || goalClean.includes('supply chain') || goalClean.includes('logistics') || goalClean.includes('procurement') || goalClean.includes('hr') || goalClean.includes('human resource') || goalClean.includes('people ops') || goalClean.includes('corporate management') || goalClean.includes('compliance')) {
+    return {
+      ...CANONICAL_TRAJECTORIES['operations-supplychain-manager'],
+      recommendationReason: `Matched goal "${userGoal}": Production-grade 30-Day Operations, Supply Chain & Compliance Curriculum.`
+    };
+  }
+
+  if (goalClean.includes('digital transformation') || goalClean.includes('ai transformation') || goalClean.includes('ai business') || goalClean.includes('rpa')) {
+    return {
+      ...CANONICAL_TRAJECTORIES['ai-digital-transformation-leader'],
+      recommendationReason: `Matched goal "${userGoal}": Production-grade 30-Day AI & Digital Transformation Business Leadership Curriculum.`
+    };
+  }
+
+  // ── 6. UNIVERSAL ZERO-TO-PRO DYNAMIC GENERATOR FOR ANY OTHER INPUT ──
   const subjectTitle = userGoal ? userGoal.trim().replace(/^basic\s+/i, '').replace(/\s+to\s+advanc(e|ed)$/i, '') : 'Technology';
   const cleanSubjectName = subjectTitle.charAt(0).toUpperCase() + subjectTitle.slice(1);
 

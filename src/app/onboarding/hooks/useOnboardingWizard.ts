@@ -1218,7 +1218,8 @@ export function useOnboardingWizard() {
     const profile = (profileType || '').toLowerCase();
 
     // 1. AI & LLM Systems Engineer
-    if (goal.includes('ai') || goal.includes('ml') || goal.includes('machine learning') || goal.includes('llm') || goal.includes('deep learning')) {
+    const hasAiMatch = /\bai\b/.test(goal) || goal.includes('artificial intelligence') || goal.includes('genai');
+    if (hasAiMatch || goal.includes('ml') || goal.includes('machine learning') || goal.includes('llm') || goal.includes('deep learning')) {
       return {
         targetRoleLabel: 'AI & LLM Systems Engineer',
         courseId: 'course-ai-eng',
@@ -1231,7 +1232,7 @@ export function useOnboardingWizard() {
     if (goal.includes('data') || goal.includes('analytics') || goal.includes('business_analytics')) {
       return {
         targetRoleLabel: 'Data & Business Analytics Specialist',
-        courseId: 'course-bcom-analytics',
+        courseId: 'course-business-analytics',
         skillsList: 'SQL Analytics, Advanced Excel, Python Data Science, Pandas, PowerBI Dashboarding, Statistical Modeling',
         weakAreas: ['A/B Test Design', 'Data Pipeline ETL', 'Predictive Modeling']
       };
@@ -1288,11 +1289,11 @@ export function useOnboardingWizard() {
     }
 
     // 8. Accounting, Audit & Taxation
-    if (goal.includes('tax') || goal.includes('audit') || goal.includes('compliance')) {
+    if (goal.includes('tax') || goal.includes('audit') || goal.includes('compliance') || goal.includes('accounting') || goal.includes('tally') || goal.includes('bookkeeping')) {
       return {
-        targetRoleLabel: 'Audit, Taxation & Compliance Specialist',
-        courseId: 'course-finance-investment',
-        skillsList: 'Indian Income Tax, GST Return Filing, Statutory Audit Checklists, Internal Controls, Risk Assessment, Tax Compliance',
+        targetRoleLabel: 'Audit, Taxation & Digital Accounting Specialist',
+        courseId: 'course-digital-accounting',
+        skillsList: 'Double-Entry Bookkeeping, Tally Prime ERP, GST Return Filing, Statutory Audit Checklists, Internal Controls, Indian Income Tax',
         weakAreas: ['Input Tax Credit (ITC) Reconciliations', 'Transfer Pricing Basics', 'Audit Sampling Procedures']
       };
     }
@@ -1318,48 +1319,98 @@ export function useOnboardingWizard() {
     }
 
     // 11. Human Resources (HR)
-    if (goal.includes('human_resource') || goal.includes('talent') || goal === 'hr') {
+    if (goal.includes('human_resource') || goal.includes('talent') || goal === 'hr' || goal.includes('people ops')) {
       return {
         targetRoleLabel: 'Human Resources & Talent Lead',
-        courseId: 'course-bcom-operations',
+        courseId: 'course-operations-supplychain-compliance',
         skillsList: 'Talent Acquisition, Statutory HR Compliance, Payroll Management, Performance Appraisal Frameworks, Employee Relations',
         weakAreas: ['Labor Law Compliance', 'Attrition Predictive Modeling', 'Compensation & Benefits Benchmarking']
       };
     }
 
-    // 12. Financial & Accounting Analyst
-    if (goal.includes('finance') || goal.includes('financial') || goal.includes('fintech') || goal.includes('accounting') ||
+    // 12. Digital Marketing & Growth Strategy
+    if (goal.includes('digital market') || goal.includes('growth') || goal.includes('seo') || goal.includes('performance marketing')) {
+      return {
+        targetRoleLabel: 'Digital Marketing & Growth Strategist',
+        courseId: 'course-digital-marketing',
+        skillsList: 'Growth Marketing Funnels, SEO & Search Strategy, Conversion Rate Optimization (CRO), Google Analytics 4, Paid Performance Ads',
+        weakAreas: ['Attribution Modeling', 'Paid Acquisition Unit Economics', 'Lifecycle Marketing Automation']
+      };
+    }
+
+    // 13. Marketing & Brand Management
+    if (goal.includes('market') || goal.includes('brand')) {
+      return {
+        targetRoleLabel: 'Marketing & Brand Manager',
+        courseId: 'course-marketing-branding',
+        skillsList: 'Customer Research, Market Segmentation, Brand Development, Product Management, Pricing Strategy, Campaign Strategy',
+        weakAreas: ['Consumer Psychology Analytics', 'Brand Equity Measurement', 'Multi-Channel Media Mix']
+      };
+    }
+
+    // 14. E-Commerce & Digital Business
+    if (goal.includes('ecommerce') || goal.includes('e-commerce') || goal.includes('online store')) {
+      return {
+        targetRoleLabel: 'E-Commerce & Digital Business Specialist',
+        courseId: 'course-ecommerce-digital-biz',
+        skillsList: 'E-Commerce Strategy, Catalog Architecture, Payment Gateways (UPI/COD), Logistics Fulfillment, Conversion Rate Analytics',
+        weakAreas: ['Cart Abandonment Optimization', 'Inventory Turnover Analytics', 'Cross-Border Logistics']
+      };
+    }
+
+    // 15. Entrepreneurship & Small Business Management
+    if (goal.includes('entrepreneur') || goal.includes('family business') || goal.includes('startup') || goal.includes('venture')) {
+      return {
+        targetRoleLabel: 'Entrepreneur & Business Manager',
+        courseId: 'course-entrepreneurship-biz-mgmt',
+        skillsList: 'Business Model Canvas (BMC), Startup Finance, Break-Even Analysis, Strategic Planning, Operations, Leadership',
+        weakAreas: ['Investor Pitch Valuation', 'Working Capital Management', 'Go-To-Market Execution']
+      };
+    }
+
+    // 16. Sales, Customer Success & CRM
+    if (goal.includes('sale') || goal.includes('crm') || goal.includes('customer success') || goal.includes('client relations')) {
+      return {
+        targetRoleLabel: 'Sales, Customer Success & CRM Specialist',
+        courseId: 'course-sales-crm-success',
+        skillsList: 'Consultative Selling, BANT Qualification, LAER Objection Handling, CRM Management, Sales Velocity Analytics',
+        weakAreas: ['Quota Forecasting Models', 'Enterprise Contract Negotiation', 'Churn Mitigation Playbooks']
+      };
+    }
+
+    // 17. AI & Digital Transformation
+    if (goal.includes('digital transformation') || goal.includes('ai transformation') || goal.includes('ai business') || goal.includes('rpa')) {
+      return {
+        targetRoleLabel: 'AI & Digital Transformation Business Specialist',
+        courseId: 'course-ai-digital-transformation',
+        skillsList: 'AI Business Literacy, Prompt Engineering, RPA Automation, Business Intelligence Dashboards, AI Governance',
+        weakAreas: ['RPA Workflow Optimization', 'Enterprise AI Risk Auditing', 'Change Management Architecture']
+      };
+    }
+
+    // 18. Financial & Accounting Analyst
+    if (goal.includes('finance') || goal.includes('financial') || goal.includes('fintech') ||
         profile.includes('commerce') || profile.includes('b.com')) {
       return {
-        targetRoleLabel: 'Financial & Accounting Analyst',
+        targetRoleLabel: 'Financial & Investment Analyst',
         courseId: 'course-finance-investment',
         skillsList: 'Financial Modeling, Corporate Valuation, Excel Analysis, SQL, Financial Statement Analysis, Auditing & Compliance',
         weakAreas: ['Derivatives Valuation', 'Regulatory Tech (RegTech)', 'Corporate Restructuring Modeling']
       };
     }
 
-    // 13. Product & Operations Manager
+    // 19. Product & Operations Manager
     if (goal.includes('product') || goal.includes('business') || goal.includes('consult') || goal.includes('operations') ||
         profile.includes('management') || profile.includes('bba') || profile.includes('mba')) {
       return {
-        targetRoleLabel: 'Product & Operations Manager',
-        courseId: 'course-bcom-operations',
-        skillsList: 'Product Strategy, PRD Writing, Agile Scrum, User Journey Mapping, Growth Funnels, Data Analytics, Stakeholder Alignment',
-        weakAreas: ['Cohort Retention Analysis', 'North Star Metric Decomposition', 'Experimentation Frameworks']
+        targetRoleLabel: 'Operations & Business Process Manager',
+        courseId: 'course-operations-supplychain-compliance',
+        skillsList: 'Business Process Mapping, Inventory Management (EOQ/ROP), Logistics, Lean & Six Sigma, Business Compliance',
+        weakAreas: ['Supply Chain Bottleneck Analysis', 'Lean Six Sigma Root Cause', 'Regulatory Audit Preparation']
       };
     }
 
-    // 10. Digital Growth & Marketing Lead
-    if (goal.includes('market') || goal.includes('growth')) {
-      return {
-        targetRoleLabel: 'Digital Growth & Marketing Lead',
-        courseId: 'course-bcom-digital-marketing',
-        skillsList: 'Growth Marketing Funnels, SEO & Search Strategy, Conversion Rate Optimization (CRO), Google Analytics 4, Content Strategy',
-        weakAreas: ['Attribution Modeling', 'Paid Acquisition Unit Economics', 'Lifecycle Marketing Automation']
-      };
-    }
-
-    // 11. IoT & Embedded Systems
+    // 20. IoT & Embedded Systems
     if (goal.includes('iot') || goal.includes('embedded')) {
       return {
         targetRoleLabel: 'IoT & Embedded Systems Engineer',
@@ -1369,7 +1420,7 @@ export function useOnboardingWizard() {
       };
     }
 
-    // 12. QA & Test Automation
+    // 21. QA & Test Automation
     if (goal.includes('qa') || goal.includes('test')) {
       return {
         targetRoleLabel: 'QA & Test Automation Engineer',
@@ -1379,7 +1430,7 @@ export function useOnboardingWizard() {
       };
     }
 
-    // 13. Default: Java Backend SDE
+    // 22. Default: Java Backend SDE
     return {
       targetRoleLabel: 'Java Backend SDE',
       courseId: 'course-java-logic',
@@ -1438,6 +1489,9 @@ export function useOnboardingWizard() {
             career_goal: finalUserGoal,
             target_goal: targetGoal,
             education: profileType,
+            degreeTrack: diagnosticGoal?.degreeTrack || 'btech_bca_mca',
+            specialization: diagnosticGoal?.specialization || '',
+            diagnosticGoal: diagnosticGoal || null,
             skills: finalArch ? `Archetype: ${finalArch}. Skills: ${skillsList}` : skillsList,
             experience: parseExperience(profileType),
             hasCompleted: true,
@@ -1477,6 +1531,9 @@ export function useOnboardingWizard() {
           career_goal: finalUserGoal,
           target_goal: targetGoal,
           education: profileType,
+          degreeTrack: diagnosticGoal?.degreeTrack || 'btech_bca_mca',
+          specialization: diagnosticGoal?.specialization || '',
+          diagnosticGoal: diagnosticGoal || undefined,
           skills: finalArch ? `Archetype: ${finalArch}. Skills: ${skillsList}` : skillsList,
           experience: parseExperience(profileType),
           codingExperience,

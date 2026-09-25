@@ -274,8 +274,17 @@ export default function DashboardPage() {
       'Edge AI & TinyML':                         { skills:['Quantization','ReLU','FFT'],      weak:['MCU Latency','Noise Filters'],      courseId:'course-iot-edge-ai' },
       'Industrial IoT Security':                  { skills:['Secure Boot','AES','X.509'],      weak:['OCSP','Firmware Rollbacks'],        courseId:'course-iot-security' },
       '3D Graphics & Avatar Animation':           { skills:['WebGL','Three.js','VRM'],         weak:['IK Solvers','Rigging'],             courseId:'course-3d-graphics' },
-      'Blockchain, Web3 & Smart Contracts':       { skills:['Solidity','Contracts','Crypto'],  weak:['Gas Opt','Reentrancy'],             courseId:'course-blockchain-web3' },
       'AI Software Engineer':                     { skills:['Python','PyTorch','LLMs'],        weak:['Pipelines','Vector DBs'],           courseId:'course-ai-eng' },
+      'Digital Accountant & Taxation Specialist': { skills:['Tally Prime','GST','Double-Entry Bookkeeping'], weak:['ITC Reconciliation','Tax Sampling'], courseId:'course-digital-accounting' },
+      'Financial Analyst & Investment Specialist': { skills:['Financial Modeling','Valuation','TVM'], weak:['WACC Variations','M&A Dilution'], courseId:'course-finance-investment' },
+      'Business Analytics & Decision Intelligence Specialist': { skills:['Excel Analytics','Power BI','SQL Querying'], weak:['Predictive Modeling','A/B Test Design'], courseId:'course-business-analytics' },
+      'Marketing & Brand Manager': { skills:['Consumer Insights','Brand Development','Pricing Strategy'], weak:['Media Mix Modeling','Brand Equity Metrics'], courseId:'course-marketing-branding' },
+      'Digital Marketing & Growth Strategist': { skills:['SEO','Paid Performance Ads','CRO Analytics'], weak:['Attribution Modeling','Paid Unit Economics'], courseId:'course-digital-marketing' },
+      'E-Commerce & Digital Business Specialist': { skills:['Store UX','Payment Gateways','Logistics Fulfillment'], weak:['Cart Abandonment','Inventory Turnover'], courseId:'course-ecommerce-digital-biz' },
+      'Entrepreneur & Business Manager': { skills:['Business Model Canvas','Startup Finance','Break-Even Analysis'], weak:['Investor Valuation','Working Capital'], courseId:'course-entrepreneurship-biz-mgmt' },
+      'Sales, Customer Success & CRM Specialist': { skills:['Consultative Selling','BANT Qualification','LAER Objection Handling'], weak:['Sales Velocity','Enterprise Contracting'], courseId:'course-sales-crm-success' },
+      'Operations, Supply Chain & Compliance Specialist': { skills:['Process Mapping','EOQ Inventory','Lean 5S'], weak:['Supply Chain Bottlenecks','ISO Quality Compliance'], courseId:'course-operations-supplychain-compliance' },
+      'AI & Digital Transformation Business Specialist': { skills:['AI Business Literacy','Prompt Engineering','RPA Automation'], weak:['RPA Scalability','AI Governance'], courseId:'course-ai-digital-transformation' },
     };
     const cfg = TRACK_MAP[trackTitle] || { skills:['Node.js','Docker','React'], weak:['CI/CD','APIs'], courseId:'course-fullstack-js' };
     try {
