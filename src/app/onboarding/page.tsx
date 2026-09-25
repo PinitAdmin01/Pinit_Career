@@ -540,7 +540,7 @@ export default function OnboardingPage() {
           )}
 
           {/* SCREEN: BEHAVIORAL DIAGNOSTIC (PARTS B, C, D) */}
-          {activeScreen === 'BEHAVIORAL_DIAGNOSTIC' && diagnosticGoal && (
+          {activeScreen === 'BEHAVIORAL_DIAGNOSTIC' && (
             <BehavioralDiagnosticStep
               goalAnswers={diagnosticGoal}
               onComplete={handleBehavioralDiagnosticComplete}
@@ -597,7 +597,7 @@ export default function OnboardingPage() {
               <RoadmapPreview
                 studentType={studentType || diagnosticGoal?.outcome || 'Computer Science / Engineering'}
                 targetGoal={targetGoal || diagnosticGoal?.role || 'Software Engineer'}
-                accessReason={accessReason || diagnosticGoal?.motivation || 'Career Acceleration'}
+                accessReason={accessReason || (Array.isArray(diagnosticGoal?.motivation) ? diagnosticGoal.motivation.join(', ') : (diagnosticGoal?.motivation as string)) || 'Career Acceleration'}
                 diagnosticProfile={diagnosticProfile}
                 qt2Breakdown={qt2Breakdown}
                 selectedMentor={selectedMentor}

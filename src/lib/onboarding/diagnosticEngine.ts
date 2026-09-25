@@ -78,6 +78,43 @@ export interface RawMatrixResponse {
   timestamp: number;
 }
 
+export interface GoalDiscoveryAnswers {
+  outcome: string;
+  role: string;
+  secondaryRoles?: string[];
+  horizonMonths: number;
+  motivation: string[];
+  exposureLevels?: string[];
+  capabilitySelfRating?: string;
+  dailyMinutes?: number;
+  primaryConstraints?: string[];
+  rawGoalText?: string;
+  priorExperience?: string;
+}
+
+export interface DiagnosticAnswerSession {
+  sjtResponses: RawDiagnosticResponse[];
+  matrixResponses: RawMatrixResponse[];
+  tradeoffResponses: RawDiagnosticResponse[];
+  goal?: {
+    outcome: string;
+    role: string;
+    secondaryRoles?: string[];
+    horizonMonths: number;
+    motivation: string[];
+    rawGoalText?: string;
+  };
+  experience?: {
+    exposureLevels: string[];
+    capabilitySelfRating: string;
+  };
+  constraints?: {
+    dailyMinutes: number;
+    primaryConstraints: string[];
+  };
+  selectedMentor?: 'priya' | 'anish';
+}
+
 export interface CompleteDiagnosticInput {
   goal: {
     outcome: string;
@@ -182,7 +219,26 @@ for (const t of TRADEOFF_PROBES) {
 /**
  * Main Evaluation Engine Function
  */
-export function evaluateDiagnosticSession(input: CompleteDiagnosticInput): CompleteDiagnosticProfile {
+export function evaluateDiagnosticSession(input: CompleteDiagnosticInput | DiagnosticAnswerSession): CompleteDiagnosticProfile {
+  const safeGoal = input.goal || {
+    outcome: 'internship',
+    role: 'full_stack_developer',
+    secondaryRoles: [],
+    horizonMonths: 6,
+    motivation: ['career_placement'],
+    rawGoalText: ''
+  };
+
+  const safeExperience = input.experience || {
+    exposureLevels: [],
+    capabilitySelfRating: 'guided_builder'
+  };
+
+  const safeConstraints = input.constraints || {
+    dailyMinutes: 90,
+    primaryConstraints: []
+  };
+
   // 1. Accumulate Evidence per Dimension
   const accumulators = {
     PH: { total: 0, contexts: new Set<string>(), observations: 0, matrixScores: [] as number[], latencies: [] as number[] },
@@ -195,6 +251,9 @@ export function evaluateDiagnosticSession(input: CompleteDiagnosticInput): Compl
 
   // A. Process SJT Responses
   for (const resp of input.sjtResponses || []) {
+    if (resp.responseTimeMs && resp.responseTimeMs > 0) {
+      allLatencies.push(resp.responseTimeMs);
+    }
     const entry = SJT_OPTIONS_MAP.get(resp.optionId);
     if (entry) {
       const dim = entry.option.dimension;
@@ -203,13 +262,15 @@ export function evaluateDiagnosticSession(input: CompleteDiagnosticInput): Compl
       accumulators[dim].contexts.add(entry.option.context);
       if (resp.responseTimeMs && resp.responseTimeMs > 0) {
         accumulators[dim].latencies.push(resp.responseTimeMs);
-        allLatencies.push(resp.responseTimeMs);
       }
     }
   }
 
   // B. Process Matrix Responses
   for (const mResp of input.matrixResponses || []) {
+    if (mResp.responseTimeMs && mResp.responseTimeMs > 0) {
+      allLatencies.push(mResp.responseTimeMs);
+    }
     const entry = MATRIX_ITEMS_MAP.get(mResp.itemId);
     if (entry) {
       const dim = entry.item.dimension;
@@ -221,7 +282,6 @@ export function evaluateDiagnosticSession(input: CompleteDiagnosticInput): Compl
       accumulators[dim].contexts.add(entry.context);
       if (mResp.responseTimeMs && mResp.responseTimeMs > 0) {
         accumulators[dim].latencies.push(mResp.responseTimeMs);
-        allLatencies.push(mResp.responseTimeMs);
       }
     }
   }
@@ -229,12 +289,12 @@ export function evaluateDiagnosticSession(input: CompleteDiagnosticInput): Compl
   // C. Process Trade-off Responses (Additional context validation)
   const tradeoffPoles: Record<string, number> = {};
   for (const tResp of input.tradeoffResponses || []) {
+    if (tResp.responseTimeMs && tResp.responseTimeMs > 0) {
+      allLatencies.push(tResp.responseTimeMs);
+    }
     const entry = TRADEOFF_OPTIONS_MAP.get(tResp.optionId);
     if (entry) {
       tradeoffPoles[entry.option.pole] = (tradeoffPoles[entry.option.pole] || 0) + 1;
-      if (tResp.responseTimeMs && tResp.responseTimeMs > 0) {
-        allLatencies.push(tResp.responseTimeMs);
-      }
     }
   }
 
@@ -402,7 +462,7 @@ export function evaluateDiagnosticSession(input: CompleteDiagnosticInput): Compl
   const summaryDescription = `Calibrated with strong ${metrics[top1Dim].label} and ${metrics[top2Dim].label} evidence. Primary roadmap priority is ${primaryIntervention.replace(/_/g, ' ')}.`;
 
   // Parse experience level
-  const exposures = input.experience?.exposureLevels || [];
+  const exposures = safeExperience.exposureLevels || [];
   let parsedExperienceLevel: 'fresher' | 'intern' | 'experienced' = 'fresher';
   if (exposures.includes('internship')) parsedExperienceLevel = 'intern';
   if (exposures.includes('freelance') || exposures.includes('production_deployment')) parsedExperienceLevel = 'experienced';
@@ -412,12 +472,12 @@ export function evaluateDiagnosticSession(input: CompleteDiagnosticInput): Compl
     : 0;
 
   return {
-    goal: input.goal,
+    goal: safeGoal,
     experience: {
-      ...input.experience,
+      ...safeExperience,
       parsedExperienceLevel
     },
-    constraints: input.constraints,
+    constraints: safeConstraints,
     behaviorProfile: {
       PH: metrics.PH,
       EX: metrics.EX,

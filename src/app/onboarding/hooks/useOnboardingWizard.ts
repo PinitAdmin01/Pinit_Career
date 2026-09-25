@@ -19,6 +19,7 @@ import {
 import {
   GoalDiscoveryAnswers,
   DiagnosticAnswerSession,
+  CompleteDiagnosticInput,
   CompleteDiagnosticProfile,
   evaluateDiagnosticSession,
 } from '@/lib/onboarding/diagnosticEngine';
@@ -1023,9 +1024,34 @@ export function useOnboardingWizard() {
   };
 
   // Handle Parts B, C, D: Behavioral Diagnostic Completion
-  const handleBehavioralDiagnosticComplete = (answers: DiagnosticAnswerSession) => {
+  const handleBehavioralDiagnosticComplete = (answers: {
+    sjtResponses: any[];
+    matrixResponses: any[];
+    tradeoffResponses: any[];
+  }) => {
     setDiagnosticAnswers(answers);
-    const profile = evaluateDiagnosticSession(answers);
+    const completeInput: CompleteDiagnosticInput = {
+      goal: {
+        outcome: diagnosticGoal?.outcome || 'internship',
+        role: diagnosticGoal?.role || targetGoal || 'full_stack_developer',
+        secondaryRoles: diagnosticGoal?.secondaryRoles || [],
+        horizonMonths: diagnosticGoal?.horizonMonths ?? 6,
+        motivation: diagnosticGoal?.motivation || ['career_placement'],
+      },
+      experience: {
+        exposureLevels: diagnosticGoal?.exposureLevels || [],
+        capabilitySelfRating: diagnosticGoal?.capabilitySelfRating || 'guided_builder'
+      },
+      constraints: {
+        dailyMinutes: diagnosticGoal?.dailyMinutes ?? 90,
+        primaryConstraints: diagnosticGoal?.primaryConstraints || []
+      },
+      sjtResponses: answers.sjtResponses || [],
+      matrixResponses: answers.matrixResponses || [],
+      tradeoffResponses: answers.tradeoffResponses || [],
+      selectedMentor
+    };
+    const profile = evaluateDiagnosticSession(completeInput);
     setDiagnosticProfile(profile);
     setActiveScreen('BLUEPRINT_REVEAL');
     setAnimState('nod');

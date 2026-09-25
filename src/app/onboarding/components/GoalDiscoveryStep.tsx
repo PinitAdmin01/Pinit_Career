@@ -23,12 +23,14 @@ export interface GoalDiscoveryStepProps {
   initialData?: Partial<GoalDiscoveryData>;
   onComplete: (data: GoalDiscoveryData) => void;
   onGoBack?: () => void;
+  onBack?: () => void;
 }
 
 export default function GoalDiscoveryStep({
   initialData,
   onComplete,
-  onGoBack
+  onGoBack,
+  onBack
 }: GoalDiscoveryStepProps) {
   const [currentIdx, setCurrentIdx] = useState(0);
 
@@ -68,6 +70,8 @@ export default function GoalDiscoveryStep({
       setCurrentIdx(prev => prev - 1);
     } else if (onGoBack) {
       onGoBack();
+    } else if (onBack) {
+      onBack();
     }
   };
 

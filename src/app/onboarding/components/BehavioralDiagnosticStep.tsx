@@ -26,13 +26,17 @@ export interface BehavioralDiagnosticResults {
 export interface BehavioralDiagnosticStepProps {
   onComplete: (results: BehavioralDiagnosticResults) => void;
   onGoBack?: () => void;
+  onBack?: () => void;
+  goalAnswers?: any;
 }
 
 type DiagnosticPhase = 'SJT' | 'MATRIX' | 'TRADEOFF';
 
 export default function BehavioralDiagnosticStep({
   onComplete,
-  onGoBack
+  onGoBack,
+  onBack,
+  goalAnswers
 }: BehavioralDiagnosticStepProps) {
   const [phase, setPhase] = useState<DiagnosticPhase>('SJT');
   const [sjtIndex, setSjtIndex] = useState(0);
@@ -175,6 +179,8 @@ export default function BehavioralDiagnosticStep({
               else { setPhase('MATRIX'); setMatrixIndex(MATRIX_SCENARIOS.length - 1); }
             } else if (onGoBack) {
               onGoBack();
+            } else if (onBack) {
+              onBack();
             }
           }}
           style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}
