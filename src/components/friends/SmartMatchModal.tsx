@@ -1,6 +1,6 @@
-﻿'use client';
+'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MatchStudentProfile, MatchBreakdown } from '@/lib/friends/matching';
 import { toast } from '@/lib/store/useAppStore';
 
@@ -21,6 +21,19 @@ export const SmartMatchModal: React.FC<SmartMatchModalProps> = ({
   onOpenChallenge,
   onOpenProjectInvite
 }) => {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [onClose]);
+
   if (!student || !match) return null;
 
   return (

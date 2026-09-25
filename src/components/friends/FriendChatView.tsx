@@ -147,12 +147,8 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
     );
   }
 
-  if (!activeFriend) {
-    return null;
-  }
-
-  const filteredFriends = friends.filter(f =>
-    f.name.toLowerCase().includes(searchFilter.toLowerCase()) ||
+  const filteredFriends = (friends || []).filter(f =>
+    (f.name || '').toLowerCase().includes(searchFilter.toLowerCase()) ||
     (f.college && f.college.toLowerCase().includes(searchFilter.toLowerCase()))
   );
 
@@ -188,47 +184,60 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
 
         {/* Friends List */}
         <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
-          {filteredFriends.map((friend) => {
-            const isActive = activeFriend?.id === friend.id;
-            return (
-              <div
-                key={friend.id}
-                onClick={() => setActiveFriend(friend)}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 10,
-                  padding: '12px 16px',
-                  cursor: 'pointer',
-                  background: isActive ? 'rgba(99, 102, 241, 0.18)' : 'transparent',
-                  borderLeft: isActive ? '3px solid #818cf8' : '3px solid transparent',
-                  transition: 'background 0.15s ease'
-                }}
-              >
-                <div style={{ position: 'relative', width: 38, height: 38, flexShrink: 0 }}>
-                  <img
-                    src={friend.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100'}
-                    alt={friend.name}
-                    style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }}
-                  />
-                  {friend.online && <span className="online-beacon" />}
-                </div>
+          {filteredFriends.length === 0 ? (
+            <div style={{ padding: '24px 16px', textAlign: 'center', color: '#94a3b8', fontSize: 12 }}>
+              {searchFilter ? `No friends match "${searchFilter}"` : 'No friends found.'}
+            </div>
+          ) : (
+            filteredFriends.map((friend) => {
+              const isActive = activeFriend?.id === friend.id;
+              return (
+                <div
+                  key={friend.id}
+                  onClick={() => setActiveFriend(friend)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 10,
+                    padding: '12px 16px',
+                    cursor: 'pointer',
+                    background: isActive ? 'rgba(99, 102, 241, 0.18)' : 'transparent',
+                    borderLeft: isActive ? '3px solid #818cf8' : '3px solid transparent',
+                    transition: 'background 0.15s ease'
+                  }}
+                >
+                  <div style={{ position: 'relative', width: 38, height: 38, flexShrink: 0 }}>
+                    <img
+                      src={friend.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100'}
+                      alt={friend.name}
+                      style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }}
+                    />
+                    {friend.online && <span className="online-beacon" />}
+                  </div>
 
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: '#ffffff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                    {friend.name}
-                  </div>
-                  <div style={{ fontSize: 11, color: '#94a3b8', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                    {friend.course} • {friend.college}
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: '#ffffff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {friend.name}
+                    </div>
+                    <div style={{ fontSize: 11, color: '#94a3b8', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {friend.course} • {friend.college}
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })
+          )}
         </div>
       </div>
 
       {/* ── Right Pane: Active Chat Window ── */}
+      {!activeFriend ? (
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', gap: 12, padding: 32, textAlign: 'center', background: 'rgba(10, 15, 30, 0.6)' }}>
+          <span style={{ fontSize: 40 }}>💬</span>
+          <div style={{ fontSize: 16, fontWeight: 700, color: '#ffffff' }}>Select a Conversation</div>
+          <div style={{ fontSize: 13, maxWidth: 320, lineHeight: 1.5 }}>Choose a classmate or project partner from the sidebar to chat, share code, or initiate arena duels.</div>
+        </div>
+      ) : (
       <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: 'rgba(10, 15, 30, 0.6)' }}>
         {/* Chat Header */}
         <div style={{
@@ -300,7 +309,14 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
           ) : (
             messages.map((msg) => {
               const isMe = msg.sender_id !== activeFriend.id;
-              const timeFormatted = new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+              const timeFormatted = (() => {
+                try {
+                  const d = new Date(msg.created_at);
+                  return isNaN(d.getTime()) ? '' : d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                } catch {
+                  return '';
+                }
+              })();
               return (
                 <div
                   key={msg.id}
@@ -391,7 +407,7 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
         }}>
           <input
             type="text"
-            placeholder={`Message ${activeFriend.name.split(' ')[0]}...`}
+            placeholder={`Message ${(activeFriend?.name || 'Friend').split(' ')[0]}...`}
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             onKeyDown={(e) => {
@@ -417,6 +433,7 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
           </button>
         </div>
       </div>
+      )}
     </div>
   );
 };

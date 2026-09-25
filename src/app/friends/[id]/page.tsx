@@ -69,6 +69,21 @@ export default function StudentProfilePage() {
     }
   };
 
+  const handleAcceptIncoming = async () => {
+    if (!student) return;
+    toast.success('Connected!', `You and ${student.name} are now friends!`);
+    setStudent(prev => prev ? { ...prev, relationship: 'friends' } : null);
+    try {
+      await fetch('/api/friends', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ studentId: student.id, action: 'accept' })
+      });
+    } catch (err) {
+      console.error('Failed to accept incoming friend request:', err);
+    }
+  };
+
   const handleArenaDuel = async () => {
     if (!student) return;
     try {
@@ -183,6 +198,14 @@ export default function StudentProfilePage() {
                   {student.relationship === 'friends' ? (
                     <button className="friends-btn friends-btn-secondary" style={{ padding: '9px 18px', fontSize: 13, borderColor: '#22c55e', color: '#22c55e' }} disabled>
                       ✓ Connected Friend
+                    </button>
+                  ) : student.relationship === 'received' ? (
+                    <button
+                      className="friends-btn friends-btn-primary"
+                      onClick={handleAcceptIncoming}
+                      style={{ padding: '9px 20px', fontSize: 13, background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)' }}
+                    >
+                      ✓ Accept Friend Request
                     </button>
                   ) : requestSent || student.relationship === 'sent' ? (
                     <button className="friends-btn friends-btn-pending" style={{ padding: '9px 20px', fontSize: 13 }} disabled>

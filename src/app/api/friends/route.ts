@@ -293,30 +293,35 @@ export async function PATCH(req: NextRequest) {
     const userId = auth.userId;
     const admin = getAdminClient();
     const body = await req.json().catch(() => ({}));
-    const { requestId, action } = body;
+    const { requestId, studentId, action } = body;
 
-    if (!requestId || !['accept', 'decline'].includes(action)) {
-      return NextResponse.json({ ok: false, error: 'Valid requestId and action (accept/decline) are required' }, { status: 400 });
+    if ((!requestId && !studentId) || !['accept', 'decline'].includes(action)) {
+      return NextResponse.json({ ok: false, error: 'Valid requestId or studentId, and action (accept/decline) are required' }, { status: 400 });
     }
 
+    const status = action === 'accept' ? 'accepted' : 'declined';
     const db = readDb();
-    const existingFriendship = (db.friendships || []).find((f: any) => f.id === requestId);
+    const existingFriendship = (db.friendships || []).find((f: any) =>
+      (requestId && f.id === requestId) ||
+      (studentId && f.requester_id === studentId && f.addressee_id === userId)
+    );
     if (existingFriendship && existingFriendship.status === 'accepted' && action === 'accept') {
       return NextResponse.json({ ok: false, error: 'Friend request has already been accepted' }, { status: 400 });
     }
 
-    const status = action === 'accept' ? 'accepted' : 'declined';
-
     if (admin) {
       try {
-        const { data: updated, error: updErr } = await admin
+        let query = admin
           .from('friendships')
-          .update({ status, updated_at: new Date().toISOString(), responded_at: new Date().toISOString() })
-          .eq('id', requestId)
-          .eq('addressee_id', userId)
-          .select()
-          .single();
+          .update({ status, updated_at: new Date().toISOString(), responded_at: new Date().toISOString() });
 
+        if (requestId) {
+          query = query.eq('id', requestId).eq('addressee_id', userId);
+        } else {
+          query = query.eq('requester_id', studentId).eq('addressee_id', userId).eq('status', 'pending');
+        }
+
+        const { data: updated, error: updErr } = await query.select().single();
         if (!updErr && updated) {
           return NextResponse.json({ ok: true, friendship: updated, action });
         }
@@ -325,7 +330,10 @@ export async function PATCH(req: NextRequest) {
 
     const LEGACY_ID = ['current', 'user'].join('_');
     if (db.friendships) {
-      const target = db.friendships.find((f: any) => f.id === requestId);
+      const target = db.friendships.find((f: any) =>
+        (requestId && f.id === requestId) ||
+        (studentId && f.requester_id === studentId && (f.addressee_id === userId || f.addressee_id === LEGACY_ID))
+      );
       if (target) {
         if (target.addressee_id && target.addressee_id !== userId && target.addressee_id !== LEGACY_ID) {
           return NextResponse.json({ ok: false, error: 'Unauthorized to respond to this friend request' }, { status: 403 });
@@ -337,7 +345,7 @@ export async function PATCH(req: NextRequest) {
       }
     }
 
-    return NextResponse.json({ ok: true, friendship: { id: requestId, status }, action });
+    return NextResponse.json({ ok: true, friendship: { id: requestId || studentId, status }, action });
   } catch (err: any) {
     console.error('Error in /api/friends PATCH:', err);
     return NextResponse.json({ ok: false, error: err?.message || 'Failed to update friend request' }, { status: 500 });

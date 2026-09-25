@@ -223,6 +223,25 @@ function FriendsContent() {
     }
   };
 
+  const handleAcceptRequestByStudentId = async (studentId: string, name: string) => {
+    const matchingReq = incomingRequestsList.find(r => r.studentId === studentId);
+    const reqId = matchingReq ? matchingReq.id : undefined;
+    setIncomingRequestsList(prev => prev.filter(r => r.studentId !== studentId));
+    setNetworkStats(prev => ({ ...prev, pendingCount: Math.max(0, prev.pendingCount - 1), friendsCount: prev.friendsCount + 1 }));
+    toast.success('Friend Request Accepted', `Connected with ${name}!`);
+
+    try {
+      await fetch('/api/friends', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ requestId: reqId, studentId, action: 'accept' })
+      });
+      fetchNetworkData();
+    } catch (e) {
+      console.error('[FriendsHub] Error accepting friend request:', e);
+    }
+  };
+
   const handleDeclineRequest = async (reqId: string) => {
     setIncomingRequestsList(prev => prev.filter(r => r.id !== reqId));
     setNetworkStats(prev => ({ ...prev, pendingCount: Math.max(0, prev.pendingCount - 1) }));
@@ -909,7 +928,7 @@ function FriendsContent() {
           {activeTab === 'messages' && (
             <FriendChatView
               initialFriendId={activeChatFriendId}
-              friends={friendsNetwork.length > 0 ? friendsNetwork : suggestedStudents}
+              friends={friendsNetwork || []}
               onOpenProfile={(s) => handleNavigateToProfile(s.id)}
               onOpenChallenge={(s) => setChallengeStudent(s)}
               onOpenProjectInvite={(s) => setProjectStudent(s)}
@@ -1089,6 +1108,7 @@ function FriendsContent() {
       <FriendProfileDrawer
         student={drawerStudent}
         onClose={() => setSelectedStudent(null)}
+        onAcceptRequest={(id) => handleAcceptRequestByStudentId(id, selectedStudent?.name || 'Student')}
         onSendRequest={(id) => handleAddFriend(id, selectedStudent?.name || 'Student')}
         onRemoveFriend={handleRemoveFriend}
         onOpenChallenge={(s) => {

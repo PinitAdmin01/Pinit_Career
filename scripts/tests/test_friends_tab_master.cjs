@@ -336,6 +336,45 @@ test('Dedicated /api/friends/block route exists and properly exports GET and POS
   assert.ok(code.includes('user_blocks'), 'block route does not reference user_blocks');
 });
 
+test('All modals and drawers implement Escape keydown listeners and body scroll locking', () => {
+  const modalFiles = [
+    'src/components/friends/FriendProfileDrawer.tsx',
+    'src/components/friends/ArenaChallengeModal.tsx',
+    'src/components/friends/ProjectInviteModal.tsx',
+    'src/components/friends/PrivacySettingsModal.tsx',
+    'src/components/friends/ReportStudentModal.tsx',
+    'src/components/friends/SmartMatchModal.tsx'
+  ];
+
+  modalFiles.forEach(file => {
+    const code = fs.readFileSync(path.resolve(file), 'utf8');
+    assert.ok(code.includes("e.key === 'Escape'"), `${file} is missing Escape key listener`);
+    assert.ok(code.includes("window.removeEventListener('keydown'"), `${file} is missing keydown listener cleanup`);
+    assert.ok(code.includes("document.body.style.overflow = 'hidden'"), `${file} is missing body scroll locking`);
+  });
+});
+
+test('FriendProfileDrawer renders incoming friend request acceptance button when relationship is received', () => {
+  const drawerCode = fs.readFileSync(path.resolve('src/components/friends/FriendProfileDrawer.tsx'), 'utf8');
+  assert.ok(drawerCode.includes("student.relationship === 'received'"), 'FriendProfileDrawer missing received relationship branch');
+  assert.ok(drawerCode.includes('✓ Accept Request'), 'FriendProfileDrawer missing Accept Request CTA');
+  assert.ok(drawerCode.includes('onAcceptRequest'), 'FriendProfileDrawer missing onAcceptRequest callback');
+});
+
+test('FriendChatView provides complete empty state handling and safe name rendering', () => {
+  const chatCode = fs.readFileSync(path.resolve('src/components/friends/FriendChatView.tsx'), 'utf8');
+  assert.ok(chatCode.includes('No Active Conversations'), 'FriendChatView missing empty state card for 0 friends');
+  assert.ok(chatCode.includes('Select a Conversation'), 'FriendChatView missing empty conversation right-pane selection state');
+  assert.ok(chatCode.includes('No friends match'), 'FriendChatView missing empty search filter state');
+});
+
+test('PATCH /api/friends accepts both requestId and studentId for flexible request resolution', () => {
+  const routeCode = fs.readFileSync(path.resolve('src/app/api/friends/route.ts'), 'utf8');
+  assert.ok(routeCode.includes('studentId'), 'PATCH /api/friends does not accept studentId');
+  assert.ok(routeCode.includes('requestId'), 'PATCH /api/friends does not accept requestId');
+  assert.ok(routeCode.includes("action === 'accept' ? 'accepted' : 'declined'"), 'PATCH /api/friends missing status mapping');
+});
+
 console.log('\n========================================================================');
 console.log(`🏁 VERIFICATION SUITE SUMMARY: ${passed} PASSED, ${failed} FAILED`);
 console.log('========================================================================');

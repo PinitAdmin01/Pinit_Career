@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import { toast } from '@/lib/store/useAppStore';
@@ -40,6 +40,19 @@ export const PrivacySettingsModal: React.FC<PrivacySettingsModalProps> = ({
   useEffect(() => {
     fetchPrivacyData();
   }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [onClose]);
 
   const fetchPrivacyData = async () => {
     try {

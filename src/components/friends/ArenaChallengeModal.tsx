@@ -1,6 +1,6 @@
-﻿'use client';
+'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StudentProfile } from './StudentCard';
 import { toast } from '@/lib/store/useAppStore';
 
@@ -21,6 +21,19 @@ export const ArenaChallengeModal: React.FC<ArenaChallengeModalProps> = ({
   const [wagerXP, setWagerXP] = useState(150);
   const [message, setMessage] = useState("Let's test our algorithms in the Challenging Arena!");
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [onClose]);
 
   if (!student) return null;
 
