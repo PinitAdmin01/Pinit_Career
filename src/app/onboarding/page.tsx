@@ -534,6 +534,7 @@ export default function OnboardingPage() {
           {/* SCREEN: GOAL DISCOVERY (PART A) */}
           {activeScreen === 'GOAL_DISCOVERY' && (
             <GoalDiscoveryStep
+              initialData={diagnosticGoal}
               onComplete={handleGoalDiscoveryComplete}
               onBack={() => setActiveScreen('CHOOSE_GUIDE')}
             />

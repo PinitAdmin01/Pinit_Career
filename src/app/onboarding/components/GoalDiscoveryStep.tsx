@@ -172,6 +172,14 @@ export default function GoalDiscoveryStep({
     }, 120);
   };
 
+  const getDegreeBadgeLabel = (track: string) => {
+    const norm = (track || '').toLowerCase();
+    if (norm.includes('bcom') || norm.includes('mcom') || norm.includes('commerce') || norm.includes('finance')) return 'B.COM / M.COM';
+    if (norm.includes('bba') || norm.includes('mba') || norm.includes('management')) return 'BBA / MBA';
+    if (norm === 'other') return 'OTHER / GENERAL';
+    return 'B.TECH / BCA / MCA';
+  };
+
   return (
     <div style={{ flex: 1, padding: '24px 32px', display: 'flex', flexDirection: 'column', height: '100%', overflowY: 'auto' }}>
       {/* Top Breadcrumb & Step Indicators */}
@@ -206,8 +214,8 @@ export default function GoalDiscoveryStep({
         </button>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          {/* Degree Badge */}
-          {degreeTrack && (
+          {/* Degree Badge (Shown after Step 0 selection) */}
+          {!isDegreeStep && degreeTrack && (
             <span style={{
               fontSize: 11,
               fontFamily: 'var(--font-mono, monospace)',
@@ -218,7 +226,7 @@ export default function GoalDiscoveryStep({
               padding: '3px 10px',
               fontWeight: 800
             }}>
-              {isCommerceStream ? 'B.COM / M.COM' : 'B.TECH / BCA / MCA'}
+              {getDegreeBadgeLabel(degreeTrack)}
             </span>
           )}
 
@@ -647,6 +655,49 @@ export default function GoalDiscoveryStep({
               })}
             </div>
           </div>
+        )}
+
+        {/* UNIVERSAL FALLBACK: Guarantees ANY unmapped or stream-specific question renders cleanly */}
+        {!isDegreeStep && 
+          currentQ.id !== 'Q1_OUTCOME' && currentQ.id !== 'Q2_COMMERCE_OUTCOME' &&
+          currentQ.id !== 'Q2_PRIMARY_ROLE' && currentQ.id !== 'Q1_COMMERCE_GOAL' &&
+          currentQ.id !== 'Q3_HORIZON' && currentQ.id !== 'Q3_COMMERCE_TIMELINE' &&
+          currentQ.id !== 'Q4_MOTIVATION' && currentQ.id !== 'Q4_COMMERCE_WORK_INTEREST' &&
+          currentQ.id !== 'Q5_EXPERIENCE' && currentQ.id !== 'Q5_COMMERCE_EXPERIENCE' &&
+          currentQ.id !== 'Q6_CAPABILITY' && currentQ.id !== 'Q6_COMMERCE_CAPABILITY' &&
+          currentQ.id !== 'Q7_COMMERCE_TOOLS' &&
+          currentQ.id !== 'Q7_DAILY_TIME' && currentQ.id !== 'Q8_COMMERCE_DAILY_TIME' &&
+          currentQ.id !== 'Q8_PRIMARY_CONSTRAINTS' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {currentQ.options.map(opt => (
+                <button
+                  key={opt.id}
+                  type="button"
+                  onClick={() => {
+                    triggerTactile(opt.id, () => {
+                      setTimeout(handleNext, 140);
+                    });
+                  }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '14px 18px',
+                    borderRadius: 12,
+                    background: 'rgba(255,255,255,0.02)',
+                    border: '1.5px solid rgba(255,255,255,0.07)',
+                    textAlign: 'left',
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease'
+                  }}
+                >
+                  <div>
+                    <div style={{ fontSize: 14, fontWeight: 800, color: '#f8fafc' }}>{opt.label}</div>
+                    {opt.description && <div style={{ fontSize: 11.5, color: '#94a3b8', marginTop: 2 }}>{opt.description}</div>}
+                  </div>
+                </button>
+              ))}
+            </div>
         )}
       </div>
 

@@ -208,4 +208,38 @@ const commInvestigationTradeoff = evaluatedSiqProfile.tradeoffs.find(t => t.type
 assert(!!commInvestigationTradeoff, 'Should detect communication_vs_investigation tradeoff when SIQ is strong and PH is developing');
 console.log('   ✅ Successfully detected "communication_vs_investigation" tension.\n');
 
-console.log('🎉 ALL 6 MULTI-DEGREE ONBOARDING INVARIANTS VERIFIED 100% PASSING!\n');
+console.log('7️⃣ Validating All 8 Specialization Question Branches (Q27)...');
+const requiredSpecializations = [
+  'accounting_finance',
+  'audit_taxation',
+  'banking_services',
+  'business_analytics',
+  'corporate_management',
+  'human_resources',
+  'marketing_sales',
+  'entrepreneurship'
+];
+for (const specKey of requiredSpecializations) {
+  const spec = COMMERCE_SPECIALIZATION_QUESTIONS[specKey];
+  assert(!!spec, `Specialization branch for ${specKey} must exist`);
+  assert(spec.options.length >= 4, `Specialization ${specKey} must have at least 4 options`);
+  assert(spec.title.length > 5, `Specialization ${specKey} must have descriptive title`);
+}
+console.log(`   ✅ Verified all ${requiredSpecializations.length} specialization question branches (Q27-A through Q27-H).\n`);
+
+console.log('8️⃣ Validating Complete-Skip Zero NaN & Graceful Summary Profile...');
+const totalSkipSession: CompleteDiagnosticInput = {
+  goal: { outcome: 'internship', role: 'accounting_finance', degreeTrack: 'bcom_mcom', horizonMonths: 6, motivation: ['career_placement'] },
+  experience: { exposureLevels: [], capabilitySelfRating: 'guided_builder' },
+  constraints: { dailyMinutes: 60, primaryConstraints: [] },
+  sjtResponses: [],
+  matrixResponses: [],
+  tradeoffResponses: []
+};
+const totalSkipProfile = evaluateDiagnosticSession(totalSkipSession);
+assert(!isNaN(totalSkipProfile.behaviorProfile.PH.confidence), 'PH confidence must not be NaN');
+assert(!isNaN(totalSkipProfile.behaviorProfile.PH.normalizedScore), 'PH normalized score must not be NaN');
+assert(totalSkipProfile.behaviorProfile.summaryDescription.includes('emerging behavioral signals'), 'Summary must mention emerging signals when all skipped');
+console.log(`   ✅ Complete-skip graceful profile verified: "${totalSkipProfile.behaviorProfile.summaryDescription}".\n`);
+
+console.log('🎉 ALL 8 MULTI-DEGREE ONBOARDING INVARIANTS VERIFIED 100% PASSING!\n');

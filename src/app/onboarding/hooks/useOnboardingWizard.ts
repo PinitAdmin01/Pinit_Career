@@ -1034,14 +1034,19 @@ export function useOnboardingWizard() {
     sjtResponses: any[];
     matrixResponses: any[];
     tradeoffResponses: any[];
+    specializationResponse?: any;
   }) => {
     setDiagnosticAnswers(answers);
+    const chosenSpecialization = (answers.specializationResponse && !answers.specializationResponse.skipped)
+      ? answers.specializationResponse.optionId
+      : (diagnosticGoal?.specialization || '');
+
     const completeInput: CompleteDiagnosticInput = {
       goal: {
         outcome: diagnosticGoal?.outcome || 'internship',
         role: diagnosticGoal?.role || targetGoal || 'full_stack_developer',
         degreeTrack: diagnosticGoal?.degreeTrack || 'btech_bca_mca',
-        specialization: diagnosticGoal?.specialization || '',
+        specialization: chosenSpecialization,
         secondaryRoles: diagnosticGoal?.secondaryRoles || [],
         horizonMonths: diagnosticGoal?.horizonMonths ?? 6,
         motivation: diagnosticGoal?.motivation || ['career_placement'],

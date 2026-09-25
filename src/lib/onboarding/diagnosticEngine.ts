@@ -485,7 +485,12 @@ export function evaluateDiagnosticSession(input: CompleteDiagnosticInput | Diagn
     blendTitle = `${dominantArchetype} + ${secondaryArchetype} Hybrid`;
   }
 
-  const summaryDescription = `Calibrated with strong ${metrics[top1Dim].label} and ${metrics[top2Dim].label} evidence. Primary roadmap priority is ${primaryIntervention.replace(/_/g, ' ')}.`;
+  let summaryDescription = `Calibrated with strong ${metrics[top1Dim].label} and ${metrics[top2Dim].label} evidence. Primary roadmap priority is ${primaryIntervention.replace(/_/g, ' ')}.`;
+  if (metrics[top1Dim].band === 'developing') {
+    summaryDescription = `Calibrated profile with emerging behavioral signals. Primary roadmap priority is ${primaryIntervention.replace(/_/g, ' ')}.`;
+  } else if (metrics[top2Dim].band === 'developing') {
+    summaryDescription = `Calibrated with strong ${metrics[top1Dim].label} and emerging secondary evidence. Primary roadmap priority is ${primaryIntervention.replace(/_/g, ' ')}.`;
+  }
 
   // Parse experience level
   const exposures = safeExperience.exposureLevels || [];

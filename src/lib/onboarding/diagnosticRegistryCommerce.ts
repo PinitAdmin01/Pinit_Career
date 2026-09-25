@@ -926,9 +926,23 @@ export const COMMERCE_SPECIALIZATION_QUESTIONS: Record<string, SpecializationQue
       { id: 'spec_ba_unsure', label: 'I am still exploring analytics applications' }
     ]
   },
+  corporate_management: {
+    domainId: 'corporate_management',
+    questionId: 'Q27_E_CORP_MGMT',
+    title: 'Corporate / Management Focus',
+    subtitle: 'Which organizational problem sounds most exciting to tackle?',
+    options: [
+      { id: 'spec_cm_operations', label: 'Streamlining operations to cut waste and improve delivery time' },
+      { id: 'spec_cm_policies', label: 'Structuring company policies, hierarchy, and team workflows' },
+      { id: 'spec_cm_strategy', label: 'Aligning business units around a quarterly growth strategy' },
+      { id: 'spec_cm_integration', label: 'Managing post-merger integration or departmental restructuring' },
+      { id: 'spec_cm_performance', label: 'Designing performance evaluation systems for leadership' },
+      { id: 'spec_cm_unsure', label: 'I am still exploring management specializations' }
+    ]
+  },
   human_resources: {
     domainId: 'human_resources',
-    questionId: 'Q27_E_HR_MGMT',
+    questionId: 'Q27_F_HR_MGMT',
     title: 'Human Resources & People Operations',
     subtitle: 'Which organizational area interests you most?',
     options: [
@@ -942,7 +956,7 @@ export const COMMERCE_SPECIALIZATION_QUESTIONS: Record<string, SpecializationQue
   },
   marketing_sales: {
     domainId: 'marketing_sales',
-    questionId: 'Q27_F_MARKETING',
+    questionId: 'Q27_G_MARKETING',
     title: 'Marketing & Sales Growth Focus',
     subtitle: 'Which commercial growth challenge would you most like to tackle?',
     options: [
@@ -956,7 +970,7 @@ export const COMMERCE_SPECIALIZATION_QUESTIONS: Record<string, SpecializationQue
   },
   entrepreneurship: {
     domainId: 'entrepreneurship',
-    questionId: 'Q27_G_ENTREPRENEURSHIP',
+    questionId: 'Q27_H_ENTREPRENEURSHIP',
     title: 'Entrepreneurship & Business Building',
     subtitle: 'You have a business idea. What would you most naturally want to investigate first?',
     options: [

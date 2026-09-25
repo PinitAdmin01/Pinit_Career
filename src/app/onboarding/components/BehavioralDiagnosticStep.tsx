@@ -10,8 +10,10 @@ import {
   SJTQuestion,
   MatrixScenario,
   TradeoffProbe,
-  SJTOption
+  SJTOption,
+  COMMERCE_SPECIALIZATION_QUESTIONS
 } from '@/lib/onboarding/diagnosticRegistry';
+import { SpecializationQuestion } from '@/lib/onboarding/diagnosticRegistryCommerce';
 import {
   RawDiagnosticResponse,
   RawMatrixResponse
@@ -31,7 +33,7 @@ export interface BehavioralDiagnosticStepProps {
   goalAnswers?: any;
 }
 
-type DiagnosticPhase = 'SJT' | 'MATRIX' | 'TRADEOFF';
+type DiagnosticPhase = 'SJT' | 'MATRIX' | 'TRADEOFF' | 'SPECIALIZATION';
 
 export default function BehavioralDiagnosticStep({
   onComplete,
@@ -47,6 +49,24 @@ export default function BehavioralDiagnosticStep({
   const activeMatrixScenarios: MatrixScenario[] = getMatrixScenarios(degreeTrack);
   const activeTradeoffProbes: TradeoffProbe[] = getTradeoffProbes(degreeTrack);
 
+  // Commerce Specialization Question (Q27) resolution
+  const getSpecializationQuestion = (): SpecializationQuestion | null => {
+    if (!isCommerceStream) return null;
+    const roleKey = (goalAnswers?.role || 'accounting_finance').toLowerCase();
+    if (COMMERCE_SPECIALIZATION_QUESTIONS[roleKey]) {
+      return COMMERCE_SPECIALIZATION_QUESTIONS[roleKey];
+    }
+    if (roleKey.includes('audit') || roleKey.includes('tax')) return COMMERCE_SPECIALIZATION_QUESTIONS.audit_taxation;
+    if (roleKey.includes('bank') || roleKey.includes('invest') || roleKey.includes('market')) return COMMERCE_SPECIALIZATION_QUESTIONS.banking_services;
+    if (roleKey.includes('analyt') || roleKey.includes('data')) return COMMERCE_SPECIALIZATION_QUESTIONS.business_analytics;
+    if (roleKey.includes('corp') || roleKey.includes('mgmt') || roleKey.includes('operations')) return COMMERCE_SPECIALIZATION_QUESTIONS.corporate_management;
+    if (roleKey.includes('hr') || roleKey.includes('human')) return COMMERCE_SPECIALIZATION_QUESTIONS.human_resources;
+    if (roleKey.includes('market') || roleKey.includes('sale')) return COMMERCE_SPECIALIZATION_QUESTIONS.marketing_sales;
+    if (roleKey.includes('entrepreneur') || roleKey.includes('business')) return COMMERCE_SPECIALIZATION_QUESTIONS.entrepreneurship;
+    return COMMERCE_SPECIALIZATION_QUESTIONS.accounting_finance;
+  };
+  const activeSpecializationQ = getSpecializationQuestion();
+
   const [phase, setPhase] = useState<DiagnosticPhase>('SJT');
   const [sjtIndex, setSjtIndex] = useState(0);
   const [matrixIndex, setMatrixIndex] = useState(0);
@@ -55,6 +75,7 @@ export default function BehavioralDiagnosticStep({
   const [sjtResponses, setSjtResponses] = useState<RawDiagnosticResponse[]>([]);
   const [matrixResponses, setMatrixResponses] = useState<RawMatrixResponse[]>([]);
   const [tradeoffResponses, setTradeoffResponses] = useState<RawDiagnosticResponse[]>([]);
+  const [specializationResponse, setSpecializationResponse] = useState<RawDiagnosticResponse | undefined>();
 
   // Tactile selection and debounce state
   const [selectedOptId, setSelectedOptId] = useState<string | null>(null);
@@ -118,6 +139,9 @@ export default function BehavioralDiagnosticStep({
         setPhase('MATRIX');
         setMatrixIndex(activeMatrixScenarios.length - 1);
       }
+    } else if (phase === 'SPECIALIZATION') {
+      setPhase('TRADEOFF');
+      setTradeoffIndex(activeTradeoffProbes.length - 1);
     }
   };
 
@@ -178,12 +202,30 @@ export default function BehavioralDiagnosticStep({
       if (tradeoffIndex < activeTradeoffProbes.length - 1) {
         setTradeoffIndex(prev => prev + 1);
       } else {
-        onComplete({
-          sjtResponses,
-          matrixResponses,
-          tradeoffResponses: updated
-        });
+        if (isCommerceStream && activeSpecializationQ) {
+          setPhase('SPECIALIZATION');
+        } else {
+          onComplete({
+            sjtResponses,
+            matrixResponses,
+            tradeoffResponses: updated
+          });
+        }
       }
+    } else if (phase === 'SPECIALIZATION') {
+      const skipRecord: RawDiagnosticResponse = {
+        questionId: activeSpecializationQ?.questionId || 'Q27_SPECIALIZATION',
+        optionId: 'skipped',
+        skipped: true,
+        responseTimeMs: 0,
+        timestamp: Date.now()
+      };
+      onComplete({
+        sjtResponses,
+        matrixResponses,
+        tradeoffResponses,
+        specializationResponse: skipRecord
+      });
     }
   };
 
@@ -283,13 +325,41 @@ export default function BehavioralDiagnosticStep({
       if (tradeoffIndex < activeTradeoffProbes.length - 1) {
         setTradeoffIndex(prev => prev + 1);
       } else {
-        // Completed all behavioral phases!
-        onComplete({
-          sjtResponses,
-          matrixResponses,
-          tradeoffResponses: updated
-        });
+        if (isCommerceStream && activeSpecializationQ) {
+          setPhase('SPECIALIZATION');
+        } else {
+          // Completed all behavioral phases!
+          onComplete({
+            sjtResponses,
+            matrixResponses,
+            tradeoffResponses: updated
+          });
+        }
       }
+    }, 160);
+  };
+
+  // Handle Specialization Option Selection (Q27)
+  const handleSelectSpecializationOption = (optId: string) => {
+    if (isAdvancing) return;
+    setSelectedOptId(optId);
+    setIsAdvancing(true);
+
+    const latency = Date.now() - questionStartTimeRef.current;
+    const specRecord: RawDiagnosticResponse = {
+      questionId: activeSpecializationQ?.questionId || 'Q27_SPECIALIZATION',
+      optionId: optId,
+      responseTimeMs: latency,
+      timestamp: Date.now()
+    };
+
+    setTimeout(() => {
+      onComplete({
+        sjtResponses,
+        matrixResponses,
+        tradeoffResponses,
+        specializationResponse: specRecord
+      });
     }, 160);
   };
 
@@ -318,12 +388,19 @@ export default function BehavioralDiagnosticStep({
           e.preventDefault();
           handleSelectTradeoffOption(currentTradeoff.options[idx].id);
         }
+      } else if (phase === 'SPECIALIZATION') {
+        const keyIndexMap: Record<string, number> = { '1': 0, 'a': 0, '2': 1, 'b': 1, '3': 2, 'c': 2, '4': 3, 'd': 3, '5': 4, 'e': 4, '6': 5, 'f': 5 };
+        const idx = keyIndexMap[key];
+        if (typeof idx === 'number' && activeSpecializationQ?.options[idx]) {
+          e.preventDefault();
+          handleSelectSpecializationOption(activeSpecializationQ.options[idx].id);
+        }
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [phase, sjtIndex, matrixIndex, tradeoffIndex, shuffledSjtOptions, currentTradeoff, isAdvancing, currentMatrixRatings]);
+  }, [phase, sjtIndex, matrixIndex, tradeoffIndex, shuffledSjtOptions, currentTradeoff, activeSpecializationQ, isAdvancing, currentMatrixRatings]);
 
   return (
     <div style={{ flex: 1, padding: '24px 32px', display: 'flex', flexDirection: 'column', height: '100%', overflowY: 'auto' }}>
@@ -411,6 +488,21 @@ export default function BehavioralDiagnosticStep({
           }}>
             3. TRADEOFFS ({tradeoffIndex + 1}/{activeTradeoffProbes.length})
           </span>
+
+          {/* Phase 4 Badge (Commerce Focus) */}
+          {isCommerceStream && activeSpecializationQ && (
+            <span style={{
+              fontSize: 10,
+              fontFamily: 'var(--font-mono, monospace)',
+              padding: '3px 10px',
+              borderRadius: 100,
+              fontWeight: 800,
+              background: phase === 'SPECIALIZATION' ? 'rgba(56, 189, 248, 0.2)' : 'rgba(255,255,255,0.04)',
+              color: phase === 'SPECIALIZATION' ? '#38bdf8' : '#64748b'
+            }}>
+              4. FOCUS (Q27)
+            </span>
+          )}
         </div>
       </div>
 
@@ -423,11 +515,13 @@ export default function BehavioralDiagnosticStep({
               ? 'linear-gradient(90deg, #0284c7 0%, #38bdf8 100%)'
               : 'linear-gradient(90deg, var(--brand, #6366f1) 0%, var(--teal, #14b8a6) 100%)',
             transition: 'width 0.3s ease',
-            width: phase === 'SJT'
-              ? `${((sjtIndex + 1) / (activeSjtQuestions.length + activeMatrixScenarios.length + activeTradeoffProbes.length)) * 100}%`
-              : phase === 'MATRIX'
-                ? `${((activeSjtQuestions.length + matrixIndex + 1) / (activeSjtQuestions.length + activeMatrixScenarios.length + activeTradeoffProbes.length)) * 100}%`
-                : `${((activeSjtQuestions.length + activeMatrixScenarios.length + tradeoffIndex + 1) / (activeSjtQuestions.length + activeMatrixScenarios.length + activeTradeoffProbes.length)) * 100}%`
+            width: (() => {
+              const totalCount = activeSjtQuestions.length + activeMatrixScenarios.length + activeTradeoffProbes.length + (isCommerceStream && activeSpecializationQ ? 1 : 0);
+              if (phase === 'SJT') return `${((sjtIndex + 1) / totalCount) * 100}%`;
+              if (phase === 'MATRIX') return `${((activeSjtQuestions.length + matrixIndex + 1) / totalCount) * 100}%`;
+              if (phase === 'TRADEOFF') return `${((activeSjtQuestions.length + activeMatrixScenarios.length + tradeoffIndex + 1) / totalCount) * 100}%`;
+              return '100%';
+            })()
           }}
         />
       </div>
@@ -711,6 +805,95 @@ export default function BehavioralDiagnosticStep({
                     marginLeft: 12
                   }}>
                     {isSelected && <div style={{ width: 10, height: 10, borderRadius: '50%', background: 'var(--accent-gold, #f59e0b)' }} />}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* ============================================================== */}
+      {/* PHASE 4: COMMERCE SPECIALIZATION & FOCUS (Q27)                  */}
+      {/* ============================================================== */}
+      {phase === 'SPECIALIZATION' && activeSpecializationQ && (
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+          <div style={{ marginBottom: 18 }}>
+            <span style={{ fontSize: 11, fontFamily: 'var(--font-mono, monospace)', color: '#38bdf8', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700 }}>
+              COMMERCE SPECIALIZATION &middot; DOMAIN DEEP-DIVE
+            </span>
+            <h2 style={{ fontSize: 21, fontWeight: 900, color: 'var(--t1, #f8fafc)', letterSpacing: '-0.5px', marginTop: 4, marginBottom: 8 }}>
+              {activeSpecializationQ.title}
+            </h2>
+            <div style={{ padding: '14px 18px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 12, marginBottom: 8 }}>
+              <p style={{ fontSize: 13.5, color: '#f1f5f9', lineHeight: 1.6, margin: 0 }}>
+                {activeSpecializationQ.subtitle}
+              </p>
+            </div>
+            <div style={{ fontSize: 12, color: 'var(--accent, #38bdf8)', fontStyle: 'italic', display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span>🎯</span>
+              <span>Select the specific challenge or capability that best represents where you want to excel:</span>
+            </div>
+          </div>
+
+          {/* Options */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1, marginBottom: 20 }}>
+            {activeSpecializationQ.options.map((opt, idx) => {
+              const isSelected = selectedOptId === opt.id;
+              const isPulsing = isAdvancing && isSelected;
+              return (
+                <button
+                  key={opt.id}
+                  type="button"
+                  onClick={() => handleSelectSpecializationOption(opt.id)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '14px 18px',
+                    borderRadius: 12,
+                    background: isSelected ? 'rgba(56, 189, 248, 0.14)' : 'rgba(255,255,255,0.02)',
+                    border: `1.5px solid ${isSelected ? '#38bdf8' : 'rgba(255,255,255,0.07)'}`,
+                    textAlign: 'left',
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease',
+                    transform: isPulsing ? 'scale(0.99)' : 'none',
+                    boxShadow: isSelected ? '0 0 16px rgba(56, 189, 248, 0.25)' : 'none'
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                    <span style={{
+                      width: 26,
+                      height: 26,
+                      borderRadius: '50%',
+                      background: isSelected ? '#38bdf8' : 'rgba(255,255,255,0.06)',
+                      color: isSelected ? '#030508' : '#94a3b8',
+                      fontFamily: 'var(--font-mono, monospace)',
+                      fontSize: 12,
+                      fontWeight: 800,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0
+                    }}>
+                      {String.fromCharCode(65 + idx)}
+                    </span>
+                    <span style={{ fontSize: 13.5, color: isSelected ? '#ffffff' : '#f1f5f9', lineHeight: 1.5, fontWeight: isSelected ? 700 : 500 }}>
+                      {opt.label}
+                    </span>
+                  </div>
+                  <div style={{
+                    width: 20,
+                    height: 20,
+                    borderRadius: '50%',
+                    border: `2px solid ${isSelected ? '#38bdf8' : 'rgba(255,255,255,0.2)'}`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                    marginLeft: 12
+                  }}>
+                    {isSelected && <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#38bdf8' }} />}
                   </div>
                 </button>
               );
