@@ -1372,7 +1372,7 @@ export function useOnboardingWizard() {
         const computedQT2 = Math.min(60, Math.round((styleScore + (isAdvanced ? 8 : 4)) * (identityAuditReport.trustScore / 100)));
 
         const finalUserGoal = (speechTranscript && speechTranscript.trim().length > 5 ? speechTranscript.trim() : targetGoal) || targetRoleLabel;
-        const tradeoffBottlenecks = (diagnosticProfile?.tradeoffs || []).map(t => t.label || t.id);
+        const tradeoffBottlenecks = (diagnosticProfile?.tradeoffs || []).map(t => t.type);
         const effectiveWeakAreas = Array.from(new Set([...weakAreas, ...tradeoffBottlenecks]));
 
         const payload = {
