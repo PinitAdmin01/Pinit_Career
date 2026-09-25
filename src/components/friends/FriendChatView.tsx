@@ -124,8 +124,11 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
       const data = await res.json();
       if (!data.ok) {
         toast.error('Failed to send', data.error || 'Message error');
-      } else if (data.messageRecord) {
-        setMessages(prev => prev.map(m => m.id === optimisticMsg.id ? data.messageRecord : m));
+      } else {
+        const serverMsg = data.message || data.messageRecord;
+        if (serverMsg) {
+          setMessages(prev => prev.map(m => m.id === optimisticMsg.id ? serverMsg : m));
+        }
       }
     } catch (err) {
       toast.error('Network Error', 'Could not send message');

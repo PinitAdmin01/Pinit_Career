@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import fs from 'fs';
 import path from 'path';
 
@@ -42,6 +43,38 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     const admin = getAdminClient();
     let user: any = null;
 
+    // Check optional viewer auth to compute relationship status
+    let viewerId: string | null = null;
+    let isSelf = false;
+    let relationship: 'friends' | 'sent' | 'received' | 'none' = 'none';
+
+    try {
+      const gated = await requireUserFromRequest(req);
+      if (!gated.error && gated.user?.id) {
+        viewerId = gated.user.id;
+        if (viewerId === studentId) {
+          isSelf = true;
+        }
+      }
+    } catch {}
+
+    if (viewerId && !isSelf && admin) {
+      try {
+        const { data: fr } = await admin
+          .from('friendships')
+          .select('status, requester_id, addressee_id')
+          .or(`and(requester_id.eq.${viewerId},addressee_id.eq.${studentId}),and(requester_id.eq.${studentId},addressee_id.eq.${viewerId})`)
+          .maybeSingle();
+
+        if (fr) {
+          if (fr.status === 'accepted') relationship = 'friends';
+          else if (fr.status === 'pending') {
+            relationship = fr.requester_id === viewerId ? 'sent' : 'received';
+          }
+        }
+      } catch {}
+    }
+
     if (admin) {
       try {
         const { data, error } = await admin
@@ -55,6 +88,20 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
         }
       } catch (err) {
         console.warn('Supabase query in /api/friends/[id] failed:', err);
+      }
+    }
+
+    if (viewerId && !isSelf && relationship === 'none') {
+      const db = readDb();
+      const fr = (db.friendships || []).find((f: any) =>
+        (f.requester_id === viewerId && f.addressee_id === studentId) ||
+        (f.requester_id === studentId && f.addressee_id === viewerId)
+      );
+      if (fr) {
+        if (fr.status === 'accepted') relationship = 'friends';
+        else if (fr.status === 'pending') {
+          relationship = fr.requester_id === viewerId ? 'sent' : 'received';
+        }
       }
     }
 
@@ -93,6 +140,8 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
           projectsCount: user.vault_count || 3,
           leagueTier: user.league_tier || 'Silver Sprint',
           online: true,
+          relationship,
+          isSelf,
           memberSince: user.created_at ? new Date(user.created_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : '2026'
         }
       });
@@ -107,6 +156,8 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
         student: {
           ...mockStudent,
           leagueTier: mockStudent.leagueTier || 'Silver Sprint',
+          relationship,
+          isSelf,
           memberSince: mockStudent.memberSince || '2026'
         }
       });

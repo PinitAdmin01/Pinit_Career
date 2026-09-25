@@ -20,6 +20,8 @@ interface StudentDetail {
   projectsCount: number;
   leagueTier: string;
   online: boolean;
+  relationship?: 'friends' | 'sent' | 'received' | 'none';
+  isSelf?: boolean;
   memberSince: string;
 }
 
@@ -172,33 +174,45 @@ export default function StudentProfilePage() {
 
             {/* Action Buttons */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              {requestSent ? (
-                <button className="friends-btn friends-btn-pending" style={{ padding: '9px 20px', fontSize: 13 }} disabled>
-                  ✓ Request Sent
-                </button>
+              {student.isSelf ? (
+                <span style={{ fontSize: 13, fontWeight: 700, color: '#38bdf8', background: 'rgba(56, 189, 248, 0.15)', padding: '6px 14px', borderRadius: 8, border: '1px solid rgba(56, 189, 248, 0.3)' }}>
+                  👤 Your Public Profile
+                </span>
               ) : (
-                <button
-                  className="friends-btn friends-btn-primary"
-                  onClick={handleAddFriend}
-                  style={{ padding: '9px 20px', fontSize: 13 }}
-                >
-                  + Add Friend
-                </button>
+                <>
+                  {student.relationship === 'friends' ? (
+                    <button className="friends-btn friends-btn-secondary" style={{ padding: '9px 18px', fontSize: 13, borderColor: '#22c55e', color: '#22c55e' }} disabled>
+                      ✓ Connected Friend
+                    </button>
+                  ) : requestSent || student.relationship === 'sent' ? (
+                    <button className="friends-btn friends-btn-pending" style={{ padding: '9px 20px', fontSize: 13 }} disabled>
+                      ✓ Request Sent
+                    </button>
+                  ) : (
+                    <button
+                      className="friends-btn friends-btn-primary"
+                      onClick={handleAddFriend}
+                      style={{ padding: '9px 20px', fontSize: 13 }}
+                    >
+                      + Add Friend
+                    </button>
+                  )}
+                  <button
+                    className="friends-btn friends-btn-secondary"
+                    onClick={handleArenaDuel}
+                    style={{ padding: '9px 18px', fontSize: 13 }}
+                  >
+                    ⚔️ Arena Duel
+                  </button>
+                  <button
+                    className="friends-btn friends-btn-secondary"
+                    onClick={handleOpenChat}
+                    style={{ padding: '9px 18px', fontSize: 13 }}
+                  >
+                    💬 Message
+                  </button>
+                </>
               )}
-              <button
-                className="friends-btn friends-btn-secondary"
-                onClick={handleArenaDuel}
-                style={{ padding: '9px 18px', fontSize: 13 }}
-              >
-                ⚔️ Arena Duel
-              </button>
-              <button
-                className="friends-btn friends-btn-secondary"
-                onClick={handleOpenChat}
-                style={{ padding: '9px 18px', fontSize: 13 }}
-              >
-                💬 Message
-              </button>
             </div>
           </div>
 

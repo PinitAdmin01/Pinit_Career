@@ -248,7 +248,7 @@ export async function POST(req: NextRequest) {
       writeDb(db);
     }
 
-    return NextResponse.json({ ok: true, message: savedMessage });
+    return NextResponse.json({ ok: true, message: savedMessage, messageRecord: savedMessage });
   } catch (err: any) {
     console.error('Error in /api/friends/messages POST:', err);
     return NextResponse.json({ ok: false, error: err.message }, { status: 500 });

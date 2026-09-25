@@ -84,8 +84,11 @@ function FriendsContent() {
       const data = await res.json();
       console.log('[FriendsHub] /api/friends response:', data);
 
-      if (data.ok) {
-        const friends: StudentProfile[] = (data.friends || []).map((f: any) => f.student);
+        const friends: StudentProfile[] = (data.friends || []).map((f: any) => ({
+          ...f.student,
+          relationship: 'friends' as const,
+          friendshipId: f.friendshipId
+        }));
         setFriendsNetwork(friends);
 
         const incoming = (data.incomingRequests || []).map((r: any) => ({
@@ -295,6 +298,17 @@ function FriendsContent() {
   const activeSuggested = useMemo(() => {
     return suggestedStudents.filter(s => !blockedIds.includes(s.id));
   }, [suggestedStudents, blockedIds]);
+
+  // Dynamically resolve drawer student relationship status
+  const drawerStudent = useMemo(() => {
+    if (!selectedStudent) return null;
+    const isFriend = friendsNetwork.some(f => f.id === selectedStudent.id) || selectedStudent.relationship === 'friends';
+    const isSent = Boolean(sentRequests[selectedStudent.id]) || selectedStudent.relationship === 'sent';
+    return {
+      ...selectedStudent,
+      relationship: (isFriend ? 'friends' : isSent ? 'sent' : selectedStudent.relationship || 'none') as 'friends' | 'sent' | 'none' | 'received'
+    };
+  }, [selectedStudent, friendsNetwork, sentRequests]);
 
   return (
     <div className="friends-container">
@@ -1072,7 +1086,7 @@ function FriendsContent() {
 
       {/* ── Slide-over Profile Drawer ── */}
       <FriendProfileDrawer
-        student={selectedStudent}
+        student={drawerStudent}
         onClose={() => setSelectedStudent(null)}
         onSendRequest={(id) => handleAddFriend(id, selectedStudent?.name || 'Student')}
         onRemoveFriend={handleRemoveFriend}
