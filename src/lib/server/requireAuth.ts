@@ -11,7 +11,7 @@ export function getBearerToken(req: Request): string {
 
 /** Verify Supabase JWT from Authorization header. Cookie-only auth is not accepted. */
 export async function requireUserFromRequest(req: Request): Promise<
-  | { user: { id: string; email?: string }; error: null }
+  | { user: { id: string; email?: string; displayName?: string }; error: null }
   | { user: null; error: NextResponse }
 > {
   const token = getBearerToken(req);
@@ -27,7 +27,7 @@ export async function requireUserFromRequest(req: Request): Promise<
   }
 
   if (process.env.ALLOW_DEV_AUTH_BYPASS === 'true' && process.env.NODE_ENV !== 'production' && (token === 'demo-token-bypass' || token.startsWith('test-token-'))) {
-    return { user: { id: 'test_user_001', email: 'student@pinit.in' }, error: null };
+    return { user: { id: 'test_user_001', email: 'student@pinit.in', displayName: 'Student' }, error: null };
   }
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
@@ -64,7 +64,9 @@ export async function requireUserFromRequest(req: Request): Promise<
       };
     }
     console.log(`[Auth Middleware] Verified User: ${data.user.id ? data.user.id.substring(0, 8) + '...' : 'unknown'}`);
-    return { user: { id: data.user.id, email: data.user.email }, error: null };
+    const userMeta = (data.user.user_metadata as any) || {};
+    const displayName = userMeta.full_name || userMeta.name || userMeta.display_name || (data.user.email ? data.user.email.split('@')[0] : 'Student');
+    return { user: { id: data.user.id, email: data.user.email, displayName }, error: null };
   } catch (err: any) {
     console.error('[Auth Middleware Exception]:', err?.message);
     const isExpired = Boolean(err?.message && err.message.toLowerCase().includes('expired'));

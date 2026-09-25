@@ -53,7 +53,7 @@ async function resolveUserId(req: Request): Promise<{ userId: string | null; dis
       errorResponse: NextResponse.json({ ok: false, error: 'UNAUTHORIZED', message: 'Authentication required' }, { status: 401 }),
     };
   }
-  const name = gated.user.displayName || gated.user.email || 'Student Peer';
+  const name = (gated.user as any).displayName || gated.user.email || 'Student Peer';
   return {
     userId: gated.user.id,
     displayName: name,
