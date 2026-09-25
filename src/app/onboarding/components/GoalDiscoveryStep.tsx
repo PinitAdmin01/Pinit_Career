@@ -116,27 +116,78 @@ export default function GoalDiscoveryStep({
     // Apply safe neutral defaults for skipped question so the student is never blocked
     if (isDegreeStep) {
       setDegreeTrack('btech_bca_mca');
-    } else if (currentQ.id.includes('STUDY_IDENTITY')) {
+    } else if (currentQ.id === 'Q1_GEN_STUDY_IDENTITY') {
       setSpecialization('science_research');
-    } else if (currentQ.id.includes('OUTCOME') || currentQ.id.includes('IMMEDIATE_GOAL') || currentQ.id.includes('PRIMARY_OBJECTIVE')) {
+    } else if (
+      currentQ.id === 'Q1_OUTCOME' ||
+      currentQ.id === 'Q2_COMMERCE_OUTCOME' ||
+      currentQ.id === 'Q2_BBA_IMMEDIATE_GOAL' ||
+      currentQ.id === 'Q2_GEN_PRIMARY_OBJECTIVE'
+    ) {
       setOutcome('exploring');
-    } else if (currentQ.id.includes('ROLE') || currentQ.id.includes('GOAL') || currentQ.id.includes('CAREER_DIRECTION') || currentQ.id.includes('CAREER_CONSIDERATION')) {
-      setRole(isBbaStream ? 'management_strategy' : isCommerceStream ? 'accounting_finance' : isGeneralStream ? 'technology' : 'software_engineer');
-    } else if (currentQ.id.includes('HORIZON') || currentQ.id.includes('TIMELINE') || currentQ.id.includes('SUCCESS_OUTCOME')) {
+    } else if (
+      currentQ.id === 'Q2_PRIMARY_ROLE' ||
+      currentQ.id === 'Q1_COMMERCE_GOAL' ||
+      currentQ.id === 'Q1_BBA_CAREER_DIRECTION' ||
+      currentQ.id === 'Q3_GEN_CAREER_CONSIDERATION'
+    ) {
+      setRole(isBbaStream ? 'management_strategy' : isCommerceStream ? 'accounting_finance' : isGeneralStream ? 'technology' : 'full_stack_developer');
+    } else if (currentQ.id === 'Q4_GEN_SUCCESS_OUTCOME') {
+      setSecondaryRoles(['practical_portfolio']);
+    } else if (
+      currentQ.id === 'Q3_HORIZON' ||
+      currentQ.id === 'Q3_COMMERCE_TIMELINE' ||
+      currentQ.id === 'Q3_BBA_TIME_HORIZON' ||
+      currentQ.id === 'Q6_GEN_GOAL_CERTAINTY'
+    ) {
       setHorizonMonths(6);
-    } else if (currentQ.id.includes('MOTIVATION') || currentQ.id.includes('WORK_INTEREST') || currentQ.id.includes('PROBLEM_AFFINITY')) {
+    } else if (
+      currentQ.id === 'Q4_MOTIVATION' ||
+      currentQ.id === 'Q4_COMMERCE_WORK_INTEREST' ||
+      currentQ.id === 'Q4_BBA_PROBLEM_AFFINITY' ||
+      currentQ.id === 'Q5_GEN_MOTIVATION_PROFILE'
+    ) {
       setMotivation(['exploring']);
-    } else if (currentQ.id.includes('EXPERIENCE') || currentQ.id.includes('ARTIFACTS')) {
+    } else if (
+      currentQ.id === 'Q5_EXPERIENCE' ||
+      currentQ.id === 'Q5_COMMERCE_EXPERIENCE' ||
+      currentQ.id === 'Q5_BBA_EXPOSURE_ARTIFACTS' ||
+      currentQ.id === 'Q5_BBA_EXPERIENCE_ARTIFACTS' ||
+      currentQ.id === 'Q8_GEN_EXPERIENCE_OUTSIDE'
+    ) {
       setExposureLevels(['none']);
-    } else if (currentQ.id.includes('CAPABILITY') || currentQ.id.includes('EXPERIENCE_LEVEL') || currentQ.id.includes('PRACTICAL_ABILITY')) {
+    } else if (
+      currentQ.id === 'Q6_CAPABILITY' ||
+      currentQ.id === 'Q6_COMMERCE_CAPABILITY' ||
+      currentQ.id === 'Q6_BBA_EXPERIENCE_LEVEL' ||
+      currentQ.id === 'Q6_BBA_ACTUAL_LEVEL' ||
+      currentQ.id === 'Q7_GEN_PRACTICAL_ABILITY'
+    ) {
       setCapabilitySelfRating(isBbaStream ? 'bba_fresher' : 'beginner_guided');
-    } else if (currentQ.id.includes('TOOLS') || currentQ.id.includes('METHODS')) {
+    } else if (
+      currentQ.id === 'Q7_COMMERCE_TOOLS' ||
+      currentQ.id === 'Q7_BBA_TOOLS_USED' ||
+      currentQ.id === 'Q9_GEN_TOOLS_METHODS'
+    ) {
       setToolsUsed(['none']);
-    } else if (currentQ.id.includes('TIME') || currentQ.id.includes('DAILY_TIME') || currentQ.id.includes('DAILY_AVAILABILITY')) {
+    } else if (
+      currentQ.id === 'Q7_DAILY_TIME' ||
+      currentQ.id === 'Q8_COMMERCE_DAILY_TIME' ||
+      currentQ.id === 'Q9_BBA_DAILY_TIME' ||
+      currentQ.id === 'Q11_GEN_DAILY_AVAILABILITY'
+    ) {
       setDailyMinutes(60);
-    } else if (currentQ.id.includes('CONSTRAINTS') || currentQ.id.includes('OBSTACLE') || currentQ.id.includes('HARDEST_AREAS')) {
+    } else if (
+      currentQ.id === 'Q8_PRIMARY_CONSTRAINTS' ||
+      currentQ.id === 'Q8_BBA_PRIMARY_OBSTACLE' ||
+      currentQ.id === 'Q8_BBA_BIGGEST_OBSTACLE' ||
+      currentQ.id === 'Q10_GEN_HARDEST_AREAS'
+    ) {
       setPrimaryConstraints(['time_scarcity']);
-    } else if (currentQ.id.includes('PROFESSIONAL_CONTEXT') || currentQ.id.includes('WORK_ENVIRONMENT')) {
+    } else if (
+      currentQ.id === 'Q34_BBA_PROFESSIONAL_CONTEXT' ||
+      currentQ.id === 'Q34_BBA_WORK_ENVIRONMENT_EXPERIENCE'
+    ) {
       setSpecialization('no_experience');
     }
 

@@ -1460,7 +1460,57 @@ export function useOnboardingWizard() {
       };
     }
 
-    // 22. Default: Java Backend SDE
+    // 22. Scientific & Academic Research
+    if (goal.includes('research') || goal.includes('science') || goal.includes('academic') || goal.includes('biotech') || goal.includes('lab')) {
+      return {
+        targetRoleLabel: 'Scientific & Quantitative Research Specialist',
+        courseId: 'course-business-analytics',
+        skillsList: 'Research Methodology, Quantitative Analysis, Statistical Modeling, Python for Research, Data Visualization, Report Writing',
+        weakAreas: ['Statistical Hypothesis Testing', 'Large Dataset Wrangling', 'Peer-Review Publication Standards']
+      };
+    }
+
+    // 23. Public Policy, Law & Governance
+    if (goal.includes('law') || goal.includes('legal') || goal.includes('policy') || goal.includes('governance') || goal.includes('public_sector')) {
+      return {
+        targetRoleLabel: 'Public Policy, Compliance & Legal Specialist',
+        courseId: 'course-operations-supplychain-compliance',
+        skillsList: 'Regulatory Compliance, Statutory Analysis, Policy Evaluation, Governance Frameworks, Legal Research & Documentation',
+        weakAreas: ['Statutory Interpretation Nuances', 'Cross-Border Regulatory Alignment', 'Administrative Hearing Procedures']
+      };
+    }
+
+    // 24. Education & Pedagogy
+    if (goal.includes('education') || goal.includes('teaching') || goal.includes('pedagogy') || goal.includes('academic_coaching')) {
+      return {
+        targetRoleLabel: 'Education & Learning Technology Specialist',
+        courseId: 'course-operations-supplychain-compliance',
+        skillsList: 'Instructional Design, Pedagogical Assessment, Learning Outcomes Measurement, Curriculum Scaffolding, Educational Tech',
+        weakAreas: ['Formative Assessment Rubrics', 'Differentiated Instruction Delivery', 'EdTech Analytics Integration']
+      };
+    }
+
+    // 25. Healthcare & Clinical Operations
+    if (goal.includes('health') || goal.includes('clinical') || goal.includes('pharm') || goal.includes('hospital')) {
+      return {
+        targetRoleLabel: 'Healthcare & Clinical Operations Analyst',
+        courseId: 'course-business-analytics',
+        skillsList: 'Healthcare Data Management, Clinical Trial Analytics, Health Informatics, Patient Journey Mapping, Quality Standards',
+        weakAreas: ['Healthcare Compliance (HIPAA/NABH)', 'Electronic Health Records (EHR) Auditing', 'Clinical KPI Dashboards']
+      };
+    }
+
+    // 26. Digital Media & Journalism
+    if (goal.includes('media') || goal.includes('journalism') || goal.includes('content') || goal.includes('writing')) {
+      return {
+        targetRoleLabel: 'Digital Media & Communications Specialist',
+        courseId: 'course-digital-marketing',
+        skillsList: 'Investigative Journalism, Multimedia Content Creation, Digital Publishing, Editorial Standards, Audience Analytics',
+        weakAreas: ['Fact-Checking Protocols', 'SEO Content Architecture', 'Digital Media Ethics & Defamation']
+      };
+    }
+
+    // 27. Default: Java Backend SDE
     return {
       targetRoleLabel: 'Java Backend SDE',
       courseId: 'course-java-logic',
