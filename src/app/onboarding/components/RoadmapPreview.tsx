@@ -216,7 +216,7 @@ export default function RoadmapPreview({
             </span>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8, marginBottom: 8 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 8, marginBottom: 8 }}>
             {[
               { label: '🚀 Exploration', pct: allocations.explorationPct, color: 'var(--accent)' },
               { label: '🛡️ Execution', pct: allocations.executionPct, color: 'var(--teal)' },

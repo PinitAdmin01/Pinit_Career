@@ -156,7 +156,7 @@ export default function OnboardingIntro({
           </div>
 
           {/* Cards Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32, marginBottom: 48 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24, marginBottom: 48 }}>
             {/* Ms. Priya */}
             <div
               onClick={() => {
