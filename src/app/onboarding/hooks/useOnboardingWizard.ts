@@ -1393,7 +1393,6 @@ export function useOnboardingWizard() {
             tradeoffs: diagnosticProfile?.tradeoffs || [],
             roadmapStrategy: diagnosticProfile?.roadmapStrategy || null,
             systemMetadata: diagnosticProfile?.systemMetadata || null,
-            rawAuditTrail: diagnosticProfile?.rawAuditTrail || null,
             weak_areas: effectiveWeakAreas,
             current_ability: currentAbility,
             target_ambition: targetAmbition,
