@@ -167,6 +167,21 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   const cleanPathRef = useRef(cleanPath);
   cleanPathRef.current = cleanPath;
 
+  const clearTourAdvanceTimer = useCallback(() => {
+    if (cancelAutoScrollRef.current) {
+      cancelAutoScrollRef.current();
+      cancelAutoScrollRef.current = null;
+    }
+    if (tourAdvanceTimerRef.current) {
+      clearTimeout(tourAdvanceTimerRef.current);
+      tourAdvanceTimerRef.current = null;
+    }
+    if (tourFallbackTimerRef.current) {
+      clearTimeout(tourFallbackTimerRef.current);
+      tourFallbackTimerRef.current = null;
+    }
+  }, []);
+
   // ── Congratulations state ──────────────────────────────────────────────────
   const [celebEvent, setCelebEvent] = useState<any>(null);
   const celebTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -430,24 +445,9 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
       window.removeEventListener('pinit:trigger_congrats', congratsHandler);
       if (celebTimerRef.current) clearTimeout(celebTimerRef.current);
     };
-  }, [refreshProfile, onExpandLeftNav, user?.id]);
+  }, [refreshProfile, onExpandLeftNav, user?.id, clearTourAdvanceTimer]);
 
   // ── Speak current tour slide, then auto-advance on completion ─────────────
-  const clearTourAdvanceTimer = useCallback(() => {
-    if (cancelAutoScrollRef.current) {
-      cancelAutoScrollRef.current();
-      cancelAutoScrollRef.current = null;
-    }
-    if (tourAdvanceTimerRef.current) {
-      clearTimeout(tourAdvanceTimerRef.current);
-      tourAdvanceTimerRef.current = null;
-    }
-    if (tourFallbackTimerRef.current) {
-      clearTimeout(tourFallbackTimerRef.current);
-      tourFallbackTimerRef.current = null;
-    }
-  }, []);
-
   // Stable callback for tour completion — uses refs so it never changes identity
   const openVoiceSegment = useCallback(() => {
     if (typeof window !== 'undefined') {
@@ -589,9 +589,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     }
   }, [pathname, onboardingStep, roadmapGenerated, setOnboardingStep]);
 
-  if (!mounted || isOnboardingOrAuth) return null;
-
-  const dismissTour = () => {
+  const dismissTour = useCallback(() => {
     if (typeof window !== 'undefined') {
       (window as any).__PINIT_STORY_TOUR_ACTIVE = false;
     }
@@ -601,19 +599,21 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     stopSpeaking(true);
     setIsSpeaking(false);
     completeStoryTour(user?.id);
-    if (cleanPath !== '/dashboard') {
+    if (cleanPathRef.current !== '/dashboard') {
       router.push('/dashboard');
     }
-  };
-  const prevTourSlide = () => {
+  }, [clearTourAdvanceTimer, user?.id, router]);
+
+  const prevTourSlide = useCallback(() => {
     if (tourStep > 0) {
       clearTourAdvanceTimer();
       stopSpeaking(true);
       lastSpokenTourStepRef.current = null;
       setTourStep(s => s - 1);
     }
-  };
-  const nextTourSlide = () => {
+  }, [tourStep, clearTourAdvanceTimer]);
+
+  const nextTourSlide = useCallback(() => {
     clearTourAdvanceTimer();
     stopSpeaking(true);
     if (tourStep >= TOUR_SLIDES.length - 1) {
@@ -622,15 +622,16 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
       lastSpokenTourStepRef.current = null;
       setTourStep(s => s + 1);
     }
-  };
-  const replayCurrentSlide = () => {
+  }, [tourStep, clearTourAdvanceTimer, openVoiceSegment]);
+
+  const replayCurrentSlide = useCallback(() => {
     lastSpokenTourStepRef.current = null;
     clearTourAdvanceTimer();
     stopSpeaking(true);
     speakCurrentTourSlide();
-  };
+  }, [clearTourAdvanceTimer, speakCurrentTourSlide]);
 
-  const startStoryMode = () => {
+  const startStoryMode = useCallback(() => {
     if (typeof window !== 'undefined') {
       (window as any).__PINIT_STORY_TOUR_ACTIVE = true;
     }
@@ -643,7 +644,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     setTourActive(true);
     setTourStep(0);
     setMinimized(false);
-  };
+  }, [clearTourAdvanceTimer, user?.id, onExpandLeftNav]);
 
   // ── Keyboard accessibility for story tour (Arrow keys, Space, Escape) ─────
   useEffect(() => {
@@ -670,6 +671,8 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [tourActive, nextTourSlide, prevTourSlide, dismissTour, replayCurrentSlide]);
+
+  if (!mounted || isOnboardingOrAuth) return null;
 
   const isCentered = onboardingStep === 0;
 
