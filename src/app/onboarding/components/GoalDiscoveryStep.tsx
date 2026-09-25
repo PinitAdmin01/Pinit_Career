@@ -69,6 +69,7 @@ export default function GoalDiscoveryStep({
   const isDegreeStep = currentIdx === 0;
   const isCommerceStream = degreeTrack.includes('bcom') || degreeTrack.includes('mcom') || degreeTrack.includes('commerce');
   const isBbaStream = degreeTrack.includes('bba') || degreeTrack.includes('mba') || degreeTrack.includes('management');
+  const isGeneralStream = degreeTrack.includes('other') || degreeTrack.includes('general') || degreeTrack.includes('universal') || degreeTrack.includes('non-tech');
 
   // Handle Advancing to Next Question
   const handleNext = () => {
@@ -88,7 +89,13 @@ export default function GoalDiscoveryStep({
         primaryConstraints,
         toolsUsed,
         specialization,
-        priorExperience: isBbaStream ? 'Business & Management' : isCommerceStream ? 'Commerce & Finance' : 'Computer Science / Engineering'
+        priorExperience: isBbaStream
+          ? 'Business & Management'
+          : isCommerceStream
+          ? 'Commerce & Finance'
+          : isGeneralStream
+          ? 'Interdisciplinary & General Studies'
+          : 'Computer Science / Engineering'
       });
     }
   };
@@ -109,23 +116,25 @@ export default function GoalDiscoveryStep({
     // Apply safe neutral defaults for skipped question so the student is never blocked
     if (isDegreeStep) {
       setDegreeTrack('btech_bca_mca');
-    } else if (currentQ.id.includes('OUTCOME') || currentQ.id.includes('IMMEDIATE_GOAL')) {
+    } else if (currentQ.id.includes('STUDY_IDENTITY')) {
+      setSpecialization('science_research');
+    } else if (currentQ.id.includes('OUTCOME') || currentQ.id.includes('IMMEDIATE_GOAL') || currentQ.id.includes('PRIMARY_OBJECTIVE')) {
       setOutcome('exploring');
-    } else if (currentQ.id.includes('ROLE') || currentQ.id.includes('GOAL') || currentQ.id.includes('CAREER_DIRECTION')) {
-      setRole(isBbaStream ? 'management_strategy' : isCommerceStream ? 'accounting_finance' : 'software_engineer');
-    } else if (currentQ.id.includes('HORIZON') || currentQ.id.includes('TIMELINE')) {
+    } else if (currentQ.id.includes('ROLE') || currentQ.id.includes('GOAL') || currentQ.id.includes('CAREER_DIRECTION') || currentQ.id.includes('CAREER_CONSIDERATION')) {
+      setRole(isBbaStream ? 'management_strategy' : isCommerceStream ? 'accounting_finance' : isGeneralStream ? 'technology' : 'software_engineer');
+    } else if (currentQ.id.includes('HORIZON') || currentQ.id.includes('TIMELINE') || currentQ.id.includes('SUCCESS_OUTCOME')) {
       setHorizonMonths(6);
     } else if (currentQ.id.includes('MOTIVATION') || currentQ.id.includes('WORK_INTEREST') || currentQ.id.includes('PROBLEM_AFFINITY')) {
       setMotivation(['exploring']);
     } else if (currentQ.id.includes('EXPERIENCE') || currentQ.id.includes('ARTIFACTS')) {
       setExposureLevels(['none']);
-    } else if (currentQ.id.includes('CAPABILITY') || currentQ.id.includes('EXPERIENCE_LEVEL')) {
+    } else if (currentQ.id.includes('CAPABILITY') || currentQ.id.includes('EXPERIENCE_LEVEL') || currentQ.id.includes('PRACTICAL_ABILITY')) {
       setCapabilitySelfRating(isBbaStream ? 'bba_fresher' : 'beginner_guided');
-    } else if (currentQ.id.includes('TOOLS')) {
+    } else if (currentQ.id.includes('TOOLS') || currentQ.id.includes('METHODS')) {
       setToolsUsed(['none']);
-    } else if (currentQ.id.includes('TIME') || currentQ.id.includes('DAILY_TIME')) {
+    } else if (currentQ.id.includes('TIME') || currentQ.id.includes('DAILY_TIME') || currentQ.id.includes('DAILY_AVAILABILITY')) {
       setDailyMinutes(60);
-    } else if (currentQ.id.includes('CONSTRAINTS') || currentQ.id.includes('OBSTACLE')) {
+    } else if (currentQ.id.includes('CONSTRAINTS') || currentQ.id.includes('OBSTACLE') || currentQ.id.includes('HARDEST_AREAS')) {
       setPrimaryConstraints(['time_scarcity']);
     } else if (currentQ.id.includes('PROFESSIONAL_CONTEXT') || currentQ.id.includes('WORK_ENVIRONMENT')) {
       setSpecialization('no_experience');
@@ -179,7 +188,7 @@ export default function GoalDiscoveryStep({
     const norm = (track || '').toLowerCase();
     if (norm.includes('bcom') || norm.includes('mcom') || norm.includes('commerce') || norm.includes('finance')) return 'B.COM / M.COM';
     if (norm.includes('bba') || norm.includes('mba') || norm.includes('management')) return 'BBA / MBA';
-    if (norm === 'other') return 'OTHER / GENERAL';
+    if (norm.includes('other') || norm.includes('general') || norm.includes('universal') || norm.includes('non-tech')) return 'OTHER / GENERAL';
     return 'B.TECH / BCA / MCA';
   };
 
@@ -222,9 +231,9 @@ export default function GoalDiscoveryStep({
             <span style={{
               fontSize: 11,
               fontFamily: 'var(--font-mono, monospace)',
-              color: isBbaStream ? '#f59e0b' : isCommerceStream ? '#38bdf8' : '#34d399',
-              background: isBbaStream ? 'rgba(245, 158, 11, 0.1)' : isCommerceStream ? 'rgba(56, 189, 248, 0.1)' : 'rgba(52, 211, 153, 0.1)',
-              border: `1px solid ${isBbaStream ? 'rgba(245, 158, 11, 0.3)' : isCommerceStream ? 'rgba(56, 189, 248, 0.3)' : 'rgba(52, 211, 153, 0.3)'}`,
+              color: isBbaStream ? '#f59e0b' : isCommerceStream ? '#38bdf8' : isGeneralStream ? '#c084fc' : '#34d399',
+              background: isBbaStream ? 'rgba(245, 158, 11, 0.1)' : isCommerceStream ? 'rgba(56, 189, 248, 0.1)' : isGeneralStream ? 'rgba(192, 132, 252, 0.12)' : 'rgba(52, 211, 153, 0.1)',
+              border: `1px solid ${isBbaStream ? 'rgba(245, 158, 11, 0.3)' : isCommerceStream ? 'rgba(56, 189, 248, 0.3)' : isGeneralStream ? 'rgba(192, 132, 252, 0.35)' : 'rgba(52, 211, 153, 0.3)'}`,
               borderRadius: 100,
               padding: '3px 10px',
               fontWeight: 800
@@ -258,6 +267,8 @@ export default function GoalDiscoveryStep({
               ? 'linear-gradient(90deg, #d97706 0%, #f59e0b 100%)'
               : isCommerceStream
               ? 'linear-gradient(90deg, #0284c7 0%, #38bdf8 100%)'
+              : isGeneralStream
+              ? 'linear-gradient(90deg, #7c3aed 0%, #c084fc 100%)'
               : 'linear-gradient(90deg, var(--brand, #6366f1) 0%, var(--teal, #14b8a6) 100%)',
             transition: 'width 0.3s ease'
           }}
@@ -291,6 +302,9 @@ export default function GoalDiscoveryStep({
                     setRole('accounting_finance');
                   } else if (opt.mappedValue === 'bba_mba') {
                     setRole('management_strategy');
+                  } else if (opt.mappedValue === 'other') {
+                    setRole('technology');
+                    setSpecialization('science_research');
                   } else {
                     setRole('full_stack_developer');
                   }
@@ -338,8 +352,45 @@ export default function GoalDiscoveryStep({
           );
         })}
 
+        {/* STEP: GENERAL STUDY FIELD / SPECIALIZATION */}
+        {!isDegreeStep && currentQ.id === 'Q1_GEN_STUDY_IDENTITY' && currentQ.options.map(opt => {
+          const isSelected = specialization === opt.mappedValue;
+          return (
+            <button
+              key={opt.id}
+              type="button"
+              onClick={() => {
+                triggerTactile(opt.id, () => {
+                  setSpecialization(opt.mappedValue as string);
+                  setTimeout(handleNext, 140);
+                });
+              }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '13px 18px',
+                borderRadius: 12,
+                background: isSelected ? 'rgba(192, 132, 252, 0.12)' : 'rgba(255,255,255,0.02)',
+                border: `1.5px solid ${isSelected ? '#c084fc' : 'rgba(255,255,255,0.06)'}`,
+                textAlign: 'left',
+                cursor: 'pointer',
+                transition: 'all 0.15s ease'
+              }}
+            >
+              <div>
+                <div style={{ fontSize: 13.5, fontWeight: 800, color: isSelected ? '#c084fc' : '#f8fafc' }}>{opt.label}</div>
+                {opt.description && <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{opt.description}</div>}
+              </div>
+              <div style={{ width: 18, height: 18, borderRadius: '50%', border: `2px solid ${isSelected ? '#c084fc' : 'rgba(255,255,255,0.2)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                {isSelected && <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#c084fc' }} />}
+              </div>
+            </button>
+          );
+        })}
+
         {/* STEP 1: CAREER GOAL / ROLE SELECTION */}
-        {!isDegreeStep && (currentQ.id === 'Q1_OUTCOME' || currentQ.id === 'Q2_COMMERCE_OUTCOME' || currentQ.id === 'Q2_BBA_IMMEDIATE_GOAL') && currentQ.options.map(opt => {
+        {!isDegreeStep && (currentQ.id === 'Q1_OUTCOME' || currentQ.id === 'Q2_COMMERCE_OUTCOME' || currentQ.id === 'Q2_BBA_IMMEDIATE_GOAL' || currentQ.id === 'Q2_GEN_PRIMARY_OBJECTIVE') && currentQ.options.map(opt => {
           const isSelected = outcome === opt.mappedValue;
           return (
             <button
@@ -377,8 +428,8 @@ export default function GoalDiscoveryStep({
           );
         })}
 
-        {/* STEP 2: PRIMARY ROLE / COMMERCE GOAL / BBA DIRECTION */}
-        {!isDegreeStep && (currentQ.id === 'Q2_PRIMARY_ROLE' || currentQ.id === 'Q1_COMMERCE_GOAL' || currentQ.id === 'Q1_BBA_CAREER_DIRECTION') && currentQ.options.map(opt => {
+        {/* STEP 2: PRIMARY ROLE / COMMERCE GOAL / BBA DIRECTION / GENERAL CAREER */}
+        {!isDegreeStep && (currentQ.id === 'Q2_PRIMARY_ROLE' || currentQ.id === 'Q1_COMMERCE_GOAL' || currentQ.id === 'Q1_BBA_CAREER_DIRECTION' || currentQ.id === 'Q3_GEN_CAREER_CONSIDERATION') && currentQ.options.map(opt => {
           const isSelected = role === opt.mappedValue;
           return (
             <button
@@ -409,6 +460,118 @@ export default function GoalDiscoveryStep({
               </div>
               <div style={{ width: 18, height: 18, borderRadius: '50%', border: `2px solid ${isSelected ? 'var(--brand-bright, #818cf8)' : 'rgba(255,255,255,0.2)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 {isSelected && <div style={{ width: 10, height: 10, borderRadius: '50%', background: 'var(--brand-bright, #818cf8)' }} />}
+              </div>
+            </button>
+          );
+        })}
+
+        {/* STEP: GENERAL SUCCESS OUTCOME (6–12 MONTHS) */}
+        {!isDegreeStep && currentQ.id === 'Q4_GEN_SUCCESS_OUTCOME' && currentQ.options.map(opt => {
+          const isSelected = secondaryRoles.includes(opt.mappedValue as string);
+          return (
+            <button
+              key={opt.id}
+              type="button"
+              onClick={() => {
+                triggerTactile(opt.id, () => {
+                  setSecondaryRoles([opt.mappedValue as string]);
+                  setTimeout(handleNext, 140);
+                });
+              }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '13px 18px',
+                borderRadius: 12,
+                background: isSelected ? 'rgba(56, 189, 248, 0.12)' : 'rgba(255,255,255,0.02)',
+                border: `1.5px solid ${isSelected ? '#38bdf8' : 'rgba(255,255,255,0.06)'}`,
+                textAlign: 'left',
+                cursor: 'pointer',
+                transition: 'all 0.15s ease'
+              }}
+            >
+              <div>
+                <div style={{ fontSize: 13.5, fontWeight: 800, color: isSelected ? '#38bdf8' : '#f8fafc' }}>{opt.label}</div>
+                {opt.description && <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{opt.description}</div>}
+              </div>
+              <div style={{ width: 18, height: 18, borderRadius: '50%', border: `2px solid ${isSelected ? '#38bdf8' : 'rgba(255,255,255,0.2)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                {isSelected && <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#38bdf8' }} />}
+              </div>
+            </button>
+          );
+        })}
+
+        {/* STEP: GENERAL MOTIVATION PROFILE (MULTI-SELECT UP TO 3) */}
+        {!isDegreeStep && currentQ.id === 'Q5_GEN_MOTIVATION_PROFILE' && (
+          <div>
+            <div style={{ fontSize: 11.5, color: '#94a3b8', marginBottom: 10 }}>
+              Select up to 3 motivations ({motivation.length}/3 selected):
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 8 }}>
+              {currentQ.options.map(opt => {
+                const isSelected = motivation.includes(opt.mappedValue as string);
+                return (
+                  <button
+                    key={opt.id}
+                    type="button"
+                    onClick={() => toggleMultiSelect(opt.mappedValue as string, motivation, setMotivation, 3)}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '12px 16px',
+                      borderRadius: 10,
+                      background: isSelected ? 'rgba(245, 158, 11, 0.12)' : 'rgba(255,255,255,0.02)',
+                      border: `1.5px solid ${isSelected ? '#f59e0b' : 'rgba(255,255,255,0.06)'}`,
+                      textAlign: 'left',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    <div>
+                      <div style={{ fontSize: 12.5, fontWeight: 700, color: isSelected ? '#f59e0b' : '#f8fafc' }}>{opt.label}</div>
+                      {opt.description && <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{opt.description}</div>}
+                    </div>
+                    <span style={{ fontSize: 13, color: '#f59e0b' }}>{isSelected ? '✓' : ''}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* STEP: GENERAL GOAL CERTAINTY (1–5) */}
+        {!isDegreeStep && currentQ.id === 'Q6_GEN_GOAL_CERTAINTY' && currentQ.options.map(opt => {
+          const isSelected = horizonMonths === Number(opt.mappedValue);
+          return (
+            <button
+              key={opt.id}
+              type="button"
+              onClick={() => {
+                triggerTactile(opt.id, () => {
+                  setHorizonMonths(Number(opt.mappedValue));
+                  setTimeout(handleNext, 140);
+                });
+              }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '14px 18px',
+                borderRadius: 12,
+                background: isSelected ? 'rgba(99, 102, 241, 0.12)' : 'rgba(255,255,255,0.02)',
+                border: `1.5px solid ${isSelected ? '#818cf8' : 'rgba(255,255,255,0.06)'}`,
+                textAlign: 'left',
+                cursor: 'pointer',
+                transition: 'all 0.15s ease'
+              }}
+            >
+              <div>
+                <div style={{ fontSize: 14, fontWeight: 800, color: isSelected ? '#818cf8' : '#f8fafc' }}>{opt.label}</div>
+                {opt.description && <div style={{ fontSize: 11.5, color: '#94a3b8', marginTop: 2 }}>{opt.description}</div>}
+              </div>
+              <div style={{ width: 18, height: 18, borderRadius: '50%', border: `2px solid ${isSelected ? '#818cf8' : 'rgba(255,255,255,0.2)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                {isSelected && <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#818cf8' }} />}
               </div>
             </button>
           );
@@ -488,8 +651,8 @@ export default function GoalDiscoveryStep({
           );
         })}
 
-        {/* STEP 5: PRIOR EXPERIENCE / ARTIFACTS (MULTI-SELECT) */}
-        {!isDegreeStep && (currentQ.id === 'Q5_EXPERIENCE' || currentQ.id === 'Q5_COMMERCE_EXPERIENCE' || currentQ.id === 'Q5_BBA_EXPOSURE_ARTIFACTS' || currentQ.id === 'Q5_BBA_EXPERIENCE_ARTIFACTS') && (
+        {/* STEP 5: PRIOR EXPERIENCE / ARTIFACTS / OUTSIDE CLASSROOM (MULTI-SELECT) */}
+        {!isDegreeStep && (currentQ.id === 'Q5_EXPERIENCE' || currentQ.id === 'Q5_COMMERCE_EXPERIENCE' || currentQ.id === 'Q5_BBA_EXPOSURE_ARTIFACTS' || currentQ.id === 'Q5_BBA_EXPERIENCE_ARTIFACTS' || currentQ.id === 'Q8_GEN_EXPERIENCE_OUTSIDE') && (
           <div>
             <div style={{ fontSize: 11.5, color: '#94a3b8', marginBottom: 10 }}>
               Select all that apply to you:
@@ -523,8 +686,8 @@ export default function GoalDiscoveryStep({
           </div>
         )}
 
-        {/* STEP 6: CAPABILITY / EXPERIENCE LEVEL */}
-        {!isDegreeStep && (currentQ.id === 'Q6_CAPABILITY' || currentQ.id === 'Q6_COMMERCE_CAPABILITY' || currentQ.id === 'Q6_BBA_EXPERIENCE_LEVEL' || currentQ.id === 'Q6_BBA_ACTUAL_LEVEL') && currentQ.options.map(opt => {
+        {/* STEP 6: CAPABILITY / EXPERIENCE LEVEL / PRACTICAL ABILITY */}
+        {!isDegreeStep && (currentQ.id === 'Q6_CAPABILITY' || currentQ.id === 'Q6_COMMERCE_CAPABILITY' || currentQ.id === 'Q6_BBA_EXPERIENCE_LEVEL' || currentQ.id === 'Q6_BBA_ACTUAL_LEVEL' || currentQ.id === 'Q7_GEN_PRACTICAL_ABILITY') && currentQ.options.map(opt => {
           const isSelected = capabilitySelfRating === opt.mappedValue;
           return (
             <button
@@ -560,11 +723,11 @@ export default function GoalDiscoveryStep({
           );
         })}
 
-        {/* STEP 7: TOOLS PROFICIENCY (COMMERCE & BBA) */}
-        {!isDegreeStep && (currentQ.id === 'Q7_COMMERCE_TOOLS' || currentQ.id === 'Q7_BBA_TOOLS_USED') && (
+        {/* STEP 7: TOOLS PROFICIENCY (COMMERCE, BBA & GENERAL) */}
+        {!isDegreeStep && (currentQ.id === 'Q7_COMMERCE_TOOLS' || currentQ.id === 'Q7_BBA_TOOLS_USED' || currentQ.id === 'Q9_GEN_TOOLS_METHODS') && (
           <div>
             <div style={{ fontSize: 11.5, color: '#94a3b8', marginBottom: 10 }}>
-              Select tools you have actually opened or worked with:
+              Select tools and methods you have actually used:
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 8 }}>
               {currentQ.options.map(opt => {
@@ -595,8 +758,8 @@ export default function GoalDiscoveryStep({
           </div>
         )}
 
-        {/* STEP: DAILY TIME (TECH Q7, COMMERCE Q8, BBA Q9) */}
-        {!isDegreeStep && (currentQ.id === 'Q7_DAILY_TIME' || currentQ.id === 'Q8_COMMERCE_DAILY_TIME' || currentQ.id === 'Q9_BBA_DAILY_TIME') && currentQ.options.map(opt => {
+        {/* STEP: DAILY TIME (TECH Q7, COMMERCE Q8, BBA Q9, GENERAL Q11) */}
+        {!isDegreeStep && (currentQ.id === 'Q7_DAILY_TIME' || currentQ.id === 'Q8_COMMERCE_DAILY_TIME' || currentQ.id === 'Q9_BBA_DAILY_TIME' || currentQ.id === 'Q11_GEN_DAILY_AVAILABILITY') && currentQ.options.map(opt => {
           const isSelected = dailyMinutes === Number(opt.mappedValue);
           return (
             <button
@@ -632,8 +795,8 @@ export default function GoalDiscoveryStep({
           );
         })}
 
-        {/* STEP: PRIMARY CONSTRAINTS / OBSTACLES (TECH Q8 MAX 3, BBA Q8 MAX 2) */}
-        {!isDegreeStep && (currentQ.id === 'Q8_PRIMARY_CONSTRAINTS' || currentQ.id === 'Q8_BBA_PRIMARY_OBSTACLE' || currentQ.id === 'Q8_BBA_BIGGEST_OBSTACLE') && (
+        {/* STEP: PRIMARY CONSTRAINTS / OBSTACLES (TECH Q8 MAX 3, BBA Q8 MAX 2, GENERAL Q10 MAX 3) */}
+        {!isDegreeStep && (currentQ.id === 'Q8_PRIMARY_CONSTRAINTS' || currentQ.id === 'Q8_BBA_PRIMARY_OBSTACLE' || currentQ.id === 'Q8_BBA_BIGGEST_OBSTACLE' || currentQ.id === 'Q10_GEN_HARDEST_AREAS') && (
           <div>
             <div style={{ fontSize: 11, color: 'var(--t3, #94a3b8)', marginBottom: 8, fontStyle: 'italic' }}>
               Selected: {primaryConstraints.length} / {currentQ.id.includes('BBA') ? '2' : '3'} max
@@ -707,6 +870,7 @@ export default function GoalDiscoveryStep({
 
         {/* UNIVERSAL FALLBACK: Guarantees ANY unmapped or stream-specific question renders cleanly */}
         {!isDegreeStep && 
+          !currentQ.id.includes('_GEN_') &&
           currentQ.id !== 'Q1_OUTCOME' && currentQ.id !== 'Q2_COMMERCE_OUTCOME' && currentQ.id !== 'Q2_BBA_IMMEDIATE_GOAL' &&
           currentQ.id !== 'Q2_PRIMARY_ROLE' && currentQ.id !== 'Q1_COMMERCE_GOAL' && currentQ.id !== 'Q1_BBA_CAREER_DIRECTION' &&
           currentQ.id !== 'Q3_HORIZON' && currentQ.id !== 'Q3_COMMERCE_TIMELINE' && currentQ.id !== 'Q3_BBA_TIME_HORIZON' &&
@@ -827,8 +991,12 @@ export default function GoalDiscoveryStep({
             onClick={handleNext}
             style={{
               padding: '10px 24px',
-              background: isCommerceStream
+              background: isBbaStream
+                ? 'linear-gradient(135deg, #d97706 0%, #f59e0b 100%)'
+                : isCommerceStream
                 ? 'linear-gradient(135deg, #0284c7 0%, #38bdf8 100%)'
+                : isGeneralStream
+                ? 'linear-gradient(135deg, #7c3aed 0%, #c084fc 100%)'
                 : 'linear-gradient(135deg, var(--brand, #6366f1) 0%, var(--teal, #14b8a6) 100%)',
               border: 'none',
               borderRadius: 10,

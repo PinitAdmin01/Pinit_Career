@@ -12,7 +12,8 @@ import {
   TradeoffProbe,
   SJTOption,
   COMMERCE_SPECIALIZATION_QUESTIONS,
-  BBA_SPECIALIZATION_QUESTIONS
+  BBA_SPECIALIZATION_QUESTIONS,
+  GENERAL_SPECIALIZATION_QUESTIONS
 } from '@/lib/onboarding/diagnosticRegistry';
 import { SpecializationQuestion } from '@/lib/onboarding/diagnosticRegistryCommerce';
 import {
@@ -46,13 +47,14 @@ export default function BehavioralDiagnosticStep({
   const degreeTrack = goalAnswers?.degreeTrack || 'btech_bca_mca';
   const isCommerceStream = degreeTrack.includes('bcom') || degreeTrack.includes('mcom') || degreeTrack.includes('commerce');
   const isBbaStream = degreeTrack.includes('bba') || degreeTrack.includes('mba') || degreeTrack.includes('management');
-  const hasSpecialization = isCommerceStream || isBbaStream;
+  const isGeneralStream = degreeTrack.includes('other') || degreeTrack.includes('general') || degreeTrack.includes('universal') || degreeTrack.includes('non-tech');
+  const hasSpecialization = isCommerceStream || isBbaStream || isGeneralStream;
 
   const activeSjtQuestions: SJTQuestion[] = getSjtQuestions(degreeTrack);
   const activeMatrixScenarios: MatrixScenario[] = getMatrixScenarios(degreeTrack);
   const activeTradeoffProbes: TradeoffProbe[] = getTradeoffProbes(degreeTrack);
 
-  // Specialization Question (Q27 for Commerce, Q33 for BBA) resolution
+  // Specialization Question (Q27 for Commerce, Q33 for BBA, Q31 for General) resolution
   interface GenericSpecializationQuestion {
     domainId: string;
     questionId: string;
@@ -67,6 +69,34 @@ export default function BehavioralDiagnosticStep({
   }
 
   const getSpecializationQuestion = (): GenericSpecializationQuestion | null => {
+    if (isGeneralStream) {
+      const domainKey = (goalAnswers?.specialization || goalAnswers?.role || 'science_research').toLowerCase();
+      if (GENERAL_SPECIALIZATION_QUESTIONS[domainKey]) {
+        return GENERAL_SPECIALIZATION_QUESTIONS[domainKey];
+      }
+      if (domainKey.includes('sci') || domainKey.includes('bio') || domainKey.includes('chem') || domainKey.includes('phys') || domainKey.includes('math') || domainKey.includes('stat') || domainKey.includes('research')) {
+        return GENERAL_SPECIALIZATION_QUESTIONS.science_research;
+      }
+      if (domainKey.includes('eng') || domainKey.includes('tech') || domainKey.includes('hardware') || domainKey.includes('civil') || domainKey.includes('mech')) {
+        return GENERAL_SPECIALIZATION_QUESTIONS.engineering_technical;
+      }
+      if (domainKey.includes('art') || domainKey.includes('human') || domainKey.includes('psych') || domainKey.includes('soci') || domainKey.includes('journal') || domainKey.includes('media') || domainKey.includes('english')) {
+        return GENERAL_SPECIALIZATION_QUESTIONS.arts_humanities;
+      }
+      if (domainKey.includes('des') || domainKey.includes('creat') || domainKey.includes('anim') || domainKey.includes('visual')) {
+        return GENERAL_SPECIALIZATION_QUESTIONS.design_creative;
+      }
+      if (domainKey.includes('law') || domainKey.includes('legal') || domainKey.includes('llb') || domainKey.includes('juris')) {
+        return GENERAL_SPECIALIZATION_QUESTIONS.law;
+      }
+      if (domainKey.includes('edu') || domainKey.includes('teach') || domainKey.includes('pedag')) {
+        return GENERAL_SPECIALIZATION_QUESTIONS.education;
+      }
+      if (domainKey.includes('health') || domainKey.includes('pharm') || domainKey.includes('medic') || domainKey.includes('clinic')) {
+        return GENERAL_SPECIALIZATION_QUESTIONS.healthcare_life_sciences;
+      }
+      return GENERAL_SPECIALIZATION_QUESTIONS.science_research;
+    }
     if (isBbaStream) {
       const roleKey = (goalAnswers?.role || goalAnswers?.careerDirection || 'consulting_strategy').toLowerCase();
       if (BBA_SPECIALIZATION_QUESTIONS[roleKey]) {
@@ -256,7 +286,7 @@ export default function BehavioralDiagnosticStep({
       }
     } else if (phase === 'SPECIALIZATION') {
       const skipRecord: RawDiagnosticResponse = {
-        questionId: activeSpecializationQ?.questionId || (isBbaStream ? 'Q33_SPECIALIZATION' : 'Q27_SPECIALIZATION'),
+        questionId: activeSpecializationQ?.questionId || (isGeneralStream ? 'Q31_SPECIALIZATION' : isBbaStream ? 'Q33_SPECIALIZATION' : 'Q27_SPECIALIZATION'),
         optionId: 'skipped',
         skipped: true,
         responseTimeMs: 0,
@@ -389,7 +419,7 @@ export default function BehavioralDiagnosticStep({
 
     const latency = Date.now() - questionStartTimeRef.current;
     const specRecord: RawDiagnosticResponse = {
-      questionId: activeSpecializationQ?.questionId || (isBbaStream ? 'Q33_SPECIALIZATION' : 'Q27_SPECIALIZATION'),
+      questionId: activeSpecializationQ?.questionId || (isGeneralStream ? 'Q31_SPECIALIZATION' : isBbaStream ? 'Q33_SPECIALIZATION' : 'Q27_SPECIALIZATION'),
       optionId: optId,
       responseTimeMs: latency,
       timestamp: Date.now()
@@ -485,11 +515,11 @@ export default function BehavioralDiagnosticStep({
             padding: '3px 10px',
             borderRadius: 100,
             fontWeight: 800,
-            background: isBbaStream ? 'rgba(245, 158, 11, 0.12)' : isCommerceStream ? 'rgba(56, 189, 248, 0.12)' : 'rgba(52, 211, 153, 0.12)',
-            color: isBbaStream ? '#f59e0b' : isCommerceStream ? '#38bdf8' : '#34d399',
-            border: `1px solid ${isBbaStream ? 'rgba(245, 158, 11, 0.3)' : isCommerceStream ? 'rgba(56, 189, 248, 0.3)' : 'rgba(52, 211, 153, 0.3)'}`
+            background: isGeneralStream ? 'rgba(192, 132, 252, 0.12)' : isBbaStream ? 'rgba(245, 158, 11, 0.12)' : isCommerceStream ? 'rgba(56, 189, 248, 0.12)' : 'rgba(52, 211, 153, 0.12)',
+            color: isGeneralStream ? '#c084fc' : isBbaStream ? '#f59e0b' : isCommerceStream ? '#38bdf8' : '#34d399',
+            border: `1px solid ${isGeneralStream ? 'rgba(192, 132, 252, 0.3)' : isBbaStream ? 'rgba(245, 158, 11, 0.3)' : isCommerceStream ? 'rgba(56, 189, 248, 0.3)' : 'rgba(52, 211, 153, 0.3)'}`
           }}>
-            {isBbaStream ? 'BBA & MANAGEMENT' : isCommerceStream ? 'COMMERCE & FINANCE' : 'ENGINEERING & TECH'}
+            {isGeneralStream ? 'UNIVERSAL & INTERDISCIPLINARY' : isBbaStream ? 'BBA & MANAGEMENT' : isCommerceStream ? 'COMMERCE & FINANCE' : 'ENGINEERING & TECH'}
           </span>
 
           {/* Phase 1 Badge */}
@@ -542,7 +572,7 @@ export default function BehavioralDiagnosticStep({
               background: phase === 'SPECIALIZATION' ? 'rgba(56, 189, 248, 0.2)' : 'rgba(255,255,255,0.04)',
               color: phase === 'SPECIALIZATION' ? '#38bdf8' : '#64748b'
             }}>
-              4. FOCUS ({isBbaStream ? 'Q33' : 'Q27'})
+              4. FOCUS ({isGeneralStream ? 'Q31' : isBbaStream ? 'Q33' : 'Q27'})
             </span>
           )}
         </div>
@@ -553,7 +583,11 @@ export default function BehavioralDiagnosticStep({
         <div
           style={{
             height: '100%',
-            background: isCommerceStream
+            background: isGeneralStream
+              ? 'linear-gradient(90deg, #9333ea 0%, #c084fc 100%)'
+              : isBbaStream
+              ? 'linear-gradient(90deg, #d97706 0%, #f59e0b 100%)'
+              : isCommerceStream
               ? 'linear-gradient(90deg, #0284c7 0%, #38bdf8 100%)'
               : 'linear-gradient(90deg, var(--brand, #6366f1) 0%, var(--teal, #14b8a6) 100%)',
             transition: 'width 0.3s ease',
@@ -574,8 +608,8 @@ export default function BehavioralDiagnosticStep({
       {phase === 'SJT' && (
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           <div style={{ marginBottom: 18 }}>
-            <span style={{ fontSize: 11, fontFamily: 'var(--font-mono, monospace)', color: isCommerceStream ? '#38bdf8' : 'var(--brand-bright, #818cf8)', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700 }}>
-              {isBbaStream ? 'BUSINESS & MANAGEMENT SCENARIO' : isCommerceStream ? 'COMMERCE & BUSINESS SCENARIO' : 'ENGINEERING & SYSTEMS SCENARIO'} &middot; {sjtIndex + 1} OF {activeSjtQuestions.length}
+            <span style={{ fontSize: 11, fontFamily: 'var(--font-mono, monospace)', color: isGeneralStream ? '#c084fc' : isBbaStream ? '#f59e0b' : isCommerceStream ? '#38bdf8' : 'var(--brand-bright, #818cf8)', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700 }}>
+              {isGeneralStream ? 'UNIVERSAL SITUATIONAL SCENARIO' : isBbaStream ? 'BUSINESS & MANAGEMENT SCENARIO' : isCommerceStream ? 'COMMERCE & BUSINESS SCENARIO' : 'ENGINEERING & SYSTEMS SCENARIO'} &middot; {sjtIndex + 1} OF {activeSjtQuestions.length}
             </span>
             <h2 style={{ fontSize: 21, fontWeight: 900, color: 'var(--t1, #f8fafc)', letterSpacing: '-0.5px', marginTop: 4, marginBottom: 8 }}>
               {currentSjt.title}
@@ -597,6 +631,9 @@ export default function BehavioralDiagnosticStep({
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1, marginBottom: 20 }}>
             {shuffledSjtOptions.map((opt, idx) => {
               const isSelected = selectedOptId === opt.id;
+              const streamAccent = isGeneralStream ? '#c084fc' : isBbaStream ? '#f59e0b' : isCommerceStream ? '#38bdf8' : 'var(--brand-bright, #818cf8)';
+              const streamBg = isGeneralStream ? 'rgba(192, 132, 252, 0.16)' : isBbaStream ? 'rgba(245, 158, 11, 0.16)' : isCommerceStream ? 'rgba(56, 189, 248, 0.16)' : 'rgba(99, 102, 241, 0.16)';
+              const streamGlow = isGeneralStream ? 'rgba(192, 132, 252, 0.3)' : isBbaStream ? 'rgba(245, 158, 11, 0.3)' : isCommerceStream ? 'rgba(56, 189, 248, 0.3)' : 'rgba(99, 102, 241, 0.3)';
               return (
                 <button
                   key={opt.id}
@@ -610,13 +647,13 @@ export default function BehavioralDiagnosticStep({
                     padding: '14px 20px',
                     borderRadius: 14,
                     background: isSelected
-                      ? isCommerceStream ? 'rgba(56, 189, 248, 0.16)' : 'rgba(99, 102, 241, 0.16)'
+                      ? streamBg
                       : 'rgba(255,255,255,0.02)',
-                    border: `1.5px solid ${isSelected ? (isCommerceStream ? '#38bdf8' : 'var(--brand-bright, #818cf8)') : 'rgba(255,255,255,0.06)'}`,
+                    border: `1.5px solid ${isSelected ? streamAccent : 'rgba(255,255,255,0.06)'}`,
                     textAlign: 'left',
                     cursor: isAdvancing ? 'default' : 'pointer',
                     transition: 'all 0.15s ease',
-                    boxShadow: isSelected ? `0 0 16px ${isCommerceStream ? 'rgba(56, 189, 248, 0.3)' : 'rgba(99, 102, 241, 0.3)'}` : 'none'
+                    boxShadow: isSelected ? `0 0 16px ${streamGlow}` : 'none'
                   }}
                   onMouseEnter={(e) => {
                     if (!isAdvancing && !isSelected) {
@@ -636,7 +673,7 @@ export default function BehavioralDiagnosticStep({
                       width: 24,
                       height: 24,
                       borderRadius: '50%',
-                      background: isSelected ? (isCommerceStream ? '#38bdf8' : 'var(--brand, #6366f1)') : 'rgba(255,255,255,0.06)',
+                      background: isSelected ? streamAccent : 'rgba(255,255,255,0.06)',
                       color: isSelected ? '#030508' : '#94a3b8',
                       fontFamily: 'var(--font-mono, monospace)',
                       fontSize: 11,
@@ -656,14 +693,14 @@ export default function BehavioralDiagnosticStep({
                     width: 20,
                     height: 20,
                     borderRadius: '50%',
-                    border: `2px solid ${isSelected ? (isCommerceStream ? '#38bdf8' : 'var(--brand-bright, #818cf8)') : 'rgba(255,255,255,0.2)'}`,
+                    border: `2px solid ${isSelected ? streamAccent : 'rgba(255,255,255,0.2)'}`,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     flexShrink: 0,
                     marginLeft: 12
                   }}>
-                    {isSelected && <div style={{ width: 10, height: 10, borderRadius: '50%', background: isCommerceStream ? '#38bdf8' : 'var(--brand-bright, #818cf8)' }} />}
+                    {isSelected && <div style={{ width: 10, height: 10, borderRadius: '50%', background: streamAccent }} />}
                   </div>
                 </button>
               );
@@ -861,8 +898,8 @@ export default function BehavioralDiagnosticStep({
       {phase === 'SPECIALIZATION' && activeSpecializationQ && (
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           <div style={{ marginBottom: 18 }}>
-            <span style={{ fontSize: 11, fontFamily: 'var(--font-mono, monospace)', color: '#38bdf8', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700 }}>
-              {isBbaStream ? 'BBA / MBA SPECIALIZATION · DOMAIN DEEP-DIVE' : 'COMMERCE SPECIALIZATION · DOMAIN DEEP-DIVE'}
+            <span style={{ fontSize: 11, fontFamily: 'var(--font-mono, monospace)', color: isGeneralStream ? '#c084fc' : isBbaStream ? '#f59e0b' : '#38bdf8', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700 }}>
+              {isGeneralStream ? 'DEGREE SPECIALIZATION · DOMAIN DEEP-DIVE' : isBbaStream ? 'BBA / MBA SPECIALIZATION · DOMAIN DEEP-DIVE' : 'COMMERCE SPECIALIZATION · DOMAIN DEEP-DIVE'}
             </span>
             <h2 style={{ fontSize: 21, fontWeight: 900, color: 'var(--t1, #f8fafc)', letterSpacing: '-0.5px', marginTop: 4, marginBottom: 8 }}>
               {activeSpecializationQ.title}
@@ -872,7 +909,7 @@ export default function BehavioralDiagnosticStep({
                 {activeSpecializationQ.subtitle}
               </p>
             </div>
-            <div style={{ fontSize: 12, color: 'var(--accent, #38bdf8)', fontStyle: 'italic', display: 'flex', alignItems: 'center', gap: 6 }}>
+            <div style={{ fontSize: 12, color: isGeneralStream ? '#c084fc' : isBbaStream ? '#f59e0b' : '#38bdf8', fontStyle: 'italic', display: 'flex', alignItems: 'center', gap: 6 }}>
               <span>🎯</span>
               <span>Select the specific challenge or capability that best represents where you want to excel:</span>
             </div>
@@ -883,6 +920,9 @@ export default function BehavioralDiagnosticStep({
             {activeSpecializationQ.options.map((opt, idx) => {
               const isSelected = selectedOptId === opt.id;
               const isPulsing = isAdvancing && isSelected;
+              const specAccent = isGeneralStream ? '#c084fc' : isBbaStream ? '#f59e0b' : '#38bdf8';
+              const specBg = isGeneralStream ? 'rgba(192, 132, 252, 0.14)' : isBbaStream ? 'rgba(245, 158, 11, 0.14)' : 'rgba(56, 189, 248, 0.14)';
+              const specGlow = isGeneralStream ? 'rgba(192, 132, 252, 0.25)' : isBbaStream ? 'rgba(245, 158, 11, 0.25)' : 'rgba(56, 189, 248, 0.25)';
               return (
                 <button
                   key={opt.id}
@@ -894,13 +934,13 @@ export default function BehavioralDiagnosticStep({
                     justifyContent: 'space-between',
                     padding: '14px 18px',
                     borderRadius: 12,
-                    background: isSelected ? 'rgba(56, 189, 248, 0.14)' : 'rgba(255,255,255,0.02)',
-                    border: `1.5px solid ${isSelected ? '#38bdf8' : 'rgba(255,255,255,0.07)'}`,
+                    background: isSelected ? specBg : 'rgba(255,255,255,0.02)',
+                    border: `1.5px solid ${isSelected ? specAccent : 'rgba(255,255,255,0.07)'}`,
                     textAlign: 'left',
                     cursor: 'pointer',
                     transition: 'all 0.15s ease',
                     transform: isPulsing ? 'scale(0.99)' : 'none',
-                    boxShadow: isSelected ? '0 0 16px rgba(56, 189, 248, 0.25)' : 'none'
+                    boxShadow: isSelected ? `0 0 16px ${specGlow}` : 'none'
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
@@ -908,7 +948,7 @@ export default function BehavioralDiagnosticStep({
                       width: 26,
                       height: 26,
                       borderRadius: '50%',
-                      background: isSelected ? '#38bdf8' : 'rgba(255,255,255,0.06)',
+                      background: isSelected ? specAccent : 'rgba(255,255,255,0.06)',
                       color: isSelected ? '#030508' : '#94a3b8',
                       fontFamily: 'var(--font-mono, monospace)',
                       fontSize: 12,
@@ -928,14 +968,14 @@ export default function BehavioralDiagnosticStep({
                     width: 20,
                     height: 20,
                     borderRadius: '50%',
-                    border: `2px solid ${isSelected ? '#38bdf8' : 'rgba(255,255,255,0.2)'}`,
+                    border: `2px solid ${isSelected ? specAccent : 'rgba(255,255,255,0.2)'}`,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     flexShrink: 0,
                     marginLeft: 12
                   }}>
-                    {isSelected && <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#38bdf8' }} />}
+                    {isSelected && <div style={{ width: 10, height: 10, borderRadius: '50%', background: specAccent }} />}
                   </div>
                 </button>
               );

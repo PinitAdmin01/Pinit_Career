@@ -1015,17 +1015,23 @@ export function useOnboardingWizard() {
       setTargetGoal(answers.role);
     }
     if (answers.degreeTrack) {
-      const isComm = answers.degreeTrack.includes('bcom') || answers.degreeTrack.includes('mcom') || answers.degreeTrack.includes('commerce');
-      const isBba = answers.degreeTrack.includes('bba') || answers.degreeTrack.includes('mba') || answers.degreeTrack.includes('management');
-      setStudentType(isBba ? 'Business & Management' : isComm ? 'Commerce & Finance' : 'Computer Science / Engineering');
+      const track = answers.degreeTrack.toLowerCase();
+      const isComm = track.includes('bcom') || track.includes('mcom') || track.includes('commerce');
+      const isBba = track.includes('bba') || track.includes('mba') || track.includes('management');
+      const isGeneral = track.includes('other') || track.includes('general') || track.includes('universal') || track.includes('non-tech');
+      setStudentType(isGeneral ? 'General & Interdisciplinary' : isBba ? 'Business & Management' : isComm ? 'Commerce & Finance' : 'Computer Science / Engineering');
     } else if (answers.priorExperience) {
       setStudentType(answers.priorExperience);
     }
     setActiveScreen('BEHAVIORAL_DIAGNOSTIC');
     setAnimState('nod');
-    const isComm = answers.degreeTrack?.includes('bcom') || answers.degreeTrack?.includes('mcom') || answers.degreeTrack?.includes('commerce');
-    const isBba = answers.degreeTrack?.includes('bba') || answers.degreeTrack?.includes('mba') || answers.degreeTrack?.includes('management');
-    const reply = isBba
+    const track = answers.degreeTrack?.toLowerCase() || '';
+    const isComm = track.includes('bcom') || track.includes('mcom') || track.includes('commerce');
+    const isBba = track.includes('bba') || track.includes('mba') || track.includes('management');
+    const isGeneral = track.includes('other') || track.includes('general') || track.includes('universal') || track.includes('non-tech');
+    const reply = isGeneral
+      ? "Excellent! Next, let's explore your problem-solving instincts, analytical reasoning, and collaboration patterns with universal situational scenarios."
+      : isBba
       ? "Excellent! Next, let's explore your problem-solving instincts, managerial acumen, and strategic agility with real business scenarios."
       : isComm
       ? "Excellent! Next, let's explore your problem-solving instincts, financial agility, and collaboration patterns with real business scenarios."
