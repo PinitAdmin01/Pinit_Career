@@ -597,7 +597,7 @@ export default function OnboardingPage() {
               <RoadmapPreview
                 studentType={studentType || diagnosticGoal?.outcome || 'Computer Science / Engineering'}
                 targetGoal={targetGoal || diagnosticGoal?.role || 'Software Engineer'}
-                accessReason={accessReason || (Array.isArray(diagnosticGoal?.motivation) ? diagnosticGoal.motivation.join(', ') : (diagnosticGoal?.motivation as string)) || 'Career Acceleration'}
+                accessReason={accessReason || (Array.isArray(diagnosticGoal?.motivation) ? diagnosticGoal.motivation.join(', ') : (diagnosticGoal?.motivation as unknown as string)) || 'Career Acceleration'}
                 diagnosticProfile={diagnosticProfile}
                 qt2Breakdown={qt2Breakdown}
                 selectedMentor={selectedMentor}
