@@ -11,7 +11,8 @@ import {
   MatrixScenario,
   TradeoffProbe,
   SJTOption,
-  COMMERCE_SPECIALIZATION_QUESTIONS
+  COMMERCE_SPECIALIZATION_QUESTIONS,
+  BBA_SPECIALIZATION_QUESTIONS
 } from '@/lib/onboarding/diagnosticRegistry';
 import { SpecializationQuestion } from '@/lib/onboarding/diagnosticRegistryCommerce';
 import {
@@ -44,34 +45,67 @@ export default function BehavioralDiagnosticStep({
   // Stream-specific question sets
   const degreeTrack = goalAnswers?.degreeTrack || 'btech_bca_mca';
   const isCommerceStream = degreeTrack.includes('bcom') || degreeTrack.includes('mcom') || degreeTrack.includes('commerce');
+  const isBbaStream = degreeTrack.includes('bba') || degreeTrack.includes('mba') || degreeTrack.includes('management');
+  const hasSpecialization = isCommerceStream || isBbaStream;
 
   const activeSjtQuestions: SJTQuestion[] = getSjtQuestions(degreeTrack);
   const activeMatrixScenarios: MatrixScenario[] = getMatrixScenarios(degreeTrack);
   const activeTradeoffProbes: TradeoffProbe[] = getTradeoffProbes(degreeTrack);
 
-  // Commerce Specialization Question (Q27) resolution
-  const getSpecializationQuestion = (): SpecializationQuestion | null => {
-    if (!isCommerceStream) return null;
-    const roleKey = (goalAnswers?.role || 'accounting_finance').toLowerCase();
-    if (COMMERCE_SPECIALIZATION_QUESTIONS[roleKey]) {
-      return COMMERCE_SPECIALIZATION_QUESTIONS[roleKey];
+  // Specialization Question (Q27 for Commerce, Q33 for BBA) resolution
+  interface GenericSpecializationQuestion {
+    domainId: string;
+    questionId: string;
+    title: string;
+    subtitle: string;
+    options: {
+      id: string;
+      label: string;
+      description?: string;
+      affinityDimension?: any;
+    }[];
+  }
+
+  const getSpecializationQuestion = (): GenericSpecializationQuestion | null => {
+    if (isBbaStream) {
+      const roleKey = (goalAnswers?.role || goalAnswers?.careerDirection || 'consulting_strategy').toLowerCase();
+      if (BBA_SPECIALIZATION_QUESTIONS[roleKey]) {
+        return BBA_SPECIALIZATION_QUESTIONS[roleKey];
+      }
+      if (roleKey.includes('finance') || roleKey.includes('bank')) return BBA_SPECIALIZATION_QUESTIONS.corporate_finance;
+      if (roleKey.includes('market') || roleKey.includes('brand') || roleKey.includes('growth')) return BBA_SPECIALIZATION_QUESTIONS.marketing_growth;
+      if (roleKey.includes('sale') || roleKey.includes('bizdev') || roleKey.includes('business development')) return BBA_SPECIALIZATION_QUESTIONS.sales_bizdev;
+      if (roleKey.includes('hr') || roleKey.includes('human') || roleKey.includes('people') || roleKey.includes('talent')) return BBA_SPECIALIZATION_QUESTIONS.human_resources;
+      if (roleKey.includes('operat') || roleKey.includes('supply') || roleKey.includes('logist')) return BBA_SPECIALIZATION_QUESTIONS.operations_supplychain;
+      if (roleKey.includes('consult') || roleKey.includes('strat') || roleKey.includes('mgmt') || roleKey.includes('management')) return BBA_SPECIALIZATION_QUESTIONS.consulting_strategy;
+      if (roleKey.includes('entrepreneur') || roleKey.includes('startup') || roleKey.includes('venture')) return BBA_SPECIALIZATION_QUESTIONS.entrepreneurship_startup;
+      if (roleKey.includes('analyt') || roleKey.includes('data')) return BBA_SPECIALIZATION_QUESTIONS.business_analytics;
+      if (roleKey.includes('product')) return BBA_SPECIALIZATION_QUESTIONS.product_management;
+      return BBA_SPECIALIZATION_QUESTIONS.consulting_strategy;
     }
-    // 1. Audit & Taxation
-    if (roleKey.includes('audit') || roleKey.includes('tax')) return COMMERCE_SPECIALIZATION_QUESTIONS.audit_taxation;
-    // 2. Marketing & Sales (check before banking or general terms)
-    if (roleKey.includes('marketing') || roleKey.includes('sales') || roleKey.includes('growth') || roleKey.includes('brand')) return COMMERCE_SPECIALIZATION_QUESTIONS.marketing_sales;
-    // 3. Business Analytics
-    if (roleKey.includes('analyt') || roleKey.includes('data')) return COMMERCE_SPECIALIZATION_QUESTIONS.business_analytics;
-    // 4. Banking & Financial Services
-    if (roleKey.includes('bank') || roleKey.includes('invest') || roleKey.includes('equity') || roleKey.includes('wealth') || roleKey.includes('capital market') || roleKey.includes('financial market')) return COMMERCE_SPECIALIZATION_QUESTIONS.banking_services;
-    // 5. Human Resources
-    if (roleKey.includes('hr') || roleKey.includes('human') || roleKey.includes('people')) return COMMERCE_SPECIALIZATION_QUESTIONS.human_resources;
-    // 6. Corporate Management & Operations
-    if (roleKey.includes('corp') || roleKey.includes('mgmt') || roleKey.includes('operation') || roleKey.includes('supply chain')) return COMMERCE_SPECIALIZATION_QUESTIONS.corporate_management;
-    // 7. Entrepreneurship
-    if (roleKey.includes('entrepreneur') || roleKey.includes('family business') || roleKey.includes('startup') || roleKey.includes('venture')) return COMMERCE_SPECIALIZATION_QUESTIONS.entrepreneurship;
-    // 8. Default: Accounting & Finance
-    return COMMERCE_SPECIALIZATION_QUESTIONS.accounting_finance;
+    if (isCommerceStream) {
+      const roleKey = (goalAnswers?.role || 'accounting_finance').toLowerCase();
+      if (COMMERCE_SPECIALIZATION_QUESTIONS[roleKey]) {
+        return COMMERCE_SPECIALIZATION_QUESTIONS[roleKey];
+      }
+      // 1. Audit & Taxation
+      if (roleKey.includes('audit') || roleKey.includes('tax')) return COMMERCE_SPECIALIZATION_QUESTIONS.audit_taxation;
+      // 2. Marketing & Sales (check before banking or general terms)
+      if (roleKey.includes('marketing') || roleKey.includes('sales') || roleKey.includes('growth') || roleKey.includes('brand')) return COMMERCE_SPECIALIZATION_QUESTIONS.marketing_sales;
+      // 3. Business Analytics
+      if (roleKey.includes('analyt') || roleKey.includes('data')) return COMMERCE_SPECIALIZATION_QUESTIONS.business_analytics;
+      // 4. Banking & Financial Services
+      if (roleKey.includes('bank') || roleKey.includes('invest') || roleKey.includes('equity') || roleKey.includes('wealth') || roleKey.includes('capital market') || roleKey.includes('financial market')) return COMMERCE_SPECIALIZATION_QUESTIONS.banking_services;
+      // 5. Human Resources
+      if (roleKey.includes('hr') || roleKey.includes('human') || roleKey.includes('people')) return COMMERCE_SPECIALIZATION_QUESTIONS.human_resources;
+      // 6. Corporate Management & Operations
+      if (roleKey.includes('corp') || roleKey.includes('mgmt') || roleKey.includes('operation') || roleKey.includes('supply chain')) return COMMERCE_SPECIALIZATION_QUESTIONS.corporate_management;
+      // 7. Entrepreneurship
+      if (roleKey.includes('entrepreneur') || roleKey.includes('family business') || roleKey.includes('startup') || roleKey.includes('venture')) return COMMERCE_SPECIALIZATION_QUESTIONS.entrepreneurship;
+      // 8. Default: Accounting & Finance
+      return COMMERCE_SPECIALIZATION_QUESTIONS.accounting_finance;
+    }
+    return null;
   };
   const activeSpecializationQ = getSpecializationQuestion();
 
@@ -210,7 +244,7 @@ export default function BehavioralDiagnosticStep({
       if (tradeoffIndex < activeTradeoffProbes.length - 1) {
         setTradeoffIndex(prev => prev + 1);
       } else {
-        if (isCommerceStream && activeSpecializationQ) {
+        if (hasSpecialization && activeSpecializationQ) {
           setPhase('SPECIALIZATION');
         } else {
           onComplete({
@@ -222,7 +256,7 @@ export default function BehavioralDiagnosticStep({
       }
     } else if (phase === 'SPECIALIZATION') {
       const skipRecord: RawDiagnosticResponse = {
-        questionId: activeSpecializationQ?.questionId || 'Q27_SPECIALIZATION',
+        questionId: activeSpecializationQ?.questionId || (isBbaStream ? 'Q33_SPECIALIZATION' : 'Q27_SPECIALIZATION'),
         optionId: 'skipped',
         skipped: true,
         responseTimeMs: 0,
@@ -333,7 +367,7 @@ export default function BehavioralDiagnosticStep({
       if (tradeoffIndex < activeTradeoffProbes.length - 1) {
         setTradeoffIndex(prev => prev + 1);
       } else {
-        if (isCommerceStream && activeSpecializationQ) {
+        if (hasSpecialization && activeSpecializationQ) {
           setPhase('SPECIALIZATION');
         } else {
           // Completed all behavioral phases!
@@ -347,7 +381,7 @@ export default function BehavioralDiagnosticStep({
     }, 160);
   };
 
-  // Handle Specialization Option Selection (Q27)
+  // Handle Specialization Option Selection (Q27 for Commerce, Q33 for BBA)
   const handleSelectSpecializationOption = (optId: string) => {
     if (isAdvancing) return;
     setSelectedOptId(optId);
@@ -355,7 +389,7 @@ export default function BehavioralDiagnosticStep({
 
     const latency = Date.now() - questionStartTimeRef.current;
     const specRecord: RawDiagnosticResponse = {
-      questionId: activeSpecializationQ?.questionId || 'Q27_SPECIALIZATION',
+      questionId: activeSpecializationQ?.questionId || (isBbaStream ? 'Q33_SPECIALIZATION' : 'Q27_SPECIALIZATION'),
       optionId: optId,
       responseTimeMs: latency,
       timestamp: Date.now()
@@ -451,11 +485,11 @@ export default function BehavioralDiagnosticStep({
             padding: '3px 10px',
             borderRadius: 100,
             fontWeight: 800,
-            background: isCommerceStream ? 'rgba(56, 189, 248, 0.12)' : 'rgba(52, 211, 153, 0.12)',
-            color: isCommerceStream ? '#38bdf8' : '#34d399',
-            border: `1px solid ${isCommerceStream ? 'rgba(56, 189, 248, 0.3)' : 'rgba(52, 211, 153, 0.3)'}`
+            background: isBbaStream ? 'rgba(245, 158, 11, 0.12)' : isCommerceStream ? 'rgba(56, 189, 248, 0.12)' : 'rgba(52, 211, 153, 0.12)',
+            color: isBbaStream ? '#f59e0b' : isCommerceStream ? '#38bdf8' : '#34d399',
+            border: `1px solid ${isBbaStream ? 'rgba(245, 158, 11, 0.3)' : isCommerceStream ? 'rgba(56, 189, 248, 0.3)' : 'rgba(52, 211, 153, 0.3)'}`
           }}>
-            {isCommerceStream ? 'COMMERCE & FINANCE' : 'ENGINEERING & TECH'}
+            {isBbaStream ? 'BBA & MANAGEMENT' : isCommerceStream ? 'COMMERCE & FINANCE' : 'ENGINEERING & TECH'}
           </span>
 
           {/* Phase 1 Badge */}
@@ -497,8 +531,8 @@ export default function BehavioralDiagnosticStep({
             3. TRADEOFFS ({tradeoffIndex + 1}/{activeTradeoffProbes.length})
           </span>
 
-          {/* Phase 4 Badge (Commerce Focus) */}
-          {isCommerceStream && activeSpecializationQ && (
+          {/* Phase 4 Badge (Commerce / BBA Focus) */}
+          {hasSpecialization && activeSpecializationQ && (
             <span style={{
               fontSize: 10,
               fontFamily: 'var(--font-mono, monospace)',
@@ -508,7 +542,7 @@ export default function BehavioralDiagnosticStep({
               background: phase === 'SPECIALIZATION' ? 'rgba(56, 189, 248, 0.2)' : 'rgba(255,255,255,0.04)',
               color: phase === 'SPECIALIZATION' ? '#38bdf8' : '#64748b'
             }}>
-              4. FOCUS (Q27)
+              4. FOCUS ({isBbaStream ? 'Q33' : 'Q27'})
             </span>
           )}
         </div>
@@ -524,7 +558,7 @@ export default function BehavioralDiagnosticStep({
               : 'linear-gradient(90deg, var(--brand, #6366f1) 0%, var(--teal, #14b8a6) 100%)',
             transition: 'width 0.3s ease',
             width: (() => {
-              const totalCount = activeSjtQuestions.length + activeMatrixScenarios.length + activeTradeoffProbes.length + (isCommerceStream && activeSpecializationQ ? 1 : 0);
+              const totalCount = activeSjtQuestions.length + activeMatrixScenarios.length + activeTradeoffProbes.length + (hasSpecialization && activeSpecializationQ ? 1 : 0);
               if (phase === 'SJT') return `${((sjtIndex + 1) / totalCount) * 100}%`;
               if (phase === 'MATRIX') return `${((activeSjtQuestions.length + matrixIndex + 1) / totalCount) * 100}%`;
               if (phase === 'TRADEOFF') return `${((activeSjtQuestions.length + activeMatrixScenarios.length + tradeoffIndex + 1) / totalCount) * 100}%`;
@@ -541,7 +575,7 @@ export default function BehavioralDiagnosticStep({
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           <div style={{ marginBottom: 18 }}>
             <span style={{ fontSize: 11, fontFamily: 'var(--font-mono, monospace)', color: isCommerceStream ? '#38bdf8' : 'var(--brand-bright, #818cf8)', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700 }}>
-              {isCommerceStream ? 'COMMERCE & BUSINESS SCENARIO' : 'ENGINEERING & SYSTEMS SCENARIO'} &middot; {sjtIndex + 1} OF {activeSjtQuestions.length}
+              {isBbaStream ? 'BUSINESS & MANAGEMENT SCENARIO' : isCommerceStream ? 'COMMERCE & BUSINESS SCENARIO' : 'ENGINEERING & SYSTEMS SCENARIO'} &middot; {sjtIndex + 1} OF {activeSjtQuestions.length}
             </span>
             <h2 style={{ fontSize: 21, fontWeight: 900, color: 'var(--t1, #f8fafc)', letterSpacing: '-0.5px', marginTop: 4, marginBottom: 8 }}>
               {currentSjt.title}
@@ -822,13 +856,13 @@ export default function BehavioralDiagnosticStep({
       )}
 
       {/* ============================================================== */}
-      {/* PHASE 4: COMMERCE SPECIALIZATION & FOCUS (Q27)                  */}
+      {/* PHASE 4: SPECIALIZATION & FOCUS (Q27 COMMERCE / Q33 BBA)       */}
       {/* ============================================================== */}
       {phase === 'SPECIALIZATION' && activeSpecializationQ && (
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           <div style={{ marginBottom: 18 }}>
             <span style={{ fontSize: 11, fontFamily: 'var(--font-mono, monospace)', color: '#38bdf8', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700 }}>
-              COMMERCE SPECIALIZATION &middot; DOMAIN DEEP-DIVE
+              {isBbaStream ? 'BBA / MBA SPECIALIZATION · DOMAIN DEEP-DIVE' : 'COMMERCE SPECIALIZATION · DOMAIN DEEP-DIVE'}
             </span>
             <h2 style={{ fontSize: 21, fontWeight: 900, color: 'var(--t1, #f8fafc)', letterSpacing: '-0.5px', marginTop: 4, marginBottom: 8 }}>
               {activeSpecializationQ.title}

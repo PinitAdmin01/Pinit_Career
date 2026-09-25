@@ -1016,14 +1016,18 @@ export function useOnboardingWizard() {
     }
     if (answers.degreeTrack) {
       const isComm = answers.degreeTrack.includes('bcom') || answers.degreeTrack.includes('mcom') || answers.degreeTrack.includes('commerce');
-      setStudentType(isComm ? 'Commerce & Finance' : 'Computer Science / Engineering');
+      const isBba = answers.degreeTrack.includes('bba') || answers.degreeTrack.includes('mba') || answers.degreeTrack.includes('management');
+      setStudentType(isBba ? 'Business & Management' : isComm ? 'Commerce & Finance' : 'Computer Science / Engineering');
     } else if (answers.priorExperience) {
       setStudentType(answers.priorExperience);
     }
     setActiveScreen('BEHAVIORAL_DIAGNOSTIC');
     setAnimState('nod');
     const isComm = answers.degreeTrack?.includes('bcom') || answers.degreeTrack?.includes('mcom') || answers.degreeTrack?.includes('commerce');
-    const reply = isComm
+    const isBba = answers.degreeTrack?.includes('bba') || answers.degreeTrack?.includes('mba') || answers.degreeTrack?.includes('management');
+    const reply = isBba
+      ? "Excellent! Next, let's explore your problem-solving instincts, managerial acumen, and strategic agility with real business scenarios."
+      : isComm
       ? "Excellent! Next, let's explore your problem-solving instincts, financial agility, and collaboration patterns with real business scenarios."
       : "Excellent! Next, let's explore your problem-solving instincts, technical agility, and collaboration patterns with real engineering scenarios.";
     speakReply(reply);

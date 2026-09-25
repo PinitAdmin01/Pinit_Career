@@ -654,7 +654,7 @@ export function recommendCareerTrajectory(
   qt2Score: number = 75,
   archetype: string = 'Pattern Hunter'
 ): CareerTrajectory {
-  const goalClean = (userGoal || '').toLowerCase().trim();
+  const goalClean = (userGoal || '').toLowerCase().replace(/_/g, ' ').trim();
 
   // Direct match if goal is specified — Check ML specifically FIRST
   if (
@@ -922,7 +922,94 @@ export function recommendCareerTrajectory(
     };
   }
 
-  if (goalClean.includes('operation') || goalClean.includes('supply chain') || goalClean.includes('logistics') || goalClean.includes('procurement') || goalClean.includes('hr') || goalClean.includes('human resource') || goalClean.includes('people ops') || goalClean.includes('corporate management') || goalClean.includes('compliance')) {
+  if (goalClean.includes('consulting') || goalClean.includes('strategy') || goalClean.includes('mgmt_strategy') || goalClean.includes('business strategy')) {
+    return {
+      roleId: 'business-strategy-consultant',
+      roleTitle: 'Management Consultant & Business Strategist',
+      icon: '♟️',
+      description: 'Master hypothesis-driven problem solving, MECE structuring, financial valuation, operational turnaround, and executive presentation storytelling.',
+      averageSalaryRange: '₹14–32 LPA',
+      targetTotalDays: 30,
+      recommendationReason: `Matched goal "${userGoal}": Production-grade 30-Day Management Consulting & Business Strategy Curriculum.`,
+      nodes: [
+        {
+          nodeId: 'node-strat-consult',
+          courseId: 'course-entrepreneurship-biz-mgmt',
+          title: 'Management Consulting & Business Strategy Mastery',
+          shortDesc: 'Complete 30-day curriculum: MECE Structuring, Market Sizing, Financial Modeling, Turnaround Strategy & Executive Storytelling',
+          icon: '♟️',
+          skillsLearned: ['Hypothesis-Driven Problem Solving', 'MECE Structuring', 'Market Sizing', 'Corporate Turnaround Strategy', 'Executive Storytelling'],
+          careerImpact: '+65% Strategic Problem Solving & Advisory Capability',
+          estimatedDays: 30,
+          gate: {
+            minCourseCompletionPct: 100,
+            minAtsScore: 85,
+            requireProjectVerification: true
+          }
+        }
+      ]
+    };
+  }
+
+  if (goalClean.includes('product management') || goalClean.includes('product manager') || goalClean.includes('product_mgmt') || goalClean.includes('product_management') || goalClean === 'product') {
+    return {
+      roleId: 'product-manager',
+      roleTitle: 'Product Manager (Tech & Business Strategy)',
+      icon: '🚀',
+      description: 'Master product discovery, customer interviews, PRD writing, roadmapping, agile sprints, unit economics, metric funnels, and feature launch strategy.',
+      averageSalaryRange: '₹12–28 LPA',
+      targetTotalDays: 30,
+      recommendationReason: `Matched goal "${userGoal}": Production-grade 30-Day Product Management & Feature Strategy Curriculum.`,
+      nodes: [
+        {
+          nodeId: 'node-prod-mgmt',
+          courseId: 'course-ecommerce-digital-business',
+          title: 'Product Management & Feature Strategy Mastery',
+          shortDesc: 'Complete 30-day curriculum: PRD Writing, Discovery Interviews, Roadmap Prioritization, Agile Sprints, Unit Economics & Growth Funnels',
+          icon: '🚀',
+          skillsLearned: ['PRD Writing', 'Customer Discovery', 'Roadmap Prioritization (RICE)', 'Sprint Execution', 'Unit Economics', 'A/B Testing'],
+          careerImpact: '+65% Product Strategy & Feature Leadership Capability',
+          estimatedDays: 30,
+          gate: {
+            minCourseCompletionPct: 100,
+            minAtsScore: 85,
+            requireProjectVerification: true
+          }
+        }
+      ]
+    };
+  }
+
+  if (goalClean.includes('human') || goalClean.includes('hr') || goalClean.includes('people ops') || goalClean.includes('talent')) {
+    return {
+      roleId: 'hr-people-operations-leader',
+      roleTitle: 'Human Resources & People Operations Specialist',
+      icon: '🤝',
+      description: 'Master talent acquisition, HR analytics, performance appraisal systems, compensation benchmarking, labor compliance, and employee retention programs.',
+      averageSalaryRange: '₹8–18 LPA',
+      targetTotalDays: 30,
+      recommendationReason: `Matched goal "${userGoal}": Production-grade 30-Day Human Resources & People Operations Curriculum.`,
+      nodes: [
+        {
+          nodeId: 'node-hr-ops',
+          courseId: 'course-operations-supplychain-compliance',
+          title: 'Human Resources & People Operations Mastery',
+          shortDesc: 'Complete 30-day curriculum: Talent Acquisition, HR Metrics, Compensation Benchmarking, Labor Compliance & Retention Programs',
+          icon: '🤝',
+          skillsLearned: ['Talent Sourcing', 'HR Metrics & Analytics', 'Compensation Structure', 'Labor Compliance', 'Employee Engagement', 'Performance Management'],
+          careerImpact: '+60% Organizational Leadership & Talent Management Capability',
+          estimatedDays: 30,
+          gate: {
+            minCourseCompletionPct: 100,
+            minAtsScore: 85,
+            requireProjectVerification: true
+          }
+        }
+      ]
+    };
+  }
+
+  if (goalClean.includes('operation') || goalClean.includes('supply chain') || goalClean.includes('logistics') || goalClean.includes('procurement') || goalClean.includes('corporate management') || goalClean.includes('compliance')) {
     return {
       ...CANONICAL_TRAJECTORIES['operations-supplychain-manager'],
       recommendationReason: `Matched goal "${userGoal}": Production-grade 30-Day Operations, Supply Chain & Compliance Curriculum.`

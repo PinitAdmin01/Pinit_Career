@@ -877,12 +877,25 @@ import {
   COMMERCE_SPECIALIZATION_QUESTIONS
 } from './diagnosticRegistryCommerce';
 
+import {
+  BBA_GOAL_DISCOVERY_QUESTIONS,
+  BBA_SJT_QUESTIONS,
+  BBA_MATRIX_SCENARIOS,
+  BBA_TRADEOFF_PROBES,
+  BBA_SPECIALIZATION_QUESTIONS
+} from './diagnosticRegistryBBA';
+
 export {
   BCOM_GOAL_DISCOVERY_QUESTIONS,
   BCOM_SJT_QUESTIONS,
   BCOM_MATRIX_SCENARIOS,
   BCOM_TRADEOFF_PROBES,
-  COMMERCE_SPECIALIZATION_QUESTIONS
+  COMMERCE_SPECIALIZATION_QUESTIONS,
+  BBA_GOAL_DISCOVERY_QUESTIONS,
+  BBA_SJT_QUESTIONS,
+  BBA_MATRIX_SCENARIOS,
+  BBA_TRADEOFF_PROBES,
+  BBA_SPECIALIZATION_QUESTIONS
 };
 
 /**
@@ -890,6 +903,9 @@ export {
  */
 export function getGoalDiscoveryQuestions(degreeTrack: string = 'btech_bca_mca'): GoalDiscoveryQuestion[] {
   const norm = (degreeTrack || '').toLowerCase();
+  if (norm.includes('bba') || norm.includes('mba') || norm.includes('management')) {
+    return BBA_GOAL_DISCOVERY_QUESTIONS;
+  }
   if (norm.includes('bcom') || norm.includes('mcom') || norm.includes('commerce') || norm.includes('finance')) {
     return BCOM_GOAL_DISCOVERY_QUESTIONS;
   }
@@ -901,6 +917,9 @@ export function getGoalDiscoveryQuestions(degreeTrack: string = 'btech_bca_mca')
  */
 export function getSjtQuestions(degreeTrack: string = 'btech_bca_mca'): SJTQuestion[] {
   const norm = (degreeTrack || '').toLowerCase();
+  if (norm.includes('bba') || norm.includes('mba') || norm.includes('management')) {
+    return BBA_SJT_QUESTIONS;
+  }
   if (norm.includes('bcom') || norm.includes('mcom') || norm.includes('commerce') || norm.includes('finance')) {
     return BCOM_SJT_QUESTIONS;
   }
@@ -912,6 +931,9 @@ export function getSjtQuestions(degreeTrack: string = 'btech_bca_mca'): SJTQuest
  */
 export function getMatrixScenarios(degreeTrack: string = 'btech_bca_mca'): MatrixScenario[] {
   const norm = (degreeTrack || '').toLowerCase();
+  if (norm.includes('bba') || norm.includes('mba') || norm.includes('management')) {
+    return BBA_MATRIX_SCENARIOS;
+  }
   if (norm.includes('bcom') || norm.includes('mcom') || norm.includes('commerce') || norm.includes('finance')) {
     return BCOM_MATRIX_SCENARIOS;
   }
@@ -923,6 +945,9 @@ export function getMatrixScenarios(degreeTrack: string = 'btech_bca_mca'): Matri
  */
 export function getTradeoffProbes(degreeTrack: string = 'btech_bca_mca'): TradeoffProbe[] {
   const norm = (degreeTrack || '').toLowerCase();
+  if (norm.includes('bba') || norm.includes('mba') || norm.includes('management')) {
+    return BBA_TRADEOFF_PROBES;
+  }
   if (norm.includes('bcom') || norm.includes('mcom') || norm.includes('commerce') || norm.includes('finance')) {
     return BCOM_TRADEOFF_PROBES;
   }
@@ -934,7 +959,8 @@ export function getTradeoffProbes(degreeTrack: string = 'btech_bca_mca'): Tradeo
  */
 export const ALL_SJT_QUESTIONS: SJTQuestion[] = [
   ...SJT_QUESTIONS,
-  ...BCOM_SJT_QUESTIONS
+  ...BCOM_SJT_QUESTIONS,
+  ...BBA_SJT_QUESTIONS
 ];
 
 /**
@@ -942,7 +968,8 @@ export const ALL_SJT_QUESTIONS: SJTQuestion[] = [
  */
 export const ALL_MATRIX_SCENARIOS: MatrixScenario[] = [
   ...MATRIX_SCENARIOS,
-  ...BCOM_MATRIX_SCENARIOS
+  ...BCOM_MATRIX_SCENARIOS,
+  ...BBA_MATRIX_SCENARIOS
 ];
 
 /**
@@ -950,6 +977,7 @@ export const ALL_MATRIX_SCENARIOS: MatrixScenario[] = [
  */
 export const ALL_TRADEOFF_PROBES: TradeoffProbe[] = [
   ...TRADEOFF_PROBES,
-  ...BCOM_TRADEOFF_PROBES
+  ...BCOM_TRADEOFF_PROBES,
+  ...BBA_TRADEOFF_PROBES
 ];
 
