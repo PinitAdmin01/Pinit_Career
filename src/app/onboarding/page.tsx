@@ -10,6 +10,8 @@ import CognitiveSliders from './components/CognitiveSliders';
 import VoiceDiagnostic from './components/VoiceDiagnostic';
 import DocumentUploader from './components/DocumentUploader';
 import RoadmapPreview from './components/RoadmapPreview';
+import GoalDiscoveryStep from './components/GoalDiscoveryStep';
+import BehavioralDiagnosticStep from './components/BehavioralDiagnosticStep';
 import { calculateQT2MindsetBreakdown } from './types';
 import { setAvatarVoiceVolume } from '@/lib/tts';
 import { ambientAudio } from '@/lib/audio/ambientAudioEngine';
@@ -120,6 +122,14 @@ export default function OnboardingPage() {
     parserLogs,
     handleFastComplete,
     handleOnboardingComplete,
+    diagnosticGoal,
+    setDiagnosticGoal,
+    diagnosticAnswers,
+    setDiagnosticAnswers,
+    diagnosticProfile,
+    setDiagnosticProfile,
+    handleGoalDiscoveryComplete,
+    handleBehavioralDiagnosticComplete,
   } = wizard;
 
   return (
@@ -521,7 +531,24 @@ export default function OnboardingPage() {
             </>
           )}
 
-          {/* SCREEN 05: IDENTITY QUESTIONS */}
+          {/* SCREEN: GOAL DISCOVERY (PART A) */}
+          {activeScreen === 'GOAL_DISCOVERY' && (
+            <GoalDiscoveryStep
+              onComplete={handleGoalDiscoveryComplete}
+              onBack={() => setActiveScreen('CHOOSE_GUIDE')}
+            />
+          )}
+
+          {/* SCREEN: BEHAVIORAL DIAGNOSTIC (PARTS B, C, D) */}
+          {activeScreen === 'BEHAVIORAL_DIAGNOSTIC' && (
+            <BehavioralDiagnosticStep
+              goalAnswers={diagnosticGoal}
+              onComplete={handleBehavioralDiagnosticComplete}
+              onBack={() => setActiveScreen('GOAL_DISCOVERY')}
+            />
+          )}
+
+          {/* SCREEN 05: IDENTITY QUESTIONS (Legacy Fallback) */}
           {activeScreen === 'IDENTITY_QUESTIONS' && (
             <CognitiveSliders
               mode="IDENTITY_QUESTIONS"
@@ -534,7 +561,7 @@ export default function OnboardingPage() {
             />
           )}
 
-          {/* SCREEN 06: WORKPLACE SIMULATION */}
+          {/* SCREEN 06: WORKPLACE SIMULATION (Legacy Fallback) */}
           {activeScreen === 'WORKPLACE_SIMULATION' && (
             <CognitiveSliders
               mode="WORKPLACE_SIMULATION"
@@ -568,9 +595,10 @@ export default function OnboardingPage() {
             const qt2Breakdown = calculateQT2MindsetBreakdown(identityScores, simulationScores, voiceArchetype);
             return (
               <RoadmapPreview
-                studentType={studentType}
-                targetGoal={targetGoal}
-                accessReason={accessReason}
+                studentType={studentType || diagnosticGoal?.outcome || 'Computer Science / Engineering'}
+                targetGoal={targetGoal || diagnosticGoal?.role || 'Software Engineer'}
+                accessReason={accessReason || (Array.isArray(diagnosticGoal?.motivation) ? diagnosticGoal.motivation.join(', ') : (diagnosticGoal?.motivation as string)) || 'Career Acceleration'}
+                diagnosticProfile={diagnosticProfile}
                 qt2Breakdown={qt2Breakdown}
                 selectedMentor={selectedMentor}
                 setSelectedMentor={(m) => setSelectedMentor(m as 'priya' | 'anish')}

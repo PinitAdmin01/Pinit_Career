@@ -3,6 +3,11 @@ import { recommendCareerTrajectory } from './careerTrajectories';
 import { mapQuestToCompetencyEvidence } from '../pathway/competencyMatrix';
 import { MasteryState } from '../pathway/competencySchema';
 import { parseQuestId } from './curriculumEnricher';
+import {
+  CompleteDiagnosticProfile,
+  DetectedTradeoff,
+  RoadmapStrategyResult
+} from '../onboarding/diagnosticEngine';
 
 export interface DynamicRoadmapParams {
   qt1?: number; // Technical Knowledge Score (0-100)
@@ -15,6 +20,10 @@ export interface DynamicRoadmapParams {
   programId?: string; // Active Career Program ID
   stageId?: string; // Active Stage ID
   competencyMasteryStates?: Record<string, MasteryState>; // Live mastery ledger state
+  diagnosticProfile?: CompleteDiagnosticProfile | null;
+  tradeoffs?: DetectedTradeoff[];
+  roadmapStrategy?: RoadmapStrategyResult;
+  weakAreas?: string[];
 }
 
 export interface DynamicRoadmapModule {
@@ -25,6 +34,8 @@ export interface DynamicRoadmapModule {
   estimatedWeeks: number;
   personalizedPaceTag: string;
   knowledgeAdaptationTag: string;
+  tradeoffInterventions?: string[];
+  allocationsTag?: string;
   associatedCompetencyIds?: string[];
   isPreliminaryRoadmap?: boolean;
   diagnosticNotice?: string;
@@ -72,12 +83,15 @@ export function generateDynamicStudentRoadmap(params: DynamicRoadmapParams): Dyn
   const targetRole = goal ? goal.trim() : trajectory.roleTitle;
   const isMixedGoal = Boolean(goal && goal.trim().length > 0);
 
-  // 3. Knowledge Adaptation (QT1 Rules)
+  // 3. Knowledge Adaptation (QT1 Rules) & Decision Engine Trade-Off Fusing
   // High QT1 (>=75): Fast-track early foundation quests
   // Moderate QT1 (50-74): Standard progression
   // Low QT1 (<50): Reinforcement mode with expanded hints
   const isHighKnowledge = qt1 >= 75;
   const isLowKnowledge = qt1 < 50;
+
+  const tradeoffs: DetectedTradeoff[] = params.tradeoffs || params.diagnosticProfile?.tradeoffs || [];
+  const roadmapStrategy: RoadmapStrategyResult | undefined = params.roadmapStrategy || params.diagnosticProfile?.roadmapStrategy;
 
   let adaptedQuests = rawQuests.map((q, idx) => {
     let fastTracked = false;
@@ -98,6 +112,14 @@ export function generateDynamicStudentRoadmap(params: DynamicRoadmapParams): Dyn
       personalizedHint = `🔍 Guided Step-by-Step Assignment (QT1: ${qt1}/100): Take your time to review starter code — ${q.hint || ''}`;
     } else if (isHighKnowledge && q.category === 'exam') {
       personalizedHint = `🏆 Advanced Fast-Paced Mastery Check — ${q.hint || ''}`;
+    }
+
+    // Trade-off specific coaching intervention
+    if (tradeoffs.length > 0) {
+      const topTradeoff = tradeoffs[0];
+      if (idx % 2 === 1) {
+        personalizedHint = `${personalizedHint ? personalizedHint + ' | ' : ''}🎯 Strategy Focus (${topTradeoff.type.replace(/_/g, ' ')}): ${topTradeoff.roadmapRecommendation}`;
+      }
     }
 
     // Attach Competency Mapping (authoritative day resolution: 3 quests per day)
@@ -163,14 +185,21 @@ export function generateDynamicStudentRoadmap(params: DynamicRoadmapParams): Dyn
     const moduleDaysStart = (moduleCount - 1) * Math.ceil(durationDays / 4) + 1;
     const moduleDaysEnd = Math.min(durationDays, moduleCount * Math.ceil(durationDays / 4));
 
+    const tradeoffInterventions = tradeoffs.map(t => `${t.type}: ${t.roadmapRecommendation}`);
+    const allocationsTag = roadmapStrategy?.allocations
+      ? `Allocations: ${roadmapStrategy.allocations.explorationPct}% Spike | ${roadmapStrategy.allocations.executionPct}% Build | ${roadmapStrategy.allocations.communicationPct}% Align | ${roadmapStrategy.allocations.technicalGapPct}% Remediation`
+      : undefined;
+
     modules.push({
       id: `${courseId}-dynamic-mod-${moduleCount}`,
       title: `Phase ${moduleCount}: ${targetRole} — ${courseObj.title.split('(')[0].trim()}`,
       desc: `${isMixedGoal ? '🔀 Fused Goal Trajectory: ' : ''}Personalized ${durationDays}-Day Roadmap for "${targetRole}". Paced at ${dailyPace} quests/day. Tailored for ${archetype} archetype with QT1: ${qt1}/100 & QT2: ${qt2}/100.`,
       difficulty: isHighKnowledge ? 'Advanced' : isLowKnowledge ? 'Foundational' : 'Intermediate',
       estimatedWeeks: Math.ceil((moduleDaysEnd - moduleDaysStart + 1) / 7),
-      personalizedPaceTag: isMixedGoal ? `🎯 Target Goal: ${targetRole}` : mindsetTag,
+      personalizedPaceTag: allocationsTag || (isMixedGoal ? `🎯 Target Goal: ${targetRole}` : mindsetTag),
       knowledgeAdaptationTag: knowledgeTag,
+      tradeoffInterventions: tradeoffInterventions.length > 0 ? tradeoffInterventions : undefined,
+      allocationsTag,
       isPreliminaryRoadmap,
       diagnosticNotice,
       quests: chunk
@@ -181,4 +210,29 @@ export function generateDynamicStudentRoadmap(params: DynamicRoadmapParams): Dyn
   }
 
   return modules;
+}
+
+/**
+ * Records a student's runtime code error / misconception into their diagnostic profile
+ * and updates the feedback loop telemetry.
+ */
+export function recordRuntimeMisconception(
+  profile: CompleteDiagnosticProfile,
+  misconceptionId: string
+): CompleteDiagnosticProfile {
+  const currentHooks = profile.systemMetadata.misconceptionFeedbackHooks;
+  const currentMisconceptions = new Set(currentHooks.observedMisconceptions || []);
+  currentMisconceptions.add(misconceptionId);
+
+  return {
+    ...profile,
+    systemMetadata: {
+      ...profile.systemMetadata,
+      misconceptionFeedbackHooks: {
+        lastUpdated: Date.now(),
+        observedMisconceptions: Array.from(currentMisconceptions),
+        adaptiveInterventionsCount: currentHooks.adaptiveInterventionsCount + 1
+      }
+    }
+  };
 }
