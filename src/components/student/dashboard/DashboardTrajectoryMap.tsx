@@ -30,6 +30,9 @@ const TRACKS = [
   { title:'Sales, Customer Success & CRM Specialist', icon:'🤝', color:'var(--green)' },
   { title:'Operations, Supply Chain & Compliance Specialist', icon:'⚙️', color:'var(--blue)' },
   { title:'AI & Digital Transformation Business Specialist', icon:'🤖', color:'var(--purple)' },
+  { title:'Management Consultant & Business Strategist', icon:'♟️', color:'var(--amber)' },
+  { title:'Product Manager (Tech & Business Strategy)', icon:'📱', color:'var(--teal)' },
+  { title:'Human Resources & People Operations Specialist', icon:'👥', color:'var(--purple)' },
 ];
 
 interface Props {

@@ -127,8 +127,8 @@ export default function GoalDiscoveryStep({
       setDailyMinutes(60);
     } else if (currentQ.id.includes('CONSTRAINTS') || currentQ.id.includes('OBSTACLE')) {
       setPrimaryConstraints(['time_scarcity']);
-    } else if (currentQ.id.includes('PROFESSIONAL_CONTEXT')) {
-      setSpecialization('student_bba_mba');
+    } else if (currentQ.id.includes('PROFESSIONAL_CONTEXT') || currentQ.id.includes('WORK_ENVIRONMENT')) {
+      setSpecialization('no_experience');
     }
 
     handleNext();
@@ -451,8 +451,8 @@ export default function GoalDiscoveryStep({
           );
         })}
 
-        {/* STEP 4: MOTIVATION / WORK INTEREST (SINGLE SELECT) */}
-        {!isDegreeStep && (currentQ.id === 'Q4_MOTIVATION' || currentQ.id === 'Q4_COMMERCE_WORK_INTEREST') && currentQ.options.map(opt => {
+        {/* STEP 4: MOTIVATION / WORK INTEREST / BBA PROBLEM AFFINITY (SINGLE SELECT) */}
+        {!isDegreeStep && (currentQ.id === 'Q4_MOTIVATION' || currentQ.id === 'Q4_COMMERCE_WORK_INTEREST' || currentQ.id === 'Q4_BBA_PROBLEM_AFFINITY') && currentQ.options.map(opt => {
           const isSelected = motivation.includes(opt.mappedValue as string);
           return (
             <button
@@ -477,51 +477,16 @@ export default function GoalDiscoveryStep({
                 transition: 'all 0.15s ease'
               }}
             >
-              <div style={{ fontSize: 13.5, fontWeight: 700, color: isSelected ? 'var(--accent-gold, #f59e0b)' : '#f8fafc' }}>{opt.label}</div>
+              <div>
+                <div style={{ fontSize: 13.5, fontWeight: 700, color: isSelected ? 'var(--accent-gold, #f59e0b)' : '#f8fafc' }}>{opt.label}</div>
+                {opt.description && <div style={{ fontSize: 11.5, color: '#94a3b8', marginTop: 2 }}>{opt.description}</div>}
+              </div>
               <div style={{ width: 18, height: 18, borderRadius: '50%', border: `2px solid ${isSelected ? 'var(--accent-gold, #f59e0b)' : 'rgba(255,255,255,0.2)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 {isSelected && <div style={{ width: 10, height: 10, borderRadius: '50%', background: 'var(--accent-gold, #f59e0b)' }} />}
               </div>
             </button>
           );
         })}
-
-        {/* STEP 4 (BBA): BUSINESS PROBLEM AFFINITY (MULTI-SELECT MAX 2) */}
-        {!isDegreeStep && currentQ.id === 'Q4_BBA_PROBLEM_AFFINITY' && (
-          <div>
-            <div style={{ fontSize: 11.5, color: '#94a3b8', marginBottom: 10 }}>
-              Select up to 2 areas that most intrigue you ({motivation.length}/2):
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 8 }}>
-              {currentQ.options.map(opt => {
-                const isSelected = motivation.includes(opt.mappedValue as string);
-                return (
-                  <button
-                    key={opt.id}
-                    type="button"
-                    onClick={() => toggleMultiSelect(opt.mappedValue as string, motivation, setMotivation, 2)}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      padding: '12px 16px',
-                      borderRadius: 10,
-                      background: isSelected ? 'rgba(245, 158, 11, 0.12)' : 'rgba(255,255,255,0.02)',
-                      border: `1.5px solid ${isSelected ? '#f59e0b' : 'rgba(255,255,255,0.06)'}`,
-                      textAlign: 'left',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    <div>
-                      <div style={{ fontSize: 13, fontWeight: 700, color: isSelected ? '#f59e0b' : '#f8fafc' }}>{opt.label}</div>
-                      {opt.description && <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{opt.description}</div>}
-                    </div>
-                    <span style={{ fontSize: 13, color: '#f59e0b', marginLeft: 8 }}>{isSelected ? '✓' : ''}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        )}
 
         {/* STEP 5: PRIOR EXPERIENCE / ARTIFACTS (MULTI-SELECT) */}
         {!isDegreeStep && (currentQ.id === 'Q5_EXPERIENCE' || currentQ.id === 'Q5_COMMERCE_EXPERIENCE' || currentQ.id === 'Q5_BBA_EXPOSURE_ARTIFACTS' || currentQ.id === 'Q5_BBA_EXPERIENCE_ARTIFACTS') && (

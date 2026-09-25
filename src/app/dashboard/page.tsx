@@ -285,6 +285,9 @@ export default function DashboardPage() {
       'Sales, Customer Success & CRM Specialist': { skills:['Consultative Selling','BANT Qualification','LAER Objection Handling'], weak:['Sales Velocity','Enterprise Contracting'], courseId:'course-sales-crm-success' },
       'Operations, Supply Chain & Compliance Specialist': { skills:['Process Mapping','EOQ Inventory','Lean 5S'], weak:['Supply Chain Bottlenecks','ISO Quality Compliance'], courseId:'course-operations-supplychain-compliance' },
       'AI & Digital Transformation Business Specialist': { skills:['AI Business Literacy','Prompt Engineering','RPA Automation'], weak:['RPA Scalability','AI Governance'], courseId:'course-ai-digital-transformation' },
+      'Management Consultant & Business Strategist': { skills:['Hypothesis-Driven Problem Solving','MECE Structuring','Market Sizing','Corporate Valuation'], weak:['Market Sizing Estimation','Turnaround Modeling'], courseId:'course-entrepreneurship-biz-mgmt' },
+      'Product Manager (Tech & Business Strategy)': { skills:['Product Roadmaps','PRDs','Agile Sprints','RICE Prioritization'], weak:['Telemetry Funnels','Feasibility Auditing'], courseId:'course-design-systems' },
+      'Human Resources & People Operations Specialist': { skills:['Talent Acquisition','HR Analytics','Labor Law Compliance','Performance Frameworks'], weak:['Attrition Modeling','Compensation Benchmarks'], courseId:'course-operations-supplychain-compliance' },
     };
     const cfg = TRACK_MAP[trackTitle] || { skills:['Node.js','Docker','React'], weak:['CI/CD','APIs'], courseId:'course-fullstack-js' };
     try {

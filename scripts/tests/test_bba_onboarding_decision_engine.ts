@@ -274,8 +274,78 @@ async function runBbaDiagnosticVerification() {
     console.log(`   ✓ Role "${testCase.role}" -> Trajectory "${trajectory.roleId}" (${trajectory.roleTitle})`);
   }
 
+  // ── TEST 9: Skip Resiliency & Defensive Fallback Integrity ──
+  console.log('\nTEST 9: Verifying Skip Resiliency & Defensive Defaults under 100% skipped answers...');
+  const skippedSjt: RawDiagnosticResponse[] = sjtQuestions.map(q => ({
+    questionId: q.id,
+    optionId: 'skipped',
+    skipped: true,
+    responseTimeMs: 0,
+    timestamp: Date.now()
+  }));
+
+  const skippedMatrix: RawMatrixResponse[] = [];
+  for (const m of matrixScenarios) {
+    for (const item of m.items) {
+      skippedMatrix.push({
+        scenarioId: m.id,
+        itemId: item.id,
+        rating: 3,
+        skipped: true,
+        responseTimeMs: 0,
+        timestamp: Date.now()
+      });
+    }
+  }
+
+  const skippedTradeoff: RawDiagnosticResponse[] = tradeoffProbes.map(t => ({
+    questionId: t.id,
+    optionId: 'skipped',
+    skipped: true,
+    responseTimeMs: 0,
+    timestamp: Date.now()
+  }));
+
+  const fallbackProfile = evaluateDiagnosticSession({
+    goal: {
+      outcome: 'exploring',
+      role: 'exploring',
+      degreeTrack: 'bba_mba',
+      specialization: 'no_experience',
+      secondaryRoles: [],
+      horizonMonths: 6,
+      motivation: ['exploring']
+    },
+    sjtResponses: skippedSjt,
+    matrixResponses: skippedMatrix,
+    tradeoffResponses: skippedTradeoff
+  });
+
+  assert(fallbackProfile.behaviorProfile.PH.band === 'developing', 'Skipped PH band must be developing');
+  assert(fallbackProfile.behaviorProfile.EX.band === 'developing', 'Skipped EX band must be developing');
+  assert(fallbackProfile.behaviorProfile.ST.band === 'developing', 'Skipped ST band must be developing');
+  assert(fallbackProfile.behaviorProfile.SIQ.band === 'developing', 'Skipped SIQ band must be developing');
+  assert(!isNaN(fallbackProfile.behaviorProfile.PH.confidence), 'Confidence must not be NaN');
+  assert(!isNaN(fallbackProfile.roadmapStrategy.allocations.executionPct), 'Allocations must not be NaN');
+  assert(fallbackProfile.behaviorProfile.PH.evidence === 0, 'Skipped evidence must be 0');
+  console.log('   ✅ 100% skipped diagnostic session handled defensively without NaN or crash.\n');
+
+  // ── TEST 10: All 12 BBA Goal Discovery Roles Coverage ──
+  console.log('TEST 10: Verifying all 12 BBA Goal Discovery Q1 options map cleanly to trajectories...');
+  const q1Direction = goalQuestions[0];
+  assert(q1Direction.options.length === 12, `Expected 12 options in BBA Q1, got ${q1Direction.options.length}`);
+  
+  for (const opt of q1Direction.options) {
+    const roleKey = opt.mappedValue as string;
+    const traj = recommendCareerTrajectory(roleKey, 75, 80, 'Explorer');
+    assert(!!traj.roleId, `Role key "${roleKey}" must produce valid roleId`);
+    assert(!!traj.roleTitle, `Role key "${roleKey}" must produce valid roleTitle`);
+    assert(traj.nodes.length > 0, `Role key "${roleKey}" must have curriculum nodes`);
+    console.log(`   ✓ Q1 Opt "${opt.label}" (${roleKey}) -> Trajectory "${traj.roleId}"`);
+  }
+
   console.log('\n================================================================');
-  console.log('🎉 ALL 8 BBA / MBA ONBOARDING DECISION ENGINE TESTS PASSED (100%)');
+  console.log('🎉 ALL 10 BBA / MBA ONBOARDING DECISION ENGINE TESTS PASSED (100%)');
   console.log('================================================================\n');
 }
 

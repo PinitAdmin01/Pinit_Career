@@ -1403,11 +1403,31 @@ export function useOnboardingWizard() {
       };
     }
 
-    // 19. Product & Operations Manager
-    if (goal.includes('product') || goal.includes('business') || goal.includes('consult') || goal.includes('operations') ||
+    // 19. Management Consulting & Business Strategy
+    if (goal.includes('consult') || goal.includes('strategy') || goal.includes('management_strategy')) {
+      return {
+        targetRoleLabel: 'Management Consultant & Business Strategist',
+        courseId: 'course-entrepreneurship-biz-mgmt',
+        skillsList: 'Hypothesis-Driven Problem Solving, MECE Structuring, Market Sizing, Corporate Valuation, Executive Presentation Storytelling',
+        weakAreas: ['Market Sizing Estimation', 'M&A Synergy Modeling', 'Executive Slide Architecture']
+      };
+    }
+
+    // 20. Product Management
+    if (goal.includes('product_mgmt') || goal.includes('product_management') || goal.includes('product manager')) {
+      return {
+        targetRoleLabel: 'Product Manager (Tech & Business Strategy)',
+        courseId: 'course-design-systems',
+        skillsList: 'Product Strategy, User Research, PRD Authoring, Agile Sprint Planning, North Star Metrics, Feature Prioritization (RICE)',
+        weakAreas: ['RICE Prioritization Trade-offs', 'Telemetry Funnel Drop-off Auditing', 'Technical Architecture Feasibility']
+      };
+    }
+
+    // 21. Operations, Supply Chain & Logistics
+    if (goal.includes('operations') || goal.includes('supplychain') || goal.includes('supply chain') || goal.includes('logistics') ||
         profile.includes('management') || profile.includes('bba') || profile.includes('mba')) {
       return {
-        targetRoleLabel: 'Operations & Business Process Manager',
+        targetRoleLabel: 'Operations, Supply Chain & Compliance Specialist',
         courseId: 'course-operations-supplychain-compliance',
         skillsList: 'Business Process Mapping, Inventory Management (EOQ/ROP), Logistics, Lean & Six Sigma, Business Compliance',
         weakAreas: ['Supply Chain Bottleneck Analysis', 'Lean Six Sigma Root Cause', 'Regulatory Audit Preparation']
