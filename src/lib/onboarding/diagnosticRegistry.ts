@@ -827,3 +827,129 @@ export const TRADEOFF_PROBES: TradeoffProbe[] = [
     ]
   }
 ];
+
+/* ==========================================================================
+   PART 0 — DEGREE & EDUCATIONAL STREAM SELECTION (STEP 0)
+   ========================================================================== */
+
+export const DEGREE_SELECTION_QUESTION: GoalDiscoveryQuestion = {
+  id: 'Q0_DEGREE',
+  title: 'Degree & Educational Stream',
+  subtitle: 'Select your degree track so PinIT calibrates your curriculum, problem contexts, and diagnostic scenarios.',
+  type: 'single_select',
+  options: [
+    {
+      id: 'degree_btech_bca_mca',
+      label: 'B.Tech / BCA / MCA / Computer Science / Engineering',
+      description: 'Software development, backend, cloud, AI/ML, cybersecurity, systems engineering',
+      mappedValue: 'btech_bca_mca'
+    },
+    {
+      id: 'degree_bcom_mcom',
+      label: 'B.Com / M.Com / Commerce & Finance',
+      description: 'Accounting, banking, auditing, financial markets, taxation, business analytics',
+      mappedValue: 'bcom_mcom'
+    },
+    {
+      id: 'degree_bba_mba',
+      label: 'BBA / MBA / Business Management',
+      description: 'Product management, corporate operations, consulting, marketing & growth',
+      mappedValue: 'bba_mba'
+    },
+    {
+      id: 'degree_other',
+      label: 'Other / Non-Tech Degree',
+      description: 'Arts, humanities, physical sciences, interdisciplinary, general exploration',
+      mappedValue: 'other'
+    }
+  ]
+};
+
+/* ==========================================================================
+   MULTI-STREAM REGISTRY ACCESSORS & LOOKUP UNION
+   ========================================================================== */
+
+import {
+  BCOM_GOAL_DISCOVERY_QUESTIONS,
+  BCOM_SJT_QUESTIONS,
+  BCOM_MATRIX_SCENARIOS,
+  BCOM_TRADEOFF_PROBES,
+  COMMERCE_SPECIALIZATION_QUESTIONS
+} from './diagnosticRegistryCommerce';
+
+export {
+  BCOM_GOAL_DISCOVERY_QUESTIONS,
+  BCOM_SJT_QUESTIONS,
+  BCOM_MATRIX_SCENARIOS,
+  BCOM_TRADEOFF_PROBES,
+  COMMERCE_SPECIALIZATION_QUESTIONS
+};
+
+/**
+ * Returns stream-specific Goal Discovery questions.
+ */
+export function getGoalDiscoveryQuestions(degreeTrack: string = 'btech_bca_mca'): GoalDiscoveryQuestion[] {
+  const norm = (degreeTrack || '').toLowerCase();
+  if (norm.includes('bcom') || norm.includes('mcom') || norm.includes('commerce') || norm.includes('finance')) {
+    return BCOM_GOAL_DISCOVERY_QUESTIONS;
+  }
+  return GOAL_DISCOVERY_QUESTIONS;
+}
+
+/**
+ * Returns stream-specific Behavioral SJT questions.
+ */
+export function getSjtQuestions(degreeTrack: string = 'btech_bca_mca'): SJTQuestion[] {
+  const norm = (degreeTrack || '').toLowerCase();
+  if (norm.includes('bcom') || norm.includes('mcom') || norm.includes('commerce') || norm.includes('finance')) {
+    return BCOM_SJT_QUESTIONS;
+  }
+  return SJT_QUESTIONS;
+}
+
+/**
+ * Returns stream-specific Frequency Matrix scenarios.
+ */
+export function getMatrixScenarios(degreeTrack: string = 'btech_bca_mca'): MatrixScenario[] {
+  const norm = (degreeTrack || '').toLowerCase();
+  if (norm.includes('bcom') || norm.includes('mcom') || norm.includes('commerce') || norm.includes('finance')) {
+    return BCOM_MATRIX_SCENARIOS;
+  }
+  return MATRIX_SCENARIOS;
+}
+
+/**
+ * Returns stream-specific Tradeoff probes.
+ */
+export function getTradeoffProbes(degreeTrack: string = 'btech_bca_mca'): TradeoffProbe[] {
+  const norm = (degreeTrack || '').toLowerCase();
+  if (norm.includes('bcom') || norm.includes('mcom') || norm.includes('commerce') || norm.includes('finance')) {
+    return BCOM_TRADEOFF_PROBES;
+  }
+  return TRADEOFF_PROBES;
+}
+
+/**
+ * Complete union of all SJT questions across all streams for diagnostic engine lookup.
+ */
+export const ALL_SJT_QUESTIONS: SJTQuestion[] = [
+  ...SJT_QUESTIONS,
+  ...BCOM_SJT_QUESTIONS
+];
+
+/**
+ * Complete union of all Frequency Matrix scenarios across all streams.
+ */
+export const ALL_MATRIX_SCENARIOS: MatrixScenario[] = [
+  ...MATRIX_SCENARIOS,
+  ...BCOM_MATRIX_SCENARIOS
+];
+
+/**
+ * Complete union of all Tradeoff Probes across all streams.
+ */
+export const ALL_TRADEOFF_PROBES: TradeoffProbe[] = [
+  ...TRADEOFF_PROBES,
+  ...BCOM_TRADEOFF_PROBES
+];
+

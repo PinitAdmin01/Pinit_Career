@@ -3,10 +3,10 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import {
-  SJT_QUESTIONS,
-  MATRIX_SCENARIOS,
+  getSjtQuestions,
+  getMatrixScenarios,
+  getTradeoffProbes,
   MATRIX_SCALE_CONFIG,
-  TRADEOFF_PROBES,
   SJTQuestion,
   MatrixScenario,
   TradeoffProbe,
@@ -21,6 +21,7 @@ export interface BehavioralDiagnosticResults {
   sjtResponses: RawDiagnosticResponse[];
   matrixResponses: RawMatrixResponse[];
   tradeoffResponses: RawDiagnosticResponse[];
+  specializationResponse?: RawDiagnosticResponse;
 }
 
 export interface BehavioralDiagnosticStepProps {
@@ -38,6 +39,14 @@ export default function BehavioralDiagnosticStep({
   onBack,
   goalAnswers
 }: BehavioralDiagnosticStepProps) {
+  // Stream-specific question sets
+  const degreeTrack = goalAnswers?.degreeTrack || 'btech_bca_mca';
+  const isCommerceStream = degreeTrack.includes('bcom') || degreeTrack.includes('mcom') || degreeTrack.includes('commerce');
+
+  const activeSjtQuestions: SJTQuestion[] = getSjtQuestions(degreeTrack);
+  const activeMatrixScenarios: MatrixScenario[] = getMatrixScenarios(degreeTrack);
+  const activeTradeoffProbes: TradeoffProbe[] = getTradeoffProbes(degreeTrack);
+
   const [phase, setPhase] = useState<DiagnosticPhase>('SJT');
   const [sjtIndex, setSjtIndex] = useState(0);
   const [matrixIndex, setMatrixIndex] = useState(0);
@@ -55,17 +64,27 @@ export default function BehavioralDiagnosticStep({
   const questionStartTimeRef = useRef<number>(Date.now());
   useEffect(() => {
     questionStartTimeRef.current = Date.now();
-    setSelectedOptId(null);
+    // Restore previous selection if user stepped back to this question
+    if (phase === 'SJT') {
+      const q = activeSjtQuestions[sjtIndex];
+      const prev = sjtResponses.find(r => r.questionId === q?.id);
+      setSelectedOptId(prev && !prev.skipped ? prev.optionId : null);
+    } else if (phase === 'TRADEOFF') {
+      const q = activeTradeoffProbes[tradeoffIndex];
+      const prev = tradeoffResponses.find(r => r.questionId === q?.id);
+      setSelectedOptId(prev && !prev.skipped ? prev.optionId : null);
+    } else {
+      setSelectedOptId(null);
+    }
     setIsAdvancing(false);
   }, [phase, sjtIndex, matrixIndex, tradeoffIndex]);
 
   // Shuffled options for current SJT to avoid position bias
-  const currentSjt: SJTQuestion = SJT_QUESTIONS[sjtIndex];
+  const currentSjt: SJTQuestion = activeSjtQuestions[sjtIndex] || activeSjtQuestions[0];
   const [shuffledSjtOptions, setShuffledSjtOptions] = useState<SJTOption[]>([]);
 
   useEffect(() => {
     if (currentSjt) {
-      // Deterministic but pseudo-random shuffle per question id
       const copy = [...currentSjt.options];
       for (let i = copy.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -73,7 +92,100 @@ export default function BehavioralDiagnosticStep({
       }
       setShuffledSjtOptions(copy);
     }
-  }, [sjtIndex]);
+  }, [sjtIndex, phase, degreeTrack]);
+
+  // Universal Navigation: Go back to previous question
+  const handleUniversalPrev = () => {
+    if (phase === 'SJT') {
+      if (sjtIndex > 0) {
+        setSjtIndex(prev => prev - 1);
+      } else if (onGoBack) {
+        onGoBack();
+      } else if (onBack) {
+        onBack();
+      }
+    } else if (phase === 'MATRIX') {
+      if (matrixIndex > 0) {
+        setMatrixIndex(prev => prev - 1);
+      } else {
+        setPhase('SJT');
+        setSjtIndex(activeSjtQuestions.length - 1);
+      }
+    } else if (phase === 'TRADEOFF') {
+      if (tradeoffIndex > 0) {
+        setTradeoffIndex(prev => prev - 1);
+      } else {
+        setPhase('MATRIX');
+        setMatrixIndex(activeMatrixScenarios.length - 1);
+      }
+    }
+  };
+
+  // Universal Navigation: I Don't Know / Skip Question
+  const handleUniversalSkip = () => {
+    if (isAdvancing) return;
+
+    if (phase === 'SJT') {
+      const skipRecord: RawDiagnosticResponse = {
+        questionId: currentSjt.id,
+        optionId: 'skipped',
+        skipped: true,
+        responseTimeMs: 0,
+        timestamp: Date.now()
+      };
+      const updated = [...sjtResponses.filter(r => r.questionId !== currentSjt.id), skipRecord];
+      setSjtResponses(updated);
+
+      if (sjtIndex < activeSjtQuestions.length - 1) {
+        setSjtIndex(prev => prev + 1);
+      } else {
+        setPhase('MATRIX');
+        setMatrixIndex(0);
+      }
+    } else if (phase === 'MATRIX') {
+      const now = Date.now();
+      const skipItems: RawMatrixResponse[] = currentMatrix.items.map(item => ({
+        scenarioId: currentMatrix.id,
+        itemId: item.id,
+        rating: 3, // neutral
+        skipped: true,
+        responseTimeMs: 0,
+        timestamp: now
+      }));
+      const updated = [
+        ...matrixResponses.filter(r => r.scenarioId !== currentMatrix.id),
+        ...skipItems
+      ];
+      setMatrixResponses(updated);
+
+      if (matrixIndex < activeMatrixScenarios.length - 1) {
+        setMatrixIndex(prev => prev + 1);
+      } else {
+        setPhase('TRADEOFF');
+        setTradeoffIndex(0);
+      }
+    } else if (phase === 'TRADEOFF') {
+      const skipRecord: RawDiagnosticResponse = {
+        questionId: currentTradeoff.id,
+        optionId: 'skipped',
+        skipped: true,
+        responseTimeMs: 0,
+        timestamp: Date.now()
+      };
+      const updated = [...tradeoffResponses.filter(r => r.questionId !== currentTradeoff.id), skipRecord];
+      setTradeoffResponses(updated);
+
+      if (tradeoffIndex < activeTradeoffProbes.length - 1) {
+        setTradeoffIndex(prev => prev + 1);
+      } else {
+        onComplete({
+          sjtResponses,
+          matrixResponses,
+          tradeoffResponses: updated
+        });
+      }
+    }
+  };
 
   // Handle SJT choice with tactile feedback
   const handleSelectSjtOption = (optId: string) => {
@@ -93,7 +205,7 @@ export default function BehavioralDiagnosticStep({
       const updated = [...sjtResponses.filter(r => r.questionId !== currentSjt.id), newRecord];
       setSjtResponses(updated);
 
-      if (sjtIndex < SJT_QUESTIONS.length - 1) {
+      if (sjtIndex < activeSjtQuestions.length - 1) {
         setSjtIndex(prev => prev + 1);
       } else {
         // Move to Matrix phase
@@ -104,7 +216,7 @@ export default function BehavioralDiagnosticStep({
   };
 
   // Matrix State for current Scenario
-  const currentMatrix: MatrixScenario = MATRIX_SCENARIOS[matrixIndex];
+  const currentMatrix: MatrixScenario = activeMatrixScenarios[matrixIndex] || activeMatrixScenarios[0];
   const [currentMatrixRatings, setCurrentMatrixRatings] = useState<Record<string, number>>({});
 
   useEffect(() => {
@@ -116,7 +228,7 @@ export default function BehavioralDiagnosticStep({
       }
       setCurrentMatrixRatings(existing);
     }
-  }, [matrixIndex]);
+  }, [matrixIndex, phase, degreeTrack]);
 
   const handleRateMatrixItem = (itemId: string, rating: number) => {
     setCurrentMatrixRatings(prev => ({ ...prev, [itemId]: rating }));
@@ -139,7 +251,7 @@ export default function BehavioralDiagnosticStep({
     ];
     setMatrixResponses(updated);
 
-    if (matrixIndex < MATRIX_SCENARIOS.length - 1) {
+    if (matrixIndex < activeMatrixScenarios.length - 1) {
       setMatrixIndex(prev => prev + 1);
     } else {
       // Move to Trade-Off phase
@@ -149,7 +261,7 @@ export default function BehavioralDiagnosticStep({
   };
 
   // Handle Trade-Off Probe with tactile feedback
-  const currentTradeoff: TradeoffProbe = TRADEOFF_PROBES[tradeoffIndex];
+  const currentTradeoff: TradeoffProbe = activeTradeoffProbes[tradeoffIndex] || activeTradeoffProbes[0];
 
   const handleSelectTradeoffOption = (optId: string) => {
     if (isAdvancing) return;
@@ -168,10 +280,10 @@ export default function BehavioralDiagnosticStep({
       const updated = [...tradeoffResponses.filter(r => r.questionId !== currentTradeoff.id), newRecord];
       setTradeoffResponses(updated);
 
-      if (tradeoffIndex < TRADEOFF_PROBES.length - 1) {
+      if (tradeoffIndex < activeTradeoffProbes.length - 1) {
         setTradeoffIndex(prev => prev + 1);
       } else {
-        // Completed all 3 behavioral phases!
+        // Completed all behavioral phases!
         onComplete({
           sjtResponses,
           matrixResponses,
@@ -219,82 +331,136 @@ export default function BehavioralDiagnosticStep({
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
         <button
           type="button"
-          onClick={() => {
-            if (phase === 'SJT' && sjtIndex > 0) setSjtIndex(prev => prev - 1);
-            else if (phase === 'MATRIX') {
-              if (matrixIndex > 0) setMatrixIndex(prev => prev - 1);
-              else { setPhase('SJT'); setSjtIndex(SJT_QUESTIONS.length - 1); }
-            } else if (phase === 'TRADEOFF') {
-              if (tradeoffIndex > 0) setTradeoffIndex(prev => prev - 1);
-              else { setPhase('MATRIX'); setMatrixIndex(MATRIX_SCENARIOS.length - 1); }
-            } else if (onGoBack) {
-              onGoBack();
-            } else if (onBack) {
-              onBack();
-            }
+          onClick={handleUniversalPrev}
+          style={{
+            background: 'rgba(255,255,255,0.03)',
+            border: '1px solid rgba(255,255,255,0.08)',
+            borderRadius: 8,
+            color: 'var(--text-muted, #94a3b8)',
+            fontSize: 12,
+            fontWeight: 700,
+            padding: '6px 14px',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+            transition: 'all 0.15s ease'
           }}
-          style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.color = '#f8fafc';
+            e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.color = 'var(--text-muted, #94a3b8)';
+            e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)';
+          }}
         >
-          ← Back
+          ← Previous Question
         </button>
 
         <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          {/* Degree Stream Badge */}
           <span style={{
             fontSize: 10,
-            fontFamily: 'var(--font-mono)',
+            fontFamily: 'var(--font-mono, monospace)',
             padding: '3px 10px',
             borderRadius: 100,
             fontWeight: 800,
-            background: phase === 'SJT' ? 'rgba(var(--brand-rgb), 0.2)' : 'rgba(255,255,255,0.04)',
-            color: phase === 'SJT' ? 'var(--brand-bright)' : 'var(--t3)'
+            background: isCommerceStream ? 'rgba(56, 189, 248, 0.12)' : 'rgba(52, 211, 153, 0.12)',
+            color: isCommerceStream ? '#38bdf8' : '#34d399',
+            border: `1px solid ${isCommerceStream ? 'rgba(56, 189, 248, 0.3)' : 'rgba(52, 211, 153, 0.3)'}`
           }}>
-            1. SITUATIONAL ({sjtIndex + 1}/12)
+            {isCommerceStream ? 'COMMERCE & FINANCE' : 'ENGINEERING & TECH'}
           </span>
+
+          {/* Phase 1 Badge */}
           <span style={{
             fontSize: 10,
-            fontFamily: 'var(--font-mono)',
+            fontFamily: 'var(--font-mono, monospace)',
             padding: '3px 10px',
             borderRadius: 100,
             fontWeight: 800,
-            background: phase === 'MATRIX' ? 'rgba(var(--teal-rgb, 20, 184, 166), 0.2)' : 'rgba(255,255,255,0.04)',
-            color: phase === 'MATRIX' ? 'var(--teal)' : 'var(--t3)'
+            background: phase === 'SJT' ? 'rgba(99, 102, 241, 0.2)' : 'rgba(255,255,255,0.04)',
+            color: phase === 'SJT' ? '#a5b4fc' : '#64748b'
           }}>
-            2. FREQUENCY ({phase === 'MATRIX' ? matrixIndex + 1 : 0}/4)
+            1. SCENARIOS ({sjtIndex + 1}/{activeSjtQuestions.length})
           </span>
+
+          {/* Phase 2 Badge */}
           <span style={{
             fontSize: 10,
-            fontFamily: 'var(--font-mono)',
+            fontFamily: 'var(--font-mono, monospace)',
             padding: '3px 10px',
             borderRadius: 100,
             fontWeight: 800,
-            background: phase === 'TRADEOFF' ? 'rgba(var(--coral-rgb, 244, 63, 94), 0.2)' : 'rgba(255,255,255,0.04)',
-            color: phase === 'TRADEOFF' ? 'var(--coral)' : 'var(--t3)'
+            background: phase === 'MATRIX' ? 'rgba(20, 184, 166, 0.2)' : 'rgba(255,255,255,0.04)',
+            color: phase === 'MATRIX' ? '#5eead4' : '#64748b'
           }}>
-            3. TRADE-OFFS ({phase === 'TRADEOFF' ? tradeoffIndex + 1 : 0}/4)
+            2. FREQUENCY ({matrixIndex + 1}/{activeMatrixScenarios.length})
+          </span>
+
+          {/* Phase 3 Badge */}
+          <span style={{
+            fontSize: 10,
+            fontFamily: 'var(--font-mono, monospace)',
+            padding: '3px 10px',
+            borderRadius: 100,
+            fontWeight: 800,
+            background: phase === 'TRADEOFF' ? 'rgba(245, 158, 11, 0.2)' : 'rgba(255,255,255,0.04)',
+            color: phase === 'TRADEOFF' ? '#fcd34d' : '#64748b'
+          }}>
+            3. TRADEOFFS ({tradeoffIndex + 1}/{activeTradeoffProbes.length})
           </span>
         </div>
       </div>
 
-      {/* ─────────────────────────────────────────────────────────────
-          PHASE 1: SITUATIONAL JUDGEMENT TESTS (Q9 – Q20)
-         ───────────────────────────────────────────────────────────── */}
-      {phase === 'SJT' && currentSjt && (
+      {/* Progress Bar */}
+      <div style={{ width: '100%', height: 4, background: 'rgba(255,255,255,0.06)', borderRadius: 2, marginBottom: 20, overflow: 'hidden' }}>
+        <div
+          style={{
+            height: '100%',
+            background: isCommerceStream
+              ? 'linear-gradient(90deg, #0284c7 0%, #38bdf8 100%)'
+              : 'linear-gradient(90deg, var(--brand, #6366f1) 0%, var(--teal, #14b8a6) 100%)',
+            transition: 'width 0.3s ease',
+            width: phase === 'SJT'
+              ? `${((sjtIndex + 1) / (activeSjtQuestions.length + activeMatrixScenarios.length + activeTradeoffProbes.length)) * 100}%`
+              : phase === 'MATRIX'
+                ? `${((activeSjtQuestions.length + matrixIndex + 1) / (activeSjtQuestions.length + activeMatrixScenarios.length + activeTradeoffProbes.length)) * 100}%`
+                : `${((activeSjtQuestions.length + activeMatrixScenarios.length + tradeoffIndex + 1) / (activeSjtQuestions.length + activeMatrixScenarios.length + activeTradeoffProbes.length)) * 100}%`
+          }}
+        />
+      </div>
+
+      {/* ============================================================== */}
+      {/* PHASE 1: SITUATIONAL JUDGEMENT TESTS (SJT)                      */}
+      {/* ============================================================== */}
+      {phase === 'SJT' && (
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <div style={{ marginBottom: 20 }}>
-            <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--brand-bright)', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 800 }}>
-              {currentSjt.title}
+          <div style={{ marginBottom: 18 }}>
+            <span style={{ fontSize: 11, fontFamily: 'var(--font-mono, monospace)', color: isCommerceStream ? '#38bdf8' : 'var(--brand-bright, #818cf8)', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700 }}>
+              {isCommerceStream ? 'COMMERCE & BUSINESS SCENARIO' : 'ENGINEERING & SYSTEMS SCENARIO'} &middot; {sjtIndex + 1} OF {activeSjtQuestions.length}
             </span>
-            <h3 style={{ fontSize: 18, fontWeight: 900, color: 'var(--t1)', marginTop: 4, marginBottom: 8, letterSpacing: '-0.3px' }}>
-              {currentSjt.scenario}
-            </h3>
-            <p style={{ fontSize: 12, color: 'var(--t3)', fontStyle: 'italic' }}>
-              {currentSjt.instruction}
+            <h2 style={{ fontSize: 21, fontWeight: 900, color: 'var(--t1, #f8fafc)', letterSpacing: '-0.5px', marginTop: 4, marginBottom: 8 }}>
+              {currentSjt.title}
+            </h2>
+            <div style={{ padding: '14px 18px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 12, marginBottom: 8 }}>
+              <p style={{ fontSize: 13.5, color: '#f1f5f9', lineHeight: 1.6, margin: 0 }}>
+                {currentSjt.scenario}
+              </p>
+            </div>
+            <p style={{ fontSize: 12.5, color: '#94a3b8', fontStyle: 'italic', margin: 0 }}>
+              💡 {currentSjt.instruction}
             </p>
           </div>
 
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 12, justifyContent: 'center' }}>
-            {shuffledSjtOptions.map((opt, oIdx) => {
-              const isSelected = opt.id === selectedOptId;
+          <h3 style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1, #f8fafc)', marginBottom: 12 }}>
+            {currentSjt.prompt}
+          </h3>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1, marginBottom: 20 }}>
+            {shuffledSjtOptions.map((opt, idx) => {
+              const isSelected = selectedOptId === opt.id;
               return (
                 <button
                   key={opt.id}
@@ -304,46 +470,65 @@ export default function BehavioralDiagnosticStep({
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: 12,
-                    padding: '16px 20px',
+                    justifyContent: 'space-between',
+                    padding: '14px 20px',
                     borderRadius: 14,
-                    background: isSelected ? 'rgba(var(--brand-rgb), 0.25)' : 'rgba(255, 255, 255, 0.02)',
-                    border: `1.5px solid ${isSelected ? 'var(--brand-bright)' : 'rgba(255, 255, 255, 0.06)'}`,
-                    boxShadow: isSelected ? '0 0 18px rgba(var(--brand-rgb), 0.4)' : 'none',
+                    background: isSelected
+                      ? isCommerceStream ? 'rgba(56, 189, 248, 0.16)' : 'rgba(99, 102, 241, 0.16)'
+                      : 'rgba(255,255,255,0.02)',
+                    border: `1.5px solid ${isSelected ? (isCommerceStream ? '#38bdf8' : 'var(--brand-bright, #818cf8)') : 'rgba(255,255,255,0.06)'}`,
                     textAlign: 'left',
                     cursor: isAdvancing ? 'default' : 'pointer',
-                    color: 'var(--t1)',
-                    fontSize: 13.5,
-                    fontWeight: isSelected ? 700 : 600,
-                    lineHeight: 1.5,
-                    transition: 'all 0.15s ease'
+                    transition: 'all 0.15s ease',
+                    boxShadow: isSelected ? `0 0 16px ${isCommerceStream ? 'rgba(56, 189, 248, 0.3)' : 'rgba(99, 102, 241, 0.3)'}` : 'none'
                   }}
                   onMouseEnter={(e) => {
-                    if (!isAdvancing) {
-                      e.currentTarget.style.background = 'rgba(var(--brand-rgb), 0.14)';
-                      e.currentTarget.style.borderColor = 'var(--brand-bright)';
+                    if (!isAdvancing && !isSelected) {
+                      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
+                      e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (!isAdvancing && !isSelected) {
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.02)';
-                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.06)';
+                      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
+                      e.currentTarget.style.background = 'rgba(255,255,255,0.02)';
                     }
                   }}
                 >
-                  <span style={{
-                    fontSize: 11,
-                    fontFamily: 'var(--font-mono)',
-                    padding: '2px 7px',
-                    borderRadius: 6,
-                    background: isSelected ? 'var(--brand-bright)' : 'rgba(255,255,255,0.06)',
-                    color: isSelected ? '#030508' : 'var(--t3)',
-                    fontWeight: 800
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                    <span style={{
+                      width: 24,
+                      height: 24,
+                      borderRadius: '50%',
+                      background: isSelected ? (isCommerceStream ? '#38bdf8' : 'var(--brand, #6366f1)') : 'rgba(255,255,255,0.06)',
+                      color: isSelected ? '#030508' : '#94a3b8',
+                      fontFamily: 'var(--font-mono, monospace)',
+                      fontSize: 11,
+                      fontWeight: 800,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0
+                    }}>
+                      {idx + 1}
+                    </span>
+                    <span style={{ fontSize: 13.5, color: isSelected ? '#ffffff' : '#f1f5f9', lineHeight: 1.5, fontWeight: isSelected ? 700 : 500 }}>
+                      {opt.text}
+                    </span>
+                  </div>
+                  <div style={{
+                    width: 20,
+                    height: 20,
+                    borderRadius: '50%',
+                    border: `2px solid ${isSelected ? (isCommerceStream ? '#38bdf8' : 'var(--brand-bright, #818cf8)') : 'rgba(255,255,255,0.2)'}`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                    marginLeft: 12
                   }}>
-                    {oIdx + 1}
-                  </span>
-                  <span style={{ flex: 1 }}>{opt.text}</span>
-                  {isSelected && <span style={{ color: 'var(--brand-bright)', fontSize: 16 }}>✓</span>}
+                    {isSelected && <div style={{ width: 10, height: 10, borderRadius: '50%', background: isCommerceStream ? '#38bdf8' : 'var(--brand-bright, #818cf8)' }} />}
+                  </div>
                 </button>
               );
             })}
@@ -351,63 +536,76 @@ export default function BehavioralDiagnosticStep({
         </div>
       )}
 
-      {/* ─────────────────────────────────────────────────────────────
-          PHASE 2: BEHAVIORAL FREQUENCY MATRIX (M1 – M4)
-         ───────────────────────────────────────────────────────────── */}
-      {phase === 'MATRIX' && currentMatrix && (
+      {/* ============================================================== */}
+      {/* PHASE 2: BEHAVIORAL FREQUENCY MATRIX                           */}
+      {/* ============================================================== */}
+      {phase === 'MATRIX' && (
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           <div style={{ marginBottom: 18 }}>
-            <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--teal)', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 800 }}>
-              {currentMatrix.title}
+            <span style={{ fontSize: 11, fontFamily: 'var(--font-mono, monospace)', color: 'var(--teal, #14b8a6)', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700 }}>
+              FREQUENCY PATTERN MATRIX &middot; {matrixIndex + 1} OF {activeMatrixScenarios.length}
             </span>
-            <h3 style={{ fontSize: 17, fontWeight: 900, color: 'var(--t1)', marginTop: 4, marginBottom: 4 }}>
-              {currentMatrix.scenario}
-            </h3>
-            <p style={{ fontSize: 12, color: 'var(--t3)' }}>
-              In situations like this, how often do you actually take each approach? Rate each independently:
+            <h2 style={{ fontSize: 21, fontWeight: 900, color: 'var(--t1, #f8fafc)', letterSpacing: '-0.5px', marginTop: 4, marginBottom: 8 }}>
+              {currentMatrix.title}
+            </h2>
+            <div style={{ padding: '14px 18px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 12, marginBottom: 8 }}>
+              <p style={{ fontSize: 13.5, color: '#f1f5f9', lineHeight: 1.6, margin: 0 }}>
+                {currentMatrix.scenario}
+              </p>
+            </div>
+            <p style={{ fontSize: 12, color: '#94a3b8', fontStyle: 'italic', margin: 0 }}>
+              Rate how often you actually do each behavior (1 = Almost never, 5 = Almost always):
             </p>
           </div>
 
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 14, justifyContent: 'center' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14, flex: 1, marginBottom: 24 }}>
             {currentMatrix.items.map((item) => {
-              const currentRating = currentMatrixRatings[item.id] || 0;
+              const currentRating = currentMatrixRatings[item.id] || 3;
               return (
                 <div
                   key={item.id}
                   style={{
-                    padding: '14px 16px',
+                    padding: '14px 18px',
                     borderRadius: 14,
-                    background: 'rgba(255, 255, 255, 0.02)',
-                    border: '1px solid rgba(255, 255, 255, 0.06)'
+                    background: 'rgba(255,255,255,0.02)',
+                    border: '1px solid rgba(255,255,255,0.06)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 10
                   }}
                 >
-                  <p style={{ fontSize: 13, fontWeight: 650, color: 'var(--t1)', marginBottom: 10, lineHeight: 1.4 }}>
+                  <div style={{ fontSize: 13.5, color: '#f1f5f9', lineHeight: 1.5, fontWeight: 600 }}>
                     {item.statement}
-                  </p>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 6 }}>
-                    {[1, 2, 3, 4, 5].map((val) => {
-                      const isSelected = currentRating === val;
-                      const label = (MATRIX_SCALE_CONFIG as any)[val]?.label || `${val}`;
+                  </div>
+                  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                    {[1, 2, 3, 4, 5].map((num) => {
+                      const isSelected = currentRating === num;
+                      const cfg = (MATRIX_SCALE_CONFIG as any)[num];
                       return (
                         <button
-                          key={val}
+                          key={num}
                           type="button"
-                          onClick={() => handleRateMatrixItem(item.id, val)}
+                          onClick={() => handleRateMatrixItem(item.id, num)}
                           style={{
-                            padding: '8px 4px',
+                            flex: 1,
+                            minWidth: 80,
+                            padding: '8px 10px',
                             borderRadius: 8,
-                            border: `1.5px solid ${isSelected ? 'var(--teal)' : 'rgba(255, 255, 255, 0.08)'}`,
-                            background: isSelected ? 'rgba(var(--teal-rgb, 20, 184, 166), 0.2)' : 'rgba(255, 255, 255, 0.02)',
-                            color: isSelected ? 'var(--teal)' : 'var(--t3)',
-                            fontSize: 10.5,
+                            background: isSelected ? 'rgba(20, 184, 166, 0.2)' : 'rgba(255,255,255,0.03)',
+                            border: `1px solid ${isSelected ? 'var(--teal, #14b8a6)' : 'rgba(255,255,255,0.08)'}`,
+                            color: isSelected ? 'var(--teal, #14b8a6)' : '#94a3b8',
+                            fontSize: 11.5,
                             fontWeight: isSelected ? 800 : 600,
                             cursor: 'pointer',
-                            textAlign: 'center',
-                            transition: 'all 0.15s ease'
+                            transition: 'all 0.15s ease',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            gap: 2
                           }}
                         >
-                          <div>{val}</div>
-                          <div style={{ fontSize: 9, opacity: 0.8, marginTop: 2 }}>{label}</div>
+                          <span style={{ fontSize: 13, fontWeight: 900 }}>{num}</span>
+                          <span style={{ fontSize: 10 }}>{cfg?.label || ''}</span>
                         </button>
                       );
                     })}
@@ -416,49 +614,38 @@ export default function BehavioralDiagnosticStep({
               );
             })}
           </div>
-
-          <div style={{ paddingTop: 16, display: 'flex', justifyContent: 'flex-end' }}>
-            <button
-              type="button"
-              onClick={handleNextMatrixScenario}
-              style={{
-                padding: '10px 24px',
-                background: 'linear-gradient(135deg, var(--teal) 0%, var(--accent) 100%)',
-                border: 'none',
-                borderRadius: 10,
-                color: 'var(--card)',
-                fontSize: 12.5,
-                fontWeight: 800,
-                cursor: 'pointer',
-                boxShadow: '0 4px 12px rgba(var(--teal-rgb, 20, 184, 166), 0.25)'
-              }}
-            >
-              Save & Next Scenario ➔
-            </button>
-          </div>
         </div>
       )}
 
-      {/* ─────────────────────────────────────────────────────────────
-          PHASE 3: DIRECT TRADE-OFF PROBES (Q21 – Q24)
-         ───────────────────────────────────────────────────────────── */}
-      {phase === 'TRADEOFF' && currentTradeoff && (
+      {/* ============================================================== */}
+      {/* PHASE 3: TRADE-OFF BALANCING PROBES                            */}
+      {/* ============================================================== */}
+      {phase === 'TRADEOFF' && (
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <div style={{ marginBottom: 20 }}>
-            <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--coral)', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 800 }}>
-              {currentTradeoff.title} &middot; Probe {tradeoffIndex + 1} of 4
+          <div style={{ marginBottom: 18 }}>
+            <span style={{ fontSize: 11, fontFamily: 'var(--font-mono, monospace)', color: 'var(--accent-gold, #f59e0b)', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700 }}>
+              TRADE-OFF BALANCING PROBE &middot; {tradeoffIndex + 1} OF {activeTradeoffProbes.length}
             </span>
-            <h3 style={{ fontSize: 18, fontWeight: 900, color: 'var(--t1)', marginTop: 4, marginBottom: 4 }}>
-              {currentTradeoff.scenario}
-            </h3>
-            <p style={{ fontSize: 12, color: 'var(--t3)' }}>
-              {currentTradeoff.prompt} (Both choices have valid merit — choose what reflects your instinct)
+            <h2 style={{ fontSize: 21, fontWeight: 900, color: 'var(--t1, #f8fafc)', letterSpacing: '-0.5px', marginTop: 4, marginBottom: 8 }}>
+              {currentTradeoff.title}
+            </h2>
+            <div style={{ padding: '14px 18px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 12, marginBottom: 8 }}>
+              <p style={{ fontSize: 13.5, color: '#f1f5f9', lineHeight: 1.6, margin: 0 }}>
+                {currentTradeoff.scenario}
+              </p>
+            </div>
+            <p style={{ fontSize: 12.5, color: '#94a3b8', fontStyle: 'italic', margin: 0 }}>
+              ⚡ Neither choice is wrong. Choose your genuine operating instinct under pressure.
             </p>
           </div>
 
-          <div style={{ flex: 1, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 14, alignItems: 'center' }}>
-            {currentTradeoff.options.map((opt, oIdx) => {
-              const isSelected = opt.id === selectedOptId;
+          <h3 style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1, #f8fafc)', marginBottom: 12 }}>
+            {currentTradeoff.prompt}
+          </h3>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, flex: 1, marginBottom: 20 }}>
+            {currentTradeoff.options.map((opt, idx) => {
+              const isSelected = selectedOptId === opt.id;
               return (
                 <button
                   key={opt.id}
@@ -467,56 +654,166 @@ export default function BehavioralDiagnosticStep({
                   onClick={() => handleSelectTradeoffOption(opt.id)}
                   style={{
                     display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    padding: '24px 20px',
-                    borderRadius: 16,
-                    background: isSelected ? 'rgba(var(--coral-rgb, 244, 63, 94), 0.25)' : 'rgba(255, 255, 255, 0.02)',
-                    border: `1.5px solid ${isSelected ? 'var(--coral)' : 'rgba(255, 255, 255, 0.08)'}`,
-                    boxShadow: isSelected ? '0 0 18px rgba(var(--coral-rgb, 244, 63, 94), 0.4)' : 'none',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '16px 22px',
+                    borderRadius: 14,
+                    background: isSelected ? 'rgba(245, 158, 11, 0.16)' : 'rgba(255,255,255,0.02)',
+                    border: `1.5px solid ${isSelected ? 'var(--accent-gold, #f59e0b)' : 'rgba(255,255,255,0.06)'}`,
                     textAlign: 'left',
                     cursor: isAdvancing ? 'default' : 'pointer',
-                    color: 'var(--t1)',
-                    fontSize: 14,
-                    fontWeight: isSelected ? 700 : 650,
-                    lineHeight: 1.5,
-                    minHeight: 140,
-                    transition: 'all 0.15s ease'
+                    transition: 'all 0.15s ease',
+                    boxShadow: isSelected ? '0 0 16px rgba(245, 158, 11, 0.3)' : 'none'
                   }}
                   onMouseEnter={(e) => {
-                    if (!isAdvancing) {
-                      e.currentTarget.style.background = 'rgba(var(--coral-rgb, 244, 63, 94), 0.14)';
-                      e.currentTarget.style.borderColor = 'var(--coral)';
+                    if (!isAdvancing && !isSelected) {
+                      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
+                      e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (!isAdvancing && !isSelected) {
-                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.02)';
-                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
+                      e.currentTarget.style.background = 'rgba(255,255,255,0.02)';
                     }
                   }}
                 >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                    <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--coral)', textTransform: 'uppercase', fontWeight: 800, display: 'flex', alignItems: 'center', gap: 6 }}>
-                      <span style={{
-                        padding: '1px 6px',
-                        borderRadius: 4,
-                        background: isSelected ? 'var(--coral)' : 'rgba(255,255,255,0.08)',
-                        color: isSelected ? '#030508' : 'var(--coral)'
-                      }}>
-                        {oIdx + 1}
-                      </span>
-                      Option {opt.id.slice(-1).toUpperCase()}
-                    </div>
-                    {isSelected && <span style={{ color: 'var(--coral)', fontSize: 16 }}>✓</span>}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                    <span style={{
+                      width: 26,
+                      height: 26,
+                      borderRadius: '50%',
+                      background: isSelected ? 'var(--accent-gold, #f59e0b)' : 'rgba(255,255,255,0.06)',
+                      color: isSelected ? '#030508' : '#94a3b8',
+                      fontFamily: 'var(--font-mono, monospace)',
+                      fontSize: 12,
+                      fontWeight: 800,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0
+                    }}>
+                      {idx === 0 ? 'A' : 'B'}
+                    </span>
+                    <span style={{ fontSize: 13.5, color: isSelected ? '#ffffff' : '#f1f5f9', lineHeight: 1.5, fontWeight: isSelected ? 700 : 500 }}>
+                      {opt.text}
+                    </span>
                   </div>
-                  <div>{opt.text}</div>
+                  <div style={{
+                    width: 20,
+                    height: 20,
+                    borderRadius: '50%',
+                    border: `2px solid ${isSelected ? 'var(--accent-gold, #f59e0b)' : 'rgba(255,255,255,0.2)'}`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                    marginLeft: 12
+                  }}>
+                    {isSelected && <div style={{ width: 10, height: 10, borderRadius: '50%', background: 'var(--accent-gold, #f59e0b)' }} />}
+                  </div>
                 </button>
               );
             })}
           </div>
         </div>
       )}
+
+      {/* Navigation Footer with the 2 Mandatory Universal Buttons */}
+      <div style={{
+        paddingTop: 16,
+        borderTop: '1px solid rgba(255,255,255,0.06)',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        gap: 12
+      }}>
+        {/* Universal Button 1: Go back to previous question */}
+        <button
+          type="button"
+          onClick={handleUniversalPrev}
+          style={{
+            padding: '10px 20px',
+            background: 'rgba(255,255,255,0.04)',
+            border: '1px solid rgba(255,255,255,0.1)',
+            borderRadius: 10,
+            color: '#cbd5e1',
+            fontSize: 12.5,
+            fontWeight: 700,
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+            transition: 'all 0.15s ease'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
+            e.currentTarget.style.color = '#ffffff';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
+            e.currentTarget.style.color = '#cbd5e1';
+          }}
+        >
+          ← Go back to previous question
+        </button>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          {/* Universal Button 2: I don't know / Skip for every question */}
+          <button
+            type="button"
+            onClick={handleUniversalSkip}
+            style={{
+              padding: '10px 18px',
+              background: 'transparent',
+              border: '1px dashed rgba(255,255,255,0.2)',
+              borderRadius: 10,
+              color: 'var(--text-muted, #94a3b8)',
+              fontSize: 12,
+              fontWeight: 700,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 6,
+              transition: 'all 0.15s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.4)';
+              e.currentTarget.style.color = '#f8fafc';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
+              e.currentTarget.style.color = 'var(--text-muted, #94a3b8)';
+            }}
+          >
+            ⏭️ I don't know / Skip
+          </button>
+
+          {/* If in Matrix phase, provide explicitly labeled Next Scenario button */}
+          {phase === 'MATRIX' && (
+            <button
+              type="button"
+              onClick={handleNextMatrixScenario}
+              style={{
+                padding: '10px 22px',
+                background: 'linear-gradient(135deg, var(--teal, #14b8a6) 0%, #0d9488 100%)',
+                border: 'none',
+                borderRadius: 10,
+                color: '#030508',
+                fontSize: 12.5,
+                fontWeight: 900,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6
+              }}
+            >
+              {matrixIndex < activeMatrixScenarios.length - 1 ? 'Next Scenario ➔' : 'Proceed to Trade-offs ➔'}
+            </button>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

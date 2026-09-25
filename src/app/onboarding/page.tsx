@@ -548,28 +548,11 @@ export default function OnboardingPage() {
             />
           )}
 
-          {/* SCREEN 05: IDENTITY QUESTIONS (Legacy Fallback) */}
-          {activeScreen === 'IDENTITY_QUESTIONS' && (
-            <CognitiveSliders
-              mode="IDENTITY_QUESTIONS"
-              studentType={studentType}
-              currentIdentityQ={currentIdentityQ}
-              setCurrentIdentityQ={setCurrentIdentityQ}
-              identityScores={identityScores}
-              setIdentityScores={setIdentityScores}
-              onCompleteIdentity={() => setActiveScreen('WORKPLACE_SIMULATION')}
-            />
-          )}
-
-          {/* SCREEN 06: WORKPLACE SIMULATION (Legacy Fallback) */}
-          {activeScreen === 'WORKPLACE_SIMULATION' && (
-            <CognitiveSliders
-              mode="WORKPLACE_SIMULATION"
-              studentType={studentType}
-              currentScenario={currentScenario}
-              setCurrentScenario={setCurrentScenario}
-              setSimulationScores={setSimulationScores}
-              onCompleteSimulation={() => setActiveScreen('SPEECH_ASSESSMENT')}
+          {/* SCREEN 05 & 06: Forward any legacy fallback routes to modern Decision Engine */}
+          {(activeScreen === 'IDENTITY_QUESTIONS' || activeScreen === 'WORKPLACE_SIMULATION') && (
+            <GoalDiscoveryStep
+              onComplete={handleGoalDiscoveryComplete}
+              onBack={() => setActiveScreen('CHOOSE_GUIDE')}
             />
           )}
 

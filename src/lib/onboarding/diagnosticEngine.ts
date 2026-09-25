@@ -17,6 +17,9 @@ import {
   MATRIX_SCENARIOS,
   MATRIX_SCALE_CONFIG,
   TRADEOFF_PROBES,
+  ALL_SJT_QUESTIONS,
+  ALL_MATRIX_SCENARIOS,
+  ALL_TRADEOFF_PROBES,
   SJTOption,
   MatrixItem,
   TradeoffOption
@@ -41,7 +44,8 @@ export interface DetectedTradeoff {
     | 'exploration_vs_execution'
     | 'analysis_vs_shipping'
     | 'independent_isolation_vs_alignment'
-    | 'rigid_execution_vs_adaptation';
+    | 'rigid_execution_vs_adaptation'
+    | 'communication_vs_investigation';
   severity: 'high' | 'moderate' | 'mild';
   confidence: number;
   description: string;
@@ -68,6 +72,7 @@ export interface RawDiagnosticResponse {
   optionId: string;
   responseTimeMs?: number;
   timestamp: number;
+  skipped?: boolean;
 }
 
 export interface RawMatrixResponse {
@@ -76,11 +81,14 @@ export interface RawMatrixResponse {
   rating: number; // 1 to 5
   responseTimeMs?: number;
   timestamp: number;
+  skipped?: boolean;
 }
 
 export interface GoalDiscoveryAnswers {
   outcome: string;
   role: string;
+  degreeTrack?: string;
+  specialization?: string;
   secondaryRoles?: string[];
   horizonMonths: number;
   motivation: string[];
@@ -99,6 +107,8 @@ export interface DiagnosticAnswerSession {
   goal?: {
     outcome: string;
     role: string;
+    degreeTrack?: string;
+    specialization?: string;
     secondaryRoles?: string[];
     horizonMonths: number;
     motivation: string[];
@@ -119,6 +129,8 @@ export interface CompleteDiagnosticInput {
   goal: {
     outcome: string;
     role: string;
+    degreeTrack?: string;
+    specialization?: string;
     secondaryRoles?: string[];
     horizonMonths: number;
     motivation: string[];
@@ -196,21 +208,21 @@ export const ARCHETYPE_NAMES: Record<BehavioralDimension, string> = {
 
 // 1. Build lookup dictionaries for O(1) resolution
 const SJT_OPTIONS_MAP = new Map<string, { option: SJTOption; questionId: string }>();
-for (const q of SJT_QUESTIONS) {
+for (const q of ALL_SJT_QUESTIONS) {
   for (const opt of q.options) {
     SJT_OPTIONS_MAP.set(opt.id, { option: opt, questionId: q.id });
   }
 }
 
 const MATRIX_ITEMS_MAP = new Map<string, { item: MatrixItem; scenarioId: string; context: DiagnosticContext }>();
-for (const m of MATRIX_SCENARIOS) {
+for (const m of ALL_MATRIX_SCENARIOS) {
   for (const item of m.items) {
     MATRIX_ITEMS_MAP.set(item.id, { item, scenarioId: m.id, context: m.context });
   }
 }
 
 const TRADEOFF_OPTIONS_MAP = new Map<string, { option: TradeoffOption; probeId: string }>();
-for (const t of TRADEOFF_PROBES) {
+for (const t of ALL_TRADEOFF_PROBES) {
   for (const opt of t.options) {
     TRADEOFF_OPTIONS_MAP.set(opt.id, { option: opt, probeId: t.id });
   }
@@ -251,6 +263,7 @@ export function evaluateDiagnosticSession(input: CompleteDiagnosticInput | Diagn
 
   // A. Process SJT Responses
   for (const resp of input.sjtResponses || []) {
+    if (resp.skipped || resp.optionId === 'skipped') continue;
     if (resp.responseTimeMs && resp.responseTimeMs > 0) {
       allLatencies.push(resp.responseTimeMs);
     }
@@ -268,6 +281,7 @@ export function evaluateDiagnosticSession(input: CompleteDiagnosticInput | Diagn
 
   // B. Process Matrix Responses
   for (const mResp of input.matrixResponses || []) {
+    if (mResp.skipped || mResp.itemId === 'skipped') continue;
     if (mResp.responseTimeMs && mResp.responseTimeMs > 0) {
       allLatencies.push(mResp.responseTimeMs);
     }
@@ -289,6 +303,7 @@ export function evaluateDiagnosticSession(input: CompleteDiagnosticInput | Diagn
   // C. Process Trade-off Responses (Additional context validation)
   const tradeoffPoles: Record<string, number> = {};
   for (const tResp of input.tradeoffResponses || []) {
+    if (tResp.skipped || tResp.optionId === 'skipped') continue;
     if (tResp.responseTimeMs && tResp.responseTimeMs > 0) {
       allLatencies.push(tResp.responseTimeMs);
     }
@@ -366,8 +381,8 @@ export function evaluateDiagnosticSession(input: CompleteDiagnosticInput | Diagn
       type: 'analysis_vs_shipping',
       severity: 'moderate',
       confidence: Number(((ph.confidence + st.confidence) / 2).toFixed(2)),
-      description: 'You excel at deep architectural structuring and root cause analysis, but may spend excessive time analyzing potential failure modes before committing production code.',
-      roadmapRecommendation: 'Set a strict 20-minute analysis cap → Create a minimal functional prototype → Iterate live.'
+      description: 'You excel at deep analytical structuring and root cause analysis, but may spend excessive time analyzing potential failure modes before committing final deliverables.',
+      roadmapRecommendation: 'Set a strict 20-minute analysis cap → Create a minimal functional model/draft → Iterate live.'
     });
   }
 
@@ -390,6 +405,17 @@ export function evaluateDiagnosticSession(input: CompleteDiagnosticInput | Diagn
       confidence: Number(((st.confidence + ex.confidence) / 2).toFixed(2)),
       description: 'You execute plans with exceptional reliability and discipline, but may resist pivoting when unexpected discoveries make the original plan suboptimal.',
       roadmapRecommendation: 'Maintain core execution sprint + Allocate 1 experimental branch to test emerging tools.'
+    });
+  }
+
+  // Tension 5: Communication vs Independent Investigation (Commerce / Consultation tension)
+  if (siq.band === 'strong' && ph.band === 'developing') {
+    tradeoffs.push({
+      type: 'communication_vs_investigation',
+      severity: 'moderate',
+      confidence: Number(((siq.confidence + ph.confidence) / 2).toFixed(2)),
+      description: 'You communicate and coordinate effectively with team members, but may default to asking others before developing an independent analytical hypothesis.',
+      roadmapRecommendation: 'Perform a 10-minute structured independent analysis → Formulate your own hypothesis → Ask targeted questions.'
     });
   }
 

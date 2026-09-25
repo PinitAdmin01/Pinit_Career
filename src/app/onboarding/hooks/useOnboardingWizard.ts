@@ -1014,12 +1014,18 @@ export function useOnboardingWizard() {
     if (answers.role) {
       setTargetGoal(answers.role);
     }
-    if (answers.priorExperience) {
+    if (answers.degreeTrack) {
+      const isComm = answers.degreeTrack.includes('bcom') || answers.degreeTrack.includes('mcom') || answers.degreeTrack.includes('commerce');
+      setStudentType(isComm ? 'Commerce & Finance' : 'Computer Science / Engineering');
+    } else if (answers.priorExperience) {
       setStudentType(answers.priorExperience);
     }
     setActiveScreen('BEHAVIORAL_DIAGNOSTIC');
     setAnimState('nod');
-    const reply = "Excellent! Next, let's explore your problem-solving instincts, technical agility, and collaboration patterns with real engineering scenarios.";
+    const isComm = answers.degreeTrack?.includes('bcom') || answers.degreeTrack?.includes('mcom') || answers.degreeTrack?.includes('commerce');
+    const reply = isComm
+      ? "Excellent! Next, let's explore your problem-solving instincts, financial agility, and collaboration patterns with real business scenarios."
+      : "Excellent! Next, let's explore your problem-solving instincts, technical agility, and collaboration patterns with real engineering scenarios.";
     speakReply(reply);
   };
 
@@ -1034,6 +1040,8 @@ export function useOnboardingWizard() {
       goal: {
         outcome: diagnosticGoal?.outcome || 'internship',
         role: diagnosticGoal?.role || targetGoal || 'full_stack_developer',
+        degreeTrack: diagnosticGoal?.degreeTrack || 'btech_bca_mca',
+        specialization: diagnosticGoal?.specialization || '',
         secondaryRoles: diagnosticGoal?.secondaryRoles || [],
         horizonMonths: diagnosticGoal?.horizonMonths ?? 6,
         motivation: diagnosticGoal?.motivation || ['career_placement'],
@@ -1274,18 +1282,58 @@ export function useOnboardingWizard() {
       };
     }
 
-    // 8. Financial & FinTech Analyst
+    // 8. Accounting, Audit & Taxation
+    if (goal.includes('tax') || goal.includes('audit') || goal.includes('compliance')) {
+      return {
+        targetRoleLabel: 'Audit, Taxation & Compliance Specialist',
+        courseId: 'course-finance-investment',
+        skillsList: 'Indian Income Tax, GST Return Filing, Statutory Audit Checklists, Internal Controls, Risk Assessment, Tax Compliance',
+        weakAreas: ['Input Tax Credit (ITC) Reconciliations', 'Transfer Pricing Basics', 'Audit Sampling Procedures']
+      };
+    }
+
+    // 9. Banking & Financial Services
+    if (goal.includes('bank') || goal.includes('credit') || goal.includes('lending')) {
+      return {
+        targetRoleLabel: 'Banking & Financial Services Specialist',
+        courseId: 'course-finance-investment',
+        skillsList: 'Credit Appraisal, Commercial Lending, KYC/AML Compliance, Treasury Management, Retail Banking Operations, Financial Products',
+        weakAreas: ['Credit Risk Scoring', 'NPA Provisioning Norms', 'Forex Hedging Operations']
+      };
+    }
+
+    // 10. Investment, Equity & Financial Markets
+    if (goal.includes('investment') || goal.includes('equity') || goal.includes('markets') || goal.includes('trading')) {
+      return {
+        targetRoleLabel: 'Investment & Equity Research Analyst',
+        courseId: 'course-finance-investment',
+        skillsList: 'Discounted Cash Flow (DCF), Equity Research, Company Valuation, Financial Modeling, Portfolio Theory, Technical Analysis',
+        weakAreas: ['WACC Calculation Variations', 'Monte Carlo Simulation', 'M&A Accretion/Dilution Analysis']
+      };
+    }
+
+    // 11. Human Resources (HR)
+    if (goal.includes('human_resource') || goal.includes('talent') || goal === 'hr') {
+      return {
+        targetRoleLabel: 'Human Resources & Talent Lead',
+        courseId: 'course-bcom-operations',
+        skillsList: 'Talent Acquisition, Statutory HR Compliance, Payroll Management, Performance Appraisal Frameworks, Employee Relations',
+        weakAreas: ['Labor Law Compliance', 'Attrition Predictive Modeling', 'Compensation & Benefits Benchmarking']
+      };
+    }
+
+    // 12. Financial & Accounting Analyst
     if (goal.includes('finance') || goal.includes('financial') || goal.includes('fintech') || goal.includes('accounting') ||
         profile.includes('commerce') || profile.includes('b.com')) {
       return {
-        targetRoleLabel: 'Financial & FinTech Analyst',
+        targetRoleLabel: 'Financial & Accounting Analyst',
         courseId: 'course-finance-investment',
         skillsList: 'Financial Modeling, Corporate Valuation, Excel Analysis, SQL, Financial Statement Analysis, Auditing & Compliance',
         weakAreas: ['Derivatives Valuation', 'Regulatory Tech (RegTech)', 'Corporate Restructuring Modeling']
       };
     }
 
-    // 9. Product & Operations Manager
+    // 13. Product & Operations Manager
     if (goal.includes('product') || goal.includes('business') || goal.includes('consult') || goal.includes('operations') ||
         profile.includes('management') || profile.includes('bba') || profile.includes('mba')) {
       return {
