@@ -149,7 +149,7 @@ export async function POST(req: Request) {
 
         // Deposit individual pin purchases into bonus_pins (Permanent Vault)
         // so Airtel-style 1:00 AM daily reset never wipes individual purchases!
-        if (pinsGranted > 0 && !isSub) {
+        if (pinsGranted > 0 && !isSubscriptionPlan) {
           const { data: profile } = await admin
             .from('users')
             .select('bonus_pins, pin_history')
