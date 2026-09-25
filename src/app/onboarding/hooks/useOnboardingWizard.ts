@@ -14,7 +14,14 @@ import {
   getIdentityQuestions,
   WORKPLACE_SCENARIOS,
   WORKPLACE_SCENARIOS_BUSINESS,
+  ScreenType,
 } from '../types';
+import {
+  GoalDiscoveryAnswers,
+  DiagnosticAnswerSession,
+  CompleteDiagnosticProfile,
+  evaluateDiagnosticSession,
+} from '@/lib/onboarding/diagnosticEngine';
 import {
   speakWithAvatar,
   stopSpeaking,
@@ -61,8 +68,13 @@ export function useOnboardingWizard() {
     preloadNextSpeech(introText, 'priya');
   }, [user, router]);
 
-  // Screen/Route States: 'CHOOSE_GUIDE' | 'INTENT_SELECTION' | 'SLIDER' | 'EXPRESS_FORM' | 'DEEP_CHAT' | 'IDENTITY_QUESTIONS' | 'WORKPLACE_SIMULATION' | 'SPEECH_ASSESSMENT' | 'BLUEPRINT_REVEAL'
-  const [activeScreen, setActiveScreen] = useState<'CHOOSE_GUIDE' | 'INTENT_SELECTION' | 'SLIDER' | 'EXPRESS_FORM' | 'DEEP_CHAT' | 'IDENTITY_QUESTIONS' | 'WORKPLACE_SIMULATION' | 'SPEECH_ASSESSMENT' | 'BLUEPRINT_REVEAL'>('CHOOSE_GUIDE');
+  // Screen/Route States typed via ScreenType
+  const [activeScreen, setActiveScreen] = useState<ScreenType>('CHOOSE_GUIDE');
+
+  // Decision Engine Diagnostic States (Parts A, B, C, D)
+  const [diagnosticGoal, setDiagnosticGoal] = useState<GoalDiscoveryAnswers | null>(null);
+  const [diagnosticAnswers, setDiagnosticAnswers] = useState<DiagnosticAnswerSession | null>(null);
+  const [diagnosticProfile, setDiagnosticProfile] = useState<CompleteDiagnosticProfile | null>(null);
   
   // Candidate Secure Vault 2.0 State
   const [showVaultModal, setShowVaultModal] = useState(false);
@@ -553,11 +565,18 @@ export function useOnboardingWizard() {
   // Intent Selection Voice Greeting
   const intentGreeting = "Welcome to PinIT Career OS. I am your guidance mentor. Before we begin, do you want to continue with the Express Route to upload your resume in 1 minute, or the Deep Evolution path for a 15-minute diagnostic assessment?";
 
-  // Cleanup speech synthesis on unmount
+  // Cleanup speech synthesis and audio tracks on unmount to prevent memory leaks
   useEffect(() => {
     return () => {
       clearSpeechTimers();
       stopAvatarSpeaking();
+      if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
+        audioContextRef.current.close().catch(() => {});
+      }
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach(track => track.stop());
+      }
+      ambientAudio.stopImmediate();
     };
   }, []);
 
@@ -973,30 +992,46 @@ export function useOnboardingWizard() {
     }
   };
 
-  // Transition to Deep Route Chatflow
+  // Transition to Modern Decision Engine Diagnostic Route
   function startDeepDiagnostics() {
     clearSpeechTimers();
-    setActiveScreen('DEEP_CHAT');
+    setActiveScreen('GOAL_DISCOVERY');
     setAnimState('nod');
     const nameGreeting = primaryCandidateName && primaryCandidateName !== 'Candidate'
-      ? `Thanks ${primaryCandidateName}! `
-      : "";
+      ? `Welcome ${primaryCandidateName}! `
+      : "Welcome! ";
     const vaultPrefix = vaultSlots.length > 0
-      ? `${nameGreeting}I've verified your ${vaultSlots.length} credentials and calibrated your career baseline. `
-      : "Welcome to your personal diagnostic assessment! ";
-    const introText = `${vaultPrefix}To calibrate your career track, what is your primary academic domain or focus?`;
-    setMessages([
-      {
-        id: 'welcome_deep',
-        sender: 'ai',
-        text: introText,
-        timestamp: Date.now()
-      }
-    ]);
-    scheduleSpeech(() => {
-      speakReply(introText);
-    }, 100);
+      ? `${nameGreeting}I've verified your ${vaultSlots.length} credentials. `
+      : `${nameGreeting}`;
+    const introText = `${vaultPrefix}Let's calibrate your concrete career target, timeline, and current capabilities before diagnosing your problem-solving style.`;
+    speakReply(introText);
   }
+
+  // Handle Part A: Goal Discovery Completion
+  const handleGoalDiscoveryComplete = (answers: GoalDiscoveryAnswers) => {
+    setDiagnosticGoal(answers);
+    if (answers.role) {
+      setTargetGoal(answers.role);
+    }
+    if (answers.priorExperience) {
+      setStudentType(answers.priorExperience);
+    }
+    setActiveScreen('BEHAVIORAL_DIAGNOSTIC');
+    setAnimState('nod');
+    const reply = "Excellent! Next, let's explore your problem-solving instincts, technical agility, and collaboration patterns with real engineering scenarios.";
+    speakReply(reply);
+  };
+
+  // Handle Parts B, C, D: Behavioral Diagnostic Completion
+  const handleBehavioralDiagnosticComplete = (answers: DiagnosticAnswerSession) => {
+    setDiagnosticAnswers(answers);
+    const profile = evaluateDiagnosticSession(answers);
+    setDiagnosticProfile(profile);
+    setActiveScreen('BLUEPRINT_REVEAL');
+    setAnimState('nod');
+    const reply = "Assessment complete! I've synthesized your goal, behavioral traits, and trade-off balancing strategy.";
+    speakReply(reply);
+  };
 
   // Handle chatbot answers (Deep Path)
   const handleUserAnswer = (text: string) => {
@@ -1209,6 +1244,9 @@ export function useOnboardingWizard() {
         const computedQT2 = Math.min(60, Math.round((styleScore + (isAdvanced ? 8 : 4)) * (identityAuditReport.trustScore / 100)));
 
         const finalUserGoal = (speechTranscript && speechTranscript.trim().length > 5 ? speechTranscript.trim() : targetGoal) || targetRoleLabel;
+        const effectiveWeakAreas = (diagnosticProfile?.tradeoffs && diagnosticProfile.tradeoffs.length > 0)
+          ? diagnosticProfile.tradeoffs.map(t => t.id)
+          : weakAreas;
 
         const payload = {
           guidanceMentorId: selectedMentor,
@@ -1223,13 +1261,22 @@ export function useOnboardingWizard() {
             skills: finalArch ? `Archetype: ${finalArch}. Skills: ${skillsList}` : skillsList,
             experience: parseExperience(profileType),
             hasCompleted: true,
+            diagnosticProfile: diagnosticProfile || null,
+            behaviorProfile: diagnosticProfile?.behaviorProfile || null,
+            tradeoffs: diagnosticProfile?.tradeoffs || [],
+            roadmapStrategy: diagnosticProfile?.roadmapStrategy || null,
+            systemMetadata: diagnosticProfile?.systemMetadata || null,
+            rawAuditTrail: diagnosticProfile?.rawAuditTrail || null,
+            weak_areas: effectiveWeakAreas,
+            current_ability: currentAbility,
+            target_ambition: targetAmbition,
             codingExperience,
             learningStyle,
             weeklyHours,
             accessReason: reason,
             qt1_score: computedQT1,
             qt2_score: computedQT2,
-            mindset_archetype: finalArch || 'Pattern Hunter',
+            mindset_archetype: diagnosticProfile?.behaviorProfile?.dominantDimensions?.[0] || finalArch || 'Pattern Hunter',
             voice_transcript: speechTranscript || '',
             voice_confidence: voiceConfidence ?? 0,
             voice_articulation: voiceArticulation ?? 0,
@@ -1257,6 +1304,9 @@ export function useOnboardingWizard() {
           learningStyle,
           weeklyHours,
           accessReason: reason,
+          current_ability: currentAbility,
+          target_ambition: targetAmbition,
+          diagnosticProfile: diagnosticProfile || undefined,
           voice_transcript: speechTranscript || '',
           voice_confidence: voiceConfidence ?? 0,
           voice_articulation: voiceArticulation ?? 0,
@@ -1268,7 +1318,7 @@ export function useOnboardingWizard() {
         
         try {
           const skillsArray = skillsList.split(',').map(s => s.trim());
-          await cOS.generateFusedRoadmap(skillsArray, weakAreas);
+          await cOS.generateFusedRoadmap(skillsArray, effectiveWeakAreas);
           await qc.invalidateQueries({ queryKey: KEYS.me });
         } catch (err) {
           console.warn('Roadmap seed failed after onboarding', err);
@@ -1410,6 +1460,10 @@ export function useOnboardingWizard() {
           : (isCsDegree ? 48 : 38);
 
         const finalSkillsList = extractedSkills || skillsList;
+        const expressArchetype = trajectory === 'java_sde' ? 'Pattern Hunter' :
+          trajectory === 'business_analyst' ? 'Social IQ' :
+          trajectory === 'financial_analyst' ? 'Stabilizer' :
+          trajectory === 'react_frontend' ? 'Explorer' : 'Balanced Specialist';
 
         const expressGoal = `Become a successful ${trajectoryLabel} in the industry.`;
         const payload = {
@@ -1425,7 +1479,9 @@ export function useOnboardingWizard() {
             hasCompleted: true,
             qt1_score: computedQT1,
             qt2_score: computedQT2,
-            mindset_archetype: 'Pattern Hunter'
+            current_ability: currentAbility,
+            target_ambition: targetAmbition,
+            mindset_archetype: expressArchetype
           },
           roadmapGenerated: true
         };
@@ -1549,12 +1605,14 @@ export function useOnboardingWizard() {
     INTENT_SELECTION: 'STAGE 01: INTENT SELECTION',
     SLIDER: 'STAGE 01: GAP CHECK',
     EXPRESS_FORM: 'STAGE 02: EXPRESS PROFILE',
-    CHOOSE_GUIDE: 'STAGE 03: CHOOSE GUIDE',
+    CHOOSE_GUIDE: 'STAGE 01: CHOOSE GUIDE',
+    GOAL_DISCOVERY: 'STAGE 02: GOAL DISCOVERY',
+    BEHAVIORAL_DIAGNOSTIC: 'STAGE 03: BEHAVIORAL DIAGNOSTIC',
     DEEP_CHAT: 'STAGE 04: DEEP DIAGNOSTICS',
     IDENTITY_QUESTIONS: 'STAGE 05: IDENTITY MAP',
     WORKPLACE_SIMULATION: 'STAGE 06: SIMULATION',
     SPEECH_ASSESSMENT: 'STAGE 07: SPEECH LAB',
-    BLUEPRINT_REVEAL: 'STAGE 08: BLUEPRINT',
+    BLUEPRINT_REVEAL: 'STAGE 04: BLUEPRINT',
   };
 
   function getOptionsForStep() {
@@ -1723,5 +1781,13 @@ export function useOnboardingWizard() {
     parserLogs,
     handleFastComplete,
     handleOnboardingComplete,
+    diagnosticGoal,
+    setDiagnosticGoal,
+    diagnosticAnswers,
+    setDiagnosticAnswers,
+    diagnosticProfile,
+    setDiagnosticProfile,
+    handleGoalDiscoveryComplete,
+    handleBehavioralDiagnosticComplete,
   };
 }

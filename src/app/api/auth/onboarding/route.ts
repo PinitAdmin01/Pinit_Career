@@ -128,6 +128,30 @@ export async function POST(req: NextRequest) {
       ...incomingAnswers,
     };
 
+    // Ensure systemMetadata and routerConfig defaults are present
+    if (!mergedAnswers.systemMetadata || typeof mergedAnswers.systemMetadata !== 'object') {
+      mergedAnswers.systemMetadata = {
+        diagnosticVersion: 'v2.0_decision_engine',
+        evaluatedAt: Date.now(),
+        routerConfig: {
+          provider: 'openrouter_rotator',
+          model: 'anthropic/claude-3.5-sonnet',
+          selectedMentor: raw.guidance_mentor_id || raw.guidanceMentorId || existingUser?.guidance_mentor_id || 'priya'
+        },
+        misconceptionFeedbackHooks: {
+          lastUpdated: Date.now(),
+          observedMisconceptions: [],
+          adaptiveInterventionsCount: 0
+        }
+      };
+    } else {
+      // Preserve existing misconception hooks if incoming is empty
+      const existingHooks = existingAnswers.systemMetadata?.misconceptionFeedbackHooks;
+      if (existingHooks && (!mergedAnswers.systemMetadata.misconceptionFeedbackHooks || mergedAnswers.systemMetadata.misconceptionFeedbackHooks.observedMisconceptions?.length === 0)) {
+        mergedAnswers.systemMetadata.misconceptionFeedbackHooks = existingHooks;
+      }
+    }
+
     // Sanitize privileged and non-tamperable fields
     delete mergedAnswers.role;
     delete mergedAnswers.subscription_tier;
@@ -165,6 +189,7 @@ export async function POST(req: NextRequest) {
     const targetRole =
       raw.target_role ||
       raw.targetRole ||
+      mergedAnswers.goal?.role ||
       mergedAnswers.target_role ||
       mergedAnswers.role ||
       existingUser?.target_role ||
@@ -173,6 +198,7 @@ export async function POST(req: NextRequest) {
     const careerGoal =
       raw.career_goal ||
       raw.careerGoal ||
+      mergedAnswers.goal?.rawGoalText ||
       mergedAnswers.career_goal ||
       mergedAnswers.target_goal ||
       existingUser?.career_goal ||
@@ -181,6 +207,7 @@ export async function POST(req: NextRequest) {
     const mentorId =
       raw.guidance_mentor_id ||
       raw.guidanceMentorId ||
+      mergedAnswers.systemMetadata?.routerConfig?.selectedMentor ||
       mergedAnswers.guidance_mentor_id ||
       existingUser?.guidance_mentor_id ||
       'priya';
@@ -197,6 +224,13 @@ export async function POST(req: NextRequest) {
       ? Array.from(new Set([...existingMissions, ...rawMissions]))
       : existingMissions;
 
+    // Synchronize weak_areas column from diagnostic tradeoffs or gaps
+    let derivedWeakAreas = existingUser?.weak_areas || [];
+    if (Array.isArray(mergedAnswers.tradeoffs) && mergedAnswers.tradeoffs.length > 0) {
+      const tradeoffGaps = mergedAnswers.tradeoffs.map((t: any) => t.type || t.description);
+      derivedWeakAreas = Array.from(new Set([...derivedWeakAreas, ...tradeoffGaps]));
+    }
+
     const updatePayload: Record<string, any> = {
       onboarding_step: step,
       roadmap_generated: roadmapGen,
@@ -204,6 +238,7 @@ export async function POST(req: NextRequest) {
       career_goal: careerGoal,
       guidance_mentor_id: mentorId,
       onboarding_answers: mergedAnswers,
+      weak_areas: derivedWeakAreas,
       completed_quests: completedQuests,
       completed_missions: completedMissions,
       updated_at: new Date().toISOString(),
