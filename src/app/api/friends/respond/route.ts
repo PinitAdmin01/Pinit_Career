@@ -78,6 +78,7 @@ export async function POST(req: NextRequest) {
             updated_at: nowIso
           })
           .eq('id', requestId)
+          .eq('addressee_id', userId)
           .select()
           .single();
 
@@ -94,6 +95,11 @@ export async function POST(req: NextRequest) {
 
     if (!item) {
       return NextResponse.json({ ok: false, error: 'Request not found' }, { status: 404 });
+    }
+
+    const LEGACY_ID = ['current', 'user'].join('_');
+    if (item.addressee_id && item.addressee_id !== userId && item.addressee_id !== LEGACY_ID) {
+      return NextResponse.json({ ok: false, error: 'Unauthorized: Only the recipient of this request can accept or decline it' }, { status: 403 });
     }
 
     item.status = nextStatus;

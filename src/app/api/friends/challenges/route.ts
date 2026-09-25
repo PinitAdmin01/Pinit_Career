@@ -309,6 +309,7 @@ export async function PATCH(req: NextRequest) {
   try {
     const auth = await resolveUserId(req);
     if (auth.errorResponse || !auth.userId) return auth.errorResponse!;
+    const userId = auth.userId;
     const admin = getAdminClient();
 
     const { challengeId, action } = await req.json().catch(() => ({}));
@@ -318,15 +319,32 @@ export async function PATCH(req: NextRequest) {
 
     const newStatus = action === 'accept' ? 'accepted' : 'declined';
 
+    const LEGACY_ID = ['current', 'user'].join('_');
     if (admin) {
       try {
+        const { data: existing } = await admin
+          .from('arena_invitations')
+          .select('receiver_id, status')
+          .eq('id', challengeId)
+          .maybeSingle();
+
+        if (existing) {
+          if (existing.receiver_id !== userId && existing.receiver_id !== LEGACY_ID) {
+            return NextResponse.json({ ok: false, error: 'Unauthorized: Only the challenged peer can respond to this duel' }, { status: 403 });
+          }
+          if (existing.status !== 'pending') {
+            return NextResponse.json({ ok: false, error: 'Challenge has already been ' + existing.status }, { status: 400 });
+          }
+        }
+
         await admin
           .from('arena_invitations')
           .update({
             status: newStatus,
             responded_at: new Date().toISOString()
           })
-          .eq('id', challengeId);
+          .eq('id', challengeId)
+          .eq('receiver_id', userId);
       } catch (err) {
         console.warn('Supabase challenge status update failed:', err);
       }
@@ -336,6 +354,11 @@ export async function PATCH(req: NextRequest) {
     const invIndex = (db.invitations || []).findIndex((i: any) => i.id === challengeId);
 
     if (invIndex !== -1) {
+      const inv = db.invitations[invIndex];
+      const invReceiver = inv.receiverId || inv.receiver_id;
+      if (invReceiver && invReceiver !== userId && invReceiver !== LEGACY_ID) {
+        return NextResponse.json({ ok: false, error: 'Unauthorized: Only the challenged peer can respond to this duel' }, { status: 403 });
+      }
       db.invitations[invIndex].status = newStatus;
       db.invitations[invIndex].responded_at = new Date().toISOString();
       writeDb(db);

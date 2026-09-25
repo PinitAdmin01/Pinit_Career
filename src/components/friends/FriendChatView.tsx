@@ -157,15 +157,7 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
   );
 
   return (
-    <div style={{
-      display: 'grid',
-      gridTemplateColumns: '280px 1fr',
-      height: '620px',
-      background: 'rgba(15, 23, 42, 0.75)',
-      border: '1px solid rgba(255, 255, 255, 0.08)',
-      borderRadius: 16,
-      overflow: 'hidden'
-    }}>
+    <div className="friends-chat-container">
       {/* ── Left Sidebar: Friends & Active Threads ── */}
       <div style={{
         borderRight: '1px solid rgba(255, 255, 255, 0.08)',

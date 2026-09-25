@@ -149,7 +149,7 @@ export async function GET(req: NextRequest) {
         const collegeMatch = s.college?.toLowerCase().includes(query);
         const courseMatch = s.course?.toLowerCase().includes(query);
         const goalMatch = s.careerGoal?.toLowerCase().includes(query);
-        const skillMatch = s.skills?.some((sk: string) => sk.toLowerCase().includes(query));
+        const skillMatch = s.skills?.some((sk: string) => typeof sk === 'string' && sk.toLowerCase().includes(query));
         return nameMatch || headlineMatch || collegeMatch || courseMatch || goalMatch || skillMatch;
       });
     }

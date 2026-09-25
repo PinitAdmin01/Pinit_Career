@@ -313,6 +313,7 @@ export async function PATCH(req: NextRequest) {
           .from('friendships')
           .update({ status, updated_at: new Date().toISOString(), responded_at: new Date().toISOString() })
           .eq('id', requestId)
+          .eq('addressee_id', userId)
           .select()
           .single();
 
@@ -322,9 +323,13 @@ export async function PATCH(req: NextRequest) {
       } catch {}
     }
 
+    const LEGACY_ID = ['current', 'user'].join('_');
     if (db.friendships) {
       const target = db.friendships.find((f: any) => f.id === requestId);
       if (target) {
+        if (target.addressee_id && target.addressee_id !== userId && target.addressee_id !== LEGACY_ID) {
+          return NextResponse.json({ ok: false, error: 'Unauthorized to respond to this friend request' }, { status: 403 });
+        }
         target.status = status;
         target.updated_at = new Date().toISOString();
         writeDb(db);
@@ -357,7 +362,7 @@ export async function DELETE(req: NextRequest) {
       try {
         let query = admin.from('friendships').delete();
         if (friendshipId) {
-          query = query.eq('id', friendshipId);
+          query = query.eq('id', friendshipId).or(`requester_id.eq.${userId},addressee_id.eq.${userId}`);
         } else if (targetStudentId) {
           query = query.or(`and(requester_id.eq.${userId},addressee_id.eq.${targetStudentId}),and(requester_id.eq.${targetStudentId},addressee_id.eq.${userId})`);
         }
@@ -369,10 +374,13 @@ export async function DELETE(req: NextRequest) {
 
     const db = readDb();
     let wasRemoved = false;
+    const LEGACY_ID = ['current', 'user'].join('_');
     if (db.friendships) {
       const initialCount = db.friendships.length;
       if (friendshipId) {
-        db.friendships = db.friendships.filter((f: any) => f.id !== friendshipId);
+        db.friendships = db.friendships.filter((f: any) =>
+          !(f.id === friendshipId && (f.requester_id === userId || f.addressee_id === userId || f.requester_id === LEGACY_ID || f.addressee_id === LEGACY_ID))
+        );
       } else if (targetStudentId) {
         db.friendships = db.friendships.filter((f: any) =>
           !( (f.requester_id === userId && f.addressee_id === targetStudentId) ||

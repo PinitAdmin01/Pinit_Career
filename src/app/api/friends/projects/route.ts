@@ -325,6 +325,7 @@ export async function PATCH(req: NextRequest) {
     const nextStatus = action === 'accept' ? 'accepted' : 'declined';
     let updatedInvitation: any = null;
 
+    const LEGACY_ID = ['current', 'user'].join('_');
     if (admin) {
       try {
         const { data: existing } = await admin
@@ -334,6 +335,9 @@ export async function PATCH(req: NextRequest) {
           .maybeSingle();
 
         if (existing) {
+          if (existing.receiver_id !== userId && existing.receiver_id !== LEGACY_ID) {
+            return NextResponse.json({ ok: false, error: 'Unauthorized: Only the invited peer can respond to this squad invitation' }, { status: 403 });
+          }
           if (existing.status !== 'pending') {
             return NextResponse.json({ ok: false, error: 'Invitation has already been ' + existing.status }, { status: 400 });
           }
@@ -345,6 +349,7 @@ export async function PATCH(req: NextRequest) {
               responded_at: new Date().toISOString()
             })
             .eq('id', effectiveId)
+            .eq('receiver_id', userId)
             .select()
             .single();
 
@@ -361,6 +366,11 @@ export async function PATCH(req: NextRequest) {
     const invIndex = (db.invitations || []).findIndex((i: any) => i.id === effectiveId);
 
     if (invIndex !== -1) {
+      const inv = db.invitations[invIndex];
+      const invReceiver = inv.receiverId || inv.receiver_id;
+      if (invReceiver && invReceiver !== userId && invReceiver !== LEGACY_ID) {
+        return NextResponse.json({ ok: false, error: 'Unauthorized: Only the invited peer can respond to this squad invitation' }, { status: 403 });
+      }
       if (db.invitations[invIndex].status !== 'pending' && !updatedInvitation) {
         return NextResponse.json({ ok: false, error: 'Invitation has already been ' + db.invitations[invIndex].status }, { status: 400 });
       }

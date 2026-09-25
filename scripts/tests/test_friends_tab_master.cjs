@@ -149,6 +149,49 @@ test('Self-action restrictions enforced on direct messaging and reporting', () =
   assert.ok(friendRouteContent.includes('targetStudentId === userId'), 'friend request route does not prevent adding oneself');
 });
 
+test('Strict IDOR recipient authorization enforced across all invite/request responses', () => {
+  const respondContent = fs.readFileSync(path.resolve('src/app/api/friends/respond/route.ts'), 'utf8');
+  assert.ok(respondContent.includes('item.addressee_id !== userId'), 'respond route lacks local addressee IDOR check');
+  assert.ok(respondContent.includes(".eq('addressee_id', userId)"), 'respond route lacks Supabase addressee IDOR check');
+
+  const challengesContent = fs.readFileSync(path.resolve('src/app/api/friends/challenges/route.ts'), 'utf8');
+  assert.ok(challengesContent.includes('existing.receiver_id !== userId'), 'challenges route lacks receiver IDOR check');
+
+  const projectsContent = fs.readFileSync(path.resolve('src/app/api/friends/projects/route.ts'), 'utf8');
+  assert.ok(projectsContent.includes('existing.receiver_id !== userId'), 'projects route lacks receiver IDOR check');
+
+  const routeContent = fs.readFileSync(path.resolve('src/app/api/friends/route.ts'), 'utf8');
+  assert.ok(routeContent.includes('target.addressee_id !== userId'), 'route.ts PATCH lacks addressee IDOR check');
+  assert.ok(routeContent.includes(".eq('addressee_id', userId)"), 'route.ts PATCH lacks Supabase addressee IDOR check');
+});
+
+test('Search & Suggestions routes enforce null-safe property lookups', () => {
+  const sugContent = fs.readFileSync(path.resolve('src/app/api/friends/suggestions/route.ts'), 'utf8');
+  assert.ok(sugContent.includes("(s.name || '').toLowerCase()"), 'suggestions route lacks null-safe name search');
+  assert.ok(sugContent.includes("(s.college || '').toLowerCase()"), 'suggestions route lacks null-safe college search');
+  assert.ok(sugContent.includes("typeof sk === 'string'"), 'suggestions route lacks typeof string skill check');
+
+  const searchContent = fs.readFileSync(path.resolve('src/app/api/friends/search/route.ts'), 'utf8');
+  assert.ok(searchContent.includes("typeof sk === 'string'"), 'search route lacks typeof string skill check');
+});
+
+test('Mobile responsiveness and auto-fit grid systems properly defined and applied', () => {
+  const css = fs.readFileSync(path.resolve('src/styles/friends.css'), 'utf8');
+  assert.ok(css.includes('.friends-chat-container'), 'Missing .friends-chat-container in CSS');
+  assert.ok(css.includes('@media (max-width: 768px)'), 'Missing 768px media query in CSS');
+  assert.ok(css.includes('.profile-stats-grid'), 'Missing .profile-stats-grid in CSS');
+  assert.ok(css.includes('.profile-overview-grid'), 'Missing .profile-overview-grid in CSS');
+  assert.ok(css.includes('.profile-projects-grid'), 'Missing .profile-projects-grid in CSS');
+
+  const chatContent = fs.readFileSync(path.resolve('src/components/friends/FriendChatView.tsx'), 'utf8');
+  assert.ok(chatContent.includes('className="friends-chat-container"'), 'FriendChatView does not use responsive container');
+
+  const profileContent = fs.readFileSync(path.resolve('src/app/friends/[id]/page.tsx'), 'utf8');
+  assert.ok(profileContent.includes('className="profile-stats-grid"'), 'Student profile does not use profile-stats-grid');
+  assert.ok(profileContent.includes('className="profile-overview-grid"'), 'Student profile does not use profile-overview-grid');
+  assert.ok(profileContent.includes('className="profile-projects-grid"'), 'Student profile does not use profile-projects-grid');
+});
+
 // ───────────────────────────────────────────────────────────────────────────
 // SECTION 4: FRONTEND PAGE, CHAT & DRAWER INTEGRATION
 // ───────────────────────────────────────────────────────────────────────────

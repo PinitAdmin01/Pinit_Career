@@ -153,10 +153,10 @@ export async function GET(req: NextRequest) {
     // 6. Apply real-time search query if provided
     const finalResults = search
       ? flattened.filter(s =>
-          s.name.toLowerCase().includes(search) ||
-          s.college.toLowerCase().includes(search) ||
-          s.course.toLowerCase().includes(search) ||
-          s.skills.some(sk => sk.toLowerCase().includes(search))
+          (s.name || '').toLowerCase().includes(search) ||
+          (s.college || '').toLowerCase().includes(search) ||
+          (s.course || '').toLowerCase().includes(search) ||
+          (Array.isArray(s.skills) && s.skills.some(sk => typeof sk === 'string' && sk.toLowerCase().includes(search)))
         )
       : flattened;
 
