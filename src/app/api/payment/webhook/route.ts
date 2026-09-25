@@ -189,7 +189,7 @@ export async function POST(req: Request) {
     else if (notesPlanId === 'pack_150') pinsGranted = 150;
     else if (notesPlanId === 'pack_1200') pinsGranted = 1200;
     else if (notesPlanId === 'pack_custom') {
-      const customVal = Number(order?.notes?.customPins);
+      const customVal = Number(payment.notes?.customPins);
       pinsGranted = Number.isFinite(customVal) && customVal >= 100 && customVal <= 10000 ? Math.floor(customVal) : 0;
     }
 
