@@ -29,7 +29,7 @@ export interface FinanceContextType {
   claimBonusPins: (amount?: number) => Promise<boolean>;
   pinHistory: PinTransaction[];
   earnPins: (source: PinSource, overrideAmount?: number, reason?: string) => void;
-  spendPins: (featureKey: string, customReason?: string) => Promise<boolean>;
+  spendPins: (featureKey: string, itemId?: string, customReason?: string) => Promise<boolean>;
   canAfford: (featureKey: string) => boolean;
   unlockedItems: Record<string, number>;
   isItemUnlocked: (itemKey: string) => boolean;
@@ -98,7 +98,7 @@ export function FinanceProvider({ children }: { children: React.ReactNode }) {
         return false;
       }
     } else {
-      const ok = await spendPins('ai_minutes_extend', 'Extended daily AI by 30 mins');
+      const ok = await spendPins('ai_minutes_extend', undefined, 'Extended daily AI by 30 mins');
       if (!ok) return false;
       setAiUseTokens(useAppStore.getState().aiUseTokens + 30);
       toast.success('AI Time Extended! ⏰', '+30 AI Minutes added to your daily balance.');
