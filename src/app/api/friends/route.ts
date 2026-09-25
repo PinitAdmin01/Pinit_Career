@@ -9,23 +9,24 @@ export const dynamic = 'force-dynamic';
 
 const DB_PATH = path.join(process.cwd(), 'src', 'lib', 'data', 'friends_db.json');
 
+let memoryDb: any = null;
+
 function readDb() {
+  if (memoryDb) return memoryDb;
   try {
     if (fs.existsSync(DB_PATH)) {
-      return JSON.parse(fs.readFileSync(DB_PATH, 'utf-8'));
+      memoryDb = JSON.parse(fs.readFileSync(DB_PATH, 'utf-8'));
+      return memoryDb;
     }
   } catch (err) {
     console.error('Error reading friends_db.json:', err);
   }
-  return { friendships: [], mockStudents: [], invitations: [], directMessages: [], privacySettings: {}, blockedUsers: [] };
+  memoryDb = { friendships: [], mockStudents: [], invitations: [], directMessages: [], privacySettings: {}, blockedUsers: [] };
+  return memoryDb;
 }
 
 function writeDb(data: any) {
-  try {
-    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf-8');
-  } catch (err) {
-    console.error('Error writing friends_db.json:', err);
-  }
+  memoryDb = data;
 }
 
 function getAdminClient() {

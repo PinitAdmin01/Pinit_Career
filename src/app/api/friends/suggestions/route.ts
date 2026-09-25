@@ -33,7 +33,7 @@ function getAdminClient() {
   }
 }
 
-async function resolveUserId(req: Request, admin: any): Promise<string> {
+async function resolveUserId(req: Request, admin: any): Promise<string | null> {
   const token = getBearerToken(req);
   if (token && admin) {
     try {
@@ -43,7 +43,7 @@ async function resolveUserId(req: Request, admin: any): Promise<string> {
   }
   const headerUserId = req.headers.get('x-user-id');
   if (headerUserId) return headerUserId;
-  return 'current_user';
+  return null;
 }
 
 export async function GET(req: NextRequest) {

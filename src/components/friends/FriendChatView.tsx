@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
 import { StudentProfile } from './StudentCard';
@@ -28,20 +28,12 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
   onOpenChallenge,
   onOpenProjectInvite,
 }) => {
-  const [activeFriend, setActiveFriend] = useState<StudentProfile>(() => {
+  const [activeFriend, setActiveFriend] = useState<StudentProfile | null>(() => {
     if (initialFriendId) {
       const found = friends.find(f => f.id === initialFriendId);
       if (found) return found;
     }
-    return friends[0] || {
-      id: 'rahul_shetty',
-      name: 'Rahul Shetty',
-      avatar: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&auto=format&fit=crop&q=80',
-      college: 'RVCE',
-      course: 'B.Tech',
-      skills: ['Python', 'AI/ML'],
-      online: true
-    };
+    return friends.length > 0 ? friends[0] : null;
   });
 
   const [messages, setMessages] = useState<Message[]>([]);
@@ -53,56 +45,59 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
   useEffect(() => {
     if (initialFriendId) {
       const found = friends.find(f => f.id === initialFriendId);
-      if (found) setActiveFriend(found);
+      if (found) {
+        setActiveFriend(found);
+      }
+    } else if (!activeFriend && friends.length > 0) {
+      setActiveFriend(friends[0]);
+    } else if (activeFriend && !friends.some(f => f.id === activeFriend.id)) {
+      setActiveFriend(friends.length > 0 ? friends[0] : null);
     }
   }, [initialFriendId, friends]);
 
-  useEffect(() => {
-    if (activeFriend) {
-      fetchMessages(activeFriend.id);
+  const markAsRead = async (friendId: string) => {
+    try {
+      await fetch('/api/friends/messages', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ friendId })
+      });
+    } catch {
+      // Non-critical
     }
+  };
+
+  const fetchMessages = async (friendId: string, silent = false) => {
+    try {
+      if (!silent) setLoadingMessages(true);
+      const res = await fetch(`/api/friends/messages?friendId=${encodeURIComponent(friendId)}`);
+      const data = await res.json();
+      if (data.ok && Array.isArray(data.messages)) {
+        setMessages(data.messages);
+      }
+      markAsRead(friendId);
+    } catch (err) {
+      console.error('Failed to load chat messages:', err);
+    } finally {
+      if (!silent) setLoadingMessages(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!activeFriend) {
+      setMessages([]);
+      return;
+    }
+    fetchMessages(activeFriend.id);
+    const interval = setInterval(() => {
+      fetchMessages(activeFriend.id, true);
+    }, 4000);
+    return () => clearInterval(interval);
   }, [activeFriend]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
-
-  const fetchMessages = async (friendId: string) => {
-    try {
-      setLoadingMessages(true);
-      const res = await fetch(`/api/friends/messages?friendId=${friendId}`);
-      const data = await res.json();
-      if (data.ok && Array.isArray(data.messages)) {
-        if (data.messages.length > 0) {
-          setMessages(data.messages);
-        } else {
-          // Provide default conversational messages if empty
-          setMessages([
-            {
-              id: 'seed-1',
-              sender_id: friendId,
-              receiver_id: 'current_user',
-              message: `Hey! Are you working on the campus sprint this weekend?`,
-              created_at: new Date(Date.now() - 3600000).toISOString(),
-              is_read: true
-            },
-            {
-              id: 'seed-2',
-              sender_id: 'current_user',
-              receiver_id: friendId,
-              message: `Yes! Focusing on Next.js 14 and full-stack integrations. Let's sync up!`,
-              created_at: new Date(Date.now() - 1800000).toISOString(),
-              is_read: true
-            }
-          ]);
-        }
-      }
-    } catch (err) {
-      console.error('Failed to load chat messages:', err);
-    } finally {
-      setLoadingMessages(false);
-    }
-  };
 
   const handleSendMessage = async () => {
     if (!inputText.trim() || !activeFriend) return;
@@ -111,7 +106,7 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
 
     const optimisticMsg: Message = {
       id: `temp-${Date.now()}`,
-      sender_id: 'current_user',
+      sender_id: 'me',
       receiver_id: activeFriend.id,
       message: text,
       created_at: new Date().toISOString(),
@@ -129,11 +124,29 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
       const data = await res.json();
       if (!data.ok) {
         toast.error('Failed to send', data.error || 'Message error');
+      } else if (data.messageRecord) {
+        setMessages(prev => prev.map(m => m.id === optimisticMsg.id ? data.messageRecord : m));
       }
     } catch (err) {
       toast.error('Network Error', 'Could not send message');
     }
   };
+
+  if (!friends || friends.length === 0) {
+    return (
+      <div className="friends-empty-state-card" style={{ padding: '60px 24px', textAlign: 'center' }}>
+        <span className="empty-state-icon">💬</span>
+        <h3 className="empty-state-title">No Active Conversations</h3>
+        <p className="empty-state-desc">
+          You don&apos;t have any friends connected yet. Connect with classmates and study partners in the Discover tab to unlock 1-on-1 direct messaging, study notes sharing, and sprint planning.
+        </p>
+      </div>
+    );
+  }
+
+  if (!activeFriend) {
+    return null;
+  }
 
   const filteredFriends = friends.filter(f =>
     f.name.toLowerCase().includes(searchFilter.toLowerCase()) ||
@@ -150,7 +163,6 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
       borderRadius: 16,
       overflow: 'hidden'
     }}>
-      
       {/* ── Left Sidebar: Friends & Active Threads ── */}
       <div style={{
         borderRight: '1px solid rgba(255, 255, 255, 0.08)',
@@ -223,7 +235,6 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
 
       {/* ── Right Pane: Active Chat Window ── */}
       <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: 'rgba(10, 15, 30, 0.6)' }}>
-        
         {/* Chat Header */}
         <div style={{
           padding: '14px 20px',
@@ -277,51 +288,67 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
 
         {/* Message Stream */}
         <div style={{ flex: 1, padding: '20px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 14 }}>
-          {messages.map((msg) => {
-            const isMe = msg.sender_id === 'current_user';
-            const timeFormatted = new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            return (
-              <div
-                key={msg.id}
-                style={{
-                  display: 'flex',
-                  justifyContent: isMe ? 'flex-end' : 'flex-start',
-                  alignItems: 'flex-end',
-                  gap: 8
-                }}
-              >
-                {!isMe && (
-                  <img
-                    src={activeFriend.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100'}
-                    alt={activeFriend.name}
-                    style={{ width: 28, height: 28, borderRadius: '50%', objectFit: 'cover' }}
-                  />
-                )}
-                <div style={{
-                  maxWidth: '65%',
-                  padding: '10px 14px',
-                  borderRadius: isMe ? '16px 16px 2px 16px' : '16px 16px 16px 2px',
-                  background: isMe
-                    ? 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)'
-                    : 'rgba(30, 41, 59, 0.75)',
-                  color: '#ffffff',
-                  fontSize: 13,
-                  lineHeight: 1.45,
-                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)'
-                }}>
-                  <div>{msg.message}</div>
+          {loadingMessages && messages.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: '40px 0', color: '#94a3b8', fontSize: 13 }}>
+              Loading conversation...
+            </div>
+          ) : messages.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: '50px 20px', color: '#94a3b8' }}>
+              <div style={{ fontSize: 32, marginBottom: 8 }}>👋</div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: '#ffffff', marginBottom: 4 }}>
+                Say hello to {activeFriend.name}!
+              </div>
+              <div style={{ fontSize: 12 }}>
+                This is the beginning of your direct conversation on PinIT Campus.
+              </div>
+            </div>
+          ) : (
+            messages.map((msg) => {
+              const isMe = msg.sender_id !== activeFriend.id;
+              const timeFormatted = new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+              return (
+                <div
+                  key={msg.id}
+                  style={{
+                    display: 'flex',
+                    justifyContent: isMe ? 'flex-end' : 'flex-start',
+                    alignItems: 'flex-end',
+                    gap: 8
+                  }}
+                >
+                  {!isMe && (
+                    <img
+                      src={activeFriend.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100'}
+                      alt={activeFriend.name}
+                      style={{ width: 28, height: 28, borderRadius: '50%', objectFit: 'cover' }}
+                    />
+                  )}
                   <div style={{
-                    fontSize: 10,
-                    color: isMe ? 'rgba(255, 255, 255, 0.7)' : '#94a3b8',
-                    textAlign: 'right',
-                    marginTop: 4
+                    maxWidth: '65%',
+                    padding: '10px 14px',
+                    borderRadius: isMe ? '16px 16px 2px 16px' : '16px 16px 16px 2px',
+                    background: isMe
+                      ? 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)'
+                      : 'rgba(30, 41, 59, 0.75)',
+                    color: '#ffffff',
+                    fontSize: 13,
+                    lineHeight: 1.45,
+                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)'
                   }}>
-                    {timeFormatted} {isMe && '✓✓'}
+                    <div>{msg.message}</div>
+                    <div style={{
+                      fontSize: 10,
+                      color: isMe ? 'rgba(255, 255, 255, 0.7)' : '#94a3b8',
+                      textAlign: 'right',
+                      marginTop: 4
+                    }}>
+                      {timeFormatted} {isMe && '✓✓'}
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })
+          )}
           <div ref={messagesEndRef} />
         </div>
 
@@ -340,7 +367,7 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
               whiteSpace: 'nowrap'
             }}
           >
-            ⚔️ "Up for an Arena duel?"
+            ⚔️ &quot;Up for an Arena duel?&quot;
           </button>
           <button
             onClick={() => setInputText("Would love to collaborate on a squad project with you!")}
@@ -355,7 +382,7 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
               whiteSpace: 'nowrap'
             }}
           >
-            👥 "Want to join our project squad?"
+            👥 &quot;Want to join our project squad?&quot;
           </button>
         </div>
 
@@ -394,9 +421,7 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
             Send ➤
           </button>
         </div>
-
       </div>
-
     </div>
   );
 };

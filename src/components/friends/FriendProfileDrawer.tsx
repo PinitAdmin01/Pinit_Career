@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { StudentProfile } from './StudentCard';
 
 interface FriendProfileDrawerProps {
@@ -22,6 +23,7 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
   onOpenChallenge,
   onOpenProjectInvite,
 }) => {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<'overview' | 'skills' | 'portfolio' | 'arena'>('overview');
 
   if (!student) return null;
@@ -84,6 +86,15 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
                       📁 Invite to Squad
                     </button>
                     <button
+                      className="friends-btn friends-btn-secondary"
+                      onClick={() => {
+                        onClose();
+                        router.push(`/friends/${student.id}`);
+                      }}
+                    >
+                      🔗 Full Profile
+                    </button>
+                    <button
                       className="friends-btn friends-btn-danger"
                       onClick={() => onRemoveFriend?.(student.id)}
                     >
@@ -91,16 +102,38 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
                     </button>
                   </>
                 ) : isSent ? (
-                  <button className="friends-btn friends-btn-pending" disabled>
-                    ⏳ Request Pending
-                  </button>
+                  <>
+                    <button className="friends-btn friends-btn-pending" disabled>
+                      ⏳ Request Pending
+                    </button>
+                    <button
+                      className="friends-btn friends-btn-secondary"
+                      onClick={() => {
+                        onClose();
+                        router.push(`/friends/${student.id}`);
+                      }}
+                    >
+                      🔗 Full Profile
+                    </button>
+                  </>
                 ) : (
-                  <button
-                    className="friends-btn friends-btn-primary"
-                    onClick={() => onSendRequest?.(student.id)}
-                  >
-                    + Add to Network
-                  </button>
+                  <>
+                    <button
+                      className="friends-btn friends-btn-primary"
+                      onClick={() => onSendRequest?.(student.id)}
+                    >
+                      + Add to Network
+                    </button>
+                    <button
+                      className="friends-btn friends-btn-secondary"
+                      onClick={() => {
+                        onClose();
+                        router.push(`/friends/${student.id}`);
+                      }}
+                    >
+                      🔗 Full Profile
+                    </button>
+                  </>
                 )}
               </div>
             </div>

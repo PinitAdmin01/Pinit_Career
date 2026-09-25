@@ -67,6 +67,40 @@ export default function StudentProfilePage() {
     }
   };
 
+  const handleArenaDuel = async () => {
+    if (!student) return;
+    try {
+      const res = await fetch('/api/friends/challenges', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          studentId: student.id,
+          studentName: student.name,
+          studentAvatar: student.avatar,
+          topic: 'JavaScript DSA',
+          difficulty: 'Medium',
+          timeLimit: 20,
+          wagerXP: 100,
+          message: "I challenge you to a 1v1 battle in the Challenging Arena!"
+        })
+      });
+      const data = await res.json();
+      if (data.ok) {
+        toast.success('Arena Duel Dispatched', `Invited ${student.name} to a 1v1 Algorithm face-off!`);
+        router.push('/friends?tab=challenges');
+      } else {
+        toast.error('Duel Failed', data.error || 'Could not send challenge');
+      }
+    } catch {
+      toast.error('Network Error', 'Failed to dispatch arena challenge');
+    }
+  };
+
+  const handleOpenChat = () => {
+    if (!student) return;
+    router.push(`/friends?tab=messages&friendId=${encodeURIComponent(student.id)}`);
+  };
+
   if (loading) {
     return (
       <div style={{ maxWidth: 1100, margin: '40px auto', padding: '0 24px', textAlign: 'center', color: '#94a3b8' }}>
@@ -153,19 +187,14 @@ export default function StudentProfilePage() {
               )}
               <button
                 className="friends-btn friends-btn-secondary"
-                onClick={() => {
-                  toast.success('Arena Duel Dispatched', `Invited ${student.name} to a 1v1 Algorithm face-off!`);
-                  router.push('/arena');
-                }}
+                onClick={handleArenaDuel}
                 style={{ padding: '9px 18px', fontSize: 13 }}
               >
                 ⚔️ Arena Duel
               </button>
               <button
                 className="friends-btn friends-btn-secondary"
-                onClick={() => {
-                  router.push('/friends?tab=messages');
-                }}
+                onClick={handleOpenChat}
                 style={{ padding: '9px 18px', fontSize: 13 }}
               >
                 💬 Message

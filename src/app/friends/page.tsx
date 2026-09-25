@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useState, useEffect, useMemo, useRef, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from '@/lib/store/useAppStore';
 import { StudentProfile } from '@/components/friends/StudentCard';
 import { FriendProfileDrawer } from '@/components/friends/FriendProfileDrawer';
@@ -15,8 +15,9 @@ import { PrivacySettingsModal } from '@/components/friends/PrivacySettingsModal'
 import { ReportStudentModal } from '@/components/friends/ReportStudentModal';
 import { computeStudentMatch, CURRENT_STUDENT_PROFILE, MatchStudentProfile, MatchBreakdown } from '@/lib/friends/matching';
 
-export default function FriendsPage() {
+function FriendsContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   // Navigation Tabs
   const [activeTab, setActiveTab] = useState<'discover' | 'network' | 'requests' | 'messages' | 'challenges' | 'projects'>('discover');
@@ -54,6 +55,18 @@ export default function FriendsPage() {
 
   // Chat View Active Friend
   const [activeChatFriendId, setActiveChatFriendId] = useState<string | undefined>(undefined);
+
+  // ── Sync URL Search Parameters (e.g. ?tab=messages&friendId=...) ─────────
+  useEffect(() => {
+    const tabParam = searchParams.get('tab');
+    if (tabParam && ['discover', 'network', 'requests', 'messages', 'challenges', 'projects'].includes(tabParam)) {
+      setActiveTab(tabParam as any);
+    }
+    const friendIdParam = searchParams.get('friendId');
+    if (friendIdParam) {
+      setActiveChatFriendId(friendIdParam);
+    }
+  }, [searchParams]);
 
   // ── Debounce Search Input ────────────────────────────────────────────────
   useEffect(() => {
@@ -249,12 +262,33 @@ export default function FriendsPage() {
     setSmartMatchBreakdown(breakdown);
   };
 
-  const handleSendChallenge = async (challenge: any) => {
-    toast.success('Battle Challenge Dispatched', `Invited ${challenge.targetStudentName} to a 1v1 ${challenge.topic} Duel!`);
+  const handleRemoveFriend = async (studentId: string) => {
+    try {
+      const res = await fetch(`/api/friends?studentId=${encodeURIComponent(studentId)}`, {
+        method: 'DELETE'
+      });
+      const data = await res.json();
+      if (data.ok) {
+        toast.success('Connection Removed', 'Removed student from your friends network.');
+        setFriendsNetwork(prev => prev.filter(f => f.id !== studentId));
+        setNetworkStats(prev => ({ ...prev, friendsCount: Math.max(0, prev.friendsCount - 1) }));
+        if (selectedStudent?.id === studentId) {
+          setSelectedStudent(null);
+        }
+      } else {
+        toast.error('Failed to remove', data.error || 'Could not remove connection.');
+      }
+    } catch {
+      toast.error('Network Error', 'Failed to communicate with server.');
+    }
   };
 
-  const handleSendProjectInvite = async (invite: any) => {
-    toast.success('Squad Invite Sent', `Project invitation dispatched to ${invite.receiverName}!`);
+  const handleSendChallenge = async () => {
+    fetchNetworkData();
+  };
+
+  const handleSendProjectInvite = async () => {
+    fetchNetworkData();
   };
 
   // Filter out blocked users from display
@@ -285,13 +319,13 @@ export default function FriendsPage() {
       </div>
 
       {/* ── Main Two-Column Layout ── */}
-      <div className="friends-content-grid">
+      <div className="friends-main-layout">
 
         {/* ── LEFT / CENTER COLUMN ── */}
-        <div className="friends-main-column">
+        <div className="friends-content-column">
 
           {/* Hero Banner with Custom Lettering & Graphic */}
-          <div className="friends-hero-banner-ref">
+          <div className="friends-hero-ref">
             <div className="friends-hero-text-wrap">
               <h1 className="friends-hero-title-ref">
                 Frien<span>ds</span>
@@ -528,7 +562,7 @@ export default function FriendsPage() {
                         <div className="suggested-card-btn-row">
                           <button
                             className="friends-btn friends-btn-secondary"
-                            onClick={() => handleNavigateToProfile(peer.id)}
+                            onClick={() => setSelectedStudent(peer)}
                             style={{ padding: '7px 12px', fontSize: 12 }}
                           >
                             View Profile
@@ -610,7 +644,7 @@ export default function FriendsPage() {
                           <div className="student-list-actions">
                             <button
                               className="friends-btn friends-btn-secondary"
-                              onClick={() => handleNavigateToProfile(student.id)}
+                              onClick={() => setSelectedStudent(student)}
                             >
                               View Profile
                             </button>
@@ -663,7 +697,7 @@ export default function FriendsPage() {
                           <div className="suggested-card-btn-row">
                             <button
                               className="friends-btn friends-btn-secondary"
-                              onClick={() => handleNavigateToProfile(student.id)}
+                              onClick={() => setSelectedStudent(student)}
                               style={{ padding: '7px 12px', fontSize: 12 }}
                             >
                               View Profile
@@ -777,7 +811,7 @@ export default function FriendsPage() {
                         <button
                           className="friends-btn friends-btn-secondary"
                           style={{ fontSize: 11.5, padding: '7px' }}
-                          onClick={() => handleNavigateToProfile(friend.id)}
+                          onClick={() => setSelectedStudent(friend)}
                         >
                           Profile
                         </button>
@@ -1041,6 +1075,7 @@ export default function FriendsPage() {
         student={selectedStudent}
         onClose={() => setSelectedStudent(null)}
         onSendRequest={(id) => handleAddFriend(id, selectedStudent?.name || 'Student')}
+        onRemoveFriend={handleRemoveFriend}
         onOpenChallenge={(s) => {
           setSelectedStudent(null);
           setChallengeStudent(s);
@@ -1104,5 +1139,20 @@ export default function FriendsPage() {
         onClose={() => setReportModalStudent(null)}
       />
     </div>
+  );
+}
+
+export default function FriendsPage() {
+  return (
+    <Suspense
+      fallback={
+        <div style={{ maxWidth: 1200, margin: '60px auto', padding: '0 24px', textAlign: 'center', color: '#94a3b8' }}>
+          <div style={{ fontSize: 32, marginBottom: 12 }}>⚡</div>
+          <div style={{ fontSize: 16, fontWeight: 700, color: '#f8fafc' }}>Loading Campus Network...</div>
+        </div>
+      }
+    >
+      <FriendsContent />
+    </Suspense>
   );
 }
