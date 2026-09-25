@@ -253,11 +253,11 @@ export default function PublicVerifyCredentialPage() {
               {/* Student Profile Overview (if full transcript or candidate in training) */}
               {studentProfile && (
                 <div>
-                  {studentProfile.studentName && (
+                  {(studentProfile as any).studentName && (
                     <div style={{ marginBottom: 16, padding: '12px 16px', borderRadius: 10, background: 'rgba(99, 102, 241, 0.1)', border: '1px solid rgba(99, 102, 241, 0.25)' }}>
                       <div style={{ fontSize: 11, color: '#818cf8', fontWeight: 800, textTransform: 'uppercase' }}>CANDIDATE IN TRAINING</div>
-                      <div style={{ fontSize: 16, fontWeight: 900, color: '#ffffff', marginTop: 2 }}>{studentProfile.studentName}</div>
-                      <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{studentProfile.institution} • {studentProfile.targetRole}</div>
+                      <div style={{ fontSize: 16, fontWeight: 900, color: '#ffffff', marginTop: 2 }}>{(studentProfile as any).studentName}</div>
+                      <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{(studentProfile as any).institution} • {(studentProfile as any).targetRole}</div>
                     </div>
                   )}
                   <h3 style={{ margin: '0 0 12px 0', fontSize: 15, fontWeight: 700 }}>
