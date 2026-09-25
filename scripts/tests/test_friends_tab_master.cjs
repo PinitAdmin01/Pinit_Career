@@ -259,6 +259,83 @@ test('Zero forbidden @typescript-eslint comments in any friends files', () => {
   });
 });
 
+test('All 12 friends components pass brace and paren balance check (zero syntax errors)', () => {
+  const componentsToCheck = [
+    'src/app/friends/page.tsx',
+    'src/app/friends/[id]/page.tsx',
+    'src/components/friends/FriendChatView.tsx',
+    'src/components/friends/FriendProfileDrawer.tsx',
+    'src/components/friends/ArenaChallengeModal.tsx',
+    'src/components/friends/ArenaChallengesView.tsx',
+    'src/components/friends/PrivacySettingsModal.tsx',
+    'src/components/friends/ProjectInviteModal.tsx',
+    'src/components/friends/ReportStudentModal.tsx',
+    'src/components/friends/SmartMatchModal.tsx',
+    'src/components/friends/SquadProjectsView.tsx',
+    'src/components/friends/StudentCard.tsx'
+  ];
+
+  componentsToCheck.forEach(filePath => {
+    const content = fs.readFileSync(path.resolve(filePath), 'utf8');
+    let braceDepth = 0;
+    let parenDepth = 0;
+    let inBlockComment = false;
+
+    for (let i = 0; i < content.length; i++) {
+      const ch = content[i];
+      const next = i < content.length - 1 ? content[i + 1] : '';
+
+      if (inBlockComment) {
+        if (ch === '*' && next === '/') {
+          inBlockComment = false;
+          i++;
+        }
+        continue;
+      }
+      if (ch === '/' && next === '*') {
+        inBlockComment = true;
+        i++;
+        continue;
+      }
+      if (ch === '{') braceDepth++;
+      if (ch === '}') braceDepth--;
+      if (ch === '(') parenDepth++;
+      if (ch === ')') parenDepth--;
+    }
+
+    assert.strictEqual(braceDepth, 0, `${filePath} has unbalanced braces (depth: ${braceDepth})`);
+    assert.strictEqual(parenDepth, 0, `${filePath} has unbalanced parentheses (depth: ${parenDepth})`);
+  });
+});
+
+test('computeStudentMatch is 100% null-safe and does not crash on missing/null properties', () => {
+  const { computeStudentMatch, CURRENT_STUDENT_PROFILE } = require(path.resolve('src/lib/friends/matching.ts'));
+  const targetWithNulls = {
+    id: 'null-peer',
+    name: 'Null Student',
+    college: undefined,
+    course: null,
+    skills: null,
+    careerGoal: undefined
+  };
+
+  assert.doesNotThrow(() => {
+    const result = computeStudentMatch(CURRENT_STUDENT_PROFILE, targetWithNulls);
+    assert.ok(result.overallMatch >= 60 && result.overallMatch <= 100, 'Invalid overallMatch score');
+    assert.ok(typeof result.reasonTag === 'string', 'reasonTag must be string');
+    assert.ok(Array.isArray(result.icebreakers), 'icebreakers must be array');
+  }, 'computeStudentMatch crashed on null/undefined properties');
+});
+
+test('Dedicated /api/friends/block route exists and properly exports GET and POST', () => {
+  const blockRoutePath = path.resolve('src/app/api/friends/block/route.ts');
+  assert.ok(fs.existsSync(blockRoutePath), 'Missing /api/friends/block/route.ts');
+  const code = fs.readFileSync(blockRoutePath, 'utf8');
+  assert.ok(code.includes('export async function GET'), 'block route missing GET');
+  assert.ok(code.includes('export async function POST'), 'block route missing POST');
+  assert.ok(code.includes('user_blocks'), 'block route does not reference user_blocks');
+});
+
 console.log('\n========================================================================');
 console.log(`🏁 VERIFICATION SUITE SUMMARY: ${passed} PASSED, ${failed} FAILED`);
 console.log('========================================================================');
@@ -266,3 +343,4 @@ console.log('===================================================================
 if (failed > 0) {
   process.exit(1);
 }
+

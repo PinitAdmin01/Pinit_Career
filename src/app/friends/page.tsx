@@ -84,6 +84,7 @@ function FriendsContent() {
       const data = await res.json();
       console.log('[FriendsHub] /api/friends response:', data);
 
+      if (data.ok) {
         const friends: StudentProfile[] = (data.friends || []).map((f: any) => ({
           ...f.student,
           relationship: 'friends' as const,

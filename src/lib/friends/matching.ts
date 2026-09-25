@@ -86,32 +86,37 @@ export function computeStudentMatch(
 
   // 3. College Match Score
   let collegeScore = 50;
-  if (current.college.toLowerCase() === target.college.toLowerCase()) {
+  const currentCollege = (current.college || '').toLowerCase();
+  const targetCollege = (target.college || '').toLowerCase();
+  if (currentCollege && targetCollege && currentCollege === targetCollege) {
     collegeScore = 100;
   } else if (
-    current.college.toLowerCase().includes('bangalore') ||
-    target.college.toLowerCase().includes('bangalore') ||
-    target.college.toLowerCase().includes('rvce') ||
-    target.college.toLowerCase().includes('christ') ||
-    target.college.toLowerCase().includes('bgs') ||
-    target.college.toLowerCase().includes('technology')
+    currentCollege.includes('bangalore') ||
+    targetCollege.includes('bangalore') ||
+    targetCollege.includes('rvce') ||
+    targetCollege.includes('christ') ||
+    targetCollege.includes('bgs') ||
+    targetCollege.includes('technology')
   ) {
     collegeScore = 85; // Nearby regional campus
   }
 
   // 4. Course Match Score
   let courseScore = 50;
-  if (current.course.toLowerCase() === target.course.toLowerCase()) {
+  const currentCourse = (current.course || '').toLowerCase();
+  const targetCourse = (target.course || '').toLowerCase();
+  if (currentCourse && targetCourse && currentCourse === targetCourse) {
     courseScore = 95;
   } else if (
-    (current.course.includes('BCA') && target.course.includes('B.Tech')) ||
-    (current.course.includes('B.Tech') && target.course.includes('BCA'))
+    (currentCourse.includes('bca') && targetCourse.includes('b.tech')) ||
+    (currentCourse.includes('b.tech') && targetCourse.includes('bca'))
   ) {
     courseScore = 75; // Tech degrees
   }
 
   // 5. Skill Compatibility Score
-  const overlapRatio = current.skills.length > 0 ? commonSkills.length / Math.min(current.skills.length, 4) : 0;
+  const currentSkillsCount = Array.isArray(current.skills) ? current.skills.length : 0;
+  const overlapRatio = currentSkillsCount > 0 ? commonSkills.length / Math.min(currentSkillsCount, 4) : 0;
   const compBonus = Math.min(complementarySkills.length * 15, 30);
   const skillScore = Math.min(Math.round(overlapRatio * 70 + compBonus), 100);
 
@@ -141,17 +146,20 @@ export function computeStudentMatch(
   } else if (courseScore >= 90 && commonSkills.length > 0) {
     reasonTag = `🏫 Same Course • ${commonSkills.length} common skills`;
   } else if (complementarySkills.length > 0) {
-    reasonTag = `🤝 Complementary Skills: ${complementarySkills[0]} & ${current.skills[0]}`;
+    const myFirstSkill = Array.isArray(current.skills) && current.skills[0] ? current.skills[0] : 'Engineering';
+    reasonTag = `🤝 Complementary Skills: ${complementarySkills[0]} & ${myFirstSkill}`;
   } else if (goalScore >= 85) {
     reasonTag = `🎯 Shared Goal: ${target.careerGoal || 'Software Leadership'}`;
-  } else if (collegeScore >= 80) {
+  } else if (collegeScore >= 80 && target.college) {
     reasonTag = `📍 Nearby Campus: ${target.college}`;
   }
 
   // 9. Conversational Icebreakers
+  const safeTargetName = (target.name || 'Student Peer').split(' ')[0];
+  const targetFirstSkill = (Array.isArray(target.skills) && target.skills[0]) || 'software engineering';
   const icebreakers: string[] = [
-    `Hey ${target.name.split(' ')[0]}, I noticed you're exploring ${target.skills[0] || 'tech'}. Want to collaborate?`,
-    `Would you be up for a 1v1 Arena challenge on ${commonSkills[0] || target.skills[0] || 'algorithms'}?`
+    `Hey ${safeTargetName}, I noticed you're exploring ${targetFirstSkill}. Want to collaborate?`,
+    `Would you be up for a 1v1 Arena challenge on ${commonSkills[0] || targetFirstSkill || 'algorithms'}?`
   ];
   if (commonSkills.length > 0) {
     icebreakers.push(`Saw your experience in ${commonSkills.join(' & ')}! Are you building any squad projects right now?`);
