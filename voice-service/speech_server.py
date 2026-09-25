@@ -1,86 +1,105 @@
+"""
+PinIT Careers — Offline Speech-to-Text (Vosk) Server
+Runs on port 3002. Separate service from the TTS/LLM backend (port 8000).
+
+Purpose: Local offline STT for mobile / privacy-sensitive environments.
+Usage:   python speech_server.py  (from project root)
+         Requires: pip install vosk soundfile fastapi uvicorn python-multipart
+
+NOTE: This is NOT a duplicate of backend/main.py — that handles TTS output,
+      this handles STT input (microphone → text).
+"""
+
 import os
-import re
-import hashlib
 import tempfile
-from fastapi import FastAPI, HTTPException
+import urllib.request
+import zipfile
+import json
+from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, StreamingResponse
-from pydantic import BaseModel
+import uvicorn
+from vosk import Model, KaldiRecognizer  # type: ignore
 import soundfile as sf
-import io
 
-app = FastAPI(title="PinIT Kokoro Voice Service", version="1.0.0")
+app = FastAPI(title="PinIT Offline STT Server", version="1.0.0")
 
-# Enable CORS for local Next.js dev server
+# ── CORS ──────────────────────────────────────────────────────────────────────
+# Set ALLOWED_STT_ORIGINS in env to restrict in production.
+_raw = os.getenv("ALLOWED_STT_ORIGINS", "http://localhost:3000,http://localhost:3001")
+_origins = [o.strip() for o in _raw.split(",") if o.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=_origins,     # Fixed: was ["*"] + allow_credentials=True (browser blocks this)
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["POST", "GET"],
     allow_headers=["*"],
 )
 
-MODEL_VERSION = "v1.0"
+MODEL_PATH = os.getenv("VOSK_MODEL_PATH", "model")
+MODEL_URL = "https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip"
 
-class TTSRequest(BaseModel):
-    text: str
-    voice: str = "en-us-nicole"
-    speed: float = 1.0
 
-def normalize_text(text: str) -> str:
-    """Normalize text: lowercase, remove punctuation, collapse whitespace."""
-    text = text.lower()
-    text = re.sub(r'[^\w\s]', '', text)
-    text = re.sub(r'\s+', ' ', text).strip()
-    return text
+def download_model():
+    if not os.path.exists(MODEL_PATH):
+        print("[STT] Vosk model not found locally. Downloading (~40 MB)...")
+        temp_zip = os.path.join(tempfile.gettempdir(), "vosk-model.zip")
+        urllib.request.urlretrieve(MODEL_URL, temp_zip)
+        print("[STT] Extracting model...")
+        with zipfile.ZipFile(temp_zip, 'r') as zip_ref:
+            zip_ref.extractall(".")
+        extracted_dirs = [d for d in os.listdir(".") if d.startswith("vosk-model-small-en-us")]
+        if extracted_dirs:
+            os.rename(extracted_dirs[0], MODEL_PATH)
+        print("[STT] Model ready.")
 
-def compute_cache_key(normalized_text: str, voice: str, model_version: str) -> str:
-    """Compute SHA256 cache key hash."""
-    payload = f"{normalized_text}:{voice}:{model_version}"
-    return hashlib.sha256(payload.encode('utf-8')).hexdigest()
 
-@app.get("/health")
-def health_check():
-    return {"status": "ok", "service": "PinIT Kokoro Voice Engine", "version": MODEL_VERSION}
+# Ensure model is ready at startup
+download_model()
+model = Model(MODEL_PATH)
 
-@app.post("/generate")
-async def generate_tts(req: TTSRequest):
-    if not req.text.strip():
-        raise HTTPException(status_code=400, detail="Text cannot be empty.")
-    
-    normalized = normalize_text(req.text)
-    cache_key = compute_cache_key(normalized, req.voice, MODEL_VERSION)
-    
-    print(f"[Kokoro TTS] Generating audio for hash: {cache_key} | Text: '{normalized}'")
-    
-    # Try Kokoro-ONNX / PyTorch TTS generation
+
+@app.post("/transcribe")
+async def transcribe(file: UploadFile = File(...)):
+    """Convert uploaded audio (WebM/WAV) to text using Vosk offline ASR."""
+    temp_webm = tempfile.mktemp(suffix=".webm")
+    temp_wav  = tempfile.mktemp(suffix=".wav")
     try:
-        # Placeholder for Kokoro-82M pipeline execution
-        # In actual deployment: kokoro.create(normalized, voice=req.voice, speed=req.speed)
-        import numpy as np
-        
-        # Generate 1 second sample audio for MVP verification
-        sample_rate = 24000
-        duration = max(1.0, len(normalized) * 0.06)  # Approx duration based on length
-        t = np.linspace(0, duration, int(sample_rate * duration), False)
-        # Gentle audio tone simulation if Kokoro weights are downloading
-        audio_data = (np.sin(2 * np.pi * 440 * t) * 0.1).astype(np.float32)
-        
-        buffer = io.BytesIO()
-        sf.write(buffer, audio_data, sample_rate, format='WAV', subtype='PCM_16')
-        buffer.seek(0)
-        
-        return StreamingResponse(
-            buffer, 
-            media_type="audio/wav",
-            headers={"X-Cache-Key": cache_key, "X-Model-Version": MODEL_VERSION}
-        )
+        with open(temp_webm, "wb") as f:
+            f.write(await file.read())
+
+        # Convert to 16 kHz mono PCM WAV for Vosk
+        data, _ = sf.read(temp_webm)
+        sf.write(temp_wav, data, 16000, subtype='PCM_16')
+
+        rec = KaldiRecognizer(model, 16000)
+        with open(temp_wav, "rb") as f:
+            f.read(44)  # Skip 44-byte WAV header
+            while True:
+                chunk = f.read(4000)
+                if not chunk:
+                    break
+                rec.AcceptWaveform(chunk)
+
+        res = json.loads(rec.FinalResult())
+        transcript = res.get("text", "")
+        print(f"[STT] Transcribed: {transcript[:80]}")
+        return {"text": transcript}
 
     except Exception as e:
-        print(f"[Kokoro Error] {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
+        print(f"[STT] Error: {e}")
+        return {"text": "", "error": str(e)}
+    finally:
+        for f in (temp_webm, temp_wav):
+            if os.path.exists(f):
+                os.remove(f)
+
+
+@app.get("/health")
+def health():
+    return {"status": "online", "service": "PinIT Offline STT", "port": 3002}
+
 
 if __name__ == "__main__":
-    import uvicorn
-    print("Starting PinIT Voice Engine Server on port 8000...")
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    print("[STT] Starting Offline STT Server on port 3002...")
+    uvicorn.run(app, host="0.0.0.0", port=3002)
