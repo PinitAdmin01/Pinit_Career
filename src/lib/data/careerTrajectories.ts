@@ -963,7 +963,7 @@ export function recommendCareerTrajectory(
       nodes: [
         {
           nodeId: 'node-prod-mgmt',
-          courseId: 'course-ecommerce-digital-business',
+          courseId: 'course-ecommerce-digital-biz',
           title: 'Product Management & Feature Strategy Mastery',
           shortDesc: 'Complete 30-day curriculum: PRD Writing, Discovery Interviews, Roadmap Prioritization, Agile Sprints, Unit Economics & Growth Funnels',
           icon: '🚀',

@@ -288,6 +288,14 @@ export default function DashboardPage() {
       'Management Consultant & Business Strategist': { skills:['Hypothesis-Driven Problem Solving','MECE Structuring','Market Sizing','Corporate Valuation'], weak:['Market Sizing Estimation','Turnaround Modeling'], courseId:'course-entrepreneurship-biz-mgmt' },
       'Product Manager (Tech & Business Strategy)': { skills:['Product Roadmaps','PRDs','Agile Sprints','RICE Prioritization'], weak:['Telemetry Funnels','Feasibility Auditing'], courseId:'course-design-systems' },
       'Human Resources & People Operations Specialist': { skills:['Talent Acquisition','HR Analytics','Labor Law Compliance','Performance Frameworks'], weak:['Attrition Modeling','Compensation Benchmarks'], courseId:'course-operations-supplychain-compliance' },
+      'Scientific & Quantitative Research Specialist': { skills:['Research Methodology','Statistical Modeling','Python for Research'], weak:['Hypothesis Testing','Publication Standards'], courseId:'course-business-analytics' },
+      'Public Policy, Compliance & Legal Specialist': { skills:['Regulatory Compliance','Statutory Analysis','Policy Evaluation'], weak:['Cross-Border Alignment','Administrative Hearings'], courseId:'course-operations-supplychain-compliance' },
+      'Education & Learning Technology Specialist': { skills:['Instructional Design','Pedagogical Assessment','Learning Analytics'], weak:['Formative Rubrics','EdTech Integration'], courseId:'course-operations-supplychain-compliance' },
+      'Healthcare & Clinical Operations Analyst': { skills:['Healthcare Data Management','Clinical Analytics','Health Informatics'], weak:['Healthcare Compliance (HIPAA)','EHR Auditing'], courseId:'course-business-analytics' },
+      'Digital Media & Communications Specialist': { skills:['Investigative Journalism','Multimedia Content','Digital Publishing'], weak:['Fact-Checking Protocols','Media Ethics'], courseId:'course-digital-marketing' },
+      'Core Systems & Hardware Engineer': { skills:['Embedded C/C++','Circuit Design','Microcontroller Interfacing'], weak:['RTOS Basics','PCB Layout'], courseId:'course-iot-embedded' },
+      'Creative & Digital Arts Specialist': { skills:['Visual Design','Digital Illustration','Concept Art'], weak:['Interactive Prototyping','3D Optimization'], courseId:'course-design-systems' },
+      'Social Impact & Non-Profit Program Manager': { skills:['Program Management','Grant Writing','Impact Measurement'], weak:['M&E Frameworks','Donor Reporting'], courseId:'course-operations-supplychain-compliance' },
     };
     const cfg = TRACK_MAP[trackTitle] || { skills:['Node.js','Docker','React'], weak:['CI/CD','APIs'], courseId:'course-fullstack-js' };
     try {

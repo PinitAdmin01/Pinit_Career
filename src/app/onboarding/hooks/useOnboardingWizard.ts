@@ -1329,7 +1329,7 @@ export function useOnboardingWizard() {
     }
 
     // 11. Human Resources (HR)
-    if (goal.includes('human_resource') || goal.includes('talent') || goal === 'hr' || goal.includes('people ops')) {
+    if (goal.includes('human_resource') || goal.includes('human resource') || goal.includes('talent') || goal === 'hr' || goal.includes('people ops') || goal.includes('people operations')) {
       return {
         targetRoleLabel: 'Human Resources & Talent Lead',
         courseId: 'course-operations-supplychain-compliance',
@@ -1510,7 +1510,37 @@ export function useOnboardingWizard() {
       };
     }
 
-    // 27. Default: Java Backend SDE
+    // 27. Engineering & Hardware Systems
+    if (goal.includes('engineering') || goal.includes('hardware') || goal.includes('robotics')) {
+      return {
+        targetRoleLabel: 'Core Systems & Hardware Engineer',
+        courseId: 'course-iot-embedded',
+        skillsList: 'Embedded Systems, Circuit Design, Microcontroller Interfacing, Hardware Debugging, RTOS Basics, Hardware-Software Integration',
+        weakAreas: ['Real-Time Operating Systems (RTOS)', 'PCB Layout & Noise Mitigation', 'Hardware Security Modules']
+      };
+    }
+
+    // 28. Creative & Digital Arts
+    if (goal.includes('creative') || goal.includes('animation') || goal.includes('game art')) {
+      return {
+        targetRoleLabel: 'Creative & Digital Arts Specialist',
+        courseId: 'course-design-systems',
+        skillsList: 'Visual Design, Digital Illustration, Creative Direction, Concept Art, UI/UX Prototyping, Brand Storytelling',
+        weakAreas: ['Interactive Prototyping', '3D Asset Optimization', 'Cross-Platform Responsive Design']
+      };
+    }
+
+    // 29. Social Sector & Non-Profit Leadership
+    if (goal.includes('social_sector') || goal.includes('non-profit') || goal.includes('non_profit') || goal.includes('ngo')) {
+      return {
+        targetRoleLabel: 'Social Impact & Non-Profit Program Manager',
+        courseId: 'course-operations-supplychain-compliance',
+        skillsList: 'Program Management, Grant Writing, Stakeholder Alignment, Impact Measurement, Non-Profit Governance',
+        weakAreas: ['Monitoring & Evaluation (M&E) Frameworks', 'Donor Reporting Metrics', 'Statutory NGO Compliance']
+      };
+    }
+
+    // 30. Default: Java Backend SDE
     return {
       targetRoleLabel: 'Java Backend SDE',
       courseId: 'course-java-logic',

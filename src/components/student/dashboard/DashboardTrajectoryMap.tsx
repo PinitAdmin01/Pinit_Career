@@ -33,6 +33,14 @@ const TRACKS = [
   { title:'Management Consultant & Business Strategist', icon:'♟️', color:'var(--amber)' },
   { title:'Product Manager (Tech & Business Strategy)', icon:'📱', color:'var(--teal)' },
   { title:'Human Resources & People Operations Specialist', icon:'👥', color:'var(--purple)' },
+  { title:'Scientific & Quantitative Research Specialist', icon:'🔬', color:'var(--purple)' },
+  { title:'Public Policy, Compliance & Legal Specialist', icon:'⚖️', color:'var(--blue)' },
+  { title:'Education & Learning Technology Specialist', icon:'📚', color:'var(--teal)' },
+  { title:'Healthcare & Clinical Operations Analyst', icon:'🏥', color:'var(--green)' },
+  { title:'Digital Media & Communications Specialist', icon:'📰', color:'var(--amber)' },
+  { title:'Core Systems & Hardware Engineer', icon:'⚡', color:'var(--amber)' },
+  { title:'Creative & Digital Arts Specialist', icon:'🎨', color:'var(--accent)' },
+  { title:'Social Impact & Non-Profit Program Manager', icon:'🌍', color:'var(--teal)' },
 ];
 
 interface Props {
