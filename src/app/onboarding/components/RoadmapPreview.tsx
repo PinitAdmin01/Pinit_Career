@@ -210,8 +210,8 @@ export default function RoadmapPreview({
                   Secondary Working Dynamic:
                 </div>
                 {tradeoffs.slice(1).map((sec, sIdx) => (
-                  <div key={sec.id || sIdx} style={{ fontSize: 12, color: 'var(--t3)', lineHeight: 1.5, marginBottom: 4 }}>
-                    • <strong style={{ color: 'var(--t1)' }}>{sec.label}:</strong> {sec.description}{' '}
+                  <div key={sec.type || sIdx} style={{ fontSize: 12, color: 'var(--t3)', lineHeight: 1.5, marginBottom: 4 }}>
+                    • <strong style={{ color: 'var(--t1)' }}>{sec.type.replace(/_/g, ' ')}:</strong> {sec.description}{' '}
                     <span style={{ color: 'var(--teal)', fontStyle: 'italic' }}>({sec.roadmapRecommendation})</span>
                   </div>
                 ))}
