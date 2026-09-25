@@ -737,7 +737,7 @@ export default function AvatarMentorWidget({
 
   // Opt-in Conversational Speech Recognition with Echo Gate
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined' || onlyAvatar) return;
     if (micDeniedRef.current) return;
     // Only listen when active conversational mode is enabled by the user
     if (!isConversing) {

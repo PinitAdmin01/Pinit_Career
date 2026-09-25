@@ -12,26 +12,25 @@ export interface TourSlide {
   text: string;
 }
 
-// ── Story tour: Segment 1 Left Main (10 tabs) → Segment 2 Left Bottom (3 tabs) → Segment 3 Right Sidebar (1 tab) ──
+// ── Story tour: 7 Flagship Platform Hubs (< 30s total runtime) ──
 export const TOUR_SLIDES: TourSlide[] = [
-  // ── Segment 1: Main Platform Navigation ──
   {
     emoji: '🏠',
     title: 'Command Center Dashboard',
     tabKey: 'dashboard',
     route: '/dashboard',
     segment: 1,
-    segmentLabel: 'SEGMENT 1/3 · MAIN HUBS',
-    text: "This is your Home Dashboard — your command center! Track your Career Score, XP tiers, consistency streak, and daily AI mentor recommendations.",
+    segmentLabel: 'FLAGSHIP HUB 1/7 · DASHBOARD',
+    text: "Track your verified skills, daily streak, and career growth.",
   },
   {
     emoji: '🗺',
-    title: 'Quests & Socratic Courses',
+    title: 'Socratic Quests & Courses',
     tabKey: 'quests',
     route: '/quests',
     segment: 1,
-    segmentLabel: 'SEGMENT 1/3 · MAIN HUBS',
-    text: "This is Quests & Courses — structured learning paths. Complete socratic theory lessons and interactive challenges to earn Pins and raise verified skill metrics.",
+    segmentLabel: 'FLAGSHIP HUB 2/7 · SOCRATIC LEARNING',
+    text: "Conquer Socratic quests and challenges to earn career Pins.",
   },
   {
     emoji: '⚡',
@@ -39,35 +38,35 @@ export const TOUR_SLIDES: TourSlide[] = [
     tabKey: 'missions',
     route: '/missions',
     segment: 1,
-    segmentLabel: 'SEGMENT 1/3 · MAIN HUBS',
-    text: "This is Daily Missions — five fresh micro-challenges generated every day targeted at your skill gaps. Solve them daily to defend your streak and earn bonus XP.",
+    segmentLabel: 'FLAGSHIP HUB 3/7 · DAILY MISSIONS',
+    text: "Solve daily targeted micro-challenges to close your skill gaps.",
   },
   {
     emoji: '⚔️',
-    title: 'Challenging Arena (1v1 Battles)',
+    title: 'Competitive Battle Arena',
     tabKey: 'arena',
     route: '/arena',
     segment: 1,
-    segmentLabel: 'SEGMENT 1/3 · MAIN HUBS',
-    text: "This is Challenging Arena — step into live 1-on-1 speedrun battles and timed duels! Test your analytical speed, outsolve opponents, and climb the battle rankings.",
+    segmentLabel: 'FLAGSHIP HUB 4/7 · 1V1 ARENA',
+    text: "Compete in live one-on-one duels to outsolve rivals.",
   },
   {
     emoji: '🚀',
-    title: 'Projects & Industry Squads',
+    title: 'Industry Squads & Projects',
     tabKey: 'projects',
     route: '/projects',
     segment: 1,
-    segmentLabel: 'SEGMENT 1/3 · MAIN HUBS',
-    text: "This is Projects & Squads — collaborate on real-world projects and case studies with peers. Everything you build provides verifiable proof-of-work for recruiters.",
+    segmentLabel: 'FLAGSHIP HUB 5/7 · SQUADS & PROJECTS',
+    text: "Build recruiter-verified proof of work with collaborative squads.",
   },
   {
     emoji: '🏆',
-    title: 'Leaderboards & League Tiers',
+    title: 'Global & Campus Leagues',
     tabKey: 'leaderboard',
     route: '/leaderboard',
     segment: 1,
-    segmentLabel: 'SEGMENT 1/3 · MAIN HUBS',
-    text: "This is Leaderboards & Leagues — see how your performance ranks campus-wide and globally. Earn promotions from Bronze to Grandmaster in weekly sprints.",
+    segmentLabel: 'FLAGSHIP HUB 6/7 · LEADERBOARDS',
+    text: "Climb campus and global leagues all the way to Grandmaster.",
   },
   {
     emoji: '🎙',
@@ -75,84 +74,8 @@ export const TOUR_SLIDES: TourSlide[] = [
     tabKey: 'interview',
     route: '/interview',
     segment: 1,
-    segmentLabel: 'SEGMENT 1/3 · MAIN HUBS',
-    text: "This is AI Interview — live 1-on-1 behavioral, HR, and domain mock interviews with instant feedback on clarity, problem-solving structure, and STAR responses.",
-  },
-  {
-    emoji: '💬',
-    title: 'GD Practice Arena',
-    tabKey: 'group-discussion',
-    route: '/group-discussion',
-    segment: 1,
-    segmentLabel: 'SEGMENT 1/3 · MAIN HUBS',
-    text: "This is GD Practice — boardroom debates against AI avatars. Train your speech articulation, argument formulation, and leadership confidence.",
-  },
-  {
-    emoji: '📖',
-    title: 'Learning & Career Twin',
-    tabKey: 'learning',
-    route: '/learning?tab=twin',
-    segment: 1,
-    segmentLabel: 'SEGMENT 1/3 · MAIN HUBS',
-    text: "This is Learning & Career Twin — compare your competencies against dream career tracks. Our AI diagnoses your gaps and generates customized study roadmaps.",
-  },
-  {
-    emoji: '🧠',
-    title: 'Attention Span Trainer',
-    tabKey: 'attention-span',
-    route: '/attention-span',
-    segment: 1,
-    segmentLabel: 'SEGMENT 1/3 · MAIN HUBS',
-    text: "This is Attention Span — gamified cognitive endurance exercises. Train your deep focus, reaction speed, and stamina for high-stakes assessments.",
-  },
-
-  // ── Segment 2: Left Nav Bottom Hubs (In exact ordered sequence) ──
-  {
-    emoji: '👥',
-    title: 'Friends & Collaboration Hub',
-    tabKey: 'friends',
-    route: '/friends',
-    segment: 2,
-    segmentLabel: 'SEGMENT 2/3 · ESSENTIAL UTILITIES',
-    text: "This is Friends & Student Network — discover peers, send requests, chat directly, and team up for 1-on-1 arena duels and collaborative squad projects.",
-  },
-  {
-    emoji: '⚡',
-    title: 'Pins Economy & Wallet',
-    tabKey: 'pins',
-    route: '/pins',
-    segment: 2,
-    segmentLabel: 'SEGMENT 2/3 · ESSENTIAL UTILITIES',
-    text: "This is Pins & Wallet — track your earned Pins balance, unlock advanced AI mock interviews, and access premium socratic quests.",
-  },
-  {
-    emoji: '🔔',
-    title: 'Notifications Hub',
-    tabKey: 'notifications',
-    route: '/notifications',
-    segment: 2,
-    segmentLabel: 'SEGMENT 2/3 · ESSENTIAL UTILITIES',
-    text: "This is Notifications — your instant dispatch center. Receive real-time alerts for quest rewards, streak milestones, and peer challenges.",
-  },
-  {
-    emoji: '👤',
-    title: 'Profile & Career DNA',
-    tabKey: 'profile',
-    route: '/profile',
-    segment: 2,
-    segmentLabel: 'SEGMENT 2/3 · ESSENTIAL UTILITIES',
-    text: "This is your Profile — view your verified credentials, manage career goals, view your full Career DNA, and select your AI mentor.",
-  },
-
-  // ── Segment 3: Academic Right Sidebar Drawer ──
-  {
-    emoji: '📚',
-    title: 'Academic Portal & Exam Hub',
-    tabKey: 'academic-sidebar',
-    route: '/dashboard',
-    segment: 3,
-    segmentLabel: 'SEGMENT 3/3 · ACADEMIC DRAWER',
-    text: "This is the Academic Portal on your right sidebar! Open it anytime to take scheduled proctored exams, check official results, view study notes, and browse campus services.",
+    segmentLabel: 'FLAGSHIP HUB 7/7 · AI INTERVIEWS',
+    text: "Practice AI mock interviews with real-time feedback.",
   },
 ];
 
@@ -164,14 +87,6 @@ export const TOUR_STEP_ROUTES: Record<number, string> = {
   4: '/projects',
   5: '/leaderboard',
   6: '/interview',
-  7: '/group-discussion',
-  8: '/learning?tab=twin',
-  9: '/attention-span',
-  10: '/friends',
-  11: '/pins',
-  12: '/notifications',
-  13: '/profile',
-  14: '/dashboard',
 };
 
 // ── Build congratulations message from event payload ─────────────────────────
@@ -198,6 +113,7 @@ interface StoryTourCardProps {
   onNext: () => void;
   onDismiss: () => void;
   onReplay: () => void;
+  isSpeaking?: boolean;
 }
 
 export const StoryTourCard: React.FC<StoryTourCardProps> = ({
@@ -207,6 +123,7 @@ export const StoryTourCard: React.FC<StoryTourCardProps> = ({
   onNext,
   onDismiss,
   onReplay,
+  isSpeaking = false,
 }) => {
   const currentSlide = TOUR_SLIDES[tourStep];
 
@@ -215,7 +132,7 @@ export const StoryTourCard: React.FC<StoryTourCardProps> = ({
       flex: '1 1 58%',
       width: '58%',
       minWidth: 0,
-      padding: '14px 14px 12px',
+      padding: '10px 11px 9px',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between',
@@ -224,28 +141,35 @@ export const StoryTourCard: React.FC<StoryTourCardProps> = ({
     }}>
       <div>
         {/* Top Bar: Mentor Name & Step Counter */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 5 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-            <span style={{ fontSize: 13 }}>{currentSlide?.emoji || '✨'}</span>
-            <span style={{ fontFamily: 'var(--font-display)', fontSize: 11, fontWeight: 800, color: 'var(--text)' }}>{teacher.name}</span>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+            <span style={{ fontSize: 11.5 }}>{currentSlide?.emoji || '✨'}</span>
+            <span style={{ fontFamily: 'var(--font-display)', fontSize: 10, fontWeight: 800, color: 'var(--text)' }}>{teacher.name}</span>
+            {isSpeaking && (
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 1.5, marginLeft: 3 }} title="Mentor Speaking">
+                <span style={{ width: 2, height: 6, background: '#38bdf8', borderRadius: 1, opacity: 0.9 }} />
+                <span style={{ width: 2, height: 10, background: '#818cf8', borderRadius: 1, opacity: 1 }} />
+                <span style={{ width: 2, height: 5, background: '#c084fc', borderRadius: 1, opacity: 0.9 }} />
+              </span>
+            )}
           </div>
           <div style={{
             fontFamily: 'var(--font-mono)',
-            fontSize: 8.5,
+            fontSize: 7.5,
             fontWeight: 800,
             color: '#a5b4fc',
             background: 'rgba(79,70,229,0.25)',
             border: '1px solid rgba(129,140,248,0.35)',
-            borderRadius: 20,
-            padding: '2px 7px',
-            letterSpacing: '0.4px',
+            borderRadius: 16,
+            padding: '1px 5px',
+            letterSpacing: '0.3px',
           }}>
             STEP {tourStep + 1} / {TOUR_SLIDES.length}
           </div>
         </div>
 
         {/* Progress bar */}
-        <div style={{ width: '100%', height: 3, background: 'rgba(255,255,255,0.08)', borderRadius: 2, marginBottom: 7 }}>
+        <div style={{ width: '100%', height: 2.5, background: 'rgba(255,255,255,0.08)', borderRadius: 2, marginBottom: 5 }}>
           <div style={{
             height: '100%',
             width: `${((tourStep + 1) / TOUR_SLIDES.length) * 100}%`,
@@ -258,45 +182,45 @@ export const StoryTourCard: React.FC<StoryTourCardProps> = ({
         {/* Slide Title */}
         <div style={{
           fontFamily: 'var(--font-display)',
-          fontSize: 12,
+          fontSize: 10.5,
           fontWeight: 900,
           color: '#f8fafc',
           letterSpacing: '-0.2px',
           lineHeight: 1.2,
-          marginBottom: 4,
+          marginBottom: 3,
         }}>
           {currentSlide?.title}
         </div>
 
         {/* Narration Text */}
         <div style={{
-          fontSize: 10.5,
+          fontSize: 9.5,
           color: 'var(--text-muted)',
-          lineHeight: 1.45,
+          lineHeight: 1.38,
           fontFamily: 'var(--font-sans)',
           whiteSpace: 'pre-line',
           overflowY: 'auto',
-          maxHeight: '80px',
-          paddingRight: 4,
+          maxHeight: '75px',
+          paddingRight: 2,
         }}>
           {currentSlide?.text}
         </div>
       </div>
 
       {/* Controls toolbar */}
-      <div style={{ display: 'flex', gap: 4, marginTop: 6, width: '100%', alignItems: 'center' }}>
+      <div style={{ display: 'flex', gap: 3.5, marginTop: 4, width: '100%', alignItems: 'center' }}>
         {tourStep > 0 && (
           <button
             onClick={onPrev}
-            title="Previous Tab"
+            title="Previous Tab (← Left Arrow)"
             style={{
               background: 'rgba(255,255,255,0.08)',
               border: '1px solid rgba(255,255,255,0.15)',
-              borderRadius: 7,
+              borderRadius: 6,
               color: 'var(--text)',
-              fontSize: 9.5,
+              fontSize: 8.5,
               fontWeight: 700,
-              padding: '5px 8px',
+              padding: '4px 6px',
               cursor: 'pointer',
               fontFamily: 'var(--font-mono)',
             }}
@@ -307,15 +231,15 @@ export const StoryTourCard: React.FC<StoryTourCardProps> = ({
 
         <button
           onClick={onReplay}
-          title="Replay Voice Speech"
+          title="Replay Voice Speech (Spacebar)"
           style={{
             background: 'rgba(255,255,255,0.08)',
             border: '1px solid rgba(255,255,255,0.15)',
-            borderRadius: 7,
+            borderRadius: 6,
             color: 'var(--text)',
-            fontSize: 9.5,
+            fontSize: 8.5,
             fontWeight: 700,
-            padding: '5px 8px',
+            padding: '4px 6px',
             cursor: 'pointer',
             fontFamily: 'var(--font-mono)',
           }}
@@ -325,18 +249,19 @@ export const StoryTourCard: React.FC<StoryTourCardProps> = ({
 
         <button
           onClick={onNext}
+          title={tourStep === TOUR_SLIDES.length - 1 ? 'Complete Tour & Open Voice Setup (→ Right Arrow)' : 'Next Tab (→ Right Arrow)'}
           style={{
             flex: 1,
             background: 'linear-gradient(90deg, var(--accent) 0%, var(--purple) 100%)',
             border: 'none',
-            borderRadius: 7,
+            borderRadius: 6,
             color: 'var(--text)',
-            fontSize: 10,
+            fontSize: 9,
             fontWeight: 800,
-            padding: '5px 0',
+            padding: '4px 0',
             cursor: 'pointer',
             fontFamily: 'var(--font-mono)',
-            boxShadow: '0 2px 10px rgba(79,70,229,0.4)',
+            boxShadow: '0 2px 8px rgba(79,70,229,0.4)',
             transition: 'opacity 0.2s',
           }}
         >
@@ -345,15 +270,15 @@ export const StoryTourCard: React.FC<StoryTourCardProps> = ({
 
         <button
           onClick={onDismiss}
-          title="Exit Tour"
+          title="Exit Tour (Escape)"
           style={{
             background: 'rgba(255,255,255,0.06)',
             border: '1px solid rgba(255,255,255,0.12)',
-            borderRadius: 7,
+            borderRadius: 6,
             color: 'var(--t3)',
-            fontSize: 9.5,
+            fontSize: 8.5,
             fontWeight: 600,
-            padding: '5px 7px',
+            padding: '4px 6px',
             cursor: 'pointer',
             fontFamily: 'var(--font-mono)',
           }}

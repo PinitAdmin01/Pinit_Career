@@ -27,6 +27,83 @@ export interface GlobalAvatarProps {
   onTourSlideChange?: (route: string | null, tabKey: string | null) => void;
 }
 
+// ── Auto-scroll utility for parallel page showcase during tour narration ─────
+function startAutoScroll(durationMs: number): () => void {
+  if (typeof window === 'undefined') return () => {};
+  let cancelled = false;
+  let rafId: number | null = null;
+  let timerId: ReturnType<typeof setTimeout> | null = null;
+
+  // Immediate reset to top on both .page-content and window
+  const pageEl = document.querySelector('.page-content') as HTMLElement | null;
+  if (pageEl) {
+    pageEl.scrollTop = 0;
+  }
+  window.scrollTo({ top: 0, behavior: 'instant' });
+
+  // Yield gracefully if user manually interacts with page (wheel, touch, pointer)
+  const stopOnUserGesture = () => {
+    cancelled = true;
+    if (timerId) clearTimeout(timerId);
+    if (rafId) cancelAnimationFrame(rafId);
+    cleanupGestureListeners();
+  };
+
+  const cleanupGestureListeners = () => {
+    window.removeEventListener('wheel', stopOnUserGesture);
+    window.removeEventListener('touchmove', stopOnUserGesture);
+    window.removeEventListener('pointerdown', stopOnUserGesture);
+  };
+
+  window.addEventListener('wheel', stopOnUserGesture, { passive: true });
+  window.addEventListener('touchmove', stopOnUserGesture, { passive: true });
+  window.addEventListener('pointerdown', stopOnUserGesture, { passive: true });
+
+  // Delay starting downward scroll until route has rendered content (~200ms)
+  timerId = setTimeout(() => {
+    if (cancelled) return;
+    const startTime = performance.now();
+    const runDuration = Math.max(1400, durationMs - 300);
+
+    const step = (now: number) => {
+      if (cancelled) return;
+      const elapsed = now - startTime;
+      const progress = Math.min(1, elapsed / runDuration);
+
+      // Smooth ease-in-out curve
+      const ease = progress < 0.5
+        ? 2 * progress * progress
+        : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
+      const targetEl = (document.querySelector('.page-content') as HTMLElement | null) || null;
+      if (targetEl && targetEl.scrollHeight > targetEl.clientHeight) {
+        const maxScroll = targetEl.scrollHeight - targetEl.clientHeight;
+        targetEl.scrollTop = maxScroll * ease;
+      } else {
+        const docScroll = (document.scrollingElement || document.documentElement).scrollHeight - window.innerHeight;
+        if (docScroll > 15) {
+          window.scrollTo(0, docScroll * ease);
+        }
+      }
+
+      if (progress < 1) {
+        rafId = requestAnimationFrame(step);
+      } else {
+        cleanupGestureListeners();
+      }
+    };
+
+    rafId = requestAnimationFrame(step);
+  }, 200);
+
+  return () => {
+    cancelled = true;
+    if (timerId) clearTimeout(timerId);
+    if (rafId) cancelAnimationFrame(rafId);
+    cleanupGestureListeners();
+  };
+}
+
 export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   user,
   profile,
@@ -82,6 +159,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   const pendingSpeechStepRef = useRef<number | null>(null);
   const tourAdvanceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const tourFallbackTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const cancelAutoScrollRef = useRef<(() => void) | null>(null);
   // The route the current tour slide's speech was spoken on. Auto-advance is
   // ONLY permitted when the speech genuinely finishes while still on this
   // route — navigating away / route unmount must NOT fake a completion.
@@ -115,7 +193,16 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     }
   }, [isTaskOrProcessActive, tourActive, celebEvent]);
 
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => {
+    setMounted(true);
+    return () => {
+      if (typeof window !== 'undefined') {
+        (window as any).__PINIT_STORY_TOUR_ACTIVE = false;
+      }
+      clearTourAdvanceTimer();
+      stopSpeaking(true);
+    };
+  }, [clearTourAdvanceTimer]);
 
   // ── 2. Auto-close / auto-dock floating avatar after 15s of inactivity ────────
   const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -138,7 +225,8 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
 
   // ── 3. Wake word listener (Strictly Opt-In & Transparent) ─────────────────
   useEffect(() => {
-    if (typeof window === 'undefined' || isOnboardingOrAuth || !voiceListeningActive) return;
+    // Explicitly pause speech recognition while story tour is active or disabled
+    if (typeof window === 'undefined' || isOnboardingOrAuth || !voiceListeningActive || tourActive) return;
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (!SpeechRecognition) return;
 
@@ -151,7 +239,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
       recognition.lang = 'en-US';
 
       recognition.onresult = (event: any) => {
-        if (!isMounted) return;
+        if (!isMounted || !voiceListeningActive) return;
         const transcript = Array.from(event.results)
           .map((r: any) => r[0].transcript)
           .join(' ')
@@ -169,6 +257,8 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
         resetIdleTimer();
         stopSpeaking();
 
+        const currentActivePath = cleanPathRef.current;
+
         // 1. Socratic Guidance Queries
         const isWhatToDoQuery = transcript.includes('what to do') ||
                                 transcript.includes('what should i do') ||
@@ -180,15 +270,15 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
 
         if (isWhatToDoQuery) {
           let advice = "I recommend checking your Daily Missions to solve gap-closure challenges and build your streak!";
-          if (cleanPath === '/dashboard') {
+          if (currentActivePath === '/dashboard') {
             advice = "Head to the Missions tab to solve today's gap-closure challenges, or Quests to continue your active learning track!";
-          } else if (cleanPath === '/quests') {
+          } else if (currentActivePath === '/quests') {
             advice = "Explore your active socratic courses to earn Pins and increase your verified skill metrics!";
-          } else if (cleanPath === '/missions') {
+          } else if (currentActivePath === '/missions') {
             advice = "Complete today's daily challenges to close your skill gaps and protect your consistency streak!";
-          } else if (cleanPath === '/arena') {
+          } else if (currentActivePath === '/arena') {
             advice = "Enter a 1v1 speedrun battle or algorithm duel to test your skills against other students!";
-          } else if (cleanPath === '/interview') {
+          } else if (currentActivePath === '/interview') {
             advice = "Start a simulated AI technical interview to practice behavioral and algorithmic questions with live feedback!";
           }
           speakWithAvatar(advice, teacherId, () => {}, () => {});
@@ -209,7 +299,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
 
       recognition.onerror = (err: any) => {
         if (err.error === 'not-allowed') {
-          console.warn('Speech recognition permission denied.');
+          console.warn('[PinIT Speech] Permission denied.');
           setVoiceListeningActive(false);
           if (typeof window !== 'undefined') {
             localStorage.setItem('pinit_voice_wake_active', 'false');
@@ -218,8 +308,8 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
       };
 
       recognition.start();
-    } catch (err) {
-      console.error('Speech recognition listener error:', err);
+    } catch {
+      // Gracefully ignore startup collision
     }
 
     return () => {
@@ -228,7 +318,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
         try { recognition.stop(); } catch {}
       }
     };
-  }, [teacher.name, teacherId, user?.id, resetIdleTimer, cleanPath, router, isOnboardingOrAuth, voiceListeningActive]);
+  }, [teacher.name, teacherId, user?.id, resetIdleTimer, router, isOnboardingOrAuth, voiceListeningActive, tourActive]);
 
   // ── Auto-start story tour post-onboarding ──────────────────────────────────
   useEffect(() => {
@@ -242,6 +332,9 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     }
 
     const t = window.setTimeout(() => {
+      if (typeof window !== 'undefined') {
+        (window as any).__PINIT_STORY_TOUR_ACTIVE = true;
+      }
       onExpandLeftNav?.();
       setStoryLocked(true);
       setTourActive(true);
@@ -286,7 +379,11 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     };
 
     const storyHandler = () => {
-      stopSpeaking();
+      if (typeof window !== 'undefined') {
+        (window as any).__PINIT_STORY_TOUR_ACTIVE = true;
+      }
+      clearTourAdvanceTimer();
+      stopSpeaking(true);
       resetStoryTour(user?.id);
       onExpandLeftNav?.();
       setStoryLocked(true);
@@ -311,7 +408,11 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     };
 
     const cancelStoryHandler = () => {
-      stopSpeaking();
+      if (typeof window !== 'undefined') {
+        (window as any).__PINIT_STORY_TOUR_ACTIVE = false;
+      }
+      clearTourAdvanceTimer();
+      stopSpeaking(true);
       setTourActive(false);
       setStoryLocked(false);
       setMinimized(false);
@@ -333,6 +434,10 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
 
   // ── Speak current tour slide, then auto-advance on completion ─────────────
   const clearTourAdvanceTimer = useCallback(() => {
+    if (cancelAutoScrollRef.current) {
+      cancelAutoScrollRef.current();
+      cancelAutoScrollRef.current = null;
+    }
     if (tourAdvanceTimerRef.current) {
       clearTimeout(tourAdvanceTimerRef.current);
       tourAdvanceTimerRef.current = null;
@@ -345,12 +450,16 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
 
   // Stable callback for tour completion — uses refs so it never changes identity
   const openVoiceSegment = useCallback(() => {
+    if (typeof window !== 'undefined') {
+      (window as any).__PINIT_STORY_TOUR_ACTIVE = false;
+    }
+    clearTourAdvanceTimer();
     setTourActive(false);
-    stopSpeaking();
+    stopSpeaking(true);
     setMinimized(false);
     setShowVoiceRegModal(true);
     if (cleanPathRef.current !== '/dashboard') router.push('/dashboard');
-  }, [router]);
+  }, [router, clearTourAdvanceTimer]);
 
   const advanceTourSlide = useCallback((_auto = false) => {
     clearTourAdvanceTimer();
@@ -364,6 +473,9 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
         openVoiceSegment();
         return s;
       }
+      if (typeof window !== 'undefined') {
+        (window as any).__PINIT_STORY_TOUR_ACTIVE = true;
+      }
       console.log('[PinIT Tour] ⏭️ Advancing slide from Step ' + (s + 1) + ' -> Step ' + (next + 1) + ' (' + TOUR_SLIDES[next]?.title + ') [auto=' + _auto + ']');
       return next;
     });
@@ -376,6 +488,11 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
       return;
     }
     pendingSpeechStepRef.current = tourStep;
+
+    // Explicitly lock audio protection so mounting pages (/missions, /leaderboard, /interview) cannot abort tour speech
+    if (typeof window !== 'undefined') {
+      (window as any).__PINIT_STORY_TOUR_ACTIVE = true;
+    }
 
     const slide = TOUR_SLIDES[tourStep];
     const targetRoute = TOUR_STEP_ROUTES[tourStep];
@@ -392,13 +509,14 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     stopSpeaking(true);
 
     expectedRouteRef.current = targetRoute || cleanPathRef.current;
-
     clearTourAdvanceTimer();
 
-    // IMMEDIATE ROBUST FALLBACK TIMER:
-    // Ensures the tour NEVER stalls even if audio playback is blocked, muted, or synthesis times out!
-    const safeDuration = Math.max(8000, Math.min(22000, speechText.length * 85 + 3500));
-    console.log('[PinIT Tour] ⏱️ Armed auto-advance fallback timer (' + safeDuration + 'ms) for Step ' + (tourStep + 1));
+    // Parallel smooth auto-scroll: showcase tab content from top to bottom
+    const approxDurationMs = Math.max(2200, Math.min(3800, speechText.length * 52 + 500));
+    cancelAutoScrollRef.current = startAutoScroll(approxDurationMs);
+
+    // Dynamic fallback timer (strictly bounded to guarantee tour finishes < 30s)
+    const safeDuration = Math.max(4500, Math.min(6500, speechText.length * 55 + 1000));
     tourFallbackTimerRef.current = setTimeout(() => {
       console.warn('[PinIT Tour] ⏩ Fallback timer fired for Step ' + (tourStep + 1) + ' ("' + slide.title + '"). Auto-shifting to next tab!');
       advanceTourSlide(true);
@@ -409,17 +527,35 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
       console.log('[PinIT Tour] 🗣️ Mentor narration started for Step ' + (tourStep + 1));
     }, () => {
       setIsSpeaking(false);
-      console.log('[PinIT Tour] 🎙️ Narration completed naturally for Step ' + (tourStep + 1) + '. Auto-advancing to next tab in 2.2s...');
+      if (cancelAutoScrollRef.current) {
+        cancelAutoScrollRef.current();
+        cancelAutoScrollRef.current = null;
+      }
       clearTourAdvanceTimer();
-      tourAdvanceTimerRef.current = setTimeout(() => {
-        console.log('[PinIT Tour] ⏭️ 2.2s timer elapsed. Transitioning to next tab...');
-        advanceTourSlide(true);
-      }, 2200);
+      console.log('[PinIT Tour] 🎙️ Narration completed for Step ' + (tourStep + 1) + '. Auto-advancing in 400ms...');
+
+      const scheduleAdvance = () => {
+        tourAdvanceTimerRef.current = setTimeout(() => {
+          advanceTourSlide(true);
+        }, 400);
+      };
+
+      if (typeof document !== 'undefined' && document.hidden) {
+        const onVisible = () => {
+          if (!document.hidden) {
+            document.removeEventListener('visibilitychange', onVisible);
+            scheduleAdvance();
+          }
+        };
+        document.addEventListener('visibilitychange', onVisible);
+      } else {
+        scheduleAdvance();
+      }
     });
   }, [tourActive, tourStep, teacherId, router, clearTourAdvanceTimer, advanceTourSlide]);
 
   // Speak tour slide out loud and automatically switch pages to show corresponding tab
-  // NOTE: cleanPath/intentionally excluded from deps — it changes as a side-effect of
+  // NOTE: cleanPath intentionally excluded from deps — it changes as a side-effect of
   //       router.push() below and must NOT re-trigger this effect (that caused skipped slides).
   useEffect(() => {
     if (!tourActive || !TOUR_SLIDES[tourStep]) {
@@ -456,9 +592,13 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   if (!mounted || isOnboardingOrAuth) return null;
 
   const dismissTour = () => {
+    if (typeof window !== 'undefined') {
+      (window as any).__PINIT_STORY_TOUR_ACTIVE = false;
+    }
+    clearTourAdvanceTimer();
     setTourActive(false);
     setStoryLocked(false);
-    stopSpeaking();
+    stopSpeaking(true);
     setIsSpeaking(false);
     completeStoryTour(user?.id);
     if (cleanPath !== '/dashboard') {
@@ -467,11 +607,15 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   };
   const prevTourSlide = () => {
     if (tourStep > 0) {
+      clearTourAdvanceTimer();
+      stopSpeaking(true);
       lastSpokenTourStepRef.current = null;
       setTourStep(s => s - 1);
     }
   };
   const nextTourSlide = () => {
+    clearTourAdvanceTimer();
+    stopSpeaking(true);
     if (tourStep >= TOUR_SLIDES.length - 1) {
       openVoiceSegment();
     } else {
@@ -481,17 +625,18 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   };
   const replayCurrentSlide = () => {
     lastSpokenTourStepRef.current = null;
-    const slide = TOUR_SLIDES[tourStep];
-    if (slide) {
-      const speechText = slide.text.replace(/\*\*/g, '').replace(/🎉|🏠|🛠️|🗺|⚡|🎙|🧬|🔬|🎯|💬|🚀|👋|🌅|✨|💙|⚔️|🏆|📖|🧠|🔔|👤|📚/g, '');
-      stopSpeaking();
-      speakWithAvatar(speechText, teacherId, () => {}, () => {});
-    }
+    clearTourAdvanceTimer();
+    stopSpeaking(true);
+    speakCurrentTourSlide();
   };
 
   const startStoryMode = () => {
+    if (typeof window !== 'undefined') {
+      (window as any).__PINIT_STORY_TOUR_ACTIVE = true;
+    }
     setCelebEvent(null);
-    stopSpeaking();
+    clearTourAdvanceTimer();
+    stopSpeaking(true);
     resetStoryTour(user?.id);
     onExpandLeftNav?.();
     setStoryLocked(true);
@@ -499,6 +644,32 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     setTourStep(0);
     setMinimized(false);
   };
+
+  // ── Keyboard accessibility for story tour (Arrow keys, Space, Escape) ─────
+  useEffect(() => {
+    if (!tourActive) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)) {
+        return;
+      }
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        nextTourSlide();
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        prevTourSlide();
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        dismissTour();
+      } else if (e.key === ' ' || e.code === 'Space') {
+        e.preventDefault();
+        replayCurrentSlide();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [tourActive, nextTourSlide, prevTourSlide, dismissTour, replayCurrentSlide]);
 
   const isCentered = onboardingStep === 0;
 
@@ -565,17 +736,17 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
           title="Talk to your AI Career Mentor"
           style={{
             position: 'fixed',
-            bottom: 24,
+            bottom: 18,
             zIndex: 9999,
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
-            gap: 10,
+            gap: 8,
             background: 'linear-gradient(135deg, rgba(15,23,42,0.92) 0%, rgba(30,27,75,0.92) 100%)',
             backdropFilter: 'blur(12px)',
             border: '1.5px solid rgba(var(--brand-rgb), 0.4)',
-            borderRadius: 30,
-            padding: '6px 14px 6px 8px',
+            borderRadius: 24,
+            padding: '5px 11px 5px 6px',
             boxShadow: '0 8px 32px rgba(0,0,0,0.4), 0 0 20px rgba(var(--brand-rgb), 0.25)',
             
             opacity: 0.4,
@@ -594,14 +765,14 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
           }}
         >
           <div style={{
-            width: 38,
-            height: 38,
+            width: 30,
+            height: 30,
             borderRadius: '50%',
             background: 'linear-gradient(135deg, var(--accent), var(--purple))',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: 18,
+            fontSize: 14,
             boxShadow: '0 2px 10px rgba(79,70,229,0.5)',
             position: 'relative'
           }}>
@@ -610,18 +781,18 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
               position: 'absolute',
               bottom: 1,
               right: 1,
-              width: 9,
-              height: 9,
+              width: 7,
+              height: 7,
               borderRadius: '50%',
               background: '#22c55e',
-              border: '2px solid #0f172a'
+              border: '1.5px solid #0f172a'
             }} />
           </div>
           <div>
-            <div style={{ fontFamily: 'var(--font-display)', fontSize: 12, fontWeight: 800, color: 'var(--text)' }}>
+            <div style={{ fontFamily: 'var(--font-display)', fontSize: 11, fontWeight: 800, color: 'var(--text)' }}>
               {teacher.name}
             </div>
-            <div style={{ fontSize: 9.5, color: voiceListeningActive ? '#34d399' : '#a5b4fc', fontFamily: 'var(--font-mono)', display: 'flex', alignItems: 'center', gap: 4 }}>
+            <div style={{ fontSize: 8.5, color: voiceListeningActive ? '#34d399' : '#a5b4fc', fontFamily: 'var(--font-mono)', display: 'flex', alignItems: 'center', gap: 4 }}>
               {voiceListeningActive ? (
                 <>
                   <span style={{ color: '#ef4444' }}>🎙️</span> Listening
@@ -639,14 +810,14 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
               background: voiceListeningActive ? 'rgba(239, 68, 68, 0.2)' : 'rgba(255, 255, 255, 0.08)',
               border: `1px solid ${voiceListeningActive ? 'rgba(239, 68, 68, 0.5)' : 'rgba(255, 255, 255, 0.15)'}`,
               borderRadius: '50%',
-              width: 26,
-              height: 26,
+              width: 22,
+              height: 22,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: 12,
+              fontSize: 10,
               cursor: 'pointer',
-              marginLeft: 4,
+              marginLeft: 3,
               color: voiceListeningActive ? '#ef4444' : '#94a3b8'
             }}
           >
@@ -659,21 +830,22 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
       {!minimized && !shouldHideVisually && (
         <div style={{
           position: 'fixed',
-          bottom: isCentered ? 'auto' : 24,
+          bottom: isCentered ? 'auto' : 18,
           top: isCentered ? '50%' : 'auto',
           left: isCentered
             ? '50%'
             : (isRightSidebarOpen && !isLeftSidebarOpen ? 88 : 'auto'),
           right: isCentered
             ? 'auto'
-            : (isRightSidebarOpen && !isLeftSidebarOpen ? 'auto' : 24),
+            : (isRightSidebarOpen && !isLeftSidebarOpen ? 'auto' : 18),
           transform: isCentered ? 'translate(-50%, -50%)' : 'none',
           zIndex: 9999,
-          width: tourActive ? 560 : (isEnlarged ? 380 : 280),
-          height: tourActive ? 320 : (isEnlarged ? 480 : 360),
+          width: tourActive ? 'min(420px, calc(100vw - 28px))' : (isEnlarged ? 285 : 210),
+          maxWidth: 'calc(100vw - 24px)',
+          height: tourActive ? 240 : (isEnlarged ? 360 : 270),
           background: 'var(--bg2)',
           border: '1px solid var(--border)',
-          borderRadius: 20,
+          borderRadius: 16,
           boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
           display: 'flex',
           flexDirection: tourActive ? 'row' : 'column',
@@ -689,6 +861,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
                 onNext={nextTourSlide}
                 onDismiss={dismissTour}
                 onReplay={replayCurrentSlide}
+                isSpeaking={isSpeaking}
               />
               <div style={{
                 flex: '0 0 42%',

@@ -307,9 +307,9 @@ export async function speakWithAvatar(
   difficulty?: 'easy' | 'normal' | 'hard',
   speedMultiplier = 1.0,
   maxDurationMs = 15000,
-  options?: { bypassCache?: boolean; minDurationMs?: number }
+  options?: { bypassCache?: boolean; minDurationMs?: number; force?: boolean }
 ) {
-  stopSpeaking();
+  stopSpeaking(options?.force ?? true);
   const mySpeechId = currentSpeechId;
   if (isMuted || !text) return;
 
