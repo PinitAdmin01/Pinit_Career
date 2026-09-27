@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 import { COURSES_REGISTRY } from '@/lib/data/coursesData';
+import { getAllRoadmapCourseIds } from '@/lib/roadmap/roadmapCourses';
 import { verifyTopicEvaluationSignature } from '@/lib/interview/evaluationSignature';
 import { isCapstoneInterviewPassed, isRoadmapCapstoneTopic } from '@/lib/interview/capstoneInterview';
 import { getSavedCareerProjects } from '@/lib/projects/savedProjects';
@@ -68,12 +69,16 @@ export async function POST(req: NextRequest) {
       roadmapModules: answers.roadmap_modules,
       completedQuests: user.completed_quests,
       courseQuestIds: course ? course.quests.map((q) => q.id) : [],
+      // A roadmap longer than 30 days also contains the next courses of the career path.
+      allowedQuestIds: course
+        ? getAllRoadmapCourseIds(course.id).flatMap((id) => COURSES_REGISTRY.find((c) => c.id === id)?.quests.map((q) => q.id) ?? [])
+        : [],
     });
     if (!roadmap.ok) {
       const messages: Record<string, string> = {
         ROADMAP_NOT_VERIFIABLE: 'This roadmap cannot be verified for a certificate.',
-        ROADMAP_NOT_IN_COURSE: 'Your roadmap contains quests that are not part of its course.',
-        ROADMAP_TOO_SHORT: 'Your roadmap must cover at least half of its course.',
+        ROADMAP_NOT_IN_COURSE: 'Your roadmap contains quests that are not part of its courses.',
+        ROADMAP_TOO_SHORT: 'Your roadmap must cover at least half of its main course.',
         ROADMAP_NOT_COMPLETE: `Finish every quest in your roadmap first (${roadmap.missing ?? 0} left).`,
       };
       return fail(409, roadmap.reason, messages[roadmap.reason]);

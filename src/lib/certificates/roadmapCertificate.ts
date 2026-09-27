@@ -5,9 +5,10 @@ import crypto from 'crypto';
  * Server-only: issued by /api/certificates/roadmap, verified by /api/verify/PIN-RC-….
  *
  * What the server checks (student-editable data is never trusted on its own):
- * - roadmap: every quest in the student's roadmap is a real quest of the course, the roadmap covers
- *   at least half of the course (minimum 5 quests), and all of them are in users.completed_quests,
- *   which only the server writes (/api/quest/complete; students cannot edit it);
+ * - roadmap: every quest in the student's roadmap is a real quest of the courses a roadmap on this
+ *   main course may contain (lib/roadmap/roadmapCourses), the roadmap covers at least half of the
+ *   main course (minimum 5 quests), and all of them are in users.completed_quests, which only the
+ *   server writes (/api/quest/complete; students cannot edit it);
  * - interview: the capstone result carries the server's HMAC (lib/interview/evaluationSignature).
  */
 
@@ -22,9 +23,13 @@ export type RoadmapCheck =
 export function validateRoadmapForCertificate(input: {
   roadmapModules: unknown;
   completedQuests: unknown;
+  /** Quests of the roadmap's main course. */
   courseQuestIds: ReadonlyArray<string> | null | undefined;
+  /** Quests of every course the roadmap may contain (defaults to the main course only). */
+  allowedQuestIds?: ReadonlyArray<string> | null;
 }): RoadmapCheck {
   const course = new Set(input.courseQuestIds ?? []);
+  const allowed = new Set([...course, ...(input.allowedQuestIds ?? [])]);
   if (course.size === 0) return { ok: false, reason: 'ROADMAP_NOT_VERIFIABLE' };
 
   const ids = new Set<string>();
@@ -39,9 +44,10 @@ export function validateRoadmapForCertificate(input: {
     }
   }
   if (ids.size === 0) return { ok: false, reason: 'ROADMAP_NOT_VERIFIABLE' };
-  const ghost = [...ids].filter((id) => !course.has(id));
+  const ghost = [...ids].filter((id) => !allowed.has(id));
   if (ghost.length > 0) return { ok: false, reason: 'ROADMAP_NOT_IN_COURSE', missing: ghost.length };
-  if (ids.size < Math.max(MIN_ROADMAP_QUESTS, Math.ceil(course.size / 2))) return { ok: false, reason: 'ROADMAP_TOO_SHORT' };
+  const mainCovered = [...ids].filter((id) => course.has(id)).length;
+  if (mainCovered < Math.max(MIN_ROADMAP_QUESTS, Math.ceil(course.size / 2))) return { ok: false, reason: 'ROADMAP_TOO_SHORT' };
 
   const done = new Set(Array.isArray(input.completedQuests) ? input.completedQuests.filter((q): q is string => typeof q === 'string') : []);
   const missing = [...ids].filter((id) => !done.has(id)).length;

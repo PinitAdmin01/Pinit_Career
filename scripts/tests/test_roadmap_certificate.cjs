@@ -49,6 +49,10 @@ function load(file, mocks = {}) {
 const STUDENT = 'aaaaaaaa-0000-4000-8000-000000000001';
 const COURSE = 'course-react-web';
 const COURSE_QUESTS = Array.from({ length: 10 }, (_, i) => `react_q${i + 1}`);
+// The next course of the same career path (a 60-day roadmap contains both), and an unrelated one.
+const NEXT_COURSE = 'course-dsa-optim';
+const NEXT_QUESTS = Array.from({ length: 10 }, (_, i) => `dsa_q${i + 1}`);
+const OTHER_QUESTS = Array.from({ length: 10 }, (_, i) => `bank_q${i + 1}`);
 const signatureMod = load(FILES.signature, { './scoringMatrix': { ROLE_RUBRIC_VERSION: 'rubric-test' } });
 const certMod = load(FILES.cert);
 const savedMod = load(FILES.saved);
@@ -90,7 +94,12 @@ function loadRoute(db) {
       requireUserFromRequest: async (req) => req.userId ? { user: { id: req.userId }, error: null } : { user: null, error: json({ error: 'UNAUTHORIZED' }, { status: 401 }) },
     },
     '@/lib/server/supabaseAdmin': { getSupabaseAdmin: () => db.client },
-    '@/lib/data/coursesData': { COURSES_REGISTRY: [{ id: COURSE, title: 'Full-Stack React Web Development', quests: COURSE_QUESTS.map((id) => ({ id })) }] },
+    '@/lib/data/coursesData': { COURSES_REGISTRY: [
+      { id: COURSE, title: 'Full-Stack React Web Development', quests: COURSE_QUESTS.map((id) => ({ id })) },
+      { id: NEXT_COURSE, title: 'DSA', quests: NEXT_QUESTS.map((id) => ({ id })) },
+      { id: 'course-finance-investment', title: 'Finance', quests: OTHER_QUESTS.map((id) => ({ id })) },
+    ] },
+    '@/lib/roadmap/roadmapCourses': { getAllRoadmapCourseIds: (id) => (id === COURSE ? [COURSE, NEXT_COURSE] : [id]) },
     '@/lib/interview/evaluationSignature': signatureMod,
     '@/lib/interview/capstoneInterview': capstoneMod,
     '@/lib/projects/savedProjects': savedMod,
@@ -168,6 +177,23 @@ async function test(name, fn) {
     if (first.status !== 200 || !first.body.certificate) return `status ${first.status} ${first.body.error || ''}`;
     if (!/^PIN-RC-[0-9A-F]{12}$/.test(first.body.certificate.id)) return `id ${first.body.certificate.id}`;
     return second.body.certificate.id === first.body.certificate.id && db.tables.issued_certificates.length === 1 ? true : 'issued twice';
+  });
+
+  await test('a longer roadmap (main course + the next course of its path) is certified', async () => {
+    if (!ready) return 'certificate route missing';
+    const both = [...COURSE_QUESTS, ...NEXT_QUESTS];
+    const res = await issue(createDb(student({ completed: both, roadmapQuests: both })));
+    return res.status === 200 && res.body.certificate ? true : `status ${res.status} ${res.body.error}`;
+  });
+
+  await test('refused: a quest from an unrelated course, or a roadmap that skips the main course', async () => {
+    if (!ready) return 'certificate route missing';
+    const foreign = [...COURSE_QUESTS, ...OTHER_QUESTS];
+    const a = await issue(createDb(student({ completed: foreign, roadmapQuests: foreign })));
+    if (a.body.error !== 'ROADMAP_NOT_IN_COURSE') return `unrelated course → ${a.status} ${a.body.error}`;
+    const skip = [...COURSE_QUESTS.slice(0, 2), ...NEXT_QUESTS];
+    const b = await issue(createDb(student({ completed: skip, roadmapQuests: skip })));
+    return b.body.error === 'ROADMAP_TOO_SHORT' ? true : `main course skipped → ${b.status} ${b.body.error}`;
   });
 
   await test('refused when the server-recorded quests are not all done', async () => {
