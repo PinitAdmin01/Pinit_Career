@@ -15,15 +15,44 @@ export async function POST(req: Request) {
     const displayName = studentData.displayName || studentData.name || 'Student User';
 
     let targetUid = '';
+    const now = new Date().toISOString();
+    const studyAbroadFields = {
+      phone: studentData.phone || null,
+      target_country: studentData.targetCountry || 'USA',
+      program_type: studentData.programType || 'Masters',
+      target_universities: Array.isArray(studentData.targetUniversities) ? studentData.targetUniversities : [],
+    };
 
     // 1. Check if user already exists in users table
     const { data: existingUser } = await admin
       .from('users')
-      .select('id')
+      .select('id, role, study_abroad_status')
       .eq('email', email)
       .maybeSingle();
 
     if (existingUser) {
+      // An existing account is only added to the pipeline, never overwritten: this route used to
+      // upsert the whole profile (role 'student', scores reset), so "adding" an admin's email
+      // turned that admin into a student.
+      const role = String(existingUser.role || 'student');
+      if (role !== 'student') {
+        return NextResponse.json(
+          { ok: false, error: 'NOT_A_STUDENT', message: 'That email belongs to a staff account, not a student.' },
+          { status: 409 }
+        );
+      }
+      const { error: joinErr } = await admin
+        .from('users')
+        .update({
+          ...studyAbroadFields,
+          study_abroad_status: existingUser.study_abroad_status || 'onboarding',
+          updated_at: now,
+        })
+        .eq('id', existingUser.id);
+      if (joinErr) {
+        console.error('[Consultant Add Student] Could not add existing student:', joinErr.message);
+        return NextResponse.json({ ok: false, error: 'SAVE_FAILED', message: 'Could not add the student. Please try again.' }, { status: 500 });
+      }
       targetUid = existingUser.id;
     } else {
       // 2. Provision new user using authoritative server admin API
@@ -52,35 +81,35 @@ export async function POST(req: Request) {
           console.warn('[Consultant Add Student] Admin auth exception:', authExc?.message);
         }
       }
-    }
 
-    if (!targetUid) {
-      targetUid = typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : '00000000-0000-0000-0000-' + Date.now().toString().padStart(12, '0');
-    }
+      // No account could be created: stop (a profile without a sign-in account is unusable).
+      if (!targetUid) {
+        return NextResponse.json(
+          { ok: false, error: 'ACCOUNT_CREATE_FAILED', message: 'The student account could not be created. Please try again.' },
+          { status: 502 }
+        );
+      }
 
-    // 3. Upsert genuine student profile into users table via service role
-    const now = new Date().toISOString();
-    await admin.from('users').upsert({
-      id: targetUid,
-      email,
-      display_name: displayName,
-      username: email.split('@')[0],
-      phone: studentData.phone || null,
-      role: 'student',
-      target_country: studentData.targetCountry || 'USA',
-      program_type: studentData.programType || 'Masters',
-      target_universities: Array.isArray(studentData.targetUniversities) ? studentData.targetUniversities : [],
-      study_abroad_status: 'onboarding',
-      visa_status: 'not_started',
-      tasks: [],
-      documents: [],
-      ats_score: 0,
-      trust_score: 50,
-      career_dna_score: 50,
-      mission_streak: 0,
-      created_at: now,
-      updated_at: now,
-    }, { onConflict: 'id' });
+      // 3. New student: profile with the study-abroad fields (service role)
+      const { error: profileErr } = await admin.from('users').upsert({
+        id: targetUid,
+        email,
+        display_name: displayName,
+        username: email.split('@')[0],
+        role: 'student',
+        ...studyAbroadFields,
+        study_abroad_status: 'onboarding',
+        visa_status: 'not_started',
+        tasks: [],
+        documents: [],
+        created_at: now,
+        updated_at: now,
+      }, { onConflict: 'id' });
+      if (profileErr) {
+        console.error('[Consultant Add Student] Profile save failed:', profileErr.message);
+        return NextResponse.json({ ok: false, error: 'SAVE_FAILED', message: 'The student account was created but its profile could not be saved.' }, { status: 500 });
+      }
+    }
 
     // 4. Record audit log
     try {

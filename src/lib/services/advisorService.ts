@@ -425,7 +425,7 @@ export const advisorService = {
           try {
             const { data: users } = await supabase
               .from('users')
-              .select('id, display_name, name')
+              .select('id, display_name')
               .in('id', studentIds);
             if (users) {
               users.forEach((u: any) => {

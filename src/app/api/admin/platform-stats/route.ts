@@ -13,7 +13,7 @@ export async function GET(req: Request) {
     let completedQuestsCount = 0;
     try {
       const { count } = await admin
-        .from('quest_ledger')
+        .from('quest_completions')
         .select('*', { count: 'exact', head: true });
       completedQuestsCount = count || 0;
     } catch {}
@@ -22,7 +22,7 @@ export async function GET(req: Request) {
     let totalResumes = 0;
     try {
       const { count } = await admin
-        .from('vault_documents')
+        .from('vault_items')
         .select('*', { count: 'exact', head: true });
       totalResumes = count || 0;
     } catch {}

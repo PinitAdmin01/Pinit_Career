@@ -130,15 +130,16 @@ export async function GET(req: Request) {
 
     if (userIds.length > 0) {
       try {
+        // Verified competencies live in student_competency_mastery (competency engine).
         const { data: masteryData } = await admin
-          .from('competency_mastery')
-          .select('user_id, status')
-          .in('user_id', userIds)
-          .eq('status', 'VERIFIED_COMPETENCY');
+          .from('student_competency_mastery')
+          .select('student_id, state')
+          .in('student_id', userIds)
+          .eq('state', 'verified');
 
         if (masteryData) {
-          masteryData.forEach((row: any) => {
-            verifiedCountsMap[row.user_id] = (verifiedCountsMap[row.user_id] || 0) + 1;
+          masteryData.forEach((row: { student_id: string }) => {
+            verifiedCountsMap[row.student_id] = (verifiedCountsMap[row.student_id] || 0) + 1;
           });
         }
       } catch {}

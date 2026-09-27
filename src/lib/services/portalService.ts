@@ -472,18 +472,19 @@ export const portalService = {
     try {
       const { data, error } = await supabase
         .from('users')
-        .select('id, full_name, email, role_target, ats_score, codewars_elo, skills, recruiter_stage, created_at, avatar_url')
+        // Real profile columns (role_target / codewars_elo / skills / recruiter_stage do not exist).
+        .select('id, full_name, display_name, email, target_role, ats_score, arena_elo, skill_tags, created_at, avatar_url')
         .gt('recruiter_visibility', 0);
       if (!error && data && data.length > 0) {
         return data.map((u: any) => ({
           id: u.id,
-          name: u.full_name || 'Candidate',
+          name: u.full_name || u.display_name || 'Candidate',
           email: u.email || '',
-          roleTarget: u.role_target || 'Software Engineer',
+          roleTarget: u.target_role || 'Software Engineer',
           atsScore: u.ats_score || 0,
-          codeWarsElo: u.codewars_elo || 1200,
-          verifiedSkills: Array.isArray(u.skills) ? u.skills : [],
-          stage: (u.recruiter_stage as any) || 'discovered',
+          codeWarsElo: u.arena_elo || 1200,
+          verifiedSkills: Array.isArray(u.skill_tags) ? u.skill_tags : [],
+          stage: 'discovered' as const,
           appliedDate: u.created_at ? u.created_at.split('T')[0] : new Date().toISOString().split('T')[0],
           avatarUrl: u.avatar_url
         }));

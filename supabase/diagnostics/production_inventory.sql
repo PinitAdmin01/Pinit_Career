@@ -269,7 +269,16 @@ with expected(ord, file, kind, name) as (
     (41, 'supabase/migrations/20260927_arena_private_submissions.sql', 'table', 'public.arena_room_submissions'),
     (42, 'supabase/migrations/20260927_issued_certificates.sql', 'table', 'public.issued_certificates'),
     (43, 'supabase/migrations/20260927_phase_b4c_campus_exams_payroll.sql', 'function', 'public.bind_fraud_alert_to_student'),
-    (43, 'supabase/migrations/20260927_phase_b4c_campus_exams_payroll.sql', 'column', 'public.campus_fraud_alerts.student_id')
+    (43, 'supabase/migrations/20260927_phase_b4c_campus_exams_payroll.sql', 'column', 'public.campus_fraud_alerts.student_id'),
+    (44, 'supabase/migrations/20260927_phase_b4d_consultant_fields.sql', 'function', 'public.protect_consultant_fields'),
+    (44, 'supabase/migrations/20260927_phase_b4d_consultant_fields.sql', 'column', 'public.users.documents'),
+    (44, 'supabase/migrations/20260927_phase_b4d_consultant_fields.sql', 'column', 'public.users.phone'),
+    (44, 'supabase/migrations/20260927_phase_b4d_consultant_fields.sql', 'column', 'public.users.program_type'),
+    (44, 'supabase/migrations/20260927_phase_b4d_consultant_fields.sql', 'column', 'public.users.study_abroad_status'),
+    (44, 'supabase/migrations/20260927_phase_b4d_consultant_fields.sql', 'column', 'public.users.target_country'),
+    (44, 'supabase/migrations/20260927_phase_b4d_consultant_fields.sql', 'column', 'public.users.target_universities'),
+    (44, 'supabase/migrations/20260927_phase_b4d_consultant_fields.sql', 'column', 'public.users.tasks'),
+    (44, 'supabase/migrations/20260927_phase_b4d_consultant_fields.sql', 'column', 'public.users.visa_status')
 ),
 checked as (
   select e.ord, e.file, e.name,
