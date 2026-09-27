@@ -31,6 +31,7 @@ import {
   playPopSound
 } from './useQuestProgression';
 import { getCrashCourseProgress } from '@/lib/courses/crashCourseProgress';
+import { useAuth } from '@/lib/context/AuthContext';
 
 export interface TrackSelectorDrawerProps {
   activeSubTab: 'certification_passport' | 'custom_roadmap' | 'standalone' | 'language';
@@ -126,6 +127,17 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
     ),
     [activeCrashPlanId, activeTrack, COURSES_REGISTRY, completedQuests, activeEnrollment]
   );
+
+  // The enrolled course (the page may be showing another plan): its lessons gate the capstone.
+  const enrolledPlan = activeEnrollment ? getCrashPlanById(activeEnrollment.planId) : undefined;
+  const enrolledProgress = React.useMemo(
+    () => (activeEnrollment && enrolledPlan
+      ? getCrashCourseProgress(enrolledPlan, activeEnrollment.track, COURSES_REGISTRY, completedQuests, activeEnrollment)
+      : null),
+    [activeEnrollment, enrolledPlan, COURSES_REGISTRY, completedQuests]
+  );
+  const { user } = useAuth();
+  const studentName = user?.displayName || 'Student';
 
   const continueCourse = () => {
     const next = courseProgress.next;
@@ -457,7 +469,8 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                   progress={courseProgress}
                   onOpenPracticeTest={handleOpenPracticeQuiz}
                   onOpenCapstoneDesk={() => setShowCapstonePortal(true)}
-                  onOpenQrModal={() => setShowQrModal(true)}
+                  onOpenQrModal={() => setShowCapstonePortal(true)}
+                  onGetCertificate={() => setShowCapstonePortal(true)}
                   onOpenPreviewCredentials={() => {
                     const p = getCrashPlanById(activeCrashPlanId) || CRASH_COURSE_PLANS[1];
                     setPreviewPlan(p);
@@ -708,18 +721,16 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
             result={practiceTestResult}
           />
 
-          {showCapstonePortal && (
+          {showCapstonePortal && activeEnrollment && (
             <CapstoneInternshipPortal
-              planId={activeCrashPlanId}
-              planTitle={
-                activeCrashPlanId === 'plan-1m-sprint' ? '1-Month Sprint'
-                : activeCrashPlanId === 'plan-3m-accelerator' ? '3-Month Accelerator'
-                : activeCrashPlanId === 'plan-6m-pro' ? '6-Month Professional'
-                : activeCrashPlanId === 'plan-9m-master' ? '9-Month Master'
-                : activeCrashPlanId === 'plan-12m-fellow' ? '12-Month Fellowship'
-                : '24-Month Master Degree Track'
-              }
-              studentName="PinIT Engineering Fellow"
+              enrollment={activeEnrollment}
+              planTitle={enrolledPlan?.title || 'Certificate Course'}
+              studentName={studentName}
+              lessonsLeft={enrolledProgress ? enrolledProgress.total - enrolledProgress.completed : 0}
+              onEnrollmentUpdated={(updated) => {
+                setActiveEnrollment(updated);
+                crashCourseEnrollmentService.cacheEnrollment(updated);
+              }}
               onClose={() => setShowCapstonePortal(false)}
             />
           )}
@@ -730,7 +741,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
             plan={checkoutPlan || CRASH_COURSE_PLANS.find(p => p.id === activeCrashPlanId) || CRASH_COURSE_PLANS[1]}
             activeTrack={activeTrack}
             onSuccessEnrollment={handleSuccessEnrollment}
-            studentName="PinIT Engineering Fellow"
+            studentName={studentName}
             userPins={pins}
           />
 

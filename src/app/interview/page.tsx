@@ -49,6 +49,9 @@ import {
 } from '@/lib/interview/capstoneInterview';
 import { getSavedCareerProjects } from '@/lib/projects/savedProjects';
 import { getProjectEvidenceTarget } from '@/lib/projects/projectEvidence';
+import { crashCourseEnrollmentService } from '@/lib/services/crashCourseEnrollmentService';
+import { getCrashPlanById } from '@/lib/data/crashPlansData';
+import { courseDefenseTopic, nextCapstoneSprint, type CapstoneMilestones } from '@/lib/courses/capstoneSprints';
 
 export default function InterviewPage() {
   const searchParams = useSearchParams();
@@ -99,6 +102,36 @@ export default function InterviewPage() {
     setDomainStream(getProjectEvidenceTarget(plan.role, 'Beginner') ? 'tech' : 'non_tech');
     setCapstone({ projectId: plan.project.id, topic: plan.topic });
   }, [searchParams, onboardingAnswers, savedProjectsSource]);
+
+  // Certificate course: /interview?mode=course_defense is capstone Sprint 4, the oral defense of
+  // the course project. Free for the enrolled student; the server records the (signed) result.
+  const [courseDefense, setCourseDefense] = useState<{ enrollmentId: string; topic: string } | null>(null);
+  useEffect(() => {
+    if (searchParams.get('mode') !== 'course_defense') return;
+    let cancelled = false;
+    crashCourseEnrollmentService.getActiveEnrollment().then((enrollment) => {
+      if (cancelled) return;
+      const plan = enrollment ? getCrashPlanById(enrollment.planId) : undefined;
+      if (!enrollment || !plan) {
+        toast.warning('Capstone defense unavailable', 'This interview is for students enrolled in a certificate course.');
+        return;
+      }
+      const pending = nextCapstoneSprint(enrollment.milestoneProgress as CapstoneMilestones);
+      if (pending !== 4) {
+        toast.warning('Capstone defense not open yet', pending === null
+          ? 'Your capstone is already complete.'
+          : `Complete capstone Sprint ${pending} first.`);
+        return;
+      }
+      const topic = courseDefenseTopic(plan, enrollment.track);
+      setInterviewMode('custom');
+      setCustomTopicInput(topic);
+      setActiveTopicName(topic);
+      setDomainStream('tech');
+      setCourseDefense({ enrollmentId: enrollment.enrollmentId, topic });
+    });
+    return () => { cancelled = true; };
+  }, [searchParams]);
 
   const [isInterviewActive, setIsInterviewActive] = useState(false);
   const [activeStage, setActiveStage] = useState<Stage>('round1_behavioral');
@@ -378,8 +411,9 @@ export default function InterviewPage() {
       ? customTopicInput.trim()
       : roadmapInterviewTopic(onboardingAnswers?.role, domainStream);
 
-    // The capstone defense is part of the roadmap journey (free); any other topic needs Pins.
-    const isCapstoneRun = capstone !== null && topic === capstone.topic;
+    // Capstone defenses (roadmap journey, certificate course) are free; any other topic needs Pins.
+    const isCapstoneRun = (capstone !== null && topic === capstone.topic)
+      || (courseDefense !== null && topic === courseDefense.topic);
     const itemKey = `interview:${domainStream}:${topic.toLowerCase().replace(/\s+/g, '_')}`;
     if (!isCapstoneRun && !cOS.isItemUnlocked(itemKey)) {
       const unlocked = await cOS.unlockItem(itemKey, 'interview', `AI Interview: ${topic}`);
@@ -640,6 +674,7 @@ export default function InterviewPage() {
           ...evalResult,
           ...data.evaluation,
           evaluationToken: data.evaluationToken,
+          topicEvaluationToken: data.topicEvaluationToken,
           perRoundScores: data.evaluation.perRoundScores || evalResult.perRoundScores
         };
       }
@@ -657,6 +692,33 @@ export default function InterviewPage() {
         completedAt: new Date().toISOString(),
         evaluationToken: resultObj.evaluationToken,
       }));
+    }
+    // Certificate course: send the signed defense result to the server, which records Sprint 4.
+    if (courseDefense && activeTopicName === courseDefense.topic) {
+      try {
+        const headers = await getAuthHeaders();
+        const res = await fetch('/api/quests/capstone', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            enrollmentId: courseDefense.enrollmentId,
+            sprint: 4,
+            score: resultObj.score,
+            verdict: resultObj.verdict,
+            topicToken: resultObj.topicEvaluationToken,
+          }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data?.approved) {
+          toast.success('Capstone complete 🎓', 'Your defense is recorded. Get your certificate from your course page.');
+        } else if (res.ok) {
+          toast.info('Capstone defense recorded', data?.message || 'Not passed yet. You can take the defense again.');
+        } else {
+          toast.error('Capstone defense not recorded', data?.message || 'Please try again.');
+        }
+      } catch {
+        toast.error('Capstone defense not recorded', 'Could not reach the server. Please try again.');
+      }
     }
     if (resultObj.verdict === 'Hire' || resultObj.verdict === 'Conditional Hire') {
       addXp(150, 'Completed AI Interview');

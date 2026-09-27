@@ -106,6 +106,7 @@ function loadVerify(db) {
     '@/lib/pathway/evidenceEngine': { verifyEvidenceIntegrity: () => true },
     '@/lib/pathway/competencySchema': {},
     '@/lib/certificates/roadmapCertificate': certMod,
+    '@/lib/certificates/courseCertificate': load(path.join(ROOT, 'src/lib/certificates/courseCertificate.ts')) || { COURSE_CERTIFICATE_PREFIX: 'PIN-CP-', COURSE_CERTIFICATE_KIND: 'course_project' },
   });
 }
 

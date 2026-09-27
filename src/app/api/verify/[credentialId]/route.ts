@@ -3,7 +3,8 @@ import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 import { PathwayApiService } from '@/lib/api/pathwayApi';
 import { verifyEvidenceIntegrity } from '@/lib/pathway/evidenceEngine';
 import { CompetencyEvidenceRecord } from '@/lib/pathway/competencySchema';
-import { ROADMAP_CERTIFICATE_PREFIX, verifyRoadmapCertificate } from '@/lib/certificates/roadmapCertificate';
+import { ROADMAP_CERTIFICATE_KIND, ROADMAP_CERTIFICATE_PREFIX, verifyRoadmapCertificate } from '@/lib/certificates/roadmapCertificate';
+import { COURSE_CERTIFICATE_KIND, COURSE_CERTIFICATE_PREFIX } from '@/lib/certificates/courseCertificate';
 
 export async function GET(
   _req: NextRequest,
@@ -20,16 +21,20 @@ export async function GET(
 
     const credentialId = decodeURIComponent(rawId).trim();
 
-    // 0. Roadmap journey certificate (PIN-RC-…): issued by /api/certificates/roadmap, HMAC-signed.
-    if (credentialId.startsWith(ROADMAP_CERTIFICATE_PREFIX)) {
+    // 0. Signed PinIT certificates (HMAC): roadmap journey (PIN-RC-…, /api/certificates/roadmap)
+    //    and certificate-course capstone (PIN-CP-…, /api/certificates/course).
+    const certKind = credentialId.startsWith(ROADMAP_CERTIFICATE_PREFIX) ? ROADMAP_CERTIFICATE_KIND
+      : credentialId.startsWith(COURSE_CERTIFICATE_PREFIX) ? COURSE_CERTIFICATE_KIND
+      : null;
+    if (certKind) {
       const supabase = getSupabaseAdmin();
       const { data: cert } = await supabase
         .from('issued_certificates')
-        .select('id, student_id, title, role, course_id, project_id, project_name, interview_score, interview_verdict, issued_at, signature, revoked')
+        .select('id, student_id, kind, title, role, course_id, project_id, project_name, interview_score, interview_verdict, issued_at, signature, revoked')
         .eq('id', credentialId)
         .maybeSingle();
 
-      const genuine = cert && !cert.revoked && verifyRoadmapCertificate({
+      const genuine = cert && !cert.revoked && cert.kind === certKind && verifyRoadmapCertificate({
         id: cert.id,
         studentId: cert.student_id,
         courseId: cert.course_id || '',
@@ -62,9 +67,11 @@ export async function GET(
           studentName: student?.display_name || 'PinIT Student',
           registerNumber: student?.register_number || 'UNASSIGNED',
           institution: 'PinIT Career OS',
-          department: cert.role || 'Career Roadmap',
+          department: cert.role || (certKind === COURSE_CERTIFICATE_KIND ? 'Certificate Course' : 'Career Roadmap'),
           academicYear: String(new Date(cert.issued_at).getFullYear()),
-          purpose: `Completed the career roadmap, the capstone project "${cert.project_name || 'Capstone'}" and the capstone interview (${cert.interview_score ?? 0}%, ${cert.interview_verdict || 'Hire'}).`,
+          purpose: certKind === COURSE_CERTIFICATE_KIND
+            ? `Completed every lesson of the course, the four-sprint capstone project "${cert.project_name || 'Capstone'}" (public repository and live deployment checked by PinIT) and the capstone defense (${cert.interview_score ?? 0}%, ${cert.interview_verdict || 'Hire'}).`
+            : `Completed the career roadmap, the capstone project "${cert.project_name || 'Capstone'}" and the capstone interview (${cert.interview_score ?? 0}%, ${cert.interview_verdict || 'Hire'}).`,
           dateIssued: String(cert.issued_at).split('T')[0],
           status: 'Issued',
           sealed: true,

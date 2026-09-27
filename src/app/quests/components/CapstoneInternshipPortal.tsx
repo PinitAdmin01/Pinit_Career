@@ -1,198 +1,165 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { QRCodeSVG } from 'qrcode.react';
+import { api } from '@/lib/api/client';
+import type { CrashCourseEnrollment } from '@/lib/services/crashCourseEnrollmentService';
+import {
+  CAPSTONE_SPRINTS,
+  COURSE_DEFENSE_PATH,
+  isSprintApproved,
+  nextCapstoneSprint,
+  type CapstoneMilestones,
+  type CapstoneSprint,
+} from '@/lib/courses/capstoneSprints';
 
-// ─────────────────────────────────────────────────────────────────────
-// Types
-// ─────────────────────────────────────────────────────────────────────
-export interface Milestone {
-  id: string;
-  title: string;
-  description: string;
-  status: 'approved' | 'in_review' | 'pending' | 'complete';
-  dueDate?: string;
-}
-
-export interface CapstoneResult {
-  planId: string;
-  planTitle: string;
-  studentName: string;
-  submittedAt: string;
-  milestonesCompleted: number;
-  totalMilestones: number;
-  certificateHash: string;
-}
-
+/**
+ * Capstone desk of a certificate course. Everything shown here comes from the student's
+ * enrollment as the server recorded it: a sprint is approved only after POST /api/quests/capstone
+ * checked it, and the certificate is the one /api/certificates/course issued (verifiable at /verify).
+ */
 interface CapstoneInternshipPortalProps {
-  planId: string;
+  enrollment: CrashCourseEnrollment;
   planTitle: string;
   studentName: string;
+  /** Lessons of the course still to do; the capstone opens when this is 0. */
+  lessonsLeft: number;
+  onEnrollmentUpdated: (enrollment: CrashCourseEnrollment) => void;
   onClose: () => void;
 }
 
-// ─────────────────────────────────────────────────────────────────────
-// Milestone data
-// ─────────────────────────────────────────────────────────────────────
-const defaultMilestones: Milestone[] = [
-  {
-    id: 's1', title: 'Sprint 1: Architecture & Data Schema',
-    description: 'Design system architecture and define data schemas for the project foundation.',
-    status: 'approved', dueDate: 'Week 2',
-  },
-  {
-    id: 's2', title: 'Sprint 2: Core Microservices & APIs',
-    description: 'Implement core microservices with RESTful API endpoints and inter-service communication.',
-    status: 'in_review', dueDate: 'Week 4',
-  },
-  {
-    id: 's3', title: 'Sprint 3: CI/CD Pipeline & Deployment',
-    description: 'Set up continuous integration/deployment pipeline with GitHub repository and live URL.',
-    status: 'pending', dueDate: 'Week 6',
-  },
-  {
-    id: 's4', title: 'Sprint 4: Capstone Oral Defense',
-    description: 'Present the final project to a senior engineer panel for review and scoring.',
-    status: 'pending', dueDate: 'Week 8',
-  },
-];
+interface SubmitResponse { ok: boolean; approved: boolean; message: string; enrollment: CrashCourseEnrollment }
+interface CertificateResponse { ok: boolean; certificate: { id: string; verifyPath: string }; enrollment: CrashCourseEnrollment }
 
-// ─────────────────────────────────────────────────────────────────────
-// Utility: generate a SHA-256 style hash
-// ─────────────────────────────────────────────────────────────────────
-function generateHash(): string {
-  const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
-  let hash = 'sha256:';
-  for (let i = 0; i < 32; i++) {
-    hash += chars[Math.floor(Math.random() * chars.length)];
-    if (i % 8 === 7 && i < 31) hash += '-';
-  }
-  return hash;
-}
+type SprintState = 'approved' | 'open' | 'locked';
 
-// ─────────────────────────────────────────────────────────────────────
-// SVG QR Code Preview (simple deterministic pattern)
-// ─────────────────────────────────────────────────────────────────────
-function QRPreview({ value, size = 128 }: { value: string; size?: number }) {
-  const cells: boolean[][] = [];
-  const gridSize = 8;
-  // Deterministic pattern based on hash value
-  let seed = 0;
-  for (let i = 0; i < value.length; i++) seed = ((seed << 5) - seed + value.charCodeAt(i)) | 0;
+const STATE_STYLE: Record<SprintState, { border: string; color: string; bg: string; label: string }> = {
+  approved: { bg: 'rgba(16,185,129,0.12)', border: 'rgba(16,185,129,0.3)', color: '#10b981', label: '✓ Approved' },
+  open: { bg: 'rgba(99,102,241,0.12)', border: 'rgba(99,102,241,0.35)', color: '#818cf8', label: '● Open' },
+  locked: { bg: 'rgba(100,116,139,0.12)', border: 'rgba(100,116,139,0.3)', color: '#64748b', label: '🔒 Locked' },
+};
 
-  for (let r = 0; r < gridSize; r++) {
-    cells[r] = [];
-    for (let c = 0; c < gridSize; c++) {
-      seed = ((seed * 1103515245 + 12345) & 0x7fffffff);
-      cells[r][c] = (seed % 3 !== 0) || (r < 2 || c < 2 || r >= gridSize - 2 || c >= gridSize - 2);
-    }
-  }
+const inputStyle: React.CSSProperties = {
+  padding: '10px 14px', borderRadius: 8, border: '1px solid var(--border)',
+  background: 'var(--bg2)', color: 'var(--text)', fontSize: 12.5,
+  fontWeight: 600, outline: 'none', width: '100%', boxSizing: 'border-box',
+};
 
-  const cellSize = size / gridSize;
-  return (
-    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{ borderRadius: 8, background: '#fff' }}>
-      {cells.map((row, r) => row.map((filled, c) => (
-        <rect key={`${r}-${c}`} x={c * cellSize} y={r * cellSize} width={cellSize} height={cellSize}
-          fill={filled ? '#0f172a' : '#fff'} />
-      )))}
-    </svg>
-  );
-}
+const primaryButton = (disabled: boolean): React.CSSProperties => ({
+  padding: '10px 20px', borderRadius: 10, border: 'none',
+  background: disabled ? 'var(--bg2)' : 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+  color: disabled ? 'var(--t4)' : '#fff', fontSize: 12.5, fontWeight: 800,
+  cursor: disabled ? 'not-allowed' : 'pointer', fontFamily: 'var(--font-display)',
+  opacity: disabled ? 0.6 : 1, alignSelf: 'flex-start',
+});
 
-// ─────────────────────────────────────────────────────────────────────
-// Component
-// ─────────────────────────────────────────────────────────────────────
+const errorMessage = (err: unknown) => (err instanceof Error && err.message ? err.message : 'Something went wrong. Please try again.');
+
 export default function CapstoneInternshipPortal({
-  planId,
+  enrollment,
   planTitle,
   studentName,
+  lessonsLeft,
+  onEnrollmentUpdated,
   onClose,
 }: CapstoneInternshipPortalProps) {
-  const [milestones, setMilestones] = useState<Milestone[]>(defaultMilestones);
-  const [s3RepoUrl, setS3RepoUrl] = useState('');
-  const [s3LiveUrl, setS3LiveUrl] = useState('');
-  const [s3Submitting, setS3Submitting] = useState(false);
-  const [s3Submitted, setS3Submitted] = useState(false);
-  const [activeSprint, setActiveSprint] = useState(1);
-  const [certificateTab, setCertificateTab] = useState<'project' | 'internship'>('project');
-  const [showCertificate, setShowCertificate] = useState(false);
-  const [urlError, setUrlError] = useState<string | null>(null);
+  const milestones = (enrollment.milestoneProgress || {}) as CapstoneMilestones;
+  const trainingDone = lessonsLeft === 0;
+  const current = trainingDone ? nextCapstoneSprint(milestones) : null;
+  const approvedCount = CAPSTONE_SPRINTS.filter((s) => isSprintApproved(milestones, s.sprint)).length;
+  const certificateId = enrollment.certificatesIssued?.projectCertHash;
 
-  // Load persistent submission
-  React.useEffect(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const saved = localStorage.getItem(`pinit_capstone_${planId}`);
-        if (saved) {
-          const parsed = JSON.parse(saved);
-          if (parsed.s3RepoUrl) setS3RepoUrl(parsed.s3RepoUrl);
-          if (parsed.s3LiveUrl) setS3LiveUrl(parsed.s3LiveUrl);
-          if (parsed.s3Submitted !== undefined) setS3Submitted(parsed.s3Submitted);
-          if (parsed.milestones && Array.isArray(parsed.milestones)) setMilestones(parsed.milestones);
-        }
-      } catch (err) {
-        console.error('Failed to load capstone submission', err);
-      }
+  const [fields, setFields] = useState({ repoUrl: '', designUrl: '', apiUrl: '', liveUrl: '' });
+  const [busy, setBusy] = useState(false);
+  const [feedback, setFeedback] = useState<{ kind: 'ok' | 'error'; text: string } | null>(null);
+
+  const setField = (key: keyof typeof fields) => (e: React.ChangeEvent<HTMLInputElement>) =>
+    setFields((prev) => ({ ...prev, [key]: e.target.value }));
+
+  const submitSprint = async (sprint: CapstoneSprint) => {
+    const payload = sprint === 1 ? { repoUrl: fields.repoUrl, designUrl: fields.designUrl }
+      : sprint === 2 ? { apiUrl: fields.apiUrl }
+      : { liveUrl: fields.liveUrl };
+    setBusy(true);
+    setFeedback(null);
+    try {
+      const res = await api.post<SubmitResponse>('/api/quests/capstone', { enrollmentId: enrollment.enrollmentId, sprint, ...payload });
+      onEnrollmentUpdated(res.enrollment);
+      setFeedback({ kind: res.approved ? 'ok' : 'error', text: res.message });
+    } catch (err) {
+      setFeedback({ kind: 'error', text: errorMessage(err) });
+    } finally {
+      setBusy(false);
     }
-  }, [planId]);
-
-  const certificateHash = useMemo(() => generateHash(), []);
-
-  const updateMilestoneStatus = (id: string, newStatus: Milestone['status']) => {
-    setMilestones(prev => {
-      const updated = prev.map(m => m.id === id ? { ...m, status: newStatus } : m);
-      if (typeof window !== 'undefined') {
-        try {
-          localStorage.setItem(`pinit_capstone_${planId}`, JSON.stringify({
-            s3RepoUrl,
-            s3LiveUrl,
-            s3Submitted,
-            milestones: updated
-          }));
-        } catch {}
-      }
-      return updated;
-    });
   };
 
-  const handleSubmitS3 = async () => {
-    setUrlError(null);
-    if (!s3RepoUrl.trim() || !s3LiveUrl.trim()) {
-      setUrlError('Both GitHub Repository URL and Live Deployed URL are required.');
-      return;
+  const getCertificate = async () => {
+    setBusy(true);
+    setFeedback(null);
+    try {
+      const res = await api.post<CertificateResponse>('/api/certificates/course', { enrollmentId: enrollment.enrollmentId });
+      onEnrollmentUpdated(res.enrollment);
+      setFeedback({ kind: 'ok', text: `Certificate ${res.certificate.id} issued.` });
+    } catch (err) {
+      setFeedback({ kind: 'error', text: errorMessage(err) });
+    } finally {
+      setBusy(false);
     }
-    if (!s3RepoUrl.toLowerCase().includes('github.com/')) {
-      setUrlError('Please enter a valid GitHub repository URL (e.g. https://github.com/username/project).');
-      return;
-    }
-    setS3Submitting(true);
-    await new Promise(resolve => setTimeout(resolve, 800));
-    setS3Submitting(false);
-    setS3Submitted(true);
-    
-    setMilestones(prev => {
-      const updated = prev.map(m => m.id === 's3' ? { ...m, status: 'complete' as const } : m);
-      if (typeof window !== 'undefined') {
-        try {
-          localStorage.setItem(`pinit_capstone_${planId}`, JSON.stringify({
-            s3RepoUrl,
-            s3LiveUrl,
-            s3Submitted: true,
-            milestones: updated
-          }));
-        } catch {}
-      }
-      return updated;
-    });
   };
 
-  const milestonesCompleted = milestones.filter(m => m.status === 'approved' || m.status === 'complete').length;
-  const totalMilestones = milestones.length;
+  const verifyPath = certificateId ? `/verify/${encodeURIComponent(certificateId)}` : '';
+  const verifyUrl = certificateId && typeof window !== 'undefined' ? `${window.location.origin}${verifyPath}` : verifyPath;
 
-  const statusColors = {
-    approved: { bg: 'rgba(16,185,129,0.12)', border: 'rgba(16,185,129,0.3)', color: '#10b981', label: '✓ Approved' },
-    in_review: { bg: 'rgba(245,158,11,0.12)', border: 'rgba(245,158,11,0.3)', color: '#f59e0b', label: '⏳ In Review' },
-    pending: { bg: 'rgba(100,116,139,0.12)', border: 'rgba(100,116,139,0.3)', color: '#64748b', label: '○ Pending' },
-    complete: { bg: 'rgba(16,185,129,0.12)', border: 'rgba(16,185,129,0.3)', color: '#10b981', label: '✓ Complete' },
+  const submitted = (sprint: CapstoneSprint): Array<[string, string]> => {
+    if (sprint === 1) return [['Repository', milestones.sprint1RepoUrl || ''], ['Design', milestones.sprint1DesignUrl || '']];
+    if (sprint === 2) return [['API code', milestones.sprint2ApiUrl || '']];
+    if (sprint === 3) return [['Live URL', milestones.sprint3LiveUrl || '']];
+    return [['Defense', `${milestones.sprint4DefenseScore ?? 0}% · ${milestones.sprint4Verdict || 'Passed'}`]];
+  };
+
+  const renderForm = (sprint: CapstoneSprint) => {
+    if (sprint === 4) {
+      const last = milestones.sprint4LastAttempt;
+      return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {last && (
+            <div style={{ fontSize: 12, color: 'var(--t3)' }}>
+              Last attempt: {last.score}% · {last.verdict} (not passed yet)
+            </div>
+          )}
+          <Link href={COURSE_DEFENSE_PATH} style={{ ...primaryButton(false), textDecoration: 'none', display: 'inline-block' }}>
+            🎙️ {last ? 'Retake' : 'Start'} capstone defense →
+          </Link>
+        </div>
+      );
+    }
+    const ready = sprint === 1 ? fields.repoUrl.trim() && fields.designUrl.trim()
+      : sprint === 2 ? fields.apiUrl.trim()
+      : fields.liveUrl.trim();
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {sprint === 1 && (
+          <>
+            <input type="url" placeholder="https://github.com/you/your-project" value={fields.repoUrl}
+              onChange={setField('repoUrl')} style={inputStyle} aria-label="GitHub repository URL" />
+            <input type="url" placeholder="https://github.com/you/your-project/blob/main/docs/architecture.md" value={fields.designUrl}
+              onChange={setField('designUrl')} style={inputStyle} aria-label="Design file or folder URL" />
+          </>
+        )}
+        {sprint === 2 && (
+          <input type="url" placeholder={`${milestones.sprint1RepoUrl || 'https://github.com/you/your-project'}/tree/main/src/api`}
+            value={fields.apiUrl} onChange={setField('apiUrl')} style={inputStyle} aria-label="API code URL" />
+        )}
+        {sprint === 3 && (
+          <input type="url" placeholder="https://your-project.vercel.app" value={fields.liveUrl}
+            onChange={setField('liveUrl')} style={inputStyle} aria-label="Live URL" />
+        )}
+        <button onClick={() => submitSprint(sprint)} disabled={!ready || busy} style={primaryButton(!ready || busy)}>
+          {busy ? 'Checking…' : `✓ Check & submit Sprint ${sprint}`}
+        </button>
+      </div>
+    );
   };
 
   return (
@@ -201,7 +168,7 @@ export default function CapstoneInternshipPortal({
       background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(8px)',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       zIndex: 1000, padding: 24,
-    }} aria-modal="true" role="dialog" aria-label={`${planTitle} Portal`}>
+    }} aria-modal="true" role="dialog" aria-label={`${planTitle} Capstone`}>
       <div style={{
         maxWidth: 800, width: '100%',
         background: 'var(--bg2)', border: '1px solid var(--border)',
@@ -217,240 +184,114 @@ export default function CapstoneInternshipPortal({
         }}>
           <div>
             <h2 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', margin: 0, fontFamily: 'var(--font-display)' }}>
-              🏆 {planTitle} Portal
+              🏆 {planTitle} Capstone
             </h2>
             <span style={{ fontSize: 12, color: 'var(--t3)' }}>Student: {studentName}</span>
           </div>
           <button onClick={onClose} style={{
             padding: '6px 12px', borderRadius: 8, background: 'var(--bg3)',
             border: '1px solid var(--border)', color: 'var(--t2)', fontSize: 12, fontWeight: 600, cursor: 'pointer',
-          }} aria-label="Close portal">✕ Close</button>
+          }} aria-label="Close capstone">✕ Close</button>
         </div>
 
-        {/* Milestone Progress Summary */}
+        {/* Progress */}
         <div style={{
           padding: '14px 24px', borderBottom: '1px solid var(--border)',
           display: 'flex', gap: 16, alignItems: 'center', flexShrink: 0, flexWrap: 'wrap',
         }}>
-          <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>Progress:</span>
+          <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>Sprints approved:</span>
           <div style={{ flex: 1, minWidth: 120, height: 8, borderRadius: 4, background: 'var(--bg3)', overflow: 'hidden' }}>
             <div style={{
-              width: `${(milestonesCompleted / totalMilestones) * 100}%`, height: '100%',
-              borderRadius: 4, background: 'linear-gradient(90deg, #6366f1, #10b981)',
-              transition: 'width 0.5s ease',
+              width: `${(approvedCount / CAPSTONE_SPRINTS.length) * 100}%`, height: '100%',
+              borderRadius: 4, background: 'linear-gradient(90deg, #6366f1, #10b981)', transition: 'width 0.5s ease',
             }} />
           </div>
-          <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--accent)' }}>
-            {milestonesCompleted}/{totalMilestones}
-          </span>
+          <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--accent)' }}>{approvedCount}/{CAPSTONE_SPRINTS.length}</span>
         </div>
 
-        {/* Main Content */}
         <div style={{ flex: 1, overflow: 'auto', padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
-          {/* Milestone Cards */}
-          {milestones.map((m, idx) => {
-            const colors = statusColors[m.status];
-            const isS3 = m.id === 's3';
+          {!trainingDone && (
+            <div style={{
+              padding: 14, borderRadius: 12, background: 'rgba(245,158,11,0.1)',
+              border: '1px solid rgba(245,158,11,0.3)', color: '#f59e0b', fontSize: 12.5, fontWeight: 700,
+            }}>
+              🔒 The capstone opens after the last lesson of your course ({lessonsLeft} {lessonsLeft === 1 ? 'lesson' : 'lessons'} left).
+            </div>
+          )}
+
+          {feedback && (
+            <div role="status" style={{
+              padding: '10px 14px', borderRadius: 10, fontSize: 12.5, fontWeight: 700,
+              background: feedback.kind === 'ok' ? 'rgba(16,185,129,0.1)' : 'rgba(239,68,68,0.12)',
+              border: `1px solid ${feedback.kind === 'ok' ? 'rgba(16,185,129,0.3)' : 'rgba(239,68,68,0.3)'}`,
+              color: feedback.kind === 'ok' ? '#10b981' : '#f87171',
+            }}>
+              {feedback.kind === 'ok' ? '✓ ' : '⚠️ '}{feedback.text}
+            </div>
+          )}
+
+          {CAPSTONE_SPRINTS.map((s) => {
+            const state: SprintState = isSprintApproved(milestones, s.sprint) ? 'approved' : current === s.sprint ? 'open' : 'locked';
+            const style = STATE_STYLE[state];
             return (
-              <div key={m.id} style={{
+              <div key={s.sprint} style={{
                 padding: 18, borderRadius: 14, background: 'var(--bg3)',
-                border: `1px solid ${colors.border}`,
-                opacity: m.status === 'pending' ? 0.85 : 1,
+                border: `1px solid ${style.border}`, opacity: state === 'locked' ? 0.6 : 1,
               }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 10 }}>
-                  <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-                      <span style={{ fontSize: 14, fontWeight: 900, color: 'var(--t1)' }}>{m.title}</span>
-                      <span style={{
-                        fontSize: 10, fontWeight: 800, padding: '2px 8px', borderRadius: 6,
-                        background: colors.bg, border: `1px solid ${colors.border}`, color: colors.color,
-                      }}>{colors.label}</span>
-                    </div>
-                    <p style={{ fontSize: 12, color: 'var(--t3)', margin: 0 }}>{m.description}</p>
-                  </div>
-                  <span style={{ fontSize: 11, color: 'var(--t4)', flexShrink: 0 }}>{m.dueDate ? `Due: ${m.dueDate}` : ''}</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4, flexWrap: 'wrap' }}>
+                  <span style={{ fontSize: 14, fontWeight: 900, color: 'var(--t1)' }}>{s.title}</span>
+                  <span style={{
+                    fontSize: 10, fontWeight: 800, padding: '2px 8px', borderRadius: 6,
+                    background: style.bg, border: `1px solid ${style.border}`, color: style.color,
+                  }}>{style.label}</span>
                 </div>
+                <p style={{ fontSize: 12, color: 'var(--t3)', margin: '0 0 4px' }}>{s.description}</p>
+                <p style={{ fontSize: 11, color: 'var(--t4)', margin: '0 0 10px' }}>How we check: {s.check}</p>
 
-                {/* Sprint 3 special inputs */}
-                {isS3 && (
-                  <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 10 }}>
-                    {s3Submitted ? (
-                      <div style={{
-                        padding: 10, borderRadius: 8, background: 'rgba(16,185,129,0.1)',
-                        border: '1px solid rgba(16,185,129,0.2)', fontSize: 12, color: '#10b981', fontWeight: 700,
-                      }}>
-                        ✓ Repository URL and Live URL submitted successfully!
+                {state === 'approved' && (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                    {submitted(s.sprint).map(([label, value]) => (
+                      <div key={label} style={{ fontSize: 12, color: 'var(--t2)', wordBreak: 'break-all' }}>
+                        <strong>{label}:</strong>{' '}
+                        {value.startsWith('https://')
+                          ? <a href={value} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)' }}>{value}</a>
+                          : value}
                       </div>
-                    ) : (
-                      <>
-                        <input
-                          type="url" placeholder="GitHub Repository URL"
-                          value={s3RepoUrl} onChange={e => setS3RepoUrl(e.target.value)}
-                          style={{
-                            padding: '10px 14px', borderRadius: 8, border: '1px solid var(--border)',
-                            background: 'var(--bg2)', color: 'var(--text)', fontSize: 12.5,
-                            fontWeight: 600, outline: 'none', width: '100%', boxSizing: 'border-box',
-                          }}
-                          aria-label="GitHub Repository URL"
-                        />
-                        <input
-                          type="url" placeholder="Live URL (deployed link)"
-                          value={s3LiveUrl} onChange={e => setS3LiveUrl(e.target.value)}
-                          style={{
-                            padding: '10px 14px', borderRadius: 8, border: '1px solid var(--border)',
-                            background: 'var(--bg2)', color: 'var(--text)', fontSize: 12.5,
-                            fontWeight: 600, outline: 'none', width: '100%', boxSizing: 'border-box',
-                          }}
-                          aria-label="Live URL"
-                        />
-                        {urlError && (
-                          <div style={{
-                            padding: '8px 12px', borderRadius: 8, background: 'rgba(239, 68, 68, 0.15)',
-                            border: '1px solid rgba(239, 68, 68, 0.3)', color: '#f87171', fontSize: 11.5, fontWeight: 700
-                          }}>
-                            ⚠️ {urlError}
-                          </div>
-                        )}
-                        <button
-                          onClick={handleSubmitS3} disabled={!s3RepoUrl.trim() || !s3LiveUrl.trim() || s3Submitting}
-                          style={{
-                            padding: '10px 20px', borderRadius: 10,
-                            background: (!s3RepoUrl.trim() || !s3LiveUrl.trim() || s3Submitting)
-                              ? 'var(--bg2)' : 'linear-gradient(135deg, #10b981, #059669)',
-                            border: 'none', color: (!s3RepoUrl.trim() || !s3LiveUrl.trim() || s3Submitting)
-                              ? 'var(--t4)' : '#fff',
-                            fontSize: 12.5, fontWeight: 800, cursor: 'pointer',
-                            fontFamily: 'var(--font-display)',
-                            boxShadow: (!s3RepoUrl.trim() || !s3LiveUrl.trim() || s3Submitting)
-                              ? 'none' : '0 4px 14px rgba(16,185,129,0.3)',
-                            opacity: (!s3RepoUrl.trim() || !s3LiveUrl.trim() || s3Submitting) ? 0.5 : 1,
-                          }}
-                        >
-                          {s3Submitting ? 'Submitting...' : '✓ Submit Sprint 3'}
-                        </button>
-                      </>
-                    )}
+                    ))}
                   </div>
                 )}
-
-                {/* Sprint 4 Oral Defense inputs */}
-                {m.id === 's4' && (
-                  <div style={{ marginTop: 10, display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-                    <input type="number" placeholder="Reviewer Score (0-100)" min={0} max={100}
-                      style={{
-                        padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border)',
-                        background: 'var(--bg2)', color: 'var(--text)', fontSize: 12, fontWeight: 600,
-                        outline: 'none', width: 160,
-                      }} aria-label="Reviewer Score"
-                    />
-                    <input type="text" placeholder="Evaluator Feedback"
-                      style={{
-                        padding: '8px 12px', borderRadius: 8, border: '1px solid var(--border)',
-                        background: 'var(--bg2)', color: 'var(--text)', fontSize: 12, fontWeight: 600,
-                        outline: 'none', flex: 1, minWidth: 120,
-                      }} aria-label="Evaluator Feedback"
-                    />
-                    <button onClick={() => updateMilestoneStatus('s4', 'complete')} style={{
-                      padding: '8px 16px', borderRadius: 8,
-                      background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-                      border: 'none', color: '#fff', fontSize: 11, fontWeight: 800, cursor: 'pointer',
-                      fontFamily: 'var(--font-display)',
-                    }}>Submit Defense</button>
-                  </div>
-                )}
+                {state === 'open' && renderForm(s.sprint)}
               </div>
             );
           })}
 
-          {/* Live Internship Tracker */}
-          <div style={{
-            padding: 18, borderRadius: 14, background: 'var(--bg3)',
-            border: '1px solid var(--border)',
-          }}>
+          {/* Certificate */}
+          <div style={{ padding: 18, borderRadius: 14, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
             <h3 style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)', margin: '0 0 12px', fontFamily: 'var(--font-display)' }}>
-              👷 Live Internship Tracker
+              📜 Capstone Project Certificate
             </h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 12 }}>
-              {[
-                { label: 'Company Track', value: 'PinIT Tech Corp', color: '#6366f1' },
-                { label: 'Supervisor Sign-off', value: 'In Progress', color: '#f59e0b' },
-                { label: 'Corporate Letter', value: 'Pending Review', color: '#64748b' },
-              ].map(item => (
-                <div key={item.label} style={{
-                  padding: 12, borderRadius: 10, background: 'var(--bg2)',
-                  border: '1px solid var(--border)', textAlign: 'center',
-                }}>
-                  <div style={{ fontSize: 10, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase', marginBottom: 4 }}>{item.label}</div>
-                  <div style={{ fontSize: 13, fontWeight: 800, color: item.color }}>{item.value}</div>
+            {certificateId ? (
+              <div style={{ display: 'flex', gap: 20, alignItems: 'center', flexWrap: 'wrap' }}>
+                <div style={{ padding: 8, borderRadius: 8, background: '#fff' }}>
+                  <QRCodeSVG value={verifyUrl} size={112} />
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Certificate Issuance Preview */}
-          <div style={{
-            padding: 18, borderRadius: 14, background: 'var(--bg3)',
-            border: '1px solid var(--border)',
-          }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-              <h3 style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)', margin: 0, fontFamily: 'var(--font-display)' }}>
-                📜 Certificate Issuance Preview
-              </h3>
-              <div style={{ display: 'flex', gap: 4, borderRadius: 8, background: 'var(--bg2)', padding: 3 }}>
-                {(['project', 'internship'] as const).map(tab => (
-                  <button key={tab} onClick={() => setCertificateTab(tab)} style={{
-                    padding: '6px 14px', borderRadius: 6, border: 'none',
-                    background: certificateTab === tab ? 'linear-gradient(135deg, #6366f1, #8b5cf6)' : 'transparent',
-                    color: certificateTab === tab ? '#fff' : 'var(--t3)',
-                    fontSize: 11, fontWeight: 800, cursor: 'pointer',
-                    fontFamily: 'var(--font-display)',
-                  }}>
-                    {tab === 'project' ? '📦 Project Certificate' : '🏢 Internship Certificate'}
-                  </button>
-                ))}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 6, minWidth: 0 }}>
+                  <div style={{ fontSize: 12, color: 'var(--t3)' }}>Certificate ID</div>
+                  <div style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', fontFamily: 'monospace' }}>{certificateId}</div>
+                  <a href={verifyPath} target="_blank" rel="noopener noreferrer" style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--accent)' }}>
+                    Open the public verification page →
+                  </a>
+                  <div style={{ fontSize: 11, color: 'var(--t4)' }}>Anyone can scan the code or open the link to check it was issued by PinIT.</div>
+                </div>
               </div>
-            </div>
-
-            {showCertificate ? (
-              <div style={{
-                padding: 20, borderRadius: 14, background: '#fff', color: '#0f172a',
-                border: '1px solid var(--border)', textAlign: 'center',
-              }}>
-                <h3 style={{ fontSize: 18, fontWeight: 900, marginBottom: 4, color: '#0f172a' }}>
-                  {certificateTab === 'project' ? '📦 Project-Based Certificate' : '🏢 Real-Time Internship Certificate'}
-                </h3>
-                <p style={{ fontSize: 12, color: '#64748b', marginBottom: 16 }}>
-                  {certificateTab === 'project' ? 'Certification of Completion' : 'Corporate Experience Letter'}
-                </p>
-                <div style={{ marginBottom: 16 }}>
-                  <p style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 2 }}><strong>Student:</strong> {studentName}</p>
-                  <p style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 2 }}><strong>Program:</strong> {planTitle}</p>
-                  <p style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 2 }}><strong>Date:</strong> {new Date().toLocaleDateString()}</p>
-                  <p style={{ fontSize: 11, fontWeight: 700, color: '#6366f1', wordBreak: 'break-all' }}><strong>SHA-256 Hash:</strong> {certificateHash}</p>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'center', gap: 20, alignItems: 'center', marginBottom: 16 }}>
-                  <QRPreview value={certificateHash} />
-                  <div style={{ textAlign: 'left' }}>
-                    <div style={{ fontSize: 11, fontWeight: 700, color: '#6366f1' }}>Verification</div>
-                    <div style={{ fontSize: 10, color: '#64748b', lineHeight: 1.5 }}>Scan QR or paste hash to verify authenticity</div>
-                  </div>
-                </div>
-                <button onClick={() => setShowCertificate(false)} style={{
-                  padding: '8px 18px', borderRadius: 8, background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-                  border: 'none', color: '#fff', fontSize: 12, fontWeight: 800, cursor: 'pointer',
-                  fontFamily: 'var(--font-display)',
-                }}>Close Certificate</button>
-              </div>
-            ) : (
-              <button onClick={() => setShowCertificate(true)} style={{
-                padding: '14px 28px', borderRadius: 12,
-                background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-                border: 'none', color: '#fff', fontSize: 14, fontWeight: 800, cursor: 'pointer',
-                fontFamily: 'var(--font-display)', width: '100%',
-                boxShadow: '0 4px 14px rgba(99,102,241,0.3)',
-              }}>
-                📜 Preview {certificateTab === 'project' ? 'Project Certificate' : 'Internship Certificate'}
+            ) : current === null && trainingDone ? (
+              <button onClick={getCertificate} disabled={busy} style={primaryButton(busy)}>
+                {busy ? 'Issuing…' : '🎓 Get my certificate'}
               </button>
+            ) : (
+              <p style={{ fontSize: 12, color: 'var(--t3)', margin: 0 }}>
+                Your certificate is issued when all four sprints are approved. It gets a unique ID and a public verification page.
+              </p>
             )}
           </div>
         </div>
@@ -466,7 +307,7 @@ export default function CapstoneInternshipPortal({
             border: 'none', color: '#fff', fontSize: 13, fontWeight: 800, cursor: 'pointer',
             fontFamily: 'var(--font-display)', boxShadow: '0 4px 14px rgba(99,102,241,0.3)',
           }}>
-            Close Portal →
+            Close →
           </button>
         </div>
       </div>

@@ -30,6 +30,14 @@ const FILES = {
   enrollmentRoute: path.join(ROOT, 'src/app/api/quests/enrollment/route.ts'),
   enrollmentService: path.join(ROOT, 'src/lib/services/crashCourseEnrollmentService.ts'),
   evaluateRoute: path.join(ROOT, 'src/app/api/interview/evaluate/route.ts'),
+  studentCourse: path.join(ROOT, 'src/lib/server/studentCourse.ts'),
+  certRoute: path.join(ROOT, 'src/app/api/certificates/course/route.ts'),
+  courseCert: path.join(ROOT, 'src/lib/certificates/courseCertificate.ts'),
+  roadmapCert: path.join(ROOT, 'src/lib/certificates/roadmapCertificate.ts'),
+  verifyRoute: path.join(ROOT, 'src/app/api/verify/[credentialId]/route.ts'),
+  portal: path.join(ROOT, 'src/app/quests/components/CapstoneInternshipPortal.tsx'),
+  drawer: path.join(ROOT, 'src/app/quests/components/TrackSelectorDrawer.tsx'),
+  interviewPage: path.join(ROOT, 'src/app/interview/page.tsx'),
 };
 process.env.NEXTAUTH_SECRET = 'test-signing-secret';
 
@@ -51,7 +59,7 @@ const STUDENT = 'aaaaaaaa-0000-4000-8000-000000000001';
 const OTHER = 'bbbbbbbb-0000-4000-8000-000000000002';
 const LESSONS = ['c1_q1', 'c1_q2', 'c2_q1'];
 const PLAN = {
-  id: 'plan-test', title: 'Test Accelerator',
+  id: 'plan-test', title: 'Test Accelerator', targetRole: 'Associate Full-Stack Engineer',
   modulesByTrack: { web_fullstack: [{ month: 2, courseId: 'c2' }, { month: 1, courseId: 'c1' }], python_ai: [] },
   flagshipBuildByTrack: { web_fullstack: { title: 'Realtime Chat Engine' }, python_ai: { title: 'RAG Assistant' } },
 };
@@ -67,6 +75,14 @@ const progressMod = load(FILES.progress, { '@/lib/data/crashPlansData': plansMoc
 const savedMod = load(FILES.saved);
 const capstoneMod = load(FILES.capstone, { '@/lib/projects/savedProjects': savedMod });
 const enrollmentsMod = load(FILES.enrollments);
+const studentCourseMod = load(FILES.studentCourse, {
+  '@/lib/server/courseEnrollments': enrollmentsMod,
+  '@/lib/data/coursesData': { COURSES_REGISTRY: REGISTRY },
+  '@/lib/data/crashPlansData': plansMock,
+  '@/lib/courses/crashCourseProgress': progressMod,
+});
+const roadmapCertMod = load(FILES.roadmapCert);
+const courseCertMod = load(FILES.courseCert);
 
 /** Fake https for the probe: `responses[url]` = status, [status, location], or an error code string. */
 function fakeHttps(responses) {
@@ -104,7 +120,8 @@ function fakeProbe(results, calls) {
 
 function createDb({ completed = LESSONS, milestones = {}, owner = STUDENT } = {}) {
   const tables = {
-    users: [{ id: STUDENT, completed_quests: completed }],
+    users: [{ id: STUDENT, completed_quests: completed, display_name: 'Asha Rao', register_number: 'PIN2026-042' }],
+    issued_certificates: [],
     user_crash_enrollments: [{
       enrollment_id: 'enr-1', user_id: owner, plan_id: PLAN.id, track: 'web_fullstack', amount_paid: 0,
       payment_id: 'pay-1', order_id: '', payment_method: 'pins', status: 'active', enrolled_at: '2026-09-01T00:00:00Z',
@@ -118,6 +135,15 @@ function createDb({ completed = LESSONS, milestones = {}, owner = STUDENT } = {}
     const q = { op: 'select', filters: [], payload: null };
     const matches = (r) => q.filters.every(([c, v]) => r[c] === v);
     const exec = () => {
+      if (q.op === 'insert') {
+        const t = tables[table];
+        const p = q.payload;
+        if (t.some((r) => r.id === p.id || (r.student_id === p.student_id && r.kind === p.kind && r.course_id === p.course_id))) {
+          return { data: null, error: { code: '23505', message: 'duplicate key' } };
+        }
+        t.push({ revoked: false, ...JSON.parse(JSON.stringify(p)) });
+        return { data: null, error: null };
+      }
       const rows = tables[table].filter(matches);
       if (q.op === 'update') {
         rows.forEach((r) => Object.assign(r, JSON.parse(JSON.stringify(q.payload)), { updated_at: `2026-09-27T00:00:0${stamp++}Z` }));
@@ -128,6 +154,7 @@ function createDb({ completed = LESSONS, milestones = {}, owner = STUDENT } = {}
       select() { return chain; },
       eq(c, v) { q.filters.push([c, v]); return chain; },
       update(p) { q.op = 'update'; q.payload = p; return chain; },
+      insert(p) { q.op = 'insert'; q.payload = p; return chain; },
       maybeSingle() { return Promise.resolve(exec()); },
       then(res, rej) { return Promise.resolve(exec()).then(res, rej); },
     };
@@ -146,16 +173,88 @@ function submit(db, body, { userId = STUDENT, probeResults = {}, calls = [] } = 
     '@/lib/server/supabaseAdmin': { getSupabaseAdmin: () => db.client },
     '@/lib/server/rateLimit': { checkRateLimit: () => ({ allowed: true }) },
     '@/lib/server/courseEnrollments': enrollmentsMod,
+    '@/lib/server/studentCourse': studentCourseMod,
     '@/lib/server/publicUrlProbe': fakeProbe(probeResults, calls),
-    '@/lib/data/coursesData': { COURSES_REGISTRY: REGISTRY },
-    '@/lib/data/crashPlansData': plansMock,
-    '@/lib/courses/crashCourseProgress': progressMod,
     '@/lib/courses/capstoneSprints': sprintsMod,
     '@/lib/interview/evaluationSignature': signatureMod,
     '@/lib/interview/capstoneInterview': capstoneMod,
   });
   return route.POST({ userId, json: async () => ({ enrollmentId: 'enr-1', ...body }) });
 }
+
+function issueCert(db, { userId = STUDENT } = {}) {
+  const json = (b, init = {}) => ({ status: init.status || 200, body: b });
+  const route = load(FILES.certRoute, {
+    'next/server': { NextResponse: { json } },
+    '@/lib/server/requireAuth': {
+      requireUserFromRequest: async (req) => req.userId ? { user: { id: req.userId }, error: null } : { user: null, error: json({ error: 'UNAUTHORIZED' }, { status: 401 }) },
+    },
+    '@/lib/server/supabaseAdmin': { getSupabaseAdmin: () => db.client },
+    '@/lib/server/studentCourse': studentCourseMod,
+    '@/lib/courses/capstoneSprints': sprintsMod,
+    '@/lib/certificates/roadmapCertificate': roadmapCertMod,
+    '@/lib/certificates/courseCertificate': courseCertMod,
+  });
+  return route.POST({ userId, json: async () => ({ enrollmentId: 'enr-1' }) });
+}
+
+function verifyCert(db, id) {
+  const json = (b, init = {}) => ({ status: init.status || 200, body: b });
+  const route = load(FILES.verifyRoute, {
+    'next/server': { NextResponse: { json } },
+    '@/lib/server/supabaseAdmin': { getSupabaseAdmin: () => db.client },
+    '@/lib/api/pathwayApi': { PathwayApiService: {} },
+    '@/lib/pathway/evidenceEngine': { verifyEvidenceIntegrity: () => true },
+    '@/lib/pathway/competencySchema': {},
+    '@/lib/certificates/roadmapCertificate': roadmapCertMod,
+    '@/lib/certificates/courseCertificate': courseCertMod,
+  });
+  return route.GET({}, { params: { credentialId: id } });
+}
+
+// Minimal React for rendering the capstone screen without a DOM.
+const React = {
+  createElement: (type, props, ...children) => ({ type, props: { ...(props || {}), children: children.flat() } }),
+  useState: (init) => [typeof init === 'function' ? init() : init, () => {}],
+};
+React.default = React;
+const renderEl = (el) => (el && typeof el.type === 'function' ? renderEl(el.type(el.props)) : el);
+const findAll = (n, pred, acc = []) => {
+  if (n && typeof n === 'object') { if (pred(n)) acc.push(n); (n.props.children || []).forEach((c) => findAll(renderEl(c), pred, acc)); }
+  return acc;
+};
+const textOf = (n) => (n == null || typeof n === 'boolean' ? '' : typeof n !== 'object' ? String(n) : (renderEl(n).props.children || []).map(textOf).join(''));
+
+function loadTsx(file, mocks) {
+  const out = ts.transpileModule(fs.readFileSync(file, 'utf8'), {
+    fileName: file, compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020, jsx: ts.JsxEmit.React, esModuleInterop: true },
+  }).outputText;
+  const mod = { exports: {} };
+  new Function('require', 'module', 'exports', out)((n) => {
+    if (n in mocks) return mocks[n];
+    throw new Error(`Unexpected import in ${path.basename(file)}: ${n}`);
+  }, mod, mod.exports);
+  return mod.exports;
+}
+
+function renderPortal(enrollmentExtra, { lessonsLeft = 0, post = async () => ({}), onEnrollmentUpdated = () => {} } = {}) {
+  const Portal = loadTsx(FILES.portal, {
+    react: React,
+    'next/link': { __esModule: true, default: (props) => ({ type: 'a', props }) },
+    'qrcode.react': { QRCodeSVG: (props) => ({ type: 'svg', props: { ...props, children: [] } }) },
+    '@/lib/api/client': { api: { post } },
+    '@/lib/courses/capstoneSprints': sprintsMod,
+  }).default;
+  const enrollment = {
+    enrollmentId: 'enr-1', planId: PLAN.id, track: 'web_fullstack',
+    milestoneProgress: { sprint1Approved: false, sprint2Approved: false }, certificatesIssued: {}, ...enrollmentExtra,
+  };
+  return renderEl(React.createElement(Portal, {
+    enrollment, planTitle: PLAN.title, studentName: 'Asha Rao', lessonsLeft, onEnrollmentUpdated, onClose: () => {},
+  }));
+}
+const inputsOf = (tree) => findAll(tree, (n) => n.type === 'input');
+const buttonsOf = (tree, label) => findAll(tree, (n) => n.type === 'button' && textOf(n).includes(label));
 
 const REPO = 'https://github.com/asha/chat-engine';
 const SPRINT1 = { sprint: 1, repoUrl: REPO, designUrl: `${REPO}/blob/main/docs/architecture.md` };
@@ -325,6 +424,95 @@ async function test(name, fn) {
     if (/updateSprintMilestone/.test(fs.readFileSync(FILES.enrollmentService, 'utf8'))) return 'client can still send milestones';
     const evaluate = fs.readFileSync(FILES.evaluateRoute, 'utf8');
     return /topicEvaluationToken/.test(evaluate) && /createTopicEvaluationSignature/.test(evaluate) ? true : 'evaluate route has no topic token';
+  });
+
+  await test('course certificate: refused until the capstone is complete; then one signed PIN-CP certificate', async () => {
+    if (!fs.existsSync(FILES.certRoute) || !courseCertMod) return 'src/app/api/certificates/course/route.ts missing';
+    const early = await issueCert(createDb({ milestones: DONE_1_2_3 }));
+    if (early.status !== 409 || early.body.error !== 'CAPSTONE_NOT_COMPLETE') return `before sprint 4 → ${early.status} ${early.body.error}`;
+    const untrained = await issueCert(createDb({ completed: ['c1_q1'], milestones: { ...DONE_1_2_3, sprint4DefenseScore: 80 } }));
+    if (untrained.body.error !== 'TRAINING_NOT_COMPLETE') return `lessons missing → ${untrained.body.error}`;
+    const db = createDb({ milestones: { ...DONE_1_2_3, sprint4DefenseScore: 80, sprint4Verdict: 'Hire' } });
+    const first = await issueCert(db);
+    const second = await issueCert(db);
+    if (first.status !== 200) return `status ${first.status} ${first.body.error}`;
+    const id = first.body.certificate.id;
+    if (!/^PIN-CP-[0-9A-F]{12}$/.test(id)) return `id ${id}`;
+    if (second.body.certificate.id !== id || db.tables.issued_certificates.length !== 1) return 'issued twice';
+    if (db.row().certificates_issued.projectCertHash !== id) return 'not recorded on the enrollment';
+    const p = progressMod.getCrashCourseProgress(PLAN, 'web_fullstack', REGISTRY, LESSONS, second.body.enrollment);
+    return p.phases.graduation === 'completed' ? true : `graduation ${p.phases.graduation}`;
+  });
+
+  await test('course certificate verifies publicly; edited or relabelled records do not', async () => {
+    if (!fs.existsSync(FILES.certRoute) || !courseCertMod) return 'certificate route missing';
+    const db = createDb({ milestones: { ...DONE_1_2_3, sprint4DefenseScore: 80, sprint4Verdict: 'Hire' } });
+    const id = (await issueCert(db)).body.certificate.id;
+    const ok = await verifyCert(db, id);
+    if (ok.status !== 200 || !ok.body.valid || ok.body.document.studentName !== 'Asha Rao') return `verify → ${ok.status} ${JSON.stringify(ok.body).slice(0, 120)}`;
+    if (!/four-sprint capstone/.test(ok.body.document.purpose)) return ok.body.document.purpose;
+    const cert = db.tables.issued_certificates[0];
+    cert.interview_score = 99;
+    if ((await verifyCert(db, id)).body.valid) return 'edited score still verifies';
+    cert.interview_score = 80;
+    cert.kind = 'roadmap_journey';
+    if ((await verifyCert(db, id)).body.valid) return 'record of another kind verifies as a course certificate';
+    cert.kind = 'course_project';
+    return (await verifyCert(db, 'PIN-CP-000000000000')).status === 404 ? true : 'unknown id verified';
+  });
+
+  await test('capstone screen: locked until the lessons are done; then only the open sprint takes input', async () => {
+    if (!fs.existsSync(FILES.portal)) return 'CapstoneInternshipPortal.tsx missing';
+    const locked = renderPortal({}, { lessonsLeft: 3 });
+    const lockedText = textOf(locked);
+    if (!/3 lessons left/.test(lockedText)) return 'no "lessons left" notice';
+    if (inputsOf(locked).length || /✓ Approved/.test(lockedText)) return 'sprints open or approved before the lessons are done';
+    const fresh = renderPortal({});
+    const inputs = inputsOf(fresh).map((i) => i.props['aria-label']);
+    if (inputs.join('|') !== 'GitHub repository URL|Design file or folder URL') return `inputs: ${inputs}`;
+    if (!/0\/4/.test(textOf(fresh)) || /✓ Approved/.test(textOf(fresh))) return 'a fresh capstone shows approvals';
+    const mid = renderPortal({ milestoneProgress: { sprint1Approved: true, sprint1RepoUrl: REPO, sprint1DesignUrl: SPRINT1.designUrl, sprint2Approved: true, sprint2ApiUrl: SPRINT2.apiUrl } });
+    const links = findAll(mid, (n) => n.type === 'a').map((a) => a.props.href);
+    if (!links.includes(REPO) || !links.includes(SPRINT2.apiUrl)) return `approved links not shown: ${links}`;
+    return inputsOf(mid).map((i) => i.props['aria-label']).join('|') === 'Live URL' ? true : 'sprint 3 not the only open sprint';
+  });
+
+  await test('capstone screen: defense opens the course defense interview; certificate only when complete, then its real ID + verify link', async () => {
+    if (!fs.existsSync(FILES.portal)) return 'portal missing';
+    const s4 = renderPortal({ milestoneProgress: { ...DONE_1_2_3, sprint4LastAttempt: { score: 52, verdict: 'No Hire', at: 'x' } } });
+    const defenseLink = findAll(s4, (n) => n.type === 'a' && n.props.href === '/interview?mode=course_defense');
+    if (!defenseLink.length || !/Retake/.test(textOf(defenseLink[0]))) return 'no defense link';
+    if (buttonsOf(s4, 'Get my certificate').length) return 'certificate offered before sprint 4';
+    let posted = null; let updated = null;
+    const done = renderPortal({ milestoneProgress: { ...DONE_1_2_3, sprint4DefenseScore: 80 } }, {
+      post: async (url, body) => { posted = [url, body]; return { ok: true, certificate: { id: 'PIN-CP-ABCDEF123456' }, enrollment: { enrollmentId: 'enr-1', x: 1 } }; },
+      onEnrollmentUpdated: (e) => { updated = e; },
+    });
+    const btn = buttonsOf(done, 'Get my certificate');
+    if (btn.length !== 1) return 'no certificate button when complete';
+    await btn[0].props.onClick();
+    if (!posted || posted[0] !== '/api/certificates/course' || posted[1].enrollmentId !== 'enr-1' || !updated) return `click → ${JSON.stringify(posted)}`;
+    const issued = renderPortal({ milestoneProgress: { ...DONE_1_2_3, sprint4DefenseScore: 80 }, certificatesIssued: { projectCertHash: 'PIN-CP-ABCDEF123456' } });
+    const t = textOf(issued);
+    const verify = findAll(issued, (n) => n.type === 'a' && n.props.href === '/verify/PIN-CP-ABCDEF123456');
+    const qr = findAll(issued, (n) => n.type === 'svg');
+    return /PIN-CP-ABCDEF123456/.test(t) && verify.length && qr.length && /\/verify\/PIN-CP-ABCDEF123456$/.test(qr[0].props.value) ? true : 'certificate ID / verify link / QR missing';
+  });
+
+  await test('no fake state left: no random hash, no browser-saved approvals, no self-entered scores, no internship tracker', async () => {
+    const src = fs.readFileSync(FILES.portal, 'utf8');
+    if (/Math\.random/.test(src)) return 'random hash still generated';
+    if (/localStorage/.test(src)) return 'approvals still saved in the browser';
+    if (/Reviewer Score|Evaluator Feedback/.test(src)) return 'student can still type their own defense score';
+    if (/Internship Tracker|Internship Certificate|PinIT Tech Corp|Supervisor Sign-off/.test(src)) return 'internship tracker still shown';
+    const drawer = fs.readFileSync(FILES.drawer, 'utf8');
+    if (!/enrollment=\{activeEnrollment\}/.test(drawer) || !/onGetCertificate=/.test(drawer)) return 'course page does not pass the enrollment / certificate action';
+    if (/PinIT Engineering Fellow/.test(drawer)) return 'placeholder student name still used';
+    const page = fs.readFileSync(FILES.interviewPage, 'utf8');
+    if (!/mode'\) !== 'course_defense'/.test(page) || !/\/api\/quests\/capstone/.test(page) || !/topicToken: resultObj\.topicEvaluationToken/.test(page)) {
+      return 'interview page does not send the course defense result';
+    }
+    return /courseDefense !== null && topic === courseDefense\.topic/.test(page) ? true : 'course defense not free for the enrolled student';
   });
 
   console.log(`\n${pass} passed, ${fail} failed`);

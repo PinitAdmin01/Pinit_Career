@@ -3,10 +3,8 @@ import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 import { checkRateLimit } from '@/lib/server/rateLimit';
 import { toCourseEnrollment } from '@/lib/server/courseEnrollments';
+import { loadStudentCourse, trainingIncomplete } from '@/lib/server/studentCourse';
 import { parsePublicHttpsUrl, probePublicUrl, type ProbeResult } from '@/lib/server/publicUrlProbe';
-import { COURSES_REGISTRY } from '@/lib/data/coursesData';
-import { getCrashPlanById } from '@/lib/data/crashPlansData';
-import { getCrashCourseCurriculum } from '@/lib/courses/crashCourseProgress';
 import {
   courseDefenseTopic,
   nextCapstoneSprint,
@@ -53,28 +51,12 @@ export async function POST(req: NextRequest) {
     const submission = parsed.submission;
 
     const admin = getSupabaseAdmin();
-    const { data: row, error: rowErr } = await admin
-      .from(TABLE)
-      .select('*')
-      .eq('enrollment_id', enrollmentId)
-      .eq('user_id', userId)
-      .eq('status', 'active')
-      .maybeSingle();
-    if (rowErr) return fail(503, 'ENROLLMENT_LOOKUP_FAILED', 'Could not load your course. Please try again.');
-    if (!row) return fail(404, 'ENROLLMENT_NOT_FOUND', 'No active course enrollment was found.');
-    const enrollment = toCourseEnrollment(row as Parameters<typeof toCourseEnrollment>[0]);
-
-    const plan = getCrashPlanById(enrollment.planId);
-    if (!plan) return fail(409, 'PLAN_UNKNOWN', 'This course is no longer available.');
-
+    const course = await loadStudentCourse(admin, userId, enrollmentId);
+    if (!course.ok) return fail(course.status, course.error, course.message);
+    const { enrollment, plan } = course;
     // Phase 1 must really be done: every lesson of this course, as recorded by the server.
-    const { data: user, error: userErr } = await admin.from('users').select('completed_quests').eq('id', userId).maybeSingle();
-    if (userErr || !user) return fail(503, 'PROFILE_UNAVAILABLE', 'Could not load your progress. Please try again.');
-    const done = new Set<string>(Array.isArray(user.completed_quests) ? (user.completed_quests as string[]) : []);
-    const lessons = getCrashCourseCurriculum(plan, enrollment.track, COURSES_REGISTRY);
-    const missing = lessons.filter((l) => !done.has(l.questId)).length;
-    if (lessons.length === 0 || missing > 0) {
-      return fail(409, 'TRAINING_NOT_COMPLETE', `Finish every lesson of your course first (${missing} left).`);
+    if (trainingIncomplete(course)) {
+      return fail(409, 'TRAINING_NOT_COMPLETE', `Finish every lesson of your course first (${course.lessonsMissing} left).`);
     }
 
     const milestones = (enrollment.milestoneProgress || {}) as CapstoneMilestones;
@@ -146,14 +128,13 @@ export async function POST(req: NextRequest) {
 
     const merged: CapstoneMilestones = { ...milestones, ...updates };
     const currentSprint = nextCapstoneSprint(merged) ?? 4;
-    const rowWithStamp = row as { updated_at?: string };
     let update = admin
       .from(TABLE)
       .update({ milestone_progress: merged, current_sprint: currentSprint })
       .eq('enrollment_id', enrollmentId)
       .eq('user_id', userId);
     // Compare-and-swap: a submission that raced with another one must not overwrite it.
-    if (rowWithStamp.updated_at) update = update.eq('updated_at', rowWithStamp.updated_at);
+    if (course.updatedAt) update = update.eq('updated_at', course.updatedAt);
     const { data: saved, error: saveErr } = await update.select('*').maybeSingle();
     if (saveErr) return fail(503, 'SAVE_FAILED', 'Could not save your submission. Please try again.');
     if (!saved) return fail(409, 'CONFLICT', 'Your course changed while submitting. Please try again.');
