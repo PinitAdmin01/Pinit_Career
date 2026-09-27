@@ -54,8 +54,9 @@ function StudentFinanceInner() {
         toast.success('Scholarship Applied! 🎓', `A waiver of ₹${(res.waiver ?? 0).toLocaleString()} has been deducted from your remaining final installment.`);
         fetchDuesData();
       }
-    } catch {
-      toast.error('Application Failed', 'Failed to apply scholarship. Please try again.');
+    } catch (err: unknown) {
+      // e.g. "Scholarships are awarded by the finance office. Please contact them to apply."
+      toast.info('Scholarship', err instanceof Error && err.message ? err.message : 'Failed to apply scholarship. Please try again.');
     } finally {
       setApplyingSch(false);
     }
