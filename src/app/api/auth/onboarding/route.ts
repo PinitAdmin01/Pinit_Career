@@ -182,8 +182,9 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Sanitize privileged and non-tamperable fields
-    delete mergedAnswers.role;
+    // Sanitize privileged and non-tamperable fields. `role` inside the answers is the
+    // student's career role (read as the target role across the app), not the account
+    // role — that lives in users.role and the root-level `raw.role` is stripped above.
     delete mergedAnswers.subscription_tier;
     delete mergedAnswers.mission_streak;
     delete mergedAnswers.streak;

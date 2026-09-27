@@ -88,6 +88,16 @@ const DEFAULT_ONBOARDING: OnboardingAnswers = {
   roadmap_modules: []
 };
 
+// DEFAULT_ONBOARDING is placeholder data shown before onboarding. It must never be
+// merged into, and saved as, a student's real answers.
+function withoutPlaceholderDefaults(answers: OnboardingAnswers): Partial<OnboardingAnswers> {
+  const clean: Partial<OnboardingAnswers> = { ...answers };
+  for (const [key, value] of Object.entries(DEFAULT_ONBOARDING)) {
+    if (JSON.stringify(clean[key]) === JSON.stringify(value)) delete clean[key];
+  }
+  return clean;
+}
+
 export function UserProgressProvider({ children }: { children: React.ReactNode }) {
   const { user } = useAuth();
   const userId = user?.id || 'guest';
@@ -116,6 +126,13 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
       return DEFAULT_ONBOARDING;
     }
   });
+
+  // Latest answers, updated synchronously by every writer in this provider (all of them
+  // go through commitAnswers). Writers merge into this instead of the `onboardingAnswers`
+  // captured in their closure, which is stale when two updates run in the same tick —
+  // onboarding calls setOnboarding and then generateFusedRoadmap, which used to write
+  // the pre-onboarding answers back over the new ones.
+  const answersRef = useRef<OnboardingAnswers>(onboardingAnswers);
 
   const [completedMissions, setCompletedMissions] = useState<string[]>(() => {
     if (typeof window === 'undefined') return [];
@@ -227,6 +244,12 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     } catch {}
   }, [keys, userId]);
 
+  const commitAnswers = useCallback((next: OnboardingAnswers) => {
+    answersRef.current = next;
+    setOnboardingAnswersState(next);
+    save(keys.onboard, next);
+  }, [keys.onboard, save]);
+
   // Handle cross-tab updates
   useEffect(() => {
     if (typeof window === 'undefined' || typeof BroadcastChannel === 'undefined') return;
@@ -248,6 +271,7 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
       } else if (key === keys.streak) {
         setMissionStreak(Number(value) || 0);
       } else if (key === keys.onboard && value) {
+        answersRef.current = value;
         setOnboardingAnswersState(value);
       }
     };
@@ -263,14 +287,19 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     // 1. Onboarding Answers
     const userAnswers = (user as any).onboardingAnswers || (user as any).onboarding_answers;
     if (userAnswers && typeof userAnswers === 'object' && Object.keys(userAnswers).length > 0) {
-      setOnboardingAnswersState(prev => {
-        const merged = { ...prev, ...userAnswers };
-        if (userAnswers.roadmap_modules && Array.isArray(userAnswers.roadmap_modules)) {
-          merged.roadmap_modules = userAnswers.roadmap_modules;
-        }
-        try { safeLocalStorageSetItem(keys.onboard, JSON.stringify(merged)); } catch {}
-        return merged;
-      });
+      const merged = { ...answersRef.current, ...userAnswers };
+      if (userAnswers.roadmap_modules && Array.isArray(userAnswers.roadmap_modules)) {
+        merged.roadmap_modules = userAnswers.roadmap_modules;
+      }
+      // Earlier saves stripped the career role from the stored answers; restore it from
+      // users.target_role so the dashboard doesn't show "Unconfigured".
+      const serverTargetRole = (user as any).targetRole ?? (user as any).target_role;
+      if (!userAnswers.role && merged.hasCompleted && typeof serverTargetRole === 'string' && serverTargetRole) {
+        merged.role = serverTargetRole;
+      }
+      answersRef.current = merged;
+      setOnboardingAnswersState(merged);
+      try { safeLocalStorageSetItem(keys.onboard, JSON.stringify(merged)); } catch {}
     }
 
     // 2. Onboarding Step (server is authoritative)
@@ -406,7 +435,7 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
   }, [keys.xp, save, userId]);
 
   const completeMission = useCallback((missionId: string, bypassDailyLimit = false) => {
-    const timestamps = onboardingAnswers.completedMissionsTimestamps || [];
+    const timestamps = answersRef.current.completedMissionsTimestamps || [];
     const today = new Date().toDateString();
     const todayCompletions = timestamps.filter(ts => new Date(ts).toDateString() === today);
     if (!bypassDailyLimit && todayCompletions.length >= 1) {
@@ -420,7 +449,7 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     save(keys.missions, updated);
 
     const todayStr = new Date().toDateString();
-    const hasCompletedToday = onboardingAnswers?.last_streak_date === todayStr;
+    const hasCompletedToday = answersRef.current.last_streak_date === todayStr;
     const newStreak = hasCompletedToday ? missionStreak : missionStreak + 1;
     setMissionStreak(newStreak);
     save(keys.streak, newStreak);
@@ -440,12 +469,11 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
 
     const nextTimestamps = [...timestamps, new Date().toISOString()];
     const nextAnswers = {
-      ...onboardingAnswers,
+      ...answersRef.current,
       completedMissionsTimestamps: nextTimestamps,
       last_streak_date: todayStr,
     };
-    setOnboardingAnswersState(nextAnswers);
-    save(keys.onboard, nextAnswers);
+    commitAnswers(nextAnswers);
     if (userId && userId !== 'guest') {
       updateUserProfile(userId, {
         completed_missions: updated,
@@ -454,10 +482,10 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
       }).catch(() => {});
     }
     toast.success('Mission Complete! 🎯', 'Great progress today!');
-  }, [completedMissions, keys, missionStreak, onboardingAnswers, save, userId]);
+  }, [commitAnswers, completedMissions, keys, missionStreak, save, userId]);
 
   const addCompletedQuest = useCallback((questId: string, isExam?: boolean, xpAmount?: number, courseId?: string) => {
-    const timestamps = onboardingAnswers.completedQuestsTimestamps || [];
+    const timestamps = answersRef.current.completedQuestsTimestamps || [];
     const today = new Date().toDateString();
     const todayCompletions = timestamps.filter(raw => {
       const parts = raw.split('|');
@@ -478,11 +506,10 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
 
     const nextTimestamps = [...timestamps, `${new Date().toISOString()}|${courseId || 'general'}`];
     const nextAnswers = {
-      ...onboardingAnswers,
+      ...answersRef.current,
       completedQuestsTimestamps: nextTimestamps,
     };
-    setOnboardingAnswersState(nextAnswers);
-    save(keys.onboard, nextAnswers);
+    commitAnswers(nextAnswers);
 
     if (userId && userId !== 'guest') {
       const payload = { questId, isExam, xpAmount, courseId, timestamp: new Date().toISOString() };
@@ -503,32 +530,32 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
         onboarding_answers: nextAnswers,
       }).catch(() => {});
     }
-  }, [completedQuests, keys, onboardingAnswers, save, userId]);
+  }, [commitAnswers, completedQuests, keys, save, userId]);
 
   const saveQuestCode = useCallback((questId: string, code: string) => {
-    setOnboardingAnswersState(prev => {
-      const existing = prev.questCodes || {};
-      const next = { ...prev, questCodes: { ...existing, [questId]: code } };
-      save(keys.onboard, next);
-      if (userId && userId !== 'guest') {
-        updateUserProfile(userId, { onboarding_answers: next }).catch(() => {});
-      }
-      return next;
-    });
-  }, [keys.onboard, save, userId]);
+    const prev = answersRef.current;
+    const next = { ...prev, questCodes: { ...(prev.questCodes || {}), [questId]: code } };
+    commitAnswers(next);
+    if (userId && userId !== 'guest') {
+      updateUserProfile(userId, { onboarding_answers: next }).catch(() => {});
+    }
+  }, [commitAnswers, userId]);
 
   const setOnboarding = useCallback((answers: Omit<OnboardingAnswers, 'hasCompleted'>, skipSync = false) => {
-    const full: OnboardingAnswers = { ...answers, hasCompleted: true };
-    setOnboardingAnswersState(full);
-    save(keys.onboard, full);
+    // Merge, never replace: callers pass only the fields they know (the dashboard
+    // trajectory picker sends role/education/skills/experience) and must not wipe the
+    // persona, scores or roadmap saved during onboarding.
+    const current = answersRef.current;
+    const base = current.hasCompleted ? current : withoutPlaceholderDefaults(current);
+    const full: OnboardingAnswers = { ...base, ...answers, hasCompleted: true };
+    commitAnswers(full);
     if (!skipSync && userId && userId !== 'guest') {
-      api.post('/api/auth/onboarding', full).catch(() => {});
-      updateUserProfile(userId, {
-        onboarding_answers: full,
-        onboarding_step: Math.max(onboardingStep, 2),
-      }).catch(() => {});
+      // Nested so the server merges it into the stored answers (a root-level `role` is
+      // stripped as a privileged field).
+      api.post('/api/auth/onboarding', { onboardingAnswers: full }).catch(() => {});
+      updateUserProfile(userId, { onboarding_step: Math.max(onboardingStep, 2) }).catch(() => {});
     }
-  }, [keys.onboard, onboardingStep, save, userId]);
+  }, [commitAnswers, onboardingStep, userId]);
 
   const setOnboardingStep = useCallback((step: number) => {
     setOnboardingStepState(step);
@@ -571,15 +598,12 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
   }, []);
 
   const saveCareerProjects = useCallback((projects: any[]) => {
-    setOnboardingAnswersState(prev => {
-      const next = { ...prev, portfolio_projects: projects };
-      save(keys.onboard, next);
-      if (userId && userId !== 'guest') {
-        updateUserProfile(userId, { onboarding_answers: next }).catch(() => {});
-      }
-      return next;
-    });
-  }, [keys.onboard, save, userId]);
+    const next = { ...answersRef.current, portfolio_projects: projects };
+    commitAnswers(next);
+    if (userId && userId !== 'guest') {
+      updateUserProfile(userId, { onboarding_answers: next }).catch(() => {});
+    }
+  }, [commitAnswers, userId]);
 
   const generateFusedRoadmap = useCallback(async (
     skillTags: string[],
@@ -588,14 +612,13 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     durationDays = 30,
     dailyPace = 2
   ): Promise<any[] | null> => {
-    const targetRole = onboardingAnswers.role || 'Full Stack Engineer';
-    const experienceLevel = onboardingAnswers.experience || 'beginner';
+    const answers = answersRef.current;
+    const targetRole = answers.role || 'Full Stack Engineer';
+    const experienceLevel = answers.experience || 'beginner';
     const effectiveCourseId = courseId || 'course-java-logic';
 
     const persistRoadmapModules = (mods: any[]) => {
-      const nextAnswers = { ...onboardingAnswers, roadmap_modules: mods };
-      setOnboardingAnswersState(nextAnswers);
-      save(keys.onboard, nextAnswers);
+      commitAnswers({ ...answersRef.current, roadmap_modules: mods });
       setRoadmapGenerated(true);
 
       if (typeof window !== 'undefined') {
@@ -607,9 +630,10 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
       }
 
       if (userId && userId !== 'guest') {
-        updateUserProfile(userId, {
-          roadmap_generated: true,
-          onboarding_answers: nextAnswers,
+        // Send only the roadmap; the server merges it into the stored answers.
+        api.post('/api/auth/onboarding', {
+          onboardingAnswers: { roadmap_modules: mods },
+          roadmapGenerated: true,
         }).catch(() => {});
       }
     };
@@ -638,9 +662,9 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
       const fallbackModules = generateDynamicStudentRoadmap({
         courseId: effectiveCourseId,
         goal: targetRole,
-        qt1: (onboardingAnswers as any).qt1_score ?? 45,
-        qt2: (onboardingAnswers as any).qt2_score ?? 50,
-        archetype: (onboardingAnswers as any).mindset_archetype || 'Pattern Hunter',
+        qt1: answers.qt1_score ?? 45,
+        qt2: answers.qt2_score ?? 50,
+        archetype: answers.mindset_archetype || 'Pattern Hunter',
         durationDays,
         dailyPace,
       });
@@ -654,7 +678,7 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     }
 
     return null;
-  }, [keys.onboard, keys.roadGen, onboardingAnswers, save, setRoadmapGenerated, userId]);
+  }, [commitAnswers, keys.roadGen, setRoadmapGenerated, userId]);
 
 
   const careerScore = useMemo(() => {
