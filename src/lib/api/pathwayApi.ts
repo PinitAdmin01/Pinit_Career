@@ -2,6 +2,7 @@
 // Client Data Access Layer & Supabase Service for Competency Mastery & Program Progression
 
 import { supabase } from '../supabaseClient';
+import { api } from './client';
 import { COMPETENCY_CATALOG_V1 } from '../pathway/competencyCatalog';
 import {
   CompetencyEvidenceRecord,
@@ -455,7 +456,8 @@ export class PathwayApiService {
   }
 
   /**
-   * Logs a verified external internship record for a student.
+   * Logs an external internship record for a student (pending coordinator review;
+   * only the server can mark it verified).
    */
   static async logInternshipRecord(
     record: Omit<InternshipRecord, 'id' | 'createdAt'>
@@ -464,6 +466,9 @@ export class PathwayApiService {
       ...record,
       id: `intern_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
       createdAt: Date.now(),
+      isVerified: false,
+      verified: false,
+      verifiedBy: undefined,
     };
 
     const studentId = record.studentId;
@@ -471,14 +476,15 @@ export class PathwayApiService {
     existing.push(fullRecord);
     this.saveLocalInternshipRecords(studentId, existing);
 
-    // DEF-061 Fix: Synchronize internship record to server / Supabase
+    // Authenticated client: a plain fetch has no Bearer token and the route rejects it (401).
     if (typeof window !== 'undefined') {
       try {
-        await fetch('/api/internships', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(fullRecord),
-        });
+        const res = await api.post<{ record?: InternshipRecord; internships?: InternshipRecord[] }>(
+          '/api/internships',
+          fullRecord
+        );
+        if (Array.isArray(res?.internships)) this.saveLocalInternshipRecords(studentId, res.internships);
+        if (res?.record) return res.record;
       } catch (err) {
         console.warn('[PathwayApi] Internship server sync notice:', err);
       }
@@ -493,13 +499,24 @@ export class PathwayApiService {
   static async getInternshipRecords(studentId: string): Promise<InternshipRecord[]> {
     if (typeof window !== 'undefined') {
       try {
-        const res = await fetch('/api/internships');
-        if (res.ok) {
-          const data = await res.json();
-          if (Array.isArray(data.internships) && data.internships.length > 0) {
-            this.saveLocalInternshipRecords(studentId, data.internships);
-            return data.internships;
+        const data = await api.get<{ internships?: InternshipRecord[] }>('/api/internships');
+        let latest = Array.isArray(data?.internships) ? data.internships : [];
+
+        // Records saved while the server was unreachable exist only in this browser: send them up once.
+        const serverIds = new Set(latest.map((r) => r.id));
+        const unsynced = this.getLocalInternshipRecords(studentId).filter((r) => r?.id && !serverIds.has(r.id));
+        for (const rec of unsynced) {
+          try {
+            const res = await api.post<{ internships?: InternshipRecord[] }>('/api/internships', rec);
+            if (Array.isArray(res?.internships)) latest = res.internships;
+          } catch {
+            break;
           }
+        }
+
+        if (latest.length > 0 || unsynced.length === 0) {
+          this.saveLocalInternshipRecords(studentId, latest);
+          return latest;
         }
       } catch {}
     }
