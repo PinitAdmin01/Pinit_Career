@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, Suspense, useCallback } from 'react';
+import { isOnboardingComplete, onboardingSignalsOf, readLocalOnboardingSignals } from '@/lib/onboarding/onboardingStatus';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -376,19 +377,11 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (!loading && isLoaded && user && isStudent && !isPublic && pathname !== '/onboarding') {
-      let isCompletedLocally = false;
-      if (typeof window !== 'undefined' && user?.id) {
-        try {
-          const localStep = Number(localStorage.getItem(`pinit_${user.id}_ob_step`) || '0');
-          const localRoadGen = localStorage.getItem(`pinit_${user.id}_road_gen`) === 'true';
-          const localAnswers = JSON.parse(localStorage.getItem(`pinit_${user.id}_onboarding_answers`) || '{}');
-          if (localStep >= 3 || localRoadGen || localAnswers?.hasCompleted) {
-            isCompletedLocally = true;
-          }
-        } catch {}
-      }
+      // Context step (server value, raised by this device's progress) or any profile/local signal.
+      const onboardingDone = isOnboardingComplete({ onboardingStep }, readLocalOnboardingSignals(user.id))
+        || isOnboardingComplete(onboardingSignalsOf(user));
 
-      if (onboardingStep < 3 && !isCompletedLocally && pathname !== '/onboarding') {
+      if (!onboardingDone && pathname !== '/onboarding') {
         if (isRedirectingRef.current) return;
         isRedirectingRef.current = true;
         console.warn("[AppShell] Redirecting to /onboarding because onboardingStep is:", onboardingStep);
@@ -416,9 +409,12 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     }
   }, [user, loading, isLoaded, isStudent, isPublic, onboardingStep, router, pathname]);
 
+  // Signed out on a private page: sign in, then come back to this page (the login page only
+  // follows same-site paths; see getSafeRedirect in app/login/page.tsx).
   useEffect(() => {
     if (!loading && user === null && !isPublic) {
-      router.push('/?login=true');
+      const search = typeof window !== 'undefined' ? window.location.search : '';
+      router.push(`/login?redirect=${encodeURIComponent(`${pathname}${search}`)}`);
     }
   }, [user, loading, isPublic, pathname, router]);
 

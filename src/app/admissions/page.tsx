@@ -334,7 +334,7 @@ export default function AdmissionsPortal() {
             <Link href="/admissions" className="nav-btn active">Admissions 🎓</Link>
           </nav>
 
-          <Link href="/?login=true" className="action-btn-primary" style={{ textDecoration: 'none' }}>Sign In <span>→</span></Link>
+          <Link href="/login?redirect=%2Fadmissions" className="action-btn-primary" style={{ textDecoration: 'none' }}>Sign In <span>→</span></Link>
         </div>
       </header>
 

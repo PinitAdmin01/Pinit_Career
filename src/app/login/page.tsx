@@ -4,6 +4,7 @@ import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import { isOnboardingComplete, onboardingSignalsOf, readLocalOnboardingSignals } from '@/lib/onboarding/onboardingStatus';
 import { useAuth } from '@/lib/context/AuthContext';
 import { isDemoAuthEnabled } from '@/lib/demoAuth';
 
@@ -49,12 +50,7 @@ function LoginContent() {
   // 1. Session Check: If already authenticated, redirect to /onboarding for dev/new users or /dashboard
   useEffect(() => {
     if (user && !isSuccessSplash) {
-      // Check DB-sourced flag first — works across all devices.
-      // localStorage is secondary fallback only (same device, already onboarded session).
-      const dbSaysComplete = !!(user as any).roadmapGenerated;
-      const localSaysComplete = typeof window !== 'undefined' &&
-        !!localStorage.getItem(`pinit_${user.id}_onboarding_answers`);
-      const onboardCompleted = dbSaysComplete || localSaysComplete;
+      const onboardCompleted = isOnboardingComplete(onboardingSignalsOf(user), readLocalOnboardingSignals(user.id));
 
       const destination = getSafeRedirect(searchParams.get('redirect'));
       if (!onboardCompleted) {
@@ -122,10 +118,7 @@ function LoginContent() {
       const loggedInUser = await login(loginForm.identifier, loginForm.password);
       setIsSuccessSplash(true);
 
-      const dbSaysComplete = !!(loggedInUser as any)?.roadmapGenerated;
-      const localSaysComplete = typeof window !== 'undefined' &&
-        !!localStorage.getItem(`pinit_${loggedInUser?.id}_onboarding_answers`);
-      const onboardCompleted = dbSaysComplete || localSaysComplete;
+      const onboardCompleted = isOnboardingComplete(onboardingSignalsOf(loggedInUser), readLocalOnboardingSignals(loggedInUser?.id));
 
       const destination = getSafeRedirect(searchParams.get('redirect'));
       if (!onboardCompleted) {
