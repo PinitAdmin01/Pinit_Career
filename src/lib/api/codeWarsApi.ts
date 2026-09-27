@@ -196,6 +196,19 @@ export class CodeWarsApiService {
     return CODE_WARS_PROBLEMS_CATALOG.find(p => p.id === id);
   }
 
+  /** Judges a non-JavaScript submission with the polyglot checks (run by the server: lib/server/codeWarsJudge). */
+  static judgePolyglotSubmission(
+    problemId: string,
+    code: string,
+    language: string
+  ): { passed: boolean; testsPassed: number; totalTests: number; error?: string } | null {
+    const problem = this.getAuthoritativeProblem(problemId);
+    if (!problem) return null;
+    const result = this.evaluatePolyglotSolution(code, language, problem);
+    const totalTests = problem.testCases.length;
+    return { passed: result.testsPassed === totalTests, testsPassed: result.testsPassed, totalTests, error: result.evalErrorLog };
+  }
+
   static startMatch(
     studentId: string,
     problemId: string,
@@ -244,6 +257,9 @@ export class CodeWarsApiService {
     totalTests: number;
     logs: string;
     evidenceRecordId?: string;
+    /** XP the server granted for this pass (first clear of the problem only). */
+    xpAwarded?: number;
+    newXp?: number;
   }> {
     const { matchId, studentId, code, language, timeSpentSeconds } = params;
     const matches = this.getStudentMatches(studentId);
@@ -259,10 +275,13 @@ export class CodeWarsApiService {
     let testsPassed = 0;
     const totalTests = problem.testCases.length;
     let evalErrorLog: string | undefined;
+    let xpAwarded = 0;
+    let newXp: number | undefined;
 
     try {
       const isTsOrJs = language === 'typescript' || language === 'javascript';
-      if (isTsOrJs) {
+      // In the browser every language is judged by the server (it also grants the XP).
+      if (isTsOrJs || typeof window !== 'undefined') {
         // Delegate evaluation to secured sandbox endpoint (/api/code/evaluate) or secure node:vm sandbox
         let evalResult: {
           passed?: boolean;
@@ -270,6 +289,8 @@ export class CodeWarsApiService {
           testsPassed?: number;
           totalTests?: number;
           error?: string;
+          xpAwarded?: number;
+          newXp?: number;
         } | null = null;
 
         if (typeof window !== 'undefined') {
@@ -314,6 +335,8 @@ export class CodeWarsApiService {
           if (evalResult.error) {
             evalErrorLog = evalResult.error;
           }
+          if (typeof evalResult.xpAwarded === 'number') xpAwarded = evalResult.xpAwarded;
+          if (typeof evalResult.newXp === 'number') newXp = evalResult.newXp;
         }
       } else {
         // DEF-031 Fix: Real anti-cheat and polyglot evaluation for Python, Java, etc.
@@ -384,6 +407,8 @@ export class CodeWarsApiService {
       totalTests,
       logs,
       evidenceRecordId,
+      xpAwarded,
+      newXp,
     };
   }
 

@@ -345,6 +345,7 @@ function ArenaContent() {
           totalTests: result.totalTests,
           score: result.score,
           code,
+          language,
         });
         setActiveRoom(updated);
 
@@ -353,7 +354,8 @@ function ArenaContent() {
           const isFirstClear = !solvedProblemIds.has(activeProblem.id);
           if (isFirstClear) {
             triggerPinStream({ count: 20 });
-            if (cOS?.addXp) cOS.addXp(activeProblem.xpReward || 200, '1v1 Arena Duel Victory (First Clear)');
+            // XP is granted by the server's judge (first clear of a problem only).
+            if (result.xpAwarded && cOS?.applyServerXp) cOS.applyServerXp(result.newXp, result.xpAwarded, '1v1 Arena Duel Victory (First Clear)');
             setSolvedProblemIds(prev => {
               const next = new Set(prev).add(activeProblem.id);
               try {
@@ -369,7 +371,7 @@ function ArenaContent() {
           const isFirstClear = !solvedProblemIds.has(activeProblem.id);
           if (isFirstClear) {
             triggerPinStream({ count: 12 });
-            if (cOS?.addXp) cOS.addXp(activeProblem.xpReward || 150, 'Code Wars Victory (First Clear)');
+            if (result.xpAwarded && cOS?.applyServerXp) cOS.applyServerXp(result.newXp, result.xpAwarded, 'Code Wars Victory (First Clear)');
             setSolvedProblemIds(prev => {
               const next = new Set(prev).add(activeProblem.id);
               try {

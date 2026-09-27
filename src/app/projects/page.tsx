@@ -64,7 +64,7 @@ function ProjectsPageContent() {
   const studentName = (user && typeof (user as any).name === 'string') ? (user as any).name : 'Current Student';
   const cOS = useCareerOS();
 
-  const { completedQuests, onboardingAnswers, addXp, earnPins, saveCareerProjects, spendPins, pins } = cOS;
+  const { completedQuests, onboardingAnswers, applyServerXp, earnPins, saveCareerProjects, spendPins, pins } = cOS;
 
   const educationStr = String(user?.education || (onboardingAnswers as any)?.education || 'B.Tech in Computer Science');
   const degree = educationStr.split(' at ')[0] || 'B.Tech';
@@ -580,8 +580,17 @@ function ProjectsPageContent() {
       if (updatedProj) setSelectedGuideProject(updatedProj);
       
       // Perform automated synchronization updates only for non-farmed rewards
+      // The server grants the project XP for its own signed audit result, once per repository.
       if (earnedXp > 0) {
-        addXp(earnedXp, `${isAuthored ? 'Completed Project' : 'Linked Reference Project'}: ${selectedGuideProject.name}`);
+        const xpLabel = `${isAuthored ? 'Completed Project' : 'Linked Reference Project'}: ${selectedGuideProject.name}`;
+        api.post<{ ok: boolean; xpAwarded?: number; newXp?: number }>('/api/projects/xp', {
+          repoUrl: githubUrl.trim(),
+          score,
+          authored: isAuthored,
+          rewardToken: auditReport.rewardToken,
+        })
+          .then((res) => applyServerXp(res?.newXp, res?.xpAwarded ?? 0, xpLabel))
+          .catch((err: unknown) => toast.info('Project XP not added', err instanceof Error && err.message ? err.message : 'Verify the repository again and retry.'));
       }
       if (earnedPins > 0) {
         earnPins('vault_verify', earnedPins, `${isAuthored ? 'Completed Project' : 'Linked Reference Project'}: ${selectedGuideProject.name}`);

@@ -33,6 +33,11 @@ import {
 } from '@/lib/interview/scoringMatrix';
 import { evaluateSystemTopology } from '@/lib/interview/systemDesignEvaluator';
 import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
+import { grantXp, todaysXp } from '@/lib/server/xpGrant';
+
+/** XP for a passed interview, granted here (never by the browser), for at most this many passes a day. */
+const INTERVIEW_PASS_XP = 150;
+const INTERVIEW_XP_PER_DAY = 3;
 
 /**
  * Expands evaluation context to 35,000 chars while preserving both
@@ -364,6 +369,24 @@ Return ONLY valid JSON matching this schema:
     const evaluationToken = gated.user?.id
       ? createEvaluationSignature(gated.user.id, finalEvaluation.score, finalEvaluation.verdict)
       : undefined;
+    let xpAwarded = 0;
+    let newXp: number | undefined;
+    if (gated.user?.id && (finalEvaluation.verdict === 'Hire' || finalEvaluation.verdict === 'Conditional Hire')) {
+      try {
+        const admin = getSupabaseAdmin();
+        const today = await todaysXp(admin, gated.user.id, '[interview]');
+        if (today && today.count < INTERVIEW_XP_PER_DAY) {
+          const grant = await grantXp(admin, gated.user.id, INTERVIEW_PASS_XP, `[interview] Passed AI interview: ${String(topic).slice(0, 120)}`);
+          if (grant.ok) {
+            xpAwarded = INTERVIEW_PASS_XP;
+            newXp = grant.newXp;
+          }
+        }
+      } catch (xpErr: unknown) {
+        console.warn('[Interview Evaluate] XP grant failed:', xpErr instanceof Error ? xpErr.message : xpErr);
+      }
+    }
+
     // Bound to the topic as sent, so the result can prove which interview it came from.
     const topicEvaluationToken = gated.user?.id && typeof domainSubTopic === 'string' && domainSubTopic.trim()
       ? createTopicEvaluationSignature(gated.user.id, finalEvaluation.score, finalEvaluation.verdict, domainSubTopic)
@@ -373,6 +396,8 @@ Return ONLY valid JSON matching this schema:
       evaluation: finalEvaluation,
       evaluationToken,
       topicEvaluationToken,
+      xpAwarded,
+      newXp,
       success: true,
     });
   } catch (err: any) {

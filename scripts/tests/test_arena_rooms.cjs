@@ -124,6 +124,16 @@ function instance(db) {
         ? { user: { id: req.userId, displayName: `User ${req.userId.slice(0, 1).toUpperCase()}` }, error: null }
         : { user: null, error: json({ error: 'UNAUTHORIZED' }, { status: 401 }) },
     },
+    // Stand-in for the server's code judge: code containing "WIN" passes all 5 tests,
+    // "T<n>" passes n of 5. (The real judge runs the code; see test_code_judge.cjs.)
+    '@/lib/server/codeWarsJudge': {
+      judgeCodeWarsSubmission: async (_problemId, code) => {
+        const src = String(code || '');
+        const n = /WIN/.test(src) ? 5 : Number((/T(\d)/.exec(src) || [])[1] || 0);
+        return { ok: true, passed: n === 5, testsPassed: n, totalTests: 5 };
+      },
+      codeWarsScore: (j) => (j.passed ? 90 : Math.round((j.testsPassed / j.totalTests) * 50)),
+    },
   };
   const room = load(FILES.room, routeMocks);
   const create = load(FILES.create, routeMocks);
@@ -200,20 +210,47 @@ async function test(name, fn) {
     await srv.act(A, code, { action: 'update_progress', playerId: A, testsPassed: 2, totalTests: 5, score: 40, code: 'function mySecret(){}', logs: 'trace' });
     const row = dbRoom(db, code);
     if (JSON.stringify(row).includes('mySecret')) return 'code stored in arena_rooms (sent to the opponent by live updates)';
-    return row.host_progress.testsPassed === 2 && row.host_progress.score === 40 ? true : 'progress counters not saved';
+    if (row.host_progress.score === 40) return 'a progress update set the score (only the judged submission may)';
+    return row.host_progress.testsPassed === 2 ? true : 'progress counters not saved';
   });
 
   await test("opponent can't read your code before the match ends; both can after", async () => {
     const db = createDb(); const srv = instance(db);
     const code = await newMatch(db, srv);
-    await srv.act(A, code, { action: 'submit_solution', playerId: A, passed: false, testsPassed: 3, totalTests: 5, score: 60, code: 'A_FINAL_CODE' });
+    await srv.act(A, code, { action: 'submit_solution', playerId: A, passed: false, testsPassed: 3, totalTests: 5, score: 60, code: 'A_FINAL_CODE T3' });
     const midB = (await srv.get(B, code)).body.room;
     if (midB.hostProgress.code) return `during match B sees A's code: ${midB.hostProgress.code}`;
-    await srv.act(B, code, { action: 'submit_solution', playerId: B, passed: false, testsPassed: 4, totalTests: 5, score: 80, code: 'B_FINAL_CODE' });
+    await srv.act(B, code, { action: 'submit_solution', playerId: B, passed: false, testsPassed: 4, totalTests: 5, score: 80, code: 'B_FINAL_CODE T4' });
     const endA = (await srv.get(A, code)).body.room;
     const endB = (await srv.get(B, code)).body.room;
     if (endA.status !== 'completed' || endA.winnerId !== B) return `status ${endA.status}, winner ${endA.winnerId}`;
-    return endA.guestProgress.code === 'B_FINAL_CODE' && endB.hostProgress.code === 'A_FINAL_CODE' ? true : 'codes not shown after the match';
+    return endA.guestProgress.code === 'B_FINAL_CODE T4' && endB.hostProgress.code === 'A_FINAL_CODE T3' ? true : 'codes not shown after the match';
+  });
+
+  await test('the result comes from running the code: claiming passed:true with failing code does not win', async () => {
+    const db = createDb(); const srv = instance(db);
+    const code = await newMatch(db, srv);
+    const res = await srv.act(A, code, { action: 'submit_solution', playerId: A, passed: true, testsPassed: 5, totalTests: 5, score: 100, code: 'return null; // T1' });
+    const row = dbRoom(db, code);
+    if (row.status === 'completed' || row.winner_id) return `fake pass won (winner ${row.winner_id})`;
+    if (row.host_progress.testsPassed !== 1 || row.host_progress.score !== 10) return `claimed numbers kept: ${JSON.stringify(row.host_progress)}`;
+    if (!res.body.result || res.body.result.passed !== false) return 'judged result not returned';
+    await srv.act(B, code, { action: 'submit_solution', playerId: B, passed: false, code: 'real solution WIN' });
+    const end = dbRoom(db, code);
+    return end.status === 'completed' && end.winner_id === B ? true : `winner ${end.winner_id}`;
+  });
+
+  await test('no submissions before the match starts or after it ends', async () => {
+    const db = createDb(); const srv = instance(db);
+    const code = (await srv.create(A, { hostName: 'Asha', problemId: 'war_tree_lca_01' })).body.room.roomCode;
+    await srv.join(B, { roomCode: code, guestName: 'Bala' });
+    const early = await srv.act(A, code, { action: 'submit_solution', code: 'WIN' });
+    if (early.status !== 409 || dbRoom(db, code).winner_id) return `before start → ${early.status}`;
+    await srv.act(A, code, { action: 'toggle_ready' });
+    await srv.act(B, code, { action: 'toggle_ready' });
+    await srv.act(A, code, { action: 'submit_solution', code: 'WIN' });
+    const late = await srv.act(B, code, { action: 'submit_solution', code: 'WIN' });
+    return late.status === 409 && dbRoom(db, code).winner_id === A ? true : `after end → ${late.status}, winner ${dbRoom(db, code).winner_id}`;
   });
 
   await test('forfeit ends the match and publishes both codes', async () => {

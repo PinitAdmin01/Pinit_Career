@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { ingestGithubRepository, parseAndValidateGithubUrl } from '@/lib/github/githubIngestion';
+import { signProjectReward } from '@/lib/github/projectReward';
 
 export async function POST(req: Request) {
   try {
@@ -37,10 +38,15 @@ export async function POST(req: Request) {
       }, { status: 404 });
     }
 
-    return NextResponse.json({
-      report,
-      success: report.status === 'VERIFIED' || report.status === 'PARTIAL'
-    });
+    const success = report.status === 'VERIFIED' || report.status === 'PARTIAL';
+    // Signed for this student, so the project XP can be claimed for exactly this result (/api/projects/xp).
+    if (success) {
+      const authored = report.isAuthoredByStudent === true
+        && (report.authorshipStatus === 'VERIFIED_AUTHOR' || report.authorshipStatus === 'CONTRIBUTOR');
+      report.rewardToken = signProjectReward({ userId: gated.user.id, repoUrl, score: report.overallEvidenceScore, authored });
+    }
+
+    return NextResponse.json({ report, success });
   } catch (err: any) {
     console.error('[GitHub Ingestion Error]:', err);
     return NextResponse.json({ error: err.message || 'Server ingestion error' }, { status: 500 });

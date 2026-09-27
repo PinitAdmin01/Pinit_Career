@@ -125,10 +125,10 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
       });
 
       setEvaluationResult(data);
-      toast.success("Corporate Evaluation Complete! 💼", "+150 XP & +10 Pins awarded.");
+      toast.success("Corporate Evaluation Complete! 💼", "+50 XP & +10 Pins awarded.");
 
       // Reward XP & Pins
-      addXp(150, "Real-World Corporate Communication Session");
+      addXp(50, "Real-World Corporate Communication Session");
       earnPins('communication_session', 10, "Corporate Communication Practice");
 
       const sessionScore = data.scores?.average || 85;

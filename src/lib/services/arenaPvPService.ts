@@ -98,7 +98,8 @@ export class ArenaPvPService {
   }
 
   /**
-   * Submit solution and finish match
+   * Submit the solution. The server runs the code itself and decides the result and the winner;
+   * the pass/score sent here are ignored.
    */
   static async submitSolution(params: {
     roomCode: string;
@@ -108,6 +109,7 @@ export class ArenaPvPService {
     totalTests: number;
     score: number;
     code: string;
+    language?: string;
   }): Promise<ArenaRoom> {
     const res = await fetch(`/api/arena/room/${encodeURIComponent(params.roomCode)}`, {
       method: 'POST',

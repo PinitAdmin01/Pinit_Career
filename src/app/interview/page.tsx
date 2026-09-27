@@ -57,7 +57,7 @@ export default function InterviewPage() {
   const searchParams = useSearchParams();
   const cOS = useCareerOS();
   const { user } = useAuth();
-  const { addXp, earnPins, onboardingAnswers, saveCareerProjects } = cOS;
+  const { applyServerXp, earnPins, onboardingAnswers, saveCareerProjects } = cOS;
 
   const [interviewMode, setInterviewMode] = useState<'roadmap' | 'custom'>('roadmap');
   const [customTopicInput, setCustomTopicInput] = useState('');
@@ -675,6 +675,8 @@ export default function InterviewPage() {
           ...data.evaluation,
           evaluationToken: data.evaluationToken,
           topicEvaluationToken: data.topicEvaluationToken,
+          xpAwarded: data.xpAwarded,
+          newXp: data.newXp,
           perRoundScores: data.evaluation.perRoundScores || evalResult.perRoundScores
         };
       }
@@ -722,8 +724,11 @@ export default function InterviewPage() {
         toast.error('Capstone defense not recorded', 'Could not reach the server. Please try again.');
       }
     }
+    // The server grants the interview XP when it evaluates a pass (max 3 a day); show what it granted.
+    if (typeof resultObj.xpAwarded === 'number' && resultObj.xpAwarded > 0) {
+      applyServerXp(resultObj.newXp, resultObj.xpAwarded, 'Completed AI Interview');
+    }
     if (resultObj.verdict === 'Hire' || resultObj.verdict === 'Conditional Hire') {
-      addXp(150, 'Completed AI Interview');
       earnPins('ai_interview');
     }
 

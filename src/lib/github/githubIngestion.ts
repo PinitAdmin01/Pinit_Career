@@ -71,6 +71,8 @@ export interface GithubEvidenceReport {
   disclaimer: string;
   authorshipStatus?: 'VERIFIED_AUTHOR' | 'CONTRIBUTOR' | 'UNVERIFIED_EXTERNAL';
   isAuthoredByStudent?: boolean;
+  /** Set by /api/github/ingest: the server's signature of this result for the signed-in student (claims the project XP). */
+  rewardToken?: string;
 }
 
 export const GITHUB_EVIDENCE_DISCLAIMER =

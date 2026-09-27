@@ -46,6 +46,8 @@ export interface UserProgressContextType {
   setJdMissingSkills: (skills: string[]) => void;
   xp: number;
   addXp: (amount: number, reason: string) => void | Promise<void>;
+  /** Show XP the server already granted for a verified activity (newXp = the server's new total). */
+  applyServerXp: (newXp: number | undefined, amount: number, reason: string) => void;
   missionStreak: number;
   missionOnlyStreak: number;
   careerScore: number;
@@ -355,14 +357,11 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
       });
     }
 
-    // 7. XP (server max)
+    // 7. XP: the server's total is the truth (a browser-only number could be inflated or stale).
     const serverXp = (user as any).xp ?? (user as any).xp_total;
-    if (typeof serverXp === 'number' && serverXp > 0) {
-      setXpState(prev => {
-        const best = Math.max(prev, serverXp);
-        try { safeLocalStorageSetItem(keys.xp, String(best)); } catch {}
-        return best;
-      });
+    if (typeof serverXp === 'number' && Number.isFinite(serverXp) && serverXp >= 0) {
+      setXpState(serverXp);
+      try { safeLocalStorageSetItem(keys.xp, String(serverXp)); } catch {}
     }
 
     // 8. Mission Streak (server max)
@@ -422,17 +421,34 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     };
   }, [userId]);
 
-  const addXp = useCallback(async (amount: number, reason: string) => {
-    setXpState(prev => {
-      const next = prev + amount;
-      save(keys.xp, next);
-      return next;
-    });
-    if (userId && userId !== 'guest') {
-      api.post('/api/xp/add', { amount, reason, actionType: 'general' }).catch(() => {});
+  /** The server granted XP (it checked the activity itself): show its total, not a local guess. */
+  const applyServerXp = useCallback((newXp: number | undefined, amount: number, reason: string) => {
+    if (typeof newXp === 'number' && Number.isFinite(newXp)) {
+      setXpState(newXp);
+      save(keys.xp, newXp);
     }
-    toast.success(`+${amount} XP Earned 🌟`, reason);
-  }, [keys.xp, save, userId]);
+    if (amount > 0) toast.success(`+${amount} XP Earned 🌟`, reason);
+  }, [keys.xp, save]);
+
+  // Small practice activities the browser reports (max 50 XP each, 500 a day, decided by the
+  // server). Signed-in students only see XP once the server has saved it.
+  const addXp = useCallback(async (amount: number, reason: string) => {
+    if (!userId || userId === 'guest') {
+      setXpState(prev => {
+        const next = prev + amount;
+        save(keys.xp, next);
+        return next;
+      });
+      toast.success(`+${amount} XP Earned 🌟`, reason);
+      return;
+    }
+    try {
+      const res = await api.post<{ ok: boolean; newXp?: number; amountAdded?: number }>('/api/xp/add', { amount, reason, actionType: 'general' });
+      applyServerXp(res?.newXp, res?.amountAdded ?? amount, reason);
+    } catch (err: unknown) {
+      toast.info('XP not added', err instanceof Error && err.message ? err.message : 'Your XP could not be saved right now.');
+    }
+  }, [keys.xp, save, userId, applyServerXp]);
 
   const completeMission = useCallback((missionId: string, bypassDailyLimit = false) => {
     const timestamps = answersRef.current.completedMissionsTimestamps || [];
@@ -717,6 +733,7 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     setJdMissingSkills,
     xp,
     addXp,
+    applyServerXp,
     missionStreak,
     missionOnlyStreak: missionStreak,
     careerScore,
@@ -754,6 +771,7 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     setJdMissingSkills,
     xp,
     addXp,
+    applyServerXp,
     missionStreak,
     careerScore,
     dnaScore,
