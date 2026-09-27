@@ -48,3 +48,6 @@ start_backend.bat
 
 # Local pristine avatar source backups
 raw_avatars_source/
+
+# Graphify knowledge graph output & cache
+graphify-out/
