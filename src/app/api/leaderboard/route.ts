@@ -53,7 +53,9 @@ export async function GET(req: Request) {
     const rl = checkRateLimit(`leaderboard_${ip}`, { limit: 60, windowMs: 60_000 });
     if (!rl.allowed) return NextResponse.json({ error: 'RATE_LIMIT' }, { status: 429 });
 
+    // Students' names, colleges and scores: signed-in users only.
     const gated = await requireUserFromRequest(req);
+    if (gated.error) return gated.error;
     const currentUserId = gated.user?.id;
 
     const url = new URL(req.url);
@@ -61,6 +63,7 @@ export async function GET(req: Request) {
     const requestedLeague = (url.searchParams.get('league') || '').toLowerCase().trim() as LeagueTier;
     const validLeagues = new Set<LeagueTier>(['browns', 'silver', 'gold', 'platinum', 'ruby']);
 
+    const DB_CONFIGURED = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY);
     let admin: any = null;
     try {
       admin = getSupabaseAdmin();
@@ -90,9 +93,10 @@ export async function GET(req: Request) {
     let rawUsers: any[] | null = null;
     if (admin) {
       try {
+        // Students only (staff, parents, recruiters are not ranked).
         let query = admin.from('users').select(
           'id, display_name, avatar_url, college, target_role, ats_score, trust_score, career_dna_score, xp_total, weekly_xp, league_tier, skill_tags, completed_quests, arena_elo'
-        );
+        ).or('role.eq.student,role.is.null');
 
         if (mode === 'weekly_leagues') {
           query = query.eq('league_tier', activeLeague).order('weekly_xp', { ascending: false }).order('xp_total', { ascending: false });
@@ -105,14 +109,17 @@ export async function GET(req: Request) {
         query = query.limit(100);
 
         const { data, error: usersErr } = await query;
-        if (!usersErr && data && data.length > 0) {
-          rawUsers = data;
+        if (usersErr && DB_CONFIGURED) {
+          console.error('[Leaderboard] users query failed:', usersErr.message);
+          return NextResponse.json({ ok: false, error: 'LEADERBOARD_UNAVAILABLE', message: 'The leaderboard is unavailable right now.' }, { status: 503 });
         }
+        rawUsers = data || [];
       } catch {}
     }
 
-    // If offline or test environment where users table cannot be queried, provide realistic cohort
-    if (!rawUsers || rawUsers.length === 0) {
+    // Local development without a database only: a sample cohort. In production an empty league
+    // stays empty (it used to show made-up students, including a fake "(You)" entry).
+    if ((!rawUsers || rawUsers.length === 0) && !DB_CONFIGURED && process.env.NODE_ENV !== 'production') {
       rawUsers = [
         { id: currentUserId || 'test_user_001', display_name: 'Tanvi Agarwal (You)', avatar_url: '', college: 'RV College of Engineering', target_role: 'Full Stack Engineer', ats_score: 91, trust_score: 88, career_dna_score: 89, xp_total: 4200, weekly_xp: 620, league_tier: activeLeague, arena_elo: 1480, completed_quests: ['q1', 'q2', 'q3'] },
         { id: 'peer_dev_01', display_name: 'Aarav Patel', avatar_url: '', college: 'IIT Bombay', target_role: 'Full Stack Engineer', ats_score: 88, trust_score: 85, career_dna_score: 86, xp_total: 3450, weekly_xp: 510, league_tier: activeLeague, arena_elo: 1420, completed_quests: ['q1', 'q2'] },
@@ -121,7 +128,7 @@ export async function GET(req: Request) {
       ];
     }
 
-    const data = rawUsers;
+    const data = rawUsers || [];
     const totalCohortCount = data.length;
 
     // 3. Verified Skills count lookup
@@ -235,7 +242,8 @@ export async function GET(req: Request) {
     try {
       const { data: allTiers } = await admin
         .from('users')
-        .select('league_tier');
+        .select('league_tier')
+        .or('role.eq.student,role.is.null');
 
       if (allTiers) {
         allTiers.forEach((row: any) => {
