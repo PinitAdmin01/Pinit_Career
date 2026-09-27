@@ -27,8 +27,10 @@ import { LearningPathMode } from '@/lib/quests/extraRoadmaps';
 import {
   CERTIFICATION_TRACKS,
   Module,
+  Quest,
   playPopSound
 } from './useQuestProgression';
+import { getCrashCourseProgress } from '@/lib/courses/crashCourseProgress';
 
 export interface TrackSelectorDrawerProps {
   activeSubTab: 'certification_passport' | 'custom_roadmap' | 'standalone' | 'language';
@@ -63,6 +65,8 @@ export interface TrackSelectorDrawerProps {
   modules: Module[];
   handleSelectCourseFromLibrary: (courseId: string) => void;
   setNotesModalState: React.Dispatch<React.SetStateAction<{ isOpen: boolean; courseId: string; courseTitle: string }>>;
+  /** Opens a quest (same launcher as the roadmap); used for the certificate course's next lesson. */
+  handleLaunchQuest?: (quest: Quest, courseId: string) => void;
 }
 
 export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
@@ -97,7 +101,8 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
   setShowCourseLibrary,
   modules,
   handleSelectCourseFromLibrary,
-  setNotesModalState
+  setNotesModalState,
+  handleLaunchQuest
 }) => {
   const { pins, setPins } = usePins();
   const [activeCrashPlanId, setActiveCrashPlanId] = React.useState<string>('plan-3m-accelerator');
@@ -109,6 +114,31 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
   const [showCapstonePortal, setShowCapstonePortal] = React.useState<boolean>(false);
   const [activeEnrollment, setActiveEnrollment] = React.useState<CrashCourseEnrollment | null>(null);
   const [checkoutModalOpen, setCheckoutModalOpen] = React.useState<boolean>(false);
+
+  // The purchased course's own progress: its curriculum's lessons and its enrollment milestones.
+  const courseProgress = React.useMemo(
+    () => getCrashCourseProgress(
+      getCrashPlanById(activeCrashPlanId) || CRASH_COURSE_PLANS[1],
+      activeTrack,
+      COURSES_REGISTRY,
+      completedQuests,
+      activeEnrollment
+    ),
+    [activeCrashPlanId, activeTrack, COURSES_REGISTRY, completedQuests, activeEnrollment]
+  );
+
+  const continueCourse = () => {
+    const next = courseProgress.next;
+    const quest = next
+      ? COURSES_REGISTRY.find((c) => c.id === next.courseId)?.quests.find((q) => q.id === next.questId)
+      : undefined;
+    if (next && quest && handleLaunchQuest) {
+      handleLaunchQuest(quest as unknown as Quest, next.courseId);
+      return;
+    }
+    const el = document.getElementById('vertical-stepper-section');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
   const [checkoutPlan, setCheckoutPlan] = React.useState<CrashPlan | null>(null);
   const [previewModalOpen, setPreviewModalOpen] = React.useState<boolean>(false);
   const [previewPlan, setPreviewPlan] = React.useState<CrashPlan | null>(null);
@@ -424,7 +454,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                 <VerticalCheckpointStepper
                   planId={activeCrashPlanId}
                   activeTrack={activeTrack}
-                  completedQuestsCount={completedQuests.length}
+                  progress={courseProgress}
                   onOpenPracticeTest={handleOpenPracticeQuiz}
                   onOpenCapstoneDesk={() => setShowCapstonePortal(true)}
                   onOpenQrModal={() => setShowQrModal(true)}
@@ -433,9 +463,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                     setPreviewPlan(p);
                     setPreviewModalOpen(true);
                   }}
-                  onContinueTodayQuest={() => {
-                    handleSubTabChange('custom_roadmap');
-                  }}
+                  onContinueTodayQuest={continueCourse}
                 />
               </div>
 

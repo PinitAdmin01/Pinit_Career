@@ -52,6 +52,7 @@ function QuestsPageContent() {
         modules={prog.modules}
         handleSelectCourseFromLibrary={prog.handleSelectCourseFromLibrary}
         setNotesModalState={prog.setNotesModalState}
+        handleLaunchQuest={prog.handleLaunchQuest}
       />
 
       {/* ── ROADMAP COMPLETE → CAPSTONE PROJECT (custom roadmap only) ── */}

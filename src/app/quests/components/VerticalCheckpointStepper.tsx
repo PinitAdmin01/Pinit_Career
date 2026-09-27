@@ -2,11 +2,13 @@
 
 import React from 'react';
 import { CrashPlan, getCrashPlanById } from '@/lib/data/crashPlansData';
+import type { CrashCourseProgress, PhaseStatus } from '@/lib/courses/crashCourseProgress';
 
 export interface VerticalCheckpointStepperProps {
   planId: string;
   activeTrack: 'web_fullstack' | 'python_ai';
-  completedQuestsCount: number;
+  /** This course's own progress (its curriculum and enrollment), not quests done elsewhere. */
+  progress: CrashCourseProgress;
   onOpenPracticeTest: (title: string) => void;
   onOpenCapstoneDesk: () => void;
   onOpenQrModal: () => void;
@@ -14,10 +16,12 @@ export interface VerticalCheckpointStepperProps {
   onContinueTodayQuest?: () => void;
 }
 
+const badgeFor = (status: PhaseStatus, labels: { completed: string; active: string; locked: string }) => labels[status];
+
 export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps> = ({
   planId,
   activeTrack,
-  completedQuestsCount,
+  progress,
   onOpenPracticeTest,
   onOpenCapstoneDesk,
   onOpenQrModal,
@@ -26,13 +30,7 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
 }) => {
   const plan: CrashPlan = getCrashPlanById(planId) || getCrashPlanById('plan-3m-accelerator')!;
   const flagship = plan.flagshipBuildByTrack[activeTrack];
-
-  const totalTrainingDays = plan.trainingDurationDays;
-  const trainingProgressPct = Math.min(100, Math.round((completedQuestsCount / totalTrainingDays) * 100));
-
-  // Determine active step (1 to 4)
-  const isPhase1Done = trainingProgressPct >= 100;
-  const currentStep = !isPhase1Done ? 1 : 2;
+  const { phases } = progress;
 
   const steps = [
     {
@@ -40,13 +38,13 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
       phaseTag: 'PHASE 1 • CORE ACCREDITATION',
       title: `${plan.trainingDurationMonths}-Month Daily Micro-Learning`,
       subtitle: 'Daily 1-Hour guided quests, interactive theory, syntax drills, and weekly retention tests.',
-      status: isPhase1Done ? 'completed' : 'active',
-      badgeText: isPhase1Done ? '✓ Completed' : '● Active (1h / Day)',
+      status: phases.training,
+      badgeText: badgeFor(phases.training, { completed: '✓ Completed', active: '● Active (1h / Day)', locked: '🔒 Locked' }),
       color: '#6366f1',
-      progress: trainingProgressPct,
-      detail: `${completedQuestsCount} of ${totalTrainingDays} Quests Cleared (${trainingProgressPct}%)`,
+      progress: progress.percent,
+      detail: `${progress.completed} of ${progress.total} course lessons completed (${progress.percent}%)`,
       primaryAction: {
-        label: "⚡ Continue Today's Quest",
+        label: progress.next ? "⚡ Continue Today's Quest" : '✓ All lessons completed',
         onClick: onContinueTodayQuest || (() => {
           const el = document.getElementById('quest-roadmap-chart-section');
           if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -62,8 +60,8 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
       phaseTag: 'PHASE 2 • PRODUCTION CAPSTONE',
       title: '1-Month Production Project Desk',
       subtitle: flagship?.title || 'Production full-stack repo with architectural review and CI/CD checks.',
-      status: currentStep === 2 ? 'active' : isPhase1Done ? 'upcoming' : 'locked',
-      badgeText: currentStep === 2 ? '● Active Desk' : '🔒 Unlocks Month ' + (plan.trainingDurationMonths + 1),
+      status: phases.capstone,
+      badgeText: badgeFor(phases.capstone, { completed: '✓ Capstone approved', active: '● Active Desk', locked: '🔒 Unlocks after Phase 1' }),
       color: '#38bdf8',
       techStack: flagship?.tech || ['React', 'Next.js', 'PostgreSQL', 'Docker'],
       primaryAction: {
@@ -76,33 +74,32 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
       phaseTag: 'PHASE 3 • INDUSTRY FELLOWSHIP',
       title: `${plan.internshipDurationMonths} Real-Time Fellowship`,
       subtitle: 'Work on live sprint backlogs, code reviews, daily standups, and corporate performance tracking on PinIT Labs.',
-      status: 'upcoming',
-      badgeText: '🏢 Corporate Fellowship',
+      status: phases.internship,
+      badgeText: badgeFor(phases.internship, { completed: '✓ Fellowship completed', active: '🏢 Fellowship open', locked: '🔒 Unlocks after your capstone' }),
       color: '#10b981',
       highlights: [
         'Live sprint board & PR reviews',
         'Senior engineer mentor assignment',
         'Official Corporate Experience Letter'
       ],
-      primaryAction: {
-        label: '🏢 View Fellowship Desk',
-        onClick: onOpenCapstoneDesk
-      }
+      // No fellowship desk exists yet (the capstone desk is a different phase), so no action here.
+      primaryAction: undefined as { label: string; onClick: () => void } | undefined
     },
     {
       stepNumber: '04',
       phaseTag: 'PHASE 4 • GRADUATION & TRUST',
       title: 'Oral Defense & Dual Verifiable Credentials',
       subtitle: 'Present your production capstone to a senior panel, pass defense, and unlock cryptographically signed SHA-256 credentials.',
-      status: 'upcoming',
-      badgeText: '🎓 Graduation & QR',
+      status: phases.graduation,
+      badgeText: badgeFor(phases.graduation, { completed: '🎓 Credentials issued', active: '🎓 Graduation open', locked: '🔒 Unlocks after the fellowship' }),
       color: '#f59e0b',
-      primaryAction: {
+      // Sharing is only offered once the credentials really exist; before that, a labelled sample.
+      primaryAction: phases.graduation === 'completed' ? {
         label: '📲 Share & Verify (QR)',
         onClick: onOpenQrModal
-      },
+      } : undefined,
       secondaryAction: onOpenPreviewCredentials ? {
-        label: '👁️ Preview Certificates',
+        label: phases.graduation === 'completed' ? '👁️ View Certificates' : '👁️ Preview Sample Certificates',
         onClick: onOpenPreviewCredentials
       } : undefined
     }
@@ -212,6 +209,7 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
         {steps.map((step, idx) => {
           const isActive = step.status === 'active';
           const isDone = step.status === 'completed';
+          const isLocked = step.status === 'locked';
 
           return (
             <div
@@ -376,7 +374,10 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
                   {step.primaryAction && (
                     <button
                       onClick={step.primaryAction.onClick}
+                      disabled={isLocked}
                       style={{
+                        opacity: isLocked ? 0.45 : 1,
+                        pointerEvents: isLocked ? 'none' : 'auto',
                         padding: '8px 16px',
                         borderRadius: 10,
                         border: 'none',
@@ -398,7 +399,10 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
                   {step.secondaryAction && (
                     <button
                       onClick={step.secondaryAction.onClick}
+                      disabled={isLocked && step.stepNumber !== '04'}
                       style={{
+                        opacity: isLocked && step.stepNumber !== '04' ? 0.45 : 1,
+                        pointerEvents: isLocked && step.stepNumber !== '04' ? 'none' : 'auto',
                         padding: '8px 16px',
                         borderRadius: 10,
                         border: '1px solid rgba(255, 255, 255, 0.15)',
