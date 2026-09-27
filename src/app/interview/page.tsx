@@ -691,6 +691,8 @@ export default function InterviewPage() {
         verdict: resultObj.verdict,
         completedAt: new Date().toISOString(),
         evaluationToken: resultObj.evaluationToken,
+        topic: capstone.topic,
+        topicEvaluationToken: resultObj.topicEvaluationToken,
       }));
     }
     // Certificate course: send the signed defense result to the server, which records Sprint 4.

@@ -32,6 +32,9 @@ export interface Project {
     passed: boolean;
     completedAt: string;
     evaluationToken?: string;
+    /** The interview topic, and the server's signature bound to it (proves which interview this was). */
+    topic?: string;
+    topicEvaluationToken?: string;
   };
 }
 

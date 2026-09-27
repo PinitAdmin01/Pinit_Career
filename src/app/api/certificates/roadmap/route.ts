@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 import { COURSES_REGISTRY } from '@/lib/data/coursesData';
-import { verifyEvaluationSignature } from '@/lib/interview/evaluationSignature';
-import { isCapstoneInterviewPassed } from '@/lib/interview/capstoneInterview';
+import { verifyTopicEvaluationSignature } from '@/lib/interview/evaluationSignature';
+import { isCapstoneInterviewPassed, isRoadmapCapstoneTopic } from '@/lib/interview/capstoneInterview';
 import { getSavedCareerProjects } from '@/lib/projects/savedProjects';
 import {
   ROADMAP_CERTIFICATE_KIND,
@@ -87,8 +87,12 @@ export async function POST(req: NextRequest) {
     if (!interview || !isCapstoneInterviewPassed(interview.verdict, interview.score)) {
       return fail(409, 'INTERVIEW_NOT_PASSED', 'Pass your capstone interview first.');
     }
-    if (!verifyEvaluationSignature(studentId, interview.score, interview.verdict, interview.evaluationToken)) {
-      return fail(403, 'INTERVIEW_NOT_VERIFIED', 'This interview result was not issued by PinIT.');
+    // The result must be PinIT-signed for THIS project's capstone defense (not a pass from another interview).
+    if (
+      !isRoadmapCapstoneTopic(interview.topic, project.name) ||
+      !verifyTopicEvaluationSignature(studentId, interview.score, interview.verdict, interview.topic, interview.topicEvaluationToken)
+    ) {
+      return fail(403, 'INTERVIEW_NOT_VERIFIED', 'This interview result is not from your capstone interview for this project.');
     }
 
     const existing = await admin

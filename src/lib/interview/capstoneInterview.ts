@@ -18,6 +18,8 @@ export interface CapstoneInterviewResult {
   passed: boolean;
   completedAt: string;
   evaluationToken?: string;
+  topic?: string;
+  topicEvaluationToken?: string;
 }
 
 const GENERIC_TECH_TOPIC = 'Software Engineering (SDE)';
@@ -40,6 +42,11 @@ export function getCapstoneInterviewPlan(
   if (project.status !== 'Completed') return { ok: false, reason: 'NOT_VERIFIED' };
   const role = typeof answers?.role === 'string' && answers.role.trim() ? answers.role.trim() : 'Software Engineer';
   return { ok: true, project, role, topic: `${role}: Capstone Defense of "${project.name}"` };
+}
+
+/** True when the topic is this project's capstone defense (the role part may differ). */
+export function isRoadmapCapstoneTopic(topic: unknown, projectName: string): topic is string {
+  return typeof topic === 'string' && topic.endsWith(`: Capstone Defense of "${projectName}"`);
 }
 
 /** Pass mark for the capstone interview (same bar as interview evidence elsewhere). */

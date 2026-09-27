@@ -111,9 +111,14 @@ function loadVerify(db) {
 }
 
 /** A student who finished the roadmap, the capstone and a signed, passing interview. */
-function student({ completed = COURSE_QUESTS, roadmapQuests = COURSE_QUESTS, interview = { score: 82, verdict: 'Hire' }, forgeToken = false, projectStatus = 'Completed' } = {}) {
+const CAPSTONE_TOPIC = 'React Frontend Web SDE: Capstone Defense of "Realtime Chat"';
+function student({ completed = COURSE_QUESTS, roadmapQuests = COURSE_QUESTS, interview = { score: 82, verdict: 'Hire' }, forgeToken = false, projectStatus = 'Completed', signedTopic = CAPSTONE_TOPIC, storedTopic = CAPSTONE_TOPIC } = {}) {
   const token = signatureMod.createEvaluationSignature(STUDENT, interview.score, interview.verdict);
-  const iv = forgeToken ? { score: 99, verdict: 'Hire', evaluationToken: token } : { ...interview, evaluationToken: token };
+  const topicToken = signatureMod.createTopicEvaluationSignature
+    ? signatureMod.createTopicEvaluationSignature(STUDENT, interview.score, interview.verdict, signedTopic)
+    : undefined;
+  const signed = { evaluationToken: token, topic: storedTopic, topicEvaluationToken: topicToken };
+  const iv = forgeToken ? { score: 99, verdict: 'Hire', ...signed } : { ...interview, ...signed };
   return {
     id: STUDENT,
     display_name: 'Asha Rao',
@@ -184,6 +189,14 @@ async function test(name, fn) {
     const db = createDb(student({ interview: { score: 50, verdict: 'No Hire' }, forgeToken: true }));
     const res = await issue(db);
     return res.status === 403 && res.body.error === 'INTERVIEW_NOT_VERIFIED' && !db.tables.issued_certificates.length ? true : `${res.status} ${res.body.error}`;
+  });
+
+  await test('refused when the pass came from another interview (not this capstone)', async () => {
+    if (!ready) return 'certificate route missing';
+    const other = await issue(createDb(student({ signedTopic: 'Software Engineering (SDE)', storedTopic: 'Software Engineering (SDE)' })));
+    if (other.status !== 403 || other.body.error !== 'INTERVIEW_NOT_VERIFIED') return `generic interview → ${other.status} ${other.body.error}`;
+    const relabelled = await issue(createDb(student({ signedTopic: 'Software Engineering (SDE)' })));
+    return relabelled.status === 403 ? true : `topic relabelled → ${relabelled.status} ${relabelled.body.error}`;
   });
 
   await test('refused when the interview was not passed, or the capstone is unfinished', async () => {
