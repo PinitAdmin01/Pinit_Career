@@ -3,11 +3,21 @@
 import React, { useState, useEffect, useRef, useCallback, Suspense, lazy } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
-import { speakWithAvatar, stopSpeaking } from '@/lib/tts';
+import { speakWithAvatar, stopSpeaking, preloadTTS, setStoryTourAudioLock } from '@/lib/tts';
 import VoiceRegistrationModal from '@/components/avatar/VoiceRegistrationModal';
 import { completeStoryTour, isStoryTourPending, resetStoryTour } from '@/lib/storyTour';
+import { StoryTourEngine, tourRoutePath } from '@/lib/storyTourEngine';
 import { matchNavigationIntent } from '@/components/avatar/hooks/useVoiceNavigation';
-import { StoryTourCard, CongratCard, TOUR_SLIDES, TOUR_STEP_ROUTES, buildCongratMessage } from './StoryTourModal';
+import {
+  StoryTourCard,
+  StoryTourProgressBar,
+  CongratCard,
+  TOUR_SLIDES,
+  TOUR_SPEECH_SPEED,
+  TOUR_SPEECH_START_DEADLINE_MS,
+  buildCongratMessage,
+  getTourSlideText,
+} from './StoryTourModal';
 
 const AvatarMentorWidget = lazy(() => import('@/components/avatar/AvatarMentorWidget'));
 
@@ -27,81 +37,78 @@ export interface GlobalAvatarProps {
   onTourSlideChange?: (route: string | null, tabKey: string | null) => void;
 }
 
-// ── Auto-scroll utility for parallel page showcase during tour narration ─────
-function startAutoScroll(durationMs: number): () => void {
-  if (typeof window === 'undefined') return () => {};
-  let cancelled = false;
-  let rafId: number | null = null;
-  let timerId: ReturnType<typeof setTimeout> | null = null;
+// ── Slow parallel auto-scroll while a tour slide is narrated ─────────────────
+// `.page-content` is AppShell's scroll container (the window itself never scrolls).
+const TOUR_SCROLL_START_DELAY_MS = 700; // let the page paint and narration begin
+const TOUR_SCROLL_END_HOLD_MS = 500;    // settle before the next tab
+const TOUR_SCROLL_PX_PER_SEC = 160;     // average speed: slow enough to read along
 
-  // Immediate reset to top on both .page-content and window
-  const pageEl = document.querySelector('.page-content') as HTMLElement | null;
-  if (pageEl) {
-    pageEl.scrollTop = 0;
+function getTourScroller(): HTMLElement | null {
+  return document.querySelector<HTMLElement>('.page-content');
+}
+
+function scrollTourPageToTop(): () => void {
+  if (typeof window !== 'undefined') {
+    getTourScroller()?.scrollTo({ top: 0, behavior: 'smooth' });
   }
-  window.scrollTo({ top: 0, behavior: 'instant' });
+  return () => {};
+}
 
-  // Yield gracefully if user manually interacts with page (wheel, touch, pointer)
-  const stopOnUserGesture = () => {
-    cancelled = true;
-    if (timerId) clearTimeout(timerId);
-    if (rafId) cancelAnimationFrame(rafId);
-    cleanupGestureListeners();
+function startTourAutoScroll(windowMs: number): () => void {
+  if (typeof window === 'undefined') return () => {};
+  const initial = getTourScroller();
+  if (initial) initial.scrollTop = 0;
+
+  const runMs = windowMs - TOUR_SCROLL_START_DELAY_MS - TOUR_SCROLL_END_HOLD_MS;
+  if (runMs < 800) return () => {};
+  const maxDistance = (TOUR_SCROLL_PX_PER_SEC * runMs) / 1000;
+
+  let stopped = false;
+  let rafId: number | null = null;
+  let startTimer: ReturnType<typeof setTimeout> | null = null;
+
+  const stop = () => {
+    if (stopped) return;
+    stopped = true;
+    if (startTimer) clearTimeout(startTimer);
+    if (rafId !== null) cancelAnimationFrame(rafId);
+    window.removeEventListener('wheel', onUserGesture);
+    window.removeEventListener('touchmove', onUserGesture);
+    window.removeEventListener('pointerdown', onUserGesture);
   };
 
-  const cleanupGestureListeners = () => {
-    window.removeEventListener('wheel', stopOnUserGesture);
-    window.removeEventListener('touchmove', stopOnUserGesture);
-    window.removeEventListener('pointerdown', stopOnUserGesture);
-  };
+  // The user takes over as soon as they scroll or click the page (not the tour card).
+  function onUserGesture(e: Event) {
+    if (e.target instanceof Element && e.target.closest('[data-story-tour-card]')) return;
+    stop();
+  }
 
-  window.addEventListener('wheel', stopOnUserGesture, { passive: true });
-  window.addEventListener('touchmove', stopOnUserGesture, { passive: true });
-  window.addEventListener('pointerdown', stopOnUserGesture, { passive: true });
+  window.addEventListener('wheel', onUserGesture, { passive: true });
+  window.addEventListener('touchmove', onUserGesture, { passive: true });
+  window.addEventListener('pointerdown', onUserGesture, { passive: true });
 
-  // Delay starting downward scroll until route has rendered content (~200ms)
-  timerId = setTimeout(() => {
-    if (cancelled) return;
-    const startTime = performance.now();
-    const runDuration = Math.max(1400, durationMs - 300);
-
-    const step = (now: number) => {
-      if (cancelled) return;
-      const elapsed = now - startTime;
-      const progress = Math.min(1, elapsed / runDuration);
-
-      // Smooth ease-in-out curve
-      const ease = progress < 0.5
-        ? 2 * progress * progress
-        : 1 - Math.pow(-2 * progress + 2, 2) / 2;
-
-      const targetEl = (document.querySelector('.page-content') as HTMLElement | null) || null;
-      if (targetEl && targetEl.scrollHeight > targetEl.clientHeight) {
-        const maxScroll = targetEl.scrollHeight - targetEl.clientHeight;
-        targetEl.scrollTop = maxScroll * ease;
-      } else {
-        const docScroll = (document.scrollingElement || document.documentElement).scrollHeight - window.innerHeight;
-        if (docScroll > 15) {
-          window.scrollTo(0, docScroll * ease);
-        }
+  startTimer = setTimeout(() => {
+    const startedAt = performance.now();
+    const frame = (now: number) => {
+      if (stopped) return;
+      const progress = Math.min(1, Math.max(0, (now - startedAt) / runMs));
+      const eased = 0.5 - Math.cos(Math.PI * progress) / 2; // ease-in-out sine: soft start and stop
+      const el = getTourScroller();
+      if (el) {
+        // Re-measured every frame: pages keep growing while their data loads.
+        const distance = Math.min(el.scrollHeight - el.clientHeight, maxDistance);
+        if (distance > 0) el.scrollTop = distance * eased;
       }
-
       if (progress < 1) {
-        rafId = requestAnimationFrame(step);
+        rafId = requestAnimationFrame(frame);
       } else {
-        cleanupGestureListeners();
+        stop();
       }
     };
+    rafId = requestAnimationFrame(frame);
+  }, TOUR_SCROLL_START_DELAY_MS);
 
-    rafId = requestAnimationFrame(step);
-  }, 200);
-
-  return () => {
-    cancelled = true;
-    if (timerId) clearTimeout(timerId);
-    if (rafId) cancelAnimationFrame(rafId);
-    cleanupGestureListeners();
-  };
+  return stop;
 }
 
 export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
@@ -152,35 +159,28 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   };
 
   // ── Tour state ─────────────────────────────────────────────────────────────
+  // The StoryTourEngine owns the tour clock (fixed slot per slide). Narration and
+  // scrolling run inside a slot but never advance the tour themselves.
   const [tourActive, setTourActive] = useState(false);
   const [tourStep, setTourStep] = useState(0);
+  const [tourPaused, setTourPaused] = useState(false);
+  const [tourSlideRun, setTourSlideRun] = useState(0);
   const [storyLocked, setStoryLocked] = useState(false);
-  const lastSpokenTourStepRef = useRef<number | null>(null);
-  const pendingSpeechStepRef = useRef<number | null>(null);
-  const tourAdvanceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const tourFallbackTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const cancelAutoScrollRef = useRef<(() => void) | null>(null);
-  // The route the current tour slide's speech was spoken on. Auto-advance is
-  // ONLY permitted when the speech genuinely finishes while still on this
-  // route — navigating away / route unmount must NOT fake a completion.
-  const expectedRouteRef = useRef<string | null>(null);
+  const tourEngineRef = useRef<StoryTourEngine | null>(null);
+  const tourPreloadingRef = useRef(false);
   const cleanPathRef = useRef(cleanPath);
   cleanPathRef.current = cleanPath;
 
-  const clearTourAdvanceTimer = useCallback(() => {
-    if (cancelAutoScrollRef.current) {
-      cancelAutoScrollRef.current();
-      cancelAutoScrollRef.current = null;
-    }
-    if (tourAdvanceTimerRef.current) {
-      clearTimeout(tourAdvanceTimerRef.current);
-      tourAdvanceTimerRef.current = null;
-    }
-    if (tourFallbackTimerRef.current) {
-      clearTimeout(tourFallbackTimerRef.current);
-      tourFallbackTimerRef.current = null;
-    }
-  }, []);
+  // Latest-value refs: the tour engine lives across renders and AppShell passes
+  // fresh inline callbacks on every render.
+  const routerRef = useRef(router);
+  routerRef.current = router;
+  const onExpandLeftNavRef = useRef(onExpandLeftNav);
+  onExpandLeftNavRef.current = onExpandLeftNav;
+  const onOpenRightSidebarRef = useRef(onOpenRightSidebar);
+  onOpenRightSidebarRef.current = onOpenRightSidebar;
+  const onTourSlideChangeRef = useRef(onTourSlideChange);
+  onTourSlideChangeRef.current = onTourSlideChange;
 
   // ── Congratulations state ──────────────────────────────────────────────────
   const [celebEvent, setCelebEvent] = useState<any>(null);
@@ -189,6 +189,11 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
 
   const teacherId = profile?.guidanceMentorId || 'priya';
   const teacher = TEACHER_CONFIG[teacherId] || TEACHER_CONFIG.priya;
+  const teacherIdRef = useRef(teacherId);
+  teacherIdRef.current = teacherId;
+  const tourTextContext = { name: user?.displayName || '', mentor: teacher.name };
+  const tourTextContextRef = useRef(tourTextContext);
+  tourTextContextRef.current = tourTextContext;
 
   // ── 1. Inactive during active tasks & teaching processes ─────────────────────
   const isLessonOrDetail = cleanPath === '/quests/lesson' || (cleanPath.startsWith('/quests/') && cleanPath !== '/quests/teacher-select' && cleanPath !== '/quests');
@@ -211,13 +216,11 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   useEffect(() => {
     setMounted(true);
     return () => {
-      if (typeof window !== 'undefined') {
-        (window as any).__PINIT_STORY_TOUR_ACTIVE = false;
-      }
-      clearTourAdvanceTimer();
+      tourEngineRef.current?.stop();
+      setStoryTourAudioLock(false);
       stopSpeaking(true);
     };
-  }, [clearTourAdvanceTimer]);
+  }, []);
 
   // ── 2. Auto-close / auto-dock floating avatar after 15s of inactivity ────────
   const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -335,6 +338,136 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     };
   }, [teacher.name, teacherId, user?.id, resetIdleTimer, router, isOnboardingOrAuth, voiceListeningActive, tourActive]);
 
+  // ── Story tour engine ──────────────────────────────────────────────────────
+  // Engine callbacks read the latest render's handlers through this ref.
+  const tourHandlersRef = useRef<{
+    activate: (index: number) => void;
+    arm: (index: number, remainingMs: number) => () => void;
+    finish: () => void;
+  } | null>(null);
+
+  const getTourEngine = useCallback((): StoryTourEngine => {
+    if (!tourEngineRef.current) {
+      tourEngineRef.current = new StoryTourEngine(TOUR_SLIDES, {
+        getPath: () => cleanPathRef.current,
+        navigate: (route) => routerRef.current.push(route),
+        onSlideActivated: (index) => tourHandlersRef.current?.activate(index),
+        onSlideArmed: (index, remainingMs) => tourHandlersRef.current?.arm(index, remainingMs) ?? (() => {}),
+        onPausedChange: (paused) => setTourPaused(paused),
+        onFinished: () => tourHandlersRef.current?.finish(),
+      });
+    }
+    return tourEngineRef.current;
+  }, []);
+
+  // Warm the TTS cache for every slide in tour order so each tab's narration can
+  // start instantly. Sequential on purpose: slide 1 first, free-tier friendly.
+  const preloadTourNarration = useCallback(() => {
+    if (tourPreloadingRef.current) return;
+    tourPreloadingRef.current = true;
+    const voiceId = teacherIdRef.current;
+    const texts = TOUR_SLIDES.map(slide => getTourSlideText(slide, tourTextContextRef.current));
+    void (async () => {
+      try {
+        for (const text of texts) {
+          await preloadTTS(text, voiceId, TOUR_SPEECH_SPEED);
+        }
+      } finally {
+        tourPreloadingRef.current = false;
+      }
+    })();
+  }, []);
+
+  const startTour = useCallback(() => {
+    setStoryTourAudioLock(true);
+    stopSpeaking(true);
+    setCelebEvent(null);
+    setStoryLocked(true);
+    setTourPaused(false);
+    setTourActive(true);
+    setMinimized(false);
+    const prefetched = new Set<string>();
+    TOUR_SLIDES.forEach(slide => {
+      const path = tourRoutePath(slide.route);
+      if (prefetched.has(path)) return;
+      prefetched.add(path);
+      routerRef.current.prefetch(path);
+    });
+    preloadTourNarration();
+    getTourEngine().start(0);
+  }, [getTourEngine, preloadTourNarration]);
+
+  // Tour closed before voice setup (✕, Escape, or the cancel event).
+  const endTour = useCallback((returnHome: boolean) => {
+    tourEngineRef.current?.stop();
+    setStoryTourAudioLock(false);
+    stopSpeaking(true);
+    setIsSpeaking(false);
+    setTourActive(false);
+    setTourPaused(false);
+    setStoryLocked(false);
+    completeStoryTour(user?.id);
+    if (returnHome && cleanPathRef.current !== '/dashboard') {
+      routerRef.current.push('/dashboard');
+    }
+  }, [user?.id]);
+
+  // Last slide finished: hand over to voice registration.
+  const openVoiceSegment = useCallback(() => {
+    tourEngineRef.current?.stop();
+    setStoryTourAudioLock(false);
+    stopSpeaking(true);
+    setIsSpeaking(false);
+    setTourActive(false);
+    setTourPaused(false);
+    setMinimized(false);
+    setShowVoiceRegModal(true);
+    if (cleanPathRef.current !== '/dashboard') routerRef.current.push('/dashboard');
+  }, []);
+
+  tourHandlersRef.current = {
+    activate: (index) => {
+      setTourStep(index);
+      setTourSlideRun(run => run + 1);
+      // AppShell enforces mutual exclusion: opening one sidebar collapses the other.
+      if (TOUR_SLIDES[index].segment === 3) {
+        onOpenRightSidebarRef.current?.();
+      } else {
+        onExpandLeftNavRef.current?.();
+      }
+    },
+    arm: (index, remainingMs) => {
+      const slide = TOUR_SLIDES[index];
+      let live = true;
+      console.log('[PinIT Tour] 🎬 Step ' + (index + 1) + '/' + TOUR_SLIDES.length + ': "' + slide.title + '" on ' + cleanPathRef.current + ' (' + remainingMs + 'ms left in slot)');
+      speakWithAvatar(
+        getTourSlideText(slide, tourTextContextRef.current),
+        teacherIdRef.current,
+        () => { if (live) setIsSpeaking(true); },
+        () => { if (live) setIsSpeaking(false); },
+        false,
+        true,
+        undefined,
+        TOUR_SPEECH_SPEED,
+        slide.durationMs,
+        { force: true, singleShot: true, startDeadlineMs: TOUR_SPEECH_START_DEADLINE_MS },
+      );
+      const stopScroll = slide.autoScroll ? startTourAutoScroll(remainingMs) : scrollTourPageToTop();
+      return () => {
+        live = false;
+        stopScroll();
+        stopSpeaking(true);
+        setIsSpeaking(false);
+      };
+    },
+    finish: openVoiceSegment,
+  };
+
+  // Arm the current slide (narration + scroll) as soon as its route has rendered.
+  useEffect(() => {
+    if (tourActive) tourEngineRef.current?.notifyPathChange(cleanPath);
+  }, [tourActive, cleanPath]);
+
   // ── Auto-start story tour post-onboarding ──────────────────────────────────
   useEffect(() => {
     if (!mounted || typeof window === 'undefined') return;
@@ -347,38 +480,17 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     }
 
     const t = window.setTimeout(() => {
-      if (typeof window !== 'undefined') {
-        (window as any).__PINIT_STORY_TOUR_ACTIVE = true;
-      }
-      onExpandLeftNav?.();
-      setStoryLocked(true);
-      setTourActive(true);
-      setTourStep(0);
-      setMinimized(false);
       completeStoryTour(user?.id);
+      startTour();
     }, 500);
     return () => window.clearTimeout(t);
-  }, [mounted, user, cleanPath, tourActive, showVoiceRegModal, onExpandLeftNav]);
-
-  // ── Auto-expand appropriate sidebars per tour segment ──────────────────────
-  useEffect(() => {
-    if (!tourActive || !TOUR_SLIDES[tourStep]) return;
-    const seg = TOUR_SLIDES[tourStep].segment;
-    if (seg === 1 || seg === 2) {
-      onExpandLeftNav?.();
-    } else if (seg === 3) {
-      onOpenRightSidebar?.();
-    }
-  }, [tourActive, tourStep, onExpandLeftNav, onOpenRightSidebar]);
+  }, [mounted, user, cleanPath, tourActive, showVoiceRegModal, startTour]);
 
   // ── Broadcast active tour tab for live sidebar spotlighting ────────────────
   useEffect(() => {
-    if (tourActive && TOUR_SLIDES[tourStep]) {
-      onTourSlideChange?.(TOUR_SLIDES[tourStep].route, TOUR_SLIDES[tourStep].tabKey);
-    } else {
-      onTourSlideChange?.(null, null);
-    }
-  }, [tourActive, tourStep, onTourSlideChange]);
+    const slide = tourActive ? TOUR_SLIDES[tourStep] : undefined;
+    onTourSlideChangeRef.current?.(slide ? slide.route : null, slide ? slide.tabKey : null);
+  }, [tourActive, tourStep]);
 
   // ── Listen for activity completion and story mode trigger events ──────────
   useEffect(() => {
@@ -394,17 +506,8 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     };
 
     const storyHandler = () => {
-      if (typeof window !== 'undefined') {
-        (window as any).__PINIT_STORY_TOUR_ACTIVE = true;
-      }
-      clearTourAdvanceTimer();
-      stopSpeaking(true);
       resetStoryTour(user?.id);
-      onExpandLeftNav?.();
-      setStoryLocked(true);
-      setTourActive(true);
-      setTourStep(0);
-      setMinimized(false);
+      startTour();
     };
 
     const congratsHandler = (e: Event) => {
@@ -423,15 +526,8 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
     };
 
     const cancelStoryHandler = () => {
-      if (typeof window !== 'undefined') {
-        (window as any).__PINIT_STORY_TOUR_ACTIVE = false;
-      }
-      clearTourAdvanceTimer();
-      stopSpeaking(true);
-      setTourActive(false);
-      setStoryLocked(false);
+      endTour(false);
       setMinimized(false);
-      completeStoryTour(user?.id);
     };
 
     window.addEventListener('pinit:activity_complete', handler);
@@ -445,127 +541,17 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
       window.removeEventListener('pinit:trigger_congrats', congratsHandler);
       if (celebTimerRef.current) clearTimeout(celebTimerRef.current);
     };
-  }, [refreshProfile, onExpandLeftNav, user?.id, clearTourAdvanceTimer]);
+  }, [refreshProfile, user?.id, startTour, endTour]);
 
-  // ── Speak current tour slide, then auto-advance on completion ─────────────
-  // Stable callback for tour completion — uses refs so it never changes identity
-  const openVoiceSegment = useCallback(() => {
-    if (typeof window !== 'undefined') {
-      (window as any).__PINIT_STORY_TOUR_ACTIVE = false;
-    }
-    clearTourAdvanceTimer();
-    setTourActive(false);
-    stopSpeaking(true);
-    setMinimized(false);
-    setShowVoiceRegModal(true);
-    if (cleanPathRef.current !== '/dashboard') router.push('/dashboard');
-  }, [router, clearTourAdvanceTimer]);
+  const dismissTour = useCallback(() => endTour(true), [endTour]);
+  const prevTourSlide = useCallback(() => tourEngineRef.current?.prev(), []);
+  const nextTourSlide = useCallback(() => tourEngineRef.current?.next(), []);
+  const replayCurrentSlide = useCallback(() => tourEngineRef.current?.replay(), []);
 
-  const advanceTourSlide = useCallback((_auto = false) => {
-    clearTourAdvanceTimer();
-    setTourStep((s) => {
-      const next = s + 1;
-      if (next >= TOUR_SLIDES.length) {
-        console.log('[PinIT Tour] 🏆 Reached final slide (' + TOUR_SLIDES.length + ' steps completed). Transitioning to Voice Registration...');
-        if (typeof window !== 'undefined') {
-          (window as any).__PINIT_STORY_TOUR_ACTIVE = false;
-        }
-        openVoiceSegment();
-        return s;
-      }
-      if (typeof window !== 'undefined') {
-        (window as any).__PINIT_STORY_TOUR_ACTIVE = true;
-      }
-      console.log('[PinIT Tour] ⏭️ Advancing slide from Step ' + (s + 1) + ' -> Step ' + (next + 1) + ' (' + TOUR_SLIDES[next]?.title + ') [auto=' + _auto + ']');
-      return next;
-    });
-  }, [openVoiceSegment, clearTourAdvanceTimer]);
-
-  const speakCurrentTourSlide = useCallback(() => {
-    if (!tourActive || !TOUR_SLIDES[tourStep]) {
-      pendingSpeechStepRef.current = null;
-      clearTourAdvanceTimer();
-      return;
-    }
-    pendingSpeechStepRef.current = tourStep;
-
-    // Explicitly lock audio protection so mounting pages (/missions, /leaderboard, /interview) cannot abort tour speech
-    if (typeof window !== 'undefined') {
-      (window as any).__PINIT_STORY_TOUR_ACTIVE = true;
-    }
-
-    const slide = TOUR_SLIDES[tourStep];
-    const targetRoute = TOUR_STEP_ROUTES[tourStep];
-    console.log('[PinIT Tour] 🎬 Step ' + (tourStep + 1) + '/' + TOUR_SLIDES.length + ': "' + slide.title + '" -> targetRoute: ' + targetRoute);
-
-    if (targetRoute && cleanPathRef.current !== targetRoute) {
-      console.log('[PinIT Tour] 🚀 Routing to tab: ' + targetRoute);
-      router.push(targetRoute);
-    }
-
-    const speechText = slide.text.replace(/\*\*/g, '').replace(/🎉|🏠|🛠️|🗺|⚡|🎙|🧬|🔬|🎯|💬|🚀|👋|🌅|✨|💙|⚔️|🏆|📖|🧠|🔔|👤|📚/g, '');
-
-    // Stop any prior speech (force = true)
-    stopSpeaking(true);
-
-    expectedRouteRef.current = targetRoute || cleanPathRef.current;
-    clearTourAdvanceTimer();
-
-    // Parallel smooth auto-scroll: showcase tab content from top to bottom
-    const approxDurationMs = Math.max(2200, Math.min(3800, speechText.length * 52 + 500));
-    cancelAutoScrollRef.current = startAutoScroll(approxDurationMs);
-
-    // Dynamic fallback timer (strictly bounded to guarantee tour finishes < 30s)
-    const safeDuration = Math.max(4500, Math.min(6500, speechText.length * 55 + 1000));
-    tourFallbackTimerRef.current = setTimeout(() => {
-      console.warn('[PinIT Tour] ⏩ Fallback timer fired for Step ' + (tourStep + 1) + ' ("' + slide.title + '"). Auto-shifting to next tab!');
-      advanceTourSlide(true);
-    }, safeDuration);
-
-    speakWithAvatar(speechText, teacherId, () => {
-      setIsSpeaking(true);
-      console.log('[PinIT Tour] 🗣️ Mentor narration started for Step ' + (tourStep + 1));
-    }, () => {
-      setIsSpeaking(false);
-      if (cancelAutoScrollRef.current) {
-        cancelAutoScrollRef.current();
-        cancelAutoScrollRef.current = null;
-      }
-      clearTourAdvanceTimer();
-      console.log('[PinIT Tour] 🎙️ Narration completed for Step ' + (tourStep + 1) + '. Auto-advancing in 400ms...');
-
-      const scheduleAdvance = () => {
-        tourAdvanceTimerRef.current = setTimeout(() => {
-          advanceTourSlide(true);
-        }, 400);
-      };
-
-      if (typeof document !== 'undefined' && document.hidden) {
-        const onVisible = () => {
-          if (!document.hidden) {
-            document.removeEventListener('visibilitychange', onVisible);
-            scheduleAdvance();
-          }
-        };
-        document.addEventListener('visibilitychange', onVisible);
-      } else {
-        scheduleAdvance();
-      }
-    });
-  }, [tourActive, tourStep, teacherId, router, clearTourAdvanceTimer, advanceTourSlide]);
-
-  // Speak tour slide out loud and automatically switch pages to show corresponding tab
-  // NOTE: cleanPath intentionally excluded from deps — it changes as a side-effect of
-  //       router.push() below and must NOT re-trigger this effect (that caused skipped slides).
-  useEffect(() => {
-    if (!tourActive || !TOUR_SLIDES[tourStep]) {
-      pendingSpeechStepRef.current = null;
-      lastSpokenTourStepRef.current = null;
-      clearTourAdvanceTimer();
-      return;
-    }
-    speakCurrentTourSlide();
-  }, [tourActive, tourStep, speakCurrentTourSlide, clearTourAdvanceTimer]);
+  const startStoryMode = useCallback(() => {
+    resetStoryTour(user?.id);
+    startTour();
+  }, [user?.id, startTour]);
 
   // Speak congratulations out loud when a celebration triggers
   useEffect(() => {
@@ -588,63 +574,6 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
       setOnboardingStep(2);
     }
   }, [pathname, onboardingStep, roadmapGenerated, setOnboardingStep]);
-
-  const dismissTour = useCallback(() => {
-    if (typeof window !== 'undefined') {
-      (window as any).__PINIT_STORY_TOUR_ACTIVE = false;
-    }
-    clearTourAdvanceTimer();
-    setTourActive(false);
-    setStoryLocked(false);
-    stopSpeaking(true);
-    setIsSpeaking(false);
-    completeStoryTour(user?.id);
-    if (cleanPathRef.current !== '/dashboard') {
-      router.push('/dashboard');
-    }
-  }, [clearTourAdvanceTimer, user?.id, router]);
-
-  const prevTourSlide = useCallback(() => {
-    if (tourStep > 0) {
-      clearTourAdvanceTimer();
-      stopSpeaking(true);
-      lastSpokenTourStepRef.current = null;
-      setTourStep(s => s - 1);
-    }
-  }, [tourStep, clearTourAdvanceTimer]);
-
-  const nextTourSlide = useCallback(() => {
-    clearTourAdvanceTimer();
-    stopSpeaking(true);
-    if (tourStep >= TOUR_SLIDES.length - 1) {
-      openVoiceSegment();
-    } else {
-      lastSpokenTourStepRef.current = null;
-      setTourStep(s => s + 1);
-    }
-  }, [tourStep, clearTourAdvanceTimer, openVoiceSegment]);
-
-  const replayCurrentSlide = useCallback(() => {
-    lastSpokenTourStepRef.current = null;
-    clearTourAdvanceTimer();
-    stopSpeaking(true);
-    speakCurrentTourSlide();
-  }, [clearTourAdvanceTimer, speakCurrentTourSlide]);
-
-  const startStoryMode = useCallback(() => {
-    if (typeof window !== 'undefined') {
-      (window as any).__PINIT_STORY_TOUR_ACTIVE = true;
-    }
-    setCelebEvent(null);
-    clearTourAdvanceTimer();
-    stopSpeaking(true);
-    resetStoryTour(user?.id);
-    onExpandLeftNav?.();
-    setStoryLocked(true);
-    setTourActive(true);
-    setTourStep(0);
-    setMinimized(false);
-  }, [clearTourAdvanceTimer, user?.id, onExpandLeftNav]);
 
   // ── Keyboard accessibility for story tour (Arrow keys, Space, Escape) ─────
   useEffect(() => {
@@ -729,6 +658,9 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
 
   return (
     <>
+      {/* ── Story tour progress line (bottom edge of the window) ── */}
+      {tourActive && <StoryTourProgressBar tourStep={tourStep} runKey={tourSlideRun} />}
+
       {/* ── Floating avatar launcher button (when minimized) ── */}
       {minimized && (
         <div
@@ -831,7 +763,7 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
 
       {/* ── Expanded floating avatar mentor window ── */}
       {!minimized && !shouldHideVisually && (
-        <div style={{
+        <div data-story-tour-card={tourActive ? '' : undefined} style={{
           position: 'fixed',
           bottom: isCentered ? 'auto' : 18,
           top: isCentered ? '50%' : 'auto',
@@ -860,6 +792,8 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
               <StoryTourCard
                 tourStep={tourStep}
                 teacher={teacher}
+                text={TOUR_SLIDES[tourStep] ? getTourSlideText(TOUR_SLIDES[tourStep], tourTextContext) : undefined}
+                paused={tourPaused}
                 onPrev={prevTourSlide}
                 onNext={nextTourSlide}
                 onDismiss={dismissTour}

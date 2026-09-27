@@ -1,93 +1,253 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useAppStore } from '@/lib/store/useAppStore';
 
 export interface TourSlide {
   emoji: string;
   title: string;
   tabKey: string;
   route: string;
+  /** 1 = left main nav, 2 = left bottom nav, 3 = right academic drawer. */
   segment: number;
   segmentLabel: string;
+  /** Narration and card copy. `{name}` / `{mentor}` are filled by getTourSlideText. */
   text: string;
+  /** Fixed slot length. The tour advances on this clock, never on speech end. */
+  durationMs: number;
+  /** Slowly scroll the page while the slide is narrated. */
+  autoScroll: boolean;
 }
 
-// ── Story tour: 7 Flagship Platform Hubs (< 30s total runtime) ──
+// ── Tour pacing ──────────────────────────────────────────────────────────────
+// 8s intro + 14 left-sidebar tabs × 5s + 12s academics sidebar + 5s wrap-up = 95s.
+// Every line must be speakable
+// inside its slot at ~14 chars/s (neural voice) after the start deadline —
+// enforced by scripts/tests/test_story_mode_timeline.cjs.
+export const TOUR_TAB_MS = 5_000;
+export const TOUR_INTRO_MS = 8_000;
+/** The right (academics) sidebar gets one overview slide, not one per tab. */
+export const TOUR_ACADEMICS_MS = 12_000;
+export const TOUR_OUTRO_MS = 5_000;
+/** Neural narration speed; preloading must use the same value to hit the cache. */
+export const TOUR_SPEECH_SPEED = 1.0;
+/** If neural audio hasn't started by then, the slide is narrated with WebSpeech. */
+export const TOUR_SPEECH_START_DEADLINE_MS = 700;
+
+// ── Story tour: intro → 10 main hubs → 4 utilities → academics sidebar overview → wrap-up ──
 export const TOUR_SLIDES: TourSlide[] = [
+  {
+    emoji: '👋',
+    title: 'Welcome to PinIT Career OS',
+    tabKey: 'dashboard',
+    route: '/dashboard',
+    segment: 1,
+    segmentLabel: 'INTRO',
+    text: "Hi {name}! I'm {mentor}, your AI career mentor. Let me show you around, tab by tab.",
+    durationMs: TOUR_INTRO_MS,
+    autoScroll: false,
+  },
+
+  // ── Segment 1: Main Platform Navigation ──
   {
     emoji: '🏠',
     title: 'Command Center Dashboard',
     tabKey: 'dashboard',
     route: '/dashboard',
     segment: 1,
-    segmentLabel: 'FLAGSHIP HUB 1/7 · DASHBOARD',
-    text: "Track your verified skills, daily streak, and career growth.",
+    segmentLabel: 'TAB 1/14 · DASHBOARD',
+    text: 'Dashboard: your Career Score, streak and next steps.',
+    durationMs: TOUR_TAB_MS,
+    autoScroll: true,
   },
   {
     emoji: '🗺',
-    title: 'Socratic Quests & Courses',
+    title: 'Quests & Courses',
     tabKey: 'quests',
     route: '/quests',
     segment: 1,
-    segmentLabel: 'FLAGSHIP HUB 2/7 · SOCRATIC LEARNING',
-    text: "Conquer Socratic quests and challenges to earn career Pins.",
+    segmentLabel: 'TAB 2/14 · QUESTS',
+    text: 'Quests and Courses: guided lessons that earn Pins.',
+    durationMs: TOUR_TAB_MS,
+    autoScroll: true,
   },
   {
     emoji: '⚡',
-    title: 'Daily Missions & Skill Gaps',
+    title: 'Daily Missions',
     tabKey: 'missions',
     route: '/missions',
     segment: 1,
-    segmentLabel: 'FLAGSHIP HUB 3/7 · DAILY MISSIONS',
-    text: "Solve daily targeted micro-challenges to close your skill gaps.",
+    segmentLabel: 'TAB 3/14 · DAILY MISSIONS',
+    text: 'Daily Missions: five quick challenges on your gaps.',
+    durationMs: TOUR_TAB_MS,
+    autoScroll: true,
   },
   {
     emoji: '⚔️',
-    title: 'Competitive Battle Arena',
+    title: 'Challenging Arena',
     tabKey: 'arena',
     route: '/arena',
     segment: 1,
-    segmentLabel: 'FLAGSHIP HUB 4/7 · 1V1 ARENA',
-    text: "Compete in live one-on-one duels to outsolve rivals.",
+    segmentLabel: 'TAB 4/14 · 1V1 ARENA',
+    text: 'Arena: live one-on-one coding duels against peers.',
+    durationMs: TOUR_TAB_MS,
+    autoScroll: true,
   },
   {
     emoji: '🚀',
-    title: 'Industry Squads & Projects',
+    title: 'Projects & Squads',
     tabKey: 'projects',
     route: '/projects',
     segment: 1,
-    segmentLabel: 'FLAGSHIP HUB 5/7 · SQUADS & PROJECTS',
-    text: "Build recruiter-verified proof of work with collaborative squads.",
+    segmentLabel: 'TAB 5/14 · PROJECTS',
+    text: 'Projects: team up in squads to build verified work.',
+    durationMs: TOUR_TAB_MS,
+    autoScroll: true,
   },
   {
     emoji: '🏆',
-    title: 'Global & Campus Leagues',
+    title: 'Leaderboard & Leagues',
     tabKey: 'leaderboard',
     route: '/leaderboard',
     segment: 1,
-    segmentLabel: 'FLAGSHIP HUB 6/7 · LEADERBOARDS',
-    text: "Climb campus and global leagues all the way to Grandmaster.",
+    segmentLabel: 'TAB 6/14 · LEADERBOARDS',
+    text: 'Leaderboards: climb weekly campus and global leagues.',
+    durationMs: TOUR_TAB_MS,
+    autoScroll: true,
   },
   {
     emoji: '🎙',
-    title: 'AI Mock Interview Studio',
+    title: 'AI Interview',
     tabKey: 'interview',
     route: '/interview',
     segment: 1,
-    segmentLabel: 'FLAGSHIP HUB 7/7 · AI INTERVIEWS',
-    text: "Practice AI mock interviews with real-time feedback.",
+    segmentLabel: 'TAB 7/14 · AI INTERVIEW',
+    text: 'AI Interview: mock interviews with instant feedback.',
+    durationMs: TOUR_TAB_MS,
+    autoScroll: true,
+  },
+  {
+    emoji: '💬',
+    title: 'GD Practice',
+    tabKey: 'group-discussion',
+    route: '/group-discussion',
+    segment: 1,
+    segmentLabel: 'TAB 8/14 · GD PRACTICE',
+    text: 'GD Practice: group discussions with AI panelists.',
+    durationMs: TOUR_TAB_MS,
+    autoScroll: true,
+  },
+  {
+    emoji: '📖',
+    title: 'Learning & Career Twin',
+    tabKey: 'learning',
+    route: '/learning',
+    segment: 1,
+    segmentLabel: 'TAB 9/14 · LEARNING & TWIN',
+    text: 'Learning and Twin: your roadmap and skill gaps.',
+    durationMs: TOUR_TAB_MS,
+    autoScroll: true,
+  },
+  {
+    emoji: '🧠',
+    title: 'Attention Span',
+    tabKey: 'attention-span',
+    route: '/attention-span',
+    segment: 1,
+    segmentLabel: 'TAB 10/14 · ATTENTION SPAN',
+    text: 'Attention Span: games that train deep focus.',
+    durationMs: TOUR_TAB_MS,
+    autoScroll: true,
+  },
+
+  // ── Segment 2: Left Nav Bottom Utilities ──
+  {
+    emoji: '👥',
+    title: 'Friends & Network',
+    tabKey: 'friends',
+    route: '/friends',
+    segment: 2,
+    segmentLabel: 'TAB 11/14 · FRIENDS',
+    text: 'Friends: connect with peers and team up for duels.',
+    durationMs: TOUR_TAB_MS,
+    autoScroll: true,
+  },
+  {
+    emoji: '⚡',
+    title: 'Pins & Wallet',
+    tabKey: 'pins',
+    route: '/pins',
+    segment: 2,
+    segmentLabel: 'TAB 12/14 · PINS & WALLET',
+    text: 'Pins and Wallet: your balance and premium unlocks.',
+    durationMs: TOUR_TAB_MS,
+    autoScroll: true,
+  },
+  {
+    emoji: '🔔',
+    title: 'Notifications',
+    tabKey: 'notifications',
+    route: '/notifications',
+    segment: 2,
+    segmentLabel: 'TAB 13/14 · NOTIFICATIONS',
+    text: 'Notifications: rewards, streaks and challenges.',
+    durationMs: TOUR_TAB_MS,
+    autoScroll: true,
+  },
+  {
+    emoji: '👤',
+    title: 'Profile & Career DNA',
+    tabKey: 'profile',
+    route: '/profile',
+    segment: 2,
+    segmentLabel: 'TAB 14/14 · PROFILE',
+    text: 'Profile: your credentials, goals and AI mentor.',
+    durationMs: TOUR_TAB_MS,
+    autoScroll: true,
+  },
+
+  // ── Segment 3: Right Academics Sidebar (one overview, not per tab) ──
+  {
+    emoji: '📚',
+    title: 'Academics Sidebar',
+    tabKey: 'academic-sidebar',
+    route: '/dashboard',
+    segment: 3,
+    segmentLabel: 'ACADEMICS SIDEBAR',
+    text: 'This is your Academics sidebar, your campus hub. Take exams, see results and study notes, and reach library, hostel, transport, events and fees.',
+    durationMs: TOUR_ACADEMICS_MS,
+    autoScroll: false,
+  },
+
+  {
+    emoji: '🎉',
+    title: "You're All Set",
+    tabKey: 'dashboard',
+    route: '/dashboard',
+    segment: 1,
+    segmentLabel: 'WRAP-UP',
+    text: "That's the tour! Now let's set up your voice.",
+    durationMs: TOUR_OUTRO_MS,
+    autoScroll: false,
   },
 ];
 
-export const TOUR_STEP_ROUTES: Record<number, string> = {
-  0: '/dashboard',
-  1: '/quests',
-  2: '/missions',
-  3: '/arena',
-  4: '/projects',
-  5: '/leaderboard',
-  6: '/interview',
-};
+export const TOUR_TOTAL_MS = TOUR_SLIDES.reduce((total, slide) => total + slide.durationMs, 0);
+
+/** Share of the whole tour (0..1) at the start and end of a slide's slot. */
+export function getTourProgressRange(step: number): { from: number; to: number } {
+  const startMs = TOUR_SLIDES.slice(0, step).reduce((total, slide) => total + slide.durationMs, 0);
+  const slideMs = TOUR_SLIDES[step]?.durationMs ?? 0;
+  return { from: startMs / TOUR_TOTAL_MS, to: (startMs + slideMs) / TOUR_TOTAL_MS };
+}
+
+/** Fills `{name}` (dropped cleanly when unknown) and `{mentor}` in a slide's text. */
+export function getTourSlideText(slide: TourSlide, ctx: { name?: string; mentor?: string }): string {
+  const name = (ctx.name || '').split('@')[0].trim().split(/\s+/)[0].slice(0, 20);
+  return slide.text
+    .replace(/(,\s*|\s+)\{name\}/g, name ? `$1${name}` : '')
+    .replace(/\{mentor\}/g, ctx.mentor || 'Priya');
+}
 
 // ── Build congratulations message from event payload ─────────────────────────
 export function buildCongratMessage(detail: any, profile: any): { headline: string; body: string; tip: string } {
@@ -109,6 +269,10 @@ export function buildCongratMessage(detail: any, profile: any): { headline: stri
 interface StoryTourCardProps {
   tourStep: number;
   teacher: { name: string; color: string; emoji: string };
+  /** Personalised narration text; defaults to the slide's raw text. */
+  text?: string;
+  /** Auto-advance is on hold because the user left the slide's page. */
+  paused?: boolean;
   onPrev: () => void;
   onNext: () => void;
   onDismiss: () => void;
@@ -119,6 +283,8 @@ interface StoryTourCardProps {
 export const StoryTourCard: React.FC<StoryTourCardProps> = ({
   tourStep,
   teacher,
+  text,
+  paused = false,
   onPrev,
   onNext,
   onDismiss,
@@ -203,8 +369,20 @@ export const StoryTourCard: React.FC<StoryTourCardProps> = ({
           maxHeight: '75px',
           paddingRight: 2,
         }}>
-          {currentSlide?.text}
+          {text ?? currentSlide?.text}
         </div>
+
+        {paused && (
+          <div style={{
+            marginTop: 4,
+            fontFamily: 'var(--font-mono)',
+            fontSize: 8,
+            fontWeight: 700,
+            color: '#fbbf24',
+          }}>
+            Paused. Press Next to continue the tour.
+          </div>
+        )}
       </div>
 
       {/* Controls toolbar */}
@@ -286,6 +464,72 @@ export const StoryTourCard: React.FC<StoryTourCardProps> = ({
           ✕
         </button>
       </div>
+    </div>
+  );
+};
+
+// ── YouTube-style tour progress line pinned to the very bottom of the window ──
+const TOUR_PROGRESS_COLORS = {
+  dark: { fill: '#004b5b', track: 'rgba(255,255,255,0.18)' },
+  light: { fill: '#fcb001', track: 'rgba(0,0,0,0.12)' },
+} as const;
+
+interface StoryTourProgressBarProps {
+  tourStep: number;
+  /** Changes on every slide activation (including replay) to restart the fill. */
+  runKey: number;
+}
+
+export const StoryTourProgressBar: React.FC<StoryTourProgressBarProps> = ({ tourStep, runKey }) => {
+  const fillRef = useRef<HTMLDivElement>(null);
+  const { from, to } = getTourProgressRange(tourStep);
+  const colors = TOUR_PROGRESS_COLORS[useAppStore(s => s.theme)];
+
+  // Fill grows linearly across the slide's slot, in step with the engine's clock.
+  // At the slot end it holds, so a pause or hidden tab freezes it on the boundary.
+  useEffect(() => {
+    const el = fillRef.current;
+    const slide = TOUR_SLIDES[tourStep];
+    if (!el || !slide) return;
+    if (typeof el.animate !== 'function') {
+      el.style.transform = `scaleX(${to})`;
+      return;
+    }
+    const animation = el.animate(
+      [{ transform: `scaleX(${from})` }, { transform: `scaleX(${to})` }],
+      { duration: slide.durationMs, easing: 'linear', fill: 'forwards' },
+    );
+    return () => animation.cancel();
+  }, [tourStep, runKey, from, to]);
+
+  return (
+    <div
+      role="progressbar"
+      aria-label="Story tour progress"
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-valuenow={Math.round(from * 100)}
+      style={{
+        position: 'fixed',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        height: 4,
+        zIndex: 100000,
+        background: colors.track,
+        pointerEvents: 'none',
+      }}
+    >
+      <div
+        ref={fillRef}
+        style={{
+          width: '100%',
+          height: '100%',
+          background: colors.fill,
+          transformOrigin: 'left center',
+          transform: `scaleX(${from})`,
+        }}
+      />
     </div>
   );
 };

@@ -39,8 +39,24 @@ function getAudioContext(): AudioContext {
   return win._sharedAudioCtx;
 }
 
+// ── Story Tour audio lock ───────────────────────────────────────────────────
+// While the tour narrates it owns the audio channel: non-forced stopSpeaking()
+// and speakWithAvatar() calls (page mounts/unmounts, celebrations) are ignored
+// instead of cutting the narration off.
+type StoryTourWindow = Window & { __PINIT_STORY_TOUR_ACTIVE?: boolean };
+
+export function isStoryTourAudioLocked(): boolean {
+  return typeof window !== 'undefined' && (window as StoryTourWindow).__PINIT_STORY_TOUR_ACTIVE === true;
+}
+
+export function setStoryTourAudioLock(active: boolean) {
+  if (typeof window !== 'undefined') {
+    (window as StoryTourWindow).__PINIT_STORY_TOUR_ACTIVE = active;
+  }
+}
+
 export function stopSpeaking(force = false) {
-  if (typeof window !== 'undefined' && (window as any).__PINIT_STORY_TOUR_ACTIVE && !force) {
+  if (isStoryTourAudioLocked() && !force) {
     console.log('[PinIT TTS] 🛡️ stopSpeaking() ignored: Story Tour narration is active, protecting playback');
     return;
   }
@@ -163,6 +179,10 @@ function fallbackWebSpeech(
     if (ended) return;
     ended = true;
     if (maxDurationTimer) clearTimeout(maxDurationTimer);
+    // Superseded or stopped: cancel() here would kill the NEWER utterance (Chrome
+    // fires this utterance's 'interrupted' error asynchronously), and onEnd would
+    // be a fake completion.
+    if (speechId !== currentSpeechId) return;
     try { window.speechSynthesis.cancel(); } catch {}
     onEnd();
   };
@@ -307,9 +327,25 @@ export async function speakWithAvatar(
   difficulty?: 'easy' | 'normal' | 'hard',
   speedMultiplier = 1.0,
   maxDurationMs = 15000,
-  options?: { bypassCache?: boolean; minDurationMs?: number; force?: boolean }
+  options?: {
+    bypassCache?: boolean;
+    minDurationMs?: number;
+    /** Take over the audio channel even while the Story Tour lock is held. */
+    force?: boolean;
+    /** Synthesize the whole text in one request (no sentence streaming). */
+    singleShot?: boolean;
+    /**
+     * Single-request neural path only: if audio hasn't started within this many
+     * ms, speak with WebSpeech instead and discard the late neural result.
+     */
+    startDeadlineMs?: number;
+  }
 ) {
-  stopSpeaking(options?.force ?? true);
+  if (isStoryTourAudioLocked() && !options?.force) {
+    console.log('[PinIT TTS] 🛡️ speakWithAvatar() suppressed: Story Tour narration owns the audio channel');
+    return;
+  }
+  stopSpeaking(true);
   const mySpeechId = currentSpeechId;
   if (isMuted || !text) return;
 
@@ -323,6 +359,10 @@ export async function speakWithAvatar(
     if (activeOnEndCallback === safeOnEnd) {
       activeOnEndCallback = null;
     }
+    // Stopped or superseded speech never reports completion: audio sources and
+    // utterances still fire 'ended'/'error' when interrupted, and passing that on
+    // made callers (the Story Tour) advance twice.
+    if (mySpeechId !== currentSpeechId) return;
     try {
       onEnd();
     } catch (err) {
@@ -336,10 +376,7 @@ export async function speakWithAvatar(
   const dynamicMaxDurationMs = Math.max(maxDurationMs, minDurationMs, Math.max(12000, cleanSpeechText.length * 150));
 
   const finishAfterFloor = (startedAt: number) => {
-    if (mySpeechId !== currentSpeechId) {
-      safeOnEnd();
-      return;
-    }
+    if (mySpeechId !== currentSpeechId) return;
     const elapsed = Date.now() - startedAt;
     const remaining = minDurationMs - elapsed;
     if (remaining > 50) {
@@ -354,7 +391,7 @@ export async function speakWithAvatar(
   // Attempt Smart Hybrid Voice Router with Sentence Streaming for multi-sentence paragraphs
   if (useNeural) {
     const voice = KOKORO_VOICE_MAP[teacherId.toLowerCase()] || 'af_bella';
-    const sentences = splitIntoSentences(spokenText);
+    const sentences = options?.singleShot ? [spokenText] : splitIntoSentences(spokenText);
 
     if (sentences.length > 1) {
       const startedAt = Date.now();
@@ -402,6 +439,35 @@ export async function speakWithAvatar(
       }
     }
 
+    let handedToWebSpeech = false;
+    let startDeadlineTimer: ReturnType<typeof setTimeout> | null = null;
+    const startDeadlineMs = options?.startDeadlineMs ?? 0;
+    if (startDeadlineMs > 0) {
+      startDeadlineTimer = setTimeout(() => {
+        startDeadlineTimer = null;
+        if (mySpeechId !== currentSpeechId) return;
+        handedToWebSpeech = true;
+        console.warn(`[PinIT Voice] Neural audio not ready after ${startDeadlineMs}ms, speaking with WebSpeech instead.`);
+        fallbackWebSpeech(
+          cleanSpeechText,
+          teacherId,
+          onStart,
+          () => finishAfterFloor(Date.now()),
+          detectVibe(cleanSpeechText),
+          mySpeechId,
+          difficulty,
+          speedMultiplier,
+          dynamicMaxDurationMs
+        );
+      }, startDeadlineMs);
+    }
+    const clearStartDeadline = () => {
+      if (startDeadlineTimer) {
+        clearTimeout(startDeadlineTimer);
+        startDeadlineTimer = null;
+      }
+    };
+
     try {
       const result = await synthesizeVoice({
         text: spokenText,
@@ -409,6 +475,9 @@ export async function speakWithAvatar(
         speed: speedMultiplier,
         bypassCache: options?.bypassCache
       });
+      // WebSpeech already took over; the synthesized audio stays cached for next time.
+      if (handedToWebSpeech) return;
+      clearStartDeadline();
 
       if (mySpeechId === currentSpeechId) {
         const ctx = getAudioContext();
@@ -416,7 +485,9 @@ export async function speakWithAvatar(
           await ctx.resume().catch(() => {});
         }
         const audioBuf = await ctx.decodeAudioData(result.audioBuffer.slice(0));
-        
+        // Stopped while resuming/decoding: never start stale audio over newer speech.
+        if (mySpeechId !== currentSpeechId) return;
+
         const source = ctx.createBufferSource();
         source.buffer = audioBuf;
         const gainNode = getAvatarGainNode(ctx);
@@ -445,6 +516,8 @@ export async function speakWithAvatar(
         return;
       }
     } catch (err) {
+      if (handedToWebSpeech) return;
+      clearStartDeadline();
       console.warn('[PinIT Voice] Neural TTS unavailable, executing instant WebSpeech fallback:', err);
       if (mySpeechId === currentSpeechId) {
         fallbackWebSpeech(
@@ -479,17 +552,19 @@ export async function speakWithAvatar(
   }
 }
 
-export async function preloadTTS(text?: string, teacherId: string = 'priya') {
+export async function preloadTTS(text?: string, teacherId: string = 'priya', speedMultiplier = 1.0) {
   if (typeof window === 'undefined' || !text) return;
   const sanitized = sanitizeForSpeech(text);
   if (!sanitized) return;
 
   try {
     const voice = KOKORO_VOICE_MAP[teacherId.toLowerCase()] || 'af_bella';
+    // Same text transform and speed as speakWithAvatar's single-request path,
+    // so the cache key matches what is actually spoken.
     await synthesizeVoice({
-      text: sanitized,
+      text: enhanceTextIntonation(sanitized),
       voice,
-      speed: 1.0
+      speed: speedMultiplier
     });
     console.log(`[PinIT Preloader] ⚡ Successfully preloaded Render audio into IndexedDB for "${sanitized.slice(0, 30)}..."`);
   } catch (err) {
