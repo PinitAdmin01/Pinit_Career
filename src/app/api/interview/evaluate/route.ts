@@ -6,6 +6,7 @@ import { validateBody } from '@/lib/server/validate';
 import { z } from 'zod';
 import { createEvaluationSignature, createTopicEvaluationSignature } from '@/lib/interview/evaluationSignature';
 import { completeActiveLiveInterview } from '@/lib/interview/activeSessionRegistry';
+import { loadActiveLiveSession, markLiveSessionEvaluated, transcriptForModel, type LiveSession } from '@/lib/interview/liveSession';
 
 const InterviewEvaluateSchema = z.object({
   type: z.string().optional(),
@@ -15,6 +16,7 @@ const InterviewEvaluateSchema = z.object({
   telemetry: z.any().optional(),
   domainStream: z.string().optional(),
   domainSubTopic: z.string().optional(),
+  liveSessionId: z.string().optional(),
   roleKey: z.string().optional(),
   archetype: z.string().optional(),
   explanation: z.string().optional(),
@@ -146,17 +148,32 @@ export async function POST(req: Request) {
       });
     }
 
-    const stream = domainStream === 'non_tech' ? 'non_tech' : 'tech';
-    const roleKey = normalizeRoleKey(rawRoleKey || domainSubTopic, stream);
+    // Recorded interview: score the conversation the server recorded and the topic it was started
+    // with, once. Without a record the score is unrecorded practice (no signed result, no XP).
+    const evalAdmin = body.liveSessionId ? getSupabaseAdmin() : null;
+    let live: LiveSession | null = null;
+    if (evalAdmin) {
+      const found = await loadActiveLiveSession(evalAdmin, gated.user.id, body.liveSessionId);
+      if (!found.ok) {
+        const code = found.error === 'NOT_ACTIVE' ? 'ALREADY_EVALUATED' : `INTERVIEW_RECORD_${found.error}`;
+        return NextResponse.json({ error: code, message: 'This interview was already scored or can no longer be scored.' }, { status: 409 });
+      }
+      live = found.session;
+    }
+    const scoredHistory: Array<{ role: string; content: string }> = live ? transcriptForModel(live) : history;
+    const scoredTopic = live ? live.topic : domainSubTopic;
+
+    const stream = (live ? live.domain_stream : domainStream) === 'non_tech' ? 'non_tech' : 'tech';
+    const roleKey = normalizeRoleKey(live ? live.topic : (rawRoleKey || domainSubTopic), stream);
     const roleConfig = ROLE_SCORING_MATRICES[roleKey] || ROLE_SCORING_MATRICES.sde;
-    const topic = domainSubTopic || roleConfig.roleName;
+    const topic = scoredTopic || roleConfig.roleName;
 
     const validArchetypes = ['Pattern Hunter', 'Explorer', 'Social IQ', 'Stabilizer'] as const;
     const archetype: MindsetArchetype = (rawArchetype && (validArchetypes as readonly string[]).includes(rawArchetype))
       ? (rawArchetype as MindsetArchetype)
       : 'Pattern Hunter';
 
-    const formatted = (history || [])
+    const formatted = (scoredHistory || [])
       .map((t: any) => `${t.role === 'assistant' ? 'INTERVIEWER' : 'CANDIDATE'}: ${t.content}`)
       .join('\n\n');
 
@@ -273,7 +290,7 @@ Return ONLY valid JSON matching this schema:
             .from('interview_sessions')
             .update({
               status: 'PENDING_EVALUATION',
-              transcript: history,
+              transcript: scoredHistory,
               telemetry_diagnostics: generateTelemetryDiagnostics(telemetry) || null,
             })
             .eq('id', body.sessionId)
@@ -366,12 +383,21 @@ Return ONLY valid JSON matching this schema:
       completeActiveLiveInterview(gated.user.id);
     }
 
-    const evaluationToken = gated.user?.id
+    // A recorded interview is scored once; a second request (e.g. a replay) gets nothing new.
+    if (live && evalAdmin) {
+      const marked = await markLiveSessionEvaluated(evalAdmin, live, { score: finalEvaluation.score, verdict: finalEvaluation.verdict });
+      if (!marked) {
+        return NextResponse.json({ error: 'ALREADY_EVALUATED', message: 'This interview was already scored.' }, { status: 409 });
+      }
+    }
+    const recorded = Boolean(live);
+
+    const evaluationToken = recorded && gated.user?.id
       ? createEvaluationSignature(gated.user.id, finalEvaluation.score, finalEvaluation.verdict)
       : undefined;
     let xpAwarded = 0;
     let newXp: number | undefined;
-    if (gated.user?.id && (finalEvaluation.verdict === 'Hire' || finalEvaluation.verdict === 'Conditional Hire')) {
+    if (recorded && gated.user?.id && (finalEvaluation.verdict === 'Hire' || finalEvaluation.verdict === 'Conditional Hire')) {
       try {
         const admin = getSupabaseAdmin();
         const today = await todaysXp(admin, gated.user.id, '[interview]');
@@ -387,9 +413,9 @@ Return ONLY valid JSON matching this schema:
       }
     }
 
-    // Bound to the topic as sent, so the result can prove which interview it came from.
-    const topicEvaluationToken = gated.user?.id && typeof domainSubTopic === 'string' && domainSubTopic.trim()
-      ? createTopicEvaluationSignature(gated.user.id, finalEvaluation.score, finalEvaluation.verdict, domainSubTopic)
+    // Bound to the recorded interview's topic, so the result proves which interview it came from.
+    const topicEvaluationToken = recorded && live && gated.user?.id
+      ? createTopicEvaluationSignature(gated.user.id, finalEvaluation.score, finalEvaluation.verdict, live.topic)
       : undefined;
 
     return NextResponse.json({
@@ -398,6 +424,7 @@ Return ONLY valid JSON matching this schema:
       topicEvaluationToken,
       xpAwarded,
       newXp,
+      recorded,
       success: true,
     });
   } catch (err: any) {

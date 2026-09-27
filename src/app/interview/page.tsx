@@ -285,6 +285,22 @@ export default function InterviewPage() {
   const [architectureEvaluation, setArchitectureEvaluation] = useState<any>(null);
   const [evaluationResult, setEvaluationResult] = useState<any>(null);
 
+  // Server-recorded interview (T22): the id of the record the server keeps of this interview. Every
+  // answer and the final evaluation carry it, so the score comes from what the server recorded.
+  const [liveSessionId, setLiveSessionIdState] = useState<string | null>(null);
+  const liveSessionIdRef = useRef<string | null>(null);
+  const setLiveSessionId = useCallback((id: string | null) => {
+    liveSessionIdRef.current = id;
+    setLiveSessionIdState(id);
+  }, []);
+  const postLiveEvent = useCallback((event: 'stage' | 'skip', stage: Stage) => {
+    const id = liveSessionIdRef.current;
+    if (!id) return;
+    getAuthHeaders()
+      .then((headers) => fetch('/api/interview/chat', { method: 'POST', headers, body: JSON.stringify({ liveSessionId: id, event, stage }) }))
+      .catch(() => {});
+  }, []);
+
   // Persistence Hook
   const {
     sessions,
@@ -311,7 +327,8 @@ export default function InterviewPage() {
     elapsedSeconds,
     fillerWordCount: 0,
     activeTeacherId: activeTeacher.id,
-    latestTopology
+    latestTopology,
+    liveSessionId
   });
 
   const handleSendMessageWithTextRef = useRef<(text: string) => Promise<void>>((async () => {}) as any);
@@ -399,11 +416,24 @@ export default function InterviewPage() {
     setSelectedLang(activeSessionDraft.selectedLang || 'python');
     setElapsedSeconds(activeSessionDraft.elapsedSeconds || 0);
     if (activeSessionDraft.latestTopology) setLatestTopology(activeSessionDraft.latestTopology);
+    const resumedId = activeSessionDraft.liveSessionId ?? null;
+    setLiveSessionId(resumedId);
+    if (resumedId) {
+      getAuthHeaders()
+        .then((headers) => fetch('/api/interview/start', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({ action: 'resume', liveSessionId: resumedId, topic: activeSessionDraft.activeTopicName, stage: activeSessionDraft.activeStage }),
+        }))
+        .then((r) => r.json())
+        .then((d) => { if (!d?.recorded) setLiveSessionId(null); })
+        .catch(() => {});
+    }
     const foundTeacher = AVATAR_POOL.find(a => a.id === activeSessionDraft.activeTeacherId);
     if (foundTeacher) setActiveTeacher(foundTeacher);
     setIsInterviewActive(true);
     toast.success('Interview Session Restored', `Resumed in ${activeSessionDraft.activeTopicName}`);
-  }, [activeSessionDraft]);
+  }, [activeSessionDraft, setLiveSessionId]);
 
   const startInterview = async () => {
     stopArchetypeSoundscape();
@@ -437,23 +467,30 @@ export default function InterviewPage() {
     codeModifiedRef.current = false;
 
     const greeting = `Welcome to your ${topic} Corporate Interview! I am ${sessionTeacher.name}, ${sessionTeacher.title}. To kick things off, please introduce yourself, tell me a bit about your academic background, and share your experience with ${topic}.`;
+
+    // The server opens its record of this interview (the topic is fixed from here on).
+    let recordedId: string | null = null;
+    try {
+      const headers = await getAuthHeaders();
+      const res = await fetch('/api/interview/start', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ action: 'start', topic, stage: 'round1_behavioral', domainStream, opening: greeting })
+      });
+      const data = await res.json().catch(() => ({}));
+      recordedId = typeof data?.liveSessionId === 'string' ? data.liveSessionId : null;
+    } catch {}
+    setLiveSessionId(recordedId);
+    if (!recordedId) {
+      toast.info('Practice interview', 'This interview could not be recorded on the server, so it will not earn XP or count as a capstone defense.');
+    }
+
     setMessages([{ role: 'assistant', content: greeting }]);
     speakWithAvatar(greeting, sessionTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
 
     if (isAssistModeActive) {
       fetchAssistScript(greeting, assistScriptLevel);
     }
-
-    // Server-Authoritative anti-cheat session registration
-    try {
-      getAuthHeaders().then(headers => {
-        fetch('/api/interview/start', {
-          method: 'POST',
-          headers,
-          body: JSON.stringify({ action: 'start', topic, stage: 'round1_behavioral' })
-        }).catch(() => {});
-      }).catch(() => {});
-    } catch {}
   };
 
   const exitInterview = () => {
@@ -465,6 +502,8 @@ export default function InterviewPage() {
     setActiveStage('round1_behavioral');
     setAssistData(null);
     clearDraft();
+    const closingId = liveSessionIdRef.current;
+    setLiveSessionId(null);
 
     // Notify server of session conclusion / cancellation
     try {
@@ -472,7 +511,7 @@ export default function InterviewPage() {
         fetch('/api/interview/start', {
           method: 'POST',
           headers,
-          body: JSON.stringify({ action: 'cancel' })
+          body: JSON.stringify({ action: 'cancel', liveSessionId: closingId })
         }).catch(() => {});
       }).catch(() => {});
     } catch {}
@@ -496,6 +535,7 @@ export default function InterviewPage() {
       stagePrompt = `Round 4: Executive Review & STAR Assessment. Looking at your system whiteboard with ${builtNodes}, what trade-offs did you prioritize for ${activeTopicName}?`;
     }
     if (stagePrompt) {
+      postLiveEvent('stage', next);
       setMessages(prev => [...prev, { role: 'assistant', content: stagePrompt }]);
       speakWithAvatar(stagePrompt, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
       if (isAssistModeActive) {
@@ -507,6 +547,7 @@ export default function InterviewPage() {
   const skipQuestion = () => {
     stopSpeaking();
     const skipMsg = `Moving on to our next question for ${activeTopicName}. How do you approach reliability and edge-case handling?`;
+    postLiveEvent('skip', activeStage);
     setMessages(prev => [...prev, { role: 'user', content: '[Candidate skipped question]' }, { role: 'assistant', content: skipMsg }]);
     speakWithAvatar(skipMsg, activeTeacher.id, () => setAnimState('talking'), () => setAnimState('idle'));
   };
@@ -523,6 +564,7 @@ export default function InterviewPage() {
         method: 'POST',
         headers,
         body: JSON.stringify({
+          liveSessionId: liveSessionIdRef.current,
           message: text.trim(),
           interviewerId: activeTeacher.id,
           stage: activeStage,
@@ -539,6 +581,11 @@ export default function InterviewPage() {
         })
       });
       const data = await res.json();
+      if (res.status === 409) {
+        setLiveSessionId(null);
+        toast.error('Interview ended', data?.message || 'This interview can no longer continue. Please start a new one.');
+        return;
+      }
       const cleanReply = sanitizeLLMOutput(data?.reply);
       if (cleanReply) {
         setMessages([...newMsgs, { role: 'assistant', content: cleanReply }]);
@@ -659,6 +706,7 @@ export default function InterviewPage() {
           domainStream,
           domainSubTopic: activeTopicName,
           roleKey: activeTopicName,
+          liveSessionId: liveSessionIdRef.current,
           archetype,
           topology: latestTopology,
           telemetry: {
@@ -684,6 +732,7 @@ export default function InterviewPage() {
 
     setEvaluationResult(resultObj);
     clearDraft();
+    setLiveSessionId(null); // scored: the server record is closed
 
     // Roadmap capstone: keep the result on the project (the next step, the certificate, needs it).
     if (capstone && activeTopicName === capstone.topic) {

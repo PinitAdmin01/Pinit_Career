@@ -3,6 +3,15 @@ import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { sanitizeLLMOutput } from '@/lib/sanitizeLLM';
 import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 import { recordActiveLiveInterview } from '@/lib/interview/activeSessionRegistry';
+import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
+import {
+  appendLiveTurns,
+  clampTurn,
+  loadActiveLiveSession,
+  stageMarker,
+  transcriptForModel,
+  type LiveSession,
+} from '@/lib/interview/liveSession';
 
 // Comprehensive Interviewer Persona Roster matching all frontend 3D VRoid Avatars
 const INTERVIEWERS_MAP: Record<string, { name: string; role: string; nature: string }> = {
@@ -173,8 +182,50 @@ export async function POST(req: Request) {
     } = body;
 
     const selectedInterviewer = INTERVIEWERS_MAP[interviewerId] || INTERVIEWERS_MAP.vikram;
-    const stream = domainStream === 'non_tech' ? 'non_tech' : 'tech';
-    const subTopic = (customTopic || domainSubTopic || (stream === 'non_tech' ? 'Finance & Strategy' : 'Software Engineering')).toUpperCase();
+
+    // Recorded interview: the server's record is the conversation (the browser's history is not
+    // used), and the topic is the one the interview was started with.
+    const admin = body.liveSessionId ? getSupabaseAdmin() : null;
+    let live: LiveSession | null = null;
+    if (admin) {
+      const found = await loadActiveLiveSession(admin, gated.user.id, body.liveSessionId);
+      if (!found.ok) {
+        return NextResponse.json(
+          { error: `INTERVIEW_RECORD_${found.error}`, message: 'This interview can no longer continue. Please start a new one.' },
+          { status: 409 }
+        );
+      }
+      live = found.session;
+    }
+    const recordTurns = async (turns: Parameters<typeof appendLiveTurns>[2]) => {
+      if (!admin || !live) return;
+      const saved = await appendLiveTurns(admin, live, turns);
+      if (saved) { live = saved; return; }
+      // Another request updated the record first: reload once and append again.
+      const again = await loadActiveLiveSession(admin, gated.user.id, live.id);
+      if (again.ok) live = (await appendLiveTurns(admin, again.session, turns)) ?? again.session;
+    };
+
+    const stream = live ? live.domain_stream : (domainStream === 'non_tech' ? 'non_tech' : 'tech');
+    const topicSource = live ? live.topic : (customTopic || domainSubTopic || (stream === 'non_tech' ? 'Finance & Strategy' : 'Software Engineering'));
+    const subTopic = String(topicSource).toUpperCase();
+
+    // Round changes and skipped questions happen on the page; the record notes them too.
+    if (live && (body.event === 'stage' || body.event === 'skip')) {
+      if (body.event === 'stage') {
+        await recordTurns([clampTurn('assistant', stageMarker(String(stage || '')), stage)]);
+      } else {
+        await recordTurns([
+          clampTurn('user', '[Candidate skipped question]', stage),
+          clampTurn('assistant', `Moving on to our next question for ${live.topic}.`, stage),
+        ]);
+      }
+      return NextResponse.json({ ok: true, recorded: true });
+    }
+    const liveUserTurn = live ? clampTurn('user', message, stage) : null;
+    const effectiveHistory: Array<{ role: string; content: string }> = live
+      ? [...transcriptForModel(live), ...(liveUserTurn ? [{ role: 'user', content: liveUserTurn.content }] : [])]
+      : (Array.isArray(history) ? history : []);
 
         console.log(`[Interview Chat API] Authenticated User: ${gated.user.id} | Interviewer: ${selectedInterviewer.name} (${interviewerId}) | Stage: ${stage} | Topic: ${subTopic}`);
     if (gated.user?.id) {
@@ -193,14 +244,15 @@ export async function POST(req: Request) {
 
     // 3. Build Topic Context
     let topicPrompt = `The candidate is being interviewed for [${subTopic}] in the [${stream === 'non_tech' ? 'Non-Tech / Corporate / Business' : 'Tech / Software / Systems'}] stream.`;
-    if (customTopic && customTopic.trim()) {
-      topicPrompt += ` Topic Focus: "${customTopic.trim()}". Align all questions and technical drill-downs strictly to this domain.`;
+    const topicFocus = live ? live.topic : (typeof customTopic === 'string' ? customTopic.trim() : '');
+    if (topicFocus) {
+      topicPrompt += ` Topic Focus: "${topicFocus}". Align all questions and technical drill-downs strictly to this domain.`;
     }
 
     // 4. Build Stage-Specific Context
     let stageContext = '';
     if (stage === 'round1_behavioral') {
-      const historyLength = Array.isArray(history) ? history.length : 0;
+      const historyLength = effectiveHistory.length;
       if (historyLength <= 1) {
         stageContext = `This is Round 1 (Behavioral & Background). Acknowledge the candidate warmly, introduce yourself briefly as ${selectedInterviewer.name}, and ask them to introduce their background and experience with ${subTopic}. Keep under 3 sentences.`;
       } else {
@@ -250,11 +302,10 @@ RULES:
     const openRouterKey = process.env.OPENROUTER_API_KEY;
 
     let reply = '';
-    const formattedHistory = Array.isArray(history)
-      ? history.map((h: any) => ({ role: h.role === 'assistant' ? 'assistant' : 'user', content: String(h.content || '') }))
-      : [];
+    const formattedHistory = effectiveHistory.map((h) => ({ role: h.role === 'assistant' ? 'assistant' : 'user', content: String(h.content || '') }));
 
-    const wantsStream = Boolean(body.stream) || Boolean(body.streaming) || Boolean(req.headers.get('accept')?.includes('text/event-stream'));
+    // A recorded interview needs the whole reply to store it, so it is answered without streaming.
+    const wantsStream = !live && (Boolean(body.stream) || Boolean(body.streaming) || Boolean(req.headers.get('accept')?.includes('text/event-stream')));
 
     // 7. If client requested SSE streaming, attempt streaming Groq inference
     if (wantsStream) {
@@ -437,6 +488,10 @@ RULES:
     }
 
     const sanitizedReply = sanitizeLLMOutput(reply);
+    if (live) {
+      await recordTurns([liveUserTurn, clampTurn('assistant', sanitizedReply, stage)]);
+      return NextResponse.json({ reply: sanitizedReply, recorded: true });
+    }
     return NextResponse.json({ reply: sanitizedReply });
 
   } catch (err: any) {

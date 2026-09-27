@@ -57,6 +57,8 @@ export interface ActiveInterviewDraft {
   fillerWordCount: number;
   activeTeacherId: string;
   latestTopology?: any;
+  /** The server's record of this interview (interview_live_sessions), to continue it after a reload. */
+  liveSessionId?: string | null;
   timestamp: number;
 }
 
