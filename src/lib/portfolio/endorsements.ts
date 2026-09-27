@@ -12,8 +12,10 @@
  *
  * So this module decides only what the UI should show and send. The real gate
  * has to be a Supabase row-level-security policy on the write itself — a
- * student must not be able to set `verified` on their own portfolio rows. Until
- * that policy exists, treat a verified badge as unproven.
+ * student must not be able to set `verified` on their own portfolio rows. That gate
+ * is the trg_protect_portfolio_verification trigger
+ * (supabase/migrations/20260926_protect_portfolio_verification.sql): browser writes keep
+ * the stored verification fields, so only the server (service_role) can verify an item.
  *
  * That is why verifyItemDecision refuses rather than approving when the role is
  * not privileged: the previous behaviour (a 404 the page turned into "Permission
