@@ -152,6 +152,10 @@ export async function POST(req: Request) {
     if (planId === 'pack_custom' && (body as any)._customPins) {
       notes.customPins = String((body as any)._customPins);
     }
+    if (planId.startsWith('plan-')) {
+      // Course plans: verify/webhook enroll on this track, read back from the order.
+      notes.track = (body as { track?: string }).track === 'python_ai' ? 'python_ai' : 'web_fullstack';
+    }
 
     const auth = Buffer.from(`${keyId}:${keySecret}`).toString('base64');
     const rpRes = await fetch('https://api.razorpay.com/v1/orders', {

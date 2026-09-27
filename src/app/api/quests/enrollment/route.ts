@@ -3,36 +3,26 @@ import fs from 'fs';
 import path from 'path';
 import { createClient } from '@supabase/supabase-js';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
+import {
+  COURSE_PLAN_PIN_COSTS,
+  COURSE_PLAN_REWARD_PINS,
+  COURSE_PLAN_TITLES,
+  appendPinHistory,
+  buildCourseEnrollment,
+  creditPins,
+  findActiveCourseEnrollment,
+  insertCourseEnrollment,
+  isCoursePlanId,
+  normalizeTrack,
+  type CourseEnrollment,
+  type CoursePaymentMethod,
+  type CourseTrack,
+} from '@/lib/server/courseEnrollments';
 
+// Local JSON files are a development fallback only (no Supabase configured). They are
+// never used in production: the serverless filesystem does not persist writes.
 const DB_FILE = path.join(process.cwd(), 'src', 'lib', 'data', 'enrollments_db.json');
 const WALLET_FILE = path.join(process.cwd(), 'src', 'lib', 'data', 'pin_wallet_db.json');
-
-const PLAN_PIN_COSTS: Record<string, number> = {
-  'plan-1m-sprint': 500,
-  'plan-3m-accelerator': 1200,
-  'plan-6m-pro': 2200,
-  'plan-9m-master': 3500,
-  'plan-12m-fellow': 4500,
-  'plan-24m-master': 7500,
-};
-
-const PLAN_REWARD_PINS: Record<string, number> = {
-  'plan-1m-sprint': 150,
-  'plan-3m-accelerator': 350,
-  'plan-6m-pro': 700,
-  'plan-9m-master': 1200,
-  'plan-12m-fellow': 1500,
-  'plan-24m-master': 2500,
-};
-
-const PLAN_TITLES: Record<string, string> = {
-  'plan-1m-sprint': '1-Month Fast-Track Sprint',
-  'plan-3m-accelerator': '3-Month Career Accelerator',
-  'plan-6m-pro': '6-Month Professional Program',
-  'plan-9m-master': '9-Month Master Program',
-  'plan-12m-fellow': '12-Month Advanced Industry Fellowship',
-  'plan-24m-master': '24-Month Master Engineering & Degree Track',
-};
 
 function readLocalDb(): Record<string, any[]> {
   try {
@@ -77,51 +67,57 @@ function writeWalletDb(data: { balance: number; transactions: any[] }): void {
   }
 }
 
+function getAdminClient() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  return url && serviceKey ? createClient(url, serviceKey, { auth: { persistSession: false } }) : null;
+}
+
+const paymentsUnavailable = () => NextResponse.json(
+  { ok: false, error: 'PAYMENTS_UNAVAILABLE', message: 'Course enrollment is temporarily unavailable. You have not been charged.' },
+  { status: 503 }
+);
+
+function enrollmentResponse(
+  enrollment: CourseEnrollment,
+  wallet: { newBalance: number | null; pinsDeducted: number; rewardPinsCredited: number },
+  alreadyEnrolled = false,
+) {
+  return NextResponse.json({ ok: true, enrollment, alreadyEnrolled, wallet });
+}
+
 export async function GET(req: Request) {
   try {
-    let userId = 'student-demo';
-    const gated = await requireUserFromRequest(req).catch(() => null);
-    if (gated && !gated.error && gated.user) {
-      userId = gated.user.id;
+    const gated = await requireUserFromRequest(req);
+    if (gated.error || !gated.user) {
+      return NextResponse.json({ ok: false, error: 'UNAUTHORIZED' }, { status: 401 });
     }
+    const userId = gated.user.id;
 
-    // 1. Try Supabase if configured
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-    if (url && serviceKey) {
-      try {
-        const admin = createClient(url, serviceKey, { auth: { persistSession: false } });
-        const { data, error } = await admin
-          .from('user_crash_enrollments')
-          .select('*')
-          .eq('user_id', userId)
-          .eq('status', 'active')
-          .order('enrolled_at', { ascending: false })
-          .limit(1)
-          .maybeSingle();
-
-        if (data && !error) {
-          const wallet = readWalletDb();
-          return NextResponse.json({ ok: true, enrollment: data, walletBalance: wallet.balance });
-        }
-      } catch {
-        // Fallback to local DB
+    const admin = getAdminClient();
+    if (admin) {
+      const found = await findActiveCourseEnrollment(admin, userId);
+      if (found.error) {
+        console.error('[api/quests/enrollment] GET lookup failed:', found.error);
+        return NextResponse.json({ ok: false, error: 'ENROLLMENT_LOOKUP_FAILED' }, { status: 503 });
       }
+      return NextResponse.json({ ok: true, enrollment: found.enrollment });
     }
+    if (process.env.NODE_ENV === 'production') return paymentsUnavailable();
 
-    // 2. Local DB fallback
     const local = readLocalDb();
-    const active = (local.enrollments || []).find(
-      (e) => (e.userId === userId || userId === 'student-demo') && e.status === 'active'
-    );
-    const wallet = readWalletDb();
-
-    return NextResponse.json({ ok: true, enrollment: active || null, walletBalance: wallet.balance });
+    const active = (local.enrollments || []).find((e) => e.userId === userId && e.status === 'active');
+    return NextResponse.json({ ok: true, enrollment: active || null });
   } catch (err: any) {
     return NextResponse.json({ ok: false, error: err.message }, { status: 500 });
   }
 }
 
+/**
+ * Enroll with Pins (or the development sandbox). Card payments are enrolled by
+ * /api/payment/verify once Razorpay confirms them, never by this endpoint.
+ * Idempotent: while an enrollment for the plan is active, repeat calls return it uncharged.
+ */
 export async function POST(req: Request) {
   try {
     const gated = await requireUserFromRequest(req);
@@ -131,198 +127,174 @@ export async function POST(req: Request) {
     const userId = gated.user.id;
     const body = await req.json().catch(() => ({}));
 
-    const planId = String(body.planId || 'plan-3m-accelerator');
-    const paymentMethod = body.paymentMethod || 'sandbox';
-    const planTitle = PLAN_TITLES[planId] || planId;
-    const pinCost = PLAN_PIN_COSTS[planId] || 500;
-    const rewardPins = PLAN_REWARD_PINS[planId] || 250;
-
-    let newBalance = 0;
-    let pinTx: any = null;
-
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-    const hasSupabase = Boolean(url && serviceKey);
-
-    // ── CASE A: PAYMENT VIA PINS ──
-    if (paymentMethod === 'pins') {
-      if (hasSupabase && userId !== 'student-demo') {
-        try {
-          const admin = createClient(url!, serviceKey!, { auth: { persistSession: false } });
-          const { data: spendRes, error: spendErr } = await admin.rpc('spend_pins', {
-            p_user_id: userId,
-            p_amount: pinCost,
-            p_reason: `Course Purchase: ${planTitle}`,
-          });
-
-          if (spendErr || !spendRes?.ok) {
-            return NextResponse.json(
-              {
-                ok: false,
-                error: spendRes?.reason || 'INSUFFICIENT_PINS',
-                message: `Insufficient pins balance (${spendRes?.current_balance || 0} pins available, ${pinCost} pins required).`,
-                currentBalance: spendRes?.current_balance ?? 0,
-              },
-              { status: 402 }
-            );
-          }
-
-          newBalance = spendRes.new_balance;
-          pinTx = {
-            id: `tx-course-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
-            type: 'spend',
-            amount: pinCost,
-            reason: `Course Enrollment: ${planTitle}`,
-            source: 'course_enrollment',
-            timestamp: Date.now(),
-          };
-
-          // Append to user pin_history array
-          const { data: userProfile } = await admin.from('users').select('pin_history').eq('id', userId).maybeSingle();
-          const history = Array.isArray(userProfile?.pin_history) ? userProfile.pin_history : [];
-          await admin.from('users').update({ pin_history: [pinTx, ...history].slice(0, 100) }).eq('id', userId);
-        } catch (err) {
-          console.warn('[Enrollment Pin Spend Error]:', err);
-        }
-      }
-
-      // Local Wallet Fallback update
-      const wallet = readWalletDb();
-      if (wallet.balance < pinCost && !hasSupabase) {
-        wallet.balance = Math.max(wallet.balance, pinCost); // auto-grant demo credit for smooth evaluation
-      }
-      wallet.balance = Math.max(0, wallet.balance - pinCost);
-      pinTx = pinTx || {
-        id: `tx-course-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
-        type: 'spend',
-        amount: pinCost,
-        reason: `Course Enrollment: ${planTitle}`,
-        source: 'course_enrollment',
-        timestamp: Date.now(),
-      };
-      wallet.transactions = [pinTx, ...wallet.transactions].slice(0, 100);
-      writeWalletDb(wallet);
-      newBalance = wallet.balance;
+    const planId = String(body.planId || '');
+    if (!isCoursePlanId(planId)) {
+      return NextResponse.json({ ok: false, error: 'UNKNOWN_PLAN', message: `Unknown course plan '${planId}'.` }, { status: 400 });
     }
-
-    // ── CASE B: PAYMENT VIA MONEY (RAZORPAY OR SANDBOX) ──
+    const paymentMethod = String(body.paymentMethod || '');
+    if (paymentMethod === 'razorpay') {
+      return NextResponse.json(
+        { ok: false, error: 'CARD_PAYMENT_VIA_VERIFY', message: 'Card payments are enrolled when the payment is verified.' },
+        { status: 400 }
+      );
+    }
+    if (paymentMethod !== 'pins' && paymentMethod !== 'sandbox') {
+      return NextResponse.json({ ok: false, error: 'INVALID_PAYMENT_METHOD' }, { status: 400 });
+    }
     if (paymentMethod === 'sandbox' && process.env.NODE_ENV === 'production') {
       return NextResponse.json(
         { ok: false, error: 'SANDBOX_PAYMENT_DISABLED', message: 'Sandbox payment is disabled in production.' },
         { status: 400 }
       );
     }
-    if (paymentMethod === 'razorpay' || paymentMethod === 'sandbox') {
-      if (hasSupabase) {
-        try {
-          const admin = createClient(url!, serviceKey!, { auth: { persistSession: false } });
-          const { data: creditRes } = await admin.rpc('credit_pins', {
-            p_user_id: userId,
-            p_amount: rewardPins,
-            p_reason: `Scholar Reward Cashback for ${planTitle}`,
-            p_source: 'purchase',
-          });
-          if (creditRes?.new_balance) newBalance = creditRes.new_balance;
+    const method = paymentMethod as Exclude<CoursePaymentMethod, 'razorpay'>;
+    const track = normalizeTrack(body.track);
 
-          pinTx = {
-            id: `tx-reward-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
-            type: 'earn',
-            amount: rewardPins,
-            reason: `Scholar Reward Pins: ${planTitle}`,
-            source: 'purchase',
-            timestamp: Date.now(),
-          };
-          const { data: userProfile } = await admin.from('users').select('pin_history').eq('id', userId).maybeSingle();
-          const history = Array.isArray(userProfile?.pin_history) ? userProfile.pin_history : [];
-          await admin.from('users').update({ pin_history: [pinTx, ...history].slice(0, 100) }).eq('id', userId);
-        } catch (err) {
-          console.warn('[Enrollment Reward Pin Credit Error]:', err);
-        }
-      }
-
-      // Local Wallet Fallback update
-      const wallet = readWalletDb();
-      wallet.balance += rewardPins;
-      pinTx = pinTx || {
-        id: `tx-reward-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
-        type: 'earn',
-        amount: rewardPins,
-        reason: `Scholar Reward Pins: ${planTitle}`,
-        source: 'purchase',
-        timestamp: Date.now(),
-      };
-      wallet.transactions = [pinTx, ...wallet.transactions].slice(0, 100);
-      writeWalletDb(wallet);
-      newBalance = wallet.balance;
+    const admin = getAdminClient();
+    if (!admin) {
+      if (process.env.NODE_ENV === 'production') return paymentsUnavailable();
+      return enrollLocally(userId, planId, track, method);
     }
 
-    // ── SAVE ENROLLMENT RECORD ──
-    const newEnrollment = {
-      enrollmentId: body.enrollmentId || `enr-${Date.now()}`,
+    const existing = await findActiveCourseEnrollment(admin, userId, planId);
+    if (existing.error) {
+      console.error('[api/quests/enrollment] lookup failed:', existing.error);
+      return paymentsUnavailable();
+    }
+    if (existing.enrollment) {
+      return enrollmentResponse(existing.enrollment, { newBalance: null, pinsDeducted: 0, rewardPinsCredited: 0 }, true);
+    }
+
+    const title = COURSE_PLAN_TITLES[planId] || planId;
+    const pinCost = COURSE_PLAN_PIN_COSTS[planId];
+    let newBalance: number | null = null;
+
+    if (method === 'pins') {
+      const { data: spendRes, error: spendErr } = await admin.rpc('spend_pins', {
+        p_user_id: userId,
+        p_amount: pinCost,
+        p_reason: `Course Purchase: ${title}`,
+      });
+      if (spendErr) {
+        console.error('[api/quests/enrollment] spend_pins failed:', spendErr.message);
+        return paymentsUnavailable();
+      }
+      if (!spendRes?.ok) {
+        return NextResponse.json(
+          {
+            ok: false,
+            error: spendRes?.reason || 'INSUFFICIENT_PINS',
+            message: `Insufficient pins balance (${spendRes?.current_balance || 0} pins available, ${pinCost} pins required).`,
+            currentBalance: spendRes?.current_balance ?? 0,
+          },
+          { status: 402 }
+        );
+      }
+      newBalance = typeof spendRes.new_balance === 'number' ? spendRes.new_balance : null;
+    }
+
+    const enrollment = buildCourseEnrollment({
       userId,
       planId,
-      track: body.track || 'web_fullstack',
-      amountPaid: body.amountPaid || 0,
-      paymentId: body.paymentId || (paymentMethod === 'pins' ? `PINS-${pinCost}` : 'sandbox_payment'),
-      orderId: body.orderId || '',
-      paymentMethod,
-      status: 'active',
-      enrolledAt: body.enrolledAt || new Date().toISOString(),
-      currentSprint: body.currentSprint || 1,
-      dailyLearningHoursTarget: 1,
-      rewardPinsCredited: paymentMethod !== 'pins' ? rewardPins : 0,
-      pinsDeducted: paymentMethod === 'pins' ? pinCost : 0,
-      milestoneProgress: body.milestoneProgress || {
-        sprint1Approved: false,
-        sprint2Approved: false,
-      },
-      certificatesIssued: body.certificatesIssued || {},
-    };
+      track,
+      paymentMethod: method,
+      paymentId: `${method === 'pins' ? 'PINS' : 'SANDBOX'}-${Date.now()}`,
+      amountPaid: method === 'pins' ? pinCost : 0,
+    });
+    const inserted = await insertCourseEnrollment(admin, enrollment);
 
-    const local = readLocalDb();
-    local.enrollments = local.enrollments || [];
-    local.enrollments = local.enrollments.map((e) =>
-      e.userId === userId ? { ...e, status: 'completed' } : e
-    );
-    local.enrollments.unshift(newEnrollment);
-    writeLocalDb(local);
+    if (!inserted.enrollment) {
+      let refunded = false;
+      if (method === 'pins') {
+        const refund = await creditPins(admin, userId, pinCost, `Refund: ${title} enrollment could not be saved`, 'refund');
+        refunded = refund.ok;
+        if (!refund.ok) {
+          console.error(`[api/quests/enrollment] REFUND FAILED: ${pinCost} pins for ${userId} (${planId}). Refund manually.`);
+        }
+      }
+      if (inserted.duplicate) {
+        // A concurrent request for the same plan won the unique index; this charge was refunded.
+        const winner = await findActiveCourseEnrollment(admin, userId, planId);
+        if (winner.enrollment) {
+          return enrollmentResponse(winner.enrollment, { newBalance: null, pinsDeducted: 0, rewardPinsCredited: 0 }, true);
+        }
+      }
+      console.error('[api/quests/enrollment] insert failed:', inserted.error);
+      return NextResponse.json(
+        {
+          ok: false,
+          error: 'ENROLLMENT_SAVE_FAILED',
+          message: method === 'pins' && refunded
+            ? 'Enrollment could not be saved. Your pins have been refunded.'
+            : 'Enrollment could not be saved. Please contact support.',
+        },
+        { status: 500 }
+      );
+    }
 
-    if (hasSupabase) {
-      try {
-        const admin = createClient(url!, serviceKey!, { auth: { persistSession: false } });
-        await admin.from('user_crash_enrollments').insert({
-          enrollment_id: newEnrollment.enrollmentId,
-          user_id: userId,
-          plan_id: newEnrollment.planId,
-          track: newEnrollment.track,
-          amount_paid: newEnrollment.amountPaid,
-          payment_id: newEnrollment.paymentId,
-          order_id: newEnrollment.orderId,
-          payment_method: newEnrollment.paymentMethod,
-          status: 'active',
-          enrolled_at: newEnrollment.enrolledAt,
-          current_sprint: newEnrollment.currentSprint,
-          milestone_progress: newEnrollment.milestoneProgress,
-          certificates_issued: newEnrollment.certificatesIssued,
-        });
-      } catch {
-        // non-blocking if table doesn't exist
+    let rewardPinsCredited = 0;
+    if (method === 'pins') {
+      await appendPinHistory(admin, userId, { type: 'spend', amount: pinCost, reason: `Course Enrollment: ${title}`, source: 'course_enrollment' });
+    } else {
+      const reward = COURSE_PLAN_REWARD_PINS[planId] || 0;
+      const credited = await creditPins(admin, userId, reward, `Scholar Reward Cashback for ${title}`, 'purchase');
+      if (credited.ok) {
+        rewardPinsCredited = reward;
+        newBalance = credited.newBalance;
+        await appendPinHistory(admin, userId, { type: 'earn', amount: reward, reason: `Scholar Reward Pins: ${title}`, source: 'purchase' });
       }
     }
 
-    return NextResponse.json({
-      ok: true,
-      enrollment: newEnrollment,
-      wallet: {
-        newBalance,
-        transaction: pinTx,
-        rewardPinsCredited: newEnrollment.rewardPinsCredited,
-        pinsDeducted: newEnrollment.pinsDeducted,
-      },
+    return enrollmentResponse(inserted.enrollment, {
+      newBalance,
+      pinsDeducted: inserted.enrollment.pinsDeducted,
+      rewardPinsCredited,
     });
   } catch (err: any) {
     return NextResponse.json({ ok: false, error: err.message }, { status: 500 });
   }
+}
+
+/** Development-only enrollment against the local JSON files (no Supabase configured). */
+function enrollLocally(userId: string, planId: string, track: CourseTrack, method: 'pins' | 'sandbox') {
+  const local = readLocalDb();
+  local.enrollments = local.enrollments || [];
+  const existing = local.enrollments.find((e) => e.userId === userId && e.planId === planId && e.status === 'active');
+  if (existing) {
+    return enrollmentResponse(existing as CourseEnrollment, { newBalance: null, pinsDeducted: 0, rewardPinsCredited: 0 }, true);
+  }
+
+  const pinCost = COURSE_PLAN_PIN_COSTS[planId];
+  const reward = COURSE_PLAN_REWARD_PINS[planId] || 0;
+  const wallet = readWalletDb();
+  if (method === 'pins') {
+    if (wallet.balance < pinCost) {
+      return NextResponse.json(
+        { ok: false, error: 'INSUFFICIENT_PINS', message: `Insufficient pins balance (${wallet.balance} pins available, ${pinCost} pins required).` },
+        { status: 402 }
+      );
+    }
+    wallet.balance -= pinCost;
+  } else {
+    wallet.balance += reward;
+  }
+  writeWalletDb(wallet);
+
+  const enrollment = buildCourseEnrollment({
+    userId,
+    planId,
+    track,
+    paymentMethod: method,
+    paymentId: `${method === 'pins' ? 'PINS' : 'SANDBOX'}-${Date.now()}`,
+    amountPaid: method === 'pins' ? pinCost : 0,
+  });
+  local.enrollments.unshift(enrollment);
+  writeLocalDb(local);
+  return enrollmentResponse(enrollment, {
+    newBalance: wallet.balance,
+    pinsDeducted: enrollment.pinsDeducted,
+    rewardPinsCredited: method === 'pins' ? 0 : reward,
+  });
 }
 
 export async function PATCH(req: Request) {

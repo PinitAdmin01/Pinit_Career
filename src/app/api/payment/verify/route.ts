@@ -1,8 +1,41 @@
 import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import crypto from 'crypto';
-import { createClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { PLAN_PRICES_PAISE } from '../create-order/route';
+import { fulfilCardCoursePurchase, isCoursePlanId, normalizeTrack, type CourseTrack } from '@/lib/server/courseEnrollments';
+
+/**
+ * Course plans are enrolled here, as soon as the payment is verified, so a paid student
+ * is enrolled even if they close the checkout. Idempotent by payment id: a retry — or a
+ * payment the webhook already recorded — returns the same enrollment instead of 409.
+ */
+async function courseEnrollmentResponse(
+  admin: SupabaseClient,
+  input: { userId: string; planId: string; track: CourseTrack; paymentId: string; orderId: string; amountPaid: number },
+) {
+  const fulfilled = await fulfilCardCoursePurchase(admin, input);
+  if (fulfilled.error || !fulfilled.enrollment) {
+    console.error(`[Payment] Course enrollment failed for verified payment ${input.paymentId}:`, fulfilled.error);
+    return NextResponse.json(
+      {
+        ok: false,
+        error: 'ENROLLMENT_FAILED',
+        message: 'Your payment is confirmed but enrollment could not be completed yet. Retrying will not charge you again.',
+      },
+      { status: 500 }
+    );
+  }
+  return NextResponse.json({
+    ok: true,
+    verified: true,
+    planId: input.planId,
+    paymentId: input.paymentId,
+    enrollment: fulfilled.enrollment,
+    rewardPinsCredited: fulfilled.rewardPinsCredited,
+    message: 'Payment verified. You are enrolled!',
+  });
+}
 
 export async function POST(req: Request) {
   try {
@@ -12,11 +45,13 @@ export async function POST(req: Request) {
       razorpay_payment_id,
       razorpay_signature,
       planId: clientPlanId,
+      track: clientTrack,
     } = body as {
       razorpay_order_id?: string;
       razorpay_payment_id?: string;
       razorpay_signature?: string;
       planId?: string;
+      track?: string;
     };
 
     if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
@@ -65,6 +100,22 @@ export async function POST(req: Request) {
 
       const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
       const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+      const isMockCoursePlan = isCoursePlanId(planId);
+      const mockCourseInput = {
+        userId: gated.user!.id,
+        planId,
+        track: normalizeTrack(clientTrack),
+        paymentId: razorpay_payment_id,
+        orderId: razorpay_order_id,
+        amountPaid: (PLAN_PRICES_PAISE[planId] || 0) / 100,
+      };
+
+      if (isMockCoursePlan && (!url || !serviceKey)) {
+        return NextResponse.json(
+          { ok: false, error: 'COURSE_ENROLLMENT_UNAVAILABLE', message: 'Course enrollment needs Supabase. Use the sandbox checkout in local development.' },
+          { status: 503 }
+        );
+      }
 
       if (url && serviceKey) {
         const admin = createClient(url, serviceKey, {
@@ -79,6 +130,7 @@ export async function POST(req: Request) {
           .maybeSingle();
 
         if (existingPayment) {
+          if (isMockCoursePlan) return courseEnrollmentResponse(admin, mockCourseInput);
           return NextResponse.json(
             {
               ok: false,
@@ -100,6 +152,7 @@ export async function POST(req: Request) {
 
         if (insertErr) {
           if (insertErr.code === '23505') {
+            if (isMockCoursePlan) return courseEnrollmentResponse(admin, mockCourseInput);
             return NextResponse.json(
               {
                 ok: false,
@@ -118,6 +171,8 @@ export async function POST(req: Request) {
             { status: 503 }
           );
         }
+
+        if (isMockCoursePlan) return courseEnrollmentResponse(admin, mockCourseInput);
 
         if (planId === 'pro' || planId === 'basic_student' || planId === 'student_99') {
           const nowMs = Date.now();
@@ -231,6 +286,17 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: false, error: 'PLAN_MISMATCH' }, { status: 400 });
     }
 
+    // Course plans: every value comes from the verified Razorpay order, never the client.
+    const isCoursePlan = isCoursePlanId(notesPlanId);
+    const courseInput = {
+      userId: gated.user!.id,
+      planId: notesPlanId,
+      track: normalizeTrack(order?.notes?.track),
+      paymentId: razorpay_payment_id,
+      orderId: razorpay_order_id,
+      amountPaid: Number(order.amount) / 100,
+    };
+
     let pinsGranted = 0;
     const isSubscriptionPlan = notesPlanId === 'pro' || notesPlanId === 'basic_student' || notesPlanId === 'student_99';
     if (notesPlanId === 'pack_100') pinsGranted = 100;
@@ -287,6 +353,8 @@ export async function POST(req: Request) {
     }
 
     if (existingPayment) {
+      // The webhook (or an earlier attempt) may have recorded this payment first.
+      if (isCoursePlan) return courseEnrollmentResponse(admin, courseInput);
       return NextResponse.json(
         {
           ok: false,
@@ -308,6 +376,7 @@ export async function POST(req: Request) {
 
     if (insertErr) {
       if (insertErr.code === '23505') {
+        if (isCoursePlan) return courseEnrollmentResponse(admin, courseInput);
         // Concurrent replay detected
         return NextResponse.json(
           {
@@ -328,6 +397,8 @@ export async function POST(req: Request) {
         { status: 503 }
       );
     }
+
+    if (isCoursePlan) return courseEnrollmentResponse(admin, courseInput);
 
     let nextDailyPins = 120;
     let nextBonusPins = 500;

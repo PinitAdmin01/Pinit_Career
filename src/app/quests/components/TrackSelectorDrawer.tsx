@@ -99,7 +99,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
   handleSelectCourseFromLibrary,
   setNotesModalState
 }) => {
-  const { pins, spendPins, earnPins } = usePins();
+  const { pins, setPins } = usePins();
   const [activeCrashPlanId, setActiveCrashPlanId] = React.useState<string>('plan-3m-accelerator');
   const [activeTrack, setActiveTrack] = React.useState<'web_fullstack' | 'python_ai'>('web_fullstack');
   const [showPracticeQuiz, setShowPracticeQuiz] = React.useState<boolean>(false);
@@ -129,23 +129,15 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
     setCheckoutModalOpen(true);
   };
 
-  const handleSuccessEnrollment = async (enrollment: any) => {
+  // The server already recorded this enrollment and charged/credited pins when the
+  // payment was confirmed. Only reflect it here: saving it again or calling
+  // spendPins/earnPins would charge or credit a second time.
+  const handleSuccessEnrollment = (enrollment: CrashCourseEnrollment, newPinBalance?: number | null) => {
     setActiveEnrollment(enrollment);
     setActiveCrashPlanId(enrollment.planId);
     setActiveTrack(enrollment.track);
-    await crashCourseEnrollmentService.saveEnrollment(enrollment);
-    if (enrollment.paymentMethod === 'pins' && enrollment.pinsDeducted) {
-      const planTier =
-        enrollment.planId === 'plan-1m-sprint' ? '1m'
-        : enrollment.planId === 'plan-3m-accelerator' ? '3m'
-        : enrollment.planId === 'plan-6m-pro' ? '6m'
-        : enrollment.planId === 'plan-9m-master' ? '9m'
-        : enrollment.planId === 'plan-12m-fellow' ? '12m'
-        : '24m';
-      spendPins('course_plan_' + planTier, undefined, `Course Purchase: ${enrollment.planId}`);
-    } else if (enrollment.rewardPinsCredited) {
-      earnPins('purchase', enrollment.rewardPinsCredited, `Scholar Reward Pins: ${enrollment.planId}`);
-    }
+    crashCourseEnrollmentService.cacheEnrollment(enrollment);
+    if (typeof newPinBalance === 'number') setPins(newPinBalance);
     setCheckoutModalOpen(false);
   };
 

@@ -1,7 +1,11 @@
 /**
- * Crash Course Enrollment & Persistence Service
- * Supports Supabase with fallback to local JSON database and client localStorage cache.
+ * Crash Course Enrollment client service.
+ *
+ * Enrollments are created only by the server, at the moment payment is confirmed
+ * (POST /api/quests/enrollment for Pins, /api/payment/verify for cards). This client
+ * reads them and keeps an offline cache; it never creates or pays for one itself.
  */
+import { api } from '@/lib/api/client';
 
 export interface CrashCourseEnrollment {
   enrollmentId: string;
@@ -16,6 +20,8 @@ export interface CrashCourseEnrollment {
   enrolledAt: string;
   currentSprint: number; // 1, 2, 3, or 4
   dailyLearningHoursTarget: number; // default 1
+  rewardPinsCredited?: number;
+  pinsDeducted?: number;
   milestoneProgress: {
     sprint1Approved: boolean;
     sprint2Approved: boolean;
@@ -32,66 +38,44 @@ export interface CrashCourseEnrollment {
 
 const STORAGE_KEY = 'pinit_active_crash_enrollment';
 
+function readCache(): CrashCourseEnrollment | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+    return parsed && parsed.status === 'active' ? (parsed as CrashCourseEnrollment) : null;
+  } catch {
+    return null;
+  }
+}
+
 export const crashCourseEnrollmentService = {
   /**
-   * Fetch active enrollment for the student (via API or localStorage fallback)
+   * Active enrollment for the signed-in student. The server is authoritative; the
+   * local cache is used only when the server can't be reached (offline).
    */
-  async getActiveEnrollment(userId?: string): Promise<CrashCourseEnrollment | null> {
+  async getActiveEnrollment(): Promise<CrashCourseEnrollment | null> {
     try {
-      if (typeof window !== 'undefined') {
-        const localCached = localStorage.getItem(STORAGE_KEY);
-        if (localCached) {
-          try {
-            const parsed = JSON.parse(localCached);
-            if (parsed && parsed.status === 'active') {
-              return parsed as CrashCourseEnrollment;
-            }
-          } catch {
-            // ignore invalid cache
-          }
-        }
+      const data = await api.get<{ ok: boolean; enrollment: CrashCourseEnrollment | null }>('/api/quests/enrollment');
+      const enrollment = data?.enrollment ?? null;
+      if (enrollment) {
+        crashCourseEnrollmentService.cacheEnrollment(enrollment);
+      } else {
+        crashCourseEnrollmentService.clearEnrollment();
       }
-
-      const res = await fetch('/api/quests/enrollment', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      });
-
-      if (res.ok) {
-        const data = await res.json();
-        if (data && data.enrollment) {
-          if (typeof window !== 'undefined') {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(data.enrollment));
-          }
-          return data.enrollment as CrashCourseEnrollment;
-        }
-      }
+      return enrollment;
     } catch (err) {
-      console.warn('[crashCourseEnrollmentService] Error fetching enrollment:', err);
+      console.warn('[crashCourseEnrollmentService] Error fetching enrollment, using offline cache:', err);
+      return readCache();
     }
-    return null;
   },
 
-  /**
-   * Persist a new verified enrollment
-   */
-  async saveEnrollment(enrollment: CrashCourseEnrollment): Promise<boolean> {
+  /** Cache an enrollment the server already created (no network call, no charge). */
+  cacheEnrollment(enrollment: CrashCourseEnrollment): void {
     try {
       if (typeof window !== 'undefined') {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(enrollment));
       }
-
-      const res = await fetch('/api/quests/enrollment', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(enrollment),
-      });
-
-      return res.ok;
-    } catch (err) {
-      console.warn('[crashCourseEnrollmentService] Error saving enrollment:', err);
-      return false;
-    }
+    } catch {}
   },
 
   /**
@@ -102,22 +86,13 @@ export const crashCourseEnrollmentService = {
     updates: Partial<CrashCourseEnrollment['milestoneProgress']>
   ): Promise<boolean> {
     try {
-      if (typeof window !== 'undefined') {
-        const localCached = localStorage.getItem(STORAGE_KEY);
-        if (localCached) {
-          const parsed = JSON.parse(localCached) as CrashCourseEnrollment;
-          parsed.milestoneProgress = { ...parsed.milestoneProgress, ...updates };
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
-        }
+      const cached = readCache();
+      if (cached) {
+        cached.milestoneProgress = { ...cached.milestoneProgress, ...updates };
+        crashCourseEnrollmentService.cacheEnrollment(cached);
       }
-
-      const res = await fetch('/api/quests/enrollment', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ enrollmentId, milestoneProgress: updates }),
-      });
-
-      return res.ok;
+      await api.patch('/api/quests/enrollment', { enrollmentId, milestoneProgress: updates });
+      return true;
     } catch (err) {
       console.warn('[crashCourseEnrollmentService] Error updating milestone:', err);
       return false;

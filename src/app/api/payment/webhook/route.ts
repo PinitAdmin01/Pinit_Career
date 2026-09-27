@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import crypto from 'crypto';
 import { createClient } from '@supabase/supabase-js';
+import { fulfilCardCoursePurchase, isCoursePlanId, normalizeTrack } from '@/lib/server/courseEnrollments';
 
 /**
  * Razorpay server-to-server webhook endpoint.
@@ -118,7 +119,26 @@ export async function POST(req: Request) {
       );
     }
 
+    // Course plans: enroll the student even if their browser never called /verify.
+    // Idempotent by payment id, so verify and webhook can arrive in either order.
+    const fulfilCoursePlan = async () => {
+      const fulfilled = await fulfilCardCoursePurchase(admin, {
+        userId: notesUid,
+        planId: notesPlanId,
+        track: normalizeTrack(payment.notes?.track),
+        paymentId,
+        orderId,
+        amountPaid: Number(payment.amount || 0) / 100,
+      });
+      if (fulfilled.error || !fulfilled.enrollment) {
+        console.error('[Razorpay Webhook] Course enrollment failed:', paymentId, fulfilled.error);
+        return NextResponse.json({ ok: false, error: 'COURSE_ENROLLMENT_FAILED' }, { status: 500 });
+      }
+      return NextResponse.json({ ok: true, processed: true, type: 'course', paymentId, enrollmentId: fulfilled.enrollment.enrollmentId });
+    };
+
     if (existingPayment) {
+      if (isCoursePlanId(notesPlanId)) return fulfilCoursePlan();
       if (isFeeInstallment) {
         const installmentId = notesInstallmentId || notesPlanId.replace('installment_', '').trim();
         const { financeService } = await import('@/lib/services/financeService');
@@ -204,6 +224,7 @@ export async function POST(req: Request) {
 
     if (insertErr) {
       if (insertErr.code === '23505') {
+        if (isCoursePlanId(notesPlanId)) return fulfilCoursePlan();
         return NextResponse.json({
           ok: true,
           already_processed: true,
@@ -216,6 +237,8 @@ export async function POST(req: Request) {
         { status: 500 }
       );
     }
+
+    if (isCoursePlanId(notesPlanId)) return fulfilCoursePlan();
 
     // 3. Subscription handling (Airtel/Jio daily reset model: 120 daily pins + permanent vault)
     if (isSubscriptionPlan) {

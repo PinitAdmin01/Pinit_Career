@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import type { CrashPlan } from '@/lib/data/crashPlansData';
 import { openRazorpayCheckout } from '@/lib/razorpay';
 import { toast } from '@/lib/store/useAppStore';
+import { api, ApiError } from '@/lib/api/client';
+import type { CrashCourseEnrollment } from '@/lib/services/crashCourseEnrollmentService';
 
 // ─────────────────────────────────────────────────────────────────────
 // Types
@@ -16,7 +18,8 @@ export interface CrashCourseCheckoutModalProps {
   onClose: () => void;
   plan: CrashPlan | null;
   activeTrack: 'web_fullstack' | 'python_ai';
-  onSuccessEnrollment: (enrollment: any) => void;
+  /** Called with the enrollment the server created once payment was confirmed. */
+  onSuccessEnrollment: (enrollment: CrashCourseEnrollment, newPinBalance?: number | null) => void;
   studentName?: string;
   userPins?: number;
 }
@@ -111,6 +114,7 @@ export default function CrashCourseCheckoutModal({
   const [orderId, setOrderId] = useState('');
   const [walletInfo, setWalletInfo] = useState<any>(null);
   const [isLaunchingWorkspace, setIsLaunchingWorkspace] = useState(false);
+  const [confirmedEnrollment, setConfirmedEnrollment] = useState<CrashCourseEnrollment | null>(null);
 
   if (!isOpen || !plan) return null;
 
@@ -120,6 +124,12 @@ export default function CrashCourseCheckoutModal({
   const gstAmount = Math.round(discountedSubtotal * GST_RATE);
   const finalPayable = discountedSubtotal + gstAmount;
   const canPayWithPins = userPins >= plan.pinsPrice;
+  // What the server actually charged (the order summary above is an estimate).
+  const amountPaidLabel = confirmedEnrollment
+    ? confirmedEnrollment.paymentMethod === 'pins'
+      ? `${confirmedEnrollment.pinsDeducted ?? confirmedEnrollment.amountPaid} Pins`
+      : formatINR(confirmedEnrollment.amountPaid)
+    : formatINR(finalPayable);
 
   const handleApplyPromo = () => {
     if (promoCode.trim().toUpperCase() === PROMO_CODE) {
@@ -140,7 +150,7 @@ Program: ${plan.title}
 Track: ${TRACK_LABELS[activeTrack]}
 Transaction ID: ${transactionId}
 Order ID: ${orderId}
-Amount Paid: ${formatINR(finalPayable)}
+Amount Paid: ${amountPaidLabel}
 Payment Method: ${PAYMENT_METHODS.find(m => m.id === selectedMethod)?.title}
 Enrollment Date: ${new Date().toLocaleDateString('en-IN')}
 Status: ACTIVE
@@ -159,39 +169,40 @@ Thank you for enrolling with PinIT Career OS!
     toast.success('Receipt Downloaded', 'Your enrollment receipt has been saved.');
   };
 
+  // The server creates the enrollment when payment is confirmed; launching only opens it.
   const handleLaunchWorkspace = () => {
+    if (!confirmedEnrollment) return;
     setIsLaunchingWorkspace(true);
     toast.success('Workspace Launching...', 'Your personalized program workspace is being prepared.');
-    const enrollment = {
-      enrollmentId: `enr-${Date.now()}`,
-      userId: 'current-user',
-      planId: plan.id,
-      track: activeTrack,
-      amountPaid: finalPayable,
-      paymentId: transactionId,
-      orderId,
-      paymentMethod: selectedMethod,
-      status: 'active',
-      enrolledAt: new Date().toISOString(),
-      currentSprint: 1,
-      dailyLearningHoursTarget: 1,
-      milestoneProgress: {
-        sprint1Approved: false,
-        sprint2Approved: false,
-      },
-      certificatesIssued: {},
-    };
-    onSuccessEnrollment(enrollment);
+    onSuccessEnrollment(confirmedEnrollment, walletInfo?.newBalance ?? null);
     setTimeout(() => setIsLaunchingWorkspace(false), 1200);
   };
 
-  const completeEnrollment = (paymentId: string, orderReference: string, walletData?: any) => {
+  // Closing after a successful payment still activates the enrollment in the page.
+  const handleClose = () => {
+    if (confirmedEnrollment) {
+      onSuccessEnrollment(confirmedEnrollment, walletInfo?.newBalance ?? null);
+      return;
+    }
+    onClose();
+  };
+
+  const completeEnrollment = (
+    paymentId: string,
+    orderReference: string,
+    enrollment: CrashCourseEnrollment,
+    walletData?: any,
+    alreadyEnrolled = false,
+  ) => {
     setTransactionId(paymentId);
     setOrderId(orderReference);
+    setConfirmedEnrollment(enrollment);
     if (walletData) setWalletInfo(walletData);
     setPaymentState('success');
     setProcessingMessage('');
-    if (walletData?.rewardPinsCredited) {
+    if (alreadyEnrolled) {
+      toast.info('Already Enrolled', `You're already enrolled in ${plan.title}. You were not charged again.`);
+    } else if (walletData?.rewardPinsCredited) {
       toast.success('Reward Pins Credited! ⚡', `+${walletData.rewardPinsCredited} PinIT Coins added to your wallet!`);
     } else if (walletData?.pinsDeducted) {
       toast.success('Pins Deducted 🪙', `-${walletData.pinsDeducted} Pins debited from your wallet for enrollment.`);
@@ -200,19 +211,66 @@ Thank you for enrolling with PinIT Career OS!
     }
   };
 
+  const failPayment = (title: string, err: unknown) => {
+    toast.error(title, err instanceof Error ? err.message : 'Unable to process payment');
+    setPaymentState('idle');
+    setProcessingMessage('');
+  };
+
+  type VerifyResponse = { ok: boolean; enrollment?: CrashCourseEnrollment; paymentId?: string; rewardPinsCredited?: number };
+
+  // Verification enrolls the student server-side. If enrollment hiccups after a
+  // confirmed payment, retrying is safe: the server returns the same enrollment.
+  const verifyAndEnroll = async (verifyBody: Record<string, string>): Promise<VerifyResponse> => {
+    for (let attempt = 1; ; attempt++) {
+      try {
+        return await api.post<VerifyResponse>('/api/payment/verify', verifyBody);
+      } catch (err) {
+        const retryable = err instanceof ApiError && err.code === 'ENROLLMENT_FAILED';
+        if (!retryable || attempt >= 3) throw err;
+        setProcessingMessage('Payment confirmed. Finishing your enrollment...');
+        await new Promise(resolve => setTimeout(resolve, 1500 * attempt));
+      }
+    }
+  };
+
+  const finishCardEnrollment = (verifyData: VerifyResponse, fallbackPaymentId: string, orderReference: string) => {
+    if (!verifyData.enrollment) {
+      throw new Error('Payment verified but no enrollment was returned. Please contact support.');
+    }
+    completeEnrollment(
+      verifyData.paymentId || fallbackPaymentId,
+      orderReference,
+      verifyData.enrollment,
+      { rewardPinsCredited: verifyData.rewardPinsCredited || 0 },
+    );
+  };
+
   const handleRazorpayPayment = async () => {
     try {
       setPaymentState('processing');
       setProcessingMessage('Creating your secure payment order...');
 
-      const orderResponse = await fetch('/api/payment/create-order', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ planId: plan.id, track: activeTrack }),
-      });
+      const orderData = await api.post<{ orderId?: string; order_id?: string; amount: number; keyId?: string; key?: string; isMock?: boolean }>(
+        '/api/payment/create-order',
+        { planId: plan.id, track: activeTrack },
+      );
+      const razorpayOrderId = orderData.orderId || orderData.order_id || '';
 
-      if (!orderResponse.ok) throw new Error('Failed to create payment order');
-      const orderData = await orderResponse.json();
+      // Development without Razorpay keys: the server issues a mock order (never in production).
+      if (orderData.isMock) {
+        setProcessingMessage('Verifying your payment...');
+        const mockPaymentId = `pay_mock_${Date.now()}`;
+        const verifyData = await verifyAndEnroll({
+          razorpay_order_id: razorpayOrderId,
+          razorpay_payment_id: mockPaymentId,
+          razorpay_signature: 'sig_mock_dev',
+          planId: plan.id,
+          track: activeTrack,
+        });
+        finishCardEnrollment(verifyData, mockPaymentId, razorpayOrderId);
+        return;
+      }
 
       const razorpaySuccess = await openRazorpayCheckout({
         key: orderData.keyId || orderData.key || '',
@@ -220,20 +278,15 @@ Thank you for enrolling with PinIT Career OS!
         currency: 'INR',
         name: 'PinIT Career OS',
         description: plan.title,
-        order_id: orderData.orderId || orderData.order_id || '',
+        order_id: razorpayOrderId,
         handler: async (response) => {
-          setProcessingMessage('Verifying your payment...');
-          const verifyResponse = await fetch('/api/payment/verify', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(response),
-          });
-          if (!verifyResponse.ok) throw new Error('Payment verification failed');
-          const verifyData = await verifyResponse.json();
-          completeEnrollment(
-            verifyData.payment_id || response.razorpay_payment_id,
-            orderData.order_id
-          );
+          try {
+            setProcessingMessage('Verifying your payment...');
+            const verifyData = await verifyAndEnroll({ ...response, planId: plan.id, track: activeTrack });
+            finishCardEnrollment(verifyData, response.razorpay_payment_id, razorpayOrderId);
+          } catch (err) {
+            failPayment('Enrollment Not Completed', err);
+          }
         },
         prefill: {
           name: studentName || undefined,
@@ -248,11 +301,15 @@ Thank you for enrolling with PinIT Career OS!
 
       if (!razorpaySuccess) throw new Error('Razorpay SDK failed to load');
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unable to process payment';
-      toast.error('Payment Failed', message);
-      setPaymentState('idle');
-      setProcessingMessage('');
+      failPayment('Payment Failed', error);
     }
+  };
+
+  type EnrollmentResponse = {
+    ok: boolean;
+    enrollment: CrashCourseEnrollment;
+    alreadyEnrolled?: boolean;
+    wallet?: { newBalance: number | null; pinsDeducted: number; rewardPinsCredited: number };
   };
 
   const handlePinsPayment = async () => {
@@ -263,26 +320,14 @@ Thank you for enrolling with PinIT Career OS!
     setPaymentState('processing');
     setProcessingMessage('Authorizing & deducting PinIT Vault Coins...');
     try {
-      const res = await fetch('/api/quests/enrollment', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          planId: plan.id,
-          track: activeTrack,
-          paymentMethod: 'pins',
-          amountPaid: plan.pinsPrice,
-        }),
+      const data = await api.post<EnrollmentResponse>('/api/quests/enrollment', {
+        planId: plan.id,
+        track: activeTrack,
+        paymentMethod: 'pins',
       });
-      const data = await res.json();
-      if (!res.ok || !data.ok) {
-        throw new Error(data.message || data.error || 'Failed to process pin payment.');
-      }
-      const txnId = data.wallet?.transaction?.id || `TXN-PIN-${Date.now()}`;
-      completeEnrollment(txnId, `PIN-ORDER-${Date.now()}`, data.wallet);
-    } catch (err: any) {
-      toast.error('Pin Payment Failed', err.message || 'Could not deduct pins.');
-      setPaymentState('idle');
-      setProcessingMessage('');
+      completeEnrollment(data.enrollment.paymentId, `PIN-ORDER-${data.enrollment.enrollmentId}`, data.enrollment, data.wallet, data.alreadyEnrolled);
+    } catch (err) {
+      failPayment('Pin Payment Failed', err);
     }
   };
 
@@ -290,26 +335,14 @@ Thank you for enrolling with PinIT Career OS!
     setPaymentState('processing');
     setProcessingMessage('Simulating verified transaction & crediting reward pins...');
     try {
-      const res = await fetch('/api/quests/enrollment', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          planId: plan.id,
-          track: activeTrack,
-          paymentMethod: 'sandbox',
-          amountPaid: finalPayable,
-        }),
+      const data = await api.post<EnrollmentResponse>('/api/quests/enrollment', {
+        planId: plan.id,
+        track: activeTrack,
+        paymentMethod: 'sandbox',
       });
-      const data = await res.json();
-      if (!res.ok || !data.ok) {
-        throw new Error(data.message || data.error || 'Failed to process sandbox transaction.');
-      }
-      const txnId = data.wallet?.transaction?.id || `TXN-SBOX-${Date.now()}`;
-      completeEnrollment(txnId, `SANDBOX-${Date.now()}`, data.wallet);
-    } catch (err: any) {
-      toast.error('Sandbox Transaction Error', err.message || 'Error processing transaction.');
-      setPaymentState('idle');
-      setProcessingMessage('');
+      completeEnrollment(data.enrollment.paymentId, `SANDBOX-${data.enrollment.enrollmentId}`, data.enrollment, data.wallet, data.alreadyEnrolled);
+    } catch (err) {
+      failPayment('Sandbox Transaction Error', err);
     }
   };
 
@@ -412,7 +445,7 @@ Thank you for enrolling with PinIT Career OS!
             </p>
           </div>
           <button
-            onClick={onClose}
+            onClick={handleClose}
             aria-label="Close checkout"
             style={{
               padding: '6px 12px',
