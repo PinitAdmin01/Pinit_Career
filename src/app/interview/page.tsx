@@ -42,12 +42,19 @@ import { useInterviewGaze } from './hooks/useInterviewGaze';
 import { useInterviewVoice } from './hooks/useInterviewVoice';
 import { useInterviewPersistence } from './hooks/useInterviewPersistence';
 import { computeDeterministicEvaluation, exportInterviewTranscriptFile } from './interviewEvaluator';
+import {
+  getCapstoneInterviewPlan,
+  recordCapstoneInterview,
+  roadmapInterviewTopic,
+} from '@/lib/interview/capstoneInterview';
+import { getSavedCareerProjects } from '@/lib/projects/savedProjects';
+import { getProjectEvidenceTarget } from '@/lib/projects/projectEvidence';
 
 export default function InterviewPage() {
   const searchParams = useSearchParams();
   const cOS = useCareerOS();
   const { user } = useAuth();
-  const { addXp, earnPins } = cOS;
+  const { addXp, earnPins, onboardingAnswers, saveCareerProjects } = cOS;
 
   const [interviewMode, setInterviewMode] = useState<'roadmap' | 'custom'>('roadmap');
   const [customTopicInput, setCustomTopicInput] = useState('');
@@ -67,6 +74,31 @@ export default function InterviewPage() {
       setDomainStream('tech');
     }
   }, [searchParams]);
+
+  // Roadmap journey: /interview?mode=capstone&projectId=… defends the student's verified roadmap
+  // capstone for their career role. Part of the journey, so no Pins are charged for it.
+  const [capstone, setCapstone] = useState<{ projectId: string; topic: string } | null>(null);
+  const capstoneWarnedRef = useRef(false);
+  const savedProjectsSource = (onboardingAnswers as Record<string, unknown> | undefined)?.portfolio_projects;
+  useEffect(() => {
+    if (searchParams.get('mode') !== 'capstone') return;
+    const plan = getCapstoneInterviewPlan(onboardingAnswers as Record<string, unknown> | undefined, searchParams.get('projectId'));
+    if (!plan.ok) {
+      setCapstone(null);
+      if (savedProjectsSource !== undefined && !capstoneWarnedRef.current) {
+        capstoneWarnedRef.current = true;
+        toast.warning('Capstone interview unavailable', plan.reason === 'NOT_VERIFIED'
+          ? 'Verify and complete your roadmap capstone project first.'
+          : 'This interview is for a completed roadmap capstone project.');
+      }
+      return;
+    }
+    setInterviewMode('custom');
+    setCustomTopicInput(plan.topic);
+    setActiveTopicName(plan.topic);
+    setDomainStream(getProjectEvidenceTarget(plan.role, 'Beginner') ? 'tech' : 'non_tech');
+    setCapstone({ projectId: plan.project.id, topic: plan.topic });
+  }, [searchParams, onboardingAnswers, savedProjectsSource]);
 
   const [isInterviewActive, setIsInterviewActive] = useState(false);
   const [activeStage, setActiveStage] = useState<Stage>('round1_behavioral');
@@ -319,7 +351,7 @@ export default function InterviewPage() {
     } catch {} finally {
       setIsFetchingAssist(false);
     }
-  }, [isInterviewActive, isScoredStage, activeStage, activeTopicName, domainStream, difficulty, assistScriptLevel]);
+  }, [isInterviewActive, activeStage, activeTopicName, domainStream, difficulty, assistScriptLevel]);
 
   const resumeActiveSession = useCallback(() => {
     if (!activeSessionDraft) return;
@@ -344,10 +376,12 @@ export default function InterviewPage() {
     stopArchetypeSoundscape();
     const topic = interviewMode === 'custom' && customTopicInput.trim()
       ? customTopicInput.trim()
-      : (domainStream === 'non_tech' ? 'Finance & Accounting (B.Com)' : 'Software Engineering (SDE)');
+      : roadmapInterviewTopic(onboardingAnswers?.role, domainStream);
 
+    // The capstone defense is part of the roadmap journey (free); any other topic needs Pins.
+    const isCapstoneRun = capstone !== null && topic === capstone.topic;
     const itemKey = `interview:${domainStream}:${topic.toLowerCase().replace(/\s+/g, '_')}`;
-    if (!cOS.isItemUnlocked(itemKey)) {
+    if (!isCapstoneRun && !cOS.isItemUnlocked(itemKey)) {
       const unlocked = await cOS.unlockItem(itemKey, 'interview', `AI Interview: ${topic}`);
       if (!unlocked) {
         toast.error('Insufficient Pins 🔒', 'You need Pins to start this corporate interview session. Complete quests to earn Pins!');
@@ -613,6 +647,17 @@ export default function InterviewPage() {
 
     setEvaluationResult(resultObj);
     clearDraft();
+
+    // Roadmap capstone: keep the result on the project (the next step, the certificate, needs it).
+    if (capstone && activeTopicName === capstone.topic) {
+      const saved = getSavedCareerProjects(onboardingAnswers as Record<string, unknown> | undefined);
+      saveCareerProjects(recordCapstoneInterview(saved, capstone.projectId, {
+        score: resultObj.score,
+        verdict: resultObj.verdict,
+        completedAt: new Date().toISOString(),
+        evaluationToken: resultObj.evaluationToken,
+      }));
+    }
     if (resultObj.verdict === 'Hire' || resultObj.verdict === 'Conditional Hire') {
       addXp(150, 'Completed AI Interview');
       earnPins('ai_interview');

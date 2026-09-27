@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef, Suspense } from 'react';
 import Image from 'next/image';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { useAuth } from '@/lib/context/AuthContext';
 import { COURSES_CATALOG } from '@/lib/data/coursesCatalog';
@@ -18,6 +18,8 @@ import {
   tagRoadmapCapstones,
 } from '@/lib/projects/roadmapCapstone';
 import { getProjectEvidenceTarget } from '@/lib/projects/projectEvidence';
+import { capstoneInterviewPath } from '@/lib/interview/capstoneInterview';
+import { CapstoneNextStep } from './CapstoneNextStep';
 import { PathwayApiService } from '@/lib/api/pathwayApi';
 import {
   TeamsApiService,
@@ -26,6 +28,7 @@ import {
 } from '@/lib/api/teamsApi';
 
 function ProjectsPageContent() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const initialTab = (searchParams?.get('tab') as any) === 'squads' ? 'squads' : 'solo';
   const [mainTab, setMainTab] = useState<'solo' | 'squads'>(initialTab);
@@ -763,6 +766,9 @@ function ProjectsPageContent() {
       {/* ── TAB 1: SOLO CAPSTONES ────────────────────────────────────────── */}
       {mainTab === 'solo' && (
         <>
+          {/* Roadmap journey: verified capstone → capstone interview → certificate */}
+          <CapstoneNextStep projects={projects} onStartInterview={(p) => router.push(capstoneInterviewPath(p.id))} />
+
           {/* Lock Screen */}
           {!isUnlocked ? (
             <div style={{
@@ -1434,13 +1440,14 @@ function ProjectsPageContent() {
                 Take a 3-Minute **Project Viva** interview to test your deployment choices and upgrade your credentials to an **Excellence Certificate**.
               </p>
               <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                <a
-                  href={`/interview?mode=project_viva&project=${encodeURIComponent(selectedGuideProject.name)}&projectId=${selectedGuideProject.id}&course=${encodeURIComponent(activeCourse.title)}&repo=${encodeURIComponent(githubUrl)}&score=${auditReport?.overallEvidenceScore ?? 0}`}
+                <button
+                  type="button"
+                  onClick={() => router.push(`/interview?mode=project_viva&project=${encodeURIComponent(selectedGuideProject.name)}&projectId=${selectedGuideProject.id}&course=${encodeURIComponent(activeCourse.title)}`)}
                   className="btn-primary"
-                  style={{ textDecoration: 'none', fontSize: 11, padding: '6px 12px' }}
+                  style={{ fontSize: 11, padding: '6px 12px' }}
                 >
                   🎙️ Start AI Viva
-                </a>
+                </button>
                 <button
                   onClick={handleIssueStandardCertificate}
                   className="btn-ghost"

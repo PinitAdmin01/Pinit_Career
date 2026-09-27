@@ -25,6 +25,14 @@ export interface Project {
   /** Set when the project was handed out for a finished custom roadmap. */
   origin?: 'roadmap';
   roadmapCourseId?: string;
+  /** Latest capstone interview result for a roadmap capstone (a pass is kept). */
+  capstoneInterview?: {
+    score: number;
+    verdict: string;
+    passed: boolean;
+    completedAt: string;
+    evaluationToken?: string;
+  };
 }
 
 export const GITHUB_REPO_REGEX = /^https?:\/\/(www\.)?github\.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+\/?$/;
