@@ -381,18 +381,26 @@ function matches(rule: KeywordRule, words: Set<string>, padded: string): boolean
   return Boolean(rule.words?.some((w) => words.has(w)) || rule.phrases?.some(has));
 }
 
-export function resolveTrackFromGoal(goalRole?: string, profileType?: string): ResolvedTrack {
+/** The track the goal names (option id, role label or typed words), or null if it names none. */
+export function matchTrackFromGoal(goalRole?: string): ResolvedTrack | null {
   const goal = (goalRole || '').trim().toLowerCase();
-  const profile = (profileType || '').toLowerCase();
-
+  if (!goal) return null;
   const option = OPTION_TRACK[goal];
   if (option) return TRACKS[option];
-
+  // A saved role label (e.g. onboarding_answers.role = "Product Manager (Tech & Business Strategy)").
+  const byLabel = (Object.keys(TRACKS) as TrackKey[]).find((k) => TRACKS[k].targetRoleLabel.toLowerCase() === goal);
+  if (byLabel) return TRACKS[byLabel];
   const tokens = tokenize(goal);
   const words = new Set(tokens);
   const padded = ` ${tokens.join(' ')} `;
   const rule = KEYWORD_RULES.find((r) => matches(r, words, padded));
-  if (rule) return TRACKS[rule.track];
+  return rule ? TRACKS[rule.track] : null;
+}
+
+export function resolveTrackFromGoal(goalRole?: string, profileType?: string): ResolvedTrack {
+  const matched = matchTrackFromGoal(goalRole);
+  if (matched) return matched;
+  const profile = (profileType || '').toLowerCase();
 
   // Nothing in the goal: fall back on the degree.
   if (/\bcommerce\b|b\.?com\b|m\.?com\b/.test(profile)) return TRACKS.finance;

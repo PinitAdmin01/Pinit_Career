@@ -3,6 +3,10 @@ import { requireUserFromRequest, getAuthoritativeSupabaseClient, getBearerToken 
 import { createClient } from '@supabase/supabase-js';
 import { generateDynamicStudentRoadmap } from '@/lib/data/roadmapFuser';
 import { COURSES_REGISTRY } from '@/lib/data/coursesData';
+import { resolveTrackFromGoal } from '@/lib/onboarding/trackResolver';
+
+/** Starting knowledge score by self-reported level, used only when the student has no diagnostic score. */
+const QT1_BY_LEVEL: Record<string, number> = { beginner: 40, intermediate: 60, advanced: 80 };
 
 function getAdminClient(userToken: string) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
@@ -24,9 +28,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'INVALID_JSON', message: 'Malformed JSON payload' }, { status: 400 });
     }
 
+    // skillTags is accepted for compatibility; the generator has no per-skill adaptation.
     const {
       targetRole = 'Software Engineer',
-      skillTags = [],
       weakAreas = [],
       experienceLevel = 'beginner',
       courseId,
@@ -35,7 +39,8 @@ export async function POST(req: NextRequest) {
     } = body;
 
     // Optional authentication check: if logged in, retrieve user's diagnostic scores & profile
-    let qt1 = 45;
+    const levelQt1 = QT1_BY_LEVEL[String(experienceLevel).toLowerCase()];
+    let qt1 = levelQt1 ?? 45;
     let qt2 = 50;
     let archetype = 'Pattern Hunter';
     let tradeoffs: any[] = [];
@@ -63,9 +68,9 @@ export async function POST(req: NextRequest) {
       // Unauthenticated session during initial onboarding is safely allowed to generate roadmap
     }
 
-    // Resolve effective courseId (safeguard against unmapped course IDs)
+    // Unknown or missing course: the course of the student's target role (not a fixed Java course).
     const matchedCourse = COURSES_REGISTRY.find(c => c.id === courseId);
-    const effectiveCourseId = matchedCourse ? matchedCourse.id : (courseId || 'course-java-logic');
+    const effectiveCourseId = matchedCourse ? matchedCourse.id : resolveTrackFromGoal(String(targetRole || '')).courseId;
 
     const modules = generateDynamicStudentRoadmap({
       courseId: effectiveCourseId,

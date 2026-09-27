@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { trackKeyForGoal } from './useQuestProgression';
 import type { TrajectoryNode, CareerTrajectory } from '@/lib/data/careerTrajectories';
 import type { Course } from '@/lib/data/coursesData';
 import { COURSES_REGISTRY as DEFAULT_COURSES } from '@/lib/data/coursesData';
@@ -530,14 +531,9 @@ export const CustomRoadmapModal: React.FC<CustomRoadmapModalProps> = ({
                 onChange={e => {
                   const val = e.target.value;
                   setCustomGoal(val);
-                  const lower = val.toLowerCase();
-                  if (lower.includes('ai') || lower.includes('machine learning') || lower.includes('llm') || lower.includes('python')) setSelectedTrack('ai');
-                  else if (lower.includes('finance') || lower.includes('investment')) setSelectedTrack('finance');
-                  else if (lower.includes('accounting') || lower.includes('tax')) setSelectedTrack('accounting');
-                  else if (lower.includes('fullstack') || lower.includes('react') || lower.includes('node')) setSelectedTrack('fullstack');
-                  else if (lower.includes('java') || lower.includes('dsa')) setSelectedTrack('java');
-                  else if (lower.includes('devops') || lower.includes('docker') || lower.includes('cloud')) setSelectedTrack('devops');
-                  else if (lower.includes('operations')) setSelectedTrack('operations');
+                  // Same whole-word matching as onboarding ("email" is not AI, "syntax" is not tax).
+                  const track = trackKeyForGoal(val);
+                  if (track) setSelectedTrack(track);
                 }}
                 placeholder="e.g., Full-Stack AI Engineer launching an E-Commerce Business"
                 style={{

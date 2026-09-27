@@ -138,6 +138,11 @@ test('typed goals: the intended track is found', () => check([
   ['Python developer', L.python], ['Python for data science', L.analytics], ['leetcode and DSA', L.dsa],
 ]));
 
+test('a saved role label resolves to its own track (every label)', () => {
+  const bad = Object.values(mod.TRACKS).find((t) => label(t.targetRoleLabel) !== t.targetRoleLabel);
+  return bad ? `"${bad.targetRoleLabel}" → ${label(bad.targetRoleLabel)}` : true;
+});
+
 test('no goal: the degree decides; a goal always wins over the degree', () => check([
   ['exploring', L.finance, 'Commerce (B.Com)'], ['not_sure', L.operations, 'BBA'], ['', L.java, 'B.Tech CS'],
   ['research', L.research, 'B.Com'], ['human_resources', L.hr, 'MBA'],

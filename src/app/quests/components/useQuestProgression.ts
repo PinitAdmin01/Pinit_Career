@@ -32,6 +32,7 @@ import {
   getRoadmapProgress,
   shouldRecordRoadmapCompletion,
 } from '@/lib/roadmap/roadmapCompletion';
+import { matchTrackFromGoal, resolveTrackFromGoal } from '@/lib/onboarding/trackResolver';
 
 export interface Quest {
   id: string;
@@ -178,6 +179,16 @@ export const COURSE_TO_ROLE: Record<string, string> = {
   'course-operations-supplychain-compliance': 'Operations, Supply Chain & Compliance Specialist',
   'course-ai-digital-transformation': 'AI & Digital Transformation Business Specialist'
 };
+
+/** The roadmap-modal track a typed goal names (same matching as onboarding), or null to keep the current one. */
+export function trackKeyForGoal(goal: string): string | null {
+  const matched = matchTrackFromGoal(goal);
+  if (!matched) return null;
+  if (matched.courseId === 'course-react-web') return 'fullstack';
+  if (matched.courseId === 'course-dsa-optim') return 'dsa';
+  const entry = Object.entries(TRACK_CONFIG).find(([key, cfg]) => key !== 'dsa' && cfg.courseId === matched.courseId);
+  return entry ? entry[0] : null;
+}
 
 export const TRACK_CONFIG: Record<string, { role: string; courseId: string; tags: string[]; gaps: string[] }> = {
   ai_transformation: {
@@ -465,6 +476,25 @@ export function useQuestProgression() {
     writeExtraRoadmaps(userId, extraRoadmaps);
   }, [userId, extraRoadmaps, tabsReady]);
 
+  // Extra roadmaps also live on the profile (their settings only; lessons are rebuilt from them),
+  // so they follow the student to other devices. The profile's list wins over this browser's.
+  const profileExtras = onboardingAnswers?.extra_roadmaps;
+  const saveExtrasToProfile = (list: ExtraRoadmap[]) => {
+    if (!userId || userId === 'guest') return;
+    setOnboarding({ ...onboardingAnswers, extra_roadmaps: list }, false);
+  };
+  useEffect(() => {
+    if (!tabsReady || extrasOwnerRef.current !== userId || !userId || userId === 'guest') return;
+    if (Array.isArray(profileExtras)) {
+      const fromProfile = parseExtraRoadmaps(JSON.stringify(profileExtras));
+      setExtraRoadmaps((prev) => (JSON.stringify(prev) === JSON.stringify(fromProfile) ? prev : fromProfile));
+    } else if (extraRoadmaps.length > 0 && onboardingAnswers?.hasCompleted) {
+      // Roadmaps created before this change exist only in this browser: copy them to the profile once.
+      setOnboarding({ ...onboardingAnswers, extra_roadmaps: extraRoadmaps }, false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- runs when the profile's list or this user's tabs change
+  }, [profileExtras, tabsReady, userId]);
+
   useEffect(() => {
     if (learningPathMode === 'fused_roadmap' && activeCourseId) {
       fusedCourseRef.current = activeCourseId;
@@ -483,7 +513,8 @@ export function useQuestProgression() {
   const [selectedDuration, setSelectedDuration] = useState<number>(30);
   const [selectedPace, setSelectedPace] = useState<number>(3);
   const [selectedTrack, setSelectedTrack] = useState<string>('fullstack');
-  const [customGoal, setCustomGoal] = useState<string>('Full-Stack AI Engineer launching an E-Commerce Business');
+  // Empty until the student types one; an empty goal uses the student's own role (below).
+  const [customGoal, setCustomGoal] = useState<string>('');
   const [isGeneratingRoadmap, setIsGeneratingRoadmap] = useState(false);
   const [generationStep, setGenerationStep] = useState<number>(1);
 
@@ -496,7 +527,8 @@ export function useQuestProgression() {
     const config = TRACK_CONFIG[selectedTrack] || TRACK_CONFIG.ai;
 
     try {
-      const finalGoal = customGoal ? customGoal.trim() : config.role;
+      const ownRole = typeof onboardingAnswers?.role === 'string' ? onboardingAnswers.role.trim() : '';
+      const finalGoal = customGoal.trim() || ownRole || config.role;
 
       let dynamicModules;
       try {
@@ -553,6 +585,7 @@ export function useQuestProgression() {
       const nextExtras = [...extraRoadmaps, extra];
       setExtraRoadmaps(nextExtras);
       writeExtraRoadmaps(userId, nextExtras);
+      saveExtrasToProfile(nextExtras);
       writeExtraModules(userId, extraId, dynamicModules);
 
       setModules(dynamicModules as any);
@@ -661,6 +694,7 @@ export function useQuestProgression() {
     const next = extraRoadmaps.filter(rm => rm.id !== id);
     setExtraRoadmaps(next);
     writeExtraRoadmaps(userId, next);
+    saveExtrasToProfile(next);
     removeExtraModules(userId, id);
     if (extraIdFromMode(learningPathMode) === id) {
       setLearningPathMode('fused_roadmap');
@@ -748,43 +782,38 @@ export function useQuestProgression() {
       return;
     }
 
-    // 2. Check general roadmap key in localStorage (used across dashboard, career-builder, lesson)
-    const generalKey = `pinit_${effectiveUserId}_roadmap_modules`;
-    const generalSaved = localStorage.getItem(generalKey);
-    if (generalSaved) {
+    // 2. This course's saved roadmap, then the general copy only if it is a roadmap of this course
+    //    (the general key is shared across pages and may hold another course's roadmap).
+    const readSaved = (key: string): Module[] | null => {
       try {
-        const parsed = JSON.parse(generalSaved);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          setModules(parsed);
-          if (!roadmapGenerated) setRoadmapGenerated(true);
-          return;
-        }
-      } catch (e) {
-        console.error('Error loading general roadmap modules:', e);
+        const parsed = JSON.parse(localStorage.getItem(key) || 'null');
+        return Array.isArray(parsed) && parsed.length > 0 ? (parsed as Module[]) : null;
+      } catch {
+        return null;
       }
-    }
-
-    // 3. Check course-specific roadmap key
+    };
+    const belongsToCourse = (mods: Module[], courseId: string) =>
+      mods.some((m) => (m as { courseId?: string }).courseId === courseId || String(m.id || '').startsWith(`${courseId}-`));
     if (activeCourseId) {
-      const modulesKey = `pinit_${effectiveUserId}_roadmap_modules_${activeCourseId}`;
-      let saved = localStorage.getItem(modulesKey);
-
-      if (saved) {
-        try {
-          const parsed = JSON.parse(saved);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            setModules(parsed);
-            if (!roadmapGenerated) setRoadmapGenerated(true);
-            return;
-          }
-        } catch (e) {
-          console.error('Error loading course roadmap modules:', e);
-        }
+      const courseSaved = readSaved(`pinit_${effectiveUserId}_roadmap_modules_${activeCourseId}`);
+      if (courseSaved) {
+        setModules(courseSaved);
+        if (!roadmapGenerated) setRoadmapGenerated(true);
+        return;
       }
     }
+    const generalSaved = readSaved(`pinit_${effectiveUserId}_roadmap_modules`);
+    if (generalSaved && (!activeCourseId || belongsToCourse(generalSaved, activeCourseId))) {
+      setModules(generalSaved);
+      if (!roadmapGenerated) setRoadmapGenerated(true);
+      return;
+    }
 
-    // 4. Generate dynamic fallback roadmap and persist across keys
-    const fallbackCourseId = activeCourseId || 'course-java-logic';
+    // 3. No roadmap saved anywhere (or the profile has not loaded yet): show a preview built from
+    //    the student's own track. It is not marked as generated nor saved, so it never replaces
+    //    the student's real roadmap and is replaced as soon as that loads.
+    const fallbackCourseId = activeCourseId
+      || resolveTrackFromGoal(typeof onboardingAnswers?.role === 'string' ? onboardingAnswers.role : '', onboardingAnswers?.education).courseId;
     const fallback = generateDynamicStudentRoadmap({
       courseId: fallbackCourseId,
       goal: currentRole,
@@ -795,11 +824,6 @@ export function useQuestProgression() {
       dailyPace: 3
     });
     setModules(fallback as unknown as Module[]);
-    if (!roadmapGenerated) setRoadmapGenerated(true);
-    try {
-      localStorage.setItem(`pinit_${effectiveUserId}_roadmap_modules`, JSON.stringify(fallback));
-      localStorage.setItem(`pinit_${effectiveUserId}_roadmap_modules_${fallbackCourseId}`, JSON.stringify(fallback));
-    } catch {}
   }, [userId, activeCourseId, activeSubTab, selectedStandaloneCourseId, learningPathMode, activeExtraId, extraRoadmaps, roadmapGenerated, setRoadmapGenerated, currentRole, qt1, qt2, archetype, COURSES_REGISTRY, onboardingAnswers]);
 
 
