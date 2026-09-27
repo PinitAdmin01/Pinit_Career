@@ -10,6 +10,7 @@ import { toast } from '@/lib/store/useAppStore';
 import { Project, GITHUB_REPO_REGEX, SWAP_POOLS, getGuideStepsForProject } from '@/lib/data/projectData';
 import { parseAndValidateGithubUrl, GithubEvidenceReport } from '@/lib/github/githubIngestion';
 import { getDomainFallback } from '@/lib/projects/projectCatalog';
+import { getSavedCareerProjects, needsProjectKeyMigration, SavedProjectsSource } from '@/lib/projects/savedProjects';
 import { PathwayApiService } from '@/lib/api/pathwayApi';
 import {
   TeamsApiService,
@@ -217,11 +218,20 @@ function ProjectsPageContent() {
   // PR-08 FIX: Unlock at 25% course progress OR 3 completed quests OR if user is admin/teacher OR if candidate already has active projects
   const isUnlocked = progressPercent >= 25 || completedCount >= 3 || user?.role === 'admin' || user?.role === 'teacher' || projects.length > 0;
 
+  // saveCareerProjects stores projects in onboarding_answers.portfolio_projects. This page used to
+  // read `.projects`, which nothing writes, so projects vanished on reload.
+  const answerProjects = (onboardingAnswers as SavedProjectsSource | undefined)?.portfolio_projects;
+  const legacyAnswerProjects = (onboardingAnswers as SavedProjectsSource | undefined)?.projects;
+
   useEffect(() => {
-    if (onboardingAnswers?.projects && onboardingAnswers.projects.length > 0) {
-      setProjects(onboardingAnswers.projects);
-      const active = onboardingAnswers.projects.find((p: Project) => p.status === 'In Progress' || p.status === 'Completed');
+    const source: SavedProjectsSource = { portfolio_projects: answerProjects, projects: legacyAnswerProjects };
+    const saved = getSavedCareerProjects(source);
+    if (saved.length > 0) {
+      setProjects(saved);
+      const active = saved.find((p: Project) => p.status === 'In Progress' || p.status === 'Completed');
       if (active) setSelectedGuideProject(active);
+      // Projects saved under the legacy key move to the key the rest of the app reads.
+      if (needsProjectKeyMigration(source)) saveCareerProjects(saved);
     } else if (typeof window !== 'undefined' && user?.id) {
       const cached = localStorage.getItem(`pinit_${user.id}_career_projects`);
       if (cached) {
@@ -239,7 +249,7 @@ function ProjectsPageContent() {
         }
       }
     }
-  }, [user?.id, onboardingAnswers?.projects, saveCareerProjects]);
+  }, [user?.id, answerProjects, legacyAnswerProjects, saveCareerProjects]);
 
   const saveProjects = (updated: Project[]) => {
     setProjects(updated);

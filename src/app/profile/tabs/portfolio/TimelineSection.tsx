@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { TimelineItem, ProjectItem, CertificateItem } from './usePortfolioData';
 import { TimelineCategory } from '../types';
+import { getSavedCareerProjects } from '@/lib/projects/savedProjects';
 
 interface TimelineSectionProps {
   timeline: TimelineItem[];
@@ -33,7 +34,7 @@ export function TimelineSection({
 
   const totalEvidenceCount = (cOS.completedQuests?.length || 0) + (cOS.completedMissions?.length || 0) + projects.filter(p => p.verified).length + (cOS.vaultItems?.filter((v: any) => v.verified)?.length || 0);
   const questCount = (cOS.completedQuests?.length || 0) + (cOS.completedMissions?.length || 0);
-  const verifiedProjectsCount = projects.filter(p => p.verified).length + (cOS.onboardingAnswers?.projects?.length ? 1 : 0);
+  const verifiedProjectsCount = projects.filter(p => p.verified).length + (getSavedCareerProjects(cOS.onboardingAnswers).length ? 1 : 0);
   const dnaMastery = Math.max(0, Math.min(100, cOS.dnaScore || 0));
   const verifiedCertsCount = (cOS.vaultItems?.filter((v: any) => v.verified && (v.item_type === 'certification' || v.item_type === 'course'))?.length || 0) + certificates.filter(c => c.verified).length;
 
