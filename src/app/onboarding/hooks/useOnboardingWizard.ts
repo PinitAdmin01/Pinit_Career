@@ -532,6 +532,8 @@ export function useOnboardingWizard() {
   const [syncing, setSyncing] = useState(false);
   const [syncProgress, setSyncProgress] = useState(0);
   const [syncStatus, setSyncStatus] = useState('');
+  const [syncError, setSyncError] = useState<string | null>(null);
+  const retrySyncRef = useRef<(() => void) | null>(null);
   const [parserLogs, setParserLogs] = useState<string[]>([]);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -889,7 +891,7 @@ export function useOnboardingWizard() {
     }
   };
 
-  // Resilient onboarding sync with automatic retries and offline localStorage queue
+  // Onboarding sync with automatic retries. Returns false when every attempt failed.
   const postOnboardingWithRetry = async (payload: any, maxRetries = 3): Promise<boolean> => {
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
       try {
@@ -905,12 +907,44 @@ export function useOnboardingWizard() {
         }
       }
     }
-    if (typeof window !== 'undefined' && payload) {
-      try {
-        localStorage.setItem('pinit_pending_onboarding_sync', JSON.stringify(payload));
-      } catch {}
-    }
     return false;
+  };
+
+  // The roadmap, persona and story mode all depend on the server copy of onboarding,
+  // so a failed save stops the student here with a retry instead of continuing on
+  // local-only data. Dev-mode users have no server account and stay local-only.
+  const isLocalOnlyUser = Boolean(user?.id?.startsWith('usr_dev_'));
+
+  const stopOnFailedSave = (retry: () => void) => {
+    retrySyncRef.current = retry;
+    setSyncing(false);
+    setSyncProgress(0);
+    setSyncError("We couldn't save your onboarding to your account. Check your connection and try again.");
+  };
+
+  const saveOnboardingOrStop = async (payload: any, retry: () => void): Promise<boolean> => {
+    if (isLocalOnlyUser) {
+      console.warn('[Onboarding] Dev-mode user: server save skipped (local-only session).');
+      return true;
+    }
+    if (await postOnboardingWithRetry(payload)) {
+      retrySyncRef.current = null;
+      return true;
+    }
+    stopOnFailedSave(retry);
+    return false;
+  };
+
+  const retryOnboardingSync = () => {
+    const retry = retrySyncRef.current;
+    retrySyncRef.current = null;
+    setSyncError(null);
+    retry?.();
+  };
+
+  const dismissSyncError = () => {
+    retrySyncRef.current = null;
+    setSyncError(null);
   };
 
   // ⚡ 1-Click Fast Complete (< 30s) — Administrator / QA Testing Only
@@ -929,6 +963,7 @@ export function useOnboardingWizard() {
     const defaultEdu = "Computer Science / IT Student";
     const defaultSkills = "Java Standard Library, OOP Principles, Spring Boot REST, SQL Databases, System Design";
 
+    let saved = false;
     try {
       const payload = {
         guidanceMentorId: selectedMentor || 'kashyap',
@@ -953,7 +988,8 @@ export function useOnboardingWizard() {
         roadmapGenerated: true
       };
 
-      await postOnboardingWithRetry(payload);
+      saved = await saveOnboardingOrStop(payload, () => { void handleFastComplete(); });
+      if (!saved) return;
 
       cOS.setOnboarding({
         role: defaultRole,
@@ -981,6 +1017,10 @@ export function useOnboardingWizard() {
       router.push('/dashboard');
     } catch (err) {
       console.error("Fast onboarding error", err);
+      if (!saved) {
+        stopOnFailedSave(() => { void handleFastComplete(); });
+        return;
+      }
       if (typeof window !== 'undefined' && user?.id) {
         try {
           localStorage.setItem(`pinit_${user.id}_ob_step`, '3');
@@ -1574,6 +1614,8 @@ export function useOnboardingWizard() {
       setSyncProgress(100);
       setSyncStatus('Activating Command Center dashboard...');
 
+      const retry = () => { void handleOnboardingComplete(profileType, goalRole, reason, finalArch); };
+      let saved = false;
       try {
         const isAdvanced = codingExperience === 'Advanced Coder' || codingExperience === 'Advanced Specialist';
         const isIntermediate = codingExperience === 'Intermediate Coder' || codingExperience === 'Intermediate Analyst';
@@ -1629,12 +1671,9 @@ export function useOnboardingWizard() {
           roadmapGenerated: true
         };
 
-        try {
-          await postOnboardingWithRetry(payload);
-          await refresh().catch(() => {});
-        } catch (err) {
-          console.error("Onboarding sync failure", err);
-        }
+        saved = await saveOnboardingOrStop(payload, retry);
+        if (!saved) return;
+        await refresh().catch(() => {});
 
         cOS.setOnboarding({
           role: targetRoleLabel,
@@ -1689,6 +1728,10 @@ export function useOnboardingWizard() {
         }
       } catch (err) {
         console.error("Onboarding sync failure", err);
+        if (!saved) {
+          stopOnFailedSave(retry);
+          return;
+        }
         if (typeof window !== 'undefined' && user?.id) {
           try {
             localStorage.setItem(`pinit_${user.id}_ob_step`, '3');
@@ -1720,9 +1763,16 @@ export function useOnboardingWizard() {
     }, 150);
   };
 
+  // Parsed resume per uploaded file, so a save retry doesn't upload it to the vault again.
+  const expressResumeRef = useRef<{ file: File; skills: string; atsScore: number } | null>(null);
+
   // Express Path: Submit Form & Trigger Resume Parsing
   const handleExpressSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    await runExpressOnboarding();
+  };
+
+  const runExpressOnboarding = async () => {
     if (!college || !degree || !uploadedFile) {
       toast.error('Details Required', 'Please fill in all academic details and upload a resume PDF.');
       return;
@@ -1754,6 +1804,8 @@ export function useOnboardingWizard() {
       let trajectoryLabel = 'Software Engineer';
       let skillsList = '';
       let weakAreas: string[] = [];
+      const retry = () => { void runExpressOnboarding(); };
+      let saved = false;
       try {
         if (trajectory === 'financial_analyst') {
           trajectoryLabel = 'Financial & FinTech Analyst';
@@ -1784,17 +1836,24 @@ export function useOnboardingWizard() {
 
         let extractedSkills = skillsList;
         let atsParsedScore = 0;
-        try {
-          const uploadRes = await api.post<{ ok: boolean; document?: any }>('/api/vault/upload', formData);
-          if (uploadRes?.document?.skills?.length) {
-            extractedSkills = uploadRes.document.skills.join(', ');
-            setParserLogs(prev => [...prev, `[4/5] Extracted ${uploadRes.document.skills.length} skills from resume: ${uploadRes.document.skills.slice(0, 5).join(', ')}...`]);
+        const parsedResume = expressResumeRef.current;
+        if (parsedResume && parsedResume.file === uploadedFile) {
+          extractedSkills = parsedResume.skills;
+          atsParsedScore = parsedResume.atsScore;
+        } else {
+          try {
+            const uploadRes = await api.post<{ ok: boolean; document?: any }>('/api/vault/upload', formData);
+            if (uploadRes?.document?.skills?.length) {
+              extractedSkills = uploadRes.document.skills.join(', ');
+              setParserLogs(prev => [...prev, `[4/5] Extracted ${uploadRes.document.skills.length} skills from resume: ${uploadRes.document.skills.slice(0, 5).join(', ')}...`]);
+            }
+            if (uploadRes?.document?.atsScore) {
+              atsParsedScore = uploadRes.document.atsScore;
+            }
+            expressResumeRef.current = { file: uploadedFile, skills: extractedSkills, atsScore: atsParsedScore };
+          } catch {
+            // Fallback if vault upload fails
           }
-          if (uploadRes?.document?.atsScore) {
-            atsParsedScore = uploadRes.document.atsScore;
-          }
-        } catch {
-          // Fallback if vault upload fails
         }
 
         const isCsDegree = degree.toLowerCase().includes('cs') || degree.toLowerCase().includes('computer');
@@ -1832,12 +1891,9 @@ export function useOnboardingWizard() {
           roadmapGenerated: true
         };
 
-        try {
-          await postOnboardingWithRetry(payload);
-          await refresh().catch(() => {});
-        } catch (err) {
-          console.error('Express onboarding failure', err);
-        }
+        saved = await saveOnboardingOrStop(payload, retry);
+        if (!saved) return;
+        await refresh().catch(() => {});
 
         cOS.setOnboarding({
           role: trajectoryLabel,
@@ -1877,6 +1933,10 @@ export function useOnboardingWizard() {
         }
       } catch (err) {
         console.error('Express onboarding failure', err);
+        if (!saved) {
+          stopOnFailedSave(retry);
+          return;
+        }
         if (typeof window !== 'undefined' && user?.id) {
           try {
             localStorage.setItem(`pinit_${user.id}_ob_step`, '3');
@@ -2125,6 +2185,9 @@ export function useOnboardingWizard() {
     syncing,
     syncProgress,
     syncStatus,
+    syncError,
+    retryOnboardingSync,
+    dismissSyncError,
     parserLogs,
     handleFastComplete,
     handleOnboardingComplete,

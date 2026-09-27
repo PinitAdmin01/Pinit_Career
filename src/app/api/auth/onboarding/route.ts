@@ -2,6 +2,36 @@ import { NextRequest, NextResponse } from 'next/server';
 import { requireUserFromRequest, getAuthoritativeSupabaseClient, getBearerToken } from '@/lib/server/requireAuth';
 import { createClient } from '@supabase/supabase-js';
 
+// Columns added by later migrations (e.g. 20260917_user_profile_columns.sql). If an
+// environment hasn't applied them yet, onboarding must still save its core fields
+// instead of failing the whole write with PostgREST PGRST204.
+const OPTIONAL_USER_COLUMNS = new Set(['completed_missions', 'completed_quests', 'weak_areas', 'updated_at']);
+
+type DbError = { message?: string; code?: string } | null;
+
+function missingColumnName(error: DbError): string | null {
+  const match = /Could not find the '([^']+)' column/.exec(error?.message || '');
+  return match ? match[1] : null;
+}
+
+/** Runs a users-table write, dropping optional columns the database reports as missing. */
+async function writeDroppingMissingColumns<T>(
+  payload: Record<string, unknown>,
+  run: (p: Record<string, unknown>) => PromiseLike<{ data: T | null; error: DbError }>,
+): Promise<{ data: T | null; error: DbError; dropped: string[] }> {
+  const current = { ...payload };
+  const dropped: string[] = [];
+  for (;;) {
+    const res = await run(current);
+    const missing = missingColumnName(res.error);
+    if (!missing || !OPTIONAL_USER_COLUMNS.has(missing) || !(missing in current)) {
+      return { data: res.data, error: res.error, dropped };
+    }
+    delete current[missing];
+    dropped.push(missing);
+  }
+}
+
 function getAdminClient(userToken: string) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
@@ -245,31 +275,39 @@ export async function POST(req: NextRequest) {
     };
 
     // Attempt direct update first
-    const { data: updatedUser, error: updateError } = await db
-      .from('users')
-      .update(updatePayload)
-      .eq('id', userId)
-      .select('*')
-      .maybeSingle();
+    const updated = await writeDroppingMissingColumns(updatePayload, p =>
+      db.from('users').update(p).eq('id', userId).select('*').maybeSingle()
+    );
+    let droppedColumns = updated.dropped;
 
-    if (updateError || !updatedUser) {
-      // Row might not exist yet; upsert to ensure persistence
-      const { data: upsertedUser, error: upsertError } = await db
-        .from('users')
-        .upsert({
-          id: userId,
-          email: gated.user.email || '',
-          role: 'student',
-          ...updatePayload,
-          created_at: new Date().toISOString(),
-        }, { onConflict: 'id' })
-        .select('*')
-        .maybeSingle();
+    if (updated.error) {
+      console.error('[api/auth/onboarding] Update failure:', updated.error.message);
+      return NextResponse.json({ error: 'DB_ERROR', message: updated.error.message }, { status: 500 });
+    }
 
-      if (upsertError) {
-        console.error('[api/auth/onboarding] Upsert failure:', upsertError.message);
-        return NextResponse.json({ error: 'DB_ERROR', message: upsertError.message }, { status: 500 });
+    if (!updated.data) {
+      // No row yet: create it. Only here — an upsert on an existing row would reset
+      // its role to 'student'.
+      const upserted = await writeDroppingMissingColumns({
+        id: userId,
+        email: gated.user.email || '',
+        role: 'student',
+        ...updatePayload,
+        created_at: new Date().toISOString(),
+      }, p => db.from('users').upsert(p, { onConflict: 'id' }).select('*').maybeSingle());
+      droppedColumns = upserted.dropped;
+
+      if (upserted.error) {
+        console.error('[api/auth/onboarding] Upsert failure:', upserted.error.message);
+        return NextResponse.json({ error: 'DB_ERROR', message: upserted.error.message }, { status: 500 });
       }
+    }
+
+    if (droppedColumns.length > 0) {
+      console.error(
+        `[api/auth/onboarding] users table is missing column(s) ${droppedColumns.join(', ')}; ` +
+        'saved without them. Apply supabase/migrations/20260917_user_profile_columns.sql.'
+      );
     }
 
     return NextResponse.json({

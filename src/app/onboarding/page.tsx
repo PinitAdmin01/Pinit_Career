@@ -119,6 +119,9 @@ export default function OnboardingPage() {
     syncing,
     syncProgress,
     syncStatus,
+    syncError,
+    retryOnboardingSync,
+    dismissSyncError,
     parserLogs,
     handleFastComplete,
     handleOnboardingComplete,
@@ -662,6 +665,82 @@ export default function OnboardingPage() {
           {/* Main Progress Bar */}
           <div style={{ width: 300, height: 4, background: 'rgba(255,255,255,0.06)', borderRadius: 2, overflow: 'hidden' }}>
             <div style={{ width: `${syncProgress}%`, height: '100%', background: 'linear-gradient(90deg, var(--accent), var(--teal))', borderRadius: 2, transition: 'width 0.2s ease' }} />
+          </div>
+        </div>
+      )}
+
+      {/* Failed Save: onboarding stops here until the server copy is saved */}
+      {syncError && !syncing && (
+        <div
+          role="alertdialog"
+          aria-modal="true"
+          aria-labelledby="onboarding-save-error-title"
+          aria-describedby="onboarding-save-error-desc"
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(3,5,8,0.92)',
+            backdropFilter: 'blur(12px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 16,
+            zIndex: 9999
+          }}
+        >
+          <div style={{
+            width: '100%',
+            maxWidth: 420,
+            background: 'var(--bg2)',
+            border: '1px solid rgba(239,68,68,0.35)',
+            borderRadius: 16,
+            padding: '22px 22px 18px',
+            boxShadow: '0 20px 50px rgba(0,0,0,0.5)'
+          }}>
+            <h2 id="onboarding-save-error-title" style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 900, color: 'var(--t1)', margin: '0 0 8px' }}>
+              Your onboarding isn&apos;t saved yet
+            </h2>
+            <p id="onboarding-save-error-desc" style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.5, margin: '0 0 6px' }}>
+              {syncError}
+            </p>
+            <p style={{ fontSize: 12, color: 'var(--t3)', lineHeight: 1.5, margin: '0 0 18px' }}>
+              Your answers are still here, so you won&apos;t need to start over.
+            </p>
+            <div style={{ display: 'flex', gap: 10 }}>
+              <button
+                type="button"
+                autoFocus
+                onClick={retryOnboardingSync}
+                style={{
+                  flex: 1,
+                  height: 42,
+                  border: 'none',
+                  borderRadius: 10,
+                  background: 'linear-gradient(135deg, var(--teal) 0%, var(--accent) 100%)',
+                  color: 'var(--card)',
+                  fontWeight: 800,
+                  cursor: 'pointer'
+                }}
+              >
+                Try again
+              </button>
+              <button
+                type="button"
+                onClick={dismissSyncError}
+                style={{
+                  height: 42,
+                  padding: '0 16px',
+                  border: '1px solid var(--border)',
+                  borderRadius: 10,
+                  background: 'transparent',
+                  color: 'var(--t2)',
+                  fontWeight: 700,
+                  cursor: 'pointer'
+                }}
+              >
+                Back to review
+              </button>
+            </div>
           </div>
         </div>
       )}
