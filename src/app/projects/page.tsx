@@ -11,6 +11,13 @@ import { Project, GITHUB_REPO_REGEX, SWAP_POOLS, getGuideStepsForProject } from 
 import { parseAndValidateGithubUrl, GithubEvidenceReport } from '@/lib/github/githubIngestion';
 import { getDomainFallback } from '@/lib/projects/projectCatalog';
 import { getSavedCareerProjects, needsProjectKeyMigration, SavedProjectsSource } from '@/lib/projects/savedProjects';
+import {
+  findRoadmapCapstone,
+  getRoadmapCapstoneContext,
+  RoadmapCapstoneContext,
+  tagRoadmapCapstones,
+} from '@/lib/projects/roadmapCapstone';
+import { getProjectEvidenceTarget } from '@/lib/projects/projectEvidence';
 import { PathwayApiService } from '@/lib/api/pathwayApi';
 import {
   TeamsApiService,
@@ -216,7 +223,9 @@ function ProjectsPageContent() {
   const [activeCertificate, setActiveCertificate] = useState<Project | null>(null);
 
   // PR-08 FIX: Unlock at 25% course progress OR 3 completed quests OR if user is admin/teacher OR if candidate already has active projects
-  const isUnlocked = progressPercent >= 25 || completedCount >= 3 || user?.role === 'admin' || user?.role === 'teacher' || projects.length > 0;
+  // A finished custom roadmap (recorded by the quests page) hands the student their capstone project.
+  const roadmapCtx = getRoadmapCapstoneContext(onboardingAnswers as Record<string, unknown> | undefined);
+  const isUnlocked = progressPercent >= 25 || completedCount >= 3 || user?.role === 'admin' || user?.role === 'teacher' || projects.length > 0 || Boolean(roadmapCtx);
 
   // saveCareerProjects stores projects in onboarding_answers.portfolio_projects. This page used to
   // read `.projects`, which nothing writes, so projects vanished on reload.
@@ -256,10 +265,10 @@ function ProjectsPageContent() {
     saveCareerProjects(updated);
   };
 
-  const handleGenerate = async () => {
+  const handleGenerate = async (forRoadmap?: RoadmapCapstoneContext) => {
     setGenerating(true);
     try {
-      const goal = selectedGoal;
+      const goal = forRoadmap ? forRoadmap.goal : selectedGoal;
       let generated: Project[] = [];
 
       // Extract skills from onboarding answers or student profile
@@ -352,9 +361,14 @@ function ProjectsPageContent() {
         return existingMatch || newProj;
       });
 
-      saveProjects(merged);
-      setSelectedGuideProject(merged[0]);
-      toast.success('Projects Generated! ⚡', `Loaded 5 customized capstone tracks for: ${goal}`);
+      const finalProjects = forRoadmap ? tagRoadmapCapstones(merged, forRoadmap) : merged;
+      saveProjects(finalProjects);
+      setSelectedGuideProject(finalProjects[0]);
+      if (forRoadmap) {
+        toast.success('Your roadmap capstone is ready 🎓', `Projects built from your completed roadmap for: ${goal}`);
+      } else {
+        toast.success('Projects Generated! ⚡', `Loaded 5 customized capstone tracks for: ${goal}`);
+      }
     } catch (err: any) {
       console.error('[Projects] handleGenerate failed:', err);
       toast.error('Generation Failed', 'Could not generate project tracks.');
@@ -362,6 +376,27 @@ function ProjectsPageContent() {
       setGenerating(false);
     }
   };
+
+  // Arriving from a finished roadmap (/projects?from=roadmap): open its capstone, generating it once.
+  // Saved projects are read from the answers directly, so a capstone handed out earlier is never
+  // regenerated while the page state is still loading.
+  const fromRoadmap = searchParams?.get('from') === 'roadmap';
+  const roadmapHandoffRef = useRef(false);
+  const handleGenerateRef = useRef(handleGenerate);
+  handleGenerateRef.current = handleGenerate;
+  useEffect(() => {
+    if (!fromRoadmap || !roadmapCtx || roadmapHandoffRef.current || generating) return;
+    roadmapHandoffRef.current = true;
+    const saved = getSavedCareerProjects({ portfolio_projects: answerProjects, projects: legacyAnswerProjects });
+    const existing = findRoadmapCapstone(saved, roadmapCtx);
+    if (existing) {
+      setSelectedGuideProject(existing);
+      toast.info('Your roadmap capstone 🎓', `Continue "${existing.name}".`);
+      return;
+    }
+    setSelectedGoal(roadmapCtx.goal);
+    void handleGenerateRef.current(roadmapCtx);
+  }, [fromRoadmap, roadmapCtx, generating, answerProjects, legacyAnswerProjects]);
 
   const handleStart = async (id: string) => {
     const existing = projects.find(p => p.id === id);
@@ -527,21 +562,18 @@ function ProjectsPageContent() {
         earnPins('vault_verify', earnedPins, `${isAuthored ? 'Completed Project' : 'Linked Reference Project'}: ${selectedGuideProject.name}`);
       }
 
-      // Record in authoritative pathway evidence engine
-      const competencyMap: Record<string, string> = {
-        'Beginner': 'comp_comp_arch_git',
-        'Intermediate': 'comp_db_sql_postgres',
-        'Advanced': 'comp_fullstack_react_node',
-        'Enterprise': 'comp_cloud_docker_k8s',
-        'Future-Tech': 'comp_distributed_systems',
-      };
-      const compId = competencyMap[selectedGuideProject.level] || 'comp_fullstack_react_node';
-      PathwayApiService.recordEvidence({
+      // Record in authoritative pathway evidence engine, under the program and competency of the
+      // student's own track (tracks the competency catalog doesn't cover record nothing).
+      const evidenceRole = selectedGuideProject.origin === 'roadmap' ? (roadmapCtx?.goal ?? selectedGoal) : selectedGoal;
+      const evidenceTarget = getProjectEvidenceTarget(evidenceRole, selectedGuideProject.level);
+      if (!evidenceTarget) {
+        console.info(`[Projects] No competency in the catalog for "${evidenceRole}"; project evidence not recorded.`);
+      } else PathwayApiService.recordEvidence({
         id: `ev_${Date.now()}_${randHex.toLowerCase()}`,
         studentId: user.id,
-        competencyId: compId,
+        competencyId: evidenceTarget.competencyId,
         competencyVersion: 'v1',
-        programId: 'prog_swe_accelerated_9m',
+        programId: evidenceTarget.programId,
         evidenceClass: isAuthored ? 'production' : 'application',
         difficulty: 'advanced',
         evidenceFamilyId: 'project_submission',
@@ -806,7 +838,7 @@ function ProjectsPageContent() {
             </div>
 
             <button
-              onClick={handleGenerate}
+              onClick={() => handleGenerate()}
               disabled={generating}
               className="btn-primary"
               style={{ padding: '12px 0', fontSize: 13, fontWeight: 800, justifyContent: 'center', marginTop: 8 }}
