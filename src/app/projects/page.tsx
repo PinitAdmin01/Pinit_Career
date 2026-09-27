@@ -19,6 +19,7 @@ import {
 } from '@/lib/projects/roadmapCapstone';
 import { getProjectEvidenceTarget } from '@/lib/projects/projectEvidence';
 import { capstoneInterviewPath } from '@/lib/interview/capstoneInterview';
+import { api, ApiError } from '@/lib/api/client';
 import { CapstoneNextStep } from './CapstoneNextStep';
 import { PathwayApiService } from '@/lib/api/pathwayApi';
 import {
@@ -262,6 +263,27 @@ function ProjectsPageContent() {
       }
     }
   }, [user?.id, answerProjects, legacyAnswerProjects, saveCareerProjects]);
+
+  // Roadmap journey certificate: the server re-verifies roadmap, capstone and interview, then issues it.
+  const [issuingCertificate, setIssuingCertificate] = useState(false);
+  const handleGetRoadmapCertificate = async (project: Project) => {
+    setIssuingCertificate(true);
+    try {
+      const res = await api.post<{ ok: boolean; certificate?: { id: string; verifyPath: string; issuedAt: string } }>(
+        '/api/certificates/roadmap',
+        { projectId: project.id }
+      );
+      if (!res?.certificate) throw new Error('No certificate returned');
+      const cert = res.certificate;
+      saveProjects(projects.map((p) => (p.id === project.id ? { ...p, certificateId: cert.id, issueDate: cert.issuedAt } : p)));
+      toast.success('Certificate issued 🏅', `Verifiable at /verify/${cert.id}`);
+      router.push(cert.verifyPath);
+    } catch (err: unknown) {
+      toast.error('Certificate not issued', err instanceof ApiError ? err.message : 'Please try again.');
+    } finally {
+      setIssuingCertificate(false);
+    }
+  };
 
   const saveProjects = (updated: Project[]) => {
     setProjects(updated);
@@ -767,7 +789,13 @@ function ProjectsPageContent() {
       {mainTab === 'solo' && (
         <>
           {/* Roadmap journey: verified capstone → capstone interview → certificate */}
-          <CapstoneNextStep projects={projects} onStartInterview={(p) => router.push(capstoneInterviewPath(p.id))} />
+          <CapstoneNextStep
+            projects={projects}
+            onStartInterview={(p) => router.push(capstoneInterviewPath(p.id))}
+            onGetCertificate={handleGetRoadmapCertificate}
+            onViewCertificate={(id) => router.push(`/verify/${encodeURIComponent(id)}`)}
+            issuing={issuingCertificate}
+          />
 
           {/* Lock Screen */}
           {!isUnlocked ? (

@@ -7,14 +7,18 @@ import { getCapstoneNextStep } from '@/lib/interview/capstoneInterview';
 export interface CapstoneNextStepProps {
   projects: ReadonlyArray<Project>;
   onStartInterview: (project: Project) => void;
+  onGetCertificate?: (project: Project) => void;
+  onViewCertificate?: (certificateId: string) => void;
+  issuing?: boolean;
 }
 
-/** Roadmap journey card on the Projects page: verified capstone → interview → (certificate). */
-export function CapstoneNextStep({ projects, onStartInterview }: CapstoneNextStepProps) {
+/** Roadmap journey card on the Projects page: verified capstone → interview → certificate. */
+export function CapstoneNextStep({ projects, onStartInterview, onGetCertificate, onViewCertificate, issuing = false }: CapstoneNextStepProps) {
   const next = getCapstoneNextStep(projects);
   if (!next) return null;
 
   const isInterview = next.step === 'interview';
+  const certificateId = next.project.certificateId;
   return (
     <div
       role="status"
@@ -41,7 +45,9 @@ export function CapstoneNextStep({ projects, onStartInterview }: CapstoneNextSte
         <div style={{ fontSize: 12.5, color: 'var(--t3)', marginTop: 4 }}>
           {isInterview
             ? 'Next step: your capstone interview. Defend this project for your target role. No Pins needed.'
-            : 'Your roadmap journey is complete. Your certificate is the final step.'}
+            : certificateId
+              ? `Certificate ${certificateId} issued. Anyone can verify it online.`
+              : 'Your roadmap journey is complete. Get your verifiable certificate.'}
         </div>
       </div>
       {isInterview && (
@@ -52,6 +58,27 @@ export function CapstoneNextStep({ projects, onStartInterview }: CapstoneNextSte
           style={{ fontSize: 12, padding: '8px 14px' }}
         >
           Start capstone interview ➔
+        </button>
+      )}
+      {!isInterview && certificateId && onViewCertificate && (
+        <button
+          type="button"
+          onClick={() => onViewCertificate(certificateId)}
+          className="btn-primary"
+          style={{ fontSize: 12, padding: '8px 14px' }}
+        >
+          View certificate ➔
+        </button>
+      )}
+      {!isInterview && !certificateId && onGetCertificate && (
+        <button
+          type="button"
+          disabled={issuing}
+          onClick={() => onGetCertificate(next.project)}
+          className="btn-primary"
+          style={{ fontSize: 12, padding: '8px 14px', opacity: issuing ? 0.6 : 1 }}
+        >
+          {issuing ? 'Issuing…' : 'Get my certificate ➔'}
         </button>
       )}
     </div>

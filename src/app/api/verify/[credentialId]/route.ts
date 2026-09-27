@@ -3,6 +3,7 @@ import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 import { PathwayApiService } from '@/lib/api/pathwayApi';
 import { verifyEvidenceIntegrity } from '@/lib/pathway/evidenceEngine';
 import { CompetencyEvidenceRecord } from '@/lib/pathway/competencySchema';
+import { ROADMAP_CERTIFICATE_PREFIX, verifyRoadmapCertificate } from '@/lib/certificates/roadmapCertificate';
 
 export async function GET(
   _req: NextRequest,
@@ -18,6 +19,58 @@ export async function GET(
     }
 
     const credentialId = decodeURIComponent(rawId).trim();
+
+    // 0. Roadmap journey certificate (PIN-RC-…): issued by /api/certificates/roadmap, HMAC-signed.
+    if (credentialId.startsWith(ROADMAP_CERTIFICATE_PREFIX)) {
+      const supabase = getSupabaseAdmin();
+      const { data: cert } = await supabase
+        .from('issued_certificates')
+        .select('id, student_id, title, role, course_id, project_id, project_name, interview_score, interview_verdict, issued_at, signature, revoked')
+        .eq('id', credentialId)
+        .maybeSingle();
+
+      const genuine = cert && !cert.revoked && verifyRoadmapCertificate({
+        id: cert.id,
+        studentId: cert.student_id,
+        courseId: cert.course_id || '',
+        projectId: cert.project_id || '',
+        interviewScore: cert.interview_score ?? 0,
+        issuedAt: new Date(cert.issued_at).toISOString(),
+      }, cert.signature);
+
+      if (!cert || !genuine) {
+        return NextResponse.json({
+          valid: false,
+          error: cert?.revoked ? 'REVOKED' : 'NOT_FOUND',
+          message: cert?.revoked ? 'This certificate has been revoked.' : 'No certificate with this identifier was issued by PinIT.',
+        }, { status: 404 });
+      }
+
+      const { data: student } = await supabase
+        .from('users')
+        .select('display_name, register_number')
+        .eq('id', cert.student_id)
+        .maybeSingle();
+
+      return NextResponse.json({
+        valid: true,
+        status: 'VERIFIED',
+        type: 'official_document',
+        document: {
+          verificationId: cert.id,
+          documentType: cert.title,
+          studentName: student?.display_name || 'PinIT Student',
+          registerNumber: student?.register_number || 'UNASSIGNED',
+          institution: 'PinIT Career OS',
+          department: cert.role || 'Career Roadmap',
+          academicYear: String(new Date(cert.issued_at).getFullYear()),
+          purpose: `Completed the career roadmap, the capstone project "${cert.project_name || 'Capstone'}" and the capstone interview (${cert.interview_score ?? 0}%, ${cert.interview_verdict || 'Hire'}).`,
+          dateIssued: String(cert.issued_at).split('T')[0],
+          status: 'Issued',
+          sealed: true,
+        },
+      });
+    }
 
     // 1. Official Academic Transcript Verification (IDs starting with 'TR-')
     if (credentialId.startsWith('TR-')) {
