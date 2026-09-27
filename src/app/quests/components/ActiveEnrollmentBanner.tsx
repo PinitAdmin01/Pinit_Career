@@ -2,7 +2,7 @@
 
 import React from 'react';
 import type { CrashCourseEnrollment } from '@/lib/services/crashCourseEnrollmentService';
-import { CRASH_COURSE_PLANS } from '@/lib/data/crashPlansData';
+import { CRASH_COURSE_PLANS, INTERNSHIP_AVAILABLE } from '@/lib/data/crashPlansData';
 
 export interface ActiveEnrollmentBannerProps {
   enrollment: CrashCourseEnrollment;
@@ -85,7 +85,7 @@ export const ActiveEnrollmentBanner: React.FC<ActiveEnrollmentBannerProps> = ({
                 boxShadow: '0 0 8px #10b981'
               }}
             />
-            Active Fellowship Track
+            {INTERNSHIP_AVAILABLE ? 'Active Fellowship Track' : 'Active Certification Track'}
           </span>
           <span
             style={{
@@ -114,7 +114,7 @@ export const ActiveEnrollmentBanner: React.FC<ActiveEnrollmentBannerProps> = ({
               border: '1px solid rgba(16, 185, 129, 0.3)'
             }}
           >
-            ✓ Accredited Fellowship Seat
+            {INTERNSHIP_AVAILABLE ? '✓ Accredited Fellowship Seat' : '✓ Enrolled Seat'}
           </span>
           <span style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>
             Ref #{enrollment.enrollmentId.slice(-8).toUpperCase()}

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { CRASH_COURSE_PLANS, CrashPlan } from '@/lib/data/crashPlansData';
+import { CRASH_COURSE_PLANS, CrashPlan, INTERNSHIP_AVAILABLE } from '@/lib/data/crashPlansData';
 import { toast } from '@/lib/store/useAppStore';
 import EnhancedCrashCoursePlanCard from './EnhancedCrashCoursePlanCard';
 import CredentialPreviewModal from './CredentialPreviewModal';
@@ -56,11 +56,13 @@ export const CrashCoursePlanCards: React.FC<CrashCoursePlanCardsProps> = ({
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <span style={{ fontSize: 24 }}>⚡</span>
             <h3 style={{ fontSize: 18, fontWeight: 900, color: 'var(--t1)', margin: 0, fontFamily: 'var(--font-display)' }}>
-              Industry Crash Certification & Real-Time Internship Programs
+              {INTERNSHIP_AVAILABLE ? 'Industry Crash Certification & Real-Time Internship Programs' : 'Industry Crash Certification Programs'}
             </h3>
           </div>
           <p style={{ fontSize: 13, color: 'var(--t3)', margin: '4px 0 0 0' }}>
-            Daily 1-Hour micro-learning, 1-Month production capstone, 2-3 Months PinIT Tech Labs fellowship, and dual verifiable credentials.
+            {INTERNSHIP_AVAILABLE
+              ? 'Daily 1-Hour micro-learning, 1-Month production capstone, 2-3 Months PinIT Tech Labs fellowship, and dual verifiable credentials.'
+              : 'Daily 1-Hour micro-learning, a 1-Month production capstone, and a verifiable certificate.'}
           </p>
         </div>
 

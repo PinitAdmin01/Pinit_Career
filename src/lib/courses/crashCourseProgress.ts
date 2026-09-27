@@ -1,3 +1,4 @@
+import { INTERNSHIP_AVAILABLE } from '@/lib/data/crashPlansData';
 import type { CrashPlan } from '@/lib/data/crashPlansData';
 import type { CrashCourseEnrollment } from '@/lib/services/crashCourseEnrollmentService';
 
@@ -8,9 +9,10 @@ import type { CrashCourseEnrollment } from '@/lib/services/crashCourseEnrollment
  * order). Only those count: quests done anywhere else (custom roadmap, standalone courses) do not.
  * Each phase unlocks only when the previous one is really done:
  *   1 training   → complete when every lesson of the curriculum is completed
- *   2 capstone   → complete when the project certificate is issued (or every sprint milestone passed)
- *   3 internship → complete when the internship certificate is issued
- *   4 graduation → complete when both certificates exist (only then can they be shared)
+ *   2 capstone   → complete when every sprint milestone passed (or the project certificate exists)
+ *   3 internship → complete when the internship certificate is issued (only while INTERNSHIP_AVAILABLE)
+ *   4 graduation → complete when the certificate(s) are issued (only then can they be shared)
+ * While the internship is hidden, graduation follows the capstone directly.
  */
 
 export type CrashTrack = 'web_fullstack' | 'python_ai';
@@ -79,15 +81,19 @@ export function getCrashCourseProgress(
   track: CrashTrack,
   registry: ReadonlyArray<CourseLike>,
   completedQuests: ReadonlyArray<string> | null | undefined,
-  enrollment: Pick<CrashCourseEnrollment, 'milestoneProgress' | 'certificatesIssued'> | null | undefined
+  enrollment: Pick<CrashCourseEnrollment, 'milestoneProgress' | 'certificatesIssued'> | null | undefined,
+  options: { includeInternship?: boolean } = {}
 ): CrashCourseProgress {
+  const includeInternship = options.includeInternship ?? INTERNSHIP_AVAILABLE;
   const lessons = getCrashCourseCurriculum(plan, track, registry);
   const done = new Set(completedQuests ?? []);
   const completed = lessons.filter((l) => done.has(l.questId)).length;
   const total = lessons.length;
   const trainingDone = total > 0 && completed === total;
   const capstoneComplete = trainingDone && isCapstoneComplete(enrollment);
-  const internshipComplete = capstoneComplete && Boolean(enrollment?.certificatesIssued?.internshipCertHash);
+  const internshipComplete = includeInternship && capstoneComplete && Boolean(enrollment?.certificatesIssued?.internshipCertHash);
+  const readyToGraduate = includeInternship ? internshipComplete : capstoneComplete;
+  const graduated = readyToGraduate && Boolean(enrollment?.certificatesIssued?.projectCertHash);
 
   const step = (isDone: boolean, previousDone: boolean): PhaseStatus =>
     isDone ? 'completed' : previousDone ? 'active' : 'locked';
@@ -103,8 +109,8 @@ export function getCrashCourseProgress(
     phases: {
       training: step(trainingDone, true),
       capstone: step(capstoneComplete, trainingDone),
-      internship: step(internshipComplete, capstoneComplete),
-      graduation: step(capstoneComplete && internshipComplete, internshipComplete),
+      internship: includeInternship ? step(internshipComplete, capstoneComplete) : 'locked',
+      graduation: step(graduated, readyToGraduate),
     },
   };
 }

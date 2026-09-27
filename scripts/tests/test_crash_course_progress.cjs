@@ -69,7 +69,8 @@ function test(name, fn) {
 }
 
 console.log('Certificate course progress\n');
-const helper = load(FILES.helper);
+const helper = load(FILES.helper, { '@/lib/data/crashPlansData': { INTERNSHIP_AVAILABLE: false } });
+const WITH_INTERNSHIP = { includeInternship: true };
 
 test('curriculum = the plan\'s own courses, in month order, each lesson once', () => {
   if (!helper) return 'src/lib/courses/crashCourseProgress.ts missing';
@@ -85,7 +86,7 @@ test('quests done elsewhere do not count toward the course', () => {
 
 test('phases unlock in order from real data', () => {
   if (!helper) return 'helper missing';
-  const phases = (done, enr) => Object.values(helper.getCrashCourseProgress(PLAN, 'web_fullstack', REGISTRY, done, enr).phases).join(',');
+  const phases = (done, enr) => Object.values(helper.getCrashCourseProgress(PLAN, 'web_fullstack', REGISTRY, done, enr, WITH_INTERNSHIP).phases).join(',');
   const all = ['a1', 'a2', 'b1'];
   const cases = [
     [phases(['a1'], ENROLL()), 'active,locked,locked,locked'],
@@ -106,13 +107,13 @@ test('capstone passes on approved sprints + defense score, not on a partial one'
 });
 
 function renderStepper(progress) {
-  const stepper = load(FILES.stepper, { react: React, '@/lib/data/crashPlansData': { getCrashPlanById: () => PLAN } });
+  const stepper = load(FILES.stepper, { react: React, '@/lib/data/crashPlansData': { getCrashPlanById: () => PLAN, INTERNSHIP_AVAILABLE: false } });
   const calls = [];
   const node = render(React.createElement(stepper.VerticalCheckpointStepper, {
     planId: 'plan-test', activeTrack: 'web_fullstack', progress,
     onOpenPracticeTest: () => calls.push('test'), onOpenCapstoneDesk: () => calls.push('capstone'),
     onOpenQrModal: () => calls.push('qr'), onOpenPreviewCredentials: () => calls.push('preview'),
-    onContinueTodayQuest: () => calls.push('continue'),
+    onContinueTodayQuest: () => calls.push('continue'), onGetCertificate: () => calls.push('certificate'),
   }));
   const buttons = findAll(node, (n) => n.type === 'button').map((b) => ({ label: textOf(b), disabled: !!b.props.disabled, click: b.props.onClick }));
   return { node, buttons, calls, text: textOf(node) };
@@ -131,12 +132,48 @@ test('timeline: locked phases have disabled actions; no fake fellowship desk; no
 
 test('timeline: after graduation the credentials can be shared', () => {
   if (!helper) return 'helper missing';
-  const p = helper.getCrashCourseProgress(PLAN, 'web_fullstack', REGISTRY, ['a1', 'a2', 'b1'], ENROLL({ certificatesIssued: { projectCertHash: 'h', internshipCertHash: 'i' } }));
+  const p = helper.getCrashCourseProgress(PLAN, 'web_fullstack', REGISTRY, ['a1', 'a2', 'b1'], ENROLL({ certificatesIssued: { projectCertHash: 'h' } }));
   const { buttons, calls } = renderStepper(p);
   const qr = buttons.find((b) => /Share & Verify/.test(b.label));
   if (!qr || qr.disabled) return 'no QR sharing after graduation';
   qr.click();
   return calls.includes('qr') ? true : 'QR button does nothing';
+});
+
+test('internship hidden: 3 phases, graduation follows the capstone, certificate on request', () => {
+  if (!helper) return 'helper missing';
+  const phases = (enr) => Object.values(helper.getCrashCourseProgress(PLAN, 'web_fullstack', REGISTRY, ['a1', 'a2', 'b1'], enr).phases).join(',');
+  if (phases(ENROLL()) !== 'completed,active,locked,locked') return 'capstone not active after lessons: ' + phases(ENROLL());
+  const passed = ENROLL({ milestoneProgress: { sprint1Approved: true, sprint2Approved: true, sprint3RepoUrl: 'gh', sprint4DefenseScore: 75 } });
+  if (phases(passed) !== 'completed,completed,locked,active') return 'graduation not ready after capstone: ' + phases(passed);
+  const p = helper.getCrashCourseProgress(PLAN, 'web_fullstack', REGISTRY, ['a1', 'a2', 'b1'], passed);
+  const { buttons, calls, text } = renderStepper(p);
+  if (/FELLOWSHIP|Fellowship/.test(text)) return 'fellowship phase still shown';
+  if (!/PHASE 3 • GRADUATION/.test(text) || /PHASE 4/.test(text)) return 'phases not renumbered 1-3';
+  const cert = buttons.find((b) => /Get my certificate/.test(b.label));
+  if (!cert) return 'no certificate button when ready';
+  cert.click();
+  return calls.includes('certificate') ? true : 'certificate button does nothing';
+});
+
+test('real plan data promises no internship while it is hidden', () => {
+  const plans = load(path.join(ROOT, 'src/lib/data/crashPlansData.ts'));
+  if (!plans || plans.INTERNSHIP_AVAILABLE !== false) return 'INTERNSHIP_AVAILABLE switch missing or on';
+  const bad = [];
+  for (const p of plans.CRASH_COURSE_PLANS) {
+    p.features.filter((f) => /intern|fellowship|apprentice/i.test(f)).forEach((f) => bad.push(p.id + ' feature: ' + f));
+    p.journeySteps.filter((j) => /intern|fellowship|apprentice/i.test(j.title + ' ' + j.subtitle)).forEach((j) => bad.push(p.id + ' step: ' + j.title));
+    if (p.deliverables.internshipCertificate) bad.push(p.id + ' internshipCertificate');
+    if (/intern/i.test(p.totalProgramDuration)) bad.push(p.id + ' duration');
+  }
+  return bad.length ? bad.slice(0, 3).join(' | ') : true;
+});
+
+test('course screens use the internship switch instead of hard-coded promises', () => {
+  const files = ['TrackSelectorDrawer', 'CredentialPreviewModal', 'CrashCoursePlanCards', 'CrashCourseCheckoutModal', 'ActiveEnrollmentBanner']
+    .map((n) => path.join(ROOT, 'src/app/quests/components', n + '.tsx'));
+  const missing = files.filter((f) => !/INTERNSHIP_AVAILABLE/.test(fs.readFileSync(f, 'utf8')));
+  return missing.length ? 'not switched: ' + missing.map((f) => path.basename(f)).join(', ') : true;
 });
 
 test('"Continue" opens the course\'s next lesson, not the custom roadmap tab', () => {

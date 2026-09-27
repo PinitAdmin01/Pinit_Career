@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import type { CrashPlan } from '@/lib/data/crashPlansData';
+import { INTERNSHIP_AVAILABLE } from '@/lib/data/crashPlansData';
 import { openRazorpayCheckout } from '@/lib/razorpay';
 import { toast } from '@/lib/store/useAppStore';
 import { api, ApiError } from '@/lib/api/client';
@@ -36,12 +37,13 @@ const TRACK_LABELS: Record<'web_fullstack' | 'python_ai', string> = {
   python_ai: 'Python & AI Engineering',
 };
 
-const DELIVERABLES = [
+const ALL_DELIVERABLES = [
   { icon: '🎓', label: 'Project-Based Certificate', sub: 'SHA-256 verifiable credential' },
   { icon: '🏢', label: 'Real-Time Internship Certificate', sub: 'QR + verifiable hash' },
   { icon: '💼', label: 'Placement-Ready Prep', sub: 'Interview & resume coaching' },
   { icon: '🌐', label: '4 Language Trainings', sub: 'English, German, French, Spanish' },
 ];
+const DELIVERABLES = ALL_DELIVERABLES.filter((d) => INTERNSHIP_AVAILABLE || !/internship/i.test(d.label));
 
 const PAYMENT_METHODS = [
   {
@@ -578,7 +580,7 @@ Thank you for enrolling with PinIT Career OS!
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, fontWeight: 700, color: '#38bdf8' }}>
                   <span>⏱️</span>
-                  <span>{plan.totalProgramDuration} (Course + 1M Project + {plan.internshipDurationMonths} Real-time Internship)</span>
+                  <span>{plan.totalProgramDuration} (Course + 1M Project{INTERNSHIP_AVAILABLE ? ` + ${plan.internshipDurationMonths} Real-time Internship` : ''})</span>
                 </div>
               </div>
 

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { CrashPlan, getCrashPlanById } from '@/lib/data/crashPlansData';
+import { INTERNSHIP_AVAILABLE } from '@/lib/data/crashPlansData';
 import type { CrashCourseProgress, PhaseStatus } from '@/lib/courses/crashCourseProgress';
 
 export interface VerticalCheckpointStepperProps {
@@ -14,6 +15,8 @@ export interface VerticalCheckpointStepperProps {
   onOpenQrModal: () => void;
   onOpenPreviewCredentials?: () => void;
   onContinueTodayQuest?: () => void;
+  /** Issues the course certificate once the capstone passed (graduation phase). */
+  onGetCertificate?: () => void;
 }
 
 const badgeFor = (status: PhaseStatus, labels: { completed: string; active: string; locked: string }) => labels[status];
@@ -26,7 +29,8 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
   onOpenCapstoneDesk,
   onOpenQrModal,
   onOpenPreviewCredentials,
-  onContinueTodayQuest
+  onContinueTodayQuest,
+  onGetCertificate
 }) => {
   const plan: CrashPlan = getCrashPlanById(planId) || getCrashPlanById('plan-3m-accelerator')!;
   const flagship = plan.flagshipBuildByTrack[activeTrack];
@@ -34,8 +38,8 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
 
   const steps = [
     {
-      stepNumber: '01',
-      phaseTag: 'PHASE 1 • CORE ACCREDITATION',
+      key: 'training',
+      phaseName: 'CORE ACCREDITATION',
       title: `${plan.trainingDurationMonths}-Month Daily Micro-Learning`,
       subtitle: 'Daily 1-Hour guided quests, interactive theory, syntax drills, and weekly retention tests.',
       status: phases.training,
@@ -56,8 +60,8 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
       }
     },
     {
-      stepNumber: '02',
-      phaseTag: 'PHASE 2 • PRODUCTION CAPSTONE',
+      key: 'capstone',
+      phaseName: 'PRODUCTION CAPSTONE',
       title: '1-Month Production Project Desk',
       subtitle: flagship?.title || 'Production full-stack repo with architectural review and CI/CD checks.',
       status: phases.capstone,
@@ -70,8 +74,8 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
       }
     },
     {
-      stepNumber: '03',
-      phaseTag: 'PHASE 3 • INDUSTRY FELLOWSHIP',
+      key: 'internship',
+      phaseName: 'INDUSTRY FELLOWSHIP',
       title: `${plan.internshipDurationMonths} Real-Time Fellowship`,
       subtitle: 'Work on live sprint backlogs, code reviews, daily standups, and corporate performance tracking on PinIT Labs.',
       status: phases.internship,
@@ -86,24 +90,32 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
       primaryAction: undefined as { label: string; onClick: () => void } | undefined
     },
     {
-      stepNumber: '04',
-      phaseTag: 'PHASE 4 • GRADUATION & TRUST',
-      title: 'Oral Defense & Dual Verifiable Credentials',
-      subtitle: 'Present your production capstone to a senior panel, pass defense, and unlock cryptographically signed SHA-256 credentials.',
+      key: 'graduation',
+      phaseName: 'GRADUATION & TRUST',
+      title: INTERNSHIP_AVAILABLE ? 'Oral Defense & Dual Verifiable Credentials' : 'Verifiable Capstone Certificate',
+      subtitle: INTERNSHIP_AVAILABLE
+        ? 'Present your production capstone to a senior panel, pass defense, and unlock cryptographically signed SHA-256 credentials.'
+        : 'Your capstone passed its defense: get a signed certificate that anyone can verify online.',
       status: phases.graduation,
-      badgeText: badgeFor(phases.graduation, { completed: '🎓 Credentials issued', active: '🎓 Graduation open', locked: '🔒 Unlocks after the fellowship' }),
+      badgeText: badgeFor(phases.graduation, { completed: '🎓 Certificate issued', active: '🎓 Certificate ready', locked: INTERNSHIP_AVAILABLE ? '🔒 Unlocks after the fellowship' : '🔒 Unlocks after your capstone' }),
       color: '#f59e0b',
       // Sharing is only offered once the credentials really exist; before that, a labelled sample.
-      primaryAction: phases.graduation === 'completed' ? {
-        label: '📲 Share & Verify (QR)',
-        onClick: onOpenQrModal
-      } : undefined,
+      primaryAction: phases.graduation === 'completed'
+        ? { label: '📲 Share & Verify (QR)', onClick: onOpenQrModal }
+        : phases.graduation === 'active' && onGetCertificate
+          ? { label: '🎓 Get my certificate', onClick: onGetCertificate }
+          : undefined,
       secondaryAction: onOpenPreviewCredentials ? {
         label: phases.graduation === 'completed' ? '👁️ View Certificates' : '👁️ Preview Sample Certificates',
         onClick: onOpenPreviewCredentials
       } : undefined
     }
   ];
+
+  // Hidden phases are removed and the rest renumbered (PHASE 1, 2, 3 …).
+  const visibleSteps = steps
+    .filter((s) => INTERNSHIP_AVAILABLE || s.key !== 'internship')
+    .map((s, i) => ({ ...s, stepNumber: String(i + 1).padStart(2, '0'), phaseTag: `PHASE ${i + 1} • ${s.phaseName}` }));
 
   return (
     <div
@@ -168,7 +180,9 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
             </h3>
           </div>
           <p style={{ fontSize: 13, color: '#94a3b8', margin: '4px 0 0 0' }}>
-            Structured 4-checkpoint progression from daily learning to corporate fellowship and verifiable graduation.
+            {INTERNSHIP_AVAILABLE
+              ? 'Structured 4-checkpoint progression from daily learning to corporate fellowship and verifiable graduation.'
+              : 'Structured 3-checkpoint progression from daily learning to a production capstone and a verifiable certificate.'}
           </p>
         </div>
 
@@ -206,7 +220,7 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
         />
 
         {/* ── Checkpoints 01 - 04 ── */}
-        {steps.map((step, idx) => {
+        {visibleSteps.map((step, idx) => {
           const isActive = step.status === 'active';
           const isDone = step.status === 'completed';
           const isLocked = step.status === 'locked';
@@ -399,10 +413,10 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
                   {step.secondaryAction && (
                     <button
                       onClick={step.secondaryAction.onClick}
-                      disabled={isLocked && step.stepNumber !== '04'}
+                      disabled={isLocked && step.key !== 'graduation'}
                       style={{
-                        opacity: isLocked && step.stepNumber !== '04' ? 0.45 : 1,
-                        pointerEvents: isLocked && step.stepNumber !== '04' ? 'none' : 'auto',
+                        opacity: isLocked && step.key !== 'graduation' ? 0.45 : 1,
+                        pointerEvents: isLocked && step.key !== 'graduation' ? 'none' : 'auto',
                         padding: '8px 16px',
                         borderRadius: 10,
                         border: '1px solid rgba(255, 255, 255, 0.15)',

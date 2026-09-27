@@ -65,7 +65,14 @@ export interface CrashPlan {
   };
 }
 
-export const CRASH_COURSE_PLANS: CrashPlan[] = [
+/**
+ * The internship / PinIT Labs fellowship phase is not built yet (owner decision 2026-09-27: hide it
+ * until it exists). While false, plans shown to students and buyers promise no internship, no
+ * fellowship step and no internship certificate. Set to true once the internship module ships.
+ */
+export const INTERNSHIP_AVAILABLE = false;
+
+const ALL_CRASH_COURSE_PLANS: CrashPlan[] = [
   {
     id: 'plan-1m-sprint',
     tier: '1m',
@@ -629,6 +636,28 @@ export const CRASH_COURSE_PLANS: CrashPlan[] = [
     }
   }
 ];
+
+const INTERNSHIP_TEXT = /intern|fellowship|apprentice/i;
+
+/** A plan as it can honestly be sold today: no internship, fellowship or internship certificate. */
+function withoutInternship(plan: CrashPlan): CrashPlan {
+  const features = plan.features.filter((f) => !INTERNSHIP_TEXT.test(f));
+  if (plan.deliverables.projectCertificate && !features.some((f) => /project certificate/i.test(f))) {
+    features.push('Verifiable Capstone Project Certificate (online verification)');
+  }
+  return {
+    ...plan,
+    internshipDurationMonths: '',
+    totalProgramDuration: `${plan.trainingDurationMonths + plan.projectDurationMonths} Months Total`,
+    journeySteps: plan.journeySteps.filter((s) => !INTERNSHIP_TEXT.test(`${s.title} ${s.subtitle}`)),
+    features,
+    deliverables: { ...plan.deliverables, internshipCertificate: false },
+  };
+}
+
+export const CRASH_COURSE_PLANS: CrashPlan[] = INTERNSHIP_AVAILABLE
+  ? ALL_CRASH_COURSE_PLANS
+  : ALL_CRASH_COURSE_PLANS.map(withoutInternship);
 
 export function getCrashPlanById(id: string): CrashPlan | undefined {
   return CRASH_COURSE_PLANS.find(p => p.id === id);

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { INTERNSHIP_AVAILABLE } from '@/lib/data/crashPlansData';
 
 export interface CredentialPreviewModalProps {
   isOpen: boolean;
@@ -9,7 +10,7 @@ export interface CredentialPreviewModalProps {
 }
 
 const CredentialPreviewModal: React.FC<CredentialPreviewModalProps> = ({
-  isOpen, onClose, planTitle = 'Crash Course & Internship',
+  isOpen, onClose, planTitle = INTERNSHIP_AVAILABLE ? 'Crash Course & Internship' : 'Crash Course',
   trackTitle = 'Full-Stack Software Architecture', onProceedToEnroll,
 }) => {
   useEffect(() => {
@@ -58,8 +59,10 @@ const CredentialPreviewModal: React.FC<CredentialPreviewModalProps> = ({
 
         <header style={s.header}>
           <div>
-            <h2 id="modal-title" style={s.title}>🏆 Dual Verifiable Credential Portfolio</h2>
-            <p style={s.subtitle}>Every graduate receives an Industrial Project Certificate AND an official PinIT Tech Labs Fellowship Letter.</p>
+            <h2 id="modal-title" style={s.title}>{INTERNSHIP_AVAILABLE ? '🏆 Dual Verifiable Credential Portfolio' : '🏆 Verifiable Capstone Certificate (sample)'}</h2>
+            <p style={s.subtitle}>{INTERNSHIP_AVAILABLE
+              ? 'Every graduate receives an Industrial Project Certificate AND an official PinIT Tech Labs Fellowship Letter.'
+              : 'Graduates receive a signed Project Certificate that anyone can verify online.'}</p>
           </div>
           <button onClick={onClose} style={s.closeBtn} aria-label="Close" title="Close">✕</button>
         </header>
@@ -71,12 +74,12 @@ const CredentialPreviewModal: React.FC<CredentialPreviewModalProps> = ({
             <p style={s.details}>Awarded for independent execution of 1-Month production capstone with automated test passing.</p>
             <div style={s.seal}><span style={s.sealIcon('#f59e0b')}>🏅</span><span>✓ ISO-Aligned • Cryptographically Signed</span></div>
           </article>
-          <article style={bCard(eg)}>
+          {INTERNSHIP_AVAILABLE && <article style={bCard(eg)}>
             <span style={bBadge('rgba(16,185,129,0.18)','#6ee7b7','rgba(16,185,129,0.3)')}>VENTURE APPRENTICESHIP & FELLOWSHIP</span>
             <h3 style={s.heading}>PinIT Tech Labs • Engineering Fellow</h3>
             <p style={s.details}>2–3 Months verified software development fellowship contributing to production-grade repositories.</p>
             <div style={s.seal}><span style={s.sealIcon('#10b981')}>🛡️</span><span>✓ SHA-256 Tamper-Proof Hash • QR Verifiable</span></div>
-          </article>
+          </article>}
         </div>
 
         <div style={s.hud} role="status" aria-live="polite">

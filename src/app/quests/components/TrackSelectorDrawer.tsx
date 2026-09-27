@@ -15,7 +15,7 @@ import CrashCourseCheckoutModal from './CrashCourseCheckoutModal';
 import CredentialPreviewModal from './CredentialPreviewModal';
 import { ActiveEnrollmentBanner } from './ActiveEnrollmentBanner';
 import { crashCourseEnrollmentService, CrashCourseEnrollment } from '@/lib/services/crashCourseEnrollmentService';
-import { CRASH_COURSE_PLANS, CrashPlan, getCrashPlanById } from '@/lib/data/crashPlansData';
+import { CRASH_COURSE_PLANS, CrashPlan, getCrashPlanById, INTERNSHIP_AVAILABLE } from '@/lib/data/crashPlansData';
 import { usePins } from '@/hooks/usePins';
 import CareerPathwayTimeline from '@/components/pathway/CareerPathwayTimeline';
 import CompetencyRadarView from '@/components/pathway/CompetencyRadarView';
@@ -352,7 +352,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                 </h3>
               </div>
               <p style={{ fontSize: 12.5, color: 'var(--t3)', margin: '4px 0 0 0' }}>
-                Enterprise-accredited crash curriculum: Daily 1Hr Learning • 1-Month Capstone • 2-3 Months Real-Time Internship • Dual Verifiable Credentials.
+                Enterprise-accredited crash curriculum: Daily 1Hr Learning • 1-Month Capstone • {INTERNSHIP_AVAILABLE ? '2-3 Months Real-Time Internship • Dual Verifiable Credentials' : 'Verifiable Certificate'}.
               </p>
             </div>
 
@@ -376,7 +376,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                       boxShadow: '0 4px 14px rgba(99, 102, 241, 0.25)'
                     }}
                   >
-                    <span>🏢</span> Internship Portal
+                    <span>🏢</span> {INTERNSHIP_AVAILABLE ? 'Internship Portal' : 'Capstone Desk'}
                   </button>
 
                   <button
