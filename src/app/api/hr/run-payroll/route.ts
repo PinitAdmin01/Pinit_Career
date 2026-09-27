@@ -28,23 +28,31 @@ export async function POST(req: Request) {
         process.env.NEXT_PUBLIC_SUPABASE_URL,
         process.env.SUPABASE_SERVICE_ROLE_KEY
       );
-      const { data: existing } = await supa
+      // Claim the month first (period_key is unique), so two clicks at the same moment cannot both
+      // run payroll. Checking and recording afterwards let both through.
+      const { error: claimErr } = await supa
         .from('payroll_runs')
-        .select('id')
-        .eq('period_key', periodKey)
-        .maybeSingle();
+        .insert({ period_key: periodKey, run_at: now.toISOString() });
 
-      if (existing) {
+      if (claimErr) {
+        if (claimErr.code === '23505') {
+          return NextResponse.json(
+            { error: 'ALREADY_RUN', message: `Payroll already processed for ${periodKey}. Contact finance to override.` },
+            { status: 409 }
+          );
+        }
+        console.error('[HR Payroll] Could not record the payroll run:', claimErr.message);
         return NextResponse.json(
-          { error: 'ALREADY_RUN', message: `Payroll already processed for ${periodKey}. Contact finance to override.` },
-          { status: 409 }
+          { error: 'PAYROLL_LEDGER_UNAVAILABLE', message: 'Payroll could not be started. Please try again.' },
+          { status: 503 }
         );
       }
 
       const result = await hrService.runPayroll();
-
-      // Log the run
-      await supa.from('payroll_runs').insert({ period_key: periodKey, run_at: now.toISOString() });
+      // A run that did not pay anyone gives the month back, so it can be run once it works.
+      if (!result || (result as { ok?: boolean }).ok !== true) {
+        await supa.from('payroll_runs').delete().eq('period_key', periodKey);
+      }
       return NextResponse.json(result);
     }
 

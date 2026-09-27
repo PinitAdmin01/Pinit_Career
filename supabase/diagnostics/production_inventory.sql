@@ -267,7 +267,9 @@ with expected(ord, file, kind, name) as (
     (39, 'supabase/migrations/20260926_protect_portfolio_verification.sql', 'function', 'public.protect_portfolio_verification'),
     (40, 'supabase/migrations/20260926_users_updated_at.sql', 'column', 'public.users.updated_at'),
     (41, 'supabase/migrations/20260927_arena_private_submissions.sql', 'table', 'public.arena_room_submissions'),
-    (42, 'supabase/migrations/20260927_issued_certificates.sql', 'table', 'public.issued_certificates')
+    (42, 'supabase/migrations/20260927_issued_certificates.sql', 'table', 'public.issued_certificates'),
+    (43, 'supabase/migrations/20260927_phase_b4c_campus_exams_payroll.sql', 'function', 'public.bind_fraud_alert_to_student'),
+    (43, 'supabase/migrations/20260927_phase_b4c_campus_exams_payroll.sql', 'column', 'public.campus_fraud_alerts.student_id')
 ),
 checked as (
   select e.ord, e.file, e.name,
