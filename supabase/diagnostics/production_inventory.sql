@@ -12,6 +12,11 @@
 --   supabase/migrations/20260918_student_activity_and_security.sql
 --   supabase/migrations/20260919_lock_exam_results_materials_and_money_functions.sql
 --   supabase/migrations/20260921_consolidated_security_and_credentials_rls.sql
+--   supabase/migrations/20260926_course_enrollment_uniqueness.sql
+--   supabase/migrations/20260926_phase_a_pins_and_enrollments.sql
+--   supabase/migrations/20260926_phase_b1_profile_xp_badges.sql
+--   supabase/migrations/20260926_phase_b3_messages_notifications.sql
+--   supabase/migrations/20260926_secure_claim_bonus_pins.sql
 with expected(ord, file, kind, name) as (
   values
     (1, 'supabase/schema.sql', 'table', 'public.applications'),
@@ -243,7 +248,24 @@ with expected(ord, file, kind, name) as (
     (36, 'supabase/migrations/20260924_user_crash_enrollments_and_wallet_schema.sql', 'table', 'public.user_crash_enrollments'),
     (37, 'supabase/migrations/20260925_portal_real_data_and_permissions.sql', 'function', 'public.is_linked_parent'),
     (37, 'supabase/migrations/20260925_portal_real_data_and_permissions.sql', 'table', 'public.parent_student_links'),
-    (37, 'supabase/migrations/20260925_portal_real_data_and_permissions.sql', 'table', 'public.recruiter_interactions')
+    (37, 'supabase/migrations/20260925_portal_real_data_and_permissions.sql', 'table', 'public.recruiter_interactions'),
+    (38, 'supabase/migrations/20260926_phase_b2_leaderboard_portfolio_leagues_arena.sql', 'column', 'public.internship_records.skills_used'),
+    (38, 'supabase/migrations/20260926_phase_b2_leaderboard_portfolio_leagues_arena.sql', 'column', 'public.quest_completions.quest_title'),
+    (38, 'supabase/migrations/20260926_phase_b2_leaderboard_portfolio_leagues_arena.sql', 'column', 'public.quest_completions.user_id'),
+    (38, 'supabase/migrations/20260926_phase_b2_leaderboard_portfolio_leagues_arena.sql', 'column', 'public.quest_completions.xp'),
+    (38, 'supabase/migrations/20260926_phase_b2_leaderboard_portfolio_leagues_arena.sql', 'column', 'public.users.avatar_url'),
+    (38, 'supabase/migrations/20260926_phase_b2_leaderboard_portfolio_leagues_arena.sql', 'column', 'public.users.batch_year'),
+    (38, 'supabase/migrations/20260926_phase_b2_leaderboard_portfolio_leagues_arena.sql', 'column', 'public.users.branch'),
+    (38, 'supabase/migrations/20260926_phase_b2_leaderboard_portfolio_leagues_arena.sql', 'column', 'public.users.college'),
+    (38, 'supabase/migrations/20260926_phase_b2_leaderboard_portfolio_leagues_arena.sql', 'column', 'public.users.college_name'),
+    (38, 'supabase/migrations/20260926_phase_b2_leaderboard_portfolio_leagues_arena.sql', 'column', 'public.users.department'),
+    (38, 'supabase/migrations/20260926_phase_b2_leaderboard_portfolio_leagues_arena.sql', 'column', 'public.users.full_name'),
+    (38, 'supabase/migrations/20260926_phase_b2_leaderboard_portfolio_leagues_arena.sql', 'column', 'public.users.semester'),
+    (38, 'supabase/migrations/20260926_phase_b2_leaderboard_portfolio_leagues_arena.sql', 'column', 'public.users.voice_print'),
+    (39, 'supabase/migrations/20260926_protect_portfolio_verification.sql', 'function', 'public.protect_portfolio_verification'),
+    (40, 'supabase/migrations/20260926_users_updated_at.sql', 'column', 'public.users.updated_at'),
+    (41, 'supabase/migrations/20260927_arena_private_submissions.sql', 'table', 'public.arena_room_submissions'),
+    (42, 'supabase/migrations/20260927_issued_certificates.sql', 'table', 'public.issued_certificates')
 ),
 checked as (
   select e.ord, e.file, e.name,
