@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { useAuth } from '@/lib/context/AuthContext';
@@ -27,6 +27,11 @@ import {
   writeExtraModules,
   writeExtraRoadmaps
 } from '@/lib/quests/extraRoadmaps';
+import {
+  buildRoadmapCompletionRecord,
+  getRoadmapProgress,
+  shouldRecordRoadmapCompletion,
+} from '@/lib/roadmap/roadmapCompletion';
 
 export interface Quest {
   id: string;
@@ -825,9 +830,23 @@ export function useQuestProgression() {
   const allQuestsInModule = modules.flatMap(m => (m.quests || []));
   const nextUncompletedQuest = allQuestsInModule.find(q => !completedQuests.includes(q.id)) || allQuestsInModule[0];
   const activeCourseCompletedCount = allQuestsInModule.filter(q => completedQuests.includes(q.id)).length;
-  const activeCourseProgressPct = allQuestsInModule.length > 0 
+  const activeCourseProgressPct = allQuestsInModule.length > 0
     ? Math.round((activeCourseCompletedCount / allQuestsInModule.length) * 100)
     : 0;
+
+  // Custom roadmap (sub-tab 2) completion: recorded once, the first time every quest is done.
+  const roadmapProgress = useMemo(() => getRoadmapProgress(modules, completedQuests), [modules, completedQuests]);
+  const isOwnRoadmapView = activeSubTab === 'custom_roadmap' && learningPathMode === 'fused_roadmap';
+  const roadmapCompletionRecordedRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (!isOwnRoadmapView || userId === 'guest') return;
+    const courseKey = activeCourseId || '';
+    if (roadmapCompletionRecordedRef.current === courseKey) return;
+    if (!shouldRecordRoadmapCompletion(roadmapProgress, onboardingAnswers, activeCourseId)) return;
+    roadmapCompletionRecordedRef.current = courseKey;
+    setOnboarding({ ...onboardingAnswers, ...buildRoadmapCompletionRecord(roadmapProgress, activeCourseId) }, false);
+    toast.success('Roadmap complete 🎓', 'Every quest is done. Next step: your capstone project.');
+  }, [isOwnRoadmapView, userId, activeCourseId, roadmapProgress, onboardingAnswers, setOnboarding]);
 
   const totalTrajectoryQuests = trajectory.nodes.reduce((acc, node) => {
     const c = COURSES_REGISTRY.find(cr => cr.id === node.courseId);
@@ -980,6 +999,8 @@ export function useQuestProgression() {
     nextUncompletedQuest,
     activeCourseCompletedCount,
     activeCourseProgressPct,
+    roadmapProgress,
+    isOwnRoadmapView,
     overallTrajectoryPct,
     daysRemaining,
     handleLaunchQuest,

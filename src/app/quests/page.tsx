@@ -5,6 +5,7 @@ import { CourseNotesModal } from '@/components/CourseNotesModal';
 import { useQuestProgression } from './components/useQuestProgression';
 import { TrackSelectorDrawer } from './components/TrackSelectorDrawer';
 import { QuestPathView } from './components/QuestPathView';
+import { RoadmapCompleteBanner } from './components/RoadmapCompleteBanner';
 import {
   CareerGateModal,
   MasterJourneyModal,
@@ -52,6 +53,14 @@ function QuestsPageContent() {
         handleSelectCourseFromLibrary={prog.handleSelectCourseFromLibrary}
         setNotesModalState={prog.setNotesModalState}
       />
+
+      {/* ── ROADMAP COMPLETE → CAPSTONE PROJECT (custom roadmap only) ── */}
+      {!prog.showCourseLibrary && prog.isOwnRoadmapView && (
+        <RoadmapCompleteBanner
+          progress={prog.roadmapProgress}
+          onStartProject={() => prog.router.push('/projects?from=roadmap')}
+        />
+      )}
 
       {/* ── DYNAMIC GOAL ROADMAP & PROGRESSION PATH (Tab 1 uses Vertical Checkpoint Stepper) ── */}
       {!prog.showCourseLibrary && prog.activeSubTab !== 'certification_passport' && (
