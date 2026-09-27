@@ -79,27 +79,6 @@ export const crashCourseEnrollmentService = {
   },
 
   /**
-   * Update sprint or milestone progress
-   */
-  async updateSprintMilestone(
-    enrollmentId: string,
-    updates: Partial<CrashCourseEnrollment['milestoneProgress']>
-  ): Promise<boolean> {
-    try {
-      const cached = readCache();
-      if (cached) {
-        cached.milestoneProgress = { ...cached.milestoneProgress, ...updates };
-        crashCourseEnrollmentService.cacheEnrollment(cached);
-      }
-      await api.patch('/api/quests/enrollment', { enrollmentId, milestoneProgress: updates });
-      return true;
-    } catch (err) {
-      console.warn('[crashCourseEnrollmentService] Error updating milestone:', err);
-      return false;
-    }
-  },
-
-  /**
    * Clear active enrollment from client cache
    */
   clearEnrollment(): void {

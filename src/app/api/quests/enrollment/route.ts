@@ -297,36 +297,4 @@ function enrollLocally(userId: string, planId: string, track: CourseTrack, metho
   });
 }
 
-export async function PATCH(req: Request) {
-  try {
-    const gated = await requireUserFromRequest(req);
-    if (gated.error || !gated.user) {
-      return NextResponse.json({ ok: false, error: 'UNAUTHORIZED' }, { status: 401 });
-    }
-    const body = await req.json().catch(() => ({}));
-    const { enrollmentId, milestoneProgress, currentSprint } = body;
-    if (!enrollmentId) {
-      return NextResponse.json({ ok: false, error: 'Missing enrollmentId' }, { status: 400 });
-    }
-
-    const local = readLocalDb();
-    local.enrollments = local.enrollments || [];
-    const idx = local.enrollments.findIndex((e) => e.enrollmentId === enrollmentId);
-    if (idx !== -1) {
-      if (milestoneProgress) {
-        local.enrollments[idx].milestoneProgress = {
-          ...local.enrollments[idx].milestoneProgress,
-          ...milestoneProgress,
-        };
-      }
-      if (currentSprint) {
-        local.enrollments[idx].currentSprint = currentSprint;
-      }
-      writeLocalDb(local);
-    }
-
-    return NextResponse.json({ ok: true, enrollment: idx !== -1 ? local.enrollments[idx] : null });
-  } catch (err: any) {
-    return NextResponse.json({ ok: false, error: err.message }, { status: 500 });
-  }
-}
+// Milestones are written only by POST /api/quests/capstone, after the server checks each sprint.

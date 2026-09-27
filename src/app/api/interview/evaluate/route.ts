@@ -4,7 +4,7 @@ import { sanitizeLLMOutput, sanitizeEvaluationResult } from '@/lib/sanitizeLLM';
 import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 import { validateBody } from '@/lib/server/validate';
 import { z } from 'zod';
-import { createEvaluationSignature } from '@/lib/interview/evaluationSignature';
+import { createEvaluationSignature, createTopicEvaluationSignature } from '@/lib/interview/evaluationSignature';
 import { completeActiveLiveInterview } from '@/lib/interview/activeSessionRegistry';
 
 const InterviewEvaluateSchema = z.object({
@@ -364,10 +364,15 @@ Return ONLY valid JSON matching this schema:
     const evaluationToken = gated.user?.id
       ? createEvaluationSignature(gated.user.id, finalEvaluation.score, finalEvaluation.verdict)
       : undefined;
+    // Bound to the topic as sent, so the result can prove which interview it came from.
+    const topicEvaluationToken = gated.user?.id && typeof domainSubTopic === 'string' && domainSubTopic.trim()
+      ? createTopicEvaluationSignature(gated.user.id, finalEvaluation.score, finalEvaluation.verdict, domainSubTopic)
+      : undefined;
 
     return NextResponse.json({
       evaluation: finalEvaluation,
       evaluationToken,
+      topicEvaluationToken,
       success: true,
     });
   } catch (err: any) {
