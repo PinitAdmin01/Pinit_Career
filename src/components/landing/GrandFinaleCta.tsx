@@ -29,7 +29,7 @@ export default function GrandFinaleCta({ onOpenLogin }: GrandFinaleCtaProps) {
 
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 14, paddingTop: 10 }}>
             <Link
-              href="/login?mode=signup"
+              href="/signup"
               className="btn-primary-hero"
               style={{ fontSize: 15, padding: '14px 32px', textDecoration: 'none' }}
             >

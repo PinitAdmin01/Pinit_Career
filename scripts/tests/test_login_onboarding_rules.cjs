@@ -116,5 +116,19 @@ test('login page and app shell both use the one rule', () => {
   return /isOnboardingComplete\(/.test(shell) ? true : 'app shell does not use the shared rule';
 });
 
+test('"Start free" goes straight to sign-up (no /login?mode=signup hop)', () => {
+  const files = ['src/app/page.tsx', 'src/components/landing/GrandFinaleCta.tsx'].map((p) => read(path.join(ROOT, p)));
+  return files.some((t) => /\/login\?mode=signup/.test(t)) ? 'a Start free link still goes through /login' : true;
+});
+
+test('finishing onboarding navigates to the dashboard without a reload after 1.2s', () => {
+  const wizard = read(path.join(ROOT, 'src/app/onboarding/hooks/useOnboardingWizard.ts')).replace(/\r\n/g, '\n');
+  if (/window\.location\.href = '\/dashboard';\n\s*\}\n\s*\}, 1200\);/.test(wizard)) return 'early forced reload still present';
+  if ((wizard.match(/goToDashboard\(\);/g) || []).length !== 4) return 'not every completion path uses the gentle navigation';
+  const retry = /router\.replace\('\/dashboard'\); \}, 1500\)/.test(wizard);
+  const lastResort = /window\.location\.href = '\/dashboard'; \}, 6000\)/.test(wizard);
+  return retry && lastResort ? true : 'retry / last-resort timing missing';
+});
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

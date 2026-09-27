@@ -1263,6 +1263,17 @@ export function useOnboardingWizard() {
     }, 1000);
   };
 
+  // After onboarding: go to the dashboard. The first dashboard load can be slow, so the client
+  // navigation is retried before a full page load is used as a last resort (a reload after only
+  // 1.2s used to interrupt the transition).
+  const goToDashboard = () => {
+    router.push('/dashboard');
+    if (typeof window === 'undefined') return;
+    const stillOnOnboarding = () => window.location.pathname.includes('/onboarding');
+    setTimeout(() => { if (stillOnOnboarding()) router.replace('/dashboard'); }, 1500);
+    setTimeout(() => { if (stillOnOnboarding()) window.location.href = '/dashboard'; }, 6000);
+  };
+
   // Complete Onboarding: Sync to database & generate dynamic quest roadmap
   const handleOnboardingComplete = async (profileType: string, goalRole: string, reason: string, finalArch?: string) => {
     setSyncing(true);
@@ -1392,14 +1403,7 @@ export function useOnboardingWizard() {
         setSyncing(false);
         toast.success('Onboarding Complete! 🚀', 'Your diagnostic blueprint is active.');
         markOnboardingStoryPending(user?.id);
-        router.push('/dashboard');
-        if (typeof window !== 'undefined') {
-          setTimeout(() => {
-            if (window.location.pathname.includes('/onboarding')) {
-              window.location.href = '/dashboard';
-            }
-          }, 1200);
-        }
+        goToDashboard();
       } catch (err) {
         console.error("Onboarding sync failure", err);
         if (!saved) {
@@ -1425,14 +1429,7 @@ export function useOnboardingWizard() {
         }, true);
         cOS.setOnboardingStep(3);
         markOnboardingStoryPending(user?.id);
-        router.push('/dashboard');
-        if (typeof window !== 'undefined') {
-          setTimeout(() => {
-            if (window.location.pathname.includes('/onboarding')) {
-              window.location.href = '/dashboard';
-            }
-          }, 1200);
-        }
+        goToDashboard();
       }
     }, 150);
   };
@@ -1597,14 +1594,7 @@ export function useOnboardingWizard() {
         setSyncing(false);
         toast.success('Express Onboarding Complete! ⚡', 'Unlock your dashboard and provisional job matches.');
         markOnboardingStoryPending(user?.id);
-        router.push('/dashboard');
-        if (typeof window !== 'undefined') {
-          setTimeout(() => {
-            if (window.location.pathname.includes('/onboarding')) {
-              window.location.href = '/dashboard';
-            }
-          }, 1200);
-        }
+        goToDashboard();
       } catch (err) {
         console.error('Express onboarding failure', err);
         if (!saved) {
@@ -1626,14 +1616,7 @@ export function useOnboardingWizard() {
         }, true);
         cOS.setOnboardingStep(3);
         markOnboardingStoryPending(user?.id);
-        router.push('/dashboard');
-        if (typeof window !== 'undefined') {
-          setTimeout(() => {
-            if (window.location.pathname.includes('/onboarding')) {
-              window.location.href = '/dashboard';
-            }
-          }, 1200);
-        }
+        goToDashboard();
       }
     }, 300);
   };

@@ -115,7 +115,7 @@ function LandingContent() {
               </p>
               
               <div className="hero-ctas">
-                <Link href="/login?mode=signup" className="pc-btn-primary">Start free</Link>
+                <Link href="/signup" className="pc-btn-primary">Start free</Link>
                 <Link href="/problem" className="pc-btn-outline">
                   Why we exist →
                 </Link>
