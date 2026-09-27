@@ -62,8 +62,9 @@ export const adminDataAccess = {
         const { count: totalUsers } = await supabase.from('users').select('*', { count: 'exact', head: true });
         
         let pendingAlerts = 0;
-        if (await checkSupabaseAvailable('grievances')) {
-          const { count } = await supabase.from('grievances').select('*', { count: 'exact', head: true }).eq('status', 'PENDING');
+        // Grievances live in grievances_tickets; open = anything not yet resolved.
+        if (await checkSupabaseAvailable('grievances_tickets')) {
+          const { count } = await supabase.from('grievances_tickets').select('*', { count: 'exact', head: true }).neq('status', 'Resolved');
           pendingAlerts = count || 0;
         }
 

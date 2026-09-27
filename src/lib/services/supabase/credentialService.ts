@@ -190,10 +190,11 @@ export async function getDashboardAnalytics(uid: string): Promise<Record<string,
       .select('id', { count: 'exact', head: true })
       .eq('verified', true);
 
+    // Grievances live in grievances_tickets; open = anything not yet resolved.
     const { count: pendingGrievances } = await supabase
-      .from('grievances')
+      .from('grievances_tickets')
       .select('id', { count: 'exact', head: true })
-      .eq('status', 'pending');
+      .neq('status', 'Resolved');
 
     return {
       activeStudentsCount: activeCount || 0,

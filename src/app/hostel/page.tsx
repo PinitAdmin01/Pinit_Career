@@ -6,7 +6,6 @@ import { useState, useEffect, useCallback } from 'react';
 import { api } from '@/lib/api/client';
 import { toast } from '@/lib/store/useAppStore';
 import { useAuth } from '@/lib/context/AuthContext';
-import { supabase } from '@/lib/supabaseClient';
 
 export default function StudentHostel() {
   const { user } = useAuth();
@@ -24,7 +23,9 @@ export default function StudentHostel() {
   const [submittingComplaint, setSubmittingComplaint] = useState(false);
   const [submittingVisitor, setSubmittingVisitor] = useState(false);
 
+  // Hostel data comes from /api/hostel/stats (rooms, allocation, complaints, visitors), once signed in.
   const fetchHostelData = useCallback(async () => {
+    if (!user?.id) return;
     try {
       const data = await api.get<any>('/api/hostel/stats');
       if (data) {
@@ -40,32 +41,6 @@ export default function StudentHostel() {
         setVisitors(data.visitors || []);
       }
     } catch {}
-
-    // Synchronize directly from Supabase hostel_requests table for authenticated student
-    if (user?.id) {
-      try {
-        const { data: dbRequests } = await supabase
-          .from('hostel_requests')
-          .select('*')
-          .eq('user_id', user.id)
-          .order('created_at', { ascending: false });
-
-        if (dbRequests && dbRequests.length > 0) {
-          const latest = dbRequests[0];
-          if (latest.room_code) {
-            setAllocation((prev: any) => prev.requestedRoom ? prev : { requestedRoom: latest.room_code, status: latest.status });
-          }
-          const dbComplaints = dbRequests.flatMap(r => Array.isArray(r.complaints) ? r.complaints : []);
-          if (dbComplaints.length > 0) {
-            setComplaints(prev => {
-              const ids = new Set(prev.map(c => c.id));
-              const newItems = dbComplaints.filter((c: any) => !ids.has(c.id));
-              return [...prev, ...newItems];
-            });
-          }
-        }
-      } catch {}
-    }
   }, [user?.id]);
 
   useEffect(() => {
